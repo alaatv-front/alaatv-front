@@ -9,7 +9,7 @@ const routes = [
       {
         path: '',
         name: 'dashboard',
-        component: () => import('pages/User/exam/List'),
+        component: () => import('pages/debug.vue'),
         breadcrumbs: { title: 'پیشخوان' },
         meta: {
           middlewares: [auth]
@@ -39,7 +39,7 @@ const routes = [
           },
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } }
         ]
-      },
+      }
     ]
   },
   {
@@ -51,7 +51,7 @@ const routes = [
   {
     path: '/debug',
     name: 'debug',
-    component: () => import('pages/Auth/test.vue'),
+    component: () => import('pages/debug'),
     meta: {
       middlewares: [auth]
     }

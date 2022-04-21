@@ -8,13 +8,10 @@ import 'src/assets/scss/IranyekanFont.scss'
 import 'src/css/customTheme.scss'
 import 'src/css/Theme/theme.scss'
 
-import { mixinSetIcons } from './mixin/Mixins.js'
-// import 'material-icons/material-icons.css'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'App',
-  mixins: [mixinSetIcons],
   data: () => ({
     refreshing: false,
     registration: null,
@@ -22,7 +19,6 @@ export default defineComponent({
   }),
   created () {
     this.setServiceWorker()
-    this.setIcons()
   },
   methods: {
     setServiceWorker () {

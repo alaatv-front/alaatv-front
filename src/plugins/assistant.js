@@ -135,7 +135,7 @@ const AjaxResponseMessages = (function () {
   const messageMap = {
     0: 'مشکلی پیش آمده است. مجدد تلاش کنید.',
     400: 'ابتدا وارد سامانه شوید.',
-    401: 'ابتدا وارد سامانه شوید.',
+    401: 'ابتدا وارد سامانه شوید.'
   }
 
   function isCustomMessage (statusCode) {

@@ -1,7 +1,6 @@
 import process from 'process'
 import moment from 'moment'
 import { getServerDate } from '@nodeguy/server-date'
-import Assistant from '../plugins/assistant'
 
 const Time = (function () {
   async function synchronizeTime () {

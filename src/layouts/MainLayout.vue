@@ -1,10 +1,7 @@
 <template>
   <quasar-template-builder v-model:value="properties" @onResize="resize">
     <template #header>
-      <div v-if="$route.name === 'onlineQuiz.alaaView'" class="header-inside row">
-        <online-quiz-template-header/>
-      </div>
-      <div v-else  class="header-inside row">
+      <div class="header-inside row">
         <template-header/>
       </div>
       <q-linear-progress
@@ -17,10 +14,7 @@
       <q-resize-observer @resize="setHeaderDimension"/>
     </template>
     <template #left-drawer>
-      <div class="drawer-inside-of-MapOfQuestions" v-if="$route.name === 'onlineQuiz.alaaView'">
-        <sideMenuMapOfQuestions/>
-      </div>
-      <div class="drawer-inside" v-else>
+      <div class="drawer-inside">
         <side-menu-dashboard/>
       </div>
     </template>
@@ -46,17 +40,15 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
-import sideMenuMapOfQuestions from 'components/Menu/SideMenu/SideMenu_MapOfQuestions'
 import { QuasarTemplateBuilder } from 'quasar-template-builder'
 import templateHeader from 'components/Template/templateHeader'
-import onlineQuizTemplateHeader from 'components/Template/onlineQuizTemplateHeader'
-import { ref } from 'vue'
 import Router from 'src/router/Router'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents'
 
 export default {
-  components: { Router, SideMenuDashboard, sideMenuMapOfQuestions, QuasarTemplateBuilder, templateHeader, onlineQuizTemplateHeader },
+  components: { Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
   data () {
     return {
       keepAliveComponents: KeepAliveComponents,
