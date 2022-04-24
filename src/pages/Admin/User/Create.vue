@@ -12,13 +12,14 @@
 
 <script>
 import EntityCreate from 'components/Entity/Create/EntityCreate'
+import API_ADDRESS from 'src/api/Addresses'
 export default {
   name: 'Create',
   components: { EntityCreate },
   data () {
     return {
       expanded: true,
-      api: '/alaa/api/v2/admin/user',
+      api: API_ADDRESS.users.create.base,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
       showRouteName: 'Admin.User.Show',

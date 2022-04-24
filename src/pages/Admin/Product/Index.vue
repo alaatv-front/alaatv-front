@@ -42,13 +42,14 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
+import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'Index',
   components: { EntityIndex },
   data () {
     return {
-      api: '/alaa/api/v2/admin/product',
+      api: API_ADDRESS.product.index.base,
       tableKeys: {
         data: 'data',
         total: 'meta.total',

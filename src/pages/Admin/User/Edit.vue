@@ -11,13 +11,14 @@
 
 <script>
 import EntityEdit from 'components/Entity/Edit/EntityEdit'
+import API_ADDRESS from 'src/api/Addresses'
 export default {
   name: 'Edit',
   components: { EntityEdit },
   data () {
     return {
       expanded: true,
-      api: '/alaa/api/v2/admin/user/',
+      api: API_ADDRESS.users.edit.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
       showRouteName: 'Admin.User.Show',
