@@ -9,7 +9,7 @@ const routes = [
       {
         path: '',
         name: 'dashboard',
-        component: () => import('pages/debug.vue'),
+        component: () => import('pages/BaseComponent.vue'),
         breadcrumbs: { title: 'پیشخوان' },
         meta: {
           middlewares: [auth]
