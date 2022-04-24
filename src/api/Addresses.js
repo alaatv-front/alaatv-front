@@ -1,5 +1,5 @@
 import process from 'process'
-const alaaServer = process.env.AUTH_API
+const alaaServer = process.env.ALAA_API
 const API_ADDRESS = {
   // socket: process.env.VUE_APP_SOCKET_TARGET_API_SERVER,
   socket: 'https://office.alaatv.com:501',
