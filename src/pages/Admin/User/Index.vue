@@ -8,9 +8,9 @@
       :table-keys="tableKeys"
       :create-route-name="'Admin.User.Create'"
     >
-      <template #table-cell="{inputData, showConfirmRemoveDialog}">
+      <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
-          <template v-if="inputData.props.col.name === 'avatar'">
+          <template v-if="inputData.props.col.name === 'photo'">
             <q-avatar>
               <q-img
                 :src="inputData.props.value"
@@ -20,20 +20,20 @@
               />
             </q-avatar>
           </template>
-          <template v-if="inputData.props.col.name === 'actions'">
+          <template v-else-if="inputData.props.col.name === 'actions'">
             <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.User.Show', params: {id: inputData.props.row.id}}">
               <q-tooltip>
                 مشاهده
               </q-tooltip>
             </q-btn>
-            <q-btn v-if="false" round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+            <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
                    @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
               <q-tooltip>
                 حذف
               </q-tooltip>
             </q-btn>
           </template>
-          <template v-if="inputData.props.col.name !== 'avatar' && inputData.props.col.name !== 'actions'">
+          <template v-else>
             {{ inputData.props.value }}
           </template>
         </q-td>
@@ -43,8 +43,7 @@
 </template>
 
 <script>
-import EntityIndex from 'components/Entity/Index/EntityIndex'
-// import API_ADDRESS from "src/api/Addresses";
+import { EntityIndex } from 'quasar-crud'
 
 export default {
   name: 'Index',
@@ -52,11 +51,12 @@ export default {
   data () {
     return {
       expanded: true,
-      // api: API_ADDRESS.user.base,
+      // api: '/alaa/api/v2/admin/user',
+      api: '/alaa/api/v2/admin/user',
       tableKeys: {
-        data: 'results',
-        total: 'count',
-        currentPage: 'current',
+        data: 'data',
+        total: 'total',
+        currentPage: 'page',
         perPage: 'per_page',
         pageKey: 'page'
       },
@@ -70,25 +70,46 @@ export default {
             field: row => row.id
           },
           {
-            name: 'nickname',
+            name: 'photo',
+            required: true,
+            label: 'تصویر',
+            align: 'left',
+            field: row => row.photo
+          },
+          {
+            name: 'first_name',
             required: true,
             label: 'نام',
             align: 'left',
-            field: row => row.nickname
+            field: row => row.first_name
           },
           {
-            name: 'mobile_number',
+            name: 'last_name',
             required: true,
-            label: 'موبایل',
+            label: 'نام خانوادگی',
             align: 'left',
-            field: row => row.mobile_number
+            field: row => row.last_name
           },
           {
-            name: 'is_active',
+            name: 'phone_number',
             required: true,
-            label: 'نقش',
+            label: 'شماره همراه',
             align: 'left',
-            field: row => row.roles.map(item => item.name).join(',').replace('superuser', 'ادمین کل').replace('sokhanran', 'سخنران').replace('madah', 'مداح').replace('bani', 'بانی')
+            field: row => row.mobile
+          },
+          {
+            name: 'national_code',
+            required: true,
+            label: 'کد ملی',
+            align: 'left',
+            field: row => row.national_code
+          },
+          {
+            name: 'email',
+            required: true,
+            label: 'ایمیل',
+            align: 'left',
+            field: row => row.email
           },
           {
             name: 'actions',
@@ -101,10 +122,13 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'nickname', value: null, label: 'نام و نام خانوادگی', col: 'col-md-3' },
-        { type: 'input', name: 'national_code', value: null, label: 'کد ملی', col: 'col-md-3' },
-        { type: 'input', name: 'mobile_number', value: null, label: 'شماره همراه', col: 'col-md-3' },
-        { type: 'input', name: 'email', value: null, label: 'ایمیل', col: 'col-md-3' }
+        { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'نام خانوادگی', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'کدملی', col: 'col-md-3' },
+        { type: 'select', name: 'gender', value: null, options: ['پسر', 'دختر'], label: 'جنسیت', col: 'col-md-4' },
+        { type: 'select', name: 'status', value: null, options: ['فعال', 'غیر فعال'], label: 'وضعیت', col: 'col-md-4' },
+        { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ عضویت', col: 'col-md-4' }
       ]
     }
   },
