@@ -1,5 +1,5 @@
 import { auth } from './middleware/middleware'
-
+import Login from '../pages/Auth/Login.vue'
 const routes = [
   {
     path: '/',
@@ -45,7 +45,8 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('pages/Auth/Login.vue')
+    // component: () => import('../pages/Auth/Login.vue')
+    component: Login
   },
   // are u mr Esmaeili ? '' : dont touch this route
   {
