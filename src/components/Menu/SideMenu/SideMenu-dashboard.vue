@@ -12,48 +12,48 @@
       padding
       dark
     >
-      <q-expansion-item
-        class="side-expansion-list top-expansion"
-        :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"
-        label="برنامه ی آزمون ها"
-        dark
-      >
-        <q-list
-          class="list-expansion"
-          padding
-        >
-          <div
-            v-for="(examPlan, index) in examsPlan"
-            :key="index"
-          >
-            <a
-              v-if="!examPlan.divider"
-              :href="examPlan.link"
-              target="_blank"
-            >
-              <q-item
-                clickable
-                v-ripple:deep-purple
-                :active="false"
-                active-class="active-route"
-              >
-                <q-item-section class="item-list-expansion">
-                  <span class="item-list-expansion-title">
-                    {{ examPlan.name }}
-                  </span>
-                </q-item-section>
-              </q-item>
-            </a>
-            <q-separator
-              v-else
-              class="top-expansion-separator"
-              size="2px"
-              dark
-            />
-          </div>
-        </q-list>
-      </q-expansion-item>
-      <q-separator class="top-separator" size="2px" dark/>
+<!--      <q-expansion-item-->
+<!--        class="side-expansion-list top-expansion"-->
+<!--        :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"-->
+<!--        label="برنامه ی آزمون ها"-->
+<!--        dark-->
+<!--      >-->
+<!--        <q-list-->
+<!--          class="list-expansion"-->
+<!--          padding-->
+<!--        >-->
+<!--&lt;!&ndash;          <div&ndash;&gt;-->
+<!--&lt;!&ndash;            v-for="(examPlan, index) in examsPlan"&ndash;&gt;-->
+<!--&lt;!&ndash;            :key="index"&ndash;&gt;-->
+<!--&lt;!&ndash;          >&ndash;&gt;-->
+<!--&lt;!&ndash;            <a&ndash;&gt;-->
+<!--&lt;!&ndash;              v-if="!examPlan.divider"&ndash;&gt;-->
+<!--&lt;!&ndash;              :href="examPlan.link"&ndash;&gt;-->
+<!--&lt;!&ndash;              target="_blank"&ndash;&gt;-->
+<!--&lt;!&ndash;            >&ndash;&gt;-->
+<!--&lt;!&ndash;              <q-item&ndash;&gt;-->
+<!--&lt;!&ndash;                clickable&ndash;&gt;-->
+<!--&lt;!&ndash;                v-ripple:deep-purple&ndash;&gt;-->
+<!--&lt;!&ndash;                :active="false"&ndash;&gt;-->
+<!--&lt;!&ndash;                active-class="active-route"&ndash;&gt;-->
+<!--&lt;!&ndash;              >&ndash;&gt;-->
+<!--&lt;!&ndash;                <q-item-section class="item-list-expansion">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <span class="item-list-expansion-title">&ndash;&gt;-->
+<!--&lt;!&ndash;                    {{ examPlan.name }}&ndash;&gt;-->
+<!--&lt;!&ndash;                  </span>&ndash;&gt;-->
+<!--&lt;!&ndash;                </q-item-section>&ndash;&gt;-->
+<!--&lt;!&ndash;              </q-item>&ndash;&gt;-->
+<!--&lt;!&ndash;            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <q-separator&ndash;&gt;-->
+<!--&lt;!&ndash;              v-else&ndash;&gt;-->
+<!--&lt;!&ndash;              class="top-expansion-separator"&ndash;&gt;-->
+<!--&lt;!&ndash;              size="2px"&ndash;&gt;-->
+<!--&lt;!&ndash;              dark&ndash;&gt;-->
+<!--&lt;!&ndash;            />&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--        </q-list>-->
+<!--      </q-expansion-item>-->
+<!--      <q-separator class="top-separator" size="2px" dark/>-->
       <div
         v-for="(item , index) in titlesList"
         :key="index"
@@ -123,84 +123,108 @@ export default {
     return {
       clickedItem: null,
       titlesList: [
+        // {
+        //   title: 'داشبورد',
+        //   icon: 'isax:home',
+        //   routeName: 'dashboard',
+        //   active: false,
+        //   children: []
+        // },
         {
-          title: 'داشبورد',
-          icon: 'isax:home',
-          routeName: 'dashboard',
-          active: false,
-          children: []
-        },
-        {
-          title: 'سوال',
-          icon: 'isax:bank',
+          title: 'پنل ادمین',
+          icon: 'isax:user',
           routeName: null,
           active: false,
           children: [
             {
-              displayName: 'ثبت سوال',
-              routeName: 'Admin.Question.Create.Image',
-              params: {
-                questionType: 'multipleChoice'
-              },
+              displayName: 'کاربران',
+              routeName: 'Admin.User.Index',
               active: false
             },
-            // { displayName: 'ثبت سوال', routeName: 'a', active: false },
-            { displayName: 'کارخانه سوال', routeName: 'Admin.Question.Factory', active: false },
-            { displayName: 'بانک سوال', routeName: 'Admin.Question.Bank', active: false }
+            {
+              displayName: 'محتوا',
+              routeName: 'Admin.Content.Index',
+              active: false
+            },
+            {
+              displayName: 'محصولات',
+              routeName: 'Admin.Product.Index',
+              active: false
+            },
+            {
+              displayName: 'سفارشات',
+              routeName: 'Admin.Order.Index',
+              active: false
+            },
+            {
+              displayName: 'تراکنش ها',
+              routeName: 'Admin.Transaction.Index',
+              active: false
+            },
+            {
+              displayName: 'کوپن ها',
+              routeName: 'Admin.Coupon.Index',
+              active: false
+            },
+            {
+              displayName: 'دسته محتوا',
+              routeName: 'Admin.Set.Index',
+              active: false
+            }
           ]
         },
-        {
-          title: 'آزمون',
-          icon: 'isax:task-square',
-          routeName: null,
-          active: false,
-          children: [
-            { displayName: 'ساخت آزمون', routeName: 'Admin.Exam.Create', active: false },
-            { displayName: 'لیست آزمون ها', routeName: 'Admin.Exam.Index', active: false }
-          ]
-        },
-        {
-          title: 'درخت دانش',
-          icon: 'isax:tree',
-          routeName: 'Admin.KnowledgeTree.tree',
-          active: false,
-          children: []
-        },
-        {
-          title: 'لیست دروس',
-          icon: 'isax:book',
-          routeName: 'Admin.subCategory.Index',
-          active: false,
-          children: []
-        },
-        {
-          title: 'لیست دفترچه ها',
-          icon: 'isax:book',
-          routeName: 'Admin.Category.Index',
-          active: false,
-          children: []
-        },
-        {
-          title: 'گزارشات',
-          icon: 'isax:graph',
-          routeName: null,
-          active: false,
-          children: []
-        },
+        // {
+        //   title: 'آزمون',
+        //   icon: 'isax:task-square',
+        //   routeName: null,
+        //   active: false,
+        //   children: [
+        //     { displayName: 'ساخت آزمون', routeName: 'Admin.Exam.Create', active: false },
+        //     { displayName: 'لیست آزمون ها', routeName: 'Admin.Exam.Index', active: false }
+        //   ]
+        // },
+        // {
+        //   title: 'درخت دانش',
+        //   icon: 'isax:tree',
+        //   routeName: 'Admin.KnowledgeTree.tree',
+        //   active: false,
+        //   children: []
+        // },
+        // {
+        //   title: 'لیست دروس',
+        //   icon: 'isax:book',
+        //   routeName: 'Admin.subCategory.Index',
+        //   active: false,
+        //   children: []
+        // },
+        // {
+        //   title: 'لیست دفترچه ها',
+        //   icon: 'isax:book',
+        //   routeName: 'Admin.Category.Index',
+        //   active: false,
+        //   children: []
+        // },
+        // {
+        //   title: 'گزارشات',
+        //   icon: 'isax:graph',
+        //   routeName: null,
+        //   active: false,
+        //   children: []
+        // },
         {
           title: 'تنظیمات',
           icon: 'isax:setting-2',
           routeName: 'Admin.Settings',
           active: false,
           children: []
-        },
-        {
-          title: 'سوالات متداول',
-          icon: 'isax:message-question',
-          routeName: 'faq',
-          active: false,
-          children: []
         }
+        // {
+        //   title: 'سوالات متداول',
+        //   icon: 'isax:message-question',
+        //   routeName: 'faq',
+        //   active: false,
+        //   children: []
+        // }
       ],
       examsPlan: [
         {

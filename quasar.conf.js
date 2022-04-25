@@ -144,6 +144,14 @@ module.exports = configure(function (ctx) {
       port: 8082,
       open: true, // opens browser window automatically
       proxy: {
+        [process.env.ALAA_API]: {
+          target: process.env.ALAA_API_SERVER,
+          changeOrigin: true,
+          secure: false,
+          pathRewrite: {
+            ['^' + process.env.ALAA_API]: ''
+          }
+        },
         [process.env.AUTH_API]: {
           target: process.env.AUTH_API_SERVER,
           changeOrigin: true,
@@ -322,7 +330,6 @@ module.exports = configure(function (ctx) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
         appId: '3a'
       },
 
