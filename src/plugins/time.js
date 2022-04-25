@@ -4,6 +4,9 @@ import { getServerDate } from '@nodeguy/server-date'
 
 const Time = (function () {
   async function synchronizeTime () {
+    if (typeof window === 'undefined') {
+      return
+    }
     window.serverDate = {}
     const { date, offset, uncertainty } = await getServerDate({
       fetchSample: async () => {
@@ -31,6 +34,9 @@ const Time = (function () {
   }
 
   async function synchronizeTimeWithData (response) {
+    if (typeof window === 'undefined') {
+      return
+    }
     window.serverDate = {}
     const { date, offset, uncertainty } = await getServerDate({
       fetchSample: async () => {
@@ -50,8 +56,10 @@ const Time = (function () {
   }
 
   function now () {
-    window.serverDate = {}
-    if (!window.serverDate.offset) {
+    if (typeof window === 'undefined') {
+      return moment(new Date()).format('YYYY-MM-DD HH:mm:ss.SSS')
+    }
+    if (!window.serverDate?.offset) {
       window.serverDate.offset = 0
     }
     const serverDate = new Date(Date.now() + window.serverDate.offset)
