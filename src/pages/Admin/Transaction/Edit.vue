@@ -11,13 +11,14 @@
 
 <script>
 import { EntityEdit } from 'quasar-crud'
+import API_ADDRESS from 'src/api/Addresses'
 export default {
   name: 'Edit',
   components: { EntityEdit },
   data () {
     return {
       expanded: true,
-      api: '/alaa/api/v2/admin/product',
+      api: API_ADDRESS.transaction.edit.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
       showRouteName: 'Admin.Product.Show',

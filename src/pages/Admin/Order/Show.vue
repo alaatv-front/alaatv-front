@@ -53,6 +53,7 @@
 
 <script>
 import { EntityShow, Portlet } from 'quasar-crud'
+import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'Show',
@@ -66,7 +67,7 @@ export default {
   data () {
     return {
       expanded: true,
-      api: '/alaa/api/v2/admin/order',
+      api: API_ADDRESS.order.show.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
       editRouteName: 'Admin.Order.Edit',

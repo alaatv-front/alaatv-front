@@ -12,6 +12,7 @@
 
 <script>
 import { EntityShow } from 'quasar-crud'
+import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'Show',
@@ -19,7 +20,7 @@ export default {
   data () {
     return {
       expanded: true,
-      api: '/alaa/api/v2/product',
+      api: API_ADDRESS.product.show.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
       editRouteName: 'Admin.Product.Edit',
