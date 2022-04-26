@@ -145,6 +145,10 @@ export default {
       return file instanceof File && typeof file.type === 'string'
     },
     isValidURL (str) {
+      if (typeof window === 'undefined') {
+        return
+      }
+
       if (!str || typeof str !== 'string' || this.isFile(str)) {
         return false
       }

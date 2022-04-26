@@ -120,6 +120,9 @@ const Assistant = (function () {
   }
 
   function isOnline () {
+    if (typeof window === 'undefined') {
+      return true
+    }
     return window.navigator.onLine
   }
 

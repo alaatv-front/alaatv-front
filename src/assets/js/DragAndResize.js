@@ -22,6 +22,9 @@ function initDragElement () {
   }
 
   function dragMouseDown (e) {
+    if (typeof window === 'undefined') {
+      return
+    }
     elmnt = this.parentPopup
     elmnt.style.zIndex = '' + ++currentZIndex
 
@@ -38,7 +41,9 @@ function initDragElement () {
     if (!elmnt) {
       return
     }
-
+    if (typeof window === 'undefined') {
+      return
+    }
     e = e || window.event
     // calculate the new cursor position:
     pos1 = pos3 - e.clientX
