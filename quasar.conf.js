@@ -85,17 +85,17 @@ module.exports = configure(function (ctx) {
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       chainWebpack (chain) {
-        const hashh = '[id].[name].[chunkhash]'
-        chain.output.filename('js/[name]/' + hashh + '.bundle.js')
-        chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
-        chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
-        chain.module.rule('fonts')
-          .use('url-loader')
-          .tap((options) => {
-            options.name = 'fonts/[path][name].[ext]'
-            return options
-          })
+        // const hashh = '[id].[name].[chunkhash]'
+        // chain.output.filename('js/[name]/' + hashh + '.bundle.js')
+        // chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
+        // chain.plugin('eslint-webpack-plugin')
+        //   .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
+        // chain.module.rule('fonts')
+        //   .use('url-loader')
+        //   .tap((options) => {
+        //     options.name = 'fonts/[path][name].[ext]'
+        //     return options
+        //   })
 
         // chain.plugin('friendly-errors').tap(args => {
         //   // the actual transformer defined by vue-cli-3
