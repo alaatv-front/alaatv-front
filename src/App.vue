@@ -23,6 +23,9 @@ export default defineComponent({
   methods: {
     setServiceWorker () {
       // Listen for our custom event from the SW registration
+      if (typeof window === 'undefined') {
+        return
+      }
       document.addEventListener('swUpdated', this.updateAvailable, { once: true })
 
       if (navigator && navigator.serviceWorker) {

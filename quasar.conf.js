@@ -62,11 +62,14 @@ module.exports = configure(function (ctx) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       productName: 'آزمون آنلاین آلاء',
-      // transpile: false,
+      transpile: true,
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
       // Applies only if "transpile" is set to true.
-      // transpileDependencies: [],
+      transpileDependencies: [
+        'js-abstract-model',
+        'quasar-template-builder'
+      ],
 
       rtl: true, // https://v2.quasar.dev/options/rtl-support
       preloadChunks: true,
@@ -82,17 +85,17 @@ module.exports = configure(function (ctx) {
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       chainWebpack (chain) {
-        const hashh = '[id].[name].[chunkhash]'
-        chain.output.filename('js/[name]/' + hashh + '.bundle.js')
-        chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
-        chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
-        chain.module.rule('fonts')
-          .use('url-loader')
-          .tap((options) => {
-            options.name = 'fonts/[path][name].[ext]'
-            return options
-          })
+        // const hashh = '[id].[name].[chunkhash]'
+        // chain.output.filename('js/[name]/' + hashh + '.bundle.js')
+        // chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
+        // chain.plugin('eslint-webpack-plugin')
+        //   .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
+        // chain.module.rule('fonts')
+        //   .use('url-loader')
+        //   .tap((options) => {
+        //     options.name = 'fonts/[path][name].[ext]'
+        //     return options
+        //   })
 
         // chain.plugin('friendly-errors').tap(args => {
         //   // the actual transformer defined by vue-cli-3
@@ -123,15 +126,15 @@ module.exports = configure(function (ctx) {
           poll: 1000
         }
 
-        cfg.plugins.push(new CopyWebpackPlugin({
-          patterns: [
-            {
-              // from: './src-pwa/firebase-messaging-sw.js',
-              from: path.resolve('./src-pwa/firebase-messaging-sw.js'),
-              to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
-            }
-          ]
-        }))
+        // cfg.plugins.push(new CopyWebpackPlugin({
+        //   patterns: [
+        //     {
+        //       // from: './src-pwa/firebase-messaging-sw.js',
+        //       from: path.resolve('./src-pwa/firebase-messaging-sw.js'),
+        //       to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
+        //     }
+        //   ]
+        // }))
       }
     },
 
