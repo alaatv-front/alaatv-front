@@ -126,15 +126,15 @@ module.exports = configure(function (ctx) {
           poll: 1000
         }
 
-        // cfg.plugins.push(new CopyWebpackPlugin({
-        //   patterns: [
-        //     {
-        //       // from: './src-pwa/firebase-messaging-sw.js',
-        //       from: path.resolve('./src-pwa/firebase-messaging-sw.js'),
-        //       to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
-        //     }
-        //   ]
-        // }))
+        cfg.plugins.push(new CopyWebpackPlugin({
+          patterns: [
+            {
+              // from: './src-pwa/firebase-messaging-sw.js',
+              from: path.resolve('./src/ServiceWorker/firebase-messaging-sw.js'),
+              to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
+            }
+          ]
+        }))
       }
     },
 
