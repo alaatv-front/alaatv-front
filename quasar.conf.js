@@ -84,7 +84,7 @@ module.exports = configure(function (ctx) {
 
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack (chain) {
+      chainWebpack (chain, { isServer, isClient }) {
         // const hashh = '[id].[name].[chunkhash]'
         // chain.output.filename('js/[name]/' + hashh + '.bundle.js')
         // chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
@@ -96,6 +96,14 @@ module.exports = configure(function (ctx) {
         //     options.name = 'fonts/[path][name].[ext]'
         //     return options
         //   })
+
+        // disable cache for prod only, remove the if to disable it everywhere
+        // if (process.env.NODE_ENV === 'production') {
+        chain.module.rule('vue').uses.delete('cache-loader')
+        chain.module.rule('js').uses.delete('cache-loader')
+        chain.module.rule('ts').uses.delete('cache-loader')
+        chain.module.rule('tsx').uses.delete('cache-loader')
+        // }
 
         // chain.plugin('friendly-errors').tap(args => {
         //   // the actual transformer defined by vue-cli-3
@@ -237,12 +245,20 @@ module.exports = configure(function (ctx) {
       prodPort: 3000, // The default port that the production server should use
       // (gets superseded if process.env.PORT is specified at runtime)
 
-      maxAge: 1000 * 60 * 60 * 24 * 30,
+      // maxAge: 1000 * 60 * 60 * 24 * 30,
+      maxAge: 1,
       // Tell browser when a file from the server should expire from cache (in ms)
 
       chainWebpackWebserver (chain) {
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js'] }])
+        // disable cache for prod only, remove the if to disable it everywhere
+        // if (process.env.NODE_ENV === 'production') {
+        chain.module.rule('vue').uses.delete('cache-loader')
+        chain.module.rule('js').uses.delete('cache-loader')
+        chain.module.rule('ts').uses.delete('cache-loader')
+        chain.module.rule('tsx').uses.delete('cache-loader')
+        // }
       },
 
       middlewares: [
