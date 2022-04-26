@@ -4,7 +4,7 @@ import { getServerDate } from '@nodeguy/server-date'
 
 const Time = (function () {
   async function synchronizeTime () {
-    if (typeof window === 'undefined') {
+    if (!process.browser) {
       return
     }
     window.serverDate = {}
@@ -34,7 +34,7 @@ const Time = (function () {
   }
 
   async function synchronizeTimeWithData (response) {
-    if (typeof window === 'undefined') {
+    if (!process.browser) {
       return
     }
     window.serverDate = {}
@@ -56,7 +56,7 @@ const Time = (function () {
   }
 
   function now () {
-    if (typeof window === 'undefined') {
+    if (!process.browser) {
       return moment(new Date()).format('YYYY-MM-DD HH:mm:ss.SSS')
     }
     if (!window.serverDate?.offset) {

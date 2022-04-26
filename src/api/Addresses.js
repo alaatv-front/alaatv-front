@@ -1,4 +1,5 @@
 import process from 'process'
+// process.client or process.browser
 const alaaServer = process.env.ALAA_API
 const API_ADDRESS = {
   // socket: process.env.VUE_APP_SOCKET_TARGET_API_SERVER,
