@@ -9,7 +9,6 @@
 
 <script>
 import { EntityEdit, EntityCreate, EntityIndex, EntityShow } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'EntityCrud',
@@ -20,12 +19,6 @@ export default {
     EntityShow
   },
   props: {
-    value: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
     createInputs: {
       type: Array,
       default () {
@@ -124,11 +117,22 @@ export default {
         this.$emit('update:createInputs', value)
       }
     }
+    // getRouteChange () {
+    //   return this.$route.path
+    // }
+  },
+  beforeRouteUpdate () {
+    this.getComponent()
   },
   created () {
     this.getComponent()
   },
   mounted () {},
+  watch: {
+    // getRouteChange (to, from) {
+    //   console.log('getRouteChange')
+    // }
+  },
   methods: {
     getComponent () {
       const cName = this.getRoutesMode()
@@ -144,16 +148,16 @@ export default {
       const componentConfig = {}
       let currentModeProps = {}
       if (mode === 'show') {
-        console.log('EntityShow.props', EntityShow.props)
+        // console.log('EntityShow.props', EntityShow.props)
         currentModeProps = EntityShow.props
       } else if (mode === 'index') {
-        console.log('EntityIndex.props', EntityIndex.props)
+        // console.log('EntityIndex.props', EntityIndex.props)
         currentModeProps = EntityIndex.props
       } else if (mode === 'edit') {
-        console.log('EntityEdit.props', EntityEdit.props)
+        // console.log('EntityEdit.props', EntityEdit.props)
         currentModeProps = EntityEdit.props
       } else if (mode === 'create') {
-        console.log('EntityCreate.props', EntityCreate.props)
+        // console.log('EntityCreate.props', EntityCreate.props)
         currentModeProps = EntityCreate.props
       }
       for (const key in currentModeProps) {
@@ -161,7 +165,10 @@ export default {
           componentConfig[key] = this.config[key]
         }
       }
-      componentConfig.api = API_ADDRESS.users[mode].base
+      componentConfig.api = this.config.api[mode]
+      if (this.config.title[mode]) {
+        componentConfig.title = this.config.title[mode]
+      }
       if (this.$route.params.id) {
         this.neededConfig.api += this.$route.params.id
       }
@@ -172,16 +179,15 @@ export default {
       return !!(this.config[key])
     },
     getRoutesMode () {
-      const modes = ['show', 'index', 'edit', 'create']
+      const allModes = ['show', 'index', 'edit', 'create']
       const routeMode = this.$route.name.toLowerCase()
-      // eslint-disable-next-line no-unused-vars
       let mode = ''
-      modes.forEach((item) => {
+      allModes.forEach((item) => {
         if (routeMode.includes(item)) {
           mode = item
         }
       })
-      mode = 'edit'
+      // mode = 'create'
       return mode
     }
   }
