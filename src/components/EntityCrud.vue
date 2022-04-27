@@ -4,7 +4,23 @@
     v-model:value="getNeededInputs"
     v-bind="neededConfig"
     ref="entityComponent"
-  />
+  >
+    <template v-slot:before-form-builder>
+      <slot name="entity-crud-before-form-builder"></slot>
+    </template>
+    <template v-slot:after-form-builder>
+      <slot name="entity-crud-after-form-builder"></slot>
+    </template>
+    <template v-slot:before-index-table>
+      <slot name="entity-crud-before-index-table"></slot>
+    </template>
+    <template v-slot:after-index-table>
+      <slot name="entity-crud-after-index-table"></slot>
+    </template>
+    <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
+      <slot name="entity-crud-table-cell" :inputData="inputData" :showConfirmRemoveDialog="showConfirmRemoveDialog"></slot>
+    </template>
+  </component>
 </template>
 
 <script>
@@ -116,22 +132,19 @@ export default {
       set (value) {
         this.$emit('update:createInputs', value)
       }
+    },
+    getRouteChange () {
+      return this.$route.path
     }
-    // getRouteChange () {
-    //   return this.$route.path
-    // }
-  },
-  beforeRouteUpdate () {
-    this.getComponent()
   },
   created () {
     this.getComponent()
   },
   mounted () {},
   watch: {
-    // getRouteChange (to, from) {
-    //   console.log('getRouteChange')
-    // }
+    getRouteChange (to, from) {
+      this.getComponent()
+    }
   },
   methods: {
     getComponent () {
@@ -144,20 +157,21 @@ export default {
       this.currentComponent = componentName
       this.currentMode = cName
     },
+    SetApiId () {
+      if (this.$route.params.id) {
+        this.neededConfig.api += this.$route.params.id
+      }
+    },
     createComponentConfig (mode) {
       const componentConfig = {}
       let currentModeProps = {}
       if (mode === 'show') {
-        // console.log('EntityShow.props', EntityShow.props)
         currentModeProps = EntityShow.props
       } else if (mode === 'index') {
-        // console.log('EntityIndex.props', EntityIndex.props)
         currentModeProps = EntityIndex.props
       } else if (mode === 'edit') {
-        // console.log('EntityEdit.props', EntityEdit.props)
         currentModeProps = EntityEdit.props
       } else if (mode === 'create') {
-        // console.log('EntityCreate.props', EntityCreate.props)
         currentModeProps = EntityCreate.props
       }
       for (const key in currentModeProps) {
@@ -169,11 +183,9 @@ export default {
       if (this.config.title[mode]) {
         componentConfig.title = this.config.title[mode]
       }
-      if (this.$route.params.id) {
-        this.neededConfig.api += this.$route.params.id
-      }
       console.log('componentConfig', componentConfig)
       this.neededConfig = componentConfig
+      this.SetApiId()
     },
     checkIfPropertyExists (key) {
       return !!(this.config[key])
@@ -187,7 +199,6 @@ export default {
           mode = item
         }
       })
-      // mode = 'create'
       return mode
     }
   }
