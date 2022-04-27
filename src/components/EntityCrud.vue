@@ -142,7 +142,8 @@ export default {
   },
   mounted () {},
   watch: {
-    getRouteChange (to, from) {
+    getRouteChange () {
+      // to, from
       this.getComponent()
     }
   },
