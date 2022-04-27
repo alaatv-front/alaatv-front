@@ -1,3 +1,5 @@
+import process from 'process'
+
 function initDragElement () {
   let pos1 = 0,
     pos2 = 0,
@@ -22,7 +24,7 @@ function initDragElement () {
   }
 
   function dragMouseDown (e) {
-    if (typeof window === 'undefined') {
+    if (!process.browser) {
       return
     }
     elmnt = this.parentPopup
@@ -41,7 +43,7 @@ function initDragElement () {
     if (!elmnt) {
       return
     }
-    if (typeof window === 'undefined') {
+    if (!process.browser) {
       return
     }
     e = e || window.event

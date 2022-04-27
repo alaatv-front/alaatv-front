@@ -10,8 +10,11 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
+    "dev:ssr": "quasar dev -m ssr",
     "build:pwa": "quasar build -m pwa",
-    "build:ssr": "quasar build -m ssr"
+    "build:ssr": "quasar build -m ssr",
+    "pm2start": "pm2 start dist/ssr/index.js",
+    "start": "node dist/ssr/index.js"
   },
   "dependencies": {
     "@nodeguy/server-date": "^4.0.3",
@@ -44,6 +47,7 @@
     "video.js": "^7.17.0",
     "videojs-brand": "^0.0.4",
     "videojs-hotkeys": "^0.2.27",
+    "vue": "^3.2.33",
     "vue-filepond": "^7.0.2",
     "vue-i18n": "^9.1.9",
     "vue-upload-component": "^3.0.50",

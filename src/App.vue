@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import process from 'process'
 import 'src/assets/scss/IranyekanFont.scss'
 import 'src/css/customTheme.scss'
 import 'src/css/Theme/theme.scss'
@@ -23,7 +24,7 @@ export default defineComponent({
   methods: {
     setServiceWorker () {
       // Listen for our custom event from the SW registration
-      if (typeof window === 'undefined') {
+      if (!process.browser) {
         return
       }
       document.addEventListener('swUpdated', this.updateAvailable, { once: true })

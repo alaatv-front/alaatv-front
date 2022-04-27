@@ -1,26 +1,16 @@
 <template>
-  <div>dd
-    <vue-tiptap-katex
-      ref="tiptap"
-      :loading="loading"
-      :access-token="'Auth/accessToken'"
-      :upload-url="'imageUrl'"
-      :options="{ bubbleMenu: false, floatingMenu: false, poem: true, reading: true }"
-    />
+  <div>
+    <user/>
   </div>
 </template>
 
 <script>
-import VueTiptapKatex from 'vue3-tiptap-katex'
+import User from 'pages/Admin/User'
 export default {
   name: 'debug',
-  components: { VueTiptapKatex },
+  components: { User },
   data () {
-    return {
-      loading: false,
-      html: '<p>I’m running tiptap with Vue.js. 🎉</p>',
-      innerHTML: 'hi'
-    }
+    return {}
   }
 }
 </script>
