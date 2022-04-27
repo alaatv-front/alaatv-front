@@ -1,3 +1,5 @@
+import process from 'process'
+
 function initDragElement () {
   let pos1 = 0,
     pos2 = 0,
@@ -22,6 +24,9 @@ function initDragElement () {
   }
 
   function dragMouseDown (e) {
+    if (!process.browser) {
+      return
+    }
     elmnt = this.parentPopup
     elmnt.style.zIndex = '' + ++currentZIndex
 
@@ -38,7 +43,9 @@ function initDragElement () {
     if (!elmnt) {
       return
     }
-
+    if (!process.browser) {
+      return
+    }
     e = e || window.event
     // calculate the new cursor position:
     pos1 = pos3 - e.clientX

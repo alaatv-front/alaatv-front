@@ -10,6 +10,8 @@
 <script>
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
+import moment from 'moment'
+import process from 'process'
 
 // import { createApp } from 'vue'
 // const app = createApp({})
@@ -79,6 +81,9 @@ export default {
   },
   mounted () {
     setTimeout(() => {
+      if (!process.browser) {
+        return moment(new Date()).format('YYYY-MM-DD HH:mm:ss.SSS')
+      }
       document.querySelectorAll('.katex:not([dir="ltr"])').forEach(item => {
         item.setAttribute('dir', 'ltr')
       })

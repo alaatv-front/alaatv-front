@@ -2,7 +2,7 @@ import state from './state'
 import * as getters from './getters'
 import * as mutations from './mutations'
 import * as actions from './actions'
-import { QuasarTemplateBuilderAppLayout } from 'quasar-template-builder/index'
+import { QuasarTemplateBuilderAppLayout } from 'quasar-template-builder'
 Object.assign(QuasarTemplateBuilderAppLayout.getters, getters)
 Object.assign(QuasarTemplateBuilderAppLayout.mutations, mutations)
 Object.assign(QuasarTemplateBuilderAppLayout.actions, actions)

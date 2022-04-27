@@ -62,11 +62,14 @@ module.exports = configure(function (ctx) {
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
       productName: 'آزمون آنلاین آلاء',
-      // transpile: false,
+      transpile: true,
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
       // Applies only if "transpile" is set to true.
-      // transpileDependencies: [],
+      transpileDependencies: [
+        'js-abstract-model',
+        'quasar-template-builder'
+      ],
 
       rtl: true, // https://v2.quasar.dev/options/rtl-support
       preloadChunks: true,
@@ -81,18 +84,26 @@ module.exports = configure(function (ctx) {
 
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack (chain) {
-        const hashh = '[id].[name].[chunkhash]'
-        chain.output.filename('js/[name]/' + hashh + '.bundle.js')
-        chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
-        chain.plugin('eslint-webpack-plugin')
-          .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
-        chain.module.rule('fonts')
-          .use('url-loader')
-          .tap((options) => {
-            options.name = 'fonts/[path][name].[ext]'
-            return options
-          })
+      chainWebpack (chain, { isServer, isClient }) {
+        // const hashh = '[id].[name].[chunkhash]'
+        // chain.output.filename('js/[name]/' + hashh + '.bundle.js')
+        // chain.output.chunkFilename('js/[name]/' + hashh + '.chunk.js')
+        // chain.plugin('eslint-webpack-plugin')
+        //   .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }])
+        // chain.module.rule('fonts')
+        //   .use('url-loader')
+        //   .tap((options) => {
+        //     options.name = 'fonts/[path][name].[ext]'
+        //     return options
+        //   })
+
+        // disable cache for prod only, remove the if to disable it everywhere
+        // if (process.env.NODE_ENV === 'production') {
+        chain.module.rule('vue').uses.delete('cache-loader')
+        chain.module.rule('js').uses.delete('cache-loader')
+        chain.module.rule('ts').uses.delete('cache-loader')
+        chain.module.rule('tsx').uses.delete('cache-loader')
+        // }
 
         // chain.plugin('friendly-errors').tap(args => {
         //   // the actual transformer defined by vue-cli-3
@@ -127,7 +138,7 @@ module.exports = configure(function (ctx) {
           patterns: [
             {
               // from: './src-pwa/firebase-messaging-sw.js',
-              from: path.resolve('./src-pwa/firebase-messaging-sw.js'),
+              from: path.resolve('./src/ServiceWorker/firebase-messaging-sw.js'),
               to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
             }
           ]
@@ -141,6 +152,14 @@ module.exports = configure(function (ctx) {
       port: 8082,
       open: true, // opens browser window automatically
       proxy: {
+        [process.env.ALAA_API]: {
+          target: process.env.ALAA_API_SERVER,
+          changeOrigin: true,
+          secure: false,
+          pathRewrite: {
+            ['^' + process.env.ALAA_API]: ''
+          }
+        },
         [process.env.AUTH_API]: {
           target: process.env.AUTH_API_SERVER,
           changeOrigin: true,
@@ -226,12 +245,20 @@ module.exports = configure(function (ctx) {
       prodPort: 3000, // The default port that the production server should use
       // (gets superseded if process.env.PORT is specified at runtime)
 
-      maxAge: 1000 * 60 * 60 * 24 * 30,
+      // maxAge: 1000 * 60 * 60 * 24 * 30,
+      maxAge: 1,
       // Tell browser when a file from the server should expire from cache (in ms)
 
       chainWebpackWebserver (chain) {
         chain.plugin('eslint-webpack-plugin')
           .use(ESLintPlugin, [{ extensions: ['js'] }])
+        // disable cache for prod only, remove the if to disable it everywhere
+        // if (process.env.NODE_ENV === 'production') {
+        chain.module.rule('vue').uses.delete('cache-loader')
+        chain.module.rule('js').uses.delete('cache-loader')
+        chain.module.rule('ts').uses.delete('cache-loader')
+        chain.module.rule('tsx').uses.delete('cache-loader')
+        // }
       },
 
       middlewares: [
@@ -319,7 +346,6 @@ module.exports = configure(function (ctx) {
 
       builder: {
         // https://www.electron.build/configuration/configuration
-
         appId: '3a'
       },
 

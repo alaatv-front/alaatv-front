@@ -1,4 +1,5 @@
 import { Notify } from 'quasar'
+import process from 'process'
 
 const Assistant = (function () {
   function getId (id) {
@@ -120,6 +121,9 @@ const Assistant = (function () {
   }
 
   function isOnline () {
+    if (!process.browser) {
+      return true
+    }
     return window.navigator.onLine
   }
 

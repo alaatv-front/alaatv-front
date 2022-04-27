@@ -1,8 +1,7 @@
-<template>
+کاربر<template>
   <entity-edit
-    ref="entityEdit"
     v-model:value="inputs"
-    title="ویرایش اطلاعات کاربر"
+    title="اطلاعات کاربر"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
@@ -11,27 +10,30 @@
 </template>
 
 <script>
-import EntityEdit from 'components/Entity/Edit/EntityEdit'
-// import API_ADDRESS from "src/api/Addresses";
+import { EntityEdit } from 'quasar-crud'
 
+import API_ADDRESS from 'src/api/Addresses'
 export default {
   name: 'Edit',
   components: { EntityEdit },
   data () {
     return {
       expanded: true,
-      potentialDatesLoading: false,
-      // api: API_ADDRESS.user.base,
+      api: API_ADDRESS.users.edit.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
       showRouteName: 'Admin.User.Show',
       inputs: [
-        { type: 'input', name: 'id', responseKey: 'id', value: 'null', label: 'شناسه', col: 'col-md-3', disable: true },
-        { type: 'input', name: 'nickname', responseKey: 'nickname', value: 'null', label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'mobile_number', responseKey: 'mobile_number', value: 'null', label: 'موبایل', col: 'col-md-3' },
-        { type: 'input', name: 'phone_number', responseKey: 'phone_number', value: 'null', label: 'تلفن', col: 'col-md-3' },
-        { type: 'input', name: 'national_code', responseKey: 'national_code', value: 'null', label: 'کدملی', col: 'col-md-3' },
-        { type: 'select', name: 'roles', responseKey: 'roles', multiple: true, optionValue: 'id', optionLabel: 'name', options: [{ name: 'ادمین کل', id: 1 }, { name: 'مبلغ', id: 3 }, { name: 'بانی', id: 4 }], col: 'col-md-3', disable: true }
+        { type: 'file', name: 'photo', responseKey: 'data.photo', size: '250px', col: 'col-md-3' },
+        { type: 'space', col: 'col-md-12' },
+        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3', disable: true },
+        { type: 'input', name: 'first_name', responseKey: 'data.first_name', value: 'null', label: 'نام', col: 'col-md-3' },
+        { type: 'input', name: 'last_name', responseKey: 'data.last_name', value: 'null', label: 'نام خانوادگی', col: 'col-md-3' },
+        { type: 'input', name: 'national_code', responseKey: 'data.national_code', value: 'null', label: 'کد ملی', col: 'col-md-3' },
+        { type: 'input', name: 'email', responseKey: 'data.email', value: 'null', label: 'ایمیل', col: 'col-md-3' },
+        { type: 'input', name: 'mobile', responseKey: 'data.mobile', value: 'null', label: 'شماره همراه', col: 'col-md-3' },
+        { type: 'input', name: 'address', responseKey: 'data.address', value: 'null', label: 'آدرس', col: 'col-md-3' },
+        { type: 'input', name: 'postal_code', responseKey: 'data.postal_code', value: 'null', label: 'کد پستی', col: 'col-md-3' }
       ]
     }
   },
