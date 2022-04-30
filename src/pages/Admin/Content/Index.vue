@@ -1,14 +1,14 @@
 <template>
   <div>
-<!--    <q-select-->
-<!--      v-model="model"-->
-<!--      use-input-->
-<!--      use-chips-->
-<!--      multiple-->
-<!--      input-debounce="0"-->
-<!--      @new-value="createValue"-->
-<!--      :options="tags"-->
-<!--    />-->
+    <q-select
+      v-model="model"
+      use-input
+      use-chips
+      multiple
+      input-debounce="0"
+      @new-value="createValue"
+      :options="tags"
+    />
     <entity-index
       v-model:value="inputs"
       title="لیست محتوا"
