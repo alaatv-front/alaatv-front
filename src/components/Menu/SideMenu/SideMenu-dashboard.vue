@@ -106,7 +106,7 @@
 <!--          </div>-->
 <!--        </q-item>-->
 <!--      </div>-->
-      <q-input dense standout="bg-teal text-white" v-model="searchText" @update:model-value ="search(titlesList)" placeholder="جست و جو">
+      <q-input dense standout="bg-deep-purple-5 text-white" v-model="searchText" @update:model-value ="search(titlesList)" placeholder="جست و جو">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
