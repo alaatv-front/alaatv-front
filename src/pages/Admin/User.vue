@@ -5,6 +5,9 @@
     v-model:show-inputs="showInputs"
     v-model:create-inputs="createInputs"
     v-model:default-inputs="defaultInputs"
+    :before-get-edit-data="testMethod1"
+    :before-load-edit-input-data="testMethod2"
+    :after-load-edit-input-data="testMethod3"
     v-bind="allProps"
   >
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
@@ -51,6 +54,7 @@ export default {
   },
   data () {
     return {
+      hello: 'ksdjfhksdjfhsdkfj',
       allProps: {
         config: {
           api: {
@@ -198,7 +202,11 @@ export default {
       const firstName = row.first_name
       const lastName = row.last_name
       return 'آیا از حذف ' + firstName + ' ' + lastName + ' اطمینان دارید؟'
-    }
+    },
+    testMethod () {},
+    testMethod1 () {},
+    testMethod2 () {},
+    testMethod3 () {}
   },
   watch: {
     // editInputs: {
