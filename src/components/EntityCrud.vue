@@ -259,23 +259,16 @@ export default {
       this.SetApiId()
     },
     getModdedComponentProperties (mode, componentConfig) {
-      componentConfig.api = this.config.api[mode]
-      if (this.config.title[mode]) {
-        componentConfig.title = this.config.title[mode]
+      if (this.config.api[mode]) {
+        console.log('this.config.api[mode]', this.config.api[mode])
+        componentConfig.api = this.config.api[mode]
       }
       if (this.config.title[mode]) {
         componentConfig.title = this.config.title[mode]
       }
-      // if (this.config.beforeLoadInputData[mode]) {
-      //   componentConfig.beforeLoadInputData = this.config.beforeLoadInputData[mode]
-      // }
-      // if (this.config.afterLoadInputData[mode]) {
-      //   componentConfig.afterLoadInputData = this.config.afterLoadInputData[mode]
-      // }
-      // if (this.config.beforeGetData[mode]) {
-      //   componentConfig.beforeGetData = this.config.beforeGetData[mode]
-      //   console.log('componentConfig.beforeGetData', componentConfig.beforeGetData)
-      // }
+      if (this.config.title[mode]) {
+        componentConfig.title = this.config.title[mode]
+      }
       return componentConfig
     },
     checkIfPropertyExists (key) {
