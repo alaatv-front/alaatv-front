@@ -260,7 +260,6 @@ export default {
     },
     getModdedComponentProperties (mode, componentConfig) {
       if (this.config.api[mode]) {
-        console.log('this.config.api[mode]', this.config.api[mode])
         componentConfig.api = this.config.api[mode]
       }
       if (this.config.title[mode]) {
