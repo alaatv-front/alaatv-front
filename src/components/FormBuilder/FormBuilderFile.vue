@@ -41,6 +41,7 @@
 <script>
 import { uid } from 'quasar'
 import inputMixin from 'components/FormBuilder/inputMixin'
+import process from 'process'
 
 export default {
   name: 'FormBuilderFile',
@@ -145,7 +146,7 @@ export default {
       return file instanceof File && typeof file.type === 'string'
     },
     isValidURL (str) {
-      if (typeof window === 'undefined') {
+      if (!process.browser) {
         return
       }
 

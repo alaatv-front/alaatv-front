@@ -1,6 +1,23 @@
+import process from 'process'
 import { store } from 'quasar/wrappers'
 import { createStore } from 'vuex'
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
+
+const plugins = []
+
+if (process.browser) {
+  const vuexPersistedState =
+    createPersistedState({
+      // storage: window.localStorage,
+      paths: [
+        'Auth.accessToken',
+        'Auth.user',
+        'AppLayout'
+      ]
+    })
+
+  plugins.push(vuexPersistedState)
+}
 
 import Auth from 'src/store/Auth'
 import loading from 'src/store/loading'
@@ -22,16 +39,7 @@ export default store(function (/* { ssrContext } */) {
       loading,
       AppLayout
     },
-    plugins: [
-      // createPersistedState({
-      //   // storage: window.localStorage,
-      //   paths: [
-      //     'Auth.accessToken',
-      //     'Auth.user',
-      //     'AppLayout'
-      //   ]
-      // })
-    ],
+    plugins: plugins,
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
     strict: debug
