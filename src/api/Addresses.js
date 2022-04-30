@@ -24,13 +24,13 @@ const API_ADDRESS = {
       base: '/reqres/api/c'
     },
     edit: {
-      base: alaaServer + '/c'
+      base: alaaServer + '/c/'
     },
     index: {
-      base: alaaServer + 'admin/c'
+      base: alaaServer + '/admin/c'
     },
     show: {
-      base: alaaServer + 'c'
+      base: alaaServer + '/c/'
     }
   },
   coupon: {
@@ -41,7 +41,7 @@ const API_ADDRESS = {
       base: ''
     },
     index: {
-      base: alaaServer + 'admin/coupon'
+      base: alaaServer + '/admin/coupon'
     },
     show: {
       base: '/v2/admin/coupon/10'
@@ -52,13 +52,13 @@ const API_ADDRESS = {
       base: '/reqres/api/users'
     },
     edit: {
-      base: alaaServer + 'admin/order'
+      base: alaaServer + '/admin/order'
     },
     index: {
-      base: alaaServer + 'admin/order'
+      base: alaaServer + '/admin/order'
     },
     show: {
-      base: alaaServer + 'admin/order'
+      base: alaaServer + '/admin/order'
     }
   },
   product: {
@@ -66,13 +66,13 @@ const API_ADDRESS = {
       base: '/reqres/api/users'
     },
     edit: {
-      base: alaaServer + 'admin/product'
+      base: alaaServer + '/admin/product'
     },
     index: {
-      base: alaaServer + 'admin/product'
+      base: alaaServer + '/admin/product'
     },
     show: {
-      base: alaaServer + 'product'
+      base: alaaServer + '/product'
     }
   },
   set: {
@@ -80,13 +80,13 @@ const API_ADDRESS = {
       base: '/reqres/api/users'
     },
     edit: {
-      base: alaaServer + 'admin/product'
+      base: alaaServer + '/admin/product'
     },
     index: {
-      base: alaaServer + 'admin/set'
+      base: alaaServer + '/admin/set'
     },
     show: {
-      base: alaaServer + 'admin/set'
+      base: alaaServer + '/admin/set'
     }
   },
   transaction: {
@@ -94,27 +94,27 @@ const API_ADDRESS = {
       base: '/reqres/api/users'
     },
     edit: {
-      base: alaaServer + 'admin/product'
+      base: alaaServer + '/admin/product'
     },
     index: {
-      base: alaaServer + 'admin/transaction'
+      base: alaaServer + '/admin/transaction'
     },
     show: {
-      base: alaaServer + 'admin/product'
+      base: alaaServer + '/admin/product'
     }
   },
   users: {
     create: {
-      base: alaaServer + 'admin/user'
+      base: alaaServer + '/admin/user'
     },
     edit: {
-      base: alaaServer + 'admin/user/'
+      base: alaaServer + '/admin/user/'
     },
     index: {
-      base: alaaServer + 'admin/user'
+      base: alaaServer + '/admin/user'
     },
     show: {
-      base: alaaServer + 'admin/user/'
+      base: alaaServer + '/admin/user/'
     }
   }
 }
