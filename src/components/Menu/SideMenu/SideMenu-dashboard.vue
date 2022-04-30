@@ -148,91 +148,310 @@ export default {
           open: false,
           children: [
             {
-              title: 'تست',
-              routeName: 'Admin.User.Index',
+              title: 'خالی کردن کش',
+              routeName: '',
               active: false,
               show: true,
               open: false,
               children: [
                 {
-                  title: 'کاربران',
-                  routeName: 'Admin.User.Index',
+                  title: 'خالی کردن کل کش',
+                  routeName: '',
                   show: true,
                   active: false
                 },
                 {
-                  title: 'محتوا',
-                  routeName: 'Admin.Content.Index',
+                  title: 'خالی کردن کش محصول',
+                  routeName: '',
                   show: true,
                   active: false
                 },
                 {
-                  title: 'محصولات',
-                  routeName: 'Admin.Product.Index',
+                  title: 'خالی کردن کش سفارش',
+                  routeName: '',
                   show: true,
                   active: false
                 },
                 {
-                  title: 'سفارشات',
-                  routeName: 'Admin.Order.Index',
+                  title: 'خالی کردن کش آیتم سبد',
+                  routeName: '',
                   show: true,
                   active: false
                 },
                 {
-                  title: 'تراکنش ها',
-                  routeName: 'Admin.Transaction.Index',
+                  title: 'خالی کردن کش کاربر',
+                  routeName: '',
                   show: true,
                   active: false
                 },
                 {
-                  title: 'کوپن ها',
-                  routeName: 'Admin.Coupon.Index',
+                  title: 'خالی کردن کش تراکنش',
+                  routeName: '',
                   show: true,
                   active: false
                 },
                 {
-                  title: 'دسته محتوا',
-                  routeName: 'Admin.Set.Index',
+                  title: 'خالی کردن کش کانتنت',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'خالی کردن کش ست',
+                  routeName: '',
                   show: true,
                   active: false
                 }
               ]
             },
             {
-              title: 'محتوا',
-              routeName: 'Admin.Content.Index',
+              title: 'کاربران',
+              routeName: '',
+              show: true,
+              active: false
+            },
+            {
+              title: 'مدیریت ساعت کاری',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'شیفت کارمندان',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'پیامک',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'دفترچه تلفن',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'ارسال پیامک',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'لاگ های پیامک',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'گزارش ها',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'گزارش فروش',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'گزارش خاص',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'بلوک ها',
+              routeName: '',
               show: true,
               active: false
             },
             {
               title: 'محصولات',
-              routeName: 'Admin.Product.Index',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'مدیریت محصولات',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'توضیحات لحظه ای',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت ووچرها',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'مدیریت محتوا',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'منبع',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'محتوا',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'دسته محتوا',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'پنل لیست ها',
+              routeName: '',
               show: true,
               active: false
             },
             {
-              title: 'سفارشات',
-              routeName: 'Admin.Order.Index',
+              title: 'پنل کیف پول',
+              routeName: '',
               show: true,
               active: false
             },
             {
-              title: 'تراکنش ها',
-              routeName: 'Admin.Transaction.Index',
+              title: 'پنل بات ها',
+              routeName: '',
               show: true,
               active: false
             },
             {
-              title: 'کوپن ها',
-              routeName: 'Admin.Coupon.Index',
+              title: 'قرعه کشی ها',
+              routeName: '',
               show: true,
               active: false
             },
             {
-              title: 'دسته محتوا',
-              routeName: 'Admin.Set.Index',
+              title: 'گروه تیکت',
+              routeName: '',
               show: true,
               active: false
+            },
+            {
+              title: 'تگ ها',
+              routeName: '',
+              show: true,
+              active: false
+            },
+            {
+              title: 'پیکربندی سایت',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'ویدئوهای وست',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'تنظیمات سایت',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'سوالات متداول',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'اسلاید شو',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'درگاه پرداخت',
+              routeName: '',
+              show: true,
+              active: false
+            },
+            {
+              title: 'لاگ فعالیت ها',
+              routeName: '',
+              show: true,
+              active: false
+            },
+            {
+              title: 'پنل های خاص',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'تله مارکتینگ',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'درج کاربر با سفارش',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'تولید کوپن تصادفی',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'ثبت نام عمومی کاربران',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'اصلاح شهر و استان',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
             }
           ]
         },
