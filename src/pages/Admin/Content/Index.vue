@@ -119,14 +119,15 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
+        { type: 'input', name: 'id', value: null, label: 'عنوان', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
         { type: 'input', name: 'description', value: null, label: 'توضیحات', col: 'col-md-3' },
-        { type: 'select', name: 'content_type_id', value: null, options: [{ label: 'جزوه', value: 1 }, { label: 'ویدئو', value: 8 }], label: 'نوع محتوا', col: 'col-md-3' },
+        // todo : مقاله exact value unknown
+        { type: 'select', name: 'content_type_id', value: null, options: [{ label: 'ویدئو', value: 0 }, { label: 'جزوه', value: 8 }, { label: 'مقاله', value: 3 }], label: 'نوع محتوا', col: 'col-md-3' },
         { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], label: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
         { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], label: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
         { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
-        { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ ایجاد', col: 'col-md-4' }
+        { type: 'date', name: 'created_at_range', value: [], label: 'تاریخ ثبت ایجاد', col: 'col-md-4' }
       ]
     }
   },

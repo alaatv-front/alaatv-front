@@ -1,5 +1,18 @@
 import { auth } from './middleware/middleware'
 // import Login from '../pages/Auth/Login.vue'
+function getEntityCrudRouteObject (componentName) {
+  const AllNeededRoutes = [
+    { mode: 'Index', path: '' },
+    { mode: 'Create', path: 'create' },
+    { mode: 'Show', path: ':id' },
+    { mode: 'Edit', path: ':id/edit' }
+  ]
+  const finalChildren = []
+  AllNeededRoutes.forEach(item => {
+    finalChildren.push({ name: 'Admin.' + componentName + '.' + item.mode, path: item.path, component: () => import('pages/Admin/' + componentName) })
+  })
+  return finalChildren
+}
 const routes = [
   {
     path: '/',
@@ -32,16 +45,22 @@ const routes = [
         },
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
+          // {
+          //   path: 'users',
+          //   component: () => import('pages/Admin/index'),
+          //   breadcrumbs: { title: 'کاربران' },
+          //   children: [
+          //     { name: 'Admin.User.Index', path: '', component: () => import('pages/Admin/User/Index') },
+          //     { name: 'Admin.User.Create', path: 'create', component: () => import('pages/Admin/User/Create') },
+          //     { name: 'Admin.User.Show', path: ':id', component: () => import('pages/Admin/User/Show') },
+          //     { name: 'Admin.User.Edit', path: ':id/edit', component: () => import('pages/Admin/User/Edit') }
+          //   ]
+          // },
           {
             path: 'users',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'کاربران' },
-            children: [
-              { name: 'Admin.User.Index', path: '', component: () => import('pages/Admin/User/Index') },
-              { name: 'Admin.User.Create', path: 'create', component: () => import('pages/Admin/User/Create') },
-              { name: 'Admin.User.Show', path: ':id', component: () => import('pages/Admin/User/Show') },
-              { name: 'Admin.User.Edit', path: ':id/edit', component: () => import('pages/Admin/User/Edit') }
-            ]
+            children: getEntityCrudRouteObject('User')
           },
           {
             path: 'products',
@@ -58,12 +77,7 @@ const routes = [
             path: 'contents',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'محتوا' },
-            children: [
-              { name: 'Admin.Content.Index', path: '', component: () => import('pages/Admin/Content/Index') },
-              { name: 'Admin.Content.Create', path: 'create', component: () => import('pages/Admin/Content/Create') },
-              { name: 'Admin.Content.Show', path: ':id', component: () => import('pages/Admin/Content/Show') },
-              { name: 'Admin.Content.Edit', path: ':id/edit', component: () => import('pages/Admin/Content/Edit') }
-            ]
+            children: getEntityCrudRouteObject('Content')
           },
           {
             path: 'orders',
@@ -117,7 +131,6 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import('pages/Auth/Login.vue')
-    // component: Login
   },
   // are u mr Esmaeili ? '' : dont touch this route
   {
