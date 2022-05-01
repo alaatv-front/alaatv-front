@@ -54,58 +54,64 @@
 <!--        </q-list>-->
 <!--      </q-expansion-item>-->
 <!--      <q-separator class="top-separator" size="2px" dark/>-->
-      <div
-        v-for="(item , index) in titlesList"
-        :key="index"
-      >
-        <q-expansion-item
-          v-if="item.children.length"
-          :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"
-          :label="item.title"
-          :icon="item.icon"
-          class="side-expansion-list"
-          dark
-        >
-          <div class="expansion-body">
-            <q-separator dark size="2px" vertical class="vertical-separator"/>
-            <q-list class="list-expansion">
-<!--              Todo : toxic Traits!!!!!-->
-              <q-item
-                v-for="(subItem , i) in item.children"
-                :key="i"
-                :to="{ name: subItem.routeName, params: subItem.params }"
-                class="list-child-item"
-                exact-active-class="active-route"
-              >
-                <q-item-section
-                  class="list-child-section"
-                >
-                  {{ subItem.displayName }}
-                </q-item-section>
-                <span class="indicator"/>
-              </q-item>
-            </q-list>
-          </div>
-        </q-expansion-item>
-        <q-item
-          v-else
-          :to="(item.routeName) ? {name: item.routeName} : null"
-          class="item-list"
-          :class="{ 'alone-item': !item.children.length}"
-          v-model="clickedItem"
-          exact-active-class="active-route"
-        >
-          <div class="section-title">
-            <q-item-section class="list-section title-icon" avatar>
-              <q-avatar :icon="item.icon" size="30"/>
-            </q-item-section>
-            <q-item-section class="list-section">
-              {{ item.title }}
-            </q-item-section>
-            <span class="indicator"/>
-          </div>
-        </q-item>
-      </div>
+<!--      <div-->
+<!--        v-for="(item , index) in titlesList"-->
+<!--        :key="index"-->
+<!--      >-->
+<!--        <q-expansion-item-->
+<!--          v-if="item.children.length"-->
+<!--          :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"-->
+<!--          :label="item.title"-->
+<!--          :icon="item.icon"-->
+<!--          class="side-expansion-list"-->
+<!--          dark-->
+<!--        >-->
+<!--          <div class="expansion-body">-->
+<!--            <q-separator dark size="2px" vertical class="vertical-separator"/>-->
+<!--            <q-list class="list-expansion">-->
+<!--&lt;!&ndash;              Todo : toxic Traits!!!!!&ndash;&gt;-->
+<!--              <q-item-->
+<!--                v-for="(subItem , i) in item.children"-->
+<!--                :key="i"-->
+<!--                :to="{ name: subItem.routeName, params: subItem.params }"-->
+<!--                class="list-child-item"-->
+<!--                exact-active-class="active-route"-->
+<!--              >-->
+<!--                <q-item-section-->
+<!--                  class="list-child-section"-->
+<!--                >-->
+<!--                  {{ subItem.title }}-->
+<!--                </q-item-section>-->
+<!--                <span class="indicator"/>-->
+<!--              </q-item>-->
+<!--            </q-list>-->
+<!--          </div>-->
+<!--        </q-expansion-item>-->
+<!--        <q-item-->
+<!--          v-else-->
+<!--          :to="(item.routeName) ? {name: item.routeName} : null"-->
+<!--          class="item-list"-->
+<!--          :class="{ 'alone-item': !item.children.length}"-->
+<!--          v-model="clickedItem"-->
+<!--          exact-active-class="active-route"-->
+<!--        >-->
+<!--          <div class="section-title">-->
+<!--            <q-item-section class="list-section title-icon" avatar>-->
+<!--              <q-avatar :icon="item.icon" size="30"/>-->
+<!--            </q-item-section>-->
+<!--            <q-item-section class="list-section">-->
+<!--              {{ item.title }}-->
+<!--            </q-item-section>-->
+<!--            <span class="indicator"/>-->
+<!--          </div>-->
+<!--        </q-item>-->
+<!--      </div>-->
+      <q-input dense standout="bg-deep-purple-5 text-white" v-model="searchText" @update:model-value ="search(titlesList)" placeholder="جست و جو">
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+      <menu-item :menu="titlesList" />
     </q-list>
     <div class="log-out" @click="logOut">
       <span>
@@ -117,11 +123,14 @@
 </template>
 
 <script>
+import menuItem from 'components/Menu/SideMenu/MenuItem'
 export default {
   name: 'SideMenu-dashboard',
+  components: { menuItem },
   data () {
     return {
       clickedItem: null,
+      searchText: '',
       titlesList: [
         // {
         //   title: 'داشبورد',
@@ -135,41 +144,314 @@ export default {
           icon: 'isax:user',
           routeName: null,
           active: false,
+          show: true,
+          open: false,
           children: [
             {
-              displayName: 'کاربران',
-              routeName: 'Admin.User.Index',
+              title: 'خالی کردن کش',
+              routeName: '',
+              active: false,
+              show: true,
+              open: false,
+              children: [
+                {
+                  title: 'خالی کردن کل کش',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'خالی کردن کش محصول',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'خالی کردن کش سفارش',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'خالی کردن کش آیتم سبد',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'خالی کردن کش کاربر',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'خالی کردن کش تراکنش',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'خالی کردن کش کانتنت',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'خالی کردن کش ست',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'کاربران',
+              routeName: '',
+              show: true,
               active: false
             },
             {
-              displayName: 'محتوا',
-              routeName: 'Admin.Content.Index',
+              title: 'مدیریت ساعت کاری',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'شیفت کارمندان',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'پیامک',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'دفترچه تلفن',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'ارسال پیامک',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'لاگ های پیامک',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'گزارش ها',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'گزارش فروش',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'گزارش خاص',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'بلوک ها',
+              routeName: '',
+              show: true,
               active: false
             },
             {
-              displayName: 'محصولات',
-              routeName: 'Admin.Product.Index',
+              title: 'محصولات',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'مدیریت محصولات',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'توضیحات لحظه ای',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت ووچرها',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'مدیریت محتوا',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'منبع',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'محتوا',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'دسته محتوا',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'پنل لیست ها',
+              routeName: '',
+              show: true,
               active: false
             },
             {
-              displayName: 'سفارشات',
-              routeName: 'Admin.Order.Index',
+              title: 'پنل کیف پول',
+              routeName: '',
+              show: true,
               active: false
             },
             {
-              displayName: 'تراکنش ها',
-              routeName: 'Admin.Transaction.Index',
+              title: 'پنل بات ها',
+              routeName: '',
+              show: true,
               active: false
             },
             {
-              displayName: 'کوپن ها',
-              routeName: 'Admin.Coupon.Index',
+              title: 'قرعه کشی ها',
+              routeName: '',
+              show: true,
               active: false
             },
             {
-              displayName: 'دسته محتوا',
-              routeName: 'Admin.Set.Index',
+              title: 'گروه تیکت',
+              routeName: '',
+              show: true,
               active: false
+            },
+            {
+              title: 'تگ ها',
+              routeName: '',
+              show: true,
+              active: false
+            },
+            {
+              title: 'پیکربندی سایت',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'ویدئوهای وست',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'تنظیمات سایت',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'سوالات متداول',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'اسلاید شو',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'درگاه پرداخت',
+              routeName: '',
+              show: true,
+              active: false
+            },
+            {
+              title: 'لاگ فعالیت ها',
+              routeName: '',
+              show: true,
+              active: false
+            },
+            {
+              title: 'پنل های خاص',
+              routeName: '',
+              show: true,
+              open: false,
+              active: false,
+              children: [
+                {
+                  title: 'تله مارکتینگ',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'درج کاربر با سفارش',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'تولید کوپن تصادفی',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'ثبت نام عمومی کاربران',
+                  routeName: '',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'اصلاح شهر و استان',
+                  routeName: '',
+                  show: true,
+                  active: false
+                }
+              ]
             }
           ]
         },
@@ -179,8 +461,8 @@ export default {
         //   routeName: null,
         //   active: false,
         //   children: [
-        //     { displayName: 'ساخت آزمون', routeName: 'Admin.Exam.Create', active: false },
-        //     { displayName: 'لیست آزمون ها', routeName: 'Admin.Exam.Index', active: false }
+        //     { title: 'ساخت آزمون', routeName: 'Admin.Exam.Create', active: false },
+        //     { title: 'لیست آزمون ها', routeName: 'Admin.Exam.Index', active: false }
         //   ]
         // },
         // {
@@ -215,6 +497,7 @@ export default {
           title: 'تنظیمات',
           icon: 'isax:setting-2',
           routeName: 'Admin.Settings',
+          show: true,
           active: false,
           children: []
         }
@@ -276,6 +559,27 @@ export default {
     }
   },
   methods: {
+    search (list, parentContain = false) {
+      if (!list || list.length === 0) {
+        return false
+      }
+      if (parentContain) {
+        return true
+      }
+      let flag = false
+      list.forEach(item => {
+        const contain = item.title.includes(this.searchText)
+        if (this.search(item.children, contain) || contain) {
+          flag = true
+          item.show = true
+          item.open = true
+        } else {
+          item.open = false
+          item.show = false
+        }
+      })
+      return flag
+    },
     logOut () {
       return this.$store.dispatch('Auth/logOut')
     }
