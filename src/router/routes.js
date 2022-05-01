@@ -57,6 +57,12 @@ const routes = [
           //   ]
           // },
           {
+            path: 'scheduleManagement',
+            component: () => import('pages/Admin/index'),
+            breadcrumbs: { title: 'مدیریت ساعت کاری' },
+            children: getEntityCrudRouteObject('ScheduleManagement')
+          },
+          {
             path: 'users',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'کاربران' },
