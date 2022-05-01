@@ -6,7 +6,7 @@
   </div>
   <div class="options-rules" dir="ltr">
     <div class="title q-mr-xs">
-      Title(<span>{{ this.$refs.desktopTitle.el. }}</span> / 573px)
+      Title(<span>{{ this.$refs.desktopTitle }}</span> / 573px)
     </div>
     <div class="url q-mr-xs">
       URL(<span>{{ this.urlWidth }}</span> / 536px)
