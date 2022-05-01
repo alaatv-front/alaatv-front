@@ -12,100 +12,6 @@
       padding
       dark
     >
-<!--      <q-expansion-item-->
-<!--        class="side-expansion-list top-expansion"-->
-<!--        :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"-->
-<!--        label="برنامه ی آزمون ها"-->
-<!--        dark-->
-<!--      >-->
-<!--        <q-list-->
-<!--          class="list-expansion"-->
-<!--          padding-->
-<!--        >-->
-<!--&lt;!&ndash;          <div&ndash;&gt;-->
-<!--&lt;!&ndash;            v-for="(examPlan, index) in examsPlan"&ndash;&gt;-->
-<!--&lt;!&ndash;            :key="index"&ndash;&gt;-->
-<!--&lt;!&ndash;          >&ndash;&gt;-->
-<!--&lt;!&ndash;            <a&ndash;&gt;-->
-<!--&lt;!&ndash;              v-if="!examPlan.divider"&ndash;&gt;-->
-<!--&lt;!&ndash;              :href="examPlan.link"&ndash;&gt;-->
-<!--&lt;!&ndash;              target="_blank"&ndash;&gt;-->
-<!--&lt;!&ndash;            >&ndash;&gt;-->
-<!--&lt;!&ndash;              <q-item&ndash;&gt;-->
-<!--&lt;!&ndash;                clickable&ndash;&gt;-->
-<!--&lt;!&ndash;                v-ripple:deep-purple&ndash;&gt;-->
-<!--&lt;!&ndash;                :active="false"&ndash;&gt;-->
-<!--&lt;!&ndash;                active-class="active-route"&ndash;&gt;-->
-<!--&lt;!&ndash;              >&ndash;&gt;-->
-<!--&lt;!&ndash;                <q-item-section class="item-list-expansion">&ndash;&gt;-->
-<!--&lt;!&ndash;                  <span class="item-list-expansion-title">&ndash;&gt;-->
-<!--&lt;!&ndash;                    {{ examPlan.name }}&ndash;&gt;-->
-<!--&lt;!&ndash;                  </span>&ndash;&gt;-->
-<!--&lt;!&ndash;                </q-item-section>&ndash;&gt;-->
-<!--&lt;!&ndash;              </q-item>&ndash;&gt;-->
-<!--&lt;!&ndash;            </a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <q-separator&ndash;&gt;-->
-<!--&lt;!&ndash;              v-else&ndash;&gt;-->
-<!--&lt;!&ndash;              class="top-expansion-separator"&ndash;&gt;-->
-<!--&lt;!&ndash;              size="2px"&ndash;&gt;-->
-<!--&lt;!&ndash;              dark&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--        </q-list>-->
-<!--      </q-expansion-item>-->
-<!--      <q-separator class="top-separator" size="2px" dark/>-->
-<!--      <div-->
-<!--        v-for="(item , index) in titlesList"-->
-<!--        :key="index"-->
-<!--      >-->
-<!--        <q-expansion-item-->
-<!--          v-if="item.children.length"-->
-<!--          :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"-->
-<!--          :label="item.title"-->
-<!--          :icon="item.icon"-->
-<!--          class="side-expansion-list"-->
-<!--          dark-->
-<!--        >-->
-<!--          <div class="expansion-body">-->
-<!--            <q-separator dark size="2px" vertical class="vertical-separator"/>-->
-<!--            <q-list class="list-expansion">-->
-<!--&lt;!&ndash;              Todo : toxic Traits!!!!!&ndash;&gt;-->
-<!--              <q-item-->
-<!--                v-for="(subItem , i) in item.children"-->
-<!--                :key="i"-->
-<!--                :to="{ name: subItem.routeName, params: subItem.params }"-->
-<!--                class="list-child-item"-->
-<!--                exact-active-class="active-route"-->
-<!--              >-->
-<!--                <q-item-section-->
-<!--                  class="list-child-section"-->
-<!--                >-->
-<!--                  {{ subItem.title }}-->
-<!--                </q-item-section>-->
-<!--                <span class="indicator"/>-->
-<!--              </q-item>-->
-<!--            </q-list>-->
-<!--          </div>-->
-<!--        </q-expansion-item>-->
-<!--        <q-item-->
-<!--          v-else-->
-<!--          :to="(item.routeName) ? {name: item.routeName} : null"-->
-<!--          class="item-list"-->
-<!--          :class="{ 'alone-item': !item.children.length}"-->
-<!--          v-model="clickedItem"-->
-<!--          exact-active-class="active-route"-->
-<!--        >-->
-<!--          <div class="section-title">-->
-<!--            <q-item-section class="list-section title-icon" avatar>-->
-<!--              <q-avatar :icon="item.icon" size="30"/>-->
-<!--            </q-item-section>-->
-<!--            <q-item-section class="list-section">-->
-<!--              {{ item.title }}-->
-<!--            </q-item-section>-->
-<!--            <span class="indicator"/>-->
-<!--          </div>-->
-<!--        </q-item>-->
-<!--      </div>-->
       <q-input dense standout="bg-deep-purple-5 text-white" v-model="searchText" @update:model-value ="search(titlesList)" placeholder="جست و جو">
         <template v-slot:append>
           <q-icon name="search" />
@@ -206,7 +112,7 @@ export default {
             },
             {
               title: 'کاربران',
-              routeName: '',
+              routeName: 'Admin.User.Index',
               show: true,
               active: false
             },
@@ -219,7 +125,7 @@ export default {
               children: [
                 {
                   title: 'شیفت کارمندان',
-                  routeName: '',
+                  routeName: 'Admin.ScheduleManagement.Index',
                   show: true,
                   active: false
                 }
@@ -455,44 +361,6 @@ export default {
             }
           ]
         },
-        // {
-        //   title: 'آزمون',
-        //   icon: 'isax:task-square',
-        //   routeName: null,
-        //   active: false,
-        //   children: [
-        //     { title: 'ساخت آزمون', routeName: 'Admin.Exam.Create', active: false },
-        //     { title: 'لیست آزمون ها', routeName: 'Admin.Exam.Index', active: false }
-        //   ]
-        // },
-        // {
-        //   title: 'درخت دانش',
-        //   icon: 'isax:tree',
-        //   routeName: 'Admin.KnowledgeTree.tree',
-        //   active: false,
-        //   children: []
-        // },
-        // {
-        //   title: 'لیست دروس',
-        //   icon: 'isax:book',
-        //   routeName: 'Admin.subCategory.Index',
-        //   active: false,
-        //   children: []
-        // },
-        // {
-        //   title: 'لیست دفترچه ها',
-        //   icon: 'isax:book',
-        //   routeName: 'Admin.Category.Index',
-        //   active: false,
-        //   children: []
-        // },
-        // {
-        //   title: 'گزارشات',
-        //   icon: 'isax:graph',
-        //   routeName: null,
-        //   active: false,
-        //   children: []
-        // },
         {
           title: 'تنظیمات',
           icon: 'isax:setting-2',

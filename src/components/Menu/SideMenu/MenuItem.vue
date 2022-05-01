@@ -15,7 +15,6 @@
       <div class="expansion-body">
         <q-separator dark size="2px" vertical class="vertical-separator"/>
         <q-list class="list-expansion">
-          <!--              Todo : toxic Traits!!!!!-->
           <div
             v-for="(subItem , i) in item.children"
             :key="i"
