@@ -86,6 +86,18 @@ const routes = [
             children: getEntityCrudRouteObject('Content')
           },
           {
+            path: 'attributeManagement',
+            component: () => import('pages/Admin/index'),
+            breadcrumbs: { title: 'مدیریت صفت ها' },
+            children: getEntityCrudRouteObject('AttributeManagement')
+          },
+          {
+            path: 'attributeSetManagement',
+            component: () => import('pages/Admin/index'),
+            breadcrumbs: { title: 'مدیریت دسته صفت ها' },
+            children: getEntityCrudRouteObject('AttributeSetManagement')
+          },
+          {
             path: 'orders',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'سفارشات' },
