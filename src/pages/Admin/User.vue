@@ -5,6 +5,9 @@
     v-model:show-inputs="showInputs"
     v-model:create-inputs="createInputs"
     v-model:default-inputs="defaultInputs"
+    :before-get-edit-data="testMethod1"
+    :before-load-edit-input-data="testMethod2"
+    :after-load-edit-input-data="testMethod3"
     v-bind="allProps"
   >
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
@@ -53,28 +56,26 @@ export default {
     return {
       allProps: {
         config: {
-          api: {
-            show: API_ADDRESS.users.show.base,
-            edit: API_ADDRESS.users.edit.base,
-            create: API_ADDRESS.users.create.base,
-            index: API_ADDRESS.users.index.base
-          },
-          // title: 'اطلاعات کاربر',
+          api: API_ADDRESS.users.show.base,
           // or
+          // api: {
+          //   show: API_ADDRESS.users.show.base,
+          //   edit: API_ADDRESS.users.edit.base,
+          //   create: API_ADDRESS.users.create.base,
+          //   index: API_ADDRESS.users.index.base
+          // },
           title: {
             show: 'اطلاعات کاربر',
             edit: 'اطلاعات کاربر',
             create: 'ثبت کاربر جدید',
             index: 'لیست کاربران'
           },
-          entityIdKey: 'id',
-          entityParamKey: 'id',
+          // or
+          // title: 'اطلاعات کاربر',
           showRouteName: 'Admin.User.Show',
           editRouteName: 'Admin.User.Edit',
           indexRouteName: 'Admin.User.Index',
           createRouteName: 'Admin.User.Create',
-          entityIdKeyInResponse: 'id',
-          showRouteParamKey: 'id',
           tableKeys: {
             data: 'data',
             total: 'total',
@@ -145,8 +146,7 @@ export default {
           }
         }
       },
-      defaultInputs: [],
-      createInputs: [
+      defaultInputs: [
         { type: 'file', name: 'photo', responseKey: 'data.photo', size: '250px', col: 'col-md-3' },
         { type: 'space', col: 'col-md-12' },
         { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3', disable: true },
@@ -158,29 +158,9 @@ export default {
         { type: 'input', name: 'address', responseKey: 'data.address', value: 'null', label: 'آدرس', col: 'col-md-3' },
         { type: 'input', name: 'postal_code', responseKey: 'data.postal_code', value: 'null', label: 'کد پستی', col: 'col-md-3' }
       ],
-      editInputs: [
-        { type: 'file', name: 'photo', responseKey: 'data.photo', size: '250px', col: 'col-md-3' },
-        { type: 'space', col: 'col-md-12' },
-        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3', disable: true },
-        { type: 'input', name: 'first_name', responseKey: 'data.first_name', value: 'null', label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'last_name', responseKey: 'data.last_name', value: 'null', label: 'نام خانوادگی', col: 'col-md-3' },
-        { type: 'input', name: 'national_code', responseKey: 'data.national_code', value: 'null', label: 'کد ملی', col: 'col-md-3' },
-        { type: 'input', name: 'email', responseKey: 'data.email', value: 'null', label: 'ایمیل', col: 'col-md-3' },
-        { type: 'input', name: 'mobile', responseKey: 'data.mobile', value: 'null', label: 'شماره همراه', col: 'col-md-3' },
-        { type: 'input', name: 'address', responseKey: 'data.address', value: 'null', label: 'آدرس', col: 'col-md-3' },
-        { type: 'input', name: 'postal_code', responseKey: 'data.postal_code', value: 'null', label: 'کد پستی', col: 'col-md-3' }
-      ],
-      showInputs: [
-        { type: 'avatar', name: 'photo', responseKey: 'data.photo', value: null, size: '150px', col: 'col-md-12' },
-        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3' },
-        { type: 'input', name: 'first_name', responseKey: 'data.first_name', value: 'null', label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'last_name', responseKey: 'data.last_name', value: 'null', label: 'نام خانوادگی', col: 'col-md-3' },
-        { type: 'input', name: 'national_code', responseKey: 'data.national_code', value: 'null', label: 'کد ملی', col: 'col-md-3' },
-        { type: 'input', name: 'email', responseKey: 'data.email', value: 'null', label: 'ایمیل', col: 'col-md-3' },
-        { type: 'input', name: 'mobile', responseKey: 'data.mobile', value: 'null', label: 'شماره همراه', col: 'col-md-3' },
-        { type: 'input', name: 'address', responseKey: 'data.address', value: 'null', label: 'آدرس', col: 'col-md-3' },
-        { type: 'input', name: 'postal_code', responseKey: 'data.postal_code', value: 'null', label: 'کد پستی', col: 'col-md-3' }
-      ],
+      createInputs: [],
+      editInputs: [],
+      showInputs: [],
       indexInputs: [
         { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
@@ -198,7 +178,11 @@ export default {
       const firstName = row.first_name
       const lastName = row.last_name
       return 'آیا از حذف ' + firstName + ' ' + lastName + ' اطمینان دارید؟'
-    }
+    },
+    testMethod () {},
+    testMethod1 () {},
+    testMethod2 () {},
+    testMethod3 () {}
   },
   watch: {
     // editInputs: {

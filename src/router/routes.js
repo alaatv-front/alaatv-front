@@ -9,7 +9,7 @@ function getEntityCrudRouteObject (componentName) {
   ]
   const finalChildren = []
   AllNeededRoutes.forEach(item => {
-    finalChildren.push({ name: 'Admin.User.' + item.mode, path: item.path, component: () => import('pages/Admin/' + componentName) })
+    finalChildren.push({ name: 'Admin.' + componentName + '.' + item.mode, path: item.path, component: () => import('pages/Admin/' + componentName) })
   })
   return finalChildren
 }
@@ -77,12 +77,7 @@ const routes = [
             path: 'contents',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'محتوا' },
-            children: [
-              { name: 'Admin.Content.Index', path: '', component: () => import('pages/Admin/Content/Index') },
-              { name: 'Admin.Content.Create', path: 'create', component: () => import('pages/Admin/Content/Create') },
-              { name: 'Admin.Content.Show', path: ':id', component: () => import('pages/Admin/Content/Show') },
-              { name: 'Admin.Content.Edit', path: ':id/edit', component: () => import('pages/Admin/Content/Edit') }
-            ]
+            children: getEntityCrudRouteObject('Content')
           },
           {
             path: 'orders',

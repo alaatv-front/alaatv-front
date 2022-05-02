@@ -1,26 +1,43 @@
 <template>
+  <slot v-if="currentComponent === 'entity-create'" name="before-entity-create"></slot>
+  <slot v-if="currentComponent === 'entity-show'" name="before-entity-show"></slot>
+  <slot v-if="currentComponent === 'entity-edit'" name="before-entity-edit"></slot>
+  <slot v-if="currentComponent === 'entity-index'" name="before-entity-index"></slot>
   <component
     :is="currentComponent"
     v-model:value="getNeededInputs"
+    :before-load-input-data="getBeforeLoadInputDataProp"
+    :after-load-input-data="getAfterLoadInputDataProp"
+    :before-get-data="getBeforeGetEditDataProp"
     v-bind="neededConfig"
     ref="entityComponent"
   >
     <template v-slot:before-form-builder>
-      <slot name="entity-crud-before-form-builder"></slot>
+      <slot v-if="currentComponent === 'entity-create'" name="entity-create-before-form-builder"></slot>
+      <slot v-if="currentComponent === 'entity-show'" name="entity-show-before-form-builder"></slot>
+      <slot v-if="currentComponent === 'entity-edit'" name="entity-edit-before-form-builder"></slot>
+      <slot v-if="currentComponent === 'entity-index'" name="entity-index-before-form-builder"></slot>
     </template>
     <template v-slot:after-form-builder>
-      <slot name="entity-crud-after-form-builder"></slot>
+      <slot v-if="currentComponent === 'entity-create'" name="entity-create-after-form-builder"></slot>
+      <slot v-if="currentComponent === 'entity-show'" name="entity-show-after-form-builder"></slot>
+      <slot v-if="currentComponent === 'entity-edit'" name="entity-edit-after-form-builder"></slot>
+      <slot v-if="currentComponent === 'entity-index'" name="entity-index-after-form-builder"></slot>
     </template>
     <template v-slot:before-index-table>
-      <slot name="entity-crud-before-index-table"></slot>
+      <slot v-if="currentComponent === 'entity-index'" name="entity-crud-before-index-table"></slot>
     </template>
     <template v-slot:after-index-table>
-      <slot name="entity-crud-after-index-table"></slot>
+      <slot v-if="currentComponent === 'entity-index'" name="entity-crud-after-index-table"></slot>
     </template>
     <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
-      <slot name="entity-crud-table-cell" :inputData="inputData" :showConfirmRemoveDialog="showConfirmRemoveDialog"></slot>
+      <slot v-if="currentComponent === 'entity-index'" name="entity-crud-table-cell" :inputData="inputData" :showConfirmRemoveDialog="showConfirmRemoveDialog"></slot>
     </template>
   </component>
+  <slot v-if="currentComponent === 'entity-create'" name="after-entity-create"></slot>
+  <slot v-if="currentComponent === 'entity-show'" name="after-entity-show"></slot>
+  <slot v-if="currentComponent === 'entity-edit'" name="after-entity-edit"></slot>
+  <slot v-if="currentComponent === 'entity-index'" name="after-entity-index"></slot>
 </template>
 
 <script>
@@ -65,6 +82,46 @@ export default {
         return []
       }
     },
+    beforeGetEditData: {
+      default: () => {},
+      type: Function
+    },
+    beforeGetShowData: {
+      default: () => {},
+      type: Function
+    },
+    beforeLoadEditInputData: {
+      default: () => {},
+      type: Function
+    },
+    afterLoadEditInputData: {
+      default: () => {},
+      type: Function
+    },
+    beforeLoadShowInputData: {
+      default: () => {},
+      type: Function
+    },
+    afterLoadShowInputData: {
+      default: () => {},
+      type: Function
+    },
+    beforeLoadIndexInputData: {
+      default: () => {},
+      type: Function
+    },
+    afterLoadIndexInputData: {
+      default: () => {},
+      type: Function
+    },
+    beforeLoadCreateInputData: {
+      default: () => {},
+      type: Function
+    },
+    afterLoadCreateInputData: {
+      default: () => {},
+      type: Function
+    },
     config: {
       type: Object,
       default () {
@@ -92,6 +149,24 @@ export default {
         return this[this.currentMode + 'Inputs']
       }
       return this.inputDefaultValue
+    },
+    getBeforeLoadInputDataProp () {
+      if (this.$props['beforeLoad' + this.capitalizeFirstLetter(this.currentMode) + 'InputData']) {
+        return this.$props['beforeLoad' + this.capitalizeFirstLetter(this.currentMode) + 'InputData']
+      }
+      return null
+    },
+    getAfterLoadInputDataProp () {
+      if (this.$props['afterLoad' + this.capitalizeFirstLetter(this.currentMode) + 'InputData']) {
+        return this.$props['afterLoad' + this.capitalizeFirstLetter(this.currentMode) + 'InputData']
+      }
+      return null
+    },
+    getBeforeGetEditDataProp () {
+      if (this.$props['beforeGet' + this.capitalizeFirstLetter(this.currentMode) + 'Data']) {
+        return this.$props['beforeGet' + this.capitalizeFirstLetter(this.currentMode) + 'Data']
+      }
+      return null
     },
     inputDefaultValue: {
       get () {
@@ -180,27 +255,33 @@ export default {
           componentConfig[key] = this.config[key]
         }
       }
-      componentConfig.api = this.config.api[mode]
+      this.neededConfig = this.getModdedComponentProperties(mode, componentConfig)
+      this.SetApiId()
+    },
+    getModdedComponentProperties (mode, componentConfig) {
+      if (this.config.api[mode]) {
+        componentConfig.api = this.config.api[mode]
+      }
       if (this.config.title[mode]) {
         componentConfig.title = this.config.title[mode]
       }
-      console.log('componentConfig', componentConfig)
-      this.neededConfig = componentConfig
-      this.SetApiId()
+      if (this.config.title[mode]) {
+        componentConfig.title = this.config.title[mode]
+      }
+      return componentConfig
     },
     checkIfPropertyExists (key) {
       return !!(this.config[key])
     },
+    capitalizeFirstLetter (word) {
+      const str = word
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    },
     getRoutesMode () {
       const allModes = ['show', 'index', 'edit', 'create']
       const routeMode = this.$route.name.toLowerCase()
-      let mode = ''
-      allModes.forEach((item) => {
-        if (routeMode.includes(item)) {
-          mode = item
-        }
-      })
-      return mode
+
+      return allModes.find(mode => routeMode.includes(mode))
     }
   }
 }
