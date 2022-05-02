@@ -234,7 +234,33 @@ export default {
                   title: 'مدیریت محصولات',
                   routeName: 'none',
                   show: true,
-                  active: false
+                  active: false,
+                  children: [
+                    {
+                      title: 'مدیریت محصولات',
+                      routeName: 'none',
+                      show: true,
+                      active: false
+                    },
+                    {
+                      title: 'مدیریت کپن ها',
+                      routeName: 'none',
+                      show: true,
+                      active: false
+                    },
+                    {
+                      title: 'مدیریت صفت ها',
+                      routeName: 'none',
+                      show: true,
+                      active: false
+                    },
+                    {
+                      title: 'مدیریت دسته صفت ها',
+                      routeName: 'none',
+                      show: true,
+                      active: false
+                    }
+                  ]
                 },
                 {
                   title: 'توضیحات لحظه ای',
@@ -271,6 +297,12 @@ export default {
                 },
                 {
                   title: 'دسته محتوا',
+                  routeName: 'none',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'سکشن محتوا',
                   routeName: 'none',
                   show: true,
                   active: false
