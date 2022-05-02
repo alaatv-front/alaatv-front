@@ -69,7 +69,7 @@ const routes = [
             children: getEntityCrudRouteObject('User')
           },
           {
-            path: 'products',
+            path: 'product',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'محصولات' },
             children: [
@@ -80,7 +80,7 @@ const routes = [
             ]
           },
           {
-            path: 'contents',
+            path: 'content',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'محتوا' },
             children: getEntityCrudRouteObject('Content')
@@ -89,12 +89,7 @@ const routes = [
             path: 'orders',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'سفارشات' },
-            children: [
-              { name: 'Admin.Order.Index', path: '', component: () => import('pages/Admin/Order/Index') },
-              { name: 'Admin.Order.Create', path: 'create', component: () => import('pages/Admin/Order/Create') },
-              { name: 'Admin.Order.Show', path: ':id', component: () => import('pages/Admin/Order/Show') },
-              { name: 'Admin.Order.Edit', path: ':id/edit', component: () => import('pages/Admin/Order/Edit') }
-            ]
+            children: getEntityCrudRouteObject('Order')
           },
           {
             path: 'transactions',

@@ -57,6 +57,7 @@ export default {
       expanded: true,
       allProps: {
         config: {
+          // toDo : temp, 'Content' should be replaced with 'ScheduleManagement'
           api: {
             show: API_ADDRESS.content.show.base,
             edit: API_ADDRESS.content.edit.base,

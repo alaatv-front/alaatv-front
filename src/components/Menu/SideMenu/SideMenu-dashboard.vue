@@ -55,56 +55,56 @@ export default {
           children: [
             {
               title: 'خالی کردن کش',
-              routeName: '',
+              routeName: 'none',
               active: false,
               show: true,
               open: false,
               children: [
                 {
                   title: 'خالی کردن کل کش',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'خالی کردن کش محصول',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'خالی کردن کش سفارش',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'خالی کردن کش آیتم سبد',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'خالی کردن کش کاربر',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'خالی کردن کش تراکنش',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'خالی کردن کش کانتنت',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'خالی کردن کش ست',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 }
@@ -118,7 +118,7 @@ export default {
             },
             {
               title: 'مدیریت ساعت کاری',
-              routeName: '',
+              routeName: 'none',
               show: true,
               open: false,
               active: false,
@@ -132,27 +132,65 @@ export default {
               ]
             },
             {
+              title: 'سفارش ها',
+              routeName: 'none',
+              show: true,
+              active: false,
+              children: [
+                {
+                  title: 'انتقال سفارش های کاربر',
+                  routeName: 'Admin.ScheduleManagement.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'ثبت سفارش جدید',
+                  routeName: 'Admin.ScheduleManagement.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت سفارش ها',
+                  routeName: 'Admin.Order.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت تراکنش ها',
+                  routeName: 'Admin.ScheduleManagement.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت بن کاربران',
+                  routeName: 'Admin.ScheduleManagement.Index',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
               title: 'پیامک',
-              routeName: '',
+              routeName: 'none',
               show: true,
               open: false,
               active: false,
               children: [
                 {
                   title: 'دفترچه تلفن',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'ارسال پیامک',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'لاگ های پیامک',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 }
@@ -160,20 +198,20 @@ export default {
             },
             {
               title: 'گزارش ها',
-              routeName: '',
+              routeName: 'none',
               show: true,
               open: false,
               active: false,
               children: [
                 {
                   title: 'گزارش فروش',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'گزارش خاص',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 }
@@ -181,32 +219,32 @@ export default {
             },
             {
               title: 'بلوک ها',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'محصولات',
-              routeName: '',
+              routeName: 'none',
               show: true,
               open: false,
               active: false,
               children: [
                 {
                   title: 'مدیریت محصولات',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'توضیحات لحظه ای',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'مدیریت ووچرها',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 }
@@ -214,26 +252,26 @@ export default {
             },
             {
               title: 'مدیریت محتوا',
-              routeName: '',
+              routeName: 'none',
               show: true,
               open: false,
               active: false,
               children: [
                 {
                   title: 'منبع',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'محتوا',
-                  routeName: '',
+                  routeName: 'Admin.Content.Index',
                   show: true,
                   active: false
                 },
                 {
                   title: 'دسته محتوا',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 }
@@ -241,68 +279,68 @@ export default {
             },
             {
               title: 'پنل لیست ها',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'پنل کیف پول',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'پنل بات ها',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'قرعه کشی ها',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'گروه تیکت',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'تگ ها',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'پیکربندی سایت',
-              routeName: '',
+              routeName: 'none',
               show: true,
               open: false,
               active: false,
               children: [
                 {
                   title: 'ویدئوهای وست',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'تنظیمات سایت',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'سوالات متداول',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'اسلاید شو',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 }
@@ -310,50 +348,50 @@ export default {
             },
             {
               title: 'درگاه پرداخت',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'لاگ فعالیت ها',
-              routeName: '',
+              routeName: 'none',
               show: true,
               active: false
             },
             {
               title: 'پنل های خاص',
-              routeName: '',
+              routeName: 'none',
               show: true,
               open: false,
               active: false,
               children: [
                 {
                   title: 'تله مارکتینگ',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'درج کاربر با سفارش',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'تولید کوپن تصادفی',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'ثبت نام عمومی کاربران',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
                 {
                   title: 'اصلاح شهر و استان',
-                  routeName: '',
+                  routeName: 'none',
                   show: true,
                   active: false
                 }
