@@ -1,4 +1,5 @@
 <template>
+  <q-btn @click="widthOfRef('titleWidth','desktopTitle')">click me</q-btn>
   <div class="search-options" dir="ltr">
       <q-checkbox v-model="showRichSnippet" label="Rich Snippet"/>
       <q-checkbox v-model="showDate" label="Date"/>
@@ -6,7 +7,7 @@
   </div>
   <div class="options-rules" dir="ltr">
     <div class="title q-mr-xs">
-      Title(<span>{{ this.$refs.desktopTitle }}</span> / 573px)
+      Title(<span>{{ this.titleWidth }}</span>px / 573px)
     </div>
     <div class="url q-mr-xs">
       URL(<span>{{ this.urlWidth }}</span> / 536px)
@@ -78,12 +79,12 @@
       <q-separator style="width: 100%"></q-separator>
       <div v-if="viewMode === 'desktop'" class="desktop-content">
         <div class="search-title">
-          <span ref="desktopTitle" class="title">
+          <span ref="desktopTitle"  class="title d-inline-flex">
             {{ this.title }}
           </span>
         </div>
         <div class="search-url">
-          <span ref="url">
+          <span ref="desktopUrl" class="d-inline-flex">
             {{ this.url }}
           <q-icon v-if="showCached" name="mdi-menu-down" style="cursor: pointer"/>
           </span>
@@ -93,7 +94,7 @@
           Rating: {{ this.rate }} - 798 votes
         </div>
         <div class="d-flex date-and-description">
-          <span>
+          <span ref="desktopMeta">
             <span v-if="showDate" class="date">
               24 Dec, 2019 -
             </span>
@@ -189,7 +190,28 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.widthOfRef('titleWidth', 'desktopTitle')
+    this.widthOfRef('urlWidth', 'desktopUrl')
+    this.widthOfRef('metaWidth', 'desktopMeta')
+  },
+  watch: {
+    showCached (newVal) {
+      setTimeout(() => {
+        this.widthOfRef('urlWidth', 'desktopUrl')
+      }, 10)
+    },
+    showDate (newVal) {
+      setTimeout(() => {
+        this.widthOfRef('metaWidth', 'desktopMeta')
+      }, 10)
+    }
+  },
   methods: {
+    widthOfRef (key, refName) {
+      this[key] = this.$refs[refName].clientWidth
+      console.log(refName, this[key])
+    }
   }
 }
 </script>
@@ -199,17 +221,22 @@ export default {
   display: flex;
 }
 
+.d-inline-flex {
+  display: inline-flex;
+}
+
 .search-title {
   margin-bottom: 5px;
-  cursor: pointer;
 }
 
 .search-title .title{
+  cursor: pointer;
   color: #1a0dab;
   font-size: 20px;
   font-family: arial, sans-serif !important;
   font-weight: 400;
   text-decoration: none;
+
 }
 
 .search-url {
