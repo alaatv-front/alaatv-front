@@ -7,13 +7,13 @@
   </div>
   <div class="options-rules" dir="ltr">
     <div class="title q-mr-xs">
-      Title(<span>{{ this.titleWidth }}</span>px / 573px)
+      Title(<span v-if="viewMode === 'desktop'">{{ this.titleWidth }}</span><span v-else>{{ this.titleWidthMobile }}</span>px / 573px)
     </div>
     <div class="url q-mr-xs">
-      URL(<span>{{ this.urlWidth }}</span> / 536px)
+      URL(<span v-if="viewMode === 'desktop'">{{ this.urlWidth }}</span><span v-else>{{ this.urlWidthMobile }}</span> / 536px)
     </div>
     <div class="meta q-mr-xs">
-      META(<span>{{ this.metaWidth }}</span> / 930px)
+      META(<span v-if="viewMode === 'desktop'">{{ this.metaWidth }}</span><span v-else>{{ this.metaWidthMobile }}</span> / 930px)
     </div>
   </div>
   <div class="row" dir="ltr">
@@ -109,18 +109,22 @@
           <q-card-section>
             <div class="search-url">
               <q-img src="/img/alaa-logo.png" width="16px" height="16px" style="margin-right: 12px"/>
+              <span ref="mobileUrl" class="d-inline-flex">
               {{ this.url }}
+              </span>
             </div>
             <div class="search-title">
-              <span class="title">
+              <span ref="mobileTitle" class="title d-inline-flex">
                 {{ this.title }}
               </span>
             </div>
             <div class="description d-flex">
-              <template v-if="showDate">
-                24 Dec, 2019 -
-              </template>
-              {{ this.description }}
+              <span ref="mobileMeta" class="d-inline-flex">
+                <template v-if="showDate">
+                  24 Dec, 2019 -
+                </template>
+                {{ this.description }}
+              </span>
             </div>
             <p v-if="showRichSnippet" style="margin-bottom: 1px; margin-top: 3px; margin-left: 2px">Rating</p>
             <div v-if="showRichSnippet" class="rating d-flex">
@@ -159,6 +163,9 @@ export default {
       titleWidth: 0,
       urlWidth: 0,
       metaWidth: 0,
+      titleWidthMobile: 0,
+      urlWidthMobile: 0,
+      metaWidthMobile: 0,
       showRichSnippet: true,
       showDate: true,
       showCached: true,
@@ -203,7 +210,25 @@ export default {
     },
     showDate (newVal) {
       setTimeout(() => {
-        this.widthOfRef('metaWidth', 'desktopMeta')
+        console.log('oh OH!')
+        if (this.viewMode === 'desktop') {
+          this.widthOfRef('metaWidth', 'desktopMeta')
+        } else {
+          this.widthOfRef('metaWidthMobile', 'mobileMeta')
+        }
+      }, 10)
+    },
+    viewMode (newVal) {
+      setTimeout(() => {
+        if (this.viewMode === 'desktop') {
+          this.widthOfRef('titleWidth', 'desktopTitle')
+          this.widthOfRef('urlWidth', 'desktopUrl')
+          this.widthOfRef('metaWidth', 'desktopMeta')
+        } else {
+          this.widthOfRef('titleWidthMobile', 'mobileTitle')
+          this.widthOfRef('urlWidthMobile', 'mobileUrl')
+          this.widthOfRef('metaWidthMobile', 'mobileMeta')
+        }
       }, 10)
     }
   },
