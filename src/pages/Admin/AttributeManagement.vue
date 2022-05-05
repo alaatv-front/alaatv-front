@@ -29,6 +29,11 @@
               مشاهده
             </q-tooltip>
           </q-btn>
+          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Content.Edit', params: {id: inputData.props.row.id}}">
+            <q-tooltip>
+              ویرایش
+            </q-tooltip>
+          </q-btn>
           <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
                  @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
             <q-tooltip>

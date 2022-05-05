@@ -250,7 +250,7 @@ export default {
                     },
                     {
                       title: 'مدیریت صفت ها',
-                      routeName: 'none',
+                      routeName: 'Admin.AttributeManagement.Index',
                       show: true,
                       active: false
                     },
@@ -297,13 +297,13 @@ export default {
                 },
                 {
                   title: 'دسته محتوا',
-                  routeName: 'none',
+                  routeName: 'Admin.Content.Index',
                   show: true,
                   active: false
                 },
                 {
                   title: 'سکشن محتوا',
-                  routeName: 'none',
+                  routeName: 'Admin.Content.Index',
                   show: true,
                   active: false
                 }
