@@ -1,4 +1,5 @@
 <template>
+<!--  Todo : user.vue is also a demo for entity-crud; please do not delete unnecessary stuff -->
   <entity-crud
     v-model:edit-inputs="editInputs"
     v-model:index-inputs="indexInputs"
