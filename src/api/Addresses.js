@@ -75,6 +75,34 @@ const API_ADDRESS = {
       base: alaaServer + '/product'
     }
   },
+  attributeManagement: {
+    create: {
+      base: '/reqres/api/users'
+    },
+    edit: {
+      base: alaaServer + '/admin/product'
+    },
+    index: {
+      base: alaaServer + '/admin/product'
+    },
+    show: {
+      base: alaaServer + '/product'
+    }
+  },
+  attributeSetManagement: {
+    create: {
+      base: '/reqres/api/users'
+    },
+    edit: {
+      base: alaaServer + '/admin/product'
+    },
+    index: {
+      base: alaaServer + '/admin/product'
+    },
+    show: {
+      base: alaaServer + '/product'
+    }
+  },
   set: {
     create: {
       base: '/reqres/api/users'
