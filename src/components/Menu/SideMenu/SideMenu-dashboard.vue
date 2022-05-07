@@ -529,10 +529,11 @@ export default {
 .side-menu-main-layout {
   display: flex;
   flex-direction: column;
-  width: 280px;
+  min-width: 280px;
   min-height: 840px;
   border-radius: 30px;
   margin: 40px 24px;
+  overflow-y: auto;
   @media screen and (max-width: 1919px) {
     width: 260px;
     min-height: 740px;
@@ -542,7 +543,7 @@ export default {
     margin: 0 !important;
     border-radius: 0;
     width: 280px;
-    min-height: 680px;
+    //min-height: 680px;
     height: 100%;
   }
   @media screen and (max-width: 599px) {
@@ -797,21 +798,20 @@ export default {
       transform: matrix(-1, 0, 0, 1, 0, 0);
     }
   }
-}
-</style>
-<style lang="scss">
-.side-menu-main-layout {
-  .q-expansion-item__container {
-    .q-item {
-      display: flex;
-      padding: 0 10px !important;
 
-    }
+  &:deep(.side-menu-main-layout) {
+    .q-expansion-item__container {
+      .q-item {
+        display: flex;
+        padding: 0 10px !important;
 
-    .q-icon {
-      font-size: 21px;
+      }
+
+      .q-icon {
+        font-size: 21px;
+      }
     }
   }
-}
 
+}
 </style>
