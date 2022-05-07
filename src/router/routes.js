@@ -21,8 +21,8 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'dashboard',
-        component: () => import('pages/BaseComponent.vue'),
+        name: 'home',
+        component: () => import('pages/Home.vue'),
         breadcrumbs: { title: 'پیشخوان' },
         meta: {
           middlewares: [auth]

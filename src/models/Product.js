@@ -1,7 +1,4 @@
 import { Model, Collection } from 'js-abstract-model'
-// import OrderStatsu from '../models/OrderStatsu';
-// import PaymentStatsu from '../models/PaymentStatsu';
-// import User from "../models/User";
 import Price from '../models/Price'
 import { EecProduct } from '../models/EecProduct'
 import { SetList } from '../models/Set'
