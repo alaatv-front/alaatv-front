@@ -1,5 +1,4 @@
-import { Model } from 'js-abstract-model'
-import Collection from './Collection'
+import { Model, Collection } from 'js-abstract-model'
 import { SetList } from './Set'
 import Url from './Url'
 import { ContentTimePointList } from './ContentTimePoint'

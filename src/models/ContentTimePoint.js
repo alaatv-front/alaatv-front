@@ -1,5 +1,4 @@
-import { Model } from 'js-abstract-model'
-import Collection from './Collection'
+import { Model, Collection } from 'js-abstract-model'
 // import {Set} from "./Set";
 // import Url from "./Url";
 

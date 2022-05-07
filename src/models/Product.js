@@ -1,5 +1,4 @@
-import { Model } from 'js-abstract-model'
-import Collection from './Collection'
+import { Model, Collection } from 'js-abstract-model'
 // import OrderStatsu from '../models/OrderStatsu';
 // import PaymentStatsu from '../models/PaymentStatsu';
 // import User from "../models/User";
