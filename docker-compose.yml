@@ -1,8 +1,15 @@
 version: "3.3"
 services:
-  production-build:
-    build: .
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
+  nextjs:
+    build: ./
     ports:
-      - "${NGINX_PORT}:3000"
+      - "3000:3000"
+  nginx:
+    build: ./nginx
+    network_mode: "host"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - nextjs
+#    ports:
+#      - "8081:80"
