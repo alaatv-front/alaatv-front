@@ -1,5 +1,4 @@
-import { Model } from 'js-abstract-model'
-import Collection from './Collection'
+import { Model, Collection } from 'js-abstract-model'
 import Url from './Url'
 import { ContentList } from './Content'
 import { SetSectionList } from './SetSection'

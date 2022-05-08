@@ -26,8 +26,7 @@ class Block extends Model {
         relatedModel: ProductList
       },
       {
-        key: 'banners',
-        default: true
+        key: 'banners'
       },
       { key: 'updated_at' }
     ])
