@@ -1,7 +1,6 @@
 <template>
   <div>
-    {{test}}
-    {{props.testProps}}
+    product item
   </div>
 <!--  <div-->
 <!--    class="product-item-box {{ isset($class) ? $class : '' }}"-->

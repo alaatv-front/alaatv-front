@@ -1,16 +1,16 @@
 <template>
-  <div class="flex justify-center">
-    <block-section v-for="(data, index) in this.pageData.list" :key="index" :block-data="data"/>
+  <div>
+    <block v-for="(data, index) in this.pageData.list" :key="index" :block="data"/>
   </div>
 </template>
 
 <script>
-import BlockSection from 'components/Widgets/Block/BlockSection'
+import Block from 'components/Widgets/Block/Block'
 import API_ADDRESS from 'src/api/Addresses'
 import { BlockList } from 'src/models/Block'
 export default {
   name: 'BaseComponent',
-  components: { BlockSection },
+  components: { Block },
   created () {
     this.getPageData()
   },
