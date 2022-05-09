@@ -1,9 +1,11 @@
 <template>
   <div class="block-container">
-    <div v-if="this.block.products.list.length > 0" class="product-container">
+    <div v-if="this.block.products.list.length > 0"
+         class="product-container">
       <Product-item
         v-for="product in this.block.products.list"
-        :product="product"
+        :key="product.id"
+        :product-data="product"
       />
     </div>
 

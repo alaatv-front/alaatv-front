@@ -1,50 +1,58 @@
 <template>
-  <div>
-    product item
-  </div>
+  <p>product item</p>
 <!--  <div-->
-<!--    class="product-item-box {{ isset($class) ? $class : '' }}"-->
-<!--    productId="{{$product->id}}"-->
+<!--    class="product-item-box"-->
 <!--  >-->
 <!--    <div class="img-box">-->
-<!--      <a data-product-id="{{$product->id}}" class="a&#45;&#45;gtm-eec-product a&#45;&#45;gtm-eec-product-click"-->
-<!--         @include('partials.gtm-eec.product', ['position'=>$productKey, 'list'=> isset($list) ? $list : '-', 'product'=>$product])-->
-<!--      href="{{ $product->url }}" target="_blank">-->
+<!--      &lt;!&ndash;      <router-link&ndash;&gt;-->
+<!--      &lt;!&ndash;        :to="product.url"&ndash;&gt;-->
+<!--      &lt;!&ndash;      >&ndash;&gt;-->
+<!--      &lt;!&ndash;        <img&ndash;&gt;-->
+<!--      &lt;!&ndash;          src="https://nodes.alaatv.com/loder.jpg?w=1&h=1"&ndash;&gt;-->
+<!--      &lt;!&ndash;          :data-src="product.photo"&ndash;&gt;-->
+<!--      &lt;!&ndash;          class="lazy-image img"&ndash;&gt;-->
+<!--      &lt;!&ndash;          alt="product"&ndash;&gt;-->
+<!--      &lt;!&ndash;          width="1"&ndash;&gt;-->
+<!--      &lt;!&ndash;          height="1"&ndash;&gt;-->
+<!--      &lt;!&ndash;        />&ndash;&gt;-->
+<!--      &lt;!&ndash;      </router-link>&ndash;&gt;-->
 <!--      <img-->
 <!--        src="https://nodes.alaatv.com/loder.jpg?w=1&h=1"-->
-<!--        data-src="{{$product->photo}}"-->
+<!--        :data-src="product.photo"-->
 <!--        class="lazy-image img"-->
 <!--        alt="product"-->
 <!--        width="1"-->
 <!--        height="1"-->
 <!--      />-->
-<!--      </a>-->
 <!--    </div>-->
 <!--    <div class="product-item-main-box">-->
 <!--      <div class="product-item-content">-->
 <!--        <div class="main-title">-->
-<!--          <a data-product-id="{{$product->id}}" class="title-box a&#45;&#45;gtm-eec-product a&#45;&#45;gtm-eec-product-click"-->
-<!--             @include('partials.gtm-eec.product', ['position'=>$productKey, 'list'=> isset($list) ? $list : '-', 'product'=>$product])-->
-<!--          href="{{$product->url}}" target="_blank">-->
+<!--          &lt;!&ndash;          <router-link&ndash;&gt;-->
+<!--          &lt;!&ndash;            :to="product.url"&ndash;&gt;-->
+<!--          &lt;!&ndash;          >&ndash;&gt;-->
+<!--          &lt;!&ndash;            <span class="title-text">&ndash;&gt;-->
+<!--          &lt;!&ndash;              {{ product.name }}&ndash;&gt;-->
+<!--          &lt;!&ndash;            </span>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </router-link>&ndash;&gt;-->
 <!--          <span class="title-text">-->
-<!--                     {{ $product->name }}-->
-<!--                    </span>-->
-<!--          </a>-->
+<!--            {{ product.name }}-->
+<!--          </span>-->
 <!--        </div>-->
 <!--        <div class="price-box">-->
-
 <!--          <div class="price-info">-->
-<!--            @if($product->price['final'] !== $product->price['base'])-->
-<!--            <div class="discount">-->
-<!--                            <span>-->
-<!--                                %{{ round((1-($product->price['final']/$product->price['base']))*100) }}-->
-<!--                            </span>-->
+<!--            <div-->
+<!--              v-if="product.price['final'] !== product.price['base']"-->
+<!--              class="discount">-->
+<!--              <span>-->
+<!--                %{{ ((1-(product.price['final']/product.price['base']))*100) }}-->
+<!--              </span>-->
+<!--              <div class="main-price">{{(product.price['base'])}}</div>-->
 <!--            </div>-->
-<!--            <div class="main-price">{{number_format($product->price['base'])}}</div>-->
-<!--            @endif-->
+
 <!--            <div class="final-price-box">-->
 <!--              <div class="final-price">-->
-<!--                {{ number_format($product->price['final']) }}-->
+<!--                {{ (product.price['final']) }}-->
 <!--              </div>-->
 <!--              <div class="price-Toman">-->
 <!--                تومان-->
@@ -54,61 +62,81 @@
 <!--        </div>-->
 <!--        <div class="action-box">-->
 <!--          <div class="more-detail product-more-detail">-->
-<!--            <a class="a&#45;&#45;gtm-eec-product a&#45;&#45;gtm-eec-product-click"-->
-<!--               @include('partials.gtm-eec.product', ['position'=>$productKey, 'list'=> isset($list) ? $list : '-', 'product'=>$product])-->
-<!--            data-product-id="{{$product->id}}"-->
-<!--            href="{{ $product->url }}" target="_blank">-->
+<!--            &lt;!&ndash;            <router-link&ndash;&gt;-->
+<!--            &lt;!&ndash;              :to="product.url"&ndash;&gt;-->
+<!--            &lt;!&ndash;            >&ndash;&gt;-->
+<!--            &lt;!&ndash;              <span>توضیحات</span>&ndash;&gt;-->
+<!--            &lt;!&ndash;              <span class="more">بیشتر</span>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </router-link>&ndash;&gt;-->
 <!--            <span>توضیحات</span>-->
 <!--            <span class="more">بیشتر</span>-->
-<!--            </a>-->
 <!--          </div>-->
-<!--          @if(!isset($disableAddToCartBtn) || $disableAddToCartBtn === false)-->
-<!--          <button-->
-<!--            productId="{{$product->id}}"-->
-<!--            data-product-id="{{$product->id}}"-->
-<!--            data-href="{{ $product->url }}"-->
+<!--          <q-btn-->
+<!--            :productId="product.id"-->
+<!--            :data-product-id="product.id"-->
 <!--            class="btn-style add-product-btn"-->
-<!--            @include('partials.gtm-eec.product', ['position'=>$productKey, 'list'=> isset($list) ? $list : '-', 'product'=>$product])-->
 <!--          >-->
-<!--          <img-->
-<!--            src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product&#45;&#45;section-add-square.png" />-->
-<!--          ثبت نام-->
-<!--          </button>-->
-<!--          @endif-->
-<!--          {{&#45;&#45;                <button&#45;&#45;}}-->
-<!--          {{&#45;&#45;                    class="btn-style active hide"&#45;&#45;}}-->
-<!--          {{&#45;&#45;                >&#45;&#45;}}-->
-<!--          {{&#45;&#45;                    <div class="content">&#45;&#45;}}-->
-<!--          {{&#45;&#45;                        <img&#45;&#45;}}-->
-<!--          {{&#45;&#45;                            src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product&#45;&#45;section-tick-square.png"/>&#45;&#45;}}-->
-<!--          {{&#45;&#45;                        اضافه شد&#45;&#45;}}-->
-<!--          {{&#45;&#45;                    </div>&#45;&#45;}}-->
-
-<!--          {{&#45;&#45;                </button>&#45;&#45;}}-->
+<!--            <q-img-->
+<!--              src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product&#45;&#45;section-add-square.png" />-->
+<!--            ثبت نام-->
+<!--          </q-btn>-->
+<!--          &lt;!&ndash;          <q-btn&ndash;&gt;-->
+<!--          &lt;!&ndash;            class="btn-style active hide"&ndash;&gt;-->
+<!--          &lt;!&ndash;          >&ndash;&gt;-->
+<!--          &lt;!&ndash;            <div class="content">&ndash;&gt;-->
+<!--          &lt;!&ndash;              <q-img&ndash;&gt;-->
+<!--          &lt;!&ndash;                src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product&#45;&#45;section-tick-square.png" />&ndash;&gt;-->
+<!--          &lt;!&ndash;              اضافه شد&ndash;&gt;-->
+<!--          &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </q-btn>&ndash;&gt;-->
 <!--        </div>-->
-
 <!--      </div>-->
 <!--    </div>-->
 <!--  </div>-->
 </template>
 
 <script>
+import { Product } from 'src/models/Product'
+
+export default {
+  name: 'product-item',
+  data: () => ({
+    product: new Product()
+  }),
+  props: {
+    productData: {
+      type: Product,
+      default: new Product()
+    }
+  },
+  created () {
+  },
+  mounted () {
+    this.product = new Product(this.productData)
+    console.log('in product item', this.product)
+  },
+  methods: {
+
+  }
+}
 
 </script>
 
 <style lang="scss" scoped>
-
 .product-item-box {
   margin-bottom: 25px;
   position: relative;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(46, 56, 112, 0.05);
   background-color: #ffffff;
+  .product-item-main-box {
+    padding: 10px 16px 14px 16px;
+  }
 }
 
-.product-item-box .product-item-main-box {
-  padding: 10px 16px 14px 16px;
-}
+//.product-item-box .product-item-main-box {
+//  padding: 10px 16px 14px 16px;
+//}
 
 .product-item-box .img-box .img {
   border-radius: 20px 20px 0 0;
