@@ -1,42 +1,44 @@
 <template>
-  <quasar-template-builder v-model:value="properties" @onResize="resize">
-    <template #header>
-      <div class="header-inside row">
-        <template-header/>
-      </div>
-      <q-linear-progress
-        v-if="$store.getters['loading/loading']"
-        color="primary"
-        reverse
-        class="q-mt-sm"
-        indeterminate
-      />
-      <q-resize-observer @resize="setHeaderDimension"/>
-    </template>
-    <template #left-drawer>
-      <div class="drawer-inside">
-        <side-menu-dashboard/>
-      </div>
-    </template>
-    <template #content>
-      <div ref="contentInside" class="content-inside">
-        <q-dialog v-model="confirmDialogData.show" persistent>
-          <q-card class="q-pa-md q-pb-none">
-            <q-card-section >
-              <q-icon name="warning" color="warning" size="2rem" />
-              {{confirmDialogData.message}}
-            </q-card-section>
-            <q-separator />
-            <q-card-actions align="right" class="q-pb-none">
-              <q-btn color="green" flat  @click="confirmDialogAction(true)" v-close-popup >بله</q-btn>
-              <q-btn color="red" flat  @click="confirmDialogAction(false)" v-close-popup >خیر</q-btn>
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
-        <Router :include="keepAliveComponents" />
-      </div>
-    </template>
-  </quasar-template-builder>
+  <div class="main-layout">
+    <quasar-template-builder v-model:value="properties" @onResize="resize">
+      <template #header>
+        <div class="header-inside row">
+          <template-header/>
+        </div>
+        <q-linear-progress
+          v-if="$store.getters['loading/loading']"
+          color="primary"
+          reverse
+          class="q-mt-sm"
+          indeterminate
+        />
+        <q-resize-observer @resize="setHeaderDimension"/>
+      </template>
+      <template #left-drawer>
+        <div class="drawer-inside">
+          <side-menu-dashboard/>
+        </div>
+      </template>
+      <template #content>
+        <div ref="contentInside" class="content-inside">
+          <q-dialog v-model="confirmDialogData.show" persistent>
+            <q-card class="q-pa-md q-pb-none">
+              <q-card-section >
+                <q-icon name="warning" color="warning" size="2rem" />
+                {{confirmDialogData.message}}
+              </q-card-section>
+              <q-separator />
+              <q-card-actions align="right" class="q-pb-none">
+                <q-btn color="green" flat  @click="confirmDialogAction(true)" v-close-popup >بله</q-btn>
+                <q-btn color="red" flat  @click="confirmDialogAction(false)" v-close-popup >خیر</q-btn>
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
+          <Router :include="keepAliveComponents" />
+        </div>
+      </template>
+    </quasar-template-builder>
+  </div>
 </template>
 
 <script>
@@ -114,65 +116,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-layout-header {
-  .header-inside{
-    width: 100%;
-  }
-
-}
-
-.main-layout-container {
-}
-.content-inside {
-  //overflow: auto;
-}
-
-.main-layout-left-drawer {
-  .drawer-inside-of-MapOfQuestions{
-    height: 100%;
-  }
-}
-</style>
-
-<style lang="scss">
-.main-layout-header {
-  background-color: #f1f1f1;
-  display: flex;
-  flex-direction: row;
-  padding: 60px 100px 24px 76px;
-  @media screen and (max-width: 1919px) {
-    padding: 30px 30px 24px 0;
-  }
-  @media screen and (max-width: 1439px) {
-    padding: 20px 30px 18px 30px !important;
-  }
-  @media screen and (max-width: 1023px) {
-    padding: 20px 30px 20px 20px;
-  }
-  @media screen and (max-width: 599px) {
-    padding: 24px 16px 14px 16px !important;
-    :nth-child(1) {
-      order: 1;
+.main-layout {
+  &:deep(.main-layout-header) {
+    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: row;
+    padding: 60px 100px 24px 76px;
+    @media screen and (max-width: 1919px) {
+      padding: 30px 30px 24px 0;
     }
-    :nth-child(2) {
-      order: 3;
-    }
-    :nth-child(3) {
-      order: 2;
-    }
-  }
-
-  .right-side {
     @media screen and (max-width: 1439px) {
+      padding: 20px 30px 18px 30px !important;
+    }
+    @media screen and (max-width: 1023px) {
+      padding: 20px 30px 20px 20px;
+    }
+    @media screen and (max-width: 599px) {
+      padding: 24px 16px 14px 16px !important;
+      :nth-child(1) {
+        order: 1;
+      }
+      :nth-child(2) {
+        order: 3;
+      }
+      :nth-child(3) {
+        order: 2;
+      }
+    }
+    .right-side {
+      @media screen and (max-width: 1439px) {
+      }
+    }
+    .header-inside{
+      width: 100%;
+    }
+  }
+  &:deep(.main-layout-container) {
+    background-color: #f1f1f1;
+  }
+  &:deep(.main-layout-left-drawer) {
+    background-color: #f1f1f1;
+    .drawer-inside-of-MapOfQuestions{
+      height: 100%;
     }
   }
 }
 
-.main-layout-container {
-  background-color: #f1f1f1;
-}
-
-.main-layout-left-drawer {
-  background-color: #f1f1f1;
-}
 </style>
