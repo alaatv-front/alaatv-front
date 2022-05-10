@@ -69,13 +69,13 @@ const routes = [
             children: getEntityCrudRouteObject('UserManagement', 'User')
           },
           {
-            path: 'users',
+            path: 'accessManagement',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'مدیریت دسترسی ها' },
             children: getEntityCrudRouteObject('Access', 'User')
           },
           {
-            path: 'users',
+            path: 'rolesManagement',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'مدیریت نقش ها' },
             children: getEntityCrudRouteObject('Roles', 'User')
