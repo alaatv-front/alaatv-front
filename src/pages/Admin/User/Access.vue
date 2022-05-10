@@ -24,7 +24,7 @@
           </q-avatar>
         </template>
         <template v-else-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.User.Show', params: {id: inputData.props.row.id}}">
+          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.OldUser.Show', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               مشاهده
             </q-tooltip>
@@ -73,10 +73,10 @@ export default {
           },
           // or
           // title: 'اطلاعات کاربر',
-          showRouteName: 'Admin.User.Show',
-          editRouteName: 'Admin.User.Edit',
-          indexRouteName: 'Admin.User.Index',
-          createRouteName: 'Admin.User.Create',
+          showRouteName: 'Admin.OldUser.Show',
+          editRouteName: 'Admin.OldUser.Edit',
+          indexRouteName: 'Admin.OldUser.Index',
+          createRouteName: 'Admin.OldUser.Create',
           tableKeys: {
             data: 'data',
             total: 'total',
