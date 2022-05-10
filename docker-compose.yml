@@ -2,8 +2,7 @@ version: "3.3"
 services:
   nextjs:
     build: ./
-    ports:
-      - "3000:3000"
+    network_mode: "host"
   nginx:
     build: ./nginx
     network_mode: "host"
@@ -13,3 +12,5 @@ services:
       - nextjs
 #    ports:
 #      - "8081:80"
+#    ports:
+#      - "${NGINX_PORT}:80"
