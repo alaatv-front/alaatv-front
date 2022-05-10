@@ -1,5 +1,12 @@
 <template>
   <div class="block-container">
+    <q-btn
+      round
+      color="primary"
+      :icon="isGridView ? 'grid_view':'sync_alt'"
+      @click="isGridView = !isGridView"
+    >
+    </q-btn>
     <div v-if="this.block.products.list.length > 0"
          class="product-container">
       <Product-item
@@ -19,6 +26,7 @@ export default {
   name: 'Block',
   components: { ProductItem },
   data: () => ({
+    isGridView: false
   }),
   props: {
     block: {
