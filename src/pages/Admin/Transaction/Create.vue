@@ -23,8 +23,8 @@ export default {
       api: API_ADDRESS.transaction.create.base,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
-      showRouteName: 'Admin.User.Show',
-      indexRouteName: 'Admin.User.Index',
+      showRouteName: 'Admin.OldUser.Show',
+      indexRouteName: 'Admin.OldUser.Index',
       inputs: [
         { type: 'input', name: 'name', responseKey: 'data.name', value: '', label: 'نام', col: 'col-md-6' },
         { type: 'input', name: 'job', responseKey: 'data.job', value: '', label: 'شغل', col: 'col-md-6' }

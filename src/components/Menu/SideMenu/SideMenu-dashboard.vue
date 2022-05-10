@@ -112,9 +112,29 @@ export default {
             },
             {
               title: 'کاربران',
-              routeName: 'Admin.User.Index',
+              routeName: 'none',
               show: true,
-              active: false
+              active: false,
+              children: [
+                {
+                  title: 'پنل مدیریت کاربران',
+                  routeName: 'Admin.UserManagement.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت دسترسی ها',
+                  routeName: 'Admin.Access.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت نقش ها',
+                  routeName: 'Admin.Roles.Index',
+                  show: true,
+                  active: false
+                }
+              ]
             },
             {
               title: 'مدیریت ساعت کاری',
