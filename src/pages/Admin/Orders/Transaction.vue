@@ -5,17 +5,6 @@
     v-model:index-inputs="indexInputs"
     v-bind="allProps"
   >
-    <template v-slot:before-entity-create>
-      <q-select
-        v-model="model"
-        use-input
-        use-chips
-        multiple
-        input-debounce="0"
-        @new-value="createValue"
-        :options="tags"
-      />
-    </template>
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
