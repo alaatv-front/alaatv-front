@@ -2,6 +2,7 @@
   <!--  v-model:index-inputs="indexInputs"-->
   <entity-crud
     v-model:default-inputs="defaultInputs"
+    v-model:index-inputs="indexInputs"
     v-bind="allProps"
   >
     <template v-slot:before-entity-create>
@@ -18,7 +19,7 @@
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Content.Show', params: {id: inputData.props.row.id}}">
+          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Transaction.Show', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               مشاهده
             </q-tooltip>
@@ -87,65 +88,44 @@ export default {
               {
                 name: 'id',
                 required: true,
-                label: '#',
+                label: 'id',
                 align: 'left',
                 field: row => row.id
               },
               {
-                name: 'first_name',
+                name: 'photo',
                 required: true,
-                label: 'نام',
+                label: 'عنوان',
                 align: 'left',
-                field: row => row.user.first_name
+                field: row => row.photo
               },
               {
                 name: 'first_name',
                 required: true,
-                label: 'نام خانوادگی',
+                label: 'نام مشتری',
                 align: 'left',
-                field: row => row.user.last_name
+                field: row => row.first_name
               },
               {
-                name: 'mobile',
+                name: 'last_name',
                 required: true,
-                label: 'موبایل',
+                label: 'مبلغ سفارش',
                 align: 'left',
-                field: row => row.user.mobile
+                field: row => row.last_name
+              },
+              {
+                name: 'phone_number',
+                required: true,
+                label: 'مبلغ تراکنش',
+                align: 'left',
+                field: row => row.mobile
               },
               {
                 name: 'national_code',
                 required: true,
-                label: 'کدملی',
+                label: 'کد تراکنش',
                 align: 'left',
-                field: row => row.user.national_code
-              },
-              {
-                name: 'price',
-                required: true,
-                label: 'مبلغ(تومان)',
-                align: 'left',
-                field: row => row.price
-              },
-              {
-                name: 'paid_price',
-                required: true,
-                label: 'پرداخت شده(تومان)',
-                align: 'left',
-                field: row => row.price
-              },
-              {
-                name: 'orderstatus',
-                required: true,
-                label: 'وضعیت سفارش',
-                align: 'left',
-                field: row => row.orderstatus.name
-              },
-              {
-                name: 'paymentstatus',
-                required: true,
-                label: 'وضعیت پرداخت',
-                align: 'left',
-                field: row => row.paymentstatus.name
+                field: row => row.national_code
               },
               {
                 name: 'actions',
@@ -160,53 +140,37 @@ export default {
         }
       },
       defaultInputs: [
+        { type: 'select', name: 'content_type_id', label: 'وضعیت سفارش', col: 'col-md-3', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
+        { type: 'select', name: 'content_type_id', label: 'وضعیت پرداخت', col: 'col-md-3', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
+        { type: 'select', name: 'content_type_id', label: 'وضعیت تراکنش', col: 'col-md-3', value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
+        { type: 'select', name: 'content_type_id', label: 'نحوه پرداخت', col: 'col-md-3', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
+        { type: 'space', col: 'col-md-12' },
+        { type: 'select', name: 'content_type_id', label: 'همه', col: 'col-md-3', value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
+        { type: 'input', name: 'name', value: null, label: 'کد تراکنش', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'توضیحات مدیریتی', col: 'col-md-3' },
+        { type: 'select', name: 'content_type_id', label: 'درگاه پرداخت', col: 'col-md-3', value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
+        { type: 'space', col: 'col-md-12' },
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'نام خانوادگی', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'شماره موبایل', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'کدملی', col: 'col-md-3' },
         { type: 'space', col: 'col-md-12' },
-        { type: 'select', name: 'content_type_id', label: 'انتخاب ستون های اصلی', col: 'col-md-3', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'select', name: 'content_type_id', label: 'مرتب سازی بر اساس', col: 'col-md-3', value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'optionGroupRadio', name: 'is_free', responseKey: 'data.is_free', label: '', col: 'col-md-3', options: [{ label: 'نزولی', value: 1 }, { label: 'صعودی', value: 0 }] },
-        { type: 'select', name: 'content_type_id', label: 'انتخاب کپن', col: 'col-md-3', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'space', col: 'col-md-12' },
-        { type: 'select', name: 'content_type_id', label: 'انتخاب محصول سفارش داده شده', col: 'col-md-4', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'select', name: 'content_type_id', label: 'انتخاب ویژگی افزوده', col: 'col-md-4', value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'select', name: 'content_type_id', label: 'انتخاب محصول سفارش', col: 'col-md-4', value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'space', col: 'col-md-12' },
-        { type: 'select', name: 'content_type_id', label: 'وضعیت تراکنش', col: 'col-md-4', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'select', name: 'content_type_id', label: 'وضعیت تسویه', col: 'col-md-4', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'space', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'کد پستی', col: 'col-md-4' },
-        { type: 'input', name: 'name', value: null, label: 'استان', col: 'col-md-4' },
-        { type: 'input', name: 'name', value: null, label: 'شهر', col: 'col-md-4' },
-        { type: 'input', name: 'name', value: null, label: 'آدرس', col: 'col-md-6' },
-        { type: 'input', name: 'name', value: null, label: 'مدرسه', col: 'col-md-3' },
-        { type: 'select', name: 'content_type_id', label: 'رشته ها', col: 'col-md-3', value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
-        { type: 'space', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیحات مشتری', col: 'col-md-6' },
-        { type: 'input', name: 'name', value: null, label: 'توضیحات مدیر', col: 'col-md-6' },
-        { type: 'space', col: 'col-md-12' },
-        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ ثبت اولیه از', col: 'col-md-6' },
+        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ پرداخت از', col: 'col-md-6' },
         { type: 'date', name: 'created_at_range', value: null, label: 'تا', col: 'col-md-6' },
-        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ اصلاح مدیریتی از', col: 'col-md-6' },
+        { type: 'date', name: 'created_at_range', value: null, label: 'مهلت پرداخت از', col: 'col-md-6' },
         { type: 'date', name: 'created_at_range', value: null, label: 'تا', col: 'col-md-6' },
-        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ تاریخ نهایی از', col: 'col-md-6' },
-        { type: 'date', name: 'created_at_range', value: null, label: 'تا', col: 'col-md-6' }
+        { type: 'select', name: 'content_type_id', label: 'انتخاب ستون های اصلی', col: 'col-md-4', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] }
       ],
       createInputs: [],
       editInputs: [],
       showInputs: [],
       indexInputs: [
         { type: 'input', name: 'id', value: null, label: 'عنوان', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'description', value: null, label: 'توضیحات', col: 'col-md-3' },
-        // todo : مقاله exact value unknown
-        { type: 'select', name: 'content_type_id', value: null, options: [{ label: 'ویدئو', value: 0 }, { label: 'جزوه', value: 8 }, { label: 'مقاله', value: 3 }], label: 'نوع محتوا', col: 'col-md-3' },
-        { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], label: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
-        { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], label: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
-        { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_range', value: [], label: 'تاریخ ثبت ایجاد', col: 'col-md-4' }
+        { type: 'input', name: 'name', value: null, label: 'نام مشتری', col: 'col-md-3' },
+        { type: 'input', name: 'description', value: null, label: 'موبایل', col: 'col-md-3' },
+        { type: 'input', name: 'description', value: null, label: 'مبلغ سفارش', col: 'col-md-3' },
+        { type: 'input', name: 'description', value: null, label: 'مبلغ تراکنش', col: 'col-md-3' },
+        { type: 'input', name: 'description', value: null, label: 'کد تراکنش', col: 'col-md-3' }
       ]
     }
   },
