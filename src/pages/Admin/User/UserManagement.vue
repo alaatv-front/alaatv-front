@@ -24,7 +24,7 @@
           </q-avatar>
         </template>
         <template v-else-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.OldUser.Show', params: {id: inputData.props.row.id}}">
+          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.User.Show', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               مشاهده
             </q-tooltip>

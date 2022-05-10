@@ -144,6 +144,20 @@ const API_ADDRESS = {
     show: {
       base: alaaServer + '/admin/user/'
     }
+  },
+  access: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
   }
 }
 export default API_ADDRESS
