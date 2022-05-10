@@ -119,16 +119,16 @@ const API_ADDRESS = {
   },
   transaction: {
     create: {
-      base: '/reqres/api/users'
+      base: alaaServer + '/admin/user'
     },
     edit: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user/'
     },
     index: {
-      base: alaaServer + '/admin/transaction'
+      base: alaaServer + '/admin/user'
     },
     show: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user/'
     }
   },
   users: {

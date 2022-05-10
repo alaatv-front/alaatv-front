@@ -112,20 +112,26 @@ const routes = [
           {
             path: 'orders',
             component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'سفارشات' },
-            children: getEntityCrudRouteObject('Order')
+            breadcrumbs: { title: 'مدیریت سفارشات' },
+            children: getEntityCrudRouteObject('Order', 'Orders')
           },
           {
             path: 'transactions',
             component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'تراکنش ها' },
-            children: [
-              { name: 'Admin.Transaction.Index', path: '', component: () => import('pages/Admin/Transaction/Index') },
-              { name: 'Admin.Transaction.Create', path: 'create', component: () => import('pages/Admin/Transaction/Create') },
-              { name: 'Admin.Transaction.Show', path: ':id', component: () => import('pages/Admin/Transaction/Show') },
-              { name: 'Admin.Transaction.Edit', path: ':id/edit', component: () => import('pages/Admin/Transaction/Edit') }
-            ]
+            breadcrumbs: { title: 'مدیریت تراکنش ها' },
+            children: getEntityCrudRouteObject('Transaction', 'Orders')
           },
+          // {
+          //   path: 'transactions',
+          //   component: () => import('pages/Admin/index'),
+          //   breadcrumbs: { title: 'تراکنش ها' },
+          //   children: [
+          //     { name: 'Admin.Transaction.Index', path: '', component: () => import('pages/Admin/Transaction/Index') },
+          //     { name: 'Admin.Transaction.Create', path: 'create', component: () => import('pages/Admin/Transaction/Create') },
+          //     { name: 'Admin.Transaction.Show', path: ':id', component: () => import('pages/Admin/Transaction/Show') },
+          //     { name: 'Admin.Transaction.Edit', path: ':id/edit', component: () => import('pages/Admin/Transaction/Edit') }
+          //   ]
+          // },
           {
             path: 'set',
             component: () => import('pages/Admin/index'),

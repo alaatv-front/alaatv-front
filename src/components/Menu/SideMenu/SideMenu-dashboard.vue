@@ -177,7 +177,7 @@ export default {
                 },
                 {
                   title: 'مدیریت تراکنش ها',
-                  routeName: 'Admin.ScheduleManagement.Index',
+                  routeName: 'Admin.Transaction.Index',
                   show: true,
                   active: false
                 },
