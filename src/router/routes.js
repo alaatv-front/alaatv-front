@@ -13,7 +13,7 @@ function getEntityCrudRouteObject (componentName, defaultFolderPath) {
   })
   return finalChildren
 }
-function getEntityCrudRouteObject2 (path, baseRouteName, componentPath, breadcrumbs, componentName, defaultFolderPath) {
+function getEntityCrudRouteObject2 (path, baseRouteName, componentPath, breadcrumbs) {
   const AllNeededRoutes = [
     { mode: 'Index', path: '' },
     { mode: 'Create', path: 'create' },
@@ -21,30 +21,16 @@ function getEntityCrudRouteObject2 (path, baseRouteName, componentPath, breadcru
     { mode: 'Edit', path: ':id/edit' }
   ]
   const children = []
-  const children2 = []
-  const a = componentPath.split('/')
-  componentPath.replace(a[0] + '/', '')
-  componentPath.replace(a[1] + '/', '')
-  console.log('componentPath', componentPath.replace(a[0] + '/', '').replace(a[1] + '/', ''))
+  const removedFirstPart = componentPath.split('/')
   AllNeededRoutes.forEach(item => {
-    const test1 = componentPath
-    console.log(componentPath)
-    const test2 = 'pages/Admin/' + componentPath.replace(a[0] + '/', '').replace(a[1] + '/', '')
-    // 'pages/Admin/' + componentPath.replace(a[0] + '/', '').replace(a[1] + '/', '')
-    // const test1 = 'Admin.' + componentName + '.' + item.mode
-    // const test2 = baseRouteName + '.' + item.mode
-    console.log('test1', test1 === test2)
-    console.log('test2', 'pages/Admin/User/' + componentName)
-    // console.log('test', 'pages' + componentPath.replace(a[0], ''))
-    // children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import(componentPath) })
-    // children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import('pages/Admin/User/UserManagement') })
-    if ('pages' + componentPath.replace(a[0], '') === 'pages/Admin/User/UserManagement') {
-      console.log('TRUE')
-    }
-    children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import('pages/Admin/' + componentPath.replace(a[0] + '/', '').replace(a[1] + '/', '')) })
+    children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import('pages/' + componentPath.replace(removedFirstPart[0] + '/', '')) })
   })
-  console.log('children2', children2)
-  console.log('children', children)
+  console.log('kjh;lkhj;kj', {
+    path: path,
+    component: () => import('pages/Admin/index'),
+    breadcrumbs: breadcrumbs,
+    children
+  })
   return {
     path: path,
     component: () => import('pages/Admin/index'),
@@ -52,13 +38,14 @@ function getEntityCrudRouteObject2 (path, baseRouteName, componentPath, breadcru
     children
   }
 }
-// const val = {
-//   path: 'users',
-//   component: () => import('pages/Admin/index'),
-//   breadcrumbs: { title: 'مدیریت کاربران' },
-//   children: getEntityCrudRouteObject('UserManagement', 'User')
-// }
-const val = getEntityCrudRouteObject2('users', 'Admin.UserManagement', 'pages/Admin/User/UserManagement', { title: 'مدیریت کاربران' }, 'UserManagement', 'User')
+const allEntityCrudRouteObjects = [
+  {
+    path: 'users',
+    baseRouteName: 'Admin.UserManagement',
+    componentPath: 'pages/Admin/User/UserManagement',
+    breadcrumbs: { title: 'مدیریت کاربران' }
+  }
+]
 const routes = [
   {
     path: '/',
@@ -108,8 +95,8 @@ const routes = [
             breadcrumbs: { title: 'مدیریت ساعت کاری' },
             children: getEntityCrudRouteObject('ScheduleManagement')
           },
-          val,
-          // getEntityCrudRouteObject2('users', 'Admin.UserManagement', 'pages/Admin/User/UserManagement', { title: 'مدیریت کاربران' }),
+          // allEntityCrudRouteObjects.map(item => getEntityCrudRouteObject2(item.path, item.baseRouteName, item.componentPath, item.breadcrumbs)),
+          getEntityCrudRouteObject2('users', 'Admin.UserManagement', 'pages/Admin/User/UserManagement', { title: 'مدیریت کاربران' }),
           // {
           //   path: 'users',
           //   component: () => import('pages/Admin/index'),
