@@ -13,6 +13,50 @@ function getEntityCrudRouteObject (componentName, defaultFolderPath) {
   })
   return finalChildren
 }
+function getEntityCrudRouteObject2 (path, baseRouteName, componentPath, breadcrumbs, componentName, defaultFolderPath) {
+  const AllNeededRoutes = [
+    { mode: 'Index', path: '' },
+    { mode: 'Create', path: 'create' },
+    { mode: 'Show', path: ':id' },
+    { mode: 'Edit', path: ':id/edit' }
+  ]
+  const children = []
+  const children2 = []
+  const a = componentPath.split('/')
+  componentPath.replace(a[0], '')
+  AllNeededRoutes.forEach(item => {
+    const test1 = item.path
+    const test2 = item.path
+    // const test1 = 'Admin.' + componentName + '.' + item.mode
+    // const test2 = baseRouteName + '.' + item.mode
+    console.log('test1', test1 === test2)
+    console.log('test1', 'pages/Admin/User/' + componentName)
+    console.log('test', 'pages' + componentPath.replace(a[0], ''))
+    // pages/Admin/User/UserManagement
+    // pages/Admin/User/UserManagement
+    // children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import(componentPath) })
+    // children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import('pages/Admin/User/UserManagement') })
+    if (componentPath.toString() === 'pages/Admin/User/UserManagement') {
+      console.log('HELL IS RIGHT')
+    }
+    children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import('pages' + componentPath.replace(a[0], '')) })
+  })
+  console.log('children2', children2)
+  console.log('children', children)
+  return {
+    path: path,
+    component: () => import('pages/Admin/index'),
+    breadcrumbs: breadcrumbs,
+    children
+  }
+}
+// const val = {
+//   path: 'users',
+//   component: () => import('pages/Admin/index'),
+//   breadcrumbs: { title: 'مدیریت کاربران' },
+//   children: getEntityCrudRouteObject('UserManagement', 'User')
+// }
+const val = getEntityCrudRouteObject2('users', 'Admin.UserManagement', 'pages/Admin/User/UserManagement', { title: 'مدیریت کاربران' }, 'UserManagement', 'User')
 const routes = [
   {
     path: '/',
@@ -62,12 +106,14 @@ const routes = [
             breadcrumbs: { title: 'مدیریت ساعت کاری' },
             children: getEntityCrudRouteObject('ScheduleManagement')
           },
-          {
-            path: 'users',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت کاربران' },
-            children: getEntityCrudRouteObject('UserManagement', 'User')
-          },
+          val,
+          // getEntityCrudRouteObject2('users', 'Admin.UserManagement', 'pages/Admin/User/UserManagement', { title: 'مدیریت کاربران' }),
+          // {
+          //   path: 'users',
+          //   component: () => import('pages/Admin/index'),
+          //   breadcrumbs: { title: 'مدیریت کاربران' },
+          //   children: getEntityCrudRouteObject('UserManagement', 'User')
+          // },
           {
             path: 'accessManagement',
             component: () => import('pages/Admin/index'),
@@ -177,5 +223,5 @@ const routes = [
   () => import('pages/Error404.vue')
   }
 ]
-
+console.log('routes', routes)
 export default routes
