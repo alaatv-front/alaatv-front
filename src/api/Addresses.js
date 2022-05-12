@@ -145,7 +145,7 @@ const API_ADDRESS = {
       base: alaaServer + '/admin/user/'
     }
   },
-  access: {
+  permission: {
     create: {
       base: alaaServer + '/admin/user'
     },

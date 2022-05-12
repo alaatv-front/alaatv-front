@@ -72,7 +72,7 @@ const routes = [
             path: 'accessManagement',
             component: () => import('pages/Admin/index'),
             breadcrumbs: { title: 'مدیریت دسترسی ها' },
-            children: getEntityCrudRouteObject('Access', 'User')
+            children: getEntityCrudRouteObject('Permission', 'User')
           },
           {
             path: 'rolesManagement',
