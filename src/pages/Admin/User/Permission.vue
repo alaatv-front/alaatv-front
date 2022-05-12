@@ -42,7 +42,7 @@ import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'components/EntityCrud'
 
 export default {
-  name: 'Access',
+  name: 'Permission',
   components: {
     EntityCrud
   },
@@ -50,7 +50,7 @@ export default {
     return {
       allProps: {
         config: {
-          api: API_ADDRESS.access.show.base,
+          api: API_ADDRESS.permission.show.base,
           // or
           // api: {
           //   show: API_ADDRESS.users.show.base,
@@ -66,10 +66,10 @@ export default {
           },
           // or
           // title: 'اطلاعات کاربر',
-          showRouteName: 'Admin.Access.Show',
-          editRouteName: 'Admin.Access.Edit',
-          indexRouteName: 'Admin.Access.Index',
-          createRouteName: 'Admin.Access.Create',
+          showRouteName: 'Admin.Permission.Show',
+          editRouteName: 'Admin.Permission.Edit',
+          indexRouteName: 'Admin.Permission.Index',
+          createRouteName: 'Admin.Permission.Create',
           tableKeys: {
             data: 'data',
             total: 'total',

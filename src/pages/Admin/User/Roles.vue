@@ -50,7 +50,7 @@ export default {
     return {
       allProps: {
         config: {
-          api: API_ADDRESS.access.show.base,
+          api: API_ADDRESS.permission.show.base,
           // or
           // api: {
           //   show: API_ADDRESS.users.show.base,
