@@ -124,7 +124,7 @@ export default {
                 },
                 {
                   title: 'مدیریت دسترسی ها',
-                  routeName: 'Admin.Access.Index',
+                  routeName: 'Admin.Permission.Index',
                   show: true,
                   active: false
                 },
@@ -183,7 +183,7 @@ export default {
                 },
                 {
                   title: 'مدیریت بن کاربران',
-                  routeName: 'Admin.ScheduleManagement.Index',
+                  routeName: 'Admin.UserBon.Index',
                   show: true,
                   active: false
                 }
