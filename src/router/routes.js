@@ -48,6 +48,7 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('liveDescription', 'Admin.LiveDescription', 'pages/Admin/LiveDescription', { title: 'توضیحات لحظه ای' }),
   getEntityCrudRouteObject('vouchers', 'Admin.Vouchers', 'pages/Admin/Vouchers', { title: 'مدیریت ووچر ها' }),
   getEntityCrudRouteObject('teleMarketing', 'Admin.TeleMarketing', 'pages/Admin/TeleMarketing', { title: 'تله مارکتینگ' }),
+  getEntityCrudRouteObject('teleMarketing', 'Admin.FixUnknownUsersCity', 'pages/Admin/FixUnknownUsersCity', { title: 'تله مارکتینگ' }),
   getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
 
 ]
