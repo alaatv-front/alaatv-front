@@ -70,10 +70,10 @@ export default {
             index: API_ADDRESS.attributeSetManagement.index.base
           },
           title: {
-            show: 'اطلاعات محتوا',
-            edit: 'اطلاعات محتوا',
-            create: 'ثبت محتوای جدید',
-            index: 'لیست محتوا'
+            show: 'اطلاعات دسته صفت',
+            edit: 'اطلاعات دسته صفت',
+            create: 'ثبت دسته صفت جدید',
+            index: 'لیست دسته صفت'
           },
           showRouteName: 'Admin.AttributeSetManagement.Show',
           editRouteName: 'Admin.AttributeSetManagement.Edit',
