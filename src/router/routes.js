@@ -43,6 +43,7 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('gateway', 'Admin.Gateway', 'pages/Admin/Gateway', { title: 'درگاه پرداخت' }),
   getEntityCrudRouteObject('coupons', 'Admin.Coupons', 'pages/Admin/Coupons', { title: 'مدیریت کپن ها' }),
   getEntityCrudRouteObject('liveDescription', 'Admin.LiveDescription', 'pages/Admin/LiveDescription', { title: 'توضیحات لحظه ای' }),
+  getEntityCrudRouteObject('vouchers', 'Admin.Vouchers', 'pages/Admin/Vouchers', { title: 'مدیریت ووچر ها' }),
   getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Sets', { title: 'دسته محتوا' }),
   getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
 

@@ -284,7 +284,7 @@ export default {
                 },
                 {
                   title: 'مدیریت ووچرها',
-                  routeName: 'none',
+                  routeName: 'Admin.Vouchers.Index',
                   show: true,
                   active: false
                 }
