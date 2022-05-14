@@ -278,7 +278,7 @@ export default {
                 },
                 {
                   title: 'توضیحات لحظه ای',
-                  routeName: 'none',
+                  routeName: 'Admin.LiveDescription.Index',
                   show: true,
                   active: false
                 },
