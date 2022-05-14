@@ -27,7 +27,7 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('permission', 'Admin.Permission', 'pages/Admin/User/Permission', { title: 'مدیریت دسترسی ها' }),
   getEntityCrudRouteObject('rolesManagement', 'Admin.Roles', 'pages/Admin/User/Roles', { title: 'مدیریت نقش ها' }),
   getEntityCrudRouteObject('product', 'Admin.Product', 'pages/Admin/Product', { title: 'محصولات' }),
-  getEntityCrudRouteObject('content', 'Admin.Content', 'pages/Admin/Content', { title: 'محتوا' }),
+  getEntityCrudRouteObject('content', 'Admin.Content', 'pages/Admin/Content/Content', { title: 'محتوا' }),
   getEntityCrudRouteObject('attributeManagement', 'Admin.AttributeManagement', 'pages/Admin/AttributeManagement', { title: 'مدیریت صفت ها' }),
   getEntityCrudRouteObject('attributeSetManagement', 'Admin.AttributeSetManagement', 'pages/Admin/AttributeSetManagement', { title: 'مدیریت دسته صفت ها' }),
   getEntityCrudRouteObject('orders', 'Admin.Orders', 'pages/Admin/Orders/Order', { title: 'مدیریت سفارشات' }),
