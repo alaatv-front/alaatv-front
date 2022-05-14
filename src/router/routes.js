@@ -28,6 +28,9 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('rolesManagement', 'Admin.Roles', 'pages/Admin/User/Roles', { title: 'مدیریت نقش ها' }),
   getEntityCrudRouteObject('product', 'Admin.Product', 'pages/Admin/Product', { title: 'محصولات' }),
   getEntityCrudRouteObject('content', 'Admin.Content', 'pages/Admin/Content/Content', { title: 'محتوا' }),
+  getEntityCrudRouteObject('sourceManagement', 'Admin.SourceManagement', 'pages/Admin/Content/SourceManagement', { title: 'محتوا' }),
+  getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Content/Sets', { title: 'دسته محتوا' }),
+  getEntityCrudRouteObject('section', 'Admin.Section', 'pages/Admin/Content/Section', { title: 'سکشن محتوا' }),
   getEntityCrudRouteObject('attributeManagement', 'Admin.AttributeManagement', 'pages/Admin/AttributeManagement', { title: 'مدیریت صفت ها' }),
   getEntityCrudRouteObject('attributeSetManagement', 'Admin.AttributeSetManagement', 'pages/Admin/AttributeSetManagement', { title: 'مدیریت دسته صفت ها' }),
   getEntityCrudRouteObject('orders', 'Admin.Orders', 'pages/Admin/Orders/Order', { title: 'مدیریت سفارشات' }),
@@ -44,7 +47,6 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('coupons', 'Admin.Coupons', 'pages/Admin/Coupons', { title: 'مدیریت کپن ها' }),
   getEntityCrudRouteObject('liveDescription', 'Admin.LiveDescription', 'pages/Admin/LiveDescription', { title: 'توضیحات لحظه ای' }),
   getEntityCrudRouteObject('vouchers', 'Admin.Vouchers', 'pages/Admin/Vouchers', { title: 'مدیریت ووچر ها' }),
-  getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Sets', { title: 'دسته محتوا' }),
   getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
 
 ]
