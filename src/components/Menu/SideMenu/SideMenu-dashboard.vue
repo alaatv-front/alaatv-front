@@ -406,7 +406,7 @@ export default {
             },
             {
               title: 'لاگ فعالیت ها',
-              routeName: 'none',
+              routeName: 'Admin.ActivityLog.Index',
               show: true,
               active: false
             },
