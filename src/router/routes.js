@@ -33,6 +33,7 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('orders', 'Admin.Orders', 'pages/Admin/Orders/Order', { title: 'مدیریت سفارشات' }),
   getEntityCrudRouteObject('transactions', 'Admin.Transaction', 'pages/Admin/Orders/Transaction', { title: 'مدیریت تراکنش ها' }),
   getEntityCrudRouteObject('userBon', 'Admin.UserBon', 'pages/Admin/Orders/UserBon', { title: 'مدیریت بن کاربران' }),
+  getEntityCrudRouteObject('SMSAdmin', 'Admin.SMSAdmin', 'pages/Admin/SMS/SMSAdmin', { title: 'مدیریت پیامک ها' }),
   getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Sets', { title: 'دسته محتوا' }),
   getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
 
