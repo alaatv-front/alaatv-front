@@ -400,7 +400,7 @@ export default {
             },
             {
               title: 'درگاه پرداخت',
-              routeName: 'none',
+              routeName: 'Admin.Gateway.Index',
               show: true,
               active: false
             },
