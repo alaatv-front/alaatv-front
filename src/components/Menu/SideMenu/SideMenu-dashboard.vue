@@ -436,8 +436,8 @@ export default {
                   active: false
                 },
                 {
-                  title: 'اصلاح شهر و استان',
-                  routeName: 'none',
+                  title: 'اصلاح شهر و استان کاربران',
+                  routeName: 'Admin.FixUnknownUsersCity.Index',
                   show: true,
                   active: false
                 }
