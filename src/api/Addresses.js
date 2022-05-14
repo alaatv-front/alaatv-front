@@ -159,6 +159,11 @@ const API_ADDRESS = {
       base: alaaServer + '/admin/user/'
     }
   },
+  activityLog: {
+    index: {
+      base: alaaServer + '/admin/user'
+    }
+  },
   tags: {
     create: {
       base: alaaServer + '/admin/user'
