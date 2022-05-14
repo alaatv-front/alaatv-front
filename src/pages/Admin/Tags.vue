@@ -54,10 +54,10 @@ export default {
             index: API_ADDRESS.tags.index.base
           },
           title: {
-            show: 'اطلاعات محتوا',
-            edit: 'اطلاعات محتوا',
-            create: 'ثبت محتوای جدید',
-            index: 'لیست محتوا'
+            show: 'اطلاعات تگ ها',
+            edit: 'اطلاعات تگ ها',
+            create: 'ثبت تگ جدید',
+            index: 'لیست تگ ها'
           },
           showRouteName: 'Admin.Tags.Show',
           editRouteName: 'Admin.Tags.Edit',
