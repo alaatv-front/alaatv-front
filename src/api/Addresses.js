@@ -91,16 +91,16 @@ const API_ADDRESS = {
   },
   attributeSetManagement: {
     create: {
-      base: '/reqres/api/users'
+      base: alaaServer + '/admin/user'
     },
     edit: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user/'
     },
     index: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user'
     },
     show: {
-      base: alaaServer + '/product'
+      base: alaaServer + '/admin/user/'
     }
   },
   set: {
