@@ -361,7 +361,7 @@ export default {
             },
             {
               title: 'تگ ها',
-              routeName: 'none',
+              routeName: 'Admin.Tags.Index',
               show: true,
               active: false
             },
