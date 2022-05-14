@@ -82,44 +82,30 @@ export default {
                 field: row => row.id
               },
               {
-                name: 'photo',
-                required: true,
-                label: 'عنوان',
-                align: 'left',
-                field: row => row.photo
-              },
-              {
                 name: 'first_name',
                 required: true,
-                label: 'نام مشتری',
+                label: 'نام کاربر',
                 align: 'left',
                 field: row => row.first_name
               },
               {
                 name: 'last_name',
                 required: true,
-                label: 'مبلغ سفارش',
+                label: 'تعداد بن تخصیص داده شده',
                 align: 'left',
                 field: row => row.last_name
               },
               {
                 name: 'phone_number',
                 required: true,
-                label: 'مبلغ تراکنش',
+                label: 'وضعیت بن',
                 align: 'left',
                 field: row => row.mobile
               },
               {
-                name: 'national_code',
-                required: true,
-                label: 'کد تراکنش',
-                align: 'left',
-                field: row => row.national_code
-              },
-              {
                 name: 'actions',
                 required: true,
-                label: '',
+                label: 'عملیات',
                 align: 'left',
                 field: ''
               }
