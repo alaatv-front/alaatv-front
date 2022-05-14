@@ -25,10 +25,10 @@ export default {
         config: {
           api: API_ADDRESS.blockManagement.index.base,
           title: {
-            show: 'اطلاعات لیست ها',
-            edit: 'ویرایش لیست ها',
-            create: 'ثبت لیست جدید',
-            index: 'مدیریت لیست ها'
+            show: 'اطلاعات لاگ ها',
+            edit: 'ویرایش لاگ ها',
+            create: 'ثبت لاگ جدید',
+            index: 'مدیریت لاگ ها'
           },
           showRouteName: 'Admin.ActivityLog.Show',
           editRouteName: 'Admin.ActivityLog.Edit',
