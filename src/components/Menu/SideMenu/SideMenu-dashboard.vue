@@ -270,7 +270,7 @@ export default {
                     },
                     {
                       title: 'مدیریت دسته صفت ها',
-                      routeName: 'none',
+                      routeName: 'Admin.AttributeSetManagement.Index',
                       show: true,
                       active: false
                     }
