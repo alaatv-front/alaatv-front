@@ -239,7 +239,7 @@ export default {
             },
             {
               title: 'بلوک ها',
-              routeName: 'none',
+              routeName: 'Admin.BlockManagement.Index',
               show: true,
               active: false
             },
