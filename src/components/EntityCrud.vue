@@ -281,7 +281,7 @@ export default {
       const allModes = ['show', 'index', 'edit', 'create']
       const routeMode = this.$route.name.toLowerCase()
 
-      return allModes.find(mode => routeMode.includes(mode))
+      return allModes.find(mode => routeMode.includes('.' + mode))
     }
   }
 }
