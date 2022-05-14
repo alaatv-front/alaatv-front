@@ -230,7 +230,6 @@ export default {
         componentName = 'entity-' + cName
         this.createComponentConfig(cName)
       }
-      console.log('componentName', componentName)
       this.currentComponent = componentName
       this.currentMode = cName
     },
