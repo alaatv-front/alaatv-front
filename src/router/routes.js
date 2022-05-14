@@ -1,19 +1,6 @@
 import { auth } from './middleware/middleware'
 // import Login from '../pages/Auth/Login.vue'
-function getEntityCrudRouteObject (componentName, defaultFolderPath) {
-  const AllNeededRoutes = [
-    { mode: 'Index', path: '' },
-    { mode: 'Create', path: 'create' },
-    { mode: 'Show', path: ':id' },
-    { mode: 'Edit', path: ':id/edit' }
-  ]
-  const finalChildren = []
-  AllNeededRoutes.forEach(item => {
-    finalChildren.push({ name: 'Admin.' + componentName + '.' + item.mode, path: item.path, component: () => import('pages/Admin/' + ((defaultFolderPath) ? (defaultFolderPath + '/') : '') + componentName) })
-  })
-  return finalChildren
-}
-function getEntityCrudRouteObject2 (path, baseRouteName, componentPath, breadcrumbs) {
+function getEntityCrudRouteObject (path, baseRouteName, componentPath, breadcrumbs) {
   const AllNeededRoutes = [
     { mode: 'Index', path: '' },
     { mode: 'Create', path: 'create' },
@@ -23,13 +10,8 @@ function getEntityCrudRouteObject2 (path, baseRouteName, componentPath, breadcru
   const children = []
   const removedFirstPart = componentPath.split('/')
   AllNeededRoutes.forEach(item => {
+    // Todo : find a way for 'pages/'
     children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import('pages/' + componentPath.replace(removedFirstPart[0] + '/', '')) })
-  })
-  console.log('kjh;lkhj;kj', {
-    path: path,
-    component: () => import('pages/Admin/index'),
-    breadcrumbs: breadcrumbs,
-    children
   })
   return {
     path: path,
@@ -39,12 +21,20 @@ function getEntityCrudRouteObject2 (path, baseRouteName, componentPath, breadcru
   }
 }
 const allEntityCrudRouteObjects = [
-  {
-    path: 'users',
-    baseRouteName: 'Admin.UserManagement',
-    componentPath: 'pages/Admin/User/UserManagement',
-    breadcrumbs: { title: 'مدیریت کاربران' }
-  }
+  // Todo : refactor this
+  getEntityCrudRouteObject('users', 'Admin.UserManagement', 'pages/Admin/User/UserManagement', { title: 'مدیریت کاربران' }),
+  getEntityCrudRouteObject('scheduleManagement', 'Admin.UserManagement', 'pages/Admin/ScheduleManagement', { title: 'مدیریت ساعت کاری' }),
+  getEntityCrudRouteObject('permission', 'Admin.Permission', 'pages/Admin/User/Permission', { title: 'مدیریت دسترسی ها' }),
+  getEntityCrudRouteObject('rolesManagement', 'Admin.Roles', 'pages/Admin/User/Roles', { title: 'مدیریت نقش ها' }),
+  getEntityCrudRouteObject('product', 'Admin.Product', 'pages/Admin/Product', { title: 'محصولات' }),
+  getEntityCrudRouteObject('content', 'Admin.Content', 'pages/Admin/Content', { title: 'محتوا' }),
+  getEntityCrudRouteObject('attributeManagement', 'Admin.AttributeManagement', 'pages/Admin/AttributeManagement', { title: 'مدیریت صفت ها' }),
+  getEntityCrudRouteObject('attributeSetManagement', 'Admin.AttributeSetManagement', 'pages/Admin/AttributeSetManagement', { title: 'مدیریت دسته صفت ها' }),
+  getEntityCrudRouteObject('orders', 'Admin.Orders', 'pages/Admin/Orders/Order', { title: 'مدیریت سفارشات' }),
+  getEntityCrudRouteObject('transactions', 'Admin.Transaction', 'pages/Admin/Orders/Transaction', { title: 'مدیریت تراکنش ها' }),
+  getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Sets', { title: 'دسته محتوا' }),
+  getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
+
 ]
 const routes = [
   {
@@ -78,106 +68,7 @@ const routes = [
         },
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
-          // {
-          //   path: 'users',
-          //   component: () => import('pages/Admin/index'),
-          //   breadcrumbs: { title: 'کاربران' },
-          //   children: [
-          //     { name: 'Admin.OldUser.Index', path: '', component: () => import('pages/Admin/OldUser/Index') },
-          //     { name: 'Admin.OldUser.Create', path: 'create', component: () => import('pages/Admin/OldUser/Create') },
-          //     { name: 'Admin.OldUser.Show', path: ':id', component: () => import('pages/Admin/OldUser/Show') },
-          //     { name: 'Admin.OldUser.Edit', path: ':id/edit', component: () => import('pages/Admin/OldUser/Edit') }
-          //   ]
-          // },
-          {
-            path: 'scheduleManagement',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت ساعت کاری' },
-            children: getEntityCrudRouteObject('ScheduleManagement')
-          },
-          // allEntityCrudRouteObjects.map(item => getEntityCrudRouteObject2(item.path, item.baseRouteName, item.componentPath, item.breadcrumbs)),
-          getEntityCrudRouteObject2('users', 'Admin.UserManagement', 'pages/Admin/User/UserManagement', { title: 'مدیریت کاربران' }),
-          // {
-          //   path: 'users',
-          //   component: () => import('pages/Admin/index'),
-          //   breadcrumbs: { title: 'مدیریت کاربران' },
-          //   children: getEntityCrudRouteObject('UserManagement', 'User')
-          // },
-          {
-            path: 'accessManagement',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت دسترسی ها' },
-            children: getEntityCrudRouteObject('Permission', 'User')
-          },
-          {
-            path: 'rolesManagement',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت نقش ها' },
-            children: getEntityCrudRouteObject('Roles', 'User')
-          },
-          {
-            path: 'product',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'محصولات' },
-            children: [
-              { name: 'Admin.Product.Index', path: '', component: () => import('pages/Admin/Product/Index') },
-              { name: 'Admin.Product.Create', path: 'create', component: () => import('pages/Admin/Product/Create') },
-              { name: 'Admin.Product.Show', path: ':id', component: () => import('pages/Admin/Product/Show') },
-              { name: 'Admin.Product.Edit', path: ':id/edit', component: () => import('pages/Admin/Product/Edit') }
-            ]
-          },
-          {
-            path: 'content',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'محتوا' },
-            children: getEntityCrudRouteObject('Content')
-          },
-          {
-            path: 'attributeManagement',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت صفت ها' },
-            children: getEntityCrudRouteObject('AttributeManagement')
-          },
-          {
-            path: 'attributeSetManagement',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت دسته صفت ها' },
-            children: getEntityCrudRouteObject('AttributeSetManagement')
-          },
-          {
-            path: 'orders',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت سفارشات' },
-            children: getEntityCrudRouteObject('Order', 'Orders')
-          },
-          {
-            path: 'transactions',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت تراکنش ها' },
-            children: getEntityCrudRouteObject('Transaction', 'Orders')
-          },
-          {
-            path: 'set',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'دسته محتوا' },
-            children: [
-              { name: 'Admin.Set.Index', path: '', component: () => import('pages/Admin/Sets/Index') },
-              { name: 'Admin.Set.Create', path: 'create', component: () => import('pages/Admin/Sets/Create') },
-              { name: 'Admin.Set.Show', path: ':id', component: () => import('pages/Admin/Sets/Show') },
-              { name: 'Admin.Set.Edit', path: ':id/edit', component: () => import('pages/Admin/Sets/Edit') }
-            ]
-          },
-          {
-            path: 'coupon',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'کوپن ها' },
-            children: [
-              { name: 'Admin.Coupon.Index', path: '', component: () => import('pages/Admin/Coupon/Index') },
-              { name: 'Admin.Coupon.Create', path: 'create', component: () => import('pages/Admin/Coupon/Create') },
-              { name: 'Admin.Coupon.Show', path: ':id', component: () => import('pages/Admin/Coupon/Show') },
-              { name: 'Admin.Coupon.Edit', path: ':id/edit', component: () => import('pages/Admin/Coupon/Edit') }
-            ]
-          }
+          ...allEntityCrudRouteObjects
         ]
       }
     ]
