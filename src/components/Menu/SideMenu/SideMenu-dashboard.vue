@@ -186,16 +186,10 @@ export default {
               children: [
                 {
                   title: 'انتقال سفارش های کاربر',
-                  routeName: 'Admin.ScheduleManagement.Index',
+                  routeName: 'none',
                   show: true,
                   active: false
                 },
-                // {
-                //   title: 'ثبت سفارش جدید',
-                //   routeName: 'Admin.ScheduleManagement.Index',
-                //   show: true,
-                //   active: false
-                // },
                 {
                   title: 'مدیریت سفارش ها',
                   routeName: 'Admin.Orders.Index',

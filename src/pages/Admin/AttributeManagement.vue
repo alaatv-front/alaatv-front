@@ -1,27 +1,19 @@
 <template>
   <!--  v-model:index-inputs="indexInputs"-->
-  <entity-index
-    v-model:value="createInputs"
-    title="اصلاح اطلاعات مقدار صفت تاریخ آزمون"
-    :api="allProps.config.api.index"
-    :table="allProps.config.table"
-    :table-keys="allProps.config.tableKeys"
-    :create-route-name="'Admin.AttributeManagement.Create'"
-  />
+<!--  <entity-index-->
+<!--    v-model:value="createInputs"-->
+<!--    title="اصلاح اطلاعات مقدار صفت تاریخ آزمون"-->
+<!--    :api="allProps.config.api.index"-->
+<!--    :table="allProps.config.table"-->
+<!--    :table-keys="allProps.config.tableKeys"-->
+<!--    :create-route-name="'Admin.AttributeManagement.Create'"-->
+<!--  />-->
   <entity-crud
     v-model:default-inputs="defaultInputs"
     v-model:create-inputs="createInputs"
     v-bind="allProps"
   >
     <template v-slot:before-entity-create>
-      <entity-index
-        v-model:value="createInputs"
-        title="اصلاح اطلاعات مقدار صفت تاریخ آزمون"
-        :api="allProps.config.api.index"
-        :table="allProps.config.table"
-        :table-keys="allProps.config.tableKeys"
-        :create-route-name="'Admin.AttributeManagement.Create'"
-      />
 <!--      <q-select-->
 <!--        v-model="model"-->
 <!--        use-input-->
