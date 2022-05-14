@@ -152,44 +152,6 @@ export default {
               ]
             },
             {
-              title: 'سفارش ها',
-              routeName: 'none',
-              show: true,
-              active: false,
-              children: [
-                {
-                  title: 'انتقال سفارش های کاربر',
-                  routeName: 'Admin.ScheduleManagement.Index',
-                  show: true,
-                  active: false
-                },
-                {
-                  title: 'ثبت سفارش جدید',
-                  routeName: 'Admin.ScheduleManagement.Index',
-                  show: true,
-                  active: false
-                },
-                {
-                  title: 'مدیریت سفارش ها',
-                  routeName: 'Admin.Order.Index',
-                  show: true,
-                  active: false
-                },
-                {
-                  title: 'مدیریت تراکنش ها',
-                  routeName: 'Admin.Transaction.Index',
-                  show: true,
-                  active: false
-                },
-                {
-                  title: 'مدیریت بن کاربران',
-                  routeName: 'Admin.UserBon.Index',
-                  show: true,
-                  active: false
-                }
-              ]
-            },
-            {
               title: 'پیامک',
               routeName: 'none',
               show: true,
@@ -211,6 +173,44 @@ export default {
                 {
                   title: 'لاگ های پیامک',
                   routeName: 'none',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'سفارش ها',
+              routeName: 'none',
+              show: true,
+              active: false,
+              children: [
+                {
+                  title: 'انتقال سفارش های کاربر',
+                  routeName: 'Admin.ScheduleManagement.Index',
+                  show: true,
+                  active: false
+                },
+                // {
+                //   title: 'ثبت سفارش جدید',
+                //   routeName: 'Admin.ScheduleManagement.Index',
+                //   show: true,
+                //   active: false
+                // },
+                {
+                  title: 'مدیریت سفارش ها',
+                  routeName: 'Admin.Orders.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت تراکنش ها',
+                  routeName: 'Admin.Transaction.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت بن کاربران',
+                  routeName: 'Admin.UserBon.Index',
                   show: true,
                   active: false
                 }
