@@ -258,7 +258,7 @@ export default {
                     },
                     {
                       title: 'مدیریت کپن ها',
-                      routeName: 'none',
+                      routeName: 'Admin.Coupons.Index',
                       show: true,
                       active: false
                     },

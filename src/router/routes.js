@@ -41,6 +41,7 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('tags', 'Admin.Tags', 'pages/Admin/Tags', { title: 'مدیریت تگ ها' }),
   getEntityCrudRouteObject('activityLog', 'Admin.ActivityLog', 'pages/Admin/ActivityLog', { title: 'لاگ فعالیت ها' }),
   getEntityCrudRouteObject('gateway', 'Admin.Gateway', 'pages/Admin/Gateway', { title: 'درگاه پرداخت' }),
+  getEntityCrudRouteObject('coupons', 'Admin.Coupons', 'pages/Admin/Coupons', { title: 'مدیریت کپن ها' }),
   getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Sets', { title: 'دسته محتوا' }),
   getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
 
