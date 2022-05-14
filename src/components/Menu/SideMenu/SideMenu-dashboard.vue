@@ -299,7 +299,7 @@ export default {
               children: [
                 {
                   title: 'منبع',
-                  routeName: 'none',
+                  routeName: 'Admin.SourceManagement.Index',
                   show: true,
                   active: false
                 },
@@ -311,13 +311,13 @@ export default {
                 },
                 {
                   title: 'دسته محتوا',
-                  routeName: 'Admin.Content.Index',
+                  routeName: 'Admin.Set.Index',
                   show: true,
                   active: false
                 },
                 {
                   title: 'سکشن محتوا',
-                  routeName: 'Admin.Content.Index',
+                  routeName: 'Admin.Section.Index',
                   show: true,
                   active: false
                 }
