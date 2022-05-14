@@ -23,7 +23,7 @@ function getEntityCrudRouteObject (path, baseRouteName, componentPath, breadcrum
 const allEntityCrudRouteObjects = [
   // Todo : refactor this
   getEntityCrudRouteObject('users', 'Admin.UserManagement', 'pages/Admin/User/UserManagement', { title: 'مدیریت کاربران' }),
-  getEntityCrudRouteObject('scheduleManagement', 'Admin.UserManagement', 'pages/Admin/ScheduleManagement', { title: 'مدیریت ساعت کاری' }),
+  getEntityCrudRouteObject('scheduleManagement', 'Admin.ScheduleManagement', 'pages/Admin/ScheduleManagement', { title: 'مدیریت ساعت کاری' }),
   getEntityCrudRouteObject('permission', 'Admin.Permission', 'pages/Admin/User/Permission', { title: 'مدیریت دسترسی ها' }),
   getEntityCrudRouteObject('rolesManagement', 'Admin.Roles', 'pages/Admin/User/Roles', { title: 'مدیریت نقش ها' }),
   getEntityCrudRouteObject('product', 'Admin.Product', 'pages/Admin/Product', { title: 'محصولات' }),
@@ -32,6 +32,7 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('attributeSetManagement', 'Admin.AttributeSetManagement', 'pages/Admin/AttributeSetManagement', { title: 'مدیریت دسته صفت ها' }),
   getEntityCrudRouteObject('orders', 'Admin.Orders', 'pages/Admin/Orders/Order', { title: 'مدیریت سفارشات' }),
   getEntityCrudRouteObject('transactions', 'Admin.Transaction', 'pages/Admin/Orders/Transaction', { title: 'مدیریت تراکنش ها' }),
+  getEntityCrudRouteObject('userBon', 'Admin.UserBon', 'pages/Admin/Orders/UserBon', { title: 'مدیریت بن کاربران' }),
   getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Sets', { title: 'دسته محتوا' }),
   getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
 
