@@ -55,10 +55,10 @@ export default {
             index: API_ADDRESS.userBon.index.base
           },
           title: {
-            show: 'اطلاعات محتوا',
-            edit: 'اطلاعات محتوا',
-            create: 'ثبت محتوای جدید',
-            index: 'لیست محتوا'
+            show: 'اطلاعات بن کاربران',
+            edit: 'اطلاعات بن کاربران',
+            create: 'ثبت بن جدید',
+            index: 'لیست بن کاربران'
           },
           // toDo : temp, 'Content' should be replaced with 'order'
           showRouteName: 'Admin.UserBon.Show',
