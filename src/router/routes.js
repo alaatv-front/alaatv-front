@@ -40,6 +40,7 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('slideShowManagement', 'Admin.SlideShowManagement', 'pages/Admin/SlideShowManagement', { title: 'مدیریت اسلاید شو صفحه اصلی' }),
   getEntityCrudRouteObject('tags', 'Admin.Tags', 'pages/Admin/Tags', { title: 'مدیریت تگ ها' }),
   getEntityCrudRouteObject('activityLog', 'Admin.ActivityLog', 'pages/Admin/ActivityLog', { title: 'لاگ فعالیت ها' }),
+  getEntityCrudRouteObject('gateway', 'Admin.Gateway', 'pages/Admin/Gateway', { title: 'درگاه پرداخت' }),
   getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Sets', { title: 'دسته محتوا' }),
   getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
 
