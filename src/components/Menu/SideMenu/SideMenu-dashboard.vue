@@ -331,7 +331,7 @@ export default {
             },
             {
               title: 'پنل لیست ها',
-              routeName: 'none',
+              routeName: 'Admin.RegistrationManagement.Index',
               show: true,
               active: false
             },
@@ -355,7 +355,7 @@ export default {
             },
             {
               title: 'گروه تیکت',
-              routeName: 'none',
+              routeName: 'Admin.TicketDepartment.Index',
               show: true,
               active: false
             },
