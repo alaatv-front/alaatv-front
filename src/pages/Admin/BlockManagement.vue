@@ -80,23 +80,58 @@ export default {
                 field: row => row.id
               },
               {
+                name: 'phone_number',
+                required: true,
+                label: 'عنوان',
+                align: 'left',
+                field: row => row.mobile
+              },
+              {
+                name: 'phone_number',
+                required: true,
+                label: 'ترتیب',
+                align: 'left',
+                field: row => row.mobile
+              },
+              {
                 name: 'first_name',
                 required: true,
-                label: 'نام کاربر',
+                label: 'نوع',
                 align: 'left',
                 field: row => row.first_name
               },
               {
                 name: 'last_name',
                 required: true,
-                label: 'تعداد بن تخصیص داده شده',
+                label: 'تعداد پیشنهاد',
+                align: 'left',
+                field: row => row.last_name
+              },
+              {
+                name: 'last_name',
+                required: true,
+                label: 'تعداد محتوا',
+                align: 'left',
+                field: row => row.last_name
+              },
+              {
+                name: 'last_name',
+                required: true,
+                label: 'تعداد دسته',
+                align: 'left',
+                field: row => row.last_name
+              },
+              {
+                name: 'last_name',
+                required: true,
+                label: 'تعداد محصولات',
                 align: 'left',
                 field: row => row.last_name
               },
               {
                 name: 'phone_number',
                 required: true,
-                label: 'وضعیت بن',
+                label: 'تعداد بنر ها',
                 align: 'left',
                 field: row => row.mobile
               },
