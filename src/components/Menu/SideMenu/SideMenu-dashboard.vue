@@ -413,7 +413,7 @@ export default {
               children: [
                 {
                   title: 'تله مارکتینگ',
-                  routeName: 'none',
+                  routeName: 'Admin.TeleMarketing.Index',
                   show: true,
                   active: false
                 },
