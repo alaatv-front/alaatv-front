@@ -172,7 +172,7 @@ export default {
                 },
                 {
                   title: 'لاگ های پیامک',
-                  routeName: 'none',
+                  routeName: 'Admin.SMSAdmin.Index',
                   show: true,
                   active: false
                 }
