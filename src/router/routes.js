@@ -37,6 +37,7 @@ const allEntityCrudRouteObjects = [
   getEntityCrudRouteObject('blockManagement', 'Admin.BlockManagement', 'pages/Admin/BlockManagement', { title: 'مدیریت بلاک ها' }),
   getEntityCrudRouteObject('registrationManagement', 'Admin.RegistrationManagement', 'pages/Admin/RegistrationManagement', { title: 'پنل مدیریت لیست' }),
   getEntityCrudRouteObject('ticketDepartment', 'Admin.TicketDepartment', 'pages/Admin/TicketDepartment', { title: 'مدیریت گروه تیکت' }),
+  getEntityCrudRouteObject('slideShowManagement', 'Admin.SlideShowManagement', 'pages/Admin/SlideShowManagement', { title: 'مدیریت اسلاید شو صفحه اصلی' }),
   getEntityCrudRouteObject('set', 'Admin.Set', 'pages/Admin/Sets', { title: 'دسته محتوا' }),
   getEntityCrudRouteObject('coupon', 'Admin.Coupon', 'pages/Admin/Coupon', { title: 'کوپن ها' })
 
@@ -108,5 +109,4 @@ const routes = [
   () => import('pages/Error404.vue')
   }
 ]
-console.log('routes', routes)
 export default routes

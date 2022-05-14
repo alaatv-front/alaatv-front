@@ -187,6 +187,20 @@ const API_ADDRESS = {
       base: alaaServer + '/admin/user/'
     }
   },
+  slideShowManagement: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
   users: {
     create: {
       base: alaaServer + '/admin/user'

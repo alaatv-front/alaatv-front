@@ -392,7 +392,7 @@ export default {
                 },
                 {
                   title: 'اسلاید شو',
-                  routeName: 'none',
+                  routeName: 'Admin.SlideShowManagement.Index',
                   show: true,
                   active: false
                 }
