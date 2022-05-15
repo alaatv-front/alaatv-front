@@ -22,7 +22,7 @@ export default {
       api: API_ADDRESS.users.edit.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
-      showRouteName: 'Admin.User.Show',
+      showRouteName: 'Admin.OldUser.Show',
       inputs: [
         { type: 'file', name: 'photo', responseKey: 'data.photo', size: '250px', col: 'col-md-3' },
         { type: 'space', col: 'col-md-12' },
