@@ -1,29 +1,9 @@
 <template>
-  <!--  v-model:index-inputs="indexInputs"-->
-<!--  <entity-index-->
-<!--    v-model:value="createInputs"-->
-<!--    title="اصلاح اطلاعات مقدار صفت تاریخ آزمون"-->
-<!--    :api="allProps.config.api.index"-->
-<!--    :table="allProps.config.table"-->
-<!--    :table-keys="allProps.config.tableKeys"-->
-<!--    :create-route-name="'Admin.AttributeManagement.Create'"-->
-<!--  />-->
   <entity-crud
     v-model:default-inputs="defaultInputs"
     v-model:create-inputs="createInputs"
-    v-bind="allProps"
+    v-bind="allEntityCrudParentProps"
   >
-    <template v-slot:before-entity-create>
-<!--      <q-select-->
-<!--        v-model="model"-->
-<!--        use-input-->
-<!--        use-chips-->
-<!--        multiple-->
-<!--        input-debounce="0"-->
-<!--        @new-value="createValue"-->
-<!--        :options="tags"-->
-<!--      />-->
-    </template>
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
@@ -47,6 +27,37 @@
         </template>
       </q-td>
     </template>
+    <template v-slot:after-entity-edit>
+      <entity-crud
+        v-model:default-inputs="defaultInputs"
+        v-model:create-inputs="createInputs"
+        v-bind="allEntityCrudChildProps"
+      >
+        <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
+          <q-td :props="inputData.props">
+            <template v-if="inputData.props.col.name === 'actions'">
+              <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.AttributeValue.Edit', params: {id: inputData.props.row.id}}">
+                <q-tooltip>
+                  اصلاح
+                </q-tooltip>
+              </q-btn>
+              <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+                     @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
+                <q-tooltip>
+                  حذف
+                </q-tooltip>
+              </q-btn>
+            </template>
+            <template v-else-if="inputData.props.col.name === 'description'">
+              <div v-html="inputData.props.value" />
+            </template>
+            <template v-else>
+              {{ inputData.props.value }}
+            </template>
+          </q-td>
+        </template>
+      </entity-crud>
+    </template>
   </entity-crud>
 </template>
 
@@ -64,7 +75,7 @@ export default {
       model: null,
       tags: [],
       expanded: true,
-      allProps: {
+      allEntityCrudParentProps: {
         config: {
           // toDo : temp, 'Content' should be replaced with 'order'
           api: {
@@ -153,6 +164,60 @@ export default {
             data: []
           }
         }
+      },
+      allEntityCrudChildProps: {
+        config: {
+          api: {
+            show: API_ADDRESS.attributeValue.show.base,
+            edit: API_ADDRESS.attributeValue.edit.base,
+            create: API_ADDRESS.attributeValue.create.base,
+            index: API_ADDRESS.attributeValue.index.base
+          },
+          title: {
+            show: 'اطلاعات مقدار صفت',
+            edit: 'ویرایش مقدار صفت',
+            create: 'افزودن مقدار صفت جدید',
+            index: 'لیست مقدار صفت ها'
+          },
+          showRouteName: 'Admin.AttributeValue.Show',
+          editRouteName: 'Admin.AttributeValue.Edit',
+          indexRouteName: 'Admin.AttributeValue.Index',
+          createRouteName: 'Admin.AttributeValue.Create',
+          tableKeys: {
+            data: 'data',
+            total: 'meta.total',
+            currentPage: 'meta.current_page',
+            perPage: 'meta.per_page',
+            pageKey: 'productPage'
+          },
+          table: {
+            columns: [
+              {
+                name: 'paid_price',
+                required: true,
+                label: 'مقدار',
+                align: 'left',
+                field: row => row.id
+              },
+              {
+                name: 'national_code',
+                required: true,
+                label: 'توضیح',
+                align: 'left',
+                field: row => row.id
+              },
+              {
+                name: 'actions',
+                required: true,
+                label: 'عملیات',
+                align: 'left',
+                field: ''
+              }
+            ],
+            data: []
+          }
+        },
+        customInitialMode: 'index'
       },
       defaultInputs: [
         { type: 'input', name: 'name', value: null, label: 'نام صفت', col: 'col-md-3' },
