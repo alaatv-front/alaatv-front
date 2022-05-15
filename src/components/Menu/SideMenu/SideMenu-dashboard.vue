@@ -311,7 +311,7 @@ export default {
                 },
                 {
                   title: 'دسته محتوا',
-                  routeName: 'Admin.Set.Index',
+                  routeName: 'Admin.Sets.Index',
                   show: true,
                   active: false
                 },
