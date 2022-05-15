@@ -127,6 +127,12 @@ export default {
       default () {
         return {}
       }
+    },
+    customInitialMode: {
+      type: String,
+      default () {
+        return ''
+      }
     }
   },
   emits: [
@@ -256,14 +262,13 @@ export default {
         }
       }
       this.neededConfig = this.getModdedComponentProperties(mode, componentConfig)
-      this.SetApiId()
+      if (mode !== ('index' || 'create')) {
+        this.SetApiId()
+      }
     },
     getModdedComponentProperties (mode, componentConfig) {
       if (this.config.api[mode]) {
         componentConfig.api = this.config.api[mode]
-      }
-      if (this.config.title[mode]) {
-        componentConfig.title = this.config.title[mode]
       }
       if (this.config.title[mode]) {
         componentConfig.title = this.config.title[mode]
@@ -280,8 +285,7 @@ export default {
     getRoutesMode () {
       const allModes = ['show', 'index', 'edit', 'create']
       const routeMode = this.$route.name.toLowerCase()
-
-      return allModes.find(mode => routeMode.includes('.' + mode))
+      return this.customInitialMode ? this.customInitialMode : allModes.find(mode => routeMode.includes('.' + mode))
     }
   }
 }

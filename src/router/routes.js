@@ -91,6 +91,12 @@ const entityCrudRouteConfigs = [
     breadcrumbs: { title: 'مدیریت دسته صفت ها' }
   },
   {
+    path: 'attributeValue',
+    baseRouteName: 'Admin.AttributeValue',
+    componentPath: 'pages/Admin/AttributeValue',
+    breadcrumbs: null
+  },
+  {
     path: 'order',
     baseRouteName: 'Admin.Orders',
     componentPath: 'pages/Admin/Orders/Order',
