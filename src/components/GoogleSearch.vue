@@ -119,13 +119,21 @@
               </span>
             </div>
             <div class="description d-flex">
-              <span ref="mobileMeta" class="d-inline-flex">
+              <span class="d-inline-flex">
                 <template v-if="showDate">
                   24 Dec, 2019 -
                 </template>
                 {{ this.description }}
               </span>
             </div>
+<!--            -------------------hidden the text for getting the width of the content----------------------               -->
+            <span ref="mobileMeta" class="hidden-text d-inline-flex">
+                <template v-if="showDate">
+                  24 Dec, 2019 -
+                </template>
+                {{ this.description }}
+            </span>
+<!--            ------------------------------------- END ----------------------------------------------------               -->
             <p v-if="showRichSnippet" style="margin-bottom: 1px; margin-top: 3px; margin-left: 2px">Rating</p>
             <div v-if="showRichSnippet" class="rating d-flex">
               {{ this.rate }}/5.0
@@ -252,6 +260,13 @@ export default {
 
 .search-title {
   margin-bottom: 5px;
+}
+
+.hidden-text {
+  visibility: hidden;
+  white-space: nowrap;
+  position: absolute;
+  line-height: 0;
 }
 
 .search-title .title{
