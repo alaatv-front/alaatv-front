@@ -1,13 +1,8 @@
 <template>
+  <!--  v-model:index-inputs="indexInputs"-->
   <entity-crud
-    v-model:edit-inputs="editInputs"
-    v-model:index-inputs="indexInputs"
-    v-model:show-inputs="showInputs"
-    v-model:create-inputs="createInputs"
     v-model:default-inputs="defaultInputs"
-    :before-get-edit-data="testMethod1"
-    :before-load-edit-input-data="testMethod2"
-    :after-load-edit-input-data="testMethod3"
+    v-model:index-inputs="indexInputs"
     v-bind="allProps"
   >
     <template v-slot:before-entity-create>
@@ -24,9 +19,9 @@
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.AttributeSetManagement.Edit', params: {id: inputData.props.row.id}}">
+          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Content.Show', params: {id: inputData.props.row.id}}">
             <q-tooltip>
-              ویرایش
+              مشاهده
             </q-tooltip>
           </q-btn>
           <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
@@ -52,7 +47,7 @@ import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'components/EntityCrud'
 
 export default {
-  name: 'AttributeSetManagement',
+  name: 'Coupons',
   components: {
     EntityCrud
   },
@@ -64,27 +59,27 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.attributeSetManagement.show.base,
-            edit: API_ADDRESS.attributeSetManagement.edit.base,
-            create: API_ADDRESS.attributeSetManagement.create.base,
-            index: API_ADDRESS.attributeSetManagement.index.base
+            show: API_ADDRESS.coupons.show.base,
+            edit: API_ADDRESS.coupons.edit.base,
+            create: API_ADDRESS.coupons.create.base,
+            index: API_ADDRESS.coupons.index.base
           },
           title: {
-            show: 'اطلاعات دسته صفت',
-            edit: 'اطلاعات دسته صفت',
-            create: 'ثبت دسته صفت جدید',
-            index: 'لیست دسته صفت'
+            show: 'اطلاعات  کپن ها',
+            edit: 'اطلاعات  کپن ها',
+            create: 'افزودن کپن جدید',
+            index: 'لیست  کپن ها'
           },
-          showRouteName: 'Admin.AttributeSetManagement.Show',
-          editRouteName: 'Admin.AttributeSetManagement.Edit',
-          indexRouteName: 'Admin.AttributeSetManagement.Index',
-          createRouteName: 'Admin.AttributeSetManagement.Create',
+          showRouteName: 'Admin.Coupons.Show',
+          editRouteName: 'Admin.Coupons.Edit',
+          indexRouteName: 'Admin.Coupons.Index',
+          createRouteName: 'Admin.Coupons.Create',
           tableKeys: {
             data: 'data',
             total: 'meta.total',
             currentPage: 'meta.current_page',
             perPage: 'meta.per_page',
-            pageKey: 'contentPage'
+            pageKey: 'productPage'
           },
           table: {
             columns: [
@@ -105,21 +100,42 @@ export default {
               {
                 name: 'national_code',
                 required: true,
-                label: 'توضیح',
+                label: 'کد کپن',
                 align: 'left',
                 field: row => row.id
               },
               {
                 name: 'price',
                 required: true,
-                label: 'زمان درج',
+                label: 'وضعیت',
                 align: 'left',
                 field: row => row.id
               },
               {
-                name: 'price',
+                name: 'paid_price',
                 required: true,
-                label: 'زمان اصلاح',
+                label: 'تخفیف',
+                align: 'left',
+                field: row => row.id
+              },
+              {
+                name: 'orderstatus',
+                required: true,
+                label: 'حداکثر مبلغ مجاز خرید',
+                align: 'left',
+                field: row => row.id
+              },
+              {
+                name: 'paymentstatus',
+                required: true,
+                label: 'تعداد',
+                align: 'left',
+                field: row => row.id
+              },
+              {
+                name: 'paymentstatus',
+                required: true,
+                label: 'تعداد استفاده شده',
                 align: 'left',
                 field: row => row.id
               },
@@ -137,24 +153,24 @@ export default {
       },
       defaultInputs: [
         { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر الزامی می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'نام دسته صفت', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'نام کپن', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'کد کپن', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'کدملی', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر اختیاری می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیح درباره دسته صفت', col: 'col-md-3' }
+        { type: 'optionGroupRadio', name: 'is_free', responseKey: 'data.is_free', label: '', col: 'col-md-3', options: [{ label: 'غیر فعال', value: 1 }, { label: 'فعال', value: 0 }] },
+        { type: 'input', name: 'name', value: null, label: 'میزان تخفیف کپن', col: 'col-md-3' },
+        { type: 'select', name: 'content_type_id', label: 'حداکثر تعداد مجاز برای استفاده از این کپن', col: 'col-md-3', value: null, options: [{ label: 'محدود', value: 8 }, { label: 'نامحدود', value: 3 }] },
+        { type: 'select', name: 'content_type_id', label: 'محصولات مشمول کپن', col: 'col-md-3', multiple: true, value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
+        { type: 'input', name: 'name', value: null, label: 'توضیح درباره کپن', col: 'col-md-3' },
+        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ شروع معتبر بودن کپن', col: 'col-md-3' },
+        { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ پایان معتبر بودن کپن', col: 'col-md-3' }
       ],
-      createInputs: [
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر الزامی می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'نام دسته صفت', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر اختیاری می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیح درباره دسته صفت', col: 'col-md-3' }
-      ],
+      createInputs: [],
       editInputs: [],
       showInputs: [],
       indexInputs: [
-        { type: 'input', name: 'id', value: null, label: 'عنوان', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'زمان درج', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'زمان اصلاح', col: 'col-md-3' },
-        { type: 'input', name: 'description', value: null, label: 'توضیحات', col: 'col-md-3' }
+        { type: 'input', name: 'name', value: null, label: 'نام کپن', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'کد کپن', col: 'col-md-3' }
       ]
     }
   },
@@ -186,11 +202,7 @@ export default {
         }
         done(val, 'toggle')
       }
-    },
-    testMethod () {},
-    testMethod1 () {},
-    testMethod2 () {},
-    testMethod3 () {}
+    }
   },
   watch: {
     // editInputs: {

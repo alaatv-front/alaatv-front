@@ -23,8 +23,8 @@ export default {
       api: API_ADDRESS.users.create.base,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
-      showRouteName: 'Admin.User.Show',
-      indexRouteName: 'Admin.User.Index',
+      showRouteName: 'Admin.OldUser.Show',
+      indexRouteName: 'Admin.OldUser.Index',
       inputs: [
         { type: 'file', name: 'photo', responseKey: 'data.photo', size: '250px', col: 'col-md-3' },
         { type: 'space', col: 'col-md-12' },

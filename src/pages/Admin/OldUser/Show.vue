@@ -22,8 +22,8 @@ export default {
       api: API_ADDRESS.users.show.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
-      editRouteName: 'Admin.User.Edit',
-      indexRouteName: 'Admin.User.Index',
+      editRouteName: 'Admin.OldUser.Edit',
+      indexRouteName: 'Admin.OldUser.Index',
       inputs: [
         { type: 'avatar', name: 'photo', responseKey: 'data.photo', value: null, size: '150px', col: 'col-md-12' },
         { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3' },

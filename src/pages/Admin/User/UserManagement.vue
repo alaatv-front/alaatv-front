@@ -73,10 +73,10 @@ export default {
           },
           // or
           // title: 'اطلاعات کاربر',
-          showRouteName: 'Admin.User.Show',
-          editRouteName: 'Admin.User.Edit',
-          indexRouteName: 'Admin.User.Index',
-          createRouteName: 'Admin.User.Create',
+          showRouteName: 'Admin.OldUser.Show',
+          editRouteName: 'Admin.OldUser.Edit',
+          indexRouteName: 'Admin.OldUser.Index',
+          createRouteName: 'Admin.OldUser.Create',
           tableKeys: {
             data: 'data',
             total: 'total',
