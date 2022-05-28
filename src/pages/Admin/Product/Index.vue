@@ -6,7 +6,7 @@
       :api="api"
       :table="table"
       :table-keys="tableKeys"
-      :create-route-name="'Admin.User.Create'"
+      :create-route-name="'Admin.OldUser.Create'"
     >
       <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
