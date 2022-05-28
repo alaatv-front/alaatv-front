@@ -1,141 +1,132 @@
 <template>
-  <div>
-    <entity-index
-      v-model:value="inputs"
-      title="لیست سفارشات"
-      :api="api"
-      :table="table"
-      :table-keys="tableKeys"
-      :create-route-name="'Admin.Order.Create'"
-    >
-      <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
-        <q-td :props="inputData.props">
-          <template v-if="inputData.props.col.name === 'photo'">
-            <q-img
-              :src="inputData.props.value"
-              placeholder-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWBAMAAADOL2zRAAAAG1BMVEXMzMyWlpaqqqq3t7fFxcW+vr6xsbGjo6OcnJyLKnDGAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABAElEQVRoge3SMW+DMBiE4YsxJqMJtHOTITPeOsLQnaodGImEUMZEkZhRUqn92f0MaTubtfeMh/QGHANEREREREREREREtIJJ0xbH299kp8l8FaGtLdTQ19HjofxZlJ0m1+eBKZcikd9PWtXC5DoDotRO04B9YOvFIXmXLy2jEbiqE6Df7DTleA5socLqvEFVxtJyrpZFWz/pHM2CVte0lS8g2eDe6prOyqPglhzROL+Xye4tmT4WvRcQ2/m81p+/rdguOi8Hc5L/8Qk4vhZzy08DduGt9eVQyP2qoTM1zi0/uf4hvBWf5c77e69Gf798y08L7j0RERERERERERH9P99ZpSVRivB/rgAAAABJRU5ErkJggg=="
-              spinner-color="white"
-              style="height: 50px; max-width: 50px"
-            />
-          </template>
-          <template v-else-if="inputData.props.col.name === 'actions'">
-            <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Order.Show', params: {id: inputData.props.row.id}}">
-              <q-tooltip>
-                مشاهده
-              </q-tooltip>
-            </q-btn>
-            <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
-                   @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
-              <q-tooltip>
-                حذف
-              </q-tooltip>
-            </q-btn>
-          </template>
-          <template v-else>
-            {{ inputData.props.value }}
-          </template>
-        </q-td>
-      </template>
-    </entity-index>
-  </div>
+  <!--  v-model:index-inputs="indexInputs"-->
+  <entity-crud
+    v-model:default-inputs="defaultInputs"
+    v-model:index-inputs="indexInputs"
+    v-bind="allProps"
+  >
+    <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
+      <q-td :props="inputData.props">
+        <template v-if="inputData.props.col.name === 'actions'">
+          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Sets.Edit', params: {id: inputData.props.row.id}}">
+            <q-tooltip>
+              ویرایش
+            </q-tooltip>
+          </q-btn>
+          <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+                 @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
+            <q-tooltip>
+              حذف
+            </q-tooltip>
+          </q-btn>
+        </template>
+        <template v-else-if="inputData.props.col.name === 'description'">
+          <div v-html="inputData.props.value" />
+        </template>
+        <template v-else>
+          {{ inputData.props.value }}
+        </template>
+      </q-td>
+    </template>
+  </entity-crud>
 </template>
 
 <script>
-import { EntityIndex } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
+import EntityCrud from 'components/EntityCrud'
 
 export default {
-  name: 'Index',
-  components: { EntityIndex },
+  name: 'Sets',
+  components: {
+    EntityCrud
+  },
   data () {
     return {
       model: null,
       tags: [],
       expanded: true,
-      api: API_ADDRESS.order.index.base,
-      tableKeys: {
-        data: 'data',
-        total: 'meta.total',
-        currentPage: 'meta.current_page',
-        perPage: 'meta.per_page',
-        pageKey: 'productPage'
-      },
-      table: {
-        columns: [
-          {
-            name: 'id',
-            required: true,
-            label: '#',
-            align: 'left',
-            field: row => row.id
+      allProps: {
+        config: {
+          api: {
+            show: API_ADDRESS.sets.show.base,
+            edit: API_ADDRESS.sets.edit.base,
+            create: API_ADDRESS.sets.create.base,
+            index: API_ADDRESS.sets.index.base
           },
-          {
-            name: 'first_name',
-            required: true,
-            label: 'نام',
-            align: 'left',
-            field: row => row.user.first_name
+          title: {
+            show: 'اطلاعات  دسته محتوا',
+            edit: 'ویرایش  دسته محتوا',
+            create: 'ایجاد دسته جدید',
+            index: ' مدیریت دسته های محتوا'
           },
-          {
-            name: 'first_name',
-            required: true,
-            label: 'نام خانوادگی',
-            align: 'left',
-            field: row => row.user.last_name
+          showRouteName: 'Admin.Sets.Show',
+          editRouteName: 'Admin.Sets.Edit',
+          indexRouteName: 'Admin.Sets.Index',
+          createRouteName: 'Admin.Sets.Create',
+          tableKeys: {
+            data: 'data',
+            total: 'meta.total',
+            currentPage: 'meta.current_page',
+            perPage: 'meta.per_page',
+            pageKey: 'productPage'
           },
-          {
-            name: 'mobile',
-            required: true,
-            label: 'موبایل',
-            align: 'left',
-            field: row => row.user.mobile
-          },
-          {
-            name: 'national_code',
-            required: true,
-            label: 'کدملی',
-            align: 'left',
-            field: row => row.user.national_code
-          },
-          {
-            name: 'price',
-            required: true,
-            label: 'مبلغ(تومان)',
-            align: 'left',
-            field: row => row.price
-          },
-          {
-            name: 'paid_price',
-            required: true,
-            label: 'پرداخت شده(تومان)',
-            align: 'left',
-            field: row => row.price
-          },
-          {
-            name: 'orderstatus',
-            required: true,
-            label: 'وضعیت سفارش',
-            align: 'left',
-            field: row => row.orderstatus.name
-          },
-          {
-            name: 'paymentstatus',
-            required: true,
-            label: 'وضعیت پرداخت',
-            align: 'left',
-            field: row => row.paymentstatus.name
-          },
-          {
-            name: 'actions',
-            required: true,
-            label: '',
-            align: 'left',
-            field: ''
+          table: {
+            columns: [
+              {
+                name: 'id',
+                required: true,
+                label: '#',
+                align: 'left',
+                field: row => row.id
+              },
+              {
+                name: 'mobile',
+                required: true,
+                label: 'تصویر',
+                align: 'left',
+                field: row => row.id
+              },
+              {
+                name: 'national_code',
+                required: true,
+                label: 'نام',
+                align: 'left',
+                field: row => row.id
+              },
+              {
+                name: 'phone_number',
+                required: true,
+                label: 'نام کوتاه',
+                align: 'left',
+                field: row => row.mobile
+              },
+              {
+                name: 'phone_number',
+                required: true,
+                label: 'وضعیت',
+                align: 'left',
+                field: row => row.mobile
+              },
+              {
+                name: 'phone_number',
+                required: true,
+                label: 'نمایش',
+                align: 'left',
+                field: row => row.mobile
+              },
+              {
+                name: 'actions',
+                required: true,
+                label: 'عملیات',
+                align: 'left',
+                field: ''
+              }
+            ],
+            data: []
           }
-        ],
-        data: []
+        }
       },
-      inputs: [
+      defaultInputs: [
         { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'نام خانوادگی', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'شماره موبایل', col: 'col-md-3' },
@@ -169,10 +160,25 @@ export default {
         { type: 'date', name: 'created_at_range', value: null, label: 'تا', col: 'col-md-6' },
         { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ تاریخ نهایی از', col: 'col-md-6' },
         { type: 'date', name: 'created_at_range', value: null, label: 'تا', col: 'col-md-6' }
+      ],
+      createInputs: [],
+      editInputs: [],
+      showInputs: [],
+      indexInputs: [
+        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'نام کوتاه', col: 'col-md-3' },
+        { type: 'select', name: 'content_type_id', label: 'فعال/غیر فعال', col: 'col-md-3', value: null, options: [{ label: 'محدود', value: 8 }, { label: 'نامحدود', value: 3 }] },
+        { type: 'select', name: 'content_type_id', label: 'نمایش/عدم نمایش', col: 'col-md-3', value: null, options: [{ label: 'نمایش', value: 8 }, { label: 'عدم نمایش', value: 3 }] }
       ]
     }
   },
   methods: {
+    // for index.vue
+    getRemoveMessage (row) {
+      const firstName = row.first_name
+      const lastName = row.last_name
+      return 'آیا از حذف ' + firstName + ' ' + lastName + ' اطمینان دارید؟'
+    },
     createValue (val, done) {
       // Calling done(var) when new-value-mode is not set or "add", or done(var, "add") adds "var" content to the model
       // and it resets the input textbox to empty string
@@ -194,13 +200,17 @@ export default {
         }
         done(val, 'toggle')
       }
-    },
-    getRemoveMessage (row) {
-      const firstName = row.first_name
-      const lastName = row.last_name
-      return 'آیا از حذف ' + firstName + ' ' + lastName + ' اطمینان دارید؟'
     }
-  }
+  },
+  watch: {
+    // editInputs: {
+    //   handler (newValue, oldValue) {
+    //     console.log('inputs', newValue)
+    //   },
+    //   deep: true
+    // }
+  },
+  created () {}
 }
 </script>
 

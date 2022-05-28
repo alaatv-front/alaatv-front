@@ -1,13 +1,7 @@
 <template>
   <entity-crud
-    v-model:edit-inputs="editInputs"
     v-model:index-inputs="indexInputs"
-    v-model:show-inputs="showInputs"
-    v-model:create-inputs="createInputs"
     v-model:default-inputs="defaultInputs"
-    :before-get-edit-data="testMethod1"
-    :before-load-edit-input-data="testMethod2"
-    :after-load-edit-input-data="testMethod3"
     v-bind="allProps"
   >
     <template v-slot:before-entity-create>
@@ -52,7 +46,7 @@ import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'components/EntityCrud'
 
 export default {
-  name: 'AttributeSetManagement',
+  name: 'AttributeValue',
   components: {
     EntityCrud
   },
@@ -64,21 +58,21 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.attributeSetManagement.show.base,
-            edit: API_ADDRESS.attributeSetManagement.edit.base,
-            create: API_ADDRESS.attributeSetManagement.create.base,
-            index: API_ADDRESS.attributeSetManagement.index.base
+            show: API_ADDRESS.attributeValue.show.base,
+            edit: API_ADDRESS.attributeValue.edit.base,
+            create: API_ADDRESS.attributeValue.create.base,
+            index: API_ADDRESS.attributeValue.index.base
           },
           title: {
-            show: 'اطلاعات دسته صفت',
-            edit: 'اطلاعات دسته صفت',
-            create: 'ثبت دسته صفت جدید',
-            index: 'لیست دسته صفت'
+            show: 'اطلاعات مقدار صفت',
+            edit: 'ویرایش مقدار صفت',
+            create: 'افزودن مقدار صفت جدید',
+            index: 'لیست مقدار صفت ها'
           },
-          showRouteName: 'Admin.AttributeSetManagement.Show',
-          editRouteName: 'Admin.AttributeSetManagement.Edit',
-          indexRouteName: 'Admin.AttributeSetManagement.Index',
-          createRouteName: 'Admin.AttributeSetManagement.Create',
+          showRouteName: 'Admin.AttributeValue.Show',
+          editRouteName: 'Admin.AttributeValue.Edit',
+          indexRouteName: 'Admin.AttributeValue.Index',
+          createRouteName: 'Admin.AttributeValue.Create',
           tableKeys: {
             data: 'data',
             total: 'meta.total',
@@ -137,15 +131,15 @@ export default {
       },
       defaultInputs: [
         { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر الزامی می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'نام دسته صفت', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'نام مقدار صفت', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر اختیاری می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیح درباره دسته صفت', col: 'col-md-3' }
+        { type: 'input', name: 'name', value: null, label: 'توضیح مقدار صفت', col: 'col-md-3' }
       ],
       createInputs: [
         { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر الزامی می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'نام دسته صفت', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'نام مقدار صفت', col: 'col-md-3' },
         { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر اختیاری می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیح درباره دسته صفت', col: 'col-md-3' }
+        { type: 'input', name: 'name', value: null, label: 'توضیح مقدار صفت', col: 'col-md-3' }
       ],
       editInputs: [],
       showInputs: [],
