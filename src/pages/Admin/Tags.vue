@@ -1,30 +1,14 @@
 <template>
+  <!--  v-model:index-inputs="indexInputs"-->
   <entity-crud
-    v-model:edit-inputs="editInputs"
-    v-model:index-inputs="indexInputs"
-    v-model:show-inputs="showInputs"
-    v-model:create-inputs="createInputs"
     v-model:default-inputs="defaultInputs"
-    :before-get-edit-data="testMethod1"
-    :before-load-edit-input-data="testMethod2"
-    :after-load-edit-input-data="testMethod3"
+    v-model:index-inputs="indexInputs"
     v-bind="allProps"
   >
-    <template v-slot:before-entity-create>
-      <q-select
-        v-model="model"
-        use-input
-        use-chips
-        multiple
-        input-debounce="0"
-        @new-value="createValue"
-        :options="tags"
-      />
-    </template>
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.AttributeSetManagement.Edit', params: {id: inputData.props.row.id}}">
+          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Tags.Edit', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               ویرایش
             </q-tooltip>
@@ -52,7 +36,7 @@ import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'components/EntityCrud'
 
 export default {
-  name: 'AttributeSetManagement',
+  name: 'Tags',
   components: {
     EntityCrud
   },
@@ -64,64 +48,71 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.attributeSetManagement.show.base,
-            edit: API_ADDRESS.attributeSetManagement.edit.base,
-            create: API_ADDRESS.attributeSetManagement.create.base,
-            index: API_ADDRESS.attributeSetManagement.index.base
+            show: API_ADDRESS.tags.show.base,
+            edit: API_ADDRESS.tags.edit.base,
+            create: API_ADDRESS.tags.create.base,
+            index: API_ADDRESS.tags.index.base
           },
           title: {
-            show: 'اطلاعات دسته صفت',
-            edit: 'اطلاعات دسته صفت',
-            create: 'ثبت دسته صفت جدید',
-            index: 'لیست دسته صفت'
+            show: 'اطلاعات تگ ها',
+            edit: 'اطلاعات تگ ها',
+            create: 'ثبت تگ جدید',
+            index: 'لیست تگ ها'
           },
-          showRouteName: 'Admin.AttributeSetManagement.Show',
-          editRouteName: 'Admin.AttributeSetManagement.Edit',
-          indexRouteName: 'Admin.AttributeSetManagement.Index',
-          createRouteName: 'Admin.AttributeSetManagement.Create',
+          showRouteName: 'Admin.Tags.Show',
+          editRouteName: 'Admin.Tags.Edit',
+          indexRouteName: 'Admin.Tags.Index',
+          createRouteName: 'Admin.Tags.Create',
           tableKeys: {
             data: 'data',
             total: 'meta.total',
             currentPage: 'meta.current_page',
             perPage: 'meta.per_page',
-            pageKey: 'contentPage'
+            pageKey: 'productPage'
           },
           table: {
             columns: [
-              // {
-              //   name: 'id',
-              //   required: true,
-              //   label: '#',
-              //   align: 'left',
-              //   field: row => row.id
-              // },
               {
-                name: 'mobile',
+                name: 'id',
                 required: true,
-                label: 'نام',
+                label: 'id',
                 align: 'left',
                 field: row => row.id
               },
               {
-                name: 'national_code',
+                name: 'first_name',
                 required: true,
-                label: 'توضیح',
+                label: 'نام نمایشی',
                 align: 'left',
-                field: row => row.id
+                field: row => row.first_name
               },
               {
-                name: 'price',
+                name: 'phone_number',
                 required: true,
-                label: 'زمان درج',
+                label: 'مقدار تگ',
                 align: 'left',
-                field: row => row.id
+                field: row => row.mobile
               },
               {
-                name: 'price',
+                name: 'phone_number',
                 required: true,
-                label: 'زمان اصلاح',
+                label: 'گروه',
                 align: 'left',
-                field: row => row.id
+                field: row => row.mobile
+              },
+              {
+                name: 'phone_number',
+                required: true,
+                label: 'وضعیت',
+                align: 'left',
+                field: row => row.mobile
+              },
+              {
+                name: 'phone_number',
+                required: true,
+                label: 'توضیحات',
+                align: 'left',
+                field: row => row.mobile
               },
               {
                 name: 'actions',
@@ -136,25 +127,21 @@ export default {
         }
       },
       defaultInputs: [
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر الزامی می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'نام دسته صفت', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر اختیاری می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیح درباره دسته صفت', col: 'col-md-3' }
+        { type: 'input', name: 'name', value: null, label: 'نام نمایشی', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'مقدار تگ', col: 'col-md-3' },
+        { type: 'space', col: 'col-md-12' },
+        { type: 'select', name: 'content_type_id', label: 'گروه تگ', col: 'col-md-3', value: null, options: [{ label: 'تاریخ ایجاد اولیه', value: 0 }, { label: 'توضیحات مشتری', value: 8 }, { label: 'عملیات', value: 3 }] },
+        { type: 'optionGroupRadio', name: 'enable', options: [{ label: 'غیرفعال', value: 0 }, { label: 'فعال', value: 1 }], responseKey: 'data.enable', label: 'وضعیت', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'توضیحات', col: 'col-md-3' }
       ],
-      createInputs: [
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر الزامی می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'نام دسته صفت', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر اختیاری می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیح درباره دسته صفت', col: 'col-md-3' }
-      ],
+      createInputs: [],
       editInputs: [],
       showInputs: [],
       indexInputs: [
-        { type: 'input', name: 'id', value: null, label: 'عنوان', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'زمان درج', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'زمان اصلاح', col: 'col-md-3' },
-        { type: 'input', name: 'description', value: null, label: 'توضیحات', col: 'col-md-3' }
+        { type: 'input', name: 'name', value: null, label: 'نام نمایشی', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'مقدار تگ', col: 'col-md-3' },
+        { type: 'input', name: 'name', value: null, label: 'گروه', col: 'col-md-3' },
+        { type: 'select', name: 'content_type_id', label: 'وضعیت', col: 'col-md-3', multiple: true, value: null, options: [{ label: 'فعال', value: 8 }, { label: 'غیر فعال', value: 3 }] }
       ]
     }
   },
@@ -186,11 +173,7 @@ export default {
         }
         done(val, 'toggle')
       }
-    },
-    testMethod () {},
-    testMethod1 () {},
-    testMethod2 () {},
-    testMethod3 () {}
+    }
   },
   watch: {
     // editInputs: {
