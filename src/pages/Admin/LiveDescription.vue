@@ -1,13 +1,8 @@
 <template>
+  <!--  v-model:index-inputs="indexInputs"-->
   <entity-crud
-    v-model:edit-inputs="editInputs"
-    v-model:index-inputs="indexInputs"
-    v-model:show-inputs="showInputs"
-    v-model:create-inputs="createInputs"
     v-model:default-inputs="defaultInputs"
-    :before-get-edit-data="testMethod1"
-    :before-load-edit-input-data="testMethod2"
-    :after-load-edit-input-data="testMethod3"
+    v-model:index-inputs="indexInputs"
     v-bind="allProps"
   >
     <template v-slot:before-entity-create>
@@ -24,7 +19,7 @@
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.AttributeSetManagement.Edit', params: {id: inputData.props.row.id}}">
+          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.LiveDescription.Edit', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               ویرایش
             </q-tooltip>
@@ -52,7 +47,7 @@ import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'components/EntityCrud'
 
 export default {
-  name: 'AttributeSetManagement',
+  name: 'LiveDescription',
   components: {
     EntityCrud
   },
@@ -64,62 +59,41 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.attributeSetManagement.show.base,
-            edit: API_ADDRESS.attributeSetManagement.edit.base,
-            create: API_ADDRESS.attributeSetManagement.create.base,
-            index: API_ADDRESS.attributeSetManagement.index.base
+            show: API_ADDRESS.liveDescription.show.base,
+            edit: API_ADDRESS.liveDescription.edit.base,
+            create: API_ADDRESS.liveDescription.create.base,
+            index: API_ADDRESS.liveDescription.index.base
           },
           title: {
-            show: 'اطلاعات دسته صفت',
-            edit: 'اطلاعات دسته صفت',
-            create: 'ثبت دسته صفت جدید',
-            index: 'لیست دسته صفت'
+            show: 'اطلاعات  خبر ها',
+            edit: 'اطلاعات  خبر ها',
+            create: 'ایجاد خبر جدید',
+            index: 'لیست  خبر ها'
           },
-          showRouteName: 'Admin.AttributeSetManagement.Show',
-          editRouteName: 'Admin.AttributeSetManagement.Edit',
-          indexRouteName: 'Admin.AttributeSetManagement.Index',
-          createRouteName: 'Admin.AttributeSetManagement.Create',
+          showRouteName: 'Admin.LiveDescription.Show',
+          editRouteName: 'Admin.LiveDescription.Edit',
+          indexRouteName: 'Admin.LiveDescription.Index',
+          createRouteName: 'Admin.LiveDescription.Create',
           tableKeys: {
             data: 'data',
             total: 'meta.total',
             currentPage: 'meta.current_page',
             perPage: 'meta.per_page',
-            pageKey: 'contentPage'
+            pageKey: 'productPage'
           },
           table: {
             columns: [
-              // {
-              //   name: 'id',
-              //   required: true,
-              //   label: '#',
-              //   align: 'left',
-              //   field: row => row.id
-              // },
               {
                 name: 'mobile',
                 required: true,
-                label: 'نام',
+                label: 'عنوان',
                 align: 'left',
                 field: row => row.id
               },
               {
                 name: 'national_code',
                 required: true,
-                label: 'توضیح',
-                align: 'left',
-                field: row => row.id
-              },
-              {
-                name: 'price',
-                required: true,
-                label: 'زمان درج',
-                align: 'left',
-                field: row => row.id
-              },
-              {
-                name: 'price',
-                required: true,
-                label: 'زمان اصلاح',
+                label: 'متن خبر',
                 align: 'left',
                 field: row => row.id
               },
@@ -136,25 +110,19 @@ export default {
         }
       },
       defaultInputs: [
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر الزامی می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'نام دسته صفت', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر اختیاری می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیح درباره دسته صفت', col: 'col-md-3' }
+        { type: 'input', name: 'name', value: null, label: 'عنوان', col: 'col-md-3' },
+        { type: 'input-editor', name: 'short_description', responseKey: 'data.description.short', label: 'توضیحات', col: 'col-md-12' },
+        { type: 'select', name: 'content_type_id', label: 'محصولات', col: 'col-md-3', value: null, options: [{ label: 'ادبیات', value: 8 }, { label: 'عربی', value: 3 }] },
+        { type: 'select', name: 'content_type_id', label: 'دسته', col: 'col-md-3', value: null, options: [{ label: 'محدود', value: 8 }, { label: 'نامحدود', value: 3 }] },
+        { type: 'checkbox', name: 'id', value: false, label: 'پین نشده', col: 'col-md-3' }
       ],
-      createInputs: [
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر الزامی می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'نام دسته صفت', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'وارد کردن اطلاعات زیر اختیاری می باشد:', col: 'col-md-12' },
-        { type: 'input', name: 'name', value: null, label: 'توضیح درباره دسته صفت', col: 'col-md-3' }
-      ],
+      createInputs: [],
       editInputs: [],
       showInputs: [],
       indexInputs: [
-        { type: 'input', name: 'id', value: null, label: 'عنوان', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'زمان درج', col: 'col-md-3' },
-        { type: 'input', name: 'name', value: null, label: 'زمان اصلاح', col: 'col-md-3' },
-        { type: 'input', name: 'description', value: null, label: 'توضیحات', col: 'col-md-3' }
+        { type: 'select', name: 'content_type_id', label: 'فیلتر بر اساس', col: 'col-md-3', value: null, options: [{ label: 'جدید ترین ها', value: 8 }, { label: 'پر بازدید ترین ها', value: 3 }, { label: 'قدیمی ترین ها', value: 4 }] },
+        { type: 'select', name: 'content_type_id', label: 'محصولات', col: 'col-md-3', value: null, options: [{ label: 'ادبیات', value: 8 }, { label: 'عربی', value: 3 }] },
+        { type: 'select', name: 'content_type_id', label: 'دسته بندی', col: 'col-md-3', value: null, options: [{ label: 'محدود', value: 8 }, { label: 'نامحدود', value: 3 }] }
       ]
     }
   },
@@ -186,11 +154,7 @@ export default {
         }
         done(val, 'toggle')
       }
-    },
-    testMethod () {},
-    testMethod1 () {},
-    testMethod2 () {},
-    testMethod3 () {}
+    }
   },
   watch: {
     // editInputs: {
