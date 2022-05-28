@@ -1,5 +1,4 @@
 <template>
-  <p>product item</p>
   <div
     class="product-item-box"
   >
@@ -127,17 +126,12 @@ export default {
     }
   }
   .product-content-box {
-    padding: 10px 16px 14px 16px;
+    padding: 10px 16px 16px 16px;
     .main-title {
-      margin-bottom: 2px;
+      margin-bottom: 5px;
       a {
         margin-bottom: 0;
       }
-      .title-box {
-        display: flex;
-        align-items: start;
-        width: 100%;
-        height: 24px;
         .title-text {
           font-weight: 500;
           font-size: 14px;
@@ -151,7 +145,6 @@ export default {
           text-overflow: ellipsis;
           overflow: hidden;
         }
-      }
     }
     .price-box {
       display: flex;

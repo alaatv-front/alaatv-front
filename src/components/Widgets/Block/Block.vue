@@ -1,5 +1,5 @@
 <template>
-  <div class="block-container">
+  <div class="block-section">
     <q-btn
       round
       color="primary"
@@ -7,13 +7,24 @@
       @click="isGridView = !isGridView"
     >
     </q-btn>
-    <div v-if="this.block.products.list.length > 0"
-         class="product-container">
-      <Product-item
-        v-for="product in this.block.products.list"
-        :key="product.id"
-        :product-data="product"
-      />
+    <div class="block-container"
+    >
+      <div v-if="this.block.products.list.length > 0"
+           class="item-container"
+           :class="isGridView? 'row': 'scroll-view'"
+      >
+        <div v-for="product in this.block.products.list"
+             :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
+             :key="product.id"
+        >
+          <Product-item
+            class="q-mx-lg"
+            :product-data="product"
+          />
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -50,9 +61,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-container{
+.block-section{
   background-color: #ecb3b3;
-  margin:10px
+  margin:30px;
+  .block-container{
+    display: flex;
+    .scroll-view{
+      display: flex;
+      width:100%;
+      overflow: auto;
+    }
+    .item-container{
+    }
+}
 }
 
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <block v-for="(data, index) in this.pageData.list" :key="index" :block="data"/>
+    <block v-for="(data, index) in this.pageData.list"
+           :key="index"
+           :block="data"
+    />
   </div>
 </template>
 
