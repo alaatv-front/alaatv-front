@@ -8,6 +8,7 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 // https://dev.to/jakedohm_34/auto-registering-all-your-components-in-vue-3-with-vite-4884
 
@@ -52,7 +53,7 @@ export default {
     PageBuilderSection: defineAsyncComponent(() => import('./PageBuilderSection.vue')),
     TestComponent1Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent1Widget.vue')),
     TestComponent2Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent2Widget.vue')),
-    Slider: defineAsyncComponent(() => import('components/Widgets/Slider/Slider.vue'))
+    Slider: defineAsyncComponent(() => import('components/Widgets/Slider.vue'))
   },
   props: {
     widget: {
@@ -62,6 +63,7 @@ export default {
       }
     }
   },
+  mixins: [mixinWidget],
   created () {
   },
   data () {
