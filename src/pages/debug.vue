@@ -38,29 +38,19 @@ export default {
                             class: 'q-ma-xl rounded',
                             features: {
                               xl: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg',
-                                width: '200px',
-                                height: '100px'
+                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
                               },
                               lg: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg',
-                                width: '200px',
-                                height: '100px'
+                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
                               },
                               md: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg',
-                                width: '200px',
-                                height: '100px'
+                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
                               },
                               sm: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg',
-                                width: '200px',
-                                height: '100px'
+                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
                               },
                               xs: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg',
-                                width: '200px',
-                                height: '100px'
+                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
                               }
                             }
                           },
