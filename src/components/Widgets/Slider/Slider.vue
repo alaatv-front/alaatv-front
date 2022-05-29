@@ -23,34 +23,34 @@
       :height="styles.height ? styles.height : 'auto'"
       :class="styles.classes"
     >
-        <q-carousel-slide
-          v-for="(slide, index) in slides.list"
-          :key="index"
-          :name="slide.id"
-          :class="slide.class"
-          @click="redirectToBannerEvent(slide.link)"
-        >
-          <q-img
-            :src="responsiveFeatures(slide.features).src"
-            :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
-            :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : '100%'"
-            :ratio="slide.ratio"
-          />
-          <q-tooltip
-            v-if="slide.title"
-            :offset="[18, 18]"
-          >
-            {{ slide.title }}
-          </q-tooltip>
-        </q-carousel-slide>
-      <template v-slot:control>
-      <q-carousel-control
-        :position="control.position"
-        :offset="control.offset"
-        :class="control.class"
+      <q-carousel-slide
+        v-for="(slide, index) in slides.list"
+        :key="index"
+        :name="slide.id"
+        :class="slide.class"
+        @click="redirectToBannerEvent(slide.link)"
       >
-        <slot name="controls-content"></slot>
-      </q-carousel-control>
+        <q-img
+          :src="responsiveFeatures(slide.features).src"
+          :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
+          :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : '100%'"
+          :ratio="slide.ratio"
+        />
+        <q-tooltip
+          v-if="slide.title"
+          :offset="[18, 18]"
+        >
+          {{ slide.title }}
+        </q-tooltip>
+      </q-carousel-slide>
+      <template v-slot:control>
+        <q-carousel-control
+          :position="control.position"
+          :offset="control.offset"
+          :class="control.class"
+        >
+          <slot name="controls-content"></slot>
+        </q-carousel-control>
       </template>
     </q-carousel>
   </div>
