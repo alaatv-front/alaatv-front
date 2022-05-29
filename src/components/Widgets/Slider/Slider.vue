@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="slider-widget">
     <q-carousel
       v-model="slide"
       :arrows="controlNavigation.arrows"
@@ -20,17 +20,22 @@
       :transition-prev="transition.transitionPrev"
       :transition-next="transition.transitionNext"
       :transition-duration="transition.transitionDuration"
-      :height="styles.height ? styles.height : '300px'"
+      :height="styles.height ? styles.height : 'auto'"
       :class="styles.classes"
     >
         <q-carousel-slide
           v-for="(slide, index) in slides.list"
           :key="index"
           :name="slide.id"
-          :img-src="slide.photo"
           :class="slide.class"
           @click="redirectToBannerEvent(slide.link)"
         >
+          <q-img
+            :src="responsiveFeatures(slide.features).src"
+            :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
+            :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : '100%'"
+            :ratio="slide.ratio"
+          />
           <q-tooltip
             v-if="slide.title"
             :offset="[18, 18]"
@@ -68,7 +73,7 @@ export default {
       type: Object,
       default () {
         return {
-          position: 'bottom-right',
+          position: 'bottom',
           offset: [18, 18],
           class: ''
         }
@@ -84,7 +89,7 @@ export default {
       type: Object,
       default () {
         return {
-          arrows: false,
+          arrows: true,
           prevIcon: '',
           nextIcon: '',
           navigation: true,
@@ -105,7 +110,7 @@ export default {
           animated: true,
           infinite: true,
           swipeable: true,
-          autoplay: 2500,
+          autoplay: false,
           transitionPrev: 'fade',
           transitionNext: 'fade',
           transitionDuration: 300
@@ -113,10 +118,6 @@ export default {
       }
     }
   },
-  created () {
-    console.log('slides', this.slides)
-  },
-
   setup () {
     return {
       slide: ref(1),
@@ -126,11 +127,30 @@ export default {
   methods: {
     redirectToBannerEvent (link) {
       window.location.href = link
+    },
+    responsiveFeatures (features) {
+      console.log(features)
+      const windowSize = this.$store.getters['AppLayout/windowSize']
+      if (windowSize.x >= 1920) {
+        return features.xl
+      } else if (windowSize.x <= 1919 && windowSize.x > 1440) {
+        return features.lg
+      } else if (windowSize.x <= 1439 && windowSize.x > 1024) {
+        return features.md
+      } else if (windowSize.x <= 1023 && windowSize.x > 600) {
+        return features.s
+      } else if (windowSize.x <= 599) {
+        return features.xs
+      }
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.slider-widget {
+  :deep(.q-carousel__slide) {
+    padding: 0;
+  }
+}
 </style>
