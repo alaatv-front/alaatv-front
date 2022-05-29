@@ -1,16 +1,71 @@
 <template>
   <div>
-    <h5>DEBUG COMPONENT</h5>
+    <page-builder :sections="sections" :options="pageConfig" />
+    <slider/>
   </div>
 </template>
 
 <script>
+import PageBuilder from 'components/PageBuilder/PageBuilder'
+import Slider from 'components/Slider'
+
 export default {
   name: 'debug',
-  components: {},
+  components: { Slider, PageBuilder },
   mixins: [],
   data () {
     return {
+      pageConfig: {
+        padding: {
+          a: 'md'
+        }
+      },
+      sections: [
+        {
+          rows: [
+            {
+              cols: [
+                {
+                  widgets: [
+                    {
+                      name: 'test-component1-widget'
+                    }
+                  ]
+                },
+                {
+                  widgets: [
+                    {
+                      name: 'page-builder-section',
+                      data: {
+                        rows: [
+                          {
+                            cols: [
+                              {
+                                widgets: [
+                                  {
+                                    name: 'test-component1-widget'
+                                  }
+                                ]
+                              },
+                              {
+                                widgets: [
+                                  {
+                                    name: 'test-component2-widget'
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
       testValue: '',
       testValue1: ''
     }
