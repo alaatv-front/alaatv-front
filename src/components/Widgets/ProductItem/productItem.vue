@@ -2,7 +2,7 @@
   <div
     class="product-item-box"
   >
-    <div class="img-box">
+    <q-card class="img-box">
       <!--      <router-link-->
       <!--        :to="product.url"-->
       <!--      >-->
@@ -16,7 +16,7 @@
         class="img"
         alt="product"
       />
-    </div>
+    </q-card>
     <div class="product-content-box">
       <div class="main-title">
         <!--          <router-link-->
@@ -36,11 +36,10 @@
             v-if="product.price['final'] !== product.price['base']"
             class="discount">
             <span>
-              %{{ ((1-(product.price['final']/product.price['base']))*100) }}
+              %{{ ((1 - (product.price['final'] / product.price['base'])) * 100).toFixed(0) }}
             </span>
-            <div class="main-price">{{(product.price['base'])}}</div>
           </div>
-
+          <div class="main-price">{{ (product.price['base']) }}</div>
           <div class="final-price-box">
             <div class="final-price">
               {{ (product.price['final']) }}
@@ -65,11 +64,11 @@
         <q-btn
           :productId="product.id"
           :data-product-id="product.id"
-          class="btn-style add-product-btn"
+          class="btn-style flex"
+          label="ثبت نام"
         >
-          <q-img
-            src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png" />
-          ثبت نام
+          <!--          <q-img-->
+          <!--            src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product&#45;&#45;section-add-square.png" />-->
         </q-btn>
         <!--          <q-btn-->
         <!--            class="btn-style active hide"-->
@@ -103,72 +102,83 @@ export default {
   },
   mounted () {
     this.product = new Product(this.productData)
-    console.log('in product item', this.product)
   },
-  methods: {
-
-  }
+  methods: {}
 }
 
 </script>
 
-<style scoped lang="scss" >
+<style scoped lang="scss">
 
 .product-item-box {
+  width: 260px;
   margin-bottom: 25px;
   position: relative;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(46, 56, 112, 0.05);
   background-color: #ffffff;
+
   .img-box {
+    border-radius: inherit;
+    box-shadow: none;
     .img {
       border-radius: 20px 20px 0 0;
     }
   }
+
   .product-content-box {
     padding: 10px 16px 16px 16px;
+
     .main-title {
       margin-bottom: 5px;
+
       a {
         margin-bottom: 0;
       }
-        .title-text {
-          font-weight: 500;
-          font-size: 14px;
-          line-height: 24px;
-          text-align: right;
-          letter-spacing: -0.03em;
-          color: #333333;
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
+
+      .title-text {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: right;
+        letter-spacing: -0.03em;
+        color: #333333;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
+
     .price-box {
       display: flex;
       flex-wrap: nowrap;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 13px;
+
       .add-cart-info {
         display: flex;
         justify-content: center;
         align-items: center;
+
         .add-cart-icon {
           width: 19px;
           order: 1;
         }
       }
+
       .price-info {
         display: flex;
         justify-content: center;
         align-items: baseline;
+
         .final-price-box {
           display: flex;
           justify-content: center;
           align-items: center;
+
           .final-price {
             margin-left: 4px;
             font-size: 16px;
@@ -176,12 +186,14 @@ export default {
             line-height: 28px;
           }
         }
+
         .main-price {
           color: #ff5050;
           text-decoration: line-through;
           margin-left: 12px;
           font-size: 12px;
         }
+
         .price-Toman {
           font-size: 10px;
           font-weight: 500;
@@ -189,21 +201,25 @@ export default {
         }
       }
     }
+
     .action-box {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       .more-detail {
         font-weight: 500;
         font-size: 12px;
         line-height: 21px;
         color: #666666;
         cursor: pointer;
+
         a {
           text-decoration: none;
           color: inherit;
         }
       }
+
       .btn-style {
         width: 116px;
         height: 32px;
@@ -213,16 +229,20 @@ export default {
         color: white;
         font-size: 14px;
         letter-spacing: -0.03em;
+        display: flex;
+
         img {
           width: 15px;
           height: 15px;
-          margin-left:7px;
+          margin-left: 7px;
         }
-        .content{
+
+        .content {
           display: flex;
           align-items: center;
           justify-content: center;
         }
+
         .active {
           border: 2px solid #4CAF50;
           color: #4CAF50;
@@ -230,6 +250,7 @@ export default {
         }
       }
     }
+
     .discount {
       width: 36px;
       height: 22px;
@@ -239,6 +260,7 @@ export default {
       justify-content: center;
       align-items: center;
       margin-left: 5px;
+
       span {
         color: white;
         font-weight: 500;
@@ -248,54 +270,67 @@ export default {
     }
   }
 }
-@media screen and (max-width: 992px){
+
+@media screen and (max-width: 992px) {
 
   .product-item-box {
     .img-box {
       .img {
       }
     }
+
     .product-content-box {
       .main-title {
         a {
         }
+
         .title-box {
           .title-text {
           }
         }
       }
+
       .price-box {
         .add-cart-info {
           .add-cart-icon {
           }
         }
+
         .price-info {
           .final-price-box {
             .final-price {
             }
           }
+
           .main-price {
           }
+
           .price-Toman {
           }
         }
       }
+
       .action-box {
         .more-detail {
           a {
           }
         }
+
         .btn-style {
           width: 102px;
+
           img {
             margin-left: 0;
           }
-          .content{
+
+          .content {
           }
+
           .active {
           }
         }
       }
+
       .discount {
         span {
         }
@@ -304,7 +339,8 @@ export default {
   }
 
 }
-@media screen and (max-width: 768px){
+
+@media screen and (max-width: 768px) {
 
 }
 
@@ -319,69 +355,88 @@ export default {
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
+
     .img-box {
       .img {
         border-radius: 0 18px 18px 0;
       }
     }
+
     .product-content-box {
       padding: 10px 12px 10px 12px;
       width: 100%;
+
       .main-title {
         margin-bottom: 0;
+
         a {
         }
+
         .title-box {
           height: 44px;
           justify-content: center;
+
           .title-text {
             -webkit-line-clamp: 2;
           }
         }
       }
+
       .price-box {
         margin-bottom: 0;
+
         .add-cart-info {
           .add-cart-icon {
           }
         }
+
         .price-info {
           .final-price-box {
             .final-price {
               margin-left: 2px;
             }
           }
+
           .main-price {
             margin-left: 4px;
           }
+
           .price-Toman {
           }
         }
       }
+
       .action-box {
         .more-detail {
           a {
           }
+
           .more {
             display: none;
           }
         }
+
         .btn-style {
           width: 100px;
           height: 30px;
           border-radius: 8px;
+
           img {
             margin-left: 0;
           }
-          .content{
+
+          .content {
           }
+
           .active {
           }
         }
       }
+
       .discount {
         height: 20px;
         margin-left: 3px;
+
         span {
         }
       }
