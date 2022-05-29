@@ -1,11 +1,16 @@
 <template>
-  <q-btn @click="widthOfRef('titleWidth','desktopTitle')">click me</q-btn>
-  <div class="search-options" dir="ltr">
-      <q-checkbox v-model="showRichSnippet" label="Rich Snippet"/>
-      <q-checkbox v-model="showDate" label="Date"/>
-      <q-checkbox v-if="viewMode === 'desktop'" v-model="showCached" label="Cached"/>
+  <div class="search-options"
+       dir="ltr">
+    <q-checkbox v-model="showRichSnippet"
+                label="Rich Snippet" />
+    <q-checkbox v-model="showDate"
+                label="Date" />
+    <q-checkbox v-if="viewMode === 'desktop'"
+                v-model="showCached"
+                label="Cached" />
   </div>
-  <div class="options-rules" dir="ltr">
+  <div class="options-rules"
+       dir="ltr">
     <div class="title q-mr-xs">
       Title(<span v-if="viewMode === 'desktop'">{{ this.titleWidth }}</span><span v-else>{{ this.titleWidthMobile }}</span>px / 573px)
     </div>
@@ -16,28 +21,45 @@
       META(<span v-if="viewMode === 'desktop'">{{ this.metaWidth }}</span><span v-else>{{ this.metaWidthMobile }}</span> / 930px)
     </div>
   </div>
-  <div class="row" dir="ltr">
+  <div class="row"
+       dir="ltr">
     <div class="col-2"></div>
     <div class="col-8 container">
       <div class="search-area row">
         <div class="col-2 google-logo">
-          <q-img src="/img/google-logo.png" width="92px" height="30px"></q-img>
+          <q-img src="/img/google-logo.png"
+                 width="92px"
+                 height="30px"></q-img>
         </div>
         <div class="col-10">
-          <q-input class="search-box" dense v-model="text" rounded outlined>
+          <q-input class="search-box"
+                   dense
+                   v-model="text"
+                   rounded
+                   outlined>
             <template v-slot:append>
-              <q-icon v-if="text === ''" name="search"/>
-              <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''"/>
+              <q-icon v-if="text === ''"
+                      name="search" />
+              <q-icon v-else
+                      name="clear"
+                      class="cursor-pointer"
+                      @click="text = ''" />
             </template>
           </q-input>
         </div>
       </div>
       <div class="search-categories row">
         <div class="col-2"></div>
-        <div class="col-10 d-flex" style="justify-content: space-between">
+        <div class="col-10 d-flex"
+             style="justify-content: space-between">
           <div class="categories">
-            <div v-for="item in categories" :key="item" class="categories-btn" :class="item.class">
-              <q-icon :name="item.icon" style="margin: 0 2px 6px" size="14px"></q-icon>
+            <div v-for="item in categories"
+                 :key="item"
+                 class="categories-btn"
+                 :class="item.class">
+              <q-icon :name="item.icon"
+                      style="margin: 0 2px 6px"
+                      size="14px"></q-icon>
               {{ item.title }}
               <div
                 v-if="item.active === true"
@@ -61,14 +83,16 @@
             >
               <template v-slot:one>
                 <div class="d-flex">
-                  <q-icon name="mdi-desktop-mac" style="margin-right: 4px;"></q-icon>
+                  <q-icon name="mdi-desktop-mac"
+                          style="margin-right: 4px;"></q-icon>
                   Desktop
                 </div>
               </template>
 
               <template v-slot:two>
                 <div class="d-flex">
-                  <q-icon name="mdi-cellphone" style="margin-right: 4px"></q-icon>
+                  <q-icon name="mdi-cellphone"
+                          style="margin-right: 4px"></q-icon>
                   Mobile
                 </div>
               </template>
@@ -77,25 +101,36 @@
         </div>
       </div>
       <q-separator style="width: 100%"></q-separator>
-      <div v-if="viewMode === 'desktop'" class="desktop-content">
+      <div v-if="viewMode === 'desktop'"
+           class="desktop-content">
         <div class="search-title">
-          <span ref="desktopTitle"  class="title d-inline-flex">
+          <span ref="desktopTitle"
+                class="title d-inline-flex">
             {{ this.title }}
           </span>
         </div>
         <div class="search-url">
-          <span ref="desktopUrl" class="d-inline-flex">
+          <span ref="desktopUrl"
+                class="d-inline-flex">
             {{ this.url }}
-          <q-icon v-if="showCached" name="mdi-menu-down" style="cursor: pointer"/>
+            <q-icon v-if="showCached"
+                    name="mdi-menu-down"
+                    style="cursor: pointer" />
           </span>
         </div>
-        <div v-if="showRichSnippet" class="rating d-flex">
-          <q-rating v-model="rate" color="orange" icon-half="star_half" readonly style="margin-right: 5px"></q-rating>
+        <div v-if="showRichSnippet"
+             class="rating d-flex">
+          <q-rating v-model="rate"
+                    color="orange"
+                    icon-half="star_half"
+                    readonly
+                    style="margin-right: 5px"></q-rating>
           Rating: {{ this.rate }} - 798 votes
         </div>
         <div class="d-flex date-and-description">
           <span ref="desktopMeta">
-            <span v-if="showDate" class="date">
+            <span v-if="showDate"
+                  class="date">
               24 Dec, 2019 -
             </span>
             <span class="description">
@@ -104,32 +139,53 @@
           </span>
         </div>
       </div>
-      <div v-if="viewMode === 'mobile'" class="mobile-content">
+      <div v-if="viewMode === 'mobile'"
+           class="mobile-content">
         <q-card class="mobile-card">
           <q-card-section>
             <div class="search-url">
-              <q-img src="/img/alaa-logo.png" width="16px" height="16px" style="margin-right: 12px"/>
-              <span ref="mobileUrl" class="d-inline-flex">
-              {{ this.url }}
+              <q-img src="/img/alaa-logo.png"
+                     width="16px"
+                     height="16px"
+                     style="margin-right: 12px" />
+              <span ref="mobileUrl"
+                    class="d-inline-flex">
+                {{ this.url }}
               </span>
             </div>
             <div class="search-title">
-              <span ref="mobileTitle" class="title d-inline-flex">
+              <span ref="mobileTitle"
+                    class="title d-inline-flex">
                 {{ this.title }}
               </span>
             </div>
             <div class="description d-flex">
-              <span ref="mobileMeta" class="d-inline-flex">
+              <span class="d-inline-flex">
                 <template v-if="showDate">
                   24 Dec, 2019 -
                 </template>
                 {{ this.description }}
               </span>
             </div>
-            <p v-if="showRichSnippet" style="margin-bottom: 1px; margin-top: 3px; margin-left: 2px">Rating</p>
-            <div v-if="showRichSnippet" class="rating d-flex">
+            <!--            -------------------hidden the text for getting the width of the content----------------------               -->
+            <span ref="mobileMeta"
+                  class="hidden-text d-inline-flex">
+              <template v-if="showDate">
+                24 Dec, 2019 -
+              </template>
+              {{ this.description }}
+            </span>
+            <!--            ------------------------------------- END ----------------------------------------------------               -->
+            <p v-if="showRichSnippet"
+               style="margin-bottom: 1px; margin-top: 3px; margin-left: 2px">Rating</p>
+            <div v-if="showRichSnippet"
+                 class="rating d-flex">
               {{ this.rate }}/5.0
-              <q-rating v-model="rate" color="orange" icon-half="star_half" readonly style="margin-right: 5px"></q-rating>
+              <q-rating v-model="rate"
+                        color="orange"
+                        icon-half="star_half"
+                        readonly
+                        style="margin-right: 5px"></q-rating>
               (798)
             </div>
           </q-card-section>
@@ -210,7 +266,6 @@ export default {
     },
     showDate (newVal) {
       setTimeout(() => {
-        console.log('oh OH!')
         if (this.viewMode === 'desktop') {
           this.widthOfRef('metaWidth', 'desktopMeta')
         } else {
@@ -235,7 +290,6 @@ export default {
   methods: {
     widthOfRef (key, refName) {
       this[key] = this.$refs[refName].clientWidth
-      console.log(refName, this[key])
     }
   }
 }
@@ -252,6 +306,13 @@ export default {
 
 .search-title {
   margin-bottom: 5px;
+}
+
+.hidden-text {
+  visibility: hidden;
+  white-space: nowrap;
+  position: absolute;
+  line-height: 0;
 }
 
 .search-title .title{
