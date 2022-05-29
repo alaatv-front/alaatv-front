@@ -1,6 +1,8 @@
 <template>
-  <component :is="widget.name"
-             :data="widget.data"
+  <component
+    :is="widget.name"
+    :data="widget.data"
+    :options="widget.options"
   />
 </template>
 
@@ -49,7 +51,8 @@ export default {
   components: {
     PageBuilderSection: defineAsyncComponent(() => import('./PageBuilderSection.vue')),
     TestComponent1Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent1Widget.vue')),
-    TestComponent2Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent2Widget.vue'))
+    TestComponent2Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent2Widget.vue')),
+    Slider: defineAsyncComponent(() => import('components/Widgets/Slider/Slider.vue'))
   },
   props: {
     widget: {

@@ -2,38 +2,37 @@
   <div class="slider-widget">
     <q-carousel
       v-model="slide"
-      :arrows="controlNavigation.arrows"
-      :prev-icon="controlNavigation.prevIcon"
-      :next-icon="controlNavigation.nextIcon"
-      :navigation="controlNavigation.navigation"
-      :navigation-position="controlNavigation.navigationPosition"
-      :navigation-icon="controlNavigation.navigationIcon"
-      :navigation-active-icon="controlNavigation.navigationActiveIcon"
-      :thumbnails="controlNavigation.thumbnails"
-      :control-color="controlNavigation.controlColor"
-      :control-text-color="controlNavigation.controlTextColor"
-      :control-type="controlNavigation.controlType"
-      :animated="transition.animated"
-      :infinite="transition.infinite"
-      :swipeable="transition.swipeable"
-      :autoplay="transition.autoplay"
-      :transition-prev="transition.transitionPrev"
-      :transition-next="transition.transitionNext"
-      :transition-duration="transition.transitionDuration"
-      :height="styles.height ? styles.height : 'auto'"
-      :class="styles.classes"
+      :arrows="defaultOptions.controlNavigation.arrows"
+      :prev-icon="defaultOptions.controlNavigation.prevIcon"
+      :next-icon="defaultOptions.controlNavigation.nextIcon"
+      :navigation="defaultOptions.controlNavigation.navigation"
+      :navigation-position="defaultOptions.controlNavigation.navigationPosition"
+      :navigation-icon="defaultOptions.controlNavigation.navigationIcon"
+      :navigation-active-icon="defaultOptions.controlNavigation.navigationActiveIcon"
+      :thumbnails="defaultOptions.controlNavigation.thumbnails"
+      :control-color="defaultOptions.controlNavigation.controlColor"
+      :control-text-color="defaultOptions.controlNavigation.controlTextColor"
+      :control-type="defaultOptions.controlNavigation.controlType"
+      :animated="defaultOptions.transition.animated"
+      :infinite="defaultOptions.transition.infinite"
+      :swipeable="defaultOptions.transition.swipeable"
+      :autoplay="defaultOptions.transition.autoplay"
+      :transition-prev="defaultOptions.transition.transitionPrev"
+      :transition-next="defaultOptions.transition.transitionNext"
+      :transition-duration="defaultOptions.transition.transitionDuration"
+      :height="defaultOptions.styles.height ? defaultOptions.styles.height : 'auto'"
+      :class="defaultOptions.styles.classes"
     >
       <q-carousel-slide
-        v-for="(slide, index) in slides.list"
+        v-for="(slide, index) in data.slides.list"
         :key="index"
         :name="slide.id"
-        :class="slide.class"
         @click="redirectToBannerEvent(slide.link)"
       >
         <q-img
           :src="responsiveFeatures(slide.features).src"
           :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
-          :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : '100%'"
+          :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : 'auto'"
           :ratio="slide.ratio"
         />
         <q-tooltip
@@ -45,9 +44,9 @@
       </q-carousel-slide>
       <template v-slot:control>
         <q-carousel-control
-          :position="control.position"
-          :offset="control.offset"
-          :class="control.class"
+          :position="defaultOptions.control.position"
+          :offset="defaultOptions.control.offset"
+          :class="defaultOptions.control.class"
         >
           <slot name="controls-content"></slot>
         </q-carousel-control>
@@ -63,32 +62,28 @@ import { BannerList } from 'src/models/Banner'
 export default {
   name: 'Slider',
   props: {
-    slides: {
-      type: BannerList,
+    data: {
+      type: Object,
       default () {
         return new BannerList()
       }
-    },
-    control: {
-      type: Object,
-      default () {
-        return {
+    }
+  },
+  data () {
+    return {
+      slide: ref(1),
+      fullscreen: ref(false),
+      defaultOptions: {
+        control: {
           position: 'bottom',
           offset: [18, 18],
           class: ''
-        }
-      }
-    },
-    styles: {
-      type: Object,
-      default () {
-        return { classes: '', height: '' }
-      }
-    },
-    controlNavigation: {
-      type: Object,
-      default () {
-        return {
+        },
+        styles: {
+          classes: '',
+          height: ''
+        },
+        controlNavigation: {
           arrows: true,
           prevIcon: '',
           nextIcon: '',
@@ -100,13 +95,8 @@ export default {
           controlColor: 'primary',
           controlTextColor: '',
           controlType: 'flat'
-        }
-      }
-    },
-    transition: {
-      type: Object,
-      default () {
-        return {
+        },
+        transition: {
           animated: true,
           infinite: true,
           swipeable: true,
@@ -116,12 +106,6 @@ export default {
           transitionDuration: 300
         }
       }
-    }
-  },
-  setup () {
-    return {
-      slide: ref(1),
-      fullscreen: ref(false)
     }
   },
   methods: {
