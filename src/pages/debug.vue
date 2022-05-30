@@ -34,7 +34,7 @@ export default {
                           {
                             id: 1,
                             title: 'این از این',
-                            link: 'https://www.google.com/',
+                            link: '',
                             class: 'q-ma-xl rounded',
                             features: {
                               xl: {
@@ -57,7 +57,7 @@ export default {
                           {
                             id: 2,
                             title: 'این از این',
-                            link: 'https://www.google.com/',
+                            link: '',
                             class: 'q-ma-xl rounded',
                             features: {
                               xl: {
@@ -89,12 +89,14 @@ export default {
                           }
                         ])
                       },
-                      options: {}
+                      options: {
+                        transition: {
+                          infinite: false
+                        }
+                      }
                     }
                   ],
-                  options: {
-                    col: 'col-md-8'
-                  }
+                  options: {}
                 }
               ]
             },
