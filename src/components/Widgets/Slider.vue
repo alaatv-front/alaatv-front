@@ -30,6 +30,12 @@
       @click="redirectToBannerEvent(slide.link)"
     >
       <q-img
+        v-if="slide.photo"
+        :src="slide.photo"
+        :ratio="slide.ratio"
+      />
+      <q-img
+        v-else
         :src="responsiveFeatures(slide.features).src"
         :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
         :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : 'auto'"
