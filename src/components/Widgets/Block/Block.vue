@@ -13,7 +13,7 @@
 
     <div class="block-container"
     >
-      <div v-if="this.data.products.list.length > 0"
+      <div v-if="data.products.list.length > 0"
            class="item-container"
            :class="isGridView? 'row': 'scroll-view'"
       >
@@ -28,7 +28,7 @@
         </div>
 
       </div>
-      <div v-if="this.data.sets.list.length > 0"
+      <div v-if="data.sets.list.length > 0"
            class="item-container"
            :class="isGridView? 'row': 'scroll-view'"
       >
@@ -43,7 +43,7 @@
         </div>
 
       </div>
-      <div v-if="this.data.contents.list.length > 0"
+      <div v-if="data.contents.list.length > 0"
            class="item-container"
            :class="isGridView? 'row': 'scroll-view'"
       >
