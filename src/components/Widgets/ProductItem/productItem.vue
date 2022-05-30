@@ -65,10 +65,15 @@
           :productId="product.id"
           :data-product-id="product.id"
           class="btn-style flex"
-          label="ثبت نام"
         >
-          <!--          <q-img-->
-          <!--            src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product&#45;&#45;section-add-square.png" />-->
+          <div class="row items-center">
+            <div class="row items-center ">
+              <img src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product&#45;&#45;section-add-square.png"
+                   alt="add icon">
+            </div>
+            <span>ثبت نام</span>
+          </div>
+
         </q-btn>
         <!--          <q-btn-->
         <!--            class="btn-style active hide"-->
@@ -93,7 +98,7 @@ export default {
     product: new Product()
   }),
   props: {
-    productData: {
+    data: {
       type: Product,
       default: new Product()
     }
@@ -101,7 +106,7 @@ export default {
   created () {
   },
   mounted () {
-    this.product = new Product(this.productData)
+    this.product = new Product(this.data)
   },
   methods: {}
 }
@@ -140,7 +145,6 @@ export default {
         font-weight: 500;
         font-size: 14px;
         line-height: 24px;
-        text-align: right;
         letter-spacing: -0.03em;
         color: #333333;
         display: -webkit-box;
@@ -222,19 +226,17 @@ export default {
 
       .btn-style {
         width: 116px;
-        height: 32px;
+        height: 40px;
         background-color: #4CAF50;
         border-radius: 10px;
         border: none;
         color: white;
         font-size: 14px;
         letter-spacing: -0.03em;
-        display: flex;
-
         img {
           width: 15px;
           height: 15px;
-          margin-left: 7px;
+          margin-right: 7px;
         }
 
         .content {
