@@ -56,7 +56,7 @@ const AxiosHooks = (function () {
       messages.push('موردی یافت نشد.')
     } else if (statusCode === 401) {
       messages.push('ابتدا وارد سامانه شوید.')
-      deAuthorizeUser(router, store)
+      // deAuthorizeUser(router, store)
     } else if (error.response.data.error && AjaxResponseMessages.isCustomMessage(error.response.data.error.code)) {
       console.log('error.response.data.error.code', AjaxResponseMessages.getMessage(error.response.data.error.code))
       messages.push(AjaxResponseMessages.getMessage(error.response.data.error.code))
