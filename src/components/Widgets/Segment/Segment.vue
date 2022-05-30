@@ -2,20 +2,20 @@
   <div
     class="backgroundImage"
     :style="{
-      height: height,
+      height: defaultOptions.height,
       backgroundImage: 'url(' + this.segmentBackgroundImage +')',
-      position : segmentPosition,
-      padding:segmentPadding  ,
-      margin:segmentMargin.all  ,
-      marginTop:segmentMargin.top ,
-      marginRight:segmentMargin.right ,
-      marginBottom:segmentMargin.bottom  ,
-      marginLeft:segmentMargin.left  ,
-      padding:segmentPadding.all  ,
-      paddingTop:segmentPadding.top ,
-      paddingRight:segmentPadding.right ,
-      paddingBottom:segmentPadding.bottom ,
-      paddingLeft:segmentPadding.left ,
+      position : defaultOptions.segmentPosition,
+      padding:defaultOptions.segmentPadding  ,
+      margin:defaultOptions.segmentMargin.all  ,
+      marginTop:defaultOptions.segmentMargin.top ,
+      marginRight:defaultOptions.segmentMargin.right ,
+      marginBottom:defaultOptions.segmentMargin.bottom  ,
+      marginLeft:defaultOptions.segmentMargin.left  ,
+      padding:defaultOptions.segmentPadding.all  ,
+      paddingTop:defaultOptions.segmentPadding.top ,
+      paddingRight:defaultOptions.segmentPadding.right ,
+      paddingBottom:defaultOptions.segmentPadding.bottom ,
+      paddingLeft:defaultOptions.segmentPadding.left ,
     }"
   >
     <slot />
@@ -26,53 +26,51 @@
 <script>
 
 export default {
+  name: 'Segment',
   props: {
-    height: {
-      type: [String]
-    },
-    segmentPadding: {
+    data: {
       type: Object,
       default () {
         return {
-          all: '',
-          top: '',
-          right: '',
-          bottom: '',
-          left: ''
-        }
-      }
-    },
-    segmentMargin: {
-      type: Object,
-      default () {
-        return {
-          all: '',
-          top: '',
-          right: '',
-          bottom: '',
-          left: ''
-        }
-      }
-    },
-    segmentPosition: {
-      type: String
-    },
-    url: {
-      type: Object,
-      default () {
-        return {
-          xl: '',
-          lg: '',
-          md: '',
-          sm: '',
-          xs: ''
+          url: {
+            xl: '',
+            lg: '',
+            md: '',
+            sm: '',
+            xs: ''
+          }
         }
       }
     }
   },
-  setup () {
+  data () {
     return {
-      segmentBackgroundImage: ''
+      segmentBackgroundImage: '',
+      defaultOptions: {
+        segmentPadding: {
+          all: '',
+          top: '',
+          right: '',
+          bottom: '',
+          left: ''
+        },
+        segmentMargin: {
+          all: '',
+          top: '',
+          right: '',
+          bottom: '',
+          left: ''
+        },
+        segmentPosition: {
+          type: String
+        },
+        height: {
+          type: [String]
+        }
+      },
+      options: {
+
+      }
     }
   },
   created () {
@@ -83,16 +81,16 @@ export default {
   methods: {
     getUrl () {
       const Dimensions = this.$store.getters['AppLayout/windowSize']
-      console.log(Dimensions.x)
+      console.log(Dimensions.x, this.data)
       if (Dimensions.x <= 600) {
-        this.segmentBackgroundImage = this.url.xs
+        this.segmentBackgroundImage = this.data.url.xs
       } else if (Dimensions.x <= 1024) {
-        this.segmentBackgroundImage = this.url.sm
+        this.segmentBackgroundImage = this.data.url.sm
       } else if (Dimensions.x <= 1200) {
-        this.segmentBackgroundImage = this.url.md
+        this.segmentBackgroundImage = this.data.url.md
       } else if (Dimensions.x <= 1440) {
-        this.segmentBackgroundImage = this.url.lg
-      } else this.segmentBackgroundImage = this.url.xl
+        this.segmentBackgroundImage = this.data.url.lg
+      } else this.segmentBackgroundImage = this.data.url.xl
     }
   }
 }
