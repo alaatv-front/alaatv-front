@@ -1,30 +1,30 @@
 <template>
-  <div :class="[(col.col) ? col.col : 'col']">
-    <page-builder-widget v-for="(widget, widgetIndex) in col.widgets"
-               :key="widgetIndex"
-               :widget="widget"
+  <div :class="[(options.col) ? options.col : 'col']">
+    <page-builder-widget v-for="(widget, widgetIndex) in widgets"
+                         :key="widgetIndex"
+                         :widget="widget"
     />
   </div>
 </template>
 
 <script>
 import PageBuilderWidget from './PageBuilderWidget.vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'PageBuilderCol',
   // components,
+  mixins: [mixinWidget],
   components: {
     PageBuilderWidget
   },
   props: {
-    col: {
+    widgets: {
       type: Object,
       default: () => {
         return {}
       }
     }
-  },
-  created () {
   },
   data () {
     return {}
