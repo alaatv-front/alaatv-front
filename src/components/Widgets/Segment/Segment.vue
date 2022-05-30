@@ -1,28 +1,24 @@
 <template>
   <div
-    :style="{height: height }"
-    class="backgroundImage-container"
+    class="backgroundImage"
+    :style="{
+      height: height,
+      backgroundImage: 'url(' + this.segmentBackgroundImage +')',
+      position : segmentPosition,
+      padding:segmentPadding  ,
+      margin:segmentMargin.all  ,
+      marginTop:segmentMargin.top ,
+      marginRight:segmentMargin.right ,
+      marginBottom:segmentMargin.bottom  ,
+      marginLeft:segmentMargin.left  ,
+      padding:segmentPadding.all  ,
+      paddingTop:segmentPadding.top ,
+      paddingRight:segmentPadding.right ,
+      paddingBottom:segmentPadding.bottom ,
+      paddingLeft:segmentPadding.left ,
+    }"
   >
-    <div
-      :style="{
-        backgroundImage: 'url(' + this.segmentBackgroundImage +')',
-        position : segmentPosition,
-        padding:segmentPadding  ,
-        margin:segmentMargin.all  ,
-        marginTop:segmentMargin.top ,
-        marginRight:segmentMargin.right ,
-        marginBottom:segmentMargin.bottom  ,
-        marginLeft:segmentMargin.left  ,
-        padding:segmentPadding.all  ,
-        paddingTop:segmentPadding.top ,
-        paddingRight:segmentPadding.right ,
-        paddingBottom:segmentPadding.bottom ,
-        paddingLeft:segmentPadding.left ,
-      }"
-      class="backgroundImage"
-    >
-      <slot />
-    </div>
+    <slot />
   </div>
 
 </template>
@@ -103,21 +99,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.backgroundImage-container{
-  position: relative;
-  height: 100vh;
-  margin-right: 10px;
-  .backgroundImage{
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    position: absolute;
-    top: 0;
-  }
-
+.backgroundImage{
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: scroll;
+  //position: absolute;
+  top: 0;
 }
+
+//.backgroundImage-container{
+//  position: relative;
+//  height: 100vh;
+//  margin-right: 10px;
+//}
 
 </style>
