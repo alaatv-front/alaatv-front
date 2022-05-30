@@ -15,7 +15,7 @@ import { Content } from 'src/models/Content'
 export default {
   name: 'contentItem',
   props: {
-    contentData: {
+    data: {
       type: Content,
       default: new Content()
     }
@@ -24,7 +24,7 @@ export default {
     content: new Content()
   }),
   mounted () {
-    this.content = new Content(this.contentData)
+    this.content = new Content(this.data)
   }
 }
 </script>
