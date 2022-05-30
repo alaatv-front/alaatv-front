@@ -1,10 +1,12 @@
 <template>
-
+  <div>
+    DynamicPage
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Slider'
+  name: 'DynamicPage'
 }
 </script>
 
