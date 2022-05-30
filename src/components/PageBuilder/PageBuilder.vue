@@ -1,18 +1,22 @@
 <template>
-  <div class="page-builder" :class="classes">
-    <page-builder-section v-for="(section, sectionIndex) in sections"
-                          :key="sectionIndex"
-                          :data="section"
+  <div class="page-builder"
+       :class="classes">
+    <page-builder-section
+      v-for="(section, sectionIndex) in sections"
+      :key="sectionIndex"
+      :rows="section.rows"
+      :options="section.options"
     />
   </div>
 </template>
 
 <script>
 import PageBuilderSection from './PageBuilderSection.vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'PageBuilder',
-  // components,
+  mixins: [mixinWidget],
   components: {
     PageBuilderSection
   },

@@ -1,5 +1,5 @@
 const mixinWidget = {
-  prop: {
+  props: {
     options: {
       type: Object,
       default () {
