@@ -172,6 +172,7 @@ export default {
               ]
             }
           ],
+          options: {}
           // rows: [
           //   {
           //     cols: [
@@ -194,7 +195,6 @@ export default {
           //     options: {}
           //   }
           // ],
-          options: {}
         }
       ],
       testValue: '',
