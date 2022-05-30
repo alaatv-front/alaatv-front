@@ -1,12 +1,59 @@
 <template>
-  <div class="block-container">
-    <div v-if="this.block.products.list.length > 0"
-         class="product-container">
-      <Product-item
-        v-for="product in this.block.products.list"
-        :key="product.id"
-        :product-data="product"
-      />
+  <div class="block-section">
+    <q-btn
+      round
+      color="primary"
+      :icon="isGridView ? 'grid_view':'sync_alt'"
+      @click="isGridView = !isGridView"
+    >
+    </q-btn>
+    <div class="block-container"
+    >
+      <div v-if="this.block.products.list.length > 0"
+           class="item-container"
+           :class="isGridView? 'row': 'scroll-view'"
+      >
+        <div v-for="product in this.block.products.list"
+             :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
+             :key="product.id"
+        >
+          <Product-item
+            class="q-mx-lg"
+            :product-data="product"
+          />
+        </div>
+
+      </div>
+      <div v-if="this.block.sets.list.length > 0"
+           class="item-container"
+           :class="isGridView? 'row': 'scroll-view'"
+      >
+        <div v-for="set in this.block.sets.list"
+             :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
+             :key="set.id"
+        >
+          <set-item
+            class="q-mx-lg"
+            :set-data="set"
+          />
+        </div>
+
+      </div>
+      <div v-if="this.block.contents.list.length > 0"
+           class="item-container"
+           :class="isGridView? 'row': 'scroll-view'"
+      >
+        <div v-for="content in this.block.contents.list"
+             :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
+             :key="content.id"
+        >
+          <content-item
+            class="q-mx-lg"
+            :content-data="content"
+          />
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -14,11 +61,15 @@
 
 <script>
 import ProductItem from 'src/components/Widgets/ProductItem/productItem'
+import SetItem from 'components/Widgets/SetItem/setItem'
+import ContentItem from 'components/Widgets/ContentItem/contentItem'
 import { Block, BlockList } from 'src/models/Block'
+
 export default {
   name: 'Block',
-  components: { ProductItem },
+  components: { ContentItem, SetItem, ProductItem },
   data: () => ({
+    isGridView: false
   }),
   props: {
     block: {
@@ -42,9 +93,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-container{
+.block-section{
   background-color: #ecb3b3;
-  margin:10px
+  margin:30px;
+  .block-container{
+    display: flex;
+    .scroll-view{
+      display: flex;
+      width:100%;
+      overflow: auto;
+    }
+    .item-container{
+    }
 }
-
+}
 </style>
