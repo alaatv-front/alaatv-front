@@ -1,6 +1,6 @@
 <template>
   <q-card
-    class="set-box q-mb-md q-mx-md"
+    class="set-box"
   >
     <div class="image-container active">
       <img
@@ -61,6 +61,7 @@ export default {
 
 <style lang="scss" scoped>
 .set-box {
+  margin-bottom: 10px;
   width: 333px;
   padding: 16px 16px 16px 20px;
   background: #FFFFFF;
