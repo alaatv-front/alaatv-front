@@ -22,156 +22,158 @@ export default {
       },
       sections: [
         {
-          rows: [
-            {
-              cols: [
-                {
-                  widgets: [
-                    {
-                      name: 'Slider',
-                      data: {
-                        slides: new BannerList([
-                          {
-                            id: 1,
-                            title: 'این از این',
-                            link: 'https://www.google.com/',
-                            class: 'q-ma-xl rounded',
-                            features: {
-                              xl: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              },
-                              lg: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              },
-                              md: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              },
-                              sm: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              },
-                              xs: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'Slider',
+                        data: {
+                          slides: new BannerList([
+                            {
+                              id: 1,
+                              title: 'این از این',
+                              link: 'https://www.google.com/',
+                              class: 'q-ma-xl rounded',
+                              features: {
+                                xl: {
+                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                                },
+                                lg: {
+                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                                },
+                                md: {
+                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                                },
+                                sm: {
+                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                                },
+                                xs: {
+                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                                }
+                              }
+                            },
+                            {
+                              id: 2,
+                              title: 'این از این',
+                              link: 'https://www.google.com/',
+                              class: 'q-ma-xl rounded',
+                              features: {
+                                xl: {
+                                  src: 'https://placeimg.com/500/300/nature'
+                                  // width: '500px',
+                                  // height: ''
+                                },
+                                lg: {
+                                  src: 'https://placeimg.com/500/300/nature'
+                                  // width: '500px',
+                                  // height: ''
+                                },
+                                md: {
+                                  src: 'https://placeimg.com/500/300/nature'
+                                  // width: '500px',
+                                  // height: ''
+                                },
+                                sm: {
+                                  src: 'https://placeimg.com/500/300/nature'
+                                  // width: '500px',
+                                  // height: ''
+                                },
+                                xs: {
+                                  src: 'https://placeimg.com/500/300/nature'
+                                  // width: '500px',
+                                  // height: ''
+                                }
                               }
                             }
-                          },
-                          {
-                            id: 2,
-                            title: 'این از این',
-                            link: 'https://www.google.com/',
-                            class: 'q-ma-xl rounded',
-                            features: {
-                              xl: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              },
-                              lg: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              },
-                              md: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              },
-                              sm: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              },
-                              xs: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              }
-                            }
-                          }
-                        ])
-                      },
-                      options: {}
+                          ])
+                        },
+                        options: {}
+                      }
+                    ],
+                    options: {
+                      col: 'col-md-6 q-pb-md'
                     }
-                  ],
-                  options: {
-                    col: 'col-md-8'
                   }
-                }
-              ]
-            },
-            {
-              cols: [
-                {
-                  widgets: [
-                    {
-                      name: 'page-builder-section',
-                      data: {
-                        rows: [
-                          {
-                            cols: [
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component1-widget'
-                                  }
-                                ]
-                              },
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component2-widget'
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
+                ]
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'page-builder-section',
+                        data: {
+                          rows: [
+                            {
+                              cols: [
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component1-widget'
+                                    }
+                                  ]
+                                },
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component2-widget'
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              cols: [
-                {
-                  widgets: [
-                    {
-                      name: 'test-component1-widget'
-                    }
-                  ]
-                },
-                {
-                  widgets: [
-                    {
-                      name: 'page-builder-section',
-                      data: {
-                        rows: [
-                          {
-                            cols: [
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component1-widget'
-                                  }
-                                ]
-                              },
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component2-widget'
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
+                    ]
+                  }
+                ]
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'test-component1-widget'
                       }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
+                    ]
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'page-builder-section',
+                        data: {
+                          rows: [
+                            {
+                              cols: [
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component1-widget'
+                                    }
+                                  ]
+                                },
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component2-widget'
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
           options: {}
           // rows: [
           //   {

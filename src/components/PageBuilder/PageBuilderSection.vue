@@ -16,8 +16,9 @@
       paddingRight:defaultOptions.segmentPadding.right ,
       paddingBottom:defaultOptions.segmentPadding.bottom ,
       paddingLeft:defaultOptions.segmentPadding.left ,
-    }">
-    <page-builder-row  v-for="(row, rowIndex) in rows"
+    }"
+  >
+    <page-builder-row  v-for="(row, rowIndex) in data.rows"
                        :key="rowIndex"
                        :cols="row.cols"
                        :options="row.options"
@@ -36,7 +37,7 @@ export default {
     PageBuilderRow
   },
   props: {
-    rows: {
+    data: {
       type: Object,
       default: () => {
         return {}
