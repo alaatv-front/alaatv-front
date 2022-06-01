@@ -91,7 +91,10 @@ export default {
                       },
                       options: {}
                     }
-                  ]
+                  ],
+                  options: {
+                    col: 'col-md-8'
+                  }
                 }
               ]
             },
@@ -168,7 +171,30 @@ export default {
                 }
               ]
             }
-          ]
+          ],
+          // rows: [
+          //   {
+          //     cols: [
+          //       {
+          //         widgets: [
+          //           {
+          //             name: 'Segment',
+          //             data: {
+          //               url: {
+          //                 xl: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/sf0t100_1352_6437449.jpg?w=427&h=239'
+          //               }
+          //             },
+          //             options: {
+          //
+          //             }
+          //           }
+          //         ]
+          //       }
+          //     ],
+          //     options: {}
+          //   }
+          // ],
+          options: {}
         }
       ],
       testValue: '',
