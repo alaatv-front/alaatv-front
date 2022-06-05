@@ -1,7 +1,17 @@
 <template>
-  <div class="block-section">
-    <div class="row justify-between q-pb-md">
-      <div class="blockTitle">{{data.title}}</div>
+  <div class="block-section q-mx-md">
+    <div class="block-header row justify-between q-pa-md q-mb-sm bg-white">
+      <div class="row items-center block-title">
+        <div class="row items-center">
+          <q-badge rounded
+                   class="q-mr-sm"
+                   color="primary" />
+        </div>
+        <p class="title-box">
+          {{data.title}}
+        </p>
+
+      </div>
       <q-btn
         round
         color="primary"
@@ -10,11 +20,10 @@
       >
       </q-btn>
     </div>
-
     <div class="block-container"
     >
       <div v-if="data.products.list.length > 0"
-           class="item-container"
+           class="item-container q-pb-md"
            :class="isGridView? 'row': 'scroll-view'"
       >
         <div v-for="product in this.data.products.list"
@@ -22,14 +31,14 @@
              :key="product.id"
         >
           <Product-item
-            class="q-mx-lg"
+            class="q-mr-md"
             :data="product"
           />
         </div>
 
       </div>
       <div v-if="data.sets.list.length > 0"
-           class="item-container"
+           class="item-container q-pb-md"
            :class="isGridView? 'row': 'scroll-view'"
       >
         <div v-for="set in this.data.sets.list"
@@ -37,14 +46,14 @@
              :key="set.id"
         >
           <set-item
-            class="q-mx-lg"
+            class="q-mr-md"
             :data="set"
           />
         </div>
 
       </div>
       <div v-if="data.contents.list.length > 0"
-           class="item-container"
+           class="item-container q-pb-md"
            :class="isGridView? 'row': 'scroll-view'"
       >
         <div v-for="content in this.data.contents.list"
@@ -52,7 +61,7 @@
              :key="content.id"
         >
           <content-item
-            class="q-mx-lg"
+            class="q-mr-md"
             :data="content"
           />
         </div>
@@ -89,7 +98,20 @@ export default {
 
 <style lang="scss" scoped>
 .block-section{
-  border: 1px solid #e60808;
+  .block-header{
+    border-radius: 10px;
+    .block-title{
+      .title-box{
+        margin: 0;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 24px;
+        letter-spacing: -0.03em;
+        color: #333333;
+      }
+    }
+  }
+
   margin:30px;
   .block-container{
     display: flex;
