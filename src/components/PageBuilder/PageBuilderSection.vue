@@ -112,7 +112,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  overflow: scroll;
+  overflow: auto;
   /*position: absolute;*/
   top: 0;
 }

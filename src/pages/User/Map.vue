@@ -1,14 +1,45 @@
 <template>
-  <div class="map-page">
-    <map-widget />
-  </div>
+  <page-builder :sections="sections"
+                :options="pageConfig" />
 </template>
 
 <script>
-import MapWidget from 'components/Widgets/Map/Map'
+import PageBuilder from 'components/PageBuilder/PageBuilder'
+
 export default {
   name: 'MapPage',
-  components: { MapWidget }
+  components: { PageBuilder },
+  data () {
+    return {
+      pageConfig: {
+        padding: {
+          a: 'md'
+        }
+      },
+      sections: [
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'abrisham-map'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          options: {}
+        }
+      ],
+      testValue: '',
+      testValue1: ''
+    }
+  }
 }
 </script>
 
