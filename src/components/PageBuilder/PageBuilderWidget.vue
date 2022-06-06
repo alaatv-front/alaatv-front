@@ -53,7 +53,9 @@ export default {
     PageBuilderSection: defineAsyncComponent(() => import('./PageBuilderSection.vue')),
     TestComponent1Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent1Widget.vue')),
     TestComponent2Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent2Widget.vue')),
-    Slider: defineAsyncComponent(() => import('components/Widgets/Slider.vue'))
+    BlockComponent: defineAsyncComponent(() => import('components/Widgets/Block/Block.vue')),
+    Slider: defineAsyncComponent(() => import('components/Widgets/Slider.vue')),
+    Segment: defineAsyncComponent(() => import('components/Widgets/Segment/Segment.vue'))
   },
   props: {
     widget: {

@@ -1,9 +1,9 @@
 <template>
   <div
-    class="page-builder-section"
+    class="backgroundImage"
     :style="{
       height: defaultOptions.height,
-      backgroundImage: 'url(' + this.PageBackgroundImage +')',
+      backgroundImage: 'url(' + this.segmentBackgroundImage +')',
       position : defaultOptions.segmentPosition,
       padding:defaultOptions.segmentPadding  ,
       margin:defaultOptions.segmentMargin.all  ,
@@ -18,47 +18,34 @@
       paddingLeft:defaultOptions.segmentPadding.left ,
     }"
   >
-    <page-builder-row  v-for="(row, rowIndex) in data.rows"
-                       :key="rowIndex"
-                       :cols="row.cols"
-                       :options="row.options"
-    />
+    <slot />
   </div>
+
 </template>
 
 <script>
-import PageBuilderRow from './PageBuilderRow.vue'
-import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
-  name: 'PageBuilderSection',
-  mixins: [mixinWidget],
-  components: {
-    PageBuilderRow
-  },
+  name: 'Segment',
   props: {
     data: {
       type: Object,
-      default: () => {
-        return {}
-      }
-    },
-    url: {
-      type: Object,
       default () {
         return {
-          xl: '',
-          lg: '',
-          md: '',
-          sm: '',
-          xs: ''
+          url: {
+            xl: '',
+            lg: '',
+            md: '',
+            sm: '',
+            xs: ''
+          }
         }
       }
     }
   },
   data () {
     return {
-      PageBackgroundImage: '',
+      segmentBackgroundImage: '',
       defaultOptions: {
         segmentPadding: {
           all: '',
@@ -80,32 +67,37 @@ export default {
         height: {
           type: [String]
         }
+      },
+      options: {
+
       }
     }
   },
   created () {
     this.getUrl()
   },
+  computed: {
+  },
   methods: {
     getUrl () {
       const Dimensions = this.$store.getters['AppLayout/windowSize']
       console.log(Dimensions.x, this.data)
       if (Dimensions.x <= 600) {
-        this.PageBackgroundImage = this.url.xs
+        this.segmentBackgroundImage = this.data.url.xs
       } else if (Dimensions.x <= 1024) {
-        this.PageBackgroundImage = this.url.sm
+        this.segmentBackgroundImage = this.data.url.sm
       } else if (Dimensions.x <= 1200) {
-        this.PageBackgroundImage = this.url.md
+        this.segmentBackgroundImage = this.data.url.md
       } else if (Dimensions.x <= 1440) {
-        this.segmentBackgroundImage = this.url.lg
-      } else this.PageBackgroundImage = this.url.xl
+        this.segmentBackgroundImage = this.data.url.lg
+      } else this.segmentBackgroundImage = this.data.url.xl
     }
   }
 }
 </script>
 
-<style scoped>
-.page-builder-section{
+<style scoped lang="scss">
+.backgroundImage{
   width: 100%;
   height: 100%;
   background-position: center;
@@ -113,8 +105,14 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   overflow: scroll;
-  /*position: absolute;*/
+  //position: absolute;
   top: 0;
 }
+
+//.backgroundImage-container{
+//  position: relative;
+//  height: 100vh;
+//  margin-right: 10px;
+//}
 
 </style>

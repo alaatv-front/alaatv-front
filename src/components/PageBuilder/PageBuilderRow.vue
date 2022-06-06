@@ -1,32 +1,30 @@
 <template>
-  <div
-       class="row q-col-gutter-md"
-  >
-    <page-builder-col  v-for="(col, colIndex) in row.cols"
-                       :key="colIndex"
-                       :col="col"
+  <div class="row q-col-gutter-md">
+    <page-builder-col v-for="(col, colIndex) in cols"
+                      :key="colIndex"
+                      :widgets="col.widgets"
+                      :options="col.options"
     />
   </div>
 </template>
 
 <script>
 import PageBuilderCol from './PageBuilderCol.vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'PageBuilderRow',
-  // components,
+  mixins: [mixinWidget],
   components: {
     PageBuilderCol
   },
   props: {
-    row: {
+    cols: {
       type: Object,
       default: () => {
         return {}
       }
     }
-  },
-  created () {
   },
   data () {
     return {}
