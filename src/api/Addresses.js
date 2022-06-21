@@ -376,6 +376,9 @@ const API_ADDRESS = {
     show: {
       base: alaaServer + '/admin/user/'
     }
+  },
+  map: {
+    items: alaaServer + '/mapDetail'
   }
 }
 export default API_ADDRESS

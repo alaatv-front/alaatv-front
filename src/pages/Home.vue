@@ -1,25 +1,34 @@
 <template>
-  <div>
-    <block v-for="(data, index) in this.pageData.list"
-           :key="index"
-           :block="data"
-    />
-  </div>
+  <page-builder :sections="sections"
+  />
 </template>
 
 <script>
-import Block from 'components/Widgets/Block/Block'
+import PageBuilder from 'components/PageBuilder/PageBuilder'
 import API_ADDRESS from 'src/api/Addresses'
 import { BlockList } from 'src/models/Block'
 export default {
   name: 'BaseComponent',
-  components: { Block },
+  components: { PageBuilder },
   created () {
     this.getPageData()
   },
   data () {
     return {
-      pageData: new BlockList()
+      sections: [
+        {
+          rows: [
+            {
+              cols: [
+                {
+                  widgets: []
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      blocks: new BlockList()
     }
   },
   methods: {
@@ -1461,8 +1470,19 @@ export default {
           }
         ]
       }
-      this.pageData = new BlockList(test.data)
-      // console.log(this.pageData.list)
+      this.blocks = new BlockList(test.data)
+      this.updateSections()
+      // console.log(this.blocks.list)
+    },
+    updateSections () {
+      const widgets = []
+      this.blocks.list.forEach(block => {
+        widgets.push({
+          name: 'BlockComponent',
+          data: block
+        })
+      })
+      this.sections[0].rows[0].cols[0].widgets = widgets
     },
     getBlocksData () {
       // return this.$axios.get(API_ADDRESS.pages.home)
@@ -1472,7 +1492,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
