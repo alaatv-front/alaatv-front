@@ -45,9 +45,9 @@
         ref="daysRef"
         @scroll="onScrollDays"
       >
-        <div v-for="day in daysOfPlan"
-             :key="day.id">
-          date : {{day.date}}
+        <div v-for="studyPlan in filterdPlans.list"
+        >
+          date : {{ studyPlan.date }}
           <q-separator   />
         </div>
       </q-scroll-area>
@@ -59,9 +59,10 @@
         @scroll="onScrollPlans"
       >
         <div
-          v-for="(day, index) in daysOfPlan"
-          :key="index">
-          <plans :dayOfPlan="day" />
+          v-for="studyPlan in filterdPlans.list"
+          :key="studyPlan.id"
+        >
+          <plans :studyPlanData="studyPlan" />
           <q-separator   />
         </div>
       </q-scroll-area>
@@ -73,6 +74,7 @@
 
 <script>
 import Plans from 'components/StudyPlanAdmin/Plans'
+import { StudyPlanList } from 'src/models/StudyPlan'
 
 export default {
   name: 'FullCalenderPlans',
@@ -87,19 +89,27 @@ export default {
     headerCellWidth: {
       default: 200,
       type: Number
+    },
+    filterdPlans: {
+      type: StudyPlanList,
+      default: () => new StudyPlanList()
     }
   },
   data: () => ({
     listOfHours: 24,
     ignoreSource: null,
-    ignoreSource2: null
+    ignoreSource2: null,
+    test: new StudyPlanList()
   }),
+  mounted () {
+
+  },
   created () {
     this.initData()
   },
+
   methods: {
     initData () {
-
     },
     syncVerticalScroll (source, position) {
       if (this.ignoreSource === source) {
@@ -133,7 +143,6 @@ export default {
     },
 
     onScrollPlans ({ verticalPosition, horizontalPosition }) {
-      console.log({ verticalPosition, horizontalPosition })
       this.syncHorizontalScroll('plans', horizontalPosition)
       this.syncVerticalScroll('plans', verticalPosition)
     }

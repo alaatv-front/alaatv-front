@@ -3,18 +3,20 @@
   <filter-plans
     :majors="majors"
     :selected-major-id="selectedMajorId"
+    @changeSelectedLesson="updateSelectedLesson"
     @changeMajorId="setSelectedMajorId"
   />
   <full-calender-plans
     :daysOfPlan="plansDay"
-    :filterdPlans="filterPlan" />
+    :filterdPlans="filterPlanByLesson" />
 </template>
 
 <script>
 import FilterPlans from 'components/StudyPlanAdmin/FilterPlans'
 import FullCalenderPlans from 'components/StudyPlanAdmin/FullCalenderPlans'
 import StudyPlansData from 'assets/js/StudyPlansData'
-// import { StudyPlan, StudyPlanList } from 'src/models/StudyPlan'
+import { StudyPlanList } from 'src/models/StudyPlan'
+import { PlanList } from 'src/models/Plan'
 
 export default {
   name: 'StudyPlan',
@@ -27,13 +29,14 @@ export default {
   },
   data: () => ({
     selectedMajorId: 1,
+    selectedLesson: [],
     majors: [
       {
         title: ' ریاضی',
         id: 1,
         lessons: [
           {
-            title: 'ریاضیات',
+            title: 'ریاضی',
             subLessons: [
               'ریاضیات',
               'حسابان',
@@ -1523,27 +1526,77 @@ export default {
     ],
     plans: [],
     studyPlansData: null,
-    plansDay: []
+    plansDay: [],
+    riaziPlans: new StudyPlanList(),
+    tajrobiPlans: new StudyPlanList(),
+    ensaniPlans: new StudyPlanList(),
+    studyPlans: new StudyPlanList()
   }),
   computed: {
-    filterPlan () {
-      return []
+    filterPlanByMajor () {
+      if (this.selectedMajorId === 1) {
+        return this.riaziPlans
+      } else if (this.selectedMajorId === 2) {
+        return this.tajrobiPlans
+      }
+      return this.ensaniPlans
+    },
+    filterPlanByLesson () {
+      let filterdPlanBySelectedMajor = this.filterPlanByMajor
+      if (this.selectedLesson.length > 0) {
+        filterdPlanBySelectedMajor = this.filterPlansByLessons(filterdPlanBySelectedMajor)
+      }
+      return filterdPlanBySelectedMajor
     }
   },
   created () {
     this.setDates(StudyPlansData)
-    console.log('this.plansDay', this.plansDay)
+    // StudyPlansData.filter((studyPlan, studyPlanIndex, studyPlansArray) => {
+    //   return studyPlansArray.findIndex(item => item.date === studyPlan.date) === studyPlanIndex
+    // })
+    //   .map(item => item.id)
     this.initPageData()
   },
   methods: {
+    filterPlansByLessons (studyPlans) {
+      const filterdStudyPlan = new StudyPlanList()
+      studyPlans.list.forEach(studyPlan => {
+        const planList = this.FilterBySelectedLessons(studyPlan.plans)
+        filterdStudyPlan.addItem({
+          id: studyPlan.id,
+          title: studyPlan.title,
+          date: studyPlan.date,
+          plans: planList
+        })
+      })
+      return filterdStudyPlan
+    },
+    FilterBySelectedLessons (plans) {
+      let planList = []
+      this.selectedLesson.forEach(lesson => {
+        const filteredPlan = plans.list.filter(plan => {
+          console.log(plan.title === lesson, plan.title, lesson)
+          return plan.title === lesson
+        })
+        planList = planList.concat(filteredPlan)
+      })
+      return new PlanList(planList)
+    },
+    updateSelectedLesson (lessons) {
+      this.selectedLesson = lessons
+    },
     setDates (days) {
       if (days.length === 0) {
         return
       }
-      const currentDate = days[0].date
-      this.plansDay.push(currentDate)
-      const newDays = days.filter(plan => {
-        return plan.date !== currentDate
+      const firstDate = days[0].date
+      const newDays = days.filter(plan => plan.date !== firstDate)
+      const filteredDays = days.filter(plan => plan.date === firstDate)
+      this.studyPlans.addItem({
+        id: firstDate,
+        title: firstDate,
+        date: firstDate,
+        plans: filteredDays
       })
       this.setDates(newDays)
     },
@@ -1556,6 +1609,42 @@ export default {
       }
       const majorId = userData.major.id
       this.setSelectedMajorId(majorId)
+      this.classificationPlans()
+      console.log('this.riaziPlans :', this.riaziPlans)
+    },
+    classificationPlans () {
+      // this.studyPlans.list.forEach(studyPlan => {
+      //   studyPlan.plans.list.forEach(plan => {
+      //     const plansMajorId = plan.major.id
+      //     if (plansMajorId === 1) {
+      //
+      //     } else if (plansMajorId === 2) {
+      //       this.tajrobiPlans.list.plans.list.push(plan)
+      //     } else {
+      //       this.ensaniPlans.list.plans.list.push(plan)
+      //     }
+      //   })
+      // })
+      this.studyPlans.list.forEach(studyPlan => {
+        this.riaziPlans.addItem({
+          id: studyPlan.id,
+          title: studyPlan.title,
+          date: studyPlan.date,
+          plans: studyPlan.plans.list.filter(plan => plan.major.id === 1)
+        })
+        this.tajrobiPlans.addItem({
+          id: studyPlan.id,
+          title: studyPlan.title,
+          date: studyPlan.date,
+          plans: studyPlan.plans.list.filter(plan => plan.major.id === 2)
+        })
+        this.ensaniPlans.addItem({
+          id: studyPlan.id,
+          title: studyPlan.title,
+          date: studyPlan.date,
+          plans: studyPlan.plans.list.filter(plan => plan.major.id === 3)
+        })
+      })
     },
     setSelectedMajorId (majorId) {
       this.selectedMajorId = majorId

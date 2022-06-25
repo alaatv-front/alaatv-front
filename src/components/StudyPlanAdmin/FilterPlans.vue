@@ -46,7 +46,7 @@ export default {
   },
   data: () => ({
     activeMajor: 1,
-    activeMajorLesson: '',
+    activeMajorLesson: [],
     group: [],
     contentTypes: [
       {
@@ -88,10 +88,16 @@ export default {
   methods: {
     lessonClicked (lesson) {
       lesson.active = !lesson.active
-      console.log(lesson)
+      if (this.activeMajorLesson.includes(lesson.title)) {
+        this.activeMajorLesson = this.activeMajorLesson.filter(item => item !== lesson.title)
+      } else {
+        this.activeMajorLesson.push(lesson.title)
+      }
+      this.$emit('changeSelectedLesson', this.activeMajorLesson)
     },
     changeSelectedMajorId (major) {
       const majorId = major.id
+      this.activeMajorLesson = []
       this.$emit('changeMajorId', majorId)
     },
     setSelectedMajorId () {
