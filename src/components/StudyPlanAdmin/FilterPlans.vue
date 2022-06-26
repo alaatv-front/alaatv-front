@@ -19,7 +19,7 @@
     >
       <div class="row justify-center">
         <q-btn
-          v-for="(lesson, index) in majorsLesson"
+          v-for="(lesson, index) in lessonList"
           :key="index"
           unelevated
           class="lessons"
@@ -45,48 +45,18 @@ export default {
     majors: {
       type: Array,
       default: () => []
+    },
+    lessonList: {
+      type: Array,
+      default: () => []
     }
   },
   data: () => ({
     activeMajor: 1,
-    activeMajorLesson: [],
-    group: [],
-    contentTypes: [
-      {
-        id: 1,
-        title: 'moshavere_voice',
-        display_name: 'ویس مشاوره'
-      },
-      {
-        id: 2,
-        title: 'moshavere_video',
-        display_name: 'فیلم مشاوره'
-      },
-      {
-        id: 3,
-        title: 'moshavere_text',
-        display_name: 'متن مشاوره'
-      },
-      {
-        id: 4,
-        title: 'lesson_video',
-        display_name: 'فیلم تدریس'
-      },
-      {
-        id: 5,
-        title: 'tests',
-        display_name: 'تست ها'
-      }
-    ]
+    activeMajorLesson: []
   }),
   created () {
     this.setSelectedMajorId()
-  },
-  computed: {
-    majorsLesson () {
-      const selectedMajor = this.majors.find(major => major.id === this.selectedMajorId)
-      return selectedMajor.lessons
-    }
   },
   methods: {
     lessonClicked (lesson) {
@@ -117,6 +87,5 @@ export default {
 <style lang="scss" scoped>
 .lessons{
   border-radius: 0;
-  width: 70px;
 }
 </style>

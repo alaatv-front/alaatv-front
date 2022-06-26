@@ -2,6 +2,7 @@
   <p class="text-center">:) the study plan say hi </p>
   <filter-plans
     :majors="majors"
+    :lessonList="lessons"
     :selected-major-id="selectedMajorId"
     @changeSelectedLesson="updateSelectedLesson"
     @changeMajorId="setSelectedMajorId"
@@ -34,150 +35,15 @@ export default {
     majors: [
       {
         title: ' ریاضی',
-        id: 1,
-        lessons: [
-          {
-            title: 'ریاضی',
-            subLessons: [
-              'ریاضیات',
-              'حسابان',
-              'هندسه',
-              'گسسته'
-            ]
-          },
-          {
-            title: 'فیزیک',
-            subLessons: [
-              'فیزیک'
-            ]
-          },
-          {
-            title: 'شیمی',
-            subLessons: [
-              'شیمی'
-            ]
-          },
-          {
-            title: 'فارسی',
-            subLessons: [
-              'فارسی'
-            ]
-          },
-          {
-            title: 'دینی',
-            subLessons: [
-              'دینی'
-            ]
-          },
-          {
-            title: 'زبان',
-            subLessons: [
-              'زبان'
-            ]
-          },
-          {
-            title: 'عربی',
-            subLessons: [
-              'عربی'
-            ]
-          }
-        ]
+        id: 1
       },
       {
         title: 'تجربی',
-        id: 2,
-        lessons: [
-          {
-            title: 'زیست',
-            subLessons: [
-              'زیست',
-              'زیست شناسی'
-            ]
-          },
-          {
-            title: 'فیزیک',
-            subLessons: [
-              'فیزیک'
-            ]
-          },
-          {
-            title: 'شیمی',
-            subLessons: [
-              'شیمی'
-            ]
-          },
-          {
-            title: 'ریاضی (امینی)',
-            subLessons: [
-              'ریاضی (امینی)'
-            ]
-          },
-          {
-            title: 'ریاضی (ثابتی)',
-            subLessons: [
-              'ریاضی (ثابتی)'
-            ]
-          },
-          {
-            title: 'فارسی',
-            subLessons: [
-              'فارسی'
-            ]
-          },
-          {
-            title: 'دینی',
-            subLessons: [
-              'دینی'
-            ]
-          },
-          {
-            title: 'زبان',
-            subLessons: [
-              'زبان'
-            ]
-          },
-          {
-            title: 'عربی',
-            subLessons: [
-              'عربی'
-            ]
-          }
-        ]
-      }, {
+        id: 2
+      },
+      {
         title: 'انسانی',
-        id: 3,
-        lessons: [
-          {
-            title: 'علوم و فنون',
-            subLessons: [
-              'علوم و فنون'
-            ]
-          },
-          {
-            title: 'فارسی',
-            subLessons: [
-              'فارسی'
-            ]
-          },
-          {
-            title: 'دینی',
-            subLessons: [
-              'دینی'
-            ]
-          },
-          {
-            title: 'زبان',
-            subLessons: [
-              'زبان'
-            ]
-          },
-          {
-            title: 'عربی',
-            subLessons: [
-              'عربی'
-            ]
-          }
-        ]
+        id: 3
       }],
     windowDays: [
       {
@@ -1534,7 +1400,6 @@ export default {
     studyPlans: new StudyPlanList()
   }),
   computed: {
-
     filterPlanByLesson () {
       let filteredPlanBySelectedMajor = this.filterPlanByMajor()
       if (this.selectedLesson.length > 0) {
@@ -1543,12 +1408,19 @@ export default {
       return filteredPlanBySelectedMajor
     }
   },
+  watch: {
+    selectedMajorId: {
+      handler (newValue) {
+        if (!newValue) {
+          return
+        }
+        this.selectedLesson = []
+        this.setLessons()
+      }
+    }
+  },
   created () {
     this.setDates(StudyPlansData)
-    // StudyPlansData.filter((studyPlan, studyPlanIndex, studyPlansArray) => {
-    //   return studyPlansArray.findIndex(item => item.date === studyPlan.date) === studyPlanIndex
-    // })
-    //   .map(item => item.id)
     this.initPageData()
   },
   methods: {
@@ -1560,6 +1432,7 @@ export default {
       }
       return this.ensaniPlans
     },
+
     filterPlansByLessons (studyPlans) {
       const filterdStudyPlan = new StudyPlanList()
       studyPlans.list.forEach(studyPlan => {
@@ -1573,6 +1446,7 @@ export default {
       })
       return filterdStudyPlan
     },
+
     FilterBySelectedLessons (plans) {
       let planList = []
       this.selectedLesson.forEach(lesson => {
@@ -1583,9 +1457,11 @@ export default {
       })
       return new PlanList(planList)
     },
+
     updateSelectedLesson (lessons) {
       this.selectedLesson = lessons
     },
+
     setDates (days) {
       if (days.length === 0) {
         return
@@ -1611,30 +1487,25 @@ export default {
       const majorId = userData.major.id
       this.setSelectedMajorId(majorId)
       this.classificationPlans()
-      this.$nextTick(() => {
-        const selectedMajorPlans = this.filterPlanByMajor()
-        this.setLessons(selectedMajorPlans.list)
-      })
+      this.setLessons()
     },
-    setLessons (planList) {
-      planList.forEach(day => {
-        this.testMitra(day.plans.list)
+
+    setLessons () {
+      const studyPlans = this.filterPlanByMajor()
+      let plans = []
+      studyPlans.list.forEach(studyPlan => {
+        plans = plans.concat(studyPlan.plans.list)
       })
-      console.log('this.lessons!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111 :', this.lessons)
+
+      this.lessons = plans.filter((studyPlan, studyPlanIndex, studyPlansArray) => studyPlansArray.findIndex(item => item.title === studyPlan.title) === studyPlanIndex)
+        .map(item => {
+          return {
+            title: item.title,
+            active: false
+          }
+        })
     },
-    testMitra (planList) {
-      if (planList.length === 0) {
-        return
-      }
-      const firstLesson = planList[0].title
-      if (!this.lessons.includes(firstLesson)) {
-        this.lessons.push(firstLesson)
-      }
-      const newPlanList = planList.filter(plan => {
-        return plan.title !== firstLesson
-      })
-      this.testMitra(newPlanList)
-    },
+
     classificationPlans () {
       // this.studyPlans.list.forEach(studyPlan => {
       //   studyPlan.plans.list.forEach(plan => {
@@ -1669,6 +1540,7 @@ export default {
         })
       })
     },
+
     setSelectedMajorId (majorId) {
       this.selectedMajorId = majorId
     },

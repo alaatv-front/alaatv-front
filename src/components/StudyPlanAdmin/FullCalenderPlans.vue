@@ -55,7 +55,7 @@
       </q-scroll-area>
       <q-scroll-area
         visible
-        class=" col-11 full-calender"
+        class="col-11 full-calender"
         style="height: 550px; max-width: 100%"
         ref="plansRef"
         @scroll="onScrollPlans"
@@ -69,7 +69,6 @@
         </div>
       </q-scroll-area>
     </div>
-
   </div>
 
 </template>
