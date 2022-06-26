@@ -1,5 +1,5 @@
 <template>
-  <p>the study plan say hi :)</p>
+  <p class="text-center">:) the study plan say hi </p>
   <filter-plans
     :majors="majors"
     :selected-major-id="selectedMajorId"
@@ -30,6 +30,7 @@ export default {
   data: () => ({
     selectedMajorId: 1,
     selectedLesson: [],
+    lessons: [],
     majors: [
       {
         title: ' ریاضی',
@@ -1533,20 +1534,13 @@ export default {
     studyPlans: new StudyPlanList()
   }),
   computed: {
-    filterPlanByMajor () {
-      if (this.selectedMajorId === 1) {
-        return this.riaziPlans
-      } else if (this.selectedMajorId === 2) {
-        return this.tajrobiPlans
-      }
-      return this.ensaniPlans
-    },
+
     filterPlanByLesson () {
-      let filterdPlanBySelectedMajor = this.filterPlanByMajor
+      let filteredPlanBySelectedMajor = this.filterPlanByMajor()
       if (this.selectedLesson.length > 0) {
-        filterdPlanBySelectedMajor = this.filterPlansByLessons(filterdPlanBySelectedMajor)
+        filteredPlanBySelectedMajor = this.filterPlansByLessons(filteredPlanBySelectedMajor)
       }
-      return filterdPlanBySelectedMajor
+      return filteredPlanBySelectedMajor
     }
   },
   created () {
@@ -1558,6 +1552,14 @@ export default {
     this.initPageData()
   },
   methods: {
+    filterPlanByMajor () {
+      if (this.selectedMajorId === 1) {
+        return this.riaziPlans
+      } else if (this.selectedMajorId === 2) {
+        return this.tajrobiPlans
+      }
+      return this.ensaniPlans
+    },
     filterPlansByLessons (studyPlans) {
       const filterdStudyPlan = new StudyPlanList()
       studyPlans.list.forEach(studyPlan => {
@@ -1609,6 +1611,29 @@ export default {
       const majorId = userData.major.id
       this.setSelectedMajorId(majorId)
       this.classificationPlans()
+      this.$nextTick(() => {
+        const selectedMajorPlans = this.filterPlanByMajor()
+        this.setLessons(selectedMajorPlans.list)
+      })
+    },
+    setLessons (planList) {
+      planList.forEach(day => {
+        this.testMitra(day.plans.list)
+      })
+      console.log('this.lessons!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111 :', this.lessons)
+    },
+    testMitra (planList) {
+      if (planList.length === 0) {
+        return
+      }
+      const firstLesson = planList[0].title
+      if (!this.lessons.includes(firstLesson)) {
+        this.lessons.push(firstLesson)
+      }
+      const newPlanList = planList.filter(plan => {
+        return plan.title !== firstLesson
+      })
+      this.testMitra(newPlanList)
     },
     classificationPlans () {
       // this.studyPlans.list.forEach(studyPlan => {

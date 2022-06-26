@@ -47,10 +47,10 @@
       >
         <div v-for="studyPlan in filterdPlans.list"
              :key="studyPlan.id"
-             class="date-style"
+             class="date-style row justify-center items-center "
         >
-          date : {{ studyPlan.date }}
-          <q-separator   />
+          <div class="date">  date : {{ studyPlan.date }} </div>
+          <q-separator />
         </div>
       </q-scroll-area>
       <q-scroll-area
@@ -163,7 +163,7 @@ export default {
 }
 
 </style>
-<style scoped>
+<style scoped lang="scss">
 .calender-header{
 }
 .timeTableHeaderNumber{
@@ -179,5 +179,12 @@ export default {
   position: absolute;
   height: 20px;
   z-index: 100;
+}
+.date-style{
+  margin: 5px 0;
+
+  .date{
+    height: 35px;
+  }
 }
 </style>

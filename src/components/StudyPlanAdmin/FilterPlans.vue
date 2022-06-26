@@ -1,7 +1,7 @@
 <template>
-  <p> filter plans say Hi </p>
-  <div class="">
-    <div style="max-width: 400px">
+  <div class="row justify-center ">
+    <div class="col-12"
+         style="max-width: 400px">
       <q-tabs
         v-model="activeMajor"
         class="bg-primary text-white shadow-2 q-ma-lg"
@@ -15,18 +15,21 @@
         />
       </q-tabs>
     </div>
-    <div class="flex q-mx-lg"
+    <div class="q-mx-lg col-12"
     >
-      <q-btn
-        v-for="(lesson, index) in majorsLesson"
-        :key="index"
-        unelevated
-        class="lessons"
-        :color="lesson.active ? 'deep-purple-4' : 'primary'"
-        @click="lessonClicked(lesson)"
-      >
-        {{lesson.title}}
-      </q-btn>
+      <div class="row justify-center">
+        <q-btn
+          v-for="(lesson, index) in majorsLesson"
+          :key="index"
+          unelevated
+          class="lessons"
+          :color="lesson.active ? 'deep-purple-4' : 'primary'"
+          @click="lessonClicked(lesson)"
+        >
+          {{lesson.title}}
+        </q-btn>
+      </div>
+
     </div>
   </div>
 </template>

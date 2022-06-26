@@ -34,7 +34,7 @@ export default {
 
   },
   mounted () {
-    console.log(this.studyPlanData.plans.list)
+    // console.log(this.studyPlanData.plans.list)
   },
   methods: {
     calculateWidth (planDate) {
