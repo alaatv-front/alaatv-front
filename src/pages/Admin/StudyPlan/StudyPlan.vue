@@ -1575,7 +1575,6 @@ export default {
       let planList = []
       this.selectedLesson.forEach(lesson => {
         const filteredPlan = plans.list.filter(plan => {
-          console.log(plan.title === lesson, plan.title, lesson)
           return plan.title === lesson
         })
         planList = planList.concat(filteredPlan)
@@ -1610,7 +1609,6 @@ export default {
       const majorId = userData.major.id
       this.setSelectedMajorId(majorId)
       this.classificationPlans()
-      console.log('this.riaziPlans :', this.riaziPlans)
     },
     classificationPlans () {
       // this.studyPlans.list.forEach(studyPlan => {

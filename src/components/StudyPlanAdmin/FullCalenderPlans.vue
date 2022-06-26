@@ -40,12 +40,14 @@
     <div class="calender-body  row no-wrap">
       <q-scroll-area
         visible
-        class="bg-light-blue-2 col-1 "
+        class=" col-1"
         style="height: 550px;"
         ref="daysRef"
         @scroll="onScrollDays"
       >
         <div v-for="studyPlan in filterdPlans.list"
+             :key="studyPlan.id"
+             class="date-style"
         >
           date : {{ studyPlan.date }}
           <q-separator   />
@@ -53,7 +55,7 @@
       </q-scroll-area>
       <q-scroll-area
         visible
-        class="bg-light-blue-3 col-11 full-calender"
+        class=" col-11 full-calender"
         style="height: 550px; max-width: 100%"
         ref="plansRef"
         @scroll="onScrollPlans"
@@ -155,7 +157,6 @@ export default {
   .q-scrollarea__container {
     .q-scrollarea__content {
       direction: ltr;
-      background: #f4dddd
     }
   }
   direction: initial;
@@ -166,7 +167,6 @@ export default {
 .calender-header{
 }
 .timeTableHeaderNumber{
-  border-left: 1px blue solid;
 }
 .hour-line{
   border-left: 2px solid red;
