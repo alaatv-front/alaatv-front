@@ -2,16 +2,17 @@
   <div class="page-builder"
        :class="classes">
     <page-builder-section
+      :url="{xl:'https://cdn.quasar.dev/img/parallax2.jpg'}"
       v-for="(section, sectionIndex) in sections"
       :key="sectionIndex"
-      :rows="section.rows"
+      :data="section.data"
       :options="section.options"
     />
   </div>
 </template>
 
 <script>
-import PageBuilderSection from './PageBuilderSection.vue'
+import PageBuilderSection from 'src/components/PageBuilder/PageBuilderSection.vue'
 import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {

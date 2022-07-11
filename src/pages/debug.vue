@@ -128,52 +128,53 @@ export default {
                           }
                         ]
                       }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              cols: [
-                {
-                  widgets: [
-                    {
-                      name: 'test-component1-widget'
-                    }
-                  ]
-                },
-                {
-                  widgets: [
-                    {
-                      name: 'page-builder-section',
-                      data: {
-                        rows: [
-                          {
-                            cols: [
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component1-widget'
-                                  }
-                                ]
-                              },
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component2-widget'
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
+                    ]
+                  }
+                ]
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'test-component1-widget'
                       }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
+                    ]
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'page-builder-section',
+                        data: {
+                          rows: [
+                            {
+                              cols: [
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component1-widget'
+                                    }
+                                  ]
+                                },
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component2-widget'
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          options: {}
           // rows: [
           //   {
           //     cols: [
@@ -196,7 +197,6 @@ export default {
           //     options: {}
           //   }
           // ],
-          options: {}
         }
       ],
       testValue: '',

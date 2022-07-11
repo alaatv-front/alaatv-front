@@ -45,11 +45,11 @@ import { mixinWidget } from 'src/mixin/Mixins'
 
 // import TestComponent1widget from 'components/Widgets/TestComponent1Widget.vue'
 // import TestComponent2widget from 'components/Widgets/TestComponent2Widget.vue'
-
 export default {
   name: 'PageBuilderWidget',
   // components,
   components: {
+    AbrishamMap: defineAsyncComponent(() => import('components/Widgets/Map/Map.vue')),
     PageBuilderSection: defineAsyncComponent(() => import('./PageBuilderSection.vue')),
     TestComponent1Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent1Widget.vue')),
     TestComponent2Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent2Widget.vue')),

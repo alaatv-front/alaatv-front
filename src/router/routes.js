@@ -12,6 +12,11 @@ const routes = [
         component: () => import('pages/Home.vue')
       },
       {
+        path: 'map',
+        name: 'MapPage',
+        component: () => import('pages/User/Map.vue')
+      },
+      {
         path: '/landing/:landing_name',
         name: 'Landing',
         component: () => import('pages/Landing.vue'),

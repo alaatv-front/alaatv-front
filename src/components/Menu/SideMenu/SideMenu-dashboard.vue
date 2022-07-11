@@ -12,16 +12,23 @@
       padding
       dark
     >
-      <q-input dense standout="bg-deep-purple-5 text-white" v-model="searchText" @update:model-value ="search(titlesList)" placeholder="جست و جو">
+      <q-input dense
+               standout="bg-deep-purple-5 text-white"
+               v-model="searchText"
+               @update:model-value ="search(titlesList)"
+               placeholder="جست و جو">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
       </q-input>
       <menu-item :menu="titlesList" />
     </q-list>
-    <div class="log-out" @click="logOut">
+    <div class="log-out"
+         @click="logOut">
       <span>
-        <q-avatar icon="isax:logout" size="30" dir="rtl"/>
+        <q-avatar icon="isax:logout"
+                  size="30"
+                  dir="rtl" />
       </span>
       <span class="logout-text">خروج </span>
     </div>
@@ -546,7 +553,7 @@ export default {
   min-width: 280px;
   min-height: 840px;
   border-radius: 30px;
-  margin: 40px 24px;
+  margin: 40px 0 0 24px;
   overflow-y: auto;
   @media screen and (max-width: 1919px) {
     width: 260px;
