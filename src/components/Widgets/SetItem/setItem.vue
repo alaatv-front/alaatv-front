@@ -1,21 +1,6 @@
 <template>
-  <q-card class="item-box q-mb-md">
-    <q-img
-      :src="set.photo"
-      class="img"
-      alt="set"
-    />
-    <q-card-section
-    >
-      <p   class="title">
-        {{set.title}}
-        {{set.title}}
-      </p>
-
-    </q-card-section>
-  </q-card>
   <q-card
-    class="row set-box"
+    class="set-box"
   >
     <div class="image-container active">
       <img
@@ -24,24 +9,28 @@
         alt="set photo"
       >
     </div>
-    <div class="info-box">
-      <div class="title-box row">
+    <div class="info-box row">
+      <div class="title-box self-start">
         {{ set.title }}
       </div>
-      <div class="action-box row">
-        <div
-          class="action-box-title"
-        >
-          مشاهده دوره
-          <img
-            src="https://nodes.alaatv.com/upload/landing/30/sets-section/landing-30-sets-section-arrow-btn.png"
-            height="24"
-            width="24"
+      <div class="action-box self-end">
+        <div class="row justify-end">
+          <div
+            class="action-box-title row items-center"
           >
+            مشاهده دوره
+            <img
+              src="https://nodes.alaatv.com/upload/landing/30/sets-section/landing-30-sets-section-arrow-btn.png"
+              height="24"
+              width="24"
+              alt="icon"
+            >
+          </div>
+          <span class="action-box-active-title">
+            در حال نمایش
+          </span>
         </div>
-        <span class="action-box-active-title">
-          در حال نمایش
-        </span>
+
       </div>
     </div>
   </q-card>
@@ -71,50 +60,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.item-box{
-  width: 260px;
-  border-radius: 20px;
-  .title{
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 24px;
-    height:48px;
-    letter-spacing: -0.03em;
-    color: #333333;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    &::before{
-      content: '.';
-      font-size: 50px;
-      color: #36a2f5;
-      line-height: 10px;
-      margin-right: 5px;
-    }
-  }
-}
 .set-box {
+  margin-bottom: 10px;
+  width: 333px;
   padding: 16px 16px 16px 20px;
   background: #FFFFFF;
   box-shadow: 0px 4px 12px rgba(85, 85, 85, 0.15);
   border-radius: 20px;
   cursor:pointer;
+  display: flex;
   &.active{
     background: linear-gradient(0deg, rgba(58, 181, 73, 0.08), rgba(58, 181, 73, 0.08)), #FFFFFF;
     border-bottom: 3.5px solid #3AB549;
     box-shadow: 0 4px 12px rgba(85, 85, 85, 0.15);
   }
   .image-container{
+    width: 100px;
+    height: 100px;
+    border-radius: 16px;
     img{
-      width: 60px;
+      width: inherit;
+      height: inherit;
+      border-radius:inherit;
     }
   }
   .info-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    border-radius: 0;
+    padding-left: 16px;
     .title-box {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -130,12 +102,22 @@ export default {
     }
     .action-box {
       margin: 0;
-      justify-content: flex-end;
+      width: 100%;
       .action-box-title {
         color: #3AB549;
         font-weight: 700;
         font-size: 14px;
         line-height: 24px;
+        img{
+          margin-left: 8px;
+        }
+      }
+      .action-box-active-title {
+        display: block;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 24px;
+        color: #3AB549;
       }
     }
   }
@@ -145,41 +127,40 @@ export default {
   display: none;
 }
 
-.set-box  .info-box .action-box .action-box-active-title {
+.set-box .info-box .action-box .action-box-active-title {
   display: none;
 }
 
-.set-box.active  .info-box .action-box .action-box-active-title {
-  display: block;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 24px;
-  color: #3AB549;
-}
 @media screen and (max-width: 1479px){
-  .set-box  .info-box .title-box{
-    padding-right:9px
-  }
+
 }
 @media screen and (max-width: 1199px){
-  .set-box  .info-box .title-box{
-    padding-right:30px
-  }
+
 }
 @media screen and (max-width: 991px){
-  .set-box  .info-box .title-box{
-    padding-right:0px;
-    transform: translateX(calc(20% - 50px));
-  }
+
 }
 @media screen and (max-width: 767px){
-  .set-box  .info-box .title-box{
-    transform: translateX(calc(20% - 66px));
-  }
+
 }
 @media screen and (max-width: 575px){
-  .set-box  .info-box .title-box{
-    transform: translateX(calc(100% - 110px));
+.set-box {
+  width: 288px;
+  .image-container{
+
   }
+  .info-box {
+
+    .title-box {
+
+    }
+    .action-box {
+      .action-box-title {
+
+      }
+
+    }
+  }
+}
 }
 </style>
