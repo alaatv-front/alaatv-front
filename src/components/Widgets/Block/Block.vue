@@ -13,6 +13,7 @@
 
       </div>
       <q-btn
+        v-if="!data.banners && !data.banners.length "
         round
         color="primary"
         :icon="isGridView ? 'grid_view':'sync_alt'"
@@ -22,6 +23,11 @@
     </div>
     <div class="block-container"
     >
+      <slider
+        v-if="data.banners && data.banners.length > 0"
+        class="q-mx-lg"
+        :data="data.banners"
+      />
       <div v-if="data.products.list.length > 0"
            class="item-container q-pb-md"
            :class="isGridView? 'row': 'scroll-view'"
@@ -72,13 +78,14 @@
 
 <script>
 import ProductItem from 'src/components/Widgets/ProductItem/productItem'
+import Slider from 'src/components/Widgets/Slider'
 import SetItem from 'components/Widgets/SetItem/setItem'
 import ContentItem from 'components/Widgets/ContentItem/contentItem'
 import { Block } from 'src/models/Block'
 
 export default {
   name: 'Block',
-  components: { ContentItem, SetItem, ProductItem },
+  components: { ContentItem, SetItem, ProductItem, Slider },
   data: () => ({
     isGridView: false
   }),
