@@ -4,6 +4,9 @@ const alaaServer = process.env.ALAA_API
 const API_ADDRESS = {
   // socket: process.env.VUE_APP_SOCKET_TARGET_API_SERVER,
   socket: 'https://office.alaatv.com:501',
+  pages: {
+    home: alaaServer + '/home'
+  },
   server: {
     auth: alaaServer
   },
@@ -77,58 +80,273 @@ const API_ADDRESS = {
   },
   attributeManagement: {
     create: {
-      base: '/reqres/api/users'
+      base: alaaServer + '/admin/user'
     },
     edit: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user/'
     },
     index: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user'
     },
     show: {
-      base: alaaServer + '/product'
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  attributeValue: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  liveDescription: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  Vouchers: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  sets: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  sourceManagement: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  teleMarketing: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  fixUnknownUsersCity: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  section: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
     }
   },
   attributeSetManagement: {
     create: {
-      base: '/reqres/api/users'
+      base: alaaServer + '/admin/user'
     },
     edit: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user/'
     },
     index: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user'
     },
     show: {
-      base: alaaServer + '/product'
-    }
-  },
-  set: {
-    create: {
-      base: '/reqres/api/users'
-    },
-    edit: {
-      base: alaaServer + '/admin/product'
-    },
-    index: {
-      base: alaaServer + '/admin/set'
-    },
-    show: {
-      base: alaaServer + '/admin/set'
+      base: alaaServer + '/admin/user/'
     }
   },
   transaction: {
     create: {
-      base: '/reqres/api/users'
+      base: alaaServer + '/admin/user'
     },
     edit: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user/'
     },
     index: {
-      base: alaaServer + '/admin/transaction'
+      base: alaaServer + '/admin/user'
     },
     show: {
-      base: alaaServer + '/admin/product'
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  userBon: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  smsAdmin: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  coupons: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  gateway: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  activityLog: {
+    index: {
+      base: alaaServer + '/admin/user'
+    }
+  },
+  tags: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  blockManagement: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  ticketDepartment: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  slideShowManagement: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
     }
   },
   users: {
@@ -144,6 +362,23 @@ const API_ADDRESS = {
     show: {
       base: alaaServer + '/admin/user/'
     }
+  },
+  permission: {
+    create: {
+      base: alaaServer + '/admin/user'
+    },
+    edit: {
+      base: alaaServer + '/admin/user/'
+    },
+    index: {
+      base: alaaServer + '/admin/user'
+    },
+    show: {
+      base: alaaServer + '/admin/user/'
+    }
+  },
+  map: {
+    items: alaaServer + '/mapDetail'
   }
 }
 export default API_ADDRESS

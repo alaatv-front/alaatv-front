@@ -12,16 +12,23 @@
       padding
       dark
     >
-      <q-input dense standout="bg-deep-purple-5 text-white" v-model="searchText" @update:model-value ="search(titlesList)" placeholder="جست و جو">
+      <q-input dense
+               standout="bg-deep-purple-5 text-white"
+               v-model="searchText"
+               @update:model-value ="search(titlesList)"
+               placeholder="جست و جو">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
       </q-input>
       <menu-item :menu="titlesList" />
     </q-list>
-    <div class="log-out" @click="logOut">
+    <div class="log-out"
+         @click="logOut">
       <span>
-        <q-avatar icon="isax:logout" size="30" dir="rtl"/>
+        <q-avatar icon="isax:logout"
+                  size="30"
+                  dir="rtl" />
       </span>
       <span class="logout-text">خروج </span>
     </div>
@@ -112,9 +119,29 @@ export default {
             },
             {
               title: 'کاربران',
-              routeName: 'Admin.User.Index',
+              routeName: 'none',
               show: true,
-              active: false
+              active: false,
+              children: [
+                {
+                  title: 'پنل مدیریت کاربران',
+                  routeName: 'Admin.UserManagement.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت دسترسی ها',
+                  routeName: 'Admin.Permission.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت نقش ها',
+                  routeName: 'Admin.Roles.Index',
+                  show: true,
+                  active: false
+                }
+              ]
             },
             {
               title: 'مدیریت ساعت کاری',
@@ -125,44 +152,6 @@ export default {
               children: [
                 {
                   title: 'شیفت کارمندان',
-                  routeName: 'Admin.ScheduleManagement.Index',
-                  show: true,
-                  active: false
-                }
-              ]
-            },
-            {
-              title: 'سفارش ها',
-              routeName: 'none',
-              show: true,
-              active: false,
-              children: [
-                {
-                  title: 'انتقال سفارش های کاربر',
-                  routeName: 'Admin.ScheduleManagement.Index',
-                  show: true,
-                  active: false
-                },
-                {
-                  title: 'ثبت سفارش جدید',
-                  routeName: 'Admin.ScheduleManagement.Index',
-                  show: true,
-                  active: false
-                },
-                {
-                  title: 'مدیریت سفارش ها',
-                  routeName: 'Admin.Order.Index',
-                  show: true,
-                  active: false
-                },
-                {
-                  title: 'مدیریت تراکنش ها',
-                  routeName: 'Admin.ScheduleManagement.Index',
-                  show: true,
-                  active: false
-                },
-                {
-                  title: 'مدیریت بن کاربران',
                   routeName: 'Admin.ScheduleManagement.Index',
                   show: true,
                   active: false
@@ -190,7 +179,39 @@ export default {
                 },
                 {
                   title: 'لاگ های پیامک',
+                  routeName: 'Admin.SMSAdmin.Index',
+                  show: true,
+                  active: false
+                }
+              ]
+            },
+            {
+              title: 'سفارش ها',
+              routeName: 'none',
+              show: true,
+              active: false,
+              children: [
+                {
+                  title: 'انتقال سفارش های کاربر',
                   routeName: 'none',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت سفارش ها',
+                  routeName: 'Admin.Orders.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت تراکنش ها',
+                  routeName: 'Admin.Transaction.Index',
+                  show: true,
+                  active: false
+                },
+                {
+                  title: 'مدیریت بن کاربران',
+                  routeName: 'Admin.UserBon.Index',
                   show: true,
                   active: false
                 }
@@ -219,7 +240,7 @@ export default {
             },
             {
               title: 'بلوک ها',
-              routeName: 'none',
+              routeName: 'Admin.BlockManagement.Index',
               show: true,
               active: false
             },
@@ -244,7 +265,7 @@ export default {
                     },
                     {
                       title: 'مدیریت کپن ها',
-                      routeName: 'none',
+                      routeName: 'Admin.Coupons.Index',
                       show: true,
                       active: false
                     },
@@ -256,7 +277,7 @@ export default {
                     },
                     {
                       title: 'مدیریت دسته صفت ها',
-                      routeName: 'none',
+                      routeName: 'Admin.AttributeSetManagement.Index',
                       show: true,
                       active: false
                     }
@@ -264,13 +285,13 @@ export default {
                 },
                 {
                   title: 'توضیحات لحظه ای',
-                  routeName: 'none',
+                  routeName: 'Admin.LiveDescription.Index',
                   show: true,
                   active: false
                 },
                 {
                   title: 'مدیریت ووچرها',
-                  routeName: 'none',
+                  routeName: 'Admin.Vouchers.Index',
                   show: true,
                   active: false
                 }
@@ -285,7 +306,7 @@ export default {
               children: [
                 {
                   title: 'منبع',
-                  routeName: 'none',
+                  routeName: 'Admin.SourceManagement.Index',
                   show: true,
                   active: false
                 },
@@ -297,13 +318,13 @@ export default {
                 },
                 {
                   title: 'دسته محتوا',
-                  routeName: 'Admin.Content.Index',
+                  routeName: 'Admin.Sets.Index',
                   show: true,
                   active: false
                 },
                 {
                   title: 'سکشن محتوا',
-                  routeName: 'Admin.Content.Index',
+                  routeName: 'Admin.Section.Index',
                   show: true,
                   active: false
                 }
@@ -311,7 +332,7 @@ export default {
             },
             {
               title: 'پنل لیست ها',
-              routeName: 'none',
+              routeName: 'Admin.RegistrationManagement.Index',
               show: true,
               active: false
             },
@@ -335,13 +356,13 @@ export default {
             },
             {
               title: 'گروه تیکت',
-              routeName: 'none',
+              routeName: 'Admin.TicketDepartment.Index',
               show: true,
               active: false
             },
             {
               title: 'تگ ها',
-              routeName: 'none',
+              routeName: 'Admin.Tags.Index',
               show: true,
               active: false
             },
@@ -372,7 +393,7 @@ export default {
                 },
                 {
                   title: 'اسلاید شو',
-                  routeName: 'none',
+                  routeName: 'Admin.SlideShowManagement.Index',
                   show: true,
                   active: false
                 }
@@ -380,13 +401,13 @@ export default {
             },
             {
               title: 'درگاه پرداخت',
-              routeName: 'none',
+              routeName: 'Admin.Gateway.Index',
               show: true,
               active: false
             },
             {
               title: 'لاگ فعالیت ها',
-              routeName: 'none',
+              routeName: 'Admin.ActivityLog.Index',
               show: true,
               active: false
             },
@@ -399,7 +420,7 @@ export default {
               children: [
                 {
                   title: 'تله مارکتینگ',
-                  routeName: 'none',
+                  routeName: 'Admin.TeleMarketing.Index',
                   show: true,
                   active: false
                 },
@@ -422,8 +443,8 @@ export default {
                   active: false
                 },
                 {
-                  title: 'اصلاح شهر و استان',
-                  routeName: 'none',
+                  title: 'اصلاح شهر و استان کاربران',
+                  routeName: 'Admin.FixUnknownUsersCity.Index',
                   show: true,
                   active: false
                 }
@@ -532,7 +553,7 @@ export default {
   min-width: 280px;
   min-height: 840px;
   border-radius: 30px;
-  margin: 40px 24px;
+  margin: 40px 0 0 24px;
   overflow-y: auto;
   @media screen and (max-width: 1919px) {
     width: 260px;
