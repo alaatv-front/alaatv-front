@@ -1,7 +1,6 @@
 <template>
   <div>
-    <page-builder :sections="sections"
-                  :options="pageConfig" />
+    <page-builder :sections="sections" :options="pageConfig" />
   </div>
 </template>
 
@@ -11,9 +10,10 @@ import { BannerList } from 'src/models/Banner'
 
 export default {
   name: 'debug',
-  components: { PageBuilder },
+  components: [PageBuilder],
   mixins: [],
-  data () {
+
+  data() {
     return {
       pageConfig: {
         padding: {
@@ -128,52 +128,52 @@ export default {
                           }
                         ]
                       }
-                    ]
-                  }
-                ]
-              },
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'test-component1-widget'
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              cols: [
+                {
+                  widgets: [
+                    {
+                      name: 'test-component1-widget'
+                    }
+                  ]
+                },
+                {
+                  widgets: [
+                    {
+                      name: 'page-builder-section',
+                      data: {
+                        rows: [
+                          {
+                            cols: [
+                              {
+                                widgets: [
+                                  {
+                                    name: 'test-component1-widget'
+                                  }
+                                ]
+                              },
+                              {
+                                widgets: [
+                                  {
+                                    name: 'test-component2-widget'
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
-                    ]
-                  },
-                  {
-                    widgets: [
-                      {
-                        name: 'page-builder-section',
-                        data: {
-                          rows: [
-                            {
-                              cols: [
-                                {
-                                  widgets: [
-                                    {
-                                      name: 'test-component1-widget'
-                                    }
-                                  ]
-                                },
-                                {
-                                  widgets: [
-                                    {
-                                      name: 'test-component2-widget'
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           options: {}
           // rows: [
           //   {
@@ -197,53 +197,54 @@ export default {
           //     options: {}
           //   }
           // ],
-        }
+        },
       ],
       testValue: '',
       testValue1: ''
     }
-  },
+   },
+
   props: {
     testProp: {
       type: Boolean,
-      default () {
+      default() {
         return false
       }
     }
   },
   methods: {},
   computed: {},
-  beforeRouteEnter () {
+  beforeRouteEnter() {
     // console.log('debug beforeRouteEnter')
   },
-  beforeRouteLeave () {
+  beforeRouteLeave() {
     // console.log('debug beforeRouteLeave')
   },
-  beforeRouteUpdate () {
+  beforeRouteUpdate() {
     // console.log('debug beforeRouteUpdate')
   },
-  activated () {
+  activated() {
     // console.log('debug activated')
   },
-  updated () {
+  updated() {
     // console.log('debug updated')
   },
-  created () {
+  created() {
     // console.log('debug created')
   },
-  mounted () {
+  mounted() {
     // console.log('debug mounted')
   },
   watch: {
     testValue: {
-      handler () {},
+      handler() { },
       deep: true
     },
-    testValue1 (oldVal, newVal) {}
+    testValue1(oldVal, newVal) { }
   }
 }
+
 </script>
 
 <style scoped lang="scss">
-
 </style>
