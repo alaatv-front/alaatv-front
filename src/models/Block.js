@@ -2,6 +2,7 @@ import { Model, Collection } from 'js-abstract-model'
 import { SetList } from 'src/models/Set'
 import { ProductList } from 'src/models/Product'
 import { ContentList } from 'src/models/Content'
+import { BannerList } from 'src/models/Banner'
 
 class Block extends Model {
   constructor (data) {
@@ -26,7 +27,8 @@ class Block extends Model {
         relatedModel: ProductList
       },
       {
-        key: 'banners'
+        key: 'banners',
+        relatedModel: BannerList
       },
       { key: 'updated_at' }
     ])
