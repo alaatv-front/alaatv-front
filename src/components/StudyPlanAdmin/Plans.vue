@@ -1,16 +1,17 @@
 <template>
   <div class="plans  row no-wrap"
        :style="{width : calculateRowWidth() + 'px'}">
-
-    <plan  v-for="plan in studyPlanData.plans.list"
-           :style="{
-             right :calculateRightSpace(plan) + 'px',
-             backgroundColor : plan.backgroundColor,
-             width: calculateWidth(plan) + 'px',
-
-           }"
-           :planDate ='plan' />
-
+    <plan v-for="plan in studyPlanData.plans.list"
+          :key="plan.id"
+          :style="{
+            right :calculateRightSpace(plan) + 'px',
+            backgroundColor : plan.backgroundColor,
+            width: calculateWidth(plan) + 'px',
+          }"
+          :planDate='plan'
+          @editPlanData="editPlan"
+          @deletePlan="deletePlan"
+    />
   </div>
 
 </template>
@@ -37,6 +38,13 @@ export default {
     // console.log(this.studyPlanData.plans.list)
   },
   methods: {
+    deletePlan (planId, type) {
+      console.log('delete type : ', type)
+      this.$emit('deletePlan', planId)
+    },
+    editPlan (planData) {
+      this.$emit('updatePlan', planData)
+    },
     calculateWidth (planDate) {
       const pixelPerMinutes = this.headerCellWidth / 60
       const start = planDate.start
@@ -62,11 +70,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.plans{
+.plans {
   background: rgba(150, 144, 228, 0.18);
   position: relative;
   height: 35px;
-  margin:  5px 0;
+  margin: 5px 0;
   display: flex;
   align-items: center;
 }

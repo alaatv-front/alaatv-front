@@ -14,6 +14,9 @@ const API_ADDRESS = {
   auth: {
     login: alaaServer + '/login'
   },
+  studyPlan: {
+    edit: alaaServer + '/plan'
+  },
   user: {
     base: alaaServer + '/user',
     mobile: {

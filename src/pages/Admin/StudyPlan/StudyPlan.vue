@@ -1,15 +1,75 @@
 <template>
-  <p class="text-center">:) the study plan say hi </p>
-  <filter-plans
-    :majors="majors"
-    :lessonList="lessons"
-    :selected-major-id="selectedMajorId"
-    @changeSelectedLesson="updateSelectedLesson"
-    @changeMajorId="setSelectedMajorId"
-  />
-  <full-calender-plans
-    :daysOfPlan="plansDay"
-    :filterdPlans="filterPlanByLesson" />
+  <p class="text-center q-pa-lg">:) the study plan say hi </p>
+  <div class="row justify-center">
+    <div class="col-2 text-center">
+      <q-btn @click="openEmptyForm"
+             color="green"
+      >
+        ایجاد برنامه جدید
+      </q-btn>
+    </div>
+    <div class="col-12">
+      <filter-plans
+        :majors="majors"
+        :lessonList="lessons"
+        :selected-major-id="selectedMajorId"
+        @changeSelectedLesson="updateSelectedLesson"
+        @changeMajorId="setSelectedMajorId"
+      />
+    </div>
+    <div class="col-12">
+      <full-calender-plans
+        :filterdPlans="filterPlanByLesson"
+        @updatePlan="editPlanData"
+        @deletePlan="deletePlanEvent"
+      />
+    </div>
+  </div>
+  <q-dialog
+    full-width
+    v-model="showPlanDetail">
+    <q-card>
+      <q-card-section>
+        <form-builder
+          ref="studyPlanForm"
+          :value="inputs"
+        />
+        <q-btn
+          color="green"
+          @click="updatePlan"
+        >
+          ذخیره
+        </q-btn>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+
+  <q-dialog v-model="deletePlanDialog"
+            persistent>
+    <q-card>
+      <q-card-section class="row items-center">
+        <q-avatar icon="trash"
+                  color="primary"
+                  text-color="white" />
+        <span class="q-ml-sm">?! You are sure </span>
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn flat
+               label="Cancel"
+               color="primary"
+               text
+               v-close-popup  />
+        <q-btn flat
+               label="yes"
+               text
+               color="green"
+               v-close-popup
+               @click="deletePlan"
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
 </template>
 
 <script>
@@ -18,17 +78,25 @@ import FullCalenderPlans from 'components/StudyPlanAdmin/FullCalenderPlans'
 import StudyPlansData from 'assets/js/StudyPlansData'
 import { StudyPlanList } from 'src/models/StudyPlan'
 import { PlanList } from 'src/models/Plan'
+import ContentsType from 'components/StudyPlanAdmin/ContentsType'
+import PlanStylePreview from 'components/StudyPlanAdmin/planStylePreview'
+import { FormBuilder, inputMixin } from 'quasar-form-builder'
+import Addresses from 'src/api/Addresses'
 
 export default {
   name: 'StudyPlan',
+  mixins: [inputMixin],
   components: {
     FilterPlans,
-    FullCalenderPlans
+    FullCalenderPlans,
+    FormBuilder,
+    ContentsType,
+    PlanStylePreview
   },
-  props: {
-
-  },
+  props: {},
   data: () => ({
+    showPlanDetail: false,
+    deletePlanDialog: false,
     selectedMajorId: 1,
     selectedLesson: [],
     lessons: [],
@@ -45,1359 +113,76 @@ export default {
         title: 'انسانی',
         id: 3
       }],
-    windowDays: [
-      {
-        studyPlan_id: 171,
-        id: '2021-07-17',
-        date: '2021-07-17',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 172,
-        id: '2021-07-18',
-        date: '2021-07-18',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 173,
-        id: '2021-07-19',
-        date: '2021-07-19',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 174,
-        id: '2021-07-20',
-        date: '2021-07-20',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 175,
-        id: '2021-07-21',
-        date: '2021-07-21',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 176,
-        id: '2021-07-22',
-        date: '2021-07-22',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 177,
-        id: '2021-07-23',
-        date: '2021-07-23',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 178,
-        id: '2021-07-24',
-        date: '2021-07-24',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 179,
-        id: '2021-07-25',
-        date: '2021-07-25',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 180,
-        id: '2021-07-26',
-        date: '2021-07-26',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 181,
-        id: '2021-07-27',
-        date: '2021-07-27',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 182,
-        id: '2021-07-28',
-        date: '2021-07-28',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 183,
-        id: '2021-07-29',
-        date: '2021-07-29',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 184,
-        id: '2021-07-30',
-        date: '2021-07-30',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 185,
-        id: '2021-07-31',
-        date: '2021-07-31',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 186,
-        id: '2021-08-01',
-        date: '2021-08-01',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 187,
-        id: '2021-08-02',
-        date: '2021-08-02',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 188,
-        id: '2021-08-03',
-        date: '2021-08-03',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 189,
-        id: '2021-08-04',
-        date: '2021-08-04',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 190,
-        id: '2021-08-05',
-        date: '2021-08-05',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 191,
-        id: '2021-08-06',
-        date: '2021-08-06',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 192,
-        id: '2021-08-07',
-        date: '2021-08-07',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 193,
-        id: '2021-08-08',
-        date: '2021-08-08',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 194,
-        id: '2021-08-09',
-        date: '2021-08-09',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 195,
-        id: '2021-08-10',
-        date: '2021-08-10',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 196,
-        id: '2021-08-11',
-        date: '2021-08-11',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 197,
-        id: '2021-08-12',
-        date: '2021-08-12',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 198,
-        id: '2021-08-13',
-        date: '2021-08-13',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 199,
-        id: '2021-08-14',
-        date: '2021-08-14',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 200,
-        id: '2021-08-15',
-        date: '2021-08-15',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 201,
-        id: '2021-08-16',
-        date: '2021-08-16',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 202,
-        id: '2021-08-17',
-        date: '2021-08-17',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 203,
-        id: '2021-08-18',
-        date: '2021-08-18',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 204,
-        id: '2021-08-19',
-        date: '2021-08-19',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 205,
-        id: '2021-08-20',
-        date: '2021-08-20',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 206,
-        id: '2021-08-21',
-        date: '2021-08-21',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 207,
-        id: '2021-08-22',
-        date: '2021-08-22',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 208,
-        id: '2021-08-23',
-        date: '2021-08-23',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 209,
-        id: '2021-08-24',
-        date: '2021-08-24',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 210,
-        id: '2021-08-25',
-        date: '2021-08-25',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 211,
-        id: '2021-08-26',
-        date: '2021-08-26',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      },
-      {
-        studyPlan_id: 212,
-        id: '2021-08-27',
-        date: '2021-08-27',
-        voice: null,
-        body: null,
-        title: null,
-        plans: [
-          {
-            tajrobi: {
-              major: {
-                id: 2,
-                name: 'تجربی',
-                majortype_id: 1,
-                description: 'رشته_تجربی',
-                enable: 1,
-                order: 0,
-                created_at: null,
-                updated_at: null,
-                deleted_at: null
-              },
-              lessonName: null,
-              sectionName: null,
-              offer: null,
-              link: null,
-              time: null,
-              voice: null
-            }
-          }
-        ],
-        contents: null
-      }
-    ],
     plans: [],
     studyPlansData: null,
-    plansDay: [],
     riaziPlans: new StudyPlanList(),
     tajrobiPlans: new StudyPlanList(),
     ensaniPlans: new StudyPlanList(),
-    studyPlans: new StudyPlanList()
+    studyPlans: new StudyPlanList(),
+    inputs: [
+      { type: 'input', value: '', name: 'title', responseKey: 'title', label: 'عنوان', col: 'col-md-4' },
+      { type: 'input', value: '', name: 'tooltip', responseKey: 'tooltip', label: 'تولتیپ', col: 'col-md-4' },
+      {
+        type: 'select',
+        name: 'major',
+        value: 'major.id',
+        responseKey: 'major',
+        optionLabel: 'title',
+        optionValue: 'id',
+        options: [{ title: 'ریاضی', id: 1 }, { title: 'تجربی', id: 2 }, { title: 'انسانی', id: 3 }],
+        label: 'رشته',
+        col: 'col-md-4'
+      },
+      {
+        type: 'tiptapEditor',
+        responseKey: 'description',
+        name: 'description',
+        label: 'توضیحات',
+        value: '',
+        options: {
+          bubbleMenu: false,
+          floatingMenu: false,
+          poem: false,
+          reading: false,
+          persianKeyboard: true,
+          mathliveOptions: { smartFence: false },
+          uploadServer: {
+            url: 'imageUrl',
+            instantUpload: true,
+            headers: { Authorization: 'Bearer ' + '65465' }
+          }
+        },
+        col: 'col-md-12'
+      },
+      { type: ContentsType, props: { name: 'mitra' }, value: [], name: 'ContentsType', label: 'ssss', col: 'col-md-12' },
+      { type: 'date', name: 'date', responseKey: 'date', value: '2021-08-27', label: 'تاریخ', col: 'col-md-4' },
+      { type: 'time', responseKey: 'start', name: 'start', value: '', label: 'از :', col: 'col-md-4' },
+      { type: 'time', responseKey: 'end', name: 'end', value: '', label: 'تا:', col: 'col-md-4' },
+      {
+        type: PlanStylePreview,
+        props: {
+          title: 'ff'
+        },
+        value: {
+          backgroundColor: '',
+          borderColor: '',
+          textColor: ''
+        },
+        name: 'PlanStylePreview',
+        label: 'ssss',
+        col: 'col-12'
+      },
+      {
+        type: 'color',
+        responseKey: 'backgroundColor',
+        name: 'backgroundColor',
+        value: '',
+        label: 'رنگ پس زمینه',
+        col: 'col-md-4'
+      },
+      { type: 'color', responseKey: 'borderColor', name: 'borderColor', value: '', label: 'رنگ کادر', col: 'col-md-4' },
+      { type: 'color', responseKey: 'textColor', name: 'textColor', value: '', label: 'رنگ متن', col: 'col-md-4' }
+    ]
   }),
   computed: {
     filterPlanByLesson () {
@@ -1406,6 +191,15 @@ export default {
         filteredPlanBySelectedMajor = this.filterPlansByLessons(filteredPlanBySelectedMajor)
       }
       return filteredPlanBySelectedMajor
+    },
+    planBackgroundColor () {
+      return this.inputs.find(item => item.name === 'backgroundColor').value
+    },
+    planTextColor () {
+      return this.inputs.find(item => item.name === 'textColor').value
+    },
+    planBorderColor () {
+      return this.inputs.find(item => item.name === 'borderColor').value
     }
   },
   watch: {
@@ -1417,6 +211,30 @@ export default {
         this.selectedLesson = []
         this.setLessons()
       }
+    },
+    planBackgroundColor: {
+      handler (newValue) {
+        if (!newValue) {
+          return
+        }
+        this.setPlanPreviewBackground(newValue)
+      }
+    },
+    planTextColor: {
+      handler (newValue) {
+        if (!newValue) {
+          return
+        }
+        this.setPlanPreviewTextColor(newValue)
+      }
+    },
+    planBorderColor: {
+      handler (newValue) {
+        if (!newValue) {
+          return
+        }
+        this.setPlanPreviewBorder(newValue)
+      }
     }
   },
   created () {
@@ -1424,6 +242,36 @@ export default {
     this.initPageData()
   },
   methods: {
+    async deletePlanEvent (planId) {
+      console.log('delete plan ', planId)
+      this.deletePlanDialog = true
+      await this.deletePlan()
+    },
+
+    deletePlan () {
+      // return axios.delete new event modal 580
+    },
+
+    editPlanData (planData) {
+      console.log('edit plan data in study plan ', planData)
+      this.showPlanDetail = true
+      this.$nextTick(() => {
+        this.$refs.studyPlanForm.setInputValues(planData)
+        this.setCustomComponentData(planData)
+      })
+    },
+
+    async updatePlan () {
+      const submitData = this.getNewPlanData()
+      console.log('submitData :', submitData)
+      const newPlan = await this.senNewPlanData(submitData)
+      console.log('new plan :', newPlan)
+    },
+
+    openEmptyForm () {
+      this.showPlanDetail = !this.showPlanDetail
+    },
+
     filterPlanByMajor () {
       if (this.selectedMajorId === 1) {
         return this.riaziPlans
@@ -1462,22 +310,6 @@ export default {
       this.selectedLesson = lessons
     },
 
-    setDates (days) {
-      if (days.length === 0) {
-        return
-      }
-      const firstDate = days[0].date
-      const newDays = days.filter(plan => plan.date !== firstDate)
-      const filteredDays = days.filter(plan => plan.date === firstDate)
-      this.studyPlans.addItem({
-        id: firstDate,
-        title: firstDate,
-        date: firstDate,
-        plans: filteredDays
-      })
-      this.setDates(newDays)
-    },
-
     initPageData () {
       const userData = this.getUserData()
       if (!userData) {
@@ -1488,22 +320,6 @@ export default {
       this.setSelectedMajorId(majorId)
       this.classificationPlans()
       this.setLessons()
-    },
-
-    setLessons () {
-      const studyPlans = this.filterPlanByMajor()
-      let plans = []
-      studyPlans.list.forEach(studyPlan => {
-        plans = plans.concat(studyPlan.plans.list)
-      })
-
-      this.lessons = plans.filter((studyPlan, studyPlanIndex, studyPlansArray) => studyPlansArray.findIndex(item => item.title === studyPlan.title) === studyPlanIndex)
-        .map(item => {
-          return {
-            title: item.title,
-            active: false
-          }
-        })
     },
 
     classificationPlans () {
@@ -1541,13 +357,120 @@ export default {
       })
     },
 
+    // ----------------------------------------- getters  ----------------------------------------------
+    getUserData () {
+      return this.$store.getters['Auth/user']
+    },
+
+    getPlanInput (planName) {
+      return this.inputs.find(item => item.name === planName)
+    },
+
+    getNewPlanData () {
+      return {
+        date: this.getPlanInput('date').value,
+        major_id: this.getPlanInput('major').value,
+        title: this.getPlanInput('title').value,
+        description: this.getPlanInput('tooltip').value,
+        long_description: this.getPlanInput('description').value,
+        start: this.getPlanInput('start').value,
+        end: this.getPlanInput('end').value,
+        background_color: this.getPlanInput('backgroundColor').value,
+        border_color: this.getPlanInput('borderColor').value,
+        text_color: this.getPlanInput('textColor').value,
+        contents: this.getPlanInput('ContentsType').value,
+        event_id: this.getPlanInput('backgroundColor').value
+      }
+    },
+
+    // ----------------------------------------- set   ----------------------------------------------
+    setDates (days) {
+      if (days.length === 0) {
+        return
+      }
+      const firstDate = days[0].date
+      const newDays = days.filter(plan => plan.date !== firstDate)
+      const filteredDays = days.filter(plan => plan.date === firstDate)
+      this.studyPlans.addItem({
+        id: firstDate,
+        title: firstDate,
+        date: firstDate,
+        plans: filteredDays
+      })
+      this.setDates(newDays)
+    },
+
+    setLessons () {
+      const studyPlans = this.filterPlanByMajor()
+      let plans = []
+      studyPlans.list.forEach(studyPlan => {
+        plans = plans.concat(studyPlan.plans.list)
+      })
+
+      this.lessons = plans.filter((studyPlan, studyPlanIndex, studyPlansArray) => studyPlansArray.findIndex(item => item.title === studyPlan.title) === studyPlanIndex)
+        .map(item => {
+          return {
+            title: item.title,
+            active: false
+          }
+        })
+    },
+
     setSelectedMajorId (majorId) {
       this.selectedMajorId = majorId
     },
 
-    // ----------------------------------------- getters  ----------------------------------------------
-    getUserData () {
-      return this.$store.getters['Auth/user']
+    setPlanPreviewBackground (value) {
+      const planData = this.getPlanInput('PlanStylePreview')
+      if (!planData) {
+        return
+      }
+      planData.value.backgroundColor = value
+    },
+
+    setPlanPreviewTextColor (value) {
+      const planData = this.getPlanInput('PlanStylePreview')
+      if (!planData) {
+        return
+      }
+      planData.value.textColor = value
+    },
+
+    setPlanPreviewBorder (value) {
+      const planData = this.getPlanInput('PlanStylePreview')
+      if (!planData) {
+        return
+      }
+      planData.value.borderColor = value
+    },
+
+    setCustomComponentData (planData) {
+      this.setPlanPreviewData(planData)
+      this.setContentsType(planData)
+    },
+
+    setPlanPreviewData (planData) {
+      const customComponentIndex = this.getPlanInput('PlanStylePreview')
+      customComponentIndex.props.title = planData.title
+    },
+
+    setContentsType (planData) {
+      const contentList = planData.contents.list
+      if (contentList.length === 0) {
+        return
+      }
+      const customComponent = this.getPlanInput('ContentsType')
+      contentList.forEach(content => {
+        customComponent.value.push({
+          title: content.title,
+          id: content.id,
+          type_id: content.type.id
+        })
+      })
+    },
+
+    senNewPlanData (submitData) {
+      return this.$axios.post(Addresses.studyPlan.edit + '/' + this.planDate.id, submitData)
     }
 
     // ----------------------------------------- public ------------------------------------------------
@@ -1556,5 +479,8 @@ export default {
 </script>
 
 <style scoped>
+p {
+  margin-bottom: 0 !important;
+}
 
 </style>

@@ -15,20 +15,19 @@
                 class="timeTableHeader"
                 :style="{ width:  headerCellWidth + 'px'}"
               >
-                <div class="timeTableHeaderNumber bg-pink-2  row justify-center">
-                  <div>
-                    <q-avatar color="white"
-                              size="30px"
-                    >
-                      {{ hour }}
-                    </q-avatar>
-                    <div class="row justify-center">
-                      <div class="hour-line">
-                      </div>
+                <div class="timeTableHeaderNumber bg-pink-2"
+                >
+                  <q-avatar color="white"
+                            size="30px"
+                  >
+                    {{ hour-1 }}
+                  </q-avatar>
+                  <div class="hour">
+                    <div class="minutes-line">
                     </div>
                   </div>
                 </div>
-                <div class="minutes-line">
+                <div class="hour-line">
                 </div>
               </div>
             </div>
@@ -36,7 +35,6 @@
         </div>
       </div>
     </div>
-
     <div class="calender-body  row no-wrap">
       <q-scroll-area
         visible
@@ -49,7 +47,7 @@
              :key="studyPlan.id"
              class="date-style row justify-center items-center "
         >
-          <div class="date">  date : {{ studyPlan.date }} </div>
+          <div class="date"> {{ studyPlan.shamsiDate(studyPlan.date).date }} </div>
           <q-separator />
         </div>
       </q-scroll-area>
@@ -64,13 +62,15 @@
           v-for="studyPlan in filterdPlans.list"
           :key="studyPlan.id"
         >
-          <plans :studyPlanData="studyPlan" />
-          <q-separator   />
+          <plans :studyPlanData="studyPlan"
+                 @updatePlan="updatePlan"
+                 @deletePlan="deletePlan"
+          />
+          <q-separator />
         </div>
       </q-scroll-area>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -83,10 +83,6 @@ export default {
     Plans
   },
   props: {
-    daysOfPlan: {
-      type: Array,
-      default: () => []
-    },
     headerCellWidth: {
       default: 200,
       type: Number
@@ -99,8 +95,7 @@ export default {
   data: () => ({
     listOfHours: 24,
     ignoreSource: null,
-    ignoreSource2: null,
-    test: new StudyPlanList()
+    ignoreSource2: null
   }),
   mounted () {
 
@@ -112,6 +107,15 @@ export default {
   methods: {
     initData () {
     },
+
+    deletePlan (planId) {
+      this.$emit('deletePlan', planId)
+    },
+
+    updatePlan (updatePlan) {
+      this.$emit('updatePlan', updatePlan)
+    },
+
     syncVerticalScroll (source, position) {
       if (this.ignoreSource === source) {
         this.ignoreSource = null
@@ -136,9 +140,11 @@ export default {
         : this.$refs.headerRef
       areaRef.setScrollPosition('horizontal', position)
     },
+
     onScrollHours ({ horizontalPosition }) {
       this.syncHorizontalScroll('hours', horizontalPosition)
     },
+
     onScrollDays ({ verticalPosition }) {
       this.syncVerticalScroll('days', verticalPosition)
     },
@@ -166,15 +172,20 @@ export default {
 .calender-header{
 }
 .timeTableHeaderNumber{
+  margin-right: 1px;
 }
-.hour-line{
-  border-left: 2px solid red;
-  position: absolute;
+.hour{
+  position: relative;
+  left: -15px;
+}
+.minutes-line{
+  border-left: 1px solid red;
+  //position: absolute;
   height: 20px;
   z-index: 100;
 }
-.minutes-line{
-  border-left: 1px solid #0095ff;
+.hour-line{
+  border-left: 2px solid #0095ff;
   position: absolute;
   height: 20px;
   z-index: 100;

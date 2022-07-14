@@ -55,7 +55,8 @@ const StudyPlansData = [
     voice: null,
     video: null,
     contents: []
-  }, {
+  },
+  {
     id: 2472,
     title: 'زنگ اول',
     description: null,
