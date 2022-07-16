@@ -1,6 +1,7 @@
 <template>
   <div class="block-section q-mx-md">
     <div
+      v-if="isThereData"
       class="block-header row justify-between q-pa-md q-mb-sm bg-white"
       :class="data.headerCustomClass"
     >
@@ -14,7 +15,6 @@
         <p class="title-box">
           {{data.title}}
         </p>
-
       </div>
       <q-btn
         v-if="!data.banners || data.banners.list.length === 0 "
@@ -97,6 +97,11 @@ export default {
     data: {
       type: Block,
       default: new Block()
+    }
+  },
+  computed: {
+    isThereData () {
+      return !!(this.data.banners.list.length &&this.data.products.list.length &&this.data.contents.list.length && this.data.sets.list.length )
     }
   },
   created () {
