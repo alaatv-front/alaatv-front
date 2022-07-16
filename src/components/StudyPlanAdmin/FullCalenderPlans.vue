@@ -97,6 +97,8 @@ export default {
     listOfHours: 24,
     ignoreSource: null,
     ignoreSource2: null,
+    verticalPosition: 0,
+    horizontalPosition: 0,
     hiddenThumbStyle: {
       opacity: 0
     }
@@ -107,7 +109,25 @@ export default {
   created () {
     this.initData()
   },
-
+  watch: {
+    verticalPosition: {
+      handler (newValue) {
+        if (!newValue) {
+          return
+        }
+        this.syncVerticalScroll('plans', newValue)
+      }
+    },
+    horizontalPosition: {
+      handler (newValue) {
+        console.log('watch h', newValue)
+        if (!newValue) {
+          return
+        }
+        this.syncHorizontalScroll('plans', newValue)
+      }
+    }
+  },
   methods: {
     initData () {
     },
@@ -150,8 +170,8 @@ export default {
     },
 
     onScrollPlans ({ verticalPosition, horizontalPosition }) {
-      this.syncHorizontalScroll('plans', horizontalPosition)
-      this.syncVerticalScroll('plans', verticalPosition)
+      this.verticalPosition = verticalPosition
+      this.horizontalPosition = horizontalPosition
     }
 
   }
@@ -165,9 +185,6 @@ export default {
     }
   }
   direction: initial;
-}
-.calender-body .calender-date .q-scrollarea__container .q-scrollarea__thumb {
-display: none;
 }
 </style>
 <style scoped lang="scss">
