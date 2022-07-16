@@ -1,6 +1,7 @@
 <template>
-  <page-builder :sections="sections"
-  />
+<div class="home-page">
+  <page-builder :sections="sections"/>
+</div>
 </template>
 
 <script>
@@ -17,15 +18,17 @@ export default {
     return {
       sections: [
         {
-          rows: [
-            {
-              cols: [
-                {
-                  widgets: []
-                }
-              ]
-            }
-          ]
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: []
+                  }
+                ]
+              }
+            ]
+          }
         }
       ],
       blocks: new BlockList()
@@ -34,7 +37,6 @@ export default {
   methods: {
     async getPageData () {
       // const response = await this.getBlocksData()
-      // console.log(response)
       const test = {
         data: [
           {
@@ -47,6 +49,64 @@ export default {
             sets: null,
             products: null,
             banners: [
+              {
+                id: 1,
+                title: 'این از این',
+                link: '',
+                class: 'q-ma-xl rounded',
+                photo: 'https://cdn.quasar.dev/img/mountains.jpg',
+                // features: {
+                //   xl: {
+                //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                //   },
+                //   lg: {
+                //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                //   },
+                //   md: {
+                //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                //   },
+                //   sm: {
+                //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                //   },
+                //   xs: {
+                //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                //   }
+                // }
+              },
+              {
+                id: 2,
+                title: 'این از این',
+                link: '',
+                class: 'q-ma-xl rounded',
+                photo: 'https://placeimg.com/500/300/nature',
+                // features: {
+                //   xl: {
+                //     src: 'https://placeimg.com/500/300/nature'
+                //     // width: '500px',
+                //     // height: ''
+                //   },
+                //   lg: {
+                //     src: 'https://placeimg.com/500/300/nature'
+                //     // width: '500px',
+                //     // height: ''
+                //   },
+                //   md: {
+                //     src: 'https://placeimg.com/500/300/nature'
+                //     // width: '500px',
+                //     // height: ''
+                //   },
+                //   sm: {
+                //     src: 'https://placeimg.com/500/300/nature'
+                //     // width: '500px',
+                //     // height: ''
+                //   },
+                //   xs: {
+                //     src: 'https://placeimg.com/500/300/nature'
+                //     // width: '500px',
+                //     // height: ''
+                //   }
+                // }
+              },
               {
                 id: 236,
                 title: 'جمع بندی کامل کنکور آرش و تایتان 01',
@@ -1472,23 +1532,38 @@ export default {
       }
       this.blocks = new BlockList(test.data)
       this.updateSections()
-      // console.log(this.blocks.list)
     },
     updateSections () {
       const widgets = []
-      this.blocks.list.forEach(block => {
+      this.blocks.list.forEach((block, index) => {
+        if(block.banners && block.banners.list.length > 0) {
+          block.headerCustomClass = `banner-header-${index}` + ' '
+        }
+
         widgets.push({
           name: 'BlockComponent',
-          data: block
+          data: block,
         })
+        console.log('block',block)
       })
-      this.sections[0].rows[0].cols[0].widgets = widgets
+      this.sections[0].data.rows[0].cols[0].widgets = widgets
+      console.log('sec', this.sections)
     },
     getBlocksData () {
-      // return this.$axios.get(API_ADDRESS.pages.home)
-      return this.$axios.get('http://alaatv.test/api/v2/home')
+      return this.$axios.get(API_ADDRESS.pages.home)
+      // return this.$axios.get('http://alaatv.test/api/v2/home')
     }
 
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.home-page {
+  &:deep(.banner-header-0) {
+    display: none;
+  }
+
+}
+
+</style>

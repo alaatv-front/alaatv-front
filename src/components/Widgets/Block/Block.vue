@@ -1,11 +1,15 @@
 <template>
   <div class="block-section q-mx-md">
-    <div class="block-header row justify-between q-pa-md q-mb-sm bg-white">
+    <div
+      class="block-header row justify-between q-pa-md q-mb-sm bg-white"
+      :class="data.headerCustomClass"
+    >
       <div class="row items-center block-title">
         <div class="row items-center">
-          <q-badge rounded
-                   class="q-mr-sm"
-                   color="primary" />
+          <q-badge
+            rounded
+            class="q-mr-sm"
+            color="primary" />
         </div>
         <p class="title-box">
           {{data.title}}
@@ -13,7 +17,7 @@
 
       </div>
       <q-btn
-        v-if="!data.banners && !data.banners.length "
+        v-if="!data.banners || data.banners.list.length === 0 "
         round
         color="primary"
         :icon="isGridView ? 'grid_view':'sync_alt'"
@@ -24,7 +28,7 @@
     <div class="block-container"
     >
       <slider
-        v-if="data.banners && data.banners.length > 0"
+        v-if="data.banners && data.banners.list.length > 0"
         class="q-mx-lg"
         :data="data.banners"
       />
