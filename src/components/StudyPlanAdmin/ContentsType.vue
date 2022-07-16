@@ -68,7 +68,6 @@ export default {
   },
   methods: {
     getType (id) {
-      console.log(id)
       const option = this.inputs[2].options.find(item => item.type_id === id)
       if (option) {
         return option.display_name

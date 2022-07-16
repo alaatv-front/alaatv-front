@@ -9,8 +9,7 @@
             width: calculateWidth(plan) + 'px',
           }"
           :planDate='plan'
-          @editPlanData="editPlan"
-          @deletePlan="deletePlan"
+          @handelPlanEvent="handelPlanEvent"
     />
   </div>
 
@@ -38,12 +37,8 @@ export default {
     // console.log(this.studyPlanData.plans.list)
   },
   methods: {
-    deletePlan (planId, type) {
-      console.log('delete type : ', type)
-      this.$emit('deletePlan', planId)
-    },
-    editPlan (planData) {
-      this.$emit('updatePlan', planData)
+    handelPlanEvent (data, type) {
+      this.$emit('handelPlanEvent', data, type)
     },
     calculateWidth (planDate) {
       const pixelPerMinutes = this.headerCellWidth / 60

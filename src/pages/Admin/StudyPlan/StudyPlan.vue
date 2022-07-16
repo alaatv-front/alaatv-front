@@ -20,8 +20,7 @@
     <div class="col-12">
       <full-calender-plans
         :filterdPlans="filterPlanByLesson"
-        @updatePlan="editPlanData"
-        @deletePlan="deletePlanEvent"
+        @handelPlanEvent="handelPlanEvent"
       />
     </div>
   </div>
@@ -51,7 +50,9 @@
         <q-avatar icon="trash"
                   color="primary"
                   text-color="white" />
-        <span class="q-ml-sm">?! You are sure </span>
+        <span class="q-ml-sm">
+          ?! You are sure
+        </span>
       </q-card-section>
       <q-card-actions align="right">
         <q-btn flat
@@ -95,6 +96,7 @@ export default {
   },
   props: {},
   data: () => ({
+    currentPlanId: null,
     showPlanDetail: false,
     deletePlanDialog: false,
     selectedMajorId: 1,
@@ -242,6 +244,25 @@ export default {
     this.initPageData()
   },
   methods: {
+    handelPlanEvent (data, type) {
+      switch (type) {
+        case 'edit':
+          this.editPlanEvent(data)
+          break
+        case 'delete':
+          this.deletePlanEvent(data)
+          break
+        case 'copy':
+          this.copyPlanEvent(data)
+          break
+      }
+    },
+
+    async creatNewPlan (submitData) {
+      console.log('creat plan')
+      return this.$axios.post(Addresses.studyPlan.edit, submitData)
+    },
+
     async deletePlanEvent (planId) {
       console.log('delete plan ', planId)
       this.deletePlanDialog = true
@@ -252,9 +273,14 @@ export default {
       // return axios.delete new event modal 580
     },
 
-    editPlanData (planData) {
-      console.log('edit plan data in study plan ', planData)
+    copyPlanEvent (planData) {
+      console.log('copy plan event')
+    },
+
+    editPlanEvent (planData) {
       this.showPlanDetail = true
+      this.currentPlanId = planData.id
+      console.log('currentPlanId :', this.currentPlanId)
       this.$nextTick(() => {
         this.$refs.studyPlanForm.setInputValues(planData)
         this.setCustomComponentData(planData)
@@ -262,14 +288,27 @@ export default {
     },
 
     async updatePlan () {
+      // creat or edit
       const submitData = this.getNewPlanData()
       console.log('submitData :', submitData)
-      const newPlan = await this.senNewPlanData(submitData)
-      console.log('new plan :', newPlan)
+      if (this.currentPlanId) {
+        await this.senNewPlanData(submitData)
+      } else {
+        await this.creatNewPlan(submitData)
+      }
     },
 
     openEmptyForm () {
+      console.log(this.inputs)
+      this.clearCurrentPlan()
       this.showPlanDetail = !this.showPlanDetail
+    },
+
+    clearCurrentPlan () {
+      this.inputs.forEach(item => {
+        item.value = ''
+      })
+      this.currentPlanId = null
     },
 
     filterPlanByMajor () {
@@ -470,7 +509,9 @@ export default {
     },
 
     senNewPlanData (submitData) {
-      return this.$axios.post(Addresses.studyPlan.edit + '/' + this.planDate.id, submitData)
+      console.log('edit plan')
+      // return this.$axios.post(Addresses.studyPlan.edit + '/' + this.currentPlanId, submitData)
+      return submitData
     }
 
     // ----------------------------------------- public ------------------------------------------------

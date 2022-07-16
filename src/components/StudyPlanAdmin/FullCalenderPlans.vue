@@ -7,6 +7,7 @@
           <q-scroll-area ref="headerRef"
                          class="full-calender"
                          style="height: 50px; max-width:100%;"
+                         :thumb-style="hiddenThumbStyle"
                          @scroll="onScrollHours">
             <div class="header flex no-wrap">
               <div
@@ -38,8 +39,9 @@
     <div class="calender-body  row no-wrap">
       <q-scroll-area
         visible
-        class=" col-1"
+        class="col-1 calender-date "
         style="height: 550px;"
+        :thumb-style="hiddenThumbStyle"
         ref="daysRef"
         @scroll="onScrollDays"
       >
@@ -63,8 +65,7 @@
           :key="studyPlan.id"
         >
           <plans :studyPlanData="studyPlan"
-                 @updatePlan="updatePlan"
-                 @deletePlan="deletePlan"
+                 @handelPlanEvent="handelPlanEvent"
           />
           <q-separator />
         </div>
@@ -95,7 +96,10 @@ export default {
   data: () => ({
     listOfHours: 24,
     ignoreSource: null,
-    ignoreSource2: null
+    ignoreSource2: null,
+    hiddenThumbStyle: {
+      opacity: 0
+    }
   }),
   mounted () {
 
@@ -108,12 +112,8 @@ export default {
     initData () {
     },
 
-    deletePlan (planId) {
-      this.$emit('deletePlan', planId)
-    },
-
-    updatePlan (updatePlan) {
-      this.$emit('updatePlan', updatePlan)
+    handelPlanEvent (data, type) {
+      this.$emit('handelPlanEvent', data, type)
     },
 
     syncVerticalScroll (source, position) {
@@ -166,7 +166,9 @@ export default {
   }
   direction: initial;
 }
-
+.calender-body .calender-date .q-scrollarea__container .q-scrollarea__thumb {
+display: none;
+}
 </style>
 <style scoped lang="scss">
 .calender-header{

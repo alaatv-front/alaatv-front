@@ -10,20 +10,23 @@
       <q-menu v-model="openMenu">
         <q-list style="min-width: 100px">
           <q-item clickable
-                  v-close-popup>
-            <q-item-section @click="editPlan">ویرایش</q-item-section>
+                  v-close-popup
+                  @click="handelPlanEvent('edit')">
+            <q-item-section>ویرایش</q-item-section>
             <q-icon class="isax isax-global-edit2" />
           </q-item>
           <q-separator />
           <q-item clickable
-                  v-close-popup>
-            <q-item-section @click="deletePlan"> حذف </q-item-section>
+                  v-close-popup
+                  @click="handelPlanEvent('delete')">
+            <q-item-section> حذف </q-item-section>
             <q-icon class="isax isax-trash" />
           </q-item>
           <q-separator />
           <q-item clickable
-                  v-close-popup>
-            <q-item-section @click="copyPlan"> کپی </q-item-section>
+                  v-close-popup
+                  @click="handelPlanEvent('copy')">
+            <q-item-section> کپی </q-item-section>
             <q-icon class="isax isax-trash" />
           </q-item>
         </q-list>
@@ -54,13 +57,7 @@ export default {
   },
   methods: {
     handelPlanEvent (type) {
-      this.$emit('editPlanData', this.planDate)
-    },
-    deletePlan () {
-      this.$emit('deletePlan', this.planDate, 'test')
-    },
-    copyPlan () {
-      this.$emit('copyPlan', this.planDate)
+      this.$emit('handelPlanEvent', this.planDate, type)
     },
     setData () {
     //  console.log('F :', this.$refs.studyPlanForm)
@@ -70,6 +67,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .plan-style {
   border-radius: 50px;
   text-align: center;
