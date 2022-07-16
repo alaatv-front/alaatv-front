@@ -33,7 +33,7 @@
         :data="data.banners"
       />
       <div v-if="data.products.list.length > 0"
-           class="item-container q-pb-md"
+           class="item-container"
            :class="isGridView? 'row': 'scroll-view'"
       >
         <div v-for="product in this.data.products.list"
@@ -48,7 +48,7 @@
 
       </div>
       <div v-if="data.sets.list.length > 0"
-           class="item-container q-pb-md"
+           class="item-container"
            :class="isGridView? 'row': 'scroll-view'"
       >
         <div v-for="set in this.data.sets.list"
@@ -63,7 +63,7 @@
 
       </div>
       <div v-if="data.contents.list.length > 0"
-           class="item-container q-pb-md"
+           class="item-container"
            :class="isGridView? 'row': 'scroll-view'"
       >
         <div v-for="content in this.data.contents.list"
