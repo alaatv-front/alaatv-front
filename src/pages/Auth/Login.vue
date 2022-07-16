@@ -1,16 +1,22 @@
 <template>
   <div class="login-page row flex">
-    <q-card v-if="!userLogin" class="col-lg-4 col-md-5 col-sm-6 col-xs-10 login-card my-card shadow-6">
+    <q-card v-if="!userLogin"
+            class="col-lg-4 col-md-5 col-sm-6 col-xs-10 login-card my-card shadow-6">
       <q-card-section class="row bg-blue-8 text-white justify-between">
         <div class="row login-header-right-side justify-center items-center">
-          <q-img class="login-alaa-logo" src="img/3a-logo.png" alt="3a-logo"/>
+          <q-img class="login-alaa-logo"
+                 src="img/3a-logo.png"
+                 alt="3a-logo" />
           <p class="login-entry-title q-ml-md q-mb-none">ورود</p>
         </div>
         <q-avatar>
-          <img src="img/alaa-logo.png" alt="logo">
+          <img src="img/alaa-logo.png"
+               alt="logo">
         </q-avatar>
       </q-card-section>
-      <q-linear-progress v-if="loadingList" color="warning" class="q-mt-sm"/>
+      <q-linear-progress v-if="loadingList"
+                         color="warning"
+                         class="q-mt-sm" />
       <q-separator></q-separator>
       <div class="q-pa-lg">
         <q-input
@@ -40,7 +46,10 @@
           </template>
         </q-input>
         <q-card-actions align="left">
-          <q-btn style="width: 80px" color="blue-8" label="ورود" @click="login"/>
+          <q-btn style="width: 80px"
+                 color="blue-8"
+                 label="ورود"
+                 @click="login" />
         </q-card-actions>
       </div>
     </q-card>
@@ -85,9 +94,9 @@ export default {
       }
       let redirectTo = window.localStorage.getItem('redirectTo')
       if (!redirectTo) {
-        redirectTo = 'dashboard'
+        redirectTo = 'home'
       }
-      this.$router.push({ name: redirectTo })
+      this.$router.push({ name: 'home' })
     },
 
     handleErr (err) {
@@ -97,7 +106,7 @@ export default {
         err.data.errors[key].forEach(message => {
           this.$q.notify({
             type: 'negative',
-            message: message,
+            message,
             position: 'top'
           })
         })

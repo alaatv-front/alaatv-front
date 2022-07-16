@@ -30,6 +30,12 @@
       @click="redirectToBannerEvent(slide.link)"
     >
       <q-img
+        v-if="slide.photo"
+        :src="slide.photo"
+        :ratio="slide.ratio"
+      />
+      <q-img
+        v-else
         :src="responsiveFeatures(slide.features).src"
         :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
         :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : 'auto'"
@@ -57,6 +63,7 @@
 <script>
 import { ref } from 'vue'
 import { BannerList } from 'src/models/Banner'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'Slider',
@@ -70,6 +77,7 @@ export default {
       }
     }
   },
+  mixins: [mixinWidget],
   data () {
     return {
       slide: ref(1),
@@ -114,7 +122,6 @@ export default {
       window.location.href = link
     },
     responsiveFeatures (features) {
-      console.log(features)
       const windowSize = this.$store.getters['AppLayout/windowSize']
       if (windowSize.x >= 1920) {
         return features.xl
