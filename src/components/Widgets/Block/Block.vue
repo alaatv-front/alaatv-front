@@ -10,17 +10,17 @@
           <q-badge
             rounded
             class="q-mr-sm"
-            color="primary" />
+            color="primary"/>
         </div>
         <p class="title-box">
-          {{data.title}}
+          {{ data.title }}
         </p>
       </div>
       <q-btn
         v-if="!data.banners || data.banners.list.length === 0 "
         round
         color="primary"
-        :icon="isGridView ? 'grid_view':'sync_alt'"
+        :icon="isGridView ? 'sync_alt':'grid_view'"
         @click="isGridView = !isGridView"
       >
       </q-btn>
@@ -45,7 +45,9 @@
             :data="product"
           />
         </div>
-
+        <div class="item-box">
+          <a class="show-more-title">نمایش بیشتر </a>
+        </div>
       </div>
       <div v-if="data.sets.list.length > 0"
            class="item-container"
@@ -60,7 +62,9 @@
             :data="set"
           />
         </div>
-
+        <div class="item-box">
+          <a class="show-more-title">نمایش بیشتر </a>
+        </div>
       </div>
       <div v-if="data.contents.list.length > 0"
            class="item-container"
@@ -74,6 +78,9 @@
             class="q-mr-md"
             :data="content"
           />
+        </div>
+        <div class="item-box">
+          <a class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
     </div>
@@ -89,7 +96,12 @@ import { Block } from 'src/models/Block'
 
 export default {
   name: 'Block',
-  components: { ContentItem, SetItem, ProductItem, Slider },
+  components: {
+    ContentItem,
+    SetItem,
+    ProductItem,
+    Slider
+  },
   data: () => ({
     isGridView: false
   }),
@@ -101,23 +113,22 @@ export default {
   },
   computed: {
     isThereData () {
-      return !!(this.data.banners.list.length &&this.data.products.list.length &&this.data.contents.list.length && this.data.sets.list.length )
+      return !!(this.data.banners.list.length || this.data.products.list.length || this.data.contents.list.length || this.data.sets.list.length)
     }
   },
   created () {
   },
-  methods: {
-
-  }
+  methods: {}
 }
 </script>
 
 <style lang="scss" scoped>
-.block-section{
-  .block-header{
+.block-section {
+  .block-header {
     border-radius: 10px;
-    .block-title{
-      .title-box{
+
+    .block-title {
+      .title-box {
         margin: 0;
         font-weight: 500;
         font-size: 18px;
@@ -128,16 +139,32 @@ export default {
     }
   }
 
-  margin:30px;
-  .block-container{
+  margin: 30px;
+
+  .block-container {
     display: flex;
-    .scroll-view{
+
+    .scroll-view {
       display: flex;
-      width:100%;
+      width: 100%;
       overflow: auto;
     }
-    .item-container{
+
+    .item-container {
+      .item-box {
+        display: flex;
+        align-items: center;
+        min-width: 200px;
+        .show-more-title {
+          text-decoration: none;
+          color:blue;
+          min-width: 200px;
+          width: 100%;
+          text-align: center;
+        }
+
+      }
     }
-}
+  }
 }
 </style>
