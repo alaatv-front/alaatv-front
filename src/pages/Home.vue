@@ -1549,7 +1549,6 @@ export default {
         })
       })
       this.sections[0].data.rows[0].cols[0].widgets = widgets
-      console.log('sec', this.sections)
     },
     getBlocksData () {
       return this.$axios.get(API_ADDRESS.pages.home)
