@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import { MapItemList } from 'src/models/MapItem'
 import BaseMap from './BaseMap'
 import MapItemsResponse from './MapItemsResponse'
