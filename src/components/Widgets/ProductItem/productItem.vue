@@ -18,7 +18,7 @@
           :to="{ path: `/product/${ product.id }`}"
         >
           <span class="title-text">
-            {{ product.name }}
+            {{ product.title }}
           </span>
         </router-link>
       </div>
