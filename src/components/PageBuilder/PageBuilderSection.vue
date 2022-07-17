@@ -1,21 +1,29 @@
 <template>
   <div
     class="page-builder-section"
+    :id="defaultOptions.id"
     :style="{
       height: defaultOptions.height,
-      backgroundImage: 'url(' + this.PageBackgroundImage +')',
+      minHeight: defaultOptions.minHeight,
+      backgroundImage: 'url(' + defaultOptions.backgroundImage +')',
+      backgroundColor: defaultOptions.backgroundColor,
+      display: defaultOptions.display,
+      flexFlow: defaultOptions.flexFlow,
+      justifyContent: defaultOptions.justifyContent,
+      top: 0,
+      width: defaultOptions.width,
+      backgroundPosition: defaultOptions.backgroundPosition,
+      backgroundSize: defaultOptions.backgroundSize,
+      backgroundRepeat: defaultOptions.backgroundRepeat,
+      backgroundAttachment: defaultOptions.backgroundAttachment,
+      overflow: defaultOptions.overflow,
       position : defaultOptions.segmentPosition,
-      padding:defaultOptions.segmentPadding  ,
-      margin:defaultOptions.segmentMargin.all  ,
-      marginTop:defaultOptions.segmentMargin.top ,
-      marginRight:defaultOptions.segmentMargin.right ,
-      marginBottom:defaultOptions.segmentMargin.bottom  ,
-      marginLeft:defaultOptions.segmentMargin.left  ,
-      padding:defaultOptions.segmentPadding.all  ,
-      paddingTop:defaultOptions.segmentPadding.top ,
-      paddingRight:defaultOptions.segmentPadding.right ,
-      paddingBottom:defaultOptions.segmentPadding.bottom ,
-      paddingLeft:defaultOptions.segmentPadding.left ,
+      margin:defaultOptions.margin.all  ,
+      marginTop:defaultOptions.margin.top ,
+      marginRight:defaultOptions.margin.right ,
+      marginBottom:defaultOptions.margin.bottom  ,
+      marginLeft:defaultOptions.margin.left  ,
+      padding:defaultOptions.padding
     }"
   >
     <page-builder-row  v-for="(row, rowIndex) in data.rows"
@@ -60,26 +68,31 @@ export default {
     return {
       PageBackgroundImage: '',
       defaultOptions: {
-        segmentPadding: {
+        backgroundImage: '',
+        backgroundColor: '',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'unset', // unset - fixed
+        overflow: 'auto',
+
+        padding: {
           all: '',
           top: '',
           right: '',
           bottom: '',
           left: ''
         },
-        segmentMargin: {
+        margin: {
           all: '',
           top: '',
           right: '',
           bottom: '',
           left: ''
         },
-        segmentPosition: {
-          type: String
-        },
-        height: {
-          type: [String]
-        }
+        segmentPosition: '',
+        height: 'auto',
+        width: '100%'
       }
     }
   },
@@ -103,17 +116,14 @@ export default {
 }
 </script>
 
-<style scoped>
-.page-builder-section{
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  overflow: auto;
-  /*position: absolute;*/
-  top: 0;
+<style scoped lang="scss">
+.page-builder-section {
+  //.row {
+  //  width: 100%;
+  //}
+  //display: flex;
+  //flex-flow: column;
+  /*justify-content: center;*/
+  //align-items: center;
 }
-
 </style>

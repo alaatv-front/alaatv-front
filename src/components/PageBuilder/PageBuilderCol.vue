@@ -1,9 +1,21 @@
 <template>
-  <div :class="[(options.col) ? options.col : 'col']">
-    <page-builder-widget v-for="(widget, widgetIndex) in widgets"
-                         :key="widgetIndex"
-                         :widget="widget"
-    />
+  <div :class="[
+    (options.col) ? options.col : 'col',
+    (options.alignmentSelf) ? options.alignmentSelf : '',
+  ]">
+    <template v-for="(widget, widgetIndex) in widgets"
+              :key="widgetIndex">
+      <q-intersection v-if="widget.options && widget.options.intersection"
+                      :transition="widget.options.intersection.transition ? widget.options.intersection.transition : 'flip-right'"
+      >
+        <page-builder-widget
+          :widget="widget"
+        />
+      </q-intersection>
+      <page-builder-widget v-else
+                           :widget="widget"
+      />
+    </template>
   </div>
 </template>
 
