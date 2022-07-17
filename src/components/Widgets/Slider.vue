@@ -78,7 +78,7 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
-      slide: ref(1),
+      slide: ref(null),
       fullscreen: ref(false),
       defaultOptions: {
         control: {
@@ -113,6 +113,11 @@ export default {
           transitionDuration: 300
         }
       }
+    }
+  },
+  created () {
+    if(this.data && this.data.list && this.data.list.length > 0) {
+      this.slide = this.data.list[0].id
     }
   },
   methods: {
