@@ -22,6 +22,17 @@ const routes = [
         component: () => import('pages/User/Shop')
       },
       {
+        path: 'c',
+        name: 'User.Content',
+        component: () => import('layouts/AdminLayout.vue'),
+        meta: {
+          middlewares: [auth]
+        },
+        children: [
+          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') }
+        ]
+      },
+      {
         path: '/landing/:landing_name',
         name: 'Landing',
         component: () => import('pages/Landing.vue'),
@@ -34,6 +45,19 @@ const routes = [
         name: 'component',
         component: () => import('src/pages/component'),
         breadcrumbs: { title: 'component' },
+        meta: {
+          middlewares: [auth]
+        }
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('pages/Auth/Login.vue')
+      },
+      {
+        path: 'user-info',
+        name: 'user-info',
+        component: () => import('pages/User/UserInfoForm'),
         meta: {
           middlewares: [auth]
         }
@@ -52,24 +76,11 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('pages/Auth/Login.vue')
-  },
   // are u mr Esmaeili ? '' : dont touch this route
   {
     path: '/debug',
     name: 'debug',
     component: () => import('pages/debug'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
-  {
-    path: '/user-info',
-    name: 'user-info',
-    component: () => import('pages/User/UserInfoForm'),
     meta: {
       middlewares: [auth]
     }
