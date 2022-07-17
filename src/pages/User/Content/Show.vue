@@ -6,6 +6,8 @@
 
 <script>
 import PageBuilder from 'components/PageBuilder/PageBuilder'
+import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
+
 export default {
   name: 'User.Content.Show',
   components: { PageBuilder },
@@ -21,7 +23,31 @@ export default {
                     widgets: [
                       {
                         name: 'ContentShowInfo',
-                        data: this.$route.params.id
+                        data: this.$route.params.id,
+                        options: {
+                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                        }
+                      },
+                      {
+                        name: 'ContentShowInfo',
+                        data: this.$route.params.id,
+                        options: {
+                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                        }
+                      },
+                      {
+                        name: 'ContentShowInfo',
+                        data: this.$route.params.id,
+                        options: {
+                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                        }
+                      },
+                      {
+                        name: 'ContentShowInfo',
+                        data: this.$route.params.id,
+                        options: {
+                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                        }
                       }
                     ]
                   }
@@ -35,7 +61,7 @@ export default {
         }
       ]
     }
-  },
+  }
 }
 </script>
 
