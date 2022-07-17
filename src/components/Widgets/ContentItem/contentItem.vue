@@ -1,14 +1,16 @@
 <template>
   <q-card class="item-box">
-    <img :src="content.photo">
+    <router-link v-if="content.id" :to="{name: 'User.Content.Show', params: {id: content.id}}">
+      <q-img :src="content.photo" />
+    </router-link>
     <q-card-section>
       <p class="title-box">
+        <router-link v-if="content.id" :to="{name: 'User.Content.Show', params: {id: content.id}}">
         {{content.title}}
+        </router-link>
       </p>
-
     </q-card-section>
   </q-card>
-
 </template>
 
 <script>

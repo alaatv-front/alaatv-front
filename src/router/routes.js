@@ -17,6 +17,22 @@ const routes = [
         component: () => import('pages/User/Map.vue')
       },
       {
+        path: 'shop',
+        name: 'Shop',
+        component: () => import('pages/User/Shop')
+      },
+      {
+        path: 'c',
+        name: 'User.Content',
+        component: () => import('layouts/AdminLayout.vue'),
+        meta: {
+          middlewares: [auth]
+        },
+        children: [
+          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') }
+        ]
+      },
+      {
         path: '/landing/:landing_name',
         name: 'Landing',
         component: () => import('pages/Landing.vue'),
@@ -34,6 +50,19 @@ const routes = [
         }
       },
       {
+        path: 'login',
+        name: 'login',
+        component: () => import('pages/Auth/Login.vue')
+      },
+      {
+        path: 'user-info',
+        name: 'user-info',
+        component: () => import('pages/User/UserInfoForm'),
+        meta: {
+          middlewares: [auth]
+        }
+      },
+      {
         path: 'admin',
         component: () => import('layouts/AdminLayout.vue'),
         meta: {
@@ -41,29 +70,17 @@ const routes = [
         },
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
+          { name: 'Admin.StudyPlan', path: '/studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
           ...EntityCrudRoutes
         ]
       }
     ]
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('pages/Auth/Login.vue')
   },
   // are u mr Esmaeili ? '' : dont touch this route
   {
     path: '/debug',
     name: 'debug',
     component: () => import('pages/debug'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
-  {
-    path: '/user-info',
-    name: 'user-info',
-    component: () => import('pages/User/UserInfoForm'),
     meta: {
       middlewares: [auth]
     }

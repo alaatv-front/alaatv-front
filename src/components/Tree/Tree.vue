@@ -241,7 +241,7 @@ export default {
     display: inline-block;
 
     .node-title {
-      color: var(--3a-TextPrimary);
+      color: var(--alaa-TextPrimary);
       &:hover {
         .edit-btn {
           color: #f18305;
