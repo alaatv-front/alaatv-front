@@ -21,7 +21,10 @@ export default {
     BlockComponent: defineAsyncComponent(() => import('components/Widgets/Block/Block.vue')),
     Slider: defineAsyncComponent(() => import('components/Widgets/Slider.vue')),
     Segment: defineAsyncComponent(() => import('components/Widgets/Segment/Segment.vue')),
-    ContentShowInfo: defineAsyncComponent(() => import('components/Widgets/Content/Show.vue'))
+    ContentShowInfo: defineAsyncComponent(() => import('components/Widgets/Content/Show.vue')),
+    productDemos: defineAsyncComponent(() => import('components/Widgets/Product/productDemos')),
+    productReview: defineAsyncComponent(() => import('components/Widgets/Product/productReview')),
+    productFeatures: defineAsyncComponent(() => import('components/Widgets/Product/productFeatures'))
   },
   props: {
     widget: {
