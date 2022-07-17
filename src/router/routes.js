@@ -49,6 +49,11 @@ const routes = [
           { name: 'Admin.StudyPlan', path: '/studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
           ...EntityCrudRoutes
         ]
+      },
+      {
+        path: 'c',
+        name: 'search',
+        component: () => import('pages/User/content/search/ContentSearch')
       }
     ]
   },
