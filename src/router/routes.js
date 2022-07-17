@@ -30,6 +30,14 @@ const routes = [
         ]
       },
       {
+        path: 'product',
+        name: 'User.Product',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
+        ]
+      },
+      {
         path: '/landing/:landing_name',
         name: 'Landing',
         component: () => import('pages/Landing.vue'),
