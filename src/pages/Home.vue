@@ -25,7 +25,10 @@ export default {
                   {
                     widgets: []
                   }
-                ]
+                ],
+                options: {
+                  boxed: true
+                }
               }
             ]
           }
