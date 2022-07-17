@@ -1,5 +1,5 @@
 <template>
-
+  <div>productDemos</div>
 </template>
 
 <script>
