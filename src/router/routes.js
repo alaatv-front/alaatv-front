@@ -24,10 +24,7 @@ const routes = [
       {
         path: 'c',
         name: 'User.Content',
-        component: () => import('layouts/AdminLayout.vue'),
-        meta: {
-          middlewares: [auth]
-        },
+        component: () => import('layouts/bareLayout.vue'),
         children: [
           { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') }
         ]
