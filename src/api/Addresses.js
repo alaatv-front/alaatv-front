@@ -5,7 +5,8 @@ const API_ADDRESS = {
   // socket: process.env.VUE_APP_SOCKET_TARGET_API_SERVER,
   socket: 'https://office.alaatv.com:501',
   pages: {
-    home: alaaServer + '/home'
+    home: alaaServer + '/home',
+    shop: alaaServer + '/shop'
   },
   server: {
     auth: alaaServer

@@ -53,7 +53,6 @@ export default {
   }),
   mounted () {
     this.set = new Set(this.data)
-    console.log(this.data)
   }
 
 }

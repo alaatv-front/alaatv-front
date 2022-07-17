@@ -187,8 +187,8 @@ export default {
 .radio {
   display: flex;
   justify-content: center;
-  background: var(--3a-EQ);
-  border: 2px solid var(--3a-Primary);
+  background: var(--alaa-EQ);
+  border: 2px solid var(--alaa-Primary);
   border-radius: 10px;
   width: 160px;
 }
