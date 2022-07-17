@@ -7,7 +7,7 @@
                     color:value.textColor
            }"
            class="col-2 text-center plan-style">
-        {{title}}
+        {{value.title}}
       </div>
     </div>
 
@@ -22,7 +22,8 @@ export default {
       default: {
         backgroundColor: '',
         borderColor: '',
-        textColor: ''
+        textColor: '',
+        title: ''
       }
     },
     title: {

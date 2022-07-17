@@ -152,52 +152,28 @@ module.exports = configure(function (ctx) {
       port: 8083,
       open: true, // opens browser window automatically
       proxy: {
-        [process.env.ALAA_API]: {
-          target: process.env.ALAA_API_SERVER,
+        [process.env.ALAA_API_V2]: {
+          target: process.env.ALAA_API_V2_SERVER,
           changeOrigin: true,
           secure: false,
           pathRewrite: {
-            ['^' + process.env.ALAA_API]: ''
+            ['^' + process.env.ALAA_API_V2]: ''
           }
         },
-        [process.env.AUTH_API]: {
-          target: process.env.AUTH_API_SERVER,
+        [process.env.ALAA_API_V1]: {
+          target: process.env.ALAA_API_V1_SERVER,
           changeOrigin: true,
           secure: false,
           pathRewrite: {
-            ['^' + process.env.AUTH_API]: ''
+            ['^' + process.env.ALAA_API_V1]: ''
           }
         },
-        [process.env.AAA_API]: {
-          target: process.env.AAA_API_SERVER,
+        [process.env.ALAA_WEB]: {
+          target: process.env.ALAA_WEB_SERVER,
           changeOrigin: true,
           secure: false,
           pathRewrite: {
-            ['^' + process.env.AAA_API]: ''
-          }
-        },
-        [process.env.TREE_API]: {
-          target: process.env.TREE_API_SERVER,
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            ['^' + process.env.TREE_API]: ''
-          }
-        },
-        [process.env.TAG_API]: {
-          target: process.env.TAG_API_SERVER,
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            ['^' + process.env.TAG_API]: ''
-          }
-        },
-        '/cdn': {
-          target: 'https://cdn.alaatv.com',
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            '^/cdn': ''
+            ['^' + process.env.ALAA_WEB]: ''
           }
         }
       }
