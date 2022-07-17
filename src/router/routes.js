@@ -26,7 +26,8 @@ const routes = [
         name: 'User.Content',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') }
+          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') },
+          { name: 'User.Content.Search', path: '', component: () => import('pages/User/Content/Search.vue') }
         ]
       },
       {
