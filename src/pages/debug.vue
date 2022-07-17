@@ -1,18 +1,15 @@
 <template>
-  <div>
-    <page-builder :sections="sections" :options="pageConfig" />
-  </div>
+  <page-builder :sections="sections" :options="pageConfig"></page-builder>
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
+import pageBuilder from 'src/components/PageBuilder/PageBuilder'
 import { BannerList } from 'src/models/Banner'
 
 export default {
   name: 'debug',
-  components: [PageBuilder],
+  components: { pageBuilder },
   mixins: [],
-
   data() {
     return {
       pageConfig: {
@@ -22,188 +19,168 @@ export default {
       },
       sections: [
         {
-          rows: [
-            {
-              cols: [
-                {
-                  widgets: [
-                    {
-                      name: 'Slider',
-                      data: {
-                        slides: new BannerList([
-                          {
-                            id: 1,
-                            title: 'این از این',
-                            link: '',
-                            class: 'q-ma-xl rounded',
-                            features: {
-                              xl: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              },
-                              lg: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              },
-                              md: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              },
-                              sm: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              },
-                              xs: {
-                                src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              }
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'Slider',
+                        data: new BannerList([
+                            {
+                              id: 1,
+                              title: 'این از این',
+                              link: '',
+                              class: 'q-ma-xl rounded',
+                              photo: 'https://cdn.quasar.dev/img/mountains.jpg',
+                              // features: {
+                              //   xl: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   },
+                              //   lg: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   },
+                              //   md: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   },
+                              //   sm: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   },
+                              //   xs: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   }
+                              // }
+                            },
+                            {
+                              id: 2,
+                              title: 'این از این',
+                              link: '',
+                              class: 'q-ma-xl rounded',
+                              photo: 'https://placeimg.com/500/300/nature',
+                              // features: {
+                              //   xl: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   },
+                              //   lg: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   },
+                              //   md: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   },
+                              //   sm: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   },
+                              //   xs: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   }
+                              // }
                             }
-                          },
-                          {
-                            id: 2,
-                            title: 'این از این',
-                            link: '',
-                            class: 'q-ma-xl rounded',
-                            features: {
-                              xl: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              },
-                              lg: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              },
-                              md: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              },
-                              sm: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              },
-                              xs: {
-                                src: 'https://placeimg.com/500/300/nature'
-                                // width: '500px',
-                                // height: ''
-                              }
-                            }
+                          ])
+                        ,
+                        options: {
+                          transition: {
+                            infinite: false
                           }
-                        ])
-                      },
-                      options: {
-                        transition: {
-                          infinite: false
                         }
                       }
-                    }
-                  ],
-                  options: {}
-                }
-              ]
-            },
-            {
-              cols: [
-                {
-                  widgets: [
-                    {
-                      name: 'page-builder-section',
-                      data: {
-                        rows: [
-                          {
-                            cols: [
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component1-widget'
-                                  }
-                                ]
-                              },
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component2-widget'
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
+                    ],
+                    options: {}
+                  }
+                ]
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'page-builder-section',
+                        data: {
+                          rows: [
+                            {
+                              cols: [
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component1-widget'
+                                    }
+                                  ]
+                                },
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component2-widget'
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              cols: [
-                {
-                  widgets: [
-                    {
-                      name: 'test-component1-widget'
-                    }
-                  ]
-                },
-                {
-                  widgets: [
-                    {
-                      name: 'page-builder-section',
-                      data: {
-                        rows: [
-                          {
-                            cols: [
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component1-widget'
-                                  }
-                                ]
-                              },
-                              {
-                                widgets: [
-                                  {
-                                    name: 'test-component2-widget'
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
+                    ]
+                  }
+                ]
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'test-component1-widget'
                       }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          options: {}
-          // rows: [
-          //   {
-          //     cols: [
-          //       {
-          //         widgets: [
-          //           {
-          //             name: 'Segment',
-          //             data: {
-          //               url: {
-          //                 xl: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/sf0t100_1352_6437449.jpg?w=427&h=239'
-          //               }
-          //             },
-          //             options: {
-          //
-          //             }
-          //           }
-          //         ]
-          //       }
-          //     ],
-          //     options: {}
-          //   }
-          // ],
+                    ]
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'page-builder-section',
+                        data: {
+                          rows: [
+                            {
+                              cols: [
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component1-widget'
+                                    }
+                                  ]
+                                },
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component2-widget'
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            options: {}
+          }
         },
       ],
       testValue: '',
       testValue1: ''
     }
    },
-
   props: {
     testProp: {
       type: Boolean,

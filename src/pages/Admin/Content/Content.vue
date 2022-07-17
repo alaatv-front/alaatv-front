@@ -64,10 +64,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.content.show.base,
-            edit: API_ADDRESS.content.edit.base,
-            create: API_ADDRESS.content.create.base,
-            index: API_ADDRESS.content.index.base
+            show: API_ADDRESS.content.admin.base,
+            edit: API_ADDRESS.content.admin.base,
+            create: API_ADDRESS.content.admin.base,
+            index: API_ADDRESS.content.admin.base
           },
           title: {
             show: 'اطلاعات محتوا',
