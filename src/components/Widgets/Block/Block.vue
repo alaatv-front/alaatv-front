@@ -12,9 +12,9 @@
             class="q-mr-sm"
             color="primary"/>
         </div>
-        <p class="title-box">
+        <a :href="data?.url?.web" class="title-box">
           {{ data.title }}
-        </p>
+        </a>
       </div>
       <q-btn
         v-if="!data.banners || data.banners.list.length === 0 "
@@ -48,7 +48,7 @@
           />
         </div>
         <div class="block-item-box">
-          <a class="show-more-title">نمایش بیشتر </a>
+          <a :href="data?.url?.web" class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
       <div
@@ -67,7 +67,7 @@
           />
         </div>
         <div class="block-item-box">
-          <a class="show-more-title">نمایش بیشتر </a>
+          <a :href="data?.url?.web" class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
       <div
@@ -86,7 +86,7 @@
           />
         </div>
         <div class="block-item-box">
-          <a class="show-more-title">نمایش بیشتر </a>
+          <a :href="data?.url?.web" class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
     </div>
@@ -139,12 +139,21 @@ export default {
 
     .block-title {
       .title-box {
+        text-decoration: none;
+        cursor: pointer;
         margin: 0;
         font-weight: 500;
         font-size: 18px;
         line-height: 24px;
         letter-spacing: -0.03em;
         color: #333333;
+        padding: 0 0 4px 0;
+        border-bottom: 1px solid white;
+        transition: 0.3s ease;
+        &:hover {
+          padding: 0 0 6px 0;
+          border-color: #333333;
+        }
       }
     }
   }
@@ -164,13 +173,22 @@ export default {
       .block-item-box {
         display: flex;
         align-items: center;
+        justify-content: center;
         min-width: 200px;
         .show-more-title {
-          text-decoration: none;
           color:blue;
-          min-width: 200px;
-          width: 100%;
-          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          margin: 0;
+          line-height: 24px;
+          letter-spacing: -0.03em;
+          padding: 4px;
+          border: 1px solid blue;
+          transition: 0.3s ease;
+          &:hover {
+            background-color: blue;
+            color:#f1f1f1;
+          }
         }
 
       }
