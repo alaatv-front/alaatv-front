@@ -20,7 +20,8 @@ export default {
     TestComponent2Widget: defineAsyncComponent(() => import('components/Widgets/TestComponent2Widget.vue')),
     BlockComponent: defineAsyncComponent(() => import('components/Widgets/Block/Block.vue')),
     Slider: defineAsyncComponent(() => import('components/Widgets/Slider.vue')),
-    Segment: defineAsyncComponent(() => import('components/Widgets/Segment/Segment.vue'))
+    Segment: defineAsyncComponent(() => import('components/Widgets/Segment/Segment.vue')),
+    ContentShowInfo: defineAsyncComponent(() => import('components/Widgets/Content/Show.vue'))
   },
   props: {
     widget: {

@@ -30,18 +30,10 @@ const API_ADDRESS = {
     show_user: apiV2Server + '/getUserFor3a'
   },
   content: {
-    create: {
-      base: '/reqres/api/c'
-    },
-    edit: {
+    admin: {
       base: apiV2Server + '/c/'
     },
-    index: {
-      base: apiV2Server + '/admin/c'
-    },
-    show: {
-      base: apiV2Server + '/c/'
-    }
+    show: (id) => apiV2Server + '/c/' + id
   },
   coupon: {
     create: {
