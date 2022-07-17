@@ -32,9 +32,11 @@
         class="q-mx-lg"
         :data="data.banners"
       />
-      <div v-if="data.products.list.length > 0"
-           class="item-container"
-           :class="isGridView? 'row': 'scroll-view'"
+      <div
+        v-if="data.products.list.length > 0"
+        class="item-container"
+        :class="isGridView? 'row': 'scroll-view'"
+        v-dragscroll
       >
         <div v-for="product in this.data.products.list"
              :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
@@ -49,9 +51,11 @@
           <a class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
-      <div v-if="data.sets.list.length > 0"
-           class="item-container"
-           :class="isGridView? 'row': 'scroll-view'"
+      <div
+        v-if="data.sets.list.length > 0"
+        class="item-container"
+        :class="isGridView? 'row': 'scroll-view'"
+        v-dragscroll
       >
         <div v-for="set in this.data.sets.list"
              :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
@@ -66,9 +70,11 @@
           <a class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
-      <div v-if="data.contents.list.length > 0"
-           class="item-container"
-           :class="isGridView? 'row': 'scroll-view'"
+      <div
+        v-if="data.contents.list.length > 0"
+        class="item-container"
+        :class="isGridView? 'row': 'scroll-view'"
+        v-dragscroll
       >
         <div v-for="content in this.data.contents.list"
              :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
