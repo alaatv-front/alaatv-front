@@ -47,7 +47,7 @@
             :data="product"
           />
         </div>
-        <div class="item-box">
+        <div class="block-item-box">
           <a class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
@@ -66,7 +66,7 @@
             :data="set"
           />
         </div>
-        <div class="item-box">
+        <div class="block-item-box">
           <a class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
@@ -85,7 +85,7 @@
             :data="content"
           />
         </div>
-        <div class="item-box">
+        <div class="block-item-box">
           <a class="show-more-title">نمایش بیشتر </a>
         </div>
       </div>
@@ -99,6 +99,7 @@ import Slider from 'src/components/Widgets/Slider'
 import SetItem from 'components/Widgets/SetItem/setItem'
 import ContentItem from 'components/Widgets/ContentItem/contentItem'
 import { Block } from 'src/models/Block'
+import { dragscrollNext as dragscroll }  from 'vue-dragscroll'
 
 export default {
   name: 'Block',
@@ -116,6 +117,9 @@ export default {
       type: Block,
       default: new Block()
     }
+  },
+  directives: {
+    dragscroll
   },
   computed: {
     isThereData () {
@@ -157,7 +161,7 @@ export default {
     }
 
     .item-container {
-      .item-box {
+      .block-item-box {
         display: flex;
         align-items: center;
         min-width: 200px;
