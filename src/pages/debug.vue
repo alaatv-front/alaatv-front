@@ -1,19 +1,16 @@
 <template>
-  <div>
-    <page-builder :sections="sections"
-                  :options="pageConfig" />
-  </div>
+  <page-builder :sections="sections" :options="pageConfig"></page-builder>
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
+import pageBuilder from 'src/components/PageBuilder/PageBuilder'
 import { BannerList } from 'src/models/Banner'
 
 export default {
   name: 'debug',
-  components: { PageBuilder },
+  components: { pageBuilder },
   mixins: [],
-  data () {
+  data() {
     return {
       pageConfig: {
         padding: {
@@ -30,72 +27,75 @@ export default {
                     widgets: [
                       {
                         name: 'Slider',
-                        data: {
-                          slides: new BannerList([
+                        data: new BannerList([
                             {
                               id: 1,
                               title: 'این از این',
-                              link: 'https://www.google.com/',
+                              link: '',
                               class: 'q-ma-xl rounded',
-                              features: {
-                                xl: {
-                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                                },
-                                lg: {
-                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                                },
-                                md: {
-                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                                },
-                                sm: {
-                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                                },
-                                xs: {
-                                  src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                                }
-                              }
+                              photo: 'https://cdn.quasar.dev/img/mountains.jpg',
+                              // features: {
+                              //   xl: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   },
+                              //   lg: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   },
+                              //   md: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   },
+                              //   sm: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   },
+                              //   xs: {
+                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
+                              //   }
+                              // }
                             },
                             {
                               id: 2,
                               title: 'این از این',
-                              link: 'https://www.google.com/',
+                              link: '',
                               class: 'q-ma-xl rounded',
-                              features: {
-                                xl: {
-                                  src: 'https://placeimg.com/500/300/nature'
-                                  // width: '500px',
-                                  // height: ''
-                                },
-                                lg: {
-                                  src: 'https://placeimg.com/500/300/nature'
-                                  // width: '500px',
-                                  // height: ''
-                                },
-                                md: {
-                                  src: 'https://placeimg.com/500/300/nature'
-                                  // width: '500px',
-                                  // height: ''
-                                },
-                                sm: {
-                                  src: 'https://placeimg.com/500/300/nature'
-                                  // width: '500px',
-                                  // height: ''
-                                },
-                                xs: {
-                                  src: 'https://placeimg.com/500/300/nature'
-                                  // width: '500px',
-                                  // height: ''
-                                }
-                              }
+                              photo: 'https://placeimg.com/500/300/nature',
+                              // features: {
+                              //   xl: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   },
+                              //   lg: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   },
+                              //   md: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   },
+                              //   sm: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   },
+                              //   xs: {
+                              //     src: 'https://placeimg.com/500/300/nature'
+                              //     // width: '500px',
+                              //     // height: ''
+                              //   }
+                              // }
                             }
                           ])
-                        },
-                        options: {}
+                        ,
+                        options: {
+                          transition: {
+                            infinite: false
+                          }
+                        }
                       }
                     ],
-                    options: {
-                      col: 'col-md-6 q-pb-md'
-                    }
+                    options: {}
                   }
                 ]
               },
@@ -172,78 +172,56 @@ export default {
                   }
                 ]
               }
-            ]
-          },
-          options: {}
-          // rows: [
-          //   {
-          //     cols: [
-          //       {
-          //         widgets: [
-          //           {
-          //             name: 'Segment',
-          //             data: {
-          //               url: {
-          //                 xl: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/sf0t100_1352_6437449.jpg?w=427&h=239'
-          //               }
-          //             },
-          //             options: {
-          //
-          //             }
-          //           }
-          //         ]
-          //       }
-          //     ],
-          //     options: {}
-          //   }
-          // ],
-        }
+            ],
+            options: {}
+          }
+        },
       ],
       testValue: '',
       testValue1: ''
     }
-  },
+   },
   props: {
     testProp: {
       type: Boolean,
-      default () {
+      default() {
         return false
       }
     }
   },
   methods: {},
   computed: {},
-  beforeRouteEnter () {
+  beforeRouteEnter() {
     // console.log('debug beforeRouteEnter')
   },
-  beforeRouteLeave () {
+  beforeRouteLeave() {
     // console.log('debug beforeRouteLeave')
   },
-  beforeRouteUpdate () {
+  beforeRouteUpdate() {
     // console.log('debug beforeRouteUpdate')
   },
-  activated () {
+  activated() {
     // console.log('debug activated')
   },
-  updated () {
+  updated() {
     // console.log('debug updated')
   },
-  created () {
+  created() {
     // console.log('debug created')
   },
-  mounted () {
+  mounted() {
     // console.log('debug mounted')
   },
   watch: {
     testValue: {
-      handler () {},
+      handler() { },
       deep: true
     },
-    testValue1 (oldVal, newVal) {}
+    testValue1(oldVal, newVal) { }
   }
 }
+
 </script>
 
 <style scoped lang="scss">
-
 </style>

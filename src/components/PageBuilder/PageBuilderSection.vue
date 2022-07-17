@@ -89,7 +89,6 @@ export default {
   methods: {
     getUrl () {
       const Dimensions = this.$store.getters['AppLayout/windowSize']
-      console.log(Dimensions.x, this.data)
       if (Dimensions.x <= 600) {
         this.PageBackgroundImage = this.url.xs
       } else if (Dimensions.x <= 1024) {

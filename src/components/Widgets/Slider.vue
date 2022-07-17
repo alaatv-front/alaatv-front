@@ -24,12 +24,18 @@
     class="slider-widget"
   >
     <q-carousel-slide
-      v-for="(slide, index) in data.slides.list"
+      v-for="(slide, index) in data.list"
       :key="index"
       :name="slide.id"
       @click="redirectToBannerEvent(slide.link)"
     >
       <q-img
+        v-if="slide.photo"
+        :src="slide.photo"
+        :ratio="slide.ratio"
+      />
+      <q-img
+        v-else
         :src="responsiveFeatures(slide.features).src"
         :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
         :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : 'auto'"
@@ -57,6 +63,7 @@
 <script>
 import { ref } from 'vue'
 import { BannerList } from 'src/models/Banner'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'Slider',
@@ -64,12 +71,11 @@ export default {
     data: {
       type: Object,
       default () {
-        return {
-          slides: new BannerList()
-        }
+        return new BannerList()
       }
     }
   },
+  mixins: [mixinWidget],
   data () {
     return {
       slide: ref(1),
@@ -114,7 +120,6 @@ export default {
       window.location.href = link
     },
     responsiveFeatures (features) {
-      console.log(features)
       const windowSize = this.$store.getters['AppLayout/windowSize']
       if (windowSize.x >= 1920) {
         return features.xl
@@ -134,6 +139,7 @@ export default {
 
 <style lang="scss" scoped>
 .slider-widget {
+  width: 100%;
   &:deep(.q-carousel__slide) {
     padding: 0;
   }

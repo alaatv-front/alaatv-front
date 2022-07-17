@@ -2,7 +2,6 @@
   <div class="page-builder"
        :class="classes">
     <page-builder-section
-      :url="{xl:'https://cdn.quasar.dev/img/parallax2.jpg'}"
       v-for="(section, sectionIndex) in sections"
       :key="sectionIndex"
       :data="section.data"
