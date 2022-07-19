@@ -3,7 +3,11 @@
     <div class="side-logo">
       <div class="logo-image">
         <q-img
-          src="https://3a.alaatv.com/img/logo-2.png"
+          src="https://nodes.alaatv.com/upload/logo_20190508105212_20190512113140.png"
+        />
+        <q-img
+          class="alaa-logo"
+          src="https://nodes.alaatv.com/upload/footer-alaaLogo.png?w=90&h=115"
         />
       </div>
     </div>
@@ -12,11 +16,14 @@
       padding
       dark
     >
-      <q-input dense
-               standout="bg-deep-purple-5 text-white"
-               v-model="searchText"
-               @update:model-value ="search(titlesList)"
-               placeholder="جست و جو">
+      <q-input
+        dense
+        filled
+        class="gray-input"
+        v-model="searchText"
+        @update:model-value ="search(titlesList)"
+        placeholder="جست و جو"
+      >
         <template v-slot:append>
           <q-icon name="search" />
         </template>
@@ -576,6 +583,12 @@ export default {
     height: 167px;
     align-items: center;
     justify-content: center;
+    .alaa-logo {
+      &:deep(.q-img__image ){
+        width:50%;
+        height:50%;
+      }
+    }
     @media screen and (max-width: 1919px) {
       height: 136px;
     }

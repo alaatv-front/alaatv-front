@@ -24,7 +24,7 @@
     class="slider-widget"
   >
     <q-carousel-slide
-      v-for="(slide, index) in data.slides.list"
+      v-for="(slide, index) in data.list"
       :key="index"
       :name="slide.id"
       @click="redirectToBannerEvent(slide.link)"
@@ -71,16 +71,14 @@ export default {
     data: {
       type: Object,
       default () {
-        return {
-          slides: new BannerList()
-        }
+        return new BannerList()
       }
     }
   },
   mixins: [mixinWidget],
   data () {
     return {
-      slide: ref(1),
+      slide: ref(null),
       fullscreen: ref(false),
       defaultOptions: {
         control: {
@@ -117,6 +115,11 @@ export default {
       }
     }
   },
+  created () {
+    if(this.data && this.data.list && this.data.list.length > 0) {
+      this.slide = this.data.list[0].id
+    }
+  },
   methods: {
     redirectToBannerEvent (link) {
       window.location.href = link
@@ -141,6 +144,7 @@ export default {
 
 <style lang="scss" scoped>
 .slider-widget {
+  width: 100%;
   &:deep(.q-carousel__slide) {
     padding: 0;
   }
