@@ -24,7 +24,8 @@ export default {
     ContentShowInfo: defineAsyncComponent(() => import('components/Widgets/Content/Show.vue')),
     productDemos: defineAsyncComponent(() => import('components/Widgets/Product/productDemos')),
     productReview: defineAsyncComponent(() => import('components/Widgets/Product/productReview')),
-    productIntroduction: defineAsyncComponent(() => import('components/Widgets/Product/productIntroduction'))
+    productIntroduction: defineAsyncComponent(() => import('components/Widgets/Product/productIntroduction')),
+    blockList: defineAsyncComponent(() => import('components/Widgets/BlockList/BlockList'))
   },
   props: {
     widget: {
