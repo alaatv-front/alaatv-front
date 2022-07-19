@@ -1,6 +1,6 @@
 <template>
   <div
-    v-for="(block, index) in blocks.list"
+    v-for="(block, index) in blocksToShow"
     :key="index"
     class="block-list-widget"
   >
@@ -32,6 +32,12 @@ export default {
     this.loadBlocks()
   },
 
+  computed: {
+    blocksToShow () {
+      return this.getBlocks(this.blocks.list)
+    }
+  },
+
   watch: {
     blocks () {
       this.blocks.list.forEach((block, index) => {
@@ -46,10 +52,11 @@ export default {
         this.blocks = new BlockList(this.data)
       } else if (typeof this.data === 'string') {
         const url= this.data
-        this.getBlocks(url)
+        this.getBlocksByRequest(url)
       }
     },
-    getBlocks (url) {
+
+    getBlocksByRequest (url) {
       this.blocks.loading = true
       let promise = null
 
@@ -69,6 +76,10 @@ export default {
           console.log(error)
           this.blocks.loading = false
         })
+    },
+
+    getBlocks (blocks) {
+      return blocks.slice(this.options.from, this.options.to)
     }
   }
 }

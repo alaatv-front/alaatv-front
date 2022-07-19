@@ -1524,7 +1524,9 @@ export default {
                         //   }
                         // ],
                         options: {
-                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                          getData: (url) => GetWidgetsData.getData(this.$axios, url),
+                          from: 0,
+                          to:2
                         }
                       }
                     ],
