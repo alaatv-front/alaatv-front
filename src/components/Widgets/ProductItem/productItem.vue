@@ -3,31 +3,24 @@
     class="product-item-box"
   >
     <div class="img-box">
-      <!--      <router-link-->
-      <!--        :to="product.url"-->
-      <!--      >-->
-      <!--        <img-->
-      <!--          :src="product.photo"-->
-      <!--          alt="product"-->
-      <!--        />-->
-      <!--      </router-link>-->
-      <img
-        :src="product.photo"
-        alt="product"
-      />
+      <router-link
+        :to="{ path: `/product/${ product.id }`}"
+      >
+        <img
+          :src="product.photo"
+          alt="product"
+        />
+      </router-link>
     </div>
     <div class="product-content-box">
       <div class="main-title">
-        <!--          <router-link-->
-        <!--            :to="product.url"-->
-        <!--          >-->
-        <!--            <span class="title-text">-->
-        <!--              {{ product.name }}-->
-        <!--            </span>-->
-        <!--          </router-link>-->
-        <span class="title-text">
-          {{ product.title }}
-        </span>
+        <router-link
+          :to="{ path: `/product/${ product.id }`}"
+        >
+          <span class="title-text">
+            {{ product.title }}
+          </span>
+        </router-link>
       </div>
       <div class="price-box">
         <div class="price-info">
@@ -51,14 +44,12 @@
       </div>
       <div class="action-box">
         <div class="more-detail product-more-detail">
-          <!--            <router-link-->
-          <!--              :to="product.url"-->
-          <!--            >-->
-          <!--              <span>توضیحات</span>-->
-          <!--              <span class="more">بیشتر</span>-->
-          <!--            </router-link>-->
-          <span> توضیحات </span>
-          <span class="more">بیشتر</span>
+          <router-link
+            :to="{ path: `/product/${ product.id }`}"
+          >
+            <span>توضیحات </span>
+            <span class="more">بیشتر</span>
+          </router-link>
         </div>
         <q-btn
           :productId="product.id"
@@ -123,13 +114,15 @@ export default {
   background-color: #ffffff;
 
   .img-box {
-    border-radius: inherit;
-    box-shadow: none;
-    width: 100%;
-    height: 270px;
-    img {
-      width: inherit;
-      border-radius: 20px 20px 0 0;
+    a {
+      border-radius: inherit;
+      box-shadow: none;
+      width: 100%;
+      height: 270px;
+      img {
+        width: inherit;
+        border-radius: 20px 20px 0 0;
+      }
     }
   }
 
