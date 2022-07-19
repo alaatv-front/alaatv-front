@@ -34,7 +34,7 @@ export default {
 
   computed: {
     blocksToShow () {
-      return this.getBlocks(this.blocks.list)
+      return this.getBlocks(this.blocks)
     }
   },
 
@@ -79,7 +79,10 @@ export default {
     },
 
     getBlocks (blocks) {
-      return blocks.slice(this.options.from, this.options.to)
+      if(!blocks || !blocks.list || blocks.list.length === 0) {
+        return
+      }
+      return blocks.list.slice(this.options.from, this.options.to)
     }
   }
 }
