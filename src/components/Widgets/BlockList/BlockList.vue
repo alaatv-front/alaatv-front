@@ -4,7 +4,7 @@
     :key="index"
     class="block-list-widget"
   >
-    <Block :data="block"/>
+    <Block :data="block" :options="options"/>
   </div>
 </template>
 
@@ -31,6 +31,15 @@ export default {
   created () {
     this.loadBlocks()
   },
+
+  watch: {
+    blocks () {
+      this.blocks.list.forEach((block, index) => {
+        block.headerCustomClass = `banner-header-${index}` + ' '
+      })
+    }
+  },
+
   methods: {
     loadBlocks () {
       if (typeof this.data === 'object') {
