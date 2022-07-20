@@ -4,7 +4,6 @@
 
 <script>
 import PageBuilder from 'components/PageBuilder/PageBuilder'
-import { BlockList } from 'src/models/Block'
 import API_ADDRESS from 'src/api/Addresses'
 
 export default {
@@ -21,37 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'productIntroduction',
-                        data:{}
-                      }
-                    ]
-                  },
-                ],
-                options: {
-                  boxed: true
-                }
-              },
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'productDemos',
-                        data:{}
-                      }
-                    ]
-                  },
-                ],
-                options: {
-                  boxed: true
-                }
-              },
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'productReview',
+                        name: 'productInfoShow',
                         data:{}
                       }
                     ]
@@ -67,8 +36,27 @@ export default {
       ]
     }
   },
-  created () {},
-  methods: {}
+  created () {
+    this.setData()
+  },
+  computed: {
+    productId () {
+      return this.$route.params.id
+    }
+  },
+  methods: {
+    setData () {
+      this.$axios.get(API_ADDRESS.product.show.base + '/'+ this.productId)
+      .then(response => {
+        console.log(this.findWidget(0,0,0,'productInfoShow'))
+        this.findWidget(0,0,0,'productInfoShow').data = response.data.data
+      })
+    },
+    findWidget (sectionIndex,rowIndex, colIndex, widgetName) {
+      const widget = this.sections[sectionIndex].data.rows[rowIndex].cols[colIndex].widgets.find(widget => widget.name === widgetName)
+      return widget
+    }
+  }
 }
 </script>
 
