@@ -33,7 +33,8 @@ const API_ADDRESS = {
     admin: {
       base: apiV2Server + '/c/'
     },
-    show: (id) => apiV2Server + '/c/' + id
+    show: (id) => apiV2Server + '/c/' + id,
+    search: apiV2Server + '/search'
   },
   coupon: {
     create: {
