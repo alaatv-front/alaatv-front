@@ -8,10 +8,12 @@
 
 <script>
 import API_ADDRESS from "src/api/Addresses";
+import { mixinWidget } from 'src/mixin/Mixins'
 import {Content} from "src/models/Content";
 
 export default {
   name: "ContentShowInfo",
+  mixins: [mixinWidget],
   props: {
     data: {
       type: [Content, Number, String],
@@ -65,7 +67,15 @@ export default {
     },
     getContent () {
       this.content.loading = true
-      this.$axios.get(API_ADDRESS.content.show(this.content.id))
+      const url = API_ADDRESS.content.show(this.content.id)
+      let promise = null
+      if (typeof this.options.getData === 'function') {
+        promise = this.options.getData(url)
+      } else {
+        promise = this.$axios.get(url)
+      }
+
+      promise
         .then(response => {
           this.content = new Content(response.data.data)
           this.content.loading = false
