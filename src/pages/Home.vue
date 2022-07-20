@@ -33,7 +33,7 @@ export default {
                   }
                 ],
                 options: {
-                  boxed: true
+                  boxed: false
                 }
               }
             ]
