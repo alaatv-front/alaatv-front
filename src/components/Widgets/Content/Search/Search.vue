@@ -4,18 +4,21 @@
     <div class="col-2">
       <div class="sidebar">
         <div class="sidebar__inner">
-          <p v-for="n in 15"
-             :key="n">
-            set title {{n}}
-          </p>
+          <side-bar-content
+            :contentFilterData="contentSearchFilterData"
+            @filter="filterData"
+            :mobileMode="mobileMode"
+            :applyFilter="applyFilter"
+            :key="sideBarKey"
+            :loading="searchLoading"
+            ref="sideBar"
+          />
         </div>
       </div>
     </div>
     <div class="col-10">
       <div class="content row">
-        jgy
-        <div class="col-11">
-          yuy
+        <div class="col-11 sets-container">
           <q-virtual-scroll
             :items="heavyList"
             virtual-scroll-horizontal
@@ -39,14 +42,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 product-contents-container">
           <div class="">
             <q-infinite-scroll @load="onLoad"
                                :offset="250">
               <div v-for="(item, index) in items"
                    :key="index"
                    class="caption">
-                <p>Lorem ipsum dolor sit amet consecrate adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.</p>
+
               </div>
               <template v-slot:loading>
                 <div class="row justify-center q-my-md">

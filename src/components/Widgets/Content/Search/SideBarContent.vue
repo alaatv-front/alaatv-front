@@ -1,101 +1,101 @@
 <template>
-  <div>
-    <v-container>
-      <div>
-        <v-expansion-panels
-          dense
-          v-model="panel"
-          flat
-          multiple
-        >
-          <v-expansion-panel
-            v-for="(item, index) in finalContent"
-            :key="index"
-            dense
-          >
-            <v-expansion-panel-header>
-              {{ item.title }}
-            </v-expansion-panel-header>
-            <v-divider class="mb-2" />
-            <v-expansion-panel-content
-              :style="{ overflow: 'hidden', position: 'relative' }"
-              :class="{
-                'lessons-expanded': item.title === 'درس' && !lessonsExpand,
-                'teachers-expanded': item.title === 'دبیران' && !teachersExpand,
-                'animated-expand': true}"
-            >
-              <v-text-field class="search"
-                            dense
-                            v-if="item.title === 'درس'"
-                            outlined
-                            label="جستجو..."
-                            v-model="lessonsSearchField" />
-              <v-text-field class="search"
-                            v-if="item.title === 'دبیران'"
-                            outlined
-                            label="جستجو..."
-                            v-model="teachersSearchField"
-                            dense />
-              <div class="test"
-                   :class="{
-                     'lessons-not-expanded': item.title === 'درس' && !lessonsExpand,
-                     'teachers-not-expanded': item.title === 'دبیران' && !teachersExpand,
-                     'animated-expand': true}"
-              >
-                <v-checkbox
-                  color="#ff9000"
+  <q-expansion-item
+    v-for="(item, index) in finalContent"
+    :key="index"
+    :label="item.title"
+    class="q-mb-sm"
+    :header-style="{backgroundColor: 'white' }"
+  >
+    <q-card
+      :style="{ overflow: 'hidden', position: 'relative' }"
+      :class="{
+        'lessons-expanded': item.title === 'درس' && !lessonsExpand,
+        'teachers-expanded': item.title === 'دبیران' && !teachersExpand,
+        'animated-expand': true}"
+    >
+      <q-separator class="mb-2" />
+      <q-card-section>
+        <q-input  class="search"
                   dense
-                  v-for="(option) in item.options"
-                  :key="option.order"
-                  :label="option.title"
-                  v-model="option.active"
-                  :input-value="option.value"
-                  :disabled="loading"
-                  @change="applyUserSelection(option)"
-                />
-              </div>
-              <v-btn
-                v-if="item.title === 'درس'"
-                color="#ff9000"
-                depressed
-                class="show-more-expansion"
-                @click="lessonsExpand = !lessonsExpand"
-              >
-                <div v-if="!lessonsExpand">
-                  <v-icon color="#fff"
-                          size="16">mdi-plus</v-icon>
-                  نمایش بیشتر...
-                </div>
-                <div v-if="lessonsExpand">
-                  <v-icon color="#fff"
-                          size="16">mdi-minus</v-icon>
-                  نمایش کمتر...
-                </div>
-              </v-btn>
-              <v-btn
-                v-if="item.title === 'دبیران'"
-                color="#ff9000"
-                class="show-more-expansion"
-                depressed
-                @click="teachersExpand = !teachersExpand"
-              >
-                <div v-if="!teachersExpand">
-                  <v-icon color="#fff"
-                          size="16">mdi-plus</v-icon>
-                  نمایش بیشتر...
-                </div>
-                <div v-if="teachersExpand">
-                  <v-icon color="#fff"
-                          size="16">mdi-minus</v-icon>
-                  نمایش کمتر...
-                </div>
-              </v-btn>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </div>
-    </v-container>
-  </div>
+                  v-if="item.title === 'درس'"
+                  outlined
+                  label="جستجو..."
+                  v-model="lessonsSearchField" />
+        <q-input  class="search"
+                  v-if="item.title === 'دبیران'"
+                  outlined
+                  label="جستجو..."
+                  v-model="teachersSearchField"
+                  dense />
+      </q-card-section>
+      <q-card-section>
+        <div class="test row"
+             :class="{
+               'lessons-not-expanded': item.title === 'درس' && !lessonsExpand,
+               'teachers-not-expanded': item.title === 'دبیران' && !teachersExpand,
+               'animated-expand': true}"
+        >
+          <q-checkbox
+            color="#ff9000"
+            class="col-12 q-mb-sm"
+            dense
+            v-for="(option) in item.options"
+            :key="option.order"
+            :label="option.title"
+            v-model="option.active"
+            :input-value="option.value"
+            :disable="loading"
+            @change="applyUserSelection(option)"
+          />
+        </div>
+      </q-card-section>
+      <q-card-actions>
+        <q-btn
+          v-if="item.title === 'درس'"
+          color="primary"
+          depressed
+          class="show-more-expansion"
+          @click="lessonsExpand = !lessonsExpand"
+        >
+          <div v-if="!lessonsExpand">
+            <q-icon color="#fff"
+                    size="16"
+                    name="mdi-plus"
+            />
+            نمایش بیشتر...
+          </div>
+          <div v-if="lessonsExpand">
+            <q-icon color="#fff"
+                    size="16"
+                    name="mdi-minus" />
+            نمایش کمتر...
+          </div>
+        </q-btn>
+        <q-btn
+          v-if="item.title === 'دبیران'"
+          color="primary"
+          class="show-more-expansion"
+          depressed
+          @click="teachersExpand = !teachersExpand"
+        >
+          <div v-if="!teachersExpand">
+            <q-icon color="#fff"
+                    size="16"
+                    name="mdi-plus"
+            />
+            نمایش بیشتر...
+          </div>
+          <div v-if="teachersExpand">
+            <q-icon color="#fff"
+                    size="16"
+                    name="mdi-minus"
+            />
+            نمایش کمتر...
+          </div>
+        </q-btn>
+      </q-card-actions>
+    </q-card>
+  </q-expansion-item>
 </template>
 
 <script>
@@ -255,11 +255,11 @@ export default {
 }
 
 .lessons-expanded {
-    max-height: 500px;
+    max-height: 540px;
 }
 
 .teachers-expanded {
-    max-height: 500px;
+    max-height: 540px;
 }
 
 .teachers-not-expanded {
@@ -302,7 +302,6 @@ export default {
 
             .test {
                 transition: all ease-in-out 3s;
-
                 .v-input {
                     .v-input__control {
                         .v-messages {
