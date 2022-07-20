@@ -21,7 +21,9 @@ export default {
                     widgets: [
                       {
                         name: 'productInfoShow',
-                        data:{}
+                        data: this.$route.params.id,
+                        options: {
+                        }
                       }
                     ]
                   },
@@ -39,24 +41,6 @@ export default {
   created () {
     this.setData()
   },
-  computed: {
-    productId () {
-      return this.$route.params.id
-    }
-  },
-  methods: {
-    setData () {
-      this.$axios.get(API_ADDRESS.product.show.base + '/'+ this.productId)
-      .then(response => {
-        console.log(this.findWidget(0,0,0,'productInfoShow'))
-        this.findWidget(0,0,0,'productInfoShow').data = response.data.data
-      })
-    },
-    findWidget (sectionIndex,rowIndex, colIndex, widgetName) {
-      const widget = this.sections[sectionIndex].data.rows[rowIndex].cols[colIndex].widgets.find(widget => widget.name === widgetName)
-      return widget
-    }
-  }
 }
 </script>
 
