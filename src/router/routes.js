@@ -79,18 +79,28 @@ const routes = [
           { name: 'Admin.StudyPlan', path: '/studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
           ...EntityCrudRoutes
         ]
+      },
+
+
+      {
+        path: '/debug',
+        name: 'debug',
+        component: () => import('pages/debug'),
+        meta: {
+          middlewares: [auth]
+        }
       }
     ]
   },
   // are u mr Esmaeili ? '' : dont touch this route
-  {
-    path: '/debug',
-    name: 'debug',
-    component: () => import('pages/debug'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
+  // {
+  //   path: '/debug',
+  //   name: 'debug',
+  //   component: () => import('pages/debug'),
+  //   meta: {
+  //     middlewares: [auth]
+  //   }
+  // },
   // Always leave this as last one,
   // but you can also remove it
   {
