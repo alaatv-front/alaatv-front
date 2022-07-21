@@ -5,6 +5,7 @@
 <script>
 import PageBuilder from 'components/PageBuilder/PageBuilder'
 import API_ADDRESS from 'src/api/Addresses'
+import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
   name: 'Show',
@@ -23,6 +24,7 @@ export default {
                         name: 'productInfoShow',
                         data: this.$route.params.id,
                         options: {
+                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
                         }
                       }
                     ]
@@ -37,10 +39,7 @@ export default {
         }
       ]
     }
-  },
-  created () {
-    this.setData()
-  },
+  }
 }
 </script>
 
