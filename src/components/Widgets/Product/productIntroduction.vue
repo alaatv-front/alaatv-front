@@ -12,60 +12,118 @@
           class="product-info"
         >
           <div class="info-header">
-            <q-img :src="info.src"/>
+            <q-img :src="info.src" class="info-image"/>
             <p class="info-title">
               {{info.title}}
             </p>
           </div>
 
           <div class="info-content">
-            <p class="info-value">
-              {{info.value}}
-            </p>
+            <span
+              v-for="(val , i) in info.value"
+              class="info-value"
+              :key="i"
+            >
+              {{ val }}
+            </span>
           </div>
 
         </div>
       </div>
 
       <div class="product-price">
-        <span class="discount"></span>
-        <span class="discount"></span>
-        <q-btn class="discount"></q-btn>
+        <div class="discount-percent">
+          <span class="discount-percent">{{ '%' + data.price.discountInPercent() }}</span>
+          <span class="discount-title">تخفیف</span>
+        </div>
+        <div class="price">
+          <span class="product-base-price">{{ data.price.toman('base', null) }}</span>
+          <sapn class="product-final-price">{{ data.price.toman('final', null) }}</sapn>
+          <span class="product-price-title"> تومان</span>
+        </div>
+        <div class="action">
+          <q-btn
+            class="purchase-button"
+            label="خرید نقدی"
+            text-color="white"
+            icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
+          />
+        </div>
       </div>
     </div>
     <div class="intro-video col-6">
-      <video-player/>
+      <video-player :poster="data.intro.photo" :sources="data.intro.video"/>
     </div>
   </div>
 </template>
 
 <script>
 import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'productIntroduction',
   components: { VideoPlayer },
+  mixins:[mixinWidget],
+  props: {
+    data: {
+      type: Object,
+      default: {}
+    }
+  },
   data () {
     return {
+      givenData: {},
       information: [
         {
-          src: '',
+          key: 'teacher',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-teacher.png\n',
           title: 'مدرس',
-          value: ''
+          value: []
         },
         {
-          src: '',
-          title: '',
-          value: ''
+          key: 'production_year',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-calendar.png\n',
+          title: 'سال تولید',
+          value: []
         },
         {
-          src: '',
-          title: '',
-          value: ''
+          key: 'major',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-book.png\n',
+          title: 'رشته',
+          value: []
+        },
+        {
+          key: 'shipping_method',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-document-download.png\n',
+          title: 'مدل دریافت',
+          value: []
         },
 
       ]
     }
+  },
+  created () {
+    // this.setInformation()
+  },
+  methods: {
+    setInformation () {
+      const attributesInfoKeys = Object.keys(this.givenData.attributes.info)
+      this.information.forEach(info => {
+        const targetInfo = info.key
+        const findingAttribute = attributesInfoKeys.find(attribute => (attribute === targetInfo))
+
+        if (findingAttribute) {
+          info.value = this.data.attributes.info[findingAttribute]
+        }
+      })
+    },
+    addToCart (hasInstallment) {
+      this.$emit('addToCart', {
+        product: this.product.eec.getData(),
+        ...(typeof hasInstallment === 'boolean' && { hasInstallment: hasInstallment })
+      })
+    },
   }
 }
 </script>
@@ -73,14 +131,128 @@ export default {
 <style lang="scss" scoped>
 .product-introduction {
   .intro-features {
-    .features {
-      .feature {
-
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    justify-content: space-between;
+    .product-info-box {
+      display: flex;
+      .product-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 130px;
+        height: 156px;
+        margin: 5px;
+        background: #FFFFFF;
+        box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
+        border-radius: 15px;
+        .info-header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          background-color: #EEF5FC;
+          border-radius: 15px 15px 0 0;
+          height: 110px;
+          .info-image {
+            width: 46px;
+            height: 46px;
+            margin-bottom: 8px;
+          }
+        }
+        .info-content {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 10px;
+          .info-value {
+            text-align: center;
+            &:after {
+                content: '-';
+                padding: 0 2px;
+            }
+            &:last-child {
+              &:after {
+                display: none;
+              }
+            }
+          }
+        }
       }
+    }
+    .product-price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      height: 70px;
+      border-radius: 20px;
+      .discount-percent {
+        width: 120px;
+        height: 70px;
+        background-color: #E05555;
+        color: #ffffff;
+        border-radius: 20px 0 0 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .price {
+        display: flex;
+        align-items: center;
+        margin: 0 30px;
+        .product-base-price {
+          text-decoration: line-through;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 24px;
+          margin-left: 18px;
+          color: #E05555;
+          margin-right: 10px;
+        }
+        .product-final-price {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 18px;
+          line-height: 31px;
+          letter-spacing: -0.05em;
+          margin-left: 5px;
+          margin-right: 10px;
+        }
+        .product-price-title {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 10px;
+          line-height: 17px;
+        }
+      }
+      .purchase-button {
+        display: flex;
+        width: 117px;
+        height: 40px;
+        background-color: #4CAF50;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+        margin-right: 30px;
+      }
+
     }
   }
   .intro-video {
-
+    &:deep(.vjs-error-display) {
+      border-radius: 20px;
+    }
+    &:deep(.video-js) {
+      border-radius: 20px;
+    }
+    &:deep(.vjs-poster) {
+      border-radius: 20px;
+    }
   }
+
+  //vjs-error-display video-js
 }
 </style>
