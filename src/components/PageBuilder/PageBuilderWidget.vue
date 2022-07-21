@@ -26,7 +26,8 @@ export default {
     productReview: defineAsyncComponent(() => import('components/Widgets/Product/productReview')),
     productIntroduction: defineAsyncComponent(() => import('components/Widgets/Product/productIntroduction')),
     blockList: defineAsyncComponent(() => import('components/Widgets/BlockList/BlockList')),
-    SetShowInfo: defineAsyncComponent(() => import('components/Widgets/Set/Show.vue'))
+    SetShowInfo: defineAsyncComponent(() => import('components/Widgets/Set/Show.vue')),
+    Banner: defineAsyncComponent(() => import('components/Widgets/Banner.vue'))
   },
   props: {
     widget: {

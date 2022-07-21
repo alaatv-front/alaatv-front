@@ -1,6 +1,9 @@
 <template>
   <div class="set-show-page">
-    <page-builder :sections="sections" />
+    <page-builder
+      :sections="sections"
+      :options="pageConfig"
+    />
   </div>
 </template>
 
@@ -13,6 +16,11 @@ export default {
   components: { PageBuilder },
   data () {
     return {
+      pageConfig: {
+        padding: {
+          a: 'md'
+        }
+      },
       sections: [
         {
           data: {
@@ -22,26 +30,19 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'SetShowInfo',
+                        name: 'Banner',
                         data: this.$route.params.id,
                         options: {
                           getData: (url) => GetWidgetsData.getData(this.$axios, url)
                         }
-                      },
-                      {
-                        name: 'SetShowInfo',
-                        data: this.$route.params.id,
-                        options: {
-                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
-                        }
-                      },
-                      {
-                        name: 'SetShowInfo',
-                        data: this.$route.params.id,
-                        options: {
-                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
-                        }
-                      },
+                      }
+                    ],
+                    options: {
+                      col: 'col-3'
+                    }
+                  },
+                  {
+                    widgets: [
                       {
                         name: 'SetShowInfo',
                         data: this.$route.params.id,
@@ -53,7 +54,7 @@ export default {
                   }
                 ],
                 options: {
-                  boxed: true
+                  boxed: false
                 }
               }
             ]
