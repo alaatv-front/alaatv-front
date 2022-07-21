@@ -1,24 +1,15 @@
 <template>
-  <div class="item ">
+  <q-card flat
+          class="content-box q-mb-md">
     <a
       :href="'https://alaatv.com/c/'+ data.id"
       class="m-link"
     >
       <div class="pic">
-        <!--            <img-->
-        <!--                :src="data.photo"-->
-        <!--                :alt="data.title"-->
-        <!--                class="content-image lazy-image videoImage lazy-done d-block"-->
-        <!--                :a-lazyload="1"-->
-        <!--                :data-loaded="true"-->
-        <!--            />-->
         <img
-          src="https://nodes.alaatv.com/loder.jpg?w=16&h=9"
-          :data-src="data.photo"
+          :src="data.photo"
           :alt="data.title"
-          class="content-image lazy-image videoImage  d-block"
-          width="16"
-          height="9"
+          class="content-image  videoImage"
         />
       </div>
     </a>
@@ -26,13 +17,22 @@
       :href="'https://alaatv.com/c/'+ data.id"
       class="m-link content-link"
     >
+      <div class="flex items-center">
+        <div class="videoOrder-title text-primary q-mr-sm">جلسه</div>
+        <q-avatar color="primary"
+                  size="lg"
+                  text-color="white">
+          <div class="videoOrder-number">{{ data.order }}</div>
+        </q-avatar>
+      </div>
+
       <div class="content">
         <div class="title">
-          <h2>
+          <p>
             {{ data.set ? data.set.short_title : '' }}
-          </h2>
+          </p>
         </div>
-        <div class="detailes">
+        <div class="details">
           <div class="videoDetaileWrapper">
             <span>
               <svg
@@ -71,13 +71,13 @@
             </div>
           </div>
           <div class="videoDescription content-description">
-            {{ data.title }}
+            **{{ data.title }}
           </div>
         </div>
       </div>
     </a>
-    <div class="itemHover"></div>
-  </div>
+    <div class="content-hover"></div>
+  </q-card>
 </template>
 
 <script>
@@ -99,62 +99,81 @@ export default {
 <style lang="scss" scoped>
 //#212529
 
-.lazy-image:not(.lazy-done) {
-    -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-    filter: blur(5px);
-    transition: all 1.5s;
-}
-.lazy-image.lazy-done {
-    -webkit-filter: blur(0px); /* Safari 6.0 - 9.0 */
-    filter: blur(0px);
-    transition: all 1.5s;
-}
-.lazy-image {
-    height: auto;
-}
-.item{
-    min-height: 170px;
+.content-box {
+  border-radius: 15px;
+  min-height: 170px;
+  max-height: 170px;
+  display: flex;
+  @media screen and (max-width: 1024px) {
+    max-height: none;
+    flex-direction: column;
+  }
+
+  .pic {
+    width: 300px !important;
+    position: relative;
+    z-index: 5;
     @media screen and (max-width: 1024px) {
-    }
-    .pic{
-        width:300px !important;
-        @media screen and (max-width: 1024px) {
-            width:100% !important;
-        }
-        img{
-            width:300px;
-            @media screen and (max-width: 1024px) {
-                width:100% !important;
-            }
-        }
-
-    }
-    .content-link{
-        width: 100%;
-        .content{
-            width: 100%;
-            .title{
-                h2{
-                    @media screen and (max-width: 767px) {
-                        padding-right:5px
-                    }
-
-                }
-            }
-            .detailes{
-                .content-description{
-                    font-size: 1.2rem;
-                    font-weight: 300;
-                    @media screen and (max-width: 500px) {
-                        font-size:12px !important;
-                    }
-                }
-            }
-
-        }
+      width: 100% !important;
     }
 
+    img {
+      width: 300px;
+      border-radius: 15px 0 0 15px;
+
+      @media screen and (max-width: 1024px) {
+        border-radius: 15px 15px 0 0 !important;
+        width: 100% !important;
+
+      }
+    }
+
+  }
+
+  .content-link {
+    width: 100%;
+
+    .content {
+      width: 100%;
+
+      .title {
+
+      }
+
+      .details {
+        .videoDetaileWrapper{
+          .style-scope{
+            width: 36px;
+          }
+        }
+
+        .content-description {
+          font-size: 1.2rem;
+          font-weight: 300;
+          @media screen and (max-width: 500px) {
+            font-size: 12px !important;
+          }
+        }
+      }
+
+    }
+  }
+  &:hover .content-hover{
+    background-color: #ff8e0017;
+    border-radius: 15px;
+    width: 100% !important;
+  }
+  .content-hover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.7s;
+  }
 }
+
 //.item {
 //    display: flex;
 //    flex-direction: row;
@@ -215,7 +234,7 @@ export default {
 //            height: 211px;
 //        }
 //
-//        .detailes {
+//        .details {
 //            .videoOrder {
 //                .videoOrder-number {
 //
