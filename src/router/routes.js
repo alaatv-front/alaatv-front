@@ -83,8 +83,6 @@ const routes = [
           ...EntityCrudRoutes
         ]
       },
-
-
       {
         path: '/debug',
         name: 'debug',
