@@ -100,6 +100,7 @@ import SetItem from 'components/Widgets/SetItem/setItem'
 import ContentItem from 'components/Widgets/ContentItem/contentItem'
 import { Block } from 'src/models/Block'
 import { dragscrollNext as dragscroll }  from 'vue-dragscroll'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'Block',
@@ -109,6 +110,7 @@ export default {
     ProductItem,
     Slider
   },
+  mixins: [mixinWidget],
   data: () => ({
     isGridView: false
   }),

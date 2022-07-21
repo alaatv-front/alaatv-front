@@ -26,7 +26,16 @@ const routes = [
         name: 'User.Content',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') }
+          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') },
+          { name: 'User.Content.Search', path: '', component: () => import('pages/User/Content/Search.vue') }
+        ]
+      },
+      {
+        path: 'product',
+        name: 'User.Product',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
         ]
       },
       {
@@ -70,18 +79,28 @@ const routes = [
           { name: 'Admin.StudyPlan', path: '/studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
           ...EntityCrudRoutes
         ]
+      },
+
+
+      {
+        path: '/debug',
+        name: 'debug',
+        component: () => import('pages/debug'),
+        meta: {
+          middlewares: [auth]
+        }
       }
     ]
   },
   // are u mr Esmaeili ? '' : dont touch this route
-  {
-    path: '/debug',
-    name: 'debug',
-    component: () => import('pages/debug'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
+  // {
+  //   path: '/debug',
+  //   name: 'debug',
+  //   component: () => import('pages/debug'),
+  //   meta: {
+  //     middlewares: [auth]
+  //   }
+  // },
   // Always leave this as last one,
   // but you can also remove it
   {

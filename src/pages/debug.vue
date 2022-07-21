@@ -5,6 +5,8 @@
 <script>
 import pageBuilder from 'src/components/PageBuilder/PageBuilder'
 import { BannerList } from 'src/models/Banner'
+import API_ADDRESS from 'src/api/Addresses'
+import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
   name: 'debug',
@@ -14,7 +16,7 @@ export default {
     return {
       pageConfig: {
         padding: {
-          a: 'md'
+          // a: 'md'
         }
       },
       sections: [
@@ -26,79 +28,97 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'Slider',
-                        data: new BannerList([
+                        name: 'page-builder-section',
+                        data: {
+                          rows: [
                             {
-                              id: 1,
-                              title: 'این از این',
-                              link: '',
-                              class: 'q-ma-xl rounded',
-                              photo: 'https://cdn.quasar.dev/img/mountains.jpg',
-                              // features: {
-                              //   xl: {
-                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              //   },
-                              //   lg: {
-                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              //   },
-                              //   md: {
-                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              //   },
-                              //   sm: {
-                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              //   },
-                              //   xs: {
-                              //     src: 'https://cdn.quasar.dev/img/mountains.jpg'
-                              //   }
-                              // }
-                            },
-                            {
-                              id: 2,
-                              title: 'این از این',
-                              link: '',
-                              class: 'q-ma-xl rounded',
-                              photo: 'https://placeimg.com/500/300/nature',
-                              // features: {
-                              //   xl: {
-                              //     src: 'https://placeimg.com/500/300/nature'
-                              //     // width: '500px',
-                              //     // height: ''
-                              //   },
-                              //   lg: {
-                              //     src: 'https://placeimg.com/500/300/nature'
-                              //     // width: '500px',
-                              //     // height: ''
-                              //   },
-                              //   md: {
-                              //     src: 'https://placeimg.com/500/300/nature'
-                              //     // width: '500px',
-                              //     // height: ''
-                              //   },
-                              //   sm: {
-                              //     src: 'https://placeimg.com/500/300/nature'
-                              //     // width: '500px',
-                              //     // height: ''
-                              //   },
-                              //   xs: {
-                              //     src: 'https://placeimg.com/500/300/nature'
-                              //     // width: '500px',
-                              //     // height: ''
-                              //   }
-                              // }
+                              cols: [
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component1-widget'
+                                    }
+                                  ]
+                                },
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component2-widget'
+                                    }
+                                  ]
+                                }
+                              ]
                             }
-                          ])
-                        ,
-                        options: {
-                          transition: {
-                            infinite: false
-                          }
+                          ]
                         }
                       }
-                    ],
-                    options: {}
+                    ]
                   }
-                ]
+                ],
+                options: {
+                  boxed: true
+                }
               },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'test-component1-widget'
+                      }
+                    ]
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'page-builder-section',
+                        data: {
+                          rows: [
+                            {
+                              cols: [
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component1-widget'
+                                    }
+                                  ]
+                                },
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component2-widget'
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ],
+                options: {
+                  boxed: true
+                }
+              }
+            ]
+          },
+          options: {
+            fullHeight: true,
+            verticalAlign: 'center',
+            background: {
+              image: 'http://twintower.ir/api/media/tracks/368/thumbnail9-5777.jpg',
+              position: 'center',
+              size: 'cover',
+              repeat: 'no-repeat',
+              attachment: 'fixed', // unset - fixed
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
               {
                 cols: [
                   {
@@ -172,8 +192,28 @@ export default {
                   }
                 ]
               }
-            ],
-            options: {}
+            ]
+          },
+          options: {
+            fullHeight: true,
+            verticalAlign: 'center',
+            background: [
+              {
+                image: 'https://nodes.alaatv.com/upload/images/slideShow/1658222956_6038.jpg?w=1845&h=720',
+                position: 'center',
+                size: 'cover',
+                repeat: 'no-repeat',
+                attachment: 'unset', // unset - fixed
+              },
+              {
+                breakpoint: 1000,
+                image: 'https://nodes.alaatv.com/upload/images/slideShow/1642417634_2227.jpg?w=1845&h=720',
+                position: 'center',
+                size: 'cover',
+                repeat: 'no-repeat',
+                attachment: 'fixed', // unset - fixed
+              }
+            ]
           }
         },
       ],
