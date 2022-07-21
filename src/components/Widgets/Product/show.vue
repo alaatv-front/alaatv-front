@@ -1,7 +1,13 @@
 <template>
-  <product-introduction :data="introductionData"/>
-  <product-demos />
-  <product-review />
+  <div class="show-product-introduction">
+    <product-introduction :data="introductionData"/>
+  </div>
+  <div class="show-product-demos">
+    <product-demos :data="demo"/>
+  </div>
+  <div class="show-product-review">
+    <product-review />
+  </div>
 </template>
 
 <script>
@@ -24,15 +30,149 @@ export default {
   },
   data () {
     return {
+      test: [
+          {
+            'id': 29095,
+            'redirect_url': null,
+            'type': 8,
+            'section': null,
+            'title': 'درسنامه پیله، فرق 3 زمان حال',
+            'duration': 1568,
+            'photo': 'https://nodes.alaatv.com/media/thumbnails/1240/1128003byby.jpg',
+            'is_free': 1,
+            'order': 1,
+            'updated_at': '2021-11-20 14:44:25',
+            'url': {
+              'web': 'https://alaatv.com/c/29095',
+              'api': 'https://alaatv.com/api/v2/c/29095'
+            },
+            'redirect_code': null
+          },
+          {
+            'id': 29636,
+            'redirect_url': null,
+            'type': 8,
+            'section': null,
+            'title': 'درسنامه فرسنگ اول، لغات',
+            'duration': 1773,
+            'photo': 'https://nodes.alaatv.com/media/thumbnails/1240/1156001lolo.jpg',
+            'is_free': 1,
+            'order': 2,
+            'updated_at': '2021-11-20 14:44:35',
+            'url': {
+              'web': 'https://alaatv.com/c/29636',
+              'api': 'https://alaatv.com/api/v2/c/29636'
+            },
+            'redirect_code': null
+          },
+          {
+            'id': 31023,
+            'redirect_url': null,
+            'type': 8,
+            'section': null,
+            'title': 'درسنامه فرسنگ سوم',
+            'duration': 1403,
+            'photo': 'https://nodes.alaatv.com/media/thumbnails/1240/1158001tdss.jpg',
+            'is_free': 1,
+            'order': 3,
+            'updated_at': '2021-11-20 14:45:00',
+            'url': {
+              'web': 'https://alaatv.com/c/31023',
+              'api': 'https://alaatv.com/api/v2/c/31023'
+            },
+            'redirect_code': null
+          },
+          {
+            'id': 31164,
+            'redirect_url': null,
+            'type': 8,
+            'section': null,
+            'title': 'پس آزمون فرسنگ اول',
+            'duration': 1918,
+            'photo': 'https://nodes.alaatv.com/media/thumbnails/1240/1172001jojo.jpg',
+            'is_free': 1,
+            'order': 4,
+            'updated_at': '2021-11-20 14:45:03',
+            'url': {
+              'web': 'https://alaatv.com/c/31164',
+              'api': 'https://alaatv.com/api/v2/c/31164'
+            },
+            'redirect_code': null
+          }
+        ],
+      test1: [
+        {
+          'id': 2635,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/1_20211123092114.jpg'
+        },
+        {
+          'id': 2631,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/2_20211123092112.jpg'
+        },
+        {
+          'id': 2636,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/3_20211123092114.jpg'
+        },
+        {
+          'id': 2633,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/4_20211123092110.jpg'
+        },
+        {
+          'id': 2629,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/5_20211123092111.jpg'
+        },
+        {
+          'id': 2632,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/6_20211123092113.jpg'
+        },
+        {
+          'id': 2628,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/7_20211123092110.jpg'
+        },
+        {
+          'id': 2630,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/8_20211123092111.jpg'
+        },
+        {
+          'id': 2634,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/9_20211123092112.jpg'
+        },
+        {
+          'id': 2627,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/10_20211123092059.jpg'
+        },
+        {
+          'id': 2625,
+          'title': null,
+          'photo': 'https://nodes.alaatv.com/upload/images/product/11_20211123092055.jpg'
+        }
+      ],
+
+
       product: new Product(),
       introduction: {
         intro: null,
         attributes: null,
-        price: null
+        price: null,
+        has_instalment_option: false
       },
-      mitra: 'gfg'
+      demo: {
+        contents: [],
+        sample_photos: []
+      }
     }
   },
+
   created () {
     this.loadProduct()
   },
@@ -50,6 +190,8 @@ export default {
     'product.intro':{
       handler (newValue){
         this.introduction.intro = newValue
+        this.demo.contents = this.test
+        this.demo.sample_photos = this.test1
       }
     },
     'product.attributes': {
@@ -61,7 +203,22 @@ export default {
       handler (newValue){
         this.introduction.price = newValue
       }
-    }
+    },
+    'product.has_instalment_option': {
+      handler (newValue){
+        this.introduction.has_instalment_option = newValue
+      }
+    },
+    // 'product.blocks': {
+    //   handler (newValue){
+    //     this.demo.blocks = newValue[0].contents
+    //   }
+    // },
+    // 'product.sample_photos': {
+    //   handler (newValue){
+    //     this.demo.sample_photos = newValue[0].contents
+    //   }
+    // }
   },
 
   methods: {
@@ -99,5 +256,16 @@ export default {
 </script>
 
 <style scoped>
+.show-product-introduction {
+
+}
+
+.show-product-demos {
+  margin-top: 30px;
+}
+
+.show-product-review {
+  margin-top: 30px;
+}
 
 </style>
