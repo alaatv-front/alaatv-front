@@ -69,7 +69,6 @@ export default {
       handler (newValue) {
         this.contents = new ContentList(newValue.contents)
         this.pamphlets = newValue.sample_photos
-        console.log(this.contents)
       }
     }
   }
