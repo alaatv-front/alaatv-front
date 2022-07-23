@@ -194,8 +194,8 @@ export default {
     'product.intro':{
       handler (newValue){
         this.introduction.intro = newValue
-        this.demo.contents = this.test
-        this.demo.sample_photos = this.test1
+        // this.demo.contents = this.test
+        // this.demo.sample_photos = this.test1
       }
     },
     'product.attributes': {
@@ -213,16 +213,18 @@ export default {
         this.introduction.has_instalment_option = newValue
       }
     },
-    // 'product.blocks': {
-    //   handler (newValue){
-    //     this.demo.blocks = newValue[0].contents
-    //   }
-    // },
-    // 'product.sample_photos': {
-    //   handler (newValue){
-    //     this.demo.sample_photos = newValue[0].contents
-    //   }
-    // },
+    'product.blocks': {
+      handler (newValue){
+        if(newValue && newValue.length > 0) {
+          this.demo.blocks = newValue[0].contents
+        }
+      }
+    },
+    'product.sample_photos': {
+      handler (newValue){
+        this.demo.sample_photos = newValue
+      }
+    },
     'product.description': {
       handler (newValue){
         this.review = newValue
