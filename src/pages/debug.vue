@@ -36,14 +36,14 @@ export default {
                                 {
                                   widgets: [
                                     {
-                                      name: 'test-component1-widget'
+                                      name: 'test-component2-widget',
                                     }
                                   ]
                                 },
                                 {
                                   widgets: [
                                     {
-                                      name: 'test-component2-widget'
+                                      name: 'test-component2-widget',
                                     }
                                   ]
                                 }
@@ -64,8 +64,13 @@ export default {
                   {
                     widgets: [
                       {
+                        // here
+                        name: 'test-component2-widget'
+                      },
+                      {
+                        // here
                         name: 'test-component1-widget'
-                      }
+                      },
                     ]
                   },
                   {
@@ -264,4 +269,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+html * {
+  color: white;
+}
 </style>
