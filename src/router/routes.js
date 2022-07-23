@@ -1,4 +1,5 @@
 import { auth, isLandingPage } from './middleware/middleware'
+// import Login from '../pages/Auth/Login.vue'
 import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
@@ -9,6 +10,11 @@ const routes = [
         path: '',
         name: 'home',
         component: () => import('pages/Home.vue')
+      },
+      {
+        path: 'ticket',
+        name: 'User.ticket',
+        component: () => import('pages/Admin/Ticket/Show.vue')
       },
       {
         path: 'map',
