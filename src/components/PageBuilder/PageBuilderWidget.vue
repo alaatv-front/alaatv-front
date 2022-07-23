@@ -10,8 +10,12 @@
 <script>
 import { defineAsyncComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins'
-const requireContext = require.context("components/Widgets/", true, /\.vue$/i, "sync")
-let componentNames = requireContext.keys().map((file) => file.replace(/(^.\/)|(\.vue$)/g, ""))
+const requireContext = require.context("components/Widgets/", true, /\.vue$/i, "lazy")
+let componentNames = requireContext.keys().map((file) => {
+  const crush = file.split("/")
+  console.log(crush)
+  return file.replace(/(^.\/)|(\.vue$)/g, '')
+})
 
 let components2 = {}
 //TODO: Removing name of folders in components, perhaps using regex.
