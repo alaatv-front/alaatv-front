@@ -1,1 +1,15 @@
-// app global css in SCSS form
+
+@import 'src/css/Theme/theme.scss';
+
+* {
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
