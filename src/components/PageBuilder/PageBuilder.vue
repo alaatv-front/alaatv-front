@@ -4,14 +4,14 @@
     <page-builder-section
       v-for="(section, sectionIndex) in sections"
       :key="sectionIndex"
-      :rows="section.rows"
+      :data="section.data"
       :options="section.options"
     />
   </div>
 </template>
 
 <script>
-import PageBuilderSection from './PageBuilderSection.vue'
+import PageBuilderSection from 'src/components/PageBuilder/PageBuilderSection.vue'
 import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {

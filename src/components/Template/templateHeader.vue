@@ -1,8 +1,8 @@
 <template>
   <div
-    class="drawer-btn"
-    :class="{'col-6': windowSize.x < 599}"
-  >
+    class="drawer-btn col-1">
+<!--    :class="{'col-6': windowSize.x < 599}"-->
+<!--  >-->
     <q-btn
       class="toolbar-button"
       icon="isax:menu-1"
@@ -14,9 +14,9 @@
     />
   </div>
   <div
-    class="right-side"
-    :class="{'col-6': windowSize.x > 1439, 'col-12': windowSize.x < 599}"
-  >
+    class="right-side col-5">
+<!--    :class="{'col-6': windowSize.x > 1439, 'col-12': windowSize.x < 599}"-->
+<!--  >-->
     <div
       v-if="breadcrumbsVisibility"
     >
@@ -56,8 +56,8 @@
     </div>
   </div>
   <div
-    class="left-side"
-    :class="{'col-6': windowSize.x < 599, 'col-6': windowSize.x > 1439}">
+    class="left-side col-6">
+<!--    :class="{'col-6': windowSize.x < 599, 'col-6': windowSize.x > 1439}">-->
     <q-btn-dropdown
       class="toolbar-button"
       content-class="profile-menu"
@@ -114,7 +114,8 @@ export default {
       'updateLayoutLeftDrawerVisible'
     ]),
     toggleLeftDrawer () {
-      this.updateLayoutLeftDrawerVisible(true)
+
+      this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
     hasRoute (route) {
       if (!route) {
@@ -140,7 +141,7 @@ export default {
 
 <style lang="scss" scoped>
 .drawer-btn {
-  display: none;
+  //display: none;
   @media screen and (max-width: 1439px) {
     display: block;
   }
