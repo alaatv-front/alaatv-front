@@ -1,9 +1,8 @@
 <template>
   <div class="row product-demos-widget">
-    <div class="col-md-7">
+    <div v-if="contents.list && contents.list.length > 0" class="col-md-7">
       <p class="section-title">نمونه فیلم ها</p>
       <div
-        v-if="contents.list && contents.list.length > 0"
         class="contents-block"
         v-dragscroll
       >
@@ -18,10 +17,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-5">
-      <p>نمونه جزوه ها</p>
+    <div v-if="pamphlets && pamphlets.length > 0" class="col-md-5">
+      <p class="section-title">نمونه جزوه ها</p>
       <div
-        v-if="pamphlets && pamphlets.length > 0"
         class="contents-block"
         v-dragscroll
       >
