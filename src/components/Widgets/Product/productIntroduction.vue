@@ -168,6 +168,21 @@ export default {
     flex-direction: column;
     padding: 0 20px;
     justify-content: space-between;
+    .title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 28px;
+        margin-right: 10px;
+
+        &::before {
+          content: ".";
+          color: #BAD9FB;
+          font-size: 50px;
+          font-weight: bold;
+          line-height: 10px;
+        }
+    }
     .product-info-box {
       display: flex;
       .product-info {
