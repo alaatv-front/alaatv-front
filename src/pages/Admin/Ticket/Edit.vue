@@ -18,10 +18,10 @@ export default {
   data () {
     return {
       expanded: true,
-      api: API_ADDRESS.product.edit.base,
+      api: API_ADDRESS.ticket.edit.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
-      showRouteName: 'Admin.Product.Show',
+      showRouteName: 'Admin.Ticket.Show',
       inputs: [
         { type: 'file', name: 'photo', responseKey: 'data.photo', size: '250px', col: 'col-md-3' },
         { type: 'space', col: 'col-md-12' },
@@ -69,7 +69,6 @@ export default {
     }
   },
   created () {
-    this.api += '/' + this.$route.params.id
   }
 }
 </script>
