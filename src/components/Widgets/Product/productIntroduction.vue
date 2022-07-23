@@ -31,25 +31,25 @@
         </div>
       </div>
 
-      <div v-if="data.price" class="product-price">
-        <div v-if="data.price.discountInPercent()" class="discount-percent">
-          <div class="percent">{{ '%' + data.price.discountInPercent() }}</div>
+      <div v-if="givenData.price" class="product-price">
+        <div v-if="givenData.price.discountInPercent()" class="discount-percent">
+          <div class="percent">{{ '%' + givenData.price.discountInPercent() }}</div>
           <div class="discount-title">تخفیف</div>
         </div>
 
         <div class="price">
           <div
-            v-if="data.price.toman('base', null)"
+            v-if="givenData.price.toman('base', null)"
             class="product-base-price"
           >
-            {{ data.price.toman('base', null) }}
+            {{ givenData.price.toman('base', null) }}
           </div>
 
           <sapn
-            v-if="data.price.toman('final', null)"
+            v-if="givenData.price.toman('final', null)"
             class="product-final-price"
           >
-            {{ data.price.toman('final', null) }}
+            {{ givenData.price.toman('final', null) }}
           </sapn>
 
           <div class="product-price-title"> تومان</div>
@@ -57,7 +57,7 @@
 
         <div class="action">
           <q-btn
-            v-if="data.has_instalment_option"
+            v-if="givenData.has_instalment_option"
             class="purchase-button pay-later"
             label="خرید اقساطی"
             text-color="white"
@@ -72,8 +72,8 @@
         </div>
       </div>
     </div>
-    <div v-if="data.intro" class="intro-video col-6">
-      <video-player :poster="data.intro.photo" :sources="data.intro.video"/>
+    <div v-if="givenData.intro" class="intro-video col-6">
+      <video-player :poster="givenData.intro.photo" :sources="givenData.intro.video"/>
     </div>
   </div>
 </template>
@@ -119,8 +119,13 @@ export default {
           title: 'مدل دریافت',
           value: []
         },
-
-      ]
+      ],
+      givenData: {
+        intro: null,
+        attributes: null,
+        price: null,
+        has_instalment_option: false
+      }
     }
   },
   created () {
@@ -129,25 +134,29 @@ export default {
   watch: {
     data:{
       deep: true,
-      handler() {
+      handler(newValue) {
+        const sources = []
+        Object.assign(this.givenData,newValue)
+        if(this.givenData.intro && this.givenData.intro.video) {
+          this.givenData.intro.video = sources.push(this.givenData.intro.video)
+        }
         this.setInformation()
-
       }
     }
   },
   methods: {
     setInformation () {
 
-      if(!this.data.attributes) {
+      if(!this.givenData.attributes) {
         return
       }
-      const attributesInfoKeys = Object.keys(this.data.attributes.info)
+      const attributesInfoKeys = Object.keys(this.givenData.attributes.info)
       this.information.forEach(info => {
         const targetInfo = info.key
         const findingAttribute = attributesInfoKeys.find(attribute => (attribute === targetInfo))
 
         if (findingAttribute) {
-          info.value = this.data.attributes.info[findingAttribute]
+          info.value = this.givenData.attributes.info[findingAttribute]
         }
       })
     },
