@@ -4,8 +4,8 @@
 
 <script>
 import PageBuilder from 'components/PageBuilder/PageBuilder'
-import { BlockList } from 'src/models/Block'
 import API_ADDRESS from 'src/api/Addresses'
+import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
   name: 'Show',
@@ -21,38 +21,11 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'productIntroduction',
-                        data:{}
-                      }
-                    ]
-                  },
-                ],
-                options: {
-                  boxed: true
-                }
-              },
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'productDemos',
-                        data:{}
-                      }
-                    ]
-                  },
-                ],
-                options: {
-                  boxed: true
-                }
-              },
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'productReview',
-                        data:{}
+                        name: 'productInfoShow',
+                        data: this.$route.params.id,
+                        options: {
+                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                        }
                       }
                     ]
                   },
@@ -66,9 +39,7 @@ export default {
         }
       ]
     }
-  },
-  created () {},
-  methods: {}
+  }
 }
 </script>
 
