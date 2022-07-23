@@ -19,29 +19,50 @@
           </div>
 
           <div class="info-content">
-            <span
+            <div
               v-for="(val , i) in info.value"
               class="info-value"
               :key="i"
             >
               {{ val }}
-            </span>
+            </div>
           </div>
 
         </div>
       </div>
 
-      <div class="product-price">
-        <div class="discount-percent">
-          <span class="discount-percent">{{ '%' + data.price.discountInPercent() }}</span>
-          <span class="discount-title">تخفیف</span>
+      <div v-if="data.price" class="product-price">
+        <div v-if="data.price.discountInPercent()" class="discount-percent">
+          <div class="percent">{{ '%' + data.price.discountInPercent() }}</div>
+          <div class="discount-title">تخفیف</div>
         </div>
+
         <div class="price">
-          <span class="product-base-price">{{ data.price.toman('base', null) }}</span>
-          <sapn class="product-final-price">{{ data.price.toman('final', null) }}</sapn>
-          <span class="product-price-title"> تومان</span>
+          <div
+            v-if="data.price.toman('base', null)"
+            class="product-base-price"
+          >
+            {{ data.price.toman('base', null) }}
+          </div>
+
+          <sapn
+            v-if="data.price.toman('final', null)"
+            class="product-final-price"
+          >
+            {{ data.price.toman('final', null) }}
+          </sapn>
+
+          <div class="product-price-title"> تومان</div>
         </div>
+
         <div class="action">
+          <q-btn
+            v-if="data.has_instalment_option"
+            class="purchase-button pay-later"
+            label="خرید اقساطی"
+            text-color="white"
+            icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
+          />
           <q-btn
             class="purchase-button"
             label="خرید نقدی"
@@ -51,7 +72,7 @@
         </div>
       </div>
     </div>
-    <div class="intro-video col-6">
+    <div v-if="data.intro" class="intro-video col-6">
       <video-player :poster="data.intro.photo" :sources="data.intro.video"/>
     </div>
   </div>
@@ -73,7 +94,6 @@ export default {
   },
   data () {
     return {
-      givenData: {},
       information: [
         {
           key: 'teacher',
@@ -104,11 +124,24 @@ export default {
     }
   },
   created () {
-    // this.setInformation()
+    this.setInformation()
+  },
+  watch: {
+    data:{
+      deep: true,
+      handler() {
+        this.setInformation()
+
+      }
+    }
   },
   methods: {
     setInformation () {
-      const attributesInfoKeys = Object.keys(this.givenData.attributes.info)
+
+      if(!this.data.attributes) {
+        return
+      }
+      const attributesInfoKeys = Object.keys(this.data.attributes.info)
       this.information.forEach(info => {
         const targetInfo = info.key
         const findingAttribute = attributesInfoKeys.find(attribute => (attribute === targetInfo))
@@ -197,6 +230,9 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        .percent {
+          margin-right: 5px;
+        }
       }
       .price {
         display: flex;
@@ -237,6 +273,9 @@ export default {
         justify-content: center;
         align-items: center;
         margin-right: 30px;
+        &.pay-later {
+          background-color: #75B7FF;
+        }
       }
 
     }
@@ -256,3 +295,4 @@ export default {
   //vjs-error-display video-js
 }
 </style>
+
