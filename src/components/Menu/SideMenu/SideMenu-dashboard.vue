@@ -460,6 +460,14 @@ export default {
           ]
         },
         {
+          title: 'تیکت پشتیبانی',
+          icon: 'isax:ticket',
+          routeName: 'User.ticket',
+          active: false,
+          show: true,
+          open: false
+        },
+        {
           title: 'تنظیمات',
           icon: 'isax:setting-2',
           routeName: 'Admin.Settings',
