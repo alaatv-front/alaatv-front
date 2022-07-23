@@ -26,7 +26,8 @@ export default {
     productDemos: defineAsyncComponent(() => import('components/Widgets/Product/productDemos')),
     productReview: defineAsyncComponent(() => import('components/Widgets/Product/productReview')),
     productIntroduction: defineAsyncComponent(() => import('components/Widgets/Product/productIntroduction')),
-    blockList: defineAsyncComponent(() => import('components/Widgets/BlockList/BlockList'))
+    blockList: defineAsyncComponent(() => import('components/Widgets/BlockList/BlockList')),
+    services: defineAsyncComponent(() => import('components/Widgets/Services/Services'))
   },
   props: {
     widget: {
