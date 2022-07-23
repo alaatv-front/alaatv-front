@@ -12,6 +12,11 @@ const routes = [
         component: () => import('pages/Home.vue')
       },
       {
+        path: 'ticket',
+        name: 'User.ticket',
+        component: () => import('pages/Admin/Ticket/Show.vue')
+      },
+      {
         path: 'map',
         name: 'MapPage',
         component: () => import('pages/User/Map.vue')
@@ -80,7 +85,6 @@ const routes = [
           ...EntityCrudRoutes
         ]
       },
-
 
       {
         path: '/debug',
