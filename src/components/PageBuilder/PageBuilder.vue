@@ -6,6 +6,7 @@
       :key="sectionIndex"
       :data="section.data"
       :options="section.options"
+      :size="size"
     />
   </div>
 </template>
@@ -50,6 +51,13 @@ export default {
       type: Object,
       default: () => {
         return {}
+      }
+    },
+    size: {
+      type: Object,
+      default: () =>{
+        // TODO: adding a systematic way to calculate the values when not provided from developer.
+        return {w: 100, h: 100}
       }
     }
   },

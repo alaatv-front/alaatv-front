@@ -12,6 +12,7 @@
                        :key="rowIndex"
                        :cols="row.cols"
                        :options="row.options"
+                       :size="size"
     />
   </div>
 </template>
@@ -32,6 +33,12 @@ export default {
       default: () => {
         return {}
       }
+    },
+    // worth to mention since initialization is done inside of parent component (PageBuilder)
+    // no need to worry here about.
+    size: {
+      type: Object,
+      default: () => {}
     },
   },
   data () {

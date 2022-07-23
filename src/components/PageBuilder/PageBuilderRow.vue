@@ -14,6 +14,7 @@
                         :key="colIndex"
                         :widgets="col.widgets"
                         :options="col.options"
+                        :size="size"
       />
     </div>
   </div>
@@ -28,6 +29,7 @@
                       :key="colIndex"
                       :widgets="col.widgets"
                       :options="col.options"
+                      :size="size"
     />
   </div>
 </template>
@@ -48,6 +50,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    size: {
+      type: Object,
+      default: () => {}
     }
   },
   data () {
