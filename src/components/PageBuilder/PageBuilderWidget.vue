@@ -88,7 +88,5 @@ export default {
 </script>
 
 <style scoped>
-  html *{
-    color: white
-  }
+
 </style>

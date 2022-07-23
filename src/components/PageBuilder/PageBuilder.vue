@@ -6,7 +6,7 @@
       :key="sectionIndex"
       :data="section.data"
       :options="section.options"
-      :size="size"
+      :size="computedSize"
     />
   </div>
 </template>
@@ -40,6 +40,27 @@ export default {
       })
 
       return classes
+    },
+    computedSize(){
+      if(Object.keys( this.size ).length !== 0){
+        return this.size;
+      }
+      let w,h;
+      if(this.$store.getters['AppLayout/containerWidth']){
+        w = this.$store.getters['AppLayout/containerWidth']
+      }
+      else{
+        // TODO: Decide situations when size is not provided both on size prop and container width and height
+        w = 100;
+      }
+      if(this.$store.getters['AppLayout/containerHeight']){
+        h = this.$store.getters['AppLayout/containerHeight']
+      }
+      else{
+        // TODO: Decide situations when size is not provided both on size prop and container width and height
+        h = 100;
+      }
+      return {w, h}
     }
   },
   props: {
@@ -55,10 +76,7 @@ export default {
     },
     size: {
       type: Object,
-      default: () =>{
-        // TODO: adding a systematic way to calculate the values when not provided from developer.
-        return {w: 100, h: 100}
-      }
+
     }
   },
   created () {

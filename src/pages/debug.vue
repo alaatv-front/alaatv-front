@@ -1,9 +1,5 @@
 <template>
-  <div dir="ltr">
-    width: {{w}}
-    height: {{h}}
-  </div>
-  <page-builder :sections="sections" :options="pageConfig" :size="{w: 100, h: 100}"></page-builder>
+  <page-builder :sections="sections" :options="pageConfig" :size="size"></page-builder>
 </template>
 
 <script>
@@ -222,7 +218,8 @@ export default {
         },
       ],
       testValue: '',
-      testValue1: ''
+      testValue1: '',
+      size: {}
     }
    },
   props: {
@@ -236,15 +233,7 @@ export default {
   methods: {
 
   },
-  computed: {
-
-    w(){
-      return this.$store.getters['AppLayout/containerWidth']
-    },
-    h(){
-      return this.$store.getters['AppLayout/containerHeight']
-    }
-  },
+  computed: {},
   beforeRouteEnter() {
     // console.log('debug beforeRouteEnter')
   },
