@@ -1,63 +1,197 @@
 <template>
-  <div class="row main-content">
-    <q-resize-observer @resize="onResize" />
-    <div class="col-2">
-      <div class="sidebar">
-        <div class="sidebar__inner">
-          <side-bar-content
-            :contentFilterData="contentSearchFilterData"
-            @filter="filterData"
-            :mobileMode="mobileMode"
-            :applyFilter="applyFilter"
-            :key="sideBarKey"
-            :loading="searchLoading"
-            ref="sideBar"
-          />
+  <div class="content-search-vue"
+  >
+    <div class="row  main-content content-body">
+      <q-resize-observer @resize="onResize" />
+      <!--      <div class="mobile-modeeeee">-->
+      <!--        <div class="modal-side-bar"-->
+      <!--             v-if="mobileMode"-->
+      <!--        >-->
+      <!--          <div-->
+      <!--            class="advance-search"-->
+      <!--          >-->
+      <!--            <button-->
+      <!--              type="button"-->
+      <!--              class="btn"-->
+      <!--              data-toggle="modal"-->
+      <!--              data-target="#sideBarModal"-->
+      <!--            >-->
+      <!--              <span>جستوجوی پیشرفته</span>-->
+      <!--              <i class="fa fa-sliders-h m--padding-left-5" />-->
+      <!--            </button>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--        <div  class="side-bar-mobile-mode"-->
+      <!--              v-if="mobileMode"-->
+      <!--        >-->
+      <!--          <div-->
+      <!--            class="modal"-->
+      <!--            id="sideBarModal"-->
+      <!--            :tabindex="-1"-->
+      <!--            role="dialog"-->
+      <!--            aria-labelledby="exampleModalLongTitle"-->
+      <!--            aria-hidden="true"-->
+      <!--          >-->
+      <!--            <div-->
+      <!--              class="modal-dialog"-->
+      <!--              role="document"-->
+      <!--            >-->
+      <!--              <div class="modal-content">-->
+      <!--                <div class="modal-header">-->
+      <!--                  <h2-->
+      <!--                    class="modal-title"-->
+      <!--                    id="exampleModalLongTitle">-->
+      <!--                    جستوجوی پیشرفته-->
+      <!--                  </h2>-->
+      <!--                  <div class="btn-box">-->
+      <!--                    <button type="button"-->
+      <!--                            class="filter-btn"-->
+      <!--                            data-dismiss="modal"-->
+      <!--                            @click="applyFilter=true">-->
+      <!--                      اعمال فیلتر-->
+      <!--                    </button>-->
+      <!--                    <button type="button"-->
+      <!--                            class="close"-->
+      <!--                            data-dismiss="modal"-->
+      <!--                            aria-label="Close" />-->
+      <!--                  </div>-->
+      <!--                </div>-->
+      <!--                <div class="modal-body">-->
+      <!--                  <vue-sticky-sidebar-->
+      <!--                    class="sidebar"-->
+      <!--                    containerSelector=".container"-->
+      <!--                    innerWrapperSelector='.sidebar__inner'-->
+      <!--                  >-->
+      <!--                    <side-bar-->
+      <!--                      :contentFilterData="contentSearchFilterData"-->
+      <!--                      :mobileMode="mobileMode"-->
+      <!--                      :applyFilter="applyFilter"-->
+      <!--                      @filter="filterData"-->
+      <!--                      :key="sideBarKey"-->
+      <!--                      ref="sideBar"-->
+      <!--                    />-->
+      <!--                  </vue-sticky-sidebar>-->
+      <!--                </div>-->
+      <!--                <div class="modal-footer">-->
+      <!--                  <button type="button"-->
+      <!--                          class="close-btn"-->
+      <!--                          data-dismiss="modal">بستن</button>-->
+      <!--                  <button type="button"-->
+      <!--                          class="filter-btn"-->
+      <!--                          data-dismiss="modal"-->
+      <!--                          @click="applyFilter=true">اعمال فیلتر</button>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <div class="col-2 q-pr-lg">
+        <div class="sidebar">
+          <div class="sidebar__inner">
+            <side-bar-content
+              :contentFilterData="contentSearchFilterData"
+              @filter="filterData"
+              :mobileMode="mobileMode"
+              :applyFilter="applyFilter"
+              :key="sideBarKey"
+              :loading="searchLoading"
+              ref="sideBar"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-10">
-      <div class="content row">
-        <div class="col-11 sets-container">
-          <q-virtual-scroll
-            :items="heavyList"
-            virtual-scroll-horizontal
-            v-slot="{ item, index }"
-            @virtual-scroll="scrollMoved"
-          >
-            <div
-              :key="index"
-              :class="item.class"
-              class="set"
-            >
-              <div v-if="item.type === 'loading' && setLoading">
-                <q-spinner-dots color="primary"
-                                size="40px" />
-              </div>
-              <div v-else>
-                #{{ index }} - {{ item.label }}
+      <div class="col-10 content-list">
+        <div class="content">
+          <div class="tag-loading-container">
+            <div class="tags-chip-group-wrapper">
+              <div
+                class="tags-chip-group"
+                :class="mobileMode?'tags-chip-group-mobile': ''"
+                v-if="selectedFields.length > 0"
+              >
+                <p class="tags-title">
+                  تگ‌ها :
+                </p>
+                <q-chip
+                  v-for="(field,index) in selectedFields"
+                  :key="index"
+                  close
+                  color="#ff8f00"
+                  label
+                  dir="ltr"
+                  outlined
+                  @click:close="closeField(field)"
+                  class="ma-2"
+                >
+                  {{ field.title }}
+                </q-chip>
               </div>
             </div>
-          </q-virtual-scroll>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 product-contents-container">
-          <div class="">
-            <q-infinite-scroll @load="onLoad"
-                               :offset="250">
-              <div v-for="(item, index) in items"
-                   :key="index"
-                   class="caption">
-
-              </div>
-              <template v-slot:loading>
-                <div class="row justify-center q-my-md">
-                  <q-spinner-dots color="primary"
-                                  size="40px" />
+            <div
+              v-if="noData"
+              class="alert alert-warning alert-dismissible fade show error-alert"
+              role="alert"
+            >
+              <strong>متاسفیم!</strong>با توجه به خواسته شما موردی یافت نشد.
+              <button type="button"
+                      class="close"
+                      data-dismiss="alert"
+                      aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+          <div>
+            <div
+              class=" horizontal-scroller q-mb-sm">
+              <q-virtual-scroll
+                :items="sets.list"
+                virtual-scroll-horizontal
+                v-slot="{ item, index }"
+                @virtual-scroll="scrollMoved"
+              >
+                <div
+                  :key="index"
+                  class="set q-mr-sm"
+                >
+                  <div v-if="item.type === 'loading' && setLoading">
+                    <q-spinner-dots color="primary"
+                                    size="40px" />
+                  </div>
+                  <div v-else>
+                    <set-item :data="item" />
+                  </div>
                 </div>
-              </template>
-            </q-infinite-scroll>
+              </q-virtual-scroll>
+              <div
+                class="scroll-loader"
+                v-if="canSendSetsReq"
+              >
+              </div>
+            </div>
+            <div class="vertical-scroller searchResult">
+              <div class="listType">
+                <q-infinite-scroll @load="chargeProductAndContentList"
+                                   :offset="250">
+                  <specifer-type
+                    v-for="(item, index) in productAndContentList"
+                    :key="index"
+                    :info="item"
+                  />
+                  <template v-slot:loading>
+                    <div class="row justify-center q-my-md">
+                      <q-spinner-dots color="primary"
+                                      size="40px" />
+                    </div>
+                  </template>
+                </q-infinite-scroll>
+                <div class="scroll-loader"
+                     v-if="canSendVideoReq || canSendProductReq"
+                >
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -69,6 +203,7 @@
 import StickySidebar from 'sticky-sidebar'
 import SpeciferType from 'src/components/Widgets/Content/Search/SpeciferType'
 import SideBarContent from 'src/components/Widgets/Content/Search/SideBarContent'
+import SetItem from 'src/components/Widgets/Content/Search/SetItem'
 import { ContentList } from 'src/models/Content'
 import { ProductList } from 'src/models/Product'
 import { SetList } from 'src/models/Set'
@@ -78,6 +213,7 @@ import FilterData from 'src/assets/js/contentSearchFilterData'
 export default {
   name: 'Search',
   components: {
+    SetItem,
     SpeciferType,
     SideBarContent
   },
@@ -88,7 +224,7 @@ export default {
     items: [{}],
 
     stopReq: true,
-    sets: new SetList(),
+    sets: new SetList([{ type: 'loading' }]),
     products: new ProductList(),
     contents: new ContentList(),
     sideBarKey: 0,
@@ -157,7 +293,7 @@ export default {
       }
       this.searchLoading = true
       const that = this
-      this.$axios.get(url)
+      that.$axios.get(url)
         .then(res => {
           const sets = res.data.data.sets
           const products = res.data.data.products
@@ -209,7 +345,8 @@ export default {
       const lastElementIndex = data.ref.items.length - 1
       const currentElementIndex = data.index
       if (currentElementIndex === lastElementIndex && !this.setLoading) {
-        this.loadMoreData()
+        // this.loadMoreData()
+        this.chargeSet()
         // console.log('load more----------------------------------------------------------------')
       }
     },
@@ -366,7 +503,7 @@ export default {
     resetPageContent () {
       this.products = new ProductList()
       this.contents = new ContentList()
-      this.sets = new SetList()
+      this.sets = new SetList([{ type: 'loading' }])
       this.applyFilter = false
       this.canSendVideoReq = true
       this.canSendProductReq = true
@@ -412,7 +549,7 @@ export default {
         return
       }
       data.data.forEach(responseItem => {
-        this.sets.list.push(responseItem)
+        this.sets.list.unshift(responseItem)
         this.$nextTick(() => {
           if (window.imageObserver) window.imageObserver.observe()
         })
@@ -426,7 +563,8 @@ export default {
       }
     },
 
-    chargeProductAndContentList () {
+    chargeProductAndContentList (index, done) {
+      console.log('chargeProductAndContentList ')
       const promises = []
       if (this.canSendVideoReq) {
         const contentsPromise = this.chargeItems(this.contents, 'contents', 4)
@@ -440,6 +578,7 @@ export default {
       Promise.all(promises)
         .then((responseDataArray) => {
           this.searchLoading = false
+          done()
           responseDataArray.forEach((data) => {
             const responseData = data.response
             let oldList = {}
@@ -455,6 +594,7 @@ export default {
             }
             that.loadItemFromResponse(responseData, oldList, data.key)
             that.resetLists(data, oldList)
+            this.slider.updateSticky()
           })
         })
         .catch(errors => {
@@ -514,8 +654,9 @@ export default {
         url = items.paginate.links.next
       }
       // console.log('url :',url)
+      const that = this
       return new Promise(function (resolve, reject) {
-        this.$axios.get(url)
+        that.$axios.get(url)
           .then(response => {
             const responseData = response.data.data
             let newKey = key
@@ -568,6 +709,7 @@ export default {
 </script>
 
 <style scoped>
+/*@import 'src/css/content-search.scss';*/
 .side-bar{
   overflow: scroll;
 }
@@ -580,15 +722,238 @@ export default {
   max-height: 150px;
   background: #f3cfcf;
 }
-.set{
-  width: 160px;
-  background: #b4edb4;
-  margin: 5px
-}
 .test{
 }
-.caption{
-  background: pink;
-  margin: 10px
+
+</style>
+
+<style lang="scss" scoped>
+.test2{
+  border: 1px green solid;
+
+}
+.content-search-vue {
+  .modal-side-bar{
+    display: none;
+    position:fixed;
+    right: 0;
+    top: 65px;
+    z-index: 4;
+    @media screen and(max-width: 1024px) {
+      display: block;
+      width: 100%;
+    }
+    .advance-search {
+      margin: 0 7px;
+      .btn{
+        font-size: 16px;
+        width: 100%;
+        border: 2px solid #fd7e14;
+        background-color: #fff;
+        color:  #fd7e14;
+        padding: 15px;
+        &:hover {
+          background-color: #fd7e14;
+          color:  #fff;
+        }
+      }
+    }
+  }
+
+  .side-bar-mobile-mode{
+    background-color: white;
+    .modal{
+      .modal-dialog {
+        .modal-content {
+          .modal-header {
+            padding: 20px;
+            .modal-title {
+              color: #3e5480;
+              @media screen and(max-width: 400px) {
+                font-size: 14px;
+              }
+            }
+            .btn-box {
+              justify-content: space-between;
+            }
+          }
+          .filter-btn {
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 5px;
+            border: 2px solid #fd7e14;
+            background-color: #fff;
+            color:  #fd7e14;
+            padding: 5px 15px;
+            &:hover {
+              background-color: #fd7e14;
+              color:  #fff;
+            }
+            @media screen and(max-width: 400px) {
+              font-size: 12px;
+              padding: 5px 10px;
+              font-weight: 300;
+            }
+          }
+          .close-btn{
+            background-color: #fff;
+            color: #ff0909;
+            font-weight: 500;
+            padding: 5px 10px;
+            &:hover {
+              background-color: #ffb9b9;
+              color: #ff4343;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .loading{
+    width: 200px;
+    .loading-text{
+      color: #3e5480;
+      font-size: 18px;
+      font-weight: 500;
+      @media screen and(max-width: 500px) {
+        font-size: 14px;
+      }
+    }
+    .spinner {
+      width: 70px;
+      margin:10px;
+      text-align: center;
+      div {
+        width: 18px;
+        height: 18px;
+        background-color: #ff9000;
+        border-radius: 100%;
+        display: inline-block;
+        -webkit-animation: spinner-loading 1.4s infinite ease-in-out both;
+        animation: spinner-loading 1.4s infinite ease-in-out both;
+        @media screen and(max-width: 500px) {
+          width: 12px;
+          height: 12px;
+        }
+      }
+      .dot1 {
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+      .dot2 {
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+    }
+    @-webkit-keyframes spinner-loading {
+      0%, 80%, 100% { -webkit-transform: scale(0) }
+      40% { -webkit-transform: scale(1.0) }
+    }
+    @keyframes spinner-loading {
+      0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      } 40% {
+          -webkit-transform: scale(1.0);
+          transform: scale(1.0);
+        }
+    }
+  }
+
+  .scroll-loader {
+    margin: auto;
+    .loader {
+      color: #3e5480;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  .content-body {
+    display: flex;
+    flex-direction: row;
+    @media screen and(max-width: 1024px) {
+      flex-direction: column;
+    }
+    .sticky-search-bar {
+      width:25%;
+      @media screen and(max-width: 1024px) {
+        display: none;
+      }
+    }
+    .content-list {
+      //border: 1px solid red;
+      width: 74%;
+      @media screen and(max-width: 1024px) {
+        width: 100%;
+      }
+      .tags-chip-group-wrapper {
+        overflow: auto;
+        .tags-chip-group {
+          display: flex;
+          align-items: center;
+          margin-right: 15px;
+          margin-top: 10px;
+          margin-top: 30px;
+          @media screen and(max-width: 767px) {
+            margin-right: 0;
+          }
+          .tags-title{
+            margin-bottom: 0;
+            font-size: 18px;
+            color: #3e5480;
+            font-weight: 500;
+            @media screen and(max-width: 1024px) {
+              min-width: 55px;
+            }
+            @media screen and(max-width: 500px) {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      .tags-chip-group-mobile{
+        margin-top: 50px;
+      }
+      .error-alert {
+        margin: 5% 10%;
+      }
+    }
+  }
+}
+
+.vertical-scroller {
+  margin-top: 20px;
+}
+
+.horizontal-scroller {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  overflow-x: scroll;
+  @media screen and(max-width: 1024px) {
+    margin-top: 40px;
+  }
+  .sets{
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+}
+</style>
+
+<style>
+
+@media only screen and (max-width: 1024px) {
+  .searchResult .listType .item .content .title {
+    width: calc( 100% - 130px );
+  }
+  .searchResult .listType .item .m-link {
+    width: 100%;
+  }
+  .row {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
 }
 </style>

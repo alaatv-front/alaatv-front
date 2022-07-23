@@ -1,5 +1,5 @@
 <template>
-  <div class="item a--gtm-eec-product lazy-done"
+  <div class="item product-item-c a--gtm-eec-product lazy-done q-mb-md"
        :data-position="data.eec.position"
        :data-gtm-eec-product-id="data.eec.id"
        :data-gtm-eec-product-name="data.eec.name"
@@ -12,14 +12,15 @@
        a-lazyload="1"
        :data-loaded="data.eec.loading"
   >
-    <div class="ribbon">
+    <div v-if="false"
+         class="ribbon">
       <span>
         <div class="glow">&nbsp;</div>
         % {{ offAmount }}
         <span>تخفیف</span>
       </span>
     </div>
-    <div class="pic">
+    <div class="pic bg-red">
       <a :href="'https://alaatv.com/product/'+ data.id"
          class="d-block a--gtm-eec-product-click"
          :data-position="data.eec.position"
@@ -32,33 +33,28 @@
          :data-gtm-eec-product-position="data.eec.position"
          :data-gtm-eec-product-list="data.eec.position"
       >
-        <img
-          src="https://nodes.alaatv.com/loder.jpg?w=1&h=1"
-          :data-src="data.photo"
+        <q-img
+          :src="data.photo"
           :alt="data.title"
-          class="lazy-image"
-          width="64"
-          height="64"
+          class="img"
         />
       </a>
     </div>
-    <div class="content">
-      <div class="title">
-        <h2>
-          <a :href="'https://alaatv.com/product/'+data.id"
-             class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
-             :data-gtm-eec-product-id="data.eec.id"
-             :data-gtm-eec-product-name="data.eec.name"
-             :data-gtm-eec-product-price="data.eec.price"
-             :data-gtm-eec-product-brand="data.eec.brand"
-             :data-gtm-eec-product-category="data.eec.category"
-             :data-gtm-eec-product-variant="data.eec.variant"
-             :data-gtm-eec-product-position="data.eec.position"
-             :data-gtm-eec-product-list="data.eec.position"
-          >
-            {{ data.title }}
-          </a>
-        </h2>
+    <div class="content  q-pl-md-md q-sm-sm-none   ">
+      <div class="product-title q-pl-md q-py-sm">
+        <a :href="'https://alaatv.com/product/'+data.id"
+           class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
+           :data-gtm-eec-product-id="data.eec.id"
+           :data-gtm-eec-product-name="data.eec.name"
+           :data-gtm-eec-product-price="data.eec.price"
+           :data-gtm-eec-product-brand="data.eec.brand"
+           :data-gtm-eec-product-category="data.eec.category"
+           :data-gtm-eec-product-variant="data.eec.variant"
+           :data-gtm-eec-product-position="data.eec.position"
+           :data-gtm-eec-product-list="data.eec.position"
+        >
+          {{ data.title }}
+        </a>
       </div>
       <a :href="'https://alaatv.com/product/'+data.id"
          class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
@@ -72,19 +68,21 @@
          :data-gtm-eec-product-list="data.eec.position"
       >
         <div class="detailes">
-          <div class="productPriceWrapper">
-            <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded a--productPrice">
-              <span class="m-badge m-badge--warning a--productRealPrice">
-                {{data.price.base}}
-              </span>
-              <span class="m-badge m-badge--info a--productDiscount">
+          <div class="productPriceWrapper2">
+            <div class="price-container row">
+              <div v-if="offAmount > 0"
+                   class="base">
+                {{ data.price.base }}
+              </div>
+              <div v-if="offAmount > 0"
+                   class="discount">
                 % {{ offAmount }}
-              </span>
+              </div>
               {{ data.price.final }} تومان
-            </span>
+            </div>
           </div>
           <div class="m--margin-top-10">
-            <div class="productAttributes">
+            <div class="productAttributes q-mb-md">
               <div class="productAttributes-item">
                 <div class="productAttributes-item-icon">
                   <svg version="1.1"
@@ -324,7 +322,7 @@
                   </span>
                 </div>
               </div>
-              <div class="productAttributes-item">
+              <div class="productAttributes-item q-mb-md">
                 <div class="productAttributes-item-icon">
                   <svg viewBox="0 0 510 510"
                        xmlns="http://www.w3.org/2000/svg">
@@ -364,10 +362,22 @@
               </div>
             </div>
           </div>
+          <!--          <div class="price-box row items-center">-->
+          <!--            <div-->
+          <!--              class="main-price">{{ (data.price['base']) }}</div>-->
+          <!--            <div class="final-price-box">-->
+          <!--              <div class="final-price ">-->
+          <!--                {{ (data.price['final']) }}-->
+          <!--              </div>-->
+          <!--              <div class="price-Toman">-->
+          <!--                تومان-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
       </a>
     </div>
-    <div class="itemHover"></div>
+    <!--    <div class="content-hover"></div>-->
   </div>
 </template>
 
@@ -402,43 +412,351 @@ export default {
 </script>
 
 <style scoped lang="scss">
+a {
+  color: #3D3F46;
+}
+
+.product-item-c {
+  display: flex;
+  position: relative;
+  background: white;
+  border-radius: 15px;
+  max-height: 200px;
+
+  .pic {
+    width: 25%;
+    border-radius: 15px !important;
+    z-index: 3;
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+    }
+
+    a {
+      .img {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px 0 0 15px;
+        @media screen and (max-width: 1024px) {
+          border-radius: 15px 15px 0 0 !important;
+        }
+      }
+    }
+  }
+
+  .content {
+    .product-title {
+      a {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 31px;
+        letter-spacing: -0.03em;
+        color: #3D3F46;
+      }
+    }
+
+    .detailes {
+      .productPriceWrapper2 {
+        position: absolute;
+        right: 30px;
+        top: 25px;
+        z-index: 10;
+        background-color: #f4516c;
+        color: #ffffff;
+        padding: 2px 5px;
+        border-radius: 5px;
+
+        .price-container {
+          position: relative;
+
+          .base {
+            background: #ffb822;
+            border-radius: 10px;
+            padding: 0 5px;
+            position: absolute;
+            top: -13px;
+            left: -20px;
+            font-size: 10px;
+            color: black;
+            text-decoration: line-through;
+          }
+
+          .discount {
+            background: #36a3f7;
+            border-radius: 10px;
+            padding: 0 5px;
+            position: absolute;
+            top: -12px;
+            right: -20px;
+            font-size: 10px;
+          }
+
+        }
+        @media screen and (max-width: 1024px){
+          position: relative;
+          width: 100px;
+          top: 5px;
+          right: -25px
+        }
+      }
+
+      .price-box {
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        border-radius: 5px;
+        padding: 0 5px;
+        background-color: #f4516c;
+        color: #ffffff;
+
+        .final-price-box {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .final-price {
+            margin-left: 4px;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 28px;
+          }
+        }
+
+        .main-price {
+          color: #fff;
+          text-decoration: line-through;
+          margin-left: 12px;
+          font-size: 12px;
+        }
+
+        .price-Toman {
+          font-size: 10px;
+          font-weight: 500;
+          line-height: 17px;
+          margin-left: 5px;
+        }
+      }
+
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    max-height: none;
+  }
+
+  &:hover .content-hover {
+    background-color: #ff8e0017;
+    border-radius: 15px;
+    width: 100% !important;
+  }
+
+  .content-hover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.7s;
+  }
+}
+
+@media print {
+  .pretty .state:before,
+  .pretty .state label:before,
+  .pretty .state label:after,
+  .pretty .state .icon {
+    color-adjust: exact;
+    /* stylelint-disable */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+@-webkit-keyframes flow {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  50% {
+    left: 20px;
+    opacity: 0.3;
+  }
+  100% {
+    left: 100px;
+    opacity: 0;
+  }
+}
+
+@keyframes flow {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  50% {
+    left: 20px;
+    opacity: 0.3;
+  }
+  100% {
+    left: 100px;
+    opacity: 0;
+  }
+}
+
+.glow {
+  background: rgb(255, 255, 255);
+  width: 40px;
+  height: 100%;
+  z-index: 999;
+  position: absolute;
+  -webkit-animation: flow 1.5s linear infinite;
+  -moz-animation: flow 1.5s linear infinite;
+  -webkit-transform: skew(-65deg);
+  -moz-transform: skew(-65deg);
+  -o-transform: skew(-65deg);
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(1%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 1)));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+  /* IE10+ */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1%, rgba(255, 255, 255, 1) 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
+  /* IE6-9 */
+  border-left: 1px solid #fff;
+  top: 0;
+}
+
+.ribbon {
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  z-index: 5;
+  overflow: hidden;
+  width: 75px;
+  height: 75px;
+  text-align: left;
+  direction: ltr;
+}
+
+.ribbon > span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  width: 100px;
+  display: block;
+  background: #ac0001;
+  background: linear-gradient(#ff0001 0%, #ac0001 100%);
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 19px;
+  right: -21px;
+}
+
+.ribbon > span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid #ac0001;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #ac0001;
+}
+
+.ribbon > span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #ac0001;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #ac0001;
+}
+
+.ribbon > span > span {
+  font-size: 11px;
+}
 
 .info-text {
-    font-size: 14px;
-    &:after {
-        content: ' - ';
-    }
-    &:last-child:after {
-        content: ' ';
-    }
-}
-.m--margin-top-10{
-    margin-top: 10px !important;
-}
-.pic{
-    width: 25%;
-    @media screen and (max-width: 1024px) {
-        width: 100%;
-    }
-    img{
-        width: 100%;
-    }
-}
-.productAttributes-item{
-    margin-bottom:0;
-    padding-left: 10px;
-   align-items: flex-start;
-}
-.productAttributes-item-value{
-    //border: 1px solid red;
-    height: 75px;
-    padding-top: 5px;
-    line-height: normal;
-    display: -webkit-box;
-    -webkit-line-clamp:3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom:0;
+  padding-left: 5px;
+  font-size: 14px;
+
+  &:after {
+    content: ' - ';
+  }
+
+  &:last-child:after {
+    content: ' ';
+  }
 }
 
+.m--margin-top-10 {
+  margin-top: 10px !important;
+}
+
+.productAttributes-item-value {
+  //border: 1px solid red;
+  padding-top: 5px;
+  line-height: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 25px;
+  @media screen and (max-width: 1024px) {
+
+  }
+}
+
+.productAttributes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.productAttributes .productAttributes-item {
+  display: flex;
+  width: 33%;
+  padding-left: 10px;
+  align-items: flex-start;
+  @media screen and (max-width: 1024px) {
+    align-items: center;
+  }
+}
+
+.productAttributes .productAttributes-item .productAttributes-item-icon svg {
+  width: 35px;
+}
+
+.productAttributes .productAttributes-item .productAttributes-item-value {
+  padding-right: 5px;
+}
+
+@media only screen and (max-width: 700px) {
+  .productAttributes .productAttributes-item {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .productAttributes .productAttributes-item .productAttributes-item-icon svg {
+    width: 15px;
+  }
+  .productAttributes .productAttributes-item {
+    margin-bottom: 5px;
+  }
+}
 </style>
