@@ -6,7 +6,7 @@
     <product-demos :data="demo"/>
   </div>
   <div class="show-product-review">
-    <product-review />
+    <product-review :data="review"/>
   </div>
 </template>
 
@@ -158,7 +158,6 @@ export default {
         }
       ],
 
-
       product: new Product(),
       introduction: {
         intro: null,
@@ -169,6 +168,11 @@ export default {
       demo: {
         contents: [],
         sample_photos: []
+      },
+      review: {
+        long: '',
+        short: '',
+        slogan: '',
       }
     }
   },
@@ -218,7 +222,12 @@ export default {
     //   handler (newValue){
     //     this.demo.sample_photos = newValue[0].contents
     //   }
-    // }
+    // },
+    'product.description': {
+      handler (newValue){
+        this.review = newValue
+      }
+    },
   },
 
   methods: {
@@ -257,15 +266,17 @@ export default {
 
 <style scoped>
 .show-product-introduction {
+  margin-bottom: 30px;
 
 }
 
 .show-product-demos {
-  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .show-product-review {
-  margin-top: 30px;
+  margin-bottom: 100px;
+
 }
 
 </style>
