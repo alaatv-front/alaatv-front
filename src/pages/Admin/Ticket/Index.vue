@@ -6,7 +6,7 @@
       :api="api"
       :table="table"
       :table-keys="tableKeys"
-      :create-route-name="'Admin.OldUser.Create'"
+      :create-route-name="'Admin.Ticket.Create'"
     >
       <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
         <q-td :props="inputData.props">
@@ -19,12 +19,24 @@
             />
           </template>
           <template v-else-if="inputData.props.col.name === 'actions'">
-            <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Product.Show', params: {id: inputData.props.row.id}}">
+            <q-btn round
+                   flat
+                   dense
+                   size="md"
+                   color="info"
+                   icon="info"
+                   :to="{name:'Admin.Product.Show', params: {id: inputData.props.row.id}}">
               <q-tooltip>
                 مشاهده
               </q-tooltip>
             </q-btn>
-            <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+            <q-btn round
+                   flat
+                   dense
+                   size="md"
+                   color="negative"
+                   icon="delete"
+                   class="q-ml-md"
                    @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
               <q-tooltip>
                 حذف
@@ -49,7 +61,7 @@ export default {
   components: { EntityIndex },
   data () {
     return {
-      api: API_ADDRESS.product.index.base,
+      api: API_ADDRESS.ticket.index.base,
       tableKeys: {
         data: 'data',
         total: 'meta.total',

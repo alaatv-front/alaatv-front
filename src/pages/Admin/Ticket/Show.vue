@@ -1,8 +1,7 @@
 <template>
-  ssss
   <entity-show
     v-model:value="inputs"
-    title="اطلاعات محصول"
+    title="لیست تیکت ها"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
@@ -59,7 +58,6 @@ export default {
     }
   },
   created () {
-    this.api += '/' + this.$route.params.id
   }
 }
 </script>

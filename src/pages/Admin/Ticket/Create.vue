@@ -20,11 +20,11 @@ export default {
   data () {
     return {
       expanded: true,
-      api: API_ADDRESS.product.create.base,
+      api: API_ADDRESS.ticket.create.base,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
-      showRouteName: 'Admin.OldUser.Show',
-      indexRouteName: 'Admin.OldUser.Index',
+      showRouteName: 'Admin.Ticket.Show',
+      indexRouteName: 'Admin.Ticket.Index',
       inputs: [
         { type: 'input', name: 'name', responseKey: 'data.name', value: '', label: 'نام', col: 'col-md-6' },
         { type: 'input', name: 'job', responseKey: 'data.job', value: '', label: 'شغل', col: 'col-md-6' }
@@ -32,7 +32,6 @@ export default {
     }
   },
   created () {
-    this.api += '/' + this.$route.params.id
   }
 }
 </script>
