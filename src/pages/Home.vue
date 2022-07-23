@@ -1,6 +1,6 @@
 <template>
 <div class="home-page">
-  <page-builder :sections="sections"/>
+  <page-builder :sections="sections" :options="pageConfig"/>
 </div>
 </template>
 
@@ -14,6 +14,11 @@ export default {
   components: { PageBuilder },
   data () {
     return {
+      pageConfig: {
+        padding: {
+          a: 'md'
+        }
+      },
       sections: [
         {
           data: {
@@ -37,6 +42,10 @@ export default {
                 }
               }
             ]
+          },
+          options: {
+            fullHeight: true,
+            verticalAlign: 'center'
           }
         }
       ],
