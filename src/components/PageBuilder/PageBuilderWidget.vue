@@ -11,24 +11,42 @@
 import { defineAsyncComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins'
 const requireContext = require.context("components/Widgets/", true, /\.vue$/i, "lazy")
-let componentNames = requireContext.keys().map((file) => {
-  const crush = file.split("/")
-  console.log(crush)
-  return file.replace(/(^.\/)|(\.vue$)/g, '')
+// let componentsData = [
+//   {
+//     componentName: "",
+//     componentCategories: [],
+//     componentDepth: 1
+//   }
+// ]
+// let componentNames = requireContext.keys().map((file) => {
+let componentsData = requireContext.keys().map((file) => {
+  let path = file;
+  let crush = file.split("/")
+  // first element is always a dot so remove it.
+  crush.shift()
+  path = path.replace(".", "")
+  path = path.replace(crush[crush.length - 1], "")
+  crush[crush.length - 1] = crush[crush.length - 1].replace(/(^.\/)|(\.vue$)/g, '')
+  //first one is widget name and second is folder name
+  // if(crush[crush.length - 1] != crush[crush.length - 2]){
+  //   throw new Error(`Name of the widget and folder are not the same.\n file name: ${crush[crush.length - 1] } \n folder name: ${crush[crush.length - 2]}`)
+  // }
+  return { name: crush[crush.length - 1], path }
 })
-
-let components2 = {}
+let components = {}
 //TODO: Removing name of folders in components, perhaps using regex.
-componentNames.forEach((component) => {
-  components2[component] = defineAsyncComponent(() =>
-    import("components/Widgets/" + component + ".vue")
+componentsData.forEach((component) => {
+  console.log(component.path)
+  components[component.name] = defineAsyncComponent(() => {
+    return import('components/Widgets' + component.path + component.name + '.vue')
+    }
   )
 })
-components2.PageBuilderSection = defineAsyncComponent(() => import('./PageBuilderSection.vue')),
-console.log(components2)
+components.PageBuilderSection = defineAsyncComponent(() => import('./PageBuilderSection.vue')),
+console.log(components)
 export default {
   name: 'PageBuilderWidget',
-  components: components2,
+  components,
   // components: {
   //   PageBuilderSection: defineAsyncComponent(() => import('./PageBuilderSection.vue')),
   //   AbrishamMap: defineAsyncComponent(() => import('components/Widgets/Map/Map.vue')),

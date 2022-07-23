@@ -1,4 +1,5 @@
-The In order to make new widgets, please note that:
+The In order to make new widgets, please note that: <br>
+0- Make sure put your widget inside of folder, like other widgets. <br>
 1- Name of the widget folder and vue file **should** be exactly the same. <br>
 2- You can have as many category folder as you want, but you cannot have empty category folder. <br>
 3- Design of dependencies of a widget is up to you. make sure import parts in your main vue file correctly.

@@ -95,7 +95,7 @@
 
 <script>
 import ProductItem from 'src/components/Widgets/ProductItem/productItem'
-import Slider from 'src/components/Widgets/Slider'
+import Slider from 'components/Widgets/Slider/Slider'
 import SetItem from 'components/Widgets/SetItem/setItem'
 import ContentItem from 'components/Widgets/ContentItem/contentItem'
 import { Block } from 'src/models/Block'

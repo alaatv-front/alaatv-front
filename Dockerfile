@@ -79,7 +79,7 @@ CMD ["node", "/usr/app/dist/ssr/index.js"]
 #COPY --from=builder /usr/app/dist/ssr /usr/share/nginx/html
 #
 ## Show current folder structure in logs
-## RUN ls -al -R
+## RUN ls -al -TestComponent1Widget
 #RUN ls /usr/share/nginx/html
 #
 ## Expose the listening port
