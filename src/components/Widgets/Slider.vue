@@ -27,26 +27,27 @@
       v-for="(slide, index) in data.list"
       :key="index"
       :name="slide.id"
-      @click="redirectToBannerEvent(slide.link)"
     >
-      <q-img
-        v-if="slide.photo"
-        :src="slide.photo"
-        :ratio="slide.ratio"
-      />
-      <q-img
-        v-else
-        :src="responsiveFeatures(slide.features).src"
-        :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
-        :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : 'auto'"
-        :ratio="slide.ratio"
-      />
-      <q-tooltip
-        v-if="slide.title"
-        :offset="[18, 18]"
-      >
-        {{ slide.title }}
-      </q-tooltip>
+      <a :href="slide.link">
+        <q-img
+          v-if="slide.photo"
+          :src="slide.photo"
+          :ratio="slide.ratio"
+        />
+        <q-img
+          v-else
+          :src="responsiveFeatures(slide.features).src"
+          :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
+          :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : 'auto'"
+          :ratio="slide.ratio"
+        />
+        <q-tooltip
+          v-if="slide.title"
+          :offset="[18, 18]"
+        >
+          {{ slide.title }}
+        </q-tooltip>
+      </a>
     </q-carousel-slide>
     <template v-slot:control>
       <q-carousel-control
@@ -78,7 +79,7 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
-      slide: ref(1),
+      slide: ref(null),
       fullscreen: ref(false),
       defaultOptions: {
         control: {
@@ -115,10 +116,12 @@ export default {
       }
     }
   },
+  created () {
+    if(this.data && this.data.list && this.data.list.length > 0) {
+      this.slide = this.data.list[0].id
+    }
+  },
   methods: {
-    redirectToBannerEvent (link) {
-      window.location.href = link
-    },
     responsiveFeatures (features) {
       const windowSize = this.$store.getters['AppLayout/windowSize']
       if (windowSize.x >= 1920) {

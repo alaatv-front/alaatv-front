@@ -1,8 +1,8 @@
 <template>
-  <div class="block-section q-mx-md">
+  <div class="block-section">
     <div
       v-if="isThereData"
-      class="block-header row justify-between q-pa-md q-mb-sm bg-white"
+      class="block-header row q-pa-md q-mb-sm"
       :class="data.headerCustomClass"
     >
       <div class="row items-center block-title">
@@ -100,6 +100,7 @@ import SetItem from 'components/Widgets/SetItem/setItem'
 import ContentItem from 'components/Widgets/ContentItem/contentItem'
 import { Block } from 'src/models/Block'
 import { dragscrollNext as dragscroll }  from 'vue-dragscroll'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'Block',
@@ -109,6 +110,7 @@ export default {
     ProductItem,
     Slider
   },
+  mixins: [mixinWidget],
   data: () => ({
     isGridView: false
   }),
@@ -134,8 +136,11 @@ export default {
 
 <style lang="scss" scoped>
 .block-section {
+  margin-bottom: 30px;
   .block-header {
     border-radius: 10px;
+    justify-content:space-between ;
+    background: #ffffff;
 
     .block-title {
       .title-box {
@@ -157,8 +162,6 @@ export default {
       }
     }
   }
-
-  margin: 30px;
 
   .block-container {
     display: flex;

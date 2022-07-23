@@ -1,30 +1,12 @@
 <template>
   <div
     class="page-builder-section"
-    :id="defaultOptions.id"
-    :style="{
-      height: defaultOptions.height,
-      minHeight: defaultOptions.minHeight,
-      backgroundImage: 'url(' + defaultOptions.backgroundImage +')',
-      backgroundColor: defaultOptions.backgroundColor,
-      display: defaultOptions.display,
-      flexFlow: defaultOptions.flexFlow,
-      justifyContent: defaultOptions.justifyContent,
-      top: 0,
-      width: defaultOptions.width,
-      backgroundPosition: defaultOptions.backgroundPosition,
-      backgroundSize: defaultOptions.backgroundSize,
-      backgroundRepeat: defaultOptions.backgroundRepeat,
-      backgroundAttachment: defaultOptions.backgroundAttachment,
-      overflow: defaultOptions.overflow,
-      position : defaultOptions.segmentPosition,
-      margin:defaultOptions.margin.all  ,
-      marginTop:defaultOptions.margin.top ,
-      marginRight:defaultOptions.margin.right ,
-      marginBottom:defaultOptions.margin.bottom  ,
-      marginLeft:defaultOptions.margin.left  ,
-      padding:defaultOptions.padding
+    :class="{
+      'full-height-section': defaultOptions.fullHeight,
+      'vertical-align-center': defaultOptions.verticalAlign === 'center'
     }"
+    :id="defaultOptions.id"
+    :style="defaultOptions.style"
   >
     <page-builder-row  v-for="(row, rowIndex) in data.rows"
                        :key="rowIndex"
@@ -51,66 +33,127 @@ export default {
         return {}
       }
     },
-    url: {
-      type: Object,
-      default () {
-        return {
-          xl: '',
-          lg: '',
-          md: '',
-          sm: '',
-          xs: ''
-        }
-      }
-    }
   },
   data () {
     return {
-      PageBackgroundImage: '',
+      defaultBackground: null,
       defaultOptions: {
-        backgroundImage: '',
-        backgroundColor: '',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'unset', // unset - fixed
-        overflow: 'auto',
-
-        padding: {
-          all: '',
-          top: '',
-          right: '',
-          bottom: '',
-          left: ''
-        },
-        margin: {
-          all: '',
-          top: '',
-          right: '',
-          bottom: '',
-          left: ''
-        },
-        segmentPosition: '',
-        height: 'auto',
-        width: '100%'
+        background: [],
+        style: {}
       }
     }
   },
   created () {
-    this.getUrl()
+    this.setBackground()
+  },
+  computed: {
+    windowSize () {
+      return this.$store.getters['AppLayout/windowSize']
+    },
+    windowWidth () {
+      return this.windowSize.x
+    }
+  },
+  watch: {
+    windowWidth () {
+      this.loadBackground()
+    }
   },
   methods: {
-    getUrl () {
-      const Dimensions = this.$store.getters['AppLayout/windowSize']
-      if (Dimensions.x <= 600) {
-        this.PageBackgroundImage = this.url.xs
-      } else if (Dimensions.x <= 1024) {
-        this.PageBackgroundImage = this.url.sm
-      } else if (Dimensions.x <= 1200) {
-        this.PageBackgroundImage = this.url.md
-      } else if (Dimensions.x <= 1440) {
-        this.segmentBackgroundImage = this.url.lg
-      } else this.PageBackgroundImage = this.url.xl
+    setBackground () {
+      if (!this.defaultOptions.background || typeof this.defaultOptions.background !== 'object') {
+        return
+      }
+
+      if (!Array.isArray(this.defaultOptions.background)) {
+        this.defaultOptions.background = [this.getProperBackground(this.defaultOptions.background)]
+      } else {
+        this.defaultOptions.background.forEach((background, backgroundIndex) => {
+          this.defaultOptions.background[backgroundIndex] = this.getProperBackground(background)
+        })
+      }
+
+      this.loadBackground()
+    },
+    isColorBackground (background) {
+      return !!background.color
+    },
+    getProperBackground (background) {
+      let source = {
+        url: '',
+        position: 'center',
+        size: 'cover',
+        repeat: 'no-repeat',
+        attachment: 'unset', // unset - fixed
+      }
+
+      if (this.isColorBackground(background)) {
+        source = {
+          color: 'transparent'
+        }
+      }
+
+      Object.assign(source, background)
+
+      return source
+    },
+    getProperBackgroundFromBreakpoint () {
+      let background = null
+      this.defaultOptions.background.forEach((backgroundItem) => {
+        const backgroundFromBreakpoint = this.getBackgroundFromBreakpoint(backgroundItem)
+        if (backgroundFromBreakpoint) {
+          background = backgroundFromBreakpoint
+        }
+      })
+
+      return background
+    },
+    loadBackground () {
+      this.defaultBackground = this.getProperBackgroundFromBreakpoint()
+      if (!this.defaultBackground) {
+        return
+      }
+
+
+      if (this.isColorBackground(this.defaultBackground)) {
+        this.defaultOptions.style.backgroundColor = this.defaultBackground.color
+        return
+      }
+
+      this.defaultOptions.style.backgroundImage = 'url("'+this.defaultBackground.image+'")'
+      this.defaultOptions.style.backgroundPosition = this.defaultBackground.position
+      this.defaultOptions.style.backgroundSize = this.defaultBackground.size
+      this.defaultOptions.style.backgroundRepeat = this.defaultBackground.repeat
+      this.defaultOptions.style.backgroundAttachment = this.defaultBackground.attachment // unset - fixed
+    },
+    getBackgroundFromBreakpoint (background) {
+      const size = (typeof background.breakpoint === 'undefined') ?
+        Math.min() :
+        (typeof background.breakpoint === 'number') ?
+          parseInt(background.breakpoint) :
+          this.getBreakpointNumberFromName(background.breakpoint)
+
+      if (this.windowWidth <= size) {
+        return background
+      }
+
+      return null
+    },
+    getBreakpointNumberFromName (name) {
+      switch (name) {
+        case 'xl':
+              return Math.min()
+        case 'lg':
+              return 1919
+        case 'md':
+              return 1439
+        case 'sm':
+              return 1023
+        case 'xs':
+              return 599
+        default:
+          return Math.min()
+      }
     }
   }
 }
@@ -118,6 +161,14 @@ export default {
 
 <style scoped lang="scss">
 .page-builder-section {
+  &.full-height-section {
+    min-height: 100vh;
+  }
+  &.vertical-align-center {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
   //.row {
   //  width: 100%;
   //}

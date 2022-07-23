@@ -1,7 +1,5 @@
 <template>
-<div class="home-page">
-  <page-builder :sections="sections" :options="pageConfig"/>
-</div>
+<page-builder :sections="sections"/>
 </template>
 
 <script>
@@ -10,15 +8,10 @@ import API_ADDRESS from 'src/api/Addresses'
 import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
-  name: 'BaseComponent',
+  name: 'Show',
   components: { PageBuilder },
   data () {
     return {
-      pageConfig: {
-        padding: {
-          a: 'md'
-        }
-      },
       sections: [
         {
           data: {
@@ -28,39 +21,28 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'blockList',
-                        data: API_ADDRESS.pages.home,
+                        name: 'productInfoShow',
+                        data: this.$route.params.id,
                         options: {
                           getData: (url) => GetWidgetsData.getData(this.$axios, url)
                         }
                       }
                     ]
-                  }
+                  },
                 ],
                 options: {
-                  boxed: false
+                  boxed: true
                 }
               }
             ]
-          },
-          options: {
-            fullHeight: true,
-            verticalAlign: 'center'
           }
         }
-      ],
+      ]
     }
-  },
-  methods: {}
+  }
 }
 </script>
 
-<style lang="scss" scoped>
-.home-page {
-  &:deep(.banner-header-0) {
-    display: none;
-  }
-
-}
+<style scoped>
 
 </style>
