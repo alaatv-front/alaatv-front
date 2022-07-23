@@ -1,7 +1,7 @@
 <template>
   <div class="row product-demos-widget">
     <div class="col-md-7">
-      <p>نمونه فیلم ها</p>
+      <p class="section-title">نمونه فیلم ها</p>
       <div
         v-if="contents.list && contents.list.length > 0"
         class="contents-block"
@@ -79,6 +79,24 @@ export default {
 .product-demos-widget {
   display: flex;
   justify-content: space-between;
+
+  .section-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    margin-right: 10px;
+
+    &::before {
+      content: ".";
+      color: #BAD9FB;
+      font-size: 50px;
+      font-weight: bold;
+      line-height: 10px;
+    }
+
+  }
+
   .contents-block {
     display: flex;
     overflow: auto;
@@ -96,9 +114,10 @@ export default {
       border-radius: 16px;
       margin: 10px 0 19px 16px;
       cursor: pointer;
+
       &:deep(.q-img__image) {
-      border-radius: 10px;
-    }
+        border-radius: 10px;
+      }
     }
   }
 }
