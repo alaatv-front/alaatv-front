@@ -46,6 +46,23 @@ name: "productReview",
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.product-review {
+  .review-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    margin-right: 10px;
 
+    &::before {
+      content: ".";
+      color: #BAD9FB;
+      font-size: 50px;
+      font-weight: bold;
+      line-height: 10px;
+    }
+
+  }
+}
 </style>
