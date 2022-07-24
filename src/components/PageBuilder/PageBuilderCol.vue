@@ -10,13 +10,14 @@
       >
         <page-builder-widget
           :widget="widget"
-          :size="size"
-        />
+        >
+
+        </page-builder-widget>
       </q-intersection>
       <page-builder-widget v-else
                            :widget="widget"
-                           :size="size"
-      />
+      >
+      </page-builder-widget>
     </template>
   </div>
 </template>
@@ -39,14 +40,11 @@ export default {
         return {}
       }
     },
-    size: {
-      type: Object,
-      default: () => {}
-    }
   },
   data () {
     return {}
-  }
+  },
+
 }
 </script>
 

@@ -12,7 +12,6 @@
                        :key="rowIndex"
                        :cols="row.cols"
                        :options="row.options"
-                       :size="size"
     />
   </div>
 </template>
@@ -20,6 +19,7 @@
 <script>
 import PageBuilderRow from './PageBuilderRow.vue'
 import { mixinWidget } from 'src/mixin/Mixins'
+
 
 export default {
   name: 'PageBuilderSection',
@@ -34,12 +34,6 @@ export default {
         return {}
       }
     },
-    // worth to mention since initialization is done inside of parent component (PageBuilder)
-    // no need to worry here about.
-    size: {
-      type: Object,
-      default: () => {}
-    },
   },
   data () {
     return {
@@ -52,6 +46,7 @@ export default {
   },
   created () {
     this.setBackground()
+
   },
   computed: {
     windowSize () {
@@ -59,12 +54,25 @@ export default {
     },
     windowWidth () {
       return this.windowSize.x
-    }
+    },
+    containerHeight (){
+      // if container be a fullHeight, then should removeOffset
+      let offset = this.$store.getters['AppLayout/containerHeightOffset']
+      return this.defaultOptions.fullHeight? `calc(${this.windowSize.y}px - ${offset}px)` : null
+    },
+
+
   },
   watch: {
     windowWidth () {
       this.loadBackground()
-    }
+    },
+    // containerHeight(){
+    //   console.log('here')
+    //   // if(this.defaultOptions.fullHeight){
+    //   //   this.defaultOptions.style.minHeight = this.containerHeight + 'px';
+    //   // }
+    // }
   },
   methods: {
     setBackground () {
@@ -126,7 +134,6 @@ export default {
         this.defaultOptions.style.backgroundColor = this.defaultBackground.color
         return
       }
-
       this.defaultOptions.style.backgroundImage = 'url("'+this.defaultBackground.image+'")'
       this.defaultOptions.style.backgroundPosition = this.defaultBackground.position
       this.defaultOptions.style.backgroundSize = this.defaultBackground.size
@@ -169,7 +176,7 @@ export default {
 <style scoped lang="scss">
 .page-builder-section {
   &.full-height-section {
-    min-height: 100vh;
+    min-height: calc(100vh - 86px);
   }
   &.vertical-align-center {
     display: flex;

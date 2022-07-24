@@ -35,38 +35,22 @@ export function appLayout (state) {
   return state.appLayout
 }
 
-export function containerWidth (state){
-  // if drawers are visible and not in desktop mode, they will subtract from main windowWidth
-  state.containerSize.w = state.windowSize.x;
-  if(state.layoutRightDrawerVisible && state.layoutRightDrawerBehavior == 'desktop'){
-    state.containerSize.w -= state.rightDrawerWidth
-  }
-  if(state.layoutLeftDrawerVisible && state.layoutLeftDrawerBehavior == 'desktop'){
-    state.containerSize.w -= state.leftDrawerWidth
-  }
-  if(state.containerSize.w < 0){
-    state.containerSize.w = state.windowSize.x
-  }
-  return state.containerSize.w
+export function headerSize (state) {
+  return state.headerSize
 }
 
-export function containerHeight (state){
-  // since using css on appBar, using querySelector to select main parts and calculate the heights.
-  state.containerSize.h = state.windowSize.y;
-  if(state.layoutHeader || state.appBar){
-    let box = document.querySelector('.main-layout-header')
-    if(box){
-      let height = box.offsetHeight;
-      state.containerSize.h -= height;
-    }
+export function containerHeightOffset (state) {
+  if (state.layoutHeader || state.appBar) {
+    state.containerHeightOffset = state.headerSize.height;
   }
-  if(state.layoutFooter){
-    let box = document.querySelector('.main-layout-footer')
-    if(box){
-      let height = box.offsetHeight;
-      state.containerSize.h -= height;
-    }
-  }
-  return state.containerSize.h
-
+  // implemented when footer part added to project
+  // when both are active should be considered separately
+  // if (state.layoutFooter) {
+  //   let box = document.querySelector('.main-layout-footer')
+  //   if (box) {
+  //     let height = box.offsetHeight
+  //     state.containerHeightOffset = height
+  //   }
+  // }
+  return state.containerHeightOffset
 }
