@@ -1,5 +1,4 @@
 import { auth, isLandingPage } from './middleware/middleware'
-// import Login from '../pages/Auth/Login.vue'
 import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
@@ -91,10 +90,10 @@ const routes = [
           middlewares: [auth]
         }
       }
-    ]
-    // meta: {
-    //   middlewares: [auth]
-    // }
+    ],
+    meta: {
+      middlewares: [auth]
+    }
   },
   {
     path: '/login',
