@@ -55,24 +55,23 @@ export default {
     windowWidth () {
       return this.windowSize.x
     },
-    containerHeight (){
-      // if container be a fullHeight, then should removeOffset
-      let offset = this.$store.getters['AppLayout/containerHeightOffset']
-      return this.defaultOptions.fullHeight? `calc(${this.windowSize.y}px - ${offset}px)` : null
+    windowHeight(){
+      return this.windowSize.y
     },
+
 
 
   },
   watch: {
     windowWidth () {
       this.loadBackground()
+      this.containerHeight()
+
     },
-    // containerHeight(){
-    //   console.log('here')
-    //   // if(this.defaultOptions.fullHeight){
-    //   //   this.defaultOptions.style.minHeight = this.containerHeight + 'px';
-    //   // }
-    // }
+    windowHeight(){
+      this.containerHeight()
+    }
+
   },
   methods: {
     setBackground () {
@@ -168,7 +167,14 @@ export default {
         default:
           return Math.min()
       }
-    }
+    },
+    containerHeight (){
+      // if container be a fullHeight, then should removeOffset
+      let offset = this.$store.getters['AppLayout/containerHeightOffset']
+      let customStyle = this.defaultOptions.fullHeight? `calc(100vh - ${offset}px)` : null;
+      this.defaultOptions.style.minHeight = customStyle;
+      return customStyle;
+    },
   }
 }
 </script>
@@ -176,7 +182,7 @@ export default {
 <style scoped lang="scss">
 .page-builder-section {
   &.full-height-section {
-    min-height: calc(100vh - 86px);
+    //min-height: calc(100vh - 86px);
   }
   &.vertical-align-center {
     display: flex;
