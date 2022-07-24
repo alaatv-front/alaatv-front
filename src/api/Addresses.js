@@ -370,6 +370,10 @@ const API_ADDRESS = {
   },
   map: {
     items: apiV2Server + '/mapDetail'
+  },
+  cart: {
+    add: apiV2Server + '/orderproduct',
+    review: apiV2Server + '/review'
   }
 }
 export default API_ADDRESS
