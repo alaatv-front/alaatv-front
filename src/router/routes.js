@@ -90,10 +90,10 @@ const routes = [
           middlewares: [auth]
         }
       }
-    ],
-    meta: {
-      middlewares: [auth]
-    }
+    ]
+    // meta: {
+    //   middlewares: [auth]
+    // }
   },
   {
     path: '/login',
