@@ -46,6 +46,11 @@
 <script>
 export default {
   name: 'Bookmark',
+  emits: [
+    'update:value',
+    'onLoad',
+    'onError'
+  ],
   props: {
     value: {
       default: false,
@@ -96,23 +101,27 @@ export default {
     bookmarkWithBaseRoute () {
       const nextStatus = (this.isFavored) ? 'unfavored' : 'favored'
       this.$axios.post(this.baseRoute + '/' + nextStatus)
-        .then(() => {
+        .then((res) => {
           this.isFavored = !this.isFavored
           this.loading = false
+          this.$emit('onLoad', res)
         })
-        .catch(() => {
+        .catch((err) => {
           this.loading = false
+          this.$emit('onError', err)
         })
     },
     bookmarkWithIndividualRoutes () {
       const nextStatus = (this.isFavored) ? 'unfavoredRoute' : 'favoredRoute'
       this.$axios.post(this[nextStatus])
-        .then(() => {
+        .then((res) => {
           this.isFavored = !this.isFavored
           this.loading = false
+          this.$emit('onLoad', res)
         })
-        .catch(() => {
+        .catch((err) => {
           this.loading = false
+          this.$emit('onError', err)
         })
     }
   }
