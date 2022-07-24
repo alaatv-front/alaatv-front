@@ -377,7 +377,7 @@
         </div>
       </a>
     </div>
-    <!--    <div class="content-hover"></div>-->
+    <div class="content-hover"></div>
   </div>
 </template>
 

@@ -1,9 +1,10 @@
 <template>
   <q-expansion-item
-    v-for="(item, index) in finalContent"
+    v-for="(item, index) in contentSearchData"
     :key="index"
     :label="item.title"
     class="q-mb-sm"
+    default-opened
     :header-style="{backgroundColor: 'white' }"
   >
     <q-card
@@ -11,7 +12,8 @@
       :class="{
         'lessons-expanded': item.title === 'درس' && !lessonsExpand,
         'teachers-expanded': item.title === 'دبیران' && !teachersExpand,
-        'animated-expand': true}"
+        'animated-expand': true
+      }"
     >
       <q-separator class="mb-2" />
       <q-card-section>
@@ -36,16 +38,17 @@
                'animated-expand': true}"
         >
           <q-checkbox
-            color="#ff9000"
-            class="col-12 q-mb-sm"
-            dense
             v-for="(option) in item.options"
             :key="option.order"
+            class="col-12 q-mb-sm"
+            :class="{'hidden': (item.title === 'درس' && !doesContain(lessonsSearchField, option.title)) || item.title === 'دبیران' && !doesContain(teachersSearchField, option.title)}"
+            dense
+            :indeterminate-value="false"
             :label="option.title"
             v-model="option.active"
             :input-value="option.value"
             :disable="loading"
-            @change="applyUserSelection(option)"
+            @update:model-value="onFiltersChange(option)"
           />
         </div>
       </q-card-section>
@@ -110,6 +113,10 @@ export default {
         return {}
       }
     },
+    selectedTags: {
+      type: Array,
+      default: () => []
+    },
     mobileMode: {
       type: Boolean,
       default: false
@@ -133,14 +140,15 @@ export default {
       panel: [0, 1, 2, 3, 4],
       selectedFields: [],
       contentSearchData: {},
-      finalContent: {}
+      localFilterData: {}
     }
   },
   created () {
     this.contentSearchData = JSON.parse(JSON.stringify(this.contentFilterData))
-    this.getContentSearchFilteredData()
-    this.emitChanges()
+    this.mergeContentSearchDataActiveKeyWithSelectedFields()
+    this.sortFilterBasedOnSelected()
   },
+  emits: ['update:selectedTags'],
   computed: {
 
   },
@@ -157,70 +165,65 @@ export default {
     },
     applyFilter: {
       handler (newVal) {
+        console.log('applyFilter watch in sid', newVal)
         if (newVal) this.emitChanges()
       }
     }
   },
   methods: {
-    getContentSearchFilteredData () {
-      const Arr = ['allLessons', 'lessonTeacher', 'allMaghta', 'nezam', 'major']
-      Arr.forEach(item => this.sortItems(item))
+    sortFilterBasedOnSelected () {
+      Object.keys(this.contentSearchData).forEach(key => {
+        this.contentSearchData[key].options.sort((first, second) => {
+          if (first.active && !second.active) {
+            return -1
+          }
+          if (!first.active && second.active) {
+            return 1
+          }
+          return 0
+        })
+      })
+    },
+    updateSelectedTags () {
+      const selectedTags = []
+      Object.keys(this.contentSearchData).forEach(key => {
+        this.contentSearchData[key].options.filter(item => item.active).forEach(item => {
+          selectedTags.push(item)
+        })
+      })
+      this.$emit('update:selectedTags', selectedTags)
+    },
+    mergeContentSearchDataActiveKeyWithSelectedFields () {
       this.selectedFields = []
-      Arr.forEach(name => this.saveSelectedFields(name))
-      this.finalContent = JSON.parse(JSON.stringify(this.contentSearchData))
+      Object.keys(this.contentSearchData).forEach(key => {
+        this.selectedTags.forEach(selectedTag => {
+          const index = this.contentSearchData[key].options.findIndex(item => item.value === selectedTag.value)
+          if (index === -1) {
+            return
+          }
+          this.contentSearchData[key].options[index].active = true
+        })
+      })
+    },
+    updateFilterData () {
+      this.sortFilterBasedOnSelected()
+      this.updateSelectedTags()
     },
     emitChanges () {
       this.$emit('filter', this.selectedFields)
     },
-    filterBySearch (source, text) {
-      if (text) {
-        this.resetDataForSearch(source)
-        this.filterData(source, text)
-      } else {
-        this.resetDataForSearch(source)
-      }
+    onFiltersChange () {
+      this.updateFilterData()
+      // if (!this.mobileMode) {
+      //   this.emitChanges()
+      // }
     },
 
-    sortItems (name) {
-      this.contentSearchData[name].options.sort((first, second) => {
-        if (first.active && !second.active) {
-          return -1
-        }
-        if (!first.active && second.active) {
-          return 1
-        }
-        return 0
-      })
-    },
-
-    resetDataForSearch (source) {
-      this.finalContent[source].options = JSON.parse(JSON.stringify(this.contentSearchData[source].options))
-    },
-
-    filterData (source, text) {
-      this.finalContent[source].options = this.finalContent[source].options.filter(item => this.doesContain(text, item.title))
-    },
-
-    applyUserSelection (items) {
-      const Arr = ['allLessons', 'lessonTeacher', 'allMaghta', 'nezam', 'major']
-      Arr.forEach(name => this.changeSelectedItem(items, name))
-      this.getContentSearchFilteredData()
-      if (!this.mobileMode) this.emitChanges()
-    },
-
-    changeSelectedItem (items, name) {
+    changeSelectedItem (filterItem, name) {
       this.contentSearchData[name].options.forEach(item => {
-        if (item.value === items.value) {
-          item.active = items.active
+        if (item.value === filterItem.value) {
+          item.active = filterItem.active
           return true
-        }
-      })
-    },
-
-    saveSelectedFields (name) {
-      this.contentSearchData[name].options.forEach(item => {
-        if (item.active) {
-          this.selectedFields.push(item)
         }
       })
     },
@@ -284,55 +287,10 @@ export default {
 }
 </style>
 <style lang="scss">
-.v-expansion-panel {
-    .v-expansion-panel-content {
-        .v-expansion-panel-content__wrap {
-            @media screen and(max-width:500px) {
-                margin-bottom: 0;
-                padding-bottom: 0;
-            }
-            .search {
-                .v-input__control {
-                    .v-text-field__details {
-                        display: none;
-                        min-height: 0 !important;
-                    }
-                }
-            }
-
-            .test {
-                transition: all ease-in-out 3s;
-                .v-input {
-                    .v-input__control {
-                        .v-messages {
-                            display: none;
-                            min-height: 0 !important;
-                        }
-
-                        .v-input__slot {
-                            .v-text-field__details {
-                                display: none;
-                                min-height: 0 !important;
-                            }
-
-                            cursor: pointer;
-
-                            .v-label {
-                                margin-bottom: 0;
-                                right: 25px !important;
-                                color: black;
-                                font-weight: 400;
-                                @media screen and(max-width:500px) {
-                                    font-size: 12px;
-                                    right: 10px !important;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+.q-chip{
+  .q-icon{
+    font-size: 1.1em;
+    color: inherit;
+  }
 }
-
 </style>

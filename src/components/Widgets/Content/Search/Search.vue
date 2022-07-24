@@ -1,6 +1,7 @@
 <template>
   <div class="content-search-vue"
   >
+    searchLoading : {{searchLoading}}
     <div class="row  main-content content-body">
       <q-resize-observer @resize="onResize" />
       <!--      <div class="mobile-modeeeee">-->
@@ -90,11 +91,11 @@
         <div class="sidebar">
           <div class="sidebar__inner">
             <side-bar-content
+              v-model:selectedTags="selectedTags"
+              @update:selectedTags="onFilterChange"
               :contentFilterData="contentSearchFilterData"
-              @filter="filterData"
               :mobileMode="mobileMode"
               :applyFilter="applyFilter"
-              :key="sideBarKey"
               :loading="searchLoading"
               ref="sideBar"
             />
@@ -116,13 +117,12 @@
                 <q-chip
                   v-for="(field,index) in selectedFields"
                   :key="index"
-                  close
-                  color="#ff8f00"
-                  label
-                  dir="ltr"
                   outlined
-                  @click:close="closeField(field)"
-                  class="ma-2"
+                  removable
+                  outline
+                  color="primary"
+                  @remove="closeField(field)"
+                  class="q-ml-sm"
                 >
                   {{ field.title }}
                 </q-chip>
@@ -155,33 +155,32 @@
                   :key="index"
                   class="set q-mr-sm"
                 >
-                  <div v-if="item.type === 'loading' && setLoading">
-                    <q-spinner-dots color="primary"
-                                    size="40px" />
+                  <div v-if="searchLoading">
+                    <div v-if="item.type === 'loading' && setLoading">
+                      <q-spinner-dots color="primary"
+                                      size="40px" />
+                    </div>
                   </div>
                   <div v-else>
                     <set-item :data="item" />
                   </div>
                 </div>
               </q-virtual-scroll>
-              <div
-                class="scroll-loader"
-                v-if="canSendSetsReq"
-              >
-              </div>
             </div>
             <div class="vertical-scroller searchResult">
               <div class="listType">
-                <q-infinite-scroll @load="chargeProductAndContentList"
+                <q-infinite-scroll ref="contentAndProductList"
+                                   @load="loadNewProductAndContent"
                                    :offset="250">
                   <specifer-type
                     v-for="(item, index) in productAndContentList"
                     :key="index"
                     :info="item"
                   />
-                  <template v-slot:loading>
+                  <template v-if="searchLoading"
+                            v-slot:loading>
                     <div class="row justify-center q-my-md">
-                      <q-spinner-dots color="primary"
+                      <q-spinner-dots color="red"
                                       size="40px" />
                     </div>
                   </template>
@@ -227,7 +226,6 @@ export default {
     sets: new SetList([{ type: 'loading' }]),
     products: new ProductList(),
     contents: new ContentList(),
-    sideBarKey: 0,
     selectedFields: [],
     productAndContentList: [],
     contentSearchFilterData: {},
@@ -236,7 +234,7 @@ export default {
     canSendSetsReq: true,
     searchLoading: false,
     new_url: '',
-    tags_params: [],
+    selectedTags: [],
     q_param: [],
     sizeOfScreen: null,
     mobileMode: false,
@@ -256,37 +254,19 @@ export default {
     this.setInitData()
     this.convertFilterData()
     this.getUrlParams()
-    this.$nextTick(() => {
-      this.getPageData()
-    })
+    this.getPageData()
   },
   mounted () {
     // this.onResize()
     this.setSideBarSticky()
-    this.addEventListenerToSearchBar()
-    console.log('url :', Addresses.content.search)
   },
   methods: {
     setInitData () {
       this.contentSearchApi = Addresses.content.search
       this.backData = FilterData
     },
-    addEventListenerToSearchBar () {
-      const forms = document.getElementsByClassName('m-list-search__form')
-      if (forms && forms.length > 0) {
-        const formsArr = [forms[0], forms[1]]
-        formsArr.forEach(form => {
-          form.addEventListener('submit', (e) => {
-            const inputValue = e.target[0].value
-            e.preventDefault()
-            this.getValueOfSearchInput(inputValue)
-          })
-        })
-      }
-    },
 
     getPageData () {
-      console.log('getPageData :')
       let url = this.contentSearchApi
       if (this.new_url && this.new_url.length > 2) {
         url = url.concat(this.new_url)
@@ -344,7 +324,7 @@ export default {
       if (data.direction === 'decrease') return
       const lastElementIndex = data.ref.items.length - 1
       const currentElementIndex = data.index
-      if (currentElementIndex === lastElementIndex && !this.setLoading) {
+      if (currentElementIndex === lastElementIndex && !this.setLoading && this.canSendSetsReq) {
         // this.loadMoreData()
         this.chargeSet()
         // console.log('load more----------------------------------------------------------------')
@@ -385,6 +365,7 @@ export default {
           this.backData[key]['همه_دروس'].forEach((item, index) => {
             this.contentSearchFilterData[key].options.push(
               {
+                active: false,
                 value: item.value,
                 title: item.firstName,
                 order: index
@@ -395,6 +376,7 @@ export default {
           this.backData[key].forEach((item, index) => {
             this.contentSearchFilterData[key].options.push(
               {
+                active: false,
                 value: item.value,
                 title: item.name,
                 order: index
@@ -405,30 +387,53 @@ export default {
       })
     },
 
+    getNormalizedQueryTags () {
+      let tags = []
+      const routQuery = this.$route.query['tags[]']
+      if (Array.isArray(routQuery)) {
+        tags = routQuery
+      } else if (typeof routQuery === 'string') {
+        tags.push(routQuery)
+      } else {
+        tags = []
+      }
+
+      return tags
+    },
+
     getUrlParams () {
-      let urlParams = window.location.search
-      console.log('urlParams :', urlParams)
-      urlParams = urlParams.slice(1) // delete ? from first of url
-      const arr = urlParams.split('&')
-      const urlParamsArr = []
-      arr.forEach((item, index) => {
-        urlParamsArr[index] = {
-          key: item.split('=')[0],
-          value: item.split('=')[1]
+      // let urlParams = window.location.search
+      // urlParams = urlParams.slice(1) // delete ? from first of url
+      // const arr = urlParams.split('&')
+      // const urlParamsArr = []
+      // arr.forEach((item, index) => {
+      //   urlParamsArr[index] = {
+      //     key: item.split('=')[0],
+      //     value: item.split('=')[1]
+      //   }
+      // })
+      // const tags = []
+      // urlParamsArr.forEach(item => {
+      //   if (item.key === 'tags[]') {
+      //     tags.push(decodeURIComponent(item.value))
+      //   } else if (item.key === 'q') {
+      //     this.q_param[0] = {
+      //       // for search input in main page
+      //       key: 'q',
+      //       value: item.value
+      //     }
+      //   }
+      // })
+
+      this.selectedTags = this.getNormalizedQueryTags().map(item => {
+        return {
+          active: true,
+          value: item,
+          title: item.replace('_', ' '),
+          order: 1
         }
       })
-      const tags = []
-      urlParamsArr.forEach(item => {
-        if (item.key === 'tags[]') {
-          tags.push(decodeURIComponent(item.value))
-        } else if (item.key === 'q') {
-          this.q_param[0] = {
-            key: 'q',
-            value: item.value
-          }
-        }
-      })
-      this.getTags(tags)
+      // this.selectedTags = []
 
       // --------------------------------- for test -------------------------------------------------------------------------------
 
@@ -441,69 +446,35 @@ export default {
       // --------------------------------- for test -------------------------------------------------------------------------------
     },
 
-    filterData (data) {
-      this.searchLoading = true
-      this.selectedFields = []
-      this.tags_params = []
-      if (data) {
-        this.searchLoading = true
-        data.forEach((item, index) => {
-          this.tags_params[index] = {
-            key: 'tags[]',
-            value: encodeURIComponent(item.value)
-          }
-          this.selectedFields.push(item)
-          this.setChangesOnData(item)
-        })
-      }
-      this.pushUrl()
+    onFilterChange (data) {
+      // this.searchLoading = true
+      this.setTagsOnAddressBare()
+      this.updateNewUrl()
       this.resetPageContent()
     },
 
-    getValueOfSearchInput (text) {
-      if (text) {
-        this.q_param[0] = {
-          key: 'q',
-          value: encodeURIComponent(text)
-        }
-      } else {
-        this.q_param = []
+    setTagsOnAddressBare () {
+      const tags = {
+        'tags[]': this.selectedTags.map(item => item.value)
       }
-      this.pushUrl()
-      this.resetPageContent()
+      this.$router.push({ name: 'User.Content.Search', query: tags })
     },
-
-    getTags (tags) {
-      tags.forEach(item => {
-        this.setChangesOnData({ value: item, active: true })
+    updateNewUrl () {
+      const tags = []
+      this.selectedTags.forEach((tag, index) => {
+        tags.push('tags[]=' + encodeURIComponent(tag.value))
       })
-      this.sideBarKey++
+      this.new_url = '?' + tags.join('&')
     },
-
-    handleResize () {
-      this.window.width = window.innerWidth
-      this.mobileMode = this.window.width <= 1024
-    },
-
-    pushUrl () {
-      const finalArray = this.tags_params.concat(this.q_param)
-      const er_url = []
-      const er_request = []
-      let params_url = ''
-      finalArray.forEach((item, index) => {
-        er_url[index] = item.key.concat('=', decodeURIComponent(item.value))
-        er_request[index] = item.key.concat('=', item.value)
-      })
-      params_url = '?' + er_url.join('&')
-      this.new_url = '?' + er_request.join('&')
-      if (params_url === '?') params_url = 'c'
-      window.history.pushState({}, '', params_url)
-    },
-
     resetPageContent () {
+      this.clearPageContent()
+      this.$refs.contentAndProductList.trigger()
+      this.chargeSet()
+    },
+    clearPageContent () {
       this.products = new ProductList()
       this.contents = new ContentList()
-      this.sets = new SetList([{ type: 'loading' }])
+      this.sets = new SetList()
       this.applyFilter = false
       this.canSendVideoReq = true
       this.canSendProductReq = true
@@ -514,23 +485,7 @@ export default {
     closeField (chipData) {
       this.searchLoading = true
       chipData.active = false
-      this.setChangesOnData(chipData)
       this.resetPageContent()
-      this.sideBarKey++
-    },
-
-    setChangesOnData (data) {
-      const Arr = ['allLessons', 'lessonTeacher', 'allMaghta', 'nezam', 'major']
-      Arr.forEach(name => this.applyItemChanges(name, data))
-    },
-
-    applyItemChanges (name, chipData) {
-      this.contentSearchFilterData[name].options.forEach(item => {
-        if (item.value === chipData.value) {
-          item.active = chipData.active
-          return true
-        }
-      })
     },
 
     async chargeSet () {
@@ -550,6 +505,8 @@ export default {
       }
       data.data.forEach(responseItem => {
         this.sets.list.unshift(responseItem)
+        // const lastElementIndex = this.sets.list.length - 1
+        // this.sets.list[lastElementIndex][type] = 'loading'
         this.$nextTick(() => {
           if (window.imageObserver) window.imageObserver.observe()
         })
@@ -563,8 +520,14 @@ export default {
       }
     },
 
+    loadNewProductAndContent (index, done) {
+      // if (!this.searchLoading) {
+      //   return
+      // }
+      this.chargeProductAndContentList(index, done)
+    },
+
     chargeProductAndContentList (index, done) {
-      console.log('chargeProductAndContentList ')
       const promises = []
       if (this.canSendVideoReq) {
         const contentsPromise = this.chargeItems(this.contents, 'contents', 4)
@@ -579,6 +542,7 @@ export default {
         .then((responseDataArray) => {
           this.searchLoading = false
           done()
+          console.log('done')
           responseDataArray.forEach((data) => {
             const responseData = data.response
             let oldList = {}
@@ -653,7 +617,7 @@ export default {
       if (items.paginate && items.paginate.links.next) {
         url = items.paginate.links.next
       }
-      // console.log('url :',url)
+      console.log('getItems url :', url)
       const that = this
       return new Promise(function (resolve, reject) {
         that.$axios.get(url)
@@ -680,28 +644,6 @@ export default {
         data.addItem(responseItem)
       })
       data.paginate = { links: response.links, meta: response.meta }
-    },
-
-    loadMoreData () {
-      this.setLoading = true
-      setTimeout(() => {
-        this.setLoading = false
-        // console.log(this.heavyList)
-        this.heavyList.unshift({}, {}, {}, {}, {}, {}, {})
-      }, 2000)
-    },
-
-    onLoad (index, done) {
-      if (this.items.length > 50) {
-        done(true)
-        return
-      }
-      setTimeout(() => {
-        this.items.push({}, {}, {}, {}, {}, {}, {})
-        this.slider.updateSticky()
-        done()
-        this.slider.updateSticky()
-      }, 100)
     }
 
   }
