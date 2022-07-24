@@ -9,9 +9,31 @@
         <q-item-section
           side
         >
-          <q-item-label caption>
+          <q-item-label
+            caption
+            class="nav-detail"
+          >
+            <div class="nav-group-box">
+              <q-btn
+                class="reorder-btn"
+                rounded
+                icon="isax:sort"
+                @click="reorderContents"
+              >
+                <q-tooltip
+                  anchor="top middle"
+                  self="bottom middle"
+                  :offset="[10, 10]"
+                >
+                  تغییر ترتیب نمایش ویدیو ها
+                </q-tooltip>
+              </q-btn>
+              <bookmark
+                v-model:value="set.favored"
+                :base-route="getSetBookmarkBaseRoute(set.id)"
+              />
+            </div>
             <span>فیلم ها : {{ rawContentVideos.length }}</span>
-            |
             <span>جزوه ها : {{ contentPamphlets.length }}</span>
           </q-item-label>
         </q-item-section>
@@ -53,7 +75,10 @@
         animated
         swipeable
       >
-        <q-tab-panel name="videos">
+        <q-tab-panel
+          name="videos"
+          class="videosPanel"
+        >
           <q-virtual-scroll
             v-if="set.contents.list"
             style="max-height: 680px;"
@@ -61,14 +86,14 @@
             separator
             v-slot="{ item, index }"
           >
-            <q-item
-              class="row wrap"
-            >
+            <q-item class="videosPanelItems">
               <q-item-section
                 top
-                class="col-12 col-md-2"
+                class="col-12 col-md-2 items-md-center content-poster"
               >
-                <q-btn>
+                <q-btn
+                  @click="goToChosenContent(item.id)"
+                >
                   <q-tooltip
                     anchor="top middle"
                     self="bottom middle"
@@ -83,14 +108,11 @@
                 </q-btn>
               </q-item-section>
 
-              <q-item-section
-                top
-                class="col-auto"
-              >
+              <q-item-section top>
                 <q-item-label>
                   <span class="text-weight-medium">
                     <q-item-label class="q-mt-sm">
-                      {{getContentTitle(item.title, index)}}
+                      {{getContentTitle(item.title, item.index)}}
                     </q-item-label>
                   </span>
                   <div>
@@ -109,7 +131,7 @@
                 >
                   <span> {{ ' ' + item.title}}  </span>
                   <span> {{ ' ' + set.title  }}  </span>
-                  <span> فیلم جلسه {{ index }} - </span>
+                  <span> فیلم جلسه {{ item.index }} - </span>
                   <span> {{ item.title }} </span>
                 </q-item-label>
               </q-item-section>
@@ -117,7 +139,6 @@
               <q-item-section
                 top
                 side
-                class="col-auto"
               >
                 <div class="text-grey-8 q-gutter-xs">
                   <q-btn
@@ -126,6 +147,7 @@
                     icon="isax:eye"
                     icon-right="isax:play"
                     label="/"
+                    @click="goToChosenContent(item.id)"
                   >
                     <q-tooltip
                       anchor="top middle"
@@ -205,6 +227,7 @@
                     class="document-btn"
                     rounded
                     icon="isax:document-upload"
+                    @click="openInNewTab(item.url.web)"
                   >
                     <q-tooltip
                       anchor="top middle"
@@ -231,9 +254,11 @@ import API_ADDRESS from 'src/api/Addresses'
 import { mixinWidget } from 'src/mixin/Mixins'
 import { Set } from 'src/models/Set'
 import { ContentList } from 'src/models/Content'
+import Bookmark from 'components/Bookmark'
 
 export default {
   name: 'SetShowInfo',
+  components: { Bookmark },
   mixins: [mixinWidget],
   props: {
     data: {
@@ -276,7 +301,8 @@ export default {
             ]
           }
         }
-      ]
+      ],
+      ordered: true
     }
   },
   computed: {
@@ -305,32 +331,52 @@ export default {
     this.loadSet()
   },
   methods: {
-    onContentLoad (index, done) {
-      setTimeout(() => {
-        this.contentVideos.push(...this.allGroupsOfContents[index])
-        console.log('this.contentVideos.length', this.contentVideos.length)
-        // done()
-      }, 2000)
+    getContentBookmarkBaseRoute (id) {
+      return API_ADDRESS.content.show(id)
+    },
+    getSetBookmarkBaseRoute (id) {
+      return API_ADDRESS.set.show(id)
+    },
+    goToChosenContent (contentId) {
+      console.log('contentId', contentId)
+      this.$router.push({ name: 'User.Content.Show', params: contentId })
+    },
+    reorderContents () {
+      this.ordered = !this.ordered
+      if (!this.ordered) {
+        this.rawContentVideos.sort((a, b) => (a.index > b.index) ? -1 : 1)
+        return
+      }
+      this.rawContentVideos.sort((a, b) => (a.index > b.index) ? 1 : -1)
+    },
+    openInNewTab (url) {
+      window.open(url, '_blank').focus()
+    },
+    indexContentTypeVideos () {
+      this.rawContentVideos.forEach((content, index) => {
+        content.index = index
+      })
     },
     filterResponse (contents) {
-      contents.forEach(content => {
-        const type = content.type.toString()
-        if (type === '1') {
-          this.contentPamphlets.push(content)
-        } else if (type === '8') {
-          this.rawContentVideos.push(content)
-        }
+      return new Promise((resolve, reject) => {
+        contents.forEach(content => {
+          const type = content.type.toString()
+          if (type === '1') {
+            this.contentPamphlets.push(content)
+          } else if (type === '8') {
+            this.rawContentVideos.push(content)
+          }
+        })
+        resolve()
       })
     },
     setGroupsOfContents () {
       const groupsCount = Math.ceil(this.rawContentVideos.length / 5)
-      console.log('this.rawContentVideos', this.rawContentVideos)
       for (let i = 0; i < groupsCount; i++) {
         const start = (5 * i)
         const end = (5 * i) + 5
         this.allGroupsOfContents.push(this.rawContentVideos.slice(start, end))
       }
-      console.log('this.allGroupsOfContents', this.allGroupsOfContents)
     },
     initFirstGroupOfContents () {
       this.contentVideos = this.rawContentVideos.slice(0, 5)
@@ -356,7 +402,9 @@ export default {
       promise
         .then(response => {
           this.set = new Set(response.data.data)
-          this.filterResponse(this.set.contents.list)
+          this.filterResponse(this.set.contents.list).then(res => {
+            this.indexContentTypeVideos()
+          })
           this.setGroupsOfContents()
           this.initFirstGroupOfContents()
           this.tab = 'videos'
@@ -382,6 +430,8 @@ export default {
       background-color: #5867dd;
       border-color: #5867dd;
       border-radius: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
   }
   .document-btn {
       color: #fff;
@@ -389,10 +439,48 @@ export default {
       border-color: #5867dd;
       padding: 5px;
   }
+  .reorder-btn {
+    color: #fff;
+    background-color: #5867dd;
+    border-color: #5867dd;
+    padding: 5px;
+    margin: 5px;
+  }
   .filter-tab{
     font-size: 18px;
     .tab-title {
       margin-left: 5px;
+    }
+  }
+  .videosPanel {
+    .videosPanelItems {
+      flex-wrap: wrap !important;
+      .content-poster {
+        align-items: center;
+      }
+    }
+  }
+  .nav-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .nav-group-box {
+
+    }
+  }
+}
+@media screen and (max-width: 1022px) {
+  .set {
+    .videosPanel {
+      .videosPanelItems {
+        .content-poster {
+          margin-bottom: 10px;
+          align-items: start;
+          img {
+            width: 250px;
+          }
+        }
+      }
     }
   }
 }
@@ -418,5 +506,6 @@ export default {
       padding-right: 0px;
     }
   }
+
 }
 </style>
