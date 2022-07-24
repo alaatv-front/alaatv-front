@@ -26,6 +26,8 @@ export default {
     productDemos: defineAsyncComponent(() => import('components/Widgets/Product/productDemos')),
     productReview: defineAsyncComponent(() => import('components/Widgets/Product/productReview')),
     productIntroduction: defineAsyncComponent(() => import('components/Widgets/Product/productIntroduction')),
+    SetShowInfo: defineAsyncComponent(() => import('components/Widgets/Set/Show.vue')),
+    Banner: defineAsyncComponent(() => import('components/Widgets/Banner.vue'))
     blockList: defineAsyncComponent(() => import('components/Widgets/BlockList/BlockList')),
     services: defineAsyncComponent(() => import('components/Widgets/Services/Services'))
   },
