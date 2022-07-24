@@ -44,7 +44,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'SetShowInfo',
+                        name: 'SetShow',
                         data: this.$route.params.id,
                         options: {
                           getData: (url) => GetWidgetsData.getData(this.$axios, url)
