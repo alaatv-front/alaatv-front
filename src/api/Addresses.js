@@ -133,19 +133,11 @@ const API_ADDRESS = {
       base: apiV2Server + '/admin/user/'
     }
   },
-  sets: {
-    create: {
-      base: apiV2Server + '/admin/user'
+  set: {
+    admin: {
+      base: apiV2Server + '/set/'
     },
-    edit: {
-      base: apiV2Server + '/admin/user/'
-    },
-    index: {
-      base: apiV2Server + '/admin/user'
-    },
-    show: {
-      base: apiV2Server + '/admin/user/'
-    }
+    show: (id) => apiV2Server + '/set/' + id
   },
   sourceManagement: {
     create: {

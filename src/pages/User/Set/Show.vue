@@ -1,16 +1,18 @@
 <template>
-<div class="home-page">
-  <page-builder :sections="sections" :options="pageConfig"/>
-</div>
+  <div class="set-show-page">
+    <page-builder
+      :sections="sections"
+      :options="pageConfig"
+    />
+  </div>
 </template>
 
 <script>
 import PageBuilder from 'components/PageBuilder/PageBuilder'
-import API_ADDRESS from 'src/api/Addresses'
-import GetWidgetsData from 'assets/js/GetWidgetsData'
+import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
 export default {
-  name: 'BaseComponent',
+  name: 'User.Set.Show',
   components: { PageBuilder },
   data () {
     return {
@@ -28,8 +30,22 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'blockList',
-                        data: API_ADDRESS.pages.home,
+                        name: 'Banner',
+                        data: this.$route.params.id,
+                        options: {
+                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                        }
+                      }
+                    ],
+                    options: {
+                      col: 'col-3'
+                    }
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'SetShowInfo',
+                        data: this.$route.params.id,
                         options: {
                           getData: (url) => GetWidgetsData.getData(this.$axios, url)
                         }
@@ -42,25 +58,14 @@ export default {
                 }
               }
             ]
-          },
-          options: {
-            fullHeight: true,
-            verticalAlign: 'center'
           }
         }
-      ],
+      ]
     }
-  },
-  methods: {}
+  }
 }
 </script>
 
-<style lang="scss" scoped>
-.home-page {
-  &:deep(.banner-header-0) {
-    display: none;
-  }
-
-}
+<style scoped>
 
 </style>
