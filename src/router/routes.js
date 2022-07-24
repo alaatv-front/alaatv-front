@@ -13,8 +13,18 @@ const routes = [
       },
       {
         path: 'ticket',
-        name: 'User.ticket',
-        component: () => import('pages/Admin/Ticket/Show.vue')
+        name: 'Admin.Ticket.Index',
+        component: () => import('pages/Admin/Ticket/Index.vue')
+      },
+      {
+        path: 'ticket/:id',
+        name: 'Admin.Ticket.Edit',
+        component: () => import('pages/Admin/Ticket/Edit.vue')
+      },
+      {
+        path: 'ticket/Create',
+        name: 'Admin.Ticket.Create',
+        component: () => import('pages/Admin/Ticket/Create.vue')
       },
       {
         path: 'map',

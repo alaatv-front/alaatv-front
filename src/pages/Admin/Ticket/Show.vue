@@ -1,63 +1,75 @@
 <template>
-  <entity-show
+  <entity-edit
     v-model:value="inputs"
-    title="لیست تیکت ها"
+    title="ویرایش محصول"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
-    :edit-route-name="editRouteName"
-    :index-route-name="indexRouteName"
+    :show-route-name="showRouteName"
   />
 </template>
 
 <script>
-import { EntityShow } from 'quasar-crud'
+import { EntityEdit } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-
 export default {
-  name: 'Show',
-  components: { EntityShow },
+  name: 'Edit',
+  components: { EntityEdit },
   data () {
     return {
       expanded: true,
-      api: API_ADDRESS.ticket.show.base,
+      api: API_ADDRESS.ticket.edit.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
-      editRouteName: 'Admin.Ticket.Edit',
-      indexRouteName: 'Admin.Ticket.Index',
+      showRouteName: 'Admin.Ticket.Show',
       inputs: [
-        { type: 'avatar', name: 'photo', responseKey: 'data.photo', value: null, size: '250px', col: 'col-md-12' },
-        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3' },
-        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه محصول پرنت', col: 'col-md-3' },
-        { type: 'input', name: 'title', responseKey: 'data.title', value: 'null', label: 'نام کالا', col: 'col-md-3' },
-        { type: 'input', name: 'redirect_url', responseKey: 'data.redirect_url', value: 'null', label: 'آدرس ریدایرکت', col: 'col-md-3' },
-        { type: 'select', name: 'redirect_code', responseKey: 'data.product_type.display_name', value: null, options: [{ label: '301 (دائمی)', value: 301 }, { label: '302 (موقتی)', value: 302 }], label: 'کد ریدایرکت', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'ترتیب', col: 'col-md-3' },
-        { type: 'input', name: 'intro_video', responseKey: 'data.intro.video', value: 'null', label: 'لینک فیلم معرفی', col: 'col-md-3' },
-        { type: 'input', name: 'intro_photo', responseKey: 'data.intro.photo', value: 'null', label: 'تامبنیل کلیپ', col: 'col-md-3' },
-        { type: 'input', name: 'base_price', responseKey: 'data.base_price', value: 'null', label: 'قیمت پایه', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'is_free', options: [{ label: 'رایگان باشد', value: 1 }, { label: 'رایگان نباشد', value: 0 }], responseKey: 'data.is_free', value: null, label: '', col: 'col-md-3' },
-        { type: 'input', name: 'discount', responseKey: 'data.discount', value: 'null', label: 'تخفیف (%)', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'amountLimit', options: [{ label: 'نامحدود', value: 0 }, { label: 'محدود', value: 1 }], responseKey: '', value: 'null', label: 'محدودیت موجودی', col: 'col-md-3' },
-        { type: 'input', name: 'amount', responseKey: 'data.amount', value: 'null', label: 'تعداد موجود', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'enable', options: [{ label: 'غیرفعال', value: 0 }, { label: 'فعال', value: 1 }], responseKey: 'data.enable', value: 'null', label: 'وضعیت', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'discount', options: [{ label: 'عدم نمایش', value: 0 }, { label: 'نمایش', value: 1 }], responseKey: 'data.discount', value: 'null', label: 'نمایش', col: 'col-md-3' },
-        { type: 'select', name: 'attribute_set', options: [{ label: 'اردو', value: 1 }, { label: 'همایش', value: 2 }, { label: 'فیلم استودیو', value: 3 }, { label: 'جزوه درس', value: 4 }, { label: 'کتاب', value: 5 }, { label: 'پیش فرض', value: 6 }, { label: 'محصول اشتراک', value: 7 }, { label: 'آزمون', value: 8 }], responseKey: 'data.attribute_set.id', value: 'null', label: 'دسته صفت', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-        { type: 'input', name: 'short_description', responseKey: 'data.description.short', value: 'null', label: 'توضیحات مختصر', col: 'col-md-3' },
-        { type: 'input', name: 'long_description', responseKey: 'data.description.long', value: 'null', label: 'توضیحات اجمالی', col: 'col-md-3' },
-        { type: 'input', name: 'special_description', responseKey: 'data.description.special', value: 'null', label: 'توضیحات خاص', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-
-        { type: 'input', name: 'redirect_url', responseKey: 'data.redirect_url', value: 'null', label: 'نام', col: 'col-md-3' },
-        { type: 'select', name: 'product_type', responseKey: 'data.product_type.display_name', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل انتخاب', value: 2 }, { label: 'قابل پیکربندی', value: 3 }], label: 'نوع محصول', col: 'col-md-3' },
-
-        { type: 'input', name: 'price', responseKey: 'data.price.base', value: 'null', label: 'قیمت', col: 'col-md-3' }
+        { type: 'file', name: 'photo', responseKey: 'data.photo', size: '250px', col: 'col-md-3' },
+        { type: 'space', col: 'col-md-12' },
+        { type: 'input', name: 'id', responseKey: 'data.id', label: 'شناسه', col: 'col-md-3' },
+        { type: 'input', name: 'id', responseKey: 'data.id', label: 'شناسه محصول پرنت', col: 'col-md-3' },
+        { type: 'input', name: 'title', responseKey: 'data.title', label: 'نام کالا', col: 'col-md-3' },
+        { type: 'input', name: 'redirect_url', responseKey: 'data.redirect_url', label: 'آدرس ریدایرکت', col: 'col-md-3' },
+        { type: 'select', name: 'redirect_code', responseKey: 'data.product_type.display_name', options: [{ label: '301 (دائمی)', value: 301 }, { label: '302 (موقتی)', value: 302 }], label: 'کد ریدایرکت', col: 'col-md-3' },
+        { type: 'input', name: 'order', responseKey: 'data.order', label: 'ترتیب', col: 'col-md-3' },
+        { type: 'input', name: 'intro_video', responseKey: 'data.intro.video', label: 'لینک فیلم معرفی', col: 'col-md-3' },
+        { type: 'input', name: 'intro_photo', responseKey: 'data.intro.photo', label: 'تامبنیل کلیپ', col: 'col-md-3' },
+        { type: 'input', name: 'base_price', responseKey: 'data.base_price', label: 'قیمت پایه', col: 'col-md-3' },
+        { type: 'optionGroupRadio', name: 'is_free', options: [{ label: 'رایگان باشد', value: 1 }, { label: 'رایگان نباشد', value: 0 }], responseKey: 'data.is_free', label: '', col: 'col-md-3' },
+        { type: 'input', name: 'discount', responseKey: 'data.discount', label: 'تخفیف (%)', col: 'col-md-3' },
+        { type: 'optionGroupRadio', name: 'amountLimit', options: [{ label: 'نامحدود', value: 0 }, { label: 'محدود', value: 1 }], responseKey: '', label: 'محدودیت موجودی', col: 'col-md-3' },
+        { type: 'input', name: 'amount', responseKey: 'data.amount', label: 'تعداد موجود', col: 'col-md-3' },
+        { type: 'optionGroupRadio', name: 'enable', options: [{ label: 'غیرفعال', value: 0 }, { label: 'فعال', value: 1 }], responseKey: 'data.enable', label: 'وضعیت', col: 'col-md-3' },
+        { type: 'optionGroupRadio', name: 'display', options: [{ label: 'عدم نمایش', value: 0 }, { label: 'نمایش', value: 1 }], responseKey: 'data.display', label: 'نمایش', col: 'col-md-3' },
+        { type: 'select', name: 'attribute_set', options: [{ label: 'اردو', value: 1 }, { label: 'همایش', value: 2 }, { label: 'فیلم استودیو', value: 3 }, { label: 'جزوه درس', value: 4 }, { label: 'کتاب', value: 5 }, { label: 'پیش فرض', value: 6 }, { label: 'محصول اشتراک', value: 7 }, { label: 'آزمون', value: 8 }], responseKey: 'data.attribute_set.id', label: 'نوع محتوا', col: 'col-md-3' },
+        // null response key ------------------------------------------------------------------------------
+        { type: 'select', name: 'attribute_set', options: [{ label: 'اردو', value: 1 }, { label: 'همایش', value: 2 }, { label: 'فیلم استودیو', value: 3 }, { label: 'جزوه درس', value: 4 }, { label: 'کتاب', value: 5 }, { label: 'پیش فرض', value: 6 }, { label: 'محصول اشتراک', value: 7 }, { label: 'آزمون', value: 8 }], responseKey: 'data.attribute_set.id', label: 'سکشن محتوا', col: 'col-md-3' },
+        // ------------------------------------------------------------------------------------------------
+        { type: 'input', name: 'order', responseKey: 'data.order', label: 'اسلوگان', col: 'col-md-3' },
+        { type: 'input', name: 'updated_at', responseKey: 'data.updated_at', label: 'نمایان شدن برای کاربران', col: 'col-md-3' },
+        { type: 'input', name: 'created_at', responseKey: 'data.created_at', label: 'تاریخ درج', col: 'col-md-3' },
+        // null response key ------------------------------------------------------------------------------
+        { type: 'input', name: 'order', responseKey: 'data.order', label: 'آیدی دبیر', col: 'col-md-3' },
+        // ------------------------------------------------------------------------------------------------
+        { type: 'input', name: 'order', responseKey: 'data.attributes.info.teacher', label: 'نام دبیر', col: 'col-md-3' },
+        // null response key ------------------------------------------------------------------------------
+        { type: 'optionGroupCheckbox', multiple: true, options: [{ label: 'درج کیفیت hq', value: 0 }, { label: 'درج کیفیت HD', value: 1 }, { label: 'درج کیفیت 240p', value: 2 }], name: 'enable', value: [1], label: 'کیفیت محتوا', col: 'col-md-6' },
+        // ------------------------------------------------------------------------------------------------
+        { type: 'input-editor', name: 'short_description', responseKey: 'data.description.short', label: 'توضیحات مختصر', col: 'col-md-12' },
+        { type: 'input-editor', name: 'long_description', responseKey: 'data.description.long', label: 'توضیحات اجمالی', col: 'col-md-12' },
+        { type: 'input-editor', name: 'special_description', responseKey: 'data.description.special', label: 'توضیحات خاص', col: 'col-md-12' },
+        { type: 'select', name: 'tags', options: [], responseKey: 'data.tags', multiple: true, useChips: true, createNewValue: true, label: 'تگ ها', col: 'col-md-3' },
+        { type: 'select', name: 'sample_contents', options: [], responseKey: 'data.sample_contents.tags', multiple: true, useChips: true, createNewValue: true, label: 'کانتنت های معرفی کننده محصول', col: 'col-md-3' },
+        { type: 'select', name: 'recommender_contents', options: [], responseKey: 'data.recommender_contents.recommenders.contents', multiple: true, useChips: true, createNewValue: true, label: 'کانتنت های پیشنهاد دهنده محصول', col: 'col-md-3' },
+        { type: 'select', name: 'recommender_sets', options: [], responseKey: 'data.recommender_contents.recommenders.sets', multiple: true, useChips: true, createNewValue: true, label: 'ست های دارای کانتنتهای پیشنهاد دهنده محصول', col: 'col-md-3' },
+        // null response key ------------------------------------------------------------------------------
+        { type: 'input', name: 'order', responseKey: '', label: 'ابر عنوان', col: 'col-md-6' },
+        { type: 'input', name: 'order', responseKey: '', label: 'ابر توضیح', col: 'col-md-6' }
+        // ------------------------------------------------------------------------------------------------
       ]
     }
   },
   created () {
+    this.api += '/' + this.$route.params.id
   }
 }
 </script>
