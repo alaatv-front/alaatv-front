@@ -29,7 +29,7 @@
                 </q-tooltip>
               </q-btn>
               <bookmark
-                v-model:value="set.favored"
+                v-model:value="set.is_favored"
                 :base-route="getSetBookmarkBaseRoute(set.id)"
               />
             </div>
@@ -141,6 +141,10 @@
                 side
               >
                 <div class="text-grey-8 q-gutter-xs">
+                  <bookmark
+                    v-model:value="item.is_favored"
+                    :base-route="getContentBookmarkBaseRoute(item.id)"
+                  />
                   <q-btn
                     class="watch-btn"
                     rounded

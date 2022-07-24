@@ -36,7 +36,7 @@ class Set extends Model {
       },
       { key: 'tags' },
       {
-        key: 'favored',
+        key: 'is_favored',
         default: false
       },
       { key: 'created_at' },
