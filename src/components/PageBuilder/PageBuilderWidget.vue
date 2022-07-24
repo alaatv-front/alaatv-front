@@ -23,22 +23,24 @@ let componentsData = requireContext.keys().map((file) => {
   // removing vue from the name of component.
   crush[crush.length - 1] = crush[crush.length - 1].replace(/(^.\/)|(\.vue$)/g, '')
   return { name: crush[crush.length - 1], path, depth: crush.length -1 , lastFolderName: crush[crush.length-2]}
-})
-
-let components = {}
-componentsData.forEach((component) => {
+}).filter(c => {
   // due to standard of making widgets, only files with same name to folder will rendered.
   // others assume to dependencies which main file will handle.
-  if(component.name == component.lastFolderName){
+  if(c.name == c.lastFolderName){
+    return c
+  }
+})
+
+// generating define async imports
+let components = {}
+componentsData.forEach((component) => {
     components[component.name] = defineAsyncComponent(() => {
         return import('components/Widgets' + component.path + component.name + '.vue')
       }
     )
-  }
 })
 
 components.PageBuilderSection = defineAsyncComponent(() => import('./PageBuilderSection.vue'))
-console.log(components)
 export default {
   name: 'PageBuilderWidget',
   components,
