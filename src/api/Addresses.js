@@ -373,7 +373,7 @@ const API_ADDRESS = {
   },
   cart: {
     add: apiV2Server + '/orderproduct',
-    review: apiV2Server + '/review'
+    review: apiV2Server + '/checkout/review'
   }
 }
 export default API_ADDRESS
