@@ -343,7 +343,7 @@ export default {
     },
     goToChosenContent (contentId) {
       console.log('contentId', contentId)
-      this.$router.push({ name: 'User.Content.Show', params: contentId })
+      this.$router.push({ name: 'User.Content.Show', params: { contentId } })
     },
     reorderContents () {
       this.ordered = !this.ordered
