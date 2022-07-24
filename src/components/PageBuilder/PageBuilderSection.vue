@@ -58,18 +58,15 @@ export default {
     windowHeight(){
       return this.windowSize.y
     },
-
-
-
   },
   watch: {
     windowWidth () {
       this.loadBackground()
-      this.containerHeight()
+      this.calculateContainerHeight()
 
     },
     windowHeight(){
-      this.containerHeight()
+      this.calculateContainerHeight()
     }
 
   },
@@ -168,7 +165,7 @@ export default {
           return Math.min()
       }
     },
-    containerHeight (){
+    calculateContainerHeight (){
       // if container be a fullHeight, then should removeOffset
       let offset = this.$store.getters['AppLayout/containerHeightOffset']
       let customStyle = this.defaultOptions.fullHeight? `calc(100vh - ${offset}px)` : null;
