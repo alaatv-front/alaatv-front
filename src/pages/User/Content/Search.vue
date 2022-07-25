@@ -1,5 +1,7 @@
 <template>
-  <page-builder :sections="sections" />
+  <page-builder
+    :sections="sections"
+    :containerHeight="calculateHeightStyle" />
 </template>
 
 <script>
@@ -18,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'contentSearch',
+                        name: 'ContentSearch',
                         data: this.$route.params.id
                       }
                     ]
@@ -33,10 +35,11 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    calculateHeightStyle () {
+      return this.$store.getters['AppLayout/calculateContainerFullHeight']
+    }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
