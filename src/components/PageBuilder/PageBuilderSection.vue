@@ -49,7 +49,6 @@ export default {
   created () {
     this.setBackground()
     this.setFullHeight()
-
   },
   computed: {
     windowSize () {
@@ -66,7 +65,6 @@ export default {
     windowWidth () {
       this.loadBackground()
       this.setFullHeight()
-
     },
     windowHeight(){
       this.setFullHeight()

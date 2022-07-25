@@ -39,18 +39,13 @@ export function headerSize (state) {
   return state.headerSize
 }
 
-export function containerHeightOffset (state) {
+export function calculateContainerFullHeight (state) {
+  let offset=0;
+  // if there is a header
   if (state.layoutHeader || state.appBar) {
-    state.containerHeightOffset = state.headerSize.height;
+    offset = state.headerSize.height;
   }
   // implemented when footer part added to project
-  // when both are active should be considered separately
-  // if (state.layoutFooter) {
-  //   let box = document.querySelector('.main-layout-footer')
-  //   if (box) {
-  //     let height = box.offsetHeight
-  //     state.containerHeightOffset = height
-  //   }
-  // }
-  return state.containerHeightOffset
+  let calculatedHeight = `calc(100vh - ${offset}px)`;
+  return calculatedHeight
 }
