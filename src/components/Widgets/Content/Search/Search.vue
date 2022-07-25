@@ -1,7 +1,6 @@
 <template>
   <div class="content-search-vue">
     <!--    searchLoading : {{ searchLoading }}-->
-    mobileMode : {{ mobileMode }}
     <div class="row  main-content content-body">
       <div
         v-if="mobileMode"
@@ -15,68 +14,12 @@
             icon-right="mdi-feature-search-outline"
             @click="advanceSearchModal = true"
           />
-          <div v-if="false"
-               class="side-bar-mobile-mode"
-          >
-            <div
-              class="modal-dialog"
-              role="document"
-            >
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h2
-                    class="modal-title"
-                    id="exampleModalLongTitle">
-                    جستوجوی پیشرفته
-                  </h2>
-                  <div class="btn-box">
-                    <q-btn
-                      class="filter-btn"
-                      data-dismiss="modal"
-                      @click="applyFilter=true">
-                      اعمال فیلتر
-                    </q-btn>
-                    <q-btn
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close" />
-                  </div>
-                </div>
-                <div class="modal-body">
-                  <side-bar-content
-                    v-model:selectedTags="selectedTags"
-                    @update:selectedTags="onFilterChange"
-                    :contentFilterData="contentSearchFilterData"
-                    :mobileMode="mobileMode"
-                    :applyFilter="applyFilter"
-                    :loading="searchLoading"
-                    ref="sideBar"
-                  />
-                </div>
-                <div class="modal-footer">
-                  <q-btn
-                    color="red"
-                    text
-                    class="close-btn"
-                    data-dismiss="modal">بستن
-                  </q-btn>
-                  <q-btn
-                    color="primary"
-                    class="filter-btn"
-                    data-dismiss="modal"
-                    @click="applyFilter=true">
-                    اعمال فیلتر
-                  </q-btn>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <q-dialog
           persistent
           v-model="advanceSearchModal"
         >
-          <q-card>
+          <q-card class="modal-container">
             <div class="modal-content">
               <q-card-section class="row justify-between">
                 <div
@@ -503,6 +446,7 @@ export default {
     removeTags (tag) {
       this.searchLoading = true
       this.updateSelectedTags(tag)
+      this.setTagsOnAddressBare()
       this.updateNewUrl()
       this.resetPageContent()
     },
@@ -684,6 +628,9 @@ export default {
     @media only screen and (max-width: 1024px){
       font-size: 16px;
     }
+  }
+  .modal-container{
+    border-radius: 15px;
   }
   .tag-container{
     max-width: 90%;

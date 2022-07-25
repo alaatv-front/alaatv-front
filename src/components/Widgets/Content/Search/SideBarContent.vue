@@ -62,17 +62,17 @@
           @click="lessonsExpand = !lessonsExpand"
         >
           <div v-if="!lessonsExpand">
+            نمایش بیشتر...
             <q-icon color="#fff"
                     size="16"
                     name="mdi-plus"
             />
-            نمایش بیشتر...
           </div>
           <div v-if="lessonsExpand">
+            نمایش کمتر...
             <q-icon color="#fff"
                     size="16"
                     name="mdi-minus" />
-            نمایش کمتر...
           </div>
         </q-btn>
         <q-btn
@@ -84,18 +84,18 @@
           @click="teachersExpand = !teachersExpand"
         >
           <div v-if="!teachersExpand">
+            نمایش بیشتر...
             <q-icon color="#fff"
                     size="16"
                     name="mdi-plus"
             />
-            نمایش بیشتر...
           </div>
           <div v-if="teachersExpand">
+            نمایش کمتر...
             <q-icon color="#fff"
                     size="16"
                     name="mdi-minus"
             />
-            نمایش کمتر...
           </div>
         </q-btn>
       </q-card-actions>
@@ -104,8 +104,6 @@
 </template>
 
 <script>
-
-import Login from 'pages/Auth/Login'
 
 export default {
   directives: {},
@@ -142,6 +140,7 @@ export default {
       teachersSearchField: '',
       lessonsSearchField: '',
       selectedFields: [],
+      localSelectedTags: [],
       contentSearchData: {},
       localFilterData: {}
     }
@@ -158,8 +157,10 @@ export default {
   watch: {
     applyFilter: {
       handler (newVal) {
-        console.log('applyFilter watch in sid', newVal)
-        if (newVal) this.emitChanges()
+        console.log('applyFilter watch in sid', newVal, this.localSelectedTags)
+        if (newVal) {
+          this.$emit('update:selectedTags', this.localSelectedTags)
+        }
       }
     },
     selectedTags: {
@@ -198,16 +199,16 @@ export default {
       })
     },
     updateSelectedTags () {
-      const selectedTags = []
+      this.localSelectedTags = []
       Object.keys(this.contentSearchData).forEach(key => {
         this.contentSearchData[key].options.filter(item => item.active).forEach(item => {
-          selectedTags.push(item)
+          this.localSelectedTags.push(item)
         })
       })
       if (!this.mobileMode) {
-        this.$emit('update:selectedTags', selectedTags)
+        this.$emit('update:selectedTags', this.localSelectedTags)
       } else if (this.applyFilter) {
-        this.$emit('update:selectedTags', selectedTags)
+        this.$emit('update:selectedTags', this.localSelectedTags)
       }
     },
     mergeContentSearchDataActiveKeyWithSelectedFields () {
