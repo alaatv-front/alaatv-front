@@ -1,10 +1,12 @@
 <template>
-  <component
-    :is="widget.name"
-    :data="widget.data"
-    :options="widget.options"
-  />
-
+  <div>
+    <component
+      :is="widget.name"
+      :data="widget.data"
+      :options="widget.options"
+      :containerFullHeight="containerFullHeight"
+    />
+  </div>
 </template>
 
 <script>
@@ -52,7 +54,8 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    containerFullHeight:{}
   },
   mixins: [mixinWidget],
   created () {},

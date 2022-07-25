@@ -1,5 +1,5 @@
 <template>
-  <page-builder :sections="sections" :options="pageConfig"></page-builder>
+  <page-builder :sections="sections" :options="pageConfig" :containerHeight="calculateHeightStyle"></page-builder>
 </template>
 
 <script>
@@ -223,7 +223,8 @@ export default {
         },
       ],
       testValue: '',
-      testValue1: ''
+      testValue1: '',
+      size: {}
     }
    },
   props: {
@@ -234,8 +235,14 @@ export default {
       }
     }
   },
-  methods: {},
-  computed: {},
+  methods: {
+
+  },
+  computed: {
+    calculateHeightStyle(){
+      return this.$store.getters['AppLayout/calculateContainerFullHeight'];
+    }
+  },
   beforeRouteEnter() {
     // console.log('debug beforeRouteEnter')
   },
