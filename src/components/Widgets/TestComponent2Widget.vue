@@ -6,7 +6,12 @@
 
 <script>
 export default {
-  name: 'Test-component-2widget'
+  name: 'Test-component-2widget',
+  props: {
+    size: {
+      type: Object
+    }
+  }
 }
 </script>
 
