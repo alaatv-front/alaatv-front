@@ -48,7 +48,7 @@
             v-model="option.active"
             :input-value="option.value"
             :disable="loading"
-            @update:model-value="onFiltersChange(option)"
+            @update:model-value="onFiltersChange()"
           />
         </div>
       </q-card-section>
@@ -103,6 +103,8 @@
 
 <script>
 
+import Login from 'pages/Auth/Login'
+
 export default {
   directives: {},
   name: 'SideBar',
@@ -137,7 +139,6 @@ export default {
       teachersExpand: false,
       teachersSearchField: '',
       lessonsSearchField: '',
-      panel: [0, 1, 2, 3, 4],
       selectedFields: [],
       contentSearchData: {},
       localFilterData: {}
@@ -153,24 +154,34 @@ export default {
 
   },
   watch: {
-    teachersSearchField: {
-      handler (newVal) {
-        this.filterBySearch('lessonTeacher', newVal)
-      }
-    },
-    lessonsSearchField: {
-      handler (newVal) {
-        this.filterBySearch('allLessons', newVal)
-      }
-    },
     applyFilter: {
       handler (newVal) {
         console.log('applyFilter watch in sid', newVal)
         if (newVal) this.emitChanges()
       }
+    },
+    selectedTags: {
+      handler (newVal) {
+        if (newVal) {
+          this.syncSelectedTagViaContentSearchData(newVal)
+          this.sortFilterBasedOnSelected()
+        }
+      }
     }
   },
   methods: {
+    syncSelectedTagViaContentSearchData (selectedTags) {
+      selectedTags.forEach(tag => {
+        console.log(tag)
+        Object.keys(this.contentSearchData).forEach(key => {
+          this.contentSearchData[key].options.forEach(option => {
+            if (option.value === tag.value) {
+              option.active = true
+            }
+          })
+        })
+      })
+    },
     sortFilterBasedOnSelected () {
       Object.keys(this.contentSearchData).forEach(key => {
         this.contentSearchData[key].options.sort((first, second) => {
@@ -218,16 +229,6 @@ export default {
       //   this.emitChanges()
       // }
     },
-
-    changeSelectedItem (filterItem, name) {
-      this.contentSearchData[name].options.forEach(item => {
-        if (item.value === filterItem.value) {
-          item.active = filterItem.active
-          return true
-        }
-      })
-    },
-
     doesContain (string, source) {
       return source.search(string) !== -1
     }
@@ -237,12 +238,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.v-expansion-panel-header {
-    min-height: 40px;
-    font-size: 1.2rem;
-    justify-content: space-between;
-}
-
 .vertical-scroller {
     margin-top: 20px;
 }
