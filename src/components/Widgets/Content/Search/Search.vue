@@ -1,92 +1,84 @@
 <template>
   <div class="content-search-vue"
   >
-    searchLoading : {{searchLoading}}
+    searchLoading : {{ searchLoading }}
     <div class="row  main-content content-body">
       <q-resize-observer @resize="onResize" />
-      <!--      <div class="mobile-modeeeee">-->
-      <!--        <div class="modal-side-bar"-->
-      <!--             v-if="mobileMode"-->
-      <!--        >-->
-      <!--          <div-->
-      <!--            class="advance-search"-->
-      <!--          >-->
-      <!--            <button-->
-      <!--              type="button"-->
-      <!--              class="btn"-->
-      <!--              data-toggle="modal"-->
-      <!--              data-target="#sideBarModal"-->
-      <!--            >-->
-      <!--              <span>جستوجوی پیشرفته</span>-->
-      <!--              <i class="fa fa-sliders-h m--padding-left-5" />-->
-      <!--            </button>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--        <div  class="side-bar-mobile-mode"-->
-      <!--              v-if="mobileMode"-->
-      <!--        >-->
-      <!--          <div-->
-      <!--            class="modal"-->
-      <!--            id="sideBarModal"-->
-      <!--            :tabindex="-1"-->
-      <!--            role="dialog"-->
-      <!--            aria-labelledby="exampleModalLongTitle"-->
-      <!--            aria-hidden="true"-->
-      <!--          >-->
-      <!--            <div-->
-      <!--              class="modal-dialog"-->
-      <!--              role="document"-->
-      <!--            >-->
-      <!--              <div class="modal-content">-->
-      <!--                <div class="modal-header">-->
-      <!--                  <h2-->
-      <!--                    class="modal-title"-->
-      <!--                    id="exampleModalLongTitle">-->
-      <!--                    جستوجوی پیشرفته-->
-      <!--                  </h2>-->
-      <!--                  <div class="btn-box">-->
-      <!--                    <button type="button"-->
-      <!--                            class="filter-btn"-->
-      <!--                            data-dismiss="modal"-->
-      <!--                            @click="applyFilter=true">-->
-      <!--                      اعمال فیلتر-->
-      <!--                    </button>-->
-      <!--                    <button type="button"-->
-      <!--                            class="close"-->
-      <!--                            data-dismiss="modal"-->
-      <!--                            aria-label="Close" />-->
-      <!--                  </div>-->
-      <!--                </div>-->
-      <!--                <div class="modal-body">-->
-      <!--                  <vue-sticky-sidebar-->
-      <!--                    class="sidebar"-->
-      <!--                    containerSelector=".container"-->
-      <!--                    innerWrapperSelector='.sidebar__inner'-->
-      <!--                  >-->
-      <!--                    <side-bar-->
-      <!--                      :contentFilterData="contentSearchFilterData"-->
-      <!--                      :mobileMode="mobileMode"-->
-      <!--                      :applyFilter="applyFilter"-->
-      <!--                      @filter="filterData"-->
-      <!--                      :key="sideBarKey"-->
-      <!--                      ref="sideBar"-->
-      <!--                    />-->
-      <!--                  </vue-sticky-sidebar>-->
-      <!--                </div>-->
-      <!--                <div class="modal-footer">-->
-      <!--                  <button type="button"-->
-      <!--                          class="close-btn"-->
-      <!--                          data-dismiss="modal">بستن</button>-->
-      <!--                  <button type="button"-->
-      <!--                          class="filter-btn"-->
-      <!--                          data-dismiss="modal"-->
-      <!--                          @click="applyFilter=true">اعمال فیلتر</button>-->
-      <!--                </div>-->
-      <!--              </div>-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <div class="mobile-modeeeee">
+        <div class="modal-side-bar"
+             v-if="mobileMode"
+        >
+          <div
+            class="advance-search"
+          >
+            <q-btn
+              type="button"
+              class="btn"
+              data-toggle="modal"
+              data-target="#sideBarModal"
+            >
+              <span>جستوجوی پیشرفته</span>
+              <i class="fa fa-sliders-h m--padding-left-5" />
+            </q-btn>
+          </div>
+        </div>
+        <div class="side-bar-mobile-mode"
+             v-if="mobileMode"
+        >
+          <div
+            class="modal-dialog"
+            role="document"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2
+                  class="modal-title"
+                  id="exampleModalLongTitle">
+                  جستوجوی پیشرفته
+                </h2>
+                <div class="btn-box">
+                  <q-btn
+                    class="filter-btn"
+                    data-dismiss="modal"
+                    @click="applyFilter=true">
+                    اعمال فیلتر
+                  </q-btn>
+                  <q-btn
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close" />
+                </div>
+              </div>
+              <div class="modal-body">
+                <side-bar-content
+                  v-model:selectedTags="selectedTags"
+                  @update:selectedTags="onFilterChange"
+                  :contentFilterData="contentSearchFilterData"
+                  :mobileMode="mobileMode"
+                  :applyFilter="applyFilter"
+                  :loading="searchLoading"
+                  ref="sideBar"
+                />
+              </div>
+              <div class="modal-footer">
+                <q-btn
+                  color="red"
+                  text
+                  class="close-btn"
+                  data-dismiss="modal">بستن
+                </q-btn>
+                <q-btn
+                  color="primary"
+                  class="filter-btn"
+                  data-dismiss="modal"
+                  @click="applyFilter=true">
+                  اعمال فیلتر
+                </q-btn>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="col-2 q-pr-lg">
         <div class="sidebar">
           <div class="sidebar__inner">
@@ -109,22 +101,22 @@
               <div
                 class="tags-chip-group"
                 :class="mobileMode?'tags-chip-group-mobile': ''"
-                v-if="selectedFields.length > 0"
+                v-if="selectedTags.length > 0"
               >
                 <p class="tags-title">
                   تگ‌ها :
                 </p>
                 <q-chip
-                  v-for="(field,index) in selectedFields"
+                  v-for="(tag,index) in selectedTags"
                   :key="index"
                   outlined
                   removable
                   outline
                   color="primary"
-                  @remove="closeField(field)"
+                  @remove="removeTags(tag)"
                   class="q-ml-sm"
                 >
-                  {{ field.title }}
+                  {{ tag.title }}
                 </q-chip>
               </div>
             </div>
@@ -219,14 +211,10 @@ export default {
   data: () => ({
     setLoading: false,
     slider: null,
-    heavyList: [{ type: 'loading' }],
-    items: [{}],
-
     stopReq: true,
-    sets: new SetList([{ type: 'loading' }]),
+    sets: new SetList(),
     products: new ProductList(),
     contents: new ContentList(),
-    selectedFields: [],
     productAndContentList: [],
     contentSearchFilterData: {},
     canSendVideoReq: true,
@@ -254,6 +242,7 @@ export default {
     this.setInitData()
     this.convertFilterData()
     this.getUrlParams()
+    this.updateNewUrl()
     this.getPageData()
   },
   mounted () {
@@ -402,29 +391,6 @@ export default {
     },
 
     getUrlParams () {
-      // let urlParams = window.location.search
-      // urlParams = urlParams.slice(1) // delete ? from first of url
-      // const arr = urlParams.split('&')
-      // const urlParamsArr = []
-      // arr.forEach((item, index) => {
-      //   urlParamsArr[index] = {
-      //     key: item.split('=')[0],
-      //     value: item.split('=')[1]
-      //   }
-      // })
-      // const tags = []
-      // urlParamsArr.forEach(item => {
-      //   if (item.key === 'tags[]') {
-      //     tags.push(decodeURIComponent(item.value))
-      //   } else if (item.key === 'q') {
-      //     this.q_param[0] = {
-      //       // for search input in main page
-      //       key: 'q',
-      //       value: item.value
-      //     }
-      //   }
-      // })
-
       this.selectedTags = this.getNormalizedQueryTags().map(item => {
         return {
           active: true,
@@ -433,21 +399,10 @@ export default {
           order: 1
         }
       })
-      // this.selectedTags = []
-
-      // --------------------------------- for test -------------------------------------------------------------------------------
-
-      // let urlParams = '?tags[]=نظام_آموزشی_جدید&tags[]=هفتم&q=کنکور&tags[]=دهم'
-      // let urlParams ='?q=awdawdnawd$#@^%!@#%!@&tags[]=دهم'
-      // let urlParams ='?tags[]=نظام_آموزشی_جدید&tags[]=هفتم&q=awdawdnawd$#@^%!@#%!@'
-      // let urlParams ='?tags[]=نظام_آموزشی_جدید&tags[]=هفتم'
-      // let urlParams ='?q=awdawdnawd$#@^%!@#%!@'
-
-      // --------------------------------- for test -------------------------------------------------------------------------------
     },
 
-    onFilterChange (data) {
-      // this.searchLoading = true
+    onFilterChange () {
+      this.searchLoading = true
       this.setTagsOnAddressBare()
       this.updateNewUrl()
       this.resetPageContent()
@@ -459,6 +414,7 @@ export default {
       }
       this.$router.push({ name: 'User.Content.Search', query: tags })
     },
+
     updateNewUrl () {
       const tags = []
       this.selectedTags.forEach((tag, index) => {
@@ -466,11 +422,13 @@ export default {
       })
       this.new_url = '?' + tags.join('&')
     },
+
     resetPageContent () {
       this.clearPageContent()
       this.$refs.contentAndProductList.trigger()
       this.chargeSet()
     },
+
     clearPageContent () {
       this.products = new ProductList()
       this.contents = new ContentList()
@@ -482,10 +440,17 @@ export default {
       this.productAndContentList = []
     },
 
-    closeField (chipData) {
+    removeTags (tag) {
       this.searchLoading = true
-      chipData.active = false
+      this.updateSelectedTags(tag)
+      this.updateNewUrl()
       this.resetPageContent()
+    },
+
+    updateSelectedTags (tag) {
+      tag.active = false
+      this.selectedTags = this.selectedTags.filter(tag => tag.active)
+      console.log('updateSelectedTags search :', this.selectedTags)
     },
 
     async chargeSet () {
@@ -542,7 +507,7 @@ export default {
         .then((responseDataArray) => {
           this.searchLoading = false
           done()
-          console.log('done')
+          // console.log('done')
           responseDataArray.forEach((data) => {
             const responseData = data.response
             let oldList = {}
@@ -652,32 +617,36 @@ export default {
 
 <style scoped>
 /*@import 'src/css/content-search.scss';*/
-.side-bar{
+.side-bar {
   overflow: scroll;
 }
-.infinit{
+
+.infinit {
   /*direction: ltr;*/
 }
-.set-container{
+
+.set-container {
   max-width: 800px;
   overflow-x: scroll;
   max-height: 150px;
   background: #f3cfcf;
 }
-.test{
+
+.test {
 }
 
 </style>
 
 <style lang="scss" scoped>
-.test2{
+.test2 {
   border: 1px green solid;
 
 }
+
 .content-search-vue {
-  .modal-side-bar{
+  .modal-side-bar {
     display: none;
-    position:fixed;
+    position: fixed;
     right: 0;
     top: 65px;
     z-index: 4;
@@ -685,63 +654,74 @@ export default {
       display: block;
       width: 100%;
     }
+
     .advance-search {
       margin: 0 7px;
-      .btn{
+
+      .btn {
         font-size: 16px;
         width: 100%;
         border: 2px solid #fd7e14;
         background-color: #fff;
-        color:  #fd7e14;
+        color: #fd7e14;
         padding: 15px;
+
         &:hover {
           background-color: #fd7e14;
-          color:  #fff;
+          color: #fff;
         }
       }
     }
   }
 
-  .side-bar-mobile-mode{
+  .side-bar-mobile-mode {
     background-color: white;
-    .modal{
+
+    .modal {
       .modal-dialog {
         .modal-content {
           .modal-header {
             padding: 20px;
+
             .modal-title {
               color: #3e5480;
               @media screen and(max-width: 400px) {
                 font-size: 14px;
               }
             }
+
             .btn-box {
               justify-content: space-between;
             }
           }
+
           .filter-btn {
             font-size: 14px;
             font-weight: 500;
             margin-left: 5px;
             border: 2px solid #fd7e14;
             background-color: #fff;
-            color:  #fd7e14;
+            color: #fd7e14;
             padding: 5px 15px;
+
             &:hover {
               background-color: #fd7e14;
-              color:  #fff;
+              color: #fff;
             }
+
             @media screen and(max-width: 400px) {
               font-size: 12px;
               padding: 5px 10px;
               font-weight: 300;
             }
           }
-          .close-btn{
+
+          .close-btn {
             background-color: #fff;
             color: #ff0909;
             font-weight: 500;
             padding: 5px 10px;
+
             &:hover {
               background-color: #ffb9b9;
               color: #ff4343;
@@ -752,9 +732,10 @@ export default {
     }
   }
 
-  .loading{
+  .loading {
     width: 200px;
-    .loading-text{
+
+    .loading-text {
       color: #3e5480;
       font-size: 18px;
       font-weight: 500;
@@ -762,10 +743,12 @@ export default {
         font-size: 14px;
       }
     }
+
     .spinner {
       width: 70px;
-      margin:10px;
+      margin: 10px;
       text-align: center;
+
       div {
         width: 18px;
         height: 18px;
@@ -779,32 +762,41 @@ export default {
           height: 12px;
         }
       }
+
       .dot1 {
         -webkit-animation-delay: -0.32s;
         animation-delay: -0.32s;
       }
+
       .dot2 {
         -webkit-animation-delay: -0.16s;
         animation-delay: -0.16s;
       }
     }
+
     @-webkit-keyframes spinner-loading {
-      0%, 80%, 100% { -webkit-transform: scale(0) }
-      40% { -webkit-transform: scale(1.0) }
+      0%, 80%, 100% {
+        -webkit-transform: scale(0)
+      }
+      40% {
+        -webkit-transform: scale(1.0)
+      }
     }
     @keyframes spinner-loading {
       0%, 80%, 100% {
         -webkit-transform: scale(0);
         transform: scale(0);
-      } 40% {
-          -webkit-transform: scale(1.0);
-          transform: scale(1.0);
-        }
+      }
+      40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+      }
     }
   }
 
   .scroll-loader {
     margin: auto;
+
     .loader {
       color: #3e5480;
       font-size: 14px;
@@ -818,20 +810,24 @@ export default {
     @media screen and(max-width: 1024px) {
       flex-direction: column;
     }
+
     .sticky-search-bar {
-      width:25%;
+      width: 25%;
       @media screen and(max-width: 1024px) {
         display: none;
       }
     }
+
     .content-list {
       //border: 1px solid red;
       width: 74%;
       @media screen and(max-width: 1024px) {
         width: 100%;
       }
+
       .tags-chip-group-wrapper {
         overflow: auto;
+
         .tags-chip-group {
           display: flex;
           align-items: center;
@@ -841,7 +837,8 @@ export default {
           @media screen and(max-width: 767px) {
             margin-right: 0;
           }
-          .tags-title{
+
+          .tags-title {
             margin-bottom: 0;
             font-size: 18px;
             color: #3e5480;
@@ -855,9 +852,11 @@ export default {
           }
         }
       }
-      .tags-chip-group-mobile{
+
+      .tags-chip-group-mobile {
         margin-top: 50px;
       }
+
       .error-alert {
         margin: 5% 10%;
       }
@@ -877,7 +876,8 @@ export default {
   @media screen and(max-width: 1024px) {
     margin-top: 40px;
   }
-  .sets{
+
+  .sets {
     margin-left: 10px;
     margin-bottom: 20px;
   }
@@ -888,11 +888,13 @@ export default {
 
 @media only screen and (max-width: 1024px) {
   .searchResult .listType .item .content .title {
-    width: calc( 100% - 130px );
+    width: calc(100% - 130px);
   }
+
   .searchResult .listType .item .m-link {
     width: 100%;
   }
+
   .row {
     margin-left: -5px;
     margin-right: -5px;
