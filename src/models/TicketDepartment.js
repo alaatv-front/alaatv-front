@@ -1,5 +1,4 @@
-import Model from './Model'
-import Collection from './Collection'
+import { Model, Collection } from 'js-abstract-model'
 
 class TicketDepartment extends Model {
   constructor (data) {
