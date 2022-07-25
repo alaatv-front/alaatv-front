@@ -12,6 +12,7 @@
                        :key="rowIndex"
                        :cols="row.cols"
                        :options="row.options"
+                       :containerFullHeight="containerFullHeight"
     />
   </div>
 </template>
@@ -34,6 +35,7 @@ export default {
         return {}
       }
     },
+    containerFullHeight:{}
   },
   data () {
     return {
@@ -46,6 +48,7 @@ export default {
   },
   created () {
     this.setBackground()
+    this.setFullHeight()
 
   },
   computed: {
@@ -62,11 +65,11 @@ export default {
   watch: {
     windowWidth () {
       this.loadBackground()
-      this.calculateContainerHeight()
+      this.setFullHeight()
 
     },
     windowHeight(){
-      this.calculateContainerHeight()
+      this.setFullHeight()
     }
 
   },
@@ -165,12 +168,9 @@ export default {
           return Math.min()
       }
     },
-    calculateContainerHeight (){
-      // if container be a fullHeight, then should removeOffset
-      let offset = this.$store.getters['AppLayout/containerHeightOffset']
-      let customStyle = this.defaultOptions.fullHeight? `calc(100vh - ${offset}px)` : null;
-      this.defaultOptions.style.minHeight = customStyle;
-      return customStyle;
+    setFullHeight (){
+      if(!this.defaultOptions.fullHeight) return;
+      this.defaultOptions.style.minHeight = this.containerFullHeight;
     },
   }
 }

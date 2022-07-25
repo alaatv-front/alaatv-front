@@ -4,6 +4,7 @@
       :is="widget.name"
       :data="widget.data"
       :options="widget.options"
+      :containerFullHeight="containerFullHeight"
     />
   </div>
 </template>
@@ -38,10 +39,7 @@ export default {
         return {}
       }
     },
-    size: {
-      type: Object,
-      default: () => {}
-    },
+    containerFullHeight:{}
   },
   mixins: [mixinWidget],
   created () {

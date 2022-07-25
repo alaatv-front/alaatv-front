@@ -1,5 +1,5 @@
 <template>
-  <page-builder :sections="sections" :options="pageConfig" :size="size"></page-builder>
+  <page-builder :sections="sections" :options="pageConfig" :containerHeight="calculateHeight"></page-builder>
 </template>
 
 <script>
@@ -233,7 +233,14 @@ export default {
   methods: {
 
   },
-  computed: {},
+  computed: {
+    calculateHeight(){
+      // if container be a fullHeight, then should removeOffset
+      let offset = this.$store.getters['AppLayout/containerHeightOffset'];
+      let calculatedHeight = `calc(100vh - ${offset}px)`;
+      return calculatedHeight;
+    }
+  },
   beforeRouteEnter() {
     // console.log('debug beforeRouteEnter')
   },

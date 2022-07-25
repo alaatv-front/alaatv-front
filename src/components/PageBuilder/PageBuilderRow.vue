@@ -14,6 +14,7 @@
                         :key="colIndex"
                         :widgets="col.widgets"
                         :options="col.options"
+                        :containerFullHeight="containerFullHeight"
       />
     </div>
   </div>
@@ -28,6 +29,7 @@
                       :key="colIndex"
                       :widgets="col.widgets"
                       :options="col.options"
+                      :containerFullHeight="containerFullHeight"
     />
   </div>
 </template>
@@ -49,6 +51,7 @@ export default {
         return {}
       }
     },
+    containerFullHeight:{}
   },
   data () {
     return {

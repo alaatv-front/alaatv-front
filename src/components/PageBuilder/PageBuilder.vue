@@ -6,6 +6,7 @@
       :key="sectionIndex"
       :data="section.data"
       :options="section.options"
+      :containerFullHeight="containerHeight"
     />
   </div>
 </template>
@@ -58,10 +59,7 @@ export default {
         return {}
       }
     },
-    size: {
-      type: Object,
-
-    }
+    containerHeight: {}
   },
   created () {
     this.defaultOptions = Object.assign(this.defaultOptions, this.options)
