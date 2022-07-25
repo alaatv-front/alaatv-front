@@ -1,14 +1,19 @@
 <template>
-  <component
-    :is="widget.name"
-    :data="widget.data"
-    :options="widget.options"
-  />
+  <div>
+    <component
+      :is="widget.name"
+      :data="widget.data"
+      :options="widget.options"
+      :containerFullHeight="containerFullHeight"
+    />
+  </div>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins'
+
+
 
 export default {
   name: 'PageBuilderWidget',
@@ -37,14 +42,15 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    containerFullHeight:{}
   },
   mixins: [mixinWidget],
   created () {
   },
   data () {
     return {}
-  }
+  },
 }
 </script>
 
