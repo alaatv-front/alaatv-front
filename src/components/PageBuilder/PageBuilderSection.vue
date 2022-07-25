@@ -12,6 +12,7 @@
                        :key="rowIndex"
                        :cols="row.cols"
                        :options="row.options"
+                       :containerFullHeight="containerFullHeight"
     />
   </div>
 </template>
@@ -19,6 +20,7 @@
 <script>
 import PageBuilderRow from './PageBuilderRow.vue'
 import { mixinWidget } from 'src/mixin/Mixins'
+
 
 export default {
   name: 'PageBuilderSection',
@@ -33,6 +35,7 @@ export default {
         return {}
       }
     },
+    containerFullHeight:{}
   },
   data () {
     return {
@@ -45,6 +48,7 @@ export default {
   },
   created () {
     this.setBackground()
+    this.setFullHeight()
   },
   computed: {
     windowSize () {
@@ -52,12 +56,20 @@ export default {
     },
     windowWidth () {
       return this.windowSize.x
-    }
+    },
+    windowHeight(){
+      return this.windowSize.y
+    },
   },
   watch: {
     windowWidth () {
       this.loadBackground()
+      this.setFullHeight()
+    },
+    windowHeight(){
+      this.setFullHeight()
     }
+
   },
   methods: {
     setBackground () {
@@ -119,7 +131,6 @@ export default {
         this.defaultOptions.style.backgroundColor = this.defaultBackground.color
         return
       }
-
       this.defaultOptions.style.backgroundImage = 'url("'+this.defaultBackground.image+'")'
       this.defaultOptions.style.backgroundPosition = this.defaultBackground.position
       this.defaultOptions.style.backgroundSize = this.defaultBackground.size
@@ -154,7 +165,11 @@ export default {
         default:
           return Math.min()
       }
-    }
+    },
+    setFullHeight (){
+      if(!this.defaultOptions.fullHeight) return;
+      this.defaultOptions.style.minHeight = this.containerFullHeight;
+    },
   }
 }
 </script>
@@ -162,7 +177,7 @@ export default {
 <style scoped lang="scss">
 .page-builder-section {
   &.full-height-section {
-    min-height: 100vh;
+    //min-height: calc(100vh - 86px);
   }
   &.vertical-align-center {
     display: flex;

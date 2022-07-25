@@ -1,14 +1,19 @@
 <template>
-  <component
-    :is="widget.name"
-    :data="widget.data"
-    :options="widget.options"
-  />
+  <div>
+    <component
+      :is="widget.name"
+      :data="widget.data"
+      :options="widget.options"
+      :containerFullHeight="containerFullHeight"
+    />
+  </div>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins'
+
+
 
 export default {
   name: 'PageBuilderWidget',
@@ -22,11 +27,10 @@ export default {
     Slider: defineAsyncComponent(() => import('components/Widgets/Slider.vue')),
     Segment: defineAsyncComponent(() => import('components/Widgets/Segment/Segment.vue')),
     ContentShowInfo: defineAsyncComponent(() => import('components/Widgets/Content/Show.vue')),
-    productInfoShow: defineAsyncComponent(() => import('components/Widgets/Product/show')),
     productDemos: defineAsyncComponent(() => import('components/Widgets/Product/productDemos')),
     productReview: defineAsyncComponent(() => import('components/Widgets/Product/productReview')),
     productIntroduction: defineAsyncComponent(() => import('components/Widgets/Product/productIntroduction')),
-    SetShowInfo: defineAsyncComponent(() => import('components/Widgets/Set/Show.vue')),
+    SetShow: defineAsyncComponent(() => import('components/Widgets/Set/Show.vue')),
     Banner: defineAsyncComponent(() => import('components/Widgets/Banner.vue')),
     blockList: defineAsyncComponent(() => import('components/Widgets/BlockList/BlockList')),
     services: defineAsyncComponent(() => import('components/Widgets/Services/Services'))
@@ -37,14 +41,15 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    containerFullHeight:{}
   },
   mixins: [mixinWidget],
   created () {
   },
   data () {
     return {}
-  }
+  },
 }
 </script>
 

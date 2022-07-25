@@ -10,11 +10,16 @@
       >
         <page-builder-widget
           :widget="widget"
-        />
+          :containerFullHeight="containerFullHeight"
+        >
+
+        </page-builder-widget>
       </q-intersection>
       <page-builder-widget v-else
                            :widget="widget"
-      />
+                           :containerFullHeight="containerFullHeight"
+      >
+      </page-builder-widget>
     </template>
   </div>
 </template>
@@ -36,11 +41,13 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    containerFullHeight:{}
   },
   data () {
     return {}
-  }
+  },
+
 }
 </script>
 
