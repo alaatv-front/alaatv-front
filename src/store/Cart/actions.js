@@ -1,14 +1,16 @@
 import API_ADDRESS from 'src/api/Addresses'
 import  Price from 'src/models/Price'
 import { Coupon } from 'src/models/Coupon'
+import { Cart } from 'src/models/Cart'
 import  {CartItemList} from 'src/models/CartItem'
-import { Cookies } from 'quasar'
+import { axios } from 'src/boot/axios'
+import CookieCart from 'src/assets/js/CookieCart'
 
 export function addToCart(context, product) {
   const isUserLogin = !!this.getters['Auth/user'].id
 
   if (isUserLogin) {
-    this.$axios.post(API_ADDRESS.cart.add, { product_id: product.id })
+    axios.post(API_ADDRESS.cart.orderproduct, { product_id: product.id })
       .then( () => {
         context.dispatch('updateCart')
       })
@@ -18,16 +20,16 @@ export function addToCart(context, product) {
         }
       })
   } else {
-    const cart =  context.getters['cart']
+    const cart = context.getters['cart']
 
     cart.addToCart(product)
-    console.log(cart)
-    context.dispatch('setCartInCookie', cart)
+    CookieCart.addToCartInCookie(cart)
+    context.commit('updateCart', cart)
   }
 }
 
 export function updateCart(context) {
-  this.$axios.get(API_ADDRESS.cart.review)
+  axios.get(API_ADDRESS.cart.review)
     .then(response => {
       const invoice = response.data
 
@@ -43,22 +45,36 @@ export function updateCart(context) {
     })
 }
 
-export function setCartInCookie(context, cart) {
-  console.log('set', cart)
-  console.log('cart.cartItems', cart.cartItems)
-  console.log('cart.cartItems.list', cart.cartItems.list)
-  const cookieCart = cart.cartItems.list.map( item => {
-    return {
-      product_id: item.product.id,
-      attribute: [],
-      extraAttribute: [],
-      products: []
-    }
-  })
-  Cookies.set('cartItems',JSON.stringify(cookieCart), {
-    expires: '365d'
-  })
-  context.dispatch('updateCart')
+export function removeItemFromCart(context, productId) {
+  const cart = context.getters['cart']
+  const isUserLogin = !!this.getters['Auth/user'].id
+  if (isUserLogin) {
+    axios.delete(API_ADDRESS.cart.orderproduct +'/'+productId)
+      .then((response) => {
+        // const cartItem = cart.cartItems.list.find(item => parseInt(item.id) === parseInt(productId))
+        context.dispatch('updateCart')
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          window.location.reload()
+        }
+      })
+  } else {
+    CookieCart.removeFromCookieCart(productId)
+  }
+
 }
 
+export function removeFromCookieCart(context, productId) {
+  const cart =  context.getters['cart']
+  cart.removeItem(productId)
+  context.dispatch('setCartInCookie', cart)
 
+}
+
+export function deleteList(context) {
+  const cart =  context.getters['cart']
+  cart.removeAllItems()
+  context.dispatch('setCartInCookie', cart)
+  context.dispatch('updateCart')
+}
