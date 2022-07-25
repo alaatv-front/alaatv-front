@@ -175,7 +175,6 @@ export default {
   methods: {
     syncSelectedTagViaContentSearchData (selectedTags) {
       selectedTags.forEach(tag => {
-        console.log(tag)
         Object.keys(this.contentSearchData).forEach(key => {
           this.contentSearchData[key].options.forEach(option => {
             if (option.value === tag.value) {

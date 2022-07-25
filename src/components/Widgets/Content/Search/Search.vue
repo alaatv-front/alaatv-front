@@ -1,6 +1,5 @@
 <template>
   <div class="content-search-vue">
-    <!--    searchLoading : {{ searchLoading }}-->
     <div class="row  main-content content-body">
       <div
         v-if="mobileMode"
@@ -130,12 +129,12 @@
               role="alert"
             >
               <strong>متاسفیم!</strong>با توجه به خواسته شما موردی یافت نشد.
-              <button type="button"
-                      class="close"
-                      data-dismiss="alert"
-                      aria-label="Close">
+              <q-btn
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-              </button>
+              </q-btn>
             </div>
           </div>
           <div class="">
@@ -167,8 +166,9 @@
             <div class="searchResult">
               <div class="listType">
                 <q-infinite-scroll ref="contentAndProductList"
-                                   @load="loadNewProductAndContent"
-                                   :offset="250">
+                                   @load="chargeProductAndContentList"
+                                   :offset="2000"
+                >
                   <specifer-type
                     v-for="(item, index) in productAndContentList"
                     :key="index"
@@ -177,7 +177,7 @@
                   <template v-if="searchLoading"
                             v-slot:loading>
                     <div class="row justify-center q-my-md">
-                      <q-spinner-dots color="red"
+                      <q-spinner-dots color="primary"
                                       size="40px" />
                     </div>
                   </template>
