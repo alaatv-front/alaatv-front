@@ -1,5 +1,4 @@
 <template>
-  hi :))
   <page-builder :sections="sections" />
 </template>
 

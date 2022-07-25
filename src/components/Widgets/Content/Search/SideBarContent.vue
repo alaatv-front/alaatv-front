@@ -57,6 +57,7 @@
           v-if="item.title === 'درس'"
           color="primary"
           depressed
+          unelevated
           class="show-more-expansion"
           @click="lessonsExpand = !lessonsExpand"
         >
@@ -75,6 +76,7 @@
           </div>
         </q-btn>
         <q-btn
+          unelevated
           v-if="item.title === 'دبیران'"
           color="primary"
           class="show-more-expansion"
@@ -202,7 +204,11 @@ export default {
           selectedTags.push(item)
         })
       })
-      this.$emit('update:selectedTags', selectedTags)
+      if (!this.mobileMode) {
+        this.$emit('update:selectedTags', selectedTags)
+      } else if (this.applyFilter) {
+        this.$emit('update:selectedTags', selectedTags)
+      }
     },
     mergeContentSearchDataActiveKeyWithSelectedFields () {
       this.selectedFields = []
