@@ -130,9 +130,7 @@ export default {
 
 <style scoped lang="scss">
 .bookmark-btn {
-  //color: #fff;
-  //background-color: #5867dd;
-  //border-color: #5867dd;
+  z-index: 1000;
   padding: 5px;
   margin: 5px;
 }
