@@ -36,7 +36,7 @@
     "js-abstract-model": "^0.1.31",
     "katex": "^0.15.2",
     "leaflet": "^1.8.0",
-    "moment": "^2.29.3",
+    "moment": "^2.29.4",
     "moment-jalaali": "^0.9.6",
     "persian-date": "^1.1.0",
     "process": "^0.11.10",

@@ -31,3 +31,6 @@ export function updateAppLayout (state, data) {
   Object.assign(storage.AppLayout, data)
   Object.assign(state.appLayout, storage.AppLayout)
 }
+export function updateHeaderSize (state, data) {
+  Object.assign(state.headerSize, data)
+}
