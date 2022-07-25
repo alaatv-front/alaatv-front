@@ -43,7 +43,9 @@ componentsData.forEach((component) => {
 components.PageBuilderSection = defineAsyncComponent(() => import('./PageBuilderSection.vue'))
 export default {
   name: 'PageBuilderWidget',
+
   components,
+
   props: {
     widget: {
       type: Object,
