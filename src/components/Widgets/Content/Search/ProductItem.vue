@@ -710,7 +710,6 @@ a {
 }
 
 .productAttributes-item-value {
-  //border: 1px solid red;
   padding-top: 5px;
   line-height: normal;
   display: -webkit-box;

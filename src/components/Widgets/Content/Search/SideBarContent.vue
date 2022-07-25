@@ -64,14 +64,14 @@
           <div v-if="!lessonsExpand">
             نمایش بیشتر...
             <q-icon color="#fff"
-                    size="16"
                     name="mdi-plus"
+                    size="16px"
             />
           </div>
           <div v-if="lessonsExpand">
             نمایش کمتر...
             <q-icon color="#fff"
-                    size="16"
+                    size="16px"
                     name="mdi-minus" />
           </div>
         </q-btn>
@@ -86,14 +86,14 @@
           <div v-if="!teachersExpand">
             نمایش بیشتر...
             <q-icon color="#fff"
-                    size="16"
+                    size="16px"
                     name="mdi-plus"
             />
           </div>
           <div v-if="teachersExpand">
             نمایش کمتر...
             <q-icon color="#fff"
-                    size="16"
+                    size="16px"
                     name="mdi-minus"
             />
           </div>
@@ -274,7 +274,6 @@ export default {
 
 .show-more-expansion {
     color: white;
-    font-size: 16px;
     letter-spacing: normal;
     font-weight: 500;
     width: 100%;
