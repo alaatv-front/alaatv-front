@@ -195,18 +195,19 @@
               </button>
             </div>
           </div>
-          <div>
+          <div class="">
             <div
-              class=" horizontal-scroller q-mb-sm">
+              class="q-mb-sm">
               <q-virtual-scroll
                 :items="sets.list"
                 virtual-scroll-horizontal
+                class="set-container"
                 v-slot="{ item, index }"
                 @virtual-scroll="scrollMoved"
               >
                 <div
                   :key="index"
-                  class="set q-mr-sm"
+                  class="q-mr-sm"
                 >
                   <div v-if="searchLoading">
                     <div v-if="item.type === 'loading' && setLoading">
@@ -220,7 +221,7 @@
                 </div>
               </q-virtual-scroll>
             </div>
-            <div class="vertical-scroller searchResult">
+            <div class="searchResult">
               <div class="listType">
                 <q-infinite-scroll ref="contentAndProductList"
                                    @load="loadNewProductAndContent"
@@ -700,6 +701,12 @@ export default {
         font-size: 18px;
         font-weight: 500;
       }
+    }
+  }
+  .set-container{
+    padding-bottom: 10px;
+    @media only screen and (max-width: 599px){
+      width: calc(100vw - 30px);
     }
   }
 

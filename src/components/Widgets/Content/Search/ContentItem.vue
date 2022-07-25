@@ -5,7 +5,7 @@
       :href="'https://alaatv.com/c/'+ data.id"
       class="m-link"
     >
-      <div class="pic">
+      <div class="content-img-box">
         <img
           :src="data.photo"
           :alt="data.title"
@@ -106,20 +106,19 @@ p {
   @media screen and (max-width: 1024px) {
     max-height: none;
     flex-direction: column;
+    width: calc(100vw - 30px) !important;
   }
 
-  .pic {
+  .content-img-box {
     width: 300px !important;
     position: relative;
     z-index: 5;
     @media screen and (max-width: 1024px) {
-      width: 100% !important;
+      width: calc(100vw - 30px) !important;
     }
-
     img {
       width: 300px;
       border-radius: 15px 0 0 15px;
-
       @media screen and (max-width: 1024px) {
         border-radius: 15px 15px 0 0 !important;
         width: 100% !important;

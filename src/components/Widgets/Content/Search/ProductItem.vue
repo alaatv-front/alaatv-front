@@ -428,7 +428,7 @@ a {
     border-radius: 15px !important;
     z-index: 3;
     @media screen and (max-width: 1024px) {
-      width: 100%;
+      width: calc(100vw - 30px) !important;
     }
 
     a {
@@ -540,6 +540,7 @@ a {
   }
 
   @media screen and (max-width: 1024px) {
+    width: calc(100vw - 30px) !important;
     flex-direction: column;
     max-height: none;
   }
