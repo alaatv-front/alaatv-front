@@ -1,75 +1,139 @@
 <template>
   <entity-create
     v-model:value="inputs"
-    title="ثبت محصول جدید"
-    :api="api1"
+    :title=this.depart.title
+    :api="api"
     :entity-id-key-in-response="entityIdKeyInResponse"
     :show-route-param-key="showRouteParamKey"
     :index-route-name="indexRouteName"
     :show-route-name="showRouteName"
   >
     <template #before-form-builder>
-      <q-banner v-if="beforeFormBuilder"
-                inline-actions
-                rounded
-                class="bg-orange text-white q-ma-md">
-        before form builder
-        <template v-slot:action>
-          <q-btn flat
-                 label="Dismiss"
-                 @click="beforeFormBuilder = false" />
-        </template>
-      </q-banner>
+      <div
+        v-if="beforeFormBuilder"
+      >
+        <q-dialog
+          no-backdrop-dismiss
+          v-model="showDialog"
+        >
+          <q-card
+            class="flex justify-center">
+            <div v-for="(item, index) in departments"
+                 :key="index"
+                 @click="selectDepartment(item)"
+                 class="departmentForSelect col-2 q-my-md ">
+              <q-btn
+                flat
+                class="departmentActionBtn"
+                icon="isax:search-status .path4:before"
+              />
+              <div class="departmentTitle flex justify-center"
+                   v-html="item.title"></div>
+            </div>
+          </q-card>
+
+        </q-dialog>
+      </div>
     </template>
   </entity-create>
   <q-separator class="q-my-md" />
-  <entity-attachment
-    v-model:value="crudFormInputs"
-    expanded-default
-    :title="'entity attachment titile'"
-    :action-title="'attach action title'"
-    :list-title="'entity attached list'"
-    :list-show-route-name="'Admin.BlockManagement.Show'"
-    :attachment-list-api-address="api"
-    :table="table"
-    :table-keys="tableKeys"
-  />
+  <div>
+    <SendMessageInput />
+  </div>
+
 </template>
 
 <script>
+import SendMessageInput from 'components/SendMessageInput'
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
+// import { TicketDepartmentList } from 'src/models/TicketDepartment'
+// import { Ticket } from 'src/models/Ticket'
 
 export default {
   name: 'Create',
-  components: { EntityCreate },
+  components: {
+    EntityCreate,
+    SendMessageInput
+  },
   data () {
     return {
+      showDialog: true,
       expanded: true,
-      api1: API_ADDRESS.ticket.create.base,
-      api2: API_ADDRESS.ticket.create.base,
-      api3: API_ADDRESS.ticket.create.base,
+      api: API_ADDRESS.ticket.create.base,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Ticket.Show',
       indexRouteName: 'Admin.Ticket.Index',
+      depart: [],
+      departments: [
+        {
+          id: '1',
+          title: 'مالی'
+        }, {
+          id: '2',
+          title: 'استخدام'
+        }, {
+          id: '3',
+          title: 'ابریشم'
+        }, {
+          id: '4',
+          title: 'پرچم'
+        }, {
+          id: '5',
+          title: 'تفتان'
+        }, {
+          id: '6',
+          title: 'فنی'
+        }, {
+          id: '7',
+          title: 'آموزش'
+        }, {
+          id: '8',
+          title: 'مشاوره خرید'
+        }
+      ],
       inputs: [
-        { type: 'input', name: 'title', responseKey: 'data.title', value: '', label: 'عنوان', col: 'col-md-6' },
+        {
+          type: 'input',
+          name: 'title',
+          responseKey: 'data.title',
+          value: '',
+          label: 'عنوان',
+          col: 'col-md-6'
+        },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
           col: 'col-md-6',
           value: [
-            { type: 'separator', label: 'اولویت:', vertical: 'false', col: 'col-md-1' },
+            {
+              type: 'separator',
+              label: 'اولویت:',
+              vertical: 'false',
+              col: 'col-md-1'
+            },
             {
               type: 'toggleButton',
               name: 'priority',
               responseKey: 'data.priority',
               options: [
-                { label: 'کم', value: '1' },
-                { label: 'متوسط', value: '2' },
-                { label: 'فوری', value: '3' },
-                { label: 'بحرانی', value: '4' }
+                {
+                  label: 'کم',
+                  id: '1'
+                },
+                {
+                  label: 'متوسط',
+                  id: '2'
+                },
+                {
+                  label: 'فوری',
+                  id: '3'
+                },
+                {
+                  label: 'بحرانی',
+                  id: '4'
+                }
               ],
               col: 'col-md-4',
               textColor: 'black',
@@ -78,104 +142,63 @@ export default {
 
           ]
 
-        }
+        },
+        { name: 'department', type: 'hidden', responseKey: 'data.department' }
+
       ],
-      crudFormInputs: [
-        {
-          type: 'EntityAttachment',
-          name: 'formBuilderCol',
-          col: 'col-md-6',
-          value: [
-            {
-              type: 'entity',
-              name: 'ChangeUser',
-              label: 'تغییر کاربر',
-              selectionMode: 'single',
-              buttonColor: 'indigo',
-              buttonTextColor: 'black',
-              buttonBadgeColor: 'orange',
-              indexConfig: {
-                apiAddress: 'https://reqres.in/api/users',
-                tableTitle: 'لیست محصولات',
-                tableKeys: {
-                  data: 'data',
-                  total: 'total',
-                  currentPage: 'page',
-                  perPage: 'per_page',
-                  pageKey: 'page'
-                },
-                table: {
-                  columns: [
-                    {
-                      name: 'id',
-                      required: true,
-                      label: '#',
-                      align: 'left',
-                      field: row => row.id
-                    },
-                    {
-                      name: 'thumbnail',
-                      required: true,
-                      label: 'تصویر',
-                      align: 'left',
-                      field: row => row.avatar
-                    },
-                    {
-                      name: 'first_name',
-                      required: true,
-                      label: 'نام',
-                      align: 'left',
-                      field: row => row.first_name
-                    },
-                    {
-                      name: 'last_name',
-                      required: true,
-                      label: 'نام خانوادگی',
-                      align: 'left',
-                      field: row => row.last_name
-                    },
-                    {
-                      name: 'email',
-                      required: true,
-                      label: 'ایمیل',
-                      align: 'left',
-                      field: row => row.email
-                    },
-                    {
-                      name: 'actions',
-                      required: true,
-                      label: '',
-                      align: 'left',
-                      field: ''
-                    }
-                  ],
-                  data: []
-                },
-                inputs: [
-                  { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
-                  { type: 'input', name: 'first_name', value: null, label: 'نام', col: 'col-md-3' },
-                  { type: 'input', name: 'last_name', value: null, label: 'نام خانوادگی', col: 'col-md-3' }
-                ],
-                itemIdentifyKey: 'id',
-                itemIndicatorKey: 'first_name',
-                showTableItemsRouteName: 'Admin.BlockManagement.Show'
-              },
-              value: [],
-              responseKey: '',
-              selected: [],
-              col: 'col-md-4'
-            }
-          ]
-        }],
       beforeFormBuilder: true,
       afterFormBuilder: true
     }
   },
   created () {
+    // this.backPage()
+  },
+  methods: {
+    backPage () {
+      if (
+        this.ticketData.editMode &&
+        this.departmentForSelect.list.length > 0 &&
+        this.departments.list.length > 0 &&
+        this.departmentForSelect.list[0].id !== this.departments.list[0].id
+      ) {
+        this.ticketData.department.id = null
+        this.departmentForSelect = this.departments
+      } else {
+        const that = this
+        this.$store.commit('updateAppProps', function (appProps) {
+          appProps.editedTicket = that.ticketData
+        })
+        this.$router.push({ name: 'Menu' }).catch(() => {
+        })
+      }
+    },
+    selectDepartment (item) {
+      this.depart = item
+      this.showDialog = false
+    }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+:deep(.departmentForSelect) {
+  cursor: pointer;
+  border-radius: 0;
+  &:hover {
+    background-color: var(--alaa-Primary);
+    color: white;
+  }
+  .departmentActionBtn {
+    border-radius: 0;
+    width: 100px;
+    height: 100px;
+    padding: 0;
+    .q-focus-helper{
+      display: none;
+    }
+  }
+
+}
 
 </style>
