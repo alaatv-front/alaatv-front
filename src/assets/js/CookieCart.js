@@ -52,11 +52,11 @@ export default class CookieCart {
   }
 
   static deleteCartItemListFromCookie(cart) {
-    cart.removeAllItems()
-    this.setCartInCookie(cart)
+    this.deleteCartFromCookies()
+    this.addToCartInCookie(cart)
   }
 
-  static deleteCartFromCookies(cart) {
-    cart.removeAllItems()
+  static deleteCartFromCookies() {
+    Cookies.remove('cartItems')
   }
 }
