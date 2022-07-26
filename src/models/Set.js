@@ -35,8 +35,10 @@ class Set extends Model {
         relatedModel: Url
       },
       { key: 'tags' },
-      { key: 'favor_url' },
-      { key: 'unfavor_url' },
+      {
+        key: 'is_favored',
+        default: false
+      },
       { key: 'created_at' },
       { key: 'updated_at' },
       {
