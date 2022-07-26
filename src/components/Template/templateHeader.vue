@@ -1,8 +1,8 @@
 <template>
   <div
     class="drawer-btn col-1">
-<!--    :class="{'col-6': windowSize.x < 599}"-->
-<!--  >-->
+    <!--    :class="{'col-6': windowSize.x < 599}"-->
+    <!--  >-->
     <q-btn
       class="toolbar-button"
       icon="isax:menu-1"
@@ -15,8 +15,8 @@
   </div>
   <div
     class="right-side col-5">
-<!--    :class="{'col-6': windowSize.x > 1439, 'col-12': windowSize.x < 599}"-->
-<!--  >-->
+    <!--    :class="{'col-6': windowSize.x > 1439, 'col-12': windowSize.x < 599}"-->
+    <!--  >-->
     <div
       v-if="breadcrumbsVisibility"
     >
@@ -57,7 +57,7 @@
   </div>
   <div
     class="left-side col-6">
-<!--    :class="{'col-6': windowSize.x < 599, 'col-6': windowSize.x > 1439}">-->
+    <!--    :class="{'col-6': windowSize.x < 599, 'col-6': windowSize.x > 1439}">-->
     <q-btn-dropdown
       class="toolbar-button"
       content-class="profile-menu"
@@ -81,21 +81,37 @@
       dir="ltr"
       dense
       unelevated
-    />
+    >
+      <q-list unelevated>
+        <router-link   :to="{name: 'User.Dashboard.purchases', params: {id: user.id}}">
+          <q-item v-close-popup>
+          <q-item-section side>
+            <q-icon name="mdi-cloud-download-outline"/>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>فیلم ها و جزوه های من</q-item-label>
+          </q-item-section>
+          </q-item>
+        </router-link>
+      </q-list>
+    </q-btn-dropdown>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   name: 'templateHeader',
-  data () {
-    return {}
+  data() {
+    return {
+      user:{}
+    }
   },
-  mounted () {
+  mounted() {
     this.$store.commit('AppLayout/updateBreadcrumbLoading', false)
     this.$store.commit('AppLayout/updateVisibilityBreadcrumb', true)
+    this.user = this.$store.getters['Auth/user']
   },
   computed: {
     ...mapGetters('AppLayout', [
@@ -113,26 +129,26 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
-    toggleLeftDrawer () {
+    toggleLeftDrawer() {
 
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
-    hasRoute (route) {
+    hasRoute(route) {
       if (!route) {
         return
       }
       return !!(route.name || route.path)
     },
-    getRoute (route) {
+    getRoute(route) {
       if (!this.hasRoute(route)) {
-        return { name: null }
+        return {name: null}
       }
       if (route.name) {
-        return { name: route.name }
+        return {name: route.name}
       } else if (route.path) {
-        return { path: route.path }
+        return {path: route.path}
       } else {
-        return { name: null }
+        return {name: null}
       }
     }
   }
