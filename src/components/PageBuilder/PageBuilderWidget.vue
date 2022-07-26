@@ -13,8 +13,6 @@
 import { defineAsyncComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins'
 
-
-
 export default {
   name: 'PageBuilderWidget',
   // components,
@@ -32,6 +30,7 @@ export default {
     productIntroduction: defineAsyncComponent(() => import('components/Widgets/Product/productIntroduction')),
     SetShow: defineAsyncComponent(() => import('components/Widgets/Set/Show.vue')),
     Banner: defineAsyncComponent(() => import('components/Widgets/Banner.vue')),
+    CheckoutReviewWidget: defineAsyncComponent(() => import('components/Widgets/CheckoutReview/Show')),
     blockList: defineAsyncComponent(() => import('components/Widgets/BlockList/BlockList')),
     services: defineAsyncComponent(() => import('components/Widgets/Services/Services'))
   },
@@ -42,14 +41,14 @@ export default {
         return {}
       }
     },
-    containerFullHeight:{}
+    containerFullHeight: {}
   },
   mixins: [mixinWidget],
   created () {
   },
   data () {
     return {}
-  },
+  }
 }
 </script>
 
