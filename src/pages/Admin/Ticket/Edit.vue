@@ -20,10 +20,9 @@
         :action-method="'post'"
         action-api=""
       />
-      <messages :first-name="userFirstName"
-                :last-name="userLastName"
-                :user-img="userPhoto"
-                :message-body-array="userMessageArray" />
+      <messages v-for="item in userMessageArray"
+                :key="item"
+                :data="item" />
     </div>
     <div class="col-2"></div>
   </div>
