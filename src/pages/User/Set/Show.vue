@@ -27,24 +27,24 @@ export default {
             rows: [
               {
                 cols: [
+                  // {
+                  //   widgets: [
+                  //     {
+                  //       name: 'Banner',
+                  //       data: this.$route.params.id,
+                  //       options: {
+                  //         getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                  //       }
+                  //     }
+                  //   ],
+                  //   options: {
+                  //     col: 'col-3'
+                  //   }
+                  // },
                   {
                     widgets: [
                       {
-                        name: 'Banner',
-                        data: this.$route.params.id,
-                        options: {
-                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
-                        }
-                      }
-                    ],
-                    options: {
-                      col: 'col-3'
-                    }
-                  },
-                  {
-                    widgets: [
-                      {
-                        name: 'SetShowInfo',
+                        name: 'SetShow',
                         data: this.$route.params.id,
                         options: {
                           getData: (url) => GetWidgetsData.getData(this.$axios, url)

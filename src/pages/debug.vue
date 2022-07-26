@@ -1,5 +1,5 @@
 <template>
-  <page-builder :sections="sections" :options="pageConfig"></page-builder>
+  <page-builder :sections="sections" :options="pageConfig" :containerHeight="calculateHeightStyle"></page-builder>
 </template>
 
 <script>
@@ -36,14 +36,14 @@ export default {
                                 {
                                   widgets: [
                                     {
-                                      name: 'test-component1-widget'
+                                      name: 'test-component2-widget',
                                     }
                                   ]
                                 },
                                 {
                                   widgets: [
                                     {
-                                      name: 'test-component2-widget'
+                                      name: 'test-component2-widget',
                                     }
                                   ]
                                 }
@@ -64,8 +64,13 @@ export default {
                   {
                     widgets: [
                       {
+                        // here
+                        name: 'test-component2-widget'
+                      },
+                      {
+                        // here
                         name: 'test-component1-widget'
-                      }
+                      },
                     ]
                   },
                   {
@@ -218,7 +223,8 @@ export default {
         },
       ],
       testValue: '',
-      testValue1: ''
+      testValue1: '',
+      size: {}
     }
    },
   props: {
@@ -229,8 +235,14 @@ export default {
       }
     }
   },
-  methods: {},
-  computed: {},
+  methods: {
+
+  },
+  computed: {
+    calculateHeightStyle(){
+      return this.$store.getters['AppLayout/calculateContainerFullHeight'];
+    }
+  },
   beforeRouteEnter() {
     // console.log('debug beforeRouteEnter')
   },
@@ -264,4 +276,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+html * {
+  color: white;
+}
 </style>
