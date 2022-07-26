@@ -1,7 +1,8 @@
 <template>
   <page-builder
     :sections="sections"
-    :containerHeight="calculateHeightStyle" />
+    :containerHeight="calculateHeightStyle"
+    :options="pageConfig" />
 </template>
 
 <script>
@@ -11,6 +12,11 @@ export default {
   components: { PageBuilder },
   data () {
     return {
+      pageConfig: {
+        padding: {
+          // a: 'md'
+        }
+      },
       sections: [
         {
           data: {
@@ -20,14 +26,14 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'Purchases',
+                        name: 'purchases',
                         data: this.$route.params.id
                       }
                     ]
                   }
                 ],
                 options: {
-                  boxed: true
+                  boxed: false
                 }
               }
             ]
