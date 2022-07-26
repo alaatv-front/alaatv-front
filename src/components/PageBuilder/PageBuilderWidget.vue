@@ -55,7 +55,7 @@ export default {
         return {}
       }
     },
-    containerFullHeight:{}
+    containerFullHeight: {}
   },
   mixins: [mixinWidget],
   created () {},
