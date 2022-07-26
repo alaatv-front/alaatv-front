@@ -21,6 +21,18 @@ const routes = [
         component: () => import('pages/User/Shop')
       },
       {
+        path: 'checkout',
+        name: 'User.Checkout',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            path: 'review',
+            name: 'User.Checkout.Review',
+            component: () => import('pages/User/CheckoutReview/Show.vue')
+          }
+        ]
+      },
+      {
         path: 'c',
         name: 'User.Content',
         component: () => import('layouts/bareLayout.vue'),
