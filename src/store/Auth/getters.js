@@ -6,7 +6,7 @@ export function user (state) {
 }
 
 export function isUserLogin (state) {
-  return state.user.id
+  return new User(state.user).id
 }
 
 export function accessToken (state) {
