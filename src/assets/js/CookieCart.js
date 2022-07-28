@@ -1,4 +1,5 @@
 import { Cookies } from 'quasar'
+import { Cart } from 'src/models/Cart'
 
 export default class CookieCart {
 
@@ -26,14 +27,23 @@ export default class CookieCart {
       this.setCartInCookie(cookieCart)
       return
     }
-    const existCookieCart =  this.getCookieCart()
-    cookieCart.forEach( product => {
+
+    const existCookieCart = this.setNewProductInCookie(cookieCart)
+
+    this.setCartInCookie(existCookieCart)
+  }
+
+  static setNewProductInCookie (cookieCart) {
+    const existCookieCart = this.getCookieCart()
+
+    cookieCart.forEach(product => {
       const cartItem = existCookieCart.find(item => item.product_id === product.product_id)
       if (!cartItem) {
         existCookieCart.push(product)
       }
     })
-    this.setCartInCookie(existCookieCart)
+
+    return existCookieCart
   }
 
   static isCartItemsSetInCookies() {
@@ -51,9 +61,9 @@ export default class CookieCart {
     this.setCartInCookie(newCookieCart)
   }
 
-  static deleteCartItemListFromCookie(cart) {
+  static deleteCartItemListFromCookie() {
     this.deleteCartFromCookies()
-    this.addToCartInCookie(cart)
+    this.addToCartInCookie(new Cart())
   }
 
   static deleteCartFromCookies() {
