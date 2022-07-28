@@ -1,34 +1,36 @@
 <template>
-  <div class="row">
+  <div class="row q-pa-lg">
     <div class="col-12">
-      <div class="row">
-        <div class="col text-center sortingFilterCol">
-          <div class="sortingFilter">
-            <div class="sortingFilter-item title" data-toggle="m-tooltip" data-placement="top"
-                 data-original-title="مرتب سازی بر اساس">
-            </div>
-            <div class="sortingFilter-item date">
-              <filter-box
-                :items="filterBoxSort"
-                :custom-class="'sort'"
-                @onSelect="selectFilterBox($event, filterBoxSort, 'filterBoxSort')"
-              >
-              </filter-box>
-            </div>
-            <div class="sortingFilter-item subject">
-              <filter-box
-                ref="filterBoxCategory"
-                :items="filterBoxCategory"
-                :custom-class="'filter'"
-                @onSelect="selectFilterBox($event, filterBoxCategory, 'filterBoxCategory')"
-              >
-              </filter-box>
-            </div>
-          </div>
+      <div class="flex justify-center items-center q-mb-lg">
+        <q-icon name="mdi-tune-vertical-variant q-mr-md"
+                class="fdgsdg">
+          <q-tooltip>
+            مرتب سازی بر اساس
+          </q-tooltip>
+        </q-icon>
+        <div class="sortingFilter-item date q-mr-md">
+          <filter-box
+            :items="filterBoxSort"
+            :custom-class="'sort'"
+            @onSelect="selectFilterBox($event, filterBoxSort, 'filterBoxSort')"
+          >
+          </filter-box>
+        </div>
+        <div class="sortingFilter-item subject q-mr-md">
+          <filter-box
+            ref="filterBoxCategory"
+            :items="filterBoxCategory"
+            :custom-class="'filter'"
+            @onSelect="selectFilterBox($event, filterBoxCategory, 'filterBoxCategory')"
+          >
+          </filter-box>
         </div>
       </div>
     </div>
-    <modal v-if="showModalStatus" :modal-width="'90%'" :body-no-padding="true">
+    <!--    ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+    <modal v-if="showModalStatus"
+           :modal-width="'90%'"
+           :body-no-padding="true">
       <template v-slot:header>
         <div class="a--full-width">
           <button
@@ -42,18 +44,24 @@
 
         <div class="m-portlet">
 
-          <div class="m-portlet__body" v-if="selectedSet.id !== null">
+          <div class="m-portlet__body"
+               v-if="selectedSet.id !== null">
 
-            <div class="titleOfSet" v-html="selectedSet.title"></div>
+            <div class="titleOfSet"
+                 v-html="selectedSet.title"></div>
 
             <ul class="nav nav-pills nav-fill">
               <li class="nav-item">
-                <a class="nav-link" v-if="selectedSetVideos.length > 0" :class="{active: (selectedTab === 'videosTab')}"
+                <a class="nav-link"
+                   v-if="selectedSetVideos.length > 0"
+                   :class="{active: (selectedTab === 'videosTab')}"
                    @click="selectedTab = 'videosTab'">فیلم ها</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" v-if="selectedSetPamphlets.length > 0"
-                   :class="{active: (selectedTab === 'pamphletsTab')}" @click="selectedTab = 'pamphletsTab'">جزوات</a>
+                <a class="nav-link"
+                   v-if="selectedSetPamphlets.length > 0"
+                   :class="{active: (selectedTab === 'pamphletsTab')}"
+                   @click="selectedTab = 'pamphletsTab'">جزوات</a>
               </li>
             </ul>
 
@@ -64,23 +72,30 @@
               :duration="500"
             >
               <div>
-                <div class="text-center" key="1" v-if="selectedTab === 'videosTab'">
+                <div class="text-center"
+                     key="1"
+                     v-if="selectedTab === 'videosTab'">
 
                   <div class="searchResult text-left">
 
                     <div class="listType">
 
-                      <div class="item" v-for="(item, index) in selectedSetVideos"
+                      <div class="item"
+                           v-for="(item, index) in selectedSetVideos"
                            :key="item.id">
                         <div class="pic">
-                          <a :href="item.url.web" class="d-block">
-                            <img :src="item.photo" class="a--full-width videoImage">
+                          <a :href="item.url.web"
+                             class="d-block">
+                            <img :src="item.photo"
+                                 class="a--full-width videoImage">
                           </a>
                         </div>
                         <div class="content">
                           <div class="title">
                             <h2>
-                              <a :href="item.url.web" class="m-link" v-html="item.title"></a>
+                              <a :href="item.url.web"
+                                 class="m-link"
+                                 v-html="item.title"></a>
                             </h2>
                           </div>
                           <div class="detailes">
@@ -96,20 +111,26 @@
                               </div>
                               <div class="videoOrder">
                                 <div class="videoOrder-title">جلسه</div>
-                                <div class="videoOrder-number" v-html="item.order"></div>
+                                <div class="videoOrder-number"
+                                     v-html="item.order"></div>
                                 <div class="videoOrder-om"> اُم</div>
                               </div>
                             </div>
-                            <div v-if="item.file" class="btn-group m-btn-group" role="group">
+                            <div v-if="item.file"
+                                 class="btn-group m-btn-group"
+                                 role="group">
                               <a v-for="(video, videoIndex) in item.file.video"
-                                 :key="'video-'+videoIndex" :href="video.link">
-                                <button type="button" class="btn btn-success"><i
-                                  class="fa fa-cloud-download-alt m--margin-right-5"></i>
+                                 :key="'video-'+videoIndex"
+                                 :href="video.link">
+                                <button type="button"
+                                        class="btn btn-success"><i
+                                                                  class="fa fa-cloud-download-alt m--margin-right-5"></i>
                                   {{ video.caption }}
                                 </button>
                               </a>
                               <a :href="item.url.web">
-                                <button type="button" class="btn btn-success">
+                                <button type="button"
+                                        class="btn btn-success">
                                   <i class="fa fa-ellipsis-h m--margin-right-5"></i>
                                   بیشتر
                                 </button>
@@ -130,25 +151,33 @@
                   </div>
 
                 </div>
-                <div class="text-center" key="2" v-if="selectedTab === 'pamphletsTab'">
+                <div class="text-center"
+                     key="2"
+                     v-if="selectedTab === 'pamphletsTab'">
 
                   <div class="a--list2 text-left">
 
-                    <div class="a--list2-item" v-for="(item, index) in selectedSetPamphlets"
+                    <div class="a--list2-item"
+                         v-for="(item, index) in selectedSetPamphlets"
                          :key="item.id">
                       <div class="a--list2-thumbnail">
-                        <a v-if="item.file" :href="item.file.pamphlet[0]">
+                        <a v-if="item.file"
+                           :href="item.file.pamphlet[0]">
                         </a>
                       </div>
                       <div class="a--list2-content">
                         <h2 class="a--list2-title">
-                          <a v-if="item.file" :href="item.file.pamphlet[0].link" v-html="item.title"></a>
+                          <a v-if="item.file"
+                             :href="item.file.pamphlet[0].link"
+                             v-html="item.title"></a>
                         </h2>
                         <div class="a--list2-info"></div>
                         <div class="a--list2-desc"></div>
                       </div>
                       <div class="a--list2-action">
-                        <a v-if="item.file" :href="item.file.pamphlet[0].link" class="downloadPamphletIcon">
+                        <a v-if="item.file"
+                           :href="item.file.pamphlet[0].link"
+                           class="downloadPamphletIcon">
                           <i class="fa fa-cloud-download-alt"></i>
                         </a>
                       </div>
@@ -156,7 +185,8 @@
 
                   </div>
                   <!--                <vcl-facebook rtl v-if="selectedSet.loading"></vcl-facebook>-->
-                  <div v-if="!selectedSet.loading && selectedSetPamphlets.length === 0" role="alert"
+                  <div v-if="!selectedSet.loading && selectedSetPamphlets.length === 0"
+                       role="alert"
                        class="alert alert-info fade show noPamphletMessage">
                     <strong>جزوه ای وجود ندارد</strong>
                   </div>
@@ -165,7 +195,8 @@
               </div>
             </transition>
 
-            <div v-if="selectedSet.contents.list.length === 0" role="alert"
+            <div v-if="selectedSet.contents.list.length === 0"
+                 role="alert"
                  class="alert alert-info text-center noContentMessage a--d-none">
               <strong>
                 این محتوا به زودی منتشر می شود
@@ -173,8 +204,10 @@
             </div>
 
           </div>
-          <div class="m-portlet__body" v-if="selectedSet.id === null">
-            <div role="alert" class="alert alert-info text-center noContentMessage">
+          <div class="m-portlet__body"
+               v-if="selectedSet.id === null">
+            <div role="alert"
+                 class="alert alert-info text-center noContentMessage">
               <strong>
                 یکی از مجموعه ها را انتخاب کنید.
               </strong>
@@ -184,56 +217,81 @@
 
       </template>
       <template v-slot:footer>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cloaseModal">بستن</button>
+        <button type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                @click="cloaseModal">بستن</button>
       </template>
     </modal>
-    <div class="col-md-5 productsCol">
-      <a href="/asset/abrisham" target="_blank">
+    <div class="col-md-5 productsCol bg-red-4">
+      <a href="/asset/abrisham"
+         target="_blank">
         <div class="abrishamAssetBanner">
-          <img src="https://nodes.alaatv.com/upload/banner-dashboard.jpg"/>
+          <img src="https://nodes.alaatv.com/upload/banner-dashboard.jpg" />
         </div>
       </a>
       <div class="m-input-icon m-input-icon--left productsSearch">
-        <input type="text" class="form-control m-input m-input--air" placeholder="جستجو ..." v-model="filterName">
-        <span class="m-input-icon__icon m-input-icon__icon--left">
-                    <span>
-                        <i class="fa fa-search"></i>
-                    </span>
-                </span>
+        <q-input outlined
+                 standout
+                 type="text"
+                 rounded
+                 filled
+                 class="form-control m-input m-input--air"
+                 placeholder="جستجو ..."
+                 v-model="filterName">
+          <template v-slot:prepend>
+            <q-icon name="mdi-magnify" />
+          </template>
+        </q-input>
       </div>
-      <transition-group name="list" tag="div" class="produtItems">
-        <purchase-item v-for="(item, index) in products.list"
-                       :key="item.id"
-                       :product="item"
-                       :filter="filterName"
-                       v-if="canShowProduct(item)"
-                       @setSelected="setSelectedSet"
-        ></purchase-item>
+      <transition-group v-if="products.list.length > 0"
+                        name="list"
+                        tag="div"
+                        class="produtItems">
+        <div  v-for="product in products.list">
+          <purchase-item
+            v-if="canShowProduct(product)"
+            :key="product.id"
+            :product="product"
+            :filter="filterName"
+            @setSelected="setSelectedSet"
+          />
+        </div>
       </transition-group>
-      <div class="m-portlet__body" v-if="products.list.length === 0">
-        <div role="alert" class="alert alert-info text-center noContentMessage">
-          <strong>
+      gfdh : {{products.list.length}}
+      <!--    ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+      <div class="m-portlet__body"
+           v-if="products.list.length === 0">
+        <div class="text-center bg-primary q-pa-lg noContentMessage">
+          <div>
+            <q-icon size="28px"
+                    name="mdi-information-outline" />
             هنوز محصولی نخریده اید.
-          </strong>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-7 contentsetOfProductCol">
+    <div class="col-md-7 contentsetOfProductCol bg-blue-3">
+      <div class="m-portlet bg-green"
+           v-if="!canShowModalForMobileView()">
+        <div class="m-portlet__body"
+             v-if="selectedSet.id !== null">
 
-      <div class="m-portlet" v-if="!canShowModalForMobileView()">
-
-        <div class="m-portlet__body" v-if="selectedSet.id !== null">
-
-          <div class="titleOfSet" v-html="selectedSet.title"></div>
+          <div class="titleOfSet"
+               v-html="selectedSet.title"></div>
 
           <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
-              <a class="nav-link" v-if="selectedSetVideos.length > 0" :class="{active: (selectedTab === 'videosTab')}"
+              <a class="nav-link"
+                 v-if="selectedSetVideos.length > 0"
+                 :class="{active: (selectedTab === 'videosTab')}"
                  @click="selectedTab = 'videosTab'">فیلم ها</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" v-if="selectedSetPamphlets.length > 0"
-                 :class="{active: (selectedTab === 'pamphletsTab')}" @click="selectedTab = 'pamphletsTab'">جزوات</a>
+              <a class="nav-link"
+                 v-if="selectedSetPamphlets.length > 0"
+                 :class="{active: (selectedTab === 'pamphletsTab')}"
+                 @click="selectedTab = 'pamphletsTab'">جزوات</a>
             </li>
           </ul>
 
@@ -244,23 +302,30 @@
             :duration="500"
           >
             <div>
-              <div class="text-center" key="1" v-if="selectedTab === 'videosTab'">
+              <div class="text-center"
+                   key="1"
+                   v-if="selectedTab === 'videosTab'">
 
                 <div class="searchResult text-left">
 
                   <div class="listType">
 
-                    <div class="item" v-for="(item, index) in selectedSetVideos"
+                    <div class="item"
+                         v-for="(item, index) in selectedSetVideos"
                          :key="item.id">
                       <div class="pic">
-                        <a :href="item.url.web" class="d-block">
-                          <img :src="item.photo" class="a--full-width videoImage">
+                        <a :href="item.url.web"
+                           class="d-block">
+                          <img :src="item.photo"
+                               class="a--full-width videoImage">
                         </a>
                       </div>
                       <div class="content">
                         <div class="title">
                           <h2>
-                            <a :href="item.url.web" class="m-link" v-html="item.title"></a>
+                            <a :href="item.url.web"
+                               class="m-link"
+                               v-html="item.title"></a>
                           </h2>
                         </div>
                         <div class="detailes">
@@ -277,20 +342,26 @@
                             </div>
                             <div class="videoOrder">
                               <div class="videoOrder-title">جلسه</div>
-                              <div class="videoOrder-number" v-html="item.order"></div>
+                              <div class="videoOrder-number"
+                                   v-html="item.order"></div>
                               <div class="videoOrder-om"> اُم</div>
                             </div>
                           </div>
-                          <div v-if="item.file" class="btn-group m-btn-group" role="group">
+                          <div v-if="item.file"
+                               class="btn-group m-btn-group"
+                               role="group">
                             <a v-for="(video, videoIndex) in item.file.video"
-                               :key="'video-' + videoIndex" :href="video.link + '?download=1'">
-                              <button type="button" class="btn btn-success"><i
-                                class="fa fa-cloud-download-alt m--margin-right-5"></i>
+                               :key="'video-' + videoIndex"
+                               :href="video.link + '?download=1'">
+                              <button type="button"
+                                      class="btn btn-success"><i
+                                                                class="fa fa-cloud-download-alt m--margin-right-5"></i>
                                 {{ video.caption }}
                               </button>
                             </a>
                             <a :href="item.url.web">
-                              <button type="button" class="btn btn-success">
+                              <button type="button"
+                                      class="btn btn-success">
                                 <i class="fa fa-ellipsis-h m--margin-right-5"></i>
                                 بیشتر
                               </button>
@@ -311,25 +382,33 @@
                 </div>
 
               </div>
-              <div class="text-center" key="2" v-if="selectedTab === 'pamphletsTab'">
+              <div class="text-center"
+                   key="2"
+                   v-if="selectedTab === 'pamphletsTab'">
 
                 <div class="a--list2 text-left">
 
-                  <div class="a--list2-item" v-for="(item, index) in selectedSetPamphlets"
+                  <div class="a--list2-item"
+                       v-for="(item, index) in selectedSetPamphlets"
                        :key="item.id">
                     <div class="a--list2-thumbnail">
-                      <a v-if="item.file" :href="item.file.pamphlet[0].link">
+                      <a v-if="item.file"
+                         :href="item.file.pamphlet[0].link">
                       </a>
                     </div>
                     <div class="a--list2-content">
                       <h2 class="a--list2-title">
-                        <a v-if="item.file" :href="item.file.pamphlet[0].link" v-html="item.title"></a>
+                        <a v-if="item.file"
+                           :href="item.file.pamphlet[0].link"
+                           v-html="item.title"></a>
                       </h2>
                       <div class="a--list2-info"></div>
                       <div class="a--list2-desc"></div>
                     </div>
                     <div class="a--list2-action">
-                      <a v-if="item.file" :href="item.file.pamphlet[0].link" class="downloadPamphletIcon">
+                      <a v-if="item.file"
+                         :href="item.file.pamphlet[0].link"
+                         class="downloadPamphletIcon">
                         <i class="fa fa-cloud-download-alt"></i>
                       </a>
                     </div>
@@ -337,7 +416,8 @@
 
                 </div>
                 <!--              <vcl-facebook rtl v-if="selectedSet.loading"></vcl-facebook>-->
-                <div v-if="!selectedSet.loading && selectedSetPamphlets.length === 0" role="alert"
+                <div v-if="!selectedSet.loading && selectedSetPamphlets.length === 0"
+                     role="alert"
                      class="alert alert-info fade show noPamphletMessage">
                   <strong>جزوه ای وجود ندارد</strong>
                 </div>
@@ -346,7 +426,8 @@
             </div>
           </transition>
 
-          <div v-if="!selectedSet.loading && selectedSet.contents.list.length === 0" role="alert"
+          <div v-if="!selectedSet.loading && selectedSet.contents.list.length === 0"
+               role="alert"
                class="alert alert-info text-center noContentMessage">
             <strong>
               این محتوا به زودی منتشر می شود
@@ -354,759 +435,1029 @@
           </div>
 
         </div>
-        <div class="m-portlet__body" v-if="selectedSet.id === null && products.list.length > 0">
-          <div role="alert" class="alert alert-info text-center noContentMessage">
+        <div class="m-portlet__body"
+             v-if="selectedSet.id === null && products.list.length > 0">
+          <div role="alert"
+               class="alert alert-info text-center noContentMessage">
             <strong>
               یکی از مجموعه ها را انتخاب کنید.
             </strong>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import FilterBox from 'src/components/userPurchases/filterBox';
-import PurchaseItem from 'src/components/userPurchases/PurchaseItem';
+import FilterBox from 'src/components/userPurchases/filterBox'
+import PurchaseItem from 'src/components/userPurchases/PurchaseItem'
 // import Modal from '../../Modal';
-import {Product, ProductList} from "src/models/Product";
-import {Set, SetList} from "src/models/Set";
-import Assist from "src/plugins/assistant";
-
+import { Product, ProductList } from 'src/models/Product'
+import { Set, SetList } from 'src/models/Set'
+import Assist from 'src/plugins/assistant'
 
 export default {
-  name: "Purchases",
+  name: 'Purchases',
   components: {
     FilterBox,
     PurchaseItem
   },
   watch: {
-    filterName(value) {
-      this.products.list = this.products.list.splice(0, this.products.list.length);
-    },
-  },
-  computed: {
-    selectedSetVideos() {
-      return this.selectedSet.contents.videos('des');
-    },
-    selectedSetPamphlets() {
-      return this.selectedSet.contents.pamphlets('des');
-    },
-    userAssetsCollection() {
-      return [{
-        "id": 0,
-        "title": "محصولات من",
-        "offer": false,
-        "url": null,
-        "order": 0,
-        "contents": null,
-        "sets": null,
-        "products": [{
-          "id": 717,
-          "redirect_url": null,
-          "title": "بسته امتحان نهایی 1401 آلا(0)",
-          "category": "همایش/امتحان نهایی",
-          "price": {"base": 0, "discount": 0, "final": 0},
-          "url": {"web": "http://127.0.0.1/product/717", "api": "http://127.0.0.1/api/v2/product/717"},
-          "photo": "https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg",
-          "sets": [{
-            "id": 1542,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی عربی دوازدهم_ابراهیم غلامی نژاد",
-            "short_title": "شبیه ساز امتحان نهایی عربی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652952167_7887.jpg",
-            "url": {"web": "http://127.0.0.1/set/1542", "api": "http://127.0.0.1/api/v2/set/1542"},
-            "pamphlets_count": 0,
-            "videos_count": 4,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-19 04:52:47",
-            "updated_at": "2022-05-19 04:52:47",
-            "redirect_code": null
-          }, {
-            "id": 1519,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی شیمی دوازدهم - فرزاد نجفی",
-            "short_title": "شبیه ساز امتحان نهایی شیمی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg",
-            "url": {"web": "http://127.0.0.1/set/1519", "api": "http://127.0.0.1/api/v2/set/1519"},
-            "pamphlets_count": 0,
-            "videos_count": 11,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:39:20",
-            "updated_at": "2022-05-26 07:16:46",
-            "redirect_code": null
-          }, {
-            "id": 1518,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی شیمی دوازدهم - محسن معینی",
-            "short_title": "شبیه ساز امتحان نهایی شیمی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg",
-            "url": {"web": "http://127.0.0.1/set/1518", "api": "http://127.0.0.1/api/v2/set/1518"},
-            "pamphlets_count": 1,
-            "videos_count": 7,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:38:31",
-            "updated_at": "2022-05-21 10:21:44",
-            "redirect_code": null
-          }, {
-            "id": 1517,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - پرویز کازرانیان",
-            "short_title": "شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg",
-            "url": {"web": "http://127.0.0.1/set/1517", "api": "http://127.0.0.1/api/v2/set/1517"},
-            "pamphlets_count": 1,
-            "videos_count": 16,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:37:36",
-            "updated_at": "2022-05-21 10:20:19",
-            "redirect_code": null
-          }, {
-            "id": 1516,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - محمدرضا زارع",
-            "short_title": "شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687778_6693.jpg",
-            "url": {"web": "http://127.0.0.1/set/1516", "api": "http://127.0.0.1/api/v2/set/1516"},
-            "pamphlets_count": 1,
-            "videos_count": 15,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:36:36",
-            "updated_at": "2022-05-21 10:19:52",
-            "redirect_code": null
-          }, {
-            "id": 1514,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم - محمدرضا زارع",
-            "short_title": "شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687795_8049.jpg",
-            "url": {"web": "http://127.0.0.1/set/1514", "api": "http://127.0.0.1/api/v2/set/1514"},
-            "pamphlets_count": 1,
-            "videos_count": 17,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:22:00",
-            "updated_at": "2022-05-22 03:12:33",
-            "redirect_code": null
-          }, {
-            "id": 1513,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی دینی دوازدهم - ابوالفضل احدزاده",
-            "short_title": "شبیه ساز امتحان نهایی دینی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687803_2872.jpg",
-            "url": {"web": "http://127.0.0.1/set/1513", "api": "http://127.0.0.1/api/v2/set/1513"},
-            "pamphlets_count": 1,
-            "videos_count": 6,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:18:42",
-            "updated_at": "2022-05-20 06:37:27",
-            "redirect_code": null
-          }, {
-            "id": 1512,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی ادبیات دوازدهم - میثم حسین خانی",
-            "short_title": "شبیه ساز امتحان نهایی ادبیات دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687820_7028.jpg",
-            "url": {"web": "http://127.0.0.1/set/1512", "api": "http://127.0.0.1/api/v2/set/1512"},
-            "pamphlets_count": 1,
-            "videos_count": 4,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:16:06",
-            "updated_at": "2022-05-21 03:23:57",
-            "redirect_code": null
-          }, {
-            "id": 1511,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی ریاضی انسانی دوازدهم - محسن زبده کار",
-            "short_title": "شبیه ساز امتحان نهایی ریاضی انسانی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687831_6220.jpg",
-            "url": {"web": "http://127.0.0.1/set/1511", "api": "http://127.0.0.1/api/v2/set/1511"},
-            "pamphlets_count": 3,
-            "videos_count": 15,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 04:47:49",
-            "updated_at": "2022-05-21 08:06:01",
-            "redirect_code": null
-          }, {
-            "id": 1520,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی حسابان دوازدهم - محمد امین نباخته",
-            "short_title": "شبیه ساز امتحان نهایی حسابان دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687690_6619.jpg",
-            "url": {"web": "http://127.0.0.1/set/1520", "api": "http://127.0.0.1/api/v2/set/1520"},
-            "pamphlets_count": 1,
-            "videos_count": 6,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:40:14",
-            "updated_at": "2022-05-21 10:22:57",
-            "redirect_code": null
-          }, {
-            "id": 1521,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی حسابان دوازدهم - مجید صداقت",
-            "short_title": "شبیه ساز امتحان نهایی حسابان دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687682_5728.jpg",
-            "url": {"web": "http://127.0.0.1/set/1521", "api": "http://127.0.0.1/api/v2/set/1521"},
-            "pamphlets_count": 2,
-            "videos_count": 10,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:41:48",
-            "updated_at": "2022-05-21 10:23:19",
-            "redirect_code": null
-          }, {
-            "id": 1536,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی تاریخ دوازدهم - حسن رعنایی",
-            "short_title": "شبیه ساز امتحان نهایی تاریخ دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687519_1820.jpg",
-            "url": {"web": "http://127.0.0.1/set/1536", "api": "http://127.0.0.1/api/v2/set/1536"},
-            "pamphlets_count": 0,
-            "videos_count": 5,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-12 06:45:38",
-            "updated_at": "2022-05-20 06:37:43",
-            "redirect_code": null
-          }, {
-            "id": 1533,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی جغرافی دوازدهم - حسن رعنایی",
-            "short_title": "شبیه ساز امتحان نهایی جغرافی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687558_8777.jpg",
-            "url": {"web": "http://127.0.0.1/set/1533", "api": "http://127.0.0.1/api/v2/set/1533"},
-            "pamphlets_count": 0,
-            "videos_count": 5,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-12 06:42:13",
-            "updated_at": "2022-05-20 08:41:09",
-            "redirect_code": null
-          }, {
-            "id": 1531,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی گسسته دوازدهم - سوگند روشنی",
-            "short_title": "شبیه ساز امتحان نهایی گسسته دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687578_5586.jpg",
-            "url": {"web": "http://127.0.0.1/set/1531", "api": "http://127.0.0.1/api/v2/set/1531"},
-            "pamphlets_count": 0,
-            "videos_count": 16,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-12 05:43:24",
-            "updated_at": "2022-05-21 08:07:49",
-            "redirect_code": null
-          }, {
-            "id": 1530,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی گسسته دوازدهم - محمدصادق ثابتی",
-            "short_title": "شبیه ساز امتحان نهایی گسسته دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687587_7830.jpg",
-            "url": {"web": "http://127.0.0.1/set/1530", "api": "http://127.0.0.1/api/v2/set/1530"},
-            "pamphlets_count": 1,
-            "videos_count": 5,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-12 05:42:50",
-            "updated_at": "2022-05-22 04:06:29",
-            "redirect_code": null
-          }, {
-            "id": 1528,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی زبان  دوازدهم - مهدی چیذری",
-            "short_title": "شبیه ساز امتحان نهایی زبان  دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687607_6643.jpg",
-            "url": {"web": "http://127.0.0.1/set/1528", "api": "http://127.0.0.1/api/v2/set/1528"},
-            "pamphlets_count": 0,
-            "videos_count": 4,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:51:04",
-            "updated_at": "2022-05-22 07:49:13",
-            "redirect_code": null
-          }, {
-            "id": 1527,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی زیست شناسی دوازدهم - مرضیه فتحی",
-            "short_title": "شبیه ساز امتحان نهایی زیست شناسی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687615_8459.jpg",
-            "url": {"web": "http://127.0.0.1/set/1527", "api": "http://127.0.0.1/api/v2/set/1527"},
-            "pamphlets_count": 2,
-            "videos_count": 12,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:50:09",
-            "updated_at": "2022-05-21 10:27:36",
-            "redirect_code": null
-          }, {
-            "id": 1526,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی زیست شناسی دوازدهم - حسین ذبحی تفت",
-            "short_title": "شبیه ساز امتحان نهایی زیست شناسی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687629_3868.jpg",
-            "url": {"web": "http://127.0.0.1/set/1526", "api": "http://127.0.0.1/api/v2/set/1526"},
-            "pamphlets_count": 1,
-            "videos_count": 8,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:48:08",
-            "updated_at": "2022-05-21 10:25:45",
-            "redirect_code": null
-          }, {
-            "id": 1525,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی هندسه دوازدهم - محمد رضا حسینی فرد",
-            "short_title": "شبیه ساز امتحان نهایی هندسه دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687640_8696.jpg",
-            "url": {"web": "http://127.0.0.1/set/1525", "api": "http://127.0.0.1/api/v2/set/1525"},
-            "pamphlets_count": 2,
-            "videos_count": 8,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:46:48",
-            "updated_at": "2022-05-20 06:38:22",
-            "redirect_code": null
-          }, {
-            "id": 1524,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی هندسه دوازدهم - علی ایمانی",
-            "short_title": "شبیه ساز امتحان نهایی هندسه دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687650_7577.jpg",
-            "url": {"web": "http://127.0.0.1/set/1524", "api": "http://127.0.0.1/api/v2/set/1524"},
-            "pamphlets_count": 1,
-            "videos_count": 6,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:45:45",
-            "updated_at": "2022-05-20 06:38:30",
-            "redirect_code": null
-          }, {
-            "id": 1523,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی ریاضی تجربی دوازدهم - محمد رضا لکستانی",
-            "short_title": "شبیه ساز امتحان نهایی ریاضی تجربی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687664_8138.jpg",
-            "url": {"web": "http://127.0.0.1/set/1523", "api": "http://127.0.0.1/api/v2/set/1523"},
-            "pamphlets_count": 0,
-            "videos_count": 40,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-05-05 05:44:31",
-            "updated_at": "2022-05-19 13:27:26",
-            "redirect_code": null
-          }, {
-            "id": 1086,
-            "redirect_url": null,
-            "title": "امتحان نهایی زیست شناسی دوازدهم-(نظام آموزشی جدید) - جلال موقاری",
-            "short_title": "امتحان نهایی زیست شناسی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/zist_20210508084205.jpg",
-            "url": {"web": "http://127.0.0.1/set/1086", "api": "http://127.0.0.1/api/v2/set/1086"},
-            "pamphlets_count": 3,
-            "videos_count": 3,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-04-24 11:49:14",
-            "updated_at": "2022-01-26 05:43:22",
-            "redirect_code": null
-          }, {
-            "id": 828,
-            "redirect_url": null,
-            "title": "امتحان نهایی دین و زندگی سال دوازدهم انسانی (نظام آموزشی جدید) (99-1398) هادی ناصری",
-            "short_title": "امتحان نهایی دین و زندگی سال دوازدهم انسانی",
-            "photo": null,
-            "url": {"web": "http://127.0.0.1/set/828", "api": "http://127.0.0.1/api/v2/set/828"},
-            "pamphlets_count": 1,
-            "videos_count": 4,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-05-21 06:19:18",
-            "updated_at": "2021-08-07 12:18:30",
-            "redirect_code": null
-          }, {
-            "id": 827,
-            "redirect_url": null,
-            "title": "امتحان نهایی دین و زندگی سال دوازدهم ریاضی و تجربی (نظام آموزشی جدید) - هادی ناصری",
-            "short_title": "امتحان نهایی دین و زندگی سال دوازدهم ریاضی و تجربی",
-            "photo": null,
-            "url": {"web": "http://127.0.0.1/set/827", "api": "http://127.0.0.1/api/v2/set/827"},
-            "pamphlets_count": 3,
-            "videos_count": 4,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-05-21 06:18:34",
-            "updated_at": "2022-01-26 04:55:39",
-            "redirect_code": null
-          }, {
-            "id": 824,
-            "redirect_url": null,
-            "title": "امتحان نهایی فیزیک تجربی سال دوازدهم (نظام آموزشی جدید) - پرویز کازرانیان",
-            "short_title": "امتحان نهایی فیزیک تجربی سال دوازدهم",
-            "photo": null,
-            "url": {"web": "http://127.0.0.1/set/824", "api": "http://127.0.0.1/api/v2/set/824"},
-            "pamphlets_count": 3,
-            "videos_count": 3,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-05-19 05:28:31",
-            "updated_at": "2022-01-26 04:55:10",
-            "redirect_code": null
-          }, {
-            "id": 823,
-            "redirect_url": null,
-            "title": "امتحان نهایی فارسی 3 (نظام آموزشی جدید) - محمد صادقی",
-            "short_title": "امتحان نهایی فارسی 3",
-            "photo": null,
-            "url": {"web": "http://127.0.0.1/set/823", "api": "http://127.0.0.1/api/v2/set/823"},
-            "pamphlets_count": 4,
-            "videos_count": 4,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-05-19 05:23:13",
-            "updated_at": "2022-01-26 04:54:56",
-            "redirect_code": null
-          }, {
-            "id": 820,
-            "redirect_url": null,
-            "title": "امتحان نهایی ریاضی انسانی دوازدهم (نظام آموزشی جدید) - مهدی امینی راد",
-            "short_title": "امتحان نهایی ریاضی انسانی",
-            "photo": null,
-            "url": {"web": "http://127.0.0.1/set/820", "api": "http://127.0.0.1/api/v2/set/820"},
-            "pamphlets_count": 3,
-            "videos_count": 3,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-05-17 06:17:15",
-            "updated_at": "2022-01-26 04:54:27",
-            "redirect_code": null
-          }, {
-            "id": 814,
-            "redirect_url": null,
-            "title": "امتحان نهایی ریاضی تجربی دوازدهم (نظام آموزشی جدید) - محمد صادق ثابتی",
-            "short_title": "امتحان نهایی ریاضی تجربی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/RayazeiSvaH_20200620155453.jpg",
-            "url": {"web": "http://127.0.0.1/set/814", "api": "http://127.0.0.1/api/v2/set/814"},
-            "pamphlets_count": 6,
-            "videos_count": 15,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-05-14 06:07:22",
-            "updated_at": "2022-01-26 04:52:23",
-            "redirect_code": null
-          }, {
-            "id": 811,
-            "redirect_url": null,
-            "title": "امتحانات نهایی زبان انگلیسی سال دوازدهم (نظام آموزشی جدید) - علی اکبر عزتی",
-            "short_title": "امتحانات نهایی زبان انگلیسی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/zaban t2_20200620142428.jpg",
-            "url": {"web": "http://127.0.0.1/set/811", "api": "http://127.0.0.1/api/v2/set/811"},
-            "pamphlets_count": 3,
-            "videos_count": 6,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-05-07 00:24:16",
-            "updated_at": "2022-01-26 04:51:24",
-            "redirect_code": null
-          }, {
-            "id": 807,
-            "redirect_url": null,
-            "title": "امتحانات نهایی عربی (نظام آموزشی جدید) - پدرام علیمرادی",
-            "short_title": "امتحانات نهایی عربی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/arabit2_20200620142522.jpg",
-            "url": {"web": "http://127.0.0.1/set/807", "api": "http://127.0.0.1/api/v2/set/807"},
-            "pamphlets_count": 3,
-            "videos_count": 2,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-05-04 02:18:52",
-            "updated_at": "2022-01-26 04:51:03",
-            "redirect_code": null
-          }, {
-            "id": 799,
-            "redirect_url": null,
-            "title": "امتحان نهایی ریاضی تجربی سال دوازدهم (نظام آموزشی جدید) - مهدی امینی راد",
-            "short_title": "امتحان نهایی ریاضی تجربی سال دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/rayazeiA_20200620155001.jpg",
-            "url": {"web": "http://127.0.0.1/set/799", "api": "http://127.0.0.1/api/v2/set/799"},
-            "pamphlets_count": 3,
-            "videos_count": 8,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-04-18 03:59:29",
-            "updated_at": "2022-01-26 04:49:45",
-            "redirect_code": null
-          }, {
-            "id": 789,
-            "redirect_url": null,
-            "title": "امتحان نهایی شیمی سال دوازدهم (نظام آموزشی جدید) - حامد پویان نظر",
-            "short_title": "امتحان نهایی شیمی سال دوازدهم",
-            "photo": null,
-            "url": {"web": "http://127.0.0.1/set/789", "api": "http://127.0.0.1/api/v2/set/789"},
-            "pamphlets_count": 5,
-            "videos_count": 5,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-04-09 07:49:17",
-            "updated_at": "2022-01-26 04:48:44",
-            "redirect_code": null
-          }, {
-            "id": 784,
-            "redirect_url": null,
-            "title": "امتحان نهایی فیزیک سال دوازدهم (نظام آموزشی جدید) - پرویز کازرانیان",
-            "short_title": "امتحان نهایی فیزیک سال دوازدهم",
-            "photo": null,
-            "url": {"web": "http://127.0.0.1/set/784", "api": "http://127.0.0.1/api/v2/set/784"},
-            "pamphlets_count": 3,
-            "videos_count": 5,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-03-30 05:09:05",
-            "updated_at": "2022-01-26 04:47:30",
-            "redirect_code": null
-          }, {
-            "id": 1087,
-            "redirect_url": null,
-            "title": "امتحان نهایی فیزیک تجربی دوازدهم-(نظام آموزشی جدید) - پرویز کازرانیان",
-            "short_title": "امتحان نهایی فیزیک تجربی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/fizik_t_20210508084243.jpg",
-            "url": {"web": "http://127.0.0.1/set/1087", "api": "http://127.0.0.1/api/v2/set/1087"},
-            "pamphlets_count": 3,
-            "videos_count": 4,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-04-24 11:51:45",
-            "updated_at": "2022-01-26 05:43:37",
-            "redirect_code": null
-          }, {
-            "id": 1102,
-            "redirect_url": null,
-            "title": "امتحان نهایی زبان دوازدهم-(نظام آموزشی جدید) - علی اکبر عزتی",
-            "short_title": "امتحان نهایی زبان انگلیسی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/zaban_20210508084412.jpg",
-            "url": {"web": "http://127.0.0.1/set/1102", "api": "http://127.0.0.1/api/v2/set/1102"},
-            "pamphlets_count": 3,
-            "videos_count": 11,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-05 11:49:22",
-            "updated_at": "2022-01-26 05:46:31",
-            "redirect_code": null
-          }, {
-            "id": 1103,
-            "redirect_url": null,
-            "title": "امتحان نهایی دین و زندگی دوازدهم-(نظام آموزشی جدید) (00-99)",
-            "short_title": "امتحان نهایی دین و زندگی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/dini_20210508084441.jpg",
-            "url": {"web": "http://127.0.0.1/set/1103", "api": "http://127.0.0.1/api/v2/set/1103"},
-            "pamphlets_count": 3,
-            "videos_count": 4,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-05 11:50:06",
-            "updated_at": "2021-08-07 12:18:32",
-            "redirect_code": null
-          }, {
-            "id": 1495,
-            "redirect_url": null,
-            "title": "شبیه ساز امتحان نهایی ریاضی تجربی دوازدهم - علی صدری",
-            "short_title": "شبیه ساز امتحان نهایی ریاضی تجربی دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/1652688078_9638.jpg",
-            "url": {"web": "http://127.0.0.1/set/1495", "api": "http://127.0.0.1/api/v2/set/1495"},
-            "pamphlets_count": 1,
-            "videos_count": 6,
-            "author": null,
-            "contents": null,
-            "created_at": "2022-04-20 04:56:53",
-            "updated_at": "2022-05-20 06:38:11",
-            "redirect_code": null
-          }, {
-            "id": 1121,
-            "redirect_url": null,
-            "title": "امتحان نهایی دینی انسانی دوازدهم-(نظام آموزشی جدید) (00-99)-هادی ناصری",
-            "short_title": "امتحان نهایی دینی انسانی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/dini_e_20210515125409.jpg",
-            "url": {"web": "http://127.0.0.1/set/1121", "api": "http://127.0.0.1/api/v2/set/1121"},
-            "pamphlets_count": 3,
-            "videos_count": 3,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-15 12:38:27",
-            "updated_at": "2021-08-07 12:18:33",
-            "redirect_code": null
-          }, {
-            "id": 1120,
-            "redirect_url": null,
-            "title": "امتحان نهایی ادبیات فارسی انسانی دوازدهم-(نظام آموزشی جدید) (00-99)-عبدالرضا مرادی",
-            "short_title": "امتحان نهایی ادبیات فارسی انسانی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/farsi_ensani_20210515125143.jpg",
-            "url": {"web": "http://127.0.0.1/set/1120", "api": "http://127.0.0.1/api/v2/set/1120"},
-            "pamphlets_count": 1,
-            "videos_count": 2,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-15 11:08:38",
-            "updated_at": "2021-08-07 12:18:33",
-            "redirect_code": null
-          }, {
-            "id": 1115,
-            "redirect_url": null,
-            "title": "امتحان نهایی ریاضی تجربی دوازدهم-(نظام آموزشی جدید) (00-99)- محمد رضا لکستانی",
-            "short_title": "امتحان نهایی ریاضی تجربی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/riazi t_20210510073323.jpg",
-            "url": {"web": "http://127.0.0.1/set/1115", "api": "http://127.0.0.1/api/v2/set/1115"},
-            "pamphlets_count": 3,
-            "videos_count": 6,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-10 07:12:57",
-            "updated_at": "2021-08-07 12:18:33",
-            "redirect_code": null
-          }, {
-            "id": 1111,
-            "redirect_url": null,
-            "title": "امتحان نهایی فیزیک ریاضی دوازدهم-(نظام آموزشی جدید) (00-99)- پرویز کازرانیان",
-            "short_title": "امتحان نهایی فیزیک ریاضی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/fizik_r_20210516061819.jpg",
-            "url": {"web": "http://127.0.0.1/set/1111", "api": "http://127.0.0.1/api/v2/set/1111"},
-            "pamphlets_count": 3,
-            "videos_count": 15,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-08 09:06:09",
-            "updated_at": "2021-08-07 12:18:33",
-            "redirect_code": null
-          }, {
-            "id": 1109,
-            "redirect_url": null,
-            "title": "امتحان نهایی ادبیات فارسی دوازدهم-(نظام آموزشی جدید) (00-99)-عبدالرضا مرادی",
-            "short_title": "امتحان نهایی ادبیات فارسی",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/adabiat_20210508085031.jpg",
-            "url": {"web": "http://127.0.0.1/set/1109", "api": "http://127.0.0.1/api/v2/set/1109"},
-            "pamphlets_count": 3,
-            "videos_count": 5,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-08 08:48:27",
-            "updated_at": "2021-08-07 12:18:33",
-            "redirect_code": null
-          }, {
-            "id": 1108,
-            "redirect_url": null,
-            "title": "امتحان نهایی هندسه دوازدهم-(نظام آموزشی جدید) (00-99)-سید محمد رضا حسینی فرد",
-            "short_title": "امتحان نهایی هندسه",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/hendese_20210518131100.jpg",
-            "url": {"web": "http://127.0.0.1/set/1108", "api": "http://127.0.0.1/api/v2/set/1108"},
-            "pamphlets_count": 0,
-            "videos_count": 5,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-08 08:47:01",
-            "updated_at": "2021-08-07 12:18:32",
-            "redirect_code": null
-          }, {
-            "id": 1107,
-            "redirect_url": null,
-            "title": "امتحان نهایی حسابان دوازدهم-(نظام آموزشی جدید) (00-99)-صادق ثابتی",
-            "short_title": "امتحان نهایی حسابان",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/riazi_r_hesaban_20210508084410.jpg",
-            "url": {"web": "http://127.0.0.1/set/1107", "api": "http://127.0.0.1/api/v2/set/1107"},
-            "pamphlets_count": 3,
-            "videos_count": 10,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-08 08:41:31",
-            "updated_at": "2021-08-07 12:18:32",
-            "redirect_code": null
-          }, {
-            "id": 1106,
-            "redirect_url": null,
-            "title": "امتحان نهایی گسسته دوازدهم-(نظام آموزشی جدید) (00-99) - صادق ثابتی، محمد رضا حسینی فرد",
-            "short_title": "امتحان نهایی گسسته",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/riazi r g_20210510073408.jpg",
-            "url": {"web": "http://127.0.0.1/set/1106", "api": "http://127.0.0.1/api/v2/set/1106"},
-            "pamphlets_count": 3,
-            "videos_count": 9,
-            "author": null,
-            "contents": null,
-            "created_at": "2021-05-08 08:41:19",
-            "updated_at": "2022-01-26 05:49:06",
-            "redirect_code": null
-          }, {
-            "id": 777,
-            "redirect_url": null,
-            "title": "امتحان نهایی زیست شناسی سال دوازدهم (نظام آموزشی جدید) - محمدعلی امینی راد",
-            "short_title": "امتحان نهایی زیست شناسی سال دوازدهم",
-            "photo": "https://nodes.alaatv.com/upload/contentset/departmentlesson/zist_20200620143224.jpg",
-            "url": {"web": "http://127.0.0.1/set/777", "api": "http://127.0.0.1/api/v2/set/777"},
-            "pamphlets_count": 3,
-            "videos_count": 25,
-            "author": null,
-            "contents": null,
-            "created_at": "2020-03-09 09:10:55",
-            "updated_at": "2022-01-26 04:46:20",
-            "redirect_code": null
-          }],
-          "redirect_code": null
-        }],
-        "banners": null,
-        "updated_at": null
-      }]
-    },
-    filterBoxCategory() {
-      return [{"name":"همه","value":"all","selected":true}
-        ,{"name":"راه ابریشم","value":"VIP"},
-        {"name":"آرش","value":"همایش/آرش"},
-        {"name":"تایتان","value":"همایش/تایتان"}
-        ,{"name":"تفتان","value":"همایش/تفتان"},
-        {"name":"گدار","value":"همایش/گدار"}
-        ,{"name":"نظام قدیم","value":"قدیم"}
-        ,{"name":"جزوه","value":"جزوه"}
-        ,{"name":"آزمون","value":"آزمون/سه آ"}];
-    },
-    selectedFilterBoxCategory() {
-      return this.filterBoxCategory.find(function (item) {
-        return item.selected;
-      });
-    },
-    products() {
-      return this.$store.getters.appProps.purchases;
+    filterName (value) {
+      this.products.list = this.products.list.splice(0, this.products.list.length)
     }
   },
-  data() {
+  computed: {
+    selectedSetVideos () {
+      return this.selectedSet.contents.videos('des')
+    },
+    selectedSetPamphlets () {
+      return this.selectedSet.contents.pamphlets('des')
+    },
+    userAssetsCollection () {
+      return {
+        data: {
+          id: 0,
+          title: 'محصولات من',
+          offer: false,
+          url: null,
+          order: 0,
+          contents: null,
+          sets: null,
+          products: [{
+            id: 717,
+            redirect_url: null,
+            title: 'بسته امتحان نهایی 1401 آلا(0)',
+            category: 'همایش/امتحان نهایی',
+            price: { base: 0, discount: 0, final: 0 },
+            url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
+            photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
+            sets: [{
+              id: 1542,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی عربی دوازدهم_ابراهیم غلامی نژاد',
+              short_title: 'شبیه ساز امتحان نهایی عربی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652952167_7887.jpg',
+              url: { web: 'http://127.0.0.1/set/1542', api: 'http://127.0.0.1/api/v2/set/1542' },
+              pamphlets_count: 0,
+              videos_count: 4,
+              author: null,
+              contents: null,
+              created_at: '2022-05-19 04:52:47',
+              updated_at: '2022-05-19 04:52:47',
+              redirect_code: null
+            }, {
+              id: 1519,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - فرزاد نجفی',
+              short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg',
+              url: { web: 'http://127.0.0.1/set/1519', api: 'http://127.0.0.1/api/v2/set/1519' },
+              pamphlets_count: 0,
+              videos_count: 11,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:39:20',
+              updated_at: '2022-05-26 07:16:46',
+              redirect_code: null
+            }, {
+              id: 1518,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - محسن معینی',
+              short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg',
+              url: { web: 'http://127.0.0.1/set/1518', api: 'http://127.0.0.1/api/v2/set/1518' },
+              pamphlets_count: 1,
+              videos_count: 7,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:38:31',
+              updated_at: '2022-05-21 10:21:44',
+              redirect_code: null
+            }, {
+              id: 1517,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - پرویز کازرانیان',
+              short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg',
+              url: { web: 'http://127.0.0.1/set/1517', api: 'http://127.0.0.1/api/v2/set/1517' },
+              pamphlets_count: 1,
+              videos_count: 16,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:37:36',
+              updated_at: '2022-05-21 10:20:19',
+              redirect_code: null
+            }, {
+              id: 1516,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - محمدرضا زارع',
+              short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687778_6693.jpg',
+              url: { web: 'http://127.0.0.1/set/1516', api: 'http://127.0.0.1/api/v2/set/1516' },
+              pamphlets_count: 1,
+              videos_count: 15,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:36:36',
+              updated_at: '2022-05-21 10:19:52',
+              redirect_code: null
+            }, {
+              id: 1514,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم - محمدرضا زارع',
+              short_title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687795_8049.jpg',
+              url: { web: 'http://127.0.0.1/set/1514', api: 'http://127.0.0.1/api/v2/set/1514' },
+              pamphlets_count: 1,
+              videos_count: 17,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:22:00',
+              updated_at: '2022-05-22 03:12:33',
+              redirect_code: null
+            }, {
+              id: 1513,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی دینی دوازدهم - ابوالفضل احدزاده',
+              short_title: 'شبیه ساز امتحان نهایی دینی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687803_2872.jpg',
+              url: { web: 'http://127.0.0.1/set/1513', api: 'http://127.0.0.1/api/v2/set/1513' },
+              pamphlets_count: 1,
+              videos_count: 6,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:18:42',
+              updated_at: '2022-05-20 06:37:27',
+              redirect_code: null
+            }, {
+              id: 1512,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی ادبیات دوازدهم - میثم حسین خانی',
+              short_title: 'شبیه ساز امتحان نهایی ادبیات دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687820_7028.jpg',
+              url: { web: 'http://127.0.0.1/set/1512', api: 'http://127.0.0.1/api/v2/set/1512' },
+              pamphlets_count: 1,
+              videos_count: 4,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:16:06',
+              updated_at: '2022-05-21 03:23:57',
+              redirect_code: null
+            }, {
+              id: 1511,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی ریاضی انسانی دوازدهم - محسن زبده کار',
+              short_title: 'شبیه ساز امتحان نهایی ریاضی انسانی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687831_6220.jpg',
+              url: { web: 'http://127.0.0.1/set/1511', api: 'http://127.0.0.1/api/v2/set/1511' },
+              pamphlets_count: 3,
+              videos_count: 15,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 04:47:49',
+              updated_at: '2022-05-21 08:06:01',
+              redirect_code: null
+            }, {
+              id: 1520,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی حسابان دوازدهم - محمد امین نباخته',
+              short_title: 'شبیه ساز امتحان نهایی حسابان دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687690_6619.jpg',
+              url: { web: 'http://127.0.0.1/set/1520', api: 'http://127.0.0.1/api/v2/set/1520' },
+              pamphlets_count: 1,
+              videos_count: 6,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:40:14',
+              updated_at: '2022-05-21 10:22:57',
+              redirect_code: null
+            }, {
+              id: 1521,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی حسابان دوازدهم - مجید صداقت',
+              short_title: 'شبیه ساز امتحان نهایی حسابان دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687682_5728.jpg',
+              url: { web: 'http://127.0.0.1/set/1521', api: 'http://127.0.0.1/api/v2/set/1521' },
+              pamphlets_count: 2,
+              videos_count: 10,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:41:48',
+              updated_at: '2022-05-21 10:23:19',
+              redirect_code: null
+            }, {
+              id: 1536,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی تاریخ دوازدهم - حسن رعنایی',
+              short_title: 'شبیه ساز امتحان نهایی تاریخ دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687519_1820.jpg',
+              url: { web: 'http://127.0.0.1/set/1536', api: 'http://127.0.0.1/api/v2/set/1536' },
+              pamphlets_count: 0,
+              videos_count: 5,
+              author: null,
+              contents: null,
+              created_at: '2022-05-12 06:45:38',
+              updated_at: '2022-05-20 06:37:43',
+              redirect_code: null
+            }, {
+              id: 1533,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی جغرافی دوازدهم - حسن رعنایی',
+              short_title: 'شبیه ساز امتحان نهایی جغرافی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687558_8777.jpg',
+              url: { web: 'http://127.0.0.1/set/1533', api: 'http://127.0.0.1/api/v2/set/1533' },
+              pamphlets_count: 0,
+              videos_count: 5,
+              author: null,
+              contents: null,
+              created_at: '2022-05-12 06:42:13',
+              updated_at: '2022-05-20 08:41:09',
+              redirect_code: null
+            }, {
+              id: 1531,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی گسسته دوازدهم - سوگند روشنی',
+              short_title: 'شبیه ساز امتحان نهایی گسسته دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687578_5586.jpg',
+              url: { web: 'http://127.0.0.1/set/1531', api: 'http://127.0.0.1/api/v2/set/1531' },
+              pamphlets_count: 0,
+              videos_count: 16,
+              author: null,
+              contents: null,
+              created_at: '2022-05-12 05:43:24',
+              updated_at: '2022-05-21 08:07:49',
+              redirect_code: null
+            }, {
+              id: 1530,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی گسسته دوازدهم - محمدصادق ثابتی',
+              short_title: 'شبیه ساز امتحان نهایی گسسته دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687587_7830.jpg',
+              url: { web: 'http://127.0.0.1/set/1530', api: 'http://127.0.0.1/api/v2/set/1530' },
+              pamphlets_count: 1,
+              videos_count: 5,
+              author: null,
+              contents: null,
+              created_at: '2022-05-12 05:42:50',
+              updated_at: '2022-05-22 04:06:29',
+              redirect_code: null
+            }, {
+              id: 1528,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی زبان  دوازدهم - مهدی چیذری',
+              short_title: 'شبیه ساز امتحان نهایی زبان  دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687607_6643.jpg',
+              url: { web: 'http://127.0.0.1/set/1528', api: 'http://127.0.0.1/api/v2/set/1528' },
+              pamphlets_count: 0,
+              videos_count: 4,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:51:04',
+              updated_at: '2022-05-22 07:49:13',
+              redirect_code: null
+            }, {
+              id: 1527,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی زیست شناسی دوازدهم - مرضیه فتحی',
+              short_title: 'شبیه ساز امتحان نهایی زیست شناسی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687615_8459.jpg',
+              url: { web: 'http://127.0.0.1/set/1527', api: 'http://127.0.0.1/api/v2/set/1527' },
+              pamphlets_count: 2,
+              videos_count: 12,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:50:09',
+              updated_at: '2022-05-21 10:27:36',
+              redirect_code: null
+            }, {
+              id: 1526,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی زیست شناسی دوازدهم - حسین ذبحی تفت',
+              short_title: 'شبیه ساز امتحان نهایی زیست شناسی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687629_3868.jpg',
+              url: { web: 'http://127.0.0.1/set/1526', api: 'http://127.0.0.1/api/v2/set/1526' },
+              pamphlets_count: 1,
+              videos_count: 8,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:48:08',
+              updated_at: '2022-05-21 10:25:45',
+              redirect_code: null
+            }, {
+              id: 1525,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی هندسه دوازدهم - محمد رضا حسینی فرد',
+              short_title: 'شبیه ساز امتحان نهایی هندسه دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687640_8696.jpg',
+              url: { web: 'http://127.0.0.1/set/1525', api: 'http://127.0.0.1/api/v2/set/1525' },
+              pamphlets_count: 2,
+              videos_count: 8,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:46:48',
+              updated_at: '2022-05-20 06:38:22',
+              redirect_code: null
+            }, {
+              id: 1524,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی هندسه دوازدهم - علی ایمانی',
+              short_title: 'شبیه ساز امتحان نهایی هندسه دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687650_7577.jpg',
+              url: { web: 'http://127.0.0.1/set/1524', api: 'http://127.0.0.1/api/v2/set/1524' },
+              pamphlets_count: 1,
+              videos_count: 6,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:45:45',
+              updated_at: '2022-05-20 06:38:30',
+              redirect_code: null
+            }, {
+              id: 1523,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی ریاضی تجربی دوازدهم - محمد رضا لکستانی',
+              short_title: 'شبیه ساز امتحان نهایی ریاضی تجربی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687664_8138.jpg',
+              url: { web: 'http://127.0.0.1/set/1523', api: 'http://127.0.0.1/api/v2/set/1523' },
+              pamphlets_count: 0,
+              videos_count: 40,
+              author: null,
+              contents: null,
+              created_at: '2022-05-05 05:44:31',
+              updated_at: '2022-05-19 13:27:26',
+              redirect_code: null
+            }, {
+              id: 1086,
+              redirect_url: null,
+              title: 'امتحان نهایی زیست شناسی دوازدهم-(نظام آموزشی جدید) - جلال موقاری',
+              short_title: 'امتحان نهایی زیست شناسی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/zist_20210508084205.jpg',
+              url: { web: 'http://127.0.0.1/set/1086', api: 'http://127.0.0.1/api/v2/set/1086' },
+              pamphlets_count: 3,
+              videos_count: 3,
+              author: null,
+              contents: null,
+              created_at: '2021-04-24 11:49:14',
+              updated_at: '2022-01-26 05:43:22',
+              redirect_code: null
+            }, {
+              id: 828,
+              redirect_url: null,
+              title: 'امتحان نهایی دین و زندگی سال دوازدهم انسانی (نظام آموزشی جدید) (99-1398) هادی ناصری',
+              short_title: 'امتحان نهایی دین و زندگی سال دوازدهم انسانی',
+              photo: null,
+              url: { web: 'http://127.0.0.1/set/828', api: 'http://127.0.0.1/api/v2/set/828' },
+              pamphlets_count: 1,
+              videos_count: 4,
+              author: null,
+              contents: null,
+              created_at: '2020-05-21 06:19:18',
+              updated_at: '2021-08-07 12:18:30',
+              redirect_code: null
+            }, {
+              id: 827,
+              redirect_url: null,
+              title: 'امتحان نهایی دین و زندگی سال دوازدهم ریاضی و تجربی (نظام آموزشی جدید) - هادی ناصری',
+              short_title: 'امتحان نهایی دین و زندگی سال دوازدهم ریاضی و تجربی',
+              photo: null,
+              url: { web: 'http://127.0.0.1/set/827', api: 'http://127.0.0.1/api/v2/set/827' },
+              pamphlets_count: 3,
+              videos_count: 4,
+              author: null,
+              contents: null,
+              created_at: '2020-05-21 06:18:34',
+              updated_at: '2022-01-26 04:55:39',
+              redirect_code: null
+            }, {
+              id: 824,
+              redirect_url: null,
+              title: 'امتحان نهایی فیزیک تجربی سال دوازدهم (نظام آموزشی جدید) - پرویز کازرانیان',
+              short_title: 'امتحان نهایی فیزیک تجربی سال دوازدهم',
+              photo: null,
+              url: { web: 'http://127.0.0.1/set/824', api: 'http://127.0.0.1/api/v2/set/824' },
+              pamphlets_count: 3,
+              videos_count: 3,
+              author: null,
+              contents: null,
+              created_at: '2020-05-19 05:28:31',
+              updated_at: '2022-01-26 04:55:10',
+              redirect_code: null
+            }, {
+              id: 823,
+              redirect_url: null,
+              title: 'امتحان نهایی فارسی 3 (نظام آموزشی جدید) - محمد صادقی',
+              short_title: 'امتحان نهایی فارسی 3',
+              photo: null,
+              url: { web: 'http://127.0.0.1/set/823', api: 'http://127.0.0.1/api/v2/set/823' },
+              pamphlets_count: 4,
+              videos_count: 4,
+              author: null,
+              contents: null,
+              created_at: '2020-05-19 05:23:13',
+              updated_at: '2022-01-26 04:54:56',
+              redirect_code: null
+            }, {
+              id: 820,
+              redirect_url: null,
+              title: 'امتحان نهایی ریاضی انسانی دوازدهم (نظام آموزشی جدید) - مهدی امینی راد',
+              short_title: 'امتحان نهایی ریاضی انسانی',
+              photo: null,
+              url: { web: 'http://127.0.0.1/set/820', api: 'http://127.0.0.1/api/v2/set/820' },
+              pamphlets_count: 3,
+              videos_count: 3,
+              author: null,
+              contents: null,
+              created_at: '2020-05-17 06:17:15',
+              updated_at: '2022-01-26 04:54:27',
+              redirect_code: null
+            }, {
+              id: 814,
+              redirect_url: null,
+              title: 'امتحان نهایی ریاضی تجربی دوازدهم (نظام آموزشی جدید) - محمد صادق ثابتی',
+              short_title: 'امتحان نهایی ریاضی تجربی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/RayazeiSvaH_20200620155453.jpg',
+              url: { web: 'http://127.0.0.1/set/814', api: 'http://127.0.0.1/api/v2/set/814' },
+              pamphlets_count: 6,
+              videos_count: 15,
+              author: null,
+              contents: null,
+              created_at: '2020-05-14 06:07:22',
+              updated_at: '2022-01-26 04:52:23',
+              redirect_code: null
+            }, {
+              id: 811,
+              redirect_url: null,
+              title: 'امتحانات نهایی زبان انگلیسی سال دوازدهم (نظام آموزشی جدید) - علی اکبر عزتی',
+              short_title: 'امتحانات نهایی زبان انگلیسی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/zaban t2_20200620142428.jpg',
+              url: { web: 'http://127.0.0.1/set/811', api: 'http://127.0.0.1/api/v2/set/811' },
+              pamphlets_count: 3,
+              videos_count: 6,
+              author: null,
+              contents: null,
+              created_at: '2020-05-07 00:24:16',
+              updated_at: '2022-01-26 04:51:24',
+              redirect_code: null
+            }, {
+              id: 807,
+              redirect_url: null,
+              title: 'امتحانات نهایی عربی (نظام آموزشی جدید) - پدرام علیمرادی',
+              short_title: 'امتحانات نهایی عربی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/arabit2_20200620142522.jpg',
+              url: { web: 'http://127.0.0.1/set/807', api: 'http://127.0.0.1/api/v2/set/807' },
+              pamphlets_count: 3,
+              videos_count: 2,
+              author: null,
+              contents: null,
+              created_at: '2020-05-04 02:18:52',
+              updated_at: '2022-01-26 04:51:03',
+              redirect_code: null
+            }, {
+              id: 799,
+              redirect_url: null,
+              title: 'امتحان نهایی ریاضی تجربی سال دوازدهم (نظام آموزشی جدید) - مهدی امینی راد',
+              short_title: 'امتحان نهایی ریاضی تجربی سال دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/rayazeiA_20200620155001.jpg',
+              url: { web: 'http://127.0.0.1/set/799', api: 'http://127.0.0.1/api/v2/set/799' },
+              pamphlets_count: 3,
+              videos_count: 8,
+              author: null,
+              contents: null,
+              created_at: '2020-04-18 03:59:29',
+              updated_at: '2022-01-26 04:49:45',
+              redirect_code: null
+            }, {
+              id: 789,
+              redirect_url: null,
+              title: 'امتحان نهایی شیمی سال دوازدهم (نظام آموزشی جدید) - حامد پویان نظر',
+              short_title: 'امتحان نهایی شیمی سال دوازدهم',
+              photo: null,
+              url: { web: 'http://127.0.0.1/set/789', api: 'http://127.0.0.1/api/v2/set/789' },
+              pamphlets_count: 5,
+              videos_count: 5,
+              author: null,
+              contents: null,
+              created_at: '2020-04-09 07:49:17',
+              updated_at: '2022-01-26 04:48:44',
+              redirect_code: null
+            }, {
+              id: 784,
+              redirect_url: null,
+              title: 'امتحان نهایی فیزیک سال دوازدهم (نظام آموزشی جدید) - پرویز کازرانیان',
+              short_title: 'امتحان نهایی فیزیک سال دوازدهم',
+              photo: null,
+              url: { web: 'http://127.0.0.1/set/784', api: 'http://127.0.0.1/api/v2/set/784' },
+              pamphlets_count: 3,
+              videos_count: 5,
+              author: null,
+              contents: null,
+              created_at: '2020-03-30 05:09:05',
+              updated_at: '2022-01-26 04:47:30',
+              redirect_code: null
+            }, {
+              id: 1087,
+              redirect_url: null,
+              title: 'امتحان نهایی فیزیک تجربی دوازدهم-(نظام آموزشی جدید) - پرویز کازرانیان',
+              short_title: 'امتحان نهایی فیزیک تجربی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/fizik_t_20210508084243.jpg',
+              url: { web: 'http://127.0.0.1/set/1087', api: 'http://127.0.0.1/api/v2/set/1087' },
+              pamphlets_count: 3,
+              videos_count: 4,
+              author: null,
+              contents: null,
+              created_at: '2021-04-24 11:51:45',
+              updated_at: '2022-01-26 05:43:37',
+              redirect_code: null
+            }, {
+              id: 1102,
+              redirect_url: null,
+              title: 'امتحان نهایی زبان دوازدهم-(نظام آموزشی جدید) - علی اکبر عزتی',
+              short_title: 'امتحان نهایی زبان انگلیسی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/zaban_20210508084412.jpg',
+              url: { web: 'http://127.0.0.1/set/1102', api: 'http://127.0.0.1/api/v2/set/1102' },
+              pamphlets_count: 3,
+              videos_count: 11,
+              author: null,
+              contents: null,
+              created_at: '2021-05-05 11:49:22',
+              updated_at: '2022-01-26 05:46:31',
+              redirect_code: null
+            }, {
+              id: 1103,
+              redirect_url: null,
+              title: 'امتحان نهایی دین و زندگی دوازدهم-(نظام آموزشی جدید) (00-99)',
+              short_title: 'امتحان نهایی دین و زندگی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/dini_20210508084441.jpg',
+              url: { web: 'http://127.0.0.1/set/1103', api: 'http://127.0.0.1/api/v2/set/1103' },
+              pamphlets_count: 3,
+              videos_count: 4,
+              author: null,
+              contents: null,
+              created_at: '2021-05-05 11:50:06',
+              updated_at: '2021-08-07 12:18:32',
+              redirect_code: null
+            }, {
+              id: 1495,
+              redirect_url: null,
+              title: 'شبیه ساز امتحان نهایی ریاضی تجربی دوازدهم - علی صدری',
+              short_title: 'شبیه ساز امتحان نهایی ریاضی تجربی دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652688078_9638.jpg',
+              url: { web: 'http://127.0.0.1/set/1495', api: 'http://127.0.0.1/api/v2/set/1495' },
+              pamphlets_count: 1,
+              videos_count: 6,
+              author: null,
+              contents: null,
+              created_at: '2022-04-20 04:56:53',
+              updated_at: '2022-05-20 06:38:11',
+              redirect_code: null
+            }, {
+              id: 1121,
+              redirect_url: null,
+              title: 'امتحان نهایی دینی انسانی دوازدهم-(نظام آموزشی جدید) (00-99)-هادی ناصری',
+              short_title: 'امتحان نهایی دینی انسانی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/dini_e_20210515125409.jpg',
+              url: { web: 'http://127.0.0.1/set/1121', api: 'http://127.0.0.1/api/v2/set/1121' },
+              pamphlets_count: 3,
+              videos_count: 3,
+              author: null,
+              contents: null,
+              created_at: '2021-05-15 12:38:27',
+              updated_at: '2021-08-07 12:18:33',
+              redirect_code: null
+            }, {
+              id: 1120,
+              redirect_url: null,
+              title: 'امتحان نهایی ادبیات فارسی انسانی دوازدهم-(نظام آموزشی جدید) (00-99)-عبدالرضا مرادی',
+              short_title: 'امتحان نهایی ادبیات فارسی انسانی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/farsi_ensani_20210515125143.jpg',
+              url: { web: 'http://127.0.0.1/set/1120', api: 'http://127.0.0.1/api/v2/set/1120' },
+              pamphlets_count: 1,
+              videos_count: 2,
+              author: null,
+              contents: null,
+              created_at: '2021-05-15 11:08:38',
+              updated_at: '2021-08-07 12:18:33',
+              redirect_code: null
+            }, {
+              id: 1115,
+              redirect_url: null,
+              title: 'امتحان نهایی ریاضی تجربی دوازدهم-(نظام آموزشی جدید) (00-99)- محمد رضا لکستانی',
+              short_title: 'امتحان نهایی ریاضی تجربی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/riazi t_20210510073323.jpg',
+              url: { web: 'http://127.0.0.1/set/1115', api: 'http://127.0.0.1/api/v2/set/1115' },
+              pamphlets_count: 3,
+              videos_count: 6,
+              author: null,
+              contents: null,
+              created_at: '2021-05-10 07:12:57',
+              updated_at: '2021-08-07 12:18:33',
+              redirect_code: null
+            }, {
+              id: 1111,
+              redirect_url: null,
+              title: 'امتحان نهایی فیزیک ریاضی دوازدهم-(نظام آموزشی جدید) (00-99)- پرویز کازرانیان',
+              short_title: 'امتحان نهایی فیزیک ریاضی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/fizik_r_20210516061819.jpg',
+              url: { web: 'http://127.0.0.1/set/1111', api: 'http://127.0.0.1/api/v2/set/1111' },
+              pamphlets_count: 3,
+              videos_count: 15,
+              author: null,
+              contents: null,
+              created_at: '2021-05-08 09:06:09',
+              updated_at: '2021-08-07 12:18:33',
+              redirect_code: null
+            }, {
+              id: 1109,
+              redirect_url: null,
+              title: 'امتحان نهایی ادبیات فارسی دوازدهم-(نظام آموزشی جدید) (00-99)-عبدالرضا مرادی',
+              short_title: 'امتحان نهایی ادبیات فارسی',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/adabiat_20210508085031.jpg',
+              url: { web: 'http://127.0.0.1/set/1109', api: 'http://127.0.0.1/api/v2/set/1109' },
+              pamphlets_count: 3,
+              videos_count: 5,
+              author: null,
+              contents: null,
+              created_at: '2021-05-08 08:48:27',
+              updated_at: '2021-08-07 12:18:33',
+              redirect_code: null
+            }, {
+              id: 1108,
+              redirect_url: null,
+              title: 'امتحان نهایی هندسه دوازدهم-(نظام آموزشی جدید) (00-99)-سید محمد رضا حسینی فرد',
+              short_title: 'امتحان نهایی هندسه',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/hendese_20210518131100.jpg',
+              url: { web: 'http://127.0.0.1/set/1108', api: 'http://127.0.0.1/api/v2/set/1108' },
+              pamphlets_count: 0,
+              videos_count: 5,
+              author: null,
+              contents: null,
+              created_at: '2021-05-08 08:47:01',
+              updated_at: '2021-08-07 12:18:32',
+              redirect_code: null
+            }, {
+              id: 1107,
+              redirect_url: null,
+              title: 'امتحان نهایی حسابان دوازدهم-(نظام آموزشی جدید) (00-99)-صادق ثابتی',
+              short_title: 'امتحان نهایی حسابان',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/riazi_r_hesaban_20210508084410.jpg',
+              url: { web: 'http://127.0.0.1/set/1107', api: 'http://127.0.0.1/api/v2/set/1107' },
+              pamphlets_count: 3,
+              videos_count: 10,
+              author: null,
+              contents: null,
+              created_at: '2021-05-08 08:41:31',
+              updated_at: '2021-08-07 12:18:32',
+              redirect_code: null
+            }, {
+              id: 1106,
+              redirect_url: null,
+              title: 'امتحان نهایی گسسته دوازدهم-(نظام آموزشی جدید) (00-99) - صادق ثابتی، محمد رضا حسینی فرد',
+              short_title: 'امتحان نهایی گسسته',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/riazi r g_20210510073408.jpg',
+              url: { web: 'http://127.0.0.1/set/1106', api: 'http://127.0.0.1/api/v2/set/1106' },
+              pamphlets_count: 3,
+              videos_count: 9,
+              author: null,
+              contents: null,
+              created_at: '2021-05-08 08:41:19',
+              updated_at: '2022-01-26 05:49:06',
+              redirect_code: null
+            }, {
+              id: 777,
+              redirect_url: null,
+              title: 'امتحان نهایی زیست شناسی سال دوازدهم (نظام آموزشی جدید) - محمدعلی امینی راد',
+              short_title: 'امتحان نهایی زیست شناسی سال دوازدهم',
+              photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/zist_20200620143224.jpg',
+              url: { web: 'http://127.0.0.1/set/777', api: 'http://127.0.0.1/api/v2/set/777' },
+              pamphlets_count: 3,
+              videos_count: 25,
+              author: null,
+              contents: null,
+              created_at: '2020-03-09 09:10:55',
+              updated_at: '2022-01-26 04:46:20',
+              redirect_code: null
+            }],
+            redirect_code: null
+          }],
+          banners: null,
+          updated_at: null
+        }
+      }
+    },
+    filterBoxCategory () {
+      return [{ name: 'همه', value: 'all', selected: true },
+        { name: 'راه ابریشم', value: 'VIP', selected: false },
+        {
+          name: 'آرش',
+          value: 'همایش/آرش',
+          selected: false
+        },
+        {
+          name: 'تایتان',
+          value:
+            'همایش/تایتان',
+          selected: false
+        },
+        {
+          name: 'تفتان',
+          value:
+            'همایش/تفتان',
+          selected: false
+        },
+        { name: 'گدار', value: 'همایش/گدار', selected: false },
+        {
+          name: 'نظام قدیم',
+          value:
+            'قدیم',
+          selected: false
+        },
+        {
+          name: 'جزوه',
+          value: 'جزوه',
+          selected: false
+        },
+        {
+          name: 'آزمون',
+          value:
+            'آزمون/سه آ',
+          selected: false
+        }]
+    },
+    selectedFilterBoxCategory () {
+      return this.filterBoxCategory.find(function (item) {
+        return item.selected
+      })
+    },
+    products () {
+      return new ProductList([
+        {
+          id: 717,
+          redirect_url: null,
+          title: 'بسته امتحان نهایی 1401 آلا(0)',
+          category: 'همایش/امتحان نهایی',
+          price: { base: 0, discount: 0, final: 0 },
+          url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
+          photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
+          sets: [{
+            id: 1542,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی عربی دوازدهم_ابراهیم غلامی نژاد',
+            short_title: 'شبیه ساز امتحان نهایی عربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652952167_7887.jpg',
+            url: { web: 'http://127.0.0.1/set/1542', api: 'http://127.0.0.1/api/v2/set/1542' },
+            pamphlets_count: 0,
+            videos_count: 4,
+            author: null,
+            contents: null,
+            created_at: '2022-05-19 04:52:47',
+            updated_at: '2022-05-19 04:52:47',
+            redirect_code: null
+          },
+          {
+            id: 1519,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - فرزاد نجفی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg',
+            url: { web: 'http://127.0.0.1/set/1519', api: 'http://127.0.0.1/api/v2/set/1519' },
+            pamphlets_count: 0,
+            videos_count: 11,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:39:20',
+            updated_at: '2022-05-26 07:16:46',
+            redirect_code: null
+          },
+          {
+            id: 1518,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - محسن معینی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg',
+            url: { web: 'http://127.0.0.1/set/1518', api: 'http://127.0.0.1/api/v2/set/1518' },
+            pamphlets_count: 1,
+            videos_count: 7,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:38:31',
+            updated_at: '2022-05-21 10:21:44',
+            redirect_code: null
+          },
+          {
+            id: 1517,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - پرویز کازرانیان',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg',
+            url: { web: 'http://127.0.0.1/set/1517', api: 'http://127.0.0.1/api/v2/set/1517' },
+            pamphlets_count: 1,
+            videos_count: 16,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:37:36',
+            updated_at: '2022-05-21 10:20:19',
+            redirect_code: null
+          },
+          {
+            id: 1516,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687778_6693.jpg',
+            url: { web: 'http://127.0.0.1/set/1516', api: 'http://127.0.0.1/api/v2/set/1516' },
+            pamphlets_count: 1,
+            videos_count: 15,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:36:36',
+            updated_at: '2022-05-21 10:19:52',
+            redirect_code: null
+          },
+          {
+            id: 1514,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687795_8049.jpg',
+            url: { web: 'http://127.0.0.1/set/1514', api: 'http://127.0.0.1/api/v2/set/1514' },
+            pamphlets_count: 1,
+            videos_count: 17,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:22:00',
+            updated_at: '2022-05-22 03:12:33',
+            redirect_code: null
+          },
+          {
+            id: 1513,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی دینی دوازدهم - ابوالفضل احدزاده',
+            short_title: 'شبیه ساز امتحان نهایی دینی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687803_2872.jpg',
+            url: { web: 'http://127.0.0.1/set/1513', api: 'http://127.0.0.1/api/v2/set/1513' },
+            pamphlets_count: 1,
+            videos_count: 6,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:18:42',
+            updated_at: '2022-05-20 06:37:27',
+            redirect_code: null
+          },
+          {
+            id: 1512,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی ادبیات دوازدهم - میثم حسین خانی',
+            short_title: 'شبیه ساز امتحان نهایی ادبیات دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687820_7028.jpg',
+            url: { web: 'http://127.0.0.1/set/1512', api: 'http://127.0.0.1/api/v2/set/1512' },
+            pamphlets_count: 1,
+            videos_count: 4,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:16:06',
+            updated_at: '2022-05-21 03:23:57',
+            redirect_code: null
+          },
+          {
+            id: 1511,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی ریاضی انسانی دوازدهم - محسن زبده کار',
+            short_title: 'شبیه ساز امتحان نهایی ریاضی انسانی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687831_6220.jpg',
+            url: { web: 'http://127.0.0.1/set/1511', api: 'http://127.0.0.1/api/v2/set/1511' },
+            pamphlets_count: 3,
+            videos_count: 15,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 04:47:49',
+            updated_at: '2022-05-21 08:06:01',
+            redirect_code: null
+          },
+          {
+            id: 1520,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی حسابان دوازدهم - محمد امین نباخته',
+            short_title: 'شبیه ساز امتحان نهایی حسابان دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687690_6619.jpg',
+            url: { web: 'http://127.0.0.1/set/1520', api: 'http://127.0.0.1/api/v2/set/1520' },
+            pamphlets_count: 1,
+            videos_count: 6,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:40:14',
+            updated_at: '2022-05-21 10:22:57',
+            redirect_code: null
+          },
+          {
+            id: 1521,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی حسابان دوازدهم - مجید صداقت',
+            short_title: 'شبیه ساز امتحان نهایی حسابان دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687682_5728.jpg',
+            url: { web: 'http://127.0.0.1/set/1521', api: 'http://127.0.0.1/api/v2/set/1521' },
+            pamphlets_count: 2,
+            videos_count: 10,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:41:48',
+            updated_at: '2022-05-21 10:23:19',
+            redirect_code: null
+          },
+          {
+            id: 1536,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی تاریخ دوازدهم - حسن رعنایی',
+            short_title: 'شبیه ساز امتحان نهایی تاریخ دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687519_1820.jpg',
+            url: { web: 'http://127.0.0.1/set/1536', api: 'http://127.0.0.1/api/v2/set/1536' },
+            pamphlets_count: 0,
+            videos_count: 5,
+            author: null,
+            contents: null,
+            created_at: '2022-05-12 06:45:38',
+            updated_at: '2022-05-20 06:37:43',
+            redirect_code: null
+          },
+          {
+            id: 1533,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی جغرافی دوازدهم - حسن رعنایی',
+            short_title: 'شبیه ساز امتحان نهایی جغرافی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687558_8777.jpg',
+            url: { web: 'http://127.0.0.1/set/1533', api: 'http://127.0.0.1/api/v2/set/1533' },
+            pamphlets_count: 0,
+            videos_count: 5,
+            author: null,
+            contents: null,
+            created_at: '2022-05-12 06:42:13',
+            updated_at: '2022-05-20 08:41:09',
+            redirect_code: null
+          }
+          ],
+          redirect_code: null
+        }, {
+          id: 718,
+          redirect_url: null,
+          title: 'بسته امتحان نهایی 1403 آلا(02)',
+          category: 'کنکوز',
+          price: { base: 1400000, discount: 15000, final: 130000 },
+          url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
+          photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
+          sets: []
+        }])
+    }
+  },
+  data () {
     return {
+      // filterBoxCategory :
       showModalStatus: false,
       filterName: null,
       selectedTab: 'videosTab',
       filterBoxSort: [{
-        'name': 'جدید ترین ها',
-        'value': 'data-sort1',
-        'selected': true
+        name: 'جدید ترین ها',
+        value: 'data-sort1',
+        selected: true
       }, {
-        'name': 'قدیمی ترین ها',
-        'value': 'data-sort2',
-        'selected': false
+        name: 'قدیمی ترین ها',
+        value: 'data-sort2',
+        selected: false
       }],
       selectedProduct: new Product(),
       selectedSet: new Set(),
       visibledTabName: 'myProductsRow'
     }
   },
+  created: function () {
+    let purchases = new ProductList()
+    if (this.userAssetsCollection) {
+      for (let i = 0; typeof this.userAssetsCollection.data[i] !== 'undefined'; i++) {
+        const item = this.userAssetsCollection.data[i]
+        if (item.title === 'محصولات من') {
+          purchases = new ProductList(item.products)
+        }
+      }
+    }
+
+    this.updateProducts(purchases)
+  },
+  mounted: function () {
+    if (this.products.list.length > 0) {
+      this.setSelectedSet({
+        product: this.products.list[0],
+        set: this.products.list[0].sets.list[0]
+      })
+    }
+    this.showModalStatus = false
+  },
   methods: {
-    canShowModalForMobileView() {
-      return window.screen.width < 768;
+    canShowModalForMobileView () {
+      return window.screen.width < 768
     },
-    canShowProduct(item) {
-      let that = this;
+    canShowProduct (item) {
+      console.log('this.products.list :', this.products.list)
+      console.log('item : ', item)
+      const that = this
       return (
         (
           this.selectedFilterBoxCategory.value === 'all' ||
@@ -1115,86 +1466,69 @@ export default {
           Assist.stringContain(this.filterName, item.title) ||
           item.sets.list.filter(set => (Assist.stringContain(that.filterName, set.title))).length > 0
         )
-      );
+      )
     },
-    cloaseModal() {
-      this.showModalStatus = false;
+    cloaseModal () {
+      this.showModalStatus = false
     },
-    setSelectedSet(data) {
+    setSelectedSet (data) {
+      const that = this
 
-      let that = this;
-
-      this.selectedSet = data.set;
-      this.selectedProduct = data.product;
-      this.selectedSet.loading = true;
-      this.selectedSet.contents.clear();
+      this.selectedSet = data.set
+      this.selectedProduct = data.product
+      this.selectedSet.loading = true
+      this.selectedSet.contents.clear()
       if (data.contentType === 'video') {
-        this.selectedTab = 'videosTab';
+        this.selectedTab = 'videosTab'
       } else {
-        this.selectedTab = 'pamphletsTab';
+        this.selectedTab = 'pamphletsTab'
       }
 
       if (this.canShowModalForMobileView()) {
-        this.showModalStatus = true;
+        this.showModalStatus = true
       }
 
       this.selectedSet.loadContents()
         .then(function (response) {
-          that.selectedSet.loading = false;
+          that.selectedSet.loading = false
         })
         .catch(function (error) {
-          Assist.handleErrorMessage(error);
-          that.selectedSet.loading = false;
-        });
-
+          Assist.handleErrorMessage(error)
+          that.selectedSet.loading = false
+        })
     },
-    selectFilterBox(data, items, filterType) {
+    selectFilterBox (data, items, filterType) {
       for (let i = 0; typeof items[i] !== 'undefined'; i++) {
-        items[i].selected = (i === data.index);
-        items.splice(i, 1, items[i]);
+        items[i].selected = (i === data.index)
+        items.splice(i, 1, items[i])
       }
-
-      console.log('filterType', filterType);
       if (filterType === 'filterBoxSort') {
-        console.log('data.item.value', data.item.value);
         if (data.item.value === 'data-sort1') {
-          this.products.sortByKey('category', 'asc');
+          this.products.sortByKey('category', 'asc')
         } else {
-          this.products.sortByKey('category', 'des');
+          this.products.sortByKey('category', 'des')
         }
       }
     },
-    updateProducts(products) {
+    updateProducts (products) {
       this.$store.commit('updateAppProps', function (appProps) {
-        appProps.purchases = products;
-      });
-    },
-
-  },
-  created: function () {
-    let purchases = new ProductList();
-    for (let i = 0; typeof this.userAssetsCollection.data[i] !== 'undefined'; i++) {
-      let item = this.userAssetsCollection.data[i];
-      if (item.title === 'محصولات من') {
-        purchases = new ProductList(item.products);
-      }
+        appProps.purchases = products
+      })
     }
-    this.updateProducts(purchases);
-  },
-  mounted: function () {
 
-    if (this.products.list.length > 0) {
-      this.setSelectedSet({
-        product: this.products.list[0],
-        set: this.products.list[0].sets.list[0]
-      });
-    }
-    this.showModalStatus = false;
   }
+
 }
 </script>
 
 <style scoped>
+.noContentMessage{
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+  border-radius: 15px;
+}
+
 .abrishamAssetBanner {
   /*background: #fec107;*/
   /*padding: 10px;*/
@@ -1260,4 +1594,3 @@ export default {
   transition-delay: 100ms;
 }
 </style>
-

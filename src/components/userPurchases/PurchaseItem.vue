@@ -1,7 +1,5 @@
 <template>
-
     <div>
-
         <div class="productItem">
             <div class="row no-gutters1">
                 <div class="col-md-2 productItem-imageCol">
@@ -65,9 +63,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </transition>
