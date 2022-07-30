@@ -7,7 +7,7 @@
       <div class="info-details col-7">
         <div class="title">{{ cartItem.product.title }}</div>
         <div
-          v-if="infoDetails[infoDetails.length - 1]"
+          v-if="infoDetails[infoDetails.length - 1] && cartItem.product.attributes"
           class="more-info-box col-3"
         >
           <div
@@ -29,7 +29,7 @@
           rounded
           flat
           :loading="loading"
-          @click="bookmark"
+          @click="deleteItem"
         >
           <template v-slot:loading>
             <q-spinner
@@ -43,7 +43,7 @@
           rounded
           flat
           :loading="loading"
-          @click="bookmark"
+          @click="toggleMenu"
         >
           <template v-slot:loading>
             <q-spinner
@@ -52,6 +52,12 @@
           </template>
         </q-btn>
       </div>
+    </div>
+    <div
+      v-if="hasGrand"
+      class="grand-item-other-items-box"
+    >
+      lsdifjlskdfjlskdfjsdlkf
     </div>
     <div class="item-detail-box"></div>
   </div>
@@ -63,13 +69,21 @@ import { CartItem } from 'src/models/CartItem'
 export default {
   name: 'CartItem',
   props: {
-    cartItem: {
-      type: CartItem,
-      default: new CartItem()
+    rawItem: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    hasGrand: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
+      cartItem: new CartItem(),
+      loading: false,
       infoDetails: [
         {
           name: 'main',
@@ -122,11 +136,27 @@ export default {
       ]
     }
   },
+  watch: {
+    rawItem: {
+      handler (newValue, oldValue) {
+        this.updateCartItem()
+      },
+      deep: true
+    }
+  },
+  created () {
+    this.updateCartItem()
+    this.fillInfoDetails()
+  },
   mounted () {
+    this.updateCartItem()
     this.fillInfoDetails()
   },
   methods: {
     fillInfoDetails () {
+      if (!this.cartItem.product.attributes) {
+        return
+      }
       const allInfos = this.cartItem.product.attributes.info
       this.infoDetails.forEach((info, index) => {
         if (allInfos[info.name]) {
@@ -146,6 +176,16 @@ export default {
         fullString += string + ' . '
       })
       return fullString
+    },
+    deleteItem () {},
+    toggleMenu () {},
+    updateCartItem () {
+      if (this.hasGrand) {
+        this.cartItem.product = this.rawItem.grand
+        this.cartItem.order_product = this.rawItem.order_product
+        return
+      }
+      this.cartItem = new CartItem(this.rawItem)
     }
   }
 }
