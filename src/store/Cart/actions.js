@@ -74,7 +74,7 @@ export function removeItemFromCart(context, productId ) {
 
       cart.cartItems.list = cart.cartItems.list.filter(item => {return  item.id !== productId})
 
-      CookieCart.removeFromCookieCart(productId)
+      CookieCart.removeCartItemFromCookieCart(productId)
       return resolve(true)
     }
 
