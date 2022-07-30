@@ -49,6 +49,8 @@
     "video.js": "^7.17.0",
     "videojs-brand": "^0.0.4",
     "videojs-hotkeys": "^0.2.27",
+    "vue-advanced-cropper": "^2.8.3",
+    "vue-audio-visual": "^2.5.0",
     "vue-dragscroll": "^3.0.1",
     "vue-filepond": "^7.0.2",
     "vue-i18n": "^9.1.10",
