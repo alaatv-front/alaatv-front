@@ -50,14 +50,14 @@ export default class CookieCart {
     return Cookies.has('cartItems')
   }
 
-  static removeFromCookieCart(productId) {
+  static removeCartItemFromCookieCart(productId) {
     const existCookieCart =  this.getCookieCart()
-    const newCookieCart = []
-    existCookieCart.forEach( product => {
-      if (product.product_id !== productId) {
-        newCookieCart.push(product)
-      }
-    })
+    let newCookieCart = []
+
+    if(existCookieCart) {
+      newCookieCart = existCookieCart.filter( product => product.product_id !== productId )
+    }
+
     this.setCartInCookie(newCookieCart)
   }
 
