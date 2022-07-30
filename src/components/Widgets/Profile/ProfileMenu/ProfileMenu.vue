@@ -31,13 +31,68 @@
         </div>
         <div class="q-mt-lg status">
           <div class="flex no-wrap q-mx-md status-detail">
-            دانش آموز * ریاضی دوازدهم
+            دانش آموز &#9679; ریاضی دوازدهم
             <div>۹۵۵</div>
             <div class="yellow-star"></div>
           </div>
         </div>
         <q-separator class="q-mt-md" size="2px" />
-
+        <q-list class="q-mt-md" >
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="play_circle_outline" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">محصولات من</div>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="play_circle_outline" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">سفارش های من</div>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="play_circle_outline" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">کیف پول</div>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="play_circle_outline" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">نشان شده‌ها</div>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="play_circle_outline" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">جعبه لایتنر</div>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="play_circle_outline" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">کانال‌های من</div>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="play_circle_outline" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">نظرات من</div>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="play_circle_outline" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">تیکت</div>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-ripple>
+            <q-item-section class="menu-item-custom">
+              <q-icon name="logout" size="28px"></q-icon>
+              <div class="menu-item-title q-ml-sm">خروج</div>
+            </q-item-section>
+          </q-item>
+        </q-list>
       </q-card-section>
 
     </q-card>
@@ -89,7 +144,20 @@ export default {
   width: 100%;
   justify-content: space-between;
 }
-.custom-sep{
-  border: 1px solid #DEDEDE;
+.menu-item-title {
+  font-size: 16px;
+}
+.menu-item-custom{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 64px;
+}
+.q-item{
+  padding-top: 0px;
+  padding-bottom: 0px;
+
 }
 </style>
