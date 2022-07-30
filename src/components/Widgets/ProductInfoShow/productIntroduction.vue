@@ -20,11 +20,15 @@
 
           <div class="info-content">
             <div
-              v-for="(val , i) in info.value"
+              v-for="(value , i) in info.value"
               class="info-value"
               :key="i"
             >
-              {{ val }}
+              <span v-if="value">{{ value }}</span>
+              <span v-else>
+                <q-skeleton width="100px"/>
+              </span>
+
             </div>
           </div>
 
@@ -32,27 +36,28 @@
       </div>
 
       <div v-if="givenData.price" class="product-price">
-        <div v-if="givenData.price.discountInPercent()" class="discount-percent">
-          <div class="percent">{{ '%' + givenData.price.discountInPercent() }}</div>
-          <div class="discount-title">تخفیف</div>
-        </div>
-
-        <div class="price">
-          <div
-            v-if="givenData.price.toman('base', null)"
-            class="product-base-price"
-          >
-            {{ givenData.price.toman('base', null) }}
+        <div class="price-section">
+          <div v-if="givenData.price.discountInPercent()" class="discount-percent">
+            <div class="percent">{{ '%' + givenData.price.discountInPercent() }}</div>
+            <div class="discount-title">تخفیف</div>
           </div>
+          <div class="price">
+            <div
+              v-if="givenData.price.toman('base', null)"
+              class="product-base-price"
+            >
+              {{ givenData.price.toman('base', null) }}
+            </div>
 
-          <sapn
-            v-if="givenData.price.toman('final', null)"
-            class="product-final-price"
-          >
-            {{ givenData.price.toman('final', null) }}
-          </sapn>
+            <sapn
+              v-if="givenData.price.toman('final', null)"
+              class="product-final-price"
+            >
+              {{ givenData.price.toman('final', null) }}
+            </sapn>
 
-          <div class="product-price-title"> تومان</div>
+            <div class="product-price-title"> تومان</div>
+          </div>
         </div>
 
         <div class="action">
@@ -74,6 +79,9 @@
     </div>
     <div v-if="givenData.intro" class="intro-video col-6">
       <video-player :poster="givenData.intro.photo" :sources="givenData.intro.video"/>
+    </div>
+    <div v-else class="intro-video-skeleton col-6">
+      <q-skeleton class="video-skeleton"/>
     </div>
   </div>
 </template>
@@ -245,47 +253,50 @@ export default {
       background: #ffffff;
       height: 70px;
       border-radius: 20px;
-      .discount-percent {
-        width: 120px;
-        height: 70px;
-        background-color: #E05555;
-        color: #ffffff;
-        border-radius: 20px 0 0 20px;
+      .price-section {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        .percent {
-          margin-right: 5px;
+        .discount-percent {
+          width: 120px;
+          height: 70px;
+          background-color: #E05555;
+          color: #ffffff;
+          border-radius: 20px 0 0 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .percent {
+            margin-right: 5px;
+          }
         }
-      }
-      .price {
-        display: flex;
-        align-items: center;
-        margin: 0 30px;
-        .product-base-price {
-          text-decoration: line-through;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 14px;
-          line-height: 24px;
-          margin-left: 18px;
-          color: #E05555;
-          margin-right: 10px;
-        }
-        .product-final-price {
-          font-style: normal;
-          font-weight: 500;
-          font-size: 18px;
-          line-height: 31px;
-          letter-spacing: -0.05em;
-          margin-left: 5px;
-          margin-right: 10px;
-        }
-        .product-price-title {
-          font-style: normal;
-          font-weight: 500;
-          font-size: 10px;
-          line-height: 17px;
+        .price {
+          display: flex;
+          align-items: center;
+          margin: 0 30px;
+          .product-base-price {
+            text-decoration: line-through;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 24px;
+            margin-left: 18px;
+            color: #E05555;
+            margin-right: 10px;
+          }
+          .product-final-price {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 31px;
+            letter-spacing: -0.05em;
+            margin-left: 5px;
+            margin-right: 10px;
+          }
+          .product-price-title {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 10px;
+            line-height: 17px;
+          }
         }
       }
       .purchase-button {
@@ -313,6 +324,12 @@ export default {
     }
     &:deep(.vjs-poster) {
       border-radius: 20px;
+    }
+  }
+  .intro-video-skeleton {
+    .video-skeleton {
+      border-radius: 20px;
+      height: 100%;
     }
   }
 
