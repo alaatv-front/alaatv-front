@@ -2,6 +2,7 @@
   <page-builder :sections="sections" :options="pageConfig"></page-builder>
 </template>
 <script>
+
 import pageBuilder from 'src/components/PageBuilder/PageBuilder'
 import { BannerList } from 'src/models/Banner'
 import API_ADDRESS from 'src/api/Addresses'
