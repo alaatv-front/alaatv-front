@@ -14,7 +14,7 @@
               class="photo-edit"
             />
           </div>
-          <div class="q-ml-lg">
+          <div class="q-ml-lg namePhone">
             <div class="fullName">پوریا جعفری فرد</div>
             <div class="phoneNumber q-mt-sm">۰۹۳۳۱۲۳۴۵۶۷</div>
           </div>
@@ -158,6 +158,10 @@ export default {
 .q-item{
   padding-top: 0px;
   padding-bottom: 0px;
-
+}
+.namePhone{
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 </style>
