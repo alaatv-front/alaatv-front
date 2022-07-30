@@ -1,6 +1,7 @@
 <template>
   <div class="row product-demos-widget">
-    <div v-if="contents.list && contents.list.length > 0" class="col-md-7">
+    <div v-if="contents.list && contents.list.length > 0"
+         class="col-md-7">
       <p class="section-title">نمونه فیلم ها</p>
       <div
         class="contents-block"
@@ -17,7 +18,8 @@
         </div>
       </div>
     </div>
-    <div v-if="pamphlets && pamphlets.length > 0" class="col-md-5">
+    <div v-if="pamphlets && pamphlets.length > 0"
+         class="col-md-5">
       <p class="section-title">نمونه جزوه ها</p>
       <div
         class="contents-block"
@@ -28,7 +30,8 @@
           :key="pamphlet.id"
         >
           <div class="pamphlet-image">
-            <q-img :src="pamphlet.photo" alt="pamphlet-photo"/>
+            <q-img :src="pamphlet.photo"
+                   alt="pamphlet-photo" />
           </div>
         </div>
       </div>
@@ -38,13 +41,13 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
-import ContentItem from 'components/Widgets/ContentItem/contentItem'
+import ContentItem from 'src/components/Widgets/ContentItem/ContentItem'
 import { dragscrollNext as dragscroll } from 'vue-dragscroll'
-import {ContentList} from 'src/models/Content'
+import { ContentList } from 'src/models/Content'
 
 export default {
   name: 'productDemos',
-  mixins:[mixinWidget],
+  mixins: [mixinWidget],
   components: { ContentItem },
   directives: {
     dragscroll

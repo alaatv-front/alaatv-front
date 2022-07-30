@@ -1,5 +1,4 @@
 <template>
-  {{calculateHeightStyle}}
   <page-builder :sections="sections" :options="pageConfig" :containerHeight="calculateHeightStyle"></page-builder>
 </template>
 
@@ -44,13 +43,8 @@ export default {
                                 {
                                   widgets: [
                                     {
-                                      name: 'blockList',
-                                      data: API_ADDRESS.pages.home,
-                                      options: {
-                                        to: 1,
-                                        getData: (url) => GetWidgetsData.getData(this.$axios, url)
-                                      }
-                                    },
+                                      name: 'test-component2-widget'
+                                    }
                                   ]
                                 }
                               ]
