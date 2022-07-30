@@ -21,6 +21,16 @@
             </div>
           </div>
         </div>
+        <div
+          v-if="hasGrand"
+          class="grand-item-other-items-box"
+        >
+          <cart-items-grand-mode
+            v-for="(item, index) in cartItem.order_product"
+            :key="index"
+            :cart-item="item"
+          />
+        </div>
       </div>
       <div class="info-btn-box col-3">
         <q-btn
@@ -53,21 +63,17 @@
         </q-btn>
       </div>
     </div>
-    <div
-      v-if="hasGrand"
-      class="grand-item-other-items-box"
-    >
-      lsdifjlskdfjlskdfjsdlkf
-    </div>
     <div class="item-detail-box"></div>
   </div>
 </template>
 
 <script>
 import { CartItem } from 'src/models/CartItem'
+import CartItemsGrandMode from 'components/Widgets/CheckoutReview/SideComponents/CartItemsGrandMode'
 
 export default {
   name: 'CartItem',
+  components: { CartItemsGrandMode },
   props: {
     rawItem: {
       type: Object,
