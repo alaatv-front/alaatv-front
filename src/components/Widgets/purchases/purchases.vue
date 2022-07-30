@@ -1,5 +1,6 @@
 <template>
   <div class="row q-pa-lg">
+    <!--    ----------------------------------------------------------------------- filter boxes ------------------------------------------------------------------------------- -->
     <div class="col-12">
       <div class="flex justify-center items-center q-mb-lg">
         <q-icon name="mdi-tune-vertical-variant q-mr-md"
@@ -11,219 +12,29 @@
         <div class="sortingFilter-item date q-mr-md">
           <filter-box
             :items="filterBoxSort"
+            v-model:boxSortSelected="selectedFilterBoxValue"
+            type="filterBoxSort"
             :custom-class="'sort'"
-            @onSelect="selectFilterBox($event, filterBoxSort, 'filterBoxSort')"
+            @update:filterBoxSort="onChangeFilterSortBox"
           >
           </filter-box>
         </div>
         <div class="sortingFilter-item subject q-mr-md">
           <filter-box
             ref="filterBoxCategory"
+            v-model:categorySelected="selectedFilterCategoryValue"
+            type="filterBoxCategory"
             :items="filterBoxCategory"
+            @update:filterBoxCategory="onChangeFilterBoxCategory"
             :custom-class="'filter'"
-            @onSelect="selectFilterBox($event, filterBoxCategory, 'filterBoxCategory')"
           >
           </filter-box>
         </div>
       </div>
     </div>
-    <!--    ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-    <modal v-if="showModalStatus"
-           :modal-width="'90%'"
-           :body-no-padding="true">
-      <template v-slot:header>
-        <div class="a--full-width">
-          <button
-            class="btn btn-outline-danger m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill m-btn--air float-right"
-            @click="cloaseModal">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      </template>
-      <template v-slot:body>
-
-        <div class="m-portlet">
-
-          <div class="m-portlet__body"
-               v-if="selectedSet.id !== null">
-
-            <div class="titleOfSet"
-                 v-html="selectedSet.title"></div>
-
-            <ul class="nav nav-pills nav-fill">
-              <li class="nav-item">
-                <a class="nav-link"
-                   v-if="selectedSetVideos.length > 0"
-                   :class="{active: (selectedTab === 'videosTab')}"
-                   @click="selectedTab = 'videosTab'">فیلم ها</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link"
-                   v-if="selectedSetPamphlets.length > 0"
-                   :class="{active: (selectedTab === 'pamphletsTab')}"
-                   @click="selectedTab = 'pamphletsTab'">جزوات</a>
-              </li>
-            </ul>
-
-            <transition
-              name="fade"
-              mode="out-in"
-              appear
-              :duration="500"
-            >
-              <div>
-                <div class="text-center"
-                     key="1"
-                     v-if="selectedTab === 'videosTab'">
-
-                  <div class="searchResult text-left">
-
-                    <div class="listType">
-
-                      <div class="item"
-                           v-for="(item, index) in selectedSetVideos"
-                           :key="item.id">
-                        <div class="pic">
-                          <a :href="item.url.web"
-                             class="d-block">
-                            <img :src="item.photo"
-                                 class="a--full-width videoImage">
-                          </a>
-                        </div>
-                        <div class="content">
-                          <div class="title">
-                            <h2>
-                              <a :href="item.url.web"
-                                 class="m-link"
-                                 v-html="item.title"></a>
-                            </h2>
-                          </div>
-                          <div class="detailes">
-                            <div class="videoDetaileWrapper">
-                              <div class="setName">
-                                <span> از دوره </span>
-                                <span v-html="selectedSet.title"></span>
-                              </div>
-                              <div class="updateTime">
-                                <i class="fa fa-calendar-alt m--margin-right-5"></i>
-                                <span>تاریخ بروزرسانی: </span>
-                                <span v-html="item.shamsiDate('updated_at').dateTime"></span>
-                              </div>
-                              <div class="videoOrder">
-                                <div class="videoOrder-title">جلسه</div>
-                                <div class="videoOrder-number"
-                                     v-html="item.order"></div>
-                                <div class="videoOrder-om"> اُم</div>
-                              </div>
-                            </div>
-                            <div v-if="item.file"
-                                 class="btn-group m-btn-group"
-                                 role="group">
-                              <a v-for="(video, videoIndex) in item.file.video"
-                                 :key="'video-'+videoIndex"
-                                 :href="video.link">
-                                <button type="button"
-                                        class="btn btn-success"><i
-                                                                  class="fa fa-cloud-download-alt m--margin-right-5"></i>
-                                  {{ video.caption }}
-                                </button>
-                              </a>
-                              <a :href="item.url.web">
-                                <button type="button"
-                                        class="btn btn-success">
-                                  <i class="fa fa-ellipsis-h m--margin-right-5"></i>
-                                  بیشتر
-                                </button>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="itemHover"></div>
-                      </div>
-
-                    </div>
-                  </div>
-                  <!--                <vcl-facebook rtl v-if="selectedSet.loading"></vcl-facebook>-->
-                  <div v-if="!selectedSet.loading && selectedSetVideos.length === 0"
-                       role="alert"
-                       class="alert alert-info fade show noVideoMessage">
-                    <strong>فیلمی وجود ندارد</strong>
-                  </div>
-
-                </div>
-                <div class="text-center"
-                     key="2"
-                     v-if="selectedTab === 'pamphletsTab'">
-
-                  <div class="a--list2 text-left">
-
-                    <div class="a--list2-item"
-                         v-for="(item, index) in selectedSetPamphlets"
-                         :key="item.id">
-                      <div class="a--list2-thumbnail">
-                        <a v-if="item.file"
-                           :href="item.file.pamphlet[0]">
-                        </a>
-                      </div>
-                      <div class="a--list2-content">
-                        <h2 class="a--list2-title">
-                          <a v-if="item.file"
-                             :href="item.file.pamphlet[0].link"
-                             v-html="item.title"></a>
-                        </h2>
-                        <div class="a--list2-info"></div>
-                        <div class="a--list2-desc"></div>
-                      </div>
-                      <div class="a--list2-action">
-                        <a v-if="item.file"
-                           :href="item.file.pamphlet[0].link"
-                           class="downloadPamphletIcon">
-                          <i class="fa fa-cloud-download-alt"></i>
-                        </a>
-                      </div>
-                    </div>
-
-                  </div>
-                  <!--                <vcl-facebook rtl v-if="selectedSet.loading"></vcl-facebook>-->
-                  <div v-if="!selectedSet.loading && selectedSetPamphlets.length === 0"
-                       role="alert"
-                       class="alert alert-info fade show noPamphletMessage">
-                    <strong>جزوه ای وجود ندارد</strong>
-                  </div>
-
-                </div>
-              </div>
-            </transition>
-
-            <div v-if="selectedSet.contents.list.length === 0"
-                 role="alert"
-                 class="alert alert-info text-center noContentMessage a--d-none">
-              <strong>
-                این محتوا به زودی منتشر می شود
-              </strong>
-            </div>
-
-          </div>
-          <div class="m-portlet__body"
-               v-if="selectedSet.id === null">
-            <div role="alert"
-                 class="alert alert-info text-center noContentMessage">
-              <strong>
-                یکی از مجموعه ها را انتخاب کنید.
-              </strong>
-            </div>
-          </div>
-        </div>
-
-      </template>
-      <template v-slot:footer>
-        <button type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-                @click="cloaseModal">بستن</button>
-      </template>
-    </modal>
-    <div class="col-md-5 productsCol bg-red-4">
+    <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
+    <div class="col-md-5 productsCol bg-red-8 q-pa-lg ">
+      filteredProduct :{{filteredProduct.list.length}}
       <a href="/asset/abrisham"
          target="_blank">
         <div class="abrishamAssetBanner">
@@ -238,7 +49,7 @@
                  filled
                  class="form-control m-input m-input--air"
                  placeholder="جستجو ..."
-                 v-model="filterName">
+                 v-model="searchTarget">
           <template v-slot:prepend>
             <q-icon name="mdi-magnify" />
           </template>
@@ -248,9 +59,9 @@
                         name="list"
                         tag="div"
                         class="produtItems">
-        <div  v-for="product in products.list">
+        <div  v-for="product in filteredProduct.list"
+              :key="product.id">
           <purchase-item
-            v-if="canShowProduct(product)"
             :key="product.id"
             :product="product"
             :filter="filterName"
@@ -258,8 +69,7 @@
           />
         </div>
       </transition-group>
-      gfdh : {{products.list.length}}
-      <!--    ------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+      <!--    --------------------------------------------------------------------------- show content box   --------------------------------------------------------------------------- -->
       <div class="m-portlet__body"
            v-if="products.list.length === 0">
         <div class="text-center bg-primary q-pa-lg noContentMessage">
@@ -276,7 +86,6 @@
            v-if="!canShowModalForMobileView()">
         <div class="m-portlet__body"
              v-if="selectedSet.id !== null">
-
           <div class="titleOfSet"
                v-html="selectedSet.title"></div>
 
@@ -452,10 +261,9 @@
 <script>
 import FilterBox from 'src/components/userPurchases/filterBox'
 import PurchaseItem from 'src/components/userPurchases/PurchaseItem'
-// import Modal from '../../Modal';
 import { Product, ProductList } from 'src/models/Product'
-import { Set, SetList } from 'src/models/Set'
-import Assist from 'src/plugins/assistant'
+import { Set } from 'src/models/Set'
+import Assist from 'src/plugins/Assist'
 
 export default {
   name: 'Purchases',
@@ -464,7 +272,9 @@ export default {
     PurchaseItem
   },
   watch: {
-    filterName (value) {
+    searchTarget (value) {
+      console.log('filterName watch :', value)
+      this.filterProductBySearchInput()
       this.products.list = this.products.list.splice(0, this.products.list.length)
     }
   },
@@ -1145,45 +955,6 @@ export default {
         }
       }
     },
-    filterBoxCategory () {
-      return [{ name: 'همه', value: 'all', selected: true },
-        { name: 'راه ابریشم', value: 'VIP', selected: false },
-        {
-          name: 'آرش',
-          value: 'همایش/آرش',
-          selected: false
-        },
-        {
-          name: 'تایتان',
-          value:
-            'همایش/تایتان',
-          selected: false
-        },
-        {
-          name: 'تفتان',
-          value:
-            'همایش/تفتان',
-          selected: false
-        },
-        { name: 'گدار', value: 'همایش/گدار', selected: false },
-        {
-          name: 'نظام قدیم',
-          value:
-            'قدیم',
-          selected: false
-        },
-        {
-          name: 'جزوه',
-          value: 'جزوه',
-          selected: false
-        },
-        {
-          name: 'آزمون',
-          value:
-            'آزمون/سه آ',
-          selected: false
-        }]
-    },
     selectedFilterBoxCategory () {
       return this.filterBoxCategory.find(function (item) {
         return item.selected
@@ -1400,7 +1171,52 @@ export default {
           id: 718,
           redirect_url: null,
           title: 'بسته امتحان نهایی 1403 آلا(02)',
-          category: 'کنکوز',
+          category: 'کنکور',
+          price: { base: 1400000, discount: 15000, final: 130000 },
+          url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
+          photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
+          sets: []
+        }, {
+          id: 719,
+          redirect_url: null,
+          title: 'همایش آرش',
+          category: 'همایش/آرش',
+          price: { base: 1400000, discount: 15000, final: 130000 },
+          url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
+          photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
+          sets: []
+        }, {
+          id: 720,
+          redirect_url: null,
+          title: 'بهمایش   لربیل تایتان',
+          category: 'همایش/تایتان',
+          price: { base: 1400000, discount: 15000, final: 130000 },
+          url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
+          photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
+          sets: []
+        }, {
+          id: 721,
+          redirect_url: null,
+          title: 'همایش   تفتان',
+          category: 'همایش/تفتان',
+          price: { base: 1400000, discount: 15000, final: 130000 },
+          url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
+          photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
+          sets: []
+        }, {
+          id: 722,
+          redirect_url: null,
+          title: 'نظام قدیم',
+          category: 'قدیم',
+          price: { base: 1400000, discount: 15000, final: 130000 },
+          url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
+          photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
+          sets: []
+        }, {
+          id: 723,
+          redirect_url: null,
+          title: 'جزوه',
+          category: 'جزوه',
           price: { base: 1400000, discount: 15000, final: 130000 },
           url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
           photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
@@ -1410,25 +1226,68 @@ export default {
   },
   data () {
     return {
-      // filterBoxCategory :
+      searchTarget: '',
+      selectedFilterBoxValue: null,
+      selectedFilterCategoryValue: null,
+      filterBoxCategory: [{ name: 'همه', value: 'all', selected: true },
+        { name: 'راه ابریشم', value: 'VIP', selected: false },
+        {
+          name: 'آرش',
+          value: 'همایش/آرش',
+          selected: false
+        },
+        {
+          name: 'تایتان',
+          value:
+            'همایش/تایتان',
+          selected: false
+        },
+        {
+          name: 'تفتان',
+          value:
+            'همایش/تفتان',
+          selected: false
+        },
+        { name: 'گدار', value: 'همایش/گدار', selected: false },
+        {
+          name: 'نظام قدیم',
+          value:
+            'قدیم',
+          selected: false
+        },
+        {
+          name: 'جزوه',
+          value: 'جزوه',
+          selected: false
+        },
+        {
+          name: 'آزمون',
+          value:
+            'آزمون/سه آ',
+          selected: false
+        }],
+      filteredProduct: new ProductList(),
       showModalStatus: false,
       filterName: null,
       selectedTab: 'videosTab',
-      filterBoxSort: [{
-        name: 'جدید ترین ها',
-        value: 'data-sort1',
-        selected: true
-      }, {
-        name: 'قدیمی ترین ها',
-        value: 'data-sort2',
-        selected: false
-      }],
+      filterBoxSort: [
+        {
+          name: 'جدید ترین ها',
+          value: 'data-sort1',
+          selected: true
+        },
+        {
+          name: 'قدیمی ترین ها',
+          value: 'data-sort2',
+          selected: false
+        }],
       selectedProduct: new Product(),
       selectedSet: new Set(),
       visibledTabName: 'myProductsRow'
     }
   },
   created: function () {
+    this.initPageData()
     let purchases = new ProductList()
     if (this.userAssetsCollection) {
       for (let i = 0; typeof this.userAssetsCollection.data[i] !== 'undefined'; i++) {
@@ -1438,10 +1297,10 @@ export default {
         }
       }
     }
-
     this.updateProducts(purchases)
   },
-  mounted: function () {
+  mounted () {
+    this.filterProduct()
     if (this.products.list.length > 0) {
       this.setSelectedSet({
         product: this.products.list[0],
@@ -1451,25 +1310,54 @@ export default {
     this.showModalStatus = false
   },
   methods: {
+    filterProduct () {
+      this.filterProductByCategory()
+      this.sortProducts()
+    },
+    filterProductBySearchInput () {
+      if (!this.searchTarget) {
+        return
+      }
+      this.filteredProduct.list = this.filteredProduct.list.filter(this.hasSearchTarget)
+    },
+    hasSearchTarget (data) {
+      return Assist.stringContain(this.searchTarget, data.title) || data.sets.list.filter(set => (Assist.stringContain(this.searchTarget, set.title))).length > 0
+    },
+    filterProductByCategory () {
+      const newList = this.products.list.filter(product => product.category === this.selectedFilterCategoryValue || this.selectedFilterCategoryValue === 'all')
+      this.filteredProduct = new ProductList(newList)
+    },
+    sortProducts () {
+      if (this.selectedFilterBoxValue === 'data-sort1') {
+        this.filteredProduct.sortByKey('category', 'asc')
+        return
+      }
+      this.filteredProduct.sortByKey('category', 'des')
+    },
+    onChangeFilterSortBox (val) {
+      this.selectedFilterBoxValue = val
+      this.sortProducts()
+      this.filterProductBySearchInput()
+    },
+    onChangeFilterBoxCategory (val) {
+      this.selectedFilterCategoryValue = val
+      this.filterProductByCategory()
+      this.filterProductBySearchInput()
+    },
+    initPageData () {
+      this.setFilterBoxSelected()
+      this.setFilterCategorySelected()
+    },
     canShowModalForMobileView () {
       return window.screen.width < 768
     },
-    canShowProduct (item) {
-      console.log('this.products.list :', this.products.list)
-      console.log('item : ', item)
-      const that = this
-      return (
-        (
-          this.selectedFilterBoxCategory.value === 'all' ||
-          this.selectedFilterBoxCategory.value === item.category
-        ) && (
-          Assist.stringContain(this.filterName, item.title) ||
-          item.sets.list.filter(set => (Assist.stringContain(that.filterName, set.title))).length > 0
-        )
-      )
+    setFilterBoxSelected () {
+      this.selectedFilterBoxValue = this.filterBoxSort[0].value
+      console.log(this.selectedFilterBoxValue)
     },
-    cloaseModal () {
-      this.showModalStatus = false
+    setFilterCategorySelected () {
+      this.selectedFilterCategoryValue = this.filterBoxCategory[0].value
+      console.log('categorySelected', this.selectedFilterCategoryValue)
     },
     setSelectedSet (data) {
       const that = this
@@ -1497,23 +1385,10 @@ export default {
           that.selectedSet.loading = false
         })
     },
-    selectFilterBox (data, items, filterType) {
-      for (let i = 0; typeof items[i] !== 'undefined'; i++) {
-        items[i].selected = (i === data.index)
-        items.splice(i, 1, items[i])
-      }
-      if (filterType === 'filterBoxSort') {
-        if (data.item.value === 'data-sort1') {
-          this.products.sortByKey('category', 'asc')
-        } else {
-          this.products.sortByKey('category', 'des')
-        }
-      }
-    },
     updateProducts (products) {
-      this.$store.commit('updateAppProps', function (appProps) {
-        appProps.purchases = products
-      })
+      // this.$store.commit('updateAppProps', function (appProps) {
+      //   appProps.purchases = products
+      // })
     }
 
   }

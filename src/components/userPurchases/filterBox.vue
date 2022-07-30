@@ -1,41 +1,52 @@
 <template>
-    <div class="CustomSelect" :class="customClass">
-        <div class="CustomSelect-Item"
-             v-for="(item, index) in items"
-             :key="'filter'+index"
-             :class="{'selected': item.selected }"
-             @click="select(items, item, index)" >
-            {{ item.name }}
-        </div>
+  <div class="CustomSelect"
+       :class="customClass">
+    <div class="CustomSelect-Item"
+         v-for="(item, index) in items"
+         :key="'filter'+index"
+         :class="{'selected': (type  === 'filterBoxSort' && item.value === boxSortSelected) || (type  === 'filterBoxCategory' && item.value === categorySelected)}"
+         @click="select(item)">
+      {{ item.name }}
     </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "FilterBox",
-        props: {
-            items: {
-                type: Array,
-                default: []
-            },
-            customClass: {
-                type: String,
-                default: ''
-            },
-        },
-        data() {
-            return {
-                filterItems: [],
-            }
-        },
-        methods: {
-            select(items, item, index) {
-                this.$emit('onSelect', {items: items, item: item, index: index});
-            }
-        },
-        created: function () {
-        }
+export default {
+  name: 'FilterBox',
+  props: {
+    type: {
+      type: String,
+      default: ''
+    },
+    boxSortSelected: {
+      type: String,
+      default: ''
+    },
+    categorySelected: {
+      type: String,
+      default: ''
+    },
+    items: {
+      type: Array,
+      default: () => []
+    },
+    customClass: {
+      type: String,
+      default: ''
     }
+  },
+  data () {
+    return {
+      filterItems: []
+    }
+  },
+  methods: {
+    select (item) {
+      this.$emit('update:' + this.type, item.value)
+    }
+  }
+}
 </script>
 
 <style scoped>
