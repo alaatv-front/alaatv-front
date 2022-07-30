@@ -4,11 +4,8 @@
       <div class="row no-gutters1">
         <div class="col-md-2 productItem-imageCol">
           <div class="productItem-image">
-            <img :src="product.photo"
-                 data-toggle="m-tooltip"
-                 data-placement="top"
-                 :data-original-title="product.title"
-                 :alt="product.title"
+            <q-img :src="product.photo"
+                   :alt="product.title"
             />
           </div>
         </div>
@@ -47,7 +44,6 @@
         </div>
       </div>
     </div>
-
     <transition
       name="fade-PurchaseItem"
       mode="out-in"
@@ -87,6 +83,42 @@
     </transition>
   </div>
 
+  <div class="product-item q-mb-sm">
+    <div class="row">
+      <div class="col-sm-2 col-12 bg-red-3">
+        <div class="img-box">
+          <q-img  :src="product.photo"
+                  :alt="product.title" />
+        </div>
+      </div>
+      <div class="col-sm-10 product-content col-12 bg-pink-2 q-px-md">
+        <div class="product-title q-mt-sm">
+          {{product.title}}
+        </div>
+        <div class="row q-mt-lg">
+          <div class="col-12 text-center">
+            <q-btn  :label="selectedSetTitle"
+                    color="primary"
+                    @click="openSelList = !openSelList">
+
+            </q-btn>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <q-expansion-item
+    v-model="openSelList"
+    class="hide-expansion-header"
+    expand-separator
+  >
+    <q-card>
+      <q-card-section>
+      </q-card-section>
+    </q-card>
+  </q-expansion-item>
+
 </template>
 
 <script>
@@ -109,6 +141,7 @@ export default {
   },
   data () {
     return {
+      openSelList: false,
       selectedSetTitle: null,
       setsDropdownOpen: false
     }
@@ -129,6 +162,7 @@ export default {
       return true
     },
     setSelectedSet (product, set, contentType) {
+      console.log('setSelectedSet')
       this.selectedSetTitle = set.title
       this.$emit('setSelected', {
         product,
@@ -146,6 +180,18 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+
+.product-item{
+  .product-content{
+    .product-title{
+      font-size: 16px;
+      font-weight: 700;
+
+    }
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .productItem-image{
@@ -176,7 +222,13 @@ export default {
 </style>
 
 <style lang="scss">
-
+.hide-expansion-header{
+  .q-expansion-item__container{
+    .q-item{
+      display: none;
+    }
+  }
+}
     @for $i from 2 through 10 {
         .fade-PurchaseItem-enter-active > * > *:nth-child(#{$i}) {
             transition-delay: #{($i * 100)}ms;

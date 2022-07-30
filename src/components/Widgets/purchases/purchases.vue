@@ -71,7 +71,7 @@
       </transition-group>
       <!--    --------------------------------------------------------------------------- show content box   --------------------------------------------------------------------------- -->
       <div class="m-portlet__body"
-           v-if="products.list.length === 0">
+           v-if="!currentProduct.title">
         <div class="text-center bg-primary q-pa-lg noContentMessage">
           <div>
             <q-icon size="28px"
@@ -81,180 +81,40 @@
         </div>
       </div>
     </div>
-    <div class="col-md-7 contentsetOfProductCol bg-blue-3">
-      <div class="m-portlet bg-green"
-           v-if="!canShowModalForMobileView()">
-        <div class="m-portlet__body"
-             v-if="selectedSet.id !== null">
-          <div class="titleOfSet"
-               v-html="selectedSet.title"></div>
+    <!--    ------------------------------------------------------------------------ content show ------------------------------------------------------------------------------ -->
 
-          <ul class="nav nav-pills nav-fill">
-            <li class="nav-item">
-              <a class="nav-link"
-                 v-if="selectedSetVideos.length > 0"
-                 :class="{active: (selectedTab === 'videosTab')}"
-                 @click="selectedTab = 'videosTab'">فیلم ها</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link"
-                 v-if="selectedSetPamphlets.length > 0"
-                 :class="{active: (selectedTab === 'pamphletsTab')}"
-                 @click="selectedTab = 'pamphletsTab'">جزوات</a>
-            </li>
-          </ul>
+    <q-card>
+      <q-tabs
+        v-model="selectedTab"
+        class="text-grey"
+        active-color="primary"
+        indicator-color="primary"
+        align="justify"
+        narrow-indicator
+      >
+        <q-tab name="video"
+               v-if="true"
+               label="فیلم" />
+        <q-tab name="pamphlet"
+               label="جزوه" />
+      </q-tabs>
 
-          <transition
-            name="fade"
-            mode="out-in"
-            appear
-            :duration="500"
-          >
-            <div>
-              <div class="text-center"
-                   key="1"
-                   v-if="selectedTab === 'videosTab'">
+      <q-separator />
 
-                <div class="searchResult text-left">
+      <q-tab-panels v-model="selectedTab"
+                    animated>
+        <q-tab-panel name="video">
+          <div class="text-h6">film</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
 
-                  <div class="listType">
+        <q-tab-panel name="pamphlet">
+          <div class="text-h6">joz</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
+      </q-tab-panels>
+    </q-card>
 
-                    <div class="item"
-                         v-for="(item, index) in selectedSetVideos"
-                         :key="item.id">
-                      <div class="pic">
-                        <a :href="item.url.web"
-                           class="d-block">
-                          <img :src="item.photo"
-                               class="a--full-width videoImage">
-                        </a>
-                      </div>
-                      <div class="content">
-                        <div class="title">
-                          <h2>
-                            <a :href="item.url.web"
-                               class="m-link"
-                               v-html="item.title"></a>
-                          </h2>
-                        </div>
-                        <div class="detailes">
-                          <div class="videoDetaileWrapper">
-                            <div class="setName">
-
-                              <span> از دوره </span>
-                              <span v-html="selectedSet.title"></span>
-                            </div>
-                            <div class="updateTime">
-                              <i class="fa fa-calendar-alt m--margin-right-5"></i>
-                              <span>تاریخ بروزرسانی: </span>
-                              <span v-html="item.shamsiDate('updated_at').dateTime"></span>
-                            </div>
-                            <div class="videoOrder">
-                              <div class="videoOrder-title">جلسه</div>
-                              <div class="videoOrder-number"
-                                   v-html="item.order"></div>
-                              <div class="videoOrder-om"> اُم</div>
-                            </div>
-                          </div>
-                          <div v-if="item.file"
-                               class="btn-group m-btn-group"
-                               role="group">
-                            <a v-for="(video, videoIndex) in item.file.video"
-                               :key="'video-' + videoIndex"
-                               :href="video.link + '?download=1'">
-                              <button type="button"
-                                      class="btn btn-success"><i
-                                                                class="fa fa-cloud-download-alt m--margin-right-5"></i>
-                                {{ video.caption }}
-                              </button>
-                            </a>
-                            <a :href="item.url.web">
-                              <button type="button"
-                                      class="btn btn-success">
-                                <i class="fa fa-ellipsis-h m--margin-right-5"></i>
-                                بیشتر
-                              </button>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="itemHover"></div>
-                    </div>
-
-                  </div>
-                </div>
-                <!--              <vcl-facebook rtl v-if="selectedSet.loading"></vcl-facebook>-->
-                <div v-if="!selectedSet.loading && selectedSetVideos.length === 0"
-                     role="alert"
-                     class="alert alert-info fade show noVideoMessage">
-                  <strong>فیلمی وجود ندارد</strong>
-                </div>
-
-              </div>
-              <div class="text-center"
-                   key="2"
-                   v-if="selectedTab === 'pamphletsTab'">
-
-                <div class="a--list2 text-left">
-
-                  <div class="a--list2-item"
-                       v-for="(item, index) in selectedSetPamphlets"
-                       :key="item.id">
-                    <div class="a--list2-thumbnail">
-                      <a v-if="item.file"
-                         :href="item.file.pamphlet[0].link">
-                      </a>
-                    </div>
-                    <div class="a--list2-content">
-                      <h2 class="a--list2-title">
-                        <a v-if="item.file"
-                           :href="item.file.pamphlet[0].link"
-                           v-html="item.title"></a>
-                      </h2>
-                      <div class="a--list2-info"></div>
-                      <div class="a--list2-desc"></div>
-                    </div>
-                    <div class="a--list2-action">
-                      <a v-if="item.file"
-                         :href="item.file.pamphlet[0].link"
-                         class="downloadPamphletIcon">
-                        <i class="fa fa-cloud-download-alt"></i>
-                      </a>
-                    </div>
-                  </div>
-
-                </div>
-                <!--              <vcl-facebook rtl v-if="selectedSet.loading"></vcl-facebook>-->
-                <div v-if="!selectedSet.loading && selectedSetPamphlets.length === 0"
-                     role="alert"
-                     class="alert alert-info fade show noPamphletMessage">
-                  <strong>جزوه ای وجود ندارد</strong>
-                </div>
-
-              </div>
-            </div>
-          </transition>
-
-          <div v-if="!selectedSet.loading && selectedSet.contents.list.length === 0"
-               role="alert"
-               class="alert alert-info text-center noContentMessage">
-            <strong>
-              این محتوا به زودی منتشر می شود
-            </strong>
-          </div>
-
-        </div>
-        <div class="m-portlet__body"
-             v-if="selectedSet.id === null && products.list.length > 0">
-          <div role="alert"
-               class="alert alert-info text-center noContentMessage">
-            <strong>
-              یکی از مجموعه ها را انتخاب کنید.
-            </strong>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -279,6 +139,12 @@ export default {
     }
   },
   computed: {
+    currentProduct () {
+      if (this.filteredProduct.list.length > 0) {
+        return this.filteredProduct.list[0]
+      }
+      return new Product()
+    },
     selectedSetVideos () {
       return this.selectedSet.contents.videos('des')
     },
@@ -955,11 +821,6 @@ export default {
         }
       }
     },
-    selectedFilterBoxCategory () {
-      return this.filterBoxCategory.find(function (item) {
-        return item.selected
-      })
-    },
     products () {
       return new ProductList([
         {
@@ -1184,7 +1045,96 @@ export default {
           price: { base: 1400000, discount: 15000, final: 130000 },
           url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
           photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
-          sets: []
+          sets: [{
+            id: 1519,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - فرزاد نجفی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg',
+            url: { web: 'http://127.0.0.1/set/1519', api: 'http://127.0.0.1/api/v2/set/1519' },
+            pamphlets_count: 0,
+            videos_count: 11,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:39:20',
+            updated_at: '2022-05-26 07:16:46',
+            redirect_code: null
+          },
+          {
+            id: 1518,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - محسن معینی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg',
+            url: { web: 'http://127.0.0.1/set/1518', api: 'http://127.0.0.1/api/v2/set/1518' },
+            pamphlets_count: 1,
+            videos_count: 7,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:38:31',
+            updated_at: '2022-05-21 10:21:44',
+            redirect_code: null
+          },
+          {
+            id: 1517,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - پرویز کازرانیان',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg',
+            url: { web: 'http://127.0.0.1/set/1517', api: 'http://127.0.0.1/api/v2/set/1517' },
+            pamphlets_count: 1,
+            videos_count: 16,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:37:36',
+            updated_at: '2022-05-21 10:20:19',
+            redirect_code: null
+          },
+          {
+            id: 1516,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687778_6693.jpg',
+            url: { web: 'http://127.0.0.1/set/1516', api: 'http://127.0.0.1/api/v2/set/1516' },
+            pamphlets_count: 1,
+            videos_count: 15,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:36:36',
+            updated_at: '2022-05-21 10:19:52',
+            redirect_code: null
+          },
+          {
+            id: 1514,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687795_8049.jpg',
+            url: { web: 'http://127.0.0.1/set/1514', api: 'http://127.0.0.1/api/v2/set/1514' },
+            pamphlets_count: 1,
+            videos_count: 17,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:22:00',
+            updated_at: '2022-05-22 03:12:33',
+            redirect_code: null
+          },
+          {
+            id: 1513,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی دینی دوازدهم - ابوالفضل احدزاده',
+            short_title: 'شبیه ساز امتحان نهایی دینی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687803_2872.jpg',
+            url: { web: 'http://127.0.0.1/set/1513', api: 'http://127.0.0.1/api/v2/set/1513' },
+            pamphlets_count: 1,
+            videos_count: 6,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:18:42',
+            updated_at: '2022-05-20 06:37:27',
+            redirect_code: null
+          }]
         }, {
           id: 720,
           redirect_url: null,
@@ -1193,7 +1143,96 @@ export default {
           price: { base: 1400000, discount: 15000, final: 130000 },
           url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
           photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
-          sets: []
+          sets: [{
+            id: 1519,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - فرزاد نجفی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg',
+            url: { web: 'http://127.0.0.1/set/1519', api: 'http://127.0.0.1/api/v2/set/1519' },
+            pamphlets_count: 0,
+            videos_count: 11,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:39:20',
+            updated_at: '2022-05-26 07:16:46',
+            redirect_code: null
+          },
+          {
+            id: 1518,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - محسن معینی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg',
+            url: { web: 'http://127.0.0.1/set/1518', api: 'http://127.0.0.1/api/v2/set/1518' },
+            pamphlets_count: 1,
+            videos_count: 7,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:38:31',
+            updated_at: '2022-05-21 10:21:44',
+            redirect_code: null
+          },
+          {
+            id: 1517,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - پرویز کازرانیان',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg',
+            url: { web: 'http://127.0.0.1/set/1517', api: 'http://127.0.0.1/api/v2/set/1517' },
+            pamphlets_count: 1,
+            videos_count: 16,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:37:36',
+            updated_at: '2022-05-21 10:20:19',
+            redirect_code: null
+          },
+          {
+            id: 1516,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687778_6693.jpg',
+            url: { web: 'http://127.0.0.1/set/1516', api: 'http://127.0.0.1/api/v2/set/1516' },
+            pamphlets_count: 1,
+            videos_count: 15,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:36:36',
+            updated_at: '2022-05-21 10:19:52',
+            redirect_code: null
+          },
+          {
+            id: 1514,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687795_8049.jpg',
+            url: { web: 'http://127.0.0.1/set/1514', api: 'http://127.0.0.1/api/v2/set/1514' },
+            pamphlets_count: 1,
+            videos_count: 17,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:22:00',
+            updated_at: '2022-05-22 03:12:33',
+            redirect_code: null
+          },
+          {
+            id: 1513,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی دینی دوازدهم - ابوالفضل احدزاده',
+            short_title: 'شبیه ساز امتحان نهایی دینی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687803_2872.jpg',
+            url: { web: 'http://127.0.0.1/set/1513', api: 'http://127.0.0.1/api/v2/set/1513' },
+            pamphlets_count: 1,
+            videos_count: 6,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:18:42',
+            updated_at: '2022-05-20 06:37:27',
+            redirect_code: null
+          }]
         }, {
           id: 721,
           redirect_url: null,
@@ -1202,7 +1241,96 @@ export default {
           price: { base: 1400000, discount: 15000, final: 130000 },
           url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
           photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
-          sets: []
+          sets: [{
+            id: 1519,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - فرزاد نجفی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg',
+            url: { web: 'http://127.0.0.1/set/1519', api: 'http://127.0.0.1/api/v2/set/1519' },
+            pamphlets_count: 0,
+            videos_count: 11,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:39:20',
+            updated_at: '2022-05-26 07:16:46',
+            redirect_code: null
+          },
+          {
+            id: 1518,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - محسن معینی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg',
+            url: { web: 'http://127.0.0.1/set/1518', api: 'http://127.0.0.1/api/v2/set/1518' },
+            pamphlets_count: 1,
+            videos_count: 7,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:38:31',
+            updated_at: '2022-05-21 10:21:44',
+            redirect_code: null
+          },
+          {
+            id: 1517,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - پرویز کازرانیان',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg',
+            url: { web: 'http://127.0.0.1/set/1517', api: 'http://127.0.0.1/api/v2/set/1517' },
+            pamphlets_count: 1,
+            videos_count: 16,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:37:36',
+            updated_at: '2022-05-21 10:20:19',
+            redirect_code: null
+          },
+          {
+            id: 1516,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687778_6693.jpg',
+            url: { web: 'http://127.0.0.1/set/1516', api: 'http://127.0.0.1/api/v2/set/1516' },
+            pamphlets_count: 1,
+            videos_count: 15,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:36:36',
+            updated_at: '2022-05-21 10:19:52',
+            redirect_code: null
+          },
+          {
+            id: 1514,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687795_8049.jpg',
+            url: { web: 'http://127.0.0.1/set/1514', api: 'http://127.0.0.1/api/v2/set/1514' },
+            pamphlets_count: 1,
+            videos_count: 17,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:22:00',
+            updated_at: '2022-05-22 03:12:33',
+            redirect_code: null
+          },
+          {
+            id: 1513,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی دینی دوازدهم - ابوالفضل احدزاده',
+            short_title: 'شبیه ساز امتحان نهایی دینی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687803_2872.jpg',
+            url: { web: 'http://127.0.0.1/set/1513', api: 'http://127.0.0.1/api/v2/set/1513' },
+            pamphlets_count: 1,
+            videos_count: 6,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:18:42',
+            updated_at: '2022-05-20 06:37:27',
+            redirect_code: null
+          }]
         }, {
           id: 722,
           redirect_url: null,
@@ -1211,7 +1339,96 @@ export default {
           price: { base: 1400000, discount: 15000, final: 130000 },
           url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
           photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
-          sets: []
+          sets: [{
+            id: 1519,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - فرزاد نجفی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg',
+            url: { web: 'http://127.0.0.1/set/1519', api: 'http://127.0.0.1/api/v2/set/1519' },
+            pamphlets_count: 0,
+            videos_count: 11,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:39:20',
+            updated_at: '2022-05-26 07:16:46',
+            redirect_code: null
+          },
+          {
+            id: 1518,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - محسن معینی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg',
+            url: { web: 'http://127.0.0.1/set/1518', api: 'http://127.0.0.1/api/v2/set/1518' },
+            pamphlets_count: 1,
+            videos_count: 7,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:38:31',
+            updated_at: '2022-05-21 10:21:44',
+            redirect_code: null
+          },
+          {
+            id: 1517,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - پرویز کازرانیان',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg',
+            url: { web: 'http://127.0.0.1/set/1517', api: 'http://127.0.0.1/api/v2/set/1517' },
+            pamphlets_count: 1,
+            videos_count: 16,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:37:36',
+            updated_at: '2022-05-21 10:20:19',
+            redirect_code: null
+          },
+          {
+            id: 1516,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687778_6693.jpg',
+            url: { web: 'http://127.0.0.1/set/1516', api: 'http://127.0.0.1/api/v2/set/1516' },
+            pamphlets_count: 1,
+            videos_count: 15,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:36:36',
+            updated_at: '2022-05-21 10:19:52',
+            redirect_code: null
+          },
+          {
+            id: 1514,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687795_8049.jpg',
+            url: { web: 'http://127.0.0.1/set/1514', api: 'http://127.0.0.1/api/v2/set/1514' },
+            pamphlets_count: 1,
+            videos_count: 17,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:22:00',
+            updated_at: '2022-05-22 03:12:33',
+            redirect_code: null
+          },
+          {
+            id: 1513,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی دینی دوازدهم - ابوالفضل احدزاده',
+            short_title: 'شبیه ساز امتحان نهایی دینی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687803_2872.jpg',
+            url: { web: 'http://127.0.0.1/set/1513', api: 'http://127.0.0.1/api/v2/set/1513' },
+            pamphlets_count: 1,
+            videos_count: 6,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:18:42',
+            updated_at: '2022-05-20 06:37:27',
+            redirect_code: null
+          }]
         }, {
           id: 723,
           redirect_url: null,
@@ -1220,12 +1437,102 @@ export default {
           price: { base: 1400000, discount: 15000, final: 130000 },
           url: { web: 'http://127.0.0.1/product/717', api: 'http://127.0.0.1/api/v2/product/717' },
           photo: 'https://nodes.alaatv.com/upload/images/product/16-2_20220516075141.jpg',
-          sets: []
+          sets: [{
+            id: 1519,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - فرزاد نجفی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg',
+            url: { web: 'http://127.0.0.1/set/1519', api: 'http://127.0.0.1/api/v2/set/1519' },
+            pamphlets_count: 0,
+            videos_count: 11,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:39:20',
+            updated_at: '2022-05-26 07:16:46',
+            redirect_code: null
+          },
+          {
+            id: 1518,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی شیمی دوازدهم - محسن معینی',
+            short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg',
+            url: { web: 'http://127.0.0.1/set/1518', api: 'http://127.0.0.1/api/v2/set/1518' },
+            pamphlets_count: 1,
+            videos_count: 7,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:38:31',
+            updated_at: '2022-05-21 10:21:44',
+            redirect_code: null
+          },
+          {
+            id: 1517,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - پرویز کازرانیان',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg',
+            url: { web: 'http://127.0.0.1/set/1517', api: 'http://127.0.0.1/api/v2/set/1517' },
+            pamphlets_count: 1,
+            videos_count: 16,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:37:36',
+            updated_at: '2022-05-21 10:20:19',
+            redirect_code: null
+          },
+          {
+            id: 1516,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687778_6693.jpg',
+            url: { web: 'http://127.0.0.1/set/1516', api: 'http://127.0.0.1/api/v2/set/1516' },
+            pamphlets_count: 1,
+            videos_count: 15,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:36:36',
+            updated_at: '2022-05-21 10:19:52',
+            redirect_code: null
+          },
+          {
+            id: 1514,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم - محمدرضا زارع',
+            short_title: 'شبیه ساز امتحان نهایی فیزیک ریاضی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687795_8049.jpg',
+            url: { web: 'http://127.0.0.1/set/1514', api: 'http://127.0.0.1/api/v2/set/1514' },
+            pamphlets_count: 1,
+            videos_count: 17,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:22:00',
+            updated_at: '2022-05-22 03:12:33',
+            redirect_code: null
+          },
+          {
+            id: 1513,
+            redirect_url: null,
+            title: 'شبیه ساز امتحان نهایی دینی دوازدهم - ابوالفضل احدزاده',
+            short_title: 'شبیه ساز امتحان نهایی دینی دوازدهم',
+            photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687803_2872.jpg',
+            url: { web: 'http://127.0.0.1/set/1513', api: 'http://127.0.0.1/api/v2/set/1513' },
+            pamphlets_count: 1,
+            videos_count: 6,
+            author: null,
+            contents: null,
+            created_at: '2022-05-05 05:18:42',
+            updated_at: '2022-05-20 06:37:27',
+            redirect_code: null
+          }]
         }])
     }
   },
   data () {
     return {
+      selectedTab: 'pamphlet',
       searchTarget: '',
       selectedFilterBoxValue: null,
       selectedFilterCategoryValue: null,
@@ -1269,7 +1576,6 @@ export default {
       filteredProduct: new ProductList(),
       showModalStatus: false,
       filterName: null,
-      selectedTab: 'videosTab',
       filterBoxSort: [
         {
           name: 'جدید ترین ها',
@@ -1360,30 +1666,30 @@ export default {
       console.log('categorySelected', this.selectedFilterCategoryValue)
     },
     setSelectedSet (data) {
-      const that = this
-
-      this.selectedSet = data.set
-      this.selectedProduct = data.product
-      this.selectedSet.loading = true
-      this.selectedSet.contents.clear()
-      if (data.contentType === 'video') {
-        this.selectedTab = 'videosTab'
-      } else {
-        this.selectedTab = 'pamphletsTab'
-      }
-
-      if (this.canShowModalForMobileView()) {
-        this.showModalStatus = true
-      }
-
-      this.selectedSet.loadContents()
-        .then(function (response) {
-          that.selectedSet.loading = false
-        })
-        .catch(function (error) {
-          Assist.handleErrorMessage(error)
-          that.selectedSet.loading = false
-        })
+      // const that = this
+      //
+      // this.selectedSet = data.set
+      // this.selectedProduct = data.product
+      // this.selectedSet.loading = true
+      // this.selectedSet.contents.clear()
+      // if (data.contentType === 'video') {
+      //   this.selectedTab = 'videosTab'
+      // } else {
+      //   this.selectedTab = 'pamphletsTab'
+      // }
+      //
+      // if (this.canShowModalForMobileView()) {
+      //   this.showModalStatus = true
+      // }
+      //
+      // this.selectedSet.loadContents()
+      //   .then(function (response) {
+      //     that.selectedSet.loading = false
+      //   })
+      //   .catch(function (error) {
+      //     Assist.handleErrorMessage(error)
+      //     that.selectedSet.loading = false
+      //   })
     },
     updateProducts (products) {
       // this.$store.commit('updateAppProps', function (appProps) {
