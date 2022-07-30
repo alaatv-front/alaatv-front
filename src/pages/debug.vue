@@ -1,4 +1,5 @@
 <template>
+  {{calculateHeightStyle}}
   <page-builder :sections="sections" :options="pageConfig" :containerHeight="calculateHeightStyle"></page-builder>
 </template>
 
@@ -43,8 +44,13 @@ export default {
                                 {
                                   widgets: [
                                     {
-                                      name: 'test-component2-widget'
-                                    }
+                                      name: 'blockList',
+                                      data: API_ADDRESS.pages.home,
+                                      options: {
+                                        to: 1,
+                                        getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                                      }
+                                    },
                                   ]
                                 }
                               ]
@@ -235,7 +241,8 @@ export default {
   },
   computed: {
     calculateHeightStyle(){
-      return this.$store.getters['AppLayout/calculateContainerFullHeight'];
+      let calcHeight = this.$store.getters['AppLayout/calculateContainerFullHeight'];
+      return calcHeight;
     }
   },
   beforeRouteEnter() {
