@@ -5,13 +5,29 @@
     </div>
     <q-separator />
     <div
-      v-if="items.list && items.list.length > 0"
+      v-if="items && items.length > 0"
       class="cart-items"
-      v-for="(item, index) in items.list"
+      v-for="(item, index) in items"
       :key="index"
     >
-      <cart-item :cart-item="item" />
-      <q-separator />
+      <template v-if="!!(item.grand)">
+        <cart-item
+          :raw-item="item"
+          :has-grand="true"
+        />
+        <q-separator />
+      </template>
+      <template
+        v-else
+        v-for="(cartItem, index) in item.order_product"
+        :key="index"
+      >
+        <cart-item
+          :raw-item="cartItem"
+          :has-grand="false"
+        />
+        <q-separator />
+      </template>
     </div>
   </div>
 </template>
@@ -19,7 +35,7 @@
 <script>
 import CartItem from 'components/Widgets/CheckoutReview/SideComponents/CartItem'
 import API_ADDRESS from 'src/api/Addresses'
-import { CartItemList } from 'src/models/CartItem'
+// import { CartItemList } from 'src/models/CartItem'
 export default {
   name: 'CartItemList',
   components: { CartItem },
@@ -35,8 +51,7 @@ export default {
     checkoutReview () {
       this.$axios.get(API_ADDRESS.cart.review)
         .then((res) => {
-          this.items = new CartItemList(res.data.data.items[0].order_product)
-          // console.log('this.items', this.items)
+          this.items = res.data.data.items
         })
         .catch((err) => {
           console.log(err)
