@@ -31,38 +31,32 @@ class Cart extends Model {
     } else {
       this.cartItems.list.push(new CartItem({ product }))
     }
-    this.totalFinalPrice()
-    this.totalDiscount()
-    this.totalBasePrice()
+    this.changeCartItems()
     return this.cartItems.list.find(item => item.product.id === product.id).quantity
   }
   removeItem (cartId) {
     this.cartItems.list = this.cartItems.list.filter(item => item.id !== cartId)
-    this.totalFinalPrice()
-    this.totalDiscount()
-    this.totalBasePrice()
+    this.changeCartItems()
   }
   removeAllItems () {
     this.cartItems.list = []
-    this.totalFinalPrice()
-    this.totalDiscount()
-    this.totalBasePrice()
+    this.changeCartItems()
   }
-  totalFinalPrice () {
+  calculateTotalFinalPrice () {
     let finalPrice = 0
     this.cartItems.list.forEach(item => {
       finalPrice += item.product.price.final
     })
     this.price.final = finalPrice
   }
-  totalBasePrice () {
+  calculateTotalBasePrice () {
     let basePrice = 0
     this.cartItems.list.forEach(item => {
       basePrice += item.product.price.base
     })
     this.price.base = basePrice
   }
-  totalDiscount () {
+  calculateTotalDiscount () {
     let totalDiscount = 0
     this.cartItems.list.forEach(item => {
       totalDiscount  += item.product.price.discount
@@ -71,6 +65,11 @@ class Cart extends Model {
   }
   isEmpty () {
     return !this.cartItems.list.length
+  }
+  changeCartItems () {
+    this.calculateTotalFinalPrice()
+    this.calculateTotalDiscount()
+    this.calculateTotalBasePrice()
   }
 }
 
