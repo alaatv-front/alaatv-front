@@ -12,7 +12,7 @@
           class="q-mt-sm"
           indeterminate
         />
-        <q-resize-observer @resize="setHeaderDimension"/>
+        <q-resize-observer @resize="onHeaderResize"/>
       </template>
       <template #left-drawer>
         <div class="drawer-inside">
@@ -80,6 +80,9 @@ export default {
   computed: {
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
+    },
+    headerData(){
+      return this.$store.getters["AppLayout/"]
     }
   },
   created () {
@@ -94,6 +97,10 @@ export default {
           show: false
         })
       }
+    },
+    onHeaderResize (value) {
+      this.setHeaderDimension(value)
+      this.$store.commit('AppLayout/updateHeaderSize', value)
     },
     setHeaderDimension (value) {
       this.$refs.contentInside.style.height = 'calc(100vh +' + value.height + 'px'
