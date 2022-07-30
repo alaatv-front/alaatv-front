@@ -12,7 +12,8 @@
           class="product-info"
         >
           <div class="info-header">
-            <q-img :src="info.src" class="info-image"/>
+            <q-img :src="info.src"
+                   class="info-image" />
             <p class="info-title">
               {{info.title}}
             </p>
@@ -31,8 +32,10 @@
         </div>
       </div>
 
-      <div v-if="givenData.price" class="product-price">
-        <div v-if="givenData.price.discountInPercent()" class="discount-percent">
+      <div v-if="givenData.price"
+           class="product-price">
+        <div v-if="givenData.price.discountInPercent()"
+             class="discount-percent">
           <div class="percent">{{ '%' + givenData.price.discountInPercent() }}</div>
           <div class="discount-title">تخفیف</div>
         </div>
@@ -72,8 +75,10 @@
         </div>
       </div>
     </div>
-    <div v-if="givenData.intro" class="intro-video col-6">
-      <video-player :poster="givenData.intro.photo" :sources="givenData.intro.video"/>
+    <div v-if="givenData.intro"
+         class="intro-video col-6">
+      <video-player :poster="givenData.intro.photo"
+                    :sources="givenData.intro.video" />
     </div>
   </div>
 </template>
@@ -85,7 +90,7 @@ import { mixinWidget } from 'src/mixin/Mixins'
 export default {
   name: 'productIntroduction',
   components: { VideoPlayer },
-  mixins:[mixinWidget],
+  mixins: [mixinWidget],
   props: {
     data: {
       type: Object,
@@ -118,7 +123,7 @@ export default {
           src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-document-download.png\n',
           title: 'مدل دریافت',
           value: []
-        },
+        }
       ],
       givenData: {
         intro: null,
@@ -132,12 +137,12 @@ export default {
     this.setInformation()
   },
   watch: {
-    data:{
+    data: {
       deep: true,
-      handler(newValue) {
+      handler (newValue) {
         const sources = []
-        Object.assign(this.givenData,newValue)
-        if(this.givenData.intro && this.givenData.intro.video) {
+        Object.assign(this.givenData, newValue)
+        if (this.givenData.intro && this.givenData.intro.video) {
           this.givenData.intro.video = sources.push(this.givenData.intro.video)
         }
         this.setInformation()
@@ -146,8 +151,7 @@ export default {
   },
   methods: {
     setInformation () {
-
-      if(!this.givenData.attributes) {
+      if (!this.givenData.attributes) {
         return
       }
       const attributesInfoKeys = Object.keys(this.givenData.attributes.info)
@@ -163,9 +167,9 @@ export default {
     addToCart (hasInstallment) {
       this.$emit('addToCart', {
         product: this.product.eec.getData(),
-        ...(typeof hasInstallment === 'boolean' && { hasInstallment: hasInstallment })
+        ...(typeof hasInstallment === 'boolean' && { hasInstallment })
       })
-    },
+    }
   }
 }
 </script>
@@ -319,4 +323,3 @@ export default {
   //vjs-error-display video-js
 }
 </style>
-
