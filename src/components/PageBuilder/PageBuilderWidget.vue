@@ -29,7 +29,9 @@ export default {
     SetShowInfo: defineAsyncComponent(() => import('components/Widgets/Set/Show.vue')),
     Banner: defineAsyncComponent(() => import('components/Widgets/Banner.vue')),
     blockList: defineAsyncComponent(() => import('components/Widgets/BlockList/BlockList')),
-    services: defineAsyncComponent(() => import('components/Widgets/Services/Services'))
+    services: defineAsyncComponent(() => import('components/Widgets/Services/Services')),
+    ProfileMenu: defineAsyncComponent(() => import('components/Widgets/Profile/ProfileMenu/ProfileMenu')),
+    Profile: defineAsyncComponent(() => import('components/Widgets/Profile/Profile'))
   },
   props: {
     widget: {
