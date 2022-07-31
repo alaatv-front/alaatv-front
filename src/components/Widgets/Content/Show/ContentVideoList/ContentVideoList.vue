@@ -1,5 +1,5 @@
 <template>
-  <div class="video-list bg-white shadow-4">
+  <div class="video-list bg-white q-mr-md shadow-4">
     <div class="q-px-md row">
       <h6 class="main-title col-2 q-pt-lg">
         فیلم ها
@@ -164,7 +164,7 @@
 
   .video-title {
 
-    width: 280px;
+    width: 300px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
