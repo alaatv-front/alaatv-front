@@ -1,17 +1,10 @@
 <template>
   <div class="SendMessageInput">
 
-    <!--    <q-skeleton-->
-    <!--      v-show="contentLoading"-->
-    <!--      height="64px"-->
-    <!--      type="QToolbar" />-->
-
     <div class="input-group"
     >
       <div v-show="canShowMic"
            class="input-group-prepend">
-        <!--          @click="recVoice"-->
-        <!--          @click="recVoice"-->
         <q-btn
           class="btn  actionBtn btnRecordVoiceForUpload"
           v-longpress="recordVoice"
@@ -329,7 +322,7 @@ export default {
       return (this.newMessage.text.length > 0) || (this.canShowMic && this.canShowSelectPic)
     },
     canShowMic () {
-      return (this.newMessage.text.length === 0 && !this.userPicSelected)
+      return (this.newMessage.text.length === 0 && !this.userPicSelected && !this.recordedVoice)
     },
     canShowSelectPic () {
       return (this.newMessage.text.length === 0 && this.mediaRecorder === null)
@@ -351,7 +344,9 @@ export default {
     },
     recordStart () {
       if (!navigator.mediaDevices) {
-        this.$q.notify('مرورگر شما ضبط صدا را پشتیبانی نمی کند.')
+        this.$q.notify({
+          message: 'مرورگر شما ضبط صدا را پشتیبانی نمی کند.'
+        })
         return
       }
 
@@ -369,13 +364,8 @@ export default {
 
         that.mediaRecorder = new MediaRecorder(stream)
         that.mediaRecorder.start()
-        // console.log("recorder started", that.mediaRecorder.state);
-
-        // that.visualize(stream);
 
         that.mediaRecorder.onstop = function (e) {
-          // console.log("data available after MediaRecorder.stop() called.");
-
           const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' })
           chunks = []
           that.recordedVoiceBlob = blob
@@ -392,10 +382,8 @@ export default {
       }
 
       const onError = function (err) {
-        // console.log('The following error occurred: ' + err);
-        err.getTracks().forEach(function (track) {
-          track.stop()
-        })
+        console.log(err.name + ': ' + err.message)
+        document.write('مرورگر شما اجازه دسترسی به میکروفون را ندارد')
       }
 
       navigator.mediaDevices.getUserMedia(constraints)
@@ -405,8 +393,7 @@ export default {
       if (this.mediaRecorder) {
         this.mediaRecorder.stop()
       }
-
-      // console.log('this.mediaRecorder.state', this.mediaRecorder.state);
+      this.canShowMic = false
       this.showVoicePlayer = true
       this.showVoiceVisualizer = false
       this.audioPlayerLastPlayedTime = 0
@@ -430,6 +417,7 @@ export default {
       this.audioPlayerLastPlayedTime = audioPlayer.currentTime
       this.showVoicePlayerIsPlaying = false
     },
+
     getFile () {
       this.$refs.myFileInput.click()
     },
@@ -454,6 +442,7 @@ export default {
       this.$refs.cropper.rotate(this.rotateAngle - this.oldRotateAngle)
       this.oldRotateAngle = this.rotateAngle
     },
+
     clearMessage () {
       this.newMessage.text = ''
       this.imgURL = ''
@@ -468,11 +457,13 @@ export default {
       this.recordedVoiceBlob = null
       this.contentLoading = false
     },
+
     getResult: function (isPrivate) {
       this.Loading = true
       this.$emit('sendImage', {
         resultURL: this.resultURL,
         caption: this.newMessageTextInModal,
+        loading: this.Loading,
         isPrivate
       })
       this.clearMessage()
@@ -641,6 +632,7 @@ export default {
       width: 1080px;
       border: 1px solid #ced4da;
       color: #575962;
+      border-radius: 0 15px 15px 0;
 
       &:deep(.q-field__control) {
         height: 64px;
@@ -651,7 +643,7 @@ export default {
       }
     }
 
-    .av-waveform{
+    .av-waveform {
       display: flex;
     }
   }
