@@ -30,7 +30,7 @@
                         }
                       ],
                       options: {
-                        col: 'col-12 col-xs-12 col-sm-12 col-md-8'
+                        className: 'col-12 col-xs-12 col-sm-12 col-md-8'
                       }
                     },
                     {
@@ -44,9 +44,10 @@
                         }
                       ],
                       options: {
-                        col: 'col-12 col-xs-12 col-sm-12 col-md-4',
-                        fullHeight: true,
-                        paddingTop:'16px'
+                        className: 'col-12 col-xs-12 col-sm-12 col-md-4',
+                        style:{
+                          paddingBottom: '16px'
+                        }
                       }
                     }
                   ],
@@ -67,7 +68,7 @@
                         }
                       ],
                       options: {
-                        col: 'col-sm-8 col-xs-12'
+                        className: 'col-sm-8 col-xs-12'
                       }
                     },
                     {
@@ -81,8 +82,10 @@
                         }
                       ],
                       options: {
-                        col: 'col-sm-4 col-xs-12',
-                        paddingBottom:'24px'
+                        className: 'col-sm-4 col-xs-12',
+                        style: {
+                          paddingBottom: '24px'
+                        }
                       }
                     }
                   ],
@@ -102,7 +105,7 @@
       this.paddingStyle()
     },
     methods: {
-      paddingStyle(){
+      paddingStyle() {
         // document.getElementsByClassName('padding-list')[0].style.paddingBottom='16px'
         // document.getElementsByClassName('padding-download')[0].style.paddingBottom='24px'
       },
