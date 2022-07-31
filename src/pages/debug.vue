@@ -117,7 +117,7 @@ export default {
           },
           options: {
             style: 'background-image: url("http://twintower.ir/api/media/tracks/368/thumbnail9-5777.jpg");background-position: center;background-size: cover;background-repeat: no-repeat;background-attachment: fixed;',
-            className: 'q-ma-lg q-pa-lg',
+            className: '',
             fullHeight: true,
             verticalAlign: 'center',
           }
@@ -209,7 +209,7 @@ export default {
       ],
       //this is page options
       options: {
-        className: "q-ma-xs q-pa-lg",
+        // className: "q-ma-xs q-pa-lg",
         style: "background: black !important; color: white;"
       },
     }
