@@ -1,8 +1,6 @@
 <template>
-  <div :class="[
-    (options.col) ? options.col : 'col',
-    (options.alignmentSelf) ? options.alignmentSelf : '',
-  ]">
+
+  <div class="col q-col-gutter-md" :class="className" :style="style">
     <template v-for="(widget, widgetIndex) in widgets"
               :key="widgetIndex">
       <q-intersection v-if="widget.options && widget.options.intersection"
@@ -47,7 +45,14 @@ export default {
   data () {
     return {}
   },
-
+  computed:{
+    // colClasses() {
+    //   return [
+    //     (this.options.col) ? this.options.col : 'col',
+    //     (this.options.alignmentSelf) ? this.options.alignmentSelf : '',
+    //   ]
+    // }
+  }
 }
 </script>
 
