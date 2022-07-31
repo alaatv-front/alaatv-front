@@ -1,5 +1,4 @@
 import { auth, isLandingPage } from './middleware/middleware'
-// import Login from '../pages/Auth/Login.vue'
 import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
