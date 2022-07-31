@@ -12,14 +12,10 @@ const mixinAuth = {
     }
   },
   methods: {
-    getUserData (callback) {
-      const that = this
+    async getUserData () {
       this.$axios.get(API_ADDRESS.user.show_user)
         .then((response) => {
-          that.$store.commit('Auth/updateUser', response.data.data)
-          if (typeof callback === 'function') {
-            callback()
-          }
+          this.$store.commit('Auth/updateUser', response.data.data)
         })
     }
   }
