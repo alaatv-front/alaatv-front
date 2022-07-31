@@ -14,7 +14,7 @@ import CheckoutReviewCart from 'components/Widgets/CheckoutReview/SideComponents
 import CartItemList from 'components/Widgets/CheckoutReview/SideComponents/CartItemList'
 import Donate from 'components/Widgets/CheckoutReview/SideComponents/Donate'
 export default {
-  name: 'CheckoutReviewWidget',
+  name: 'CheckoutReview',
   components: { Donate, CartItemList, CheckoutReviewCart },
   data () {
     return {
