@@ -1,12 +1,11 @@
 import { Model } from 'js-abstract-model'
 
-class TicketPriority extends Model {
+class OrderStatsu extends Model {
   constructor (data) {
     super(data, [
       { key: 'id' },
-      { key: 'title' }
+      { key: 'name' }
     ])
   }
 }
-
-export default TicketPriority
+export default OrderStatsu

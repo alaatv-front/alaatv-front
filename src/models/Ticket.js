@@ -1,14 +1,13 @@
-import Model from './Model'
-import Collection from './Collection'
+import { Model, Collection } from 'js-abstract-model'
 import Assist from '../util/Assist'
-import { TicketStatus } from '../Model/TicketStatus'
-import { TicketDepartment } from '../Model/TicketDepartment'
-import TicketPriority from '../Model/TicketPriority'
-import { User } from '../Model/User'
-import { TicketMessageList } from '../Model/TicketMessage'
-import { TicketLogList } from '../Model/TicketLog'
+import { TicketStatus } from 'src/models/TicketStatus.js'
+import { TicketDepartment } from 'src/models/TicketDepartment'
+import TicketPriority from 'src/models/TicketPriority'
+import { User } from 'src/models/User'
+import { TicketMessageList } from 'src/models/TicketMessage'
+import { TicketLogList } from 'src/models/TicketLog'
 import { Order } from './Order'
-import { OrderProduct } from '../Model/OrderProduct'
+import { OrderProduct } from 'src/models/OrderProduct'
 
 class Ticket extends Model {
   constructor (data) {

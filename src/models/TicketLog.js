@@ -1,6 +1,5 @@
-import Model from './Model'
-import { User } from '../Model/User'
-import Collection from './Collection'
+import { Model, Collection } from 'js-abstract-model'
+import { User } from 'src/models/User'
 
 class TicketLog extends Model {
   constructor (data) {
