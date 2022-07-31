@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-5 bg-white q-pa-md q-mb-lg q-mx-md rounded-borders content-info">
+  <div class="shadow-5 bg-white q-pa-md q-mb-lg q-mx-sm rounded-borders content-info">
     <h6 class="set-title">
       {{content.title}}
     </h6>
