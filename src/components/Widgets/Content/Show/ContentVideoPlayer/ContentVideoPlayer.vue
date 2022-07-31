@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white shadow-4 q-mb-md q-mx-md">
+  <div class="bg-white shadow-4 q-mb-md q-mx-sm">
     <video-player
       v-if="sources.list.length > 0"
       :sources="sources"

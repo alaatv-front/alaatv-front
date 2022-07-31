@@ -1,5 +1,5 @@
 <template>
-  <div class="video-list bg-white q-mr-md shadow-4">
+  <div class="video-list bg-white q-mx-sm q-pb-md shadow-4">
     <div class="q-px-md row">
       <h6 class="main-title col-2 q-pt-lg">
         فیلم ها
@@ -155,7 +155,6 @@
 
   .scroll {
     height: 75%;
-    width: auto
   }
 
   .video-list {
@@ -181,5 +180,17 @@
 
   .current {
     background: #ffd196;
+  }
+
+  @media screen and (min-width: 1023px) {
+    .scroll {
+      height: 80%;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .scroll {
+      height: 300px;
+    }
   }
 </style>
