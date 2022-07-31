@@ -5,6 +5,12 @@ const mixinWidget = {
       default () {
         return {}
       }
+    },
+    containerFullHeight: {
+      type: String,
+      default: () => {
+        return "100vh"
+      }
     }
   },
   data () {
@@ -12,6 +18,7 @@ const mixinWidget = {
       defaultOptions: {}
     }
   },
+
   created () {
     Object.assign(this.defaultOptions, this.options)
   }
