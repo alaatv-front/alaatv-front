@@ -1,5 +1,6 @@
 <template>
   <entity-create
+    ref="EntityCreate"
     v-model:value="inputs"
     :title=this.depart.title
     :api="api"
@@ -38,7 +39,13 @@
   </entity-create>
   <q-separator class="q-my-md" />
   <div>
-    <SendMessageInput />
+    <SendMessageInput
+      ref="SendMessageInput"
+      :send-loading="sendLoading"
+      @sendText="sendText"
+      @sendImage="sendImage"
+      @sendVoice="sendVoice"
+    />
   </div>
 
 </template>
@@ -47,8 +54,7 @@
 import SendMessageInput from 'components/SendMessageInput'
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-// import { TicketDepartmentList } from 'src/models/TicketDepartment'
-// import { Ticket } from 'src/models/Ticket'
+import { TicketMessage } from 'src/models/TicketMessage'
 
 export default {
   name: 'Create',
@@ -58,6 +64,8 @@ export default {
   },
   data () {
     return {
+      canPost: true,
+      sendLoading: null,
       showDialog: true,
       expanded: true,
       api: API_ADDRESS.ticket.create.base,
@@ -115,35 +123,61 @@ export default {
             },
             {
               type: 'toggleButton',
-              name: 'priority',
+              name: 'priority_id',
               responseKey: 'data.priority',
               options: [
                 {
                   label: 'کم',
-                  id: '1'
+                  value: '1'
                 },
                 {
                   label: 'متوسط',
-                  id: '2'
+                  value: '2'
                 },
                 {
                   label: 'فوری',
-                  id: '3'
+                  value: '3'
                 },
                 {
                   label: 'بحرانی',
-                  id: '4'
+                  value: '4'
                 }
               ],
-              col: 'col-md-4',
+              toggleColor: 'blue',
               textColor: 'black',
-              size: '20px'
+              toggleTextColor: 'white',
+              col: 'col-md-4',
+              size: '22px'
             }
 
           ]
 
         },
-        { name: 'department', type: 'hidden', responseKey: 'data.department' }
+        {
+          name: 'department_id',
+          type: 'hidden',
+          value: 0
+        },
+        {
+          name: 'photo',
+          type: 'hidden',
+          value: ''
+        },
+        {
+          name: 'body',
+          type: 'hidden',
+          value: ''
+        },
+        {
+          name: 'voice',
+          type: 'hidden',
+          value: ''
+        },
+        {
+          name: 'is_private',
+          type: 'hidden',
+          value: 0
+        }
 
       ],
       beforeFormBuilder: true,
@@ -151,29 +185,134 @@ export default {
     }
   },
   created () {
-    // this.backPage()
   },
-  methods: {
-    backPage () {
-      if (
-        this.ticketData.editMode &&
-        this.departmentForSelect.list.length > 0 &&
-        this.departments.list.length > 0 &&
-        this.departmentForSelect.list[0].id !== this.departments.list[0].id
-      ) {
-        this.ticketData.department.id = null
-        this.departmentForSelect = this.departments
-      } else {
-        const that = this
-        this.$store.commit('updateAppProps', function (appProps) {
-          appProps.editedTicket = that.ticketData
-        })
-        this.$router.push({ name: 'Menu' }).catch(() => {
-        })
+  watch: {
+    sendLoading: {
+      handler (newVal) {
+        console.log(newVal)
       }
+    }
+  },
+
+  methods: {
+    showMessagesInNotify (message, type) {
+      if (!type) {
+        type = 'negative'
+      }
+      this.$q.notify({
+        type,
+        message
+      })
+    },
+    checkValues () {
+      this.$refs.EntityCreate.getValues().forEach(item => {
+        if (item.type === 'toggleButton' && !item.value) {
+          this.showMessagesInNotify('<اولویت> پیام خود را انتخاب کنید')
+          this.canPost = false
+          this.sendLoading = false
+        } else {
+          this.canPost = true
+          this.sendLoading = false
+        }
+      })
+      if (!!this.inputs[0].value === false) {
+        this.showMessagesInNotify('پر کردن فیلد <عنوان> ضروری میباشد')
+        this.canPost = false
+        this.sendLoading = false
+      } else {
+        this.canPost = true
+      }
+    },
+    sendMessage (data) {
+      this.sendLoading = data.loading
+      this.checkValues()
+
+      const formData = new FormData()
+      if (data.photo) {
+        formData.append('photo', data.photo, 'photo.jpeg')
+      }
+
+      // this.$refs.EntityCreate.getValues().forEach(input => {
+      //   if (input.name === 'body') {
+      //     input.value = data.body
+      if (data.body) {
+        formData.append('body', data.body.replace(/\r?\n/g, '<br/>'))
+      }
+
+      if (data.voice) {
+        formData.append('voice', data.voice, 'voice.ogg')
+      }
+
+      if (data.isPrivate) {
+        formData.append('is_private', 1)
+      }
+
+      const newTicket = new TicketMessage()
+      if (this.canPost) {
+        newTicket.create(formData, this.api)
+        this.sendLoading = false
+      }
+
+      // if (this.canPost) {
+      //   this.sendLoading = false
+      //   this.$refs.EntityCreate.createEntity(formData)
+      // }
+    },
+
+    sendText (data) {
+      this.sendMessage({
+        body: data.body,
+        isPrivate: data.isPrivate,
+        loading: data.loading
+      })
+    },
+    sendImage (data) {
+      console.log(data)
+      this.sendMessage({
+        body: data.caption,
+        isPrivate: data.isPrivate,
+        photo: this.createBlob(data.resultURL),
+        loading: data.loading
+
+      })
+      console.log(data)
+    },
+    sendVoice (data) {
+      this.sendMessage({
+        voice: data.voice,
+        isPrivate: data.isPrivate,
+        loading: data.loading
+
+      })
+    },
+    createBlob (dataURL) {
+      const BASE64_MARKER = ';base64,'
+      if (dataURL.indexOf(BASE64_MARKER) === -1) {
+        const parts = dataURL.split(',')
+        const contentType = parts[0].split(':')[1]
+        const raw = decodeURIComponent(parts[1])
+        return new Blob([raw], { type: contentType })
+      }
+      const parts = dataURL.split(BASE64_MARKER)
+      const contentType = parts[0].split(':')[1]
+      const raw = window.atob(parts[1])
+      const rawLength = raw.length
+
+      const uInt8Array = new Uint8Array(rawLength)
+
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i)
+      }
+
+      return new Blob([uInt8Array], { type: contentType })
     },
     selectDepartment (item) {
       this.depart = item
+      this.$refs.EntityCreate.getValues().forEach(input => {
+        if (input.name === 'department_id') {
+          input.value = this.depart.id
+        }
+      })
       this.showDialog = false
     }
   }
@@ -185,20 +324,35 @@ export default {
 :deep(.departmentForSelect) {
   cursor: pointer;
   border-radius: 0;
+
   &:hover {
     background-color: var(--alaa-Primary);
     color: white;
   }
+
   .departmentActionBtn {
     border-radius: 0;
     width: 100px;
     height: 100px;
     padding: 0;
-    .q-focus-helper{
+
+    .q-focus-helper {
       display: none;
     }
   }
 
+}
+
+:deep(.form-builder-separator-col) {
+  display: flex;
+  align-items: center;
+}
+
+:deep(.q-btn-group) {
+  box-shadow: none;
+
+  .q-btn-item:last-child {
+  }
 }
 
 </style>
