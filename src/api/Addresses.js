@@ -33,7 +33,8 @@ const API_ADDRESS = {
     admin: {
       base: apiV2Server + '/c/'
     },
-    show: (id) => apiV2Server + '/c/' + id
+    show: (id) => apiV2Server + '/c/' + id,
+    search: apiV2Server + '/search'
   },
   coupon: {
     create: {
@@ -370,6 +371,10 @@ const API_ADDRESS = {
   },
   map: {
     items: apiV2Server + '/mapDetail'
+  },
+  cart: {
+    orderproduct: apiV2Server + '/orderproduct',
+    review: apiV2Server + '/checkout/review'
   }
 }
 export default API_ADDRESS
