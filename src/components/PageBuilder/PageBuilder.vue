@@ -6,7 +6,7 @@
       :key="sectionIndex"
       :data="section.data"
       :options="section.options"
-      :containerFullHeight="containerHeight"
+      :containerFullHeight="containerFullHeight"
     />
   </div>
 </template>
@@ -41,9 +41,7 @@ export default {
 
       return classes
     },
-    sectionHeight(){
-      return this.$store.getters['AppLayout/containerHeight']
-    }
+
   },
   methods: {
 
@@ -59,7 +57,6 @@ export default {
         return {}
       }
     },
-    containerHeight: {}
   },
   created () {
     this.defaultOptions = Object.assign(this.defaultOptions, this.options)
