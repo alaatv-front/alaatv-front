@@ -64,7 +64,7 @@
           <purchase-item
             :key="product.id"
             :product="product"
-            :filter="filterName"
+            :searchTarget="searchTarget"
             @setSelected="setSelectedSet"
           />
         </div>
@@ -124,6 +124,7 @@ import PurchaseItem from 'src/components/userPurchases/PurchaseItem'
 import { Product, ProductList } from 'src/models/Product'
 import { Set } from 'src/models/Set'
 import Assist from 'src/plugins/Assist'
+import Addresses from 'src/api/Addresses'
 
 export default {
   name: 'Purchases',
@@ -838,8 +839,8 @@ export default {
             short_title: 'شبیه ساز امتحان نهایی عربی دوازدهم',
             photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652952167_7887.jpg',
             url: { web: 'http://127.0.0.1/set/1542', api: 'http://127.0.0.1/api/v2/set/1542' },
-            pamphlets_count: 0,
-            videos_count: 4,
+            pamphlets_count: 10,
+            videos_count: 0,
             author: null,
             contents: null,
             created_at: '2022-05-19 04:52:47',
@@ -853,7 +854,7 @@ export default {
             short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
             photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687715_3800.jpg',
             url: { web: 'http://127.0.0.1/set/1519', api: 'http://127.0.0.1/api/v2/set/1519' },
-            pamphlets_count: 0,
+            pamphlets_count: 10,
             videos_count: 11,
             author: null,
             contents: null,
@@ -868,7 +869,7 @@ export default {
             short_title: 'شبیه ساز امتحان نهایی شیمی دوازدهم',
             photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687723_6909.jpg',
             url: { web: 'http://127.0.0.1/set/1518', api: 'http://127.0.0.1/api/v2/set/1518' },
-            pamphlets_count: 1,
+            pamphlets_count: 8,
             videos_count: 7,
             author: null,
             contents: null,
@@ -883,7 +884,7 @@ export default {
             short_title: 'شبیه ساز امتحان نهایی فیزیک تجربی دوازدهم',
             photo: 'https://nodes.alaatv.com/upload/contentset/departmentlesson/1652687767_9909.jpg',
             url: { web: 'http://127.0.0.1/set/1517', api: 'http://127.0.0.1/api/v2/set/1517' },
-            pamphlets_count: 1,
+            pamphlets_count: 80,
             videos_count: 16,
             author: null,
             contents: null,
@@ -1575,7 +1576,6 @@ export default {
         }],
       filteredProduct: new ProductList(),
       showModalStatus: false,
-      filterName: null,
       filterBoxSort: [
         {
           name: 'جدید ترین ها',
@@ -1665,31 +1665,28 @@ export default {
       this.selectedFilterCategoryValue = this.filterBoxCategory[0].value
       console.log('categorySelected', this.selectedFilterCategoryValue)
     },
-    setSelectedSet (data) {
-      // const that = this
-      //
-      // this.selectedSet = data.set
-      // this.selectedProduct = data.product
-      // this.selectedSet.loading = true
-      // this.selectedSet.contents.clear()
-      // if (data.contentType === 'video') {
-      //   this.selectedTab = 'videosTab'
-      // } else {
-      //   this.selectedTab = 'pamphletsTab'
-      // }
-      //
-      // if (this.canShowModalForMobileView()) {
-      //   this.showModalStatus = true
-      // }
-      //
-      // this.selectedSet.loadContents()
-      //   .then(function (response) {
-      //     that.selectedSet.loading = false
-      //   })
-      //   .catch(function (error) {
-      //     Assist.handleErrorMessage(error)
-      //     that.selectedSet.loading = false
-      //   })
+    async setSelectedSet (data) {
+      this.selectedSet = data.set
+      this.selectedProduct = data.product
+      this.selectedSet.loading = true
+      this.selectedSet.contents.clear()
+      this.handlesTabs(data.contentType)
+      try {
+        const contentResponse = await this.getSelectedSetContents()
+        this.selectedSet.loading = false
+        console.log('contentResponse :', contentResponse)
+      } catch (e) {
+        this.selectedSet.loading = false
+        console.log('err ', e)
+      }
+    },
+    handlesTabs (contentType) {
+      this.selectedTab = contentType === 'pamphlet'
+        ? 'pamphlet'
+        : 'video'
+    },
+    getSelectedSetContents () {
+      return this.$axios.get(Addresses.set.show(this.selectedSet.id), { params: { withContents: true } })
     },
     updateProducts (products) {
       // this.$store.commit('updateAppProps', function (appProps) {

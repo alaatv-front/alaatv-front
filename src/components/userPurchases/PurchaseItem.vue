@@ -91,18 +91,23 @@
                   :alt="product.title" />
         </div>
       </div>
-      <div class="col-sm-10 product-content col-12 bg-pink-2 q-px-md">
+      <div class="col-sm-10 product-content col-12 bg-white q-px-md">
         <div class="product-title q-mt-sm">
           {{product.title}}
         </div>
-        <div class="row q-mt-lg">
-          <div class="col-12 text-center">
-            <q-btn  :label="selectedSetTitle"
-                    color="primary"
-                    @click="openSelList = !openSelList">
-
+        <div class="row justify-center q-mt-md">
+          <div class="col-9 text-center">
+            <q-btn
+              color="yellow-8"
+              class="product-btn"
+              unelevated
+              text-color="grey-10"
+              :icon-right="openSelList ? 'mdi-menu-up' : 'mdi-menu-down'"
+              @click="openSelList = !openSelList">
+              <span class="text-limit-size ellipsis">
+                {{selectedSetTitle}}
+              </span>
             </q-btn>
-
           </div>
         </div>
       </div>
@@ -110,12 +115,45 @@
   </div>
   <q-expansion-item
     v-model="openSelList"
-    class="hide-expansion-header"
-    expand-separator
+    class="hide-expansion-header bg-transparent"
   >
-    <q-card>
-      <q-card-section>
-      </q-card-section>
+    <q-card    v-for="(item, index) in setList"
+               :key="index"
+               class="q-ma-md set-item">
+      <div class="row q-mb-md q-pa-md">
+        <div class="col-7">
+          <div class="ellipsis-2-lines set-title">
+            {{item.title }}
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="row">
+            <div v-if="item.videos_count > 0"
+                 class="col-6">
+              <q-btn unelevated
+                     color="yellow-8"
+                     padding="0 20px"
+                     text-color="grey-10"
+                     class=""
+                     @click="setSelectedSet(product, item, 'video')"
+              >
+                فیلم ها
+              </q-btn>
+            </div>
+            <div v-if="item.pamphlets_count > 0"
+                 class="col-6">
+              <q-btn unelevated
+                     color="grey-12"
+                     padding="0 20px"
+                     text-color="grey-10"
+                     @click="setSelectedSet(product, item, 'pamphlet')"
+              >
+                جزوات
+              </q-btn>
+            </div>
+          </div>
+        </div>
+      </div>
     </q-card>
   </q-expansion-item>
 
@@ -131,17 +169,23 @@ export default {
       type: Product,
       default: []
     },
-    filter: {
+    searchTarget: {
       type: String,
       default: ''
     }
   },
   computed: {
+    setList () {
+      if (!this.searchTarget) {
+        return this.product.sets.list
+      }
+      return this.product.sets.list.filter(set => (Assist.stringContain(this.filter, set.title))).length
+    }
 
   },
   data () {
     return {
-      openSelList: false,
+      openSelList: true,
       selectedSetTitle: null,
       setsDropdownOpen: false
     }
@@ -162,13 +206,15 @@ export default {
       return true
     },
     setSelectedSet (product, set, contentType) {
-      console.log('setSelectedSet')
-      this.selectedSetTitle = set.title
+      this.updateSetTitle(set.title)
       this.$emit('setSelected', {
         product,
         contentType,
         set
       })
+    },
+    updateSetTitle (title) {
+      this.selectedSetTitle = title
     },
     toggleDropdown () {
       this.setsDropdownOpen = !this.setsDropdownOpen
@@ -176,7 +222,6 @@ export default {
   },
   created () {
     if (this.product.sets.list.length > 0) { this.selectedSetTitle = this.product.sets.list[0].title }
-    // this.product.setsDropdownOpen = false;
   }
 }
 </script>
@@ -199,6 +244,17 @@ export default {
   img{
     width: 80px;
   }
+}
+.text-limit-size{
+  width: 250px;
+}
+.product-btn{
+
+  background: red;
+ text-overflow: ellipsis;
+}
+.set-item{
+  border-radius: 15px;
 }
     .fade-PurchaseItem-enter-active > * > *,
     .fade-PurchaseItem-leave-active > * > * {
