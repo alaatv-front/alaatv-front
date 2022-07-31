@@ -11,6 +11,10 @@ class TicketMessage extends Model {
         }
       },
       { key: 'id' },
+      {
+        key: 'baseRoute',
+        default: 'ticket'
+      },
       { key: 'body' },
       { key: 'report' },
       { key: 'is_private' },
