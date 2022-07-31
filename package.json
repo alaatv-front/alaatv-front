@@ -52,6 +52,7 @@
     "videojs-hotkeys": "^0.2.27",
     "vue-advanced-cropper": "^2.8.3",
     "vue-audio-visual": "^2.5.0",
+    "videojs-playlist": "^5.0.0",
     "vue-dragscroll": "^3.0.1",
     "vue-filepond": "^7.0.2",
     "vue-i18n": "^9.1.10",
@@ -72,6 +73,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-vue": "^9.0.1",
     "eslint-webpack-plugin": "^3.1.1",
+    "video.js": "^7.20.1",
     "workbox-webpack-plugin": "^6.5.3"
   },
   "browserslist": [
