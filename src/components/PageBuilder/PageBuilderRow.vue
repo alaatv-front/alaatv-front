@@ -1,6 +1,6 @@
 <template>
     <div :class="className" :style="style">
-      <div class="row q-col-gutter-md"
+      <div class="page-builder-row row"
            :id="defaultOptions.id"
       >
         <page-builder-col v-for="(col, colIndex) in cols"

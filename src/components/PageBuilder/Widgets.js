@@ -35,15 +35,12 @@ const mixinWidget = {
     },
     style(){
       if(!this.defaultOptions.style){
-        this.defaultOptions.style = ""
+        this.defaultOptions.style = {}
       }
       // if fullHeight option is true, then using containerFullHeight (which is come from PageBuilder the parent)
-      // to make it full height
-      let fullHeightStyle = "";
       if(this.defaultOptions.fullHeight){
-        fullHeightStyle = 'min-height: ' + this.containerFullHeight + ';'
+        this.defaultOptions.style.minHeight = this.containerFullHeight
       }
-      this.defaultOptions.style += fullHeightStyle;
       return this.defaultOptions.style;
 
     }

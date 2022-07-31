@@ -1,6 +1,6 @@
 <template>
 
-  <div class="col q-col-gutter-md" :class="className" :style="style">
+  <div class="page-builder-col col" :class="className" :style="style">
     <template v-for="(widget, widgetIndex) in widgets"
               :key="widgetIndex">
       <q-intersection v-if="widget.options && widget.options.intersection"

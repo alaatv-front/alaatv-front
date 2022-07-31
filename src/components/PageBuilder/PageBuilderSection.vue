@@ -68,8 +68,7 @@ export default {
   methods: {
     setFullHeight (){
       if(!this.defaultOptions.fullHeight) return;
-      console.log('here')
-      this.defaultOptions.style += this.containerFullHeight + ';';
+      this.defaultOptions.style.minHeight += this.containerFullHeight;
     },
   }
 }

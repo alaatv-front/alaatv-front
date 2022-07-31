@@ -33,13 +33,13 @@ export default {
                                       {
                                         name: 'test-component1-widget',
                                         options: {
-                                          style: 'color: yellow !important',
+                                          style: {color: "yellow !important"},
                                           className: 'q-ma-lg'
                                         }
                                       },
                                     ],
                                     options: {
-                                      style: 'border: 1px blue solid'
+                                      style: {border: "1px blue solid"}
                                     }
                                   },
                                   {
@@ -51,7 +51,7 @@ export default {
                                   }
                                 ],
                                 options: {
-                                  style: "",
+                                  style: {},
                                   className: 'boxed'
                                 }
                               }
@@ -61,12 +61,12 @@ export default {
                       ],
                     options: {
                       className: 'q-ma-lg col-md-12 col-sm-6',
-                      style: "color: blue !important"
+                      style: {color: "blue !important"}
                     }
                   }
                 ],
                 options: {
-                  style: "color: white",
+                  style: {color: "white"},
                   className: "q-ma-md boxed"
                 }
               },
@@ -116,7 +116,13 @@ export default {
             ]
           },
           options: {
-            style: 'background-image: url("http://twintower.ir/api/media/tracks/368/thumbnail9-5777.jpg");background-position: center;background-size: cover;background-repeat: no-repeat;background-attachment: fixed;',
+            style:{
+              backgroundImage: 'url("http://twintower.ir/api/media/tracks/368/thumbnail9-5777.jpg")',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed'
+            },
             className: '',
             fullHeight: true,
             verticalAlign: 'center',
@@ -201,7 +207,13 @@ export default {
             ]
           },
           options: {
-            style: 'background-image: url("https://nodes.alaatv.com/upload/images/slideShow/1642417634_2227.jpg?w=1845&h=720");background-position: center;background-size: cover;background-repeat: no-repeat;background-attachment: fixed;',
+            style: {
+              backgroundImage: "url(\"https://nodes.alaatv.com/upload/images/slideShow/1642417634_2227.jpg?w=1845&h=720\")",
+              backgroundPosition: 'center',
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundAttachment: "fixed"
+            },
             fullHeight: true,
             verticalAlign: 'center',
           }
@@ -210,7 +222,7 @@ export default {
       //this is page options
       options: {
         // className: "q-ma-xs q-pa-lg",
-        style: "background: black !important; color: white;"
+        // style: {background: "black !important", color: "white", marginTop: '200px'}
       },
     }
    },
