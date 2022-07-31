@@ -1,5 +1,4 @@
 import { auth, isLandingPage } from './middleware/middleware'
-// import Login from '../pages/Auth/Login.vue'
 import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
@@ -20,6 +19,18 @@ const routes = [
         path: 'shop',
         name: 'Shop',
         component: () => import('pages/User/Shop')
+      },
+      {
+        path: 'checkout',
+        name: 'User.Checkout',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            path: 'review',
+            name: 'User.Checkout.Review',
+            component: () => import('pages/User/CheckoutReview/Show.vue')
+          }
+        ]
       },
       {
         path: 'c',

@@ -11,15 +11,15 @@
 </template>
 
 <script>
-import productIntroduction from 'components/Widgets/Product/productIntroduction'
-import productDemos from 'components/Widgets/Product/productDemos'
-import productReview from 'components/Widgets/Product/productReview'
+import productIntroduction from 'components/Widgets/ProductInfoShow/productIntroduction'
+import productDemos from 'components/Widgets/ProductInfoShow/productDemos'
+import productReview from 'components/Widgets/ProductInfoShow/productReview'
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins'
 import API_ADDRESS from 'src/api/Addresses'
 
 export default {
-  name: 'show',
+  name: 'ProductInfoShow',
   components: { productIntroduction, productDemos, productReview },
   mixins:[mixinWidget],
   props: {
