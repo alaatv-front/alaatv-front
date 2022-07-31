@@ -3,15 +3,94 @@
     <div class="col-2"></div>
     <div class="col-8"
          style="margin-bottom: 50px;">
+      <q-expansion-item
+        expand-separator
+        icon="perm_identity"
+        label="Account settings"
+        caption="John Doe"
+      >
+        <q-card>
+          <q-card-section>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
+            commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
+            eveniet doloribus ullam aliquid.
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
       <entity-edit
         v-model:value="inputs"
-        :title="'شماره تیکت ' + this.ticketNumber"
+        :title="'شماره تیکت ' + this.searchForInputVal('id') + ' در ' + this.searchForInputVal('department')"
         :api="api"
         :entity-id-key="entityIdKey"
         :entity-param-key="entityParamKey"
         :show-route-name="editRouteName"
         :after-load-input-data="checkLoadInputData"
-      />
+      >
+        <template #before-form-builder>
+          <div style="display: flex; justify-content: center">
+            <div style="justify-content: space-between; display: flex; width: 70%;">
+              <q-btn rounded
+                     color="blue"
+                     icon="isax:archive-book"
+                     @click="logDrawer = true">
+                <q-tooltip>
+                  باز شدن لیست اتفاقات
+                </q-tooltip>
+              </q-btn>
+              <q-btn rounded
+                     color="blue"
+                     icon="isax:shopping-cart"
+                     @click="openShopLogList">
+                <q-tooltip>
+                  باز شدن لیست خرید
+                </q-tooltip>
+              </q-btn>
+            </div>
+          </div>
+          <q-drawer
+            v-model="orderDrawer"
+            side="right"
+            :width="800"
+            overlay
+            bordered
+          >
+
+            <q-scroll-area class="fit">
+              <q-btn icon="mdi-close"
+                     class="close-btn"
+                     unelevated
+                     @click="orderDrawer = false" />
+              <user-order-list :user-orders-list="userOrderData?.list"
+                               :loading="orderLoading" />
+            </q-scroll-area>
+          </q-drawer>
+          <q-drawer
+            v-model="logDrawer"
+            :width="300"
+            overlay
+            bordered
+          >
+            <q-scroll-area class="fit">
+              <q-btn icon="mdi-close"
+                     unelevated
+                     class="close-btn"
+                     @click="logDrawer = false" />
+              <div style="display: flex; justify-content: center;"
+                   class="q-my-md">
+                <q-btn-group rounded>
+                  <q-btn color="blue"
+                         rounded
+                         label="رویداد ها" />
+                  <q-btn color="blue"
+                         rounded
+                         label="تیکت های دیگر کاربر" />
+                </q-btn-group>
+              </div>
+              <log-list :log-array="searchForInputVal('logs')" />
+            </q-scroll-area>
+          </q-drawer>
+        </template>
+      </entity-edit>
       <q-separator class="q-my-md" />
       <entity-action
         v-model:value="changeOperatorInputs"
@@ -31,16 +110,26 @@
 <script>
 import { EntityEdit, EntityAction } from 'quasar-crud'
 import Messages from 'src/components/Messages'
+import LogList from 'components/LogList'
+import UserOrderList from 'components/userOrderList'
 import API_ADDRESS from 'src/api/Addresses'
+import { ProductList } from 'src/models/Product'
+import axios from 'axios'
+import moment from 'moment-jalaali'
 
 export default {
   name: 'Show',
-  components: { EntityEdit, EntityAction, Messages },
+  components: { EntityEdit, EntityAction, Messages, LogList, UserOrderList },
   data () {
     return {
+      logDrawer: false,
+      orderDrawer: false,
+      orderLoading: false,
+      userOrderData: null,
       isDataLoaded: false,
       userFirstName: null,
       userLastName: null,
+      userId: null,
       userMessageArray: null,
       userPhoto: null,
       expanded: true,
@@ -55,13 +144,16 @@ export default {
         { type: 'select', name: 'priority', responseKey: 'ticket.priority.title', label: 'اولویت', col: 'col-md-4', disable: true },
         { type: 'select', name: 'department', responseKey: 'ticket.department.title', label: 'گروه', col: 'col-md-4' },
         { type: 'select', name: 'status', responseKey: 'ticket.status.title', label: 'وضعیت', col: 'col-md-4' },
-        { type: 'input', name: 'created_at', responseKey: 'ticket.created_at', label: 'تاریخ ایجاد', col: 'col-md-4', disable: true },
+        { type: 'dateTime', name: 'created_at', responseKey: 'ticket.created_at', label: 'تاریخ ایجاد', col: 'col-md-4', disable: true },
         { type: 'input', name: 'national_code', responseKey: 'ticket.user.national_code', label: 'کد ملی', col: 'col-md-4', disable: true },
         { type: 'input', name: 'major', responseKey: 'ticket.user.major.name', label: 'رشته', col: 'col-md-4', disable: true },
-        { type: 'input', name: 'created_at', responseKey: 'ticket.updated_at', label: 'تاریخ بروز آوری:', col: 'col-md-4', disable: true },
+        { type: 'dateTime', name: 'created_at', responseKey: 'ticket.updated_at', label: 'تاریخ بروز آوری:', col: 'col-md-4', disable: true },
         { type: 'hidden', name: 'id', responseKey: 'ticket.id', label: 'id' },
+        { type: 'hidden', name: 'department', responseKey: 'ticket.department.title', label: 'department' },
         { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', label: '' },
         { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', label: '' },
+        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', label: '' },
+        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', label: '' },
         {
           type: 'entity',
           name: 'management',
@@ -198,6 +290,9 @@ export default {
     }
   },
   methods: {
+    makeDateShamsi (date) {
+      return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
+    },
     searchForInputVal (name) {
       let value = null
       this.inputs.forEach((e) => {
@@ -210,14 +305,25 @@ export default {
       })
       return value
     },
+    openShopLogList () {
+      this.orderDrawer = true
+      this.orderLoading = true
+      axios.get(API_ADDRESS.user.orders(this.userId)).then(
+        response => {
+          this.userOrderData = new ProductList(response.data.data)
+          console.log('orderData: ', this.userOrderData)
+          this.orderLoading = false
+        }
+      )
+        .catch(e => {
+          console.log(e)
+        })
+    },
     checkLoadInputData () {
       this.isDataLoaded = true
     }
   },
   computed: {
-    ticketNumber () {
-      return this.inputs[10].value
-    }
   },
   watch: {
     isDataLoaded (newData, OldData) {
@@ -226,6 +332,7 @@ export default {
         this.userLastName = this.searchForInputVal('last_name')
         this.userMessageArray = this.searchForInputVal('messages')
         this.userPhoto = this.searchForInputVal('img')
+        this.userId = this.searchForInputVal('userId')
       }
     }
   },
@@ -236,5 +343,10 @@ export default {
 </script>
 
 <style scoped>
-
+.close-btn {
+  width: 100%;
+  border-radius: 0;
+  color: #212529;
+  background: #fbaa00;
+}
 </style>
