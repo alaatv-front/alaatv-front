@@ -6,7 +6,7 @@
       :key="sectionIndex"
       :data="section.data"
       :options="section.options"
-      :containerFullHeight="containerHeight"
+      :containerFullHeight="containerFullHeight"
     />
   </div>
 </template>
@@ -57,12 +57,6 @@ export default {
         return {}
       }
     },
-    containerHeight: {
-      type: String,
-      default: () => {
-        return "calc(100vh)"
-      }
-    }
   },
   created () {
     this.defaultOptions = Object.assign(this.defaultOptions, this.options)

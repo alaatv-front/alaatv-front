@@ -1,5 +1,5 @@
 <template>
-  <page-builder :sections="sections" :options="pageConfig" :containerHeight="calculateHeightStyle"></page-builder>
+  <page-builder :sections="sections" :options="pageConfig" :containerFullHeight="calculateHeightStyle"></page-builder>
 </template>
 
 <script>

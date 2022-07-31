@@ -6,10 +6,10 @@ const mixinWidget = {
         return {}
       }
     },
-    containerFullHeight:{
+    containerFullHeight: {
       type: String,
       default: () => {
-        return ""
+        return "100vh"
       }
     }
   },
