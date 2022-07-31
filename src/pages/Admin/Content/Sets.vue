@@ -8,12 +8,24 @@
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Sets.Edit', params: {id: inputData.props.row.id}}">
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="info"
+                 icon="info"
+                 :to="{name:'Admin.Sets.Edit', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               ویرایش
             </q-tooltip>
           </q-btn>
-          <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="negative"
+                 icon="delete"
+                 class="q-ml-md"
                  @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
             <q-tooltip>
               حذف
@@ -47,12 +59,7 @@ export default {
       expanded: true,
       allProps: {
         config: {
-          api: {
-            show: API_ADDRESS.sets.show.base,
-            edit: API_ADDRESS.sets.edit.base,
-            create: API_ADDRESS.sets.create.base,
-            index: API_ADDRESS.sets.index.base
-          },
+          api: API_ADDRESS.set.admin.base,
           title: {
             show: 'اطلاعات  دسته محتوا',
             edit: 'ویرایش  دسته محتوا',

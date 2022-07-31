@@ -1,5 +1,4 @@
 import { auth, isLandingPage } from './middleware/middleware'
-// import Login from '../pages/Auth/Login.vue'
 import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
@@ -39,6 +38,14 @@ const routes = [
         ]
       },
       {
+        path: 'set',
+        name: 'User.Set',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          { name: 'User.Set.Show', path: ':id', component: () => import('pages/User/Set/Show.vue') }
+        ]
+      },
+      {
         path: '/landing/:landing_name',
         name: 'Landing',
         component: () => import('pages/Landing.vue'),
@@ -54,11 +61,6 @@ const routes = [
         meta: {
           middlewares: [auth]
         }
-      },
-      {
-        path: 'login',
-        name: 'login',
-        component: () => import('pages/Auth/Login.vue')
       },
       {
         path: 'user-info',
@@ -80,8 +82,6 @@ const routes = [
           ...EntityCrudRoutes
         ]
       },
-
-
       {
         path: '/debug',
         name: 'debug',
@@ -91,6 +91,14 @@ const routes = [
         }
       }
     ]
+    // meta: {
+    //   middlewares: [auth]
+    // }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('pages/Auth/Login.vue')
   },
   // are u mr Esmaeili ? '' : dont touch this route
   // {
