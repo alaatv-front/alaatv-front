@@ -78,6 +78,21 @@ const API_ADDRESS = {
       base: apiV2Server + '/product'
     }
   },
+
+  ticket: {
+    create: {
+      base: apiV2Server + '/ticket'
+    },
+    edit: {
+      base: apiV2Server + '/ticket'
+    },
+    index: {
+      base: apiV2Server + '/ticket'
+    },
+    show: {
+      base: apiV2Server + '/ticket'
+    }
+  },
   attributeManagement: {
     create: {
       base: apiV2Server + '/admin/user'
@@ -371,6 +386,10 @@ const API_ADDRESS = {
   },
   map: {
     items: apiV2Server + '/mapDetail'
+  },
+  cart: {
+    orderproduct: apiV2Server + '/orderproduct',
+    review: apiV2Server + '/checkout/review'
   }
 }
 export default API_ADDRESS

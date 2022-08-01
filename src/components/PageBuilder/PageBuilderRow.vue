@@ -1,37 +1,16 @@
 <template>
-  <div v-if="defaultOptions.boxed"
-       :style="{
-         height: defaultOptions.height,
-       }"
-       class="boxed">
-    <div class="row q-col-gutter-md"
-         :style="{
-           height: defaultOptions.height,
-         }"
-         :id="defaultOptions.id"
-    >
-      <page-builder-col v-for="(col, colIndex) in cols"
-                        :key="colIndex"
-                        :widgets="col.widgets"
-                        :options="col.options"
-                        :containerFullHeight="containerFullHeight"
-      />
+    <div :class="className" :style="style">
+      <div class="page-builder-row row"
+           :id="defaultOptions.id"
+      >
+        <page-builder-col v-for="(col, colIndex) in cols"
+                          :key="colIndex"
+                          :widgets="col.widgets"
+                          :options="col.options"
+                          :containerFullHeight="containerFullHeight"
+        />
+      </div>
     </div>
-  </div>
-  <div v-else
-       class="row q-col-gutter-md"
-       :style="{
-         height: defaultOptions.height,
-       }"
-       :id="defaultOptions.id"
-  >
-    <page-builder-col v-for="(col, colIndex) in cols"
-                      :key="colIndex"
-                      :widgets="col.widgets"
-                      :options="col.options"
-                      :containerFullHeight="containerFullHeight"
-    />
-  </div>
 </template>
 
 <script>
@@ -51,7 +30,7 @@ export default {
         return {}
       }
     },
-    containerFullHeight:{}
+
   },
   data () {
     return {
@@ -59,7 +38,8 @@ export default {
         height: 'auto'
       }
     }
-  }
+  },
+
 }
 </script>
 
