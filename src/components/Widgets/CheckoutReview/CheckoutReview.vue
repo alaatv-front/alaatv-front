@@ -1,7 +1,7 @@
 <template>
-  <div class="checkout-review row">
-    <cart-item-list class="col-auto" />
-    <div class="side-box col-auto column ">
+  <div class="checkout-review row q-mb-md">
+    <cart-item-list class="col-8" />
+    <div class="side-box col-4 column ">
       <donate />
       <checkout-review-cart />
     </div>

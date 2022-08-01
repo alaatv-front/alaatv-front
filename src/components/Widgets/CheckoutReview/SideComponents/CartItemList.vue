@@ -64,7 +64,7 @@ export default {
 <style lang="scss"></style>
 <style lang="scss" scoped>
 .cart-item-list {
-  width: 1230px;
+  /*width: 1230px;*/
   background: #FFFFFF;
   box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);
   border-radius: 10px;
