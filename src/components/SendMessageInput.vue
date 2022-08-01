@@ -83,14 +83,14 @@
               <q-btn
                 class="imageBtn BtnSuccess"
                 @click="getResult(false)"
-                :loading="Loading"
+                :loading="sendLoading"
                 icon="isax:tick-square"
               />
               <q-btn
                 v-if="true"
                 class="imageBtn BtnWarning"
                 @click="getResult(true)"
-                :loading="Loading"
+                :loading="sendLoading"
                 icon="isax:card-send"
               />
             </div>
@@ -106,7 +106,7 @@
         <q-btn
           size="12px"
           class="btn  actionBtn sendBtn BtnSuccess"
-          :loading="Loading"
+          :loading="sendLoading"
           @click="sendMessage(false)"
           icon="isax:send-1"
         />
@@ -114,7 +114,7 @@
           size="12px"
           v-if="true"
           class="btn  actionBtn sendBtn BtnWarning"
-          :loading="Loading"
+          :loading="sendLoading"
           icon="isax:directbox-send"
           @click="sendMessage(true)"
         />
@@ -258,7 +258,6 @@ export default {
   },
   data () {
     return {
-      Loading: false,
       imgURL: '',
       resultURL: '',
       userPicSelected: false,
@@ -335,6 +334,7 @@ export default {
     }
   },
   methods: {
+
     recordVoice (status) {
       if (status === 'longpress-start') {
         this.recordStart()
@@ -342,6 +342,7 @@ export default {
         this.recordStop()
       }
     },
+
     recordStart () {
       if (!navigator.mediaDevices) {
         this.$q.notify({
@@ -389,6 +390,7 @@ export default {
       navigator.mediaDevices.getUserMedia(constraints)
         .then(onSuccess, onError)
     },
+
     recordStop () {
       if (this.mediaRecorder) {
         this.mediaRecorder.stop()
@@ -398,6 +400,7 @@ export default {
       this.showVoiceVisualizer = false
       this.audioPlayerLastPlayedTime = 0
     },
+
     playRecordedVoice () {
       const audioPlayer = this.$refs.playAudio.audio,
         that = this
@@ -411,6 +414,7 @@ export default {
       audioPlayer.play()
       this.showVoicePlayerIsPlaying = true
     },
+
     pauseRecordedVoice () {
       const audioPlayer = this.$refs.playAudio.audio
       audioPlayer.pause()
@@ -421,6 +425,7 @@ export default {
     getFile () {
       this.$refs.myFileInput.click()
     },
+
     loadImage (event) {
       const { files } = event.target
       if (files && files[0]) {
@@ -435,9 +440,11 @@ export default {
         reader.readAsArrayBuffer(files[0])
       }
     },
+
     change ({ canvas }) {
       this.resultURL = canvas.toDataURL('image/jpeg', 0.3)
     },
+
     rotate () {
       this.$refs.cropper.rotate(this.rotateAngle - this.oldRotateAngle)
       this.oldRotateAngle = this.rotateAngle
@@ -459,27 +466,23 @@ export default {
     },
 
     getResult: function (isPrivate) {
-      this.Loading = true
       this.$emit('sendImage', {
         resultURL: this.resultURL,
         caption: this.newMessageTextInModal,
-        loading: this.Loading,
         isPrivate
       })
       this.clearMessage()
     },
+
     sendMessage (isPrivate) {
-      this.Loading = true
       if (this.recordedVoice === null) {
         this.$emit('sendText', {
           body: this.newMessage.text,
-          loading: this.Loading,
           isPrivate
         })
       } else {
         this.$emit('sendVoice', {
           voice: this.recordedVoiceBlob,
-          loading: this.Loading,
           isPrivate
         })
       }
