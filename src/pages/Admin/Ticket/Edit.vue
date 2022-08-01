@@ -127,8 +127,8 @@
                 <div class="other-ticket">
                   <div class="right-side-squere"></div>
                   <div>
-                    <q-btn :to="'/ticket/'+ticket.id"
-                           class="link-btn"
+                    <q-btn class="link-btn"
+                           :href="'/ticket/' + ticket.id"
                            dense
                            flat>{{ticket.title}}</q-btn>
                     <div class="time">{{makeDateShamsi(ticket.created_at, 'time')}}</div>
