@@ -1,67 +1,410 @@
 <template>
-  <entity-show
-    v-model:value="inputs"
-    title="لیست تیکت ها"
-    :api="api"
-    :entity-id-key="entityIdKey"
-    :entity-param-key="entityParamKey"
-    :edit-route-name="editRouteName"
-    :index-route-name="indexRouteName"
-  />
+  <div class="row  justify-center">
+    <div class="col-8"
+         style="margin-bottom: 50px;">
+      <entity-edit
+        v-model:value="inputs"
+        :title="'شماره تیکت ' + this.searchForInputVal('id') + ' در ' + this.searchForInputVal('department')"
+        :api="api"
+        :entity-id-key="entityIdKey"
+        :entity-param-key="entityParamKey"
+        :show-route-name="indexRouteName"
+        :after-load-input-data="checkLoadInputData"
+      >
+        <template #before-form-builder>
+          <div style="display: flex; justify-content: center">
+            <div style="justify-content: space-between; display: flex; width: 70%;">
+              <q-btn rounded
+                     color="blue"
+                     icon="isax:archive-book"
+                     @click="openCloseLogdrawer">
+                <q-tooltip>
+                  باز شدن لیست اتفاقات
+                </q-tooltip>
+              </q-btn>
+              <q-btn rounded
+                     color="blue"
+                     icon="isax:shopping-cart"
+                     @click="openShopLogList">
+                <q-tooltip>
+                  باز شدن لیست خرید
+                </q-tooltip>
+              </q-btn>
+            </div>
+          </div>
+          <div class="row q-mt-lg">
+            <div class="col-4 q-px-lg">
+              <q-btn unelevated
+                     style="width: 100%"
+                     icon="isax:user"
+                     color="blue">
+                <q-tooltip>ویرایش اطلاعات کاربر</q-tooltip>
+              </q-btn>
+            </div>
+            <div class="col-4 q-px-lg">
+              <q-btn unelevated
+                     style="width: 100%"
+                     icon="isax:edit"
+                     color="blue">
+                <q-tooltip>ویرایش اطلاعات تیکت</q-tooltip>
+              </q-btn>
+            </div>
+            <div class="col-4 q-px-lg">
+              <q-btn unelevated
+                     style="width: 100%"
+                     icon="isax:sms"
+                     color="blue">
+                <q-tooltip>ارسال پیامک اگاه سازی تغییر وضعیت</q-tooltip>
+              </q-btn>
+            </div>
+          </div>
+        </template>
+        <template #after-form-builder>
+          <div>
+            <q-btn unelevated
+                   color="blue">ویرایش اپراتورها</q-btn>
+          </div>
+        </template>
+      </entity-edit>
+      <messages v-for="item in userMessageArray"
+                :key="item"
+                :data="item" />
+      <q-drawer
+        v-model="orderDrawer"
+        side="right"
+        :width="1016"
+        overlay
+        bordered
+        class="z-top"
+      >
+        <q-scroll-area class="fit">
+          <q-btn icon="mdi-close"
+                 class="close-btn"
+                 unelevated
+                 @click="orderDrawer = false" />
+          <user-order-list :user-orders-list="userOrderData?.list"
+                           :loading="orderLoading" />
+        </q-scroll-area>
+      </q-drawer>
+      <q-drawer
+        v-model="logDrawer"
+        :width="310"
+        overlay
+        bordered
+        elevated
+        class="z-top"
+      >
+        <q-scroll-area class="fit">
+          <q-btn icon="mdi-close"
+                 unelevated
+                 class="close-btn"
+                 @click="logDrawer = false" />
+          <div style="display: flex; justify-content: center;"
+               class="q-my-md">
+            <q-tabs
+              v-model="panel"
+              dense
+              class="text-grey"
+              active-color="primary"
+              indicator-color="primary"
+              align="justify"
+              narrow-indicator
+            >
+              <q-tab name="events"
+                     label="رویداد ها" />
+              <q-tab name="otherTickets"
+                     label="تیکت های دیگر کاربر" />
+            </q-tabs>
+          </div>
+          <q-tab-panels v-model="panel"
+                        animated>
+            <q-tab-panel name="events">
+              <log-list :log-array="searchForInputVal('logs')" />
+            </q-tab-panel>
+            <q-tab-panel name="otherTickets">
+              <template v-for="ticket in searchForInputVal('otherTickets')"
+                        :key="ticket">
+                <div class="other-ticket">
+                  <div class="right-side-squere"></div>
+                  <div>
+                    <q-btn class="link-btn"
+                           :href="'/ticket/' + ticket.id"
+                           dense
+                           flat>{{ticket.title}}</q-btn>
+                    <div class="time">{{makeDateShamsi(ticket.created_at, 'time')}}</div>
+                  </div>
+                </div>
+              </template>
+            </q-tab-panel>
+          </q-tab-panels>
+        </q-scroll-area>
+      </q-drawer>
+    </div>
+  </div>
 </template>
 
 <script>
-import { EntityShow } from 'quasar-crud'
+import { EntityEdit, EntityAction } from 'quasar-crud'
+import Messages from 'src/components/Messages'
+import LogList from 'components/LogList'
+import UserOrderList from 'components/userOrderList'
 import API_ADDRESS from 'src/api/Addresses'
+import { CartItemList } from 'src/models/CartItem'
+import axios from 'axios'
+import moment from 'moment-jalaali'
 
 export default {
   name: 'Show',
-  components: { EntityShow },
+  components: { EntityEdit, EntityAction, Messages, LogList, UserOrderList },
   data () {
     return {
+      logDrawer: false,
+      orderDrawer: false,
+      orderLoading: false,
+      panel: 'events',
+      userOrderData: null,
+      isDataLoaded: false,
+      userFirstName: null,
+      userLastName: null,
+      userId: null,
+      userMessageArray: null,
+      userPhoto: null,
       expanded: true,
-      api: API_ADDRESS.ticket.show.base,
+      api: API_ADDRESS.ticket.edit.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
-      editRouteName: 'Admin.Ticket.Edit',
       indexRouteName: 'Admin.Ticket.Index',
       inputs: [
-        { type: 'avatar', name: 'photo', responseKey: 'data.photo', value: null, size: '250px', col: 'col-md-12' },
-        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه', col: 'col-md-3' },
-        { type: 'input', name: 'id', responseKey: 'data.id', value: 'null', label: 'شناسه محصول پرنت', col: 'col-md-3' },
-        { type: 'input', name: 'title', responseKey: 'data.title', value: 'null', label: 'نام کالا', col: 'col-md-3' },
-        { type: 'input', name: 'redirect_url', responseKey: 'data.redirect_url', value: 'null', label: 'آدرس ریدایرکت', col: 'col-md-3' },
-        { type: 'select', name: 'redirect_code', responseKey: 'data.product_type.display_name', value: null, options: [{ label: '301 (دائمی)', value: 301 }, { label: '302 (موقتی)', value: 302 }], label: 'کد ریدایرکت', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'ترتیب', col: 'col-md-3' },
-        { type: 'input', name: 'intro_video', responseKey: 'data.intro.video', value: 'null', label: 'لینک فیلم معرفی', col: 'col-md-3' },
-        { type: 'input', name: 'intro_photo', responseKey: 'data.intro.photo', value: 'null', label: 'تامبنیل کلیپ', col: 'col-md-3' },
-        { type: 'input', name: 'base_price', responseKey: 'data.base_price', value: 'null', label: 'قیمت پایه', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'is_free', options: [{ label: 'رایگان باشد', value: 1 }, { label: 'رایگان نباشد', value: 0 }], responseKey: 'data.is_free', value: null, label: '', col: 'col-md-3' },
-        { type: 'input', name: 'discount', responseKey: 'data.discount', value: 'null', label: 'تخفیف (%)', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'amountLimit', options: [{ label: 'نامحدود', value: 0 }, { label: 'محدود', value: 1 }], responseKey: '', value: 'null', label: 'محدودیت موجودی', col: 'col-md-3' },
-        { type: 'input', name: 'amount', responseKey: 'data.amount', value: 'null', label: 'تعداد موجود', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'enable', options: [{ label: 'غیرفعال', value: 0 }, { label: 'فعال', value: 1 }], responseKey: 'data.enable', value: 'null', label: 'وضعیت', col: 'col-md-3' },
-        { type: 'optionGroupRadio', name: 'discount', options: [{ label: 'عدم نمایش', value: 0 }, { label: 'نمایش', value: 1 }], responseKey: 'data.discount', value: 'null', label: 'نمایش', col: 'col-md-3' },
-        { type: 'select', name: 'attribute_set', options: [{ label: 'اردو', value: 1 }, { label: 'همایش', value: 2 }, { label: 'فیلم استودیو', value: 3 }, { label: 'جزوه درس', value: 4 }, { label: 'کتاب', value: 5 }, { label: 'پیش فرض', value: 6 }, { label: 'محصول اشتراک', value: 7 }, { label: 'آزمون', value: 8 }], responseKey: 'data.attribute_set.id', value: 'null', label: 'دسته صفت', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-        { type: 'input', name: 'short_description', responseKey: 'data.description.short', value: 'null', label: 'توضیحات مختصر', col: 'col-md-3' },
-        { type: 'input', name: 'long_description', responseKey: 'data.description.long', value: 'null', label: 'توضیحات اجمالی', col: 'col-md-3' },
-        { type: 'input', name: 'special_description', responseKey: 'data.description.special', value: 'null', label: 'توضیحات خاص', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-        { type: 'input', name: 'order', responseKey: 'data.order', value: 'null', label: 'اسلوگان', col: 'col-md-3' },
-
-        { type: 'input', name: 'redirect_url', responseKey: 'data.redirect_url', value: 'null', label: 'نام', col: 'col-md-3' },
-        { type: 'select', name: 'product_type', responseKey: 'data.product_type.display_name', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل انتخاب', value: 2 }, { label: 'قابل پیکربندی', value: 3 }], label: 'نوع محصول', col: 'col-md-3' },
-
-        { type: 'input', name: 'price', responseKey: 'data.price.base', value: 'null', label: 'قیمت', col: 'col-md-3' }
+        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', col: 'col-md-4', disable: true },
+        { type: 'input', name: 'first_name', responseKey: 'ticket.user.first_name', label: 'نام', col: 'col-md-4', disable: true },
+        { type: 'input', name: 'last_name', responseKey: 'ticket.user.last_name', label: 'نام خانوادگی', col: 'col-md-4', disable: true },
+        { type: 'select', name: 'priority', responseKey: 'ticket.priority.title', label: 'اولویت', col: 'col-md-4', disable: true },
+        { type: 'select', name: 'department', responseKey: 'ticket.department.title', label: 'گروه', col: 'col-md-4' },
+        { type: 'select', name: 'status', responseKey: 'ticket.status.title', label: 'وضعیت', col: 'col-md-4' },
+        { type: 'dateTime', name: 'created_at', responseKey: 'ticket.created_at', label: 'تاریخ ایجاد', col: 'col-md-4', disable: true },
+        { type: 'input', name: 'national_code', responseKey: 'ticket.user.national_code', label: 'کد ملی', col: 'col-md-4', disable: true },
+        { type: 'input', name: 'major', responseKey: 'ticket.user.major.name', label: 'رشته', col: 'col-md-4', disable: true },
+        { type: 'dateTime', name: 'created_at', responseKey: 'ticket.updated_at', label: 'تاریخ بروز آوری:', col: 'col-md-4', disable: true },
+        { type: 'hidden', name: 'id', responseKey: 'ticket.id', label: 'id' },
+        { type: 'hidden', name: 'department', responseKey: 'ticket.department.title', label: 'department' },
+        { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', label: '' },
+        { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', label: '' },
+        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', label: '' },
+        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', label: '' },
+        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets', label: '' },
+        {
+          type: 'entity',
+          name: 'management',
+          selectionMode: 'single',
+          label: 'انتخاب کاربر',
+          buttonColor: 'blue',
+          buttonTextColor: 'white',
+          buttonBadgeColor: 'primary',
+          indexConfig: {
+            apiAddress: 'https://reqres.in/api/users',
+            tableTitle: 'لیست کاربران',
+            showTableItemsRouteName: 'Admin.BlockManagement.Show',
+            tableKeys: {
+              data: 'data',
+              total: 'total',
+              currentPage: 'page',
+              perPage: 'per_page',
+              pageKey: 'page'
+            },
+            table: {
+              columns: [
+                {
+                  name: 'id',
+                  required: true,
+                  label: '#',
+                  align: 'left',
+                  field: row => row.id
+                },
+                {
+                  name: 'first_name',
+                  required: true,
+                  label: 'نام',
+                  align: 'left',
+                  field: row => row.first_name
+                },
+                {
+                  name: 'last_name',
+                  required: true,
+                  label: 'نام خانوادگی',
+                  align: 'left',
+                  field: row => row.last_name
+                },
+                {
+                  name: 'role',
+                  required: true,
+                  label: 'نقش',
+                  align: 'left',
+                  field: row => row.email
+                }
+              ],
+              data: []
+            },
+            inputs: [
+              { type: 'input', name: 'mobile', value: null, label: 'شماره تلفن', col: 'col-md-6' },
+              { type: 'input', name: 'national_code', value: null, label: 'کدملی', col: 'col-md-6' },
+              { type: 'hidden', name: 'role', value: 123, label: 'نقش', col: 'col-md-3' }
+            ],
+            itemIdentifyKey: 'mobile',
+            itemIndicatorKey: 'mobile'
+          },
+          value: [],
+          responseKey: '',
+          selected: [],
+          col: 'col-md-4'
+        },
+        {
+          type: 'entity',
+          name: 'management',
+          selectionMode: 'multiple',
+          label: 'انتخاب اپراتورها',
+          buttonColor: 'blue',
+          buttonTextColor: 'white',
+          buttonBadgeColor: 'primary',
+          indexConfig: {
+            apiAddress: 'https://reqres.in/api/users',
+            tableTitle: 'لیست کاربران',
+            showTableItemsRouteName: 'Admin.BlockManagement.Show',
+            tableKeys: {
+              data: 'data',
+              total: 'total',
+              currentPage: 'page',
+              perPage: 'per_page',
+              pageKey: 'page'
+            },
+            table: {
+              columns: [
+                {
+                  name: 'id',
+                  required: true,
+                  label: '#',
+                  align: 'left',
+                  field: row => row.id
+                },
+                {
+                  name: 'first_name',
+                  required: true,
+                  label: 'نام',
+                  align: 'left',
+                  field: row => row.first_name
+                },
+                {
+                  name: 'last_name',
+                  required: true,
+                  label: 'نام خانوادگی',
+                  align: 'left',
+                  field: row => row.last_name
+                },
+                {
+                  name: 'role',
+                  required: true,
+                  label: 'نقش',
+                  align: 'left',
+                  field: row => row.email
+                }
+              ],
+              data: []
+            },
+            inputs: [
+              { type: 'input', name: 'mobile', value: null, label: 'شماره تلفن', col: 'col-md-6' },
+              { type: 'input', name: 'national_code', value: null, label: 'کدملی', col: 'col-md-6' },
+              { type: 'hidden', name: 'role', value: 123, label: 'نقش', col: 'col-md-3' }
+            ],
+            itemIdentifyKey: 'mobile',
+            itemIndicatorKey: 'mobile'
+          },
+          value: [],
+          responseKey: '',
+          selected: [],
+          col: 'col-md-12'
+        }
       ]
     }
   },
+  methods: {
+    makeDateShamsi (date, mode) {
+      if (mode === 'time') {
+        return moment(date, 'HH:mm:ss').format('HH:mm:ss')
+      } else {
+        return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
+      }
+    },
+    searchForInputVal (name) {
+      let value = null
+      this.inputs.forEach((e) => {
+        if (name === e.name) {
+          if (e.value === undefined) {
+            return false
+          }
+          value = e.value
+        }
+      })
+      return value
+    },
+    openShopLogList () {
+      this.orderDrawer = this.orderDrawer === false
+      this.orderLoading = true
+      axios.get(API_ADDRESS.user.orders(this.userId)).then(
+        response => {
+          this.userOrderData = new CartItemList(response.data.data)
+          console.log('orderData: ', this.userOrderData)
+          this.orderLoading = false
+        }
+      )
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    checkLoadInputData () {
+      this.isDataLoaded = true
+    },
+    openCloseLogdrawer () {
+      this.logDrawer = this.logDrawer === false
+    }
+  },
+  computed: {
+  },
+  watch: {
+    isDataLoaded (newData, OldData) {
+      if (this.isDataLoaded === true) {
+        this.userFirstName = this.searchForInputVal('first_name')
+        this.userLastName = this.searchForInputVal('last_name')
+        this.userMessageArray = this.searchForInputVal('messages')
+        this.userPhoto = this.searchForInputVal('img')
+        this.userId = this.searchForInputVal('userId')
+      }
+    }
+  },
   created () {
+    this.api += '/' + this.$route.params.id
   }
 }
 </script>
 
 <style scoped>
-
+.close-btn {
+  width: 100%;
+  border-radius: 0;
+  color: #212529;
+  background: #fbaa00;
+}
+.other-ticket {
+  display: flex;
+}
+.other-ticket .right-side-squere {
+  border: solid 3px #34bfa3;
+  border-radius: 100px;
+  margin-right: 16px;
+}
+.other-ticket .link-btn {
+  color: #333;
+}
+.other-ticket .time {
+  color: #a6a7c1;
+  opacity: 0.5;
+}
 </style>

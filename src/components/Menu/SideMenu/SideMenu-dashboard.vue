@@ -462,7 +462,7 @@ export default {
         {
           title: 'تیکت پشتیبانی',
           icon: 'isax:ticket',
-          routeName: 'User.ticket',
+          routeName: 'Admin.Ticket.Index',
           active: false,
           show: true,
           open: false
