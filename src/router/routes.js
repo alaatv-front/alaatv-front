@@ -18,7 +18,7 @@ const routes = [
       {
         path: 'ticket/:id',
         name: 'Admin.Ticket.Edit',
-        component: () => import('pages/Admin/Ticket/Edit.vue')
+        component: () => import('pages/Admin/Ticket/Show.vue')
       },
       {
         path: 'ticket/Create',
@@ -127,7 +127,7 @@ const routes = [
         },
         children: [
           { name: 'MyProducts', path: 'my-products', component: () => import('pages/Profile/MyProducts.vue') },
-          { name: 'MyOrders', path: 'my-orders', component: () => import('pages/Profile/MyOrders.vue') },
+          { name: 'MyOrders', path: 'my-orders', component: () => import('pages/Profile/MyOrders.vue') }
         //  TODO: complete routes : ["Wallet", "Bookmarks", "LeitnerBox", "MyChannels", "MyComments", "Ticket"]
         ]
       }
