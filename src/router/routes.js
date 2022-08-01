@@ -17,7 +17,7 @@ const routes = [
       },
       {
         path: 'ticket/:id',
-        name: 'Admin.Ticket.Edit',
+        name: 'Admin.Ticket.Show',
         component: () => import('pages/Admin/Ticket/Show.vue')
       },
       {
