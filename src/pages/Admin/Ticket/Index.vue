@@ -23,7 +23,7 @@
                    size="md"
                    color="info"
                    icon="info"
-                   :to="{name:'Admin.Ticket.Edit', params: {id: inputData.props.row.id}}">
+                   :to="{name:'Admin.Ticket.Show', params: {id: inputData.props.row.id}}">
               <q-tooltip>
                 مشاهده
               </q-tooltip>
