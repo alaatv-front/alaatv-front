@@ -41,7 +41,7 @@
                   <q-btn rounded
                          unelevated
                          class="action-btn"
-                         @click="goToEdit"
+                         :to="'/product/'+order.inputData.id+'/edit'"
                   >
                     ویرایش</q-btn>
                   <q-btn rounded
@@ -165,7 +165,7 @@
                   <q-btn rounded
                          unelevated
                          class="action-btn"
-                         @click="goToEdit"
+                         :to="'/product/'+order.inputData.id+'/edit'"
                   >
                     ویرایش</q-btn>
                   <q-btn rounded
@@ -293,9 +293,6 @@ export default {
     },
     cartItemLabel (order) {
       return '#' + order.id + ' - ' + this.makeDateShamsi(order.inputData.created_at) + ' - (تعداد محصولات: ' + order.inputData.orderproducts.length + ' ) - ( پرداخت شده: ' + order.inputData.paid_price + ' تومان - مبلغ کل سفارش: ' + order.inputData.price + ' تومان ) - ( ' + order.inputData.paymentstatus.name + ' )'
-    },
-    goToEdit () {
-      console.log('gone!')
     },
     extendAllProducts () {
       console.log('OK!')

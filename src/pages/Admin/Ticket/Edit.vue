@@ -17,7 +17,7 @@
               <q-btn rounded
                      color="blue"
                      icon="isax:archive-book"
-                     @click="logDrawer = true">
+                     @click="openCloseLogdrawer">
                 <q-tooltip>
                   باز شدن لیست اتفاقات
                 </q-tooltip>
@@ -32,10 +32,38 @@
               </q-btn>
             </div>
           </div>
+          <div class="row q-mt-lg">
+            <div class="col-4 q-px-lg">
+              <q-btn unelevated
+                     style="width: 100%"
+                     icon="isax:user"
+                     color="blue">
+                <q-tooltip>ویرایش اطلاعات کاربر</q-tooltip>
+              </q-btn>
+            </div>
+            <div class="col-4 q-px-lg">
+              <q-btn unelevated
+                     style="width: 100%"
+                     icon="isax:edit"
+                     color="blue">
+                <q-tooltip>ویرایش اطلاعات تیکت</q-tooltip>
+              </q-btn>
+            </div>
+            <div class="col-4 q-px-lg">
+              <q-btn unelevated
+                     style="width: 100%"
+                     icon="isax:sms"
+                     color="blue">
+                <q-tooltip>ارسال پیامک اگاه سازی تغییر وضعیت</q-tooltip>
+              </q-btn>
+            </div>
+          </div>
         </template>
         <template #after-form-builder>
-          <q-btn unelevated
-                 color="blue">ویرایش اپراتورها</q-btn>
+          <div>
+            <q-btn unelevated
+                   color="blue">ویرایش اپراتورها</q-btn>
+          </div>
         </template>
       </entity-edit>
       <messages v-for="item in userMessageArray"
@@ -44,7 +72,7 @@
       <q-drawer
         v-model="orderDrawer"
         side="right"
-        width="1016"
+        :width="1016"
         overlay
         bordered
         class="z-top"
@@ -60,7 +88,7 @@
       </q-drawer>
       <q-drawer
         v-model="logDrawer"
-        width="300"
+        :width="310"
         overlay
         bordered
         elevated
@@ -94,16 +122,19 @@
               <log-list :log-array="searchForInputVal('logs')" />
             </q-tab-panel>
             <q-tab-panel name="otherTickets">
-              <div v-for="ticket in searchForInputVal('otherTickets')"
-                   class="other-ticket"
-                   :key="ticket">
-                <div class="right-side-squere"></div>
-                <q-btn :to="'/ticket/'+ticket.id"
-                       class="link-btn"
-                       dense
-                       flat>{{ticket.title}}</q-btn>
-                <div>{{makeDateShamsi(ticket.created_at, 'time')}}</div>
-              </div>
+              <template v-for="ticket in searchForInputVal('otherTickets')"
+                        :key="ticket">
+                <div class="other-ticket">
+                  <div class="right-side-squere"></div>
+                  <div>
+                    <q-btn :to="'/ticket/'+ticket.id"
+                           class="link-btn"
+                           dense
+                           flat>{{ticket.title}}</q-btn>
+                    <div class="time">{{makeDateShamsi(ticket.created_at, 'time')}}</div>
+                  </div>
+                </div>
+              </template>
             </q-tab-panel>
           </q-tab-panels>
         </q-scroll-area>
@@ -315,7 +346,7 @@ export default {
       return value
     },
     openShopLogList () {
-      this.orderDrawer = true
+      this.orderDrawer = this.orderDrawer === false
       this.orderLoading = true
       axios.get(API_ADDRESS.user.orders(this.userId)).then(
         response => {
@@ -330,6 +361,9 @@ export default {
     },
     checkLoadInputData () {
       this.isDataLoaded = true
+    },
+    openCloseLogdrawer () {
+      this.logDrawer = this.logDrawer === false
     }
   },
   computed: {
@@ -359,11 +393,18 @@ export default {
   background: #fbaa00;
 }
 .other-ticket {
-  height: 100%;
-  border: solid 5px #34bfa3;
+  display: flex;
+}
+.other-ticket .right-side-squere {
+  border: solid 3px #34bfa3;
   border-radius: 100px;
+  margin-right: 16px;
 }
 .other-ticket .link-btn {
   color: #333;
+}
+.other-ticket .time {
+  color: #a6a7c1;
+  opacity: 0.5;
 }
 </style>
