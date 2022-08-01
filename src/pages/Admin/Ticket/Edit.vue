@@ -1,22 +1,7 @@
 <template>
-  <div class="row">
-    <div class="col-2"></div>
+  <div class="row  justify-center">
     <div class="col-8"
          style="margin-bottom: 50px;">
-      <q-expansion-item
-        expand-separator
-        icon="perm_identity"
-        label="Account settings"
-        caption="John Doe"
-      >
-        <q-card>
-          <q-card-section>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos corrupti
-            commodi magni quaerat ex numquam, dolorum officiis modi facere maiores architecto suscipit iste
-            eveniet doloribus ullam aliquid.
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
       <entity-edit
         v-model:value="inputs"
         :title="'شماره تیکت ' + this.searchForInputVal('id') + ' در ' + this.searchForInputVal('department')"
@@ -47,63 +32,83 @@
               </q-btn>
             </div>
           </div>
-          <q-drawer
-            v-model="orderDrawer"
-            side="right"
-            :width="800"
-            overlay
-            bordered
-          >
-
-            <q-scroll-area class="fit">
-              <q-btn icon="mdi-close"
-                     class="close-btn"
-                     unelevated
-                     @click="orderDrawer = false" />
-              <user-order-list :user-orders-list="userOrderData?.list"
-                               :loading="orderLoading" />
-            </q-scroll-area>
-          </q-drawer>
-          <q-drawer
-            v-model="logDrawer"
-            :width="300"
-            overlay
-            bordered
-          >
-            <q-scroll-area class="fit">
-              <q-btn icon="mdi-close"
-                     unelevated
-                     class="close-btn"
-                     @click="logDrawer = false" />
-              <div style="display: flex; justify-content: center;"
-                   class="q-my-md">
-                <q-btn-group rounded>
-                  <q-btn color="blue"
-                         rounded
-                         label="رویداد ها" />
-                  <q-btn color="blue"
-                         rounded
-                         label="تیکت های دیگر کاربر" />
-                </q-btn-group>
-              </div>
-              <log-list :log-array="searchForInputVal('logs')" />
-            </q-scroll-area>
-          </q-drawer>
+        </template>
+        <template #after-form-builder>
+          <q-btn unelevated
+                 color="blue">ویرایش اپراتورها</q-btn>
         </template>
       </entity-edit>
-      <q-separator class="q-my-md" />
-      <entity-action
-        v-model:value="changeOperatorInputs"
-        :form-title="'اپراتورهای تخصیص داده شده'"
-        action-title="ویرایش اپراتورها"
-        :action-method="'post'"
-        action-api=""
-      />
       <messages v-for="item in userMessageArray"
                 :key="item"
                 :data="item" />
+      <q-drawer
+        v-model="orderDrawer"
+        side="right"
+        width="1016"
+        overlay
+        bordered
+        class="z-top"
+      >
+        <q-scroll-area class="fit">
+          <q-btn icon="mdi-close"
+                 class="close-btn"
+                 unelevated
+                 @click="orderDrawer = false" />
+          <user-order-list :user-orders-list="userOrderData?.list"
+                           :loading="orderLoading" />
+        </q-scroll-area>
+      </q-drawer>
+      <q-drawer
+        v-model="logDrawer"
+        width="300"
+        overlay
+        bordered
+        elevated
+        class="z-top"
+      >
+        <q-scroll-area class="fit">
+          <q-btn icon="mdi-close"
+                 unelevated
+                 class="close-btn"
+                 @click="logDrawer = false" />
+          <div style="display: flex; justify-content: center;"
+               class="q-my-md">
+            <q-tabs
+              v-model="panel"
+              dense
+              class="text-grey"
+              active-color="primary"
+              indicator-color="primary"
+              align="justify"
+              narrow-indicator
+            >
+              <q-tab name="events"
+                     label="رویداد ها" />
+              <q-tab name="otherTickets"
+                     label="تیکت های دیگر کاربر" />
+            </q-tabs>
+          </div>
+          <q-tab-panels v-model="panel"
+                        animated>
+            <q-tab-panel name="events">
+              <log-list :log-array="searchForInputVal('logs')" />
+            </q-tab-panel>
+            <q-tab-panel name="otherTickets">
+              <div v-for="ticket in searchForInputVal('otherTickets')"
+                   class="other-ticket"
+                   :key="ticket">
+                <div class="right-side-squere"></div>
+                <q-btn :to="'/ticket/'+ticket.id"
+                       class="link-btn"
+                       dense
+                       flat>{{ticket.title}}</q-btn>
+                <div>{{makeDateShamsi(ticket.created_at, 'time')}}</div>
+              </div>
+            </q-tab-panel>
+          </q-tab-panels>
+        </q-scroll-area>
+      </q-drawer>
     </div>
-    <div class="col-2"></div>
   </div>
 </template>
 
@@ -113,7 +118,7 @@ import Messages from 'src/components/Messages'
 import LogList from 'components/LogList'
 import UserOrderList from 'components/userOrderList'
 import API_ADDRESS from 'src/api/Addresses'
-import { ProductList } from 'src/models/Product'
+import { CartItemList } from 'src/models/CartItem'
 import axios from 'axios'
 import moment from 'moment-jalaali'
 
@@ -125,6 +130,7 @@ export default {
       logDrawer: false,
       orderDrawer: false,
       orderLoading: false,
+      panel: 'events',
       userOrderData: null,
       isDataLoaded: false,
       userFirstName: null,
@@ -154,6 +160,7 @@ export default {
         { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', label: '' },
         { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', label: '' },
         { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', label: '' },
+        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets', label: '' },
         {
           type: 'entity',
           name: 'management',
@@ -218,9 +225,7 @@ export default {
           responseKey: '',
           selected: [],
           col: 'col-md-4'
-        }
-      ],
-      changeOperatorInputs: [
+        },
         {
           type: 'entity',
           name: 'management',
@@ -290,8 +295,12 @@ export default {
     }
   },
   methods: {
-    makeDateShamsi (date) {
-      return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
+    makeDateShamsi (date, mode) {
+      if (mode === 'time') {
+        return moment(date, 'HH:mm:ss').format('HH:mm:ss')
+      } else {
+        return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
+      }
     },
     searchForInputVal (name) {
       let value = null
@@ -310,7 +319,7 @@ export default {
       this.orderLoading = true
       axios.get(API_ADDRESS.user.orders(this.userId)).then(
         response => {
-          this.userOrderData = new ProductList(response.data.data)
+          this.userOrderData = new CartItemList(response.data.data)
           console.log('orderData: ', this.userOrderData)
           this.orderLoading = false
         }
@@ -348,5 +357,13 @@ export default {
   border-radius: 0;
   color: #212529;
   background: #fbaa00;
+}
+.other-ticket {
+  height: 100%;
+  border: solid 5px #34bfa3;
+  border-radius: 100px;
+}
+.other-ticket .link-btn {
+  color: #333;
 }
 </style>

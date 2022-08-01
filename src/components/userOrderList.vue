@@ -8,19 +8,20 @@
                 height="100px" />
   </div>
   <div v-if="loading=== false">
-    <q-btn
-      rounded
-      unelevated
-      class="action-btn"
-      @click="extendAll"
-    >تمدید کل سفارشات</q-btn>
     <!--  ----------------------------  لیست پرداخت شده  ---------------------------------------------------------------        -->
     <q-expansion-item
       group="parentGroup"
       label="لیست پرداخت شده"
       default-opened
       class="panel-color"
+      v-if="this.userOrdersList.map(object => object.inputData.paymentstatus.id).indexOf(3) !== -1"
     >
+      <q-btn
+        rounded
+        unelevated
+        class="action-btn"
+        @click="extendAll"
+      >تمدید کل سفارشات</q-btn>
       <template v-for="order in userOrdersList"
                 :key="order"
       >
@@ -54,9 +55,80 @@
             </q-item-section>
           </template>
           <!--          ------------------------------------------------------------------  header slot done!!!  ------------------------------------------------------------------ -->
-          <div>
-
-          </div>
+          <q-card>
+            <q-card-section>
+              <div class="row product"
+                   v-for="item in order.inputData.orderproducts"
+                   :key="item">
+                <div class="col-2">
+                  <q-img
+                    :src="item.photo"
+                    width="120px"
+                    height="120px" />
+                </div>
+                <div class="col-6">
+                  <div class="title">{{item.product.title}}</div>
+                  <div class="category">{{item.product.category}}</div>
+                  <div>
+                    <span class="base-price">
+                      قیمت پایه:
+                      {{toman(item.price.base)}}
+                    </span>
+                    <q-btn
+                      unelevated
+                      rounded
+                      color="blue"
+                      size="11px"
+                      class="action-btn q-mr-xs"
+                      :href="item.product.url.web"
+                      target="_blank"
+                    >
+                      مشاهده محصول
+                    </q-btn>
+                    <q-btn
+                      unelevated
+                      rounded
+                      size="11px"
+                      class="action-btn"
+                    >
+                      تمدید سفارش
+                    </q-btn>
+                  </div>
+                </div>
+                <div class="col-4 discount-final-price">
+                  <div class="q-mr-xl">
+                    <div class="price"
+                         v-if="item.price.discount !== 0">
+                      {{toman(item.price.discount)}}
+                    </div>
+                    <div v-else
+                         class="price">
+                      بدون تخفیف
+                    </div>
+                    <div class="price-description">
+                      تخفیف
+                    </div>
+                  </div>
+                  <div>
+                    <div class="price"
+                         v-if="item.price.final !== 0">
+                      {{toman(item.price.final)}}
+                    </div>
+                    <div v-else
+                         class="price">
+                      رایگان
+                    </div>
+                    <div class="price-description">
+                      قیمت نهایی
+                    </div>
+                  </div>
+                </div>
+                <q-separator style="width: 100%"
+                             v-if="order.inputData.orderproducts.length-1 !== 0"
+                             class="q-my-lg" />
+              </div>
+            </q-card-section>
+          </q-card>
         </q-expansion-item>
       </template>
     </q-expansion-item>
@@ -65,13 +137,19 @@
       group="parentGroup"
       label="لیست پرداخت نشده"
       class="panel-color"
+      v-if="this.userOrdersList.map(object => object.inputData.paymentstatus.id).indexOf(1) !== -1"
     >
-
+      <q-btn
+        rounded
+        unelevated
+        class="action-btn"
+        @click="extendAll"
+      >تمدید کل سفارشات</q-btn>
       <template v-for="order in userOrdersList"
                 :key="order"
       >
         <q-expansion-item
-          v-if="order.inputData.paymentstatus.id === 3"
+          v-if="order.inputData.paymentstatus.id === 1"
           group="childGroup"
           header-class="text-primary"
           class="panel-color"
@@ -101,19 +179,80 @@
             </q-item-section>
           </template>
           <!--          ------------------------------------------------------------------  header slot done!!!  ------------------------------------------------------------------ -->
-          <div class="row">
-            <div class="col-2">
-              <q-img :src="order.inputData.img" />
-            </div>
-            <div class="col-5">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-            <div class="col-5">
-              <div></div>
-            </div>
-          </div>
+          <q-card>
+            <q-card-section>
+              <div class="row product"
+                   v-for="item in order.inputData.orderproducts"
+                   :key="item">
+                <div class="col-2">
+                  <q-img
+                    :src="item.photo"
+                    width="120px"
+                    height="120px" />
+                </div>
+                <div class="col-6">
+                  <div class="title">{{item.product.title}}</div>
+                  <div class="category">{{item.product.category}}</div>
+                  <div>
+                    <span class="base-price">
+                      قیمت پایه:
+                      {{toman(item.price.base)}}
+                    </span>
+                    <q-btn
+                      unelevated
+                      rounded
+                      color="blue"
+                      size="11px"
+                      class="action-btn q-mr-xs"
+                      :href="item.product.url.web"
+                      target="_blank"
+                    >
+                      مشاهده محصول
+                    </q-btn>
+                    <q-btn
+                      unelevated
+                      rounded
+                      size="11px"
+                      class="action-btn"
+                    >
+                      تمدید سفارش
+                    </q-btn>
+                  </div>
+                </div>
+                <div class="col-4 discount-final-price">
+                  <div class="q-mr-xl">
+                    <div class="price"
+                         v-if="item.price.discount !== 0">
+                      {{toman(item.price.discount)}}
+                    </div>
+                    <div v-else
+                         class="price">
+                      بدون تخفیف
+                    </div>
+                    <div class="price-description">
+                      تخفیف
+                    </div>
+                  </div>
+                  <div>
+                    <div class="price"
+                         v-if="item.price.final !== 0">
+                      {{toman(item.price.final)}}
+                    </div>
+                    <div v-else
+                         class="price">
+                      رایگان
+                    </div>
+                    <div class="price-description">
+                      قیمت نهایی
+                    </div>
+                  </div>
+                </div>
+                <q-separator style="width: 100%"
+                             v-if="order.inputData.orderproducts.length-1 !== 0"
+                             class="q-my-lg" />
+              </div>
+            </q-card-section>
+          </q-card>
         </q-expansion-item>
       </template>
     </q-expansion-item>
@@ -135,7 +274,20 @@ export default {
       default: true
     }
   },
+  data () {
+    return {
+      productItems: [],
+      i: 1
+    }
+  },
   methods: {
+    toman (key, suffix) {
+      let string = key.toLocaleString('fa')
+      if (typeof suffix === 'undefined' || suffix) {
+        string += ' تومان '
+      }
+      return string
+    },
     makeDateShamsi (date) {
       return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
     },
@@ -151,6 +303,8 @@ export default {
     extendAll () {
       console.log('OK!')
     }
+  },
+  created () {
   }
 }
 </script>
@@ -165,5 +319,44 @@ export default {
 .panel-color {
   color: #837dd1;
   background: #f1f5f5
+}
+.product {
+  .title {
+    font-size: 1.1em;
+    color: #111111;
+    margin-bottom: 25px;
+  }
+  .category {
+    font-size: .85em;
+    color: #111111;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .base-price {
+    color: #6f727d;
+    font-size: .85em;
+    margin-right: 10px;
+  }
+  .discount-final-price {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    margin-top: 15px;
+    .price {
+      color: #6f727d;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+    .price-description {
+      font-size: 12px;
+      color: #6f727d;
+    }
+  }
+  .action-btn {
+    &:deep(.q-btn__content) {
+      margin: 2px 15px;
+    }
+  }
 }
 </style>
