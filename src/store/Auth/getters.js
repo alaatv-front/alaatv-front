@@ -16,3 +16,7 @@ export function accessToken (state) {
 export function redirectTo (state) {
   return state.redirectTo
 }
+export function incompleteProfile (state) {
+  return state.incompleteProfile
+}
+

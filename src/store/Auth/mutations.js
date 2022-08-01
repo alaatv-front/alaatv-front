@@ -10,3 +10,6 @@ export function updateRedirectTo (state, newInfo) {
 export function setAccessToken (newInfo) {
   this.$axios.defaults.headers.common.Authorization = 'Bearer ' + newInfo
 }
+export function updateIncompleteProfile (state, newInfo) {
+  state.incompleteProfile = newInfo
+}

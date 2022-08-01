@@ -6,6 +6,7 @@
 
 <script>
 import pageBuilder from 'components/PageBuilder/PageBuilder'
+import { Notify } from 'quasar'
 export default {
   name: 'Profile.vue',
   components: {
@@ -34,9 +35,9 @@ export default {
                     },
                     {
                       widgets: [
-                        {
-                          name: 'profile',
-                        },
+                        // {
+                        //   name: 'profile',
+                        // },
                       ],
                       options: {
                         col: 'col-md-9'
@@ -53,8 +54,17 @@ export default {
           },
         ],
     }
+  },
+  created () {
+    if(this.$store.getters['Auth/incompleteProfile']){
+      Notify.create({message: 'لطفا ابتدا اطلاعات کاربری را کامل نمایید.', color: 'warning'})
+    }
+  },
+  methods: {
+    test(){
+      return this.$store.getters['Auth']
+    }
   }
-
 }
 </script>
 
