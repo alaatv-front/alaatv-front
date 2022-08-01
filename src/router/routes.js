@@ -1,5 +1,4 @@
 import { auth, isLandingPage } from './middleware/middleware'
-// import Login from '../pages/Auth/Login.vue'
 import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
@@ -22,6 +21,18 @@ const routes = [
         component: () => import('pages/User/Shop')
       },
       {
+        path: 'checkout',
+        name: 'User.Checkout',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            path: 'review',
+            name: 'User.Checkout.Review',
+            component: () => import('pages/User/CheckoutReview/Show.vue')
+          }
+        ]
+      },
+      {
         path: 'c',
         name: 'User.Content',
         component: () => import('layouts/bareLayout.vue'),
@@ -36,6 +47,14 @@ const routes = [
         component: () => import('layouts/bareLayout.vue'),
         children: [
           { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
+        ]
+      },
+      {
+        path: 'set',
+        name: 'User.Set',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          { name: 'User.Set.Show', path: ':id', component: () => import('pages/User/Set/Show.vue') }
         ]
       },
       {
@@ -56,11 +75,6 @@ const routes = [
         }
       },
       {
-        path: 'login',
-        name: 'login',
-        component: () => import('pages/Auth/Login.vue')
-      },
-      {
         path: 'user-info',
         name: 'user-info',
         component: () => import('pages/User/UserInfoForm'),
@@ -76,12 +90,10 @@ const routes = [
         },
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
-          { name: 'Admin.StudyPlan', path: '/studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
+          { name: 'Admin.StudyPlan', path: 'studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
           ...EntityCrudRoutes
         ]
       },
-
-
       {
         path: '/debug',
         name: 'debug',
@@ -89,8 +101,29 @@ const routes = [
         meta: {
           middlewares: [auth]
         }
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: () => import('pages/Profile/Profile.vue'),
+        meta: {
+          middlewares: [auth]
+        },
+        children: [
+          { name: 'MyProducts', path: 'my-products', component: () => import('pages/Profile/MyProducts.vue') },
+          { name: 'MyOrders', path: 'my-orders', component: () => import('pages/Profile/MyOrders.vue') },
+        //  TODO: complete routes : ["Wallet", "Bookmarks", "LeitnerBox", "MyChannels", "MyComments", "Ticket"]
+        ]
       }
     ]
+    // meta: {
+    //   middlewares: [auth]
+    // }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('pages/Auth/Login.vue')
   },
   // are u mr Esmaeili ? '' : dont touch this route
   // {
