@@ -1,10 +1,10 @@
 <template>
-  hi:)
+salam
 </template>
 
 <script>
 export default {
-  name: 'Search'
+  name: 'Profile.vue'
 }
 </script>
 

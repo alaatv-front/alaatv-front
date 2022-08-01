@@ -5,8 +5,11 @@
 </template>
 
 <script>
+import { mixinWidget } from 'src/mixin/Mixins'
+
 export default {
-  name: 'Test-component-2widget'
+  name: 'Test-component-2widget',
+  mixins: [mixinWidget]
 }
 </script>
 
