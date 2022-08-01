@@ -11,6 +11,21 @@ const routes = [
         component: () => import('pages/Home.vue')
       },
       {
+        path: 'ticket',
+        name: 'Admin.Ticket.Index',
+        component: () => import('pages/Admin/Ticket/Index.vue')
+      },
+      {
+        path: 'ticket/:id',
+        name: 'Admin.Ticket.Show',
+        component: () => import('pages/Admin/Ticket/Show.vue')
+      },
+      {
+        path: 'ticket/Create',
+        name: 'Admin.Ticket.Create',
+        component: () => import('pages/Admin/Ticket/Create.vue')
+      },
+      {
         path: 'map',
         name: 'MapPage',
         component: () => import('pages/User/Map.vue')
@@ -94,6 +109,7 @@ const routes = [
           ...EntityCrudRoutes
         ]
       },
+
       {
         path: '/debug',
         name: 'debug',
@@ -111,7 +127,7 @@ const routes = [
         },
         children: [
           { name: 'MyProducts', path: 'my-products', component: () => import('pages/Profile/MyProducts.vue') },
-          { name: 'MyOrders', path: 'my-orders', component: () => import('pages/Profile/MyOrders.vue') },
+          { name: 'MyOrders', path: 'my-orders', component: () => import('pages/Profile/MyOrders.vue') }
         //  TODO: complete routes : ["Wallet", "Bookmarks", "LeitnerBox", "MyChannels", "MyComments", "Ticket"]
         ]
       }
