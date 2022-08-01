@@ -1,5 +1,6 @@
 <template>
 <div class="home-page">
+  <q-btn @click="removeAccessToken">test</q-btn>
   <page-builder :sections="sections" :options="pageConfig"/>
 </div>
 </template>
@@ -124,7 +125,13 @@ export default {
       ],
     }
   },
-  methods: {}
+  methods: {
+    removeAccessToken(){
+      this.$store.commit('Auth/updateAccessToken', null)
+    }
+  },created () {
+    this.$store.dispatch('Cart/reviewCart', {id: '100'})
+  }
 }
 </script>
 
