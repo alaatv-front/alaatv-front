@@ -2,6 +2,7 @@ export default function () {
   return {
     user: null,
     redirectTo: null,
-    accessToken: null
+    accessToken: null,
+    incompleteProfile: false
   }
 }
