@@ -8,6 +8,7 @@
     :show-route-param-key="showRouteParamKey"
     :index-route-name="indexRouteName"
     :show-route-name="showRouteName"
+    :show-save-button="false"
   >
     <template #before-form-builder>
       <div
@@ -28,8 +29,10 @@
                 class="departmentActionBtn"
                 icon="isax:search-status .path4:before"
               />
-              <div class="departmentTitle flex justify-center"
-                   v-html="item.title"></div>
+              <div
+                class="departmentTitle flex justify-center"
+                v-html="item.title"
+              />
             </div>
           </q-card>
 
@@ -54,7 +57,7 @@
 import SendMessageInput from 'components/SendMessageInput'
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-import { TicketMessage } from 'src/models/TicketMessage'
+// import { TicketMessage } from 'src/models/TicketMessage'
 
 export default {
   name: 'Create',
@@ -68,37 +71,57 @@ export default {
       sendLoading: null,
       showDialog: true,
       expanded: true,
+      priority_id: null,
+      formData: null,
       api: API_ADDRESS.ticket.create.base,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Ticket.Show',
       indexRouteName: 'Admin.Ticket.Index',
-      depart: [],
+      depart: {
+        id: 0,
+        title: 'دپارتمان'
+      },
       departments: [
         {
           id: '1',
-          title: 'مالی'
+          title: 'آموزش'
         }, {
           id: '2',
-          title: 'استخدام'
+          title: 'مالی'
         }, {
           id: '3',
-          title: 'ابریشم'
+          title: 'استخدام'
         }, {
           id: '4',
           title: 'پرچم'
         }, {
           id: '5',
-          title: 'تفتان'
+          title: 'راه ابریشم'
         }, {
           id: '6',
           title: 'فنی'
         }, {
           id: '7',
-          title: 'آموزش'
+          title: 'مشاوره خرید'
         }, {
           id: '8',
-          title: 'مشاوره خرید'
+          title: 'حمایت مردمی'
+        }, {
+          id: '9',
+          title: 'تفتان'
+        }, {
+          id: '10',
+          title: 'آرش'
+        }, {
+          id: '11',
+          title: 'تتا'
+        }, {
+          id: '12',
+          title: 'سه آ'
+        }, {
+          id: '13',
+          title: 'طرح حکمت'
         }
       ],
       inputs: [
@@ -186,15 +209,9 @@ export default {
   },
   created () {
   },
-  watch: {
-    sendLoading: {
-      handler (newVal) {
-        console.log(newVal)
-      }
-    }
-  },
 
   methods: {
+
     showMessagesInNotify (message, type) {
       if (!type) {
         type = 'negative'
@@ -204,38 +221,63 @@ export default {
         message
       })
     },
+
     checkValues () {
       this.$refs.EntityCreate.getValues().forEach(item => {
-        if (item.type === 'toggleButton' && !item.value) {
+        if (item.type === 'toggleButton') {
+          if (item.value) {
+            this.priority_id = item.value
+            return
+          }
           this.showMessagesInNotify('<اولویت> پیام خود را انتخاب کنید')
           this.canPost = false
-          this.sendLoading = false
-        } else {
-          this.canPost = true
-          this.sendLoading = false
-        }
+        } else this.canPost = true
       })
       if (!!this.inputs[0].value === false) {
         this.showMessagesInNotify('پر کردن فیلد <عنوان> ضروری میباشد')
         this.canPost = false
-        this.sendLoading = false
-      } else {
-        this.canPost = true
+      } else this.canPost = true
+    },
+
+    createTicket (formData) {
+      if (this.canPost) {
+        this.sendLoading = true
+        this.$axios.post(this.api, formData)
+          .then(res => {
+            console.log(res)
+            this.$refs.SendMessageInput.clearMessage()
+            this.showMessagesInNotify('تیکت شما با موفقیت ایجاد شد', 'positive')
+            this.sendLoading = false
+          })
+          .catch(error => {
+            this.sendLoading = false
+            console.log(error)
+          })
       }
     },
+
     sendMessage (data) {
-      this.sendLoading = data.loading
       this.checkValues()
 
       const formData = new FormData()
+
+      // this.$refs.EntityCreate.getValues().forEach(input => {
+      //   if (input.name === 'photo') {
+      //     input.value = data.photo
+      //     console.log(input.value)
+      //   }
+      // })
+
       if (data.photo) {
         formData.append('photo', data.photo, 'photo.jpeg')
       }
 
-      // this.$refs.EntityCreate.getValues().forEach(input => {
-      //   if (input.name === 'body') {
-      //     input.value = data.body
       if (data.body) {
+        this.$refs.EntityCreate.getValues().forEach(input => {
+          if (input.name === 'body') {
+            input.value = data.body
+          }
+        })
         formData.append('body', data.body.replace(/\r?\n/g, '<br/>'))
       }
 
@@ -247,16 +289,16 @@ export default {
         formData.append('is_private', 1)
       }
 
-      const newTicket = new TicketMessage()
-      if (this.canPost) {
-        newTicket.create(formData, this.api)
-        this.sendLoading = false
-      }
+      formData.append('department_id', this.depart.id)
+      formData.append('title', this.inputs[0].value)
+      formData.append('priority_id', this.priority_id)
 
+      // const newTicket = new TicketMessage()
       // if (this.canPost) {
+      //   newTicket.create(formData, this.api)
       //   this.sendLoading = false
-      //   this.$refs.EntityCreate.createEntity(formData)
       // }
+      this.createTicket(formData)
     },
 
     sendText (data) {
@@ -266,17 +308,16 @@ export default {
         loading: data.loading
       })
     },
+
     sendImage (data) {
-      console.log(data)
       this.sendMessage({
         body: data.caption,
         isPrivate: data.isPrivate,
         photo: this.createBlob(data.resultURL),
         loading: data.loading
-
       })
-      console.log(data)
     },
+
     sendVoice (data) {
       this.sendMessage({
         voice: data.voice,
@@ -285,6 +326,7 @@ export default {
 
       })
     },
+
     createBlob (dataURL) {
       const BASE64_MARKER = ';base64,'
       if (dataURL.indexOf(BASE64_MARKER) === -1) {
@@ -306,6 +348,7 @@ export default {
 
       return new Blob([uInt8Array], { type: contentType })
     },
+
     selectDepartment (item) {
       this.depart = item
       this.$refs.EntityCreate.getValues().forEach(input => {
