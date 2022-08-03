@@ -1,6 +1,9 @@
 <template>
   <div>
-    <page-builder :sections="sections" :options="pageConfig"></page-builder>
+    <page-builder
+      :sections="sections"
+      :options="pageConfig"
+    ></page-builder>
   </div>
 </template>
 
@@ -14,60 +17,61 @@ export default {
   },
   data() {
     return {
-      pageConfig:{
-          // a: "md"
-        },
-        sections: [
-          {
-            data: {
-              rows: [
-                {
-                  cols: [
-                    {
-                      widgets: [
-                        {
-                          name: 'profile-menu'
-                        },
-                      ],
-                      options: {
-                        col: 'col-md-3'
+      pageConfig: {
+        // a: "md"
+      },
+      sections: [
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'profile-menu'
                       }
-                    },
-                    {
-                      widgets: [
-                        // {
-                        //   name: 'profile',
-                        // },
-                      ],
-                      options: {
-                        col: 'col-md-9'
-                      }
+                    ],
+                    options: {
+                      col: 'col-md-3'
                     }
-                  ],
-                  options: {
-                    boxed: true
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'profile'
+                      }
+                    ],
+                    options: {
+                      col: 'col-md-9'
+                    }
                   }
+                ],
+                options: {
+                  boxed: true
                 }
-              ]
-            },
-            options: {}
+              }
+            ]
           },
-        ],
+          options: {}
+        }
+      ]
     }
   },
-  created () {
-    if(this.$store.getters['Auth/incompleteProfile']){
-      Notify.create({message: 'لطفا ابتدا اطلاعات کاربری را کامل نمایید.', color: 'warning'})
+  created() {
+    if (this.$store.getters['Auth/incompleteProfile']) {
+      Notify.create({
+        message: 'لطفا ابتدا اطلاعات کاربری را کامل نمایید.',
+        color: 'warning'
+      })
     }
   },
   methods: {
-    test(){
-      return this.$store.getters['Auth']
+    test() {
+      // return this.$store.getters['Auth']
     }
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
