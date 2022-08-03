@@ -1,12 +1,13 @@
 <template>
-  <page-builder :sections="sections" :options="options" :containerFullHeight="calculateHeightStyle"></page-builder>
+  <page-builder
+    :sections="sections"
+    :options="options"
+    :containerFullHeight="calculateHeightStyle"
+  ></page-builder>
 </template>
 
 <script>
 import pageBuilder from 'src/components/PageBuilder/PageBuilder'
-import { BannerList } from 'src/models/Banner'
-import API_ADDRESS from 'src/api/Addresses'
-import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
   name: 'debug',
@@ -22,52 +23,52 @@ export default {
                 cols: [
                   {
                     widgets: [
-                        {
-                          name: 'page-builder-section',
-                          data: {
-                            rows: [
-                              {
-                                cols: [
-                                  {
-                                    widgets: [
-                                      {
-                                        name: 'test-component1-widget',
-                                        options: {
-                                          style: {color: "yellow !important"},
-                                          className: 'q-ma-lg'
-                                        }
-                                      },
-                                    ],
-                                    options: {
-                                      style: {border: "1px blue solid"}
-                                    }
-                                  },
-                                  {
-                                    widgets: [
-                                      {
-                                        name: 'test-component2-widget'
+                      {
+                        name: 'page-builder-section',
+                        data: {
+                          rows: [
+                            {
+                              cols: [
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component1-widget',
+                                      options: {
+                                        style: { color: 'yellow !important' },
+                                        className: 'q-ma-lg'
                                       }
-                                    ]
+                                    }
+                                  ],
+                                  options: {
+                                    style: { border: '1px blue solid' }
                                   }
-                                ],
-                                options: {
-                                  style: {},
-                                  className: 'boxed'
+                                },
+                                {
+                                  widgets: [
+                                    {
+                                      name: 'test-component2-widget'
+                                    }
+                                  ]
                                 }
+                              ],
+                              options: {
+                                style: {},
+                                className: 'boxed'
                               }
-                            ]
-                          }
+                            }
+                          ]
                         }
-                      ],
+                      }
+                    ],
                     options: {
                       className: 'q-ma-lg col-md-12 col-sm-6',
-                      style: {color: "blue !important"}
+                      style: { color: 'blue !important' }
                     }
                   }
                 ],
                 options: {
-                  style: {color: "white"},
-                  className: "q-ma-md boxed"
+                  style: { color: 'white' },
+                  className: 'q-ma-md boxed'
                 }
               },
               {
@@ -116,8 +117,9 @@ export default {
             ]
           },
           options: {
-            style:{
-              backgroundImage: 'url("http://twintower.ir/api/media/tracks/368/thumbnail9-5777.jpg")',
+            style: {
+              backgroundImage:
+                'url("http://twintower.ir/api/media/tracks/368/thumbnail9-5777.jpg")',
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
@@ -125,7 +127,7 @@ export default {
             },
             className: '',
             fullHeight: true,
-            verticalAlign: 'center',
+            verticalAlign: 'center'
           }
         },
         {
@@ -208,24 +210,25 @@ export default {
           },
           options: {
             style: {
-              backgroundImage: "url(\"https://nodes.alaatv.com/upload/images/slideShow/1642417634_2227.jpg?w=1845&h=720\")",
+              backgroundImage:
+                'url("https://nodes.alaatv.com/upload/images/slideShow/1642417634_2227.jpg?w=1845&h=720")',
               backgroundPosition: 'center',
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-              backgroundAttachment: "fixed"
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed'
             },
             fullHeight: true,
-            verticalAlign: 'center',
+            verticalAlign: 'center'
           }
-        },
+        }
       ],
-      //this is page options
+      // this is page options
       options: {
         // className: "q-ma-xs q-pa-lg",
         // style: {background: "black !important", color: "white", marginTop: '200px'}
-      },
+      }
     }
-   },
+  },
   props: {
     testProp: {
       type: Boolean,
@@ -234,13 +237,10 @@ export default {
       }
     }
   },
-  methods: {
-
-  },
+  methods: {},
   computed: {
-    calculateHeightStyle(){
-      let calcHeight = this.$store.getters['AppLayout/calculateContainerFullHeight'];
-      return calcHeight;
+    calculateHeightStyle() {
+      return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
   beforeRouteEnter() {
@@ -266,14 +266,15 @@ export default {
   },
   watch: {
     testValue: {
-      handler() { },
+      handler() {},
       deep: true
     },
-    testValue1(oldVal, newVal) { }
+    testValue1(oldVal, newVal) {}
   }
 }
-
 </script>
 
-<style scoped lang="scss">
-</style>
+<style
+  scoped
+  lang="scss"
+></style>
