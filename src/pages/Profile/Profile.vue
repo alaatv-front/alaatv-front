@@ -2,7 +2,7 @@
   <div>
     <page-builder
       :sections="sections"
-      :options="pageConfig"
+      :options="options"
     ></page-builder>
   </div>
 </template>
@@ -17,9 +17,6 @@ export default {
   },
   data() {
     return {
-      pageConfig: {
-        // a: "md"
-      },
       sections: [
         {
           data: {
@@ -39,7 +36,9 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'profile'
+                        name: 'profile',
+                        data: { test: 'test' },
+                        options: { test: 'test' }
                       }
                     ],
                     options: {
@@ -48,14 +47,15 @@ export default {
                   }
                 ],
                 options: {
-                  boxed: true
+                  className: 'boxed'
                 }
               }
             ]
           },
           options: {}
         }
-      ]
+      ],
+      options: {}
     }
   },
   created() {
@@ -69,6 +69,11 @@ export default {
   methods: {
     test() {
       // return this.$store.getters['Auth']
+    }
+  },
+  computed: {
+    calculateHeightStyle() {
+      return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   }
 }
