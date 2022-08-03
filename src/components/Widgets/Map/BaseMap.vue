@@ -46,8 +46,10 @@
             >
             </div>
             <!--                        <i class="fa fa-edit editMapItem" v-if="item.editMode"></i>-->
-            <img :src="item.data.icon.options.iconUrl"
-                 class="markerImage">
+            <img
+              :src="item.data.icon.options.iconUrl"
+              class="markerImage"
+            >
           </l-icon>
           <!--                    <l-popup-->
           <!--                        v-if="editMapMode"-->
@@ -71,9 +73,31 @@
           <!--                    <l-popup :content="'<div>disable</div>'" :options="{ autoClose: false, closeOnClick: false }"></l-popup>-->
         </l-polyline>
       </template>
-      <!--      <map-items :bounds="bounds"-->
-      <!--                 :current-zoom="zoom"-->
-      <!--                 :items="items" />-->
+      <l-control
+        dir="rtl"
+        position="topleft"
+      >
+        <q-btn
+          class="btnMapControl btnGetLinkToShare"
+          @click="copyToClipboard"
+          icon="isax:link"
+        >
+        </q-btn>
+        <div style="width: 130px; background: #ffffff8f;font-family: IRANSans;padding: 5px;border-radius: 5px;">
+          زوم:
+          {{ currentZoom }}
+          <br>
+          عرض:
+          <span dir="rtl">
+            {{ currentCenter.lat | latlang }}
+          </span>
+          <br>
+          طول:
+          <span dir="rtl">
+            {{ currentCenter.lng | latlang }}
+          </span>
+        </div>
+      </l-control>
     </l-map>
   </div>
 </template>
@@ -87,6 +111,10 @@ import { MapItemList } from 'src/models/MapItem'
 export default {
   name: 'BaseMap',
   props: {
+    canEditMap: {
+      type: Boolean,
+      default: false
+    },
     bounds: {
       default: null
     },
@@ -109,6 +137,12 @@ export default {
     LMarker,
     LPolyline
   },
+  filters: {
+    latlang (value) {
+      if (!value) return ''
+      return parseFloat(value.toString()).toFixed(3)
+    }
+  },
   data () {
     return {
       crs: null,
@@ -121,6 +155,8 @@ export default {
       maxZoom: 11,
       maxBounds: null,
       maxBoundsViscosity: 1,
+      currentZoom: 4,
+      currentCenter: [0, 0],
       url: 'https://nodes.alaatv.com/upload/raheAbrishamMap/{z}/{x}/{y}.png?v=' + this.mapVersion,
       mapOptions: {
         zoomSnap: 1,
@@ -132,6 +168,25 @@ export default {
     this.initMap()
   },
   methods: {
+    showMessagesInNotify (message, type) {
+      if (!type) {
+        type = 'negative'
+      }
+      this.$q.notify({
+        type,
+        message
+      })
+    },
+    copyToClipboard () {
+      const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
+      console.log(shareLink)
+      this.$copyText(('Text to copy'), shareLink).then(function (e) {
+        this.showMessagesInNotify('لینک این قسمت از نقشه کپی شد.', 'positive')
+      }, function (e) {
+        this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
+      })
+    },
+
     onAddMarker (event, item) {
       // console.log('onAddMarker', { event, item })
     },
@@ -195,6 +250,7 @@ export default {
       // this.centerUpdated(this.mapCenter)
     },
     zoomUpdated (zoom) {
+      this.currentZoom = zoom
       this.$emit('update:zoom', zoom)
     },
     centerUpdated (center) {
