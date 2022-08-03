@@ -1,13 +1,12 @@
-<template>
-salam
-</template>
+<template>salam</template>
 
 <script>
 export default {
-  name: 'Profile.vue'
+  name: 'Profile.vue',
+  data() {
+    return {}
+  }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
