@@ -28,7 +28,7 @@ const routes = [
       {
         path: 'map',
         name: 'MapPage',
-        component: () => import('pages/User/Map.vue')
+        component: () => import('src/components/Widgets/Map/Map.vue')
       },
       {
         path: 'shop',
