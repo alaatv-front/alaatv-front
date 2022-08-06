@@ -82,14 +82,14 @@
             >
               <q-btn
                 class="imageBtn BtnSuccess"
-                @click="getResult(false)"
+                @click="emitData(false)"
                 :loading="sendLoading"
                 icon="isax:tick-square"
               />
               <q-btn
                 v-if="true"
                 class="imageBtn BtnWarning"
-                @click="getResult(true)"
+                @click="emitData(true)"
                 :loading="sendLoading"
                 icon="isax:card-send"
               />
@@ -107,7 +107,7 @@
           size="12px"
           class="btn  actionBtn sendBtn BtnSuccess"
           :loading="sendLoading"
-          @click="sendMessage(false)"
+          @click="emitData(false)"
           icon="isax:send-1"
         />
         <q-btn
@@ -116,7 +116,7 @@
           class="btn  actionBtn sendBtn BtnWarning"
           :loading="sendLoading"
           icon="isax:directbox-send"
-          @click="sendMessage(true)"
+          @click="emitData(true)"
         />
       </div>
 
@@ -465,29 +465,16 @@ export default {
       this.recordedVoiceBlob = null
     },
 
-    getResult (isPrivate) {
-      this.$emit('sendImage', {
+    emitData (isPrivate) {
+      this.$emit('creatTicket', {
+        isPrivate,
         resultURL: this.resultURL,
         caption: this.newMessageTextInModal,
-        isPrivate
+        body: this.newMessage.text,
+        voice: this.recordedVoiceBlob
       })
-      // this.clearMessage()
-    },
-
-    sendMessage (isPrivate) {
-      if (this.recordedVoice === null) {
-        this.$emit('sendText', {
-          body: this.newMessage.text,
-          isPrivate
-        })
-      } else {
-        this.$emit('sendVoice', {
-          voice: this.recordedVoiceBlob,
-          isPrivate
-        })
-      }
-      // this.clearMessage()
     }
+
   },
   directives: {
     longpress
