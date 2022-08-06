@@ -2,7 +2,7 @@
   <entity-create
     ref="EntityCreate"
     v-model:value="inputs"
-    :title=this.depart.title
+    :title=this.department.title
     :api="api"
     :entity-id-key-in-response="entityIdKeyInResponse"
     :show-route-param-key="showRouteParamKey"
@@ -20,10 +20,10 @@
         >
           <q-card
             class="flex justify-center">
-            <div v-for="(item, index) in departments"
+            <div v-for="(department, index) in departments"
                  :key="index"
                  v-close-popup
-                 @click="selectDepartment(item)"
+                 @click="selectDepartment(department)"
                  class="departmentForSelect col-2 q-my-md ">
               <q-btn
                 flat
@@ -32,7 +32,7 @@
               />
               <div
                 class="departmentTitle flex justify-center"
-                v-html="item.title"
+                v-html="department.title"
               />
             </div>
           </q-card>
@@ -46,9 +46,7 @@
     <SendMessageInput
       ref="SendMessageInput"
       :send-loading="sendLoading"
-      @sendText="sendText"
-      @sendImage="sendImage"
-      @sendVoice="sendVoice"
+      @creatTicket="sendTicket"
     />
   </div>
 
@@ -58,7 +56,6 @@
 import SendMessageInput from 'components/SendMessageInput'
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-// import { TicketMessage } from 'src/models/TicketMessage'
 
 export default {
   name: 'Create',
@@ -71,14 +68,12 @@ export default {
       sendLoading: null,
       showDialog: true,
       expanded: true,
-      priority_id: null,
-      formData: null,
       api: API_ADDRESS.ticket.create.base,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Ticket.Show',
       indexRouteName: 'Admin.Ticket.Index',
-      depart: {
+      department: {
         id: 0,
         title: 'دپارتمان'
       },
@@ -182,86 +177,18 @@ export default {
       afterFormBuilder: true
     }
   },
-  computed: {
-
-  },
-  created () {
-  },
 
   methods: {
-
-    showMessagesInNotify (messages) {
-      messages.forEach((message) => {
-        this.$q.notify({
-          // ...(message.type && { type: message.type }),
-          type: 'negative',
-          message
-        })
-      })
-    },
-    getInputsValue (inputName) {
-      return this.inputs.find(input => input.name === inputName).value
-    },
-
-    hasRequiredField () {
-      const errMs = []
-      if (!this.getInputsValue('title')) {
-        errMs.push('پر کردن فیلد <عنوان> ضروری میباشد')
-      }
-      const formBuilderCol = this.getInputsValue('formBuilderCol')
-      const toggleButton = formBuilderCol.find(item => item.name === 'priority_id').value
-      if (!toggleButton) {
-        errMs.push('<اولویت> پیام خود را انتخاب کنید')
-      }
-
-      // this.$refs.EntityCreate.getValues().forEach(item => {
-      //   if (item.type === 'toggleButton') {
-      //     if (item.value) {
-      //       this.priority_id = item.value
-      //       return
-      //     }
-      //     this.showMessagesInNotify('<اولویت> پیام خود را انتخاب کنید')
-      //     this.canPost = false
-      //   } else this.canPost = true
-      // })
-      // if (!!this.inputs[0].value === false) {
-      //   this.showMessagesInNotify('پر کردن فیلد <عنوان> ضروری میباشد')
-      //   this.canPost = false
-      // } else this.canPost = true
-
-      this.showMessagesInNotify(errMs)
-      return !errMs.length > 0
-    },
-
-    sendCreateTicketReq (formData) {
-      this.sendLoading = true
-      this.$axios.post(this.api, formData)
-        .then(res => {
-          console.log(res)
-          this.$refs.SendMessageInput.clearMessage()
-          this.showMessagesInNotify('تیکت شما با موفقیت ایجاد شد', 'positive')
-          this.sendLoading = false
-        })
-        .catch(error => {
-          this.sendLoading = false
-          console.log(error)
-        })
-    },
-
-    sendMessage (data) {
+    sendTicket (data) {
       if (!this.hasRequiredField()) {
-        console.log('has err ')
         return
       }
+      const formData = this.setTicketFormData(data)
+      this.sendCreateTicketReq(formData)
+    },
 
+    setTicketFormData (data) {
       const formData = new FormData()
-
-      // this.$refs.EntityCreate.getValues().forEach(input => {
-      //   if (input.name === 'photo') {
-      //     input.value = data.photo
-      //     console.log(input.value)
-      //   }
-      // })
 
       if (data.photo) {
         formData.append('photo', data.photo, 'photo.jpeg')
@@ -284,39 +211,66 @@ export default {
         formData.append('is_private', 1)
       }
 
-      formData.append('department_id', this.depart.id)
-      formData.append('title', this.inputs[0].value)
-      formData.append('priority_id', this.priority_id)
+      formData.append('department_id', this.department.id)
 
-      // const newTicket = new TicketMessage()
-      // if (this.canPost) {
-      //   newTicket.create(formData, this.api)
-      //   this.sendLoading = false
-      // }
-      this.sendCreateTicketReq(formData)
+      formData.append('title', this.getInputsValue('title'))
+
+      const formBuilderCol = this.getInputsValue('formBuilderCol')
+      const priorityId = formBuilderCol.find(item => item.name === 'priority_id').value
+      formData.append('priority_id', priorityId)
+
+      return formData
     },
 
-    sendText (data) {
-      this.sendMessage({
-        body: data.body,
-        isPrivate: data.isPrivate
+    showMessagesInNotify (messages, type) {
+      messages.forEach((message) => {
+        this.$q.notify({
+          // ...(message.type && { type: message.type }),
+          type: type || 'negative',
+          message
+        })
       })
     },
 
-    sendImage (data) {
-      this.sendMessage({
-        body: data.caption,
-        isPrivate: data.isPrivate,
-        photo: this.createBlob(data.resultURL)
-      })
+    getInputsValue (inputName) {
+      return this.inputs.find(input => input.name === inputName).value
     },
 
-    sendVoice (data) {
-      this.sendMessage({
-        voice: data.voice,
-        isPrivate: data.isPrivate
+    hasRequiredField () {
+      const errorMessages = []
+      if (!this.getInputsValue('title')) {
+        errorMessages.push('پر کردن فیلد <عنوان> ضروری میباشد')
+      }
+      const formBuilderCol = this.getInputsValue('formBuilderCol')
+      const toggleButton = formBuilderCol.find(item => item.name === 'priority_id').value
+      if (!toggleButton) {
+        errorMessages.push('<اولویت> پیام خود را انتخاب کنید')
+      }
+      this.showMessagesInNotify(errorMessages)
+      return !errorMessages.length > 0
+    },
 
-      })
+    callSendApi (formData) {
+      return this.$axios.post(this.api, formData)
+    },
+
+    async sendCreateTicketReq (formData) {
+      this.sendLoading = true
+      try {
+        await this.callExtraTime()
+        await this.callSendApi(formData)
+        this.$refs.SendMessageInput.clearMessage()
+        this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
+        this.sendLoading = false
+        await this.$router.push({ name: 'Admin.Ticket.Show' })
+      } catch (e) {
+        console.log(e)
+        this.sendLoading = false
+      }
+    },
+
+    callExtraTime () {
+      return setTimeout(100000)
     },
 
     createBlob (dataURL) {
@@ -341,8 +295,8 @@ export default {
       return new Blob([uInt8Array], { type: contentType })
     },
 
-    selectDepartment (item) {
-      this.depart = item
+    selectDepartment (department) {
+      this.department = department
     }
   }
 }
