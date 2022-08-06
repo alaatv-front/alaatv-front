@@ -72,6 +72,7 @@
               </div>
 
               <q-input
+                borderless
                 class="imageInput"
                 placeholder="متن پیام ..."
                 v-model="newMessageTextInModal" />
@@ -143,6 +144,7 @@
       />
 
       <q-input
+        borderless
         v-show="canShowTextarea"
         class="newMessageText"
         placeholder="متن پیام ..."
