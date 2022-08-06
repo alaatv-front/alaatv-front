@@ -22,6 +22,7 @@
             class="flex justify-center">
             <div v-for="(item, index) in departments"
                  :key="index"
+                 v-close-popup
                  @click="selectDepartment(item)"
                  class="departmentForSelect col-2 q-my-md ">
               <q-btn
@@ -67,7 +68,6 @@ export default {
   },
   data () {
     return {
-      canPost: true,
       sendLoading: null,
       showDialog: true,
       expanded: true,
@@ -148,6 +148,7 @@ export default {
               type: 'toggleButton',
               name: 'priority_id',
               responseKey: 'data.priority',
+              value: '',
               options: [
                 {
                   label: 'کم',
@@ -175,89 +176,83 @@ export default {
 
           ]
 
-        },
-        {
-          name: 'department_id',
-          type: 'hidden',
-          value: 0
-        },
-        {
-          name: 'photo',
-          type: 'hidden',
-          value: ''
-        },
-        {
-          name: 'body',
-          type: 'hidden',
-          value: ''
-        },
-        {
-          name: 'voice',
-          type: 'hidden',
-          value: ''
-        },
-        {
-          name: 'is_private',
-          type: 'hidden',
-          value: 0
         }
-
       ],
       beforeFormBuilder: true,
       afterFormBuilder: true
     }
+  },
+  computed: {
+
   },
   created () {
   },
 
   methods: {
 
-    showMessagesInNotify (message, type) {
-      if (!type) {
-        type = 'negative'
-      }
-      this.$q.notify({
-        type,
-        message
+    showMessagesInNotify (messages) {
+      messages.forEach((message) => {
+        this.$q.notify({
+          // ...(message.type && { type: message.type }),
+          type: 'negative',
+          message
+        })
       })
     },
-
-    checkValues () {
-      this.$refs.EntityCreate.getValues().forEach(item => {
-        if (item.type === 'toggleButton') {
-          if (item.value) {
-            this.priority_id = item.value
-            return
-          }
-          this.showMessagesInNotify('<اولویت> پیام خود را انتخاب کنید')
-          this.canPost = false
-        } else this.canPost = true
-      })
-      if (!!this.inputs[0].value === false) {
-        this.showMessagesInNotify('پر کردن فیلد <عنوان> ضروری میباشد')
-        this.canPost = false
-      } else this.canPost = true
+    getInputsValue (inputName) {
+      return this.inputs.find(input => input.name === inputName).value
     },
 
-    createTicket (formData) {
-      if (this.canPost) {
-        this.sendLoading = true
-        this.$axios.post(this.api, formData)
-          .then(res => {
-            console.log(res)
-            this.$refs.SendMessageInput.clearMessage()
-            this.showMessagesInNotify('تیکت شما با موفقیت ایجاد شد', 'positive')
-            this.sendLoading = false
-          })
-          .catch(error => {
-            this.sendLoading = false
-            console.log(error)
-          })
+    hasRequiredField () {
+      const errMs = []
+      if (!this.getInputsValue('title')) {
+        errMs.push('پر کردن فیلد <عنوان> ضروری میباشد')
       }
+      const formBuilderCol = this.getInputsValue('formBuilderCol')
+      const toggleButton = formBuilderCol.find(item => item.name === 'priority_id').value
+      if (!toggleButton) {
+        errMs.push('<اولویت> پیام خود را انتخاب کنید')
+      }
+
+      // this.$refs.EntityCreate.getValues().forEach(item => {
+      //   if (item.type === 'toggleButton') {
+      //     if (item.value) {
+      //       this.priority_id = item.value
+      //       return
+      //     }
+      //     this.showMessagesInNotify('<اولویت> پیام خود را انتخاب کنید')
+      //     this.canPost = false
+      //   } else this.canPost = true
+      // })
+      // if (!!this.inputs[0].value === false) {
+      //   this.showMessagesInNotify('پر کردن فیلد <عنوان> ضروری میباشد')
+      //   this.canPost = false
+      // } else this.canPost = true
+
+      this.showMessagesInNotify(errMs)
+      return !errMs.length > 0
+    },
+
+    sendCreateTicketReq (formData) {
+      this.sendLoading = true
+      this.$axios.post(this.api, formData)
+        .then(res => {
+          console.log(res)
+          this.$refs.SendMessageInput.clearMessage()
+          this.showMessagesInNotify('تیکت شما با موفقیت ایجاد شد', 'positive')
+          this.sendLoading = false
+        })
+        .catch(error => {
+          this.sendLoading = false
+          console.log(error)
+        })
     },
 
     sendMessage (data) {
-      this.checkValues()
+      if (!this.hasRequiredField()) {
+        console.log('has err ')
+        return
+      }
 
       const formData = new FormData()
 
@@ -298,14 +293,13 @@ export default {
       //   newTicket.create(formData, this.api)
       //   this.sendLoading = false
       // }
-      this.createTicket(formData)
+      this.sendCreateTicketReq(formData)
     },
 
     sendText (data) {
       this.sendMessage({
         body: data.body,
-        isPrivate: data.isPrivate,
-        loading: data.loading
+        isPrivate: data.isPrivate
       })
     },
 
@@ -313,16 +307,14 @@ export default {
       this.sendMessage({
         body: data.caption,
         isPrivate: data.isPrivate,
-        photo: this.createBlob(data.resultURL),
-        loading: data.loading
+        photo: this.createBlob(data.resultURL)
       })
     },
 
     sendVoice (data) {
       this.sendMessage({
         voice: data.voice,
-        isPrivate: data.isPrivate,
-        loading: data.loading
+        isPrivate: data.isPrivate
 
       })
     },
@@ -351,12 +343,6 @@ export default {
 
     selectDepartment (item) {
       this.depart = item
-      this.$refs.EntityCreate.getValues().forEach(input => {
-        if (input.name === 'department_id') {
-          input.value = this.depart.id
-        }
-      })
-      this.showDialog = false
     }
   }
 }
