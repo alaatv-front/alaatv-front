@@ -243,6 +243,7 @@ const longpress = {
     el.addEventListener('touchcancel', cancel)
   }
 }
+
 export default {
   name: 'SendMessageInput',
   props: {
@@ -462,16 +463,15 @@ export default {
 
       this.recordedVoice = null
       this.recordedVoiceBlob = null
-      this.contentLoading = false
     },
 
-    getResult: function (isPrivate) {
+    getResult (isPrivate) {
       this.$emit('sendImage', {
         resultURL: this.resultURL,
         caption: this.newMessageTextInModal,
         isPrivate
       })
-      this.clearMessage()
+      // this.clearMessage()
     },
 
     sendMessage (isPrivate) {
@@ -486,7 +486,7 @@ export default {
           isPrivate
         })
       }
-      this.clearMessage()
+      // this.clearMessage()
     }
   },
   directives: {
