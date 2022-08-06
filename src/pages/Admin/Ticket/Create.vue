@@ -179,12 +179,32 @@ export default {
   },
 
   methods: {
-    sendTicket (data) {
-      if (!this.hasRequiredField()) {
-        return
+    showMessagesInNotify (messages, type) {
+      messages.forEach((message) => {
+        this.$q.notify({
+          // ...(message.type && { type: message.type }),
+          type: type || 'negative',
+          message
+        })
+      })
+    },
+
+    getInputsValue (inputName) {
+      return this.inputs.find(input => input.name === inputName).value
+    },
+
+    hasRequiredField () {
+      const errorMessages = []
+      if (!this.getInputsValue('title')) {
+        errorMessages.push('پر کردن فیلد <عنوان> ضروری میباشد')
       }
-      const formData = this.setTicketFormData(data)
-      this.sendCreateTicketReq(formData)
+      const formBuilderCol = this.getInputsValue('formBuilderCol')
+      const toggleButton = formBuilderCol.find(item => item.name === 'priority_id').value
+      if (!toggleButton) {
+        errorMessages.push('<اولویت> پیام خود را انتخاب کنید')
+      }
+      this.showMessagesInNotify(errorMessages)
+      return !errorMessages.length > 0
     },
 
     setTicketFormData (data) {
@@ -222,55 +242,33 @@ export default {
       return formData
     },
 
-    showMessagesInNotify (messages, type) {
-      messages.forEach((message) => {
-        this.$q.notify({
-          // ...(message.type && { type: message.type }),
-          type: type || 'negative',
-          message
-        })
-      })
-    },
-
-    getInputsValue (inputName) {
-      return this.inputs.find(input => input.name === inputName).value
-    },
-
-    hasRequiredField () {
-      const errorMessages = []
-      if (!this.getInputsValue('title')) {
-        errorMessages.push('پر کردن فیلد <عنوان> ضروری میباشد')
+    sendTicket (data) {
+      if (!this.hasRequiredField()) {
+        return
       }
-      const formBuilderCol = this.getInputsValue('formBuilderCol')
-      const toggleButton = formBuilderCol.find(item => item.name === 'priority_id').value
-      if (!toggleButton) {
-        errorMessages.push('<اولویت> پیام خود را انتخاب کنید')
-      }
-      this.showMessagesInNotify(errorMessages)
-      return !errorMessages.length > 0
-    },
-
-    callSendApi (formData) {
-      return this.$axios.post(this.api, formData)
+      const formData = this.setTicketFormData(data)
+      this.sendCreateTicketReq(formData)
     },
 
     async sendCreateTicketReq (formData) {
       this.sendLoading = true
       try {
-        await this.callExtraTime()
-        await this.callSendApi(formData)
+        const response = await this.callSendApi(formData)
         this.$refs.SendMessageInput.clearMessage()
         this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
         this.sendLoading = false
-        await this.$router.push({ name: 'Admin.Ticket.Show' })
+        await this.$router.push({
+          name: 'Admin.Ticket.Show',
+          params: { id: response.data.data.id }
+        })
       } catch (e) {
         console.log(e)
         this.sendLoading = false
       }
     },
 
-    callExtraTime () {
-      return setTimeout(100000)
+    callSendApi (formData) {
+      return this.$axios.post(this.api, formData)
     },
 
     createBlob (dataURL) {
