@@ -4,6 +4,7 @@
     :data="widget.data"
     :options="widget.options"
     :containerFullHeight="containerFullHeight"
+    :get-data="getData"
   />
 </template>
 
@@ -71,6 +72,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    getData: {
+      type: Function,
+      default: () => {}
     }
   },
   mixins: [mixinWidget],
