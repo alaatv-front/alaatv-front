@@ -16,6 +16,10 @@
               {{ inputData.props.row.status.title }}
             </q-chip>
           </template>
+          <template v-if="inputData.props.col.name === 'score'">
+            <q-img :src="rateImg(inputData.props.row.rate)"
+                   style="width: 30px;height: 30px" />
+          </template>
           <template v-if="inputData.props.col.name === 'actions'">
             <q-btn round
                    flat
@@ -144,7 +148,7 @@ export default {
             required: true,
             label: 'امتیاز',
             align: 'left',
-            field: row => row.rate
+            field: ''
           },
           {
             name: 'actions',
@@ -342,11 +346,24 @@ export default {
       const lastName = row.last_name
       return 'آیا از حذف ' + firstName + ' ' + lastName + ' اطمینان دارید؟'
     },
+    rateImg (id) {
+      if (id === 1) {
+        return 'https://nodes.alaatv.com/upload/ticket-rate-1-on.png'
+      } else if (id === 2) {
+        return 'https://nodes.alaatv.com/upload/ticket-rate-2-on.png'
+      } else {
+        return 'https://nodes.alaatv.com/upload/ticket-rate-3-on.png'
+      }
+    },
     checkStatusColor (id) {
       if (id === 1) {
         return 'red'
-      } else {
+      } else if (id === 2) {
+        return 'primary'
+      } else if (id === 3) {
         return 'green'
+      } else {
+        return 'blue'
       }
     }
   }
