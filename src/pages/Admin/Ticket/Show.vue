@@ -3,8 +3,10 @@
     <div class="col-8"
          style="margin-bottom: 50px;">
       <entity-edit
+        ref="entityEdit"
         v-model:value="inputs"
-        :title="'شماره تیکت ' + this.searchForInputVal('id') + ' در ' + this.searchForInputVal('department')"
+        :show-save-button="false"
+        :title="'شماره تیکت ' + searchForInputVal('id') + ' در ' + searchForInputVal('department_title')"
         :api="api"
         :entity-id-key="entityIdKey"
         :entity-param-key="entityParamKey"
@@ -37,6 +39,8 @@
               <q-btn unelevated
                      style="width: 100%"
                      icon="isax:user"
+                     :to="'/user/'+this.searchForInputVal('userId')+'/edit'"
+                     target="_blank"
                      color="blue">
                 <q-tooltip>ویرایش اطلاعات کاربر</q-tooltip>
               </q-btn>
@@ -45,6 +49,7 @@
               <q-btn unelevated
                      style="width: 100%"
                      icon="isax:edit"
+                     @click="saveChanges"
                      color="blue">
                 <q-tooltip>ویرایش اطلاعات تیکت</q-tooltip>
               </q-btn>
@@ -53,7 +58,9 @@
               <q-btn unelevated
                      style="width: 100%"
                      icon="isax:sms"
-                     color="blue">
+                     color="blue"
+                     @click="sendTicketStatusNotice(this.searchForInputVal('id'))"
+              >
                 <q-tooltip>ارسال پیامک اگاه سازی تغییر وضعیت</q-tooltip>
               </q-btn>
             </div>
@@ -64,11 +71,21 @@
             <q-btn unelevated
                    color="blue">ویرایش اپراتورها</q-btn>
           </div>
+          <ticket-rate :rate="searchForInputVal('rate')"
+                       :ticket-id="searchForInputVal('id')"
+                       class="q-ml-lg q-mt-lg" />
         </template>
       </entity-edit>
       <messages v-for="item in userMessageArray"
                 :key="item"
                 :data="item" />
+      <SendMessageInput
+        ref="SendMessageInput"
+        :send-loading="sendMessageLoading"
+        @sendText="sendMessageText"
+        @sendImage="sendMessageImage"
+        @sendVoice="sendMessageVoice"
+      />
       <q-drawer
         v-model="orderDrawer"
         side="right"
@@ -146,18 +163,22 @@
 <script>
 import { EntityEdit, EntityAction } from 'quasar-crud'
 import Messages from 'src/components/Messages'
+import TicketRate from 'src/components/TicketRate'
 import LogList from 'components/LogList'
 import UserOrderList from 'components/userOrderList'
 import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
 import axios from 'axios'
+import SendMessageInput from 'components/SendMessageInput'
 import moment from 'moment-jalaali'
 
 export default {
   name: 'Show',
-  components: { EntityEdit, EntityAction, Messages, LogList, UserOrderList },
+  components: { EntityEdit, EntityAction, Messages, LogList, UserOrderList, TicketRate, SendMessageInput },
   data () {
     return {
+      sendMessageLoading: false,
+      renderComponent: true,
       logDrawer: false,
       orderDrawer: false,
       orderLoading: false,
@@ -167,31 +188,93 @@ export default {
       userFirstName: null,
       userLastName: null,
       userId: null,
-      userMessageArray: null,
+      userMessageArray: [],
       userPhoto: null,
       expanded: true,
-      api: API_ADDRESS.ticket.edit.base,
+      api: API_ADDRESS.ticket.show.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
       indexRouteName: 'Admin.Ticket.Index',
+      departments: [
+        {
+          title: 'آموزش',
+          id: 1
+        }, {
+          title: 'مالی',
+          id: 2
+        }, {
+          title: 'استخدام',
+          id: 3
+        }, {
+          title: 'پرچم',
+          id: 4
+        }, {
+          title: 'راه ابریشم',
+          id: 5
+        }, {
+          title: 'فنی',
+          id: 6
+        }, {
+          title: 'مشاوره خرید',
+          id: 7
+        }, {
+          title: 'حمایت مردمی',
+          id: 8
+        }, {
+          title: 'تفتان',
+          id: 9
+        }, {
+          title: 'آرش',
+          id: 10
+        }, {
+          title: 'تتا',
+          id: 11
+        }, {
+          title: 'سه آ',
+          id: 12
+        }, {
+          title: 'طرح حکمت',
+          id: 13
+        }
+      ],
+      status: [
+        {
+          title: 'پاسخ داده نشده',
+          id: 1
+        },
+        {
+          title: 'در حال بررسی',
+          id: 2
+        },
+        {
+          title: 'پاسخ داده شده',
+          id: 3
+        },
+        {
+          title: 'بسته شده',
+          id: 4
+        }
+      ],
       inputs: [
         { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', col: 'col-md-4', disable: true },
         { type: 'input', name: 'first_name', responseKey: 'ticket.user.first_name', label: 'نام', col: 'col-md-4', disable: true },
         { type: 'input', name: 'last_name', responseKey: 'ticket.user.last_name', label: 'نام خانوادگی', col: 'col-md-4', disable: true },
-        { type: 'select', name: 'priority', responseKey: 'ticket.priority.title', label: 'اولویت', col: 'col-md-4', disable: true },
-        { type: 'select', name: 'department', responseKey: 'ticket.department.title', label: 'گروه', col: 'col-md-4' },
-        { type: 'select', name: 'status', responseKey: 'ticket.status.title', label: 'وضعیت', col: 'col-md-4' },
+        { type: 'input', name: 'priority', responseKey: 'ticket.priority.title', label: 'اولویت', col: 'col-md-4', disable: true },
+        { type: 'select', name: 'department', options: [], optionLabel: 'title', optionValue: 'id', responseKey: 'ticket.department.id', label: 'گروه', col: 'col-md-4' },
+        { type: 'select', name: 'status', options: [], optionLabel: 'title', optionValue: 'id', responseKey: 'ticket.status.id', label: 'وضعیت', col: 'col-md-4' },
         { type: 'dateTime', name: 'created_at', responseKey: 'ticket.created_at', label: 'تاریخ ایجاد', col: 'col-md-4', disable: true },
         { type: 'input', name: 'national_code', responseKey: 'ticket.user.national_code', label: 'کد ملی', col: 'col-md-4', disable: true },
         { type: 'input', name: 'major', responseKey: 'ticket.user.major.name', label: 'رشته', col: 'col-md-4', disable: true },
         { type: 'dateTime', name: 'created_at', responseKey: 'ticket.updated_at', label: 'تاریخ بروز آوری:', col: 'col-md-4', disable: true },
         { type: 'hidden', name: 'id', responseKey: 'ticket.id', label: 'id' },
-        { type: 'hidden', name: 'department', responseKey: 'ticket.department.title', label: 'department' },
+        { type: 'hidden', name: 'department_title', responseKey: 'ticket.department.title' },
         { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', label: '' },
         { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', label: '' },
         { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', label: '' },
         { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', label: '' },
         { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets', label: '' },
+        { type: 'hidden', name: 'priority-id', responseKey: 'ticket.priority.id' },
+        { type: 'hidden', name: 'rate', responseKey: 'ticket.rate' },
         {
           type: 'entity',
           name: 'management',
@@ -326,6 +409,92 @@ export default {
     }
   },
   methods: {
+    // forceRerender () {
+    //   this.renderComponent = false
+    //   this.userMessageArray = this.searchForInputVal('messages')
+    //   this.$nextTick(() => {
+    //     this.renderComponent = true
+    //   })
+    // },
+    sendMessageText (data) {
+      this.sendMessage({
+        body: data.body,
+        isPrivate: data.isPrivate,
+        loading: data.loading
+      })
+    },
+
+    sendMessageImage (data) {
+      this.sendMessage({
+        body: data.caption,
+        isPrivate: data.isPrivate,
+        photo: this.createBlob(data.resultURL),
+        loading: data.loading
+      })
+    },
+
+    sendMessageVoice (data) {
+      this.sendMessage({
+        voice: data.voice,
+        isPrivate: data.isPrivate,
+        loading: data.loading
+
+      })
+    },
+    sendMessage (data) {
+      const formData = new FormData()
+
+      if (data.photo) {
+        formData.append('photo', data.photo, 'photo.jpeg')
+      }
+
+      if (data.body) {
+        formData.append('body', data.body.replace(/\r?\n/g, '<br/>'))
+      }
+
+      if (data.voice) {
+        formData.append('voice', data.voice, 'voice.ogg')
+      }
+
+      formData.append('ticket_id', this.searchForInputVal('id'))
+      this.postMessage(formData)
+    },
+    postMessage (formData) {
+      this.sendLoading = true
+      this.$axios.post(API_ADDRESS.ticket.show.ticketMessage, formData)
+        .then(res => {
+          console.log(res)
+          this.$refs.SendMessageInput.clearMessage()
+          this.$q.notify({
+            message: 'پیام شما با موفقیت ثبت شد',
+            type: 'positive'
+          })
+          this.sendLoading = false
+        })
+        .catch(error => {
+          this.sendLoading = false
+          console.log(error)
+        })
+    },
+    saveChanges () {
+      axios.put(API_ADDRESS.ticket.show.base + '/' + this.searchForInputVal('id'), {
+        department_id: this.searchForInputVal('department'),
+        id: this.searchForInputVal('id'),
+        priority_id: this.searchForInputVal('priority-id'),
+        status_id: this.searchForInputVal('status'),
+        title: this.searchForInputVal('title'),
+        user_id: this.searchForInputVal('userId')
+      })
+        .then((res) => {
+          this.$q.notify({
+            message: 'تغییرات با موفقیت اعمال شد.',
+            type: 'positive'
+          })
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
     makeDateShamsi (date, mode) {
       if (mode === 'time') {
         return moment(date, 'HH:mm:ss').format('HH:mm:ss')
@@ -364,6 +533,18 @@ export default {
     },
     openCloseLogdrawer () {
       this.logDrawer = this.logDrawer === false
+    },
+    sendTicketStatusNotice (ticketId) {
+      axios.post(API_ADDRESS.ticket.show.statusNotice(ticketId))
+        .then((res) => {
+          this.$q.notify({
+            message: res.data.message,
+            type: 'positive'
+          })
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     }
   },
   computed: {
@@ -381,6 +562,8 @@ export default {
   },
   created () {
     this.api += '/' + this.$route.params.id
+    this.inputs[4].options = this.departments
+    this.inputs[5].options = this.status
   }
 }
 </script>
