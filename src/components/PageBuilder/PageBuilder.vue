@@ -1,7 +1,8 @@
 <template>
-  <div class="page-builder"
-       :class="className"
-       :style="style"
+  <div
+    class="page-builder"
+    :class="className"
+    :style="style"
   >
     <page-builder-section
       v-for="(section, sectionIndex) in sections"
@@ -24,9 +25,7 @@ export default {
     PageBuilderSection
   },
 
-  methods: {
-
-  },
+  methods: {},
   props: {
     sections: {
       type: Array,
@@ -37,18 +36,15 @@ export default {
       default: () => {
         return {}
       }
-    },
+    }
   },
-  created () {
+  created() {
     this.defaultOptions = Object.assign(this.defaultOptions, this.options)
   },
-  data () {
-    return {
-    }
+  data() {
+    return {}
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

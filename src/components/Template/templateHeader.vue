@@ -1,8 +1,8 @@
 <template>
   <div
     class="drawer-btn col-1">
-<!--    :class="{'col-6': windowSize.x < 599}"-->
-<!--  >-->
+    <!--    :class="{'col-6': windowSize.x < 599}"-->
+    <!--  >-->
     <q-btn
       class="toolbar-button"
       icon="isax:menu-1"
@@ -15,8 +15,8 @@
   </div>
   <div
     class="right-side col-5">
-<!--    :class="{'col-6': windowSize.x > 1439, 'col-12': windowSize.x < 599}"-->
-<!--  >-->
+    <!--    :class="{'col-6': windowSize.x > 1439, 'col-12': windowSize.x < 599}"-->
+    <!--  >-->
     <div
       v-if="breadcrumbsVisibility"
     >
@@ -32,7 +32,7 @@
         gutter="sm"
       >
         <template v-slot:separator>
-          <q-icon name="isax:arrow-right-3 "/>
+          <q-icon name="isax:arrow-right-3 " />
         </template>
         <q-breadcrumbs-el
           v-for="(breadcrumb, index) in breadcrumbs.path"
@@ -57,7 +57,7 @@
   </div>
   <div
     class="left-side col-6">
-<!--    :class="{'col-6': windowSize.x < 599, 'col-6': windowSize.x > 1439}">-->
+    <!--    :class="{'col-6': windowSize.x < 599, 'col-6': windowSize.x > 1439}">-->
     <q-btn-dropdown
       class="toolbar-button"
       content-class="profile-menu"
@@ -69,7 +69,9 @@
       dense
       unelevated
     >
-      <q-badge color="red" rounded floating>3</q-badge>
+      <q-badge color="red"
+               rounded
+               floating>3</q-badge>
     </q-btn-dropdown>
     <q-btn-dropdown
       class="toolbar-button"
@@ -81,7 +83,20 @@
       dir="ltr"
       dense
       unelevated
-    />
+    >
+      <q-list unelevated>
+        <router-link   :to=" {name: 'User.Dashboard.purchases', params: {id: user.id}}">
+          <q-item v-close-popup>
+            <q-item-section side>
+              <q-icon name="mdi-cloud-download-outline" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>فیلم ها و جزوه های من</q-item-label>
+            </q-item-section>
+          </q-item>
+        </router-link>
+      </q-list>
+    </q-btn-dropdown>
   </div>
 </template>
 
@@ -90,12 +105,16 @@ import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'templateHeader',
-  data () {
-    return {}
+  data() {
+    return {
+      user: {}
+    }
   },
-  mounted () {
+  mounted() {
     this.$store.commit('AppLayout/updateBreadcrumbLoading', false)
     this.$store.commit('AppLayout/updateVisibilityBreadcrumb', true)
+    this.user = this.$store.getters['Auth/user']
+    console.log(this.user)
   },
   computed: {
     ...mapGetters('AppLayout', [
@@ -113,17 +132,16 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
-    toggleLeftDrawer () {
-
+    toggleLeftDrawer() {
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
-    hasRoute (route) {
+    hasRoute(route) {
       if (!route) {
         return
       }
       return !!(route.name || route.path)
     },
-    getRoute (route) {
+    getRoute(route) {
       if (!this.hasRoute(route)) {
         return { name: null }
       }
