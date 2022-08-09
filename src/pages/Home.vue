@@ -1,8 +1,9 @@
 <template>
   <div class="home-page">
-    <q-btn @click="removeAccessToken">test</q-btn>
-    <page-builder :sections="sections"
-                  :options="pageConfig" />
+    <page-builder
+      :sections="sections"
+      :options="pageConfig"
+    />
   </div>
 </template>
 
@@ -14,7 +15,7 @@ import GetWidgetsData from 'assets/js/GetWidgetsData'
 export default {
   name: 'BaseComponent',
   components: { PageBuilder },
-  data () {
+  data() {
     return {
       pageConfig: {
         padding: {
@@ -34,7 +35,8 @@ export default {
                         data: API_ADDRESS.pages.home,
                         options: {
                           to: 1,
-                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                          getData: (url) =>
+                            GetWidgetsData.getData(url)
                         }
                       },
                       {
@@ -106,7 +108,8 @@ export default {
                         data: API_ADDRESS.pages.home,
                         options: {
                           from: 1,
-                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                          getData: (url) =>
+                            GetWidgetsData.getData(url)
                         }
                       }
                     ]
@@ -126,20 +129,17 @@ export default {
       ]
     }
   },
-  methods: {
-    removeAccessToken() {
-      this.$store.commit('Auth/updateAccessToken', null)
-    }
-  }
+  methods: {}
 }
 </script>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
 .home-page {
   &:deep(.banner-header-0) {
     display: none;
   }
-
 }
-
 </style>

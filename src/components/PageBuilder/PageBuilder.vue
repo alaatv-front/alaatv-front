@@ -10,6 +10,7 @@
       :data="section.data"
       :options="section.options"
       :containerFullHeight="containerFullHeight"
+      :get-data="getData"
     />
   </div>
 </template>
@@ -17,6 +18,7 @@
 <script>
 import PageBuilderSection from 'src/components/PageBuilder/PageBuilderSection.vue'
 import { mixinWidget } from 'src/mixin/Mixins'
+import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
   name: 'PageBuilder',
@@ -24,8 +26,6 @@ export default {
   components: {
     PageBuilderSection
   },
-
-  methods: {},
   props: {
     sections: {
       type: Array,
@@ -38,12 +38,18 @@ export default {
       }
     }
   },
+  data() {
+    return {}
+  },
   created() {
     this.defaultOptions = Object.assign(this.defaultOptions, this.options)
   },
-  data() {
-    return {}
-  }
+
+  methods: {
+    getData (url) {
+      GetWidgetsData.getData(url)
+    }
+  },
 }
 </script>
 

@@ -3,11 +3,13 @@
       <div class="page-builder-row row"
            :id="defaultOptions.id"
       >
-        <page-builder-col v-for="(col, colIndex) in cols"
-                          :key="colIndex"
-                          :widgets="col.widgets"
-                          :options="col.options"
-                          :containerFullHeight="containerFullHeight"
+        <page-builder-col
+          v-for="(col, colIndex) in cols"
+          :key="colIndex"
+          :widgets="col.widgets"
+          :options="col.options"
+          :containerFullHeight="containerFullHeight"
+          :get-data="getData"
         />
       </div>
     </div>
@@ -30,7 +32,10 @@ export default {
         return {}
       }
     },
-
+    getData: {
+      type: Function,
+      default: () => {}
+    }
   },
   data () {
     return {
