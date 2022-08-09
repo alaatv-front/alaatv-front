@@ -25,7 +25,7 @@
                           name: 'ContentVideoPlayer',
                           data: this.$route.params.id,
                           options: {
-                            getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                            getData: (url) => GetWidgetsData.getData(url)
                           }
                         }
                       ],
@@ -39,7 +39,7 @@
                           name: 'ContentVideoList',
                           data: this.$route.params.id,
                           options: {
-                            getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                            getData: (url) => GetWidgetsData.getData(url)
                           }
                         }
                       ],
@@ -63,7 +63,7 @@
                           name: 'ContentShowInfo',
                           data: this.$route.params.id,
                           options: {
-                            getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                            getData: (url) => GetWidgetsData.getData(url)
                           }
                         }
                       ],
@@ -77,7 +77,7 @@
                           name: 'ContentDownloadSection',
                           // data: this.$route.params.id,
                           options: {
-                            getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                            getData: (url) => GetWidgetsData.getData(url)
                           }
                         }
                       ],
