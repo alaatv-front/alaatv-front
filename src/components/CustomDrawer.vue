@@ -5,18 +5,21 @@
          :class="{ 'is-open': isOpen, 'is-visible': isVisible }">
       <div
         class="drawer__overlay"
-        :style="{ transitionDuration: `${speed}ms` }"
+        :style="{
+          maxWidth: maxWidth,
+          transitionDuration: `${speed}ms`
+        }"
       ></div>
       <div
         class="drawer__content"
         :class="side==='right' ? 'right-side' : 'left-side'"
-        v-click-away="closeDrawer"
         :style="{
           maxWidth: maxWidth,
           transitionDuration: `${speed}ms`,
           backgroundColor: backgroundColor,
         }"
       >
+        <!--v-click-away="closeDrawer"-->
         <slot></slot>
       </div>
     </div>
