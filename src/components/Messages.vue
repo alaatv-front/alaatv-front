@@ -99,9 +99,10 @@
     </q-card-section>
   </q-card>
 </template>
-
 <script>
 import moment from 'moment-jalaali'
+import axios from 'axios'
+import API_ADDRESS from 'src/api/Addresses'
 import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
 
 export default {
@@ -112,7 +113,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default: null
+      default: {}
     }
   },
   data () {
@@ -148,7 +149,15 @@ export default {
       this.showVoicePlayerIsPlaying = false
     },
     sendReport () {
-      console.log('resport sent!')
+      axios.post(API_ADDRESS.ticket.show.reportMessage(this.data.user.id), {
+        report_description: this.userReportDescription
+      })
+        .then((res) => {
+          this.$q.notify({
+            message: res.data.message,
+            type: 'positive'
+          })
+        })
     }
   },
   computed: {
@@ -162,6 +171,8 @@ export default {
         return 'rtl'
       }
     }
+  },
+  watch: {
   }
 }
 </script>

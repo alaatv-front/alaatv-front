@@ -84,15 +84,17 @@ const API_ADDRESS = {
     create: {
       base: apiV2Server + '/ticket'
     },
-    edit: {
-      base: apiV2Server + '/ticket'
-    },
     index: {
       base: apiV2Server + '/ticket'
     },
     show: {
-      base: apiV2Server + '/ticket'
-    }
+      base: apiV2Server + '/ticket',
+      statusNotice: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/sendTicketStatusNotice',
+      batchExtend: apiV2Server + '/orderproduct/batchExtend',
+      ticketMessage: apiV2Server + '/ticketMessage',
+      reportMessage: (ticketId) => apiV2Server + '/ticketMessage/' + ticketId + '/report'
+    },
+    ticketRate: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/rate'
   },
   attributeManagement: {
     create: {
