@@ -3,7 +3,7 @@
        :key="item"
        style="display: flex">
     <div class="log-date"
-         :style="{color : mainColor(item), borderLeft: '3px ' + 'solid ' + mainColor(item)}">
+         :style="{color : setMainColor(item), borderLeft: '3px ' + 'solid ' + setMainColor(item)}">
       {{ convertToShamsi(item.created_at, 'date') }}
     </div>
     <div class="log-info">
@@ -44,13 +44,10 @@ export default {
     }
   },
   data () {
-    return {
-    }
-  },
-  created () {
+    return {}
   },
   methods: {
-    mainColor (obj) {
+    setMainColor (obj) {
       if (obj.action === 'تغییر دپارتمان تیکت') {
         return '#ffb822'
       } else if (obj.action === 'ثبت پیام برای تیکت') {
@@ -61,8 +58,6 @@ export default {
         return '#34bfa3'
       }
     }
-  },
-  computed: {
   }
 }
 </script>

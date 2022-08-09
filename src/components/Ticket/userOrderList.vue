@@ -271,7 +271,9 @@ export default {
   props: {
     userOrdersList: {
       type: Array,
-      default: []
+      default() {
+        return []
+      }
     },
     loading: {
       type: Boolean,
@@ -286,6 +288,7 @@ export default {
     }
   },
   methods: {
+    // ToDo : refactor needed , move this to mixin
     toman (key, suffix) {
       let string = key.toLocaleString('fa')
       if (typeof suffix === 'undefined' || suffix) {
@@ -301,6 +304,7 @@ export default {
       this.batchExtendPostRequest()
     },
     extendAllOrders (orderProducts) {
+      // ToDo : delete logs
       console.log(orderProducts)
       orderProducts.forEach((item) => {
         this.extendProductArray.push(item.id)

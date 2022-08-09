@@ -123,7 +123,9 @@ export default {
   props: {
     data: {
       type: Object,
-      default: {}
+      default() {
+        return {}
+      }
     },
     isUserAdmin: {
       type: Boolean,
@@ -133,7 +135,7 @@ export default {
   data () {
     return {
       showVoicePlayerIsPlaying: false,
-      audioPlayerLasrPlayedTime: 0,
+      audioPlayerLastPlayedTime: 0,
       userReportDescription: ''
     }
   },
@@ -142,12 +144,12 @@ export default {
       const audioPlayer = this.$refs.waveform.$el.children[0].children[0],
         that = this
       audioPlayer.src = this.data.files.voice
-      audioPlayer.currentTime = this.audioPlayerLasrPlayedTime
+      audioPlayer.currentTime = this.audioPlayerLastPlayedTime
       audioPlayer.onended = function () {
         // console.log('audioPlayer.onended');
         audioPlayer.pause()
         audioPlayer.currentTime = 0
-        that.audioPlayerLasrPlayedTime = 0
+        that.audioPlayerLastPlayedTime = 0
         that.showVoicePlayerIsPlaying = false
       }
       audioPlayer.play()
@@ -156,7 +158,7 @@ export default {
     pauseRecordedVoice () {
       const audioPlayer = this.$refs.waveform.$el.children[0].children[0]
       audioPlayer.pause()
-      this.audioPlayerLasrPlayedTime = audioPlayer.currentTime
+      this.audioPlayerLastPlayedTime = audioPlayer.currentTime
       this.showVoicePlayerIsPlaying = false
     },
     sendReport () {

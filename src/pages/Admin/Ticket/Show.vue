@@ -89,30 +89,10 @@
         @sendImage="sendMessageImage"
         @sendVoice="sendMessageVoice"
       />
-      <q-drawer
-        v-model="orderDrawer"
-        side="right"
-        :width="1016"
-        overlay
-        bordered
-        class="z-top"
-      >
-        <q-scroll-area class="fit">
-          <q-btn icon="mdi-close"
-                 class="close-btn"
-                 unelevated
-                 @click="orderDrawer = false" />
-          <user-order-list :user-orders-list="userOrderData?.list"
-                           :loading="orderLoading" />
-        </q-scroll-area>
-      </q-drawer>
-      <q-drawer
-        v-model="logDrawer"
-        :width="310"
-        overlay
-        bordered
-        elevated
-        class="z-top"
+      <drawer
+        :is-open="logDrawer"
+        max-width="310px"
+        side="left"
       >
         <q-scroll-area class="fit">
           <q-btn icon="mdi-close"
@@ -137,6 +117,7 @@
             </q-tabs>
           </div>
           <q-tab-panels v-model="panel"
+                        class="tab-panels"
                         animated>
             <q-tab-panel name="events">
               <log-list :log-array="searchForInputVal('logs')" />
@@ -158,27 +139,41 @@
             </q-tab-panel>
           </q-tab-panels>
         </q-scroll-area>
-      </q-drawer>
+      </drawer>
+      <drawer
+        :is-open="orderDrawer"
+        max-width="1016px"
+      >
+        <q-scroll-area class="fit">
+          <q-btn icon="mdi-close"
+                 class="close-btn"
+                 unelevated
+                 @click="orderDrawer = false" />
+          <user-order-list :user-orders-list="userOrderData?.list"
+                           :loading="orderLoading" />
+        </q-scroll-area>
+      </drawer>
     </div>
   </div>
 </template>
 
 <script>
 import { EntityEdit, EntityAction } from 'quasar-crud'
-import Messages from 'src/components/Messages'
-import TicketRate from 'src/components/TicketRate'
-import LogList from 'components/LogList'
-import UserOrderList from 'components/userOrderList'
+import Messages from 'components/Ticket/Messages'
+import TicketRate from 'components/Ticket/TicketRate'
+import LogList from 'components/Ticket/LogList'
+import Drawer from 'components/CustomDrawer'
+import UserOrderList from 'components/Ticket/userOrderList'
 import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
 import axios from 'axios'
-import SendMessageInput from 'components/SendMessageInput'
+import SendMessageInput from 'components/Ticket/SendMessageInput'
 import { mixinDateOptions } from 'src/mixin/Mixins'
 
 export default {
   name: 'Show',
   mixins: [mixinDateOptions],
-  components: { EntityEdit, EntityAction, Messages, LogList, UserOrderList, TicketRate, SendMessageInput },
+  components: { EntityEdit, EntityAction, Messages, LogList, UserOrderList, TicketRate, SendMessageInput, Drawer },
   data () {
     return {
       isUserAdmin: false,
@@ -546,10 +541,6 @@ export default {
         })
     }
   },
-  computed: {
-  },
-  watch: {
-  },
   created () {
     this.initPageData()
   },
@@ -560,6 +551,9 @@ export default {
 </script>
 
 <style scoped>
+.tab-panels{
+  background: rgb(250, 250, 250);
+}
 .close-btn {
   width: 100%;
   border-radius: 0;

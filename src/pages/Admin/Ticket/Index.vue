@@ -342,15 +342,10 @@ export default {
   },
   methods: {
     rateImg (id) {
-      if (id === 1) {
-        return 'https://nodes.alaatv.com/upload/ticket-rate-1-on.png'
-      } else if (id === 2) {
-        return 'https://nodes.alaatv.com/upload/ticket-rate-2-on.png'
-      } else if (id === 3) {
-        return 'https://nodes.alaatv.com/upload/ticket-rate-3-on.png'
-      } else {
-        return null
+      if (id) {
+        return 'https://nodes.alaatv.com/upload/ticket-rate-' + id + '-on.png'
       }
+      return null
     },
     checkStatusColor (id) {
       if (id === 1) {

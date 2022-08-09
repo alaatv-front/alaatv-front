@@ -1,3 +1,4 @@
+<!--ToDo : refactor needed-->
 <template>
   <div class="row">
     <div class="col-8">
@@ -56,6 +57,9 @@ export default {
   data () {
     return {
       selectedId: 0,
+      baseImg: {
+        url: 'https://nodes.alaatv.com/upload/ticket-rate-1-off.png'
+      },
       firstImg: {
         id: 3,
         url: 'https://nodes.alaatv.com/upload/ticket-rate-3-off.png'
@@ -128,6 +132,13 @@ export default {
           this.thirdImg.url = this.thirdImgOn
         }
       }, 50)
+    }
+  },
+  computed: {
+    getImg () {
+      return (id) => {
+        return 'https://nodes.alaatv.com/upload/ticket-rate-' + id + '-off.png'
+      }
     }
   }
 }
