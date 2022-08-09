@@ -4,7 +4,7 @@
        style="display: flex">
     <div class="log-date"
          :style="{color : mainColor(item), borderLeft: '3px ' + 'solid ' + mainColor(item)}">
-      {{ this.makeDateShamsi(item.created_at, 'date') }}
+      {{ convertToShamsi(item.created_at, 'date') }}
     </div>
     <div class="log-info">
       <div>
@@ -24,7 +24,7 @@
           </span>
         </div>
         <div class="log-time">
-          {{ this.makeDateShamsi(item.created_at, 'time') }}
+          {{ convertToShamsi(item.created_at, 'time') }}
         </div>
       </div>
     </div>
@@ -32,10 +32,11 @@
 </template>
 
 <script>
-import moment from 'moment-jalaali'
+import { mixinDateOptions } from 'src/mixin/Mixins'
 
 export default {
   name: 'logList',
+  mixins: [mixinDateOptions],
   props: {
     logArray: {
       type: Array,
@@ -49,13 +50,6 @@ export default {
   created () {
   },
   methods: {
-    makeDateShamsi (date, mode) {
-      if (mode === 'time') {
-        return moment(date, 'HH:mm:ss').format('HH:mm:ss')
-      } else {
-        return moment(date, 'YYYY-M-D').format('jYYYY/jMM/jDD')
-      }
-    },
     mainColor (obj) {
       if (obj.action === 'تغییر دپارتمان تیکت') {
         return '#ffb822'

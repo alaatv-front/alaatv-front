@@ -261,12 +261,13 @@
 </template>
 
 <script>
-import moment from 'moment-jalaali'
 import axios from 'axios'
 import API_ADDRESS from 'src/api/Addresses'
+import { mixinDateOptions } from 'src/mixin/Mixins'
 
 export default {
   name: 'userOrderList',
+  mixins: [mixinDateOptions],
   props: {
     userOrdersList: {
       type: Array,
@@ -292,11 +293,8 @@ export default {
       }
       return string
     },
-    makeDateShamsi (date) {
-      return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
-    },
     cartItemLabel (order) {
-      return '#' + order.id + ' - ' + this.makeDateShamsi(order.inputData.created_at) + ' - (تعداد محصولات: ' + order.inputData.orderproducts.length + ' ) - ( پرداخت شده: ' + order.inputData.paid_price + ' تومان - مبلغ کل سفارش: ' + order.inputData.price + ' تومان ) - ( ' + order.inputData.paymentstatus.name + ' )'
+      return '#' + order.id + ' - ' + this.convertToShamsi(order.inputData.created_at) + ' - (تعداد محصولات: ' + order.inputData.orderproducts.length + ' ) - ( پرداخت شده: ' + order.inputData.paid_price + ' تومان - مبلغ کل سفارش: ' + order.inputData.price + ' تومان ) - ( ' + order.inputData.paymentstatus.name + ' )'
     },
     extendAnOrder (id) {
       this.extendProductArray = [id]

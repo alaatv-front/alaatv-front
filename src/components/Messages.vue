@@ -1,5 +1,6 @@
 <template>
-  <q-card style="margin-top: 50px;">
+  <q-card style="margin-top: 50px;"
+          :class="data.is_private ? 'private-message-card' : ''">
     <div :dir="ltrOrRtl">
       <div class="user-img">
         <q-img width="85px"
@@ -33,6 +34,13 @@
                 name="isax:user"
                 style="margin-right: 5px; margin-top: 2px" />
       </div>
+      <div class="q-ml-xl"
+           v-if="data.is_private">
+        <q-icon name="isax:info-circle"
+                size="sm"
+                class="q-mb-xs"
+                color="grey" />
+        این پیام به صورت خصوصی میباشد</div>
     </q-card-section>
     <q-card-section class="message-body">
       <div class="body">
@@ -73,7 +81,7 @@
         <q-chip color="blue"
                 style="color: #FFFFFF; height: 30px;"
                 square>
-          {{ makeDateShamsi(data.created_at) }}
+          {{ convertToShamsi(data.created_at) }}
         </q-chip>
         <q-expansion-item
           v-if="!isUserCustomer"
@@ -88,6 +96,7 @@
             </q-card-section>
             <q-card-actions>
               <q-btn flat
+                     v-if="!isUserAdmin"
                      @click="sendReport"
                      color="blue">
                 ارسال گزارش
@@ -100,13 +109,14 @@
   </q-card>
 </template>
 <script>
-import moment from 'moment-jalaali'
+import { mixinDateOptions } from 'src/mixin/Mixins'
 import axios from 'axios'
 import API_ADDRESS from 'src/api/Addresses'
 import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
 
 export default {
   name: 'Messages',
+  mixins: [mixinDateOptions],
   components: {
     AvWaveform
   },
@@ -114,6 +124,10 @@ export default {
     data: {
       type: Object,
       default: {}
+    },
+    isUserAdmin: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -124,9 +138,6 @@ export default {
     }
   },
   methods: {
-    makeDateShamsi (date) {
-      return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
-    },
     playRecordedVoice () {
       const audioPlayer = this.$refs.waveform.$el.children[0].children[0],
         that = this
@@ -178,6 +189,9 @@ export default {
 </script>
 
 <style scoped>
+.private-message-card{
+  background: #fff9f0;
+}
 .av-waveform {
   width: calc( 100% - 76px);
   padding-top: 9px;
