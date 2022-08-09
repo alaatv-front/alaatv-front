@@ -11,20 +11,47 @@
       </div>
       <div class="leftSide">
         <q-btn
+          @click="tabChanged('marker')"
           flat
           class=""
           icon="isax:element-plus"
-        />
+        >
+          <q-tooltip
+            anchor="top middle"
+            self="bottom middle"
+            :offset="[10, 10]"
+          >
+            Marker
+          </q-tooltip>
+        </q-btn>
         <q-btn
+          @click="tabChanged('polyline')"
           flat
           class=""
           icon="isax:copy"
-        />
+        >
+          <q-tooltip
+            anchor="top middle"
+            self="bottom middle"
+            :offset="[10, 10]"
+          >
+            Polyline
+          </q-tooltip>
+        </q-btn>
         <q-btn
           flat
           class=""
           icon="isax:save-remove"
-        />
+        >
+          <q-tooltip
+            anchor="top middle"
+            self="bottom middle"
+            :offset="[10, 10]"
+          >
+            Map Info
+          </q-tooltip>
+
+        </q-btn>
       </div>
     </div>
     <q-separator
@@ -32,35 +59,78 @@
       inset />
 
     <q-btn
+      v-if="toolTab === 'marker'"
       style="width: 100%"
       icon="isax:cloud-plus"
       class="bg-primary"
-    />
+    >
+      <q-tooltip
+        anchor="top middle"
+        self="bottom middle"
+        :offset="[10, 10]"
+      >
+        Mark On Map
+      </q-tooltip>
+    </q-btn>
 
-    <div class="toolBoxFormBuilder">
+    <div
+      v-if="toolTab === 'marker'"
+      class="MarkerFormBuilder"
+    >
       <entity-crud-form-builder
-        v-model:value="inputs"
+        v-model:value="markerInputs"
         ref="EntityCrudFormBuilder"
       />
+      <div
+        v-if="toolTab === 'polyline' || toolTab === 'marker'"
+        class="toolBoxBtns">
+        <q-btn
+          class="btns btn-success"
+          icon="isax:element-plus"
+        />
+        <q-btn
+          class="btns btn-info"
+          icon="isax:copy"
+        />
+        <q-btn
+          class="btns btn-info"
+          icon="isax:save-remove"
+        />
+        <q-btn
+          class="btns btn-danger"
+          icon="isax:trash"
+        />
+      </div>
     </div>
 
-    <div class="toolBoxBtns">
-      <q-btn
-        class="btns btn-success"
-        icon="isax:element-plus"
+    <div
+      v-if="toolTab === 'polyline'"
+      class="PolylineFormBuilder"
+    >
+      <entity-crud-form-builder
+        v-model:value="polylineInputs"
+        ref="EntityCrudFormBuilder"
       />
-      <q-btn
-        class="btns btn-info"
-        icon="isax:copy"
-      />
-      <q-btn
-        class="btns btn-info"
-        icon="isax:save-remove"
-      />
-      <q-btn
-        class="btns btn-danger"
-        icon="isax:trash"
-      />
+      <div
+        v-if="toolTab === 'polyline' || toolTab === 'marker'"
+        class="toolBoxBtns">
+        <q-btn
+          class="btns bg-orange"
+          icon="isax:refresh"
+        />
+        <q-btn
+          class="btns btn-info"
+          icon="isax:copy"
+        />
+        <q-btn
+          class="btns btn-info"
+          icon="isax:save-remove"
+        />
+        <q-btn
+          class="btns btn-danger"
+          icon="isax:trash"
+        />
+      </div>
     </div>
 
   </div>
@@ -71,9 +141,11 @@
 import { EntityCrudFormBuilder } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
 
+import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
+
 export default {
   name: 'AdminToolBox',
-  components: { EntityCrudFormBuilder },
+  components: { EntityCrudFormBuilder, activityType },
   data () {
     return {
       expanded: true,
@@ -82,7 +154,171 @@ export default {
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Exam.Show',
       indexRouteName: 'Admin.Exam.Index',
-      inputs: [
+      toolTab: null,
+      markerInputs: [
+        {
+          type: 'formBuilder',
+          name: 'formBuilderCol',
+          col: 'col-md-6',
+          value: [
+            {
+              type: 'input',
+              col: 'col-md-12',
+              label: 'تگ :'
+            }
+          ]
+        },
+        {
+          type: 'formBuilder',
+          name: 'formBuilderCol',
+          col: 'col-md-6',
+          value: [
+            {
+              type: 'checkbox',
+              col: 'col-md-12',
+              label: 'فعال',
+              value: false
+            },
+            {
+              type: 'optionGroupCheckbox',
+              name: 'enable',
+              col: 'col-md-12',
+              multiple: false,
+              options: [{
+                label: 'هیچکدام',
+                value: 0
+              }, {
+                label: 'محصول',
+                value: 1
+              }, {
+                label: 'دسته محتوا',
+                value: 2
+              }, {
+                label: ' محتوا',
+                value: 3
+              }],
+              value: [0]
+            }
+
+          ]
+        },
+        {
+          type: 'separator',
+          col: 'col-md-12'
+        },
+        {
+          type: activityType,
+          props: { name: 'ali' },
+          name: 'ali',
+          value: 123,
+          label: 'شناسه',
+          col: 'col-md-6'
+        },
+        {
+          type: 'RangeSlider',
+          col: 'col-md-6',
+          label: 'میزان زوم',
+          min: 0,
+          max: 11,
+          value: {
+            min: 3.1,
+            max: 11
+          }
+        },
+        {
+          type: 'input',
+          name: 'link',
+          label: 'لینک',
+          col: 'col-md-6'
+        },
+        {
+          type: 'hidden',
+          name: 'hidden',
+          col: 'col-md-6'
+        },
+        {
+          type: 'separator',
+          col: 'col-md-12'
+        },
+        {
+          type: 'File',
+          col: 'col-md-12',
+          label: 'فایل خود را در اینجا قرار دهید و یا برای انتخاب فایل اینجا کلیک کنید'
+        },
+        {
+          type: 'input',
+          name: 'link',
+          label: 'متن بالای آیکن :',
+          col: 'col-md-6'
+        },
+        {
+          type: 'RangeSlider',
+          name: 'TextSize',
+          col: 'col-md-6',
+          label: 'اندازه متن بالای آیکن',
+          min: 0,
+          max: 50,
+          value: {
+            min: 0,
+            max: 0
+          }
+        },
+        {
+          type: 'hidden',
+          name: 'space',
+          col: 'col-md-6'
+        },
+        {
+          type: 'RangeSlider',
+          name: 'StrokeSize',
+          col: 'col-md-6',
+          label: 'ضخامت stroke',
+          min: 0,
+          max: 50,
+          value: {
+            min: 0,
+            max: 0
+          }
+        },
+        {
+          type: 'Color',
+          label: 'رنگ متن:',
+          name: 'TextColor',
+          col: 'col-md-6'
+        },
+        {
+          type: 'Color',
+          label: 'رنگ stroke:',
+          name: 'StrokeColor',
+          col: 'col-md-6'
+        },
+        {
+          type: 'RangeSlider',
+          name: 'StrokeSize',
+          col: 'col-md-6',
+          label: 'اندازه آیکن',
+          min: 0,
+          max: 200,
+          value: {
+            min: 0,
+            max: 70
+          }
+        },
+        {
+          type: 'RangeSlider',
+          name: 'IconLocation',
+          col: 'col-md-6',
+          label: 'موقعیت آیکن نسبت به مختصات انتخاب شده',
+          min: 0,
+          max: 200,
+          value: {
+            min: 0,
+            max: 0
+          }
+        }
+
+      ],
+      polylineInputs: [
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -190,82 +426,73 @@ export default {
           col: 'col-md-12'
         },
         {
-          type: 'File',
-          col: 'col-md-12',
-          label: 'فایل خود را در اینجا قرار دهید و یا برای انتخاب فایل اینجا کلیک کنید'
-        },
-        {
           type: 'input',
-          name: 'link',
-          label: 'متن بالای آیکن :',
-          col: 'col-md-6'
+          name: 'LineType',
+          label: 'نوع خط :',
+          col: 'col-md-12'
         },
         {
           type: 'RangeSlider',
-          name: 'TextSize',
+          name: 'LineThickness',
           col: 'col-md-6',
-          label: 'اندازه متن بالای آیکن',
+          label: 'ضخامت خط',
+          min: 0,
+          max: 50,
+          value: {
+            min: 0,
+            max: 4
+          }
+        },
+        {
+          type: 'RangeSlider',
+          name: 'LineStart',
+          col: 'col-md-6',
+          label: 'شروع الگوی خط',
           min: 0,
           max: 50,
           value: {
             min: 0,
             max: 0
           }
+        },
+        {
+          type: 'Color',
+          label: 'رنگ خط:',
+          name: 'TextColor',
+          col: 'col-md-12'
+        },
+        {
+          type: 'optionGroupCheckbox',
+          name: 'LineType',
+          col: 'col-md-6',
+          multiple: false,
+          label: 'نوع حرکت خط :',
+          options: [
+            {
+              label: 'بدون حرکت',
+              value: 0
+            }, {
+              label: 'متحرک',
+              value: 1
+            }, {
+              label: ' حرکت معکوس',
+              value: 2
+            }
+          ],
+          value: 0
         },
         {
           type: 'hidden',
-          name: 'space',
-          col: 'col-md-6'
-        },
-        {
-          type: 'RangeSlider',
-          name: 'StrokeSize',
+          name: 'LineSpeed',
           col: 'col-md-6',
-          label: 'ضخامت stroke',
+          label: 'سرعت حرکت',
           min: 0,
           max: 50,
-          value: {
-            min: 0,
-            max: 0
-          }
-        },
-        {
-          type: 'Color',
-          label: 'رنگ متن:',
-          name: 'TextColor',
-          col: 'col-md-6'
-        },
-        {
-          type: 'Color',
-          label: 'رنگ stroke:',
-          name: 'StrokeColor',
-          col: 'col-md-6'
-        },
-        {
-          type: 'RangeSlider',
-          name: 'StrokeSize',
-          col: 'col-md-6',
-          label: 'اندازه آیکن',
-          min: 0,
-          max: 200,
-          value: {
-            min: 0,
-            max: 70
-          }
-        },
-        {
-          type: 'RangeSlider',
-          name: 'StrokeSize',
-          col: 'col-md-6',
-          label: 'موقعیت آیکن نسبت به مختصات انتخاب شده',
-          min: 0,
-          max: 200,
           value: {
             min: 0,
             max: 0
           }
         }
-
       ],
       categoryOptions: [
         {
@@ -285,6 +512,31 @@ export default {
         time: 0
       }
     }
+  },
+  watch: {
+    polylineInputs: {
+      handler (newValue) {
+        if (newValue[12].value > 0) {
+          newValue[13].type = 'RangeSlider'
+        }
+        if (newValue[12].value === 0) {
+          newValue[13].type = 'hidden'
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    getMarkerInputsValue (inputName) {
+      return this.markerInputs.find(input => input.name === inputName).value
+    },
+    getPolylineValue (inputName) {
+      return this.polylineInputs.find(input => input.name === inputName).value
+    },
+    tabChanged(tabName) {
+      this.toolTab = tabName
+      this.$emit('tab_changed', tabName)
+    }
   }
 }
 </script>
@@ -293,6 +545,7 @@ export default {
 
 <style scoped lang="scss">
 .adminToolBox {
+    width: 1000px;
   .toolBoxHeader {
     display: flex;
     justify-content: space-between;
@@ -307,32 +560,51 @@ export default {
     }
   }
 
-  .toolBoxFormBuilder {
-    display: flex;
-    align-items: center;
-    width: 900px;
-  }
+  .MarkerFormBuilder {
+    .toolBoxBtns {
+      margin-top: 10px;
 
-  .toolBoxBtns {
-    margin-top: 10px;
+      .btns {
+        //border-radius: 0;
+        width: 100%;
+      }
 
-    .btns {
-      //border-radius: 0;
-      width: 100%;
-    }
+      .btns.btn-success {
+        background-color: green;
+      }
 
-    .btns.btn-success {
-      background-color: green;
-    }
+      .btns.btn-info {
+        background-color: blue;
+      }
 
-    .btns.btn-info {
-      background-color: blue;
-    }
-
-    .btns.btn-danger {
-      background-color: red;
+      .btns.btn-danger {
+        background-color: red;
+      }
     }
   }
+  .PolylineFormBuilder {
+    .toolBoxBtns {
+      margin-top: 10px;
+
+      .btns {
+        //border-radius: 0;
+        width: 100%;
+      }
+
+      .btns.btn-success {
+        background-color: green;
+      }
+
+      .btns.btn-info {
+        background-color: blue;
+      }
+
+      .btns.btn-danger {
+        background-color: red;
+      }
+    }
+  }
+
 }
 
 </style>
