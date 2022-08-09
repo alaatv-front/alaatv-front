@@ -1,8 +1,6 @@
 <template>
-  <div :class="[
-    (options.col) ? options.col : 'col',
-    (options.alignmentSelf) ? options.alignmentSelf : '',
-  ]">
+
+  <div class="page-builder-col col" :class="className" :style="style">
     <template v-for="(widget, widgetIndex) in widgets"
               :key="widgetIndex">
       <q-intersection v-if="widget.options && widget.options.intersection"
@@ -42,12 +40,19 @@ export default {
         return {}
       }
     },
-    containerFullHeight:{}
+
   },
   data () {
     return {}
   },
-
+  computed:{
+    // colClasses() {
+    //   return [
+    //     (this.options.col) ? this.options.col : 'col',
+    //     (this.options.alignmentSelf) ? this.options.alignmentSelf : '',
+    //   ]
+    // }
+  }
 }
 </script>
 

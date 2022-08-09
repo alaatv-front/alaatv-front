@@ -1,5 +1,4 @@
 import { auth, isLandingPage } from './middleware/middleware'
-// import Login from '../pages/Auth/Login.vue'
 import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
@@ -12,9 +11,24 @@ const routes = [
         component: () => import('pages/Home.vue')
       },
       {
+        path: 'ticket',
+        name: 'Admin.Ticket.Index',
+        component: () => import('pages/Admin/Ticket/Index.vue')
+      },
+      {
+        path: 'ticket/:id',
+        name: 'Admin.Ticket.Show',
+        component: () => import('pages/Admin/Ticket/Show.vue')
+      },
+      {
+        path: 'ticket/Create',
+        name: 'Admin.Ticket.Create',
+        component: () => import('pages/Admin/Ticket/Create.vue')
+      },
+      {
         path: 'map',
         name: 'MapPage',
-        component: () => import('pages/User/Map.vue')
+        component: () => import('src/components/Widgets/Map/Map')
       },
       {
         path: 'shop',
@@ -22,12 +36,32 @@ const routes = [
         component: () => import('pages/User/Shop')
       },
       {
+        path: 'checkout',
+        name: 'User.Checkout',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            path: 'review',
+            name: 'User.Checkout.Review',
+            component: () => import('pages/User/CheckoutReview/Show.vue')
+          }
+        ]
+      },
+      {
         path: 'c',
         name: 'User.Content',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') },
-          { name: 'User.Content.Search', path: '', component: () => import('pages/User/Content/Search.vue') }
+          {
+            name: 'User.Content.Show',
+            path: ':id',
+            component: () => import('pages/User/Content/Show.vue')
+          },
+          {
+            name: 'User.Content.Search',
+            path: '',
+            component: () => import('pages/User/Content/Search.vue')
+          }
         ]
       },
       {
@@ -35,7 +69,11 @@ const routes = [
         name: 'User.Product',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
+          {
+            name: 'User.Product.Show',
+            path: ':id',
+            component: () => import('pages/User/Product/Show.vue')
+          }
         ]
       },
       {
@@ -43,7 +81,11 @@ const routes = [
         name: 'User.Set',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          { name: 'User.Set.Show', path: ':id', component: () => import('pages/User/Set/Show.vue') }
+          {
+            name: 'User.Set.Show',
+            path: ':id',
+            component: () => import('pages/User/Set/Show.vue')
+          }
         ]
       },
       {
@@ -78,11 +120,21 @@ const routes = [
           middlewares: [auth]
         },
         children: [
-          { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
-          { name: 'Admin.StudyPlan', path: '/studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
+          {
+            name: 'Admin.Settings',
+            path: 'settings',
+            component: () => import('pages/Admin/Settings'),
+            breadcrumbs: { title: 'تنظیمات' }
+          },
+          {
+            name: 'Admin.StudyPlan',
+            path: 'studyPlan',
+            component: () => import('pages/Admin/StudyPlan/StudyPlan')
+          },
           ...EntityCrudRoutes
         ]
       },
+
       {
         path: '/debug',
         name: 'debug',
@@ -90,6 +142,27 @@ const routes = [
         meta: {
           middlewares: [auth]
         }
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: () => import('pages/Profile/Profile.vue'),
+        meta: {
+          middlewares: [auth]
+        },
+        children: [
+          {
+            name: 'MyProducts',
+            path: 'my-products',
+            component: () => import('pages/Profile/MyProducts.vue')
+          },
+          {
+            name: 'MyOrders',
+            path: 'my-orders',
+            component: () => import('pages/Profile/MyOrders.vue')
+          }
+          //  TODO: complete routes : ["Wallet", "Bookmarks", "LeitnerBox", "MyChannels", "MyComments", "Ticket"]
+        ]
       }
     ]
     // meta: {
@@ -115,8 +188,7 @@ const routes = [
   {
     path: '/:catchAll(.*)*',
     name: 'NotFound',
-    component:
-  () => import('pages/Error404.vue')
+    component: () => import('pages/Error404.vue')
   }
 ]
 export default routes

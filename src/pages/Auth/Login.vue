@@ -69,7 +69,9 @@ export default {
   }),
   created () {
     if (this.getToken()) {
-      this.getUserData(() => { this.redirectTo() })
+      this.getUserData().then(()=>{
+        this.redirectTo()
+      })
     }
   },
   methods: {
@@ -92,11 +94,14 @@ export default {
         })
         return
       }
-      let redirectTo = window.localStorage.getItem('redirectTo')
+      let redirectTo = this.$store.getters['Auth/redirectTo']
       if (!redirectTo) {
         redirectTo = 'home'
       }
-      this.$router.push({ name: 'home' })
+      this.$store.commit('Auth/updateRedirectTo', redirectTo)
+      this.$router.push({ name: redirectTo })
+      this.$store.commit('Auth/updateRedirectTo', null)
+
     },
 
     handleErr (err) {
@@ -124,7 +129,6 @@ export default {
 
     login () {
       this.loadingList = true
-      const that = this
       this.$store.dispatch('Auth/login', {
         mobile: this.username,
         password: this.password
@@ -132,7 +136,7 @@ export default {
         .then(() => {
           this.loadingList = false
           this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
-          that.getUserData(() => { this.redirectTo() })
+          this.getUserData().then(() => { this.redirectTo() })
         })
         .catch(err => {
           console.log('in auth :', err)

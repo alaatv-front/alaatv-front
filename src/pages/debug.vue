@@ -1,12 +1,13 @@
 <template>
-  <page-builder :sections="sections" :options="pageConfig" :containerHeight="calculateHeightStyle"></page-builder>
+  <page-builder
+    :sections="sections"
+    :options="options"
+    :containerFullHeight="calculateHeightStyle"
+  ></page-builder>
 </template>
 
 <script>
 import pageBuilder from 'src/components/PageBuilder/PageBuilder'
-import { BannerList } from 'src/models/Banner'
-import API_ADDRESS from 'src/api/Addresses'
-import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
   name: 'debug',
@@ -14,11 +15,6 @@ export default {
   mixins: [],
   data() {
     return {
-      pageConfig: {
-        padding: {
-          // a: 'md'
-        }
-      },
       sections: [
         {
           data: {
@@ -36,27 +32,43 @@ export default {
                                 {
                                   widgets: [
                                     {
-                                      name: 'test-component2-widget',
+                                      name: 'test-component1-widget',
+                                      options: {
+                                        style: { color: 'yellow !important' },
+                                        className: 'q-ma-lg'
+                                      }
                                     }
-                                  ]
+                                  ],
+                                  options: {
+                                    style: { border: '1px blue solid' }
+                                  }
                                 },
                                 {
                                   widgets: [
                                     {
-                                      name: 'test-component2-widget',
+                                      name: 'test-component2-widget'
                                     }
                                   ]
                                 }
-                              ]
+                              ],
+                              options: {
+                                style: {},
+                                className: 'boxed'
+                              }
                             }
                           ]
                         }
                       }
-                    ]
+                    ],
+                    options: {
+                      className: 'q-ma-lg col-md-12 col-sm-6',
+                      style: { color: 'blue !important' }
+                    }
                   }
                 ],
                 options: {
-                  boxed: true
+                  style: { color: 'white' },
+                  className: 'q-ma-md boxed'
                 }
               },
               {
@@ -64,13 +76,8 @@ export default {
                   {
                     widgets: [
                       {
-                        // here
-                        name: 'test-component2-widget'
-                      },
-                      {
-                        // here
                         name: 'test-component1-widget'
-                      },
+                      }
                     ]
                   },
                   {
@@ -110,15 +117,17 @@ export default {
             ]
           },
           options: {
+            style: {
+              backgroundImage:
+                'url("http://twintower.ir/api/media/tracks/368/thumbnail9-5777.jpg")',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed'
+            },
+            className: '',
             fullHeight: true,
-            verticalAlign: 'center',
-            background: {
-              image: 'http://twintower.ir/api/media/tracks/368/thumbnail9-5777.jpg',
-              position: 'center',
-              size: 'cover',
-              repeat: 'no-repeat',
-              attachment: 'fixed', // unset - fixed
-            }
+            verticalAlign: 'center'
           }
         },
         {
@@ -200,33 +209,26 @@ export default {
             ]
           },
           options: {
+            style: {
+              backgroundImage:
+                'url("https://nodes.alaatv.com/upload/images/slideShow/1642417634_2227.jpg?w=1845&h=720")',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: 'fixed'
+            },
             fullHeight: true,
-            verticalAlign: 'center',
-            background: [
-              {
-                image: 'https://nodes.alaatv.com/upload/images/slideShow/1658222956_6038.jpg?w=1845&h=720',
-                position: 'center',
-                size: 'cover',
-                repeat: 'no-repeat',
-                attachment: 'unset', // unset - fixed
-              },
-              {
-                breakpoint: 1000,
-                image: 'https://nodes.alaatv.com/upload/images/slideShow/1642417634_2227.jpg?w=1845&h=720',
-                position: 'center',
-                size: 'cover',
-                repeat: 'no-repeat',
-                attachment: 'fixed', // unset - fixed
-              }
-            ]
+            verticalAlign: 'center'
           }
-        },
+        }
       ],
-      testValue: '',
-      testValue1: '',
-      size: {}
+      // this is page options
+      options: {
+        // className: "q-ma-xs q-pa-lg",
+        // style: {background: "black !important", color: "white", marginTop: '200px'}
+      }
     }
-   },
+  },
   props: {
     testProp: {
       type: Boolean,
@@ -235,12 +237,10 @@ export default {
       }
     }
   },
-  methods: {
-
-  },
+  methods: {},
   computed: {
-    calculateHeightStyle(){
-      return this.$store.getters['AppLayout/calculateContainerFullHeight'];
+    calculateHeightStyle() {
+      return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
   beforeRouteEnter() {
@@ -266,17 +266,15 @@ export default {
   },
   watch: {
     testValue: {
-      handler() { },
+      handler() {},
       deep: true
     },
-    testValue1(oldVal, newVal) { }
+    testValue1(oldVal, newVal) {}
   }
 }
-
 </script>
 
-<style scoped lang="scss">
-html * {
-  color: white;
-}
-</style>
+<style
+  scoped
+  lang="scss"
+></style>

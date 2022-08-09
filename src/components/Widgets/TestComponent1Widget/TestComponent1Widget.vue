@@ -1,17 +1,16 @@
 <template>
-  <div>
+  <div :style="style" :class="className">
     Test-component-1
   </div>
 </template>
 
 <script>
+import { mixinWidget } from 'src/mixin/Mixins'
+
 export default {
   name: 'Test-component-1widget',
-  props: {
-    size: {
-      type: Object
-    }
-  }
+  mixins: [mixinWidget]
+
 }
 </script>
 

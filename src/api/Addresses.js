@@ -26,6 +26,7 @@ const API_ADDRESS = {
       resend: apiV2Server + '/mobile/resend',
       verify: apiV2Server + '/mobile/verify'
     },
+    orders: (id) => apiV2Server + '/user/' + id + '/orders',
     formData: apiV2Server + '/megaroute/getUserFormData',
     show_user: apiV2Server + '/getUserFor3a'
   },
@@ -77,6 +78,23 @@ const API_ADDRESS = {
     show: {
       base: apiV2Server + '/product'
     }
+  },
+
+  ticket: {
+    create: {
+      base: apiV2Server + '/ticket'
+    },
+    index: {
+      base: apiV2Server + '/ticket'
+    },
+    show: {
+      base: apiV2Server + '/ticket',
+      statusNotice: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/sendTicketStatusNotice',
+      batchExtend: apiV2Server + '/orderproduct/batchExtend',
+      ticketMessage: apiV2Server + '/ticketMessage',
+      reportMessage: (ticketId) => apiV2Server + '/ticketMessage/' + ticketId + '/report'
+    },
+    ticketRate: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/rate'
   },
   attributeManagement: {
     create: {
@@ -371,6 +389,10 @@ const API_ADDRESS = {
   },
   map: {
     items: apiV2Server + '/mapDetail'
+  },
+  cart: {
+    orderproduct: apiV2Server + '/orderproduct',
+    review: apiV2Server + '/checkout/review'
   }
 }
 export default API_ADDRESS
