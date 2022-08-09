@@ -65,6 +65,34 @@ const routes = [
         ]
       },
       {
+        path: 'User',
+        name: 'User.Dashboard',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            name: 'User.Dashboard.purchases',
+            path: ':id/dashboard/MyPurchases',
+            meta: {
+              middlewares: [auth]
+            },
+            component: () => import('pages/User/Dashboard/MyPurchases')
+          }
+        ]
+      },
+      {
+        path: 'User',
+        name: 'User.Dashboard',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          { name: 'User.Dashboard.purchases',
+            path: ':id/dashboard/MyPurchases',
+            meta: {
+              middlewares: [auth]
+            },
+            component: () => import('pages/User/Dashboard/MyPurchases') },
+        ]
+      },
+      {
         path: 'product',
         name: 'User.Product',
         component: () => import('layouts/bareLayout.vue'),
