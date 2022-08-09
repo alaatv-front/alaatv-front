@@ -32,7 +32,7 @@
         gutter="sm"
       >
         <template v-slot:separator>
-          <q-icon name="isax:arrow-right-3 "/>
+          <q-icon name="isax:arrow-right-3 " />
         </template>
         <q-breadcrumbs-el
           v-for="(breadcrumb, index) in breadcrumbs.path"
@@ -69,7 +69,9 @@
       dense
       unelevated
     >
-      <q-badge color="red" rounded floating>3</q-badge>
+      <q-badge color="red"
+               rounded
+               floating>3</q-badge>
     </q-btn-dropdown>
     <q-btn-dropdown
       class="toolbar-button"
@@ -83,14 +85,14 @@
       unelevated
     >
       <q-list unelevated>
-        <router-link   :to="{name: 'User.Dashboard.purchases', params: {id: user.id}}">
+        <router-link   :to=" {name: 'User.Dashboard.purchases', params: {id: user.id}}">
           <q-item v-close-popup>
-          <q-item-section side>
-            <q-icon name="mdi-cloud-download-outline"/>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>فیلم ها و جزوه های من</q-item-label>
-          </q-item-section>
+            <q-item-section side>
+              <q-icon name="mdi-cloud-download-outline" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>فیلم ها و جزوه های من</q-item-label>
+            </q-item-section>
           </q-item>
         </router-link>
       </q-list>
@@ -99,13 +101,13 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'templateHeader',
   data() {
     return {
-      user:{}
+      user: {}
     }
   },
   mounted() {
@@ -131,7 +133,6 @@ export default {
       'updateLayoutLeftDrawerVisible'
     ]),
     toggleLeftDrawer() {
-
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
     hasRoute(route) {
@@ -142,14 +143,14 @@ export default {
     },
     getRoute(route) {
       if (!this.hasRoute(route)) {
-        return {name: null}
+        return { name: null }
       }
       if (route.name) {
-        return {name: route.name}
+        return { name: route.name }
       } else if (route.path) {
-        return {path: route.path}
+        return { path: route.path }
       } else {
-        return {name: null}
+        return { name: null }
       }
     }
   }

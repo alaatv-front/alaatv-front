@@ -69,12 +69,14 @@ const routes = [
         name: 'User.Dashboard',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          { name: 'User.Dashboard.purchases',
+          {
+            name: 'User.Dashboard.purchases',
             path: ':id/dashboard/MyPurchases',
             meta: {
               middlewares: [auth]
             },
-            component: () => import('pages/User/Dashboard/MyPurchases') },
+            component: () => import('pages/User/Dashboard/MyPurchases')
+          }
         ]
       },
       {

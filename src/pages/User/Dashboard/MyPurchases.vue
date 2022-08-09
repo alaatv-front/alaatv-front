@@ -26,8 +26,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'purchases',
-                        data: this.$route.params.id
+                        name: 'purchases'
                       }
                     ]
                   }

@@ -161,6 +161,7 @@
 
 <script>
 import Assist from 'src/plugins/Assist'
+
 import { Product } from 'src/models/Product'
 export default {
   name: 'PurchaseItem',
@@ -208,7 +209,6 @@ export default {
     setSelectedSet (product, set, contentType) {
       this.updateSetTitle(set.title)
       this.$emit('setSelected', {
-        product,
         contentType,
         set
       })

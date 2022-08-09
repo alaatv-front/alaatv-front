@@ -82,37 +82,43 @@
       </div>
     </div>
     <!--    ------------------------------------------------------------------------ content show ------------------------------------------------------------------------------ -->
+    <q-card flat
+            class="col-md-7 show-content-container q-mt-md q-pt-md">
+      <div class="show-content-title bg-yellow-8 flex items-center q-px-md">
+        {{selectedSet.title}}
+      </div>
+      <q-card-section class="">
+        <q-tabs
+          v-model="selectedTab"
+          class="text-grey"
+          active-color="primary"
+          indicator-color="primary"
+          align="justify"
+          narrow-indicator
+        >
 
-    <q-card>
-      <q-tabs
-        v-model="selectedTab"
-        class="text-grey"
-        active-color="primary"
-        indicator-color="primary"
-        align="justify"
-        narrow-indicator
-      >
-        <q-tab name="video"
-               v-if="true"
-               label="فیلم" />
-        <q-tab name="pamphlet"
-               label="جزوه" />
-      </q-tabs>
+          <q-tab name="video"
+                 v-if="true"
+                 label="فیلم" />
+          <q-tab name="pamphlet"
+                 label="جزوه" />
+        </q-tabs>
+        <q-separator />
+        <q-tab-panels v-model="selectedTab"
+                      class="full-width"
+                      animated>
+          <q-tab-panel name="video">
+            <div class="text-h6">film</div>
 
-      <q-separator />
+          </q-tab-panel>
 
-      <q-tab-panels v-model="selectedTab"
-                    animated>
-        <q-tab-panel name="video">
-          <div class="text-h6">film</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </q-tab-panel>
+          <q-tab-panel name="pamphlet">
+            <div class="text-h6">joz</div>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </q-tab-panel>
+        </q-tab-panels>
+      </q-card-section>
 
-        <q-tab-panel name="pamphlet">
-          <div class="text-h6">joz</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </q-tab-panel>
-      </q-tab-panels>
     </q-card>
 
   </div>
@@ -121,6 +127,7 @@
 <script>
 import FilterBox from 'src/components/userPurchases/filterBox'
 import PurchaseItem from 'src/components/userPurchases/PurchaseItem'
+import contentItem from 'src/components/userPurchases/contentItem'
 import { Product, ProductList } from 'src/models/Product'
 import { Set } from 'src/models/Set'
 import Assist from 'src/plugins/Assist'
@@ -130,7 +137,8 @@ export default {
   name: 'Purchases',
   components: {
     FilterBox,
-    PurchaseItem
+    PurchaseItem,
+    contentItem
   },
   watch: {
     searchTarget (value) {
@@ -1587,9 +1595,7 @@ export default {
           value: 'data-sort2',
           selected: false
         }],
-      selectedProduct: new Product(),
-      selectedSet: new Set(),
-      visibledTabName: 'myProductsRow'
+      selectedSet: new Set()
     }
   },
   created: function () {
@@ -1665,20 +1671,55 @@ export default {
       this.selectedFilterCategoryValue = this.filterBoxCategory[0].value
       console.log('categorySelected', this.selectedFilterCategoryValue)
     },
-    async setSelectedSet (data) {
-      this.selectedSet = data.set
-      this.selectedProduct = data.product
+    async getContentsData () {
       this.selectedSet.loading = true
       this.selectedSet.contents.clear()
-      this.handlesTabs(data.contentType)
       try {
         const contentResponse = await this.getSelectedSetContents()
+        this.selectedSet = new Set(contentResponse)
+        console.log(this.selectedSet)
         this.selectedSet.loading = false
-        console.log('contentResponse :', contentResponse)
+        // type 8 video
+        console.log('contentResponse :', contentResponse.data.data.contents)
+        const test = {
+          file: {
+            video: [
+              {
+                link: 'https://alaatv.com/d/eyJpdiI6IkJ6dGdWVmxQNFEzSVdncWFpYU9WWkE9PSIsInZhbHVlIjoiVDY3dTBkbGd2a3hpTnRxWEV3bTA2aisyaGE2OFdzNWtNYjc5b1EvdUNNSVpVZlczMHdtY3ZCMm1FcnBFdStWNmZTcFMzcjh3WFJob3Y0c1cwa2M5UnRSV0gxWXh3WVBPdVJkMGV0UXpYZzA0VGQyMzJHZHU3TXBGbFhrWEpaVVA1cEhvNDF3R2ZldHorUSs0dExKR01ra1ZhdDh4S01JcGNVcFBrNWVVV2ZHQmpuUW5vTXdaWlhTSFZ0N0JrZVdnIiwibWFjIjoiYTdkMGEyNmRjZWY4NWI4Yjg5ZmZmNzdkMWJjYzM3MTM0OWY0MzM4ZmI3MTA4YmU4ODI5YjhhMmYyYzkwMjA3YyIsInRhZyI6IiJ9',
+                ext: 'mp4',
+                size: '1.2 G',
+                caption: 'کیفیت عالی',
+                res: '720p'
+              },
+              {
+                link: 'https://alaatv.com/d/eyJpdiI6IjJ2MEhsRHdXeFdJcHNock1jbnlNUlE9PSIsInZhbHVlIjoiVjZXMVhyMFZsNUh6QnlJM1Z0cTMzYy9WT1hLUXQwWTNoVXZkbzRRcGtpWEQ5SXNESzlqb3NSS3l4bkxDZDdCd3oybHpzZVg4ZzlkWFZqdkQ3YytnQVM5bnJsMjBIZUVMSFVCMVVZdlhOOE0vZG5xZ1R3ekhNWWx4VXUxQ1RCbng4SFNPQnFCZ1VwV2R0bDRpcmNnMWZWdjNzWGhoSHRTcVN0V3UyUmtrb1l3PSIsIm1hYyI6ImZlNmQwY2QyZmYxNDFmMDdhZjQzYjU3MTljNTFmNThlNmE0MWJjN2U0MWViOTZjOTg4OWQ3YWQ1NTc5MzU3ZGUiLCJ0YWciOiIifQ==',
+                ext: 'mp4',
+                size: '90 MB',
+                caption: 'کیفیت بالا',
+                res: '480p'
+              },
+              {
+                link: 'https://alaatv.com/d/eyJpdiI6IkY1WjJnZlJHVko0VjcrSWZ5RGxYL3c9PSIsInZhbHVlIjoiM25ZUEZmQjdWcFNOSGRKcU9nN3VZaThjWjk1bEg2dllpUUg5QmIvZ2Y2NWhJQ01pSUpITnpWeU5Icis1NnRZSDZjY3dNM0Y4UlpaZ1Exb0VxSlhqVDVQRGhkdDFFQzNNRTVISTR4OTBMQTQvbk5vd3Y0YWFLZWwxSit0SVpOOUZCck5KSC9hcGh1YW9ERDF3TXBlYldFZzJxLzd6a2ErY29PQ1Vzb3JNSEVvPSIsIm1hYyI6ImQ3NTZmMDlhNTY5MDM2YWM3NzY5NjA4NzMzM2VhNjQzOTYxMTYzMDllMmQ0Yjg1YTc4ZDU1OTkxNzYzMWNhN2QiLCJ0YWciOiIifQ==',
+                ext: 'mp4',
+                size: '36 MB',
+                caption: 'کیفیت متوسط',
+                res: '240p'
+              }
+            ],
+            pamphlet: null,
+            voice: null
+          }
+        }
+        console.log(test)
       } catch (e) {
         this.selectedSet.loading = false
         console.log('err ', e)
       }
+    },
+    setSelectedSet (data) {
+      this.selectedSet = data.set
+      this.handlesTabs(data.contentType)
+      this.getContentsData()
     },
     handlesTabs (contentType) {
       this.selectedTab = contentType === 'pamphlet'
@@ -1687,6 +1728,7 @@ export default {
     },
     getSelectedSetContents () {
       return this.$axios.get(Addresses.set.show(this.selectedSet.id), { params: { withContents: true } })
+      // return this.$axios.get(Addresses.set.show(698), { params: { withContents: true } })
     },
     updateProducts (products) {
       // this.$store.commit('updateAppProps', function (appProps) {
@@ -1699,14 +1741,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .noContentMessage{
   font-size: 18px;
   font-weight: 500;
   color: white;
   border-radius: 15px;
 }
+.show-content-container{
+  position: relative;
+  .show-content-title{
+    position: absolute;
+    height: 51px;
+    top: -25px
 
+  }
+}
 .abrishamAssetBanner {
   /*background: #fec107;*/
   /*padding: 10px;*/
