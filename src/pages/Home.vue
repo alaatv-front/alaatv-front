@@ -36,7 +36,7 @@ export default {
                         options: {
                           to: 1,
                           getData: (url) =>
-                            GetWidgetsData.getData(this.$axios, url)
+                            GetWidgetsData.getData(url)
                         }
                       },
                       {
@@ -109,7 +109,7 @@ export default {
                         options: {
                           from: 1,
                           getData: (url) =>
-                            GetWidgetsData.getData(this.$axios, url)
+                            GetWidgetsData.getData(url)
                         }
                       }
                     ]
