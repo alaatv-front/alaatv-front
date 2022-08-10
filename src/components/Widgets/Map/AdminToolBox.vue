@@ -14,7 +14,7 @@
           @click="tabChanged('marker')"
           flat
           class=""
-          icon="isax:element-plus"
+          icon="isax:signpost"
         >
           <q-tooltip
             anchor="top middle"
@@ -28,7 +28,7 @@
           @click="tabChanged('polyline')"
           flat
           class=""
-          icon="isax:copy"
+          icon="isax:chart-square"
         >
           <q-tooltip
             anchor="top middle"
@@ -41,7 +41,7 @@
         <q-btn
           flat
           class=""
-          icon="isax:save-remove"
+          icon="isax:menu-1"
         >
           <q-tooltip
             anchor="top middle"
@@ -423,7 +423,7 @@ export default {
         {
           type: 'Color',
           label: 'رنگ خط:',
-          name: 'TextColor',
+          name: 'color',
           col: 'col-md-6'
         },
         {
