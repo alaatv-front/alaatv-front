@@ -47,7 +47,7 @@ export default {
 
   methods: {
     getData (url) {
-      GetWidgetsData.getData(url)
+      return GetWidgetsData.getData(url)
     }
   },
 }
