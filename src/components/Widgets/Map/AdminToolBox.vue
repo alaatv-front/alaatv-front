@@ -61,7 +61,7 @@
     <q-btn
       v-if="toolTab === 'marker'"
       style="width: 100%"
-      icon="isax:cloud-plus"
+      icon="isax:folder-add"
       class="bg-primary"
     >
       <q-tooltip
