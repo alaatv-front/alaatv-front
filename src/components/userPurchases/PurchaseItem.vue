@@ -1,120 +1,120 @@
 <template>
-  <div>
-    <div class="productItem bg-amber-1 q-mb-sm">
-      <div class="row no-gutters1">
-        <div class="col-md-2 productItem-imageCol">
-          <div class="productItem-image">
-            <q-img :src="product.photo"
-                   :alt="product.title"
-            />
-          </div>
-        </div>
-        <div class="col-md-10 productItem-descriptionCol">
-          <div class="productItem-description">
-            <div class="title"
-                 v-html="product.title"></div>
-            <div class="action">
-              <button v-if="product.sets.list.length === 1 && product.sets.list[0].videos_count > 0"
-                      @click="setSelectedSet(product, product.sets.list[0], 'video')"
-                      class="btn btn-warning btn-lg btnViewContentSet btnViewVideo">
-                فیلم ها
-              </button>
-              <button v-if="product.sets.list.length === 1 && product.sets.list[0].pamphlets_count > 0"
-                      @click="setSelectedSet(product, product.sets.list[0], 'pamphlet')"
-                      class="btn btn-secondary btn-lg btnViewContentSet btnViewPamphlet">
-                جزوات
-              </button>
-              <div v-if="product.sets.list.length > 1"
-                   class="CustomDropDown solidBackground background-yellow">
-                <div class="CustomDropDown solidBackground background-yellow"
-                     @click="toggleDropdown">
-                  <div class="select-selected"
-                       :class="{'select-arrow-active': setsDropdownOpen}"
-                       v-html="selectedSetTitle"></div>
-                </div>
+  <!--  <div>-->
+  <!--    <div class="productItem bg-amber-1 q-mb-sm">-->
+  <!--      <div class="row no-gutters1">-->
+  <!--        <div class="col-md-2 productItem-imageCol">-->
+  <!--          <div class="productItem-image">-->
+  <!--            <q-img :src="product.photo"-->
+  <!--                   :alt="product.title"-->
+  <!--            />-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <div class="col-md-10 productItem-descriptionCol">-->
+  <!--          <div class="productItem-description">-->
+  <!--            <div class="title"-->
+  <!--                 v-html="product.title"></div>-->
+  <!--            <div class="action">-->
+  <!--              <button v-if="product.sets.list.length === 1 && product.sets.list[0].videos_count > 0"-->
+  <!--                      @click="setSelectedSet(product, product.sets.list[0], 'video')"-->
+  <!--                      class="btn btn-warning btn-lg btnViewContentSet btnViewVideo">-->
+  <!--                فیلم ها-->
+  <!--              </button>-->
+  <!--              <button v-if="product.sets.list.length === 1 && product.sets.list[0].pamphlets_count > 0"-->
+  <!--                      @click="setSelectedSet(product, product.sets.list[0], 'pamphlet')"-->
+  <!--                      class="btn btn-secondary btn-lg btnViewContentSet btnViewPamphlet">-->
+  <!--                جزوات-->
+  <!--              </button>-->
+  <!--              <div v-if="product.sets.list.length > 1"-->
+  <!--                   class="CustomDropDown solidBackground background-yellow">-->
+  <!--                <div class="CustomDropDown solidBackground background-yellow"-->
+  <!--                     @click="toggleDropdown">-->
+  <!--                  <div class="select-selected"-->
+  <!--                       :class="{'select-arrow-active': setsDropdownOpen}"-->
+  <!--                       v-html="selectedSetTitle"></div>-->
+  <!--                </div>-->
 
-              </div>
-              <div v-if="product.sets.list.length === 0"
-                   role="alert"
-                   class="alert alert-info noContentInProductMessage bg-yellow">
-                به زودی
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <transition
-      name="fade-PurchaseItem"
-      mode="out-in"
-      appear
-      :duration="500"
-    >
-      <div v-if="product.sets.list.length > 1"
-           v-show="setsDropdownOpen"
-           class="productItem-extra CustomParentOptions CustomDropDown CustomDropDown-show">
-        <div class="select-items">
+  <!--              </div>-->
+  <!--              <div v-if="product.sets.list.length === 0"-->
+  <!--                   role="alert"-->
+  <!--                   class="alert alert-info noContentInProductMessage bg-yellow">-->
+  <!--                به زودی-->
+  <!--              </div>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <transition-->
+  <!--      name="fade-PurchaseItem"-->
+  <!--      mode="out-in"-->
+  <!--      appear-->
+  <!--      :duration="500"-->
+  <!--    >-->
+  <!--      <div v-if="product.sets.list.length > 1"-->
+  <!--           v-show="setsDropdownOpen"-->
+  <!--           class="productItem-extra CustomParentOptions CustomDropDown CustomDropDown-show">-->
+  <!--        <div class="select-items">-->
 
-          <div class="select-item"
-               v-for="(item, index) in product.sets.list"
-               v-if="canShowSet(item)"
-          >
-            <div class="setRow">
-              <div class="setRow-label bg-red"
-              >{{item.title}}</div>
-              <div class="setRow-action">
-                <button type="button"
-                        class="btn btn-warning btnViewContentSet btnViewVideo"
-                        v-if="item.videos_count > 0"
-                        @click="setSelectedSet(product, item, 'video')">
-                  فیلم ها
-                </button>
-                <button type="button"
-                        class="btn btn-secondary btnViewContentSet btnViewPamphlet"
-                        v-if="item.pamphlets_count > 0"
-                        @click="setSelectedSet(product, item, 'pamphlet')">
-                  جزوات
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
-  </div>
+  <!--          <div class="select-item"-->
+  <!--               v-for="(item, index) in product.sets.list"-->
+  <!--               v-if="canShowSet(item)"-->
+  <!--          >-->
+  <!--            <div class="setRow">-->
+  <!--              <div class="setRow-label bg-red"-->
+  <!--              >{{item.title}}</div>-->
+  <!--              <div class="setRow-action">-->
+  <!--                <button type="button"-->
+  <!--                        class="btn btn-warning btnViewContentSet btnViewVideo"-->
+  <!--                        v-if="item.videos_count > 0"-->
+  <!--                        @click="setSelectedSet(product, item, 'video')">-->
+  <!--                  فیلم ها-->
+  <!--                </button>-->
+  <!--                <button type="button"-->
+  <!--                        class="btn btn-secondary btnViewContentSet btnViewPamphlet"-->
+  <!--                        v-if="item.pamphlets_count > 0"-->
+  <!--                        @click="setSelectedSet(product, item, 'pamphlet')">-->
+  <!--                  جزوات-->
+  <!--                </button>-->
+  <!--              </div>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </transition>-->
+  <!--  </div>-->
 
-  <div class="product-item q-mb-sm">
+  <q-card
+    class="product-item q-mb-sm">
     <div class="row">
-      <div class="col-sm-2 col-12 bg-red-3">
+      <div class="col-3  ">
         <div class="img-box">
           <q-img  :src="product.photo"
+                  class="img-style"
                   :alt="product.title" />
         </div>
       </div>
-      <div class="col-sm-10 product-content col-12 bg-white q-px-md">
-        <div class="product-title q-mt-sm">
+      <div class="col-9  product-content q-px-md">
+        <div class="product-title q-my-sm">
           {{product.title}}
         </div>
-        <div class="row justify-center q-mt-md">
-          <div class="col-9 text-center">
-            <q-btn
-              color="yellow-8"
-              class="product-btn"
-              unelevated
-              text-color="grey-10"
-              :icon-right="openSelList ? 'mdi-menu-up' : 'mdi-menu-down'"
-              @click="openSelList = !openSelList">
-              <span class="text-limit-size ellipsis">
-                {{selectedSetTitle}}
-              </span>
-            </q-btn>
-          </div>
+        <div class="col-9 text-center q-mb-sm">
+          <q-btn
+            color="yellow-8"
+            class="product-btn full-width"
+            unelevated
+            text-color="grey-10"
+            :icon-right="openSetList ? 'mdi-menu-up' : 'mdi-menu-down'"
+            @click="openSetList = !openSetList">
+            <span class="text-limit-size ellipsis">
+              {{selectedSetTitle}}
+            </span>
+          </q-btn>
         </div>
       </div>
     </div>
-  </div>
+  </q-card>
   <q-expansion-item
-    v-model="openSelList"
+    v-model="openSetList"
     class="hide-expansion-header bg-transparent"
   >
     <q-card    v-for="(item, index) in setList"
@@ -186,31 +186,17 @@ export default {
   },
   data () {
     return {
-      openSelList: true,
+      openSetList: false,
       selectedSetTitle: null,
       setsDropdownOpen: false
     }
   },
   methods: {
-    canShowSet (item) {
-      const countOfSets = this.product.sets.list.filter(set => (Assist.stringContain(this.filter, set.title))).length
-      // return (
-      //   (
-      //     countOfSets > 0 &&
-      //     Assist.stringContain(this.filter, item.title)
-      //   ) ||
-      //   (
-      //     countOfSets === 0 &&
-      //     Assist.stringContain(this.filter, this.product.title)
-      //   )
-      // )
-      return true
-    },
     setSelectedSet (product, set, contentType) {
       this.updateSetTitle(set.title)
       this.$emit('setSelected', {
         contentType,
-        set
+        setId: set.id
       })
     },
     updateSetTitle (title) {
@@ -228,7 +214,25 @@ export default {
 <style lang="scss" scoped>
 
 .product-item{
+  box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
+  border-radius: 15px;
+  @media only screen and (max-width: 1024px){
+    max-height: 150px;
+  }
+  .img-box{
+    height:100%;
+    @media only screen and (max-width: 1024px){
+      max-height: 150px;
+    }
+    .img-style{
+      height:100%;
+      border-radius: 15px 0 0 15px;
+    }
+  }
   .product-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     .product-title{
       font-size: 16px;
       font-weight: 700;
@@ -236,32 +240,31 @@ export default {
     }
   }
 }
-</style>
-
-<style lang="scss" scoped>
-.productItem-image{
-  width: 80px;
-  img{
-    width: 80px;
-  }
-}
-.text-limit-size{
-  width: 250px;
-}
-.product-btn{
-
-  background: red;
- text-overflow: ellipsis;
-}
 .set-item{
   border-radius: 15px;
 }
-    .fade-PurchaseItem-enter-active > * > *,
-    .fade-PurchaseItem-leave-active > * > * {
-        transition-duration: 200ms;
-        transition-property: opacity, transform;
-        transition-timing-function: cubic-bezier(0.6, 0.15, 0.35, 0.8);
-    }
+</style>
+
+<style lang="scss" scoped>
+
+.text-limit-size{
+  width: 250px;
+   @media only screen and (max-width: 1800px){
+     width: 200px;
+   }
+  @media only screen and (max-width: 1024px){
+    width: 350px;
+  }
+  @media only screen and (max-width: 600px){
+    width: 250px;
+  }
+  @media only screen and (max-width: 500px){
+    width: 150px;
+  }
+}
+.product-btn{
+ text-overflow: ellipsis;
+}
 
     .fade-PurchaseItem-enter > * > *,
     .fade-PurchaseItem-leave-to > * > * {
