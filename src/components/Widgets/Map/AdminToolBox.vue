@@ -95,6 +95,7 @@
         <q-btn
           class="btns btn-info"
           icon="isax:save-remove"
+          @click="saveData"
         />
         <q-btn
           class="btns btn-danger"
@@ -184,6 +185,7 @@ export default {
               name: 'enable',
               col: 'col-md-12',
               multiple: false,
+              value: 0,
               options: [{
                 label: 'هیچکدام',
                 value: 0
@@ -196,8 +198,7 @@ export default {
               }, {
                 label: ' محتوا',
                 value: 3
-              }],
-              value: [0]
+              }]
             }
 
           ]
@@ -208,10 +209,9 @@ export default {
         },
         {
           type: activityType,
-          props: { name: 'ali' },
-          name: 'ali',
-          value: 123,
-          label: 'شناسه',
+          value: [],
+          name: 'activityType',
+          label: 'action',
           col: 'col-md-6'
         },
         {
@@ -224,12 +224,6 @@ export default {
             min: 3.1,
             max: 11
           }
-        },
-        {
-          type: 'input',
-          name: 'link',
-          label: 'لینک',
-          col: 'col-md-6'
         },
         {
           type: 'hidden',
@@ -527,8 +521,11 @@ export default {
     }
   },
   methods: {
-    getMarkerInputsValue (inputName) {
-      return this.markerInputs.find(input => input.name === inputName).value
+    saveData() {
+      this.getInputValue('markerInputs', 'activityType')
+    },
+    getInputValue (type, inputName) {
+      return this[type].find(input => input.name === inputName).value
     },
     getPolylineValue (inputName) {
       return this.polylineInputs.find(input => input.name === inputName).value
