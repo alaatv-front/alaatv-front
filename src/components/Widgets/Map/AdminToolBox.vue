@@ -143,10 +143,11 @@ import { EntityCrudFormBuilder } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
 
 import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
+import LineType from 'components/FormBuilderCustumComponents/Map/LineType'
 
 export default {
   name: 'AdminToolBox',
-  components: { EntityCrudFormBuilder, activityType },
+  components: { EntityCrudFormBuilder, activityType, LineType },
   data () {
     return {
       expanded: true,
@@ -210,8 +211,7 @@ export default {
         {
           type: activityType,
           value: [],
-          name: 'activityType',
-          label: 'action',
+          name: 'action',
           col: 'col-md-6'
         },
         {
@@ -341,6 +341,7 @@ export default {
               name: 'enable',
               col: 'col-md-12',
               multiple: false,
+              value: 0,
               options: [{
                 label: 'هیچکدام',
                 value: 0
@@ -353,8 +354,7 @@ export default {
               }, {
                 label: ' محتوا',
                 value: 3
-              }],
-              value: [0]
+              }]
             }
 
           ]
@@ -364,23 +364,11 @@ export default {
           col: 'col-md-12'
         },
         {
-          type: 'Select',
-          name: 'type_id',
-          responseKey: 'data.type.value',
-          label: 'انتخاب نوع فعالیت',
-          col: 'col-md-6',
-          options: [{
-            label: '3',
-            value: 'بدون فعالیت'
-          }, {
-            label: '1',
-            value: 'لینک'
-          }, {
-            label: '2',
-            value: 'زوم'
-          }],
-          optionValue: 'value',
-          optionLabel: 'value'
+          type: activityType,
+          value: [],
+          name: 'activityType',
+          label: 'action',
+          col: 'col-md-6'
         },
         {
           type: 'RangeSlider',
@@ -394,26 +382,9 @@ export default {
           }
         },
         {
-          type: 'input',
-          name: 'link',
-          label: 'لینک',
+          type: 'hidden',
+          name: 'hidden',
           col: 'col-md-6'
-        },
-        {
-          type: 'Select',
-          name: 'linkFeature',
-          label: 'ویژگی لینک :',
-          col: 'col-md-6',
-          options: [{
-            label: '1',
-            value: 'بدون باز شدن در صفحه جدید'
-          },
-          {
-            label: '2',
-            value: 'باز شدن در همان صفحه'
-          }],
-          optionValue: 'value',
-          optionLabel: 'value'
         },
         {
           type: 'separator',
@@ -453,39 +424,14 @@ export default {
           type: 'Color',
           label: 'رنگ خط:',
           name: 'TextColor',
-          col: 'col-md-12'
+          col: 'col-md-6'
         },
         {
-          type: 'optionGroupCheckbox',
-          name: 'LineType',
-          col: 'col-md-6',
-          multiple: false,
+          type: LineType,
           label: 'نوع حرکت خط :',
-          options: [
-            {
-              label: 'بدون حرکت',
-              value: 0
-            }, {
-              label: 'متحرک',
-              value: 1
-            }, {
-              label: ' حرکت معکوس',
-              value: 2
-            }
-          ],
-          value: 0
-        },
-        {
-          type: 'hidden',
-          name: 'LineSpeed',
+          name: 'line',
           col: 'col-md-6',
-          label: 'سرعت حرکت',
-          min: 0,
-          max: 50,
-          value: {
-            min: 0,
-            max: 0
-          }
+          value: []
         }
       ],
       categoryOptions: [
@@ -508,17 +454,6 @@ export default {
     }
   },
   watch: {
-    polylineInputs: {
-      handler (newValue) {
-        if (newValue[12].value > 0) {
-          newValue[13].type = 'RangeSlider'
-        }
-        if (newValue[12].value === 0) {
-          newValue[13].type = 'hidden'
-        }
-      },
-      deep: true
-    }
   },
   methods: {
     saveData() {
@@ -537,6 +472,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 </style>
 
