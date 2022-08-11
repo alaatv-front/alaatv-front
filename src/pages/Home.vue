@@ -116,7 +116,7 @@ export default {
                   }
                 ],
                 options: {
-                  boxed: false
+                  boxed: true
                 }
               }
             ]
