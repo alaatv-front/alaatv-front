@@ -1,6 +1,17 @@
 <template>
   <q-card class="set-item-box">
     <div class="img-box">
+      <div class="img-videos">
+        <div class="flex">
+          <div class="play-icon"></div>
+          {{ set.contents_count }} ویدیو
+        </div>
+        <div class="flex">
+          <div class="tv"></div>
+          ریاضی کنکور
+        </div>
+      </div>
+
       <router-link :to="{ path: `/set/${set.id}` }">
         <img
           :src="set.photo"
@@ -106,6 +117,16 @@ export default {
   width: 4px;
   height: 16px;
 }
+.play-icon {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADvSURBVHgBnVOBEYIwDGw9B2AE3IAR4gaMgBPoBjCCToAb6Aa4AW4AG+AGNTmeu1qBlv7dXyBNv+n1o5UFYwxxIPz2zJfWuldbwCKlmYfk01CRApuuzAS5jHlHvpOaEKFGihfWUmZrCdKakKBS/q471NZ/18WJJqj1sb5iDmAeLWTtma5LktupCMASRzVapIwWgtiHw41J8tLRQi6iheC3M/Mt3e1VBPD0D6bEw+aOpAsZGf5sIXL6mcVpPDwiuWXIxszNHxaaBYEM65MArZ1G1qTbQ1sjLy6+qBDA+i4G5BPffu2IpRwK/PbMJ4znxRemPTi8LJF12AAAAABJRU5ErkJggg==');
+  height: 15.625214576721191px;
+  width: 14.67812442779541px;
+}
+.tv {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACmSURBVHgB1ZLhDURAEIVn5QrQwd11oAQlXAnXAR2ICrSgAzqgA1RgStDBehMjkY3YjX8m+ezgfSy7RE5Za5OTaz/yFUI1qA7nBWhCxBjMIAeZ9rGbM3sYQwr2wAcU2peAtV+MMe1RnPUmX0zmD3p5KOSvSCnoyP8JVsdBnEinxRRekzgR3ayHiUzbDwqttzgvHEYRdVtNV4ZmZB17d+cknrcxaCEuK0dYXXRSR/1RAAAAAElFTkSuQmCC');
+  height: 14px;
+  width: 14px;
+}
 .q-card {
   min-width: 318px;
 }
@@ -156,6 +177,20 @@ export default {
       img {
         width: inherit;
         border-radius: 20px 20px 0 0;
+      }
+    }
+    .img-videos {
+      background: #000000;
+      color: white;
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      height: 40px;
+      top: 140px;
+      display: flex;
+      align-items: center;
+      &:hover {
+        opacity: 0.6;
       }
     }
   }
