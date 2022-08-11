@@ -84,8 +84,13 @@
 
 <script>
 import { Product } from 'src/models/Product'
+import { useQuasar } from 'quasar'
 
 export default {
+  setup() {
+    const $q = useQuasar()
+    return { $q }
+  },
   name: 'product-item',
   data: () => ({
     product: new Product()
@@ -111,7 +116,25 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', this.product)
+      this.$store.dispatch('Cart/addToCart', this.product).then(() => {
+        this.$store.dispatch('Cart/reviewCart', this.product).then(() => {
+          this.$q.notify({
+            message: 'با موفقیت به سبد خرید شما افزوده شد',
+            color: 'green',
+            actions: [
+              {
+                label: 'سبد خرید',
+                icon: 'isax:shopping-cart',
+                color: 'white',
+                class: 'bg-green-3',
+                handler: () => {
+                  this.$router.push({ name: 'User.Checkout.Review' })
+                }
+              }
+            ]
+          })
+        })
+      })
     }
   }
 }
