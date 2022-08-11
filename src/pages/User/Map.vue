@@ -1,6 +1,8 @@
 <template>
-  <page-builder :sections="sections"
-                :options="pageConfig" />
+  <page-builder
+    :sections="sections"
+    :options="pageConfig"
+  />
 </template>
 
 <script>
@@ -9,7 +11,7 @@ import PageBuilder from 'components/PageBuilder/PageBuilder'
 export default {
   name: 'MapPage',
   components: { PageBuilder },
-  data () {
+  data() {
     return {
       pageConfig: {
         padding: {
