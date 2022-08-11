@@ -186,6 +186,17 @@ module.exports = configure(function (ctx) {
           position: 'top',
           // multiLine: true,
           classes: 'default-notify-class'
+        },
+        capacitor: {
+          iosStatusBarPadding: true, // add the dynamic top padding on iOS mobile devices
+
+
+          // Quasar handles app exit on mobile phone back button.
+          // backButtonExit: true/false/'*'/['/login', '/home', '/my-page'],
+
+          // On the other hand, the following completely
+          // disables Quasar's back button management.
+          backButton: true
         }
       },
 
@@ -301,7 +312,14 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {
-      hideSplashscreen: true
+      // (Optional!)
+      hideSplashscreen: false, // disables auto-hiding the Splashscreen by Quasar CLI
+
+      // (Optional!)
+      capacitorCliPreparationParams: [ 'sync', ctx.targetName ],
+    },
+    bin: {
+      linuxAndroidStudio: "/snap/android-studio/current/android-studio/bin/studio.sh"
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
