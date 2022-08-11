@@ -35,7 +35,7 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.scss',
+      'app.scss'
       // 'flatIcon.css',
       // '../../public/fonts/Iconsax/style.css'
       // 'src/assets/scss/app.scss',
@@ -188,6 +188,7 @@ module.exports = configure(function (ctx) {
           classes: 'default-notify-class'
         }
       },
+      cssAddon: true,
 
       iconSet: 'material-icons', // Quasar icon set
       lang: 'fa', // Quasar language pack (en-US)

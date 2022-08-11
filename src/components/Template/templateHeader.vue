@@ -114,7 +114,7 @@ export default {
     this.$store.commit('AppLayout/updateBreadcrumbLoading', false)
     this.$store.commit('AppLayout/updateVisibilityBreadcrumb', true)
     this.user = this.$store.getters['Auth/user']
-    console.log(this.user)
+    console.log('gfdgy :', this.user)
   },
   computed: {
     ...mapGetters('AppLayout', [

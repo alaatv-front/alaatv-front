@@ -119,7 +119,7 @@
   >
     <q-card    v-for="(item, index) in setList"
                :key="index"
-               class="q-ma-md set-item">
+               class="q-ma-md  set-item">
       <div class="row q-mb-md q-pa-md">
         <div class="col-7">
           <div class="ellipsis-2-lines set-title">
@@ -216,14 +216,10 @@ export default {
 .product-item{
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
   border-radius: 15px;
-  @media only screen and (max-width: 1024px){
-    max-height: 150px;
-  }
+  max-height: 120px;
   .img-box{
     height:100%;
-    @media only screen and (max-width: 1024px){
-      max-height: 150px;
-    }
+    max-height: 120px;
     .img-style{
       height:100%;
       border-radius: 15px 0 0 15px;
