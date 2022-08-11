@@ -13,6 +13,12 @@ class Product extends Model {
       {
         key: 'title'
       },
+      {
+        key: 'teacher_name'
+      },
+      {
+        key: 'teacher_image'
+      }
       { key: 'is_free' },
       { key: 'photo' },
       { key: 'attributes' },
