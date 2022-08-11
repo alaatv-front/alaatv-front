@@ -1,5 +1,4 @@
 <template>
-  <div class="pic"></div>
   <q-card class="product-item-box">
     <div class="img-box">
       <router-link :to="{ path: `/product/${product.id}` }">
@@ -64,6 +63,7 @@
           :productId="product.id"
           :data-product-id="product.id"
           class="btn-green"
+          @click="addToCart"
         >
           <q-icon name="add"></q-icon>
           <span>افزودن به سبد</span>
@@ -109,7 +109,11 @@ export default {
   mounted() {
     this.product = new Product(this.data)
   },
-  methods: {}
+  methods: {
+    addToCart() {
+      this.$store.dispatch('Cart/addToCart', this.product)
+    }
+  }
 }
 </script>
 
