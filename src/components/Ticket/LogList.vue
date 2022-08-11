@@ -3,8 +3,8 @@
        :key="item"
        style="display: flex">
     <div class="log-date"
-         :style="{color : mainColor(item), borderLeft: '3px ' + 'solid ' + mainColor(item)}">
-      {{ this.makeDateShamsi(item.created_at, 'date') }}
+         :style="{color : setMainColor(item), borderLeft: '3px ' + 'solid ' + setMainColor(item)}">
+      {{ convertToShamsi(item.created_at, 'date') }}
     </div>
     <div class="log-info">
       <div>
@@ -24,7 +24,7 @@
           </span>
         </div>
         <div class="log-time">
-          {{ this.makeDateShamsi(item.created_at, 'time') }}
+          {{ convertToShamsi(item.created_at, 'time') }}
         </div>
       </div>
     </div>
@@ -32,10 +32,11 @@
 </template>
 
 <script>
-import moment from 'moment-jalaali'
+import { mixinDateOptions } from 'src/mixin/Mixins'
 
 export default {
   name: 'logList',
+  mixins: [mixinDateOptions],
   props: {
     logArray: {
       type: Array,
@@ -43,20 +44,10 @@ export default {
     }
   },
   data () {
-    return {
-    }
-  },
-  created () {
+    return {}
   },
   methods: {
-    makeDateShamsi (date, mode) {
-      if (mode === 'time') {
-        return moment(date, 'HH:mm:ss').format('HH:mm:ss')
-      } else {
-        return moment(date, 'YYYY-M-D').format('jYYYY/jMM/jDD')
-      }
-    },
-    mainColor (obj) {
+    setMainColor (obj) {
       if (obj.action === 'تغییر دپارتمان تیکت') {
         return '#ffb822'
       } else if (obj.action === 'ثبت پیام برای تیکت') {
@@ -67,8 +58,6 @@ export default {
         return '#34bfa3'
       }
     }
-  },
-  computed: {
   }
 }
 </script>

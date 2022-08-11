@@ -14,27 +14,27 @@
         :after-load-input-data="checkLoadInputData"
       >
         <template #before-form-builder>
-          <div style="display: flex; justify-content: center">
-            <div style="justify-content: space-between; display: flex; width: 70%;">
-              <q-btn rounded
-                     color="blue"
-                     icon="isax:archive-book"
-                     @click="openCloseLogdrawer">
-                <q-tooltip>
-                  باز شدن لیست اتفاقات
-                </q-tooltip>
-              </q-btn>
-              <q-btn rounded
-                     color="blue"
-                     icon="isax:shopping-cart"
-                     @click="openShopLogList">
-                <q-tooltip>
-                  باز شدن لیست خرید
-                </q-tooltip>
-              </q-btn>
-            </div>
+          <div class="flex justify-around">
+            <q-btn rounded
+                   color="blue"
+                   icon="isax:archive-book"
+                   @click="openCloseLogdrawer">
+              <q-tooltip>
+                باز شدن لیست اتفاقات
+              </q-tooltip>
+            </q-btn>
+            <q-btn rounded
+                   v-if="isUserAdmin"
+                   color="blue"
+                   icon="isax:shopping-cart"
+                   @click="openShopLogList">
+              <q-tooltip>
+                باز شدن لیست خرید
+              </q-tooltip>
+            </q-btn>
           </div>
-          <div class="row q-mt-lg">
+          <div class="row q-mt-lg"
+               v-if="isUserAdmin">
             <div class="col-4 q-px-lg">
               <q-btn unelevated
                      style="width: 100%"
@@ -67,17 +67,20 @@
           </div>
         </template>
         <template #after-form-builder>
-          <div>
+          <div v-if="isUserAdmin">
             <q-btn unelevated
                    color="blue">ویرایش اپراتورها</q-btn>
           </div>
-          <ticket-rate :rate="searchForInputVal('rate')"
-                       :ticket-id="searchForInputVal('id')"
-                       class="q-ml-lg q-mt-lg" />
+          <ticket-rate
+            v-if="!isUserAdmin"
+            :rate="searchForInputVal('rate')"
+            :ticket-id="searchForInputVal('id')"
+            class="q-ml-lg q-mt-lg" />
         </template>
       </entity-edit>
       <messages v-for="item in userMessageArray"
                 :key="item"
+                :is-user-admin="isUserAdmin"
                 :data="item" />
       <SendMessageInput
         ref="SendMessageInput"
@@ -86,30 +89,10 @@
         @sendImage="sendMessageImage"
         @sendVoice="sendMessageVoice"
       />
-      <q-drawer
-        v-model="orderDrawer"
-        side="right"
-        :width="1016"
-        overlay
-        bordered
-        class="z-top"
-      >
-        <q-scroll-area class="fit">
-          <q-btn icon="mdi-close"
-                 class="close-btn"
-                 unelevated
-                 @click="orderDrawer = false" />
-          <user-order-list :user-orders-list="userOrderData?.list"
-                           :loading="orderLoading" />
-        </q-scroll-area>
-      </q-drawer>
-      <q-drawer
-        v-model="logDrawer"
-        :width="310"
-        overlay
-        bordered
-        elevated
-        class="z-top"
+      <drawer
+        :is-open="logDrawer"
+        max-width="310px"
+        side="left"
       >
         <q-scroll-area class="fit">
           <q-btn icon="mdi-close"
@@ -134,6 +117,7 @@
             </q-tabs>
           </div>
           <q-tab-panels v-model="panel"
+                        class="tab-panels"
                         animated>
             <q-tab-panel name="events">
               <log-list :log-array="searchForInputVal('logs')" />
@@ -148,35 +132,51 @@
                            :href="'/ticket/' + ticket.id"
                            dense
                            flat>{{ticket.title}}</q-btn>
-                    <div class="time">{{makeDateShamsi(ticket.created_at, 'time')}}</div>
+                    <div class="time">{{convertToShamsi(ticket.created_at, 'time')}}</div>
                   </div>
                 </div>
               </template>
             </q-tab-panel>
           </q-tab-panels>
         </q-scroll-area>
-      </q-drawer>
+      </drawer>
+      <drawer
+        :is-open="orderDrawer"
+        max-width="1016px"
+      >
+        <q-scroll-area class="fit">
+          <q-btn icon="mdi-close"
+                 class="close-btn"
+                 unelevated
+                 @click="orderDrawer = false" />
+          <user-order-list :user-orders-list="userOrderData?.list"
+                           :loading="orderLoading" />
+        </q-scroll-area>
+      </drawer>
     </div>
   </div>
 </template>
 
 <script>
 import { EntityEdit, EntityAction } from 'quasar-crud'
-import Messages from 'src/components/Messages'
-import TicketRate from 'src/components/TicketRate'
-import LogList from 'components/LogList'
-import UserOrderList from 'components/userOrderList'
+import Messages from 'components/Ticket/Messages'
+import TicketRate from 'components/Ticket/TicketRate'
+import LogList from 'components/Ticket/LogList'
+import Drawer from 'components/CustomDrawer'
+import UserOrderList from 'components/Ticket/userOrderList'
 import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
 import axios from 'axios'
-import SendMessageInput from 'components/SendMessageInput'
-import moment from 'moment-jalaali'
+import SendMessageInput from 'components/Ticket/SendMessageInput'
+import { mixinDateOptions } from 'src/mixin/Mixins'
 
 export default {
   name: 'Show',
-  components: { EntityEdit, EntityAction, Messages, LogList, UserOrderList, TicketRate, SendMessageInput },
+  mixins: [mixinDateOptions],
+  components: { EntityEdit, EntityAction, Messages, LogList, UserOrderList, TicketRate, SendMessageInput, Drawer },
   data () {
     return {
+      isUserAdmin: false,
       sendMessageLoading: false,
       renderComponent: true,
       logDrawer: false,
@@ -185,11 +185,8 @@ export default {
       panel: 'events',
       userOrderData: null,
       isDataLoaded: false,
-      userFirstName: null,
-      userLastName: null,
       userId: null,
       userMessageArray: [],
-      userPhoto: null,
       expanded: true,
       api: API_ADDRESS.ticket.show.base,
       entityIdKey: 'id',
@@ -265,7 +262,7 @@ export default {
         { type: 'dateTime', name: 'created_at', responseKey: 'ticket.created_at', label: 'تاریخ ایجاد', col: 'col-md-4', disable: true },
         { type: 'input', name: 'national_code', responseKey: 'ticket.user.national_code', label: 'کد ملی', col: 'col-md-4', disable: true },
         { type: 'input', name: 'major', responseKey: 'ticket.user.major.name', label: 'رشته', col: 'col-md-4', disable: true },
-        { type: 'dateTime', name: 'created_at', responseKey: 'ticket.updated_at', label: 'تاریخ بروز آوری:', col: 'col-md-4', disable: true },
+        { type: 'dateTime', name: 'created_at', responseKey: 'ticket.updated_at', abc: true, label: 'تاریخ بروز آوری:', col: 'col-md-4', disable: true },
         { type: 'hidden', name: 'id', responseKey: 'ticket.id', label: 'id' },
         { type: 'hidden', name: 'department_title', responseKey: 'ticket.department.title' },
         { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', label: '' },
@@ -276,6 +273,7 @@ export default {
         { type: 'hidden', name: 'priority-id', responseKey: 'ticket.priority.id' },
         { type: 'hidden', name: 'rate', responseKey: 'ticket.rate' },
         {
+          isAdmin: true,
           type: 'entity',
           name: 'management',
           selectionMode: 'single',
@@ -341,6 +339,7 @@ export default {
           col: 'col-md-4'
         },
         {
+          isAdmin: true,
           type: 'entity',
           name: 'management',
           selectionMode: 'multiple',
@@ -409,13 +408,17 @@ export default {
     }
   },
   methods: {
-    // forceRerender () {
-    //   this.renderComponent = false
-    //   this.userMessageArray = this.searchForInputVal('messages')
-    //   this.$nextTick(() => {
-    //     this.renderComponent = true
-    //   })
-    // },
+    initPageData () {
+      this.api += '/' + this.$route.params.id
+      this.getInput('department').options = this.departments
+      this.getInput('status').options = this.status
+    },
+    getInput (inputName) {
+      return this.inputs.find(input => input.name === inputName)
+    },
+    filterDataForUserRole () {
+      this.inputs = this.inputs.filter(input => !input.isAdmin)
+    },
     sendMessageText (data) {
       this.sendMessage({
         body: data.body,
@@ -441,6 +444,7 @@ export default {
 
       })
     },
+
     sendMessage (data) {
       const formData = new FormData()
 
@@ -463,7 +467,7 @@ export default {
       this.sendLoading = true
       this.$axios.post(API_ADDRESS.ticket.show.ticketMessage, formData)
         .then(res => {
-          console.log(res)
+          this.userMessageArray.unshift(res.data.data.ticketMessage)
           this.$refs.SendMessageInput.clearMessage()
           this.$q.notify({
             message: 'پیام شما با موفقیت ثبت شد',
@@ -495,24 +499,10 @@ export default {
           console.log(e)
         })
     },
-    makeDateShamsi (date, mode) {
-      if (mode === 'time') {
-        return moment(date, 'HH:mm:ss').format('HH:mm:ss')
-      } else {
-        return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
-      }
-    },
     searchForInputVal (name) {
-      let value = null
-      this.inputs.forEach((e) => {
-        if (name === e.name) {
-          if (e.value === undefined) {
-            return false
-          }
-          value = e.value
-        }
-      })
-      return value
+      const input = this.inputs.find(input => input.name === name)
+      if (input) return input.value
+      return false
     },
     openShopLogList () {
       this.orderDrawer = this.orderDrawer === false
@@ -529,7 +519,11 @@ export default {
         })
     },
     checkLoadInputData () {
-      this.isDataLoaded = true
+      this.userMessageArray = this.searchForInputVal('messages')
+      this.userId = this.searchForInputVal('userId')
+      if (this.isUserAdmin === false) {
+        this.filterDataForUserRole()
+      }
     },
     openCloseLogdrawer () {
       this.logDrawer = this.logDrawer === false
@@ -547,28 +541,19 @@ export default {
         })
     }
   },
-  computed: {
-  },
-  watch: {
-    isDataLoaded (newData, OldData) {
-      if (this.isDataLoaded === true) {
-        this.userFirstName = this.searchForInputVal('first_name')
-        this.userLastName = this.searchForInputVal('last_name')
-        this.userMessageArray = this.searchForInputVal('messages')
-        this.userPhoto = this.searchForInputVal('img')
-        this.userId = this.searchForInputVal('userId')
-      }
-    }
-  },
   created () {
-    this.api += '/' + this.$route.params.id
-    this.inputs[4].options = this.departments
-    this.inputs[5].options = this.status
+    this.initPageData()
+  },
+  mounted () {
+    this.isUserAdmin = this.$store.getters['Auth/user'].has_admin_permission
   }
 }
 </script>
 
 <style scoped>
+.tab-panels{
+  background: rgb(250, 250, 250);
+}
 .close-btn {
   width: 100%;
   border-radius: 0;
