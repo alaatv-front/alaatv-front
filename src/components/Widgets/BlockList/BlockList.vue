@@ -4,7 +4,10 @@
     :key="index"
     class="block-list-widget"
   >
-    <Block :data="block" :options="options"/>
+    <Block
+      :data="block"
+      :options="options"
+    />
   </div>
 </template>
 
@@ -19,28 +22,31 @@ export default {
   mixins: [mixinWidget],
   props: {
     data: {
-      type: [ String, Array, BlockList ],
+      type: [String, Array, BlockList],
       default: new BlockList()
     },
-
+    getData: {
+      type: Function,
+      default: () => {}
+    }
   },
-  data () {
+  data() {
     return {
       blocks: {}
     }
   },
-  created () {
+  created() {
     this.loadBlocks()
   },
 
   computed: {
-    blocksToShow () {
+    blocksToShow() {
       return this.getBlocks(this.blocks)
-    },
+    }
   },
 
   watch: {
-    blocks () {
+    blocks() {
       this.blocks.list.forEach((block, index) => {
         block.headerCustomClass = `banner-header-${index}` + ' '
       })
@@ -48,27 +54,21 @@ export default {
   },
 
   methods: {
-    loadBlocks () {
+    loadBlocks() {
       if (typeof this.data === 'object') {
         this.blocks = new BlockList(this.data)
       } else if (typeof this.data === 'string') {
-        const url= this.data
+        const url = this.data
         this.getBlocksByRequest(url)
       }
     },
 
-    getBlocksByRequest (url) {
+    getBlocksByRequest(url) {
       this.blocks.loading = true
       let promise = null
-
-      if (typeof this.options.getData === 'function') {
-        promise = this.options.getData(url)
-      } else {
-        promise = this.$axios.get(url)
-      }
-
+      promise = this.getData(url)
       promise
-        .then(response => {
+        .then((response) => {
           this.blocks = new BlockList(response.data.data)
 
           this.blocks.loading = false
@@ -79,8 +79,8 @@ export default {
         })
     },
 
-    getBlocks (blocks) {
-      if(!blocks || !blocks.list || blocks.list.length === 0) {
+    getBlocks(blocks) {
+      if (!blocks || !blocks.list || blocks.list.length === 0) {
         return
       }
       return blocks.list.slice(this.options.from, this.options.to)
@@ -89,5 +89,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style
+  lang="scss"
+  scoped
+></style>

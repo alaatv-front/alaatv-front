@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import SendMessageInput from 'components/SendMessageInput'
+import SendMessageInput from 'components/Ticket/SendMessageInput'
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
 
