@@ -39,7 +39,7 @@
              :key="pamphlet.id"
              class="pamphlet-container"
         >
-          <div class="icon-title q-mr-sm-lg q-mr-sm-xs">
+          <div class="icon-title q-ml-lg">
             <a target="_blank"
                class="flex items-center"
                :href="pamphlet.file?.pamphlet?.find(item => item.link).link">
@@ -80,7 +80,7 @@
             </a>
 
           </div>
-          <div class="q-mr-sm-lg q-mr-sm-xs">
+          <div class="q-mr-lg">
             <a target="_blank"
                :href="pamphlet.file?.pamphlet?.find(item => item.link).link">
               <q-icon name="mdi-cloud-download"
@@ -159,10 +159,6 @@ export default {
       font-size: 18px;
       font-weight: 700;
       color: #626262;
-      @media screen and (max-width: 500px) {
-        font-size: 14px;
-        padding-top: 10px;
-      }
     }
   }
 }

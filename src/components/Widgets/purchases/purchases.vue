@@ -1,36 +1,34 @@
 <template>
-  <div class="row q-pa-md ">
+  <div class="row q-pa-md">
     <!--    ----------------------------------------------------------------------- filter boxes ------------------------------------------------------------------------------- -->
     <div class="col-12">
-      <div class="filter-box-container">
-        <div class="q-mb-lg filter-box">
-          <q-icon name="mdi-tune-vertical-variant q-mr-md"
-                  class="">
-            <q-tooltip>
-              مرتب سازی بر اساس
-            </q-tooltip>
-          </q-icon>
-          <div class="sortingFilter-item date q-mr-md">
-            <filter-box
-              :items="filterBoxSort"
-              v-model:boxSortSelected="selectedFilterBoxValue"
-              type="filterBoxSort"
-              :custom-class="'sort'"
-              @update:filterBoxSort="onChangeFilterSortBox"
-            >
-            </filter-box>
-          </div>
-          <div class="sortingFilter-item subject q-mr-md">
-            <filter-box
-              ref="filterBoxCategory"
-              v-model:categorySelected="selectedFilterCategoryValue"
-              type="filterBoxCategory"
-              :items="filterBoxCategory"
-              @update:filterBoxCategory="onChangeFilterBoxCategory"
-              :custom-class="'filter'"
-            >
-            </filter-box>
-          </div>
+      <div class="flex justify-center items-center q-mb-lg">
+        <q-icon name="mdi-tune-vertical-variant q-mr-md"
+                class="fdgsdg">
+          <q-tooltip>
+            مرتب سازی بر اساس
+          </q-tooltip>
+        </q-icon>
+        <div class="sortingFilter-item date q-mr-md">
+          <filter-box
+            :items="filterBoxSort"
+            v-model:boxSortSelected="selectedFilterBoxValue"
+            type="filterBoxSort"
+            :custom-class="'sort'"
+            @update:filterBoxSort="onChangeFilterSortBox"
+          >
+          </filter-box>
+        </div>
+        <div class="sortingFilter-item subject q-mr-md">
+          <filter-box
+            ref="filterBoxCategory"
+            v-model:categorySelected="selectedFilterCategoryValue"
+            type="filterBoxCategory"
+            :items="filterBoxCategory"
+            @update:filterBoxCategory="onChangeFilterBoxCategory"
+            :custom-class="'filter'"
+          >
+          </filter-box>
         </div>
       </div>
     </div>
@@ -1019,8 +1017,7 @@ export default {
         return
       }
       const firstSetId = this.products.list[0].sets.list[0].id
-      this.handlesTabs()
-      this.getContentsData(firstSetId)
+      this.setSelectedSet({ setId: firstSetId })
       console.log(this.products)
     },
 
@@ -1090,7 +1087,6 @@ export default {
     },
     handleShowModal() {
       this.showContentDialog = this.$store.getters['AppLayout/windowSize'].x < 1024
-      console.log('handleShowModal', this.showContentDialog)
     },
     setSelectedSet (data) {
       this.handleShowModal()
@@ -1115,19 +1111,6 @@ export default {
 <style scoped lang="scss">
 .costume-background-color{
   background: #F6F8FA !important;
-}
-.test{
-  overflow-x: scroll;
-}
-.filter-box-container{
-  overflow-x: scroll;
-  .filter-box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 820px;
-  }
-
 }
 .noContentMessage{
   font-size: 18px;
