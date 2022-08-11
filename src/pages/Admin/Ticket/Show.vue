@@ -1,7 +1,6 @@
 <template>
   <div class="row  justify-center">
-    <div class="col-8"
-         style="margin-bottom: 50px;">
+    <div class="col-8 q-mb-xl">
       <entity-edit
         ref="entityEdit"
         v-model:value="inputs"
@@ -18,7 +17,7 @@
             <q-btn rounded
                    color="blue"
                    icon="isax:archive-book"
-                   @click="openCloseLogdrawer">
+                   @click="openCloseLogDrawer">
               <q-tooltip>
                 باز شدن لیست اتفاقات
               </q-tooltip>
@@ -37,7 +36,7 @@
                v-if="isUserAdmin">
             <div class="col-4 q-px-lg">
               <q-btn unelevated
-                     style="width: 100%"
+                     class="full-width"
                      icon="isax:user"
                      :to="'/user/'+this.searchForInputVal('userId')+'/edit'"
                      target="_blank"
@@ -47,7 +46,7 @@
             </div>
             <div class="col-4 q-px-lg">
               <q-btn unelevated
-                     style="width: 100%"
+                     class="full-width"
                      icon="isax:edit"
                      @click="saveChanges"
                      color="blue">
@@ -56,7 +55,7 @@
             </div>
             <div class="col-4 q-px-lg">
               <q-btn unelevated
-                     style="width: 100%"
+                     class="full-width"
                      icon="isax:sms"
                      color="blue"
                      @click="sendTicketStatusNotice(this.searchForInputVal('id'))"
@@ -99,8 +98,7 @@
                  unelevated
                  class="close-btn"
                  @click="logDrawer = false" />
-          <div style="display: flex; justify-content: center;"
-               class="q-my-md">
+          <div class="q-my-md flex content-between">
             <q-tabs
               v-model="panel"
               dense
@@ -441,7 +439,6 @@ export default {
         voice: data.voice,
         isPrivate: data.isPrivate,
         loading: data.loading
-
       })
     },
 
@@ -475,9 +472,9 @@ export default {
           })
           this.sendLoading = false
         })
-        .catch(error => {
+        .catch(e => {
           this.sendLoading = false
-          console.log(error)
+          // console.log(e)
         })
     },
     saveChanges () {
@@ -496,7 +493,7 @@ export default {
           })
         })
         .catch((e) => {
-          console.log(e)
+          // console.log(e)
         })
     },
     searchForInputVal (name) {
@@ -510,12 +507,11 @@ export default {
       axios.get(API_ADDRESS.user.orders(this.userId)).then(
         response => {
           this.userOrderData = new CartItemList(response.data.data)
-          console.log('orderData: ', this.userOrderData)
           this.orderLoading = false
         }
       )
         .catch(e => {
-          console.log(e)
+          // console.log(e)
         })
     },
     checkLoadInputData () {
@@ -525,7 +521,7 @@ export default {
         this.filterDataForUserRole()
       }
     },
-    openCloseLogdrawer () {
+    openCloseLogDrawer () {
       this.logDrawer = this.logDrawer === false
     },
     sendTicketStatusNotice (ticketId) {
@@ -537,7 +533,7 @@ export default {
           })
         })
         .catch((e) => {
-          console.log(e)
+          // console.log(e)
         })
     }
   },
