@@ -1,18 +1,17 @@
 <template>
-  <q-card style="margin-top: 50px;"
+  <q-card class="q-mt-xl"
           :class="data.is_private ? 'private-message-card' : ''">
     <div :dir="ltrOrRtl">
       <div class="user-img">
         <q-img width="85px"
                height="85px"
-               style="border-radius: 50%;"
+               class="user-photo"
                :src="data.user.photo" />
       </div>
     </div>
-    <q-card-section class="d-flex"
+    <q-card-section class="flex"
                     :class="isUserCustomer ? 'admin-info' : 'user-info'">
-      <div class="d-flex"
-           style="margin-top: 33px">
+      <div class="flex info-section">
         <q-img v-if="!isUserCustomer"
                width="20px"
                height="25px"
@@ -32,7 +31,7 @@
         <q-icon v-if="isUserCustomer"
                 size="16px"
                 name="isax:user"
-                style="margin-right: 5px; margin-top: 2px" />
+                class="user-icon" />
       </div>
       <div class="q-ml-xl"
            v-if="data.is_private">
@@ -47,7 +46,7 @@
         <div v-html="data.body" />
         <div dir="ltr"
              v-if="data.files.voice">
-          <div class="d-flex voice-player-section">
+          <div class="flex voice-player-section">
             <q-btn v-if="!showVoicePlayerIsPlaying"
                    size="30px"
                    unelevated
@@ -73,13 +72,13 @@
         </div>
         <q-img v-if="data.files.photo"
                :src="data.files.photo"
-               style="margin: 30px 0"
+               class="q-my-lg"
         />
       </div>
       <q-separator class="q-my-md"></q-separator>
-      <div class="d-flex">
+      <div class="flex">
         <q-chip color="blue"
-                style="color: #FFFFFF; height: 30px;"
+                class="dateTime-chip"
                 square>
           {{ convertToShamsi(data.created_at) }}
         </q-chip>
@@ -191,6 +190,20 @@ export default {
 </script>
 
 <style scoped>
+.user-photo {
+  border-radius: 50%;
+}
+.dateTime-chip {
+  color: #FFFFFF;
+  height: 30px;
+}
+.user-icon{
+  margin-right: 5px;
+  margin-top: 2px;
+}
+.info-section {
+  margin-top: 34px;
+}
 .private-message-card{
   background: #fff9f0;
 }
@@ -205,9 +218,6 @@ export default {
   border-radius: 50%;
   box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.25);
 }
- .d-flex {
-   display: flex !important;
- }
  .user-info {
    justify-content: start;
  }

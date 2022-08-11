@@ -1,7 +1,7 @@
 <template>
   <div v-for="item in logArray"
        :key="item"
-       style="display: flex">
+       class="flex no-wrap">
     <div class="log-date"
          :style="{color : setMainColor(item), borderLeft: '3px ' + 'solid ' + setMainColor(item)}">
       {{ convertToShamsi(item.created_at, 'date') }}
@@ -10,13 +10,13 @@
       <div>
         <div class="log-text">
           {{item.action}}
-          <span style="display: flex; margin: 5px 0;"
+          <span class="flex q-my-xs"
                 v-if="item.before">
             <br>
             از
             {{item.before}}
           </span>
-          <span style="display: flex; margin: 5px 0;"
+          <span class="flex q-my-xs"
                 v-if="item.after">
             <br>
             به
@@ -44,20 +44,41 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      departmentStatus: []
+    }
   },
   methods: {
     setMainColor (obj) {
-      if (obj.action === 'تغییر دپارتمان تیکت') {
-        return '#ffb822'
-      } else if (obj.action === 'ثبت پیام برای تیکت') {
-        return '#36a3f7'
-      } else if (obj.action === 'تغییر وضعیت تیکت') {
-        return '#716aca'
-      } else if (obj.action === 'ثبت تیکت') {
-        return '#34bfa3'
-      }
+      this.departmentStatus.forEach(item => {
+        if (obj.action === item.title) {
+          return item.color
+        }
+      })
+    },
+    initStatusData() {
+      this.departmentStatus = [
+        {
+          title: 'تغییر دپارتمان تیکت',
+          color: '#ffb822'
+        },
+        {
+          title: 'ثبت پیام برای تیکت',
+          color: '#36a3f7'
+        },
+        {
+          title: 'تغییر وضعیت تیکت',
+          color: '#716aca'
+        },
+        {
+          title: 'ثبت تیکت',
+          color: '#34bfa3'
+        }
+      ]
     }
+  },
+  created() {
+    this.initStatusData()
   }
 }
 </script>
