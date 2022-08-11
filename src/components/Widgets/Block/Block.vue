@@ -170,6 +170,7 @@ export default {
 .product-spacing {
   margin-right: 30px;
 }
+
 .block-section {
   margin-bottom: 30px;
   .block-header {

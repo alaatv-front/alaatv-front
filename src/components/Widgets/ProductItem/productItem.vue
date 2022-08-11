@@ -164,7 +164,13 @@ export default {
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
     2px 4px 10px rgba(46, 56, 112, 0.05);
   background-color: #ffffff;
-
+  top: 0;
+  transition: all ease 0.5s;
+  &:hover {
+    box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
+      5px 5px 20px rgba(0, 0, 0, 0.1);
+    top: -10px;
+  }
   .img-box {
     a {
       border-radius: inherit;
