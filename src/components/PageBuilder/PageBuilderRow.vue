@@ -1,5 +1,7 @@
 <template>
-    <div :class="className" :style="style">
+    <div :class="{'boxed': defaultOptions.boxed, 'boxedInFullWidthStatus': boxedInFullWidthStatus}"
+         :style="style"
+    >
       <div class="page-builder-row row"
            :id="defaultOptions.id"
       >
@@ -39,12 +41,35 @@ export default {
   },
   data () {
     return {
+      deviceWidth: 1920,
+      boxedInFullWidthStatus: false,
       defaultOptions: {
-        height: 'auto'
+        height: 'auto',
+        boxedWidth: 1200,
       }
     }
   },
+  created() {
+    this.updateBoxedStyle()
+    window.addEventListener('resize', () => {
+      this.updateBoxedStyle()
+    })
+  },
+  methods: {
+    updateBoxedStyle () {
+      this.deviceWidth = window.innerWidth
+      if (!this.defaultOptions.boxed) {
+        return
+      }
 
+      this.defaultOptions.style.maxWidth = this.defaultOptions.boxedWidth + 'px'
+      this.defaultOptions.style.width = this.defaultOptions.boxedWidth + 'px'
+      this.boxedInFullWidthStatus = this.deviceWidth <= this.defaultOptions.boxedWidth;
+    },
+    onResize () {
+      this.updateBoxedStyle()
+    }
+  }
 }
 </script>
 
@@ -54,23 +79,11 @@ export default {
   margin-right: auto;
   margin-left: auto;
   width: 1200px;
-  @media only screen and (max-width: 1200px) {
+  &.boxedInFullWidthStatus {
     padding-right: 15px;
     padding-left: 15px;
-    width: 100%;
+    max-width: 100% !important;
+    width: 100% !important;
   }
-}
-.row {
-  //@media only screen and (min-width: 1200px) {
-  //  &.boxed {
-  //    max-width: 1200px;
-  //    margin: auto;
-  //  }
-  //}
-  //@media only screen and (max-width: 1200px) and (max-width: 1200px) {
-  //  &.boxed {
-  //    max-width: 100%;
-  //  }
-  //}
 }
 </style>
