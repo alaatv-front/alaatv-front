@@ -50,7 +50,12 @@ export default {
                           getData: (url) => GetWidgetsData.getData(url)
                         }
                       }
-                    ]
+                    ],
+                    options:{
+                      style:{
+                        marginTop:'10px'
+                      }
+                    }
                   }
                 ],
                 options: {
