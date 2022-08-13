@@ -1,17 +1,17 @@
 <template>
   <div class="product-introduction row">
-    <div class="intro-features col-6">
+    <div class="intro-features col-md-6 col-12">
       <div class="title">
         ویژگی های این محصول
       </div>
 
-      <div class="product-info-box">
+      <div class="product-info-box row">
         <div
           v-for="(info, index) in information"
           :key="index"
-          class="product-info"
+          class="product-info col-sm-3 col-xs-6"
         >
-          <div class="product-info q-ma-sm">
+          <div class="product-info-inside q-ma-sm">
             <div class="info-header ">
               <q-img :src="info.src" class="info-image"/>
               <p class="info-title">
@@ -79,8 +79,10 @@
         </div>
       </div>
     </div>
-    <div v-if="givenData.intro"
-         class="intro-video col-6">
+    <div
+      v-if="givenData.intro"
+      class="intro-video col-md-6 col-12"
+    >
       <video-player :poster="givenData.intro.photo"
                     :sources="givenData.intro.video" />
     </div>
@@ -184,62 +186,93 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 0 20px;
-    justify-content: space-between;
-    .title {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 28px;
-        margin-right: 10px;
+    align-items: center;
 
-        &::before {
-          content: ".";
-          color: #BAD9FB;
-          font-size: 50px;
-          font-weight: bold;
-          line-height: 10px;
-        }
+    .title {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 28px;
+      margin-right: 10px;
+      margin-bottom: 20px;
+      align-self: start;
+
+      &::before {
+        content: ".";
+        color: #BAD9FB;
+        font-size: 50px;
+        font-weight: bold;
+        line-height: 10px;
+      }
     }
     .product-info-box {
       display: flex;
+      margin-bottom: 20px;
       .product-info {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 130px;
-        height: 156px;
-        margin: 5px;
-        background: #FFFFFF;
-        box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
-        border-radius: 15px;
-        .info-header {
+        justify-content: center;
+        .product-info-inside {
+          margin: 5px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
-          width: 100%;
-          background-color: #EEF5FC;
-          border-radius: 15px 15px 0 0;
-          height: 110px;
-          .info-image {
-            width: 46px;
-            height: 46px;
-            margin-bottom: 8px;
+          width: 120px;
+          height: 156px;
+          background: #FFFFFF;
+          box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
+          border-radius: 15px;
+          @media only screen and (max-width: 1439px) {
+            width: 108px;
+            height: 135px;
           }
-        }
-        .info-content {
-          display: flex;
-          flex-wrap: wrap;
-          padding: 10px;
-          .info-value {
-            text-align: center;
-            &:after {
+          @media only screen and (max-width: 1023px) {
+            width: 100px;
+            height: 102px;
+          }
+          @media only screen and (max-width: 599px) {
+            width: 120px;
+          }
+          .info-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background-color: #EEF5FC;
+            border-radius: 15px 15px 0 0;
+            height: 110px;
+            @media only screen and (max-width: 1023px) {
+              height: 65px;
+            }
+
+            .info-image {
+              width: 46px;
+              height: 46px;
+              margin: 8px 0;
+              @media only screen and (max-width: 1023px) {
+                width: 20px;
+                height: 20px;
+                margin: 4px 0;
+              }
+            }
+          }
+          .info-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            .info-value {
+              text-align: center;
+              &:after {
                 content: '-';
                 padding: 0 2px;
-            }
-            &:last-child {
-              &:after {
-                display: none;
+              }
+              &:last-child {
+                &:after {
+                  display: none;
+                }
+              }
+              @media only screen and (max-width: 1023px) {
+                font-size: 12px;
               }
             }
           }
@@ -253,6 +286,17 @@ export default {
       background: #ffffff;
       height: 70px;
       border-radius: 20px;
+      width: 524px;
+      padding-right: 20px;
+      margin-bottom: 20px;
+      @media only screen and (max-width: 1439px) {
+        width: 472px;
+      }
+      @media only screen and (max-width: 1023px) {
+        max-width: 440px;
+        width: 100%;
+        padding-right: 10px;
+      }
       .discount-percent {
         width: 120px;
         height: 70px;
@@ -269,14 +313,19 @@ export default {
       .price {
         display: flex;
         align-items: center;
-        margin: 0 30px;
+        margin: 0 20px;
+        @media only screen and (max-width: 1023px) {
+          margin: 0 10px;
+        }
+        @media only screen and (max-width: 1023px) {
+          flex-direction: column;
+        }
         .product-base-price {
           text-decoration: line-through;
           font-style: normal;
           font-weight: normal;
           font-size: 14px;
           line-height: 24px;
-          margin-left: 18px;
           color: #E05555;
           margin-right: 10px;
         }
@@ -304,7 +353,6 @@ export default {
         border-radius: 10px;
         justify-content: center;
         align-items: center;
-        margin-right: 30px;
         &.pay-later {
           background-color: #75B7FF;
         }
@@ -317,6 +365,9 @@ export default {
       border-radius: 20px;
     }
     &:deep(.video-js) {
+      border-radius: 20px;
+    }
+    &:deep(.vjs-tech) {
       border-radius: 20px;
     }
     &:deep(.vjs-poster) {

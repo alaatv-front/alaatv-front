@@ -34,9 +34,7 @@ export default {
                         name: 'blockList',
                         data: API_ADDRESS.pages.home,
                         options: {
-                          to: 1,
-                          getData: (url) =>
-                            GetWidgetsData.getData(url)
+                          to: 1
                         }
                       },
                       {
@@ -107,16 +105,15 @@ export default {
                         name: 'blockList',
                         data: API_ADDRESS.pages.home,
                         options: {
-                          from: 1,
-                          getData: (url) =>
-                            GetWidgetsData.getData(url)
+                          from: 1
                         }
                       }
                     ]
                   }
                 ],
                 options: {
-                  boxed: false
+                  boxed: true,
+                  boxedWidth: 1362
                 }
               }
             ]
