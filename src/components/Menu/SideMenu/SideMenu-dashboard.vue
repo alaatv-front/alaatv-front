@@ -1,43 +1,44 @@
 <template>
-  <div class="bg-primary side-menu-main-layout">
-    <div class="side-logo">
-      <div class="logo-image">
-        <q-img
-          src="https://nodes.alaatv.com/upload/logo_20190508105212_20190512113140.png"
-        />
-        <q-img
-          class="alaa-logo"
-          src="https://nodes.alaatv.com/upload/footer-alaaLogo.png?w=90&h=115"
-        />
+  <div class="drawer-inside">
+    <div class="side-menu-main-layout">
+      <div class="side-logo">
+        <div class="logo-image">
+          <q-img v-if="false"
+            src="https://nodes.alaatv.com/upload/logo_20190508105212_20190512113140.png"
+          />
+          <q-img
+            class="alaa-logo"
+            src="https://nodes.alaatv.com/upload/footer-alaaLogo.png?w=90&h=115"
+          />
+        </div>
       </div>
-    </div>
-    <q-list
-      class="side-menu-list"
-      padding
-      dark
-    >
-      <q-input
-        dense
-        filled
-        class="gray-input"
-        v-model="searchText"
-        @update:model-value ="search(titlesList)"
-        placeholder="جست و جو"
+      <q-list
+        class="side-menu-list"
+        padding
       >
-        <template v-slot:append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
-      <menu-item :menu="titlesList" />
-    </q-list>
-    <div class="log-out"
-         @click="logOut">
+        <q-input
+          dense
+          filled
+          class="gray-input"
+          v-model="searchText"
+          @update:model-value ="search(titlesList)"
+          placeholder="جست و جو"
+        >
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+        <menu-item :menu="titlesList" />
+      </q-list>
+      <div class="log-out"
+           @click="logOut">
       <span>
         <q-avatar icon="isax:logout"
                   size="30"
                   dir="rtl" />
       </span>
-      <span class="logout-text">خروج </span>
+        <span class="logout-text">خروج </span>
+      </div>
     </div>
   </div>
 </template>
@@ -565,10 +566,6 @@ export default {
 .side-menu-main-layout {
   display: flex;
   flex-direction: column;
-  min-width: 280px;
-  min-height: 840px;
-  border-radius: 30px;
-  margin: 40px 0 0 24px;
   overflow-y: auto;
   @media screen and (max-width: 1919px) {
     width: 260px;
@@ -610,6 +607,7 @@ export default {
     .logo-image {
       width: 140px;
       height: 95px;
+      text-align: center;
       @media screen and (max-width: 1919px) {
         height: 76px;
       }
@@ -804,13 +802,11 @@ export default {
 
     a {
       text-decoration: none;
-      color: white;
       padding: 0;
     }
   }
 
   .log-out {
-    color: white;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
