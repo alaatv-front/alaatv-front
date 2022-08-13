@@ -54,7 +54,7 @@ const routes = [
         children: [
           {
             name: 'User.Content.Show',
-            path: ':id',
+            path: '',
             component: () => import('pages/User/Content/Show.vue')
           },
           {
@@ -101,7 +101,7 @@ const routes = [
         children: [
           {
             name: 'User.Product.Show',
-            path: ':id',
+            path: '',
             component: () => import('pages/User/Product/Show.vue')
           }
         ]
@@ -113,7 +113,7 @@ const routes = [
         children: [
           {
             name: 'User.Set.Show',
-            path: ':id',
+            path: '',
             component: () => import('pages/User/Set/Show.vue')
           }
         ]
