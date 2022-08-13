@@ -6,13 +6,6 @@
       :class="data.headerCustomClass"
     >
       <div class="row items-center block-title">
-        <div class="row items-center">
-          <q-badge
-            rounded
-            class="q-mr-sm"
-            color="primary"
-          />
-        </div>
         <a
           :href="data?.url?.web"
           class="title-box"
@@ -176,17 +169,16 @@ export default {
   .block-header {
     border-radius: 10px;
     justify-content: space-between;
-    background: #ffffff;
 
     .block-title {
       .title-box {
         text-decoration: none;
         cursor: pointer;
         margin: 0;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 24px;
-        letter-spacing: -0.03em;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 31px;
         color: #333333;
         padding: 0 0 4px 0;
         border-bottom: 1px solid white;
@@ -205,7 +197,12 @@ export default {
     .scroll-view {
       display: flex;
       width: 100%;
-      overflow: auto;
+      overflow-x: scroll;
+      /* this padding is needed due to move animation of card
+      to avoid overflow behavior: 
+      https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
+      */
+      padding-top: 10px;
     }
 
     .item-container {
