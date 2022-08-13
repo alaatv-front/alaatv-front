@@ -30,24 +30,27 @@ export default {
                       }
                     ],
                     options: {
-                      col: 'col-md-3'
+                      className: 'col-md-3 q-pr-sm'
                     }
                   },
                   {
                     widgets: [
                       {
-                        name: 'profile',
+                        name: 'profile-crud',
                         data: { test: 'test' },
                         options: { test: 'test' }
                       }
                     ],
                     options: {
-                      col: 'col-md-9'
+                      className: 'col-md-9 q-pl-sm'
                     }
                   }
                 ],
                 options: {
-                  className: 'boxed'
+                  boxed: true,
+                  style: {
+                    marginTop: '30px'
+                  }
                 }
               }
             ]
