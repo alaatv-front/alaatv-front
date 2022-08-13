@@ -24,9 +24,8 @@ const mixinWidget = {
       defaultOptions: {}
     }
   },
-
   created() {
-    Object.assign(this.defaultOptions, this.options)
+    this.mergeOptionsToDefaultOptions()
   },
   computed: {
     className() {
@@ -40,14 +39,19 @@ const mixinWidget = {
       return this.defaultOptions.className
     },
     style() {
-      if (!this.defaultOptions.style) {
-        this.defaultOptions.style = {}
-      }
       // if fullHeight option is true, then using containerFullHeight (which is come from PageBuilder the parent)
       if (this.defaultOptions.fullHeight) {
         this.defaultOptions.style.minHeight = this.containerFullHeight
       }
       return this.defaultOptions.style
+    }
+  },
+  methods: {
+    mergeOptionsToDefaultOptions () {
+      Object.assign(this.defaultOptions, this.options)
+      if (!this.defaultOptions.style) {
+        this.defaultOptions.style = {}
+      }
     }
   }
 }
