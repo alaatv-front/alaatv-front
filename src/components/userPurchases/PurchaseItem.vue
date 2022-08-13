@@ -1,88 +1,4 @@
 <template>
-  <!--  <div>-->
-  <!--    <div class="productItem bg-amber-1 q-mb-sm">-->
-  <!--      <div class="row no-gutters1">-->
-  <!--        <div class="col-md-2 productItem-imageCol">-->
-  <!--          <div class="productItem-image">-->
-  <!--            <q-img :src="product.photo"-->
-  <!--                   :alt="product.title"-->
-  <!--            />-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--        <div class="col-md-10 productItem-descriptionCol">-->
-  <!--          <div class="productItem-description">-->
-  <!--            <div class="title"-->
-  <!--                 v-html="product.title"></div>-->
-  <!--            <div class="action">-->
-  <!--              <button v-if="product.sets.list.length === 1 && product.sets.list[0].videos_count > 0"-->
-  <!--                      @click="setSelectedSet(product, product.sets.list[0], 'video')"-->
-  <!--                      class="btn btn-warning btn-lg btnViewContentSet btnViewVideo">-->
-  <!--                فیلم ها-->
-  <!--              </button>-->
-  <!--              <button v-if="product.sets.list.length === 1 && product.sets.list[0].pamphlets_count > 0"-->
-  <!--                      @click="setSelectedSet(product, product.sets.list[0], 'pamphlet')"-->
-  <!--                      class="btn btn-secondary btn-lg btnViewContentSet btnViewPamphlet">-->
-  <!--                جزوات-->
-  <!--              </button>-->
-  <!--              <div v-if="product.sets.list.length > 1"-->
-  <!--                   class="CustomDropDown solidBackground background-yellow">-->
-  <!--                <div class="CustomDropDown solidBackground background-yellow"-->
-  <!--                     @click="toggleDropdown">-->
-  <!--                  <div class="select-selected"-->
-  <!--                       :class="{'select-arrow-active': setsDropdownOpen}"-->
-  <!--                       v-html="selectedSetTitle"></div>-->
-  <!--                </div>-->
-
-  <!--              </div>-->
-  <!--              <div v-if="product.sets.list.length === 0"-->
-  <!--                   role="alert"-->
-  <!--                   class="alert alert-info noContentInProductMessage bg-yellow">-->
-  <!--                به زودی-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--    <transition-->
-  <!--      name="fade-PurchaseItem"-->
-  <!--      mode="out-in"-->
-  <!--      appear-->
-  <!--      :duration="500"-->
-  <!--    >-->
-  <!--      <div v-if="product.sets.list.length > 1"-->
-  <!--           v-show="setsDropdownOpen"-->
-  <!--           class="productItem-extra CustomParentOptions CustomDropDown CustomDropDown-show">-->
-  <!--        <div class="select-items">-->
-
-  <!--          <div class="select-item"-->
-  <!--               v-for="(item, index) in product.sets.list"-->
-  <!--               v-if="canShowSet(item)"-->
-  <!--          >-->
-  <!--            <div class="setRow">-->
-  <!--              <div class="setRow-label bg-red"-->
-  <!--              >{{item.title}}</div>-->
-  <!--              <div class="setRow-action">-->
-  <!--                <button type="button"-->
-  <!--                        class="btn btn-warning btnViewContentSet btnViewVideo"-->
-  <!--                        v-if="item.videos_count > 0"-->
-  <!--                        @click="setSelectedSet(product, item, 'video')">-->
-  <!--                  فیلم ها-->
-  <!--                </button>-->
-  <!--                <button type="button"-->
-  <!--                        class="btn btn-secondary btnViewContentSet btnViewPamphlet"-->
-  <!--                        v-if="item.pamphlets_count > 0"-->
-  <!--                        @click="setSelectedSet(product, item, 'pamphlet')">-->
-  <!--                  جزوات-->
-  <!--                </button>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </transition>-->
-  <!--  </div>-->
-
   <q-card
     class="product-item q-mb-sm">
     <div class="row">
@@ -140,8 +56,9 @@
                 فیلم ها
               </q-btn>
             </div>
-            <div v-if="item.pamphlets_count > 0"
-                 class="col-12 text-right">
+            <div
+              v-if="item.pamphlets_count > 0"
+              class="col-12 text-right">
               <q-btn unelevated
                      padding="0 22px"
                      color="grey-12"
