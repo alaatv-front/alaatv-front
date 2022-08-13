@@ -5,7 +5,7 @@
     </div>
     <q-option-group
       class="flex"
-      v-model="LinesType"
+      v-model="LineType"
       :options="LineTypeOptions"
       color="primary"
       type="radio"
@@ -14,7 +14,7 @@
     />
   </div>
   <div
-    v-show="LinesType !=='fixed'">
+    v-show="LineType !=='fixed'">
     <div>
       <q-badge color="secondary">
         سرعت حرکت : از {{ standard.min }} تا {{ standard.max }} ({{ min }} تا {{ max }})
@@ -37,7 +37,7 @@ export default {
   name: 'LineType',
   data () {
     return {
-      LinesType: 'fixed',
+      LineType: 'fixed',
       standard: {
         min: 0,
         max: 17
