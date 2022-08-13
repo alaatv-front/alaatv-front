@@ -54,7 +54,7 @@ const routes = [
         children: [
           {
             name: 'User.Content.Show',
-            path: '',
+            path: ':id',
             component: () => import('pages/User/Content/Show.vue')
           },
           {

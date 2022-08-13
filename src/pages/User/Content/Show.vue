@@ -30,7 +30,10 @@
                         }
                       ],
                       options: {
-                        className: 'col-12 col-xs-12 col-sm-12 col-md-8'
+                        className: 'col-12 col-xs-12 col-sm-12 col-md-8',
+                        style:{
+                          marginTop: '16px'
+                        }
                       }
                     },
                     {
@@ -45,8 +48,9 @@
                       ],
                       options: {
                         className: 'col-12 col-xs-12 col-sm-12 col-md-4',
-                        style:{
-                          paddingBottom: '16px'
+                        style: {
+                          paddingBottom: '16px',
+                          marginTop: '16px'
                         }
                       }
                     }
