@@ -124,7 +124,7 @@
              unelevated
              class="close-btn"
              @click="filterDrawer = false" />
-      <map-filters />
+      <map-filters @filter-values="setFilters" />
     </q-scroll-area>
   </drawer>
   <drawer max-width="700px"
@@ -148,6 +148,7 @@ import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl } from '@vue-leaf
 import 'leaflet/dist/leaflet.css'
 import { MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
+import axios from 'axios'
 import MapFilters from './components/MapFilters'
 
 export default {
@@ -191,6 +192,7 @@ export default {
     return {
       filterDrawer: false,
       toolsDrawer: false,
+      filterValues: [],
 
       crs: null,
 
@@ -215,6 +217,13 @@ export default {
     this.initMap()
   },
   methods: {
+    setFilters (e) {
+      this.filterValues = e
+      this.sendFilters()
+    },
+    sendFilters () {
+      console.log('sent')
+    },
     openFilterDrawer () {
       this.filterDrawer = !this.filterDrawer
     },
