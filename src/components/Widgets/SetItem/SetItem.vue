@@ -71,8 +71,8 @@ export default {
   computed: {
     concatTitle() {
       if (!this.set.title) return null
-      if (this.set.title.length >= 40) {
-        return this.set.title.slice(-40) + '...'
+      if (this.set.title.length >= 50) {
+        return this.set.title.substr(0, 47) + '...'
       }
       return this.set.title
     }
@@ -119,13 +119,16 @@ export default {
 }
 .play-icon {
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADvSURBVHgBnVOBEYIwDGw9B2AE3IAR4gaMgBPoBjCCToAb6Aa4AW4AG+AGNTmeu1qBlv7dXyBNv+n1o5UFYwxxIPz2zJfWuldbwCKlmYfk01CRApuuzAS5jHlHvpOaEKFGihfWUmZrCdKakKBS/q471NZ/18WJJqj1sb5iDmAeLWTtma5LktupCMASRzVapIwWgtiHw41J8tLRQi6iheC3M/Mt3e1VBPD0D6bEw+aOpAsZGf5sIXL6mcVpPDwiuWXIxszNHxaaBYEM65MArZ1G1qTbQ1sjLy6+qBDA+i4G5BPffu2IpRwK/PbMJ4znxRemPTi8LJF12AAAAABJRU5ErkJggg==');
-  height: 15.625214576721191px;
-  width: 14.67812442779541px;
+  height: 18px;
+  width: 18px;
+  margin-right: 9.67px;
 }
 .tv {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACmSURBVHgB1ZLhDURAEIVn5QrQwd11oAQlXAnXAR2ICrSgAzqgA1RgStDBehMjkY3YjX8m+ezgfSy7RE5Za5OTaz/yFUI1qA7nBWhCxBjMIAeZ9rGbM3sYQwr2wAcU2peAtV+MMe1RnPUmX0zmD3p5KOSvSCnoyP8JVsdBnEinxRRekzgR3ayHiUzbDwqttzgvHEYRdVtNV4ZmZB17d+cknrcxaCEuK0dYXXRSR/1RAAAAAElFTkSuQmCC');
   height: 14px;
   width: 14px;
+  margin-top: 2px;
+  margin-right: 5px;
 }
 .q-card {
   min-width: 318px;
@@ -167,13 +170,18 @@ export default {
     box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
       5px 5px 20px rgba(0, 0, 0, 0.1);
     top: -10px;
+    .img-box .img-videos {
+      opacity: 0.6;
+    }
   }
+
   .img-box {
     a {
       border-radius: inherit;
       box-shadow: none;
       width: 100%;
       height: 270px;
+
       img {
         width: inherit;
         border-radius: 20px 20px 0 0;
@@ -189,9 +197,10 @@ export default {
       top: 140px;
       display: flex;
       align-items: center;
-      &:hover {
-        opacity: 0.6;
-      }
+      padding-right: 12.19px;
+      padding-left: 14px;
+      justify-content: space-between;
+      transition: all ease 0.5s;
     }
   }
 

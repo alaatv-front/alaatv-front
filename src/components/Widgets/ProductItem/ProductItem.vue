@@ -104,8 +104,8 @@ export default {
   computed: {
     concatTitle() {
       if (!this.product.title) return null
-      if (this.product.title.length >= 40) {
-        return this.product.title.slice(-40) + '...'
+      if (this.product.title.length >= 50) {
+        return this.product.title.substr(0, 47) + '...'
       }
       return this.product.title
     }
@@ -184,6 +184,10 @@ export default {
   color: white;
 }
 .product-item-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
   width: 260px;
   margin-bottom: 10px;
   position: relative;
