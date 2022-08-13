@@ -1,3 +1,5 @@
+import { axios } from 'src/boot/axios'
+
 export default class GetWidgetsData {
   static _requests = []
 
@@ -5,7 +7,7 @@ export default class GetWidgetsData {
     return !!this.getRequest(url)
   }
 
-  static addToRequests (axios, url) {
+  static addToRequests (url) {
     this._requests.push({
       url,
       promise: new Promise(function(myResolve, myReject) {
@@ -25,9 +27,9 @@ export default class GetWidgetsData {
     return this._requests.find(request => request.url === url)
   }
 
-  static getData (axios, url) {
+  static getData (url) {
     if (!this.hasThisRequest(url)) {
-      this.addToRequests(axios, url)
+      this.addToRequests(url)
     }
 
     return this.getRequest(url).promise

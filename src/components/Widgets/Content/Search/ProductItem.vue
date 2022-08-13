@@ -562,18 +562,6 @@ a {
   }
 }
 
-@media print {
-  .pretty .state:before,
-  .pretty .state label:before,
-  .pretty .state label:after,
-  .pretty .state .icon {
-    color-adjust: exact;
-    /* stylelint-disable */
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-}
-
 @-webkit-keyframes flow {
   0% {
     left: 0;
