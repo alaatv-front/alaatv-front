@@ -86,7 +86,7 @@
   <q-card
     class="product-item q-mb-sm">
     <div class="row">
-      <div class="col-3  ">
+      <div class="col-3">
         <div class="img-box">
           <q-img  :src="product.photo"
                   class="img-style"
@@ -121,18 +121,18 @@
                :key="index"
                class="q-ma-md  set-item">
       <div class="row q-mb-md q-pa-md">
-        <div class="col-7">
-          <div class="ellipsis-2-lines set-title">
+        <div class="col-xl-9 col-md-7 col-sm-9 col-xs-7">
+          <div class="ellipsis-2-lines set-title q-pr-sm">
             {{item.title }}
           </div>
         </div>
-        <div class="col-5">
-          <div class="row">
+        <div class="col-xl-3 col-md-5 col-sm-3 col-xs-5">
+          <div class="row ">
             <div v-if="item.videos_count > 0"
-                 class="col-6">
+                 class="col-12 text-right">
               <q-btn unelevated
-                     color="yellow-8"
                      padding="0 20px"
+                     color="yellow-8"
                      text-color="grey-10"
                      class=""
                      @click="setSelectedSet(product, item, 'video')"
@@ -141,10 +141,11 @@
               </q-btn>
             </div>
             <div v-if="item.pamphlets_count > 0"
-                 class="col-6">
+                 class="col-12 text-right">
               <q-btn unelevated
+                     padding="0 22px"
                      color="grey-12"
-                     padding="0 20px"
+                     class=" q-mt-sm"
                      text-color="grey-10"
                      @click="setSelectedSet(product, item, 'pamphlet')"
               >
@@ -186,7 +187,7 @@ export default {
   },
   data () {
     return {
-      openSetList: false,
+      openSetList: true,
       selectedSetTitle: null,
       setsDropdownOpen: false
     }
