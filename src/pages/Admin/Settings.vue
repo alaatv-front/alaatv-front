@@ -35,7 +35,11 @@
                   title="Configure Layout Parts"
                   :icon="mdiCog"
                   class="q-pb-lg">
-            <div class="q-mb-md text-grey-8">Layout "View"</div>
+            <div class="q-mb-md text-grey-8">
+              Layout "View"
+              <br/>
+              {{ layoutView }}
+            </div>
 
             <div class="q-mb-lg rounded-borders overflow-hidden shadow-2">
               <div class="row">
