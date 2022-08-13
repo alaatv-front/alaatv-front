@@ -26,6 +26,10 @@ export default {
     data: {
       type: [String, Number ,Object , Product],
       default: new Product()
+    },
+    getData: {
+      type: Function,
+      default: () => {}
     }
   },
   data () {
@@ -245,14 +249,8 @@ export default {
     getProduct () {
       this.product.loading = true
       const url = API_ADDRESS.product.show.base + '/' + this.product.id
-      let promise = null
-      if (typeof this.options.getData === 'function') {
-        promise = this.options.getData(url)
-      } else {
-        promise = this.$axios.get(url)
-      }
-
-      promise
+      const promise = this.getData(url)
+        promise
         .then(response => {
           this.product = new Product(response.data.data)
           this.product.loading = false

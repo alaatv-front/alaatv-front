@@ -39,7 +39,7 @@
                    color="negative"
                    icon="delete"
                    class="q-ml-md"
-                   @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
+                   @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
               <q-tooltip>
                 حذف
               </q-tooltip>
@@ -239,9 +239,6 @@ export default {
           selected: [],
           col: 'col-md-6'
         },
-        // { type: 'select', options: ['test'], name: 'operator', label: 'پاسخگو', col: 'col-md-3' },
-        // { type: 'date', name: 'operatorFrom', label: 'تاریخ پاسخ اپراتور از:', col: 'col-md-3' },
-        // { type: 'date', name: 'operatorTo', label: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-3' },
         {
           type: 'entity',
           name: 'product',
@@ -336,24 +333,19 @@ export default {
           selected: [],
           col: 'col-md-6'
         },
+        // { type: 'select', options: ['test'], name: 'operator', label: 'پاسخگو', col: 'col-md-3' },
+        // { type: 'date', name: 'operatorFrom', label: 'تاریخ پاسخ اپراتور از:', col: 'col-md-3' },
+        // { type: 'date', name: 'operatorTo', label: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-3' },
         { type: 'Checkbox', name: 'showReported', value: false, label: 'مشاهده موارد گزارش شده', col: 'col-md-6' }
       ]
     }
   },
   methods: {
-    getRemoveMessage (row) {
-      const firstName = row.first_name
-      const lastName = row.last_name
-      return 'آیا از حذف ' + firstName + ' ' + lastName + ' اطمینان دارید؟'
-    },
     rateImg (id) {
-      if (id === 1) {
-        return 'https://nodes.alaatv.com/upload/ticket-rate-1-on.png'
-      } else if (id === 2) {
-        return 'https://nodes.alaatv.com/upload/ticket-rate-2-on.png'
-      } else {
-        return 'https://nodes.alaatv.com/upload/ticket-rate-3-on.png'
+      if (id) {
+        return 'https://nodes.alaatv.com/upload/ticket-rate-' + id + '-on.png'
       }
+      return null
     },
     checkStatusColor (id) {
       if (id === 1) {

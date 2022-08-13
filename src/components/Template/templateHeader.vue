@@ -1,102 +1,41 @@
 <template>
-  <div
-    class="drawer-btn col-1">
-    <!--    :class="{'col-6': windowSize.x < 599}"-->
-    <!--  >-->
-    <q-btn
-      class="toolbar-button"
-      icon="isax:menu-1"
-      color="white"
-      text-color="accent"
-      dense
-      unelevated
-      @click="toggleLeftDrawer"
-    />
-  </div>
-  <div
-    class="right-side col-5">
-    <!--    :class="{'col-6': windowSize.x > 1439, 'col-12': windowSize.x < 599}"-->
-    <!--  >-->
-    <div
-      v-if="breadcrumbsVisibility"
-    >
-      <q-skeleton
-        v-if="!breadcrumbs.path"
-        width="100px"
-        height="10px"
-      />
-      <q-breadcrumbs
-        v-else
-        class="breadcrumbs"
-        separator-color="dark"
-        gutter="sm"
-      >
-        <template v-slot:separator>
-          <q-icon name="isax:arrow-right-3 " />
-        </template>
-        <q-breadcrumbs-el
-          v-for="(breadcrumb, index) in breadcrumbs.path"
-          :key="index"
-        >
-          <q-skeleton
-            v-if="breadcrumb.loading"
-            width="100px"
-            height="10px"
-          />
-          <q-breadcrumbs-el
-            v-else
-            :icon=breadcrumb.icon
-            :label=breadcrumb.title
-            :to="getRoute(breadcrumb.route)"
-            class="q-breadcrumbs-el"
-          />
-        </q-breadcrumbs-el>
-      </q-breadcrumbs>
-
-    </div>
-  </div>
-  <div
-    class="left-side col-6">
-    <!--    :class="{'col-6': windowSize.x < 599, 'col-6': windowSize.x > 1439}">-->
-    <q-btn-dropdown
-      class="toolbar-button"
-      content-class="profile-menu"
-      icon="isax:notification"
-      dropdown-icon="false"
-      color="white"
-      text-color="accent"
-      dir="ltr"
-      dense
-      unelevated
-    >
-      <q-badge color="red"
-               rounded
-               floating>3</q-badge>
-    </q-btn-dropdown>
-    <q-btn-dropdown
-      class="toolbar-button"
-      content-class="profile-menu"
-      icon="isax:user"
-      dropdown-icon="false"
-      color="white"
-      text-color="accent"
-      dir="ltr"
-      dense
-      unelevated
-    >
-      <q-list unelevated>
-        <router-link   :to=" {name: 'User.Dashboard.purchases', params: {id: user.id}}">
-          <q-item v-close-popup>
-            <q-item-section side>
-              <q-icon name="mdi-cloud-download-outline" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label>فیلم ها و جزوه های من</q-item-label>
-            </q-item-section>
-          </q-item>
-        </router-link>
+  <div class="header-inside row">
+    <div class="right-side col-6">
+      <q-btn flat icon="isax:menu-1" @click="toggleLeftDrawer" />
+      <q-btn flat :to="{name: 'home'}" class="btn-logo-icon">
+        <q-img src="img/alaa-logo.svg" width="40px" height="40px" />
+      </q-btn>
+      <q-list>
+        <q-item :to="{name: 'home'}" exact>
+          <q-item-section>
+            صفحه اصلی
+          </q-item-section>
+        </q-item>
+        <q-item :to="{name: 'Shop'}" exact>
+          <q-item-section>
+            فروشگاه
+          </q-item-section>
+        </q-item>
       </q-list>
-    </q-btn-dropdown>
+    </div>
+    <div class="left-side col-6">
+      <q-btn flat icon="isax:shopping-cart" :to="{name: 'User.Checkout'}" />
+      <q-btn v-if="user.id !== null" flat icon="isax:user">
+        <q-menu>
+          <q-list>
+            <q-item :to="{name: 'User.Dashboard.purchases', params: {id: user.id}}" clickable v-close-popup>
+              <q-item-section>فیلم ها و جزوه های من</q-item-section>
+            </q-item>
+            <q-item clickable v-close-popup @click="logOut">
+              <q-item-section>خروج</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+      <q-btn v-if="user.id === null" color="primary" :to="{name: 'login'}">
+        ورود/ثبت نام
+      </q-btn>
+    </div>
   </div>
 </template>
 
@@ -107,16 +46,12 @@ export default {
   name: 'templateHeader',
   data() {
     return {
-      user: {}
     }
   },
-  mounted() {
-    this.$store.commit('AppLayout/updateBreadcrumbLoading', false)
-    this.$store.commit('AppLayout/updateVisibilityBreadcrumb', true)
-    this.user = this.$store.getters['Auth/user']
-    console.log(this.user)
-  },
   computed: {
+    ...mapGetters('Auth', [
+      'user'
+    ]),
     ...mapGetters('AppLayout', [
       'breadcrumbsVisibility',
       'breadcrumbs',
@@ -132,7 +67,11 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
+    logOut () {
+      return this.$store.dispatch('Auth/logOut')
+    },
     toggleLeftDrawer() {
+      console.log('this.layoutLeftDrawerVisible', this.layoutLeftDrawerVisible)
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
     hasRoute(route) {
@@ -158,96 +97,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.drawer-btn {
-  //display: none;
-  @media screen and (max-width: 1439px) {
-    display: block;
+.header-inside{
+  color: #333333;
+  width: 1362px;
+  max-width: 1362px;
+  margin-left: auto;
+  margin-right: auto;
+  @media screen and (max-width: 1362px) {
+    width: 100%;
+    padding: 0 15px;
   }
-  @media screen and (max-width: 599px) {
-    margin-bottom: 10px;
-  }
-}
-
-.right-side {
-  display: flex;
-  align-items: center;
-  @media screen and (max-width: 1439px) {
-    margin-left: 78px;
-  }
-  @media screen and (max-width: 1023px) {
-    margin-left: 42px;
-  }
-  @media screen and (max-width: 599px) {
-    margin-left: 0;
-  }
-
-  .breadcrumbs {
-    &:deep(> *) {
-      font-style: normal;
-      font-weight: bold;
-      font-size: 16px;
-      line-height: 31px;
-      text-align: right;
-      color: #23263B;
-
-      div:first-child {
-        font-size: 18px;
+  .right-side {
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    .btn-logo-icon {
+      :deep(.q-btn__content) {
+        margin: 0;
+      }
+    }
+    .q-list {
+      display: flex;
+      flex-flow: row;
+      justify-content: flex-start;
+      align-items: center;
+      .q-item {
+        min-height: 40px;
       }
     }
   }
-}
-
-.left-side {
-  display: flex;
-  justify-content: flex-end;
-  @media screen and (max-width: 1439px) {
-    position: absolute;
-    right: 30px;
-  }
-  @media screen and (max-width: 599px) {
-    right: 16px;
-    margin-bottom: 10px;
-  }
-}
-</style>
-<style lang="scss">
-.breadcrumbs {
-  .q-breadcrumbs__separator {
-    .q-icon {
-      font-size: 22px;
-    }
-  }
-}
-
-.drawer-btn {
-  .q-btn {
-    flex-direction: row !important;
-
-    &.toolbar-button {
-      margin-left: 0 !important;
-    }
-  }
-}
-
-.q-btn {
-  &.toolbar-button {
-    margin-left: 12px;
-    height: 48px;
-    width: 48px;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
-    border-radius: 16px;
-  }
-}
-
-.left-side {
-  .q-btn {
-    &.toolbar-button {
-      .q-btn__content {
-        .q-btn-dropdown__arrow {
-          display: none !important;
-        }
-      }
-    }
+  .left-side {
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+    align-items: center;
   }
 }
 </style>

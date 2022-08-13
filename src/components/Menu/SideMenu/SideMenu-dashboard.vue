@@ -1,43 +1,44 @@
 <template>
-  <div class="bg-primary side-menu-main-layout">
-    <div class="side-logo">
-      <div class="logo-image">
-        <q-img
-          src="https://nodes.alaatv.com/upload/logo_20190508105212_20190512113140.png"
-        />
-        <q-img
-          class="alaa-logo"
-          src="https://nodes.alaatv.com/upload/footer-alaaLogo.png?w=90&h=115"
-        />
+  <div class="drawer-inside">
+    <div class="side-menu-main-layout">
+      <div class="side-logo">
+        <div class="logo-image">
+          <q-img v-if="false"
+            src="https://nodes.alaatv.com/upload/logo_20190508105212_20190512113140.png"
+          />
+          <q-img
+            class="alaa-logo"
+            src="https://nodes.alaatv.com/upload/footer-alaaLogo.png?w=90&h=115"
+          />
+        </div>
       </div>
-    </div>
-    <q-list
-      class="side-menu-list"
-      padding
-      dark
-    >
-      <q-input
-        dense
-        filled
-        class="gray-input"
-        v-model="searchText"
-        @update:model-value ="search(titlesList)"
-        placeholder="جست و جو"
+      <q-list
+        class="side-menu-list"
+        padding
       >
-        <template v-slot:append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
-      <menu-item :menu="titlesList" />
-    </q-list>
-    <div class="log-out"
-         @click="logOut">
+        <q-input
+          dense
+          filled
+          class="gray-input"
+          v-model="searchText"
+          @update:model-value ="search(titlesList)"
+          placeholder="جست و جو"
+        >
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+        <menu-item :menu="titlesList" />
+      </q-list>
+      <div class="log-out"
+           @click="logOut">
       <span>
         <q-avatar icon="isax:logout"
                   size="30"
                   dir="rtl" />
       </span>
-      <span class="logout-text">خروج </span>
+        <span class="logout-text">خروج </span>
+      </div>
     </div>
   </div>
 </template>
@@ -565,27 +566,7 @@ export default {
 .side-menu-main-layout {
   display: flex;
   flex-direction: column;
-  min-width: 280px;
-  min-height: 840px;
-  border-radius: 30px;
-  margin: 40px 0 0 24px;
   overflow-y: auto;
-  @media screen and (max-width: 1919px) {
-    width: 260px;
-    min-height: 740px;
-    margin: 30px 30px 30px 24px;
-  }
-  @media screen and (max-width: 1439px) {
-    margin: 0 !important;
-    border-radius: 0;
-    width: 280px;
-    //min-height: 680px;
-    height: 100%;
-  }
-  @media screen and (max-width: 599px) {
-    width: 100%;
-  }
-
   .side-logo {
     display: flex;
     height: 167px;
@@ -597,37 +578,13 @@ export default {
         height:50%;
       }
     }
-    @media screen and (max-width: 1919px) {
-      height: 136px;
-    }
-    @media screen and (max-width: 1439px) {
-      height: 100px;
-    }
-    @media screen and (max-width: 599px) {
-      height: 110px;
-    }
-
     .logo-image {
       width: 140px;
       height: 95px;
-      @media screen and (max-width: 1919px) {
-        height: 76px;
-      }
-      @media screen and (max-width: 1439px) {
-        width: 100px;
-        height: 50px;
-      }
-
+      text-align: center;
       .q-img__container {
         width: 140px;
         height: 95px;
-        @media screen and (max-width: 1919px) {
-          height: 76px;
-        }
-        @media screen and (max-width: 1439px) {
-          width: 100px;
-          height: 50px;
-        }
       }
     }
   }
@@ -660,7 +617,6 @@ export default {
       .q-item {
         padding: 0;
         min-height: 0;
-
         &.item-list {
           display: flex;
           flex-direction: column;
@@ -670,10 +626,8 @@ export default {
           cursor: pointer;
           padding: 0 14px 0 10px;
           border-radius: 14px;
-
           &.alone-item {
             height: 40px;
-
             &.active-route {
               .indicator {
                 height: 8px;
@@ -690,21 +644,17 @@ export default {
             display: flex;
             flex-direction: row;
             align-items: center;
-
             .title-icon {
               margin-right: 12px;
             }
-
             .q-item__section--side {
               padding: 0;
             }
           }
-
           .list-section {
             display: flex;
             flex-direction: row;
             justify-content: right;
-
             .q-avatar {
               height: 22px;
               width: 22px;
@@ -712,17 +662,14 @@ export default {
           }
         }
       }
-
       .side-expansion-list {
         &.top-expansion {
           margin-bottom: 10px;
         }
-
         .expansion-body {
           display: flex;
           margin-left: 8px;
         }
-
         .q-expansion-item__content {
           .vertical-separator {
             margin: 6px 9px 9px 9px;
@@ -731,20 +678,16 @@ export default {
             }
           }
         }
-
         .q-list {
           &.list-expansion {
             margin-bottom: 0;
-
             .item-list-expansion {
               height: 30px;
               margin: 5px;
-
               .item-list-expansion-title {
                 justify-content: start;
               }
             }
-
             .top-expansion-separator {
               margin: 0 40px 5px 40px;
               @media screen and (max-width: 1439px) {
@@ -754,7 +697,6 @@ export default {
                 margin: 0 45px 5px 45px;
               }
             }
-
             .list-child-item {
               height: 30px;
               justify-content: right;
@@ -770,11 +712,9 @@ export default {
                 margin-bottom: 5px;
                 padding: 0 10px 0 12px;
               }
-
               &:last-child {
                 margin-bottom: 0;
               }
-
               .list-child-section {
                 font-size: 14px !important;
                 justify-content: center;
@@ -783,10 +723,8 @@ export default {
           }
         }
       }
-
       .active-route {
         background-color: #8075DC;
-
         .indicator {
           height: 6px;
           width: 6px;
@@ -795,22 +733,16 @@ export default {
           margin: auto;
         }
       }
-
     }
-
     .q-item__section--avatar {
       min-width: 0 !important;
     }
-
     a {
       text-decoration: none;
-      color: white;
       padding: 0;
     }
   }
-
   .log-out {
-    color: white;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
@@ -828,11 +760,9 @@ export default {
       margin: 0 30px 30px 30px;
       //padding: 0 0 0 10px;
     }
-
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
-
     .q-avatar {
       height: 22px;
       width: 22px;
@@ -840,20 +770,16 @@ export default {
       transform: matrix(-1, 0, 0, 1, 0, 0);
     }
   }
-
   &:deep(.side-menu-main-layout) {
     .q-expansion-item__container {
       .q-item {
         display: flex;
         padding: 0 10px !important;
-
       }
-
       .q-icon {
         font-size: 21px;
       }
     }
   }
-
 }
 </style>
