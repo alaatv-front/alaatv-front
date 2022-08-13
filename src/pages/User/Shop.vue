@@ -24,7 +24,7 @@ name: "Shop",
                         name: 'blockList',
                         data: API_ADDRESS.pages.shop,
                         options: {
-                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                          getData: (url) => GetWidgetsData.getData(url)
                         }
                       }
                     ]

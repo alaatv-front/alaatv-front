@@ -16,6 +16,10 @@
               {{ inputData.props.row.status.title }}
             </q-chip>
           </template>
+          <template v-if="inputData.props.col.name === 'score'">
+            <q-img :src="rateImg(inputData.props.row.rate)"
+                   style="width: 30px;height: 30px" />
+          </template>
           <template v-if="inputData.props.col.name === 'actions'">
             <q-btn round
                    flat
@@ -35,7 +39,7 @@
                    color="negative"
                    icon="delete"
                    class="q-ml-md"
-                   @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
+                   @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
               <q-tooltip>
                 حذف
               </q-tooltip>
@@ -144,7 +148,7 @@ export default {
             required: true,
             label: 'امتیاز',
             align: 'left',
-            field: row => row.rate
+            field: ''
           },
           {
             name: 'actions',
@@ -235,9 +239,6 @@ export default {
           selected: [],
           col: 'col-md-6'
         },
-        // { type: 'select', options: ['test'], name: 'operator', label: 'پاسخگو', col: 'col-md-3' },
-        // { type: 'date', name: 'operatorFrom', label: 'تاریخ پاسخ اپراتور از:', col: 'col-md-3' },
-        // { type: 'date', name: 'operatorTo', label: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-3' },
         {
           type: 'entity',
           name: 'product',
@@ -332,21 +333,29 @@ export default {
           selected: [],
           col: 'col-md-6'
         },
+        // { type: 'select', options: ['test'], name: 'operator', label: 'پاسخگو', col: 'col-md-3' },
+        // { type: 'date', name: 'operatorFrom', label: 'تاریخ پاسخ اپراتور از:', col: 'col-md-3' },
+        // { type: 'date', name: 'operatorTo', label: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-3' },
         { type: 'Checkbox', name: 'showReported', value: false, label: 'مشاهده موارد گزارش شده', col: 'col-md-6' }
       ]
     }
   },
   methods: {
-    getRemoveMessage (row) {
-      const firstName = row.first_name
-      const lastName = row.last_name
-      return 'آیا از حذف ' + firstName + ' ' + lastName + ' اطمینان دارید؟'
+    rateImg (id) {
+      if (id) {
+        return 'https://nodes.alaatv.com/upload/ticket-rate-' + id + '-on.png'
+      }
+      return null
     },
     checkStatusColor (id) {
       if (id === 1) {
         return 'red'
-      } else {
+      } else if (id === 2) {
+        return 'primary'
+      } else if (id === 3) {
         return 'green'
+      } else {
+        return 'blue'
       }
     }
   }

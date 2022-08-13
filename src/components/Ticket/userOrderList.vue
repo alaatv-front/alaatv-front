@@ -20,7 +20,7 @@
         rounded
         unelevated
         class="action-btn"
-        @click="extendAll"
+        @click="extendAll(3)"
       >تمدید کل سفارشات</q-btn>
       <template v-for="order in userOrdersList"
                 :key="order"
@@ -47,7 +47,7 @@
                   <q-btn rounded
                          unelevated
                          class="action-btn q-ml-md"
-                         @click="extendAllProducts"
+                         @click="extendAllOrders(order.inputData.orderproducts)"
                   >
                     تمدید کل سفارش</q-btn>
                 </div>
@@ -90,6 +90,7 @@
                       rounded
                       size="11px"
                       class="action-btn"
+                      @click="extendAnOrder(item.id)"
                     >
                       تمدید سفارش
                     </q-btn>
@@ -143,7 +144,7 @@
         rounded
         unelevated
         class="action-btn"
-        @click="extendAll"
+        @click="extendAll(1)"
       >تمدید کل سفارشات</q-btn>
       <template v-for="order in userOrdersList"
                 :key="order"
@@ -171,7 +172,7 @@
                   <q-btn rounded
                          unelevated
                          class="action-btn q-ml-md"
-                         @click="extendAllProducts"
+                         @click="extendAllOrders(order.inputData.orderproducts)"
                   >
                     تمدید کل سفارش</q-btn>
                 </div>
@@ -260,14 +261,19 @@
 </template>
 
 <script>
-import moment from 'moment-jalaali'
+import axios from 'axios'
+import API_ADDRESS from 'src/api/Addresses'
+import { mixinDateOptions } from 'src/mixin/Mixins'
 
 export default {
   name: 'userOrderList',
+  mixins: [mixinDateOptions],
   props: {
     userOrdersList: {
       type: Array,
-      default: []
+      default() {
+        return []
+      }
     },
     loading: {
       type: Boolean,
@@ -277,10 +283,12 @@ export default {
   data () {
     return {
       productItems: [],
-      i: 1
+      i: 1,
+      extendProductArray: []
     }
   },
   methods: {
+    // ToDo : refactor needed , move this to mixin
     toman (key, suffix) {
       let string = key.toLocaleString('fa')
       if (typeof suffix === 'undefined' || suffix) {
@@ -288,17 +296,43 @@ export default {
       }
       return string
     },
-    makeDateShamsi (date) {
-      return moment(date, 'YYYY-M-D HH:mm:ss').format('jYYYY/jMM/jDD HH:mm:ss')
-    },
     cartItemLabel (order) {
-      return '#' + order.id + ' - ' + this.makeDateShamsi(order.inputData.created_at) + ' - (تعداد محصولات: ' + order.inputData.orderproducts.length + ' ) - ( پرداخت شده: ' + order.inputData.paid_price + ' تومان - مبلغ کل سفارش: ' + order.inputData.price + ' تومان ) - ( ' + order.inputData.paymentstatus.name + ' )'
+      return '#' + order.id + ' - ' + this.convertToShamsi(order.inputData.created_at) + ' - (تعداد محصولات: ' + order.inputData.orderproducts.length + ' ) - ( پرداخت شده: ' + order.inputData.paid_price + ' تومان - مبلغ کل سفارش: ' + order.inputData.price + ' تومان ) - ( ' + order.inputData.paymentstatus.name + ' )'
     },
-    extendAllProducts () {
-      console.log('OK!')
+    extendAnOrder (id) {
+      this.extendProductArray = [id]
+      this.batchExtendPostRequest()
     },
-    extendAll () {
-      console.log('OK!')
+    extendAllOrders (orderProducts) {
+      // ToDo : delete logs
+      console.log(orderProducts)
+      orderProducts.forEach((item) => {
+        this.extendProductArray.push(item.id)
+      })
+      this.batchExtendPostRequest()
+    },
+    extendAll (statusId) {
+      this.userOrdersList.forEach((item) => {
+        if (item.inputData.paymentstatus.id === statusId) {
+          item.inputData.orderproducts.forEach((order) => {
+            this.extendProductArray.push(order.id)
+          })
+        }
+      })
+      this.batchExtendPostRequest()
+    },
+    batchExtendPostRequest () {
+      axios.post(API_ADDRESS.ticket.show.batchExtend, {
+        orderproducts: this.extendProductArray
+      })
+        .then((res) => {
+          this.extendProductArray = []
+          console.log(res)
+        })
+        .catch((e) => {
+          this.extendProductArray = []
+          console.log(e)
+        })
     }
   },
   created () {
