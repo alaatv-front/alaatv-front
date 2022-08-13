@@ -104,7 +104,7 @@ export default {
   },
   data () {
     return {
-      openSetList: true,
+      openSetList: false,
       selectedSetTitle: null,
       setsDropdownOpen: false
     }

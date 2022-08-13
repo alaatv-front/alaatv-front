@@ -1,17 +1,23 @@
 <template>
   <div class="header-inside row">
     <div class="right-side col-6">
-      <q-btn flat icon="isax:menu-1" @click="toggleLeftDrawer" />
-      <q-btn flat :to="{name: 'home'}">
-        <q-img src="img/alaa-logo.svg" width="40px" />
+      <q-btn flat
+             icon="isax:menu-1"
+             @click="toggleLeftDrawer" />
+      <q-btn flat
+             :to="{name: 'home'}">
+        <q-img src="img/alaa-logo.svg"
+               width="40px" />
       </q-btn>
       <q-list>
-        <q-item :to="{name: 'home'}" exact>
+        <q-item :to="{name: 'home'}"
+                exact>
           <q-item-section>
             صفحه اصلی
           </q-item-section>
         </q-item>
-        <q-item :to="{name: 'Shop'}" exact>
+        <q-item :to="{name: 'Shop'}"
+                exact>
           <q-item-section>
             فروشگاه
           </q-item-section>
@@ -19,20 +25,29 @@
       </q-list>
     </div>
     <div class="left-side col-6">
-      <q-btn flat icon="isax:shopping-cart" :to="{name: 'User.Checkout'}" />
-      <q-btn v-if="user.id !== null" flat icon="isax:user">
+      <q-btn flat
+             icon="isax:shopping-cart"
+             :to="{name: 'User.Checkout'}" />
+      <q-btn v-if="user.id !== null"
+             flat
+             icon="isax:user">
         <q-menu>
           <q-list>
-            <q-item :to="{name: 'User.Dashboard.purchases', params: {id: user.id}}" clickable v-close-popup>
+            <q-item :to="{name: 'User.Dashboard.purchases', params: {id: user.id}}"
+                    clickable
+                    v-close-popup>
               <q-item-section>فیلم ها و جزوه های من</q-item-section>
             </q-item>
-            <q-item clickable v-close-popup>
+            <q-item clickable
+                    v-close-popup>
               <q-item-section>خروج</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
       </q-btn>
-      <q-btn v-if="user.id === null" color="primary" :to="{name: 'login'}">
+      <q-btn v-if="user.id === null"
+             color="primary"
+             :to="{name: 'login'}">
         ورود/ثبت نام
       </q-btn>
     </div>
@@ -52,7 +67,6 @@ export default {
     this.$store.commit('AppLayout/updateBreadcrumbLoading', false)
     this.$store.commit('AppLayout/updateVisibilityBreadcrumb', true)
     this.user = this.$store.getters['Auth/user']
-    console.log(this.user)
   },
   computed: {
     ...mapGetters('Auth', [
