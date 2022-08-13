@@ -3,7 +3,7 @@
        :key="item"
        class="flex no-wrap">
     <div class="log-date"
-         :style="{color : setMainColor(item), borderLeft: '3px ' + 'solid ' + setMainColor(item)}">
+         :style="{color : getMainColor(item), borderLeft: '3px ' + 'solid ' + getMainColor(item)}">
       {{ convertToShamsi(item.created_at, 'date') }}
     </div>
     <div class="log-info">
@@ -45,17 +45,11 @@ export default {
   },
   data () {
     return {
-      departmentStatus: []
+      departmentStatus: [],
+      statusColor: ''
     }
   },
   methods: {
-    setMainColor (obj) {
-      this.departmentStatus.forEach(item => {
-        if (obj.action === item.title) {
-          return item.color
-        }
-      })
-    },
     initStatusData() {
       this.departmentStatus = [
         {
@@ -75,6 +69,19 @@ export default {
           color: '#34bfa3'
         }
       ]
+    }
+  },
+  computed: {
+    getMainColor () {
+      return (obj) => {
+        this.departmentStatus.forEach(item => {
+          if (obj.action === item.title) {
+            console.log(item.color)
+            this.statusColor = item.color
+          }
+        })
+        return this.statusColor
+      }
     }
   },
   created() {
