@@ -1,6 +1,11 @@
 <template>
   <q-card class="content-item-box">
-    <router-link :to="{ path: `/content/${content.id}` }">
+    <router-link
+      :to="{
+        name: 'User.Content.Show',
+        params: { id: content.id, title: content.title }
+      }"
+    >
       <div class="img-box">
         <div class="img-title-container">
           <img

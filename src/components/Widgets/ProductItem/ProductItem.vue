@@ -1,7 +1,12 @@
 <template>
   <q-card class="product-item-box">
     <div class="img-box">
-      <router-link :to="{ path: `/product/${product.id}` }">
+      <router-link
+        :to="{
+          name: 'User.Product.Show',
+          params: { id: product.id, title: product.title }
+        }"
+      >
         <img
           :src="product.photo"
           alt="product"

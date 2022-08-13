@@ -12,7 +12,12 @@
         </div>
       </div>
 
-      <router-link :to="{ path: `/set/${set.id}` }">
+      <router-link
+        :to="{
+          name: 'User.Set.Show',
+          params: { id: set.id, title: set.title }
+        }"
+      >
         <img
           :src="set.photo"
           alt="set"

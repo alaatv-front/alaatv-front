@@ -14,7 +14,7 @@ import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 export default {
   name: 'User.Set.Show',
   components: { PageBuilder },
-  data () {
+  data() {
     return {
       pageConfig: {
         padding: {
@@ -66,6 +66,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
