@@ -91,7 +91,7 @@ export default {
     const $q = useQuasar()
     return { $q }
   },
-  name: 'product-item',
+  name: 'productItem',
   data: () => ({
     product: new Product()
   }),
