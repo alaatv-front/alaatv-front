@@ -75,6 +75,21 @@
       </template>
       <l-control
         dir="rtl"
+        position="topright"
+      >
+        <q-btn
+          class="btnMapControl btnGetLinkToShare"
+          @click="openFilterDrawer"
+          icon="isax:edit"
+        />
+        <q-btn
+          class="btnMapControl btnGetLinkToShare"
+          @click="openToolsDrawer"
+          icon="isax:search-normal"
+        />
+      </l-control>
+      <l-control
+        dir="rtl"
         position="topleft"
       >
         <q-btn
@@ -100,6 +115,31 @@
       </l-control>
     </l-map>
   </div>
+  <drawer max-width="300px"
+          :is-open="filterDrawer"
+          :background-color="'rgba(255, 255, 255, 0.65) none repeat scroll 0% 0%'"
+          side="left">
+    <q-scroll-area class="fit">
+      <q-btn icon="mdi-close"
+             unelevated
+             class="close-btn"
+             @click="filterDrawer = false" />
+      <map-filters />
+    </q-scroll-area>
+  </drawer>
+  <drawer max-width="700px"
+          :is-open="toolsDrawer"
+          side="right">
+    <q-scroll-area class="fit">
+      <q-btn icon="mdi-close"
+             unelevated
+             class="close-btn"
+             @click="toolsDrawer = false" />
+      <div>
+        <!--      ------------------tools content------------    -->
+      </div>
+    </q-scroll-area>
+  </drawer>
 </template>
 
 <script>
@@ -107,6 +147,8 @@ import L, { CRS, latLng } from 'leaflet'
 import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItemList } from 'src/models/MapItem'
+import Drawer from 'src/components/CustomDrawer'
+import MapFilters from './components/MapFilters'
 
 export default {
   name: 'BaseMap',
@@ -135,7 +177,9 @@ export default {
     LTileLayer,
     LIcon,
     LMarker,
-    LPolyline
+    LPolyline,
+    Drawer,
+    MapFilters
   },
   filters: {
     latlang (value) {
@@ -145,6 +189,9 @@ export default {
   },
   data () {
     return {
+      filterDrawer: false,
+      toolsDrawer: false,
+
       crs: null,
 
       mapZoom: 4,
@@ -168,6 +215,12 @@ export default {
     this.initMap()
   },
   methods: {
+    openFilterDrawer () {
+      this.filterDrawer = !this.filterDrawer
+    },
+    openToolsDrawer () {
+      this.toolsDrawer = !this.toolsDrawer
+    },
     showMessagesInNotify (message, type) {
       if (!type) {
         type = 'negative'
@@ -267,6 +320,13 @@ export default {
 </script>
 
 <style scoped>
+.close-btn {
+  width: 100%;
+  border-radius: 0;
+  color: #212529;
+  background: #fbaa00;
+}
+
 .MapWidget {
   height: 70vh;
   width: 100%;
