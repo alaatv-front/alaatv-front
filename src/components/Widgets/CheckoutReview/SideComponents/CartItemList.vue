@@ -1,4 +1,5 @@
 <template>
+
   <div class="cart-item-list">
     <div class="item-list-header">
       سبد خرید
@@ -38,7 +39,7 @@ import API_ADDRESS from 'src/api/Addresses'
 // import { CartItemList } from 'src/models/CartItem'
 export default {
   name: 'CartItemList',
-  components: { CartItem },
+  components: {  CartItem},
   data () {
     return {
       items: []
@@ -48,10 +49,11 @@ export default {
     this.checkoutReview()
   },
   methods: {
-    checkoutReview () {
+    checkoutReview (){
       this.$axios.get(API_ADDRESS.cart.review)
         .then((res) => {
           this.items = res.data.data.items
+          console.log(this.items)
         })
         .catch((err) => {
           console.log(err)
