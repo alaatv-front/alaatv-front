@@ -11,18 +11,18 @@
           :src="product.photo"
           alt="product"
         />
+        <div class="main-title">
+          {{ concatTitle }}
+          <router-link :to="{ path: `/product/${product.id}` }">
+            <span class="title-text">
+              {{ product.cutsomTitle }}
+            </span>
+          </router-link>
+        </div>
       </router-link>
     </div>
 
     <div class="product-content-box">
-      <div class="main-title">
-        {{ concatTitle }}
-        <router-link :to="{ path: `/product/${product.id}` }">
-          <span class="title-text">
-            {{ product.cutsomTitle }}
-          </span>
-        </router-link>
-      </div>
       <div class="info-box">
         <div class="teacher-image"></div>
         <div class="teacher-name">محمد امین نباخته</div>
@@ -208,21 +208,6 @@ export default {
     top: -10px;
   }
   .img-box {
-    a {
-      border-radius: inherit;
-      box-shadow: none;
-      width: 100%;
-      height: 270px;
-      img {
-        width: inherit;
-        border-radius: 20px 20px 0 0;
-      }
-    }
-  }
-
-  .product-content-box {
-    padding: 10px 16px 16px 16px;
-
     .main-title {
       font-style: normal;
       font-weight: 400;
@@ -230,6 +215,7 @@ export default {
       line-height: 24px;
       letter-spacing: -0.03em;
       margin-bottom: 15px;
+      margin: 16px;
 
       a {
         margin-bottom: 0;
@@ -248,6 +234,20 @@ export default {
       }
     }
 
+    a {
+      border-radius: inherit;
+      box-shadow: none;
+      width: 100%;
+      height: 270px;
+      img {
+        width: inherit;
+        border-radius: 20px 20px 0 0;
+      }
+    }
+  }
+
+  .product-content-box {
+    padding: 10px 16px 16px 16px;
     .price-box {
       display: flex;
       flex-wrap: nowrap;
