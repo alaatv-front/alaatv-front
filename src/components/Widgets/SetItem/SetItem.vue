@@ -26,13 +26,8 @@
       </div>
 
       <div class="set-content-box">
-        <div class="main-title">
-          {{ concatTitle }}
-          <router-link :to="{ path: `/set/${set.id}` }">
-            <span class="title-text">
-              {{ set.cutsomTitle }}
-            </span>
-          </router-link>
+        <div class="main-title ellipsis-2-lines">
+          {{ set.title }}
         </div>
       </div>
     </router-link>
@@ -74,15 +69,6 @@ export default {
   data: () => ({
     set: new Set()
   }),
-  computed: {
-    concatTitle() {
-      if (!this.set.title) return null
-      if (this.set.title.length >= 50) {
-        return this.set.title.substr(0, 47) + '...'
-      }
-      return this.set.title
-    }
-  },
   mounted() {
     this.set = new Set(this.data)
   }

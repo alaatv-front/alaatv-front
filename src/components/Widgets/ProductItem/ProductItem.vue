@@ -11,13 +11,8 @@
           :src="product.photo"
           alt="product"
         />
-        <div class="main-title">
-          {{ concatTitle }}
-          <router-link :to="{ path: `/product/${product.id}` }">
-            <span class="title-text">
-              {{ product.cutsomTitle }}
-            </span>
-          </router-link>
+        <div class="main-title ellipsis-2-lines">
+          {{ product.title }}
         </div>
       </router-link>
     </div>
@@ -104,15 +99,6 @@ export default {
     data: {
       type: Product,
       default: new Product()
-    }
-  },
-  computed: {
-    concatTitle() {
-      if (!this.product.title) return null
-      if (this.product.title.length >= 50) {
-        return this.product.title.substr(0, 47) + '...'
-      }
-      return this.product.title
     }
   },
   created() {},

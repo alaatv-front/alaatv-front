@@ -19,8 +19,8 @@
       </div>
 
       <div class="content-content-box">
-        <div class="main-title">
-          {{ concatTitle }}
+        <div class="main-title ellipsis-2-lines">
+          {{ content.title }}
         </div>
       </div>
     </router-link>
@@ -41,15 +41,6 @@ export default {
   data: () => ({
     content: new Content()
   }),
-  computed: {
-    concatTitle() {
-      if (!this.content.title) return null
-      if (this.content.title.length >= 50) {
-        return this.content.title.substr(0, 47) + '...'
-      }
-      return this.content.title
-    }
-  },
   mounted() {
     this.content = new Content(this.data)
   }
