@@ -492,9 +492,6 @@ export default {
             type: 'positive'
           })
         })
-        .catch((e) => {
-          // console.log(e)
-        })
     },
     searchForInputVal (name) {
       const input = this.inputs.find(input => input.name === name)
@@ -510,16 +507,14 @@ export default {
           this.orderLoading = false
         }
       )
-        .catch(e => {
-          // console.log(e)
-        })
     },
     checkLoadInputData () {
       this.userMessageArray = this.searchForInputVal('messages')
       this.userId = this.searchForInputVal('userId')
-      if (this.isUserAdmin === false) {
-        this.filterDataForUserRole()
+      if (!this.isUserAdmin) {
+        return
       }
+      this.filterDataForUserRole()
     },
     openCloseLogDrawer () {
       this.logDrawer = this.logDrawer === false
@@ -531,9 +526,6 @@ export default {
             message: res.data.message,
             type: 'positive'
           })
-        })
-        .catch((e) => {
-          // console.log(e)
         })
     }
   },

@@ -62,19 +62,20 @@ export default {
       })
     },
     selectedImgActions (rateId) {
-      if (this.isSelected(this.selectedId, rateId)) {
-        axios.post(API_ADDRESS.ticket.ticketRate(this.ticketId), {
-          rate: rateId
-        })
-          .then((res) => {
-            this.ActiveAndCheckImages(rateId)
-            this.selectedId = rateId
-            this.$q.notify({
-              message: res.data.message,
-              type: 'positive'
-            })
+      if (!this.isSelected(this.selectedId, rateId)) {
+        return false
+      }
+      axios.post(API_ADDRESS.ticket.ticketRate(this.ticketId), {
+        rate: rateId
+      })
+        .then((res) => {
+          this.ActiveAndCheckImages(rateId)
+          this.selectedId = rateId
+          this.$q.notify({
+            message: res.data.message,
+            type: 'positive'
           })
-      } else return false
+        })
     },
     isSelected (selectedId, id) {
       return selectedId !== id
