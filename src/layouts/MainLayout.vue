@@ -2,7 +2,7 @@
   <div class="main-layout">
     <quasar-template-builder v-model:value="properties" @onResize="resize">
       <template #header>
-        <template-header/>
+        <template-header />
         <q-linear-progress
           v-if="$store.getters['loading/loading']"
           color="primary"
@@ -13,12 +13,13 @@
         <q-resize-observer @resize="onHeaderResize"/>
       </template>
       <template #left-drawer>
-        <div class="drawer-inside">
-          <side-menu-dashboard/>
-        </div>
+        <side-menu-dashboard/>
       </template>
       <template #content>
-        <div ref="contentInside" class="content-inside">
+        <div ref="contentInside"
+             class="content-inside"
+             v-scroll="onContentInsideScroll"
+        >
           <q-dialog v-model="confirmDialogData.show" persistent>
             <q-card class="q-pa-md q-pb-none">
               <q-card-section >
@@ -40,7 +41,6 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
 import { QuasarTemplateBuilder } from 'quasar-template-builder'
 import templateHeader from 'components/Template/templateHeader'
@@ -51,6 +51,7 @@ export default {
   components: { Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
   data () {
     return {
+      contentVerticalScrollPosition: 0,
       keepAliveComponents: KeepAliveComponents,
       properties: {
         layoutView: 'hHh LpR fFf',
@@ -61,8 +62,8 @@ export default {
         layoutHeaderBordered: false,
         layoutLeftDrawer: true,
         layoutLeftDrawerVisible: false,
-        layoutLeftDrawerOverlay: false,
-        layoutLeftDrawerElevated: false,
+        layoutLeftDrawerOverlay: true,
+        layoutLeftDrawerElevated: true,
         layoutLeftDrawerBordered: false,
         layoutLeftDrawerWidth: 325,
         layoutPageContainer: true,
@@ -71,26 +72,22 @@ export default {
         layoutHeaderCustomClass: 'main-layout-header row',
         layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
         layoutPageContainerCustomClass: 'main-layout-container'
-      },
-      contentInside: ref(0)
+      }
     }
   },
   computed: {
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
-    },
-    headerData(){
-      return this.$store.getters["AppLayout/"]
     }
   },
-  created () {
-    const localData = this.$store.getters['AppLayout/appLayout']
-    Object.assign(this.properties, localData)
-  },
   methods: {
+    onContentInsideScroll (data) {
+      this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)
+    },
     confirmDialogAction (data) {
-      if (this.confirmDialogData) this.confirmDialogData.callback(data)
-      else {
+      if (this.confirmDialogData) {
+        this.confirmDialogData.callback(data)
+      } else {
         this.$store.commit('AppLayout/showConfirmDialog', {
           show: false
         })
@@ -122,21 +119,17 @@ export default {
 
 <style lang="scss" scoped>
 .main-layout {
-  &:deep(.main-layout-header) {
+  :deep(.q-header) {
     background-color: #FFFFFF;
     display: flex;
     flex-direction: row;
     padding: 16px 0;
   }
-  &:deep(.main-layout-container) {
+  :deep(.main-layout-container) {
     background-color: #f1f1f1;
   }
-  &:deep(.main-layout-left-drawer) {
+  :deep(.main-layout-left-drawer) {
     background-color: #f1f1f1;
-    .drawer-inside-of-MapOfQuestions{
-      height: 100%;
-    }
   }
 }
-
 </style>

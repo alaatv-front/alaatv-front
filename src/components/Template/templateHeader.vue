@@ -46,14 +46,7 @@ export default {
   name: 'templateHeader',
   data() {
     return {
-      user: {}
     }
-  },
-  mounted() {
-    this.$store.commit('AppLayout/updateBreadcrumbLoading', false)
-    this.$store.commit('AppLayout/updateVisibilityBreadcrumb', true)
-    this.user = this.$store.getters['Auth/user']
-    console.log(this.user)
   },
   computed: {
     ...mapGetters('Auth', [
@@ -75,6 +68,7 @@ export default {
       'updateLayoutLeftDrawerVisible'
     ]),
     toggleLeftDrawer() {
+      console.log('this.layoutLeftDrawerVisible', this.layoutLeftDrawerVisible)
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
     hasRoute(route) {

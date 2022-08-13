@@ -360,12 +360,10 @@ export default {
     },
     'pick.left': function (newValue) {
       this.updateLayoutLeftDrawer(newValue)
-      this.localStorageData.layoutLeftDrawer = newValue
     },
     'play.left': function (newValue) {
       if (this.layoutLeftDrawer) {
         this.updateLayoutLeftDrawerVisible(newValue)
-        this.localStorageData.layoutLeftDrawerVisible = newValue
       }
     },
     'cfg.leftBehavior': function (newValue) {

@@ -87,10 +87,7 @@ import { Product } from 'src/models/Product'
 import { useQuasar } from 'quasar'
 
 export default {
-  setup() {
-    const $q = useQuasar()
-    return { $q }
-  },
+
   name: 'product-item',
   data: () => ({
     product: new Product()
