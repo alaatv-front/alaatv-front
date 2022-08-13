@@ -1,26 +1,46 @@
 <template>
-  <q-card class="product-item-box">
+  <q-card class="set-item-box">
     <div class="img-box">
-      <router-link :to="{ path: `/product/${product.id}` }">
+      <div class="img-videos">
+        <div class="flex">
+          <div class="play-icon"></div>
+          {{ set.contents_count }} ویدیو
+        </div>
+        <div class="flex">
+          <div class="tv"></div>
+          ریاضی کنکور
+        </div>
+      </div>
+
+      <router-link :to="{ path: `/set/${set.id}` }">
         <img
-          :src="product.photo"
-          alt="product"
+          :src="set.photo"
+          alt="set"
         />
       </router-link>
     </div>
 
-    <div class="product-content-box">
+    <div class="set-content-box">
       <div class="main-title">
         {{ concatTitle }}
-        <router-link :to="{ path: `/product/${product.id}` }">
+        <router-link :to="{ path: `/set/${set.id}` }">
           <span class="title-text">
-            {{ product.cutsomTitle }}
+            {{ set.cutsomTitle }}
           </span>
         </router-link>
       </div>
       <div class="info-box">
-        <div class="teacher-image"></div>
-        <div class="teacher-name">محمد امین نباخته</div>
+        <div class="teacher-info">
+          <div class="teacher-image">
+            <img
+              :src="set.author?.photo"
+              alt="set"
+            />
+          </div>
+          <div class="teacher-name">
+            {{ set.author?.first_name + ' ' + set.author?.last_name }}
+          </div>
+        </div>
         <!-- <div class="teacher-score">
           <div class="total-score">
             <div class="counts-score">(۶۲۵)</div>
@@ -28,111 +48,37 @@
             <div class="star-score"></div>
           </div>
         </div> -->
-      </div>
-
-      <div class="action-box">
-        <div class="more-detail product-more-detail">
-          <div class="price-box">
-            <div class="price-info">
-              <div
-                v-if="product.price['final'] !== product.price['base']"
-                class="discount"
-              >
-                <span>
-                  %{{
-                    (
-                      (1 - product.price['final'] / product.price['base']) *
-                      100
-                    ).toFixed(0)
-                  }}
-                </span>
-              </div>
-              <div class="price-container">
-                <div class="final-price-box">
-                  <div class="final-price">
-                    {{ product.price['final'] }}
-                  </div>
-                  <div class="price-Toman">تومان</div>
-                </div>
-                <div class="main-price">{{ product.price['base'] }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <q-btn
-          :productId="product.id"
-          :data-product-id="product.id"
-          class="btn-green"
-          @click="addToCart"
-        >
-          <q-icon name="add"></q-icon>
-          <span>افزودن به سبد</span>
-        </q-btn>
-        <!--          <q-btn-->
-        <!--            class="btn-style active hide"-->
-        <!--          >-->
-        <!--            <div class="content">-->
-        <!--              <q-img-->
-        <!--                src="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-tick-square.png" />-->
-        <!--              اضافه شد-->
-        <!--            </div>-->
-        <!--          </q-btn>-->
+        <div class="three-dots"></div>
       </div>
     </div>
   </q-card>
 </template>
 
 <script>
-import { Product } from 'src/models/Product'
-import { useQuasar } from 'quasar'
+import { Set } from 'src/models/Set'
 
 export default {
-
-  name: 'product-item',
-  data: () => ({
-    product: new Product()
-  }),
+  name: 'setItem',
   props: {
     data: {
-      type: Product,
-      default: new Product()
+      type: Set,
+      default: new Set()
     }
   },
+  data: () => ({
+    set: new Set()
+  }),
   computed: {
     concatTitle() {
-      if (!this.product.title) return null
-      if (this.product.title.length >= 40) {
-        return this.product.title.slice(-40) + '...'
+      if (!this.set.title) return null
+      if (this.set.title.length >= 50) {
+        return this.set.title.substr(0, 47) + '...'
       }
-      return this.product.title
+      return this.set.title
     }
   },
-  created() {},
   mounted() {
-    this.product = new Product(this.data)
-  },
-  methods: {
-    addToCart() {
-      this.$store.dispatch('Cart/addToCart', this.product).then(() => {
-        this.$store.dispatch('Cart/reviewCart', this.product).then(() => {
-          this.$q.notify({
-            message: 'با موفقیت به سبد خرید شما افزوده شد',
-            color: 'green',
-            actions: [
-              {
-                label: 'سبد خرید',
-                icon: 'isax:shopping-cart',
-                color: 'white',
-                class: 'bg-green-3',
-                handler: () => {
-                  this.$router.push({ name: 'User.Checkout.Review' })
-                }
-              }
-            ]
-          })
-        })
-      })
-    }
+    this.set = new Set(this.data)
   }
 }
 </script>
@@ -141,22 +87,48 @@ export default {
   scoped
   lang="scss"
 >
+.teacher-info {
+  display: flex;
+  align-items: center;
+}
 .info-box {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 }
 .total-score {
   display: flex;
 }
 .teacher-image {
-  background-image: url('data:image/png;base64,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');
-  height: 32px;
-  width: 32px;
+  img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
 }
 .star-score {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEjSURBVHgBnVNBToNQEJ35KJtuOEL/ynQl3oAj6AnQxBrjqj2B9Qa6M9EFnMDewHoK027KEf6qixaYDr+B/ob/G9qXAAN58+bNzAfBAfp/7oMofvWLv7lBmSgbT7gEwCte+d7X19ofuWh4pPrS+KTYhbS5EEeqmwhcLg4c0HLExFXE0Y+Fq5g9hsveFOV74wRp/nTLz5iTQtj13AUZi2VA+MECQ4LzoXgGlMK5IEj1DGj+mHA38UnJJaU4+L5vhniiyBSvvu6qYL9GP6/WpDqll964DhsB11G1QOHgM2sJ0GJYrTHoIBDQ4iVsCTBCWzWrRJlHbQHC6JBEb+D3JPcrdWxC4HUdXhgJM5aL+YTNoPAejD4rFxP+wRIQ+URvqij/6rQtVRliQ9SZCLgAAAAASUVORK5CYII=');
   width: 18px;
   height: 18px;
+}
+.three-dots {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAQCAYAAAAxtt7zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABHSURBVHgB1Y2xDYAwEMTOLwZgQ2agThM2SMV8jPAT/BEaWmosWXJnWjs3U8MmJfpScpdZJU09Ap54yajSPuMCp0OHPuE3lxsqOj6hAowbEAAAAABJRU5ErkJggg==');
+  width: 4px;
+  height: 16px;
+}
+.play-icon {
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADvSURBVHgBnVOBEYIwDGw9B2AE3IAR4gaMgBPoBjCCToAb6Aa4AW4AG+AGNTmeu1qBlv7dXyBNv+n1o5UFYwxxIPz2zJfWuldbwCKlmYfk01CRApuuzAS5jHlHvpOaEKFGihfWUmZrCdKakKBS/q471NZ/18WJJqj1sb5iDmAeLWTtma5LktupCMASRzVapIwWgtiHw41J8tLRQi6iheC3M/Mt3e1VBPD0D6bEw+aOpAsZGf5sIXL6mcVpPDwiuWXIxszNHxaaBYEM65MArZ1G1qTbQ1sjLy6+qBDA+i4G5BPffu2IpRwK/PbMJ4znxRemPTi8LJF12AAAAABJRU5ErkJggg==');
+  height: 18px;
+  width: 18px;
+  margin-right: 9.67px;
+}
+.tv {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACmSURBVHgB1ZLhDURAEIVn5QrQwd11oAQlXAnXAR2ICrSgAzqgA1RgStDBehMjkY3YjX8m+ezgfSy7RE5Za5OTaz/yFUI1qA7nBWhCxBjMIAeZ9rGbM3sYQwr2wAcU2peAtV+MMe1RnPUmX0zmD3p5KOSvSCnoyP8JVsdBnEinxRRekzgR3ayHiUzbDwqttzgvHEYRdVtNV4ZmZB17d+cknrcxaCEuK0dYXXRSR/1RAAAAAElFTkSuQmCC');
+  height: 14px;
+  width: 14px;
+  margin-top: 2px;
+  margin-right: 5px;
 }
 .q-card {
   min-width: 318px;
@@ -180,7 +152,11 @@ export default {
   background: #4caf50;
   color: white;
 }
-.product-item-box {
+.set-item-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
   width: 260px;
   margin-bottom: 10px;
   position: relative;
@@ -194,21 +170,41 @@ export default {
     box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
       5px 5px 20px rgba(0, 0, 0, 0.1);
     top: -10px;
+    .img-box .img-videos {
+      opacity: 0.6;
+    }
   }
+
   .img-box {
     a {
       border-radius: inherit;
       box-shadow: none;
       width: 100%;
       height: 270px;
+
       img {
         width: inherit;
         border-radius: 20px 20px 0 0;
       }
     }
+    .img-videos {
+      background: #000000;
+      color: white;
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      height: 40px;
+      top: 140px;
+      display: flex;
+      align-items: center;
+      padding-right: 12.19px;
+      padding-left: 14px;
+      justify-content: space-between;
+      transition: all ease 0.5s;
+    }
   }
 
-  .product-content-box {
+  .set-content-box {
     padding: 10px 16px 16px 16px;
 
     .main-title {
@@ -365,13 +361,13 @@ export default {
 }
 
 @media screen and (max-width: 992px) {
-  .product-item-box {
+  .set-item-box {
     .img-box {
       .img {
       }
     }
 
-    .product-content-box {
+    .set-content-box {
       .main-title {
         a {
         }
@@ -435,7 +431,7 @@ export default {
 }
 
 @media screen and (max-width: 575px) {
-  .product-item-box {
+  .set-item-box {
     width: 310px;
     min-height: 120px;
     max-height: 120px;
@@ -451,7 +447,7 @@ export default {
       }
     }
 
-    .product-content-box {
+    .set-content-box {
       padding: 0 0 0 16px;
       width: 100%;
 
