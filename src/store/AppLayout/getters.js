@@ -31,10 +31,6 @@ export function breadcrumbsVisibility (state) {
   return state.breadcrumbs.visible
 }
 
-export function appLayout (state) {
-  return state.appLayout
-}
-
 export function headerSize (state) {
   return state.headerSize
 }

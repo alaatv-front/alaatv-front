@@ -26,11 +26,6 @@ export function updateVisibilityBreadcrumb (state, data) {
   state.breadcrumbs.visible = data
 }
 
-export function updateAppLayout (state, data) {
-  const storage = JSON.parse(localStorage.getItem('vuex'))
-  Object.assign(storage.AppLayout, data)
-  Object.assign(state.appLayout, storage.AppLayout)
-}
 export function updateHeaderSize (state, data) {
   Object.assign(state.headerSize, data)
 }

@@ -27,7 +27,7 @@ module.exports = {
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
-    'standard'
+    'standard',
 
   ],
 
@@ -73,10 +73,11 @@ module.exports = {
     "vue/max-attributes-per-line": 'error',
     "vue/html-indent": 'error',
     "vue/html-closing-bracket-spacing": 'error',
-    " vue/block-tag-newline": 'error',
+    // " vue/block-tag-newline": 'error',
     'vue/multi-word-component-names': 'off',
 
     // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    "space-before-function-paren": 0
   }
 }
