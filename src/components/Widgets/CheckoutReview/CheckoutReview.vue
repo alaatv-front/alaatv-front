@@ -1,7 +1,7 @@
 <template>
-  <div class="checkout-review row">
-    <cart-item-list class="col-auto" />
-    <div class="side-box col-auto column ">
+  <div class="checkout-review row q-mb-md">
+    <cart-item-list class="col-8" />
+    <div class="side-box col-4 column ">
       <donate />
       <checkout-review-cart />
     </div>
@@ -14,7 +14,7 @@ import CheckoutReviewCart from 'components/Widgets/CheckoutReview/SideComponents
 import CartItemList from 'components/Widgets/CheckoutReview/SideComponents/CartItemList'
 import Donate from 'components/Widgets/CheckoutReview/SideComponents/Donate'
 export default {
-  name: 'CheckoutReviewWidget',
+  name: 'CheckoutReview',
   components: { Donate, CartItemList, CheckoutReviewCart },
   data () {
     return {
