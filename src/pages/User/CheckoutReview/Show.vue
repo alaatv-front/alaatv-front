@@ -47,7 +47,7 @@ export default {
                         name: 'CheckoutReview',
                         data: this.$route.params.id,
                         options: {
-                          getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                          getData: (url) => GetWidgetsData.getData(url)
                         }
                       }
                     ]
