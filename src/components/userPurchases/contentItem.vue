@@ -89,14 +89,14 @@
                     <a :href="quality.link +'?download=1'"
                        class="download-link"
                        target="_blank">
-                      <span class="q-pl-sm">  {{ quality.caption }}</span>
+                      <span class="q-pl-sm">{{ quality.caption }}</span>
                     </a>
                   </q-btn>
                 </q-btn-group>
                 <router-link :to="{name: 'User.Content.Show', params:{id:data.id}}">
                   <q-btn
                     unelevated
-                    class="q-ml-sm q-mt-xs-md"
+                    class="q-ml-sm q-mt-sm-none q-mt-xs-sm"
                     color="teal-6">... بیشتر
                   </q-btn>
                 </router-link>
