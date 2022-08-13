@@ -123,7 +123,6 @@
         this.options.getData(API_ADDRESS.set.show(this.content.set.id))
           .then(response => {
             this.set = new Set(response.data.data)
-            console.log(this.set.contents)
             this.scrollToElement(this.set.contents.list)
           })
           .catch(() => {
