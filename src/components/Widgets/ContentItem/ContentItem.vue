@@ -1,27 +1,24 @@
 <template>
   <q-card class="content-item-box">
-    <div class="img-box">
-      <router-link :to="{ path: `/content/${content.id}` }">
-        <img
-          :src="content.photo"
-          alt="content"
-        />
-      </router-link>
-      <div class="play-btn">
-        <div class="play-icon"></div>
+    <router-link :to="{ path: `/content/${content.id}` }">
+      <div class="img-box">
+        <div class="img-title-container">
+          <img
+            :src="content.photo"
+            alt="content"
+          />
+        </div>
+        <div class="play-btn">
+          <div class="play-icon"></div>
+        </div>
       </div>
-    </div>
 
-    <div class="content-content-box">
-      <div class="main-title">
-        {{ concatTitle }}
-        <router-link :to="{ path: `/content/${content.id}` }">
-          <span class="title-text">
-            {{ content.cutsomTitle }}
-          </span>
-        </router-link>
+      <div class="content-content-box">
+        <div class="main-title">
+          {{ concatTitle }}
+        </div>
       </div>
-    </div>
+    </router-link>
   </q-card>
 </template>
 
@@ -131,14 +128,17 @@ export default {
       opacity: 0.6;
     }
   }
-
+  &:hover .play-btn {
+    opacity: 1;
+    background: #ffc107;
+    transition: opacity ease 0.5s;
+  }
   .img-box {
     position: relative;
-    a {
+    .img-title-container {
       border-radius: inherit;
       box-shadow: none;
       width: 100%;
-      height: 270px;
 
       img {
         width: inherit;
@@ -159,12 +159,6 @@ export default {
       padding-left: 14px;
       justify-content: space-between;
       transition: all ease 0.5s;
-    }
-
-    &:hover .play-btn {
-      opacity: 1;
-      background: #ffc107;
-      transition: opacity ease 0.5s;
     }
   }
 
