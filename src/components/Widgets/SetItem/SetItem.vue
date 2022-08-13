@@ -1,55 +1,56 @@
 <template>
   <q-card class="set-item-box">
-    <div class="img-box">
-      <div class="img-videos">
-        <div class="flex">
-          <div class="play-icon"></div>
-          {{ set.contents_count }} ویدیو
+    <router-link
+      :to="{
+        name: 'User.Set.Show',
+        params: { id: set.id, title: set.title }
+      }"
+    >
+      <div class="img-box">
+        <div class="img-videos">
+          <div class="flex">
+            <div class="play-icon"></div>
+            {{ set.contents_count }} ویدیو
+          </div>
+          <div class="flex">
+            <div class="tv"></div>
+            ریاضی کنکور
+          </div>
         </div>
-        <div class="flex">
-          <div class="tv"></div>
-          ریاضی کنکور
+        <div class="img-container">
+          <img
+            :src="set.photo"
+            alt="set"
+          />
         </div>
       </div>
 
-      <router-link :to="{ path: `/set/${set.id}` }">
-        <img
-          :src="set.photo"
-          alt="set"
-        />
-      </router-link>
-    </div>
-
-    <div class="set-content-box">
-      <div class="main-title">
-        {{ concatTitle }}
-        <router-link :to="{ path: `/set/${set.id}` }">
-          <span class="title-text">
-            {{ set.cutsomTitle }}
-          </span>
-        </router-link>
-      </div>
-      <div class="info-box">
-        <div class="teacher-info">
-          <div class="teacher-image">
-            <img
-              :src="set.author?.photo"
-              alt="set"
-            />
-          </div>
-          <div class="teacher-name">
-            {{ set.author?.first_name + ' ' + set.author?.last_name }}
-          </div>
+      <div class="set-content-box">
+        <div class="main-title ellipsis-2-lines">
+          {{ set.title }}
         </div>
-        <!-- <div class="teacher-score">
+      </div>
+    </router-link>
+    <div class="info-box">
+      <div class="teacher-info">
+        <div class="teacher-image">
+          <img
+            :src="set.author?.photo"
+            alt="set"
+          />
+        </div>
+        <div class="teacher-name">
+          {{ set.author?.first_name + ' ' + set.author?.last_name }}
+        </div>
+      </div>
+      <!-- <div class="teacher-score">
           <div class="total-score">
             <div class="counts-score">(۶۲۵)</div>
             ۳.۸
             <div class="star-score"></div>
           </div>
         </div> -->
-        <div class="three-dots"></div>
-      </div>
+      <div class="three-dots"></div>
     </div>
   </q-card>
 </template>
@@ -68,15 +69,6 @@ export default {
   data: () => ({
     set: new Set()
   }),
-  computed: {
-    concatTitle() {
-      if (!this.set.title) return null
-      if (this.set.title.length >= 50) {
-        return this.set.title.substr(0, 47) + '...'
-      }
-      return this.set.title
-    }
-  },
   mounted() {
     this.set = new Set(this.data)
   }
@@ -96,11 +88,16 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-left: 16px;
+  margin-right: 26px;
+  margin-bottom: 16px;
 }
 .total-score {
   display: flex;
 }
 .teacher-image {
+  height: 32px;
+  width: 32px;
   img {
     height: 32px;
     width: 32px;
@@ -176,11 +173,10 @@ export default {
   }
 
   .img-box {
-    a {
+    .img-container {
       border-radius: inherit;
       box-shadow: none;
       width: 100%;
-      height: 270px;
 
       img {
         width: inherit;

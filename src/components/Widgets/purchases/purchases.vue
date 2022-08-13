@@ -139,7 +139,6 @@ export default {
   },
   watch: {
     searchTarget (value) {
-      console.log('filterName watch :', value)
       this.filterProductBySearchInput()
       this.products.list = this.products.list.splice(0, this.products.list.length)
     }
@@ -149,7 +148,6 @@ export default {
       return this.selectedSet.contents.list.filter(content => content.type === 8)
     },
     pamphletsContents() {
-      console.log(this.selectedSet.contents.list.filter(content => content.type === 1))
       return this.selectedSet.contents.list.filter(content => content.type === 1)
     },
     currentProduct () {
@@ -927,51 +925,10 @@ export default {
     }
   },
   created () {
-    this.$store.commit('AppLayout/updateLayoutLeftDrawer', false)
-    const mitra = [{
-      id: 1,
-      name: 'hi',
-      test: {
-        link: 'fsdfsdfgvsdg'
-      }
-    }, { id: 2, name: 'hi' }, { id: 3, name: 'hi' }, { id: 4, name: 'hi' }, { id: 5, name: 'hi' }, { id: 4, name: 'hi' }]
-    console.log(mitra)
-    // const mitra2 = mitra.filter((a, b, c) => c.findIndex(d => d.id > 3) === b).map(i => {
-    //   return {
-    //     test: 'fsddg'
-    //   }
-    // })
-    // this.lessons = plans.filter((studyPlan, studyPlanIndex, studyPlansArray) => studyPlansArray.findIndex(item => item.title === studyPlan.title) === studyPlanIndex)
-    //   .map(item => {
-    //     return {
-    //       title: item.title,
-    //       active: false
-    //     }
-    //   })
-
-    // const lessons = this.questions.list.filter((v, i, a) => a.findIndex(question => {
-    //   const targetTag = question.tags.list.find(tag => tag.type === 'lesson')
-    //   const valueTargetTag = v.tags.list.find(tag => tag.type === 'lesson')
-    //   if (!targetTag || !valueTargetTag) {
-    //     return false
-    //   }
-    //   return targetTag.title === valueTargetTag.title
-    // }) === i)
-    //   .map(question => question.tags.list.find(tag => tag.type === 'lesson'))
-    // console.log('mitra :', mitra)
-    // console.log('mitra2 :', mitra2)
-
     this.initPageData()
   },
   mounted () {
     this.filterProduct()
-
-    // if (this.products.list.length > 0) {
-    //   this.setSelectedSet({
-    //     product: this.products.list[0],
-    //     set: this.products.list[0].sets.list[0]
-    //   })
-    // }
   },
   methods: {
     filterProduct () {
@@ -1021,7 +978,6 @@ export default {
       const firstSetId = this.products.list[0].sets.list[0].id
       this.handlesTabs()
       this.getContentsData(firstSetId)
-      console.log(this.products)
     },
 
     setFilterBoxSelected () {
@@ -1068,14 +1024,14 @@ export default {
           } else {
             item.file = {
               video: null,
-              // pamphlet: [
-              //   {
-              //     link: 'https://alaatv.com/d/eyJpdiI6InR2RExYRXduVmtIZDdoeHpDSm9adHc9PSIsInZhbHVlIjoidkl2ZnJvT1BERzQ1L01TdmRINThNbGZDMmk2eTdveDZHNG9OQml1Y2RmNkNRcEt4K2dCeWJFbytKL3pCTU51KzBZZ29PWlNiSC9Qd3FhSWUrSmxPVHZOaG5DWW0rcldYVER1aWlBVHQwUEYxUlFKaE1aL0Z6NmpqVDQvR2lBY094L0k4azk5ZXVhM0graklINFVFcFFsTmQ0QThoU21LSk5FWm1kVGlxWVVRNEErU04zckVJNXlqa2ZFaDdNSnREIiwibWFjIjoiNmU4NGE5YWM1YzgyMTE3ZmM1YmNhNjY1YzVkZjZhMjAyYTg4ZjBmZDA4MzcyNWUyYzM2Nzg2YmQ2NDAxNWFlNiIsInRhZyI6IiJ9',
-              //     ext: 'pdf',
-              //     size: '401 KB',
-              //     caption: 'جزوه'
-              //   }
-              // ],
+              pamphlet: [
+                {
+                  link: 'https://alaatv.com/d/eyJpdiI6InR2RExYRXduVmtIZDdoeHpDSm9adHc9PSIsInZhbHVlIjoidkl2ZnJvT1BERzQ1L01TdmRINThNbGZDMmk2eTdveDZHNG9OQml1Y2RmNkNRcEt4K2dCeWJFbytKL3pCTU51KzBZZ29PWlNiSC9Qd3FhSWUrSmxPVHZOaG5DWW0rcldYVER1aWlBVHQwUEYxUlFKaE1aL0Z6NmpqVDQvR2lBY094L0k4azk5ZXVhM0graklINFVFcFFsTmQ0QThoU21LSk5FWm1kVGlxWVVRNEErU04zckVJNXlqa2ZFaDdNSnREIiwibWFjIjoiNmU4NGE5YWM1YzgyMTE3ZmM1YmNhNjY1YzVkZjZhMjAyYTg4ZjBmZDA4MzcyNWUyYzM2Nzg2YmQ2NDAxNWFlNiIsInRhZyI6IiJ9',
+                  ext: 'pdf',
+                  size: '401 KB',
+                  caption: 'جزوه'
+                }
+              ],
               voice: null
             }
           }

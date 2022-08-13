@@ -6,13 +6,6 @@
       :class="data.headerCustomClass"
     >
       <div class="row items-center block-title">
-        <div class="row items-center">
-          <q-badge
-            rounded
-            class="q-mr-sm"
-            color="primary"
-          />
-        </div>
         <a
           :href="data?.url?.web"
           class="title-box"
@@ -49,10 +42,7 @@
           class="product-spacing"
           :key="product.id"
         >
-          <Product-item
-            class="q-mr-md"
-            :data="product"
-          />
+          <Product-item :data="product" />
         </div>
         <div class="block-item-box">
           <a
@@ -73,12 +63,10 @@
           :class="{
             'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
           }"
+          class="set-spacing"
           :key="set.id"
         >
-          <set-item
-            class="q-mr-md"
-            :data="set"
-          />
+          <set-item :data="set" />
         </div>
         <div class="block-item-box">
           <a
@@ -99,12 +87,10 @@
           :class="{
             'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
           }"
+          class="content-spacing"
           :key="content.id"
         >
-          <content-item
-            class="q-mr-md"
-            :data="content"
-          />
+          <content-item :data="content" />
         </div>
         <div class="block-item-box">
           <a
@@ -170,23 +156,28 @@ export default {
 .product-spacing {
   margin-right: 30px;
 }
+.set-spacing {
+  margin-right: 30px;
+}
+.content-spacing {
+  margin-right: 30px;
+}
 
 .block-section {
   margin-bottom: 30px;
   .block-header {
     border-radius: 10px;
     justify-content: space-between;
-    background: #ffffff;
 
     .block-title {
       .title-box {
         text-decoration: none;
         cursor: pointer;
         margin: 0;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 24px;
-        letter-spacing: -0.03em;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 31px;
         color: #333333;
         padding: 0 0 4px 0;
         border-bottom: 1px solid white;
@@ -201,11 +192,17 @@ export default {
 
   .block-container {
     display: flex;
-
+    margin-bottom: 5px;
     .scroll-view {
       display: flex;
       width: 100%;
-      overflow: auto;
+      overflow-x: scroll;
+      /* this padding is needed due to move animation of card
+      to avoid overflow behavior: 
+      https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
+      */
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 
     .item-container {
