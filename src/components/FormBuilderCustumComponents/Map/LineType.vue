@@ -18,7 +18,7 @@
     v-show="inputData.dir !=='fixed'">
     <div v-if="inputData.style">
       <q-badge color="secondary">
-        سرعت حرکت : از 0 تا 100 ({{inputData.style['animation-duration'] }} )
+        سرعت حرکت : از 0 تا 100 ( {{inputData.style['animation-duration'] }} )
       </q-badge>
       <q-slider
         v-model="inputData.style['animation-duration']"
