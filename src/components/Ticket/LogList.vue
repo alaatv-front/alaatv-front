@@ -76,7 +76,6 @@ export default {
       return (obj) => {
         this.departmentStatus.forEach(item => {
           if (obj.action === item.title) {
-            console.log(item.color)
             this.statusColor = item.color
           }
         })

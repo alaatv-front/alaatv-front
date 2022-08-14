@@ -259,7 +259,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import API_ADDRESS from 'src/api/Addresses'
 import { mixinDateOptions } from 'src/mixin/Mixins'
 
@@ -317,7 +316,7 @@ export default {
       this.batchExtendPostRequest()
     },
     batchExtendPostRequest () {
-      axios.post(API_ADDRESS.ticket.show.batchExtend, {
+      this.$axios.post(API_ADDRESS.ticket.show.batchExtend, {
         orderproducts: this.extendProductArray
       })
         .then((res) => {
