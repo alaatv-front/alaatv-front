@@ -15,8 +15,12 @@
             />
           </div>
           <div class="q-ml-lg namePhone">
-            <div class="fullName">پوریا جعفری فرد</div>
-            <div class="phoneNumber q-mt-sm">۰۹۳۳۱۲۳۴۵۶۷</div>
+            <div class="fullName">
+              {{fullName}}
+            </div>
+            <div class="phoneNumber q-mt-sm">
+              {{mobile}}
+              </div>
           </div>
           <div>
             <q-btn
@@ -157,7 +161,20 @@
 
 <script>
 export default {
-  name: 'ProfileMenu'
+  name: 'ProfileMenu',
+  data(){
+    return {
+      mobile: this.$store.getters['Auth/user'].mobile
+    }
+  },
+  computed:{
+    fullName(){
+      if(!(!!this.$store.getters['Auth/user'].first_name || !!this.$store.getters['Auth/user'].first_name)){
+        return 'وارد نشده'
+      }
+      return this.$store.getters['Auth/user'].first_name + ' ' + this.$store.getters['Auth/user'].last_name
+    } 
+  }
 }
 </script>
 <style scoped>

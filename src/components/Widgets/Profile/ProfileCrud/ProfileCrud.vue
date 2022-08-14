@@ -275,6 +275,7 @@ export default {
     editEntity() {
       this.$refs.entityEdit.editEntity()
     },
+   
   },
 }
 </script>
@@ -335,10 +336,13 @@ export default {
 :deep(.q-input) {
   border: 0px solid #f6f7f9;
   border-radius: 8px;
-
 }
 :deep(.q-field--outlined .q-field__control:before){
   border: 0px;
   height: 48px !important;
 }
+:deep(.q-field) {
+  height: 48px !important;
+}
+
 </style>
