@@ -14,7 +14,11 @@
         class="col-12 q-my-md"
         dir="ltr"
       >
-        <q-btn class="submitBtn">ثبت تغییرات</q-btn>
+        <q-btn
+          class="submitBtn"
+          @click="runNeededMethod(onSaveButton, editEntity)"
+          >ثبت تغییرات</q-btn
+        >
       </div>
     </template>
   </entity-edit>
@@ -23,6 +27,10 @@
 <script>
 import { EntityEdit } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
+
+
+
+
 export default {
   name: 'ProfileCrud',
   components: { EntityEdit },
@@ -97,7 +105,7 @@ export default {
               col: 'col-md-6'
             },
             {
-              type: 'input',
+              type: 'date',
               name: 'birthdate',
               responseKey: 'data.birthdate',
               label: 'تاریخ تولد',
@@ -242,7 +250,21 @@ export default {
       afterFormBuilder: true,
       defaultLayout: false
     }
-  }
+  },
+  methods: {
+    editEntity() {
+      const formData = this.getFormData();
+      this.beforeSendData(formData, this.setNewInputData);
+      this.$axios
+        .put(this.api, formData, { headers: this.getHeaders() })
+        .then(() => {
+          this.goToShowView();
+        })
+        .catch(() => {
+          this.getData();
+        });
+    },
+  },
 }
 </script>
 
@@ -276,6 +298,9 @@ export default {
   padding-top: 0;
   padding-bottom: 0;
   color: #aeaeae;
+  &:focus {
+    color: black;
+  }
 }
 :deep(.q-field__inner) {
   background: #f6f7f9;
@@ -283,12 +308,22 @@ export default {
 :deep(.q-field--auto-height.q-field--labeled .q-field__control-container) {
   padding-top: 0;
   color: #aeaeae;
+
+  &:focus {
+    color: black;
+  }
 }
 :deep(.q-field__control) {
   color: #ffc107;
+  height: 48px;
+
 }
 :deep(.q-input) {
   border: 0px solid #f6f7f9;
   border-radius: 8px;
+
+}
+:deep(.q-field--outlined .q-field__control:before){
+  height: 48px !important;
 }
 </style>
