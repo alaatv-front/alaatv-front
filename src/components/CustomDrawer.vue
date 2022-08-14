@@ -14,8 +14,8 @@
       <div
         class="drawer__content"
         :dir="directionBasedOnSideSelection('content')"
-        :class="side==='right' ? 'right-side' : 'left-side'"
         :style="{
+          transform: `translateX(${transformValue})`,
           maxWidth: maxWidth,
           transitionDuration: `${speed}ms`,
           backgroundColor: backgroundColor,
@@ -49,10 +49,22 @@ export default {
       default: false
     },
 
+    isExpanded: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+
     maxWidth: {
       type: String,
       required: false,
       default: '400px'
+    },
+
+    expantionValue: {
+      type: String,
+      required: false,
+      default: undefined
     },
 
     // Transition Speed in Milliseconds
@@ -72,20 +84,29 @@ export default {
   data () {
     return {
       isVisible: false,
-      isTransitioning: false
+      isTransitioning: false,
+      transformValue: '100%'
     }
   },
 
   watch: {
+    isExpanded() {
+      this.transformValue = this.changeDrawerTransition(this.expantionValue)
+    },
+
     isOpen (val) {
       this.isTransitioning = true
 
       if (val) {
         this.toggleBackgroundScrolling(true)
+        this.transformValue = this.changeDrawerTransition(0)
         this.isVisible = true
       } else {
         this.toggleBackgroundScrolling(false)
-        setTimeout(() => (this.isVisible = false), this.speed)
+        this.transformValue = this.changeDrawerTransition('100%')
+        setTimeout(() => {
+          this.isVisible = false
+        }, this.speed)
       }
 
       setTimeout(() => (this.isTransitioning = false), this.speed)
@@ -97,6 +118,13 @@ export default {
       const body = document.querySelector('body')
 
       body.style.overflow = enable ? 'hidden' : null
+    },
+
+    changeDrawerTransition(value) {
+      if (this.side === 'right') {
+        return '-' + value
+      }
+      return value
     },
 
     directionBasedOnSideSelection (mode) {
@@ -116,8 +144,11 @@ export default {
     //   }
     // }
   },
+  computed: {
+  },
 
   mounted () {
+    this.transformValue = this.changeDrawerTransition(this.transformValue)
     this.isVisible = this.isOpen
   }
 }
@@ -137,7 +168,7 @@ export default {
     //}
 
     .drawer__content {
-      transform: translateX(0);
+      //transform: translateX(0);
     }
   }
 
@@ -167,16 +198,8 @@ export default {
     transition-property: transform;
     display: flex;
     flex-direction: column;
-    transform: translateX(100%);
+    //transform: translateX(100%);
     box-shadow: 0 2px 6px #777;
   }
-}
-</style>
-<style scoped>
-.right-side {
-  transform: translateX(100%);
-}
-.left-side {
-  transform: translateX(-100%);
 }
 </style>

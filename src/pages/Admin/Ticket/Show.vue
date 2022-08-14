@@ -164,7 +164,6 @@ import Drawer from 'components/CustomDrawer'
 import UserOrderList from 'components/Ticket/userOrderList'
 import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
-import axios from 'axios'
 import SendMessageInput from 'components/Ticket/SendMessageInput'
 import { mixinDateOptions } from 'src/mixin/Mixins'
 
@@ -478,7 +477,7 @@ export default {
         })
     },
     saveChanges () {
-      axios.put(API_ADDRESS.ticket.show.base + '/' + this.searchForInputVal('id'), {
+      this.$axios.put(API_ADDRESS.ticket.show.base + '/' + this.searchForInputVal('id'), {
         department_id: this.searchForInputVal('department'),
         id: this.searchForInputVal('id'),
         priority_id: this.searchForInputVal('priority-id'),
@@ -501,7 +500,7 @@ export default {
     openShopLogList () {
       this.orderDrawer = this.orderDrawer === false
       this.orderLoading = true
-      axios.get(API_ADDRESS.user.orders(this.userId)).then(
+      this.$axios.get(API_ADDRESS.user.orders(this.userId)).then(
         response => {
           this.userOrderData = new CartItemList(response.data.data)
           this.orderLoading = false
@@ -520,7 +519,7 @@ export default {
       this.logDrawer = this.logDrawer === false
     },
     sendTicketStatusNotice (ticketId) {
-      axios.post(API_ADDRESS.ticket.show.statusNotice(ticketId))
+      this.$axios.post(API_ADDRESS.ticket.show.statusNotice(ticketId))
         .then((res) => {
           this.$q.notify({
             message: res.data.message,

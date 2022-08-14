@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import API_ADDRESS from 'src/api/Addresses'
 
 export default {
@@ -65,7 +64,7 @@ export default {
       if (!this.isSelected(this.selectedId, rateId)) {
         return false
       }
-      axios.post(API_ADDRESS.ticket.ticketRate(this.ticketId), {
+      this.$axios.post(API_ADDRESS.ticket.ticketRate(this.ticketId), {
         rate: rateId
       })
         .then((res) => {

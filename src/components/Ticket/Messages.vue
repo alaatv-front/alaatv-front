@@ -109,7 +109,6 @@
 </template>
 <script>
 import { mixinDateOptions } from 'src/mixin/Mixins'
-import axios from 'axios'
 import API_ADDRESS from 'src/api/Addresses'
 import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
 
@@ -161,7 +160,7 @@ export default {
       this.showVoicePlayerIsPlaying = false
     },
     sendReport () {
-      axios.post(API_ADDRESS.ticket.show.reportMessage(this.data.user.id), {
+      this.$axios.post(API_ADDRESS.ticket.show.reportMessage(this.data.user.id), {
         report_description: this.userReportDescription
       })
         .then((res) => {
