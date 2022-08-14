@@ -18,7 +18,7 @@
           transform: `translateX(${transformValue})`,
           maxWidth: maxWidth,
           transitionDuration: `${speed}ms`,
-          backgroundColor: backgroundColor,
+          background: backgroundColor,
         }"
       >
         <!--v-click-away="closeDrawer"-->
