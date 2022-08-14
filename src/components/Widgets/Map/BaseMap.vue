@@ -80,12 +80,12 @@
         <q-btn
           class="btnMapControl btnGetLinkToShare"
           @click="openFilterDrawer"
-          icon="isax:edit"
+          icon="isax:search-normal"
         />
         <q-btn
           class="btnMapControl btnGetLinkToShare"
           @click="openToolsDrawer"
-          icon="isax:search-normal"
+          icon="isax:edit"
         />
       </l-control>
       <l-control
