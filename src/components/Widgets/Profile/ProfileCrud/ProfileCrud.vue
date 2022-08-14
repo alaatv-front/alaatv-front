@@ -44,7 +44,7 @@ export default {
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
-          col: 'col-md-12 q-card custom-card  q-mt-md',
+          col: 'col-md-12 q-card custom-card q-px-md q-pb-sm',
           value: [
             {
               type: 'separator',
@@ -77,7 +77,7 @@ export default {
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
-          col: 'col-md-12 q-card custom-card  q-mt-md',
+          col: 'col-md-12 q-card custom-card q-mt-md q-px-md q-pb-sm',
           value: [
             {
               type: 'separator',
@@ -149,7 +149,7 @@ export default {
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
-          col: 'col-md-12 q-card custom-card  q-mt-md',
+          col: 'col-md-12 q-card custom-card  q-mt-md q-px-md q-pb-sm',
           value: [
             {
               type: 'separator',
@@ -206,7 +206,7 @@ export default {
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
-          col: 'col-md-12 q-card custom-card  q-mt-md',
+          col: 'col-md-12 q-card custom-card  q-mt-md q-px-md q-pb-sm',
           value: [
             {
               type: 'separator',
@@ -279,6 +279,7 @@ export default {
   line-height: 28px;
   letter-spacing: -0.03em;
   color: #333333;
+  margin-top: 20px;
 }
 .submitBtn {
   width: 189px;
@@ -292,7 +293,7 @@ export default {
   font-weight: 400;
   line-height: 25px;
   letter-spacing: 0em;
-  margin-bottom: 8px;
+  margin-bottom: 11px;
 }
 :deep(.q-field--labeled .q-field__native) {
   padding-top: 0;
@@ -304,6 +305,8 @@ export default {
 }
 :deep(.q-field__inner) {
   background: #f6f7f9;
+  border-radius: 8px;
+
 }
 :deep(.q-field--auto-height.q-field--labeled .q-field__control-container) {
   padding-top: 0;
@@ -324,6 +327,7 @@ export default {
 
 }
 :deep(.q-field--outlined .q-field__control:before){
+  border: 0px;
   height: 48px !important;
 }
 </style>
