@@ -129,12 +129,23 @@
   </drawer>
   <drawer max-width="700px"
           :is-open="toolsDrawer"
+          :expantion-value="expantionVal"
+          :is-expanded="expantion"
           side="right">
     <q-scroll-area class="fit">
-      <q-btn icon="mdi-close"
-             unelevated
-             class="close-btn"
-             @click="toolsDrawer = false" />
+      <div>
+        <q-btn :icon="expantionIcon"
+               style="width: 10%"
+               unelevated
+               color="blue"
+               class="close-btn"
+               @click="expandPanel" />
+        <q-btn icon="mdi-close"
+               style="width: 90%"
+               unelevated
+               class="close-btn"
+               @click="toolsDrawer = false" />
+      </div>
       <div>
         <!--      ------------------tools content------------    -->
       </div>
@@ -191,6 +202,9 @@ export default {
   data () {
     return {
       filterDrawer: false,
+      expantion: false,
+      expantionVal: '',
+      expantionIcon: '',
       toolsDrawer: false,
       filterValues: [],
 
@@ -215,11 +229,23 @@ export default {
   },
   created () {
     this.initMap()
+    this.initTemplateData()
   },
   methods: {
     setFilters (e) {
       this.filterValues = e
       this.sendFilters()
+    },
+    expandPanel() {
+      if (!this.expantion) {
+        this.expantionIcon = 'mdi-plus'
+        this.expantion = true
+        this.expantionVal = '90%'
+        return null
+      }
+      this.expantionIcon = 'isax:minus'
+      this.expantion = false
+      this.expantionVal = '0'
     },
     sendFilters () {
       console.log('sent')
@@ -271,6 +297,9 @@ export default {
       this.setBounds()
       this.setCenter()
       this.setMaxBounds()
+    },
+    initTemplateData() {
+      this.expantionIcon = 'isax:minus'
     },
     getCRS (mapExtent) {
       const mapMaxZoom = 10,
