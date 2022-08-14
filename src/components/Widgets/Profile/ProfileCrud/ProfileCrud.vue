@@ -1,13 +1,17 @@
 <template>
   <entity-edit
     v-model:value="inputs"
+    ref="entityEdit"
     title="ویرایش اطلاعات کاربر"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
     :show-route-name="showRouteName"
-    :before-send-data="beforeSendData"
     :defaultLayout="defaultLayout"
+    :before-send-data="beforeSendData"
+    :before-get-data="beforeGetData"
+    :after-get-data="afterGetData"
+    :after-send-data="afterSendData"
   >
     <template #after-form-builder>
       <div
@@ -16,7 +20,7 @@
       >
         <q-btn
           class="submitBtn"
-          @click="runNeededMethod(onSaveButton, editEntity)"
+          @click="editEntity"
           >ثبت تغییرات</q-btn
         >
       </div>
@@ -27,9 +31,7 @@
 <script>
 import { EntityEdit } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-
-
-
+import { Notify } from 'quasar'
 
 export default {
   name: 'ProfileCrud',
@@ -39,7 +41,7 @@ export default {
       api: API_ADDRESS.user.base + '/' + this.$store.getters['Auth/user'].id,
       entityIdKey: 'id',
       entityParamKey: 'id',
-      showRouteName: 'User.Show',
+      showRouteName: 'Profile',
       inputs: [
         {
           type: 'formBuilder',
@@ -52,7 +54,6 @@ export default {
               label: 'مشخصات حساب',
               col: 'col-md-12 title'
             },
-
             {
               type: 'input',
               name: 'id',
@@ -117,6 +118,7 @@ export default {
               type: 'select',
               name: 'gender',
               label: 'جنسیت',
+              responseKey: 'data.gender',
               placeholder: 'انتخاب نمایید',
               optionLabel: 'name',
               outlined: true,
@@ -159,9 +161,10 @@ export default {
             },
             {
               type: 'select',
-              name: 'gender',
+              name: 'major',
               label: 'مقطع تحصیلی',
               placeholder: 'انتخاب نمایید',
+              responseKey: 'data.major',
               optionLabel: 'name',
               outlined: true,
               multiple: false,
@@ -181,9 +184,10 @@ export default {
             },
             {
               type: 'select',
-              name: 'gender',
+              name: 'major',
               label: 'رشته تحصیلی',
               placeholder: 'انتخاب نمایید',
+              responseKey: 'data.major',
               optionLabel: 'name',
               outlined: true,
               multiple: false,
@@ -223,7 +227,6 @@ export default {
               outlined: true,
               placeholder: 'وارد نمایید',
               col: 'col-md-6',
-              disable: true
             },
             {
               type: 'input',
@@ -246,23 +249,31 @@ export default {
           ]
         }
       ],
-      beforeFormBuilder: false,
-      afterFormBuilder: true,
       defaultLayout: false
     }
   },
   methods: {
+    beforeGetData(){
+      Notify.create({
+        message: 'در حال دریافت اطلاعات',
+        color: 'warning'
+      })
+    },
+    afterGetData(){
+      Notify.create({
+        message: 'داده با موفقیت بارگیری شد',
+        color: 'success'
+      })
+    },
+    beforeSendData(d){
+      d.postal_code = Number(d.postal_code)
+      console.log(d);
+    },
+    afterSendData(d){
+
+    },
     editEntity() {
-      const formData = this.getFormData();
-      this.beforeSendData(formData, this.setNewInputData);
-      this.$axios
-        .put(this.api, formData, { headers: this.getHeaders() })
-        .then(() => {
-          this.goToShowView();
-        })
-        .catch(() => {
-          this.getData();
-        });
+      this.$refs.entityEdit.editEntity()
     },
   },
 }
