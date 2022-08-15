@@ -63,10 +63,6 @@ export default {
   props: {
     value: {
       default: null
-    },
-    name: {
-      type: String,
-      default: 'ali'
     }
   },
   mixins: [inputMixin],
