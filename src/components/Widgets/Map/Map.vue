@@ -1,6 +1,6 @@
 <template>
-  <div class="MapWidget"
-       dir="ltr">
+  <div
+    class="MapWidget">
     <base-map
       v-model:zoom="zoom"
       v-model:center="center"
@@ -16,8 +16,8 @@
 
 <script>
 import { MapItemList } from 'src/models/MapItem'
-import BaseMap from './BaseMap'
-import MapItemsResponse from './MapItemsResponse'
+import BaseMap from 'src/components/Widgets/Map/BaseMap.vue'
+import MapItemsResponse from 'src/components/Widgets/Map/MapItemsResponse.js'
 
 export default {
   name: 'MapWidget',
@@ -110,7 +110,7 @@ export default {
     boundsUpdated (bounds) {
       this.bounds = bounds
       this.updateVisibleMapItems()
-      // this.bounds = bounds
+      this.bounds = bounds
     },
     updateVisibleMapItems () {
       this.$nextTick(() => {

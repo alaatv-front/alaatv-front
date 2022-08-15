@@ -18,7 +18,7 @@
           </template>
           <template v-if="inputData.props.col.name === 'score'">
             <q-img :src="rateImg(inputData.props.row.rate)"
-                   style="width: 30px;height: 30px" />
+                   class="rate-img" />
           </template>
           <template v-if="inputData.props.col.name === 'actions'">
             <q-btn round
@@ -363,5 +363,8 @@ export default {
 </script>
 
 <style scoped>
-
+.rate-img {
+  width: 30px;
+  height: 30px
+}
 </style>
