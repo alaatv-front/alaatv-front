@@ -77,9 +77,9 @@
       v-if="toolTab === 'marker'"
       class="MarkerFormBuilder"
     >
-      <entity-crud-form-builder
+      <form-builder
         v-model:value="markerInputs"
-        ref="EntityCrudFormBuilder"
+        ref="markerInputsFormBuilder"
       />
       <div
         v-if="toolTab === 'polyline' || toolTab === 'marker'"
@@ -108,9 +108,9 @@
       v-if="toolTab === 'polyline'"
       class="PolylineFormBuilder"
     >
-      <entity-crud-form-builder
+      <form-builder
         v-model:value="polylineInputs"
-        ref="EntityCrudFormBuilder"
+        ref="polylineInputsFormBuilder"
       />
       <div
         v-if="toolTab === 'polyline' || toolTab === 'marker'"
@@ -139,7 +139,8 @@
 </template>
 
 <script>
-import { EntityCrudFormBuilder } from 'quasar-crud'
+import { FormBuilder } from 'quasar-form-builder'
+
 import API_ADDRESS from 'src/api/Addresses'
 
 import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
@@ -148,13 +149,8 @@ import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
 
 export default {
   name: 'AdminToolBox',
-  components: { EntityCrudFormBuilder, activityType, LineType, ItemEntity },
+  components: { FormBuilder },
 
-  computed: {
-    fuckingSelect () {
-      return this.polylineInputs.find(i => i.name === 'activityType').value
-    }
-  },
   data () {
     return {
       expanded: true,
@@ -171,9 +167,18 @@ export default {
           col: 'col-md-6',
           value: [
             {
-              type: 'input',
-              col: 'col-md-12',
-              label: 'تگ :'
+              type: 'select',
+              name: 'NewValueEventSelect',
+              label: 'تگ :',
+              outlined: true,
+              value: '',
+              placeholder: '',
+              showNoOption: false,
+              createNewValue: true,
+              newValueMode: 'add-unique',
+              useChips: true,
+              hideDropdownIcon: true,
+              col: 'col-md-12'
             }
           ]
         },
@@ -209,6 +214,7 @@ export default {
           responseKey: 'data.action',
           value: [],
           name: 'action',
+          label: 'شناسه',
           col: 'col-md-6'
         },
         {
@@ -470,13 +476,6 @@ export default {
       }
     }
   },
-  watch: {
-    fuckingSelect: {
-      handler (newValue) {
-        console.log('newValue :', newValue)
-      }
-    }
-  },
   methods: {
     saveData() {
       this.getInputValue('markerInputs', 'activityType')
@@ -500,7 +499,7 @@ export default {
 
 <style scoped lang="scss">
 .adminToolBox {
-    width: 1000px;
+    width: 100%;
   .toolBoxHeader {
     display: flex;
     justify-content: space-between;
