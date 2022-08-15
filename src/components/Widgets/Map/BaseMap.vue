@@ -75,6 +75,21 @@
       </template>
       <l-control
         dir="rtl"
+        position="topright"
+      >
+        <q-btn
+          class="btnMapControl btnGetLinkToShare"
+          @click="openFilterDrawer"
+          icon="isax:search-normal"
+        />
+        <q-btn
+          class="btnMapControl btnGetLinkToShare"
+          @click="openToolsDrawer"
+          icon="isax:edit"
+        />
+      </l-control>
+      <l-control
+        dir="rtl"
         position="topleft"
       >
         <q-btn
@@ -100,6 +115,42 @@
       </l-control>
     </l-map>
   </div>
+  <drawer max-width="300px"
+          :is-open="filterDrawer"
+          :background-color="'rgba(255, 255, 255, 0.65) none repeat scroll 0% 0%'"
+          side="left">
+    <q-scroll-area class="fit">
+      <q-btn icon="mdi-close"
+             unelevated
+             class="close-btn"
+             @click="filterDrawer = false" />
+      <map-filters @filter-values="setFilters" />
+    </q-scroll-area>
+  </drawer>
+  <drawer max-width="700px"
+          :is-open="toolsDrawer"
+          :expantion-value="expantionVal"
+          :is-expanded="expantion"
+          side="right">
+    <q-scroll-area class="fit">
+      <div>
+        <q-btn :icon="expantionIcon"
+               style="width: 10%"
+               unelevated
+               color="blue"
+               class="close-btn"
+               @click="expandPanel" />
+        <q-btn icon="mdi-close"
+               style="width: 90%"
+               unelevated
+               class="close-btn"
+               @click="toolsDrawer = false" />
+      </div>
+      <div>
+        <!--      ------------------tools content------------    -->
+      </div>
+    </q-scroll-area>
+  </drawer>
 </template>
 
 <script>
@@ -107,6 +158,9 @@ import L, { CRS, latLng } from 'leaflet'
 import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItemList } from 'src/models/MapItem'
+import Drawer from 'src/components/CustomDrawer'
+import axios from 'axios'
+import MapFilters from './components/MapFilters'
 
 export default {
   name: 'BaseMap',
@@ -135,7 +189,9 @@ export default {
     LTileLayer,
     LIcon,
     LMarker,
-    LPolyline
+    LPolyline,
+    Drawer,
+    MapFilters
   },
   filters: {
     latlang (value) {
@@ -145,6 +201,13 @@ export default {
   },
   data () {
     return {
+      filterDrawer: false,
+      expantion: false,
+      expantionVal: '',
+      expantionIcon: '',
+      toolsDrawer: false,
+      filterValues: [],
+
       crs: null,
 
       mapZoom: 4,
@@ -166,8 +229,33 @@ export default {
   },
   created () {
     this.initMap()
+    this.initTemplateData()
   },
   methods: {
+    setFilters (e) {
+      this.filterValues = e
+      this.sendFilters()
+    },
+    expandPanel() {
+      if (!this.expantion) {
+        this.expantionIcon = 'mdi-plus'
+        this.expantion = true
+        this.expantionVal = '90%'
+        return null
+      }
+      this.expantionIcon = 'isax:minus'
+      this.expantion = false
+      this.expantionVal = '0'
+    },
+    sendFilters () {
+      console.log('sent')
+    },
+    openFilterDrawer () {
+      this.filterDrawer = !this.filterDrawer
+    },
+    openToolsDrawer () {
+      this.toolsDrawer = !this.toolsDrawer
+    },
     showMessagesInNotify (message, type) {
       if (!type) {
         type = 'negative'
@@ -209,6 +297,9 @@ export default {
       this.setBounds()
       this.setCenter()
       this.setMaxBounds()
+    },
+    initTemplateData() {
+      this.expantionIcon = 'isax:minus'
     },
     getCRS (mapExtent) {
       const mapMaxZoom = 10,
@@ -267,6 +358,13 @@ export default {
 </script>
 
 <style scoped>
+.close-btn {
+  width: 100%;
+  border-radius: 0;
+  color: #212529;
+  background: #fbaa00;
+}
+
 .MapWidget {
   height: 70vh;
   width: 100%;
