@@ -32,11 +32,12 @@
 import { EntityEdit } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
 import { Notify } from 'quasar'
-
+import axios from 'axios'
 export default {
   name: 'ProfileCrud',
   components: { EntityEdit },
   data() {
+    
     return {
       api: API_ADDRESS.user.base + '/' + this.$store.getters['Auth/user'].id,
       entityIdKey: 'id',
@@ -123,18 +124,6 @@ export default {
               optionLabel: 'name',
               outlined: true,
               multiple: false,
-              options: [
-                {
-                  id: 1,
-                  name: 'آقا',
-                  title: 'آقا'
-                },
-                {
-                  id: 2,
-                  name: 'خانم',
-                  title: 'خانم'
-                }
-              ],
               col: 'col-md-6'
             },
             {
@@ -161,25 +150,13 @@ export default {
             },
             {
               type: 'select',
-              name: 'major',
+              name: 'grade',
               label: 'مقطع تحصیلی',
               placeholder: 'انتخاب نمایید',
-              responseKey: 'data.major',
+              responseKey: 'data.grade',
               optionLabel: 'name',
               outlined: true,
               multiple: false,
-              options: [
-                {
-                  id: 1,
-                  name: 'آقا',
-                  title: 'آقا'
-                },
-                {
-                  id: 2,
-                  name: 'خانم',
-                  title: 'خانم'
-                }
-              ],
               col: 'col-md-6'
             },
             {
@@ -191,18 +168,6 @@ export default {
               optionLabel: 'name',
               outlined: true,
               multiple: false,
-              options: [
-                {
-                  id: 1,
-                  name: 'آقا',
-                  title: 'آقا'
-                },
-                {
-                  id: 2,
-                  name: 'خانم',
-                  title: 'خانم'
-                }
-              ],
               col: 'col-md-6'
             }
           ]
@@ -254,6 +219,17 @@ export default {
   },
   methods: {
     beforeGetData(){
+      axios.get(API_ADDRESS.user.formData).then(
+        response => {
+          this.inputs[2].value[1].options = response.data.data.grades 
+          this.inputs[2].value[2].options = response.data.data.majors 
+          this.inputs[1].value[4].options = response.data.data.genders
+        }
+      )
+        .catch(e => {
+          console.log(e)
+        })
+    
       Notify.create({
         message: 'در حال دریافت اطلاعات',
         color: 'warning'
@@ -267,7 +243,9 @@ export default {
     },
     beforeSendData(d){
       d.postal_code = Number(d.postal_code)
-      console.log(d);
+      d.grade_id = d.grade.id
+      d.major_id = d.major.id
+      d.gender_id = d.gender.id
     },
     afterSendData(d){
 
@@ -275,6 +253,7 @@ export default {
     editEntity() {
       this.$refs.entityEdit.editEntity()
     },
+
    
   },
 }
