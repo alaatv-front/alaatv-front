@@ -9,9 +9,8 @@
     inline
   />
   <div
-    v-if="inputData.entity_type !== 'nothing'"
+    v-if="inputData.entity_type !== 'nothing' && inputData.entity_type"
   >
-
     <q-input
       v-model="inputData.altNames"
       label="کد موجودیت را وارد کنید:"
@@ -65,10 +64,6 @@ export default {
   props: {
     value: {
       default: null
-    },
-    name: {
-      type: String,
-      default: 'ali'
     }
   },
   mixins: [inputMixin],
