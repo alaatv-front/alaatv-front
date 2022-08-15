@@ -14,8 +14,7 @@
       inline
     />
   </div>
-  <div
-    v-show="inputData.dir !=='fixed'">
+  <div  v-show="inputData.dir !=='fixed'">
     <div v-if="inputData.style">
       <q-badge color="secondary">
         سرعت حرکت : از 0 تا 100 ( {{inputData.style['animation-duration'] }} )
@@ -25,7 +24,7 @@
         :min="0"
         :max="100"
         :disable="disable"
-        @input="onChangeStandard"
+        @input="onChangeDuration"
       />
     </div>
   </div>
@@ -39,10 +38,6 @@ export default {
   data () {
     return {
       lineType: 'flowing',
-      standard: {
-        min: 0,
-        max: 17
-      },
       lineTypeOptions: [
         {
           id: 0,
@@ -73,23 +68,27 @@ export default {
   created () {
   },
   methods: {
-    onChangeStandard () {
-      this.setLineFlow()
+    onChangeDuration () {
+      // this.setLineFlow()
     },
     onChangeLineType () {
-      this.setLineFlow()
-    },
-    prepareDefaultInputData () {
-      if (this.inputData && this.inputData.style && typeof this.inputData.style['animation-duration'] !== 'undefined') {
-        return
-      }
-      this.inputData.style = {}
-      this.inputData.style['animation-duration'] = 0
-    },
-    setLineFlow() {
-      this.prepareDefaultInputData()
-      this.change(this.inputData)
+      const data = { dir: this.inputData.dir, style: { 'animation-duration': 17 } }
+      this.change(data)
+      // this.setLineFlow()
     }
+    // prepareDefaultInputData () {
+    //   if (this.inputData && this.inputData.style && typeof this.inputData.style['animation-duration'] !== 'undefined') {
+    //     return
+    //   }
+    //   this.inputData.style = {}
+    //   this.inputData.style['animation-duration'] = 17
+    //   console.log(this.inputData)
+    // },
+
+    // setLineFlow() {
+    //   this.prepareDefaultInputData()
+    //   this.change(this.inputData)
+    // }
   }
 }
 </script>
