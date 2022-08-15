@@ -193,7 +193,7 @@ export default {
     bottom: 0;
     height: 100%;
     width: 100%;
-    z-index: 9999;
+    z-index: 2000;
     overflow: auto;
     transition-property: transform;
     display: flex;
