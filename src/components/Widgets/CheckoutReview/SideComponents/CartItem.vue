@@ -256,6 +256,15 @@
         return fullString
       },
       deleteItem() {
+        console.log(this.cartItem)
+        if (this.cartItem.order_product) {
+          let idx = this.items.findIndex(item => item.grand.id === this.cartItem.product.id)
+          this.items.splice(idx,1)
+          console.log(this.items)
+        } else {
+          let idx = this.items[this.items.length - 1].order_product.findIndex(product => product.id === this.cartItem.id)
+        }
+        // this.items.findIndex(item=>item.)
       },
       toggleMenu() {
       },

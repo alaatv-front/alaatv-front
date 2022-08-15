@@ -5,7 +5,7 @@
         <p>جمع سبد خرید({{number}})</p>
         <p>{{totalPrice}} تومان</p>
       </div>
-      <div v-if="isLogedIn" class=" q-pt-lg flex justify-between">
+      <div class=" q-pt-lg flex justify-between">
         <p>اعتبار کیف پول</p>
         <p> تومان</p>
       </div>
@@ -14,7 +14,7 @@
         <p>{{profit}} تومان</p>
       </div>
       <q-separator/>
-      <div v-if="isLogedIn" class=" q-pt-lg row">
+      <div class=" q-pt-lg row">
         <p class="col-4">کد تخفیف</p>
         <q-input class="col-8" outlined bottom-slots v-model="discount" label="افزودن کد تخفیف" :dense="true">
 
@@ -23,8 +23,8 @@
           </template>
         </q-input>
       </div>
-      <q-separator v-if="isLogedIn"/>
-      <div class="parent" v-if="isLogedIn">
+      <q-separator/>
+      <div class="parent">
         <div class="item-1 q-pt-lg flex justify-between">
           <p>مبلغ قابل پرداخت</p>
           <p>{{payable}} تومان</p>
@@ -53,31 +53,8 @@
         </div>
         <q-btn color="primary" class="q-my-md item-4 full-width" label="ادامه و ثبت سفارش"/>
       </div>
-      <div v-else>
-        <div class="login-text bg-green-3 q-px-md q-my-xl">
-          <div class="bg-grey-3 q-pa-md text-center">
-            <p>پیش از ثبت سفارش وارد حساب کاربری خود شوید</p>
-            <p>اگر حساب کاربری در آلاء ندارید با وارد کردن شماره همراه و کد ملی خود میتوانید به سادگی حساب خود را ایجاد
-              کنید</p>
-          </div>
-        </div>
-        <div class="row justify-between">
-          <div class="row justify-center col-sm-5 col-md-12 col-xs-12">
-            <span class="col-4 q-mt-sm">شماره همراه</span>
-            <q-input class="phone-number q-mb-md col-8" dir="ltr" dense clearable outlined v-model="phoneNumber"
-                     placeholder="09........."/>
-          </div>
-          <div class="row justify-between col-sm-5 col-md-12 col-xs-12">
-            <span class="col-4 q-mt-sm">کد ملی</span>
-            <q-input class="natinalo-code q-mb-md col-8" dir="ltr" dense clearable outlined
-                     v-model="nationalCode"
-                     placeholder="..........."/>
-          </div>
-        </div>
-        <q-btn color="green-6" @click="this.isLogedIn=true" class="q-my-md full-width" label="ورود/ثبت نام"/>
-      </div>
     </div>
-    <div v-if="isLogedIn" class="payment-summary bg-white items-center row q-my-md q-mx-sm q-pa-md"
+    <div class="payment-summary bg-white items-center row q-my-md q-mx-sm q-pa-md"
          style="display: none">
       <span class="col">مبلغ قابل پرداخت:</span>
       <span class="col">{{payable}}</span>
@@ -135,7 +112,6 @@
             })
           } else {
             this.number += e.order_product.length
-            console.log(e)
             e.order_product.forEach(el => {
               this.totalPrice += el.price.base
               this.payable += el.price.final
@@ -208,7 +184,5 @@
     border-radius: 8px;
   }
 
-  .login-text {
-    border-radius: 8px;
-  }
+
 </style>

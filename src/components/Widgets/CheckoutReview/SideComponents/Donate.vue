@@ -31,8 +31,8 @@
     data() {
       return {
         helpAlaa: false,
-        donateCost: [{cost: '5000', isActive: false}, {cost: '10000', isActive: false}, {
-          cost: '20000',
+        donateCost: [{cost: 5000, isActive: false}, {cost: 10000, isActive: false}, {
+          cost: 20000,
           isActive: false
         }],
         src:"https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png"

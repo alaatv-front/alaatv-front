@@ -5,6 +5,7 @@
     </div>
     <div class="side-box col-md-4 col-12 column" v-if="items && items.length > 0">
       <donate/>
+<!--      <Login-checkout/>-->
       <checkout-review-cart :items="items"/>
     </div>
   </div>
@@ -16,10 +17,11 @@
   import CartItemList from 'components/Widgets/CheckoutReview/SideComponents/CartItemList'
   import Donate from 'components/Widgets/CheckoutReview/SideComponents/Donate'
   import API_ADDRESS from "src/api/Addresses";
+  import Login from "pages/Auth/Login";
 
   export default {
     name: 'CheckoutReview',
-    components: {Donate, CartItemList, CheckoutReviewCart},
+    components: {Login, Donate, CartItemList, CheckoutReviewCart},
     data() {
       return {
         items: []
