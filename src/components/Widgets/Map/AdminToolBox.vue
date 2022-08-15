@@ -171,8 +171,7 @@ export default {
               name: 'NewValueEventSelect',
               label: 'تگ :',
               outlined: true,
-              value: '',
-              placeholder: '',
+              multiple: true,
               showNoOption: false,
               createNewValue: true,
               newValueMode: 'add-unique',
@@ -199,6 +198,7 @@ export default {
             {
               type: ItemEntity,
               name: 'entity',
+              value: [],
               responseKey: 'data.entity',
               col: 'col-md-12'
             }
@@ -214,24 +214,30 @@ export default {
           responseKey: 'data.action',
           value: [],
           name: 'action',
-          label: 'شناسه',
           col: 'col-md-6'
         },
         {
-          type: 'RangeSlider',
+          type: 'Slider',
+          name: 'min',
           col: 'col-md-6',
-          label: 'میزان زوم',
+          label: 'میزان زوم از',
           min: 0,
           max: 11,
-          value: {
-            min: 3.1,
-            max: 11
-          }
+          value: 3
         },
         {
           type: 'hidden',
           name: 'hidden',
           col: 'col-md-6'
+        },
+        {
+          type: 'Slider',
+          col: 'col-md-6',
+          name: 'max',
+          label: 'میزان زوم تا',
+          min: 0,
+          max: 11,
+          value: 11
         },
         {
           type: 'separator',
@@ -249,16 +255,13 @@ export default {
           col: 'col-md-6'
         },
         {
-          type: 'RangeSlider',
+          type: 'Slider',
           name: 'TextSize',
           col: 'col-md-6',
           label: 'اندازه متن بالای آیکن',
           min: 0,
           max: 50,
-          value: {
-            min: 0,
-            max: 0
-          }
+          value: 14
         },
         {
           type: 'hidden',
@@ -266,16 +269,13 @@ export default {
           col: 'col-md-6'
         },
         {
-          type: 'RangeSlider',
+          type: 'Slider',
           name: 'StrokeSize',
           col: 'col-md-6',
           label: 'ضخامت stroke',
           min: 0,
           max: 50,
-          value: {
-            min: 0,
-            max: 0
-          }
+          value: 14
         },
         {
           type: 'Color',
@@ -290,28 +290,22 @@ export default {
           col: 'col-md-6'
         },
         {
-          type: 'RangeSlider',
+          type: 'Slider',
           name: 'StrokeSize',
           col: 'col-md-6',
           label: 'اندازه آیکن',
           min: 0,
           max: 200,
-          value: {
-            min: 0,
-            max: 70
-          }
+          value: 70
         },
         {
-          type: 'RangeSlider',
+          type: 'Slider',
           name: 'IconLocation',
           col: 'col-md-6',
-          label: 'موقعیت آیکن نسبت به مختصات انتخاب شده',
+          label: 'موقعیت آیکن نسبت به مختصات ',
           min: 0,
           max: 200,
-          value: {
-            min: 0,
-            max: 0
-          }
+          value: 0
         },
         {
           type: 'hidden',
@@ -329,11 +323,16 @@ export default {
           value: [
             {
               type: 'select',
+              name: 'NewValueEventSelect',
+              label: 'تگ :',
+              outlined: true,
               multiple: true,
+              showNoOption: false,
+              createNewValue: true,
+              newValueMode: 'add-unique',
               useChips: true,
-              responseKey: 'data.tags',
-              col: 'col-md-12',
-              label: 'تگ :'
+              hideDropdownIcon: true,
+              col: 'col-md-12'
             }
           ]
         },
@@ -352,25 +351,11 @@ export default {
               value: 1
             },
             {
-              type: 'optionGroupCheckbox',
-              name: 'enable',
-              responseKey: 'data.enable',
-              col: 'col-md-12',
-              multiple: false,
-              value: 0,
-              options: [{
-                label: 'هیچکدام',
-                value: 0
-              }, {
-                label: 'محصول',
-                value: 1
-              }, {
-                label: 'دسته محتوا',
-                value: 2
-              }, {
-                label: ' محتوا',
-                value: 3
-              }]
+              type: ItemEntity,
+              name: 'entity',
+              value: [],
+              responseKey: 'data.entity',
+              col: 'col-md-12'
             }
 
           ]
@@ -388,20 +373,27 @@ export default {
           col: 'col-md-6'
         },
         {
-          type: 'RangeSlider',
+          type: 'Slider',
+          name: 'max',
           col: 'col-md-6',
-          label: 'میزان زوم',
+          label: 'میزان زوم از',
           min: 0,
           max: 11,
-          value: {
-            min: 3.1,
-            max: 11
-          }
+          value: 3
         },
         {
           type: 'hidden',
           name: 'hidden',
           col: 'col-md-6'
+        },
+        {
+          type: 'Slider',
+          name: 'min',
+          col: 'col-md-6',
+          label: 'میزان زوم تا',
+          min: 0,
+          max: 11,
+          value: 11
         },
         {
           type: 'separator',
@@ -414,28 +406,22 @@ export default {
           col: 'col-md-12'
         },
         {
-          type: 'RangeSlider',
+          type: 'Slider',
           name: 'LineThickness',
           col: 'col-md-6',
           label: 'ضخامت خط',
           min: 0,
           max: 50,
-          value: {
-            min: 0,
-            max: 4
-          }
+          value: 4
         },
         {
-          type: 'RangeSlider',
+          type: 'Slider',
           name: 'LineStart',
           col: 'col-md-6',
           label: 'شروع الگوی خط',
           min: 0,
           max: 50,
-          value: {
-            min: 0,
-            max: 0
-          }
+          value: 0
         },
         {
           type: 'Color',
