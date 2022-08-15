@@ -37,7 +37,6 @@ export default {
   name: 'LineType',
   data () {
     return {
-      lineType: 'flowing',
       lineTypeOptions: [
         {
           id: 0,
