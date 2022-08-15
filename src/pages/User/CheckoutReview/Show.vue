@@ -44,13 +44,18 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'CheckoutReviewWidget',
+                        name: 'CheckoutReview',
                         data: this.$route.params.id,
                         options: {
                           getData: (url) => GetWidgetsData.getData(url)
                         }
                       }
-                    ]
+                    ],
+                    options:{
+                      style:{
+                        marginTop:'10px'
+                      }
+                    }
                   }
                 ],
                 options: {

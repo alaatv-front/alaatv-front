@@ -1,7 +1,7 @@
 <template>
-  <div class="video-list bg-white q-mx-sm q-pb-md shadow-4">
+  <div class="video-list bg-white q-mx-sm q-pb-md shadow-4 ">
     <div class="q-px-md row">
-      <h6 class="main-title col-2 q-pt-lg">
+      <h6 class="main-title col-3 q-pt-lg">
         فیلم ها
       </h6>
       <div class="set-title col q-ml-lg q-mt-lg">
@@ -123,7 +123,6 @@
         this.options.getData(API_ADDRESS.set.show(this.content.set.id))
           .then(response => {
             this.set = new Set(response.data.data)
-            console.log(this.set.contents)
             this.scrollToElement(this.set.contents.list)
           })
           .catch(() => {
@@ -154,7 +153,7 @@
   }
 
   .scroll {
-    height: 75%;
+    height: 80% !important;
   }
 
   .video-list {
@@ -182,15 +181,15 @@
     background: #ffd196;
   }
 
-  @media screen and (min-width: 1023px) {
+  @media (min-width: 1023px) {
     .scroll {
       height: 80%;
     }
   }
 
-  @media screen and (max-width: 1023px) {
+  @media (max-width: 1023px) {
     .scroll {
-      height: 300px;
+      height: 300px !important;
     }
   }
 </style>
