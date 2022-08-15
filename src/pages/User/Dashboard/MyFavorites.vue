@@ -14,7 +14,7 @@ export default {
     return {
       pageConfig: {
         padding: {
-          // a: 'md'
+          a: 'lg'
         }
       },
       sections: [
