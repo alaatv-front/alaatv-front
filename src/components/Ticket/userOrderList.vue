@@ -32,11 +32,11 @@
         >
           <template v-slot:header>
             <q-item-section>
-              <div style="display: flex;  color: #837dd1">
+              <div class="cart-item-info-section">
                 <q-icon name="isax:shopping-cart"
                         class="q-mr-sm"
                         size="24px" />
-                <div style="font-size: 12px">
+                <div class="cart-item-info">
                   {{ this.cartItemLabel(order) }}
                   <q-btn rounded
                          unelevated
@@ -124,9 +124,8 @@
                     </div>
                   </div>
                 </div>
-                <q-separator style="width: 100%"
-                             v-if="order.inputData.orderproducts.length-1 !== 0"
-                             class="q-my-lg" />
+                <q-separator v-if="order.inputData.orderproducts.length-1 !== 0"
+                             class="q-my-lg full-width" />
               </div>
             </q-card-section>
           </q-card>
@@ -157,11 +156,11 @@
         >
           <template v-slot:header>
             <q-item-section>
-              <div style="display: flex;  color: #837dd1">
+              <div class="cart-item-info-section">
                 <q-icon name="isax:shopping-cart"
                         class="q-mr-sm"
                         size="24px" />
-                <div style="font-size: 12px">
+                <div class="cart-item-info">
                   {{ this.cartItemLabel(order) }}
                   <q-btn rounded
                          unelevated
@@ -248,9 +247,8 @@
                     </div>
                   </div>
                 </div>
-                <q-separator style="width: 100%"
-                             v-if="order.inputData.orderproducts.length-1 !== 0"
-                             class="q-my-lg" />
+                <q-separator v-if="order.inputData.orderproducts.length-1 !== 0"
+                             class="q-my-lg full-width" />
               </div>
             </q-card-section>
           </q-card>
@@ -261,7 +259,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import API_ADDRESS from 'src/api/Addresses'
 import { mixinDateOptions } from 'src/mixin/Mixins'
 
@@ -288,7 +285,6 @@ export default {
     }
   },
   methods: {
-    // ToDo : refactor needed , move this to mixin
     toman (key, suffix) {
       let string = key.toLocaleString('fa')
       if (typeof suffix === 'undefined' || suffix) {
@@ -304,8 +300,6 @@ export default {
       this.batchExtendPostRequest()
     },
     extendAllOrders (orderProducts) {
-      // ToDo : delete logs
-      console.log(orderProducts)
       orderProducts.forEach((item) => {
         this.extendProductArray.push(item.id)
       })
@@ -322,16 +316,16 @@ export default {
       this.batchExtendPostRequest()
     },
     batchExtendPostRequest () {
-      axios.post(API_ADDRESS.ticket.show.batchExtend, {
+      this.$axios.post(API_ADDRESS.ticket.show.batchExtend, {
         orderproducts: this.extendProductArray
       })
         .then((res) => {
           this.extendProductArray = []
-          console.log(res)
+          // console.log(res)
         })
         .catch((e) => {
           this.extendProductArray = []
-          console.log(e)
+          // console.log(e)
         })
     }
   },
@@ -349,7 +343,14 @@ export default {
 }
 .panel-color {
   color: #837dd1;
-  background: #f1f5f5
+  background: #f1f5f5;
+  .cart-item-info-section {
+    display: flex;
+    color: #837dd1;
+    .cart-item-info {
+      font-size: 12px;
+    }
+  }
 }
 .product {
   .title {
