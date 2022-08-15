@@ -1,18 +1,27 @@
 <template>
   <div>
     <q-select
-      v-model="activityType"
+      v-model="inputData.id"
       :options="activityTypeOptions"
+      option-value="id"
+      emit-value
+      map-options
       label="انتخاب نوع فعالیت :"
+      @update:model-value="onChangeActivityType"
     />
     <div
-      v-show="activityType.value === 'link'"
+      v-show="inputData.name !== 'noAction'"
+      v-if="inputData.data"
     >
       <q-input
-        v-model="link"
-        label="لینک مد نظر خود را وارد کنید:" />
+        v-model="inputData.data.link"
+        label="لینک مد نظر خود را وارد کنید:"
+      />
       <q-select
-        v-model="linkState"
+        option-value="value"
+        emit-value
+        map-options
+        v-model="inputData.data.target"
         :options="LinkStateOptions"
       />
     </div>
@@ -25,26 +34,17 @@ export default {
   name: 'ActivityType',
   data() {
     return {
-      link: null,
-      linkState: {
-        label: 'باز شدن لینک در صفحه جدید',
-        value: '_blank'
-      },
-      activityType: {
-        id: 1,
-        label: 'لینک',
-        value: 'link'
-      },
       activityTypeOptions: [
         {
           id: 0,
           label: 'بدون فعالیت',
-          value: 'noAction'
+          name: 'noAction'
         },
         {
           id: 1,
           label: 'لینک',
-          value: 'link'
+          name: 'link'
+
         }
       ],
       LinkStateOptions: [
@@ -63,55 +63,22 @@ export default {
   props: {
     value: {
       default: null
-    }
-  },
-  watch: {
-    link: {
-      handler (newValue) {
-        if (!newValue) {
-          return
-        }
-        this.setActivity()
-      }
     },
-    activityType: {
-      handler (newValue) {
-        if (!newValue) {
-          return
-        }
-        this.setActivity()
-      }
-    },
-    linkState: {
-      handler (newValue) {
-        if (!newValue) {
-          return
-        }
-        this.setActivity()
-      }
+    name: {
+      type: String,
+      default: 'ali'
     }
   },
   mixins: [inputMixin],
+  created () {
+  },
   methods: {
-    setActivity () {
-      if (this.activityType.id === 0) {
-        this.inputData = {
-          id: this.activityType.id,
-          name: this.activityType.value,
-          data: {}
-        }
-      } else {
-        this.inputData = {
-          id: this.activityType.id,
-          name: this.activityType.value,
-          data: {
-            link: this.link,
-            target: this.linkState.value
-          }
-        }
-      }
-      this.change(this.inputData)
+    onChangeActivityType () {
+      const name = this.activityTypeOptions.find(item => item.id === this.inputData.id).name
+      const data = { id: this.inputData.id, name, data: {} }
+      this.change(data)
     }
+
   }
 }
 </script>
