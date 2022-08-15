@@ -1,6 +1,7 @@
 <template>
   <div
     class="MapWidget">
+
     <base-map
       v-model:zoom="zoom"
       v-model:center="center"
@@ -12,7 +13,6 @@
       ref="baseMap"
     />
     <div class="justify-center flex">
-      <admin-tool-box />
     </div>
   </div>
 </template>
@@ -20,13 +20,11 @@
 <script>
 import { MapItemList } from 'src/models/MapItem'
 import BaseMap from 'src/components/Widgets/Map/BaseMap.vue'
-import adminToolBox from 'components/Widgets/Map/AdminToolBox'
 import MapItemsResponse from 'src/components/Widgets/Map/MapItemsResponse.js'
 
 export default {
   name: 'MapWidget',
   components: {
-    adminToolBox,
     BaseMap
   },
   data () {

@@ -147,7 +147,7 @@
                @click="toolsDrawer = false" />
       </div>
       <div>
-        <!--      ------------------tools content------------    -->
+        <admin-tool-box />
       </div>
     </q-scroll-area>
   </drawer>
@@ -159,7 +159,8 @@ import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl } from '@vue-leaf
 import 'leaflet/dist/leaflet.css'
 import { MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
-import axios from 'axios'
+import adminToolBox from 'components/Widgets/Map/AdminToolBox'
+// import axios from 'axios'
 import MapFilters from './components/MapFilters'
 
 export default {
@@ -184,6 +185,7 @@ export default {
     }
   },
   components: {
+    adminToolBox,
     LMap,
     LControl,
     LTileLayer,
