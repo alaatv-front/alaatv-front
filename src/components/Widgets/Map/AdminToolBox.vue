@@ -144,10 +144,17 @@ import API_ADDRESS from 'src/api/Addresses'
 
 import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
 import LineType from 'components/FormBuilderCustumComponents/Map/LineType'
+import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
 
 export default {
   name: 'AdminToolBox',
-  components: { EntityCrudFormBuilder, activityType, LineType },
+  components: { EntityCrudFormBuilder, activityType, LineType, ItemEntity },
+
+  computed: {
+    fuckingSelect () {
+      return this.polylineInputs.find(i => i.name === 'activityType').value
+    }
+  },
   data () {
     return {
       expanded: true,
@@ -177,29 +184,18 @@ export default {
           value: [
             {
               type: 'checkbox',
-              col: 'col-md-12',
-              label: 'فعال',
-              value: false
-            },
-            {
-              type: 'optionGroupCheckbox',
               name: 'enable',
               col: 'col-md-12',
-              multiple: false,
-              value: 0,
-              options: [{
-                label: 'هیچکدام',
-                value: 0
-              }, {
-                label: 'محصول',
-                value: 1
-              }, {
-                label: 'دسته محتوا',
-                value: 2
-              }, {
-                label: ' محتوا',
-                value: 3
-              }]
+              label: 'فعال',
+              trueValue: 1,
+              falseValue: 0,
+              value: 1
+            },
+            {
+              type: ItemEntity,
+              name: 'entity',
+              responseKey: 'data.entity',
+              col: 'col-md-12'
             }
 
           ]
@@ -210,6 +206,7 @@ export default {
         },
         {
           type: activityType,
+          responseKey: 'data.action',
           value: [],
           name: 'action',
           col: 'col-md-6'
@@ -309,6 +306,12 @@ export default {
             min: 0,
             max: 0
           }
+        },
+        {
+          type: 'hidden',
+          responseKey: 'data.type_id',
+          name: 'type_id',
+          value: 1
         }
 
       ],
@@ -319,7 +322,10 @@ export default {
           col: 'col-md-6',
           value: [
             {
-              type: 'input',
+              type: 'select',
+              multiple: true,
+              useChips: true,
+              responseKey: 'data.tags',
               col: 'col-md-12',
               label: 'تگ :'
             }
@@ -332,13 +338,17 @@ export default {
           value: [
             {
               type: 'checkbox',
+              name: 'enable',
               col: 'col-md-12',
               label: 'فعال',
-              value: false
+              trueValue: 1,
+              falseValue: 0,
+              value: 1
             },
             {
               type: 'optionGroupCheckbox',
               name: 'enable',
+              responseKey: 'data.enable',
               col: 'col-md-12',
               multiple: false,
               value: 0,
@@ -365,6 +375,7 @@ export default {
         },
         {
           type: activityType,
+          responseKey: 'data.action',
           value: [],
           name: 'activityType',
           label: 'action',
@@ -430,9 +441,15 @@ export default {
           type: LineType,
           label: 'نوع حرکت خط :',
           name: 'line',
-          col: 'col-md-6',
-          value: []
+          col: 'col-md-6'
+        },
+        {
+          type: 'hidden',
+          responseKey: 'data.type_id',
+          name: 'type_id',
+          value: 2
         }
+
       ],
       categoryOptions: [
         {
@@ -454,6 +471,11 @@ export default {
     }
   },
   watch: {
+    fuckingSelect: {
+      handler (newValue) {
+        console.log('newValue :', newValue)
+      }
+    }
   },
   methods: {
     saveData() {
