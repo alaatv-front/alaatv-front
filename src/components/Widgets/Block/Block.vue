@@ -6,27 +6,23 @@
       :class="data.headerCustomClass"
     >
       <div class="row items-center block-title">
-        <div class="row items-center">
-          <q-badge
-            rounded
-            class="q-mr-sm"
-            color="primary"/>
-        </div>
-        <a :href="data?.url?.web" class="title-box">
+        <a
+          :href="data?.url?.web"
+          class="title-box"
+        >
           {{ data.title }}
         </a>
       </div>
       <q-btn
-        v-if="!data.banners || data.banners.list.length === 0 "
+        v-if="!data.banners || data.banners.list.length === 0"
         round
         color="primary"
-        :icon="isGridView ? 'sync_alt':'grid_view'"
+        :icon="isGridView ? 'sync_alt' : 'grid_view'"
         @click="isGridView = !isGridView"
       >
       </q-btn>
     </div>
-    <div class="block-container"
-    >
+    <div class="block-container">
       <slider
         v-if="data.banners && data.banners.list.length > 0"
         class="q-mx-lg"
@@ -35,58 +31,73 @@
       <div
         v-if="data.products.list.length > 0"
         class="item-container"
-        :class="isGridView? 'row': 'scroll-view'"
+        :class="isGridView ? 'row' : 'scroll-view'"
         v-dragscroll
       >
-        <div v-for="product in this.data.products.list"
-             :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
-             :key="product.id"
+        <div
+          v-for="product in this.data.products.list"
+          :class="{
+            'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+          }"
+          class="product-spacing"
+          :key="product.id"
         >
-          <Product-item
-            class="q-mr-md"
-            :data="product"
-          />
+          <Product-item :data="product" />
         </div>
         <div class="block-item-box">
-          <a :href="data?.url?.web" class="show-more-title">نمایش بیشتر </a>
+          <a
+            :href="data?.url?.web"
+            class="show-more-title"
+            >نمایش بیشتر
+          </a>
         </div>
       </div>
       <div
         v-if="data.sets.list.length > 0"
         class="item-container"
-        :class="isGridView? 'row': 'scroll-view'"
+        :class="isGridView ? 'row' : 'scroll-view'"
         v-dragscroll
       >
-        <div v-for="set in this.data.sets.list"
-             :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
-             :key="set.id"
+        <div
+          v-for="set in this.data.sets.list"
+          :class="{
+            'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+          }"
+          class="set-spacing"
+          :key="set.id"
         >
-          <set-item
-            class="q-mr-md"
-            :data="set"
-          />
+          <set-item :data="set" />
         </div>
         <div class="block-item-box">
-          <a :href="data?.url?.web" class="show-more-title">نمایش بیشتر </a>
+          <a
+            :href="data?.url?.web"
+            class="show-more-title"
+            >نمایش بیشتر
+          </a>
         </div>
       </div>
       <div
         v-if="data.contents.list.length > 0"
         class="item-container"
-        :class="isGridView? 'row': 'scroll-view'"
+        :class="isGridView ? 'row' : 'scroll-view'"
         v-dragscroll
       >
-        <div v-for="content in this.data.contents.list"
-             :class="{'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12':isGridView}"
-             :key="content.id"
+        <div
+          v-for="content in this.data.contents.list"
+          :class="{
+            'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+          }"
+          class="content-spacing"
+          :key="content.id"
         >
-          <content-item
-            class="q-mr-md"
-            :data="content"
-          />
+          <content-item :data="content" />
         </div>
         <div class="block-item-box">
-          <a :href="data?.url?.web" class="show-more-title">نمایش بیشتر </a>
+          <a
+            :href="data?.url?.web"
+            class="show-more-title"
+            >نمایش بیشتر
+          </a>
         </div>
       </div>
     </div>
@@ -94,12 +105,12 @@
 </template>
 
 <script>
-import ProductItem from 'src/components/Widgets/ProductItem/productItem'
+import ProductItem from 'src/components/Widgets/ProductItem/ProductItem'
 import Slider from 'components/Widgets/Slider/Slider'
-import SetItem from 'components/Widgets/SetItem/setItem'
+import SetItem from 'components/Widgets/SetItem/SetItem'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem'
 import { Block } from 'src/models/Block'
-import { dragscrollNext as dragscroll }  from 'vue-dragscroll'
+import { dragscrollNext as dragscroll } from 'vue-dragscroll'
 import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
@@ -124,33 +135,49 @@ export default {
     dragscroll
   },
   computed: {
-    isThereData () {
-      return !!(this.data.banners.list.length || this.data.products.list.length || this.data.contents.list.length || this.data.sets.list.length)
+    isThereData() {
+      return !!(
+        this.data.banners.list.length ||
+        this.data.products.list.length ||
+        this.data.contents.list.length ||
+        this.data.sets.list.length
+      )
     }
   },
-  created () {
-  },
+  created() {},
   methods: {}
 }
 </script>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
+.product-spacing {
+  margin-right: 30px;
+}
+.set-spacing {
+  margin-right: 30px;
+}
+.content-spacing {
+  margin-right: 30px;
+}
+
 .block-section {
   margin-bottom: 30px;
   .block-header {
     border-radius: 10px;
-    justify-content:space-between ;
-    background: #ffffff;
+    justify-content: space-between;
 
     .block-title {
       .title-box {
         text-decoration: none;
         cursor: pointer;
         margin: 0;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 24px;
-        letter-spacing: -0.03em;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 31px;
         color: #333333;
         padding: 0 0 4px 0;
         border-bottom: 1px solid white;
@@ -165,11 +192,17 @@ export default {
 
   .block-container {
     display: flex;
-
+    margin-bottom: 5px;
     .scroll-view {
       display: flex;
       width: 100%;
-      overflow: auto;
+      overflow-x: scroll;
+      /* this padding is needed due to move animation of card
+      to avoid overflow behavior: 
+      https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
+      */
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 
     .item-container {
@@ -179,7 +212,7 @@ export default {
         justify-content: center;
         min-width: 200px;
         .show-more-title {
-          color:blue;
+          color: blue;
           text-decoration: none;
           cursor: pointer;
           margin: 0;
@@ -190,10 +223,9 @@ export default {
           transition: 0.3s ease;
           &:hover {
             background-color: blue;
-            color:#f1f1f1;
+            color: #f1f1f1;
           }
         }
-
       }
     }
   }

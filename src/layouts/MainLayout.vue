@@ -2,9 +2,7 @@
   <div class="main-layout">
     <quasar-template-builder v-model:value="properties" @onResize="resize">
       <template #header>
-        <div class="header-inside row">
-          <template-header/>
-        </div>
+        <template-header />
         <q-linear-progress
           v-if="$store.getters['loading/loading']"
           color="primary"
@@ -15,12 +13,13 @@
         <q-resize-observer @resize="onHeaderResize"/>
       </template>
       <template #left-drawer>
-        <div class="drawer-inside">
-          <side-menu-dashboard/>
-        </div>
+        <side-menu-dashboard/>
       </template>
       <template #content>
-        <div ref="contentInside" class="content-inside">
+        <div ref="contentInside"
+             class="content-inside"
+             v-scroll="onContentInsideScroll"
+        >
           <q-dialog v-model="confirmDialogData.show" persistent>
             <q-card class="q-pa-md q-pb-none">
               <q-card-section >
@@ -42,7 +41,6 @@
 </template>
 
 <script>
-import { ref } from 'vue'
 import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
 import { QuasarTemplateBuilder } from 'quasar-template-builder'
 import templateHeader from 'components/Template/templateHeader'
@@ -53,9 +51,10 @@ export default {
   components: { Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
   data () {
     return {
+      contentVerticalScrollPosition: 0,
       keepAliveComponents: KeepAliveComponents,
       properties: {
-        layoutView: 'lHh Lpr lFf',
+        layoutView: 'hHh LpR fFf',
         layoutHeader: true,
         layoutHeaderVisible: true,
         layoutHeaderReveal: false,
@@ -63,8 +62,8 @@ export default {
         layoutHeaderBordered: false,
         layoutLeftDrawer: true,
         layoutLeftDrawerVisible: false,
-        layoutLeftDrawerOverlay: false,
-        layoutLeftDrawerElevated: false,
+        layoutLeftDrawerOverlay: true,
+        layoutLeftDrawerElevated: true,
         layoutLeftDrawerBordered: false,
         layoutLeftDrawerWidth: 325,
         layoutPageContainer: true,
@@ -73,26 +72,22 @@ export default {
         layoutHeaderCustomClass: 'main-layout-header row',
         layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
         layoutPageContainerCustomClass: 'main-layout-container'
-      },
-      contentInside: ref(0)
+      }
     }
   },
   computed: {
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
-    },
-    headerData(){
-      return this.$store.getters["AppLayout/"]
     }
   },
-  created () {
-    const localData = this.$store.getters['AppLayout/appLayout']
-    Object.assign(this.properties, localData)
-  },
   methods: {
+    onContentInsideScroll (data) {
+      this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)
+    },
     confirmDialogAction (data) {
-      if (this.confirmDialogData) this.confirmDialogData.callback(data)
-      else {
+      if (this.confirmDialogData) {
+        this.confirmDialogData.callback(data)
+      } else {
         this.$store.commit('AppLayout/showConfirmDialog', {
           show: false
         })
@@ -124,49 +119,17 @@ export default {
 
 <style lang="scss" scoped>
 .main-layout {
-  &:deep(.main-layout-header) {
-    background-color: #f1f1f1;
+  :deep(.q-header) {
+    background-color: #FFFFFF;
     display: flex;
     flex-direction: row;
-    padding: 60px 100px 24px 76px;
-    @media screen and (max-width: 1919px) {
-      padding: 30px 30px 24px 0;
-    }
-    @media screen and (max-width: 1439px) {
-      padding: 20px 30px 18px 30px !important;
-    }
-    @media screen and (max-width: 1023px) {
-      padding: 20px 30px 20px 20px;
-    }
-    @media screen and (max-width: 599px) {
-      padding: 24px 16px 14px 16px !important;
-      :nth-child(1) {
-        order: 1;
-      }
-      :nth-child(2) {
-        order: 3;
-      }
-      :nth-child(3) {
-        order: 2;
-      }
-    }
-    .right-side {
-      @media screen and (max-width: 1439px) {
-      }
-    }
-    .header-inside{
-      width: 100%;
-    }
+    padding: 16px 0;
   }
-  &:deep(.main-layout-container) {
+  :deep(.main-layout-container) {
     background-color: #f1f1f1;
   }
-  &:deep(.main-layout-left-drawer) {
+  :deep(.main-layout-left-drawer) {
     background-color: #f1f1f1;
-    .drawer-inside-of-MapOfQuestions{
-      height: 100%;
-    }
   }
 }
-
 </style>
