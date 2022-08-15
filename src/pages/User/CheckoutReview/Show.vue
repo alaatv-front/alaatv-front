@@ -47,12 +47,12 @@ export default {
                         name: 'CheckoutReview',
                         data: this.$route.params.id,
                         options: {
-                         getData: (url) => GetWidgetsData.getData(url)
+                          getData: (url) => GetWidgetsData.getData(url)
                         }
                       }
                     ],
                     options:{
-                     style:{
+                      style:{
                         marginTop:'10px'
                       }
                     }

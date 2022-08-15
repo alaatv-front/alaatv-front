@@ -30,7 +30,7 @@
                         }
                       ],
                       options: {
-                        className: 'col-12 col-xs-12 col-sm-12 col-md-8'
+                        className: 'col-12 col-xs-12 col-sm-12 col-md-8',
                       }
                     },
                     {
@@ -45,13 +45,16 @@
                       ],
                       options: {
                         className: 'col-12 col-xs-12 col-sm-12 col-md-4',
-                        style:{
+                        style: {
                           paddingBottom: '16px'
                         }
                       }
                     }
                   ],
                   options: {
+                    style:{
+                      marginTop: '16px'
+                    },
                     boxed: true
                   }
                 },

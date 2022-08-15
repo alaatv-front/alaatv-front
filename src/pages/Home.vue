@@ -112,7 +112,8 @@ export default {
                   }
                 ],
                 options: {
-                  boxed: true
+                  boxed: true,
+                  boxedWidth: 1362
                 }
               }
             ]
