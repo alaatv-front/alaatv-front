@@ -1,7 +1,6 @@
 <template>
   <div class="row  justify-center">
-    <div class="col-8"
-         style="margin-bottom: 50px;">
+    <div class="col-8 q-mb-xl">
       <entity-edit
         ref="entityEdit"
         v-model:value="inputs"
@@ -18,7 +17,7 @@
             <q-btn rounded
                    color="blue"
                    icon="isax:archive-book"
-                   @click="openCloseLogdrawer">
+                   @click="openCloseLogDrawer">
               <q-tooltip>
                 باز شدن لیست اتفاقات
               </q-tooltip>
@@ -37,7 +36,7 @@
                v-if="isUserAdmin">
             <div class="col-4 q-px-lg">
               <q-btn unelevated
-                     style="width: 100%"
+                     class="full-width"
                      icon="isax:user"
                      :to="'/user/'+this.searchForInputVal('userId')+'/edit'"
                      target="_blank"
@@ -47,7 +46,7 @@
             </div>
             <div class="col-4 q-px-lg">
               <q-btn unelevated
-                     style="width: 100%"
+                     class="full-width"
                      icon="isax:edit"
                      @click="saveChanges"
                      color="blue">
@@ -56,7 +55,7 @@
             </div>
             <div class="col-4 q-px-lg">
               <q-btn unelevated
-                     style="width: 100%"
+                     class="full-width"
                      icon="isax:sms"
                      color="blue"
                      @click="sendTicketStatusNotice(this.searchForInputVal('id'))"
@@ -99,8 +98,7 @@
                  unelevated
                  class="close-btn"
                  @click="logDrawer = false" />
-          <div style="display: flex; justify-content: center;"
-               class="q-my-md">
+          <div class="q-my-md flex content-between">
             <q-tabs
               v-model="panel"
               dense
@@ -166,7 +164,6 @@ import Drawer from 'components/CustomDrawer'
 import UserOrderList from 'components/Ticket/userOrderList'
 import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
-import axios from 'axios'
 import SendMessageInput from 'components/Ticket/SendMessageInput'
 import { mixinDateOptions } from 'src/mixin/Mixins'
 
@@ -441,7 +438,6 @@ export default {
         voice: data.voice,
         isPrivate: data.isPrivate,
         loading: data.loading
-
       })
     },
 
@@ -475,13 +471,13 @@ export default {
           })
           this.sendLoading = false
         })
-        .catch(error => {
+        .catch(e => {
           this.sendLoading = false
-          console.log(error)
+          // console.log(e)
         })
     },
     saveChanges () {
-      axios.put(API_ADDRESS.ticket.show.base + '/' + this.searchForInputVal('id'), {
+      this.$axios.put(API_ADDRESS.ticket.show.base + '/' + this.searchForInputVal('id'), {
         department_id: this.searchForInputVal('department'),
         id: this.searchForInputVal('id'),
         priority_id: this.searchForInputVal('priority-id'),
@@ -495,9 +491,6 @@ export default {
             type: 'positive'
           })
         })
-        .catch((e) => {
-          console.log(e)
-        })
     },
     searchForInputVal (name) {
       const input = this.inputs.find(input => input.name === name)
@@ -507,37 +500,31 @@ export default {
     openShopLogList () {
       this.orderDrawer = this.orderDrawer === false
       this.orderLoading = true
-      axios.get(API_ADDRESS.user.orders(this.userId)).then(
+      this.$axios.get(API_ADDRESS.user.orders(this.userId)).then(
         response => {
           this.userOrderData = new CartItemList(response.data.data)
-          console.log('orderData: ', this.userOrderData)
           this.orderLoading = false
         }
       )
-        .catch(e => {
-          console.log(e)
-        })
     },
     checkLoadInputData () {
       this.userMessageArray = this.searchForInputVal('messages')
       this.userId = this.searchForInputVal('userId')
-      if (this.isUserAdmin === false) {
-        this.filterDataForUserRole()
+      if (!this.isUserAdmin) {
+        return
       }
+      this.filterDataForUserRole()
     },
-    openCloseLogdrawer () {
+    openCloseLogDrawer () {
       this.logDrawer = this.logDrawer === false
     },
     sendTicketStatusNotice (ticketId) {
-      axios.post(API_ADDRESS.ticket.show.statusNotice(ticketId))
+      this.$axios.post(API_ADDRESS.ticket.show.statusNotice(ticketId))
         .then((res) => {
           this.$q.notify({
             message: res.data.message,
             type: 'positive'
           })
-        })
-        .catch((e) => {
-          console.log(e)
         })
     }
   },
