@@ -1,10 +1,21 @@
 <template>
-  <div>
+  <div class="sticky-menu">
     <q-card class="custom-card">
       <q-card-section>
         <div class="flex no-wrap">
           <div>
-            <div class="avatar-img"></div>
+            <q-img
+              :src="previewImg"
+              class="previewImg"
+            ></q-img>
+            <q-file
+              ref="file"
+              v-model="file"
+              :model-value="file"
+              label="Label"
+              @update:model-value="updateFile()"
+              class="hidden"
+            ></q-file>
             <q-btn
               icon="isax:camera"
               size="xs"
@@ -12,15 +23,39 @@
               text-color="accent"
               round
               class="photo-edit"
+              @click="updatePhoto"
+              v-if="!controls"
             />
+            <div
+              v-if="controls"
+              class="controls"
+            >
+              <q-btn
+                icon="isax:tick-circle"
+                size="xs"
+                color="green"
+                text-color="white"
+                class="controls-btn q-mr-xs"
+                @click="confirmUpdate"
+              />
+              <q-btn
+                icon="isax:close-circle"
+                size="xs"
+                color="red"
+                text-color="white"
+                class="controls-btn"
+                @click="discardUpdate"
+              />
+            </div>
           </div>
           <div class="q-ml-lg namePhone">
-            <div class="fullName">
-              {{fullName}}
+            <div class="fullName ellipsis">
+              <q-tooltip> {{ fullName }} </q-tooltip>
+              {{ fullName }}
             </div>
             <div class="phoneNumber q-mt-sm">
-              {{mobile}}
-              </div>
+              {{ mobile }}
+            </div>
           </div>
           <div>
             <q-btn
@@ -160,24 +195,68 @@
 </template>
 
 <script>
+import { axios } from 'src/boot/axios'
+import API_ADDRESS from 'src/api/Addresses'
+
 export default {
   name: 'ProfileMenu',
-  data(){
+  data() {
     return {
-      mobile: this.$store.getters['Auth/user'].mobile
+      api: API_ADDRESS.user.base + '/' + this.$store.getters['Auth/user'].id,
+      mobile: this.$store.getters['Auth/user'].mobile,
+      previewImg: this.$store.getters['Auth/user'].photo,
+      controls: false
     }
   },
-  computed:{
-    fullName(){
-      if(!(!!this.$store.getters['Auth/user'].first_name || !!this.$store.getters['Auth/user'].first_name)){
-        return 'وارد نشده'
+  methods: {
+    updatePhoto() {
+      this.$refs.file.pickFiles()
+    },
+    updateFile() {
+      this.controls = true
+      this.previewImg = URL.createObjectURL(this.file)
+    },
+    discardUpdate() {
+      this.controls = false
+      this.file = null
+      this.previewImg = this.$store.getters['Auth/user'].photo
+    },
+    confirmUpdate() {
+      const fd = new FormData()
+      fd.append('photo', this.file)
+      axios.put(this.api, fd).then((d) => {
+        this.controls = false
+      })
+    }
+  },
+  computed: {
+    fullName() {
+      if (this.$store.getters['Auth/user'].full_name) {
+        return this.$store.getters['Auth/user'].full_name
       }
-      return this.$store.getters['Auth/user'].first_name + ' ' + this.$store.getters['Auth/user'].last_name
-    } 
+      return 'وارد نشده'
+    }
   }
 }
 </script>
 <style scoped>
+:deep(.q-btn .q-btn__content) {
+  margin: 3px;
+}
+.controls {
+  position: absolute;
+  left: 55px;
+  top: 75px;
+}
+.previewImg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.sticky-menu {
+  position: sticky;
+  top: 110px;
+}
 .avatar-img {
   width: 80px;
   height: 80px;
@@ -188,17 +267,19 @@ export default {
   position: absolute;
   border-radius: 50%;
   top: 75px;
+  left: 10px;
 }
 .fullName {
+  width: 95px;
   font-size: 18px;
 }
 .phoneNumber {
   font-size: 14px;
   color: #656f7b;
 }
-.custom-card {
-  /*SHOULD REMOVE*/
-  /* width: 317px; */
+.controls-btn {
+  font-size: 10px !important;
+  border-radius: 50%;
 }
 .status {
   background: #f1f3f4;

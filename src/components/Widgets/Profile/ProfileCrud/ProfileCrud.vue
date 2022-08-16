@@ -2,7 +2,6 @@
   <entity-edit
     v-model:value="inputs"
     ref="entityEdit"
-    title="ویرایش اطلاعات کاربر"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
@@ -20,26 +19,48 @@
       >
         <q-btn
           class="submitBtn"
-          @click="editEntity"
+          @click="submit"
           >ثبت تغییرات</q-btn
         >
       </div>
     </template>
   </entity-edit>
+  <entity-action
+    v-model:value="actionInput"
+    ref="entityAction"
+    :action-method="'post'"
+    :action-api="actionApi"
+    :beforeDoAction="beforeDoAction"
+    @onActionSuccess="onActionSuccess"
+    @onActionError="onActionError"
+    :defaultLayout="false"
+  >
+    <template #after-form-builder>
+      <div
+        class="col-12 q-my-md"
+        dir="ltr"
+      >
+        <q-btn
+          class="submitBtn"
+          @click="submitAction"
+          >ثبت رتبه کنکور</q-btn
+        >
+      </div>
+    </template>
+  </entity-action>
 </template>
 
 <script>
-import { EntityEdit } from 'quasar-crud'
+import { EntityEdit, EntityAction } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-import { Notify } from 'quasar'
 import axios from 'axios'
 export default {
   name: 'ProfileCrud',
-  components: { EntityEdit },
+  components: { EntityEdit, EntityAction },
   data() {
-    
     return {
       api: API_ADDRESS.user.base + '/' + this.$store.getters['Auth/user'].id,
+      actionApi: API_ADDRESS.user.eventresult,
       entityIdKey: 'id',
       entityParamKey: 'id',
       showRouteName: 'Profile',
@@ -191,7 +212,7 @@ export default {
               label: 'کدپستی',
               outlined: true,
               placeholder: 'وارد نمایید',
-              col: 'col-md-6',
+              col: 'col-md-6'
             },
             {
               type: 'input',
@@ -214,55 +235,200 @@ export default {
           ]
         }
       ],
+      actionInput: [
+        {
+          type: 'formBuilder',
+          name: 'formBuilderCol',
+          col: 'col-md-12 q-card custom-card  q-mt-md q-px-md q-pb-sm',
+          value: [
+            {
+              type: 'separator',
+              size: '0',
+              label: 'ثبت رتبه کنکور',
+              col: 'col-md-12 title'
+            },
+            {
+              type: 'select',
+              name: 'major',
+              label: 'رشته شما',
+              placeholder: 'انتخاب نمایید',
+              responseKey: 'data.major',
+              optionLabel: 'name',
+              outlined: true,
+              multiple: false,
+              col: 'col-md-6'
+            },
+            {
+              type: 'select',
+              name: 'region',
+              label: 'منطقه یا سهمیه',
+              placeholder: 'انتخاب نمایید',
+              responseKey: 'data.region',
+              optionLabel: 'name',
+              options: [
+                {
+                  id: 1,
+                  name: 'منطقه ۱',
+                  title: 'منطقه ۱'
+                },
+                {
+                  id: 2,
+                  name: 'منطقه ۲',
+                  title: 'منطقه ۲'
+                },
+                {
+                  id: 3,
+                  name: 'منطقه ۳',
+                  title: 'منطقه ۳'
+                },
+                {
+                  id: 4,
+                  name: 'شاهد',
+                  title: 'شاهد'
+                },
+                {
+                  id: 5,
+                  name: 'هیئت علمی',
+                  title: 'هیئت علمی'
+                }
+              ],
+              outlined: true,
+              multiple: false,
+              col: 'col-md-6'
+            },
+            {
+              type: 'input',
+              name: 'rank',
+              responseKey: 'data.rank',
+              label: 'رتبه شما در منطقه',
+              outlined: true,
+              placeholder: 'وارد نمایید',
+              col: 'col-md-6'
+            },
+            {
+              type: 'input',
+              name: 'participationCode',
+              responseKey: 'data.participationCode',
+              label: 'شماره داوطلبی شما',
+              outlined: true,
+              placeholder: 'وارد نمایید',
+              col: 'col-md-6'
+            },
+            {
+              type: 'file',
+              name: 'reportFile',
+              responseKey: 'data.reportFile',
+              label: 'آپلود فایل کارنامه',
+              outlined: true,
+              placeholder: 'وارد نمایید',
+              col: 'col-md-6'
+            },
+            {
+              type: 'checkbox',
+              name: 'enableReportPublish',
+              responseKey: 'data.enableReportPublish',
+              label: 'اجازه انتشار رتبه خود را در سایت میدهم',
+              outlined: true,
+              placeholder: 'وارد نمایید',
+              value: false,
+              col: 'col-md-12'
+            }
+          ]
+        }
+      ],
       defaultLayout: false
     }
   },
+  mounted() {
+    this.$store.commit('loading/loading', true)
+    this.$refs.entityAction
+      .getAxiosPromise('get', this.actionApi)
+      .then((d) => {
+        this.$store.commit('loading/loading', false)
+      })
+      .catch((e) => {
+        this.$store.commit('loading/loading', false)
+      })
+  },
+  computed: {},
   methods: {
-    beforeGetData(){
-      axios.get(API_ADDRESS.user.formData).then(
-        response => {
-          this.inputs[2].value[1].options = response.data.data.grades 
-          this.inputs[2].value[2].options = response.data.data.majors 
+    beforeGetData() {
+      axios
+        .get(API_ADDRESS.user.formData)
+        .then((response) => {
+          // edit entity
+          this.inputs[2].value[1].options = response.data.data.grades
+          this.inputs[2].value[2].options = response.data.data.majors
           this.inputs[1].value[4].options = response.data.data.genders
-        }
-      )
-        .catch(e => {
+          // action entity
+          this.actionInput[0].value[1].options = response.data.data.majors
+        })
+        .catch((e) => {
           console.log(e)
         })
-    
-      Notify.create({
-        message: 'در حال دریافت اطلاعات',
-        color: 'warning'
-      })
     },
-    afterGetData(){
-      Notify.create({
-        message: 'داده با موفقیت بارگیری شد',
-        color: 'success'
-      })
+    afterGetData() {
+      if (this.inputs[1].value[1].value) {
+        this.inputs[1].value[1].disable = true
+      }
+      if (this.inputs[1].value[2].value) {
+        this.inputs[1].value[2].disable = true
+      }
+      if (this.inputs[1].value[4].value) {
+        this.inputs[1].value[4].disable = true
+      }
+      this.$store.commit('loading/loading', false)
     },
-    beforeSendData(d){
+    beforeSendData(d) {
       d.postal_code = Number(d.postal_code)
       d.grade_id = d.grade.id
       d.major_id = d.major.id
-      d.gender_id = d.gender.id
+      if (!this.inputs[1].value[4].disable) {
+        d.gender_id = d.gender.id
+      }
     },
-    afterSendData(d){
+    afterSendData(d) {
+      this.$store.commit('Auth/updateUser', d.data.data)
+      this.$store.commit('loading/loading', false)
+    },
+    beforeDoAction(d) {
+      if (d.major) {
+        d.major_id = d.major.id
+      }
+      if (d.region) {
+        d.region_id = d.region.id
+      }
+      axios
+        .get(API_ADDRESS.user.eventresult)
+        .then((response) => {
+          // TODO: Since  eventresult has not been implemented,
+          // completing this part will be done after getting this from BackEnd
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+    onActionSuccess() {
+      this.$store.commit('loading/loading', false)
+    },
+    onActionError() {
+      this.$store.commit('loading/loading', false)
+    },
+    submit() {
+      this.$store.commit('loading/loading', true)
 
-    },
-    editEntity() {
       this.$refs.entityEdit.editEntity()
     },
+    submitAction() {
+      this.$store.commit('loading/loading', true)
 
-   
-  },
+      this.$refs.entityAction.doAction()
+    }
+  }
 }
 </script>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 :deep(.title) {
   font-style: normal;
   font-weight: 400;
@@ -297,7 +463,6 @@ export default {
 :deep(.q-field__inner) {
   background: #f6f7f9;
   border-radius: 8px;
-
 }
 :deep(.q-field--auto-height.q-field--labeled .q-field__control-container) {
   padding-top: 0;
@@ -310,18 +475,19 @@ export default {
 :deep(.q-field__control) {
   color: #ffc107;
   height: 48px;
-
 }
 :deep(.q-input) {
   border: 0px solid #f6f7f9;
   border-radius: 8px;
 }
-:deep(.q-field--outlined .q-field__control:before){
+:deep(.q-field--outlined .q-field__control:before) {
   border: 0px;
   height: 48px !important;
 }
 :deep(.q-field) {
   height: 48px !important;
 }
-
+:deep(.q-field__append) {
+  height: 48px !important;
+}
 </style>

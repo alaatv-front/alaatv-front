@@ -30,7 +30,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: 'col-md-3 q-pr-md'
+                      className: 'col-md-3 q-pr-md '
                     }
                   },
                   {
@@ -69,11 +69,7 @@ export default {
       })
     }
   },
-  methods: {
-    test() {
-      // return this.$store.getters['Auth']
-    }
-  },
+  methods: {},
   computed: {
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
