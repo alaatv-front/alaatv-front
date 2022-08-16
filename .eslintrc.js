@@ -79,7 +79,7 @@ module.exports = {
     //   "alignAttributesVertically": true,
     //   "ignores": []
     // }],
-    // "vue/html-indent": "error",
+     "vue/html-indent": "error",
     "vue/html-closing-bracket-spacing": 'error',
     // " vue/block-tag-newline": 'error',
     'vue/multi-word-component-names': 'off',
