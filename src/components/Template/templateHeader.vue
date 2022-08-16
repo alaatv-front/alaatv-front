@@ -61,8 +61,19 @@
               <q-item-section>فیلم ها و جزوه های من</q-item-section>
             </q-item>
             <q-item
+              :to="{
+                name: 'User.Dashboard.favorites',
+                params: { id: user.id }
+              }"
               clickable
               v-close-popup
+            >
+              <q-item-section>علاقه مندی های من</q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              v-close-popup
+              @click="logOut"
             >
               <q-item-section>خروج</q-item-section>
             </q-item>
@@ -88,11 +99,6 @@ export default {
   data() {
     return {}
   },
-  mounted() {
-    this.$store.commit('AppLayout/updateBreadcrumbLoading', false)
-    this.$store.commit('AppLayout/updateVisibilityBreadcrumb', true)
-    this.user = this.$store.getters['Auth/user']
-  },
   computed: {
     ...mapGetters('Auth', ['user']),
     ...mapGetters('AppLayout', [
@@ -110,6 +116,9 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
+    logOut() {
+      return this.$store.dispatch('Auth/logOut')
+    },
     toggleLeftDrawer() {
       console.log('this.layoutLeftDrawerVisible', this.layoutLeftDrawerVisible)
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
@@ -152,11 +161,19 @@ export default {
     flex-flow: row;
     justify-content: flex-start;
     align-items: center;
+    .btn-logo-icon {
+      :deep(.q-btn__content) {
+        margin: 0;
+      }
+    }
     .q-list {
       display: flex;
       flex-flow: row;
       justify-content: flex-start;
       align-items: center;
+      .q-item {
+        min-height: 40px;
+      }
     }
   }
   .left-side {

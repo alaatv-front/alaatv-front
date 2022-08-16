@@ -46,8 +46,10 @@
             >
             </div>
             <!--                        <i class="fa fa-edit editMapItem" v-if="item.editMode"></i>-->
-            <img :src="item.data.icon.options.iconUrl"
-                 class="markerImage">
+            <img
+              :src="item.data.icon.options.iconUrl"
+              class="markerImage"
+            >
           </l-icon>
           <!--                    <l-popup-->
           <!--                        v-if="editMapMode"-->
@@ -71,11 +73,84 @@
           <!--                    <l-popup :content="'<div>disable</div>'" :options="{ autoClose: false, closeOnClick: false }"></l-popup>-->
         </l-polyline>
       </template>
-      <!--      <map-items :bounds="bounds"-->
-      <!--                 :current-zoom="zoom"-->
-      <!--                 :items="items" />-->
+      <l-control
+        dir="rtl"
+        position="topright"
+      >
+        <q-btn
+          class="btnMapControl btnGetLinkToShare"
+          @click="openFilterDrawer"
+          icon="isax:search-normal"
+        />
+        <q-btn
+          class="btnMapControl btnGetLinkToShare"
+          @click="openToolsDrawer"
+          icon="isax:edit"
+        />
+      </l-control>
+      <l-control
+        dir="rtl"
+        position="topleft"
+      >
+        <q-btn
+          class="btnMapControl btnGetLinkToShare"
+          @click="copyToClipboard"
+          icon="isax:link"
+        >
+        </q-btn>
+        <div style="width: 130px; background: #ffffff8f;font-family: IRANSans;padding: 5px;border-radius: 5px;">
+          زوم:
+          {{ currentZoom }}
+          <br>
+          عرض:
+          <span dir="rtl">
+            {{ currentCenter.lat | latlang }}
+          </span>
+          <br>
+          طول:
+          <span dir="rtl">
+            {{ currentCenter.lng | latlang }}
+          </span>
+        </div>
+      </l-control>
     </l-map>
   </div>
+  <drawer max-width="300px"
+          :is-open="filterDrawer"
+          :background-color="'rgba(255, 255, 255, 0.65) none repeat scroll 0% 0%'"
+          side="left">
+    <q-scroll-area class="fit">
+      <q-btn icon="mdi-close"
+             unelevated
+             class="close-btn"
+             @click="filterDrawer = false" />
+      <map-filters @filter-values="setFilters" />
+    </q-scroll-area>
+  </drawer>
+  <drawer max-width="700px"
+          :is-open="toolsDrawer"
+          :expantion-value="expantionVal"
+          :is-expanded="expantion"
+          side="right">
+    <q-scroll-area class="fit">
+      <div>
+        <q-btn :icon="expantionIcon"
+               style="width: 10%"
+               unelevated
+               color="blue"
+               class="close-btn"
+               @click="expandPanel" />
+        <q-btn icon="mdi-close"
+               style="width: 90%"
+               unelevated
+               class="close-btn"
+               @click="toolsDrawer = false" />
+      </div>
+      <div>
+        <!--      ------------------tools content------------    -->
+      </div>
+    </q-scroll-area>
+  </drawer>
 </template>
 
 <script>
@@ -83,10 +158,17 @@ import L, { CRS, latLng } from 'leaflet'
 import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItemList } from 'src/models/MapItem'
+import Drawer from 'src/components/CustomDrawer'
+import axios from 'axios'
+import MapFilters from './components/MapFilters'
 
 export default {
   name: 'BaseMap',
   props: {
+    canEditMap: {
+      type: Boolean,
+      default: false
+    },
     bounds: {
       default: null
     },
@@ -107,10 +189,25 @@ export default {
     LTileLayer,
     LIcon,
     LMarker,
-    LPolyline
+    LPolyline,
+    Drawer,
+    MapFilters
+  },
+  filters: {
+    latlang (value) {
+      if (!value) return ''
+      return parseFloat(value.toString()).toFixed(3)
+    }
   },
   data () {
     return {
+      filterDrawer: false,
+      expantion: false,
+      expantionVal: '',
+      expantionIcon: '',
+      toolsDrawer: false,
+      filterValues: [],
+
       crs: null,
 
       mapZoom: 4,
@@ -121,6 +218,8 @@ export default {
       maxZoom: 11,
       maxBounds: null,
       maxBoundsViscosity: 1,
+      currentZoom: 4,
+      currentCenter: [0, 0],
       url: 'https://nodes.alaatv.com/upload/raheAbrishamMap/{z}/{x}/{y}.png?v=' + this.mapVersion,
       mapOptions: {
         zoomSnap: 1,
@@ -130,8 +229,52 @@ export default {
   },
   created () {
     this.initMap()
+    this.initTemplateData()
   },
   methods: {
+    setFilters (e) {
+      this.filterValues = e
+      this.sendFilters()
+    },
+    expandPanel() {
+      if (!this.expantion) {
+        this.expantionIcon = 'mdi-plus'
+        this.expantion = true
+        this.expantionVal = '90%'
+        return null
+      }
+      this.expantionIcon = 'isax:minus'
+      this.expantion = false
+      this.expantionVal = '0'
+    },
+    sendFilters () {
+      console.log('sent')
+    },
+    openFilterDrawer () {
+      this.filterDrawer = !this.filterDrawer
+    },
+    openToolsDrawer () {
+      this.toolsDrawer = !this.toolsDrawer
+    },
+    showMessagesInNotify (message, type) {
+      if (!type) {
+        type = 'negative'
+      }
+      this.$q.notify({
+        type,
+        message
+      })
+    },
+    copyToClipboard () {
+      const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
+      console.log(shareLink)
+      this.$copyText(('Text to copy'), shareLink).then(function (e) {
+        this.showMessagesInNotify('لینک این قسمت از نقشه کپی شد.', 'positive')
+      }, function (e) {
+        this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
+      })
+    },
+
     onAddMarker (event, item) {
       // console.log('onAddMarker', { event, item })
     },
@@ -154,6 +297,9 @@ export default {
       this.setBounds()
       this.setCenter()
       this.setMaxBounds()
+    },
+    initTemplateData() {
+      this.expantionIcon = 'isax:minus'
     },
     getCRS (mapExtent) {
       const mapMaxZoom = 10,
@@ -195,6 +341,7 @@ export default {
       // this.centerUpdated(this.mapCenter)
     },
     zoomUpdated (zoom) {
+      this.currentZoom = zoom
       this.$emit('update:zoom', zoom)
     },
     centerUpdated (center) {
@@ -211,6 +358,13 @@ export default {
 </script>
 
 <style scoped>
+.close-btn {
+  width: 100%;
+  border-radius: 0;
+  color: #212529;
+  background: #fbaa00;
+}
+
 .MapWidget {
   height: 70vh;
   width: 100%;

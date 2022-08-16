@@ -54,7 +54,7 @@ const routes = [
         children: [
           {
             name: 'User.Content.Show',
-            path: '',
+            path: ':id',
             component: () => import('pages/User/Content/Show.vue')
           },
           {
@@ -76,21 +76,14 @@ const routes = [
               middlewares: [auth]
             },
             component: () => import('pages/User/Dashboard/MyPurchases')
-          }
-        ]
-      },
-      {
-        path: 'User',
-        name: 'User.Dashboard',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
+          },
           {
-            name: 'User.Dashboard.purchases',
-            path: ':id/dashboard/MyPurchases',
+            name: 'User.Dashboard.favorites',
+            path: ':id/dashboard/MyFavorites',
             meta: {
               middlewares: [auth]
             },
-            component: () => import('pages/User/Dashboard/MyPurchases')
+            component: () => import('pages/User/Dashboard/MyFavorites')
           }
         ]
       },
@@ -101,7 +94,7 @@ const routes = [
         children: [
           {
             name: 'User.Product.Show',
-            path: '',
+            path: ':id',
             component: () => import('pages/User/Product/Show.vue')
           }
         ]
@@ -113,7 +106,7 @@ const routes = [
         children: [
           {
             name: 'User.Set.Show',
-            path: '',
+            path: ':id',
             component: () => import('pages/User/Set/Show.vue')
           }
         ]
