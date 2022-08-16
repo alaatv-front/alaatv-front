@@ -116,29 +116,25 @@
               <div class="menu-item-title q-ml-sm">کیف پول</div>
             </q-item-section>
           </q-item>
-          <q-item
-            clickable
-            v-ripple
-          >
-            <router-link
-              class="flex"
-              :to="{
-                name: 'User.Dashboard.favorites',
-                params: { id: this.$store.getters['Auth/user'].id }
-              }"
-            >
-              <q-item
-                clickable
-                v-ripple
-              >
-                <q-item-section class="menu-item-custom">
-                  <div class="bookmark"></div>
 
-                  <div class="menu-item-title q-ml-sm">نشان شده ها</div>
-                </q-item-section>
-              </q-item>
-            </router-link>
-          </q-item>
+          <router-link
+            class="flex"
+            :to="{
+              name: 'User.Dashboard.favorites',
+              params: { id: this.$store.getters['Auth/user'].id }
+            }"
+          >
+            <q-item
+              clickable
+              v-ripple
+            >
+              <q-item-section class="menu-item-custom">
+                <div class="bookmark"></div>
+                <div class="menu-item-title q-ml-sm">نشان شده ها</div>
+              </q-item-section>
+            </q-item>
+          </router-link>
+
           <q-item
             clickable
             v-ripple
