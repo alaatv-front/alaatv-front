@@ -44,7 +44,7 @@
         <q-menu>
           <q-list>
             <q-item
-              :to="{ name: 'User.Profile' }"
+              :to="{ name: 'Profile' }"
               clickable
               v-close-popup
             >
