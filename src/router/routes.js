@@ -76,21 +76,14 @@ const routes = [
               middlewares: [auth]
             },
             component: () => import('pages/User/Dashboard/MyPurchases')
-          }
-        ]
-      },
-      {
-        path: 'User',
-        name: 'User.Dashboard',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
+          },
           {
-            name: 'User.Dashboard.purchases',
-            path: ':id/dashboard/MyPurchases',
+            name: 'User.Dashboard.favorites',
+            path: ':id/dashboard/MyFavorites',
             meta: {
               middlewares: [auth]
             },
-            component: () => import('pages/User/Dashboard/MyPurchases')
+            component: () => import('pages/User/Dashboard/MyFavorites')
           }
         ]
       },
