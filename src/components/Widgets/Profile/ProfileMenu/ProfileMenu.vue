@@ -116,7 +116,7 @@
               <div class="menu-item-title q-ml-sm">کیف پول</div>
             </q-item-section>
           </q-item>
-          <!-- <q-item
+          <q-item
             clickable
             v-ripple
           >
@@ -132,13 +132,13 @@
                 v-ripple
               >
                 <q-item-section class="menu-item-custom">
-                                <div class="bookmark"></div>
+                  <div class="bookmark"></div>
 
                   <div class="menu-item-title q-ml-sm">نشان شده ها</div>
                 </q-item-section>
               </q-item>
             </router-link>
-          </q-item> -->
+          </q-item>
           <q-item
             clickable
             v-ripple
