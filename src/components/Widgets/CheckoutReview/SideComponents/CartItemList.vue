@@ -1,37 +1,40 @@
 <template>
-  <div class="cart-item-list q-mx-sm">
-    <div class="item-list-header">
-      سبد خرید
-    </div>
-    <q-separator/>
-    <div
-      v-if="items && items.length > 0"
-      class="cart-items"
-      v-for="(item, index) in items"
-      :key="index"
-    >
-      <template v-if="!!(item.grand)">
-        <cart-item
-          :items="items"
-          :raw-item="item"
-          :has-grand="true"
-          :id="item.grand.id"
-        />
-        <q-separator/>
-      </template>
-      <template
-        v-else
-        v-for="(cartItem, index) in item.order_product"
+  <div>
+    <div v-if="items.length>0" class="cart-item-list q-mx-sm shadow-4">
+      <div class="item-list-header">
+        سبد خرید
+      </div>
+      <q-separator/>
+      <div
+        v-if="items && items.length > 0"
+        class="cart-items"
+        v-for="(item, index) in items"
         :key="index"
       >
-        <cart-item
-          :items="items"
-          :raw-item="cartItem"
-          :has-grand="false"
-          :id="cartItem.product.id"
-        />
-        <q-separator/>
-      </template>
+        <template v-if="!!(item.grand)">
+          <cart-item
+            :raw-item="item"
+            :has-grand="true"
+            :id="item.grand.id"
+          />
+          <q-separator/>
+        </template>
+        <template
+          v-else
+          v-for="(cartItem, index) in item.order_product"
+          :key="index"
+        >
+          <cart-item
+            :raw-item="cartItem"
+            :has-grand="false"
+            :id="cartItem.product.id"
+          />
+          <q-separator/>
+        </template>
+      </div>
+    </div>
+    <div v-else>
+      <span>سبد خرید شما خالی است</span>
     </div>
   </div>
 </template>
@@ -61,7 +64,7 @@
   .cart-item-list {
     /*width: 1230px;*/
     background: #FFFFFF;
-    box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);
+    /*box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);*/
     border-radius: 10px;
     font-family: IRANSans, sans-serif;
     font-style: normal;

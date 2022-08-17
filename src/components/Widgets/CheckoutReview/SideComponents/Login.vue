@@ -27,10 +27,10 @@
   export default {
     name: 'login',
     props: {
-      finalPrice: {
-        type: String,
-        default: '0'
-      }
+      // finalPrice: {
+      //   type: String,
+      //   default: '0'
+      // }
     },
     data: () => ({
       loginInfo: {

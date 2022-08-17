@@ -6,7 +6,7 @@
     <div class="side-box col-md-4 col-12 column" v-if="items && items.length > 0">
       <donate/>
 <!--      <Login-checkout/>-->
-      <checkout-review-cart :items="items"/>
+      <checkout-review-cart :final-price="finalPrice" :items="items"/>
     </div>
   </div>
 </template>
@@ -24,7 +24,8 @@
     components: {Login, Donate, CartItemList, CheckoutReviewCart},
     data() {
       return {
-        items: []
+        items: [],
+        finalPrice:0
       }
     },
     mounted() {
