@@ -61,7 +61,7 @@ export default {
       default: '400px'
     },
 
-    expantionValue: {
+    expansionValue: {
       type: String,
       required: false,
       default: undefined
@@ -91,7 +91,7 @@ export default {
 
   watch: {
     isExpanded() {
-      this.transformValue = this.changeDrawerTransition(this.expantionValue)
+      this.transformValue = this.changeDrawerTransition(this.expansionValue)
     },
 
     isOpen (val) {
