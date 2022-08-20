@@ -28,7 +28,8 @@ const API_ADDRESS = {
     },
     orders: (id) => apiV2Server + '/user/' + id + '/orders',
     formData: apiV2Server + '/megaroute/getUserFormData',
-    show_user: apiV2Server + '/getUserFor3a'
+    show_user: apiV2Server + '/getUserFor3a',
+    eventresult: apiV2Server + '/eventresult'
   },
   content: {
     admin: {
@@ -89,10 +90,12 @@ const API_ADDRESS = {
     },
     show: {
       base: apiV2Server + '/ticket',
-      statusNotice: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/sendTicketStatusNotice',
+      statusNotice: (ticketId) =>
+        apiV2Server + '/ticket/' + ticketId + '/sendTicketStatusNotice',
       batchExtend: apiV2Server + '/orderproduct/batchExtend',
       ticketMessage: apiV2Server + '/ticketMessage',
-      reportMessage: (ticketId) => apiV2Server + '/ticketMessage/' + ticketId + '/report'
+      reportMessage: (ticketId) =>
+        apiV2Server + '/ticketMessage/' + ticketId + '/report'
     },
     ticketRate: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/rate'
   },
