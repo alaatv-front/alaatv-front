@@ -1,6 +1,7 @@
 <template>
   <div class="main-layout">
-    <quasar-template-builder v-model:value="properties" @onResize="resize">
+    <quasar-template-builder v-model:value="properties"
+                             @onResize="resize">
       <template #header>
         <template-header />
         <q-linear-progress
@@ -10,26 +11,36 @@
           class="q-mt-sm"
           indeterminate
         />
-        <q-resize-observer @resize="onHeaderResize"/>
+        <q-resize-observer @resize="onHeaderResize" />
       </template>
       <template #left-drawer>
-        <side-menu-dashboard/>
+        <side-menu-dashboard />
       </template>
       <template #content>
         <div ref="contentInside"
              class="content-inside"
              v-scroll="onContentInsideScroll"
         >
-          <q-dialog v-model="confirmDialogData.show" persistent>
+          <q-dialog v-model="confirmDialogData.show"
+                    persistent>
             <q-card class="q-pa-md q-pb-none">
-              <q-card-section >
-                <q-icon name="warning" color="warning" size="2rem" />
+              <q-card-section>
+                <q-icon name="warning"
+                        color="warning"
+                        size="2rem" />
                 {{confirmDialogData.message}}
               </q-card-section>
               <q-separator />
-              <q-card-actions align="right" class="q-pb-none">
-                <q-btn color="green" flat  @click="confirmDialogAction(true)" v-close-popup >بله</q-btn>
-                <q-btn color="red" flat  @click="confirmDialogAction(false)" v-close-popup >خیر</q-btn>
+              <q-card-actions align="right"
+                              class="q-pb-none">
+                <q-btn color="green"
+                       flat
+                       @click="confirmDialogAction(true)"
+                       v-close-popup>بله</q-btn>
+                <q-btn color="red"
+                       flat
+                       @click="confirmDialogAction(false)"
+                       v-close-popup>خیر</q-btn>
               </q-card-actions>
             </q-card>
           </q-dialog>
@@ -46,6 +57,7 @@ import { QuasarTemplateBuilder } from 'quasar-template-builder'
 import templateHeader from 'components/Template/templateHeader'
 import Router from 'src/router/Router'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents'
+import { setHeight } from 'src/boot/page-builder'
 
 export default {
   components: { Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
@@ -78,6 +90,9 @@ export default {
   computed: {
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
+    },
+    calculateHeightStyle() {
+      return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
   methods: {
@@ -113,6 +128,9 @@ export default {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
       }
     }
+  },
+  created() {
+    setHeight(this.calculateHeightStyle)
   }
 }
 </script>
