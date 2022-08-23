@@ -1,7 +1,7 @@
 <template>
   <div class="adminToolBox">
 
-    <div class="toolBoxHeader">
+    <div class="ToolBoxHeader">
       <div class="rightSide">
         <q-icon
           size="24px"
@@ -54,93 +54,73 @@
         </q-btn>
       </div>
     </div>
+
     <q-separator
       color="gray"
-      inset />
+      inset/>
 
-    <q-btn
-      v-if="toolTab === 'marker'"
-      style="width: 100%"
-      icon="isax:folder-add"
-      class="bg-primary"
-    >
-      <q-tooltip
-        anchor="top middle"
-        self="bottom middle"
-        :offset="[10, 10]"
-      >
-        Mark On Map
-      </q-tooltip>
-    </q-btn>
+    <div class="MarkerFormBuilderContainer"
+         v-if="toolTab === 'marker'">
 
-    <div
-      v-if="toolTab === 'marker'"
-      class="MarkerFormBuilder"
-    >
-      <form-builder
-        v-model:value="markerInputs"
-        ref="markerInputsFormBuilder"
-      />
-      <div
-        v-if="toolTab === 'polyline' || toolTab === 'marker'"
-        class="toolBoxBtns">
-        <q-btn
-          class="btns btn-success"
-          icon="isax:element-plus"
-        />
-        <q-btn
-          class="btns btn-info"
-          icon="isax:copy"
-        />
-        <q-btn
-          class="btns btn-info"
-          icon="isax:save-remove"
-          @click="saveData"
-        />
-        <q-btn
-          class="btns btn-danger"
-          icon="isax:trash"
+      <div class="MarkerFormBuilder"
+           v-if="canShowGeneralData">
+        <form-builder
+          v-model:value="markerInputs"
+          ref="markerInputsFormBuilder"
         />
       </div>
+      <q-btn class="addMarkerBtn"
+             @click="addMarker"
+             icon="isax:element-plus"/>
+      <div class="markerToolBoxBtns"
+           v-if="bufferMarker.editMode"
+      >
+        <q-btn class="btns btn-info"
+               icon="isax:copy"
+        />
+        <q-btn class="btns btn-info"
+               icon="isax:save-remove"
+               @click="saveData"
+        />
+        <q-btn class="btns btn-danger"
+               icon="isax:trash"
+        />
+      </div>
+
     </div>
 
-    <div
-      v-if="toolTab === 'polyline'"
-      class="PolylineFormBuilder"
-    >
-      <form-builder
-        v-model:value="polylineInputs"
-        ref="polylineInputsFormBuilder"
-      />
-      <div
-        v-if="toolTab === 'polyline' || toolTab === 'marker'"
-        class="toolBoxBtns">
-        <q-btn
-          class="btns bg-orange"
-          icon="isax:refresh"
-        />
-        <q-btn
-          class="btns btn-info"
-          icon="isax:copy"
-        />
-        <q-btn
-          class="btns btn-info"
-          icon="isax:save-remove"
-        />
-        <q-btn
-          class="btns btn-danger"
-          icon="isax:trash"
-        />
+    <div class="PolylineFormBuilderContainer"
+         v-if="toolTab === 'polyline'">
+
+      <div class="PolylineFormBuilder"
+           v-if="canShowGeneralData">
+        <form-builder
+          v-model:value="polylineInputs"
+          ref="polylineInputsFormBuilder"/>
+
       </div>
+      <q-btn class="addPolyLineBtn"
+             icon="isax:refresh"/>
+      <div class="PolylineToolBoxBtns"
+           v-if="bufferPolyline.editMode"
+      >
+        <q-btn class="btns btn-info"
+               icon="isax:copy"/>
+        <q-btn class="btns btn-info"
+               icon="isax:save-remove"/>
+        <q-btn class="btns btn-danger"
+               icon="isax:trash"/>
+
+
+      </div>
+
     </div>
 
   </div>
-
 </template>
 
 <script>
 import { FormBuilder } from 'quasar-form-builder'
-
 import API_ADDRESS from 'src/api/Addresses'
 
 import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
@@ -150,9 +130,31 @@ import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
 export default {
   name: 'AdminToolBox',
   components: { FormBuilder },
-
+  props: {
+    center: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    zoom: {
+      type: [String, Number],
+      default: null
+    },
+    marker: {
+      type: Object,
+      default: {}
+    },
+    polyline: {
+      type: Object,
+      default: {}
+    }
+  },
   data () {
     return {
+      canShowMarker: false,
+      bufferMarker: null,
+      bufferPolyline: null,
       expanded: true,
       api: API_ADDRESS.map.items,
       entityIdKeyInResponse: 'data.id',
@@ -160,6 +162,10 @@ export default {
       showRouteName: 'Admin.Exam.Show',
       indexRouteName: 'Admin.Exam.Index',
       toolTab: null,
+      displayZoom: {
+        min_zoom: 11,
+        max_zoom: 11
+      },
       markerInputs: [
         {
           type: 'formBuilder',
@@ -168,7 +174,7 @@ export default {
           value: [
             {
               type: 'select',
-              name: 'NewValueEventSelect',
+              name: 'tags',
               label: 'تگ :',
               outlined: true,
               multiple: true,
@@ -198,7 +204,12 @@ export default {
             {
               type: ItemEntity,
               name: 'entity',
-              value: [],
+              value: {
+                altNames: [],
+                display_name: 'هیچ کدام',
+                entity_id: 0,
+                entity_type: 'nothing'
+              },
               responseKey: 'data.entity',
               col: 'col-md-12'
             }
@@ -212,18 +223,21 @@ export default {
         {
           type: activityType,
           responseKey: 'data.action',
-          value: [],
+          value: {},
           name: 'action',
           col: 'col-md-6'
         },
         {
-          type: 'Slider',
-          name: 'min',
+          type: 'RangeSlider',
+          name: 'ZoomRate',
           col: 'col-md-6',
-          label: 'میزان زوم از',
+          label: 'میزان زوم',
           min: 0,
           max: 11,
-          value: 3
+          value: {
+            min: 3.1,
+            max: 11
+          }
         },
         {
           type: 'hidden',
@@ -231,26 +245,18 @@ export default {
           col: 'col-md-6'
         },
         {
-          type: 'Slider',
-          col: 'col-md-6',
-          name: 'max',
-          label: 'میزان زوم تا',
-          min: 0,
-          max: 11,
-          value: 11
-        },
-        {
           type: 'separator',
           col: 'col-md-12'
         },
         {
           type: 'File',
+          name: 'iconImage',
           col: 'col-md-12',
           label: 'فایل خود را در اینجا قرار دهید و یا برای انتخاب فایل اینجا کلیک کنید'
         },
         {
           type: 'input',
-          name: 'link',
+          name: 'headlineText',
           label: 'متن بالای آیکن :',
           col: 'col-md-6'
         },
@@ -275,7 +281,7 @@ export default {
           label: 'ضخامت stroke',
           min: 0,
           max: 50,
-          value: 14
+          value: 0
         },
         {
           type: 'Color',
@@ -291,7 +297,7 @@ export default {
         },
         {
           type: 'Slider',
-          name: 'StrokeSize',
+          name: 'IconSize',
           col: 'col-md-6',
           label: 'اندازه آیکن',
           min: 0,
@@ -300,9 +306,9 @@ export default {
         },
         {
           type: 'Slider',
-          name: 'IconLocation',
+          name: 'iconAnchorX',
           col: 'col-md-6',
-          label: 'موقعیت آیکن نسبت به مختصات ',
+          label: 'موقعیت آیکن نسبت به مختصات  ',
           min: 0,
           max: 200,
           value: 0
@@ -312,6 +318,15 @@ export default {
           responseKey: 'data.type_id',
           name: 'type_id',
           value: 1
+        },
+        {
+          type: 'Slider',
+          name: 'iconAnchorY',
+          col: 'col-md-6',
+          label: 'موقعیت آیکن نسبت به مختصات ',
+          min: 0,
+          max: 200,
+          value: 0
         }
 
       ],
@@ -353,7 +368,12 @@ export default {
             {
               type: ItemEntity,
               name: 'entity',
-              value: [],
+              value: {
+                altNames: [],
+                display_name: 'هیچ کدام',
+                entity_id: 0,
+                entity_type: 'nothing'
+              },
               responseKey: 'data.entity',
               col: 'col-md-12'
             }
@@ -367,7 +387,11 @@ export default {
         {
           type: activityType,
           responseKey: 'data.action',
-          value: [],
+          value: {
+            data: {},
+            id: 1,
+            name: 'link'
+          },
           name: 'activityType',
           label: 'action',
           col: 'col-md-6'
@@ -432,6 +456,10 @@ export default {
         {
           type: LineType,
           label: 'نوع حرکت خط :',
+          value: {
+            dir: 'fixed',
+            style: { 'animation-duration': 0 }
+          },
           name: 'line',
           col: 'col-md-6'
         },
@@ -462,8 +490,157 @@ export default {
       }
     }
   },
+  watch: {
+    headlineText: {
+      handler (newVal) {
+        this.bufferMarker.data.headline.text = newVal
+        this.updateItem()
+      }
+    },
+    ZoomRate: {
+      handler (zoom) {
+        this.displayZoom.max_zoom = zoom.max
+        this.displayZoom.min_zoom = zoom.min
+        this.updateItem()
+      }
+    },
+    iconImage: {
+      handler (fileList) {
+        console.log(fileList)
+        this.bufferMarker.data.icon.options.iconUrl = URL.createObjectURL(fileList) // returns Blob
+      }
+    },
+    TextColor: {
+      handler (color) {
+        this.bufferMarker.data.headline.fillColor = color
+        this.updateItem()
+      }
+    },
+    StrokeColor: {
+      handler (color) {
+        this.bufferMarker.data.headline.strokeColor = color
+        this.updateItem()
+      }
+    },
+    IconSize: {
+      handler (size) {
+        this.bufferMarker.data.icon.options.iconSize = size
+        this.updateItem()
+      }
+    },
+    TextSize: {
+      handler (size) {
+        console.log(size)
+        this.bufferMarker.data.headline.fontSize = size
+        this.updateItem()
+      }
+    },
+    StrokeSize: {
+      handler (size) {
+        this.bufferMarker.data.headline.strokeWidth = size
+        this.updateItem()
+      }
+    },
+    iconAnchorX: {
+      handler (anchor) {
+        this.bufferMarker.data.icon.options.iconAnchor[0] = anchor
+        // this.bufferMarker.data.icon.options.iconSize = this.bufferMarker.data.icon.options.iconSize -1
+        this.updateItem()
+      }
+    },
+    iconAnchorY: {
+      handler (anchor) {
+        this.bufferMarker.data.icon.options.iconAnchor[1] = anchor
+        this.updateItem()
+      }
+    },
+    action: {
+      handler (data) {
+        this.bufferMarker.action = data
+        console.log(data)
+        this.updateItem()
+      }
+    },
+  },
+  computed: {
+    activeMapItem () {
+      if (this.bufferMarker.editMode) {
+        return this.bufferMarker
+      } else if (this.bufferPolyline.editMode) {
+        return this.bufferPolyline
+      } else {
+        return false
+      }
+    },
+    canShowGeneralData () {
+      return this.activeMapItem.editMode && this.activeMapItem.type.name === this.toolTab
+    },
+    headlineText () {
+      return this.getInputsValue('headlineText')
+    },
+    ZoomRate () {
+      return this.getInputsValue('ZoomRate')
+    },
+    iconImage () {
+      return this.getInputsValue('iconImage')
+    },
+    TextColor () {
+      return this.getInputsValue('TextColor')
+    },
+    StrokeColor () {
+      return this.getInputsValue('StrokeColor')
+    },
+    IconSize () {
+      return this.getInputsValue('IconSize')
+    },
+    TextSize () {
+      return this.getInputsValue('TextSize')
+    },
+    StrokeSize () {
+      return this.getInputsValue('StrokeSize')
+    },
+    iconAnchorX () {
+      return this.getInputsValue('iconAnchorX')
+    },
+    iconAnchorY () {
+      return this.getInputsValue('iconAnchorY')
+    },
+    action () {
+      return this.getInputsValue('action')
+    }
+  },
+  created () {
+    this.bufferMarker = this.marker
+    this.bufferPolyline = this.polyline
+  },
   methods: {
-    saveData() {
+    iconFilesChange (fileList) {
+    },
+    getActiveMapItem () {
+      if (this.bufferMarker.editMode) {
+        return this.bufferMarker
+      } else if (this.bufferPolyline.editMode) {
+        return this.bufferPolyline
+      } else {
+        return false
+      }
+    },
+    updateItem () {
+      const activeMapItem = this.getActiveMapItem()
+      if (!activeMapItem) {
+        return
+      }
+      activeMapItem.min_zoom = this.displayZoom.min_zoom
+      activeMapItem.max_zoom = this.displayZoom.max_zoom
+      this.$emit(activeMapItem.type.name + '_change', activeMapItem)
+    },
+    getInputsValue (inputName) {
+      return this.markerInputs.find(input => input.name === inputName).value
+    },
+    addMarker () {
+      this.$emit('add_marker', this.marker)
+    },
+    saveData () {
       this.getInputValue('markerInputs', 'activityType')
     },
     getInputValue (type, inputName) {
@@ -472,7 +649,7 @@ export default {
     getPolylineValue (inputName) {
       return this.polylineInputs.find(input => input.name === inputName).value
     },
-    tabChanged(tabName) {
+    tabChanged (tabName) {
       this.toolTab = tabName
       this.$emit('tab_changed', tabName)
     }
@@ -485,8 +662,9 @@ export default {
 
 <style scoped lang="scss">
 .adminToolBox {
-    width: 100%;
-  .toolBoxHeader {
+  width: 100%;
+
+  .ToolBoxHeader {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
@@ -500,10 +678,43 @@ export default {
     }
   }
 
-  .MarkerFormBuilder {
-    .toolBoxBtns {
-      margin-top: 10px;
+  .MarkerFormBuilderContainer {
+    .addMarkerBtn {
+      width: 100%;
+      background-color: green;
+    }
 
+    .markerToolBoxBtns {
+      .btns {
+        width: 100%;
+      }
+
+      .btns.btn-success {
+        background-color: green;
+      }
+
+      .btns.btn-info {
+        background-color: blue;
+      }
+
+      .btns.btn-danger {
+        background-color: red;
+      }
+    }
+
+    .MarkerFormBuilder {
+    }
+
+  }
+
+  .PolylineFormBuilderContainer {
+
+    .addPolyLineBtn {
+      width: 100%;
+      background-color: orange;
+    }
+
+    .PolylineToolBoxBtns {
       .btns {
         //border-radius: 0;
         width: 100%;
@@ -521,27 +732,8 @@ export default {
         background-color: red;
       }
     }
-  }
-  .PolylineFormBuilder {
-    .toolBoxBtns {
-      margin-top: 10px;
 
-      .btns {
-        //border-radius: 0;
-        width: 100%;
-      }
-
-      .btns.btn-success {
-        background-color: green;
-      }
-
-      .btns.btn-info {
-        background-color: blue;
-      }
-
-      .btns.btn-danger {
-        background-color: red;
-      }
+    .PolylineFormBuilder {
     }
   }
 
