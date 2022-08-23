@@ -1,8 +1,11 @@
 <template>
   <div class="MapWidget"
-       dir="ltr">
+       :class="{setMarker: selectedMapClickActionTypes.name === 'addIcon'}"
+       dir="ltr"
+  >
     <l-map ref="lMap"
-           @click="mapClick"
+           @click="mapClick($event)"
+           :options="{zoomControl: false}"
            v-model:zoom="mapZoom"
            v-model:center="mapCenter"
            v-model:options="mapOptions"
@@ -16,66 +19,47 @@
            @update:center="centerUpdated"
            @update:bounds="boundsUpdated">
       <l-tile-layer :url="url" />
-      <template v-for="item in items.list"
-                :key="item.id">
+      <l-control-zoom position="topright"></l-control-zoom>
+      <l-marker
+        v-if="adminToolBox.marker.data.latlng"
+        :lat-lng="adminToolBox.marker.data.latlng"
+        :draggable=true
+        :visible="adminToolBox.marker.editMode"
+        @drag="reportAdminMarker"
+      >
+        <l-icon
+          v-if="adminToolBox.marker.data.icon.options.iconUrl"
+          ref="markerIcon"
+          :icon-url="adminToolBox.marker.data.icon.options.iconUrl"
+          :icon-size="adminToolBox.marker.data.icon.options.iconSize"
+          :icon-anchor="adminToolBox.marker.data.icon.options.iconAnchor"
+          :shadow-url="adminToolBox.marker.data.icon.options.shadowUrl"
+          :shadow-size="adminToolBox.marker.data.icon.options.shadowSize"
+          :shadow-anchor="adminToolBox.marker.data.icon.options.shadowAnchor"
+        >
+          <div class="markerHeadline"
+               v-if="adminToolBox.marker.data.headline.text"
+               v-html="adminToolBox.marker.data.headline.text"
+               :style="{
+                 fontSize: adminToolBox.marker.data.headline.fontSize+'px',
+                 'text-fill-color': adminToolBox.marker.data.headline.fillColor,
+                 '-webkit-text-fill-color': adminToolBox.marker.data.headline.fillColor,
+                 'text-stroke-width': adminToolBox.marker.data.headline.strokeWidth+'px',
+                 '-webkit-text-stroke-width': adminToolBox.marker.data.headline.strokeWidth+'px',
+                 'text-stroke-color': adminToolBox.marker.data.headline.strokeColor,
+                 '-webkit-text-stroke-color': adminToolBox.marker.data.headline.strokeColor
+               }"
+          >
+          </div>
+          <img class="markerImage adminToolBoxMarker"
+               v-if="adminToolBox.marker.data.icon.options"
+               :src="adminToolBox.marker.data.icon.options.iconUrl"
+          >
+        </l-icon>
+      </l-marker>
 
-        <l-marker
-          :lat-lng="item.data.latlng"
-          :draggable="false"
-          @add="onAddMarker($event, item)"
-          @click="onClickedMarker($event, item)"
-        >
-          <l-icon
-            :icon-url="item.data.icon.options.iconUrl"
-            :icon-size="item.data.icon.options.iconSize"
-            :icon-anchor="item.data.icon.options.iconAnchor"
-            :shadow-url="item.data.icon.options.shadowUrl"
-            :shadow-size="item.data.icon.options.shadowSize"
-            :shadow-anchor="item.data.icon.options.shadowAnchor">
-            <div class="markerHeadline"
-                 v-html="item.data.headline.text"
-                 :style="{
-                   fontSize: item.data.headline.fontSize+'px',
-                   'text-fill-color': item.data.headline.fillColor,
-                   '-webkit-text-fill-color': item.data.headline.fillColor,
-                   'text-stroke-width': item.data.headline.strokeWidth+'px',
-                   '-webkit-text-stroke-width': item.data.headline.strokeWidth+'px',
-                   'text-stroke-color': item.data.headline.strokeColor,
-                   '-webkit-text-stroke-color': item.data.headline.strokeColor
-                 }"
-            >
-            </div>
-            <!--                        <i class="fa fa-edit editMapItem" v-if="item.editMode"></i>-->
-            <img
-              :src="item.data.icon.options.iconUrl"
-              class="markerImage"
-            >
-          </l-icon>
-          <!--                    <l-popup-->
-          <!--                        v-if="editMapMode"-->
-          <!--                        :contenta="'<div>disable</div>'"-->
-          <!--                        :options="{ autoClose: false, closeOnClick: false }"-->
-          <!--                    >-->
-          <!--                    </l-popup>-->
-        </l-marker>
-        <l-polyline
-          v-if="item.data.line && item.data.line.options"
-          :options="item.data.line.options"
-          :lat-lngs="item.data.latlngs"
-          :color="item.data.line.color"
-          :bubblingMouseEvents="item.data.line.bubblingMouseEvents"
-          :dashArray="item.data.line.dashArray"
-          :dashOffset="item.data.line.dashOffset"
-          :weight="item.data.line.weight"
-          @add="onAddPolyline($event, item)"
-          @click="onClickedPolyline($event, item)"
-        >
-          <!--                    <l-popup :content="'<div>disable</div>'" :options="{ autoClose: false, closeOnClick: false }"></l-popup>-->
-        </l-polyline>
-      </template>
       <l-control
-        dir="rtl"
-        position="topright"
+        position="topleft"
       >
         <q-btn
           class="btnMapControl btnGetLinkToShare"
@@ -90,7 +74,7 @@
       </l-control>
       <l-control
         dir="rtl"
-        position="topleft"
+        position="topright"
       >
         <q-btn
           class="btnMapControl btnGetLinkToShare"
@@ -103,13 +87,13 @@
           {{ currentZoom }}
           <br>
           عرض:
-          <span dir="rtl">
-            {{ currentCenter.lat | latlang }}
+          <span dir="ltr">
+            {{ currentCenter.lat  }}
           </span>
           <br>
           طول:
-          <span dir="rtl">
-            {{ currentCenter.lng | latlang }}
+          <span dir="ltr">
+            {{ currentCenter.lng  }}
           </span>
         </div>
       </l-control>
@@ -129,12 +113,12 @@
   </drawer>
   <drawer max-width="700px"
           :is-open="toolsDrawer"
-          :expantion-value="expantionVal"
-          :is-expanded="expantion"
+          :expansion-value="expansionVal"
+          :is-expanded="expansion"
           side="right">
     <q-scroll-area class="fit">
       <div>
-        <q-btn :icon="expantionIcon"
+        <q-btn :icon="expansionIcon"
                style="width: 10%"
                unelevated
                color="blue"
@@ -147,7 +131,24 @@
                @click="toolsDrawer = false" />
       </div>
       <div>
-        <admin-tool-box />
+        <admin-tool-box
+          ref="adminToolBox"
+          :center="currentCenter"
+          :zoom="currentZoom"
+          :marker="adminToolBox.marker"
+          :polyline="adminToolBox.polyline"
+          @add_marker="addAdminMarker"
+          @save_marker="saveMapItem"
+          @marker_change="updateAdminMarker"
+          @delete_marker="deleteAdminMapItem"
+          @delete_polyline="deleteAdminMapItem"
+          @save_polyline="saveMapItem"
+          @polyline_change="updateAdminPolyline"
+
+          @tab_changed="sidebarAdminToolBoxOnTabChange"
+          @open_map_items_list="openMapItemsList"
+          @reset_editable_polyline_to_center_of_map="resetEditablePolylineToCenterOfMap"
+        />
       </div>
     </q-scroll-area>
   </drawer>
@@ -155,13 +156,14 @@
 
 <script>
 import L, { CRS, latLng } from 'leaflet'
-import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl } from '@vue-leaflet/vue-leaflet'
+import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl, LControlZoom } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
 import adminToolBox from 'components/Widgets/Map/AdminToolBox'
-// import axios from 'axios'
 import MapFilters from './components/MapFilters'
+import { copyText } from 'vue3-clipboard'
+import { MapItemAction } from 'src/models/MapItemAction'
 
 export default {
   name: 'BaseMap',
@@ -188,6 +190,7 @@ export default {
     adminToolBox,
     LMap,
     LControl,
+    LControlZoom,
     LTileLayer,
     LIcon,
     LMarker,
@@ -196,33 +199,77 @@ export default {
     MapFilters
   },
   filters: {
-    latlang (value) {
-      if (!value) return ''
-      return parseFloat(value.toString()).toFixed(3)
-    }
+
   },
   data () {
     return {
       filterDrawer: false,
-      expantion: false,
-      expantionVal: '',
-      expantionIcon: '',
+      markerAddFlag: false,
+      expansion: false,
+      expansionVal: '',
+      expansionIcon: '',
       toolsDrawer: false,
       filterValues: [],
-
       crs: null,
-
       mapZoom: 4,
       mapCenter: latLng(-8560, 21008),
       mapBounds: null,
-
       minZoom: 3.1,
       maxZoom: 11,
       maxBounds: null,
       maxBoundsViscosity: 1,
       currentZoom: 4,
       currentCenter: [0, 0],
+      baseUrl: window.baseUrl,
+      mapVersion: window.mapVersion,
+      contentSearchApi: window.contentSearchApi,
       url: 'https://nodes.alaatv.com/upload/raheAbrishamMap/{z}/{x}/{y}.png?v=' + this.mapVersion,
+      adminToolBox: {
+        marker: {
+          data: {
+            latlng: {
+              lng: 0,
+              lat: 0
+            },
+            headline: {
+              text: null,
+              fontSize: 14
+            },
+            icon: {
+              options: {
+                iconAnchor: [0, 0],
+                iconUrl: null,
+                iconSize: 70
+              }
+            }
+          },
+          type: {
+            name: 'marker'
+          }
+        },
+        polyline: {
+          editMode: null
+        }
+      },
+      polygon: {
+        latlngs: [],
+        color: 'green'
+      },
+
+      mapClickActionTypes: [
+        {
+          name: 'noAction',
+          selected: true
+        },
+        {
+          name: 'addIcon',
+          selected: false
+        },
+        {
+          name: 'addPolygonPoint',
+          selected: false
+        }
+      ],
       mapOptions: {
         zoomSnap: 1,
         zoomAnimation: true
@@ -233,21 +280,81 @@ export default {
     this.initMap()
     this.initTemplateData()
   },
+  computed: {
+    selectedMapClickActionTypes () {
+      return this.mapClickActionTypes.find(function (item) {
+        return item.selected
+      })
+    },
+  },
   methods: {
+    reportAdminMarker (event) {
+      console.log(event)
+      this.adminToolBox.marker.data.latlng = event.latlng
+    },
+    updateAdminMarker(data) {
+      this.adminToolBox.marker = data
+      this.adminToolBox.marker.data.headline = data.data.headline
+      if (data.data.headline.fillColor) {
+        this.adminToolBox.marker.data.headline.fillColor = data.data.headline.fillColor
+      }
+      if (data.data.headline.strokeColor) {
+        this.adminToolBox.marker.data.headline.strokeColor = data.data.headline.strokeColor
+      }
+      if (data.data.icon.options.iconAnchor) {
+        // console.log('markerIcon', this.$refs.markerIcon)
+        this.adminToolBox.marker.data.icon.options.iconAnchor = data.data.icon.options.iconAnchor
+        this.adminToolBox.marker.data.icon.options.iconSize = data.data.icon.options.iconSize
+      }
+      console.log('admintoool',this.adminToolBox)
+      // console.log(JSON.parse(JSON.stringify(this.adminToolBox.marker.data.icon.options.iconAnchor)))
+    },
+
+    mapClick (event) {
+      console.log(event)
+      if (this.selectedMapClickActionTypes.name === 'addIcon' && event.latlng) {
+        // this.cleanAdminToolBoxMapItem()
+        this.adminToolBox.marker.data.latlng = event.latlng
+        this.adminToolBox.polyline.editMode = false
+        this.adminToolBox.marker.editMode = true
+        this.adminToolBox.marker.enable = true
+        this.adminToolBox.marker.min_zoom = 11
+        this.adminToolBox.marker.max_zoom = 11
+        const newMapItemAction = new MapItemAction()
+        this.adminToolBox.marker.action = newMapItemAction.getLink()
+        this.setMapClickActionType('noAction')
+        console.log(JSON.parse(JSON.stringify(this.adminToolBox)))
+      }
+    },
+    addAdminMarker (data) {
+      this.setMapClickActionType('addIcon')
+    },
+    setMapClickActionType (type) {
+      for (let i = 0; typeof this.mapClickActionTypes[i] !== 'undefined'; i++) {
+        this.mapClickActionTypes[i].selected = false
+      }
+      for (let i = 0; typeof this.mapClickActionTypes[i] !== 'undefined'; i++) {
+        if (this.mapClickActionTypes[i].name === type) {
+          this.mapClickActionTypes[i].selected = true
+        }
+      }
+      this.polygon.latlngs = []
+    },
+
     setFilters (e) {
       this.filterValues = e
       this.sendFilters()
     },
-    expandPanel() {
-      if (!this.expantion) {
-        this.expantionIcon = 'mdi-plus'
-        this.expantion = true
-        this.expantionVal = '90%'
+    expandPanel () {
+      if (!this.expansion) {
+        this.expansionIcon = 'mdi-plus'
+        this.expansion = true
+        this.expansionVal = '90%'
         return null
       }
-      this.expantionIcon = 'isax:minus'
-      this.expantion = false
-      this.expantionVal = '0'
+      this.expansionIcon = 'isax:minus'
+      this.expansion = false
+      this.expansionVal = '0'
     },
     sendFilters () {
       console.log('sent')
@@ -270,15 +377,22 @@ export default {
     copyToClipboard () {
       const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
       console.log(shareLink)
-      this.$copyText(('Text to copy'), shareLink).then(function (e) {
-        this.showMessagesInNotify('لینک این قسمت از نقشه کپی شد.', 'positive')
-      }, function (e) {
-        this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
+      copyText('Text to copy', shareLink, (error, event) => {
+        if (error) {
+          this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
+          console.log(error)
+        } else {
+          this.showMessagesInNotify('لینک این قسمت از نقشه کپی شد.', 'positive')
+          console.log(event)
+        }
       })
     },
 
     onAddMarker (event, item) {
-      // console.log('onAddMarker', { event, item })
+      console.log('onAddMarker', {
+        event,
+        item
+      })
     },
     onClickedMarker (event, item) {
       // console.log('onClickedMarker', { event, item })
@@ -291,7 +405,12 @@ export default {
     },
 
     addMarker () {
-      L.circleMarker([54.990303, -8.525841], { color: 'red', fillColor: '#f03', fillOpacity: 0.5, radius: 500 })
+      L.circleMarker([54.990303, -8.525841], {
+        color: 'red',
+        fillColor: '#b6253e',
+        fillOpacity: 0.5,
+        radius: 500
+      })
         .addTo(this.$refs.lMap.root)
     },
     initMap () {
@@ -300,8 +419,8 @@ export default {
       this.setCenter()
       this.setMaxBounds()
     },
-    initTemplateData() {
-      this.expantionIcon = 'isax:minus'
+    initTemplateData () {
+      this.expansionIcon = 'isax:minus'
     },
     getCRS (mapExtent) {
       const mapMaxZoom = 10,
@@ -316,30 +435,30 @@ export default {
       crs.zoom = function (scale) {
         return Math.log(scale * mapMinResolution) / Math.LN2
       }
-
       return crs
     },
     setCRS () {
       this.crs = this.getCRS([0.00000000, -15426.00000000, 26934.00000000, 0.00000000])
     },
     setBounds () {
-      const down = -20140,
-        left = -900,
+      const down = -21040,
+        left = 220,
         up = -920,
-        right = 29700
+        right = 24550
       this.mapBounds = [[down, left], [up, right]]
     },
     setMaxBounds () {
-      this.maxBounds = this.bounds
+      this.maxBounds = this.mapBounds
     },
     setCenter (lat, lng) {
       if (typeof lat === 'undefined') {
-        lat = -8560
+        lat = -12196
       }
       if (typeof lng === 'undefined') {
-        lng = 21008
+        lng = 22008
       }
       this.mapCenter = latLng(lat, lng)
+      this.currentCenter = this.mapCenter
       // this.centerUpdated(this.mapCenter)
     },
     zoomUpdated (zoom) {
@@ -347,13 +466,24 @@ export default {
       this.$emit('update:zoom', zoom)
     },
     centerUpdated (center) {
+      this.currentCenter = center
       this.$emit('update:center', center)
     },
     boundsUpdated (bounds) {
       this.$emit('update:bounds', bounds)
     },
-    mapClick (event) {
-      this.$emit('onClicked', event)
+    saveMapItem(data) {
+    },
+    deleteAdminMapItem(data) {
+    },
+    updateAdminPolyline(data) {
+    },
+    sidebarAdminToolBoxOnTabChange(tabName) {
+    },
+    openMapItemsList(mapItem) {
+    },
+    resetEditablePolylineToCenterOfMap() {
+
     }
   }
 }
@@ -367,8 +497,26 @@ export default {
   background: #fbaa00;
 }
 
+</style>
+
+<style scoped lang="scss">
 .MapWidget {
-  height: 70vh;
+  height: 100vh;
   width: 100%;
+
+  &.setMarker .leaflet-grab {
+    cursor: crosshair;
+  }
+
+  .leaflet-container{
+    .leaflet-map-pane{
+      .leaflet-marker-pane{
+        .markerImage {
+          text-align: center;
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 </style>
