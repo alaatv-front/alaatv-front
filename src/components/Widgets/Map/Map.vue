@@ -9,7 +9,6 @@
       @update:zoom="zoomUpdated"
       @update:center="centerUpdated"
       @update:bounds="boundsUpdated"
-      @onClicked="mapClick"
       ref="baseMap"
     />
     <div class="justify-center flex">
@@ -35,41 +34,13 @@ export default {
       lastZoomTime: 0,
       searchQuery: '',
       lastCenterChangeTime: 0,
-      hasZoomChanged: false,
-      hasCenterChanged: false,
-      mapSearchToolShow: false,
-      sidebarAdminToolBoxTabName: null,
       editMapMode: false,
       adminToolBox: {
-        marker: null,
-        polyline: null,
-        polygon: {
-          latlngs: [],
-          color: 'green'
-        }
+        marker: {
+          data: null
+        },
+        polyline: null
       },
-      mapClickActionTypes: [
-        { name: 'noAction', selected: true },
-        { name: 'addIcon', selected: false },
-        { name: 'addPolygonPoint', selected: false }
-      ],
-      crs: null,
-      minZoom: 3.1,
-      maxZoom: 11,
-      maxBounds: null,
-      maxBoundsViscosity: 1,
-      rectangle: {
-        bounds: [[47.341456, -1.397133], [47.303901, -1.243813]], // down - left - up - right
-        style: { color: 'red', weight: 1 }
-      },
-      polygon: {
-        latlngs: [],
-        color: 'green'
-      },
-      url: 'https://nodes.alaatv.com/upload/raheAbrishamMap/{z}/{x}/{y}.png?v=' + this.mapVersion,
-      currentZoom: 1,
-      currentCenter: [0, 0],
-      mapIsAnimated: true,
       mapItems: new MapItemList(),
       visibleMapItems: new MapItemList(),
       mapLoading: false
@@ -79,9 +50,6 @@ export default {
     this.fetchMapItems()
   },
   methods: {
-    loadTestMarker () {
-
-    },
     fetchMapItems () {
       this.mapLoading = true
       this.mapItems = new MapItemList(MapItemsResponse.data)
@@ -111,7 +79,6 @@ export default {
       // this.currentCenter = center
     },
     boundsUpdated (bounds) {
-      this.bounds = bounds
       this.updateVisibleMapItems()
       this.bounds = bounds
     },
@@ -125,21 +92,6 @@ export default {
             ))
         })
       })
-    },
-    mapClick (event) {
-      // console.log('event', event)
-      // if (this.selectedMapClickActionTypes.name === 'addIcon') {
-      //   this.cleanAdminToolBoxMapItem();
-      //   Vue.set(this.adminToolBox.marker.data, 'latlng', event.latlng);
-      //   Vue.set(this.adminToolBox.polyline, 'editMode', false);
-      //   Vue.set(this.adminToolBox.marker, 'editMode', true);
-      //   Vue.set(this.adminToolBox.marker, 'enable', true);
-      //   Vue.set(this.adminToolBox.marker, 'min_zoom', 11);
-      //   Vue.set(this.adminToolBox.marker, 'max_zoom', 11);
-      //   const newMapItemAction = new MapItemAction();
-      //   Vue.set(this.adminToolBox.marker, 'action', newMapItemAction.getLink());
-      //   this.setMapClickActionType('noAction');
-      // }
     }
   }
 }
