@@ -9,7 +9,7 @@
       :key="sectionIndex"
       :data="section.data"
       :options="section.options"
-      :containerFullHeight="containerFullHeight"
+      :containerFullHeight="height"
       :get-data="getData"
     />
   </div>
@@ -39,7 +39,10 @@ export default {
     }
   },
   data() {
-    return {}
+    let height
+    return {
+      height
+    }
   },
   created() {
     this.defaultOptions = Object.assign(this.defaultOptions, this.options)
@@ -48,8 +51,11 @@ export default {
   methods: {
     getData (url) {
       return GetWidgetsData.getData(url)
+    },
+    calculateHeight (height) {
+      this.height = height
     }
-  },
+  }
 }
 </script>
 
