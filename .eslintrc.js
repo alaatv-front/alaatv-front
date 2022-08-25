@@ -71,7 +71,15 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'prefer-promise-reject-errors': 'off',
     "vue/max-attributes-per-line": 'error',
-    "vue/html-indent": 'error',
+    // "vue/html-indent":  ["error", 2, {
+    //   "attribute": 1,
+    //   "baseIndent": 1,
+    //   "closeBracket": 0,
+    //   // "closeBracket.endTag": 8,
+    //   "alignAttributesVertically": true,
+    //   "ignores": []
+    // }],
+     "vue/html-indent": "error",
     "vue/html-closing-bracket-spacing": 'error',
     // " vue/block-tag-newline": 'error',
     'vue/multi-word-component-names': 'off',

@@ -30,24 +30,27 @@ export default {
                       }
                     ],
                     options: {
-                      col: 'col-md-3'
+                      className: 'col-md-3 q-pr-md '
                     }
                   },
                   {
                     widgets: [
                       {
-                        name: 'profile',
+                        name: 'profile-crud',
                         data: { test: 'test' },
                         options: { test: 'test' }
                       }
                     ],
                     options: {
-                      col: 'col-md-9'
+                      className: 'col-md-9 q-pl-md'
                     }
                   }
                 ],
                 options: {
-                  className: 'boxed'
+                  boxed: true,
+                  style: {
+                    marginTop: '30px'
+                  }
                 }
               }
             ]
@@ -66,11 +69,7 @@ export default {
       })
     }
   },
-  methods: {
-    test() {
-      // return this.$store.getters['Auth']
-    }
-  },
+  methods: {},
   computed: {
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
