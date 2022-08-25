@@ -158,12 +158,13 @@
 import L, { CRS, latLng } from 'leaflet'
 import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl, LControlZoom } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { MapItemList } from 'src/models/MapItem'
+import { MapItem, MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
 import adminToolBox from 'components/Widgets/Map/AdminToolBox'
 import MapFilters from './components/MapFilters'
 import { copyText } from 'vue3-clipboard'
 import { MapItemAction } from 'src/models/MapItemAction'
+import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'BaseMap',
@@ -388,31 +389,7 @@ export default {
       })
     },
 
-    onAddMarker (event, item) {
-      console.log('onAddMarker', {
-        event,
-        item
-      })
-    },
-    onClickedMarker (event, item) {
-      // console.log('onClickedMarker', { event, item })
-    },
-    onAddPolyline (event, item) {
-      // console.log('onAddPolyline', { event, item })
-    },
-    onClickedPolyline (event, item) {
-      // console.log('onClickedPolyline', { event, item })
-    },
 
-    addMarker () {
-      L.circleMarker([54.990303, -8.525841], {
-        color: 'red',
-        fillColor: '#b6253e',
-        fillOpacity: 0.5,
-        radius: 500
-      })
-        .addTo(this.$refs.lMap.root)
-    },
     initMap () {
       this.setCRS()
       this.setBounds()
@@ -472,7 +449,15 @@ export default {
     boundsUpdated (bounds) {
       this.$emit('update:bounds', bounds)
     },
-    saveMapItem(data) {
+     saveMapItem () {
+      let newMapItem = new MapItem(this.adminToolBox.marker);
+      this.$axios.post(API_ADDRESS.map.items, newMapItem)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(e => {
+          console.log(e)
+        })
     },
     deleteAdminMapItem(data) {
     },

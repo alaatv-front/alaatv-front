@@ -80,7 +80,7 @@
         />
         <q-btn class="btns btn-info"
                icon="isax:save-remove"
-               @click="saveData"
+               @click="saveMarker"
         />
         <q-btn class="btns btn-danger"
                icon="isax:trash"
@@ -189,7 +189,7 @@ export default {
         },
         {
           type: 'formBuilder',
-          name: 'formBuilderCol',
+          name: 'formBuilderCol2',
           col: 'col-md-6',
           value: [
             {
@@ -561,6 +561,23 @@ export default {
         this.updateItem()
       }
     },
+    tags: {
+      handler (tags) {
+        this.bufferMarker.tags=tags
+        this.updateItem()
+      }
+    },
+    enable: {
+      handler (newValue) {
+        this.bufferMarker.enable=newValue
+        this.updateItem()
+      }
+    },
+    entity: {
+      handler (EntityData) {
+        this.bufferMarker.entity = EntityData
+      }
+    },
   },
   computed: {
     activeMapItem () {
@@ -607,7 +624,19 @@ export default {
     },
     action () {
       return this.getInputsValue('action')
-    }
+    },
+    tags () {
+      const formBuilderCol = this.getInputsValue('formBuilderCol')
+      return formBuilderCol.find(item => item.name === 'tags').value
+    },
+    enable () {
+      const formBuilderCol = this.getInputsValue('formBuilderCol2')
+      return formBuilderCol.find(item => item.name === 'enable').value
+    },
+    entity () {
+      const formBuilderCol = this.getInputsValue('formBuilderCol2')
+      return formBuilderCol.find(item => item.name === 'entity').value
+    },
   },
   created () {
     this.bufferMarker = this.marker
@@ -640,9 +669,11 @@ export default {
     addMarker () {
       this.$emit('add_marker', this.marker)
     },
-    saveData () {
-      this.getInputValue('markerInputs', 'activityType')
+    saveMarker() {
+        this.$emit('save_marker', this.marker);
+        // this.clearData();
     },
+
     getInputValue (type, inputName) {
       return this[type].find(input => input.name === inputName).value
     },
