@@ -35,7 +35,11 @@
                   title="Configure Layout Parts"
                   :icon="mdiCog"
                   class="q-pb-lg">
-            <div class="q-mb-md text-grey-8">Layout "View"</div>
+            <div class="q-mb-md text-grey-8">
+              Layout "View"
+              <br/>
+              {{ layoutView }}
+            </div>
 
             <div class="q-mb-lg rounded-borders overflow-hidden shadow-2">
               <div class="row">
@@ -356,12 +360,10 @@ export default {
     },
     'pick.left': function (newValue) {
       this.updateLayoutLeftDrawer(newValue)
-      this.localStorageData.layoutLeftDrawer = newValue
     },
     'play.left': function (newValue) {
       if (this.layoutLeftDrawer) {
         this.updateLayoutLeftDrawerVisible(newValue)
-        this.localStorageData.layoutLeftDrawerVisible = newValue
       }
     },
     'cfg.leftBehavior': function (newValue) {

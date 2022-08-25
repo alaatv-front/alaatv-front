@@ -25,12 +25,12 @@
                           name: 'ContentVideoPlayer',
                           data: this.$route.params.id,
                           options: {
-                            getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                            getData: (url) => GetWidgetsData.getData(url)
                           }
                         }
                       ],
                       options: {
-                        className: 'col-12 col-xs-12 col-sm-12 col-md-8'
+                        className: 'col-12 col-xs-12 col-sm-12 col-md-8',
                       }
                     },
                     {
@@ -39,19 +39,22 @@
                           name: 'ContentVideoList',
                           data: this.$route.params.id,
                           options: {
-                            getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                            getData: (url) => GetWidgetsData.getData(url)
                           }
                         }
                       ],
                       options: {
                         className: 'col-12 col-xs-12 col-sm-12 col-md-4',
-                        style:{
+                        style: {
                           paddingBottom: '16px'
                         }
                       }
                     }
                   ],
                   options: {
+                    style:{
+                      marginTop: '16px'
+                    },
                     boxed: true
                   }
                 },
@@ -63,7 +66,7 @@
                           name: 'ContentShowInfo',
                           data: this.$route.params.id,
                           options: {
-                            getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                            getData: (url) => GetWidgetsData.getData(url)
                           }
                         }
                       ],
@@ -77,7 +80,7 @@
                           name: 'ContentDownloadSection',
                           // data: this.$route.params.id,
                           options: {
-                            getData: (url) => GetWidgetsData.getData(this.$axios, url)
+                            getData: (url) => GetWidgetsData.getData(url)
                           }
                         }
                       ],

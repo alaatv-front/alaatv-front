@@ -31,21 +31,17 @@ export function breadcrumbsVisibility (state) {
   return state.breadcrumbs.visible
 }
 
-export function appLayout (state) {
-  return state.appLayout
-}
-
 export function headerSize (state) {
   return state.headerSize
 }
 
 export function calculateContainerFullHeight (state) {
-  let offset=0;
+  let offset = 0
   // if there is a header
   if (state.layoutHeader || state.appBar) {
-    offset = state.headerSize.height;
+    offset = state.headerSize.height
   }
   // implemented when footer part added to project
-  let calculatedHeight = `calc(100vh - ${offset}px)`;
+  const calculatedHeight = `calc(100vh - ${offset}px)`
   return calculatedHeight
 }

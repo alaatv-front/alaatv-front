@@ -4,58 +4,17 @@
     :data="widget.data"
     :options="widget.options"
     :containerFullHeight="containerFullHeight"
+    :get-data="getData"
   />
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins'
-const requireContext = require.context(
-  'components/Widgets/',
-  true,
-  /\.vue$/i,
-  'lazy'
-)
-let componentsData = requireContext
-  .keys()
-  .map((file) => {
-    let path = file
-    let crush = file.split('/')
-    // first element is always a dot so remove it.
-    crush.shift()
-    // removing the dot and name of component, so remain will be the path of component.
-    // used for registering dynamically.
-    path = path.replace('.', '')
-    path = path.replace(crush[crush.length - 1], '')
-    // removing vue from the name of component.
-    crush[crush.length - 1] = crush[crush.length - 1].replace(
-      /(^.\/)|(\.vue$)/g,
-      ''
-    )
-    return {
-      name: crush[crush.length - 1],
-      path,
-      depth: crush.length - 1,
-      lastFolderName: crush[crush.length - 2]
-    }
-  })
-  .filter((c) => {
-    // due to standard of making widgets, only files with same name to folder will rendered.
-    // others assume to dependencies which main file will handle.
-    if (c.name == c.lastFolderName) {
-      return c
-    }
-  })
+import { componentsData } from 'src/boot/page-builder'
 
 // generating define async imports
-let components = {}
-componentsData.forEach((component) => {
-  components[component.name] = defineAsyncComponent(() => {
-    return import(
-      'components/Widgets' + component.path + component.name + '.vue'
-    )
-  })
-})
+const components = {}
 
 components.PageBuilderSection = defineAsyncComponent(() =>
   import('./PageBuilderSection.vue')
@@ -71,11 +30,22 @@ export default {
       default: () => {
         return {}
       }
+    },
+    getData: {
+      type: Function,
+      default: () => {}
     }
   },
   mixins: [mixinWidget],
   created() {},
-  data() {
+  setup() {
+    componentsData.forEach((component) => {
+      components[component.name] = defineAsyncComponent(() => {
+        return import(
+          'components/Widgets' + component.path + component.name + '.vue'
+        )
+      })
+    })
     return {}
   }
 }

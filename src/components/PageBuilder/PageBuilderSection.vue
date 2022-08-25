@@ -5,11 +5,13 @@
     :id="defaultOptions.id"
     :style="style"
   >
-    <page-builder-row  v-for="(row, rowIndex) in data.rows"
-                       :key="rowIndex"
-                       :cols="row.cols"
-                       :options="row.options"
-                       :containerFullHeight="containerFullHeight"
+    <page-builder-row
+      v-for="(row, rowIndex) in data.rows"
+      :key="rowIndex"
+      :cols="row.cols"
+      :options="row.options"
+      :containerFullHeight="containerFullHeight"
+      :get-data="getData"
     />
   </div>
 </template>
@@ -17,7 +19,6 @@
 <script>
 import PageBuilderRow from './PageBuilderRow.vue'
 import { mixinWidget } from 'src/mixin/Mixins'
-
 
 export default {
   name: 'PageBuilderSection',
@@ -32,6 +33,10 @@ export default {
         return {}
       }
     },
+    getData: {
+      type: Function,
+      default: () => {}
+    }
   },
   data () {
     return {
@@ -52,24 +57,24 @@ export default {
     windowWidth () {
       return this.windowSize.x
     },
-    windowHeight(){
+    windowHeight() {
       return this.windowSize.y
-    },
+    }
   },
   watch: {
     windowWidth () {
       this.setFullHeight()
     },
-    windowHeight(){
+    windowHeight() {
       this.setFullHeight()
     }
 
   },
   methods: {
-    setFullHeight (){
-      if(!this.defaultOptions.fullHeight) return;
-      this.defaultOptions.style.minHeight += this.containerFullHeight;
-    },
+    setFullHeight () {
+      if (!this.defaultOptions.fullHeight) return
+      this.defaultOptions.style.minHeight += this.containerFullHeight
+    }
   }
 }
 </script>

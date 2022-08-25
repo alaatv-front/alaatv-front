@@ -2,7 +2,7 @@
   <entity-create
     ref="EntityCreate"
     v-model:value="inputs"
-    :title=this.depart.title
+    :title=this.department.title
     :api="api"
     :entity-id-key-in-response="entityIdKeyInResponse"
     :show-route-param-key="showRouteParamKey"
@@ -20,9 +20,10 @@
         >
           <q-card
             class="flex justify-center">
-            <div v-for="(item, index) in departments"
+            <div v-for="(department, index) in departments"
                  :key="index"
-                 @click="selectDepartment(item)"
+                 v-close-popup
+                 @click="selectDepartment(department)"
                  class="departmentForSelect col-2 q-my-md ">
               <q-btn
                 flat
@@ -31,7 +32,7 @@
               />
               <div
                 class="departmentTitle flex justify-center"
-                v-html="item.title"
+                v-html="department.title"
               />
             </div>
           </q-card>
@@ -45,19 +46,16 @@
     <SendMessageInput
       ref="SendMessageInput"
       :send-loading="sendLoading"
-      @sendText="sendText"
-      @sendImage="sendImage"
-      @sendVoice="sendVoice"
+      @creatTicket="sendTicket"
     />
   </div>
 
 </template>
 
 <script>
-import SendMessageInput from 'components/SendMessageInput'
+import SendMessageInput from 'components/Ticket/SendMessageInput'
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-// import { TicketMessage } from 'src/models/TicketMessage'
 
 export default {
   name: 'Create',
@@ -67,18 +65,15 @@ export default {
   },
   data () {
     return {
-      canPost: true,
       sendLoading: null,
       showDialog: true,
       expanded: true,
-      priority_id: null,
-      formData: null,
       api: API_ADDRESS.ticket.create.base,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Ticket.Show',
       indexRouteName: 'Admin.Ticket.Index',
-      depart: {
+      department: {
         id: 0,
         title: 'دپارتمان'
       },
@@ -148,6 +143,7 @@ export default {
               type: 'toggleButton',
               name: 'priority_id',
               responseKey: 'data.priority',
+              value: '',
               options: [
                 {
                   label: 'کم',
@@ -175,98 +171,44 @@ export default {
 
           ]
 
-        },
-        {
-          name: 'department_id',
-          type: 'hidden',
-          value: 0
-        },
-        {
-          name: 'photo',
-          type: 'hidden',
-          value: ''
-        },
-        {
-          name: 'body',
-          type: 'hidden',
-          value: ''
-        },
-        {
-          name: 'voice',
-          type: 'hidden',
-          value: ''
-        },
-        {
-          name: 'is_private',
-          type: 'hidden',
-          value: 0
         }
-
       ],
       beforeFormBuilder: true,
       afterFormBuilder: true
     }
   },
-  created () {
-  },
 
   methods: {
-
-    showMessagesInNotify (message, type) {
-      if (!type) {
-        type = 'negative'
-      }
-      this.$q.notify({
-        type,
-        message
+    showMessagesInNotify (messages, type) {
+      messages.forEach((message) => {
+        this.$q.notify({
+          // ...(message.type && { type: message.type }),
+          type: type || 'negative',
+          message
+        })
       })
     },
 
-    checkValues () {
-      this.$refs.EntityCreate.getValues().forEach(item => {
-        if (item.type === 'toggleButton') {
-          if (item.value) {
-            this.priority_id = item.value
-            return
-          }
-          this.showMessagesInNotify('<اولویت> پیام خود را انتخاب کنید')
-          this.canPost = false
-        } else this.canPost = true
-      })
-      if (!!this.inputs[0].value === false) {
-        this.showMessagesInNotify('پر کردن فیلد <عنوان> ضروری میباشد')
-        this.canPost = false
-      } else this.canPost = true
+    getInputsValue (inputName) {
+      return this.inputs.find(input => input.name === inputName).value
     },
 
-    createTicket (formData) {
-      if (this.canPost) {
-        this.sendLoading = true
-        this.$axios.post(this.api, formData)
-          .then(res => {
-            console.log(res)
-            this.$refs.SendMessageInput.clearMessage()
-            this.showMessagesInNotify('تیکت شما با موفقیت ایجاد شد', 'positive')
-            this.sendLoading = false
-          })
-          .catch(error => {
-            this.sendLoading = false
-            console.log(error)
-          })
+    hasRequiredField () {
+      const errorMessages = []
+      if (!this.getInputsValue('title')) {
+        errorMessages.push('پر کردن فیلد <عنوان> ضروری میباشد')
       }
+      const formBuilderCol = this.getInputsValue('formBuilderCol')
+      const toggleButton = formBuilderCol.find(item => item.name === 'priority_id').value
+      if (!toggleButton) {
+        errorMessages.push('<اولویت> پیام خود را انتخاب کنید')
+      }
+      this.showMessagesInNotify(errorMessages)
+      return !errorMessages.length > 0
     },
 
-    sendMessage (data) {
-      this.checkValues()
-
+    setTicketFormData (data) {
       const formData = new FormData()
-
-      // this.$refs.EntityCreate.getValues().forEach(input => {
-      //   if (input.name === 'photo') {
-      //     input.value = data.photo
-      //     console.log(input.value)
-      //   }
-      // })
 
       if (data.photo) {
         formData.append('photo', data.photo, 'photo.jpeg')
@@ -289,42 +231,44 @@ export default {
         formData.append('is_private', 1)
       }
 
-      formData.append('department_id', this.depart.id)
-      formData.append('title', this.inputs[0].value)
-      formData.append('priority_id', this.priority_id)
+      formData.append('department_id', this.department.id)
 
-      // const newTicket = new TicketMessage()
-      // if (this.canPost) {
-      //   newTicket.create(formData, this.api)
-      //   this.sendLoading = false
-      // }
-      this.createTicket(formData)
+      formData.append('title', this.getInputsValue('title'))
+
+      const formBuilderCol = this.getInputsValue('formBuilderCol')
+      const priorityId = formBuilderCol.find(item => item.name === 'priority_id').value
+      formData.append('priority_id', priorityId)
+
+      return formData
     },
 
-    sendText (data) {
-      this.sendMessage({
-        body: data.body,
-        isPrivate: data.isPrivate,
-        loading: data.loading
-      })
+    sendTicket (data) {
+      if (!this.hasRequiredField()) {
+        return
+      }
+      const formData = this.setTicketFormData(data)
+      this.sendCreateTicketReq(formData)
     },
 
-    sendImage (data) {
-      this.sendMessage({
-        body: data.caption,
-        isPrivate: data.isPrivate,
-        photo: this.createBlob(data.resultURL),
-        loading: data.loading
-      })
+    async sendCreateTicketReq (formData) {
+      this.sendLoading = true
+      try {
+        const response = await this.callSendApi(formData)
+        this.$refs.SendMessageInput.clearMessage()
+        this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
+        this.sendLoading = false
+        await this.$router.push({
+          name: 'Admin.Ticket.Show',
+          params: { id: response.data.data.id }
+        })
+      } catch (e) {
+        console.log(e)
+        this.sendLoading = false
+      }
     },
 
-    sendVoice (data) {
-      this.sendMessage({
-        voice: data.voice,
-        isPrivate: data.isPrivate,
-        loading: data.loading
-
-      })
+    callSendApi (formData) {
+      return this.$axios.post(this.api, formData)
     },
 
     createBlob (dataURL) {
@@ -349,14 +293,8 @@ export default {
       return new Blob([uInt8Array], { type: contentType })
     },
 
-    selectDepartment (item) {
-      this.depart = item
-      this.$refs.EntityCreate.getValues().forEach(input => {
-        if (input.name === 'department_id') {
-          input.value = this.depart.id
-        }
-      })
-      this.showDialog = false
+    selectDepartment (department) {
+      this.department = department
     }
   }
 }
