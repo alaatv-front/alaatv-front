@@ -23,63 +23,61 @@
 
 <script>
 
-  import {CartItem} from 'src/models/CartItem'
+import { OrderProduct } from 'src/models/OrderProduct'
 
-  export default {
-    name: 'CartItemsGrandMode',
-    props: {
-      cartItem: {
-        type: Object,
-        default() {
-          return new CartItem()
-        }
-      }
-    },
-    data() {
-      return {
-        loading: false,
-      }
-    },
-    methods: {
-      deleteItem() {
-      },
+export default {
+  name: 'CartItemsGrandMode',
+  props: {
+    cartItem: {
+      type: OrderProduct,
+      default: new OrderProduct()
     }
-
+  },
+  data() {
+    return {
+      loading: false
+    }
+  },
+  methods: {
+    deleteItem() {
+    }
   }
+
+}
 </script>
 
 <style lang="scss" scoped>
-  .cart-item-grand-mode {
-    background: #FFFFFF;
-    //opacity: 0.3;
-    border: 2px solid #ededed;
-    border-radius: 10px;
-    padding: 10px 16px;
-    margin-bottom: 10px;
+.cart-item-grand-mode {
+  background: #FFFFFF;
+  //opacity: 0.3;
+  border: 2px solid #ededed;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  color: #575962;
+
+  .group {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: right;
     color: #575962;
 
-    .group {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 20px;
-      text-align: right;
-      color: #575962;
+    .price {
+      margin-right: 10px;
+    }
 
-      .price {
-        margin-right: 10px;
-      }
-
-      .delete-btn {
-        background: #f2f2f2;
-      }
+    .delete-btn {
+      background: #f2f2f2;
     }
   }
+}
 </style>
 <style lang="scss">
-  .cart-item-grand-mode {
-    .q-btn .q-icon, .q-btn .q-spinner {
-      font-size: 1.33em;
-    }
+.cart-item-grand-mode {
+  .q-btn .q-icon, .q-btn .q-spinner {
+    font-size: 1.33em;
   }
+}
 </style>
