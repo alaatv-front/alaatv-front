@@ -1,29 +1,37 @@
-import {Model, Collection} from 'js-abstract-model'
+import { Model, Collection } from 'js-abstract-model'
 import Price from './Price'
-import {Coupon} from './Coupon'
-import {CartItem, CartItemList} from './CartItem'
+import { Coupon } from './Coupon'
+import { CartItem, CartItemList } from './CartItem'
 
 class Cart extends Model {
-
-  constructor(data) {
+  constructor (data) {
     super(data, [
-      {key: 'id'},
       {
         key: 'couponInfo',
-        relatedModel: Coupon,
+        relatedModel: Coupon
       },
       {
-        key: 'cartItems',
-        relatedModel: CartItemList,
+        key: 'items',
+        relatedModel: CartItemList
       },
       {
         key: 'price',
-        relatedModel: Price,
+        relatedModel: Price
       },
-    ]);
+      { key: 'pay_by_wallet' },
+      { key: 'coupon' },
+      {
+        key: 'order_has_donate',
+        default: false
+      },
+      { key: 'count' },
+      { key: 'redirect_to_gateway' }
+
+    ])
   }
+
   addToCart (product) {
-    if (this.cartItems.list.find(item => item.product.id === product.id)){
+    if (this.cartItems.list.find(item => item.product.id === product.id)) {
       // ToDo
       // if (canIncreaseQuantity) {
       //     this.cartItems.list.find(item => item.product.id === product.id).quantity++
@@ -34,14 +42,17 @@ class Cart extends Model {
     this.changeCartItems()
     return this.cartItems.list.find(item => item.product.id === product.id).quantity
   }
+
   removeItem (cartId) {
     this.cartItems.list = this.cartItems.list.filter(item => item.id !== cartId)
     this.changeCartItems()
   }
+
   removeAllItems () {
     this.cartItems.list = []
     this.changeCartItems()
   }
+
   calculateTotalFinalPrice () {
     let finalPrice = 0
     this.cartItems.list.forEach(item => {
@@ -49,6 +60,7 @@ class Cart extends Model {
     })
     this.price.final = finalPrice
   }
+
   calculateTotalBasePrice () {
     let basePrice = 0
     this.cartItems.list.forEach(item => {
@@ -56,16 +68,19 @@ class Cart extends Model {
     })
     this.price.base = basePrice
   }
+
   calculateTotalDiscount () {
     let totalDiscount = 0
     this.cartItems.list.forEach(item => {
-      totalDiscount  += item.product.price.discount
+      totalDiscount += item.product.price.discount
     })
     this.price.discount = totalDiscount
   }
+
   isEmpty () {
     return !this.cartItems.list.length
   }
+
   changeCartItems () {
     this.calculateTotalFinalPrice()
     this.calculateTotalDiscount()
@@ -74,8 +89,9 @@ class Cart extends Model {
 }
 
 class CartList extends Collection {
-  model() {
-    return Cart;
+  model () {
+    return Cart
   }
 }
-export {Cart, CartList};
+
+export { Cart, CartList }
