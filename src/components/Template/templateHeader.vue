@@ -34,7 +34,7 @@
       <q-btn
         flat
         icon="isax:shopping-cart"
-        :to="{ name: 'User.Checkout' }"
+        :to="{ name: 'User.Checkout.Review' }"
       />
       <q-btn
         v-if="user.id !== null"
@@ -59,16 +59,6 @@
               v-close-popup
             >
               <q-item-section>فیلم ها و جزوه های من</q-item-section>
-            </q-item>
-            <q-item
-              :to="{
-                name: 'User.Dashboard.favorites',
-                params: { id: user.id }
-              }"
-              clickable
-              v-close-popup
-            >
-              <q-item-section>علاقه مندی های من</q-item-section>
             </q-item>
             <q-item
               clickable
@@ -156,26 +146,31 @@ export default {
     width: 100%;
     padding: 0 15px;
   }
+
   .right-side {
     display: flex;
     flex-flow: row;
     justify-content: flex-start;
     align-items: center;
+
     .btn-logo-icon {
       :deep(.q-btn__content) {
         margin: 0;
       }
     }
+
     .q-list {
       display: flex;
       flex-flow: row;
       justify-content: flex-start;
       align-items: center;
+
       .q-item {
         min-height: 40px;
       }
     }
   }
+
   .left-side {
     display: flex;
     flex-flow: row;

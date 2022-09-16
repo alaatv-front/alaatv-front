@@ -52,39 +52,8 @@ const routes = [
         name: 'User.Content',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          {
-            name: 'User.Content.Show',
-            path: ':id',
-            component: () => import('pages/User/Content/Show.vue')
-          },
-          {
-            name: 'User.Content.Search',
-            path: '',
-            component: () => import('pages/User/Content/Search.vue')
-          }
-        ]
-      },
-      {
-        path: 'User',
-        name: 'User.Dashboard',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
-          {
-            name: 'User.Dashboard.purchases',
-            path: ':id/dashboard/MyPurchases',
-            meta: {
-              middlewares: [auth]
-            },
-            component: () => import('pages/User/Dashboard/MyPurchases')
-          },
-          {
-            name: 'User.Dashboard.favorites',
-            path: ':id/dashboard/MyFavorites',
-            meta: {
-              middlewares: [auth]
-            },
-            component: () => import('pages/User/Dashboard/MyFavorites')
-          }
+          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') },
+          { name: 'User.Content.Search', path: '', component: () => import('pages/User/Content/Search.vue') }
         ]
       },
       {
@@ -92,11 +61,7 @@ const routes = [
         name: 'User.Product',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          {
-            name: 'User.Product.Show',
-            path: ':id',
-            component: () => import('pages/User/Product/Show.vue')
-          }
+          { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
         ]
       },
       {
@@ -104,11 +69,7 @@ const routes = [
         name: 'User.Set',
         component: () => import('layouts/bareLayout.vue'),
         children: [
-          {
-            name: 'User.Set.Show',
-            path: ':id',
-            component: () => import('pages/User/Set/Show.vue')
-          }
+          { name: 'User.Set.Show', path: ':id', component: () => import('pages/User/Set/Show.vue') }
         ]
       },
       {
@@ -143,17 +104,8 @@ const routes = [
           middlewares: [auth]
         },
         children: [
-          {
-            name: 'Admin.Settings',
-            path: 'settings',
-            component: () => import('pages/Admin/Settings'),
-            breadcrumbs: { title: 'تنظیمات' }
-          },
-          {
-            name: 'Admin.StudyPlan',
-            path: 'studyPlan',
-            component: () => import('pages/Admin/StudyPlan/StudyPlan')
-          },
+          { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
+          { name: 'Admin.StudyPlan', path: 'studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
           ...EntityCrudRoutes
         ]
       },
@@ -198,7 +150,8 @@ const routes = [
   {
     path: '/:catchAll(.*)*',
     name: 'NotFound',
-    component: () => import('pages/Error404.vue')
+    component:
+  () => import('pages/Error404.vue')
   }
 ]
 export default routes

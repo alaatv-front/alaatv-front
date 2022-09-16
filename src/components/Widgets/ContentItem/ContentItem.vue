@@ -3,7 +3,7 @@
     <router-link
       :to="{
         name: 'User.Content.Show',
-        params: { id: content.id, title: content.title }
+        params: { id: content.id? content.id:-1, title: content.title }
       }"
     >
       <div class="img-box">
@@ -54,12 +54,14 @@ export default {
   display: flex;
   align-items: center;
 }
+
 .info-box {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
+
 .play-btn {
   display: flex;
   align-items: center;
@@ -73,6 +75,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
+
   .play-icon {
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAUCAYAAABvVQZ0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADKSURBVHgBrdRdDcIwFAXgO4KASagFHGwOwEFxABJQMFAwCzjoJOCASpiDci60SyF0W39Och62Nd9u2qREiDGmQU+ooJwwYL7TJ6N2on+JRjdoHfgmUcU/owhsLgLtAD5RSZmYj/YWbXIxH1Wh/YzFXCTKU3Y+moq58OEoB+ZiHMFgKWxKCUyjhxLYDd1VVfXghy2lZUCPQLT/MnayAW2BtL8QRUym0TOA+9yiJWykz75cAY0La99YaNFlLTLF3rJlLkcL7u0lWVNGXs6ulXAPwEiJAAAAAElFTkSuQmCC');
     height: 19px;
@@ -80,9 +83,11 @@ export default {
     margin-right: 5px;
   }
 }
+
 .q-card {
   min-width: 318px;
 }
+
 .teacher-name {
   font-style: normal;
   font-weight: 400;
@@ -93,15 +98,18 @@ export default {
   color: #656f7b;
   margin-left: 8px;
 }
+
 .price-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .btn-green {
   background: #4caf50;
   color: white;
 }
+
 .content-item-box {
   display: flex;
   flex-direction: column;
@@ -112,25 +120,30 @@ export default {
   position: relative;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
-    2px 4px 10px rgba(46, 56, 112, 0.05);
+  2px 4px 10px rgba(46, 56, 112, 0.05);
   background-color: #ffffff;
   top: 0;
   transition: all ease 0.5s;
+
   &:hover {
     box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
-      5px 5px 20px rgba(0, 0, 0, 0.1);
+    5px 5px 20px rgba(0, 0, 0, 0.1);
     top: -10px;
+
     .img-box .img-videos {
       opacity: 0.6;
     }
   }
+
   &:hover .play-btn {
     opacity: 1;
     background: #ffc107;
     transition: opacity ease 0.5s;
   }
+
   .img-box {
     position: relative;
+
     .img-title-container {
       border-radius: inherit;
       box-shadow: none;
@@ -141,6 +154,7 @@ export default {
         border-radius: 20px 20px 0 0;
       }
     }
+
     .img-videos {
       background: #000000;
       color: white;
@@ -172,6 +186,7 @@ export default {
       a {
         margin-bottom: 0;
       }
+
       .title-text {
         font-weight: 500;
         font-size: 14px;
@@ -275,6 +290,7 @@ export default {
         color: white;
         font-size: 14px;
         letter-spacing: -0.03em;
+
         img {
           width: 15px;
           height: 15px;
@@ -396,6 +412,7 @@ export default {
 
     .img-box {
       width: 100px;
+
       img {
         border-radius: 10px;
       }
@@ -459,6 +476,7 @@ export default {
           width: 100px;
           height: 25px !important;
           border-radius: 8px;
+
           img {
             margin-left: 0;
           }

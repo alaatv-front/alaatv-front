@@ -3,7 +3,7 @@
     <router-link
       :to="{
         name: 'User.Set.Show',
-        params: { id: set.id, title: set.title }
+        params: { id: set.id? set.id:-1, title: set.title }
       }"
     >
       <div class="img-box">
