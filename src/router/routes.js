@@ -119,6 +119,11 @@ const routes = [
         }
       },
       {
+        path: '/form-generator',
+        name: 'formGenerator',
+        component: () => import('pages/formGenerator')
+      },
+      {
         path: 'profile',
         name: 'Profile',
         component: () => import('pages/Profile/Profile.vue'),
