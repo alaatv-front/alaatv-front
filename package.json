@@ -23,7 +23,7 @@
     "@xkeshi/image-compressor": "^0.5.3",
     "axios": "^0.27.2",
     "copy-webpack-plugin": "^10.2.4",
-    "core-js": "^3.24.1",
+    "core-js": "^3.25.0",
     "cropperjs": "^1.5.12",
     "crud": "^0.0.28",
     "dotenv": "^16.0.1",
