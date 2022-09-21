@@ -51,7 +51,7 @@
     "videojs-brand": "^0.0.4",
     "videojs-hotkeys": "^0.2.27",
     "videojs-playlist": "^5.0.0",
-    "vue": "^3.2.37",
+    "vue": "^3.2.38",
     "vue-advanced-cropper": "^2.8.3",
     "vue-audio-visual": "^2.5.0",
     "vue-dragscroll": "^3.0.1",
