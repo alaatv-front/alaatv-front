@@ -5,11 +5,12 @@
                       :items="items" />
     </div>
     <div class="side-box col-md-4 col-12 column">
-      <donate />
-      <checkout-review-cart v-if="items && items.length > 0"
-                            :final-price="finalPrice"
-                            :items="items" />
-      <Login v-else />
+      <sticky-both-sides>
+        <donate />
+        <checkout-review-cart v-if="items && items.items.list.length>0"
+                              :items="items" />
+        <Login v-else />
+      </sticky-both-sides>
     </div>
   </div>
 </template>
@@ -22,14 +23,21 @@ import Donate from 'components/Widgets/CheckoutReview/SideComponents/Donate'
 import API_ADDRESS from 'src/api/Addresses'
 // import Login from 'pages/Auth/Login'
 import Login from 'components/Widgets/CheckoutReview/SideComponents/Login'
+import { Cart } from 'src/models/Cart'
+import StickyBothSides from 'components/Utils/StickyBothSides'
 
 export default {
   name: 'CheckoutReview',
-  components: { Login, Donate, CartItemList, CheckoutReviewCart },
+  components: { StickyBothSides, Login, Donate, CartItemList, CheckoutReviewCart },
+  props: {
+    data: {
+      type: Cart,
+      default: new Cart()
+    }
+  },
   data() {
     return {
-      items: [],
-      finalPrice: 0
+      items: new Cart()
     }
   },
   mounted() {
@@ -39,8 +47,7 @@ export default {
     checkoutReview() {
       this.$axios.get(API_ADDRESS.cart.review)
         .then((res) => {
-          this.items = res.data.data.items
-          // console.log(this.items)
+          this.items = new Cart(res.data.data)
         })
         .catch((err) => {
           console.log(err)
