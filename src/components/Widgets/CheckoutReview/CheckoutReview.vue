@@ -37,11 +37,14 @@ export default {
   },
   data() {
     return {
-      items: new Cart()
+      items: new Cart(),
+      top: 0,
+      bottom: 0
     }
   },
   mounted() {
     this.checkoutReview()
+    // this.calcGapTopAndBottom()
   },
   methods: {
     checkoutReview() {
@@ -52,6 +55,11 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    calcGapTopAndBottom() {
+      this.top = this.$refs.sticky.style.getBoundingClientRect().top
+      this.bottom = this.$refs.sticky.style.getBoundingClientRect().bottom
+      console.log(this.top)
     }
   }
 }
