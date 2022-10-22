@@ -8,9 +8,8 @@
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 import API_ADDRESS from 'src/api/Addresses'
-import GetWidgetsData from 'assets/js/GetWidgetsData'
+import PageBuilder from 'components/PageBuilder/PageBuilder'
 
 export default {
   name: 'BaseComponent',

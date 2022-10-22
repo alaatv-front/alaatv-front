@@ -2,16 +2,14 @@
   <page-builder
     :sections="sections"
     :options="options"
-    :containerFullHeight="calculateHeightStyle"
   ></page-builder>
 </template>
 
 <script>
-import pageBuilder from 'src/components/PageBuilder/PageBuilder'
 
 export default {
   name: 'debug',
-  components: { pageBuilder },
+  components: { },
   mixins: [],
   data() {
     return {

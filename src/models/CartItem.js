@@ -1,40 +1,26 @@
-import {Model, Collection} from 'js-abstract-model'
-import {Product} from './Product';
-import Price from './Price';
+import { Model, Collection } from 'js-abstract-model'
+import { Product } from './Product'
+import { OrderProductList } from 'src/models/OrderProduct'
 
 class CartItem extends Model {
-
-  constructor(data) {
+  constructor (data) {
     super(data, [
-      {key: 'id'},
-      {key: 'order_id'},
-      {key: 'orderproducttype'},
-      {key: 'purchased_coupon_code'},
-      {key: 'purchased_coupons'},
-      {key: 'quantity'},
       {
-        key: 'product',
-        relatedModel: Product,
+        key: 'grand',
+        relatedModel: Product
       },
       {
-        key: 'price',
-        relatedModel: Price,
-      },
-      {
-        key: 'quantity',
-        default: 1
+        key: 'order_product',
+        relatedModel: OrderProductList
       }
-    ]);
-    if (!this.id) {
-      this.id = this.product.id
-    }
+    ])
   }
 }
 
 class CartItemList extends Collection {
-  model() {
-    return CartItem;
+  model () {
+    return CartItem
   }
 }
 
-export {CartItem, CartItemList};
+export { CartItem, CartItemList }

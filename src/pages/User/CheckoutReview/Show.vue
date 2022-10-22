@@ -53,7 +53,7 @@ export default {
                     ],
                     options:{
                       style:{
-                        marginTop:'10px'
+                        marginTop:'16px'
                       }
                     }
                   }
