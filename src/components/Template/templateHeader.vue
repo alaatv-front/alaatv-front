@@ -86,6 +86,8 @@ import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'templateHeader',
+  components: {
+  },
   data() {
     return {}
   },
