@@ -52,7 +52,7 @@
 </template>
 <script>
 import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
-import { QuasarTemplateBuilder} from 'quasar-template-builder'
+import { QuasarTemplateBuilder } from 'quasar-template-builder'
 import templateHeader from 'components/Template/templateHeader'
 import Router from 'src/router/Router'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents'
