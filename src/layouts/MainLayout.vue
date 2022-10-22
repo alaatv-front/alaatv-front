@@ -1,9 +1,9 @@
 <template>
   <div class="main-layout">
-    <quasar-template-builder v-model:value="properties"
-                             @onResize="resize">
+    <quasar-template-builder
+      @onResize="resize">
       <template #header>
-        <template-header />
+        <template-header  v-if="getTemplateHeaderType === 'panel'" />
         <q-linear-progress
           v-if="$store.getters['loading/loading']"
           color="primary"
@@ -50,7 +50,6 @@
     </quasar-template-builder>
   </div>
 </template>
-
 <script>
 import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
 import { QuasarTemplateBuilder } from 'quasar-template-builder'
@@ -64,32 +63,15 @@ export default {
   data () {
     return {
       contentVerticalScrollPosition: 0,
-      keepAliveComponents: KeepAliveComponents,
-      properties: {
-        layoutView: 'hHh LpR fFf',
-        layoutHeader: true,
-        layoutHeaderVisible: true,
-        layoutHeaderReveal: false,
-        layoutHeaderElevated: false,
-        layoutHeaderBordered: false,
-        layoutLeftDrawer: true,
-        layoutLeftDrawerVisible: false,
-        layoutLeftDrawerOverlay: true,
-        layoutLeftDrawerElevated: true,
-        layoutLeftDrawerBordered: false,
-        layoutLeftDrawerWidth: 325,
-        layoutPageContainer: true,
-        layoutRightDrawer: false,
-        layoutFooter: false,
-        layoutHeaderCustomClass: 'main-layout-header row',
-        layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
-        layoutPageContainerCustomClass: 'main-layout-container'
-      }
+      keepAliveComponents: KeepAliveComponents
     }
   },
   computed: {
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
+    },
+    getTemplateHeaderType() {
+      return this.$store.getters['AppLayout/templateHeaderType']
     },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
