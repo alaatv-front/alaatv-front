@@ -47,6 +47,9 @@
           <Router :include="keepAliveComponents" />
         </div>
       </template>
+      <template v-slot:footer>
+        ALAA FOOTER
+      </template>
     </quasar-template-builder>
   </div>
 </template>
@@ -121,6 +124,9 @@ export default {
 .main-layout {
   :deep(.main-layout-container) {
     background-color: #f1f1f1;
+  }
+  .content-inside {
+    padding-top: 20px;
   }
 }
 </style>
