@@ -3,13 +3,76 @@ import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
     path: '/',
+    layoutConfig: {
+      layoutHeaderVisible: true,
+      layoutHeaderType: 'default',
+      layoutLeftDrawerVisible: true,
+      layoutLeftSideBarType: 'default',
+      layoutView: 'lHh Lpr lFf',
+      layoutHeader: true,
+      layoutHeaderReveal: false,
+      layoutHeaderElevated: false,
+      layoutHeaderBordered: false,
+      layoutLeftDrawer: true,
+      layoutLeftDrawerOverlay: false,
+      layoutLeftDrawerElevated: false,
+      layoutLeftDrawerBordered: false,
+      layoutLeftDrawerWidth: 325,
+      layoutLeftDrawerBehavior: 'default',
+      layoutPageContainer: true,
+      layoutRightDrawer: false,
+      layoutFooter: false,
+      layoutHeaderCustomClass: '',
+      layoutBreadcrumbsElements: [],
+      layoutBreadcrumbs: {
+        separator: 'home'
+      },
+      layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
+      layoutPageContainerCustomClass: 'main-layout-container'
+    },
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
         path: '',
         name: 'home',
+        layoutConfig: {
+          layoutHeaderVisible: true,
+          layoutHeaderType: 'panel',
+          layoutLeftDrawerVisible: true,
+          layoutLeftSideBarType: 'panel',
+          layoutView: 'lHh Lpr lFf',
+          layoutHeader: true,
+          layoutHeaderReveal: false,
+          layoutHeaderElevated: false,
+          layoutHeaderBordered: false,
+          layoutLeftDrawer: true,
+          layoutLeftDrawerOverlay: false,
+          layoutLeftDrawerElevated: false,
+          layoutLeftDrawerBordered: false,
+          layoutLeftDrawerWidth: 325,
+          layoutLeftDrawerBehavior: 'panel',
+          layoutPageContainer: true,
+          layoutRightDrawer: false,
+          layoutFooter: false,
+          layoutHeaderCustomClass: '',
+          layoutBreadcrumbsElements: [
+            {
+              title: 'fsdg'
+            },
+            {
+              title: 'vxdgvxsfg'
+            }
+          ],
+          layoutBreadcrumbs: {
+            separator: 'home'
+          },
+          layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
+          layoutPageContainerCustomClass: 'main-layout-container'
+        },
+        breadcrumbs: { title: 'خانه', loading: false, icon: 'home', route: { name: 'dashboard' } },
         component: () => import('pages/Home.vue')
       },
+
       {
         path: 'ticket',
         name: 'Admin.Ticket.Index',
