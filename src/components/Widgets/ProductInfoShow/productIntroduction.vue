@@ -13,7 +13,8 @@
         >
           <div class="product-info-inside q-ma-sm">
             <div class="info-header ">
-              <q-img :src="info.src" class="info-image"/>
+              <q-img :src="info.src"
+                     class="info-image" />
               <p class="info-title">
                 {{info.title}}
               </p>
@@ -21,13 +22,13 @@
             <div class="info-content">
               <div
                 v-for="(value , i) in info.value"
-                class="info-value col-6"
                 :key="i"
+                class="info-value col-6"
               >
                 <span v-if="value">{{ value }}</span>
                 <span v-else>
-                <q-skeleton width="100px"/>
-              </span>
+                  <q-skeleton width="100px" />
+                </span>
 
               </div>
             </div>
