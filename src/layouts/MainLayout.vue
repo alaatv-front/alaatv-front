@@ -3,7 +3,7 @@
     <quasar-template-builder
       @onResize="resize">
       <template #header>
-        <template-header  v-if="getTemplateHeaderType === 'panel'" />
+        <template-header  v-if="getTemplateHeaderType === 'main'" />
         <q-linear-progress
           v-if="$store.getters['loading/loading']"
           color="primary"
