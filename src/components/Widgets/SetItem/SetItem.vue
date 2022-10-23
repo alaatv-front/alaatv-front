@@ -18,8 +18,9 @@
           </div>
         </div>
         <div class="img-container">
-          <img
+          <q-img
             :src="set.photo"
+            class="img"
             alt="set"
           />
         </div>
@@ -34,7 +35,7 @@
     <div class="info-box">
       <div class="teacher-info">
         <div class="teacher-image">
-          <img
+          <q-img
             :src="set.author?.photo"
             alt="set"
           />
@@ -178,7 +179,7 @@ export default {
       box-shadow: none;
       width: 100%;
 
-      img {
+      .img {
         width: inherit;
         border-radius: 20px 20px 0 0;
       }
