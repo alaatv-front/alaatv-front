@@ -119,16 +119,7 @@ export default {
 
 <style lang="scss" scoped>
 .main-layout {
-  :deep(.q-header) {
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: row;
-    padding: 16px 0;
-  }
   :deep(.main-layout-container) {
-    background-color: #f1f1f1;
-  }
-  :deep(.main-layout-left-drawer) {
     background-color: #f1f1f1;
   }
 }
