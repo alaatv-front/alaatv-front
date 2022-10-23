@@ -359,7 +359,7 @@ export default {
       return API_ADDRESS.set.show(id)
     },
     goToChosenContent(contentId) {
-      console.log('contentId', contentId)
+      // console.log('contentId', contentId)
       this.$router.push({ name: 'User.Content.Show', params: { contentId } })
     },
     reorderContents() {

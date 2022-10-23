@@ -82,7 +82,9 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+
+import { User } from 'src/models/User'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'templateHeader',
@@ -92,14 +94,15 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters('Auth', ['user']),
-    ...mapGetters('AppLayout', [
-      'breadcrumbsVisibility',
-      'breadcrumbs',
-      'breadcrumbLoading',
-      'layoutLeftDrawerVisible',
-      'windowSize'
-    ])
+    layoutLeftDrawerVisible() {
+      return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
+    },
+    user () {
+      if (this.$store.getters['Auth/user']) {
+        return this.$store.getters['Auth/user']
+      }
+      return new User()
+    }
   },
   methods: {
     ...mapMutations('AppLayout', [
@@ -112,7 +115,6 @@ export default {
       return this.$store.dispatch('Auth/logOut')
     },
     toggleLeftDrawer() {
-      console.log('this.layoutLeftDrawerVisible', this.layoutLeftDrawerVisible)
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
     hasRoute(route) {

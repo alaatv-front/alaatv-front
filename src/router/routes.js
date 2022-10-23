@@ -5,9 +5,9 @@ const routes = [
     path: '/',
     layoutConfig: {
       layoutHeaderVisible: true,
-      layoutHeaderType: 'default',
-      layoutLeftDrawerVisible: true,
-      layoutLeftSideBarType: 'default',
+      layoutHeaderType: 'main',
+      layoutLeftDrawerVisible: false,
+      layoutLeftSideBarType: 'main',
       layoutView: 'lHh Lpr lFf',
       layoutHeader: true,
       layoutHeaderReveal: false,
@@ -35,40 +35,6 @@ const routes = [
       {
         path: '',
         name: 'home',
-        layoutConfig: {
-          layoutHeaderVisible: true,
-          layoutHeaderType: 'panel',
-          layoutLeftDrawerVisible: true,
-          layoutLeftSideBarType: 'panel',
-          layoutView: 'lHh Lpr lFf',
-          layoutHeader: true,
-          layoutHeaderReveal: false,
-          layoutHeaderElevated: false,
-          layoutHeaderBordered: false,
-          layoutLeftDrawer: true,
-          layoutLeftDrawerOverlay: false,
-          layoutLeftDrawerElevated: false,
-          layoutLeftDrawerBordered: false,
-          layoutLeftDrawerWidth: 325,
-          layoutLeftDrawerBehavior: 'panel',
-          layoutPageContainer: true,
-          layoutRightDrawer: false,
-          layoutFooter: false,
-          layoutHeaderCustomClass: '',
-          layoutBreadcrumbsElements: [
-            {
-              title: 'fsdg'
-            },
-            {
-              title: 'vxdgvxsfg'
-            }
-          ],
-          layoutBreadcrumbs: {
-            separator: 'home'
-          },
-          layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
-          layoutPageContainerCustomClass: 'main-layout-container'
-        },
         breadcrumbs: { title: 'خانه', loading: false, icon: 'home', route: { name: 'dashboard' } },
         component: () => import('pages/Home.vue')
       },
