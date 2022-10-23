@@ -138,7 +138,21 @@ const routes = [
           ...EntityCrudRoutes
         ]
       },
-
+      {
+        path: 'User',
+        name: 'User.Dashboard',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            name: 'User.Dashboard.purchases',
+            path: ':id/dashboard/MyPurchases',
+            meta: {
+              middlewares: [auth]
+            },
+            component: () => import('pages/User/Dashboard/MyPurchases')
+          }
+        ]
+      },
       {
         path: '/debug',
         name: 'debug',
