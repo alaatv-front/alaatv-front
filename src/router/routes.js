@@ -34,9 +34,16 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'home',
-        breadcrumbs: { title: 'خانه', loading: false, icon: 'home', route: { name: 'dashboard' } },
-        component: () => import('pages/Home.vue')
+        name: 'innerChild',
+        component: () => import('layouts/BoxedLayout'),
+        children: [
+          {
+            path: '',
+            name: 'home',
+            breadcrumbs: { title: 'خانه', loading: false, icon: 'home', route: { name: 'dashboard' } },
+            component: () => import('pages/Home.vue')
+          }
+        ]
       },
 
       {
