@@ -8,7 +8,7 @@ const plugins = []
 if (process.browser) {
   const vuexPersistedState =
     createPersistedState({
-      // storage: window.localStorage,
+      storage: window.localStorage,
       paths: [
         'Auth.accessToken',
         'Auth.user',
@@ -41,7 +41,7 @@ export default store(function (/* { ssrContext } */) {
       AppLayout,
       Cart
     },
-    plugins: plugins,
+    plugins,
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
     strict: debug
