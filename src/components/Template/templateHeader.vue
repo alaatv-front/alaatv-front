@@ -25,7 +25,7 @@
               <q-img
                 class="logo-pic-img"
                 src="img/alaa-logo.svg"
-                :to="{ name: 'home' }"
+                @click="routeTo('home')"
               />
             </div>
           </div>
@@ -337,6 +337,9 @@ export default {
     },
     goToLogin() {
       this.$router.push({ name: 'login' })
+    },
+    routeTo(name) {
+      this.$router.push({ name })
     }
   }
 }
