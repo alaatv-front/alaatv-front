@@ -1,50 +1,71 @@
 import API_ADDRESS from 'src/api/Addresses'
-import Price from 'src/models/Price'
-import { Coupon } from 'src/models/Coupon'
-import { Cart } from 'src/models/Cart'
-import { CartItemList } from 'src/models/CartItem'
+// import Price from 'src/models/Price'
+// import { Coupon } from 'src/models/Coupon'
+// import { CartItemList } from 'src/models/CartItem'
 import { axios } from 'src/boot/axios'
 import CookieCart from 'src/assets/js/CookieCart'
+import { Cart } from 'src/models/Cart'
+import { Notify } from 'quasar'
 
-export function addToCart(context, product) {
-  const isUserLogin = !!this.getters['Auth/isUserLogin']
-  const cart = context.getters['cart']
-
+export function addToCart(context, data) {
+  // const isUserLogin = !!this.getters['Auth/isUserLogin']
+  // const cart = context.getters.cart
+  console.log('addToCart :', data)
   return new Promise((resolve, reject) => {
-    if (isUserLogin) {
-      axios
-        .post(API_ADDRESS.cart.orderproduct, { product_id: product.id })
-        .then((response) => {
-          return resolve(response)
+    axios
+      .post(API_ADDRESS.cart.orderproduct.add, { product_id: data.product.id, products: data.products, attribute: data.attribute, seller: 2 })
+      .then((response) => {
+        Notify.create({
+          type: 'positive',
+          color: 'positive',
+          timeout: 5000,
+          position: 'top',
+          message: 'محصول به سبد خرید اضافه شد.',
+          icon: 'report_problem'
         })
-        .catch((error) => {
-          return reject(error)
-        })
-    } else {
-      cart.addToCart(product)
-      CookieCart.addToCartInCookie(cart)
-      return resolve(true)
-    }
+        return resolve(response)
+      })
+      .catch((error) => {
+        return reject(error)
+      })
+
+    // if (isUserLogin) {
+    //   axios
+    //     .post(API_ADDRESS.cart.orderproduct, { product_id: product.id })
+    //     .then((response) => {
+    //       return resolve(response)
+    //     })
+    //     .catch((error) => {
+    //       return reject(error)
+    //     })
+    // } else {
+    //   cart.addToCart(product)
+    //   CookieCart.addToCartInCookie(cart)
+    //   return resolve(true)
+    // }
   })
 }
 
 export function reviewCart(context, product) {
+  // -----------------------------------------------------------------------------------
+  const isUserLogin = !!this.getters['Auth/isUserLogin']
+  const currentCart = context.getters.cart
+  if (!isUserLogin) {
+    CookieCart.addToCartInCookie(currentCart)
+  }
+  // -----------------------------------------------------------------------------------
   return new Promise((resolve, reject) => {
     axios
       .get(API_ADDRESS.cart.review)
       .then((response) => {
         const invoice = response.data.data
 
-        const cart = {
-          price: new Price(invoice.price),
-          cartItems: new CartItemList(),
-          couponInfo: new Coupon(invoice.coupon)
+        const cart = new Cart(invoice)
+        if (invoice.count > 0) {
+          invoice.items[0].order_product.forEach((order) => {
+            cart.items.list.push(order)
+          })
         }
-
-        invoice.items[0].order_product.forEach((order) => {
-          cart.cartItems.list.push(order.product)
-        })
-
         if (product) {
           const isExist = cart.cartItems.list.find(
             (item) => item.id === product.id
@@ -62,6 +83,19 @@ export function reviewCart(context, product) {
   })
 }
 
+export function paymentCheckout (context) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(API_ADDRESS.cart.getPaymentRedirectEncryptedLink)
+      .then((response) => {
+        return resolve(response)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
 export function removeItemFromCart(context, productId) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
 
@@ -70,17 +104,24 @@ export function removeItemFromCart(context, productId) {
       axios
         .delete(API_ADDRESS.cart.orderproduct + '/' + productId)
         .then((response) => {
+          Notify.create({
+            type: 'positive',
+            color: 'positive',
+            timeout: 5000,
+            position: 'top',
+            message: 'محصول از سبد خرید حذف شد.',
+            icon: 'report_problem'
+          })
           return resolve(response)
         })
         .catch((error) => {
           return reject(error)
         })
     } else {
-      const cart = context.getters['cart']
+      const cart = context.getters.cart
 
-      cart.cartItems.list = cart.cartItems.list.filter((item) => {
-        return item.id !== productId
-      })
+      cart.removeItem(productId)
+      context.commit('updateCart', cart)
 
       CookieCart.removeCartItemFromCookieCart(productId)
       return resolve(true)
@@ -90,7 +131,7 @@ export function removeItemFromCart(context, productId) {
 
 export function deleteList(context) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
-  const cart = context.getters['cart']
+  const cart = context.getters.cart
 
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
