@@ -457,6 +457,11 @@ export default {
         }
         @media screen and (max-width: 1023px) {
           margin-bottom: 0;
+          margin-right: 30px;
+        }
+        @media screen and (max-width: 599px) {
+          margin-bottom: 0;
+          margin-right: 0;
         }
 
       }
@@ -497,7 +502,7 @@ export default {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       @media screen and (max-width: 599px) {
-        grid-template-columns: 1fr;
+        grid-template-columns:1fr 1fr;
         justify-content: center;
         .title-box {
           justify-self: center;
@@ -508,6 +513,9 @@ export default {
         .access,.profile {
           padding-bottom: 30px;
         }
+      }
+      @media screen and (max-width: 380px) {
+        grid-template-columns:1fr ;
       }
       .main-title {
         margin-left: 8px;
