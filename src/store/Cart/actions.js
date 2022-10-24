@@ -1,7 +1,4 @@
 import API_ADDRESS from 'src/api/Addresses'
-// import Price from 'src/models/Price'
-// import { Coupon } from 'src/models/Coupon'
-// import { CartItemList } from 'src/models/CartItem'
 import { axios } from 'src/boot/axios'
 import CookieCart from 'src/assets/js/CookieCart'
 import { Cart } from 'src/models/Cart'
@@ -12,7 +9,7 @@ export function addToCart(context, data) {
   // const cart = context.getters.cart
   return new Promise((resolve, reject) => {
     axios
-      .post(API_ADDRESS.cart.orderproduct.add, { product_id: data.product.id, products: data.products, attribute: data.attribute, seller: 2 })
+      .post(API_ADDRESS.cart.orderproduct.add, { product_id: data.product.id, products: data.products, attribute: data.attribute, seller: 1 })
       .then((response) => {
         Notify.create({
           type: 'positive',

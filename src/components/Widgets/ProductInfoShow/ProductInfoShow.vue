@@ -5,7 +5,6 @@
         <div class="title">
           ویژگی های این محصول
         </div>
-
         <div class="product-info-box row">
           <div
             v-for="(info, index) in information"
@@ -321,7 +320,7 @@ export default {
       }
       try {
         await this.$store.dispatch('Cart/addToCart', data)
-        // this.$router.push({ name: 'cart' })
+        this.$router.push({ name: 'User.Checkout.Review' })
       } catch (e) {
       }
     },
