@@ -105,7 +105,7 @@ export default {
       this.$store.commit('AppLayout/updateWindowSize', val)
       if (val.width > 1439) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 314)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'desktop') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'desktop')
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
       } else if (val.width > 599) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 280)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
