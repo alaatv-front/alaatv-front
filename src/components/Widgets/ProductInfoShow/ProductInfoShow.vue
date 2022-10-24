@@ -15,7 +15,7 @@
             <div class="product-info-inside q-ma-sm">
               <div class="info-header ">
                 <q-img :src="info.src"
-                       class="info-image"></q-img>
+                       class="info-image img"></q-img>
                 <p class="info-title">
                   {{info.title}}
                 </p>
@@ -86,7 +86,7 @@
         class="intro-video col-md-6 col-12"
       >
         <video-player :poster="product.intro.photo"
-                      :sources="product.intro.video" />
+                      :sources="videoSource()" />
       </div>
     </div>
   </div>
@@ -95,7 +95,8 @@
       <div
         class="sample-videos-pamphlet-box"
       >
-        <div class="sample-videos-box">
+        <div v-if="product.blocks && product.blocks[0] && product.blocks[0].contents"
+             class="sample-videos-box">
           <p class="title-style">
             نمونه فیلم‌ها
           </p>
@@ -129,6 +130,7 @@
                    target="_blank">
                   <div class="player">
                     <q-img
+                      class="img"
                       :src="video.photo"
                       alt="video-poster"></q-img>
                   </div>
@@ -140,7 +142,8 @@
             </div>
           </q-card>
         </div>
-        <div class="pamphlet-box">
+        <div v-if="product.sample_photos.length> 0"
+             class="pamphlet-box">
           <p class="title-style">
             نمونه جزوه‌ها
           </p>
@@ -163,7 +166,7 @@
               </div>
             </div>
             <div
-              v-else
+              v-else-if="product.sample_photos.length> 0"
               class="sample-container">
               <light-gallery
                 :images="product.sample_photos.map( item => { return { title: item.title, url: item.photo}})"
@@ -179,6 +182,7 @@
               >
                 <q-img
                   :src="item.photo"
+                  class="img"
                   alt="pamphlet-photo"
                   @click="samplePhotosIndex = index"
                 >
@@ -224,6 +228,8 @@ import { mixinWidget } from 'src/mixin/Mixins'
 import API_ADDRESS from 'src/api/Addresses'
 import { LightGallery } from 'vue-light-gallery'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource'
+
 export default {
   name: 'ProductInfoShow',
   components: {
@@ -288,12 +294,16 @@ export default {
       }
     }
   },
-
   created () {
     this.loadProduct()
-    console.log('data :', this.data)
+  },
+  computed: {
+
   },
   methods: {
+    videoSource() {
+      return new PlayerSourceList([{ link: this.product.intro.video }])
+    },
     async loadProduct () {
       if (typeof this.data === 'object') {
         this.product = new Product(this.data)
@@ -325,10 +335,8 @@ export default {
           this.product = new Product(response.data.data)
           this.product.loading = false
           this.setInformation()
-          console.log('responsellll :', this.product)
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
           this.product.loading = false
         })
     },
@@ -365,7 +373,7 @@ p {
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
-  padding-right: 15px;
+  padding-left: 15px;
 }
 
 ::-webkit-scrollbar-track {
@@ -632,6 +640,21 @@ p {
   margin-top: 30px;
 }
 
+.title-style {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+
+  &::before {
+    content: ".";
+    color: #BAD9FB;
+    font-size: 50px;
+    font-weight: bold;
+    line-height: 10px;
+  }
+}
+
 .show-product-demos {
   margin-bottom: 30px;
 }
@@ -666,10 +689,10 @@ p {
 
     .sample-videos {
       width: 655px;
-      margin-left: 24px;
+      margin-right: 24px;
 
       .video-item {
-        margin-left: 16px;
+        margin-right: 16px;
 
         .player {
           width: 240px;
@@ -678,7 +701,7 @@ p {
           border-radius: 16px;
           margin-bottom: 10px;
 
-          img {
+          .img {
             width: 100%;
             height: 100%;
             border-radius: inherit;
@@ -792,6 +815,10 @@ p {
   }
 }
 @media screen and (max-width: 767px){
+  .title-style {
+    width: 100%;
+  }
+
   .sample-videos-pamphlet-box {
     flex-direction: column;
     margin-right: 30px;

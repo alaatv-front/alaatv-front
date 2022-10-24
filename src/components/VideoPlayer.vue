@@ -83,8 +83,6 @@ export default {
   },
   mounted() {
     this.initPlayer()
-    console.log('sources :', this.sources)
-    console.log('poster :', this.poster)
   },
   computed: {
     calcTheHeight() {

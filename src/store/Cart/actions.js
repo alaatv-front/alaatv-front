@@ -10,7 +10,6 @@ import { Notify } from 'quasar'
 export function addToCart(context, data) {
   // const isUserLogin = !!this.getters['Auth/isUserLogin']
   // const cart = context.getters.cart
-  console.log('addToCart :', data)
   return new Promise((resolve, reject) => {
     axios
       .post(API_ADDRESS.cart.orderproduct.add, { product_id: data.product.id, products: data.products, attribute: data.attribute, seller: 2 })
