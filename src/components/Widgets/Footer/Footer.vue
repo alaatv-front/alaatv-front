@@ -131,7 +131,7 @@
               <div class="main-title">دسترسی به سایت</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'HomePage'}"
+                     :to="{name: 'home'}"
               >
                 صفحه اصلی
               </q-btn>
@@ -171,7 +171,7 @@
               <div class="main-title">دسترسی های کاربران</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'HomePage'}"
+                     :to="{name: 'home'}"
               >
                 ثبت نام و ورود
               </q-btn>
@@ -210,7 +210,7 @@
               <div class="main-title">دسته بندی های محبوب</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'HomePage'}"
+                     :to="{name: 'home'}"
               >
                 راه ابریشم
               </q-btn>
