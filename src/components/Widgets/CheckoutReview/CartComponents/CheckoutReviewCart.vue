@@ -43,7 +43,6 @@ export default {
   data: () => ({}),
   computed: {
     count() {
-      console.log(this.$store.getters['Cart/cart'].count)
       return this.$store.getters['Cart/cart'].count
     }
   },

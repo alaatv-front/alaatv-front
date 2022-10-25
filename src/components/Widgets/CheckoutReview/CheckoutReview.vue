@@ -11,7 +11,7 @@
       <sticky-both-sides :top-gap="100"
                          :bottom-gap="40"
       >
-        <donate q-mb-lg />
+        <donate class="q-mb-lg " />
         <checkout-review-cart v-if="items && items.items.list.length>0"
                               :items="items" />
         <Login v-else />

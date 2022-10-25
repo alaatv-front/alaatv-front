@@ -398,6 +398,10 @@ const API_ADDRESS = {
       add: apiV2Server + '/orderproduct',
       delete (productId) { return apiV2Server + '/orderproduct/' + productId }
     },
+    discount: {
+      submit: apiV2Server + '/order/submitCoupon',
+      remove: apiV2Server + '/order/RemoveCoupon'
+    },
     review: apiV2Server + '/checkout/review'
   }
 }

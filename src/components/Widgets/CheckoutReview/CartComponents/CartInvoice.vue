@@ -72,23 +72,38 @@
       </q-card-section>
 
       <q-card-section class="invoice-coupon-section invoice-cart-section">
+
         <div class="enter-coupon-code">
           <div class="title">کد تخفیف:</div>
 
           <q-input
-            v-model="couponValue"
+            v-model="discountCoupon.code"
             type="text"
             label="کد تخفیف خود را وارد کنید"
             class="coupon-input"
             outlined
-            @click="discountCoupon.removeCod ? removeDiscountCode : sendDiscountCode"
           >
             <template v-slot:append>
-
               <q-btn :label=" discountCoupon.removeCod ? 'حذف کد' : 'ثبت' "
-                     flat />
+                     flat
+                     @click="handleDiscountLogic"
+              />
             </template>
           </q-input>
+        </div>
+        <div
+          v-if="discountCoupon.resultMessage"
+          class="discount-coupon-text text-center"
+        >
+          <q-icon class="ml-2"
+                  :name="discountCoupon.icon"
+                  :color="discountCoupon.messageColor">
+          </q-icon>
+          <p
+            :class="discountCoupon.messageColor+ '--text'"
+          >
+            {{ discountCoupon.resultMessage }}
+          </p>
         </div>
 
         <q-separator class="invoice-separator" />
@@ -261,6 +276,7 @@
 
 <script>
 import Widgets from 'components/PageBuilder/Widgets'
+import Addresses from 'src/api/Addresses'
 
 export default {
   name: 'CartInvoice',
@@ -328,7 +344,9 @@ export default {
   },
 
   methods: {
-
+    handleDiscountLogic() {
+      this.discountCoupon.removeCod ? this.removeDiscountCode() : this.sendDiscountCode()
+    },
     updateDiscountValue(target) {
       // Object.assign(target, this.discountCoupon);
       for (const property in target) {
@@ -337,7 +355,6 @@ export default {
     },
 
     async sendDiscountCode() {
-      //   console.log('sendDiscountCode run',this.discountCoupon.code)
       this.updateDiscountValue({
         resultMessage: '',
         loading: true,
@@ -415,10 +432,11 @@ export default {
     },
 
     submitCode(code) {
-      return axios.post('/order/submitCoupon', { code })
+      return this.$axios.post(Addresses.cart.discount.submit, { params: { code } })
     },
 
     async removeDiscountCode() {
+      console.log('fdg')
       this.discountCoupon.resultMessage = ''
       this.discountCoupon.status = ''
       this.discountCoupon.loading = true
@@ -433,7 +451,7 @@ export default {
     },
 
     removeCode() {
-      return axios.get('/order/RemoveCoupon')
+      return this.$axios.get(Addresses.cart.discount.remove)
     },
 
     cartReview() {
