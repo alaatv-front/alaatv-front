@@ -48,7 +48,7 @@
         </div>
       </template>
       <template v-slot:footer>
-        ALAA FOOTER
+        <alaa-footer />
       </template>
     </quasar-template-builder>
   </div>
@@ -60,9 +60,10 @@ import templateHeader from 'components/Template/templateHeader'
 import Router from 'src/router/Router'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents'
 import { setHeight } from 'src/boot/page-builder'
+import AlaaFooter from 'components/Widgets/Footer/Footer'
 
 export default {
-  components: { Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
+  components: { AlaaFooter, Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
   data () {
     return {
       contentVerticalScrollPosition: 0,
@@ -104,7 +105,7 @@ export default {
       this.$store.commit('AppLayout/updateWindowSize', val)
       if (val.width > 1439) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 314)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'desktop') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'desktop')
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
       } else if (val.width > 599) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 280)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
