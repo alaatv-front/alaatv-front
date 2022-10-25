@@ -1,14 +1,17 @@
 <template>
-  <div class="checkout-review row wrap q-mb-md">
+
+  <div class="checkout-review row q-col-gutter-lg q-mb-md">
     <q-scroll-observer @scroll="onScroll" />
+
     <div class="col-md-8 col-12">
       <cart-item-list class="q-mb-md"
                       :items="items" />
     </div>
     <div class="side-box col-md-4 col-12 column">
       <sticky-both-sides :top-gap="100"
-                         :bottom-gap="40">
-        <donate />
+                         :bottom-gap="40"
+      >
+        <donate q-mb-lg />
         <checkout-review-cart v-if="items && items.items.list.length>0"
                               :items="items" />
         <Login v-else />
@@ -19,7 +22,7 @@
 
 <script>
 
-import CheckoutReviewCart from 'components/Widgets/CheckoutReview/SideComponents/CheckoutReviewCart'
+import CheckoutReviewCart from 'components/Widgets/CheckoutReview/CartComponents/CheckoutReviewCart'
 import CartItemList from 'components/Widgets/CheckoutReview/SideComponents/CartItemList'
 import Donate from 'components/Widgets/CheckoutReview/SideComponents/Donate'
 import API_ADDRESS from 'src/api/Addresses'
