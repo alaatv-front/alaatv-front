@@ -1,9 +1,4 @@
 <template>
-  <!--  <div-->
-  <!--    v-if="count > 0"-->
-  <!--    class="cart-count">-->
-  <!--    سبدخرید شما ({{count}} محصول)-->
-  <!--  </div>-->
 
   <div class="cart-template row">
     <div
@@ -40,7 +35,8 @@ export default {
       default: new Cart()
     }
   },
-  data: () => ({}),
+  data: () => ({
+  }),
   computed: {
     count() {
       return this.$store.getters['Cart/cart'].count
@@ -48,20 +44,10 @@ export default {
   },
 
   created () {
-    // this.$axios.get(API_ADDRESS.cart.product)
-    //   .then((res) => {
-    //     console.log(res)
-    //   })
     this.cartReview()
-  },
-  mounted() {
-    // this.calcPricesAndNumber()
   },
   methods: {
     add () {
-      // console.log('1 cart', this.$store.getters['Cart/cart'])
-      // this.$store.getters['Cart/cart'].addToCart({ id: 489 })
-      // console.log('2 cart', this.$store.getters['Cart/cart'])
       this.$store.dispatch('Cart/addToCart', {
         product: { id: 901 },
         products: [903]

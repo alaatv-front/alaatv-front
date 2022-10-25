@@ -62,12 +62,15 @@ export default {
       this.scrollInfo = info
     },
     checkoutReview() {
+      this.$store.dispatch('loading/overlayLoading', true)
       this.$axios.get(API_ADDRESS.cart.review)
         .then((res) => {
           this.items = new Cart(res.data.data)
+          this.$store.dispatch('loading/overlayLoading', false)
         })
         .catch((err) => {
           console.log(err)
+          this.$store.dispatch('loading/overlayLoading', false)
         })
     },
     calcGapTopAndBottom() {
