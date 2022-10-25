@@ -25,7 +25,6 @@
     <div class="block-container">
       <slider
         v-if="data.banners && data.banners.list.length > 0"
-        class="q-mx-lg"
         :data="data.banners"
       />
       <div
@@ -48,7 +47,7 @@
           <a
             :href="data?.url?.web"
             class="show-more-title"
-            >نمایش بیشتر
+          >نمایش بیشتر
           </a>
         </div>
       </div>
@@ -72,7 +71,7 @@
           <a
             :href="data?.url?.web"
             class="show-more-title"
-            >نمایش بیشتر
+          >نمایش بیشتر
           </a>
         </div>
       </div>
@@ -96,7 +95,7 @@
           <a
             :href="data?.url?.web"
             class="show-more-title"
-            >نمایش بیشتر
+          >نمایش بیشتر
           </a>
         </div>
       </div>
@@ -198,7 +197,7 @@ export default {
       width: 100%;
       overflow-x: scroll;
       /* this padding is needed due to move animation of card
-      to avoid overflow behavior: 
+      to avoid overflow behavior:
       https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
       */
       padding-top: 10px;

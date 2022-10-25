@@ -119,11 +119,41 @@
                     }}</q-chip>
                   </div>
                 </q-item-label>
+
                 <q-item-label caption>
                   آخرین به روز رسانی :
                   {{ getShamsiDate(item.updated_at.split(' ')[0], false) }}
                   | آلا
                 </q-item-label>
+                <q-item-section
+                  class="action-section"
+                  top
+                  side
+                >
+                  <div class="text-grey-8 q-gutter-xs">
+                    <bookmark
+                      v-model:value="item.is_favored"
+                      :base-route="getContentBookmarkBaseRoute(item.id)"
+                    />
+                    <q-btn
+                      class="watch-btn"
+                      rounded
+                      icon="isax:eye"
+                      icon-right="isax:play"
+                      label="/"
+                      @click="goToChosenContent(item.id)"
+                    >
+                      <q-tooltip
+                        anchor="top middle"
+                        self="bottom middle"
+                        :offset="[10, 10]"
+                      >
+                        دانلود یا تماشای فیلم
+                      </q-tooltip>
+                    </q-btn>
+                  </div>
+                </q-item-section>
+
                 <q-item-label class="q-mt-xs">
                   <span> {{ ' ' + item.title }} </span>
                   <span> {{ ' ' + set.title }} </span>
@@ -132,33 +162,6 @@
                 </q-item-label>
               </q-item-section>
 
-              <q-item-section
-                top
-                side
-              >
-                <div class="text-grey-8 q-gutter-xs">
-                  <bookmark
-                    v-model:value="item.is_favored"
-                    :base-route="getContentBookmarkBaseRoute(item.id)"
-                  />
-                  <q-btn
-                    class="watch-btn"
-                    rounded
-                    icon="isax:eye"
-                    icon-right="isax:play"
-                    label="/"
-                    @click="goToChosenContent(item.id)"
-                  >
-                    <q-tooltip
-                      anchor="top middle"
-                      self="bottom middle"
-                      :offset="[10, 10]"
-                    >
-                      دانلود یا تماشای فیلم
-                    </q-tooltip>
-                  </q-btn>
-                </div>
-              </q-item-section>
             </q-item>
             <q-separator spaced />
           </q-virtual-scroll>
@@ -273,7 +276,6 @@ import moment from 'moment-jalaali'
 import API_ADDRESS from 'src/api/Addresses'
 import { mixinWidget } from 'src/mixin/Mixins'
 import { Set } from 'src/models/Set'
-import { ContentList } from 'src/models/Content'
 import Bookmark from 'components/Bookmark'
 
 export default {
@@ -359,8 +361,7 @@ export default {
       return API_ADDRESS.set.show(id)
     },
     goToChosenContent(contentId) {
-      // console.log('contentId', contentId)
-      this.$router.push({ name: 'User.Content.Show', params: { contentId } })
+      this.$router.push({ name: 'User.Content.Show', params: { id: contentId } })
     },
     reorderContents() {
       this.ordered = !this.ordered
@@ -492,6 +493,16 @@ export default {
     flex-direction: column;
     align-items: center;
     .nav-group-box {
+    }
+  }
+  .action-section {
+    position: absolute;
+    right: 0;
+    top: 0;
+    @media screen and (max-width: 1023px) {
+      position: static;
+      align-items: flex-end;
+      order: -2;
     }
   }
 }

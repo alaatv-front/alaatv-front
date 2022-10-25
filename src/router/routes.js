@@ -8,7 +8,7 @@ const routes = [
       layoutHeaderType: 'main',
       layoutLeftDrawerVisible: false,
       layoutLeftSideBarType: 'main',
-      layoutView: 'lHh Lpr lFf',
+      layoutView: 'lHh Lpr fff',
       layoutHeader: true,
       layoutHeaderReveal: false,
       layoutHeaderElevated: false,
@@ -21,7 +21,7 @@ const routes = [
       layoutLeftDrawerBehavior: 'default',
       layoutPageContainer: true,
       layoutRightDrawer: false,
-      layoutFooter: false,
+      layoutFooter: true,
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
       layoutBreadcrumbs: {
@@ -35,7 +35,7 @@ const routes = [
       {
         path: '',
         name: 'innerChild',
-        component: () => import('layouts/BoxedLayout'),
+        component: () => import('layouts/BoxedLayout.vue'),
         children: [
           {
             path: '',
@@ -86,7 +86,7 @@ const routes = [
       {
         path: 'c',
         name: 'User.Content',
-        component: () => import('layouts/bareLayout.vue'),
+        component: () => import('layouts/BoxedLayout.vue'),
         children: [
           { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') },
           { name: 'User.Content.Search', path: '', component: () => import('pages/User/Content/Search.vue') }
@@ -95,7 +95,7 @@ const routes = [
       {
         path: 'product',
         name: 'User.Product',
-        component: () => import('layouts/bareLayout.vue'),
+        component: () => import('layouts/BoxedLayout.vue'),
         children: [
           { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
         ]
@@ -103,7 +103,7 @@ const routes = [
       {
         path: 'set',
         name: 'User.Set',
-        component: () => import('layouts/bareLayout.vue'),
+        component: () => import('layouts/BoxedLayout.vue'),
         children: [
           { name: 'User.Set.Show', path: ':id', component: () => import('pages/User/Set/Show.vue') }
         ]
@@ -157,6 +157,14 @@ const routes = [
               middlewares: [auth]
             },
             component: () => import('pages/User/Dashboard/MyPurchases')
+          },
+          {
+            name: 'User.Dashboard.favorites',
+            path: ':id/dashboard/MyFavorites',
+            meta: {
+              middlewares: [auth]
+            },
+            component: () => import('pages/User/Dashboard/MyFavorites')
           }
         ]
       },

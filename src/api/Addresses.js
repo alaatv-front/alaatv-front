@@ -394,7 +394,10 @@ const API_ADDRESS = {
     items: apiV2Server + '/mapDetail'
   },
   cart: {
-    orderproduct: apiV2Server + '/orderproduct',
+    orderproduct: {
+      add: apiV2Server + '/orderproduct',
+      delete (productId) { return apiV2Server + '/orderproduct/' + productId }
+    },
     review: apiV2Server + '/checkout/review'
   }
 }
