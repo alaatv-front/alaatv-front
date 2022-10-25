@@ -58,6 +58,7 @@
     "vue-filepond": "^7.0.2",
     "vue-i18n": "9.2.2",
     "vue-leaflet-editable-polyline": "^0.2.3",
+    "vue-light-gallery": "^1.0.1",
     "vue-upload-component": "^3.0.50",
     "vue3-clipboard": "^1.0.0",
     "vue3-tiptap-katex": "^1.0.18",

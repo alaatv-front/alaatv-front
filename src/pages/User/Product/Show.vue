@@ -1,5 +1,5 @@
 <template>
-<page-builder :sections="sections"/>
+  <page-builder :sections="sections" />
 </template>
 
 <script>
@@ -22,10 +22,10 @@ export default {
                     widgets: [
                       {
                         name: 'ProductInfoShow',
-                        data: this.$route.params.id,
+                        data: this.$route.params.id
                       }
                     ]
-                  },
+                  }
                 ],
                 options: {
                   boxed: true

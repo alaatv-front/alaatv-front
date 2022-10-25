@@ -4,8 +4,8 @@
          class="col-md-7">
       <p class="section-title">نمونه فیلم ها</p>
       <div
-        class="contents-block"
         v-dragscroll
+        class="contents-block"
       >
         <div
           v-for="content in contents.list"
@@ -22,8 +22,8 @@
          class="col-md-5">
       <p class="section-title">نمونه جزوه ها</p>
       <div
-        class="contents-block"
         v-dragscroll
+        class="contents-block"
       >
         <div
           v-for="pamphlet in pamphlets"

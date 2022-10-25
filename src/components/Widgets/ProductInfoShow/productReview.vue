@@ -2,7 +2,7 @@
   <div class="product-review">
     <p class="review-title"> بررسی محصول</p>
     <q-card class="custom-card">
-      <q-card-section v-html="description.long"/>
+      <q-card-section v-html="description.long" />
 
     </q-card>
   </div>
@@ -10,12 +10,12 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
-import { QuasarTemplateBuilderAppLayout } from 'quasar-template-builder'
-import * as getters from 'src/store/AppLayout/getters'
+// import { QuasarTemplateBuilderAppLayout } from 'quasar-template-builder'
+// import * as getters from 'src/store/AppLayout/getters'
 
 export default {
-name: "productReview",
-  mixins:[mixinWidget],
+  name: 'productReview',
+  mixins: [mixinWidget],
 
   props: {
     data: {
@@ -28,7 +28,7 @@ name: "productReview",
       description: {
         long: '',
         short: '',
-        slogan: '',
+        slogan: ''
       }
     }
   },
@@ -46,6 +46,11 @@ name: "productReview",
 }
 </script>
 
+<style>
+h2{
+  font-size: 28px;
+}
+</style>
 <style lang="scss" scoped>
 .product-review {
   .review-title {
