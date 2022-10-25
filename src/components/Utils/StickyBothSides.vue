@@ -1,12 +1,12 @@
 <template>
   <div
-    class="sticky"
-    ref="sticky"
-    :top-gap="topGap"
-    :bottom-gap="bottomGap"
+    ref="shadow"
+    class="parent-fix"
   >
-    <q-scroll-observer @scroll="updateScroll" />
-    <slot></slot>
+    <div ref="sticky"
+         class="position-fix">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -14,80 +14,125 @@
 export default {
   name: 'StickyBothSides',
   props: {
+    maxWidth: {
+      type: Number,
+      default: 0
+    },
     topGap: {
       type: Number,
-      default: 100
+      default: 0
     },
     bottomGap: {
       type: Number,
-      default: 30
+      default: 0
+    }
+  },
+  inject: {
+    scrollInfo: {
+      from: 'scrollInfo',
+      default: {}
     }
   },
   data() {
     return {
-      currentPosition: 0
+      disableSticky: false,
+      windowWidth: 0,
+      stickyElementWidth: 0,
+      start: 0,
+      previousPosition: 0
     }
   },
   mounted() {
-    this.currentPosition = this.getScrollY()
-    this.updateStickyElementPosition(this.topGap + 'px')
+    this.windowWidth = window.innerWidth
+    if (this.windowWidth < this.maxWidth) {
+      this.disableSticky = true
+    }
+    window.addEventListener('resize', this.onResize)
+    this.getStartFixElementPosition()
+    this.stickyElementWidth = this.shadowElement.offsetWidth
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.onResize)
   },
   computed: {
     stickyElement() {
       return this.$refs.sticky
+    },
+    shadowElement() {
+      return this.$refs.shadow
+    }
+  },
+  watch: {
+    scrollInfo(newValue) {
+      console.log(newValue)
+      if (!this.disableSticky) {
+        this.updateScroll(newValue)
+      } else {
+        this.stickyElement.style.position = 'static'
+      }
     }
   },
   methods: {
-    getFinalStickyElementTop() {
-      return window.innerHeight - this.stickyElement.offsetHeight - this.bottomGap
+    onResize() {
+      this.windowWidth = window.innerWidth
+      this.disableSticky = this.windowWidth < this.maxWidth
+      this.stickyElement.style.width = this.shadowElement.offsetWidth + 'px'
+      this.stickyElementWidth = this.shadowElement.offsetWidth
+    },
+    getStartFixElementPosition() {
+      this.start = this.$refs.sticky.getBoundingClientRect().top - this.topGap
     },
     getScrollY() {
       return window.scrollY
     },
-    getNewStickyElementPosition(stickyElementTop) {
-      return (stickyElementTop + this.currentPosition - this.getScrollY()) + 'px'
-    },
-    updateStickyElementPosition(newPosition) {
-      this.stickyElement.style.top = newPosition
-    },
     stickyElementToTop(stickyElementTop) {
-      if (stickyElementTop === this.topGap) {
-        return
-      }
-      if (stickyElementTop < this.topGap) {
-        this.updateStickyElementPosition(this.getNewStickyElementPosition(stickyElementTop))
+      if (this.stickyElement.offsetHeight <= window.innerHeight) {
+        if (this.getScrollY() <= this.start) {
+          this.stickyElement.style.position = 'static'
+        }
       } else {
-        this.updateStickyElementPosition(this.topGap + 'px')
+        if (stickyElementTop < this.topGap) {
+          stickyElementTop += this.previousPosition - this.getScrollY()
+          this.stickyElement.style.top = stickyElementTop + 'px'
+        } else if (this.getScrollY() <= this.start) {
+          this.stickyElement.style.position = 'static'
+        }
       }
     },
     stickyElementToBottom(stickyElementTop) {
-      const finalStickyElementTop = this.getFinalStickyElementTop()
-      if (stickyElementTop === finalStickyElementTop) {
-        return
-      }
-      if (stickyElementTop > finalStickyElementTop) {
-        this.updateStickyElementPosition(this.getNewStickyElementPosition(stickyElementTop))
+      if (this.stickyElement.offsetHeight <= window.innerHeight) {
+        if (this.getScrollY() >= this.start) {
+          this.stickyElement.style.position = 'fixed'
+          this.stickyElement.style.top = this.topGap + 'px'
+          this.stickyElement.style.width = this.stickyElementWidth + 'px'
+        }
       } else {
-        this.updateStickyElementPosition(finalStickyElementTop + 'px')
+        if (this.stickyElement.getBoundingClientRect().bottom + this.bottomGap <= window.innerHeight) {
+          this.stickyElement.style.position = 'fixed'
+          this.stickyElement.style.top = window.innerHeight - this.bottomGap - this.stickyElement.offsetHeight + 'px'
+          this.stickyElement.style.width = this.stickyElementWidth + 'px'
+        } else if (stickyElementTop > window.innerHeight - this.stickyElement.offsetHeight) {
+          stickyElementTop = stickyElementTop - (this.getScrollY() - this.previousPosition)
+          this.stickyElement.style.top = stickyElementTop + 'px'
+        }
       }
     },
     updateScroll(info) {
       const stickyElementTop = parseInt(this.stickyElement.style.top.replace('px', ''))
       if (info.direction === 'up') {
         this.stickyElementToTop(stickyElementTop)
-      } else {
+      } else if (info.direction === 'down') {
         this.stickyElementToBottom(stickyElementTop)
       }
-      this.currentPosition = this.getScrollY()
+      this.previousPosition = this.getScrollY()
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.sticky {
-  position: sticky;
-  height: fit-content;
+.position-fix {
+  position: static;
 }
 
 </style>
