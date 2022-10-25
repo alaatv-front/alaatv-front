@@ -44,7 +44,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'SetShow',
+                        name: 'Set',
                         data: this.$route.params.id,
                         options: {
                           getData: (url) => GetWidgetsData.getData(url)

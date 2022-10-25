@@ -68,6 +68,7 @@ module.exports = {
     'import/export': 'error',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
+    "vue/attributes-order": 'error',
     'import/no-extraneous-dependencies': 'off',
     'prefer-promise-reject-errors': 'off',
     "vue/max-attributes-per-line": 'error',

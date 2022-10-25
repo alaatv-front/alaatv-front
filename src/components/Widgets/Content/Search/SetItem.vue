@@ -1,40 +1,9 @@
 <template>
-  <!--  <a-->
-  <!--    :href="'https://alaatv.com/set/' + data.id"-->
-  <!--    class="set-box"-->
-  <!--  >-->
-  <!--    <q-card-->
-  <!--      max-width="293"-->
-  <!--      class="content-box-card"-->
-  <!--      flat-->
-  <!--    >-->
-  <!--      <div-->
-  <!--        class="image-container"-->
-  <!--      >-->
-  <!--        <div class="image-body">-->
-  <!--          <img-->
-  <!--            src="https://nodes.alaatv.com/loder.jpg?w=160&h=90"-->
-  <!--            :data-src="data.photo"-->
-  <!--            :alt="data.title"-->
-  <!--            class="lazy-image"-->
-  <!--            width="16"-->
-  <!--            height="9"-->
-  <!--          />-->
-  <!--          <div class="image-overlay">-->
-  <!--            <span>{{ data.contents_count }}</span>-->
-  <!--            <span>محتوا</span>-->
-  <!--            <q-icon name="mdi-playlist-play"-->
-  <!--                    color="#fff"></q-icon>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--      <div class="content-description">-->
-  <!--        <p> {{ data.title }}</p>-->
-  <!--      </div>-->
-  <!--    </q-card>-->
-  <!--  </a>-->
-  <a
-    :href="'https://alaatv.com/set/' + data.id"
+  <router-link
+    :to="{
+      name: 'User.Set.Show',
+      params: { id: data.id? data.id:-1, title: data.title }
+    }"
     class="set-box"
   >
     <q-card flat
@@ -51,10 +20,10 @@
         </div>
       </q-img>
       <div class="content-description">
-        <p> {{ data.title }}</p>
+        <p>{{ data.title }}</p>
       </div>
     </q-card>
-  </a>
+  </router-link>
 </template>
 
 <script>

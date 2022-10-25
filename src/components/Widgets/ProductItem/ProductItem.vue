@@ -60,6 +60,7 @@
           </div>
         </div>
         <q-btn
+          unelevated
           :productId="product.id"
           :data-product-id="product.id"
           class="btn-green"

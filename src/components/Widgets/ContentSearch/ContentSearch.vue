@@ -15,8 +15,8 @@
           />
         </div>
         <q-dialog
-          persistent
           v-model="advanceSearchModal"
+          persistent
         >
           <q-card class="modal-container">
             <div class="modal-content">
@@ -27,8 +27,8 @@
                 </div>
                 <div class="btn-box">
                   <q-btn
-                    unelevated
                     v-close-popup
+                    unelevated
                     class="q-mr-sm"
                     color="primary"
                     data-dismiss="modal"
@@ -36,9 +36,9 @@
                     اعمال فیلتر
                   </q-btn>
                   <q-btn
+                    v-close-popup
                     flat
                     color="red"
-                    v-close-popup
                     outline
                     icon-right="mdi-close"
                     label="بستن"
@@ -47,28 +47,28 @@
               </q-card-section>
               <q-card-section>
                 <side-bar-content
+                  ref="sideBar"
                   v-model:selectedTags="selectedTags"
-                  @update:selectedTags="onFilterChange"
                   :contentFilterData="contentSearchFilterData"
                   :mobileMode="mobileMode"
                   :applyFilter="applyFilter"
                   :loading="searchLoading"
-                  ref="sideBar"
+                  @update:selectedTags="onFilterChange"
                 />
               </q-card-section>
               <q-card-actions>
                 <q-btn
+                  v-close-popup
                   unelevated
                   color="primary"
                   class="q-mx-sm"
-                  v-close-popup
                   @click="applyFilter=true">
                   اعمال فیلتر
                 </q-btn>
                 <q-btn
+                  v-close-popup
                   color="red"
                   outline
-                  v-close-popup
                   icon-right="mdi-close"
                   label="بستن"
                   flat
@@ -81,28 +81,28 @@
       </div>
       <div
         v-if="!mobileMode"
-        class="col-md-2 col-sm-0 q-gutter-sm-x-xl q-pr-lg">
+        class="col-md-3 col-sm-0 q-gutter-sm-x-xl q-pr-lg">
         <div class="sidebar">
           <div class="sidebar__inner">
             <side-bar-content
+              ref="sideBar"
               v-model:selectedTags="selectedTags"
-              @update:selectedTags="onFilterChange"
               :contentFilterData="contentSearchFilterData"
               :mobileMode="mobileMode"
               :applyFilter="applyFilter"
               :loading="searchLoading"
-              ref="sideBar"
+              @update:selectedTags="onFilterChange"
             />
           </div>
         </div>
       </div>
-      <div class="col-md-10 col-sm-12 content-list">
+      <div class="col-md-9 col-sm-12 content-list">
         <div class="content">
           <div class="tag-loading-container">
             <div class="tags-chip-group-wrapper">
               <div
-                class="flex q-mr-lg-md q-ml-lg-sm"
                 v-if="selectedTags.length > 0"
+                class="flex q-mr-lg-md q-ml-lg-sm"
               >
                 <p class="tags-title">
                   تگ‌ها :
@@ -115,8 +115,8 @@
                     removable
                     outline
                     color="primary"
-                    @remove="removeTags(tag)"
                     class="q-ml-sm"
+                    @remove="removeTags(tag)"
                   >
                     {{ tag.title }}
                   </q-chip>
@@ -141,10 +141,10 @@
             <div
               class="q-mb-sm">
               <q-virtual-scroll
+                v-slot="{ item, index }"
                 :items="sets.list"
                 virtual-scroll-horizontal
                 class="set-container"
-                v-slot="{ item, index }"
                 @virtual-scroll="scrollMoved"
               >
                 <div
@@ -166,8 +166,8 @@
             <div class="searchResult">
               <div class="listType">
                 <q-infinite-scroll ref="contentAndProductList"
-                                   @load="chargeProductAndContentList"
                                    :offset="2000"
+                                   @load="chargeProductAndContentList"
                 >
                   <specifer-type
                     v-for="(item, index) in productAndContentList"
@@ -182,8 +182,8 @@
                     </div>
                   </template>
                 </q-infinite-scroll>
-                <div class="scroll-loader"
-                     v-if="canSendVideoReq || canSendProductReq"
+                <div v-if="canSendVideoReq || canSendProductReq"
+                     class="scroll-loader"
                 >
                 </div>
               </div>
@@ -191,7 +191,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -622,6 +621,7 @@ export default {
 
 <style lang="scss" scoped>
 .content-search-vue{
+  padding-top: 30px;
   .tags-title{
     font-size: 18px;
     font-weight: 500;

@@ -1,0 +1,11 @@
+$katexFontSize : 1.2rem;
+$katexLineHeight : 4rem;
+a{
+  text-decoration: none;
+  color: #1D1D1D;
+}
+:root{
+--katexFontSize: #{$katexFontSize};
+--katexLineHeight: #{$katexLineHeight}
+}
+

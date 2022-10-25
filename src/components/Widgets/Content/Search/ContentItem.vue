@@ -1,8 +1,8 @@
 <template>
   <q-card flat
           class="content-box q-mb-md">
-    <a
-      :href="'https://alaatv.com/c/'+ data.id"
+    <router-link
+      :to="{name: 'User.Content.Show', params: {id: data.id}}"
       class="m-link"
     >
       <div class="content-img-box">
@@ -12,9 +12,9 @@
           class="content-image  videoImage"
         />
       </div>
-    </a>
-    <a
-      :href="'https://alaatv.com/c/'+ data.id"
+    </router-link>
+    <router-link
+      :to="{name: 'User.Content.Show', params: {id: data.id}}"
       class="m-link content-link"
     >
       <div class="content-order flex items-center">
@@ -71,8 +71,14 @@
           </div>
         </div>
       </div>
-    </a>
-    <div class="content-hover"></div>
+    </router-link>
+    <router-link
+      :to="{name: 'User.Content.Show', params: {id: data.id}}"
+      class="m-link"
+    >
+      <div class="content-hover" />
+    </router-link>
+
   </q-card>
 </template>
 
@@ -198,6 +204,7 @@ p {
     height: 100%;
     z-index: 1;
     transition: all 0.7s;
+    cursor: pointer;
   }
 }
 

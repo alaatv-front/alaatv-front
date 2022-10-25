@@ -1,9 +1,9 @@
 <template>
   <div class="main-layout">
-    <quasar-template-builder v-model:value="properties"
-                             @onResize="resize">
+    <quasar-template-builder
+      @onResize="resize">
       <template #header>
-        <template-header />
+        <template-header  v-if="getTemplateHeaderType === 'main'" />
         <q-linear-progress
           v-if="$store.getters['loading/loading']"
           color="primary"
@@ -47,10 +47,12 @@
           <Router :include="keepAliveComponents" />
         </div>
       </template>
+      <template v-slot:footer>
+        <alaa-footer />
+      </template>
     </quasar-template-builder>
   </div>
 </template>
-
 <script>
 import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
 import { QuasarTemplateBuilder } from 'quasar-template-builder'
@@ -58,38 +60,22 @@ import templateHeader from 'components/Template/templateHeader'
 import Router from 'src/router/Router'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents'
 import { setHeight } from 'src/boot/page-builder'
+import AlaaFooter from 'components/Widgets/Footer/Footer'
 
 export default {
-  components: { Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
+  components: { AlaaFooter, Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
   data () {
     return {
       contentVerticalScrollPosition: 0,
-      keepAliveComponents: KeepAliveComponents,
-      properties: {
-        layoutView: 'hHh LpR fFf',
-        layoutHeader: true,
-        layoutHeaderVisible: true,
-        layoutHeaderReveal: false,
-        layoutHeaderElevated: false,
-        layoutHeaderBordered: false,
-        layoutLeftDrawer: true,
-        layoutLeftDrawerVisible: false,
-        layoutLeftDrawerOverlay: true,
-        layoutLeftDrawerElevated: true,
-        layoutLeftDrawerBordered: false,
-        layoutLeftDrawerWidth: 325,
-        layoutPageContainer: true,
-        layoutRightDrawer: false,
-        layoutFooter: false,
-        layoutHeaderCustomClass: 'main-layout-header row',
-        layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
-        layoutPageContainerCustomClass: 'main-layout-container'
-      }
+      keepAliveComponents: KeepAliveComponents
     }
   },
   computed: {
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
+    },
+    getTemplateHeaderType() {
+      return this.$store.getters['AppLayout/templateHeaderType']
     },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
@@ -119,7 +105,7 @@ export default {
       this.$store.commit('AppLayout/updateWindowSize', val)
       if (val.width > 1439) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 314)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'desktop') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'desktop')
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
       } else if (val.width > 599) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 280)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
@@ -137,17 +123,11 @@ export default {
 
 <style lang="scss" scoped>
 .main-layout {
-  :deep(.q-header) {
-    background-color: #FFFFFF;
-    display: flex;
-    flex-direction: row;
-    padding: 16px 0;
-  }
   :deep(.main-layout-container) {
     background-color: #f1f1f1;
   }
-  :deep(.main-layout-left-drawer) {
-    background-color: #f1f1f1;
+  .content-inside {
+    padding-top: 20px;
   }
 }
 </style>
