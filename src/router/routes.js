@@ -72,6 +72,11 @@ const routes = [
         component: () => import('pages/User/Shop')
       },
       {
+        path: 'user/orders',
+        name: 'user.orders',
+        component: () => import('pages/User/Orders/userOrders')
+      },
+      {
         path: 'checkout',
         name: 'User.Checkout',
         component: () => import('layouts/bareLayout.vue'),
