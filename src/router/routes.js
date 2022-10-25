@@ -157,6 +157,14 @@ const routes = [
               middlewares: [auth]
             },
             component: () => import('pages/User/Dashboard/MyPurchases')
+          },
+          {
+            name: 'User.Dashboard.favorites',
+            path: ':id/dashboard/MyFavorites',
+            meta: {
+              middlewares: [auth]
+            },
+            component: () => import('pages/User/Dashboard/MyFavorites')
           }
         ]
       },

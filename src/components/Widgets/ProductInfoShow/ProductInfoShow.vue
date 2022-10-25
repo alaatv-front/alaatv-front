@@ -397,6 +397,9 @@ p {
     flex-direction: column;
     padding: 0 20px;
     align-items: center;
+    @media screen and(max-width: 599px) {
+      padding: 0 ;
+    }
 
     .title {
       font-style: normal;
