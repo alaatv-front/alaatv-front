@@ -381,20 +381,20 @@
         </div>
       </router-link>
     </div>
-        <router-link
-          :to="{name: 'User.Product.Show', params:{ id: data.id}}"
-          class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
-          :data-gtm-eec-product-id="data.eec.id"
-          :data-gtm-eec-product-name="data.eec.name"
-          :data-gtm-eec-product-price="data.eec.price"
-          :data-gtm-eec-product-brand="data.eec.brand"
-          :data-gtm-eec-product-category="data.eec.category"
-          :data-gtm-eec-product-variant="data.eec.variant"
-          :data-gtm-eec-product-position="data.eec.position"
-          :data-gtm-eec-product-list="data.eec.position"
-        >
-          <div class="content-hover"></div>
-        </router-link>
+    <router-link
+      :to="{name: 'User.Product.Show', params:{ id: data.id}}"
+      class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
+      :data-gtm-eec-product-id="data.eec.id"
+      :data-gtm-eec-product-name="data.eec.name"
+      :data-gtm-eec-product-price="data.eec.price"
+      :data-gtm-eec-product-brand="data.eec.brand"
+      :data-gtm-eec-product-category="data.eec.category"
+      :data-gtm-eec-product-variant="data.eec.variant"
+      :data-gtm-eec-product-position="data.eec.position"
+      :data-gtm-eec-product-list="data.eec.position"
+    >
+      <div class="content-hover"></div>
+    </router-link>
   </div>
 </template>
 

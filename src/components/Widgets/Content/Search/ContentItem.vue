@@ -74,12 +74,12 @@
         </div>
       </div>
     </router-link>
-        <router-link
-          :to="{name: 'User.Content.Show', params: {id: data.id}}"
-          class="m-link"
-        >
-          <div class="content-hover" />
-        </router-link>
+    <router-link
+      :to="{name: 'User.Content.Show', params: {id: data.id}}"
+      class="m-link"
+    >
+      <div class="content-hover" />
+    </router-link>
 
   </q-card>
 </template>
