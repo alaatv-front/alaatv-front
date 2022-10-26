@@ -8,12 +8,16 @@
            :height="computedHeight+'px'"
            :ratio="ratio"
            fit="contain"
-           class="full-width"
+           class="full-width img"
            position="0 0"
-    />
+    >
+      <slot />
+    </q-img>
     <q-img v-else
            :src="src"
-    />
+    >
+      <slot />
+    </q-img>
   </div>
 </template>
 
@@ -114,3 +118,8 @@ export default {
   }
 }
 </script>
+<style>
+.img{
+  border-radius: inherit;
+}
+</style>

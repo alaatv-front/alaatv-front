@@ -7,7 +7,7 @@
 <script>
 import PageBuilder from 'components/PageBuilder/PageBuilder'
 export default {
-  name: 'Search',
+  name: 'userOrders',
   components: { PageBuilder },
   data () {
     return {
@@ -20,28 +20,25 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ContentSearch',
-                        data: this.$route.params.id
+                        name: 'UserOrders'
                       }
                     ]
                   }
-                ]
-
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
               }
             ]
-          },
-          options: {
-            boxed: true,
-            boxedWidth: 1362
           }
         }
       ]
     }
-  },
-  computed: {
-    calculateHeightStyle () {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
-    }
   }
 }
 </script>
+
+<style scoped>
+
+</style>

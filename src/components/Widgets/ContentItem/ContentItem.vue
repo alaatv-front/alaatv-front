@@ -8,9 +8,12 @@
     >
       <div class="img-box">
         <div class="img-title-container">
-          <img
+          <lazy-img
             :src="content.photo"
-            alt="content"
+            :alt="content.title"
+            class="img"
+            width="16"
+            height="9"
           />
         </div>
         <div class="play-btn">
@@ -29,9 +32,10 @@
 
 <script>
 import { Content } from 'src/models/Content'
-
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'contentItem',
+  components: { LazyImg },
   props: {
     data: {
       type: Content,
@@ -149,7 +153,7 @@ export default {
       box-shadow: none;
       width: 100%;
 
-      img {
+      .img {
         width: inherit;
         border-radius: 20px 20px 0 0;
       }
@@ -413,7 +417,7 @@ export default {
     .img-box {
       width: 100px;
 
-      img {
+      .img {
         border-radius: 10px;
       }
     }
