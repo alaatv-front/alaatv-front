@@ -122,11 +122,8 @@ p {
     width: 300px !important;
     position: relative;
     z-index: 5;
-    @media screen and (max-width: 1024px) {
-      width: calc(100vw - 30px) !important;
-    }
     .img {
-      width: 300px;
+      width: inherit;
       border-radius: 15px 0 0 15px;
       @media screen and (max-width: 1024px) {
         border-radius: 15px 15px 0 0 !important;
