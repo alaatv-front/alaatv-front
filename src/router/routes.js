@@ -72,6 +72,11 @@ const routes = [
         component: () => import('pages/User/Shop')
       },
       {
+        path: 'user/orders',
+        name: 'user.orders',
+        component: () => import('pages/User/Orders/userOrders')
+      },
+      {
         path: 'checkout',
         name: 'User.Checkout',
         component: () => import('layouts/bareLayout.vue'),
@@ -157,6 +162,14 @@ const routes = [
               middlewares: [auth]
             },
             component: () => import('pages/User/Dashboard/MyPurchases')
+          },
+          {
+            name: 'User.Dashboard.favorites',
+            path: ':id/dashboard/MyFavorites',
+            meta: {
+              middlewares: [auth]
+            },
+            component: () => import('pages/User/Dashboard/MyFavorites')
           }
         ]
       },

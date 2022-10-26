@@ -18,10 +18,12 @@
           </div>
         </div>
         <div class="img-container">
-          <q-img
+          <lazy-img
             :src="set.photo"
             class="img"
-            alt="set"
+            :alt="set.title"
+            width="16"
+            height="9"
           />
         </div>
       </div>
@@ -35,9 +37,11 @@
     <div class="info-box">
       <div class="teacher-info">
         <div class="teacher-image">
-          <q-img
+          <lazy-img
             :src="set.author?.photo"
             alt="set"
+            width="1"
+            height="1"
           />
         </div>
         <div class="teacher-name">
@@ -58,9 +62,12 @@
 
 <script>
 import { Set } from 'src/models/Set'
-
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'setItem',
+  components: {
+    LazyImg
+  },
   props: {
     data: {
       type: Set,
@@ -175,10 +182,9 @@ export default {
 
   .img-box {
     .img-container {
-      border-radius: inherit;
       box-shadow: none;
       width: 100%;
-
+      border-radius: 20px 20px 0 0;
       .img {
         width: inherit;
         border-radius: 20px 20px 0 0;
@@ -198,6 +204,7 @@ export default {
       padding-left: 14px;
       justify-content: space-between;
       transition: all ease 0.5s;
+      z-index: 2;
     }
   }
 

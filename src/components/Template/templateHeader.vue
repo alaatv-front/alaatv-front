@@ -271,9 +271,18 @@ export default {
           children: []
         },
         {
+          title: 'علاقه مندی های من',
+          icon: 'isax:heart',
+          routeName: 'User.Dashboard.favorites',
+          params: null,
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
           title: 'سفارش‌ ها',
           icon: 'isax:clipboard-text',
-          routeName: 'User.MyOrders',
+          routeName: 'user.orders',
           permission: 'all',
           active: false,
           children: []
