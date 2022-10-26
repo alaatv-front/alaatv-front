@@ -27,7 +27,7 @@
           <div class="videoOrder-number">{{ data.order }}</div>
         </q-avatar>
       </div>
-      <div class="inner-content q-pl-md ">
+      <div class="inner-content">
         <div class="title q-mt-md">
           <p>
             {{ data.set ? data.set.short_title : '' }}
@@ -74,12 +74,12 @@
         </div>
       </div>
     </router-link>
-    <router-link
-      :to="{name: 'User.Content.Show', params: {id: data.id}}"
-      class="m-link"
-    >
-      <div class="content-hover" />
-    </router-link>
+        <router-link
+          :to="{name: 'User.Content.Show', params: {id: data.id}}"
+          class="m-link"
+        >
+          <div class="content-hover" />
+        </router-link>
 
   </q-card>
 </template>
@@ -115,20 +115,21 @@ p {
   @media screen and (max-width: 1024px) {
     max-height: none;
     flex-direction: column;
-    width: calc(100vw - 30px) !important;
   }
 
   .content-img-box {
     width: 300px !important;
     position: relative;
     z-index: 5;
+    @media screen and (max-width: 599px){
+      width: 100% !important;
+    }
     .img {
       width: inherit;
       border-radius: 15px 0 0 15px;
       @media screen and (max-width: 1024px) {
         border-radius: 15px 15px 0 0 !important;
         width: 100% !important;
-
       }
     }
   }
@@ -144,6 +145,10 @@ p {
 
     .inner-content {
       width: 100%;
+      padding-left: 16px;
+      @media screen and (max-width: 1024px ) {
+        padding: 16px;
+      }
 
       .title {
         font-weight: 700;

@@ -1,7 +1,6 @@
 <template>
   <div class="content-search-vue">
     <q-scroll-observer @scroll="onScroll">
-
     </q-scroll-observer>
     <div class="row  q-col-gutter-x-md main-content content-body">
       <div
@@ -539,9 +538,6 @@ export default {
             }
             that.loadItemFromResponse(responseData, oldList, data.key)
             that.resetLists(data, oldList)
-            // if (!this.mobileMode) {
-            //   this.slider.updateSticky()
-            // }
           })
         })
         .catch(errors => {
@@ -632,13 +628,17 @@ export default {
     onScroll(info) {
       this.scrollInfo = info
     }
-
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .content-search-vue{
+  .content-list{
+    @media screen and  (max-width: 599px){
+      max-width: 100%;
+    }
+  }
   padding-top: 30px;
   .tags-title{
     font-size: 18px;
@@ -671,7 +671,7 @@ export default {
   .set-container{
     padding-bottom: 10px;
     @media only screen and (max-width: 599px){
-      width: calc(100vw - 30px);
+      //width: calc(100vw - 30px);
     }
   }
 
