@@ -25,13 +25,14 @@ export default {
                       }
                     ]
                   }
-                ],
-                options: {
-                  boxed: true,
-                  boxedWidth: 1362
-                }
+                ]
+
               }
             ]
+          },
+          options: {
+            boxed: true,
+            boxedWidth: 1362
           }
         }
       ]
