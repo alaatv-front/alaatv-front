@@ -33,9 +33,11 @@
                    :data-gtm-eec-product-position="data.eec.position"
                    :data-gtm-eec-product-list="data.eec.position"
       >
-        <q-img
+        <lazy-img
           :src="data.photo"
           :alt="data.title"
+          width="1"
+          height="1"
           class="img"
         />
       </router-link>
@@ -379,27 +381,31 @@
         </div>
       </router-link>
     </div>
-    <router-link
-      :to="{name: 'User.Product.Show', params:{ id: data.id}}"
-      class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
-      :data-gtm-eec-product-id="data.eec.id"
-      :data-gtm-eec-product-name="data.eec.name"
-      :data-gtm-eec-product-price="data.eec.price"
-      :data-gtm-eec-product-brand="data.eec.brand"
-      :data-gtm-eec-product-category="data.eec.category"
-      :data-gtm-eec-product-variant="data.eec.variant"
-      :data-gtm-eec-product-position="data.eec.position"
-      :data-gtm-eec-product-list="data.eec.position"
-    >
-      <div class="content-hover"></div>
-    </router-link>
+    <!--    <router-link-->
+    <!--      :to="{name: 'User.Product.Show', params:{ id: data.id}}"-->
+    <!--      class="m-link a&#45;&#45;owl-carousel-type-2-item-subtitle a&#45;&#45;gtm-eec-product-click"-->
+    <!--      :data-gtm-eec-product-id="data.eec.id"-->
+    <!--      :data-gtm-eec-product-name="data.eec.name"-->
+    <!--      :data-gtm-eec-product-price="data.eec.price"-->
+    <!--      :data-gtm-eec-product-brand="data.eec.brand"-->
+    <!--      :data-gtm-eec-product-category="data.eec.category"-->
+    <!--      :data-gtm-eec-product-variant="data.eec.variant"-->
+    <!--      :data-gtm-eec-product-position="data.eec.position"-->
+    <!--      :data-gtm-eec-product-list="data.eec.position"-->
+    <!--    >-->
+    <!--      <div class="content-hover"></div>-->
+    <!--    </router-link>-->
   </div>
 </template>
 
 <script>
 import { Product } from 'src/models/Product'
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'Product',
+  components: {
+    LazyImg
+  },
   props: {
     data: {
       type: Product,
@@ -432,14 +438,12 @@ export default {
   position: relative;
   background: white;
   border-radius: 15px;
-  max-height: 200px;
-
   .pic {
     width: 25%;
     border-radius: 15px !important;
     z-index: 3;
     @media screen and (max-width: 1024px) {
-      width: calc(100vw - 30px) !important;
+      width: 100% !important;
     }
 
     a {
@@ -551,7 +555,7 @@ export default {
   }
 
   @media screen and (max-width: 1024px) {
-    width: calc(100vw - 30px) !important;
+    width: 100% !important;
     flex-direction: column;
     max-height: none;
   }
