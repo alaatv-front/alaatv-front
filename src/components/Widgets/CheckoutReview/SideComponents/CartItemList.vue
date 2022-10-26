@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="items.items.list.length > 0"
-      class="cart-item-list q-mx-sm shadow-4"
+      class="cart-item-list "
     >
       <div class="item-list-header">
         سبد خرید
@@ -12,27 +12,27 @@
         v-if="items"
       >
         <div
-          class="cart-items"
           v-for="(item, index) in items.items.list"
           :key="index"
+          class="cart-items"
         >
           <template v-if="!!(item.grand_id)">
             <cart-item
+              :id="item.grand.id"
               :raw-item="item"
               :has-grand="true"
-              :id="item.grand.id"
             />
             <q-separator />
           </template>
           <template
-            v-else
             v-for="(cartItem, index) in item.order_product.list"
+            v-else
             :key="index"
           >
             <cart-item
+              :id="cartItem.product.id"
               :cart-item="cartItem"
               :has-grand="false"
-              :id="cartItem.product.id"
             />
             <q-separator />
           </template>
@@ -75,7 +75,7 @@ export default {
 .cart-item-list {
   /*width: 1230px;*/
   background: #FFFFFF;
-  /*box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);*/
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   font-family: IRANSans, sans-serif;
   font-style: normal;
