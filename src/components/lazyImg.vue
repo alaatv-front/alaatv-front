@@ -10,10 +10,14 @@
            fit="contain"
            class="full-width img"
            position="0 0"
-    />
+    >
+      <slot />
+    </q-img>
     <q-img v-else
            :src="src"
-    />
+    >
+      <slot />
+    </q-img>
   </div>
 </template>
 

@@ -33,9 +33,11 @@
                    :data-gtm-eec-product-position="data.eec.position"
                    :data-gtm-eec-product-list="data.eec.position"
       >
-        <q-img
+        <lazy-img
           :src="data.photo"
           :alt="data.title"
+          width="1"
+          height="1"
           class="img"
         />
       </router-link>
@@ -398,8 +400,12 @@
 
 <script>
 import { Product } from 'src/models/Product'
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'Product',
+  components: {
+    LazyImg
+  },
   props: {
     data: {
       type: Product,
@@ -432,8 +438,6 @@ export default {
   position: relative;
   background: white;
   border-radius: 15px;
-  max-height: 200px;
-
   .pic {
     width: 25%;
     border-radius: 15px !important;

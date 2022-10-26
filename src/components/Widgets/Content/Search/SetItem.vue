@@ -8,9 +8,11 @@
   >
     <q-card flat
             class="content-box-card ">
-      <q-img
+      <lazy-img
         :src="data.photo"
         :alt="data.title"
+        width="16"
+        height="9"
       >
         <div class="absolute-left column justify-center items-center">
           <div class="text-h6">{{ data.contents_count }}</div>
@@ -18,7 +20,7 @@
           <q-icon name="mdi-playlist-play"
                   color="#fff" />
         </div>
-      </q-img>
+      </lazy-img>
       <div class="content-description">
         <p>{{ data.title }}</p>
       </div>
@@ -27,8 +29,12 @@
 </template>
 
 <script>
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'SetBox',
+  components: {
+    LazyImg
+  },
   props: ['data']
 }
 </script>
