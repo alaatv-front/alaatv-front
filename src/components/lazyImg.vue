@@ -8,7 +8,7 @@
            :height="computedHeight+'px'"
            :ratio="ratio"
            fit="contain"
-           class="full-width"
+           class="full-width img"
            position="0 0"
     />
     <q-img v-else
@@ -114,3 +114,8 @@ export default {
   }
 }
 </script>
+<style>
+.img{
+  border-radius: inherit;
+}
+</style>

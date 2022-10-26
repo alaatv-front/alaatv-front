@@ -1,5 +1,5 @@
 <template>
-  <div class="donate bg-white q-pa-sm q-mx-sm shadow-4">
+  <div class="donate bg-white">
     <p>کمک مالی به آلاء</p>
     <q-separator />
     <div class="row q-my-md text-center reverse-wrap">
@@ -66,6 +66,9 @@ export default {
 <style lang="scss" scoped>
 .donate {
   border-radius: 10px;
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+  padding:16px 30px;
+  color: #575962;
 }
 
 .donate-help:hover {

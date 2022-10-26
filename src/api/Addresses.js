@@ -26,7 +26,11 @@ const API_ADDRESS = {
       resend: apiV2Server + '/mobile/resend',
       verify: apiV2Server + '/mobile/verify'
     },
-    orders: (id) => apiV2Server + '/user/' + id + '/orders',
+    orders: {
+      ordersById: (id) => apiV2Server + '/user/' + id + '/orders',
+      getOrders: apiV2Server + '/orders',
+      status: apiV2Server + '/payment/status'
+    },
     formData: apiV2Server + '/megaroute/getUserFormData',
     show_user: apiV2Server + '/getUserFor3a',
     eventresult: apiV2Server + '/eventresult'
@@ -397,6 +401,10 @@ const API_ADDRESS = {
     orderproduct: {
       add: apiV2Server + '/orderproduct',
       delete (productId) { return apiV2Server + '/orderproduct/' + productId }
+    },
+    discount: {
+      submit: apiV2Server + '/order/submitCoupon',
+      remove: apiV2Server + '/order/RemoveCoupon'
     },
     review: apiV2Server + '/checkout/review'
   }
