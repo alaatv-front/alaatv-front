@@ -10157,6 +10157,11 @@ vue-leaflet-editable-polyline@^0.2.3:
     vue "^2.6.12"
     vue2-leaflet "^2.5.2"
 
+vue-light-gallery@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-light-gallery/-/vue-light-gallery-1.0.1.tgz#9416121b6940d0874b0ee6d9a48cfb7a7903d9a9"
+  integrity sha512-xNKNZ3upRIHgIeFIOQ+3RZcHsr3CwZvSFq3SqcsZ2rBWlHqc9IsVpWlpD2EOJyy7ovgODTC8C2rfaiRchQ2GOA==
+
 vue-loader@17.0.0, vue-loader@^17.0.0:
   version "17.0.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-17.0.0.tgz#2eaa80aab125b19f00faa794b5bd867b17f85acb"

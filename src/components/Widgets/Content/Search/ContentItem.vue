@@ -1,20 +1,22 @@
 <template>
   <q-card flat
           class="content-box q-mb-md">
-    <a
-      :href="'https://alaatv.com/c/'+ data.id"
+    <router-link
+      :to="{name: 'User.Content.Show', params: {id: data.id}}"
       class="m-link"
     >
       <div class="content-img-box">
-        <img
+        <lazy-img
           :src="data.photo"
           :alt="data.title"
-          class="content-image  videoImage"
+          width="16"
+          height="9"
+          class="img"
         />
       </div>
-    </a>
-    <a
-      :href="'https://alaatv.com/c/'+ data.id"
+    </router-link>
+    <router-link
+      :to="{name: 'User.Content.Show', params: {id: data.id}}"
       class="m-link content-link"
     >
       <div class="content-order flex items-center">
@@ -25,7 +27,7 @@
           <div class="videoOrder-number">{{ data.order }}</div>
         </q-avatar>
       </div>
-      <div class="inner-content q-pl-md ">
+      <div class="inner-content">
         <div class="title q-mt-md">
           <p>
             {{ data.set ? data.set.short_title : '' }}
@@ -71,16 +73,23 @@
           </div>
         </div>
       </div>
-    </a>
-    <div class="content-hover"></div>
+    </router-link>
+    <!--    <router-link-->
+    <!--      :to="{name: 'User.Content.Show', params: {id: data.id}}"-->
+    <!--      class="m-link"-->
+    <!--    >-->
+    <!--      <div class="content-hover" />-->
+    <!--    </router-link>-->
+
   </q-card>
 </template>
 
 <script>
 import { Content } from 'src/models/Content'
-
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'Contents',
+  components: { LazyImg },
   props: {
     data: {
       type: Content,
@@ -106,23 +115,21 @@ p {
   @media screen and (max-width: 1024px) {
     max-height: none;
     flex-direction: column;
-    width: calc(100vw - 30px) !important;
   }
 
   .content-img-box {
     width: 300px !important;
     position: relative;
     z-index: 5;
-    @media screen and (max-width: 1024px) {
-      width: calc(100vw - 30px) !important;
+    @media screen and (max-width: 599px){
+      width: 100% !important;
     }
-    img {
-      width: 300px;
+    .img {
+      width: inherit;
       border-radius: 15px 0 0 15px;
       @media screen and (max-width: 1024px) {
         border-radius: 15px 15px 0 0 !important;
         width: 100% !important;
-
       }
     }
   }
@@ -138,6 +145,10 @@ p {
 
     .inner-content {
       width: 100%;
+      padding-left: 16px;
+      @media screen and (max-width: 1024px ) {
+        padding: 16px;
+      }
 
       .title {
         font-weight: 700;
@@ -180,7 +191,6 @@ p {
           }
         }
       }
-
     }
   }
 
@@ -198,77 +208,7 @@ p {
     height: 100%;
     z-index: 1;
     transition: all 0.7s;
+    cursor: pointer;
   }
 }
-
-//.item {
-//    display: flex;
-//    flex-direction: row;
-//    height: 180px;
-//    @media screen and (max-width: 1904px) {
-//        height: 150px;
-//    }
-//    @media screen and (max-width: 1264px) {
-//        height: 140px;
-//    }
-//    @media screen and (max-width: 960px) {
-//        flex-direction: column;
-//        height: 525px;
-//    }
-//    @media screen and (max-width: 600px) {
-//        height: 390px;
-//    }
-//    @media screen and (max-width: 350px) {
-//        height: 416px;
-//    }
-//
-//    .image-box {
-//        width: 320px;
-//        height: 100%;
-//        @media screen and (max-width: 1904px) {
-//            width: 243px;
-//        }
-//        @media screen and (max-width: 1264px) {
-//            width: 198px;
-//        }
-//        @media screen and (max-width: 960px) {
-//            height: 335px;
-//            width: 100%;
-//        }
-//        @media screen and (max-width: 600px) {
-//            height: 197px;
-//        }
-//        @media screen and (max-width: 350px) {
-//            height: 177px;
-//        }
-//
-//        .content-image {
-//            width: 100%;
-//            height: 100%;
-//        }
-//    }
-//
-//    .content {
-//        height: 100%;
-//        @media screen and (max-width: 960px) {
-//            height: 191px;
-//            width: 100%;
-//        }
-//        @media screen and (max-width: 600px) {
-//            height: 208px;
-//        }
-//        @media screen and (max-width: 350px) {
-//            height: 211px;
-//        }
-//
-//        .details {
-//            .videoOrder {
-//                .videoOrder-number {
-//
-//                }
-//            }
-//        }
-//    }
-//}
-
 </style>

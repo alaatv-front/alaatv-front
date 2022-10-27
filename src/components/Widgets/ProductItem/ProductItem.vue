@@ -7,9 +7,12 @@
           params: { id: product.id?product.id:-1, title: product.title }
         }"
       >
-        <img
+        <lazy-img
           :src="product.photo"
-          alt="product"
+          :alt="product.title"
+          width="1"
+          height="1"
+          class="img"
         />
         <div class="main-title ellipsis-2-lines">
           {{ product.title }}
@@ -60,6 +63,7 @@
           </div>
         </div>
         <q-btn
+          unelevated
           :productId="product.id"
           :data-product-id="product.id"
           class="btn-green"
@@ -84,6 +88,7 @@
 
 <script>
 import { Product } from 'src/models/Product'
+import LazyImg from 'components/lazyImg'
 import { useQuasar } from 'quasar'
 
 export default {
@@ -92,6 +97,7 @@ export default {
     return { $q }
   },
   name: 'productItem',
+  components: { LazyImg },
   data: () => ({
     product: new Product()
   }),
@@ -211,7 +217,6 @@ export default {
       font-size: 16px;
       line-height: 24px;
       letter-spacing: -0.03em;
-      margin-bottom: 15px;
       margin: 16px;
 
       a {
@@ -238,7 +243,7 @@ export default {
       width: 100%;
       height: 270px;
 
-      img {
+      .img {
         width: inherit;
         border-radius: 20px 20px 0 0;
       }
@@ -460,7 +465,7 @@ export default {
     .img-box {
       width: 100px;
 
-      img {
+      .img {
         border-radius: 10px;
       }
     }

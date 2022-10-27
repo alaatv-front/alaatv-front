@@ -1,14 +1,13 @@
 <template>
-  <page-builder :sections="sections" />
+  <page-builder
+    :sections="sections"
+    :containerHeight="calculateHeightStyle" />
 </template>
 
 <script>
 import PageBuilder from 'components/PageBuilder/PageBuilder'
-import API_ADDRESS from 'src/api/Addresses'
-import GetWidgetsData from 'assets/js/GetWidgetsData'
-
 export default {
-  name: 'Show',
+  name: 'userOrders',
   components: { PageBuilder },
   data () {
     return {
@@ -21,14 +20,14 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ProductInfoShow',
-                        data: this.$route.params.id
+                        name: 'UserOrders'
                       }
                     ]
                   }
                 ],
                 options: {
-                  boxed: true
+                  boxed: true,
+                  boxedWidth: 1362
                 }
               }
             ]

@@ -4,16 +4,18 @@
       <div class="col-3 bg-transparent">
         <div class="search-box">
           <q-input
+            v-model="searchText"
             outlined
             bg-color="white"
+            class="search-input"
             placeholder="جستجو ..."
-            rounded
             dense
+            rounded
             item-aligned
-            v-model="searchText"
             label="" />
         </div>
-        <div class="favorite-sidebar q-pa-md">
+        <div
+          class="favorite-sidebar q-pa-md">
           <q-tabs
             v-model="activePanel"
             vertical
@@ -32,20 +34,22 @@
         </div>
       </div>
       <div class="col-9 bg-transparent">
-        <q-tabs
-          v-model="activePanel"
-          indicator-color="yellow-8"
-          align="left"
-        >
-          <q-tab name="all"
-                 label="همه" />
-          <q-tab name="product"
-                 label="محصولات" />
-          <q-tab name="set"
-                 label="مجموعه ها" />
-          <q-tab name="content"
-                 label="فیلم ها" />
-        </q-tabs>
+        <div>
+          <q-tabs
+            v-model="activePanel"
+            indicator-color="yellow-8"
+            align="left"
+          >
+            <q-tab name="all"
+                   label="همه" />
+            <q-tab name="product"
+                   label="محصولات" />
+            <q-tab name="set"
+                   label="مجموعه ها" />
+            <q-tab name="content"
+                   label="فیلم ها" />
+          </q-tabs>
+        </div>
 
         <q-tab-panels v-model="activePanel"
                       animated
@@ -80,8 +84,8 @@ import StickySidebar from 'sticky-sidebar'
 import { Product, ProductList } from 'src/models/Product'
 import { SetList } from 'src/models/Set'
 import { Content, ContentList } from 'src/models/Content'
-import Assist from 'src/plugins/Assist'
-import Addresses from 'src/api/Addresses'
+// import Assist from 'src/plugins/Assist'
+// import Addresses from 'src/api/Addresses'
 export default {
   name: 'favorites',
   data: () => ({
@@ -935,6 +939,16 @@ export default {
 </style>
 <style scoped lang="scss">
 .my-favorites{
+  .search-box{
+    .search-input{
+      :deep(.q-field--labeled.q-field--dense){
+        :deep(.q-field__suffix){
+          padding-top: 0;
+        }
+      }
+    }
+  }
+
 background: #f2f3f8;
   padding: 30px 100px;
 }

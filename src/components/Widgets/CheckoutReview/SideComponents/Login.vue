@@ -1,5 +1,5 @@
 <template>
-  <div class="login q-mx-sm bg-white shadow-4 q-my-md q-pa-sm">
+  <div class="login  bg-white  q-my-md">
     <div class="login-text bg-green-3 q-px-md q-my-xl">
       <div class="bg-grey-3 q-pa-md text-center">
         <p>پیش از ثبت سفارش وارد حساب کاربری خود شوید</p>
@@ -10,34 +10,35 @@
     <div class="row justify-between">
       <div class="row justify-center col-sm-5 col-md-12 col-xs-12">
         <span class="col-4 q-mt-sm">شماره همراه</span>
-        <q-input class="phone-number q-mb-md col-8"
+        <q-input ref="userName"
+                 v-model="username"
+                 class="phone-number q-mb-md col-8"
                  dir="ltr"
                  dense
                  clearable
                  outlined
-                 ref="userName"
                  name="userName"
-                 v-model="username"
                  placeholder="09........." />
       </div>
       <div class="row justify-between col-sm-5 col-md-12 col-xs-12">
         <span class="col-4 q-mt-sm">کد ملی</span>
-        <q-input class="natinalo-code q-mb-md col-8"
+        <q-input ref="pass"
+                 v-model="password"
+                 class="natinalo-code q-mb-md col-8"
                  dir="ltr"
                  dense
                  clearable
                  outlined
-                 ref="pass"
                  name="pass"
-                 v-model="password"
-                 @keydown.enter="login"
-                 placeholder="..........." />
+                 placeholder="..........."
+                 @keydown.enter="login" />
       </div>
     </div>
     <q-btn color="green-6"
-           @click="login"
+           unelevated
            class="q-my-md full-width"
-           label="ورود/ثبت نام" />
+           label="ورود/ثبت نام"
+           @click="login" />
   </div>
 </template>
 <script>
@@ -156,7 +157,9 @@ P {
 }
 
 .login {
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
   border-radius: 10px;
+  padding: 30px 16px;
 }
 
 .login-text {
