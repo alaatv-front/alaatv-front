@@ -22,6 +22,7 @@ const routes = [
       layoutPageContainer: true,
       layoutRightDrawer: false,
       layoutFooter: true,
+      layoutFooterVisible: true,
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
       layoutBreadcrumbs: {
