@@ -25,7 +25,7 @@
     <div class="block-container">
       <slider
         v-if="data.banners && data.banners.list.length > 0"
-        :data="data.banners"
+        :data="bannerSlides"
       />
       <div
         v-if="data.products.list.length > 0"
@@ -141,6 +141,14 @@ export default {
         this.data.contents.list.length ||
         this.data.sets.list.length
       )
+    },
+    bannerSlides() {
+      this.data.banners.list.forEach(element => {
+        element.photo = {
+          src: element.photo
+        }
+      });
+      return this.data.banners
     }
   },
   created() {},
