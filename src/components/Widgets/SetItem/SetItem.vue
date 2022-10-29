@@ -3,7 +3,7 @@
     <router-link
       :to="{
         name: 'User.Set.Show',
-        params: { id: set.id, title: set.title }
+        params: { id: set.id? set.id:-1, title: set.title }
       }"
     >
       <div class="img-box">
@@ -18,9 +18,12 @@
           </div>
         </div>
         <div class="img-container">
-          <img
+          <lazy-img
             :src="set.photo"
-            alt="set"
+            class="img"
+            :alt="set.title"
+            width="16"
+            height="9"
           />
         </div>
       </div>
@@ -34,9 +37,11 @@
     <div class="info-box">
       <div class="teacher-info">
         <div class="teacher-image">
-          <img
+          <lazy-img
             :src="set.author?.photo"
             alt="set"
+            width="1"
+            height="1"
           />
         </div>
         <div class="teacher-name">
@@ -57,9 +62,12 @@
 
 <script>
 import { Set } from 'src/models/Set'
-
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'setItem',
+  components: {
+    LazyImg
+  },
   props: {
     data: {
       type: Set,
@@ -174,11 +182,10 @@ export default {
 
   .img-box {
     .img-container {
-      border-radius: inherit;
       box-shadow: none;
       width: 100%;
-
-      img {
+      border-radius: 20px 20px 0 0;
+      .img {
         width: inherit;
         border-radius: 20px 20px 0 0;
       }
@@ -197,6 +204,7 @@ export default {
       padding-left: 14px;
       justify-content: space-between;
       transition: all ease 0.5s;
+      z-index: 2;
     }
   }
 

@@ -1,6 +1,8 @@
 <template>
   <div class="content-search-vue">
-    <div class="row  main-content content-body">
+    <q-scroll-observer @scroll="onScroll">
+    </q-scroll-observer>
+    <div class="row  q-col-gutter-x-md main-content content-body">
       <div
         v-if="mobileMode"
         class="mobile-mode col-12 text-center">
@@ -15,8 +17,8 @@
           />
         </div>
         <q-dialog
-          persistent
           v-model="advanceSearchModal"
+          persistent
         >
           <q-card class="modal-container">
             <div class="modal-content">
@@ -27,8 +29,8 @@
                 </div>
                 <div class="btn-box">
                   <q-btn
-                    unelevated
                     v-close-popup
+                    unelevated
                     class="q-mr-sm"
                     color="primary"
                     data-dismiss="modal"
@@ -36,9 +38,9 @@
                     اعمال فیلتر
                   </q-btn>
                   <q-btn
+                    v-close-popup
                     flat
                     color="red"
-                    v-close-popup
                     outline
                     icon-right="mdi-close"
                     label="بستن"
@@ -47,28 +49,28 @@
               </q-card-section>
               <q-card-section>
                 <side-bar-content
+                  ref="sideBar"
                   v-model:selectedTags="selectedTags"
-                  @update:selectedTags="onFilterChange"
                   :contentFilterData="contentSearchFilterData"
                   :mobileMode="mobileMode"
                   :applyFilter="applyFilter"
                   :loading="searchLoading"
-                  ref="sideBar"
+                  @update:selectedTags="onFilterChange"
                 />
               </q-card-section>
               <q-card-actions>
                 <q-btn
+                  v-close-popup
                   unelevated
                   color="primary"
                   class="q-mx-sm"
-                  v-close-popup
                   @click="applyFilter=true">
                   اعمال فیلتر
                 </q-btn>
                 <q-btn
+                  v-close-popup
                   color="red"
                   outline
-                  v-close-popup
                   icon-right="mdi-close"
                   label="بستن"
                   flat
@@ -81,28 +83,30 @@
       </div>
       <div
         v-if="!mobileMode"
-        class="col-md-2 col-sm-0 q-gutter-sm-x-xl q-pr-lg">
-        <div class="sidebar">
-          <div class="sidebar__inner">
-            <side-bar-content
-              v-model:selectedTags="selectedTags"
-              @update:selectedTags="onFilterChange"
-              :contentFilterData="contentSearchFilterData"
-              :mobileMode="mobileMode"
-              :applyFilter="applyFilter"
-              :loading="searchLoading"
-              ref="sideBar"
-            />
-          </div>
-        </div>
+        class="col-md-3 col-sm-0">
+        <sticky-both-sides
+          top-gap="50"
+          bottom-gap="20"
+          max-width="1024"
+        >
+          <side-bar-content
+            ref="sideBar"
+            v-model:selectedTags="selectedTags"
+            :contentFilterData="contentSearchFilterData"
+            :mobileMode="mobileMode"
+            :applyFilter="applyFilter"
+            :loading="searchLoading"
+            @update:selectedTags="onFilterChange"
+          />
+        </sticky-both-sides>
       </div>
-      <div class="col-md-10 col-sm-12 content-list">
+      <div class="col-md-9 col-sm-12 content-list">
         <div class="content">
           <div class="tag-loading-container">
             <div class="tags-chip-group-wrapper">
               <div
-                class="flex q-mr-lg-md q-ml-lg-sm"
                 v-if="selectedTags.length > 0"
+                class="flex q-mr-lg-md q-ml-lg-sm"
               >
                 <p class="tags-title">
                   تگ‌ها :
@@ -115,8 +119,8 @@
                     removable
                     outline
                     color="primary"
-                    @remove="removeTags(tag)"
                     class="q-ml-sm"
+                    @remove="removeTags(tag)"
                   >
                     {{ tag.title }}
                   </q-chip>
@@ -141,10 +145,10 @@
             <div
               class="q-mb-sm">
               <q-virtual-scroll
+                v-slot="{ item, index }"
                 :items="sets.list"
                 virtual-scroll-horizontal
                 class="set-container"
-                v-slot="{ item, index }"
                 @virtual-scroll="scrollMoved"
               >
                 <div
@@ -166,8 +170,8 @@
             <div class="searchResult">
               <div class="listType">
                 <q-infinite-scroll ref="contentAndProductList"
-                                   @load="chargeProductAndContentList"
                                    :offset="2000"
+                                   @load="chargeProductAndContentList"
                 >
                   <specifer-type
                     v-for="(item, index) in productAndContentList"
@@ -182,8 +186,8 @@
                     </div>
                   </template>
                 </q-infinite-scroll>
-                <div class="scroll-loader"
-                     v-if="canSendVideoReq || canSendProductReq"
+                <div v-if="canSendVideoReq || canSendProductReq"
+                     class="scroll-loader"
                 >
                 </div>
               </div>
@@ -191,13 +195,12 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-import StickySidebar from 'sticky-sidebar'
+// import StickySidebar from 'sticky-sidebar'
 import SpeciferType from 'src/components/Widgets/Content/Search/SpeciferType'
 import SideBarContent from 'src/components/Widgets/Content/Search/SideBarContent'
 import SetItem from 'src/components/Widgets/Content/Search/SetItem'
@@ -206,15 +209,24 @@ import { ProductList } from 'src/models/Product'
 import { SetList } from 'src/models/Set'
 import Addresses from 'src/api/Addresses'
 import FilterData from 'src/assets/js/contentSearchFilterData'
+import StickyBothSides from 'components/Utils/StickyBothSides'
+import { computed } from 'vue'
 
 export default {
   name: 'Search',
+  provide() {
+    return {
+      scrollInfo: computed(() => this.scrollInfo)
+    }
+  },
   components: {
     SetItem,
     SpeciferType,
+    StickyBothSides,
     SideBarContent
   },
   data: () => ({
+    scrollInfo: null,
     setLoading: false,
     advanceSearchModal: false,
     slider: null,
@@ -252,9 +264,9 @@ export default {
     this.getPageData()
   },
   mounted () {
-    if (!this.mobileMode) {
-      this.setSideBarSticky()
-    }
+    // if (!this.mobileMode) {
+    //   this.setSideBarSticky()
+    // }
   },
   methods: {
     setInitData () {
@@ -303,13 +315,13 @@ export default {
     },
 
     setSideBarSticky () {
-      this.slider = new StickySidebar('.sidebar', {
-        topSpacing: 100,
-        bottomSpacing: 0,
-        resizeSensor: true,
-        containerSelector: '.main-content',
-        innerWrapperSelector: '.sidebar__inner'
-      })
+      // this.slider = new StickySidebar('.sidebar', {
+      //   topSpacing: 100,
+      //   bottomSpacing: 0,
+      //   resizeSensor: true,
+      //   containerSelector: '.main-content',
+      //   innerWrapperSelector: '.sidebar__inner'
+      // })
     },
 
     scrollMoved (data) {
@@ -526,9 +538,6 @@ export default {
             }
             that.loadItemFromResponse(responseData, oldList, data.key)
             that.resetLists(data, oldList)
-            if (!this.mobileMode) {
-              this.slider.updateSticky()
-            }
           })
         })
         .catch(errors => {
@@ -614,14 +623,23 @@ export default {
         data.addItem(responseItem)
       })
       data.paginate = { links: response.links, meta: response.meta }
-    }
+    },
 
+    onScroll(info) {
+      this.scrollInfo = info
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .content-search-vue{
+  .content-list{
+    @media screen and  (max-width: 599px){
+      max-width: 100%;
+    }
+  }
+  padding-top: 30px;
   .tags-title{
     font-size: 18px;
     font-weight: 500;
@@ -653,7 +671,7 @@ export default {
   .set-container{
     padding-bottom: 10px;
     @media only screen and (max-width: 599px){
-      width: calc(100vw - 30px);
+      //width: calc(100vw - 30px);
     }
   }
 

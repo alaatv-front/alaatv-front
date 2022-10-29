@@ -51,15 +51,16 @@ export default {
                         }
                       }
                     ],
-                    options:{
-                      style:{
-                        marginTop:'10px'
+                    options: {
+                      style: {
+                        marginTop: '16px'
                       }
                     }
                   }
                 ],
                 options: {
-                  boxed: false
+                  boxed: true,
+                  boxedWidth: 1362
                 }
               }
             ]

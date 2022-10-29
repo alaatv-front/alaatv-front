@@ -22,8 +22,8 @@
                 باز شدن لیست اتفاقات
               </q-tooltip>
             </q-btn>
-            <q-btn rounded
-                   v-if="isUserAdmin"
+            <q-btn v-if="isUserAdmin"
+                   rounded
                    color="blue"
                    icon="isax:shopping-cart"
                    @click="openShopLogList">
@@ -32,8 +32,8 @@
               </q-tooltip>
             </q-btn>
           </div>
-          <div class="row q-mt-lg"
-               v-if="isUserAdmin">
+          <div v-if="isUserAdmin"
+               class="row q-mt-lg">
             <div class="col-4 q-px-lg">
               <q-btn unelevated
                      class="full-width"
@@ -48,8 +48,8 @@
               <q-btn unelevated
                      class="full-width"
                      icon="isax:edit"
-                     @click="saveChanges"
-                     color="blue">
+                     color="blue"
+                     @click="saveChanges">
                 <q-tooltip>ویرایش اطلاعات تیکت</q-tooltip>
               </q-btn>
             </div>
@@ -500,7 +500,7 @@ export default {
     openShopLogList () {
       this.orderDrawer = this.orderDrawer === false
       this.orderLoading = true
-      this.$axios.get(API_ADDRESS.user.orders(this.userId)).then(
+      this.$axios.get(API_ADDRESS.user.orders.ordersById(this.userId)).then(
         response => {
           this.userOrderData = new CartItemList(response.data.data)
           this.orderLoading = false

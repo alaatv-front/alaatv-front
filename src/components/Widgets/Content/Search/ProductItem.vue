@@ -20,52 +20,56 @@
         <span>تخفیف</span>
       </span>
     </div>
-    <div class="pic bg-red">
-      <a :href="'https://alaatv.com/product/'+ data.id"
-         class="d-block a--gtm-eec-product-click"
-         :data-position="data.eec.position"
-         :data-gtm-eec-product-id="data.eec.id"
-         :data-gtm-eec-product-name="data.eec.name"
-         :data-gtm-eec-product-price="data.eec.price"
-         :data-gtm-eec-product-brand="data.eec.brand"
-         :data-gtm-eec-product-category="data.eec.category"
-         :data-gtm-eec-product-variant="data.eec.variant"
-         :data-gtm-eec-product-position="data.eec.position"
-         :data-gtm-eec-product-list="data.eec.position"
+    <div class="pic">
+      <router-link :to="{name: 'User.Product.Show', params:{id: data.id}}"
+                   class="d-block a--gtm-eec-product-click"
+                   :data-position="data.eec.position"
+                   :data-gtm-eec-product-id="data.eec.id"
+                   :data-gtm-eec-product-name="data.eec.name"
+                   :data-gtm-eec-product-price="data.eec.price"
+                   :data-gtm-eec-product-brand="data.eec.brand"
+                   :data-gtm-eec-product-category="data.eec.category"
+                   :data-gtm-eec-product-variant="data.eec.variant"
+                   :data-gtm-eec-product-position="data.eec.position"
+                   :data-gtm-eec-product-list="data.eec.position"
       >
-        <q-img
+        <lazy-img
           :src="data.photo"
           :alt="data.title"
+          width="1"
+          height="1"
           class="img"
         />
-      </a>
+      </router-link>
     </div>
-    <div class="content  q-pl-md-md q-sm-sm-none   ">
+    <div class="content  q-pl-md-md q-sm-sm-none">
       <div class="product-title q-pl-md q-py-sm">
-        <a :href="'https://alaatv.com/product/'+data.id"
-           class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
-           :data-gtm-eec-product-id="data.eec.id"
-           :data-gtm-eec-product-name="data.eec.name"
-           :data-gtm-eec-product-price="data.eec.price"
-           :data-gtm-eec-product-brand="data.eec.brand"
-           :data-gtm-eec-product-category="data.eec.category"
-           :data-gtm-eec-product-variant="data.eec.variant"
-           :data-gtm-eec-product-position="data.eec.position"
-           :data-gtm-eec-product-list="data.eec.position"
+        <router-link
+          :to="{name: 'User.Product.Show', params:{ id: data.id}}"
+          class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
+          :data-gtm-eec-product-id="data.eec.id"
+          :data-gtm-eec-product-name="data.eec.name"
+          :data-gtm-eec-product-price="data.eec.price"
+          :data-gtm-eec-product-brand="data.eec.brand"
+          :data-gtm-eec-product-category="data.eec.category"
+          :data-gtm-eec-product-variant="data.eec.variant"
+          :data-gtm-eec-product-position="data.eec.position"
+          :data-gtm-eec-product-list="data.eec.position"
         >
           {{ data.title }}
-        </a>
+        </router-link>
       </div>
-      <a :href="'https://alaatv.com/product/'+data.id"
-         class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
-         :data-gtm-eec-product-id="data.eec.id"
-         :data-gtm-eec-product-name="data.eec.name"
-         :data-gtm-eec-product-price="data.eec.price"
-         :data-gtm-eec-product-brand="data.eec.brand"
-         :data-gtm-eec-product-category="data.eec.category"
-         :data-gtm-eec-product-variant="data.eec.variant"
-         :data-gtm-eec-product-position="data.eec.position"
-         :data-gtm-eec-product-list="data.eec.position"
+      <router-link
+        :to="{name: 'User.Product.Show', params:{ id: data.id}}"
+        class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
+        :data-gtm-eec-product-id="data.eec.id"
+        :data-gtm-eec-product-name="data.eec.name"
+        :data-gtm-eec-product-price="data.eec.price"
+        :data-gtm-eec-product-brand="data.eec.brand"
+        :data-gtm-eec-product-category="data.eec.category"
+        :data-gtm-eec-product-variant="data.eec.variant"
+        :data-gtm-eec-product-position="data.eec.position"
+        :data-gtm-eec-product-list="data.eec.position"
       >
         <div class="detailes">
           <div class="productPriceWrapper2">
@@ -375,17 +379,33 @@
           <!--            </div>-->
           <!--          </div>-->
         </div>
-      </a>
+      </router-link>
     </div>
-    <div class="content-hover"></div>
+    <!--    <router-link-->
+    <!--      :to="{name: 'User.Product.Show', params:{ id: data.id}}"-->
+    <!--      class="m-link a&#45;&#45;owl-carousel-type-2-item-subtitle a&#45;&#45;gtm-eec-product-click"-->
+    <!--      :data-gtm-eec-product-id="data.eec.id"-->
+    <!--      :data-gtm-eec-product-name="data.eec.name"-->
+    <!--      :data-gtm-eec-product-price="data.eec.price"-->
+    <!--      :data-gtm-eec-product-brand="data.eec.brand"-->
+    <!--      :data-gtm-eec-product-category="data.eec.category"-->
+    <!--      :data-gtm-eec-product-variant="data.eec.variant"-->
+    <!--      :data-gtm-eec-product-position="data.eec.position"-->
+    <!--      :data-gtm-eec-product-list="data.eec.position"-->
+    <!--    >-->
+    <!--      <div class="content-hover"></div>-->
+    <!--    </router-link>-->
   </div>
 </template>
 
 <script>
 import { Product } from 'src/models/Product'
-
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'Product',
+  components: {
+    LazyImg
+  },
   props: {
     data: {
       type: Product,
@@ -412,23 +432,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-a {
-  color: #3D3F46;
-}
 
 .product-item-c {
   display: flex;
   position: relative;
   background: white;
   border-radius: 15px;
-  max-height: 200px;
-
   .pic {
     width: 25%;
     border-radius: 15px !important;
     z-index: 3;
     @media screen and (max-width: 1024px) {
-      width: calc(100vw - 30px) !important;
+      width: 100% !important;
     }
 
     a {
@@ -540,7 +555,7 @@ a {
   }
 
   @media screen and (max-width: 1024px) {
-    width: calc(100vw - 30px) !important;
+    width: 100% !important;
     flex-direction: column;
     max-height: none;
   }
@@ -549,6 +564,7 @@ a {
     background-color: #ff8e0017;
     border-radius: 15px;
     width: 100% !important;
+    cursor: pointer;
   }
 
   .content-hover {
@@ -559,6 +575,7 @@ a {
     height: 100%;
     z-index: 1;
     transition: all 0.7s;
+    cursor: pointer;
   }
 }
 
