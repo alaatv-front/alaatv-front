@@ -85,9 +85,9 @@
         v-if="!mobileMode"
         class="col-md-3 col-sm-0">
         <sticky-both-sides
-          top-gap="50"
-          bottom-gap="20"
-          max-width="1024"
+          :top-gap="70"
+          :bottom-gap="20"
+          :max-width="1024"
         >
           <side-bar-content
             ref="sideBar"
