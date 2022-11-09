@@ -29,6 +29,10 @@ class MapItem extends Model {
         relatedModel: MapItemType
       },
       {
+        key: 'typ_id',
+        default: 0
+      },
+      {
         key: 'tags',
         default: []
       },
@@ -243,16 +247,17 @@ class MapItem extends Model {
   }
 
   loadType () {
-    if (this.inputData.type_id) {
-      this.type = new MapItemType({ name: this.inputData.type_id })
+    if (this.type.name) {
+      this.type = new MapItemType({ name: this.type.name })
       this.type.convertToValidValue()
+      this.type_id = this.type.id
     }
   }
 
   isInBounds (bounds, margin = 0) {
-    if (this.type.name !== 'marker') {
-      return true
-    }
+    // if (this.type.name !== 'marker') {
+    //   return true
+    // }
     if (typeof bounds._southWest === 'undefined') {
       return false
     }
