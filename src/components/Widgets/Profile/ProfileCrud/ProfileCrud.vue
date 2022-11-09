@@ -20,7 +20,8 @@
         <q-btn
           class="submitBtn"
           @click="submit"
-          >ثبت تغییرات</q-btn
+        >ثبت تغییرات
+        </q-btn
         >
       </div>
     </template>
@@ -43,7 +44,8 @@
         <q-btn
           class="submitBtn"
           @click="submitAction"
-          >ثبت رتبه کنکور</q-btn
+        >ثبت رتبه کنکور
+        </q-btn
         >
       </div>
     </template>
@@ -54,9 +56,13 @@
 import { EntityEdit, EntityAction } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
 import axios from 'axios'
+
 export default {
   name: 'ProfileCrud',
-  components: { EntityEdit, EntityAction },
+  components: {
+    EntityEdit,
+    EntityAction
+  },
   data() {
     return {
       api: API_ADDRESS.user.base + '/' + this.$store.getters['Auth/user'].id,
@@ -83,8 +89,7 @@ export default {
               label: 'شناسه',
               outlined: true,
               placeholder: 'وارد نمایید',
-              col: 'col-md-6',
-              disable: true
+              col: 'col-md-6'
             },
             {
               type: 'input',
@@ -368,15 +373,13 @@ export default {
         })
     },
     afterGetData() {
-      if (this.inputs[1].value[1].value) {
-        this.inputs[1].value[1].disable = true
-      }
-      if (this.inputs[1].value[2].value) {
-        this.inputs[1].value[2].disable = true
-      }
-      if (this.inputs[1].value[4].value) {
-        this.inputs[1].value[4].disable = true
-      }
+      this.inputs.forEach(input => {
+        input.value.forEach(val => {
+          if (val.value) {
+            val.readonly = true
+          }
+        })
+      })
       this.$store.commit('loading/loading', false)
     },
     beforeSendData(d) {
@@ -438,6 +441,7 @@ export default {
   color: #333333;
   margin-top: 20px;
 }
+
 .submitBtn {
   width: 189px;
   background: #ffc107;
@@ -445,6 +449,7 @@ export default {
   border-radius: 8px;
   color: white;
 }
+
 :deep(.outsideLabel) {
   font-size: 16px;
   font-weight: 400;
@@ -452,18 +457,22 @@ export default {
   letter-spacing: 0em;
   margin-bottom: 11px;
 }
+
 :deep(.q-field--labeled .q-field__native) {
   padding-top: 0;
   padding-bottom: 0;
   color: #aeaeae;
+
   &:focus {
     color: black;
   }
 }
+
 :deep(.q-field__inner) {
   background: #f6f7f9;
   border-radius: 8px;
 }
+
 :deep(.q-field--auto-height.q-field--labeled .q-field__control-container) {
   padding-top: 0;
   color: #aeaeae;
@@ -472,21 +481,26 @@ export default {
     color: black;
   }
 }
+
 :deep(.q-field__control) {
   color: #ffc107;
   height: 48px;
 }
+
 :deep(.q-input) {
   border: 0px solid #f6f7f9;
   border-radius: 8px;
 }
+
 :deep(.q-field--outlined .q-field__control:before) {
   border: 0px;
   height: 48px !important;
 }
+
 :deep(.q-field) {
   height: 48px !important;
 }
+
 :deep(.q-field__append) {
   height: 48px !important;
 }

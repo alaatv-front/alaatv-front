@@ -1,7 +1,7 @@
 <template>
   <q-option-group
     v-model="inputData.entity_type"
-    :options="options"
+    :options="entityOptions"
     @update:model-value="onChangeLineType"
     color="primary"
     type="radio"
@@ -25,7 +25,7 @@ export default {
   name: 'ItemEntity',
   data() {
     return {
-      options: [
+      entityOptions: [
         {
           entity_id: 0,
           entity_type: 'nothing',
@@ -69,8 +69,8 @@ export default {
   mixins: [inputMixin],
   methods: {
     onChangeLineType () {
-      const name = this.options.find(item => item.entity_type === this.inputData.entity_type).display_name
-      const id = this.options.find(item => item.entity_type === this.inputData.entity_type).entity_id
+      const name = this.entityOptions.find(item => item.entity_type === this.inputData.entity_type).display_name
+      const id = this.entityOptions.find(item => item.entity_type === this.inputData.entity_type).entity_id
       const data = { entity_id: id, entity_type: this.inputData.entity_type, display_name: name, altNames: [] }
       console.log(data)
       this.change(data)

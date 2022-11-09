@@ -11,10 +11,10 @@
       </div>
       <div class="leftSide">
         <q-btn
-          @click="tabChanged('marker')"
           flat
           class=""
           icon="isax:signpost"
+          @click="tabChanged('marker')"
         >
           <q-tooltip
             anchor="top middle"
@@ -25,10 +25,10 @@
           </q-tooltip>
         </q-btn>
         <q-btn
-          @click="tabChanged('polyline')"
           flat
           class=""
           icon="isax:chart-square"
+          @click="tabChanged('polyline')"
         >
           <q-tooltip
             anchor="top middle"
@@ -42,6 +42,7 @@
           flat
           class=""
           icon="isax:menu-1"
+          @click="showMapInfo"
         >
           <q-tooltip
             anchor="top middle"
@@ -57,23 +58,23 @@
 
     <q-separator
       color="gray"
-      inset/>
+      inset />
 
-    <div class="MarkerFormBuilderContainer"
-         v-if="toolTab === 'marker'">
+    <div v-if="toolTab === 'marker'"
+         class="MarkerFormBuilderContainer q-pa-sm">
 
-      <div class="MarkerFormBuilder"
-           v-if="canShowGeneralData">
+      <div v-if="canShowGeneralData"
+           class="MarkerFormBuilder">
         <form-builder
-          v-model:value="markerInputs"
           ref="markerInputsFormBuilder"
+          v-model:value="markerInputs"
         />
       </div>
-      <q-btn class="addMarkerBtn"
-             @click="addMarker"
-             icon="isax:element-plus"/>
-      <div class="markerToolBoxBtns"
-           v-if="bufferMarker.editMode"
+      <q-btn class="addMarkerBtn q-mb-xs"
+             icon="isax:element-plus"
+             @click="addMarker" />
+      <div v-if="bufferMarker.editMode"
+           class="markerToolBoxBtns"
       >
         <q-btn class="btns btn-info"
                icon="isax:copy"
@@ -89,28 +90,27 @@
 
     </div>
 
-    <div class="PolylineFormBuilderContainer"
-         v-if="toolTab === 'polyline'">
+    <div v-if="toolTab === 'polyline'"
+         class="PolylineFormBuilderContainer">
 
-      <div class="PolylineFormBuilder"
-           v-if="canShowGeneralData">
+      <div v-if="canShowGeneralData"
+           class="PolylineFormBuilder">
         <form-builder
-          v-model:value="polylineInputs"
-          ref="polylineInputsFormBuilder"/>
+          ref="polylineInputsFormBuilder"
+          v-model:value="polylineInputs" />
 
       </div>
       <q-btn class="addPolyLineBtn"
-             icon="isax:refresh"/>
-      <div class="PolylineToolBoxBtns"
-           v-if="bufferPolyline.editMode"
+             icon="isax:refresh" />
+      <div v-if="bufferPolyline.editMode"
+           class="PolylineToolBoxBtns"
       >
         <q-btn class="btns btn-info"
-               icon="isax:copy"/>
+               icon="isax:copy" />
         <q-btn class="btns btn-info"
-               icon="isax:save-remove"/>
+               icon="isax:save-remove" />
         <q-btn class="btns btn-danger"
-               icon="isax:trash"/>
-
+               icon="isax:trash" />
 
       </div>
 
@@ -126,6 +126,9 @@ import API_ADDRESS from 'src/api/Addresses'
 import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
 import LineType from 'components/FormBuilderCustumComponents/Map/LineType'
 import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
+import { MapItem } from 'src/models/MapItem'
+import MapItemEntity from 'src/models/MapItemEntity'
+import { MapItemAction } from 'src/models/MapItemAction'
 
 export default {
   name: 'AdminToolBox',
@@ -133,7 +136,7 @@ export default {
   props: {
     center: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     },
@@ -148,9 +151,13 @@ export default {
     polyline: {
       type: Object,
       default: {}
+    },
+    toolTab: {
+      type: String,
+      default: ''
     }
   },
-  data () {
+  data() {
     return {
       canShowMarker: false,
       bufferMarker: null,
@@ -161,11 +168,6 @@ export default {
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Exam.Show',
       indexRouteName: 'Admin.Exam.Index',
-      toolTab: null,
-      displayZoom: {
-        min_zoom: 11,
-        max_zoom: 11
-      },
       markerInputs: [
         {
           type: 'formBuilder',
@@ -176,6 +178,7 @@ export default {
               type: 'select',
               name: 'tags',
               label: 'تگ :',
+              responseKey: 'data.tags',
               outlined: true,
               multiple: true,
               showNoOption: false,
@@ -326,6 +329,7 @@ export default {
           label: 'موقعیت آیکن نسبت به مختصات ',
           min: 0,
           max: 200,
+          class: 'iconAnchorYClass',
           value: 0
         }
 
@@ -482,6 +486,35 @@ export default {
         }
       ],
       typeOptions: [],
+      defaultMarker: {
+        id: 0,
+        action: {},
+        data: {
+          latlng: {
+            lng: 0,
+            lat: 0
+          },
+          headline: {
+            text: null,
+            fontSize: 14
+          },
+          icon: {
+            options: {
+              iconAnchor: [0, 0],
+              iconUrl: null,
+              iconSize: 70
+            }
+          }
+        },
+        enable: 1,
+        tags: [],
+        min_zoom: 3.1,
+        max_zoom: 11,
+        editMode: false,
+        type: {
+          name: 'marker'
+        }
+      },
       category: {
         title: '',
         id: '',
@@ -492,95 +525,97 @@ export default {
   },
   watch: {
     headlineText: {
-      handler (newVal) {
+      handler(newVal) {
         this.bufferMarker.data.headline.text = newVal
         this.updateItem()
       }
     },
     ZoomRate: {
-      handler (zoom) {
-        this.displayZoom.max_zoom = zoom.max
-        this.displayZoom.min_zoom = zoom.min
+      handler(zoom) {
+        this.bufferMarker.max_zoom = zoom.max
+        this.bufferMarker.min_zoom = zoom.min
         this.updateItem()
       }
     },
     iconImage: {
-      handler (fileList) {
-        console.log(fileList)
-        this.bufferMarker.data.icon.options.iconUrl = URL.createObjectURL(fileList) // returns Blob
+      handler(fileList) {
+        if (!fileList) {
+          this.bufferMarker.data.icon.options.iconUrl = null
+        } else if (typeof fileList === 'object') {
+          this.bufferMarker.data.icon.options.iconUrl = URL.createObjectURL(fileList) // returns Blob
+        } else {
+          this.bufferMarker.data.icon.options.iconUrl = fileList
+        }
       }
     },
     TextColor: {
-      handler (color) {
+      handler(color) {
         this.bufferMarker.data.headline.fillColor = color
         this.updateItem()
       }
     },
     StrokeColor: {
-      handler (color) {
+      handler(color) {
         this.bufferMarker.data.headline.strokeColor = color
         this.updateItem()
       }
     },
     IconSize: {
-      handler (size) {
+      handler(size) {
         this.bufferMarker.data.icon.options.iconSize = size
         this.updateItem()
       }
     },
     TextSize: {
-      handler (size) {
-        console.log(size)
+      handler(size) {
         this.bufferMarker.data.headline.fontSize = size
         this.updateItem()
       }
     },
     StrokeSize: {
-      handler (size) {
+      handler(size) {
         this.bufferMarker.data.headline.strokeWidth = size
         this.updateItem()
       }
     },
     iconAnchorX: {
-      handler (anchor) {
+      handler(anchor) {
         this.bufferMarker.data.icon.options.iconAnchor[0] = anchor
-        // this.bufferMarker.data.icon.options.iconSize = this.bufferMarker.data.icon.options.iconSize -1
         this.updateItem()
       }
     },
     iconAnchorY: {
-      handler (anchor) {
+      handler(anchor) {
         this.bufferMarker.data.icon.options.iconAnchor[1] = anchor
         this.updateItem()
       }
     },
     action: {
-      handler (data) {
+      handler(data) {
         this.bufferMarker.action = data
-        console.log(data)
         this.updateItem()
       }
     },
     tags: {
-      handler (tags) {
-        this.bufferMarker.tags=tags
+      handler(tags) {
+        this.bufferMarker.tags = tags
         this.updateItem()
       }
     },
     enable: {
-      handler (newValue) {
-        this.bufferMarker.enable=newValue
+      handler(newValue) {
+        this.bufferMarker.enable = newValue
         this.updateItem()
       }
     },
     entity: {
-      handler (EntityData) {
+      handler(EntityData) {
         this.bufferMarker.entity = EntityData
       }
-    },
+    }
   },
   computed: {
-    activeMapItem () {
+    activeMapItem() {
       if (this.bufferMarker.editMode) {
         return this.bufferMarker
       } else if (this.bufferPolyline.editMode) {
@@ -589,63 +624,91 @@ export default {
         return false
       }
     },
-    canShowGeneralData () {
+    canShowGeneralData() {
       return this.activeMapItem.editMode && this.activeMapItem.type.name === this.toolTab
     },
-    headlineText () {
+    headlineText() {
       return this.getInputsValue('headlineText')
     },
-    ZoomRate () {
+    ZoomRate() {
       return this.getInputsValue('ZoomRate')
     },
-    iconImage () {
+    iconImage() {
       return this.getInputsValue('iconImage')
     },
-    TextColor () {
+    TextColor() {
       return this.getInputsValue('TextColor')
     },
-    StrokeColor () {
+    StrokeColor() {
       return this.getInputsValue('StrokeColor')
     },
-    IconSize () {
+    IconSize() {
       return this.getInputsValue('IconSize')
     },
-    TextSize () {
+    TextSize() {
       return this.getInputsValue('TextSize')
     },
-    StrokeSize () {
+    StrokeSize() {
       return this.getInputsValue('StrokeSize')
     },
-    iconAnchorX () {
+    iconAnchorX() {
       return this.getInputsValue('iconAnchorX')
     },
-    iconAnchorY () {
+    iconAnchorY() {
       return this.getInputsValue('iconAnchorY')
     },
-    action () {
+    action() {
       return this.getInputsValue('action')
     },
-    tags () {
+    tags() {
       const formBuilderCol = this.getInputsValue('formBuilderCol')
       return formBuilderCol.find(item => item.name === 'tags').value
     },
-    enable () {
+    enable() {
       const formBuilderCol = this.getInputsValue('formBuilderCol2')
       return formBuilderCol.find(item => item.name === 'enable').value
     },
-    entity () {
+    entity() {
       const formBuilderCol = this.getInputsValue('formBuilderCol2')
       return formBuilderCol.find(item => item.name === 'entity').value
-    },
+    }
   },
-  created () {
+  created() {
     this.bufferMarker = this.marker
     this.bufferPolyline = this.polyline
   },
   methods: {
-    iconFilesChange (fileList) {
+    iconFilesChange(fileList) {
     },
-    getActiveMapItem () {
+    setInput(data) {
+      console.log(data)
+      this.markerInputs[0].value[0].value = data.tags
+      this.markerInputs[8].value = data.data.headline.text
+      if (typeof data.enable === 'number') {
+        this.markerInputs[1].value[0].value = data.enable
+      } else if (data.enable) {
+        this.markerInputs[1].value[0].value = 1
+      } else {
+        this.markerInputs[1].value[0].value = 0
+      }
+      this.markerInputs[1].value[1].value = new MapItemEntity(data.entity)
+      if (typeof data.action === 'string') {
+        this.markerInputs[3].value = new MapItemAction(JSON.parse(data.action))
+      } else {
+        this.markerInputs[3].value = new MapItemAction(data.action)
+      }
+      this.markerInputs[4].value.min = data.min_zoom
+      this.markerInputs[4].value.max = data.max_zoom
+      this.markerInputs[7].value = data.data.icon.options.iconUrl
+      this.markerInputs[9].value = data.data.headline.fontSize
+      this.markerInputs[11].value = data.data.headline.strokeWidth
+      this.markerInputs[12].value = data.data.headline.fillColor
+      this.markerInputs[13].value = data.data.headline.strokeColor
+      this.markerInputs[14].value = data.data.icon.options.iconSize[0]
+      this.markerInputs[15].value = data.data.icon.options.iconAnchor[0]
+      this.markerInputs[17].value = data.data.icon.options.iconAnchor[1]
+    },
+    getActiveMapItem() {
       if (this.bufferMarker.editMode) {
         return this.bufferMarker
       } else if (this.bufferPolyline.editMode) {
@@ -654,44 +717,49 @@ export default {
         return false
       }
     },
-    updateItem () {
+    updateItem() {
       const activeMapItem = this.getActiveMapItem()
       if (!activeMapItem) {
         return
       }
-      activeMapItem.min_zoom = this.displayZoom.min_zoom
-      activeMapItem.max_zoom = this.displayZoom.max_zoom
       this.$emit(activeMapItem.type.name + '_change', activeMapItem)
     },
-    getInputsValue (inputName) {
+    getInputsValue(inputName) {
       return this.markerInputs.find(input => input.name === inputName).value
     },
-    addMarker () {
-      this.$emit('add_marker', this.marker)
+    addMarker() {
+      this.$emit('add_marker', this.defaultMarker)
     },
     saveMarker() {
-        this.$emit('save_marker', this.marker);
-        // this.clearData();
+      this.$emit('save_marker', this.marker)
+      // this.clearData();
     },
 
-    getInputValue (type, inputName) {
+    getInputValue(type, inputName) {
       return this[type].find(input => input.name === inputName).value
     },
-    getPolylineValue (inputName) {
+    getPolylineValue(inputName) {
       return this.polylineInputs.find(input => input.name === inputName).value
     },
-    tabChanged (tabName) {
-      this.toolTab = tabName
+    tabChanged(tabName) {
       this.$emit('tab_changed', tabName)
+    },
+    showMapInfo() {
+      this.$emit('show-map-info')
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
+/*.iconAnchorYClass{*/
+/*  transform: rotate(90deg);*/
+/*}*/
 </style>
 
 <style scoped lang="scss">
+
+
 .adminToolBox {
   width: 100%;
 
@@ -718,6 +786,7 @@ export default {
     .markerToolBoxBtns {
       .btns {
         width: 100%;
+        margin: 0 0 4px;
       }
 
       .btns.btn-success {
