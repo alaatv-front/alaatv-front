@@ -30,15 +30,15 @@
     >
       <a :href="slide.link">
         <q-img
-          v-if="slide.photo"
-          :src="slide.photo"
+          v-if="slide.photo.src !== undefined"
+          :src="slide.photo.src"
           :ratio="slide.ratio"
         />
         <q-img
           v-else
-          :src="responsiveFeatures(slide.features).src"
-          :width="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).width : '100%'"
-          :height="responsiveFeatures(slide.features).width ? responsiveFeatures(slide.features).height : 'auto'"
+          :src="responsiveFeatures(slide.photo).src"
+          :width="responsiveFeatures(slide.photo).width ? responsiveFeatures(slide.photo).width : '100%'"
+          :height="responsiveFeatures(slide.photo).width ? responsiveFeatures(slide.photo).height : 'auto'"
           :ratio="slide.ratio"
         />
         <q-tooltip
@@ -125,15 +125,15 @@ export default {
     responsiveFeatures (features) {
       const windowSize = this.$store.getters['AppLayout/windowSize']
       if (windowSize.x >= 1920) {
-        return features.xl
+        return features.xl || features.lg || features.md || features.sm || features.xs
       } else if (windowSize.x <= 1919 && windowSize.x > 1440) {
-        return features.lg
+        return features.lg || features.md || features.sm || features.xs || features.xl
       } else if (windowSize.x <= 1439 && windowSize.x > 1024) {
-        return features.md
+        return features.md || features.sm || features.xs || features.lg || features.xl
       } else if (windowSize.x <= 1023 && windowSize.x > 600) {
-        return features.s
+        return features.sm || features.xs || features.md || features.lg || features.xl
       } else if (windowSize.x <= 599) {
-        return features.xs
+        return features.xs || features.sm || features.md || features.lg || features.xl
       }
     }
   }

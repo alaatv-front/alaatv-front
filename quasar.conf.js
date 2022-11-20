@@ -9,7 +9,6 @@
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const path = require('path')
 
@@ -127,8 +126,13 @@ module.exports = configure(function (ctx) {
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing alias
 
+          'root': path.resolve(__dirname, './src'),
+          // '@': path.resolve(__dirname,'./src'),
+          // '~': path.resolve(__dirname, './src'),
+
           // This will make sure that the hosting test app is pointing to only one instance of vue.
-          vue: path.resolve('./node_modules/vue')
+          vue: path.resolve(__dirname, './node_modules/vue')
+          // vue: path.resolve('./node_modules/vue')
         }
 
         cfg.watchOptions = {
@@ -136,15 +140,15 @@ module.exports = configure(function (ctx) {
           poll: 1000
         }
 
-        cfg.plugins.push(new CopyWebpackPlugin({
-          patterns: [
-            {
-              // from: './src-pwa/firebase-messaging-sw.js',
-              from: path.resolve('./src/ServiceWorker/firebase-messaging-sw.js'),
-              to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
-            }
-          ]
-        }))
+        // cfg.plugins.push(new CopyWebpackPlugin({
+        //   patterns: [
+        //     {
+        //       // from: './src-pwa/firebase-messaging-sw.js',
+        //       from: path.resolve('./src/ServiceWorker/firebase-messaging-sw.js'),
+        //       to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
+        //     }
+        //   ]
+        // }))
       }
     },
 
@@ -259,7 +263,7 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
-      workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
+      workboxPluginMode: 'InjectManifest', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
 
       // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
@@ -270,11 +274,11 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: 'آزمون آنلاین آلاء',
-        short_name: 'سه آ',
+        name: 'مدرسه آنلاین آلاء',
+        short_name: 'آلاء',
         background_color: '#FFFFFF',
         theme_color: '#ffc107',
-        description: 'آزمون آنلاین آلاء',
+        description: 'آموزش مجازی آلاء',
         display: 'standalone',
         orientation: 'portrait',
         icons: [

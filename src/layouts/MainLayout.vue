@@ -18,8 +18,8 @@
       </template>
       <template #content>
         <div ref="contentInside"
-             class="content-inside"
              v-scroll="onContentInsideScroll"
+             class="content-inside"
         >
           <q-dialog v-model="confirmDialogData.show"
                     persistent>
@@ -33,14 +33,14 @@
               <q-separator />
               <q-card-actions align="right"
                               class="q-pb-none">
-                <q-btn color="green"
+                <q-btn v-close-popup
+                       color="green"
                        flat
-                       @click="confirmDialogAction(true)"
-                       v-close-popup>بله</q-btn>
-                <q-btn color="red"
+                       @click="confirmDialogAction(true)">بله</q-btn>
+                <q-btn v-close-popup
+                       color="red"
                        flat
-                       @click="confirmDialogAction(false)"
-                       v-close-popup>خیر</q-btn>
+                       @click="confirmDialogAction(false)">خیر</q-btn>
               </q-card-actions>
             </q-card>
           </q-dialog>
