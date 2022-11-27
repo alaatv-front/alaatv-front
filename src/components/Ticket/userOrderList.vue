@@ -7,14 +7,14 @@
                 class="q-mx-sm"
                 height="100px" />
   </div>
-  <div v-if="loading=== false">
+  <div v-else>
     <!--  ----------------------------  لیست پرداخت شده  ---------------------------------------------------------------        -->
     <q-expansion-item
+      v-if="this.userOrdersList.map(object => object.inputData.paymentstatus.id).indexOf(3) !== -1"
       group="parentGroup"
       label="لیست پرداخت شده"
       default-opened
       class="panel-color"
-      v-if="this.userOrdersList.map(object => object.inputData.paymentstatus.id).indexOf(3) !== -1"
     >
       <q-btn
         rounded
@@ -57,9 +57,9 @@
           <!--          ------------------------------------------------------------------  header slot done!!!  ------------------------------------------------------------------ -->
           <q-card>
             <q-card-section>
-              <div class="row product"
-                   v-for="item in order.inputData.orderproducts"
-                   :key="item">
+              <div v-for="item in order.inputData.orderproducts"
+                   :key="item"
+                   class="row product">
                 <div class="col-2">
                   <q-img
                     :src="item.photo"
@@ -98,8 +98,8 @@
                 </div>
                 <div class="col-4 discount-final-price">
                   <div class="q-mr-xl">
-                    <div class="price"
-                         v-if="item.price.discount !== 0">
+                    <div v-if="item.price.discount !== 0"
+                         class="price">
                       {{toman(item.price.discount)}}
                     </div>
                     <div v-else
@@ -111,8 +111,8 @@
                     </div>
                   </div>
                   <div>
-                    <div class="price"
-                         v-if="item.price.final !== 0">
+                    <div v-if="item.price.final !== 0"
+                         class="price">
                       {{toman(item.price.final)}}
                     </div>
                     <div v-else
@@ -134,10 +134,10 @@
     </q-expansion-item>
     <!--  ----------------------------  لیست پرداخت نشده  ---------------------------------------------------------------        -->
     <q-expansion-item
+      v-if="this.userOrdersList.map(object => object.inputData.paymentstatus.id).indexOf(1) !== -1"
       group="parentGroup"
       label="لیست پرداخت نشده"
       class="panel-color"
-      v-if="this.userOrdersList.map(object => object.inputData.paymentstatus.id).indexOf(1) !== -1"
     >
       <q-btn
         rounded
@@ -181,9 +181,9 @@
           <!--          ------------------------------------------------------------------  header slot done!!!  ------------------------------------------------------------------ -->
           <q-card>
             <q-card-section>
-              <div class="row product"
-                   v-for="item in order.inputData.orderproducts"
-                   :key="item">
+              <div v-for="item in order.inputData.orderproducts"
+                   :key="item"
+                   class="row product">
                 <div class="col-2">
                   <q-img
                     :src="item.photo"
@@ -221,8 +221,8 @@
                 </div>
                 <div class="col-4 discount-final-price">
                   <div class="q-mr-xl">
-                    <div class="price"
-                         v-if="item.price.discount !== 0">
+                    <div v-if="item.price.discount !== 0"
+                         class="price">
                       {{toman(item.price.discount)}}
                     </div>
                     <div v-else
@@ -234,8 +234,8 @@
                     </div>
                   </div>
                   <div>
-                    <div class="price"
-                         v-if="item.price.final !== 0">
+                    <div v-if="item.price.final !== 0"
+                         class="price">
                       {{toman(item.price.final)}}
                     </div>
                     <div v-else
@@ -328,8 +328,6 @@ export default {
           // console.log(e)
         })
     }
-  },
-  created () {
   }
 }
 </script>

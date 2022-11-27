@@ -33,8 +33,8 @@
                 name="isax:user"
                 class="user-icon" />
       </div>
-      <div class="q-ml-xl"
-           v-if="data.is_private">
+      <div v-if="data.is_private"
+           class="q-ml-xl">
         <q-icon name="isax:info-circle"
                 size="sm"
                 class="q-mb-xs"
@@ -44,8 +44,8 @@
     <q-card-section class="message-body">
       <div class="body">
         <div v-html="data.body" />
-        <div dir="ltr"
-             v-if="data.files.voice">
+        <div v-if="data.files.voice"
+             dir="ltr">
           <div class="flex voice-player-section">
             <q-btn v-if="!showVoicePlayerIsPlaying"
                    size="30px"
@@ -60,8 +60,8 @@
                    @click="pauseRecordedVoice">
               <q-icon name="isax:pause"></q-icon>
             </q-btn>
-            <av-waveform class="av-waveform"
-                         ref="waveform"
+            <av-waveform ref="waveform"
+                         class="av-waveform"
                          :audio-src="data.files.voice"
                          :playtime-font-family="'IRANSans'"
                          :audio-controls="false"
@@ -90,14 +90,14 @@
         >
           <q-card>
             <q-card-section>
-              <q-input type="textarea"
-                       v-model="userReportDescription"></q-input>
+              <q-input v-model="userReportDescription"
+                       type="textarea"></q-input>
             </q-card-section>
             <q-card-actions>
-              <q-btn flat
-                     v-if="!isUserAdmin"
-                     @click="sendReport"
-                     color="blue">
+              <q-btn v-if="!isUserAdmin"
+                     flat
+                     color="blue"
+                     @click="sendReport">
                 ارسال گزارش
               </q-btn>
             </q-card-actions>
@@ -137,6 +137,19 @@ export default {
       userReportDescription: ''
     }
   },
+  computed: {
+    isUserCustomer () {
+      return this.data.user.role === 'کاربر'
+    },
+    ltrOrRtl () {
+      if (this.isUserCustomer) {
+        return 'ltr'
+      } else {
+        return 'rtl'
+      }
+    }
+
+  },
   methods: {
     playRecordedVoice () {
       const audioPlayer = this.$refs.waveform.$el.children[0].children[0],
@@ -169,18 +182,6 @@ export default {
             type: 'positive'
           })
         })
-    }
-  },
-  computed: {
-    isUserCustomer () {
-      return this.data.user.role === 'کاربر'
-    },
-    ltrOrRtl () {
-      if (this.isUserCustomer) {
-        return 'ltr'
-      } else {
-        return 'rtl'
-      }
     }
   },
   watch: {

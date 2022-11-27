@@ -1,13 +1,41 @@
 <template>
-  <div class="SendMessageInput">
+  <div class="">
 
-    <div class="input-group"
-    >
+    <div v-if="canAssignTicket"
+         class="q-py-lg">
+      <p>
+        اپراتورهای تخصیص داده شده:
+      </p>
+
+      <q-select
+        v-model="assignTo"
+        outlined
+        :options="userAssignees.list"
+      >
+        <template v-slot:selected>
+          {{assignTo?  assignTo.full_name : '-' }}
+          {{assignTo ? '('+ assignTo.role +')' : ''}}
+        </template>
+        <template v-slot:option="scope">
+          <q-item v-bind="scope.itemProps">
+            <q-item-section>
+              {{scope.opt.full_name}} ({{scope.opt.role}})
+            </q-item-section>
+          </q-item>
+        </template>
+        <!--        <template v-slot:option="scope">-->
+        <!--          Company: {{scope.full_name }}-->
+        <!--          {{scope.role}}-->
+        <!--        </template>-->
+      </q-select>
+    </div>
+    <div class=" SendMessageInput ">
       <div v-show="canShowMic"
            class="input-group-prepend">
         <q-btn
-          class="btn  actionBtn btnRecordVoiceForUpload"
           v-longpress="recordVoice"
+          unelevated
+          class="btn  actionBtn btnRecordVoiceForUpload"
           color="positive"
           icon="isax:microphone"
         >
@@ -16,24 +44,25 @@
       <div v-show="canShowSelectPic"
            class="input-group-append">
         <q-btn
+          unelevated
           class="btn  actionBtn"
-          color="positive"
-          @click="getFile"
+          color="primary"
           icon="isax:image"
+          @click="getFile"
         >
           <input
             ref="myFileInput"
             style="display:none"
             type="file"
-            @change="loadImage($event)"
             accept="image/*"
+            @change="loadImage($event)"
           />
         </q-btn>
 
         <q-dialog
+          v-model="showModalStatus"
           persistent
           class="imageModal"
-          v-model="showModalStatus"
           @close="clearMessage"
         >
           <q-card>
@@ -53,67 +82,81 @@
 
               <div class="slider_box">
                 <q-btn
-                  class="cancel-pic"
-                  @click="clearMessage"
+                  unelevated
+                  class="delete-pic-btn"
                   label="حذف"
+                  @click="clearMessage"
                 />
                 <div class="angle-slider">
-                  <p class="title">میزان چرخش:</p>
+                  <p class="title">میزان چرخش :</p>
                   <input
                     id="slider"
+                    v-model="rotateAngle"
                     class="angle_slider"
                     type="range"
                     min="0"
                     max="360"
-                    v-model="rotateAngle"
                     @change="rotate"
                   />
                 </div>
               </div>
 
               <q-input
+                v-model="newMessageTextInModal"
                 borderless
                 class="imageInput"
-                placeholder="متن پیام ..."
-                v-model="newMessageTextInModal" />
+                placeholder="متن پیام ..." />
 
             </div>
             <div
-              :class="[(true) ? 'adminSendPic' : '']"
+              class="adminSendPic"
             >
               <q-btn
+                unelevated
                 class="imageBtn BtnSuccess"
-                @click="emitData(false)"
                 :loading="sendLoading"
                 icon="isax:tick-square"
+                @click="emitData(false)"
               />
               <q-btn
-                v-if="true"
+                v-if="isAdmin"
+                unelevated
                 class="imageBtn BtnWarning"
-                @click="emitData(true)"
                 :loading="sendLoading"
                 icon="isax:card-send"
+                @click="emitData(true)"
               />
             </div>
           </q-card>
 
         </q-dialog>
       </div>
+      <div v-if="canShowSelectFile">
+        <q-btn
+          unelevated
+          square
+          icon="attach_file"
+          class="actionBtn full-height"
+          @click="$refs.fileInput.click()" />
+        <input ref="fileInput"
+               type="file"
+               style="display: none;"
+               @change="loadFile($event)" />
+      </div>
 
       <div
         v-show="canShowSendBtn"
-        class="input-group-append"
-        :class="[(true) ? 'adminSend' : '']">
+        class="input-group-append bg-red adminSend">
         <q-btn
           size="12px"
-          class="btn  actionBtn sendBtn BtnSuccess"
+          class="btn  actionBtn sendBtn BtnSuccess "
           :loading="sendLoading"
-          @click="emitData(false)"
           icon="isax:send-1"
+          @click="emitData(false)"
         />
         <q-btn
+          v-if="isAdmin"
           size="12px"
-          v-if="true"
           class="btn  actionBtn sendBtn BtnWarning"
           :loading="sendLoading"
           icon="isax:directbox-send"
@@ -122,13 +165,13 @@
       </div>
 
       <av-waveform
-        class="av-waveform"
         v-if="recordedVoice !== null"
         v-show="showVoicePlayer"
+        ref="playAudio"
+        class="av-waveform"
         :audio-src="recordedVoice"
         :playtime-font-family="'IRANSans'"
         :audio-controls="false"
-        ref="playAudio"
         :canv-width="1285"
         :canv-height="64"
       ></av-waveform>
@@ -144,11 +187,11 @@
       />
 
       <q-input
-        borderless
         v-show="canShowTextarea"
+        v-model="newMessage.text"
+        borderless
         class="newMessageText"
-        placeholder="متن پیام ..."
-        v-model="newMessage.text">
+        placeholder="متن پیام ...">
       </q-input>
 
       <div
@@ -157,17 +200,19 @@
         class="input-group-prepend">
         <q-btn
           v-if="!showVoicePlayerIsPlaying"
+          unelevated
           color="primary"
           class="btn  actionBtn"
-          @click="playRecordedVoice"
           icon="isax:play"
+          @click="playRecordedVoice"
         />
         <q-btn
           v-else
+          unelevated
           color="primary"
           class="btn  actionBtn"
-          @click="pauseRecordedVoice"
-          icon="isax:pause" />
+          icon="isax:pause"
+          @click="pauseRecordedVoice" />
       </div>
 
       <div
@@ -175,14 +220,17 @@
         v-show="showVoicePlayer"
         class="input-group-prepend">
         <q-btn
+          unelevated
           color="primary"
           class="btn  actionBtn"
           icon="isax:play-remove"
           @click="clearMessage"
         />
       </div>
+
     </div>
   </div>
+
 </template>
 
 <script>
@@ -191,9 +239,10 @@ import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
 import AvMedia from 'vue-audio-visual/src/components/AvMedia'
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
+import { UserList } from 'src/models/User'
 
 const longpress = {
-  created (el, binding, vNode) {
+  created(el, binding, vNode) {
     if (typeof binding.value !== 'function') {
       const compName = vNode.context.name
       let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
@@ -248,52 +297,69 @@ const longpress = {
 
 export default {
   name: 'SendMessageInput',
-  props: {
-    sendLoading: {
-      type: Boolean,
-      default: false
-    }
-  },
   components: {
     AvWaveform,
     Cropper,
     AvMedia
   },
-  data () {
-    return {
-      imgURL: '',
-      resultURL: '',
-      userPicSelected: false,
-      userPicClipped: false,
-      picRotate: 0,
-      rotateAngle: 0,
-      oldRotateAngle: 0,
-      showModalStatus: false,
-
-      newMessageTextInModal: '',
-
-      streamVoice: null,
-      recordedVoice: null,
-      recordedVoiceBlob: null,
-      showVoicePlayer: false,
-      showVoicePlayerIsPlaying: false,
-      audioPlayerLastPlayedTime: 0,
-      showVoiceVisualizer: false,
-      duration: null,
-      mediaRecorder: null,
-      audioCtx: null,
-      canvasCtx: null,
-
-      newMessage: {
-        text: '',
-        pic: '',
-        voice: ''
-      }
+  props: {
+    sendLoading: {
+      type: Boolean,
+      default: false
+    },
+    role: {
+      type: String,
+      default: 'user'
+    },
+    canFilterSupporter: {
+      type: Boolean,
+      default: false
+    },
+    canFilterAssignees: {
+      type: Boolean,
+      default: false
+    },
+    canAssignTicket: {
+      type: Boolean,
+      default: false
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false
     }
   },
+  data: () => ({
+    fileInput: '',
+    assignTo: null,
+    imgURL: '',
+    resultURL: '',
+    userPicSelected: false,
+    userPicClipped: false,
+    picRotate: 0,
+    rotateAngle: 0,
+    oldRotateAngle: 0,
+    showModalStatus: false,
+    newMessageTextInModal: '',
+    streamVoice: null,
+    recordedVoice: null,
+    recordedVoiceBlob: null,
+    showVoicePlayer: false,
+    showVoicePlayerIsPlaying: false,
+    audioPlayerLastPlayedTime: 0,
+    showVoiceVisualizer: false,
+    duration: null,
+    mediaRecorder: null,
+    audioCtx: null,
+    canvasCtx: null,
+    newMessage: {
+      text: '',
+      pic: '',
+      voice: ''
+    }
+  }),
   watch: {
     imgURL: {
-      handler (newValue) {
+      handler(newValue) {
         if (newValue) {
           this.showModalStatus = true
           this.userPicClipped = false
@@ -302,43 +368,147 @@ export default {
       }
     },
     resultURL: {
-      handler (val) {
+      handler(val) {
         this.userPicClipped = true
         if (val) this.userPicSelected = true
       }
     },
     sendLoading: {
-      handler (newVal) {
+      handler(newVal) {
         this.Loading = newVal
       }
     }
   },
   computed: {
-    isAdmin () {
-      return this.$store.getters.appProps.isAdmin
-    },
-    canShowSendBtn () {
+    canShowSendBtn() {
       return (this.newMessage.text.length > 0 || this.showVoicePlayer)
     },
-    canShowTextarea () {
+    canShowSelectFile() {
+      return (this.newMessage.text.length === 0)
+    },
+    canShowTextarea() {
       return (this.newMessage.text.length > 0) || (this.canShowMic && this.canShowSelectPic)
     },
-    canShowMic () {
+    canShowMic() {
       return (this.newMessage.text.length === 0 && !this.userPicSelected && !this.recordedVoice)
     },
-    canShowSelectPic () {
+    canShowSelectPic() {
       return (this.newMessage.text.length === 0 && this.mediaRecorder === null)
     },
-    canShowPlayerForRecordedVoice () {
+    canShowPlayerForRecordedVoice() {
       return (this.newMessage.text.length === 0 && !this.userPicSelected && this.mediaRecorder !== null && this.mediaRecorder.state === 'inactive')
     },
-    canShowImageTools () {
+    canShowImageTools() {
       return !this.userPicClipped && this.userPicSelected
+    },
+    userAssignees() {
+      return new UserList([
+        {
+          inputData: {
+            id: 2,
+            first_name: 'mitra',
+            last_name: 'zolfi',
+            mobile: '09388131193',
+            national_code: '4900443050',
+            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+            role: 'پشتیبان',
+            major: { id: 1, name: 'ریاضی', title: 'ریاضی', selected: true }
+          },
+          url_key: 'user',
+          id: 2,
+          first_name: 'mitra',
+          last_name: 'zolfi',
+          full_name: 'mitra zolfi',
+          mobile_verified_at: null,
+          mobile: '09388131193',
+          phone: null,
+          national_code: '4900443050',
+          nationalCode: null,
+          email: null,
+          province: { id: null, title: '' },
+          city: { id: null, title: '' },
+          school: null,
+          address: null,
+          role: 'پشتیبان',
+          photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+          photoOfKartemeli: null,
+          birthdate: null,
+          postalCode: null,
+          completion: null,
+          created_at: null,
+          updated_at: null,
+          major_id: 1,
+          grade_id: null,
+
+          educational_base_id: null,
+          gender_id: null,
+          shahr: { id: null },
+          shahr_id: null
+        },
+        {
+          inputData: {
+            id: 1,
+            first_name: 'mitra',
+            last_name: 'zolfi',
+            mobile: '09388131193',
+            national_code: '4900443050',
+            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+            role: 'ادمین',
+            major: { id: 1, name: 'ریاضی', title: 'ریاضی', selected: true }
+          },
+          url_key: 'user',
+          id: 3,
+          first_name: 'mitra',
+          last_name: 'khorram',
+          full_name: 'mitra khorram',
+          mobile_verified_at: null,
+          mobile: '09388131193',
+          phone: null,
+          national_code: '4900443050',
+          nationalCode: null,
+          email: null,
+          province: { id: null, title: '' },
+          city: { id: null, title: '' },
+          school: null,
+          address: null,
+          role: 'ادمین',
+          photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+          photoOfKartemeli: null,
+          birthdate: null,
+          postalCode: null,
+          completion: null,
+          created_at: null,
+          updated_at: null,
+          major_id: 1,
+          grade_id: null,
+
+          educational_base_id: null,
+          gender_id: null,
+          shahr: { id: null },
+          shahr_id: null
+        }
+      ])
     }
   },
   methods: {
+    loadFile(event) {
+      const { files } = event.target
+      if (files && files[0]) {
+        this.fileInput = files
+        this.emitData(false)
+      }
+    },
+    deleteFile(event) {
+      event.stopPropagation()
+      this.fileInput = null
+    },
 
-    recordVoice (status) {
+    sendData(isPrivate) {
+      this.emitData(isPrivate)
+      // this.showModalStatus = false
+    },
+
+    recordVoice(status) {
       if (status === 'longpress-start') {
         this.recordStart()
       } else if (status === 'longpress-left') {
@@ -346,7 +516,7 @@ export default {
       }
     },
 
-    recordStart () {
+    recordStart() {
       if (!navigator.mediaDevices) {
         this.$q.notify({
           message: 'مرورگر شما ضبط صدا را پشتیبانی نمی کند.'
@@ -394,7 +564,7 @@ export default {
         .then(onSuccess, onError)
     },
 
-    recordStop () {
+    recordStop() {
       if (this.mediaRecorder) {
         this.mediaRecorder.stop()
       }
@@ -404,7 +574,7 @@ export default {
       this.audioPlayerLastPlayedTime = 0
     },
 
-    playRecordedVoice () {
+    playRecordedVoice() {
       const audioPlayer = this.$refs.playAudio.audio,
         that = this
       audioPlayer.src = this.recordedVoice
@@ -418,14 +588,14 @@ export default {
       this.showVoicePlayerIsPlaying = true
     },
 
-    pauseRecordedVoice () {
+    pauseRecordedVoice() {
       const audioPlayer = this.$refs.playAudio.audio
       audioPlayer.pause()
       this.audioPlayerLastPlayedTime = audioPlayer.currentTime
       this.showVoicePlayerIsPlaying = false
     },
 
-    getFile () {
+    getFile() {
       this.$refs.myFileInput.click()
     },
 
@@ -444,16 +614,16 @@ export default {
       }
     },
 
-    change ({ canvas }) {
+    change({ canvas }) {
       this.resultURL = canvas.toDataURL('image/jpeg', 0.3)
     },
 
-    rotate () {
+    rotate() {
       this.$refs.cropper.rotate(this.rotateAngle - this.oldRotateAngle)
       this.oldRotateAngle = this.rotateAngle
     },
 
-    clearMessage () {
+    clearMessage() {
       this.newMessage.text = ''
       this.imgURL = ''
       this.resultURL = ''
@@ -468,12 +638,14 @@ export default {
     },
 
     emitData (isPrivate) {
+      console.log('emitData', this.resultURL)
       this.$emit('creatTicket', {
         isPrivate,
-        resultURL: this.resultURL,
-        caption: this.newMessageTextInModal,
-        body: this.newMessage.text,
-        voice: this.recordedVoiceBlob
+        ...(this.resultURL && { resultURL: this.resultURL }),
+        ...(this.resultURL && { caption: this.newMessageTextInModal }),
+        ...(this.newMessage.text && { body: this.newMessage.text }),
+        ...(this.recordedVoiceBlob && { voice: this.recordedVoiceBlob }),
+        ...(this.fileInput && { file: this.fileInput })
       })
     }
 
@@ -510,7 +682,7 @@ export default {
       flex-direction: column;
     }
 
-    .cancel-pic {
+    .delete-pic-btn {
       border-radius: 10px;
       background: transparent;
       border: 1px #ff4545 solid;
@@ -589,55 +761,50 @@ export default {
 }
 
 .SendMessageInput {
-  .input-group {
-    display: flex;
+  display: flex;
 
-    .input-group-prepend {
-      .btn {
-        width: 64px;
-        height: 64px;
-        padding: 0;
-        border-radius: 0;
-      }
+  .input-group-prepend {
+    .btn {
+      width: 64px;
+      padding: 0;
+      border-radius: 0;
+    }
+  }
+  .btn{
+    height: 100%;
+    box-shadow: none;
+  }
+
+  .input-group-append {
+    .btn {
+      width: 64px;
+      padding: 0;
+      border-radius: 0;
     }
 
-    .input-group-append {
-      .btn {
-        width: 64px;
-        height: 64px;
-        padding: 0;
-        border-radius: 0;
-      }
-
-      &.adminSend {
-        display: flex;
-        flex-direction: column;
-
-        .btn {
-          height: 32px;
-          margin: 0;
-        }
-      }
-    }
-
-    .newMessageText {
-      width: 1080px;
-      border: 1px solid #ced4da;
-      color: #575962;
-      border-radius: 0 15px 15px 0;
-
-      &:deep(.q-field__control) {
-        height: 64px;
-      }
-
-      &:deep(.q-field__native) {
-        margin-left: 3px;
-      }
-    }
-
-    .av-waveform {
+    &.adminSend {
       display: flex;
+      flex-direction: column;
     }
+  }
+
+  .newMessageText {
+    width: 1080px;
+    border: 1px solid #ced4da;
+    color: #575962;
+    border-radius: 0 15px 15px 0;
+
+    &:deep(.q-field__control) {
+      height: 64px;
+    }
+
+    &:deep(.q-field__native) {
+      margin-left: 3px;
+    }
+  }
+
+  .av-waveform {
+    display: flex;
   }
 
   .voiceVisualizer, .voicePlayer {

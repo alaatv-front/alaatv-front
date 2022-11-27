@@ -1,5 +1,5 @@
 /* eslint-disable camelcase,prefer-const */
-import { Model } from 'js-abstract-model'
+import { Model, Collection } from 'js-abstract-model'
 import API_ADDRESS from '../api/Addresses'
 
 class User extends Model {
@@ -25,6 +25,7 @@ class User extends Model {
       { key: 'school' },
       { key: 'user_exam_status' },
       { key: 'photo' },
+      { key: 'role' },
       { key: 'token' },
       { key: 'has_admin_permission' },
       { key: 'has_educational_permission' },
@@ -111,5 +112,10 @@ class User extends Model {
     return status
   }
 }
+class UserList extends Collection {
+  model() {
+    return User
+  }
+}
 
-export { User }
+export { User, UserList }
