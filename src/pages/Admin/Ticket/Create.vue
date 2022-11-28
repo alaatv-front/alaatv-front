@@ -36,7 +36,7 @@
       </template>
     </entity-create>
     <q-separator class="q-my-md" />
-    <SendMessageInput
+    <send-message-input
       ref="SendMessageInput"
       :role="userRole"
       :canFilter-supporter="canFilterSupporter"
@@ -55,6 +55,7 @@ import SendMessageInput from 'components/Ticket/SendMessageInput'
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
 import { TicketDepartment, TicketDepartmentList } from 'src/models/TicketDepartment'
+import { mixinTicket } from 'src/mixin/Mixins'
 
 export default {
   name: 'Create',
@@ -62,9 +63,9 @@ export default {
     EntityCreate,
     SendMessageInput
   },
+  mixins: [mixinTicket],
   data () {
     return {
-      sendLoading: null,
       showDialog: true,
       api: API_ADDRESS.ticket.create.base,
       selectedDepartment: new TicketDepartment(),
@@ -96,8 +97,7 @@ export default {
       userRole: '',
       canFilterSupporter: false,
       canFilterAssignees: false,
-      canAssignTicket: false,
-      isAdmin: null
+      canAssignTicket: false
     }
   },
 
@@ -115,17 +115,8 @@ export default {
       this.canFilterSupporter = false
       this.canFilterAssignees = false
       this.canAssignTicket = false
-      this.isAdmin = true
     },
-    showMessagesInNotify (messages, type) {
-      messages.forEach((message) => {
-        this.$q.notify({
-          // ...(message.type && { type: message.type }),
-          type: type || 'negative',
-          message
-        })
-      })
-    },
+
     getPriorityOption() {
       return [{
         label: 'کم',
@@ -525,112 +516,6 @@ export default {
       ].filter(item => item.display === 1)
       this.departments = new TicketDepartmentList(list)
     },
-    getInputsValue (inputName) {
-      return this.inputs.find(input => input.name === inputName).value
-    },
-    hasRequiredField () {
-      const errorMessages = []
-      if (!this.getInputsValue('title')) {
-        errorMessages.push('پر کردن فیلد عنوان ضروری میباشد')
-      }
-      const priorityId = this.getInputsValue('priority_id')
-      if (!priorityId) {
-        errorMessages.push('اولویت پیام خود را انتخاب کنید')
-      }
-      this.showMessagesInNotify(errorMessages)
-      return !errorMessages.length > 0
-    },
-
-    setTicketFormData (data) {
-      const formData = new FormData()
-
-      if (data.resultURL) {
-        formData.append('photo', this.createBlob(data.resultURL))
-        formData.append('body', data.caption)
-      }
-
-      if (data.body) {
-        this.$refs.EntityCreate.getValues().forEach(input => {
-          if (input.name === 'body') {
-            input.value = data.body
-          }
-        })
-        formData.append('body', data.body.replace(/\r?\n/g, '<br/>'))
-      }
-
-      if (data.voice) {
-        formData.append('voice', data.voice, 'voice.ogg')
-      }
-      if (data.file) {
-        formData.append('file', data.file)
-        formData.append('body', '')
-      }
-
-      if (data.isPrivate) {
-        formData.append('is_private', 1)
-      }
-
-      formData.append('department_id', this.selectedDepartment.id)
-
-      formData.append('title', this.getInputsValue('title'))
-
-      const priorityId = this.getInputsValue('priority_id')
-      formData.append('priority_id', priorityId)
-
-      return formData
-    },
-
-    sendTicket (data) {
-      if (!this.hasRequiredField()) {
-        return
-      }
-      const formData = this.setTicketFormData(data)
-      this.sendCreateTicketReq(formData)
-    },
-
-    async sendCreateTicketReq (formData) {
-      this.sendLoading = true
-      try {
-        const response = await this.callSendApi(formData)
-        this.$refs.SendMessageInput.clearMessage()
-        this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
-        this.sendLoading = false
-        await this.$router.push({
-          name: 'Admin.Ticket.Show',
-          params: { id: response.data.data.id }
-        })
-      } catch (e) {
-        console.log(e)
-        this.sendLoading = false
-      }
-    },
-
-    callSendApi (formData) {
-      return this.$axios.post(this.api, formData)
-    },
-
-    createBlob (dataURL) {
-      const BASE64_MARKER = ';base64,'
-      if (dataURL.indexOf(BASE64_MARKER) === -1) {
-        const parts = dataURL.split(',')
-        const contentType = parts[0].split(':')[1]
-        const raw = decodeURIComponent(parts[1])
-        return new Blob([raw], { type: contentType })
-      }
-      const parts = dataURL.split(BASE64_MARKER)
-      const contentType = parts[0].split(':')[1]
-      const raw = window.atob(parts[1])
-      const rawLength = raw.length
-
-      const uInt8Array = new Uint8Array(rawLength)
-
-      for (let i = 0; i < rawLength; ++i) {
-        uInt8Array[i] = raw.charCodeAt(i)
-      }
-
-      return new Blob([uInt8Array], { type: contentType })
-    },
-
     selectDepartment (department) {
       this.selectedDepartment = department
     }
