@@ -3,36 +3,37 @@
        :class="{setMarker: selectedMapClickActionTypes.name === 'addIcon'}"
        dir="ltr"
   >
-    <l-map ref="lMap"
+    <l-map id="map"
+           ref="lMap"
            v-model:zoom="mapZoom"
            v-model:center="mapCenter"
            v-model:options="mapOptions"
-           :options="{zoomControl: false}"
            :min-zoom="minZoom"
            :max-zoom="maxZoom"
            :bounds="mapBounds"
-           :maxBounds="maxBounds"
+           :max-bounds="maxBounds"
            :maxBoundsViscosity="maxBoundsViscosity"
+           :zoom-animation="true"
+           :inertia="true"
            :crs="crs"
            @click="mapClick($event)"
            @update:zoom="zoomUpdated"
            @update:center="centerUpdated"
            @update:bounds="boundsUpdated">
       <l-tile-layer :url="url" />
-      <l-control-zoom position="topright"></l-control-zoom>
 
-      <div v-for="(item, idx) in items.list">
+      <div v-for="(item) in items.list">
         <l-marker
-          class="bg-red"
+          v-bind:key="item.id"
           :lat-lng="item.data.latlng"
           :draggable=true
-          @click="openNode(item, idx)"
+          @click="openNode(item)"
         >
           <l-icon
-            v-if="item.data.icon.options.iconUrl"
+            v-if="item.data.icon.options"
             ref="markerIcon"
             :icon-url="item.data.icon.options.iconUrl"
-            :icon-size="size"
+            :icon-size="dynamicSize(item)"
             :icon-anchor="dynamicAnchor(item)"
             :shadow-url="item.data.icon.options.shadowUrl"
             :shadow-size="item.data.icon.options.shadowSize"
@@ -52,52 +53,97 @@
                  v-html="item.data.headline.text"
             >
             </div>
-            <img v-if="item.data.icon.options"
+            <img v-if="item.data.icon.options.iconUrl"
                  class="markerImage adminToolBoxMarker"
-                 :class="{'border': item.editMode}"
+                 :class="{'border': item && item.editMode}"
                  :src="item.data.icon.options.iconUrl"
             >
+            <q-img v-else
+                   src="img/mapMarker.png"
+            ></q-img>
           </l-icon>
         </l-marker>
+        <l-polyline
+          v-if="(item.type.name === 'polyline' || item.type.id === 2) && item.data.line && item.data.line.options"
+          :options="item.data.line.options"
+          :lat-lngs="item.data.latlngs"
+          :color="item.data.line.color"
+          :bubblingMouseEvents="item.data.line.bubblingMouseEvents"
+          :dashArray="item.data.line.dashArray"
+          :dashOffset="item.data.line.dashOffset"
+          :weight="item.data.line.weight">
+        </l-polyline>
       </div>
 
-      <!--      <l-marker-->
-      <!--        v-if="adminToolBox.marker.data.latlng"-->
-      <!--        :lat-lng="adminToolBox.marker.data.latlng"-->
-      <!--        :draggable=true-->
-      <!--        :visible="adminToolBox.marker.editMode"-->
-      <!--        @drag="reportAdminMarker"-->
-      <!--      >-->
-      <!--        <l-icon-->
-      <!--          v-if="adminToolBox.marker.data.icon.options.iconUrl"-->
-      <!--          ref="markerIcon"-->
-      <!--          :icon-url="adminToolBox.marker.data.icon.options.iconUrl"-->
-      <!--          :icon-size="dynamicSize"-->
-      <!--          :icon-anchor="dynamicAnchor"-->
-      <!--          :shadow-url="adminToolBox.marker.data.icon.options.shadowUrl"-->
-      <!--          :shadow-size="adminToolBox.marker.data.icon.options.shadowSize"-->
-      <!--          :shadow-anchor="adminToolBox.marker.data.icon.options.shadowAnchor"-->
-      <!--        >-->
-      <!--          <div v-if="adminToolBox.marker.data.headline.text"-->
-      <!--               class="markerHeadline"-->
-      <!--               :style="{-->
-      <!--                 fontSize: adminToolBox.marker.data.headline.fontSize+'px',-->
-      <!--                 'text-fill-color': adminToolBox.marker.data.headline.fillColor,-->
-      <!--                 '-webkit-text-fill-color': adminToolBox.marker.data.headline.fillColor,-->
-      <!--                 'text-stroke-width': adminToolBox.marker.data.headline.strokeWidth+'px',-->
-      <!--                 '-webkit-text-stroke-width': adminToolBox.marker.data.headline.strokeWidth+'px',-->
-      <!--                 'text-stroke-color': adminToolBox.marker.data.headline.strokeColor,-->
-      <!--                 '-webkit-text-stroke-color': adminToolBox.marker.data.headline.strokeColor-->
-      <!--               }"-->
-      <!--               v-html="adminToolBox.marker.data.headline.text"-->
-      <!--          >-->
-      <!--          </div>-->
-      <!--          <img v-if="adminToolBox.marker.data.icon.options"-->
-      <!--               class="markerImage adminToolBoxMarker"-->
-      <!--               :src="adminToolBox.marker.data.icon.options.iconUrl"-->
-      <!--          >-->
-      <!--        </l-icon>-->
-      <!--      </l-marker>-->
+      <l-marker
+        v-if="adminToolBox.marker.data.latlng"
+        :lat-lng="adminToolBox.marker.data.latlng"
+        :draggable=true
+        @dragend="reportAdminMarker"
+        @click="openMarker"
+      >
+        <l-icon
+          v-if="adminToolBox.marker.data.icon.options"
+          ref="markerIcon"
+          :icon-url="adminToolBox.marker.data.icon.options.iconUrl"
+          :icon-size="dynamicSize(adminToolBox.marker)"
+          :icon-anchor="dynamicAnchor(adminToolBox.marker)"
+          :shadow-url="adminToolBox.marker.data.icon.options.shadowUrl"
+          :shadow-size="adminToolBox.marker.data.icon.options.shadowSize"
+          :shadow-anchor="adminToolBox.marker.data.icon.options.shadowAnchor"
+        >
+          <div v-if="adminToolBox.marker.data.headline.text"
+               class="markerHeadline"
+               :style="{
+                 fontSize: adminToolBox.marker.data.headline.fontSize+'px',
+                 'text-fill-color': adminToolBox.marker.data.headline.fillColor,
+                 '-webkit-text-fill-color': adminToolBox.marker.data.headline.fillColor,
+                 'text-stroke-width': adminToolBox.marker.data.headline.strokeWidth+'px',
+                 '-webkit-text-stroke-width': adminToolBox.marker.data.headline.strokeWidth+'px',
+                 'text-stroke-color': adminToolBox.marker.data.headline.strokeColor,
+                 '-webkit-text-stroke-color': adminToolBox.marker.data.headline.strokeColor
+               }"
+               v-html="adminToolBox.marker.data.headline.text"
+          >
+          </div>
+          <img v-if="adminToolBox.marker.data.icon.options.iconUrl"
+               class="markerImage adminToolBoxMarker"
+               :class="{'border': adminToolBox.marker.editMode}"
+               :src="adminToolBox.marker.data.icon.options.iconUrl"
+          >
+          <q-img v-else
+                 src="img/mapMarker.png"
+          ></q-img>
+        </l-icon>
+      </l-marker>
+
+      <div class="editable-polyline">
+        <l-polyline
+          :options="adminToolBox.polyline.data.line.options"
+          :lat-lngs="adminToolBox.polyline.latlngs"
+          :color="adminToolBox.polyline.data.line.color"
+          :className="adminToolBox.polyline.data.line.className"
+          :bubblingMouseEvents="adminToolBox.polyline.data.line.bubblingMouseEvents"
+          :dashArray="adminToolBox.polyline.data.line.dashArray"
+          :dashOffset="adminToolBox.polyline.data.line.dashOffset"
+          :weight="adminToolBox.polyline.data.line.weight"
+        >
+        </l-polyline>
+        <template v-if="zoom >= adminToolBox.polyline.data.displayZoom">
+          <l-marker
+            v-for="(item, index) in adminToolBox.polyline.latlngs"
+            :key="index"
+            :lat-lng="item"
+            :draggable="true"
+            @dragend="updateEditablePolylineLatlngs($event, item, index)">
+            <l-icon
+              :icon-size="adminToolBox.polyline.data.iconSize"
+              :icon-anchor="adminToolBox.polyline.data.iconAnchor"
+            >
+            </l-icon>
+          </l-marker>
+        </template>
+      </div>
 
       <l-control
         position="topleft"
@@ -178,14 +224,16 @@
           ref="adminToolBox"
           :center="currentCenter"
           :zoom="currentZoom"
-          :marker="adminToolBox.marker"
+          :buffer-marker="adminToolBox.marker"
+          :selected-marker="selectedMarker"
           :polyline="adminToolBox.polyline"
           :tool-tab="tabName"
           @add_marker="addAdminMarker"
           @save_marker="saveMapItem"
           @show-map-info="showMapInfo"
-          @marker_change="updateAdminToolBoxMarker"
+          @marker_change="updateAdminMarker"
           @delete_marker="deleteAdminMapItem"
+          @add-polyline="addAdminPolyline"
           @delete_polyline="deleteAdminMapItem"
           @save_polyline="saveMapItem"
           @polyline_change="updateAdminPolyline"
@@ -207,6 +255,7 @@ import Drawer from 'src/components/CustomDrawer'
 import adminToolBox from 'components/Widgets/Map/AdminToolBox'
 import MapFilters from './components/MapFilters'
 import mapInfo from './components/mapInfo'
+import EditablePolyline from 'vue-leaflet-editable-polyline'
 import { copyText } from 'vue3-clipboard'
 import { MapItemAction } from 'src/models/MapItemAction'
 import API_ADDRESS from 'src/api/Addresses'
@@ -238,6 +287,7 @@ export default {
   },
   components: {
     adminToolBox,
+    EditablePolyline,
     LMap,
     LControl,
     LControlZoom,
@@ -249,11 +299,12 @@ export default {
     MapFilters,
     mapInfo
   },
+  emits: ['add_marker', 'change_edit_mode', 'update:item', 'update:zoom', 'update:center', 'update:bounds', 'update:visible-map-items'],
   filters: {},
   data() {
     return {
       nodes: [],
-      size: [70, 70],
+      selectedMarker: new MapItem(),
       tabName: null,
       centerLatLong: {},
       isMapFilters: false,
@@ -265,15 +316,15 @@ export default {
       expansionIcon: '',
       toolsDrawer: false,
       filterValues: [],
-      crs: null,
-      mapZoom: 4,
-      mapCenter: latLng(-8560, 21008),
+      crs: CRS.Simple,
+      mapZoom: 3,
+      mapCenter: latLng(-12000, 13200),
       mapBounds: null,
-      minZoom: 3.1,
+      minZoom: 3,
       maxZoom: 11,
       maxBounds: null,
       maxBoundsViscosity: 1,
-      currentZoom: 4,
+      currentZoom: 3,
       currentCenter: [0, 0],
       baseUrl: window.baseUrl,
       mapVersion: window.mapVersion,
@@ -296,13 +347,13 @@ export default {
               options: {
                 iconAnchor: [0, 0],
                 iconUrl: null,
-                iconSize: 70
+                iconSize: [70, 70]
               }
             }
           },
           enable: 1,
           tags: [],
-          min_zoom: 3.1,
+          min_zoom: 3,
           max_zoom: 11,
           editMode: false,
           type: {
@@ -310,7 +361,35 @@ export default {
           }
         },
         polyline: {
-          editMode: null
+          action: {},
+          enable: 1,
+          min_zoom: 3,
+          max_zoom: 11,
+          data: {
+            line: {
+              options: {
+                flowing: {
+                  dir: 'fixed',
+                  style: { 'animation-duration': 20 }
+                }
+              },
+              color: 'red',
+              className: '',
+              bubblingMouseEvents: false,
+              weight: 5,
+              dashArray: '10 40',
+              dashOffset: '0'
+            },
+            displayZoom: 3,
+            iconSize: [16, 16],
+            iconAnchor: [10, 10]
+          },
+          latlngs: [[-5840, 23056], [-3000, 2500]],
+          editMode: false,
+          tags: [],
+          type: {
+            name: 'polyline'
+          }
         }
       },
       polygon: {
@@ -333,8 +412,8 @@ export default {
         }
       ],
       mapOptions: {
+        zoomControl: true,
         zoomSnap: 1,
-        zoomAnimation: true
       }
     }
   },
@@ -342,165 +421,147 @@ export default {
     this.getNodes()
     this.initMap()
     this.initTemplateData()
-    this.$store.commit('AppLayout/updateLayoutFooterVisible', false)
-  },
-  beforeUnmount() {
-    this.$store.commit('AppLayout/updateLayoutFooterVisible', true)
-  },
-  watch: {
-    itemsList: {
-      handler(n) {
-        console.log(n)
-      },
-      deep: true
-    }
   },
   computed: {
+    calcMapHeight() {
+
+    },
     selectedMapClickActionTypes() {
       return this.mapClickActionTypes.find(function(item) {
         return item.selected
       })
     },
-    itemsList() {
-      return this.items
+    dynamicUrl() {
+      return (item) => {
+        return item.data.icon.options.iconUrl
+      }
     },
     dynamicAnchor() {
       return (item) => {
-        return [item.data.icon.options.iconAnchor[0], item.data.icon.options.iconAnchor[1]]
+        return [
+          item.data.icon.options.iconAnchor[0] + item.data.icon.options.iconSize[0] / 2,
+          item.data.icon.options.iconAnchor[1] + item.data.icon.options.iconSize[1] / 2
+        ]
       }
     },
     dynamicSize() {
       return (item) => {
-        return [item.data.icon.options.iconSize, item.data.icon.options.iconSize]
+        return [item.data.icon.options.iconSize[0], item.data.icon.options.iconSize[1]]
       }
     }
   },
   methods: {
-    openNode(item, index) {
-      // console.log(item)
+    updateEditablePolylineLatlngs(event, item, index) {
+      const lat = event.target._latlng.lat
+      const lng = event.target._latlng.lng
+      const newLatlng = [lat, lng]
+      // this.adminToolBox.polyline.latlngs.push(newLatlng)
+      this.adminToolBox.polyline.latlngs[0] = [-6000, 22000]
+      // this.adminToolBox.polyline.latlngs[index][0] = lat
+      // this.adminToolBox.polyline.latlngs[index][1] = lng
+      console.log(this.adminToolBox.polyline.latlngs)
+    },
+    openMarker() {
+      this.adminToolBox.polyline.editMode = false
+      this.adminToolBox.marker.editMode = true
+      this.$nextTick(() => {
+        this.$refs.adminToolBox.setInput(this.adminToolBox.marker)
+      })
+    },
+    openNode(item) {
+      this.cleanAdminToolBoxMapItem()
+      this.$emit('update:visible-map-items')
+      this.selectedMarker = new MapItem(item)
       if (this.toolsDrawer) {
-        this.adminToolBox.polyline.editMode = false
-        this.adminToolBox.marker.editMode = true
-        this.$refs.adminToolBox.setInput(item)
-        // this.$emit('change_edit_mode', index)
-        this.updateAdminToolBoxMarker(item, index)
+        this.adminToolBox.marker.editMode = false
+        this.selectedMarker.editMode = true
+        this.selectedMarker.type.name = 'marker'
+        this.selectedMarker.min_zoom = 11
+        this.$nextTick(() => {
+          this.$refs.adminToolBox.setInput(item)
+        })
       } else {
         window.open(item.action.data.link)
       }
     },
     goToMarker(data) {
-      // console.log(data)
+      this.cleanAdminToolBoxMapItem()
       this.mapZoom = 11
       setTimeout(() => {
         this.mapCenter = latLng(data.row.data.latlng.lat, data.row.data.latlng.lng)
         this.centerUpdated(this.mapCenter)
       }, 50)
       this.toolsDrawer = true
-      this.items.list.forEach(item => {
-        item.editMode = false
-      })
-      this.$emit('change_edit_mode', data.index)
+      this.$emit('update:visible-map-items')
       this.sidebarAdminToolBoxOnTabChange('marker')
-      this.adminToolBox.marker.data.latlng = data.row.data.latlng
       this.adminToolBox.polyline.editMode = false
-      this.adminToolBox.marker.editMode = true
-      this.adminToolBox.marker.min_zoom = 11
-      this.adminToolBox.marker.max_zoom = 11
-      this.setMapClickActionType('noAction')
-      this.updateAdminToolBoxMarker(data.row, data.index)
+      this.adminToolBox.marker.editMode = false
+      this.selectedMarker = new MapItem(data.row)
+      this.selectedMarker.editMode = true
+      this.selectedMarker.type.name = 'marker'
       this.$nextTick(() => {
         this.$refs.adminToolBox.setInput(data.row)
       })
+      this.updateAdminMarker(data.row)
     },
     reportAdminMarker(event) {
-      // console.log(event)
-      this.adminToolBox.marker.data.latlng = event.latlng
+      this.adminToolBox.marker.data.latlng = event.target._latlng
     },
-    updateAdminMarker(data, index) {
-      this.$emit('update:item', {
-        data,
-        index
-      })
-    },
-    updateAdminToolBoxMarker(data, index) {
-      if (data.id) {
-        this.adminToolBox.marker.id = data.id
-      }
-      if (data.action) {
-        if (typeof data.action === 'object') {
-          this.adminToolBox.marker.action = new MapItemAction(data.action)
-        } else {
-          this.adminToolBox.marker.action = new MapItemAction(JSON.parse(data.action))
-        }
-      }
-      if (data.enable) {
-        this.adminToolBox.marker.enable = data.enable
-      }
-      if (data.data.headline.fillColor) {
-        this.adminToolBox.marker.data.headline.fillColor = data.data.headline.fillColor
-      }
-      if (data.data.headline.strokeColor) {
-        this.adminToolBox.marker.data.headline.strokeColor = data.data.headline.strokeColor
-      }
-      if (data.data.headline.fontSize) {
-        this.adminToolBox.marker.data.headline.fontSize = data.data.headline.fontSize
-      }
-      if (data.data.headline.strokeWidth) {
-        this.adminToolBox.marker.data.headline.strokeWidth = data.data.headline.strokeWidth
-      }
-      if (data.data.headline.text) {
-        this.adminToolBox.marker.data.headline.text = data.data.headline.text
-      }
-      if (data.data.icon.options.iconAnchor) {
-        this.adminToolBox.marker.data.icon.options.iconAnchor[0] = data.data.icon.options.iconAnchor[0]
-        this.adminToolBox.marker.data.icon.options.iconAnchor[1] = data.data.icon.options.iconAnchor[1]
-        this.adminToolBox.marker.data.icon.options.iconSize = data.data.icon.options.iconSize
-      }
-      if (data.data.icon.options.iconSize) {
-        this.adminToolBox.marker.data.icon.options.iconSize = data.data.icon.options.iconSize[0]
-      }
-      if (data.data.icon.options.iconUrl) {
-        this.adminToolBox.marker.data.icon.options.iconUrl = data.data.icon.options.iconUrl
-      }
-      if (data.data.latlng) {
-        this.adminToolBox.marker.data.latlng = data.data.latlng
-      }
-      if (data.tags) {
-        this.adminToolBox.marker.tags = data.tags
-      }
-      if (data.min_zoom) {
-        this.adminToolBox.marker.min_zoom = data.min_zoom
-      }
-      if (data.max_zoom) {
-        this.adminToolBox.marker.max_zoom = data.max_zoom
-      }
-      if (!index) {
-        const index = this.items.list.findIndex(item => item.id === this.adminToolBox.marker.id)
-        this.updateAdminMarker(data, index)
+    updateAdminMarker(data) {
+      const index = this.items.list.findIndex(item => item.id === data.id)
+      if (index === -1) {
+        this.updateAdminToolBoxMarker(data)
       } else {
-        this.updateAdminMarker(data, index)
+        this.$emit('update:item', {
+          data,
+          index
+        })
       }
+    },
+    updateAdminToolBoxMarker(data) {
+      this.adminToolBox.marker = new MapItem(data)
     },
 
     mapClick(event) {
-      // console.log(event)
       if (this.selectedMapClickActionTypes.name === 'addIcon' && event.latlng) {
-        // this.cleanAdminToolBoxMapItem()
-        this.adminToolBox.marker.data.latlng = event.latlng
-        this.adminToolBox.polyline.editMode = false
-        this.adminToolBox.marker.editMode = true
-        this.adminToolBox.marker.enable = true
-        this.adminToolBox.marker.min_zoom = 11
-        this.adminToolBox.marker.max_zoom = 11
-        this.$emit('add_marker', event)
-        const newMapItemAction = new MapItemAction()
-        this.adminToolBox.marker.action = newMapItemAction.getLink()
-        this.setMapClickActionType('noAction')
+        if (this.adminToolBox.polyline.editMode) {
+          console.log(this.$refs.lMap)
+          // let mid = 0
+          // let nextPoint = 0
+          // let nextLatlng = ''
+          // let newPoint = ''
+          // let showMarkers = true
+          let polyline = L.polyline([]).addTo(this.$refs.lMap)
+          let markerGroup = L.layerGroup().addTo(this.$refs.lMap)
+          let newMarker = new L.marker(event.latlng, {
+            draggable: 'true'
+          }).addTo(markerGroup)
+        } else {
+          this.cleanAdminToolBoxMapItem()
+          const lat = event.latlng.lat
+          const lng = event.latlng.lng
+          this.adminToolBox.marker.data.latlng = latLng(lat, lng)
+          this.selectedMarker.editMode = false
+          this.adminToolBox.polyline.editMode = false
+          this.adminToolBox.marker.editMode = true
+          this.adminToolBox.marker.id = 0
+          this.$nextTick(() => {
+            this.$refs.adminToolBox.setInput(this.adminToolBox.marker)
+          })
+          this.setMapClickActionType('noAction')
+        }
       }
     },
     addAdminMarker(data) {
-      // console.log(data)
       this.setMapClickActionType('addIcon')
+    },
+    addAdminPolyline() {
+      this.setMapClickActionType('addIcon')
+      this.adminToolBox.polyline.editMode = true
+      // this.adminToolBox.polyline.latlngs = []
+      // const pointA = [this.mapCenter.lat, this.mapCenter.lng]
+      // const pointB = [this.mapCenter.lat + 500, this.mapCenter.lng + 500]
+      // this.adminToolBox.polyline.latlngs.push(pointA, pointB)
     },
     setMapClickActionType(type) {
       for (let i = 0; typeof this.mapClickActionTypes[i] !== 'undefined'; i++) {
@@ -583,7 +644,7 @@ export default {
         mapMinResolution = Math.pow(2, mapMaxZoom) * mapMaxResolution,
         tileExtent = mapExtent,
         crs = CRS.Simple
-      crs.transformation = new L.Transformation(1, -tileExtent[0], -1, tileExtent[3])
+      // crs.transformation = new L.Transformation(1, -tileExtent[0], -1, tileExtent[3])
       crs.scale = function(zoom) {
         return Math.pow(2, zoom) / mapMinResolution
       }
@@ -596,10 +657,10 @@ export default {
       this.crs = this.getCRS([0.00000000, -15426.00000000, 26934.00000000, 0.00000000])
     },
     setBounds() {
-      const down = -21040,
+      const down = -20140,
         left = 220,
         up = -920,
-        right = 24550
+        right = 29650
       this.mapBounds = [[down, left], [up, right]]
     },
     setMaxBounds() {
@@ -607,18 +668,21 @@ export default {
     },
     setCenter(lat, lng) {
       if (typeof lat === 'undefined') {
-        lat = -12196
+        lat = 0
       }
       if (typeof lng === 'undefined') {
-        lng = 22008
+        lng = 0
       }
       this.mapCenter = latLng(lat, lng)
       this.currentCenter = this.mapCenter
-      // this.centerUpdated(this.mapCenter)
     },
     zoomUpdated(zoom) {
-      // console.log(this.items)
       this.currentZoom = zoom
+      if (this.currentZoom === 3.1) {
+        this.maxBounds = this.mapBounds
+      } else {
+        this.maxBounds = [[-20200, 200], [-700, 29700]]
+      }
       this.$emit('update:zoom', zoom)
     },
     centerUpdated(center) {
@@ -627,6 +691,37 @@ export default {
     },
     boundsUpdated(bounds) {
       this.$emit('update:bounds', bounds)
+    },
+    cleanAdminToolBoxMapItem() {
+      this.adminToolBox.marker = {
+        id: 0,
+        action: {},
+        data: {
+          latlng: {
+            lng: 0,
+            lat: 0
+          },
+          headline: {
+            text: null,
+            fontSize: 14
+          },
+          icon: {
+            options: {
+              iconAnchor: [0, 0],
+              iconUrl: null,
+              iconSize: [70, 70]
+            }
+          }
+        },
+        enable: 1,
+        tags: [],
+        min_zoom: 3.1,
+        max_zoom: 11,
+        editMode: false,
+        type: {
+          name: 'marker'
+        }
+      }
     },
     getNodes() {
       this.$axios.get('alaa/api/v2/dar/divar')
@@ -680,7 +775,7 @@ export default {
 }
 
 .MapWidget {
-  height: 100vh;
+  height: 92vh;
   width: 100%;
 
   //.marker {
@@ -700,7 +795,7 @@ export default {
         }
 
         .border {
-          border: 1px dotted black
+          border: 1px dotted black;
         }
       }
     }

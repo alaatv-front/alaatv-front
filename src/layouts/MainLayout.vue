@@ -127,7 +127,7 @@ export default {
     background-color: #f1f1f1;
   }
   .content-inside {
-    padding-top: 20px;
+    //padding-top: 20px;
   }
 }
 </style>
