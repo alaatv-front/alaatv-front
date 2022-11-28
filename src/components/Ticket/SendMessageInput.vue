@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <q-card class="msg-input-box">
 
     <div v-if="canAssignTicket"
          class="q-py-lg">
@@ -135,8 +135,9 @@
         <q-btn
           unelevated
           square
+          color="teal-7"
           icon="attach_file"
-          class="actionBtn full-height"
+          class="actionBtn full-height attach-file"
           @click="$refs.fileInput.click()" />
         <input ref="fileInput"
                type="file"
@@ -146,7 +147,7 @@
 
       <div
         v-show="canShowSendBtn"
-        class="input-group-append bg-red adminSend">
+        class="input-group-append adminSend">
         <q-btn
           size="12px"
           class="btn  actionBtn sendBtn BtnSuccess "
@@ -161,7 +162,11 @@
           :loading="sendLoading"
           icon="isax:directbox-send"
           @click="emitData(true)"
-        />
+        >
+          <q-tooltip>
+            ارسال به صورت خصوصی
+          </q-tooltip>
+        </q-btn>
       </div>
 
       <av-waveform
@@ -229,7 +234,7 @@
       </div>
 
     </div>
-  </div>
+  </q-card>
 
 </template>
 
@@ -638,7 +643,6 @@ export default {
     },
 
     emitData (isPrivate) {
-      console.log('emitData', this.resultURL)
       this.$emit('creatTicket', {
         isPrivate,
         ...(this.resultURL && { resultURL: this.resultURL }),
@@ -672,6 +676,15 @@ export default {
 </style>
 
 <style scoped lang="scss">
+.attach-file{
+  width: 64px;
+  border-radius: 0;
+}
+.msg-input-box{
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
+}
 .imageModal {
   .slider_box {
     display: flex;
@@ -740,7 +753,7 @@ export default {
     color: #575962;
 
     &:deep(.q-field__native) {
-      margin-left: 3px;
+      margin-left: 10px;
     }
   }
 
@@ -799,7 +812,7 @@ export default {
     }
 
     &:deep(.q-field__native) {
-      margin-left: 3px;
+      margin-left: 10px;
     }
   }
 
