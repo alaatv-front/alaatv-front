@@ -41,6 +41,10 @@ class MapItem extends Model {
         relatedModel: MapItemEntity
       },
       {
+        key: 'editMode',
+        default: false
+      },
+      {
         key: 'enable',
         value: function (itemVal, inputData) {
           if (inputData.enable === true || parseInt(inputData.enable) === 1) {
@@ -58,7 +62,23 @@ class MapItem extends Model {
           } else if (typeof inputData.data === 'object') {
             return inputData.data
           } else {
-            return null
+            return {
+              latlng: {
+                lng: 0,
+                lat: 0
+              },
+              headline: {
+                text: null,
+                fontSize: 14
+              },
+              icon: {
+                options: {
+                  iconAnchor: [0, 0],
+                  iconUrl: null,
+                  iconSize: [70, 70]
+                }
+              }
+            }
           }
         }
       },
@@ -155,8 +175,7 @@ class MapItem extends Model {
 
     this.loadType()
     this.loadAction()
-
-    if (this.data && !this.data.latlng) {
+    if (this.data && !this.data.latlng && typeof this.data.latlng === 'string') {
       this.data = JSON.parse(this.data)
     }
   }
@@ -164,8 +183,8 @@ class MapItem extends Model {
   getCleanMarker () {
     return new MapItem({
       id: null,
-      min_zoom: 0,
-      max_zoom: 10,
+      min_zoom: 3.1,
+      max_zoom: 11,
       type: {
         id: 1,
         name: 'marker'
@@ -240,7 +259,7 @@ class MapItem extends Model {
 
   loadAction () {
     if (typeof this.action.inputData === 'string' && this.action.name === null) {
-      return this.action = JSON.parse(this.action.inputData)
+      this.action = JSON.parse(this.action.inputData)
     } else {
       return null
     }
