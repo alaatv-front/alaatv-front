@@ -273,7 +273,7 @@ export default {
           buttonTextColor: 'white',
           buttonBadgeColor: 'secondary',
           indexConfig: {
-            apiAddress: '',
+            apiAddress: 'https://reqres.in/api/users',
             tableTitle: 'لیست مسؤلین',
             showTableItemsRouteName: 'Admin.BlockManagement.Show',
             tableKeys: {
@@ -339,7 +339,7 @@ export default {
           buttonTextColor: 'white',
           buttonBadgeColor: 'secondary',
           indexConfig: {
-            apiAddress: '',
+            apiAddress: 'https://reqres.in/api/users',
             tableTitle: 'لیست مسؤلین',
             showTableItemsRouteName: 'Admin.BlockManagement.Show',
             tableKeys: {
