@@ -5,7 +5,7 @@
         ref="entityEdit"
         v-model:value="inputs"
         :show-save-button="false"
-        :title="'شماره تیکت ' + searchForInputVal('id') + ' در ' + searchForInputVal('department_title')"
+        :title="'شماره تیکت ' + getInputsValue('id') + ' در ' + getInputsValue('department_title')"
         :api="api"
         entity-id-key="id"
         entity-param-key="id"
@@ -38,7 +38,7 @@
               <q-btn unelevated
                      class="full-width"
                      icon="isax:user"
-                     :to="'/user/'+this.searchForInputVal('userId')+'/edit'"
+                     :to="'/user/'+this.getInputsValue('userId')+'/edit'"
                      target="_blank"
                      color="blue">
                 <q-tooltip>ویرایش اطلاعات کاربر</q-tooltip>
@@ -58,7 +58,7 @@
                      class="full-width"
                      icon="isax:sms"
                      color="blue"
-                     @click="sendTicketStatusNotice(this.searchForInputVal('id'))"
+                     @click="sendTicketStatusNotice(this.getInputsValue('id'))"
               >
                 <q-tooltip>ارسال پیامک اگاه سازی تغییر وضعیت</q-tooltip>
               </q-btn>
@@ -73,8 +73,8 @@
           </div>
           <ticket-rate
             v-if="!isAdmin"
-            :rate="searchForInputVal('rate')"
-            :ticket-id="searchForInputVal('id')"
+            :rate="getInputsValue('rate')"
+            :ticket-id="getInputsValue('id')"
             class="q-ml-lg q-mt-lg" />
         </template>
       </entity-edit>
@@ -120,10 +120,10 @@
                         class="tab-panels"
                         animated>
             <q-tab-panel name="events">
-              <log-list :log-array="searchForInputVal('logs')" />
+              <log-list :log-array="getInputsValue('logs')" />
             </q-tab-panel>
             <q-tab-panel name="otherTickets">
-              <template v-for="ticket in searchForInputVal('otherTickets')"
+              <template v-for="ticket in getInputsValue('otherTickets')"
                         :key="ticket">
                 <div class="other-ticket">
                   <div class="right-side-squere"></div>
@@ -498,13 +498,13 @@ export default {
     },
 
     updateTicketData() {
-      this.$axios.put(API_ADDRESS.ticket.show.base + '/' + this.searchForInputVal('id'), {
-        department_id: this.searchForInputVal('department'),
-        id: this.searchForInputVal('id'),
-        priority_id: this.searchForInputVal('priority-id'),
-        status_id: this.searchForInputVal('status'),
-        title: this.searchForInputVal('title'),
-        user_id: this.searchForInputVal('userId')
+      this.$axios.put(API_ADDRESS.ticket.show.base + '/' + this.getInputsValue('id'), {
+        department_id: this.getInputsValue('department'),
+        id: this.getInputsValue('id'),
+        priority_id: this.getInputsValue('priority-id'),
+        status_id: this.getInputsValue('status'),
+        title: this.getInputsValue('title'),
+        user_id: this.getInputsValue('userId')
       })
         .then((res) => {
           this.$q.notify({
@@ -512,11 +512,6 @@ export default {
             type: 'positive'
           })
         })
-    },
-    searchForInputVal(name) {
-      const input = this.inputs.find(input => input.name === name)
-      if (input) return input.value
-      return false
     },
     openShopLogList() {
       this.orderDrawer = this.orderDrawer === false
@@ -1396,336 +1391,337 @@ export default {
       )
     },
     checkLoadInputData() {
-      // this.userMessageArray = this.searchForInputVal('messages')
-      this.userMessageArray = [
-        {
-          id: 258407,
-          user: {
-            id: 1597775,
-            first_name: null,
-            last_name: null,
-            mobile: '09394646357',
-            national_code: '0169295869',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'کاربر',
-            major: null
-          },
-          ticket_id: 91105,
-          body: 'فرمودید که بالاترین کدی که گرفتیم تو سایت ذخیره شده حالا میگید امکان بررسی نیست؟<br/>یه کلمه بگید سرکارمون گزاشتید و بیش از این به شعور بنده توهین نکنید',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-21 02:07:49'
-        },
-        {
-          id: 255832,
-          user: {
-            id: 947310,
-            first_name: 'مریم',
-            last_name: 'بسامی',
-            mobile: '09362905164',
-            national_code: '3341725423',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/IMG_20210602_234125_115_4480832.jpg',
-            role: 'پشتیبان',
-            major: {
-              id: 1,
-              name: 'ریاضی',
-              title: 'ریاضی',
-              selected: false
-            }
-          },
-          ticket_id: 91105,
-          body: 'سلام دوست عزیز<br/>ما امکان بررسی مجدد کدها رو نداریم . حال حاضر فقط یک کد دیگه داریم که ۵۰ درصده برای تک درس و پک راه ابریشم و تا ۵ بهمن مهلت استفاده داره <br/>Z5050',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-15 14:25:40'
-        },
-        {
-          id: 255212,
-          user: {
-            id: 1597775,
-            first_name: null,
-            last_name: null,
-            mobile: '09394646357',
-            national_code: '0169295869',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'کاربر',
-            major: null
-          },
-          ticket_id: 91105,
-          body: 'بله فرمودید منم عرض کردم این کد بردن پیامک شده<br/>ولی وقتی میزنم سایت اعمال نمیکنه<br/>اکانتمم همینه و با همین کد گرفتم و برام پیامک شده',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-14 02:23:47'
-        },
-        {
-          id: 254284,
-          user: {
-            id: 792218,
-            first_name: 'علیرضا',
-            last_name: 'برومند',
-            mobile: '09913605740',
-            national_code: '0024206881',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'پشتیبان',
-            major: {
-              id: 2,
-              name: 'تجربی',
-              title: 'تجربی',
-              selected: true
-            }
-          },
-          ticket_id: 91105,
-          body: 'بالاترین کد تخفیفی که در سیستم ثبت شده به شماره ای که کد گرفتی پیامک شده و مجدد قابل بررسی نیست . برای استفاده از کد جدید باید حتما با همون اکانتی وارد بشی که باهاش کد گرفتی.',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-12 08:30:29'
-        },
-        {
-          id: 254108,
-          user: {
-            id: 1597775,
-            first_name: null,
-            last_name: null,
-            mobile: '09394646357',
-            national_code: '0169295869',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'کاربر',
-            major: null
-          },
-          ticket_id: 91105,
-          body: 'ببخشید متوجه نمیشم<br/>این کد فکر میکنم هفته پیش برام پیامک شد.<br/>و قرار شد که از این کدی که تو شب چله برنده شدیم بتونیم استفاده کنیم.',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-11 16:20:04'
-        },
-        {
-          id: 254039,
-          user: {
-            id: 792218,
-            first_name: 'علیرضا',
-            last_name: 'برومند',
-            mobile: '09913605740',
-            national_code: '0024206881',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'پشتیبان',
-            major: {
-              id: 2,
-              name: 'تجربی',
-              title: 'تجربی',
-              selected: true
-            }
-          },
-          ticket_id: 91105,
-          body: 'کد های قبلی قابل بررسی نیستن می تونین از کد جدید استفاده کنین',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-11 14:50:12'
-        },
-        {
-          id: 254032,
-          user: {
-            id: 1597775,
-            first_name: null,
-            last_name: null,
-            mobile: '09394646357',
-            national_code: '0169295869',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'کاربر',
-            major: null
-          },
-          ticket_id: 91105,
-          body: 'c4y7kz<br/>این کد برام پیامک شده',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-11 14:44:28'
-        },
-        {
-          id: 254031,
-          user: {
-            id: 1597775,
-            first_name: null,
-            last_name: null,
-            mobile: '09394646357',
-            national_code: '0169295869',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'کاربر',
-            major: null
-          },
-          ticket_id: 91105,
-          body: 'بله پیامک شده ولی وقتی میزنمش قبول نمیکنه',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-11 14:43:46'
-        },
-        {
-          id: 253952,
-          user: {
-            id: 792218,
-            first_name: 'علیرضا',
-            last_name: 'برومند',
-            mobile: '09913605740',
-            national_code: '0024206881',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'پشتیبان',
-            major: {
-              id: 2,
-              name: 'تجربی',
-              title: 'تجربی',
-              selected: true
-            }
-          },
-          ticket_id: 91105,
-          body: 'سلام دوست عزیز<br/>بالاترین کد تخفیفی که در سیستم ثبت شده به شماره ای که کد گرفتی پیامک شده و مجدد قابل بررسی نیست . برای استفاده از کد جدید باید حتما با همون اکانتی وارد بشی که باهاش کد گرفتی. <br/>در حال حاضر فقط یک کد دیگه داریم که ۵۰ درصده برای تک درس و پک راه ابریشم و تا ۵ بهمن مهلت استفاده داره <br/>Z5050',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-11 13:02:17'
-        },
-        {
-          id: 253928,
-          user: {
-            id: 1597775,
-            first_name: null,
-            last_name: null,
-            mobile: '09394646357',
-            national_code: '0169295869',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'کاربر',
-            major: null
-          },
-          ticket_id: 91105,
-          body: 'کد تخفیف شب چله بود <br/>c4y7kz',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-11 12:43:33'
-        },
-        {
-          id: 253661,
-          user: {
-            id: 792218,
-            first_name: 'علیرضا',
-            last_name: 'برومند',
-            mobile: '09913605740',
-            national_code: '0024206881',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'پشتیبان',
-            major: {
-              id: 2,
-              name: 'تجربی',
-              title: 'تجربی',
-              selected: true
-            }
-          },
-          ticket_id: 91105,
-          body: 'سلام وقتتون بخیر <br/>چه کد تخفیفی ؟',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-11 08:06:45'
-        },
-        {
-          id: 253462,
-          user: {
-            id: 1597775,
-            first_name: null,
-            last_name: null,
-            mobile: '09394646357',
-            national_code: '0169295869',
-            photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
-            role: 'کاربر',
-            major: null
-          },
-          ticket_id: 91105,
-          body: 'سلام<br/>ببخشید کد تخفیفم رو وارد میکنم سایت لحاظ نمیکنه',
-          files: {
-            photo: null,
-            voice: null
-          },
-          is_private: 0,
-          report: {
-            has_reported: 0,
-            report_description: null
-          },
-          created_at: '2022-01-10 16:38:09'
-        }
-      ]
+      this.userMessageArray = this.getInputsValue('messages')
+      // for test
+      // this.userMessageArray = [
+      //   {
+      //     id: 258407,
+      //     user: {
+      //       id: 1597775,
+      //       first_name: null,
+      //       last_name: null,
+      //       mobile: '09394646357',
+      //       national_code: '0169295869',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'کاربر',
+      //       major: null
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'فرمودید که بالاترین کدی که گرفتیم تو سایت ذخیره شده حالا میگید امکان بررسی نیست؟<br/>یه کلمه بگید سرکارمون گزاشتید و بیش از این به شعور بنده توهین نکنید',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-21 02:07:49'
+      //   },
+      //   {
+      //     id: 255832,
+      //     user: {
+      //       id: 947310,
+      //       first_name: 'مریم',
+      //       last_name: 'بسامی',
+      //       mobile: '09362905164',
+      //       national_code: '3341725423',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/IMG_20210602_234125_115_4480832.jpg',
+      //       role: 'پشتیبان',
+      //       major: {
+      //         id: 1,
+      //         name: 'ریاضی',
+      //         title: 'ریاضی',
+      //         selected: false
+      //       }
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'سلام دوست عزیز<br/>ما امکان بررسی مجدد کدها رو نداریم . حال حاضر فقط یک کد دیگه داریم که ۵۰ درصده برای تک درس و پک راه ابریشم و تا ۵ بهمن مهلت استفاده داره <br/>Z5050',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-15 14:25:40'
+      //   },
+      //   {
+      //     id: 255212,
+      //     user: {
+      //       id: 1597775,
+      //       first_name: null,
+      //       last_name: null,
+      //       mobile: '09394646357',
+      //       national_code: '0169295869',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'کاربر',
+      //       major: null
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'بله فرمودید منم عرض کردم این کد بردن پیامک شده<br/>ولی وقتی میزنم سایت اعمال نمیکنه<br/>اکانتمم همینه و با همین کد گرفتم و برام پیامک شده',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-14 02:23:47'
+      //   },
+      //   {
+      //     id: 254284,
+      //     user: {
+      //       id: 792218,
+      //       first_name: 'علیرضا',
+      //       last_name: 'برومند',
+      //       mobile: '09913605740',
+      //       national_code: '0024206881',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'پشتیبان',
+      //       major: {
+      //         id: 2,
+      //         name: 'تجربی',
+      //         title: 'تجربی',
+      //         selected: true
+      //       }
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'بالاترین کد تخفیفی که در سیستم ثبت شده به شماره ای که کد گرفتی پیامک شده و مجدد قابل بررسی نیست . برای استفاده از کد جدید باید حتما با همون اکانتی وارد بشی که باهاش کد گرفتی.',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-12 08:30:29'
+      //   },
+      //   {
+      //     id: 254108,
+      //     user: {
+      //       id: 1597775,
+      //       first_name: null,
+      //       last_name: null,
+      //       mobile: '09394646357',
+      //       national_code: '0169295869',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'کاربر',
+      //       major: null
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'ببخشید متوجه نمیشم<br/>این کد فکر میکنم هفته پیش برام پیامک شد.<br/>و قرار شد که از این کدی که تو شب چله برنده شدیم بتونیم استفاده کنیم.',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-11 16:20:04'
+      //   },
+      //   {
+      //     id: 254039,
+      //     user: {
+      //       id: 792218,
+      //       first_name: 'علیرضا',
+      //       last_name: 'برومند',
+      //       mobile: '09913605740',
+      //       national_code: '0024206881',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'پشتیبان',
+      //       major: {
+      //         id: 2,
+      //         name: 'تجربی',
+      //         title: 'تجربی',
+      //         selected: true
+      //       }
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'کد های قبلی قابل بررسی نیستن می تونین از کد جدید استفاده کنین',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-11 14:50:12'
+      //   },
+      //   {
+      //     id: 254032,
+      //     user: {
+      //       id: 1597775,
+      //       first_name: null,
+      //       last_name: null,
+      //       mobile: '09394646357',
+      //       national_code: '0169295869',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'کاربر',
+      //       major: null
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'c4y7kz<br/>این کد برام پیامک شده',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-11 14:44:28'
+      //   },
+      //   {
+      //     id: 254031,
+      //     user: {
+      //       id: 1597775,
+      //       first_name: null,
+      //       last_name: null,
+      //       mobile: '09394646357',
+      //       national_code: '0169295869',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'کاربر',
+      //       major: null
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'بله پیامک شده ولی وقتی میزنمش قبول نمیکنه',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-11 14:43:46'
+      //   },
+      //   {
+      //     id: 253952,
+      //     user: {
+      //       id: 792218,
+      //       first_name: 'علیرضا',
+      //       last_name: 'برومند',
+      //       mobile: '09913605740',
+      //       national_code: '0024206881',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'پشتیبان',
+      //       major: {
+      //         id: 2,
+      //         name: 'تجربی',
+      //         title: 'تجربی',
+      //         selected: true
+      //       }
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'سلام دوست عزیز<br/>بالاترین کد تخفیفی که در سیستم ثبت شده به شماره ای که کد گرفتی پیامک شده و مجدد قابل بررسی نیست . برای استفاده از کد جدید باید حتما با همون اکانتی وارد بشی که باهاش کد گرفتی. <br/>در حال حاضر فقط یک کد دیگه داریم که ۵۰ درصده برای تک درس و پک راه ابریشم و تا ۵ بهمن مهلت استفاده داره <br/>Z5050',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-11 13:02:17'
+      //   },
+      //   {
+      //     id: 253928,
+      //     user: {
+      //       id: 1597775,
+      //       first_name: null,
+      //       last_name: null,
+      //       mobile: '09394646357',
+      //       national_code: '0169295869',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'کاربر',
+      //       major: null
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'کد تخفیف شب چله بود <br/>c4y7kz',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-11 12:43:33'
+      //   },
+      //   {
+      //     id: 253661,
+      //     user: {
+      //       id: 792218,
+      //       first_name: 'علیرضا',
+      //       last_name: 'برومند',
+      //       mobile: '09913605740',
+      //       national_code: '0024206881',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'پشتیبان',
+      //       major: {
+      //         id: 2,
+      //         name: 'تجربی',
+      //         title: 'تجربی',
+      //         selected: true
+      //       }
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'سلام وقتتون بخیر <br/>چه کد تخفیفی ؟',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-11 08:06:45'
+      //   },
+      //   {
+      //     id: 253462,
+      //     user: {
+      //       id: 1597775,
+      //       first_name: null,
+      //       last_name: null,
+      //       mobile: '09394646357',
+      //       national_code: '0169295869',
+      //       photo: 'https://nodes.alaatv.com/upload/images/profile/default_avatar.jpg',
+      //       role: 'کاربر',
+      //       major: null
+      //     },
+      //     ticket_id: 91105,
+      //     body: 'سلام<br/>ببخشید کد تخفیفم رو وارد میکنم سایت لحاظ نمیکنه',
+      //     files: {
+      //       photo: null,
+      //       voice: null
+      //     },
+      //     is_private: 0,
+      //     report: {
+      //       has_reported: 0,
+      //       report_description: null
+      //     },
+      //     created_at: '2022-01-10 16:38:09'
+      //   }
+      // ]
 
-      this.userId = this.searchForInputVal('userId')
+      this.userId = this.getInputsValue('userId')
       if (!this.isAdmin) {
         return
       }
