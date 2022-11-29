@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading=== true">
+  <div v-if="loading">
     <q-skeleton type="text"
                 class="q-mx-sm"
                 height="100px" />
@@ -8,6 +8,10 @@
                 height="100px" />
   </div>
   <div v-else>
+    <div v-if="!userOrdersList.length"
+         class="text-center q-pt-lg">
+      سفارشی موجود نیست.
+    </div>
     <!--  ----------------------------  لیست پرداخت شده  ---------------------------------------------------------------        -->
     <q-expansion-item
       v-if="this.userOrdersList.map(object => object.inputData.paymentstatus.id).indexOf(3) !== -1"

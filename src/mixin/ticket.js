@@ -1,4 +1,5 @@
 import API_ADDRESS from 'src/api/Addresses'
+import { TicketDepartmentList } from 'src/models/TicketDepartment'
 
 const mixinTicket = {
   computed: {
@@ -7,17 +8,442 @@ const mixinTicket = {
       return true
     }
   },
-  /// api/v2/ticketMessage/193722/report
-  //	/api/v2/ticket/65009/rate => تیکت با موفقیت امتیازدهی شد
   data: () => ({
-    sendLoading: false
+    sendLoading: false,
+    departmentList: new TicketDepartmentList(),
+    ticketStatuses: [],
+    ticketPriorityOption: []
   }),
   created() {
-  //  this.getDepartments()
-  //  this.setRoleAndPermissions()
+    this.setDepartments()
+    this.setStatuses()
+    this.setPriorityOption()
+    // this.setRoleAndPermissions()
   },
 
   methods: {
+    setStatuses() {
+      this.ticketStatuses = [
+        {
+          title: 'پاسخ داده نشده',
+          id: 1
+        },
+        {
+          title: 'در حال بررسی',
+          id: 2
+        },
+        {
+          title: 'پاسخ داده شده',
+          id: 3
+        },
+        {
+          title: 'بسته شده',
+          id: 4
+        }
+      ]
+    },
+
+    setPriorityOption() {
+      this.ticketPriorityOption = [{
+        label: 'کم',
+        value: '1'
+      },
+      {
+        label: 'متوسط',
+        value: '2'
+      },
+      {
+        label: 'فوری',
+        value: '3'
+      },
+      {
+        label: 'بحرانی',
+        value: '4'
+      }]
+    },
+
+    setDepartments() {
+      const list = [
+        {
+          id: 20,
+          parent_id: null,
+          order: 0,
+          enable: 0,
+          display: 0,
+          title: 'درخواست تمدید سفارش',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2022-07-09 07:55:21',
+          updated_at: '2022-07-09 07:55:23',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/20/edit'
+        },
+        {
+          id: 22,
+          parent_id: null,
+          order: 0,
+          enable: 1,
+          display: 0,
+          title: 'درآمد زایی',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2022-08-04 10:22:35',
+          updated_at: '2022-08-04 10:22:37',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/22/edit'
+        },
+        {
+          id: 21,
+          parent_id: null,
+          order: 1,
+          enable: 0,
+          display: 0,
+          title: 'اعتراض به انقضای مادام العمر سفارش',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2022-07-09 07:55:21',
+          updated_at: '2022-07-09 07:55:23',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/21/edit'
+        },
+        {
+          id: 1,
+          parent_id: null,
+          order: 2,
+          enable: 1,
+          display: 1,
+          title: 'آموزش',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-08-25 11:10:48',
+          updated_at: '2020-08-25 11:10:48',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/1/edit'
+        },
+        {
+          id: 2,
+          parent_id: null,
+          order: 3,
+          enable: 1,
+          display: 1,
+          title: 'مالی',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-08-25 11:10:46',
+          updated_at: '2020-08-25 11:10:46',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [
+            'showOrdersInTicketCreation'
+          ],
+          edit_link: 'http://alaatv.test/ticketDepartment/2/edit'
+        },
+        {
+          id: 3,
+          parent_id: null,
+          order: 4,
+          enable: 1,
+          display: 1,
+          title: 'استخدام',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-08-25 11:10:44',
+          updated_at: '2020-08-25 11:10:45',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/3/edit'
+        },
+        {
+          id: 4,
+          parent_id: null,
+          order: 5,
+          enable: 1,
+          display: 1,
+          title: 'پرچم',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-09-17 11:27:12',
+          updated_at: '2020-09-17 11:27:14',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/4/edit'
+        },
+        {
+          id: 5,
+          parent_id: null,
+          order: 6,
+          enable: 1,
+          display: 1,
+          title: 'راه ابریشم',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-10-26 17:18:44',
+          updated_at: '2020-10-26 17:59:45',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/5/edit'
+        },
+        {
+          id: 6,
+          parent_id: null,
+          order: 7,
+          enable: 1,
+          display: 1,
+          title: 'فنی',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-10-26 17:59:05',
+          updated_at: '2020-10-26 17:59:05',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/6/edit'
+        },
+        {
+          id: 7,
+          parent_id: null,
+          order: 8,
+          enable: 1,
+          display: 1,
+          title: 'مشاوره خرید',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-10-26 18:12:04',
+          updated_at: '2020-10-26 18:12:04',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/7/edit'
+        },
+        {
+          id: 8,
+          parent_id: null,
+          order: 9,
+          enable: 1,
+          display: 0,
+          title: 'مشکلات محتوایی رایگان',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-10-31 05:50:42',
+          updated_at: '2020-10-31 05:50:42',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/8/edit'
+        },
+        {
+          id: 9,
+          parent_id: null,
+          order: 10,
+          enable: 1,
+          display: 0,
+          title: 'مشکلات محتوایی غیر رایگان',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-10-31 05:50:42',
+          updated_at: '2020-10-31 05:50:42',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/9/edit'
+        },
+        {
+          id: 10,
+          parent_id: null,
+          order: 11,
+          enable: 1,
+          display: 0,
+          title: 'ارتباط با ما',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-11-04 10:08:56',
+          updated_at: '2020-11-04 10:08:55',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/10/edit'
+        },
+        {
+          id: 11,
+          parent_id: null,
+          order: 12,
+          enable: 1,
+          display: 1,
+          title: 'حمایت های مردمی',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-11-04 10:13:05',
+          updated_at: '2020-11-04 10:13:06',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/11/edit'
+        },
+        {
+          id: 12,
+          parent_id: null,
+          order: 13,
+          enable: 1,
+          display: 0,
+          title: 'درخواست انتقال حساب کاربری',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2020-12-13 13:42:07',
+          updated_at: '2020-12-13 13:42:09',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/12/edit'
+        },
+        {
+          id: 13,
+          parent_id: null,
+          order: 14,
+          enable: 1,
+          display: 1,
+          title: 'تفتان',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2021-03-22 12:47:10',
+          updated_at: '2021-03-22 12:47:08',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/13/edit'
+        },
+        {
+          id: 14,
+          parent_id: null,
+          order: 15,
+          enable: 1,
+          display: 1,
+          title: 'آرش',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2021-03-22 12:47:10',
+          updated_at: '2021-03-22 12:47:10',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/14/edit'
+        },
+        {
+          id: 15,
+          parent_id: null,
+          order: 16,
+          enable: 1,
+          display: 1,
+          title: 'تتا',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2021-03-22 12:47:10',
+          updated_at: '2021-03-22 12:47:10',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/15/edit'
+        },
+        {
+          id: 16,
+          parent_id: null,
+          order: 17,
+          enable: 1,
+          display: 1,
+          title: 'سه آ',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2021-03-22 12:47:10',
+          updated_at: '2021-03-22 12:47:10',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/16/edit'
+        },
+        {
+          id: 17,
+          parent_id: null,
+          order: 18,
+          enable: 1,
+          display: 1,
+          title: 'طرح حکمت',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2021-03-22 12:47:10',
+          updated_at: '2021-03-22 12:47:10',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/17/edit'
+        },
+        {
+          id: 18,
+          parent_id: null,
+          order: 19,
+          enable: 0,
+          display: 0,
+          title: 'فنی داخلی',
+          ticket_form: null,
+          responders_employees: '["27244","1"]',
+          created_at: '2021-04-06 08:19:35',
+          updated_at: '2021-06-24 13:18:28',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/18/edit'
+        },
+        {
+          id: 19,
+          parent_id: null,
+          order: 20,
+          enable: 0,
+          display: 0,
+          title: 'مالی داخلی',
+          ticket_form: null,
+          responders_employees: null,
+          created_at: '2021-04-08 06:28:44',
+          updated_at: '2021-04-08 06:28:46',
+          deleted_at: null,
+          filter_access: true,
+          children: [],
+          features: [],
+          edit_link: 'http://alaatv.test/ticketDepartment/19/edit'
+        }
+      ].filter(item => item.display === 1)
+      this.departmentList = new TicketDepartmentList(list)
+    },
+
     sendTicket (data, isMsg) {
       if (!isMsg && !this.hasRequiredField()) {
         return
@@ -25,8 +451,8 @@ const mixinTicket = {
       const formData = this.setTicketFormData(data, isMsg)
       isMsg ? this.sendTicketMsg(formData) : this.sendCreateTicketReq(formData)
     },
+
     sendTicketMessage(data) {
-      console.log('data', data)
       this.sendTicket(data, true)
     },
 
@@ -64,6 +490,32 @@ const mixinTicket = {
       }
     },
 
+    async updateTicketData(ticketId, payload) {
+      try {
+        await this.callUpdateTicketApi(ticketId, payload)
+        this.$q.notify({
+          message: 'تغییرات با موفقیت اعمال شد.',
+          type: 'positive'
+        })
+      } catch (e) {
+
+      }
+    },
+
+    callUpdateTicketApi(ticketId, payloadData) {
+      if (!payloadData) {
+        payloadData = {
+          department_id: this.getInputsValue('department'),
+          status_id: this.getInputsValue('status'),
+          priority_id: this.getInputsValue('priority-id'),
+          user_id: this.getInputsValue('userId'),
+          id: this.getInputsValue('id'),
+          title: this.getInputsValue('title')
+        }
+      }
+      return this.$axios.put(API_ADDRESS.ticket.show.base + '/' + ticketId, payloadData)
+    },
+
     callCreatTicketApi (formData) {
       return this.$axios.post(API_ADDRESS.ticket.create.base, formData)
     },
@@ -97,14 +549,13 @@ const mixinTicket = {
         formData.append('is_private', 1)
       }
       if (isMsg) {
-        formData.append('ticket_id', this.searchForInputVal('id'))
+        formData.append('ticket_id', this.getInputsValue('id'))
         return formData
       }
-      console.log('after is messs')
-
       formData.append('department_id', this.selectedDepartment.id)
 
       formData.append('title', this.getInputsValue('title'))
+      // formData.append()
 
       const priorityId = this.getInputsValue('priority_id')
       formData.append('priority_id', priorityId)
@@ -125,14 +576,19 @@ const mixinTicket = {
       return !errorMessages.length > 0
     },
 
-    getInputsValue (inputName) {
-      return this.getInput(inputName).value
+    getInputsValue (inputName, source) {
+      const input = this.getInput(inputName, source)
+      if (!input) {
+        return false
+      }
+      return input.value
     },
-    getInput(inputName) {
-      console.log('getInput', inputName, this.inputs)
-      console.log('reaaa', this.inputs.find(input => input.name === inputName))
-      return this.inputs.find(input => input.name === inputName)
+
+    getInput(inputName, source) {
+      const srcFilter = source || this.inputs
+      return srcFilter.find(input => input.name === inputName)
     },
+
     createBlob (dataURL) {
       const BASE64_MARKER = ';base64,'
       if (dataURL.indexOf(BASE64_MARKER) === -1) {
@@ -154,6 +610,7 @@ const mixinTicket = {
 
       return new Blob([uInt8Array], { type: contentType })
     },
+
     showMessagesInNotify (messages, type) {
       messages.forEach((message) => {
         this.$q.notify({

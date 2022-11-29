@@ -45,6 +45,7 @@
       :send-loading="sendLoading"
       :isAdmin="isAdmin"
       @creatTicket="sendTicket"
+
     />
   </div>
 
