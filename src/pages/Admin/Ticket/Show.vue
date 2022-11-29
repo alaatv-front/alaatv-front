@@ -68,7 +68,9 @@
         <template #after-form-builder>
           <div v-if="isAdmin">
             <q-btn unelevated
-                   color="blue">ویرایش اپراتورها
+                   color="blue"
+                   @click="editAssignedSupporters"
+            >ویرایش اپراتورها
             </q-btn>
           </div>
           <ticket-rate
@@ -412,9 +414,8 @@ export default {
           col: 'col-md-4'
         },
         {
-          isAdmin: true,
           type: 'entity',
-          name: 'management',
+          name: 'editOperator',
           selectionMode: 'multiple',
           label: 'انتخاب اپراتورها',
           buttonColor: 'blue',
@@ -469,13 +470,15 @@ export default {
               { type: 'input', name: 'national_code', value: null, label: 'کدملی', col: 'col-md-6' },
               { type: 'hidden', name: 'role', value: 123, label: 'نقش', col: 'col-md-3' }
             ],
-            itemIdentifyKey: 'mobile',
-            itemIndicatorKey: 'mobile'
+            itemIdentifyKey: 'id',
+            itemIndicatorKey: 'id'
           },
+          itemIdentifyKey: 'id',
+          itemIndicatorKey: 'id',
           value: [],
           responseKey: '',
           selected: [],
-          col: 'col-md-12'
+          col: 'col-md-6'
         }
       ]
     }
@@ -484,9 +487,25 @@ export default {
     this.initPageData()
   },
   computed: {
-
+    editAssignInput() {
+      return this.inputs.find(item => item.name === 'editOperator')
+    }
   },
   methods: {
+    async editAssignedSupporters() {
+      const usersId = []
+      this.editAssignInput.selected.forEach(item => {
+        usersId.push(item.id)
+      })
+      try {
+        await this.$axios.post(API_ADDRESS.ticket.show.editAssign(this.getInputsValue('id')), {
+          assign: usersId
+        })
+      } catch (e) {
+
+      }
+      console.log(this.editAssignInput.selected)
+    },
     initPageData() {
       this.api += '/' + this.$route.params.id
       this.getInput('department').options = this.departments
