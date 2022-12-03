@@ -92,7 +92,7 @@
               rounded
               size="12px"
               class="action-btn"
-              :to="{name: 'cart'}"
+              :to="{name: 'User.Checkout.Review'}"
             />
           </div>
           <q-btn
