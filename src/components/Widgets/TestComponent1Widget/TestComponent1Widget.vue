@@ -14,12 +14,17 @@ export default {
   setup() {
     const cart = API_Gateway.cart
     const thisUser = API_Gateway.user
+    const product = API_Gateway.product
+    cart.review().then(res => {
+      console.log(res);
+    })
     thisUser.get('219548').then(res => {
       console.log(res);
     })
     return {
       thisUser,
-      cart
+      cart,
+      product
     }
   },
   computed: {

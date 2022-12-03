@@ -2,7 +2,7 @@
 readable way */
 export default class APIInstanceWrapper {
   static get(option) {
-    return option.api.get(option.request)
+    return option.api.get(option.request, {params: option.params})
   }
   static post(option) {
     return option.api.post(option.request, option.data)

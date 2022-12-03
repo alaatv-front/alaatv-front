@@ -15,11 +15,12 @@ export default class APIRepository {
    * @returns A promise that will resolve or reject based on the response from the API call.
    */
   sendRequest (requestData) {
-    const {apiMethod, api, request, resolveCallback, rejectCallback, data} = requestData
+    const {apiMethod, api, request, resolveCallback, rejectCallback, data, params} = requestData
     return new Promise((resolve, reject)=>{
       APIInstanceWrapper[apiMethod]({
         api,
         request,
+        params,
         data
       })
       .then((response)=>{
