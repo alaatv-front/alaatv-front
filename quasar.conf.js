@@ -9,8 +9,8 @@
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers')
-
 const path = require('path')
+const { generateWidgetList } = require('./src/widgetListGetter/index')
 
 module.exports = configure(function (ctx) {
   return {
@@ -32,6 +32,7 @@ module.exports = configure(function (ctx) {
       'breadcrumbs',
       'page-builder',
       'api-gateway',
+      'registerQPageBuilder',
       'routesLayoutConfigs'
     ],
 
@@ -70,7 +71,8 @@ module.exports = configure(function (ctx) {
       // Applies only if "transpile" is set to true.
       transpileDependencies: [
         'js-abstract-model',
-        'quasar-template-builder'
+        'quasar-template-builder',
+        'quasar-ui-q-page-builder'
       ],
 
       rtl: true, // https://v2.quasar.dev/options/rtl-support
@@ -83,6 +85,12 @@ module.exports = configure(function (ctx) {
       // extractCSS: false,
 
       env: require('dotenv').config().parsed,
+
+      // vueLoaderOptions: {
+      //   compilerOptions: {
+      //     isCustomElement: (tag) => tag.startsWith('q-'),
+      //   }
+      // },
 
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
@@ -150,6 +158,9 @@ module.exports = configure(function (ctx) {
         //     }
         //   ]
         // }))
+      },
+      beforeDev({ quasarConf }) {
+        generateWidgetList('./src/components/Widgets')
       }
     },
 
