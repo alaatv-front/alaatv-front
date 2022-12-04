@@ -1819,10 +1819,10 @@
     "core-js" "^3.6.5"
     "core-js-compat" "^3.6.5"
 
-"@quasar/extras@^1.15.1", "@quasar/extras@^1.15.3", "@quasar/extras@^1.15.6":
-  "integrity" "sha512-lG3wrcz47c86N/j1ULZugmyVfwpmnsJpjtSWh+LhaFfe0g1kTMdAnxkWGKsa3ouZ4QBcnkrNan0kYSnKc3MiBg=="
-  "resolved" "https://registry.npmjs.org/@quasar/extras/-/extras-1.15.6.tgz"
-  "version" "1.15.6"
+"@quasar/extras@^1.15.1", "@quasar/extras@^1.15.2", "@quasar/extras@^1.15.3":
+  "integrity" "sha512-JzKKx5/eKAip3X3bZUEJOOWT9NudqjF01gcce6rtyviko49OU4r+ekyJU3QQIKF8ZqnjZ+DpsVpMWBBZnO6hSQ=="
+  "resolved" "https://registry.npmjs.org/@quasar/extras/-/extras-1.15.5.tgz"
+  "version" "1.15.5"
 
 "@quasar/fastclick@1.1.5":
   "integrity" "sha512-p3JKgTjRlJ1YQXbqTw3Bsa4j0mQdt5dq+WfYvyb7MgKGdephHCKdR/kxA5PCTAmJanGJuDKqRdyGYX/hYN4KGw=="
@@ -2556,22 +2556,6 @@
     "@vue/compiler-core" "3.2.45"
     "@vue/shared" "3.2.45"
 
-"@vue/compiler-sfc@^3.2.45", "@vue/compiler-sfc@3.2.45":
-  "integrity" "sha512-1jXDuWah1ggsnSAOGsec8cFjT/K6TMZ0sPL3o3d84Ft2AYZi2jWJgRMjw4iaK0rBfA89L5gw427H4n1RZQBu6Q=="
-  "resolved" "https://registry.npmjs.org/@vue/compiler-sfc/-/compiler-sfc-3.2.45.tgz"
-  "version" "3.2.45"
-  dependencies:
-    "@babel/parser" "^7.16.4"
-    "@vue/compiler-core" "3.2.45"
-    "@vue/compiler-dom" "3.2.45"
-    "@vue/compiler-ssr" "3.2.45"
-    "@vue/reactivity-transform" "3.2.45"
-    "@vue/shared" "3.2.45"
-    "estree-walker" "^2.0.2"
-    "magic-string" "^0.25.7"
-    "postcss" "^8.1.10"
-    "source-map" "^0.6.1"
-
 "@vue/compiler-sfc@2.7.14":
   "integrity" "sha512-aNmNHyLPsw+sVvlQFQ2/8sjNuLtK54TC6cuKnVzAY93ks4ZBrvwQSnkkIh7bsbNhum5hJBS00wSDipQ937f5DA=="
   "resolved" "https://registry.npmjs.org/@vue/compiler-sfc/-/compiler-sfc-2.7.14.tgz"
@@ -2588,6 +2572,22 @@
   dependencies:
     "@babel/parser" "^7.18.4"
     "postcss" "^8.4.14"
+    "source-map" "^0.6.1"
+
+"@vue/compiler-sfc@3.2.45":
+  "integrity" "sha512-1jXDuWah1ggsnSAOGsec8cFjT/K6TMZ0sPL3o3d84Ft2AYZi2jWJgRMjw4iaK0rBfA89L5gw427H4n1RZQBu6Q=="
+  "resolved" "https://registry.npmjs.org/@vue/compiler-sfc/-/compiler-sfc-3.2.45.tgz"
+  "version" "3.2.45"
+  dependencies:
+    "@babel/parser" "^7.16.4"
+    "@vue/compiler-core" "3.2.45"
+    "@vue/compiler-dom" "3.2.45"
+    "@vue/compiler-ssr" "3.2.45"
+    "@vue/reactivity-transform" "3.2.45"
+    "@vue/shared" "3.2.45"
+    "estree-walker" "^2.0.2"
+    "magic-string" "^0.25.7"
+    "postcss" "^8.1.10"
     "source-map" "^0.6.1"
 
 "@vue/compiler-ssr@3.2.45":
@@ -3973,10 +3973,10 @@
   "resolved" "https://registry.npmjs.org/core-js/-/core-js-2.6.12.tgz"
   "version" "2.6.12"
 
-"core-js@^3.22.8", "core-js@^3.25.2", "core-js@^3.26.1", "core-js@^3.6.5", "core-js@^3.7.0":
-  "integrity" "sha512-21491RRQVzUn0GGM9Z1Jrpr6PNPxPi+Za8OM9q4tksTSnlbXXGKK1nXNg/QvwFYettXvSX6zWKCtHHfjN4puyA=="
-  "resolved" "https://registry.npmjs.org/core-js/-/core-js-3.26.1.tgz"
-  "version" "3.26.1"
+"core-js@^3.22.8", "core-js@^3.25.0", "core-js@^3.25.2", "core-js@^3.6.5", "core-js@^3.7.0":
+  "integrity" "sha512-YB4IAT1bjEfxTJ1XYy11hJAKskO+qmhuDBM8/guIfMz4JvdsAQAqvyb97zXX7JgSrfPLG5mRGFWJwJD39ruq2A=="
+  "resolved" "https://registry.npmjs.org/core-js/-/core-js-3.25.2.tgz"
+  "version" "3.25.2"
 
 "core-util-is@~1.0.0", "core-util-is@1.0.2":
   "integrity" "sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ=="
@@ -8471,7 +8471,7 @@
   dependencies:
     "side-channel" "^1.0.4"
 
-"quasar-crud@^0.2.66":
+"quasar-crud@^0.2.65":
   "integrity" "sha512-mtwSZbXLbqOeqE8L96U/33kbdG/zr7eYFGDrxreQ0idZB3zxuInHl0809PKh2e3t+Z6IHrsanQWu9iM/BZBlRw=="
   "resolved" "https://registry.npmjs.org/quasar-crud/-/quasar-crud-0.2.66.tgz"
   "version" "0.2.66"
@@ -8509,17 +8509,7 @@
     "vue" "^3.2.37"
     "vuex" "^4.0.2"
 
-"quasar-ui-q-page-builder@^0.0.6":
-  "integrity" "sha512-p8iCf5+hBPG4Y58A+nzf4h24C73Qunrg2OhLSf020kkGb0whq8ZwOa3gxWI4z6AQfph4G2zL/e2s+0Yu6+NPcA=="
-  "resolved" "https://registry.npmjs.org/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.0.6.tgz"
-  "version" "0.0.6"
-  dependencies:
-    "@quasar/extras" "^1.15.6"
-    "@vue/compiler-sfc" "^3.2.45"
-    "quasar" "^2.10.2"
-    "vue" "^3.2.45"
-
-"quasar@^2.10.2", "quasar@^2.7.7", "quasar@^2.8.3":
+"quasar@^2.7.7", "quasar@^2.8.3":
   "integrity" "sha512-y6suu0f2hJKrnFPHzx+p2EBVGzDF6xHaqYGkDIsMNkhxsrO9Qi2+dZCjq1J6+48EJiqPEOn8t9X/gT7yLSSnLw=="
   "resolved" "https://registry.npmjs.org/quasar/-/quasar-2.10.2.tgz"
   "version" "2.10.2"
@@ -10509,7 +10499,7 @@
     "@vue/compiler-sfc" "2.7.8"
     "csstype" "^3.1.0"
 
-"vue@^3.0.0", "vue@^3.0.11", "vue@^3.0.2", "vue@^3.2.0", "vue@^3.2.29", "vue@^3.2.37", "vue@^3.2.39", "vue@^3.2.41", "vue@^3.2.45", "vue@>=3 < 4", "vue@>=3.0.0", "vue@3.2.45":
+"vue@^3.0.0", "vue@^3.0.11", "vue@^3.0.2", "vue@^3.2.0", "vue@^3.2.29", "vue@^3.2.37", "vue@^3.2.39", "vue@^3.2.41", "vue@>=3 < 4", "vue@>=3.0.0", "vue@3.2.45":
   "integrity" "sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.45.tgz"
   "version" "3.2.45"
