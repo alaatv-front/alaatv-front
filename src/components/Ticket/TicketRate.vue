@@ -5,8 +5,8 @@
         <template v-for="item in imgData"
                   :key="item">
           <div class="col-4 q-px-lg">
-            <div @click="selectedImgActions(item.id)"
-                 class="rate">
+            <div class="rate"
+                 @click="selectedImgActions(item.id)">
               <q-img class="rate-img"
                      :src="item.url" />
               <div class="rate-title">

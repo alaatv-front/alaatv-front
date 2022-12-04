@@ -99,7 +99,9 @@ const API_ADDRESS = {
       batchExtend: apiV2Server + '/orderproduct/batchExtend',
       ticketMessage: apiV2Server + '/ticketMessage',
       reportMessage: (ticketId) =>
-        apiV2Server + '/ticketMessage/' + ticketId + '/report'
+        apiV2Server + '/ticketMessage/' + ticketId + '/report',
+      editAssign: (ticketId) =>
+        apiV2Server + '/ticket/' + ticketId + '/assign'
     },
     ticketRate: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/rate'
   },
