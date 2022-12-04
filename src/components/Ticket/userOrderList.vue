@@ -25,7 +25,7 @@
         unelevated
         class="action-btn"
         @click="extendAll(3)"
-      >تمدید کل سفارشات</q-btn>
+      >تمدید کل سفارشات </q-btn>
       <template v-for="order in userOrdersList"
                 :key="order"
       >
@@ -277,6 +277,7 @@ export default {
       }
     },
     loading: {
+
       type: Boolean,
       default: true
     }
@@ -286,6 +287,11 @@ export default {
       productItems: [],
       i: 1,
       extendProductArray: []
+    }
+  },
+  watch: {
+    userOrdersList(val) {
+      console.log('userOrdersList', val)
     }
   },
   methods: {

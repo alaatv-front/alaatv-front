@@ -1,5 +1,27 @@
 <template>
   <q-card class="msg-input-box">
+    <div v-if="canChoseOrder">
+      <q-btn  unelevated
+              class="q-mb-lg"
+              color="primary"
+              @click="onOpenOrderList"
+
+      >انتخاب سفارش مورد نظر
+      </q-btn>
+      <drawer
+        :is-open="orderDrawer"
+        max-width="1016px"
+      >
+        <q-scroll-area class="fit">
+          <q-btn icon="mdi-close"
+                 class="close-btn"
+                 unelevated
+                 @click="orderDrawer = false" />
+          <user-order-list :user-orders-list="userOrderData?.list"
+                           :loading="orderLoading" />
+        </q-scroll-area>
+      </drawer>
+    </div>
 
     <div v-if="canAssignTicket"
          class="q-py-lg">
@@ -13,13 +35,13 @@
         :options="userAssignees.list"
       >
         <template v-slot:selected>
-          {{assignTo?  assignTo.full_name : '-' }}
-          {{assignTo ? '('+ assignTo.role +')' : ''}}
+          {{ assignTo ? assignTo.full_name : '-' }}
+          {{ assignTo ? '(' + assignTo.role + ')' : '' }}
         </template>
         <template v-slot:option="scope">
           <q-item v-bind="scope.itemProps">
             <q-item-section>
-              {{scope.opt.full_name}} ({{scope.opt.role}})
+              {{ scope.opt.full_name }} ({{ scope.opt.role }})
             </q-item-section>
           </q-item>
         </template>
@@ -245,6 +267,10 @@ import AvMedia from 'vue-audio-visual/src/components/AvMedia'
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
 import { UserList } from 'src/models/User'
+import Drawer from 'components/CustomDrawer'
+import UserOrderList from 'components/Ticket/userOrderList'
+import API_ADDRESS from 'src/api/Addresses'
+import { CartItemList } from 'src/models/CartItem'
 
 const longpress = {
   created(el, binding, vNode) {
@@ -305,7 +331,9 @@ export default {
   components: {
     AvWaveform,
     Cropper,
-    AvMedia
+    AvMedia,
+    Drawer,
+    UserOrderList
   },
   props: {
     sendLoading: {
@@ -331,12 +359,18 @@ export default {
     isAdmin: {
       type: Boolean,
       default: false
+    },
+    canChoseOrder: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
     fileInput: '',
     assignTo: null,
     imgURL: '',
+    orderDrawer: false,
+    orderLoading: false,
     resultURL: '',
     userPicSelected: false,
     userPicClipped: false,
@@ -494,8 +528,25 @@ export default {
         }
       ])
     }
+
   },
   methods: {
+    async onOpenOrderList() {
+      this.orderDrawer = true
+      this.orderLoading = true
+
+      try {
+        const response = await this.callGetOrderApi()
+        this.userOrderData = new CartItemList(response.data.data)
+        this.orderLoading = false
+      } catch (e) {
+        this.orderLoading = false
+      }
+    },
+    callGetOrderApi() {
+      const userId = this.$store.getters['Auth/user'].id
+      return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
+    },
     loadFile(event) {
       const { files } = event.target
       if (files && files[0]) {
@@ -604,7 +655,7 @@ export default {
       this.$refs.myFileInput.click()
     },
 
-    loadImage (event) {
+    loadImage(event) {
       const { files } = event.target
       if (files && files[0]) {
         if (this.imgURL) {
@@ -642,7 +693,7 @@ export default {
       this.recordedVoiceBlob = null
     },
 
-    emitData (isPrivate) {
+    emitData(isPrivate) {
       this.$emit('creatTicket', {
         isPrivate,
         ...(this.resultURL && { resultURL: this.resultURL }),
@@ -676,15 +727,17 @@ export default {
 </style>
 
 <style scoped lang="scss">
-.attach-file{
+.attach-file {
   width: 64px;
   border-radius: 0;
 }
-.msg-input-box{
+
+.msg-input-box {
   padding: 30px;
   border-radius: 15px;
   box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
 }
+
 .imageModal {
   .slider_box {
     display: flex;
@@ -783,7 +836,8 @@ export default {
       border-radius: 0;
     }
   }
-  .btn{
+
+  .btn {
     height: 100%;
     box-shadow: none;
   }

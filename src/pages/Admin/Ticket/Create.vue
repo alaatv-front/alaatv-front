@@ -39,6 +39,7 @@
     <send-message-input
       ref="SendMessageInput"
       :role="userRole"
+      :canChoseOrder="canChoseOrder"
       :canFilter-supporter="canFilterSupporter"
       :canFilter-assignees="canFilterAssignees"
       :canAssign-ticket="canAssignTicket"
@@ -99,6 +100,11 @@ export default {
       canFilterSupporter: false,
       canFilterAssignees: false,
       canAssignTicket: false
+    }
+  },
+  computed: {
+    canChoseOrder() {
+      return [2].includes(this.selectedDepartment.id)
     }
   },
 
