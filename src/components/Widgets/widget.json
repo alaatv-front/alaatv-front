@@ -1,0 +1,226 @@
+{
+  "path": "/home/alaa/projects/alaatv-front/src/components/Widgets",
+  "name": "Widgets",
+  "self_type": "folder",
+  "children": [
+    {
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Banner.vue",
+      "name": "Banner",
+      "self_type": "file",
+      "file_type": "vue"
+    },
+    {
+      "path": "components/Widgets/Block",
+      "name": "Block",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/BlockList",
+      "name": "BlockList",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/CheckoutReview",
+      "name": "CheckoutReview",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content",
+      "name": "Content",
+      "self_type": "folder",
+      "children": [
+        {
+          "path": "components/Widgets/Content/Search",
+          "name": "Search",
+          "self_type": "folder",
+          "type": "widget"
+        },
+        {
+          "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Show",
+          "name": "Show",
+          "self_type": "folder",
+          "children": [
+            {
+              "path": "components/Widgets/Content/Show/ContentDownloadSection",
+              "name": "ContentDownloadSection",
+              "self_type": "folder",
+              "type": "widget"
+            },
+            {
+              "path": "components/Widgets/Content/Show/ContentShowInfo",
+              "name": "ContentShowInfo",
+              "self_type": "folder",
+              "type": "widget"
+            },
+            {
+              "path": "components/Widgets/Content/Show/ContentVideoList",
+              "name": "ContentVideoList",
+              "self_type": "folder",
+              "type": "widget"
+            },
+            {
+              "path": "components/Widgets/Content/Show/ContentVideoPlayer",
+              "name": "ContentVideoPlayer",
+              "self_type": "folder",
+              "type": "widget"
+            }
+          ],
+          "type": "folder"
+        }
+      ],
+      "type": "folder"
+    },
+    {
+      "path": "components/Widgets/ContentDownloadSection",
+      "name": "ContentDownloadSection",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/ContentItem",
+      "name": "ContentItem",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/ContentSearch",
+      "name": "ContentSearch",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/Footer",
+      "name": "Footer",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/FormBuilder",
+      "name": "FormBuilder",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/Map",
+      "name": "Map",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/ProductInfoShow",
+      "name": "ProductInfoShow",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/ProductItem",
+      "name": "ProductItem",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/Profile",
+      "name": "Profile",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/Segment",
+      "name": "Segment",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/Services",
+      "name": "Services",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/Set",
+      "name": "Set",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/SetItem",
+      "name": "SetItem",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/Slider",
+      "name": "Slider",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/TestComponent1Widget",
+      "name": "TestComponent1Widget",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/TestComponent2Widget",
+      "name": "TestComponent2Widget",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/UserOrders",
+      "name": "UserOrders",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/exampleCat1",
+      "name": "exampleCat1",
+      "self_type": "folder",
+      "children": [
+        {
+          "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/exampleCat1/exampleCat2",
+          "name": "exampleCat2",
+          "self_type": "folder",
+          "children": [
+            {
+              "path": "components/Widgets/exampleCat1/exampleCat2/TestComponent3Widget",
+              "name": "TestComponent3Widget",
+              "self_type": "folder",
+              "type": "widget"
+            },
+            {
+              "path": "components/Widgets/exampleCat1/exampleCat2/TestComponent4Widget",
+              "name": "TestComponent4Widget",
+              "self_type": "folder",
+              "type": "widget"
+            }
+          ],
+          "type": "folder"
+        }
+      ],
+      "type": "folder"
+    },
+    {
+      "path": "components/Widgets/favorites",
+      "name": "favorites",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "components/Widgets/purchases",
+      "name": "purchases",
+      "self_type": "folder",
+      "type": "widget"
+    },
+    {
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/readme.md",
+      "name": "readme",
+      "self_type": "file",
+      "file_type": "md"
+    }
+  ],
+  "type": "folder"
+}
