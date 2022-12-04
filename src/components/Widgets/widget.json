@@ -1,10 +1,10 @@
 {
-  "path": "/home/alaa/projects/alaatv-front/src/components/Widgets",
+  "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets",
   "name": "Widgets",
   "self_type": "folder",
   "children": [
     {
-      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Banner.vue",
+      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/Banner.vue",
       "name": "Banner",
       "self_type": "file",
       "file_type": "vue"
@@ -28,7 +28,7 @@
       "type": "widget"
     },
     {
-      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content",
+      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/Content",
       "name": "Content",
       "self_type": "folder",
       "children": [
@@ -39,7 +39,7 @@
           "type": "widget"
         },
         {
-          "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Show",
+          "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/Content/Show",
           "name": "Show",
           "self_type": "folder",
           "children": [
@@ -176,12 +176,12 @@
       "type": "widget"
     },
     {
-      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/exampleCat1",
+      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/exampleCat1",
       "name": "exampleCat1",
       "self_type": "folder",
       "children": [
         {
-          "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/exampleCat1/exampleCat2",
+          "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/exampleCat1/exampleCat2",
           "name": "exampleCat2",
           "self_type": "folder",
           "children": [
@@ -216,10 +216,16 @@
       "type": "widget"
     },
     {
-      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/readme.md",
+      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/readme.md",
       "name": "readme",
       "self_type": "file",
       "file_type": "md"
+    },
+    {
+      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/widget.json",
+      "name": "widget",
+      "self_type": "file",
+      "file_type": "json"
     }
   ],
   "type": "folder"
