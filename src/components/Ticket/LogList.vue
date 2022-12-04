@@ -10,14 +10,14 @@
       <div>
         <div class="log-text">
           {{item.action}}
-          <span class="flex q-my-xs"
-                v-if="item.before">
+          <span v-if="item.before"
+                class="flex q-my-xs">
             <br>
             از
             {{item.before}}
           </span>
-          <span class="flex q-my-xs"
-                v-if="item.after">
+          <span v-if="item.after"
+                class="flex q-my-xs">
             <br>
             به
             {{item.after}}

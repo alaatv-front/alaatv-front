@@ -31,6 +31,7 @@ module.exports = configure(function (ctx) {
       'middleware',
       'breadcrumbs',
       'page-builder',
+      'api-gateway',
       'registerQPageBuilder',
       'routesLayoutConfigs'
     ],
