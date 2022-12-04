@@ -6094,8 +6094,8 @@ moment-jalaali@^0.9.6:
     rimraf "^3.0.2"
 
 moment-timezone@^0.5.21:
-  version "0.5.34"
-  resolved "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.34.tgz"
+  version "0.5.39"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.39.tgz#342625a3b98810f04c8f4ea917e448d3525e600b"
   dependencies:
     moment ">= 2.9.0"
 
