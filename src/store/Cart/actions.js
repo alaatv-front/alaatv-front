@@ -1,7 +1,7 @@
 import API_ADDRESS from 'src/api/Addresses'
+import { Cart } from 'src/models/Cart'
 import { axios } from 'src/boot/axios'
 import CookieCart from 'src/assets/js/CookieCart'
-import { Cart } from 'src/models/Cart'
 import { Notify } from 'quasar'
 
 export function addToCart(context, data) {
@@ -35,21 +35,21 @@ export function addToCart(context, data) {
     //       return reject(error)
     //     })
     // } else {
-    //   cart.addToCart(product)
-    //   CookieCart.addToCartInCookie(cart)
+    //   cart.addToCart(data.product)
+    //   context.commit('updateCart', cart)
     //   return resolve(true)
     // }
   })
 }
 
-export function reviewCart(context, product) {
-  // -----------------------------------------------------------------------------------
+export function reviewCart (context, product) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   const currentCart = context.getters.cart
+
   if (!isUserLogin) {
     CookieCart.addToCartInCookie(currentCart)
   }
-  // -----------------------------------------------------------------------------------
+
   return new Promise((resolve, reject) => {
     axios
       .get(API_ADDRESS.cart.review)
@@ -57,20 +57,24 @@ export function reviewCart(context, product) {
         const invoice = response.data.data
 
         const cart = new Cart(invoice)
+
         if (invoice.count > 0) {
           invoice.items[0].order_product.forEach((order) => {
             cart.items.list.push(order)
           })
         }
+
         if (product) {
-          const isExist = cart.cartItems.list.find(
+          const isExist = cart.items.list.find(
             (item) => item.id === product.id
           )
           if (!isExist) {
-            cart.cartItems.list.push(product)
+            cart.items.list.push(product)
           }
         }
+
         context.commit('updateCart', cart)
+
         return resolve(response)
       })
       .catch((error) => {
@@ -92,13 +96,13 @@ export function paymentCheckout (context) {
   })
 }
 
-export function removeItemFromCart(context, productId) {
+export function removeItemFromCart (context, productId) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
 
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
       axios
-        .delete(API_ADDRESS.cart.orderproduct + '/' + productId)
+        .delete(API_ADDRESS.cart.orderproduct.delete(productId))
         .then((response) => {
           Notify.create({
             type: 'positive',
@@ -125,13 +129,13 @@ export function removeItemFromCart(context, productId) {
   })
 }
 
-export function deleteList(context) {
+export function deleteList (context) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   const cart = context.getters.cart
 
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      cart.cartItems.list.forEach((item) => {
+      cart.items.list.forEach((item) => {
         // TODO => very bad code
         context
           .dispatch('removeItemFromCart', item.id)

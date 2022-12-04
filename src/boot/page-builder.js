@@ -22,6 +22,8 @@ export const componentsData = requireContext.keys().map((file) => {
   }
 })
 
+console.log('componentsData', componentsData)
+
 export const setHeight = (h) => {
   pageBuilder.methods.calculateHeight(h)
 }

@@ -22,6 +22,7 @@ const routes = [
       layoutPageContainer: true,
       layoutRightDrawer: false,
       layoutFooter: true,
+      layoutFooterVisible: true,
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
       layoutBreadcrumbs: {
@@ -205,14 +206,14 @@ const routes = [
     component: () => import('pages/Auth/Login.vue')
   },
   // are u mr Esmaeili ? '' : dont touch this route
-  // {
-  //   path: '/debug',
-  //   name: 'debug',
-  //   component: () => import('pages/debug'),
-  //   meta: {
-  //     middlewares: [auth]
-  //   }
-  // },
+  {
+    path: '/debug',
+    name: 'debug',
+    component: () => import('pages/debug'),
+    meta: {
+      middlewares: [auth]
+    }
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
