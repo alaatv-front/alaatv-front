@@ -14,7 +14,6 @@
            :max-bounds="maxBounds"
            :maxBoundsViscosity="maxBoundsViscosity"
            :zoom-animation="true"
-           :inertia="true"
            :crs="crs"
            @click="mapClick($event)"
            @update:zoom="zoomUpdated"
@@ -117,33 +116,40 @@
         </l-icon>
       </l-marker>
 
-      <div class="editable-polyline">
-        <l-polyline
-          :options="adminToolBox.polyline.data.line.options"
-          :lat-lngs="adminToolBox.polyline.latlngs"
-          :color="adminToolBox.polyline.data.line.color"
-          :className="adminToolBox.polyline.data.line.className"
-          :bubblingMouseEvents="adminToolBox.polyline.data.line.bubblingMouseEvents"
-          :dashArray="adminToolBox.polyline.data.line.dashArray"
-          :dashOffset="adminToolBox.polyline.data.line.dashOffset"
-          :weight="adminToolBox.polyline.data.line.weight"
-        >
-        </l-polyline>
-        <template v-if="zoom >= adminToolBox.polyline.data.displayZoom">
-          <l-marker
-            v-for="(item, index) in adminToolBox.polyline.latlngs"
-            :key="index"
-            :lat-lng="item"
-            :draggable="true"
-            @dragend="updateEditablePolylineLatlngs($event, item, index)">
-            <l-icon
-              :icon-size="adminToolBox.polyline.data.iconSize"
-              :icon-anchor="adminToolBox.polyline.data.iconAnchor"
-            >
-            </l-icon>
-          </l-marker>
-        </template>
-      </div>
+<!--      <editable-polyline ref="editablePolyline"-->
+<!--                         :latlngs="adminToolBox.polyline.latlngs"-->
+<!--                         :zoom="mapZoom"-->
+<!--                         :center="mapCenter"-->
+<!--                         :editablePolylineOptions="adminToolBox.polyline.data"-->
+<!--                         @update:latlngs="updateLatlngs" />-->
+
+      <!--      <div class="editable-polyline">-->
+      <!--        <l-polyline-->
+      <!--          v-model:lat-lngs="editablePolylinelatlngs"-->
+      <!--          :color="adminToolBox.polyline.data.line.color"-->
+      <!--          :className="adminToolBox.polyline.data.line.className"-->
+      <!--          :bubblingMouseEvents="adminToolBox.polyline.data.line.bubblingMouseEvents"-->
+      <!--          :dashArray="adminToolBox.polyline.data.line.dashArray"-->
+      <!--          :dashOffset="adminToolBox.polyline.data.line.dashOffset"-->
+      <!--          :weight="adminToolBox.polyline.data.line.weight"-->
+      <!--        >-->
+      <!--        </l-polyline>-->
+      <!--        <template v-if="mapZoom >= adminToolBox.polyline.data.displayZoom">-->
+      <!--          <l-marker-->
+      <!--            v-for="(item, index) in adminToolBox.polyline.latlngs"-->
+      <!--            :key="index"-->
+      <!--            :lat-lng="item"-->
+      <!--            :draggable="true"-->
+      <!--            @dragend="updateEditablePolylineLatlngs($event, item, index)">-->
+      <!--            <l-icon-->
+      <!--              :icon-url="null"-->
+      <!--              :icon-size="adminToolBox.polyline.data.iconSize"-->
+      <!--              :icon-anchor="adminToolBox.polyline.data.iconAnchor"-->
+      <!--            >-->
+      <!--            </l-icon>-->
+      <!--          </l-marker>-->
+      <!--        </template>-->
+      <!--      </div>-->
 
       <l-control
         position="topleft"
@@ -248,7 +254,8 @@
 
 <script>
 import L, { CRS, latLng } from 'leaflet'
-import { LMap, LTileLayer, LMarker, LPolyline, LIcon, LControl, LControlZoom } from '@vue-leaflet/vue-leaflet'
+import { LMap, LTileLayer, LMarker, LIcon, LControl, LControlZoom } from '@vue-leaflet/vue-leaflet'
+import { LPolyline } from 'vue2-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItem, MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
@@ -304,6 +311,7 @@ export default {
   data() {
     return {
       nodes: [],
+      editablePolylinelatlngs: [],
       selectedMarker: new MapItem(),
       tabName: null,
       centerLatLong: {},
@@ -367,6 +375,8 @@ export default {
           max_zoom: 11,
           data: {
             line: {
+              className: '',
+              bubblingMouseEvents: false,
               options: {
                 flowing: {
                   dir: 'fixed',
@@ -374,17 +384,15 @@ export default {
                 }
               },
               color: 'red',
-              className: '',
-              bubblingMouseEvents: false,
               weight: 5,
-              dashArray: '10 40',
+              dashArray: '10 30',
               dashOffset: '0'
             },
             displayZoom: 3,
             iconSize: [16, 16],
             iconAnchor: [10, 10]
           },
-          latlngs: [[-5840, 23056], [-3000, 2500]],
+          latlngs: [[-5840, 23056], [-4000, 2500], [-9000, 8000]],
           editMode: false,
           tags: [],
           type: {
@@ -413,7 +421,7 @@ export default {
       ],
       mapOptions: {
         zoomControl: true,
-        zoomSnap: 1,
+        zoomSnap: 1
       }
     }
   },
@@ -450,16 +458,28 @@ export default {
       }
     }
   },
+  // watch: {
+  //   adminToolBox: {
+  //     handler(newVal) {
+  //       this.editablePolylinelatlngs = newVal.polyline.latlngs
+  //     },
+  //     deep: true
+  //   }
+  // },
   methods: {
-    updateEditablePolylineLatlngs(event, item, index) {
-      const lat = event.target._latlng.lat
-      const lng = event.target._latlng.lng
-      const newLatlng = [lat, lng]
-      // this.adminToolBox.polyline.latlngs.push(newLatlng)
-      this.adminToolBox.polyline.latlngs[0] = [-6000, 22000]
-      // this.adminToolBox.polyline.latlngs[index][0] = lat
-      // this.adminToolBox.polyline.latlngs[index][1] = lng
-      console.log(this.adminToolBox.polyline.latlngs)
+    // updateEditablePolylineLatlngs(event, item, index) {
+    //   const lat = event.target._latlng.lat
+    //   const lng = event.target._latlng.lng
+    //   this.adminToolBox.polyline.latlngs[index][0] = lat
+    //   this.adminToolBox.polyline.latlngs[index][1] = lng
+    //   // this.editablePolylinelatlngs = this.adminToolBox.polyline.latlngs
+    //   this.resetEditablePolylineLatlngs()
+    // },
+    // resetEditablePolylineLatlngs() {
+    //   this.editablePolylinelatlngs = this.adminToolBox.polyline.latlngs
+    // },
+    updateLatlngs(latlngs) {
+      this.adminToolBox.polyline.latlngs = latlngs
     },
     openMarker() {
       this.adminToolBox.polyline.editMode = false
@@ -525,17 +545,6 @@ export default {
     mapClick(event) {
       if (this.selectedMapClickActionTypes.name === 'addIcon' && event.latlng) {
         if (this.adminToolBox.polyline.editMode) {
-          console.log(this.$refs.lMap)
-          // let mid = 0
-          // let nextPoint = 0
-          // let nextLatlng = ''
-          // let newPoint = ''
-          // let showMarkers = true
-          let polyline = L.polyline([]).addTo(this.$refs.lMap)
-          let markerGroup = L.layerGroup().addTo(this.$refs.lMap)
-          let newMarker = new L.marker(event.latlng, {
-            draggable: 'true'
-          }).addTo(markerGroup)
         } else {
           this.cleanAdminToolBoxMapItem()
           const lat = event.latlng.lat
