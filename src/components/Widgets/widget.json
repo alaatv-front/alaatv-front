@@ -112,12 +112,6 @@
       "type": "folder"
     },
     {
-      "path": "components/Widgets/ContentDownloadSection",
-      "name": "ContentDownloadSection",
-      "self_type": "folder",
-      "type": "widget"
-    },
-    {
       "path": "components/Widgets/ContentItem",
       "name": "ContentItem",
       "self_type": "folder",

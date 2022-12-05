@@ -11,12 +11,10 @@
 </template>
 
 <script>
-  import PageBuilder from 'components/PageBuilder/PageBuilder'
   import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
   export default {
     name: 'Show',
-    components: {PageBuilder},
     data() {
       return {
         editable: false,
