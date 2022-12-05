@@ -1,10 +1,10 @@
 {
-  "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets",
+  "path": "/home/alaa/projects/alaatv-front/src/components/Widgets",
   "name": "Widgets",
   "self_type": "folder",
   "children": [
     {
-      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/Banner.vue",
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Banner.vue",
       "name": "Banner",
       "self_type": "file",
       "file_type": "vue"
@@ -28,18 +28,56 @@
       "type": "widget"
     },
     {
-      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/Content",
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content",
       "name": "Content",
       "self_type": "folder",
       "children": [
         {
-          "path": "components/Widgets/Content/Search",
+          "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Search",
           "name": "Search",
           "self_type": "folder",
-          "type": "widget"
+          "children": [
+            {
+              "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Search/ContentItem.vue",
+              "name": "ContentItem",
+              "self_type": "file",
+              "file_type": "vue"
+            },
+            {
+              "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Search/ProductItem.vue",
+              "name": "ProductItem",
+              "self_type": "file",
+              "file_type": "vue"
+            },
+            {
+              "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Search/SetItem.vue",
+              "name": "SetItem",
+              "self_type": "file",
+              "file_type": "vue"
+            },
+            {
+              "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Search/SideBarContent.vue",
+              "name": "SideBarContent",
+              "self_type": "file",
+              "file_type": "vue"
+            },
+            {
+              "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Search/SpeciferType.vue",
+              "name": "SpeciferType",
+              "self_type": "file",
+              "file_type": "vue"
+            },
+            {
+              "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Search/stickySideBar.vue",
+              "name": "stickySideBar",
+              "self_type": "file",
+              "file_type": "vue"
+            }
+          ],
+          "type": "folder"
         },
         {
-          "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/Content/Show",
+          "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/Content/Show",
           "name": "Show",
           "self_type": "folder",
           "children": [
@@ -72,12 +110,6 @@
         }
       ],
       "type": "folder"
-    },
-    {
-      "path": "components/Widgets/ContentDownloadSection",
-      "name": "ContentDownloadSection",
-      "self_type": "folder",
-      "type": "widget"
     },
     {
       "path": "components/Widgets/ContentItem",
@@ -176,12 +208,12 @@
       "type": "widget"
     },
     {
-      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/exampleCat1",
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/exampleCat1",
       "name": "exampleCat1",
       "self_type": "folder",
       "children": [
         {
-          "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/exampleCat1/exampleCat2",
+          "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/exampleCat1/exampleCat2",
           "name": "exampleCat2",
           "self_type": "folder",
           "children": [
@@ -216,13 +248,13 @@
       "type": "widget"
     },
     {
-      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/readme.md",
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/readme.md",
       "name": "readme",
       "self_type": "file",
       "file_type": "md"
     },
     {
-      "path": "/home/alaa/Desktop/alaatv-front/src/components/Widgets/widget.json",
+      "path": "/home/alaa/projects/alaatv-front/src/components/Widgets/widget.json",
       "name": "widget",
       "self_type": "file",
       "file_type": "json"

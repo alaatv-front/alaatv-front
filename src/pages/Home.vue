@@ -1,19 +1,17 @@
 <template>
   <div class="home-page">
-    <page-builder
-      :sections="sections"
-      :options="pageConfig"
+    <q-page-builder
+      v-model:sections="sections"
+      v-model::options="pageConfig"
     />
   </div>
 </template>
 
 <script>
 import API_ADDRESS from 'src/api/Addresses'
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 
 export default {
   name: 'BaseComponent',
-  components: { PageBuilder },
   data() {
     return {
       pageConfig: {

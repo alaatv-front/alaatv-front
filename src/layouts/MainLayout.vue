@@ -95,12 +95,12 @@ export default {
       }
     },
     onHeaderResize (value) {
-      this.setHeaderDimension(value)
+      // this.setHeaderDimension(value)
       this.$store.commit('AppLayout/updateHeaderSize', value)
     },
-    setHeaderDimension (value) {
-      this.$refs.contentInside.style.height = 'calc(100vh +' + value.height + 'px'
-    },
+    // setHeaderDimension (value) {
+    //   this.$refs.contentInside.style.height = 'calc(100vh +' + value.height + 'px'
+    // },
     resize (val) {
       this.$store.commit('AppLayout/updateWindowSize', val)
       if (val.width > 1439) {
