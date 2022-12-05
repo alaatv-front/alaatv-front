@@ -1,131 +1,50 @@
-<template>
-  <div class="page-content">
-    <entity-create
-      ref="EntityCreate"
-      v-model:value="inputs"
-      :title=selectedDepartment.title
-      :api="api"
-      entity-id-key-in-response="id"
-      show-route-param-key="id"
-      index-route-name="Admin.Ticket.Index"
-      show-route-name="Admin.Ticket.Show"
-      :show-save-button="false"
-    >
-      <template #before-form-builder>
-        <q-dialog
-          v-model="showDialog"
-          no-backdrop-dismiss
-        >
-          <q-card
-            class="row justify-center q-pa-md">
-            <q-btn
-              v-for="department in departments.list"
-              :key="department.id"
-              v-close-popup
-              unelevated
-              class="departmentActionBtn col-3 q-ma-md"
-              icon="isax:search-status .path4:before"
-              @click="selectDepartment(department)"
-            >
-              <span class="full-width q-pt-sm">
-                {{department.title}}
-              </span>
-            </q-btn>
-          </q-card>
-        </q-dialog>
-      </template>
-    </entity-create>
-    <q-separator class="q-my-md" />
-    <send-message-input
-      ref="SendMessageInput"
-      :role="userRole"
-      :canChoseOrder="canChoseOrder"
-      :canFilter-supporter="canFilterSupporter"
-      :canFilter-assignees="canFilterAssignees"
-      :canAssign-ticket="canAssignTicket"
-      :send-loading="sendLoading"
-      :isAdmin="isAdmin"
-      @creatTicket="sendTicket"
-
-    />
-  </div>
-
-</template>
-
-<script>
-import SendMessageInput from 'components/Ticket/SendMessageInput'
-import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-import { TicketDepartment, TicketDepartmentList } from 'src/models/TicketDepartment'
-import { mixinTicket } from 'src/mixin/Mixins'
+import { TicketDepartmentList } from 'src/models/TicketDepartment'
 
-export default {
-  name: 'Create',
-  components: {
-    EntityCreate,
-    SendMessageInput
-  },
-  mixins: [mixinTicket],
-  data () {
-    return {
-      showDialog: true,
-      api: API_ADDRESS.ticket.create.base,
-      selectedDepartment: new TicketDepartment(),
-      departments: new TicketDepartmentList(),
-      inputs: [
-        {
-          type: 'input',
-          name: 'title',
-          responseKey: 'data.title',
-          value: '',
-          label: 'عنوان',
-          col: 'col-md-6'
-        },
-        {
-          type: 'toggleButton',
-          name: 'priority_id',
-          responseKey: 'data.priority',
-          label: 'اولویت',
-          placeHolder: '',
-          value: '',
-          options: this.getPriorityOption(),
-          toggleColor: 'blue',
-          textColor: 'black',
-          toggleTextColor: 'white',
-          col: 'col-md-4',
-          size: '22px'
-        }
-      ],
-      userRole: '',
-      canFilterSupporter: false,
-      canFilterAssignees: false,
-      canAssignTicket: false
-    }
-  },
+const mixinTicket = {
   computed: {
-    canChoseOrder() {
-      return [2].includes(this.selectedDepartment.id)
+    isAdmin() {
+      // return this.$store.getters['Auth/user'].has_admin_permission
+      return true
     }
   },
-
+  data: () => ({
+    sendLoading: false,
+    departmentList: new TicketDepartmentList(),
+    ticketStatuses: [],
+    ticketPriorityOption: []
+  }),
   created() {
-    this.initPageData()
+    this.setDepartments()
+    this.setStatuses()
+    this.setPriorityOption()
+    // this.setRoleAndPermissions()
   },
 
   methods: {
-    initPageData() {
-      this.getDepartments()
-      this.setRoleAndPermissions()
-    },
-    setRoleAndPermissions() {
-      this.userRole = 'user'
-      this.canFilterSupporter = false
-      this.canFilterAssignees = false
-      this.canAssignTicket = false
+    setStatuses() {
+      this.ticketStatuses = [
+        {
+          title: 'پاسخ داده نشده',
+          id: 1
+        },
+        {
+          title: 'در حال بررسی',
+          id: 2
+        },
+        {
+          title: 'پاسخ داده شده',
+          id: 3
+        },
+        {
+          title: 'بسته شده',
+          id: 4
+        }
+      ]
     },
 
-    getPriorityOption() {
-      return [{
+    setPriorityOption() {
+      this.ticketPriorityOption = [{
         label: 'کم',
         value: '1'
       },
@@ -142,7 +61,8 @@ export default {
         value: '4'
       }]
     },
-    getDepartments() {
+
+    setDepartments() {
       const list = [
         {
           id: 20,
@@ -521,45 +441,185 @@ export default {
           edit_link: 'http://alaatv.test/ticketDepartment/19/edit'
         }
       ].filter(item => item.display === 1)
-      this.departments = new TicketDepartmentList(list)
+      this.departmentList = new TicketDepartmentList(list)
     },
-    selectDepartment (department) {
-      this.selectedDepartment = department
+
+    sendTicket (data, isMsg) {
+      if (!isMsg && !this.hasRequiredField()) {
+        return
+      }
+      const formData = this.setTicketFormData(data, isMsg)
+      isMsg ? this.sendTicketMsg(formData) : this.sendCreateTicketReq(formData)
+    },
+
+    sendTicketMessage(data) {
+      this.sendTicket(data, true)
+    },
+
+    async sendCreateTicketReq (formData) {
+      this.sendLoading = true
+      try {
+        const response = await this.callCreatTicketApi(formData)
+        if (this.$refs.SendMessageInput) {
+          this.$refs.SendMessageInput.clearMessage()
+        }
+        this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
+        this.sendLoading = false
+        await this.$router.push({
+          name: 'Admin.Ticket.Show',
+          params: { id: response.data.data.id }
+        })
+      } catch (e) {
+        this.sendLoading = false
+      }
+    },
+
+    async sendTicketMsg(formData) {
+      this.sendLoading = true
+      try {
+        const response = await this.callSendTicketMsgApi(formData)
+        this.userMessageArray.unshift(response.data.data.ticketMessage)
+        if (this.$refs.SendMessageInput) {
+          this.$refs.SendMessageInput.clearMessage()
+        }
+        this.showMessagesInNotify(['پیام شما با موفقیت ایجاد شد'], 'positive')
+        this.sendLoading = false
+      } catch (e) {
+        console.log(e)
+        this.sendLoading = false
+      }
+    },
+
+    async updateTicketData(ticketId, payload) {
+      try {
+        await this.callUpdateTicketApi(ticketId, payload)
+        this.$q.notify({
+          message: 'تغییرات با موفقیت اعمال شد.',
+          type: 'positive'
+        })
+      } catch (e) {
+
+      }
+    },
+
+    callUpdateTicketApi(ticketId, payloadData) {
+      if (!payloadData) {
+        payloadData = {
+          department_id: this.getInputsValue('department'),
+          status_id: this.getInputsValue('status'),
+          priority_id: this.getInputsValue('priority-id'),
+          user_id: this.getInputsValue('userId'),
+          id: this.getInputsValue('id'),
+          title: this.getInputsValue('title')
+        }
+      }
+      return this.$axios.put(API_ADDRESS.ticket.show.base + '/' + ticketId, payloadData)
+    },
+
+    callCreatTicketApi (formData) {
+      return this.$axios.post(API_ADDRESS.ticket.create.base, formData)
+    },
+
+    callSendTicketMsgApi(formData) {
+      return this.$axios.post(API_ADDRESS.ticket.show.ticketMessage, formData)
+    },
+
+    setTicketFormData (data, isMsg) {
+      const formData = new FormData()
+
+      if (data.resultURL) {
+        formData.append('photo', this.createBlob(data.resultURL))
+        formData.append('body', data.caption)
+      }
+
+      if (data.body) {
+        formData.append('body', data.body.replace(/\r?\n/g, '<br/>'))
+      }
+
+      if (data.voice) {
+        formData.append('voice', data.voice, 'voice.ogg')
+      }
+
+      if (data.file) {
+        formData.append('file', data.file)
+        formData.append('body', '-')
+      }
+
+      if (data.isPrivate) {
+        formData.append('is_private', 1)
+      }
+      if (isMsg) {
+        formData.append('ticket_id', this.getInputsValue('id'))
+        return formData
+      }
+      formData.append('department_id', this.selectedDepartment.id)
+
+      formData.append('title', this.getInputsValue('title'))
+      // formData.append()
+
+      const priorityId = this.getInputsValue('priority_id')
+      formData.append('priority_id', priorityId)
+
+      return formData
+    },
+
+    hasRequiredField () {
+      const errorMessages = []
+      if (!this.getInputsValue('title')) {
+        errorMessages.push('پر کردن فیلد عنوان ضروری میباشد')
+      }
+      const priorityId = this.getInputsValue('priority_id')
+      if (!priorityId) {
+        errorMessages.push('اولویت پیام خود را انتخاب کنید')
+      }
+      this.showMessagesInNotify(errorMessages)
+      return !errorMessages.length > 0
+    },
+
+    getInputsValue (inputName, source) {
+      const input = this.getInput(inputName, source)
+      if (!input) {
+        return false
+      }
+      return input.value
+    },
+
+    getInput(inputName, source) {
+      const srcFilter = source || this.inputs
+      return srcFilter.find(input => input.name === inputName)
+    },
+
+    createBlob (dataURL) {
+      const BASE64_MARKER = ';base64,'
+      if (dataURL.indexOf(BASE64_MARKER) === -1) {
+        const parts = dataURL.split(',')
+        const contentType = parts[0].split(':')[1]
+        const raw = decodeURIComponent(parts[1])
+        return new Blob([raw], { type: contentType })
+      }
+      const parts = dataURL.split(BASE64_MARKER)
+      const contentType = parts[0].split(':')[1]
+      const raw = window.atob(parts[1])
+      const rawLength = raw.length
+
+      const uInt8Array = new Uint8Array(rawLength)
+
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i)
+      }
+
+      return new Blob([uInt8Array], { type: contentType })
+    },
+
+    showMessagesInNotify (messages, type) {
+      messages.forEach((message) => {
+        this.$q.notify({
+          type: type || 'negative',
+          message
+        })
+      })
     }
   }
 }
-</script>
 
-<style scoped lang="scss">
-.page-content{
-  margin: 30px;
-
-  :deep(.departmentActionBtn) {
-    border-radius: 8px;
-    width: 100px;
-    height: 100px;
-    padding: 0;
-    &:hover {
-      background-color: var(--alaa-Primary);
-      color: white;
-    }
-    .q-focus-helper {
-      display: none;
-    }
-  }
-
-}
-
-:deep(.form-builder-separator-col) {
-  display: flex;
-  align-items: center;
-}
-
-:deep(.q-btn-group) {
-  box-shadow: none;
-
-  .q-btn-item:last-child {
-  }
-}
-
-</style>
+export default mixinTicket

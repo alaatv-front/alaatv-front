@@ -1,18 +1,24 @@
 <template>
   <div class="content-show-page">
-    <page-builder :sections="sections"/>
+    <q-page-builder
+      v-model:sections="sections"
+      v-model::options="pageConfig"
+      :preview="true"
+      :editable="editable"
+      @toggleEdit="toggleEdit"
+    />
   </div>
 </template>
 
 <script>
-  import PageBuilder from 'components/PageBuilder/PageBuilder'
   import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
   export default {
     name: 'Show',
-    components: {PageBuilder},
     data() {
       return {
+        editable: false,
+        pageConfig: {},
         sections: [
           {
             data: {
@@ -108,6 +114,9 @@
       this.paddingStyle()
     },
     methods: {
+      toggleEdit() {
+        this.editable = !this.editable
+      },
       paddingStyle() {
         // document.getElementsByClassName('padding-list')[0].style.paddingBottom='16px'
         // document.getElementsByClassName('padding-download')[0].style.paddingBottom='24px'

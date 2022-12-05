@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-red">
     <div class="drawer"
          :dir="directionBasedOnSideSelection()"
          :class="{ 'is-open': isOpen, 'is-visible': isVisible }">
@@ -168,6 +168,7 @@ export default {
     //}
 
     .drawer__content {
+      z-index: 100000;
       //transform: translateX(0);
     }
   }
