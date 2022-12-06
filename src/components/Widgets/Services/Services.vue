@@ -1,8 +1,7 @@
 <template>
-  <div class="services-widget" :style="defaultOptions.style">
+  <div class="services-widget" :style="options.style">
     <div class="services">
-      <a
-        v-for="(service, index) in data"
+      <a v-for="(service, index) in options.services"
         :key="index"
         class="service"
         :href="service.link"
@@ -46,7 +45,6 @@ name: "Services",
   display: flex;
   justify-content: center;
   border-radius: 10px;
-
 
   .services {
     margin: 20px;

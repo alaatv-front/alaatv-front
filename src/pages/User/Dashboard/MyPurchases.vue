@@ -1,22 +1,22 @@
 <template>
-  <page-builder
-    :sections="sections"
-    :containerHeight="calculateHeightStyle"
-    :options="pageConfig" />
+  <q-page-builder
+    v-model:sections="sections"
+    v-model::options="pageConfig"
+    :editable="pageBuilderEditable"
+  />
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 export default {
   name: 'MyPurchases',
-  components: { PageBuilder },
+  computed: {
+    pageBuilderEditable() {
+      return this.$store.getters["AppLayout/pageBuilderEditable"];
+    }
+  },
   data () {
     return {
-      pageConfig: {
-        padding: {
-          // a: 'md'
-        }
-      },
+      pageConfig: {},
       sections: [
         {
           data: {
@@ -41,10 +41,5 @@ export default {
       ]
     }
   },
-  computed: {
-    calculateHeightStyle () {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
-    }
-  }
 }
 </script>

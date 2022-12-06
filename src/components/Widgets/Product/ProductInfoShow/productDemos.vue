@@ -41,7 +41,7 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
-import ContentItem from 'src/components/Widgets/ContentItem/ContentItem'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem'
 import { dragscrollNext as dragscroll } from 'vue-dragscroll'
 import { ContentList } from 'src/models/Content'
 

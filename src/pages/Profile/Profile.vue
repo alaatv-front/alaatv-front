@@ -1,22 +1,18 @@
 <template>
-  <div>
-    <page-builder
-      :sections="sections"
-      :options="options"
-    ></page-builder>
-  </div>
+  <q-page-builder
+    v-model:sections="sections"
+    v-model::options="pageConfig"
+    :editable="pageBuilderEditable"
+  />
 </template>
 
 <script>
-import pageBuilder from 'components/PageBuilder/PageBuilder'
 import { Notify } from 'quasar'
 export default {
   name: 'Profile.vue',
-  components: {
-    pageBuilder
-  },
   data() {
     return {
+      pageConfig: {},
       sections: [
         {
           data: {
@@ -26,7 +22,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'profile-menu'
+                        name: 'ProfileMenu'
                       }
                     ],
                     options: {
@@ -36,7 +32,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'profile-crud',
+                        name: 'ProfileCrud',
                         data: { test: 'test' },
                         options: { test: 'test' }
                       }
@@ -69,13 +65,13 @@ export default {
       })
     }
   },
-  methods: {},
   computed: {
+    pageBuilderEditable() {
+      return this.$store.getters["AppLayout/pageBuilderEditable"];
+    },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   }
 }
 </script>
-
-<style scoped></style>

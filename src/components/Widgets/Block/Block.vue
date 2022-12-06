@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import ProductItem from 'src/components/Widgets/ProductItem/ProductItem'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem'
 import Slider from 'components/Widgets/Slider/Slider'
 import SetItem from 'components/Widgets/SetItem/SetItem'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem'

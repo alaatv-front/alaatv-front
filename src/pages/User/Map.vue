@@ -1,16 +1,15 @@
 <template>
-  <page-builder
-    :sections="sections"
-    :options="pageConfig"
-  />
+  <div class="MapPage-page">
+    <q-page-builder
+      v-model:sections="sections"
+      v-model::options="pageConfig"
+    />
+  </div>
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
-
 export default {
   name: 'MapPage',
-  components: { PageBuilder },
   data() {
     return {
       pageConfig: {

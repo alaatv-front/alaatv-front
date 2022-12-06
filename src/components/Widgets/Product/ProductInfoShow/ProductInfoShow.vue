@@ -1,233 +1,234 @@
 <template>
-  <div class="show-product-introduction">
-    <div class="product-introduction row">
-      <div class="intro-features col-md-6 col-12">
-        <div class="title">
-          ویژگی های این محصول
-        </div>
-        <div class="product-info-box row">
-          <div
-            v-for="(info, index) in information"
-            :key="index"
-            class="product-info col-sm-3 col-xs-6"
-          >
-            <div class="product-info-inside q-ma-sm">
-              <div class="info-header ">
-                <q-img :src="info.src"
-                       class="info-image img"></q-img>
-                <p class="info-title">
-                  {{info.title}}
-                </p>
-              </div>
-              <div class="info-content">
-                <div
-                  v-for="(value , i) in info.value"
-                  :key="i"
-                  class="info-value col-6"
-                >
-                  <span v-if="value">{{ value }}</span>
-                  <span v-else>
+  <div :style="options.style">
+    <div class="show-product-introduction">
+      <div class="product-introduction row">
+        <div class="intro-features col-md-6 col-12">
+          <div class="title">
+            ویژگی های این محصول
+          </div>
+          <div class="product-info-box row">
+            <div
+              v-for="(info, index) in information"
+              :key="index"
+              class="product-info col-sm-3 col-xs-6"
+            >
+              <div class="product-info-inside q-ma-sm">
+                <div class="info-header ">
+                  <q-img :src="info.src"
+                         class="info-image img"></q-img>
+                  <p class="info-title">
+                    {{info.title}}
+                  </p>
+                </div>
+                <div class="info-content">
+                  <div
+                    v-for="(value , i) in info.value"
+                    :key="i"
+                    class="info-value col-6"
+                  >
+                    <span v-if="value">{{ value }}</span>
+                    <span v-else>
                     <q-skeleton width="100px" />
                   </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div v-if="product.price"
-             class="product-price">
-          <div v-if="product.price.discountInPercent()"
-               class="discount-percent">
-            <div class="percent">{{ '%' + product.price.discountInPercent() }}</div>
-            <div class="discount-title">تخفیف</div>
-          </div>
-
-          <div class="price">
-            <div
-              v-if="product.price.toman('base', null)"
-              class="product-base-price"
-            >
-              {{ product.price.toman('base', null) }}
+          <div v-if="product.price"
+               class="product-price">
+            <div v-if="product.price.discountInPercent()"
+                 class="discount-percent">
+              <div class="percent">{{ '%' + product.price.discountInPercent() }}</div>
+              <div class="discount-title">تخفیف</div>
             </div>
 
-            <sapn
-              v-if="product.price.toman('final', null)"
-              class="product-final-price"
-            >
-              {{ product.price.toman('final', null) }}
-            </sapn>
-
-            <div class="product-price-title"> تومان</div>
-          </div>
-
-          <div class="action">
-            <q-btn
-              v-if="product.has_instalment_option"
-              unelevated
-              class="purchase-button pay-later"
-              label="خرید اقساطی"
-              text-color="white"
-              icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
-            />
-            <q-btn
-              unelevated
-              class="purchase-button"
-              label="خرید نقدی"
-              text-color="white"
-              icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
-              @click="addToCart"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        v-if="product.intro"
-        class="intro-video col-md-6 col-12"
-      >
-        <video-player :poster="product.intro.photo"
-                      :sources="videoSource()" />
-      </div>
-    </div>
-  </div>
-  <div class="show-product-demos">
-    <div class="row product-demos-widget">
-      <div
-        class="sample-videos-pamphlet-box"
-      >
-        <div v-if="product.blocks && product.blocks[0] && product.blocks[0].contents"
-             class="sample-videos-box">
-          <p class="title-style">
-            نمونه فیلم‌ها
-          </p>
-          <q-card
-            class="sample-videos sample-cart-style"
-          >
-            <div
-              v-if="product.loading"
-              class="sample-container">
+            <div class="price">
               <div
-                v-for="video in 3"
-                :key="video"
-                class="video-item"
+                v-if="product.price.toman('base', null)"
+                class="product-base-price"
               >
-                <q-skeleton
-                  class="player"
-                  min-width="100%"
-                  type="card"
-                />
+                {{ product.price.toman('base', null) }}
               </div>
-            </div>
-            <div
-              v-else-if="product.blocks && product.blocks[0] && product.blocks[0].contents"
-              class="sample-container">
-              <div
-                v-for="(video, index) in product.blocks[0].contents"
-                :key="index"
-                class="video-item"
+
+              <sapn
+                v-if="product.price.toman('final', null)"
+                class="product-final-price"
               >
-                <a :href="video.url.web"
-                   target="_blank">
-                  <div class="player">
-                    <q-img
-                      class="img"
-                      :src="video.photo"
-                      alt="video-poster"></q-img>
-                  </div>
-                </a>
-                <p class="player-title text-center">
-                  {{ video.title }}
-                </p>
-              </div>
+                {{ product.price.toman('final', null) }}
+              </sapn>
+
+              <div class="product-price-title"> تومان</div>
             </div>
-          </q-card>
-        </div>
-        <div v-if="product.sample_photos.length> 0"
-             class="pamphlet-box">
-          <p class="title-style">
-            نمونه جزوه‌ها
-          </p>
-          <q-card
-            class="pamphlets sample-cart-style"
-          >
-            <div
-              v-if="product.loading"
-              class="sample-container">
-              <div
-                v-for="item in 5"
-                :key="item"
-                class="pamphlet-item"
-              >
-                <q-skeleton
-                  class="pamphlet-item"
-                  min-width="100%"
-                  type="image"
-                />
-              </div>
-            </div>
-            <div
-              v-else-if="product.sample_photos.length> 0"
-              class="sample-container">
-              <light-gallery
-                :images="product.sample_photos.map( item => { return { title: item.title, url: item.photo}})"
-                :index="samplePhotosIndex"
-                :disable-scroll="true"
-                dir="ltr"
-                @close="samplePhotosIndex = null"
+
+            <div class="action">
+              <q-btn
+                v-if="product.has_instalment_option"
+                unelevated
+                class="purchase-button pay-later"
+                label="خرید اقساطی"
+                text-color="white"
+                icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
               />
-              <div
-                v-for="(item, index) in product.sample_photos"
-                :key="index"
-                class="pamphlet-item"
-              >
-                <q-img
-                  :src="item.photo"
-                  class="img"
-                  alt="pamphlet-photo"
-                  @click="samplePhotosIndex = index"
-                >
-                </q-img>
-              </div>
+              <q-btn
+                unelevated
+                class="purchase-button"
+                label="خرید نقدی"
+                text-color="white"
+                icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
+                @click="addToCart"
+              />
             </div>
-          </q-card>
+          </div>
+        </div>
+        <div
+          v-if="product.intro"
+          class="intro-video col-md-6 col-12"
+        >
+          <video-player :poster="product.intro.photo"
+                        :sources="videoSource()" />
         </div>
       </div>
     </div>
-    <!--    <product-demos :data="demo" />-->
-  </div>
-  <div class="show-product-review">
-    <div class="product-description">
-      <div
-        class="description-container"
-      >
-        <p class="title-style">
-          بررسی محصول
-        </p>
-        <q-skeleton
-          v-if="product.loading"
-          class="description-text"
-          min-width="100%"
-          type="article"
-        />
-        <q-card
-          v-else
-          class="description-text"
-          v-html="product.description && product.description.long"
+    <div class="show-product-demos">
+      <div class="row product-demos-widget">
+        <div
+          class="sample-videos-pamphlet-box"
         >
-        </q-card>
+          <div v-if="product.blocks && product.blocks[0] && product.blocks[0].contents"
+               class="sample-videos-box">
+            <p class="title-style">
+              نمونه فیلم‌ها
+            </p>
+            <q-card
+              class="sample-videos sample-cart-style"
+            >
+              <div
+                v-if="product.loading"
+                class="sample-container">
+                <div
+                  v-for="video in 3"
+                  :key="video"
+                  class="video-item"
+                >
+                  <q-skeleton
+                    class="player"
+                    min-width="100%"
+                    type="card"
+                  />
+                </div>
+              </div>
+              <div
+                v-else-if="product.blocks && product.blocks[0] && product.blocks[0].contents"
+                class="sample-container">
+                <div
+                  v-for="(video, index) in product.blocks[0].contents"
+                  :key="index"
+                  class="video-item"
+                >
+                  <a :href="video.url.web"
+                     target="_blank">
+                    <div class="player">
+                      <q-img
+                        class="img"
+                        :src="video.photo"
+                        alt="video-poster"></q-img>
+                    </div>
+                  </a>
+                  <p class="player-title text-center">
+                    {{ video.title }}
+                  </p>
+                </div>
+              </div>
+            </q-card>
+          </div>
+          <div v-if="product.sample_photos.length> 0"
+               class="pamphlet-box">
+            <p class="title-style">
+              نمونه جزوه‌ها
+            </p>
+            <q-card
+              class="pamphlets sample-cart-style"
+            >
+              <div
+                v-if="product.loading"
+                class="sample-container">
+                <div
+                  v-for="item in 5"
+                  :key="item"
+                  class="pamphlet-item"
+                >
+                  <q-skeleton
+                    class="pamphlet-item"
+                    min-width="100%"
+                    type="image"
+                  />
+                </div>
+              </div>
+              <div
+                v-else-if="product.sample_photos.length> 0"
+                class="sample-container">
+                <light-gallery
+                  :images="product.sample_photos.map( item => { return { title: item.title, url: item.photo}})"
+                  :index="samplePhotosIndex"
+                  :disable-scroll="true"
+                  dir="ltr"
+                  @close="samplePhotosIndex = null"
+                />
+                <div
+                  v-for="(item, index) in product.sample_photos"
+                  :key="index"
+                  class="pamphlet-item"
+                >
+                  <q-img
+                    :src="item.photo"
+                    class="img"
+                    alt="pamphlet-photo"
+                    @click="samplePhotosIndex = index"
+                  >
+                  </q-img>
+                </div>
+              </div>
+            </q-card>
+          </div>
+        </div>
       </div>
+      <!--    <product-demos :data="demo" />-->
     </div>
-    <!--    <product-review :data="review" />-->
+    <div class="show-product-review">
+      <div class="product-description">
+        <div
+          class="description-container"
+        >
+          <p class="title-style">
+            بررسی محصول
+          </p>
+          <q-skeleton
+            v-if="product.loading"
+            class="description-text"
+            min-width="100%"
+            type="article"
+          />
+          <q-card
+            v-else
+            class="description-text"
+            v-html="product.description && product.description.long"
+          >
+          </q-card>
+        </div>
+      </div>
+      <!--    <product-review :data="review" />-->
+    </div>
   </div>
 </template>
 
 <script>
-
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins'
-import API_ADDRESS from 'src/api/Addresses'
 import { LightGallery } from 'vue-light-gallery'
-import VideoPlayer from 'src/components/VideoPlayer.vue'
+import VideoPlayer from 'components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource'
+import { API_Gateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProductInfoShow',
@@ -296,20 +297,41 @@ export default {
   created () {
     this.loadProduct()
   },
-  computed: {
-
-  },
   methods: {
     videoSource() {
       return new PlayerSourceList([{ link: this.product.intro.video }])
     },
-    async loadProduct () {
-      if (typeof this.data === 'object') {
-        this.product = new Product(this.data)
-      } else if (typeof this.data === 'number' || typeof this.data === 'string') {
-        this.product.id = this.data
-        await this.getProduct()
+    getProductId () {
+      if (this.options.productId) {
+        return this.options.productId
       }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return null
+    },
+    loadProduct () {
+      const productId = this.getProductId()
+      if (!productId) {
+        return
+      }
+
+      this.getProduct(productId)
+    },
+    getProduct (productId) {
+      this.product.loading = true
+      API_Gateway.product.get(productId)
+        .then(product=>{
+          this.product = product
+          this.product.loading = false
+          this.setInformation()
+        })
+        .catch(() => {
+          this.product.loading = false
+        })
     },
 
     async addToCart() {
@@ -325,20 +347,6 @@ export default {
       }
     },
 
-    getProduct () {
-      this.product.loading = true
-      const url = API_ADDRESS.product.show.base + '/' + this.product.id
-      const promise = this.getData(url)
-      promise
-        .then(response => {
-          this.product = new Product(response.data.data)
-          this.product.loading = false
-          this.setInformation()
-        })
-        .catch(() => {
-          this.product.loading = false
-        })
-    },
 
     setInformation () {
       if (!this.product.attributes) {

@@ -55,6 +55,21 @@
                 </q-item>
               </div>
             </div>
+
+            <div class="self-center"
+                 @click="togglePageBuilderEditable"
+            >
+              <q-item
+                v-ripple
+                clickable
+                :active="false"
+                active-class="active-item"
+              >
+                <q-item-section class="tab-title">
+                  ویرایش صفحه
+                </q-item-section>
+              </q-item>
+            </div>
           </q-list>
         </div>
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
@@ -325,6 +340,10 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
+    togglePageBuilderEditable () {
+      const state = this.$store.getters['AppLayout/pageBuilderEditable']
+      this.$store.commit('AppLayout/updatePageBuilderEditable', !state)
+    },
     setMyContentParamsValue() {
       this.profileTitlesList.forEach(item => {
         if (item.routeName === 'User.Dashboard.purchases') {

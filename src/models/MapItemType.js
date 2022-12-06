@@ -1,14 +1,20 @@
 import { Model } from 'js-abstract-model'
 
 class MapItemType extends Model {
-  constructor (data) {
+  constructor(data) {
     super(data, [
-      { key: 'id' },
-      { key: 'name' }
+      {
+        key: 'id',
+        default: 0
+      },
+      {
+        key: 'name',
+        default: ''
+      }
     ])
   }
 
-  allAvailableItems () {
+  allAvailableItems() {
     return [
       {
         id: 1,
@@ -31,7 +37,7 @@ class MapItemType extends Model {
     ]
   }
 
-  convertToValidValue (buffer) {
+  convertToValidValue(buffer) {
     if (typeof buffer !== 'undefined' && buffer) {
       return this.suggestedVal()
     } else {
@@ -40,7 +46,7 @@ class MapItemType extends Model {
     }
   }
 
-  suggestedVal () {
+  suggestedVal() {
     for (let i = 0; typeof this.allAvailableItems()[i] !== 'undefined'; i++) {
       const availableItem = this.allAvailableItems()[i]
       if (this.name !== null && this.name.toString().includes(availableItem.name)) {
@@ -58,11 +64,11 @@ class MapItemType extends Model {
     return new MapItemType()
   }
 
-  canBeValid () {
+  canBeValid() {
     return !!this.suggestedVal()
   }
 
-  isValid () {
+  isValid() {
     for (let i = 0; typeof this.allAvailableItems()[i] !== 'undefined'; i++) {
       if (this.name === this.allAvailableItems()[i].name) {
         return true
@@ -72,4 +78,5 @@ class MapItemType extends Model {
     return false
   }
 }
+
 export default MapItemType

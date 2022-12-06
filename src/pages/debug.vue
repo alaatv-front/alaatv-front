@@ -1,15 +1,15 @@
 <template>
-  <q-page-builder
-    :sections="sections"
-    :options="options"
-  ></q-page-builder>
+  <div class="Shop-page">
+    <q-page-builder
+      v-model:sections="sections"
+    />
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'debug',
-  components: { },
   mixins: [],
   data() {
     return {
