@@ -15,7 +15,6 @@
 import { mixinWidget } from 'src/mixin/Mixins'
 import Block from 'components/Widgets/Block/Block'
 import { BlockList } from 'src/models/Block'
-import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
 export default {
   name: 'BlockList',
@@ -25,10 +24,6 @@ export default {
     data: {
       type: [String, Array, BlockList],
       default: new BlockList()
-    },
-    getData: {
-      type: Function,
-      default: () => {}
     }
   },
   data() {
@@ -56,21 +51,15 @@ export default {
 
   methods: {
     loadBlocks() {
-      if (typeof this.data === 'object') {
-        this.blocks = new BlockList(this.data)
-      } else if (typeof this.data === 'string') {
-        const url = this.data
-        this.getBlocksByRequest(url)
-      }
+      this.getBlocksByRequest()
     },
 
-    getBlocksByRequest(url) {
+    getBlocksByRequest() {
       this.blocks.loading = true
-      let promise = null
-      promise = GetWidgetsData.getData(url)
+      let promise = this.data
       promise
         .then((response) => {
-          this.blocks = new BlockList(response.data.data)
+          this.blocks = response
 
           this.blocks.loading = false
         })

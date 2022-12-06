@@ -1,8 +1,8 @@
 <template>
-  <page-builder
+  <q-page-builder
     :sections="sections"
     :options="options"
-  ></page-builder>
+  ></q-page-builder>
 </template>
 
 <script>

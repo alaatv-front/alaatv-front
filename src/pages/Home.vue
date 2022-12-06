@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
+import { API_Gateway } from 'src/api/APIGateway';
 
 export default {
   name: 'BaseComponent',
@@ -29,7 +29,7 @@ export default {
                     widgets: [
                       {
                         name: 'blockList',
-                        data: API_ADDRESS.pages.home,
+                        data: 'home',
                         options: {
                           to: 1
                         }
@@ -100,7 +100,7 @@ export default {
                       },
                       {
                         name: 'blockList',
-                        data: API_ADDRESS.pages.home,
+                        data: 'home',
                         options: {
                           from: 1
                         }

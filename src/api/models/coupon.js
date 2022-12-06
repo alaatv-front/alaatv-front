@@ -3,7 +3,7 @@ import { apiV1, apiV2, apiWeb } from "src/boot/axios";
 
 export default class CouponAPI extends APIRepository {
   constructor() {
-    super(apiV2)
+    super('coupon',apiV2)
     this.APIAddresses = {
       create: '/v2/admin/coupon',
       edit: '',
