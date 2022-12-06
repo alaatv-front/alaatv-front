@@ -221,13 +221,12 @@
 </template>
 
 <script>
-
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins'
-import API_ADDRESS from 'src/api/Addresses'
 import { LightGallery } from 'vue-light-gallery'
-import VideoPlayer from 'src/components/VideoPlayer.vue'
+import VideoPlayer from 'components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource'
+import { API_Gateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProductInfoShow',
@@ -296,20 +295,41 @@ export default {
   created () {
     this.loadProduct()
   },
-  computed: {
-
-  },
   methods: {
     videoSource() {
       return new PlayerSourceList([{ link: this.product.intro.video }])
     },
-    async loadProduct () {
-      if (typeof this.data === 'object') {
-        this.product = new Product(this.data)
-      } else if (typeof this.data === 'number' || typeof this.data === 'string') {
-        this.product.id = this.data
-        await this.getProduct()
+    getProductId () {
+      if (this.options.productId) {
+        return this.options.productId
       }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return null
+    },
+    loadProduct () {
+      const productId = this.getProductId()
+      if (!productId) {
+        return
+      }
+
+      this.getProduct(productId)
+    },
+    getProduct (productId) {
+      this.product.loading = true
+      API_Gateway.product.get(productId)
+        .then(product=>{
+          this.product = product
+          this.product.loading = false
+          this.setInformation()
+        })
+        .catch(() => {
+          this.product.loading = false
+        })
     },
 
     async addToCart() {
@@ -325,20 +345,6 @@ export default {
       }
     },
 
-    getProduct () {
-      this.product.loading = true
-      const url = API_ADDRESS.product.show.base + '/' + this.product.id
-      const promise = this.getData(url)
-      promise
-        .then(response => {
-          this.product = new Product(response.data.data)
-          this.product.loading = false
-          this.setInformation()
-        })
-        .catch(() => {
-          this.product.loading = false
-        })
-    },
 
     setInformation () {
       if (!this.product.attributes) {

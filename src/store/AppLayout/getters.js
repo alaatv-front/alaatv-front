@@ -2,6 +2,10 @@ export function drawer (state) {
   return state.drawer
 }
 
+export function pageBuilderEditable (state) {
+  return state.pageBuilderEditable
+}
+
 export function appBar (state) {
   return state.appBar
 }

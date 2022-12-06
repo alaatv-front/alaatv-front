@@ -1,6 +1,7 @@
 export default function () {
   return {
     drawer: false,
+    pageBuilderEditable: false,
     confirmDialog: {
       show: false,
       message: '',

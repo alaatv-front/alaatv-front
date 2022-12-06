@@ -3,6 +3,10 @@ export function updateLinearLoading (state, newInfo) {
   state.linearLoading = !!newInfo
 }
 
+export function updatePageBuilderEditable (state, newInfo) {
+  state.pageBuilderEditable = !!newInfo
+}
+
 export function updateWindowSize (state, newInfo) {
   state.windowSize.x = newInfo.width
   state.windowSize.y = newInfo.height
