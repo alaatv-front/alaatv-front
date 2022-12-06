@@ -9,9 +9,8 @@
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-
 const path = require('path')
+const { generateWidgetList } = require('./src/widgetListGetter/index')
 
 module.exports = configure(function (ctx) {
   return {
@@ -30,14 +29,17 @@ module.exports = configure(function (ctx) {
       'axios',
       'appConfig',
       'middleware',
-      'breadcrumbs'
+      'breadcrumbs',
+      'api-gateway',
+      'registerQPageBuilder',
+      'routesLayoutConfigs'
     ],
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.scss',
-      'flatIcon.css',
-      '../../public/fonts/Iconsax/style.css'
+      'app.scss'
+      // 'flatIcon.css',
+      // '../../public/fonts/Iconsax/style.css'
       // 'src/assets/scss/app.scss',
       // 'src/assets/scss/IRANSansFont.scss'
     ],
@@ -61,14 +63,15 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'history', // available values: 'hash', 'history'
-      productName: 'آزمون آنلاین آلاء',
+      productName: 'آموزش مجازی آلاء',
       transpile: true,
       // Add dependencies for transpiling with Babel (Array of string/regex)
       // (from node_modules, which are by default not transpiled).
       // Applies only if "transpile" is set to true.
       transpileDependencies: [
         'js-abstract-model',
-        'quasar-template-builder'
+        'quasar-template-builder',
+        'quasar-ui-q-page-builder'
       ],
 
       rtl: true, // https://v2.quasar.dev/options/rtl-support
@@ -81,6 +84,12 @@ module.exports = configure(function (ctx) {
       // extractCSS: false,
 
       env: require('dotenv').config().parsed,
+
+      // vueLoaderOptions: {
+      //   compilerOptions: {
+      //     isCustomElement: (tag) => tag.startsWith('q-'),
+      //   }
+      // },
 
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
@@ -125,8 +134,13 @@ module.exports = configure(function (ctx) {
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing alias
 
+          'root': path.resolve(__dirname, './src'),
+          // '@': path.resolve(__dirname,'./src'),
+          // '~': path.resolve(__dirname, './src'),
+
           // This will make sure that the hosting test app is pointing to only one instance of vue.
-          vue: path.resolve('./node_modules/vue')
+          vue: path.resolve(__dirname, './node_modules/vue')
+          // vue: path.resolve('./node_modules/vue')
         }
 
         cfg.watchOptions = {
@@ -134,70 +148,49 @@ module.exports = configure(function (ctx) {
           poll: 1000
         }
 
-        cfg.plugins.push(new CopyWebpackPlugin({
-          patterns: [
-            {
-              // from: './src-pwa/firebase-messaging-sw.js',
-              from: path.resolve('./src/ServiceWorker/firebase-messaging-sw.js'),
-              to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
-            }
-          ]
-        }))
+        // cfg.plugins.push(new CopyWebpackPlugin({
+        //   patterns: [
+        //     {
+        //       // from: './src-pwa/firebase-messaging-sw.js',
+        //       from: path.resolve('./src/ServiceWorker/firebase-messaging-sw.js'),
+        //       to: path.resolve('./dist/pwa/firebase-messaging-sw.js')
+        //     }
+        //   ]
+        // }))
+      },
+      beforeDev({ quasarConf }) {
+        generateWidgetList('./src/components/Widgets')
       }
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
-      port: 8082,
+      port: 8083,
       open: true, // opens browser window automatically
       proxy: {
-        [process.env.ALAA_API]: {
-          target: process.env.ALAA_API_SERVER,
+        [process.env.ALAA_API_V2]: {
+          target: process.env.ALAA_API_V2_SERVER,
           changeOrigin: true,
           secure: false,
           pathRewrite: {
-            ['^' + process.env.ALAA_API]: ''
+            ['^' + process.env.ALAA_API_V2]: ''
           }
         },
-        [process.env.AUTH_API]: {
-          target: process.env.AUTH_API_SERVER,
+        [process.env.ALAA_API_V1]: {
+          target: process.env.ALAA_API_V1_SERVER,
           changeOrigin: true,
           secure: false,
           pathRewrite: {
-            ['^' + process.env.AUTH_API]: ''
+            ['^' + process.env.ALAA_API_V1]: ''
           }
         },
-        [process.env.AAA_API]: {
-          target: process.env.AAA_API_SERVER,
+        [process.env.ALAA_WEB]: {
+          target: process.env.ALAA_WEB_SERVER,
           changeOrigin: true,
           secure: false,
           pathRewrite: {
-            ['^' + process.env.AAA_API]: ''
-          }
-        },
-        [process.env.TREE_API]: {
-          target: process.env.TREE_API_SERVER,
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            ['^' + process.env.TREE_API]: ''
-          }
-        },
-        [process.env.TAG_API]: {
-          target: process.env.TAG_API_SERVER,
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            ['^' + process.env.TAG_API]: ''
-          }
-        },
-        '/cdn': {
-          target: 'https://cdn.alaatv.com',
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            '^/cdn': ''
+            ['^' + process.env.ALAA_WEB]: ''
           }
         }
       }
@@ -210,8 +203,19 @@ module.exports = configure(function (ctx) {
           position: 'top',
           // multiLine: true,
           classes: 'default-notify-class'
+        },
+        capacitor: {
+          iosStatusBarPadding: true, // add the dynamic top padding on iOS mobile devices
+
+          // Quasar handles app exit on mobile phone back button.
+          // backButtonExit: true/false/'*'/['/login', '/home', '/my-page'],
+
+          // On the other hand, the following completely
+          // disables Quasar's back button management.
+          backButton: true
         }
       },
+      cssAddon: true,
 
       iconSet: 'material-icons', // Quasar icon set
       lang: 'fa', // Quasar language pack (en-US)
@@ -227,7 +231,8 @@ module.exports = configure(function (ctx) {
       plugins: [
         'Notify',
         'Loading',
-        'Dialog'
+        'Dialog',
+        'Cookies'
       ]
     },
 
@@ -269,7 +274,7 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
-      workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
+      workboxPluginMode: 'InjectManifest', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
 
       // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
@@ -280,11 +285,11 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: 'آزمون آنلاین آلاء',
-        short_name: 'سه آ',
+        name: 'مدرسه آنلاین آلاء',
+        short_name: 'آلاء',
         background_color: '#FFFFFF',
         theme_color: '#ffc107',
-        description: 'آزمون آنلاین آلاء',
+        description: 'آموزش مجازی آلاء',
         display: 'standalone',
         orientation: 'portrait',
         icons: [
@@ -324,7 +329,14 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {
-      hideSplashscreen: true
+      // (Optional!)
+      hideSplashscreen: false, // disables auto-hiding the Splashscreen by Quasar CLI
+
+      // (Optional!)
+      capacitorCliPreparationParams: ['sync', ctx.targetName]
+    },
+    bin: {
+      linuxAndroidStudio: '/snap/android-studio/current/android-studio/bin/studio.sh'
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/developing-electron-apps/configuring-electron

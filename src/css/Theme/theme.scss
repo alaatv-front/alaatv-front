@@ -1,5 +1,51 @@
+@import 'src/css/fonts.scss';
 @import 'src/css/Theme/colors';
 @import 'src/css/Theme/sizes';
 @import 'src/css/Theme/Controls/controles';
+@import 'src/css/Theme/Typography/typography';
 @import 'src/css/Theme/Widgets/widgets';
 
+
+  * {
+  /*font-family: 'iranyekan', 'Arial', '-apple-system', 'Helvetica Neue', Helvetica, sans-serif ;*/
+  font-family: iranyekan , 'Arial', '-apple-system', 'Helvetica Neue', Helvetica, sans-serif ;
+  }
+
+  body.body--light {
+    background: #F6F7FB;
+  }
+  .default-notify-class {
+    font-size: 18px;
+    /*width: 30%;*/
+    text-align: center;
+    padding: 10px 16PX;
+  }
+  /*body.body--dark {*/
+  /*  background: #000*/
+  /*}*/
+
+.boxed-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1362px;
+  @media screen and (max-width: 1439px){
+    grid-template-columns: 966px;
+  }
+  @media screen and (max-width: 1023px){
+    grid-template-columns: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+    .boxed-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  @media screen and (max-width: 599px) {
+    padding-left: 20px;
+    padding-right: 20px;
+    .boxed-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}

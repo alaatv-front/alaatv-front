@@ -1,31 +1,125 @@
-import { auth } from './middleware/middleware'
-// import Login from '../pages/Auth/Login.vue'
-function getEntityCrudRouteObject (componentName) {
-  const AllNeededRoutes = [
-    { mode: 'Index', path: '' },
-    { mode: 'Create', path: 'create' },
-    { mode: 'Show', path: ':id' },
-    { mode: 'Edit', path: ':id/edit' }
-  ]
-  const finalChildren = []
-  AllNeededRoutes.forEach(item => {
-    finalChildren.push({ name: 'Admin.' + componentName + '.' + item.mode, path: item.path, component: () => import('pages/Admin/' + componentName) })
-  })
-  return finalChildren
-}
+import { auth, isLandingPage } from './middleware/middleware'
+import EntityCrudRoutes from './EntityCrudRoutes'
 const routes = [
   {
     path: '/',
+    layoutConfig: {
+      layoutHeaderVisible: true,
+      layoutHeaderType: 'main',
+      layoutLeftDrawerVisible: false,
+      layoutLeftSideBarType: 'main',
+      layoutView: 'lHh Lpr fff',
+      layoutHeader: true,
+      layoutHeaderReveal: false,
+      layoutHeaderElevated: false,
+      layoutHeaderBordered: false,
+      layoutLeftDrawer: true,
+      layoutLeftDrawerOverlay: false,
+      layoutLeftDrawerElevated: false,
+      layoutLeftDrawerBordered: false,
+      layoutLeftDrawerWidth: 325,
+      layoutLeftDrawerBehavior: 'default',
+      layoutPageContainer: true,
+      layoutRightDrawer: false,
+      layoutFooter: true,
+      layoutFooterVisible: true,
+      layoutHeaderCustomClass: '',
+      layoutBreadcrumbsElements: [],
+      layoutBreadcrumbs: {
+        separator: 'home'
+      },
+      layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
+      layoutPageContainerCustomClass: 'main-layout-container'
+    },
     component: () => import('layouts/MainLayout.vue'),
-    breadcrumbs: { title: 'خانه', loading: false, icon: 'home', route: { name: 'dashboard' } },
     children: [
       {
         path: '',
-        name: 'dashboard',
-        component: () => import('pages/BaseComponent.vue'),
-        breadcrumbs: { title: 'پیشخوان' },
+        name: 'innerChild',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            path: '',
+            name: 'home',
+            breadcrumbs: { title: 'خانه', loading: false, icon: 'home', route: { name: 'dashboard' } },
+            component: () => import('pages/Home.vue')
+          }
+        ]
+      },
+
+      {
+        path: 'ticket',
+        name: 'Admin.Ticket.Index',
+        component: () => import('pages/Admin/Ticket/Index.vue')
+      },
+      {
+        path: 'ticket/:id',
+        name: 'Admin.Ticket.Show',
+        component: () => import('pages/Admin/Ticket/Show.vue')
+      },
+      {
+        path: 'ticket/Create',
+        name: 'Admin.Ticket.Create',
+        component: () => import('pages/Admin/Ticket/Create.vue')
+      },
+      {
+        path: 'map',
+        name: 'MapPage',
+        component: () => import('src/components/Widgets/Map/Map')
+      },
+      {
+        path: 'shop',
+        name: 'Shop',
+        component: () => import('pages/User/Shop')
+      },
+      {
+        path: 'user/orders',
+        name: 'user.orders',
+        component: () => import('pages/User/Orders/userOrders')
+      },
+      {
+        path: 'checkout',
+        name: 'User.Checkout',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            path: 'review',
+            name: 'User.Checkout.Review',
+            component: () => import('pages/User/CheckoutReview/Show.vue')
+          }
+        ]
+      },
+      {
+        path: 'c',
+        name: 'User.Content',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') },
+          { name: 'User.Content.Search', path: '', component: () => import('pages/User/Content/Search.vue') }
+        ]
+      },
+      {
+        path: 'product',
+        name: 'User.Product',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
+        ]
+      },
+      {
+        path: 'set',
+        name: 'User.Set',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          { name: 'User.Set.Show', path: ':id', component: () => import('pages/User/Set/Show.vue') }
+        ]
+      },
+      {
+        path: '/landing/:landing_name',
+        name: 'Landing',
+        component: () => import('pages/Landing.vue'),
         meta: {
-          middlewares: [auth]
+          middlewares: [isLandingPage]
         }
       },
       {
@@ -38,6 +132,14 @@ const routes = [
         }
       },
       {
+        path: 'user-info',
+        name: 'user-info',
+        component: () => import('pages/User/UserInfoForm'),
+        meta: {
+          middlewares: [auth]
+        }
+      },
+      {
         path: 'admin',
         component: () => import('layouts/AdminLayout.vue'),
         meta: {
@@ -45,100 +147,58 @@ const routes = [
         },
         children: [
           { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
-          // {
-          //   path: 'users',
-          //   component: () => import('pages/Admin/index'),
-          //   breadcrumbs: { title: 'کاربران' },
-          //   children: [
-          //     { name: 'Admin.User.Index', path: '', component: () => import('pages/Admin/User/Index') },
-          //     { name: 'Admin.User.Create', path: 'create', component: () => import('pages/Admin/User/Create') },
-          //     { name: 'Admin.User.Show', path: ':id', component: () => import('pages/Admin/User/Show') },
-          //     { name: 'Admin.User.Edit', path: ':id/edit', component: () => import('pages/Admin/User/Edit') }
-          //   ]
-          // },
+          { name: 'Admin.StudyPlan', path: 'studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
+          ...EntityCrudRoutes
+        ]
+      },
+      {
+        path: 'User',
+        name: 'User.Dashboard',
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
           {
-            path: 'scheduleManagement',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت ساعت کاری' },
-            children: getEntityCrudRouteObject('ScheduleManagement')
+            name: 'User.Dashboard.purchases',
+            path: ':id/dashboard/MyPurchases',
+            meta: {
+              middlewares: [auth]
+            },
+            component: () => import('pages/User/Dashboard/MyPurchases')
           },
           {
-            path: 'users',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'کاربران' },
-            children: getEntityCrudRouteObject('User')
-          },
-          {
-            path: 'product',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'محصولات' },
-            children: [
-              { name: 'Admin.Product.Index', path: '', component: () => import('pages/Admin/Product/Index') },
-              { name: 'Admin.Product.Create', path: 'create', component: () => import('pages/Admin/Product/Create') },
-              { name: 'Admin.Product.Show', path: ':id', component: () => import('pages/Admin/Product/Show') },
-              { name: 'Admin.Product.Edit', path: ':id/edit', component: () => import('pages/Admin/Product/Edit') }
-            ]
-          },
-          {
-            path: 'content',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'محتوا' },
-            children: getEntityCrudRouteObject('Content')
-          },
-          {
-            path: 'attributeManagement',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت صفت ها' },
-            children: getEntityCrudRouteObject('AttributeManagement')
-          },
-          {
-            path: 'attributeSetManagement',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'مدیریت دسته صفت ها' },
-            children: getEntityCrudRouteObject('AttributeSetManagement')
-          },
-          {
-            path: 'orders',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'سفارشات' },
-            children: getEntityCrudRouteObject('Order')
-          },
-          {
-            path: 'transactions',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'تراکنش ها' },
-            children: [
-              { name: 'Admin.Transaction.Index', path: '', component: () => import('pages/Admin/Transaction/Index') },
-              { name: 'Admin.Transaction.Create', path: 'create', component: () => import('pages/Admin/Transaction/Create') },
-              { name: 'Admin.Transaction.Show', path: ':id', component: () => import('pages/Admin/Transaction/Show') },
-              { name: 'Admin.Transaction.Edit', path: ':id/edit', component: () => import('pages/Admin/Transaction/Edit') }
-            ]
-          },
-          {
-            path: 'set',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'دسته محتوا' },
-            children: [
-              { name: 'Admin.Set.Index', path: '', component: () => import('pages/Admin/Sets/Index') },
-              { name: 'Admin.Set.Create', path: 'create', component: () => import('pages/Admin/Sets/Create') },
-              { name: 'Admin.Set.Show', path: ':id', component: () => import('pages/Admin/Sets/Show') },
-              { name: 'Admin.Set.Edit', path: ':id/edit', component: () => import('pages/Admin/Sets/Edit') }
-            ]
-          },
-          {
-            path: 'coupon',
-            component: () => import('pages/Admin/index'),
-            breadcrumbs: { title: 'کوپن ها' },
-            children: [
-              { name: 'Admin.Coupon.Index', path: '', component: () => import('pages/Admin/Coupon/Index') },
-              { name: 'Admin.Coupon.Create', path: 'create', component: () => import('pages/Admin/Coupon/Create') },
-              { name: 'Admin.Coupon.Show', path: ':id', component: () => import('pages/Admin/Coupon/Show') },
-              { name: 'Admin.Coupon.Edit', path: ':id/edit', component: () => import('pages/Admin/Coupon/Edit') }
-            ]
+            name: 'User.Dashboard.favorites',
+            path: ':id/dashboard/MyFavorites',
+            meta: {
+              middlewares: [auth]
+            },
+            component: () => import('pages/User/Dashboard/MyFavorites')
           }
         ]
+      },
+      {
+        path: '/debug',
+        name: 'debug',
+        component: () => import('pages/debug'),
+        meta: {
+          middlewares: [auth]
+        }
+      },
+      {
+        path: '/form-generator',
+        name: 'formGenerator',
+        component: () => import('pages/formGenerator')
+      },
+      {
+        path: '/profile',
+        name: 'Profile',
+        component: () => import('pages/Profile/Profile.vue'),
+        meta: {
+          middlewares: [auth]
+        }
       }
     ]
+    // meta: {
+    //   middlewares: [auth]
+    // }
   },
   {
     path: '/login',
@@ -154,21 +214,13 @@ const routes = [
       middlewares: [auth]
     }
   },
-  {
-    path: '/user-info',
-    name: 'user-info',
-    component: () => import('pages/User/UserInfoForm'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
+    name: 'NotFound',
     component:
   () => import('pages/Error404.vue')
   }
 ]
-
 export default routes

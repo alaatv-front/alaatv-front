@@ -10,7 +10,6 @@
       :label="item.title"
       :icon="item.icon"
       class="side-expansion-list"
-      dark
     >
       <div class="expansion-body">
         <q-separator dark size="2px" vertical class="vertical-separator"/>
@@ -315,7 +314,6 @@ export default {
 
     a {
       text-decoration: none;
-      color: white;
       padding: 0;
     }
   }

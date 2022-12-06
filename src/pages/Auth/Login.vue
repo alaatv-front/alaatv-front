@@ -1,16 +1,22 @@
 <template>
   <div class="login-page row flex">
-    <q-card v-if="!userLogin" class="col-lg-4 col-md-5 col-sm-6 col-xs-10 login-card my-card shadow-6">
+    <q-card v-if="!userLogin"
+            class="col-lg-4 col-md-5 col-sm-6 col-xs-10 login-card my-card shadow-6">
       <q-card-section class="row bg-blue-8 text-white justify-between">
         <div class="row login-header-right-side justify-center items-center">
-          <q-img class="login-alaa-logo" src="img/3a-logo.png" alt="3a-logo"/>
+          <q-img class="login-alaa-logo"
+                 src="img/3a-logo.png"
+                 alt="3a-logo" />
           <p class="login-entry-title q-ml-md q-mb-none">ورود</p>
         </div>
         <q-avatar>
-          <img src="img/alaa-logo.png" alt="logo">
+          <img src="img/alaa-logo.png"
+               alt="logo">
         </q-avatar>
       </q-card-section>
-      <q-linear-progress v-if="loadingList" color="warning" class="q-mt-sm"/>
+      <q-linear-progress v-if="loadingList"
+                         color="warning"
+                         class="q-mt-sm" />
       <q-separator></q-separator>
       <div class="q-pa-lg">
         <q-input
@@ -40,7 +46,10 @@
           </template>
         </q-input>
         <q-card-actions align="left">
-          <q-btn style="width: 80px" color="blue-8" label="ورود" @click="login"/>
+          <q-btn style="width: 80px"
+                 color="blue-8"
+                 label="ورود"
+                 @click="login" />
         </q-card-actions>
       </div>
     </q-card>
@@ -60,7 +69,9 @@ export default {
   }),
   created () {
     if (this.getToken()) {
-      this.getUserData(() => { this.redirectTo() })
+      this.getUserData().then(()=>{
+        this.redirectTo()
+      })
     }
   },
   methods: {
@@ -83,11 +94,14 @@ export default {
         })
         return
       }
-      let redirectTo = window.localStorage.getItem('redirectTo')
+      let redirectTo = this.$store.getters['Auth/redirectTo']
       if (!redirectTo) {
-        redirectTo = 'dashboard'
+        redirectTo = 'home'
       }
+      this.$store.commit('Auth/updateRedirectTo', redirectTo)
       this.$router.push({ name: redirectTo })
+      this.$store.commit('Auth/updateRedirectTo', null)
+
     },
 
     handleErr (err) {
@@ -97,7 +111,7 @@ export default {
         err.data.errors[key].forEach(message => {
           this.$q.notify({
             type: 'negative',
-            message: message,
+            message,
             position: 'top'
           })
         })
@@ -115,7 +129,6 @@ export default {
 
     login () {
       this.loadingList = true
-      const that = this
       this.$store.dispatch('Auth/login', {
         mobile: this.username,
         password: this.password
@@ -123,7 +136,7 @@ export default {
         .then(() => {
           this.loadingList = false
           this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
-          that.getUserData(() => { this.redirectTo() })
+          this.getUserData().then(() => { this.redirectTo() })
         })
         .catch(err => {
           console.log('in auth :', err)

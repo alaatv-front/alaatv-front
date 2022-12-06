@@ -1,6 +1,11 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify } from 'quasar'
+import process from 'process'
+// process.client or process.browser
+const apiV2Server = process.env.ALAA_API_V2
+const apiV1Server = process.env.ALAA_API_V1
+const webServer = process.env.ALAA_WEB
 
 const AjaxResponseMessages = (function () {
   const messageMap = {
@@ -56,7 +61,7 @@ const AxiosHooks = (function () {
       messages.push('موردی یافت نشد.')
     } else if (statusCode === 401) {
       messages.push('ابتدا وارد سامانه شوید.')
-      deAuthorizeUser(router, store)
+      // deAuthorizeUser(router, store)
     } else if (error.response.data.error && AjaxResponseMessages.isCustomMessage(error.response.data.error.code)) {
       console.log('error.response.data.error.code', AjaxResponseMessages.getMessage(error.response.data.error.code))
       messages.push(AjaxResponseMessages.getMessage(error.response.data.error.code))
@@ -135,12 +140,18 @@ const AxiosHooks = (function () {
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: 'https://api.example.com' })
+const apiV2 = axios.create({ baseURL: apiV2Server })
+const apiV1 = axios.create({ baseURL: apiV1Server })
+const apiWeb = axios.create({ baseURL: webServer })
+
 
 export default boot(({ app, store, router }) => {
   const accessToken = store.getters['Auth/accessToken']
   if (accessToken) {
     axios.defaults.headers.common.Authorization = 'Bearer ' + accessToken
+    apiV2.defaults.headers.common.Authorization = 'Bearer ' + accessToken
+    apiV1.defaults.headers.common.Authorization = 'Bearer ' + accessToken
+    apiWeb.defaults.headers.common.Authorization = 'Bearer ' + accessToken
   }
   // for use inside Vue files (Options API) through this.$axios and this.$api
   const instance = axios.create(/* ... */)
@@ -149,7 +160,9 @@ export default boot(({ app, store, router }) => {
   // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
   //       so you won't necessarily have to import axios in each vue file
 
-  app.config.globalProperties.$api = api
+  app.config.globalProperties.$apiV2 = apiV2
+  app.config.globalProperties.$apiV1 = apiV1
+  app.config.globalProperties.$apiWeb = apiWeb
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
 
@@ -158,10 +171,26 @@ export default boot(({ app, store, router }) => {
     AxiosHooks.handleErrors(error, router, store)
     return Promise.reject(error)
   })
+  apiV2.interceptors.response.use(undefined, function (error) {
+    AxiosHooks.handleErrors(error, router, store)
+    return Promise.reject(error)
+  })
 
   app.axios = instance
   store.$axios = instance
   router.$axios = instance
+
+  app.apiV1 = apiV1
+  store.$apiV1 = apiV1
+  router.$apiV1 = apiV1
+
+  app.apiV2 = apiV2
+  store.$apiV2 = apiV2
+  router.$apiV2 = apiV2
+
+  app.apiWeb = apiWeb
+  store.$apiWeb = apiWeb
+  router.$apiWeb = apiWeb
 })
 
-export { axios, api }
+export { axios, apiV1, apiV2, apiWeb }

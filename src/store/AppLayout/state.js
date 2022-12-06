@@ -1,15 +1,23 @@
 export default function () {
   return {
     drawer: false,
+    pageBuilderEditable: false,
     confirmDialog: {
       show: false,
       message: '',
       buttons: {
       }
     },
+    templateHeaderType: '',
+    templateLeftSideBarType: '',
+    templateRightSideBarType: '',
     windowSize: {
       x: 0,
       y: 0
+    },
+    headerSize: {
+      width: 0,
+      height: 0
     },
     bubbleSize: 600,
     appBar: true,
@@ -17,7 +25,6 @@ export default function () {
       left: 0,
       right: 0
     },
-    appLayout: {},
     breadcrumbs: {
       visible: true,
       loading: false,
