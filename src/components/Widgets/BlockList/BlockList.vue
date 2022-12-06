@@ -22,14 +22,14 @@ export default {
   components: { Block },
   mixins: [mixinWidget],
   props: {
-    data: {
-      type: [String, Array, BlockList],
-      default: new BlockList()
-    },
     getData: {
       type: Function,
       default: () => {}
     }
+    // options: {
+    //   type: Object,
+    //   default: () => {}
+    // }
   },
   data() {
     return {

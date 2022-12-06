@@ -11,10 +11,10 @@
       </div>
       <div class="leftSide">
         <q-btn
-          @click="tabChanged('marker')"
           flat
           class=""
           icon="isax:signpost"
+          @click="tabChanged('marker')"
         >
           <q-tooltip
             anchor="top middle"
@@ -25,10 +25,10 @@
           </q-tooltip>
         </q-btn>
         <q-btn
-          @click="tabChanged('polyline')"
           flat
           class=""
           icon="isax:chart-square"
+          @click="tabChanged('polyline')"
         >
           <q-tooltip
             anchor="top middle"
@@ -42,6 +42,7 @@
           flat
           class=""
           icon="isax:menu-1"
+          @click="showMapInfo"
         >
           <q-tooltip
             anchor="top middle"
@@ -57,60 +58,68 @@
 
     <q-separator
       color="gray"
-      inset/>
+      inset />
 
-    <div class="MarkerFormBuilderContainer"
-         v-if="toolTab === 'marker'">
+    <div v-if="toolTab === 'marker'"
+         class="MarkerFormBuilderContainer q-pa-sm bg-transparent">
 
-      <div class="MarkerFormBuilder"
-           v-if="canShowGeneralData">
+      <div v-if="canShowGeneralData"
+           class="MarkerFormBuilder">
         <form-builder
-          v-model:value="markerInputs"
           ref="markerInputsFormBuilder"
+          v-model:value="markerInputs"
         />
       </div>
-      <q-btn class="addMarkerBtn"
-             @click="addMarker"
-             icon="isax:element-plus"/>
-      <div class="markerToolBoxBtns"
-           v-if="bufferMarker.editMode"
+      <q-btn class="addMarkerBtn q-mb-xs"
+             color="green-6"
+             icon="isax:element-plus"
+             @click="addMarker" />
+      <div v-if="bufferMarker.editMode || selectedMarker.editMode"
+           class="markerToolBoxBtns"
       >
-        <q-btn class="btns btn-info"
+        <q-btn class="btns"
+               color="primary"
                icon="isax:copy"
         />
-        <q-btn class="btns btn-info"
+        <q-btn class="btns"
+               color="primary"
                icon="isax:save-remove"
                @click="saveMarker"
         />
-        <q-btn class="btns btn-danger"
+        <q-btn class="btns"
+               color="red-6"
                icon="isax:trash"
         />
       </div>
 
     </div>
 
-    <div class="PolylineFormBuilderContainer"
-         v-if="toolTab === 'polyline'">
+    <div v-if="toolTab === 'polyline'"
+         class="PolylineFormBuilderContainer q-pa-sm">
 
-      <div class="PolylineFormBuilder"
-           v-if="canShowGeneralData">
+      <div v-if="canShowGeneralData"
+           class="PolylineFormBuilder">
         <form-builder
-          v-model:value="polylineInputs"
-          ref="polylineInputsFormBuilder"/>
+          ref="polylineInputsFormBuilder"
+          v-model:value="polylineInputs" />
 
       </div>
-      <q-btn class="addPolyLineBtn"
-             icon="isax:refresh"/>
-      <div class="PolylineToolBoxBtns"
-           v-if="bufferPolyline.editMode"
+      <q-btn class="addPolyLineBtn q-mb-xs"
+             icon="isax:refresh"
+             @click="addPolyLine"
+      />
+      <div v-if="bufferPolyline.editMode"
+           class="PolylineToolBoxBtns"
       >
-        <q-btn class="btns btn-info"
-               icon="isax:copy"/>
-        <q-btn class="btns btn-info"
-               icon="isax:save-remove"/>
-        <q-btn class="btns btn-danger"
-               icon="isax:trash"/>
-
+        <q-btn class="btns"
+               color="blue-6"
+               icon="isax:copy" />
+        <q-btn class="btns"
+               color="blue-6"
+               icon="isax:save-remove" />
+        <q-btn class="btns"
+               color="red-6"
+               icon="isax:trash" />
 
       </div>
 
@@ -126,6 +135,9 @@ import API_ADDRESS from 'src/api/Addresses'
 import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
 import LineType from 'components/FormBuilderCustumComponents/Map/LineType'
 import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
+import { MapItem } from 'src/models/MapItem'
+import MapItemEntity from 'src/models/MapItemEntity'
+import { MapItemAction } from 'src/models/MapItemAction'
 
 export default {
   name: 'AdminToolBox',
@@ -133,7 +145,7 @@ export default {
   props: {
     center: {
       type: Object,
-      default () {
+      default() {
         return {}
       }
     },
@@ -141,19 +153,30 @@ export default {
       type: [String, Number],
       default: null
     },
-    marker: {
+    bufferMarker: {
       type: Object,
-      default: {}
+      default() {
+        return {}
+      }
+    },
+    selectedMarker: {
+      type: Object,
+      default: new MapItem()
     },
     polyline: {
       type: Object,
       default: {}
+    },
+    toolTab: {
+      type: String,
+      default: ''
     }
   },
-  data () {
+  data() {
     return {
       canShowMarker: false,
-      bufferMarker: null,
+      toolBoxSelectedMarker: null,
+      toolBoxBufferMarker: null,
       bufferPolyline: null,
       expanded: true,
       api: API_ADDRESS.map.items,
@@ -161,11 +184,6 @@ export default {
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Exam.Show',
       indexRouteName: 'Admin.Exam.Index',
-      toolTab: null,
-      displayZoom: {
-        min_zoom: 11,
-        max_zoom: 11
-      },
       markerInputs: [
         {
           type: 'formBuilder',
@@ -176,6 +194,7 @@ export default {
               type: 'select',
               name: 'tags',
               label: 'تگ :',
+              responseKey: 'data.tags',
               outlined: true,
               multiple: true,
               showNoOption: false,
@@ -235,7 +254,7 @@ export default {
           min: 0,
           max: 11,
           value: {
-            min: 3.1,
+            min: 3,
             max: 11
           }
         },
@@ -249,7 +268,7 @@ export default {
           col: 'col-md-12'
         },
         {
-          type: 'File',
+          type: 'file',
           name: 'iconImage',
           col: 'col-md-12',
           label: 'فایل خود را در اینجا قرار دهید و یا برای انتخاب فایل اینجا کلیک کنید'
@@ -309,8 +328,8 @@ export default {
           name: 'iconAnchorX',
           col: 'col-md-6',
           label: 'موقعیت آیکن نسبت به مختصات  ',
-          min: 0,
-          max: 200,
+          min: -100,
+          max: 100,
           value: 0
         },
         {
@@ -324,11 +343,11 @@ export default {
           name: 'iconAnchorY',
           col: 'col-md-6',
           label: 'موقعیت آیکن نسبت به مختصات ',
-          min: 0,
-          max: 200,
+          min: -100,
+          max: 100,
+          class: 'iconAnchorYClass',
           value: 0
         }
-
       ],
       polylineInputs: [
         {
@@ -338,7 +357,7 @@ export default {
           value: [
             {
               type: 'select',
-              name: 'NewValueEventSelect',
+              name: 'tags',
               label: 'تگ :',
               outlined: true,
               multiple: true,
@@ -353,7 +372,7 @@ export default {
         },
         {
           type: 'formBuilder',
-          name: 'formBuilderCol',
+          name: 'formBuilderCol2',
           col: 'col-md-6',
           value: [
             {
@@ -392,32 +411,21 @@ export default {
             id: 1,
             name: 'link'
           },
-          name: 'activityType',
+          name: 'action',
           label: 'action',
           col: 'col-md-6'
         },
         {
-          type: 'Slider',
-          name: 'max',
+          type: 'RangeSlider',
+          name: 'ZoomRate',
           col: 'col-md-6',
-          label: 'میزان زوم از',
+          label: 'میزان زوم',
           min: 0,
           max: 11,
-          value: 3
-        },
-        {
-          type: 'hidden',
-          name: 'hidden',
-          col: 'col-md-6'
-        },
-        {
-          type: 'Slider',
-          name: 'min',
-          col: 'col-md-6',
-          label: 'میزان زوم تا',
-          min: 0,
-          max: 11,
-          value: 11
+          value: {
+            min: 3,
+            max: 11
+          }
         },
         {
           type: 'separator',
@@ -460,7 +468,7 @@ export default {
             dir: 'fixed',
             style: { 'animation-duration': 0 }
           },
-          name: 'line',
+          name: 'lineMoveType',
           col: 'col-md-6'
         },
         {
@@ -482,6 +490,35 @@ export default {
         }
       ],
       typeOptions: [],
+      defaultMarker: {
+        id: 0,
+        action: {},
+        data: {
+          latlng: {
+            lng: 0,
+            lat: 0
+          },
+          headline: {
+            text: null,
+            fontSize: 14
+          },
+          icon: {
+            options: {
+              iconAnchor: [0, 0],
+              iconUrl: null,
+              iconSize: 70
+            }
+          }
+        },
+        enable: 1,
+        tags: [],
+        min_zoom: 3,
+        max_zoom: 11,
+        editMode: false,
+        type: {
+          name: 'marker'
+        }
+      },
       category: {
         title: '',
         id: '',
@@ -492,96 +529,163 @@ export default {
   },
   watch: {
     headlineText: {
-      handler (newVal) {
-        this.bufferMarker.data.headline.text = newVal
+      handler(newVal) {
+        this.toolBoxBufferMarker.data.headline.text = newVal
         this.updateItem()
       }
     },
     ZoomRate: {
-      handler (zoom) {
-        this.displayZoom.max_zoom = zoom.max
-        this.displayZoom.min_zoom = zoom.min
+      handler(zoom) {
+        this.toolBoxBufferMarker.max_zoom = zoom.max
+        this.toolBoxBufferMarker.min_zoom = zoom.min
         this.updateItem()
       }
     },
     iconImage: {
-      handler (fileList) {
-        console.log(fileList)
-        this.bufferMarker.data.icon.options.iconUrl = URL.createObjectURL(fileList) // returns Blob
+      handler(fileList) {
+        if (fileList === null) {
+          this.toolBoxBufferMarker.data.icon.options.iconUrl = null
+        } else if (typeof fileList === 'object') {
+          this.toolBoxBufferMarker.data.icon.options.iconUrl = URL.createObjectURL(fileList) // returns Blob
+        } else {
+          this.toolBoxBufferMarker.data.icon.options.iconUrl = fileList
+        }
+        this.updateItem()
       }
     },
     TextColor: {
-      handler (color) {
-        this.bufferMarker.data.headline.fillColor = color
+      handler(color) {
+        this.toolBoxBufferMarker.data.headline.fillColor = color
         this.updateItem()
       }
     },
     StrokeColor: {
-      handler (color) {
-        this.bufferMarker.data.headline.strokeColor = color
+      handler(color) {
+        this.toolBoxBufferMarker.data.headline.strokeColor = color
         this.updateItem()
       }
     },
     IconSize: {
-      handler (size) {
-        this.bufferMarker.data.icon.options.iconSize = size
+      handler(size) {
+        this.toolBoxBufferMarker.data.icon.options.iconSize[0] = size
+        this.toolBoxBufferMarker.data.icon.options.iconSize[1] = size
         this.updateItem()
       }
     },
     TextSize: {
-      handler (size) {
-        console.log(size)
-        this.bufferMarker.data.headline.fontSize = size
+      handler(size) {
+        this.toolBoxBufferMarker.data.headline.fontSize = size
         this.updateItem()
       }
     },
     StrokeSize: {
-      handler (size) {
-        this.bufferMarker.data.headline.strokeWidth = size
+      handler(size) {
+        this.toolBoxBufferMarker.data.headline.strokeWidth = size
         this.updateItem()
       }
     },
     iconAnchorX: {
-      handler (anchor) {
-        this.bufferMarker.data.icon.options.iconAnchor[0] = anchor
-        // this.bufferMarker.data.icon.options.iconSize = this.bufferMarker.data.icon.options.iconSize -1
+      handler(anchor) {
+        this.toolBoxBufferMarker.data.icon.options.iconAnchor[0] = anchor
         this.updateItem()
       }
     },
     iconAnchorY: {
-      handler (anchor) {
-        this.bufferMarker.data.icon.options.iconAnchor[1] = anchor
+      handler(anchor) {
+        this.toolBoxBufferMarker.data.icon.options.iconAnchor[1] = anchor
         this.updateItem()
       }
     },
     action: {
-      handler (data) {
-        this.bufferMarker.action = data
-        console.log(data)
+      handler(data) {
+        this.toolBoxBufferMarker.action = data
         this.updateItem()
       }
     },
     tags: {
-      handler (tags) {
-        this.bufferMarker.tags=tags
+      handler(tags) {
+        this.toolBoxBufferMarker.tags = tags
         this.updateItem()
       }
     },
     enable: {
-      handler (newValue) {
-        this.bufferMarker.enable=newValue
+      handler(newValue) {
+        this.toolBoxBufferMarker.enable = newValue
         this.updateItem()
       }
     },
     entity: {
-      handler (EntityData) {
-        this.bufferMarker.entity = EntityData
+      handler(EntityData) {
+        this.toolBoxBufferMarker.entity = EntityData
       }
     },
+    polyAction: {
+      handler(data) {
+        this.bufferPolyline.action = data
+        this.updateItem()
+      }
+    },
+    polyZoomRate: {
+      handler(zoom) {
+        this.bufferPolyline.min_zoom = zoom.min
+        this.bufferPolyline.max_zoom = zoom.min
+        this.updateItem()
+      }
+    },
+    polyLineType: {
+      handler(data) {
+        this.bufferPolyline.data.line.dashArray = data
+        this.updateItem()
+      }
+    },
+    polyLineThickness: {
+      handler(weight) {
+        this.bufferPolyline.data.line.weight = weight
+        this.updateItem()
+      }
+    },
+    polyLineStart: {
+      handler(data) {
+        this.bufferPolyline.data.line.dashOffset = data
+        this.updateItem()
+      }
+    },
+    polyColor: {
+      handler(color) {
+        this.bufferPolyline.data.line.color = color
+        this.updateItem()
+      }
+    },
+    polylineMoveType: {
+      handler(dir) {
+        this.bufferPolyline.data.line.options.flowing.dir = dir
+        this.updateItem()
+      }
+    },
+    polyTags: {
+      handler(tags) {
+        this.bufferPolyline.tags = tags
+        this.updateItem()
+      }
+    },
+    polyEnable: {
+      handler(enable) {
+        this.bufferPolyline.enable = enable
+        this.updateItem()
+      }
+    },
+    polyEntity: {
+      handler(entity) {
+        this.bufferPolyline.entity = entity
+        this.updateItem()
+      }
+    }
   },
   computed: {
-    activeMapItem () {
-      if (this.bufferMarker.editMode) {
+    activeMapItem() {
+      if (this.selectedMarker.editMode) {
+        return this.selectedMarker
+      } else if (this.bufferMarker.editMode) {
         return this.bufferMarker
       } else if (this.bufferPolyline.editMode) {
         return this.bufferPolyline
@@ -589,109 +693,191 @@ export default {
         return false
       }
     },
-    canShowGeneralData () {
+    canShowGeneralData() {
       return this.activeMapItem.editMode && this.activeMapItem.type.name === this.toolTab
     },
-    headlineText () {
-      return this.getInputsValue('headlineText')
+    polyAction() {
+      return this.polylineInputs.find(item => item.name === 'action').value
     },
-    ZoomRate () {
-      return this.getInputsValue('ZoomRate')
+    polyZoomRate() {
+      return this.polylineInputs.find(item => item.name === 'ZoomRate').value
     },
-    iconImage () {
-      return this.getInputsValue('iconImage')
+    polyLineType() {
+      return this.polylineInputs.find(item => item.name === 'LineType').value
     },
-    TextColor () {
-      return this.getInputsValue('TextColor')
+    polyLineThickness() {
+      return this.polylineInputs.find(item => item.name === 'LineThickness').value
     },
-    StrokeColor () {
-      return this.getInputsValue('StrokeColor')
+    polyLineStart() {
+      return this.polylineInputs.find(item => item.name === 'LineStart').value
     },
-    IconSize () {
-      return this.getInputsValue('IconSize')
+    polyColor() {
+      return this.polylineInputs.find(item => item.name === 'color').value
     },
-    TextSize () {
-      return this.getInputsValue('TextSize')
+    polylineMoveType() {
+      return this.polylineInputs.find(item => item.name === 'lineMoveType').value
     },
-    StrokeSize () {
-      return this.getInputsValue('StrokeSize')
-    },
-    iconAnchorX () {
-      return this.getInputsValue('iconAnchorX')
-    },
-    iconAnchorY () {
-      return this.getInputsValue('iconAnchorY')
-    },
-    action () {
-      return this.getInputsValue('action')
-    },
-    tags () {
-      const formBuilderCol = this.getInputsValue('formBuilderCol')
+    polyTags() {
+      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol')
       return formBuilderCol.find(item => item.name === 'tags').value
     },
-    enable () {
-      const formBuilderCol = this.getInputsValue('formBuilderCol2')
+    polyEnable() {
+      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol2')
       return formBuilderCol.find(item => item.name === 'enable').value
     },
-    entity () {
-      const formBuilderCol = this.getInputsValue('formBuilderCol2')
+    polyEntity() {
+      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol2')
       return formBuilderCol.find(item => item.name === 'entity').value
     },
+    headlineText() {
+      return this.getMarkerInputsValue('headlineText')
+    },
+    ZoomRate() {
+      return this.getMarkerInputsValue('ZoomRate')
+    },
+    iconImage() {
+      return this.getMarkerInputsValue('iconImage')
+    },
+    TextColor() {
+      return this.getMarkerInputsValue('TextColor')
+    },
+    StrokeColor() {
+      return this.getMarkerInputsValue('StrokeColor')
+    },
+    IconSize() {
+      return this.getMarkerInputsValue('IconSize')
+    },
+    TextSize() {
+      return this.getMarkerInputsValue('TextSize')
+    },
+    StrokeSize() {
+      return this.getMarkerInputsValue('StrokeSize')
+    },
+    iconAnchorX() {
+      return this.getMarkerInputsValue('iconAnchorX')
+    },
+    iconAnchorY() {
+      return this.getMarkerInputsValue('iconAnchorY')
+    },
+    action() {
+      return this.getMarkerInputsValue('action')
+    },
+    tags() {
+      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol')
+      return formBuilderCol.find(item => item.name === 'tags').value
+    },
+    enable() {
+      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol2')
+      return formBuilderCol.find(item => item.name === 'enable').value
+    },
+    entity() {
+      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol2')
+      return formBuilderCol.find(item => item.name === 'entity').value
+    }
   },
-  created () {
-    this.bufferMarker = this.marker
+  created() {
     this.bufferPolyline = this.polyline
+    console.log(this.bufferPolyline)
   },
   methods: {
-    iconFilesChange (fileList) {
+    iconFilesChange(fileList) {
     },
-    getActiveMapItem () {
-      if (this.bufferMarker.editMode) {
-        return this.bufferMarker
+    setInput(data) {
+      this.toolBoxBufferMarker = this.bufferMarker.editMode ? this.bufferMarker : this.selectedMarker
+      this.markerInputs[0].value[0].value = data.tags
+      this.markerInputs[8].value = data.data.headline.text
+      if (typeof data.enable === 'number') {
+        this.markerInputs[1].value[0].value = data.enable
+      } else if (data.enable) {
+        this.markerInputs[1].value[0].value = 1
+      } else {
+        this.markerInputs[1].value[0].value = 0
+      }
+      this.markerInputs[1].value[1].value = new MapItemEntity(data.entity)
+      if (typeof data.action === 'string') {
+        this.markerInputs[3].value = new MapItemAction(JSON.parse(data.action))
+      } else {
+        this.markerInputs[3].value = new MapItemAction(data.action)
+      }
+      this.markerInputs[4].value.min = data.min_zoom
+      this.markerInputs[4].value.max = data.max_zoom
+      const iconUrl = data.data.icon.options.iconUrl
+      if (iconUrl === null) {
+        this.markerInputs[7].value = ''
+      } else if (typeof iconUrl === 'object') {
+        this.markerInputs[7].value = URL.createObjectURL(iconUrl) // returns Blob
+      } else {
+        this.markerInputs[7].value = iconUrl
+      }
+      this.markerInputs[9].value = data.data.headline.fontSize
+      this.markerInputs[11].value = data.data.headline.strokeWidth
+      this.markerInputs[12].value = data.data.headline.fillColor
+      this.markerInputs[13].value = data.data.headline.strokeColor
+      this.markerInputs[14].value = data.data.icon.options.iconSize[0]
+      this.markerInputs[15].value = data.data.icon.options.iconAnchor[0]
+      this.markerInputs[17].value = data.data.icon.options.iconAnchor[1]
+    },
+    getActiveMapItem() {
+      if (this.selectedMarker.editMode || this.bufferMarker.editMode) {
+        return this.toolBoxBufferMarker
       } else if (this.bufferPolyline.editMode) {
         return this.bufferPolyline
       } else {
         return false
       }
     },
-    updateItem () {
+    updateItem() {
       const activeMapItem = this.getActiveMapItem()
+      console.log(activeMapItem)
       if (!activeMapItem) {
         return
       }
-      activeMapItem.min_zoom = this.displayZoom.min_zoom
-      activeMapItem.max_zoom = this.displayZoom.max_zoom
       this.$emit(activeMapItem.type.name + '_change', activeMapItem)
     },
-    getInputsValue (inputName) {
+    getMarkerInputsValue(inputName) {
       return this.markerInputs.find(input => input.name === inputName).value
     },
-    addMarker () {
-      this.$emit('add_marker', this.marker)
-    },
-    saveMarker() {
-        this.$emit('save_marker', this.marker);
-        // this.clearData();
-    },
-
-    getInputValue (type, inputName) {
-      return this[type].find(input => input.name === inputName).value
-    },
-    getPolylineValue (inputName) {
+    getPolylineInputsValue(inputName) {
       return this.polylineInputs.find(input => input.name === inputName).value
     },
-    tabChanged (tabName) {
-      this.toolTab = tabName
+    addMarker() {
+      this.$emit('add_marker', this.defaultMarker)
+    },
+    addPolyLine() {
+      this.bufferPolyline.editMode = true
+      this.$emit('add-polyline', this.bufferPolyline)
+    },
+    saveMarker() {
+      this.$emit('save_marker', this.bufferMarker)
+      // this.clearData();
+    },
+
+    getInputValue(type, inputName) {
+      return this[type].find(input => input.name === inputName).value
+    },
+    getPolylineValue(inputName) {
+      return this.polylineInputs.find(input => input.name === inputName).value
+    },
+    tabChanged(tabName) {
+      console.log(tabName)
       this.$emit('tab_changed', tabName)
+    },
+    showMapInfo() {
+      this.$emit('show-map-info')
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
+/*.iconAnchorYClass{*/
+/*  transform: rotate(90deg);*/
+/*}*/
 </style>
 
 <style scoped lang="scss">
+
+
 .adminToolBox {
   width: 100%;
 
@@ -712,24 +898,12 @@ export default {
   .MarkerFormBuilderContainer {
     .addMarkerBtn {
       width: 100%;
-      background-color: green;
     }
 
     .markerToolBoxBtns {
       .btns {
         width: 100%;
-      }
-
-      .btns.btn-success {
-        background-color: green;
-      }
-
-      .btns.btn-info {
-        background-color: blue;
-      }
-
-      .btns.btn-danger {
-        background-color: red;
+        margin: 0 0 4px;
       }
     }
 
@@ -747,20 +921,8 @@ export default {
 
     .PolylineToolBoxBtns {
       .btns {
-        //border-radius: 0;
         width: 100%;
-      }
-
-      .btns.btn-success {
-        background-color: green;
-      }
-
-      .btns.btn-info {
-        background-color: blue;
-      }
-
-      .btns.btn-danger {
-        background-color: red;
+        margin: 0 0 4px;
       }
     }
 

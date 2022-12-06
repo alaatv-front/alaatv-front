@@ -1,8 +1,8 @@
 <template>
-  <div class="set-show-page">
-    <page-builder
-      :sections="sections"
-      :options="pageConfig"
+  <div class="userSet-page">
+    <q-page-builder
+      v-model:sections="sections"
+      v-model::options="pageConfig"
     />
   </div>
 </template>
