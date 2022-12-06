@@ -3,7 +3,7 @@ import { apiV1, apiV2, apiWeb } from "src/boot/axios";
 
 export default class StudyPlanAPI extends APIRepository {
   constructor() {
-    super(apiV2,'/plan')
+    super('studyPlan', apiV2, '/plan')
     this.APIAdresses = {
       plan: '/plan'
     }

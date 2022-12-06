@@ -4,18 +4,24 @@ import { BlockList } from "src/models/Block";
 
 export default class PagesAPI extends APIRepository {
   constructor() {
-    super(apiV2)
+    super('pages', apiV2)
     this.APIAdresses = {
       home: '/home',
       shop: '/shop'
     }
+    this.CacheList = {
+      home: this.name + this.APIAdresses.home,
+      shop: this.name + this.APIAdresses.shop,
+    }
   }
 
-  home(){
+  home(data={}){
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.home,
+      cacheKey: this.CacheList.orderProduct,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new BlockList(response.data.data)
       },
@@ -24,11 +30,13 @@ export default class PagesAPI extends APIRepository {
       }
     });
   }
-  shop(){
+  shop(data={}){
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.shop,
+      cacheKey: this.CacheList.orderProduct,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new BlockList(response.data.data)
       },

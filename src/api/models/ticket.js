@@ -3,7 +3,7 @@ import { apiV1, apiV2, apiWeb } from "src/boot/axios";
 
 export default class TicketAPI extends APIRepository {
   constructor() {
-    super(apiV2, '/ticket')
+    super('ticket', apiV2, '/ticket')
     this.APIAdresses = {
       base: '/ticket'
     }

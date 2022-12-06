@@ -3,7 +3,7 @@ import { apiV1, apiV2, apiWeb } from "src/boot/axios";
 
 export default class OrderAPI extends APIRepository {
   constructor() {
-    super(apiV2)
+    super('order',apiV2)
     this.APIAdresses = {
       create: '/reqres/api/users',
       edit: '/admin/order',
