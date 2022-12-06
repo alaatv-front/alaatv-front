@@ -29,7 +29,7 @@ export default {
                     widgets: [
                       {
                         name: 'BlockList',
-                        data: API_ADDRESS.pages.home,
+                        data: 'home',
                         options: {
                           to: 1
                         }
@@ -100,7 +100,7 @@ export default {
                       },
                       {
                         name: 'BlockList',
-                        data: API_ADDRESS.pages.home,
+                        data: 'home',
                         options: {
                           from: 1
                         }
