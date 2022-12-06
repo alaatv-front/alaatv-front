@@ -1,15 +1,18 @@
 <template>
-  <page-builder :sections="sections"/>
+  <div class="Shop-page">
+    <q-page-builder
+      v-model:sections="sections"
+      v-model::options="pageConfig"
+    />
+  </div>
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 import API_ADDRESS from 'src/api/Addresses'
 import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
 name: "Shop",
-  components: { PageBuilder },
   data () {
     return {
       sections: [

@@ -45,6 +45,12 @@ export default {
           label: 'لینک',
           name: 'link'
 
+        },
+        {
+          id: 2,
+          label: 'زوم',
+          name: 'zoom'
+
         }
       ],
       LinkStateOptions: [

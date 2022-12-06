@@ -1,20 +1,15 @@
 <template>
-  <div>
-    <page-builder
-      :sections="sections"
-      :options="options"
-    ></page-builder>
+  <div class="Profile-vue-page">
+    <q-page-builder
+      v-model:sections="sections"
+    />
   </div>
 </template>
 
 <script>
-import pageBuilder from 'components/PageBuilder/PageBuilder'
 import { Notify } from 'quasar'
 export default {
   name: 'Profile.vue',
-  components: {
-    pageBuilder
-  },
   data() {
     return {
       sections: [
@@ -26,7 +21,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'profile-menu'
+                        name: 'ProfileMenu'
                       }
                     ],
                     options: {
@@ -36,7 +31,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'profile-crud',
+                        name: 'ProfileCrud',
                         data: { test: 'test' },
                         options: { test: 'test' }
                       }

@@ -1,15 +1,15 @@
 <template>
-  <page-builder
-    :sections="sections"
-    :containerHeight="calculateHeightStyle"
-    :options="pageConfig" />
+  <div class="myPurchases-page">
+    <q-page-builder
+      v-model:sections="sections"
+      v-model::options="pageConfig"
+    />
+  </div>
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 export default {
   name: 'MyPurchases',
-  components: { PageBuilder },
   data () {
     return {
       pageConfig: {
@@ -41,10 +41,5 @@ export default {
       ]
     }
   },
-  computed: {
-    calculateHeightStyle () {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
-    }
-  }
 }
 </script>
