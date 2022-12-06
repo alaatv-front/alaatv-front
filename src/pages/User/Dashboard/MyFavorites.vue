@@ -1,15 +1,15 @@
 <template>
-  <page-builder
-    :sections="sections"
-    :containerHeight="calculateHeightStyle"
-    :options="pageConfig" />
+  <div class="myFavorites-page">
+    <q-page-builder
+      v-model:sections="sections"
+      v-model::options="pageConfig"
+    />
+  </div>
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 export default {
   name: 'MyFavorites',
-  components: { PageBuilder },
   data () {
     return {
       pageConfig: {

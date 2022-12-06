@@ -188,7 +188,7 @@ const routes = [
         component: () => import('pages/formGenerator')
       },
       {
-        path: 'profile',
+        path: '/profile',
         name: 'Profile',
         component: () => import('pages/Profile/Profile.vue'),
         meta: {

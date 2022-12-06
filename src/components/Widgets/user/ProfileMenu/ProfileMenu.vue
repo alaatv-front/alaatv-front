@@ -196,7 +196,7 @@
 </template>
 
 <script>
-import { axios } from 'src/boot/axios'
+import { axios } from 'boot/axios'
 import API_ADDRESS from 'src/api/Addresses'
 
 export default {

@@ -1,7 +1,7 @@
 <template>
   <entity-edit
-    v-model:value="inputs"
     ref="entityEdit"
+    v-model:value="inputs"
     :api="api"
     :entity-id-key="entityIdKey"
     :entity-param-key="entityParamKey"
@@ -345,6 +345,7 @@ export default {
     }
   },
   mounted() {
+    console.log('p')
     this.$store.commit('loading/loading', true)
     this.$refs.entityAction
       .getAxiosPromise('get', this.actionApi)

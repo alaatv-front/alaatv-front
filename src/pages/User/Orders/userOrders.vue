@@ -1,14 +1,14 @@
 <template>
-  <page-builder
-    :sections="sections"
-    :containerHeight="calculateHeightStyle" />
+  <div class="userOrders-page">
+    <q-page-builder
+      v-model:sections="sections"
+    />
+  </div>
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 export default {
   name: 'userOrders',
-  components: { PageBuilder },
   data () {
     return {
       sections: [
