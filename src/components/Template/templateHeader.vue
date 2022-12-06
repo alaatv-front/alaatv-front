@@ -341,7 +341,8 @@ export default {
       'updateLayoutLeftDrawerVisible'
     ]),
     togglePageBuilderEditable () {
-
+      const state = this.$store.getters['AppLayout/pageBuilderEditable']
+      this.$store.commit('AppLayout/updatePageBuilderEditable', !state)
     },
     setMyContentParamsValue() {
       this.profileTitlesList.forEach(item => {

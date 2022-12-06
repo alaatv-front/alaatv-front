@@ -1,13 +1,20 @@
 <template>
   <q-page-builder
     v-model:sections="sections"
-    v-model::options="pageConfig"
+    v-model:options="pageConfig"
+    :preview="true"
+    :editable="pageBuilderEditable"
   />
 </template>
 
 <script>
 export default {
   name: 'Show',
+  computed: {
+    pageBuilderEditable () {
+      return this.$store.getters['AppLayout/pageBuilderEditable']
+    }
+  },
   data () {
     return {
       pageConfig: {
