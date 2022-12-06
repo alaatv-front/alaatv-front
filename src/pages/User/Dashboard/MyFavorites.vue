@@ -1,10 +1,9 @@
 <template>
-  <div class="myFavorites-page">
-    <q-page-builder
-      v-model:sections="sections"
-      v-model::options="pageConfig"
-    />
-  </div>
+  <q-page-builder
+    v-model:sections="sections"
+    v-model::options="pageConfig"
+    :editable="pageBuilderEditable"
+  />
 </template>
 
 <script>
@@ -12,11 +11,7 @@ export default {
   name: 'MyFavorites',
   data () {
     return {
-      pageConfig: {
-        padding: {
-          a: 'lg'
-        }
-      },
+      pageConfig: {},
       sections: [
         {
           data: {
@@ -42,6 +37,9 @@ export default {
     }
   },
   computed: {
+    pageBuilderEditable() {
+      return this.$store.getters["AppLayout/pageBuilderEditable"];
+    },
     calculateHeightStyle () {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }

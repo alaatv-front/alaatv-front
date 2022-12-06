@@ -1,22 +1,22 @@
 <template>
-  <div class="myPurchases-page">
-    <q-page-builder
-      v-model:sections="sections"
-      v-model::options="pageConfig"
-    />
-  </div>
+  <q-page-builder
+    v-model:sections="sections"
+    v-model::options="pageConfig"
+    :editable="pageBuilderEditable"
+  />
 </template>
 
 <script>
 export default {
   name: 'MyPurchases',
+  computed: {
+    pageBuilderEditable() {
+      return this.$store.getters["AppLayout/pageBuilderEditable"];
+    }
+  },
   data () {
     return {
-      pageConfig: {
-        padding: {
-          // a: 'md'
-        }
-      },
+      pageConfig: {},
       sections: [
         {
           data: {

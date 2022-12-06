@@ -11,7 +11,7 @@ import API_ADDRESS from "src/api/Addresses";
 import GetWidgetsData from "assets/js/GetWidgetsData";
 
 export default {
-  name: "Shop",
+  name: 'Shop',
   computed: {
     pageBuilderEditable() {
       return this.$store.getters["AppLayout/pageBuilderEditable"];
