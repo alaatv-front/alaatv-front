@@ -15,10 +15,15 @@ export default {
     const cart = API_Gateway.cart
     const thisUser = API_Gateway.user
     const product = API_Gateway.product
-    cart.review().then(res => {
+    thisUser.get({
+      id: '219548',
+      cache: {
+        TTL: 10000
+      }
+    }).then(res => {
       console.log(res);
     })
-    thisUser.get('219548').then(res => {
+    cart.review().then(res => {
       console.log(res);
     })
     return {

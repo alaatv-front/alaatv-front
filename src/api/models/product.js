@@ -4,13 +4,13 @@ import { Product } from "src/models/Product";
 
 export default class ProductAPI extends APIRepository {
   constructor() {
-    super(apiV2)
+    super('product', apiV2)
     this.APIAdresses = {
       base: '/product',
       create: '/reqres/api/users',
       edit: '/admin/product',
       index: '/admin/product',
-      show: '/product'
+      show:(id) => '/product/' + id
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */

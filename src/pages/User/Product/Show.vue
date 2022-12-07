@@ -2,7 +2,6 @@
   <q-page-builder
     v-model:sections="sections"
     v-model:options="pageConfig"
-    :preview="true"
     :editable="pageBuilderEditable"
   />
 </template>
@@ -17,11 +16,7 @@ export default {
   },
   data () {
     return {
-      pageConfig: {
-        padding: {
-          a: 'md'
-        }
-      },
+      pageConfig: {},
       sections: [
         {
           data: {

@@ -4,20 +4,26 @@ import { Content } from "src/models/Content";
 
 export default class ContentAPI extends APIRepository {
   constructor() {
-    super(apiV2)
+    super('content', apiV2)
     this.APIAdresses = {
       admin: '/c/',
       show: (id) => '/c/' + id,
       search: '/search'
     }
-
+    this.CacheList = {
+      admin: this.name + this.APIAdresses.admin,
+      show: id => this.name + this.APIAdresses.show(id),
+      search: this.name + this.APIAdresses.search,
+    }
   }
 
-  show() {
+  show(data) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.search,
+      cacheKey: this.CacheList.orderProduct,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new Content(response.data.data)
       },
@@ -26,11 +32,13 @@ export default class ContentAPI extends APIRepository {
       }
     });
   }
-  search(){
+  search(data={}){
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.search,
+      cacheKey: this.CacheList.orderProduct,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {
           sets: response.data.data.sets,

@@ -1,9 +1,9 @@
 <template>
-  <div class="Profile-vue-page">
-    <q-page-builder
-      v-model:sections="sections"
-    />
-  </div>
+  <q-page-builder
+    v-model:sections="sections"
+    v-model::options="pageConfig"
+    :editable="pageBuilderEditable"
+  />
 </template>
 
 <script>
@@ -12,6 +12,7 @@ export default {
   name: 'Profile.vue',
   data() {
     return {
+      pageConfig: {},
       sections: [
         {
           data: {
@@ -64,13 +65,13 @@ export default {
       })
     }
   },
-  methods: {},
   computed: {
+    pageBuilderEditable() {
+      return this.$store.getters["AppLayout/pageBuilderEditable"];
+    },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   }
 }
 </script>
-
-<style scoped></style>
