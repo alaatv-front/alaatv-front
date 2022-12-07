@@ -1,13 +1,13 @@
 <template>
   <q-page-builder
     v-model:sections="sections"
-    v-model::options="pageConfig"
+    v-model:options="pageConfig"
   />
 </template>
 
 <script>
 export default {
-  name: 'ShowTicket',
+  name: 'TicketList',
   data() {
     return {
       pageConfig: {},
@@ -20,14 +20,13 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'Show'
+                        name: 'List'
                       }
                     ]
                   }
                 ],
                 options: {
-                  boxed: true,
-                  boxedWidth: 1362
+                  boxed: false
                 }
               }
             ]
