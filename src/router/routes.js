@@ -50,7 +50,7 @@ const routes = [
       {
         path: 'ticket',
         name: 'Admin.Ticket.Index',
-        component: () => import('pages/Admin/Ticket/Index.vue')
+        component: () => import('pages/Admin/Ticket/List.vue')
       },
       {
         path: 'ticket/:id',
