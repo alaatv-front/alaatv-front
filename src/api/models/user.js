@@ -6,7 +6,7 @@ import { CartItemList } from 'src/models/CartItem';
 
 export default class UserAPI extends APIRepository {
   constructor() {
-    super(apiV2,'/user', new User())
+    super('user',apiV2,'/user', new User())
     this.APIAdresses = {
       base: '/user',
       mobileResend: '/mobile/resend',
@@ -18,6 +18,17 @@ export default class UserAPI extends APIRepository {
       showUser: '/getUserFor3a',
       eventResult: '/eventresult'
     }
+    this.CacheList = {
+      base: this.name + this.APIAdresses.base,
+      mobileResend: this.name + this.APIAdresses.base,
+      mobileVerify: this.name + this.APIAdresses.base,
+      ordersById: (id) => this.name + this.APIAdresses.ordersById(id),
+      getOrders: this.name + this.APIAdresses.base,
+      orderStatus: this.name + this.APIAdresses.base,
+      formData: this.name + this.APIAdresses.base,
+      showUser: this.name + this.APIAdresses.base,
+      eventResult: this.name + this.APIAdresses.base
+    }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
     this.setCrudCallbacks({
@@ -27,11 +38,13 @@ export default class UserAPI extends APIRepository {
       delete: (response) => { return new User(response.data.data)}
     })
   }
-  mobileResend(data) {
+  mobileResend(data={}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.mobileResend,
+      cacheKey: this.CacheList.mobileResend,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {
           code: response
@@ -47,6 +60,8 @@ export default class UserAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.mobileVerify,
+      cacheKey: this.CacheList.mobileVerify,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {
           status: response
@@ -60,11 +75,13 @@ export default class UserAPI extends APIRepository {
       },data)
     });
   }
-  ordersById(userId) {
+  ordersById(data={}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.ordersById(userId),
+      request: this.APIAdresses.ordersById(data.userId),
+      cacheKey: this.CacheList.ordersById(data.userId),
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {
           cartItemList: new CartItemList(response.data.data)
@@ -75,11 +92,13 @@ export default class UserAPI extends APIRepository {
       }
     });
   }
-  getOrders() {
+  getOrders(data={}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.getOrders,
+      cacheKey: this.CacheList.getOrders,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return response
       },
@@ -88,11 +107,13 @@ export default class UserAPI extends APIRepository {
       }
     });
   }
-  orderStatus() {
+  orderStatus(data={}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.orderStatus,
+      cacheKey: this.CacheList.orderStatus,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return response
       },
@@ -101,11 +122,13 @@ export default class UserAPI extends APIRepository {
       }
     });
   }
-  formData() {
+  formData(data={}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.formData,
+      cacheKey: this.CacheList.formData,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {
           genders: response.data.data.genders,
@@ -120,11 +143,13 @@ export default class UserAPI extends APIRepository {
       }
     });
   }
-  showUser() {
+  showUser(data={}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.showUser,
+      cacheKey: this.CacheList.showUser,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return response
       },
@@ -133,11 +158,13 @@ export default class UserAPI extends APIRepository {
       }
     });
   }
-  eventResult() {
+  eventResult(data={}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.eventResult,
+      cacheKey: this.CacheList.eventResult,
+      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return response
       },

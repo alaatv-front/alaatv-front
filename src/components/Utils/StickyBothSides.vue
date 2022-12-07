@@ -43,6 +43,7 @@ export default {
     }
   },
   mounted() {
+    console.log(typeof this.bottomGap)
     this.windowWidth = window.innerWidth
     if (this.windowWidth < this.maxWidth) {
       this.disableSticky = true
@@ -85,7 +86,7 @@ export default {
       return window.scrollY
     },
     stickyElementToTop(stickyElementTop) {
-      if (this.stickyElement.offsetHeight <= window.innerHeight) {
+      if (this.stickyElement.offsetHeight + this.topGap <= window.innerHeight) {
         if (this.getScrollY() <= this.start) {
           this.stickyElement.style.position = 'static'
         }
@@ -99,13 +100,14 @@ export default {
       }
     },
     stickyElementToBottom(stickyElementTop) {
-      if (this.stickyElement.offsetHeight <= window.innerHeight) {
+      if (this.stickyElement.offsetHeight + this.topGap <= window.innerHeight) {
         if (this.getScrollY() >= this.start) {
           this.stickyElement.style.position = 'fixed'
           this.stickyElement.style.top = this.topGap + 'px'
           this.stickyElement.style.width = this.stickyElementWidth + 'px'
         }
       } else {
+        console.log(this.stickyElement.getBoundingClientRect().bottom + this.bottomGap)
         if (this.stickyElement.getBoundingClientRect().bottom + this.bottomGap <= window.innerHeight) {
           this.stickyElement.style.position = 'fixed'
           this.stickyElement.style.top = window.innerHeight - this.bottomGap - this.stickyElement.offsetHeight + 'px'

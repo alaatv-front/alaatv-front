@@ -1,17 +1,25 @@
 <template>
-  <page-builder :sections="sections"/>
+  <q-page-builder
+    v-model:sections="sections"
+    v-model::options="pageConfig"
+    :editable="pageBuilderEditable"
+  />
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
-import API_ADDRESS from 'src/api/Addresses'
-import GetWidgetsData from 'assets/js/GetWidgetsData'
+import API_ADDRESS from "src/api/Addresses";
+import GetWidgetsData from "assets/js/GetWidgetsData";
 
 export default {
-name: "Shop",
-  components: { PageBuilder },
-  data () {
+  name: 'Shop',
+  computed: {
+    pageBuilderEditable() {
+      return this.$store.getters["AppLayout/pageBuilderEditable"];
+    }
+  },
+  data() {
     return {
+      pageConfig: {},
       sections: [
         {
           data: {
@@ -21,7 +29,7 @@ name: "Shop",
                   {
                     widgets: [
                       {
-                        name: 'blockList',
+                        name: "blockList",
                         data: API_ADDRESS.pages.shop,
                         options: {
                           getData: (url) => GetWidgetsData.getData(url)
@@ -34,16 +42,11 @@ name: "Shop",
                   boxed: true
                 }
               }
-            ],
+            ]
           }
         }
-      ],
-    }
-  },
-  methods: {}
-}
+      ]
+    };
+  }
+};
 </script>
-
-<style scoped>
-
-</style>

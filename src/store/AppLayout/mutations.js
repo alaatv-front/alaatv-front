@@ -3,6 +3,10 @@ export function updateLinearLoading (state, newInfo) {
   state.linearLoading = !!newInfo
 }
 
+export function updatePageBuilderEditable (state, newInfo) {
+  state.pageBuilderEditable = !!newInfo
+}
+
 export function updateWindowSize (state, newInfo) {
   state.windowSize.x = newInfo.width
   state.windowSize.y = newInfo.height
@@ -54,5 +58,5 @@ export function updateHeaderSize (state, data) {
 export function updateAppLayout (state, data) {
   const storage = JSON.parse(localStorage.getItem('vuex'))
   Object.assign(storage.AppLayout, data)
-  Object.assign(state.appLayout, storage.AppLayout)
+  Object.assign(state, storage.AppLayout)
 }

@@ -2,7 +2,8 @@
 requests to a RESTful API */
 import APIInstanceWrapper from './APIInstanceWrapper'
 export default class APIRepository {
-  constructor(api, urlAddress, model) {
+  constructor(name, api, urlAddress, model) {
+    this.name = name
     this.api = api
     this.url = urlAddress
     this.model = model
@@ -15,11 +16,13 @@ export default class APIRepository {
    * @returns A promise that will resolve or reject based on the response from the API call.
    */
   sendRequest (requestData) {
-    const {apiMethod, api, request, resolveCallback, rejectCallback, data, params} = requestData
+    const {apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params} = requestData
     return new Promise((resolve, reject)=>{
       APIInstanceWrapper[apiMethod]({
         api,
         request,
+        cacheKey,
+        cache,
         params,
         data
       })
@@ -60,11 +63,13 @@ export default class APIRepository {
    * @param entityId - The id of the entity you want to get.
    * @returns The response from the server.
    */
-  get(entityId) {
+  get(entityData) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.restUrl(entityId),
+      request: this.restUrl(entityData.id),
+      cacheKey: this.name + '-get',
+      cache: entityData.cache,
       resolveCallback: (response) => {
         return this.getResolveCallback(response)
       },
@@ -83,13 +88,15 @@ export default class APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.baseUrl,
+      cacheKey: this.name + '-post',
+      cache: entityData.cache,
       resolveCallback: (response) => {
         return this.postResolveCallback(response)
       },
       rejectCallback: (error) => {
         return error
       },
-      data: new User(entityData)
+      data: new this.model(entityData.data)
     })
   }
   /**
@@ -102,13 +109,14 @@ export default class APIRepository {
       apiMethod: 'put',
       api: this.api,
       request: this.restUrl(entityData.id),
+      cacheKey: this.name + '-put',
       resolveCallback: (response) => {
         return this.putResolveCallback(response)
       },
       rejectCallback: (error) => {
         return error
       },
-      data: new User(entityData)
+      data: new this.model(entityData)
     })
   }
  /**
@@ -121,6 +129,7 @@ export default class APIRepository {
       apiMethod: 'delete',
       api: this.api,
       request: this.restUrl(entityId),
+      cacheKey: this.name + '-delete',
       resolveCallback: (response) => {
         return this.deleteResolveCallback(response)
       },

@@ -1,21 +1,20 @@
 <template>
   <div class="checkoutReview-page">
-    <page-builder
-      :sections="sections"
-      :options="pageConfig"
+    <q-page-builder
+      v-model:sections="sections"
+      v-model::options="pageConfig"
     />
   </div>
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
 export default {
   name: 'CheckoutReview',
-  components: { PageBuilder },
   data () {
     return {
+      editable: false,
       pageConfig: {
         padding: {
           a: 'md'
@@ -68,7 +67,7 @@ export default {
         }
       ]
     }
-  }
+  },
 }
 </script>
 
