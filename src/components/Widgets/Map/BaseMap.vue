@@ -262,7 +262,7 @@ import adminToolBox from 'components/Widgets/Map/AdminToolBox'
 import MapFilters from './components/MapFilters'
 import mapInfo from './components/mapInfo'
 import EditablePolyline from 'vue-leaflet-editable-polyline'
-import { copyText } from 'vue3-clipboard'
+// import { copyText } from 'vue3-clipboard'
 import { MapItemAction } from 'src/models/MapItemAction'
 import API_ADDRESS from 'src/api/Addresses'
 import MapItemsResponse from './MapItemsResponse'
@@ -626,15 +626,16 @@ export default {
     copyToClipboard() {
       const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
       console.log(shareLink)
-      copyText('Text to copy', shareLink, (error, event) => {
-        if (error) {
-          this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
-          console.log(error)
-        } else {
-          this.showMessagesInNotify('لینک این قسمت از نقشه کپی شد.', 'positive')
-          console.log(event)
-        }
-      })
+      // ToDo: use quasar clipboard
+      // copyText('Text to copy', shareLink, (error, event) => {
+      //   if (error) {
+      //     this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
+      //     console.log(error)
+      //   } else {
+      //     this.showMessagesInNotify('لینک این قسمت از نقشه کپی شد.', 'positive')
+      //     console.log(event)
+      //   }
+      // })
     },
 
     initMap() {
