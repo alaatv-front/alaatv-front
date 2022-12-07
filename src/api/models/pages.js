@@ -20,7 +20,7 @@ export default class PagesAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.home,
-      cacheKey: this.CacheList.orderProduct,
+      cacheKey: this.CacheList.home,
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new BlockList(response.data.data)
@@ -35,7 +35,7 @@ export default class PagesAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.shop,
-      cacheKey: this.CacheList.orderProduct,
+      cacheKey: this.CacheList.shop,
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new BlockList(response.data.data)
