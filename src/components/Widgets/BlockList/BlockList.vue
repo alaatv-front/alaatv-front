@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import { mixinWidget } from "src/mixin/Mixins";
-import Block from "components/Widgets/Block/Block";
-import { BlockList } from "src/models/Block";
-import GetWidgetsData from "src/assets/js/GetWidgetsData.js";
+import { mixinWidget } from 'src/mixin/Mixins'
+import Block from 'components/Widgets/Block/Block'
+import { BlockList } from 'src/models/Block'
+import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
 export default {
-  name: "BlockList",
+  name: 'BlockList',
   components: { Block },
   mixins: [mixinWidget],
   props: {
@@ -31,52 +31,52 @@ export default {
   data() {
     return {
       blocks: {}
-    };
+    }
   },
   created() {
-    this.loadBlocks();
+    this.loadBlocks()
   },
 
   computed: {
     blocksToShow() {
-      return this.getBlocks(this.blocks);
+      return this.getBlocks(this.blocks)
     }
   },
 
   watch: {
     blocks() {
       this.blocks.list.forEach((block, index) => {
-        block.headerCustomClass = `banner-header-${index}` + " ";
-      });
+        block.headerCustomClass = `banner-header-${index}` + ' '
+      })
     }
   },
 
   methods: {
     loadBlocks() {
-      this.getBlocksByRequest();
+      this.getBlocksByRequest()
     },
 
     getBlocksByRequest(url) {
-      this.blocks.loading = true;
-      let promise = null;
+      this.blocks.loading = true
+      let promise = null
       promise = this.getApiRequest()
       promise
         .then((response) => {
-          this.blocks = response;
+          this.blocks = response
 
-          this.blocks.loading = false;
+          this.blocks.loading = false
         })
         .catch((error) => {
-          console.log(error);
-          this.blocks.loading = false;
-        });
+          console.log(error)
+          this.blocks.loading = false
+        })
     },
 
     getBlocks(blocks) {
       if (!blocks || !blocks.list || blocks.list.length === 0) {
-        return;
+        return
       }
-      return blocks.list.slice(this.options.from, this.options.to);
+      return blocks.list.slice(this.options.from, this.options.to)
     },
 
     getApiRequest() {
@@ -87,12 +87,12 @@ export default {
           }
         })
       }
-      if(this.options.apiName === 'shop') {
+      if (this.options.apiName === 'shop') {
         return this.$api_gateway.pages.shop()
       }
     }
   }
-};
+}
 </script>
 
 <style
