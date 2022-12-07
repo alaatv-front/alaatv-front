@@ -1,101 +1,88 @@
 <template>
   <div class="block-section">
-    <div
-      v-if="isThereData"
-      class="block-header row q-pa-md q-mb-sm"
-      :class="data.headerCustomClass"
+    <div v-if="isThereData"
+         class="block-header row q-pa-md q-mb-sm"
+         :class="data.headerCustomClass"
     >
-      <div class="row items-center block-title">
-        <a
-          :href="data?.url?.web"
-          class="title-box"
-        >
-          {{ data.title }}
-        </a>
-      </div>
-      <q-btn
-        v-if="!data.banners || data.banners.list.length === 0"
-        round
-        color="primary"
-        :icon="isGridView ? 'sync_alt' : 'grid_view'"
-        @click="isGridView = !isGridView"
+      <a :href="data?.url?.web"
+         class="block-title"
       >
-      </q-btn>
+        {{ data.title }}
+      </a>
+      <q-btn v-if="!data.banners || data.banners.list.length === 0"
+             round
+             color="primary"
+             :icon="isGridView ? 'sync_alt' : 'grid_view'"
+             @click="isGridView = !isGridView"
+      />
     </div>
     <div class="block-container">
-      <slider
-        v-if="data.banners && data.banners.list.length > 0"
-        :data="bannerSlides"
+      <slider v-if="data.banners && data.banners.list.length > 0"
+              :data="bannerSlides"
       />
-      <div
-        v-if="data.products.list.length > 0"
-        class="item-container"
-        :class="isGridView ? 'row' : 'scroll-view'"
-        v-dragscroll
+      <div v-if="data.products.list.length > 0"
+           v-dragscroll
+           class="item-container"
+           :class="isGridView ? 'row' : 'scroll-view'"
       >
-        <div
-          v-for="product in this.data.products.list"
-          :class="{
-            'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
-          }"
-          class="product-spacing"
-          :key="product.id"
+        <div v-for="product in this.data.products.list"
+             :key="product.id"
+             :class="{
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+             }"
+             class="product-spacing"
         >
-          <Product-item :data="product" />
+          <product-item :data="product" />
         </div>
         <div class="block-item-box">
-          <a
-            :href="data?.url?.web"
-            class="show-more-title"
-          >نمایش بیشتر
+          <a :href="data?.url?.web"
+             class="show-more-title"
+          >
+            نمایش بیشتر
           </a>
         </div>
       </div>
-      <div
-        v-if="data.sets.list.length > 0"
-        class="item-container"
-        :class="isGridView ? 'row' : 'scroll-view'"
-        v-dragscroll
+      <div v-if="data.sets.list.length > 0"
+           v-dragscroll
+           class="item-container"
+           :class="isGridView ? 'row' : 'scroll-view'"
       >
-        <div
-          v-for="set in this.data.sets.list"
-          :class="{
-            'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
-          }"
-          class="set-spacing"
-          :key="set.id"
+        <div v-for="set in this.data.sets.list"
+             :key="set.id"
+             :class="{
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+             }"
+             class="set-spacing"
         >
           <set-item :data="set" />
         </div>
         <div class="block-item-box">
-          <a
-            :href="data?.url?.web"
-            class="show-more-title"
-          >نمایش بیشتر
+          <a :href="data?.url?.web"
+             class="show-more-title"
+          >
+            نمایش بیشتر
           </a>
         </div>
       </div>
-      <div
-        v-if="data.contents.list.length > 0"
-        class="item-container"
-        :class="isGridView ? 'row' : 'scroll-view'"
-        v-dragscroll
+      <div v-if="data.contents.list.length > 0"
+           v-dragscroll
+           class="item-container"
+           :class="isGridView ? 'row' : 'scroll-view'"
       >
-        <div
-          v-for="content in this.data.contents.list"
-          :class="{
-            'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
-          }"
-          class="content-spacing"
-          :key="content.id"
+        <div v-for="content in this.data.contents.list"
+             :key="content.id"
+             :class="{
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+             }"
+             class="content-spacing"
         >
           <content-item :data="content" />
         </div>
         <div class="block-item-box">
-          <a
-            :href="data?.url?.web"
-            class="show-more-title"
-          >نمایش بیشتر
+          <a :href="data?.url?.web"
+             class="show-more-title"
+          >
+            نمایش بیشتر
           </a>
         </div>
       </div>
@@ -147,7 +134,7 @@ export default {
         element.photo = {
           src: element.photo
         }
-      });
+      })
       return this.data.banners
     }
   },
@@ -156,10 +143,7 @@ export default {
 }
 </script>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
 .product-spacing {
   margin-right: 30px;
 }
@@ -177,22 +161,20 @@ export default {
     justify-content: space-between;
 
     .block-title {
-      .title-box {
-        text-decoration: none;
-        cursor: pointer;
-        margin: 0;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 31px;
-        color: #333333;
-        padding: 0 0 4px 0;
-        border-bottom: 1px solid white;
-        transition: 0.3s ease;
-        &:hover {
-          padding: 0 0 6px 0;
-          border-color: #333333;
-        }
+      text-decoration: none;
+      cursor: pointer;
+      margin: 0;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 31px;
+      color: #333333;
+      padding: 0 0 4px 0;
+      border-bottom: 1px solid white;
+      transition: 0.3s ease;
+      &:hover {
+        padding: 0 0 6px 0;
+        border-color: #333333;
       }
     }
   }
