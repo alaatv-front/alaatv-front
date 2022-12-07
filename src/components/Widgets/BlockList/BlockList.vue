@@ -23,15 +23,10 @@ export default {
   components: { Block },
   mixins: [mixinWidget],
   props: {
-    getData: {
-      type: Function,
-      default: () => {
-      }
+    options: {
+      type: Object,
+      default: () => {}
     }
-    // options: {
-    //   type: Object,
-    //   default: () => {}
-    // }
   },
   data() {
     return {
@@ -58,21 +53,16 @@ export default {
 
   methods: {
     loadBlocks() {
-      if (typeof this.data === "object") {
-        this.blocks = new BlockList(this.data);
-      } else if (typeof this.data === "string") {
-        const url = this.data;
-        this.getBlocksByRequest(url);
-      }
+      this.getBlocksByRequest();
     },
 
     getBlocksByRequest(url) {
       this.blocks.loading = true;
       let promise = null;
-      promise = GetWidgetsData.getData(url);
+      promise = this.getApiRequest()
       promise
         .then((response) => {
-          this.blocks = new BlockList(response.data.data);
+          this.blocks = response;
 
           this.blocks.loading = false;
         })
@@ -87,6 +77,19 @@ export default {
         return;
       }
       return blocks.list.slice(this.options.from, this.options.to);
+    },
+
+    getApiRequest() {
+      if (this.options.apiName === 'home') {
+        return this.$api_gateway.pages.home({
+          cache: {
+            TTL: 100000
+          }
+        })
+      }
+      if(this.options.apiName === 'shop') {
+        return this.$api_gateway.pages.shop()
+      }
     }
   }
 };

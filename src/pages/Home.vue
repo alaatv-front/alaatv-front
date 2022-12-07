@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import { API_Gateway } from 'src/api/APIGateway';
-
 export default {
   name: 'BaseComponent',
   computed: {
@@ -31,7 +29,8 @@ export default {
                         name: 'BlockList',
                         data: 'home',
                         options: {
-                          to: 1
+                          to: 1,
+                          apiName: 'home'
                         }
                       },
                       {
@@ -102,7 +101,8 @@ export default {
                         name: 'BlockList',
                         data: 'home',
                         options: {
-                          from: 1
+                          from: 1,
+                          apiName: 'home'
                         }
                       }
                     ]
