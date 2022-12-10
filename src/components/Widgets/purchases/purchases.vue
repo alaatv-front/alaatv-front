@@ -122,7 +122,6 @@
 <script>
 import FilterBox from 'src/components/userPurchases/filterBox'
 import PurchaseItem from 'src/components/userPurchases/PurchaseItem'
-import contentItem from 'src/components/userPurchases/contentItem'
 import showContents from 'src/components/userPurchases/showContents'
 import { Product, ProductList } from 'src/models/Product'
 import { Set } from 'src/models/Set'
@@ -134,7 +133,6 @@ export default {
   components: {
     FilterBox,
     PurchaseItem,
-    contentItem,
     showContents
   },
   watch: {

@@ -324,7 +324,7 @@ export default {
     getProduct (productId) {
       this.product.loading = true
       APIGateway.product.get(productId)
-        .then(product=>{
+        .then(product => {
           this.product = product
           this.product.loading = false
           this.setInformation()

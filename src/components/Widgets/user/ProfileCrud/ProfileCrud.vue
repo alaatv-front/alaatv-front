@@ -407,9 +407,6 @@ export default {
           // TODO: Since  eventresult has not been implemented,
           // completing this part will be done after getting this from BackEnd
         })
-        .catch((e) => {
-          console.log(e)
-        })
     },
     onActionSuccess() {
       this.$store.commit('loading/loading', false)
