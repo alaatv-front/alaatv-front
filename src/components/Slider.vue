@@ -1,8 +1,15 @@
 <template>
-  <div class="container" dir="rtl">
+  <div class="container"
+       dir="rtl">
 
-    <div class="slider-ui color2" dir="ltr">
-      <input type="range" value="0" min="0" max="200" data-labels="0,10,20,35,50,80,100,150,200" data-positions="0,5,10,17.5,25,40,50,75,100">
+    <div class="slider-ui color2"
+         dir="ltr">
+      <input type="range"
+             value="0"
+             min="0"
+             max="200"
+             data-labels="0,10,20,35,50,80,100,150,200"
+             data-positions="0,5,10,17.5,25,40,50,75,100">
       <ul class="slider-labels"></ul>
       <div class="bar">
         <span class="min"></span>
@@ -13,7 +20,7 @@
       </div>
     </div>
 
-<!--    <div id="slider-container" style="&#45;&#45;value:0.51;"><input type="range" id="slider" min="0" max="100" step="1"><div id="value">51</div><div id="slider-track"></div></div>-->
+    <!--    <div id="slider-container" style="&#45;&#45;value:0.51;"><input type="range" id="slider" min="0" max="100" step="1"><div id="value">51</div><div id="slider-track"></div></div>-->
 
   </div>
 
@@ -48,26 +55,26 @@ export default {
         valueElem.style.left = percent + '%'
       }
 
-      function setSliderOnStep () {
-        if (input.value < 10) {
-          input.value = 0
-        } else if (input.value > 10 && input.value < 20) {
-          input.value = 20
-        } else if (input.value > 20 && input.value < 35) {
-          input.value = 35
-        } else if (input.value > 35 && input.value < 50) {
-          input.value = 50
-        } else if (input.value > 50 && input.value < 80) {
-          input.value = 80
-        } else if (input.value > 80 && input.value < 100) {
-          input.value = 100
-        } else if (input.value > 100 && input.value < 150) {
-          input.value = 150
-        } else if (input.value > 150 && input.value < 200) {
-          input.value = 200
-        }
-        setValueElem()
-      }
+      // function setSliderOnStep () {
+      //   if (input.value < 10) {
+      //     input.value = 0
+      //   } else if (input.value > 10 && input.value < 20) {
+      //     input.value = 20
+      //   } else if (input.value > 20 && input.value < 35) {
+      //     input.value = 35
+      //   } else if (input.value > 35 && input.value < 50) {
+      //     input.value = 50
+      //   } else if (input.value > 50 && input.value < 80) {
+      //     input.value = 80
+      //   } else if (input.value > 80 && input.value < 100) {
+      //     input.value = 100
+      //   } else if (input.value > 100 && input.value < 150) {
+      //     input.value = 150
+      //   } else if (input.value > 150 && input.value < 200) {
+      //     input.value = 200
+      //   }
+      //   setValueElem()
+      // }
       setValueElem()
 
       input.addEventListener('input', setValueElem)

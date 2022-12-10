@@ -22,5 +22,5 @@ export const APIGateway = {
   product: new ProductAPI(),
   studyPlan: new StudyPlanAPI(),
   ticket: new TicketAPI(),
-  user: new UserAPI(),
+  user: new UserAPI()
 }

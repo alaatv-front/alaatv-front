@@ -13,10 +13,11 @@
               v-model="file"
               :model-value="file"
               label="Label"
-              @update:model-value="updateFile()"
               class="hidden"
+              @update:model-value="updateFile()"
             ></q-file>
             <q-btn
+              v-if="!controls"
               icon="isax:camera"
               size="xs"
               color="white"
@@ -24,7 +25,6 @@
               round
               class="photo-edit"
               @click="updatePhoto"
-              v-if="!controls"
             />
             <div
               v-if="controls"
@@ -88,8 +88,8 @@
             }"
           >
             <q-item
-              clickable
               v-ripple
+              clickable
             >
               <q-item-section class="menu-item-custom">
                 <div class="play-btn"></div>
@@ -99,8 +99,8 @@
           </router-link>
 
           <q-item
-            clickable
             v-ripple
+            clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="note"></div>
@@ -108,8 +108,8 @@
             </q-item-section>
           </q-item>
           <q-item
-            clickable
             v-ripple
+            clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="empty-wallet"></div>
@@ -125,8 +125,8 @@
             }"
           >
             <q-item
-              clickable
               v-ripple
+              clickable
             >
               <q-item-section class="menu-item-custom">
                 <div class="bookmark"></div>
@@ -136,8 +136,8 @@
           </router-link>
 
           <q-item
-            clickable
             v-ripple
+            clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="leightner"></div>
@@ -145,8 +145,8 @@
             </q-item-section>
           </q-item>
           <q-item
-            clickable
             v-ripple
+            clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="channels"></div>
@@ -154,8 +154,8 @@
             </q-item-section>
           </q-item>
           <q-item
-            clickable
             v-ripple
+            clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="messages"></div>
@@ -170,8 +170,8 @@
             }"
           >
             <q-item
-              clickable
               v-ripple
+              clickable
             >
               <q-item-section class="menu-item-custom">
                 <div class="ticket"></div>
@@ -180,8 +180,8 @@
             </q-item>
           </router-link>
           <q-item
-            clickable
             v-ripple
+            clickable
             @click="logout"
           >
             <q-item-section class="menu-item-custom">

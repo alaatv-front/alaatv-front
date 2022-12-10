@@ -32,9 +32,9 @@
                  height="30px"></q-img>
         </div>
         <div class="col-10">
-          <q-input class="search-box"
+          <q-input v-model="text"
+                   class="search-box"
                    dense
-                   v-model="text"
                    rounded
                    outlined>
             <template v-slot:append>

@@ -8,10 +8,10 @@
             پست تلگرام
           </div>
           <q-separator />
-          <q-input class="text-area"
+          <q-input v-model="mainTemp"
+                   class="text-area"
                    filled
                    autogrow
-                   v-model="mainTemp"
           />
         </q-card-section>
       </q-card>

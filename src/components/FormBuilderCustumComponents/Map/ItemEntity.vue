@@ -2,11 +2,11 @@
   <q-option-group
     v-model="inputData.entity_type"
     :options="entityOptions"
-    @update:model-value="onChangeLineType"
     color="primary"
     type="radio"
     dense
     inline
+    @update:model-value="onChangeLineType"
   />
   <div
     v-if="inputData.entity_type !== 'nothing' && inputData.entity_type"
@@ -72,7 +72,6 @@ export default {
       const name = this.entityOptions.find(item => item.entity_type === this.inputData.entity_type).display_name
       const id = this.entityOptions.find(item => item.entity_type === this.inputData.entity_type).entity_id
       const data = { entity_id: id, entity_type: this.inputData.entity_type, display_name: name, altNames: [] }
-      console.log(data)
       this.change(data)
       // this.setLineFlow()
     }

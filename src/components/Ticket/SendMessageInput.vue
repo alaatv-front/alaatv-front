@@ -280,8 +280,6 @@ const longpress = {
       if (compName) {
         warn += `Found in component '${compName}' `
       }
-
-      console.warn(warn)
     }
 
     // Define variable
@@ -604,7 +602,7 @@ export default {
       }
 
       const onError = function (err) {
-        console.log(err.name + ': ' + err.message)
+        console.error(err.name + ': ' + err.message)
         document.write('مرورگر شما اجازه دسترسی به میکروفون را ندارد')
       }
 

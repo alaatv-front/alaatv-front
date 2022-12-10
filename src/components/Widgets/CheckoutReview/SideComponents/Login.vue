@@ -109,7 +109,6 @@ export default {
           })
         })
         .catch(err => {
-          console.log('in auth :', err)
           this.handleErr(err.response)
         })
     }

@@ -28,8 +28,8 @@
                   >
                     <span v-if="value">{{ value }}</span>
                     <span v-else>
-                    <q-skeleton width="100px" />
-                  </span>
+                      <q-skeleton width="100px" />
+                    </span>
                   </div>
                 </div>
               </div>
@@ -346,7 +346,6 @@ export default {
       } catch (e) {
       }
     },
-
 
     setInformation () {
       if (!this.product.attributes) {
