@@ -2,28 +2,48 @@ import API_ADDRESS from 'src/api/Addresses'
 import { TicketDepartmentList } from 'src/models/TicketDepartment'
 
 const mixinTicket = {
+  data: () => ({
+    loading: false,
+    departmentList: new TicketDepartmentList(),
+    ticketStatuses: [],
+    ticketPriorityOption: []
+  }),
   computed: {
     isAdmin() {
       // return this.$store.getters['Auth/user'].has_admin_permission
       return true
     }
   },
-  data: () => ({
-    sendLoading: false,
-    departmentList: new TicketDepartmentList(),
-    ticketStatuses: [],
-    ticketPriorityOption: []
-  }),
   created() {
-    this.setDepartments()
-    this.setStatuses()
-    this.setPriorityOption()
-    // this.setRoleAndPermissions()
+    this.setPageData()
   },
-
   methods: {
-    setStatuses() {
-      this.ticketStatuses = [
+    async setPageData() {
+      // this.setRoleAndPermissions()
+      this.loading = true
+      try {
+        await Promise.all([this.setDepartments(), this.setStatuses(), this.setPriorityOption()])
+        this.loading = false
+      } catch (e) {
+        this.loading = false
+      }
+    },
+
+    async setStatuses() {
+      this.ticketStatuses = await this.getStatuses()
+    },
+
+    async setDepartments() {
+      const list = await this.getDepartments()
+      this.departmentList = new TicketDepartmentList(list)
+    },
+
+    async setPriorityOption() {
+      this.ticketPriorityOption = await this.getPriorityOption()
+    },
+
+    getStatuses() {
+      return [
         {
           title: 'پاسخ داده نشده',
           id: 1
@@ -43,8 +63,8 @@ const mixinTicket = {
       ]
     },
 
-    setPriorityOption() {
-      this.ticketPriorityOption = [{
+    getPriorityOption() {
+      return [{
         label: 'کم',
         value: '1'
       },
@@ -62,8 +82,8 @@ const mixinTicket = {
       }]
     },
 
-    setDepartments() {
-      const list = [
+    getDepartments() {
+      return [
         {
           id: 20,
           parent_id: null,
@@ -441,7 +461,6 @@ const mixinTicket = {
           edit_link: 'http://alaatv.test/ticketDepartment/19/edit'
         }
       ].filter(item => item.display === 1)
-      this.departmentList = new TicketDepartmentList(list)
     },
 
     sendTicket (data, isMsg) {
@@ -457,25 +476,26 @@ const mixinTicket = {
     },
 
     async sendCreateTicketReq (formData) {
-      this.sendLoading = true
+      this.loading = true
       try {
         const response = await this.callCreatTicketApi(formData)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
         }
         this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
-        this.sendLoading = false
+        this.loading = false
         await this.$router.push({
           name: 'Admin.Ticket.Show',
           params: { id: response.data.data.id }
         })
       } catch (e) {
-        this.sendLoading = false
+        console.log('catch', e)
+        this.loading = false
       }
     },
 
     async sendTicketMsg(formData) {
-      this.sendLoading = true
+      this.loading = true
       try {
         const response = await this.callSendTicketMsgApi(formData)
         this.userMessageArray.unshift(response.data.data.ticketMessage)
@@ -483,10 +503,10 @@ const mixinTicket = {
           this.$refs.SendMessageInput.clearMessage()
         }
         this.showMessagesInNotify(['پیام شما با موفقیت ایجاد شد'], 'positive')
-        this.sendLoading = false
+        this.loading = false
       } catch (e) {
         console.log(e)
-        this.sendLoading = false
+        this.loading = false
       }
     },
 
@@ -513,7 +533,7 @@ const mixinTicket = {
           title: this.getInputsValue('title')
         }
       }
-      return this.$axios.put(API_ADDRESS.ticket.show.base + '/' + ticketId, payloadData)
+      return this.$API_Gateway.ticket.updateTicket(ticketId, payloadData)
     },
 
     callCreatTicketApi (formData) {

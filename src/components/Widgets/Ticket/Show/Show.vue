@@ -25,6 +25,7 @@
             <q-btn v-if="isAdmin"
                    rounded
                    color="blue"
+                   :loading="loading"
                    icon="isax:shopping-cart"
                    @click="openShopLogList">
               <q-tooltip>
@@ -38,6 +39,7 @@
               <q-btn unelevated
                      class="full-width"
                      icon="isax:user"
+                     :loading="loading"
                      :to="'/user/'+this.getInputsValue('userId')+'/edit'"
                      target="_blank"
                      color="blue">
@@ -47,6 +49,7 @@
             <div class="col-4 q-px-lg">
               <q-btn unelevated
                      class="full-width"
+                     :loading="loading"
                      icon="isax:edit"
                      color="blue"
                      @click="updateTicketData">
@@ -58,6 +61,7 @@
                      class="full-width"
                      icon="isax:sms"
                      color="blue"
+                     :loading="loading"
                      @click="sendTicketStatusNotice(this.getInputsValue('id'))"
               >
                 <q-tooltip>ارسال پیامک اگاه سازی تغییر وضعیت</q-tooltip>
@@ -69,6 +73,7 @@
           <div v-if="isAdmin">
             <q-btn unelevated
                    color="blue"
+                   :loading="loading"
                    @click="editAssignedSupporters"
             >ویرایش اپراتورها
             </q-btn>
