@@ -257,7 +257,6 @@ export default {
   methods: {
     async getAllPlan () {
       const res = await this.getAll()
-      console.log('res :', res)
     },
 
     getAll () {
@@ -297,7 +296,6 @@ export default {
     editPlanEvent (planData) {
       this.showPlanDetail = true
       this.currentPlanId = planData.id
-      console.log('currentPlanId :', this.currentPlanId)
       this.$nextTick(() => {
         this.$refs.studyPlanForm.setInputValues(planData)
         this.setCustomComponentData(planData)

@@ -8,12 +8,10 @@
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
 export default {
   name: 'User.Set.Show',
-  components: { PageBuilder },
   data() {
     return {
       pageConfig: {

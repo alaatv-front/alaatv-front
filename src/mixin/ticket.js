@@ -30,7 +30,7 @@ const mixinTicket = {
     },
 
     async setStatuses() {
-      this.ticketStatuses = await this.getStatuses()
+      this.ticketStatuses = this.getStatuses()
     },
 
     async setDepartments() {
@@ -39,7 +39,7 @@ const mixinTicket = {
     },
 
     async setPriorityOption() {
-      this.ticketPriorityOption = await this.getPriorityOption()
+      this.ticketPriorityOption = this.getPriorityOption()
     },
 
     getStatuses() {
@@ -488,7 +488,7 @@ const mixinTicket = {
           name: 'Admin.Ticket.Show',
           params: { id: response.data.data.id }
         })
-      } catch () {
+      } catch {
         this.loading = false
       }
     },
@@ -503,7 +503,7 @@ const mixinTicket = {
         }
         this.showMessagesInNotify(['پیام شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
-      } catch () {
+      } catch {
         this.loading = false
       }
     },

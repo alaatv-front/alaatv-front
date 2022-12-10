@@ -22,7 +22,7 @@
 import { MapItem, MapItemList } from 'src/models/MapItem'
 import BaseMap from 'src/components/Widgets/Map/BaseMap.vue'
 import MapItemsResponse from 'src/components/Widgets/Map/MapItemsResponse.js'
-import { latLng } from 'leaflet'
+// import { latLng } from 'leaflet'
 
 export default {
   name: 'MapWidget',

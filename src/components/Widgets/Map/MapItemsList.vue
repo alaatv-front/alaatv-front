@@ -11,7 +11,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item, index) in mapItems">
+      <tr v-for="(item, index) in mapItems"
+          :key="index"
+      >
         <th scope="row">{{ index+1 }}</th>
         <td>
           <span class="m-badge m-badge--warning m-badge--wide m-badge--rounded btn"
@@ -23,9 +25,9 @@
         <td>{{ item.min_zoom }}</td>
         <td>{{ item.max_zoom }}</td>
         <td style="white-space: nowrap;">
-          <span
-            v-for="(tagItem) in item.tags"
-            class="m-badge m-badge--info m-badge--wide m-badge--rounded">
+          <span v-for="(tagItem, tagIndex) in item.tags"
+                :key="tagIndex"
+                class="m-badge m-badge--info m-badge--wide m-badge--rounded">
             {{ tagItem }}
           </span>
         </td>
@@ -40,7 +42,7 @@ export default {
   props: {
     mapItems: {
       type: Array,
-      default: []
+      default: () => []
     }
   },
   data () {
