@@ -40,8 +40,7 @@ const mixinTree = {
           .then(response => {
             const node = response.data.data
             resolve(loadChildOfNode(node, done))
-          }).catch(err => {
-            console.log(err)
+          }).catch(() => {
             if (fail) {
               reject(fail())
             }
@@ -70,7 +69,6 @@ const mixinTree = {
             resolve(res)
           }).catch(err => {
             reject(err)
-            console.log(err)
           })
       })
     },

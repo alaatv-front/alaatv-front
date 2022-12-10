@@ -64,7 +64,7 @@ import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'components/EntityCrud'
 
 export default {
-  name: 'Content',
+  name: 'ContentItem',
   components: {
     EntityCrud
   },

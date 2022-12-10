@@ -79,7 +79,7 @@
         >
           <q-virtual-scroll
             v-if="set.contents.list"
-            v-slot="{ item, index }"
+            v-slot="{ item }"
             style="max-height: 680px"
             :items="rawContentVideos"
             separator
@@ -169,7 +169,7 @@
         <q-tab-panel name="pamphlets">
           <q-virtual-scroll
             v-if="set.contents.list"
-            v-slot="{ item, index }"
+            v-slot="{ item }"
             style="max-height: 680px"
             :items="contentPamphlets"
             separator

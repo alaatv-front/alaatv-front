@@ -488,8 +488,7 @@ const mixinTicket = {
           name: 'Admin.Ticket.Show',
           params: { id: response.data.data.id }
         })
-      } catch (e) {
-        console.log('catch', e)
+      } catch () {
         this.loading = false
       }
     },
@@ -504,8 +503,7 @@ const mixinTicket = {
         }
         this.showMessagesInNotify(['پیام شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
-      } catch (e) {
-        console.log(e)
+      } catch () {
         this.loading = false
       }
     },
