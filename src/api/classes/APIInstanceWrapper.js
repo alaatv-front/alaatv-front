@@ -6,11 +6,11 @@ export default class APIInstanceWrapper {
     if (req === 'get') {
       return option.api.get(option.request, {params: option.params})
     } else if (req === 'post') {
-      option.api.post(option.request, option.data)
+      return option.api.post(option.request, option.data)
     } else if (req === 'put') {
-      option.api.put(option.request, option.data)
+      return option.api.put(option.request, option.data)
     } else if (req === 'delete') {
-      option.api.delete(option.request)
+      return option.api.delete(option.request)
     }
   }
   static requestCache(request, option) {
