@@ -1,6 +1,6 @@
-import APIRepository from "../classes/APIRepository"
-import { apiV1, apiV2, apiWeb } from "src/boot/axios";
-import { BlockList } from "src/models/Block";
+import APIRepository from '../classes/APIRepository'
+import { apiV2 } from 'src/boot/axios'
+import { BlockList } from 'src/models/Block'
 
 export default class PagesAPI extends APIRepository {
   constructor() {
@@ -11,11 +11,11 @@ export default class PagesAPI extends APIRepository {
     }
     this.CacheList = {
       home: this.name + this.APIAdresses.home,
-      shop: this.name + this.APIAdresses.shop,
+      shop: this.name + this.APIAdresses.shop
     }
   }
 
-  home(data={}){
+  home(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -28,9 +28,10 @@ export default class PagesAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
-  shop(data={}){
+
+  shop(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -43,6 +44,6 @@ export default class PagesAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
 }

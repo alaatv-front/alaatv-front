@@ -1,5 +1,6 @@
 <template>
-  <div :style="style" :class="className">
+  <div :style="style"
+       :class="className">
     Test-component-1
   </div>
 </template>
@@ -21,10 +22,10 @@ export default {
         TTL: 10000
       }
     }).then(res => {
-      console.log(res);
+      console.log(res)
     })
     cart.review().then(res => {
-      console.log(res);
+      console.log(res)
     })
     return {
       thisUser,

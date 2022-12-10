@@ -11,6 +11,7 @@ import TicketAPI from './models/ticket'
 import UserAPI from './models/user'
 
 /* Exporting the API_Gateway object. */
+// eslint-disable-next-line
 export const API_Gateway = {
   attribute: new AttributeAPI(),
   auth: new AuthAPI(),
@@ -22,5 +23,5 @@ export const API_Gateway = {
   product: new ProductAPI(),
   studyPlan: new StudyPlanAPI(),
   ticket: new TicketAPI(),
-  user: new UserAPI(),
+  user: new UserAPI()
 }

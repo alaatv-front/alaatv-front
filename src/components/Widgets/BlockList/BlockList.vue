@@ -62,8 +62,7 @@ export default {
 
           this.blocks.loading = false
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
           this.blocks.loading = false
         })
     },

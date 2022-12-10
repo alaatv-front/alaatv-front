@@ -132,7 +132,7 @@ export default {
           this.contentNumber = this.getContentNumberInListById(this.content.id)
         })
         .catch((er) => {
-          this.set = new Set(response.data.data)
+          this.set = new Set()
           this.set.loading = false
         })
     },

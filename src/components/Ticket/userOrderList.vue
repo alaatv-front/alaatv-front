@@ -291,7 +291,6 @@ export default {
   },
   watch: {
     userOrdersList(val) {
-      console.log('userOrdersList', val)
     }
   },
   methods: {

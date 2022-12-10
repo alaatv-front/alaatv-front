@@ -1,5 +1,7 @@
 <template>
-  <div class="page-builder-col col" :class="className" :style="style">
+  <div class="page-builder-col col"
+       :class="className"
+       :style="style">
     <template
       v-for="(widget, widgetIndex) in widgets"
       :key="widgetIndex"
@@ -53,7 +55,7 @@ export default {
   data () {
     return {}
   },
-  computed:{
+  computed: {
     // colClasses() {
     //   return [
     //     (this.options.col) ? this.options.col : 'col',

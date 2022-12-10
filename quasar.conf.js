@@ -134,7 +134,7 @@ module.exports = configure(function (ctx) {
         cfg.resolve.alias = {
           ...cfg.resolve.alias, // This adds the existing alias
 
-          'root': path.resolve(__dirname, './src'),
+          root: path.resolve(__dirname, './src'),
           // '@': path.resolve(__dirname,'./src'),
           // '~': path.resolve(__dirname, './src'),
 
@@ -242,7 +242,7 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: true,
+      pwa: false,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,

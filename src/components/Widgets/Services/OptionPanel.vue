@@ -7,8 +7,8 @@
             <q-list bordered>
               <q-item v-for="(service, serviceIndex) in localOptions.services"
                       :key="'service-'+serviceIndex"
-                      clickable
                       v-ripple
+                      clickable
               >
                 <q-item-section>
                   <q-input v-model="service.link"
@@ -38,14 +38,14 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import { defineComponent } from 'vue'
 import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
   mixins: [mixinOptionPanel],
-  components: {OptionPanelTabs},
+  components: { OptionPanelTabs },
   data() {
     return {
       defaultOptions: {
@@ -54,6 +54,6 @@ export default defineComponent({
         services: []
       }
     }
-  },
+  }
 })
 </script>
