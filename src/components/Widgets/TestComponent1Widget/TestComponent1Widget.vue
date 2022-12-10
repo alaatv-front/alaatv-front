@@ -21,11 +21,6 @@ export default {
       cache: {
         TTL: 10000
       }
-    }).then(res => {
-      console.log(res);
-    })
-    cart.review().then(res => {
-      console.log(res);
     })
     return {
       thisUser,

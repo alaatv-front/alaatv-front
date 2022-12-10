@@ -2,7 +2,6 @@
 export default function incompleteProfile(
   /* { to, from, next, store } */ { next, store, to }
 ) {
-  console.log(to.name)
   // defining incompleteness of the personal information due to issue #52 is inside here
   // possible changes may occur here
   const { first_name, last_name, gender, city, grade, major } =

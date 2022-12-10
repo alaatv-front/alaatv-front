@@ -90,9 +90,7 @@ export default {
   components: {
     FilterPlans,
     FullCalenderPlans,
-    FormBuilder,
-    ContentsType,
-    PlanStylePreview
+    FormBuilder
   },
   props: {},
   data: () => ({
@@ -281,12 +279,10 @@ export default {
     },
 
     async creatNewPlan (submitData) {
-      console.log('creat plan', submitData)
       return this.$axios.post(Addresses.studyPlan.edit, submitData)
     },
 
     async deletePlanEvent (planId) {
-      console.log('delete plan ', planId)
       this.deletePlanDialog = true
       await this.deletePlan()
     },
@@ -296,7 +292,6 @@ export default {
     },
 
     copyPlanEvent (planData) {
-      console.log('copy plan event')
     },
 
     editPlanEvent (planData) {
@@ -312,7 +307,6 @@ export default {
     async updatePlan () {
       // creat or edit
       const submitData = this.getNewPlanData()
-      console.log('fsdg :', !this.hasRequiredDta())
       if (!this.hasRequiredDta()) {
         return
       }
@@ -49340,7 +49334,8 @@ export default {
         },
         status: 200
       }
-      console.log('res :', res)
+
+      return ress
     },
 
     hasRequiredDta () {
@@ -49543,7 +49538,6 @@ export default {
         contents: this.getPlanInput('ContentsType').value,
         event_id: this.currentPlanId
       }
-      console.log(this.getPlanInput('major').value.id)
     },
 
     // ----------------------------------------- set   ----------------------------------------------
