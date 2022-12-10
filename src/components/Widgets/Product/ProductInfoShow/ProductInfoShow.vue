@@ -228,7 +228,7 @@ import { mixinWidget } from 'src/mixin/Mixins'
 import { LightGallery } from 'vue-light-gallery'
 import VideoPlayer from 'components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource'
-import { API_Gateway } from 'src/api/APIGateway'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProductInfoShow',
@@ -323,7 +323,7 @@ export default {
     },
     getProduct (productId) {
       this.product.loading = true
-      API_Gateway.product.get(productId)
+      APIGateway.product.get(productId)
         .then(product=>{
           this.product = product
           this.product.loading = false
