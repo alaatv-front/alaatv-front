@@ -483,7 +483,6 @@ const mixinTicket = {
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
         }
-        console.log('response', response)
         this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
         await this.$router.push({

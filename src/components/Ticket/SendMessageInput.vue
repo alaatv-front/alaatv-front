@@ -269,7 +269,6 @@ import 'vue-advanced-cropper/dist/style.css'
 import { UserList } from 'src/models/User'
 import Drawer from 'components/CustomDrawer'
 import UserOrderList from 'components/Ticket/userOrderList'
-import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
 
 const longpress = {

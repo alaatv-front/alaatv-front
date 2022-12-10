@@ -545,8 +545,7 @@ export default {
 
     mapClick(event) {
       if (this.selectedMapClickActionTypes.name === 'addIcon' && event.latlng) {
-        if (this.adminToolBox.polyline.editMode) {
-        } else {
+        if (!this.adminToolBox.polyline.editMode) {
           this.cleanAdminToolBoxMapItem()
           const lat = event.latlng.lat
           const lng = event.latlng.lng
@@ -626,9 +625,9 @@ export default {
       })
     },
     copyToClipboard() {
-      const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
-      console.log(shareLink)
       // ToDo: use quasar clipboard
+      // const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
+      // console.log(shareLink)
       // copyText('Text to copy', shareLink, (error, event) => {
       //   if (error) {
       //     this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
