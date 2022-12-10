@@ -1,6 +1,5 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
-import { apiV1, apiV2, apiWeb } from 'src/boot/axios'
 import { User } from 'src/models/User'
 
 export default class TicketAPI extends APIRepository {

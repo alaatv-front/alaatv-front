@@ -479,7 +479,7 @@ const mixinTicket = {
     async sendCreateTicketReq (formData) {
       this.loading = true
       try {
-        const response = await this.$api_gateway.ticket.creatTicket(formData)
+        const response = await this.$apiGateway.ticket.creatTicket(formData)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
         }
@@ -500,7 +500,7 @@ const mixinTicket = {
       this.loading = true
       try {
         // const response = await this.callSendTicketMsgApi(formData)
-        const response = await this.$api_gateway.ticket.sendTicketMessage(formData)
+        const response = await this.$apiGateway.ticket.sendTicketMessage(formData)
         this.userMessageArray.unshift(response.data.data.ticketMessage)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
@@ -508,7 +508,6 @@ const mixinTicket = {
         this.showMessagesInNotify(['پیام شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
       } catch (e) {
-        console.log(e)
         this.loading = false
       }
     },
@@ -550,7 +549,7 @@ const mixinTicket = {
           title: this.getInputsValue('title')
         }
       }
-      return this.$api_gateway.ticket.updateTicket(id, payloadData)
+      return this.$apiGateway.ticket.updateTicket(id, payloadData)
     },
 
     callCreatTicketApi (formData) {
@@ -569,7 +568,7 @@ const mixinTicket = {
         //   nationalCode: '4900443050'
         // }
         // this.$axios.post(API_ADDRESS.ticket.user.getInfo, payload)
-        this.user = await this.$api_gateway.ticket.getUserData(payload)
+        this.user = await this.$apiGateway.ticket.getUserData(payload)
         this.loading = false
       } catch (e) {
         this.loading = false
