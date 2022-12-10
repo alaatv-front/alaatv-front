@@ -344,14 +344,6 @@ export default {
       type: String,
       default: 'user'
     },
-    canFilterSupporter: {
-      type: Boolean,
-      default: false
-    },
-    canFilterAssignees: {
-      type: Boolean,
-      default: false
-    },
     canAssignTicket: {
       type: Boolean,
       default: false
