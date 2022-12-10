@@ -70,6 +70,62 @@
           </div>
         </template>
         <template #after-form-builder>
+          <q-expansion-item
+            v-model="updateUserTem"
+            label="تغییر کاربر"
+            class="q-my-lg rounded-borders"
+          >
+            <q-card>
+              <q-card-section>
+                <div class="row q-col-gutter-md">
+                  <div class="col-5">
+                    <q-input
+                      v-model="phoneNumber"
+                      outlined
+                      label="شماره تلفن" />
+                  </div>
+                  <div class="col-5">
+                    <q-input
+                      v-model="nationalCode"
+                      outlined
+                      label="کد ملی" />
+                  </div>
+                  <div class="col-2">
+                    <q-btn
+                      color="primary"
+                      unelevated
+                      :loading="loading"
+                      padding="5px 20px"
+                      label="برسی"
+                      @click="getUserInfo"
+                    />
+                  </div>
+                  <template v-if="user.id">
+                    <div class="col-3 flex">
+                      <span class="q-mr-sm">  کد :</span>
+                      {{user.id}}
+                    </div>
+                    <div class="col-3 flex">
+                      <span class="q-mr-sm">  نام :</span>
+                      {{user.first_name}}
+                    </div>
+                    <div class="col-4 flex">
+                      <span class="q-mr-sm">  نام خانوادگی :</span>
+                      {{user.last_name}}
+                    </div>
+                    <div class="col-2">
+                      <q-btn unelevated
+                             color="positive"
+                             label="تغییر کاربر"
+                             @click="changeUser"
+                      />
+                    </div>
+                  </template>
+                </div>
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+          <!--          <change-user @changeUser="ChangeUser" />-->
           <div v-if="isAdmin">
             <q-btn unelevated
                    color="blue"
@@ -176,6 +232,7 @@ import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
 import SendMessageInput from 'components/Ticket/SendMessageInput'
 import { mixinDateOptions, mixinTicket } from 'src/mixin/Mixins'
+import { User } from 'src/models/User'
 
 export default {
   name: 'Show',
@@ -192,6 +249,10 @@ export default {
   },
   data() {
     return {
+      updateUserTem: false,
+      phoneNumber: null,
+      nationalCode: null,
+      user: new User(),
       sendMessageLoading: false,
       renderComponent: true,
       logDrawer: false,
@@ -204,66 +265,6 @@ export default {
       userMessageArray: [],
       expanded: true,
       api: API_ADDRESS.ticket.show.base,
-      departments: [
-        {
-          title: 'آموزش',
-          id: 1
-        }, {
-          title: 'مالی',
-          id: 2
-        }, {
-          title: 'استخدام',
-          id: 3
-        }, {
-          title: 'پرچم',
-          id: 4
-        }, {
-          title: 'راه ابریشم',
-          id: 5
-        }, {
-          title: 'فنی',
-          id: 6
-        }, {
-          title: 'مشاوره خرید',
-          id: 7
-        }, {
-          title: 'حمایت مردمی',
-          id: 8
-        }, {
-          title: 'تفتان',
-          id: 9
-        }, {
-          title: 'آرش',
-          id: 10
-        }, {
-          title: 'تتا',
-          id: 11
-        }, {
-          title: 'سه آ',
-          id: 12
-        }, {
-          title: 'طرح حکمت',
-          id: 13
-        }
-      ],
-      status: [
-        {
-          title: 'پاسخ داده نشده',
-          id: 1
-        },
-        {
-          title: 'در حال بررسی',
-          id: 2
-        },
-        {
-          title: 'پاسخ داده شده',
-          id: 3
-        },
-        {
-          title: 'بسته شده',
-          id: 4
-        }
-      ],
       inputs: [
         { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', col: 'col-md-4', disable: true },
         {
@@ -415,6 +416,7 @@ export default {
           },
           value: [],
           responseKey: '',
+          itemIdentifyKey: 'mobile',
           selected: [],
           col: 'col-md-4'
         },
@@ -489,7 +491,15 @@ export default {
     }
   },
   created() {
-    this.initPageData()
+    this.api += '/' + this.$route.params.id
+  },
+  watch: {
+    departmentList(newVal) {
+      this.getInput('department').options = newVal.list
+    },
+    ticketStatuses(newVal) {
+      this.getInput('status').options = newVal
+    }
   },
   computed: {
     editAssignInput() {
@@ -510,11 +520,6 @@ export default {
 
       }
       console.log(this.editAssignInput.selected)
-    },
-    initPageData() {
-      this.api += '/' + this.$route.params.id
-      this.getInput('department').options = this.departments
-      this.getInput('status').options = this.status
     },
 
     filterDataForUserRole() {
