@@ -1,8 +1,7 @@
 <template>
-  <q-page-builder
-    v-model:sections="sections"
-    v-model::options="pageConfig"
-    :editable="pageBuilderEditable"
+  <q-page-builder v-model:sections="sections"
+                  v-model:options="pageConfig"
+                  :editable="pageBuilderEditable"
   />
 </template>
 
@@ -12,7 +11,7 @@ export default {
   name: 'Shop',
   computed: {
     pageBuilderEditable() {
-      return this.$store.getters["AppLayout/pageBuilderEditable"];
+      return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   },
   data() {
@@ -27,7 +26,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: "blockList",
+                        name: 'blockList',
                         options: {
                           apiName: 'shop'
                         }
@@ -43,7 +42,7 @@ export default {
           }
         }
       ]
-    };
+    }
   }
-};
+}
 </script>

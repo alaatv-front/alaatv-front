@@ -11,7 +11,6 @@
           class="q-mt-sm"
           indeterminate
         />
-        <q-resize-observer @resize="onHeaderResize" />
       </template>
       <template #left-drawer>
         <side-menu-dashboard />
@@ -94,13 +93,6 @@ export default {
         })
       }
     },
-    onHeaderResize (value) {
-      // this.setHeaderDimension(value)
-      this.$store.commit('AppLayout/updateHeaderSize', value)
-    },
-    // setHeaderDimension (value) {
-    //   this.$refs.contentInside.style.height = 'calc(100vh +' + value.height + 'px'
-    // },
     resize (val) {
       this.$store.commit('AppLayout/updateWindowSize', val)
       if (val.width > 1439) {
