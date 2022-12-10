@@ -1,9 +1,9 @@
-import APIRepository from "../classes/APIRepository"
-import { apiV1, apiV2, apiWeb } from "src/boot/axios";
+import APIRepository from '../classes/APIRepository'
+import { apiV2 } from 'src/boot/axios'
 
 export default class CouponAPI extends APIRepository {
   constructor() {
-    super('coupon',apiV2)
+    super('coupon', apiV2)
     this.APIAddresses = {
       create: '/v2/admin/coupon',
       edit: '',

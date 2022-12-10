@@ -16,7 +16,7 @@ const Time = (function () {
           cache: 'no-store',
           method: 'HEAD'
         })
-        console.log('{ headers, ok, statusText }', { headers, ok, statusText })
+        console.info('{ headers, ok, statusText }', { headers, ok, statusText })
 
         if (!ok) {
           throw new Error(`Bad date sample from server: ${statusText}`)
@@ -30,7 +30,7 @@ const Time = (function () {
       }
     })
     window.serverDate = { date, offset, uncertainty }
-    console.log(`The server's date is ${date} +/- ${uncertainty} milliseconds. offset:` + offset)
+    console.info(`The server's date is ${date} +/- ${uncertainty} milliseconds. offset:` + offset)
   }
 
   async function synchronizeTimeWithData (response) {
@@ -52,7 +52,7 @@ const Time = (function () {
       }
     })
     window.serverDate = { date, offset, uncertainty }
-    console.log(`The server's date is ${date} +/- ${uncertainty} milliseconds. offset:` + offset)
+    console.info(`The server's date is ${date} +/- ${uncertainty} milliseconds. offset:` + offset)
   }
 
   function now () {

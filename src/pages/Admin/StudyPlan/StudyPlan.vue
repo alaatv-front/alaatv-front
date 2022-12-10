@@ -2,8 +2,8 @@
   <p class="text-center q-pa-lg">:) the study plan say hi </p>
   <div class="row justify-center">
     <div class="col-2 text-center">
-      <q-btn @click="openEmptyForm"
-             color="green"
+      <q-btn color="green"
+             @click="openEmptyForm"
       >
         ایجاد برنامه جدید
       </q-btn>
@@ -25,8 +25,8 @@
     </div>
   </div>
   <q-dialog
-    full-width
-    v-model="showPlanDetail">
+    v-model="showPlanDetail"
+    full-width>
     <q-card>
       <q-card-section>
         <form-builder
@@ -55,16 +55,16 @@
         </span>
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn flat
+        <q-btn v-close-popup
+               flat
                label="Cancel"
                color="primary"
-               text
-               v-close-popup  />
-        <q-btn flat
+               text  />
+        <q-btn v-close-popup
+               flat
                label="yes"
                text
                color="green"
-               v-close-popup
                @click="deletePlan"
         />
       </q-card-actions>
@@ -281,12 +281,10 @@ export default {
     },
 
     async creatNewPlan (submitData) {
-      console.log('creat plan', submitData)
       return this.$axios.post(Addresses.studyPlan.edit, submitData)
     },
 
     async deletePlanEvent (planId) {
-      console.log('delete plan ', planId)
       this.deletePlanDialog = true
       await this.deletePlan()
     },
@@ -296,7 +294,6 @@ export default {
     },
 
     copyPlanEvent (planData) {
-      console.log('copy plan event')
     },
 
     editPlanEvent (planData) {
@@ -312,7 +309,6 @@ export default {
     async updatePlan () {
       // creat or edit
       const submitData = this.getNewPlanData()
-      console.log('fsdg :', !this.hasRequiredDta())
       if (!this.hasRequiredDta()) {
         return
       }
@@ -49340,7 +49336,6 @@ export default {
         },
         status: 200
       }
-      console.log('res :', res)
     },
 
     hasRequiredDta () {
@@ -49543,7 +49538,6 @@ export default {
         contents: this.getPlanInput('ContentsType').value,
         event_id: this.currentPlanId
       }
-      console.log(this.getPlanInput('major').value.id)
     },
 
     // ----------------------------------------- set   ----------------------------------------------

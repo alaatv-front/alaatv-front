@@ -49,10 +49,12 @@ export default {
       if (!this.helpAlaa) {
         this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
       }
-      this.donateCost.forEach(e => e.isActive = false)
+      this.donateCost.forEach(e => {
+        e.isActive = false
+      })
       if (typeof idx === 'number') {
         this.donateCost[idx].isActive = true
-        if (idx == 0 || idx == 1) {
+        if (idx === 0 || idx === 1) {
           this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-happy.png'
         } else {
           this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-veryHappy.png'

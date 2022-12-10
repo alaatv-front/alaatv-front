@@ -1,20 +1,21 @@
 <template>
-  <div :style="style" :class="className">
+  <div :style="style"
+       :class="className">
     Test-component-1
   </div>
 </template>
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
-import { API_Gateway } from 'src/api/APIGateway'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Test-component-1widget',
   mixins: [mixinWidget],
   setup() {
-    const cart = API_Gateway.cart
-    const thisUser = API_Gateway.user
-    const product = API_Gateway.product
+    const cart = APIGateway.cart
+    const thisUser = APIGateway.user
+    const product = APIGateway.product
     thisUser.get({
       id: '219548',
       cache: {
@@ -34,7 +35,7 @@ export default {
   },
   computed: {
     api4g4g4() {
-      return this.$api_gateway
+      return this.$apiGateway
     }
   }
 }

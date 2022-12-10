@@ -116,12 +116,12 @@
         </l-icon>
       </l-marker>
 
-<!--      <editable-polyline ref="editablePolyline"-->
-<!--                         :latlngs="adminToolBox.polyline.latlngs"-->
-<!--                         :zoom="mapZoom"-->
-<!--                         :center="mapCenter"-->
-<!--                         :editablePolylineOptions="adminToolBox.polyline.data"-->
-<!--                         @update:latlngs="updateLatlngs" />-->
+      <!--      <editable-polyline ref="editablePolyline"-->
+      <!--                         :latlngs="adminToolBox.polyline.latlngs"-->
+      <!--                         :zoom="mapZoom"-->
+      <!--                         :center="mapCenter"-->
+      <!--                         :editablePolylineOptions="adminToolBox.polyline.data"-->
+      <!--                         @update:latlngs="updateLatlngs" />-->
 
       <!--      <div class="editable-polyline">-->
       <!--        <l-polyline-->

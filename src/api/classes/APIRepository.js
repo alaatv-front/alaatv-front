@@ -16,8 +16,8 @@ export default class APIRepository {
    * @returns A promise that will resolve or reject based on the response from the API call.
    */
   sendRequest (requestData) {
-    const {apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params} = requestData
-    return new Promise((resolve, reject)=>{
+    const { apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params } = requestData
+    return new Promise((resolve, reject) => {
       APIInstanceWrapper[apiMethod]({
         api,
         request,
@@ -26,12 +26,12 @@ export default class APIRepository {
         params,
         data
       })
-      .then((response)=>{
-        resolve(resolveCallback(response))
-      })
-      .catch((error)=>{
-        reject(rejectCallback(error))
-      })
+        .then((response) => {
+          resolve(resolveCallback(response))
+        })
+        .catch((error) => {
+          reject(rejectCallback(error))
+        })
     })
   }
 
@@ -57,7 +57,6 @@ export default class APIRepository {
     this.deleteResolveCallback = callbacks.delete ? callbacks.delete : (response) => { return response }
   }
 
-
   /**
    * This function sends a GET request to the API endpoint for the entity, and returns the response
    * @param entityId - The id of the entity you want to get.
@@ -78,6 +77,7 @@ export default class APIRepository {
       }
     })
   }
+
   /**
    * It sends a POST request to the API, and returns the response
    * @param entityData - The data that will be sent to the API.
@@ -99,6 +99,7 @@ export default class APIRepository {
       data: new this.model(entityData.data)
     })
   }
+
   /**
    * The function sends a PUT request to the API, and returns the response
    * @param entityData - The data to be sent to the server.
@@ -119,7 +120,8 @@ export default class APIRepository {
       data: new this.model(entityData)
     })
   }
- /**
+
+  /**
   * It deletes an entity.
   * @param entityId - The id of the entity you want to delete.
   * @returns The promise object.

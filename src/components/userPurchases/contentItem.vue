@@ -80,8 +80,8 @@
                 >
                   <q-btn
                     v-for="(quality, index) in data.file?.video"
-                    unelevated
                     :key="index"
+                    unelevated
                     color="teal-6"
                     class="download-btn"
                     icon="mdi-cloud-download"

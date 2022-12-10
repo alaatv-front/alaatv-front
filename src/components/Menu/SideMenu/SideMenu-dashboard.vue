@@ -47,12 +47,12 @@
         padding
       >
         <q-input
+          v-model="searchText"
           dense
           filled
           class="gray-input"
-          v-model="searchText"
-          @update:model-value ="search(titlesList)"
           placeholder="جست و جو"
+          @update:model-value ="search(titlesList)"
         >
           <template v-slot:append>
             <q-icon name="search" />

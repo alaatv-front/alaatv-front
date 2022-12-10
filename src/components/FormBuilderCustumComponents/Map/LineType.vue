@@ -7,11 +7,11 @@
     <q-option-group
       v-model="inputData.dir"
       :options="lineTypeOptions"
-      @update:model-value="onChangeLineType"
       color="primary"
       type="radio"
       dense
       inline
+      @update:model-value="onChangeLineType"
     />
   </div>
   <div  v-show="inputData.dir !=='fixed'">

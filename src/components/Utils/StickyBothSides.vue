@@ -43,7 +43,6 @@ export default {
     }
   },
   mounted() {
-    console.log(typeof this.bottomGap)
     this.windowWidth = window.innerWidth
     if (this.windowWidth < this.maxWidth) {
       this.disableSticky = true
@@ -107,7 +106,6 @@ export default {
           this.stickyElement.style.width = this.stickyElementWidth + 'px'
         }
       } else {
-        console.log(this.stickyElement.getBoundingClientRect().bottom + this.bottomGap)
         if (this.stickyElement.getBoundingClientRect().bottom + this.bottomGap <= window.innerHeight) {
           this.stickyElement.style.position = 'fixed'
           this.stickyElement.style.top = window.innerHeight - this.bottomGap - this.stickyElement.offsetHeight + 'px'

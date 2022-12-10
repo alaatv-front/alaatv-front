@@ -509,7 +509,6 @@ export default {
       } catch (e) {
 
       }
-      console.log(this.editAssignInput.selected)
     },
     initPageData() {
       this.api += '/' + this.$route.params.id

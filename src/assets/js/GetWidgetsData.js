@@ -10,15 +10,14 @@ export default class GetWidgetsData {
   static addToRequests (url) {
     this._requests.push({
       url,
-      promise: new Promise(function(myResolve, myReject) {
+      promise: new Promise(function(_resolve, _reject) {
         axios.get(url)
           .then(response => {
-            myResolve(response)
+            _resolve(response)
           })
           .catch((error) => {
-            myReject(error)
+            _reject(error)
           })
-
       })
     })
   }

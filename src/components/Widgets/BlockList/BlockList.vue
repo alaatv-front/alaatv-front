@@ -62,8 +62,7 @@ export default {
 
           this.blocks.loading = false
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
           this.blocks.loading = false
         })
     },
@@ -77,14 +76,14 @@ export default {
 
     getApiRequest() {
       if (this.options.apiName === 'home') {
-        return this.$api_gateway.pages.home({
+        return this.$apiGateway.pages.home({
           cache: {
             TTL: 100000
           }
         })
       }
       if (this.options.apiName === 'shop') {
-        return this.$api_gateway.pages.shop()
+        return this.$apiGateway.pages.shop()
       }
     }
   }

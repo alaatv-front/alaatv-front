@@ -2,8 +2,8 @@
   <div>
     <div class="row items-center">
       <div class="col-9"><form-builder
-        :value="inputs"
         ref="contentType"
+        :value="inputs"
       /></div>
       <div class="col-3 text-right">
         <q-btn icon="add"
@@ -80,12 +80,9 @@ export default {
         id: this.inputs[1].value,
         type_id: this.inputs[2].value
       })
-      console.log(this.inputs)
-      console.log('add :', this.inputData)
       this.changeData()
     },
     deleteContent (content) {
-      console.log('deleteContent :', content)
       this.inputData = this.inputData.filter(item => item.id !== content.id)
       this.changeData()
     },

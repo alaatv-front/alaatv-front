@@ -81,11 +81,10 @@
 
 <script>
 import StickySidebar from 'sticky-sidebar'
-import { Product, ProductList } from 'src/models/Product'
+import { ProductList } from 'src/models/Product'
 import { SetList } from 'src/models/Set'
-import { Content, ContentList } from 'src/models/Content'
-// import Assist from 'src/plugins/Assist'
-// import Addresses from 'src/api/Addresses'
+import { ContentList } from 'src/models/Content'
+
 export default {
   name: 'favorites',
   data: () => ({
@@ -892,7 +891,6 @@ export default {
       return new SetList(this.storeData[0].sets)
     },
     contents() {
-      console.log('contents', new ContentList(this.storeData[0].contents))
       return new ContentList(this.storeData[0].contents)
     }
   },

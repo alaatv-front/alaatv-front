@@ -19,14 +19,14 @@
   </option-panel-tabs>
 </template>
 <script>
-import {defineComponent} from 'vue'
+import { defineComponent } from 'vue'
 import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
   mixins: [mixinOptionPanel],
-  components: {OptionPanelTabs},
+  components: { OptionPanelTabs },
   data() {
     return {
       defaultOptions: {
@@ -37,6 +37,6 @@ export default defineComponent({
         style: {}
       }
     }
-  },
+  }
 })
 </script>

@@ -27,9 +27,6 @@ export default {
       type: Plan,
       default: () => new Plan()
     }
-  },
-  mounted () {
-    console.log(this.plan)
   }
 }
 </script>

@@ -12,13 +12,17 @@
       class="side-expansion-list"
     >
       <div class="expansion-body">
-        <q-separator dark size="2px" vertical class="vertical-separator"/>
+        <q-separator dark
+                     size="2px"
+                     vertical
+                     class="vertical-separator" />
         <q-list class="list-expansion">
           <div
             v-for="(subItem , i) in item.children"
             :key="i"
           >
-            <menu-item v-if="subItem.children && subItem.children.length && item.show" :menu="[subItem]" />
+            <menu-item v-if="subItem.children && subItem.children.length && item.show"
+                       :menu="[subItem]" />
             <q-item
               v-else-if="subItem.show"
               :to="{ name: subItem.routeName, params: subItem.params }"
@@ -30,7 +34,7 @@
               >
                 {{ subItem.title }}
               </q-item-section>
-              <span class="indicator"/>
+              <span class="indicator" />
             </q-item>
           </div>
         </q-list>
@@ -38,20 +42,22 @@
     </q-expansion-item>
     <q-item
       v-else-if="item.show"
+      v-model="clickedItem"
       :to="(item.routeName) ? {name: item.routeName} : null"
       class="item-list"
       :class="{ 'alone-item': !item.children }"
-      v-model="clickedItem"
       exact-active-class="active-route"
     >
       <div class="section-title">
-        <q-item-section class="list-section title-icon" avatar>
-          <q-avatar :icon="item.icon" size="30"/>
+        <q-item-section class="list-section title-icon"
+                        avatar>
+          <q-avatar :icon="item.icon"
+                    size="30" />
         </q-item-section>
         <q-item-section class="list-section">
           {{ item.title }}
         </q-item-section>
-        <span class="indicator"/>
+        <span class="indicator" />
       </div>
     </q-item>
   </div>
