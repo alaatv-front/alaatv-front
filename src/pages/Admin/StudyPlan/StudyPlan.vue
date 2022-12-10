@@ -79,6 +79,8 @@ import FullCalenderPlans from 'components/StudyPlanAdmin/FullCalenderPlans'
 import StudyPlansData from 'assets/js/StudyPlansData'
 import { StudyPlanList } from 'src/models/StudyPlan'
 import { PlanList } from 'src/models/Plan'
+import ContentsType from 'components/StudyPlanAdmin/ContentsType'
+import PlanStylePreview from 'components/StudyPlanAdmin/planStylePreview'
 import { FormBuilder, inputMixin } from 'quasar-form-builder'
 import Addresses from 'src/api/Addresses'
 
@@ -49332,6 +49334,8 @@ export default {
         },
         status: 200
       }
+      
+      return ress
     },
 
     hasRequiredDta () {
