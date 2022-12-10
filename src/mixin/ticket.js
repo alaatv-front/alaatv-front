@@ -479,10 +479,11 @@ const mixinTicket = {
     async sendCreateTicketReq (formData) {
       this.loading = true
       try {
-        const response = await this.callCreatTicketApi(formData)
+        const response = await this.$api_gateway.ticket.creatTicket(formData)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
         }
+        console.log('response', response)
         this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
         await this.$router.push({
@@ -498,7 +499,8 @@ const mixinTicket = {
     async sendTicketMsg(formData) {
       this.loading = true
       try {
-        const response = await this.callSendTicketMsgApi(formData)
+        // const response = await this.callSendTicketMsgApi(formData)
+        const response = await this.$api_gateway.ticket.sendTicketMessage(formData)
         this.userMessageArray.unshift(response.data.data.ticketMessage)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
@@ -556,18 +558,18 @@ const mixinTicket = {
     },
 
     async getUserInfo() {
-      // const payload = {
-      //   mobile: this.phoneNumber,
-      //   nationalCode: this.nationalCode
-      // }
+      const payload = {
+        mobile: this.phoneNumber,
+        nationalCode: this.nationalCode
+      }
       this.loading = true
       try {
-        const payload = {
-          mobile: '09388131193',
-          nationalCode: '4900443050'
-        }
-        const res = await this.$axios.post(API_ADDRESS.ticket.user.getInfo, payload)
-        this.user = new User(res.data.data)
+        // const payload = {
+        //   mobile: '09388131193',
+        //   nationalCode: '4900443050'
+        // }
+        // this.$axios.post(API_ADDRESS.ticket.user.getInfo, payload)
+        this.user = await this.$api_gateway.ticket.getUserData(payload)
         this.loading = false
       } catch (e) {
         this.loading = false
