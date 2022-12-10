@@ -256,12 +256,12 @@ export default {
   },
   methods: {
     async getAllPlan () {
-      const res = await this.getAll()
+      // const res = await this.getAll()
     },
 
-    getAll () {
-      return this.$axios.get(Addresses.studyPlan.edit)
-    },
+    // getAll () {
+    //   return this.$axios.get(Addresses.studyPlan.edit)
+    // },
 
     handelPlanEvent (data, type) {
       switch (type) {
