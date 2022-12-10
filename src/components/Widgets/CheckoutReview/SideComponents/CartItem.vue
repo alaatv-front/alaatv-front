@@ -94,8 +94,8 @@
               به صفحه محصول
             </router-link>
             <q-expansion-item
-              class="text-center"
               v-model="expanded"
+              class="text-center"
               label="جزئیات محصول"
               style="max-width: 155px"
             >
@@ -198,8 +198,8 @@
               به صفحه محصول
             </router-link>
             <q-expansion-item
-              class="text-center"
               v-model="expanded"
+              class="text-center"
               label="جزئیات محصول"
               style="max-width: 155px"
             >
@@ -363,13 +363,11 @@ export default {
       return fullString
     },
     deleteItem() {
-      console.log(this.cartItem)
       if (this.cartItem.order_product) {
         const idx = this.items.findIndex(item => item.grand.id === this.cartItem.product.id)
         this.items.splice(idx, 1)
-        console.log(this.items)
       } else {
-        const idx = this.items[this.items.length - 1].order_product.findIndex(product => product.id === this.cartItem.id)
+        // const idx = this.items[this.items.length - 1].order_product.findIndex(product => product.id === this.cartItem.id)
       }
       // this.items.findIndex(item=>item.)
     },

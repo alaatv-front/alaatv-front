@@ -777,7 +777,6 @@ export default {
   },
   created() {
     this.bufferPolyline = this.polyline
-    console.log(this.bufferPolyline)
   },
   methods: {
     iconFilesChange(fileList) {
@@ -828,7 +827,6 @@ export default {
     },
     updateItem() {
       const activeMapItem = this.getActiveMapItem()
-      console.log(activeMapItem)
       if (!activeMapItem) {
         return
       }
@@ -859,7 +857,6 @@ export default {
       return this.polylineInputs.find(input => input.name === inputName).value
     },
     tabChanged(tabName) {
-      console.log(tabName)
       this.$emit('tab_changed', tabName)
     },
     showMapInfo() {
@@ -876,7 +873,6 @@ export default {
 </style>
 
 <style scoped lang="scss">
-
 
 .adminToolBox {
   width: 100%;

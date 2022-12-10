@@ -1,12 +1,11 @@
-import APIRepository from "../classes/APIRepository"
-import { apiV1, apiV2, apiWeb } from "src/boot/axios";
-import { User } from 'src/models/User';
-import { CartItemList } from 'src/models/CartItem';
-
+import APIRepository from '../classes/APIRepository'
+import { apiV2 } from 'src/boot/axios'
+import { User } from 'src/models/User'
+import { CartItemList } from 'src/models/CartItem'
 
 export default class UserAPI extends APIRepository {
   constructor() {
-    super('user',apiV2,'/user', new User())
+    super('user', apiV2, '/user', new User())
     this.APIAdresses = {
       base: '/user',
       mobileResend: '/mobile/resend',
@@ -32,13 +31,14 @@ export default class UserAPI extends APIRepository {
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
     this.setCrudCallbacks({
-      get: (response) => { return new User(response.data.data)},
-      post: (response) => { return new User(response.data.data)},
-      put: (response) => { return new User(response.data.data)},
-      delete: (response) => { return new User(response.data.data)}
+      get: (response) => { return new User(response.data.data) },
+      post: (response) => { return new User(response.data.data) },
+      put: (response) => { return new User(response.data.data) },
+      delete: (response) => { return new User(response.data.data) }
     })
   }
-  mobileResend(data={}) {
+
+  mobileResend(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -53,8 +53,9 @@ export default class UserAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
+
   mobileVerify(data) {
     return this.sendRequest({
       apiMethod: 'post',
@@ -72,10 +73,11 @@ export default class UserAPI extends APIRepository {
       },
       data: this.getNormalizedSendData({
         code: null // number - string
-      },data)
-    });
+      }, data)
+    })
   }
-  ordersById(data={}) {
+
+  ordersById(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -90,9 +92,10 @@ export default class UserAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
-  getOrders(data={}) {
+
+  getOrders(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -105,9 +108,10 @@ export default class UserAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
-  orderStatus(data={}) {
+
+  orderStatus(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -120,9 +124,10 @@ export default class UserAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
-  formData(data={}) {
+
+  formData(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -141,9 +146,10 @@ export default class UserAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
-  showUser(data={}) {
+
+  showUser(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -156,9 +162,10 @@ export default class UserAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
-  eventResult(data={}) {
+
+  eventResult(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -171,6 +178,6 @@ export default class UserAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
 }

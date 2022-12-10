@@ -43,7 +43,7 @@ export default {
   data: () => ({
     content: new Content()
   }),
-  mounted() {
+  mounted () {
     this.content = new Content(this.data)
   }
 }

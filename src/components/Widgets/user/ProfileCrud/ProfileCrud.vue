@@ -27,14 +27,14 @@
     </template>
   </entity-edit>
   <entity-action
-    v-model:value="actionInput"
     ref="entityAction"
+    v-model:value="actionInput"
     :action-method="'post'"
     :action-api="actionApi"
     :beforeDoAction="beforeDoAction"
+    :defaultLayout="false"
     @onActionSuccess="onActionSuccess"
     @onActionError="onActionError"
-    :defaultLayout="false"
   >
     <template #after-form-builder>
       <div
@@ -345,7 +345,6 @@ export default {
     }
   },
   mounted() {
-    console.log('p')
     this.$store.commit('loading/loading', true)
     this.$refs.entityAction
       .getAxiosPromise('get', this.actionApi)

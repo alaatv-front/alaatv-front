@@ -13,15 +13,11 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins'
 import Block from 'components/Widgets/Block/Block'
-import { BlockList } from 'src/models/Block'
-import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
 export default {
   name: 'BlockList',
   components: { Block },
-  mixins: [mixinWidget],
   props: {
     options: {
       type: Object,
@@ -33,7 +29,7 @@ export default {
       blocks: {}
     }
   },
-  created() {
+  mounted() {
     this.loadBlocks()
   },
 
@@ -66,8 +62,7 @@ export default {
 
           this.blocks.loading = false
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
           this.blocks.loading = false
         })
     },

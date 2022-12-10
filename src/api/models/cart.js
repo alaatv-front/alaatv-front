@@ -1,7 +1,6 @@
-import APIRepository from "../classes/APIRepository"
-import { apiV1, apiV2, apiWeb } from "src/boot/axios";
-import { Cart } from 'src/models/Cart';
-
+import APIRepository from '../classes/APIRepository'
+import { apiV2 } from 'src/boot/axios'
+import { Cart } from 'src/models/Cart'
 
 export default class CartAPI extends APIRepository {
   constructor() {
@@ -16,9 +15,10 @@ export default class CartAPI extends APIRepository {
       orderProduct: this.name + this.APIAdresses.orderProduct,
       discountSubmit: this.name + this.APIAdresses.discountSubmit,
       discountRemove: this.name + this.APIAdresses.discountRemove,
-      review: this.name + this.APIAdresses.review,
+      review: this.name + this.APIAdresses.review
     }
   }
+
   orderProduct(data) {
     return this.sendRequest({
       apiMethod: 'post',
@@ -37,10 +37,11 @@ export default class CartAPI extends APIRepository {
         products: null, // Number or String (List ofProduct's ID)
         attribute: null, // Number or String
         seller: 1 // 1: Alaa - 2: Soala
-      },data.data)
-    });
+      }, data.data)
+    })
   }
-  discountSubmit(data={}) {
+
+  discountSubmit(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -54,9 +55,10 @@ export default class CartAPI extends APIRepository {
         return error
       },
       params: data.params
-    });
+    })
   }
-  discountRemove(data={}) {
+
+  discountRemove(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -69,9 +71,10 @@ export default class CartAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
-  review(data={}) {
+
+  review(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -84,6 +87,6 @@ export default class CartAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
 }

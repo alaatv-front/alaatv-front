@@ -137,9 +137,7 @@ export default {
       })
       return this.data.banners
     }
-  },
-  created() {},
-  methods: {}
+  }
 }
 </script>
 

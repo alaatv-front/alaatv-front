@@ -63,19 +63,17 @@ const AxiosHooks = (function () {
       messages.push('ابتدا وارد سامانه شوید.')
       // deAuthorizeUser(router, store)
     } else if (error.response.data.error && AjaxResponseMessages.isCustomMessage(error.response.data.error.code)) {
-      console.log('error.response.data.error.code', AjaxResponseMessages.getMessage(error.response.data.error.code))
+      console.error('error.response.data.error.code', AjaxResponseMessages.getMessage(error.response.data.error.code))
       messages.push(AjaxResponseMessages.getMessage(error.response.data.error.code))
     } else if (error.response.data.error && !AjaxResponseMessages.isCustomMessage(error.response.data.error.code)) {
       for (const [key, value] of Object.entries(error.response.data.error)) {
-        console.log('key', key)
-        if (typeof value === 'string') {
+        if (typeof error.response.data.error[key] === 'string') {
           messages.push(value)
         }
       }
     } else if (error.response.data.errors) {
       for (const [key, value] of Object.entries(error.response.data.errors)) {
-        console.log('key', key)
-        if (typeof value === 'string') {
+        if (typeof error.response.data.errors[key] === 'string') {
           messages.push(value)
         } else {
           messages = messages.concat(getMessagesFromArrayWithRecursion(value))
@@ -108,17 +106,6 @@ const AxiosHooks = (function () {
     })
   }
 
-  function deAuthorizeUser (router, store) {
-    store.dispatch('Auth/logOut')
-
-    const loginRouteName = 'login'
-    if (router.history.current.name === loginRouteName) {
-      return
-    }
-
-    router.push({ name: loginRouteName })
-  }
-
   function getMessagesFromArrayWithRecursion (array) {
     if (array) {
       if (Array.isArray(array)) {
@@ -143,7 +130,6 @@ const AxiosHooks = (function () {
 const apiV2 = axios.create({ baseURL: apiV2Server })
 const apiV1 = axios.create({ baseURL: apiV1Server })
 const apiWeb = axios.create({ baseURL: webServer })
-
 
 export default boot(({ app, store, router }) => {
   const accessToken = store.getters['Auth/accessToken']

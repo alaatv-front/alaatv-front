@@ -1,5 +1,5 @@
 import APIRepository from '../classes/APIRepository'
-import { apiV1, apiV2, apiWeb } from 'src/boot/axios'
+import { apiV2 } from 'src/boot/axios'
 
 export default class TicketAPI extends APIRepository {
   constructor() {
@@ -12,7 +12,6 @@ export default class TicketAPI extends APIRepository {
   }
 
   creatTicket(data) {
-    console.log(data)
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

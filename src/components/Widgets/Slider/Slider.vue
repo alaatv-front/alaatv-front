@@ -115,7 +115,7 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     if (this.data && this.data.list && this.data.list.length > 0) {
       this.slide = this.data.list[0].id
     }

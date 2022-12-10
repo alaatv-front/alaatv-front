@@ -1,7 +1,7 @@
 module.exports = {
   // https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
   // This option interrupts the configuration hierarchy at this file
-  // Remove this if you have an higher level ESLint config file (it usually happens into a monorepos)
+  // Remove this if you have a higher level ESLint config file (it usually happens into a mono repos)
   root: true,
 
   parserOptions: {
@@ -27,7 +27,7 @@ module.exports = {
     // 'plugin:vue/vue3-strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
     // 'plugin:vue/vue3-recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
-    'standard',
+    'standard'
 
   ],
 
@@ -66,27 +66,29 @@ module.exports = {
     'import/namespace': 'error',
     'import/default': 'error',
     'import/export': 'error',
+    // 'simple-import-sort/imports': 'error',
+    // 'simple-import-sort/exports': 'error',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
-    "vue/attributes-order": 'error',
     'import/no-extraneous-dependencies': 'off',
     'prefer-promise-reject-errors': 'off',
+    'no-unused-vars': 'error',
+
+    "vue/attributes-order": 'error',
     "vue/max-attributes-per-line": 'error',
-    // "vue/html-indent":  ["error", 2, {
-    //   "attribute": 1,
-    //   "baseIndent": 1,
-    //   "closeBracket": 0,
-    //   // "closeBracket.endTag": 8,
-    //   "alignAttributesVertically": true,
-    //   "ignores": []
-    // }],
-     "vue/html-indent": "error",
+    "vue/html-indent": 'error',
     "vue/html-closing-bracket-spacing": 'error',
-    // " vue/block-tag-newline": 'error',
+    "no-console": [
+      "warn",
+      { "allow": ["clear", "info", "error", "dir", "trace", "groupEnd", "groupCollapsed"] }
+    ],
+
     'vue/multi-word-component-names': 'off',
+    'vue/no-v-text-v-html-on-component': 'off',
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     "space-before-function-paren": 0
+
   }
 }

@@ -1,6 +1,6 @@
-import APIRepository from "../classes/APIRepository"
-import { apiV1, apiV2, apiWeb } from "src/boot/axios";
-import { User } from "src/models/User";
+import APIRepository from '../classes/APIRepository'
+import { apiV2 } from 'src/boot/axios'
+import { User } from 'src/models/User'
 
 export default class AuthAPI extends APIRepository {
   constructor() {
@@ -9,11 +9,11 @@ export default class AuthAPI extends APIRepository {
       login: '/login'
     }
     this.CacheList = {
-      login: this.name + this.APIAdresses.login,
+      login: this.name + this.APIAdresses.login
     }
   }
 
-  login(data){
+  login(data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -32,7 +32,7 @@ export default class AuthAPI extends APIRepository {
       data: this.getNormalizedSendData({
         mobile: null, // String
         password: null // Valid Password
-      },data)
-    });
+      }, data)
+    })
   }
 }

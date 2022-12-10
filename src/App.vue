@@ -6,7 +6,6 @@
 <script>
 import process from 'process'
 
-
 import { defineComponent } from 'vue'
 
 export default defineComponent({

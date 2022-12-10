@@ -87,8 +87,6 @@ export default {
       default: new Product()
     }
   },
-  created() {
-  },
   mounted() {
     this.product = new Product(this.data)
   },

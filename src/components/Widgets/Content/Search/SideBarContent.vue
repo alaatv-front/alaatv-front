@@ -17,17 +17,17 @@
     >
       <q-separator class="mb-2" />
       <q-card-section>
-        <q-input  class="search"
+        <q-input  v-if="item.title === 'درس'"
+                  v-model="lessonsSearchField"
+                  class="search"
                   dense
-                  v-if="item.title === 'درس'"
                   outlined
-                  label="جستجو..."
-                  v-model="lessonsSearchField" />
-        <q-input  class="search"
-                  v-if="item.title === 'دبیران'"
-                  outlined
-                  label="جستجو..."
+                  label="جستجو..." />
+        <q-input  v-if="item.title === 'دبیران'"
                   v-model="teachersSearchField"
+                  class="search"
+                  outlined
+                  label="جستجو..."
                   dense />
       </q-card-section>
       <q-card-section>
@@ -40,12 +40,12 @@
           <q-checkbox
             v-for="(option) in item.options"
             :key="option.order"
+            v-model="option.active"
             class="col-12 q-mb-sm"
             :class="{'hidden': (item.title === 'درس' && !doesContain(lessonsSearchField, option.title)) || item.title === 'دبیران' && !doesContain(teachersSearchField, option.title)}"
             dense
             :indeterminate-value="false"
             :label="option.title"
-            v-model="option.active"
             :input-value="option.value"
             :disable="loading"
             @update:model-value="onFiltersChange()"
@@ -76,8 +76,8 @@
           </div>
         </q-btn>
         <q-btn
-          unelevated
           v-if="item.title === 'دبیران'"
+          unelevated
           color="primary"
           class="show-more-expansion"
           depressed
@@ -157,7 +157,6 @@ export default {
   watch: {
     applyFilter: {
       handler (newVal) {
-        console.log('applyFilter watch in sid', newVal, this.localSelectedTags)
         if (newVal) {
           this.$emit('update:selectedTags', this.localSelectedTags)
         }

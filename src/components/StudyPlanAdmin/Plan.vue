@@ -1,7 +1,7 @@
 <template>
-  <div @mouseover="showMenu = true"
+  <div class="plan-style"
+       @mouseover="showMenu = true"
        @mouseleave="showMenu = false"
-       class="plan-style"
   >
     <div> {{ planDate.title }}</div>
     <q-icon v-if="showMenu || openMenu"
@@ -9,22 +9,22 @@
     >
       <q-menu v-model="openMenu">
         <q-list style="min-width: 100px">
-          <q-item clickable
-                  v-close-popup
+          <q-item v-close-popup
+                  clickable
                   @click="handelPlanEvent('edit')">
             <q-item-section>ویرایش</q-item-section>
             <q-icon class="isax isax-global-edit2" />
           </q-item>
           <q-separator />
-          <q-item clickable
-                  v-close-popup
+          <q-item v-close-popup
+                  clickable
                   @click="handelPlanEvent('delete')">
             <q-item-section> حذف </q-item-section>
             <q-icon class="isax isax-trash" />
           </q-item>
           <q-separator />
-          <q-item clickable
-                  v-close-popup
+          <q-item v-close-popup
+                  clickable
                   @click="handelPlanEvent('copy')">
             <q-item-section> کپی </q-item-section>
             <q-icon class="isax isax-trash" />
