@@ -96,7 +96,7 @@ import Slider from 'components/Widgets/Slider/Slider'
 import SetItem from 'components/Widgets/SetItem/SetItem'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem'
 import { Block } from 'src/models/Block'
-import { dragscrollNext as dragscroll } from 'vue-dragscroll'
+import { dragscroll } from 'vue-dragscroll'
 import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {

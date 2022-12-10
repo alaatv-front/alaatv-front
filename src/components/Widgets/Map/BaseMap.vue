@@ -255,8 +255,8 @@
 </template>
 
 <script>
-import { CRS, latLng } from 'leaflet' /*L,*/
-import { LMap, LTileLayer, LMarker, LIcon, LControl, /*LControlZoom,*/ LPolyline } from '@vue-leaflet/vue-leaflet'
+import { CRS, latLng } from 'leaflet' /* L, */
+import { LMap, LTileLayer, LMarker, LIcon, LControl, /* LControlZoom, */ LPolyline } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItem, MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
@@ -545,8 +545,7 @@ export default {
 
     mapClick(event) {
       if (this.selectedMapClickActionTypes.name === 'addIcon' && event.latlng) {
-        if (this.adminToolBox.polyline.editMode) {
-        } else {
+        if (!this.adminToolBox.polyline.editMode) {
           this.cleanAdminToolBoxMapItem()
           const lat = event.latlng.lat
           const lng = event.latlng.lng
@@ -626,9 +625,9 @@ export default {
       })
     },
     copyToClipboard() {
-      const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
-      console.log(shareLink)
       // ToDo: use quasar clipboard
+      // const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
+      // console.log(shareLink)
       // copyText('Text to copy', shareLink, (error, event) => {
       //   if (error) {
       //     this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
@@ -736,9 +735,9 @@ export default {
     },
     getNodes() {
       this.$axios.get('alaa/api/v2/dar/divar')
-        .then(res => {
-          console.log(res)
-        })
+        // .then(res => {
+        //   console.log(res)
+        // })
         .catch(e => {
           this.node = MapItemsResponse.data
         })

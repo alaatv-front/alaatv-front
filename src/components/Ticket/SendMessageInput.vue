@@ -269,11 +269,10 @@ import 'vue-advanced-cropper/dist/style.css'
 import { UserList } from 'src/models/User'
 import Drawer from 'components/CustomDrawer'
 import UserOrderList from 'components/Ticket/userOrderList'
-import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
 
 const longpress = {
-  created(el, binding) {/*, vNode*/
+  created(el, binding) { /*, vNode */
     if (typeof binding.value !== 'function') {
       // const compName = vNode.context.name
       // let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
