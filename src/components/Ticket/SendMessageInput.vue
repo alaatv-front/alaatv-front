@@ -528,13 +528,13 @@ export default {
         const response = await this.callGetOrderApi()
         this.userOrderData = new CartItemList(response.data.data)
         this.orderLoading = false
-      } catch (e) {
+      } catch {
         this.orderLoading = false
       }
     },
     callGetOrderApi() {
       const userId = this.$store.getters['Auth/user'].id
-      this.$api_gateway.user.ordersById(userId)
+      return this.$apiGateway.user.ordersById(userId)
       // return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
     },
     loadFile(event) {
