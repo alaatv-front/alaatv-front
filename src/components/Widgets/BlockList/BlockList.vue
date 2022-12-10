@@ -4,26 +4,24 @@
          :key="index"
          class="block-list-widget"
     >
-      <block :data="block"
-             :options="options"
+      <Block
+        :data="block"
+        :options="options"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins'
 import Block from 'components/Widgets/Block/Block'
 
 export default {
   name: 'BlockList',
   components: { Block },
-  mixins: [mixinWidget],
   props: {
     options: {
       type: Object,
-      default: () => {
-      }
+      default: () => {}
     }
   },
   data() {
@@ -86,11 +84,7 @@ export default {
         })
       }
       if (this.options.apiName === 'shop') {
-        return this.$api_gateway.pages.shop({
-          cache: {
-            TTL: 100000
-          }
-        })
+        return this.$api_gateway.pages.shop()
       }
     }
   }

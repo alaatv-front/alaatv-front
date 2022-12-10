@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'BaseComponent',
+  name: 'HomePage',
   computed: {
     pageBuilderEditable () {
       return this.$store.getters['AppLayout/pageBuilderEditable']
@@ -26,7 +26,6 @@ export default {
                     widgets: [
                       {
                         name: 'BlockList',
-                        data: 'home',
                         options: {
                           to: 1,
                           apiName: 'home'
