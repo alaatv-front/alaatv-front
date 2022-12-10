@@ -255,8 +255,8 @@
 </template>
 
 <script>
-import { CRS, latLng } from 'leaflet' /*L,*/
-import { LMap, LTileLayer, LMarker, LIcon, LControl, /*LControlZoom,*/ LPolyline } from '@vue-leaflet/vue-leaflet'
+import { CRS, latLng } from 'leaflet' /* L, */
+import { LMap, LTileLayer, LMarker, LIcon, LControl, /* LControlZoom, */ LPolyline } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItem, MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
