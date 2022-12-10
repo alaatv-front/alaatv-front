@@ -17,19 +17,31 @@
         use-chips
         multiple
         input-debounce="0"
-        @new-value="createValue"
         :options="tags"
+        @new-value="createValue"
       />
     </template>
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Content.Show', params: {id: inputData.props.row.id}}">
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="info"
+                 icon="info"
+                 :to="{name:'Admin.Content.Show', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               مشاهده
             </q-tooltip>
           </q-btn>
-          <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="negative"
+                 icon="delete"
+                 class="q-ml-md"
                  @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
             <q-tooltip>
               حذف
@@ -52,7 +64,7 @@ import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'components/EntityCrud'
 
 export default {
-  name: 'Content',
+  name: 'ContentItem',
   components: {
     EntityCrud
   },

@@ -31,7 +31,8 @@
             {{ row[col.field] }}
           </q-badge>
           <div v-else-if="col.name === 'tags' && row[col.field]">
-            <q-badge v-for="tag in row[col.field]"
+            <q-badge v-for="(tag, tagIndex) in row[col.field]"
+                     :key="tagIndex"
                      class="q-pa-sm"
                      color="blue">
               {{ tag }}

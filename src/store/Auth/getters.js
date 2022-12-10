@@ -2,7 +2,6 @@ import { User } from 'src/models/User'
 
 export function user (state) {
   return new User(state.user)
-
 }
 
 export function isUserLogin (state) {
@@ -19,4 +18,3 @@ export function redirectTo (state) {
 export function incompleteProfile (state) {
   return state.incompleteProfile
 }
-

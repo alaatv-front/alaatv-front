@@ -1,14 +1,13 @@
 <template>
-  <q-page-builder
-    v-model:sections="sections"
-    v-model::options="pageConfig"
-    :editable="pageBuilderEditable"
+  <q-page-builder v-model:sections="sections"
+                  v-model:options="pageConfig"
+                  :editable="pageBuilderEditable"
   />
 </template>
 
 <script>
 export default {
-  name: 'BaseComponent',
+  name: 'HomePage',
   computed: {
     pageBuilderEditable () {
       return this.$store.getters['AppLayout/pageBuilderEditable']
@@ -27,7 +26,6 @@ export default {
                     widgets: [
                       {
                         name: 'BlockList',
-                        data: 'home',
                         options: {
                           to: 1,
                           apiName: 'home'

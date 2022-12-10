@@ -62,6 +62,7 @@
                 dense
                 color="green"
                 icon="check"
+                :loading="loading"
                 class="q-mr-md"
                 @click="updateTicket(inputData.props)"
               >
@@ -72,6 +73,7 @@
                 flat
                 dense
                 color="red"
+
                 icon="close"
                 @click="inputData.props.expand = false"
               >
@@ -108,6 +110,7 @@
                      size="md"
                      color="negative"
                      icon="delete"
+                     :loading="loading"
                      class="q-ml-md"
                      @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
                 <q-tooltip>
@@ -267,7 +270,7 @@ export default {
         {
           type: 'entity',
           name: 'hasAssignees',
-          selectionMode: 'single',
+          selectionMode: 'multiple',
           label: 'مسؤل',
           buttonColor: 'primary',
           buttonTextColor: 'white',

@@ -27,14 +27,14 @@
     </template>
   </entity-edit>
   <entity-action
-    v-model:value="actionInput"
     ref="entityAction"
+    v-model:value="actionInput"
     :action-method="'post'"
     :action-api="actionApi"
     :beforeDoAction="beforeDoAction"
+    :defaultLayout="false"
     @onActionSuccess="onActionSuccess"
     @onActionError="onActionError"
-    :defaultLayout="false"
   >
     <template #after-form-builder>
       <div
@@ -345,7 +345,6 @@ export default {
     }
   },
   mounted() {
-    console.log('p')
     this.$store.commit('loading/loading', true)
     this.$refs.entityAction
       .getAxiosPromise('get', this.actionApi)
@@ -368,9 +367,6 @@ export default {
           this.inputs[1].value[4].options = response.data.data.genders
           // action entity
           this.actionInput[0].value[1].options = response.data.data.majors
-        })
-        .catch((e) => {
-          console.log(e)
         })
     },
     afterGetData() {
@@ -407,9 +403,6 @@ export default {
         .then((response) => {
           // TODO: Since  eventresult has not been implemented,
           // completing this part will be done after getting this from BackEnd
-        })
-        .catch((e) => {
-          console.log(e)
         })
     },
     onActionSuccess() {

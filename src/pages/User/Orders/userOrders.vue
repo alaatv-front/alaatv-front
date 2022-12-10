@@ -11,7 +11,7 @@ export default {
   name: 'userOrders',
   computed: {
     pageBuilderEditable() {
-      return this.$store.getters["AppLayout/pageBuilderEditable"];
+      return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   },
   data () {

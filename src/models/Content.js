@@ -133,6 +133,8 @@ class ContentList extends Collection {
       } else if (sort === 'des') {
         return b.order - a.order
       }
+
+      return false
     })
   }
 

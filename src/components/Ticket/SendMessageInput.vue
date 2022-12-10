@@ -269,19 +269,16 @@ import 'vue-advanced-cropper/dist/style.css'
 import { UserList } from 'src/models/User'
 import Drawer from 'components/CustomDrawer'
 import UserOrderList from 'components/Ticket/userOrderList'
-import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
 
 const longpress = {
-  created(el, binding, vNode) {
+  created(el, binding) { /*, vNode */
     if (typeof binding.value !== 'function') {
-      const compName = vNode.context.name
-      let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
-      if (compName) {
-        warn += `Found in component '${compName}' `
-      }
-
-      console.warn(warn)
+      // const compName = vNode.context.name
+      // let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
+      // if (compName) {
+      //   warn += `Found in component '${compName}' `
+      // }
     }
 
     // Define variable
@@ -343,14 +340,6 @@ export default {
     role: {
       type: String,
       default: 'user'
-    },
-    canFilterSupporter: {
-      type: Boolean,
-      default: false
-    },
-    canFilterAssignees: {
-      type: Boolean,
-      default: false
     },
     canAssignTicket: {
       type: Boolean,
@@ -545,7 +534,8 @@ export default {
     },
     callGetOrderApi() {
       const userId = this.$store.getters['Auth/user'].id
-      return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
+      this.$api_gateway.user.ordersById(userId)
+      // return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
     },
     loadFile(event) {
       const { files } = event.target
@@ -612,7 +602,7 @@ export default {
       }
 
       const onError = function (err) {
-        console.log(err.name + ': ' + err.message)
+        console.error(err.name + ': ' + err.message)
         document.write('مرورگر شما اجازه دسترسی به میکروفون را ندارد')
       }
 

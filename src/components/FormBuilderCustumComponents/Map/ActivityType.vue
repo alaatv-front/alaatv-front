@@ -18,10 +18,10 @@
         label="لینک مد نظر خود را وارد کنید:"
       />
       <q-select
+        v-model="inputData.data.target"
         option-value="value"
         emit-value
         map-options
-        v-model="inputData.data.target"
         :options="LinkStateOptions"
       />
     </div>

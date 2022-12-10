@@ -1,8 +1,8 @@
 import process from 'process'
 // process.client or process.browser
 const apiV2Server = process.env.ALAA_API_V2
-const apiV1Server = process.env.ALAA_API_V1
-const webServer = process.env.ALAA_WEB
+// const apiV1Server = process.env.ALAA_API_V1
+// const webServer = process.env.ALAA_WEB
 
 const API_ADDRESS = {
   // socket: process.env.VUE_APP_SOCKET_TARGET_API_SERVER,
@@ -91,6 +91,9 @@ const API_ADDRESS = {
     },
     index: {
       base: apiV2Server + '/ticket'
+    },
+    user: {
+      getInfo: apiV2Server + '/user/getInfo'
     },
     show: {
       base: apiV2Server + '/ticket',

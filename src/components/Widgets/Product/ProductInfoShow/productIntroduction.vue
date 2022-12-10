@@ -50,7 +50,9 @@ export default {
   props: {
     data: {
       type: Object,
-      default: {}
+      default: () => {
+        return {}
+      }
     }
   },
   data () {
@@ -91,9 +93,6 @@ export default {
   },
   created () {
     this.setInformation()
-  },
-  mounted() {
-    console.log('this.data :', this.data)
   },
   watch: {
     data: {

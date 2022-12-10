@@ -540,9 +540,8 @@ export default {
             that.resetLists(data, oldList)
           })
         })
-        .catch(errors => {
+        .catch(() => {
           this.searchLoading = false
-          console.log('-------------', errors)
         })
     },
 

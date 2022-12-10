@@ -1,6 +1,6 @@
-import APIRepository from "../classes/APIRepository"
-import { apiV1, apiV2, apiWeb } from "src/boot/axios";
-import { Content } from "src/models/Content";
+import APIRepository from '../classes/APIRepository'
+import { apiV2 } from 'src/boot/axios'
+import { Content } from 'src/models/Content'
 
 export default class ContentAPI extends APIRepository {
   constructor() {
@@ -13,7 +13,7 @@ export default class ContentAPI extends APIRepository {
     this.CacheList = {
       admin: this.name + this.APIAdresses.admin,
       show: id => this.name + this.APIAdresses.show(id),
-      search: this.name + this.APIAdresses.search,
+      search: this.name + this.APIAdresses.search
     }
   }
 
@@ -30,9 +30,10 @@ export default class ContentAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
-  search(data={}){
+
+  search(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -49,6 +50,6 @@ export default class ContentAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
-    });
+    })
   }
 }

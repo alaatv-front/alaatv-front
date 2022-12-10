@@ -28,8 +28,8 @@
                   >
                     <span v-if="value">{{ value }}</span>
                     <span v-else>
-                    <q-skeleton width="100px" />
-                  </span>
+                      <q-skeleton width="100px" />
+                    </span>
                   </div>
                 </div>
               </div>
@@ -228,7 +228,7 @@ import { mixinWidget } from 'src/mixin/Mixins'
 import { LightGallery } from 'vue-light-gallery'
 import VideoPlayer from 'components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource'
-import { API_Gateway } from 'src/api/APIGateway'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProductInfoShow',
@@ -323,8 +323,8 @@ export default {
     },
     getProduct (productId) {
       this.product.loading = true
-      API_Gateway.product.get(productId)
-        .then(product=>{
+      APIGateway.product.get(productId)
+        .then(product => {
           this.product = product
           this.product.loading = false
           this.setInformation()
@@ -346,7 +346,6 @@ export default {
       } catch (e) {
       }
     },
-
 
     setInformation () {
       if (!this.product.attributes) {

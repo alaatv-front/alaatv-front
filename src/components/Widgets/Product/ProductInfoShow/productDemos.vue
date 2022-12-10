@@ -42,7 +42,7 @@
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem'
-import { dragscrollNext as dragscroll } from 'vue-dragscroll'
+import { dragscroll } from 'vue-dragscroll'
 import { ContentList } from 'src/models/Content'
 
 export default {
@@ -55,7 +55,9 @@ export default {
   props: {
     data: {
       type: Object,
-      default: {}
+      default: () => {
+        return {}
+      }
     }
   },
   data () {
