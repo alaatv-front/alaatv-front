@@ -488,7 +488,7 @@ const mixinTicket = {
           name: 'Admin.Ticket.Show',
           params: { id: response.data.data.id }
         })
-      } catch () {
+      } catch (e) {
         this.loading = false
       }
     },
@@ -503,20 +503,22 @@ const mixinTicket = {
         }
         this.showMessagesInNotify(['پیام شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
-      } catch () {
+      } catch (e) {
         this.loading = false
       }
     },
 
     async updateTicketData(ticketId, payload) {
       try {
+        this.loading = true
         await this.callUpdateTicketApi(ticketId, payload)
         this.$q.notify({
           message: 'تغییرات با موفقیت اعمال شد.',
           type: 'positive'
         })
+        this.loading = false
       } catch (e) {
-
+        this.loading = false
       }
     },
 
@@ -531,7 +533,7 @@ const mixinTicket = {
           title: this.getInputsValue('title')
         }
       }
-      return this.$API_Gateway.ticket.updateTicket(ticketId, payloadData)
+      return this.$apiGateway.ticket.updateTicket(ticketId, payloadData)
     },
 
     callCreatTicketApi (formData) {
