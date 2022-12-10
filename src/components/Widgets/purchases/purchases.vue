@@ -1041,12 +1041,10 @@ export default {
         // type 8 video
       } catch (e) {
         this.selectedSet.loading = false
-        console.log('err ', e)
       }
     },
     handleShowModal() {
       this.showContentDialog = this.$store.getters['AppLayout/windowSize'].x < 1024
-      console.log('handleShowModal', this.showContentDialog)
     },
     setSelectedSet (data) {
       this.handleShowModal()

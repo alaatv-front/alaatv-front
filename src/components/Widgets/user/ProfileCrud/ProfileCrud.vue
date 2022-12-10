@@ -345,7 +345,6 @@ export default {
     }
   },
   mounted() {
-    console.log('p')
     this.$store.commit('loading/loading', true)
     this.$refs.entityAction
       .getAxiosPromise('get', this.actionApi)
