@@ -92,6 +92,9 @@ const API_ADDRESS = {
     index: {
       base: apiV2Server + '/ticket'
     },
+    user: {
+      getInfo: apiV2Server + '/user/getInfo'
+    },
     show: {
       base: apiV2Server + '/ticket',
       statusNotice: (ticketId) =>

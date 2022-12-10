@@ -1,6 +1,5 @@
 <template>
   <div class="ticket-index">
-    {{loading}}
     <entity-index
       v-model:value="inputs"
       title="لیست تیکت ها"

@@ -221,11 +221,7 @@ export default {
   computed: {
     getFiltersObject () {
       return (name) => {
-        this.filters.find((item) => {
-          if (item.label === name) {
-            return item
-          }
-        })
+        this.filters.find((item) => item.label === name)
       }
     }
   },
