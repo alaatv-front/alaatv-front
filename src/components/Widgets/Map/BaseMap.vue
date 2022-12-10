@@ -735,9 +735,9 @@ export default {
     },
     getNodes() {
       this.$axios.get('alaa/api/v2/dar/divar')
-        .then(res => {
-          console.log(res)
-        })
+        // .then(res => {
+        //   console.log(res)
+        // })
         .catch(e => {
           this.node = MapItemsResponse.data
         })
