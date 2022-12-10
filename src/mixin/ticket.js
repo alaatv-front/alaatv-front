@@ -25,7 +25,7 @@ const mixinTicket = {
       try {
         await Promise.all([this.setDepartments(), this.setStatuses(), this.setPriorityOption()])
         this.loading = false
-      } catch (e) {
+      } catch {
         this.loading = false
       }
     },
@@ -519,7 +519,7 @@ const mixinTicket = {
           type: 'positive'
         })
         this.loading = false
-      } catch (e) {
+      } catch {
         this.loading = false
       }
     },
@@ -570,7 +570,7 @@ const mixinTicket = {
         // this.$axios.post(API_ADDRESS.ticket.user.getInfo, payload)
         this.user = await this.$apiGateway.ticket.getUserData(payload)
         this.loading = false
-      } catch (e) {
+      } catch {
         this.loading = false
         this.user = new User({
           id: 1204622,
