@@ -31,7 +31,7 @@ const mixinTicket = {
     },
 
     async setStatuses() {
-      this.ticketStatuses = await this.getStatuses()
+      this.ticketStatuses = this.getStatuses()
     },
 
     async setDepartments() {
@@ -40,7 +40,7 @@ const mixinTicket = {
     },
 
     async setPriorityOption() {
-      this.ticketPriorityOption = await this.getPriorityOption()
+      this.ticketPriorityOption = this.getPriorityOption()
     },
 
     getStatuses() {
