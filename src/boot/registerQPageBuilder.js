@@ -1,6 +1,6 @@
 import { boot } from 'quasar/wrappers'
 // import VuePlugin from 'quasar-ui-q-page-builder'
-import QPageBuilder from 'quasar-ui-q-page-builder/src/components/QPageBuilder.vue'
+import QPageBuilder from 'quasar-ui-q-page-builder'
 import widgetList from '../components/Widgets/widget.json'
 
 const widgets = []

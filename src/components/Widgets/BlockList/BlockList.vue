@@ -76,14 +76,14 @@ export default {
 
     getApiRequest() {
       if (this.options.apiName === 'home') {
-        return this.$api_gateway.pages.home({
+        return this.$apiGateway.pages.home({
           cache: {
             TTL: 100000
           }
         })
       }
       if (this.options.apiName === 'shop') {
-        return this.$api_gateway.pages.shop()
+        return this.$apiGateway.pages.shop()
       }
     }
   }
