@@ -269,17 +269,16 @@ import 'vue-advanced-cropper/dist/style.css'
 import { UserList } from 'src/models/User'
 import Drawer from 'components/CustomDrawer'
 import UserOrderList from 'components/Ticket/userOrderList'
-import API_ADDRESS from 'src/api/Addresses'
 import { CartItemList } from 'src/models/CartItem'
 
 const longpress = {
-  created(el, binding, vNode) {
+  created(el, binding) { /*, vNode */
     if (typeof binding.value !== 'function') {
-      const compName = vNode.context.name
-      let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
-      if (compName) {
-        warn += `Found in component '${compName}' `
-      }
+      // const compName = vNode.context.name
+      // let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
+      // if (compName) {
+      //   warn += `Found in component '${compName}' `
+      // }
     }
 
     // Define variable
@@ -535,7 +534,8 @@ export default {
     },
     callGetOrderApi() {
       const userId = this.$store.getters['Auth/user'].id
-      return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
+      this.$api_gateway.user.ordersById(userId)
+      // return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
     },
     loadFile(event) {
       const { files } = event.target

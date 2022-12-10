@@ -368,9 +368,6 @@ export default {
           // action entity
           this.actionInput[0].value[1].options = response.data.data.majors
         })
-        .catch((e) => {
-          console.log(e)
-        })
     },
     afterGetData() {
       this.inputs.forEach(input => {

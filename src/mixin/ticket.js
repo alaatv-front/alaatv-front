@@ -1,5 +1,6 @@
 import API_ADDRESS from 'src/api/Addresses'
 import { TicketDepartmentList } from 'src/models/TicketDepartment'
+import { User } from 'src/models/User'
 
 const mixinTicket = {
   data: () => ({
@@ -30,7 +31,7 @@ const mixinTicket = {
     },
 
     async setStatuses() {
-      this.ticketStatuses = await this.getStatuses()
+      this.ticketStatuses = this.getStatuses()
     },
 
     async setDepartments() {
@@ -39,7 +40,7 @@ const mixinTicket = {
     },
 
     async setPriorityOption() {
-      this.ticketPriorityOption = await this.getPriorityOption()
+      this.ticketPriorityOption = this.getPriorityOption()
     },
 
     getStatuses() {
@@ -478,7 +479,7 @@ const mixinTicket = {
     async sendCreateTicketReq (formData) {
       this.loading = true
       try {
-        const response = await this.callCreatTicketApi(formData)
+        const response = await this.$apiGateway.ticket.creatTicket(formData)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
         }
@@ -488,7 +489,7 @@ const mixinTicket = {
           name: 'Admin.Ticket.Show',
           params: { id: response.data.data.id }
         })
-      } catch () {
+      } catch {
         this.loading = false
       }
     },
@@ -496,14 +497,15 @@ const mixinTicket = {
     async sendTicketMsg(formData) {
       this.loading = true
       try {
-        const response = await this.callSendTicketMsgApi(formData)
+        // const response = await this.callSendTicketMsgApi(formData)
+        const response = await this.$apiGateway.ticket.sendTicketMessage(formData)
         this.userMessageArray.unshift(response.data.data.ticketMessage)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
         }
         this.showMessagesInNotify(['پیام شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
-      } catch () {
+      } catch {
         this.loading = false
       }
     },
@@ -520,22 +522,101 @@ const mixinTicket = {
       }
     },
 
+    async changeUser() {
+      const id = this.getInputsValue('id')
+      const payloadData = {
+        department_id: this.getInputsValue('department'),
+        status_id: this.getInputsValue('status'),
+        priority_id: this.getInputsValue('priority-id'),
+        user_id: this.user.id,
+        id,
+        title: this.getInputsValue('title')
+      }
+      await this.updateTicketData(id, payloadData)
+    },
+
     callUpdateTicketApi(ticketId, payloadData) {
+      const id = ticketId || this.getInputsValue('id')
       if (!payloadData) {
         payloadData = {
           department_id: this.getInputsValue('department'),
           status_id: this.getInputsValue('status'),
           priority_id: this.getInputsValue('priority-id'),
           user_id: this.getInputsValue('userId'),
-          id: this.getInputsValue('id'),
+          id,
           title: this.getInputsValue('title')
         }
       }
-      return this.$API_Gateway.ticket.updateTicket(ticketId, payloadData)
+      return this.$apiGateway.ticket.updateTicket(id, payloadData)
     },
 
     callCreatTicketApi (formData) {
       return this.$axios.post(API_ADDRESS.ticket.create.base, formData)
+    },
+
+    async getUserInfo() {
+      const payload = {
+        mobile: this.phoneNumber,
+        nationalCode: this.nationalCode
+      }
+      this.loading = true
+      try {
+        // const payload = {
+        //   mobile: '09388131193',
+        //   nationalCode: '4900443050'
+        // }
+        // this.$axios.post(API_ADDRESS.ticket.user.getInfo, payload)
+        this.user = await this.$apiGateway.ticket.getUserData(payload)
+        this.loading = false
+      } catch (e) {
+        this.loading = false
+        this.user = new User({
+          id: 1204622,
+          first_name: 'میترا',
+          last_name: 'زلفی خرم',
+          name_slug: null,
+          mobile: '09388131193',
+          mobile_verified_at: '2021-12-09 02:21:42',
+          national_code: '4900443050',
+          photo: 'https://nodes.alaatv.com/upload/images/profile/1639488191_2782.jpg',
+          kartemeli: null,
+          province: null,
+          city: null,
+          address: 'یسبسبسللسبسیبیلسییلی',
+          postal_code: null,
+          school: null,
+          email: null,
+          bio: null,
+          info: null,
+          major: {
+            id: 2,
+            name: 'تجربی',
+            title: 'تجربی',
+            selected: false
+          },
+          grade: {
+            id: 1,
+            name: 'دهم',
+            title: 'دهم'
+          },
+          gender: {
+            id: 2,
+            name: 'خانم',
+            title: 'خانم'
+          },
+          profile_completion: 88,
+          wallet_balance: 0,
+          updated_at: '2022-05-23 07:59:18',
+          created_at: '2021-05-17 23:25:19',
+          edit_profile_url: null,
+          birthdate: '1995-06-15T00:00:00.000000Z',
+          has_purchased_anything: true,
+          shahr: {
+            id: 1378,
+            title: 'ملارد'
+          }
+        })
+      }
     },
 
     callSendTicketMsgApi(formData) {

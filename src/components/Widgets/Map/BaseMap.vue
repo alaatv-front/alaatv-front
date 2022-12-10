@@ -21,7 +21,9 @@
            @update:bounds="boundsUpdated">
       <l-tile-layer :url="url" />
 
-      <div v-for="(item) in items.list">
+      <div v-for="(item, index) in items.list"
+           :key="index"
+      >
         <l-marker
           v-bind:key="item.id"
           :lat-lng="item.data.latlng"
@@ -253,8 +255,8 @@
 </template>
 
 <script>
-import L, { CRS, latLng } from 'leaflet'
-import { LMap, LTileLayer, LMarker, LIcon, LControl, LControlZoom, LPolyline } from '@vue-leaflet/vue-leaflet'
+import { CRS, latLng } from 'leaflet' /* L, */
+import { LMap, LTileLayer, LMarker, LIcon, LControl, /* LControlZoom, */ LPolyline } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItem, MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
@@ -263,12 +265,12 @@ import MapFilters from './components/MapFilters'
 import mapInfo from './components/mapInfo'
 // import EditablePolyline from 'vue-leaflet-editable-polyline'
 // import { copyText } from 'vue3-clipboard'
-import { MapItemAction } from 'src/models/MapItemAction'
+// import { MapItemAction } from 'src/models/MapItemAction'
 import API_ADDRESS from 'src/api/Addresses'
 import MapItemsResponse from './MapItemsResponse'
-import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
-import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
-import MapItemEntity from 'src/models/MapItemEntity'
+// import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
+// import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
+// import MapItemEntity from 'src/models/MapItemEntity'
 
 export default {
   name: 'BaseMap',
@@ -293,10 +295,10 @@ export default {
   },
   components: {
     adminToolBox,
-    EditablePolyline,
+    // EditablePolyline,
     LMap,
     LControl,
-    LControlZoom,
+    // LControlZoom,
     LTileLayer,
     LIcon,
     LMarker,
@@ -430,9 +432,9 @@ export default {
     this.initTemplateData()
   },
   computed: {
-    calcMapHeight() {
-
-    },
+    // calcMapHeight() {
+    //
+    // },
     selectedMapClickActionTypes() {
       return this.mapClickActionTypes.find(function(item) {
         return item.selected
@@ -543,8 +545,7 @@ export default {
 
     mapClick(event) {
       if (this.selectedMapClickActionTypes.name === 'addIcon' && event.latlng) {
-        if (this.adminToolBox.polyline.editMode) {
-        } else {
+        if (!this.adminToolBox.polyline.editMode) {
           this.cleanAdminToolBoxMapItem()
           const lat = event.latlng.lat
           const lng = event.latlng.lng
@@ -599,7 +600,7 @@ export default {
       this.expansionVal = '0'
     },
     sendFilters() {
-      console.log('sent')
+      // console.log('sent')
     },
     openFilterDrawer() {
       this.filterDrawer = !this.filterDrawer
@@ -624,9 +625,9 @@ export default {
       })
     },
     copyToClipboard() {
-      const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
-      console.log(shareLink)
       // ToDo: use quasar clipboard
+      // const shareLink = this.baseUrl + '/map?lat=' + this.currentCenter.lat + '&lng=' + this.currentCenter.lng + '&z=' + this.currentZoom
+      // console.log(shareLink)
       // copyText('Text to copy', shareLink, (error, event) => {
       //   if (error) {
       //     this.showMessagesInNotify('مشکلی در گرفتن لینک رخ داده است.', 'negative')
@@ -651,7 +652,7 @@ export default {
       const mapMaxZoom = 10,
         mapMaxResolution = 0.12500000,
         mapMinResolution = Math.pow(2, mapMaxZoom) * mapMaxResolution,
-        tileExtent = mapExtent,
+        // tileExtent = mapExtent,
         crs = CRS.Simple
       // crs.transformation = new L.Transformation(1, -tileExtent[0], -1, tileExtent[3])
       crs.scale = function(zoom) {
@@ -743,14 +744,7 @@ export default {
     },
     saveMapItem() {
       const newMapItem = new MapItem(this.adminToolBox.marker)
-      console.log(newMapItem)
       this.$axios.post(API_ADDRESS.map.items, newMapItem)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(e => {
-          console.log(e)
-        })
     },
     deleteAdminMapItem(data) {
     },

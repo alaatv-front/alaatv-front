@@ -165,7 +165,9 @@ export default {
     },
     polyline: {
       type: Object,
-      default: {}
+      default: () => {
+        return {}
+      }
     },
     toolTab: {
       type: String,

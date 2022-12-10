@@ -256,13 +256,12 @@ export default {
   },
   methods: {
     async getAllPlan () {
-      const res = await this.getAll()
-      console.log('res :', res)
+      // const res = await this.getAll()
     },
 
-    getAll () {
-      return this.$axios.get(Addresses.studyPlan.edit)
-    },
+    // getAll () {
+    //   return this.$axios.get(Addresses.studyPlan.edit)
+    // },
 
     handelPlanEvent (data, type) {
       switch (type) {
@@ -297,7 +296,6 @@ export default {
     editPlanEvent (planData) {
       this.showPlanDetail = true
       this.currentPlanId = planData.id
-      console.log('currentPlanId :', this.currentPlanId)
       this.$nextTick(() => {
         this.$refs.studyPlanForm.setInputValues(planData)
         this.setCustomComponentData(planData)
