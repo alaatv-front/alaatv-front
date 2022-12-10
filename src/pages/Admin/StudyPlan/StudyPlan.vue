@@ -90,9 +90,7 @@ export default {
   components: {
     FilterPlans,
     FullCalenderPlans,
-    FormBuilder,
-    ContentsType,
-    PlanStylePreview
+    FormBuilder
   },
   props: {},
   data: () => ({
@@ -49336,6 +49334,8 @@ export default {
         },
         status: 200
       }
+
+      return ress
     },
 
     hasRequiredDta () {
