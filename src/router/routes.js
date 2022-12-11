@@ -46,7 +46,6 @@ const routes = [
           }
         ]
       },
-
       {
         path: 'ticket',
         name: 'Admin.Ticket.Index',
@@ -194,6 +193,28 @@ const routes = [
         meta: {
           middlewares: [auth]
         }
+      },
+      {
+        path: '/asset/abrisham',
+        name: 'User.Abrisham',
+        component: () => import('layouts/AbrishamLayout.vue'),
+        meta: {
+          // middlewares: [auth]
+        },
+        layoutConfig: {
+          layoutHeaderVisible: false,
+          layoutFooter: false
+        },
+        children: [
+          {
+            path: 'user-abrisham-progress',
+            name: 'User.Abrisham.Progress',
+            component: () => import('pages/User/DashboardAbrisham/index.vue'),
+            meta: {
+              // middlewares: [auth]
+            }
+          }
+        ]
       }
     ]
     // meta: {
