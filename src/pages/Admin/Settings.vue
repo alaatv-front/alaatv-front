@@ -322,6 +322,46 @@ import {
 
 export default {
   name: 'Settings',
+  data () {
+    return {
+      topL: 'l',
+      topC: 'H',
+      topR: 'h',
+      middleL: 'L',
+      middleR: 'R',
+      bottomL: 'f',
+      bottomC: 'F',
+      bottomR: 'f',
+      step: 'pick',
+      exportDialog: false,
+      pick: {
+        header: null,
+        footer: true,
+        left: true,
+        right: true
+      },
+      cfg: {
+        headerReveal: false,
+        headerSep: 'none',
+        footerReveal: false,
+        footerSep: 'none',
+        leftBehavior: 'default',
+        leftOverlay: false,
+        leftSep: 'none',
+        rightBehavior: 'default',
+        rightOverlay: false,
+        rightSep: 'none'
+      },
+      play: {
+        header: true,
+        footer: true,
+        left: false,
+        right: false,
+        scroll: false
+      },
+      localStorageData: {}
+    }
+  },
   computed: {
     ...mapGetters('AppLayout', [
       'layoutView',
@@ -456,46 +496,6 @@ export default {
       return this.initialData()
     }
 
-  },
-  data () {
-    return {
-      topL: 'l',
-      topC: 'H',
-      topR: 'h',
-      middleL: 'L',
-      middleR: 'R',
-      bottomL: 'f',
-      bottomC: 'F',
-      bottomR: 'f',
-      step: 'pick',
-      exportDialog: false,
-      pick: {
-        header: null,
-        footer: true,
-        left: true,
-        right: true
-      },
-      cfg: {
-        headerReveal: false,
-        headerSep: 'none',
-        footerReveal: false,
-        footerSep: 'none',
-        leftBehavior: 'default',
-        leftOverlay: false,
-        leftSep: 'none',
-        rightBehavior: 'default',
-        rightOverlay: false,
-        rightSep: 'none'
-      },
-      play: {
-        header: true,
-        footer: true,
-        left: false,
-        right: false,
-        scroll: false
-      },
-      localStorageData: {}
-    }
   },
   watch: {
     'pick.header': function (newValue) {
