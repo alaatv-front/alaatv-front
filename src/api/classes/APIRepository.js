@@ -6,7 +6,7 @@ export default class APIRepository {
     this.name = name
     this.api = api
     this.url = urlAddress
-    this.model = model
+    this._model = model
   }
 
   /**
@@ -96,7 +96,7 @@ export default class APIRepository {
       rejectCallback: (error) => {
         return error
       },
-      data: new this.model(entityData.data)
+      data: new this._model(entityData.data)
     })
   }
 
@@ -117,7 +117,7 @@ export default class APIRepository {
       rejectCallback: (error) => {
         return error
       },
-      data: new this.model(entityData)
+      data: new this._model(entityData)
     })
   }
 

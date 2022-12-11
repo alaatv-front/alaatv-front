@@ -243,6 +243,16 @@ export default {
       default: 0
     }
   },
+  compouted: {
+    localCartItem: {
+      get () {
+        return this.cartItem
+      },
+      set (newValue) {
+        this.$emit('update:cartItem', newValue)
+      }
+    }
+  },
   data() {
     return {
       // cartItem: new CartItem(),
@@ -338,10 +348,10 @@ export default {
           }
         })
       } else {
-        if (!this.cartItem.product.attributes) {
+        if (!this.localCartItem.product.attributes) {
           return
         }
-        const allInfos = this.cartItem.product.attributes.info
+        const allInfos = this.localCartItem.product.attributes.info
         this.infoDetails.forEach((info, index) => {
           if (allInfos[info.name]) {
             info.desc = this.getDescriptionString(allInfos[info.name])
@@ -363,11 +373,11 @@ export default {
       return fullString
     },
     deleteItem() {
-      if (this.cartItem.order_product) {
-        const idx = this.items.findIndex(item => item.grand.id === this.cartItem.product.id)
+      if (this.localCartItem.order_product) {
+        const idx = this.items.findIndex(item => item.grand.id === this.localCartItem.product.id)
         this.items.splice(idx, 1)
       } else {
-        // const idx = this.items[this.items.length - 1].order_product.findIndex(product => product.id === this.cartItem.id)
+        // const idx = this.items[this.items.length - 1].order_product.findIndex(product => product.id === this.localCartItem.id)
       }
       // this.items.findIndex(item=>item.)
     },
@@ -376,29 +386,29 @@ export default {
     calcDiscount() {
       if (this.hasGrand) {
         let discount = 0
-        this.cartItem.order_product.forEach(e => {
+        this.localCartItem.order_product.forEach(e => {
           discount += e.price.discount
         })
         this.discount = (discount / this.totalPrice) * 100
       } else {
-        this.discount = (this.cartItem.price.discount / this.cartItem.price.base) * 100
+        this.discount = (this.localCartItem.price.discount / this.localCartItem.price.base) * 100
       }
     },
     calcTotalPrice() {
       if (this.hasGrand) {
-        this.cartItem.order_product.forEach(e => {
+        this.localCartItem.order_product.forEach(e => {
           this.totalPrice += e.price.final
         })
-        this.cartItem.price.final = this.totalPrice
+        this.localCartItem.price.final = this.totalPrice
       }
     },
     updateCartItem() {
       if (this.hasGrand) {
-        this.cartItem.grand = this.rawItem.grand
-        this.cartItem.order_product = this.rawItem.order_product
+        this.localCartItem.grand = this.rawItem.grand
+        this.localCartItem.order_product = this.rawItem.order_product
         return
       }
-      this.cartItem = new CartItem(this.rawItem)
+      this.localCartItem = new CartItem(this.rawItem)
     }
   }
 }
