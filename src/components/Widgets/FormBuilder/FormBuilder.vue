@@ -9,8 +9,8 @@ import { FormBuilder, inputMixin } from 'quasar-form-builder'
 
 export default {
   name: 'FormBuilder',
-  mixins: [inputMixin],
   components: { FormBuilder },
+  mixins: [inputMixin],
   props: {
     options: {
       type: Object,

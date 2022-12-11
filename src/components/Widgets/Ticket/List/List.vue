@@ -137,21 +137,6 @@ export default {
   name: 'Index',
   components: { EntityIndex },
   mixins: [mixinTicket],
-  computed: {
-    userCanFilterSupporter() {
-      return true
-    },
-    userCanFilterAssignees() {
-      return true
-    },
-    userSupporters() {
-      // پاسخگو
-      return []
-    },
-    userAssignees() {
-      return []
-    }
-  },
   data () {
     return {
       totalTickets: 0,
@@ -495,6 +480,21 @@ export default {
         },
         { type: 'Checkbox', name: 'hasReported', value: 0, trueValue: 1, falseValue: 0, label: 'مشاهده موارد گزارش شده', col: 'col-md-3' }
       ]
+    }
+  },
+  computed: {
+    userCanFilterSupporter() {
+      return true
+    },
+    userCanFilterAssignees() {
+      return true
+    },
+    userSupporters() {
+      // پاسخگو
+      return []
+    },
+    userAssignees() {
+      return []
     }
   },
   created() {

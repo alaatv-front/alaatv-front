@@ -77,13 +77,13 @@ export default {
       return this.normalizedSizeInNumber.w + '/' + this.normalizedSizeInNumber.h
     }
   },
-  mounted() {
-    this.updateLazyImageSrc()
-  },
   watch: {
     src () {
       this.updateLazyImageSrc()
     }
+  },
+  mounted() {
+    this.updateLazyImageSrc()
   },
   methods: {
     onresize () {

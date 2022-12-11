@@ -73,10 +73,10 @@ export default {
       }
     }
   },
+  computed: {
+  },
   created () {
     this.getUrl()
-  },
-  computed: {
   },
   methods: {
     getUrl () {

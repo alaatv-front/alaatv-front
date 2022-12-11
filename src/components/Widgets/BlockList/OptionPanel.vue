@@ -25,8 +25,8 @@ import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanel
 
 export default defineComponent({
   name: 'OptionPanel',
-  mixins: [mixinOptionPanel],
   components: { OptionPanelTabs },
+  mixins: [mixinOptionPanel],
   data() {
     return {
       defaultOptions: {

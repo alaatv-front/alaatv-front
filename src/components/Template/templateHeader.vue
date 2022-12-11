@@ -305,9 +305,6 @@ export default {
       ]
     }
   },
-  mounted () {
-    this.setMyContentParamsValue()
-  },
   computed: {
     layoutLeftDrawerVisible() {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
@@ -332,6 +329,9 @@ export default {
     isUserLogin() {
       return this.$store.getters['Auth/isUserLogin']
     }
+  },
+  mounted () {
+    this.setMyContentParamsValue()
   },
   methods: {
     ...mapMutations('AppLayout', [

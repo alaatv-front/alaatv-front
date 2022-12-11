@@ -290,14 +290,6 @@ export default {
       }
     }
   },
-  watch: {
-    data() {
-      this.loadSet()
-    },
-    'data.id': function () {
-      this.loadSet()
-    }
-  },
   data() {
     return {
       tab: '',
@@ -348,6 +340,14 @@ export default {
         }
         return moment(date, 'YYYY/M/D').format('jYYYY/jM/jD')
       }
+    }
+  },
+  watch: {
+    data() {
+      this.loadSet()
+    },
+    'data.id': function () {
+      this.loadSet()
     }
   },
   created() {

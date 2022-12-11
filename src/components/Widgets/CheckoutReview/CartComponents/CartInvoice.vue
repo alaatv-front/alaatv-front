@@ -310,8 +310,6 @@ export default {
     }
   },
 
-  created() {},
-
   computed: {
     cart() {
       return this.$store.getters['Cart/cart']
@@ -341,6 +339,8 @@ export default {
       return this.cart.pay_by_wallet.toLocaleString()
     }
   },
+
+  created() {},
 
   methods: {
     handleDiscountLogic() {

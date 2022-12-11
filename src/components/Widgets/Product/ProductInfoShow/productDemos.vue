@@ -47,11 +47,11 @@ import { ContentList } from 'src/models/Content'
 
 export default {
   name: 'productDemos',
-  mixins: [mixinWidget],
   components: { ContentItem },
   directives: {
     dragscroll
   },
+  mixins: [mixinWidget],
   props: {
     data: {
       type: Object,

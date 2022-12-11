@@ -40,20 +40,15 @@ import { Content } from 'src/models/Content'
 export default {
   name: 'ContentShowInfo',
   mixins: [mixinWidget],
+  beforeRouteUpdate() {
+    this.loadContent()
+  },
   props: {
     data: {
       type: [Content, Number, String],
       default() {
         return new Content()
       }
-    }
-  },
-  watch: {
-    data() {
-      this.loadContent()
-    },
-    'data.id': function () {
-      this.loadContent()
     }
   },
   data() {
@@ -77,6 +72,14 @@ export default {
           }
         }
       ]
+    }
+  },
+  watch: {
+    data() {
+      this.loadContent()
+    },
+    'data.id': function () {
+      this.loadContent()
     }
   },
   created() {
@@ -110,9 +113,6 @@ export default {
           this.content.loading = false
         })
     }
-  },
-  beforeRouteUpdate() {
-    this.loadContent()
   }
 }
 </script>

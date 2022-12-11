@@ -126,10 +126,10 @@ import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
 
 export default {
   name: 'Messages',
-  mixins: [mixinDateOptions, mixinTicket],
   components: {
     AvWaveform
   },
+  mixins: [mixinDateOptions, mixinTicket],
 
   props: {
     data: {
@@ -151,6 +151,8 @@ export default {
       return (this.data.user.role === 'کاربر')
     }
 
+  },
+  watch: {
   },
   methods: {
     getAdminName() {
@@ -190,8 +192,6 @@ export default {
           })
         })
     }
-  },
-  watch: {
   }
 }
 </script>
