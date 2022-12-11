@@ -62,10 +62,10 @@ export default {
       mainTemp: null
     }
   },
+  computed: {},
   mounted () {
     this.getMainTemplate()
   },
-  computed: {},
   methods: {
     getMainTemplate () {
       this.mainTemp = '👀 #فیلم جلسه ' + this.videoOrder + ' #' + this.setName + ' #' + this.nameDars + ' #کنکور  آلاء' + '\n\n' +

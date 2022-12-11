@@ -236,7 +236,6 @@ import { User } from 'src/models/User'
 
 export default {
   name: 'Show',
-  mixins: [mixinDateOptions, mixinTicket],
   components: {
     EntityEdit,
     // EntityAction,
@@ -247,6 +246,7 @@ export default {
     SendMessageInput,
     Drawer
   },
+  mixins: [mixinDateOptions, mixinTicket],
   data() {
     return {
       updateUserTem: false,
@@ -490,8 +490,10 @@ export default {
       ]
     }
   },
-  created() {
-    this.api += '/' + this.$route.params.id
+  computed: {
+    editAssignInput() {
+      return this.inputs.find(item => item.name === 'editOperator')
+    }
   },
   watch: {
     departmentList(newVal) {
@@ -501,10 +503,8 @@ export default {
       this.getInput('status').options = newVal
     }
   },
-  computed: {
-    editAssignInput() {
-      return this.inputs.find(item => item.name === 'editOperator')
-    }
+  created() {
+    this.api += '/' + this.$route.params.id
   },
   methods: {
     async editAssignedSupporters() {

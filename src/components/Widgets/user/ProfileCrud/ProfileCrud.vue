@@ -344,6 +344,7 @@ export default {
       defaultLayout: false
     }
   },
+  computed: {},
   mounted() {
     this.$store.commit('loading/loading', true)
     this.$refs.entityAction
@@ -355,7 +356,6 @@ export default {
         this.$store.commit('loading/loading', false)
       })
   },
-  computed: {},
   methods: {
     beforeGetData() {
       axios

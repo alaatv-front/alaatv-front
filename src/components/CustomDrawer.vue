@@ -88,6 +88,8 @@ export default {
       transformValue: '100%'
     }
   },
+  computed: {
+  },
 
   watch: {
     isExpanded() {
@@ -111,6 +113,11 @@ export default {
 
       setTimeout(() => (this.isTransitioning = false), this.speed)
     }
+  },
+
+  mounted () {
+    this.transformValue = this.changeDrawerTransition(this.transformValue)
+    this.isVisible = this.isOpen
   },
 
   methods: {
@@ -143,13 +150,6 @@ export default {
     //     this.$emit('close')
     //   }
     // }
-  },
-  computed: {
-  },
-
-  mounted () {
-    this.transformValue = this.changeDrawerTransition(this.transformValue)
-    this.isVisible = this.isOpen
   }
 }
 </script>

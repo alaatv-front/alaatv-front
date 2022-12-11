@@ -175,8 +175,8 @@ import Verify from 'pages/Auth/Verify'
 
 export default {
   name: 'UserInfoForm',
-  mixins: [mixinAuth],
   components: { Verify },
+  mixins: [mixinAuth],
   props: {
     requiredItems: {
       type: Array,

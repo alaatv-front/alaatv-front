@@ -21,6 +21,31 @@ export default {
       filterValues: []
     }
   },
+  computed: {
+    getFiltersObject () {
+      return (name) => {
+        this.filters.find((item) => item.label === name)
+      }
+    }
+  },
+  watch: {
+    filterValues (newVal, OldVal) {
+      if (newVal.indexOf('راه_ابریشم') !== -1) {
+        this.showOrHideFilters('abrisham', 'show')
+      } else {
+        this.showOrHideFilters('abrisham', 'hide')
+      }
+      if (newVal.indexOf('اقیانوس') !== -1) {
+        this.showOrHideFilters('ocean', 'show')
+      } else {
+        this.showOrHideFilters('ocean', 'hide')
+      }
+      this.$emit('filterValues', newVal)
+    }
+  },
+  created () {
+    this.initFilterData()
+  },
   methods: {
     showOrHideFilters (filterClass, mode) {
       this.filters.forEach(item => {
@@ -217,31 +242,6 @@ export default {
         }
       ]
     }
-  },
-  computed: {
-    getFiltersObject () {
-      return (name) => {
-        this.filters.find((item) => item.label === name)
-      }
-    }
-  },
-  watch: {
-    filterValues (newVal, OldVal) {
-      if (newVal.indexOf('راه_ابریشم') !== -1) {
-        this.showOrHideFilters('abrisham', 'show')
-      } else {
-        this.showOrHideFilters('abrisham', 'hide')
-      }
-      if (newVal.indexOf('اقیانوس') !== -1) {
-        this.showOrHideFilters('ocean', 'show')
-      } else {
-        this.showOrHideFilters('ocean', 'hide')
-      }
-      this.$emit('filterValues', newVal)
-    }
-  },
-  created () {
-    this.initFilterData()
   }
 }
 </script>

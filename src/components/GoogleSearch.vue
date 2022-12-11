@@ -253,11 +253,6 @@ export default {
       ]
     }
   },
-  mounted () {
-    this.widthOfRef('titleWidth', 'desktopTitle')
-    this.widthOfRef('urlWidth', 'desktopUrl')
-    this.widthOfRef('metaWidth', 'desktopMeta')
-  },
   watch: {
     showCached (newVal) {
       setTimeout(() => {
@@ -286,6 +281,11 @@ export default {
         }
       }, 10)
     }
+  },
+  mounted () {
+    this.widthOfRef('titleWidth', 'desktopTitle')
+    this.widthOfRef('urlWidth', 'desktopUrl')
+    this.widthOfRef('metaWidth', 'desktopMeta')
   },
   methods: {
     widthOfRef (key, refName) {

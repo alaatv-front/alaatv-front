@@ -133,6 +133,7 @@ export default {
       default: (id, title, order, callback) => {}
     }
   },
+  emits: ['ticked', 'lazy-loaded'],
   data: () => {
     return {
       ticked: [],
@@ -150,7 +151,6 @@ export default {
   },
   created () {},
   mounted () {},
-  emits: ['ticked', 'lazy-loaded'],
   methods: {
     createRoot (nodeData) {
       const treeNodeData = new TreeNode(nodeData)

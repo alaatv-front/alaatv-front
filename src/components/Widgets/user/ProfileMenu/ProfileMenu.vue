@@ -209,6 +209,14 @@ export default {
       controls: false
     }
   },
+  computed: {
+    fullName() {
+      if (this.$store.getters['Auth/user'].full_name) {
+        return this.$store.getters['Auth/user'].full_name
+      }
+      return 'وارد نشده'
+    }
+  },
   methods: {
     updatePhoto() {
       this.$refs.file.pickFiles()
@@ -231,14 +239,6 @@ export default {
     },
     logout() {
       this.$store.dispatch('Auth/logOut')
-    }
-  },
-  computed: {
-    fullName() {
-      if (this.$store.getters['Auth/user'].full_name) {
-        return this.$store.getters['Auth/user'].full_name
-      }
-      return 'وارد نشده'
     }
   }
 }

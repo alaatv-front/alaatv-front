@@ -214,16 +214,16 @@ import { computed } from 'vue'
 
 export default {
   name: 'Search',
-  provide() {
-    return {
-      scrollInfo: computed(() => this.scrollInfo)
-    }
-  },
   components: {
     SetItem,
     SpeciferType,
     StickyBothSides,
     SideBarContent
+  },
+  provide() {
+    return {
+      scrollInfo: computed(() => this.scrollInfo)
+    }
   },
   data: () => ({
     scrollInfo: null,

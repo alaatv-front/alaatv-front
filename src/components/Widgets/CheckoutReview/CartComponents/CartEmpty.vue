@@ -16,10 +16,10 @@
 <script>
 export default {
   name: 'CartEmpty',
-  created() {},
   data() {
     return {}
   },
+  created() {},
   methods: {}
 }
 </script>

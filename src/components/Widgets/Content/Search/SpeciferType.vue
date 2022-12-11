@@ -9,8 +9,8 @@ import ContentItem from 'src/components/Widgets/Content/Search/ContentItem'
 import { Product } from 'src/models/Product'
 import { Content } from 'src/models/Content'
 export default {
-  components: { ProductItem, ContentItem },
   name: 'MainContentBox',
+  components: { ProductItem, ContentItem },
   props: {
     info: {
       type: Object,

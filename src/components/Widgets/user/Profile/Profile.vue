@@ -15,8 +15,8 @@ import { inputMixin, FormBuilder } from 'quasar-form-builder'
 
 export default {
   name: 'Profile.vue',
-  mixins: [mixinWidget, inputMixin],
   components: { FormBuilder },
+  mixins: [mixinWidget, inputMixin],
   data() {
     return {
       cards: [

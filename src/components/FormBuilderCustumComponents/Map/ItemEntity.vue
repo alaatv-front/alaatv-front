@@ -23,6 +23,12 @@
 import { inputMixin } from 'quasar-form-builder'
 export default {
   name: 'ItemEntity',
+  mixins: [inputMixin],
+  props: {
+    value: {
+      default: null
+    }
+  },
   data() {
     return {
       entityOptions: [
@@ -61,12 +67,6 @@ export default {
       ]
     }
   },
-  props: {
-    value: {
-      default: null
-    }
-  },
-  mixins: [inputMixin],
   methods: {
     onChangeLineType () {
       const name = this.entityOptions.find(item => item.entity_type === this.inputData.entity_type).display_name

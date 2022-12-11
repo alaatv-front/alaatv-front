@@ -106,8 +106,8 @@
 <script>
 
 export default {
-  directives: {},
   name: 'SideBar',
+  directives: {},
   props: {
     contentFilterData: {
       type: Object,
@@ -132,6 +132,7 @@ export default {
       default: false
     }
   },
+  emits: ['update:selectedTags'],
   data () {
     return {
       testModel: false,
@@ -145,12 +146,6 @@ export default {
       localFilterData: {}
     }
   },
-  created () {
-    this.contentSearchData = JSON.parse(JSON.stringify(this.contentFilterData))
-    this.mergeContentSearchDataActiveKeyWithSelectedFields()
-    this.sortFilterBasedOnSelected()
-  },
-  emits: ['update:selectedTags'],
   computed: {
 
   },
@@ -170,6 +165,11 @@ export default {
         }
       }
     }
+  },
+  created () {
+    this.contentSearchData = JSON.parse(JSON.stringify(this.contentFilterData))
+    this.mergeContentSearchDataActiveKeyWithSelectedFields()
+    this.sortFilterBasedOnSelected()
   },
   methods: {
     syncSelectedTagViaContentSearchData (selectedTags) {

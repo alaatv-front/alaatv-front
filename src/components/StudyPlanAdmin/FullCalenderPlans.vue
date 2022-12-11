@@ -103,12 +103,6 @@ export default {
       opacity: 0
     }
   }),
-  mounted () {
-
-  },
-  created () {
-    this.initData()
-  },
   watch: {
     verticalPosition: {
       handler (newValue) {
@@ -126,6 +120,12 @@ export default {
         this.syncHorizontalScroll('plans', newValue)
       }
     }
+  },
+  mounted () {
+
+  },
+  created () {
+    this.initData()
   },
   methods: {
     initData () {

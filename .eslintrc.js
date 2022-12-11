@@ -75,6 +75,7 @@ module.exports = {
     'no-unused-vars': 'error',
 
     "vue/attributes-order": 'error',
+    "vue/order-in-components": 'error',
     "vue/max-attributes-per-line": 'error',
     "vue/html-indent": 'error',
     "vue/html-closing-bracket-spacing": 'error',
