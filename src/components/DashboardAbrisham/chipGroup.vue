@@ -14,17 +14,15 @@
         v-if="loading"
         class="d-block d-xs-none"
       >
-        <v-skeleton-loader
-          type="chip"
-        ></v-skeleton-loader>
+        <q-skeleton></q-skeleton>
       </div>
-
-      <v-chip-group
+      <!--      <v-chip-group-->
+      <div
         v-else
         class="chip-part d-md-block d-sm-flex justify-center"
         :class="dropDown ? 'd-none ' : ''"
       >
-        <v-chip
+        <q-chip
           v-for="(item) in items"
           :key="item.id"
           :color="isItemSelected(item) ? (item.color?  item.color : '#ff8f00') : 'transparent'"
@@ -33,25 +31,22 @@
           @click="changeSelectedChip(item.id)"
         >
           {{ item.title }}
-        </v-chip>
-      </v-chip-group>
+        </q-chip>
+      </div>
 
     </div>
     <div
       v-if="loading"
       class="d-xl-none d-lg-none d-md-none d-sm-none d-xs-block"
     >
-      <v-skeleton-loader
-        v-for="index in 2"
-        :key="index"
-        class="pa-5"
-        type="chip"
-      ></v-skeleton-loader>
+      <q-skeleton type="chip"></q-skeleton>
+      <q-skeleton type="chip"></q-skeleton>
+
     </div>
     <div
       class="drop-down-select-box mt-5 d-flex d-xl-none d-lg-none d-md-none d-sm-none d-xs-block"
     >
-      <v-select
+      <q-select
         v-model="selectedId"
         color="#3e5480"
         :items="items"

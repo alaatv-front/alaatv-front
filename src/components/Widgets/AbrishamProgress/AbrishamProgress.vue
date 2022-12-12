@@ -32,12 +32,9 @@
       </div>
     </div>
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
-    <v-row>
-      <v-col
-        md="8"
-        xs="12"
-        cols="12"
-        class="video-box-col"
+    <div class="row">
+      <div
+        class="video-box-col col-12 col-md-8 col-xs-12"
       >
         <video-box
           :lesson="currentLesson"
@@ -58,11 +55,9 @@
             @input="saveComment"
           />
         </div>
-      </v-col>
-      <v-col
-        md="4"
-        cols="12"
-        class="content-list-col"
+      </div>
+      <div
+        class="col-md-4 col-12 content-list-col"
       >
         <content-list-component
           v-model="watchingContent"
@@ -77,7 +72,7 @@
           <template v-slot:filter>
             <div class="d-flex  v-select-box">
               <div class="ml-xm-2 ml-5 col-6 pa-0">
-                <v-select
+                <q-select
                   :key="sets.list.length"
                   v-model="currentSetId"
                   :loading="contents.loading"
@@ -96,7 +91,7 @@
                   @change="setCurrentSet"
                 />
               </div>
-              <v-select
+              <q-select
                 v-model="currentSectionId"
                 :loading="contents.loading"
                 value="all"
@@ -115,13 +110,11 @@
             </div>
           </template>
         </content-list-component>
-      </v-col>
-    </v-row>
+      </div>
+    </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
-    <v-row>
-      <v-col
-        md="8"
-        cols="12"
+    <div class="row">
+      <div class="col-8 col-12"
       >
         <div class="desktop-view">
           <div class="current-content-title"
@@ -132,10 +125,9 @@
             @input="saveComment"
           />
         </div>
-      </v-col>
-      <v-col
-        md="4"
-        cols="12"
+      </div>
+      <div
+        class="col-md-4 col-12"
       >
         <content-list-component
           :header="{ title: 'جزوه ها' }"
@@ -145,8 +137,8 @@
           type="pamphlet"
           @input="setWatchingContent"
         />
-      </v-col>
-    </v-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -157,13 +149,17 @@ import { SetList } from 'src/models/Set'
 import { SetSectionList } from 'src/models/SetSection'
 import ChipGroup from 'components/DashboardAbrisham/chipGroup'
 import videoBox from 'src/components/DashboardAbrisham/videoBox'
+import commentBox from 'src/components/DashboardAbrisham/CommentBox'
+import ContentListComponent from 'src/components/DashboardAbrisham/ContentList'
 import { mixinAbrisham } from 'src/mixin/Mixins'
 
 export default {
   name: 'AbrishamProgress',
   components: {
     ChipGroup,
-    videoBox
+    videoBox,
+    commentBox,
+    ContentListComponent
   },
   mixins: [mixinAbrisham],
   data: () => ({

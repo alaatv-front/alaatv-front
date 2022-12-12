@@ -1,111 +1,113 @@
 <template>
-    <div class="app-bar-parent">
-        <v-app-bar
-            app
-            elevate-on-scroll
-            color="white"
-            class="d-flex align-center app-bar"
-        >
-            <div class="right-logo">
-                <img
-                    src="https://nodes.alaatv.com/upload/abrisham-panel-logo.png"
-                    class="logo-image"
-                >
-            </div>
-            <div class="header-box ">
-                <v-img
-                    src="https://nodes.alaatv.com/upload/abrisham-panel-logotype.png"
-                    class="header-logo-img"
-                />
-            </div>
-            <div class="profile-box ">
-                <i class="fi fi-rr-bell icon icon"/>
-                <v-menu offset-y>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-avatar
-                            class="avatar"
-                            v-bind="attrs"
-                            v-on="on"
-                        >
-                            <img
-                                :src="user.photo"
-                                alt="">
-                        </v-avatar>
-                    </template>
-                    <v-card>
-                        <v-list>
-                            <v-list-item>
-                                <div class="avatar-header">
-                                    <v-list-item-avatar>
-                                        <img
-                                            :src="user.photo"
-                                            alt=""
-                                        >
-                                    </v-list-item-avatar>
-                                    <v-list-item-content>
-                                        <v-list-item-title>
-                                            {{ user.full_name }}
-                                        </v-list-item-title>
-                                        <span class="user-phone">
-                                        {{ user.mobile }}
-                                    </span>
-                                    </v-list-item-content>
-                                </div>
-                            </v-list-item>
-                        </v-list>
-                        <v-divider></v-divider>
-                        <v-list>
-                            <v-list-item>
-                                <div class="avatar-body">
-                                    <v-list-item-content>
-                                        <a href="/" class="avatar-link">رفتن به صفحه اصلی</a>
-                                    </v-list-item-content>
-                                    <v-list-item-content>
-                                        <a @click="logout" class="avatar-link exit">خروج</a>
-                                    </v-list-item-content>
-                                </div>
-                            </v-list-item>
-                        </v-list>
-                    </v-card>
-                </v-menu>
-            </div>
-        </v-app-bar>
-    </div>
+  <div class="app-bar-parent">
+    <v-app-bar
+      app
+      elevate-on-scroll
+      color="white"
+      class="d-flex align-center app-bar"
+    >
+      <div class="right-logo">
+        <q-img
+          src="https://nodes.alaatv.com/upload/abrisham-panel-logo.png"
+          class="logo-image"
+        />
+      </div>
+      <div class="header-box ">
+        <q-img
+          src="https://nodes.alaatv.com/upload/abrisham-panel-logotype.png"
+          class="header-logo-img"
+        />
+      </div>
+      <div class="profile-box ">
+        <i class="fi fi-rr-bell icon icon" />
+        <q-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <q-avatar
+              class="avatar"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <img
+                :src="user.photo"
+                alt="">
+            </q-avatar>
+          </template>
+          <q-card>
+            <q-list>
+              <q-item>
+                <div class="avatar-header">
+                  <div>
+                    <img
+                      :src="user.photo"
+                      alt=""
+                    >
+                  </div>
+                  <div>
+                    <div>
+                      {{ user.full_name }}
+                    </div>
+                    <span class="user-phone">
+                      {{ user.mobile }}
+                    </span>
+                  </div>
+                </div>
+              </q-item>
+            </q-list>
+            <q-separator />
+            <q-list>
+              <q-item>
+                <div class="avatar-body">
+                  <div>
+                    <a href="/"
+                       class="avatar-link">رفتن به صفحه اصلی</a>
+                  </div>
+                  <div>
+                    <a class="avatar-link exit"
+                       @click="logout">خروج</a>
+                  </div>
+                </div>
+              </q-item>
+            </q-list>
+          </q-card>
+        </q-menu>
+      </div>
+    </v-app-bar>
+  </div>
 </template>
 
 <script>
-import {User} from '../../../../Model/User'
+import { User } from 'src/models/User'
 
 export default {
-    name: 'AppBar',
-    props: {
-        width: {
-            type: Object,
-            default() {
-                return {}
-            }
-        },
-    },
-    computed: {
-        user() {
-            return new User(this.$store.getters.user)
-        },
-
-    },
-    data() {
-        return {
-            items: [
-                {title: 'Click Me'},
-                {title: 'Click Me'},
-            ],
-        }
-    },
-    methods: {
-        logout() {
-            window.document.getElementById('logout-form').submit();
-            window.localStorage.setItem('access_token', '');
-        },
+  name: 'AppBar',
+  props: {
+    width: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
+  },
+  data() {
+    return {
+      items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' }
+      ]
+    }
+  },
+  computed: {
+    user() {
+      return new User(this.$store.getters.user)
+    }
+
+  },
+  methods: {
+    logout() {
+      window.document.getElementById('logout-form').submit()
+      window.localStorage.setItem('access_token', '')
+    }
+  }
 }
 </script>
 
@@ -318,4 +320,3 @@ export default {
     }
 }
 </style>
-

@@ -1,155 +1,156 @@
 <template>
-    <v-expand-transition>
-        <div class="plan-details" v-show="showPanelDetail">
-            <v-card elevation="0">
-                <v-sheet
-                    v-if="selectedPlan.start !== null"
-                    class="plan-sheet"
+  <v-expand-transition>
+    <div v-show="showPanelDetail"
+         class="plan-details">
+      <v-card elevation="0">
+        <v-sheet
+          v-if="selectedPlan.start !== null"
+          class="plan-sheet"
+        >
+          <v-row>
+            <v-col class="text-right plan-sheet-title-1">
+              از ساعت {{ selectedPlan.start.substr(0, 5) }}
+            </v-col>
+            <v-col class="plan-sheet-title-2">
+              {{ selectedPlan.title }}
+            </v-col>
+            <v-col class="text-left plan-sheet-title-3">
+              تا ساعت {{ selectedPlan.end.substr(0, 5) }}
+            </v-col>
+          </v-row>
+        </v-sheet>
+        <v-card
+          class="plan-sheet-details"
+          elevation="0"
+        >
+          <v-row>
+            <v-col
+              v-if="filterByTypeVideo.length !== 0"
+              v-ripple
+              class="plan-sheet-details-card"
+            >
+              <v-card
+                elevation="0"
+              >
+                <v-col class="text-right plan-sheet-details-title">
+                  فیلم
+                </v-col>
+                <v-col
+                  v-for="(content, id) in filterByTypeVideo"
+                  :key="id"
+                  v-ripple
+                  class="text-right plan-sheet-details-video"
+                  hover
+                  @click="contentClicked(content)"
                 >
-                    <v-row>
-                        <v-col class="text-right plan-sheet-title-1">
-                            از ساعت {{ selectedPlan.start.substr(0, 5) }}
-                        </v-col>
-                        <v-col class="plan-sheet-title-2">
-                            {{ selectedPlan.title }}
-                        </v-col>
-                        <v-col class="text-left plan-sheet-title-3">
-                            تا ساعت {{ selectedPlan.end.substr(0, 5) }}
-                        </v-col>
-                    </v-row>
-                </v-sheet>
-                <v-card
-                    class="plan-sheet-details"
-                    elevation="0"
-                >
-                    <v-row>
-                        <v-col
-                            v-if="filterByTypeVideo.length !== 0"
-                            v-ripple
-                            class="plan-sheet-details-card"
-                        >
-                            <v-card
-                                elevation="0"
-                            >
-                                <v-col class="text-right plan-sheet-details-title">
-                                    فیلم
-                                </v-col>
-                                <v-col
-                                    v-ripple
-                                    class="text-right plan-sheet-details-video"
-                                    v-for="(content, id) in filterByTypeVideo"
-                                    :key="id"
-                                    hover
-                                    @click="contentClicked(content)"
-                                >
-                                    <div class="plan-sheet-details-video-box">
-                                        <v-card
-                                            elevation="0"
-                                            class="plan-sheet-details-video-thumbnail"
-                                            hover
-                                            @click="contentClicked(content)"
-                                        >
-                                            <v-img :src="content.photo"/>
-                                        </v-card>
-                                        <v-card
-                                            elevation="0"
-                                            class="plan-sheet-details-video-title"
-                                            hover
-                                        >
-                                            {{ content.title }}
-                                        </v-card>
+                  <div class="plan-sheet-details-video-box">
+                    <v-card
+                      elevation="0"
+                      class="plan-sheet-details-video-thumbnail"
+                      hover
+                      @click="contentClicked(content)"
+                    >
+                      <v-img :src="content.photo" />
+                    </v-card>
+                    <v-card
+                      elevation="0"
+                      class="plan-sheet-details-video-title"
+                      hover
+                    >
+                      {{ content.title }}
+                    </v-card>
 
-                                    </div>
-                                </v-col>
-                            </v-card>
-                        </v-col>
-                        <v-col
-                            v-if="filterByTypeVoice.length !== 0 "
-                            class="text-right plan-sheet-details-voice"
-                        >
-                            <v-card elevation="0">
-                                <v-col class="text-right plan-sheet-details-title">
-                                    {{content.title}}
-                                </v-col>
-                                <v-card
-                                    v-for="(content, id) in filterByTypeVoice"
-                                    :key="id"
-                                    class="plan-sheet-details-voice-card"
-                                >
-                                    <audio
-                                        controls
-                                        class="plan-sheet-details-voice-audio"
-                                    >
-                                        <source
-                                            :src="content.file.voice"
-                                            type="audio/ogg"
-                                        >
-                                        <source
-                                            :src="content.file.voice"
-                                            type="audio/mpeg"
-                                        >
-                                        مرورگر شما از پخش کننده صدا پشتیبانی نمیکند.
-                                    </audio>
-                                </v-card>
-                            </v-card>
-                        </v-col>
-                        <v-col
-                            v-if="selectedPlan.long_description !== null"
-                            class="plan-sheet-details-card"
-                            cols="12"
-                        >
-                            <v-card elevation="0">
-                                <v-col class="text-right plan-sheet-details-title">
-                                    توضیحات
-                                </v-col>
-                                <v-col class="text-right plan-sheet-details-info">
-                                    {{ selectedPlan.long_description }}
-                                </v-col>
-                            </v-card>
-                        </v-col>
-                    </v-row>
+                  </div>
+                </v-col>
+              </v-card>
+            </v-col>
+            <v-col
+              v-if="filterByTypeVoice.length !== 0 "
+              class="text-right plan-sheet-details-voice"
+            >
+              <v-card elevation="0">
+                <v-col class="text-right plan-sheet-details-title">
+                  {{content.title}}
+                </v-col>
+                <v-card
+                  v-for="(content, id) in filterByTypeVoice"
+                  :key="id"
+                  class="plan-sheet-details-voice-card"
+                >
+                  <audio
+                    controls
+                    class="plan-sheet-details-voice-audio"
+                  >
+                    <source
+                      :src="content.file.voice"
+                      type="audio/ogg"
+                    >
+                    <source
+                      :src="content.file.voice"
+                      type="audio/mpeg"
+                    >
+                    مرورگر شما از پخش  کننده صدا پشتیبانی نمیکند.
+                  </audio>
                 </v-card>
-            </v-card>
-        </div>
-    </v-expand-transition>
+              </v-card>
+            </v-col>
+            <v-col
+              v-if="selectedPlan.long_description !== null"
+              class="plan-sheet-details-card"
+              cols="12"
+            >
+              <v-card elevation="0">
+                <v-col class="text-right plan-sheet-details-title">
+                  توضیحات
+                </v-col>
+                <v-col class="text-right plan-sheet-details-info">
+                  {{ selectedPlan.long_description }}
+                </v-col>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card>
+      </v-card>
+    </div>
+  </v-expand-transition>
 </template>
 
 <script>
-import {Plan} from '../../../../../Model/Plan'
+import { Plan } from 'src/models/Plan'
 
 export default {
-    props: {
-        showPanelDetail: {
-            type: Boolean,
-            default: () => false
-        },
-        selectedPlan: {
-            type: Plan,
-            default: () => new Plan
-        },
+  props: {
+    showPanelDetail: {
+      type: Boolean,
+      default: () => false
     },
-    data() {
-        return {}
+    selectedPlan: {
+      type: Plan,
+      default: () => new Plan()
+    }
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    filterByTypeVideo() {
+      return this.filterBy(4)
     },
-    computed: {
-        filterByTypeVideo() {
-            return this.filterBy(4)
-        },
-        filterByTypeVoice() {
-            return this.filterBy(1)
-        }
+    filterByTypeVoice() {
+      return this.filterBy(1)
+    }
+  },
+  methods: {
+    contentClicked(content) {
+      this.$emit('contentClicked', {
+        date: this.selectedPlan.date,
+        content
+      })
     },
-    methods: {
-        contentClicked(content) {
-            this.$emit('contentClicked', {
-                date:  this.selectedPlan.date,
-                content,
-            })
-        },
-        filterBy(id) {
-            return this.selectedPlan.contents.list.filter((content) => (content.type.id !== null) && (parseInt(content.type.id) === parseInt(id)))
-        },
-    },
+    filterBy(id) {
+      return this.selectedPlan.contents.list.filter((content) => (content.type.id !== null) && (parseInt(content.type.id) === parseInt(id)))
+    }
+  }
 
 }
 </script>
@@ -382,4 +383,3 @@ export default {
 }
 
 </style>
-

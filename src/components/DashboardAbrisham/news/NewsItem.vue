@@ -1,111 +1,118 @@
 <template>
-    <v-card class="news-item mb-4" flat>
-        <div class="content d-flex">
-            <div class="ma-0 pa-0 img-box">
-                <v-card class="img" flat color="#eff3ff">
-                    <v-img v-if="newItem.photo" :src="newItem.photo" />
-                </v-card>
+  <q-card class="news-item mb-4"
+          flat>
+    <div class="content d-flex">
+      <div class="ma-0 pa-0 img-box">
+        <q-card class="img"
+                flat
+                color="#eff3ff">
+          <q-img v-if="newItem.photo"
+                 :src="newItem.photo" />
+        </q-card>
+      </div>
+      <div class="left-content">
+        <div class="title-box d-flex flex-row justify-space-between">
+          <p class="title-text">
+            {{ newItem.title }}
+          </p>
+          <div class="d-flex date-box">
+            <q-img
+              v-if="pin"
+              src="https://nodes.alaatv.com/upload/abrishamDashboard/asset/abrisham-dashboard-news-pin.png"
+              class="img"
+            />
+            <div class="date">
+              {{ newItem.shamsiDate('created_at').dateTime }}
             </div>
-            <div class="left-content">
-                <div class="title-box d-flex flex-row justify-space-between">
-                    <p class="title-text">
-                        {{ newItem.title }}
-                    </p>
-                    <div class="d-flex date-box">
-                        <img
-                            v-if="pin"
-                            src="https://nodes.alaatv.com/upload/abrishamDashboard/asset/abrisham-dashboard-news-pin.png"
-                            class="img"
-                        />
-                        <div class="date">
-                            {{ newItem.shamsiDate('created_at').dateTime }}
-                        </div>
-                    </div>
-                </div>
-                <div class="description-box">
-                    <p
-                        class="description-text"
-                        :class="showMore ? 'expand' : 'single-line'"
-                        v-html="newItem.description"
-                    />
-                </div>
-                <div class="down-part d-flex justify-space-between ">
-                    <div class="d-flex seen-box align-center">
-                        <div
-                            v-if="newItem.tags && newItem.tags !==null"
-                            v-for="tag in newItem.tags"
-                            class="tag d-flex"
-                        >
-                            <span>
-                                {{ tag }}
-                            </span>
-                        </div>
-                        <span class="text">
-                            {{ newItem.seen_counter }}
-                        </span>
-                        <i class="fi fi-rr-eye icon d-flex"/>
-                    </div>
-                    <div class="date">
-                        {{ newItem.shamsiDate('created_at').dateTime }}
-                    </div>
-                    <div class="show-more">
-                        <v-btn
-                            depressed
-                            class="btn-style"
-                            color="transparent"
-                            v-if="!showMore"
-                            @click="showMoreClicked"
-                        >
-                                 <span class="text">
-                                       مشاهده خبر
-                                 </span>
-                            <i class="fi fi-rr-angle-down d-flex icon"/>
-                        </v-btn>
-                        <v-btn
-                            v-if="showMore"
-                            depressed
-                            class="btn-style"
-                            color="transparent"
-                            @click="showMore = false"
-                        >
-                              <span class="text">
-                                  بستن
-                              </span>
-                            <i class="fi fi-rr-angle-up icon"></i>
-                        </v-btn>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </v-card>
+        <div class="description-box">
+          <p
+            class="description-text"
+            :class="showMore ? 'expand' : 'single-line'"
+            v-html="newItem.description"
+          />
+        </div>
+        <div class="down-part d-flex justify-space-between ">
+          <div class="d-flex seen-box align-center">
+            <template  v-if="newItem.tags && newItem.tags !==null">
+              <div
+                v-for="(tag, index) in newItem.tags"
+                :key="index"
+                class="tag d-flex"
+              >
+                <span>
+                  {{ tag }}
+                </span>
+              </div>
+            </template>
+
+            <span class="text">
+              {{ newItem.seen_counter }}
+            </span>
+            <i class="fi fi-rr-eye icon d-flex" />
+          </div>
+          <div class="date">
+            {{ newItem.shamsiDate('created_at').dateTime }}
+          </div>
+          <div class="show-more">
+            <q-btn
+              v-if="!showMore"
+              depressed
+              class="btn-style"
+              color="transparent"
+              @click="showMoreClicked"
+            >
+              <span class="text">
+                مشاهده خبر
+              </span>
+              <i class="fi fi-rr-angle-down d-flex icon" />
+            </q-btn>
+            <q-btn
+              v-if="showMore"
+              depressed
+              class="btn-style"
+              color="transparent"
+              @click="showMore = false"
+            >
+              <span class="text">
+                بستن
+              </span>
+              <i class="fi fi-rr-angle-up icon"></i>
+            </q-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </q-card>
 </template>
 
 <script>
-import {LiveDescription} from '../../../../../Model/LiveDescription';
+import { LiveDescription } from 'src/models/LiveDescription'
 
 export default {
-    name: "NewsItem",
-    props: {
-        pin: {
-            type: Boolean,
-            default: false,
-        },
-        newItem: {
-            type: LiveDescription,
-            default: new LiveDescription()
-        },
+  name: 'NewsItem',
+  props: {
+    pin: {
+      type: Boolean,
+      default: false
     },
-    data() {
-        return {
-            showMore:false
-        }
-    },
-    methods:{
-        showMoreClicked(){
-            this.showMore=true;
-            this.$emit('showMoreClicked', this.newItem.id);
-        }
+    newItem: {
+      type: LiveDescription,
+      default: new LiveDescription()
     }
+  },
+  data() {
+    return {
+      showMore: false
+    }
+  },
+  methods: {
+    showMoreClicked() {
+      this.showMore = true
+      this.$emit('showMoreClicked', this.newItem.id)
+    }
+  }
 }
 </script>
 

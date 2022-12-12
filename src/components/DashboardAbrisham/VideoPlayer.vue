@@ -1,311 +1,315 @@
 <template>
-    <div class="vPlayer" id="videoPlayer" >
-         <div id="videoPlayer-timeStamp" dir="rtl" style="font-family: IRANSans;">
-            <v-navigation-drawer
-                right
-                v-model="drawer"
-                absolute
-                :height="calcTheHeight"
-                :width="calcTheWidth"
-                temporary
-                v-show="videoIsPlaying"
-                hide-overlay
-            >
-                <v-list-item >
+  <div id="videoPlayer"
+       class="vPlayer">
+    <div id="videoPlayer-timeStamp"
+         dir="rtl"
+         style="font-family: IRANSans;">
+      <v-navigation-drawer
+        v-show="videoIsPlaying"
+        v-model="drawer"
+        right
+        absolute
+        :height="calcTheHeight"
+        :width="calcTheWidth"
+        temporary
+        hide-overlay
+      >
+        <v-list-item>
 
-                    <i class="fi-sr-bookmark"></i>
-                    <v-list-item-title>زمانکوب ها</v-list-item-title>
-                    <!-- <v-btn
+          <i class="fi-sr-bookmark"></i>
+          <v-list-item-title>زمانکوب ها</v-list-item-title>
+          <!-- <v-btn
                         icon
                         @click.stop="drawer = false"
                     >
                         <v-icon>mdi-chevron-right</v-icon>
                     </v-btn> -->
-                </v-list-item>
-                <v-divider color="rgba(255, 255, 255, 0.6)"></v-divider>
-                <v-list
-                    nav
-                    dense
-                >
-                    <v-list-item-group
+        </v-list-item>
+        <v-divider color="rgba(255, 255, 255, 0.6)"></v-divider>
+        <v-list
+          nav
+          dense
+        >
+          <v-list-item-group
 
-                    >
-                        <v-list-item
-                            v-for="(timeStamp,index) in timePoints"
-                            :key="index"
-                            @click="activate(timeStamp.time)"
-                        >
-                            <v-list-item-title>{{ timeStamp.title }}</v-list-item-title>
-                            <v-list-item-action>
-                                <v-list-item-action-text>
-                                    <v-menu bottom left>
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn
-                                                class="video-box-icon-button"
-                                                icon
-                                                @click.stop="toggleFavorite(timeStamp.id , $event)"
-                                                :loading="timeStamp.loading"
-                                            >
+          >
+            <v-list-item
+              v-for="(timeStamp,index) in timePoints"
+              :key="index"
+              @click="activate(timeStamp.time)"
+            >
+              <v-list-item-title>{{ timeStamp.title }}</v-list-item-title>
+              <v-list-item-action>
+                <v-list-item-action-text>
+                  <v-menu bottom
+                          left>
+                    <template v-slot:activator="{ on }">
+                      <v-btn
+                        class="video-box-icon-button"
+                        icon
+                        :loading="timeStamp.loading"
+                        @click.stop="toggleFavorite(timeStamp.id , $event)"
+                      >
 
-                                                <!--fi-sr-bookmark  -->
-                                                <span
-                                                    class='bookmark-button'
-                                                    :class="{ 'is-favorite': timeStamp.isFavored , 'is-not-favorite': !timeStamp.isFavored }"
-                                                ></span>
-                                            </v-btn>
-                                        </template>
-                                    </v-menu>
-                                </v-list-item-action-text>
-                            </v-list-item-action>
-                        </v-list-item>
-                    </v-list-item-group>
-                </v-list>
-            </v-navigation-drawer>
-            <!-- timestamp[0] -->
-            <transition name="fade">
-                <v-btn
-                    v-show="videoIsPlaying"
-                    color="rgba(0, 0, 0, 0.6)"
-                    class="white--text vPlayer-drawer-btn"
-                    @click.stop="drawer = true"
-                >
-                    <span class='vPlayer-timestamp-icon'></span>
-                </v-btn>
-            </transition>
-        </div>
-        <video ref="videoPlayer" id="my-video" dir="ltr" class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause" >
-
-        </video>
+                        <!--fi-sr-bookmark  -->
+                        <span
+                          class='bookmark-button'
+                          :class="{ 'is-favorite': timeStamp.isFavored , 'is-not-favorite': !timeStamp.isFavored }"
+                        ></span>
+                      </v-btn>
+                    </template>
+                  </v-menu>
+                </v-list-item-action-text>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+      <!-- timestamp[0] -->
+      <transition name="fade">
+        <v-btn
+          v-show="videoIsPlaying"
+          color="rgba(0, 0, 0, 0.6)"
+          class="white--text vPlayer-drawer-btn"
+          @click.stop="drawer = true"
+        >
+          <span class='vPlayer-timestamp-icon'></span>
+        </v-btn>
+      </transition>
     </div>
+    <video id="my-video"
+           ref="videoPlayer"
+           dir="ltr"
+           class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause">
+
+    </video>
+  </div>
 </template>
 
 <script>
-import videojs from 'video.js';
-import fa from 'video.js/dist/lang/fa.json';
-require("video.js/dist/video-js.css");
-require('@silvermine/videojs-quality-selector')(videojs);
+import videojs from 'video.js'
+import fa from 'video.js/dist/lang/fa.json'
+require('video.js/dist/video-js.css')
+require('@silvermine/videojs-quality-selector')(videojs)
 require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
-import hotkeys from 'videojs-hotkeys'
-import {Content} from '../../../../Model/Content';
-import ContentMixin from '../Mixin/ContentMixin';
+// import hotkeys from 'videojs-hotkeys'
+import { Content } from 'src/models/Content'
+import { mixinAbrisham } from 'src/mixin/Mixins'
 export default {
-    name: "VideoPlayer",
-    mixins: [ContentMixin],
-    props: {
-        source : {
-            type :Array,
-            default (){
-                return []
-            }
-        },
-        timePoints : {
-            type :Array,
-            default (){
-                return []
-            }
-        },
-        poster : {
-            type : String,
-            default (){
-                return ''
-            }
-        },
-        keepCalculating : {
-            type : Boolean,
-            default (){
-                return true
-            }
-        },
-        bookmarkLoading : {
-            type : Boolean,
-            default (){
-                return false
-            }
-        }
+  name: 'VideoPlayer',
+  mixins: [mixinAbrisham],
+  props: {
+    source: {
+      type: Array,
+      default () {
+        return []
+      }
     },
-    data() {
-        return {
-            drawer : false,
-            favLoading : false,
-            options: {
-                controlBar: {
-                    // currentTimeDisplay: true,
-                    TimeDivider: true,
-                    children: [
-                        'playToggle',
-                        'PlaybackRateMenuButton',
-                        'CurrentTimeDisplay',
-                        'progressControl',
-                        'TimeDivider',
-                        'RemainingTimeDisplay',
-                        'volumePanel',
-                        'SubtitlesButton',
-                        'qualitySelector',
-                        'fullscreenToggle',
-                        'PictureInPictureToggle'
-                    ],
-                    volumePanel : {
-                        inline: false,
-                        vertical: true
-                    },
-                },
-                language: 'fa',
-                languages: {
-                    fa
-                },
-                autoplay: false,
-                controls: true,
-                playbackRates: [0.25, 0.5, 1, 1.5, 2, 2.5, 3, 4],
-                nativeControlsForTouch : true,
-                sources: [],
-                poster : null,
-                plugins: {
-                    hotkeys: {
-                        enableModifiersForNumbers: false,
-                        seekStep: 5,
-                        enableMute : true,
-                        enableVolumeScroll : true,
-                        enableHoverScroll :true,
-                        enableFullscreen :true
-                    }
-                }
-            },
-            videoIsPlaying : false,
-            currentContent : new Content(),
-            postIsFavored : {}
-        };
+    timePoints: {
+      type: Array,
+      default () {
+        return []
+      }
     },
-    created() {
-        this.setSources()
-        this.setPoster()
+    poster: {
+      type: String,
+      default () {
+        return ''
+      }
     },
-    mounted() {
-
-        let that = this
-        this.player = videojs(
-            this.$refs.videoPlayer, this.options, function onPlayerReady() {
-                this.on('timeupdate', function () {
-                    if(that.keepCalculating){
-                        that.calcWatchedPercentage(this.currentTime(),this.duration())
-                    }
-                    document.querySelector('.video-js').focus()
-
-                    if (!that.player.paused() && !that.player.userActive()){
-                        that.videoStatus(false);
-                    }
-                    else if(!that.player.paused()){
-                        that.videoStatus(true);
-                    }
-                })
-
-            })
-        var timeStamp = document.getElementById('videoPlayer-timeStamp');
-        this.player.el().appendChild(timeStamp);
-        // this.player.on('timeupdate', function () {
-        //     if(that.player.isFullscreen()){
-        //                 // var timeStamp = document.getElementById('videoPlayer').requestFullscreen();
-        //                 // if(!timeStamp)
-        //                 // if (!document.fullscreenElement) {
-        //                 //     timeStamp.requestFullscreen().catch(err => {
-        //                 //         alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-        //                 //     });
-        //                 //     }
-        //                 //      else {
-        //                 //     document.exitFullscreen();
-        //                 // }
-
-        //     }
-        //     console.log('player.isFullscreen()' , that.player.isFullscreen());
-        // })
+    keepCalculating: {
+      type: Boolean,
+      default () {
+        return true
+      }
     },
-    computed:{
-        calcTheHeight(){
-            return '100%'
-        },
-        calcTheWidth(){
-            return '100%'
-        }
-    },
-    beforeDestroy() {
-        if (this.player) {
-            this.player.dispose()
-        }
-    },
-    methods:{
-        activate(time){
-            this.player.currentTime(time)
-            this.player.play()
-            var requiredElement = document.querySelector('.video-js')
-            requiredElement.focus()
-        },
-        setSources(){
-            this.options.sources = this.source
-        },
-        setPoster(){
-            this.options.poster = this.poster
-        },
-        reInitVideo(){
-            this.player.src(this.source)
-            this.player.poster(this.poster)
-        },
-        toggleFavorite(id , event){
-            let that = this
-            let count = -1 ;
-            let currentTimepointIndex = null
-            this.timePoints.forEach( function (item, index) {
-                count++
-                if (parseInt(item.id) === parseInt(id)) {
-                    currentTimepointIndex = index
-                    item.loading = true
-                    item.isFavored = !!!item.isFavored
-                    that.postIsFavored = {
-                        'id' : item.id,
-                        'isFavored' : item.isFavored,
-                        'numberOfTimestamp' : count
-                    }
-                }
-            })
-            var requiredElement = document.querySelector('.video-js')
-            requiredElement.focus()
-            this.$emit('toggleBookmark' , this.postIsFavored)
-            setTimeout(function(){ that.timePoints[currentTimepointIndex].loading = false }, 200);
-        },
-        // postIsFavored(timeStampData){
-        //     var postStatus = 'unfavored'
-        //     if (timeStampData.isFavored){
-        //         postStatus = 'favored'
-        //     }
-        //     // /api/v2/timepoint/{timepoint_id}/favored
-        //     axios.post('/api/v2/c/timepoint/' + parseInt(timeStampData.id) + '/'+ postStatus)
-        //         .then(response => {
-        //             if (response.status === 200){
-        //                 this.timePoints.forEach( function (item) {
-        //                     if (parseInt(item.id) === parseInt(timeStampData.id)) {
-        //                         item.loading = false
-        //                     }
-        //                 })
-        //             }
-        //         })
-        //         .catch(err => console.error(err));
-        // },
-        calcWatchedPercentage(currentTime , duration){
-            const watchedPercentage = ((currentTime/duration) * 100)
-            const videoPlayerTimeData = {
-                'currentTime' : currentTime,
-                'duration' : duration,
-                'watchedPercentage' : watchedPercentage
-            }
-            this.$emit('calcTimeData' , videoPlayerTimeData)
-        },
-        videoStatus(val){
-            this.videoIsPlaying = val
-        }
-    },
-    watch:{
-        'source' : function (){
-            this.reInitVideo()
-        }
+    bookmarkLoading: {
+      type: Boolean,
+      default () {
+        return false
+      }
     }
+  },
+  data() {
+    return {
+      drawer: false,
+      favLoading: false,
+      options: {
+        controlBar: {
+          // currentTimeDisplay: true,
+          TimeDivider: true,
+          children: [
+            'playToggle',
+            'PlaybackRateMenuButton',
+            'CurrentTimeDisplay',
+            'progressControl',
+            'TimeDivider',
+            'RemainingTimeDisplay',
+            'volumePanel',
+            'SubtitlesButton',
+            'qualitySelector',
+            'fullscreenToggle',
+            'PictureInPictureToggle'
+          ],
+          volumePanel: {
+            inline: false,
+            vertical: true
+          }
+        },
+        language: 'fa',
+        languages: {
+          fa
+        },
+        autoplay: false,
+        controls: true,
+        playbackRates: [0.25, 0.5, 1, 1.5, 2, 2.5, 3, 4],
+        nativeControlsForTouch: true,
+        sources: [],
+        poster: null,
+        plugins: {
+          hotkeys: {
+            enableModifiersForNumbers: false,
+            seekStep: 5,
+            enableMute: true,
+            enableVolumeScroll: true,
+            enableHoverScroll: true,
+            enableFullscreen: true
+          }
+        }
+      },
+      videoIsPlaying: false,
+      currentContent: new Content(),
+      postIsFavored: {}
+    }
+  },
+  computed: {
+    calcTheHeight() {
+      return '100%'
+    },
+    calcTheWidth() {
+      return '100%'
+    }
+  },
+  watch: {
+    source: function () {
+      this.reInitVideo()
+    }
+  },
+  created() {
+    this.setSources()
+    this.setPoster()
+  },
+  mounted() {
+    const that = this
+    this.player = videojs(
+      this.$refs.videoPlayer, this.options, function onPlayerReady() {
+        this.on('timeupdate', function () {
+          if (that.keepCalculating) {
+            that.calcWatchedPercentage(this.currentTime(), this.duration())
+          }
+          document.querySelector('.video-js').focus()
+
+          if (!that.player.paused() && !that.player.userActive()) {
+            that.videoStatus(false)
+          } else if (!that.player.paused()) {
+            that.videoStatus(true)
+          }
+        })
+      })
+    const timeStamp = document.getElementById('videoPlayer-timeStamp')
+    this.player.el().appendChild(timeStamp)
+    // this.player.on('timeupdate', function () {
+    //     if(that.player.isFullscreen()){
+    //                 // var timeStamp = document.getElementById('videoPlayer').requestFullscreen();
+    //                 // if(!timeStamp)
+    //                 // if (!document.fullscreenElement) {
+    //                 //     timeStamp.requestFullscreen().catch(err => {
+    //                 //         alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+    //                 //     });
+    //                 //     }
+    //                 //      else {
+    //                 //     document.exitFullscreen();
+    //                 // }
+
+    //     }
+    //     console.log('player.isFullscreen()' , that.player.isFullscreen());
+    // })
+  },
+  beforeUnmount() {
+    if (this.player) {
+      this.player.dispose()
+    }
+  },
+  methods: {
+    activate(time) {
+      this.player.currentTime(time)
+      this.player.play()
+      const requiredElement = document.querySelector('.video-js')
+      requiredElement.focus()
+    },
+    setSources() {
+      this.options.sources = this.source
+    },
+    setPoster() {
+      this.options.poster = this.poster
+    },
+    reInitVideo() {
+      this.player.src(this.source)
+      this.player.poster(this.poster)
+    },
+    toggleFavorite(id, event) {
+      const that = this
+      let count = -1
+      let currentTimepointIndex = null
+      this.timePoints.forEach(function (item, index) {
+        count++
+        if (parseInt(item.id) === parseInt(id)) {
+          currentTimepointIndex = index
+          item.loading = true
+          item.isFavored = !item.isFavored
+          that.postIsFavored = {
+            id: item.id,
+            isFavored: item.isFavored,
+            numberOfTimestamp: count
+          }
+        }
+      })
+      const requiredElement = document.querySelector('.video-js')
+      requiredElement.focus()
+      this.$emit('toggleBookmark', this.postIsFavored)
+      setTimeout(function() { that.timePoints[currentTimepointIndex].loading = false }, 200)
+    },
+    // postIsFavored(timeStampData){
+    //     var postStatus = 'unfavored'
+    //     if (timeStampData.isFavored){
+    //         postStatus = 'favored'
+    //     }
+    //     // /api/v2/timepoint/{timepoint_id}/favored
+    //     axios.post('/api/v2/c/timepoint/' + parseInt(timeStampData.id) + '/'+ postStatus)
+    //         .then(response => {
+    //             if (response.status === 200){
+    //                 this.timePoints.forEach( function (item) {
+    //                     if (parseInt(item.id) === parseInt(timeStampData.id)) {
+    //                         item.loading = false
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //         .catch(err => console.error(err));
+    // },
+    calcWatchedPercentage(currentTime, duration) {
+      const watchedPercentage = ((currentTime / duration) * 100)
+      const videoPlayerTimeData = {
+        currentTime,
+        duration,
+        watchedPercentage
+      }
+      this.$emit('calcTimeData', videoPlayerTimeData)
+    },
+    videoStatus(val) {
+      this.videoIsPlaying = val
+    }
+  }
 }
 </script>
 
@@ -469,8 +473,6 @@ export default {
 }
 
 /*------------------------------- THE SKIN ----------------------------------*/
-
-
 
 /*----------- CUSTOME ICONS -----------*/
 
@@ -1036,7 +1038,6 @@ export default {
     // .vPlayer .v-list--dense .v-list-item .v-list-item__subtitle,.vPlayer .v-list--dense .v-list-item .v-list-item__title,.vPlayer .v-list-item--dense .v-list-item__subtitle,.vPlayer .v-list-item--dense .v-list-item__title{
     //     padding-right: 16px;
     // }
-
 
     .vPlayer .v-list-item .v-list-item__subtitle, .vPlayer .v-list-item .v-list-item__title {
         font-size: 16px;

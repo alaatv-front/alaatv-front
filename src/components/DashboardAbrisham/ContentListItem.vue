@@ -1,172 +1,173 @@
 <template>
+  <div
+    ref="contentItem"
+    class="content-list-item"
+    :class="selected ? 'selected-content-list' : ''"
+    @click="changeSelectedItem"
+  >
     <div
-        class="content-list-item"
-        :class="selected ? 'selected-content-list' : ''"
-        @click="changeSelectedItem"
-        ref="contentItem"
+      class="d-flex contentListItem-main-box"
     >
-        <div
-            class="d-flex contentListItem-main-box"
-        >
-            <div class="right-content">
-                <v-card
-                    v-if="content.lesson_name"
-                    height="22"
-                    class="mb-2 rounded-pill text-center lesson_name"
-                    flat
-                    dark
-                    :color="content.color"
-                    v-text="content.lesson_name"
-                />
-                <div class="contentListItem-box">
-                    <v-card
-                        v-if="type === 'video'"
-                        flat
-                    >
-                        <v-img
-                            class="content-list-image"
-                            :src="content.photo"
-                        />
-                    </v-card>
-                    <div
-                        v-if="content.has_watched"
-                        class="d-flex seen justify-center align-center"
-                    >
-                        <i class="fi fi-rr-check icon" />
-                    </div>
-                    <v-img
-                        v-if="type === 'pamphlet'"
-                        src="https://nodes.alaatv.com/upload/abrisham-panel-pdf.png"
-                        class="content-list-image"
-                    />
-                </div>
-            </div>
-            <div class="left-content">
-                <div class="d-flex">
-                    <v-sheet
-                        v-if="content.start"
-                        text-color="#3e5480"
-                        depressed
-                        height="22"
-                        class="d-flex justify-center mb-2 rounded-pill time-sheet"
-                        :color="selected ? 'white' : '#eff3ff'"
-                    >
-                        <div class="clock d-flex align-center px-2">
-                            <i class="text-color fi fi-rr-clock ml-2 mt-1" />
-                            <div>
-                                <span class="text-color" v-text="getClockTime().start" />
-                                <span class="text-color"> الی </span>
-                                <span class="text-color" v-text="getClockTime().end" />
-                            </div>
-                        </div>
-                    </v-sheet>
-                </div>
-                <v-sheet
-                    v-if="false"
-                    class="mb-2"
-                    color="transparent"
-                    height="22"
-                />
-                <div
-                    class="sheet-icon d-flex justify-space-between align-center"
-                    v-if=" type === 'video' "
-                >
-                    <div class="d-flex flex-column justify-center title-box">
-                        <p class="contentListItem-title ">
-                            {{ content.short_title }}
-                        </p>
-                        <p
-                            class="contentListItem-description"
-                        >
-                            {{ content.title }}
-                        </p>
-                    </div>
-                </div>
-                <div
-                    class="sheet-icon d-flex justify-space-between align-center"
-                    v-else-if=" type === 'pamphlet' "
-                >
-                    <div class="d-flex flex-column justify-center title-box">
-                        <p class="contentListItem-title">
-                            {{ content.short_title }}
-                        </p>
-                        <p
-                            class="contentListItem-description"
-                        >
-                            {{ content.title }}
-                        </p>
-                    </div>
-                    <div
-                        v-if="content.file"
-                    >
-                        <a
-                            :href="content.file.pamphlet[0].link"
-                        >
-                            <i
-                                class="fi fi-rr-download download-icon"
-                            />
-                        </a>
-                    </div>
-                </div>
-            </div>
+      <div class="right-content">
+        <q-card
+          v-if="content.lesson_name"
+          height="22"
+          class="mb-2 rounded-pill text-center lesson_name"
+          flat
+          dark
+          :color="content.color"
+          v-text="content.lesson_name"
+        />
+        <div class="contentListItem-box">
+          <q-card
+            v-if="type === 'video'"
+            flat
+          >
+            <q-img
+              class="content-list-image"
+              :src="content.photo"
+            />
+          </q-card>
+          <div
+            v-if="content.has_watched"
+            class="d-flex seen justify-center align-center"
+          >
+            <i class="fi fi-rr-check icon" />
+          </div>
+          <q-img
+            v-if="type === 'pamphlet'"
+            src="https://nodes.alaatv.com/upload/abrisham-panel-pdf.png"
+            class="content-list-image"
+          />
         </div>
+      </div>
+      <div class="left-content">
+        <div class="d-flex">
+          <v-sheet
+            v-if="content.start"
+            text-color="#3e5480"
+            depressed
+            height="22"
+            class="d-flex justify-center mb-2 rounded-pill time-sheet"
+            :color="selected ? 'white' : '#eff3ff'"
+          >
+            <div class="clock d-flex align-center px-2">
+              <i class="text-color fi fi-rr-clock ml-2 mt-1" />
+              <div>
+                <span class="text-color"
+                      v-text="getClockTime().start" />
+                <span class="text-color"> الی </span>
+                <span class="text-color"
+                      v-text="getClockTime().end" />
+              </div>
+            </div>
+          </v-sheet>
+        </div>
+        <v-sheet
+          v-if="false"
+          class="mb-2"
+          color="transparent"
+          height="22"
+        />
+        <div
+          v-if=" type === 'video' "
+          class="sheet-icon d-flex justify-space-between align-center"
+        >
+          <div class="d-flex flex-column justify-center title-box">
+            <p class="contentListItem-title ">
+              {{ content.short_title }}
+            </p>
+            <p
+              class="contentListItem-description"
+            >
+              {{ content.title }}
+            </p>
+          </div>
+        </div>
+        <div
+          v-else-if=" type === 'pamphlet' "
+          class="sheet-icon d-flex justify-space-between align-center"
+        >
+          <div class="d-flex flex-column justify-center title-box">
+            <p class="contentListItem-title">
+              {{ content.short_title }}
+            </p>
+            <p
+              class="contentListItem-description"
+            >
+              {{ content.title }}
+            </p>
+          </div>
+          <div
+            v-if="content.file"
+          >
+            <a
+              :href="content.file.pamphlet[0].link"
+            >
+              <i
+                class="fi fi-rr-download download-icon"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import {Content} from '../../../../Model/Content';
+import { Content } from 'src/models/Content'
 
 export default {
-    name:'ContentListItem',
-    props: {
-        content: {
-            type: Content,
-            default: () => {
-                return new Content();
-            },
-        },
-        selected: {
-            type: Boolean,
-            default: false
-        },
-        type: {
-            type: String,
-            default: ''
-        }
+  name: 'ContentListItem',
+  props: {
+    content: {
+      type: Content,
+      default: () => {
+        return new Content()
+      }
     },
-    mounted() {
-       this.setScrollPosition()
+    selected: {
+      type: Boolean,
+      default: false
     },
-    methods: {
-      setScrollPosition() {
-        if (this.selected){
-            this.$refs.contentItem.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
-        }
-      },
-        getClockTime () {
-            return {
-                start: this.formatClock(this.content.start),
-                end: this.formatClock(this.content.end)
-            }
-        },
-        formatClock (clock) {
-            if (!clock) {
-                return clock
-            }
-            var timeArray = clock.split(':')
+    type: {
+      type: String,
+      default: ''
+    }
+  },
+  mounted() {
+    this.setScrollPosition()
+  },
+  methods: {
+    setScrollPosition() {
+      if (this.selected) {
+        this.$refs.contentItem.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
+      }
+    },
+    getClockTime () {
+      return {
+        start: this.formatClock(this.content.start),
+        end: this.formatClock(this.content.end)
+      }
+    },
+    formatClock (clock) {
+      if (!clock) {
+        return clock
+      }
+      const timeArray = clock.split(':')
 
-            timeArray.splice(2, 1)
-            return  timeArray.join(':')
-        },
-        changeSelectedItem(){
-            if (this.type === 'pamphlet' && !this.content.file){
-                window.open(this.content.url.web, '_blank').focus();
-            }
-            else {
-                this.$emit('itemClicked')
-            }
-        }
+      timeArray.splice(2, 1)
+      return timeArray.join(':')
     },
+    changeSelectedItem() {
+      if (this.type === 'pamphlet' && !this.content.file) {
+        window.open(this.content.url.web, '_blank').focus()
+      } else {
+        this.$emit('itemClicked')
+      }
+    }
+  }
 }
 </script>
 

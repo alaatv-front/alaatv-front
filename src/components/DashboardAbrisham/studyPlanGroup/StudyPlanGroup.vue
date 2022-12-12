@@ -1,356 +1,359 @@
 <template>
-    <div ref="studyPlan" class="study-plan-group">
-        <v-card
-            class="study-plan"
-            elevation="0"
-        >
-            <v-fade-transition>
-                    <v-overlay :value="studyPlanList.loading" absolute z-index="2" color="#FFEDD6">
-                        <v-progress-circular
-                            indeterminate
-                            size="64"
-                        ></v-progress-circular>
-                    </v-overlay>
-            </v-fade-transition>
-            <v-card-title class="study-plan-header-title">
-                جدول برنامه مطالعاتی راه ابریشم آلاء
-            </v-card-title>
-            <div class="major-card">
-                <p class="major-card-text">
-                    رشته:
-                </p>
-                <v-select
-                    v-model="selectedMajor"
-                    :items="majors.list"
-                    :item-value=" (item) => item"
-                    item-text="name"
-                    solo
-                    flat
-                    append-icon="mdi-chevron-down"
-                    @change="changeSelectedMajor"
-                />
-            </div>
-            <div class="all-the-expansions" id="study-scroll-1-x">
+  <div ref="studyPlan"
+       class="study-plan-group">
+    <v-card
+      class="study-plan"
+      elevation="0"
+    >
+      <v-fade-transition>
+        <v-overlay :value="studyPlanList.loading"
+                   absolute
+                   z-index="2"
+                   color="#FFEDD6">
+          <v-progress-circular
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
+      </v-fade-transition>
+      <v-card-title class="study-plan-header-title">
+        جدول برنامه مطالعاتی راه ابریشم آلاء
+      </v-card-title>
+      <div class="major-card">
+        <p class="major-card-text">
+          رشته:
+        </p>
+        <v-select
+          v-model="selectedMajor"
+          :items="majors.list"
+          :item-value=" (item) => item"
+          item-text="name"
+          solo
+          flat
+          append-icon="mdi-chevron-down"
+          @change="changeSelectedMajor"
+        />
+      </div>
+      <div id="study-scroll-1-x"
+           class="all-the-expansions">
+        <v-row>
+          <v-expansion-panels
+            v-model="openPlanIndexes"
+            flat
+            multiple
+            class="study-plan-expansion"
+          >
+            <v-expansion-panel
+              v-for="(item, index) in studyPlanList.list"
+              :key="item.date"
+              :ref="index"
+              @click="planClicked(item,index)"
+            >
+              <v-expansion-panel-header class="study-plan-expansion-header">
                 <v-row>
-                    <v-expansion-panels
-                        flat
-                        multiple
-                        v-model="openPlanIndexes"
-                        class="study-plan-expansion"
-                    >
-                        <v-expansion-panel
-                            v-for="(item, index) in studyPlanList.list"
-                            :key="item.date"
-                            :ref="index"
-                            @click="planClicked(item,index)"
-                        >
-                            <v-expansion-panel-header class="study-plan-expansion-header">
-                                <v-row>
-                                    <v-col
-                                        cols="4"
-                                    >
-                                        <div class="study-plan-expansion-header-text"> {{ item.title }}</div>
-                                    </v-col>
-                                    <v-col
-                                        cols="4"
-                                    >
-                                        <div class="study-plan-expansion-header-text">
-                                            {{ item.convertDate().dayOfWeek }}
-                                        </div>
-                                    </v-col>
-                                    <v-col
-                                        cols="4"
-                                    >
-                                        <div class="study-plan-expansion-header-text">
-                                            {{ item.convertDate().dateOfMonth }}
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                            </v-expansion-panel-header>
-                            <study-plan
-                                    :study-plan="item"
-                                    :selected-major="selectedMajor"
-                                    :study-plan-loading="studyPlanList.loading"
-                                    @contentClicked="contentClicked"
-                                />
-                        </v-expansion-panel>
-                    </v-expansion-panels>
+                  <v-col
+                    cols="4"
+                  >
+                    <div class="study-plan-expansion-header-text"> {{ item.title }}</div>
+                  </v-col>
+                  <v-col
+                    cols="4"
+                  >
+                    <div class="study-plan-expansion-header-text">
+                      {{ item.convertDate().dayOfWeek }}
+                    </div>
+                  </v-col>
+                  <v-col
+                    cols="4"
+                  >
+                    <div class="study-plan-expansion-header-text">
+                      {{ item.convertDate().dateOfMonth }}
+                    </div>
+                  </v-col>
                 </v-row>
-            </div>
-        </v-card>
-    </div>
+              </v-expansion-panel-header>
+              <study-plan
+                :study-plan="item"
+                :selected-major="selectedMajor"
+                :study-plan-loading="studyPlanList.loading"
+                @contentClicked="contentClicked"
+              />
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-row>
+      </div>
+    </v-card>
+  </div>
 </template>
 
 <script>
-import StudyPlan from './StudyPlan';
-import {StudyPlanList} from '../../../../../Model/StudyPlan.js'
-import {Major, MajorList} from '../../../../../Model/Major';
-import {PlanList} from '../../../../../Model/Plan';
-import Assistant from "../../Mixin/Assist";
+import StudyPlan from './StudyPlan'
+import { StudyPlanList } from 'src/models/StudyPlan.js'
+import { Major, MajorList } from 'src/models/Major'
+import { PlanList } from 'src/models/Plan'
 
 export default {
-    components: {StudyPlan},
-    mixins: [Assistant],
-    props: {
-        value: { // majorId
-            type: Number,
-            default: 1
-        },
-        majors:{
-            type : MajorList,
-            default : () => new MajorList()
-        },
-        currentDate: {
-            type : String,
-            default : () => ''
-        }
+  components: { StudyPlan },
+
+  props: {
+    value: { // majorId
+      type: Number,
+      default: 1
     },
-    created() {
-        this.initData()
+    majors: {
+      type: MajorList,
+      default: () => new MajorList()
     },
-    updated() {
-    },
-    watch: {
-        value: {
-            handler(newValue) {
-                if(!newValue){
-                    return
-                }
-                this.setSelectedMajor()
-                this.restPageData()
-            },
-        },
-        currentDate: {
-            handler(newValue) {
-                if(!newValue){
-                    return
-                }
-                this.loadCurrentDatePlan(newValue)
-            },
-        }
-    },
-    data() {
-        return {
-            openPlanIndexes: [],
-            selectedMajor: new Major(),
-            studyPlans: new StudyPlanList(),
-            canReq: false,
-            planList: new PlanList(),
-            studyPlanList: new StudyPlanList()
-        }
-    },
-    methods: {
-        initData() {
-            this.setSelectedMajor()
-            this.loadStudyPlanList()
-        },
-
-        async loadTodayPlan() {
-            let todayPlan = this.studyPlanList.list.find(plan => plan.is_current)
-            if (!todayPlan) {
-                return
-            }
-            await this.openPlanExpansion(todayPlan.studyPlan_id)
-        },
-
-        async showStudyPlans(studyPlanIndex) {
-            let studyPlan = this.studyPlanList.list[studyPlanIndex]
-            let studyPlanId = studyPlan.studyPlan_id
-            this.loadPlans(studyPlanId)
-        },
-
-        async openPlanExpansion (studyPlanId) {
-            const target = this.getPlan(studyPlanId)
-            const studyPlanIndex = target.index
-            if (studyPlanIndex === -1) {
-                return
-            }
-            const studyPlan = target.studyPlan
-
-            await this.loadPlans(studyPlan.studyPlan_id)
-            this.openPlanIndexes.push(studyPlanIndex)
-        },
-
-        async loadStudyPlanList() {
-            this.studyPlanList.loading = true
-            try {
-                this.studyPlanList = await this.getStudyPlan()
-                this.studyPlanList.loading = false
-                if(!this.currentDate) {
-                    await this.loadTodayPlan()
-                }
-            } catch (e) {
-                this.studyPlanList.loading = false
-            }
-        },
-
-        async loadCurrentDatePlan(studyPlanDate) {
-            let date = this.convertDateFormat(studyPlanDate)
-            const target = this.getPlan(date, 'date')
-
-            if (!target.studyPlan ) {
-                return
-            }
-
-            let currentPlanId = target.studyPlan.studyPlan_id
-            await this.loadPlans(currentPlanId)
-            this.openPlanIndexes.push(target.index)
-            this.scrollTo(target.index)
-        },
-
-        async loadPlans(planId) {
-            this.studyPlanList.loading = true
-            if (!planId) return
-            try {
-                const studyPlans = await this.getPlanData(planId)
-                this.setPlan(planId, studyPlans)
-                this.studyPlanList.loading = false
-            }catch (e) {
-                this.studyPlanList.loading = false
-            }
-        },
-
-        async getStudyPlan () {
-            const cacheKey = 'user-schedule-study-plan-group-getStudyPlan'
-            const response = await this.getData(cacheKey, this.getStudyPlanData)
-            if (response.status === 200) {
-                return new StudyPlanList(response.data.data)
-            }
-            return new StudyPlanList()
-        },
-
-        async getPlanData(planId) {
-            const cacheKey = 'user-schedule-study-plan-group-get-'+ planId +'-plan'
-            const response = await this.getData(cacheKey, this.getPlanDataReq, {planId})
-            if (response.status === 200) {
-                return new StudyPlanList(response.data.data)
-            }
-            return new StudyPlanList()
-        },
-
-        getStudyPlanData() {
-            const studyPlanNumber = 5
-            return axios.get('/api/v2/studyEvent/' + studyPlanNumber + '/studyPlans')
-        },
-
-        getMajor (id){
-            return this.majors.list.find(major => major.id === id)
-        },
-
-        getFirstMajor (){
-            return this.majors.list[0]
-        },
-
-        getTodayDate() {
-            let todayDate = new Date();
-            const date = String(todayDate.getDate()).padStart(2, '0');
-            const month = String(todayDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-            const year = todayDate.getFullYear();
-            todayDate = String(year + '-' + month + '-' + date)
-            return todayDate
-        },
-
-        getPlan(planKey, key){
-            let planIndex = -1
-            let target
-            if (!key) {
-                key = 'studyPlan_id'
-            }
-            this.studyPlanList.list.find((studyPlan, index) => {
-                if (studyPlan[key] === planKey) {
-                    planIndex = index
-                    target = studyPlan
-                    return true
-                }
-                return false
-            })
-
-            return {
-                studyPlan: target,
-                index: planIndex,
-            }
-        },
-
-        getPlanDataReq(params) {
-            return axios.get('/api/v2/studyPlan/' + params.planId + '/plans')
-        },
-
-        setSelectedMajor() {
-            let majorId = this.value
-            let major = this.getFirstMajor()
-            if(majorId){
-                major = this.getMajor(majorId)
-            }
-
-            this.selectedMajor = major
-        },
-
-        setPlan(planId, planData) {
-            let studyPlan = this.getPlan(planId).studyPlan
-            if(!studyPlan) {
-                return
-            }
-            studyPlan.plans = new PlanList(planData)
-        },
-
-        restPageData(){
-            this.resetAllPlans()
-            this.closeAllPlans()
-            if(this.currentDate){
-                this.loadCurrentDatePlan(this.currentDate)
-            }
-
-        },
-
-        resetAllPlans (){
-            this.studyPlanList.list.forEach(studyPlan => studyPlan.plans = new  PlanList())
-        },
-
-        changeSelectedMajor(){
-            this.$emit('input', this.selectedMajor.id)
-        },
-
-        closeAllPlans() {
-            this.openPlanIndexes = []
-        },
-
-        planClicked(studyPlan,index){
-           let studyPlanId = studyPlan.studyPlan_id
-           let isPlanOpen = this.isPlanOpen(index)
-           isPlanOpen ? this.closePlan(studyPlanId) : this.loadPlans(studyPlanId)
-        },
-
-        isPlanOpen(studyPlanIndex) {
-            return this.openPlanIndexes.includes(studyPlanIndex)
-        },
-
-        closePlan(planId){
-            // this.openingPlanId = this.openingPlanId.filter(id => id !== planId )
-        },
-
-        convertDateFormat(date){
-            if(date.includes('/')){
-                return date.split('/').join('-')
-            }
-            return date
-        },
-
-        closePlan2(planId){
-           this.studyPlanList.list[planId].plans = new PlanList()
-        },
-
-        contentClicked(content) {
-            this.$emit('contentClicked', content)
-        },
-
-        scrollTo(id) {
-            if(this.$refs[id] && this.$refs[id][0]){
-                this.$refs[id][0].$el.scrollIntoView()
-            }
-            const scrollIsMoved = true
-            this.$emit('scrollIsMoved', scrollIsMoved)
-        }
+    currentDate: {
+      type: String,
+      default: () => ''
     }
+  },
+  data() {
+    return {
+      openPlanIndexes: [],
+      selectedMajor: new Major(),
+      studyPlans: new StudyPlanList(),
+      canReq: false,
+      planList: new PlanList(),
+      studyPlanList: new StudyPlanList()
+    }
+  },
+  watch: {
+    value: {
+      handler(newValue) {
+        if (!newValue) {
+          return
+        }
+        this.setSelectedMajor()
+        this.restPageData()
+      }
+    },
+    currentDate: {
+      handler(newValue) {
+        if (!newValue) {
+          return
+        }
+        this.loadCurrentDatePlan(newValue)
+      }
+    }
+  },
+  created() {
+    this.initData()
+  },
+  updated() {
+  },
+  methods: {
+    initData() {
+      this.setSelectedMajor()
+      this.loadStudyPlanList()
+    },
+
+    async loadTodayPlan() {
+      const todayPlan = this.studyPlanList.list.find(plan => plan.is_current)
+      if (!todayPlan) {
+        return
+      }
+      await this.openPlanExpansion(todayPlan.studyPlan_id)
+    },
+
+    async showStudyPlans(studyPlanIndex) {
+      const studyPlan = this.studyPlanList.list[studyPlanIndex]
+      const studyPlanId = studyPlan.studyPlan_id
+      this.loadPlans(studyPlanId)
+    },
+
+    async openPlanExpansion (studyPlanId) {
+      const target = this.getPlan(studyPlanId)
+      const studyPlanIndex = target.index
+      if (studyPlanIndex === -1) {
+        return
+      }
+      const studyPlan = target.studyPlan
+
+      await this.loadPlans(studyPlan.studyPlan_id)
+      this.openPlanIndexes.push(studyPlanIndex)
+    },
+
+    async loadStudyPlanList() {
+      this.studyPlanList.loading = true
+      try {
+        this.studyPlanList = await this.getStudyPlan()
+        this.studyPlanList.loading = false
+        if (!this.currentDate) {
+          await this.loadTodayPlan()
+        }
+      } catch (e) {
+        this.studyPlanList.loading = false
+      }
+    },
+
+    async loadCurrentDatePlan(studyPlanDate) {
+      const date = this.convertDateFormat(studyPlanDate)
+      const target = this.getPlan(date, 'date')
+
+      if (!target.studyPlan) {
+        return
+      }
+
+      const currentPlanId = target.studyPlan.studyPlan_id
+      await this.loadPlans(currentPlanId)
+      this.openPlanIndexes.push(target.index)
+      this.scrollTo(target.index)
+    },
+
+    async loadPlans(planId) {
+      this.studyPlanList.loading = true
+      if (!planId) return
+      try {
+        const studyPlans = await this.getPlanData(planId)
+        this.setPlan(planId, studyPlans)
+        this.studyPlanList.loading = false
+      } catch (e) {
+        this.studyPlanList.loading = false
+      }
+    },
+
+    async getStudyPlan () {
+      const cacheKey = 'user-schedule-study-plan-group-getStudyPlan'
+      const response = await this.getData(cacheKey, this.getStudyPlanData)
+      if (response.status === 200) {
+        return new StudyPlanList(response.data.data)
+      }
+      return new StudyPlanList()
+    },
+
+    async getPlanData(planId) {
+      const cacheKey = 'user-schedule-study-plan-group-get-' + planId + '-plan'
+      const response = await this.getData(cacheKey, this.getPlanDataReq, { planId })
+      if (response.status === 200) {
+        return new StudyPlanList(response.data.data)
+      }
+      return new StudyPlanList()
+    },
+
+    getStudyPlanData() {
+      const studyPlanNumber = 5
+      return axios.get('/api/v2/studyEvent/' + studyPlanNumber + '/studyPlans')
+    },
+
+    getMajor (id) {
+      return this.majors.list.find(major => major.id === id)
+    },
+
+    getFirstMajor () {
+      return this.majors.list[0]
+    },
+
+    getTodayDate() {
+      let todayDate = new Date()
+      const date = String(todayDate.getDate()).padStart(2, '0')
+      const month = String(todayDate.getMonth() + 1).padStart(2, '0') // January is 0!
+      const year = todayDate.getFullYear()
+      todayDate = String(year + '-' + month + '-' + date)
+      return todayDate
+    },
+
+    getPlan(planKey, key) {
+      let planIndex = -1
+      let target
+      if (!key) {
+        key = 'studyPlan_id'
+      }
+      this.studyPlanList.list.find((studyPlan, index) => {
+        if (studyPlan[key] === planKey) {
+          planIndex = index
+          target = studyPlan
+          return true
+        }
+        return false
+      })
+
+      return {
+        studyPlan: target,
+        index: planIndex
+      }
+    },
+
+    getPlanDataReq(params) {
+      return axios.get('/api/v2/studyPlan/' + params.planId + '/plans')
+    },
+
+    setSelectedMajor() {
+      const majorId = this.value
+      let major = this.getFirstMajor()
+      if (majorId) {
+        major = this.getMajor(majorId)
+      }
+
+      this.selectedMajor = major
+    },
+
+    setPlan(planId, planData) {
+      const studyPlan = this.getPlan(planId).studyPlan
+      if (!studyPlan) {
+        return
+      }
+      studyPlan.plans = new PlanList(planData)
+    },
+
+    restPageData() {
+      this.resetAllPlans()
+      this.closeAllPlans()
+      if (this.currentDate) {
+        this.loadCurrentDatePlan(this.currentDate)
+      }
+    },
+
+    resetAllPlans () {
+      this.studyPlanList.list.forEach(studyPlan => studyPlan.plans = new PlanList())
+    },
+
+    changeSelectedMajor() {
+      this.$emit('input', this.selectedMajor.id)
+    },
+
+    closeAllPlans() {
+      this.openPlanIndexes = []
+    },
+
+    planClicked(studyPlan, index) {
+      const studyPlanId = studyPlan.studyPlan_id
+      const isPlanOpen = this.isPlanOpen(index)
+      isPlanOpen ? this.closePlan(studyPlanId) : this.loadPlans(studyPlanId)
+    },
+
+    isPlanOpen(studyPlanIndex) {
+      return this.openPlanIndexes.includes(studyPlanIndex)
+    },
+
+    closePlan(planId) {
+      // this.openingPlanId = this.openingPlanId.filter(id => id !== planId )
+    },
+
+    convertDateFormat(date) {
+      if (date.includes('/')) {
+        return date.split('/').join('-')
+      }
+      return date
+    },
+
+    closePlan2(planId) {
+      this.studyPlanList.list[planId].plans = new PlanList()
+    },
+
+    contentClicked(content) {
+      this.$emit('contentClicked', content)
+    },
+
+    scrollTo(id) {
+      if (this.$refs[id] && this.$refs[id][0]) {
+        this.$refs[id][0].$el.scrollIntoView()
+      }
+      const scrollIsMoved = true
+      this.$emit('scrollIsMoved', scrollIsMoved)
+    }
+  }
 }
 </script>
 

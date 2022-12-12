@@ -1,93 +1,108 @@
 <template>
-    <div class="comment-box">
-        <div>
-        <v-textarea
-            v-model="note"
-            class="rounded-xl  comment-main"
-            background-color="#eff3ff"
-            :placeholder="setPlaceHolder"
-            filled
-            :value="note"
-            auto-grow
-            solo
-            :disabled="doesntHaveContent || !canEdit"
-            flat
-        />
-        </div>
-       <div class="d-flex btns">
-           <v-btn :disabled="doesntHaveContent" v-if="saveMode" depressed color="transparent" class="cancel btn-size" @click="cancel"><span> لغو</span></v-btn>
-           <v-btn :disabled="doesntHaveContent" v-if="saveMode || value.length === 0" depressed color="#4caf50" dark class="submit btn-size" @click="saveComment"><span>ذخیره</span></v-btn>
-           <v-btn :disabled="doesntHaveContent" v-else depressed color="#ff8f00" dark class="edit btn-size" @click="edit"><span> ویرایش</span></v-btn>
-       </div>
-
+  <div class="comment-box">
+    <div>
+      <q-input
+        v-model="note"
+        class="rounded-xl  comment-main"
+        background-color="#eff3ff"
+        :placeholder="setPlaceHolder"
+        filled
+        :value="note"
+        auto-grow
+        solo
+        :disabled="doesntHaveContent || !canEdit"
+        flat
+      />
     </div>
+    <div class="d-flex btns">
+      <q-btn v-if="saveMode"
+             :disabled="doesntHaveContent"
+             depressed
+             color="transparent"
+             class="cancel btn-size"
+             @click="cancel"><span> لغو</span></q-btn>
+      <q-btn v-if="saveMode || value.length === 0"
+             :disabled="doesntHaveContent"
+             depressed
+             color="#4caf50"
+             dark
+             class="submit btn-size"
+             @click="saveComment"><span>ذخیره</span></q-btn>
+      <q-btn v-else
+             :disabled="doesntHaveContent"
+             depressed
+             color="#ff8f00"
+             dark
+             class="edit btn-size"
+             @click="edit"><span> ویرایش</span></q-btn>
+    </div>
+
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'CommentBox',
-    props: {
-        value: {
-            type: String,
-            default: '',
-        },
-        doesntHaveContent:{
-            type: Boolean,
-            default(){
-                return false
-            }
-        }
+  name: 'CommentBox',
+  props: {
+    value: {
+      type: String,
+      default: ''
     },
-    data () {
-        return {
-            note: null,
-            saveMode:false,
-            showCancel:false,
-            canCheck:true,
-        }
-    },
-    computed: {
-        canEdit () {
-            return this.saveMode || this.value.length === 0
-        },
-        setPlaceHolder(){
-            if(this.doesntHaveContent){
-                return 'یادداشت در این مرحله فعال نمیاشد'
-            }
-            else{
-                return 'یادداشت این جلسه'
-            }
-
-        }
-    },
-    watch: {
-        value (newValue) {
-            this.note = newValue
-            this.checkEditMode(newValue)
-        }
-    },
-    methods: {
-        edit() {
-            this.saveMode = true
-        },
-        cancel() {
-            this.note = this.value
-            this.saveMode = false
-        },
-        saveComment() {
-            this.saveMode = false
-            this.$emit('input', this.note)
-        },
-        checkEditMode(data){
-            if(this.canCheck && data.length > 0) {
-                this.saveMode = false
-                this.canCheck = false
-            } else if(this.canCheck){
-                this.saveMode = true
-                this.canCheck=false
-            }
-        }
+    doesntHaveContent: {
+      type: Boolean,
+      default() {
+        return false
+      }
     }
+  },
+  data () {
+    return {
+      note: null,
+      saveMode: false,
+      showCancel: false,
+      canCheck: true
+    }
+  },
+  computed: {
+    canEdit () {
+      return this.saveMode || this.value.length === 0
+    },
+    setPlaceHolder() {
+      if (this.doesntHaveContent) {
+        return 'یادداشت در این مرحله فعال نمیاشد'
+      } else {
+        return 'یادداشت این جلسه'
+      }
+    }
+  },
+  watch: {
+    value (newValue) {
+      this.note = newValue
+      this.checkEditMode(newValue)
+    }
+  },
+  methods: {
+    edit() {
+      this.saveMode = true
+    },
+    cancel() {
+      this.note = this.value
+      this.saveMode = false
+    },
+    saveComment() {
+      this.saveMode = false
+      this.$emit('input', this.note)
+    },
+    checkEditMode(data) {
+      if (this.canCheck && data.length > 0) {
+        this.saveMode = false
+        this.canCheck = false
+      } else if (this.canCheck) {
+        this.saveMode = true
+        this.canCheck = false
+      }
+    }
+  }
 }
 </script>
 

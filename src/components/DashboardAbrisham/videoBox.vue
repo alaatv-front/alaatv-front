@@ -1,481 +1,479 @@
 <template>
-    <div class="video-box">
-        <v-card
-            flat
-            color="#eff3ff"
-            class="video-main"
-        >
-            <v-responsive
-                :aspect-ratio="16/9"
-            >
-                <div>
-                    <video-player
-                        v-if="content.file && content.file.video && content.inputData.can_see"
-                        :time-points="timePoints"
-                        :poster="content.photo"
-                        :source="sources"
-                        :keepCalculating="keepCalculating"
-                        @calcTimeData="changeVideoStatusToSeen"
-                        @toggleBookmark="bookmarkPostIsFavored"
-                    />
-                    <div v-else-if="(!content.id || !content.photo)">
-                        <v-alert
-                            class="null-video"
-                            outlined
-                            type="warning"
-                            prominent
-                            border="left"
-                            max-width="290"
-                            rounded
-                        >
-                            اوه نه! ویدیویی وجود نداره...
-                        </v-alert>
-                    </div>
-                    <div v-else>
-                        <a
-                            :href="content.url.web"
-                            target="_blank"
-                        >
-                            <v-img :src="content.photo"/>
-                        </a>
-                    </div>
-                </div>
-            </v-responsive>
-        </v-card>
-        <div class="video-description">
-            <v-row
-                no-gutters
-                class="description"
-            >
-                <v-col>
-                    <div class="d-flex flex-wrap video-title">
-                        <p
-                            v-if="content.lesson_name || lesson.title"
-                            class="title-item title-text video-paragraph"
-                        >
-                          <span
-                              v-if="lesson.title"
-                          >
-                            {{ lesson.title }}
-                          </span>
-                            <span
-                                v-else-if="content.lesson_name"
-                            >
-                            {{ content.lesson_name }}
-                          </span>
-                        </p>
-                        <p
-                            v-if="(set && set.short_title) || (content.set && content.set.short_title)"
-                            class="title-item title-text video-paragraph"
-                        >
-                          <span
-                              v-if="set && set.short_title"
-                          >
-                            {{ set.short_title }}
-                          </span>
-                            <span
-                                v-else-if="content.set && content.set.short_title"
-                            >
-                            {{ content.set.short_title }}
-                          </span>
-                        </p>
-                        <p
-                            v-if="content.order || content.order === 0"
-                            class="title-item title-text video-paragraph"
-                        >
-                            جلسه {{ content.order }}
-                        </p>
-                    </div>
-                    <div class="d-flex subtitle">
-                        <div class="d-flex part align-start">
-                            <v-img
-                                src="https://nodes.alaatv.com/upload/abrisham-panel-ic_alaa.png"
-                                class="alaa-logo icon"
-                            />
-                            <p class="video-paragraph">گروه آموزشی آلاء</p>
-                        </div>
-                        <div
-                            v-if="content.author && (content.author.first_name || content.author.last_name)"
-                            class="d-flex part align-center"
-                        >
-                            <i class="fi fi-rr-graduation-cap icon"/>
-                            <p class="video-paragraph">
-                                {{ content.author.first_name }} {{content.author.last_name }}
-                            </p>
-                        </div>
-                    </div>
-                </v-col>
-                <v-col
-                    v-if="content.id"
-                    class="icon-btn-box"
-                >
-                    <v-btn
-                        dark
-                        class="seen-btn"
-                        :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
-                        :loading="content.loading"
-                        @click="clickSeenButton"
-                    >
-                            <span
-                                v-if="content.has_watched"
-                                class="video-btn-text"
-                            >
-                                دیده شده
-                            </span>
-                        <i class="fi fi-rr-check seen-icon" v-if="content.has_watched"/>
-                        <span
-                            v-else
-                            class="video-btn-text"
-                        >
-                                دیده نشده
-                            </span>
-                    </v-btn>
-                    <div class="video-box-icon">
-                        <v-bottom-sheet
-                            v-if="content.file && content.file.video"
-                            transparent
-                        >
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                    color="transparent"
-                                    depressed
-                                    dark
-                                    v-bind="attrs"
-                                    class="video-box-icon-button"
-                                    v-on="on"
-                                >
-                                    <i class="fi fi-rr-download icon"/>
-                                </v-btn>
-                            </template>
-                            <v-list class="align-center download-sheet">
-                                <v-row
-                                    class="download-btn"
-                                >
-                                    <div class="download-header">
-                                        <p class="download-title">دانلود</p>
-                                        <!--                                       <p class="file-time">-->
-                                        <!--                                           <i class="fi fi-rr-clock icon"/>-->
-                                        <!--                                           <span>زمان فیلم: 38:57 دقیقه</span>-->
-                                        <!--                                       </p>-->
-                                    </div>
-                                    <div class="download-list">
-                                        <v-card
-                                            v-for="(file , index) in content.file.video"
-                                            :key="index"
-                                            class="download-part"
-                                            flat
-                                            @click="sheet = false"
-                                        >
-                                            <v-row>
-                                                <v-col class="details">
-                                                    <span class="download-caption">
-                                                        {{ file.caption }}
-                                                    </span>
-                                                    <div class="column-details">
-                                                        <span class="size">
-                                                            {{ file.size }}
-                                                        </span>
-                                                        <v-btn
-                                                            class="quality"
-                                                            depressed
-                                                        >
-                                                            {{ file.res }}
-                                                        </v-btn>
-                                                        <v-card-actions
-                                                            class="download-part-icon"
-                                                        >
-                                                            <a :href="file.link">
-                                                                <i class="fi fi-rr-download icon"/>
-                                                            </a>
-                                                        </v-card-actions>
-                                                    </div>
-                                                </v-col>
-                                            </v-row>
-                                        </v-card>
-                                    </div>
-                                </v-row>
-                            </v-list>
-                        </v-bottom-sheet>
-                        <v-bottom-sheet>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                    color="transparent"
-                                    depressed
-                                    dark
-                                    v-bind="attrs"
-                                    class="video-box-icon-button"
-                                    v-on="on"
-                                >
-                                    <i class="fi fi-rr-share icon"/>
-                                </v-btn>
-                            </template>
-                            <v-list class="align-center">
-                                <v-row class="download-btn" justify="center">
-                                    <div class="share-parent">
-                                        <ShareNetwork
-                                            network="whatsapp"
-                                            class="social-share"
-                                        >
-                                            <v-btn
-                                                class="ma-2"
-                                                color="amber darken-3"
-                                                dark
-                                                @click="openUrl (content, 'whatsapp')"
-                                            >
-                                                <v-icon>mdi-whatsapp</v-icon>
-                                            </v-btn>
-                                        </ShareNetwork>
-                                        <ShareNetwork
-                                            network="telegram"
-                                            class="social-share"
-                                        >
-                                            <v-btn
-                                                class="ma-2"
-                                                color="amber darken-3"
-                                                dark
-                                                @click="openUrl (content, 'telegram')"
-                                            >
-                                                <v-icon>mdi-telegram</v-icon>
-                                            </v-btn>
-                                        </ShareNetwork>
-                                        <ShareNetwork
-                                            network="mail"
-                                            class="social-share"
-                                        >
-                                            <v-btn
-                                                class="ma-2"
-                                                color="amber darken-3"
-                                                dark
-                                                @click="openUrl (content, 'mail')"
-                                            >
-                                                <v-icon>mdi-mail</v-icon>
-                                            </v-btn>
-                                        </ShareNetwork>
-                                        <ShareNetwork
-                                            network="linkedin"
-                                            class="social-share"
-                                        >
-                                            <v-btn
-                                                class="ma-2"
-                                                color="amber darken-3"
-                                                dark
-                                                @click="openUrl (content, 'linkedin')"
-                                            >
-                                                <v-icon>mdi-linkedin</v-icon>
-                                            </v-btn>
-                                        </ShareNetwork>
-                                        <ShareNetwork
-                                            network="pinterest"
-                                            class="social-share"
-                                        >
-                                            <v-btn
-                                                class="ma-2"
-                                                color="amber darken-3"
-                                                dark
-                                                @click="openUrl (content, 'pinterest')"
-                                            >
-                                                <v-icon>mdi-pinterest</v-icon>
-                                            </v-btn>
-                                        </ShareNetwork>
-                                        <ShareNetwork
-                                            network="twitter"
-                                            class="social-share"
-                                        >
-                                            <v-btn
-                                                class="ma-2"
-                                                color="amber darken-3"
-                                                dark
-                                                @click="openUrl (content, 'twitter')"
-                                            >
-                                                <v-icon>mdi-twitter</v-icon>
-                                            </v-btn>
-                                        </ShareNetwork>
-                                        <ShareNetwork
-                                            network="facebook"
-                                            class="social-share"
-                                        >
-                                            <v-btn
-                                                class="ma-2"
-                                                color="amber darken-3"
-                                                dark
-                                                @click="openUrl (content, 'facebook')"
-                                            >
-                                                <v-icon>mdi-facebook</v-icon>
-                                            </v-btn>
-                                        </ShareNetwork>
-                                    </div>
-                                </v-row>
-                            </v-list>
-                        </v-bottom-sheet>
-                        <v-btn
-                            color="transparent"
-                            depressed
-                            dark
-                            :loading="content.loading"
-                            class="video-box-icon-button"
-                            @click="toggleFavorite"
-                        >
-                            <i
-                                class="fi fi-rr-bookmark icon bookmark-button"
-                                :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }"
-                            />
-                        </v-btn>
-                    </div>
-                </v-col>
-            </v-row>
+  <div class="video-box">
+    <q-card
+      flat
+      color="#eff3ff"
+      class="video-main"
+    >
+      <!--      :aspect-ratio="16/9"-->
+      <div>
+        <video-player
+          v-if="content.file && content.file.video && content.inputData.can_see"
+          :time-points="timePoints"
+          :poster="content.photo"
+          :source="sources"
+          :keepCalculating="keepCalculating"
+          @calcTimeData="changeVideoStatusToSeen"
+          @toggleBookmark="bookmarkPostIsFavored"
+        />
+        <div v-else-if="(!content.id || !content.photo)">
+          <v-alert
+            class="null-video"
+            outlined
+            type="warning"
+            prominent
+            border="left"
+            max-width="290"
+            rounded
+          >
+            اوه نه! ویدیویی وجود نداره...
+          </v-alert>
         </div>
+        <div v-else>
+          <a
+            :href="content.url.web"
+            target="_blank"
+          >
+            <v-img :src="content.photo" />
+          </a>
+        </div>
+      </div>
+
+    </q-card>
+    <div class="video-description">
+      <div
+        class="description row"
+      >
+        <div class="col-12">
+          <div class="d-flex flex-wrap video-title">
+            <p
+              v-if="content.lesson_name || lesson.title"
+              class="title-item title-text video-paragraph"
+            >
+              <span
+                v-if="lesson.title"
+              >
+                {{ lesson.title }}
+              </span>
+              <span
+                v-else-if="content.lesson_name"
+              >
+                {{ content.lesson_name }}
+              </span>
+            </p>
+            <p
+              v-if="(set && set.short_title) || (content.set && content.set.short_title)"
+              class="title-item title-text video-paragraph"
+            >
+              <span
+                v-if="set && set.short_title"
+              >
+                {{ set.short_title }}
+              </span>
+              <span
+                v-else-if="content.set && content.set.short_title"
+              >
+                {{ content.set.short_title }}
+              </span>
+            </p>
+            <p
+              v-if="content.order || content.order === 0"
+              class="title-item title-text video-paragraph"
+            >
+              جلسه {{ content.order }}
+            </p>
+          </div>
+          <div class="d-flex subtitle">
+            <div class="d-flex part align-start">
+              <q-img
+                src="https://nodes.alaatv.com/upload/abrisham-panel-ic_alaa.png"
+                class="alaa-logo icon"
+              />
+              <p class="video-paragraph">گروه آموزشی آلاء</p>
+            </div>
+            <div
+              v-if="content.author && (content.author.first_name || content.author.last_name)"
+              class="d-flex part align-center"
+            >
+              <i class="fi fi-rr-graduation-cap icon" />
+              <p class="video-paragraph">
+                {{ content.author.first_name }} {{content.author.last_name }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="content.id"
+          class="icon-btn-box"
+        >
+          <q-btn
+            dark
+            class="seen-btn"
+            :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
+            :loading="content.loading"
+            @click="clickSeenButton"
+          >
+            <span
+              v-if="content.has_watched"
+              class="video-btn-text"
+            >
+              دیده شده
+            </span>
+            <i v-if="content.has_watched"
+               class="fi fi-rr-check seen-icon" />
+            <span
+              v-else
+              class="video-btn-text"
+            >
+              دیده نشده
+            </span>
+          </q-btn>
+          <div class="video-box-icon">
+            <!--            <v-bottom-sheet-->
+            <!--              v-if="content.file && content.file.video"-->
+            <!--              transparent-->
+            <!--            >-->
+            <!--              <template v-slot:activator="{ on, attrs }">-->
+            <!--                <v-btn-->
+            <!--                  color="transparent"-->
+            <!--                  depressed-->
+            <!--                  dark-->
+            <!--                  v-bind="attrs"-->
+            <!--                  class="video-box-icon-button"-->
+            <!--                  v-on="on"-->
+            <!--                >-->
+            <!--                  <i class="fi fi-rr-download icon" />-->
+            <!--                </v-btn>-->
+            <!--              </template>-->
+            <!--              <v-list class="align-center download-sheet">-->
+            <!--                <v-row-->
+            <!--                  class="download-btn"-->
+            <!--                >-->
+            <!--                  <div class="download-header">-->
+            <!--                    <p class="download-title">دانلود</p>-->
+            <!--                    &lt;!&ndash;                                       <p class="file-time">&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                                           <i class="fi fi-rr-clock icon"/>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                                           <span>زمان فیلم: 38:57 دقیقه</span>&ndash;&gt;-->
+            <!--                    &lt;!&ndash;                                       </p>&ndash;&gt;-->
+            <!--                  </div>-->
+            <!--                  <div class="download-list">-->
+            <!--                    <v-card-->
+            <!--                      v-for="(file , index) in content.file.video"-->
+            <!--                      :key="index"-->
+            <!--                      class="download-part"-->
+            <!--                      flat-->
+            <!--                      @click="sheet = false"-->
+            <!--                    >-->
+            <!--                      <v-row>-->
+            <!--                        <v-col class="details">-->
+            <!--                          <span class="download-caption">-->
+            <!--                            {{ file.caption }}-->
+            <!--                          </span>-->
+            <!--                          <div class="column-details">-->
+            <!--                            <span class="size">-->
+            <!--                              {{ file.size }}-->
+            <!--                            </span>-->
+            <!--                            <v-btn-->
+            <!--                              class="quality"-->
+            <!--                              depressed-->
+            <!--                            >-->
+            <!--                              {{ file.res }}-->
+            <!--                            </v-btn>-->
+            <!--                            <v-card-actions-->
+            <!--                              class="download-part-icon"-->
+            <!--                            >-->
+            <!--                              <a :href="file.link">-->
+            <!--                                <i class="fi fi-rr-download icon" />-->
+            <!--                              </a>-->
+            <!--                            </v-card-actions>-->
+            <!--                          </div>-->
+            <!--                        </v-col>-->
+            <!--                      </v-row>-->
+            <!--                    </v-card>-->
+            <!--                  </div>-->
+            <!--                </v-row>-->
+            <!--              </v-list>-->
+            <!--            </v-bottom-sheet-->>-->
+            <!--            <v-bottom-sheet>-->
+            <!--              <template v-slot:activator="{ on, attrs }">-->
+            <!--                <v-btn-->
+            <!--                  color="transparent"-->
+            <!--                  depressed-->
+            <!--                  dark-->
+            <!--                  v-bind="attrs"-->
+            <!--                  class="video-box-icon-button"-->
+            <!--                  v-on="on"-->
+            <!--                >-->
+            <!--                  <i class="fi fi-rr-share icon" />-->
+            <!--                </v-btn>-->
+            <!--              </template>-->
+            <!--              <v-list class="align-center">-->
+            <!--                <v-row class="download-btn"-->
+            <!--                       justify="center">-->
+            <!--                  <div class="share-parent">-->
+            <!--                    <ShareNetwork-->
+            <!--                      network="whatsapp"-->
+            <!--                      class="social-share"-->
+            <!--                    >-->
+            <!--                      <v-btn-->
+            <!--                        class="ma-2"-->
+            <!--                        color="amber darken-3"-->
+            <!--                        dark-->
+            <!--                        @click="openUrl (content, 'whatsapp')"-->
+            <!--                      >-->
+            <!--                        <v-icon>mdi-whatsapp</v-icon>-->
+            <!--                      </v-btn>-->
+            <!--                    </ShareNetwork>-->
+            <!--                    <ShareNetwork-->
+            <!--                      network="telegram"-->
+            <!--                      class="social-share"-->
+            <!--                    >-->
+            <!--                      <v-btn-->
+            <!--                        class="ma-2"-->
+            <!--                        color="amber darken-3"-->
+            <!--                        dark-->
+            <!--                        @click="openUrl (content, 'telegram')"-->
+            <!--                      >-->
+            <!--                        <v-icon>mdi-telegram</v-icon>-->
+            <!--                      </v-btn>-->
+            <!--                    </ShareNetwork>-->
+            <!--                    <ShareNetwork-->
+            <!--                      network="mail"-->
+            <!--                      class="social-share"-->
+            <!--                    >-->
+            <!--                      <v-btn-->
+            <!--                        class="ma-2"-->
+            <!--                        color="amber darken-3"-->
+            <!--                        dark-->
+            <!--                        @click="openUrl (content, 'mail')"-->
+            <!--                      >-->
+            <!--                        <v-icon>mdi-mail</v-icon>-->
+            <!--                      </v-btn>-->
+            <!--                    </ShareNetwork>-->
+            <!--                    <ShareNetwork-->
+            <!--                      network="linkedin"-->
+            <!--                      class="social-share"-->
+            <!--                    >-->
+            <!--                      <v-btn-->
+            <!--                        class="ma-2"-->
+            <!--                        color="amber darken-3"-->
+            <!--                        dark-->
+            <!--                        @click="openUrl (content, 'linkedin')"-->
+            <!--                      >-->
+            <!--                        <v-icon>mdi-linkedin</v-icon>-->
+            <!--                      </v-btn>-->
+            <!--                    </ShareNetwork>-->
+            <!--                    <ShareNetwork-->
+            <!--                      network="pinterest"-->
+            <!--                      class="social-share"-->
+            <!--                    >-->
+            <!--                      <v-btn-->
+            <!--                        class="ma-2"-->
+            <!--                        color="amber darken-3"-->
+            <!--                        dark-->
+            <!--                        @click="openUrl (content, 'pinterest')"-->
+            <!--                      >-->
+            <!--                        <v-icon>mdi-pinterest</v-icon>-->
+            <!--                      </v-btn>-->
+            <!--                    </ShareNetwork>-->
+            <!--                    <ShareNetwork-->
+            <!--                      network="twitter"-->
+            <!--                      class="social-share"-->
+            <!--                    >-->
+            <!--                      <v-btn-->
+            <!--                        class="ma-2"-->
+            <!--                        color="amber darken-3"-->
+            <!--                        dark-->
+            <!--                        @click="openUrl (content, 'twitter')"-->
+            <!--                      >-->
+            <!--                        <v-icon>mdi-twitter</v-icon>-->
+            <!--                      </v-btn>-->
+            <!--                    </ShareNetwork>-->
+            <!--                    <ShareNetwork-->
+            <!--                      network="facebook"-->
+            <!--                      class="social-share"-->
+            <!--                    >-->
+            <!--                      <v-btn-->
+            <!--                        class="ma-2"-->
+            <!--                        color="amber darken-3"-->
+            <!--                        dark-->
+            <!--                        @click="openUrl (content, 'facebook')"-->
+            <!--                      >-->
+            <!--                        <v-icon>mdi-facebook</v-icon>-->
+            <!--                      </v-btn>-->
+            <!--                    </ShareNetwork>-->
+            <!--                  </div>-->
+            <!--                </v-row>-->
+            <!--              </v-list>-->
+            <!--            </v-bottom-sheet>-->
+            <q-btn
+              color="transparent"
+              depressed
+              dark
+              :loading="content.loading"
+              class="video-box-icon-button"
+              @click="toggleFavorite"
+            >
+              <i
+                class="fi fi-rr-bookmark icon bookmark-button"
+                :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }"
+              />
+            </q-btn>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import {Content} from '../../../../Model/Content';
-import VideoPlayer from '../components/VideoPlayer'
+import { Content } from 'src/models/Content'
+import VideoPlayer from 'src/components/DashboardAbrisham/VideoPlayer'
 
 export default {
-    name: 'VideoBox',
+  name: 'VideoBox',
 
-    components: { VideoPlayer },
+  components: { VideoPlayer },
 
-    props: {
-        content: {
-            type: Content,
-            default: new Content()
-        },
-        lesson: {
-            type: Object,
-            default: () => {
-                return {}
-            }
-        },
-        set: {
-            type: Object,
-            default : ()=>{}
-        },
+  props: {
+    content: {
+      type: Content,
+      default: new Content()
     },
-
-    data(){
-        return{
-            sheet: false,
-            keepCalculating: true,
-            timePoints: [],
-            sources: [],
-            markedRatios: [
-                {ratio: 90, hasSeen: false}
-            ]
-        }
+    lesson: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     },
-
-    watch: {
-        'content.id': function () {
-            if (this.content && this.content.file && this.content.file.video){
-                this.setContentSources(this.content.file.video)
-                this.setContentTimePoint(this.content.timepoints.list)
-            }
-
-        },
-    },
-
-    methods: {
-        clickSeenButton() {
-            this.content.loading = true;
-            this.$emit('has_watched');
-            this.markedRatios.forEach(markedRatio => {
-                if (markedRatio.hasSeen) {
-                    markedRatio.hasSeen = false;
-                }
-            })
-        },
-
-        toggleFavorite() {
-            this.content.loading = true;
-            this.$emit('favorite');
-        },
-
-        getShareLink(content, socialMedia) {
-            if (socialMedia === 'telegram') {
-                return 'https://telegram.me/share/url?url=' + content.url.web + '&text=' + content.title
-            } else if (socialMedia === 'whatsapp') {
-                return 'https://web.whatsapp.com/send?l=en&text=' + content.url.web
-            } else if (socialMedia === 'mail') {
-                return 'mailto:info@alaatv.com?&subject=' + content.title + '&body=' + content.url.web
-            } else if (socialMedia === 'linkedin') {
-                return 'https://www.linkedin.com/shareArticle?mini=true&url=' + content.url.web + '&title=' + content.title + '&summary=&source=alaatv.com'
-            } else if (socialMedia === 'pinterest') {
-                return 'https://pinterest.com/pin/create/button/?url=' + content.url.web + '&media=&description=alaatv.com'
-            } else if (socialMedia === 'twitter') {
-                return 'https://twitter.com/home?status=' + content.url.web
-            } else if (socialMedia === 'facebook') {
-                return 'https://www.facebook.com/sharer/sharer.php?u=' + content.url.web
-            }
-        },
-
-        openUrl(content, socialMedia) {
-            const url = this.getShareLink(content, socialMedia);
-            open(url);
-        },
-
-        setContentSources (sources) {
-            const customSources = []
-            sources.forEach( source => {
-                customSources.push(
-                    {
-                        'src': source.link,
-                        'type': 'video/mp4',
-                        'label': source.res,
-                        'selected': source.res === '480p'
-                    }
-                )
-            })
-            this.sources = customSources
-        },
-
-        setContentTimePoint (timePoints) {
-            const customTimePoints = []
-            timePoints.forEach(timePoint => {
-                customTimePoints.push({
-                    'title': timePoint.title,
-                    'time': timePoint.time,
-                    'id': timePoint.id,
-                    'isFavored': timePoint.isFavored,
-                    'loading': timePoint.loading
-                })
-            })
-            this.timePoints = customTimePoints
-        },
-
-        changeVideoStatusToSeen(timeData) {
-            this.saveProgress(timeData.watchedPercentage, timeData)
-        },
-
-        saveProgress(progressPercent, timeData) {
-            let reachedProgressPercent = 0
-            this.markedRatios.forEach(markedRatio => {
-                if (!markedRatio.hasSeen && markedRatio.ratio < progressPercent) {
-                    markedRatio.hasSeen = true
-                    if (markedRatio.ratio > reachedProgressPercent) {
-                        reachedProgressPercent = markedRatio.ratio
-                    }
-                }
-            })
-            if (reachedProgressPercent) {
-                const watchableData = {
-                    'watchable_id': this.content.id,
-                    'watchable_type': 'content',
-                    'duration': timeData.duration,
-                }
-                axios.post('/api/v2/watched', watchableData)
-                    .then(() => {
-                        if (timeData.watchedPercentage >= 90) {
-                            this.content.has_watched = true
-                        }
-                    })
-            }
-        },
-
-        bookmarkPostIsFavored(timeStampData){
-            this.$emit('bookmarkTimestamp' , timeStampData)
-        }
+    set: {
+      type: Object,
+      default: () => {}
     }
+  },
+
+  data() {
+    return {
+      sheet: false,
+      keepCalculating: true,
+      timePoints: [],
+      sources: [],
+      markedRatios: [
+        { ratio: 90, hasSeen: false }
+      ]
+    }
+  },
+
+  watch: {
+    'content.id': function () {
+      if (this.content && this.content.file && this.content.file.video) {
+        this.setContentSources(this.content.file.video)
+        this.setContentTimePoint(this.content.timepoints.list)
+      }
+    }
+  },
+
+  methods: {
+    clickSeenButton() {
+      this.content.loading = true
+      this.$emit('has_watched')
+      this.markedRatios.forEach(markedRatio => {
+        if (markedRatio.hasSeen) {
+          markedRatio.hasSeen = false
+        }
+      })
+    },
+
+    toggleFavorite() {
+      this.content.loading = true
+      this.$emit('favorite')
+    },
+
+    getShareLink(content, socialMedia) {
+      if (socialMedia === 'telegram') {
+        return 'https://telegram.me/share/url?url=' + content.url.web + '&text=' + content.title
+      } else if (socialMedia === 'whatsapp') {
+        return 'https://web.whatsapp.com/send?l=en&text=' + content.url.web
+      } else if (socialMedia === 'mail') {
+        return 'mailto:info@alaatv.com?&subject=' + content.title + '&body=' + content.url.web
+      } else if (socialMedia === 'linkedin') {
+        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + content.url.web + '&title=' + content.title + '&summary=&source=alaatv.com'
+      } else if (socialMedia === 'pinterest') {
+        return 'https://pinterest.com/pin/create/button/?url=' + content.url.web + '&media=&description=alaatv.com'
+      } else if (socialMedia === 'twitter') {
+        return 'https://twitter.com/home?status=' + content.url.web
+      } else if (socialMedia === 'facebook') {
+        return 'https://www.facebook.com/sharer/sharer.php?u=' + content.url.web
+      }
+    },
+
+    openUrl(content, socialMedia) {
+      const url = this.getShareLink(content, socialMedia)
+      open(url)
+    },
+
+    setContentSources (sources) {
+      const customSources = []
+      sources.forEach(source => {
+        customSources.push(
+          {
+            src: source.link,
+            type: 'video/mp4',
+            label: source.res,
+            selected: source.res === '480p'
+          }
+        )
+      })
+      this.sources = customSources
+    },
+
+    setContentTimePoint (timePoints) {
+      const customTimePoints = []
+      timePoints.forEach(timePoint => {
+        customTimePoints.push({
+          title: timePoint.title,
+          time: timePoint.time,
+          id: timePoint.id,
+          isFavored: timePoint.isFavored,
+          loading: timePoint.loading
+        })
+      })
+      this.timePoints = customTimePoints
+    },
+
+    changeVideoStatusToSeen(timeData) {
+      this.saveProgress(timeData.watchedPercentage, timeData)
+    },
+
+    saveProgress(progressPercent, timeData) {
+      let reachedProgressPercent = 0
+      this.markedRatios.forEach(markedRatio => {
+        if (!markedRatio.hasSeen && markedRatio.ratio < progressPercent) {
+          markedRatio.hasSeen = true
+          if (markedRatio.ratio > reachedProgressPercent) {
+            reachedProgressPercent = markedRatio.ratio
+          }
+        }
+      })
+      if (reachedProgressPercent) {
+        const watchableData = {
+          watchable_id: this.content.id,
+          watchable_type: 'content',
+          duration: timeData.duration
+        }
+        this.$axios.post('/api/v2/watched', watchableData)
+          .then(() => {
+            if (timeData.watchedPercentage >= 90) {
+              this.content.has_watched = true
+            }
+          })
+      }
+    },
+
+    bookmarkPostIsFavored(timeStampData) {
+      this.$emit('bookmarkTimestamp', timeStampData)
+    }
+  }
 
 }
 </script>

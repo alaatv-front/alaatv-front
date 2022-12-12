@@ -1,136 +1,134 @@
 <template>
-    <v-expansion-panel-content>
-    <v-card
-        class="study-plan-boxes"
-        elevation="0"
+  <v-expansion-panel-content>
+    <q-card
+      class="study-plan-boxes"
+      elevation="0"
     >
-        <v-expansion-panel-content>
-            <v-progress-linear
-                indeterminate
-                background-color="blue lighten-4"
-                color="blue accent-2"
-                :active="studyPlanLoading"
+      <v-expansion-panel-content>
+        <!--        <v-progress-linear-->
+        <!--          indeterminate-->
+        <!--          background-color="blue lighten-4"-->
+        <!--          color="blue accent-2"-->
+        <!--          :active="studyPlanLoading"-->
+        <!--        />-->
+
+        <!--                    <v-sheet-->
+        <!--                        class="study-plan-sheet"-->
+        <!--                    >-->
+        <!--                        فردا دیره، دیروز هم دیشب تموم شد، الان دقیقا لحظه ای هست که باید شروع-->
+        <!--                        کنی!-->
+        <!--                    </v-sheet>-->
+        <v-card
+          class="study-plan-card"
+          elevation="0"
+        >
+          <v-card-text>
+            <time-schedule-table
+              v-if="!studyPlanLoading"
+              :selectedPanel="selectedPlan"
+              :plans="studyPlan.plans"
+              :selected-major="selectedMajor"
+              :loading="studyPlanLoading"
+              :header-width="setHeaderWidthForMediaTags"
+              :not-the-same-plan="notTheSamePlan"
+              @planClicked="loadSelectedPlan"
             />
-<!--                    <v-sheet-->
-<!--                        class="study-plan-sheet"-->
-<!--                    >-->
-<!--                        فردا دیره، دیروز هم دیشب تموم شد، الان دقیقا لحظه ای هست که باید شروع-->
-<!--                        کنی!-->
-<!--                    </v-sheet>-->
-            <v-card
-                class="study-plan-card"
-                elevation="0"
-            >
-                <v-card-text>
-                    <time-schedule-table
-                        v-if="!studyPlanLoading"
-                        :selectedPanel="selectedPlan"
-                        :plans="studyPlan.plans"
-                        :selected-major="selectedMajor"
-                        :loading="studyPlanLoading"
-                        :header-width="setHeaderWidthForMediaTags"
-                        :not-the-same-plan="notTheSamePlan"
-                        @planClicked="loadSelectedPlan"
-                    />
-                </v-card-text>
-            </v-card>
-        </v-expansion-panel-content>
-        <individual-plan-details
-            :selected-plan="selectedPlan"
-            :showPanelDetail="showDetail"
-            @contentClicked="contentClicked"
-        />
-    </v-card>
-    </v-expansion-panel-content>
+          </v-card-text>
+        </v-card>
+      </v-expansion-panel-content>
+      <individual-plan-details
+        :selected-plan="selectedPlan"
+        :showPanelDetail="showDetail"
+        @contentClicked="contentClicked"
+      />
+    </q-card>
+  </v-expansion-panel-content>
 </template>
 
 <script>
 import timeScheduleTable from './TimeScheduleTable'
-import { StudyPlan } from '../../../../../Model/StudyPlan'
-import {Plan, PlanList} from '../../../../../Model/Plan'
-import {Major} from '../../../../../Model/Major'
+import { StudyPlan } from 'src/models/StudyPlan'
+import { Plan, PlanList } from 'src/models/Plan'
+import { Major } from 'src/models/Major'
 import IndividualPlanDetails from './IndividualPlanDetails'
 
 export default {
-    props: {
-        studyPlan: {
-            type: StudyPlan,
-            default() {
-                return new StudyPlan({
-                    'studyPlan_id': 175,
-                    'id': 144,
-                    'date': '2021-03-22',
-                    'voice': null,
-                    'body': null,
-                    'title': null,
-                    'contents': null
-                })
-            }
-        },
-        selectedMajor: {
-            default() {
-                return new Major({
-                    id: 1,
-                    name: 'ریاضی'
-                })
-            },
-            type: Major
-        },
-        studyPlanLoading : {
-            type: Boolean,
-            default: () => false
-        },
-        openedPanel : {
-            default() {
-                return false
-            },
-            type: Boolean
-        }
+  components: {
+    timeScheduleTable,
+    IndividualPlanDetails
+  },
+  props: {
+    studyPlan: {
+      type: StudyPlan,
+      default() {
+        return new StudyPlan({
+          studyPlan_id: 175,
+          id: 144,
+          date: '2021-03-22',
+          voice: null,
+          body: null,
+          title: null,
+          contents: null
+        })
+      }
     },
-    components :{
-        timeScheduleTable
-        ,IndividualPlanDetails,
+    selectedMajor: {
+      default() {
+        return new Major({
+          id: 1,
+          name: 'ریاضی'
+        })
+      },
+      type: Major
     },
-    created() {
-
+    studyPlanLoading: {
+      type: Boolean,
+      default: () => false
     },
-    data() {
-        return {
-            planList : new PlanList(),
-            selectedPlan: new Plan(),
-            openedStudyPanel : [],
-            notTheSamePlan : false,
-            showDetail: false
-        }
-    },
-    computed :{
-        setHeaderWidthForMediaTags() {
-            if (this.$store.getters.windowSize.x < 1920){
-                return 140
-            }
-            else if (this.$store.getters.windowSize.x < 768){
-                return 100
-            }
-            else if (this.$store.getters.windowSize.x > 1920){
-                return 200
-
-            }
-        }
-    },
-    methods: {
-        contentClicked(content){
-            this.$emit('contentClicked' , content )
-        },
-        loadSelectedPlan(plan){
-            if (this.selectedPlan.id !== plan.id){
-                this.selectedPlan = plan
-                this.showDetail = true
-                return
-            }
-            this.showDetail = false
-            this.selectedPlan = new Plan()
-        }
+    openedPanel: {
+      default() {
+        return false
+      },
+      type: Boolean
     }
+  },
+  data() {
+    return {
+      planList: new PlanList(),
+      selectedPlan: new Plan(),
+      openedStudyPanel: [],
+      notTheSamePlan: false,
+      showDetail: false
+    }
+  },
+  computed: {
+    setHeaderWidthForMediaTags() {
+      if (this.$store.getters.windowSize.x < 1920) {
+        return 140
+      } else if (this.$store.getters.windowSize.x < 768) {
+        return 100
+      } else if (this.$store.getters.windowSize.x > 1920) {
+        return 200
+      }
+    }
+  },
+  created() {
+
+  },
+  methods: {
+    contentClicked(content) {
+      this.$emit('contentClicked', content)
+    },
+    loadSelectedPlan(plan) {
+      if (this.selectedPlan.id !== plan.id) {
+        this.selectedPlan = plan
+        this.showDetail = true
+        return
+      }
+      this.showDetail = false
+      this.selectedPlan = new Plan()
+    }
+  }
 }
 </script>
 
@@ -188,7 +186,6 @@ export default {
     color: rgba(0, 0, 0, 0.6);
     background-color: #e1f0ff;
 }
-
 
 </style>
 <style lang="scss">

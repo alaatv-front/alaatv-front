@@ -1,37 +1,37 @@
 <template>
-    <div
-        class="banner-page"
-    >
-        <div class="banner">
-            <a
-                v-if="bannerData.url"
-                :href="bannerData.url"
-                target="_blank"
-            >
-                <img
-                    :src="bannerData.src"
-                    class="banner-image"
-                />
-            </a>
-            <img
-                v-else
-                :src="bannerData.src"
-                class="banner-image"
-            />
+  <div
+    class="banner-page"
+  >
+    <div class="banner">
+      <a
+        v-if="bannerData.url"
+        :href="bannerData.url"
+        target="_blank"
+      >
+        <q-img
+          :src="bannerData.src"
+          class="banner-image"
+        />
+      </a>
+      <q-img
+        v-else
+        :src="bannerData.src"
+        class="banner-image"
+      />
 
-        </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "NewsBanner",
-    props:{
-        bannerData:{
-            type:Array,
-            default:[]
-        }
+  name: 'NewsBanner',
+  props: {
+    bannerData: {
+      type: Array,
+      default: []
     }
+  }
 }
 </script>
 
