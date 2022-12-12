@@ -118,9 +118,6 @@ export default {
   data: () => ({
     activeTab: ''
   }),
-  created() {
-    this.activeTab = this.selectedTab
-  },
   computed: {
     videoContents() {
       return this.selectedSet.contents.list.filter(content => content.type === 8)
@@ -128,6 +125,9 @@ export default {
     pamphletsContents() {
       return this.selectedSet.contents.list.filter(content => content.type === 1)
     }
+  },
+  created() {
+    this.activeTab = this.selectedTab
   }
 }
 </script>

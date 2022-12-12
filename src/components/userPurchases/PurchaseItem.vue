@@ -93,6 +93,13 @@ export default {
       default: ''
     }
   },
+  data () {
+    return {
+      openSetList: true,
+      selectedSetTitle: null,
+      setsDropdownOpen: false
+    }
+  },
   computed: {
     setList () {
       if (!this.searchTarget) {
@@ -102,12 +109,8 @@ export default {
     }
 
   },
-  data () {
-    return {
-      openSetList: true,
-      selectedSetTitle: null,
-      setsDropdownOpen: false
-    }
+  created () {
+    if (this.product.sets.list.length > 0) { this.selectedSetTitle = this.product.sets.list[0].title }
   },
   methods: {
     setSelectedSet (product, set, contentType) {
@@ -123,9 +126,6 @@ export default {
     toggleDropdown () {
       this.setsDropdownOpen = !this.setsDropdownOpen
     }
-  },
-  created () {
-    if (this.product.sets.list.length > 0) { this.selectedSetTitle = this.product.sets.list[0].title }
   }
 }
 </script>

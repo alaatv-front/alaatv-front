@@ -22,10 +22,10 @@ import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'PageBuilderSection',
-  mixins: [mixinWidget],
   components: {
     PageBuilderRow
   },
+  mixins: [mixinWidget],
   props: {
     data: {
       type: Object,
@@ -47,9 +47,6 @@ export default {
       }
     }
   },
-  created () {
-    this.setFullHeight()
-  },
   computed: {
     windowSize () {
       return this.$store.getters['AppLayout/windowSize']
@@ -69,6 +66,9 @@ export default {
       this.setFullHeight()
     }
 
+  },
+  created () {
+    this.setFullHeight()
   },
   methods: {
     setFullHeight () {

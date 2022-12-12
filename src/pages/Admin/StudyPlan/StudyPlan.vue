@@ -86,12 +86,12 @@ import Addresses from 'src/api/Addresses'
 
 export default {
   name: 'StudyPlan',
-  mixins: [inputMixin],
   components: {
     FilterPlans,
     FullCalenderPlans,
     FormBuilder
   },
+  mixins: [inputMixin],
   props: {},
   data: () => ({
     currentPlanId: null,

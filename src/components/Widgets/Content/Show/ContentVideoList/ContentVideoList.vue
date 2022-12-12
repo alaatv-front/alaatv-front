@@ -53,14 +53,6 @@ export default {
       }
     }
   },
-  watch: {
-    data() {
-      this.loadContent()
-    },
-    'data.id': function () {
-      this.loadContent()
-    }
-  },
   data() {
     return {
       content: new Content(),
@@ -90,6 +82,14 @@ export default {
           }
         }
       ]
+    }
+  },
+  watch: {
+    data() {
+      this.loadContent()
+    },
+    'data.id': function () {
+      this.loadContent()
     }
   },
   created() {

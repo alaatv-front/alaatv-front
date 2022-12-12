@@ -34,11 +34,11 @@ import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'PageBuilderCol',
-  // components,
-  mixins: [mixinWidget],
   components: {
     PageBuilderWidget
   },
+  // components,
+  mixins: [mixinWidget],
   props: {
     widgets: {
       type: Object,

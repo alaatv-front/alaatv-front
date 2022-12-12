@@ -29,14 +29,6 @@ export default {
   components: {
     BaseMap
   },
-  watch: {
-    visibleItems: {
-      handler(newValue) {
-
-      },
-      deep: true
-    }
-  },
   data() {
     return {
       zoom: 4,
@@ -49,6 +41,14 @@ export default {
       mapItems: new MapItemList(),
       visibleMapItems: new MapItemList(),
       mapLoading: false
+    }
+  },
+  watch: {
+    visibleItems: {
+      handler(newValue) {
+
+      },
+      deep: true
     }
   },
   created() {

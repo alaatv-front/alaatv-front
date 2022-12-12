@@ -78,12 +78,6 @@ export default {
       player: null
     }
   },
-  created() {
-    this.setOptions()
-  },
-  mounted() {
-    this.initPlayer()
-  },
   computed: {
     calcTheHeight() {
       return '100%'
@@ -91,6 +85,17 @@ export default {
     calcTheWidth() {
       return '100%'
     }
+  },
+  watch: {
+    sources: function () {
+      this.reloadPlayerSources()
+    }
+  },
+  created() {
+    this.setOptions()
+  },
+  mounted() {
+    this.initPlayer()
   },
   beforeUnmount() {
     if (this.player) {
@@ -147,11 +152,6 @@ export default {
     },
     videoStatus(val) {
       this.videoIsPlaying = val
-    }
-  },
-  watch: {
-    sources: function () {
-      this.reloadPlayerSources()
     }
   }
 }

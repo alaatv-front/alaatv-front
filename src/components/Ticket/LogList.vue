@@ -49,6 +49,21 @@ export default {
       statusColor: ''
     }
   },
+  computed: {
+    getMainColor () {
+      return (obj) => {
+        this.departmentStatus.forEach(item => {
+          if (obj.action === item.title) {
+            this.statusColor = item.color
+          }
+        })
+        return this.statusColor
+      }
+    }
+  },
+  created() {
+    this.initStatusData()
+  },
   methods: {
     initStatusData() {
       this.departmentStatus = [
@@ -70,21 +85,6 @@ export default {
         }
       ]
     }
-  },
-  computed: {
-    getMainColor () {
-      return (obj) => {
-        this.departmentStatus.forEach(item => {
-          if (obj.action === item.title) {
-            this.statusColor = item.color
-          }
-        })
-        return this.statusColor
-      }
-    }
-  },
-  created() {
-    this.initStatusData()
   }
 }
 </script>

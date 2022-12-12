@@ -274,6 +274,20 @@ import MapItemsResponse from './MapItemsResponse'
 
 export default {
   name: 'BaseMap',
+  components: {
+    adminToolBox,
+    // EditablePolyline,
+    LMap,
+    LControl,
+    // LControlZoom,
+    LTileLayer,
+    LIcon,
+    LMarker,
+    LPolyline,
+    Drawer,
+    MapFilters,
+    mapInfo
+  },
   props: {
     canEditMap: {
       type: Boolean,
@@ -293,22 +307,7 @@ export default {
       default: new MapItemList()
     }
   },
-  components: {
-    adminToolBox,
-    // EditablePolyline,
-    LMap,
-    LControl,
-    // LControlZoom,
-    LTileLayer,
-    LIcon,
-    LMarker,
-    LPolyline,
-    Drawer,
-    MapFilters,
-    mapInfo
-  },
   emits: ['add_marker', 'change_edit_mode', 'update:item', 'update:zoom', 'update:center', 'update:bounds', 'update:visible-map-items'],
-  filters: {},
   data() {
     return {
       nodes: [],
@@ -426,11 +425,6 @@ export default {
       }
     }
   },
-  created() {
-    this.getNodes()
-    this.initMap()
-    this.initTemplateData()
-  },
   computed: {
     // calcMapHeight() {
     //
@@ -458,6 +452,11 @@ export default {
         return [item.data.icon.options.iconSize[0], item.data.icon.options.iconSize[1]]
       }
     }
+  },
+  created() {
+    this.getNodes()
+    this.initMap()
+    this.initTemplateData()
   },
   // watch: {
   //   adminToolBox: {

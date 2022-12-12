@@ -23,10 +23,10 @@ import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'PageBuilderRow',
-  mixins: [mixinWidget],
   components: {
     PageBuilderCol
   },
+  mixins: [mixinWidget],
   props: {
     cols: {
       type: Object,

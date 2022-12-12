@@ -67,6 +67,7 @@ import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'Slider',
+  mixins: [mixinWidget],
   props: {
     data: {
       type: Object,
@@ -75,7 +76,6 @@ export default {
       }
     }
   },
-  mixins: [mixinWidget],
   data () {
     return {
       slide: ref(null),

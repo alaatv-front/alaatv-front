@@ -332,6 +332,9 @@ export default {
     Drawer,
     UserOrderList
   },
+  directives: {
+    longpress
+  },
   props: {
     sendLoading: {
       type: Boolean,
@@ -385,28 +388,6 @@ export default {
       voice: ''
     }
   }),
-  watch: {
-    imgURL: {
-      handler(newValue) {
-        if (newValue) {
-          this.showModalStatus = true
-          this.userPicClipped = false
-          this.userPicSelected = true
-        }
-      }
-    },
-    resultURL: {
-      handler(val) {
-        this.userPicClipped = true
-        if (val) this.userPicSelected = true
-      }
-    },
-    sendLoading: {
-      handler(newVal) {
-        this.Loading = newVal
-      }
-    }
-  },
   computed: {
     canShowSendBtn() {
       return (this.newMessage.text.length > 0 || this.showVoicePlayer)
@@ -518,6 +499,28 @@ export default {
       ])
     }
 
+  },
+  watch: {
+    imgURL: {
+      handler(newValue) {
+        if (newValue) {
+          this.showModalStatus = true
+          this.userPicClipped = false
+          this.userPicSelected = true
+        }
+      }
+    },
+    resultURL: {
+      handler(val) {
+        this.userPicClipped = true
+        if (val) this.userPicSelected = true
+      }
+    },
+    sendLoading: {
+      handler(newVal) {
+        this.Loading = newVal
+      }
+    }
   },
   methods: {
     async onOpenOrderList() {
@@ -694,9 +697,6 @@ export default {
       })
     }
 
-  },
-  directives: {
-    longpress
   }
 }
 </script>

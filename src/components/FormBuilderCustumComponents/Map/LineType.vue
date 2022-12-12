@@ -35,6 +35,16 @@ import { inputMixin } from 'quasar-form-builder'
 
 export default {
   name: 'LineType',
+  mixins: [inputMixin],
+  props: {
+    value: {
+      default: []
+    },
+    label: {
+      default: '',
+      type: String
+    }
+  },
   data () {
     return {
       lineTypeOptions: [
@@ -54,16 +64,6 @@ export default {
       ]
     }
   },
-  props: {
-    value: {
-      default: []
-    },
-    label: {
-      default: '',
-      type: String
-    }
-  },
-  mixins: [inputMixin],
   created () {
   },
   methods: {

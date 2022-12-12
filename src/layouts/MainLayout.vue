@@ -80,6 +80,9 @@ export default {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
+  created() {
+    setHeight(this.calculateHeightStyle)
+  },
   methods: {
     onContentInsideScroll (data) {
       this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)
@@ -106,9 +109,6 @@ export default {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
       }
     }
-  },
-  created() {
-    setHeight(this.calculateHeightStyle)
   }
 }
 </script>

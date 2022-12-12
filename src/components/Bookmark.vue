@@ -60,11 +60,6 @@
 <script>
 export default {
   name: 'Bookmark',
-  emits: [
-    'update:value',
-    'onLoad',
-    'onError'
-  ],
   props: {
     value: {
       default: false,
@@ -87,6 +82,11 @@ export default {
       type: String
     }
   },
+  emits: [
+    'update:value',
+    'onLoad',
+    'onError'
+  ],
   data () {
     return {
       loading: false

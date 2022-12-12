@@ -529,6 +529,100 @@ export default {
       }
     }
   },
+  computed: {
+    activeMapItem() {
+      if (this.selectedMarker.editMode) {
+        return this.selectedMarker
+      } else if (this.bufferMarker.editMode) {
+        return this.bufferMarker
+      } else if (this.bufferPolyline.editMode) {
+        return this.bufferPolyline
+      } else {
+        return false
+      }
+    },
+    canShowGeneralData() {
+      return this.activeMapItem.editMode && this.activeMapItem.type.name === this.toolTab
+    },
+    polyAction() {
+      return this.polylineInputs.find(item => item.name === 'action').value
+    },
+    polyZoomRate() {
+      return this.polylineInputs.find(item => item.name === 'ZoomRate').value
+    },
+    polyLineType() {
+      return this.polylineInputs.find(item => item.name === 'LineType').value
+    },
+    polyLineThickness() {
+      return this.polylineInputs.find(item => item.name === 'LineThickness').value
+    },
+    polyLineStart() {
+      return this.polylineInputs.find(item => item.name === 'LineStart').value
+    },
+    polyColor() {
+      return this.polylineInputs.find(item => item.name === 'color').value
+    },
+    polylineMoveType() {
+      return this.polylineInputs.find(item => item.name === 'lineMoveType').value
+    },
+    polyTags() {
+      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol')
+      return formBuilderCol.find(item => item.name === 'tags').value
+    },
+    polyEnable() {
+      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol2')
+      return formBuilderCol.find(item => item.name === 'enable').value
+    },
+    polyEntity() {
+      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol2')
+      return formBuilderCol.find(item => item.name === 'entity').value
+    },
+    headlineText() {
+      return this.getMarkerInputsValue('headlineText')
+    },
+    ZoomRate() {
+      return this.getMarkerInputsValue('ZoomRate')
+    },
+    iconImage() {
+      return this.getMarkerInputsValue('iconImage')
+    },
+    TextColor() {
+      return this.getMarkerInputsValue('TextColor')
+    },
+    StrokeColor() {
+      return this.getMarkerInputsValue('StrokeColor')
+    },
+    IconSize() {
+      return this.getMarkerInputsValue('IconSize')
+    },
+    TextSize() {
+      return this.getMarkerInputsValue('TextSize')
+    },
+    StrokeSize() {
+      return this.getMarkerInputsValue('StrokeSize')
+    },
+    iconAnchorX() {
+      return this.getMarkerInputsValue('iconAnchorX')
+    },
+    iconAnchorY() {
+      return this.getMarkerInputsValue('iconAnchorY')
+    },
+    action() {
+      return this.getMarkerInputsValue('action')
+    },
+    tags() {
+      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol')
+      return formBuilderCol.find(item => item.name === 'tags').value
+    },
+    enable() {
+      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol2')
+      return formBuilderCol.find(item => item.name === 'enable').value
+    },
+    entity() {
+      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol2')
+      return formBuilderCol.find(item => item.name === 'entity').value
+    }
+  },
   watch: {
     headlineText: {
       handler(newVal) {
@@ -681,100 +775,6 @@ export default {
         this.bufferPolyline.entity = entity
         this.updateItem()
       }
-    }
-  },
-  computed: {
-    activeMapItem() {
-      if (this.selectedMarker.editMode) {
-        return this.selectedMarker
-      } else if (this.bufferMarker.editMode) {
-        return this.bufferMarker
-      } else if (this.bufferPolyline.editMode) {
-        return this.bufferPolyline
-      } else {
-        return false
-      }
-    },
-    canShowGeneralData() {
-      return this.activeMapItem.editMode && this.activeMapItem.type.name === this.toolTab
-    },
-    polyAction() {
-      return this.polylineInputs.find(item => item.name === 'action').value
-    },
-    polyZoomRate() {
-      return this.polylineInputs.find(item => item.name === 'ZoomRate').value
-    },
-    polyLineType() {
-      return this.polylineInputs.find(item => item.name === 'LineType').value
-    },
-    polyLineThickness() {
-      return this.polylineInputs.find(item => item.name === 'LineThickness').value
-    },
-    polyLineStart() {
-      return this.polylineInputs.find(item => item.name === 'LineStart').value
-    },
-    polyColor() {
-      return this.polylineInputs.find(item => item.name === 'color').value
-    },
-    polylineMoveType() {
-      return this.polylineInputs.find(item => item.name === 'lineMoveType').value
-    },
-    polyTags() {
-      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol')
-      return formBuilderCol.find(item => item.name === 'tags').value
-    },
-    polyEnable() {
-      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol2')
-      return formBuilderCol.find(item => item.name === 'enable').value
-    },
-    polyEntity() {
-      const formBuilderCol = this.getPolylineInputsValue('formBuilderCol2')
-      return formBuilderCol.find(item => item.name === 'entity').value
-    },
-    headlineText() {
-      return this.getMarkerInputsValue('headlineText')
-    },
-    ZoomRate() {
-      return this.getMarkerInputsValue('ZoomRate')
-    },
-    iconImage() {
-      return this.getMarkerInputsValue('iconImage')
-    },
-    TextColor() {
-      return this.getMarkerInputsValue('TextColor')
-    },
-    StrokeColor() {
-      return this.getMarkerInputsValue('StrokeColor')
-    },
-    IconSize() {
-      return this.getMarkerInputsValue('IconSize')
-    },
-    TextSize() {
-      return this.getMarkerInputsValue('TextSize')
-    },
-    StrokeSize() {
-      return this.getMarkerInputsValue('StrokeSize')
-    },
-    iconAnchorX() {
-      return this.getMarkerInputsValue('iconAnchorX')
-    },
-    iconAnchorY() {
-      return this.getMarkerInputsValue('iconAnchorY')
-    },
-    action() {
-      return this.getMarkerInputsValue('action')
-    },
-    tags() {
-      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol')
-      return formBuilderCol.find(item => item.name === 'tags').value
-    },
-    enable() {
-      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol2')
-      return formBuilderCol.find(item => item.name === 'enable').value
-    },
-    entity() {
-      const formBuilderCol = this.getMarkerInputsValue('formBuilderCol2')
-      return formBuilderCol.find(item => item.name === 'entity').value
     }
   },
   created() {

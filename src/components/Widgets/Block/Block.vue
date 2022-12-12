@@ -107,19 +107,19 @@ export default {
     ProductItem,
     Slider
   },
+  directives: {
+    dragscroll
+  },
   mixins: [mixinWidget],
-  data: () => ({
-    isGridView: false
-  }),
   props: {
     data: {
       type: Block,
       default: new Block()
     }
   },
-  directives: {
-    dragscroll
-  },
+  data: () => ({
+    isGridView: false
+  }),
   computed: {
     isThereData() {
       return !!(

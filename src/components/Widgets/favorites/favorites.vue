@@ -875,12 +875,6 @@ export default {
       }
     ]
   }),
-  created() {
-    this.initPageData()
-  },
-  mounted() {
-    this.closeLayoutSideBar()
-  },
 
   computed: {
     products() {
@@ -893,6 +887,12 @@ export default {
     contents() {
       return new ContentList(this.storeData[0].contents)
     }
+  },
+  created() {
+    this.initPageData()
+  },
+  mounted() {
+    this.closeLayoutSideBar()
   },
   methods: {
     initPageData() {
