@@ -15,13 +15,138 @@
               @input="onChangeLessonGroup"
             />
           </div>
-          <div class="col"></div>
+          <div class="col">
+            <chip-group
+              v-model="selectedLessonId"
+              :items="lessons"
+              item-text="title"
+              item-value="id"
+              chip-title="درس"
+              @input="onChangeLesson"
+            />
+          </div>
         </div>
       </div>
       <div class="col-xl-3 col-lg-6- col-md-6 col-12 text-md-right text-center d-flex flex-column justify-center header-label ">
-
+        نمایش محتوا بر اساس فعالیت شما
       </div>
     </div>
+    <!--   --------------------------------- video box &&  content list item ------------------------- -->
+    <v-row>
+      <v-col
+        md="8"
+        xs="12"
+        cols="12"
+        class="video-box-col"
+      >
+        <video-box
+          :lesson="currentLesson"
+          :set="currentSet"
+          :content="watchingContent"
+          :afterLoad="contentsIsEmpty"
+          @favorite="toggleFavor"
+          @has_watched="watched"
+          @bookmarkTimestamp="bookmarkPostIsFavored"
+        />
+        <div class="mobile-view">
+          <div class="current-content-title"
+               v-text="watchingContent.title" />
+
+          <comment-box
+            v-model="watchingContent.comment"
+            :doesnt-have-content="contentsIsEmpty"
+            @input="saveComment"
+          />
+        </div>
+      </v-col>
+      <v-col
+        md="4"
+        cols="12"
+        class="content-list-col"
+      >
+        <content-list-component
+          v-model="watchingContent"
+          :loading="contents.loading"
+          :afterLoad="contentsIsEmpty"
+          :contents="contents"
+          :header="{ title: 'لیست فیلم ها', button: { title: 'من کجام؟' } }"
+          type="video"
+          @input="setWatchingContent"
+          @headerAction="showUserLastState"
+        >
+          <template v-slot:filter>
+            <div class="d-flex  v-select-box">
+              <div class="ml-xm-2 ml-5 col-6 pa-0">
+                <v-select
+                  :key="sets.list.length"
+                  v-model="currentSetId"
+                  :loading="contents.loading"
+                  color="#3e5480"
+                  :items="sets.list"
+                  class="v-select"
+                  item-text="short_title"
+                  item-value="id"
+                  :menu-props="{ bottom: true, offsetY: true }"
+                  solo
+                  append-icon="mdi-chevron-down"
+                  dense
+                  background-color="#eff3ff"
+                  flat
+                  placeholder="انتخاب فرسنگ ها"
+                  @change="setCurrentSet"
+                />
+              </div>
+              <v-select
+                v-model="currentSectionId"
+                :loading="contents.loading"
+                value="all"
+                color="#3e5480"
+                :menu-props="{ bottom: true, offsetY: true }"
+                :items="sections.list"
+                item-text="title"
+                item-value="id"
+                solo
+                append-icon="mdi-chevron-down"
+                dense
+                background-color="#eff3ff"
+                placeholder="همه"
+                flat
+              />
+            </div>
+          </template>
+        </content-list-component>
+      </v-col>
+    </v-row>
+    <!--   --------------------------------- comment box &&  content list item------------------------- -->
+    <v-row>
+      <v-col
+        md="8"
+        cols="12"
+      >
+        <div class="desktop-view">
+          <div class="current-content-title"
+               v-text="watchingContent.title" />
+          <comment-box
+            v-model="watchingContent.comment"
+            :doesnt-have-content="contentsIsEmpty"
+            @input="saveComment"
+          />
+        </div>
+      </v-col>
+      <v-col
+        md="4"
+        cols="12"
+      >
+        <content-list-component
+          :header="{ title: 'جزوه ها' }"
+          :loading="contents.loading"
+          :afterLoad="contentsIsEmpty"
+          :contents="contents"
+          type="pamphlet"
+          @input="setWatchingContent"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -31,12 +156,14 @@ import { Content, ContentList } from 'src/models/Content'
 import { SetList } from 'src/models/Set'
 import { SetSectionList } from 'src/models/SetSection'
 import ChipGroup from 'components/DashboardAbrisham/chipGroup'
+import videoBox from 'src/components/DashboardAbrisham/videoBox'
 import { mixinAbrisham } from 'src/mixin/Mixins'
 
 export default {
   name: 'AbrishamProgress',
   components: {
-    ChipGroup
+    ChipGroup,
+    videoBox
   },
   mixins: [mixinAbrisham],
   data: () => ({
@@ -268,7 +395,7 @@ export default {
 
     async getContents () {
       this.contents.loading = true
-      const response = await this.$apiGateway.abrisham.requestToGetContents()
+      const response = await this.$apiGateway.abrisham.requestToGetContents(this.currentSetId)
       this.contents.loading = false
       return response
     },

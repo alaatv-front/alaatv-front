@@ -1,7 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
-import { User } from 'src/models/User'
 import { ContentList } from 'src/models/Content'
+
 export default class AbrishamAPI extends APIRepository {
   constructor() {
     super('abrisham', apiV2)
@@ -68,83 +68,6 @@ export default class AbrishamAPI extends APIRepository {
       rejectCallback: () => {
         return new ContentList()
       }
-    })
-  }
-
-  updateTicket(ticketId, data) {
-    return this.sendRequest({
-      apiMethod: 'get',
-      api: this.api,
-      request: this.APIAdresses.getSets(ticketId),
-      data,
-      resolveCallback: (response) => {
-        return {
-          code: response
-        }
-      },
-      rejectCallback: (error) => {
-        return error
-      }
-    })
-  }
-
-  getUserData(data) {
-    return this.sendRequest({
-      apiMethod: 'post',
-      api: this.api,
-      request: this.APIAdresses.getInfo,
-      resolveCallback: (response) => {
-        return new User(response.data.data)
-      },
-      rejectCallback: (error) => {
-        return error
-      },
-      data
-    })
-  }
-
-  sendTicketMessage(data) {
-    return this.sendRequest({
-      apiMethod: 'post',
-      api: this.api,
-      request: this.APIAdresses.ticketMessage,
-      resolveCallback: (response) => {
-        return response
-      },
-      rejectCallback: (error) => {
-        return error
-      },
-      data
-    })
-  }
-
-  sendTicketStatusNotice(ticketId, data) {
-    return this.sendRequest({
-      apiMethod: 'post',
-      api: this.api,
-      request: this.APIAdresses.statusNotice(ticketId),
-      resolveCallback: (response) => {
-        return response
-      },
-      rejectCallback: (error) => {
-        return error
-      },
-      data
-    })
-  }
-
-  editTicketAssignedSupporters(id, data) {
-    return this.sendRequest({
-      apiMethod: 'post',
-      api: this.api,
-      request: this.APIAdresses.editAssign(id),
-      resolveCallback: (response) => {
-        return new User(response.data.data)
-      },
-      rejectCallback: (error) => {
-        return error
-      },
-      data
     })
   }
 }
