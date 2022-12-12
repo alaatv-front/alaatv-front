@@ -91,6 +91,83 @@ export default {
                         }
                       },
                       {
+                        name: 'Slider',
+                        options: {
+                          list: [
+                            {
+                              title: 'آزمون سه‌آ-21 مهر',
+                              photo: {
+                                src: 'https://nodes.alaatv.com/upload/images/slideShow/1665642162_5080.jpg?w=1280&h=500'
+                              },
+                              features: {
+                                xl: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                },
+                                lg: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                },
+                                md: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                },
+                                sm: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                },
+                                xs: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                }
+                              },
+                              link: 'https://soalaa.com/',
+                              ratio: 2.56
+                            },
+                            {
+                              title: 'مدرسه آنلاین آلاء',
+                              photo: {
+                                src: 'https://nodes.alaatv.com/upload/images/slideShow/1642417634_2227.jpg?w=1280&h=500'
+                              },
+                              features: {
+                                xl: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                },
+                                lg: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                },
+                                md: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                },
+                                sm: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                },
+                                xs: {
+                                  src: '',
+                                  width: '',
+                                  height: ''
+                                }
+                              },
+                              link: null,
+                              ratio: 2.56
+                            }
+                          ]
+                        }
+                      },
+                      {
                         name: 'BlockList',
                         data: 'home',
                         options: {
