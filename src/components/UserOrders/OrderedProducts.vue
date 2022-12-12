@@ -164,13 +164,6 @@ import { OrderItem } from 'src/models/OrderItem'
 export default {
   name: 'OrderedProducts',
   mixins: [Widgets],
-  data() {
-    return {
-      dialogState: false,
-      expanded: true,
-      clickedItemToRemove: null
-    }
-  },
   props: {
     // order: {
     //   type: Order,
@@ -185,8 +178,12 @@ export default {
       }
     }
   },
-  created() {
-    this.loading = true
+  data() {
+    return {
+      dialogState: false,
+      expanded: true,
+      clickedItemToRemove: null
+    }
   },
   computed: {
     cartItems() {
@@ -213,6 +210,9 @@ export default {
     //     return null
     //   }
     // }
+  },
+  created() {
+    this.loading = true
   },
 
   methods: {

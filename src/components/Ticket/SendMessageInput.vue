@@ -332,6 +332,9 @@ export default {
     Drawer,
     UserOrderList
   },
+  directives: {
+    longpress
+  },
   props: {
     sendLoading: {
       type: Boolean,
@@ -385,28 +388,6 @@ export default {
       voice: ''
     }
   }),
-  watch: {
-    imgURL: {
-      handler(newValue) {
-        if (newValue) {
-          this.showModalStatus = true
-          this.userPicClipped = false
-          this.userPicSelected = true
-        }
-      }
-    },
-    resultURL: {
-      handler(val) {
-        this.userPicClipped = true
-        if (val) this.userPicSelected = true
-      }
-    },
-    sendLoading: {
-      handler(newVal) {
-        this.Loading = newVal
-      }
-    }
-  },
   computed: {
     canShowSendBtn() {
       return (this.newMessage.text.length > 0 || this.showVoicePlayer)
@@ -519,6 +500,28 @@ export default {
     }
 
   },
+  watch: {
+    imgURL: {
+      handler(newValue) {
+        if (newValue) {
+          this.showModalStatus = true
+          this.userPicClipped = false
+          this.userPicSelected = true
+        }
+      }
+    },
+    resultURL: {
+      handler(val) {
+        this.userPicClipped = true
+        if (val) this.userPicSelected = true
+      }
+    },
+    sendLoading: {
+      handler(newVal) {
+        this.Loading = newVal
+      }
+    }
+  },
   methods: {
     async onOpenOrderList() {
       this.orderDrawer = true
@@ -528,13 +531,13 @@ export default {
         const response = await this.callGetOrderApi()
         this.userOrderData = new CartItemList(response.data.data)
         this.orderLoading = false
-      } catch (e) {
+      } catch {
         this.orderLoading = false
       }
     },
     callGetOrderApi() {
       const userId = this.$store.getters['Auth/user'].id
-      this.$api_gateway.user.ordersById(userId)
+      return this.$apiGateway.user.ordersById(userId)
       // return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
     },
     loadFile(event) {
@@ -694,9 +697,6 @@ export default {
       })
     }
 
-  },
-  directives: {
-    longpress
   }
 }
 </script>

@@ -104,11 +104,6 @@ export default {
       }
     }
   },
-  watch: {
-    // order(val) {
-    //   console.log(val)
-    // }
-  },
   emits: [
     'update:dialogValue'
   ],
@@ -137,6 +132,11 @@ export default {
     windowSize () {
       return this.$store.getters['AppLayout/windowSize']
     }
+  },
+  watch: {
+    // order(val) {
+    //   console.log(val)
+    // }
   },
   methods: {
     toman (key, suffix) {

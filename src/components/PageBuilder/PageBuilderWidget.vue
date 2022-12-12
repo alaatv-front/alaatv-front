@@ -23,6 +23,7 @@ export default {
   name: 'PageBuilderWidget',
 
   components,
+  mixins: [mixinWidget],
 
   props: {
     widget: {
@@ -36,8 +37,6 @@ export default {
       default: () => {}
     }
   },
-  mixins: [mixinWidget],
-  created() {},
   setup() {
     componentsData.forEach((component) => {
       components[component.name] = defineAsyncComponent(() => {
@@ -47,7 +46,8 @@ export default {
       })
     })
     return {}
-  }
+  },
+  created() {}
 }
 </script>
 

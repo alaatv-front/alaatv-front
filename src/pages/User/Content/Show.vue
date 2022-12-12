@@ -15,6 +15,9 @@ import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
 
 export default {
   name: 'Show',
+  beforeRouteUpdate(to, from) {
+    this.updateData(to.params.id, this.sections)
+  },
   data() {
     return {
       editable: false,
@@ -138,9 +141,6 @@ export default {
         }
       }
     }
-  },
-  beforeRouteUpdate(to, from) {
-    this.updateData(to.params.id, this.sections)
   }
 }
 </script>

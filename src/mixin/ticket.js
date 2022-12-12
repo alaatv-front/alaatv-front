@@ -25,7 +25,7 @@ const mixinTicket = {
       try {
         await Promise.all([this.setDepartments(), this.setStatuses(), this.setPriorityOption()])
         this.loading = false
-      } catch (e) {
+      } catch {
         this.loading = false
       }
     },
@@ -512,13 +512,15 @@ const mixinTicket = {
 
     async updateTicketData(ticketId, payload) {
       try {
+        this.loading = true
         await this.callUpdateTicketApi(ticketId, payload)
         this.$q.notify({
           message: 'تغییرات با موفقیت اعمال شد.',
           type: 'positive'
         })
-      } catch (e) {
-
+        this.loading = false
+      } catch {
+        this.loading = false
       }
     },
 
@@ -547,7 +549,7 @@ const mixinTicket = {
           title: this.getInputsValue('title')
         }
       }
-      return this.$apiGateway.ticket.updateTicket(id, payloadData)
+      return this.$apiGateway.ticket.updateTicket(ticketId, payloadData)
     },
 
     callCreatTicketApi (formData) {
@@ -568,7 +570,7 @@ const mixinTicket = {
         // this.$axios.post(API_ADDRESS.ticket.user.getInfo, payload)
         this.user = await this.$apiGateway.ticket.getUserData(payload)
         this.loading = false
-      } catch (e) {
+      } catch {
         this.loading = false
         this.user = new User({
           id: 1204622,

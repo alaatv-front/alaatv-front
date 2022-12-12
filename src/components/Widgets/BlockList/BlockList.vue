@@ -29,9 +29,6 @@ export default {
       blocks: {}
     }
   },
-  mounted() {
-    this.loadBlocks()
-  },
 
   computed: {
     blocksToShow() {
@@ -45,6 +42,9 @@ export default {
         block.headerCustomClass = `banner-header-${index}` + ' '
       })
     }
+  },
+  mounted() {
+    this.loadBlocks()
   },
 
   methods: {

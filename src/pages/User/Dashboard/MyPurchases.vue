@@ -9,11 +9,6 @@
 <script>
 export default {
   name: 'MyPurchases',
-  computed: {
-    pageBuilderEditable() {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    }
-  },
   data () {
     return {
       pageConfig: {},
@@ -39,6 +34,11 @@ export default {
           }
         }
       ]
+    }
+  },
+  computed: {
+    pageBuilderEditable() {
+      return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   }
 }

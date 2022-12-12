@@ -371,17 +371,17 @@ import { User } from 'src/models/User'
 
 export default {
   name: 'AlaaFooter',
-  methods: {
-    scrollToTop() {
-      document.body.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  },
   computed: {
     user () {
       if (this.$store.getters['Auth/user']) {
         return this.$store.getters['Auth/user']
       }
       return new User()
+    }
+  },
+  methods: {
+    scrollToTop() {
+      document.body.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
 }

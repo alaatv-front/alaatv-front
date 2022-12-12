@@ -78,15 +78,15 @@ import { Product } from 'src/models/Product'
 export default {
   name: 'productItem',
   components: { LazyImg },
-  data: () => ({
-    product: new Product()
-  }),
   props: {
     data: {
       type: Product,
       default: new Product()
     }
   },
+  data: () => ({
+    product: new Product()
+  }),
   mounted() {
     this.product = new Product(this.data)
   },

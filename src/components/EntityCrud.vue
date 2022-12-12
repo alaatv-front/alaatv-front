@@ -239,16 +239,16 @@ export default {
       return this.$route.path
     }
   },
-  created () {
-    this.getComponent()
-  },
-  mounted () {},
   watch: {
     getRouteChange () {
       // to, from
       this.getComponent()
     }
   },
+  created () {
+    this.getComponent()
+  },
+  mounted () {},
   methods: {
     getComponent () {
       const cName = this.getRoutesMode()

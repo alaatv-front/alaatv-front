@@ -91,9 +91,6 @@ export default {
       }
     }
   },
-  created () {
-    this.setInformation()
-  },
   watch: {
     data: {
       deep: true,
@@ -106,6 +103,9 @@ export default {
         this.setInformation()
       }
     }
+  },
+  created () {
+    this.setInformation()
   },
   methods: {
     setInformation () {

@@ -236,7 +236,6 @@ import { User } from 'src/models/User'
 
 export default {
   name: 'Show',
-  mixins: [mixinDateOptions, mixinTicket],
   components: {
     EntityEdit,
     // EntityAction,
@@ -247,6 +246,7 @@ export default {
     SendMessageInput,
     Drawer
   },
+  mixins: [mixinDateOptions, mixinTicket],
   data() {
     return {
       updateUserTem: false,
@@ -490,8 +490,10 @@ export default {
       ]
     }
   },
-  created() {
-    this.api += '/' + this.$route.params.id
+  computed: {
+    editAssignInput() {
+      return this.inputs.find(item => item.name === 'editOperator')
+    }
   },
   watch: {
     departmentList(newVal) {
@@ -501,10 +503,8 @@ export default {
       this.getInput('status').options = newVal
     }
   },
-  computed: {
-    editAssignInput() {
-      return this.inputs.find(item => item.name === 'editOperator')
-    }
+  created() {
+    this.api += '/' + this.$route.params.id
   },
   methods: {
     async editAssignedSupporters() {
@@ -515,7 +515,7 @@ export default {
       //  await this.$axios.post(API_ADDRESS.ticket.show.editAssign()
       try {
         this.loading = true
-        await this.$api_gateway.ticket.editTicketAssignedSupporters(this.getInputsValue('id'), { assign: usersId })
+        await this.$apiGateway.ticket.editTicketAssignedSupporters(this.getInputsValue('id'), { assign: usersId })
         this.loading = false
       } catch (e) {
         this.loading = false
@@ -546,7 +546,7 @@ export default {
       this.orderDrawer = this.orderDrawer === false
       this.orderLoading = true
       // this.$axios.get(API_ADDRESS.user.orders.ordersById(this.userId))
-      this.$api_gateway.user.ordersById(this.userId)
+      this.$apiGateway.user.ordersById(this.userId)
         .then(
           response => {
           // this.userOrderData = response
@@ -1763,7 +1763,7 @@ export default {
     },
     async sendTicketStatusNotice(ticketId) {
       //  this.$axios.post(API_ADDRESS.ticket.show.statusNotice(ticketId))
-      const res = await this.$api_gateway.ticket.sendTicketStatusNotice(ticketId)
+      const res = await this.$apiGateway.ticket.sendTicketStatusNotice(ticketId)
       this.$q.notify({
         message: res.data.message,
         type: 'positive'

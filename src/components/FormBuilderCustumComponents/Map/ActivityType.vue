@@ -32,6 +32,12 @@
 import { inputMixin } from 'quasar-form-builder'
 export default {
   name: 'ActivityType',
+  mixins: [inputMixin],
+  props: {
+    value: {
+      default: null
+    }
+  },
   data() {
     return {
       activityTypeOptions: [
@@ -66,12 +72,6 @@ export default {
       ]
     }
   },
-  props: {
-    value: {
-      default: null
-    }
-  },
-  mixins: [inputMixin],
   created () {
   },
   methods: {

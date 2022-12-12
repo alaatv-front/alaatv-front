@@ -229,6 +229,12 @@ import { Product } from 'src/models/Product'
 export default {
   name: 'cartView',
   mixins: [Widgets],
+
+  props: {
+    getData: {
+      type: Function
+    }
+  },
   data() {
     return {
       dialogState: false,
@@ -236,16 +242,6 @@ export default {
       expandedObject: {},
       clickedItemIdToRemove: null
     }
-  },
-
-  props: {
-    getData: {
-      type: Function
-    }
-  },
-
-  created() {
-    this.loading = true
   },
 
   computed: {
@@ -268,6 +264,10 @@ export default {
         return 'صفحه محصول'
       }
     }
+  },
+
+  created() {
+    this.loading = true
   },
 
   methods: {

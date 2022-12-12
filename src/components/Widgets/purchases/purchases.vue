@@ -135,10 +135,63 @@ export default {
     PurchaseItem,
     showContents
   },
-  watch: {
-    searchTarget (value) {
-      this.filterProductBySearchInput()
-      this.products.list = this.products.list.splice(0, this.products.list.length)
+  data () {
+    return {
+      showContentDialog: false,
+      selectedTab: 'pamphlet',
+      searchTarget: '',
+      selectedFilterBoxValue: null,
+      selectedFilterCategoryValue: null,
+      filterBoxCategory: [{ name: 'همه', value: 'all', selected: true },
+        { name: 'راه ابریشم', value: 'VIP', selected: false },
+        {
+          name: 'آرش',
+          value: 'همایش/آرش',
+          selected: false
+        },
+        {
+          name: 'تایتان',
+          value:
+            'همایش/تایتان',
+          selected: false
+        },
+        {
+          name: 'تفتان',
+          value:
+            'همایش/تفتان',
+          selected: false
+        },
+        { name: 'گدار', value: 'همایش/گدار', selected: false },
+        {
+          name: 'نظام قدیم',
+          value:
+            'قدیم',
+          selected: false
+        },
+        {
+          name: 'جزوه',
+          value: 'جزوه',
+          selected: false
+        },
+        {
+          name: 'آزمون',
+          value:
+            'آزمون/سه آ',
+          selected: false
+        }],
+      filteredProduct: new ProductList(),
+      filterBoxSort: [
+        {
+          name: 'جدید ترین ها',
+          value: 'data-sort1',
+          selected: true
+        },
+        {
+          name: 'قدیمی ترین ها',
+          value: 'data-sort2',
+          selected: false
+        }],
+      selectedSet: new Set()
     }
   },
   computed: {
@@ -863,63 +916,10 @@ export default {
         }])
     }
   },
-  data () {
-    return {
-      showContentDialog: false,
-      selectedTab: 'pamphlet',
-      searchTarget: '',
-      selectedFilterBoxValue: null,
-      selectedFilterCategoryValue: null,
-      filterBoxCategory: [{ name: 'همه', value: 'all', selected: true },
-        { name: 'راه ابریشم', value: 'VIP', selected: false },
-        {
-          name: 'آرش',
-          value: 'همایش/آرش',
-          selected: false
-        },
-        {
-          name: 'تایتان',
-          value:
-            'همایش/تایتان',
-          selected: false
-        },
-        {
-          name: 'تفتان',
-          value:
-            'همایش/تفتان',
-          selected: false
-        },
-        { name: 'گدار', value: 'همایش/گدار', selected: false },
-        {
-          name: 'نظام قدیم',
-          value:
-            'قدیم',
-          selected: false
-        },
-        {
-          name: 'جزوه',
-          value: 'جزوه',
-          selected: false
-        },
-        {
-          name: 'آزمون',
-          value:
-            'آزمون/سه آ',
-          selected: false
-        }],
-      filteredProduct: new ProductList(),
-      filterBoxSort: [
-        {
-          name: 'جدید ترین ها',
-          value: 'data-sort1',
-          selected: true
-        },
-        {
-          name: 'قدیمی ترین ها',
-          value: 'data-sort2',
-          selected: false
-        }],
-      selectedSet: new Set()
+  watch: {
+    searchTarget (value) {
+      this.filterProductBySearchInput()
+      this.products.list = this.products.list.splice(0, this.products.list.length)
     }
   },
   created () {
