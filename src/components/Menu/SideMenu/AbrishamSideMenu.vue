@@ -20,7 +20,6 @@
             class="icon"
             :class="['fi-rr-' + item.icon , $route.name===item.routeName ? 'activate' :'']"
           />
-
         </q-item>
       </q-list>
     </div>
@@ -64,7 +63,6 @@ export default {
       //   icon: 'envelope',
       //   routeName: 'news'
       // },
-
     ]
   }),
   created() {
