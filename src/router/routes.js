@@ -197,19 +197,30 @@ const routes = [
       {
         path: '/asset/abrisham',
         name: 'User.Abrisham',
-        component: () => import('layouts/AbrishamLayout.vue'),
         meta: {
           // middlewares: [auth]
         },
         layoutConfig: {
-          layoutHeaderVisible: false,
-          layoutFooter: false
+          layoutHeaderType: 'abrisham',
+          layoutLeftSideBarType: 'abrisham',
+          layoutLeftDrawerOverlay: false,
+          layoutLeftDrawerWidth: 100,
+          layoutLeftDrawerVisible: true,
+          layoutLeftDrawerBehavior: 'default'
         },
         children: [
           {
             path: 'user-abrisham-progress',
             name: 'User.Abrisham.Progress',
-            component: () => import('pages/User/DashboardAbrisham/index.vue'),
+            component: () => import('pages/User/DashboardAbrisham/progress.vue'),
+            meta: {
+              // middlewares: [auth]
+            }
+          },
+          {
+            path: 'schedule',
+            name: 'User.Abrisham.Schedule',
+            component: () => import('pages/User/DashboardAbrisham/Schedule.vue'),
             meta: {
               // middlewares: [auth]
             }

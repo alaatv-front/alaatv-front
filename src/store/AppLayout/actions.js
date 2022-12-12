@@ -12,6 +12,11 @@ export function updateTemplateLayout (context, newInfo) {
   if (newInfo.layoutLeftSideBarType !== undefined) {
     this.commit('AppLayout/changeTemplateLeftSideBarType', newInfo.layoutLeftSideBarType)
   }
+
+  if (newInfo.layoutLeftDrawerWidth !== undefined) {
+    this.commit('AppLayout/changeTemplateLeftSideBarWidth', newInfo.layoutLeftDrawerWidth)
+  }
+
   if (newInfo.layoutRightSideBarType !== undefined) {
     this.commit('AppLayout/changeTemplateRightSideBarType', newInfo.layoutRightSideBarType)
   }

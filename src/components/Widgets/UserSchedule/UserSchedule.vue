@@ -1,16 +1,15 @@
 <template>
-  <p class="test bg-white"> abrisham progress</p>
+  <p class="test">scccccccc</p>
 </template>
 
 <script>
-
 export default {
-  name: 'AbrishamProgress'
+  name: 'UserSchedule'
 }
 </script>
 
 <style scoped lang="scss">
 .test{
-  height: 8000px;
+  height: 1000px;
 }
 </style>
