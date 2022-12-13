@@ -160,6 +160,9 @@ module.exports = configure(function (ctx) {
       },
       beforeDev({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
+      },
+      beforeBuild({ quasarConf }) {
+        generateWidgetList('./src/components/Widgets')
       }
     },
 
