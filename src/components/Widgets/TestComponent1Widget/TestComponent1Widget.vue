@@ -17,7 +17,9 @@ export default {
     const thisUser = APIGateway.user
     const product = APIGateway.product
     thisUser.get({
-      id: '219548',
+      data: {
+        id: '219548'
+      },
       cache: {
         TTL: 10000
       }
