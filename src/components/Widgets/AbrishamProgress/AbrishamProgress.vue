@@ -2,37 +2,32 @@
   <div
     class="userAbrishamProgress-page"
   >
-    <div class="row">
-      <div class="col-lg-9 col-md-7 col-12 justify-center chip-parent ">
-        <div class="row">
-          <div class="col-md-6 col-sm-12 chips-1 chip-top">
-            <chip-group
-              v-model="selectedLessonGroupId"
-              :items="lessonGroups"
-              item-text="title"
-              item-value="id"
-              :loading="lessonGroupsLoading"
-              @input="onChangeLessonGroup"
-            />
-          </div>
-          <div class="col">
-            <chip-group
-              v-model="selectedLessonId"
-              :items="lessons"
-              item-text="title"
-              item-value="id"
-              chip-title="درس"
-              @input="onChangeLesson"
-            />
-          </div>
-        </div>
+    <div class="row  items-center chip-parent">
+      <div class="col-xl-3 col-sm-12 order-xl-first order-xs-last text-center  page-title">نمایش محتوا بر اساس فعالیت شما</div>
+      <div class="col-xl-3 col-lg-6 col-sm-12 col-xs-6">
+        <chip-group
+          v-model:value="selectedLessonGroupId"
+          :items="lessonGroups"
+          item-text="title"
+          item-value="id"
+          :loading="lessonGroupsLoading"
+          @input="onChangeLessonGroup"
+        />
       </div>
-      <div class="col-xl-3 col-lg-6- col-md-6 col-12 text-md-right text-center d-flex flex-column justify-center header-label ">
-        نمایش محتوا بر اساس فعالیت شما
+      <div class="col-xl-5 col-lg-6 col-sm-12 col-xs-6">
+        <chip-group
+          v-model:value="selectedLessonId"
+          :items="lessons"
+          item-text="title"
+          item-value="id"
+          class="col-md-3"
+          chip-title="درس"
+          @input="onChangeLesson"
+        />
       </div>
     </div>
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
-    <div class="row">
+    <div class="row q-col-gutter-x-md q-mt-md ">
       <div
         class="video-box-col col-12 col-md-8 col-xs-12"
       >
@@ -50,7 +45,7 @@
                v-text="watchingContent.title" />
 
           <comment-box
-            v-model="watchingContent.comment"
+            v-model:value="watchingContent.comment"
             :doesnt-have-content="contentsIsEmpty"
             @input="saveComment"
           />
@@ -60,7 +55,7 @@
         class="col-md-4 col-12 content-list-col"
       >
         <content-list-component
-          v-model="watchingContent"
+          v-model:value="watchingContent"
           :loading="contents.loading"
           :afterLoad="contentsIsEmpty"
           :contents="contents"
@@ -70,64 +65,63 @@
           @headerAction="showUserLastState"
         >
           <template v-slot:filter>
-            <div class="d-flex  v-select-box">
-              <div class="ml-xm-2 ml-5 col-6 pa-0">
+            <div class="row q-col-gutter-md">
+              <div class="col-sm-6 col-xs-8">
                 <q-select
                   :key="sets.list.length"
                   v-model="currentSetId"
                   :loading="contents.loading"
-                  color="#3e5480"
-                  :items="sets.list"
+                  outlined
+                  :options="sets.list"
                   class="v-select"
-                  item-text="short_title"
-                  item-value="id"
+                  option-label="short_title"
+                  option-value="id"
                   :menu-props="{ bottom: true, offsetY: true }"
-                  solo
-                  append-icon="mdi-chevron-down"
+                  icon="mdi-chevron-down"
                   dense
                   background-color="#eff3ff"
-                  flat
                   placeholder="انتخاب فرسنگ ها"
                   @change="setCurrentSet"
                 />
               </div>
-              <q-select
-                v-model="currentSectionId"
-                :loading="contents.loading"
-                value="all"
-                color="#3e5480"
-                :menu-props="{ bottom: true, offsetY: true }"
-                :items="sections.list"
-                item-text="title"
-                item-value="id"
-                solo
-                append-icon="mdi-chevron-down"
-                dense
-                background-color="#eff3ff"
-                placeholder="همه"
-                flat
-              />
+              <div class="col-sm-6 col-xs-4">
+                <q-select
+                  v-model="currentSectionId"
+                  :loading="contents.loading"
+                  value="all"
+                  color="#3e5480"
+                  :menu-props="{ bottom: true, offsetY: true }"
+                  :options="sections.list"
+                  option-label="title"
+                  option-value="id"
+                  outlined
+                  append-icon="mdi-chevron-down"
+                  dense
+                  background-color="#eff3ff"
+                  placeholder="همه"
+                />
+              </div>
             </div>
           </template>
         </content-list-component>
       </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
-    <div class="row">
-      <div class="col-8 col-12"
+    <div class="row  q-col-gutter-x-md q-mt-lg">
+      <div class="col-8 "
       >
         <div class="desktop-view">
           <div class="current-content-title"
                v-text="watchingContent.title" />
           <comment-box
-            v-model="watchingContent.comment"
+            v-model:value="watchingContent.comment"
             :doesnt-have-content="contentsIsEmpty"
             @input="saveComment"
           />
         </div>
       </div>
       <div
-        class="col-md-4 col-12"
+        class="col-md-4"
       >
         <content-list-component
           :header="{ title: 'جزوه ها' }"
@@ -146,7 +140,7 @@
 
 import { Content, ContentList } from 'src/models/Content'
 import { SetList } from 'src/models/Set'
-import { SetSectionList } from 'src/models/SetSection'
+import { SetSectionList, SetSection } from 'src/models/SetSection'
 import ChipGroup from 'components/DashboardAbrisham/chipGroup'
 import videoBox from 'src/components/DashboardAbrisham/videoBox'
 import commentBox from 'src/components/DashboardAbrisham/CommentBox'
@@ -244,7 +238,7 @@ export default {
     },
 
     getLesson (id) {
-      return this.lessons.find(lesson => lesson.id === id)
+      return this.lessons.find((lesson) => lesson.id === id)
     },
 
     showLessons (lessonGroupId) {
@@ -254,7 +248,7 @@ export default {
     },
 
     setLessonGroupsId () {
-      this.lessonGroups.forEach((item, index) => item.id = index)
+      this.lessonGroups.forEach((item, index) => item.id = index + 1)
     },
 
     setSelectedLessonId (lessonId) {
@@ -421,6 +415,25 @@ export default {
     margin: 0;
   }
 
+  .chip-parent{
+    .page-title{
+      color: var(--abrishamMain);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.7;
+      letter-spacing: normal;
+      @media screen and (max-width: 1920px){
+        margin-top: 19px;
+      }
+      @media screen and (max-width: 990px){
+        margin-top: 26px;
+      }
+      @media screen and (max-width: 576px){
+        margin-top: 15px;
+      }
+    }
+  }
+
   .header {
     display: flex;
     flex-direction: row;
@@ -450,31 +463,6 @@ export default {
       }
     }
 
-    .chip-parent {
-      display: flex;
-      @media screen and (max-width: 1264px) {
-        flex-direction: column;
-      }
-
-      .chips-1 {
-        @media screen and (max-width: 600px) {
-          padding-bottom: 0 !important;
-          padding-top: 0 !important;
-        }
-
-        &.chip-top {
-          @media screen and (max-width: 1204px) {
-            padding-bottom: 0 !important;
-          }
-        }
-
-        &.chip-down {
-          @media screen and (max-width: 1204px) {
-            padding-top: 0 !important;
-          }
-        }
-      }
-    }
   }
 
   .current-content-title {

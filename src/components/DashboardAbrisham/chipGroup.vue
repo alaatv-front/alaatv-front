@@ -1,8 +1,8 @@
 <template>
   <div class="chip-dropdown">
     <div
-      class="list-box align-center d-flex"
-      :class="dropDown ? 'chip-group-visibility' : 'd-flex'"
+      class="list-box align-center flex"
+      :class="dropDown ? 'chip-group-visibility' : 'flex'"
     >
       <p
         v-if="chipTitle"
@@ -14,24 +14,26 @@
         v-if="loading"
         class="d-block d-xs-none"
       >
-        <q-skeleton></q-skeleton>
+        <q-skeleton v-for="i in 3"
+                    :key="i"
+                    type="QChip" />
       </div>
-      <!--      <v-chip-group-->
       <div
         v-else
-        class="chip-part d-md-block d-sm-flex justify-center"
-        :class="dropDown ? 'd-none ' : ''"
+        class="chip-part xs-hide justify-center"
+        :class="dropDown ? 'hidden' : ''"
       >
         <q-chip
           v-for="(item) in items"
           :key="item.id"
-          :color="isItemSelected(item) ? (item.color?  item.color : '#ff8f00') : 'transparent'"
+          size="16px"
+          clickable
+          :style="{background: chipBackground(item)}"
           class="chip-box"
-          :text-color="isItemSelected(item) ? 'white': '#9fa5c0'"
+          :label="item.title"
+          :text-color="isItemSelected(item) ? 'white': 'chip-text-color'"
           @click="changeSelectedChip(item.id)"
-        >
-          {{ item.title }}
-        </q-chip>
+        />
       </div>
 
     </div>
@@ -39,12 +41,13 @@
       v-if="loading"
       class="d-xl-none d-lg-none d-md-none d-sm-none d-xs-block"
     >
-      <q-skeleton type="chip"></q-skeleton>
+      <q-skeleton class="q-mb-md"
+                  type="chip"></q-skeleton>
       <q-skeleton type="chip"></q-skeleton>
 
     </div>
     <div
-      class="drop-down-select-box mt-5 d-flex d-xl-none d-lg-none d-md-none d-sm-none d-xs-block"
+      class="drop-down-select-box q-mt-md flex xl-hide lg-hide md-hide sm-hide "
     >
       <q-select
         v-model="selectedId"
@@ -54,7 +57,6 @@
         :item-value="itemValue"
         class="col-sm-6"
         :menu-props="{ bottom: true, offsetY: true }"
-        solo
         append-icon="mdi-chevron-down"
         dense
         background-color="#eff3ff"
@@ -121,6 +123,9 @@ export default {
   },
 
   methods: {
+    chipBackground(item) {
+      return this.isItemSelected(item) ? (item.color ? item.color : '#ff8f00') : 'transparent'
+    },
     isItemSelected (item) {
       return parseInt(item.id) === parseInt(this.selectedId)
     },
@@ -145,6 +150,7 @@ export default {
 
 <style lang="scss" scoped>
 .chip-dropdown{
+  margin-top: 20px;
   .list-box {
     @media screen and (max-width: 960px){
       justify-content: center !important;
@@ -169,17 +175,26 @@ export default {
       }
     }
     .chip-part {
+      &:deep(.q-chip){
+        border-radius: 40px !important;
+        padding:7px 20px;
+      }
       .chip-box {
         font-size: 16px;
         font-weight: 500;
-        height: 42px;
-        border-radius: 25px;
         line-height: 2.13;
-        padding: 8px 15px 9px;
+        height: 42px;
+
+        :deep(.q-chip__content){
+          padding: 0;
+        }
         @media screen and (max-width: 768px){
           height: 32px;
           font-size: 14px !important;
         }
+      }
+      .chip-text-color{
+        color: var(--abrishamGray);
       }
     }
 

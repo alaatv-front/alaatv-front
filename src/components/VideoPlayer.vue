@@ -87,8 +87,9 @@ export default {
     }
   },
   watch: {
-    sources: function () {
+    sources: function (val) {
       this.reloadPlayerSources()
+      console.log(val)
     }
   },
   created() {

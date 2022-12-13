@@ -206,7 +206,8 @@ const routes = [
           layoutLeftDrawerOverlay: false,
           layoutLeftDrawerWidth: 100,
           layoutLeftDrawerVisible: true,
-          layoutLeftDrawerBehavior: 'default'
+          layoutLeftDrawerBehavior: 'default',
+          layoutFooter: false
         },
         children: [
           {

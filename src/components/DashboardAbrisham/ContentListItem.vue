@@ -6,7 +6,7 @@
     @click="changeSelectedItem"
   >
     <div
-      class="d-flex contentListItem-main-box"
+      class="flex contentListItem-main-box"
     >
       <div class="right-content">
         <q-card
@@ -19,18 +19,14 @@
           v-text="content.lesson_name"
         />
         <div class="contentListItem-box">
-          <q-card
+          <q-img
             v-if="type === 'video'"
-            flat
-          >
-            <q-img
-              class="content-list-image"
-              :src="content.photo"
-            />
-          </q-card>
+            class="content-list-image"
+            :src="content.photo"
+          />
           <div
             v-if="content.has_watched"
-            class="d-flex seen justify-center align-center"
+            class="flex seen justify-center align-center"
           >
             <i class="fi fi-rr-check icon" />
           </div>
@@ -42,16 +38,16 @@
         </div>
       </div>
       <div class="left-content">
-        <div class="d-flex">
-          <v-sheet
+        <div class="flex">
+          <q-chip
             v-if="content.start"
             text-color="#3e5480"
             depressed
             height="22"
-            class="d-flex justify-center mb-2 rounded-pill time-sheet"
+            class="flex justify-center mb-2 rounded-pill time-sheet"
             :color="selected ? 'white' : '#eff3ff'"
           >
-            <div class="clock d-flex align-center px-2">
+            <div class="clock flex align-center px-2">
               <i class="text-color fi fi-rr-clock ml-2 mt-1" />
               <div>
                 <span class="text-color"
@@ -61,9 +57,9 @@
                       v-text="getClockTime().end" />
               </div>
             </div>
-          </v-sheet>
+          </q-chip>
         </div>
-        <v-sheet
+        <q-chip
           v-if="false"
           class="mb-2"
           color="transparent"
@@ -71,24 +67,25 @@
         />
         <div
           v-if=" type === 'video' "
-          class="sheet-icon d-flex justify-space-between align-center"
+          class="sheet-icon flex justify-space-between align-center"
         >
-          <div class="d-flex flex-column justify-center title-box">
+          <div class="   title-box">
             <p class="contentListItem-title ">
               {{ content.short_title }}
             </p>
             <p
               class="contentListItem-description"
             >
-              {{ content.title }}
+              content.title
+              <!--              {{ content.title }}-->
             </p>
           </div>
         </div>
         <div
           v-else-if=" type === 'pamphlet' "
-          class="sheet-icon d-flex justify-space-between align-center"
+          class="sheet-icon flex justify-space-between align-center"
         >
-          <div class="d-flex flex-column justify-center title-box">
+          <div class="flex flex-column justify-center title-box">
             <p class="contentListItem-title">
               {{ content.short_title }}
             </p>
@@ -178,15 +175,12 @@ export default {
          background-color: rgba(242, 245, 255, 0.31);
      }
     .contentListItem-main-box {
-        margin:0 32px;
         padding-top: 21px;
         border-bottom: solid 1px rgba(159, 165, 192, 0.58);
         @media screen and (max-width: 1920px){
-            margin: 0 15px;
             padding-top: 15px;
         }
         @media screen and (max-width: 350px){
-            margin: 0 10px;
             padding-top: 10px;
         }
         .right-content {
@@ -249,14 +243,11 @@ export default {
              }
         }
         .left-content {
-            margin-right: 15px;
-            width: 100%;
-            height: 100%;
             @media screen and (max-width: 1920px){
-                margin-right: 10px;
+
             }
             @media screen and (max-width: 576px){
-                margin-right: 5px;
+
             }
             .time-sheet {
                 font-size: 12px;
@@ -268,8 +259,7 @@ export default {
             }
             .sheet-icon {
                 .title-box {
-                    height: 100%;
-                    width: 100%;
+
                     .contentListItem-description {
                         font-size: 14px;
                         color: #9fa5c0;

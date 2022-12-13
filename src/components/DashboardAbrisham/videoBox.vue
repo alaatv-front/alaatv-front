@@ -11,7 +11,7 @@
           v-if="content.file && content.file.video && content.inputData.can_see"
           :time-points="timePoints"
           :poster="content.photo"
-          :source="sources"
+          :sources="sources"
           :keepCalculating="keepCalculating"
           @calcTimeData="changeVideoStatusToSeen"
           @toggleBookmark="bookmarkPostIsFavored"
@@ -45,7 +45,7 @@
         class="description row"
       >
         <div class="col-12">
-          <div class="d-flex flex-wrap video-title">
+          <div class="flex flex-wrap video-title">
             <p
               v-if="content.lesson_name || lesson.title"
               class="title-item title-text video-paragraph"
@@ -83,8 +83,8 @@
               جلسه {{ content.order }}
             </p>
           </div>
-          <div class="d-flex subtitle">
-            <div class="d-flex part align-start">
+          <div class="flex subtitle">
+            <div class="flex part align-start">
               <q-img
                 src="https://nodes.alaatv.com/upload/abrisham-panel-ic_alaa.png"
                 class="alaa-logo icon"
@@ -93,7 +93,7 @@
             </div>
             <div
               v-if="content.author && (content.author.first_name || content.author.last_name)"
-              class="d-flex part align-center"
+              class="flex part align-center"
             >
               <i class="fi fi-rr-graduation-cap icon" />
               <p class="video-paragraph">
@@ -108,6 +108,7 @@
         >
           <q-btn
             dark
+            unelevated
             class="seen-btn"
             :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
             :loading="content.loading"
@@ -308,7 +309,7 @@
             <!--            </v-bottom-sheet>-->
             <q-btn
               color="transparent"
-              depressed
+              unelevated
               dark
               :loading="content.loading"
               class="video-box-icon-button"
@@ -328,8 +329,8 @@
 
 <script>
 import { Content } from 'src/models/Content'
-import VideoPlayer from 'src/components/DashboardAbrisham/VideoPlayer'
-
+import VideoPlayer from 'src/components/VideoPlayer'
+import { PlayerSourceList } from 'src/models/PlayerSource'
 export default {
   name: 'VideoBox',
 
@@ -357,7 +358,7 @@ export default {
       sheet: false,
       keepCalculating: true,
       timePoints: [],
-      sources: [],
+      sources: new PlayerSourceList(),
       markedRatios: [
         { ratio: 90, hasSeen: false }
       ]
@@ -385,6 +386,7 @@ export default {
     },
 
     toggleFavorite() {
+      // eslint-disable-next-line vue/no-mutating-props
       this.content.loading = true
       this.$emit('favorite')
     },
@@ -417,14 +419,14 @@ export default {
       sources.forEach(source => {
         customSources.push(
           {
-            src: source.link,
+            link: source.link,
             type: 'video/mp4',
             label: source.res,
             selected: source.res === '480p'
           }
         )
       })
-      this.sources = customSources
+      this.sources = new PlayerSourceList(customSources)
     },
 
     setContentTimePoint (timePoints) {
