@@ -66,8 +66,8 @@ export default class APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.restUrl(entityData.id),
-      cacheKey: this.name + '-get',
+      request: this.restUrl(entityData.data.id),
+      cacheKey: this.restUrl(entityData.data.id) + '-get',
       cache: entityData.cache,
       resolveCallback: (response) => {
         return this.getResolveCallback(response)
@@ -109,7 +109,7 @@ export default class APIRepository {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
-      request: this.restUrl(entityData.id),
+      request: this.restUrl(entityData.data.id),
       cacheKey: this.name + '-put',
       resolveCallback: (response) => {
         return this.putResolveCallback(response)
@@ -130,7 +130,7 @@ export default class APIRepository {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
-      request: this.restUrl(entityId),
+      request: this.restUrl(entityId.data.id),
       cacheKey: this.name + '-delete',
       resolveCallback: (response) => {
         return this.deleteResolveCallback(response)
