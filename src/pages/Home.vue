@@ -123,14 +123,3 @@ export default {
   }
 }
 </script>
-
-<style
-  lang="scss"
-  scoped
->
-.home-page {
-  &:deep(.banner-header-0) {
-    display: none;
-  }
-}
-</style>
