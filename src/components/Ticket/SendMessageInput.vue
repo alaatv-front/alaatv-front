@@ -8,9 +8,8 @@
 
       >انتخاب سفارش مورد نظر
       </q-btn>
-      <drawer
-        :is-open="orderDrawer"
-        max-width="1016px"
+      <drawer :is-open="orderDrawer"
+              max-width="1016px"
       >
         <q-scroll-area class="fit">
           <q-btn icon="mdi-close"
@@ -201,7 +200,7 @@
         :audio-controls="false"
         :canv-width="1285"
         :canv-height="64"
-      ></av-waveform>
+      />
 
       <av-media
         v-show="showVoiceVisualizer"
@@ -218,8 +217,8 @@
         v-model="newMessage.text"
         borderless
         class="newMessageText"
-        placeholder="متن پیام ...">
-      </q-input>
+        placeholder="متن پیام ..."
+      />
 
       <div
         v-if="recordedVoice !== null"
@@ -241,7 +240,6 @@
           icon="isax:pause"
           @click="pauseRecordedVoice" />
       </div>
-
       <div
         v-if="recordedVoice !== null"
         v-show="showVoicePlayer"
@@ -254,22 +252,19 @@
           @click="clearMessage"
         />
       </div>
-
     </div>
   </q-card>
-
 </template>
 
 <script>
-
-import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
-import AvMedia from 'vue-audio-visual/src/components/AvMedia'
-import { Cropper } from 'vue-advanced-cropper'
-import 'vue-advanced-cropper/dist/style.css'
 import { UserList } from 'src/models/User'
 import Drawer from 'components/CustomDrawer'
-import UserOrderList from 'components/Ticket/userOrderList'
+import { Cropper } from 'vue-advanced-cropper'
 import { CartItemList } from 'src/models/CartItem'
+import UserOrderList from 'components/Ticket/userOrderList'
+import AvMedia from 'vue-audio-visual/src/components/AvMedia'
+import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
+import 'vue-advanced-cropper/dist/style.css'
 
 const longpress = {
   created(el, binding) { /*, vNode */
@@ -701,8 +696,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
 .BtnSuccess {
   color: #fff;
   background-color: #34bfa3;

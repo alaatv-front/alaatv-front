@@ -1,10 +1,11 @@
 import { boot } from 'quasar/wrappers'
-import { getRouteWithParent, createBreadcrumbsFromRouteWithParent } from 'quasar-template-builder'
+import * as QTemplateBuilderHelper from 'quasar-template-builder/src/helper.js'
+
 export default boot(({ router, store }) => {
   router.beforeEach((to) => {
-    const routeWithParent = getRouteWithParent({ children: router.options.routes }, to.name)
+    const routeWithParent = QTemplateBuilderHelper.getRouteWithParent({ children: router.options.routes }, to.name)
     store.commit('AppLayout/updateLayoutBreadcrumbsElements', {
-      path: createBreadcrumbsFromRouteWithParent(routeWithParent)
+      path: QTemplateBuilderHelper.createBreadcrumbsFromRouteWithParent(routeWithParent)
     })
   })
 })
