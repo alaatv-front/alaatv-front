@@ -257,14 +257,23 @@
 </template>
 
 <script>
+// ToDo: index.js?dd82:556 [webpack-dev-server] WARNING
+// chunk vendor [mini-css-extract-plugin]
+// Conflicting order. Following module has been added:
+//   * css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-50.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-50.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-50.use[3]!./node_modules/@quasar/app-webpack/lib/webpack/loader.quasar-sass-variables.js!./node_modules/@quasar/app-webpack/lib/webpack/loader.vue.auto-import-quasar.js??ruleSet[0].use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[1]!./node_modules/quasar-crud/src/components/Entity/EntityAction.vue?vue&type=style&index=0&id=f9dd49ae&lang=sass
+//   despite it was not able to fulfill desired ordering with these modules:
+//   * css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-38.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-38.use[2]!./node_modules/vue-advanced-cropper/dist/style.css
+// - couldn't fulfill desired order of chunk group(s) ,
+// - while fulfilling desired order of chunk group(s) ,
+
 import { UserList } from 'src/models/User'
 import Drawer from 'components/CustomDrawer'
-import { Cropper } from 'vue-advanced-cropper'
+// import { Cropper } from 'vue-advanced-cropper'
 import { CartItemList } from 'src/models/CartItem'
 import UserOrderList from 'components/Ticket/userOrderList'
 import AvMedia from 'vue-audio-visual/src/components/AvMedia'
 import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
-import 'vue-advanced-cropper/dist/style.css'
+// import 'vue-advanced-cropper/dist/style.css'
 
 const longpress = {
   created(el, binding) { /*, vNode */
@@ -322,7 +331,7 @@ export default {
   name: 'SendMessageInput',
   components: {
     AvWaveform,
-    Cropper,
+    // Cropper,
     AvMedia,
     Drawer,
     UserOrderList
@@ -663,7 +672,7 @@ export default {
     },
 
     rotate() {
-      this.$refs.cropper.rotate(this.rotateAngle - this.oldRotateAngle)
+      // this.$refs.cropper.rotate(this.rotateAngle - this.oldRotateAngle)
       this.oldRotateAngle = this.rotateAngle
     },
 
