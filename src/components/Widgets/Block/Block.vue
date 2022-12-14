@@ -18,7 +18,7 @@
     </div>
     <div class="block-container">
       <slider v-if="data.banners && data.banners.list.length > 0"
-              :data="bannerSlides"
+              :options="bannerSlides"
       />
       <div v-if="data.products.list.length > 0"
            v-dragscroll

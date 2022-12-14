@@ -23,9 +23,9 @@
               class="slider-widget"
   >
     <q-carousel-slide
-      v-for="(slide, index) in data.list"
+      v-for="(slide, index) in options.list"
       :key="index"
-      :name="slide.id"
+      :name="index"
     >
       <a :href="slide.link">
         <q-img
@@ -69,7 +69,7 @@ export default {
   name: 'Slider',
   mixins: [mixinWidget],
   props: {
-    data: {
+    options: {
       type: Object,
       default () {
         return new BannerList()
@@ -116,8 +116,8 @@ export default {
     }
   },
   mounted () {
-    if (this.data && this.data.list && this.data.list.length > 0) {
-      this.slide = this.data.list[0].id
+    if (this.options && this.options.list && this.options.list.length > 0) {
+      this.slide = 0
     }
   },
   methods: {

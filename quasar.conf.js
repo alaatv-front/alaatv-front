@@ -160,6 +160,9 @@ module.exports = configure(function (ctx) {
       },
       beforeDev({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
+      },
+      beforeBuild({ quasarConf }) {
+        generateWidgetList('./src/components/Widgets')
       }
     },
 
@@ -247,7 +250,7 @@ module.exports = configure(function (ctx) {
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
 
-      prodPort: 3000, // The default port that the production server should use
+      prodPort: process.env.SSR_PORT, // The default port that the production server should use
       // (gets superseded if process.env.PORT is specified at runtime)
 
       // maxAge: 1000 * 60 * 60 * 24 * 30,
