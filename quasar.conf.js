@@ -78,7 +78,7 @@ module.exports = configure(function (ctx) {
       preloadChunks: true,
       showProgress: true,
       gzip: true,
-      // analyze: true,
+      analyze: true,
 
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
@@ -147,6 +147,8 @@ module.exports = configure(function (ctx) {
           aggregateTimeout: 200,
           poll: 1000
         }
+        cfg.optimization.splitChunks.minSize = 10000
+        cfg.optimization.splitChunks.maxSize = 250000
 
         // cfg.plugins.push(new CopyWebpackPlugin({
         //   patterns: [
