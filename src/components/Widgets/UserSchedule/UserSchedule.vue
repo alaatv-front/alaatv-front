@@ -1,15 +1,7 @@
 <template>
   <div class="schedule-page">
-    <study-plan-group
-      v-model="currentMajorId"
-      :majors="majors"
-      class="q-mt-lg"
-      :current-date="dateValue"
-      @contentClicked="contentClicked"
-      @scrollIsMoved="scrollIsMoved"
-    />
     <!--   --------------------------------- chip group ------------------------- -->
-    <div class="row">
+    <div class="row items-center">
       <div ref="schedule"></div>
       <div
         class="col-lg-4 col-md-5 col-12 text-md-right text-center d-flex flex-column justify-center header-label"
@@ -28,7 +20,7 @@
       </div>
     </div>
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
-    <div class="row q-col-gutter-md">
+    <div class="row q-col-gutter-md q-mb-lg">
       <div
         class="col-12 col-md-8"
       >
@@ -101,7 +93,14 @@
       </div>
     </div>
     <!--   --------------------------------- study plan ------------------------- -->
-
+    <study-plan-group
+      v-model:value="currentMajorId"
+      :majors="majors"
+      class="q-mt-lg"
+      :current-date="dateValue"
+      @contentClicked="contentClicked"
+      @scrollIsMoved="scrollIsMoved"
+    />
   </div>
 </template>
 

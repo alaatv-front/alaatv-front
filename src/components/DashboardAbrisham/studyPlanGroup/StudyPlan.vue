@@ -45,10 +45,10 @@
   <!--        </q-card>-->
 
   <!--  </div>-->
-  <q-expansion-item class="bg-white test">
+  <q-expansion-item  class="bg-white test">
     <template v-slot:header>
       <div class="row full-width">
-        <div class="col-4 header-text-style">{{studyPlan.title}}</div>
+        <div class="col-3 header-text-style">{{studyPlan.title}}</div>
         <div class="col-4 header-text-style"> {{ studyPlan.convertDate().dayOfWeek }}</div>
         <div class="col-4 header-text-style"> {{ studyPlan.convertDate().dateOfMonth }}</div>
       </div>
@@ -143,11 +143,6 @@ export default {
       // } else if (this.$store.getters.windowSize.x > 1920) {
       //   return 200
       // }
-    }
-  },
-  watch: {
-    studyPlan(val) {
-      console.log('hhhhhhhhhhhhhhhhhhh', val)
     }
   },
   methods: {

@@ -33,13 +33,12 @@
             v-for="(content, id) in filterByTypeVideo"
             :key="id"
             v-ripple
-            class="plan-sheet-details-video"
+            class="plan-sheet-details-video cursor-pointer"
             @click="contentClicked(content)"
           >
             <div class="plan-sheet-details-video-box">
               <div
                 class="plan-sheet-details-video-thumbnail"
-                @click="contentClicked(content)"
               >
                 <img class="img"
                      alt="عکس درس"
@@ -260,6 +259,7 @@ export default {
                     height: 36px;
                     width: 64px;
                     margin-top: 9px;
+                  margin-left: 10px;
                     @media only screen and (max-width: 990px){
                         height: 30px;
                         width: 64px;
@@ -299,7 +299,7 @@ export default {
                     text-align: right;
                     color: #3e5480;
                     background-color: #eff3ff;
-                    padding-right: 10px;
+                    padding-left: 10px;
                     @media only screen and (max-width: 990px){
                         width: 331px;
                         padding-top: 8px;

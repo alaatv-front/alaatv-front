@@ -10,22 +10,23 @@
         جدول برنامه مطالعاتی راه ابریشم آلاء
       </div>
       <div class="major-card">
-        <p class="major-card-text">
+        <span class="major-card-text">
           رشته:
-        </p>
+        </span>
         <q-select
           v-model="selectedMajor"
           :options="majors.list"
           :option-value=" (item) => item"
           option-label="name"
-          outlined
+          filled
           dense
           map-options
-          append-icon="mdi-chevron-down"
+          class="transparent"
+          dropdown-icon="mdi-chevron-down"
           @update:model-value="changeSelectedMajor"
         />
       </div>
-      <div id="study-scroll-1-x bg-red"
+      <div id="study-scroll-1-x"
            class="all-the-expansions">
         <!--        <div class="row">-->
         <!--          <div-->
@@ -87,7 +88,6 @@ import { PlanList } from 'src/models/Plan'
 
 export default {
   components: { StudyPlan },
-
   props: {
     value: { // majorId
       type: Number,
@@ -102,6 +102,7 @@ export default {
       default: () => ''
     }
   },
+  emits: ['update:value'],
   data() {
     return {
       openPlanIndexes: [],
@@ -288,7 +289,6 @@ export default {
       if (!studyPlan) {
         return
       }
-      console.log()
       studyPlan.plans = new PlanList(planData)
     },
 
@@ -305,7 +305,7 @@ export default {
     },
 
     changeSelectedMajor() {
-      this.$emit('input', this.selectedMajor.id)
+      this.$emit('update:value', this.selectedMajor.id)
     },
 
     closeAllPlans() {
@@ -359,6 +359,7 @@ export default {
       color: #3e5480;
       padding: 40px 60px 51px 60px;
       border-radius: 30px;
+      position: relative;
       @media only screen and (max-width: 1200px) {
         border-radius: 20px;
       }
@@ -366,13 +367,13 @@ export default {
         font-size: 20px;
         font-weight: 500;
         text-align: center;
-        padding-top: 40px;
+        margin-bottom: 56px;
         @media only screen and (max-width: 768px) {
-          padding-top: 30px;
+
         }
         @media only screen and (max-width: 768px) {
           font-size: 16px;
-          padding-top: 25px;
+
         }
       }
         .major-card {
@@ -380,29 +381,35 @@ export default {
             flex-direction: row;
             text-align: center;
             align-items: center;
-            position: relative;
-            margin-top: -57px;
+            position: absolute;
+            top: 42px;
+            //margin-top: -57px;
             margin-left: 15px !important;
             @media only screen and (max-width: 1200px) {
-                margin-top: -32px;
+                //margin-top: -32px;
+              position: relative;
             }
+
             @media only screen and (max-width: 768px) {
                 justify-content: center;
 
             }
 
-            .v-input {
-                max-width: 195px;
+            :deep(.q-field ) {
+                width: 195px;
                 @media only screen and (max-width: 1904px) {
-                    max-width: 177px;
+                    width: 177px;
                 }
                 @media only screen and (max-width: 1200px) {
-                    max-width: 136px;
+                    width: 136px;
                 }
                 @media only screen and (max-width: 990px) {
-                    max-width: 136px;
+                    width: 136px;
                 }
             }
+          :deep(.q-field__control)::after{
+            height: 0;
+          }
 
             .v-text-field {
                 &.v-text-field--enclosed {
@@ -487,7 +494,6 @@ export default {
             }
         }
     }
-
 }
 
 #study-scroll-1-x {
