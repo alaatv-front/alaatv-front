@@ -107,7 +107,6 @@ const mixinAbrisham = {
       this.watchingContent.comments[0] ? this.updateComment(comment) : this.saveNewComment(comment)
     },
     purgeWatchingContentCaches() {
-      const cacheKey = 'user-dashboard-abrisham-schedule-getContentsOfDate-' + this.watchingContent.date
       // Assist.purgeAjaxCaches(cacheKey)
     },
 

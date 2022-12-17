@@ -17,24 +17,18 @@
           @toggleBookmark="bookmarkPostIsFavored"
         />
         <div v-else-if="(!content.id || !content.photo)">
-          <v-alert
+          <div
             class="null-video"
-            outlined
-            type="warning"
-            prominent
-            border="left"
-            max-width="290"
-            rounded
           >
             اوه نه! ویدیویی وجود نداره...
-          </v-alert>
+          </div>
         </div>
         <div v-else>
           <a
             :href="content.url.web"
             target="_blank"
           >
-            <v-img :src="content.photo" />
+            <q-img :src="content.photo" />
           </a>
         </div>
       </div>
@@ -42,9 +36,9 @@
     </q-card>
     <div class="video-description">
       <div
-        class="description row"
+        class="description row justify-between"
       >
-        <div class="col-12">
+        <div class="">
           <div class="flex flex-wrap video-title">
             <p
               v-if="content.lesson_name || lesson.title"
@@ -85,10 +79,10 @@
           </div>
           <div class="flex subtitle">
             <div class="flex part align-start">
-              <q-img
-                src="https://nodes.alaatv.com/upload/abrisham-panel-ic_alaa.png"
-                class="alaa-logo icon"
-              />
+              <!--              <q-img-->
+              <!--                src="https://nodes.alaatv.com/upload/abrisham-panel-ic_alaa.png"-->
+              <!--                class="alaa-logo icon"-->
+              <!--              />-->
               <p class="video-paragraph">گروه آموزشی آلاء</p>
             </div>
             <div
@@ -104,7 +98,7 @@
         </div>
         <div
           v-if="content.id"
-          class="icon-btn-box"
+          class="icon-btn-box "
         >
           <q-btn
             dark
@@ -130,7 +124,7 @@
             </span>
           </q-btn>
           <div class="video-box-icon">
-            <!--            <v-bottom-sheet-->
+            <!--            <q-bottom-sheet-->
             <!--              v-if="content.file && content.file.video"-->
             <!--              transparent-->
             <!--            >-->
@@ -194,7 +188,7 @@
             <!--                  </div>-->
             <!--                </v-row>-->
             <!--              </v-list>-->
-            <!--            </v-bottom-sheet-->>-->
+            <!--            </q-bottom-sheet>&ndash;&gt;-->
             <!--            <v-bottom-sheet>-->
             <!--              <template v-slot:activator="{ on, attrs }">-->
             <!--                <v-btn-->
@@ -331,6 +325,7 @@
 import { Content } from 'src/models/Content'
 import VideoPlayer from 'src/components/VideoPlayer'
 import { PlayerSourceList } from 'src/models/PlayerSource'
+import { useQuasar } from 'quasar'
 export default {
   name: 'VideoBox',
 
@@ -375,6 +370,8 @@ export default {
   },
 
   methods: {
+    show() {
+    },
     clickSeenButton() {
       this.content.loading = true
       this.$emit('has_watched')
@@ -427,6 +424,7 @@ export default {
         )
       })
       this.sources = new PlayerSourceList(customSources)
+      console.log(this.sources)
     },
 
     setContentTimePoint (timePoints) {
@@ -597,6 +595,7 @@ export default {
             .icon-btn-box {
                 display: flex;
                 flex-direction: row;
+                align-items: center;
                 justify-content: flex-end;
                 @media screen and (max-width: 1200px) {
                     flex-direction: column !important;

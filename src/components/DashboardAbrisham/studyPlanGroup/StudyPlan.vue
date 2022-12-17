@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panel-content>
+  <div>
     <q-card
       class="study-plan-boxes"
       elevation="0"
@@ -42,7 +42,7 @@
         @contentClicked="contentClicked"
       />
     </q-card>
-  </v-expansion-panel-content>
+  </div>
 </template>
 
 <script>
@@ -103,13 +103,14 @@ export default {
   },
   computed: {
     setHeaderWidthForMediaTags() {
-      if (this.$store.getters.windowSize.x < 1920) {
-        return 140
-      } else if (this.$store.getters.windowSize.x < 768) {
-        return 100
-      } else if (this.$store.getters.windowSize.x > 1920) {
-        return 200
-      }
+      return 200
+      // if (this.$store.getters.windowSize.x < 1920) {
+      //   return 140
+      // } else if (this.$store.getters.windowSize.x < 768) {
+      //   return 100
+      // } else if (this.$store.getters.windowSize.x > 1920) {
+      //   return 200
+      // }
     }
   },
   created() {

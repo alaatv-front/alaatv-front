@@ -71,7 +71,6 @@
 
 export default {
   name: 'ChipGroup',
-
   props: {
     items: {
       type: Array,
@@ -104,7 +103,9 @@ export default {
       default: ''
     }
   },
-
+  emits: [
+    'update:value'
+  ],
   data() {
     return {
       selectedId: null
@@ -142,7 +143,7 @@ export default {
       }
 
       this.selectedId = parseInt(selectedId)
-      this.$emit('input', this.selectedId)
+      this.$emit('update:value', this.selectedId)
     }
   }
 }

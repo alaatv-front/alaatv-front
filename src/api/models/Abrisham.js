@@ -1,6 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { ContentList } from 'src/models/Content'
+import { StudyPlanList } from 'src/models/StudyPlan'
 
 export default class AbrishamAPI extends APIRepository {
   constructor() {
@@ -9,10 +10,28 @@ export default class AbrishamAPI extends APIRepository {
       lesson: '/abrisham/lessons',
       userLastState: (id) => '/product/' + id + '/toWatch',
       sets: (id) => '/product/' + id + '/sets',
-      contents: (id) => '/set/' + id + '/contents'
+      contents: (id) => '/set/' + id + '/contents',
+      majors: '/abrisham/majors',
+      karvan: '/abrisham/whereIsKarvan',
+      studyPlan: (id) => '/studyEvent/' + id + '/studyPlans'
 
     }
     this.restUrl = (id) => this.url + '/' + id
+  }
+
+  whereIsKarvan(data) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.karvan,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
   }
 
   getLessons() {
@@ -20,6 +39,20 @@ export default class AbrishamAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.lesson,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  requestToGetMajors() {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.majors,
       resolveCallback: (response) => {
         return response
       },
@@ -67,6 +100,20 @@ export default class AbrishamAPI extends APIRepository {
       },
       rejectCallback: () => {
         return new ContentList()
+      }
+    })
+  }
+
+  getStudyPlan(id) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.studyPlan(id),
+      resolveCallback: (response) => {
+        return new StudyPlanList(response.data.data)
+      },
+      rejectCallback: () => {
+        return new StudyPlanList()
       }
     })
   }

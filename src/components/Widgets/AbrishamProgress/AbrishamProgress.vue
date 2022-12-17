@@ -11,7 +11,7 @@
           item-text="title"
           item-value="id"
           :loading="lessonGroupsLoading"
-          @input="onChangeLessonGroup"
+          @update:value="onChangeLessonGroup"
         />
       </div>
       <div class="col-xl-5 col-lg-6 col-sm-12 col-xs-6">
@@ -22,7 +22,7 @@
           item-value="id"
           class="col-md-3"
           chip-title="درس"
-          @input="onChangeLesson"
+          @update:value="onChangeLesson"
         />
       </div>
     </div>
@@ -69,7 +69,6 @@
               <div class="col-sm-6 col-xs-8">
                 <q-select
                   :key="sets.list.length"
-                  v-model="currentSetId"
                   :loading="contents.loading"
                   outlined
                   :options="sets.list"
@@ -79,10 +78,12 @@
                   :menu-props="{ bottom: true, offsetY: true }"
                   icon="mdi-chevron-down"
                   dense
+                  emit-value
+                  map-options
                   background-color="#eff3ff"
                   placeholder="انتخاب فرسنگ ها"
-                  @change="setCurrentSet"
-                />
+                  :model-value="currentSetId"
+                  @update:model-value="setCurrentSet" />
               </div>
               <div class="col-sm-6 col-xs-4">
                 <q-select
@@ -97,7 +98,8 @@
                   outlined
                   append-icon="mdi-chevron-down"
                   dense
-                  background-color="#eff3ff"
+                  emit-value
+                  map-options
                   placeholder="همه"
                 />
               </div>

@@ -1,88 +1,70 @@
 <template>
   <div ref="studyPlan"
        class="study-plan-group">
-    <v-card
+    <q-card
       class="study-plan"
-      elevation="0"
+      flat
     >
-      <v-fade-transition>
-        <v-overlay :value="studyPlanList.loading"
-                   absolute
-                   z-index="2"
-                   color="#FFEDD6">
-          <v-progress-circular
-            indeterminate
-            size="64"
-          ></v-progress-circular>
-        </v-overlay>
-      </v-fade-transition>
-      <v-card-title class="study-plan-header-title">
+      <!-- ----------------------------------------------------------------------------------------------------    loading-->
+      <div class="study-plan-header-title">
         جدول برنامه مطالعاتی راه ابریشم آلاء
-      </v-card-title>
+      </div>
       <div class="major-card">
         <p class="major-card-text">
           رشته:
         </p>
-        <v-select
+        <q-select
           v-model="selectedMajor"
-          :items="majors.list"
-          :item-value=" (item) => item"
-          item-text="name"
-          solo
-          flat
+          :options="majors.list"
+          :option-value=" (item) => item"
+          option-label="name"
+          outlined
+          dense
+          map-options
           append-icon="mdi-chevron-down"
-          @change="changeSelectedMajor"
+          @update:model-value="changeSelectedMajor"
         />
       </div>
       <div id="study-scroll-1-x"
            class="all-the-expansions">
-        <v-row>
-          <v-expansion-panels
-            v-model="openPlanIndexes"
-            flat
-            multiple
+        <div class="row">
+          <div
             class="study-plan-expansion"
           >
-            <v-expansion-panel
+            {{studyPlanList.list.length}}
+            <q-expansion-item
               v-for="(item, index) in studyPlanList.list"
               :key="item.date"
               :ref="index"
+              :label="item.title"
               @click="planClicked(item,index)"
             >
-              <v-expansion-panel-header class="study-plan-expansion-header">
-                <v-row>
-                  <v-col
-                    cols="4"
-                  >
-                    <div class="study-plan-expansion-header-text"> {{ item.title }}</div>
-                  </v-col>
-                  <v-col
-                    cols="4"
-                  >
-                    <div class="study-plan-expansion-header-text">
-                      {{ item.convertDate().dayOfWeek }}
-                    </div>
-                  </v-col>
-                  <v-col
-                    cols="4"
-                  >
-                    <div class="study-plan-expansion-header-text">
-                      {{ item.convertDate().dateOfMonth }}
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-expansion-panel-header>
-              <study-plan
-                :study-plan="item"
-                :selected-major="selectedMajor"
-                :study-plan-loading="studyPlanList.loading"
-                @contentClicked="contentClicked"
-              />
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </v-row>
+              <div class="row">
+                <div class="col-4">
+                  <div class="study-plan-expansion-header-text"> {{ item.title }}</div>
+                </div>
+                <div class="col-4">
+                  <div class="study-plan-expansion-header-text">
+                    {{ item.convertDate().dayOfWeek }}
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="study-plan-expansion-header-text">
+                    {{ item.convertDate().dateOfMonth }}
+                  </div>
+                </div>
+                <study-plan
+                  :study-plan="item"
+                  :selected-major="selectedMajor"
+                  :study-plan-loading="studyPlanList.loading"
+                  @contentClicked="contentClicked"
+                />
+              </div>
+            </q-expansion-item>
+          </div>
+        </div>
       </div>
-    </v-card>
+    </q-card>
   </div>
 </template>
 
@@ -177,8 +159,11 @@ export default {
 
     async loadStudyPlanList() {
       this.studyPlanList.loading = true
+      const studyPlanNumber = 5
+      console.log('loadStudyPlanList')
       try {
-        this.studyPlanList = await this.getStudyPlan()
+        this.studyPlanList = await this.$apiGateway.abrisham.getStudyPlan(studyPlanNumber)
+        console.log('studyPlanList', this.studyPlanList)
         this.studyPlanList.loading = false
         if (!this.currentDate) {
           await this.loadTodayPlan()
@@ -206,7 +191,8 @@ export default {
       this.studyPlanList.loading = true
       if (!planId) return
       try {
-        const studyPlans = await this.getPlanData(planId)
+        const studyPlans = await this.$apiGateway.abrisham.getPlanData(planId)
+        console.log('studyPlans', studyPlans)
         this.setPlan(planId, studyPlans)
         this.studyPlanList.loading = false
       } catch (e) {
@@ -214,28 +200,28 @@ export default {
       }
     },
 
-    async getStudyPlan () {
-      const cacheKey = 'user-schedule-study-plan-group-getStudyPlan'
-      const response = await this.getData(cacheKey, this.getStudyPlanData)
-      if (response.status === 200) {
-        return new StudyPlanList(response.data.data)
-      }
-      return new StudyPlanList()
-    },
+    // async getStudyPlan () {
+    //   const cacheKey = 'user-schedule-study-plan-group-getStudyPlan'
+    //   const response = await this.getData(cacheKey, this.getStudyPlanData)
+    //   if (response.status === 200) {
+    //     return new StudyPlanList(response.data.data)
+    //   }
+    //   return new StudyPlanList()
+    // },
 
-    async getPlanData(planId) {
-      const cacheKey = 'user-schedule-study-plan-group-get-' + planId + '-plan'
-      const response = await this.getData(cacheKey, this.getPlanDataReq, { planId })
-      if (response.status === 200) {
-        return new StudyPlanList(response.data.data)
-      }
-      return new StudyPlanList()
-    },
+    // async getPlanData(planId) {
+    //   const cacheKey = 'user-schedule-study-plan-group-get-' + planId + '-plan'
+    //   const response = await this.getData(cacheKey, this.getPlanDataReq, { planId })
+    //   if (response.status === 200) {
+    //     return new StudyPlanList(response.data.data)
+    //   }
+    //   return new StudyPlanList()
+    // },
 
-    getStudyPlanData() {
-      const studyPlanNumber = 5
-      return axios.get('/api/v2/studyEvent/' + studyPlanNumber + '/studyPlans')
-    },
+    // getStudyPlanData() {
+    //   const studyPlanNumber = 5
+    //   return axios.get('/api/v2/studyEvent/' + studyPlanNumber + '/studyPlans')
+    // },
 
     getMajor (id) {
       return this.majors.list.find(major => major.id === id)
@@ -360,6 +346,26 @@ export default {
 <style lang="scss" scoped>
 .study-plan-group {
     .study-plan {
+      background-color: #ffe2bc;
+      color: #3e5480;
+      padding-bottom: 51px;
+      border-radius: 30px;
+      @media only screen and (max-width: 1200px) {
+        border-radius: 20px;
+      }
+      .study-plan-header-title{
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        padding-top: 40px;
+        @media only screen and (max-width: 768px) {
+          padding-top: 30px;
+        }
+        @media only screen and (max-width: 768px) {
+          font-size: 16px;
+          padding-top: 25px;
+        }
+      }
         .major-card {
             display: flex;
             flex-direction: row;
@@ -367,6 +373,7 @@ export default {
             align-items: center;
             position: relative;
             margin-top: -57px;
+            margin-left: 15px !important;
             @media only screen and (max-width: 1200px) {
                 margin-top: -32px;
             }
@@ -460,7 +467,7 @@ export default {
                         font-size: 14px;
                     }
 
-                    .v-card__subtitle, .v-card__text {
+                    .q-card__subtitle, .q-card__text {
                         font-size: 0.875rem;
                         font-weight: 400;
                         line-height: 1.375rem;
@@ -468,35 +475,6 @@ export default {
                         margin-right: 38px;
                     }
                 }
-            }
-        }
-    }
-
-    .v-card {
-        &.theme--light {
-            background-color: #ffe2bc;
-            color: #3e5480;
-            padding-bottom: 51px;
-        }
-
-        &.v-sheet {
-            border-radius: 30px;
-            @media only screen and (max-width: 1200px) {
-                border-radius: 20px;
-            }
-        }
-
-        .v-card__title {
-            font-size: 20px;
-            font-weight: 500;
-            justify-content: center;
-            padding-top: 40px;
-            @media only screen and (max-width: 768px) {
-                padding-top: 30px;
-            }
-            @media only screen and (max-width: 768px) {
-                font-size: 16px;
-                padding-top: 25px;
             }
         }
     }
@@ -516,7 +494,7 @@ export default {
 }
 
 @media only screen and (max-width: 1200px) {
-    .v-card > :first-child:not(.v-btn):not(.v-chip):not(.v-avatar), .v-card > .v-card__progress + :not(.v-btn):not(.v-chip):not(.v-avatar) {
+    .q-card > :first-child:not(.v-btn):not(.v-chip):not(.v-avatar), .q-card > .q-card__progress + :not(.v-btn):not(.v-chip):not(.v-avatar) {
         border-radius: 20px;
     }
 }
