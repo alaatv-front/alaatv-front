@@ -1,118 +1,105 @@
 <template>
-  <v-expand-transition>
-    <div v-show="showPanelDetail"
-         class="plan-details">
-      <v-card elevation="0">
-        <v-sheet
-          v-if="selectedPlan.start !== null"
-          class="plan-sheet"
-        >
-          <v-row>
-            <v-col class="text-right plan-sheet-title-1">
-              از ساعت {{ selectedPlan.start.substr(0, 5) }}
-            </v-col>
-            <v-col class="plan-sheet-title-2">
-              {{ selectedPlan.title }}
-            </v-col>
-            <v-col class="text-left plan-sheet-title-3">
-              تا ساعت {{ selectedPlan.end.substr(0, 5) }}
-            </v-col>
-          </v-row>
-        </v-sheet>
-        <v-card
-          class="plan-sheet-details"
-          elevation="0"
-        >
-          <v-row>
-            <v-col
-              v-if="filterByTypeVideo.length !== 0"
-              v-ripple
-              class="plan-sheet-details-card"
-            >
-              <v-card
-                elevation="0"
-              >
-                <v-col class="text-right plan-sheet-details-title">
-                  فیلم
-                </v-col>
-                <v-col
-                  v-for="(content, id) in filterByTypeVideo"
-                  :key="id"
-                  v-ripple
-                  class="text-right plan-sheet-details-video"
-                  hover
-                  @click="contentClicked(content)"
-                >
-                  <div class="plan-sheet-details-video-box">
-                    <v-card
-                      elevation="0"
-                      class="plan-sheet-details-video-thumbnail"
-                      hover
-                      @click="contentClicked(content)"
-                    >
-                      <v-img :src="content.photo" />
-                    </v-card>
-                    <v-card
-                      elevation="0"
-                      class="plan-sheet-details-video-title"
-                      hover
-                    >
-                      {{ content.title }}
-                    </v-card>
-
-                  </div>
-                </v-col>
-              </v-card>
-            </v-col>
-            <v-col
-              v-if="filterByTypeVoice.length !== 0 "
-              class="text-right plan-sheet-details-voice"
-            >
-              <v-card elevation="0">
-                <v-col class="text-right plan-sheet-details-title">
-                  {{content.title}}
-                </v-col>
-                <v-card
-                  v-for="(content, id) in filterByTypeVoice"
-                  :key="id"
-                  class="plan-sheet-details-voice-card"
-                >
-                  <audio
-                    controls
-                    class="plan-sheet-details-voice-audio"
-                  >
-                    <source
-                      :src="content.file.voice"
-                      type="audio/ogg"
-                    >
-                    <source
-                      :src="content.file.voice"
-                      type="audio/mpeg"
-                    >
-                    مرورگر شما از پخش  کننده صدا پشتیبانی نمیکند.
-                  </audio>
-                </v-card>
-              </v-card>
-            </v-col>
-            <v-col
-              v-if="selectedPlan.long_description !== null"
-              class="plan-sheet-details-card"
-              cols="12"
-            >
-              <v-card elevation="0">
-                <v-col class="text-right plan-sheet-details-title">
-                  توضیحات
-                </v-col>
-                <v-col class="text-right plan-sheet-details-info">
-                  {{ selectedPlan.long_description }}
-                </v-col>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-card>
+  <div v-show="showPanelDetail"
+       class="plan-details">
+    <div
+      v-if="selectedPlan.start !== null"
+      class="plan-sheet"
+    >
+      <div class="row">
+        <div class="col-4 plan-sheet-title-1">
+          از ساعت {{ selectedPlan.start.substr(0, 5) }}
+        </div>
+        <div class="col-4 text-center plan-sheet-title-2">
+          {{ selectedPlan.title }}
+        </div>
+        <div class="col-4 text-right plan-sheet-title-3">
+          تا ساعت {{ selectedPlan.end.substr(0, 5) }}
+        </div>
+      </div>
     </div>
-  </v-expand-transition>
+    <div
+      class="plan-sheet-details"
+    >
+      <div class="row">
+        <div
+          v-if="filterByTypeVideo.length !== 0"
+          v-ripple
+          class="col-6 plan-sheet-details-card"
+        >
+          <div class=" plan-sheet-details-title">
+            فیلم
+          </div>
+          <div
+            v-for="(content, id) in filterByTypeVideo"
+            :key="id"
+            v-ripple
+            class="plan-sheet-details-video"
+            @click="contentClicked(content)"
+          >
+            <div class="plan-sheet-details-video-box">
+              <div
+                class="plan-sheet-details-video-thumbnail"
+                @click="contentClicked(content)"
+              >
+                <img class="img"
+                     alt="عکس درس"
+                     :src="content.photo" />
+              </div>
+              <div
+                class="plan-sheet-details-video-title"
+              >
+                {{ content.title }}
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="filterByTypeVoice.length !== 0 "
+          class="col-6 text-right plan-sheet-details-voice"
+        >
+          <v-card elevation="0">
+            <v-col class="text-right plan-sheet-details-title">
+              {{content.title}}
+            </v-col>
+            <v-card
+              v-for="(content, id) in filterByTypeVoice"
+              :key="id"
+              class="plan-sheet-details-voice-card"
+            >
+              <audio
+                controls
+                class="plan-sheet-details-voice-audio"
+              >
+                <source
+                  :src="content.file.voice"
+                  type="audio/ogg"
+                >
+                <source
+                  :src="content.file.voice"
+                  type="audio/mpeg"
+                >
+                مرورگر شما از پخش  کننده صدا پشتیبانی نمیکند.
+              </audio>
+            </v-card>
+          </v-card>
+        </div>
+        <div
+          v-if="selectedPlan.long_description !== null"
+          class="col-12 plan-sheet-details-card"
+        >
+          <v-card elevation="0">
+            <v-col class="text-right plan-sheet-details-title">
+              توضیحات
+            </v-col>
+            <v-col class="text-right plan-sheet-details-info">
+              {{ selectedPlan.long_description }}
+            </v-col>
+          </v-card>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -171,7 +158,6 @@ export default {
         font-style: normal;
         line-height: normal;
         letter-spacing: normal;
-        text-align: center;
         background-color: #eff3ff;
         color: #3e5480;
         border-color: #FFFFFF;
@@ -181,23 +167,22 @@ export default {
         @media only screen and (max-width: 768px){
             font-size: 12px;
         }
-        .text-left {
-            &.plan-sheet-title-3 {
-                padding-left: 70px;
+            .plan-sheet-title-3 {
+                padding-right: 70px;
                 @media only screen and (max-width: 1920px){
-                    padding-left: 50px;
+                  padding-right: 50px;
                 }
                 @media only screen and (max-width: 1200px){
-                    padding-right: 62px;
+                  padding-right: 62px;
                 }
                 @media only screen and (max-width: 990px){
-                    padding-right: 42px;
+                  padding-right: 42px;
                 }
                 @media only screen and (max-width: 768px){
                     padding-right: 28px;
                 }
             }
-        }
+
     }
     .plan-sheet-details {
         margin-top: 12px;
@@ -205,6 +190,7 @@ export default {
         .plan-sheet-details-card {
             padding-right: 0px;
             padding-top: 0px;
+            margin-bottom: 15px;
             @media only screen and (max-width: 768px){
                 padding-right: 4px;
                 padding-top: 10px;
@@ -212,22 +198,22 @@ export default {
             }
         }
     }
-    .text-right {
-        &.plan-sheet-title-1 {
+
+        .plan-sheet-title-1 {
             @media only screen and (max-width: 1920px){
-                padding-right: 50px;
+                padding-left: 50px;
             }
             @media only screen and (max-width: 1200px){
-                padding-right: 62px;
+              padding-left: 62px;
             }
             @media only screen and (max-width: 990px){
-                padding-right: 42px;
+              padding-left: 42px;
             }
             @media only screen and (max-width: 768px){
-                padding-right: 28px;
+              padding-left: 28px;
             }
         }
-        &.plan-sheet-details-title {
+        .plan-sheet-details-title {
             font-size: 18px;
             font-weight: 500;
             font-stretch: normal;
@@ -244,11 +230,11 @@ export default {
                 display: none;
             }
         }
-        &.plan-sheet-details-video {
+        .plan-sheet-details-video {
             border-radius: 10px;
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
             background-color: #eff3ff;
-            padding-top: 0px;
+            padding-top: 0;
             padding-bottom: 9px;
             @media only screen and (max-width: 990px){
                 padding-top: 0px;
@@ -290,6 +276,13 @@ export default {
                     @media only screen and (max-width: 768px){
                         height: 30px;
                     }
+                  .img{
+                    border-radius: 5px !important;
+                    height: 36px;
+                    @media only screen and (max-width: 768px){
+                      height: 30px;
+                    }
+                  }
                 }
                 .plan-sheet-details-video-title{
                     overflow: hidden;
@@ -324,7 +317,7 @@ export default {
                 }
             }
         }
-        &.plan-sheet-details-voice{
+        .plan-sheet-details-voice{
             padding-top: 22px;
             padding-right: 0px;
             @media only screen and (max-width: 768px) {
@@ -348,7 +341,7 @@ export default {
             }
 
         }
-        &.plan-sheet-details-info{
+        .plan-sheet-details-info{
             font-size: 16px;
             font-weight: normal;
             font-stretch: normal;
@@ -367,7 +360,7 @@ export default {
                 padding-bottom: 0;
             }
         }
-    }
+
     .theme--light{
         &.v-image {
             border-radius: 5px !important;

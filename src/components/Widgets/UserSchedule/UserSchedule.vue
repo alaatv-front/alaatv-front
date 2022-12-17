@@ -1,5 +1,13 @@
 <template>
   <div class="schedule-page">
+    <study-plan-group
+      v-model="currentMajorId"
+      :majors="majors"
+      class="q-mt-lg"
+      :current-date="dateValue"
+      @contentClicked="contentClicked"
+      @scrollIsMoved="scrollIsMoved"
+    />
     <!--   --------------------------------- chip group ------------------------- -->
     <div class="row">
       <div ref="schedule"></div>
@@ -93,14 +101,7 @@
       </div>
     </div>
     <!--   --------------------------------- study plan ------------------------- -->
-    <study-plan-group
-      v-model="currentMajorId"
-      :majors="majors"
-      class="q-mt-lg"
-      :current-date="dateValue"
-      @contentClicked="contentClicked"
-      @scrollIsMoved="scrollIsMoved"
-    />
+
   </div>
 </template>
 
@@ -152,7 +153,6 @@ export default {
       if (!this.contents.list) return
       return new ContentList(this.contents.list.filter(content => {
         const selectedMajor = this.majors.list.find(major => major.id === this.currentMajorId)
-        console.log('selectedMajor', selectedMajor)
         return selectedMajor ? content.major.id === selectedMajor.id : content.major.id === this.currentMajorId
       }))
     },
@@ -381,7 +381,6 @@ export default {
     },
 
     setContentsColor (contents, lessonGroups) {
-      console.log('contents', contents, lessonGroups)
       contents.list.forEach(content => {
         lessonGroups.forEach(lessonGroup => {
           if (lessonGroup.lessons) {

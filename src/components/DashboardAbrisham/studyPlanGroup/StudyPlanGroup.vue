@@ -25,44 +25,55 @@
           @update:model-value="changeSelectedMajor"
         />
       </div>
-      <div id="study-scroll-1-x"
+      <div id="study-scroll-1-x bg-red"
            class="all-the-expansions">
-        <div class="row">
-          <div
-            class="study-plan-expansion"
-          >
-            {{studyPlanList.list.length}}
-            <q-expansion-item
-              v-for="(item, index) in studyPlanList.list"
-              :key="item.date"
-              :ref="index"
-              :label="item.title"
-              @click="planClicked(item,index)"
-            >
-              <div class="row">
-                <div class="col-4">
-                  <div class="study-plan-expansion-header-text"> {{ item.title }}</div>
-                </div>
-                <div class="col-4">
-                  <div class="study-plan-expansion-header-text">
-                    {{ item.convertDate().dayOfWeek }}
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="study-plan-expansion-header-text">
-                    {{ item.convertDate().dateOfMonth }}
-                  </div>
-                </div>
-                <study-plan
-                  :study-plan="item"
-                  :selected-major="selectedMajor"
-                  :study-plan-loading="studyPlanList.loading"
-                  @contentClicked="contentClicked"
-                />
-              </div>
-            </q-expansion-item>
-          </div>
-        </div>
+        <!--        <div class="row">-->
+        <!--          <div-->
+        <!--            class="study-plan-expansion"-->
+        <!--          >-->
+        <!--            {{studyPlanList.list.length}}-->
+        <!--            <div-->
+        <!--              v-for="(item, index) in studyPlanList.list"-->
+        <!--              :key="item.date"-->
+        <!--              :ref="index"-->
+        <!--              :label="item.title"-->
+        <!--              @click="planClicked(item,index)"-->
+        <!--            >-->
+        <!--              <div class="row">-->
+        <!--                <div class="col-4 ">-->
+        <!--                  <div class="study-plan-expansion-header-text bg-red"> {{ item.title }}</div>-->
+        <!--                </div>-->
+        <!--                <div class="col-4">-->
+        <!--                  <div class="study-plan-expansion-header-text bg-green">-->
+        <!--                    {{ item.convertDate().dayOfWeek }}-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <div class="col-4">-->
+        <!--                  <div class="study-plan-expansion-header-text">-->
+        <!--                    {{ item.convertDate().dateOfMonth }}-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <study-plan-->
+        <!--                  :study-plan="item"-->
+        <!--                  :selected-major="selectedMajor"-->
+        <!--                  :study-plan-loading="studyPlanList.loading"-->
+        <!--                  @contentClicked="contentClicked"-->
+        <!--                />-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <study-plan
+          v-for="(item, index) in studyPlanList.list"
+          :key="index"
+          :ref="index"
+          class="full-width"
+          :study-plan="item"
+          :selected-major="selectedMajor"
+          :study-plan-loading="studyPlanList.loading"
+          @contentClicked="contentClicked"
+          @click="planClicked(item,index)"
+        />
       </div>
     </q-card>
   </div>
@@ -128,7 +139,7 @@ export default {
   methods: {
     initData() {
       this.setSelectedMajor()
-      this.loadStudyPlanList()
+      this.loadStudyEvents()
     },
 
     async loadTodayPlan() {
@@ -157,18 +168,16 @@ export default {
       this.openPlanIndexes.push(studyPlanIndex)
     },
 
-    async loadStudyPlanList() {
+    async loadStudyEvents() {
       this.studyPlanList.loading = true
       const studyPlanNumber = 5
-      console.log('loadStudyPlanList')
       try {
-        this.studyPlanList = await this.$apiGateway.abrisham.getStudyPlan(studyPlanNumber)
-        console.log('studyPlanList', this.studyPlanList)
+        this.studyPlanList = await this.$apiGateway.abrisham.getStudyEvents(studyPlanNumber)
         this.studyPlanList.loading = false
         if (!this.currentDate) {
           await this.loadTodayPlan()
         }
-      } catch (e) {
+      } catch {
         this.studyPlanList.loading = false
       }
     },
@@ -191,8 +200,7 @@ export default {
       this.studyPlanList.loading = true
       if (!planId) return
       try {
-        const studyPlans = await this.$apiGateway.abrisham.getPlanData(planId)
-        console.log('studyPlans', studyPlans)
+        const studyPlans = await this.$apiGateway.abrisham.getPlan(planId)
         this.setPlan(planId, studyPlans)
         this.studyPlanList.loading = false
       } catch (e) {
@@ -261,9 +269,9 @@ export default {
       }
     },
 
-    getPlanDataReq(params) {
-      return axios.get('/api/v2/studyPlan/' + params.planId + '/plans')
-    },
+    // getPlanDataReq(params) {
+    //   return axios.get('/api/v2/studyPlan/' + params.planId + '/plans')
+    // },
 
     setSelectedMajor() {
       const majorId = this.value
@@ -280,6 +288,7 @@ export default {
       if (!studyPlan) {
         return
       }
+      console.log()
       studyPlan.plans = new PlanList(planData)
     },
 
@@ -348,7 +357,7 @@ export default {
     .study-plan {
       background-color: #ffe2bc;
       color: #3e5480;
-      padding-bottom: 51px;
+      padding: 40px 60px 51px 60px;
       border-radius: 30px;
       @media only screen and (max-width: 1200px) {
         border-radius: 20px;

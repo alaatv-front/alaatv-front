@@ -2,6 +2,7 @@ import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { ContentList } from 'src/models/Content'
 import { StudyPlanList } from 'src/models/StudyPlan'
+import { PlanList } from 'src/models/Plan'
 
 export default class AbrishamAPI extends APIRepository {
   constructor() {
@@ -13,7 +14,8 @@ export default class AbrishamAPI extends APIRepository {
       contents: (id) => '/set/' + id + '/contents',
       majors: '/abrisham/majors',
       karvan: '/abrisham/whereIsKarvan',
-      studyPlan: (id) => '/studyEvent/' + id + '/studyPlans'
+      studyPlan: (id) => '/studyEvent/' + id + '/studyPlans',
+      plan: (id) => '/studyPlan/' + id + '/plans'
 
     }
     this.restUrl = (id) => this.url + '/' + id
@@ -104,7 +106,7 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  getStudyPlan(id) {
+  getStudyEvents(id) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -114,6 +116,20 @@ export default class AbrishamAPI extends APIRepository {
       },
       rejectCallback: () => {
         return new StudyPlanList()
+      }
+    })
+  }
+
+  getPlan(id) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.plan(id),
+      resolveCallback: (response) => {
+        return new PlanList(response.data.data)
+      },
+      rejectCallback: () => {
+        return new PlanList()
       }
     })
   }

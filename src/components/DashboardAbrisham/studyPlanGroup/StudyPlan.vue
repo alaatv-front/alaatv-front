@@ -1,56 +1,88 @@
 <template>
-  <div>
-    <q-card
-      class="study-plan-boxes"
-      elevation="0"
-    >
-      <v-expansion-panel-content>
-        <!--        <v-progress-linear-->
-        <!--          indeterminate-->
-        <!--          background-color="blue lighten-4"-->
-        <!--          color="blue accent-2"-->
-        <!--          :active="studyPlanLoading"-->
-        <!--        />-->
+  <!--  <div>-->
 
-        <!--                    <v-sheet-->
-        <!--                        class="study-plan-sheet"-->
-        <!--                    >-->
-        <!--                        فردا دیره، دیروز هم دیشب تموم شد، الان دقیقا لحظه ای هست که باید شروع-->
-        <!--                        کنی!-->
-        <!--                    </v-sheet>-->
-        <v-card
-          class="study-plan-card"
-          elevation="0"
-        >
-          <v-card-text>
-            <time-schedule-table
-              v-if="!studyPlanLoading"
-              :selectedPanel="selectedPlan"
-              :plans="studyPlan.plans"
-              :selected-major="selectedMajor"
-              :loading="studyPlanLoading"
-              :header-width="setHeaderWidthForMediaTags"
-              :not-the-same-plan="notTheSamePlan"
-              @planClicked="loadSelectedPlan"
-            />
-          </v-card-text>
-        </v-card>
-      </v-expansion-panel-content>
+  <!--        <q-card-->
+  <!--          class="study-plan-boxes"-->
+  <!--          elevation="0"-->
+  <!--        >-->
+  <!--          <v-expansion-panel-content>-->
+  <!--            &lt;!&ndash;        <v-progress-linear&ndash;&gt;-->
+  <!--            &lt;!&ndash;          indeterminate&ndash;&gt;-->
+  <!--            &lt;!&ndash;          background-color="blue lighten-4"&ndash;&gt;-->
+  <!--            &lt;!&ndash;          color="blue accent-2"&ndash;&gt;-->
+  <!--            &lt;!&ndash;          :active="studyPlanLoading"&ndash;&gt;-->
+  <!--            &lt;!&ndash;        />&ndash;&gt;-->
+
+  <!--            &lt;!&ndash;                    <v-sheet&ndash;&gt;-->
+  <!--            &lt;!&ndash;                        class="study-plan-sheet"&ndash;&gt;-->
+  <!--            &lt;!&ndash;                    >&ndash;&gt;-->
+  <!--            &lt;!&ndash;                        فردا دیره، دیروز هم دیشب تموم شد، الان دقیقا لحظه ای هست که باید شروع&ndash;&gt;-->
+  <!--            &lt;!&ndash;                        کنی!&ndash;&gt;-->
+  <!--            &lt;!&ndash;                    </v-sheet>&ndash;&gt;-->
+  <!--            <v-card-->
+  <!--              class="study-plan-card"-->
+  <!--              elevation="0"-->
+  <!--            >-->
+  <!--              <v-card-text>-->
+  <!--                <time-schedule-table-->
+  <!--                  v-if="!studyPlanLoading"-->
+  <!--                  :selectedPanel="selectedPlan"-->
+  <!--                  :plans="studyPlan.plans"-->
+  <!--                  :selected-major="selectedMajor"-->
+  <!--                  :loading="studyPlanLoading"-->
+  <!--                  :header-width="setHeaderWidthForMediaTags"-->
+  <!--                  :not-the-same-plan="notTheSamePlan"-->
+  <!--                  @planClicked="loadSelectedPlan"-->
+  <!--                />-->
+  <!--              </v-card-text>-->
+  <!--            </v-card>-->
+  <!--          </v-expansion-panel-content>-->
+  <!--          <individual-plan-details-->
+  <!--            :selected-plan="selectedPlan"-->
+  <!--            :showPanelDetail="showDetail"-->
+  <!--            @contentClicked="contentClicked"-->
+  <!--          />-->
+  <!--        </q-card>-->
+
+  <!--  </div>-->
+  <q-expansion-item class="bg-white test">
+    <template v-slot:header>
+      <div class="row full-width">
+        <div class="col-4 header-text-style">{{studyPlan.title}}</div>
+        <div class="col-4 header-text-style"> {{ studyPlan.convertDate().dayOfWeek }}</div>
+        <div class="col-4 header-text-style"> {{ studyPlan.convertDate().dateOfMonth }}</div>
+      </div>
+    </template>
+
+    <q-card class="content"
+            flat>
+      <q-card-section class="study-plan-card">
+        <time-schedule-table
+          :selectedPanel="selectedPlan"
+          :plans="studyPlan.plans"
+          :selected-major="selectedMajor"
+          :loading="studyPlanLoading"
+          :header-width="setHeaderWidthForMediaTags"
+          :not-the-same-plan="notTheSamePlan"
+          @planClicked="loadSelectedPlan"
+        />
+      </q-card-section>
       <individual-plan-details
         :selected-plan="selectedPlan"
         :showPanelDetail="showDetail"
         @contentClicked="contentClicked"
       />
     </q-card>
-  </div>
+  </q-expansion-item>
 </template>
 
 <script>
-import timeScheduleTable from './TimeScheduleTable'
+
 import { StudyPlan } from 'src/models/StudyPlan'
 import { Plan, PlanList } from 'src/models/Plan'
 import { Major } from 'src/models/Major'
 import IndividualPlanDetails from './IndividualPlanDetails'
+import timeScheduleTable from './TimeScheduleTable'
 
 export default {
   components: {
@@ -113,8 +145,10 @@ export default {
       // }
     }
   },
-  created() {
-
+  watch: {
+    studyPlan(val) {
+      console.log('hhhhhhhhhhhhhhhhhhh', val)
+    }
   },
   methods: {
     contentClicked(content) {
@@ -134,6 +168,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.test{
+  margin-bottom: 15px;
+  border-radius: 20px;
+  :deep(.q-item){
+    height: 60px;
+  }
+  .content{
+    border-radius:20px ;
+  }
+  .header-text-style{
+    font-size: 18px;
+    font-weight: normal;
+    line-height: normal;
+    color: var(--abrishamMain);
+    display: flex;
+    align-items: center;
+    @media only screen and (max-width: 768px) {
+      font-size: 14px;
+    }
+  }
+}
 .study-plan-boxes{
     color: #3e5480;
     margin-bottom: 1px;

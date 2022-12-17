@@ -136,27 +136,27 @@ export default {
   computed: {
     filteredPlans() {
       return this.plans.list.filter(item => parseInt(item.major.id) === parseInt(this.selectedMajor.id))
-    },
-
-    setRightPositionForMediaTags() {
-      if (this.$store.getters.windowSize.x < 1920) {
-        return this.calcPosition(p.start, p.end, 0.30).right
-      } else if (this.$store.getters.windowSize.x > 1920) {
-        return this.calcPosition(p.start, p.end, 0.25).right
-      }
     }
 
+    // setRightPositionForMediaTags() {
+    //   if (this.$store.getters.windowSize.x < 1920) {
+    //     return this.calcPosition(p.start, p.end, 0.30).right
+    //   } else if (this.$store.getters.windowSize.x > 1920) {
+    //     return this.calcPosition(p.start, p.end, 0.25).right
+    //   }
+    // }
+
   },
-  created() {
-    this.initData()
-  },
-  methods: {
-    initData() {
-      if (this.plans && this.plans.list && this.plans.list.length > 0) {
+  watch: {
+    plans(val) {
+      if (val?.list?.length > 0) {
         this.SetSpaceBetweenTimes()
         this.setListOfHours()
       }
-    },
+      console.log('plans', val)
+    }
+  },
+  methods: {
 
     isSelectedPanel(planId) {
       return planId === this.selectedPanel.id
@@ -166,10 +166,13 @@ export default {
       // 24  7
       this.setTheStartingPoint()
       const start = this.startPoint
+      console.log('this.startPoint', this.startPoint)
       const end = this.calcTheEndingPoint()
+      console.log('this.end', end)
       for (let hour = start; hour <= end; hour++) {
         this.listOfHours.push(hour)
       }
+      console.log('listOfHours', this.listOfHours)
     },
 
     selectPlan(plan) {
@@ -283,7 +286,10 @@ export default {
 
     .timeTable-header {
         position: relative;
-        right: 0.4px;
+      //ggg
+        left: 0.4px;
+      border: solid 4px #e1f0ff;
+      border-radius: 10px;
 
         .timeTable-header-number-boxes {
             display: flex;
@@ -294,7 +300,8 @@ export default {
                 line-height: 48px;
                 background-color: rgba(225, 240, 255, 1);
                 &:last-child {
-                    padding-left: 20px;
+                  //gggg
+                    padding-right: 20px;
                 }
 
                 .timeTableHeaderNumber {
@@ -302,7 +309,8 @@ export default {
                     background-color: white;
                     width: 30px;
                     height: 30px;
-                    right: 38px;
+                  //ggggg
+                    left: 38px;
                     border-radius: 50%;
                     padding: 5px 7px 1px;
                     font-size: 12px;
@@ -314,7 +322,8 @@ export default {
                     text-align: center;
                     color: #333333;
                     @media only screen and (max-width: 1919px) {
-                        right: 25px;
+                      //gggg
+                        left: 25px;
                     }
                 }
             }
@@ -331,11 +340,14 @@ export default {
 
         .timeTable-main-line {
             position: relative;
-            border-left: solid 2px #e1f0ff;
+          //gggg
+            border-right: solid 2px #e1f0ff;
             height: 70px;
-            right: -146px;
+          //gggggg
+            left: -146px;
             @media only screen and (max-width: 1919px) {
-                right: -100px;
+              //ggg
+                left: -100px;
             }
             @media only screen and (max-width: 767px) {
                 height: 37px;
@@ -345,12 +357,15 @@ export default {
         .timeTable-line {
             display: inline-block;
             position: relative;
-            border-left: solid 1px #e1f0ff;
+          //ggggg
+            border-right: solid 1px #e1f0ff;
             height: 70px;
-            right: -46px;
+          //gggggg
+            left: -46px;
             bottom: 70px;
             @media only screen and (max-width: 1919px) {
-                right: 109px;
+              //ggggg
+                left: 109px;
             }
         }
 
@@ -388,6 +403,7 @@ export default {
     &::-webkit-scrollbar-track {
         border-radius: 6px;
         background-color: #F5F5F5;
+        background-color: #ec3f3f;
     }
 
     &::-webkit-scrollbar {
