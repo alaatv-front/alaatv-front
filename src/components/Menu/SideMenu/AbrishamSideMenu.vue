@@ -41,14 +41,14 @@ export default {
       {
         icon: 'calendar',
         routeName: 'User.Abrisham.Schedule'
+      },
+      {
+        icon: 'headphones',
+        routeName: 'Consulting'
       }
       // {
       //   icon: 'world',
       //   routeName: 'MapPage'
-      // }
-      // {
-      //   icon: 'headphones',
-      //   routeName: 'consulting'
       // },
       // {
       //   icon: 'list-check',

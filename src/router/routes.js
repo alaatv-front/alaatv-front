@@ -225,6 +225,11 @@ const routes = [
             meta: {
               // middlewares: [auth]
             }
+          },
+          {
+            path: 'consulting',
+            name: 'Consulting',
+            component: () => import('pages/User/DashboardAbrisham/Consulting.vue')
           }
         ]
       }
