@@ -104,7 +104,7 @@ export default {
                 color: 'white',
                 class: 'bg-green-3',
                 handler: () => {
-                  this.$router.push({ name: 'cart' })
+                  this.$router.push({ name: 'User.Checkout.Review' })
                 }
               }
             ]

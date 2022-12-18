@@ -411,7 +411,9 @@ const API_ADDRESS = {
       submit: apiV2Server + '/order/submitCoupon',
       remove: apiV2Server + '/order/RemoveCoupon'
     },
-    review: apiV2Server + '/checkout/review'
+    review: apiV2Server + '/checkout/review',
+    getPaymentRedirectEncryptedLink: apiV2Server + '/getPaymentRedirectEncryptedLink?seller=1',
+    orderWithTransaction (orderId) { return apiV2Server + '/orderWithTransaction/' + orderId }
   }
 }
 export default API_ADDRESS

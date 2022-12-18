@@ -5,7 +5,7 @@
     </div>
     <div class="title">سبد خرید شما خالی است!</div>
     <router-link
-      :to="{name: 'HomePage'}"
+      :to="{name: 'home'}"
       class="back"
     >
       بازگشت به فروشگاه
@@ -16,10 +16,10 @@
 <script>
 export default {
   name: 'CartEmpty',
-  created() {},
   data() {
     return {}
   },
+  created() {},
   methods: {}
 }
 </script>
@@ -37,6 +37,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 200px;
 
   .title {
     font-style: normal;

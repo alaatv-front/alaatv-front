@@ -290,8 +290,6 @@ export default {
     }
   },
 
-  created() {},
-
   computed: {
     totalFinalPrice() {
       return this.getPriceFormat('final') ? this.getPriceFormat('final') : 0
@@ -318,12 +316,18 @@ export default {
     }
   },
 
+  created() {},
+
   methods: {
     cartReview() {
       this.$store.commit('loading/loading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then(() => {
-          this.$store.dispatch('loading/overlayLoading', false)
+          this.$store.commit('loading/loading', false)
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$store.commit('loading/loading', false)
         })
     },
 
@@ -337,7 +341,8 @@ export default {
         .then((response) => {
           window.open(response.data.data.url, '_self')
           this.$store.commit('loading/loading', false)
-        }).catch(() => {
+        }).catch((err) => {
+          console.log(err)
           this.$store.commit('loading/loading', false)
         })
     },
