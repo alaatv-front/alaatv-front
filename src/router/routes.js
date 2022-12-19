@@ -214,6 +214,14 @@ const routes = [
       middlewares: [auth]
     }
   },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('pages/Cart/Cart.vue'),
+    meta: {
+      middlewares: [auth]
+    }
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

@@ -3,12 +3,12 @@ module.exports = {
   pageBuilderEditable: false,
   confirmDialog: {
     show: false,
-    message: "",
+    message: '',
     buttons: {}
   },
-  templateHeaderType: "",
-  templateLeftSideBarType: "",
-  templateRightSideBarType: "",
+  templateHeaderType: '',
+  templateLeftSideBarType: '',
+  templateRightSideBarType: '',
   windowSize: {
     x: 0,
     y: 0
