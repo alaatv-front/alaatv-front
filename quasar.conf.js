@@ -147,8 +147,12 @@ module.exports = configure(function (ctx) {
           aggregateTimeout: 200,
           poll: 1000
         }
-        cfg.optimization.splitChunks.minSize = 10000
-        cfg.optimization.splitChunks.maxSize = 250000
+
+        // if (!cfg.optimization.splitChunks) {
+        //   cfg.optimization.splitChunks = {}
+        // }
+        // cfg.optimization.splitChunks.minSize = 10000
+        // cfg.optimization.splitChunks.maxSize = 250000
 
         // cfg.plugins.push(new CopyWebpackPlugin({
         //   patterns: [
