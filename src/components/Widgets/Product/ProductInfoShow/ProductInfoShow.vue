@@ -168,13 +168,15 @@
               <div
                 v-else-if="product.sample_photos.length> 0"
                 class="sample-container">
-                <light-gallery
-                  :images="product.sample_photos.map( item => { return { title: item.title, url: item.photo}})"
-                  :index="samplePhotosIndex"
-                  :disable-scroll="true"
-                  dir="ltr"
-                  @close="samplePhotosIndex = null"
-                />
+                <q-no-ssr>
+                  <light-gallery
+                    :images="product.sample_photos.map( item => { return { title: item.title, url: item.photo}})"
+                    :index="samplePhotosIndex"
+                    :disable-scroll="true"
+                    dir="ltr"
+                    @close="samplePhotosIndex = null"
+                  />
+                </q-no-ssr>
                 <div
                   v-for="(item, index) in product.sample_photos"
                   :key="index"

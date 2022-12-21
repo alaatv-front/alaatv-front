@@ -81,8 +81,8 @@ export default class UserAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.ordersById(data.userId),
-      cacheKey: this.CacheList.ordersById(data.userId),
+      request: this.APIAdresses.ordersById(data.data.userId),
+      cacheKey: this.CacheList.ordersById(data.data.userId),
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {

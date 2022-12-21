@@ -1,7 +1,0 @@
-{
-	"appId": "org.alaatv.app",
-	"appName": "alaatv",
-	"bundledWebRuntime": false,
-	"npmClient": "yarn",
-	"webDir": "www"
-}

@@ -12,7 +12,8 @@ if (process.browser) {
       paths: [
         'Auth.accessToken',
         'Auth.user',
-        'AppLayout'
+        'AppLayout',
+        'Cart'
       ]
     })
 
