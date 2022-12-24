@@ -42,7 +42,7 @@
         />
         <div class="mobile-view">
           <div class="current-content-title"
-               v-text="watchingContent.title" />
+               v-text="watchingContent?.title" />
 
           <comment-box
             v-model:value="watchingContent.comment"
@@ -114,7 +114,7 @@
       >
         <div class="desktop-view">
           <div class="current-content-title"
-               v-text="watchingContent.title" />
+               v-text="watchingContent?.title" />
           <comment-box
             v-model:value="watchingContent.comment"
             :doesnt-have-content="contentsIsEmpty"
@@ -194,11 +194,11 @@ export default {
         const setId = response.data.data.set.id
         const contentId = response.data.data.id
         this.setCurrentSet(setId, contentId)
-      } catch (e) {
+      } catch {
 
       }
     },
-    //
+
     // getUserLastState() {
     //   return this.$axios.get('/api/v2/product/' + this.selectedLessonId + '/toWatch')
     // },

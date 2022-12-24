@@ -228,7 +228,7 @@ const routes = [
           },
           {
             path: 'consulting',
-            name: 'Consulting',
+            name: 'User.Abrisham.useronsulting',
             component: () => import('pages/User/DashboardAbrisham/Consulting.vue')
           }
         ]

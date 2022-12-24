@@ -15,7 +15,9 @@ export default class AbrishamAPI extends APIRepository {
       majors: '/abrisham/majors',
       karvan: '/abrisham/whereIsKarvan',
       studyPlan: (id) => '/studyEvent/' + id + '/studyPlans',
-      plan: (id) => '/studyPlan/' + id + '/plans'
+      plan: (id) => '/studyPlan/' + id + '/plans',
+      consultingContent: 'set/1213/contents',
+      liveDescription: '/livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc'
 
     }
     this.restUrl = (id) => this.url + '/' + id
@@ -130,6 +132,34 @@ export default class AbrishamAPI extends APIRepository {
       },
       rejectCallback: () => {
         return new PlanList()
+      }
+    })
+  }
+
+  getConsultingContentList() {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.consultingContent,
+      resolveCallback: (response) => {
+        return new ContentList(response.data.data)
+      },
+      rejectCallback: () => {
+        return new ContentList()
+      }
+    })
+  }
+
+  getNewsList() {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.liveDescription,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (er) => {
+        return er
       }
     })
   }

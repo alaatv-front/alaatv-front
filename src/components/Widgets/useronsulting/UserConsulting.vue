@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'consulting',
+  name: 'UserConsulting',
   created() {
     console.log('creat con ')
   }

@@ -62,6 +62,8 @@ export default {
     border-radius: 20px;
     padding: 20px 20px 24px;
     margin-right: 16px;
+    margin-bottom: 20px;
+    margin-top: 20px;
     &:first-child{
         margin-right: 20px;
     }

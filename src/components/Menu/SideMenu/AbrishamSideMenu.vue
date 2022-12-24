@@ -44,7 +44,7 @@ export default {
       },
       {
         icon: 'headphones',
-        routeName: 'Consulting'
+        routeName: 'User.Abrisham.useronsulting'
       }
       // {
       //   icon: 'world',
