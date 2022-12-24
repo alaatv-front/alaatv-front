@@ -37,7 +37,7 @@
           :content="watchingContent"
           :afterLoad="contentsIsEmpty"
           @favorite="toggleFavor"
-          @has_watched="watched"
+          @toggle-video-status="updateVideoStatus"
           @bookmarkTimestamp="bookmarkPostIsFavored"
         />
         <div class="mobile-view">
@@ -45,9 +45,9 @@
                v-text="watchingContent?.title" />
 
           <comment-box
-            v-model:value="watchingContent.comment"
+            v-model:value="watchingContentComment"
             :doesnt-have-content="contentsIsEmpty"
-            @input="saveComment"
+            @updateComment="saveComment"
           />
         </div>
       </div>
@@ -116,9 +116,9 @@
           <div class="current-content-title"
                v-text="watchingContent?.title" />
           <comment-box
-            v-model:value="watchingContent.comment"
+            v-model:value="watchingContentComment"
             :doesnt-have-content="contentsIsEmpty"
-            @input="saveComment"
+            @updateComment="saveComment"
           />
         </div>
       </div>
@@ -173,7 +173,10 @@ export default {
   }),
   computed: {
     contentsIsEmpty () {
-      return !this.contents.list.length
+      return this.contents.list.length === 0
+    },
+    watchingContentComment() {
+      return this.watchingContent.comments[0]?.comment || ''
     },
     currentSet () {
       return this.getSet(this.currentSetId)
@@ -382,14 +385,18 @@ export default {
     },
 
     setWatchingContent (content) {
-      this.watchingContent = content
+      this.watchingContent = content || new Content()
     },
 
     async getContents () {
       this.contents.loading = true
-      const response = await this.$apiGateway.abrisham.requestToGetContents(this.currentSetId)
-      this.contents.loading = false
-      return response
+      try {
+        const response = await this.$apiGateway.abrisham.requestToGetContents(this.currentSetId)
+        this.contents.loading = false
+        return response
+      } catch {
+        this.contents.loading = false
+      }
     },
 
     setContents (contents) {
@@ -409,7 +416,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .userAbrishamProgress-page {
-  margin: 0 60px;
+  margin: 0 60px 100px;
   @media screen and (max-width: 1904px) {
     margin: 0 10px;
   }

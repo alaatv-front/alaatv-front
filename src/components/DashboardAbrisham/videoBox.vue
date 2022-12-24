@@ -374,7 +374,7 @@ export default {
     },
     clickSeenButton() {
       this.content.loading = true
-      this.$emit('has_watched')
+      this.$emit('toggle-video-status')
       this.markedRatios.forEach(markedRatio => {
         if (markedRatio.hasSeen) {
           markedRatio.hasSeen = false

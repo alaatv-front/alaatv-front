@@ -1,37 +1,40 @@
 <template>
   <div class="comment-box">
-    <div>
-      <q-field
-        v-model="note"
-        class="rounded-xl  comment-main"
-        :placeholder="setPlaceHolder"
-        :value="note"
-        auto-grow
-        outlined
-        :disabled="doesntHaveContent || !canEdit"
-      />
-    </div>
-    <div class="flex q-mt-md btns">
+    <q-input
+      v-model="note"
+      class="comment-main"
+      auto-grow
+      outlined
+      type="textarea"
+      placeholder="یادداشت این جلسه"
+      filled
+      :disable="doesntHaveContent || !canEdit"
+    />
+    <div class="flex q-mt-md btn-style">
       <q-btn v-if="saveMode"
              :disabled="doesntHaveContent"
              unelevated
-             color="transparent"
+             flat
+             color="red"
              class="cancel btn-size"
-             @click="cancel"><span> لغو</span></q-btn>
+             label="لغو"
+             @click="cancel" />
       <q-btn v-if="saveMode || value.length === 0"
              :disabled="doesntHaveContent"
              unelevated
              color="positive"
-             dark
+             label="ذخیره"
              class="submit btn-size"
-             @click="saveComment"><span>ذخیره</span></q-btn>
+             @click="saveComment" />
+
       <q-btn v-else
              :disabled="doesntHaveContent"
              unelevated
              color="primary"
              dark
+             label="ویرایش"
              class="edit btn-size"
-             @click="edit"><span> ویرایش</span></q-btn>
+             @click="edit" />
     </div>
 
   </div>
@@ -47,9 +50,7 @@ export default {
     },
     doesntHaveContent: {
       type: Boolean,
-      default() {
-        return false
-      }
+      default: false
     }
   },
   data () {
@@ -88,7 +89,7 @@ export default {
     },
     saveComment() {
       this.saveMode = false
-      this.$emit('input', this.note)
+      this.$emit('updateComment', this.note)
     },
     checkEditMode(data) {
       if (this.canCheck && data.length > 0) {
@@ -104,12 +105,48 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.comment-bg{
+  background: #eff3ff;
+}
 .comment-box{
-
-    .btns{
+  &:deep(.q-field__control){
+    background: #eff3ff;
+    height:140px!important;
+    overflow:auto;
+    border-right: 24px!important;
+    @media only screen and (max-width: 1904px){
+      height:120px!important;
+    }
+    @media only screen and (max-width: 990px){
+      height:100px!important;
+    }
+    @media only screen and (max-width: 768px){
+      height:120px!important;
+    }
+    @media only screen and (max-width: 576px){
+      height:80px!important;
+    }
+  }
+  &:deep(.q-field__control::after){
+    height: 0;
+  }
+  &:deep(.q-field__control::before){
+    background: #eff3ff;
+    border-bottom: none;
+  }
+  &:deep(.q-field__native){
+    font-size: 16px;
+    font-weight: 500;
+  }
+  &:deep(.q-placeholder){
+    color: #3e5480 ;
+    font-size: 16px;
+    font-weight:500;
+  }
+    .btn-style{
         width: 100%;
         justify-content: flex-end;
+      font-size: 16px;
         .btn-size{
             border-radius: 10px !important;
             width: 120px;
@@ -122,100 +159,7 @@ export default {
                 width: 100px;
             }
         }
-        .edit{
-            span{
-                font-size: 16px;
-            }
-        }
-        .submit{
-            span{
-                font-size: 16px;
-            }
-        }
-        .cancel{
-            span{
-                color: #9fa5c0;
-                font-size: 16px;
-            }
-        }
     }
-    .v-text-field.v-text-field--enclosed{
-        margin-right: 0 !important;
-    }
-}
-</style>
-<style lang="scss">
-.comment-box {
-    .comment-main{
-        .v-input__slot{
-            margin-bottom: 20px;
-            @media only screen and (max-width: 990px) {
-                margin-bottom: 15px;
-            }
-            textarea{
-                height:140px!important;
-                overflow:auto;
-                @media only screen and (max-width: 1904px){
-                    height:120px!important;
-                }
-                @media only screen and (max-width: 990px){
-                    height:100px!important;
-                }
-                @media only screen and (max-width: 768px){
-                    height:120px!important;
-                }
-                @media only screen and (max-width: 576px){
-                    height:80px!important;
-                }
-                &:-moz-placeholder { /* Firefox 18- */
-                    color: #3e5480 !important;
-                    margin-top: 16px;
-                    margin-right: 29px;
-                    font-size: 16px;
-                    font-weight:500;
-                }
-                &::-webkit-input-placeholder {
-                    color: #3e5480 !important;
-                    margin-top: 16px;
-                    margin-right: 12px;
-                    font-size: 16px;
-                    font-weight:500;
-                }
-                &:-moz-placeholder {  /* Firefox 19+ */
-                    color: #3e5480 !important;
-                    margin-top: 16px;
-                    margin-right: 29px;
-                    font-size: 16px;
-                    font-weight:500;
-                }
-                &:-ms-input-placeholder {
-                    color: #3e5480 !important;
-                    margin-top: 16px;
-                    margin-right: 29px;
-                    font-size: 16px;
-                    font-weight:500;
-                }
-                &::placeholder {
-                    color: #3e5480 !important;
-                    margin-top: 16px;
-                    margin-right: 29px;
-                    font-size: 16px;
-                    font-weight:500;
-                }
 
-            }
-        }
-        .v-input__control{
-            .v-text-field__details{
-                margin-bottom: 0;
-                min-height:0;
-                .v-messages{
-                    min-height:0;
-                    height:0
-                }
-            }
-        }
-    }
 }
-
 </style>

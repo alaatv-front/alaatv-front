@@ -3,21 +3,29 @@ import { apiV2 } from 'src/boot/axios'
 import { ContentList } from 'src/models/Content'
 import { StudyPlanList } from 'src/models/StudyPlan'
 import { PlanList } from 'src/models/Plan'
+import { User } from 'src/models/User'
 
 export default class AbrishamAPI extends APIRepository {
   constructor() {
     super('abrisham', apiV2)
     this.APIAdresses = {
       lesson: '/abrisham/lessons',
+      majors: '/abrisham/majors',
+      saveComment: '/comment',
+      karvan: '/abrisham/whereIsKarvan',
+      consultingContent: 'set/1213/contents',
+      watchedVideo: '/watched',
+      unWatchedVideo: '/unwatched',
+      liveDescription: '/livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc',
       userLastState: (id) => '/product/' + id + '/toWatch',
       sets: (id) => '/product/' + id + '/sets',
       contents: (id) => '/set/' + id + '/contents',
-      majors: '/abrisham/majors',
-      karvan: '/abrisham/whereIsKarvan',
       studyPlan: (id) => '/studyEvent/' + id + '/studyPlans',
       plan: (id) => '/studyPlan/' + id + '/plans',
-      consultingContent: 'set/1213/contents',
-      liveDescription: '/livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc'
+      updateComment: (id) => '/comment/' + id,
+      favored: (id) => '/c/' + id + '/favored',
+      unFavored: (id) => '/c/' + id + '/unfavored',
+      timePoint: (id, status) => '/c/timepoint/' + id + '/' + status
 
     }
     this.restUrl = (id) => this.url + '/' + id
@@ -161,6 +169,111 @@ export default class AbrishamAPI extends APIRepository {
       rejectCallback: (er) => {
         return er
       }
+    })
+  }
+
+  saveComment(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.saveComment,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  updateComment(id, data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.updateComment(id),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  setVideoWatched(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.watchedVideo,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  setVideoUnWatched(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unWatchedVideo,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  setVideoFavored(id, data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.favored(id),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  setVideoUnFavored(id, data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unFavored(id),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  bookmarkPostIsFavored(id, data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unFavored(id),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
     })
   }
 }

@@ -95,7 +95,7 @@
                  v-text="currentContent.title" />
 
             <comment-box
-              v-model:value="comment"
+              v-model:value="watchingContentComment"
               @input="saveComment"
             />
           </div>
@@ -121,7 +121,7 @@
             <div class="current-content-title"
                  v-text="currentContent.title" />
             <comment-box
-              v-model:value="comment"
+              v-model:value="watchingContentComment"
               @input="saveComment"
             />
           </div>
@@ -160,6 +160,9 @@ export default {
   computed: {
     filteredContents() {
       return new ContentList(this.contents.list)
+    },
+    watchingContentComment() {
+      return this.watchingContent.comments[0]?.comment || ''
     }
   },
   async created() {

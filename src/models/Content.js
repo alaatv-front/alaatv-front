@@ -115,11 +115,6 @@ class Content extends Model {
 }
 
 class ContentList extends Collection {
-  // eslint-disable-next-line no-useless-constructor
-  constructor() {
-    super()
-  }
-
   model () {
     return Content
   }
