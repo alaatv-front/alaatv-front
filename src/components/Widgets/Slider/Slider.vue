@@ -28,17 +28,16 @@
       :name="index"
     >
       <a :href="slide.link">
-        <q-img
-          v-if="slide.photo.src !== undefined"
+        <lazy-img
+          v-if="slide.photo.src !== ''"
           :src="slide.photo.src"
-          :ratio="slide.ratio"
+          :alt="slide.title"
         />
-        <q-img
+        <lazy-img
           v-else
-          :src="responsiveFeatures(slide.photo).src"
-          :width="responsiveFeatures(slide.photo).width ? responsiveFeatures(slide.photo).width : '100%'"
-          :height="responsiveFeatures(slide.photo).width ? responsiveFeatures(slide.photo).height : 'auto'"
-          :ratio="slide.ratio"
+          qImage="true"
+          :src="responsiveFeatures(slide.features).src"
+          :alt="slide.title"
         />
         <q-tooltip
           v-if="slide.title"
@@ -64,9 +63,11 @@
 import { ref } from 'vue'
 import { BannerList } from 'src/models/Banner'
 import { mixinWidget } from 'src/mixin/Mixins'
+import lazyImg from '../../../components/lazyImg'
 
 export default {
   name: 'Slider',
+  components: { lazyImg },
   mixins: [mixinWidget],
   props: {
     options: {
@@ -80,6 +81,7 @@ export default {
     return {
       slide: ref(null),
       fullscreen: ref(false),
+      windowWidth: 0,
       defaultOptions: {
         control: {
           position: 'bottom',
@@ -119,20 +121,26 @@ export default {
     if (this.options && this.options.list && this.options.list.length > 0) {
       this.slide = 0
     }
+    window.addEventListener('resize', this.onResize)
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
     responsiveFeatures (features) {
-      const windowSize = this.$store.getters['AppLayout/windowSize']
-      if (windowSize.x >= 1920) {
-        return features.xl || features.lg || features.md || features.sm || features.xs
-      } else if (windowSize.x <= 1919 && windowSize.x > 1440) {
-        return features.lg || features.md || features.sm || features.xs || features.xl
-      } else if (windowSize.x <= 1439 && windowSize.x > 1024) {
-        return features.md || features.sm || features.xs || features.lg || features.xl
-      } else if (windowSize.x <= 1023 && windowSize.x > 600) {
-        return features.sm || features.xs || features.md || features.lg || features.xl
-      } else if (windowSize.x <= 599) {
-        return features.xs || features.sm || features.md || features.lg || features.xl
+      if (this.windowWidth >= 1920) {
+        return features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
+      } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
+        return features.lg.src !== '' ? features.lg : features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.xl
+      } else if (this.windowWidth <= 1439 && this.windowWidth > 1024) {
+        return features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.lg.src !== '' ? features.lg : features.xl
+      } else if (this.windowWidth <= 1023 && this.windowWidth > 600) {
+        return features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
+      } else if (this.windowWidth <= 599) {
+        return features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
       }
     }
   }
@@ -145,5 +153,8 @@ export default {
   &:deep(.q-carousel__slide) {
     padding: 0;
   }
+  //.image {
+  //  width: 100%;
+  //}
 }
 </style>
