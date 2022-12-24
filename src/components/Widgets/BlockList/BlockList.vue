@@ -5,8 +5,7 @@
          class="block-list-widget"
     >
       <Block
-        :data="block"
-        :options="options"
+        :options="block"
       />
     </div>
   </div>
@@ -21,7 +20,8 @@ export default {
   props: {
     options: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   },
   data() {
@@ -37,6 +37,12 @@ export default {
   },
 
   watch: {
+    options: {
+      handler() {
+        this.loadBlocks()
+      },
+      deep: true
+    },
     blocks() {
       this.blocks.list.forEach((block, index) => {
         block.headerCustomClass = `banner-header-${index}` + ' '
@@ -56,15 +62,17 @@ export default {
       this.blocks.loading = true
       let promise = null
       promise = this.getApiRequest()
-      promise
-        .then((response) => {
-          this.blocks = response
+      if (promise) {
+        promise
+          .then((response) => {
+            this.blocks = response
 
-          this.blocks.loading = false
-        })
-        .catch(() => {
-          this.blocks.loading = false
-        })
+            this.blocks.loading = false
+          })
+          .catch(() => {
+            this.blocks.loading = false
+          })
+      }
     },
 
     getBlocks(blocks) {
