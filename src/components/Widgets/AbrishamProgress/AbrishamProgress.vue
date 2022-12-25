@@ -66,26 +66,26 @@
         >
           <template v-slot:filter>
             <div class="row q-col-gutter-md">
-              <div class="col-sm-6 col-xs-8">
+              <div class="col-sm-6 col-xs-8 select-wrapper">
                 <q-select
                   :key="sets.list.length"
                   :loading="contents.loading"
-                  outlined
+                  filled
                   :options="sets.list"
                   class="v-select"
                   option-label="short_title"
                   option-value="id"
                   :menu-props="{ bottom: true, offsetY: true }"
-                  icon="mdi-chevron-down"
+                  dropdown-icon="mdi-chevron-down"
                   dense
                   emit-value
                   map-options
-                  background-color="#eff3ff"
+                  popup-content-class="popup-content-class"
                   placeholder="انتخاب فرسنگ ها"
                   :model-value="currentSetId"
                   @update:model-value="setCurrentSet" />
               </div>
-              <div class="col-sm-6 col-xs-4">
+              <div class="col-sm-6 col-xs-4 select-wrapper">
                 <q-select
                   v-model="currentSectionId"
                   :loading="contents.loading"
@@ -95,8 +95,8 @@
                   :options="sections.list"
                   option-label="title"
                   option-value="id"
-                  outlined
-                  append-icon="mdi-chevron-down"
+                  filled
+                  dropdown-icon="mdi-chevron-down"
                   dense
                   emit-value
                   map-options
@@ -110,7 +110,7 @@
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
     <div class="row  q-col-gutter-x-md q-mt-lg">
-      <div class="col-8 "
+      <div class="col-8"
       >
         <div class="desktop-view">
           <div class="current-content-title"
@@ -123,7 +123,7 @@
         </div>
       </div>
       <div
-        class="col-md-4"
+        class="col-12 col-md-4"
       >
         <content-list-component
           :header="{ title: 'جزوه ها' }"
@@ -420,7 +420,7 @@ export default {
   @media screen and (max-width: 1904px) {
     margin: 0 10px;
   }
-  @media screen and (max-width: 960px) {
+  @media screen and (max-width: 1023px) {
     margin: 0;
   }
 
@@ -460,7 +460,7 @@ export default {
       @media screen and (max-width: 1904px) {
         padding-bottom: 15px !important;
       }
-      @media screen and (max-width: 960px) {
+      @media screen and (max-width: 1023px) {
         padding-bottom: 10px !important;
       }
       @media screen and (max-width: 768px) {
@@ -482,7 +482,7 @@ export default {
     @media screen and (max-width: 1920px) {
       margin-bottom: 15px;
     }
-    @media screen and (max-width: 960px) {
+    @media screen and (max-width: 1023px) {
       display: block;
     }
     @media screen and (max-width: 576px) {
@@ -491,7 +491,7 @@ export default {
 
     &.current-content-title-mobile {
       display: none;
-      @media screen and (max-width: 960px) {
+      @media screen and (max-width: 1023px) {
         display: block;
         margin-top: 15px;
         margin-bottom: 5px;
@@ -510,6 +510,36 @@ export default {
 
   .content-list-col {
     padding-top: 0 !important;
+    .select-wrapper{
+      &:deep(.q-field__control){
+        background: #eff3ff;
+      }
+      &:deep(.q-field__native){
+        color: #3e5480;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      &:deep(.q-icon){
+        color: #3e5480;
+        font-size: 24px;
+      }
+      &:deep(.q-field__control::after){
+        height: 0;
+      }
+      &:deep(.q-field__control::before){
+        background: transparent;
+      }
+      .popup-content-class{
+      }
+      &:deep(.q-field--focused){
+        :deep(.q-field__control){
+          background: red;
+        }
+      }
+      &:deep(.q-field--filled .q-field__control::before){
+        border-bottom: none;
+      }
+    }
   }
 
   .video-box-col {
@@ -517,7 +547,7 @@ export default {
 
     .mobile-view {
       display: none;
-      @media screen and (max-width: 959px) {
+      @media screen and (max-width: 1023px) {
         display: block;
       }
     }
@@ -545,7 +575,7 @@ export default {
 
   .desktop-view {
     display: block;
-    @media screen and (max-width: 959px) {
+    @media screen and (max-width: 1023px) {
       display: none;
     }
   }
@@ -554,9 +584,7 @@ export default {
 .v-select-box {
   .theme--light {
     &.v-label {
-      color: #3e5480;
-      font-size: 14px;
-      font-weight: 500;
+
     }
 
     &.v-icon {

@@ -1,11 +1,5 @@
 <template>
   <div class="content-list-box">
-    <!--    <v-overlay-->
-    <!--      v-if="loading"-->
-    <!--      absolute-->
-    <!--    >-->
-    <!--      <v-progress-circular indeterminate />-->
-    <!--    </v-overlay>-->
     <slot name="header">
       <div class="slot-header-box items-center flex justify-between">
         <span
@@ -174,6 +168,10 @@ export default {
   padding: 19px 26px;
   height: 100%;
   overflow: hidden;
+  @media screen and (max-width: 1023px){
+    height: 707px;
+
+  }
   @media screen and (max-width: 1200px) {
     border-radius: 20px;
   }

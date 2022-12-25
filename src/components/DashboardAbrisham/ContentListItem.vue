@@ -6,7 +6,7 @@
     @click="changeSelectedItem"
   >
     <div
-      class="flex contentListItem-main-box"
+      class="contentListItem-main-box"
     >
       <div class="right-content">
         <q-card
@@ -59,38 +59,31 @@
             </div>
           </q-chip>
         </div>
-        <q-chip
-          v-if="false"
-          class="mb-2"
-          color="transparent"
-          height="22"
-        />
         <div
-          v-if=" type === 'video' "
+          v-if=" type === 'video'"
           class="sheet-icon flex justify-space-between align-center"
         >
-          <div class="   title-box">
-            <p class="contentListItem-title ">
+          <div class=" title-box">
+            <p class="contentListItem-title ellipsis">
               {{ content.short_title }}
             </p>
             <p
-              class="contentListItem-description"
+              class="contentListItem-description ellipsis"
             >
-              content.title
-              <!--              {{ content.title }}-->
+              {{ content.title }}
             </p>
           </div>
         </div>
         <div
-          v-else-if=" type === 'pamphlet' "
-          class="sheet-icon flex justify-space-between align-center"
+          v-else-if="type === 'pamphlet'"
+          class="sheet-icon flex justify-between items-center"
         >
-          <div class="flex flex-column justify-center title-box">
+          <div class="title-box">
             <p class="contentListItem-title">
               {{ content.short_title }}
             </p>
             <p
-              class="contentListItem-description"
+              class="contentListItem-description ellipsis"
             >
               {{ content.title }}
             </p>
@@ -142,13 +135,13 @@ export default {
         this.$refs.contentItem.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
       }
     },
-    getClockTime () {
+    getClockTime() {
       return {
         start: this.formatClock(this.content.start),
         end: this.formatClock(this.content.end)
       }
     },
-    formatClock (clock) {
+    formatClock(clock) {
       if (!clock) {
         return clock
       }
@@ -169,169 +162,185 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-list-item{
-    &:hover {
-         cursor: pointer;
-         background-color: rgba(242, 245, 255, 0.31);
-     }
+.content-list-item {
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(242, 245, 255, 0.31);
+  }
+
+  .contentListItem-main-box {
+    display: grid;
+    grid-template-columns:96px auto;
+    align-items: center;
+    padding-top: 21px;
+    border-bottom: solid 1px rgba(159, 165, 192, 0.58);
+    @media screen and (max-width: 1920px) {
+      padding-top: 15px;
+      grid-template-columns:80px auto;
+    }
+    @media screen and (max-width: 990px) {
+      padding-top: 10px;
+    }
+    @media screen and (max-width: 768px) {
+      padding-top: 10px;
+    }
+    @media screen and (max-width: 576px) {
+      padding-top: 10px;
+    }
+
+    .right-content {
+      margin-bottom: 21px;
+      @media screen and (max-width: 576px) {
+        margin-bottom: 15px;
+      }
+
+      .lesson_name {
+        font-size: 12px;
+        line-height: 20px;
+        @media screen and (max-width: 768px) {
+          font-size: 11px;
+          line-height: 22px;
+        }
+      }
+
+      .contentListItem-box {
+        position: relative;
+
+        .content-list-image {
+          width: 96px;
+          border-radius: 10px !important;
+          @media screen and (max-width: 1920px) {
+            width: 80px;
+            border-radius: 5px !important;
+          }
+          @media screen and (max-width: 959px) {
+            width: 96px;
+            border-radius: 10px !important;
+          }
+          @media screen and (max-width: 768px) {
+            width: 70px;
+            border-radius: 5px !important;
+          }
+          @media screen and (max-width: 320px) {
+            width: 60px;
+          }
+
+        }
+
+        .seen {
+          height: 54px;
+          width: 96px;
+          opacity: 0.5;
+          border-radius: 10px;
+          background-color: #000000;
+          position: absolute;
+          top: 0;
+          @media screen and (max-width: 1920px) {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+          }
+          @media screen and (max-width: 320px) {
+            height: 33px;
+            width: 60px;
+          }
+
+          .icon {
+            font-size: 25px;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    .left-content {
+      margin-left: 15px;
+      @media screen and (max-width: 1920px) {
+
+      }
+      @media screen and (max-width: 576px) {
+
+      }
+
+      .time-sheet {
+        font-size: 12px;
+
+        .clock {
+          .text-color {
+            color: #3e5480;
+          }
+        }
+      }
+
+      .sheet-icon {
+        .title-box {
+          .contentListItem-description {
+            font-size: 14px;
+            color: #9fa5c0;
+            max-width: 338px;
+            @media screen and (max-width: 1920px) {
+              font-size: 14px;
+              color: #9fa5c0;
+            }
+            @media screen and (max-width: 768px) {
+              font-size: 12px;
+            }
+            @media screen and (max-width: 350px) {
+              font-size: 12px;
+            }
+
+          }
+
+          .contentListItem-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #3e5480;
+            margin-bottom: 0;
+            max-width: 336px;
+            @media screen and (max-width: 1920px) {
+              font-size: 18px;
+              font-weight: 500;
+              color: #3e5480;
+              margin-bottom: 0;
+            }
+            @media screen and (max-width: 768px) {
+              font-size: 14px;
+            }
+            @media screen and (max-width: 350px) {
+              font-size: 14px;
+            }
+          }
+        }
+
+        .download-icon {
+          color: #3e5480;
+          font-weight: 500;
+          font-size: 20px;
+          margin-right: 5px;
+          @media screen and (max-width: 959px) {
+            font-size: 24px;
+          }
+          @media screen and (max-width: 768px) {
+            font-size: 15px;
+          }
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+
+    }
+  }
+
+  &:last-child {
     .contentListItem-main-box {
-        padding-top: 21px;
-        border-bottom: solid 1px rgba(159, 165, 192, 0.58);
-        @media screen and (max-width: 1920px){
-            padding-top: 15px;
-        }
-        @media screen and (max-width: 350px){
-            padding-top: 10px;
-        }
-        .right-content {
-            margin-bottom: 21px;
-            @media screen and (max-width: 576px){
-                margin-bottom: 15px;
-            }
-            .lesson_name {
-                font-size: 12px;
-                line-height: 20px;
-                @media screen and (max-width: 768px){
-                    font-size: 11px;
-                    line-height: 22px;
-                }
-            }
-            .contentListItem-box {
-                 position: relative;
-                .content-list-image {
-                        width: 96px;
-                        border-radius: 10px !important;
-                        @media screen and (max-width: 1920px){
-                            width: 70px;
-                            border-radius: 5px !important;
-                        }
-                        @media screen and (max-width: 959px){
-                            width: 96px;
-                            border-radius: 10px !important;
-                        }
-                        @media screen and (max-width: 768px){
-                            width: 70px;
-                            border-radius: 5px !important;
-                        }
-                        @media screen and (max-width: 320px){
-                            width: 60px;
-                    }
-
-                    }
-                .seen {
-                    height: 54px;
-                    width: 96px;
-                    opacity: 0.5;
-                    border-radius: 10px;
-                    background-color: #000000;
-                    position: absolute;
-                    top: 0;
-                    @media screen and (max-width: 1920px){
-                        height: 100%;
-                        width: 100%;
-                        border-radius: 5px;
-                    }
-                    @media screen and (max-width: 320px){
-                        height: 33px;
-                        width: 60px;
-                    }
-                    .icon {
-                        font-size: 25px;
-                        color: #fff;
-                    }
-                }
-             }
-        }
-        .left-content {
-            @media screen and (max-width: 1920px){
-
-            }
-            @media screen and (max-width: 576px){
-
-            }
-            .time-sheet {
-                font-size: 12px;
-                .clock {
-                    .text-color{
-                        color: #3e5480;
-                    }
-                }
-            }
-            .sheet-icon {
-                .title-box {
-
-                    .contentListItem-description {
-                        font-size: 14px;
-                        color: #9fa5c0;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 1;
-                        -webkit-box-orient: vertical;
-                        @media screen and (max-width: 1920px){
-                            font-size: 14px;
-                            color: #9fa5c0;
-                        }
-                        @media screen and (max-width: 768px){
-                            font-size: 12px;
-                        }
-                        @media screen and (max-width: 350px){
-                            font-size: 12px;
-                        }
-
-                    }
-                    .contentListItem-title {
-                        font-size: 18px;
-                        font-weight: 500;
-                        text-align: right;
-                        color: #3e5480;
-                        margin-bottom: 0;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 1;
-                        -webkit-box-orient: vertical;
-                        @media screen and (max-width: 1920px){
-                            font-size: 18px;
-                            font-weight: 500;
-                            text-align: right;
-                            color: #3e5480;
-                            margin-bottom: 0;
-                        }
-                        @media screen and (max-width: 768px){
-                            font-size: 14px;
-                        }
-                        @media screen and (max-width: 350px){
-                            font-size: 14px;
-                        }
-                    }
-                }
-                .download-icon{
-                    color: #3e5480;
-                    font-weight: 500;
-                    font-size: 20px;
-                    margin-right: 5px;
-                    @media screen and (max-width: 959px){
-                        font-size: 24px ;
-                    }
-                    @media screen and (max-width: 768px){
-                        font-size: 15px;
-                    }
-                }
-                a{
-                    text-decoration: none;
-                }
-            }
-
-        }
+      border-bottom: none;
     }
-    &:last-child {
-        .contentListItem-main-box {
-            border-bottom: none;
-        }
-    }
+  }
 }
+
 .selected-content-list {
-    background-color: #f2f5ff!important;
+  background-color: #f2f5ff !important;
 }
 </style>
