@@ -9,11 +9,14 @@ export default {
   name: 'Test',
   components: {},
   mixins: [],
-  data () {
-    return {
-      testValue: '',
-      testValue1: ''
-    }
+  beforeRouteEnter () {
+    // console.log('debug beforeRouteEnter')
+  },
+  beforeRouteLeave () {
+    // console.log('debug beforeRouteLeave')
+  },
+  beforeRouteUpdate () {
+    // console.log('debug beforeRouteUpdate')
   },
   props: {
     testProp: {
@@ -23,16 +26,19 @@ export default {
       }
     }
   },
-  methods: {},
+  data () {
+    return {
+      testValue: '',
+      testValue1: ''
+    }
+  },
   computed: {},
-  beforeRouteEnter () {
-    // console.log('debug beforeRouteEnter')
-  },
-  beforeRouteLeave () {
-    // console.log('debug beforeRouteLeave')
-  },
-  beforeRouteUpdate () {
-    // console.log('debug beforeRouteUpdate')
+  watch: {
+    testValue: {
+      handler () {},
+      deep: true
+    },
+    testValue1 (oldVal, newVal) {}
   },
   activated () {
     // console.log('debug activated')
@@ -46,13 +52,7 @@ export default {
   mounted () {
     // console.log('debug mounted')
   },
-  watch: {
-    testValue: {
-      handler () {},
-      deep: true
-    },
-    testValue1 (oldVal, newVal) {}
-  }
+  methods: {}
 }
 </script>
 

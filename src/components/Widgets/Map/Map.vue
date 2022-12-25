@@ -3,13 +3,15 @@
     class="MapWidget">
 
     <base-map
+      ref="baseMap"
       v-model:zoom="zoom"
       v-model:center="center"
       :items="visibleMapItems"
       @update:zoom="zoomUpdated"
       @update:center="centerUpdated"
       @update:bounds="boundsUpdated"
-      ref="baseMap"
+      @update:item="updateItem"
+      @update:visible-map-items="updateVisibleMapItems"
     />
     <div class="justify-center flex">
     </div>
@@ -17,16 +19,17 @@
 </template>
 
 <script>
-import { MapItemList } from 'src/models/MapItem'
+import { MapItem, MapItemList } from 'src/models/MapItem'
 import BaseMap from 'src/components/Widgets/Map/BaseMap.vue'
 import MapItemsResponse from 'src/components/Widgets/Map/MapItemsResponse.js'
+// import { latLng } from 'leaflet'
 
 export default {
   name: 'MapWidget',
   components: {
     BaseMap
   },
-  data () {
+  data() {
     return {
       zoom: 4,
       center: null,
@@ -35,22 +38,28 @@ export default {
       searchQuery: '',
       lastCenterChangeTime: 0,
       editMapMode: false,
-      adminToolBox: {
-        marker: {
-          data: null
-        },
-        polyline: null
-      },
       mapItems: new MapItemList(),
       visibleMapItems: new MapItemList(),
       mapLoading: false
     }
   },
-  created () {
+  watch: {
+    visibleItems: {
+      handler(newValue) {
+
+      },
+      deep: true
+    }
+  },
+  created() {
+    this.$store.commit('AppLayout/updateLayoutFooterVisible', false)
     this.fetchMapItems()
   },
+  beforeUnmount() {
+    this.$store.commit('AppLayout/updateLayoutFooterVisible', true)
+  },
   methods: {
-    fetchMapItems () {
+    fetchMapItems() {
       this.mapLoading = true
       this.mapItems = new MapItemList(MapItemsResponse.data)
       this.mapLoading = false
@@ -64,11 +73,14 @@ export default {
       //   .catch(function () {
       //   })
     },
-    zoomUpdated (zoom) {
+    updateItem(data) {
+      this.visibleMapItems.list[data.index] = new MapItem(data.data)
+    },
+    zoomUpdated(zoom) {
       this.zoom = zoom
       this.updateVisibleMapItems()
     },
-    centerUpdated (center) {
+    centerUpdated(center) {
       this.center = center
       // this.lastCenterChangeTime = Date.now()
       // if (Date.now() - this.lastZoomTime > 500) {
@@ -78,11 +90,11 @@ export default {
       // }
       // this.currentCenter = center
     },
-    boundsUpdated (bounds) {
-      this.updateVisibleMapItems()
+    boundsUpdated(bounds) {
       this.bounds = bounds
+      this.updateVisibleMapItems()
     },
-    updateVisibleMapItems () {
+    updateVisibleMapItems() {
       this.$nextTick(() => {
         this.visibleMapItems.list = this.mapItems.list.filter((item) => {
           return (item.canShowMapItem(this.bounds, this.zoom) &&
@@ -99,7 +111,7 @@ export default {
 
 <style scoped>
 .MapWidget {
-  height: 70vh;
+  /*height: 70vh;*/
   width: 100%;
 }
 </style>

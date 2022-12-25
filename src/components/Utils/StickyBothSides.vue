@@ -13,6 +13,12 @@
 <script>
 export default {
   name: 'StickyBothSides',
+  inject: {
+    scrollInfo: {
+      from: 'scrollInfo',
+      default: {}
+    }
+  },
   props: {
     maxWidth: {
       type: Number,
@@ -27,12 +33,6 @@ export default {
       default: 0
     }
   },
-  inject: {
-    scrollInfo: {
-      from: 'scrollInfo',
-      default: {}
-    }
-  },
   data() {
     return {
       disableSticky: false,
@@ -41,18 +41,6 @@ export default {
       start: 0,
       previousPosition: 0
     }
-  },
-  mounted() {
-    this.windowWidth = window.innerWidth
-    if (this.windowWidth < this.maxWidth) {
-      this.disableSticky = true
-    }
-    window.addEventListener('resize', this.onResize)
-    this.getStartFixElementPosition()
-    this.stickyElementWidth = this.shadowElement.offsetWidth
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.onResize)
   },
   computed: {
     stickyElement() {
@@ -71,6 +59,18 @@ export default {
       }
     }
   },
+  mounted() {
+    this.windowWidth = window.innerWidth
+    if (this.windowWidth < this.maxWidth) {
+      this.disableSticky = true
+    }
+    window.addEventListener('resize', this.onResize)
+    this.getStartFixElementPosition()
+    this.stickyElementWidth = this.shadowElement.offsetWidth
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.onResize)
+  },
   methods: {
     onResize() {
       this.windowWidth = window.innerWidth
@@ -85,7 +85,7 @@ export default {
       return window.scrollY
     },
     stickyElementToTop(stickyElementTop) {
-      if (this.stickyElement.offsetHeight <= window.innerHeight) {
+      if (this.stickyElement.offsetHeight + this.topGap <= window.innerHeight) {
         if (this.getScrollY() <= this.start) {
           this.stickyElement.style.position = 'static'
         }
@@ -99,7 +99,7 @@ export default {
       }
     },
     stickyElementToBottom(stickyElementTop) {
-      if (this.stickyElement.offsetHeight <= window.innerHeight) {
+      if (this.stickyElement.offsetHeight + this.topGap <= window.innerHeight) {
         if (this.getScrollY() >= this.start) {
           this.stickyElement.style.position = 'fixed'
           this.stickyElement.style.top = this.topGap + 'px'

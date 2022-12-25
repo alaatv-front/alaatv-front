@@ -73,15 +73,14 @@ export default {
       }
     }
   },
+  computed: {
+  },
   created () {
     this.getUrl()
-  },
-  computed: {
   },
   methods: {
     getUrl () {
       const Dimensions = this.$store.getters['AppLayout/windowSize']
-      console.log(Dimensions.x, this.data)
       if (Dimensions.x <= 600) {
         this.segmentBackgroundImage = this.data.url.xs
       } else if (Dimensions.x <= 1024) {

@@ -17,12 +17,24 @@
           </q-avatar>
         </template>
         <template v-else-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Access.Edit', params: {id: inputData.props.row.id}}">
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="info"
+                 icon="info"
+                 :to="{name:'Admin.Access.Edit', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               اصلاح
             </q-tooltip>
           </q-btn>
-          <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="negative"
+                 icon="delete"
+                 class="q-ml-md"
                  @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
             <q-tooltip>
               حذف
@@ -144,6 +156,15 @@ export default {
       ]
     }
   },
+  watch: {
+    // editInputs: {
+    //   handler (newValue, oldValue) {
+    //     console.log('inputs', newValue)
+    //   },
+    //   deep: true
+    // }
+  },
+  created () {},
   methods: {
     // for index.vue
     getRemoveMessage (row) {
@@ -155,16 +176,7 @@ export default {
     testMethod1 () {},
     testMethod2 () {},
     testMethod3 () {}
-  },
-  watch: {
-    // editInputs: {
-    //   handler (newValue, oldValue) {
-    //     console.log('inputs', newValue)
-    //   },
-    //   deep: true
-    // }
-  },
-  created () {}
+  }
 }
 </script>
 

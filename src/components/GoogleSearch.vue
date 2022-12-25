@@ -32,9 +32,9 @@
                  height="30px"></q-img>
         </div>
         <div class="col-10">
-          <q-input class="search-box"
+          <q-input v-model="text"
+                   class="search-box"
                    dense
-                   v-model="text"
                    rounded
                    outlined>
             <template v-slot:append>
@@ -253,11 +253,6 @@ export default {
       ]
     }
   },
-  mounted () {
-    this.widthOfRef('titleWidth', 'desktopTitle')
-    this.widthOfRef('urlWidth', 'desktopUrl')
-    this.widthOfRef('metaWidth', 'desktopMeta')
-  },
   watch: {
     showCached (newVal) {
       setTimeout(() => {
@@ -286,6 +281,11 @@ export default {
         }
       }, 10)
     }
+  },
+  mounted () {
+    this.widthOfRef('titleWidth', 'desktopTitle')
+    this.widthOfRef('urlWidth', 'desktopUrl')
+    this.widthOfRef('metaWidth', 'desktopMeta')
   },
   methods: {
     widthOfRef (key, refName) {

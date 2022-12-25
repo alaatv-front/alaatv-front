@@ -1,10 +1,9 @@
 <template>
   <q-card class="set-item-box">
-    <router-link
-      :to="{
-        name: 'User.Set.Show',
-        params: { id: set.id? set.id:-1, title: set.title }
-      }"
+    <router-link :to="{
+      name: 'User.Set.Show',
+      params: { id: set.id? set.id:-1, title: set.title }
+    }"
     >
       <div class="img-box">
         <div class="img-videos">
@@ -18,16 +17,14 @@
           </div>
         </div>
         <div class="img-container">
-          <lazy-img
-            :src="set.photo"
-            class="img"
-            :alt="set.title"
-            width="16"
-            height="9"
+          <lazy-img :src="set.photo"
+                    class="img"
+                    :alt="set.title"
+                    width="16"
+                    height="9"
           />
         </div>
       </div>
-
       <div class="set-content-box">
         <div class="main-title ellipsis-2-lines">
           {{ set.title }}
@@ -37,11 +34,10 @@
     <div class="info-box">
       <div class="teacher-info">
         <div class="teacher-image">
-          <lazy-img
-            :src="set.author?.photo"
-            alt="set"
-            width="1"
-            height="1"
+          <lazy-img :src="set.author?.photo"
+                    alt="set"
+                    width="1"
+                    height="1"
           />
         </div>
         <div class="teacher-name">
@@ -62,7 +58,8 @@
 
 <script>
 import { Set } from 'src/models/Set'
-import LazyImg from 'components/lazyImg'
+import LazyImg from 'src/components/lazyImg'
+
 export default {
   name: 'setItem',
   components: {
@@ -77,86 +74,13 @@ export default {
   data: () => ({
     set: new Set()
   }),
-  mounted() {
+  created () {
     this.set = new Set(this.data)
   }
 }
 </script>
 
-<style
-  scoped
-  lang="scss"
->
-.teacher-info {
-  display: flex;
-  align-items: center;
-}
-.info-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 16px;
-  margin-right: 26px;
-  margin-bottom: 16px;
-}
-.total-score {
-  display: flex;
-}
-.teacher-image {
-  height: 32px;
-  width: 32px;
-  img {
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-  }
-}
-.star-score {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEjSURBVHgBnVNBToNQEJ35KJtuOEL/ynQl3oAj6AnQxBrjqj2B9Qa6M9EFnMDewHoK027KEf6qixaYDr+B/ob/G9qXAAN58+bNzAfBAfp/7oMofvWLv7lBmSgbT7gEwCte+d7X19ofuWh4pPrS+KTYhbS5EEeqmwhcLg4c0HLExFXE0Y+Fq5g9hsveFOV74wRp/nTLz5iTQtj13AUZi2VA+MECQ4LzoXgGlMK5IEj1DGj+mHA38UnJJaU4+L5vhniiyBSvvu6qYL9GP6/WpDqll964DhsB11G1QOHgM2sJ0GJYrTHoIBDQ4iVsCTBCWzWrRJlHbQHC6JBEb+D3JPcrdWxC4HUdXhgJM5aL+YTNoPAejD4rFxP+wRIQ+URvqij/6rQtVRliQ9SZCLgAAAAASUVORK5CYII=');
-  width: 18px;
-  height: 18px;
-}
-.three-dots {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAQCAYAAAAxtt7zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABHSURBVHgB1Y2xDYAwEMTOLwZgQ2agThM2SMV8jPAT/BEaWmosWXJnWjs3U8MmJfpScpdZJU09Ap54yajSPuMCp0OHPuE3lxsqOj6hAowbEAAAAABJRU5ErkJggg==');
-  width: 4px;
-  height: 16px;
-}
-.play-icon {
-  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADvSURBVHgBnVOBEYIwDGw9B2AE3IAR4gaMgBPoBjCCToAb6Aa4AW4AG+AGNTmeu1qBlv7dXyBNv+n1o5UFYwxxIPz2zJfWuldbwCKlmYfk01CRApuuzAS5jHlHvpOaEKFGihfWUmZrCdKakKBS/q471NZ/18WJJqj1sb5iDmAeLWTtma5LktupCMASRzVapIwWgtiHw41J8tLRQi6iheC3M/Mt3e1VBPD0D6bEw+aOpAsZGf5sIXL6mcVpPDwiuWXIxszNHxaaBYEM65MArZ1G1qTbQ1sjLy6+qBDA+i4G5BPffu2IpRwK/PbMJ4znxRemPTi8LJF12AAAAABJRU5ErkJggg==');
-  height: 18px;
-  width: 18px;
-  margin-right: 9.67px;
-}
-.tv {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACmSURBVHgB1ZLhDURAEIVn5QrQwd11oAQlXAnXAR2ICrSgAzqgA1RgStDBehMjkY3YjX8m+ezgfSy7RE5Za5OTaz/yFUI1qA7nBWhCxBjMIAeZ9rGbM3sYQwr2wAcU2peAtV+MMe1RnPUmX0zmD3p5KOSvSCnoyP8JVsdBnEinxRRekzgR3ayHiUzbDwqttzgvHEYRdVtNV4ZmZB17d+cknrcxaCEuK0dYXXRSR/1RAAAAAElFTkSuQmCC');
-  height: 14px;
-  width: 14px;
-  margin-top: 2px;
-  margin-right: 5px;
-}
-.q-card {
-  min-width: 318px;
-}
-.teacher-name {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 22px;
-  text-align: right;
-  letter-spacing: -0.03em;
-  color: #656f7b;
-  margin-left: 8px;
-}
-.price-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.btn-green {
-  background: #4caf50;
-  color: white;
-}
+<style lang="scss" scoped>
 .set-item-box {
   display: flex;
   flex-direction: column;
@@ -167,13 +91,13 @@ export default {
   position: relative;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
-    2px 4px 10px rgba(46, 56, 112, 0.05);
+  2px 4px 10px rgba(46, 56, 112, 0.05);
   background-color: #ffffff;
   top: 0;
   transition: all ease 0.5s;
   &:hover {
     box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
-      5px 5px 20px rgba(0, 0, 0, 0.1);
+    5px 5px 20px rgba(0, 0, 0, 0.1);
     top: -10px;
     .img-box .img-videos {
       opacity: 0.6;
@@ -362,10 +286,79 @@ export default {
       }
     }
   }
-}
 
-@media screen and (max-width: 992px) {
-  .set-item-box {
+  &.q-card {
+    min-width: 318px;
+  }
+
+  .teacher-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .info-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 16px;
+    margin-right: 26px;
+    margin-bottom: 16px;
+  }
+
+  .total-score {
+    display: flex;
+  }
+
+  .teacher-image {
+    height: 32px;
+    width: 32px;
+    img {
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+    }
+  }
+
+  .star-score {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEjSURBVHgBnVNBToNQEJ35KJtuOEL/ynQl3oAj6AnQxBrjqj2B9Qa6M9EFnMDewHoK027KEf6qixaYDr+B/ob/G9qXAAN58+bNzAfBAfp/7oMofvWLv7lBmSgbT7gEwCte+d7X19ofuWh4pPrS+KTYhbS5EEeqmwhcLg4c0HLExFXE0Y+Fq5g9hsveFOV74wRp/nTLz5iTQtj13AUZi2VA+MECQ4LzoXgGlMK5IEj1DGj+mHA38UnJJaU4+L5vhniiyBSvvu6qYL9GP6/WpDqll964DhsB11G1QOHgM2sJ0GJYrTHoIBDQ4iVsCTBCWzWrRJlHbQHC6JBEb+D3JPcrdWxC4HUdXhgJM5aL+YTNoPAejD4rFxP+wRIQ+URvqij/6rQtVRliQ9SZCLgAAAAASUVORK5CYII=');
+    width: 18px;
+    height: 18px;
+  }
+
+  .three-dots {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAQCAYAAAAxtt7zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAABHSURBVHgB1Y2xDYAwEMTOLwZgQ2agThM2SMV8jPAT/BEaWmosWXJnWjs3U8MmJfpScpdZJU09Ap54yajSPuMCp0OHPuE3lxsqOj6hAowbEAAAAABJRU5ErkJggg==');
+    width: 4px;
+    height: 16px;
+  }
+
+  .play-icon {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADvSURBVHgBnVOBEYIwDGw9B2AE3IAR4gaMgBPoBjCCToAb6Aa4AW4AG+AGNTmeu1qBlv7dXyBNv+n1o5UFYwxxIPz2zJfWuldbwCKlmYfk01CRApuuzAS5jHlHvpOaEKFGihfWUmZrCdKakKBS/q471NZ/18WJJqj1sb5iDmAeLWTtma5LktupCMASRzVapIwWgtiHw41J8tLRQi6iheC3M/Mt3e1VBPD0D6bEw+aOpAsZGf5sIXL6mcVpPDwiuWXIxszNHxaaBYEM65MArZ1G1qTbQ1sjLy6+qBDA+i4G5BPffu2IpRwK/PbMJ4znxRemPTi8LJF12AAAAABJRU5ErkJggg==');
+    height: 18px;
+    width: 18px;
+    margin-right: 9.67px;
+  }
+
+  .tv {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACmSURBVHgB1ZLhDURAEIVn5QrQwd11oAQlXAnXAR2ICrSgAzqgA1RgStDBehMjkY3YjX8m+ezgfSy7RE5Za5OTaz/yFUI1qA7nBWhCxBjMIAeZ9rGbM3sYQwr2wAcU2peAtV+MMe1RnPUmX0zmD3p5KOSvSCnoyP8JVsdBnEinxRRekzgR3ayHiUzbDwqttzgvHEYRdVtNV4ZmZB17d+cknrcxaCEuK0dYXXRSR/1RAAAAAElFTkSuQmCC');
+    height: 14px;
+    width: 14px;
+    margin-top: 2px;
+    margin-right: 5px;
+  }
+
+  .teacher-name {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: right;
+    letter-spacing: -0.03em;
+    color: #656f7b;
+    margin-left: 8px;
+  }
+
+  @media screen and (max-width: 992px) {
     .img-box {
       .img {
       }
@@ -429,13 +422,8 @@ export default {
       }
     }
   }
-}
 
-@media screen and (max-width: 768px) {
-}
-
-@media screen and (max-width: 575px) {
-  .set-item-box {
+  @media screen and (max-width: 575px) {
     width: 310px;
     min-height: 120px;
     max-height: 120px;
@@ -527,5 +515,6 @@ export default {
       }
     }
   }
+
 }
 </style>

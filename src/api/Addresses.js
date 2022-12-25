@@ -1,8 +1,8 @@
 import process from 'process'
 // process.client or process.browser
 const apiV2Server = process.env.ALAA_API_V2
-const apiV1Server = process.env.ALAA_API_V1
-const webServer = process.env.ALAA_WEB
+// const apiV1Server = process.env.ALAA_API_V1
+// const webServer = process.env.ALAA_WEB
 
 const API_ADDRESS = {
   // socket: process.env.VUE_APP_SOCKET_TARGET_API_SERVER,
@@ -92,6 +92,9 @@ const API_ADDRESS = {
     index: {
       base: apiV2Server + '/ticket'
     },
+    user: {
+      getInfo: apiV2Server + '/user/getInfo'
+    },
     show: {
       base: apiV2Server + '/ticket',
       statusNotice: (ticketId) =>
@@ -99,7 +102,9 @@ const API_ADDRESS = {
       batchExtend: apiV2Server + '/orderproduct/batchExtend',
       ticketMessage: apiV2Server + '/ticketMessage',
       reportMessage: (ticketId) =>
-        apiV2Server + '/ticketMessage/' + ticketId + '/report'
+        apiV2Server + '/ticketMessage/' + ticketId + '/report',
+      editAssign: (ticketId) =>
+        apiV2Server + '/ticket/' + ticketId + '/assign'
     },
     ticketRate: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/rate'
   },
@@ -406,7 +411,9 @@ const API_ADDRESS = {
       submit: apiV2Server + '/order/submitCoupon',
       remove: apiV2Server + '/order/RemoveCoupon'
     },
-    review: apiV2Server + '/checkout/review'
+    review: apiV2Server + '/checkout/review',
+    getPaymentRedirectEncryptedLink: apiV2Server + '/getPaymentRedirectEncryptedLink?seller=1',
+    orderWithTransaction (orderId) { return apiV2Server + '/orderWithTransaction/' + orderId }
   }
 }
 export default API_ADDRESS

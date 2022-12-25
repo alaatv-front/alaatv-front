@@ -1,32 +1,26 @@
 <template>
-  <div
-    v-for="(block, index) in blocksToShow"
-    :key="index"
-    class="block-list-widget"
-  >
-    <Block
-      :data="block"
-      :options="options"
-    />
+  <div :style="options.style">
+    <div v-for="(block, index) in blocksToShow"
+         :key="index"
+         class="block-list-widget"
+    >
+      <Block
+        :data="block"
+        :options="options"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins'
 import Block from 'components/Widgets/Block/Block'
-import { BlockList } from 'src/models/Block'
 
 export default {
   name: 'BlockList',
   components: { Block },
-  mixins: [mixinWidget],
   props: {
-    data: {
-      type: [String, Array, BlockList],
-      default: new BlockList()
-    },
-    getData: {
-      type: Function,
+    options: {
+      type: Object,
       default: () => {}
     }
   },
@@ -34,9 +28,6 @@ export default {
     return {
       blocks: {}
     }
-  },
-  created() {
-    this.loadBlocks()
   },
 
   computed: {
@@ -52,29 +43,26 @@ export default {
       })
     }
   },
+  created () {
+    this.loadBlocks()
+  },
 
   methods: {
     loadBlocks() {
-      if (typeof this.data === 'object') {
-        this.blocks = new BlockList(this.data)
-      } else if (typeof this.data === 'string') {
-        const url = this.data
-        this.getBlocksByRequest(url)
-      }
+      this.getBlocksByRequest()
     },
 
     getBlocksByRequest(url) {
       this.blocks.loading = true
       let promise = null
-      promise = this.getData(url)
+      promise = this.getApiRequest()
       promise
         .then((response) => {
-          this.blocks = new BlockList(response.data.data)
+          this.blocks = response
 
           this.blocks.loading = false
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
           this.blocks.loading = false
         })
     },
@@ -84,6 +72,19 @@ export default {
         return
       }
       return blocks.list.slice(this.options.from, this.options.to)
+    },
+
+    getApiRequest() {
+      if (this.options.apiName === 'home') {
+        return this.$apiGateway.pages.home({
+          cache: {
+            TTL: 100000
+          }
+        })
+      }
+      if (this.options.apiName === 'shop') {
+        return this.$apiGateway.pages.shop()
+      }
     }
   }
 }

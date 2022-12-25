@@ -18,10 +18,10 @@
         label="لینک مد نظر خود را وارد کنید:"
       />
       <q-select
+        v-model="inputData.data.target"
         option-value="value"
         emit-value
         map-options
-        v-model="inputData.data.target"
         :options="LinkStateOptions"
       />
     </div>
@@ -32,6 +32,12 @@
 import { inputMixin } from 'quasar-form-builder'
 export default {
   name: 'ActivityType',
+  mixins: [inputMixin],
+  props: {
+    value: {
+      default: null
+    }
+  },
   data() {
     return {
       activityTypeOptions: [
@@ -44,6 +50,12 @@ export default {
           id: 1,
           label: 'لینک',
           name: 'link'
+
+        },
+        {
+          id: 2,
+          label: 'زوم',
+          name: 'zoom'
 
         }
       ],
@@ -60,12 +72,6 @@ export default {
       ]
     }
   },
-  props: {
-    value: {
-      default: null
-    }
-  },
-  mixins: [inputMixin],
   created () {
   },
   methods: {

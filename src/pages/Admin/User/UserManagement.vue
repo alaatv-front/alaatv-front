@@ -1,5 +1,5 @@
 <template>
-<!--  Todo : user.vue is also a demo for entity-crud; please do not delete unnecessary stuff -->
+  <!--  Todo : user.vue is also a demo for entity-crud; please do not delete unnecessary stuff -->
   <entity-crud
     v-model:edit-inputs="editInputs"
     v-model:index-inputs="indexInputs"
@@ -24,12 +24,24 @@
           </q-avatar>
         </template>
         <template v-else-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.User.Show', params: {id: inputData.props.row.id}}">
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="info"
+                 icon="info"
+                 :to="{name:'Admin.User.Show', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               مشاهده
             </q-tooltip>
           </q-btn>
-          <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="negative"
+                 icon="delete"
+                 class="q-ml-md"
                  @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
             <q-tooltip>
               حذف
@@ -173,6 +185,15 @@ export default {
       ]
     }
   },
+  watch: {
+    // editInputs: {
+    //   handler (newValue, oldValue) {
+    //     console.log('inputs', newValue)
+    //   },
+    //   deep: true
+    // }
+  },
+  created () {},
   methods: {
     // for index.vue
     getRemoveMessage (row) {
@@ -184,16 +205,7 @@ export default {
     testMethod1 () {},
     testMethod2 () {},
     testMethod3 () {}
-  },
-  watch: {
-    // editInputs: {
-    //   handler (newValue, oldValue) {
-    //     console.log('inputs', newValue)
-    //   },
-    //   deep: true
-    // }
-  },
-  created () {}
+  }
 }
 </script>
 

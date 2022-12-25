@@ -17,16 +17,22 @@
         use-chips
         multiple
         input-debounce="0"
-        @new-value="createValue"
         :options="tags"
+        @new-value="createValue"
       />
     </template>
     <template v-slot:entity-crud-table-cell="{inputData}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.Content.Show', params: {id: inputData.props.row.id}}">
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="info"
+                 icon="info"
+                 :to="{name:'Admin.Content.Show', params: {id: inputData.props.row.id}}">
             <q-tooltip>
-             مشاهده شیفت کاری
+              مشاهده شیفت کاری
             </q-tooltip>
           </q-btn>
         </template>
@@ -151,6 +157,15 @@ export default {
       ]
     }
   },
+  watch: {
+    // editInputs: {
+    //   handler (newValue, oldValue) {
+    //     console.log('inputs', newValue)
+    //   },
+    //   deep: true
+    // }
+  },
+  created () {},
   methods: {
     createValue (val, done) {
       // Calling done(var) when new-value-mode is not set or "add", or done(var, "add") adds "var" content to the model
@@ -178,16 +193,7 @@ export default {
     testMethod1 () {},
     testMethod2 () {},
     testMethod3 () {}
-  },
-  watch: {
-    // editInputs: {
-    //   handler (newValue, oldValue) {
-    //     console.log('inputs', newValue)
-    //   },
-    //   deep: true
-    // }
-  },
-  created () {}
+  }
 }
 </script>
 

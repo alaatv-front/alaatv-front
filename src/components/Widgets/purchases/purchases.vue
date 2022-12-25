@@ -12,8 +12,8 @@
           </q-icon>
           <div class="sortingFilter-item date q-mr-md">
             <filter-box
-              :items="filterBoxSort"
               v-model:boxSortSelected="selectedFilterBoxValue"
+              :items="filterBoxSort"
               type="filterBoxSort"
               :custom-class="'sort'"
               @update:filterBoxSort="onChangeFilterSortBox"
@@ -26,8 +26,8 @@
               v-model:categorySelected="selectedFilterCategoryValue"
               type="filterBoxCategory"
               :items="filterBoxCategory"
-              @update:filterBoxCategory="onChangeFilterBoxCategory"
               :custom-class="'filter'"
+              @update:filterBoxCategory="onChangeFilterBoxCategory"
             >
             </filter-box>
           </div>
@@ -44,14 +44,14 @@
           </div>
         </a>
         <div class="q-mb-md m-input-icon m-input-icon--left productsSearch ">
-          <q-input outlined
+          <q-input v-model="searchTarget"
+                   outlined
                    standout
                    type="text"
                    rounded
                    filled
                    class="form-control m-input m-input--air"
-                   placeholder="جستجو ..."
-                   v-model="searchTarget">
+                   placeholder="جستجو ...">
             <template v-slot:prepend>
               <q-icon name="mdi-magnify" />
             </template>
@@ -73,8 +73,8 @@
         </transition-group>
       </div>
       <!--    --------------------------------------------------------------------------- show content box   --------------------------------------------------------------------------- -->
-      <div class="m-portlet__body"
-           v-if="!currentProduct.title">
+      <div v-if="!currentProduct.title"
+           class="m-portlet__body">
         <div class="text-center bg-primary q-pa-lg noContentMessage">
           <div>
             <q-icon size="28px"
@@ -100,9 +100,9 @@
         <q-header elevated>
           <q-bar class="bg-yellow-8 tex">
             <q-space />
-            <q-btn dense
+            <q-btn v-close-popup
+                   dense
                    flat
-                   v-close-popup
                    text-color="grey-10"
                    icon="close" />
           </q-bar>
@@ -122,7 +122,6 @@
 <script>
 import FilterBox from 'src/components/userPurchases/filterBox'
 import PurchaseItem from 'src/components/userPurchases/PurchaseItem'
-import contentItem from 'src/components/userPurchases/contentItem'
 import showContents from 'src/components/userPurchases/showContents'
 import { Product, ProductList } from 'src/models/Product'
 import { Set } from 'src/models/Set'
@@ -134,13 +133,65 @@ export default {
   components: {
     FilterBox,
     PurchaseItem,
-    contentItem,
     showContents
   },
-  watch: {
-    searchTarget (value) {
-      this.filterProductBySearchInput()
-      this.products.list = this.products.list.splice(0, this.products.list.length)
+  data () {
+    return {
+      showContentDialog: false,
+      selectedTab: 'pamphlet',
+      searchTarget: '',
+      selectedFilterBoxValue: null,
+      selectedFilterCategoryValue: null,
+      filterBoxCategory: [{ name: 'همه', value: 'all', selected: true },
+        { name: 'راه ابریشم', value: 'VIP', selected: false },
+        {
+          name: 'آرش',
+          value: 'همایش/آرش',
+          selected: false
+        },
+        {
+          name: 'تایتان',
+          value:
+            'همایش/تایتان',
+          selected: false
+        },
+        {
+          name: 'تفتان',
+          value:
+            'همایش/تفتان',
+          selected: false
+        },
+        { name: 'گدار', value: 'همایش/گدار', selected: false },
+        {
+          name: 'نظام قدیم',
+          value:
+            'قدیم',
+          selected: false
+        },
+        {
+          name: 'جزوه',
+          value: 'جزوه',
+          selected: false
+        },
+        {
+          name: 'آزمون',
+          value:
+            'آزمون/سه آ',
+          selected: false
+        }],
+      filteredProduct: new ProductList(),
+      filterBoxSort: [
+        {
+          name: 'جدید ترین ها',
+          value: 'data-sort1',
+          selected: true
+        },
+        {
+          name: 'قدیمی ترین ها',
+          value: 'data-sort2',
+          selected: false
+        }],
+      selectedSet: new Set()
     }
   },
   computed: {
@@ -865,63 +916,10 @@ export default {
         }])
     }
   },
-  data () {
-    return {
-      showContentDialog: false,
-      selectedTab: 'pamphlet',
-      searchTarget: '',
-      selectedFilterBoxValue: null,
-      selectedFilterCategoryValue: null,
-      filterBoxCategory: [{ name: 'همه', value: 'all', selected: true },
-        { name: 'راه ابریشم', value: 'VIP', selected: false },
-        {
-          name: 'آرش',
-          value: 'همایش/آرش',
-          selected: false
-        },
-        {
-          name: 'تایتان',
-          value:
-            'همایش/تایتان',
-          selected: false
-        },
-        {
-          name: 'تفتان',
-          value:
-            'همایش/تفتان',
-          selected: false
-        },
-        { name: 'گدار', value: 'همایش/گدار', selected: false },
-        {
-          name: 'نظام قدیم',
-          value:
-            'قدیم',
-          selected: false
-        },
-        {
-          name: 'جزوه',
-          value: 'جزوه',
-          selected: false
-        },
-        {
-          name: 'آزمون',
-          value:
-            'آزمون/سه آ',
-          selected: false
-        }],
-      filteredProduct: new ProductList(),
-      filterBoxSort: [
-        {
-          name: 'جدید ترین ها',
-          value: 'data-sort1',
-          selected: true
-        },
-        {
-          name: 'قدیمی ترین ها',
-          value: 'data-sort2',
-          selected: false
-        }],
-      selectedSet: new Set()
+  watch: {
+    searchTarget (value) {
+      this.filterProductBySearchInput()
+      this.products.list = this.products.list.splice(0, this.products.list.length)
     }
   },
   created () {
@@ -1041,12 +1039,10 @@ export default {
         // type 8 video
       } catch (e) {
         this.selectedSet.loading = false
-        console.log('err ', e)
       }
     },
     handleShowModal() {
       this.showContentDialog = this.$store.getters['AppLayout/windowSize'].x < 1024
-      console.log('handleShowModal', this.showContentDialog)
     },
     setSelectedSet (data) {
       this.handleShowModal()

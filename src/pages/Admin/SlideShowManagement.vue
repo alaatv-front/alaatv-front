@@ -8,12 +8,24 @@
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.BlockManagement.Edit', params: {id: inputData.props.row.id}}">
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="info"
+                 icon="info"
+                 :to="{name:'Admin.BlockManagement.Edit', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               اصلاح
             </q-tooltip>
           </q-btn>
-          <q-btn round flat dense size="md" color="negative" icon="delete" class="q-ml-md"
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="negative"
+                 icon="delete"
+                 class="q-ml-md"
                  @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
             <q-tooltip>
               حذف
@@ -24,7 +36,13 @@
           <div v-html="inputData.props.value" />
         </template>
         <template v-else-if="inputData.props.col.name === 'links'">
-          <q-btn round flat dense size="md" color="info" icon="info" :to="{name:'Admin.BlockManagement.Show', params: {id: inputData.props.row.id}}">
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="info"
+                 icon="info"
+                 :to="{name:'Admin.BlockManagement.Show', params: {id: inputData.props.row.id}}">
             <q-tooltip>
               مشاهده
             </q-tooltip>
@@ -174,6 +192,15 @@ export default {
       ]
     }
   },
+  watch: {
+    // editInputs: {
+    //   handler (newValue, oldValue) {
+    //     console.log('inputs', newValue)
+    //   },
+    //   deep: true
+    // }
+  },
+  created () {},
   methods: {
     // for index.vue
     getRemoveMessage (row) {
@@ -203,16 +230,7 @@ export default {
         done(val, 'toggle')
       }
     }
-  },
-  watch: {
-    // editInputs: {
-    //   handler (newValue, oldValue) {
-    //     console.log('inputs', newValue)
-    //   },
-    //   deep: true
-    // }
-  },
-  created () {}
+  }
 }
 </script>
 

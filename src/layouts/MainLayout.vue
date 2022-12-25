@@ -11,7 +11,6 @@
           class="q-mt-sm"
           indeterminate
         />
-        <q-resize-observer @resize="onHeaderResize" />
       </template>
       <template #left-drawer>
         <side-menu-dashboard />
@@ -55,15 +54,21 @@
 </template>
 <script>
 import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
-import { QuasarTemplateBuilder } from 'quasar-template-builder'
+import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
 import templateHeader from 'components/Template/templateHeader'
 import Router from 'src/router/Router'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents'
-import { setHeight } from 'src/boot/page-builder'
+// import { setHeight } from 'src/boot/page-builder'
 import AlaaFooter from 'components/Widgets/Footer/Footer'
 
 export default {
-  components: { AlaaFooter, Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
+  components: {
+    Router,
+    AlaaFooter,
+    SideMenuDashboard,
+    QuasarTemplateBuilder,
+    templateHeader
+  },
   data () {
     return {
       contentVerticalScrollPosition: 0,
@@ -81,6 +86,9 @@ export default {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
+  // created() {
+  //   setHeight(this.calculateHeightStyle)
+  // },
   methods: {
     onContentInsideScroll (data) {
       this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)
@@ -93,13 +101,6 @@ export default {
           show: false
         })
       }
-    },
-    onHeaderResize (value) {
-      this.setHeaderDimension(value)
-      this.$store.commit('AppLayout/updateHeaderSize', value)
-    },
-    setHeaderDimension (value) {
-      this.$refs.contentInside.style.height = 'calc(100vh +' + value.height + 'px'
     },
     resize (val) {
       this.$store.commit('AppLayout/updateWindowSize', val)
@@ -114,9 +115,6 @@ export default {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
       }
     }
-  },
-  created() {
-    setHeight(this.calculateHeightStyle)
   }
 }
 </script>
@@ -127,7 +125,7 @@ export default {
     background-color: #f1f1f1;
   }
   .content-inside {
-    padding-top: 20px;
+    //padding-top: 20px;
   }
 }
 </style>

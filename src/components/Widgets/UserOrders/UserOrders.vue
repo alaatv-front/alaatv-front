@@ -321,23 +321,6 @@ export default {
       firstRowPassed: false
     }
   },
-  created() {
-    this.getPaymentStatus()
-  },
-  watch: {
-    till(value) {
-      this.updateInputsValue('till', value)
-    },
-    since(value) {
-      this.updateInputsValue('since', value)
-    },
-    paymentStatus (value) {
-      this.updateInputsValue('paymentStatuses', value)
-    },
-    searchInput(value) {
-      this.updateInputsValue('search', value)
-    }
-  },
   computed: {
     user() {
       if (this.$store.getters['Auth/user']) {
@@ -355,7 +338,7 @@ export default {
       return this.getInput('filterInputs', 'till').value
     },
     getEntityApi() {
-      return API_ADDRESS.user.orders.getOrders
+      return API_ADDRESS.user.orders.ordersById(this.user.id)
     },
     windowSize () {
       return this.$store.getters['AppLayout/windowSize']
@@ -365,6 +348,23 @@ export default {
         return moment(CompletedAt, 'YYYY-M-D').format('jYYYY/jMM/jDD')
       }
     }
+  },
+  watch: {
+    till(value) {
+      this.updateInputsValue('till', value)
+    },
+    since(value) {
+      this.updateInputsValue('since', value)
+    },
+    paymentStatus (value) {
+      this.updateInputsValue('paymentStatuses', value)
+    },
+    searchInput(value) {
+      this.updateInputsValue('search', value)
+    }
+  },
+  created() {
+    this.getPaymentStatus()
   },
   methods: {
     onPageChange(response) {
@@ -463,6 +463,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.my-orders-list{
+  margin-bottom: 200px;
+}
 .filter-toggle{
   color:#6D708B;
 }

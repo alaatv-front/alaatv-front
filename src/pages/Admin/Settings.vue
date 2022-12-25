@@ -5,6 +5,8 @@
       <q-page padding
               class="flex justify-center items-start">
         <q-stepper
+          ref="stepper"
+          v-model="step"
           animated
           header-nav
           flat
@@ -12,8 +14,6 @@
           alternative-labels
           :contracted="isContracted"
           color="secondary"
-          v-model="step"
-          ref="stepper"
           style="max-width: 600px"
         >
           <q-step name="pick"
@@ -37,7 +37,7 @@
                   class="q-pb-lg">
             <div class="q-mb-md text-grey-8">
               Layout "View"
-              <br/>
+              <br />
               {{ layoutView }}
             </div>
 
@@ -46,32 +46,32 @@
                 <div class="col-3 q-pa-md flex flex-center"
                      :class="topL === 'h' ? 'bg-primary text-white' : 'bg-orange text-grey-9'">
                   <q-option-group
+                    v-model="topL"
                     inline
                     color="white"
                     keep-color
                     dense
-                    v-model="topL"
                     :options="[{ label: 'l', value: 'l'}, { label: 'h', value: 'h'}]"
                   />
                 </div>
                 <div class="col-6 q-pa-md flex flex-center bg-primary text-white">
                   <q-option-group
+                    v-model="topC"
                     inline
                     color="white"
                     keep-color
                     dense
-                    v-model="topC"
                     :options="[{ label: 'h', value: 'h'}, { label: 'H', value: 'H'}]"
                   />
                 </div>
                 <div class="col-3 q-pa-md flex flex-center"
                      :class="topR === 'h' ? 'bg-primary text-white' : 'bg-orange text-grey-9'">
                   <q-option-group
+                    v-model="topR"
                     inline
                     color="white"
                     keep-color
                     dense
-                    v-model="topR"
                     :options="[{ label: 'r', value: 'r'}, { label: 'h', value: 'h'}]"
                   />
                 </div>
@@ -80,11 +80,11 @@
               <div class="row">
                 <div class="col-3 q-px-md q-py-xl flex flex-center bg-orange text-grey-9">
                   <q-option-group
+                    v-model="middleL"
                     inline
                     color="white"
                     keep-color
                     dense
-                    v-model="middleL"
                     :options="[{ label: 'l', value: 'l'}, { label: 'L', value: 'L'}]"
                   />
                 </div>
@@ -93,11 +93,11 @@
                 </div>
                 <div class="col-3 q-px-md q-py-xl flex flex-center bg-orange text-grey-9">
                   <q-option-group
+                    v-model="middleR"
                     inline
                     color="white"
                     keep-color
                     dense
-                    v-model="middleR"
                     :options="[{ label: 'r', value: 'r'}, { label: 'R', value: 'R'}]"
                   />
                 </div>
@@ -107,32 +107,32 @@
                 <div class="col-3 q-pa-md flex flex-center"
                      :class="bottomL === 'f' ? 'bg-grey-8 text-white' : 'bg-orange text-grey-9'">
                   <q-option-group
+                    v-model="bottomL"
                     inline
                     color="white"
                     keep-color
                     dense
-                    v-model="bottomL"
                     :options="[{ label: 'l', value: 'l'}, { label: 'f', value: 'f'}]"
                   />
                 </div>
                 <div class="col-6 q-pa-md flex flex-center bg-grey-8 text-white">
                   <q-option-group
+                    v-model="bottomC"
                     inline
                     color="white"
                     keep-color
                     dense
-                    v-model="bottomC"
                     :options="[{ label: 'f', value: 'f'}, { label: 'F', value: 'F'}]"
                   />
                 </div>
                 <div class="col-3 q-pa-md flex flex-center"
                      :class="bottomR === 'f' ? 'bg-grey-8 text-white' : 'bg-orange text-grey-9'">
                   <q-option-group
+                    v-model="bottomR"
                     inline
                     color="white"
                     keep-color
                     dense
-                    v-model="bottomR"
                     :options="[{ label: 'r', value: 'r'}, { label: 'f', value: 'f'}]"
                   />
                 </div>
@@ -278,8 +278,8 @@
                      class="col-12 col-sm-auto">
                   <q-btn class="full-width"
                          color="primary"
-                         @click="$refs.stepper.next()"
-                         label="Continue" />
+                         label="Continue"
+                         @click="$refs.stepper.next()" />
                 </div>
                 <div class="col-12 col-sm-auto">
                   <q-btn class="full-width"
@@ -301,10 +301,10 @@
             <q-separator />
 
             <q-card-actions align="right">
-              <q-btn color="brand-primary"
+              <q-btn v-close-popup
+                     color="brand-primary"
                      flat
-                     label="Close"
-                     v-close-popup />
+                     label="Close" />
             </q-card-actions>
           </q-card>
         </q-dialog>
@@ -322,8 +322,180 @@ import {
 
 export default {
   name: 'Settings',
-  created () {
-    return this.onCreate
+  data () {
+    return {
+      topL: 'l',
+      topC: 'H',
+      topR: 'h',
+      middleL: 'L',
+      middleR: 'R',
+      bottomL: 'f',
+      bottomC: 'F',
+      bottomR: 'f',
+      step: 'pick',
+      exportDialog: false,
+      pick: {
+        header: null,
+        footer: true,
+        left: true,
+        right: true
+      },
+      cfg: {
+        headerReveal: false,
+        headerSep: 'none',
+        footerReveal: false,
+        footerSep: 'none',
+        leftBehavior: 'default',
+        leftOverlay: false,
+        leftSep: 'none',
+        rightBehavior: 'default',
+        rightOverlay: false,
+        rightSep: 'none'
+      },
+      play: {
+        header: true,
+        footer: true,
+        left: false,
+        right: false,
+        scroll: false
+      },
+      localStorageData: {}
+    }
+  },
+  computed: {
+    ...mapGetters('AppLayout', [
+      'layoutView',
+      'layoutHeader',
+      'layoutHeaderVisible',
+      'layoutHeaderReveal',
+      'layoutHeaderElevated',
+      'layoutHeaderBordered',
+      'layoutLeftDrawer',
+      'layoutLeftDrawerVisible',
+      'layoutLeftDrawerBehavior',
+      'layoutLeftDrawerOverlay',
+      'layoutLeftDrawerElevated',
+      'layoutLeftDrawerBordered',
+      'layoutRightDrawer',
+      'layoutRightDrawerVisible',
+      'layoutRightDrawerBehavior',
+      'layoutRightDrawerOverlay',
+      'layoutRightDrawerElevated',
+      'layoutRightDrawerBordered',
+      'layoutFooter',
+      'layoutFooterVisible',
+      'layoutFooterReveal',
+      'layoutFooterElevated',
+      'layoutFooterBordered',
+      'appLayout',
+      'layoutInjectDrawerOnScrolling'
+    ]),
+    isContracted () {
+      return this.$q.screen.lt.sm === true || (
+        this.$q.screen.md === true &&
+        this.play.left === true &&
+        this.cfg.leftOverlay === false &&
+        this.play.right === true &&
+        this.cfg.rightOverlay === false
+      )
+    },
+    view () {
+      const
+        top = `${this.topL}${this.topC}${this.topR}`,
+        middle = `${this.middleL}p${this.middleR}`,
+        bottom = `${this.bottomL}${this.bottomC}${this.bottomR}`
+      const newView = `${top} ${middle} ${bottom}`
+      this.updateLayoutView(newView)
+      return newView
+    },
+    layoutExport () {
+      let code = `<${'template'}>
+  <q-layout view="${this.view}">
+`
+      if (this.pick.header) {
+        code += `
+    <q-header ${this.cfg.headerReveal ? 'reveal ' : ''}${this.cfg.headerSep !== 'none' ? this.cfg.headerSep + ' ' : ''}class="bg-primary text-white"${this.pick.navtabs ? ' height-hint="98"' : ''}>
+      <q-toolbar>${this.pick.left
+          ? `
+        <q-btn dense flat round icon="menu" @click="left = !left" />
+`
+          : ''}
+        <q-toolbar-title>
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+          </q-avatar>
+          Title
+        </q-toolbar-title>${this.pick.right
+          ? `
+        <q-btn dense flat round icon="menu" @click="right = !right" />`
+          : ''}
+      </q-toolbar>${this.pick.navtabs
+          ? `
+      <q-tabs align="left">
+        <q-route-tab to="/page1" label="Page One" />
+        <q-route-tab to="/page2" label="Page Two" />
+        <q-route-tab to="/page3" label="Page Three" />
+      </q-tabs>`
+          : ''}
+    </q-header>
+`
+      }
+      if (this.pick.left) {
+        code += `
+    <q-drawer ${this.cfg.leftBehavior !== 'mobile' && !this.cfg.leftOverlay ? 'show-if-above ' : ''}v-model="left" side="left"${this.cfg.leftOverlay ? ' overlay' : ''}${this.cfg.leftBehavior !== 'default' ? ` behavior="${this.cfg.leftBehavior}"` : ''}${this.cfg.leftSep !== 'none' ? ' ' + this.cfg.leftSep : ''}>
+      <!-- drawer content -->
+        </q-drawer>
+        `
+      }
+      if (this.pick.right) {
+        code += `
+        <q-drawer ${this.cfg.rightBehavior !== 'mobile' && !this.cfg.rightOverlay ? 'show-if-above ' : ''}v-model="right" side="right"${this.cfg.rightOverlay ? ' overlay' : ''}${this.cfg.rightBehavior !== 'default' ? ` behavior="${this.cfg.rightBehavior}"` : ''}${this.cfg.rightSep !== 'none' ? ' ' + this.cfg.rightSep : ''}>
+          <!-- drawer content -->
+        </q-drawer>
+        `
+      }
+      code += `
+        <q-page-container>
+        <router-view />
+        </q-page-container>
+        `
+      if (this.pick.footer) {
+        code += `
+        <q-footer ${this.cfg.footerReveal ? 'reveal ' : ''}${this.cfg.footerSep !== 'none' ? this.cfg.footerSep + ' ' : ''}class="bg-grey-8 text-white">
+        <q-toolbar>
+        <q-toolbar-title>
+        <q-avatar>
+        <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+        </q-avatar>
+        Title
+        </q-toolbar-title>
+        </q-toolbar>
+        </q-footer>
+        `
+      }
+      code += `
+        </q-layout>
+        </${'template'}>
+        <${'script'}>
+        export default {
+        data () {
+        return {${this.pick.left
+        ? `
+        left: false${this.pick.right ? ',' : ''}`
+        : ''}${this.pick.right
+        ? `
+        right: false`
+        : ''}
+        }
+        }
+        }
+        </${'script'}>`
+      return code
+    },
+    onCreate () {
+      return this.initialData()
+    }
+
   },
   watch: {
     'pick.header': function (newValue) {
@@ -593,6 +765,9 @@ export default {
       }
     }
   },
+  created () {
+    return this.onCreate
+  },
   methods: {
     ...mapMutations('AppLayout', [
       'updateLayoutView',
@@ -687,181 +862,6 @@ export default {
         this.updateLayoutFooterBordered(true)
       }
     }
-  },
-  data () {
-    return {
-      topL: 'l',
-      topC: 'H',
-      topR: 'h',
-      middleL: 'L',
-      middleR: 'R',
-      bottomL: 'f',
-      bottomC: 'F',
-      bottomR: 'f',
-      step: 'pick',
-      exportDialog: false,
-      pick: {
-        header: null,
-        footer: true,
-        left: true,
-        right: true
-      },
-      cfg: {
-        headerReveal: false,
-        headerSep: 'none',
-        footerReveal: false,
-        footerSep: 'none',
-        leftBehavior: 'default',
-        leftOverlay: false,
-        leftSep: 'none',
-        rightBehavior: 'default',
-        rightOverlay: false,
-        rightSep: 'none'
-      },
-      play: {
-        header: true,
-        footer: true,
-        left: false,
-        right: false,
-        scroll: false
-      },
-      localStorageData: {}
-    }
-  },
-  computed: {
-    ...mapGetters('AppLayout', [
-      'layoutView',
-      'layoutHeader',
-      'layoutHeaderVisible',
-      'layoutHeaderReveal',
-      'layoutHeaderElevated',
-      'layoutHeaderBordered',
-      'layoutLeftDrawer',
-      'layoutLeftDrawerVisible',
-      'layoutLeftDrawerBehavior',
-      'layoutLeftDrawerOverlay',
-      'layoutLeftDrawerElevated',
-      'layoutLeftDrawerBordered',
-      'layoutRightDrawer',
-      'layoutRightDrawerVisible',
-      'layoutRightDrawerBehavior',
-      'layoutRightDrawerOverlay',
-      'layoutRightDrawerElevated',
-      'layoutRightDrawerBordered',
-      'layoutFooter',
-      'layoutFooterVisible',
-      'layoutFooterReveal',
-      'layoutFooterElevated',
-      'layoutFooterBordered',
-      'appLayout',
-      'layoutInjectDrawerOnScrolling'
-    ]),
-    isContracted () {
-      return this.$q.screen.lt.sm === true || (
-        this.$q.screen.md === true &&
-        this.play.left === true &&
-        this.cfg.leftOverlay === false &&
-        this.play.right === true &&
-        this.cfg.rightOverlay === false
-      )
-    },
-    view () {
-      const
-        top = `${this.topL}${this.topC}${this.topR}`,
-        middle = `${this.middleL}p${this.middleR}`,
-        bottom = `${this.bottomL}${this.bottomC}${this.bottomR}`
-      const newView = `${top} ${middle} ${bottom}`
-      this.updateLayoutView(newView)
-      return newView
-    },
-    layoutExport () {
-      let code = `<${'template'}>
-  <q-layout view="${this.view}">
-`
-      if (this.pick.header) {
-        code += `
-    <q-header ${this.cfg.headerReveal ? 'reveal ' : ''}${this.cfg.headerSep !== 'none' ? this.cfg.headerSep + ' ' : ''}class="bg-primary text-white"${this.pick.navtabs ? ' height-hint="98"' : ''}>
-      <q-toolbar>${this.pick.left
-          ? `
-        <q-btn dense flat round icon="menu" @click="left = !left" />
-`
-          : ''}
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          Title
-        </q-toolbar-title>${this.pick.right
-          ? `
-        <q-btn dense flat round icon="menu" @click="right = !right" />`
-          : ''}
-      </q-toolbar>${this.pick.navtabs
-          ? `
-      <q-tabs align="left">
-        <q-route-tab to="/page1" label="Page One" />
-        <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
-      </q-tabs>`
-          : ''}
-    </q-header>
-`
-      }
-      if (this.pick.left) {
-        code += `
-    <q-drawer ${this.cfg.leftBehavior !== 'mobile' && !this.cfg.leftOverlay ? 'show-if-above ' : ''}v-model="left" side="left"${this.cfg.leftOverlay ? ' overlay' : ''}${this.cfg.leftBehavior !== 'default' ? ` behavior="${this.cfg.leftBehavior}"` : ''}${this.cfg.leftSep !== 'none' ? ' ' + this.cfg.leftSep : ''}>
-      <!-- drawer content -->
-        </q-drawer>
-        `
-      }
-      if (this.pick.right) {
-        code += `
-        <q-drawer ${this.cfg.rightBehavior !== 'mobile' && !this.cfg.rightOverlay ? 'show-if-above ' : ''}v-model="right" side="right"${this.cfg.rightOverlay ? ' overlay' : ''}${this.cfg.rightBehavior !== 'default' ? ` behavior="${this.cfg.rightBehavior}"` : ''}${this.cfg.rightSep !== 'none' ? ' ' + this.cfg.rightSep : ''}>
-          <!-- drawer content -->
-        </q-drawer>
-        `
-      }
-      code += `
-        <q-page-container>
-        <router-view />
-        </q-page-container>
-        `
-      if (this.pick.footer) {
-        code += `
-        <q-footer ${this.cfg.footerReveal ? 'reveal ' : ''}${this.cfg.footerSep !== 'none' ? this.cfg.footerSep + ' ' : ''}class="bg-grey-8 text-white">
-        <q-toolbar>
-        <q-toolbar-title>
-        <q-avatar>
-        <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-        </q-avatar>
-        Title
-        </q-toolbar-title>
-        </q-toolbar>
-        </q-footer>
-        `
-      }
-      code += `
-        </q-layout>
-        </${'template'}>
-        <${'script'}>
-        export default {
-        data () {
-        return {${this.pick.left
-        ? `
-        left: false${this.pick.right ? ',' : ''}`
-        : ''}${this.pick.right
-        ? `
-        right: false`
-        : ''}
-        }
-        }
-        }
-        </${'script'}>`
-      return code
-    },
-    onCreate () {
-      return this.initialData()
-    }
-
   }
 }
 </script>

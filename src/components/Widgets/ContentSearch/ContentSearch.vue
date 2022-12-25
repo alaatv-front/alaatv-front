@@ -85,9 +85,9 @@
         v-if="!mobileMode"
         class="col-md-3 col-sm-0">
         <sticky-both-sides
-          top-gap="50"
-          bottom-gap="20"
-          max-width="1024"
+          :top-gap="70"
+          :bottom-gap="20"
+          :max-width="1024"
         >
           <side-bar-content
             ref="sideBar"
@@ -214,16 +214,16 @@ import { computed } from 'vue'
 
 export default {
   name: 'Search',
-  provide() {
-    return {
-      scrollInfo: computed(() => this.scrollInfo)
-    }
-  },
   components: {
     SetItem,
     SpeciferType,
     StickyBothSides,
     SideBarContent
+  },
+  provide() {
+    return {
+      scrollInfo: computed(() => this.scrollInfo)
+    }
   },
   data: () => ({
     scrollInfo: null,
@@ -540,9 +540,8 @@ export default {
             that.resetLists(data, oldList)
           })
         })
-        .catch(errors => {
+        .catch(() => {
           this.searchLoading = false
-          console.log('-------------', errors)
         })
     },
 

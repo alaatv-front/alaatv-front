@@ -15,9 +15,9 @@ function getEntityCrudRouteObject (path, baseRouteName, componentPath, breadcrum
     // children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import(removedFirstPart[0] + '/' + componentPath.replace(removedFirstPart[0] + '/', '')) })
   })
   return {
-    path: path,
+    path,
     component: () => import('pages/Admin/index'),
-    breadcrumbs: breadcrumbs,
+    breadcrumbs,
     children
   }
 }

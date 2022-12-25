@@ -1,20 +1,20 @@
 <template>
-    <div :class="{'boxed': defaultOptions.boxed, 'boxedInFullWidthStatus': boxedInFullWidthStatus}"
-         :style="style"
+  <div :class="{'boxed': defaultOptions.boxed, 'boxedInFullWidthStatus': boxedInFullWidthStatus}"
+       :style="style"
+  >
+    <div :id="defaultOptions.id"
+         class="page-builder-row row"
     >
-      <div class="page-builder-row row"
-           :id="defaultOptions.id"
-      >
-        <page-builder-col
-          v-for="(col, colIndex) in cols"
-          :key="colIndex"
-          :widgets="col.widgets"
-          :options="col.options"
-          :containerFullHeight="containerFullHeight"
-          :get-data="getData"
-        />
-      </div>
+      <page-builder-col
+        v-for="(col, colIndex) in cols"
+        :key="colIndex"
+        :widgets="col.widgets"
+        :options="col.options"
+        :containerFullHeight="containerFullHeight"
+        :get-data="getData"
+      />
     </div>
+  </div>
 </template>
 
 <script>
@@ -23,10 +23,10 @@ import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'PageBuilderRow',
-  mixins: [mixinWidget],
   components: {
     PageBuilderCol
   },
+  mixins: [mixinWidget],
   props: {
     cols: {
       type: Object,
@@ -45,7 +45,7 @@ export default {
       boxedInFullWidthStatus: false,
       defaultOptions: {
         height: 'auto',
-        boxedWidth: 1200,
+        boxedWidth: 1200
       }
     }
   },
@@ -64,7 +64,7 @@ export default {
 
       this.defaultOptions.style.maxWidth = this.defaultOptions.boxedWidth + 'px'
       this.defaultOptions.style.width = this.defaultOptions.boxedWidth + 'px'
-      this.boxedInFullWidthStatus = this.deviceWidth <= this.defaultOptions.boxedWidth;
+      this.boxedInFullWidthStatus = this.deviceWidth <= this.defaultOptions.boxedWidth
     },
     onResize () {
       this.updateBoxedStyle()

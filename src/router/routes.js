@@ -36,7 +36,7 @@ const routes = [
       {
         path: '',
         name: 'innerChild',
-        component: () => import('layouts/BoxedLayout.vue'),
+        component: () => import('layouts/bareLayout.vue'),
         children: [
           {
             path: '',
@@ -50,7 +50,7 @@ const routes = [
       {
         path: 'ticket',
         name: 'Admin.Ticket.Index',
-        component: () => import('pages/Admin/Ticket/Index.vue')
+        component: () => import('pages/Admin/Ticket/List.vue')
       },
       {
         path: 'ticket/:id',
@@ -92,7 +92,7 @@ const routes = [
       {
         path: 'c',
         name: 'User.Content',
-        component: () => import('layouts/BoxedLayout.vue'),
+        component: () => import('layouts/bareLayout.vue'),
         children: [
           { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') },
           { name: 'User.Content.Search', path: '', component: () => import('pages/User/Content/Search.vue') }
@@ -101,7 +101,7 @@ const routes = [
       {
         path: 'product',
         name: 'User.Product',
-        component: () => import('layouts/BoxedLayout.vue'),
+        component: () => import('layouts/bareLayout.vue'),
         children: [
           { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
         ]
@@ -109,7 +109,7 @@ const routes = [
       {
         path: 'set',
         name: 'User.Set',
-        component: () => import('layouts/BoxedLayout.vue'),
+        component: () => import('layouts/bareLayout.vue'),
         children: [
           { name: 'User.Set.Show', path: ':id', component: () => import('pages/User/Set/Show.vue') }
         ]
@@ -188,7 +188,7 @@ const routes = [
         component: () => import('pages/formGenerator')
       },
       {
-        path: 'profile',
+        path: '/profile',
         name: 'Profile',
         component: () => import('pages/Profile/Profile.vue'),
         meta: {
@@ -206,14 +206,22 @@ const routes = [
     component: () => import('pages/Auth/Login.vue')
   },
   // are u mr Esmaeili ? '' : dont touch this route
-  // {
-  //   path: '/debug',
-  //   name: 'debug',
-  //   component: () => import('pages/debug'),
-  //   meta: {
-  //     middlewares: [auth]
-  //   }
-  // },
+  {
+    path: '/debug',
+    name: 'debug',
+    component: () => import('pages/debug'),
+    meta: {
+      middlewares: [auth]
+    }
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('pages/Cart/Cart.vue'),
+    meta: {
+      middlewares: [auth]
+    }
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

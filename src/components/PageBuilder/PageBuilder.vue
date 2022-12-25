@@ -22,10 +22,10 @@ import GetWidgetsData from 'assets/js/GetWidgetsData'
 
 export default {
   name: 'PageBuilder',
-  mixins: [mixinWidget],
   components: {
     PageBuilderSection
   },
+  mixins: [mixinWidget],
   props: {
     sections: {
       type: Array,

@@ -79,10 +79,10 @@
         >
           <q-virtual-scroll
             v-if="set.contents.list"
+            v-slot="{ item }"
             style="max-height: 680px"
             :items="rawContentVideos"
             separator
-            v-slot="{ item, index }"
           >
             <q-item class="videosPanelItems">
               <q-item-section
@@ -169,10 +169,10 @@
         <q-tab-panel name="pamphlets">
           <q-virtual-scroll
             v-if="set.contents.list"
+            v-slot="{ item }"
             style="max-height: 680px"
             :items="contentPamphlets"
             separator
-            v-slot="{ item, index }"
           >
             <q-item>
               <q-item-section
@@ -290,14 +290,6 @@ export default {
       }
     }
   },
-  watch: {
-    data() {
-      this.loadSet()
-    },
-    'data.id': function () {
-      this.loadSet()
-    }
-  },
   data() {
     return {
       tab: '',
@@ -348,6 +340,14 @@ export default {
         }
         return moment(date, 'YYYY/M/D').format('jYYYY/jM/jD')
       }
+    }
+  },
+  watch: {
+    data() {
+      this.loadSet()
+    },
+    'data.id': function () {
+      this.loadSet()
     }
   },
   created() {

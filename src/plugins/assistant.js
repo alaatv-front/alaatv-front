@@ -12,7 +12,7 @@ const Assistant = (function () {
 
   function handleAxiosError (error) {
     if (error.response) {
-      console.log('in assis :', error.response)
+      console.error('in assis :', error.response)
       const err = error.response
       if (err.status === 429 && err.config.url === '/alaa/api/v2/mobile/resend') {
         return
@@ -42,7 +42,7 @@ const Assistant = (function () {
       } else if (err.data.errors) {
         for (const [key, value] of Object.entries(err.data.errors)) {
           messages.push(value)
-          console.log(`${key}: ${value}`)
+          console.error(`${key}: ${value}`)
         }
       } else if (err.data.error && !AjaxResponseMessages.isCustomMessage(err.data.error.code)) {
         messages.push(err.data.error.message)
@@ -90,7 +90,7 @@ const Assistant = (function () {
 
   function reportErrors (error) {
     if (error) {
-      console.log('error :', error)
+      console.error('error :', error)
       const location = (error && error.location) ? error.location : 'undefined error',
         message = (error && error.message) ? error.message : 'undefined error',
         data = (error && error.data) ? error.data : 'undefined error'

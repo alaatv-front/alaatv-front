@@ -1,5 +1,7 @@
 <template>
-  <div class="page-builder-col col" :class="className" :style="style">
+  <div class="page-builder-col col"
+       :class="className"
+       :style="style">
     <template
       v-for="(widget, widgetIndex) in widgets"
       :key="widgetIndex"
@@ -32,11 +34,11 @@ import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'PageBuilderCol',
-  // components,
-  mixins: [mixinWidget],
   components: {
     PageBuilderWidget
   },
+  // components,
+  mixins: [mixinWidget],
   props: {
     widgets: {
       type: Object,
@@ -53,7 +55,7 @@ export default {
   data () {
     return {}
   },
-  computed:{
+  computed: {
     // colClasses() {
     //   return [
     //     (this.options.col) ? this.options.col : 'col',

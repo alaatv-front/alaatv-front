@@ -1,16 +1,33 @@
 <template>
-  <page-builder
-    :sections="sections"
-    :options="options"
-  ></page-builder>
+  <div class="Shop-page">
+    <q-page-builder
+      v-model:sections="sections"
+    />
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'debug',
-  components: { },
   mixins: [],
+  beforeRouteEnter() {
+    // console.log('debug beforeRouteEnter')
+  },
+  beforeRouteLeave() {
+    // console.log('debug beforeRouteLeave')
+  },
+  beforeRouteUpdate() {
+    // console.log('debug beforeRouteUpdate')
+  },
+  props: {
+    testProp: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    }
+  },
   data() {
     return {
       sections: [
@@ -227,28 +244,17 @@ export default {
       }
     }
   },
-  props: {
-    testProp: {
-      type: Boolean,
-      default() {
-        return false
-      }
-    }
-  },
-  methods: {},
   computed: {
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
-  beforeRouteEnter() {
-    // console.log('debug beforeRouteEnter')
-  },
-  beforeRouteLeave() {
-    // console.log('debug beforeRouteLeave')
-  },
-  beforeRouteUpdate() {
-    // console.log('debug beforeRouteUpdate')
+  watch: {
+    testValue: {
+      handler() {},
+      deep: true
+    },
+    testValue1(oldVal, newVal) {}
   },
   activated() {
     // console.log('debug activated')
@@ -262,13 +268,7 @@ export default {
   mounted() {
     // console.log('debug mounted')
   },
-  watch: {
-    testValue: {
-      handler() {},
-      deep: true
-    },
-    testValue1(oldVal, newVal) {}
-  }
+  methods: {}
 }
 </script>
 

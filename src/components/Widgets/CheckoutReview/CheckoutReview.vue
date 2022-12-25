@@ -34,15 +34,15 @@ import { computed } from 'vue'
 export default {
   name: 'CheckoutReview',
   components: { StickyBothSides, Login, Donate, CartItemList, CheckoutReviewCart },
+  provide() {
+    return {
+      scrollInfo: computed(() => this.scrollInfo)
+    }
+  },
   props: {
     data: {
       type: Cart,
       default: new Cart()
-    }
-  },
-  provide() {
-    return {
-      scrollInfo: computed(() => this.scrollInfo)
     }
   },
   data() {
@@ -68,15 +68,13 @@ export default {
           this.items = new Cart(res.data.data)
           this.$store.dispatch('loading/overlayLoading', false)
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           this.$store.dispatch('loading/overlayLoading', false)
         })
     },
     calcGapTopAndBottom() {
       this.top = this.$refs.sticky.style.getBoundingClientRect().top
       this.bottom = this.$refs.sticky.style.getBoundingClientRect().bottom
-      console.log(this.top)
     }
   }
 }

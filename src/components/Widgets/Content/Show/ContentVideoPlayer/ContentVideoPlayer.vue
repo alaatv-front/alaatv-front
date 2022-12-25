@@ -42,14 +42,6 @@ export default {
       }
     }
   },
-  watch: {
-    data() {
-      this.loadContent()
-    },
-    'data.id': function () {
-      this.loadContent()
-    }
-  },
   data() {
     return {
       content: new Content(),
@@ -80,6 +72,14 @@ export default {
           }
         }
       ]
+    }
+  },
+  watch: {
+    data() {
+      this.loadContent()
+    },
+    'data.id': function () {
+      this.loadContent()
     }
   },
   created() {
@@ -132,7 +132,7 @@ export default {
           this.contentNumber = this.getContentNumberInListById(this.content.id)
         })
         .catch((er) => {
-          this.set = new Set(response.data.data)
+          this.set = new Set()
           this.set.loading = false
         })
     },

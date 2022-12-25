@@ -1,26 +1,23 @@
 <template>
   <q-card class="content-item-box">
-    <router-link
-      :to="{
-        name: 'User.Content.Show',
-        params: { id: content.id? content.id:-1, title: content.title }
-      }"
+    <router-link :to="{
+      name: 'User.Content.Show',
+      params: { id: content.id? content.id:-1, title: content.title }
+    }"
     >
       <div class="img-box">
         <div class="img-title-container">
-          <lazy-img
-            :src="content.photo"
-            :alt="content.title"
-            class="img"
-            width="16"
-            height="9"
+          <lazy-img :src="content.photo"
+                    :alt="content.title"
+                    class="img"
+                    width="16"
+                    height="9"
           />
         </div>
         <div class="play-btn">
           <div class="play-icon"></div>
         </div>
       </div>
-
       <div class="content-content-box">
         <div class="main-title ellipsis-2-lines">
           {{ content.title }}
@@ -32,7 +29,8 @@
 
 <script>
 import { Content } from 'src/models/Content'
-import LazyImg from 'components/lazyImg'
+import LazyImg from 'src/components/lazyImg'
+
 export default {
   name: 'contentItem',
   components: { LazyImg },
@@ -45,75 +43,13 @@ export default {
   data: () => ({
     content: new Content()
   }),
-  mounted() {
+  created () {
     this.content = new Content(this.data)
   }
 }
 </script>
-<style
-  scoped
-  lang="scss"
->
-.teacher-info {
-  display: flex;
-  align-items: center;
-}
 
-.info-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.play-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60px;
-  width: 60px;
-  background: #000000;
-  opacity: 0.6;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-
-  .play-icon {
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAUCAYAAABvVQZ0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADKSURBVHgBrdRdDcIwFAXgO4KASagFHGwOwEFxABJQMFAwCzjoJOCASpiDci60SyF0W39Och62Nd9u2qREiDGmQU+ooJwwYL7TJ6N2on+JRjdoHfgmUcU/owhsLgLtAD5RSZmYj/YWbXIxH1Wh/YzFXCTKU3Y+moq58OEoB+ZiHMFgKWxKCUyjhxLYDd1VVfXghy2lZUCPQLT/MnayAW2BtL8QRUym0TOA+9yiJWykz75cAY0La99YaNFlLTLF3rJlLkcL7u0lWVNGXs6ulXAPwEiJAAAAAElFTkSuQmCC');
-    height: 19px;
-    width: 19px;
-    margin-right: 5px;
-  }
-}
-
-.q-card {
-  min-width: 318px;
-}
-
-.teacher-name {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 22px;
-  text-align: right;
-  letter-spacing: -0.03em;
-  color: #656f7b;
-  margin-left: 8px;
-}
-
-.price-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.btn-green {
-  background: #4caf50;
-  color: white;
-}
-
+<style lang="scss" scoped>
 .content-item-box {
   display: flex;
   flex-direction: column;
@@ -143,6 +79,10 @@ export default {
     opacity: 1;
     background: #ffc107;
     transition: opacity ease 0.5s;
+  }
+
+  &.q-card {
+    min-width: 318px;
   }
 
   .img-box {
@@ -332,10 +272,30 @@ export default {
       }
     }
   }
-}
 
-@media screen and (max-width: 992px) {
-  .content-item-box {
+  .play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+    background: #000000;
+    opacity: 0.6;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+
+    .play-icon {
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAUCAYAAABvVQZ0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADKSURBVHgBrdRdDcIwFAXgO4KASagFHGwOwEFxABJQMFAwCzjoJOCASpiDci60SyF0W39Och62Nd9u2qREiDGmQU+ooJwwYL7TJ6N2on+JRjdoHfgmUcU/owhsLgLtAD5RSZmYj/YWbXIxH1Wh/YzFXCTKU3Y+moq58OEoB+ZiHMFgKWxKCUyjhxLYDd1VVfXghy2lZUCPQLT/MnayAW2BtL8QRUym0TOA+9yiJWykz75cAY0La99YaNFlLTLF3rJlLkcL7u0lWVNGXs6ulXAPwEiJAAAAAElFTkSuQmCC');
+      height: 19px;
+      width: 19px;
+      margin-right: 5px;
+    }
+  }
+
+  @media screen and (max-width: 992px) {
     .img-box {
       .img {
       }
@@ -399,13 +359,8 @@ export default {
       }
     }
   }
-}
 
-@media screen and (max-width: 768px) {
-}
-
-@media screen and (max-width: 575px) {
-  .content-item-box {
+  @media screen and (max-width: 575px) {
     width: 310px;
     min-height: 120px;
     max-height: 120px;

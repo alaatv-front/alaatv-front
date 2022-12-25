@@ -13,13 +13,13 @@
       narrow-indicator
     >
 
-      <q-tab class="costume-background-color q-px-xs-none"
+      <q-tab v-if="videoContents.length>0"
+             class="costume-background-color q-px-xs-none"
              name="video"
-             v-if="videoContents.length>0"
              label="فیلم" />
-      <q-tab class="costume-background-color  q-px-xs-none"
+      <q-tab v-if="pamphletsContents.length>0"
+             class="costume-background-color  q-px-xs-none"
              name="pamphlet"
-             v-if="pamphletsContents.length>0"
              label="جزوه" />
     </q-tabs>
     <q-separator />
@@ -29,8 +29,8 @@
       <q-tab-panel class="costume-background-color"
                    name="video">
         <content-item v-for="content in videoContents"
-                      :data="content"
-                      :key="content.id">
+                      :key="content.id"
+                      :data="content">
         </content-item>
       </q-tab-panel>
       <q-tab-panel class="costume-background-color"
@@ -118,9 +118,6 @@ export default {
   data: () => ({
     activeTab: ''
   }),
-  created() {
-    this.activeTab = this.selectedTab
-  },
   computed: {
     videoContents() {
       return this.selectedSet.contents.list.filter(content => content.type === 8)
@@ -128,6 +125,9 @@ export default {
     pamphletsContents() {
       return this.selectedSet.contents.list.filter(content => content.type === 1)
     }
+  },
+  created() {
+    this.activeTab = this.selectedTab
   }
 }
 </script>

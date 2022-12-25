@@ -1,16 +1,17 @@
 <template>
-  <page-builder
-    :sections="sections"
-    :containerHeight="calculateHeightStyle" />
+  <q-page-builder
+    v-model:sections="sections"
+    v-model::options="pageConfig"
+    :editable="pageBuilderEditable"
+  />
 </template>
 
 <script>
-import PageBuilder from 'components/PageBuilder/PageBuilder'
 export default {
   name: 'userOrders',
-  components: { PageBuilder },
   data () {
     return {
+      pageConfig: {},
       sections: [
         {
           data: {
@@ -34,6 +35,11 @@ export default {
           }
         }
       ]
+    }
+  },
+  computed: {
+    pageBuilderEditable() {
+      return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   }
 }

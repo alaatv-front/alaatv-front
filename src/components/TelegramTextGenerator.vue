@@ -8,10 +8,10 @@
             پست تلگرام
           </div>
           <q-separator />
-          <q-input class="text-area"
+          <q-input v-model="mainTemp"
+                   class="text-area"
                    filled
                    autogrow
-                   v-model="mainTemp"
           />
         </q-card-section>
       </q-card>
@@ -62,10 +62,10 @@ export default {
       mainTemp: null
     }
   },
+  computed: {},
   mounted () {
     this.getMainTemplate()
   },
-  computed: {},
   methods: {
     getMainTemplate () {
       this.mainTemp = '👀 #فیلم جلسه ' + this.videoOrder + ' #' + this.setName + ' #' + this.nameDars + ' #کنکور  آلاء' + '\n\n' +

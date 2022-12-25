@@ -5,8 +5,8 @@
         <template v-for="item in imgData"
                   :key="item">
           <div class="col-4 q-px-lg">
-            <div @click="selectedImgActions(item.id)"
-                 class="rate">
+            <div class="rate"
+                 @click="selectedImgActions(item.id)">
               <q-img class="rate-img"
                      :src="item.url" />
               <div class="rate-title">
@@ -40,6 +40,27 @@ export default {
       selectedId: 0,
       imgData: []
     }
+  },
+  computed: {
+    getImg () {
+      return (id, mode) => {
+        return 'https://nodes.alaatv.com/upload/ticket-rate-' + id + '-' + mode + '.png'
+      }
+    }
+  },
+  watch: {
+    rate (newVal, oldVal) {
+      setTimeout(() => {
+        this.imgData.forEach(item => {
+          if (this.rate === item.id) {
+            item.url = this.getImg(item.id, 'on')
+          }
+        })
+      }, 50)
+    }
+  },
+  created() {
+    this.initImgData()
   },
   methods: {
     isImgActive(url, id) {
@@ -98,27 +119,6 @@ export default {
         }
       ]
     }
-  },
-  computed: {
-    getImg () {
-      return (id, mode) => {
-        return 'https://nodes.alaatv.com/upload/ticket-rate-' + id + '-' + mode + '.png'
-      }
-    }
-  },
-  watch: {
-    rate (newVal, oldVal) {
-      setTimeout(() => {
-        this.imgData.forEach(item => {
-          if (this.rate === item.id) {
-            item.url = this.getImg(item.id, 'on')
-          }
-        })
-      }, 50)
-    }
-  },
-  created() {
-    this.initImgData()
   }
 }
 </script>

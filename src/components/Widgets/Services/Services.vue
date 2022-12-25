@@ -1,13 +1,13 @@
 <template>
-  <div class="services-widget" :style="defaultOptions.style">
+  <div class="services-widget"
+       :style="options.style">
     <div class="services">
-      <a
-        v-for="(service, index) in data"
-        :key="index"
-        class="service"
-        :href="service.link"
-        :title="service.title"
-        target="_self"
+      <a v-for="(service, index) in options.services"
+         :key="index"
+         class="service"
+         :href="service.link"
+         :title="service.title"
+         target="_self"
       >
         <div class="service-image">
           <q-img :src="service.icon" />
@@ -23,14 +23,15 @@
 import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
-name: "Services",
+  name: 'Services',
   mixins: [mixinWidget],
   props: {
-  data: {
-    type: [Array, Object],
-    default: {}
-
-  }
+    data: {
+      type: [Array, Object],
+      default: () => {
+        return {}
+      }
+    }
   },
   data () {
     return {
@@ -46,7 +47,6 @@ name: "Services",
   display: flex;
   justify-content: center;
   border-radius: 10px;
-
 
   .services {
     margin: 20px;
