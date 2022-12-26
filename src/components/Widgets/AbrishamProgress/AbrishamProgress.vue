@@ -136,6 +136,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -159,6 +160,7 @@ export default {
   },
   mixins: [mixinAbrisham],
   data: () => ({
+    socialMediaDialog: false,
     selectedLessonId: 0,
     selectedLessonGroupId: null,
     lessonGroups: [],

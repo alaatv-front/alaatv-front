@@ -1,12 +1,9 @@
 <template>
   <div class="video-box">
-    <q-card
-      flat
-      color="#eff3ff"
+    <div
       class="video-main"
     >
-      <!--      :aspect-ratio="16/9"-->
-      <div>
+      <div class="video-wrapper">
         <video-player
           v-if="content.file && content.file.video && content.inputData.can_see"
           :time-points="timePoints"
@@ -15,12 +12,16 @@
           :keepCalculating="keepCalculating"
           @calcTimeData="changeVideoStatusToSeen"
           @toggleBookmark="bookmarkPostIsFavored"
+          @play="setVideoDuration"
         />
         <div v-else-if="(!content.id || !content.photo)">
           <div
             class="null-video"
           >
-            اوه نه! ویدیویی وجود نداره...
+            <div class="content">
+              اوه نه! ویدیویی وجود نداره...
+            </div>
+
           </div>
         </div>
         <div v-else>
@@ -28,12 +29,13 @@
             :href="content.url.web"
             target="_blank"
           >
-            <q-img :src="content.photo" />
+            <q-img class="img"
+                   :src="content.photo" />
           </a>
         </div>
       </div>
 
-    </q-card>
+    </div>
     <div class="video-description">
       <div
         class="description row justify-between"
@@ -98,7 +100,7 @@
         </div>
         <div
           v-if="content.id"
-          class="icon-btn-box "
+          class="icon-btn-box"
         >
           <q-btn
             dark
@@ -124,208 +126,96 @@
             </span>
           </q-btn>
           <div class="video-box-icon">
-            <!--            <q-bottom-sheet-->
-            <!--              v-if="content.file && content.file.video"-->
-            <!--              transparent-->
-            <!--            >-->
-            <!--              <template v-slot:activator="{ on, attrs }">-->
-            <!--                <v-btn-->
-            <!--                  color="transparent"-->
-            <!--                  depressed-->
-            <!--                  dark-->
-            <!--                  v-bind="attrs"-->
-            <!--                  class="video-box-icon-button"-->
-            <!--                  v-on="on"-->
-            <!--                >-->
-            <!--                  <i class="fi fi-rr-download icon" />-->
-            <!--                </v-btn>-->
-            <!--              </template>-->
-            <!--              <v-list class="align-center download-sheet">-->
-            <!--                <v-row-->
-            <!--                  class="download-btn"-->
-            <!--                >-->
-            <!--                  <div class="download-header">-->
-            <!--                    <p class="download-title">دانلود</p>-->
-            <!--                    &lt;!&ndash;                                       <p class="file-time">&ndash;&gt;-->
-            <!--                    &lt;!&ndash;                                           <i class="fi fi-rr-clock icon"/>&ndash;&gt;-->
-            <!--                    &lt;!&ndash;                                           <span>زمان فیلم: 38:57 دقیقه</span>&ndash;&gt;-->
-            <!--                    &lt;!&ndash;                                       </p>&ndash;&gt;-->
-            <!--                  </div>-->
-            <!--                  <div class="download-list">-->
-            <!--                    <v-card-->
-            <!--                      v-for="(file , index) in content.file.video"-->
-            <!--                      :key="index"-->
-            <!--                      class="download-part"-->
-            <!--                      flat-->
-            <!--                      @click="sheet = false"-->
-            <!--                    >-->
-            <!--                      <v-row>-->
-            <!--                        <v-col class="details">-->
-            <!--                          <span class="download-caption">-->
-            <!--                            {{ file.caption }}-->
-            <!--                          </span>-->
-            <!--                          <div class="column-details">-->
-            <!--                            <span class="size">-->
-            <!--                              {{ file.size }}-->
-            <!--                            </span>-->
-            <!--                            <v-btn-->
-            <!--                              class="quality"-->
-            <!--                              depressed-->
-            <!--                            >-->
-            <!--                              {{ file.res }}-->
-            <!--                            </v-btn>-->
-            <!--                            <v-card-actions-->
-            <!--                              class="download-part-icon"-->
-            <!--                            >-->
-            <!--                              <a :href="file.link">-->
-            <!--                                <i class="fi fi-rr-download icon" />-->
-            <!--                              </a>-->
-            <!--                            </v-card-actions>-->
-            <!--                          </div>-->
-            <!--                        </v-col>-->
-            <!--                      </v-row>-->
-            <!--                    </v-card>-->
-            <!--                  </div>-->
-            <!--                </v-row>-->
-            <!--              </v-list>-->
-            <!--            </q-bottom-sheet>&ndash;&gt;-->
-            <!--            <v-bottom-sheet>-->
-            <!--              <template v-slot:activator="{ on, attrs }">-->
-            <!--                <v-btn-->
-            <!--                  color="transparent"-->
-            <!--                  depressed-->
-            <!--                  dark-->
-            <!--                  v-bind="attrs"-->
-            <!--                  class="video-box-icon-button"-->
-            <!--                  v-on="on"-->
-            <!--                >-->
-            <!--                  <i class="fi fi-rr-share icon" />-->
-            <!--                </v-btn>-->
-            <!--              </template>-->
-            <!--              <v-list class="align-center">-->
-            <!--                <v-row class="download-btn"-->
-            <!--                       justify="center">-->
-            <!--                  <div class="share-parent">-->
-            <!--                    <ShareNetwork-->
-            <!--                      network="whatsapp"-->
-            <!--                      class="social-share"-->
-            <!--                    >-->
-            <!--                      <v-btn-->
-            <!--                        class="ma-2"-->
-            <!--                        color="amber darken-3"-->
-            <!--                        dark-->
-            <!--                        @click="openUrl (content, 'whatsapp')"-->
-            <!--                      >-->
-            <!--                        <v-icon>mdi-whatsapp</v-icon>-->
-            <!--                      </v-btn>-->
-            <!--                    </ShareNetwork>-->
-            <!--                    <ShareNetwork-->
-            <!--                      network="telegram"-->
-            <!--                      class="social-share"-->
-            <!--                    >-->
-            <!--                      <v-btn-->
-            <!--                        class="ma-2"-->
-            <!--                        color="amber darken-3"-->
-            <!--                        dark-->
-            <!--                        @click="openUrl (content, 'telegram')"-->
-            <!--                      >-->
-            <!--                        <v-icon>mdi-telegram</v-icon>-->
-            <!--                      </v-btn>-->
-            <!--                    </ShareNetwork>-->
-            <!--                    <ShareNetwork-->
-            <!--                      network="mail"-->
-            <!--                      class="social-share"-->
-            <!--                    >-->
-            <!--                      <v-btn-->
-            <!--                        class="ma-2"-->
-            <!--                        color="amber darken-3"-->
-            <!--                        dark-->
-            <!--                        @click="openUrl (content, 'mail')"-->
-            <!--                      >-->
-            <!--                        <v-icon>mdi-mail</v-icon>-->
-            <!--                      </v-btn>-->
-            <!--                    </ShareNetwork>-->
-            <!--                    <ShareNetwork-->
-            <!--                      network="linkedin"-->
-            <!--                      class="social-share"-->
-            <!--                    >-->
-            <!--                      <v-btn-->
-            <!--                        class="ma-2"-->
-            <!--                        color="amber darken-3"-->
-            <!--                        dark-->
-            <!--                        @click="openUrl (content, 'linkedin')"-->
-            <!--                      >-->
-            <!--                        <v-icon>mdi-linkedin</v-icon>-->
-            <!--                      </v-btn>-->
-            <!--                    </ShareNetwork>-->
-            <!--                    <ShareNetwork-->
-            <!--                      network="pinterest"-->
-            <!--                      class="social-share"-->
-            <!--                    >-->
-            <!--                      <v-btn-->
-            <!--                        class="ma-2"-->
-            <!--                        color="amber darken-3"-->
-            <!--                        dark-->
-            <!--                        @click="openUrl (content, 'pinterest')"-->
-            <!--                      >-->
-            <!--                        <v-icon>mdi-pinterest</v-icon>-->
-            <!--                      </v-btn>-->
-            <!--                    </ShareNetwork>-->
-            <!--                    <ShareNetwork-->
-            <!--                      network="twitter"-->
-            <!--                      class="social-share"-->
-            <!--                    >-->
-            <!--                      <v-btn-->
-            <!--                        class="ma-2"-->
-            <!--                        color="amber darken-3"-->
-            <!--                        dark-->
-            <!--                        @click="openUrl (content, 'twitter')"-->
-            <!--                      >-->
-            <!--                        <v-icon>mdi-twitter</v-icon>-->
-            <!--                      </v-btn>-->
-            <!--                    </ShareNetwork>-->
-            <!--                    <ShareNetwork-->
-            <!--                      network="facebook"-->
-            <!--                      class="social-share"-->
-            <!--                    >-->
-            <!--                      <v-btn-->
-            <!--                        class="ma-2"-->
-            <!--                        color="amber darken-3"-->
-            <!--                        dark-->
-            <!--                        @click="openUrl (content, 'facebook')"-->
-            <!--                      >-->
-            <!--                        <v-icon>mdi-facebook</v-icon>-->
-            <!--                      </v-btn>-->
-            <!--                    </ShareNetwork>-->
-            <!--                  </div>-->
-            <!--                </v-row>-->
-            <!--              </v-list>-->
-            <!--            </v-bottom-sheet>-->
+            <q-btn
+              unelevated
+              class="icon-btn"
+              :disable="!content.file"
+              @click="downloadVideo= !downloadVideo"
+            >
+              <i
+                class="fi fi-rr-download icon bookmark-button"
+              />
+            </q-btn>
+            <q-btn
+              unelevated
+              flat
+              class="icon-btn"
+              @click="socialMediaDialog = !socialMediaDialog"
+            >
+              <i
+                class="fi fi-rr-share icon bookmark-button"
+              />
+            </q-btn>
             <q-btn
               color="transparent"
               unelevated
               dark
               :loading="content.loading"
-              class="video-box-icon-button"
+              class="icon-btn"
               @click="toggleFavorite"
             >
               <i
                 class="fi fi-rr-bookmark icon bookmark-button"
                 :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }"
               />
+
             </q-btn>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <q-dialog v-model="socialMediaDialog"
+            position="bottom">
+    <q-card style="width: 500px">
+      <q-card-section class="flex items-center justify-around">
+        <q-btn
+          v-for="(item,index) in socialMediaList"
+          :key="index"
+          flat
+          color="primary"
+          :icon="item.icon"
+          @click="share(item.name)"
+        />
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+  <q-dialog v-model="downloadVideo"
+            full-width
+            position="bottom">
+    <q-card class="full-width download-box">
+      <div class="download-title">
+        دانلود
+      </div>
+      <q-card-section class="flex items-center justify-around">
+        <div
+          v-for="(item, index) in content.file.video"
+          :key="index"
+          class="flex items-center justify-around download-item"
+        >
+          {{item.caption}}
+          <div class="quality">
+            {{item.res}}
+          </div>
+          <q-btn unelevated
+                 :href="item.link +'?download=1'"
+                 class="download-btn">
+            <i
+              class="fi fi-rr-download icon bookmark-button"
+            />
+          </q-btn>
+        </div>
+
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
 import { Content } from 'src/models/Content'
 import VideoPlayer from 'src/components/VideoPlayer'
 import { PlayerSourceList } from 'src/models/PlayerSource'
-import { useQuasar } from 'quasar'
+import shareSocial from 'assets/js/shareSocialMedia'
 export default {
   name: 'VideoBox',
 
@@ -356,7 +246,36 @@ export default {
       sources: new PlayerSourceList(),
       markedRatios: [
         { ratio: 90, hasSeen: false }
-      ]
+      ],
+      socialMediaDialog: false,
+      downloadVideo: false,
+      socialMediaList: [
+        {
+          icon: 'mdi-whatsapp',
+          name: 'whatsapp'
+        },
+        {
+          icon: 'mdi-mail',
+          name: 'mail'
+        },
+        {
+          icon: 'mdi-linkedin',
+          name: 'linkedin'
+        },
+        {
+          icon: 'mdi-twitter',
+          name: 'twitter'
+        },
+        {
+          icon: 'mdi-facebook',
+          name: 'facebook'
+        },
+        {
+          icon: 'telegram',
+          name: 'telegram'
+        }
+      ],
+      videoDuration: null
     }
   },
 
@@ -370,8 +289,22 @@ export default {
   },
 
   methods: {
+    setVideoDuration(data) {
+      console.log(data)
+      this.videoDuration = data
+    },
+    share(name) {
+      const url = shareSocial.getShareLink(
+        {
+          link: this.content.url.web,
+          title: this.content.title
+        }, name)
+      open(url)
+    },
+
     show() {
     },
+
     clickSeenButton() {
       this.content.loading = true
       this.$emit('toggle-video-status')
@@ -478,17 +411,70 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.download-item{
+  width: 488px;
+  padding: 15px 24px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.89;
+  letter-spacing: normal;
+  text-align: right;
+  border-radius: 15px;
+  border: solid 2px;
+  color: var(--abrishamMain);
+  border-color: var(--abrishamLightBlue);
+  .quality{
+    background: var(--abrishamLightBlue);
+    padding: 11px 19px 9px 20px;
+    border-radius: 10px;
+    height: 48px;
+  }
+  .download-btn{
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 rgba(76, 175, 80, 0.2);
+    background-color: #f8fff8;
+  }
+}
+.download-box{
+  border-radius: 40px;
+  background: red;
+  padding: 15px;
+  .download-title{
+    color: var(--abrishamMain);
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 30px;
+    text-align: center;
+  }
+}
 
 .video-box {
+
+  .video-wrapper{
+    border-radius: 30px;
+    .img{
+      border-radius: 30px;
+    }
+  }
     .video-paragraph {
         margin-bottom: 0;
     }
 
     .video-main {
         margin-bottom: 25px;
+      border-radius: 30px;
 
         .null-video {
             margin: 200px auto;
+          .content{
+            padding: 30px;
+            border: 1px solid;
+            font-size: 18px;
+            font-weight: 500;
+          }
         }
 
         @media screen and (max-width: 1200px) {
@@ -680,29 +666,32 @@ export default {
                 }
 
                 .video-box-icon {
-                    margin-right: 20px;
+                    margin-left: 20px;
                     padding-top: 10px;
                     @media screen and (max-width: 576px) {
                         padding-top: 0px;
                         padding-bottom: 10px;
                     }
 
-                    .icon {
+                    .icon-btn {
+                      margin-left: 41px;
+                      &:deep(.q-btn__content){
+                        margin: 0;
+                        color: var(--abrishamMain);
                         font-size: 24px !important;
-                        color: #3e5480;
-                        padding: 6px 0;
+                      }
                         @media screen and (max-width: 768px) {
                             font-size: 20px !important;
                         }
                         @media screen and (max-width: 576px) {
-                            margin-right: 20px;
+                            margin-left: 20px;
                         }
                         @media screen and (max-width: 350px) {
                             font-size: 18px !important;
                         }
                     }
 
-                    .v-btn {
+                    .q-btn {
                         &:not(.v-btn--round) {
                             &.v-size--default {
                                 padding: 0;
@@ -716,12 +705,6 @@ export default {
                                     min-width: 50px !important;
                                 }
                             }
-                        }
-                    }
-
-                    .video-box-icon-button {
-                        @media screen and (max-width: 1200px) {
-                            justify-content: flex-end;
                         }
                     }
 
