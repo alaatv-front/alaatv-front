@@ -44,22 +44,22 @@
       <q-skeleton class="q-mb-md"
                   type="chip"></q-skeleton>
       <q-skeleton type="chip"></q-skeleton>
-
     </div>
     <div
-      class="drop-down-select-box q-mt-md flex xl-hide lg-hide md-hide sm-hide "
+      class="drop-down-select-box q-mt-md flex xl-hide lg-hide md-hide sm-hide"
     >
       <q-select
         v-model="selectedId"
-        color="#3e5480"
-        :items="items"
-        :item-text="itemText"
-        :item-value="itemValue"
-        class="col-sm-6"
+        :options="items"
+        filled
+        :option-label="itemText"
+        :option-value="itemValue"
+        class="full-width"
         :menu-props="{ bottom: true, offsetY: true }"
-        append-icon="mdi-chevron-down"
+        dropdown-icon="mdi-chevron-down"
         dense
-        background-color="#eff3ff"
+        emit-value
+        map-options
         flat
         @change="changeSelectedChip"
       />
@@ -199,6 +199,32 @@ export default {
       }
     }
 
+  }
+  &:deep(.q-field__control){
+    background: #eff3ff;
+  }
+  &:deep(.q-field__native){
+    color: #3e5480;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  &:deep(.q-icon){
+    color: #3e5480;
+    font-size: 24px;
+  }
+  &:deep(.q-field__control::after){
+    height: 0;
+  }
+  &:deep(.q-field__control::before){
+    background: transparent;
+  }
+  &:deep(.q-field--focused){
+    :deep(.q-field__control){
+      background: red;
+    }
+  }
+  &:deep(.q-field--filled .q-field__control::before){
+    border-bottom: none;
   }
 }
 

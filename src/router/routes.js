@@ -209,6 +209,7 @@ const routes = [
           layoutLeftDrawerBehavior: 'default',
           layoutFooter: false
         },
+        component: () => import('layouts/AbrishamLayout.vue'),
         children: [
           {
             path: 'user-abrisham-progress',
@@ -228,7 +229,7 @@ const routes = [
           },
           {
             path: 'consulting',
-            name: 'User.Abrisham.useronsulting',
+            name: 'User.Abrisham.userConsulting',
             component: () => import('pages/User/DashboardAbrisham/Consulting.vue')
           }
         ]

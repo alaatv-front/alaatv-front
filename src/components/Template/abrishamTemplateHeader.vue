@@ -26,12 +26,17 @@
         </q-menu>
       </q-avatar>
     </div>
+
   </div>
+
 </template>
 
 <script>
 export default {
-  name: 'abrishamTemplateHeader'
+  name: 'abrishamTemplateHeader',
+  data: () => ({
+    activePage: null
+  })
 }
 </script>
 
@@ -40,6 +45,9 @@ export default {
   height: 64px;
   background: #fff;
   position: relative;
+  @media screen and (max-width: 1023px) {
+
+  }
   .header-box {
     .header-logo-img {
       width: 142px;
@@ -83,6 +91,10 @@ export default {
       height: 36px;
     }
 
+  }
+  .expanded-panel{
+    margin: 0 30px;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
   }
 }
 

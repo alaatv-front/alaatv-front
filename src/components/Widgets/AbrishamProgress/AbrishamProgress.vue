@@ -2,7 +2,7 @@
   <div
     class="userAbrishamProgress-page"
   >
-    <div class="row  items-center chip-parent">
+    <div class="row q-col-gutter-x-md items-center chip-parent">
       <div class="col-xl-3 col-sm-12 order-xl-first order-xs-last text-center  page-title">نمایش محتوا بر اساس فعالیت شما</div>
       <div class="col-xl-3 col-lg-6 col-sm-12 col-xs-6">
         <chip-group
@@ -582,56 +582,6 @@ export default {
     }
   }
 }
-
-.v-select-box {
-  .theme--light {
-    &.v-label {
-
-    }
-
-    &.v-icon {
-      color: #3e5480;
-    }
-  }
-}
-
-.theme--light {
-  &.v-chip {
-    &:not(.v-chip--active) {
-      padding-right: 7.5px;
-      padding-left: 7.5px;
-    }
-
-    .v-size--default {
-      border-radius: 16px;
-      font-size: 16px;
-      height: 32px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 2.13;
-      letter-spacing: normal;
-      color: #9fa5c0;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .v-text-field {
-    &.v-text-field--enclosed {
-      .v-text-field__details {
-        display: none;
-      }
-    }
-  }
-  .v-application {
-    .text-center {
-      padding-bottom: 0px;
-      margin-top: 9px;
-    }
-  }
-}
-
 </style>
 <style lang="scss">
 .v-menu__content {
