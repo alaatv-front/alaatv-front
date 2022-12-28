@@ -2537,13 +2537,6 @@ axios@^0.24.0:
   dependencies:
     follow-redirects "^1.14.4"
 
-axios@^0.26.1:
-  version "0.26.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
-  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
-  dependencies:
-    follow-redirects "^1.14.8"
-
 axios@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.2.1.tgz#44cf04a3c9f0c2252ebd85975361c026cb9f864a"
@@ -2962,6 +2955,11 @@ core-js@^3.26.1, core-js@^3.7.0:
   version "3.26.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.26.1.tgz#7a9816dabd9ee846c1c0fe0e8fcad68f3709134e"
   integrity sha512-21491RRQVzUn0GGM9Z1Jrpr6PNPxPi+Za8OM9q4tksTSnlbXXGKK1nXNg/QvwFYettXvSX6zWKCtHHfjN4puyA==
+
+core-js@^3.27.0:
+  version "3.27.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.27.0.tgz#a343bc614f29d9dcffa7616e65e10f9001cdd332"
+  integrity sha512-wY6cKosevs430KRkHUIsvepDXHGjlXOZO3hYXNyqpD6JvB0X28aXyv0t1Y1vZMwE7SoKmtfa6IASHCPN52FwBQ==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -4039,7 +4037,7 @@ focusable-selectors@^0.4.0:
   resolved "https://registry.yarnpkg.com/focusable-selectors/-/focusable-selectors-0.4.0.tgz#c93092bfe65c7cf7ef52aed82fb6f8df31072459"
   integrity sha512-tc/236hUU3xemsRLu1RKhRQ5UWHjRM9iJTli1zdac43h7b1biRSgG0mILM0qrcsKaGCHcOPJ6NKbk12ouKHLpw==
 
-follow-redirects@^1.14.4, follow-redirects@^1.14.8, follow-redirects@^1.15.0:
+follow-redirects@^1.14.4, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -4644,13 +4642,13 @@ jest-worker@^28.0.2:
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-js-abstract-model@^0.1.31:
-  version "0.1.31"
-  resolved "https://registry.yarnpkg.com/js-abstract-model/-/js-abstract-model-0.1.31.tgz#824e5e4fe9a9dc616d6d8e5709f144d145d8b176"
-  integrity sha512-cWE1t3LGM2Z43iwDoHxu4zXqU9cpA1Ap2v50InrM9pL+VGE7eQ7bS/ECbEpvVO+03VYcoJvT1RxUrWlVMHTNVA==
+js-abstract-model@^0.1.32:
+  version "0.1.32"
+  resolved "https://registry.yarnpkg.com/js-abstract-model/-/js-abstract-model-0.1.32.tgz#3fb5a2e0d84eaf56903938381a843795671a2677"
+  integrity sha512-vpyQgrx/APxSjqYPo079BqyUBRT7yvnYRODvyj5RZM1uyN7dSTiM1CE2jdOnQ6d9gPWo1kM6ehmFtZlaY4FffA==
   dependencies:
-    axios "^0.26.1"
-    moment "^2.29.2"
+    axios "^1.2.1"
+    moment "^2.29.4"
     persian-date "^1.1.0"
 
 js-sdsl@^4.1.4:
@@ -5020,7 +5018,7 @@ moment-timezone@^0.5.21:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.22.2, moment@^2.29.2, moment@^2.29.4:
+"moment@>= 2.9.0", moment@^2.22.2, moment@^2.29.4:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
@@ -5384,7 +5382,7 @@ prosemirror-collab@^1.2.2:
   dependencies:
     prosemirror-state "^1.0.0"
 
-prosemirror-commands@^1.1.10, prosemirror-commands@^1.1.4:
+prosemirror-commands@^1.1.10, prosemirror-commands@^1.1.4, prosemirror-commands@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/prosemirror-commands/-/prosemirror-commands-1.5.0.tgz#d10efece1647c1d984fef6f65d52fdc77785560b"
   integrity sha512-zL0Fxbj3fh71GPNHn5YdYgYGX2aU2XLecZYk2ekEF0oOD259HcXtM+96VjPVi5o3h4sGUdDfEEhGiREXW6U+4A==
@@ -5392,6 +5390,15 @@ prosemirror-commands@^1.1.10, prosemirror-commands@^1.1.4:
     prosemirror-model "^1.0.0"
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.0.0"
+
+prosemirror-dropcursor@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/prosemirror-dropcursor/-/prosemirror-dropcursor-1.5.0.tgz#edbc61d6f71f9f924130eec8e85b0861357957c9"
+  integrity sha512-vy7i77ddKyXlu8kKBB3nlxLBnsWyKUmQIPB5x8RkYNh01QNp/qqGmdd5yZefJs0s3rtv5r7Izfu2qbtr+tYAMQ==
+  dependencies:
+    prosemirror-state "^1.0.0"
+    prosemirror-transform "^1.1.0"
+    prosemirror-view "^1.1.0"
 
 prosemirror-dropcursor@^1.3.2:
   version "1.6.1"
@@ -5402,7 +5409,7 @@ prosemirror-dropcursor@^1.3.2:
     prosemirror-transform "^1.1.0"
     prosemirror-view "^1.1.0"
 
-prosemirror-gapcursor@^1.1.5:
+prosemirror-gapcursor@^1.1.5, prosemirror-gapcursor@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/prosemirror-gapcursor/-/prosemirror-gapcursor-1.3.1.tgz#8cfd874592e4504d63720e14ed680c7866e64554"
   integrity sha512-GKTeE7ZoMsx5uVfc51/ouwMFPq0o8YrZ7Hx4jTF4EeGbXxBveUV8CGv46mSHuBBeXGmvu50guoV2kSnOeZZnUA==
@@ -5412,7 +5419,7 @@ prosemirror-gapcursor@^1.1.5:
     prosemirror-state "^1.0.0"
     prosemirror-view "^1.0.0"
 
-prosemirror-history@^1.1.3:
+prosemirror-history@^1.1.3, prosemirror-history@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/prosemirror-history/-/prosemirror-history-1.3.0.tgz#bf5a1ff7759aca759ddf0c722c2fa5b14fb0ddc1"
   integrity sha512-qo/9Wn4B/Bq89/YD+eNWFbAytu6dmIM85EhID+fz9Jcl9+DfGEo8TTSrRhP15+fFEoaPqpHSxlvSzSEbmlxlUA==
@@ -5429,7 +5436,7 @@ prosemirror-inputrules@^1.1.2, prosemirror-inputrules@^1.1.3:
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.0.0"
 
-prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.1.2, prosemirror-keymap@^1.1.4:
+prosemirror-keymap@^1.0.0, prosemirror-keymap@^1.1.2, prosemirror-keymap@^1.1.4, prosemirror-keymap@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/prosemirror-keymap/-/prosemirror-keymap-1.2.0.tgz#d5cc9da9b712020690a994b50b92a0e448a60bf5"
   integrity sha512-TdSfu+YyLDd54ufN/ZeD1VtBRYpgZnTPnnbY+4R08DDgs84KrIPEPbJL8t1Lm2dkljFx6xeBE26YWH3aIzkPKg==
@@ -5444,7 +5451,7 @@ prosemirror-model@^1.0.0, prosemirror-model@^1.13.1, prosemirror-model@^1.14.3, 
   dependencies:
     orderedmap "^2.0.0"
 
-prosemirror-schema-list@^1.1.4, prosemirror-schema-list@^1.1.6:
+prosemirror-schema-list@^1.1.4, prosemirror-schema-list@^1.1.6, prosemirror-schema-list@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/prosemirror-schema-list/-/prosemirror-schema-list-1.2.2.tgz#bafda37b72367d39accdcaf6ddf8fb654a16e8e5"
   integrity sha512-rd0pqSDp86p0MUMKG903g3I9VmElFkQpkZ2iOd3EOVg1vo5Cst51rAsoE+5IPy0LPXq64eGcCYlW1+JPNxOj2w==
@@ -5473,7 +5480,7 @@ prosemirror-tables@^1.1.1:
     prosemirror-transform "^1.2.1"
     prosemirror-view "^1.13.3"
 
-prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0, prosemirror-transform@^1.2.1, prosemirror-transform@^1.2.8, prosemirror-transform@^1.3.3:
+prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0, prosemirror-transform@^1.2.1, prosemirror-transform@^1.2.8, prosemirror-transform@^1.3.3, prosemirror-transform@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/prosemirror-transform/-/prosemirror-transform-1.7.0.tgz#a8a0768f3ee6418d26ebef435beda9d43c65e472"
   integrity sha512-O4T697Cqilw06Zvc3Wm+e237R6eZtJL/xGMliCi+Uo8VL6qHk6afz1qq0zNjT3eZMuYwnP8ZS0+YxX/tfcE9TQ==
@@ -5551,23 +5558,23 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-quasar-crud@^0.2.71:
-  version "0.2.71"
-  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.2.71.tgz#3709312e374f946e75549b0bf4bfb943587c619d"
-  integrity sha512-UsKL8kzGKTD8qBTi5OW9ISYDANDxgqkiflpysoGecKuithdvKleNcKqPg+3dwEJSa6vIwzHMF3yuUw91j5h8aA==
+quasar-crud@^0.2.72:
+  version "0.2.72"
+  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.2.72.tgz#07f80cb99aa2a8e902765f3da156dbbbc3cfadd7"
+  integrity sha512-EwZOCu6AKzDTn5MdIRq5EuizgMByM5H1LkQmIUPcOoyvLkQVu394VB+qLEU6B5elALvEc3P1ayBJ6fIaw/y0SA==
   dependencies:
     "@quasar/extras" "^1.15.8"
     axios "^1.2.1"
-    core-js "^3.26.1"
+    core-js "^3.27.0"
     moment-jalaali "^0.9.6"
-    quasar "^2.11.1"
-    quasar-form-builder "^0.1.58"
+    quasar "^2.11.2"
+    quasar-form-builder "^0.1.59"
     vue "^3.2.45"
 
-quasar-form-builder@^0.1.58:
-  version "0.1.58"
-  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.58.tgz#feff9d5cb420c7b6a73ba545a04287f02475d72f"
-  integrity sha512-AZFlZJlxEpd49ms1vhYY/6+V7ZdbxNeQ7w5fdS4Q+dX17Rf3tDfqXQ8h5TgWK8dYfDKRhjeK5F4BkmtUv+Uw4w==
+quasar-form-builder@^0.1.59:
+  version "0.1.59"
+  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.59.tgz#83d8229b19818ba0a088a0692d0b2196fac0137c"
+  integrity sha512-Aew7XxNB5UqmfPdY0Wf3Mp/oQ29fAtq5FFcho3NxMHJASypsRa481ayEIndbQlF8chIcFJkfHQdjRvplI5mo9Q==
   dependencies:
     "@quasar/extras" "^1.15.8"
     core-js "^3.26.1"
@@ -5576,27 +5583,27 @@ quasar-form-builder@^0.1.58:
     vue "^3.2.45"
     vue3-tiptap-katex "^1.0.44"
 
-quasar-template-builder@^1.0.18:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/quasar-template-builder/-/quasar-template-builder-1.0.18.tgz#dac7e8c0af9ce26f9b615957c7194d559ca7a87d"
-  integrity sha512-bkQbkBTCT4dCe7L83N+FnzlqcazDcA1qelVqDAkUuF+hPIogrOq/8HtUOAU9dQMy7AT1T5XK/fciFLoTxRJusA==
+quasar-template-builder@^1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/quasar-template-builder/-/quasar-template-builder-1.0.19.tgz#08e757e0eb9c2d8d7f999c162a6da8f4f97ea221"
+  integrity sha512-H171/ND6VsUm1eS4Lh9pRuYVl2VvrUOW0GOv+4UMxLI2wNrbtJqX9Z7b4luHYI3xmNhI0jcuvyVuWGlfnJ4M/A==
   dependencies:
     "@quasar/extras" "^1.15.8"
-    quasar "^2.11.1"
+    quasar "^2.11.2"
     vue "^3.2.45"
     vuex "^4.1.0"
 
-quasar-ui-q-page-builder@^0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.0.14.tgz#ec87c3b3d7714b292ea7002cf307a35b95d74adb"
-  integrity sha512-0nRfvk/xDDdTtrlFgC8Dwpp2LoYE3uH9TQfqrViy2R93fFke/luDlYpyUQWV30+NX86BANGr5qn58dZfwhtgUQ==
+quasar-ui-q-page-builder@^0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.0.15.tgz#ed231861f307554ae37e60b89357f0cc46774e2d"
+  integrity sha512-3ZcQGTHNCzWQiF0WMcbbk28kLZnbfW3a4Eaan6PBtB28z/Nk9JQFD6OpHvNpANxIH4zgi+dJU8C6vZNb0IS+bg==
   dependencies:
     "@quasar/extras" "^1.15.6"
     "@vue/compiler-sfc" "^3.2.45"
     quasar "^2.10.2"
     vue "^3.2.45"
 
-quasar@^2.10.2, quasar@^2.11.0, quasar@^2.11.1, quasar@^2.11.2:
+quasar@^2.10.2, quasar@^2.11.0, quasar@^2.11.2:
   version "2.11.2"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.2.tgz#d0b70f90c45ee3e17dbca547fae1d96e17d32549"
   integrity sha512-4u1REwVqJ7KPB7Mo/fxR6P4c5CQ1F7zjW/w4Cnb5OKnWhZDDSRcIWK+kTUZoFZ7/lGlac/0iFQXyrIc0noHhiw==
@@ -6754,6 +6761,25 @@ vue-tiptap-katex-core@^1.0.47:
     vue-notification "^1.3.20"
     vue-upload-component "^2.8.23"
 
+vue-tiptap-katex-core@^1.0.49:
+  version "1.0.49"
+  resolved "https://registry.yarnpkg.com/vue-tiptap-katex-core/-/vue-tiptap-katex-core-1.0.49.tgz#ad875772c1b8a3b17b7e1e4994665235a0263590"
+  integrity sha512-x46kj5qPyK0OkmJt2TGPkn9fIPTLcD6/Qw+iMbQg1Ja5Fy7EizqQYCDPS5CVxUvFjiGLCAoSTLCsmQB4ShoVnQ==
+  dependencies:
+    "@mdi/font" "^6.9.96"
+    "@tiptap/core" "^2.0.0-beta.209"
+    "@tiptap/extension-table" "^2.0.0-beta.209"
+    core-js "^3.26.1"
+    mathlive "^0.86.0"
+    tippy.js "^6.3.7"
+    tiptap-extensions "^1.35.2"
+    tiptap-text-direction-extension "^1.0.7"
+    turndown "^7.1.1"
+    vue "^2.5.17"
+    vue-drag-resize "^1.5.4"
+    vue-notification "^1.3.20"
+    vue-upload-component "^2.8.23"
+
 vue-upload-component@^2.8.23:
   version "2.8.23"
   resolved "https://registry.yarnpkg.com/vue-upload-component/-/vue-upload-component-2.8.23.tgz#908df86dbcf1a0d1ffa7fca6987c33c6e5159564"
@@ -6805,7 +6831,57 @@ vue3-tiptap-katex@^1.0.44:
     vue-upload-component "^2.8.23"
     vue3-drag-resize "^2.0.5"
 
-vue@^2.6.12:
+vue3-tiptap-katex@^1.0.47:
+  version "1.0.47"
+  resolved "https://registry.yarnpkg.com/vue3-tiptap-katex/-/vue3-tiptap-katex-1.0.47.tgz#06993fbebd847ed65625aadb89597b29060a9e2d"
+  integrity sha512-+TwrhmoQ4P5sXgZHQ1uPnMesD/2/YA7nYkQ1lRbNmdRsmDcxWkbBquj9J8xszx3hiSxaCRHUKAEfGZyaUAEyGg==
+  dependencies:
+    "@ckpack/vue-color" "^1.1.9"
+    "@mdi/font" "^6.9.96"
+    "@tiptap/core" "^2.0.0-beta.209"
+    "@tiptap/extension-color" "^2.0.0-beta.209"
+    "@tiptap/extension-document" "^2.0.0-beta.209"
+    "@tiptap/extension-focus" "^2.0.0-beta.209"
+    "@tiptap/extension-heading" "^2.0.0-beta.209"
+    "@tiptap/extension-highlight" "^2.0.0-beta.209"
+    "@tiptap/extension-paragraph" "^2.0.0-beta.209"
+    "@tiptap/extension-table" "^2.0.0-beta.209"
+    "@tiptap/extension-table-cell" "^2.0.0-beta.209"
+    "@tiptap/extension-table-header" "^2.0.0-beta.209"
+    "@tiptap/extension-table-row" "^2.0.0-beta.209"
+    "@tiptap/extension-text" "^2.0.0-beta.209"
+    "@tiptap/extension-text-align" "^2.0.0-beta.209"
+    "@tiptap/extension-text-style" "^2.0.0-beta.209"
+    "@tiptap/extension-underline" "^2.0.0-beta.209"
+    "@tiptap/prosemirror-tables" "^1.1.3"
+    "@tiptap/starter-kit" "^2.0.0-beta.209"
+    "@tiptap/vue-3" "^2.0.0-beta.209"
+    a11y-dialog "^7.5.2"
+    core-js "^3.26.1"
+    filepond "^4.30.4"
+    filepond-plugin-file-validate-type "^1.2.8"
+    filepond-plugin-image-preview "^4.6.11"
+    katex "^0.16.4"
+    mathlive "^0.86.0"
+    micromodal "^0.4.10"
+    prosemirror-commands "^1.5.0"
+    prosemirror-dropcursor "1.5.0"
+    prosemirror-gapcursor "^1.3.1"
+    prosemirror-history "^1.3.0"
+    prosemirror-keymap "^1.2.0"
+    prosemirror-model "^1.18.3"
+    prosemirror-schema-list "^1.2.2"
+    prosemirror-state "^1.4.1"
+    prosemirror-transform "^1.7.0"
+    prosemirror-view "^1.28.2"
+    tiptap-text-direction-extension "^1.0.7"
+    vue-drag-resize "^1.5.4"
+    vue-filepond "^7.0.3"
+    vue-tiptap-katex-core "^1.0.49"
+    vue-upload-component "^2.8.23"
+    vue3-drag-resize "^2.0.5"
+
+vue@^2.5.17, vue@^2.6.12:
   version "2.7.14"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17"
   integrity sha512-b2qkFyOM0kwqWFuQmgd4o+uHGU7T+2z3T+WQp8UBjADfEv2n4FEMffzBmCKNP0IGzOEEfYjvtcC62xaSKeQDrQ==
