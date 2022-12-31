@@ -1,8 +1,9 @@
 <template>
-  <div :style="options.style">
+  <div :style="options.style"
+       :class="options.className">
     <div class="show-product-introduction">
       <div class="product-introduction row">
-        <div class="intro-features col-md-6 col-12">
+        <div class="intro-features col-md-12">
           <div class="title">
             ویژگی های این محصول
           </div>
@@ -10,14 +11,14 @@
             <div
               v-for="(info, index) in information"
               :key="index"
-              class="product-info col-sm-3 col-xs-6"
+              class="product-info col-grow"
             >
               <div class="product-info-inside q-ma-sm">
                 <div class="info-header ">
                   <q-img :src="info.src"
                          class="info-image img"></q-img>
                   <p class="info-title">
-                    {{info.title}}
+                    {{ info.title }}
                   </p>
                 </div>
                 <div class="info-content">
@@ -35,191 +36,8 @@
               </div>
             </div>
           </div>
-          <div v-if="product.price"
-               class="product-price">
-            <div v-if="product.price.discountInPercent()"
-                 class="discount-percent">
-              <div class="percent">{{ '%' + product.price.discountInPercent() }}</div>
-              <div class="discount-title">تخفیف</div>
-            </div>
-
-            <div class="price">
-              <div
-                v-if="product.price.toman('base', null)"
-                class="product-base-price"
-              >
-                {{ product.price.toman('base', null) }}
-              </div>
-
-              <sapn
-                v-if="product.price.toman('final', null)"
-                class="product-final-price"
-              >
-                {{ product.price.toman('final', null) }}
-              </sapn>
-
-              <div class="product-price-title"> تومان</div>
-            </div>
-
-            <div class="action">
-              <q-btn
-                v-if="product.has_instalment_option"
-                unelevated
-                class="purchase-button pay-later"
-                label="خرید اقساطی"
-                text-color="white"
-                icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
-              />
-              <q-btn
-                unelevated
-                class="purchase-button"
-                label="خرید نقدی"
-                text-color="white"
-                icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
-                @click="addToCart"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          v-if="product.intro"
-          class="intro-video col-md-6 col-12"
-        >
-          <video-player :poster="product.intro.photo"
-                        :sources="videoSource()" />
         </div>
       </div>
-    </div>
-    <div class="show-product-demos">
-      <div class="row product-demos-widget">
-        <div
-          class="sample-videos-pamphlet-box"
-        >
-          <div v-if="product.blocks && product.blocks[0] && product.blocks[0].contents"
-               class="sample-videos-box">
-            <p class="title-style">
-              نمونه فیلم‌ها
-            </p>
-            <q-card
-              class="sample-videos sample-cart-style"
-            >
-              <div
-                v-if="product.loading"
-                class="sample-container">
-                <div
-                  v-for="video in 3"
-                  :key="video"
-                  class="video-item"
-                >
-                  <q-skeleton
-                    class="player"
-                    min-width="100%"
-                    type="card"
-                  />
-                </div>
-              </div>
-              <div
-                v-else-if="product.blocks && product.blocks[0] && product.blocks[0].contents"
-                class="sample-container">
-                <div
-                  v-for="(video, index) in product.blocks[0].contents"
-                  :key="index"
-                  class="video-item"
-                >
-                  <a :href="video.url.web"
-                     target="_blank">
-                    <div class="player">
-                      <q-img
-                        class="img"
-                        :src="video.photo"
-                        alt="video-poster"></q-img>
-                    </div>
-                  </a>
-                  <p class="player-title text-center">
-                    {{ video.title }}
-                  </p>
-                </div>
-              </div>
-            </q-card>
-          </div>
-          <div v-if="product.sample_photos.length> 0"
-               class="pamphlet-box">
-            <p class="title-style">
-              نمونه جزوه‌ها
-            </p>
-            <q-card
-              class="pamphlets sample-cart-style"
-            >
-              <div
-                v-if="product.loading"
-                class="sample-container">
-                <div
-                  v-for="item in 5"
-                  :key="item"
-                  class="pamphlet-item"
-                >
-                  <q-skeleton
-                    class="pamphlet-item"
-                    min-width="100%"
-                    type="image"
-                  />
-                </div>
-              </div>
-              <div
-                v-else-if="product.sample_photos.length> 0"
-                class="sample-container">
-                <q-no-ssr>
-                  <light-gallery
-                    :images="product.sample_photos.map( item => { return { title: item.title, url: item.photo}})"
-                    :index="samplePhotosIndex"
-                    :disable-scroll="true"
-                    dir="ltr"
-                    @close="samplePhotosIndex = null"
-                  />
-                </q-no-ssr>
-                <div
-                  v-for="(item, index) in product.sample_photos"
-                  :key="index"
-                  class="pamphlet-item"
-                >
-                  <q-img
-                    :src="item.photo"
-                    class="img"
-                    alt="pamphlet-photo"
-                    @click="samplePhotosIndex = index"
-                  >
-                  </q-img>
-                </div>
-              </div>
-            </q-card>
-          </div>
-        </div>
-      </div>
-      <!--    <product-demos :data="demo" />-->
-    </div>
-    <div class="show-product-review">
-      <div class="product-description">
-        <div
-          class="description-container"
-        >
-          <p class="title-style">
-            بررسی محصول
-          </p>
-          <q-skeleton
-            v-if="product.loading"
-            class="description-text"
-            min-width="100%"
-            type="article"
-          />
-          <q-card
-            v-else
-            class="description-text"
-            v-html="product.description && product.description.long"
-          >
-          </q-card>
-        </div>
-      </div>
-      <!--    <product-review :data="review" />-->
     </div>
   </div>
 </template>
@@ -227,29 +45,25 @@
 <script>
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins'
-import { LightGallery } from 'vue-light-gallery'
-import VideoPlayer from 'components/VideoPlayer.vue'
-import { PlayerSourceList } from 'src/models/PlayerSource'
 import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProductInfoShow',
-  components: {
-    VideoPlayer,
-    LightGallery
-  },
   mixins: [mixinWidget],
   props: {
-    data: {
-      type: [String, Number, Object, Product],
-      default: new Product()
+    options: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     },
     getData: {
       type: Function,
-      default: () => {}
+      default: () => {
+      }
     }
   },
-  data () {
+  data() {
     return {
       samplePhotosIndex: null,
       product: new Product(),
@@ -296,14 +110,67 @@ export default {
       }
     }
   },
-  created () {
+  watch: {
+    // options: {
+    //   handler() {
+    //     this.getProduct()
+    //   },
+    //   deep: true
+    // },
+    'options.teacher'(newVal) {
+      if (!newVal) {
+        this.information.splice(0, 1)
+      } else {
+        this.information.splice(0, 0, {
+          key: 'teacher',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-teacher.png\n',
+          title: 'مدرس',
+          value: this.product.attributes.info.teacher
+        })
+      }
+    },
+    'options.major'(newVal) {
+      if (!newVal) {
+        this.information.splice(2, 1)
+      } else {
+        this.information.splice(2, 0, {
+          key: 'major',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-book.png\n',
+          title: 'رشته',
+          value: this.product.attributes.info.major
+        })
+      }
+    },
+    'options.production_year'(newVal) {
+      if (!newVal) {
+        this.information.splice(1, 1)
+      } else {
+        this.information.splice(1, 0, {
+          key: 'production_year',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-calendar.png\n',
+          title: 'سال تولید',
+          value: this.product.attributes.info.production_year
+        })
+      }
+    },
+    'options.shipping_method'(newVal) {
+      if (!newVal) {
+        this.information.splice(3, 1)
+      } else {
+        this.information.splice(3, 0, {
+          key: 'shipping_method',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-document-download.png\n',
+          title: 'مدل دریافت',
+          value: this.product.attributes.info.shipping_method
+        })
+      }
+    }
+  },
+  created() {
     this.loadProduct()
   },
   methods: {
-    videoSource() {
-      return new PlayerSourceList([{ link: this.product.intro.video }])
-    },
-    getProductId () {
+    getProductId() {
       if (this.options.productId) {
         return this.options.productId
       }
@@ -315,7 +182,7 @@ export default {
       }
       return null
     },
-    loadProduct () {
+    loadProduct() {
       const productId = this.getProductId()
       if (!productId) {
         return
@@ -323,11 +190,14 @@ export default {
 
       this.getProduct(productId)
     },
-    getProduct (productId) {
+    getProduct(productId) {
       this.product.loading = true
-      APIGateway.product.get(productId)
+      APIGateway.product.show({
+        data: { id: productId },
+        cache: { TTL: 10000 }
+      })
         .then(product => {
-          this.product = product
+          this.product = new Product(product)
           this.product.loading = false
           this.setInformation()
         })
@@ -336,20 +206,7 @@ export default {
         })
     },
 
-    async addToCart() {
-      const data = {
-        product: {
-          id: this.product.id
-        }
-      }
-      try {
-        await this.$store.dispatch('Cart/addToCart', data)
-        this.$router.push({ name: 'User.Checkout.Review' })
-      } catch (e) {
-      }
-    },
-
-    setInformation () {
+    setInformation() {
       if (!this.product.attributes) {
         return
       }
@@ -407,7 +264,7 @@ p {
     padding: 0 20px;
     align-items: center;
     @media screen and(max-width: 599px) {
-      padding: 0 ;
+      padding: 0;
     }
 
     .title {
@@ -427,12 +284,15 @@ p {
         line-height: 10px;
       }
     }
+
     .product-info-box {
       display: flex;
       margin-bottom: 20px;
+
       .product-info {
         display: flex;
         justify-content: center;
+
         .product-info-inside {
           margin: 5px;
           display: flex;
@@ -454,6 +314,7 @@ p {
           @media only screen and (max-width: 599px) {
             width: 120px;
           }
+
           .info-header {
             display: flex;
             flex-direction: column;
@@ -478,21 +339,26 @@ p {
               }
             }
           }
+
           .info-content {
             display: flex;
             flex-wrap: wrap;
             padding: 10px;
+
             .info-value {
               text-align: center;
+
               &:after {
                 content: '-';
                 padding: 0 2px;
               }
+
               &:last-child {
                 &:after {
                   display: none;
                 }
               }
+
               @media only screen and (max-width: 1023px) {
                 font-size: 12px;
               }
@@ -501,6 +367,7 @@ p {
         }
       }
     }
+
     .product-price {
       display: flex;
       justify-content: space-between;
@@ -519,6 +386,7 @@ p {
         width: 100%;
         padding-right: 10px;
       }
+
       .discount-percent {
         width: 120px;
         height: 70px;
@@ -528,10 +396,12 @@ p {
         display: flex;
         justify-content: center;
         align-items: center;
+
         .percent {
           margin-right: 5px;
         }
       }
+
       .price {
         display: flex;
         align-items: center;
@@ -542,6 +412,7 @@ p {
         @media only screen and (max-width: 1023px) {
           flex-direction: column;
         }
+
         .product-base-price {
           text-decoration: line-through;
           font-style: normal;
@@ -551,6 +422,7 @@ p {
           color: #E05555;
           margin-right: 10px;
         }
+
         .product-final-price {
           font-style: normal;
           font-weight: 500;
@@ -560,6 +432,7 @@ p {
           margin-left: 5px;
           margin-right: 10px;
         }
+
         .product-price-title {
           font-style: normal;
           font-weight: 500;
@@ -567,6 +440,7 @@ p {
           line-height: 17px;
         }
       }
+
       .purchase-button {
         display: flex;
         width: 117px;
@@ -575,6 +449,7 @@ p {
         border-radius: 10px;
         justify-content: center;
         align-items: center;
+
         &.pay-later {
           background-color: #75B7FF;
         }
@@ -582,16 +457,20 @@ p {
 
     }
   }
+
   .intro-video {
     &:deep(.vjs-error-display) {
       border-radius: 20px;
     }
+
     &:deep(.video-js) {
       border-radius: 20px;
     }
+
     &:deep(.vjs-tech) {
       border-radius: 20px;
     }
+
     &:deep(.vjs-poster) {
       border-radius: 20px;
     }
@@ -779,7 +658,7 @@ p {
   }
 }
 
-@media screen and (max-width: 1199px){
+@media screen and (max-width: 1199px) {
   .sample-videos-pamphlet-box {
     .sample-videos-box {
       .sample-videos {
@@ -805,7 +684,8 @@ p {
 
   }
 }
-@media screen and (max-width: 991px){
+
+@media screen and (max-width: 991px) {
   .sample-videos-pamphlet-box {
     margin-bottom: 30px;
 
@@ -825,7 +705,8 @@ p {
     }
   }
 }
-@media screen and (max-width: 767px){
+
+@media screen and (max-width: 767px) {
   .title-style {
     width: 100%;
   }
@@ -895,7 +776,8 @@ p {
 
   }
 }
-@media screen and (max-width: 575px){
+
+@media screen and (max-width: 575px) {
   .sample-videos-pamphlet-box {
     margin-right: 16px;
     margin-bottom: 30px;

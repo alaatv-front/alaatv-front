@@ -1,7 +1,6 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Set } from 'src/models/Set'
-import { CartItemList } from 'src/models/CartItem'
 
 export default class SetAPI extends APIRepository {
   constructor() {
@@ -27,8 +26,8 @@ export default class SetAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.show(data),
-      cacheKey: this.CacheList.show(data),
+      request: this.APIAdresses.show(data.data.id),
+      cacheKey: this.CacheList.show(data.data.id),
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new Set(response.data.data)

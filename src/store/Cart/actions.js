@@ -7,7 +7,6 @@ import { CartItem } from 'src/models/CartItem'
 import { OrderProduct } from 'src/models/OrderProduct'
 
 export function addToCart (context, data) {
-  console.log(data)
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     if (isUserLogin) {

@@ -32,7 +32,7 @@
              }"
              class="product-spacing"
         >
-          <product-item :data="product" />
+          <product-item :options="product" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"
