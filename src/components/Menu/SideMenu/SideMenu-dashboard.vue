@@ -71,11 +71,6 @@ import menuItem from 'components/Menu/SideMenu/MenuItem'
 export default {
   name: 'SideMenu-dashboard',
   components: { menuItem },
-  computed: {
-    isUserLogin() {
-      return this.$store.getters['Auth/isUserLogin']
-    }
-  },
   data () {
     return {
       clickedItem: null,
@@ -559,6 +554,11 @@ export default {
           link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_ensani_davazdahom.pdf'
         }
       ]
+    }
+  },
+  computed: {
+    isUserLogin() {
+      return this.$store.getters['Auth/isUserLogin']
     }
   },
   created() {

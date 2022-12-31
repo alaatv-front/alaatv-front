@@ -6,8 +6,11 @@
 </template>
 
 <script>
+// import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
+
 export default {
   name: 'HomePage',
+  // mixins: [mixinOptionPanel],
   data() {
     return {
       pageConfig: {},
