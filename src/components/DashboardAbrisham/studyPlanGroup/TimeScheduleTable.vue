@@ -106,7 +106,8 @@ export default {
     },
     selectedPlanStyle: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     },
     selectedPanel: {
       type: Plan,
@@ -166,13 +167,10 @@ export default {
       // 24  7
       this.setTheStartingPoint()
       const start = this.startPoint
-      console.log('this.startPoint', this.startPoint)
       const end = this.calcTheEndingPoint()
-      console.log('this.end', end)
       for (let hour = start; hour <= end; hour++) {
         this.listOfHours.push(hour)
       }
-      console.log('listOfHours', this.listOfHours)
     },
 
     selectPlan(plan) {
@@ -275,161 +273,154 @@ export default {
 </script>
 <style lang="scss" scoped>
 .timeTable {
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: white;
+  border: solid 4px #e1f0ff;
+  border-radius: 10px;
+  top: 3px;
+  @media only screen and (max-width: 767px) {
+    border-radius: 0;
+  }
+
+  .timeTable-header {
     position: relative;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    background-color: white;
-    top: 3px;
-    @media only screen and (max-width: 767px) {
-        border-radius: 0;
-    }
+    //ggg
+    left: 0.4px;
+    //border: solid 4px #e1f0ff;
+    //border-radius: 10px;
 
-    .timeTable-header {
-        position: relative;
-      //ggg
-        left: 0.4px;
-      border: solid 4px #e1f0ff;
-      border-radius: 10px;
+    .timeTable-header-number-boxes {
+      display: flex;
 
-        .timeTable-header-number-boxes {
-            display: flex;
+      .timeTableHeader {
+        padding: 5px 0;
+        text-align: center;
+        line-height: 48px;
+        background-color: rgba(225, 240, 255, 1);
 
-            .timeTableHeader {
-                padding: 5px 0;
-                text-align: center;
-                line-height: 48px;
-                background-color: rgba(225, 240, 255, 1);
-                &:last-child {
-                  //gggg
-                    padding-right: 20px;
-                }
-
-                .timeTableHeaderNumber {
-                    position: relative;
-                    background-color: white;
-                    width: 30px;
-                    height: 30px;
-                  //ggggg
-                    left: 38px;
-                    border-radius: 50%;
-                    padding: 5px 7px 1px;
-                    font-size: 12px;
-                    font-weight: normal;
-                    font-stretch: normal;
-                    font-style: normal;
-                    line-height: normal;
-                    letter-spacing: normal;
-                    text-align: center;
-                    color: #333333;
-                    @media only screen and (max-width: 1919px) {
-                      //gggg
-                        left: 25px;
-                    }
-                }
-            }
-        }
-    }
-
-    .timeTable-body {
-        display: flex;
-        background-color: white;
-        height: 55px;
-        @media only screen and (max-width: 767px) {
-            height: 36px;
-        }
-
-        .timeTable-main-line {
-            position: relative;
+        &:last-child {
           //gggg
-            border-right: solid 2px #e1f0ff;
-            height: 70px;
-          //gggggg
-            left: -146px;
-            @media only screen and (max-width: 1919px) {
-              //ggg
-                left: -100px;
-            }
-            @media only screen and (max-width: 767px) {
-                height: 37px;
-            }
+          padding-right: 20px;
         }
 
-        .timeTable-line {
-            display: inline-block;
-            position: relative;
+        .timeTableHeaderNumber {
+          position: relative;
+          background-color: white;
+          width: 30px;
+          height: 30px;
           //ggggg
-            border-right: solid 1px #e1f0ff;
-            height: 70px;
-          //gggggg
-            left: -46px;
-            bottom: 70px;
-            @media only screen and (max-width: 1919px) {
-              //ggggg
-                left: 109px;
-            }
+          left: 38px;
+          border-radius: 50%;
+          padding: 7px 7px 1px;
+          font-size: 12px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: center;
+          color: #333333;
+          @media only screen and (max-width: 1919px) {
+            //gggg
+            left: 25px;
+          }
+          @media screen and (max-width: 575px) {
+            width: 24px;
+            height: 24px;
+            padding: 5px 5px 1px;
+          }
         }
-
-        .plan {
-            position: absolute;
-            cursor: pointer;
-            border-radius: 10px;
-            text-align: center;
-            top: 0;
-            height: 100%;
-            padding-top: 57px;
-            @media only screen and (max-width: 767px) {
-                padding-top: 47px;
-            }
-
-            .plan-within-box {
-                border-radius: 10px;
-                font-size: 14px;
-                padding-top: 3px;
-                padding-bottom: 3px;
-                @media only screen and (max-width: 767px) {
-                    border-radius: 8px;
-                }
-
-                &.planActive {
-                    box-shadow: 0 2px 5px 0 rgba(255, 143, 0, 0.4) !important;
-                    background-color: #ff8f00 !important;
-                }
-            }
-        }
+      }
     }
+  }
+
+  .timeTable-body {
+    display: flex;
+    background-color: white;
+    height: 55px;
+    @media only screen and (max-width: 767px) {
+      height: 36px;
+    }
+
+    .timeTable-main-line {
+      position: relative;
+      //gggg
+      border-right: solid 2px #e1f0ff;
+      height: 70px;
+      //gggggg
+      left: -146px;
+      @media only screen and (max-width: 1919px) {
+        //ggg
+        left: -100px;
+      }
+      @media only screen and (max-width: 767px) {
+        height: 37px;
+      }
+    }
+
+    .timeTable-line {
+      display: inline-block;
+      position: relative;
+      //ggggg
+      border-right: solid 1px #e1f0ff;
+      height: 70px;
+      //gggggg
+      left: -46px;
+      bottom: 70px;
+      @media only screen and (max-width: 1919px) {
+        //ggggg
+        left: 109px;
+      }
+    }
+
+    .plan {
+      position: absolute;
+      cursor: pointer;
+      border-radius: 10px;
+      text-align: center;
+      top: 0;
+      height: 100%;
+      padding-top: 57px;
+      @media only screen and (max-width: 767px) {
+        padding-top: 47px;
+      }
+
+      .plan-within-box {
+        border-radius: 10px;
+        font-size: 14px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        @media only screen and (max-width: 767px) {
+          border-radius: 8px;
+        }
+
+        &.planActive {
+          box-shadow: 0 2px 5px 0 rgba(255, 143, 0, 0.4) !important;
+          background-color: #ff8f00 !important;
+        }
+      }
+    }
+  }
 }
 
 #study-scroll-2-y {
-    &::-webkit-scrollbar-track {
-        border-radius: 6px;
-        background-color: #F5F5F5;
-        background-color: #ec3f3f;
-    }
+  &::-webkit-scrollbar-track {
+    border-radius: 6px;
+    background-color: #F5F5F5;
+  }
 
-    &::-webkit-scrollbar {
-        width: 6px;
-        border-radius: 6px;
-        height: 6px;
-        background-color: #F5F5F5;
-    }
+  &::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+  }
 
-    &::-webkit-scrollbar-thumb {
-        border-radius: 6px;
-        background-color: #f7941d;
-    }
-}
-</style>
-
-<style>
-.red {
-    border: 1px red solid
-}
-
-.blue {
-    border: 1px #0077ff solid
-}
-
-.blc {
-    border: 1px #021902 solid
+  &::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #f7941d;
+  }
 }
 </style>

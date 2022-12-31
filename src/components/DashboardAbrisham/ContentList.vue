@@ -1,37 +1,39 @@
 <template>
-  <div class="content-list-box">
-    <slot name="header">
-      <div class="slot-header-box items-center flex justify-between">
-        <span
-          class="main-header-text"
-        >
-          {{ header.title }}
-        </span>
-        <q-btn
-          v-if="header.button"
-          unelevated
-          class="slot-header-box-days"
-          :label=" header.button.title"
-          @click="clickOnHeaderButton"
-        />
-      </div>
-    </slot>
-    <slot name="filter" />
+  <div class="content-list-box"
+       :class="{'no-data' : !filteredList.length}"
+  >
+    <div class="top-of-list">
+      <slot name="header">
+        <div class="slot-header-box items-center flex justify-between">
+          <span
+            class="main-header-text"
+          >
+            {{ header.title }}
+          </span>
+          <q-btn
+            v-if="header.button"
+            unelevated
+            class="slot-header-box-days"
+            :label=" header.button.title"
+            @click="clickOnHeaderButton"
+          />
+        </div>
+      </slot>
+      <slot name="filter" />
+    </div>
+
     <div class="content-list-items-box">
       <div
         class="content-box"
       >
-        <!--        <v-alert-->
-        <!--          v-if="!filteredList.length"-->
-        <!--          dense-->
-        <!--          outlined-->
-        <!--          text-->
-        <!--          type="warning"-->
-        <!--          class="mx-5"-->
-        <!--          border="left"-->
-        <!--        >-->
-        <!--          موردی وجود ندارد-->
-        <!--        </v-alert>-->
+        <div
+          v-if="!filteredList.length"
+          class="q-ma-md text-primary"
+        >
+          <q-icon name="info" />
+          موردی وجود ندارد !
+
+        </div>
         <div v-if="loading"
              class="q-pa-md">
           <q-item v-for="i in 5"
@@ -165,11 +167,13 @@ export default {
   flex-direction: column;
   border-radius: 30px;
   border: solid 6px #eff3ff;
-  padding: 19px 26px;
+  padding: 19px 0;
   height: 100%;
   overflow: hidden;
+  margin-bottom: 50px;
   @media screen and (max-width: 1023px){
-    height: 707px;
+    max-height: 707px;
+    min-height: fit-content;
 
   }
   @media screen and (max-width: 1200px) {
@@ -180,6 +184,26 @@ export default {
   }
   @media screen and (max-width: 600px) {
     border-radius: 15px;
+    max-height: 540px;
+  }
+  &.no-data{
+    height: 170px;
+    font-size: 18px
+  }
+  .top-of-list{
+    padding: 0 26px;
+    @media screen and (max-width: 1920px){
+      padding: 0 10px;
+    }
+    @media screen and (max-width: 1023px){
+      padding: 0 26px;
+    }
+    @media screen and (max-width: 767px){
+      padding: 0 10px;
+    }
+    @media screen and (max-width: 575px){
+      padding: 0 7px;
+    }
   }
 
   .slot-header-box {
@@ -231,7 +255,6 @@ export default {
       width: 100%;
       @media screen and (max-width: 960px) {
         position: relative !important;
-        max-height: 300px;
       }
     }
   }

@@ -27,7 +27,7 @@
       </div>
     </div>
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
-    <div class="row q-col-gutter-x-md q-mt-md ">
+    <div class="row q-col-gutter-x-md">
       <div
         class="video-box-col col-12 col-md-8 col-xs-12"
       >
@@ -433,14 +433,20 @@ export default {
       font-weight: 500;
       line-height: 1.7;
       letter-spacing: normal;
+      margin-bottom:15px ;
       @media screen and (max-width: 1920px){
         margin-top: 19px;
       }
       @media screen and (max-width: 990px){
         margin-top: 26px;
+        font-size: 16px;
+        width: 100%;
+        text-align: center;
+
       }
       @media screen and (max-width: 576px){
         margin-top: 15px;
+
       }
     }
   }

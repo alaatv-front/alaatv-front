@@ -18,7 +18,8 @@
           <div
             class="null-video"
           >
-            <div class="content">
+            <div class="content text-primary">
+              <q-icon name="info" />
               اوه نه! ویدیویی وجود نداره...
             </div>
 
@@ -91,7 +92,7 @@
               v-if="content.author && (content.author.first_name || content.author.last_name)"
               class="flex part align-center"
             >
-              <i class="fi fi-rr-graduation-cap icon" />
+              <i class="fi fi-rr-graduation-cap icon flex" />
               <p class="video-paragraph">
                 {{ content.author.first_name }} {{content.author.last_name }}
               </p>
@@ -455,8 +456,20 @@ export default {
 
   .video-wrapper{
     border-radius: 30px;
+    @media screen and (max-width: 1920px) {
+      border-radius: 20px;
+    }
+    @media screen and (max-width: 990px) {
+      border-radius: 15px;
+    }
     .img{
       border-radius: 30px;
+      @media screen and (max-width: 1920px) {
+        border-radius: 20px;
+      }
+      @media screen and (max-width: 990px) {
+        border-radius: 15px;
+      }
     }
   }
     .video-paragraph {
@@ -468,11 +481,12 @@ export default {
       border-radius: 30px;
 
         .null-video {
-            margin: 200px auto;
+          margin: 200px auto;
           .content{
             padding: 30px;
-            border: 1px solid;
+            border: 1px solid var(--alaa-Primary);
             font-size: 18px;
+            border-radius: 15px;
             font-weight: 500;
           }
         }
@@ -525,9 +539,9 @@ export default {
                     &:after {
                         content: ")";
                         color: #ff8f00;
-                        padding-left: 6px;
+                        padding: 0 6px;
                         @media screen and (max-width: 768px) {
-                            padding-left: 5px;
+                            padding:0 5px;
                             font-size: 16px;
                         }
                     }
@@ -679,6 +693,9 @@ export default {
                         margin: 0;
                         color: var(--abrishamMain);
                         font-size: 24px !important;
+                        @media screen and (max-width: 600px) {
+                          font-size: 18px !important;
+                        }
                       }
                         @media screen and (max-width: 768px) {
                             font-size: 20px !important;

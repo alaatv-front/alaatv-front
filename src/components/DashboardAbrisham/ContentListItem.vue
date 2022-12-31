@@ -172,17 +172,31 @@ export default {
     display: grid;
     grid-template-columns:96px auto;
     align-items: center;
-    padding-top: 21px;
     border-bottom: solid 1px rgba(159, 165, 192, 0.58);
+    padding: 0 26px;
+    @media screen and (max-width: 1920px){
+      padding: 0 10px;
+    }
+    @media screen and (max-width: 1023px){
+      padding: 0 26px;
+    }
+    @media screen and (max-width: 767px){
+      padding: 0 10px;
+    }
+    @media screen and (max-width: 575px){
+      padding: 0 7px;
+    }
     @media screen and (max-width: 1920px) {
       padding-top: 15px;
-      grid-template-columns:80px auto;
+      grid-template-columns:71px auto;
     }
     @media screen and (max-width: 990px) {
       padding-top: 10px;
+      grid-template-columns:96px auto;
     }
     @media screen and (max-width: 768px) {
       padding-top: 10px;
+      grid-template-columns:71px auto;
     }
     @media screen and (max-width: 576px) {
       padding-top: 10px;
@@ -210,7 +224,7 @@ export default {
           width: 96px;
           border-radius: 10px !important;
           @media screen and (max-width: 1920px) {
-            width: 80px;
+            width: 71px;
             border-radius: 5px !important;
           }
           @media screen and (max-width: 959px) {
@@ -281,9 +295,11 @@ export default {
             @media screen and (max-width: 1920px) {
               font-size: 14px;
               color: #9fa5c0;
+              max-width: 202px;
             }
             @media screen and (max-width: 768px) {
               font-size: 12px;
+              max-width: 338px;
             }
             @media screen and (max-width: 350px) {
               font-size: 12px;

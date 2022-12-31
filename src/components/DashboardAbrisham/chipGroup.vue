@@ -61,7 +61,7 @@
         emit-value
         map-options
         flat
-        @change="changeSelectedChip"
+        @update:model-value ="changeSelectedChip(selectedId)"
       />
     </div>
   </div>

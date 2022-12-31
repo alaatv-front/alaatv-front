@@ -157,7 +157,7 @@ export default {
       this.loadPlans(studyPlanId)
     },
 
-    async openPlanExpansion (studyPlanId) {
+    async openPlanExpansion(studyPlanId) {
       const target = this.getPlan(studyPlanId)
       const studyPlanIndex = target.index
       if (studyPlanIndex === -1) {
@@ -232,11 +232,11 @@ export default {
     //   return axios.get('/api/v2/studyEvent/' + studyPlanNumber + '/studyPlans')
     // },
 
-    getMajor (id) {
+    getMajor(id) {
       return this.majors.list.find(major => major.id === id)
     },
 
-    getFirstMajor () {
+    getFirstMajor() {
       return this.majors.list[0]
     },
 
@@ -300,7 +300,7 @@ export default {
       }
     },
 
-    resetAllPlans () {
+    resetAllPlans() {
       this.studyPlanList.list.forEach(studyPlan => studyPlan.plans = new PlanList())
     },
 
@@ -354,202 +354,219 @@ export default {
 
 <style lang="scss" scoped>
 .study-plan-group {
-    .study-plan {
-      background-color: #ffe2bc;
-      color: #3e5480;
-      padding: 40px 60px 51px 60px;
-      border-radius: 30px;
-      position: relative;
+  .study-plan {
+    background-color: #ffe2bc;
+    color: var(--abrishamMain);
+
+    padding: 40px 60px 51px 60px;
+    border-radius: 30px;
+    position: relative;
+    @media screen and (max-width: 1919px) {
+      padding: 40px 45px 50px 45px;
+    }
+    @media screen and (max-width: 1200px) {
+      border-radius: 20px;
+      padding: 30px 35px 78px 35px;
+    }
+    @media screen and (max-width: 767px) {
+      padding: 25px 23px 48px 23px;
+    }
+    @media screen and (max-width: 575px) {
+      padding: 25px 7px 18px 7px;
+    }
+
+    .study-plan-header-title {
+      font-size: 20px;
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 56px;
+      @media screen and (max-width: 1919px) {
+      }
+      @media screen and (max-width: 1200px) {
+        margin-bottom: 20px;
+      }
+      @media screen and (max-width: 767px) {
+      }
+      @media screen and (max-width: 575px) {
+        margin-bottom: 25px;
+      }
+    }
+
+    .major-card {
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+      align-items: center;
+      position: absolute;
+      top: 42px;
+      //margin-top: -57px;
+      margin-left: 15px !important;
       @media only screen and (max-width: 1200px) {
-        border-radius: 20px;
+        //margin-top: -32px;
+        position: static;
+        margin-bottom: 30px;
       }
-      .study-plan-header-title{
-        font-size: 20px;
-        font-weight: 500;
-        text-align: center;
-        margin-bottom: 56px;
-        @media only screen and (max-width: 768px) {
 
+      @media only screen and (max-width: 768px) {
+        justify-content: center;
+        margin-bottom: 25px;
+      }
+
+      :deep(.q-field ) {
+        width: 195px;
+        @media only screen and (max-width: 1904px) {
+          width: 177px;
+        }
+        @media only screen and (max-width: 1200px) {
+          width: 136px;
+        }
+        @media only screen and (max-width: 990px) {
+          width: 136px;
+        }
+      }
+
+      :deep(.q-field__control)::after {
+        height: 0;
+      }
+
+      .v-text-field {
+        &.v-text-field--enclosed {
+          padding-top: 15px;
+          margin-right: 15px !important;
+          @media only screen and (max-width: 1200px) {
+            padding-top: 35px;
+          }
+        }
+      }
+
+      .major-card-text {
+        margin-right: 4%;
+        font-size: 16px;
+        @media only screen and (max-width: 768px) {
+          margin-right: 10px;
+        }
+
+      }
+    }
+
+    .all-the-expansions {
+      height: 540px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      @media only screen and (max-width: 1200px) {
+        height: 527px;
+      }
+      @media only screen and (max-width: 990px) {
+        height: 547px;
+      }
+      @media only screen and (max-width: 768px) {
+        height: 466px;
+      }
+      @media only screen and (max-width: 350px) {
+        height: 446px;
+      }
+
+      .study-plan-expansion {
+        padding: 0 80px 0 80px;
+        @media only screen and (max-width: 1904px) {
+          padding: 0 60px 0 60px;
+        }
+        @media only screen and (max-width: 1200px) {
+          padding: 0 48px 0 48px;
         }
         @media only screen and (max-width: 768px) {
-          font-size: 16px;
-
+          padding: 0 37px 0 37px;
         }
-      }
-        .major-card {
-            display: flex;
-            flex-direction: row;
-            text-align: center;
-            align-items: center;
-            position: absolute;
-            top: 42px;
-            //margin-top: -57px;
-            margin-left: 15px !important;
-            @media only screen and (max-width: 1200px) {
-                //margin-top: -32px;
-              position: relative;
-            }
+        @media only screen and (max-width: 576px) {
+          padding: 0 20px 0 20px;
+        }
 
-            @media only screen and (max-width: 768px) {
-                justify-content: center;
-
+        &.theme--light {
+          &.v-expansion-panels {
+            .v-expansion-panel {
+              margin-top: 15px;
+              border-radius: 20px !important;
             }
+          }
+        }
 
-            :deep(.q-field ) {
-                width: 195px;
-                @media only screen and (max-width: 1904px) {
-                    width: 177px;
-                }
-                @media only screen and (max-width: 1200px) {
-                    width: 136px;
-                }
-                @media only screen and (max-width: 990px) {
-                    width: 136px;
-                }
-            }
-          :deep(.q-field__control)::after{
-            height: 0;
+        .study-plan-expansion-header {
+          font-size: 18px;
+          font-weight: normal;
+          line-height: normal;
+          text-align: right;
+          color: var(--abrishamMain);
+          @media only screen and (max-width: 768px) {
+            font-size: 14px;
           }
 
-            .v-text-field {
-                &.v-text-field--enclosed {
-                    padding-top: 15px;
-                    margin-right: 15px !important;
-                    @media only screen and (max-width: 1200px) {
-                        padding-top: 35px;
-                    }
-                }
-            }
-
-            .major-card-text {
-                margin-right: 4%;
-                font-size: 16px;
-                @media only screen and (max-width: 768px) {
-                    padding-top: 20px;
-                    margin-right: 0;
-                }
-
-            }
+          .q-card__subtitle, .q-card__text {
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.375rem;
+            letter-spacing: 0.0071428571em;
+            margin-right: 38px;
+          }
         }
-
-        .all-the-expansions {
-            height: 540px;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            @media only screen and (max-width: 1200px) {
-                height: 527px;
-            }
-            @media only screen and (max-width: 990px) {
-                height: 547px;
-            }
-            @media only screen and (max-width: 768px) {
-                height: 466px;
-            }
-            @media only screen and (max-width: 350px) {
-                height: 446px;
-            }
-
-            .study-plan-expansion {
-                padding: 0 80px 0 80px;
-                @media only screen and (max-width: 1904px) {
-                    padding: 0 60px 0 60px;
-                }
-                @media only screen and (max-width: 1200px) {
-                    padding: 0 48px 0 48px;
-                }
-                @media only screen and (max-width: 768px) {
-                    padding: 0 37px 0 37px;
-                }
-                @media only screen and (max-width: 576px) {
-                    padding: 0 20px 0 20px;
-                }
-
-                &.theme--light {
-                    &.v-expansion-panels {
-                        .v-expansion-panel {
-                            margin-top: 15px;
-                            border-radius: 20px !important;
-                        }
-                    }
-                }
-
-                .study-plan-expansion-header {
-                    font-size: 18px;
-                    font-weight: normal;
-                    line-height: normal;
-                    text-align: right;
-                    color: #3e5480;
-                    @media only screen and (max-width: 768px) {
-                        font-size: 14px;
-                    }
-
-                    .q-card__subtitle, .q-card__text {
-                        font-size: 0.875rem;
-                        font-weight: 400;
-                        line-height: 1.375rem;
-                        letter-spacing: 0.0071428571em;
-                        margin-right: 38px;
-                    }
-                }
-            }
-        }
+      }
     }
+  }
 }
 
 #study-scroll-1-x {
-    &::-webkit-scrollbar-track {
-        border-radius: 6px;
-        background-color: #F5F5F5;
-    }
+  &::-webkit-scrollbar-track {
+    border-radius: 6px;
+    background-color: #F5F5F5;
+  }
 
-    &::-webkit-scrollbar-thumb {
-        border-radius: 6px;
-        background-color: #f7941d;
-    }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #f7941d;
+  }
 }
 
 @media only screen and (max-width: 1200px) {
-    .q-card > :first-child:not(.v-btn):not(.v-chip):not(.v-avatar), .q-card > .q-card__progress + :not(.v-btn):not(.v-chip):not(.v-avatar) {
-        border-radius: 20px;
-    }
+  .q-card > :first-child:not(.v-btn):not(.v-chip):not(.v-avatar), .q-card > .q-card__progress + :not(.v-btn):not(.v-chip):not(.v-avatar) {
+    border-radius: 20px;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-    .v-text-field.v-text-field--solo .v-input__control {
-        min-height: 40px;
-    }
+  .v-text-field.v-text-field--solo .v-input__control {
+    min-height: 40px;
+  }
 }
 </style>
 <style lang="scss">
 .v-text-field fieldset, .v-text-field .v-input__control, .v-text-field .v-input__slot {
-    border-radius: 10px !important;
+  border-radius: 10px !important;
 }
 
 .v-expansion-panel-content__wrap {
-    box-shadow: 0 0 0 0;
+  box-shadow: 0 0 0 0;
 }
 
 .study-plan-expansion {
-    .v-expansion-panel {
-        .v-expansion-panel-content__wrap {
-            box-shadow: 0 0 0 0;
-            padding: 0 20px 16px !important;
-            @media screen and (max-width: 990px) {
-                padding: 0 15px 16px !important;
-            }
-            @media screen and (max-width: 768px) {
-                padding: 0 5px 10px !important;
-            }
-            @media screen and (max-width: 576px) {
-                padding: 0 5px 9px !important;
-            }
-        }
+  .v-expansion-panel {
+    .v-expansion-panel-content__wrap {
+      box-shadow: 0 0 0 0;
+      padding: 0 20px 16px !important;
+      @media screen and (max-width: 990px) {
+        padding: 0 15px 16px !important;
+      }
+      @media screen and (max-width: 768px) {
+        padding: 0 5px 10px !important;
+      }
+      @media screen and (max-width: 576px) {
+        padding: 0 5px 9px !important;
+      }
     }
+  }
 }
 
 @media only screen and (max-width: 768px) {
-    .study-plan-group .v-text-field.v-text-field--solo .v-input__control {
-        min-height: 40px;
-    }
+  .study-plan-group .v-text-field.v-text-field--solo .v-input__control {
+    min-height: 40px;
+  }
 }
 </style>

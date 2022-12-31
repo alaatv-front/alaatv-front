@@ -1,50 +1,4 @@
 <template>
-  <!--  <div>-->
-
-  <!--        <q-card-->
-  <!--          class="study-plan-boxes"-->
-  <!--          elevation="0"-->
-  <!--        >-->
-  <!--          <v-expansion-panel-content>-->
-  <!--            &lt;!&ndash;        <v-progress-linear&ndash;&gt;-->
-  <!--            &lt;!&ndash;          indeterminate&ndash;&gt;-->
-  <!--            &lt;!&ndash;          background-color="blue lighten-4"&ndash;&gt;-->
-  <!--            &lt;!&ndash;          color="blue accent-2"&ndash;&gt;-->
-  <!--            &lt;!&ndash;          :active="studyPlanLoading"&ndash;&gt;-->
-  <!--            &lt;!&ndash;        />&ndash;&gt;-->
-
-  <!--            &lt;!&ndash;                    <v-sheet&ndash;&gt;-->
-  <!--            &lt;!&ndash;                        class="study-plan-sheet"&ndash;&gt;-->
-  <!--            &lt;!&ndash;                    >&ndash;&gt;-->
-  <!--            &lt;!&ndash;                        فردا دیره، دیروز هم دیشب تموم شد، الان دقیقا لحظه ای هست که باید شروع&ndash;&gt;-->
-  <!--            &lt;!&ndash;                        کنی!&ndash;&gt;-->
-  <!--            &lt;!&ndash;                    </v-sheet>&ndash;&gt;-->
-  <!--            <v-card-->
-  <!--              class="study-plan-card"-->
-  <!--              elevation="0"-->
-  <!--            >-->
-  <!--              <v-card-text>-->
-  <!--                <time-schedule-table-->
-  <!--                  v-if="!studyPlanLoading"-->
-  <!--                  :selectedPanel="selectedPlan"-->
-  <!--                  :plans="studyPlan.plans"-->
-  <!--                  :selected-major="selectedMajor"-->
-  <!--                  :loading="studyPlanLoading"-->
-  <!--                  :header-width="setHeaderWidthForMediaTags"-->
-  <!--                  :not-the-same-plan="notTheSamePlan"-->
-  <!--                  @planClicked="loadSelectedPlan"-->
-  <!--                />-->
-  <!--              </v-card-text>-->
-  <!--            </v-card>-->
-  <!--          </v-expansion-panel-content>-->
-  <!--          <individual-plan-details-->
-  <!--            :selected-plan="selectedPlan"-->
-  <!--            :showPanelDetail="showDetail"-->
-  <!--            @contentClicked="contentClicked"-->
-  <!--          />-->
-  <!--        </q-card>-->
-
-  <!--  </div>-->
   <q-expansion-item  class="bg-white test">
     <template v-slot:header>
       <div class="row full-width">
@@ -56,7 +10,7 @@
 
     <q-card class="content"
             flat>
-      <q-card-section class="study-plan-card">
+      <div class="study-plan-card">
         <time-schedule-table
           :selectedPanel="selectedPlan"
           :plans="studyPlan.plans"
@@ -66,7 +20,7 @@
           :not-the-same-plan="notTheSamePlan"
           @planClicked="loadSelectedPlan"
         />
-      </q-card-section>
+      </div>
       <individual-plan-details
         :selected-plan="selectedPlan"
         :showPanelDetail="showDetail"
@@ -168,9 +122,21 @@ export default {
   border-radius: 20px;
   :deep(.q-item){
     height: 60px;
+    @media screen and (max-width: 1200px){
+      height: 50px;
+    }
   }
   .content{
     border-radius:20px ;
+    .study-plan-card{
+      padding:0 40px 32px 40px;
+      @media screen and(max-width: 990px ) {
+        padding:0 30px 32px 30px;
+      }
+      @media screen and(max-width: 767px ) {
+        padding:0 10px 21px 10px;
+      }
+    }
   }
   .header-text-style{
     font-size: 18px;
@@ -185,7 +151,7 @@ export default {
   }
 }
 .study-plan-boxes{
-    color: #3e5480;
+    color:  var(--abrishamMain);
     margin-bottom: 1px;
     border-radius: 0 0 10px 10px;
     width: 99.6%;
@@ -195,10 +161,9 @@ export default {
     }
     .study-plan-card{
         background-color: #e1f0ff;
-        color: #3e5480;
+        color: var(--abrishamMain);
         margin-top: 10px;
         margin-right: 0;
-        padding: 0 5px 6px;
     }
 }
 .v-card{
@@ -221,7 +186,7 @@ export default {
     letter-spacing: normal;
     text-align: center;
     background-color: #eff3ff;
-    color: #3e5480;
+    color:  var(--abrishamMain);
     border-color: #FFFFFF;
     padding-top: 7px;
     padding-bottom: 5px;

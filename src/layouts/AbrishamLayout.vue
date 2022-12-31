@@ -29,8 +29,8 @@
           v-for="(item, index) in menuItem"
           :key="index"
         >
-          <q-separator v-if="index < menuItem.length-1"
-                       class="q-mx-lg" />
+          <q-separator
+            class="q-mx-lg" />
           <q-item
             v-if="item.icon !== activePage.icon"
             v-ripple
@@ -100,12 +100,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.body.body--light{
+  background: white!important;
+}
 .abrisham-layout{
   @media screen and(max-width: 1023px) {
     padding: 0 21px;
   }
+  @media screen and(max-width: 990px) {
+    padding: 0 15px;
+  }
+  @media screen and(max-width: 575px) {
+    padding: 0 10px;
+  }
   .expanded-navigation{
-    background: red;
     max-width: 554px;
     margin: 10px auto;
     font-size: 14px;
@@ -147,7 +155,6 @@ export default {
   &:deep(.q-expansion-item){
     border-radius: 15px;
     box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
-    background: red;
   }
   &:deep(.q-item__label){
     text-align: center;
