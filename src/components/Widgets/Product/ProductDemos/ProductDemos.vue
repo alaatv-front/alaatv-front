@@ -119,7 +119,6 @@ export default {
       })
         .then(product => {
           this.contents = new Product(product)
-          console.log(this.contents.list.length)
           this.pamphlets = product.sample_photos
         })
         .catch(() => {

@@ -145,7 +145,6 @@ export default {
               this.pamphlets.push(content)
             }
           })
-          console.log(this.pamphlets)
         })
         .catch()
     }
