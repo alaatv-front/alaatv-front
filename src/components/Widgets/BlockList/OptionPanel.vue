@@ -3,14 +3,20 @@
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row">
-          <div class="col-md-6">
-            <q-input v-model="localOptions.blockId"
-                     label="blockId"
+          <div class="col-md-5">
+            <q-select v-model="localOptions.apiName"
+                      :options="apiOptions"
+                      label="api"
             />
           </div>
-          <div class="col-md-6">
-            <q-input v-model="localOptions.urlParam"
-                     label="urlParam"
+          <div v-if="localOptions.to" class="col-md-5 offset-1">
+            <q-input v-model="localOptions.to"
+                     label="to: "
+            />
+          </div>
+          <div v-else-if="localOptions.from" class="col-md-5 offset-1">
+            <q-input v-model="localOptions.from"
+                     label="from: "
             />
           </div>
         </div>
@@ -27,8 +33,19 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [mixinOptionPanel],
+  props: {
+    options: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
+      apiOptions: ['home', 'shop'],
+      listSlice: 'to',
+      sliceOptions: ['to', 'from'],
       defaultOptions: {
         className: '',
         height: 'auto',
@@ -36,6 +53,14 @@ export default defineComponent({
         boxedWidth: 1200,
         style: {}
       }
+    }
+  },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   }
 })

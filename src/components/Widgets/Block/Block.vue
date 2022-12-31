@@ -2,14 +2,14 @@
   <div class="block-section">
     <div v-if="isThereData"
          class="block-header row q-pa-md q-mb-sm"
-         :class="data.headerCustomClass"
+         :class="block.headerCustomClass"
     >
-      <a :href="data?.url?.web"
+      <a :href="block?.url?.web"
          class="block-title"
       >
-        {{ data.title }}
+        {{ block.title }}
       </a>
-      <q-btn v-if="!data.banners || data.banners.list.length === 0"
+      <q-btn v-if="!block.banners || block.banners.list.length === 0"
              round
              color="primary"
              :icon="isGridView ? 'sync_alt' : 'grid_view'"
@@ -17,15 +17,15 @@
       />
     </div>
     <div class="block-container">
-      <slider v-if="data.banners && data.banners.list.length > 0"
+      <slider v-if="block.banners && block.banners.list.length > 0"
               :options="bannerSlides"
       />
-      <div v-if="data.products.list.length > 0"
+      <div v-if="block.products.list.length > 0"
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'"
       >
-        <div v-for="product in this.data.products.list"
+        <div v-for="product in this.block.products.list"
              :key="product.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
@@ -35,19 +35,19 @@
           <product-item :data="product" />
         </div>
         <div class="block-item-box">
-          <a :href="data?.url?.web"
+          <a :href="block?.url?.web"
              class="show-more-title"
           >
             نمایش بیشتر
           </a>
         </div>
       </div>
-      <div v-if="data.sets.list.length > 0"
+      <div v-if="block.sets.list.length > 0"
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'"
       >
-        <div v-for="set in this.data.sets.list"
+        <div v-for="set in this.block.sets.list"
              :key="set.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
@@ -57,19 +57,19 @@
           <set-item :data="set" />
         </div>
         <div class="block-item-box">
-          <a :href="data?.url?.web"
+          <a :href="block?.url?.web"
              class="show-more-title"
           >
             نمایش بیشتر
           </a>
         </div>
       </div>
-      <div v-if="data.contents.list.length > 0"
+      <div v-if="block.contents.list.length > 0"
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'"
       >
-        <div v-for="content in this.data.contents.list"
+        <div v-for="content in this.block.contents.list"
              :key="content.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
@@ -79,7 +79,7 @@
           <content-item :data="content" />
         </div>
         <div class="block-item-box">
-          <a :href="data?.url?.web"
+          <a :href="block?.url?.web"
              class="show-more-title"
           >
             نمایش بیشتر
@@ -112,30 +112,92 @@ export default {
   },
   mixins: [mixinWidget],
   props: {
-    data: {
+    options: {
       type: Block,
       default: new Block()
     }
   },
   data: () => ({
-    isGridView: false
+    isGridView: false,
+    block: new Block()
   }),
   computed: {
     isThereData() {
       return !!(
-        this.data.banners.list.length ||
-        this.data.products.list.length ||
-        this.data.contents.list.length ||
-        this.data.sets.list.length
+        this.block.banners.list.length ||
+        this.block.products.list.length ||
+        this.block.contents.list.length ||
+        this.block.sets.list.length
       )
     },
+    blocksToShow() {
+      return this.getBlocks(this.blocks)
+    },
     bannerSlides() {
-      this.data.banners.list.forEach(element => {
+      this.block.banners.list.forEach(element => {
         element.photo = {
           src: element.photo
         }
       })
-      return this.data.banners
+      return this.block.banners
+    }
+  },
+  watch: {
+    options: {
+      handler() {
+        this.block = new Block(this.options)
+      },
+      deep: true
+    }
+  },
+  mounted() {
+    // if (this.options.apiName) {
+    //   this.loadBlocks()
+    // } else {
+    // }
+    this.block = new Block(this.options)
+  },
+
+  methods: {
+    loadBlocks() {
+      this.getBlocksByRequest()
+    },
+
+    getBlocksByRequest(url) {
+      this.block.loading = true
+      let promise = null
+      promise = this.getApiRequest()
+      if (promise) {
+        promise
+          .then((response) => {
+            this.block = new Block(response)
+
+            this.block.loading = false
+          })
+          .catch(() => {
+            this.block.loading = false
+          })
+      }
+    },
+
+    getBlocks(blocks) {
+      if (!blocks || !blocks.list || blocks.list.length === 0) {
+        return
+      }
+      return blocks.list.slice(this.options.from, this.options.to)
+    },
+
+    getApiRequest() {
+      if (this.options.apiName === 'home') {
+        return this.$apiGateway.pages.home({
+          cache: {
+            TTL: 100000
+          }
+        })
+      }
+      if (this.options.apiName === 'shop') {
+        return this.$apiGateway.pages.shop()
+      }
     }
   }
 }
