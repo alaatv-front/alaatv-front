@@ -79,7 +79,7 @@ export default {
   name: 'productItem',
   components: { LazyImg },
   props: {
-    data: {
+    options: {
       type: Product,
       default: new Product()
     }
@@ -88,7 +88,7 @@ export default {
     product: new Product()
   }),
   created () {
-    this.product = new Product(this.data)
+    this.product = new Product(this.options)
   },
   methods: {
     addToCart() {
