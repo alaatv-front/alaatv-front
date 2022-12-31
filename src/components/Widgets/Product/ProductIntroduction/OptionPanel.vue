@@ -3,25 +3,15 @@
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row">
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.production_year"
+          <div class="col-md-6">
+            <q-checkbox v-model="localOptions.download_date"
                         left-label
-                        label="سال تولید" />
+                        label="زمان دریافت" />
           </div>
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.teacher"
+          <div class="col-md-6">
+            <q-checkbox v-model="localOptions.duration"
                         left-label
-                        label="مدرس" />
-          </div>
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.major"
-                        left-label
-                        label="رشته" />
-          </div>
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.shipping_method"
-                        left-label
-                        label="مدل دریافت" />
+                        label="مدت زمان" />
           </div>
         </div>
       </div>
@@ -46,6 +36,14 @@ export default defineComponent({
         boxedWidth: 1200,
         style: {}
       }
+    }
+  },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   }
 })
