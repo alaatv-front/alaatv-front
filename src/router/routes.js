@@ -65,17 +65,17 @@ const routes = [
       {
         path: 'map',
         name: 'MapPage',
-        component: () => import('src/components/Widgets/Map/Map')
+        component: () => import('src/components/Widgets/Map/Map.vue')
       },
       {
         path: 'shop',
         name: 'Shop',
-        component: () => import('pages/User/Shop')
+        component: () => import('pages/User/Shop.vue')
       },
       {
         path: 'user/orders',
         name: 'user.orders',
-        component: () => import('pages/User/Orders/userOrders')
+        component: () => import('pages/User/Orders/userOrders.vue')
       },
       {
         path: 'checkout',
@@ -125,7 +125,7 @@ const routes = [
       {
         path: 'component',
         name: 'component',
-        component: () => import('src/pages/component'),
+        component: () => import('src/pages/component.vue'),
         breadcrumbs: { title: 'component' },
         meta: {
           middlewares: [auth]
@@ -134,7 +134,7 @@ const routes = [
       {
         path: 'user-info',
         name: 'user-info',
-        component: () => import('pages/User/UserInfoForm'),
+        component: () => import('pages/User/UserInfoForm.vue'),
         meta: {
           middlewares: [auth]
         }
@@ -146,8 +146,8 @@ const routes = [
           middlewares: [auth]
         },
         children: [
-          { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
-          { name: 'Admin.StudyPlan', path: 'studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
+          { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings.vue'), breadcrumbs: { title: 'تنظیمات' } },
+          { name: 'Admin.StudyPlan', path: 'studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan.vue') },
           ...EntityCrudRoutes
         ]
       },
@@ -162,7 +162,7 @@ const routes = [
             meta: {
               middlewares: [auth]
             },
-            component: () => import('pages/User/Dashboard/MyPurchases')
+            component: () => import('pages/User/Dashboard/MyPurchases.vue')
           },
           {
             name: 'User.Dashboard.favorites',
@@ -170,14 +170,14 @@ const routes = [
             meta: {
               middlewares: [auth]
             },
-            component: () => import('pages/User/Dashboard/MyFavorites')
+            component: () => import('pages/User/Dashboard/MyFavorites.vue')
           }
         ]
       },
       {
         path: '/debug',
         name: 'debug',
-        component: () => import('pages/debug'),
+        component: () => import('pages/debug.vue'),
         meta: {
           middlewares: [auth]
         }
@@ -185,7 +185,7 @@ const routes = [
       {
         path: '/form-generator',
         name: 'formGenerator',
-        component: () => import('pages/formGenerator')
+        component: () => import('pages/formGenerator.vue')
       },
       {
         path: '/profile',
@@ -209,7 +209,7 @@ const routes = [
   {
     path: '/debug',
     name: 'debug',
-    component: () => import('pages/debug'),
+    component: () => import('pages/debug.vue'),
     meta: {
       middlewares: [auth]
     }

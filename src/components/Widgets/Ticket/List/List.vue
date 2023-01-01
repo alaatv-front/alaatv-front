@@ -9,7 +9,7 @@
       :create-route-name="'Admin.Ticket.Create'"
       @onPageChanged="filterInputs"
     >
-      <template v-slot:before-index-table="">
+      <template v-slot:before-index-table>
         <p class="q-ma-lg">
           تعداد کل یافته ها: {{ totalTickets}}
         </p>
@@ -130,8 +130,8 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
-import { mixinTicket } from 'src/mixin/Mixins'
+import API_ADDRESS from 'src/api/Addresses.js'
+import { mixinTicket } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'Index',
