@@ -1,13 +1,12 @@
 <template>
   <div class="ticket-index">
-    <entity-index
-      v-model:value="inputs"
-      title="لیست تیکت ها"
-      :api="api"
-      :table="table"
-      :table-keys="tableKeys"
-      :create-route-name="'Admin.Ticket.Create'"
-      @onPageChanged="filterInputs"
+    <entity-index v-model:value="inputs"
+                  title="لیست تیکت ها"
+                  :api="api"
+                  :table="table"
+                  :table-keys="tableKeys"
+                  :create-route-name="'Admin.Ticket.Create'"
+                  @onPageChanged="filterInputs"
     >
       <template v-slot:before-index-table>
         <p class="q-ma-lg">
@@ -134,7 +133,7 @@ import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinTicket } from 'src/mixin/Mixins.js'
 
 export default {
-  name: 'Index',
+  name: 'TicketList',
   components: { EntityIndex },
   mixins: [mixinTicket],
   data () {
