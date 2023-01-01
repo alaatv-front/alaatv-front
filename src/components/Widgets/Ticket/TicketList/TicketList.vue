@@ -8,13 +8,127 @@
                   :create-route-name="'Admin.Ticket.Create'"
                   @onPageChanged="filterInputs"
     >
+      <template v-slot:before-index-table>
+        <p class="q-ma-lg">
+          تعداد کل یافته ها: {{ totalTickets}}
+        </p>
+      </template>
+      <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
+        <q-td :props="inputData.props">
+          <template v-if="inputData.props.col.name === 'status'">
+            <div v-if="inputData.props.expand">
+              <q-select v-model="inputData.props.row.status"
+                        outlined
+                        dense
+                        :options="ticketStatuses"
+                        option-label="title"
+              />
+            </div>
+            <template v-else>
+              <q-chip :color="checkStatusColor(inputData.props.row.status.id)"
+                      :style="{color: '#FFF', height: '26px'}">
+                {{ inputData.props.row.status.title }}
+              </q-chip>
+            </template>
+          </template>
+          <template v-if="inputData.props.col.name === 'title'">
+            <div class="title-class ellipsis">
+              {{inputData.props.row.title}}
+            </div>
+          </template>
+          <template v-if="inputData.props.col.name === 'score'">
+            <q-img :src="rateImg(inputData.props.row.rate)"
+                   class="rate-img" />
+          </template>
+          <template v-if="inputData.props.col.name === 'department'">
+            <q-select
+              v-if="inputData.props.expand"
+              v-model="inputData.props.row.department"
+              outlined
+              dense
+              :options="departmentList.list"
+              option-label="title"
+            >
+            </q-select>
+            <p v-else>{{inputData.props.row.department.title}}</p>
+
+          </template>
+          <template v-if="inputData.props.col.name === 'actions'">
+            <div v-if="inputData.props.expand">
+              <q-btn
+                round
+                flat
+                dense
+                color="green"
+                icon="check"
+                :loading="loading"
+                class="q-mr-md"
+                @click="updateTicket(inputData.props)"
+              >
+
+              </q-btn>
+              <q-btn
+                round
+                flat
+                dense
+                color="red"
+
+                icon="close"
+                @click="inputData.props.expand = false"
+              >
+              </q-btn>
+
+            </div>
+            <template v-else>
+              <q-btn round
+                     flat
+                     dense
+                     size="md"
+                     color="info"
+                     icon="info"
+                     :to="{name:'Admin.Ticket.Show', params: {id: inputData.props.row.id}}">
+                <q-tooltip>
+                  مشاهده
+                </q-tooltip>
+              </q-btn>
+              <q-btn round
+                     flat
+                     dense
+                     size="md"
+                     color="amber-14"
+                     icon="edit"
+                     class="q-ml-xs"
+                     @click="setEditMode(inputData.props)">
+                <q-tooltip>
+                  ویرایش
+                </q-tooltip>
+              </q-btn>
+              <q-btn round
+                     flat
+                     dense
+                     size="md"
+                     color="negative"
+                     icon="delete"
+                     :loading="loading"
+                     class="q-ml-md"
+                     @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
+                <q-tooltip>
+                  حذف
+                </q-tooltip>
+              </q-btn>
+            </template>
+          </template>
+          <template v-else>
+            {{ inputData.props.value }}
+          </template>
+        </q-td>
+      </template>
     </entity-index>
   </div>
 </template>
 
 <script>
-// import { EntityIndex } from 'quasar-crud'
-import EntityIndex from 'quasar-crud/src/components/Entity/Index/EntityIndex.vue'
+import { EntityIndex } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinTicket } from 'src/mixin/Mixins.js'
 
