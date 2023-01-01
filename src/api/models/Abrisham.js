@@ -3,7 +3,7 @@ import { apiV2 } from 'src/boot/axios'
 import { ContentList } from 'src/models/Content'
 import { StudyPlanList } from 'src/models/StudyPlan'
 import { PlanList } from 'src/models/Plan'
-import { User } from 'src/models/User'
+import { LiveDescriptionList } from 'src/models/LiveDescription'
 
 export default class AbrishamAPI extends APIRepository {
   constructor() {
@@ -16,9 +16,11 @@ export default class AbrishamAPI extends APIRepository {
       consultingContent: 'set/1213/contents',
       watchedVideo: '/watched',
       unWatchedVideo: '/unwatched',
+      pinedNews: '/livedescription/getPined',
       liveDescription: '/livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc',
       userLastState: (id) => '/product/' + id + '/toWatch',
       sets: (id) => '/product/' + id + '/sets',
+      observedLiveDescription: (id) => '/livedescription' + id + '/seen',
       contents: (id) => '/set/' + id + '/contents',
       studyPlan: (id) => '/studyEvent/' + id + '/studyPlans',
       plan: (id) => '/studyPlan/' + id + '/plans',
@@ -158,17 +160,21 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  getNewsList() {
+  getNewsList(data) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.liveDescription,
       resolveCallback: (response) => {
-        return response
+        return {
+          data: new LiveDescriptionList(response.data.data),
+          meta: response.data.meta
+        }
       },
       rejectCallback: (er) => {
         return er
-      }
+      },
+      data
     })
   }
 
@@ -274,6 +280,37 @@ export default class AbrishamAPI extends APIRepository {
         return error
       },
       data
+    })
+  }
+
+  getPinedNews() {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.pinedNews,
+      resolveCallback: (response) => {
+        return {
+          data: new LiveDescriptionList(response.data.data),
+          meta: response.data.meta
+        }
+      },
+      rejectCallback: (er) => {
+        return er
+      }
+    })
+  }
+
+  getNewsHasBeenSeen(id) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.observedLiveDescription(id),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 }

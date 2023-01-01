@@ -291,7 +291,6 @@ export default {
 
   methods: {
     setVideoDuration(data) {
-      console.log(data)
       this.videoDuration = data
     },
     share(name) {
@@ -358,7 +357,6 @@ export default {
         )
       })
       this.sources = new PlayerSourceList(customSources)
-      console.log(this.sources)
     },
 
     setContentTimePoint (timePoints) {
@@ -441,7 +439,6 @@ export default {
 }
 .download-box{
   border-radius: 40px;
-  background: red;
   padding: 15px;
   .download-title{
     color: var(--abrishamMain);

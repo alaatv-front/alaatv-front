@@ -84,6 +84,11 @@ export default {
       {
         icon: 'headphones',
         routeName: 'User.Abrisham.userConsulting',
+        title: 'مشاوره'
+      },
+      {
+        icon: 'envelope',
+        routeName: 'User.Abrisham.News',
         title: 'اخبار و اطلاعیه'
       }
     ]

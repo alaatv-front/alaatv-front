@@ -231,6 +231,11 @@ const routes = [
             path: 'consulting',
             name: 'User.Abrisham.userConsulting',
             component: () => import('pages/User/DashboardAbrisham/Consulting.vue')
+          },
+          {
+            path: 'news',
+            name: 'User.Abrisham.News',
+            component: () => import('pages/User/DashboardAbrisham/News.vue')
           }
         ]
       }

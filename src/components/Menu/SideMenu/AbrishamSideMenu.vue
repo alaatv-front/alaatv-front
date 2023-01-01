@@ -45,6 +45,10 @@ export default {
       {
         icon: 'headphones',
         routeName: 'User.Abrisham.userConsulting'
+      },
+      {
+        icon: 'envelope',
+        routeName: 'User.Abrisham.News'
       }
       // {
       //   icon: 'world',
@@ -59,10 +63,7 @@ export default {
       //   icon: 'stats',
       //   routeName: 'assessment'
       // },
-      // {
-      //   icon: 'envelope',
-      //   routeName: 'news'
-      // },
+
     ]
   }),
   created() {

@@ -182,7 +182,7 @@ export default {
       // const param = 'tags[]=مشاوره&order_by[]=created_at&order_type[]=desc&liveDescriptionPage=' + this.newsNextPage;
       return 'liveDescriptionPage=' + this.newsNextPage
     },
-    nextPage() {
+    async nextPage() {
       if (this.newsLastPage !== null && parseInt(this.newsLastPage) < parseInt(this.newsNextPage)) {
         return
       }
@@ -190,17 +190,15 @@ export default {
       this.news.loading = true
       // livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc&liveDescriptionPage=1
       //  s.get(window.APIAddresses.liveDescription + '&' + param)
-      this.$apiGateway.abrisham.getNewsList(param)
-        .then((response) => {
-          console.log('response', response)
-          this.newsNextPage = parseInt(response.data.meta.current_page) + 1
-          this.newsLastPage = response.data.meta.last_page
-          this.news.add(...response.data.data)
-          this.news.loading = false
-        })
-        .catch(() => {
-          this.news.loading = false
-        })
+      try {
+        const response = await this.$apiGateway.abrisham.getNewsList(param)
+        this.newsNextPage = parseInt(response.meta.current_page) + 1
+        this.newsLastPage = response.meta.last_page
+        this.news = response.data
+        this.news.loading = false
+      } catch {
+        this.news.loading = false
+      }
     },
     async getLoadContents(setId) {
       this.contents = await this.$apiGateway.abrisham.getConsultingContentList(setId)

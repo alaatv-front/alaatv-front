@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { LiveDescription, LiveDescriptionList } from 'src/models/LiveDescription'
+import { LiveDescriptionList } from 'src/models/LiveDescription'
 import NewsItem from '../news/NewsItem'
 // import { ObserveVisibility } from 'vue-observe-visibility'
 export default {

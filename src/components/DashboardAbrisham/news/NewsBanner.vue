@@ -29,7 +29,7 @@ export default {
   props: {
     bannerData: {
       type: Array,
-      default: []
+      default: () => []
     }
   }
 }
