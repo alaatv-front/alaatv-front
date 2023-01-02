@@ -24,7 +24,6 @@
               <q-item-section>
                 <div class="name">
                   {{user.first_name || ' '}}
-                  <span class="q-mx-sm" />
                   {{user.last_name || ' '}}
                 </div>
                 <div class="phone-number">
@@ -37,11 +36,11 @@
                 <q-separator class="separator q-mb-md" />
                 رفتن به صفحه اصلی
               </q-item-section>
-
             </q-item>
-            <q-item class="cursor-pointer"
-                    @click="logOut">
-              خروج
+            <q-item class="cursor-pointer">
+              <span  @click="logOut">
+                خروج
+              </span>
             </q-item>
           </q-list>
         </q-menu>
@@ -63,7 +62,7 @@ export default {
   },
   methods: {
     logOut() {
-      return this.$store.dispatch('Auth/logOut')
+      this.$store.dispatch('Auth/logOut')
     }
   }
 }
