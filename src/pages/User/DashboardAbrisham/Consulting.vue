@@ -45,15 +45,6 @@
     <div
       class="consulting-msg"
     >
-      <!--      <q-virtual-scroll-->
-      <!--        v-slot="{ item, index }"-->
-      <!--        :items="testList"-->
-      <!--        virtual-scroll-horizontal-->
-      <!--        @virtual-scroll="testScroll"-->
-      <!--      >-->
-      <!--        <div :key="index">dddddddddd :{{item}}</div>-->
-
-      <!--      </q-virtual-scroll>-->
       <p class="consulting-title">
         پیام مشاور
       </p>
@@ -167,7 +158,7 @@ export default {
   },
   async created() {
     await this.getLoadContents()
-    this.nextPage()
+    await this.nextPage()
   },
   methods: {
     scrollMoved(data) {

@@ -15,7 +15,7 @@
             unelevated
             class="slot-header-box-days"
             :label=" header.button.title"
-            @click="clickOnHeaderButton"
+            @click="btnClicked"
           />
         </div>
       </slot>
@@ -147,7 +147,7 @@ export default {
 
   methods: {
     btnClicked() {
-      this.$emit('headerAction')
+      this.$emit('whereAmI')
     },
     clickOnHeaderButton() {
       this.$emit('clicked')

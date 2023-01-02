@@ -173,18 +173,18 @@ export default {
     grid-template-columns:96px auto;
     align-items: center;
     border-bottom: solid 1px rgba(159, 165, 192, 0.58);
-    padding: 0 26px;
+    margin: 0 26px;
     @media screen and (max-width: 1920px){
-      padding: 0 10px;
+      margin: 0 10px;
     }
     @media screen and (max-width: 1023px){
-      padding: 0 26px;
+      margin: 0 26px;
     }
     @media screen and (max-width: 767px){
-      padding: 0 10px;
+      margin: 0 10px;
     }
     @media screen and (max-width: 575px){
-      padding: 0 7px;
+      margin: 0 7px;
     }
     @media screen and (max-width: 1920px) {
       padding-top: 15px;

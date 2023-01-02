@@ -62,7 +62,7 @@
           :header="{ title: 'لیست فیلم ها', button: { title: 'من کجام؟' } }"
           type="video"
           @input="setWatchingContent"
-          @headerAction="showUserLastState"
+          @whereAmI="loadUserLastState"
         >
           <template v-slot:filter>
             <div class="row q-col-gutter-md">
@@ -171,7 +171,11 @@ export default {
     sections: new SetSectionList(),
     currentSetId: null,
     currentSectionId: 'all',
-    lessonGroupsLoading: false
+    lessonGroupsLoading: false,
+    userLastState: {
+      setId: null,
+      contentId: null
+    }
   }),
   computed: {
     contentsIsEmpty () {
@@ -193,11 +197,17 @@ export default {
   },
 
   methods: {
+    loadUserLastState() {
+      this.setCurrentSet(this.userLastState.setId, this.userLastState.contentId)
+    },
+
     async showUserLastState() {
       try {
         const response = await this.$apiGateway.abrisham.getUserLastState(this.selectedLessonId)
         const setId = response.data.data.set.id
         const contentId = response.data.data.id
+        this.userLastState.setId = setId
+        this.userLastState.contentId = contentId
         this.setCurrentSet(setId, contentId)
       } catch {
 
@@ -293,9 +303,11 @@ export default {
     },
 
     async showSets (lessonId) {
+      this.lnssonGroupsLoading = true
       const sets = await this.getSets(lessonId)
       this.setSets(sets)
       await this.showUserLastState()
+      this.lnssonGroupsLoading = false
       // const firstSet = this.getFirstSet()
       // this.setCurrentSet(firstSet.id)
     },
@@ -375,6 +387,9 @@ export default {
     async showFirstContent (contentId) {
       const contents = await this.getContents()
       this.setContents(contents)
+      if (!contentId) {
+        contentId = contents.list[0].id
+      }
       const content = this.getContent(contentId)
       this.setWatchingContent(content)
     },
