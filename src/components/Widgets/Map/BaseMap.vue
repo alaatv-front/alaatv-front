@@ -118,41 +118,6 @@
         </l-icon>
       </l-marker>
 
-      <!--      <editable-polyline ref="editablePolyline"-->
-      <!--                         :latlngs="adminToolBox.polyline.latlngs"-->
-      <!--                         :zoom="mapZoom"-->
-      <!--                         :center="mapCenter"-->
-      <!--                         :editablePolylineOptions="adminToolBox.polyline.data"-->
-      <!--                         @update:latlngs="updateLatlngs" />-->
-
-      <!--      <div class="editable-polyline">-->
-      <!--        <l-polyline-->
-      <!--          v-model:lat-lngs="editablePolylinelatlngs"-->
-      <!--          :color="adminToolBox.polyline.data.line.color"-->
-      <!--          :className="adminToolBox.polyline.data.line.className"-->
-      <!--          :bubblingMouseEvents="adminToolBox.polyline.data.line.bubblingMouseEvents"-->
-      <!--          :dashArray="adminToolBox.polyline.data.line.dashArray"-->
-      <!--          :dashOffset="adminToolBox.polyline.data.line.dashOffset"-->
-      <!--          :weight="adminToolBox.polyline.data.line.weight"-->
-      <!--        >-->
-      <!--        </l-polyline>-->
-      <!--        <template v-if="mapZoom >= adminToolBox.polyline.data.displayZoom">-->
-      <!--          <l-marker-->
-      <!--            v-for="(item, index) in adminToolBox.polyline.latlngs"-->
-      <!--            :key="index"-->
-      <!--            :lat-lng="item"-->
-      <!--            :draggable="true"-->
-      <!--            @dragend="updateEditablePolylineLatlngs($event, item, index)">-->
-      <!--            <l-icon-->
-      <!--              :icon-url="null"-->
-      <!--              :icon-size="adminToolBox.polyline.data.iconSize"-->
-      <!--              :icon-anchor="adminToolBox.polyline.data.iconAnchor"-->
-      <!--            >-->
-      <!--            </l-icon>-->
-      <!--          </l-marker>-->
-      <!--        </template>-->
-      <!--      </div>-->
-
       <l-control
         position="topleft"
       >
@@ -255,8 +220,8 @@
 </template>
 
 <script>
-import { CRS, latLng } from 'leaflet' /* L, */
-import { LMap, LTileLayer, LMarker, LIcon, LControl, /* LControlZoom, */ LPolyline } from '@vue-leaflet/vue-leaflet'
+import { CRS, latLng } from 'leaflet'
+import { LMap, LTileLayer, LMarker, LIcon, LControl, LPolyline } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { MapItem, MapItemList } from 'src/models/MapItem'
 import Drawer from 'src/components/CustomDrawer'
@@ -268,18 +233,13 @@ import mapInfo from './components/mapInfo'
 // import { MapItemAction } from 'src/models/MapItemAction'
 import API_ADDRESS from 'src/api/Addresses'
 import MapItemsResponse from './MapItemsResponse'
-// import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
-// import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
-// import MapItemEntity from 'src/models/MapItemEntity'
 
 export default {
   name: 'BaseMap',
   components: {
     adminToolBox,
-    // EditablePolyline,
     LMap,
     LControl,
-    // LControlZoom,
     LTileLayer,
     LIcon,
     LMarker,

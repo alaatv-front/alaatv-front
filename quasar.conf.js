@@ -78,7 +78,7 @@ module.exports = configure(function (ctx) {
       preloadChunks: true,
       showProgress: true,
       gzip: true,
-      // analyze: true,
+      analyze: true,
 
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
@@ -148,6 +148,12 @@ module.exports = configure(function (ctx) {
           poll: 1000
         }
 
+        // if (!cfg.optimization.splitChunks) {
+        //   cfg.optimization.splitChunks = {}
+        // }
+        // cfg.optimization.splitChunks.minSize = 10000
+        // cfg.optimization.splitChunks.maxSize = 250000
+
         // cfg.plugins.push(new CopyWebpackPlugin({
         //   patterns: [
         //     {
@@ -159,6 +165,9 @@ module.exports = configure(function (ctx) {
         // }))
       },
       beforeDev({ quasarConf }) {
+        generateWidgetList('./src/components/Widgets')
+      },
+      beforeBuild({ quasarConf }) {
         generateWidgetList('./src/components/Widgets')
       }
     },
@@ -247,7 +256,7 @@ module.exports = configure(function (ctx) {
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
 
-      prodPort: 3000, // The default port that the production server should use
+      prodPort: process.env.SSR_PORT, // The default port that the production server should use
       // (gets superseded if process.env.PORT is specified at runtime)
 
       // maxAge: 1000 * 60 * 60 * 24 * 30,

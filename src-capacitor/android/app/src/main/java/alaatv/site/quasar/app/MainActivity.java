@@ -1,4 +1,4 @@
-package org.alaatv.app;
+package alaatv.site.quasar.app;
 
 import android.os.Bundle;
 

@@ -338,7 +338,7 @@ export default {
       return this.getInput('filterInputs', 'till').value
     },
     getEntityApi() {
-      return API_ADDRESS.user.orders.getOrders
+      return API_ADDRESS.user.orders.ordersById(this.user.id)
     },
     windowSize () {
       return this.$store.getters['AppLayout/windowSize']
@@ -463,6 +463,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.my-orders-list{
+  margin-bottom: 200px;
+}
 .filter-toggle{
   color:#6D708B;
 }

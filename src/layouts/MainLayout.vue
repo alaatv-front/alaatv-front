@@ -54,15 +54,21 @@
 </template>
 <script>
 import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
-import { QuasarTemplateBuilder } from 'quasar-template-builder'
+import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
 import templateHeader from 'components/Template/templateHeader'
 import Router from 'src/router/Router'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents'
-import { setHeight } from 'src/boot/page-builder'
+// import { setHeight } from 'src/boot/page-builder'
 import AlaaFooter from 'components/Widgets/Footer/Footer'
 
 export default {
-  components: { AlaaFooter, Router, SideMenuDashboard, QuasarTemplateBuilder, templateHeader },
+  components: {
+    Router,
+    AlaaFooter,
+    SideMenuDashboard,
+    QuasarTemplateBuilder,
+    templateHeader
+  },
   data () {
     return {
       contentVerticalScrollPosition: 0,
@@ -80,9 +86,9 @@ export default {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
-  created() {
-    setHeight(this.calculateHeightStyle)
-  },
+  // created() {
+  //   setHeight(this.calculateHeightStyle)
+  // },
   methods: {
     onContentInsideScroll (data) {
       this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)

@@ -1,8 +1,9 @@
 <template>
   <div :class="customClass">
     <q-resize-observer @resize="onresize" />
-    <q-img v-if="width && height"
+    <q-img v-if="qImage && width && height"
            ref="LazyImage"
+           :alt="alt"
            :src="lazyImageSrc"
            :width="computedWidth+'px'"
            :height="computedHeight+'px'"
@@ -13,11 +14,23 @@
     >
       <slot />
     </q-img>
-    <q-img v-else
+    <img v-else-if="!qImage && width && height"
+         ref="LazyImage"
+         :alt="alt"
+         :src="lazyImageSrc"
+         class="full-width img"
+         :style="{height: computedHeight+'px', width: computedWidth+'px'}"
+    />
+    <q-img v-else-if="qImage && (!width || !height)"
            :src="src"
+           :alt="alt"
     >
       <slot />
     </q-img>
+    <img v-else-if="!qImage && (!width || !height)"
+         :src="src"
+         :alt="alt"
+    />
   </div>
 </template>
 
@@ -28,6 +41,14 @@ export default {
     src: {
       type: String,
       default: null
+    },
+    alt: {
+      type: String,
+      default: null
+    },
+    qImage: {
+      type: Boolean,
+      default: false
     },
     class: {
       type: String,
@@ -107,17 +128,31 @@ export default {
           offsetHeight: null
         }
       }
-      return this.$refs.LazyImage.$el
+      if (this.$refs.LazyImage.$el) {
+        return this.$refs.LazyImage.$el
+      }
+      if (this.$refs.LazyImage) {
+        return this.$refs.LazyImage
+      }
     },
     getOffsetWidth () {
-      return this.getImageElement().offsetWidth
+      const imageElement = this.getImageElement()
+      if (!imageElement) {
+        return 0
+      }
+      return imageElement.offsetWidth
     },
     getOffsetHeight () {
-      return this.getImageElement().offsetHeight
+      const imageElement = this.getImageElement()
+      if (!imageElement) {
+        return 0
+      }
+      return imageElement.offsetHeight
     }
   }
 }
 </script>
+
 <style>
 .img{
   border-radius: inherit;
