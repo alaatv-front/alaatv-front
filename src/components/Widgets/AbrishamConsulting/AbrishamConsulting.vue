@@ -30,7 +30,7 @@
         </div>
 
       </div>
-      <div>   مشاوره راه ابریشم آلاء</div>
+      <div class="title-style">   مشاوره راه ابریشم آلاء</div>
       <div class="row q-col-gutter-x-md q-mt-md">
         <div
           class="video-box-col col-12 col-md-8 col-xs-12"
@@ -193,6 +193,16 @@ export default {
     margin: 0;
   }
 
+  .title-style{
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--abrishamMain);
+    margin-top: 10px;
+    @media screen and (max-width: 1023px) {
+      font-size: 16px;
+    }
+  }
+
   .consulting-msg {
     padding-bottom: 0 !important;
     margin-bottom: 30px;
@@ -269,79 +279,71 @@ export default {
     }
   }
 
-  .consulting-body {
-    padding-top: 0 !important;
+  .content-show {
+    font-size: 20px;
+    color: #3e5480;
+    font-weight: 500;
+    margin-bottom: 30px;
+    padding: 0px 20px !important;
+    @media screen and (max-width: 1904px) {
+      margin-bottom: 15px;
+    }
+    @media screen and (max-width: 1200px) {
+      margin-bottom: 10px;
+    }
+    @media screen and (max-width: 990px) {
+      margin-bottom: 20px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-bottom: 15px;
+      font-size: 15px;
+    }
+  }
 
-    .content-show {
-      font-size: 20px;
-      color: #3e5480;
-      font-weight: 500;
-      margin-bottom: 30px;
-      padding: 0px 20px !important;
+  .video-box-col {
+    padding-bottom: 0 !important;
+
+    .video-box-parent {
+      margin-bottom: 20px;
       @media screen and (max-width: 1904px) {
         margin-bottom: 15px;
-      }
-      @media screen and (max-width: 1200px) {
-        margin-bottom: 10px;
       }
       @media screen and (max-width: 990px) {
         margin-bottom: 20px;
       }
-      @media screen and (max-width: 768px) {
-        margin-bottom: 15px;
-        font-size: 15px;
-      }
-    }
-
-    .body-row {
-      margin-top: 0 !important;
-
-      .video-box-col {
-        padding-bottom: 0 !important;
-
-        .video-box-parent {
-          margin-bottom: 20px;
-          @media screen and (max-width: 1904px) {
-            margin-bottom: 15px;
-          }
-          @media screen and (max-width: 990px) {
-            margin-bottom: 20px;
-          }
-          @media screen and (max-width: 576px) {
-            margin-bottom: 10px;
-          }
-          @media screen and (max-width: 350px) {
-            margin-bottom: 5px;
-          }
-        }
-      }
-
-      .mobile-view {
-        display: none;
-        @media screen and (max-width: 959px) {
-          display: block;
-        }
-      }
-    }
-
-    .current-content-title {
-      font-size: 20px;
-      font-weight: 500;
-      color: #3e5480;
-      margin-bottom: 21px;
-      @media screen and (max-width: 1920px) {
-        margin-bottom: 15px;
-      }
-      @media screen and (max-width: 768px) {
-        margin-bottom: 20px;
-      }
       @media screen and (max-width: 576px) {
-        font-size: 16px;
         margin-bottom: 10px;
       }
       @media screen and (max-width: 350px) {
         margin-bottom: 5px;
       }
+    }
+  }
+
+  .mobile-view {
+    display: none;
+    @media screen and (max-width: 1023px) {
+      display: block;
+    }
+  }
+
+  .current-content-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #3e5480;
+    margin-bottom: 21px;
+    @media screen and (max-width: 1920px) {
+      margin-bottom: 15px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-bottom: 20px;
+    }
+    @media screen and (max-width: 576px) {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    @media screen and (max-width: 350px) {
+      margin-bottom: 5px;
     }
   }
 

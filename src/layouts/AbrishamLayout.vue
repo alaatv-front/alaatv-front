@@ -128,6 +128,7 @@ color: var(--abrishamMain);
   background: white!important;
 }
 .abrisham-layout{
+  background: white;
   @media screen and(max-width: 1023px) {
     padding: 0 21px;
   }

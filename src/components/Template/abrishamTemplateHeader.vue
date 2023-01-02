@@ -1,11 +1,11 @@
 <template>
   <div class="abrisham-header">
     <div class="header-box full-height flex justify-center items-center">
-      <!--      <q-img-->
-      <!--        src="https://nodes.alaatv.com/upload/abrisham-panel-logotype.png"-->
-      <!--        class="header-logo-img"-->
-      <!--      />-->
-      <div class="text-primary">راه ابریشم</div>
+      <q-img
+        src="https://nodes.alaatv.com/upload/abrisham-panel-logotype.png"
+        class="header-logo-img"
+      />
+      <!--      <div class="text-primary">راه ابریشم</div>-->
     </div>
     <div class="profile-box flex items-center">
       <i class="fi fi-rr-bell icon" />
