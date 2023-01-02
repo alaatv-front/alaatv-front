@@ -5567,23 +5567,23 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-quasar-crud@^0.2.83:
-  version "0.2.83"
-  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.2.83.tgz#22e8ffe87e8fd3c5c5fc997724ead0fbeb581688"
-  integrity sha512-GszbYWcjB2s12JWbUIi4Iny5VfbMnKMy9amynrYMN+SVOSeGyELNsdQhQkJ8BLOHFYlhF8rX91pt7BPGFY4FcQ==
+quasar-crud@^0.2.86:
+  version "0.2.86"
+  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.2.86.tgz#14525495ff278661e043d2343cca6a821252c714"
+  integrity sha512-djuZWcG+EwIYDZV2s0D6geIuxSoqH7DVTxkewwEZtoRmFtfioNHWuy0I/tZDwrD9EKeamIC/4gJwdVH7tAUQSQ==
   dependencies:
     "@quasar/extras" "^1.15.9"
     axios "^1.2.2"
     core-js "^3.27.1"
     moment-jalaali "^0.9.6"
     quasar "^2.11.3"
-    quasar-form-builder "^0.1.66"
+    quasar-form-builder "^0.1.69"
     vue "^3.2.45"
 
-quasar-form-builder@^0.1.66:
-  version "0.1.66"
-  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.66.tgz#14ad3935218fc91cc3bd2e8ad4785e41fcd3bacf"
-  integrity sha512-C7HcBphsIZnOqrmiInJoSl1dv22Gjd2b21JVP7pCEPtc5uLa3fFqqp8cbrYh8GE43Z8SJJLqiuaz7PMk7ALT0g==
+quasar-form-builder@^0.1.69:
+  version "0.1.69"
+  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.69.tgz#b4a33db29c40dbfbb1962e949eeff6f4da1bc7fc"
+  integrity sha512-6QtghXP+GnaCbhygPGucMZE28/ChXi7/5CF1AHTbWzvNuuCKdjGcvcpLNQVX5EeIm3bQfM7l5WdaM4lb9SZxPg==
   dependencies:
     "@quasar/extras" "^1.15.9"
     core-js "^3.27.1"
@@ -6004,11 +6004,6 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
-
-shvl@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/shvl/-/shvl-2.0.3.tgz#eb4bd37644f5684bba1fc52c3010c96fb5e6afd1"
-  integrity sha512-V7C6S9Hlol6SzOJPnQ7qzOVEWUQImt3BNmmzh40wObhla3XOYMe4gGiYzLrJd5TFa+cI2f9LKIRJTTKZSTbWgw==
 
 side-channel@^1.0.4:
   version "1.0.4"
@@ -6850,14 +6845,6 @@ vue@^3.2.37, vue@^3.2.45:
     "@vue/runtime-dom" "3.2.45"
     "@vue/server-renderer" "3.2.45"
     "@vue/shared" "3.2.45"
-
-vuex-persistedstate@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/vuex-persistedstate/-/vuex-persistedstate-4.1.0.tgz#127165f85f5b4534fb3170a5d3a8be9811bd2a53"
-  integrity sha512-3SkEj4NqwM69ikJdFVw6gObeB0NHyspRYMYkR/EbhR0hbvAKyR5gksVhtAfY1UYuWUOCCA0QNGwv9pOwdj+XUQ==
-  dependencies:
-    deepmerge "^4.2.2"
-    shvl "^2.0.3"
 
 vuex@^4.1.0:
   version "4.1.0"
