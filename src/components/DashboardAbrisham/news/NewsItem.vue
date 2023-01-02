@@ -1,12 +1,12 @@
 <template>
   <div class="news-item flex justify-between">
-    <div class="flex">
+    <div class="flex img-title-seen-tag">
       <div class="img-box">
         <q-img  v-if="newItem.photo"
                 class="img"
                 :src="newItem.photo" />
       </div>
-      <div class="left-content">
+      <div class="title-des-seen-tag ">
         <div class="title-box">
           {{ newItem.title }}
         </div>
@@ -17,7 +17,7 @@
             v-html="newItem.description"
           />
         </div>
-        <div class="flex">
+        <div class="flex items-end seen-tag">
           <div v-if="newItem.tags && newItem.tags !==null"
                class="flex">
             <div
@@ -31,7 +31,7 @@
           <span class="text">
             {{ newItem.seen_counter }}
           </span>
-          <i class="fi fi-rr-eye icon flex" />
+          <i class="fi fi-rr-eye icon items-center flex" />
         </div>
       </div>
     </div>
@@ -50,28 +50,26 @@
           {{ newItem.shamsiDate('created_at').dateTime }}
         </div>
       </div>
-      <q-btn
+      <div
         v-if="!showMore"
-        unelevated
-        class="btn-style"
+        class="btn-style cursor-pointer"
         @click="showMoreClicked"
       >
         <span class="text">
           مشاهده خبر
         </span>
         <i class="fi fi-rr-angle-down flex icon" />
-      </q-btn>
-      <q-btn
+      </div>
+      <div
         v-if="showMore"
-        unelevated
-        class="btn-style"
+        class="btn-style cursor-pointer"
         @click="showMore = false"
       >
         <span class="text">
           بستن
         </span>
         <i class="flex fi fi-rr-angle-up icon"></i>
-      </q-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -109,17 +107,17 @@ export default {
 .news-item {
   border-radius: 20px !important;
   box-shadow: 0 3px 10px 0 rgba(44, 91, 185, 0.15) !important;
-  @media screen and (max-width: 768px) {
-    border-radius: 15px !important;
-    box-shadow: 0 2px 5px 0 rgba(44, 91, 185, 0.15) !important;
-  }
   width: 100%;
   padding: 16px 16px 16px 25px;
   @media screen and (max-width: 768px) {
     padding: 10px 10px 10px 16px;
+    border-radius: 15px !important;
+    box-shadow: 0 2px 5px 0 rgba(44, 91, 185, 0.15) !important;
   }
   @media screen and (max-width: 576px) {
-    padding: 10px 10px 23px 16px;
+    padding: 10px !important;
+    position: relative;
+    margin-bottom: 15px;
   }
 
   .img-box {
@@ -182,31 +180,42 @@ export default {
         color: var(--abrishamGray);
         font-size: 18px;
         margin-right: 5px;
+        @media screen and (max-width: 576px) {
+          display: none;
+        }
       }
 
     }
     .btn-style {
-      margin-left: -16px;
       border-radius: 15px;
       letter-spacing: 0;
       font-weight: normal !important;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       @media screen and (max-width: 768px) {
         height: 18px;
       }
       @media screen and (max-width: 576px) {
-        margin-left: 12px;
+        width: 95px;
+        max-height: 19px;
+      }
+
+      &:deep(.q-btn){
+        height: 19px;
       }
 
       .icon {
         color: var(--abrishamMain);
         font-size: 14px;
         align-items: center;
+        font-weight: 600;
         @media screen and (max-width: 768px) {
           font-size: 12px;
           align-items: center;
         }
-        @media screen and (max-width: 350px) {
-          font-size: 12px;
+        @media screen and (max-width: 576px) {
+          font-size: 8px;
         }
       }
 
@@ -214,22 +223,20 @@ export default {
         margin-right: 10px;
         color: var(--abrishamMain);
         font-size: 14px;
+        letter-spacing: 0;
         @media screen and (max-width: 768px) {
           font-size: 12px;
         }
-        @media screen and (max-width: 350px) {
+        @media screen and (max-width: 575px) {
           font-size: 10px;
+          margin-right: 5px;
         }
       }
     }
-  }
-  .img {
-    width: 14px;
-    height: 21.9px;
-    margin-right: 10px;
-    @media screen and (max-width: 768px) {
-      width: 12px;
-      height: 18px;
+    @media screen and (max-width: 575px) {
+      display: flex;
+      align-items: center;
+      width: 100%;
     }
   }
 
@@ -238,7 +245,7 @@ export default {
     color: #9fa5c0;
     margin-right: 10px;
     @media screen and (max-width: 576px) {
-      display: none;
+      font-size: 10px;
     }
   }
 
@@ -247,7 +254,8 @@ export default {
     height: 22px;
     color: #9fa5c0;
   }
-  .left-content {
+
+  .title-des-seen-tag {
     margin: 5px  0  0 16px;
     @media screen and (max-width: 768px) {
       margin: 1px 0 0 16px;
@@ -255,42 +263,44 @@ export default {
     @media screen and (max-width: 576px) {
       margin: 1px 0 0 10px;
     }
-
-    .tag {
-      margin-right: 23px;
-      padding: 3px 23px;
-      font-size: 12px;
-      color: var(--abrishamMain);
-      background-color: #eff3ff;
-      border-radius: 13px;
-      @media screen and (max-width: 768px) {
-        padding: 0 14px;
-        margin-right: 10px;
-      }
+    .seen-tag{
       @media screen and (max-width: 576px) {
-        padding: 0 18px;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
       }
-    }
-
-    .icon {
-      font-size: 14px;
-      margin-left: 5px;
-      color: #9fa5c0;
-      align-items: center;
-      @media screen and (max-width: 768px) {
+      .text {
+        color: #9fa5c0;
+        @media screen and (max-width: 768px) {
+          font-size: 10px;
+          align-items: center;
+        }
+      }
+      .icon {
+        font-size: 14px;
+        margin-left: 5px;
+        color: #9fa5c0;
+        height: 15px;
+        @media screen and (max-width: 768px) {
+          font-size: 12px;
+        }
+      }
+      .tag {
+        margin-right: 23px;
+        padding: 3px 23px;
         font-size: 12px;
-        align-items: center;
+        color: var(--abrishamMain);
+        background-color: #eff3ff;
+        border-radius: 13px;
+        @media screen and (max-width: 768px) {
+          padding: 0 14px;
+          margin-right: 10px;
+        }
+        @media screen and (max-width: 576px) {
+          padding: 0 18px;
+        }
       }
     }
-
-    .text {
-      color: #9fa5c0;
-      @media screen and (max-width: 768px) {
-        font-size: 10px;
-        align-items: center;
-      }
-    }
-
   }
 
   .description-box {
@@ -307,31 +317,12 @@ export default {
       }
       @media screen and (max-width: 768px) {
         max-width: 250px;
+        margin-bottom: 5px;
+        font-size: 12px;
       }
       @media screen and (max-width: 576px) {
         max-width: 200px;
-      }
-      @media screen and (max-width: 768px) {
-        margin-bottom: 5px;
-        font-size: 12px;
-        height: 20px;
-      }
-      @media screen and (max-width: 576px) {
-        margin-bottom: 10px;
-      }
-
-      &.single-line {
-        overflow: hidden;
-
-      }
-
-      &.expand {
-        height: 100%;
-        overflow: hidden;
-        max-height: 1000px;
-      }
-
-      @media screen and (max-width: 576px) {
+        margin-bottom: 0;
         font-size: 12px;
         line-height: 24px;
       }

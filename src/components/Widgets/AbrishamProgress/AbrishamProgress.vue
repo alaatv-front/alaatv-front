@@ -539,11 +539,6 @@ export default {
       }
       .popup-content-class{
       }
-      &:deep(.q-field--focused){
-        :deep(.q-field__control){
-          background: red;
-        }
-      }
       &:deep(.q-field--filled .q-field__control::before){
         border-bottom: none;
       }
@@ -587,44 +582,5 @@ export default {
       display: none;
     }
   }
-}
-</style>
-<style lang="scss">
-.v-menu__content {
-  .v-list {
-    width: 100%;
-    border-radius: 0 !important;
-
-    .v-list-item {
-      .v-list-item__content {
-        padding: 0;
-
-        .v-list-item__title {
-          font-size: 14px;
-        }
-      }
-    }
-  }
-}
-
-.v-select-box {
-  .v-input {
-    border-radius: 10px;
-
-    .v-input__slot {
-      border: 4px solid #eff3ff;
-    }
-
-    &.v-select--is-menu-active {
-      .v-input__control {
-        .v-input__slot {
-          background-color: transparent !important;
-          box-sizing: border-box;
-        }
-      }
-    }
-
-  }
-
 }
 </style>

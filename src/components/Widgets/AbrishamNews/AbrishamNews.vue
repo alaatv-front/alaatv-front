@@ -33,20 +33,16 @@
                       filled
                       dropdown-icon="mdi-chevron-down"
                       dense
-                      background-color="#eff3ff"
                       placeholder="مرتب کردن بر اساس"
-                      label="مرتب کردن بر اساس"
                       class="order"
-                      :menu-props="{ bottom: true, offsetY: true }"
                       :options="sorts"
-                      return-object
                       option-label="text"
                       option-value="value"
                       map-options
                       emit-value
                       :loading="unpinNews.loading"
                       :disabled="unpinNews.loading && emptyNews"
-                      @change="selectedItem"
+                      @update:model-value="selectedItem"
                     />
                   </div>
                 </div>
@@ -75,7 +71,7 @@
                     :disabled="unpinNews.loading && emptyNews"
                     map-options
                     emit-value
-                    @change="selectedItem"
+                    @update:model-value="selectedItem"
                   />
                 </div>
                 <div class="category-parent">
@@ -91,7 +87,7 @@
                     :menu-props="{ bottom: true, offsetY: true }"
                     :loading="unpinNews.loading"
                     :disabled="unpinNews.loading && emptyNews"
-                    @change="selectedItem"
+                    @update:model-value="selectedItem"
                   />
                 </div>
               </div>
@@ -328,7 +324,7 @@ export default {
           ' کنکور 1401، علی شریعتی رتبه 7 منطقه 2 کنکور تجربی 140',
         seen_counter: 500,
         has_pinned: false,
-        tags: ['fsd', 'sdfsdf', 'sdfsdfsdf']
+        tags: ['اطلاعیه']
       },
       {
         id: 125,
@@ -345,7 +341,6 @@ export default {
       await this.$apiGateway.abrisham.getNewsHasBeenSeen(newsId)
     },
     async getNewPinLiveDescription(index, done) {
-      console.log('getNewPinLiveDescription', done)
       this.pinNews.loading = true
       try {
         if (this.pinNewsLastPage !== null && parseInt(this.pinNewsLastPage) < parseInt(this.pinNewsNextPage)) {
@@ -482,8 +477,13 @@ export default {
           .filter-select {
             display: flex;
             flex-direction: row;
+            margin-bottom: 21px;
             @media screen and (max-width: 960px) {
               justify-content: space-between !important;
+              margin-bottom: 25px;
+            }
+            @media screen and (max-width: 575px) {
+              margin-bottom: 20px;
             }
 
             .filter-default {
@@ -525,8 +525,17 @@ export default {
 
             .order-parent {
               width: 165px;
+              &:deep(.q-field__native ){
+                span{
+                  color: var(--abrishamMain);
+                }
+
+              }
               @media screen and (max-width: 768px) {
                 width: 134px !important;
+              }
+              @media screen and (max-width: 575px) {
+                width: 152px !important;
               }
 
               .order {
@@ -540,13 +549,16 @@ export default {
       .filter-list {
         display: flex;
         flex-direction: row;
+        margin-bottom: 20px;
         @media screen and (max-width: 960px) {
           justify-content: space-between;
+          margin-bottom: 16px;
         }
 
         .lesson-parent {
+          width: 55%;
           .lesson {
-            margin-left: 16px;
+            margin-right: 16px;
             border-radius: 10px;
           }
         }

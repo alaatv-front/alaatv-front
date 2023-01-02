@@ -103,8 +103,23 @@ export default {
   }
 }
 </script>
-
+<style>
+.q-menu{
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 3px 10px 0 rgba(44, 91, 185, 0.15);
+  background-color: #fff;
+}
+.q-menu .q-item--active{
+color: var(--abrishamMain);
+}
+</style>
 <style scoped lang="scss">
+.desktop{
+  &:deep(.q-menu){
+    background: #bd70ff !important;
+  }
+}
+
 .body.body--light{
   background: white!important;
 }
@@ -163,6 +178,18 @@ export default {
   }
   &:deep(.q-item__label){
     text-align: center;
+  }
+  &:deep(.q-field__control::after){
+    height: 0;
+  }
+  &:deep(.q-field__control::before){
+    background: transparent;
+  }
+  &:deep(.q-field__control){
+    background: #eff3ff;
+  }
+  &:deep(.q-field--filled .q-field__control::before){
+    border-bottom: none;
   }
 }
 
