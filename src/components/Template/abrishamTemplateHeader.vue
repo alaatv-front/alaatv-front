@@ -47,9 +47,7 @@
         </q-menu>
       </q-avatar>
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -60,7 +58,6 @@ export default {
   }),
   computed: {
     user() {
-      console.log(this.$store.getters['Auth/user'])
       return this.$store.getters['Auth/user']
     }
   },

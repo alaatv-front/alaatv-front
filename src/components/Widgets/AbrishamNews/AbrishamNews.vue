@@ -350,10 +350,9 @@ export default {
         const response = await this.$apiGateway.abrisham.getPinedNews()
         this.pinNewsNextPage = parseInt(response.meta.current_page) + 1
         this.pinNewsLastPage = response.meta.last_page
-        // this.pinNews = response.data
-        this.pinNews = new LiveDescriptionList(this.fakeData)
+        this.pinNews = response.data
+        // this.pinNews = new LiveDescriptionList(this.fakeData)
         this.pinNews.loading = false
-        // eslint-disable-next-line no-undef
         done()
       } catch {
         this.pinNews.loading = false
@@ -370,8 +369,8 @@ export default {
         const response = await this.$apiGateway.abrisham.getNewsList(params)
         this.unpinNewsNextPage = +response.meta.current_page + 1
         this.unpinNewsLastPage = response.meta.last_page
-        // this.unpinNews = response.data
-        this.unpinNews = new LiveDescriptionList(this.fakeData)
+        this.unpinNews = response.data
+        // this.unpinNews = new LiveDescriptionList(this.fakeData)
         this.unpinNews.loading = false
         done()
       } catch {
