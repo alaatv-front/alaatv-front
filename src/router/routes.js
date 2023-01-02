@@ -236,6 +236,11 @@ const routes = [
             path: 'news',
             name: 'User.Abrisham.News',
             component: () => import('pages/User/DashboardAbrisham/News.vue')
+          },
+          {
+            path: 'map',
+            name: 'User.Abrisham.Map',
+            component: () => import('pages/User/DashboardAbrisham/Map.vue')
           }
         ]
       }

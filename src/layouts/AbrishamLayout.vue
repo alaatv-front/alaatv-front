@@ -90,6 +90,10 @@ export default {
         icon: 'envelope',
         routeName: 'User.Abrisham.News',
         title: 'اخبار و اطلاعیه'
+      }, {
+        icon: 'world',
+        routeName: 'User.Abrisham.Map',
+        title: 'نقشه'
       }
     ]
   }),

@@ -49,11 +49,11 @@ export default {
       {
         icon: 'envelope',
         routeName: 'User.Abrisham.News'
+      },
+      {
+        icon: 'world',
+        routeName: 'User.Abrisham.Map'
       }
-      // {
-      //   icon: 'world',
-      //   routeName: 'MapPage'
-      // },
       // {
       //   icon: 'list-check',
       //   routeName: 'my-performance'
