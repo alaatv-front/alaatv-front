@@ -3,25 +3,17 @@
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row">
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.production_year"
-                        left-label
-                        label="سال تولید" />
+          <div class="col-md-6">
+            <q-select v-model="localOptions.paginate"
+                      :options="paginate"
+                      label="paginate"
+                      @input-value="localOptions.paginate = !localOptions.paginate"
+            />
           </div>
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.teacher"
-                        left-label
-                        label="مدرس" />
-          </div>
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.major"
-                        left-label
-                        label="رشته" />
-          </div>
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.shipping_method"
-                        left-label
-                        label="مدل دریافت" />
+          <div class="col-md-6">
+            <q-input v-model="localOptions.id"
+                     label="content id"
+            />
           </div>
         </div>
       </div>
@@ -37,8 +29,17 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [mixinOptionPanel],
+  props: {
+    options: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
+      paginate: [true, false],
       defaultOptions: {
         className: '',
         height: 'auto',
@@ -46,6 +47,14 @@ export default defineComponent({
         boxedWidth: 1200,
         style: {}
       }
+    }
+  },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   }
 })

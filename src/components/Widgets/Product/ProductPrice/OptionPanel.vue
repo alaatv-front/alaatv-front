@@ -4,24 +4,24 @@
       <div class="option-panel-container">
         <div class="row">
           <div class="col-md-4">
-            <q-checkbox v-model="localOptions.production_year"
+            <q-checkbox v-model="localOptions.basePrice"
                         left-label
-                        label="سال تولید" />
+                        label="قیمت اصلی" />
           </div>
           <div class="col-md-4">
-            <q-checkbox v-model="localOptions.teacher"
+            <q-checkbox v-model="localOptions.discount"
                         left-label
-                        label="مدرس" />
+                        label="تخفیف" />
           </div>
           <div class="col-md-4">
-            <q-checkbox v-model="localOptions.major"
+            <q-checkbox v-model="localOptions.finalPrice"
                         left-label
-                        label="رشته" />
+                        label="قیمت نهایی" />
           </div>
-          <div class="col-md-4">
-            <q-checkbox v-model="localOptions.shipping_method"
+          <div class="col-md-5">
+            <q-checkbox v-model="localOptions.addToCart"
                         left-label
-                        label="مدل دریافت" />
+                        label="افزودن به سبد خرید" />
           </div>
         </div>
       </div>

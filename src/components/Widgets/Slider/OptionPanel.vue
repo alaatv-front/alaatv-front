@@ -470,7 +470,6 @@ export default defineComponent({
     updateSrc(data) {
       if (data.size) {
         this.localOptions.list[this.selectedBannerIndex].features[data.size].src = data.src
-        console.log(this.localOptions.list)
         const index = this.responsiveRows.findIndex(row => row.name === data.size)
         this.responsiveRows[index].thumbnail = data.src
       } else {
