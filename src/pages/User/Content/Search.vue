@@ -20,8 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ContentSearch',
-                        data: this.$route.params.id
+                        name: 'ContentSearch'
                       }
                     ]
                   }

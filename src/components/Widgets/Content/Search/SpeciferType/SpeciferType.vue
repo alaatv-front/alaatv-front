@@ -4,8 +4,8 @@
 </template>
 
 <script>
-import ProductItem from 'src/components/Widgets/Content/Search/ProductItem'
-import ContentItem from 'src/components/Widgets/Content/Search/ContentItem'
+import ProductItem from 'components/Widgets/Content/Search/ProductItem/ProductItem'
+import ContentItem from 'components/Widgets/Content/Search/ContentItem/ContentItem'
 import { Product } from 'src/models/Product'
 import { Content } from 'src/models/Content'
 export default {

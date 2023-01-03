@@ -120,7 +120,6 @@
                       width="48"
                       height="48"
                       class="user-photo"
-                      @click="routeTo('home')"
             />
             <q-menu class="user-profile-dropdown"
                     :offset="[170, 10]">
@@ -135,7 +134,6 @@
                                     width="60"
                                     height="60"
                                     class="user-photo"
-                                    @click="routeTo('home')"
                           />
                         </div>
                       </div>
