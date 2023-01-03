@@ -31,10 +31,10 @@
 </template>
 
 <script>
+import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import VideoPlayer from 'components/VideoPlayer.vue'
-import { APIGateway } from 'src/api/APIGateway'
-import { Product } from 'src/models/Product'
-import { PlayerSourceList } from 'src/models/PlayerSource'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 
 export default {
   name: 'ProductIntroduction',

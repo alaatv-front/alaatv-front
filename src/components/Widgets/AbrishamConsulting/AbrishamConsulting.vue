@@ -83,13 +83,13 @@
 </template>
 
 <script>
-import consultingMessage from 'src/components/DashboardAbrisham/consulting/consultingMessage'
-import commentBox from 'src/components/DashboardAbrisham/CommentBox'
-import ContentListComponent from 'src/components/DashboardAbrisham/ContentList'
-import videoBox from 'src/components/DashboardAbrisham/videoBox'
-import { Content, ContentList } from 'src/models/Content'
-import { LiveDescriptionList } from 'src/models/LiveDescription'
-import { mixinAbrisham } from 'src/mixin/Mixins'
+import { mixinAbrisham } from 'src/mixin/Mixins.js'
+import { Content, ContentList } from 'src/models/Content.js'
+import { LiveDescriptionList } from 'src/models/LiveDescription.js'
+import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
+import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
+import ContentListComponent from 'src/components/DashboardAbrisham/ContentList.vue'
+import consultingMessage from 'src/components/DashboardAbrisham/consulting/consultingMessage.vue'
 export default {
   name: 'AbrishamConsulting',
   components: { ContentListComponent, commentBox, videoBox, consultingMessage },

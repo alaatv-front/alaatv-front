@@ -161,7 +161,7 @@ const routes = [
             meta: {
               middlewares: [auth]
             },
-            component: () => import('pages/User/Dashboard/MyPurchases')
+            component: () => import('pages/User/Dashboard/MyPurchases.vue')
           },
           {
             name: 'User.Dashboard.favorites',

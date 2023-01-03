@@ -41,7 +41,7 @@
 
 <script>
 // import VideoPlayer from 'src/components/VideoPlayer.vue'
-import { mixinWidget } from 'src/mixin/Mixins'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'productIntroduction',

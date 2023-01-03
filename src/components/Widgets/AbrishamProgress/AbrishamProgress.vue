@@ -140,15 +140,14 @@
 </template>
 
 <script>
-
-import { Content, ContentList } from 'src/models/Content'
-import { SetList } from 'src/models/Set'
-import { SetSectionList, SetSection } from 'src/models/SetSection'
-import ChipGroup from 'components/DashboardAbrisham/chipGroup'
-import videoBox from 'src/components/DashboardAbrisham/videoBox'
-import commentBox from 'src/components/DashboardAbrisham/CommentBox'
-import ContentListComponent from 'src/components/DashboardAbrisham/ContentList'
-import { mixinAbrisham } from 'src/mixin/Mixins'
+import { SetList } from 'src/models/Set.js'
+import { mixinAbrisham } from 'src/mixin/Mixins.js'
+import { Content, ContentList } from 'src/models/Content.js'
+import ChipGroup from 'components/DashboardAbrisham/chipGroup.vue'
+import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
+import { SetSectionList, SetSection } from 'src/models/SetSection.js'
+import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
+import ContentListComponent from 'src/components/DashboardAbrisham/ContentList.vue'
 
 export default {
   name: 'AbrishamProgress',

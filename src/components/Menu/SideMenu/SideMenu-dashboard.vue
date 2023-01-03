@@ -81,7 +81,6 @@ import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
 import AbrishamSideMenu from 'components/Menu/SideMenu/AbrishamSideMenu.vue'
 export default {
   name: 'SideMenu-dashboard',
-  components: { menuItem },
   components: { menuItem, AbrishamSideMenu },
   props: {
     type: [String, Boolean, null],
@@ -577,10 +576,15 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
-  created() {
-    this.updateMenuItems()
-  },
+  // created() {
+  //   this.updateMenuItems()
+  // },
   methods: {
+    // updateMenuItems () {
+    //   if (!this.isUserLogin) {
+    //     this.titlesList.splice(0, 1)
+    //   }
+    // },
     search (list, parentContain = false) {
       if (!list || list.length === 0) {
         return false

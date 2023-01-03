@@ -32,7 +32,7 @@
           <q-separator
             class="q-mx-lg" />
           <q-item
-            v-if="item.icon !== activePage.icon"
+            v-if="activePage && item.icon !== activePage.icon"
             v-ripple
             clickable
             :to="{name:item.routeName}"
@@ -51,14 +51,14 @@
 
       </q-list>
     </q-expansion-item>
-    <Router :include="keepAliveComponents" />
+    <router :include="keepAliveComponents" />
   </div>
 
 </template>
 
 <script>
-import Router from 'src/router/Router'
-import KeepAliveComponents from 'assets/js/KeepAliveComponents'
+import Router from 'src/router/Router.vue'
+import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
 export default {
   name: 'AbrishamLayout',
   components: { Router },
@@ -98,9 +98,20 @@ export default {
     ]
   }),
   created() {
-    this.activePage = this.menuItem.find(item => item.routeName === this.$route.name)
+    this.activePage = this.getPageFromRouteName()
+  },
+  mounted () {
+    this.activePage = this.getPageFromRouteName()
   },
   methods: {
+    getPageFromRouteName () {
+      const page = this.menuItem.find(item => item.routeName === this.$route.name)
+      if (page) {
+        return page
+      }
+
+      return this.menuItem[0]
+    },
     setActivePage(currentPage) {
       this.activePage = currentPage
     }

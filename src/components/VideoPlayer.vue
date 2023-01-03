@@ -20,9 +20,10 @@ import fa from 'video.js/dist/lang/fa.json'
 import { PlayerSourceList } from 'src/models/PlayerSource'
 import { mixinWidget } from 'src/mixin/Mixins'
 
-require('video.js/dist/video-js.css')
+// require('video.js/dist/video-js.css')
+import * as VideojsQualitySelector
 require('@silvermine/videojs-quality-selector')(videojs)
-require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
+// require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
 
 export default {
   name: 'VideoPlayer',
@@ -162,6 +163,9 @@ export default {
 </script>
 
 <style lang="scss">
+@import "video.js/dist/video-js.css";
+@import "@silvermine/videojs-quality-selector/dist/css/quality-selector.css";
+
 .video-box-container{
   border-radius: inherit;
 }

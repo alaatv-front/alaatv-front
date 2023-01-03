@@ -160,10 +160,9 @@
 </template>
 
 <script>
-
-import NewsBanner from 'components/DashboardAbrisham/news/NewsBanner'
-import { LiveDescriptionList } from 'src/models/LiveDescription'
-import NewsItem from 'components/DashboardAbrisham/news/NewsItem'
+import { LiveDescriptionList } from 'src/models/LiveDescription.js'
+import NewsItem from 'components/DashboardAbrisham/news/NewsItem.vue'
+import NewsBanner from 'components/DashboardAbrisham/news/NewsBanner.vue'
 export default {
   name: 'AbrishamNews',
   components: { NewsBanner, NewsItem },

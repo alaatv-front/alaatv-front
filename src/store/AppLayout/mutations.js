@@ -24,6 +24,9 @@ const mutations = {
   changeTemplateRightSideBarType: (state, newInfo) => {
     state.templateRightSideBarType = newInfo
   },
+  changeTemplateLeftSideBarWidth: (state, newInfo) => {
+    state.templateLeftSideBarWidth = newInfo
+  },
   showConfirmDialog: (state, newInfo) => {
     state.confirmDialog = newInfo
   },

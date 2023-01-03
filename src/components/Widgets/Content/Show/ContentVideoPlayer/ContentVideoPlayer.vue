@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
-import { mixinWidget } from 'src/mixin/Mixins'
-import { Content } from 'src/models/Content'
-import VideoPlayer from 'components/VideoPlayer'
-import { PlayerSourceList } from 'src/models/PlayerSource'
+import { Content } from 'src/models/Content.js'
+import API_ADDRESS from 'src/api/Addresses.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import VideoPlayer from 'components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { Set } from 'src/models/Set'
 
 export default {

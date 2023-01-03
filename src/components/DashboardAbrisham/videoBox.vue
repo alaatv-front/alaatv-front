@@ -213,10 +213,10 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import VideoPlayer from 'src/components/VideoPlayer'
-import { PlayerSourceList } from 'src/models/PlayerSource'
-import shareSocial from 'assets/js/shareSocialMedia'
+import { Content } from 'src/models/Content.js'
+import shareSocial from 'assets/js/shareSocialMedia.js'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 export default {
   name: 'VideoBox',
 
