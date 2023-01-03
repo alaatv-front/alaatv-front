@@ -30,7 +30,7 @@
                    name="video">
         <content-item v-for="content in videoContents"
                       :key="content.id"
-                      :data="content">
+                      :options="content">
         </content-item>
       </q-tab-panel>
       <q-tab-panel class="costume-background-color"
