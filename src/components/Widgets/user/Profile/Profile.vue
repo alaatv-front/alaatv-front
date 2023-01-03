@@ -11,7 +11,9 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
-import { inputMixin, FormBuilder } from 'quasar-form-builder'
+// import { inputMixin, FormBuilder } from 'quasar-form-builder'
+import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
+import inputMixin from 'quasar-form-builder/src/mixins/inputMixin.js'
 
 export default {
   name: 'Profile.vue',

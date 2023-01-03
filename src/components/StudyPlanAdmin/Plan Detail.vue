@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { Plan } from 'src/models/Plan'
+import { Plan } from 'src/models/Plan.js'
 export default {
   name: 'Plan Detail',
   props: {
