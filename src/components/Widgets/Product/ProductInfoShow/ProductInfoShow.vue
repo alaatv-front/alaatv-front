@@ -2,7 +2,7 @@
   <div :style="options.style"
        :class="options.className">
     <div class="show-product-introduction">
-      <div class="product-introduction row">
+      <div class="product-introduction justify-center">
         <div class="intro-features col-md-12">
           <div class="title">
             ویژگی های این محصول
@@ -308,7 +308,7 @@ p {
             height: 135px;
           }
           @media only screen and (max-width: 1023px) {
-            width: 100px;
+            width: 190px;
             height: 102px;
           }
           @media only screen and (max-width: 599px) {
