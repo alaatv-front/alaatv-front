@@ -107,8 +107,7 @@ export default {
           // }
           this.cart = cart
           this.$store.dispatch('loading/overlayLoading', false)
-        }).catch((err) => {
-          console.log(err)
+        }).catch(() => {
           this.$store.dispatch('loading/overlayLoading', false)
         })
     }

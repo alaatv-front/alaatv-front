@@ -67,8 +67,7 @@
 </template>
 
 <script>
-import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
-
+import menuItem from 'components/Menu/SideMenu/MenuItem'
 export default {
   name: 'SideMenu-dashboard',
   components: { menuItem },

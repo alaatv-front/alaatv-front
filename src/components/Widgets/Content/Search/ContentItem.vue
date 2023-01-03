@@ -86,7 +86,7 @@
 
 <script>
 import { Content } from 'src/models/Content'
-import LazyImg from 'components/lazyImg.vue'
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'Contents',
   components: { LazyImg },

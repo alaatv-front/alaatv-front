@@ -400,7 +400,7 @@
 
 <script>
 import { Product } from 'src/models/Product'
-import LazyImg from 'components/lazyImg.vue'
+import LazyImg from 'components/lazyImg'
 export default {
   name: 'Product',
   components: {

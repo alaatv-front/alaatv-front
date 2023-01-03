@@ -3,9 +3,8 @@
 </template>
 
 <script>
-import Router from 'src/router/Router.vue'
-import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
-
+import KeepAliveComponents from 'assets/js/KeepAliveComponents'
+import Router from 'src/router/Router'
 export default {
   components: { Router },
   data () {
