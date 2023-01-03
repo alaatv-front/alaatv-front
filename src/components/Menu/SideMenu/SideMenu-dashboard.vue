@@ -1,9 +1,18 @@
 <template>
-  <div class="drawer-inside">
+  <div
+    v-if="type === 'main'"
+    class="drawer-inside">
     <div class="side-menu-main-layout">
       <div class="side-logo">
         <router-link :to="{name: 'home'}">
           <div class="logo-image">
+            <!--          <q-img v-if="false"-->
+            <!--                 src="https://nodes.alaatv.com/upload/logo_20190508105212_20190512113140.png"-->
+            <!--          />-->
+            <!--          <q-img-->
+            <!--            class="alaa-logo"-->
+            <!--            src="https://nodes.alaatv.com/upload/footer-alaaLogo.png?w=90&h=115"-->
+            <!--          />-->
             <svg width="154"
                  height="32"
                  viewBox="0 0 154 32"
@@ -64,13 +73,20 @@
       </div>
     </div>
   </div>
+  <abrisham-side-menu    v-if="type === 'abrisham'" />
 </template>
 
 <script>
 import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
+import AbrishamSideMenu from 'components/Menu/SideMenu/AbrishamSideMenu.vue'
 export default {
   name: 'SideMenu-dashboard',
   components: { menuItem },
+  components: { menuItem, AbrishamSideMenu },
+  props: {
+    type: [String, Boolean, null],
+    default: () => 'main'
+  },
   data () {
     return {
       clickedItem: null,
@@ -565,11 +581,6 @@ export default {
     this.updateMenuItems()
   },
   methods: {
-    updateMenuItems () {
-      if (!this.isUserLogin) {
-        this.titlesList.splice(0, 1)
-      }
-    },
     search (list, parentContain = false) {
       if (!list || list.length === 0) {
         return false

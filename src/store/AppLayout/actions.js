@@ -16,6 +16,9 @@ const actions = {
     if (newInfo.layoutRightSideBarType !== undefined) {
       context.commit('AppLayout/changeTemplateRightSideBarType', newInfo.layoutRightSideBarType, { root: true })
     }
+    if (newInfo.layoutLeftDrawerWidth !== undefined) {
+      context.commit('AppLayout/changeTemplateLeftSideBarWidth', newInfo.layoutLeftDrawerWidth, { root: true })
+    }
     context.dispatch('AppLayout/updateStore', newInfo, { root: true })
   }
 }
