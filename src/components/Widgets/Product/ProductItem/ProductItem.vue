@@ -72,8 +72,8 @@
 </template>
 
 <script>
-import LazyImg from 'src/components/lazyImg'
-import { Product } from 'src/models/Product'
+import { Product } from 'src/models/Product.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'productItem',

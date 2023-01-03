@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import LazyImg from 'components/lazyImg'
-import { Banner } from 'src/models/Banner'
+import LazyImg from 'components/lazyImg.vue'
+import { Banner } from 'src/models/Banner.js'
 
 export default {
   name: 'bannerPreview',

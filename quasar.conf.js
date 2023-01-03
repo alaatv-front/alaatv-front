@@ -223,7 +223,7 @@ module.exports = configure(function (ctx) {
       cssAddon: true,
 
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'fa', // Quasar language pack (en-US)
+      lang: 'fa-IR', // Quasar language pack (en-US)
 
       // For special cases outside of where the auto-import strategy can have an impact
       // (like functional components as one of the examples),

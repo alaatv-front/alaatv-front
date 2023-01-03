@@ -91,13 +91,13 @@
 </template>
 
 <script>
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem'
-import Slider from 'components/Widgets/Slider/Slider'
-import SetItem from 'components/Widgets/SetItem/SetItem'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem'
-import { Block } from 'src/models/Block'
 import { dragscroll } from 'vue-dragscroll'
-import { mixinWidget } from 'src/mixin/Mixins'
+import { Block } from 'src/models/Block.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import Slider from 'components/Widgets/Slider/Slider.vue'
+import SetItem from 'components/Widgets/SetItem/SetItem.vue'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'Block',

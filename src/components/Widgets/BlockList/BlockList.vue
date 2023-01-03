@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Block from 'components/Widgets/Block/Block'
+import Block from 'components/Widgets/Block/Block.vue'
 
 export default {
   name: 'BlockList',

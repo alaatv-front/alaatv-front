@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import { Set } from 'src/models/Set'
-import LazyImg from 'src/components/lazyImg'
+import { Set } from 'src/models/Set.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'setItem',

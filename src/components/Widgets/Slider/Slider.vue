@@ -61,9 +61,9 @@
 
 <script>
 import { ref } from 'vue'
-import { BannerList } from 'src/models/Banner'
-import { mixinWidget } from 'src/mixin/Mixins'
-import lazyImg from '../../../components/lazyImg'
+import { BannerList } from 'src/models/Banner.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import lazyImg from '../../../components/lazyImg.vue'
 
 export default {
   name: 'Slider',
