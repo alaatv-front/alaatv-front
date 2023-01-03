@@ -27,6 +27,9 @@ export function changeTemplateHeaderType (state, newInfo) {
 export function changeTemplateLeftSideBarType (state, newInfo) {
   state.templateLeftSideBarType = newInfo
 }
+export function changeTemplateLeftSideBarWidth (state, newInfo) {
+  state.layoutRightDrawerWidth = newInfo
+}
 
 export function changeTemplateRightSideBarType (state, newInfo) {
   state.templateRightSideBarType = newInfo

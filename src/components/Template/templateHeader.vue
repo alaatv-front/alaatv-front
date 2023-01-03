@@ -1,5 +1,6 @@
 <template>
-  <div class="app-bar-container">
+  <div v-if="type === 'main'"
+       class="app-bar-container">
     <div class="app-bar">
       <div class="header-section">
         <!--        -----------------------------------------------------Logo Section--------------------------------------------   -->
@@ -21,12 +22,11 @@
             <div
               class="homepage"
             >
-              <lazy-img :src="'img/alaa-logo.svg'"
-                        :alt="'logo'"
-                        width="40"
-                        height="40"
-                        class="logo-pic-img"
-                        @click="routeTo('home')"
+              <!--              src="https://nodes.alaatv.com/aaa/landing/Soalaa/Logo/logo.png"-->
+              <q-img
+                class="logo-pic-img"
+                src="img/alaa-logo.svg"
+                @click="routeTo('home')"
               />
             </div>
           </div>
@@ -40,7 +40,7 @@
               class="tabs-list-container"
             >
               <div
-                v-if="showMenuItem(/* item */)"
+                v-if="showMenuItem(item)"
                 class="self-center"
               >
                 <q-item
@@ -111,16 +111,16 @@
               :to="{name: 'User.Checkout.Review'}"
             />
           </div>
-          <q-btn v-if="isUserLogin"
-                 flat
-                 class="btn-user-profile"
+          <q-btn
+            v-if="isUserLogin"
+            flat
+            class="btn-user-profile"
           >
-            <lazy-img :src="user.photo"
-                      :alt="'user photo'"
-                      width="48"
-                      height="48"
-                      class="user-photo"
-                      @click="routeTo('home')"
+            <q-img
+              class="user-photo"
+              :src="user.photo"
+              width="48px"
+              height="48px"
             />
             <q-menu class="user-profile-dropdown"
                     :offset="[170, 10]">
@@ -130,12 +130,11 @@
                     <div class="profile-detail">
                       <div class="profile-photo-box">
                         <div class="profile-photo-img">
-                          <lazy-img :src="user.photo"
-                                    :alt="'user photo'"
-                                    width="60"
-                                    height="60"
-                                    class="user-photo"
-                                    @click="routeTo('home')"
+                          <q-img
+                            class="user-photo"
+                            :src="user.photo"
+                            width="60px"
+                            height="60px"
                           />
                         </div>
                       </div>
@@ -163,7 +162,7 @@
                         :key="index"
                       >
                         <div
-                          v-if="showMenuItem(/* item */)"
+                          v-if="showMenuItem(item)"
                         >
                           <q-item
                             class="item-list"
@@ -235,16 +234,23 @@
       </div>
     </div>
   </div>
+  <abrisham-template-header  v-if="type === 'abrisham'" />
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import { User } from 'src/models/User'
-import LazyImg from 'src/components/lazyImg'
 
+import { User } from 'src/models/User'
+import { mapMutations } from 'vuex'
+import AbrishamTemplateHeader from 'components/Template/abrishamTemplateHeader'
 export default {
   name: 'templateHeader',
-  components: { LazyImg },
+  components: {
+    AbrishamTemplateHeader
+  },
+  props: {
+    type: [String, Boolean, null],
+    default: () => 'main'
+  },
   data() {
     return {
       searchInput: '',
@@ -317,7 +323,7 @@ export default {
       return new User()
     },
     showMenuItem () {
-      return (/* item */) => {
+      return (item) => {
         return true
         // return (item.permission === 'all' || this.user.hasPermission(item.permission))
       }
@@ -336,6 +342,9 @@ export default {
   },
   methods: {
     ...mapMutations('AppLayout', [
+      'updateVisibilityBreadcrumb',
+      'updateBreadcrumbs',
+      'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
     togglePageBuilderEditable () {
@@ -355,6 +364,12 @@ export default {
     toggleLeftDrawer() {
       this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
     },
+    hasRoute(route) {
+      if (!route) {
+        return
+      }
+      return !!(route.name || route.path)
+    },
     goToLogin() {
       this.$router.push({ name: 'login' })
     },
@@ -366,6 +381,38 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.user-panel-bare-layout {
+  max-width: 1362px;
+  margin: auto;
+  padding-top: 30px;
+  background: #f4f6f9;
+  justify-content: center;
+  @media screen and (max-width: 1439px) {
+    max-width: 100%;
+  }
+  @media screen and (max-width: 1439px) {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  @media screen and (max-width: 1148px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  @media screen and (max-width: 1023px) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  @media screen and (max-width: 599px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .user-side-bar {
+    @media screen and (max-width: 1023px) {
+      display: none;
+    }
+  }
+}
+
 .app-bar-container {
   background-color: #fff;
   height: 72px;
@@ -546,7 +593,7 @@ export default {
             }
 
             .q-field__inner {
-              border-radius: 0;
+              border-radius: 0px;
               .q-field__control {
                 color: transparent;
                 min-height: 0;
@@ -612,8 +659,8 @@ export default {
     background: #FFFFFF;
     border-radius: 16px;
     display: flex;
-    margin-bottom: 0;
-    padding: 0;
+    margin-bottom: 0px;
+    padding: 0px;
 
     .btn-style{
       width: 96px;
@@ -634,17 +681,17 @@ export default {
   }
 }
 </style>
-
 <style lang="scss">
 .user-profile-dropdown {
   width: 220px;
   height: 300px;
   background: #FFFFFF;
   border: 1px solid #F2F5F9;
-  border-radius: 0 16px 16px 16px #{"/* rtl:ignore */"};
+  border-radius: 0px 16px 16px 16px #{"/* rtl:ignore */"};
   .header {
-    box-shadow: 0 6px 10px rgba(49, 46, 87, 0.04) #{"/* rtl:ignore */"};
-    border-radius: 0 15px 0 0 #{"/* rtl:ignore */"};
+
+    box-shadow: 0px 6px 10px rgba(49, 46, 87, 0.04) #{"/* rtl:ignore */"};
+    border-radius: 0px 15px 0px 0px #{"/* rtl:ignore */"};
   }
   .profile-box {
     font-style: normal;
@@ -669,7 +716,7 @@ export default {
         border-radius: 16px;
         position: relative;
         .profile-photo-img {
-          .user-photo {
+          .q-img {
             border-radius: 16px;
             height: 100%;
           }

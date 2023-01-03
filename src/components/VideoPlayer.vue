@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center">
+  <div class="video-box-container flex justify-center">
     <video
       id="my-video"
       ref="videoPlayer"
@@ -8,6 +8,7 @@
       :height="calcTheHeight"
       :width="calcTheWidth"
       class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
+      @play="playVideo"
     />
   </div>
 </template>
@@ -87,7 +88,7 @@ export default {
     }
   },
   watch: {
-    sources: function () {
+    sources: function (val) {
       this.reloadPlayerSources()
     }
   },
@@ -103,6 +104,9 @@ export default {
     }
   },
   methods: {
+    playVideo() {
+      this.$emit('play', this.player.duration())
+    },
     initPlayer() {
       videojs.registerPlugin('brand', videojsBrand)
       this.player = videojs(this.$refs.videoPlayer, this.videoOptions, this.onPlayerReady)
@@ -158,6 +162,21 @@ export default {
 </script>
 
 <style lang="scss">
+.video-box-container{
+  border-radius: inherit;
+}
+.video-js {
+  border-radius: inherit;
+  .vjs-tech{
+    border-radius: inherit;
+  }
+  .my-video_html5_api{
+    border-radius: inherit;
+  }
+}
+.vjs-poster{
+  border-radius: inherit;
+}
   #my-video .vjs-big-play-button {
     border: none;
     width: 80px;
