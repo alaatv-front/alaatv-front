@@ -25,8 +25,8 @@ module.exports = configure(function (ctx) {
       // include = [],
       // exclude = [],
       // rawOptions = {},
-      // warnings: true,
-      // errors: true
+      warnings: true,
+      errors: true
     },
 
     // https://v2.quasar.dev/quasar-cli/prefetch-feature
@@ -290,7 +290,7 @@ module.exports = configure(function (ctx) {
       cssAddon: true,
 
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'fa', // Quasar language pack (en-US)
+      lang: 'fa-IR', // Quasar language pack (en-US)
 
       // For special cases outside of where the auto-import strategy can have an impact
       // (like functional components as one of the examples),
@@ -466,7 +466,7 @@ module.exports = configure(function (ctx) {
         // https://www.electron.build/configuration/configuration
 
         appId: 'alaatv-front-vite'
-      },
+      }
 
       // // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       // chainWebpackMain (chain) {
