@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import LazyImg from 'src/components/lazyImg'
+import { Content } from 'src/models/Content.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'contentItem',

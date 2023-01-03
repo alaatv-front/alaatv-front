@@ -1,29 +1,9 @@
-import process from 'process'
-import { store } from 'quasar/wrappers'
-import { createStore } from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
-
-const plugins = []
-
-if (process.browser) {
-  const vuexPersistedState =
-    createPersistedState({
-      storage: window.localStorage,
-      paths: [
-        'Auth.accessToken',
-        'Auth.user',
-        'AppLayout',
-        'Cart'
-      ]
-    })
-
-  plugins.push(vuexPersistedState)
-}
-
-import Auth from 'src/store/Auth'
-import loading from 'src/store/loading'
-import AppLayout from 'src/store/AppLayout'
 import Cart from 'src/store/Cart'
+import Auth from 'src/store/Auth'
+import { createStore } from 'vuex'
+import loading from 'src/store/loading'
+import { store } from 'quasar/wrappers'
+import AppLayout from 'src/store/AppLayout'
 
 /*
  * If not building with SSR mode, you can
@@ -42,7 +22,6 @@ export default store(function (/* { ssrContext } */) {
       AppLayout,
       Cart
     },
-    plugins,
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
     strict: debug

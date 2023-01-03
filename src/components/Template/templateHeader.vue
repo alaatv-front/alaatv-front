@@ -240,7 +240,7 @@
 <script>
 import { mapMutations } from 'vuex'
 import { User } from 'src/models/User'
-import LazyImg from 'src/components/lazyImg'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'templateHeader',

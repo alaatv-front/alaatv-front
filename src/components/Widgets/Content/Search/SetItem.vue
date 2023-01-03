@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import LazyImg from 'components/lazyImg'
+import LazyImg from 'components/lazyImg.vue'
 export default {
   name: 'SetBox',
   components: {
