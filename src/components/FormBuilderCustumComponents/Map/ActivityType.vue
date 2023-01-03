@@ -29,7 +29,9 @@
 </template>
 
 <script>
-import { inputMixin } from 'quasar-form-builder'
+// import { inputMixin } from 'quasar-form-builder'
+import inputMixin from 'quasar-form-builder/src/mixins/inputMixin.js'
+
 export default {
   name: 'ActivityType',
   mixins: [inputMixin],
