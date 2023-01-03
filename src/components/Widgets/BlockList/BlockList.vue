@@ -5,15 +5,14 @@
          class="block-list-widget"
     >
       <Block
-        :data="block"
-        :options="options"
+        :options="block"
       />
     </div>
   </div>
 </template>
 
 <script>
-import Block from 'components/Widgets/Block/Block.vue'
+import Block from 'components/Widgets/Block/Block'
 
 export default {
   name: 'BlockList',
@@ -21,7 +20,8 @@ export default {
   props: {
     options: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   },
   data() {
@@ -37,6 +37,12 @@ export default {
   },
 
   watch: {
+    options: {
+      handler() {
+        this.loadBlocks()
+      },
+      deep: true
+    },
     blocks() {
       this.blocks.list.forEach((block, index) => {
         block.headerCustomClass = `banner-header-${index}` + ' '
@@ -52,19 +58,21 @@ export default {
       this.getBlocksByRequest()
     },
 
-    getBlocksByRequest() {
+    getBlocksByRequest(url) {
       this.blocks.loading = true
       let promise = null
       promise = this.getApiRequest()
-      promise
-        .then((response) => {
-          this.blocks = response
+      if (promise) {
+        promise
+          .then((response) => {
+            this.blocks = response
 
-          this.blocks.loading = false
-        })
-        .catch(() => {
-          this.blocks.loading = false
-        })
+            this.blocks.loading = false
+          })
+          .catch(() => {
+            this.blocks.loading = false
+          })
+      }
     },
 
     getBlocks(blocks) {
@@ -78,16 +86,12 @@ export default {
       if (this.options.apiName === 'home') {
         return this.$apiGateway.pages.home({
           cache: {
-            TTL: 10000
+            TTL: 100000
           }
         })
       }
       if (this.options.apiName === 'shop') {
-        return this.$apiGateway.pages.shop({
-          cache: {
-            TTL: 10000
-          }
-        })
+        return this.$apiGateway.pages.shop()
       }
     }
   }
