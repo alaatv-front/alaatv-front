@@ -1,9 +1,50 @@
-import Cart from 'src/store/Cart'
-import Auth from 'src/store/Auth'
+import Cart from './Cart'
+import Auth from './Auth'
+import * as shvl from 'shvl'
+import process from 'process'
+import loading from './loading'
 import { createStore } from 'vuex'
-import loading from 'src/store/loading'
+import AppLayout from './AppLayout'
 import { store } from 'quasar/wrappers'
-import AppLayout from 'src/store/AppLayout'
+import createPersistedState from 'vuex-persistedstate'
+
+const plugins = []
+
+if (process.browser) {
+  const localStorageKey = 'vuex'
+  const createPersistedStatePathes = [
+    'Cart',
+    'Auth.user',
+    'Auth.accessToken'
+    // 'AppLayout',
+  ]
+  const vuexPersistedState =
+    createPersistedState({
+      key: localStorageKey,
+      storage: window.localStorage,
+      overwrite: true,
+      reducer: function (state, paths) {
+        if (Array.isArray(paths)) {
+          const localStorageValue = JSON.parse(window.localStorage.getItem(localStorageKey))
+          createPersistedStatePathes.forEach(item => {
+            shvl.set(state, item, shvl.get(localStorageValue, item))
+          })
+          return paths.reduce(function (substate, path) {
+            const localStorageValue = JSON.parse(window.localStorage.getItem(localStorageKey))
+            const localStoragePathValue = shvl.get(localStorageValue, path)
+            const statePathValue = shvl.get(state, path)
+            const pathValue = statePathValue || localStoragePathValue
+            return shvl.set(substate, path, pathValue)
+          }, {})
+        }
+
+        return state
+      },
+      paths: createPersistedStatePathes
+    })
+
+  plugins.push(vuexPersistedState)
+}
 
 /*
  * If not building with SSR mode, you can
@@ -22,6 +63,7 @@ export default store(function (/* { ssrContext } */) {
       AppLayout,
       Cart
     },
+    plugins,
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
     strict: debug

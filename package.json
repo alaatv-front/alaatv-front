@@ -45,6 +45,7 @@
     "quasar-form-builder": "^0.1.70",
     "quasar-template-builder": "^1.0.19",
     "quasar-ui-q-page-builder": "^0.0.15",
+    "shvl": "^3.0.0",
     "socket.io-client": "^4.5.4",
     "sticky-sidebar": "^3.3.1",
     "video.js": "^7.20.3",
@@ -59,7 +60,8 @@
     "vue-observe-visibility": "^1.0.0",
     "vue-persian-datetime-picker": "^2.10.4",
     "vue-router": "^4.1.6",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
