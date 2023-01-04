@@ -325,8 +325,7 @@ export default {
         .then(() => {
           this.$store.commit('loading/loading', false)
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           this.$store.commit('loading/loading', false)
         })
     },
@@ -341,8 +340,7 @@ export default {
         .then((response) => {
           window.open(response.data.data.url, '_self')
           this.$store.commit('loading/loading', false)
-        }).catch((err) => {
-          console.log(err)
+        }).catch(() => {
           this.$store.commit('loading/loading', false)
         })
     },

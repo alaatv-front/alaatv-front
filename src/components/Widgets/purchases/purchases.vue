@@ -120,13 +120,13 @@
 </template>
 
 <script>
-import FilterBox from 'src/components/userPurchases/filterBox'
-import PurchaseItem from 'src/components/userPurchases/PurchaseItem'
-import showContents from 'src/components/userPurchases/showContents'
-import { Product, ProductList } from 'src/models/Product'
-import { Set } from 'src/models/Set'
-import Assist from 'src/plugins/Assist'
-import Addresses from 'src/api/Addresses'
+import { Set } from 'src/models/Set.js'
+import Assist from 'src/plugins/Assist.js'
+import Addresses from 'src/api/Addresses.js'
+import { Product, ProductList } from 'src/models/Product.js'
+import FilterBox from 'src/components/userPurchases/filterBox.vue'
+import PurchaseItem from 'src/components/userPurchases/PurchaseItem.vue'
+import showContents from 'src/components/userPurchases/showContents.vue'
 
 export default {
   name: 'Purchases',

@@ -3,7 +3,7 @@
     <quasar-template-builder
       @onResize="resize">
       <template #header>
-        <template-header  v-if="getTemplateHeaderType === 'main'" />
+        <template-header :type="getTemplateHeaderType" />
         <q-linear-progress
           v-if="$store.getters['loading/loading']"
           color="primary"
@@ -13,7 +13,7 @@
         />
       </template>
       <template #left-drawer>
-        <side-menu-dashboard />
+        <side-menu-dashboard :type="getLeftDrawerType" />
       </template>
       <template #content>
         <div ref="contentInside"
@@ -43,6 +43,7 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
+
           <Router :include="keepAliveComponents" />
         </div>
       </template>
@@ -53,13 +54,13 @@
   </div>
 </template>
 <script>
-import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
+import Router from 'src/router/Router.vue'
+import AlaaFooter from 'components/Widgets/Footer/Footer.vue'
+import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
+import templateHeader from 'components/Template/templateHeader.vue'
+import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
-import templateHeader from 'components/Template/templateHeader'
-import Router from 'src/router/Router'
-import KeepAliveComponents from 'assets/js/KeepAliveComponents'
 // import { setHeight } from 'src/boot/page-builder'
-import AlaaFooter from 'components/Widgets/Footer/Footer'
 
 export default {
   components: {
@@ -81,6 +82,9 @@ export default {
     },
     getTemplateHeaderType() {
       return this.$store.getters['AppLayout/templateHeaderType']
+    },
+    getLeftDrawerType() {
+      return this.$store.getters['AppLayout/templateLeftSideBarType']
     },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
@@ -104,6 +108,15 @@ export default {
     },
     resize (val) {
       this.$store.commit('AppLayout/updateWindowSize', val)
+      if (this.getLeftDrawerType === 'abrisham') {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        if (val.width < 1200) {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 80)
+        } else if (val.width < 990) {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 60)
+        }
+        return
+      }
       if (val.width > 1439) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 314)
         this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')

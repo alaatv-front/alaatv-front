@@ -3,7 +3,7 @@
     <h6 class="text-grey q-pt-md q-pl-md">دانلود از طریق اپلیکیشن آلاء</h6>
     <q-separator class="q-my-md" />
     <div class="q-py-xl text-center">
-      <q-btn class="button bg-green-4"><a href="#">دانلود اپلیکیشن آلاء</a></q-btn>
+      <q-btn class="button bg-green-4"><a :href="options.link">دانلود اپلیکیشن آلاء</a></q-btn>
       <p class="q-mt-md">با نصب اپ اندروید آلا، می توانید این فیلم را دانلود نمایید.</p>
     </div>
   </div>
@@ -11,7 +11,15 @@
 
 <script>
 export default {
-  name: 'ContentDownloadSection'
+  name: 'ContentDownloadSection',
+  props: {
+    options: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  }
 }
 </script>
 

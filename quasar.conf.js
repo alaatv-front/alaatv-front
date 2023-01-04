@@ -241,7 +241,9 @@ module.exports = configure(function (ctx) {
         'Notify',
         'Loading',
         'Dialog',
-        'Cookies'
+        'Cookies',
+        'BottomSheet'
+
       ]
     },
 

@@ -74,15 +74,22 @@
 </template>
 
 <script>
-import FilterPlans from 'components/StudyPlanAdmin/FilterPlans'
-import FullCalenderPlans from 'components/StudyPlanAdmin/FullCalenderPlans'
-import StudyPlansData from 'assets/js/StudyPlansData'
-import { StudyPlanList } from 'src/models/StudyPlan'
-import { PlanList } from 'src/models/Plan'
-import ContentsType from 'components/StudyPlanAdmin/ContentsType'
-import PlanStylePreview from 'components/StudyPlanAdmin/planStylePreview'
-import { FormBuilder, inputMixin } from 'quasar-form-builder'
-import Addresses from 'src/api/Addresses'
+import Addresses from 'src/api/Addresses.js'
+import { PlanList } from 'src/models/Plan.js'
+import { StudyPlanList } from 'src/models/StudyPlan.js'
+import StudyPlansData from 'assets/js/StudyPlansData.js'
+// import { FormBuilder, inputMixin } from 'quasar-form-builder'
+import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
+import inputMixin from 'quasar-form-builder/src/mixins/inputMixin.js'
+import FilterPlans from 'components/StudyPlanAdmin/FilterPlans.vue'
+import ContentsType from 'components/StudyPlanAdmin/ContentsType.vue'
+import PlanStylePreview from 'components/StudyPlanAdmin/planStylePreview.vue'
+import FullCalenderPlans from 'components/StudyPlanAdmin/FullCalenderPlans.vue'
+
+// import * as FormBuilderObject from 'quasar-form-builder'
+// console.log('FormBuilderObject', FormBuilderObject)
+// const inputMixin = FormBuilderObject.inputMixin
+// const FormBuilder = FormBuilderObject.FormBuilder
 
 export default {
   name: 'StudyPlan',

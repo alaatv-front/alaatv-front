@@ -30,6 +30,7 @@
     <img v-else-if="!qImage && (!width || !height)"
          :src="src"
          :alt="alt"
+         class="full-width"
     />
   </div>
 </template>
@@ -81,7 +82,7 @@ export default {
       }
     },
     normalizedSizeInNumber () {
-      if (!this.width || !this.width) {
+      if (!this.width || !this.height) {
         return {
           w: 0,
           h: 0

@@ -7,9 +7,10 @@
     />
     <div class="q-pa-sm flex flex-center">
       <q-pagination
+        v-if="options.paginate"
         v-model="contentNumber"
-        :to-fn="goToContentPage"
         :max="set.contents.list.length"
+        :to-fn="goToContentPage"
         :max-pages="6"
         direction-links
         boundary-links
@@ -23,11 +24,11 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
-import { mixinWidget } from 'src/mixin/Mixins'
-import { Content } from 'src/models/Content'
-import VideoPlayer from 'components/VideoPlayer'
-import { PlayerSourceList } from 'src/models/PlayerSource'
+import { Content } from 'src/models/Content.js'
+import API_ADDRESS from 'src/api/Addresses.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import VideoPlayer from 'components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { Set } from 'src/models/Set'
 
 export default {
@@ -35,10 +36,10 @@ export default {
   components: { VideoPlayer },
   mixins: [mixinWidget],
   props: {
-    data: {
-      type: [Content, Number, String],
+    options: {
+      type: Object,
       default() {
-        return new Content()
+        return {}
       }
     }
   },
@@ -47,38 +48,33 @@ export default {
       content: new Content(),
       set: new Set(),
       sourceItem: [
-        { src: '', type: 'video/mp4', label: '' },
-        { src: '', type: 'video/mp4', label: '', selected: true },
-        { src: '', type: 'video/mp4', label: '' }
+        {
+          src: '',
+          type: 'video/mp4',
+          label: ''
+        },
+        {
+          src: '',
+          type: 'video/mp4',
+          label: '',
+          selected: true
+        },
+        {
+          src: '',
+          type: 'video/mp4',
+          label: ''
+        }
       ],
       sources: new PlayerSourceList(),
       poster: '',
-      contentNumber: 1, // content order may not be continuously
-      sections: [
-        {
-          data: {
-            rows: [
-              {
-                cols: [
-                  {
-                    widgets: []
-                  }
-                ],
-                options: {
-                  boxed: false
-                }
-              }
-            ]
-          }
-        }
-      ]
+      contentNumber: 1 // content order may not be continuously
     }
   },
   watch: {
     data() {
       this.loadContent()
     },
-    'data.id': function () {
+    'data.id': function() {
       this.loadContent()
     }
   },
@@ -93,16 +89,31 @@ export default {
       return this.set.contents.list.findIndex(content => parseInt(content.id) === parseInt(contentId)) + 1
     },
     loadContent() {
-      if (typeof this.data === 'object') {
-        this.content = this.data
-      } else if (typeof this.data === 'number' || typeof this.data === 'string') {
-        this.content.id = this.data
-        this.getContent()
+      this.getContentByRequest()
+    },
+    getContentByRequest() {
+      this.content.loading = true
+      let promise = null
+      promise = this.$apiGateway.content.show(this.options.id)
+      if (promise) {
+        promise
+          .then((response) => {
+            this.content = new Content(response)
+            this.contentNumber = this.getContentNumberInListById(this.content.id)
+            this.poster = this.content.photo
+            this.setSources(this.content.file.video)
+            this.getSet()
+            this.content.loading = false
+          })
+          .catch(() => {
+            this.content.loading = false
+          })
       }
     },
+
     getContent() {
       this.content.loading = true
-      const url = API_ADDRESS.content.show(this.content.id)
+      const url = API_ADDRESS.content.show(this.options.id)
       let promise = null
       if (typeof this.options.getData === 'function') {
         promise = this.options.getData(url)
@@ -123,10 +134,25 @@ export default {
           this.content.loading = false
         })
     },
+    getSetByRequest() {
+      this.set.loading = true
+      let promise = null
+      promise = this.$apiGateway.set.show(this.content.set.id)
+      if (promise) {
+        promise
+          .then((response) => {
+            this.set = new Set(response)
+            this.set.loading = false
+          })
+          .catch(() => {
+            this.set = new Set()
+            this.set.loading = false
+          })
+      }
+    },
     getSet() {
       this.set.loading = true
       this.options.getData(API_ADDRESS.set.show(this.content.set.id))
-      // this.$axios.get(API_ADDRESS.set.show(this.content.set.id))
         .then(response => {
           this.set = new Set(response.data.data)
           this.contentNumber = this.getContentNumberInListById(this.content.id)
@@ -144,7 +170,10 @@ export default {
       if (!id) {
         return null
       }
-      return { name: 'User.Content.Show', params: { id } }
+      return {
+        name: 'User.Content.Show',
+        params: { id }
+      }
     }
   }
 }

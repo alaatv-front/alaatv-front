@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import Plans from 'components/StudyPlanAdmin/Plans'
-import { StudyPlanList } from 'src/models/StudyPlan'
+import Plans from 'components/StudyPlanAdmin/Plans.vue'
+import { StudyPlanList } from 'src/models/StudyPlan.js'
 
 export default {
   name: 'FullCalenderPlans',

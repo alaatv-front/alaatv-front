@@ -9,6 +9,7 @@ import ProductAPI from './models/product'
 import StudyPlanAPI from './models/studyPlan'
 import TicketAPI from './models/ticket'
 import UserAPI from './models/user'
+import AbrishamAPI from 'src/api/models/Abrisham'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
@@ -22,5 +23,6 @@ export const APIGateway = {
   product: new ProductAPI(),
   studyPlan: new StudyPlanAPI(),
   ticket: new TicketAPI(),
-  user: new UserAPI()
+  user: new UserAPI(),
+  abrisham: new AbrishamAPI()
 }

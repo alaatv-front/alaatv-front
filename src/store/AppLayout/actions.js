@@ -1,19 +1,26 @@
-export function updateAppBarAndDrawer (context, newInfo) {
-  this.commit('AppLayout/updateLayoutHeaderVisible', newInfo)
-  this.commit('AppLayout/updateLayoutLeftDrawerVisible', newInfo)
-}
-export function showConfirmDialog (context, newInfo) {
-  this.commit('AppLayout/showConfirmDialog', newInfo)
-}
-export function updateTemplateLayout (context, newInfo) {
-  if (newInfo.layoutHeaderType !== undefined) {
-    this.commit('AppLayout/changeTemplateHeaderType', newInfo.layoutHeaderType)
+const actions = {
+  updateAppBarAndDrawer: (context, newInfo) => {
+    context.commit('AppLayout/updateLayoutHeaderVisible', newInfo)
+    context.commit('AppLayout/updateLayoutLeftDrawerVisible', newInfo)
+  },
+  showConfirmDialog: (context, newInfo) => {
+    context.commit('AppLayout/showConfirmDialog', newInfo)
+  },
+  updateTemplateLayout: (context, newInfo) => {
+    if (newInfo.layoutHeaderType !== undefined) {
+      context.commit('AppLayout/changeTemplateHeaderType', newInfo.layoutHeaderType, { root: true })
+    }
+    if (newInfo.layoutLeftSideBarType !== undefined) {
+      context.commit('AppLayout/changeTemplateLeftSideBarType', newInfo.layoutLeftSideBarType, { root: true })
+    }
+    if (newInfo.layoutRightSideBarType !== undefined) {
+      context.commit('AppLayout/changeTemplateRightSideBarType', newInfo.layoutRightSideBarType, { root: true })
+    }
+    if (newInfo.layoutLeftDrawerWidth !== undefined) {
+      context.commit('AppLayout/changeTemplateLeftSideBarWidth', newInfo.layoutLeftDrawerWidth, { root: true })
+    }
+    context.dispatch('AppLayout/updateStore', newInfo, { root: true })
   }
-  if (newInfo.layoutLeftSideBarType !== undefined) {
-    this.commit('AppLayout/changeTemplateLeftSideBarType', newInfo.layoutLeftSideBarType)
-  }
-  if (newInfo.layoutRightSideBarType !== undefined) {
-    this.commit('AppLayout/changeTemplateRightSideBarType', newInfo.layoutRightSideBarType)
-  }
-  this.dispatch('AppLayout/updateStore', newInfo)
 }
+
+export default actions

@@ -399,8 +399,8 @@
 </template>
 
 <script>
-import { Product } from 'src/models/Product'
-import LazyImg from 'components/lazyImg'
+import LazyImg from 'components/lazyImg.vue'
+import { Product } from 'src/models/Product.js'
 export default {
   name: 'Product',
   components: {
