@@ -4,7 +4,7 @@
       v-model:sections="sections"
       v-model::options="pageConfig"
       :preview="true"
-      :editable="editable"
+      :editable="pageBuilderEditable"
       @toggleEdit="toggleEdit"
     />
   </div>
@@ -32,8 +32,9 @@ export default {
                     widgets: [
                       {
                         name: 'ContentVideoPlayer',
-                        data: this.$route.params.id,
                         options: {
+                          id: this.$route.params.id,
+                          paginate: true,
                           getData: (url) => GetWidgetsData.getData(url)
                         }
                       }
@@ -46,8 +47,8 @@ export default {
                     widgets: [
                       {
                         name: 'ContentVideoList',
-                        data: this.$route.params.id,
                         options: {
+                          id: this.$route.params.id,
                           getData: (url) => GetWidgetsData.getData(url)
                         }
                       }
@@ -73,8 +74,8 @@ export default {
                     widgets: [
                       {
                         name: 'ContentShowInfo',
-                        data: this.$route.params.id,
                         options: {
+                          id: this.$route.params.id,
                           getData: (url) => GetWidgetsData.getData(url)
                         }
                       }
@@ -87,9 +88,8 @@ export default {
                     widgets: [
                       {
                         name: 'ContentDownloadSection',
-                        // data: this.$route.params.id,
                         options: {
-                          getData: (url) => GetWidgetsData.getData(url)
+                          link: '#'
                         }
                       }
                     ],
@@ -111,6 +111,11 @@ export default {
       ],
       objectNames: ['rows', 'cols', 'widgets', 'data'],
       widgetNames: ['ContentShowInfo', 'ContentVideoPlayer', 'ContentVideoList']
+    }
+  },
+  computed: {
+    pageBuilderEditable () {
+      return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   },
   mounted() {

@@ -66,9 +66,6 @@
 <script>
 export default {
   name: 'MenuItem',
-  components: {
-    menuItem: () => import('./MenuItem')
-  },
   props: {
     menu: {
       type: Object,

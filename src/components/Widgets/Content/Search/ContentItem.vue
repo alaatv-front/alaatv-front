@@ -85,8 +85,8 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import LazyImg from 'components/lazyImg'
+import LazyImg from 'components/lazyImg.vue'
+import { Content } from 'src/models/Content.js'
 export default {
   name: 'Contents',
   components: { LazyImg },

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center">
+  <div class="video-box-container flex justify-center">
     <video
       id="my-video"
       ref="videoPlayer"
@@ -8,6 +8,7 @@
       :height="calcTheHeight"
       :width="calcTheWidth"
       class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
+      @play="playVideo"
     />
   </div>
 </template>
@@ -19,9 +20,11 @@ import fa from 'video.js/dist/lang/fa.json'
 import { PlayerSourceList } from 'src/models/PlayerSource'
 import { mixinWidget } from 'src/mixin/Mixins'
 
-require('video.js/dist/video-js.css')
-require('@silvermine/videojs-quality-selector')(videojs)
-require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
+// require('video.js/dist/video-js.css')
+import * as VideojsQualitySelector from '@silvermine/videojs-quality-selector'
+VideojsQualitySelector(videojs)
+// require('@silvermine/videojs-quality-selector')(videojs)
+// require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
 
 export default {
   name: 'VideoPlayer',
@@ -87,7 +90,7 @@ export default {
     }
   },
   watch: {
-    sources: function () {
+    sources: function (val) {
       this.reloadPlayerSources()
     }
   },
@@ -103,6 +106,9 @@ export default {
     }
   },
   methods: {
+    playVideo() {
+      this.$emit('play', this.player.duration())
+    },
     initPlayer() {
       videojs.registerPlugin('brand', videojsBrand)
       this.player = videojs(this.$refs.videoPlayer, this.videoOptions, this.onPlayerReady)
@@ -158,6 +164,24 @@ export default {
 </script>
 
 <style lang="scss">
+@import "video.js/dist/video-js.css";
+@import "@silvermine/videojs-quality-selector/dist/css/quality-selector.css";
+
+.video-box-container{
+  border-radius: inherit;
+}
+.video-js {
+  border-radius: inherit;
+  .vjs-tech{
+    border-radius: inherit;
+  }
+  .my-video_html5_api{
+    border-radius: inherit;
+  }
+}
+.vjs-poster{
+  border-radius: inherit;
+}
   #my-video .vjs-big-play-button {
     border: none;
     width: 80px;

@@ -1,4 +1,4 @@
-module.exports = {
+const state = {
   drawer: false,
   pageBuilderEditable: false,
   confirmDialog: {
@@ -29,3 +29,5 @@ module.exports = {
     path: []
   }
 }
+
+export default state

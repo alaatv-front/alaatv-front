@@ -97,8 +97,8 @@
 </template>
 
 <script>
-import { Set } from 'src/models/Set'
-import contentItem from 'src/components/userPurchases/contentItem'
+import { Set } from 'src/models/Set.js'
+import contentItem from 'src/components/userPurchases/contentItem.vue'
 
 export default {
   name: 'showContents',

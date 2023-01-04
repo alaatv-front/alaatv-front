@@ -5,6 +5,9 @@
 </template>
 <script>
 import process from 'process'
+// import { Plugins } from '@capacitor/core'
+//
+// const { Network } = Plugins
 
 import { defineComponent } from 'vue'
 
@@ -17,8 +20,20 @@ export default defineComponent({
   }),
   created () {
     this.setServiceWorker()
+    // this.checkInternetConnection()
   },
   methods: {
+    // async checkInternetConnection () {
+    //   Network.addListener('networkStatusChange', (status) => {
+    //     // alert("Network status changed" + status)
+    //     // window.location.reload()
+    //     console.log('Network status changed', status)
+    //   })
+    //
+    //   // Get the current network status
+    //   const status = await Network.getStatus()
+    //   console.log('status', status)
+    // },
     setServiceWorker () {
       // Listen for our custom event from the SW registration
       if (!process.browser) {

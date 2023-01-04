@@ -1,0 +1,989 @@
+<template>
+  <div class="video-box">
+    <div
+      class="video-main"
+    >
+      <div class="video-wrapper">
+        <video-player
+          v-if="content.file && content.file.video && content.inputData.can_see"
+          :time-points="timePoints"
+          :poster="content.photo"
+          :sources="sources"
+          :keepCalculating="keepCalculating"
+          @calcTimeData="changeVideoStatusToSeen"
+          @toggleBookmark="bookmarkPostIsFavored"
+          @play="setVideoDuration"
+        />
+        <div v-else-if="(!content.id || !content.photo)">
+          <div
+            class="null-video"
+          >
+            <div class="content text-primary">
+              <q-icon name="info" />
+              اوه نه! ویدیویی وجود نداره...
+            </div>
+
+          </div>
+        </div>
+        <div v-else>
+          <a
+            :href="content.url.web"
+            target="_blank"
+          >
+            <q-img class="img"
+                   :src="content.photo" />
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <div class="video-description">
+      <div
+        class="description row justify-between"
+      >
+        <div class="">
+          <div class="flex flex-wrap video-title">
+            <p
+              v-if="content.lesson_name || lesson.title"
+              class="title-item title-text video-paragraph"
+            >
+              <span
+                v-if="lesson.title"
+              >
+                {{ lesson.title }}
+              </span>
+              <span
+                v-else-if="content.lesson_name"
+              >
+                {{ content.lesson_name }}
+              </span>
+            </p>
+            <p
+              v-if="(set && set.short_title) || (content.set && content.set.short_title)"
+              class="title-item title-text video-paragraph"
+            >
+              <span
+                v-if="set && set.short_title"
+              >
+                {{ set.short_title }}
+              </span>
+              <span
+                v-else-if="content.set && content.set.short_title"
+              >
+                {{ content.set.short_title }}
+              </span>
+            </p>
+            <p
+              v-if="content.order || content.order === 0"
+              class="title-item title-text video-paragraph"
+            >
+              جلسه {{ content.order }}
+            </p>
+          </div>
+          <div class="flex subtitle">
+            <div class="flex part align-start">
+              <!--              <q-img-->
+              <!--                src="https://nodes.alaatv.com/upload/abrisham-panel-ic_alaa.png"-->
+              <!--                class="alaa-logo icon"-->
+              <!--              />-->
+              <p class="video-paragraph">گروه آموزشی آلاء</p>
+            </div>
+            <div
+              v-if="content.author && (content.author.first_name || content.author.last_name)"
+              class="flex part align-center"
+            >
+              <i class="fi fi-rr-graduation-cap icon flex" />
+              <p class="video-paragraph">
+                {{ content.author.first_name }} {{content.author.last_name }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          v-if="content.id"
+          class="icon-btn-box"
+        >
+          <q-btn
+            dark
+            unelevated
+            class="seen-btn"
+            :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
+            :loading="content.loading"
+            @click="clickSeenButton"
+          >
+            <span
+              v-if="content.has_watched"
+              class="video-btn-text"
+            >
+              دیده شده
+            </span>
+            <i v-if="content.has_watched"
+               class="fi fi-rr-check seen-icon" />
+            <span
+              v-else
+              class="video-btn-text"
+            >
+              دیده نشده
+            </span>
+          </q-btn>
+          <div class="video-box-icon">
+            <q-btn
+              unelevated
+              class="icon-btn"
+              :disable="!content.file"
+              @click="downloadVideo= !downloadVideo"
+            >
+              <i
+                class="fi fi-rr-download icon bookmark-button"
+              />
+            </q-btn>
+            <q-btn
+              unelevated
+              flat
+              class="icon-btn"
+              @click="socialMediaDialog = !socialMediaDialog"
+            >
+              <i
+                class="fi fi-rr-share icon bookmark-button"
+              />
+            </q-btn>
+            <q-btn
+              color="transparent"
+              unelevated
+              dark
+              :loading="content.loading"
+              class="icon-btn"
+              @click="toggleFavorite"
+            >
+              <i
+                class="fi fi-rr-bookmark icon bookmark-button"
+                :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }"
+              />
+
+            </q-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <q-dialog v-model="socialMediaDialog"
+            position="bottom">
+    <q-card style="width: 500px">
+      <q-card-section class="flex items-center justify-around">
+        <q-btn
+          v-for="(item,index) in socialMediaList"
+          :key="index"
+          flat
+          color="primary"
+          :icon="item.icon"
+          @click="share(item.name)"
+        />
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+  <q-dialog v-model="downloadVideo"
+            full-width
+            position="bottom">
+    <q-card class="full-width download-box">
+      <div class="download-title">
+        دانلود
+      </div>
+      <q-card-section class="flex items-center justify-around">
+        <div
+          v-for="(item, index) in content.file.video"
+          :key="index"
+          class="flex items-center justify-around download-item"
+        >
+          {{item.caption}}
+          <div class="quality">
+            {{item.res}}
+          </div>
+          <q-btn unelevated
+                 :href="item.link +'?download=1'"
+                 class="download-btn">
+            <i
+              class="fi fi-rr-download icon bookmark-button"
+            />
+          </q-btn>
+        </div>
+
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+</template>
+
+<script>
+import { Content } from 'src/models/Content.js'
+import shareSocial from 'assets/js/shareSocialMedia.js'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
+export default {
+  name: 'VideoBox',
+
+  components: { VideoPlayer },
+
+  props: {
+    content: {
+      type: Content,
+      default: new Content()
+    },
+    lesson: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+    set: {
+      type: Object,
+      default: () => {}
+    }
+  },
+
+  data() {
+    return {
+      sheet: false,
+      keepCalculating: true,
+      timePoints: [],
+      sources: new PlayerSourceList(),
+      markedRatios: [
+        { ratio: 90, hasSeen: false }
+      ],
+      socialMediaDialog: false,
+      downloadVideo: false,
+      socialMediaList: [
+        {
+          icon: 'mdi-whatsapp',
+          name: 'whatsapp'
+        },
+        {
+          icon: 'mdi-mail',
+          name: 'mail'
+        },
+        {
+          icon: 'mdi-linkedin',
+          name: 'linkedin'
+        },
+        {
+          icon: 'mdi-twitter',
+          name: 'twitter'
+        },
+        {
+          icon: 'mdi-facebook',
+          name: 'facebook'
+        },
+        {
+          icon: 'telegram',
+          name: 'telegram'
+        }
+      ],
+      videoDuration: null
+    }
+  },
+
+  watch: {
+    'content.id': function () {
+      if (this.content && this.content.file && this.content.file.video) {
+        this.setContentSources(this.content.file.video)
+        this.setContentTimePoint(this.content.timepoints.list)
+      }
+    }
+  },
+
+  methods: {
+    setVideoDuration(data) {
+      this.videoDuration = data
+    },
+    share(name) {
+      const url = shareSocial.getShareLink(
+        {
+          link: this.content.url.web,
+          title: this.content.title
+        }, name)
+      open(url)
+    },
+
+    show() {
+    },
+
+    clickSeenButton() {
+      this.content.loading = true
+      this.$emit('toggle-video-status')
+      this.markedRatios.forEach(markedRatio => {
+        if (markedRatio.hasSeen) {
+          markedRatio.hasSeen = false
+        }
+      })
+    },
+
+    toggleFavorite() {
+      // eslint-disable-next-line vue/no-mutating-props
+      this.content.loading = true
+      this.$emit('favorite')
+    },
+
+    getShareLink(content, socialMedia) {
+      if (socialMedia === 'telegram') {
+        return 'https://telegram.me/share/url?url=' + content.url.web + '&text=' + content.title
+      } else if (socialMedia === 'whatsapp') {
+        return 'https://web.whatsapp.com/send?l=en&text=' + content.url.web
+      } else if (socialMedia === 'mail') {
+        return 'mailto:info@alaatv.com?&subject=' + content.title + '&body=' + content.url.web
+      } else if (socialMedia === 'linkedin') {
+        return 'https://www.linkedin.com/shareArticle?mini=true&url=' + content.url.web + '&title=' + content.title + '&summary=&source=alaatv.com'
+      } else if (socialMedia === 'pinterest') {
+        return 'https://pinterest.com/pin/create/button/?url=' + content.url.web + '&media=&description=alaatv.com'
+      } else if (socialMedia === 'twitter') {
+        return 'https://twitter.com/home?status=' + content.url.web
+      } else if (socialMedia === 'facebook') {
+        return 'https://www.facebook.com/sharer/sharer.php?u=' + content.url.web
+      }
+    },
+
+    openUrl(content, socialMedia) {
+      const url = this.getShareLink(content, socialMedia)
+      open(url)
+    },
+
+    setContentSources (sources) {
+      const customSources = []
+      sources.forEach(source => {
+        customSources.push(
+          {
+            link: source.link,
+            type: 'video/mp4',
+            label: source.res,
+            selected: source.res === '480p'
+          }
+        )
+      })
+      this.sources = new PlayerSourceList(customSources)
+    },
+
+    setContentTimePoint (timePoints) {
+      const customTimePoints = []
+      timePoints.forEach(timePoint => {
+        customTimePoints.push({
+          title: timePoint.title,
+          time: timePoint.time,
+          id: timePoint.id,
+          isFavored: timePoint.isFavored,
+          loading: timePoint.loading
+        })
+      })
+      this.timePoints = customTimePoints
+    },
+
+    changeVideoStatusToSeen(timeData) {
+      this.saveProgress(timeData.watchedPercentage, timeData)
+    },
+
+    saveProgress(progressPercent, timeData) {
+      let reachedProgressPercent = 0
+      this.markedRatios.forEach(markedRatio => {
+        if (!markedRatio.hasSeen && markedRatio.ratio < progressPercent) {
+          markedRatio.hasSeen = true
+          if (markedRatio.ratio > reachedProgressPercent) {
+            reachedProgressPercent = markedRatio.ratio
+          }
+        }
+      })
+      if (reachedProgressPercent) {
+        const watchableData = {
+          watchable_id: this.content.id,
+          watchable_type: 'content',
+          duration: timeData.duration
+        }
+        this.$axios.post('/api/v2/watched', watchableData)
+          .then(() => {
+            if (timeData.watchedPercentage >= 90) {
+              this.content.has_watched = true
+            }
+          })
+      }
+    },
+
+    bookmarkPostIsFavored(timeStampData) {
+      this.$emit('bookmarkTimestamp', timeStampData)
+    }
+  }
+
+}
+</script>
+<style lang="scss" scoped>
+.download-item{
+  width: 488px;
+  padding: 15px 24px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.89;
+  letter-spacing: normal;
+  text-align: right;
+  border-radius: 15px;
+  border: solid 2px;
+  color: var(--abrishamMain);
+  border-color: var(--abrishamLightBlue);
+  .quality{
+    background: var(--abrishamLightBlue);
+    padding: 11px 19px 9px 20px;
+    border-radius: 10px;
+    height: 48px;
+  }
+  .download-btn{
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 rgba(76, 175, 80, 0.2);
+    background-color: #f8fff8;
+  }
+}
+.download-box{
+  border-radius: 40px;
+  padding: 15px;
+  .download-title{
+    color: var(--abrishamMain);
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+
+.video-box {
+
+  .video-wrapper{
+    border-radius: 30px;
+    @media screen and (max-width: 1920px) {
+      border-radius: 20px;
+    }
+    @media screen and (max-width: 990px) {
+      border-radius: 15px;
+    }
+    .img{
+      border-radius: 30px;
+      @media screen and (max-width: 1920px) {
+        border-radius: 20px;
+      }
+      @media screen and (max-width: 990px) {
+        border-radius: 15px;
+      }
+    }
+  }
+    .video-paragraph {
+        margin-bottom: 0;
+    }
+
+    .video-main {
+        margin-bottom: 25px;
+      border-radius: 30px;
+
+        .null-video {
+          margin: 200px auto;
+          .content{
+            padding: 30px;
+            border: 1px solid var(--alaa-Primary);
+            font-size: 18px;
+            border-radius: 15px;
+            font-weight: 500;
+          }
+        }
+
+        @media screen and (max-width: 1200px) {
+            margin-bottom: 16px;
+        }
+        @media screen and (max-width: 576px) {
+            margin-bottom: 10px;
+        }
+    }
+
+    .video-description {
+        align-items: flex-start;
+        @media screen and (max-width: 1200px) {
+            margin-bottom: 0 !important;
+        }
+        @media screen and (max-width: 350px) {
+            margin-bottom: 16px;
+        }
+        @media screen and (max-width: 350px) {
+            margin-bottom: 10px;
+        }
+
+        .description {
+            @media screen and (max-width: 576px) {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            @media only screen and (min-width: 359px) and (max-width: 403px) {
+                flex-direction: column !important;
+            }
+
+            .video-title {
+                color: #3e5480;
+                font-size: 20px;
+                line-height: 40px;
+                @media screen and (max-width: 350px) {
+                    font-size: 16px !important;
+                    text-align: right;
+                }
+
+                .title-item {
+                    font-size: 20px;
+                    @media screen and (max-width: 960px) {
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+
+                    &:after {
+                        content: ")";
+                        color: #ff8f00;
+                        padding: 0 6px;
+                        @media screen and (max-width: 768px) {
+                            padding:0 5px;
+                            font-size: 16px;
+                        }
+                    }
+
+                    &:last-child {
+                        &:after {
+                            display: none;
+                        }
+                    }
+                }
+
+                .title-text {
+                    font-weight: bold;
+                    @media screen and (max-width: 768px) {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            .subtitle {
+                font-size: 16px;
+                font-weight: 500;
+                color: #9fa5c0;
+                @media screen and (max-width: 768px) {
+                    font-size: 14px !important;
+                    margin-bottom: 16px;
+                }
+                @media screen and (max-width: 350px) {
+                    margin-bottom: 10px;
+                }
+
+                .part {
+                    margin-left: 40px;
+                    @media screen and (max-width: 768px) {
+                        margin-left: 10px;
+                    }
+                    @media screen and (max-width: 350px) {
+                        margin-left: 30px;
+                    }
+
+                    .alaa-logo {
+                        width: 13px;
+                    }
+
+                    .icon {
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+            .icon-btn-box {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-end;
+                @media screen and (max-width: 1200px) {
+                    flex-direction: column !important;
+                    align-items: flex-end !important;
+                }
+                @media screen and (max-width: 959px) {
+                    flex-direction: row !important;
+                    align-items: flex-start !important;
+                }
+                @media screen and (max-width: 768px) {
+                    flex-direction: column !important;
+                    align-items: flex-end !important;
+                }
+                @media screen and (max-width: 576px) {
+                    display: flex;
+                    flex-direction: row !important;
+                    justify-content: space-between !important;
+                }
+
+                .seen-btn {
+                    @media screen and (max-width: 1200px) {
+                        margin-bottom: 15px;
+                    }
+                    @media screen and (max-width: 960px) {
+                        height: 40px !important;
+                        box-sizing: border-box;
+                    }
+
+                    .video-btn-text {
+                        font-size: 16px;
+                        font-weight: 500;
+                        @media screen and (max-width: 768px) {
+                            font-size: 14px !important;
+                        }
+                    }
+
+                }
+
+                .seen-video-btn {
+                    background-color: #ffffff;
+                    color: #ff8f00;
+                    width: 120px;
+                    height: 48px;
+                    border-radius: 10px;
+                    border: solid 2px #ff8f00;
+                    box-shadow: none;
+                    @media screen and (max-width: 768px) {
+                        width: 110px !important;
+                        height: 36px !important;
+                        border: solid 1px #ff8f00 !important;
+                    }
+
+                    .video-btn-text {
+                        font-size: 16px;
+                        font-weight: 500;
+                        @media screen and (max-width: 768px) {
+                            font-size: 14px !important;
+                        }
+                    }
+                }
+
+                .seen-icon {
+                    margin-top: 5px;
+                    font-size: 14px;
+                    margin-right: 5px;
+                }
+
+                .video-btn {
+                    background-color: #ff8f00;
+                    color: #ffffff;
+                    width: 120px;
+                    height: 48px;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 10px 0 rgba(62, 84, 128, 0.2);
+                    @media screen and (max-width: 576px) {
+                        height: 40px;
+                    }
+                    @media screen and (max-width: 768px) {
+                        width: 110px !important;
+                        height: 36px !important;
+                    }
+                }
+
+                .video-box-icon {
+                    margin-left: 20px;
+                    padding-top: 10px;
+                    @media screen and (max-width: 576px) {
+                        padding-top: 0px;
+                        padding-bottom: 10px;
+                    }
+
+                    .icon-btn {
+                      margin-left: 41px;
+                      &:deep(.q-btn__content){
+                        margin: 0;
+                        color: var(--abrishamMain);
+                        font-size: 24px !important;
+                        @media screen and (max-width: 600px) {
+                          font-size: 18px !important;
+                        }
+                      }
+                        @media screen and (max-width: 768px) {
+                            font-size: 20px !important;
+                        }
+                        @media screen and (max-width: 576px) {
+                            margin-left: 20px;
+                        }
+                        @media screen and (max-width: 350px) {
+                            font-size: 18px !important;
+                        }
+                    }
+
+                    .q-btn {
+                        &:not(.v-btn--round) {
+                            &.v-size--default {
+                                padding: 0;
+                                @media screen and (max-width: 1920px) {
+                                    min-width: 57px !important;
+                                }
+                                @media screen and (max-width: 960px) {
+                                    min-width: 54px !important;
+                                }
+                                @media screen and (max-width: 768px) {
+                                    min-width: 50px !important;
+                                }
+                            }
+                        }
+                    }
+
+                    .favorite-bookmark {
+                        color: #ff8f00;
+                    }
+                }
+            }
+        }
+    }
+
+    .video-js {
+        height: 100%;
+        width: 100%;
+
+        .vjs-big-play-button {
+            left: calc(50% - 43px);
+            top: calc(50% - 20px);
+        }
+    }
+
+    .v-sheet {
+        &.v-card {
+            &:not(.v-sheet--outlined) {
+                border-radius: 30px;
+                overflow: hidden;
+                @media only screen and (max-width: 960px) {
+                    border-radius: 15px;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}
+
+.download-sheet {
+    padding-top: 10px;
+    border-radius: 40px 40px 0 0 !important;
+
+    .download-btn {
+        display: flex;
+        flex-direction: column !important;
+        justify-content: center;
+        align-content: center;
+
+        .download-header {
+            text-align: center;
+            margin: 35px 0;
+            font-weight: 500;
+            @media screen and (max-width: 1264px) {
+                margin: 30px 0;
+            }
+            @media screen and (max-width: 960px) {
+                margin: 27px 0;
+            }
+            @media screen and (max-width: 600px) {
+                margin: 22px 0;
+            }
+
+            .download-title {
+                color: #3e5480;
+                font-size: 20px;
+                font-weight: 500;
+                margin-bottom: 0 !important;
+                @media screen and (max-width: 600px) {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .download-list {
+            display: flex;
+            flex-direction: row !important;
+            @media screen and (max-width: 960px) {
+                flex-direction: column !important;
+            }
+
+            .download-part {
+                width: 488px;
+                height: 96px;
+                border-radius: 15px;
+                border: #eff3ff 2px solid !important;
+                margin-left: 30px;
+                margin-bottom: 42px;
+                padding: 24px;
+                @media screen and (max-width: 1904px) {
+                    width: 380px;
+                    height: 80px;
+                    margin-left: 16px;
+                    padding: 16px;
+                }
+                @media screen and (max-width: 1264px) {
+                    width: 260px;
+                    height: 126px;
+
+                }
+                @media screen and (max-width: 960px) {
+                    width: 488px;
+                    height: 96px;
+                    margin-left: 0;
+                    margin-bottom: 16px;
+                    padding: 24px;
+                }
+                @media screen and (max-width: 600px) {
+                    width: 318px;
+                    height: 70px;
+                    padding: 16px;
+                }
+                @media screen and (max-width: 350px) {
+                    width: 288px;
+                    height: 70px;
+                }
+
+                .details {
+                    display: flex;
+                    flex-direction: row;
+                    color: #3e5480;
+                    font-size: 18px !important;
+                    font-weight: 500;
+                    justify-content: space-between;
+                    @media only screen and (min-width: 961px) and (max-width: 1264px) {
+                        flex-direction: column;
+                        text-align: center;
+                    }
+                    @media screen and (max-width: 600px) {
+                        font-size: 14px !important;
+                    }
+
+                    .download-caption {
+                        padding-top: 12px;
+                        @media only screen and (min-width: 961px) and (max-width: 1264px) {
+                            margin-bottom: 18px;
+                            padding-top: 0;
+                        }
+                        @media screen and (max-width: 600px) {
+                            padding-top: 8px;
+                        }
+                    }
+
+                    .column-details {
+                        display: flex;
+                        flex-direction: row;
+
+                        .size {
+                            margin-left: 49px;
+                            padding-top: 13px;
+                            @media screen and (max-width: 1904px) {
+                                margin-left: 24px;
+                            }
+                            @media screen and (max-width: 1264px) {
+                                margin-left: 20px;
+                            }
+                            @media screen and (max-width: 960px) {
+                                margin-left: 49px;
+                            }
+                            @media screen and (max-width: 600px) {
+                                margin-left: 21px;
+                                padding-top: 8px;
+                            }
+                            @media screen and (max-width: 350px) {
+                                margin-left: 11px;
+                            }
+                        }
+
+                        .quality {
+                            color: #3e5480;
+                            border-radius: 10px;
+                            background-color: #eff3ff;
+                            margin-left: 36px;
+                            font-size: 18px !important;
+                            font-weight: 500;
+                            height: 48px;
+                            @media screen and (max-width: 1904px) {
+                                margin-left: 16px;
+                            }
+                            @media screen and (max-width: 1264px) {
+                                margin-left: 20px;
+                            }
+                            @media screen and (max-width: 960px) {
+                                margin-left: 24px;
+                            }
+                            @media screen and (max-width: 600px) {
+                                height: 36px !important;
+                                margin-left: 16px;
+                                font-size: 14px !important;
+                            }
+                        }
+
+                        .download-part-icon {
+                            background-color: #f8fff8;
+                            justify-content: center;
+                            padding-top: 14px;
+                            width: 48px;
+                            height: 48px;
+                            box-shadow: 0 5px 10px 0 rgba(76, 175, 80, 0.2);
+                            border-radius: 10px;
+                            @media screen and (max-width: 600px) {
+                                width: 36px;
+                                height: 36px;
+                                padding-top: 12px;
+                            }
+
+                            a {
+                                text-decoration: none;
+                            }
+
+                            .icon {
+                                color: #4caf50;
+                                font-size: 21px;
+                                @media screen and (max-width: 600px) {
+                                    font-size: 19px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+.v-bottom-sheet {
+    .v-sheet {
+        .download-btn {
+            .share-parent {
+                margin: 35px;
+                text-align: center;
+                @media screen and (max-width: 1264px) {
+                    margin: 30px;
+                }
+                @media screen and (max-width: 960px) {
+                    margin: 27px;
+                }
+                @media screen and (max-width: 600px) {
+                    margin: 22px;
+                }
+            }
+        }
+    }
+}
+
+</style>
+<style lang="scss">
+.video-box {
+    .video-description {
+        .description {
+            .icon-btn-box {
+                .video-box-icon {
+                    .bookmark-button {
+                        .v-btn__loader {
+                            color: #ff8f00 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.v-sheet {
+    &.v-list {
+        &:not(.v-sheet--outlined) {
+            border-radius: 40px 40px 0 0;
+        }
+    }
+}
+</style>
