@@ -37,12 +37,12 @@
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
     <div class="col-md-4 col-sm-12 productsCol q-pa-sm-sm q-pa-xs-xs">
       <div class="q-px-xs-none q-pa-sm-md">
-        <a href="/asset/abrisham"
-           target="_blank">
+        <router-link :to="{name: 'User.Abrisham.Progress'}">
           <div class="abrishamAssetBanner">
-            <img src="https://nodes.alaatv.com/upload/banner-dashboard.jpg" />
+            <img alt="داشبورد ابریشم"
+                 src="https://nodes.alaatv.com/upload/banner-dashboard.jpg" />
           </div>
-        </a>
+        </router-link>
         <div class="q-mb-md m-input-icon m-input-icon--left productsSearch ">
           <q-input v-model="searchTarget"
                    outlined

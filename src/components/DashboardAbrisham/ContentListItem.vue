@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
+import { Content } from 'src/models/Content.js'
 
 export default {
   name: 'ContentListItem',

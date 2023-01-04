@@ -21,8 +21,8 @@ import { PlayerSourceList } from 'src/models/PlayerSource'
 import { mixinWidget } from 'src/mixin/Mixins'
 
 // require('video.js/dist/video-js.css')
-import * as VideojsQualitySelector from '@silvermine/videojs-quality-selector'
-VideojsQualitySelector(videojs)
+// import { VideojsQualitySelector } from '@silvermine/videojs-quality-selector'
+// VideojsQualitySelector(videojs)
 // require('@silvermine/videojs-quality-selector')(videojs)
 // require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
 

@@ -14,9 +14,10 @@ const mixinAbrisham = {
       this.watchingContent.loading = true
       this.watchingContent.is_favored ? this.setUnfavored() : this.setFavored()
     },
-    updateVideoStatus() {
+    updateVideoStatus(data) {
+      const hasWatch = data || this.watchingContent.has_watched
       this.watchingContent.loading = true
-      this.watchingContent.has_watched ? this.setVideoStatusToUnwatched() : this.setVideoStatusToWatched()
+      hasWatch ? this.setVideoStatusToUnwatched() : this.setVideoStatusToWatched()
     },
     async setVideoStatusToWatched() {
       try {

@@ -131,6 +131,7 @@
             <div
               class="text-center my-5">
               <div v-if="emptyNews"
+                   class="text-primary no-news"
                    type="warning">
                 اخباری موجود نیست.
               </div>
@@ -491,7 +492,7 @@ export default {
               font-size: 16px;
               font-weight: 500;
               border-radius: 10px;
-              margin-left: 16px;
+              margin-right: 16px;
               justify-content: space-between;
               @media screen and (max-width: 1264px) {
                 height: 40px !important;
@@ -573,6 +574,11 @@ export default {
 
     .news-bottom {
       padding-top: 0 !important;
+      .no-news{
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
     }
   }
 
