@@ -18,11 +18,27 @@ export default defineComponent({
     registration: null,
     updateExists: false
   }),
+  computed: {
+    accessToken () {
+      return this.$store.getters['Auth/accessToken']
+    }
+  },
   created () {
+    this.updateAxiosBearerToken()
     this.setServiceWorker()
     // this.checkInternetConnection()
   },
+  mounted () {
+    this.updateAxiosBearerToken()
+  },
   methods: {
+    // ToDo: must remove this function
+    updateAxiosBearerToken () {
+      if (!this.accessToken) {
+        return
+      }
+      this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.accessToken
+    },
     // async checkInternetConnection () {
     //   Network.addListener('networkStatusChange', (status) => {
     //     // alert("Network status changed" + status)
