@@ -147,7 +147,7 @@ import ChipGroup from 'components/DashboardAbrisham/chipGroup.vue'
 import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
 import { SetSectionList, SetSection } from 'src/models/SetSection.js'
 import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
-import ContentListComponent from 'src/components/DashboardAbrisham/ContentList.vue'
+import ContentListComponent from 'src/components/DashboardAbrisham/ContentListComponent.vue'
 
 export default {
   name: 'AbrishamProgress',
@@ -264,7 +264,9 @@ export default {
     },
 
     setLessonGroupsId () {
-      this.lessonGroups.forEach((item, index) => item.id = index + 1)
+      this.lessonGroups.forEach((item, index) => {
+        item.id = index + 1
+      })
     },
 
     setSelectedLessonId (lessonId) {

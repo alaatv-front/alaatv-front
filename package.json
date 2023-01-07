@@ -24,6 +24,7 @@
     "@quasar/extras": "^1.15.8",
     "@silvermine/videojs-quality-selector": "^1.2.5",
     "@vue-leaflet/vue-leaflet": "^0.7.0",
+    "autoprefixer": "^10.4.13",
     "axios": "^1.2.1",
     "core-js": "^3.26.1",
     "cropperjs": "^1.5.13",

@@ -306,7 +306,6 @@ export default {
     },
 
     clickSeenButton() {
-      this.content.loading = true
       this.$emit('toggle-video-status')
       this.markedRatios.forEach(markedRatio => {
         if (markedRatio.hasSeen) {
@@ -387,19 +386,18 @@ export default {
           }
         }
       })
-      if (reachedProgressPercent) {
-        const watchableData = {
-          watchable_id: this.content.id,
-          watchable_type: 'content',
-          duration: timeData.duration
-        }
-        this.$axios.post('/api/v2/watched', watchableData)
-          .then(() => {
-            if (timeData.watchedPercentage >= 90) {
-              this.content.has_watched = true
-            }
-          })
-      }
+      // if (reachedProgressPercent) {
+      //   const watchableData = {
+      //     watchable_id: this.content.id,
+      //     watchable_type: 'content',
+      //     duration: timeData.duration
+      //   }
+      //   // await this.$axios.post('/api/v2/watched', watchableData)
+      //   if (timeData.watchedPercentage >= 90) {
+      //     this.$emit('toggle-video-status', true)
+      //     // this.content.has_watched = true
+      //   }
+      // }
     },
 
     bookmarkPostIsFavored(timeStampData) {

@@ -109,7 +109,7 @@
 import { Content, ContentList } from 'src/models/Content'
 import { MajorList } from 'src/models/Major'
 import CommentBox from 'src/components/DashboardAbrisham/CommentBox'
-import ContentListComponent from 'src/components/DashboardAbrisham/ContentList'
+import ContentListComponent from 'components/DashboardAbrisham/ContentListComponent'
 import chipGroup from 'components/DashboardAbrisham/chipGroup'
 import videoBox from 'src/components/DashboardAbrisham/videoBox'
 import StudyPlanGroup from 'src/components/DashboardAbrisham/studyPlanGroup/StudyPlanGroup'

@@ -88,7 +88,7 @@ import { Content, ContentList } from 'src/models/Content.js'
 import { LiveDescriptionList } from 'src/models/LiveDescription.js'
 import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
 import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
-import ContentListComponent from 'src/components/DashboardAbrisham/ContentList.vue'
+import ContentListComponent from 'components/DashboardAbrisham/ContentListComponent.vue'
 import consultingMessage from 'src/components/DashboardAbrisham/consulting/consultingMessage.vue'
 export default {
   name: 'AbrishamConsulting',
