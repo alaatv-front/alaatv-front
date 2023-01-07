@@ -81,7 +81,7 @@
         />
         <q-list class="q-mt-md">
           <router-link
-            :to="{name: 'User.Dashboard.purchases'}"
+            :to="{name: 'UserPanel.MyPurchases'}"
             class="flex"
           >
             <q-item
@@ -122,7 +122,7 @@
           <router-link
             class="flex"
             :to="{
-              name: 'User.Dashboard.favorites',
+              name: 'UserPanel.MyFavorites',
               params: { id: this.$store.getters['Auth/user'].id }
             }"
           >
@@ -166,10 +166,7 @@
           </q-item>
           <router-link
             class="flex"
-            :to="{
-              name: 'Admin.Ticket.Index',
-              params: { id: this.$store.getters['Auth/user'].id }
-            }"
+            :to="{name: 'UserPanel.MyTickets.Index'}"
           >
             <q-item
               v-ripple

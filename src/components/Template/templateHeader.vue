@@ -280,7 +280,7 @@ export default {
         {
           title: 'پروفایل',
           icon: 'isax:user',
-          routeName: 'Profile',
+          routeName: 'UserPanel.Profile',
           permission: 'all',
           active: false,
           children: []
@@ -288,7 +288,7 @@ export default {
         {
           title: 'فیلم ها و جزوه های من',
           icon: 'isax:task-square',
-          routeName: 'User.Dashboard.purchases',
+          routeName: 'UserPanel.MyPurchases',
           params: null,
           permission: 'all',
           active: false,
@@ -297,7 +297,7 @@ export default {
         {
           title: 'علاقه مندی های من',
           icon: 'isax:heart',
-          routeName: 'User.Dashboard.favorites',
+          routeName: 'UserPanel.MyFavorites',
           params: null,
           permission: 'all',
           active: false,
@@ -339,9 +339,6 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
-  mounted () {
-    this.setMyContentParamsValue()
-  },
   methods: {
     ...mapMutations('AppLayout', [
       'updateVisibilityBreadcrumb',
@@ -352,13 +349,6 @@ export default {
     togglePageBuilderEditable () {
       const state = this.$store.getters['AppLayout/pageBuilderEditable']
       this.$store.commit('AppLayout/updatePageBuilderEditable', !state)
-    },
-    setMyContentParamsValue() {
-      this.profileTitlesList.forEach(item => {
-        if (item.routeName === 'User.Dashboard.purchases') {
-          item.params = { id: this.user.id }
-        }
-      })
     },
     logOut() {
       return this.$store.dispatch('Auth/logOut')
@@ -686,15 +676,15 @@ export default {
 
 <style lang="scss">
 .user-profile-dropdown {
-  width: 220px;
-  height: 300px;
+  width: 280px;
+  //height: 300px;
   background: #FFFFFF;
   border: 1px solid #F2F5F9;
-  border-radius: 0px 16px 16px 16px #{"/* rtl:ignore */"};
+  border-radius: 0 16px 16px 16px #{"/* rtl:ignore */"};
   .header {
 
-    box-shadow: 0px 6px 10px rgba(49, 46, 87, 0.04) #{"/* rtl:ignore */"};
-    border-radius: 0px 15px 0px 0px #{"/* rtl:ignore */"};
+    box-shadow: 0 6px 10px rgba(49, 46, 87, 0.04) #{"/* rtl:ignore */"};
+    border-radius: 0 15px 0 0 #{"/* rtl:ignore */"};
   }
   .profile-box {
     font-style: normal;

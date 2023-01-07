@@ -1,15 +1,14 @@
 <template>
   <q-page-builder
     v-model:sections="sections"
-    v-model::options="pageConfig"
-    :editable="pageBuilderEditable"
+    v-model:options="pageConfig"
   />
 </template>
 
 <script>
 export default {
-  name: 'MyFavorites',
-  data () {
+  name: 'TicketList',
+  data() {
     return {
       pageConfig: {},
       sections: [
@@ -21,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'MyFavorites'
+                        name: 'TicketList'
                       }
                     ]
                   }
@@ -34,14 +33,6 @@ export default {
           }
         }
       ]
-    }
-  },
-  computed: {
-    pageBuilderEditable() {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    },
-    calculateHeightStyle () {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   }
 }

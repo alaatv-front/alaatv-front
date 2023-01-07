@@ -57,82 +57,102 @@ const routes = [
         name: 'UserPanel',
         meta: { middlewares: [auth] },
         component: () => import('layouts/bareLayout.vue'),
-        children: [{
-          path: 'my-orders',
-          name: 'UserPanel.MyOrders',
-          component: () => import('pages/User/Orders/userOrders.vue')
-        },
-        {
-          path: 'user-info',
-          name: 'user-info',
-          component: () => import('pages/User/UserInfoForm.vue')
-        },
-        {
-          name: 'User.Dashboard.purchases',
-          path: 'my-purchases',
-          component: () => import('pages/User/Dashboard/MyPurchases.vue')
-        },
-        {
-          name: 'User.Dashboard.favorites',
-          path: 'my-favorites',
-          component: () => import('pages/User/Dashboard/MyFavorites.vue')
-        },
-        {
-          path: 'profile',
-          name: 'Profile',
-          component: () => import('pages/Profile/Profile.vue')
-        },
-
-        {
-          path: '/asset/abrisham',
-          name: 'User.Abrisham',
-          meta: {
-            // middlewares: [auth]
+        children: [
+          {
+            name: 'UserPanel.CompleteInfo',
+            path: 'complete-info',
+            component: () => import('pages/User/UserInfoForm.vue')
           },
-          layoutConfig: {
-            layoutHeaderType: 'abrisham',
-            layoutLeftSideBarType: 'abrisham',
-            layoutLeftDrawerOverlay: false,
-            layoutLeftDrawerWidth: 100,
-            layoutLeftDrawerVisible: true,
-            layoutLeftDrawerBehavior: 'default',
-            layoutFooter: false
+          {
+            name: 'UserPanel.Profile',
+            path: 'profile',
+            component: () => import('pages/Profile/Profile.vue')
           },
-          component: () => import('layouts/AbrishamLayout.vue'),
-          children: [
-            {
-              path: 'user-abrisham-progress',
-              name: 'User.Abrisham.Progress',
-              component: () => import('pages/User/DashboardAbrisham/progress.vue'),
-              meta: {
-                // middlewares: [auth]
+          {
+            name: 'UserPanel.MyOrders',
+            path: 'my-orders',
+            component: () => import('pages/User/Orders/userOrders.vue')
+          },
+          {
+            name: 'UserPanel.MyPurchases',
+            path: 'my-purchases',
+            component: () => import('pages/User/Dashboard/MyPurchases.vue')
+          },
+          {
+            name: 'UserPanel.MyFavorites',
+            path: 'my-favorites',
+            component: () => import('pages/User/Dashboard/MyFavorites.vue')
+          },
+          {
+            name: 'UserPanel.MyTickets',
+            path: 'my-tickets',
+            component: () => import('pages/Profile/Profile.vue'),
+            children: [
+              {
+                path: '',
+                name: 'UserPanel.MyTickets.Index',
+                component: () => import('pages/User/Ticket/List.vue')
+              },
+              {
+                path: 'create',
+                name: 'UserPanel.MyTickets.Create',
+                component: () => import('pages/User/Ticket/Create.vue')
+              },
+              {
+                path: ':id',
+                name: 'UserPanel.MyTickets.Show',
+                component: () => import('pages/User/Ticket/Show.vue')
               }
-            },
-            {
-              path: 'schedule',
-              name: 'User.Abrisham.Schedule',
-              component: () => import('pages/User/DashboardAbrisham/Schedule.vue'),
-              meta: {
-                // middlewares: [auth]
+            ]
+          },
+          {
+            name: 'UserPanel.Asset',
+            path: 'asset',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'UserPanel.Asset.Abrisham',
+                path: 'abrisham',
+                layoutConfig: {
+                  layoutHeaderType: 'abrisham',
+                  layoutLeftSideBarType: 'abrisham',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/AbrishamLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.Abrisham.Progress',
+                    path: 'progress',
+                    component: () => import('pages/User/DashboardAbrisham/progress.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.Abrisham.Schedule',
+                    path: 'schedule',
+                    component: () => import('pages/User/DashboardAbrisham/Schedule.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.Abrisham.Consulting',
+                    path: 'consulting',
+                    component: () => import('pages/User/DashboardAbrisham/Consulting.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.Abrisham.News',
+                    path: 'news',
+                    component: () => import('pages/User/DashboardAbrisham/News.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.Abrisham.Map',
+                    path: 'map',
+                    component: () => import('pages/User/DashboardAbrisham/Map.vue')
+                  }
+                ]
               }
-            },
-            {
-              path: 'consulting',
-              name: 'User.Abrisham.userConsulting',
-              component: () => import('pages/User/DashboardAbrisham/Consulting.vue')
-            },
-            {
-              path: 'news',
-              name: 'User.Abrisham.News',
-              component: () => import('pages/User/DashboardAbrisham/News.vue')
-            },
-            {
-              path: 'map',
-              name: 'User.Abrisham.Map',
-              component: () => import('pages/User/DashboardAbrisham/Map.vue')
-            }
-          ]
-        }]
+            ]
+          }]
       },
       {
         path: 'admin',

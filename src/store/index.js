@@ -15,6 +15,7 @@ if (process.browser) {
   const createPersistedStatePathes = [
     'Cart',
     'Auth.user',
+    'Auth.redirectTo',
     'Auth.accessToken'
     // 'AppLayout',
   ]
@@ -27,7 +28,10 @@ if (process.browser) {
         if (Array.isArray(paths)) {
           const localStorageValue = JSON.parse(window.localStorage.getItem(localStorageKey))
           createPersistedStatePathes.forEach(item => {
-            shvl.set(state, item, shvl.get(localStorageValue, item))
+            const localStorageItemValue = shvl.get(localStorageValue, item)
+            if (localStorageItemValue) {
+              shvl.set(state, item, localStorageItemValue)
+            }
           })
           return paths.reduce(function (substate, path) {
             const localStorageValue = JSON.parse(window.localStorage.getItem(localStorageKey))

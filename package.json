@@ -20,6 +20,7 @@
   "dependencies": {
     "@kerasus/server-date": "^4.0.3",
     "@kerasus/vue-audio-visual": "^2.5.0",
+    "@nodeguy/server-date": "^4.0.3",
     "@quasar/extras": "^1.15.9",
     "@silvermine/videojs-quality-selector": "^1.2.5",
     "@vue-leaflet/vue-leaflet": "^0.7.0",

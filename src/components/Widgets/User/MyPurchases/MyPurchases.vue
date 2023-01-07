@@ -37,7 +37,7 @@
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
     <div class="col-md-4 col-sm-12 productsCol q-pa-sm-sm q-pa-xs-xs">
       <div class="q-px-xs-none q-pa-sm-md">
-        <router-link :to="{name: 'User.Abrisham.Progress'}">
+        <router-link :to="{name: 'UserPanel.Asset.Abrisham.Progress'}">
           <div class="abrishamAssetBanner">
             <img alt="داشبورد ابریشم"
                  src="https://nodes.alaatv.com/upload/banner-dashboard.jpg" />

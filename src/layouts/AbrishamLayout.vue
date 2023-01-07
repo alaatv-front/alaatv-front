@@ -67,32 +67,32 @@ export default {
     expandedNavigation: null,
     activePage: {
       icon: 'calendar',
-      routeName: 'User.Abrisham.Schedule',
+      routeName: 'UserPanel.Asset.Abrisham.Schedule',
       title: 'برنامه مطالعاتی'
     },
     menuItem: [
       {
         icon: 'play-alt',
-        routeName: 'User.Abrisham.Progress',
+        routeName: 'UserPanel.Asset.Abrisham.Progress',
         title: 'فیلم ها'
       },
       {
         icon: 'calendar',
-        routeName: 'User.Abrisham.Schedule',
+        routeName: 'UserPanel.Asset.Abrisham.Schedule',
         title: 'برنامه مطالعاتی'
       },
       {
         icon: 'headphones',
-        routeName: 'User.Abrisham.userConsulting',
+        routeName: 'UserPanel.Asset.Abrisham.Consulting',
         title: 'مشاوره'
       },
       {
         icon: 'envelope',
-        routeName: 'User.Abrisham.News',
+        routeName: 'UserPanel.Asset.Abrisham.News',
         title: 'اخبار و اطلاعیه'
       }, {
         icon: 'world',
-        routeName: 'User.Abrisham.Map',
+        routeName: 'UserPanel.Asset.Abrisham.Map',
         title: 'نقشه'
       }
     ]
