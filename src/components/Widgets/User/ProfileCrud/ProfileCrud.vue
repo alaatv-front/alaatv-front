@@ -53,9 +53,10 @@
 </template>
 
 <script>
-import { EntityEdit, EntityAction } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
-import axios from 'axios'
+import API_ADDRESS from 'src/api/Addresses.js'
+// import { EntityEdit, EntityAction } from 'quasar-crud'
+import EntityEdit from 'quasar-crud/src/components/Entity/Edit/EntityEdit.vue'
+import EntityAction from 'quasar-crud/src/components/Entity/EntityAction.vue'
 
 export default {
   name: 'ProfileCrud',
@@ -358,7 +359,7 @@ export default {
   },
   methods: {
     beforeGetData() {
-      axios
+      this.$axios
         .get(API_ADDRESS.user.formData)
         .then((response) => {
           // edit entity
@@ -398,7 +399,7 @@ export default {
       if (d.region) {
         d.region_id = d.region.id
       }
-      axios
+      this.$axios
         .get(API_ADDRESS.user.eventresult)
         .then((response) => {
           // TODO: Since  eventresult has not been implemented,

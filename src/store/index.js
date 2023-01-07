@@ -15,7 +15,7 @@ if (process.browser) {
   const createPersistedStatePathes = [
     'Cart',
     'Auth.user',
-    'Auth.redirectTo',
+    // 'Auth.redirectTo',
     'Auth.accessToken'
     // 'AppLayout',
   ]
