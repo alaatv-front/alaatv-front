@@ -21,7 +21,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'purchases'
+                        name: 'MyPurchases'
                       }
                     ]
                   }

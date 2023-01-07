@@ -81,11 +81,8 @@
         />
         <q-list class="q-mt-md">
           <router-link
+            :to="{name: 'User.Dashboard.purchases'}"
             class="flex"
-            :to="{
-              name: 'User.Dashboard.purchases',
-              params: { id: this.$store.getters['Auth/user'].id }
-            }"
           >
             <q-item
               v-ripple
