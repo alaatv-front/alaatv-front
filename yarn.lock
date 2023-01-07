@@ -52,15 +52,6 @@
     json5 "^2.2.2"
     semver "^6.3.0"
 
-"@babel/eslint-parser@^7.19.1":
-  version "7.19.1"
-  resolved "https://registry.yarnpkg.com/@babel/eslint-parser/-/eslint-parser-7.19.1.tgz#4f68f6b0825489e00a24b41b6a1ae35414ecd2f4"
-  integrity sha512-AqNf2QWt1rtu2/1rLswy6CDP7H9Oh3mMhk177Y67Rg8d7RD9WfOLLv8CGn6tisFvS2htm86yIe1yLF6I1UDaGQ==
-  dependencies:
-    "@nicolo-ribaudo/eslint-scope-5-internals" "5.1.1-v1"
-    eslint-visitor-keys "^2.1.0"
-    semver "^6.3.0"
-
 "@babel/generator@^7.20.7":
   version "7.20.7"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.20.7.tgz#f8ef57c8242665c5929fe2e8d82ba75460187b4a"
@@ -1633,13 +1624,6 @@
   version "6.9.96"
   resolved "https://registry.yarnpkg.com/@mdi/font/-/font-6.9.96.tgz#c68da7e0895885dd09e60dc08c5ecc0d77f67efb"
   integrity sha512-z3QVZStyHVwkDsFR7A7F2PIvZJPWgdSFw4BEEy2Gc9HUN5NfK9mGbjgaYClRcbMWiYEV45srmiYtczmBtCqR8w==
-
-"@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
-  version "5.1.1-v1"
-  resolved "https://registry.yarnpkg.com/@nicolo-ribaudo/eslint-scope-5-internals/-/eslint-scope-5-internals-5.1.1-v1.tgz#dbf733a965ca47b1973177dc0bb6c889edcfb129"
-  integrity sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==
-  dependencies:
-    eslint-scope "5.1.1"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -3690,14 +3674,6 @@ eslint-plugin-vue@^9.8.0:
     vue-eslint-parser "^9.0.1"
     xml-name-validator "^4.0.0"
 
-eslint-scope@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-5.1.1.tgz#e786e59a66cb92b3f6c1fb0d508aab174848f48c"
-  integrity sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==
-  dependencies:
-    esrecurse "^4.3.0"
-    estraverse "^4.1.1"
-
 eslint-scope@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-7.1.1.tgz#fff34894c2f65e5226d3041ac480b4513a163642"
@@ -3725,7 +3701,7 @@ eslint-visitor-keys@^1.1.0, eslint-visitor-keys@^1.3.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.3.0.tgz#30ebd1ef7c2fdff01c3a4f151044af25fab0523e"
   integrity sha512-6J72N8UNa462wa/KFODt/PJ3IU60SDpC3QXC1Hjc1BXXpfL2C9R5+AU7jhe0F6GREqVMh4Juu+NY7xn+6dipUQ==
 
-eslint-visitor-keys@^2.0.0, eslint-visitor-keys@^2.1.0:
+eslint-visitor-keys@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz#f65328259305927392c938ed44eb0a5c9b2bd303"
   integrity sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==
@@ -3816,11 +3792,6 @@ esrecurse@^4.3.0:
   integrity sha512-KmfKL3b6G+RXvP8N1vr3Tq1kL/oCFgn2NYXEtqP8/L3pKapUA4G8cFVaoF3SU323CD4XypR/ffioHmkti6/Tag==
   dependencies:
     estraverse "^5.2.0"
-
-estraverse@^4.1.1:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.3.0.tgz#398ad3f3c5a24948be7725e83d11a7de28cdbd1d"
-  integrity sha512-39nnKffWz8xN1BU/2c79n9nB9HDzo0niYUqx6xyqUnyoAnQyyWpOTdZEeiCch8BBu515t4wp9ZmgVfVhn9EBpw==
 
 estraverse@^5.1.0, estraverse@^5.2.0:
   version "5.3.0"
@@ -6700,7 +6671,7 @@ vite-plugin-eslint@^1.8.1:
     "@types/eslint" "^8.4.5"
     rollup "^2.77.2"
 
-vite-plugin-pwa@^0.14.0:
+vite-plugin-pwa@^0.14.1:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.14.1.tgz#c32905d77916aab23e86522e2d4882c652f008d5"
   integrity sha512-5zx7yhQ8RTLwV71+GA9YsQQ63ALKG8XXIMqRJDdZkR8ZYftFcRgnzM7wOWmQZ/DATspyhPih5wCdcZnAIsM+mA==
@@ -6725,7 +6696,7 @@ vite@^2.9.13:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vite@^4.0.3:
+vite@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.0.4.tgz#4612ce0b47bbb233a887a54a4ae0c6e240a0da31"
   integrity sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==
