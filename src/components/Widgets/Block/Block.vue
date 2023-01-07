@@ -76,7 +76,7 @@
              }"
              class="content-spacing"
         >
-          <content-item :data="content" />
+          <content-item :options="content" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"

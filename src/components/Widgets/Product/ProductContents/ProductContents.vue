@@ -40,7 +40,7 @@
                  :key="video.id">
               <content-item
                 class="q-mr-md"
-                :data="video"
+                :options="video"
               />
             </div>
           </div>
