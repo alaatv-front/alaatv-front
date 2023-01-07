@@ -32,7 +32,8 @@ module.exports = configure(function (ctx) {
       'breadcrumbs',
       'api-gateway',
       'registerQPageBuilder',
-      'routesLayoutConfigs'
+      'routesLayoutConfigs',
+      'bus'
     ],
 
     // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -241,7 +242,9 @@ module.exports = configure(function (ctx) {
         'Notify',
         'Loading',
         'Dialog',
-        'Cookies'
+        'Cookies',
+        'BottomSheet'
+
       ]
     },
 

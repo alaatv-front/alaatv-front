@@ -30,7 +30,7 @@
                    name="video">
         <content-item v-for="content in videoContents"
                       :key="content.id"
-                      :data="content">
+                      :options="content">
         </content-item>
       </q-tab-panel>
       <q-tab-panel class="costume-background-color"
@@ -97,8 +97,8 @@
 </template>
 
 <script>
-import { Set } from 'src/models/Set'
-import contentItem from 'src/components/userPurchases/contentItem'
+import { Set } from 'src/models/Set.js'
+import contentItem from 'src/components/userPurchases/contentItem.vue'
 
 export default {
   name: 'showContents',

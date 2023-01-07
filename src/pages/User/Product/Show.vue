@@ -9,7 +9,7 @@
 <script>
 export default {
   name: 'Show',
-  data () {
+  data() {
     return {
       pageConfig: {},
       sections: [
@@ -22,7 +22,81 @@ export default {
                     widgets: [
                       {
                         name: 'ProductInfoShow',
-                        data: this.$route.params.id
+                        options: {
+                          productId: this.$route.params.id,
+                          teacher: true,
+                          shipping_method: true,
+                          services: true,
+                          major: true,
+                          production_year: true
+                        }
+                      },
+                      {
+                        name: 'ProductPrice',
+                        options: {
+                          productId: this.$route.params.id,
+                          // className: 'q-ml-lg',
+                          basePrice: true,
+                          discount: true,
+                          finalPrice: true,
+                          addToCart: true
+                        }
+                      }
+                    ],
+                    options: {
+                      className: 'col-md-6 col-xs-12'
+                    }
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'ProductIntroduction',
+                        options: {
+                          productId: this.$route.params.id,
+                          className: 'q-mt-lg',
+                          download_date: true,
+                          duration: true
+                        }
+                      }
+                    ],
+                    options: {
+                      className: 'col-md-6 col-xs-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'ProductGifts',
+                        options: {
+                          productId: this.$route.params.id,
+                          className: 'q-my-md'
+                        }
+                      },
+                      {
+                        name: 'ProductDemos',
+                        options: {
+                          productId: this.$route.params.id,
+                          className: 'q-my-md'
+                        }
+                      },
+                      {
+                        name: 'ProductReview',
+                        options: {
+                          productId: this.$route.params.id
+                        }
+                      },
+                      {
+                        name: 'ProductContents',
+                        options: {
+                          productId: this.$route.params.id
+                        }
                       }
                     ]
                   }
@@ -38,7 +112,7 @@ export default {
     }
   },
   computed: {
-    pageBuilderEditable () {
+    pageBuilderEditable() {
       return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   }

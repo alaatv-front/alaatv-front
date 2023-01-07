@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import LazyImg from 'src/components/lazyImg'
+import { Content } from 'src/models/Content.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'contentItem',
   components: { LazyImg },
   props: {
-    data: {
+    options: {
       type: Content,
       default: new Content()
     }
@@ -44,7 +44,7 @@ export default {
     content: new Content()
   }),
   created () {
-    this.content = new Content(this.data)
+    this.content = new Content(this.options)
   }
 }
 </script>

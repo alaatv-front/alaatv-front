@@ -20,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'List'
+                        name: 'TicketList'
                       }
                     ]
                   }

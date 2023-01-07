@@ -44,10 +44,10 @@ export default {
     this.loadContent()
   },
   props: {
-    data: {
-      type: [Content, Number, String],
+    options: {
+      type: Object,
       default() {
-        return new Content()
+        return {}
       }
     }
   },
@@ -87,13 +87,24 @@ export default {
   },
   methods: {
     loadContent() {
-      if (typeof this.data === 'object') {
-        this.content = this.data
-      } else if (typeof this.data === 'number' || typeof this.data === 'string') {
-        this.content.id = this.data
-        this.getContent()
+      this.getContentByRequest()
+    },
+    getContentByRequest() {
+      this.content.loading = true
+      let promise = null
+      promise = this.$apiGateway.content.show(this.options.id)
+      if (promise) {
+        promise
+          .then((response) => {
+            this.content = new Content(response)
+            this.content.loading = false
+          })
+          .catch(() => {
+            this.content.loading = false
+          })
       }
     },
+
     getContent() {
       this.content.loading = true
       const url = API_ADDRESS.content.show(this.content.id)

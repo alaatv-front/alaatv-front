@@ -37,12 +37,12 @@
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
     <div class="col-md-4 col-sm-12 productsCol q-pa-sm-sm q-pa-xs-xs">
       <div class="q-px-xs-none q-pa-sm-md">
-        <a href="/asset/abrisham"
-           target="_blank">
+        <router-link :to="{name: 'User.Abrisham.Progress'}">
           <div class="abrishamAssetBanner">
-            <img src="https://nodes.alaatv.com/upload/banner-dashboard.jpg" />
+            <img alt="داشبورد ابریشم"
+                 src="https://nodes.alaatv.com/upload/banner-dashboard.jpg" />
           </div>
-        </a>
+        </router-link>
         <div class="q-mb-md m-input-icon m-input-icon--left productsSearch ">
           <q-input v-model="searchTarget"
                    outlined
@@ -120,13 +120,13 @@
 </template>
 
 <script>
-import FilterBox from 'src/components/userPurchases/filterBox'
-import PurchaseItem from 'src/components/userPurchases/PurchaseItem'
-import showContents from 'src/components/userPurchases/showContents'
-import { Product, ProductList } from 'src/models/Product'
-import { Set } from 'src/models/Set'
-import Assist from 'src/plugins/Assist'
-import Addresses from 'src/api/Addresses'
+import { Set } from 'src/models/Set.js'
+import Assist from 'src/plugins/Assist.js'
+import Addresses from 'src/api/Addresses.js'
+import { Product, ProductList } from 'src/models/Product.js'
+import FilterBox from 'src/components/userPurchases/filterBox.vue'
+import PurchaseItem from 'src/components/userPurchases/PurchaseItem.vue'
+import showContents from 'src/components/userPurchases/showContents.vue'
 
 export default {
   name: 'Purchases',
