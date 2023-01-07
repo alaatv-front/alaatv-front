@@ -133,11 +133,6 @@ export default {
       return this.$store.getters['AppLayout/windowSize']
     }
   },
-  watch: {
-    // order(val) {
-    //   console.log(val)
-    // }
-  },
   methods: {
     toman (key, suffix) {
       let string = key.toLocaleString('fa')

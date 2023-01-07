@@ -166,12 +166,11 @@
 </template>
 
 <script>
-
-import Time from 'src/plugins/time'
-import { mixinAuth } from 'src/mixin/Mixins'
-import API_ADDRESS from 'src/api/Addresses'
-import { User } from 'src/models/User'
-import Verify from 'pages/Auth/Verify'
+import Time from 'src/plugins/time.js'
+import { User } from 'src/models/User.js'
+import Verify from 'pages/Auth/Verify.vue'
+import API_ADDRESS from 'src/api/Addresses.js'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'UserInfoForm',
@@ -232,19 +231,14 @@ export default {
   },
   watch: {
     selectedProvince (newVal) {
-      // console.log('select province :', newVal)
       if (newVal) {
         const selectedProvince = this.provinces.find(item => newVal === item.id)
-        // console.log('this.provinces :', this.provinces)
-        // console.log('selectedProvince :', selectedProvince)
-        // console.log('this.user data :', this.userData)
         if (selectedProvince) {
           this.userData.province = selectedProvince
           this.$store.commit('Auth/updateUser', new User(this.userData))
         }
       }
     },
-
     selectedCity (newVal) {
       if (newVal) {
         const selectedCity = this.cities.find(item => newVal === item.id)
@@ -259,24 +253,20 @@ export default {
     this.getUserInfo()
     this.checkVerify()
   },
-
   methods: {
     verified () {
       this.user.mobile_verified_at = Time.now()
       this.needVerify = false
       this.canRedirect()
     },
-
     getUserInfo () {
       this.userData = this.user
       this.getUserData()
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
     },
-
     checkVerify () {
       this.user.mobile_verified_at ? this.needVerify = false : this.needVerify = true
     },
-
     filterProvinces (val, update) {
       // ToDo 'search problem'
       update(() => {
@@ -285,7 +275,6 @@ export default {
         })
       })
     },
-
     filterCity (val, update) {
       update(() => {
         this.citiesForSelectedProvince = this.citiesForSelectedProvince.filter(item => {
@@ -293,41 +282,29 @@ export default {
         })
       })
     },
-
     getUserProvince () {
-      // console.log('this.userData.city.id', this.userData.city.id)
       if (!this.userData.city && this.userData.city.id !== null && typeof this.userData.city.id !== 'undefined') {
         return
       }
-      // console.log('this.userData.city :', this.userData.city)
-      // console.log(' this.userData.city.id :', this.userData.city.id)
       const userCity = this.cities.find(item => item.id === this.userData.city.id)
-      // console.log('get pro :', userCity)
       let userProvince = null
       if (userCity) {
         userProvince = userCity.province
       }
-      // console.log('list :', userProvince)
 
       return userProvince
     },
-
     loadUserCity () {
-      // console.log('loadUserCity :', !this.userData.city, 'user data :', this.userData)
       if (!this.userData.city) {
         return
       }
-
       const userProvince = this.getUserProvince()
-      // console.log('userProvince eroooooor :', userProvince)
       this.selectedProvince = userProvince.id
       this.selectedCity = this.userData.city.id
     },
-
     getUserData () {
       const that = this
       this.user.loading = true
-      // this.user.getUserData()
       this.$axios.get(API_ADDRESS.user.show_user)
         .then((response) => {
           this.user.loading = false
@@ -339,7 +316,6 @@ export default {
       //   // console.log('err in get data :', err)
       // })
     },
-
     canRedirect () {
       if (this.needVerify) {
         this.$q.notify({
@@ -351,7 +327,6 @@ export default {
         this.redirectUser()
       }
     },
-
     redirectUser () {
       if (!this.user.needToCompleteInfo()) {
         if (!this.redirectAfterCompleteInfoPage) {
@@ -370,13 +345,10 @@ export default {
         })
       }
     },
-
     getUserFormData () {
-      // console.log('get user form data run ')
       this.user.loading = true
       this.$axios.get(API_ADDRESS.user.formData)
         .then((resp) => {
-          // console.log('getUserFormData reeeeeeeesult :', resp)
           this.genders = resp.data.data.genders
           this.grades = resp.data.data.grades
           this.majors = resp.data.data.majors
@@ -384,12 +356,10 @@ export default {
           this.cities = resp.data.data.cities
           this.user.loading = false
           // this.loadSomeData()
-          // console.log(this.user)
           this.userData = this.user
           this.loadUserCity()
         })
         .catch((e) => {
-          // console.log('get user form data in catch', e)
           this.$q.notify({
             type: 'negative',
             message: 'مشکلی در گرفتن اطلاعات رخ داده است. لطفا دوباره امتحان کنید ',
@@ -399,11 +369,9 @@ export default {
         }
         )
     },
-
     checkForSubmit () {
       this.canSubmit() ? this.submit() : this.showSubmitError()
     },
-
     showSubmitError () {
       this.submitMessage.forEach(msg => {
         this.$q.notify({
@@ -413,16 +381,12 @@ export default {
         })
       })
     },
-
     submit () {
       const that = this
       delete this.user.photo
       this.user.loading = true
       this.user.ostan_id = this.selectedProvince
-      // console.log('in submit this.user.ostan_id :', this.user.ostan_id, this.selectedProvince)
       this.user.shahr_id = this.selectedCity
-      // console.log(' this.user.shahr_id :', this.user.shahr_id, this.selectedCity)
-      // console.log(this.user)
       this.user.update()
         .then((response) => {
           that.user.loading = false
@@ -443,7 +407,6 @@ export default {
           })
         })
     },
-
     showErrorMessages (error) {
       const err = error.response
       const messages = []
@@ -467,14 +430,12 @@ export default {
         })
       }
     },
-
     clearErrorMessages () {
       const that = this
       setTimeout(() => {
         that.errorMessages = []
       }, 20000)
     },
-
     canSubmit () {
       let status = true
       if (!this.isValidString(this.userData.first_name)) {
@@ -508,7 +469,6 @@ export default {
 
       return status
     },
-
     isValidString (string) {
       return (typeof string !== 'undefined' && string !== null && string.toString().trim().length > 0)
     }

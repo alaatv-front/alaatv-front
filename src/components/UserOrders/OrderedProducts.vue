@@ -158,8 +158,8 @@
 </template>
 
 <script>
-import Widgets from 'components/PageBuilder/Widgets'
-import { OrderItem } from 'src/models/OrderItem'
+import { OrderItem } from 'src/models/OrderItem.js'
+import Widgets from 'src/components/PageBuilder/Widgets.js'
 
 export default {
   name: 'OrderedProducts',

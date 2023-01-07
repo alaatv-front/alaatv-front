@@ -36,23 +36,23 @@ export default {
     menuItems: [
       {
         icon: 'play-alt',
-        routeName: 'User.Abrisham.Progress'
+        routeName: 'UserPanel.Asset.Abrisham.Progress'
       },
       {
         icon: 'calendar',
-        routeName: 'User.Abrisham.Schedule'
+        routeName: 'UserPanel.Asset.Abrisham.Schedule'
       },
       {
         icon: 'headphones',
-        routeName: 'User.Abrisham.userConsulting'
+        routeName: 'UserPanel.Asset.Abrisham.Consulting'
       },
       {
         icon: 'envelope',
-        routeName: 'User.Abrisham.News'
+        routeName: 'UserPanel.Asset.Abrisham.News'
       },
       {
         icon: 'world',
-        routeName: 'User.Abrisham.Map'
+        routeName: 'UserPanel.Asset.Abrisham.Map'
       }
       // {
       //   icon: 'list-check',

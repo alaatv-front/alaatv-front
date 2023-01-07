@@ -9,7 +9,7 @@
 <script>
 import { Notify } from 'quasar'
 export default {
-  name: 'Profile.vue',
+  name: 'PageProfile',
   data() {
     return {
       pageConfig: {},

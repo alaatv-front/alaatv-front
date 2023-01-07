@@ -69,7 +69,7 @@ export default {
       actionApi: API_ADDRESS.user.eventresult,
       entityIdKey: 'id',
       entityParamKey: 'id',
-      showRouteName: 'Profile',
+      showRouteName: 'UserPanel.Profile',
       inputs: [
         {
           type: 'formBuilder',

@@ -280,7 +280,7 @@ export default {
         {
           title: 'پروفایل',
           icon: 'isax:user',
-          routeName: 'Profile',
+          routeName: 'UserPanel.Profile',
           permission: 'all',
           active: false,
           children: []

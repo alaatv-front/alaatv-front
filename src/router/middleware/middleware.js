@@ -1,5 +1,5 @@
-import auth from './auth'
-import isLandingPage from './isLandingPage'
-import incompleteProfile from './incompleteProfile'
+import auth from './auth.js'
+import isLandingPage from './isLandingPage.js'
+import incompleteProfile from './incompleteProfile.js'
 
 export { auth, isLandingPage, incompleteProfile }
