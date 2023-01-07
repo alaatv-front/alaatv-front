@@ -96,17 +96,17 @@ const routes = [
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
-                path: '/',
+                path: '',
                 name: 'Admin.Ticket.Index',
                 component: () => import('pages/Admin/Ticket/List.vue')
               },
               {
-                path: '/create',
+                path: 'create',
                 name: 'Admin.Ticket.Create',
                 component: () => import('pages/Admin/Ticket/Create.vue')
               },
               {
-                path: '/:id',
+                path: ':id',
                 name: 'Admin.Ticket.Show',
                 component: () => import('pages/Admin/Ticket/Show.vue')
               }
