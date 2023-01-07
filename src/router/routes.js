@@ -58,8 +58,8 @@ const routes = [
         meta: { middlewares: [auth] },
         component: () => import('layouts/bareLayout.vue'),
         children: [{
-          path: 'orders',
-          name: 'user.orders',
+          path: 'my-orders',
+          name: 'UserPanel.MyOrders',
           component: () => import('pages/User/Orders/userOrders.vue')
         },
         {

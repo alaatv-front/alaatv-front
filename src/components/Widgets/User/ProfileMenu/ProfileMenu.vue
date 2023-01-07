@@ -94,16 +94,21 @@
               </q-item-section>
             </q-item>
           </router-link>
-
-          <q-item
-            v-ripple
-            clickable
+          <router-link
+            :to="{name: 'UserPanel.MyOrders'}"
+            class="flex"
           >
-            <q-item-section class="menu-item-custom">
-              <div class="note"></div>
-              <div class="menu-item-title q-ml-sm">سفارش های من</div>
-            </q-item-section>
-          </q-item>
+            <q-item
+              v-ripple
+              clickable
+            >
+              <q-item-section class="menu-item-custom">
+                <div class="note"></div>
+                <div class="menu-item-title q-ml-sm">سفارش های من</div>
+              </q-item-section>
+            </q-item>
+          </router-link>
+
           <q-item
             v-ripple
             clickable

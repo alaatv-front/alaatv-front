@@ -87,9 +87,9 @@
 </template>
 
 <script>
-import { Order } from 'src/models/Order'
 import moment from 'moment-jalaali'
-import OrderedProducts from 'components/UserOrders/OrderedProducts'
+import { Order } from 'src/models/Order.js'
+import OrderedProducts from 'src/components/UserOrders/OrderedProducts.vue'
 export default {
   name: 'OrderDetailsDialog',
   components: { OrderedProducts },

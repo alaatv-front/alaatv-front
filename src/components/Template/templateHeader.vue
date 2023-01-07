@@ -306,7 +306,7 @@ export default {
         {
           title: 'سفارش‌ ها',
           icon: 'isax:clipboard-text',
-          routeName: 'user.orders',
+          routeName: 'UserPanel.MyOrders',
           permission: 'all',
           active: false,
           children: []
