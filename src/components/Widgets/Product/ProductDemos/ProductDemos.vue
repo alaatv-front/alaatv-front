@@ -16,7 +16,7 @@
         >
           <content-item
             class="q-mr-md"
-            :data="content"
+            :options="content"
           />
         </div>
       </div>

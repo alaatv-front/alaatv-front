@@ -1,6 +1,6 @@
 <template>
   <div v-if="product.price"
-       class="product-price"
+       class="product-price justify-center "
        :class="options.className"
        :style="options.style"
   >
@@ -12,7 +12,7 @@
 
     <div class="price">
       <div
-        v-if="product.price.toman('base', null) && options.basePrice"
+        v-if="product.price.toman('base', null) && product.has_instalment_option && options.basePrice"
         class="product-base-price"
       >
         {{ product.price.toman('base', null) }}
@@ -86,9 +86,7 @@ export default {
     },
     async addToCart() {
       const data = {
-        product: {
-          id: this.product.id
-        }
+        id: this.product.id
       }
       try {
         await this.$store.dispatch('Cart/addToCart', data)
@@ -115,9 +113,9 @@ export default {
   width: 472px;
 }
 @media only screen and (max-width: 1023px) {
-  max-width: 440px;
+  max-width: 700px;
   width: 100%;
-  padding-right: 10px;
+  padding-right: 30px;
 }
 
 .discount-percent {
@@ -143,7 +141,8 @@ export default {
   margin: 0 10px;
 }
 @media only screen and (max-width: 1023px) {
-  flex-direction: column;
+  //flex-direction: column;
+  padding-left: 30px;
 }
 
 .product-base-price {
