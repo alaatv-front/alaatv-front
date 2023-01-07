@@ -36,7 +36,7 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'innerChild',
+        name: 'Public',
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {

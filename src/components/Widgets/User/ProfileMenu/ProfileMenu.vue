@@ -7,7 +7,7 @@
             <q-img
               :src="previewImg"
               class="previewImg"
-            ></q-img>
+            />
             <q-file
               ref="file"
               v-model="file"
@@ -53,8 +53,9 @@
               <q-tooltip> {{ fullName }} </q-tooltip>
               {{ fullName }}
             </div>
-            <div class="phoneNumber q-mt-sm">
-              {{ mobile }}
+            <div v-if="user.mobile"
+                 class="phoneNumber q-mt-sm">
+              {{ user.mobile }}
             </div>
           </div>
           <div>
@@ -108,7 +109,6 @@
               </q-item-section>
             </q-item>
           </router-link>
-
           <q-item
             v-ripple
             clickable
@@ -118,13 +118,9 @@
               <div class="menu-item-title q-ml-sm">کیف پول</div>
             </q-item-section>
           </q-item>
-
           <router-link
             class="flex"
-            :to="{
-              name: 'UserPanel.MyFavorites',
-              params: { id: this.$store.getters['Auth/user'].id }
-            }"
+            :to="{name: 'UserPanel.MyFavorites'}"
           >
             <q-item
               v-ripple
@@ -136,7 +132,6 @@
               </q-item-section>
             </q-item>
           </router-link>
-
           <q-item
             v-ripple
             clickable
@@ -195,26 +190,32 @@
 </template>
 
 <script>
-import { axios } from 'boot/axios'
-import API_ADDRESS from 'src/api/Addresses'
+import API_ADDRESS from 'src/api/Addresses.js'
 
 export default {
   name: 'ProfileMenu',
   data() {
     return {
-      api: API_ADDRESS.user.base + '/' + this.$store.getters['Auth/user'].id,
-      mobile: this.$store.getters['Auth/user'].mobile,
-      previewImg: this.$store.getters['Auth/user'].photo,
+      api: API_ADDRESS.user.base,
+      previewImg: null,
       controls: false
     }
   },
   computed: {
+    user () {
+      return this.$store.getters['Auth/user']
+    },
     fullName() {
-      if (this.$store.getters['Auth/user'].full_name) {
-        return this.$store.getters['Auth/user'].full_name
+      if (!this.user || !this.user.full_name) {
+        return 'وارد نشده'
       }
-      return 'وارد نشده'
+
+      return this.user.full_name
     }
+  },
+  created () {
+    this.api = API_ADDRESS.user.base + '/' + this.user.id
+    this.previewImg = this.user.photo
   },
   methods: {
     updatePhoto() {
@@ -227,12 +228,12 @@ export default {
     discardUpdate() {
       this.controls = false
       this.file = null
-      this.previewImg = this.$store.getters['Auth/user'].photo
+      this.previewImg = this.user.photo
     },
     confirmUpdate() {
       const fd = new FormData()
       fd.append('photo', this.file)
-      axios.put(this.api, fd).then((d) => {
+      this.$axios.put(this.api, fd).then((d) => {
         this.controls = false
       })
     },
@@ -242,6 +243,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 a {
   color: black;
