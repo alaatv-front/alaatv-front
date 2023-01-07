@@ -288,7 +288,7 @@ export default {
         {
           title: 'فیلم ها و جزوه های من',
           icon: 'isax:task-square',
-          routeName: 'User.Dashboard.purchases',
+          routeName: 'UserPanel.MyPurchases',
           params: null,
           permission: 'all',
           active: false,
@@ -297,7 +297,7 @@ export default {
         {
           title: 'علاقه مندی های من',
           icon: 'isax:heart',
-          routeName: 'User.Dashboard.favorites',
+          routeName: 'UserPanel.MyFavorites',
           params: null,
           permission: 'all',
           active: false,
@@ -355,7 +355,7 @@ export default {
     },
     setMyContentParamsValue() {
       this.profileTitlesList.forEach(item => {
-        if (item.routeName === 'User.Dashboard.purchases') {
+        if (item.routeName === 'UserPanel.MyPurchases') {
           item.params = { id: this.user.id }
         }
       })
