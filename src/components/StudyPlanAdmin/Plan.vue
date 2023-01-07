@@ -40,8 +40,6 @@ import { Plan } from 'src/models/Plan.js'
 // import PlanDetail from 'components/StudyPlanAdmin/Plan Detail'
 export default {
   name: 'plan',
-  components: {
-  },
   props: {
     planDate: {
       type: Plan,
