@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'userOrders',
+  name: 'PageUserOrders',
   data () {
     return {
       pageConfig: {},
@@ -21,7 +21,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'UserOrders'
+                        name: 'MyOrders'
                       }
                     ]
                   }
