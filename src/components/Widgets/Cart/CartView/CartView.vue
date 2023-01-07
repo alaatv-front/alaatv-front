@@ -1,8 +1,19 @@
 <template>
+  <div
+    v-if="cart.count > 0"
+    class="cart-count">
+    سبدخرید شما ({{cart.count}} محصول)
+  </div>
+  <div
+    v-else
+    class="cart-count"
+  >
+    سبدخرید شما ({{cart.count}})
+  </div>
   <div class="cart-view-widget">
     <div
       v-for="(order, i) in orderList"
-      :key="order.id"
+      :key="order.orderProductId"
       class="cart-items"
     >
       <q-card
@@ -13,7 +24,7 @@
           <div class="order-image-section">
             <div class="order-image-container">
               <q-img
-                :src="order.grand.photo"
+                :src="order.grand.product.photo"
                 class="order-image"
               />
             </div>
@@ -35,11 +46,11 @@
             </div>
 
             <div
-              v-if="order.grand && order.grand.attributes && order.grand.attributes.info"
+              v-if="order.grand.product && order.grand.product.attributes && order.grand.product.attributes.info"
               class="product-information"
             >
               <div
-                v-if="order.grand.attributes.info.teacher"
+                v-if="order.grand.product.attributes.info.teacher"
                 class="product-info"
               >
                 <q-icon
@@ -47,12 +58,12 @@
                   class="info-icon"
                 />
                 <div class="info-value">
-                  {{ order.grand.attributes.info.teacher.join('، ') }}
+                  {{ order.grand.product.attributes.info.teacher.join('، ') }}
                 </div>
               </div>
 
               <div
-                v-if="order.grand.attributes.info.major"
+                v-if="order.grand.product.attributes.info.major"
                 class="product-info"
               >
                 <q-icon
@@ -60,12 +71,12 @@
                   class="info-icon"
                 />
                 <div class="info-value">
-                  رشته تحصیلی: {{ order.grand.attributes.info.major.join(' - ') }}
+                  رشته تحصیلی: {{ order.grand.product.attributes.info.major.join(' - ') }}
                 </div>
               </div>
 
               <div
-                v-if="order.grand.attributes.info.production_year"
+                v-if="order.grand.product.attributes.info.production_year"
                 class="product-info"
               >
                 <q-icon
@@ -73,7 +84,7 @@
                   class="info-icon"
                 />
                 <div class="info-value">
-                  {{ order.grand.attributes.info.production_year.join('، ') }}
+                  {{ order.grand.product.attributes.info.production_year.join('، ') }}
                 </div>
               </div>
             </div>
@@ -82,31 +93,31 @@
 
         <q-card-section class="card-actions">
           <div
-            class="product-details"
+            class="product-details row"
             :class="expandedObject[i] ?'on-open-expansion': ''"
           >
             <div
-              v-if="order.price"
-              class="price-container"
+              v-if="order.grand.price"
+              class="price-container col-md-6 col-sm-3"
             >
               <div class="discount-part">
                 <div class="discount-percent">
-                  {{ order.price.discountInPercent() }}%
+                  {{ order.grand.price.discountInPercent() }}%
                 </div>
 
                 <div class="base-price">
-                  {{ order.price.toman('base', null) }}
+                  {{ order.grand.price.toman('base', null) }}
                 </div>
               </div>
 
               <div class="final-part">
-                <div class="final-price">{{ order.price.toman('final', null) }}</div>
+                <div class="final-price">{{ order.grand.price.toman('final', null) }}</div>
                 <div class="toman">تومان</div>
               </div>
             </div>
 
             <div
-              class="action-buttons"
+              class="action-buttons col-md-12 col-sm-3"
               :class="expandedObject[i] ? '' : 'open-expansion'"
             >
               <span v-if="!expandedObject[i] || !order.order_product">
@@ -119,6 +130,11 @@
                 </a>
               </span>
 
+              <router-link :to="{name: 'User.Product.Show', params:{id: order.grand.product.id?order.grand.product.id:-1}}"
+                           class="go-product text-primary text-center">
+                رفتن
+                به صفحه محصول
+              </router-link>
               <q-expansion-item
                 v-if="order.order_product?.list.length > 0"
                 v-model="expandedObject[i]"
@@ -226,23 +242,24 @@
 import Widgets from 'components/PageBuilder/Widgets'
 import { Cart } from 'src/models/Cart'
 import { Product } from 'src/models/Product'
+import { OrderProduct } from 'src/models/OrderProduct'
 
 export default {
-  name: 'cartView',
+  name: 'CartView',
   mixins: [Widgets],
 
   props: {
-    getData: {
-      type: Function
-    },
-    cart: {
+    options: {
       type: Object,
-      default: () => new Cart()
+      default: () => {
+        return {}
+      }
     }
   },
   emits: ['cartReview'],
   data() {
     return {
+      cart: new Cart(),
       dialogState: false,
       test: null,
       expandedObject: {},
@@ -269,16 +286,45 @@ export default {
   },
   created() {
     this.loading = true
+    this.cartReview()
   },
 
   methods: {
     cartReview() {
-      this.$store.commit('loading/loading', true)
+      this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/reviewCart')
-        .then(() => {
+        .then((response) => {
+          const invoice = response.data.data
+
+          const cart = new Cart(invoice)
+
+          if (invoice.count > 0) {
+            invoice.items[0].order_product.forEach((order) => {
+              cart.items.list.push(order)
+            })
+          }
+
+          // if (product) {
+          //   const isExist = cart.items.list.find(
+          //     (item) => item.id === product.id
+          //   )
+          //   if (!isExist) {
+          //     cart.items.list.push(product)
+          //   }
+          // }
+          this.cart = cart
+          this.$store.dispatch('loading/overlayLoading', false)
+        }).catch(() => {
           this.$store.dispatch('loading/overlayLoading', false)
         })
     },
+    // cartReview() {
+    //   this.$store.commit('loading/loading', true)
+    //   this.$store.dispatch('Cart/reviewCart')
+    //     .then(() => {
+    //       this.$store.dispatch('loading/overlayLoading', false)
+    //     })
+    // },
 
     getOrderedList (cartItems) {
       if (!cartItems || cartItems.list?.length === 0) {
@@ -291,7 +337,7 @@ export default {
           customItems.push(item)
         } else if (item.grand !== undefined && !item.grand.id && item.order_product.list.length > 0) {
           item.order_product.list.forEach(order => {
-            customItems.push({ grand: new Product(order.product), orderProductId: order.id })
+            customItems.push({ grand: new OrderProduct(order), orderProductId: order.id })
           })
         }
         this.expandedObject[i] = true
@@ -306,6 +352,7 @@ export default {
           this.$emit('cartReview')
           this.$store.dispatch('loading/overlayLoading', false)
           this.changeDialogState(false)
+          this.$bus.emit('removeProduct')
         }).catch(() => {
           this.changeDialogState(false)
           this.$store.dispatch('loading/overlayLoading', false)
@@ -323,6 +370,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.cart-count {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #6D708B;
+  margin: 24px 0 22px 0;
+
+  @media screen and (max-width: 1439px) {
+    letter-spacing: -0.03em;
+    margin: 20px 0;
+  }
+}
+
 .cart-view-widget {
   &:deep(.q-btn .q-btn__content) {
     margin: 0;
