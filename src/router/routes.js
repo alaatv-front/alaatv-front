@@ -86,22 +86,22 @@ const routes = [
           {
             name: 'UserPanel.MyTickets',
             path: 'my-tickets',
-            component: () => import('layouts/bareLayout.vue'),
+            component: () => import('pages/Profile/Profile.vue'),
             children: [
               {
                 path: '',
                 name: 'UserPanel.MyTickets.Index',
-                component: () => import('pages/Admin/Ticket/List.vue')
+                component: () => import('pages/User/Ticket/List.vue')
               },
               {
                 path: 'create',
                 name: 'UserPanel.MyTickets.Create',
-                component: () => import('pages/Admin/Ticket/Create.vue')
+                component: () => import('pages/User/Ticket/Create.vue')
               },
               {
                 path: ':id',
                 name: 'UserPanel.MyTickets.Show',
-                component: () => import('pages/Admin/Ticket/Show.vue')
+                component: () => import('pages/User/Ticket/Show.vue')
               }
             ]
           },

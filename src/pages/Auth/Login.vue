@@ -69,9 +69,10 @@ export default {
   }),
   created () {
     if (this.getToken()) {
-      this.getUserData().then(() => {
-        this.redirectTo()
-      })
+      this.getUserData()
+        .then(() => {
+          this.redirectTo()
+        })
     }
   },
   methods: {
@@ -135,7 +136,10 @@ export default {
         .then(() => {
           this.loadingList = false
           this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
-          this.getUserData().then(() => { this.redirectTo() })
+          this.getUserData()
+            .then(() => {
+              this.redirectTo()
+            })
         })
         .catch(err => {
           this.handleErr(err.response)

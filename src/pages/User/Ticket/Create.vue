@@ -2,14 +2,13 @@
   <q-page-builder
     v-model:sections="sections"
     v-model::options="pageConfig"
-    :editable="pageBuilderEditable"
   />
 </template>
 
 <script>
 export default {
-  name: 'MyFavorites',
-  data () {
+  name: 'CreatTicket',
+  data() {
     return {
       pageConfig: {},
       sections: [
@@ -21,27 +20,20 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'MyFavorites'
+                        name: 'Creat'
                       }
                     ]
                   }
                 ],
                 options: {
-                  boxed: false
+                  boxed: true,
+                  boxedWidth: 1362
                 }
               }
             ]
           }
         }
       ]
-    }
-  },
-  computed: {
-    pageBuilderEditable() {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    },
-    calculateHeightStyle () {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   }
 }

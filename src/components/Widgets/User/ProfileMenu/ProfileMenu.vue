@@ -166,10 +166,7 @@
           </q-item>
           <router-link
             class="flex"
-            :to="{
-              name: 'Admin.Ticket.Index',
-              params: { id: this.$store.getters['Auth/user'].id }
-            }"
+            :to="{name: 'UserPanel.MyTickets.Index'}"
           >
             <q-item
               v-ripple

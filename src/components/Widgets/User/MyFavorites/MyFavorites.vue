@@ -86,7 +86,7 @@ import { SetList } from 'src/models/Set'
 import { ContentList } from 'src/models/Content'
 
 export default {
-  name: 'favorites',
+  name: 'MyFavorites',
   data: () => ({
     storeData: [{
       contents: [{
