@@ -2,7 +2,6 @@
   <div class="row q-pa-md ">
     <!--    ----------------------------------------------------------------------- filter boxes ------------------------------------------------------------------------------- -->
     <div class="col-12">
-      sss
       <div class="filter-box-container">
         <div class="q-mb-lg filter-box">
           <q-icon name="mdi-tune-vertical-variant q-mr-md"
