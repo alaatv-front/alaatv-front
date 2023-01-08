@@ -32,9 +32,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ProfileCrud',
-                        data: { test: 'test' },
-                        options: { test: 'test' }
+                        name: 'ProfileCrud'
                       }
                     ],
                     options: {

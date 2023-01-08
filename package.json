@@ -24,7 +24,7 @@
     "@quasar/extras": "^1.15.9",
     "@silvermine/videojs-quality-selector": "^1.2.5",
     "@vue-leaflet/vue-leaflet": "^0.7.0",
-    "axios": "^1.2.2",
+    "axios": "0.27.2",
     "core-js": "^3.26.1",
     "cropperjs": "^1.5.13",
     "dotenv": "^16.0.3",
@@ -39,8 +39,8 @@
     "process": "^0.11.10",
     "qs": "^6.11.0",
     "quasar": "^2.11.4",
-    "quasar-crud": "^0.2.87",
-    "quasar-form-builder": "^0.1.70",
+    "quasar-crud": "^0.2.89",
+    "quasar-form-builder": "^0.1.72",
     "quasar-template-builder": "^1.0.19",
     "quasar-ui-q-page-builder": "^0.0.15",
     "shvl": "^3.0.0",
@@ -71,7 +71,12 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.8.0",
     "postcss": "^8.4.21",
-    "postcss-rtlcss": "^4.0.1"
+    "postcss-rtlcss": "^4.0.1",
+    "vite": "^4.0.4",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-pwa": "^0.14.1",
+    "workbox-build": "^6.5.4",
+    "workbox-window": "^6.5.4"
   },
   "engines": {
     "node": "^18 || ^16 || ^14.19",
