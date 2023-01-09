@@ -269,9 +269,9 @@
 
 <script>
 import Widgets from 'src/components/PageBuilder/Widgets'
-import { Cart } from 'src/models/Cart'
-import Donate from 'components/Widgets/Cart/Donate/Donate'
-import StickyBothSides from 'components/Utils/StickyBothSides'
+import { Cart } from 'src/models/Cart.js'
+import Donate from 'components/Widgets/Cart/Donate/Donate.vue'
+import StickyBothSides from 'components/Utils/StickyBothSides.vue'
 
 export default {
   name: 'CartInvoice',

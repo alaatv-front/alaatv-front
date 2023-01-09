@@ -92,8 +92,10 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', this.product).then(() => {
-        this.$store.dispatch('Cart/reviewCart', this.product).then(() => {
+      this.$store.dispatch('Cart/addToCart', [this.product]).then((response) => {
+        console.log(response)
+        this.$store.dispatch('Cart/reviewCart', this.product).then((res) => {
+          console.log(res)
           this.$q.notify({
             message: 'با موفقیت به سبد خرید شما افزوده شد',
             color: 'green',
@@ -110,7 +112,9 @@ export default {
             ]
           })
         })
-      }).catch(() => {
+      }).catch((err) => {
+        debugger
+        console.log(err)
       })
     }
   }

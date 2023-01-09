@@ -275,7 +275,7 @@
 
 <script>
 import Widgets from 'components/PageBuilder/Widgets'
-import Addresses from 'src/api/Addresses'
+import Addresses from 'src/api/Addresses.js'
 
 export default {
   name: 'CartInvoice',

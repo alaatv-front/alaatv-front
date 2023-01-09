@@ -1,5 +1,6 @@
 <template>
-  <div v-if="!isUserLogin" class="login  bg-white  q-my-md">
+  <div v-if="!isUserLogin"
+       class="login  bg-white  q-my-md">
     <div class="login-text bg-green-3 q-px-md q-my-xl">
       <div class="bg-grey-3 q-pa-md text-center">
         <p>پیش از ثبت سفارش وارد حساب کاربری خود شوید</p>
@@ -42,7 +43,7 @@
   </div>
 </template>
 <script>
-import { mixinAuth } from 'src/mixin/Mixins'
+import { mixinAuth } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'login',
