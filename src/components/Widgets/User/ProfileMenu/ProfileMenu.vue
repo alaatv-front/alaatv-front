@@ -15,7 +15,7 @@
               label="Label"
               class="hidden"
               @update:model-value="updateFile()"
-            ></q-file>
+            />
             <q-btn
               v-if="!controls"
               icon="isax:camera"
@@ -191,12 +191,15 @@
 
 <script>
 import API_ADDRESS from 'src/api/Addresses.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProfileMenu',
+  mixins: [mixinWidget],
   data() {
     return {
       api: API_ADDRESS.user.base,
+      file: null,
       previewImg: null,
       controls: false
     }

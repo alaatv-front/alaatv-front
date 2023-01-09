@@ -54,9 +54,8 @@
 
 <script>
 import API_ADDRESS from 'src/api/Addresses.js'
-// import { EntityEdit, EntityAction } from 'quasar-crud'
-import EntityEdit from 'quasar-crud/src/components/Entity/Edit/EntityEdit.vue'
-import EntityAction from 'quasar-crud/src/components/Entity/EntityAction.vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import { EntityEdit, EntityAction } from 'quasar-crud'
 
 export default {
   name: 'ProfileCrud',
@@ -64,6 +63,7 @@ export default {
     EntityEdit,
     EntityAction
   },
+  mixins: [mixinWidget],
   data() {
     return {
       api: API_ADDRESS.user.base + '/' + this.$store.getters['Auth/user'].id,
@@ -369,6 +369,7 @@ export default {
           // action entity
           this.actionInput[0].value[1].options = response.data.data.majors
         })
+        .catch(() => {})
     },
     afterGetData() {
       this.inputs.forEach(input => {
