@@ -70,7 +70,7 @@ import { APIGateway } from 'src/api/APIGateway'
 import { Product } from 'src/models/Product'
 import { Set } from 'src/models/Set'
 import { dragscroll } from 'vue-dragscroll'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
 export default {
   name: 'ProductContents',

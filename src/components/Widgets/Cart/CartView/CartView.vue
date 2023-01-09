@@ -240,9 +240,9 @@
 
 <script>
 import Widgets from 'components/PageBuilder/Widgets'
-import { Cart } from 'src/models/Cart'
-import { Product } from 'src/models/Product'
-import { OrderProduct } from 'src/models/OrderProduct'
+import { Cart } from 'src/models/Cart.js'
+// import { Product } from 'src/models/Product.js'
+import { OrderProduct } from 'src/models/OrderProduct.js'
 
 export default {
   name: 'CartView',
