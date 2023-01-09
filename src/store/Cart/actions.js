@@ -66,7 +66,6 @@ export function reviewCart (context, product) {
   }
 
   return new Promise((resolve, reject) => {
-    debugger
     // ApiGateway.cart.review
     axios
       .get(API_ADDRESS.cart.review, {
