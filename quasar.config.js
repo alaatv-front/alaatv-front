@@ -41,6 +41,7 @@ module.exports = configure(function (ctx) {
       'axios',
       'appConfig',
       'middleware',
+      'bus',
       'breadcrumbs',
       'api-gateway',
       'registerQPageBuilder',
