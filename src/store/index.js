@@ -1,6 +1,5 @@
 import Cart from './Cart'
 import Auth from './Auth'
-import * as shvl from 'shvl'
 import process from 'process'
 import loading from './loading'
 import { createStore } from 'vuex'
@@ -11,40 +10,17 @@ import createPersistedState from 'vuex-persistedstate'
 const plugins = []
 
 if (process.browser) {
-  const localStorageKey = 'vuex'
-  const createPersistedStatePathes = [
-    'Cart',
-    'Auth.user',
-    // 'Auth.redirectTo',
-    'Auth.accessToken'
-    // 'AppLayout',
-  ]
   const vuexPersistedState =
     createPersistedState({
-      key: localStorageKey,
+      key: 'vuex',
       storage: window.localStorage,
-      overwrite: true,
-      reducer: function (state, paths) {
-        if (Array.isArray(paths)) {
-          const localStorageValue = JSON.parse(window.localStorage.getItem(localStorageKey))
-          createPersistedStatePathes.forEach(item => {
-            const localStorageItemValue = shvl.get(localStorageValue, item)
-            if (localStorageItemValue) {
-              shvl.set(state, item, localStorageItemValue)
-            }
-          })
-          return paths.reduce(function (substate, path) {
-            const localStorageValue = JSON.parse(window.localStorage.getItem(localStorageKey))
-            const localStoragePathValue = shvl.get(localStorageValue, path)
-            const statePathValue = shvl.get(state, path)
-            const pathValue = statePathValue || localStoragePathValue
-            return shvl.set(substate, path, pathValue)
-          }, {})
-        }
-
-        return state
-      },
-      paths: createPersistedStatePathes
+      fetchBeforeUse: true,
+      paths: [
+        'Cart',
+        'Auth.user',
+        'Auth.redirectTo',
+        'Auth.accessToken'
+      ]
     })
 
   plugins.push(vuexPersistedState)

@@ -43,6 +43,7 @@ module.exports = configure(function (ctx) {
       'middleware',
       'breadcrumbs',
       'api-gateway',
+      'VuexPersistedState',
       'registerQPageBuilder',
       'routesLayoutConfigs'
     ],
