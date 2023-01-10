@@ -122,6 +122,7 @@ export default {
       width: 100%;
       height: 40px;
       top: 140px;
+      left: 0;
       display: flex;
       align-items: center;
       padding-right: 12.19px;
@@ -425,18 +426,19 @@ export default {
 
   @media screen and (max-width: 575px) {
     width: 310px;
-    min-height: 120px;
-    max-height: 120px;
+    min-height: 270px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
-    padding: 10px;
 
     .img-box {
-      width: 100px;
+      width: 100%;
       img {
         border-radius: 10px;
       }
+    }
+
+    a {
     }
 
     .set-content-box {
