@@ -426,7 +426,7 @@ export default {
       const tags = {
         'tags[]': this.selectedTags.map(item => item.value)
       }
-      this.$router.push({ name: 'User.Content.Search', query: tags })
+      this.$router.push({ name: 'Public.Content.Search', query: tags })
     },
 
     updateNewUrl () {

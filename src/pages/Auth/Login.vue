@@ -97,7 +97,7 @@ export default {
       }
       let redirectTo = this.$store.getters['Auth/redirectTo']
       if (!redirectTo) {
-        redirectTo = 'home'
+        redirectTo = 'Public.Home'
       }
       this.$store.commit('Auth/updateRedirectTo', redirectTo)
       this.$router.push({ name: redirectTo })

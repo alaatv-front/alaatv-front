@@ -131,7 +131,7 @@
               <div class="main-title">دسترسی به سایت</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'home'}"
+                     :to="{name: 'Public.Home'}"
               >
                 صفحه اصلی
               </q-btn>
@@ -171,7 +171,7 @@
               <div class="main-title">دسترسی های کاربران</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'home'}"
+                     :to="{name: 'Public.Home'}"
               >
                 ثبت نام و ورود
               </q-btn>
@@ -210,7 +210,7 @@
               <div class="main-title">دسته بندی های محبوب</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'home'}"
+                     :to="{name: 'Public.Home'}"
               >
                 راه ابریشم
               </q-btn>
@@ -282,7 +282,7 @@
             </div>
             <div class="footer-row">
               <div class="footer-logo-item item-soala">
-                <router-link :to="{name: 'home'}">
+                <router-link :to="{name: 'Public.Home'}">
                   <q-img src="https://nodes.alaatv.com/upload/landing/logo.png"
                          alt="آلاء"
                   />

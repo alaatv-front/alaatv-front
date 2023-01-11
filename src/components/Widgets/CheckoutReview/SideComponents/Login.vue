@@ -105,7 +105,7 @@ export default {
           // this.loadingList = false
           this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
           this.getUserData().then(() => {
-            this.$router.push({ name: 'User.Checkout.Review' })
+            this.$router.push({ name: 'Public.Checkout.Review' })
           })
         })
         .catch(err => {

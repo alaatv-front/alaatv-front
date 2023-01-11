@@ -2,7 +2,7 @@
   <q-card class="product-item-box">
     <div class="img-box">
       <router-link :to="{
-        name: 'User.Product.Show',
+        name: 'Public.Product.Show',
         params: { id: product.id?product.id:-1, title: product.title }
       }"
       >
@@ -104,7 +104,7 @@ export default {
                 color: 'white',
                 class: 'bg-green-3',
                 handler: () => {
-                  this.$router.push({ name: 'User.Checkout.Review' })
+                  this.$router.push({ name: 'Public.Checkout.Review' })
                 }
               }
             ]

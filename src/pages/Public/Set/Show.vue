@@ -11,7 +11,7 @@
 import GetWidgetsData from 'assets/js/GetWidgetsData.js'
 
 export default {
-  name: 'User.Set.Show',
+  name: 'Public.Set.Show',
   data() {
     return {
       pageConfig: {

@@ -90,7 +90,7 @@ export default {
       }
       try {
         await this.$store.dispatch('Cart/addToCart', data)
-        this.$router.push({ name: 'User.Checkout.Review' })
+        this.$router.push({ name: 'Public.Checkout.Review' })
       } catch (e) {
       }
     }

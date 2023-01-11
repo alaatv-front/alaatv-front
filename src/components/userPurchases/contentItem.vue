@@ -94,7 +94,7 @@
                   </q-btn>
                 </q-btn-group>
                 <router-link v-if="data.id"
-                             :to="{name: 'User.Content.Show', params:{id:data.id}}"
+                             :to="{name: 'Public.Content.Show', params:{id:data.id}}"
                 >
                   <q-btn
                     unelevated

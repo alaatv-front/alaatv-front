@@ -361,7 +361,7 @@ export default {
       return API_ADDRESS.set.show(id)
     },
     goToChosenContent(contentId) {
-      this.$router.push({ name: 'User.Content.Show', params: { id: contentId } })
+      this.$router.push({ name: 'Public.Content.Show', params: { id: contentId } })
     },
     reorderContents() {
       this.ordered = !this.ordered

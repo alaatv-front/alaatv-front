@@ -41,7 +41,8 @@ const routes = [
         children: [
           {
             path: '',
-            name: 'home',
+            // name: 'home',
+            name: 'Public.Home',
             breadcrumbs: {
               title: 'خانه',
               loading: false,
@@ -49,6 +50,69 @@ const routes = [
               route: { name: 'dashboard' }
             },
             component: () => import('pages/Public/Home.vue')
+          },
+          {
+            path: 'shop',
+            name: 'Public.Shop',
+            component: () => import('pages/Public/Shop.vue')
+          },
+          {
+            path: 'c',
+            name: 'Public.Content',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Content.Show',
+                path: ':id',
+                component: () => import('pages/Public/Content/Show.vue')
+              },
+              {
+                name: 'Public.Content.Search',
+                path: '',
+                component: () => import('pages/Public/Content/Search.vue')
+              }
+            ]
+          },
+          {
+            path: 'product',
+            name: 'Public.Product',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Product.Show',
+                path: ':id',
+                component: () => import('pages/Public/Product/Show.vue')
+              }
+            ]
+          },
+          {
+            path: 'set',
+            name: 'Public.Set',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Set.Show',
+                path: ':id',
+                component: () => import('pages/Public/Set/Show.vue')
+              }
+            ]
+          },
+          {
+            path: 'map',
+            name: 'Public.Map',
+            component: () => import('src/components/Widgets/Map/Map.vue')
+          },
+          {
+            path: 'checkout',
+            name: 'Public.Checkout',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                path: 'review',
+                name: 'Public.Checkout.Review',
+                component: () => import('pages/User/CheckoutReview/Show.vue')
+              }
+            ]
           }
         ]
       },
@@ -196,100 +260,34 @@ const routes = [
           ...EntityCrudRoutes
         ]
       },
-
       {
-        path: 'map',
-        name: 'MapPage',
-        component: () => import('src/components/Widgets/Map/Map.vue')
-      },
-      {
-        path: 'shop',
-        name: 'Shop',
-        component: () => import('pages/Public/Shop.vue')
-      },
-      {
-        path: 'checkout',
-        name: 'User.Checkout',
+        path: '',
+        name: 'Document',
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
-            path: 'review',
-            name: 'User.Checkout.Review',
-            component: () => import('pages/User/CheckoutReview/Show.vue')
-          }
-        ]
-      },
-      {
-        path: 'c',
-        name: 'User.Content',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
-          {
-            name: 'User.Content.Show',
-            path: ':id',
-            component: () => import('pages/Public/Content/Show.vue')
+            path: 'component',
+            name: 'component',
+            component: () => import('pages/Document/component.vue'),
+            breadcrumbs: { title: 'component' },
+            meta: {
+              middlewares: [auth]
+            }
           },
           {
-            name: 'User.Content.Search',
-            path: '',
-            component: () => import('pages/Public/Content/Search.vue')
-          }
-        ]
-      },
-      {
-        path: 'product',
-        name: 'User.Product',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
+            path: '/debug',
+            name: 'debug',
+            component: () => import('pages/Document/debug.vue'),
+            meta: {
+              middlewares: [auth]
+            }
+          },
           {
-            name: 'User.Product.Show',
-            path: ':id',
-            component: () => import('pages/Public/Product/Show.vue')
+            path: '/form-generator',
+            name: 'formGenerator',
+            component: () => import('pages/Document/formGenerator.vue')
           }
         ]
-      },
-      {
-        path: 'set',
-        name: 'User.Set',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
-          {
-            name: 'User.Set.Show',
-            path: ':id',
-            component: () => import('pages/Public/Set/Show.vue')
-          }
-        ]
-      },
-      {
-        path: '/landing/:landing_name',
-        name: 'Landing',
-        component: () => import('pages/Landing.vue'),
-        meta: {
-          middlewares: [isLandingPage]
-        }
-      },
-      {
-        path: 'component',
-        name: 'component',
-        component: () => import('pages/Document/component.vue'),
-        breadcrumbs: { title: 'component' },
-        meta: {
-          middlewares: [auth]
-        }
-      },
-
-      {
-        path: '/debug',
-        name: 'debug',
-        component: () => import('pages/Document/debug.vue'),
-        meta: {
-          middlewares: [auth]
-        }
-      },
-      {
-        path: '/form-generator',
-        name: 'formGenerator',
-        component: () => import('pages/Document/formGenerator.vue')
       }
     ]
   },

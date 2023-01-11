@@ -4,7 +4,7 @@
     class="drawer-inside">
     <div class="side-menu-main-layout">
       <div class="side-logo">
-        <router-link :to="{name: 'home'}">
+        <router-link :to="{name: 'Public.Home'}">
           <div class="logo-image">
             <!--          <q-img v-if="false"-->
             <!--                 src="https://nodes.alaatv.com/upload/logo_20190508105212_20190512113140.png"-->

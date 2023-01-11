@@ -21,7 +21,7 @@
       </span>
     </div>
     <div class="pic">
-      <router-link :to="{name: 'User.Product.Show', params:{id: data.id}}"
+      <router-link :to="{name: 'Public.Product.Show', params:{id: data.id}}"
                    class="d-block a--gtm-eec-product-click"
                    :data-position="data.eec.position"
                    :data-gtm-eec-product-id="data.eec.id"
@@ -45,7 +45,7 @@
     <div class="content  q-pl-md-md q-sm-sm-none">
       <div class="product-title q-pl-md q-py-sm">
         <router-link
-          :to="{name: 'User.Product.Show', params:{ id: data.id}}"
+          :to="{name: 'Public.Product.Show', params:{ id: data.id}}"
           class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
           :data-gtm-eec-product-id="data.eec.id"
           :data-gtm-eec-product-name="data.eec.name"
@@ -60,7 +60,7 @@
         </router-link>
       </div>
       <router-link
-        :to="{name: 'User.Product.Show', params:{ id: data.id}}"
+        :to="{name: 'Public.Product.Show', params:{ id: data.id}}"
         class="m-link a--owl-carousel-type-2-item-subtitle a--gtm-eec-product-click"
         :data-gtm-eec-product-id="data.eec.id"
         :data-gtm-eec-product-name="data.eec.name"
@@ -382,7 +382,7 @@
       </router-link>
     </div>
     <!--    <router-link-->
-    <!--      :to="{name: 'User.Product.Show', params:{ id: data.id}}"-->
+    <!--      :to="{name: 'Public.Product.Show', params:{ id: data.id}}"-->
     <!--      class="m-link a&#45;&#45;owl-carousel-type-2-item-subtitle a&#45;&#45;gtm-eec-product-click"-->
     <!--      :data-gtm-eec-product-id="data.eec.id"-->
     <!--      :data-gtm-eec-product-name="data.eec.name"-->

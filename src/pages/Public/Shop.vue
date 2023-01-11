@@ -8,7 +8,7 @@
 <script>
 
 export default {
-  name: 'Shop',
+  name: 'ShopPage',
   data() {
     return {
       pageConfig: {},
