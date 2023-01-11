@@ -15,7 +15,7 @@
         color="white"
         text-color="blue"
         unelevated
-        to="/"
+        :to="{ name: 'Public.Home'}"
         label="Go Home"
         no-caps
       />

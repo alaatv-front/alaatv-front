@@ -80,10 +80,11 @@
 </template>
 
 <script>
-import StickySidebar from 'sticky-sidebar'
-import { ProductList } from 'src/models/Product'
-import { SetList } from 'src/models/Set'
-import { ContentList } from 'src/models/Content'
+// import StickySidebar from 'sticky-sidebar'
+const StickySidebar = typeof window !== 'undefined' ? require('sticky-sidebar') : null
+import { SetList } from 'src/models/Set.js'
+import { ProductList } from 'src/models/Product.js'
+import { ContentList } from 'src/models/Content.js'
 
 export default {
   name: 'MyFavorites',
@@ -902,12 +903,15 @@ export default {
       //   contents = new ContentList()
     },
     closeLayoutSideBar() {
-      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      this.$nextTick(() => {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      })
+      // this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+      // this.$nextTick(() => {
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+      // })
     },
     setSideBarSticky () {
+      if (!StickySidebar) {
+        return
+      }
       this.slider = new StickySidebar('.favorite-sidebar', {
         topSpacing: 100,
         bottomSpacing: 0,
@@ -920,6 +924,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 .my-favorites{
   .q-tab__indicator{
@@ -935,6 +940,7 @@ export default {
 }
 
 </style>
+
 <style scoped lang="scss">
 .my-favorites{
   .search-box{

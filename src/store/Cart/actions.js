@@ -9,7 +9,6 @@ import { parse } from 'qs'
 
 export function addToCart (context, data) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
-  console.log(data)
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
       axios

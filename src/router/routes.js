@@ -1,4 +1,4 @@
-import { auth, isLandingPage } from './middleware/middleware'
+import { auth } from './middleware/middleware'
 import EntityCrudRoutes from './EntityCrudRoutes'
 
 const routes = [
@@ -36,12 +36,30 @@ const routes = [
     children: [
       {
         path: '',
+        name: 'Auth',
+        layoutConfig: {
+          layoutHeaderVisible: false,
+          layoutHeader: false,
+          layoutLeftDrawer: false,
+          layoutFooter: false,
+          layoutFooterVisible: false
+        },
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            path: '/login',
+            name: 'login',
+            component: () => import('pages/Auth/Login.vue')
+          }
+        ]
+      },
+      {
+        path: '',
         name: 'Public',
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
             path: '',
-            // name: 'home',
             name: 'Public.Home',
             breadcrumbs: {
               title: 'خانه',
@@ -150,7 +168,7 @@ const routes = [
           {
             name: 'UserPanel.MyTickets',
             path: 'my-tickets',
-            component: () => import('pages/User/Profile/Profile.vue'),
+            component: () => import('layouts/bareLayout.vue'),
             children: [
               {
                 path: '',
@@ -221,7 +239,7 @@ const routes = [
       {
         path: 'admin',
         name: 'Admin',
-        // meta: { middlewares: [auth] },
+        meta: { middlewares: [auth] },
         component: () => import('layouts/AdminLayout.vue'),
         children: [
           {
@@ -277,10 +295,7 @@ const routes = [
           {
             path: '/debug',
             name: 'debug',
-            component: () => import('pages/Document/debug.vue'),
-            meta: {
-              middlewares: [auth]
-            }
+            component: () => import('pages/Document/debug.vue')
           },
           {
             path: '/form-generator',
@@ -291,20 +306,8 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('pages/Auth/Login.vue')
-  },
   // are u mr Esmaeili ? '' : dont touch this route
-  {
-    path: '/debug',
-    name: 'debug',
-    component: () => import('pages/Document/debug.vue'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
+
   {
     path: '/cart',
     name: 'Cart',

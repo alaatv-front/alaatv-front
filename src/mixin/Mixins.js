@@ -1,9 +1,9 @@
-import mixinAuth from '../mixin/Auth'
-import mixinDrawer from '../mixin/Drawer'
-import mixinTree from '../mixin/Tree'
-import mixinWidget from 'components/PageBuilder/Widgets'
-import mixinDateOptions from '../mixin/DateOptions'
-import mixinTicket from '../mixin/ticket'
-import mixinAbrisham from '../mixin/Abrisham'
+import mixinTree from '../mixin/Tree.js'
+import mixinAuth from '../mixin/Auth.js'
+import mixinDrawer from '../mixin/Drawer.js'
+import mixinTicket from '../mixin/ticket.js'
+import mixinAbrisham from '../mixin/Abrisham.js'
+import mixinDateOptions from '../mixin/DateOptions.js'
+import mixinWidget from 'components/PageBuilder/Widgets.js'
 
 export { mixinAuth, mixinDrawer, mixinTree, mixinWidget, mixinDateOptions, mixinTicket, mixinAbrisham }
