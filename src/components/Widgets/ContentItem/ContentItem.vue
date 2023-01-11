@@ -363,14 +363,13 @@ export default {
   @media screen and (max-width: 575px) {
     width: 310px;
     min-height: 120px;
-    max-height: 120px;
+    max-height: 280px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
-    padding: 10px;
 
     .img-box {
-      width: 100px;
+      width: 100%;
 
       .img {
         border-radius: 10px;

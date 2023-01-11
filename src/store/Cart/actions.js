@@ -9,10 +9,11 @@ import { parse } from 'qs'
 
 export function addToCart (context, data) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
+  console.log(data)
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
       axios
-        .post(API_ADDRESS.cart.orderproduct.add, { product_id: data.id, attribute: data.attribute, seller: 1 })
+        .post(API_ADDRESS.cart.orderproduct.add, { product_id: data[0].id, attribute: data[0].attribute, seller: 1 })
         .then((response) => {
           Notify.create({
             type: 'positive',
