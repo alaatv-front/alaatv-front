@@ -326,15 +326,14 @@ export default {
     },
 
     amountUsingWallet() {
-      return this.cart.pay_by_wallet.toLocaleString()
+      return this.cart.pay_by_wallet
+      // return this.cart.pay_by_wallet.toLocaleString()
     }
   },
-
-  created() {
+  mounted() {
     this.cartReview()
     this.$bus.on('removeProduct', this.cartReview)
   },
-
   methods: {
     // cartReview() {
     //   this.$store.commit('loading/loading', true)
@@ -350,6 +349,7 @@ export default {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
+          // debugger
           const invoice = response.data.data
 
           const cart = new Cart(invoice)
@@ -370,7 +370,8 @@ export default {
           // }
           this.cart = cart
           this.$store.dispatch('loading/overlayLoading', false)
-        }).catch(() => {
+        }).catch((err) => {
+          console.log('err', err)
           this.$store.dispatch('loading/overlayLoading', false)
         })
     },

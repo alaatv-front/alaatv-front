@@ -149,6 +149,11 @@ export default {
       letter-spacing: -0.03em;
       margin: 16px;
 
+      @media screen and (max-width: 600px){
+        font-size: 14px;
+        line-height: 16px;
+      }
+
       a {
         margin-bottom: 0;
       }
@@ -164,6 +169,11 @@ export default {
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;
         overflow: hidden;
+
+        @media screen and (max-width: 600px){
+          font-size: 12px;
+          line-height: 14px;
+        }
       }
     }
 
@@ -176,6 +186,10 @@ export default {
       .img {
         width: inherit;
         border-radius: 20px 20px 0 0;
+
+        @media screen and (max-width: 600px){
+          width: 100%;
+        }
       }
     }
   }
@@ -356,6 +370,9 @@ export default {
   .btn-green {
     background: #4caf50;
     color: white;
+    @media screen and (max-width: 600px){
+      font-size: 8px;
+    }
   }
 
   @media screen and (max-width: 992px) {
@@ -425,18 +442,20 @@ export default {
 
   @media screen and (max-width: 575px) {
     width: 310px;
-    min-height: 120px;
-    max-height: 120px;
+    min-height: 460px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
-    padding: 10px;
 
     .img-box {
       width: 100px;
 
       .img {
         border-radius: 10px;
+      }
+
+      @media screen and (max-width: 600px){
+        width: 100%;
       }
     }
 
