@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import GetWidgetsData from 'src/assets/js/GetWidgetsData.js'
+import GetWidgetsData from 'assets/js/GetWidgetsData.js'
 
 export default {
   name: 'User.Set.Show',

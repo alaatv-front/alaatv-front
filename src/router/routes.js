@@ -48,7 +48,7 @@ const routes = [
               icon: 'home',
               route: { name: 'dashboard' }
             },
-            component: () => import('pages/Home.vue')
+            component: () => import('pages/Public/Home.vue')
           }
         ]
       },
@@ -66,7 +66,7 @@ const routes = [
           {
             name: 'UserPanel.Profile',
             path: 'profile',
-            component: () => import('pages/Profile/Profile.vue')
+            component: () => import('pages/User/Profile/Profile.vue')
           },
           {
             name: 'UserPanel.MyOrders',
@@ -86,7 +86,7 @@ const routes = [
           {
             name: 'UserPanel.MyTickets',
             path: 'my-tickets',
-            component: () => import('pages/Profile/Profile.vue'),
+            component: () => import('pages/User/Profile/Profile.vue'),
             children: [
               {
                 path: '',
@@ -205,7 +205,7 @@ const routes = [
       {
         path: 'shop',
         name: 'Shop',
-        component: () => import('pages/User/Shop.vue')
+        component: () => import('pages/Public/Shop.vue')
       },
       {
         path: 'checkout',
@@ -227,12 +227,12 @@ const routes = [
           {
             name: 'User.Content.Show',
             path: ':id',
-            component: () => import('pages/User/Content/Show.vue')
+            component: () => import('pages/Public/Content/Show.vue')
           },
           {
             name: 'User.Content.Search',
             path: '',
-            component: () => import('pages/User/Content/Search.vue')
+            component: () => import('pages/Public/Content/Search.vue')
           }
         ]
       },
@@ -244,7 +244,7 @@ const routes = [
           {
             name: 'User.Product.Show',
             path: ':id',
-            component: () => import('pages/User/Product/Show.vue')
+            component: () => import('pages/Public/Product/Show.vue')
           }
         ]
       },
@@ -256,7 +256,7 @@ const routes = [
           {
             name: 'User.Set.Show',
             path: ':id',
-            component: () => import('pages/User/Set/Show.vue')
+            component: () => import('pages/Public/Set/Show.vue')
           }
         ]
       },
@@ -271,7 +271,7 @@ const routes = [
       {
         path: 'component',
         name: 'component',
-        component: () => import('src/pages/component.vue'),
+        component: () => import('pages/Document/component.vue'),
         breadcrumbs: { title: 'component' },
         meta: {
           middlewares: [auth]
@@ -281,7 +281,7 @@ const routes = [
       {
         path: '/debug',
         name: 'debug',
-        component: () => import('pages/debug.vue'),
+        component: () => import('pages/Document/debug.vue'),
         meta: {
           middlewares: [auth]
         }
@@ -289,12 +289,9 @@ const routes = [
       {
         path: '/form-generator',
         name: 'formGenerator',
-        component: () => import('pages/formGenerator.vue')
+        component: () => import('pages/Document/formGenerator.vue')
       }
     ]
-    // meta: {
-    //   middlewares: [auth]
-    // }
   },
   {
     path: '/login',
@@ -305,7 +302,7 @@ const routes = [
   {
     path: '/debug',
     name: 'debug',
-    component: () => import('pages/debug.vue'),
+    component: () => import('pages/Document/debug.vue'),
     meta: {
       middlewares: [auth]
     }
