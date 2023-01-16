@@ -9,7 +9,7 @@
         :api="api"
         entity-id-key="id"
         entity-param-key="id"
-        show-route-name="Admin.Ticket.Index"
+        :show-route-name="options.indexRouteName"
         :after-load-input-data="checkLoadInputData"
       >
         <template #before-form-builder>
@@ -231,7 +231,7 @@ import LogList from 'src/components/Ticket/LogList.vue'
 import Messages from 'src/components/Ticket/Messages.vue'
 import TicketRate from 'src/components/Ticket/TicketRate.vue'
 import UserOrderList from 'src/components/Ticket/userOrderList.vue'
-import { mixinDateOptions, mixinTicket } from 'src/mixin/Mixins.js'
+import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import SendMessageInput from 'src/components/Ticket/SendMessageInput.vue'
 
 export default {
@@ -246,7 +246,17 @@ export default {
     SendMessageInput,
     Drawer
   },
-  mixins: [mixinDateOptions, mixinTicket],
+  mixins: [mixinTicket, mixinWidget],
+  props: {
+    options: {
+      type: Object,
+      default() {
+        return {
+          indexRouteName: ''
+        }
+      }
+    }
+  },
   data() {
     return {
       sendLoading: false,

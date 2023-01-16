@@ -30,7 +30,10 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'Show'
+                        name: 'Show',
+                        options: {
+                          showRouteName: 'UserPanel.Ticket.Show'
+                        }
                       }
                     ],
                     options: {

@@ -30,7 +30,11 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'TicketList'
+                        name: 'TicketList',
+                        options: {
+                          showRouteName: 'UserPanel.Ticket.Show',
+                          createRouteName: 'UserPanel.Ticket.Create'
+                        }
                       }
                     ],
                     options: {

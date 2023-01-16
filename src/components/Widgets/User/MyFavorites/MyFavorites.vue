@@ -80,8 +80,13 @@
 </template>
 
 <script>
-// import StickySidebar from 'sticky-sidebar'
-const StickySidebar = typeof window !== 'undefined' ? require('sticky-sidebar') : null
+let StickySidebar = null
+if (typeof window !== 'undefined') {
+  import('sticky-sidebar')
+    .then((StickySidebarPackage) => {
+      StickySidebar = StickySidebarPackage
+    })
+}
 import { SetList } from 'src/models/Set.js'
 import { ProductList } from 'src/models/Product.js'
 import { ContentList } from 'src/models/Content.js'
