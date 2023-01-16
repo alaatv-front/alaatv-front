@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { Notify } from 'quasar'
 export default {
   name: 'PageProfile',
   data() {
@@ -59,17 +58,6 @@ export default {
   computed: {
     pageBuilderEditable() {
       return this.$store.getters['AppLayout/pageBuilderEditable']
-    },
-    calculateHeightStyle() {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
-    }
-  },
-  created() {
-    if (this.$store.getters['Auth/incompleteProfile']) {
-      Notify.create({
-        message: 'لطفا ابتدا اطلاعات کاربری را کامل نمایید.',
-        color: 'warning'
-      })
     }
   }
 }

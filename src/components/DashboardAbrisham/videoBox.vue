@@ -239,6 +239,8 @@ export default {
     }
   },
 
+  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp'],
+
   data() {
     return {
       sheet: false,
@@ -407,6 +409,7 @@ export default {
 
 }
 </script>
+
 <style lang="scss" scoped>
 .download-item{
   width: 488px;
@@ -960,6 +963,7 @@ export default {
 }
 
 </style>
+
 <style lang="scss">
 .video-box {
     .video-description {
