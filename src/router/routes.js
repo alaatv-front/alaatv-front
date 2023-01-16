@@ -3,7 +3,7 @@ import EntityCrudRoutes from './EntityCrudRoutes'
 
 const routes = [
   {
-    path: '/',
+    path: '',
     layoutConfig: {
       layoutHeaderVisible: true,
       layoutHeaderType: 'main',
@@ -35,7 +35,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '',
+        path: '/login',
         name: 'Auth',
         layoutConfig: {
           layoutHeaderVisible: false,
@@ -47,7 +47,7 @@ const routes = [
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
-            path: '/login',
+            path: '/',
             name: 'login',
             component: () => import('pages/Auth/Login.vue')
           }
@@ -61,13 +61,7 @@ const routes = [
           {
             path: '',
             name: 'Public.Home',
-            breadcrumbs: {
-              title: 'خانه',
-              loading: false,
-              icon: 'home',
-              route: { name: 'dashboard' }
-            },
-            component: () => import('pages/Public/Home.vue')
+            component: () => import('src/pages/Public/Home.vue')
           },
           {
             path: 'shop',

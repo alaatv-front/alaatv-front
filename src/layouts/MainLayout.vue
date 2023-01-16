@@ -47,7 +47,7 @@
           <Router :include="keepAliveComponents" />
         </div>
       </template>
-      <template v-slot:footer>
+      <template #footer>
         <alaa-footer />
       </template>
     </quasar-template-builder>
