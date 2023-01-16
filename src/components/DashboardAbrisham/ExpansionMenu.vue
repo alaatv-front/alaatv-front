@@ -2,64 +2,62 @@
   <v-card
     class="expansion-panel-menu"
   >
-    <template>
-      <v-expansion-panels
-        dense
-        flat
-        class="expansion-main"
-      >
-        <v-expansion-panel dense
-                           class="expansion-body">
-          <v-expansion-panel-header
-            flat
-            class="expansion-header"
-          >
-            <i
-              v-if="updateHeaderData[0]"
-              class="fi menu-header-icon"
-              :class="'fi-rr-' + updateHeaderData[0].icon"
-            />
-            <p v-if="updateHeaderData[0]"
-               class="menu-header-text expansion-paragraph">
-              {{ updateHeaderData[0].title }}
-            </p>
-            <template v-slot:actions>
-              <v-icon>
-                $expand
-              </v-icon>
-            </template>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content class="expansion-content">
-            <div class="content-box">
-              <div
-                v-for="(i , index) in updateList"
+    <v-expansion-panels
+      dense
+      flat
+      class="expansion-main"
+    >
+      <v-expansion-panel dense
+                         class="expansion-body">
+        <v-expansion-panel-header
+          flat
+          class="expansion-header"
+        >
+          <i
+            v-if="updateHeaderData[0]"
+            class="fi menu-header-icon"
+            :class="'fi-rr-' + updateHeaderData[0].icon"
+          />
+          <p v-if="updateHeaderData[0]"
+             class="menu-header-text expansion-paragraph">
+            {{ updateHeaderData[0].title }}
+          </p>
+          <template v-slot:actions>
+            <v-icon>
+              $expand
+            </v-icon>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content class="expansion-content">
+          <div class="content-box">
+            <div
+              v-for="i in updateList"
+              :key="i.id"
+              class="content-template"
+            >
+              <v-divider
                 :key="i.id"
-                class="content-template"
+              />
+              <div
+                :key="i.id"
+                class="d-flex justify-center menu-header-text"
+                @click="changeSelectedItem(i)"
               >
-                <v-divider
-                  :key="i.id"
+
+                <i
+                  class="fi menu-item-icon"
+                  :class="'fi-rr-'+ i.icon"
                 />
-                <div
-                  :key="i.id"
-                  class="d-flex justify-center menu-header-text"
-                  @click="changeSelectedItem(i)"
-                >
 
-                  <i
-                    class="fi menu-item-icon"
-                    :class="'fi-rr-'+ i.icon"
-                  />
-
-                  <p class="expansion-paragraph">
-                    {{ i.title }}
-                  </p>
-                </div>
+                <p class="expansion-paragraph">
+                  {{ i.title }}
+                </p>
               </div>
             </div>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </template>
+          </div>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-card>
 </template>
 

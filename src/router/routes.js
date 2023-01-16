@@ -35,7 +35,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '/login',
+        path: '/auth',
         name: 'Auth',
         layoutConfig: {
           layoutHeaderVisible: false,
@@ -47,7 +47,7 @@ const routes = [
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
-            path: '/',
+            path: '/login',
             name: 'login',
             component: () => import('pages/Auth/Login.vue')
           }
@@ -273,7 +273,7 @@ const routes = [
         ]
       },
       {
-        path: '',
+        path: 'document',
         name: 'Document',
         component: () => import('layouts/bareLayout.vue'),
         children: [

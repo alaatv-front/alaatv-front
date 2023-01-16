@@ -254,6 +254,8 @@ export default {
   data() {
     return {
       searchInput: '',
+      user: new User(),
+      isUserLogin: false,
       headerItems: [
         {
           selected: 'home',
@@ -316,12 +318,6 @@ export default {
     layoutLeftDrawerVisible() {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
     },
-    user () {
-      if (this.$store.getters['Auth/user']) {
-        return this.$store.getters['Auth/user']
-      }
-      return new User()
-    },
     showMenuItem () {
       return (/* item */) => {
         return true
@@ -332,12 +328,16 @@ export default {
       return (itemName) => {
         return (this.$route.name === itemName)
       }
-    },
-    isUserLogin() {
-      return this.$store.getters['Auth/isUserLogin']
     }
   },
+  mounted () {
+    this.loadAuthData()
+  },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
+    },
     ...mapMutations('AppLayout', [
       'updateVisibilityBreadcrumb',
       'updateBreadcrumbs',
