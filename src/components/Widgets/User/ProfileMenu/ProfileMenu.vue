@@ -143,7 +143,7 @@
             </q-item-section>
           </q-item>
           <router-link class="flex"
-                       :to="{name: 'UserPanel.MyTickets.Index'}"
+                       :to="{name: 'UserPanel.Ticket.Index'}"
           >
             <q-item v-ripple
                     clickable

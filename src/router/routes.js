@@ -160,23 +160,23 @@ const routes = [
             component: () => import('pages/User/Dashboard/MyFavorites.vue')
           },
           {
-            name: 'UserPanel.MyTickets',
-            path: 'my-tickets',
+            name: 'UserPanel.Ticket',
+            path: 'ticket',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
                 path: '',
-                name: 'UserPanel.MyTickets.Index',
+                name: 'UserPanel.Ticket.Index',
                 component: () => import('pages/User/Ticket/List.vue')
               },
               {
                 path: 'create',
-                name: 'UserPanel.MyTickets.Create',
+                name: 'UserPanel.Ticket.Create',
                 component: () => import('pages/User/Ticket/Create.vue')
               },
               {
                 path: ':id',
-                name: 'UserPanel.MyTickets.Show',
+                name: 'UserPanel.Ticket.Show',
                 component: () => import('pages/User/Ticket/Show.vue')
               }
             ]

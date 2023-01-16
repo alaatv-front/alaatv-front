@@ -32,7 +32,7 @@ export default {
                       {
                         name: 'Show',
                         options: {
-                          showRouteName: 'UserPanel.MyTickets.Show'
+                          showRouteName: 'UserPanel.Ticket.Show'
                         }
                       }
                     ],
