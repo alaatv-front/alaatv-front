@@ -34,7 +34,8 @@
         >
           <product-item :options="product" />
         </div>
-        <div class="block-item-box">
+        <div v-if="block?.url?.web"
+             class="block-item-box">
           <a :href="block?.url?.web"
              class="show-more-title"
           >

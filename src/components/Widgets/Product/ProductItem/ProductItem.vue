@@ -3,7 +3,7 @@
     <div class="img-box">
       <router-link :to="{
         name: 'Public.Product.Show',
-        params: { id: product.id?product.id:-1, title: product.title }
+        params: { id: product.id ? product.id : -1 }
       }"
       >
         <lazy-img :src="product.photo"
