@@ -112,7 +112,7 @@ export default {
           this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
           this.getUserData()
             .then(() => {
-              this.$router.push({ name: 'home' })
+              this.$router.push({ name: 'Public.Home' })
             })
         })
         .catch(err => {

@@ -120,9 +120,9 @@
   </q-card>
 </template>
 <script>
-import { mixinDateOptions, mixinTicket } from 'src/mixin/Mixins'
-import API_ADDRESS from 'src/api/Addresses'
-import AvWaveform from 'vue-audio-visual/src/components/AvWaveform'
+import API_ADDRESS from 'src/api/Addresses.js'
+import { mixinDateOptions, mixinTicket } from 'src/mixin/Mixins.js'
+import AvWaveform from '@kerasus/vue-audio-visual/src/components/AvWaveform.js'
 
 export default {
   name: 'Messages',

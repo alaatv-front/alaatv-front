@@ -1,7 +1,7 @@
 <template>
   <q-card class="set-item-box">
     <router-link :to="{
-      name: 'User.Set.Show',
+      name: 'Public.Set.Show',
       params: { id: set.id? set.id:-1, title: set.title }
     }"
     >

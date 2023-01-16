@@ -330,7 +330,7 @@ export default {
     redirectUser () {
       if (!this.user.needToCompleteInfo()) {
         if (!this.redirectAfterCompleteInfoPage) {
-          this.$router.push({ name: 'home' })
+          this.$router.push({ name: 'Public.Home' })
         } else {
           this.$router.push({
             name: this.redirectAfterCompleteInfoPage.name,

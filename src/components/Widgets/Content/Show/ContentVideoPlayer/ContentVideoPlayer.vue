@@ -171,7 +171,7 @@ export default {
         return null
       }
       return {
-        name: 'User.Content.Show',
+        name: 'Public.Content.Show',
         params: { id }
       }
     }

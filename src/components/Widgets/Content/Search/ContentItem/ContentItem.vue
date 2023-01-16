@@ -2,7 +2,7 @@
   <q-card flat
           class="content-box q-mb-md">
     <router-link
-      :to="{name: 'User.Content.Show', params: {id: data.id}}"
+      :to="{name: 'Public.Content.Show', params: {id: data.id}}"
       class="m-link"
     >
       <div class="content-img-box">
@@ -16,7 +16,7 @@
       </div>
     </router-link>
     <router-link
-      :to="{name: 'User.Content.Show', params: {id: data.id}}"
+      :to="{name: 'Public.Content.Show', params: {id: data.id}}"
       class="m-link content-link"
     >
       <div class="content-order flex items-center">
@@ -75,7 +75,7 @@
       </div>
     </router-link>
     <!--    <router-link-->
-    <!--      :to="{name: 'User.Content.Show', params: {id: data.id}}"-->
+    <!--      :to="{name: 'Public.Content.Show', params: {id: data.id}}"-->
     <!--      class="m-link"-->
     <!--    >-->
     <!--      <div class="content-hover" />-->

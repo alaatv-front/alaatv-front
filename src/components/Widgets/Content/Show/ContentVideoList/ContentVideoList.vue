@@ -17,13 +17,13 @@
            :class="{current: isCurrent(content)}"
            class="other-contents row q-pt-md">
         <div class="col-2">
-          <router-link :to="{name: 'User.Content.Show', params: {id: content.id}}"><img width="80"
-                                                                                        height="45"
-                                                                                        :src=content.photo>
+          <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}"><img width="80"
+                                                                                          height="45"
+                                                                                          :src=content.photo>
           </router-link>
         </div>
         <router-link class="col q-ml-lg"
-                     :to="{name:'User.Content.Show', params: {id: content.id}}">
+                     :to="{name:'Public.Content.Show', params: {id: content.id}}">
           <h6 class="video-title">
             {{ content.title }}
           </h6>

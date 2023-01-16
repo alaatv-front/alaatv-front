@@ -20,13 +20,30 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'ProfileMenu'
+                      }
+                    ],
+                    options: {
+                      className: 'col-md-3 q-pr-md '
+                    }
+                  },
+                  {
+                    widgets: [
+                      {
                         name: 'TicketList'
                       }
-                    ]
+                    ],
+                    options: {
+                      className: 'col-md-9 q-pl-md'
+                    }
                   }
                 ],
                 options: {
-                  boxed: false
+                  boxed: true,
+                  style: {
+                    marginTop: '30px',
+                    marginBottom: '30px'
+                  }
                 }
               }
             ]

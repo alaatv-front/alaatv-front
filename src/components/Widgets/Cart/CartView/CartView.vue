@@ -130,7 +130,7 @@
                 </a>
               </span>
 
-              <router-link :to="{name: 'User.Product.Show', params:{id: order.grand.product.id?order.grand.product.id:-1}}"
+              <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id?order.grand.product.id:-1}}"
                            class="go-product text-primary text-center">
                 رفتن
                 به صفحه محصول

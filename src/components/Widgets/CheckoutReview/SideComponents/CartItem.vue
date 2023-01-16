@@ -88,7 +88,7 @@
             </div>
           </div>
           <div class="product-detail row items-center justify-between ">
-            <router-link :to="{name: 'User.Product.Show', params:{id: id?id:-1}}"
+            <router-link :to="{name: 'Public.Product.Show', params:{id: id?id:-1}}"
                          class="go-product text-primary text-center">
               رفتن
               به صفحه محصول
@@ -192,7 +192,7 @@
             </div>
           </div>
           <div class="product-detail row items-center justify-between ">
-            <router-link :to="{name: 'User.Product.Show', params:{id: id?id:-1}}"
+            <router-link :to="{name: 'Public.Product.Show', params:{id: id?id:-1}}"
                          class="go-product text-primary text-center">
               رفتن
               به صفحه محصول

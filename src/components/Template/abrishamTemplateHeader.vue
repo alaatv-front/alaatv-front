@@ -31,7 +31,7 @@
                 </div>
               </q-item-section>
             </q-item>
-            <q-item :to="{name : 'home'}">
+            <q-item :to="{name : 'Public.Home'}">
               <q-item-section>
                 <q-separator class="separator q-mb-md" />
                 رفتن به صفحه اصلی

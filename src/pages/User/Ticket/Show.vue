@@ -20,14 +20,30 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'ProfileMenu'
+                      }
+                    ],
+                    options: {
+                      className: 'col-md-3 q-pr-md '
+                    }
+                  },
+                  {
+                    widgets: [
+                      {
                         name: 'Show'
                       }
-                    ]
+                    ],
+                    options: {
+                      className: 'col-md-9 q-pl-md'
+                    }
                   }
                 ],
                 options: {
                   boxed: true,
-                  boxedWidth: 1362
+                  style: {
+                    marginTop: '30px',
+                    marginBottom: '30px'
+                  }
                 }
               }
             ]

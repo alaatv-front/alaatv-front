@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="{
-      name: 'User.Set.Show',
+      name: 'Public.Set.Show',
       params: { id: data.id? data.id:-1, title: data.title }
     }"
     class="set-box"

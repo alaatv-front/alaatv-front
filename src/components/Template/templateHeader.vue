@@ -19,15 +19,13 @@
             />
           </div>
           <div class="logo-pic">
-            <div
-              class="homepage"
-            >
+            <div class="homepage">
               <lazy-img :src="'img/alaa-logo.svg'"
                         :alt="'logo'"
                         width="40"
                         height="40"
                         class="logo-pic-img"
-                        @click="routeTo('home')"
+                        @click="routeTo('Public.Home')"
               />
             </div>
           </div>
@@ -109,7 +107,7 @@
               rounded
               size="12px"
               class="action-btn"
-              :to="{name: 'User.Checkout.Review'}"
+              :to="{name: 'Public.Checkout.Review'}"
             />
           </div>
           <q-btn v-if="isUserLogin"
@@ -260,13 +258,13 @@ export default {
         {
           selected: 'home',
           title: 'صفحه اصلی',
-          to: 'home',
+          to: 'Public.Home',
           permission: 'all'
         },
         {
           selected: 'shop',
           title: 'فروشگاه',
-          to: 'Shop',
+          to: 'Public.Shop',
           permission: 'all'
         },
         {

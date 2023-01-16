@@ -1593,10 +1593,10 @@
   dependencies:
     esm "3.2.25"
 
-"@kerasus/vue-audio-visual@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@kerasus/vue-audio-visual/-/vue-audio-visual-2.5.0.tgz#de3fc6f0ca9f010169fe0620cf11714f269a70ef"
-  integrity sha512-llXHvqq9uaqGT24cqijSjCZCm2yzfy81Xtt/RMVQ89u1fSDFZK/TUcO9r+rW/NjpHMQze8APebdoFQ8WC/dXpQ==
+"@kerasus/vue-audio-visual@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@kerasus/vue-audio-visual/-/vue-audio-visual-2.5.1.tgz#b1743bc380956ca6e6b282bc4c63122a130c29c9"
+  integrity sha512-ycGCsZhbPE5NQkL0SxRvkAvjjrAYTt0G8brAZ3aXcuOSzPy/SIzxYBQGF/3k1P6B80SSc7H64xtzgqynJIrp/w==
   dependencies:
     axios "^0.24.0"
     core-js "^3.7.0"
@@ -5985,11 +5985,6 @@ shvl@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/shvl/-/shvl-2.0.3.tgz#eb4bd37644f5684bba1fc52c3010c96fb5e6afd1"
   integrity sha512-V7C6S9Hlol6SzOJPnQ7qzOVEWUQImt3BNmmzh40wObhla3XOYMe4gGiYzLrJd5TFa+cI2f9LKIRJTTKZSTbWgw==
-
-shvl@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/shvl/-/shvl-3.0.0.tgz#63b8e888730c24a779f8c574305924a144efc35e"
-  integrity sha512-5IomAM3ykE/g9K9L6lhODc+TpCuN03rrhlboegeKyyfh66DDdpRD5JN37DYhNHH+RaYjiIDx64K/Ms/xQYOR5w==
 
 side-channel@^1.0.4:
   version "1.0.4"

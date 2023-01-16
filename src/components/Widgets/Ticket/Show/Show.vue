@@ -40,7 +40,7 @@
                      class="full-width"
                      icon="isax:user"
                      :loading="loading"
-                     :to="'/user/'+this.getInputsValue('userId')+'/edit'"
+                     :to="'/user/'+getInputsValue('userId')+'/edit'"
                      target="_blank"
                      color="blue">
                 <q-tooltip>ویرایش اطلاعات کاربر</q-tooltip>
@@ -62,7 +62,7 @@
                      icon="isax:sms"
                      color="blue"
                      :loading="loading"
-                     @click="sendTicketStatusNotice(this.getInputsValue('id'))"
+                     @click="sendTicketStatusNotice(getInputsValue('id'))"
               >
                 <q-tooltip>ارسال پیامک اگاه سازی تغییر وضعیت</q-tooltip>
               </q-btn>
@@ -145,7 +145,7 @@
                 :key="index"
                 :is-user-admin="isAdmin"
                 :data="item" />
-      <SendMessageInput
+      <send-message-input
         ref="SendMessageInput"
         class="q-my-lg"
         :isAdmin="isAdmin"
@@ -223,16 +223,16 @@
 
 <script>
 import { EntityEdit } from 'quasar-crud'
-import Messages from 'components/Ticket/Messages'
-import TicketRate from 'components/Ticket/TicketRate'
-import LogList from 'components/Ticket/LogList'
-import Drawer from 'components/CustomDrawer'
-import UserOrderList from 'components/Ticket/userOrderList'
-import API_ADDRESS from 'src/api/Addresses'
-import { CartItemList } from 'src/models/CartItem'
-import SendMessageInput from 'components/Ticket/SendMessageInput'
-import { mixinDateOptions, mixinTicket } from 'src/mixin/Mixins'
-import { User } from 'src/models/User'
+import { User } from 'src/models/User.js'
+import API_ADDRESS from 'src/api/Addresses.js'
+import Drawer from 'src/components/CustomDrawer.vue'
+import { CartItemList } from 'src/models/CartItem.js'
+import LogList from 'src/components/Ticket/LogList.vue'
+import Messages from 'src/components/Ticket/Messages.vue'
+import TicketRate from 'src/components/Ticket/TicketRate.vue'
+import UserOrderList from 'src/components/Ticket/userOrderList.vue'
+import { mixinDateOptions, mixinTicket } from 'src/mixin/Mixins.js'
+import SendMessageInput from 'src/components/Ticket/SendMessageInput.vue'
 
 export default {
   name: 'Show',
@@ -249,6 +249,7 @@ export default {
   mixins: [mixinDateOptions, mixinTicket],
   data() {
     return {
+      sendLoading: false,
       updateUserTem: false,
       phoneNumber: null,
       nationalCode: null,

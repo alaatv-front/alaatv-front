@@ -50,11 +50,11 @@
 </template>
 
 <script>
-import SendMessageInput from 'components/Ticket/SendMessageInput'
 import { EntityCreate } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
-import { TicketDepartment } from 'src/models/TicketDepartment'
-import { mixinTicket } from 'src/mixin/Mixins'
+import API_ADDRESS from 'src/api/Addresses.js'
+import { mixinTicket } from 'src/mixin/Mixins.js'
+import { TicketDepartment } from 'src/models/TicketDepartment.js'
+import SendMessageInput from 'components/Ticket/SendMessageInput.vue'
 
 export default {
   name: 'Create',

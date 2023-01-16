@@ -1,170 +1,171 @@
 <template>
-    <v-card
-        class="expansion-panel-menu"
-    >
-        <template>
-            <v-expansion-panels
-                dense
-                flat
-                class="expansion-main"
-            >
-                <v-expansion-panel dense
-                class="expansion-body">
-                    <v-expansion-panel-header
-                        flat
-                        class="expansion-header"
-                    >
-                        <i
-                            v-if="updateHeaderData[0]"
-                            class="fi menu-header-icon"
-                            :class="'fi-rr-' + updateHeaderData[0].icon"
-                        />
-                        <p class="menu-header-text expansion-paragraph" v-if="updateHeaderData[0]">
-                            {{ updateHeaderData[0].title }}
-                        </p>
-                        <template v-slot:actions>
-                            <v-icon >
-                                $expand
-                            </v-icon>
-                        </template>
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content class="expansion-content">
-                          <div class="content-box">
-                              <div
-                                  v-for="(i , index) in updateList"
-                                  :key="i.id"
-                                  class="content-template"
-                              >
-                                  <v-divider
-                                      :key="i.id"
-                                  />
-                                   <div
-                                          :key="i.id"
-                                          class="d-flex justify-center menu-header-text"
-                                          @click="changeSelectedItem(i)"
-                                      >
+  <v-card
+    class="expansion-panel-menu"
+  >
+    <template>
+      <v-expansion-panels
+        dense
+        flat
+        class="expansion-main"
+      >
+        <v-expansion-panel dense
+                           class="expansion-body">
+          <v-expansion-panel-header
+            flat
+            class="expansion-header"
+          >
+            <i
+              v-if="updateHeaderData[0]"
+              class="fi menu-header-icon"
+              :class="'fi-rr-' + updateHeaderData[0].icon"
+            />
+            <p v-if="updateHeaderData[0]"
+               class="menu-header-text expansion-paragraph">
+              {{ updateHeaderData[0].title }}
+            </p>
+            <template v-slot:actions>
+              <v-icon>
+                $expand
+              </v-icon>
+            </template>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content class="expansion-content">
+            <div class="content-box">
+              <div
+                v-for="(i , index) in updateList"
+                :key="i.id"
+                class="content-template"
+              >
+                <v-divider
+                  :key="i.id"
+                />
+                <div
+                  :key="i.id"
+                  class="d-flex justify-center menu-header-text"
+                  @click="changeSelectedItem(i)"
+                >
 
-                                          <i
-                                              class="fi menu-item-icon"
-                                              :class="'fi-rr-'+ i.icon"
-                                          />
+                  <i
+                    class="fi menu-item-icon"
+                    :class="'fi-rr-'+ i.icon"
+                  />
 
-                                          <p class="expansion-paragraph">
-                                              {{ i.title }}
-                                          </p>
-                                      </div>
-                              </div>
-                          </div>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
-            </v-expansion-panels>
-        </template>
-    </v-card>
+                  <p class="expansion-paragraph">
+                    {{ i.title }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </template>
+  </v-card>
 </template>
 
 <script>
 
 export default {
-    name: 'ExpansionMenu',
-    data() {
-        return {
-            menuItems: [
-                {
-                    id: 1,
-                    title: 'خانه',
-                    icon: 'home',
-                    routeName: 'Home',
-                    selected: true
-                },
-                {
-                    id: 2,
-                    title: 'فیلم ها',
-                    icon: 'play-alt',
-                    routeName: 'UserAbrishamProgress',
-                    selected: false
-                },
-                {
-                    id: 3,
-                    title: 'برنامه مطالعاتی',
-                    icon: 'calendar',
-                    routeName: 'Schedule',
-                    selected: false
-                },
-                {
-                    id: 4,
-                    title: 'مشاوره',
-                    icon: 'headphones',
-                    routeName: 'consulting',
-                    selected: false
-                },
-                {
-                    id: 5,
-                    title: 'عملکرد من',
-                    icon: 'list-check',
-                    routeName: 'my-performance',
-                    selected: false
-                },
-                {
-                    id: 6,
-                    title: 'ارزیابی',
-                    icon: 'stats',
-                    routeName: 'assessment',
-                    selected: false
-                },
-                {
-                    id: 7,
-                    title: 'اخبار و اطلاعیه',
-                    icon: 'envelope',
-                    routeName: 'news',
-                    selected: false
-                },
-                {
-                    id: 8,
-                    title: 'نقشه راه ابریشم',
-                    icon: 'world',
-                    routeName: 'map',
-                    selected: false
-                },
-            ],
-            routeName:''
+  name: 'ExpansionMenu',
+  data() {
+    return {
+      menuItems: [
+        {
+          id: 1,
+          title: 'خانه',
+          icon: 'home',
+          routeName: 'Public.Home',
+          selected: true
+        },
+        {
+          id: 2,
+          title: 'فیلم ها',
+          icon: 'play-alt',
+          routeName: 'UserAbrishamProgress',
+          selected: false
+        },
+        {
+          id: 3,
+          title: 'برنامه مطالعاتی',
+          icon: 'calendar',
+          routeName: 'Schedule',
+          selected: false
+        },
+        {
+          id: 4,
+          title: 'مشاوره',
+          icon: 'headphones',
+          routeName: 'consulting',
+          selected: false
+        },
+        {
+          id: 5,
+          title: 'عملکرد من',
+          icon: 'list-check',
+          routeName: 'my-performance',
+          selected: false
+        },
+        {
+          id: 6,
+          title: 'ارزیابی',
+          icon: 'stats',
+          routeName: 'assessment',
+          selected: false
+        },
+        {
+          id: 7,
+          title: 'اخبار و اطلاعیه',
+          icon: 'envelope',
+          routeName: 'news',
+          selected: false
+        },
+        {
+          id: 8,
+          title: 'نقشه راه ابریشم',
+          icon: 'world',
+          routeName: 'map',
+          selected: false
         }
-    },
-    created() {
-        this.setHeader(this.$route.name)
-    },
-    computed : {
-        updateHeaderData (){
-            return this.menuItems.filter(item => {
-                return item.selected  })
-        },
-        updateList () {
-            return  this.menuItems.filter(item => {
-                return !item.selected
-            })
-        },
-
-    },
-    methods: {
-        changeSelectedItem(selected) {
-            this.menuItems.map(i => {
-                if (i.id === selected.id) {
-                    return i.selected = true
-                }
-                return i.selected = false
-            })
-            this.$router.push({ name: selected.routeName })
-        },
-        setHeader(route){
-
-            this.menuItems.map(i => {
-                if (i.routeName === route) {
-                    return i.selected = true
-                }
-               return i.selected = false
-            })
-        }
-
+      ],
+      routeName: ''
     }
+  },
+  computed: {
+    updateHeaderData () {
+      return this.menuItems.filter(item => {
+        return item.selected
+      })
+    },
+    updateList () {
+      return this.menuItems.filter(item => {
+        return !item.selected
+      })
+    }
+
+  },
+  created() {
+    this.setHeader(this.$route.name)
+  },
+  methods: {
+    changeSelectedItem(selected) {
+      this.menuItems.map(i => {
+        if (i.id === selected.id) {
+          return i.selected = true
+        }
+        return i.selected = false
+      })
+      this.$router.push({ name: selected.routeName })
+    },
+    setHeader(route) {
+      this.menuItems.map(i => {
+        if (i.routeName === route) {
+          return i.selected = true
+        }
+        return i.selected = false
+      })
+    }
+
+  }
 }
 </script>
 
