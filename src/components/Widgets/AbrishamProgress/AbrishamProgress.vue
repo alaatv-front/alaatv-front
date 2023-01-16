@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="userAbrishamProgress-page"
-  >
+  <div class="userAbrishamProgress-page">
     <div class="row q-col-gutter-x-md items-center chip-parent">
       <div class="col-xl-3 col-sm-12 order-xl-first order-xs-last text-center  page-title">نمایش محتوا بر اساس فعالیت شما</div>
       <div class="col-xl-3 col-lg-6 col-sm-12 col-xs-6">
@@ -31,14 +29,13 @@
       <div
         class="video-box-col col-12 col-md-8 col-xs-12"
       >
-        <video-box
-          :lesson="currentLesson"
-          :set="currentSet"
-          :content="watchingContent"
-          :afterLoad="contentsIsEmpty"
-          @favorite="toggleFavor"
-          @toggle-video-status="updateVideoStatus"
-          @bookmarkTimestamp="bookmarkPostIsFavored"
+        <!--        :afterLoad="contentsIsEmpty"-->
+        <video-box :lesson="currentLesson"
+                   :set="currentSet"
+                   :content="watchingContent"
+                   @favorite="toggleFavor"
+                   @toggle-video-status="updateVideoStatus"
+                   @bookmarkTimestamp="bookmarkPostIsFavored"
         />
         <div class="mobile-view">
           <div class="current-content-title"
@@ -190,16 +187,13 @@ export default {
       return this.getLesson(this.selectedLessonId)
     }
   },
-
-  created () {
+  mounted () {
     this.initPage()
   },
-
   methods: {
     loadUserLastState() {
       this.setCurrentSet(this.userLastState.setId, this.userLastState.contentId)
     },
-
     async showUserLastState() {
       try {
         const response = await this.$apiGateway.abrisham.getUserLastState(this.selectedLessonId)
@@ -432,6 +426,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .userAbrishamProgress-page {
   margin: 0 60px 100px;
