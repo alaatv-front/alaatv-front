@@ -1,58 +1,47 @@
 <template>
-  <entity-edit
-    ref="entityEdit"
-    v-model:value="inputs"
-    :api="api"
-    :entity-id-key="entityIdKey"
-    :entity-param-key="entityParamKey"
-    :show-route-name="showRouteName"
-    :defaultLayout="defaultLayout"
-    :before-send-data="beforeSendData"
-    :before-get-data="beforeGetData"
-    :after-get-data="afterGetData"
-    :after-send-data="afterSendData"
+  <entity-edit ref="entityEdit"
+               v-model:value="inputs"
+               :api="api"
+               :entity-id-key="entityIdKey"
+               :entity-param-key="entityParamKey"
+               :show-route-name="showRouteName"
+               :defaultLayout="defaultLayout"
+               :before-send-data="beforeSendData"
+               :before-get-data="beforeGetData"
+               :after-get-data="afterGetData"
+               :after-send-data="afterSendData"
   >
     <template #after-form-builder>
-      <div
-        class="col-12 q-my-md"
-        dir="ltr"
-      >
-        <q-btn
-          class="submitBtn"
-          @click="submit"
-        >ثبت تغییرات
-        </q-btn
-        >
+      <div class="col-12 q-my-md flex justify-end">
+        <q-btn class="submitBtn"
+               label="ثبت تغییرات"
+               @click="submit"
+        />
       </div>
     </template>
   </entity-edit>
-  <entity-action
-    ref="entityAction"
-    v-model:value="actionInput"
-    :action-method="'post'"
-    :action-api="actionApi"
-    :beforeDoAction="beforeDoAction"
-    :defaultLayout="false"
-    @onActionSuccess="onActionSuccess"
-    @onActionError="onActionError"
+  <entity-action ref="entityAction"
+                 v-model:value="actionInput"
+                 :action-method="'post'"
+                 :action-api="actionApi"
+                 :beforeDoAction="beforeDoAction"
+                 :defaultLayout="false"
+                 @onActionSuccess="onActionSuccess"
+                 @onActionError="onActionError"
   >
     <template #after-form-builder>
-      <div
-        class="col-12 q-my-md"
-        dir="ltr"
-      >
-        <q-btn
-          class="submitBtn"
-          @click="submitAction"
-        >ثبت رتبه کنکور
-        </q-btn
-        >
+      <div class="col-12 q-my-md flex justify-end">
+        <q-btn class="submitBtn"
+               label="ثبت رتبه کنکور"
+               @click="submitAction"
+        />
       </div>
     </template>
   </entity-action>
 </template>
 
 <script>
+import { Notify } from 'quasar'
 import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { EntityEdit, EntityAction } from 'quasar-crud'
@@ -345,7 +334,6 @@ export default {
       defaultLayout: false
     }
   },
-  computed: {},
   mounted() {
     this.$store.commit('loading/loading', true)
     this.$refs.entityAction
@@ -356,6 +344,12 @@ export default {
       .catch((e) => {
         this.$store.commit('loading/loading', false)
       })
+    if (this.$store.getters['Auth/incompleteProfile']) {
+      Notify.create({
+        message: 'لطفا ابتدا اطلاعات کاربری را کامل نمایید.',
+        color: 'warning'
+      })
+    }
   },
   methods: {
     beforeGetData() {

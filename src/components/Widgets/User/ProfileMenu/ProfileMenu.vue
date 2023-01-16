@@ -4,47 +4,41 @@
       <q-card-section>
         <div class="flex no-wrap">
           <div>
-            <q-img
-              :src="previewImg"
-              class="previewImg"
+            <q-img :src="previewImg"
+                   class="previewImg"
             />
-            <q-file
-              ref="file"
-              v-model="file"
-              :model-value="file"
-              label="Label"
-              class="hidden"
-              @update:model-value="updateFile()"
+            <q-file ref="file"
+                    v-model="file"
+                    :model-value="file"
+                    label="Label"
+                    class="hidden"
+                    @update:model-value="updateFile()"
             />
-            <q-btn
-              v-if="!controls"
-              icon="isax:camera"
-              size="xs"
-              color="white"
-              text-color="accent"
-              round
-              class="photo-edit"
-              @click="updatePhoto"
+            <q-btn v-if="!controls"
+                   icon="isax:camera"
+                   size="xs"
+                   color="white"
+                   text-color="accent"
+                   round
+                   class="photo-edit"
+                   @click="updatePhoto"
             />
-            <div
-              v-if="controls"
-              class="controls"
+            <div v-if="controls"
+                 class="controls"
             >
-              <q-btn
-                icon="isax:tick-circle"
-                size="xs"
-                color="green"
-                text-color="white"
-                class="controls-btn q-mr-xs"
-                @click="confirmUpdate"
+              <q-btn icon="isax:tick-circle"
+                     size="xs"
+                     color="green"
+                     text-color="white"
+                     class="controls-btn q-mr-xs"
+                     @click="confirmUpdate"
               />
-              <q-btn
-                icon="isax:close-circle"
-                size="xs"
-                color="red"
-                text-color="white"
-                class="controls-btn"
-                @click="discardUpdate"
+              <q-btn icon="isax:close-circle"
+                     size="xs"
+                     color="red"
+                     text-color="white"
+                     class="controls-btn"
+                     @click="discardUpdate"
               />
             </div>
           </div>
@@ -59,13 +53,12 @@
             </div>
           </div>
           <div>
-            <q-btn
-              class="q-ml-lg"
-              icon="isax:edit"
-              size="sm"
-              color="white"
-              text-color="accent"
-              unelevated
+            <q-btn class="q-ml-lg"
+                   icon="isax:edit"
+                   size="sm"
+                   color="white"
+                   text-color="accent"
+                   unelevated
             />
           </div>
         </div>
@@ -76,18 +69,15 @@
             <div class="yellow-star"></div>
           </div>
         </div>
-        <q-separator
-          class="q-mt-md"
-          size="2px"
+        <q-separator class="q-mt-md"
+                     size="2px"
         />
         <q-list class="q-mt-md">
-          <router-link
-            :to="{name: 'UserPanel.MyPurchases'}"
-            class="flex"
+          <router-link :to="{name: 'UserPanel.MyPurchases'}"
+                       class="flex"
           >
-            <q-item
-              v-ripple
-              clickable
+            <q-item v-ripple
+                    clickable
             >
               <q-item-section class="menu-item-custom">
                 <div class="play-btn"></div>
@@ -95,13 +85,11 @@
               </q-item-section>
             </q-item>
           </router-link>
-          <router-link
-            :to="{name: 'UserPanel.MyOrders'}"
-            class="flex"
+          <router-link :to="{name: 'UserPanel.MyOrders'}"
+                       class="flex"
           >
-            <q-item
-              v-ripple
-              clickable
+            <q-item v-ripple
+                    clickable
             >
               <q-item-section class="menu-item-custom">
                 <div class="note"></div>
@@ -109,18 +97,16 @@
               </q-item-section>
             </q-item>
           </router-link>
-          <q-item
-            v-ripple
-            clickable
+          <q-item v-ripple
+                  clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="empty-wallet"></div>
               <div class="menu-item-title q-ml-sm">کیف پول</div>
             </q-item-section>
           </q-item>
-          <router-link
-            class="flex"
-            :to="{name: 'UserPanel.MyFavorites'}"
+          <router-link class="flex"
+                       :to="{name: 'UserPanel.MyFavorites'}"
           >
             <q-item
               v-ripple
@@ -132,40 +118,35 @@
               </q-item-section>
             </q-item>
           </router-link>
-          <q-item
-            v-ripple
-            clickable
+          <q-item v-ripple
+                  clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="leightner"></div>
               <div class="menu-item-title q-ml-sm">جعبه لایتنر</div>
             </q-item-section>
           </q-item>
-          <q-item
-            v-ripple
-            clickable
+          <q-item v-ripple
+                  clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="channels"></div>
               <div class="menu-item-title q-ml-sm">کانال‌های من</div>
             </q-item-section>
           </q-item>
-          <q-item
-            v-ripple
-            clickable
+          <q-item v-ripple
+                  clickable
           >
             <q-item-section class="menu-item-custom">
               <div class="messages"></div>
               <div class="menu-item-title q-ml-sm">نظرات من</div>
             </q-item-section>
           </q-item>
-          <router-link
-            class="flex"
-            :to="{name: 'UserPanel.MyTickets.Index'}"
+          <router-link class="flex"
+                       :to="{name: 'UserPanel.MyTickets.Index'}"
           >
-            <q-item
-              v-ripple
-              clickable
+            <q-item v-ripple
+                    clickable
             >
               <q-item-section class="menu-item-custom">
                 <div class="ticket"></div>
@@ -173,10 +154,9 @@
               </q-item-section>
             </q-item>
           </router-link>
-          <q-item
-            v-ripple
-            clickable
-            @click="logout"
+          <q-item v-ripple
+                  clickable
+                  @click="logout"
           >
             <q-item-section class="menu-item-custom">
               <div class="logout"></div>
@@ -192,12 +172,14 @@
 <script>
 import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import { User } from 'src/models/User'
 
 export default {
   name: 'ProfileMenu',
   mixins: [mixinWidget],
   data() {
     return {
+      user: new User(),
       api: API_ADDRESS.user.base,
       file: null,
       previewImg: null,
@@ -205,9 +187,6 @@ export default {
     }
   },
   computed: {
-    user () {
-      return this.$store.getters['Auth/user']
-    },
     fullName() {
       if (!this.user || !this.user.full_name) {
         return 'وارد نشده'
@@ -220,7 +199,13 @@ export default {
     this.api = API_ADDRESS.user.base + '/' + this.user.id
     this.previewImg = this.user.photo
   },
+  mounted () {
+    this.loadAuthData()
+  },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+    },
     updatePhoto() {
       this.$refs.file.pickFiles()
     },

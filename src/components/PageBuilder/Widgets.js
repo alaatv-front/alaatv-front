@@ -11,6 +11,10 @@ const mixinWidget = {
       default() {
         return {}
       }
+    },
+    editable: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
