@@ -44,7 +44,7 @@
             </q-card>
           </q-dialog>
 
-          <Router :include="keepAliveComponents" />
+          <router :include="keepAliveComponents" />
         </div>
       </template>
       <template #footer>
