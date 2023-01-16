@@ -92,6 +92,9 @@ export default {
       default: ''
     }
   },
+  emits: [
+    'setSelected'
+  ],
   data () {
     return {
       openSetList: true,
