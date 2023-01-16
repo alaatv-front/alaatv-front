@@ -22,7 +22,7 @@ export default {
                       {
                         name: 'Show',
                         options: {
-                          showRouteName: 'Admin.MyTickets.Show'
+                          showRouteName: 'Admin.Ticket.Show'
                         }
                       }
                     ]

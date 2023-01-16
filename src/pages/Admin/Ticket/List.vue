@@ -22,8 +22,8 @@ export default {
                       {
                         name: 'TicketList',
                         options: {
-                          showRouteName: 'Admin.MyTickets.Show',
-                          createRouteName: 'Admin.MyTickets.Create'
+                          showRouteName: 'Admin.Ticket.Show',
+                          createRouteName: 'Admin.Ticket.Create'
                         }
                       }
                     ]
