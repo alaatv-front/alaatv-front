@@ -9,6 +9,9 @@ export default boot(({ store, ssrContext }) => {
   }
 
   const savedStateOnLocalStorage = JSON.parse(window.localStorage.getItem(key))
+  if (!savedStateOnLocalStorage) {
+    return
+  }
   store.replaceState(
     merge(store.state, savedStateOnLocalStorage, {
       arrayMerge: function (store, saved) {

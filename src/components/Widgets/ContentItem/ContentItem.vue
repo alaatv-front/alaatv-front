@@ -2,7 +2,7 @@
   <q-card class="content-item-box">
     <router-link :to="{
       name: 'Public.Content.Show',
-      params: { id: content.id? content.id:-1, title: content.title }
+      params: { id: content.id ? content.id : -1 }
     }"
     >
       <div class="img-box">
