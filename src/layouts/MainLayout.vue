@@ -13,7 +13,7 @@
         />
       </template>
       <template #left-drawer>
-        <side-menu-dashboard :type="getLeftDrawerType" />
+        <template-side-bar :type="getLeftDrawerType" />
       </template>
       <template #content>
         <div ref="contentInside"
@@ -55,18 +55,18 @@
 </template>
 <script>
 import Router from 'src/router/Router.vue'
-import AlaaFooter from 'components/Widgets/Footer/Footer.vue'
-import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
-import templateHeader from 'components/Template/templateHeader.vue'
-import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard.vue'
+import AlaaFooter from 'src/components/Widgets/Footer/Footer.vue'
+import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
+import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
+import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
 // import { setHeight } from 'src/boot/page-builder'
 
 export default {
   components: {
+    TemplateSideBar,
     Router,
     AlaaFooter,
-    SideMenuDashboard,
     QuasarTemplateBuilder,
     templateHeader
   },

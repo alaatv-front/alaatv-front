@@ -1,7 +1,5 @@
 <template>
-  <div
-    v-if="type === 'main'"
-    class="drawer-inside">
+  <div class="drawer-inside">
     <div class="side-menu-main-layout">
       <div class="side-logo">
         <router-link :to="{name: 'Public.Home'}">
@@ -73,31 +71,18 @@
       </div>
     </div>
   </div>
-  <abrisham-side-menu    v-if="type === 'abrisham'" />
 </template>
 
 <script>
 import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
-import AbrishamSideMenu from 'components/Menu/SideMenu/AbrishamSideMenu.vue'
 export default {
-  name: 'SideMenu-dashboard',
-  components: { menuItem, AbrishamSideMenu },
-  props: {
-    type: [String, Boolean, null],
-    default: () => 'main'
-  },
+  name: 'MainSideBarTemplate',
+  components: { menuItem },
   data () {
     return {
       clickedItem: null,
       searchText: '',
       titlesList: [
-        // {
-        //   title: 'داشبورد',
-        //   icon: 'isax:home',
-        //   routeName: 'dashboard',
-        //   active: false,
-        //   children: []
-        // },
         {
           title: 'پنل ادمین',
           icon: 'isax:user',
@@ -576,9 +561,6 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
-  // created() {
-  //   this.updateMenuItems()
-  // },
   methods: {
     // updateMenuItems () {
     //   if (!this.isUserLogin) {

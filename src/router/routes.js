@@ -69,6 +69,26 @@ const routes = [
             component: () => import('pages/Public/Shop.vue')
           },
           {
+            path: 'product',
+            name: 'Public.Product',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Product.Show',
+                path: ':id',
+                component: () => import('pages/Public/Product/Show.vue')
+              }
+            ]
+          },
+          // {
+          //   path: 'cart',
+          //   name: 'Public.Cart',
+          //   component: () => import('pages/Cart/Cart.vue'),
+          //   meta: {
+          //     middlewares: [auth]
+          //   }
+          // },
+          {
             path: 'c',
             name: 'Public.Content',
             component: () => import('layouts/bareLayout.vue'),
@@ -82,18 +102,6 @@ const routes = [
                 name: 'Public.Content.Search',
                 path: '',
                 component: () => import('pages/Public/Content/Search.vue')
-              }
-            ]
-          },
-          {
-            path: 'product',
-            name: 'Public.Product',
-            component: () => import('layouts/bareLayout.vue'),
-            children: [
-              {
-                name: 'Public.Product.Show',
-                path: ':id',
-                component: () => import('pages/Public/Product/Show.vue')
               }
             ]
           },
@@ -226,6 +234,27 @@ const routes = [
                     component: () => import('pages/User/DashboardAbrisham/Map.vue')
                   }
                 ]
+              },
+              {
+                name: 'UserPanel.Asset.GiftCard',
+                path: 'gift-card',
+                layoutConfig: {
+                  layoutHeaderType: 'gift-card',
+                  layoutLeftSideBarType: 'abrisham',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/GiftCardLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.GiftCard.Dashboard',
+                    path: 'dashboard',
+                    component: () => import('pages/User/GiftCardPanel/Dashboard.vue')
+                  }
+                ]
               }
             ]
           }]
@@ -302,14 +331,6 @@ const routes = [
   },
   // are u mr Esmaeili ? '' : dont touch this route
 
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: () => import('pages/Cart/Cart.vue'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
   // Always leave this as last one,
   // but you can also remove it
   {
