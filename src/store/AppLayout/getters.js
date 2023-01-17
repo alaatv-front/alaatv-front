@@ -20,14 +20,14 @@ const getters = {
   ColumnsWidth: (state) => {
     return state.ColumnsWidth
   },
-  templateHeaderType: (state) => {
-    return state.templateHeaderType
+  layoutHeaderType: (state) => {
+    return state.layoutHeaderType
   },
-  templateLeftSideBarType: (state) => {
-    return state.templateLeftSideBarType
+  layoutLeftSideBarType: (state) => {
+    return state.layoutLeftSideBarType
   },
-  templateRightSideBarType: (state) => {
-    return state.templateRightSideBarType
+  layoutRightSideBarType: (state) => {
+    return state.layoutRightSideBarType
   },
   breadcrumbs: (state) => {
     return state.breadcrumbs

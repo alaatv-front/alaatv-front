@@ -1739,7 +1739,7 @@
     vite "^2.9.13"
     webpack-merge "^5.8.0"
 
-"@quasar/extras@^1.15.6", "@quasar/extras@^1.15.8", "@quasar/extras@^1.15.9":
+"@quasar/extras@^1.15.6", "@quasar/extras@^1.15.9":
   version "1.15.9"
   resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.9.tgz#78b6a0f3dce982dd6da160e86f7f5c681bd81e1e"
   integrity sha512-2y0KKTRol5FsqxhJH19pG5qU9ve+AUdPzQDSh/d7XxBZGJASOAcglKH/W1dCdChLJzyJDOJ4DmM2sxWQkosVWw==
@@ -5592,13 +5592,13 @@ quasar-form-builder@^0.1.72:
     vue "^3.2.45"
     vue3-tiptap-katex "^1.0.48"
 
-quasar-template-builder@^1.0.19:
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/quasar-template-builder/-/quasar-template-builder-1.0.19.tgz#08e757e0eb9c2d8d7f999c162a6da8f4f97ea221"
-  integrity sha512-H171/ND6VsUm1eS4Lh9pRuYVl2VvrUOW0GOv+4UMxLI2wNrbtJqX9Z7b4luHYI3xmNhI0jcuvyVuWGlfnJ4M/A==
+quasar-template-builder@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/quasar-template-builder/-/quasar-template-builder-1.0.20.tgz#72a5f186bb83df216d4e70a8ef6ec9eb38c60f9c"
+  integrity sha512-CKLVBtBANzxjB9orrNXsCareVvfoxiNKvBhj2Fefj4rM8Ikmqud7ukZzx2W4IDW03uHp3xQW5Ht3VrFRXJnLBw==
   dependencies:
-    "@quasar/extras" "^1.15.8"
-    quasar "^2.11.2"
+    "@quasar/extras" "^1.15.9"
+    quasar "^2.11.5"
     vue "^3.2.45"
     vuex "^4.1.0"
 
@@ -5612,10 +5612,15 @@ quasar-ui-q-page-builder@^0.0.15:
     quasar "^2.10.2"
     vue "^3.2.45"
 
-quasar@^2.10.2, quasar@^2.11.2, quasar@^2.11.3, quasar@^2.11.4:
+quasar@^2.10.2, quasar@^2.11.3, quasar@^2.11.4:
   version "2.11.4"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.4.tgz#2fbf978cbd381051cd32641f5d3e423565b0d6a3"
   integrity sha512-psE6R5pAyzkjpp7symrtuFug9LRPcuKne6C2XUdIUbomEzi0BiWcdxGesIqS+SUn7qrLIEFWVsvnCTAYSmqbyw==
+
+quasar@^2.11.5:
+  version "2.11.5"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.5.tgz#c8a74c8f7bf24b16cdf51f1257df1a38b68fdfb8"
+  integrity sha512-rX4Rwp9wlCeB9A6RQUxEx/q84LMBVVm6WTECkoq8r/+NBgl9aHVexzZQBnRn2i61D0BJpdX5VcnMxAnJkTx/kA==
 
 queue-microtask@^1.2.2:
   version "1.2.3"

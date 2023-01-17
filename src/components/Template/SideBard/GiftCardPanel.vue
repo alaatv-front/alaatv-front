@@ -1,12 +1,10 @@
 <template>
-  <div>
-    GiftCardPanel header
-  </div>
+  <div>GiftCardPanel: sidebar</div>
 </template>
 
 <script>
 export default {
-  name: 'UserGiftCardPanel'
+  name: 'GiftCardPanel'
 }
 </script>
 

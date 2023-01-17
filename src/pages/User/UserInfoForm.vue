@@ -262,7 +262,6 @@ export default {
     getUserInfo () {
       this.userData = this.user
       this.getUserData()
-      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
     },
     checkVerify () {
       this.user.mobile_verified_at ? this.needVerify = false : this.needVerify = true

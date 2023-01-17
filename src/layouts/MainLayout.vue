@@ -53,6 +53,7 @@
     </quasar-template-builder>
   </div>
 </template>
+
 <script>
 import Router from 'src/router/Router.vue'
 import AlaaFooter from 'src/components/Widgets/Footer/Footer.vue'
@@ -81,10 +82,10 @@ export default {
       return this.$store.getters['AppLayout/confirmDialog']
     },
     getTemplateHeaderType() {
-      return this.$store.getters['AppLayout/templateHeaderType']
+      return this.$store.getters['AppLayout/layoutHeaderType']
     },
     getLeftDrawerType() {
-      return this.$store.getters['AppLayout/templateLeftSideBarType']
+      return this.$store.getters['AppLayout/layoutLeftSideBarType']
     },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
@@ -115,18 +116,17 @@ export default {
         } else if (val.width < 990) {
           this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 60)
         }
-        return
       }
-      if (val.width > 1439) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 314)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
-      } else if (val.width > 599) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 280)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
-      } else {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 242)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
-      }
+      // if (val.width > 1439) {
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 314)
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
+      // } else if (val.width > 599) {
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 280)
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
+      // } else {
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 242)
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
+      // }
     }
   }
 }

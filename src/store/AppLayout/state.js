@@ -6,9 +6,10 @@ const state = {
     message: '',
     buttons: {}
   },
-  templateHeaderType: '',
-  templateLeftSideBarType: '',
-  templateRightSideBarType: '',
+  layoutHeaderType: '',
+  layoutLeftSideBarType: '',
+  layoutRightSideBarType: '',
+  // layoutRightSideBarType: '',
   windowSize: {
     x: 0,
     y: 0

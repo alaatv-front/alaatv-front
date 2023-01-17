@@ -902,16 +902,12 @@ export default {
   },
   methods: {
     initPageData() {
-
       // const products = new ProductList(),
       //   sets = new SetList(),
       //   contents = new ContentList()
     },
     closeLayoutSideBar() {
-      // this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      // this.$nextTick(() => {
-      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      // })
+
     },
     setSideBarSticky () {
       if (!StickySidebar) {
