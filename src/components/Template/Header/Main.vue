@@ -299,6 +299,14 @@ export default {
           permission: 'all',
           active: false,
           children: []
+        },
+        {
+          title: 'کارت هدیه',
+          icon: 'isax:clipboard-text',
+          routeName: 'UserPanel.Asset.GiftCard.Dashboard',
+          permission: 'all',
+          active: false,
+          children: []
         }
       ]
     }
