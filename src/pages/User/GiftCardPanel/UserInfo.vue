@@ -1,13 +1,12 @@
 <template>
-  <q-page-builder
-    v-model:sections="sections"
-    v-model::options="pageConfig"
-  />
+  <div>
+    UserInfo
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'News',
+  name: 'UserInfo',
   data: () => ({
     pageConfig: {},
     sections: [

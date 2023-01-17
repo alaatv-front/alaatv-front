@@ -15,3 +15,9 @@ export default {
   })
 }
 </script>
+
+<style lang="scss" scoped>
+.gift-card-layout {
+  background: #F5F7FA;
+}
+</style>

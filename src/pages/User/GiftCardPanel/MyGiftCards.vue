@@ -1,10 +1,12 @@
 <template>
-  <div>Dashboard</div>
+  <div>
+    MyGiftCards
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Dashboard',
+  name: 'MyGiftCards',
   data: () => ({
     pageConfig: {},
     sections: [
@@ -16,7 +18,7 @@ export default {
                 {
                   widgets: [
                     {
-                      name: 'AbrishamConsulting'
+                      name: 'map'
                     }
                   ]
                 }
@@ -29,3 +31,7 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+
+</style>

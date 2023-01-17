@@ -239,9 +239,7 @@ import { User } from 'src/models/User'
 import { mapMutations } from 'vuex'
 export default {
   name: 'MainHeaderTemplate',
-  components: {
-    LazyImg
-  },
+  components: { LazyImg },
   data() {
     return {
       searchInput: '',

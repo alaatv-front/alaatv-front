@@ -20,7 +20,6 @@ const routes = [
       layoutLeftDrawerBordered: false,
       layoutLeftDrawerWidth: 325,
       layoutLeftDrawerBehavior: 'default',
-      layoutPageContainer: true,
       layoutRightDrawer: false,
       layoutFooter: true,
       layoutFooterVisible: true,
@@ -239,6 +238,7 @@ const routes = [
                 name: 'UserPanel.Asset.GiftCard',
                 path: 'gift-card',
                 layoutConfig: {
+                  layoutView: 'lHh LpR fFf',
                   layoutHeaderType: 'gift-card',
                   layoutLeftDrawer: true,
                   layoutLeftDrawerWidth: 126,
@@ -252,6 +252,21 @@ const routes = [
                     name: 'UserPanel.Asset.GiftCard.Dashboard',
                     path: 'dashboard',
                     component: () => import('pages/User/GiftCardPanel/Dashboard.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.MyGiftCards',
+                    path: 'my-gift-cards',
+                    component: () => import('pages/User/GiftCardPanel/MyGiftCards.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.Transactions',
+                    path: 'transactions',
+                    component: () => import('pages/User/GiftCardPanel/Transactions.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.UserInfo',
+                    path: 'user-info',
+                    component: () => import('pages/User/GiftCardPanel/UserInfo.vue')
                   }
                 ]
               }

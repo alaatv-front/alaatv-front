@@ -1,13 +1,12 @@
 <template>
-  <q-page-builder
-    v-model:sections="sections"
-    v-model::options="pageConfig"
-  />
+  <div>
+    Transactions
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'dashboard-map',
+  name: 'Transactions',
   data: () => ({
     pageConfig: {},
     sections: [

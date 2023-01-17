@@ -137,6 +137,10 @@ export default {
   :deep(.main-layout-container) {
     background-color: #f1f1f1;
   }
+  :deep(.q-layout__section--marginal) {
+    background-color: transparent;
+    color: inherit;
+  }
   .content-inside {
     //padding-top: 20px;
   }
