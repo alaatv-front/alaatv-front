@@ -183,7 +183,9 @@
                         class="tab-panels"
                         animated>
             <q-tab-panel name="events">
-              <log-list :log-array="getInputsValue('logs')" />
+              <log-list
+                :log-array="logList"
+              />
             </q-tab-panel>
             <q-tab-panel name="otherTickets">
               <template v-for="ticket in getInputsValue('otherTickets')"
@@ -259,6 +261,7 @@ export default {
   },
   data() {
     return {
+      logList: [],
       sendLoading: false,
       updateUserTem: false,
       phoneNumber: null,
@@ -350,7 +353,6 @@ export default {
           type: 'dateTime',
           name: 'created_at',
           responseKey: 'ticket.updated_at',
-          abc: true,
           label: 'تاریخ بروز آوری:',
           col: 'col-md-4',
           disable: true
@@ -425,15 +427,15 @@ export default {
             itemIdentifyKey: 'mobile',
             itemIndicatorKey: 'mobile'
           },
-          value: [],
-          responseKey: '',
+          value: null,
+          responseKey: 'ticket.user',
           itemIdentifyKey: 'mobile',
-          selected: [],
+          selected: null,
           col: 'col-md-4'
         },
         {
           type: 'entity',
-          name: 'editOperator',
+          name: 'editOperator', // assignees
           selectionMode: 'multiple',
           label: 'انتخاب اپراتورها',
           buttonColor: 'blue',
@@ -494,7 +496,7 @@ export default {
           itemIdentifyKey: 'id',
           itemIndicatorKey: 'id',
           value: [],
-          responseKey: '',
+          responseKey: 'ticket.assignees',
           selected: [],
           col: 'col-md-6'
         }
@@ -537,6 +539,9 @@ export default {
       this.inputs = this.inputs.filter(input => !input.isAdmin)
     },
 
+    getLogsInputValue () {
+      return this.getInputsValue('logs')
+    },
     // updateTicketData() {
     //   this.$axios.put(API_ADDRESS.ticket.show.base + '/' + this.getInputsValue('id'), {
     //     department_id: this.getInputsValue('department'),
@@ -1433,6 +1438,7 @@ export default {
         )
     },
     checkLoadInputData() {
+      this.logList = this.getLogsInputValue()
       this.userMessageArray = this.getInputsValue('messages')
       // for test
       // this.userMessageArray = [
