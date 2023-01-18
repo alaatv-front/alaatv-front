@@ -65,14 +65,14 @@
                    @click="pauseRecordedVoice">
               <q-icon name="isax:pause"></q-icon>
             </q-btn>
-            <av-waveform ref="waveform"
-                         class="av-waveform"
-                         :audio-src="data.files.voice"
-                         :playtime-font-family="'IRANSans'"
-                         :audio-controls="false"
-                         :canv-width="900"
-                         :canv-height="64"
-            ></av-waveform>
+            <!--            <av-waveform ref="waveform"-->
+            <!--                         class="av-waveform"-->
+            <!--                         :audio-src="data.files.voice"-->
+            <!--                         :playtime-font-family="'IRANSans'"-->
+            <!--                         :audio-controls="false"-->
+            <!--                         :canv-width="900"-->
+            <!--                         :canv-height="64"-->
+            <!--            ></av-waveform>-->
           </div>
         </div>
         <q-img v-if="data.files.photo"
@@ -122,12 +122,12 @@
 <script>
 import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinDateOptions, mixinTicket } from 'src/mixin/Mixins.js'
-import AvWaveform from '@kerasus/vue-audio-visual/src/components/AvWaveform.js'
+// import AvWaveform from '@kerasus/vue-audio-visual/src/components/AvWaveform.js'
 
 export default {
   name: 'Messages',
   components: {
-    AvWaveform
+    // AvWaveform
   },
   mixins: [mixinDateOptions, mixinTicket],
 
@@ -256,6 +256,11 @@ export default {
     }
     &.left-side{
       right: 0;
+    }
+  }
+  :deep(.q-card__section) {
+    .body {
+      overflow: auto;
     }
   }
 }
