@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import GetWidgetsData from 'assets/js/GetWidgetsData.js'
-
 export default {
   name: 'Show',
   beforeRouteUpdate(to, from) {
@@ -31,12 +29,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ContentVideoPlayer',
-                        options: {
-                          id: this.$route.params.id,
-                          paginate: true,
-                          getData: (url) => GetWidgetsData.getData(url)
-                        }
+                        name: 'ContentVideoPlayer'
                       }
                     ],
                     options: {
@@ -46,11 +39,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ContentVideoList',
-                        options: {
-                          id: this.$route.params.id,
-                          getData: (url) => GetWidgetsData.getData(url)
-                        }
+                        name: 'ContentVideoList'
                       }
                     ],
                     options: {
@@ -73,11 +62,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ContentShowInfo',
-                        options: {
-                          id: this.$route.params.id,
-                          getData: (url) => GetWidgetsData.getData(url)
-                        }
+                        name: 'ContentShowInfo'
                       }
                     ],
                     options: {

@@ -372,6 +372,7 @@ export default {
     color: white;
     @media screen and (max-width: 600px){
       font-size: 8px;
+      margin: 5px;
     }
   }
 

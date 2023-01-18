@@ -109,68 +109,76 @@ export default {
   width: 524px;
   padding-right: 20px;
   margin-bottom: 20px;
-@media only screen and (max-width: 1439px) {
-  width: 472px;
-}
-@media only screen and (max-width: 1023px) {
-  max-width: 700px;
-  width: 100%;
-  padding-right: 30px;
-}
+  @media only screen and (max-width: 1439px) {
+    width: 472px;
+  }
+  @media only screen and (max-width: 1023px) {
+    max-width: 700px;
+    width: 100%;
+    padding-right: 30px;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 14px;
+  }
 
-.discount-percent {
-  width: 120px;
-  height: 70px;
-  background-color: #E05555;
-  color: #ffffff;
-  border-radius: 20px 0 0 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .discount-percent {
+    width: 120px;
+    height: 70px;
+    background-color: #E05555;
+    color: #ffffff;
+    border-radius: 20px 0 0 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.percent {
-  margin-right: 5px;
-}
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+      padding: 5px;
+    }
+
+  .percent {
+    margin-right: 5px;
+  }
 }
 
 .price {
   display: flex;
   align-items: center;
   margin: 0 20px;
-@media only screen and (max-width: 1023px) {
-  margin: 0 10px;
-}
-@media only screen and (max-width: 1023px) {
-  //flex-direction: column;
-  padding-left: 30px;
-}
+  @media only screen and (max-width: 1023px) {
+    margin: 0 10px;
+  }
+  @media only screen and (max-width: 1023px) {
+    //flex-direction: column;
+    padding-left: 30px;
+  }
 
-.product-base-price {
-  text-decoration: line-through;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 24px;
-  color: #E05555;
-  margin-right: 10px;
-}
+  .product-base-price {
+    text-decoration: line-through;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    color: #E05555;
+    margin-right: 10px;
+  }
 
-.product-final-price {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 31px;
-  letter-spacing: -0.05em;
-  margin-left: 5px;
-  margin-right: 10px;
-}
+  .product-final-price {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 31px;
+    letter-spacing: -0.05em;
+    margin-left: 5px;
+    margin-right: 10px;
+  }
 
-.product-price-title {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 10px;
-  line-height: 17px;
-}
+  .product-price-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 17px;
+  }
 }
 
 .purchase-button {

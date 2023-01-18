@@ -32,6 +32,7 @@
     "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
     "fs": "^0.0.1-security",
+    "fslightbox-vue": "^2.0.1",
     "js-abstract-model": "^0.1.32",
     "katex": "^0.16.4",
     "leaflet": "^1.9.3",

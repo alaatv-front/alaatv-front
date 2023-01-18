@@ -18,7 +18,7 @@
         />
         <q-card
           class="description-text"
-          v-html="product.description.short || product.description.long"
+          v-html="product.description?.short || product.description?.long"
         >
         </q-card>
       </div>
