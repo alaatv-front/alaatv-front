@@ -273,10 +273,10 @@
 
 <script>
 import moment from 'moment-jalaali'
-import API_ADDRESS from 'src/api/Addresses'
-import { mixinWidget } from 'src/mixin/Mixins'
-import { Set } from 'src/models/Set'
-import Bookmark from 'components/Bookmark'
+import API_ADDRESS from 'src/api/Addresses.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import { Set } from 'src/models/Set.js'
+import Bookmark from 'components/Bookmark.vue'
 
 export default {
   name: 'SetShowInfo',
