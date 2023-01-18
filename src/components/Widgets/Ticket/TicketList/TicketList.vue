@@ -5,7 +5,7 @@
                   :api="api"
                   :table="table"
                   :table-keys="tableKeys"
-                  :create-route-name="'Admin.Ticket.Create'"
+                  :create-route-name="options.createRouteName"
                   @onPageChanged="filterInputs"
     >
       <template v-slot:before-index-table>
@@ -86,7 +86,7 @@
                      size="md"
                      color="info"
                      icon="info"
-                     :to="{name:'Admin.Ticket.Show', params: {id: inputData.props.row.id}}">
+                     :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
                 <q-tooltip>
                   مشاهده
                 </q-tooltip>
@@ -130,12 +130,23 @@
 <script>
 import { EntityIndex } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses.js'
-import { mixinTicket } from 'src/mixin/Mixins.js'
+import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'TicketList',
   components: { EntityIndex },
-  mixins: [mixinTicket],
+  mixins: [mixinTicket, mixinWidget],
+  props: {
+    options: {
+      type: Object,
+      default() {
+        return {
+          showRouteName: '',
+          createRouteName: ''
+        }
+      }
+    }
+  },
   data () {
     return {
       totalTickets: 0,

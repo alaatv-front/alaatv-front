@@ -15,17 +15,14 @@ const mutations = {
   updateLoginDialog: (state, newInfo) => {
     state.loginDialog = newInfo
   },
-  changeTemplateHeaderType: (state, newInfo) => {
-    state.templateHeaderType = newInfo
+  updateLayoutHeaderType: (state, newInfo) => {
+    state.layoutHeaderType = newInfo
   },
-  changeTemplateLeftSideBarType: (state, newInfo) => {
-    state.templateLeftSideBarType = newInfo
+  updateLayoutLeftSideBarType: (state, newInfo) => {
+    state.layoutLeftSideBarType = newInfo
   },
-  changeTemplateRightSideBarType: (state, newInfo) => {
-    state.templateRightSideBarType = newInfo
-  },
-  changeTemplateLeftSideBarWidth: (state, newInfo) => {
-    state.templateLeftSideBarWidth = newInfo
+  updateLayoutRightSideBarType: (state, newInfo) => {
+    state.layoutRightSideBarType = newInfo
   },
   showConfirmDialog: (state, newInfo) => {
     state.confirmDialog = newInfo
@@ -41,15 +38,12 @@ const mutations = {
   },
   updateVisibilityBreadcrumb: (state, data) => {
     state.breadcrumbs.visible = data
-  },
-  updateHeaderSize: (state, data) => {
-    Object.assign(state.headerSize, data)
-  },
-  updateAppLayout: (state, data) => {
-    const storage = JSON.parse(localStorage.getItem('vuex'))
-    Object.assign(storage.AppLayout, data)
-    Object.assign(state, storage.AppLayout)
   }
+  // updateAppLayout: (state, data) => {
+  //   const storage = JSON.parse(localStorage.getItem('vuex'))
+  //   Object.assign(storage.AppLayout, data)
+  //   Object.assign(state, storage.AppLayout)
+  // }
 }
 
 export default mutations

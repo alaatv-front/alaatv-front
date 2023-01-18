@@ -1,6 +1,5 @@
 <template>
-  <div v-if="type === 'main'"
-       class="app-bar-container">
+  <div class="app-bar-container">
     <div class="app-bar">
       <div class="header-section">
         <!--        -----------------------------------------------------Logo Section--------------------------------------------   -->
@@ -232,25 +231,15 @@
       </div>
     </div>
   </div>
-  <abrisham-template-header  v-if="type === 'abrisham'" />
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import { User } from 'src/models/User'
 import LazyImg from 'src/components/lazyImg.vue'
-import AbrishamTemplateHeader from 'components/Template/abrishamTemplateHeader.vue'
-
+import { User } from 'src/models/User'
+import { mapMutations } from 'vuex'
 export default {
-  name: 'templateHeader',
-  components: {
-    LazyImg,
-    AbrishamTemplateHeader
-  },
-  props: {
-    type: [String, Boolean, null],
-    default: () => 'main'
-  },
+  name: 'MainHeaderTemplate',
+  components: { LazyImg },
   data() {
     return {
       searchInput: '',
@@ -307,6 +296,14 @@ export default {
           title: 'سفارش‌ ها',
           icon: 'isax:clipboard-text',
           routeName: 'UserPanel.MyOrders',
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
+          title: 'کارت هدیه',
+          icon: 'isax:clipboard-text',
+          routeName: 'UserPanel.Asset.GiftCard.Dashboard',
           permission: 'all',
           active: false,
           children: []
@@ -370,39 +367,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.user-panel-bare-layout {
-  max-width: 1362px;
-  margin: auto;
-  padding-top: 30px;
-  background: #f4f6f9;
-  justify-content: center;
-  @media screen and (max-width: 1439px) {
-    max-width: 100%;
-  }
-  @media screen and (max-width: 1439px) {
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-  @media screen and (max-width: 1148px) {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  @media screen and (max-width: 1023px) {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-  @media screen and (max-width: 599px) {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .user-side-bar {
-    @media screen and (max-width: 1023px) {
-      display: none;
-    }
-  }
-}
-
+<style lang="scss" scoped>
 .app-bar-container {
   background-color: #fff;
   height: 72px;
@@ -548,7 +513,7 @@ export default {
               }
 
               &:deep(.q-field__marginal) {
-                  height: auto;
+                height: auto;
                 padding: 0;
               }
 

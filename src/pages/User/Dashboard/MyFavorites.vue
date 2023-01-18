@@ -11,6 +11,7 @@ export default {
   name: 'MyFavorites',
   data () {
     return {
+      pageBuilderEditable: false,
       pageConfig: {},
       sections: [
         {
@@ -54,11 +55,16 @@ export default {
     }
   },
   computed: {
-    pageBuilderEditable() {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    },
     calculateHeightStyle () {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
+    }
+  },
+  mounted () {
+    this.loadPageBuilderData()
+  },
+  methods: {
+    loadPageBuilderData () {
+      this.pageBuilderEditable = this.$store.getters['AppLayout/pageBuilderEditable']
     }
   }
 }

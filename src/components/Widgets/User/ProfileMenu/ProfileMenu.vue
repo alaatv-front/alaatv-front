@@ -143,7 +143,7 @@
             </q-item-section>
           </q-item>
           <router-link class="flex"
-                       :to="{name: 'UserPanel.MyTickets.Index'}"
+                       :to="{name: 'UserPanel.Ticket.Index'}"
           >
             <q-item v-ripple
                     clickable
@@ -171,15 +171,13 @@
 
 <script>
 import API_ADDRESS from 'src/api/Addresses.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
-import { User } from 'src/models/User'
+import { mixinWidget, mixinAuthData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProfileMenu',
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinAuthData],
   data() {
     return {
-      user: new User(),
       api: API_ADDRESS.user.base,
       file: null,
       previewImg: null,
@@ -199,13 +197,8 @@ export default {
     this.api = API_ADDRESS.user.base + '/' + this.user.id
     this.previewImg = this.user.photo
   },
-  mounted () {
-    this.loadAuthData()
-  },
+  mounted () {},
   methods: {
-    loadAuthData () { // prevent Hydration node mismatch
-      this.user = this.$store.getters['Auth/user']
-    },
     updatePhoto() {
       this.$refs.file.pickFiles()
     },

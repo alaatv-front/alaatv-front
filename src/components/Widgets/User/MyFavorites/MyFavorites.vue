@@ -80,8 +80,13 @@
 </template>
 
 <script>
-// import StickySidebar from 'sticky-sidebar'
-const StickySidebar = typeof window !== 'undefined' ? require('sticky-sidebar') : null
+let StickySidebar = null
+if (typeof window !== 'undefined') {
+  import('sticky-sidebar')
+    .then((StickySidebarPackage) => {
+      StickySidebar = StickySidebarPackage
+    })
+}
 import { SetList } from 'src/models/Set.js'
 import { ProductList } from 'src/models/Product.js'
 import { ContentList } from 'src/models/Content.js'
@@ -897,16 +902,12 @@ export default {
   },
   methods: {
     initPageData() {
-
       // const products = new ProductList(),
       //   sets = new SetList(),
       //   contents = new ContentList()
     },
     closeLayoutSideBar() {
-      // this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      // this.$nextTick(() => {
-      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-      // })
+
     },
     setSideBarSticky () {
       if (!StickySidebar) {

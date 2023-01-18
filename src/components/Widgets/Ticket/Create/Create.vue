@@ -3,12 +3,12 @@
     <entity-create
       ref="EntityCreate"
       v-model:value="inputs"
-      :title=selectedDepartment.title
+      :title="selectedDepartment.title"
       :api="api"
       entity-id-key-in-response="id"
       show-route-param-key="id"
-      index-route-name="Admin.Ticket.Index"
-      show-route-name="Admin.Ticket.Show"
+      :index-route-name="options.indexRouteName"
+      :show-route-name="options.showRouteName"
       :show-save-button="false"
     >
       <template #before-form-builder>
@@ -52,7 +52,7 @@
 <script>
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses.js'
-import { mixinTicket } from 'src/mixin/Mixins.js'
+import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketDepartment } from 'src/models/TicketDepartment.js'
 import SendMessageInput from 'components/Ticket/SendMessageInput.vue'
 
@@ -62,7 +62,18 @@ export default {
     EntityCreate,
     SendMessageInput
   },
-  mixins: [mixinTicket],
+  mixins: [mixinTicket, mixinWidget],
+  props: {
+    options: {
+      type: Object,
+      default() {
+        return {
+          showRouteName: '',
+          indexRouteName: ''
+        }
+      }
+    }
+  },
   data () {
     return {
       showDialog: true,

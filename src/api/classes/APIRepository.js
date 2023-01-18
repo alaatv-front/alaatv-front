@@ -12,11 +12,10 @@ export default class APIRepository {
   /**
    * It takes in a requestData object, and returns a promise that resolves to the result of the
    * resolveCallback function, or rejects to the result of the rejectCallback function
-   * @param requestData - {
+   * @param requestData - { apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params }
    * @returns A promise that will resolve or reject based on the response from the API call.
    */
-  sendRequest (requestData) {
-    const { apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params } = requestData
+  sendRequest ({ apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params }) {
     return new Promise((resolve, reject) => {
       APIInstanceWrapper[apiMethod]({
         api,

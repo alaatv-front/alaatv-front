@@ -36,6 +36,7 @@ module.exports = configure(function (ctx) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
+      'VuexPersistedState', // load store from localstorage to use in other boots (ex: accessToken in axios boot)
       'i18n',
       'icon',
       'axios',
@@ -44,7 +45,6 @@ module.exports = configure(function (ctx) {
       'bus',
       'breadcrumbs',
       'api-gateway',
-      'VuexPersistedState',
       'registerQPageBuilder',
       'routesLayoutConfigs'
     ],

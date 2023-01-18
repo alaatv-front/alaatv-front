@@ -5,22 +5,21 @@ const routes = [
   {
     path: '',
     layoutConfig: {
-      layoutHeaderVisible: true,
-      layoutHeaderType: 'main',
-      layoutLeftDrawerVisible: false,
-      layoutLeftSideBarType: 'main',
       layoutView: 'lHh Lpr fff',
       layoutHeader: true,
+      layoutHeaderType: 'main',
+      layoutHeaderVisible: true,
       layoutHeaderReveal: false,
       layoutHeaderElevated: false,
       layoutHeaderBordered: false,
       layoutLeftDrawer: true,
+      layoutLeftSideBarType: 'main',
+      layoutLeftDrawerVisible: false,
       layoutLeftDrawerOverlay: false,
       layoutLeftDrawerElevated: false,
       layoutLeftDrawerBordered: false,
       layoutLeftDrawerWidth: 325,
       layoutLeftDrawerBehavior: 'default',
-      layoutPageContainer: true,
       layoutRightDrawer: false,
       layoutFooter: true,
       layoutFooterVisible: true,
@@ -69,6 +68,26 @@ const routes = [
             component: () => import('pages/Public/Shop.vue')
           },
           {
+            path: 'product',
+            name: 'Public.Product',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Product.Show',
+                path: ':id',
+                component: () => import('pages/Public/Product/Show.vue')
+              }
+            ]
+          },
+          // {
+          //   path: 'cart',
+          //   name: 'Public.Cart',
+          //   component: () => import('pages/Cart/Cart.vue'),
+          //   meta: {
+          //     middlewares: [auth]
+          //   }
+          // },
+          {
             path: 'c',
             name: 'Public.Content',
             component: () => import('layouts/bareLayout.vue'),
@@ -82,18 +101,6 @@ const routes = [
                 name: 'Public.Content.Search',
                 path: '',
                 component: () => import('pages/Public/Content/Search.vue')
-              }
-            ]
-          },
-          {
-            path: 'product',
-            name: 'Public.Product',
-            component: () => import('layouts/bareLayout.vue'),
-            children: [
-              {
-                name: 'Public.Product.Show',
-                path: ':id',
-                component: () => import('pages/Public/Product/Show.vue')
               }
             ]
           },
@@ -160,23 +167,23 @@ const routes = [
             component: () => import('pages/User/Dashboard/MyFavorites.vue')
           },
           {
-            name: 'UserPanel.MyTickets',
-            path: 'my-tickets',
+            name: 'UserPanel.Ticket',
+            path: 'ticket',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
                 path: '',
-                name: 'UserPanel.MyTickets.Index',
+                name: 'UserPanel.Ticket.Index',
                 component: () => import('pages/User/Ticket/List.vue')
               },
               {
                 path: 'create',
-                name: 'UserPanel.MyTickets.Create',
+                name: 'UserPanel.Ticket.Create',
                 component: () => import('pages/User/Ticket/Create.vue')
               },
               {
                 path: ':id',
-                name: 'UserPanel.MyTickets.Show',
+                name: 'UserPanel.Ticket.Show',
                 component: () => import('pages/User/Ticket/Show.vue')
               }
             ]
@@ -224,6 +231,42 @@ const routes = [
                     name: 'UserPanel.Asset.Abrisham.Map',
                     path: 'map',
                     component: () => import('pages/User/DashboardAbrisham/Map.vue')
+                  }
+                ]
+              },
+              {
+                name: 'UserPanel.Asset.GiftCard',
+                path: 'gift-card',
+                layoutConfig: {
+                  layoutView: 'lHh LpR fFf',
+                  layoutHeaderType: 'gift-card',
+                  layoutLeftDrawer: true,
+                  layoutLeftDrawerWidth: 126,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftSideBarType: 'gift-card',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/GiftCardLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.GiftCard.Dashboard',
+                    path: 'dashboard',
+                    component: () => import('pages/User/GiftCardPanel/Dashboard.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.MyGiftCards',
+                    path: 'my-gift-cards',
+                    component: () => import('pages/User/GiftCardPanel/MyGiftCards.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.Transactions',
+                    path: 'transactions',
+                    component: () => import('pages/User/GiftCardPanel/Transactions.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.UserInfo',
+                    path: 'user-info',
+                    component: () => import('pages/User/GiftCardPanel/UserInfo.vue')
                   }
                 ]
               }
@@ -302,14 +345,6 @@ const routes = [
   },
   // are u mr Esmaeili ? '' : dont touch this route
 
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: () => import('pages/Cart/Cart.vue'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
   // Always leave this as last one,
   // but you can also remove it
   {
