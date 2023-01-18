@@ -52,7 +52,7 @@
     "videojs-hotkeys": "^0.2.28",
     "videojs-playlist": "^5.0.0",
     "vue": "^3.2.45",
-    "vue-advanced-cropper": "^2.8.6",
+    "vue-advanced-cropper": "^2.8.8",
     "vue-dragscroll": "^4.0.5",
     "vue-i18n": "^9.2.2",
     "vue-light-gallery": "^1.0.1",
