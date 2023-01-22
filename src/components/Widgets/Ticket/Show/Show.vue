@@ -52,7 +52,7 @@
                      :loading="loading"
                      icon="isax:edit"
                      color="blue"
-                     @click="updateTicketData">
+                     @click="updateTicketData(getInputsValue('id'))">
                 <q-tooltip>ویرایش اطلاعات تیکت</q-tooltip>
               </q-btn>
             </div>

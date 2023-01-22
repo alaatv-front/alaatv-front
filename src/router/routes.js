@@ -276,8 +276,16 @@ const routes = [
       {
         path: 'admin',
         name: 'Admin',
+        layoutConfig: {
+          layoutView: 'lHh LpR fFf',
+          layoutHeaderType: 'admin',
+          layoutLeftDrawer: true,
+          layoutLeftDrawerVisible: true,
+          layoutLeftSideBarType: 'admin',
+          layoutFooter: false
+        },
         meta: { middlewares: [auth] },
-        component: () => import('layouts/AdminLayout.vue'),
+        component: () => import('layouts/bareLayout.vue'),
         children: [
           {
             path: 'ticket',
