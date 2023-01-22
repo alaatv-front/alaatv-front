@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import GetWidgetsData from 'assets/js/GetWidgetsData.js'
 
 export default {
   name: 'Public.Set.Show',
@@ -42,11 +41,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'Set',
-                        data: this.$route.params.id,
-                        options: {
-                          getData: (url) => GetWidgetsData.getData(url)
-                        }
+                        name: 'Set'
                       }
                     ]
                   }

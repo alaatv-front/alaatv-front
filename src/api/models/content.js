@@ -23,7 +23,7 @@ export default class ContentAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.show(data),
       cacheKey: this.CacheList.show(data),
-      ...(data.cache && { cache: data.cache }),
+      ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new Content(response.data.data)
       },

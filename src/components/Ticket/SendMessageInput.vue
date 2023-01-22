@@ -89,18 +89,18 @@
           >
             <q-card>
               <div>
-                <cropper
-                  ref="cropper"
-                  class="cropper"
-                  :src="imgURL"
-                  :canvas="{
-                    minHeight: 0,
-                    minWidth: 0,
-                    maxHeight: 2048,
-                    maxWidth: 2048,
-                  }"
-                  @change="change"
-                />
+                <!--                <cropper-->
+                <!--                  ref="cropper"-->
+                <!--                  class="cropper"-->
+                <!--                  :src="imgURL"-->
+                <!--                  :canvas="{-->
+                <!--                    minHeight: 0,-->
+                <!--                    minWidth: 0,-->
+                <!--                    maxHeight: 2048,-->
+                <!--                    maxWidth: 2048,-->
+                <!--                  }"-->
+                <!--                  @change="change"-->
+                <!--                />-->
 
                 <div class="slider_box">
                   <q-btn
@@ -190,29 +190,30 @@
             </q-tooltip>
           </q-btn>
         </div>
-
-        <av-waveform
-          v-if="recordedVoice !== null"
-          v-show="showVoicePlayer"
-          ref="playAudio"
-          class="av-waveform"
-          :audio-src="recordedVoice"
-          :playtime-font-family="'IRANSans'"
-          :audio-controls="false"
-          :canv-width="1285"
-          :canv-height="64"
-        />
-
-        <av-media
-          v-show="showVoiceVisualizer"
-          class="voiceVisualizer"
-          type="wform"
-          :media="streamVoice"
-          line-color="#ff9000"
-          :canv-width="1285"
-          :canv-height="64"
-        />
-
+        <!--        <q-no-ssr>-->
+        <!--          <av-waveform-->
+        <!--            v-if="recordedVoice !== null"-->
+        <!--            v-show="showVoicePlayer"-->
+        <!--            ref="playAudio"-->
+        <!--            class="av-waveform"-->
+        <!--            :audio-src="recordedVoice"-->
+        <!--            :playtime-font-family="'IRANSans'"-->
+        <!--            :audio-controls="false"-->
+        <!--            :canv-width="1285"-->
+        <!--            :canv-height="64"-->
+        <!--          />-->
+        <!--        </q-no-ssr>-->
+        <!--        <q-no-ssr>-->
+        <!--          <av-media-->
+        <!--            v-show="showVoiceVisualizer"-->
+        <!--            class="voiceVisualizer"-->
+        <!--            type="wform"-->
+        <!--            :media="streamVoice"-->
+        <!--            line-color="#ff9000"-->
+        <!--            :canv-width="1285"-->
+        <!--            :canv-height="64"-->
+        <!--          />-->
+        <!--        </q-no-ssr>-->
         <q-input
           v-show="canShowTextarea"
           v-model="newMessage.text"
@@ -273,68 +274,68 @@ import Drawer from 'components/CustomDrawer.vue'
 // import { Cropper } from 'vue-advanced-cropper'
 import { CartItemList } from 'src/models/CartItem.js'
 import UserOrderList from 'components/Ticket/userOrderList.vue'
-import AvMedia from '@kerasus/vue-audio-visual/src/components/AvMedia.js'
-import AvWaveform from '@kerasus/vue-audio-visual/src/components/AvWaveform.js'
+// import AvMedia from '@kerasus/vue-audio-visual/src/components/AvMedia.js'
+// import AvWaveform from '@kerasus/vue-audio-visual/src/components/AvWaveform.js'
 // import 'vue-advanced-cropper/dist/style.css'
 
 const longpress = {
-  created(el, binding) { /*, vNode */
-    if (typeof binding.value !== 'function') {
-      // const compName = vNode.context.name
-      // let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
-      // if (compName) {
-      //   warn += `Found in component '${compName}' `
-      // }
-    }
-
-    // Define variable
-    let pressTimer = null
-
-    const start = (e) => {
-      if (e.type === 'click' && e.button !== 0) {
-        return
-      }
-
-      handler('longpress-start')
-
-      if (pressTimer === null) {
-        pressTimer = setTimeout(() => {
-          // Run function
-          handler('longpress-holding')
-        }, 1)
-      }
-    }
-
-    const cancel = (e) => {
-      if (pressTimer !== null) {
-        clearTimeout(pressTimer)
-        pressTimer = null
-        handler('longpress-left')
-      }
-    }
-
-    // Run
-    const handler = (e) => {
-      binding.value(e)
-    }
-
-    // Add Event listeners
-    el.addEventListener('mousedown', start)
-    el.addEventListener('touchstart', start)
-    // Cancel timeouts if these events happen
-    el.addEventListener('click', cancel)
-    el.addEventListener('mouseout', cancel)
-    el.addEventListener('touchend', cancel)
-    el.addEventListener('touchcancel', cancel)
-  }
+  // created(el, binding) { /*, vNode */
+  //   if (typeof binding.value !== 'function') {
+  //     // const compName = vNode.context.name
+  //     // let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
+  //     // if (compName) {
+  //     //   warn += `Found in component '${compName}' `
+  //     // }
+  //   }
+  //
+  //   // Define variable
+  //   let pressTimer = null
+  //
+  //   const start = (e) => {
+  //     if (e.type === 'click' && e.button !== 0) {
+  //       return
+  //     }
+  //
+  //     handler('longpress-start')
+  //
+  //     if (pressTimer === null) {
+  //       pressTimer = setTimeout(() => {
+  //         // Run function
+  //         handler('longpress-holding')
+  //       }, 1)
+  //     }
+  //   }
+  //
+  //   const cancel = (e) => {
+  //     if (pressTimer !== null) {
+  //       clearTimeout(pressTimer)
+  //       pressTimer = null
+  //       handler('longpress-left')
+  //     }
+  //   }
+  //
+  //   // Run
+  //   const handler = (e) => {
+  //     binding.value(e)
+  //   }
+  //
+  //   // Add Event listeners
+  //   el.addEventListener('mousedown', start)
+  //   el.addEventListener('touchstart', start)
+  //   // Cancel timeouts if these events happen
+  //   el.addEventListener('click', cancel)
+  //   el.addEventListener('mouseout', cancel)
+  //   el.addEventListener('touchend', cancel)
+  //   el.addEventListener('touchcancel', cancel)
+  // }
 }
 
 export default {
   name: 'SendMessageInput',
   components: {
-    AvWaveform,
+    // AvWaveform,
     // Cropper,
-    AvMedia,
+    // AvMedia,
     Drawer,
     UserOrderList
   },
