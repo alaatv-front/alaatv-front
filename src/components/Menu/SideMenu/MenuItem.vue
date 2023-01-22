@@ -57,7 +57,7 @@
         <q-item-section class="list-section">
           {{ item.title }}
         </q-item-section>
-        <span class="indicator" />
+        <!--        <span class="indicator" />-->
       </div>
     </q-item>
   </div>
@@ -216,7 +216,7 @@ export default {
           .list-section {
             display: flex;
             flex-direction: row;
-            justify-content: right;
+            justify-content: left;
 
             .q-avatar {
               height: 22px;
@@ -298,8 +298,7 @@ export default {
       }
 
       .active-route {
-        background-color: #8075DC;
-
+        background-color: #ffe9cc;
         .indicator {
           height: 6px;
           width: 6px;
@@ -353,20 +352,4 @@ export default {
     }
   }
 }
-</style>
-<style lang="scss">
-.side-menu-main-layout {
-  .q-expansion-item__container {
-    .q-item {
-      display: flex;
-      padding: 0 10px !important;
-
-    }
-
-    .q-icon {
-      font-size: 21px;
-    }
-  }
-}
-
 </style>
