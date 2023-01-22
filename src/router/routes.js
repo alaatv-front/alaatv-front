@@ -312,6 +312,11 @@ const routes = [
             path: 'studyPlan',
             component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
           },
+          {
+            name: 'Admin.UploadCenter',
+            path: 'uploadCenter',
+            component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
+          },
           ...EntityCrudRoutes
         ]
       },
