@@ -19,7 +19,7 @@
           </div>
           <div class="logo-pic">
             <div class="homepage">
-              <lazy-img :src="'img/alaa-logo.svg'"
+              <lazy-img src="/img/alaa-logo.svg"
                         :alt="'logo'"
                         width="40"
                         height="40"

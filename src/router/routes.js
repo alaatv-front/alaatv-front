@@ -317,12 +317,12 @@ const routes = [
           },
           {
             name: 'Admin.StudyPlan',
-            path: 'studyPlan',
+            path: 'study_plan',
             component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
           },
           {
             name: 'Admin.UploadCenter',
-            path: 'uploadCenter',
+            path: 'upload_center',
             component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
           },
           ...EntityCrudRoutes
