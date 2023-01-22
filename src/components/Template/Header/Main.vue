@@ -44,9 +44,9 @@
                 <q-item
                   v-ripple
                   clickable
-                  :active="isRouteSelected(item.to)"
+                  :active="isRouteSelected(item.routeName)"
                   active-class="active-item"
-                  :to="{ name: item.to }"
+                  :to="{ name: item.routeName }"
                 >
                   <q-item-section class="tab-title">
                     {{ item.title }}
@@ -249,20 +249,21 @@ export default {
         {
           selected: 'home',
           title: 'صفحه اصلی',
-          to: 'Public.Home',
+          routeName: 'Public.Home',
           permission: 'all'
         },
         {
           selected: 'shop',
           title: 'فروشگاه',
-          to: 'Public.Shop',
+          routeName: 'Public.Shop',
           permission: 'all'
         },
         {
           selected: 'adminPanel',
           title: 'پنل ادمین',
-          to: 'Admin.StudyPlan',
-          permission: 'all'
+          routeName: 'Admin.Dashboard',
+          permission: 'all',
+          children: []
         }
       ],
       profileTitlesList: [

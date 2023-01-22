@@ -288,6 +288,11 @@ const routes = [
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
+            name: 'Admin.Dashboard',
+            path: 'dashboard',
+            component: () => import('src/pages/Admin/Dashboard.vue')
+          },
+          {
             path: 'ticket',
             name: 'Admin.Ticket',
             component: () => import('layouts/bareLayout.vue'),
@@ -323,7 +328,19 @@ const routes = [
           {
             name: 'Admin.UploadCenter',
             path: 'upload_center',
-            component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.UploadCenter.Contents',
+                path: 'contents',
+                component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
+              },
+              {
+                name: 'Admin.UploadCenter.Sets',
+                path: 'sets',
+                component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
+              }
+            ]
           },
           ...EntityCrudRoutes
         ]
