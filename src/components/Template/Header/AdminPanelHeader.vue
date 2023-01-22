@@ -44,9 +44,9 @@
                 <q-item
                   v-ripple
                   clickable
-                  :active="isRouteSelected(item.to)"
+                  :active="isRouteSelected(item.routeName)"
                   active-class="active-item"
-                  :to="{ name: item.to }"
+                  :to="{ name: item.routeName }"
                 >
                   <q-item-section class="tab-title">
                     {{ item.title }}
@@ -261,7 +261,7 @@ export default {
         {
           selected: 'adminPanel',
           title: 'پنل ادمین',
-          to: 'Admin.StudyPlan',
+          routeName: 'Admin.Dashboard',
           permission: 'all'
         }
       ],
