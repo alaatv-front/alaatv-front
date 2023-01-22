@@ -238,7 +238,7 @@ import LazyImg from 'src/components/lazyImg.vue'
 import { User } from 'src/models/User'
 import { mapMutations } from 'vuex'
 export default {
-  name: 'MainHeaderTemplate',
+  name: 'AdminPanelHeader',
   components: { LazyImg },
   data() {
     return {
@@ -548,7 +548,7 @@ export default {
             }
 
             .q-field__inner {
-              border-radius: 0px;
+              border-radius: 0;
               .q-field__control {
                 color: transparent;
                 min-height: 0;
@@ -614,8 +614,8 @@ export default {
     background: #FFFFFF;
     border-radius: 16px;
     display: flex;
-    margin-bottom: 0px;
-    padding: 0px;
+    margin-bottom: 0;
+    padding: 0;
 
     .btn-style{
       width: 96px;

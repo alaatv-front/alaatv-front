@@ -276,8 +276,16 @@ const routes = [
       {
         path: 'admin',
         name: 'Admin',
+        layoutConfig: {
+          layoutView: 'lHh LpR fFf',
+          layoutHeaderType: 'admin',
+          layoutLeftDrawer: true,
+          layoutLeftDrawerVisible: true,
+          layoutLeftSideBarType: 'admin',
+          layoutFooter: false
+        },
         meta: { middlewares: [auth] },
-        component: () => import('layouts/AdminLayout.vue'),
+        component: () => import('layouts/bareLayout.vue'),
         children: [
           {
             path: 'ticket',
@@ -309,12 +317,12 @@ const routes = [
           },
           {
             name: 'Admin.StudyPlan',
-            path: 'studyPlan',
+            path: 'study_plan',
             component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
           },
           {
             name: 'Admin.UploadCenter',
-            path: 'uploadCenter',
+            path: 'upload_center',
             component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
           },
           ...EntityCrudRoutes

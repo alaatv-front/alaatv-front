@@ -1,5 +1,7 @@
 <template>
-  <div>Dashboard</div>
+  <q-page-builder v-model:sections="sections"
+                  v-model::options="pageConfig"
+  />
 </template>
 
 <script>
@@ -14,11 +16,7 @@ export default {
             {
               cols: [
                 {
-                  widgets: [
-                    {
-                      name: 'AbrishamConsulting'
-                    }
-                  ]
+                  widgets: [{ name: 'GiftCardDashboard' }]
                 }
               ]
             }

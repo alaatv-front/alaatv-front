@@ -1,5 +1,6 @@
 <template>
   <main-header-template v-if="type === 'main'" />
+  <admin-panel-header v-if="type === 'admin'" />
   <user-abrisham-panel  v-if="type === 'abrisham'" />
   <user-gift-card-panel  v-if="type === 'gift-card'" />
 </template>
@@ -8,10 +9,12 @@
 import MainHeaderTemplate from 'components/Template/Header/Main.vue'
 import UserAbrishamPanel from 'components/Template/Header/UserAbrishamPanel.vue'
 import UserGiftCardPanel from 'components/Template/Header/UserGiftCardPanel.vue'
+import AdminPanelHeader from 'components/Template/Header/AdminPanelHeader.vue'
 
 export default {
   name: 'templateHeader',
   components: {
+    AdminPanelHeader,
     MainHeaderTemplate,
     UserGiftCardPanel,
     UserAbrishamPanel
