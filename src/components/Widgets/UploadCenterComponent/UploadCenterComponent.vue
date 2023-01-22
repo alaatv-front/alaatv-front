@@ -35,6 +35,7 @@
               <div class="upload-information-wrapper">
                 <div class="row">
                   <div class="col-6">
+                    <upload-wrapper />
                     <form-builder :value="inputs"></form-builder>
                   </div>
                   <div class="col-6 video-box-col">
@@ -92,15 +93,15 @@
 </template>
 
 <script>
-// import UploadWrapper from './components/UploadWrapper/UploadWrapper.vue'
-import FormBuilder from 'quasar-form-builder'
+import UploadWrapper from './components/UploadWrapper/UploadWrapper.vue'
+import FormBuilderObject from 'quasar-form-builder'
 
 export default {
   name: 'UploadCenterComponent',
-  components: [
-    FormBuilder
-    // UploadWrapper
-  ],
+  components: {
+    UploadWrapper,
+    FormBuilder: FormBuilderObject.FormBuilder
+  },
   data() {
     return {
       uploadDialog: false,
