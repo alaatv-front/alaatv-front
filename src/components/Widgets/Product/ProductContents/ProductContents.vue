@@ -53,7 +53,7 @@
             <div v-for="pamphlet in pamphlets"
                  :key="pamphlet.id"
                  class="q-mx-md">
-              <img src="public/img/PDF_file_icon.svg.png"
+              <img src="/img/PDF_file_icon.svg.png"
                    :alt="pamphlet.title"
                    style="width: 100px; height: 100px">
             </div>
