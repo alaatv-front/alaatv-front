@@ -1,5 +1,5 @@
 <template>
-  <q-expansion-item  class="bg-white test">
+  <q-expansion-item class="bg-white test">
     <template v-slot:header>
       <div class="row full-width">
         <div class="col-3 header-text-style">{{studyPlan.title}}</div>
@@ -11,21 +11,17 @@
     <q-card class="content"
             flat>
       <div class="study-plan-card">
-        <time-schedule-table
-          :selectedPanel="selectedPlan"
-          :plans="studyPlan.plans"
-          :selected-major="selectedMajor"
-          :loading="studyPlanLoading"
-          :header-width="setHeaderWidthForMediaTags"
-          :not-the-same-plan="notTheSamePlan"
-          @planClicked="loadSelectedPlan"
-        />
+        <time-schedule-table :selectedPanel="selectedPlan"
+                             :plans="studyPlan.plans"
+                             :selected-major="selectedMajor"
+                             :loading="studyPlanLoading"
+                             :header-width="setHeaderWidthForMediaTags"
+                             :not-the-same-plan="notTheSamePlan"
+                             @planClicked="loadSelectedPlan" />
       </div>
-      <individual-plan-details
-        :selected-plan="selectedPlan"
-        :showPanelDetail="showDetail"
-        @contentClicked="contentClicked"
-      />
+      <individual-plan-details :selected-plan="selectedPlan"
+                               :showPanelDetail="showDetail"
+                               @contentClicked="contentClicked" />
     </q-card>
   </q-expansion-item>
 </template>

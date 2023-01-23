@@ -3,25 +3,21 @@
     <div class="row">
       <div class="col-3 bg-transparent">
         <div class="search-box">
-          <q-input
-            v-model="searchText"
-            outlined
-            bg-color="white"
-            class="search-input"
-            placeholder="جستجو ..."
-            dense
-            rounded
-            item-aligned
-            label="" />
+          <q-input v-model="searchText"
+                   outlined
+                   bg-color="white"
+                   class="search-input"
+                   placeholder="جستجو ..."
+                   dense
+                   rounded
+                   item-aligned
+                   label="" />
         </div>
-        <div
-          class="favorite-sidebar q-pa-md">
-          <q-tabs
-            v-model="activePanel"
-            vertical
-            active-class="bg-grey-2"
-            indicator-color="yellow-8"
-          >
+        <div class="favorite-sidebar q-pa-md">
+          <q-tabs v-model="activePanel"
+                  vertical
+                  active-class="bg-grey-2"
+                  indicator-color="yellow-8">
             <q-tab name="all"
                    label="همه" />
             <q-tab name="product"
@@ -35,11 +31,9 @@
       </div>
       <div class="col-9 bg-transparent">
         <div>
-          <q-tabs
-            v-model="activePanel"
-            indicator-color="yellow-8"
-            align="left"
-          >
+          <q-tabs v-model="activePanel"
+                  indicator-color="yellow-8"
+                  align="left">
             <q-tab name="all"
                    label="همه" />
             <q-tab name="product"
@@ -54,8 +48,7 @@
         <q-tab-panels v-model="activePanel"
                       animated
                       transition-prev="jump-down"
-                      transition-next="jump-up "
-        >
+                      transition-next="jump-up ">
           <q-tab-panel name="all">
             all
           </q-tab-panel>

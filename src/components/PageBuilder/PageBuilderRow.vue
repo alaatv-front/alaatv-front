@@ -1,18 +1,14 @@
 <template>
   <div :class="{'boxed': defaultOptions.boxed, 'boxedInFullWidthStatus': boxedInFullWidthStatus}"
-       :style="style"
-  >
+       :style="style">
     <div :id="defaultOptions.id"
-         class="page-builder-row row"
-    >
-      <page-builder-col
-        v-for="(col, colIndex) in cols"
-        :key="colIndex"
-        :widgets="col.widgets"
-        :options="col.options"
-        :containerFullHeight="containerFullHeight"
-        :get-data="getData"
-      />
+         class="page-builder-row row">
+      <page-builder-col v-for="(col, colIndex) in cols"
+                        :key="colIndex"
+                        :widgets="col.widgets"
+                        :options="col.options"
+                        :containerFullHeight="containerFullHeight"
+                        :get-data="getData" />
     </div>
   </div>
 </template>

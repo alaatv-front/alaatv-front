@@ -1,18 +1,14 @@
 <template>
-  <div
-    :id="defaultOptions.id"
-    class="page-builder-section"
-    :class="className"
-    :style="style"
-  >
-    <page-builder-row
-      v-for="(row, rowIndex) in data.rows"
-      :key="rowIndex"
-      :cols="row.cols"
-      :options="row.options"
-      :containerFullHeight="containerFullHeight"
-      :get-data="getData"
-    />
+  <div :id="defaultOptions.id"
+       class="page-builder-section"
+       :class="className"
+       :style="style">
+    <page-builder-row v-for="(row, rowIndex) in data.rows"
+                      :key="rowIndex"
+                      :cols="row.cols"
+                      :options="row.options"
+                      :containerFullHeight="containerFullHeight"
+                      :get-data="getData" />
   </div>
 </template>
 

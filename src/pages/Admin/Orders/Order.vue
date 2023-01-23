@@ -1,19 +1,15 @@
 <template>
   <!--  v-model:index-inputs="indexInputs"-->
-  <entity-crud
-    v-model:default-inputs="defaultInputs"
-    v-bind="allProps"
-  >
+  <entity-crud v-model:default-inputs="defaultInputs"
+               v-bind="allProps">
     <template v-slot:before-entity-create>
-      <q-select
-        v-model="model"
-        use-input
-        use-chips
-        multiple
-        input-debounce="0"
-        :options="tags"
-        @new-value="createValue"
-      />
+      <q-select v-model="model"
+                use-input
+                use-chips
+                multiple
+                input-debounce="0"
+                :options="tags"
+                @new-value="createValue" />
     </template>
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">

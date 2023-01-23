@@ -1,39 +1,33 @@
 <template>
-  <q-tree
-    ref="tree"
-    v-model:ticked="ticked"
-    class="q-ma-lg"
-    :nodes="nodes"
-    no-nodes-label="درختی ایجاد نشده است!"
-    node-key="id"
-    control-color="secondary"
-    label-key="title"
-    icon="isax:add-square"
-    :tick-strategy="tickStrategy"
-    @update:ticked="tickedNode"
-    @lazy-load="getChildOfNode"
-  >
+  <q-tree ref="tree"
+          v-model:ticked="ticked"
+          class="q-ma-lg"
+          :nodes="nodes"
+          no-nodes-label="درختی ایجاد نشده است!"
+          node-key="id"
+          control-color="secondary"
+          label-key="title"
+          icon="isax:add-square"
+          :tick-strategy="tickStrategy"
+          @update:ticked="tickedNode"
+          @lazy-load="getChildOfNode">
     <template v-slot:default-header="prop">
       <span class="node-title">
         {{ prop.node.title }}
-        <q-icon
-          :class="editable ? 'edit-btn': 'none-edit-btn'"
-          name="edit"
-          @click.stop
-          @keypress.stop
-          @click="openEditMenu(prop.node) "
-        />
+        <q-icon :class="editable ? 'edit-btn': 'none-edit-btn'"
+                name="edit"
+                @click.stop
+                @keypress.stop
+                @click="openEditMenu(prop.node) " />
       </span>
     </template>
   </q-tree>
-  <q-btn
-    v-if="editable && nodes && !nodes.length"
-    label="ساخت درخت"
-    icon="add"
-    color="green"
-    flat
-    @click="toggleMenu(true)"
-  />
+  <q-btn v-if="editable && nodes && !nodes.length"
+         label="ساخت درخت"
+         icon="add"
+         color="green"
+         flat
+         @click="toggleMenu(true)" />
   <q-dialog v-model="editDialog "
             persistent>
     <q-card class="q-pa-md ">
@@ -42,11 +36,9 @@
              icon="close "
              color="red "
              @click="toggleMenu(false)" />
-      <q-tabs
-        v-model="tab "
-        narrow-indicator
-        dense
-      >
+      <q-tabs v-model="tab "
+              narrow-indicator
+              dense>
         <q-tab class="text-purple"
                name="editNode"
                icon="edit"
@@ -59,44 +51,32 @@
       <q-tab-panels v-model="tab "
                     animated>
         <q-tab-panel name="editNode">
-          <q-input
-            v-model="editedTitle "
-            class="q-ma-md"
-            filled
-            label="نام جدید "
-          />
-          <q-input
-            v-model="editedOrder"
-            class="q-ma-md"
-            filled
-            label="ترتیب جدید "
-          />
-          <q-btn
-            color="green "
-            :loading="loading "
-            @click="edit"
-          >
+          <q-input v-model="editedTitle "
+                   class="q-ma-md"
+                   filled
+                   label="نام جدید " />
+          <q-input v-model="editedOrder"
+                   class="q-ma-md"
+                   filled
+                   label="ترتیب جدید " />
+          <q-btn color="green "
+                 :loading="loading "
+                 @click="edit">
             ثبت
           </q-btn>
         </q-tab-panel>
         <q-tab-panel name="createNewNode">
-          <q-input
-            v-model="newTitle"
-            class="q-ma-md"
-            filled
-            label="نام "
-          />
-          <q-input
-            v-model="newOrder"
-            class="q-ma-md"
-            filled
-            label="ترتیب "
-          />
-          <q-btn
-            color="green "
-            :loading="loading "
-            @click="addNode() "
-          >
+          <q-input v-model="newTitle"
+                   class="q-ma-md"
+                   filled
+                   label="نام " />
+          <q-input v-model="newOrder"
+                   class="q-ma-md"
+                   filled
+                   label="ترتیب " />
+          <q-btn color="green "
+                 :loading="loading "
+                 @click="addNode() ">
             اضافه شود
           </q-btn>
         </q-tab-panel>

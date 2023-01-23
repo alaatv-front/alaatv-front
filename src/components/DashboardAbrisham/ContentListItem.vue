@@ -1,52 +1,38 @@
 <template>
-  <div
-    ref="contentItem"
-    class="content-list-item"
-    :class="selected ? 'selected-content-list' : ''"
-    @click="changeSelectedItem"
-  >
-    <div
-      class="contentListItem-main-box"
-    >
+  <div ref="contentItem"
+       class="content-list-item"
+       :class="selected ? 'selected-content-list' : ''"
+       @click="changeSelectedItem">
+    <div class="contentListItem-main-box">
       <div class="right-content">
-        <q-card
-          v-if="content.lesson_name"
-          height="22"
-          class="mb-2 rounded-pill text-center lesson_name"
-          flat
-          dark
-          :color="content.color"
-          v-text="content.lesson_name"
-        />
+        <q-card v-if="content.lesson_name"
+                height="22"
+                class="mb-2 rounded-pill text-center lesson_name"
+                flat
+                dark
+                :color="content.color"
+                v-text="content.lesson_name" />
         <div class="contentListItem-box">
-          <q-img
-            v-if="type === 'video'"
-            class="content-list-image"
-            :src="content.photo"
-          />
-          <div
-            v-if="content.has_watched"
-            class="flex seen justify-center align-center"
-          >
+          <q-img v-if="type === 'video'"
+                 class="content-list-image"
+                 :src="content.photo" />
+          <div v-if="content.has_watched"
+               class="flex seen justify-center align-center">
             <i class="fi fi-rr-check icon" />
           </div>
-          <q-img
-            v-if="type === 'pamphlet'"
-            src="https://nodes.alaatv.com/upload/abrisham-panel-pdf.png"
-            class="content-list-image"
-          />
+          <q-img v-if="type === 'pamphlet'"
+                 src="https://nodes.alaatv.com/upload/abrisham-panel-pdf.png"
+                 class="content-list-image" />
         </div>
       </div>
       <div class="left-content">
         <div class="flex">
-          <q-chip
-            v-if="content.start"
-            text-color="#3e5480"
-            depressed
-            height="22"
-            class="flex justify-center mb-2 rounded-pill time-sheet"
-            :color="selected ? 'white' : '#eff3ff'"
-          >
+          <q-chip v-if="content.start"
+                  text-color="#3e5480"
+                  depressed
+                  height="22"
+                  class="flex justify-center mb-2 rounded-pill time-sheet"
+                  :color="selected ? 'white' : '#eff3ff'">
             <div class="clock flex align-center px-2">
               <i class="text-color fi fi-rr-clock ml-2 mt-1" />
               <div>
@@ -59,44 +45,30 @@
             </div>
           </q-chip>
         </div>
-        <div
-          v-if=" type === 'video'"
-          class="sheet-icon flex justify-space-between align-center"
-        >
+        <div v-if=" type === 'video'"
+             class="sheet-icon flex justify-space-between align-center">
           <div class=" title-box">
             <p class="contentListItem-title ellipsis">
               {{ content.short_title }}
             </p>
-            <p
-              class="contentListItem-description ellipsis"
-            >
+            <p class="contentListItem-description ellipsis">
               {{ content.title }}
             </p>
           </div>
         </div>
-        <div
-          v-else-if="type === 'pamphlet'"
-          class="sheet-icon flex justify-between items-center"
-        >
+        <div v-else-if="type === 'pamphlet'"
+             class="sheet-icon flex justify-between items-center">
           <div class="title-box">
             <p class="contentListItem-title">
               {{ content.short_title }}
             </p>
-            <p
-              class="contentListItem-description ellipsis"
-            >
+            <p class="contentListItem-description ellipsis">
               {{ content.title }}
             </p>
           </div>
-          <div
-            v-if="content.file"
-          >
-            <a
-              :href="content.file.pamphlet[0].link"
-            >
-              <i
-                class="fi fi-rr-download download-icon"
-              />
+          <div v-if="content.file">
+            <a :href="content.file.pamphlet[0].link">
+              <i class="fi fi-rr-download download-icon" />
             </a>
           </div>
         </div>

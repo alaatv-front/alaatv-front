@@ -4,18 +4,16 @@
     <q-page-container>
       <q-page padding
               class="flex justify-center items-start">
-        <q-stepper
-          ref="stepper"
-          v-model="step"
-          animated
-          header-nav
-          flat
-          bordered
-          alternative-labels
-          :contracted="isContracted"
-          color="secondary"
-          style="max-width: 600px"
-        >
+        <q-stepper ref="stepper"
+                   v-model="step"
+                   animated
+                   header-nav
+                   flat
+                   bordered
+                   alternative-labels
+                   :contracted="isContracted"
+                   color="secondary"
+                   style="max-width: 600px">
           <q-step name="pick"
                   title="Pick Layout Parts"
                   :icon="mdiViewDashboard">
@@ -37,7 +35,7 @@
                   class="q-pb-lg">
             <div class="q-mb-md text-grey-8">
               Layout "View"
-              <br />
+              <br>
               {{ layoutView }}
             </div>
 
@@ -45,96 +43,80 @@
               <div class="row">
                 <div class="col-3 q-pa-md flex flex-center"
                      :class="topL === 'h' ? 'bg-primary text-white' : 'bg-orange text-grey-9'">
-                  <q-option-group
-                    v-model="topL"
-                    inline
-                    color="white"
-                    keep-color
-                    dense
-                    :options="[{ label: 'l', value: 'l'}, { label: 'h', value: 'h'}]"
-                  />
+                  <q-option-group v-model="topL"
+                                  inline
+                                  color="white"
+                                  keep-color
+                                  dense
+                                  :options="[{ label: 'l', value: 'l'}, { label: 'h', value: 'h'}]" />
                 </div>
                 <div class="col-6 q-pa-md flex flex-center bg-primary text-white">
-                  <q-option-group
-                    v-model="topC"
-                    inline
-                    color="white"
-                    keep-color
-                    dense
-                    :options="[{ label: 'h', value: 'h'}, { label: 'H', value: 'H'}]"
-                  />
+                  <q-option-group v-model="topC"
+                                  inline
+                                  color="white"
+                                  keep-color
+                                  dense
+                                  :options="[{ label: 'h', value: 'h'}, { label: 'H', value: 'H'}]" />
                 </div>
                 <div class="col-3 q-pa-md flex flex-center"
                      :class="topR === 'h' ? 'bg-primary text-white' : 'bg-orange text-grey-9'">
-                  <q-option-group
-                    v-model="topR"
-                    inline
-                    color="white"
-                    keep-color
-                    dense
-                    :options="[{ label: 'r', value: 'r'}, { label: 'h', value: 'h'}]"
-                  />
+                  <q-option-group v-model="topR"
+                                  inline
+                                  color="white"
+                                  keep-color
+                                  dense
+                                  :options="[{ label: 'r', value: 'r'}, { label: 'h', value: 'h'}]" />
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-3 q-px-md q-py-xl flex flex-center bg-orange text-grey-9">
-                  <q-option-group
-                    v-model="middleL"
-                    inline
-                    color="white"
-                    keep-color
-                    dense
-                    :options="[{ label: 'l', value: 'l'}, { label: 'L', value: 'L'}]"
-                  />
+                  <q-option-group v-model="middleL"
+                                  inline
+                                  color="white"
+                                  keep-color
+                                  dense
+                                  :options="[{ label: 'l', value: 'l'}, { label: 'L', value: 'L'}]" />
                 </div>
                 <div class="col-6 q-px-md q-py-xl flex flex-center">
                   Page
                 </div>
                 <div class="col-3 q-px-md q-py-xl flex flex-center bg-orange text-grey-9">
-                  <q-option-group
-                    v-model="middleR"
-                    inline
-                    color="white"
-                    keep-color
-                    dense
-                    :options="[{ label: 'r', value: 'r'}, { label: 'R', value: 'R'}]"
-                  />
+                  <q-option-group v-model="middleR"
+                                  inline
+                                  color="white"
+                                  keep-color
+                                  dense
+                                  :options="[{ label: 'r', value: 'r'}, { label: 'R', value: 'R'}]" />
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-3 q-pa-md flex flex-center"
                      :class="bottomL === 'f' ? 'bg-grey-8 text-white' : 'bg-orange text-grey-9'">
-                  <q-option-group
-                    v-model="bottomL"
-                    inline
-                    color="white"
-                    keep-color
-                    dense
-                    :options="[{ label: 'l', value: 'l'}, { label: 'f', value: 'f'}]"
-                  />
+                  <q-option-group v-model="bottomL"
+                                  inline
+                                  color="white"
+                                  keep-color
+                                  dense
+                                  :options="[{ label: 'l', value: 'l'}, { label: 'f', value: 'f'}]" />
                 </div>
                 <div class="col-6 q-pa-md flex flex-center bg-grey-8 text-white">
-                  <q-option-group
-                    v-model="bottomC"
-                    inline
-                    color="white"
-                    keep-color
-                    dense
-                    :options="[{ label: 'f', value: 'f'}, { label: 'F', value: 'F'}]"
-                  />
+                  <q-option-group v-model="bottomC"
+                                  inline
+                                  color="white"
+                                  keep-color
+                                  dense
+                                  :options="[{ label: 'f', value: 'f'}, { label: 'F', value: 'F'}]" />
                 </div>
                 <div class="col-3 q-pa-md flex flex-center"
                      :class="bottomR === 'f' ? 'bg-grey-8 text-white' : 'bg-orange text-grey-9'">
-                  <q-option-group
-                    v-model="bottomR"
-                    inline
-                    color="white"
-                    keep-color
-                    dense
-                    :options="[{ label: 'r', value: 'r'}, { label: 'f', value: 'f'}]"
-                  />
+                  <q-option-group v-model="bottomR"
+                                  inline
+                                  color="white"
+                                  keep-color
+                                  dense
+                                  :options="[{ label: 'r', value: 'r'}, { label: 'f', value: 'f'}]" />
                 </div>
               </div>
             </div>
@@ -145,18 +127,16 @@
               <div class="q-pl-lg q-gutter-y-sm">
                 <q-toggle v-model="cfg.headerReveal"
                           label="Header Reveal" />
-                <q-select
-                  v-model="cfg.headerSep"
-                  label="Separator type"
-                  outlined
-                  dense
-                  options-dense
-                  map-options
-                  emit-value
-                  :options="sepOptions"
-                  options-cover
-                  style="max-width: 200px"
-                />
+                <q-select v-model="cfg.headerSep"
+                          label="Separator type"
+                          outlined
+                          dense
+                          options-dense
+                          map-options
+                          emit-value
+                          :options="sepOptions"
+                          options-cover
+                          style="max-width: 200px" />
               </div>
             </template>
 
@@ -166,18 +146,16 @@
               <div class="q-pl-lg q-gutter-y-sm">
                 <q-toggle v-model="cfg.footerReveal"
                           label="Footer Reveal" />
-                <q-select
-                  v-model="cfg.footerSep"
-                  label="Separator type"
-                  outlined
-                  dense
-                  options-dense
-                  map-options
-                  emit-value
-                  :options="sepOptions"
-                  options-cover
-                  style="max-width: 200px"
-                />
+                <q-select v-model="cfg.footerSep"
+                          label="Separator type"
+                          outlined
+                          dense
+                          options-dense
+                          map-options
+                          emit-value
+                          :options="sepOptions"
+                          options-cover
+                          style="max-width: 200px" />
               </div>
             </template>
 
@@ -187,30 +165,26 @@
               <div class="q-pl-lg q-gutter-y-sm">
                 <q-toggle v-model="cfg.leftOverlay"
                           label="Overlay mode" />
-                <q-select
-                  v-model="cfg.leftBehavior"
-                  label="Behavior"
-                  outlined
-                  dense
-                  options-dense
-                  map-options
-                  emit-value
-                  :options="drawerBehaviorOptions"
-                  options-cover
-                  style="max-width: 200px"
-                />
-                <q-select
-                  v-model="cfg.leftSep"
-                  label="Separator type"
-                  outlined
-                  dense
-                  options-dense
-                  map-options
-                  emit-value
-                  :options="sepOptions"
-                  options-cover
-                  style="max-width: 200px"
-                />
+                <q-select v-model="cfg.leftBehavior"
+                          label="Behavior"
+                          outlined
+                          dense
+                          options-dense
+                          map-options
+                          emit-value
+                          :options="drawerBehaviorOptions"
+                          options-cover
+                          style="max-width: 200px" />
+                <q-select v-model="cfg.leftSep"
+                          label="Separator type"
+                          outlined
+                          dense
+                          options-dense
+                          map-options
+                          emit-value
+                          :options="sepOptions"
+                          options-cover
+                          style="max-width: 200px" />
               </div>
             </template>
 
@@ -220,31 +194,27 @@
               <div class="q-pl-lg q-gutter-y-sm">
                 <q-toggle v-model="cfg.rightOverlay"
                           label="Overlay mode" />
-                <q-select
-                  v-model="cfg.rightBehavior"
-                  label="Behavior"
-                  outlined
-                  dense
-                  options-dense
-                  map-options
-                  emit-value
-                  :options="drawerBehaviorOptions"
-                  option-value="value"
-                  options-cover
-                  style="max-width: 200px"
-                />
-                <q-select
-                  v-model="cfg.rightSep"
-                  label="Separator type"
-                  outlined
-                  dense
-                  options-dense
-                  map-options
-                  emit-value
-                  :options="sepOptions"
-                  options-cover
-                  style="max-width: 200px"
-                />
+                <q-select v-model="cfg.rightBehavior"
+                          label="Behavior"
+                          outlined
+                          dense
+                          options-dense
+                          map-options
+                          emit-value
+                          :options="drawerBehaviorOptions"
+                          option-value="value"
+                          options-cover
+                          style="max-width: 200px" />
+                <q-select v-model="cfg.rightSep"
+                          label="Separator type"
+                          outlined
+                          dense
+                          options-dense
+                          map-options
+                          emit-value
+                          :options="sepOptions"
+                          options-cover
+                          style="max-width: 200px" />
               </div>
             </template>
           </q-step>

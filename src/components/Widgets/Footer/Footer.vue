@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div
-      class="homePage-footer-container">
+    <div class="homePage-footer-container">
       <div class="footer-box-1">
         <div class="content-layout box-1-details ">
           <div class="icons self-center">
@@ -131,39 +130,33 @@
               <div class="main-title">دسترسی به سایت</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'Public.Home'}"
-              >
+                     :to="{name: 'Public.Home'}">
                 صفحه اصلی
               </q-btn>
               <q-btn v-if="user.id"
                      flat
                      class="sub-title"
-                     :to="{name: 'login'}"
-              >
+                     :to="{name: 'login'}">
                 قوانین سایت
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 سوالات متداول
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 تیکت پشتیبانی
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 ارتباط با ما
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 درباره ما
               </q-btn>
             </div>
@@ -171,38 +164,32 @@
               <div class="main-title">دسترسی های کاربران</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'Public.Home'}"
-              >
+                     :to="{name: 'Public.Home'}">
                 ثبت نام و ورود
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'login'}"
-              >
+                     :to="{name: 'login'}">
                 محصولات آموزشی
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 کانال ها
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 سبد خرید
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 سوالا
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 آلاخونه
               </q-btn>
             </div>
@@ -210,38 +197,32 @@
               <div class="main-title">دسته بندی های محبوب</div>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'Public.Home'}"
-              >
+                     :to="{name: 'Public.Home'}">
                 راه ابریشم
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'login'}"
-              >
+                     :to="{name: 'login'}">
                 OASIS
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 مهارت آموزی
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 مشاوره
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 آرش
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="{name: 'cart'}"
-              >
+                     :to="{name: 'cart'}">
                 امتحان نهایی
               </q-btn>
             </div>
@@ -284,8 +265,7 @@
               <div class="footer-logo-item item-soala">
                 <router-link :to="{name: 'Public.Home'}">
                   <q-img src="https://nodes.alaatv.com/upload/landing/logo.png"
-                         alt="آلاء"
-                  />
+                         alt="آلاء" />
                 </router-link>
               </div>
               <div class="footer-logo-item item-alaa">
@@ -293,8 +273,7 @@
                    target="_blank">
                   <q-img src="https://trustseal.enamad.ir/Content/Images/Star/star1.png?v=5.0.0.47"
                          alt="enamad.ir"
-                         style="cursor:pointer"
-                  />
+                         style="cursor:pointer" />
                 </a>
               </div>
               <div class="footer-logo-item item-enamad">
@@ -302,8 +281,7 @@
                    target="_blank">
                   <q-img src="https://nodes.alaatv.com/upload/samandehi.png?w=90&h=94"
                          alt="enamad.ir"
-                         style="cursor:pointer"
-                  />
+                         style="cursor:pointer" />
                 </a>
               </div>
             </div>
@@ -312,11 +290,9 @@
             <div class="text-1">
               کلیه حقوق این وب سایت به ‌توسعه علمی آموزشی عدالت محور آلاء تعلق دارد و کپی برداری از آن ممنوع می باشد.
             </div>
-            <q-btn
-              unelevated
-              class="scroll-up"
-              @click="scrollToTop"
-            >
+            <q-btn unelevated
+                   class="scroll-up"
+                   @click="scrollToTop">
               <svg width="24"
                    height="24"
                    viewBox="0 0 24 24"
@@ -342,10 +318,8 @@
               <div class="text">
                 کلیه حقوق این وب سایت به ‌توسعه علمی آموزشی عدالت محور آلاء تعلق دارد و کپی برداری از آن ممنوع می باشد.
               </div>
-              <a
-                target="_blank"
-                href="https://alaatv.com"
-              >
+              <a target="_blank"
+                 href="https://alaatv.com">
                 <div class="flex items-center">
                   <div>AlaaTV.com</div>
                   <div class="q-mx-xs">2012 </div>

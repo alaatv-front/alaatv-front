@@ -1,15 +1,13 @@
 <template>
   <div class="comment-box">
-    <q-input
-      v-model="note"
-      class="comment-main"
-      auto-grow
-      outlined
-      type="textarea"
-      placeholder="یادداشت این جلسه"
-      filled
-      :disable="doesntHaveContent || !canEdit"
-    />
+    <q-input v-model="note"
+             class="comment-main"
+             auto-grow
+             outlined
+             type="textarea"
+             placeholder="یادداشت این جلسه"
+             filled
+             :disable="doesntHaveContent || !canEdit" />
     <div class="flex btn-style">
       <q-btn v-if="saveMode"
              :disabled="doesntHaveContent"

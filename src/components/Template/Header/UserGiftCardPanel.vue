@@ -5,14 +5,12 @@
     </div>
     <div class="dropdown-menu">
       <q-btn flat
-             class="btn-user-profile"
-      >
+             class="btn-user-profile">
         <lazy-img :src="user.photo"
                   :alt="'user photo'"
                   width="48"
                   height="48"
-                  class="user-photo"
-        />
+                  class="user-photo" />
         <q-menu class="user-profile-dropdown"
                 :offset="[170, 10]">
           <div class="dropdown-box">
@@ -25,14 +23,11 @@
                                 :alt="'user photo'"
                                 width="60"
                                 height="60"
-                                class="user-photo"
-                      />
+                                class="user-photo" />
                     </div>
                   </div>
-                  <div
-                    v-if="isUserLogin"
-                    class="profile-detail-info"
-                  >
+                  <div v-if="isUserLogin"
+                       class="profile-detail-info">
                     <div class="info-name">{{user.full_name}}</div>
                     <div class="info-phoneNumber">{{user.mobile}}</div>
                   </div>
@@ -40,24 +35,16 @@
               </div>
             </div>
             <div class="body">
-              <div
-                class="user-panel-base-menu"
-              >
-                <q-list
-                  class="side-menu-list"
-                  padding
-                  dark
-                >
-                  <div
-                    v-for="(item , index) in profileTitlesList"
-                    :key="index"
-                  >
+              <div class="user-panel-base-menu">
+                <q-list class="side-menu-list"
+                        padding
+                        dark>
+                  <div v-for="(item , index) in profileTitlesList"
+                       :key="index">
                     <div>
-                      <q-item
-                        class="item-list"
-                        :class="{ 'alone-item': !item.children.length }"
-                        :to="{ name: item.routeName, params: item.params }"
-                      >
+                      <q-item class="item-list"
+                              :class="{ 'alone-item': !item.children.length }"
+                              :to="{ name: item.routeName, params: item.params }">
                         <div class="section-title">
                           <q-item-section class="list-section title-icon"
                                           avatar>
@@ -74,8 +61,7 @@
                   </div>
                 </q-list>
                 <div class="log-out"
-                     @click="logOut"
-                >
+                     @click="logOut">
                   <span>
                     <q-avatar icon="isax:logout"
                               size="30"

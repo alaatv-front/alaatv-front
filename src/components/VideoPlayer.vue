@@ -1,15 +1,13 @@
 <template>
   <div class="video-box-container flex justify-center">
-    <video
-      id="my-video"
-      ref="videoPlayer"
-      controls
-      preload="auto"
-      :height="calcTheHeight"
-      :width="calcTheWidth"
-      class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
-      @play="playVideo"
-    />
+    <video id="my-video"
+           ref="videoPlayer"
+           controls
+           preload="auto"
+           :height="calcTheHeight"
+           :width="calcTheWidth"
+           class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
+           @play="playVideo" />
   </div>
 </template>
 

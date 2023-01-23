@@ -1,8 +1,7 @@
 <template>
   <div class="product-gift-widgets row"
        :style="options.style"
-       :class="options.className"
-  >
+       :class="options.className">
     <div class="gift-container">
       <p class="title-style">
         هدایا

@@ -1,15 +1,9 @@
 <template>
   <div class="news-page">
     <div class="row">
-      <div
-        :class="bannerImages.length > 0 ? 'col-xl-8 col-lg-9' : 'col-12'"
-      >
-        <div
-          class="news-part"
-        >
-          <div
-            class="news-top"
-          >
+      <div :class="bannerImages.length > 0 ? 'col-xl-8 col-lg-9' : 'col-12'">
+        <div class="news-part">
+          <div class="news-top">
             <div class="news-header">
               <div class="news-filter">
                 <div class="news-title">
@@ -18,118 +12,99 @@
                   </p>
                 </div>
                 <div class="filter-select">
-                  <q-btn
-                    unelevated
-                    class="filter-default"
-                    :class="{'filter-button':!doFilter , 'filter-clicked':doFilter}"
-                    @click="clicked"
-                  >
+                  <q-btn unelevated
+                         class="filter-default"
+                         :class="{'filter-button':!doFilter , 'filter-clicked':doFilter}"
+                         @click="clicked">
                     فیلترها
                     <i class="fi fi-rr-settings-sliders icon" />
                   </q-btn>
                   <div class="order-parent">
-                    <q-select
-                      v-model="filtersData.sort"
-                      filled
-                      dropdown-icon="mdi-chevron-down"
-                      dense
-                      placeholder="مرتب کردن بر اساس"
-                      class="order"
-                      :options="sorts"
-                      option-label="text"
-                      option-value="value"
-                      map-options
-                      emit-value
-                      :loading="unpinNews.loading"
-                      :disabled="unpinNews.loading && emptyNews"
-                      @update:model-value="selectedItem"
-                    />
+                    <q-select v-model="filtersData.sort"
+                              filled
+                              dropdown-icon="mdi-chevron-down"
+                              dense
+                              placeholder="مرتب کردن بر اساس"
+                              class="order"
+                              :options="sorts"
+                              option-label="text"
+                              option-value="value"
+                              map-options
+                              emit-value
+                              :loading="unpinNews.loading"
+                              :disabled="unpinNews.loading && emptyNews"
+                              @update:model-value="selectedItem" />
                   </div>
                 </div>
               </div>
-              <div
-                v-if="doFilter"
-                class="filter-list"
-              >
+              <div v-if="doFilter"
+                   class="filter-list">
                 <div class="lesson-parent">
-                  <q-select
-                    v-model="filtersData.lesson"
-                    :options="lessons"
-                    option-label="title"
-                    option-value="id"
-                    use-input
-                    dropdown-icon="mdi-chevron-down"
-                    dense
-                    background-color="#eff3ff"
-                    filled
-                    label="درس"
-                    placeholder="درس"
-                    class="lesson"
-                    :menu-props="{ bottom: true, offsetY: true }"
-                    return-object
-                    :loading="unpinNews.loading"
-                    :disabled="unpinNews.loading && emptyNews"
-                    map-options
-                    emit-value
-                    @update:model-value="selectedItem"
-                  />
+                  <q-select v-model="filtersData.lesson"
+                            :options="lessons"
+                            option-label="title"
+                            option-value="id"
+                            use-input
+                            dropdown-icon="mdi-chevron-down"
+                            dense
+                            background-color="#eff3ff"
+                            filled
+                            label="درس"
+                            placeholder="درس"
+                            class="lesson"
+                            :menu-props="{ bottom: true, offsetY: true }"
+                            return-object
+                            :loading="unpinNews.loading"
+                            :disabled="unpinNews.loading && emptyNews"
+                            map-options
+                            emit-value
+                            @update:model-value="selectedItem" />
                 </div>
                 <div class="category-parent">
-                  <q-select
-                    v-model="filtersData.category"
-                    :options="categories"
-                    filled
-                    dropdown-icon="mdi-chevron-down"
-                    dense
-                    label="دسته بندی"
-                    placeholder="دسته بندی"
-                    class="category"
-                    :menu-props="{ bottom: true, offsetY: true }"
-                    :loading="unpinNews.loading"
-                    :disabled="unpinNews.loading && emptyNews"
-                    @update:model-value="selectedItem"
-                  />
+                  <q-select v-model="filtersData.category"
+                            :options="categories"
+                            filled
+                            dropdown-icon="mdi-chevron-down"
+                            dense
+                            label="دسته بندی"
+                            placeholder="دسته بندی"
+                            class="category"
+                            :menu-props="{ bottom: true, offsetY: true }"
+                            :loading="unpinNews.loading"
+                            :disabled="unpinNews.loading && emptyNews"
+                            @update:model-value="selectedItem" />
                 </div>
               </div>
             </div>
           </div>
-          <div
-            class="news-bottom"
-          >
+          <div class="news-bottom">
             <div ref="pinedNewsList"
                  class="">
-              <q-infinite-scroll
-                :offset="250"
-                scroll-target="pinedNewsList"
-                @load="getNewPinLiveDescription">
-                <news-item
-                  v-for="(item, index) in pinNews.list"
-                  :key="index"
-                  :pin="true"
-                  class="q-mb-md-lg"
-                  :new-item="item"
-                  @seenNews="seenNews"
-                />
+              <q-infinite-scroll :offset="250"
+                                 scroll-target="pinedNewsList"
+                                 @load="getNewPinLiveDescription">
+                <news-item v-for="(item, index) in pinNews.list"
+                           :key="index"
+                           :pin="true"
+                           class="q-mb-md-lg"
+                           :new-item="item"
+                           @seenNews="seenNews" />
               </q-infinite-scroll>
             </div>
             <q-separator class="q-my-md" />
             <div ref="unPinedNewsList">
-              <q-infinite-scroll
-                :offset="250"
-                scroll-target="pinedNewsList"
-                @load="getNewUnpinLiveDescription">
-                <news-item
-                  v-for="(item, index) in unpinNews.list"
-                  :key="index"
-                  :pin="false"
-                  class="q-mb-md-lg"
-                  :new-item="item"
-                  @seenNews="seenNews"
-                />
+              <q-infinite-scroll :offset="250"
+                                 scroll-target="pinedNewsList"
+                                 @load="getNewUnpinLiveDescription">
+                <news-item v-for="(item, index) in unpinNews.list"
+                           :key="index"
+                           :pin="false"
+                           class="q-mb-md-lg"
+                           :new-item="item"
+                           @seenNews="seenNews" />
               </q-infinite-scroll>
             </div>
-            <div
-              class="text-center my-5">
+            <div class="text-center my-5">
               <div v-if="emptyNews"
                    class="text-primary no-news"
                    type="warning">
@@ -139,19 +114,13 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="bannerImages.length > 0"
-        class="banner-col col-xl-4 col-lg-3 col-12"
-      >
+      <div v-if="bannerImages.length > 0"
+           class="banner-col col-xl-4 col-lg-3 col-12">
         <div class="banner-part">
           <div class="banner">
-            <div
-              v-for="(item , index) in bannerImages"
-              :key="index"
-            >
-              <NewsBanner
-                :bannerData="item"
-              />
+            <div v-for="(item , index) in bannerImages"
+                 :key="index">
+              <news-banner :bannerData="item" />
             </div>
           </div>
         </div>

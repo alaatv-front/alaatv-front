@@ -6,8 +6,7 @@
                   :table="table"
                   :table-keys="tableKeys"
                   :create-route-name="options.createRouteName"
-                  @onPageChanged="filterInputs"
-    >
+                  @onPageChanged="filterInputs">
       <template v-slot:before-index-table>
         <p class="q-ma-lg">
           تعداد کل یافته ها: {{ totalTickets}}
@@ -21,8 +20,7 @@
                         outlined
                         dense
                         :options="ticketStatuses"
-                        option-label="title"
-              />
+                        option-label="title" />
             </div>
             <template v-else>
               <q-chip :color="checkStatusColor(inputData.props.row.status.id)"
@@ -41,42 +39,32 @@
                    class="rate-img" />
           </template>
           <template v-if="inputData.props.col.name === 'department'">
-            <q-select
-              v-if="inputData.props.expand"
-              v-model="inputData.props.row.department"
-              outlined
-              dense
-              :options="departmentList.list"
-              option-label="title"
-            >
-            </q-select>
+            <q-select v-if="inputData.props.expand"
+                      v-model="inputData.props.row.department"
+                      outlined
+                      dense
+                      :options="departmentList.list"
+                      option-label="title" />
             <p v-else>{{inputData.props.row.department.title}}</p>
 
           </template>
           <template v-if="inputData.props.col.name === 'actions'">
             <div v-if="inputData.props.expand">
-              <q-btn
-                round
-                flat
-                dense
-                color="green"
-                icon="check"
-                :loading="loading"
-                class="q-mr-md"
-                @click="updateTicket(inputData.props)"
-              >
+              <q-btn round
+                     flat
+                     dense
+                     color="green"
+                     icon="check"
+                     :loading="loading"
+                     class="q-mr-md"
+                     @click="updateTicket(inputData.props)" />
+              <q-btn round
+                     flat
+                     dense
+                     color="red"
 
-              </q-btn>
-              <q-btn
-                round
-                flat
-                dense
-                color="red"
-
-                icon="close"
-                @click="inputData.props.expand = false"
-              >
-              </q-btn>
+                     icon="close"
+                     @click="inputData.props.expand = false" />
 
             </div>
             <template v-else>
