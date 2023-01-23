@@ -1,23 +1,21 @@
 <template>
-  <div
-    class="backgroundImage"
-    :style="{
-      height: defaultOptions.height,
-      backgroundImage: 'url(' + this.segmentBackgroundImage +')',
-      position : defaultOptions.segmentPosition,
-      padding:defaultOptions.segmentPadding  ,
-      margin:defaultOptions.segmentMargin.all  ,
-      marginTop:defaultOptions.segmentMargin.top ,
-      marginRight:defaultOptions.segmentMargin.right ,
-      marginBottom:defaultOptions.segmentMargin.bottom  ,
-      marginLeft:defaultOptions.segmentMargin.left  ,
-      padding:defaultOptions.segmentPadding.all  ,
-      paddingTop:defaultOptions.segmentPadding.top ,
-      paddingRight:defaultOptions.segmentPadding.right ,
-      paddingBottom:defaultOptions.segmentPadding.bottom ,
-      paddingLeft:defaultOptions.segmentPadding.left ,
-    }"
-  >
+  <div class="backgroundImage"
+       :style="{
+         height: defaultOptions.height,
+         backgroundImage: 'url(' + this.segmentBackgroundImage +')',
+         position : defaultOptions.segmentPosition,
+         padding:defaultOptions.segmentPadding ,
+         margin:defaultOptions.segmentMargin.all ,
+         marginTop:defaultOptions.segmentMargin.top ,
+         marginRight:defaultOptions.segmentMargin.right ,
+         marginBottom:defaultOptions.segmentMargin.bottom ,
+         marginLeft:defaultOptions.segmentMargin.left ,
+         padding:defaultOptions.segmentPadding.all ,
+         paddingTop:defaultOptions.segmentPadding.top ,
+         paddingRight:defaultOptions.segmentPadding.right ,
+         paddingBottom:defaultOptions.segmentPadding.bottom ,
+         paddingLeft:defaultOptions.segmentPadding.left ,
+       }">
     <slot />
   </div>
 

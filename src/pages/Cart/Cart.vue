@@ -1,10 +1,8 @@
 <template>
   <div class="cart-page">
-    <q-page-builder
-      :sections="sections"
-      :options="options"
-      :containerFullHeight="calculateHeightStyle"
-    ></q-page-builder>
+    <q-page-builder :sections="sections"
+                    :options="options"
+                    :containerFullHeight="calculateHeightStyle" />
   </div>
 </template>
 

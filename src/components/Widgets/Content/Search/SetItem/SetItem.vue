@@ -1,19 +1,15 @@
 <template>
-  <router-link
-    :to="{
-      name: 'Public.Set.Show',
-      params: { id: data.id? data.id:-1, title: data.title }
-    }"
-    class="set-box"
-  >
+  <router-link :to="{
+                 name: 'Public.Set.Show',
+                 params: { id: data.id? data.id:-1, title: data.title }
+               }"
+               class="set-box">
     <q-card flat
             class="content-box-card ">
-      <lazy-img
-        :src="data.photo"
-        :alt="data.title"
-        width="16"
-        height="9"
-      >
+      <lazy-img :src="data.photo"
+                :alt="data.title"
+                width="16"
+                height="9">
         <div class="absolute-left column justify-center items-center">
           <div class="text-h6">{{ data.contents_count }}</div>
           <div class="q-mb-sm">محتوا</div>

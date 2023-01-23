@@ -1,17 +1,13 @@
 <template>
-  <div
-    class="page-builder"
-    :class="className"
-    :style="style"
-  >
-    <page-builder-section
-      v-for="(section, sectionIndex) in sections"
-      :key="sectionIndex"
-      :data="section.data"
-      :options="section.options"
-      :containerFullHeight="height"
-      :get-data="getData"
-    />
+  <div class="page-builder"
+       :class="className"
+       :style="style">
+    <page-builder-section v-for="(section, sectionIndex) in sections"
+                          :key="sectionIndex"
+                          :data="section.data"
+                          :options="section.options"
+                          :containerFullHeight="height"
+                          :get-data="getData" />
   </div>
 </template>
 

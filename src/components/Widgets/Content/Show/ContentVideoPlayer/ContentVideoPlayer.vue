@@ -1,24 +1,20 @@
 <template>
   <div class="bg-white shadow-4 q-mb-md q-mx-sm">
-    <video-player
-      v-if="sources.list.length > 0"
-      :sources="sources"
-      :poster="poster"
-    />
+    <video-player v-if="sources.list.length > 0"
+                  :sources="sources"
+                  :poster="poster" />
     <div class="q-pa-sm flex flex-center">
-      <q-pagination
-        v-if="options.paginate"
-        v-model="contentNumber"
-        :max="set.contents.list.length"
-        :to-fn="goToContentPage"
-        :max-pages="6"
-        direction-links
-        boundary-links
-        icon-first="skip_previous"
-        icon-last="skip_next"
-        icon-prev="fast_rewind"
-        icon-next="fast_forward"
-      />
+      <q-pagination v-if="options.paginate"
+                    v-model="contentNumber"
+                    :max="set.contents.list.length"
+                    :to-fn="goToContentPage"
+                    :max-pages="6"
+                    direction-links
+                    boundary-links
+                    icon-first="skip_previous"
+                    icon-last="skip_next"
+                    icon-prev="fast_rewind"
+                    icon-next="fast_forward" />
     </div>
   </div>
 </template>

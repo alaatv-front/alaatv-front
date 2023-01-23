@@ -1,20 +1,16 @@
 <template>
-  <div
-    class="MapWidget">
+  <div class="MapWidget">
 
-    <base-map
-      ref="baseMap"
-      v-model:zoom="zoom"
-      v-model:center="center"
-      :items="visibleMapItems"
-      @update:zoom="zoomUpdated"
-      @update:center="centerUpdated"
-      @update:bounds="boundsUpdated"
-      @update:item="updateItem"
-      @update:visible-map-items="updateVisibleMapItems"
-    />
-    <div class="justify-center flex">
-    </div>
+    <base-map ref="baseMap"
+              v-model:zoom="zoom"
+              v-model:center="center"
+              :items="visibleMapItems"
+              @update:zoom="zoomUpdated"
+              @update:center="centerUpdated"
+              @update:bounds="boundsUpdated"
+              @update:item="updateItem"
+              @update:visible-map-items="updateVisibleMapItems" />
+    <div class="justify-center flex" />
   </div>
 </template>
 

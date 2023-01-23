@@ -2,13 +2,11 @@
   <div v-for="item in logArray"
        :key="item"
        class="flex no-wrap">
-    <div
-      class="log-date"
-      :style="{
-        color : getMainColor(item),
-        borderLeft: '3px ' + 'solid ' + getMainColor(item)
-      }"
-    >
+    <div class="log-date"
+         :style="{
+           color : getMainColor(item),
+           borderLeft: '3px ' + 'solid ' + getMainColor(item)
+         }">
       {{ convertToShamsi(item.created_at, 'date') }}
     </div>
     <div class="log-info">

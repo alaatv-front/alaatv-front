@@ -1,12 +1,10 @@
 <template>
-  <q-virtual-scroll
-    type="table"
-    :virtual-scroll-item-size="48"
-    :class="{'bg-transparent': true}"
-    :virtual-scroll-sticky-size-start="48"
-    :virtual-scroll-sticky-size-end="32"
-    :items="rows"
-  >
+  <q-virtual-scroll type="table"
+                    :virtual-scroll-item-size="48"
+                    :class="{'bg-transparent': true}"
+                    :virtual-scroll-sticky-size-start="48"
+                    :virtual-scroll-sticky-size-end="32"
+                    :items="rows">
     <template v-slot:before>
       <thead class="thead-sticky text-left">
         <tr>

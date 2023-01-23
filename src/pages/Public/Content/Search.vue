@@ -1,8 +1,6 @@
 <template>
   <div class="Search-page">
-    <q-page-builder
-      v-model:sections="sections"
-    />
+    <q-page-builder v-model:sections="sections" />
   </div>
 </template>
 

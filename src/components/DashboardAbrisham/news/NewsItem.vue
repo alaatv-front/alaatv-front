@@ -2,29 +2,25 @@
   <div class="news-item flex justify-between">
     <div class="flex img-title-seen-tag">
       <div class="img-box">
-        <q-img  v-if="newItem.photo"
-                class="img"
-                :src="newItem.photo" />
+        <q-img v-if="newItem.photo"
+               class="img"
+               :src="newItem.photo" />
       </div>
       <div class="title-des-seen-tag ">
         <div class="title-box">
           {{ newItem.title }}
         </div>
         <div class="description-box">
-          <p
-            class="description-text "
-            :class="showMore ? '' : 'single-line ellipsis'"
-            v-html="newItem.description"
-          />
+          <p class="description-text "
+             :class="showMore ? '' : 'single-line ellipsis'"
+             v-html="newItem.description" />
         </div>
         <div class="flex items-end seen-tag">
           <div v-if="newItem.tags && newItem.tags !==null"
                class="flex">
-            <div
-              v-for="(tag, index) in newItem.tags"
-              :key="index"
-              class="tag"
-            >
+            <div v-for="(tag, index) in newItem.tags"
+                 :key="index"
+                 class="tag">
               {{ tag }}
             </div>
           </div>
@@ -44,31 +40,26 @@
         <!--            />-->
         <q-icon v-if="pin"
                 class="pin-color"
-                name="push_pin">
-        </q-icon>
+                name="push_pin" />
         <div class="date">
           {{ newItem.shamsiDate('created_at').dateTime }}
         </div>
       </div>
-      <div
-        v-if="!showMore"
-        class="btn-style cursor-pointer"
-        @click="showMoreClicked"
-      >
+      <div v-if="!showMore"
+           class="btn-style cursor-pointer"
+           @click="showMoreClicked">
         <span class="text">
           مشاهده خبر
         </span>
         <i class="fi fi-rr-angle-down flex icon" />
       </div>
-      <div
-        v-if="showMore"
-        class="btn-style cursor-pointer"
-        @click="showMore = false"
-      >
+      <div v-if="showMore"
+           class="btn-style cursor-pointer"
+           @click="showMore = false">
         <span class="text">
           بستن
         </span>
-        <i class="flex fi fi-rr-angle-up icon"></i>
+        <i class="flex fi fi-rr-angle-up icon" />
       </div>
     </div>
   </div>

@@ -1,9 +1,7 @@
 <template>
-  <entity-crud
-    v-model:default-inputs="defaultInputs"
-    v-model:create-inputs="createInputs"
-    v-bind="allEntityCrudParentProps"
-  >
+  <entity-crud v-model:default-inputs="defaultInputs"
+               v-model:create-inputs="createInputs"
+               v-bind="allEntityCrudParentProps">
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
@@ -40,11 +38,9 @@
       </q-td>
     </template>
     <template v-slot:after-entity-edit>
-      <entity-crud
-        v-model:default-inputs="defaultInputs"
-        v-model:create-inputs="createInputs"
-        v-bind="allEntityCrudChildProps"
-      >
+      <entity-crud v-model:default-inputs="defaultInputs"
+                   v-model:create-inputs="createInputs"
+                   v-bind="allEntityCrudChildProps">
         <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
           <q-td :props="inputData.props">
             <template v-if="inputData.props.col.name === 'actions'">

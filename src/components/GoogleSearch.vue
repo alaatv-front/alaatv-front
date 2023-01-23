@@ -23,13 +23,13 @@
   </div>
   <div class="row"
        dir="ltr">
-    <div class="col-2"></div>
+    <div class="col-2" />
     <div class="col-8 container">
       <div class="search-area row">
         <div class="col-2 google-logo">
           <q-img src="/img/google-logo.png"
                  width="92px"
-                 height="30px"></q-img>
+                 height="30px" />
         </div>
         <div class="col-10">
           <q-input v-model="text"
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="search-categories row">
-        <div class="col-2"></div>
+        <div class="col-2" />
         <div class="col-10 d-flex"
              style="justify-content: space-between">
           <div class="categories">
@@ -59,32 +59,27 @@
                  :class="item.class">
               <q-icon :name="item.icon"
                       style="margin: 0 2px 6px"
-                      size="14px"></q-icon>
+                      size="14px" />
               {{ item.title }}
-              <div
-                v-if="item.active === true"
-                style="border-bottom: 3px solid #1A73E8; position: relative; bottom: -4px;"
-              >
-              </div>
+              <div v-if="item.active === true"
+                   style="border-bottom: 3px solid #1A73E8; position: relative; bottom: -4px;" />
             </div>
           </div>
           <div class="d-flex">
-            <q-btn-toggle
-              v-model="viewMode"
-              spread
-              flat
-              no-caps
-              toggle-color="primary"
-              color="white"
-              text-color="black"
-              :options="[
-                {value: 'desktop', slot: 'one'},
-                {value: 'mobile', slot: 'two'}]"
-            >
+            <q-btn-toggle v-model="viewMode"
+                          spread
+                          flat
+                          no-caps
+                          toggle-color="primary"
+                          color="white"
+                          text-color="black"
+                          :options="[
+                            {value: 'desktop', slot: 'one'},
+                            {value: 'mobile', slot: 'two'}]">
               <template v-slot:one>
                 <div class="d-flex">
                   <q-icon name="mdi-desktop-mac"
-                          style="margin-right: 4px;"></q-icon>
+                          style="margin-right: 4px;" />
                   Desktop
                 </div>
               </template>
@@ -92,7 +87,7 @@
               <template v-slot:two>
                 <div class="d-flex">
                   <q-icon name="mdi-cellphone"
-                          style="margin-right: 4px"></q-icon>
+                          style="margin-right: 4px" />
                   Mobile
                 </div>
               </template>
@@ -100,7 +95,7 @@
           </div>
         </div>
       </div>
-      <q-separator style="width: 100%"></q-separator>
+      <q-separator style="width: 100%" />
       <div v-if="viewMode === 'desktop'"
            class="desktop-content">
         <div class="search-title">
@@ -124,7 +119,7 @@
                     color="orange"
                     icon-half="star_half"
                     readonly
-                    style="margin-right: 5px"></q-rating>
+                    style="margin-right: 5px" />
           Rating: {{ this.rate }} - 798 votes
         </div>
         <div class="d-flex date-and-description">
@@ -185,14 +180,14 @@
                         color="orange"
                         icon-half="star_half"
                         readonly
-                        style="margin-right: 5px"></q-rating>
+                        style="margin-right: 5px" />
               (798)
             </div>
           </q-card-section>
         </q-card>
       </div>
     </div>
-    <div class="col-2"></div>
+    <div class="col-2" />
   </div>
 </template>
 

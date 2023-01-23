@@ -7,13 +7,11 @@
             <q-select v-model="localOptions.paginate"
                       :options="paginate"
                       label="paginate"
-                      @input-value="localOptions.paginate = !localOptions.paginate"
-            />
+                      @input-value="localOptions.paginate = !localOptions.paginate" />
           </div>
           <div class="col-md-6">
             <q-input v-model="localOptions.id"
-                     label="content id"
-            />
+                     label="content id" />
           </div>
         </div>
       </div>

@@ -1,13 +1,11 @@
 <template>
-  <entity-show
-    v-model:value="inputs"
-    title="اطلاعات محصول"
-    :api="api"
-    :entity-id-key="entityIdKey"
-    :entity-param-key="entityParamKey"
-    :edit-route-name="editRouteName"
-    :index-route-name="indexRouteName"
-  />
+  <entity-show v-model:value="inputs"
+               title="اطلاعات محصول"
+               :api="api"
+               :entity-id-key="entityIdKey"
+               :entity-param-key="entityParamKey"
+               :edit-route-name="editRouteName"
+               :index-route-name="indexRouteName" />
 </template>
 
 <script>

@@ -25,7 +25,6 @@
     "@silvermine/videojs-quality-selector": "^1.2.5",
     "@vue-leaflet/vue-leaflet": "^0.7.0",
     "axios": "^1.2.3",
-    "core-js": "^3.26.1",
     "cropperjs": "^1.5.13",
     "deepmerge": "^4.2.2",
     "dotenv": "^16.0.3",

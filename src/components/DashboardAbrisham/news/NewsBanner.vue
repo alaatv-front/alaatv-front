@@ -1,23 +1,15 @@
 <template>
-  <div
-    class="banner-page"
-  >
+  <div class="banner-page">
     <div class="banner">
-      <a
-        v-if="bannerData.url"
-        :href="bannerData.url"
-        target="_blank"
-      >
-        <q-img
-          :src="bannerData.src"
-          class="banner-image"
-        />
+      <a v-if="bannerData.url"
+         :href="bannerData.url"
+         target="_blank">
+        <q-img :src="bannerData.src"
+               class="banner-image" />
       </a>
-      <q-img
-        v-else
-        :src="bannerData.src"
-        class="banner-image"
-      />
+      <q-img v-else
+             :src="bannerData.src"
+             class="banner-image" />
 
     </div>
   </div>

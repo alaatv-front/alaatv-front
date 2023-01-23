@@ -2,16 +2,13 @@
   <q-no-ssr>
     <q-card class="msg-input-box">
       <div v-if="canChoseOrder">
-        <q-btn  unelevated
-                class="q-mb-lg"
-                color="primary"
-                @click="onOpenOrderList"
-
-        >انتخاب سفارش مورد نظر
+        <q-btn unelevated
+               class="q-mb-lg"
+               color="primary"
+               @click="onOpenOrderList">انتخاب سفارش مورد نظر
         </q-btn>
         <drawer :is-open="orderDrawer"
-                max-width="1016px"
-        >
+                max-width="1016px">
           <q-scroll-area class="fit">
             <q-btn icon="mdi-close"
                    class="close-btn"
@@ -29,11 +26,9 @@
           اپراتورهای تخصیص داده شده:
         </p>
 
-        <q-select
-          v-model="assignTo"
-          outlined
-          :options="userAssignees.list"
-        >
+        <q-select v-model="assignTo"
+                  outlined
+                  :options="userAssignees.list">
           <template v-slot:selected>
             {{ assignTo ? assignTo.full_name : '-' }}
             {{ assignTo ? '(' + assignTo.role + ')' : '' }}
@@ -54,39 +49,30 @@
       <div class=" SendMessageInput ">
         <div v-show="canShowMic"
              class="input-group-prepend">
-          <q-btn
-            v-longpress="recordVoice"
-            unelevated
-            class="btn  actionBtn btnRecordVoiceForUpload"
-            color="positive"
-            icon="isax:microphone"
-          >
-          </q-btn>
+          <q-btn v-longpress="recordVoice"
+                 unelevated
+                 class="btn  actionBtn btnRecordVoiceForUpload"
+                 color="positive"
+                 icon="isax:microphone" />
         </div>
         <div v-show="canShowSelectPic"
              class="input-group-append">
-          <q-btn
-            unelevated
-            class="btn  actionBtn"
-            color="primary"
-            icon="isax:image"
-            @click="getFile"
-          >
-            <input
-              ref="myFileInput"
-              style="display:none"
-              type="file"
-              accept="image/*"
-              @change="loadImage($event)"
-            />
+          <q-btn unelevated
+                 class="btn  actionBtn"
+                 color="primary"
+                 icon="isax:image"
+                 @click="getFile">
+            <input ref="myFileInput"
+                   style="display:none"
+                   type="file"
+                   accept="image/*"
+                   @change="loadImage($event)">
           </q-btn>
 
-          <q-dialog
-            v-model="showModalStatus"
-            persistent
-            class="imageModal"
-            @close="clearMessage"
-          >
+          <q-dialog v-model="showModalStatus"
+                    persistent
+                    class="imageModal"
+                    @close="clearMessage">
             <q-card>
               <div>
                 <!--                <cropper-->
@@ -103,88 +89,71 @@
                 <!--                />-->
 
                 <div class="slider_box">
-                  <q-btn
-                    unelevated
-                    class="delete-pic-btn"
-                    label="حذف"
-                    @click="clearMessage"
-                  />
+                  <q-btn unelevated
+                         class="delete-pic-btn"
+                         label="حذف"
+                         @click="clearMessage" />
                   <div class="angle-slider">
                     <p class="title">میزان چرخش :</p>
-                    <input
-                      id="slider"
-                      v-model="rotateAngle"
-                      class="angle_slider"
-                      type="range"
-                      min="0"
-                      max="360"
-                      @change="rotate"
-                    />
+                    <input id="slider"
+                           v-model="rotateAngle"
+                           class="angle_slider"
+                           type="range"
+                           min="0"
+                           max="360"
+                           @change="rotate">
                   </div>
                 </div>
 
-                <q-input
-                  v-model="newMessageTextInModal"
-                  borderless
-                  class="imageInput"
-                  placeholder="متن پیام ..." />
+                <q-input v-model="newMessageTextInModal"
+                         borderless
+                         class="imageInput"
+                         placeholder="متن پیام ..." />
 
               </div>
-              <div
-                class="adminSendPic"
-              >
-                <q-btn
-                  unelevated
-                  class="imageBtn BtnSuccess"
-                  :loading="sendLoading"
-                  icon="isax:tick-square"
-                  @click="emitData(false)"
-                />
-                <q-btn
-                  v-if="isAdmin"
-                  unelevated
-                  class="imageBtn BtnWarning"
-                  :loading="sendLoading"
-                  icon="isax:card-send"
-                  @click="emitData(true)"
-                />
+              <div class="adminSendPic">
+                <q-btn unelevated
+                       class="imageBtn BtnSuccess"
+                       :loading="sendLoading"
+                       icon="isax:tick-square"
+                       @click="emitData(false)" />
+                <q-btn v-if="isAdmin"
+                       unelevated
+                       class="imageBtn BtnWarning"
+                       :loading="sendLoading"
+                       icon="isax:card-send"
+                       @click="emitData(true)" />
               </div>
             </q-card>
 
           </q-dialog>
         </div>
         <div v-if="canShowSelectFile">
-          <q-btn
-            unelevated
-            square
-            color="teal-7"
-            icon="attach_file"
-            class="actionBtn full-height attach-file"
-            @click="$refs.fileInput.click()" />
+          <q-btn unelevated
+                 square
+                 color="teal-7"
+                 icon="attach_file"
+                 class="actionBtn full-height attach-file"
+                 @click="$refs.fileInput.click()" />
           <input ref="fileInput"
                  type="file"
                  style="display: none;"
-                 @change="loadFile($event)" />
+                 @change="loadFile($event)">
         </div>
 
-        <div
-          v-show="canShowSendBtn"
-          class="input-group-append adminSend">
-          <q-btn
-            size="12px"
-            class="btn  actionBtn sendBtn BtnSuccess "
-            :loading="sendLoading"
-            icon="isax:send-1"
-            @click="emitData(false)"
-          />
-          <q-btn
-            v-if="isAdmin"
-            size="12px"
-            class="btn  actionBtn sendBtn BtnWarning"
-            :loading="sendLoading"
-            icon="isax:directbox-send"
-            @click="emitData(true)"
-          >
+        <div v-show="canShowSendBtn"
+             class="input-group-append adminSend">
+          <q-btn size="12px"
+                 class="btn  actionBtn sendBtn BtnSuccess "
+                 :loading="sendLoading"
+                 icon="isax:send-1"
+                 @click="emitData(false)" />
+          <q-btn v-if="isAdmin"
+                 size="12px"
+                 class="btn  actionBtn sendBtn BtnWarning"
+                 :loading="sendLoading"
+                 icon="isax:directbox-send"
+                 @click="emitData(true)">
             <q-tooltip>
               ارسال به صورت خصوصی
             </q-tooltip>
@@ -214,45 +183,36 @@
         <!--            :canv-height="64"-->
         <!--          />-->
         <!--        </q-no-ssr>-->
-        <q-input
-          v-show="canShowTextarea"
-          v-model="newMessage.text"
-          borderless
-          class="newMessageText"
-          placeholder="متن پیام ..."
-        />
+        <q-input v-show="canShowTextarea"
+                 v-model="newMessage.text"
+                 borderless
+                 class="newMessageText"
+                 placeholder="متن پیام ..." />
 
-        <div
-          v-if="recordedVoice !== null"
-          v-show="showVoicePlayer"
-          class="input-group-prepend">
-          <q-btn
-            v-if="!showVoicePlayerIsPlaying"
-            unelevated
-            color="primary"
-            class="btn  actionBtn"
-            icon="isax:play"
-            @click="playRecordedVoice"
-          />
-          <q-btn
-            v-else
-            unelevated
-            color="primary"
-            class="btn  actionBtn"
-            icon="isax:pause"
-            @click="pauseRecordedVoice" />
+        <div v-if="recordedVoice !== null"
+             v-show="showVoicePlayer"
+             class="input-group-prepend">
+          <q-btn v-if="!showVoicePlayerIsPlaying"
+                 unelevated
+                 color="primary"
+                 class="btn  actionBtn"
+                 icon="isax:play"
+                 @click="playRecordedVoice" />
+          <q-btn v-else
+                 unelevated
+                 color="primary"
+                 class="btn  actionBtn"
+                 icon="isax:pause"
+                 @click="pauseRecordedVoice" />
         </div>
-        <div
-          v-if="recordedVoice !== null"
-          v-show="showVoicePlayer"
-          class="input-group-prepend">
-          <q-btn
-            unelevated
-            color="primary"
-            class="btn  actionBtn"
-            icon="isax:play-remove"
-            @click="clearMessage"
-          />
+        <div v-if="recordedVoice !== null"
+             v-show="showVoicePlayer"
+             class="input-group-prepend">
+          <q-btn unelevated
+                 color="primary"
+                 class="btn  actionBtn"
+                 icon="isax:play-remove"
+                 @click="clearMessage" />
         </div>
       </div>
     </q-card>

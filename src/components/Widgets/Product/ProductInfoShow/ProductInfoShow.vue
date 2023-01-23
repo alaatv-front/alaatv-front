@@ -8,25 +8,21 @@
             ویژگی های این محصول
           </div>
           <div class="product-info-box row">
-            <div
-              v-for="(info, index) in information"
-              :key="index"
-              class="product-info col-grow"
-            >
+            <div v-for="(info, index) in information"
+                 :key="index"
+                 class="product-info col-grow">
               <div class="product-info-inside q-ma-sm">
                 <div class="info-header ">
                   <q-img :src="info.src"
-                         class="info-image img"></q-img>
+                         class="info-image img" />
                   <p class="info-title">
                     {{ info.title }}
                   </p>
                 </div>
                 <div class="info-content">
-                  <div
-                    v-for="(value , i) in info.value"
-                    :key="i"
-                    class="info-value col-6"
-                  >
+                  <div v-for="(value , i) in info.value"
+                       :key="i"
+                       class="info-value col-6">
                     <span v-if="value">{{ value }}</span>
                     <span v-else>
                       <q-skeleton width="100px" />

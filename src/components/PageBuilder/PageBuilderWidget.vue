@@ -1,11 +1,9 @@
 <template>
-  <component
-    :is="widget.name"
-    :data="widget.data"
-    :options="widget.options"
-    :containerFullHeight="containerFullHeight"
-    :get-data="getData"
-  />
+  <component :is="widget.name"
+             :data="widget.data"
+             :options="widget.options"
+             :containerFullHeight="containerFullHeight"
+             :get-data="getData" />
 </template>
 
 <script>

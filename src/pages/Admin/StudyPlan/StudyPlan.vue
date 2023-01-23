@@ -3,40 +3,30 @@
   <div class="row justify-center">
     <div class="col-2 text-center">
       <q-btn color="green"
-             @click="openEmptyForm"
-      >
+             @click="openEmptyForm">
         ایجاد برنامه جدید
       </q-btn>
     </div>
     <div class="col-12">
-      <filter-plans
-        :majors="majors"
-        :lessonList="lessons"
-        :selected-major-id="selectedMajorId"
-        @changeSelectedLesson="updateSelectedLesson"
-        @changeMajorId="setSelectedMajorId"
-      />
+      <filter-plans :majors="majors"
+                    :lessonList="lessons"
+                    :selected-major-id="selectedMajorId"
+                    @changeSelectedLesson="updateSelectedLesson"
+                    @changeMajorId="setSelectedMajorId" />
     </div>
     <div class="col-12">
-      <full-calender-plans
-        :filterdPlans="filterPlanByLesson"
-        @handelPlanEvent="handelPlanEvent"
-      />
+      <full-calender-plans :filterdPlans="filterPlanByLesson"
+                           @handelPlanEvent="handelPlanEvent" />
     </div>
   </div>
-  <q-dialog
-    v-model="showPlanDetail"
-    full-width>
+  <q-dialog v-model="showPlanDetail"
+            full-width>
     <q-card>
       <q-card-section>
-        <form-builder
-          ref="studyPlanForm"
-          :value="inputs"
-        />
-        <q-btn
-          color="green"
-          @click="updatePlan"
-        >
+        <form-builder ref="studyPlanForm"
+                      :value="inputs" />
+        <q-btn color="green"
+               @click="updatePlan">
           ذخیره
         </q-btn>
       </q-card-section>
@@ -59,14 +49,13 @@
                flat
                label="Cancel"
                color="primary"
-               text  />
+               text />
         <q-btn v-close-popup
                flat
                label="yes"
                text
                color="green"
-               @click="deletePlan"
-        />
+               @click="deletePlan" />
       </q-card-actions>
     </q-card>
   </q-dialog>

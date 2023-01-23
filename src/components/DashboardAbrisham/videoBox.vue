@@ -1,23 +1,17 @@
 <template>
   <div class="video-box">
-    <div
-      class="video-main"
-    >
+    <div class="video-main">
       <div class="video-wrapper">
-        <video-player
-          v-if="content.file && content.file.video && content.inputData.can_see"
-          :time-points="timePoints"
-          :poster="content.photo"
-          :sources="sources"
-          :keepCalculating="keepCalculating"
-          @calcTimeData="changeVideoStatusToSeen"
-          @toggleBookmark="bookmarkPostIsFavored"
-          @play="setVideoDuration"
-        />
+        <video-player v-if="content.file && content.file.video && content.inputData.can_see"
+                      :time-points="timePoints"
+                      :poster="content.photo"
+                      :sources="sources"
+                      :keepCalculating="keepCalculating"
+                      @calcTimeData="changeVideoStatusToSeen"
+                      @toggleBookmark="bookmarkPostIsFavored"
+                      @play="setVideoDuration" />
         <div v-else-if="(!content.id || !content.photo)">
-          <div
-            class="null-video"
-          >
+          <div class="null-video">
             <div class="content text-primary">
               <q-icon name="info" />
               اوه نه! ویدیویی وجود نداره...
@@ -26,10 +20,8 @@
           </div>
         </div>
         <div v-else>
-          <a
-            :href="content.url.web"
-            target="_blank"
-          >
+          <a :href="content.url.web"
+             target="_blank">
             <q-img class="img"
                    :src="content.photo" />
           </a>
@@ -38,45 +30,29 @@
 
     </div>
     <div class="video-description">
-      <div
-        class="description row justify-between"
-      >
+      <div class="description row justify-between">
         <div class="">
           <div class="flex flex-wrap video-title">
-            <p
-              v-if="content.lesson_name || lesson.title"
-              class="title-item title-text video-paragraph"
-            >
-              <span
-                v-if="lesson.title"
-              >
+            <p v-if="content.lesson_name || lesson.title"
+               class="title-item title-text video-paragraph">
+              <span v-if="lesson.title">
                 {{ lesson.title }}
               </span>
-              <span
-                v-else-if="content.lesson_name"
-              >
+              <span v-else-if="content.lesson_name">
                 {{ content.lesson_name }}
               </span>
             </p>
-            <p
-              v-if="(set && set.short_title) || (content.set && content.set.short_title)"
-              class="title-item title-text video-paragraph"
-            >
-              <span
-                v-if="set && set.short_title"
-              >
+            <p v-if="(set && set.short_title) || (content.set && content.set.short_title)"
+               class="title-item title-text video-paragraph">
+              <span v-if="set && set.short_title">
                 {{ set.short_title }}
               </span>
-              <span
-                v-else-if="content.set && content.set.short_title"
-              >
+              <span v-else-if="content.set && content.set.short_title">
                 {{ content.set.short_title }}
               </span>
             </p>
-            <p
-              v-if="content.order || content.order === 0"
-              class="title-item title-text video-paragraph"
-            >
+            <p v-if="content.order || content.order === 0"
+               class="title-item title-text video-paragraph">
               جلسه {{ content.order }}
             </p>
           </div>
@@ -88,10 +64,8 @@
               <!--              />-->
               <p class="video-paragraph">گروه آموزشی آلاء</p>
             </div>
-            <div
-              v-if="content.author && (content.author.first_name || content.author.last_name)"
-              class="flex part align-center"
-            >
+            <div v-if="content.author && (content.author.first_name || content.author.last_name)"
+                 class="flex part align-center">
               <i class="fi fi-rr-graduation-cap icon flex" />
               <p class="video-paragraph">
                 {{ content.author.first_name }} {{content.author.last_name }}
@@ -99,66 +73,46 @@
             </div>
           </div>
         </div>
-        <div
-          v-if="content.id"
-          class="icon-btn-box"
-        >
-          <q-btn
-            dark
-            unelevated
-            class="seen-btn"
-            :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
-            :loading="content.loading"
-            @click="clickSeenButton"
-          >
-            <span
-              v-if="content.has_watched"
-              class="video-btn-text"
-            >
+        <div v-if="content.id"
+             class="icon-btn-box">
+          <q-btn dark
+                 unelevated
+                 class="seen-btn"
+                 :class="{ 'seen-video-btn': content.has_watched, 'video-btn': !content.has_watched }"
+                 :loading="content.loading"
+                 @click="clickSeenButton">
+            <span v-if="content.has_watched"
+                  class="video-btn-text">
               دیده شده
             </span>
             <i v-if="content.has_watched"
                class="fi fi-rr-check seen-icon" />
-            <span
-              v-else
-              class="video-btn-text"
-            >
+            <span v-else
+                  class="video-btn-text">
               دیده نشده
             </span>
           </q-btn>
           <div class="video-box-icon">
-            <q-btn
-              unelevated
-              class="icon-btn"
-              :disable="!content.file"
-              @click="downloadVideo= !downloadVideo"
-            >
-              <i
-                class="fi fi-rr-download icon bookmark-button"
-              />
+            <q-btn unelevated
+                   class="icon-btn"
+                   :disable="!content.file"
+                   @click="downloadVideo= !downloadVideo">
+              <i class="fi fi-rr-download icon bookmark-button" />
             </q-btn>
-            <q-btn
-              unelevated
-              flat
-              class="icon-btn"
-              @click="socialMediaDialog = !socialMediaDialog"
-            >
-              <i
-                class="fi fi-rr-share icon bookmark-button"
-              />
+            <q-btn unelevated
+                   flat
+                   class="icon-btn"
+                   @click="socialMediaDialog = !socialMediaDialog">
+              <i class="fi fi-rr-share icon bookmark-button" />
             </q-btn>
-            <q-btn
-              color="transparent"
-              unelevated
-              dark
-              :loading="content.loading"
-              class="icon-btn"
-              @click="toggleFavorite"
-            >
-              <i
-                class="fi fi-rr-bookmark icon bookmark-button"
-                :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }"
-              />
+            <q-btn color="transparent"
+                   unelevated
+                   dark
+                   :loading="content.loading"
+                   class="icon-btn"
+                   @click="toggleFavorite">
+              <i class="fi fi-rr-bookmark icon bookmark-button"
+                 :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }" />
 
             </q-btn>
           </div>
@@ -170,14 +124,12 @@
             position="bottom">
     <q-card style="width: 500px">
       <q-card-section class="flex items-center justify-around">
-        <q-btn
-          v-for="(item,index) in socialMediaList"
-          :key="index"
-          flat
-          color="primary"
-          :icon="item.icon"
-          @click="share(item.name)"
-        />
+        <q-btn v-for="(item,index) in socialMediaList"
+               :key="index"
+               flat
+               color="primary"
+               :icon="item.icon"
+               @click="share(item.name)" />
       </q-card-section>
     </q-card>
   </q-dialog>
@@ -189,11 +141,9 @@
         دانلود
       </div>
       <q-card-section class="flex items-center justify-around">
-        <div
-          v-for="(item, index) in content.file.video"
-          :key="index"
-          class="flex items-center justify-around download-item"
-        >
+        <div v-for="(item, index) in content.file.video"
+             :key="index"
+             class="flex items-center justify-around download-item">
           {{item.caption}}
           <div class="quality">
             {{item.res}}
@@ -201,9 +151,7 @@
           <q-btn unelevated
                  :href="item.link +'?download=1'"
                  class="download-btn">
-            <i
-              class="fi fi-rr-download icon bookmark-button"
-            />
+            <i class="fi fi-rr-download icon bookmark-button" />
           </q-btn>
         </div>
 

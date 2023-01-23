@@ -20,40 +20,29 @@
               :transition-duration="defaultOptions.transition.transitionDuration"
               :height="defaultOptions.styles.height ? defaultOptions.styles.height : 'auto'"
               :class="defaultOptions.styles.classes"
-              class="slider-widget"
-  >
-    <q-carousel-slide
-      v-for="(slide, index) in options.list"
-      :key="index"
-      :name="index"
-    >
+              class="slider-widget">
+    <q-carousel-slide v-for="(slide, index) in options.list"
+                      :key="index"
+                      :name="index">
       <a :href="slide.link">
-        <lazy-img
-          v-if="slide.photo.src !== ''"
-          :src="slide.photo.src"
-          :alt="slide.title"
-        />
-        <lazy-img
-          v-else
-          qImage="true"
-          :src="responsiveFeatures(slide.features).src"
-          :alt="slide.title"
-        />
-        <q-tooltip
-          v-if="slide.title"
-          :offset="[18, 18]"
-        >
+        <lazy-img v-if="slide.photo.src !== ''"
+                  :src="slide.photo.src"
+                  :alt="slide.title" />
+        <lazy-img v-else
+                  qImage="true"
+                  :src="responsiveFeatures(slide.features).src"
+                  :alt="slide.title" />
+        <q-tooltip v-if="slide.title"
+                   :offset="[18, 18]">
           {{ slide.title }}
         </q-tooltip>
       </a>
     </q-carousel-slide>
     <template v-slot:control>
-      <q-carousel-control
-        :position="defaultOptions.control.position"
-        :offset="defaultOptions.control.offset"
-        :class="defaultOptions.control.class"
-      >
-        <slot name="controls-content"></slot>
+      <q-carousel-control :position="defaultOptions.control.position"
+                          :offset="defaultOptions.control.offset"
+                          :class="defaultOptions.control.class">
+        <slot name="controls-content" />
       </q-carousel-control>
     </template>
   </q-carousel>

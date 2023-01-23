@@ -1,17 +1,15 @@
 <template>
   <div class="row  justify-center">
     <div class="col-8 q-mb-xl">
-      <entity-edit
-        ref="entityEdit"
-        v-model:value="inputs"
-        :show-save-button="false"
-        :title="'شماره تیکت ' + getInputsValue('id') + ' در ' + getInputsValue('department_title')"
-        :api="api"
-        entity-id-key="id"
-        entity-param-key="id"
-        :show-route-name="options.indexRouteName"
-        :after-load-input-data="checkLoadInputData"
-      >
+      <entity-edit ref="entityEdit"
+                   v-model:value="inputs"
+                   :show-save-button="false"
+                   :title="'شماره تیکت ' + getInputsValue('id') + ' در ' + getInputsValue('department_title')"
+                   :api="api"
+                   entity-id-key="id"
+                   entity-param-key="id"
+                   :show-route-name="options.indexRouteName"
+                   :after-load-input-data="checkLoadInputData">
         <template #before-form-builder>
           <div class="flex justify-around">
             <q-btn rounded
@@ -62,43 +60,36 @@
                      icon="isax:sms"
                      color="blue"
                      :loading="loading"
-                     @click="sendTicketStatusNotice(getInputsValue('id'))"
-              >
+                     @click="sendTicketStatusNotice(getInputsValue('id'))">
                 <q-tooltip>ارسال پیامک اگاه سازی تغییر وضعیت</q-tooltip>
               </q-btn>
             </div>
           </div>
         </template>
         <template #after-form-builder>
-          <q-expansion-item
-            v-model="updateUserTem"
-            label="تغییر کاربر"
-            class="q-my-lg rounded-borders"
-          >
+          <q-expansion-item v-model="updateUserTem"
+                            label="تغییر کاربر"
+                            class="q-my-lg rounded-borders">
             <q-card>
               <q-card-section>
                 <div class="row q-col-gutter-md">
                   <div class="col-5">
-                    <q-input
-                      v-model="phoneNumber"
-                      outlined
-                      label="شماره تلفن" />
+                    <q-input v-model="phoneNumber"
+                             outlined
+                             label="شماره تلفن" />
                   </div>
                   <div class="col-5">
-                    <q-input
-                      v-model="nationalCode"
-                      outlined
-                      label="کد ملی" />
+                    <q-input v-model="nationalCode"
+                             outlined
+                             label="کد ملی" />
                   </div>
                   <div class="col-2">
-                    <q-btn
-                      color="primary"
-                      unelevated
-                      :loading="loading"
-                      padding="5px 20px"
-                      label="برسی"
-                      @click="getUserInfo"
-                    />
+                    <q-btn color="primary"
+                           unelevated
+                           :loading="loading"
+                           padding="5px 20px"
+                           label="برسی"
+                           @click="getUserInfo" />
                   </div>
                   <template v-if="user.id">
                     <div class="col-3 flex">
@@ -117,8 +108,7 @@
                       <q-btn unelevated
                              color="positive"
                              label="تغییر کاربر"
-                             @click="changeUser"
-                      />
+                             @click="changeUser" />
                     </div>
                   </template>
                 </div>
@@ -130,48 +120,40 @@
             <q-btn unelevated
                    color="blue"
                    :loading="loading"
-                   @click="editAssignedSupporters"
-            >ویرایش اپراتورها
+                   @click="editAssignedSupporters">ویرایش اپراتورها
             </q-btn>
           </div>
-          <ticket-rate
-            v-if="!isAdmin"
-            :rate="getInputsValue('rate')"
-            :ticket-id="getInputsValue('id')"
-            class="q-ml-lg q-mt-lg" />
+          <ticket-rate v-if="!isAdmin"
+                       :rate="getInputsValue('rate')"
+                       :ticket-id="getInputsValue('id')"
+                       class="q-ml-lg q-mt-lg" />
         </template>
       </entity-edit>
       <messages v-for="(item, index) in userMessageArray"
                 :key="index"
                 :is-user-admin="isAdmin"
                 :data="item" />
-      <send-message-input
-        ref="SendMessageInput"
-        class="q-my-lg"
-        :isAdmin="isAdmin"
-        :send-loading="sendLoading"
-        @creatTicket="sendTicketMessage"
-      />
-      <drawer
-        :is-open="logDrawer"
-        max-width="310px"
-        side="left"
-      >
+      <send-message-input ref="SendMessageInput"
+                          class="q-my-lg"
+                          :isAdmin="isAdmin"
+                          :send-loading="sendLoading"
+                          @creatTicket="sendTicketMessage" />
+      <drawer :is-open="logDrawer"
+              max-width="310px"
+              side="left">
         <q-scroll-area class="fit">
           <q-btn icon="mdi-close"
                  unelevated
                  class="close-btn"
                  @click="logDrawer = false" />
           <div class="q-my-md flex content-between">
-            <q-tabs
-              v-model="panel"
-              dense
-              class="text-grey"
-              active-color="primary"
-              indicator-color="primary"
-              align="justify"
-              narrow-indicator
-            >
+            <q-tabs v-model="panel"
+                    dense
+                    class="text-grey"
+                    active-color="primary"
+                    indicator-color="primary"
+                    align="justify"
+                    narrow-indicator>
               <q-tab name="events"
                      label="رویداد ها" />
               <q-tab v-if="isAdmin"
@@ -183,15 +165,13 @@
                         class="tab-panels"
                         animated>
             <q-tab-panel name="events">
-              <log-list
-                :log-array="logList"
-              />
+              <log-list :log-array="logList" />
             </q-tab-panel>
             <q-tab-panel name="otherTickets">
               <template v-for="ticket in getInputsValue('otherTickets')"
                         :key="ticket">
                 <div class="other-ticket">
-                  <div class="right-side-squere"></div>
+                  <div class="right-side-squere" />
                   <div>
                     <q-btn class="link-btn"
                            :href="'/ticket/' + ticket.id"
@@ -206,10 +186,8 @@
           </q-tab-panels>
         </q-scroll-area>
       </drawer>
-      <drawer
-        :is-open="orderDrawer"
-        max-width="1016px"
-      >
+      <drawer :is-open="orderDrawer"
+              max-width="1016px">
         <q-scroll-area class="fit">
           <q-btn icon="mdi-close"
                  class="close-btn"

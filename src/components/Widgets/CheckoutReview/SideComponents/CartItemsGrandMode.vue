@@ -3,18 +3,14 @@
     <div class="title">{{ cartItem.product.title }}</div>
     <div class="group row items-center">
       <div class="price">{{ cartItem.price.final }} تومان</div>
-      <q-btn
-        class="delete-btn"
-        icon="isax:trash"
-        rounded
-        flat
-        :loading="loading"
-        @click="deleteItem"
-      >
+      <q-btn class="delete-btn"
+             icon="isax:trash"
+             rounded
+             flat
+             :loading="loading"
+             @click="deleteItem">
         <template v-slot:loading>
-          <q-spinner
-            color="primary"
-          />
+          <q-spinner color="primary" />
         </template>
       </q-btn>
     </div>

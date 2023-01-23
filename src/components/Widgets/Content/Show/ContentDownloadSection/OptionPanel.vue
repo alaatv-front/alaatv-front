@@ -5,8 +5,7 @@
         <div class="row">
           <div class="col-md-6">
             <q-input v-model="localOptions.link"
-                     label="download link"
-            />
+                     label="download link" />
           </div>
         </div>
       </div>

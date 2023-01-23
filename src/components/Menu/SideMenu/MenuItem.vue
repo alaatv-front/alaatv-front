@@ -1,37 +1,27 @@
 <template>
-  <div
-    v-for="(item , index) in menu"
-    :key="index"
-  >
-    <q-expansion-item
-      v-if="item.children && item.children.length && item.show"
-      v-model="item.open"
-      :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"
-      :label="item.title"
-      :icon="item.icon"
-      class="side-expansion-list"
-    >
+  <div v-for="(item , index) in menu"
+       :key="index">
+    <q-expansion-item v-if="item.children && item.children.length && item.show"
+                      v-model="item.open"
+                      :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"
+                      :label="item.title"
+                      :icon="item.icon"
+                      class="side-expansion-list">
       <div class="expansion-body">
         <q-separator dark
                      size="2px"
                      vertical
                      class="vertical-separator" />
         <q-list class="list-expansion">
-          <div
-            v-for="(subItem , i) in item.children"
-            :key="i"
-          >
+          <div v-for="(subItem , i) in item.children"
+               :key="i">
             <menu-item v-if="subItem.children && subItem.children.length && item.show"
                        :menu="[subItem]" />
-            <q-item
-              v-else-if="subItem.show"
-              :to="{ name: subItem.routeName, params: subItem.params }"
-              class="list-child-item"
-              exact-active-class="active-route"
-            >
-              <q-item-section
-                class="list-child-section"
-              >
+            <q-item v-else-if="subItem.show"
+                    :to="{ name: subItem.routeName, params: subItem.params }"
+                    class="list-child-item"
+                    exact-active-class="active-route">
+              <q-item-section class="list-child-section">
                 {{ subItem.title }}
               </q-item-section>
               <span class="indicator" />
@@ -40,14 +30,12 @@
         </q-list>
       </div>
     </q-expansion-item>
-    <q-item
-      v-else-if="item.show"
-      v-model="clickedItem"
-      :to="(item.routeName) ? {name: item.routeName} : null"
-      class="item-list"
-      :class="{ 'alone-item': !item.children }"
-      exact-active-class="active-route"
-    >
+    <q-item v-else-if="item.show"
+            v-model="clickedItem"
+            :to="(item.routeName) ? {name: item.routeName} : null"
+            class="item-list"
+            :class="{ 'alone-item': !item.children }"
+            exact-active-class="active-route">
       <div class="section-title">
         <q-item-section class="list-section title-icon"
                         avatar>

@@ -1,10 +1,8 @@
 <template>
   <div v-show="showPanelDetail"
        class="plan-details">
-    <div
-      v-if="selectedPlan.start !== null"
-      class="plan-sheet"
-    >
+    <div v-if="selectedPlan.start !== null"
+         class="plan-sheet">
       <div class="row">
         <div class="col-4 plan-sheet-title-1">
           از ساعت {{ selectedPlan.start.substr(0, 5) }}
@@ -17,76 +15,54 @@
         </div>
       </div>
     </div>
-    <div
-      class="plan-sheet-details"
-    >
+    <div class="plan-sheet-details">
       <div class="row">
-        <div
-          v-if="filterByTypeVideo.length !== 0"
-          v-ripple
-          class="col-6 plan-sheet-details-card"
-        >
+        <div v-if="filterByTypeVideo.length !== 0"
+             v-ripple
+             class="col-6 plan-sheet-details-card">
           <div class=" plan-sheet-details-title">
             فیلم
           </div>
-          <div
-            v-for="(content, id) in filterByTypeVideo"
-            :key="id"
-            v-ripple
-            class="plan-sheet-details-video cursor-pointer"
-            @click="contentClicked(content)"
-          >
+          <div v-for="(content, id) in filterByTypeVideo"
+               :key="id"
+               v-ripple
+               class="plan-sheet-details-video cursor-pointer"
+               @click="contentClicked(content)">
             <div class="plan-sheet-details-video-box">
-              <div
-                class="plan-sheet-details-video-thumbnail"
-              >
+              <div class="plan-sheet-details-video-thumbnail">
                 <img class="img"
                      alt="عکس درس"
-                     :src="content.photo" />
+                     :src="content.photo">
               </div>
-              <div
-                class="plan-sheet-details-video-title"
-              >
+              <div class="plan-sheet-details-video-title">
                 {{ content.title }}
               </div>
 
             </div>
           </div>
         </div>
-        <div
-          v-if="filterByTypeVoice.length !== 0 "
-          class="col-6 text-right plan-sheet-details-voice"
-        >
+        <div v-if="filterByTypeVoice.length !== 0 "
+             class="col-6 text-right plan-sheet-details-voice">
           <v-card elevation="0">
             <v-col class="text-right plan-sheet-details-title">
               {{content.title}}
             </v-col>
-            <v-card
-              v-for="(content, id) in filterByTypeVoice"
-              :key="id"
-              class="plan-sheet-details-voice-card"
-            >
-              <audio
-                controls
-                class="plan-sheet-details-voice-audio"
-              >
-                <source
-                  :src="content.file.voice"
-                  type="audio/ogg"
-                >
-                <source
-                  :src="content.file.voice"
-                  type="audio/mpeg"
-                >
+            <v-card v-for="(content, id) in filterByTypeVoice"
+                    :key="id"
+                    class="plan-sheet-details-voice-card">
+              <audio controls
+                     class="plan-sheet-details-voice-audio">
+                <source :src="content.file.voice"
+                        type="audio/ogg">
+                <source :src="content.file.voice"
+                        type="audio/mpeg">
                 مرورگر شما از پخش  کننده صدا پشتیبانی نمیکند.
               </audio>
             </v-card>
           </v-card>
         </div>
-        <div
-          v-if="selectedPlan.long_description !== null"
-          class="col-12 plan-sheet-details-card"
-        >
+        <div v-if="selectedPlan.long_description !== null"
+             class="col-12 plan-sheet-details-card">
           <v-card elevation="0">
             <v-col class="text-right plan-sheet-details-title">
               توضیحات

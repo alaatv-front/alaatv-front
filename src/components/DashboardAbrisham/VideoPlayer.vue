@@ -4,19 +4,17 @@
     <div id="videoPlayer-timeStamp"
          dir="rtl"
          style="font-family: IRANSans;">
-      <v-navigation-drawer
-        v-show="videoIsPlaying"
-        v-model="drawer"
-        right
-        absolute
-        :height="calcTheHeight"
-        :width="calcTheWidth"
-        temporary
-        hide-overlay
-      >
+      <v-navigation-drawer v-show="videoIsPlaying"
+                           v-model="drawer"
+                           right
+                           absolute
+                           :height="calcTheHeight"
+                           :width="calcTheWidth"
+                           temporary
+                           hide-overlay>
         <v-list-item>
 
-          <i class="fi-sr-bookmark"></i>
+          <i class="fi-sr-bookmark" />
           <v-list-item-title>زمانکوب ها</v-list-item-title>
           <!-- <v-btn
                         icon
@@ -25,37 +23,27 @@
                         <v-icon>mdi-chevron-right</v-icon>
                     </v-btn> -->
         </v-list-item>
-        <v-divider color="rgba(255, 255, 255, 0.6)"></v-divider>
-        <v-list
-          nav
-          dense
-        >
-          <v-list-item-group
-
-          >
-            <v-list-item
-              v-for="(timeStamp,index) in timePoints"
-              :key="index"
-              @click="activate(timeStamp.time)"
-            >
+        <v-divider color="rgba(255, 255, 255, 0.6)" />
+        <v-list nav
+                dense>
+          <v-list-item-group>
+            <v-list-item v-for="(timeStamp,index) in timePoints"
+                         :key="index"
+                         @click="activate(timeStamp.time)">
               <v-list-item-title>{{ timeStamp.title }}</v-list-item-title>
               <v-list-item-action>
                 <v-list-item-action-text>
                   <v-menu bottom
                           left>
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        class="video-box-icon-button"
-                        icon
-                        :loading="timeStamp.loading"
-                        @click.stop="toggleFavorite(timeStamp.id , $event)"
-                      >
+                    <template v-slot:activator="{ /* on */ }">
+                      <v-btn class="video-box-icon-button"
+                             icon
+                             :loading="timeStamp.loading"
+                             @click.stop="toggleFavorite(timeStamp.id , $event)">
 
                         <!--fi-sr-bookmark  -->
-                        <span
-                          class='bookmark-button'
-                          :class="{ 'is-favorite': timeStamp.isFavored , 'is-not-favorite': !timeStamp.isFavored }"
-                        ></span>
+                        <span class='bookmark-button'
+                              :class="{ 'is-favorite': timeStamp.isFavored , 'is-not-favorite': !timeStamp.isFavored }" />
                       </v-btn>
                     </template>
                   </v-menu>
@@ -67,22 +55,18 @@
       </v-navigation-drawer>
       <!-- timestamp[0] -->
       <transition name="fade">
-        <v-btn
-          v-show="videoIsPlaying"
-          color="rgba(0, 0, 0, 0.6)"
-          class="white--text vPlayer-drawer-btn"
-          @click.stop="drawer = true"
-        >
-          <span class='vPlayer-timestamp-icon'></span>
+        <v-btn v-show="videoIsPlaying"
+               color="rgba(0, 0, 0, 0.6)"
+               class="white--text vPlayer-drawer-btn"
+               @click.stop="drawer = true">
+          <span class='vPlayer-timestamp-icon' />
         </v-btn>
       </transition>
     </div>
     <video id="my-video"
            ref="videoPlayer"
            dir="ltr"
-           class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause">
-
-    </video>
+           class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause" />
   </div>
 </template>
 
@@ -260,11 +244,11 @@ export default {
     toggleFavorite(id, event) {
       const that = this
       let count = -1
-      let currentTimepointIndex = null
+      // let currentTimepointIndex = null
       this.timePoints.forEach(function (item, index) {
         count++
         if (parseInt(item.id) === parseInt(id)) {
-          currentTimepointIndex = index
+          // currentTimepointIndex = index
           item.loading = true
           item.isFavored = !item.isFavored
           that.postIsFavored = {
@@ -277,7 +261,7 @@ export default {
       const requiredElement = document.querySelector('.video-js')
       requiredElement.focus()
       this.$emit('toggleBookmark', this.postIsFavored)
-      setTimeout(function() { that.timePoints[currentTimepointIndex].loading = false }, 200)
+      // setTimeout(function() { that.timePoints[currentTimepointIndex].loading = false }, 200) // vue/no-mutating-props
     },
     // postIsFavored(timeStampData){
     //     var postStatus = 'unfavored'

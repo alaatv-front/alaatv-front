@@ -9,8 +9,7 @@
             width: calculateWidth(plan) + 'px',
           }"
           :planDate='plan'
-          @handelPlanEvent="handelPlanEvent"
-    />
+          @handelPlanEvent="handelPlanEvent" />
   </div>
 
 </template>

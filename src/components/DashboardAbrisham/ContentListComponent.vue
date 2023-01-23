@@ -1,35 +1,26 @@
 <template>
   <div class="content-list-box"
-       :class="{'no-data' : !filteredList.length}"
-  >
+       :class="{'no-data' : !filteredList.length}">
     <div class="top-of-list">
       <slot name="header">
         <div class="slot-header-box items-center flex justify-between">
-          <span
-            class="main-header-text"
-          >
+          <span class="main-header-text">
             {{ header.title }}
           </span>
-          <q-btn
-            v-if="header.button"
-            unelevated
-            class="slot-header-box-days"
-            :label=" header.button.title"
-            @click="btnClicked"
-          />
+          <q-btn v-if="header.button"
+                 unelevated
+                 class="slot-header-box-days"
+                 :label=" header.button.title"
+                 @click="btnClicked" />
         </div>
       </slot>
       <slot name="filter" />
     </div>
 
     <div class="content-list-items-box">
-      <div
-        class="content-box"
-      >
-        <div
-          v-if="!filteredList.length"
-          class="q-ma-md text-primary"
-        >
+      <div class="content-box">
+        <div v-if="!filteredList.length"
+             class="q-ma-md text-primary">
           <q-icon name="info" />
           موردی وجود ندارد !
 
@@ -54,15 +45,13 @@
             </q-item-section>
           </q-item>
         </div>
-        <content-list-item
-          v-for="(item , index) in filteredList"
-          v-else
-          :key="index"
-          :content="item"
-          :type="type"
-          :selected="selectedItem.id === item.id"
-          @itemClicked="changeSelectedId(item)"
-        />
+        <content-list-item v-for="(item , index) in filteredList"
+                           v-else
+                           :key="index"
+                           :content="item"
+                           :type="type"
+                           :selected="selectedItem.id === item.id"
+                           @itemClicked="changeSelectedId(item)" />
       </div>
     </div>
   </div>
