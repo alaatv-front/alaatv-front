@@ -20,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'UploadCenterComponent'
+                        name: 'UploadCenter'
                       }
                     ]
                   }
@@ -33,8 +33,7 @@ export default {
             ]
           },
           options: {
-            fullHeight: true,
-            verticalAlign: 'center'
+            // fullHeight: true
           }
         }
       ]

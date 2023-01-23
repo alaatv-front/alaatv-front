@@ -285,7 +285,7 @@ const routes = [
           layoutFooter: false
         },
         meta: { middlewares: [auth] },
-        component: () => import('layouts/bareLayout.vue'),
+        component: () => import('layouts/AdminLayout.vue'),
         children: [
           {
             name: 'Admin.Dashboard',
