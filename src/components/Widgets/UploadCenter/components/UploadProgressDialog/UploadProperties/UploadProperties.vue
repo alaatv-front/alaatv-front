@@ -5,7 +5,8 @@
         <entity-edit v-model:value="inputs"
                      title="ویرایش اطلاعات محتوا"
                      :entity-id-key="entityIdKey"
-                     :entity-param-key="entityParamKey" />
+                     :entity-param-key="entityParamKey"
+                     :default-layout="false" />
       </div>
       <div class="col-6 video-box-col">
         <div class="video-box">
