@@ -2,10 +2,10 @@
   <div class="upload-information-wrapper">
     <div class="row">
       <div class="col-6 upload-form-col">
-        <EntityEdit v-model:value="inputs"
-                    title="ویرایش اطلاعات محتوا"
-                    :entity-id-key="entityIdKey"
-                    :entity-param-key="entityParamKey" />
+        <entity-edit v-model:value="inputs"
+                     title="ویرایش اطلاعات محتوا"
+                     :entity-id-key="entityIdKey"
+                     :entity-param-key="entityParamKey" />
       </div>
       <div class="col-6 video-box-col">
         <div class="video-box">

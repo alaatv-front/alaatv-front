@@ -12,42 +12,33 @@
         </div>
       </div>
       <div class="upload-dialog-main-content">
-        <q-stepper
-          ref="stepper"
-          v-model="step"
-          color="primary"
-          animated
-          flat
-
-        >
-          <q-step
-            :name="1"
-            title="مشخصات"
-            icon="settings"
-            done-icon="settings"
-            active-icon="settings"
-            :done="step > 1"
-          >
-            <UploadProperties />
+        <q-stepper ref="stepper"
+                   v-model="step"
+                   color="primary"
+                   animated
+                   flat>
+          <q-step :name="1"
+                  title="مشخصات"
+                  icon="settings"
+                  done-icon="settings"
+                  active-icon="settings"
+                  :done="step > 1">
+            <upload-properties />
           </q-step>
-          <q-step
-            :name="2"
-            title="زمان کوب"
-            icon="shutter_speed"
-            done-icon="shutter_speed"
-            active-icon="shutter_speed"
-            :done="step > 2"
-          >
-            <UploadTimestamp />
+          <q-step :name="2"
+                  title="زمان کوب"
+                  icon="shutter_speed"
+                  done-icon="shutter_speed"
+                  active-icon="shutter_speed"
+                  :done="step > 2">
+            <upload-timestamp />
           </q-step>
-          <q-step
-            :name="3"
-            title="انتشار فیلم"
-            icon="connected_tv"
-            done-icon="connected_tv"
-            active-icon="connected_tv"
-            :done="step > 3"
-          >
+          <q-step :name="3"
+                  title="انتشار فیلم"
+                  icon="connected_tv"
+                  done-icon="connected_tv"
+                  active-icon="connected_tv"
+                  :done="step > 3">
             An ad group contains one or more ads which target a shared set of keywords.
           </q-step>
           <template v-slot:navigation>

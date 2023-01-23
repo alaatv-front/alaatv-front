@@ -2,14 +2,12 @@
   <div class="upload-information-wrapper">
     <div class="row">
       <div class="col-6 upload-timestamp-col">
-        <q-table
-          title="زمان کوب"
-          :rows="rows"
-          :columns="columns"
-          row-key="name"
-          :hide-selected-banner="true"
-          :hide-pagination="false"
-        >
+        <q-table title="زمان کوب"
+                 :rows="rows"
+                 :columns="columns"
+                 row-key="name"
+                 :hide-selected-banner="true"
+                 :hide-pagination="false">
           <template v-slot:body="props">
             <q-tr :props="props">
               <q-td key="name"
@@ -31,11 +29,9 @@
                       <q-popup-proxy cover
                                      transition-show="scale"
                                      transition-hide="scale">
-                        <q-time
-                          v-model="props.row.time"
-                          with-seconds
-                          format24h
-                        >
+                        <q-time v-model="props.row.time"
+                                with-seconds
+                                format24h>
                           <div class="row items-center justify-end">
                             <q-btn v-close-popup
                                    label="Close"

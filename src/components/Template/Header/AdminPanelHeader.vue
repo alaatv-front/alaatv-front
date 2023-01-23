@@ -216,7 +216,7 @@ export default {
         {
           selected: 'adminPanel',
           title: 'پنل ادمین',
-          routeName: 'Admin.Dashboard',
+          routeName: 'Admin.UploadCenter.Contents',
           permission: 'all'
         }
       ],
