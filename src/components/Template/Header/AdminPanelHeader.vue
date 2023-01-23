@@ -216,7 +216,7 @@ export default {
         {
           selected: 'adminPanel',
           title: 'پنل ادمین',
-          routeName: 'Admin.Dashboard',
+          routeName: 'Admin.UploadCenter.Contents',
           permission: 'all'
         }
       ],
@@ -600,7 +600,6 @@ export default {
   border: 1px solid #F2F5F9;
   border-radius: 0 16px 16px 16px #{"/* rtl:ignore */"};
   .header {
-
     box-shadow: 0 6px 10px rgba(49, 46, 87, 0.04) #{"/* rtl:ignore */"};
     border-radius: 0 15px 0 0 #{"/* rtl:ignore */"};
   }
