@@ -33,8 +33,7 @@ export default {
             ]
           },
           options: {
-            fullHeight: true,
-            verticalAlign: 'center'
+            // fullHeight: true
           }
         }
       ]
