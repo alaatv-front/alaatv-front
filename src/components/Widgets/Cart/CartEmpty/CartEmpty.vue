@@ -5,7 +5,7 @@
     </div>
     <div class="title">سبد خرید شما خالی است!</div>
     <router-link
-      :to="{name: 'home'}"
+      :to="{name: 'Public.Home'}"
       class="back"
     >
       بازگشت به فروشگاه

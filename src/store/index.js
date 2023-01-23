@@ -1,6 +1,10 @@
+import Cart from './Cart'
+import Auth from './Auth'
 import process from 'process'
-import { store } from 'quasar/wrappers'
+import loading from './loading'
 import { createStore } from 'vuex'
+import AppLayout from './AppLayout'
+import { store } from 'quasar/wrappers'
 import createPersistedState from 'vuex-persistedstate'
 
 const plugins = []
@@ -8,22 +12,19 @@ const plugins = []
 if (process.browser) {
   const vuexPersistedState =
     createPersistedState({
+      key: 'vuex',
       storage: window.localStorage,
+      fetchBeforeUse: true,
       paths: [
-        'Auth.accessToken',
+        'Cart',
         'Auth.user',
-        'AppLayout',
-        'Cart'
+        'Auth.redirectTo',
+        'Auth.accessToken'
       ]
     })
 
   plugins.push(vuexPersistedState)
 }
-
-import Auth from 'src/store/Auth'
-import loading from 'src/store/loading'
-import AppLayout from 'src/store/AppLayout'
-import Cart from 'src/store/Cart'
 
 /*
  * If not building with SSR mode, you can

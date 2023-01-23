@@ -1,4 +1,3 @@
-import process from 'process'
 // process.client or process.browser
 const apiV2Server = process.env.ALAA_API_V2
 // const apiV1Server = process.env.ALAA_API_V1

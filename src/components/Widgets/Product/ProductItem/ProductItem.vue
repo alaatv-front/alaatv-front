@@ -2,8 +2,8 @@
   <q-card class="product-item-box">
     <div class="img-box">
       <router-link :to="{
-        name: 'User.Product.Show',
-        params: { id: product.id?product.id:-1, title: product.title }
+        name: 'Public.Product.Show',
+        params: { id: product.id ? product.id : -1 }
       }"
       >
         <lazy-img :src="product.photo"
@@ -72,8 +72,8 @@
 </template>
 
 <script>
-import LazyImg from 'src/components/lazyImg'
-import { Product } from 'src/models/Product'
+import { Product } from 'src/models/Product.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'productItem',
@@ -92,8 +92,8 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', this.product).then(() => {
-        this.$store.dispatch('Cart/reviewCart', this.product).then(() => {
+      this.$store.dispatch('Cart/addToCart', [this.product]).then((response) => {
+        this.$store.dispatch('Cart/reviewCart', this.product).then((res) => {
           this.$q.notify({
             message: 'با موفقیت به سبد خرید شما افزوده شد',
             color: 'green',
@@ -104,13 +104,14 @@ export default {
                 color: 'white',
                 class: 'bg-green-3',
                 handler: () => {
-                  this.$router.push({ name: 'User.Checkout.Review' })
+                  this.$router.push({ name: 'Public.Checkout.Review' })
                 }
               }
             ]
           })
         })
       }).catch(() => {
+
       })
     }
   }
@@ -148,6 +149,11 @@ export default {
       letter-spacing: -0.03em;
       margin: 16px;
 
+      @media screen and (max-width: 600px){
+        font-size: 14px;
+        line-height: 16px;
+      }
+
       a {
         margin-bottom: 0;
       }
@@ -163,6 +169,11 @@ export default {
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;
         overflow: hidden;
+
+        @media screen and (max-width: 600px){
+          font-size: 12px;
+          line-height: 14px;
+        }
       }
     }
 
@@ -175,6 +186,10 @@ export default {
       .img {
         width: inherit;
         border-radius: 20px 20px 0 0;
+
+        @media screen and (max-width: 600px){
+          width: 100%;
+        }
       }
     }
   }
@@ -355,6 +370,10 @@ export default {
   .btn-green {
     background: #4caf50;
     color: white;
+    @media screen and (max-width: 600px){
+      font-size: 8px;
+      margin: 5px;
+    }
   }
 
   @media screen and (max-width: 992px) {
@@ -424,18 +443,20 @@ export default {
 
   @media screen and (max-width: 575px) {
     width: 310px;
-    min-height: 120px;
-    max-height: 120px;
+    min-height: 460px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
-    padding: 10px;
 
     .img-box {
       width: 100px;
 
       .img {
         border-radius: 10px;
+      }
+
+      @media screen and (max-width: 600px){
+        width: 100%;
       }
     }
 

@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
-import { mixinWidget } from 'src/mixin/Mixins'
-import { Content } from 'src/models/Content'
+import API_ADDRESS from 'src/api/Addresses.js'
+import { Content } from 'src/models/Content.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ContentShowInfo',

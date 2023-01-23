@@ -1,12 +1,10 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify } from 'quasar'
-import process from 'process'
-// process.client or process.browser
+
 const apiV2Server = process.env.ALAA_API_V2
 const apiV1Server = process.env.ALAA_API_V1
 const webServer = process.env.ALAA_WEB
-
 const AjaxResponseMessages = (function () {
   const messageMap = {
     0: 'مشکلی پیش آمده است. مجدد تلاش کنید.',

@@ -5,13 +5,14 @@ import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart'
 import { CartItem } from 'src/models/CartItem'
 import { OrderProduct } from 'src/models/OrderProduct'
+import { parse } from 'qs'
 
 export function addToCart (context, data) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
       axios
-        .post(API_ADDRESS.cart.orderproduct.add, { product_id: data.id, attribute: data.attribute, seller: 1 })
+        .post(API_ADDRESS.cart.orderproduct.add, { product_id: data[0].id, attribute: data[0].attribute, seller: 1 })
         .then((response) => {
           Notify.create({
             type: 'positive',
@@ -65,6 +66,7 @@ export function reviewCart (context, product) {
   }
 
   return new Promise((resolve, reject) => {
+    // ApiGateway.cart.review
     axios
       .get(API_ADDRESS.cart.review, {
         params: {
@@ -72,7 +74,8 @@ export function reviewCart (context, product) {
           cartItems: orders
         },
         paramsSerializer: {
-          encode: params => {
+          encode: parse,
+          serialize: params => {
             if (params.cartItems) {
               const q = new URLSearchParams()
               q.set('seller', params.seller)

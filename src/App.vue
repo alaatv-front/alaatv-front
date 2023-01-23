@@ -5,6 +5,8 @@
 </template>
 <script>
 import process from 'process'
+// import { Plugins } from '@capacitor/core'
+// const { Network } = Plugins
 
 import { defineComponent } from 'vue'
 
@@ -15,10 +17,38 @@ export default defineComponent({
     registration: null,
     updateExists: false
   }),
+  computed: {
+    accessToken () {
+      return this.$store.getters['Auth/accessToken']
+    }
+  },
   created () {
+    this.updateAxiosBearerToken()
     this.setServiceWorker()
+    // this.checkInternetConnection()
+  },
+  mounted () {
+    this.updateAxiosBearerToken()
   },
   methods: {
+    // ToDo: must remove this function
+    updateAxiosBearerToken () {
+      if (!this.accessToken) {
+        return
+      }
+      this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.accessToken
+    },
+    // async checkInternetConnection () {
+    //   Network.addListener('networkStatusChange', (status) => {
+    //     // alert("Network status changed" + status)
+    //     // window.location.reload()
+    //     console.log('Network status changed', status)
+    //   })
+    //
+    //   // Get the current network status
+    //   const status = await Network.getStatus()
+    //   console.log('status', status)
+    // },
     setServiceWorker () {
       // Listen for our custom event from the SW registration
       if (!process.browser) {
@@ -43,10 +73,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style>
-  :root {
-
-  }
-
-</style>

@@ -56,12 +56,21 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
 
+    @media screen and (max-width: 600px){
+      margin: 20px 5px;
+      justify-content: center
+    }
     .service {
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 170px;
       color: #000000;
+      text-align: center;
+
+      @media screen and (max-width: 600px){
+        width: 150px;
+      }
 
       .service-image {
         width: 92px;

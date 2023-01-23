@@ -34,7 +34,8 @@
         >
           <product-item :options="product" />
         </div>
-        <div class="block-item-box">
+        <div v-if="block?.url?.web"
+             class="block-item-box">
           <a :href="block?.url?.web"
              class="show-more-title"
           >
@@ -76,7 +77,7 @@
              }"
              class="content-spacing"
         >
-          <content-item :data="content" />
+          <content-item :options="content" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"
@@ -91,13 +92,13 @@
 </template>
 
 <script>
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem'
-import Slider from 'components/Widgets/Slider/Slider'
-import SetItem from 'components/Widgets/SetItem/SetItem'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem'
-import { Block } from 'src/models/Block'
 import { dragscroll } from 'vue-dragscroll'
-import { mixinWidget } from 'src/mixin/Mixins'
+import { Block } from 'src/models/Block.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import Slider from 'components/Widgets/Slider/Slider.vue'
+import SetItem from 'components/Widgets/SetItem/SetItem.vue'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'Block',
@@ -252,6 +253,9 @@ export default {
       */
       padding-top: 10px;
       padding-bottom: 10px;
+      @media screen and (max-width: 600px){
+        height: 500px;
+      }
     }
 
     .item-container {

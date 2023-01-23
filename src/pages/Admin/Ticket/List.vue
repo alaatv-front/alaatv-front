@@ -20,7 +20,11 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'List'
+                        name: 'TicketList',
+                        options: {
+                          showRouteName: 'Admin.Ticket.Show',
+                          createRouteName: 'Admin.Ticket.Create'
+                        }
                       }
                     ]
                   }

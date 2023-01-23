@@ -7,7 +7,7 @@ export default boot(({ router, store }) => {
     const routeWithParent = getRouteWithParent({ children: router.options.routes }, to.name, store)
     const layoutArray = createLayoutConfigArray(routeWithParent)
     layoutArray.forEach(config => {
-      store.dispatch('AppLayout/updateTemplateLayout', config)
+      store.dispatch('AppLayout/updateStore', config)
     })
   })
 })

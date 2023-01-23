@@ -16,7 +16,7 @@
         >
           <content-item
             class="q-mr-md"
-            :data="content"
+            :options="content"
           />
         </div>
       </div>
@@ -31,7 +31,14 @@
         <div v-for="pamphlet in pamphlets"
              :key="pamphlet.id"
              class="pamphlet-image">
-          <vue-picture-swipe :items="[
+          <!-- <FsLightbox
+            :toggler="toggler"
+            :sources="[
+              pamphlet.photo
+            ]"
+          /> -->
+          {{ pamphlet }}
+          <!-- <vue-picture-swipe :items="[
             {
               src: pamphlet.photo,
               thumbnail: pamphlet.photo,
@@ -39,7 +46,7 @@
               h: 400,
               title: pamphlet.title
             }
-          ]"></vue-picture-swipe>
+          ]"></vue-picture-swipe> -->
         </div>
       </div>
     </div>
@@ -48,18 +55,18 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 import { dragscroll } from 'vue-dragscroll'
 import { ContentList } from 'src/models/Content'
 import { APIGateway } from 'src/api/APIGateway'
 import { Product } from 'src/models/Product'
-import VuePictureSwipe from 'vue3-picture-swipe'
+// import FsLightbox from 'fslightbox-vue'
 
 export default {
   name: 'productDemos',
   components: {
-    ContentItem,
-    VuePictureSwipe
+    ContentItem
+    // FsLightbox
   },
   directives: {
     dragscroll
@@ -76,7 +83,8 @@ export default {
   data() {
     return {
       contents: new ContentList(),
-      pamphlets: []
+      pamphlets: [],
+      toggler: false
     }
   },
   // watch: {

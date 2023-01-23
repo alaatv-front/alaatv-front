@@ -1,25 +1,25 @@
-import { auth, isLandingPage } from './middleware/middleware'
+import { auth } from './middleware/middleware'
 import EntityCrudRoutes from './EntityCrudRoutes'
+
 const routes = [
   {
-    path: '/',
+    path: '',
     layoutConfig: {
-      layoutHeaderVisible: true,
-      layoutHeaderType: 'main',
-      layoutLeftDrawerVisible: false,
-      layoutLeftSideBarType: 'main',
       layoutView: 'lHh Lpr fff',
       layoutHeader: true,
+      layoutHeaderType: 'main',
+      layoutHeaderVisible: true,
       layoutHeaderReveal: false,
       layoutHeaderElevated: false,
       layoutHeaderBordered: false,
       layoutLeftDrawer: true,
+      layoutLeftSideBarType: 'main',
+      layoutLeftDrawerVisible: false,
       layoutLeftDrawerOverlay: false,
       layoutLeftDrawerElevated: false,
       layoutLeftDrawerBordered: false,
       layoutLeftDrawerWidth: 325,
       layoutLeftDrawerBehavior: 'default',
-      layoutPageContainer: true,
       layoutRightDrawer: false,
       layoutFooter: true,
       layoutFooterVisible: true,
@@ -34,201 +34,324 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
+        path: '/auth',
+        name: 'Auth',
+        layoutConfig: {
+          layoutHeaderVisible: false,
+          layoutHeader: false,
+          layoutLeftDrawer: false,
+          layoutFooter: false,
+          layoutFooterVisible: false
+        },
+        component: () => import('layouts/bareLayout.vue'),
+        children: [
+          {
+            path: '/login',
+            name: 'login',
+            component: () => import('pages/Auth/Login.vue')
+          }
+        ]
+      },
+      {
         path: '',
-        name: 'innerChild',
+        name: 'Public',
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
             path: '',
-            name: 'home',
-            breadcrumbs: { title: 'خانه', loading: false, icon: 'home', route: { name: 'dashboard' } },
-            component: () => import('pages/Home.vue')
+            name: 'Public.Home',
+            component: () => import('src/pages/Public/Home.vue')
+          },
+          {
+            path: 'shop',
+            name: 'Public.Shop',
+            component: () => import('pages/Public/Shop.vue')
+          },
+          {
+            path: 'product',
+            name: 'Public.Product',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Product.Show',
+                path: ':id',
+                component: () => import('pages/Public/Product/Show.vue')
+              }
+            ]
+          },
+          // {
+          //   path: 'cart',
+          //   name: 'Public.Cart',
+          //   component: () => import('pages/Cart/Cart.vue'),
+          //   meta: {
+          //     middlewares: [auth]
+          //   }
+          // },
+          {
+            path: 'c',
+            name: 'Public.Content',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Content.Show',
+                path: ':id',
+                component: () => import('pages/Public/Content/Show.vue')
+              },
+              {
+                name: 'Public.Content.Search',
+                path: '',
+                component: () => import('pages/Public/Content/Search.vue')
+              }
+            ]
+          },
+          {
+            path: 'set',
+            name: 'Public.Set',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Set.Show',
+                path: ':id',
+                component: () => import('pages/Public/Set/Show.vue')
+              }
+            ]
+          },
+          {
+            path: 'map',
+            name: 'Public.Map',
+            component: () => import('src/components/Widgets/Map/Map.vue')
+          },
+          {
+            path: 'checkout',
+            name: 'Public.Checkout',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                path: 'review',
+                name: 'Public.Checkout.Review',
+                component: () => import('pages/User/CheckoutReview/Show.vue')
+              }
+            ]
           }
         ]
       },
-
       {
-        path: 'ticket',
-        name: 'Admin.Ticket.Index',
-        component: () => import('pages/Admin/Ticket/List.vue')
-      },
-      {
-        path: 'ticket/:id',
-        name: 'Admin.Ticket.Show',
-        component: () => import('pages/Admin/Ticket/Show.vue')
-      },
-      {
-        path: 'ticket/Create',
-        name: 'Admin.Ticket.Create',
-        component: () => import('pages/Admin/Ticket/Create.vue')
-      },
-      {
-        path: 'map',
-        name: 'MapPage',
-        component: () => import('src/components/Widgets/Map/Map')
-      },
-      {
-        path: 'shop',
-        name: 'Shop',
-        component: () => import('pages/User/Shop')
-      },
-      {
-        path: 'user/orders',
-        name: 'user.orders',
-        component: () => import('pages/User/Orders/userOrders')
-      },
-      {
-        path: 'checkout',
-        name: 'User.Checkout',
+        path: 'panel',
+        name: 'UserPanel',
+        meta: { middlewares: [auth] },
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
-            path: 'review',
-            name: 'User.Checkout.Review',
-            component: () => import('pages/User/CheckoutReview/Show.vue')
-          }
-        ]
-      },
-      {
-        path: 'c',
-        name: 'User.Content',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
-          { name: 'User.Content.Show', path: ':id', component: () => import('pages/User/Content/Show.vue') },
-          { name: 'User.Content.Search', path: '', component: () => import('pages/User/Content/Search.vue') }
-        ]
-      },
-      {
-        path: 'product',
-        name: 'User.Product',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
-          { name: 'User.Product.Show', path: ':id', component: () => import('pages/User/Product/Show.vue') }
-        ]
-      },
-      {
-        path: 'set',
-        name: 'User.Set',
-        component: () => import('layouts/bareLayout.vue'),
-        children: [
-          { name: 'User.Set.Show', path: ':id', component: () => import('pages/User/Set/Show.vue') }
-        ]
-      },
-      {
-        path: '/landing/:landing_name',
-        name: 'Landing',
-        component: () => import('pages/Landing.vue'),
-        meta: {
-          middlewares: [isLandingPage]
-        }
-      },
-      {
-        path: 'component',
-        name: 'component',
-        component: () => import('src/pages/component'),
-        breadcrumbs: { title: 'component' },
-        meta: {
-          middlewares: [auth]
-        }
-      },
-      {
-        path: 'user-info',
-        name: 'user-info',
-        component: () => import('pages/User/UserInfoForm'),
-        meta: {
-          middlewares: [auth]
-        }
+            name: 'UserPanel.CompleteInfo',
+            path: 'complete-info',
+            component: () => import('pages/User/UserInfoForm.vue')
+          },
+          {
+            name: 'UserPanel.Profile',
+            path: 'profile',
+            component: () => import('pages/User/Profile/Profile.vue')
+          },
+          {
+            name: 'UserPanel.MyOrders',
+            path: 'my-orders',
+            component: () => import('pages/User/Orders/userOrders.vue')
+          },
+          {
+            name: 'UserPanel.MyPurchases',
+            path: 'my-purchases',
+            component: () => import('pages/User/Dashboard/MyPurchases.vue')
+          },
+          {
+            name: 'UserPanel.MyFavorites',
+            path: 'my-favorites',
+            component: () => import('pages/User/Dashboard/MyFavorites.vue')
+          },
+          {
+            name: 'UserPanel.Ticket',
+            path: 'ticket',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                path: '',
+                name: 'UserPanel.Ticket.Index',
+                component: () => import('pages/User/Ticket/List.vue')
+              },
+              {
+                path: 'create',
+                name: 'UserPanel.Ticket.Create',
+                component: () => import('pages/User/Ticket/Create.vue')
+              },
+              {
+                path: ':id',
+                name: 'UserPanel.Ticket.Show',
+                component: () => import('pages/User/Ticket/Show.vue')
+              }
+            ]
+          },
+          {
+            name: 'UserPanel.Asset',
+            path: 'asset',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'UserPanel.Asset.Abrisham',
+                path: 'abrisham',
+                layoutConfig: {
+                  layoutHeaderType: 'abrisham',
+                  layoutLeftSideBarType: 'abrisham',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/AbrishamLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.Abrisham.Progress',
+                    path: 'progress',
+                    component: () => import('pages/User/DashboardAbrisham/progress.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.Abrisham.Schedule',
+                    path: 'schedule',
+                    component: () => import('pages/User/DashboardAbrisham/Schedule.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.Abrisham.Consulting',
+                    path: 'consulting',
+                    component: () => import('pages/User/DashboardAbrisham/Consulting.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.Abrisham.News',
+                    path: 'news',
+                    component: () => import('pages/User/DashboardAbrisham/News.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.Abrisham.Map',
+                    path: 'map',
+                    component: () => import('pages/User/DashboardAbrisham/Map.vue')
+                  }
+                ]
+              },
+              {
+                name: 'UserPanel.Asset.GiftCard',
+                path: 'gift-card',
+                layoutConfig: {
+                  layoutView: 'lHh LpR fFf',
+                  layoutHeaderType: 'gift-card',
+                  layoutLeftDrawer: true,
+                  layoutLeftDrawerWidth: 126,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftSideBarType: 'gift-card',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/GiftCardLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.GiftCard.Dashboard',
+                    path: 'dashboard',
+                    component: () => import('pages/User/GiftCardPanel/Dashboard.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.MyGiftCards',
+                    path: 'my-gift-cards',
+                    component: () => import('pages/User/GiftCardPanel/MyGiftCards.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.Transactions',
+                    path: 'transactions',
+                    component: () => import('pages/User/GiftCardPanel/Transactions.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.GiftCard.UserInfo',
+                    path: 'user-info',
+                    component: () => import('pages/User/GiftCardPanel/UserInfo.vue')
+                  }
+                ]
+              }
+            ]
+          }]
       },
       {
         path: 'admin',
+        name: 'Admin',
+        meta: { middlewares: [auth] },
         component: () => import('layouts/AdminLayout.vue'),
-        meta: {
-          middlewares: [auth]
-        },
         children: [
-          { name: 'Admin.Settings', path: 'settings', component: () => import('pages/Admin/Settings'), breadcrumbs: { title: 'تنظیمات' } },
-          { name: 'Admin.StudyPlan', path: 'studyPlan', component: () => import('pages/Admin/StudyPlan/StudyPlan') },
+          {
+            path: 'ticket',
+            name: 'Admin.Ticket',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                path: '',
+                name: 'Admin.Ticket.Index',
+                component: () => import('pages/Admin/Ticket/List.vue')
+              },
+              {
+                path: 'create',
+                name: 'Admin.Ticket.Create',
+                component: () => import('pages/Admin/Ticket/Create.vue')
+              },
+              {
+                path: ':id',
+                name: 'Admin.Ticket.Show',
+                component: () => import('pages/Admin/Ticket/Show.vue')
+              }
+            ]
+          },
+          {
+            name: 'Admin.Settings',
+            path: 'settings',
+            component: () => import('pages/Admin/Settings.vue'),
+            breadcrumbs: { title: 'تنظیمات' }
+          },
+          {
+            name: 'Admin.StudyPlan',
+            path: 'studyPlan',
+            component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
+          },
           ...EntityCrudRoutes
         ]
       },
       {
-        path: 'User',
-        name: 'User.Dashboard',
+        path: 'document',
+        name: 'Document',
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
-            name: 'User.Dashboard.purchases',
-            path: ':id/dashboard/MyPurchases',
+            path: 'component',
+            name: 'component',
+            component: () => import('pages/Document/component.vue'),
+            breadcrumbs: { title: 'component' },
             meta: {
               middlewares: [auth]
-            },
-            component: () => import('pages/User/Dashboard/MyPurchases')
+            }
           },
           {
-            name: 'User.Dashboard.favorites',
-            path: ':id/dashboard/MyFavorites',
-            meta: {
-              middlewares: [auth]
-            },
-            component: () => import('pages/User/Dashboard/MyFavorites')
+            path: '/debug',
+            name: 'debug',
+            component: () => import('pages/Document/debug.vue')
+          },
+          {
+            path: '/form-generator',
+            name: 'formGenerator',
+            component: () => import('pages/Document/formGenerator.vue')
           }
         ]
-      },
-      {
-        path: '/debug',
-        name: 'debug',
-        component: () => import('pages/debug'),
-        meta: {
-          middlewares: [auth]
-        }
-      },
-      {
-        path: '/form-generator',
-        name: 'formGenerator',
-        component: () => import('pages/formGenerator')
-      },
-      {
-        path: '/profile',
-        name: 'Profile',
-        component: () => import('pages/Profile/Profile.vue'),
-        meta: {
-          middlewares: [auth]
-        }
       }
     ]
-    // meta: {
-    //   middlewares: [auth]
-    // }
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('pages/Auth/Login.vue')
   },
   // are u mr Esmaeili ? '' : dont touch this route
-  {
-    path: '/debug',
-    name: 'debug',
-    component: () => import('pages/debug'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
-  {
-    path: '/cart',
-    name: 'Cart',
-    component: () => import('pages/Cart/Cart.vue'),
-    meta: {
-      middlewares: [auth]
-    }
-  },
+
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     name: 'NotFound',
     component:
-  () => import('pages/Error404.vue')
+      () => import('pages/Error404.vue')
   }
 ]
 export default routes

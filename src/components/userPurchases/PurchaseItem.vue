@@ -78,9 +78,8 @@
 </template>
 
 <script>
-import Assist from 'src/plugins/Assist'
-
-import { Product } from 'src/models/Product'
+import Assist from 'src/plugins/Assist.js'
+import { Product } from 'src/models/Product.js'
 export default {
   name: 'PurchaseItem',
   props: {
@@ -93,6 +92,9 @@ export default {
       default: ''
     }
   },
+  emits: [
+    'setSelected'
+  ],
   data () {
     return {
       openSetList: true,

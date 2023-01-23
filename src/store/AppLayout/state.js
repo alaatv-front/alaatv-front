@@ -1,4 +1,4 @@
-module.exports = {
+const state = {
   drawer: false,
   pageBuilderEditable: false,
   confirmDialog: {
@@ -6,9 +6,10 @@ module.exports = {
     message: '',
     buttons: {}
   },
-  templateHeaderType: '',
-  templateLeftSideBarType: '',
-  templateRightSideBarType: '',
+  layoutHeaderType: '',
+  layoutLeftSideBarType: '',
+  layoutRightSideBarType: '',
+  // layoutRightSideBarType: '',
   windowSize: {
     x: 0,
     y: 0
@@ -29,3 +30,5 @@ module.exports = {
     path: []
   }
 }
+
+export default state

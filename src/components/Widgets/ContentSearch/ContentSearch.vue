@@ -200,10 +200,9 @@
 </template>
 
 <script>
-// import StickySidebar from 'sticky-sidebar'
-import SpeciferType from 'src/components/Widgets/Content/Search/SpeciferType'
-import SideBarContent from 'src/components/Widgets/Content/Search/SideBarContent'
-import SetItem from 'src/components/Widgets/Content/Search/SetItem'
+import SpeciferType from 'components/Widgets/Content/Search/SpeciferType/SpeciferType'
+import SideBarContent from 'components/Widgets/Content/Search/SideBarContent/SideBarContent'
+import SetItem from 'components/Widgets/Content/Search/SetItem/SetItem'
 import { ContentList } from 'src/models/Content'
 import { ProductList } from 'src/models/Product'
 import { SetList } from 'src/models/Set'
@@ -427,7 +426,7 @@ export default {
       const tags = {
         'tags[]': this.selectedTags.map(item => item.value)
       }
-      this.$router.push({ name: 'User.Content.Search', query: tags })
+      this.$router.push({ name: 'Public.Content.Search', query: tags })
     },
 
     updateNewUrl () {

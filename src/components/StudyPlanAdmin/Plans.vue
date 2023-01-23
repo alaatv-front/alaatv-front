@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import { StudyPlan } from 'src/models/StudyPlan'
-import Plan from 'components/StudyPlanAdmin/Plan'
+import { StudyPlan } from 'src/models/StudyPlan.js'
+import Plan from 'components/StudyPlanAdmin/Plan.vue'
 
 export default {
   name: 'Plans',

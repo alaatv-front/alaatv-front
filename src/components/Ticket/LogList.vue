@@ -2,8 +2,13 @@
   <div v-for="item in logArray"
        :key="item"
        class="flex no-wrap">
-    <div class="log-date"
-         :style="{color : getMainColor(item), borderLeft: '3px ' + 'solid ' + getMainColor(item)}">
+    <div
+      class="log-date"
+      :style="{
+        color : getMainColor(item),
+        borderLeft: '3px ' + 'solid ' + getMainColor(item)
+      }"
+    >
       {{ convertToShamsi(item.created_at, 'date') }}
     </div>
     <div class="log-info">
@@ -32,7 +37,7 @@
 </template>
 
 <script>
-import { mixinDateOptions } from 'src/mixin/Mixins'
+import { mixinDateOptions } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'logList',
@@ -45,26 +50,17 @@ export default {
   },
   data () {
     return {
-      departmentStatus: [],
-      statusColor: ''
+      departmentStatus: []
     }
   },
-  computed: {
-    getMainColor () {
-      return (obj) => {
-        this.departmentStatus.forEach(item => {
-          if (obj.action === item.title) {
-            this.statusColor = item.color
-          }
-        })
-        return this.statusColor
-      }
-    }
-  },
+  computed: {},
   created() {
     this.initStatusData()
   },
   methods: {
+    getMainColor (obj) {
+      return this.departmentStatus.find(item => obj.action === item.title).color
+    },
     initStatusData() {
       this.departmentStatus = [
         {

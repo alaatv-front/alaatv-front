@@ -3,7 +3,7 @@
     <quasar-template-builder
       @onResize="resize">
       <template #header>
-        <template-header  v-if="getTemplateHeaderType === 'main'" />
+        <template-header :type="getTemplateHeaderType" />
         <q-linear-progress
           v-if="$store.getters['loading/loading']"
           color="primary"
@@ -13,7 +13,7 @@
         />
       </template>
       <template #left-drawer>
-        <side-menu-dashboard />
+        <template-side-bar :type="getLeftDrawerType" />
       </template>
       <template #content>
         <div ref="contentInside"
@@ -43,29 +43,31 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
-          <Router :include="keepAliveComponents" />
+
+          <router :include="keepAliveComponents" />
         </div>
       </template>
-      <template v-slot:footer>
+      <template #footer>
         <alaa-footer />
       </template>
     </quasar-template-builder>
   </div>
 </template>
+
 <script>
-import SideMenuDashboard from 'components/Menu/SideMenu/SideMenu-dashboard'
+import Router from 'src/router/Router.vue'
+import AlaaFooter from 'src/components/Widgets/Footer/Footer.vue'
+import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
+import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
+import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
-import templateHeader from 'components/Template/templateHeader'
-import Router from 'src/router/Router'
-import KeepAliveComponents from 'assets/js/KeepAliveComponents'
 // import { setHeight } from 'src/boot/page-builder'
-import AlaaFooter from 'components/Widgets/Footer/Footer'
 
 export default {
   components: {
+    TemplateSideBar,
     Router,
     AlaaFooter,
-    SideMenuDashboard,
     QuasarTemplateBuilder,
     templateHeader
   },
@@ -80,7 +82,10 @@ export default {
       return this.$store.getters['AppLayout/confirmDialog']
     },
     getTemplateHeaderType() {
-      return this.$store.getters['AppLayout/templateHeaderType']
+      return this.$store.getters['AppLayout/layoutHeaderType']
+    },
+    getLeftDrawerType() {
+      return this.$store.getters['AppLayout/layoutLeftSideBarType']
     },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
@@ -104,16 +109,24 @@ export default {
     },
     resize (val) {
       this.$store.commit('AppLayout/updateWindowSize', val)
-      if (val.width > 1439) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 314)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
-      } else if (val.width > 599) {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 280)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
-      } else {
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 242)
-        this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
+      if (this.getLeftDrawerType === 'abrisham') {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
+        if (val.width < 1200) {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 80)
+        } else if (val.width < 990) {
+          this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 60)
+        }
       }
+      // if (val.width > 1439) {
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 314)
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
+      // } else if (val.width > 599) {
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 280)
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
+      // } else {
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 242)
+      //   this.$store.commit('AppLayout/updateLayoutLeftDrawerBehavior', 'mobile') && this.$store.commit('AppLayout/updateLayoutRightDrawerBehavior', 'mobile')
+      // }
     }
   }
 }
@@ -123,6 +136,10 @@ export default {
 .main-layout {
   :deep(.main-layout-container) {
     background-color: #f1f1f1;
+  }
+  :deep(.q-layout__section--marginal) {
+    background-color: transparent;
+    color: inherit;
   }
   .content-inside {
     //padding-top: 20px;

@@ -6,13 +6,15 @@ import CouponAPI from './models/coupon'
 import OrderAPI from './models/order.'
 import PagesAPI from './models/pages'
 import ProductAPI from './models/product'
-import Set from './models/set'
+import SetAPI from './models/set'
 import StudyPlanAPI from './models/studyPlan'
 import TicketAPI from './models/ticket'
 import UserAPI from './models/user'
+import AbrishamAPI from 'src/api/models/Abrisham'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
+  abrisham: new AbrishamAPI(),
   attribute: new AttributeAPI(),
   auth: new AuthAPI(),
   cart: new CartAPI(),
@@ -21,7 +23,7 @@ export const APIGateway = {
   order: new OrderAPI(),
   pages: new PagesAPI(),
   product: new ProductAPI(),
-  set: new Set(),
+  set: new SetAPI(),
   studyPlan: new StudyPlanAPI(),
   ticket: new TicketAPI(),
   user: new UserAPI()

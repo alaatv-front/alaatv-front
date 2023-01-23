@@ -1,62 +1,49 @@
-
-export function updateLinearLoading (state, newInfo) {
-  state.linearLoading = !!newInfo
+const mutations = {
+  updateLinearLoading: (state, newInfo) => {
+    state.linearLoading = !!newInfo
+  },
+  updatePageBuilderEditable: (state, newInfo) => {
+    state.pageBuilderEditable = !!newInfo
+  },
+  updateWindowSize: (state, newInfo) => {
+    state.windowSize.x = newInfo.width
+    state.windowSize.y = newInfo.height
+  },
+  updateBubbleSize: (state, newInfo) => {
+    state.bubbleSize = newInfo
+  },
+  updateLoginDialog: (state, newInfo) => {
+    state.loginDialog = newInfo
+  },
+  updateLayoutHeaderType: (state, newInfo) => {
+    state.layoutHeaderType = newInfo
+  },
+  updateLayoutLeftSideBarType: (state, newInfo) => {
+    state.layoutLeftSideBarType = newInfo
+  },
+  updateLayoutRightSideBarType: (state, newInfo) => {
+    state.layoutRightSideBarType = newInfo
+  },
+  showConfirmDialog: (state, newInfo) => {
+    state.confirmDialog = newInfo
+  },
+  updateBreadcrumbs: (state, data) => {
+    Object.assign(state.breadcrumbs, data)
+  },
+  updateBreadcrumbLoading: (state, data) => {
+    state.breadcrumbs.loading = data
+  },
+  updateLastBreadcrumb: (state, data) => {
+    state.breadcrumbs.path[state.breadcrumbs.path.length - 1] = data
+  },
+  updateVisibilityBreadcrumb: (state, data) => {
+    state.breadcrumbs.visible = data
+  }
+  // updateAppLayout: (state, data) => {
+  //   const storage = JSON.parse(localStorage.getItem('vuex'))
+  //   Object.assign(storage.AppLayout, data)
+  //   Object.assign(state, storage.AppLayout)
+  // }
 }
 
-export function updatePageBuilderEditable (state, newInfo) {
-  state.pageBuilderEditable = !!newInfo
-}
-
-export function updateWindowSize (state, newInfo) {
-  state.windowSize.x = newInfo.width
-  state.windowSize.y = newInfo.height
-}
-
-export function updateBubbleSize (state, newInfo) {
-  state.bubbleSize = newInfo
-}
-
-export function updateLoginDialog (state, newInfo) {
-  state.loginDialog = newInfo
-}
-
-export function changeTemplateHeaderType (state, newInfo) {
-  state.templateHeaderType = newInfo
-}
-
-export function changeTemplateLeftSideBarType (state, newInfo) {
-  state.templateLeftSideBarType = newInfo
-}
-
-export function changeTemplateRightSideBarType (state, newInfo) {
-  state.templateRightSideBarType = newInfo
-}
-
-export function showConfirmDialog (state, newInfo) {
-  state.confirmDialog = newInfo
-}
-
-export function updateBreadcrumbs (state, data) {
-  Object.assign(state.breadcrumbs, data)
-}
-
-export function updateBreadcrumbLoading (state, data) {
-  state.breadcrumbs.loading = data
-}
-
-export function updateLastBreadcrumb (state, data) {
-  state.breadcrumbs.path[state.breadcrumbs.path.length - 1] = data
-}
-
-export function updateVisibilityBreadcrumb (state, data) {
-  state.breadcrumbs.visible = data
-}
-
-export function updateHeaderSize (state, data) {
-  Object.assign(state.headerSize, data)
-}
-export function updateAppLayout (state, data) {
-  const storage = JSON.parse(localStorage.getItem('vuex'))
-  Object.assign(storage.AppLayout, data)
-  Object.assign(state, storage.AppLayout)
-}
+export default mutations

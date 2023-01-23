@@ -1,8 +1,8 @@
 <template>
   <q-card class="content-item-box">
     <router-link :to="{
-      name: 'User.Content.Show',
-      params: { id: content.id? content.id:-1, title: content.title }
+      name: 'Public.Content.Show',
+      params: { id: content.id ? content.id : -1 }
     }"
     >
       <div class="img-box">
@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import LazyImg from 'src/components/lazyImg'
+import { Content } from 'src/models/Content.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'contentItem',
   components: { LazyImg },
   props: {
-    data: {
+    options: {
       type: Content,
       default: new Content()
     }
@@ -44,7 +44,7 @@ export default {
     content: new Content()
   }),
   created () {
-    this.content = new Content(this.data)
+    this.content = new Content(this.options)
   }
 }
 </script>
@@ -363,14 +363,13 @@ export default {
   @media screen and (max-width: 575px) {
     width: 310px;
     min-height: 120px;
-    max-height: 120px;
+    max-height: 280px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
-    padding: 10px;
 
     .img-box {
-      width: 100px;
+      width: 100%;
 
       .img {
         border-radius: 10px;

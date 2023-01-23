@@ -93,7 +93,9 @@
                     </a>
                   </q-btn>
                 </q-btn-group>
-                <router-link :to="{name: 'User.Content.Show', params:{id:data.id}}">
+                <router-link v-if="data.id"
+                             :to="{name: 'Public.Content.Show', params:{id:data.id}}"
+                >
                   <q-btn
                     unelevated
                     class="q-ml-sm q-mt-sm-none q-mt-xs-sm"
@@ -106,7 +108,6 @@
         </a>
       </div>
     </div>
-    <!--    <div class="content-hover"></div>-->
   </q-card>
 </template>
 
@@ -122,9 +123,6 @@ export default {
         return new Content()
       }
     }
-  },
-  created() {
-    // console.log(this.data)
   }
 }
 </script>

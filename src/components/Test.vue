@@ -7,8 +7,6 @@
 <script>
 export default {
   name: 'Test',
-  components: {},
-  mixins: [],
   beforeRouteEnter () {
     // console.log('debug beforeRouteEnter')
   },
