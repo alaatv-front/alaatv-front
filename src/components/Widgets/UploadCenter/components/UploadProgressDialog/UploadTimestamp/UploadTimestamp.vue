@@ -14,15 +14,14 @@
                     :props="props">
                 <q-input v-model="props.row.name"
                          filled
-                         type="text"
-                         label="عنوان" />
+                         type="text" />
               </q-td>
               <q-td key="time"
                     :props="props">
                 <q-input v-model="props.row.time"
                          filled
                          mask="fulltime"
-                         :rules="['fulltime']">
+                         hide-bottom-space>
                   <template v-slot:append>
                     <q-icon name="access_time"
                             class="cursor-pointer">
@@ -110,7 +109,7 @@ export default {
       ],
       rows: [
         {
-          name: 'Frozen Yogurt',
+          name: 'حل تست شماره 45',
           time: '10:56:00',
           fat: 6.0
         }
