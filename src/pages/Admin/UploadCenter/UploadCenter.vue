@@ -20,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'UploadCenterComponent'
+                        name: 'UploadCenter'
                       }
                     ]
                   }
