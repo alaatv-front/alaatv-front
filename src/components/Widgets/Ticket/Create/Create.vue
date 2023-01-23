@@ -1,32 +1,25 @@
 <template>
   <div class="page-content">
-    <entity-create
-      ref="EntityCreate"
-      v-model:value="inputs"
-      :title="selectedDepartment.title"
-      :api="api"
-      entity-id-key-in-response="id"
-      show-route-param-key="id"
-      :index-route-name="options.indexRouteName"
-      :show-route-name="options.showRouteName"
-      :show-save-button="false"
-    >
+    <entity-create ref="EntityCreate"
+                   v-model:value="inputs"
+                   :title="selectedDepartment.title"
+                   :api="api"
+                   entity-id-key-in-response="id"
+                   show-route-param-key="id"
+                   :index-route-name="options.indexRouteName"
+                   :show-route-name="options.showRouteName"
+                   :show-save-button="false">
       <template #before-form-builder>
-        <q-dialog
-          v-model="showDialog"
-          no-backdrop-dismiss
-        >
-          <q-card
-            class="row justify-center q-pa-md">
-            <q-btn
-              v-for="department in departmentList.list"
-              :key="department.id"
-              v-close-popup
-              unelevated
-              class="departmentActionBtn col-3 q-ma-md"
-              icon="isax:search-status .path4:before"
-              @click="selectDepartment(department)"
-            >
+        <q-dialog v-model="showDialog"
+                  no-backdrop-dismiss>
+          <q-card class="row justify-center q-pa-md">
+            <q-btn v-for="department in departmentList.list"
+                   :key="department.id"
+                   v-close-popup
+                   unelevated
+                   class="departmentActionBtn col-3 q-ma-md"
+                   icon="isax:search-status .path4:before"
+                   @click="selectDepartment(department)">
               <span class="full-width q-pt-sm">
                 {{department.title}}
               </span>
@@ -36,15 +29,13 @@
       </template>
     </entity-create>
     <q-separator class="q-my-md" />
-    <send-message-input
-      ref="SendMessageInput"
-      :role="userRole"
-      :canChoseOrder="canChoseOrder"
-      :canAssign-ticket="canAssignTicket"
-      :send-loading="loading"
-      :isAdmin="isAdmin"
-      @creatTicket="sendTicket"
-    />
+    <send-message-input ref="SendMessageInput"
+                        :role="userRole"
+                        :canChoseOrder="canChoseOrder"
+                        :canAssign-ticket="canAssignTicket"
+                        :send-loading="loading"
+                        :isAdmin="isAdmin"
+                        @creatTicket="sendTicket" />
   </div>
 
 </template>

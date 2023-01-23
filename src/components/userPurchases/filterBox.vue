@@ -4,7 +4,7 @@
     <div v-for="(item, index) in items"
          :key="'filter'+index"
          class="CustomSelect-Item"
-         :class="{'selected': (type  === 'filterBoxSort' && item.value === boxSortSelected) || (type  === 'filterBoxCategory' && item.value === categorySelected)}"
+         :class="{'selected': (type === 'filterBoxSort' && item.value === boxSortSelected) || (type === 'filterBoxCategory' && item.value === categorySelected)}"
          @click="select(item)">
       {{ item.name }}
     </div>

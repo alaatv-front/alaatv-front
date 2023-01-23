@@ -1,8 +1,7 @@
 <template>
   <div class="MapWidget"
        :class="{setMarker: selectedMapClickActionTypes.name === 'addIcon'}"
-       dir="ltr"
-  >
+       dir="ltr">
     <l-map id="map"
            ref="lMap"
            v-model:zoom="mapZoom"
@@ -22,24 +21,19 @@
       <l-tile-layer :url="url" />
 
       <div v-for="(item, index) in items.list"
-           :key="index"
-      >
-        <l-marker
-          v-bind:key="item.id"
-          :lat-lng="item.data.latlng"
-          :draggable=true
-          @click="openNode(item)"
-        >
-          <l-icon
-            v-if="item.data.icon.options"
-            ref="markerIcon"
-            :icon-url="item.data.icon.options.iconUrl"
-            :icon-size="dynamicSize(item)"
-            :icon-anchor="dynamicAnchor(item)"
-            :shadow-url="item.data.icon.options.shadowUrl"
-            :shadow-size="item.data.icon.options.shadowSize"
-            :shadow-anchor="item.data.icon.options.shadowAnchor"
-          >
+           :key="index">
+        <l-marker v-bind:key="item.id"
+                  :lat-lng="item.data.latlng"
+                  :draggable=true
+                  @click="openNode(item)">
+          <l-icon v-if="item.data.icon.options"
+                  ref="markerIcon"
+                  :icon-url="item.data.icon.options.iconUrl"
+                  :icon-size="dynamicSize(item)"
+                  :icon-anchor="dynamicAnchor(item)"
+                  :shadow-url="item.data.icon.options.shadowUrl"
+                  :shadow-size="item.data.icon.options.shadowSize"
+                  :shadow-anchor="item.data.icon.options.shadowAnchor">
             <div v-if="item.data.headline.text"
                  class="markerHeadline"
                  :style="{
@@ -51,48 +45,38 @@
                    'text-stroke-color': item.data.headline.strokeColor,
                    '-webkit-text-stroke-color': item.data.headline.strokeColor
                  }"
-                 v-html="item.data.headline.text"
-            >
-            </div>
+                 v-html="item.data.headline.text" />
             <img v-if="item.data.icon.options.iconUrl"
                  class="markerImage adminToolBoxMarker"
                  :class="{'border': item && item.editMode}"
-                 :src="item.data.icon.options.iconUrl"
-            >
+                 :src="item.data.icon.options.iconUrl">
             <q-img v-else
-                   src="img/mapMarker.png"
-            ></q-img>
+                   src="img/mapMarker.png" />
           </l-icon>
         </l-marker>
-        <l-polyline
-          v-if="(item.type.name === 'polyline' || item.type.id === 2) && item.data.line && item.data.line.options"
-          :options="item.data.line.options"
-          :lat-lngs="item.data.latlngs"
-          :color="item.data.line.color"
-          :bubblingMouseEvents="item.data.line.bubblingMouseEvents"
-          :dashArray="item.data.line.dashArray"
-          :dashOffset="item.data.line.dashOffset"
-          :weight="item.data.line.weight">
-        </l-polyline>
+        <l-polyline v-if="(item.type.name === 'polyline' || item.type.id === 2) && item.data.line && item.data.line.options"
+                    :options="item.data.line.options"
+                    :lat-lngs="item.data.latlngs"
+                    :color="item.data.line.color"
+                    :bubblingMouseEvents="item.data.line.bubblingMouseEvents"
+                    :dashArray="item.data.line.dashArray"
+                    :dashOffset="item.data.line.dashOffset"
+                    :weight="item.data.line.weight" />
       </div>
 
-      <l-marker
-        v-if="adminToolBox.marker.data.latlng"
-        :lat-lng="adminToolBox.marker.data.latlng"
-        :draggable=true
-        @dragend="reportAdminMarker"
-        @click="openMarker"
-      >
-        <l-icon
-          v-if="adminToolBox.marker.data.icon.options"
-          ref="markerIcon"
-          :icon-url="adminToolBox.marker.data.icon.options.iconUrl"
-          :icon-size="dynamicSize(adminToolBox.marker)"
-          :icon-anchor="dynamicAnchor(adminToolBox.marker)"
-          :shadow-url="adminToolBox.marker.data.icon.options.shadowUrl"
-          :shadow-size="adminToolBox.marker.data.icon.options.shadowSize"
-          :shadow-anchor="adminToolBox.marker.data.icon.options.shadowAnchor"
-        >
+      <l-marker v-if="adminToolBox.marker.data.latlng"
+                :lat-lng="adminToolBox.marker.data.latlng"
+                :draggable=true
+                @dragend="reportAdminMarker"
+                @click="openMarker">
+        <l-icon v-if="adminToolBox.marker.data.icon.options"
+                ref="markerIcon"
+                :icon-url="adminToolBox.marker.data.icon.options.iconUrl"
+                :icon-size="dynamicSize(adminToolBox.marker)"
+                :icon-anchor="dynamicAnchor(adminToolBox.marker)"
+                :shadow-url="adminToolBox.marker.data.icon.options.shadowUrl"
+                :shadow-size="adminToolBox.marker.data.icon.options.shadowSize"
+                :shadow-anchor="adminToolBox.marker.data.icon.options.shadowAnchor">
           <div v-if="adminToolBox.marker.data.headline.text"
                class="markerHeadline"
                :style="{
@@ -104,44 +88,29 @@
                  'text-stroke-color': adminToolBox.marker.data.headline.strokeColor,
                  '-webkit-text-stroke-color': adminToolBox.marker.data.headline.strokeColor
                }"
-               v-html="adminToolBox.marker.data.headline.text"
-          >
-          </div>
+               v-html="adminToolBox.marker.data.headline.text" />
           <img v-if="adminToolBox.marker.data.icon.options.iconUrl"
                class="markerImage adminToolBoxMarker"
                :class="{'border': adminToolBox.marker.editMode}"
-               :src="adminToolBox.marker.data.icon.options.iconUrl"
-          >
+               :src="adminToolBox.marker.data.icon.options.iconUrl">
           <q-img v-else
-                 src="img/mapMarker.png"
-          ></q-img>
+                 src="img/mapMarker.png" />
         </l-icon>
       </l-marker>
 
-      <l-control
-        position="topleft"
-      >
-        <q-btn
-          class="btnMapControl btnGetLinkToShare"
-          icon="isax:search-normal"
-          @click="openFilterDrawer"
-        />
-        <q-btn
-          class="btnMapControl btnGetLinkToShare"
-          icon="isax:edit"
-          @click="openToolsDrawer"
-        />
+      <l-control position="topleft">
+        <q-btn class="btnMapControl btnGetLinkToShare"
+               icon="isax:search-normal"
+               @click="openFilterDrawer" />
+        <q-btn class="btnMapControl btnGetLinkToShare"
+               icon="isax:edit"
+               @click="openToolsDrawer" />
       </l-control>
-      <l-control
-        dir="rtl"
-        position="topright"
-      >
-        <q-btn
-          class="btnMapControl btnGetLinkToShare"
-          icon="isax:link"
-          @click="copyToClipboard"
-        >
-        </q-btn>
+      <l-control dir="rtl"
+                 position="topright">
+        <q-btn class="btnMapControl btnGetLinkToShare"
+               icon="isax:link"
+               @click="copyToClipboard" />
         <div style="width: 130px; background: #ffffff8f;font-family: IRANSans;padding: 5px;border-radius: 5px;">
           زوم:
           {{ currentZoom }}
@@ -193,27 +162,25 @@
                @click="toolsDrawer = false; adminToolBox.marker.editMode = false" />
       </div>
       <div>
-        <admin-tool-box
-          ref="adminToolBox"
-          :center="currentCenter"
-          :zoom="currentZoom"
-          :buffer-marker="adminToolBox.marker"
-          :selected-marker="selectedMarker"
-          :polyline="adminToolBox.polyline"
-          :tool-tab="tabName"
-          @add_marker="addAdminMarker"
-          @save_marker="saveMapItem"
-          @show-map-info="showMapInfo"
-          @marker_change="updateAdminMarker"
-          @delete_marker="deleteAdminMapItem"
-          @add-polyline="addAdminPolyline"
-          @delete_polyline="deleteAdminMapItem"
-          @save_polyline="saveMapItem"
-          @polyline_change="updateAdminPolyline"
-          @tab_changed="sidebarAdminToolBoxOnTabChange"
-          @open_map_items_list="openMapItemsList"
-          @reset_editable_polyline_to_center_of_map="resetEditablePolylineToCenterOfMap"
-        />
+        <admin-tool-box ref="adminToolBox"
+                        :center="currentCenter"
+                        :zoom="currentZoom"
+                        :buffer-marker="adminToolBox.marker"
+                        :selected-marker="selectedMarker"
+                        :polyline="adminToolBox.polyline"
+                        :tool-tab="tabName"
+                        @add_marker="addAdminMarker"
+                        @save_marker="saveMapItem"
+                        @show-map-info="showMapInfo"
+                        @marker_change="updateAdminMarker"
+                        @delete_marker="deleteAdminMapItem"
+                        @add-polyline="addAdminPolyline"
+                        @delete_polyline="deleteAdminMapItem"
+                        @save_polyline="saveMapItem"
+                        @polyline_change="updateAdminPolyline"
+                        @tab_changed="sidebarAdminToolBoxOnTabChange"
+                        @open_map_items_list="openMapItemsList"
+                        @reset_editable_polyline_to_center_of_map="resetEditablePolylineToCenterOfMap" />
       </div>
     </q-scroll-area>
   </drawer>

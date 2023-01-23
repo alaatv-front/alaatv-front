@@ -1,28 +1,21 @@
 <template>
   <div class="consulting-card "
-       :class=" oneDayPast ? 'card-opacity':''"
-  >
+       :class=" oneDayPast ? 'card-opacity':''">
     <div class="card-header">
-      <span
-        class="card-title"
-        :class=" oneDayPast ? 'card-opacity':''"
-      >
+      <span class="card-title"
+            :class=" oneDayPast ? 'card-opacity':''">
         {{ newItem.title }}
       </span>
-      <span
-        class="card-date"
-        :class=" oneDayPast ? 'card-opacity':''"
-      >
+      <span class="card-date"
+            :class=" oneDayPast ? 'card-opacity':''">
         {{ newItem.shamsiDate('created_at').dateTime }}
       </span>
     </div>
     <!--        v-if="!longDescription"-->
-    <p
-      v-if="!false"
-      class="card-description"
-      :class=" oneDayPast ? 'card-opacity':''"
-      v-html="newItem.description"
-    />
+    <p v-if="!false"
+       class="card-description"
+       :class=" oneDayPast ? 'card-opacity':''"
+       v-html="newItem.description" />
   </div>
 </template>
 

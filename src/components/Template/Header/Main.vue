@@ -4,50 +4,39 @@
       <div class="header-section">
         <!--        -----------------------------------------------------Logo Section--------------------------------------------   -->
         <div class="logo-section">
-          <div
-            class="drawer-btn hamburger"
-          >
-            <q-btn
-              class="toolbar-button"
-              icon="isax:menu-1"
-              color="white"
-              text-color="accent"
-              dense
-              unelevated
-              @click="toggleLeftDrawer"
-            />
+          <div class="drawer-btn hamburger">
+            <q-btn class="toolbar-button"
+                   icon="isax:menu-1"
+                   color="white"
+                   text-color="accent"
+                   dense
+                   unelevated
+                   @click="toggleLeftDrawer" />
           </div>
           <div class="logo-pic">
             <div class="homepage">
-              <lazy-img :src="'img/alaa-logo.svg'"
+              <lazy-img src="/img/alaa-logo.svg"
                         :alt="'logo'"
                         width="40"
                         height="40"
                         class="logo-pic-img"
-                        @click="routeTo('Public.Home')"
-              />
+                        @click="routeTo('Public.Home')" />
             </div>
           </div>
         </div>
         <!--        -----------------------------------------------------Tabs Section--------------------------------------------   -->
         <div class="tab-section">
           <q-list class="flex tabs-list">
-            <div
-              v-for="(item , index) in headerItems"
-              :key="index"
-              class="tabs-list-container"
-            >
-              <div
-                v-if="showMenuItem(/* item */)"
-                class="self-center"
-              >
-                <q-item
-                  v-ripple
-                  clickable
-                  :active="isRouteSelected(item.to)"
-                  active-class="active-item"
-                  :to="{ name: item.to }"
-                >
+            <div v-for="(item , index) in headerItems"
+                 :key="index"
+                 class="tabs-list-container">
+              <div v-if="showMenuItem(/* item */)"
+                   class="self-center">
+                <q-item v-ripple
+                        clickable
+                        :active="isRouteSelected(item.routeName)"
+                        active-class="active-item"
+                        :to="{ name: item.routeName }">
                   <q-item-section class="tab-title">
                     {{ item.title }}
                   </q-item-section>
@@ -56,14 +45,11 @@
             </div>
 
             <div class="self-center"
-                 @click="togglePageBuilderEditable"
-            >
-              <q-item
-                v-ripple
-                clickable
-                :active="false"
-                active-class="active-item"
-              >
+                 @click="togglePageBuilderEditable">
+              <q-item v-ripple
+                      clickable
+                      :active="false"
+                      active-class="active-item">
                 <q-item-section class="tab-title">
                   ویرایش صفحه
                 </q-item-section>
@@ -75,19 +61,15 @@
         <div class="user-action">
           <div class="action-container">
             <q-card-section class="search-section">
-              <q-input
-                v-model="searchInput"
-                filled
-                class="search-input"
-                placeholder="جستجو در آلا..."
-              >
+              <q-input v-model="searchInput"
+                       filled
+                       class="search-input"
+                       placeholder="جستجو در آلا...">
                 <template v-slot:before>
-                  <q-btn
-                    flat
-                    rounded
-                    icon="isax:search-normal-1"
-                    class="search"
-                  />
+                  <q-btn flat
+                         rounded
+                         icon="isax:search-normal-1"
+                         class="search" />
                   <!--                                      @click="filterByStatement"
             -->
                 </template>
@@ -100,25 +82,21 @@
             <!--              size="12px"-->
             <!--              class="action-btn"-->
             <!--            />-->
-            <q-btn
-              icon="isax:shopping-cart"
-              unelevated
-              rounded
-              size="12px"
-              class="action-btn"
-              :to="{name: 'Public.Checkout.Review'}"
-            />
+            <q-btn icon="isax:shopping-cart"
+                   unelevated
+                   rounded
+                   size="12px"
+                   class="action-btn"
+                   :to="{name: 'Public.Checkout.Review'}" />
           </div>
           <q-btn v-if="isUserLogin"
                  flat
-                 class="btn-user-profile"
-          >
+                 class="btn-user-profile">
             <lazy-img :src="user.photo"
                       :alt="'user photo'"
                       width="48"
                       height="48"
-                      class="user-photo"
-            />
+                      class="user-photo" />
             <q-menu class="user-profile-dropdown"
                     :offset="[170, 10]">
               <div class="dropdown-box">
@@ -131,14 +109,11 @@
                                     :alt="'user photo'"
                                     width="60"
                                     height="60"
-                                    class="user-photo"
-                          />
+                                    class="user-photo" />
                         </div>
                       </div>
-                      <div
-                        v-if="isUserLogin"
-                        class="profile-detail-info"
-                      >
+                      <div v-if="isUserLogin"
+                           class="profile-detail-info">
                         <div class="info-name">{{user.full_name}}</div>
                         <div class="info-phoneNumber">{{user.mobile}}</div>
                       </div>
@@ -146,26 +121,16 @@
                   </div>
                 </div>
                 <div class="body">
-                  <div
-                    class="user-panel-base-menu"
-                  >
-                    <q-list
-                      class="side-menu-list"
-                      padding
-                      dark
-                    >
-                      <div
-                        v-for="(item , index) in profileTitlesList"
-                        :key="index"
-                      >
-                        <div
-                          v-if="showMenuItem(/* item */)"
-                        >
-                          <q-item
-                            class="item-list"
-                            :class="{ 'alone-item': !item.children.length }"
-                            :to="{ name: item.routeName, params: item.params }"
-                          >
+                  <div class="user-panel-base-menu">
+                    <q-list class="side-menu-list"
+                            padding
+                            dark>
+                      <div v-for="(item , index) in profileTitlesList"
+                           :key="index">
+                        <div v-if="showMenuItem(/* item */)">
+                          <q-item class="item-list"
+                                  :class="{ 'alone-item': !item.children.length }"
+                                  :to="{ name: item.routeName, params: item.params }">
                             <div class="section-title">
                               <q-item-section class="list-section title-icon"
                                               avatar>
@@ -181,11 +146,9 @@
                         </div>
                       </div>
                     </q-list>
-                    <div
-                      v-if="isUserLogin"
-                      class="log-out"
-                      @click="logOut"
-                    >
+                    <div v-if="isUserLogin"
+                         class="log-out"
+                         @click="logOut">
                       <span>
                         <q-avatar icon="isax:logout"
                                   size="30"
@@ -193,11 +156,9 @@
                       </span>
                       <span class="logout-text">خروج </span>
                     </div>
-                    <div
-                      v-else
-                      class="log-out"
-                      @click="goToLogin"
-                    >
+                    <div v-else
+                         class="log-out"
+                         @click="goToLogin">
                       <span>
                         <q-avatar icon="isax:logout"
                                   size="30"
@@ -210,22 +171,16 @@
               </div>
             </q-menu>
           </q-btn>
-          <div
-            v-else
-            class="sub-mit-box"
-          >
-            <q-btn
-              unelevated
-              class="btn-style"
-              label="ورود"
-              :to="{ name: 'login' }"
-            />
-            <q-btn
-              unelevated
-              class="btn-style sign-up"
-              label="ثبت نام"
-              :to="{ name: 'login' }"
-            />
+          <div v-else
+               class="sub-mit-box">
+            <q-btn unelevated
+                   class="btn-style"
+                   label="ورود"
+                   :to="{ name: 'login' }" />
+            <q-btn unelevated
+                   class="btn-style sign-up"
+                   label="ثبت نام"
+                   :to="{ name: 'login' }" />
           </div>
         </div>
       </div>
@@ -249,20 +204,21 @@ export default {
         {
           selected: 'home',
           title: 'صفحه اصلی',
-          to: 'Public.Home',
+          routeName: 'Public.Home',
           permission: 'all'
         },
         {
           selected: 'shop',
           title: 'فروشگاه',
-          to: 'Public.Shop',
+          routeName: 'Public.Shop',
           permission: 'all'
         },
         {
           selected: 'adminPanel',
           title: 'پنل ادمین',
-          to: 'Admin.StudyPlan',
-          permission: 'all'
+          routeName: 'Admin.Dashboard',
+          permission: 'all',
+          children: []
         }
       ],
       profileTitlesList: [

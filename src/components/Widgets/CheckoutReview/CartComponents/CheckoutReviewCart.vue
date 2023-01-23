@@ -1,17 +1,13 @@
 <template>
 
   <div class="cart-template row">
-    <div
-      v-if="count"
-      class="side-invoice col-12"
-    >
+    <div v-if="count"
+         class="side-invoice col-12">
       <cart-invoice />
     </div>
 
-    <div
-      v-if="count === 0"
-      class="empty-cart col-12"
-    >
+    <div v-if="count === 0"
+         class="empty-cart col-12">
       <cart-empty />
     </div>
 

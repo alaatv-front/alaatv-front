@@ -14,7 +14,7 @@
         class="set-title">
       {{content.set.title}}
     </h6>
-    <div v-html="content.inputData.body"></div>
+    <div v-html="content.inputData.body" />
     <q-separator class="q-my-lg" />
     <q-separator class="q-my-lg" />
     <div v-if="content.tags"

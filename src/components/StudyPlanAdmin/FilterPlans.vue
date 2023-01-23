@@ -2,30 +2,23 @@
   <div class="row justify-center ">
     <div class="col-12"
          style="max-width: 400px">
-      <q-tabs
-        v-model="activeMajor"
-        class="bg-primary text-white shadow-2 q-ma-lg"
-      >
-        <q-tab
-          v-for="major in majors"
-          :key="major.id"
-          :name="major.id"
-          :label="major.title"
-          @click="changeSelectedMajorId(major)"
-        />
+      <q-tabs v-model="activeMajor"
+              class="bg-primary text-white shadow-2 q-ma-lg">
+        <q-tab v-for="major in majors"
+               :key="major.id"
+               :name="major.id"
+               :label="major.title"
+               @click="changeSelectedMajorId(major)" />
       </q-tabs>
     </div>
-    <div class="q-mx-lg col-12"
-    >
+    <div class="q-mx-lg col-12">
       <div class="row justify-center">
-        <q-btn
-          v-for="(lesson, index) in lessonList"
-          :key="index"
-          unelevated
-          class="lessons"
-          :color="lesson.active ? 'deep-purple-4' : 'primary'"
-          @click="lessonClicked(lesson)"
-        >
+        <q-btn v-for="(lesson, index) in lessonList"
+               :key="index"
+               unelevated
+               class="lessons"
+               :color="lesson.active ? 'deep-purple-4' : 'primary'"
+               @click="lessonClicked(lesson)">
           {{lesson.title}}
         </q-btn>
       </div>

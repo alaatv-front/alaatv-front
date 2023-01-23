@@ -1,6 +1,6 @@
 <template>
   <div class="boxed-layout-container boxed-container">
-    <Router :include="keepAliveComponents" />
+    <router :include="keepAliveComponents" />
   </div>
 </template>
 

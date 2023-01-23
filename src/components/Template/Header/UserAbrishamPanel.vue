@@ -1,22 +1,19 @@
 <template>
   <div class="abrisham-header">
     <div class="header-box full-height flex justify-center items-center">
-      <q-img
-        src="https://nodes.alaatv.com/upload/abrisham-panel-logotype.png"
-        class="header-logo-img"
-      />
+      <q-img src="https://nodes.alaatv.com/upload/abrisham-panel-logotype.png"
+             class="header-logo-img" />
       <!--      <div class="text-primary">راه ابریشم</div>-->
     </div>
     <div class="profile-box flex items-center">
       <i class="fi fi-rr-bell icon" />
       <q-avatar class="avatar">
         <img :src="user.photo"
-             alt="profile-photo" />
+             alt="profile-photo">
         <q-menu>
           <q-list class="menu-item">
             <q-item>
-              <q-avatar class="profile-photo"
-              >
+              <q-avatar class="profile-photo">
                 <img alt="profile-photo"
                      class="img"
                      :src="user.photo">
@@ -38,7 +35,7 @@
               </q-item-section>
             </q-item>
             <q-item class="cursor-pointer">
-              <span  @click="logOut">
+              <span @click="logOut">
                 خروج
               </span>
             </q-item>

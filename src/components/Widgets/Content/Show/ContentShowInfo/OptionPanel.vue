@@ -6,13 +6,11 @@
           <div class="col-md-6">
             <q-select v-model="localOptions.apiName"
                       :options="apiOptions"
-                      label="api"
-            />
+                      label="api" />
           </div>
           <div class="col-md-6">
             <q-input v-model="localOptions.urlParam"
-                     label="urlParam"
-            />
+                     label="urlParam" />
           </div>
         </div>
       </div>

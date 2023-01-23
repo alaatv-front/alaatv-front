@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-2"></div>
+    <div class="col-2" />
     <div class="col-8">
       <q-card class="telegram-card">
         <q-card-section>
@@ -11,12 +11,11 @@
           <q-input v-model="mainTemp"
                    class="text-area"
                    filled
-                   autogrow
-          />
+                   autogrow />
         </q-card-section>
       </q-card>
     </div>
-    <div class="col-2"></div>
+    <div class="col-2" />
   </div>
 </template>
 

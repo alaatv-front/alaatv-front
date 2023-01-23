@@ -1,7 +1,6 @@
 <template>
   <form-builder ref="formBuilder"
-                v-model:value="localOptions.inputs"
-  />
+                v-model:value="localOptions.inputs" />
 </template>
 
 <script>

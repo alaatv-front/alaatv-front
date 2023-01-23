@@ -1,12 +1,11 @@
 <template>
-  <q-card
-    class="product-item q-mb-sm">
+  <q-card class="product-item q-mb-sm">
     <div class="row">
       <div class="col-3">
         <div class="img-box">
-          <q-img  :src="product.photo"
-                  class="img-style"
-                  :alt="product.title" />
+          <q-img :src="product.photo"
+                 class="img-style"
+                 :alt="product.title" />
         </div>
       </div>
       <div class="col-9  product-content q-px-md">
@@ -14,13 +13,12 @@
           {{product.title}}
         </div>
         <div class="col-9 text-center q-mb-sm">
-          <q-btn
-            color="yellow-8"
-            class="product-btn full-width"
-            unelevated
-            text-color="grey-10"
-            :icon-right="openSetList ? 'mdi-menu-up' : 'mdi-menu-down'"
-            @click="openSetList = !openSetList">
+          <q-btn color="yellow-8"
+                 class="product-btn full-width"
+                 unelevated
+                 text-color="grey-10"
+                 :icon-right="openSetList ? 'mdi-menu-up' : 'mdi-menu-down'"
+                 @click="openSetList = !openSetList">
             <span class="text-limit-size ellipsis">
               {{selectedSetTitle}}
             </span>
@@ -29,13 +27,11 @@
       </div>
     </div>
   </q-card>
-  <q-expansion-item
-    v-model="openSetList"
-    class="hide-expansion-header bg-transparent"
-  >
-    <q-card    v-for="(item, index) in setList"
-               :key="index"
-               class="q-ma-md  set-item">
+  <q-expansion-item v-model="openSetList"
+                    class="hide-expansion-header bg-transparent">
+    <q-card v-for="(item, index) in setList"
+            :key="index"
+            class="q-ma-md  set-item">
       <div class="row q-mb-md q-pa-md">
         <div class="col-xl-9 col-md-7 col-sm-9 col-xs-7">
           <div class="ellipsis-2-lines set-title q-pr-sm">
@@ -51,21 +47,18 @@
                      color="yellow-8"
                      text-color="grey-10"
                      class=""
-                     @click="setSelectedSet(product, item, 'video')"
-              >
+                     @click="setSelectedSet(product, item, 'video')">
                 فیلم ها
               </q-btn>
             </div>
-            <div
-              v-if="item.pamphlets_count > 0"
-              class="col-12 text-right">
+            <div v-if="item.pamphlets_count > 0"
+                 class="col-12 text-right">
               <q-btn unelevated
                      padding="0 22px"
                      color="grey-12"
                      class=" q-mt-sm"
                      text-color="grey-10"
-                     @click="setSelectedSet(product, item, 'pamphlet')"
-              >
+                     @click="setSelectedSet(product, item, 'pamphlet')">
                 جزوات
               </q-btn>
             </div>

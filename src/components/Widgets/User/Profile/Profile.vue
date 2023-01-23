@@ -1,11 +1,9 @@
 <template>
-  <q-card
-    v-for="c in cards"
-    :key="c"
-    class="q-mt-none q-mx-sm q-mb-md custom-card"
-  >
+  <q-card v-for="c in cards"
+          :key="c"
+          class="q-mt-none q-mx-sm q-mb-md custom-card">
     <div class="custom-card-title">{{ c.title }}</div>
-    <form-builder :value="c.inputs"></form-builder>
+    <form-builder :value="c.inputs" />
   </q-card>
 </template>
 

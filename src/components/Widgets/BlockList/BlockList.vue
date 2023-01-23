@@ -2,11 +2,8 @@
   <div :style="options.style">
     <div v-for="(block, index) in blocksToShow"
          :key="index"
-         class="block-list-widget"
-    >
-      <Block
-        :options="block"
-      />
+         class="block-list-widget">
+      <block :options="block" />
     </div>
   </div>
 </template>
@@ -100,5 +97,4 @@ export default {
 
 <style
   lang="scss"
-  scoped
-></style>
+  scoped></style>

@@ -6,20 +6,17 @@
           <div class="col-md-5">
             <q-select v-model="localOptions.apiName"
                       :options="apiOptions"
-                      label="api"
-            />
+                      label="api" />
           </div>
           <div v-if="localOptions.to"
                class="col-md-5 offset-1">
             <q-input v-model="localOptions.to"
-                     label="to: "
-            />
+                     label="to: " />
           </div>
           <div v-else-if="localOptions.from"
                class="col-md-5 offset-1">
             <q-input v-model="localOptions.from"
-                     label="from: "
-            />
+                     label="from: " />
           </div>
         </div>
       </div>

@@ -52,7 +52,7 @@
       <div class="table-title">
         لیست کارت ها
       </div>
-      <div  class="table-container text-center">
+      <div class="table-container text-center">
         <!--        <v-data-table-->
         <!--          v-model:options="options"-->
         <!--          :headers="headers"-->

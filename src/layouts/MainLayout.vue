@@ -1,16 +1,13 @@
 <template>
   <div class="main-layout">
-    <quasar-template-builder
-      @onResize="resize">
+    <quasar-template-builder @onResize="resize">
       <template #header>
         <template-header :type="getTemplateHeaderType" />
-        <q-linear-progress
-          v-if="$store.getters['loading/loading']"
-          color="primary"
-          reverse
-          class="q-mt-sm"
-          indeterminate
-        />
+        <q-linear-progress v-if="$store.getters['loading/loading']"
+                           color="primary"
+                           reverse
+                           class="q-mt-sm"
+                           indeterminate />
       </template>
       <template #left-drawer>
         <template-side-bar :type="getLeftDrawerType" />
@@ -18,8 +15,7 @@
       <template #content>
         <div ref="contentInside"
              v-scroll="onContentInsideScroll"
-             class="content-inside"
-        >
+             class="content-inside">
           <q-dialog v-model="confirmDialogData.show"
                     persistent>
             <q-card class="q-pa-md q-pb-none">

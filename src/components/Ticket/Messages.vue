@@ -2,8 +2,7 @@
   <q-card class="q-mt-xl msg-box "
           :class="{ 'private-message-card' : data.is_private}">
     <div class="user-img"
-         :class="userIsCustomer? 'left-side' :  'right-side'"
-    >
+         :class="userIsCustomer? 'left-side' : 'right-side'">
       <q-img width="85px"
              height="85px"
              class="user-photo"
@@ -12,23 +11,22 @@
           <div class="flex  bg-white full-height full-width items-center justify-center">
             <q-icon color="primary"
                     size="lg"
-                    name="isax:user"></q-icon>
+                    name="isax:user" />
           </div>
         </template>
       </q-img>
 
     </div>
     <q-card-section class="flex"
-                    :class="userIsCustomer ?  'user-info' : 'admin-info' ">
+                    :class="userIsCustomer ? 'user-info' : 'admin-info' ">
       <div class="flex items-center info-section">
         <q-img v-if="!userIsCustomer"
                class="q-mr-md"
                width="20px"
                height="25px"
                src="https://nodes.alaatv.com/upload/favicon.ico" />
-        <span
-          class="q-mr-xs">
-          {{ this.data.user.role }} : {{userIsCustomer ?'ماه'  : getAdminName()}}
+        <span class="q-mr-xs">
+          {{ this.data.user.role }} : {{userIsCustomer ?'ماه' : getAdminName()}}
         </span>
         <q-icon v-if="!isAdmin"
                 size="16px"
@@ -44,9 +42,7 @@
         این پیام به صورت خصوصی میباشد
       </div>
     </q-card-section>
-    <q-card-section class="message-body"
-
-    >
+    <q-card-section class="message-body">
       <div class="body ">
         <div v-html="data.body" />
         <div v-if="data.files.voice"
@@ -57,13 +53,12 @@
                    unelevated
                    icon="isax:play"
                    class="play-btn"
-                   @click="playRecordedVoice">
-            </q-btn>
+                   @click="playRecordedVoice" />
             <q-btn v-else
                    size="30px"
                    unelevated
                    @click="pauseRecordedVoice">
-              <q-icon name="isax:pause"></q-icon>
+              <q-icon name="isax:pause" />
             </q-btn>
             <!--            <av-waveform ref="waveform"-->
             <!--                         class="av-waveform"-->
@@ -77,22 +72,19 @@
         </div>
         <q-img v-if="data.files.photo"
                :src="data.files.photo"
-               class="q-my-lg"
-        />
+               class="q-my-lg" />
       </div>
-      <q-separator class="q-my-md"></q-separator>
+      <q-separator class="q-my-md" />
       <div class="flex">
         <q-chip color="blue"
                 class="dateTime-chip"
                 square>
           {{ convertToShamsi(data.created_at) }}
         </q-chip>
-        <q-expansion-item
-          v-if="!userIsCustomer"
-          class="report-panel"
-          icon="isax:ticket"
-          label="گزارش پاسخ نامناسب"
-        >
+        <q-expansion-item v-if="!userIsCustomer"
+                          class="report-panel"
+                          icon="isax:ticket"
+                          label="گزارش پاسخ نامناسب">
           <q-card>
             <p v-if="data.report.has_reported === 1">
               پیش از این گزارش ارسال شده
@@ -101,13 +93,12 @@
               <q-card-section>
                 <q-input v-model="userReportDescription"
                          outlined
-                         type="textarea"></q-input>
+                         type="textarea" />
               </q-card-section>
               <q-card-actions>
-                <q-btn
-                  flat
-                  color="blue"
-                  @click="sendReport">
+                <q-btn flat
+                       color="blue"
+                       @click="sendReport">
                   ارسال گزارش
                 </q-btn>
               </q-card-actions>

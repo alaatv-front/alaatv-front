@@ -10,13 +10,13 @@
              max="200"
              data-labels="0,10,20,35,50,80,100,150,200"
              data-positions="0,5,10,17.5,25,40,50,75,100">
-      <ul class="slider-labels"></ul>
+      <ul class="slider-labels" />
       <div class="bar">
-        <span class="min"></span>
-        <span class="max"></span>
+        <span class="min" />
+        <span class="max" />
       </div>
       <div class="track">
-        <div class="value"></div>
+        <div class="value" />
       </div>
     </div>
 

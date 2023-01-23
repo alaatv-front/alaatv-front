@@ -1,7 +1,6 @@
 <template>
   <q-page-builder v-model:sections="sections"
-                  v-model::options="pageConfig"
-  />
+                  v-model::options="pageConfig" />
 </template>
 
 <script>

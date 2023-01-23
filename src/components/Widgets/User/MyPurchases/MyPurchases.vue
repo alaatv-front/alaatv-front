@@ -11,25 +11,19 @@
             </q-tooltip>
           </q-icon>
           <div class="sortingFilter-item date q-mr-md">
-            <filter-box
-              v-model:boxSortSelected="selectedFilterBoxValue"
-              :items="filterBoxSort"
-              type="filterBoxSort"
-              :custom-class="'sort'"
-              @update:filterBoxSort="onChangeFilterSortBox"
-            >
-            </filter-box>
+            <filter-box v-model:boxSortSelected="selectedFilterBoxValue"
+                        :items="filterBoxSort"
+                        type="filterBoxSort"
+                        :custom-class="'sort'"
+                        @update:filterBoxSort="onChangeFilterSortBox" />
           </div>
           <div class="sortingFilter-item subject q-mr-md">
-            <filter-box
-              ref="filterBoxCategory"
-              v-model:categorySelected="selectedFilterCategoryValue"
-              type="filterBoxCategory"
-              :items="filterBoxCategory"
-              :custom-class="'filter'"
-              @update:filterBoxCategory="onChangeFilterBoxCategory"
-            >
-            </filter-box>
+            <filter-box ref="filterBoxCategory"
+                        v-model:categorySelected="selectedFilterCategoryValue"
+                        type="filterBoxCategory"
+                        :items="filterBoxCategory"
+                        :custom-class="'filter'"
+                        @update:filterBoxCategory="onChangeFilterBoxCategory" />
           </div>
         </div>
       </div>
@@ -40,7 +34,7 @@
         <router-link :to="{name: 'UserPanel.Asset.Abrisham.Progress'}">
           <div class="abrishamAssetBanner">
             <img alt="داشبورد ابریشم"
-                 src="https://nodes.alaatv.com/upload/banner-dashboard.jpg" />
+                 src="https://nodes.alaatv.com/upload/banner-dashboard.jpg">
           </div>
         </router-link>
         <div class="q-mb-md m-input-icon m-input-icon--left productsSearch ">
@@ -59,16 +53,13 @@
         </div>
         <transition-group v-if="products.list.length > 0"
                           name="list"
-                          tag="div"
-        >
-          <div  v-for="product in filteredProduct.list"
-                :key="product.id">
-            <purchase-item
-              :key="product.id"
-              :product="product"
-              :searchTarget="searchTarget"
-              @setSelected="setSelectedSet"
-            />
+                          tag="div">
+          <div v-for="product in filteredProduct.list"
+               :key="product.id">
+            <purchase-item :key="product.id"
+                           :product="product"
+                           :searchTarget="searchTarget"
+                           @setSelected="setSelectedSet" />
           </div>
         </transition-group>
       </div>
@@ -85,14 +76,10 @@
       </div>
     </div>
     <!--    ----------------------- content show ------------------------- -->
-    <show-contents
-      class="sm-hide"
-      :selectedSet="selectedSet"
-      :selectedTab="selectedTab"
-    />
-    <q-dialog
-      v-model="showContentDialog"
-    >
+    <show-contents class="sm-hide"
+                   :selectedSet="selectedSet"
+                   :selectedTab="selectedTab" />
+    <q-dialog v-model="showContentDialog">
       <q-layout view="lHh lpr lFf"
                 container
                 style="height: 600px"
@@ -108,10 +95,8 @@
           </q-bar>
         </q-header>
         <q-page class="q-pa-md-md q-pa-sm-none ">
-          <show-contents
-            :selectedSet="selectedSet"
-            :selectedTab="selectedTab"
-          />
+          <show-contents :selectedSet="selectedSet"
+                         :selectedTab="selectedTab" />
         </q-page>
 
       </q-layout>

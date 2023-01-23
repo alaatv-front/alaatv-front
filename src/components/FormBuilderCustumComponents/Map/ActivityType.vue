@@ -1,29 +1,21 @@
 <template>
   <div>
-    <q-select
-      v-model="inputData.id"
-      :options="activityTypeOptions"
-      option-value="id"
-      emit-value
-      map-options
-      label="انتخاب نوع فعالیت :"
-      @update:model-value="onChangeActivityType"
-    />
-    <div
-      v-show="inputData.name !== 'noAction'"
-      v-if="inputData.data"
-    >
-      <q-input
-        v-model="inputData.data.link"
-        label="لینک مد نظر خود را وارد کنید:"
-      />
-      <q-select
-        v-model="inputData.data.target"
-        option-value="value"
-        emit-value
-        map-options
-        :options="LinkStateOptions"
-      />
+    <q-select v-model="inputData.id"
+              :options="activityTypeOptions"
+              option-value="id"
+              emit-value
+              map-options
+              label="انتخاب نوع فعالیت :"
+              @update:model-value="onChangeActivityType" />
+    <div v-show="inputData.name !== 'noAction'"
+         v-if="inputData.data">
+      <q-input v-model="inputData.data.link"
+               label="لینک مد نظر خود را وارد کنید:" />
+      <q-select v-model="inputData.data.target"
+                option-value="value"
+                emit-value
+                map-options
+                :options="LinkStateOptions" />
     </div>
   </div>
 </template>

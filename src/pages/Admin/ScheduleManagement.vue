@@ -1,25 +1,21 @@
 <template>
-  <entity-crud
-    v-model:edit-inputs="editInputs"
-    v-model:index-inputs="indexInputs"
-    v-model:show-inputs="showInputs"
-    v-model:create-inputs="createInputs"
-    v-model:default-inputs="defaultInputs"
-    :before-get-edit-data="testMethod1"
-    :before-load-edit-input-data="testMethod2"
-    :after-load-edit-input-data="testMethod3"
-    v-bind="allProps"
-  >
+  <entity-crud v-model:edit-inputs="editInputs"
+               v-model:index-inputs="indexInputs"
+               v-model:show-inputs="showInputs"
+               v-model:create-inputs="createInputs"
+               v-model:default-inputs="defaultInputs"
+               :before-get-edit-data="testMethod1"
+               :before-load-edit-input-data="testMethod2"
+               :after-load-edit-input-data="testMethod3"
+               v-bind="allProps">
     <template v-slot:before-entity-create>
-      <q-select
-        v-model="model"
-        use-input
-        use-chips
-        multiple
-        input-debounce="0"
-        :options="tags"
-        @new-value="createValue"
-      />
+      <q-select v-model="model"
+                use-input
+                use-chips
+                multiple
+                input-debounce="0"
+                :options="tags"
+                @new-value="createValue" />
     </template>
     <template v-slot:entity-crud-table-cell="{inputData}">
       <q-td :props="inputData.props">
