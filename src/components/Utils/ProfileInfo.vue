@@ -8,14 +8,11 @@
                       :alt="'user photo'"
                       width="60"
                       height="60"
-                      class="user-photo"
-            />
+                      class="user-photo" />
           </div>
         </div>
-        <div
-          v-if="isUserLogin"
-          class="profile-detail-info"
-        >
+        <div v-if="isUserLogin"
+             class="profile-detail-info">
           <div class="info-name">{{user.full_name}}</div>
           <!--                    <div class="info-phoneNumber">{{user.mobile}}</div>-->
           <div class="info-phoneNumber">ادمین کل</div>
@@ -83,6 +80,7 @@ export default {
               border-radius: 16px;
               max-width: 100%;
               width: 100%;
+              height: 100% !important;
             }
           }
           //.user-photo {
