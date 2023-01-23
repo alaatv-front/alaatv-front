@@ -2968,7 +2968,7 @@ core-js@^2.4.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.26.1, core-js@^3.27.1, core-js@^3.7.0:
+core-js@^3.26.1, core-js@^3.27.1, core-js@^3.27.2, core-js@^3.7.0:
   version "3.27.2"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.27.2.tgz#85b35453a424abdcacb97474797815f4d62ebbf7"
   integrity sha512-9ashVQskuh5AZEZ1JdQWp1GqSoC1e1G87MzRqg2gIfVAQ7Qn9K+uFj8EcniUFA4P2NLZfV+TOlX1SzoKfo+s7w==
@@ -5605,6 +5605,17 @@ quasar-form-builder@^0.1.72:
     quasar "^2.11.3"
     vue "^3.2.45"
     vue3-tiptap-katex "^1.0.48"
+
+quasar-form-builder@^0.1.74:
+  version "0.1.74"
+  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.74.tgz#3d7fc85f5aa956d50e18f7ad0d326c6aa7399ac6"
+  integrity sha512-uIfjVDWOKdu57NVoDHPTtKuC/nYLyhAVYQAogrCV8YpQxHKkWRMZBnDkHFZDb/927a8NfhVT8PtlF4O3ov29xQ==
+  dependencies:
+    "@quasar/extras" "^1.15.10"
+    core-js "^3.27.2"
+    moment-jalaali "^0.9.6"
+    quasar "^2.11.5"
+    vue "^3.2.45"
 
 quasar-template-builder@^1.0.20:
   version "1.0.20"

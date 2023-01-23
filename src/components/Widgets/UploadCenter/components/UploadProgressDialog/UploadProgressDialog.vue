@@ -16,6 +16,7 @@
                    v-model="step"
                    color="primary"
                    animated
+                   header-nav
                    flat>
           <q-step :name="1"
                   title="مشخصات"
@@ -39,7 +40,7 @@
                   done-icon="connected_tv"
                   active-icon="connected_tv"
                   :done="step > 3">
-            An ad group contains one or more ads which target a shared set of keywords.
+            <upload-publish />
           </q-step>
           <template v-slot:navigation>
             <q-stepper-navigation class="stepper-footer-navigation">
@@ -63,12 +64,14 @@
 <script>
 import UploadProperties from './UploadProperties/UploadProperties.vue'
 import UploadTimestamp from './UploadTimestamp/UploadTimestamp.vue'
+import UploadPublish from './UploadPublish/UploadPublish.vue'
 
 export default {
   name: 'UploadProgressDialog',
   components: {
     UploadProperties,
-    UploadTimestamp
+    UploadTimestamp,
+    UploadPublish
   },
   props: {
     dialog: {
@@ -78,58 +81,7 @@ export default {
   },
   data() {
     return {
-      step: 1,
-      inputs: [
-        {
-          type: 'input',
-          responseKey: 'first_name',
-          name: 'first_name',
-          label: 'نام',
-          placeholder: 'وارد کنید',
-          col: 'col-md-6'
-        },
-        {
-          type: 'input',
-          responseKey: 'last_name',
-          name: 'last_name',
-          label: 'نام خانوادگی',
-          placeholder: 'وارد کنید',
-          col: 'col-md-6'
-        },
-        {
-          type: 'input',
-          responseKey: 'birthdate',
-          name: 'birthdate',
-          label: 'تاریخ تولد',
-          placeholder: '۱۳۷۷/۰۷/۱۵',
-          col: 'col-md-6'
-        },
-        {
-          type: 'select',
-          responseKey: 'gender',
-          name: 'gender',
-          label: 'جنسیت',
-          placeholder: 'جنسیت',
-          optionLabel: 'label',
-          optionValue: 'value',
-          col: 'col-md-6',
-          options: [
-            { label: 'آقا', value: { id: 1, name: 'آقا', title: 'آقا' } },
-            {
-              label: 'خانم',
-              value: { id: 2, name: 'خانم', title: 'خانم' }
-            }
-          ]
-        },
-        {
-          type: 'input',
-          responseKey: 'national_code',
-          name: 'national_code',
-          label: 'کدملی',
-          placeholder: 'وارد کنید',
-          col: 'col-md-6'
-        }
-      ]
+      step: 1
     }
   }
 }
