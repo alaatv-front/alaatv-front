@@ -1,20 +1,14 @@
 <template>
-  <q-option-group
-    v-model="inputData.entity_type"
-    :options="entityOptions"
-    color="primary"
-    type="radio"
-    dense
-    inline
-    @update:model-value="onChangeLineType"
-  />
-  <div
-    v-if="inputData.entity_type !== 'nothing' && inputData.entity_type"
-  >
-    <q-input
-      v-model="inputData.altNames"
-      label="کد موجودیت را وارد کنید:"
-    />
+  <q-option-group v-model="inputData.entity_type"
+                  :options="entityOptions"
+                  color="primary"
+                  type="radio"
+                  dense
+                  inline
+                  @update:model-value="onChangeLineType" />
+  <div v-if="inputData.entity_type !== 'nothing' && inputData.entity_type">
+    <q-input v-model="inputData.altNames"
+             label="کد موجودیت را وارد کنید:" />
 
   </div>
 </template>

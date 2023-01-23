@@ -1,68 +1,52 @@
 <template>
   <div class="chip-dropdown">
-    <div
-      class="list-box align-center flex"
-      :class="dropDown ? 'chip-group-visibility' : 'flex'"
-    >
-      <p
-        v-if="chipTitle"
-        class="list-section"
-      >
+    <div class="list-box align-center flex"
+         :class="dropDown ? 'chip-group-visibility' : 'flex'">
+      <p v-if="chipTitle"
+         class="list-section">
         {{ chipTitle }}
       </p>
-      <div
-        v-if="loading"
-        class="d-block d-xs-none"
-      >
+      <div v-if="loading"
+           class="d-block d-xs-none">
         <q-skeleton v-for="i in 3"
                     :key="i"
                     type="QChip" />
       </div>
-      <div
-        v-else
-        class="chip-part xs-hide justify-center"
-        :class="dropDown ? 'hidden' : ''"
-      >
-        <q-chip
-          v-for="(item) in items"
-          :key="item.id"
-          size="16px"
-          clickable
-          :style="{background: chipBackground(item)}"
-          class="chip-box"
-          :label="item.title"
-          :text-color="isItemSelected(item) ? 'white': 'chip-text-color'"
-          @click="changeSelectedChip(item.id)"
-        />
+      <div v-else
+           class="chip-part xs-hide justify-center"
+           :class="dropDown ? 'hidden' : ''">
+        <q-chip v-for="(item) in items"
+                :key="item.id"
+                size="16px"
+                clickable
+                :style="{background: chipBackground(item)}"
+                class="chip-box"
+                :label="item.title"
+                :text-color="isItemSelected(item) ? 'white': 'chip-text-color'"
+                @click="changeSelectedChip(item.id)" />
       </div>
 
     </div>
-    <div
-      v-if="loading"
-      class="d-xl-none d-lg-none d-md-none d-sm-none d-xs-block"
-    >
+    <div v-if="loading"
+         class="d-xl-none d-lg-none d-md-none d-sm-none d-xs-block">
       <q-skeleton class="q-mb-md"
-                  type="chip"></q-skeleton>
-      <q-skeleton type="chip"></q-skeleton>
+                  type="chip" />
+      <q-skeleton type="chip" />
     </div>
-    <div
-      class="drop-down-select-box q-mt-md flex xl-hide lg-hide md-hide sm-hide"
-    >
-      <q-select
-        v-model="selectedId"
-        :options="items"
-        filled
-        :option-label="itemText"
-        :option-value="itemValue"
-        class="full-width"
-        :menu-props="{ bottom: true, offsetY: true }"
-        dropdown-icon="mdi-chevron-down"
-        dense
-        emit-value
-        map-options
-        flat
-        @update:model-value ="changeSelectedChip(selectedId)"
-      />
+    <div class="drop-down-select-box q-mt-md flex xl-hide lg-hide md-hide sm-hide">
+      <q-select v-model="selectedId"
+                :options="items"
+                filled
+                :option-label="itemText"
+                :option-value="itemValue"
+                class="full-width"
+                :menu-props="{ bottom: true, offsetY: true }"
+                dropdown-icon="mdi-chevron-down"
+                dense
+                emit-value
+                map-options
+                flat
+                @update:model-value ="changeSelectedChip(selectedId)" />
     </div>
   </div>
 </template>

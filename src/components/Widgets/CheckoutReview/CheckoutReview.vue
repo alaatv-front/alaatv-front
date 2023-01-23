@@ -9,12 +9,11 @@
     </div>
     <div class="side-box col-md-4 col-12 column">
       <sticky-both-sides :top-gap="100"
-                         :bottom-gap="40"
-      >
+                         :bottom-gap="40">
         <donate class="q-mb-lg " />
         <checkout-review-cart v-if="items && items.items.list.length>0"
                               :items="items" />
-        <Login v-else />
+        <login v-else />
       </sticky-both-sides>
     </div>
   </div>

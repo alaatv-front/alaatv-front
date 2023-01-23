@@ -42,18 +42,14 @@
           </div>
         </router-link>
       </div>
-      <q-list
-        class="side-menu-list"
-        padding
-      >
-        <q-input
-          v-model="searchText"
-          dense
-          filled
-          class="gray-input"
-          placeholder="جست و جو"
-          @update:model-value ="search(titlesList)"
-        >
+      <q-list class="side-menu-list"
+              padding>
+        <q-input v-model="searchText"
+                 dense
+                 filled
+                 class="gray-input"
+                 placeholder="جست و جو"
+                 @update:model-value ="search(titlesList)">
           <template v-slot:append>
             <q-icon name="search" />
           </template>

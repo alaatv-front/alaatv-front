@@ -1,12 +1,10 @@
 <template>
   <div class="plan-style"
        @mouseover="showMenu = true"
-       @mouseleave="showMenu = false"
-  >
+       @mouseleave="showMenu = false">
     <div> {{ planDate.title }}</div>
     <q-icon v-if="showMenu || openMenu"
-            class="isax isax-menu plan-menu"
-    >
+            class="isax isax-menu plan-menu">
       <q-menu v-model="openMenu">
         <q-list style="min-width: 100px">
           <q-item v-close-popup

@@ -3,24 +3,18 @@
           class="content-box q-mb-md">
     <div class="row">
       <div class="col-md-3">
-        <a
-          :href="'https://alaatv.com/c/'+ data.id"
-          class="m-link"
-        >
+        <a :href="'https://alaatv.com/c/'+ data.id"
+           class="m-link">
           <div class="content-img-box flex">
-            <img
-              :src="data.photo"
-              :alt="data.title"
-              class="content-image  videoImage"
-            />
+            <img :src="data.photo"
+                 :alt="data.title"
+                 class="content-image  videoImage">
           </div>
         </a>
       </div>
       <div class="col-md-9">
-        <a
-          :href="'https://alaatv.com/c/'+ data.id"
-          class="m-link content-link"
-        >
+        <a :href="'https://alaatv.com/c/'+ data.id"
+           class="m-link content-link">
           <div class="content-order">
             <div class="">
               <div class="videoOrder-title text-primary q-mr-sm">جلسه</div>
@@ -41,16 +35,12 @@
               <div class="videoDetaileWrapper">
                 <div class="flex items-center">
                   <span class="svg-icon flex items-center">
-                    <svg
-                      viewBox="0 0 24 24"
-                      preserveAspectRatio="xMidYMid meet"
-                      focusable="false"
-                      class="style-scope yt-icon"
-                    >
-                      <path
-                        d="M3.67 8.67h14V11h-14V8.67zm0-4.67h14v2.33h-14V4zm0 9.33H13v2.34H3.67v-2.34zm11.66 0v7l5.84-3.5-5.84-3.5z"
-                        class="style-scope yt-icon">
-                      </path>
+                    <svg viewBox="0 0 24 24"
+                         preserveAspectRatio="xMidYMid meet"
+                         focusable="false"
+                         class="style-scope yt-icon">
+                      <path d="M3.67 8.67h14V11h-14V8.67zm0-4.67h14v2.33h-14V4zm0 9.33H13v2.34H3.67v-2.34zm11.66 0v7l5.84-3.5-5.84-3.5z"
+                            class="style-scope yt-icon" />
                     </svg>
                   </span>
                   <p class="content-description">
@@ -60,32 +50,26 @@
                     {{ data.set ? data.set.title : '' }}
                   </p>
                 </div>
-                <q-icon
-                  name="mdi-calendar-text"
-                  class="q-mr-sm"
-                  color="black"
-                  data-toggle="m-tooltip"
-                  data-placement="top"
-                  data-original-title="تاریخ بروزرسانی"
-                />
+                <q-icon name="mdi-calendar-text"
+                        class="q-mr-sm"
+                        color="black"
+                        data-toggle="m-tooltip"
+                        data-placement="top"
+                        data-original-title="تاریخ بروزرسانی" />
                 <span class="content-description">
                   {{ data.updated_at }}
                 </span>
               </div>
               <div class="content-description q-mb-sm q-mt-xs-md">
-                <q-btn-group
-                  flat
-                  square
-                  outline
-                >
-                  <q-btn
-                    v-for="(quality, index) in data.file?.video"
-                    :key="index"
-                    unelevated
-                    color="teal-6"
-                    class="download-btn"
-                    icon="mdi-cloud-download"
-                  >
+                <q-btn-group flat
+                             square
+                             outline>
+                  <q-btn v-for="(quality, index) in data.file?.video"
+                         :key="index"
+                         unelevated
+                         color="teal-6"
+                         class="download-btn"
+                         icon="mdi-cloud-download">
                     <a :href="quality.link +'?download=1'"
                        class="download-link"
                        target="_blank">
@@ -94,12 +78,10 @@
                   </q-btn>
                 </q-btn-group>
                 <router-link v-if="data.id"
-                             :to="{name: 'Public.Content.Show', params:{id:data.id}}"
-                >
-                  <q-btn
-                    unelevated
-                    class="q-ml-sm q-mt-sm-none q-mt-xs-sm"
-                    color="teal-6">... بیشتر
+                             :to="{name: 'Public.Content.Show', params:{id:data.id}}">
+                  <q-btn unelevated
+                         class="q-ml-sm q-mt-sm-none q-mt-xs-sm"
+                         color="teal-6">... بیشتر
                   </q-btn>
                 </router-link>
               </div>

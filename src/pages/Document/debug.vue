@@ -1,9 +1,7 @@
 <template>
   <div class="Shop-page">
-    <q-page-builder
-      v-model:sections="sections"
-      :editable="true"
-    />
+    <q-page-builder v-model:sections="sections"
+                    :editable="true" />
   </div>
 </template>
 
@@ -391,5 +389,4 @@ export default {
 
 <style
   scoped
-  lang="scss"
-></style>
+  lang="scss"></style>

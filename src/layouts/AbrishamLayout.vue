@@ -1,48 +1,34 @@
 <template>
   <div class="abrisham-layout">
-    <q-expansion-item
-      v-model="expandedNavigation"
-      class="md-hide xl-hide lg-hide  bg-white expanded-navigation q-mt-lg"
-      :icon="activePage?.icon"
-      :label="activePage?.title"
-      expand-icon-class="expanded-icon-color"
-    >
+    <q-expansion-item v-model="expandedNavigation"
+                      class="md-hide xl-hide lg-hide  bg-white expanded-navigation q-mt-lg"
+                      :icon="activePage?.icon"
+                      :label="activePage?.title"
+                      expand-icon-class="expanded-icon-color">
       <template v-slot:header>
         <q-item-section avatar>
-          <i
-            class="header-icon flex"
-            :class="['fi-rr-' + activePage.icon]"
-          />
+          <i class="header-icon flex"
+             :class="['fi-rr-' + activePage.icon]" />
         </q-item-section>
 
         <q-item-section class="text-center">
           {{activePage.title}}
         </q-item-section>
 
-        <q-item-section side>
-
-        </q-item-section>
+        <q-item-section side />
       </template>
-      <q-list
-        class="">
-        <div
-          v-for="(item, index) in menuItem"
-          :key="index"
-        >
-          <q-separator
-            class="q-mx-lg" />
-          <q-item
-            v-if="activePage && item.icon !== activePage.icon"
-            v-ripple
-            clickable
-            :to="{name:item.routeName}"
-            @click='setActivePage(item)'
-          >
-            <q-item-section  class="text-center">
-              <i
-                class="menu-item-icon flex"
-                :class="['fi-rr-' + item.icon]"
-              />
+      <q-list class="">
+        <div v-for="(item, index) in menuItem"
+             :key="index">
+          <q-separator class="q-mx-lg" />
+          <q-item v-if="activePage && item.icon !== activePage.icon"
+                  v-ripple
+                  clickable
+                  :to="{name:item.routeName}"
+                  @click='setActivePage(item)'>
+            <q-item-section class="text-center">
+              <i class="menu-item-icon flex"
+                 :class="['fi-rr-' + item.icon]" />
               {{item.title}}
             </q-item-section>
           </q-item>

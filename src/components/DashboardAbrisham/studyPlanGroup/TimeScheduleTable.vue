@@ -4,17 +4,13 @@
        class="timeTable">
     <div class="timeTable-header">
       <div class="timeTable-header-number-boxes">
-        <div
-          v-if="canShowTimeTableHeader(startTime)"
-          class="timeTableHeader"
-          :style="{ flex: ('0 0 ' + customizedHeaderCellWidth() + 'px') }"
-        />
-        <div
-          v-for="i in listOfHours"
-          :key="i"
-          class="timeTableHeader"
-          :style="{ flex: ('0 0 ' + headerCellWidth + 'px') }"
-        >
+        <div v-if="canShowTimeTableHeader(startTime)"
+             class="timeTableHeader"
+             :style="{ flex: ('0 0 ' + customizedHeaderCellWidth() + 'px') }" />
+        <div v-for="i in listOfHours"
+             :key="i"
+             class="timeTableHeader"
+             :style="{ flex: ('0 0 ' + headerCellWidth + 'px') }">
           <div class="row">
             <div class="col-12">
               <div class="timeTableHeaderNumber">
@@ -24,38 +20,30 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="!loading"
-        class="timeTable-body"
-      >
-        <div
-          v-for="i in listOfHours"
-          :key="i"
-          :style="[{ flex: ('0 0 ' + headerCellWidth + 'px') }]"
-        >
+      <div v-if="!loading"
+           class="timeTable-body">
+        <div v-for="i in listOfHours"
+             :key="i"
+             :style="[{ flex: ('0 0 ' + headerCellWidth + 'px') }]">
           <div class="timeTable-main-line" />
           <div class="timeTable-line" />
         </div>
-        <div
-          v-for="plan in filteredPlans"
-          :key="plan.id"
-          class="plan"
-          :style="{
-            right: calcPosition(plan.start, plan.end).right
-          }"
-          @click="selectPlan(plan)"
-        >
+        <div v-for="plan in filteredPlans"
+             :key="plan.id"
+             class="plan"
+             :style="{
+               right: calcPosition(plan.start, plan.end).right
+             }"
+             @click="selectPlan(plan)">
           <!--              2      calcPosition(p.start, p.end).right-->
-          <div
-            class="plan-within-box"
-            :style="{
-              width: calcPosition(plan.start, plan.end).width,
-              backgroundColor: plan.backgroundColor,
-              borderColor: plan.borderColor,
-              color: plan.textColor,
-              position : 'absolute'}"
-            :class="{ 'planActive': isSelectedPanel(plan.id)}"
-          >
+          <div class="plan-within-box"
+               :style="{
+                 width: calcPosition(plan.start, plan.end).width,
+                 backgroundColor: plan.backgroundColor,
+                 borderColor: plan.borderColor,
+                 color: plan.textColor,
+                 position : 'absolute'}"
+               :class="{ 'planActive': isSelectedPanel(plan.id)}">
             {{ plan.title }}
           </div>
         </div>
@@ -154,7 +142,6 @@ export default {
         this.SetSpaceBetweenTimes()
         this.setListOfHours()
       }
-      console.log('plans', val)
     }
   },
   methods: {

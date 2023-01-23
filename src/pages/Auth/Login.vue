@@ -17,32 +17,29 @@
       <q-linear-progress v-if="loadingList"
                          color="warning"
                          class="q-mt-sm" />
-      <q-separator></q-separator>
+      <q-separator />
       <div class="q-pa-lg">
-        <q-input
-          ref="userName"
-          v-model="username"
-          bottom-slots
-          color="blue-8"
-          name="userName"
-          label="شماره همراه"
-          @keydown.enter="getEnter('pass')"
-        >
+        <q-input ref="userName"
+                 v-model="username"
+                 bottom-slots
+                 color="blue-8"
+                 name="userName"
+                 label="شماره همراه"
+                 @keydown.enter="getEnter('pass')">
           <template v-slot:before>
-            <q-icon name="person"></q-icon>
+            <q-icon name="person" />
           </template>
         </q-input>
-        <q-input
-          ref="pass"
-          v-model="password"
-          color="blue-8"
-          bottom-slots
-          name="pass"
-          label="رمز"
-          type="password"
-          @keydown.enter="login">
+        <q-input ref="pass"
+                 v-model="password"
+                 color="blue-8"
+                 bottom-slots
+                 name="pass"
+                 label="رمز"
+                 type="password"
+                 @keydown.enter="login">
           <template v-slot:before>
-            <q-icon name="lock"></q-icon>
+            <q-icon name="lock" />
           </template>
         </q-input>
         <q-card-actions align="left">

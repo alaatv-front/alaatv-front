@@ -34,8 +34,7 @@
                                      color="#4CAF50"
                                      rounded
                                      height="6"
-                                     dir="ltr"
-                  />
+                                     dir="ltr" />
                 </div>
                 <div class="price-box">
                   <div class="price">{{walletBalance.toLocaleString('fa')}}</div>
@@ -83,15 +82,13 @@
       </div>
     </div>
     <div class="tabs-section">
-      <q-tabs
-        v-model="activeTab"
-        color="#ff9000"
-        right
-        background-color="transparent"
-        class="tabs-box"
-        active-class="tab-active-class"
-        @change="handleTables"
-      >
+      <q-tabs v-model="activeTab"
+              color="#ff9000"
+              right
+              background-color="transparent"
+              class="tabs-box"
+              active-class="tab-active-class"
+              @change="handleTables">
         <q-tab key="transaction"
                :disabled="loading"
                active-class="active-tab-t">
@@ -107,13 +104,11 @@
             تاریخچه تسویه
           </span>
         </q-tab>
-        <div class="line-style"></div>
+        <div class="line-style" />
 
-        <q-tab-item
-          key="transactions"
-          disabled
-        >
-          <div  class="table-container  text-center">
+        <q-tab-item key="transactions"
+                    disabled>
+          <div class="table-container  text-center">
             <div class="table-title">
               تراکنش کارت ها
             </div>
@@ -166,10 +161,8 @@
 
         </q-tab-item>
 
-        <q-tab-item
-          key="clearingHistory"
-          disabled
-        >
+        <q-tab-item key="clearingHistory"
+                    disabled>
           <div class="table-container">
             <div class="table-title">
               تاریخچه تسویه
@@ -231,24 +224,21 @@
       <!--      />-->
     </div>
     <q-dialog v-model="settlementGuideDialog"
-              width="500px"
-    >
+              width="500px">
       <div class="settlementGuide-dialog">
         <v-card>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-card-text>
             <span v-html="settlementGuide" />
           </v-card-text>
 
-          <v-divider></v-divider>
+          <v-divider />
 
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="#FF9000"
-              text
-              @click="settlementGuideDialog = false"
-            >
+            <v-spacer />
+            <v-btn color="#FF9000"
+                   text
+                   @click="settlementGuideDialog = false">
               بستن
             </v-btn>
           </v-card-actions>

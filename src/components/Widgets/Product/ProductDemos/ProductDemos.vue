@@ -1,33 +1,24 @@
 <template>
   <div class="row product-demos-widget"
        :class="options.className"
-       :style="options.style"
-  >
+       :style="options.style">
     <div v-if="contents.blocks && contents.blocks.length > 0"
          class="demos-container col-md-12">
       <p class="section-title">نمونه فیلم ها</p>
-      <div
-        v-dragscroll
-        class="contents-block"
-      >
-        <div
-          v-for="content in contents.list"
-          :key="content.id"
-        >
-          <content-item
-            class="q-mr-md"
-            :options="content"
-          />
+      <div v-dragscroll
+           class="contents-block">
+        <div v-for="content in contents.list"
+             :key="content.id">
+          <content-item class="q-mr-md"
+                        :options="content" />
         </div>
       </div>
     </div>
     <div v-if="pamphlets && pamphlets.length > 0"
          class="demos-container col-md-12">
       <p class="section-title">نمونه جزوه ها</p>
-      <div
-        v-dragscroll
-        class="contents-block"
-      >
+      <div v-dragscroll
+           class="contents-block">
         <div v-for="pamphlet in pamphlets"
              :key="pamphlet.id"
              class="pamphlet-image">

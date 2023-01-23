@@ -1,8 +1,8 @@
 <template>
   <main-header-template v-if="type === 'main'" />
   <admin-panel-header v-if="type === 'admin'" />
-  <user-abrisham-panel  v-if="type === 'abrisham'" />
-  <user-gift-card-panel  v-if="type === 'gift-card'" />
+  <user-abrisham-panel v-if="type === 'abrisham'" />
+  <user-gift-card-panel v-if="type === 'gift-card'" />
 </template>
 
 <script>

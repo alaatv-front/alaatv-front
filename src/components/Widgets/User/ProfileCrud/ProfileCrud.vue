@@ -9,14 +9,12 @@
                :before-send-data="beforeSendData"
                :before-get-data="beforeGetData"
                :after-get-data="afterGetData"
-               :after-send-data="afterSendData"
-  >
+               :after-send-data="afterSendData">
     <template #after-form-builder>
       <div class="col-12 q-my-md flex justify-end">
         <q-btn class="submitBtn"
                label="ثبت تغییرات"
-               @click="submit"
-        />
+               @click="submit" />
       </div>
     </template>
   </entity-edit>
@@ -27,14 +25,12 @@
                  :beforeDoAction="beforeDoAction"
                  :defaultLayout="false"
                  @onActionSuccess="onActionSuccess"
-                 @onActionError="onActionError"
-  >
+                 @onActionError="onActionError">
     <template #after-form-builder>
       <div class="col-12 q-my-md flex justify-end">
         <q-btn class="submitBtn"
                label="ثبت رتبه کنکور"
-               @click="submitAction"
-        />
+               @click="submitAction" />
       </div>
     </template>
   </entity-action>

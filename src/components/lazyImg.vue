@@ -10,8 +10,7 @@
            :ratio="ratio"
            fit="contain"
            class="full-width img"
-           position="0 0"
-    >
+           position="0 0">
       <slot />
     </q-img>
     <img v-else-if="!qImage && width && height"
@@ -19,19 +18,16 @@
          :alt="alt"
          :src="lazyImageSrc"
          class="full-width img"
-         :style="{height: computedHeight+'px', width: computedWidth+'px'}"
-    />
+         :style="{height: computedHeight+'px', width: computedWidth+'px'}">
     <q-img v-else-if="qImage && (!width || !height)"
            :src="src"
-           :alt="alt"
-    >
+           :alt="alt">
       <slot />
     </q-img>
     <img v-else-if="!qImage && (!width || !height)"
          :src="src"
          :alt="alt"
-         class="full-width"
-    />
+         class="full-width">
   </div>
 </template>
 

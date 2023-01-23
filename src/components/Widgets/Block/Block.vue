@@ -2,43 +2,36 @@
   <div class="block-section">
     <div v-if="isThereData"
          class="block-header row q-pa-md q-mb-sm"
-         :class="block.headerCustomClass"
-    >
+         :class="block.headerCustomClass">
       <a :href="block?.url?.web"
-         class="block-title"
-      >
+         class="block-title">
         {{ block.title }}
       </a>
       <q-btn v-if="!block.banners || block.banners.list.length === 0"
              round
              color="primary"
              :icon="isGridView ? 'sync_alt' : 'grid_view'"
-             @click="isGridView = !isGridView"
-      />
+             @click="isGridView = !isGridView" />
     </div>
     <div class="block-container">
       <slider v-if="block.banners && block.banners.list.length > 0"
-              :options="bannerSlides"
-      />
+              :options="bannerSlides" />
       <div v-if="block.products.list.length > 0"
            v-dragscroll
            class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'"
-      >
+           :class="isGridView ? 'row' : 'scroll-view'">
         <div v-for="product in this.block.products.list"
              :key="product.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
-             class="product-spacing"
-        >
+             class="product-spacing">
           <product-item :options="product" />
         </div>
         <div v-if="block?.url?.web"
              class="block-item-box">
           <a :href="block?.url?.web"
-             class="show-more-title"
-          >
+             class="show-more-title">
             نمایش بیشتر
           </a>
         </div>
@@ -46,21 +39,18 @@
       <div v-if="block.sets.list.length > 0"
            v-dragscroll
            class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'"
-      >
+           :class="isGridView ? 'row' : 'scroll-view'">
         <div v-for="set in this.block.sets.list"
              :key="set.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
-             class="set-spacing"
-        >
+             class="set-spacing">
           <set-item :data="set" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"
-             class="show-more-title"
-          >
+             class="show-more-title">
             نمایش بیشتر
           </a>
         </div>
@@ -68,21 +58,18 @@
       <div v-if="block.contents.list.length > 0"
            v-dragscroll
            class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'"
-      >
+           :class="isGridView ? 'row' : 'scroll-view'">
         <div v-for="content in this.block.contents.list"
              :key="content.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
-             class="content-spacing"
-        >
+             class="content-spacing">
           <content-item :options="content" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"
-             class="show-more-title"
-          >
+             class="show-more-title">
             نمایش بیشتر
           </a>
         </div>

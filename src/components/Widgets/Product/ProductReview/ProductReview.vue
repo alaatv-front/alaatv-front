@@ -1,26 +1,18 @@
 <template>
   <div class="show-product-review"
        :style="options.style"
-       :class="options.className"
-  >
+       :class="options.className">
     <div class="product-description">
-      <div
-        class="description-container"
-      >
+      <div class="description-container">
         <p class="title-style">
           بررسی محصول
         </p>
-        <q-skeleton
-          v-if="product.loading"
-          class="description-text"
-          min-width="100%"
-          type="article"
-        />
-        <q-card
-          class="description-text"
-          v-html="product.description?.short || product.description?.long"
-        >
-        </q-card>
+        <q-skeleton v-if="product.loading"
+                    class="description-text"
+                    min-width="100%"
+                    type="article" />
+        <q-card class="description-text"
+                v-html="product.description?.short || product.description?.long" />
       </div>
     </div>
   </div>

@@ -1,6 +1,5 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions">
-  </option-panel-tabs>
+  <option-panel-tabs v-model:options="localOptions" />
 </template>
 
 <script>

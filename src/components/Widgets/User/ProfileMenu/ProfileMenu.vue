@@ -5,15 +5,13 @@
         <div class="flex no-wrap">
           <div>
             <q-img :src="previewImg"
-                   class="previewImg"
-            />
+                   class="previewImg" />
             <q-file ref="file"
                     v-model="file"
                     :model-value="file"
                     label="Label"
                     class="hidden"
-                    @update:model-value="updateFile()"
-            />
+                    @update:model-value="updateFile()" />
             <q-btn v-if="!controls"
                    icon="isax:camera"
                    size="xs"
@@ -21,25 +19,21 @@
                    text-color="accent"
                    round
                    class="photo-edit"
-                   @click="updatePhoto"
-            />
+                   @click="updatePhoto" />
             <div v-if="controls"
-                 class="controls"
-            >
+                 class="controls">
               <q-btn icon="isax:tick-circle"
                      size="xs"
                      color="green"
                      text-color="white"
                      class="controls-btn q-mr-xs"
-                     @click="confirmUpdate"
-              />
+                     @click="confirmUpdate" />
               <q-btn icon="isax:close-circle"
                      size="xs"
                      color="red"
                      text-color="white"
                      class="controls-btn"
-                     @click="discardUpdate"
-              />
+                     @click="discardUpdate" />
             </div>
           </div>
           <div class="q-ml-lg namePhone">
@@ -58,108 +52,92 @@
                    size="sm"
                    color="white"
                    text-color="accent"
-                   unelevated
-            />
+                   unelevated />
           </div>
         </div>
         <div class="q-mt-lg status">
           <div class="flex no-wrap q-mx-md status-detail">
             دانش آموز &#9679; ریاضی دوازدهم
             <div>۹۵۵</div>
-            <div class="yellow-star"></div>
+            <div class="yellow-star" />
           </div>
         </div>
         <q-separator class="q-mt-md"
-                     size="2px"
-        />
+                     size="2px" />
         <q-list class="q-mt-md">
           <router-link :to="{name: 'UserPanel.MyPurchases'}"
-                       class="flex"
-          >
+                       class="flex">
             <q-item v-ripple
-                    clickable
-            >
+                    clickable>
               <q-item-section class="menu-item-custom">
-                <div class="play-btn"></div>
+                <div class="play-btn" />
                 <div class="menu-item-title q-ml-sm">محصولات من</div>
               </q-item-section>
             </q-item>
           </router-link>
           <router-link :to="{name: 'UserPanel.MyOrders'}"
-                       class="flex"
-          >
+                       class="flex">
             <q-item v-ripple
-                    clickable
-            >
+                    clickable>
               <q-item-section class="menu-item-custom">
-                <div class="note"></div>
+                <div class="note" />
                 <div class="menu-item-title q-ml-sm">سفارش های من</div>
               </q-item-section>
             </q-item>
           </router-link>
           <q-item v-ripple
-                  clickable
-          >
+                  clickable>
             <q-item-section class="menu-item-custom">
-              <div class="empty-wallet"></div>
+              <div class="empty-wallet" />
               <div class="menu-item-title q-ml-sm">کیف پول</div>
             </q-item-section>
           </q-item>
           <router-link class="flex"
-                       :to="{name: 'UserPanel.MyFavorites'}"
-          >
-            <q-item
-              v-ripple
-              clickable
-            >
+                       :to="{name: 'UserPanel.MyFavorites'}">
+            <q-item v-ripple
+                    clickable>
               <q-item-section class="menu-item-custom">
-                <div class="bookmark"></div>
+                <div class="bookmark" />
                 <div class="menu-item-title q-ml-sm">نشان شده ها</div>
               </q-item-section>
             </q-item>
           </router-link>
           <q-item v-ripple
-                  clickable
-          >
+                  clickable>
             <q-item-section class="menu-item-custom">
-              <div class="leightner"></div>
+              <div class="leightner" />
               <div class="menu-item-title q-ml-sm">جعبه لایتنر</div>
             </q-item-section>
           </q-item>
           <q-item v-ripple
-                  clickable
-          >
+                  clickable>
             <q-item-section class="menu-item-custom">
-              <div class="channels"></div>
+              <div class="channels" />
               <div class="menu-item-title q-ml-sm">کانال‌های من</div>
             </q-item-section>
           </q-item>
           <q-item v-ripple
-                  clickable
-          >
+                  clickable>
             <q-item-section class="menu-item-custom">
-              <div class="messages"></div>
+              <div class="messages" />
               <div class="menu-item-title q-ml-sm">نظرات من</div>
             </q-item-section>
           </q-item>
           <router-link class="flex"
-                       :to="{name: 'UserPanel.Ticket.Index'}"
-          >
+                       :to="{name: 'UserPanel.Ticket.Index'}">
             <q-item v-ripple
-                    clickable
-            >
+                    clickable>
               <q-item-section class="menu-item-custom">
-                <div class="ticket"></div>
+                <div class="ticket" />
                 <div class="menu-item-title q-ml-sm">تیکت</div>
               </q-item-section>
             </q-item>
           </router-link>
           <q-item v-ripple
                   clickable
-                  @click="logout"
-          >
+                  @click="logout">
             <q-item-section class="menu-item-custom">
-              <div class="logout"></div>
+              <div class="logout" />
               <div class="menu-item-title q-ml-sm">خروج</div>
             </q-item-section>
           </q-item>

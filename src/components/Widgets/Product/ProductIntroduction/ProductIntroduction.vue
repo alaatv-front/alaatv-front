@@ -1,10 +1,8 @@
 <template>
-  <div
-    v-if="product.intro"
-    class="intro-video col-md-6 col-12"
-    :class="options.className"
-    :style="options.style"
-  >
+  <div v-if="product.intro"
+       class="intro-video col-md-6 col-12"
+       :class="options.className"
+       :style="options.style">
     <video-player :poster="product.intro.photo"
                   :sources="videoSource()" />
     <div v-if="options.download_date"

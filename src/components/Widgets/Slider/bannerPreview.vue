@@ -18,12 +18,10 @@
       <q-img v-else
              :src="banner.photo.src" />
     </div>
-    <q-inner-loading
-      :showing="visible"
-      label="Please wait..."
-      label-class="text-teal"
-      label-style="font-size: 1.1em"
-    />
+    <q-inner-loading :showing="visible"
+                     label="Please wait..."
+                     label-class="text-teal"
+                     label-style="font-size: 1.1em" />
   </div>
 </template>
 

@@ -1,160 +1,128 @@
 <template>
   <div class="content-search-vue">
-    <q-scroll-observer @scroll="onScroll">
-    </q-scroll-observer>
+    <q-scroll-observer @scroll="onScroll" />
     <div class="row  q-col-gutter-x-md main-content content-body">
-      <div
-        v-if="mobileMode"
-        class="mobile-mode col-12 text-center">
+      <div v-if="mobileMode"
+           class="mobile-mode col-12 text-center">
         <div class="advance-search-btn-on-mobile-mode q-mx-lg q-mb-md">
-          <q-btn
-            outline
-            class="full-width advance-search-btn-text"
-            color="primary"
-            label="جستوجوی پیشرفته"
-            icon-right="mdi-feature-search-outline"
-            @click="advanceSearchModal = true"
-          />
+          <q-btn outline
+                 class="full-width advance-search-btn-text"
+                 color="primary"
+                 label="جستوجوی پیشرفته"
+                 icon-right="mdi-feature-search-outline"
+                 @click="advanceSearchModal = true" />
         </div>
-        <q-dialog
-          v-model="advanceSearchModal"
-          persistent
-        >
+        <q-dialog v-model="advanceSearchModal"
+                  persistent>
           <q-card class="modal-container">
             <div class="modal-content">
               <q-card-section class="row justify-between">
-                <div
-                  class="advance-search-modal-title">
+                <div class="advance-search-modal-title">
                   جستوجوی پیشرفته
                 </div>
                 <div class="btn-box">
-                  <q-btn
-                    v-close-popup
-                    unelevated
-                    class="q-mr-sm"
-                    color="primary"
-                    data-dismiss="modal"
-                    @click="applyFilter=true">
+                  <q-btn v-close-popup
+                         unelevated
+                         class="q-mr-sm"
+                         color="primary"
+                         data-dismiss="modal"
+                         @click="applyFilter=true">
                     اعمال فیلتر
                   </q-btn>
-                  <q-btn
-                    v-close-popup
-                    flat
-                    color="red"
-                    outline
-                    icon-right="mdi-close"
-                    label="بستن"
-                  />
+                  <q-btn v-close-popup
+                         flat
+                         color="red"
+                         outline
+                         icon-right="mdi-close"
+                         label="بستن" />
                 </div>
               </q-card-section>
               <q-card-section>
-                <side-bar-content
-                  ref="sideBar"
-                  v-model:selectedTags="selectedTags"
-                  :contentFilterData="contentSearchFilterData"
-                  :mobileMode="mobileMode"
-                  :applyFilter="applyFilter"
-                  :loading="searchLoading"
-                  @update:selectedTags="onFilterChange"
-                />
+                <side-bar-content ref="sideBar"
+                                  v-model:selectedTags="selectedTags"
+                                  :contentFilterData="contentSearchFilterData"
+                                  :mobileMode="mobileMode"
+                                  :applyFilter="applyFilter"
+                                  :loading="searchLoading"
+                                  @update:selectedTags="onFilterChange" />
               </q-card-section>
               <q-card-actions>
-                <q-btn
-                  v-close-popup
-                  unelevated
-                  color="primary"
-                  class="q-mx-sm"
-                  @click="applyFilter=true">
+                <q-btn v-close-popup
+                       unelevated
+                       color="primary"
+                       class="q-mx-sm"
+                       @click="applyFilter=true">
                   اعمال فیلتر
                 </q-btn>
-                <q-btn
-                  v-close-popup
-                  color="red"
-                  outline
-                  icon-right="mdi-close"
-                  label="بستن"
-                  flat
-                />
+                <q-btn v-close-popup
+                       color="red"
+                       outline
+                       icon-right="mdi-close"
+                       label="بستن"
+                       flat />
               </q-card-actions>
             </div>
           </q-card>
 
         </q-dialog>
       </div>
-      <div
-        v-if="!mobileMode"
-        class="col-md-3 col-sm-0">
-        <sticky-both-sides
-          :top-gap="70"
-          :bottom-gap="20"
-          :max-width="1024"
-        >
-          <side-bar-content
-            ref="sideBar"
-            v-model:selectedTags="selectedTags"
-            :contentFilterData="contentSearchFilterData"
-            :mobileMode="mobileMode"
-            :applyFilter="applyFilter"
-            :loading="searchLoading"
-            @update:selectedTags="onFilterChange"
-          />
+      <div v-if="!mobileMode"
+           class="col-md-3 col-sm-0">
+        <sticky-both-sides :top-gap="70"
+                           :bottom-gap="20"
+                           :max-width="1024">
+          <side-bar-content ref="sideBar"
+                            v-model:selectedTags="selectedTags"
+                            :contentFilterData="contentSearchFilterData"
+                            :mobileMode="mobileMode"
+                            :applyFilter="applyFilter"
+                            :loading="searchLoading"
+                            @update:selectedTags="onFilterChange" />
         </sticky-both-sides>
       </div>
       <div class="col-md-9 col-sm-12 content-list">
         <div class="content">
           <div class="tag-loading-container">
             <div class="tags-chip-group-wrapper">
-              <div
-                v-if="selectedTags.length > 0"
-                class="flex q-mr-lg-md q-ml-lg-sm"
-              >
+              <div v-if="selectedTags.length > 0"
+                   class="flex q-mr-lg-md q-ml-lg-sm">
                 <p class="tags-title">
                   تگ‌ها :
                 </p>
                 <div class=" tag-container">
-                  <q-chip
-                    v-for="(tag,index) in selectedTags"
-                    :key="index"
-                    outlined
-                    removable
-                    outline
-                    color="primary"
-                    class="q-ml-sm"
-                    @remove="removeTags(tag)"
-                  >
+                  <q-chip v-for="(tag,index) in selectedTags"
+                          :key="index"
+                          outlined
+                          removable
+                          outline
+                          color="primary"
+                          class="q-ml-sm"
+                          @remove="removeTags(tag)">
                     {{ tag.title }}
                   </q-chip>
                 </div>
               </div>
             </div>
-            <div
-              v-if="noData"
-              class="alert alert-warning alert-dismissible fade show error-alert"
-              role="alert"
-            >
+            <div v-if="noData"
+                 class="alert alert-warning alert-dismissible fade show error-alert"
+                 role="alert">
               <strong>متاسفیم!</strong>با توجه به خواسته شما موردی یافت نشد.
-              <q-btn
-                class="close"
-                data-dismiss="alert"
-                aria-label="Close">
+              <q-btn class="close"
+                     data-dismiss="alert"
+                     aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </q-btn>
             </div>
           </div>
           <div class="">
-            <div
-              class="q-mb-sm">
-              <q-virtual-scroll
-                v-slot="{ item, index }"
-                :items="sets.list"
-                virtual-scroll-horizontal
-                class="set-container"
-                @virtual-scroll="scrollMoved"
-              >
-                <div
-                  :key="index"
-                  class="q-mr-sm"
-                >
+            <div class="q-mb-sm">
+              <q-virtual-scroll v-slot="{ item, index }"
+                                :items="sets.list"
+                                virtual-scroll-horizontal
+                                class="set-container"
+                                @virtual-scroll="scrollMoved">
+                <div :key="index"
+                     class="q-mr-sm">
                   <div v-if="searchLoading">
                     <div v-if="item.type === 'loading' && setLoading">
                       <q-spinner-dots color="primary"
@@ -171,13 +139,10 @@
               <div class="listType">
                 <q-infinite-scroll ref="contentAndProductList"
                                    :offset="2000"
-                                   @load="chargeProductAndContentList"
-                >
-                  <specifer-type
-                    v-for="(item, index) in productAndContentList"
-                    :key="index"
-                    :info="item"
-                  />
+                                   @load="chargeProductAndContentList">
+                  <specifer-type v-for="(item, index) in productAndContentList"
+                                 :key="index"
+                                 :info="item" />
                   <template v-if="searchLoading"
                             v-slot:loading>
                     <div class="row justify-center q-my-md">
@@ -187,9 +152,7 @@
                   </template>
                 </q-infinite-scroll>
                 <div v-if="canSendVideoReq || canSendProductReq"
-                     class="scroll-loader"
-                >
-                </div>
+                     class="scroll-loader" />
               </div>
             </div>
           </div>

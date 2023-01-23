@@ -3,19 +3,17 @@
     <router-link :to="{
       name: 'Public.Content.Show',
       params: { id: content.id ? content.id : -1 }
-    }"
-    >
+    }">
       <div class="img-box">
         <div class="img-title-container">
           <lazy-img :src="content.photo"
                     :alt="content.title"
                     class="img"
                     width="16"
-                    height="9"
-          />
+                    height="9" />
         </div>
         <div class="play-btn">
-          <div class="play-icon"></div>
+          <div class="play-icon" />
         </div>
       </div>
       <div class="content-content-box">

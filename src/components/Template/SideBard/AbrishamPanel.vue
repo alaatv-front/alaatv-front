@@ -1,25 +1,19 @@
 <template>
   <div class="side-menu">
     <div class="menu-logo">
-      <q-img
-        src="https://nodes.alaatv.com/upload/abrisham-panel-logo.png"
-        class="logo-image"
-      />
+      <q-img src="https://nodes.alaatv.com/upload/abrisham-panel-logo.png"
+             class="logo-image" />
     </div>
     <div class="menu-items">
       <q-list class="menu-items-list">
-        <q-item  v-for="(item, index) in menuItems"
-                 :key="index"
-                 :to="{name:item.routeName }"
-                 class="menu-item">
-          <div
-            v-if="$route.name === item.routeName"
-            class="menu-indicator"
-          />
-          <i
-            class="icon"
-            :class="['fi-rr-' + item.icon , $route.name===item.routeName ? 'activate' :'']"
-          />
+        <q-item v-for="(item, index) in menuItems"
+                :key="index"
+                :to="{name:item.routeName }"
+                class="menu-item">
+          <div v-if="$route.name === item.routeName"
+               class="menu-indicator" />
+          <i class="icon"
+             :class="['fi-rr-' + item.icon , $route.name===item.routeName ? 'activate' :'']" />
         </q-item>
       </q-list>
     </div>
