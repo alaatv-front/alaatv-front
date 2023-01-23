@@ -43,28 +43,30 @@
         </router-link>
       </div>
       <profile-info />
-      <q-list class="side-menu-list"
-              padding>
-        <q-input v-model="searchText"
-                 dense
-                 filled
-                 class="gray-input search-input"
-                 placeholder="جست و جو"
-                 @update:model-value ="search(titlesList)">
-          <template v-slot:append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
-        <menu-item :menu="titlesList" />
-      </q-list>
-      <div class="log-out"
-           @click="logOut">
-        <span>
-          <q-avatar icon="isax:logout"
-                    size="30"
-                    dir="rtl" />
-        </span>
-        <span class="logout-text">خروج </span>
+      <div class="side-menu-body">
+        <q-list class="side-menu-list"
+                padding>
+          <q-input v-model="searchText"
+                   dense
+                   filled
+                   class="gray-input search-input"
+                   placeholder="جست و جو"
+                   @update:model-value ="search(titlesList)">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+          <menu-item :menu="titlesList" />
+        </q-list>
+        <div class="log-out"
+             @click="logOut">
+          <span>
+            <q-avatar icon="isax:logout"
+                      size="30"
+                      dir="rtl" />
+          </span>
+          <span class="logout-text">خروج </span>
+        </div>
       </div>
     </div>
   </div>
@@ -189,10 +191,11 @@ export default {
       }
     }
   }
-
-  .q-list {
+  .side-menu-body {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    .q-list {
     padding: 0;
-
     &.side-menu-list {
       .search-input {
         margin-bottom: 30px;
@@ -224,32 +227,34 @@ export default {
       }
     }
   }
-  .log-out {
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    height: 40px !important;
-    //width: 232px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    padding: 0 14px 0 10px;
-    margin: 0 0 36px 27px;
-    @media screen and (max-width: 1439px) {
-      margin: 0 31px 33px 31px;
-    }
-    @media screen and (max-width: 599px) {
-      margin: 0 30px 30px 30px;
-      //padding: 0 0 0 10px;
-    }
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    .q-avatar {
-      height: 22px;
-      width: 22px;
-      margin-right: 12px;
-      transform: matrix(-1, 0, 0, 1, 0, 0);
+    .log-out {
+      align-self: end;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      height: 40px !important;
+      //width: 232px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px 0 10px;
+      margin: 0 0 36px 27px;
+      @media screen and (max-width: 1439px) {
+        margin: 0 31px 33px 31px;
+      }
+      @media screen and (max-width: 599px) {
+        margin: 0 30px 30px 30px;
+        //padding: 0 0 0 10px;
+      }
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      .q-avatar {
+        height: 22px;
+        width: 22px;
+        margin-right: 12px;
+        transform: matrix(-1, 0, 0, 1, 0, 0);
+      }
     }
   }
   &:deep(.side-menu-main-layout) {
