@@ -322,12 +322,12 @@ const routes = [
           },
           {
             name: 'Admin.StudyPlan',
-            path: 'study_plan',
+            path: 'study-plan',
             component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
           },
           {
             name: 'Admin.UploadCenter',
-            path: 'upload_center',
+            path: 'upload-center',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {

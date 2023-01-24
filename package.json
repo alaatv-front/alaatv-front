@@ -41,7 +41,7 @@
     "qs": "^6.11.0",
     "quasar": "^2.11.5",
     "quasar-crud": "^0.2.89",
-    "quasar-form-builder": "^0.1.74",
+    "quasar-form-builder": "0.1.76",
     "quasar-template-builder": "^1.0.20",
     "quasar-ui-q-page-builder": "^0.0.15",
     "socket.io-client": "^4.5.4",
