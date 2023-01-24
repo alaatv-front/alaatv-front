@@ -123,7 +123,8 @@ export default {
   },
   methods: {
     removeTimestamp(row) {
-      this.rows = this.rows.filter(x => x.name !== row.name)
+      this.rows = this.rows.filter(x => x.id !== row.id)
+      this.activeIndex = this.rows.length - 1
     },
     editTimestamp(row) {
       const index = this.rows.indexOf(row)
@@ -139,7 +140,7 @@ export default {
       this.activeIndex = this.rows.length - 1
       if (action === 'add') {
         const last = {
-          id: this.rows.length,
+          id: this.rows.length + 1,
           name: '',
           time: `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`,
           action: 'add'
