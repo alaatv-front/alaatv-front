@@ -93,11 +93,17 @@
                          size="md"
                          color="info"
                          icon="edit"
-                         :to="{name: 'User.Show', params: {id: inputData.props.row.id}}">
+                         @click="toggleUploadProgressDialog(inputData.props.value)">
                     <q-tooltip>
                       ویرایش
                     </q-tooltip>
                   </q-btn>
+                </template>
+                <template v-else-if="inputData.props.col.name === 'photo'">
+                  <q-img :src="inputData.props.value"
+                         :ratio="16/9"
+                         width="142px"
+                         height="78px" />
                 </template>
                 <template v-else>
                   {{ inputData.props.value }}
@@ -120,6 +126,7 @@
 <script>
 import UploadProgressDialog from './components/UploadProgressDialog/UploadProgressDialog.vue'
 import { EntityIndex } from 'quasar-crud'
+import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'UploadCenterComponent',
@@ -133,13 +140,13 @@ export default {
       tab: 'today',
       expanded: true,
       selected: [],
-      api: 'https://reqres.in/api/users',
+      api: API_ADDRESS.set.show(1287),
       tableKeys: {
-        data: 'data',
-        total: 'total',
-        currentPage: 'page',
-        perPage: 'per_page',
-        pageKey: 'page'
+        data: 'data.contents',
+        total: 'meta.total',
+        currentPage: 'meta.current_page',
+        perPage: 'meta.per_page',
+        pageKey: 'productPage'
       },
       table: {
         columns: [
@@ -162,21 +169,21 @@ export default {
             required: true,
             label: 'وضعیت',
             align: 'left',
-            field: row => row.first_name
+            field: row => row.is_free
           },
           {
-            name: 'created_at',
+            name: 'updated_at',
             required: true,
             label: 'تاریخ بارگذاری',
             align: 'left',
-            field: row => row.last_name
+            field: row => row.updated_at
           },
           {
             name: 'actions',
             required: true,
             label: 'عملیات',
             align: 'left',
-            field: ''
+            field: row => row.id
           }
         ],
         data: []
@@ -190,7 +197,7 @@ export default {
     }
   },
   methods: {
-    toggleUploadProgressDialog() {
+    toggleUploadProgressDialog(value) {
       this.progressDialog = !this.progressDialog
     }
   }
