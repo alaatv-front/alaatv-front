@@ -24,7 +24,7 @@
 import { FormBuilder } from 'quasar-form-builder'
 
 export default {
-  name: 'UploadTimestamp',
+  name: 'UploadPublish',
   components: {
     FormBuilder
   },
@@ -76,20 +76,36 @@ export default {
           col: 'col-md-12'
         },
         {
-          type: 'date',
+          type: 'hidden',
           responseKey: 'time',
           name: 'time',
-          label: 'time',
+          label: 'روز',
           col: 'col-md-6'
         },
         {
-          type: 'time',
+          type: 'hidden',
           responseKey: 'time',
           name: 'time',
-          label: 'time',
+          label: 'ساعت',
           col: 'col-md-6'
         }
       ]
+    }
+  },
+  computed: {
+    timePlan() {
+      return this.inputs[1].value
+    }
+  },
+  watch: {
+    timePlan(value) {
+      if (value === 'timePlan') {
+        this.inputs[2].type = 'date'
+        this.inputs[3].type = 'time'
+      } else {
+        this.inputs[2].type = 'hidden'
+        this.inputs[3].type = 'hidden'
+      }
     }
   }
 }
@@ -98,7 +114,7 @@ export default {
 <style lang="scss" scoped>
 .upload-information-wrapper {
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 520px;
 
   .upload-publish-col {
     padding: 10px;
