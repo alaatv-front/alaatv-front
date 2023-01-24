@@ -26,8 +26,8 @@ export default class SetAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.show(data.data.id),
-      cacheKey: this.CacheList.show(data.data.id),
+      request: this.APIAdresses.show(data),
+      cacheKey: this.CacheList.show(data),
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new Set(response.data.data)
