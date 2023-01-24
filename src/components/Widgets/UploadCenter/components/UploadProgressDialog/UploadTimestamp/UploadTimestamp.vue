@@ -65,7 +65,7 @@
           <div class="video-box-title" />
           <video id="video"
                  controls
-                 src=/videos/Moarefi_Abrisham_Tolouei.mp4 /></div>
+                 src="https://nodes.alaatv.com/upload/introVideos/110/110zaminmoarefi.mp4" /></div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
           <div class="link-url">office.alaa.tv.18080/c/createset+1897</div>
