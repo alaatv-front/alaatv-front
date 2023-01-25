@@ -90,7 +90,7 @@ export default {
 <style lang="scss" scoped>
 .upload-dialog-wrapper {
   width: 1280px;
-  height: 760px;
+  height: 780px;
   max-width: 100%;
   background: #FFFFFF;
 
