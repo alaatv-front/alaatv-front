@@ -7,9 +7,10 @@
       </div>
       <div class="col-6 video-box-col">
         <div class="video-box">
-          <div class="video-box-title">
-            در حال آپلود ...
-          </div>
+          <div class="video-box-title" />
+          <video-player class="video"
+                        :sources="videoSource()"
+                        :hlsSource="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
@@ -22,11 +23,13 @@
 
 <script>
 import { FormBuilder } from 'quasar-form-builder'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
 
 export default {
   name: 'UploadPublish',
   components: {
-    FormBuilder
+    FormBuilder,
+    VideoPlayer
   },
   data() {
     return {

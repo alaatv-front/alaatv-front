@@ -17,9 +17,10 @@
           <previous-item-dialog v-model:dialog="pervDialog" />
         </div>
         <div class="video-box">
-          <div class="video-box-title">
-            در حال آپلود ...
-          </div>
+          <div class="video-box-title" />
+          <video-player class="video"
+                        :sources="videoSource()"
+                        :hlsSource="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
@@ -33,12 +34,14 @@
 <script>
 import { EntityEdit } from 'quasar-crud'
 import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
 
 export default {
   name: 'UploadProperties',
   components: {
     EntityEdit,
-    PreviousItemDialog
+    PreviousItemDialog,
+    VideoPlayer
   },
   data() {
     return {
@@ -109,9 +112,6 @@ export default {
 
 <style lang="scss" scoped>
 .upload-information-wrapper {
-  overflow-y: auto;
-  max-height: 500px;
-
   &:deep(.q-editor__toolbar .q-editor__toolbar-group:nth-child(4)){
     display: none;
   }
@@ -140,6 +140,8 @@ export default {
 
   .upload-form-col {
     padding: 10px;
+    max-height: 500px;
+    overflow-y: auto;
   }
   .video-box-col{
     padding: 10px;
