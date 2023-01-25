@@ -14,52 +14,47 @@
                     :props="props">
                 <q-input v-model="props.row.name"
                          filled
-                         type="text" />
+                         placeholder="عنوان"
+                         :disable="rows.indexOf(props.row) !== activeIndex"
+                         type="text"
+                         hide-bottom-space />
               </q-td>
               <q-td key="time"
                     :props="props">
                 <q-input v-model="props.row.time"
                          filled
+                         type="text"
+                         :disable="rows.indexOf(props.row) !== activeIndex"
                          mask="fulltime"
-                         hide-bottom-space>
-                  <template v-slot:append>
-                    <q-icon name="access_time"
-                            class="cursor-pointer">
-                      <q-popup-proxy cover
-                                     transition-show="scale"
-                                     transition-hide="scale">
-                        <q-time v-model="props.row.time"
-                                with-seconds
-                                format24h>
-                          <div class="row items-center justify-end">
-                            <q-btn v-close-popup
-                                   label="Close"
-                                   color="primary"
-                                   flat />
-                          </div>
-                        </q-time>
-                      </q-popup-proxy>
-                    </q-icon>
-                  </template>
-                </q-input>
+                         placeholder="00:00:00"
+                         hide-bottom-space
+                         @update:model-value="setTimestamp($event)" />
               </q-td>
-              <q-td key="fat"
+              <q-td key="action"
                     :props="props">
-                <q-btn color="primary"
-                       icon="visibility"
-                       flat
-                       size="sm"
-                       @click="onClick" />
-                <q-btn color="primary"
-                       icon="edit"
-                       flat
-                       size="sm"
-                       @click="onClick" />
-                <q-btn color="primary"
-                       icon="delete"
-                       flat
-                       size="sm"
-                       @click="onClick" />
+                <q-btn v-if="props.row.action !== 'saved'"
+                       color="primary"
+                       label="تایید"
+                       :disable="rows.indexOf(props.row) !== activeIndex || (!props.row.name && !props.row.time)"
+                       @click="saveTimestamp(props.row)" />
+                <div v-else
+                     class="action-box flex justify-around items-center">
+                  <q-btn color="primary"
+                         icon="visibility"
+                         flat
+                         size="sm"
+                         @click="setTimestamp(props.row.time)" />
+                  <q-btn color="primary"
+                         icon="edit"
+                         flat
+                         size="sm"
+                         @click="editTimestamp(props.row)" />
+                  <q-btn color="primary"
+                         icon="delete"
+                         flat
+                         size="sm"
+                         @click="removeTimestamp(props.row)" />
+                </div>
               </q-td>
             </q-tr>
           </template>
@@ -67,10 +62,10 @@
       </div>
       <div class="col-6 video-box-col">
         <div class="video-box">
-          <div class="video-box-title">
-            در حال آپلود ...
-          </div>
-        </div>
+          <div class="video-box-title" />
+          <video id="video"
+                 controls
+                 src="https://nodes.alaatv.com/upload/introVideos/110/110zaminmoarefi.mp4" /></div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
           <div class="link-url">office.alaa.tv.18080/c/createset+1897</div>
@@ -87,6 +82,12 @@ export default {
   },
   data() {
     return {
+      time: {
+        hours: '',
+        minutes: '',
+        seconds: ''
+      },
+      activeIndex: 0,
       initialPagination: {
         sortBy: 'desc',
         descending: false,
@@ -104,16 +105,70 @@ export default {
           format: val => `${val}`,
           sortable: true
         },
-        { name: 'time', align: 'center', label: '', field: 'calories', sortable: true },
-        { name: 'fat', label: '', field: 'fat', sortable: true }
+        { name: 'time', align: 'center', label: '', field: 'time', sortable: true },
+        { name: 'action', label: '', field: 'action', sortable: false }
       ],
       rows: [
         {
-          name: 'حل تست شماره 45',
-          time: '10:56:00',
-          fat: 6.0
+          id: 1,
+          name: '',
+          time: '',
+          action: 'add'
         }
       ]
+    }
+  },
+  mounted() {
+    this.getTimestamp()
+  },
+  methods: {
+    removeTimestamp(row) {
+      this.rows = this.rows.filter(x => x.id !== row.id)
+      this.activeIndex = this.rows.length - 1
+    },
+    editTimestamp(row) {
+      const index = this.rows.indexOf(row)
+      this.activeIndex = index
+      this.toggleAction(index, 'edit')
+    },
+    saveTimestamp(row) {
+      const index = this.rows.indexOf(row)
+      const action = row.action
+      this.rows.splice(index, 1, row)
+      this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+      this.toggleAction(index, 'saved')
+      this.activeIndex = this.rows.length - 1
+      if (action === 'add') {
+        const last = {
+          id: this.rows.length + 1,
+          name: '',
+          time: `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`,
+          action: 'add'
+        }
+        this.rows.push(last)
+        this.activeIndex = this.rows.length - 1
+      }
+    },
+    toggleAction(index, action) {
+      this.rows[index].action = action
+    },
+    getTimestamp() {
+      const video = document.getElementById('video')
+      if (video !== null) {
+        video.onseeked = (event) => {
+          const hours = Math.floor(video.currentTime / 3600)
+          const minutes = Math.floor(video.currentTime / 60)
+          const seconds = video.currentTime % 60
+          this.time.hours = hours < 10 ? '0' + hours : hours
+          this.time.minutes = minutes < 10 ? '0' + minutes : minutes
+          this.time.seconds = seconds < 10 ? '0' + seconds : seconds
+          this.rows[this.activeIndex].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+        }
+      }
+    },
+    setTimestamp(time) {
+      const video = document.getElementById('video')
+      video.currentTime = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
     }
   }
 }
@@ -122,10 +177,14 @@ export default {
 <style lang="scss" scoped>
 .upload-information-wrapper {
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 550px;
 
   .upload-timestamp-col {
     padding: 10px;
+
+    &:deep(.action-box) {
+      min-width: 100px;
+    }
   }
   .video-box-col{
     padding: 10px;
@@ -143,6 +202,10 @@ export default {
         font-size: 16px;
         line-height: 25px;
         color: #333333;
+      }
+
+      video {
+        width: 100%;
       }
     }
     .link-box {

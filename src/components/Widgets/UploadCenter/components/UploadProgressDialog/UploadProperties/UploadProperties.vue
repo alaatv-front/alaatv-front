@@ -9,6 +9,13 @@
                      :default-layout="false" />
       </div>
       <div class="col-6 video-box-col">
+        <div class="reuse">
+          <q-btn color="primary"
+                 label="استفاده مجدد مشخصات"
+                 flat=""
+                 @click="toggleDialog()" />
+          <previous-item-dialog v-model:dialog="pervDialog" />
+        </div>
         <div class="video-box">
           <div class="video-box-title">
             در حال آپلود ...
@@ -25,13 +32,17 @@
 
 <script>
 import { EntityEdit } from 'quasar-crud'
+import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
+
 export default {
   name: 'UploadProperties',
   components: {
-    EntityEdit
+    EntityEdit,
+    PreviousItemDialog
   },
   data() {
     return {
+      pervDialog: false,
       inputs: [
         {
           type: 'input',
@@ -87,6 +98,11 @@ export default {
       entityIdKey: '',
       entityParamKey: ''
     }
+  },
+  methods: {
+    toggleDialog() {
+      this.pervDialog = !this.pervDialog
+    }
   }
 }
 </script>
@@ -127,6 +143,9 @@ export default {
   }
   .video-box-col{
     padding: 10px;
+    .reuse {
+      float: right;
+    }
     .video-box {
       width: 580px;
       height: 326.25px;
