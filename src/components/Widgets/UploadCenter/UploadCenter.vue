@@ -127,7 +127,7 @@
 import UploadProgressDialog from './components/UploadProgressDialog/UploadProgressDialog.vue'
 import { EntityIndex } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-import ActionBtnComponent from 'components/UserOrders/actionBtn.vue'
+import ActionBtnComponent from 'components/Utils/actionBtn.vue'
 import { shallowRef } from 'vue'
 const ActionBtn = shallowRef(ActionBtnComponent)
 export default {
@@ -217,11 +217,15 @@ export default {
     },
     onEntityButtonsClicked(inputObj) {
       // console.log('button', inputObj)
-      if (inputObj.input.type !== 'button') {
+      const input = inputObj.input
+      if (input.type !== 'button') {
         return
       }
+      if (input.name === 'filter') {
+        console.log('filter')
+      }
 
-      console.log('button', inputObj)
+      // console.log('button', inputObj)
     }
   }
 }
