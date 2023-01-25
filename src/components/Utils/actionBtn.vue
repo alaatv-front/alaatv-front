@@ -29,7 +29,7 @@ export default {
 .actionBtn {
   //padding-top: 33px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   @media screen and(max-width:599px ) {
   padding-top: 0;
   }
