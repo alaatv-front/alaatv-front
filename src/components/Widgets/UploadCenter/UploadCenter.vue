@@ -28,9 +28,9 @@
                         :table="table"
                         :table-keys="tableKeys"
                         :table-selection-mode="'multiple'"
-                        :item-indicator-key="'first_name'"
-                        :create-route-name="'User.Create'"
-                        :default-layout="false">
+                        :item-indicator-key="'id'"
+                        :default-layout="false"
+                        @onInputClick="onEntityButtonsClicked">
             <template v-slot:no-entity>
               <div class="flex column items-center">
                 <div class="q-mb-sm">
@@ -127,7 +127,9 @@
 import UploadProgressDialog from './components/UploadProgressDialog/UploadProgressDialog.vue'
 import { EntityIndex } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
-
+import ActionBtnComponent from 'components/UserOrders/actionBtn.vue'
+import { shallowRef } from 'vue'
+const ActionBtn = shallowRef(ActionBtnComponent)
 export default {
   name: 'UploadCenterComponent',
   components: {
@@ -190,15 +192,36 @@ export default {
       },
       inputs: [
         { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', class: 'align-left' },
-        { type: 'button', name: 'search', responseKey: 'statement', icon: 'search', iconRight: undefined, col: 'col-md-1' },
-        { type: 'hidden', col: 'col-md-6' },
-        { type: 'select', name: 'order', label: 'ترتیب نمایش', col: 'col-md-2', value: 0, options: [{ label: 'پیش فرض', value: 0 }, { label: 'جدید ترین', value: 8 }, { label: 'قدیمی ترین', value: 3 }] }
+        { type: 'button', name: 'search', icon: 'search', unelevated: true, col: 'col-md-1' },
+        { type: 'button', label: 'فیلتر', name: 'filter', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
+        { type: 'hidden', col: 'col-md-5' },
+        { type: 'select', name: 'order', label: 'ترتیب نمایش', col: 'col-md-2', value: 0, options: [{ label: 'پیش فرض', value: 0 }, { label: 'جدید ترین', value: 8 }, { label: 'قدیمی ترین', value: 3 }] },
+        {
+          type: 'formBuilder',
+          name: 'formBuilderCol',
+          col: 'col-md-12',
+          value: [
+            { type: 'select', name: 'status', label: 'وضعیت', col: 'col-md-2', value: 'انتخاب کنید', options: [{ label: 'پیش نویس', value: 13 }, { label: 'زمان بندی شده', value: 0 }, { label: 'منتشر شده', value: 8 }, { label: 'غیر غعال', value: 3 }] },
+            { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ پرداخت از', col: 'col-md-2' },
+            { type: 'date', name: 'created_at_range', value: null, label: 'تا', col: 'col-md-2' },
+            { type: 'select', name: 'tags', label: 'درخت دانش', col: 'col-md-6', value: 'انتخاب کنید', options: [{ label: 'پیش نویس', value: 13 }, { label: 'زمان بندی شده', value: 0 }, { label: 'منتشر شده', value: 8 }, { label: 'غیر غعال', value: 3 }] },
+            { type: ActionBtn, name: 'ActionBtn', col: 'col-12' }
+          ]
+        }
       ]
     }
   },
   methods: {
     toggleUploadProgressDialog(value) {
       this.progressDialog = !this.progressDialog
+    },
+    onEntityButtonsClicked(inputObj) {
+      // console.log('button', inputObj)
+      if (inputObj.input.type !== 'button') {
+        return
+      }
+
+      console.log('button', inputObj)
     }
   }
 }
