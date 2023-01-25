@@ -6,6 +6,7 @@
                  :rows="rows"
                  :columns="columns"
                  row-key="name"
+                 flat
                  :hide-selected-banner="true"
                  :hide-pagination="false">
           <template v-slot:body="props">
@@ -61,11 +62,21 @@
         </q-table>
       </div>
       <div class="col-6 video-box-col">
+        <div class="reuse">
+          <q-btn color="primary"
+                 label="استفاده مجدد مشخصات"
+                 flat=""
+                 @click="toggleDialog()" />
+          <previous-item-dialog v-model:dialog="pervDialog" />
+        </div>
         <div class="video-box">
           <div class="video-box-title" />
-          <video id="video"
-                 controls
-                 src="https://nodes.alaatv.com/upload/introVideos/110/110zaminmoarefi.mp4" /></div>
+          <video-player class="video"
+                        :sources="videoSource()"
+                        :hlsSource="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'"
+                        :current-time="currentTime"
+                        @seeked="getTimestamp($event)" />
+        </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
           <div class="link-url">office.alaa.tv.18080/c/createset+1897</div>
@@ -76,12 +87,20 @@
 </template>
 
 <script>
+import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
+
 export default {
   name: 'UploadTimestamp',
   components: {
+    PreviousItemDialog,
+    VideoPlayer
   },
   data() {
     return {
+      pervDialog: false,
+      currentTime: null,
       time: {
         hours: '',
         minutes: '',
@@ -103,9 +122,9 @@ export default {
           align: 'left',
           field: row => row.name,
           format: val => `${val}`,
-          sortable: true
+          sortable: false
         },
-        { name: 'time', align: 'center', label: '', field: 'time', sortable: true },
+        { name: 'time', align: 'center', label: '', field: 'time', sortable: false },
         { name: 'action', label: '', field: 'action', sortable: false }
       ],
       rows: [
@@ -119,9 +138,12 @@ export default {
     }
   },
   mounted() {
-    this.getTimestamp()
+    // this.getTimestamp()
   },
   methods: {
+    videoSource() {
+      return new PlayerSourceList([{ link: 'https://nodes.alaatv.com/upload/introVideos/110/110zaminmoarefi.mp4' }])
+    },
     removeTimestamp(row) {
       this.rows = this.rows.filter(x => x.id !== row.id)
       this.activeIndex = this.rows.length - 1
@@ -152,23 +174,20 @@ export default {
     toggleAction(index, action) {
       this.rows[index].action = action
     },
-    getTimestamp() {
-      const video = document.getElementById('video')
-      if (video !== null) {
-        video.onseeked = (event) => {
-          const hours = Math.floor(video.currentTime / 3600)
-          const minutes = Math.floor(video.currentTime / 60)
-          const seconds = video.currentTime % 60
-          this.time.hours = hours < 10 ? '0' + hours : hours
-          this.time.minutes = minutes < 10 ? '0' + minutes : minutes
-          this.time.seconds = seconds < 10 ? '0' + seconds : seconds
-          this.rows[this.activeIndex].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
-        }
-      }
+    getTimestamp(time) {
+      const hours = Math.floor(time / 3600)
+      const minutes = Math.floor(time / 60)
+      const seconds = time % 60
+      this.time.hours = hours < 10 ? '0' + hours : hours
+      this.time.minutes = minutes < 10 ? '0' + minutes : minutes
+      this.time.seconds = seconds < 10 ? '0' + seconds : seconds
+      this.rows[this.activeIndex].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
     },
     setTimestamp(time) {
-      const video = document.getElementById('video')
-      video.currentTime = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
+      this.currentTime = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])
+    },
+    toggleDialog() {
+      this.pervDialog = !this.pervDialog
     }
   }
 }
@@ -188,6 +207,9 @@ export default {
   }
   .video-box-col{
     padding: 10px;
+    .reuse {
+      float: right;
+    }
     .video-box {
       width: 580px;
       height: 326.25px;
@@ -204,7 +226,7 @@ export default {
         color: #333333;
       }
 
-      video {
+      .video {
         width: 100%;
       }
     }
