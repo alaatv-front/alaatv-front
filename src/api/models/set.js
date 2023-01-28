@@ -2,13 +2,13 @@ import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Set } from 'src/models/Set'
 
+const urlAddress = {
+  base: '/set',
+  show: (id) => '/set/' + id
+}
 export default class SetAPI extends APIRepository {
   constructor() {
-    super('set', apiV2, '/set', new Set())
-    this.APIAdresses = {
-      base: '/set',
-      show: (id) => '/set/' + id
-    }
+    super('set', apiV2, '/set', new Set(), urlAddress)
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       show: (id) => this.name + this.APIAdresses.show(id)
