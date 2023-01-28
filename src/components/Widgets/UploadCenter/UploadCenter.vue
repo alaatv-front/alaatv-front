@@ -236,7 +236,7 @@ export default {
       // todo : not working properly
       const input = inputObj.input
       const event = inputObj.event
-      console.log('event', event)
+      // console.log('event', event)
       if (input.type !== 'button') {
         return
       }
@@ -262,7 +262,7 @@ export default {
       document.querySelector('.entity-filter-box').style.display = display
     },
     entitySelected (val) {
-      console.log('val', val)
+      // console.log('val', val)
       this.entitySelectedValues = val
     }
   }
