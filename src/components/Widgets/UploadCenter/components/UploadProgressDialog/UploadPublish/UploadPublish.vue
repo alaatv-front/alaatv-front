@@ -24,6 +24,7 @@
 <script>
 import { FormBuilder } from 'quasar-form-builder'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 
 export default {
   name: 'UploadPublish',
@@ -110,6 +111,11 @@ export default {
         this.inputs[3].type = 'hidden'
       }
     }
+  },
+  methods: {
+    videoSource() {
+      return new PlayerSourceList([{ link: 'https://nodes.alaatv.com/upload/introVideos/110/110zaminmoarefi.mp4' }])
+    }
   }
 }
 </script>
@@ -138,6 +144,9 @@ export default {
         font-size: 16px;
         line-height: 25px;
         color: #333333;
+      }
+      .video {
+        width: 100%;
       }
     }
     .link-box {

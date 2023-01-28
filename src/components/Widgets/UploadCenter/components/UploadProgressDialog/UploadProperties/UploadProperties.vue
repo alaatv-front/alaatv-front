@@ -35,6 +35,7 @@
 import { EntityEdit } from 'quasar-crud'
 import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 
 export default {
   name: 'UploadProperties',
@@ -105,6 +106,9 @@ export default {
   methods: {
     toggleDialog() {
       this.pervDialog = !this.pervDialog
+    },
+    videoSource() {
+      return new PlayerSourceList([{ link: 'https://nodes.alaatv.com/upload/introVideos/110/110zaminmoarefi.mp4' }])
     }
   }
 }
@@ -162,6 +166,10 @@ export default {
         font-size: 16px;
         line-height: 25px;
         color: #333333;
+      }
+
+      .video {
+        width: 100%;
       }
     }
     .link-box {
