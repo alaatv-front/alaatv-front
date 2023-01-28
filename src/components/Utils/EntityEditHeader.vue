@@ -44,7 +44,7 @@
         </div>
       </q-card>
       <q-card v-if="isInEditMode"
-              class="bg-secondary q-pa-md">
+              class="bg-secondary q-pa-md lower-card">
         <form-builder v-model:value="allEditModeInputs[chosenInputIndex]" />
       </q-card>
     </div>
@@ -130,6 +130,7 @@ export default {
 .entity-edit-header {
   padding-top: 20px;
   .upper-card {
+    color: var(--alaa-Neutral2);
     display: grid;
     grid-template-columns: 180px auto;
     .header-item {
@@ -146,6 +147,9 @@ export default {
     .edit-mode {
      .selector {
         width: 120px;
+     }
+      .lower-card{
+        //color: var(--alaa-TextSecondary);
       }
     }
   }
