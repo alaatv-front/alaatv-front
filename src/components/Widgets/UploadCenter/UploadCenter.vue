@@ -20,9 +20,9 @@
       <q-tab-panels v-model="tab"
                     animated>
         <q-tab-panel name="today">
-          <entity-index v-model:value="inputs"
+          <entity-index ref="entityIndex"
+                        v-model:value="inputs"
                         v-model:table-selected-values="selected"
-                        title="لیست کاربران"
                         show-no-entity-slot
                         :api="api"
                         :table="table"
@@ -30,7 +30,13 @@
                         :table-selection-mode="'multiple'"
                         :item-indicator-key="'id'"
                         :default-layout="false"
+                        :show-search-button="false"
+                        :show-reload-button="true"
+                        @update:tableSelectedValues="entitySelected"
                         @onInputClick="onEntityButtonsClicked">
+            <template v-slot:after-form-builder>
+              <entity-edit-header v-model:selected-values="entitySelectedValues" />
+            </template>
             <template v-slot:no-entity>
               <div class="flex column items-center">
                 <div class="q-mb-sm">
@@ -126,18 +132,22 @@
 <script>
 import UploadProgressDialog from './components/UploadProgressDialog/UploadProgressDialog.vue'
 import { EntityIndex } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
+import API_ADDRESS from 'src/api/Addresses.js'
 import ActionBtnComponent from 'components/Utils/actionBtn.vue'
 import { shallowRef } from 'vue'
+import EntityEditHeader from 'components/Utils/EntityEditHeader.vue'
 const ActionBtn = shallowRef(ActionBtnComponent)
 export default {
   name: 'UploadCenterComponent',
   components: {
+    EntityEditHeader,
     UploadProgressDialog,
     EntityIndex
   },
   data() {
     return {
+      entitySelectedValues: [],
+      isFilterBoxHidden: false,
       progressDialog: false,
       tab: 'today',
       expanded: true,
@@ -191,18 +201,19 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', class: 'align-left' },
+        { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', class: 'align-leftdfdfg' },
         { type: 'button', name: 'search', icon: 'search', unelevated: true, col: 'col-md-1' },
-        { type: 'button', label: 'فیلتر', name: 'filter', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
+        { type: 'button', label: 'فیلتر', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
         { type: 'hidden', col: 'col-md-5' },
         { type: 'select', name: 'order', label: 'ترتیب نمایش', col: 'col-md-2', value: 0, options: [{ label: 'پیش فرض', value: 0 }, { label: 'جدید ترین', value: 8 }, { label: 'قدیمی ترین', value: 3 }] },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
           col: 'col-md-12',
+          class: 'entity-filter-box',
           value: [
             { type: 'select', name: 'status', label: 'وضعیت', col: 'col-md-2', value: 'انتخاب کنید', options: [{ label: 'پیش نویس', value: 13 }, { label: 'زمان بندی شده', value: 0 }, { label: 'منتشر شده', value: 8 }, { label: 'غیر غعال', value: 3 }] },
-            { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ پرداخت از', col: 'col-md-2' },
+            { type: 'date', name: 'created_at_range', value: null, label: 'تاریخ بارگزاری از', col: 'col-md-2' },
             { type: 'date', name: 'created_at_range', value: null, label: 'تا', col: 'col-md-2' },
             { type: 'select', name: 'tags', label: 'درخت دانش', col: 'col-md-6', value: 'انتخاب کنید', options: [{ label: 'پیش نویس', value: 13 }, { label: 'زمان بندی شده', value: 0 }, { label: 'منتشر شده', value: 8 }, { label: 'غیر غعال', value: 3 }] },
             { type: ActionBtn, name: 'ActionBtn', col: 'col-12' }
@@ -211,21 +222,48 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.initFilterBoxDisplay()
+  },
   methods: {
+    initFilterBoxDisplay () {
+      this.toggleFilterBox()
+    },
     toggleUploadProgressDialog(value) {
       this.progressDialog = !this.progressDialog
     },
     onEntityButtonsClicked(inputObj) {
-      // console.log('button', inputObj)
+      // todo : not working properly
       const input = inputObj.input
+      const event = inputObj.event
+      // console.log('event', event)
       if (input.type !== 'button') {
         return
       }
-      if (input.name === 'filter') {
-        console.log('filter')
+      if (input.name === 'filter-button') {
+        this.toggleFilterBox()
       }
-
-      // console.log('button', inputObj)
+      if (event === 'reload') {
+        this.$refs.entityIndex.reload()
+      }
+      if (event === 'filter') {
+        this.$refs.entityIndex.search()
+      }
+    },
+    toggleFilterBox () {
+      this.isFilterBoxHidden = !this.isFilterBoxHidden
+      if (this.isFilterBoxHidden) {
+        this.changeFilterBoxElementDisplay('none')
+        return
+      }
+      this.changeFilterBoxElementDisplay('flex')
+    },
+    changeFilterBoxElementDisplay (display) {
+      document.querySelector('.entity-filter-box').style.display = display
+    },
+    entitySelected (val) {
+      // console.log('val', val)
+      this.entitySelectedValues = val
     }
   }
 }
