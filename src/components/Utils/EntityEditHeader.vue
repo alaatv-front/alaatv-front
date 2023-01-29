@@ -31,7 +31,11 @@
 
         <div v-else
              class="menu-mode flex items-center">
-          <div class="header-item">افزودن به مجموعه</div>
+          <div class="header-item">
+            <q-btn flat
+                   label="افزودن به مجموعه"
+                   @click="emptyEditSelectorValue" />
+          </div>
           <div class="header-item selector">
             <q-select v-model="editSelectorValue"
                       borderless
@@ -84,16 +88,16 @@ export default {
       allEditModeInputs: [
         [
           { type: 'select', name: 'title', outlined: true, label: 'نوع ویرایش:', col: 'col-md-4', value: 0, options: [{ label: 'افزودن به انتهای عنوان', value: 5 }, { label: 'افزودن به ابتدای عنوان', value: 3 }, { label: 'حذف واژه از عنوان', value: 8 }, { label: 'جاگزینی واژه در توضیحات', value: 0 }] },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'متن ویرایش:', col: 'col-md-8', class: 'align-leftdfdfg' }
+          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'متن ویرایش:', col: 'col-md-8' }
         ],
         [
           { type: 'select', name: 'description', outlined: true, label: 'نوع ویرایش:', col: 'col-md-4', value: 0, options: [{ label: 'افزودن به انتهای توضیحات', value: 5 }, { label: 'افزودن به ابتدای توضیحات', value: 3 }, { label: 'حذف واژه از توضیحات', value: 8 }, { label: 'جاگزینی واژه در توضیحات', value: 0 }] },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'واژه مورد نظر خود را وارد نمایید', label: 'واژه فعلی:', col: 'col-md-4', class: 'align-leftdfdfg' },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'واژه مورد نظر خود را وارد نمایید', label: 'واژه جایگزین:', col: 'col-md-4', class: 'align-leftdfdfg' }
+          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'واژه مورد نظر خود را وارد نمایید', label: 'واژه فعلی:', col: 'col-md-4' },
+          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'واژه مورد نظر خود را وارد نمایید', label: 'واژه جایگزین:', col: 'col-md-4' }
         ],
         [
-          { type: 'select', name: 'tags', outlined: true, label: 'نوع ویرایش:', col: 'col-md-4', value: 0, options: [{ label: 'اضافه کردن تگ', value: 5 }, { label: 'حذف کردن تگ', value: 3 }, { label: 'جابجایی تگ', value: 8 }] },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'تگ ها:', col: 'col-md-8', class: 'align-leftdfdfg' }
+          { type: 'select', name: 'tags', outlined: true, label: 'نوع ویرایش:', col: 'col-md-4', value: 5, options: [{ label: 'اضافه کردن تگ', value: 5 }, { label: 'حذف کردن تگ', value: 3 }, { label: 'جابجایی تگ', value: 8 }] },
+          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'تگ ها:', col: 'col-md-8' }
         ],
         [
           { type: 'select', name: 'status', outlined: true, label: 'وضعیت:', col: 'col-md-4', value: 0, options: [{ label: 'پیش نویس', value: 5 }, { label: 'زمان بندی شده', value: 3 }, { label: 'منتشر شده', value: 8 }, { label: 'غیرفعال', value: 0 }] }
@@ -133,6 +137,14 @@ export default {
     color: var(--alaa-Neutral2);
     display: grid;
     grid-template-columns: 180px auto;
+    :deep(.q-field) {
+      .q-field__append {
+        color: var(--alaa-Neutral2);
+      }
+      .q-field__native {
+        color: var(--alaa-Neutral2);
+      }
+    }
     .header-item {
       margin-right: 20px;
     }
