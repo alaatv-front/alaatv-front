@@ -14,8 +14,14 @@
               class="tabs">
         <q-tab name="today"
                label="امروز" />
-        <q-tab name="alarms"
-               label="Alarms" />
+        <q-tab name="draft"
+               label="پیش‌نویس" />
+        <q-tab name="timed"
+               label="زمان دار" />
+        <q-tab name="unable"
+               label="غیرفعال" />
+        <q-tab name="allContents"
+               label="همه فیلم‌ها" />
       </q-tabs>
       <q-tab-panels v-model="tab"
                     animated>
@@ -79,48 +85,62 @@
                        @click="toggleUploadProgressDialog" />
               </div>
             </template>
-            <template #table-cell="{inputData}">
-              <q-td :props="inputData.props">
-                <template v-if="inputData.props.col.name === 'actions'">
-                  <!--                  <q-btn round-->
-                  <!--                         flat-->
-                  <!--                         dense-->
-                  <!--                         size="md"-->
-                  <!--                         icon="isax:chart-2"-->
-                  <!--                         class="q-ml-md"-->
-                  <!--                         @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">-->
-                  <!--                    <q-tooltip>-->
-                  <!--                      زمانکوب-->
-                  <!--                    </q-tooltip>-->
-                  <!--                  </q-btn>-->
-                  <q-btn round
-                         flat
-                         dense
-                         size="md"
-                         color="info"
-                         icon="edit"
-                         @click="toggleUploadProgressDialog(inputData.props.value)">
-                    <q-tooltip>
-                      ویرایش
-                    </q-tooltip>
-                  </q-btn>
-                </template>
-                <template v-else-if="inputData.props.col.name === 'photo'">
-                  <q-img :src="inputData.props.value"
-                         :ratio="16/9"
-                         width="142px"
-                         height="78px" />
-                </template>
-                <template v-else>
-                  {{ inputData.props.value }}
-                </template>
-              </q-td>
+            <template #entity-index-table-cell="{inputData}">
+              <template v-if="inputData.col.name === 'actions'">
+                <!--                  <q-btn round-->
+                <!--                         flat-->
+                <!--                         dense-->
+                <!--                         size="md"-->
+                <!--                         icon="isax:chart-2"-->
+                <!--                         class="q-ml-md"-->
+                <!--                         @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">-->
+                <!--                    <q-tooltip>-->
+                <!--                      زمانکوب-->
+                <!--                    </q-tooltip>-->
+                <!--                  </q-btn>-->
+                <q-btn round
+                       flat
+                       dense
+                       size="md"
+                       color="info"
+                       icon="edit"
+                       @click="toggleUploadProgressDialog(inputData.props.value)">
+                  <q-tooltip>
+                    ویرایش
+                  </q-tooltip>
+                </q-btn>
+              </template>
+              <template v-else-if="inputData.col.name === 'photo'">
+                <q-img :src="inputData.col.value"
+                       :ratio="16/9"
+                       width="142px"
+                       height="78px" />
+              </template>
+              <template v-else>
+                {{ inputData.col.value }}
+              </template>
             </template>
           </entity-index>
         </q-tab-panel>
 
+        <q-tab-panel name="draft">
+          <div class="text-h6">draft</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
         <q-tab-panel name="alarms">
           <div class="text-h6">alarms</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
+        <q-tab-panel name="timed">
+          <div class="text-h6">timed</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
+        <q-tab-panel name="unable">
+          <div class="text-h6">unable</div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </q-tab-panel>
+        <q-tab-panel name="allContents">
+          <div class="text-h6">allContents</div>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
         </q-tab-panel>
       </q-tab-panels>
@@ -226,6 +246,9 @@ export default {
     this.initFilterBoxDisplay()
   },
   methods: {
+    loggg (data) {
+      console.log('data', data)
+    },
     initFilterBoxDisplay () {
       this.toggleFilterBox()
     },
