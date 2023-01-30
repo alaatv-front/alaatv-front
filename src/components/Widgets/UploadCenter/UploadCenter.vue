@@ -104,7 +104,7 @@
                        size="md"
                        color="info"
                        icon="edit"
-                       @click="toggleUploadProgressDialog(inputData.props.value)">
+                       @click="toggleUploadProgressDialog(inputData.props.row.id)">
                   <q-tooltip>
                     ویرایش
                   </q-tooltip>
@@ -224,7 +224,7 @@ export default {
         { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', class: 'align-leftdfdfg' },
         { type: 'button', name: 'search', icon: 'search', unelevated: true, col: 'col-md-1' },
         { type: 'button', label: 'فیلتر', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
-        { type: 'hidden', col: 'col-md-5' },
+        { type: 'space', col: 'col-md-5', showLine: false },
         { type: 'select', name: 'order', label: 'ترتیب نمایش', col: 'col-md-2', value: 0, options: [{ label: 'پیش فرض', value: 0 }, { label: 'جدید ترین', value: 8 }, { label: 'قدیمی ترین', value: 3 }] },
         {
           type: 'formBuilder',
@@ -246,9 +246,6 @@ export default {
     this.initFilterBoxDisplay()
   },
   methods: {
-    loggg (data) {
-      console.log('data', data)
-    },
     initFilterBoxDisplay () {
       this.toggleFilterBox()
     },
