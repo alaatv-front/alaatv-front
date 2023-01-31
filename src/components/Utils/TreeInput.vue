@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="detail-box col-3">
+    <div class="detail-box">
       <div class="detail-box-title">درخت دانش</div>
-      <div class="input-container flex">
+      <div class="input-container">
         <div class="input-box">
           <q-input v-model="tagsTitles"
                    dense
@@ -29,19 +29,7 @@ export default {
   name: 'TreeInput',
   components: { QuestionTreeModal },
   props: {
-    showInput: {
-      type: Boolean,
-      default () {
-        return false
-      }
-    },
-    lessonsList: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
-    groupsList: {
+    value: {
       type: Array,
       default () {
         return []
@@ -57,11 +45,6 @@ export default {
       lastSelectedNodes: []
     }
   },
-  computed: {
-    doesHaveLessons () {
-      return !!(this.lessonsList && this.lessonsList.length > 0)
-    }
-  },
   watch: {
     allSubjects: {
       handler () {
@@ -69,9 +52,31 @@ export default {
         this.getTheLastSelectedNode()
       },
       deep: true
+    },
+    value: {
+      handler (newVal) {
+        if (newVal.length > 0) {
+          this.loadTreeModalNodes(newVal)
+        }
+      },
+      deep: true
     }
   },
   methods: {
+    loadTreeModalNodes () {
+      this.fillAllGivenSubjects()
+    },
+    fillAllGivenSubjects () {
+      this.question.tags.list.forEach((tag, index) => {
+        const lastAncestors = tag.ancestors[tag.ancestors.length - 1]
+        if (!this.allSubjects[lastAncestors.id]) {
+          this.allSubjects[lastAncestors.id] = {
+            nodes: []
+          }
+        }
+        Object.assign(this.allSubjects[lastAncestors.id].nodes, { [index]: { ...tag } })
+      })
+    },
     lessonSelected (item) {
       this.$emit('lessonSelected', item)
     },
@@ -113,6 +118,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.input-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
 </style>
