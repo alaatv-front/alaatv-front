@@ -459,18 +459,12 @@ export default {
     padding-left: 15px;
   }
 }
-</style>
-<style lang="scss">
-.q-dialog {
-  .q-dialog__inner--minimized > div {
-    max-width: none;
-  }
-}
+
 .tree-card {
   .question-details {
     .default-details-container {
       .detail-box {
-        .q-field {
+        :deep(.q-field) {
           background: #FFFFFF;
           border-radius: 10px;
           line-height: 24px;
@@ -483,27 +477,41 @@ export default {
             margin-top: 9px;
             padding-right: 0 !important;
             padding-left: 0 !important;
+            .q-field__control {
+              border-radius: 10px;
+              min-height: 40px;
+              color: #65677F;
+              background-color: #f4f5f6;
+              &::before {
+                display: none;
+              }
+              &::after {
+                display: none;
+              }
+            }
           }
         }
-        .q-field--auto-height .q-field__native {
-          min-height: 40px;
-          color: #65677F;
-          background-color: #f4f5f6;
-
-        }
-        .q-field--auto-height .q-field__control {
-          border-radius: 10px;
-        }
-        .q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
-          min-height: 40px;
-          color: #65677F;
-          background-color: #f4f5f6;
-        }
-        .q-field__control::before, .q-field__control::after {
-          display: none;
-        }
-        .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
-          color: #65677F;
+        :deep(.q-field--auto-height){
+          .q-field__native {
+            min-height: 40px;
+            color: #65677F;
+            //background-color: #f4f5f6;
+            &.q-field__prefix &.q-field__suffix &.q-field__input {
+              color: #65677F;
+            }
+          }
+          .q-field__control {
+            border-radius: 10px;
+            min-height: 40px;
+            color: #65677F;
+            background-color: #f4f5f6;
+            ::before {
+              display: none;
+            }
+            ::after {
+              display: none;
+            }
+          }
         }
       }
     }
