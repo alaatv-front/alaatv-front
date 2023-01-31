@@ -213,15 +213,31 @@ export default {
   },
   updated () {},
   methods: {
-    async getGradesList () {
-      this.gradesList = await this.$apiGateway.tree.getGradesList()
+    getGradesList () {
+      this.dialogLoading = true
+      this.$apiGateway.tree.getGradesList()
+        .then(res => {
+          this.gradesList = res
+          this.dialogLoading = false
+        })
+        .catch(() => {
+          this.dialogLoading = false
+        })
     },
-    async getLessonList (lessonId) {
-      this.lessonsList = await this.$apiGateway.tree.getLessonList({
+    getLessonList (lessonId) {
+      this.dialogLoading = true
+      this.$apiGateway.tree.getLessonList({
         data: {
           id: lessonId
         }
       })
+        .then(res => {
+          this.lessonsList = res
+          this.dialogLoading = false
+        })
+        .catch(() => {
+          this.dialogLoading = false
+        })
     },
     getSelectedGradeLessons () {
 
@@ -274,6 +290,9 @@ export default {
         .then(() => {
           this.syncAllCheckedIds()
           this.selectWantedTree(this.lesson)
+          this.dialogLoading = false
+        })
+        .catch(() => {
           this.dialogLoading = false
         })
     },
