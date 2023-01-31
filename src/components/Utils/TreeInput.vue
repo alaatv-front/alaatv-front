@@ -73,8 +73,8 @@ export default {
     loadTreeModalNodes () {
       this.fillAllGivenSubjects()
     },
-    fillAllGivenSubjects () {
-      this.question.tags.list.forEach((tag, index) => {
+    fillAllGivenSubjects (val) {
+      val.forEach((tag, index) => {
         const lastAncestors = tag.ancestors[tag.ancestors.length - 1]
         if (!this.allSubjects[lastAncestors.id]) {
           this.allSubjects[lastAncestors.id] = {
