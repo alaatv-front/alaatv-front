@@ -1,11 +1,60 @@
 <template>
-  <div class="Shop-page">
-    <q-page-builder v-model:sections="sections"
-                    :editable="true" />
+  <div class="row">
+    <div class="col-12 flex justify-center items-center">
+
+      <!--      <q-uploader ref="uploadedImage"-->
+      <!--                  url="https://stage-minio.alaatv.com"-->
+      <!--                  max-file-size="5242880"-->
+      <!--                  auto-upload-->
+      <!--                  :factory="updatePicture"-->
+      <!--                  label="Upload profile picture"-->
+      <!--                  accept="image/*" />-->
+      <q-file v-model="file"
+              label="Standard"
+              @update:model-value="loggg" />
+
+      {{file}}
+    </div>
   </div>
+
+<!--  <q-page-builder v-model:sections="sections"-->
+<!--                  :editable="true" />-->
 </template>
 
 <script>
+// const Minio = require('minio')
+// import * as Minio from 'minio'
+
+// let Minio = null
+// let MinioServer = null
+// if (typeof window !== 'undefined') {
+//   // Minio = require('minio')
+// // import MinioServer from 'src/assets/js/Minio.js'
+//   import('src/assets/js/Minio.js')
+//   // import('minio')
+//     .then((minio) => {
+//       console.log('hiiii', minio)
+//       MinioServer = minio
+//       // Minio = minio
+//     })
+//     .catch(err => {
+//       console.log('err', err)
+//     })
+// }
+
+import AWSS3UploadAsh from 'aws-s3-upload-ash'
+const S3CustomClient = new AWSS3UploadAsh({
+  bucketName: 'temp-upload',
+  dirName: '',
+  // region: 'us-east-1',
+  accessKeyId: 'temp-upload',
+  secretAccessKey: 'X&d2UF4d78Ar*w#Y',
+  // s3Url: 'https://stage-minio.alaatv.com'
+  // s3Url: 'http://192.168.8.30:9000'
+  s3Url: '/alaa/minio'
+})
+
+// import MinioServer from 'src/assets/js/Minio.js'
 
 export default {
   name: 'debug',
@@ -29,6 +78,9 @@ export default {
   },
   data() {
     return {
+      file: null,
+      pictureURL: null,
+      uid: null,
       sections: [
         {
           data: {
@@ -359,18 +411,6 @@ export default {
       }
     }
   },
-  computed: {
-    calculateHeightStyle() {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
-    }
-  },
-  watch: {
-    testValue: {
-      handler() {},
-      deep: true
-    },
-    testValue1(oldVal, newVal) {}
-  },
   activated() {
     // console.log('debug activated')
   },
@@ -383,10 +423,77 @@ export default {
   mounted() {
     // console.log('debug mounted')
   },
-  methods: {}
+  methods: {
+    loggg (newFile) {
+      // eslint-disable-next-line
+      console.log('newFile', newFile)
+      // eslint-disable-next-line
+      // console.log('MinioServer', MinioServer)
+      S3CustomClient
+        .uploadFile(newFile, undefined, undefined, 'test.pdf')
+        .then(response => console.log(response))
+        .catch(err => console.error(err))
+      //
+      // const minioServer = new MinioServer()
+      // minioServer.upload(newFile)
+      // const minioClient = new Minio.Client({
+      //   // endPoint: '/alaa/minio',
+      //   endPoint: 'https://stage-minio.alaatv.com',
+      //   // port: 9000,
+      //   // useSSL: true,
+      //   accessKey: 'temp-upload',
+      //   secretKey: 'X&d2UF4d78Ar*w#Y'
+      // })
+      // const metaData = {
+      //   'Content-Type': 'application/octet-stream',
+      //   'X-Amz-Meta-Testing': 1234,
+      //   example: 5678
+      // }
+      // minioClient.fPutObject('temp-upload', 'test.png', newFile, metaData, function(err, etag) {
+      //   if (err) return console.log(err)
+      //   console.log('File uploaded successfully.')
+      // })
+    },
+    upload () {
+      // S3CustomClient
+      //   .uploadFile(newFileNameWithExtesion)
+      //   .then(response => console.log(response))
+      //   .catch(err => console.error(err))
+    },
+    updatePicture(files) {
+      // this.pictureURL = this.onFileChange(files).resolve
+    }
+    // async getURL(key) {
+    //   try {
+    //     const url = await Storage.get(key)
+    //     console.log('url from getURL' + url.substring(0, url.lastIndexOf('?')))
+    //     this.pictureURL = url.substring(0, url.lastIndexOf('?'))
+    //   } catch (error) {
+    //     console.log('Error getting url: ', error)
+    //   }
+    // },
+    // async onFileChange(files) {
+    //   console.log('uploading')
+    //   const file = files[0]
+    //   // console.dir(files);
+    //   try {
+    //     let response = await Storage.put(this.uid + file.name, file, {
+    //       // acl: "public-read",
+    //       contentType: file.type // contentType is optional
+    //     })
+    //     console.log('uploaded')
+    //     console.log(response)
+    //     response = this.getURL(response.key).then((url) => {
+    //       console.log('url ' + url)
+    //       return url
+    //     })
+    //
+    //     console.log('Uploaded with URL' + response)
+    //     return response
+    //   } catch (error) {
+    //     console.log('Error uploading file: ', error)
+    //   }
+    // }
+  }
 }
 </script>
-
-<style
-  scoped
-  lang="scss"></style>
