@@ -239,6 +239,15 @@ module.exports = configure(function (ctx) {
       port: 8083,
       open: true, // opens browser window automatically
       proxy: {
+        [envObject.ALAA_MINIO]: {
+          target: envObject.ALAA_MINIO_SERVER,
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_MINIO), '') // vite
+          // pathRewrite: { // webpack
+          //   ['^' + envObject.ALAA_API_V2]: ''
+          // }
+        },
         [envObject.ALAA_API_V2]: {
           target: envObject.ALAA_API_V2_SERVER,
           changeOrigin: true,

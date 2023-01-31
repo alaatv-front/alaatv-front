@@ -2,58 +2,56 @@
   <div id="videoPlayer"
        class="vPlayer">
     <div id="videoPlayer-timeStamp"
-         dir="rtl"
-         style="font-family: IRANSans;">
-      <v-navigation-drawer v-show="videoIsPlaying"
-                           v-model="drawer"
-                           right
-                           absolute
-                           :height="calcTheHeight"
-                           :width="calcTheWidth"
-                           temporary
-                           hide-overlay>
-        <v-list-item>
+         dir="rtl">
+      <!--      <v-navigation-drawer v-show="videoIsPlaying"-->
+      <!--                           v-model="drawer"-->
+      <!--                           right-->
+      <!--                           absolute-->
+      <!--                           :height="calcTheHeight"-->
+      <!--                           :width="calcTheWidth"-->
+      <!--                           temporary-->
+      <!--                           hide-overlay>-->
+      <!--        <v-list-item>-->
 
-          <i class="fi-sr-bookmark" />
-          <v-list-item-title>زمانکوب ها</v-list-item-title>
-          <!-- <v-btn
-                        icon
-                        @click.stop="drawer = false"
-                    >
-                        <v-icon>mdi-chevron-right</v-icon>
-                    </v-btn> -->
-        </v-list-item>
-        <v-divider color="rgba(255, 255, 255, 0.6)" />
-        <v-list nav
-                dense>
-          <v-list-item-group>
-            <v-list-item v-for="(timeStamp,index) in timePoints"
-                         :key="index"
-                         @click="activate(timeStamp.time)">
-              <v-list-item-title>{{ timeStamp.title }}</v-list-item-title>
-              <v-list-item-action>
-                <v-list-item-action-text>
-                  <v-menu bottom
-                          left>
-                    <template v-slot:activator="{ /* on */ }">
-                      <v-btn class="video-box-icon-button"
-                             icon
-                             :loading="timeStamp.loading"
-                             @click.stop="toggleFavorite(timeStamp.id , $event)">
+      <!--          <i class="fi-sr-bookmark" />-->
+      <!--          <v-list-item-title>زمانکوب ها</v-list-item-title>-->
+      <!--          &lt;!&ndash; <v-btn-->
+      <!--                              icon-->
+      <!--                              @click.stop="drawer = false"-->
+      <!--                          >-->
+      <!--                              <v-icon>mdi-chevron-right</v-icon>-->
+      <!--                          </v-btn> &ndash;&gt;-->
+      <!--        </v-list-item>-->
+      <!--        <v-divider color="rgba(255, 255, 255, 0.6)" />-->
+      <!--        <v-list nav-->
+      <!--                dense>-->
+      <!--          <v-list-item-group>-->
+      <!--            <v-list-item v-for="(timeStamp,index) in timePoints"-->
+      <!--                         :key="index"-->
+      <!--                         @click="activate(timeStamp.time)">-->
+      <!--              <v-list-item-title>{{ timeStamp.title }}</v-list-item-title>-->
+      <!--              <v-list-item-action>-->
+      <!--                <v-list-item-action-text>-->
+      <!--                  <v-menu bottom-->
+      <!--                          left>-->
+      <!--                    <template v-slot:activator="{ /* on */ }">-->
+      <!--                      <v-btn class="video-box-icon-button"-->
+      <!--                             icon-->
+      <!--                             :loading="timeStamp.loading"-->
+      <!--                             @click.stop="toggleFavorite(timeStamp.id , $event)">-->
 
-                        <!--fi-sr-bookmark  -->
-                        <span class='bookmark-button'
-                              :class="{ 'is-favorite': timeStamp.isFavored , 'is-not-favorite': !timeStamp.isFavored }" />
-                      </v-btn>
-                    </template>
-                  </v-menu>
-                </v-list-item-action-text>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
-      <!-- timestamp[0] -->
+      <!--                        &lt;!&ndash;fi-sr-bookmark  &ndash;&gt;-->
+      <!--                        <span class='bookmark-button'-->
+      <!--                              :class="{ 'is-favorite': timeStamp.isFavored , 'is-not-favorite': !timeStamp.isFavored }" />-->
+      <!--                      </v-btn>-->
+      <!--                    </template>-->
+      <!--                  </v-menu>-->
+      <!--                </v-list-item-action-text>-->
+      <!--              </v-list-item-action>-->
+      <!--            </v-list-item>-->
+      <!--          </v-list-item-group>-->
+      <!--        </v-list>-->
+      <!--      </v-navigation-drawer>-->
       <transition name="fade">
         <v-btn v-show="videoIsPlaying"
                color="rgba(0, 0, 0, 0.6)"
@@ -63,8 +61,7 @@
         </v-btn>
       </transition>
     </div>
-    <video id="my-video"
-           ref="videoPlayer"
+    <video ref="videoPlayer"
            dir="ltr"
            class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause" />
   </div>
@@ -73,9 +70,11 @@
 <script>
 import videojs from 'video.js'
 import fa from 'video.js/dist/lang/fa.json'
-require('video.js/dist/video-js.css')
-require('@silvermine/videojs-quality-selector')(videojs)
-require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
+// require('video.js/dist/video-js.css')
+// require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
+// require('@silvermine/videojs-quality-selector')(videojs)
+// import * as QualitySelector from '@silvermine/videojs-quality-selector'
+// QualitySelector(videojs)
 // import hotkeys from 'videojs-hotkeys'
 import { Content } from 'src/models/Content'
 import { mixinAbrisham } from 'src/mixin/Mixins'
@@ -84,7 +83,7 @@ export default {
   mixins: [mixinAbrisham],
   props: {
     source: {
-      type: Array,
+      type: [String, Array],
       default () {
         return []
       }
@@ -151,14 +150,14 @@ export default {
         sources: [],
         poster: null,
         plugins: {
-          hotkeys: {
-            enableModifiersForNumbers: false,
-            seekStep: 5,
-            enableMute: true,
-            enableVolumeScroll: true,
-            enableHoverScroll: true,
-            enableFullscreen: true
-          }
+          // hotkeys: {
+          //   enableModifiersForNumbers: false,
+          //   seekStep: 5,
+          //   enableMute: true,
+          //   enableVolumeScroll: true,
+          //   enableHoverScroll: true,
+          //   enableFullscreen: true
+          // }
         }
       },
       videoIsPlaying: false,
@@ -191,7 +190,12 @@ export default {
           if (that.keepCalculating) {
             that.calcWatchedPercentage(this.currentTime(), this.duration())
           }
-          document.querySelector('.video-js').focus()
+          // document.querySelector('.video-js').focus()
+          if (that.$refs.videoPlayer) {
+            that.$refs.videoPlayer.focus()
+          }
+
+          // this.player.el().focus()
 
           if (!that.player.paused() && !that.player.userActive()) {
             that.videoStatus(false)
@@ -297,7 +301,10 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+@import "video.js/dist/video-js.css";
+@import "@silvermine/videojs-quality-selector/dist/css/quality-selector.css";
+
 .fade-leave-active {
     transition: opacity .5s;
 }
@@ -484,12 +491,14 @@ export default {
     }
 }
 
-.vjs-icon-play:before, .video-js .vjs-play-control .vjs-icon-placeholder:before, .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
+.vjs-icon-play:before,
+.video-js .vjs-play-control .vjs-icon-placeholder:before,
+.video-js .vjs-big-play-button .vjs-icon-placeholder:before {
     content: "";
     background-image: url('https://i.ibb.co/z48vSyS/play.png');
     background-repeat: no-repeat;
     background-size: 14px;
-    background-position: 55% calc(50% - 0px);
+    background-position: 50% calc(50% - 0px);
     border: none !important;
     box-shadow: none !important;
 }
@@ -564,12 +573,12 @@ export default {
     background-image: url('https://i.ibb.co/ykDmMK2/play-600-1920.png');
     background-repeat: no-repeat;
     background-size: 24px;
-    background-position: 55% calc(50% - 0px);
+    background-position: 50% calc(50% - 0px);
     border: none !important;
     box-shadow: none !important;
 }
 
-#my-video .vjs-big-play-button {
+.video-js .vjs-big-play-button {
     border: none;
     width: 80px;
     height: 80px;
@@ -586,92 +595,83 @@ export default {
     margin-top: -0.817em;
 }
 
-// #my-video:hover .vjs-big-play-button {
-//     opacity: 0.8;
-// }
-
-/*#my-video .vjs-big-play-button:hover {*/
-/*  background-color: #ff8f00;*/
-/*  color: #fff;*/
-/*}*/
-
 /*----------- CONTROL BAR -----------*/
 
-#my-video .vjs-control-bar {
+.video-js {
+  .vjs-control-bar {
     color: #ccc;
     width: 92%;
     height: 44px;
-    left: 1%;
+    right: 4%;
     bottom: 4%;
     font-size: 1.3em;
     //opacity: 0.6; /////////////////******************************its overwriting the opacity of video js
     border-radius: 14px;
     background-color: rgba(0, 0, 0, 0.6);
-}
-//.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
-//  visibility: visible;
-//  opacity: 0 !important;
-//  transition: visibility 1s, opacity 1s;
-//}
-//.vjs-default-skin.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
-//  display: block;
-//  visibility: hidden;
-//  opacity: 0;
-//  //
-//  //@trans: visibility 1.0s, opacity 1.0s;
-//  //.transition(@trans);
-//}
-#my-video .vjs-progress-control .vjs-progress-holder {
-    margin: 0 10px;
-    margin-right: 61px;
-    height: 24px;
+  }
+  .vjs-progress-control {
+    .vjs-progress-holder {
+      margin: 0 10px;
+      margin-right: 61px;
+      height: 24px;
+      border-radius: 7px;
+    }
+  }
+  .vjs-progress-holder {
     border-radius: 7px;
-}
-#my-video .vjs-progress-holder .vjs-play-progress, .video-js .vjs-progress-holder , .video-js .vjs-progress-holder .vjs-load-progress div {
-    border-radius: 7px;
-}
-#my-video .vjs-play-progress::before {
-    font-size: 0.9em;
-    z-index: 1;
-    display: none;
-}
-#my-video .vjs-play-progress, #my-video  .vjs-volume-level {
+    .vjs-play-progress {
+      border-radius: 7px;
+      background: #ffffff;
+      &::before {
+        font-size: 0.9em;
+        z-index: 1;
+        display: none;
+      }
+    }
+    .vjs-load-progress {
+      div {
+        border-radius: 7px;
+      }
+    }
+  }
+  .vjs-volume-level {
     background: #ffffff;
+  }
 }
 
-#my-video .vjs-load-progress {
+.video-js .vjs-load-progress {
     background-color: #ffffff;
     opacity: 0.2;
     border-radius: 7px;
 }
 
-#my-video .video-js .vjs-progress-holder .vjs-play-progress, .video-js .vjs-progress-holder .vjs-load-progress, .video-js .vjs-progress-holder .vjs-load-progress div {
+.video-js .video-js .vjs-progress-holder .vjs-play-progress, .video-js .vjs-progress-holder .vjs-load-progress, .video-js .vjs-progress-holder .vjs-load-progress div {
     background-color: #ffffff;
     opacity: 0.2;
 }
 
-#my-video .vjs-menu-content {
+.video-js .vjs-menu-content {
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.6);
     padding: 10px 0;
 }
 
-#my-video .vjs-playback-rate .vjs-menu li {
+.video-js .vjs-playback-rate .vjs-menu li {
     text-align: left;
     font-size: 12px;
     padding: 3px 0 3px 11px;
 }
-#my-video .vjs-quality-selector .vjs-menu li {
+.video-js .vjs-quality-selector .vjs-menu li {
     text-align: left;
     font-size: 12px;
     padding: 3px 0 3px 15px;
 }
-#my-video .vjs-selected {
+.video-js .vjs-selected {
     background-color: #fff;
     color: #000000;
 }
 
-#my-video .vjs-playback-rate  .vjs-menu-content {
+.video-js .vjs-playback-rate  .vjs-menu-content {
     padding: 3px 0 !important;
     width: 53px;
 }
@@ -684,18 +684,18 @@ export default {
     font-weight: bold ;
     line-height: 3.75em ;
 }
-#my-video .vjs-playback-rate .vjs-playback-rate-value {
+.video-js .vjs-playback-rate .vjs-playback-rate-value {
     line-height: 3.1;
     font-size: 14px;
     font-weight: bold;
 }
-#my-video .vjs-menu-button-popup .vjs-menu {
+.video-js .vjs-menu-button-popup .vjs-menu {
     width: 80px;
     left: 0em;
     height: 0em;
     bottom: 1px;
 }
-#my-video .vjs-quality-selector .vjs-menu {
+.video-js .vjs-quality-selector .vjs-menu {
     width: 80px;
     left: 0em;
     height: 0em;
@@ -704,7 +704,7 @@ export default {
 
 /*!*----------- Volume Vertical ------------*!*/
 
-#my-video .vjs-volume-vertical {
+.video-js .vjs-volume-vertical {
     //background: #262626;
     font-size: 1.1em;
     border-radius: 10px;
@@ -716,37 +716,37 @@ export default {
     height: 100px;
 }
 
-#my-video .vjs-slider {
+.video-js .vjs-slider {
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.2);
 }
-#my-video .vjs-volume-bar.vjs-slider-vertical {
+.video-js .vjs-volume-bar.vjs-slider-vertical {
     width: 32px;
     height: 32px;
     margin: 1.35em auto;
     background-color: rgba(0, 0, 0, 0.1);
 }
-#my-video .vjs-slider-vertical .vjs-volume-level {
+.video-js .vjs-slider-vertical .vjs-volume-level {
     //width: 0.3em;
     width: 32px;
     border-radius:10px;
 }
-#my-video .video-js .vjs-volume-panel .vjs-volume-control.vjs-volume-vertical {
+.video-js .video-js .vjs-volume-panel .vjs-volume-control.vjs-volume-vertical {
     width: 32px;
     height: 100px;
 }
-#my-video .vjs-volume-bar.vjs-slider-vertical {
+.video-js .vjs-volume-bar.vjs-slider-vertical {
     width: 32px;
     height: 100px;
     margin-top: 0;
 }
-#my-video .vjs-volume-vertical:hover .vjs-volume-tooltip {
+.video-js .vjs-volume-vertical:hover .vjs-volume-tooltip {
     left : 35px;
 }
-#my-video .vjs-volume-level::before {
+.video-js .vjs-volume-level::before {
     display: none;
 }
-#my-video .vjs-current-time{
+.video-js .vjs-current-time{
     position: relative;
     width: 40px;
     padding: 0;
@@ -756,7 +756,7 @@ export default {
     right: -8px;
 }
 
-#my-video .vjs-remaining-time {
+.video-js .vjs-remaining-time {
     position: relative;
     color: #fff;
     width: 46px;
@@ -765,14 +765,14 @@ export default {
     right: 50px;
 }
 
-#my-video .vjs-button:hover {
+.video-js .vjs-button:hover {
     color: #ffffff;
     opacity: 1;
 }
 
-#my-video .vjs-control:focus:before,
-#my-video .vjs-control:hover:before,
-#my-video .vjs-control:focus {
+.video-js .vjs-control:focus:before,
+.video-js .vjs-control:hover:before,
+.video-js .vjs-control:focus {
     text-shadow: none;
 }
 .video-js .vjs-volume-panel.vjs-volume-panel-vertical {
@@ -843,7 +843,7 @@ export default {
     .vPlayer .theme--light.v-navigation-drawer{
         right: 10px;
     }
-    #my-video .vjs-control-bar{
+    .video-js .vjs-control-bar{
         bottom: 3%;
     }
 
@@ -859,7 +859,7 @@ export default {
     .vPlayer .v-list--dense .v-list-item .v-list-item__subtitle,.vPlayer .v-list--dense .v-list-item .v-list-item__title,.vPlayer .v-list-item--dense .v-list-item__subtitle,.vPlayer .v-list-item--dense .v-list-item__title {
         font-size: 16px;
     }
-    #my-video .vjs-big-play-button {
+    .video-js .vjs-big-play-button {
         width: 80px;
         height: 80px;
         margin-left: -0.6em;
@@ -873,17 +873,17 @@ export default {
     }
 }
 @media screen and (max-width: 1810px) {
-    #my-video .vjs-big-play-button {
+    .video-js .vjs-big-play-button {
         margin-left: -0.7em;
     }
 }
 @media screen and (max-width: 1715px) {
-    #my-video .vjs-big-play-button {
+    .video-js .vjs-big-play-button {
         margin-left: -0.7em;
     }
 }
 @media screen and (max-width: 1500px) {
-    #my-video .vjs-big-play-button {
+    .video-js .vjs-big-play-button {
         margin-left: -0.5em;
     }
 }
@@ -940,9 +940,10 @@ export default {
         padding-left: 9px;
         font-size: 18px;
     }
-    #my-video .vjs-control-bar{
+    .video-js .vjs-control-bar{
         height: 40px;
         width: 88%;
+        right: 6%;
     }
     .vPlayer .v-btn:not(.v-btn--round).v-size--default{
         height: 40px;
@@ -960,11 +961,11 @@ export default {
     .vPlayer .theme--light.v-list-item[data-v-779f4d98]:not(.v-list-item--active):not(.v-list-item--disabled) {
         height: 35px;
     }
-    #my-video .vjs-remaining-time{
+    .video-js .vjs-remaining-time{
         top: -2px;
         right: 25px;
     }
-    #my-video .vjs-current-time{
+    .video-js .vjs-current-time{
         top: -2px;
     }
     .vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button{
@@ -982,20 +983,20 @@ export default {
         right: 28px;
         width: 35px;
     }
-    #my-video .vjs-quality-selector .vjs-menu{
+    .video-js .vjs-quality-selector .vjs-menu{
         left: 0.7em;
         bottom: 0px;
     }
-    #my-video .vjs-menu-button-popup .vjs-menu{
+    .video-js .vjs-menu-button-popup .vjs-menu{
         bottom: -5px;
     }
     .vPlayer .v-divider[data-v-454d47e5] {
         width: 149px ;
     }
-    #my-video .vjs-big-play-button{
+    .video-js .vjs-big-play-button{
       margin-left: -0.5em;
     }
-    #my-video .vjs-progress-control .vjs-progress-holder{
+    .video-js .vjs-progress-control .vjs-progress-holder{
         margin-right: 35px;
     }
     .vPlayer .video-box-icon-button {
@@ -1009,7 +1010,7 @@ export default {
     .vPlayer .theme--light.v-navigation-drawer{
         right: 10px;
     }
-    #my-video .vjs-control-bar{
+    .video-js .vjs-control-bar{
         bottom: 3%;
     }
     //   .vPlayer .v-divider[data-v-23ae32da] {
@@ -1033,8 +1034,9 @@ export default {
     //   width: 192px !important;
     //   margin-right: 15px !important;
     // }
-    #my-video .vjs-control-bar{
+    .video-js .vjs-control-bar{
         width: 90%;
+        right: 5%;
     }
     .vPlayer .v-list--dense .v-list-item .v-list-item__subtitle,.vPlayer .v-list--dense .v-list-item .v-list-item__title,.vPlayer .v-list-item--dense .v-list-item__subtitle,.vPlayer .v-list-item--dense .v-list-item__title{
         font-size: 14px;
@@ -1073,7 +1075,7 @@ export default {
 }
 // -------1264 ------------
 @media screen and (max-width: 708px) {
-    #my-video .vjs-playback-rate .vjs-playback-rate-value {
+    .video-js .vjs-playback-rate .vjs-playback-rate-value {
         line-height: 2.75;
         font-size: 14px;
     }
@@ -1096,7 +1098,7 @@ export default {
     .vjs-play-control.vjs-control.vjs-button.vjs-paused {
         left: 7px;
     }
-    #my-video .vjs-current-time{
+    .video-js .vjs-current-time{
         position: absolute;
         right: -4px;
         color: #000;
@@ -1118,21 +1120,23 @@ export default {
         right: 49px ;
         width: 25px;
     }
-    #my-video .vjs-quality-selector .vjs-menu{
+    .video-js .vjs-quality-selector .vjs-menu{
         left: 0em;
     }
-    #my-video .vjs-remaining-time {
+    .video-js .vjs-remaining-time {
         position: absolute;
         color: #000;
         right: 150px;
     }
-    #my-video .vjs-control-bar{
+    .video-js .vjs-control-bar{
         width: 88%;
+        right: 6%;
     }
 }
 @media screen and (max-width: 599px) {
-    #my-video .vjs-control-bar{
+    .video-js .vjs-control-bar{
         width: 85% !important;
+        right: 7.5%;
         height: 32px;
         border-radius: 7px;
     }
@@ -1146,10 +1150,10 @@ export default {
     .vPlayer .v-btn:not(.v-btn--round).v-size--default {
         right: 2.6% !important;
     }
-    #my-video .vjs-remaining-time {
+    .video-js .vjs-remaining-time {
         top: -6px;
     }
-    #my-video .vjs-current-time {
+    .video-js .vjs-current-time {
         top: -6px;
     }
     .vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
@@ -1158,28 +1162,28 @@ export default {
     .vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
         right: -4px;
     }
-    #my-video .vjs-menu-content{
+    .video-js .vjs-menu-content{
         border-radius: 5px;
         width: 60px;
     }
     .vjs-menu-button-popup .vjs-menu .vjs-menu-content {
         bottom: 2.1em;
     }
-    #my-video .vjs-volume-vertical {
+    .video-js .vjs-volume-vertical {
         border-radius: 5px;
         width: 26px;
     }
-    #my-video .vjs-slider-vertical .vjs-volume-level {
+    .video-js .vjs-slider-vertical .vjs-volume-level {
         width: 26px;
         border-radius: 5px;
     }
-    #my-video .vjs-slider {
+    .video-js .vjs-slider {
         border-radius: 5px;
     }
-    #my-video .vjs-quality-selector .vjs-menu {
+    .video-js .vjs-quality-selector .vjs-menu {
         left: .2em;
     }
-    #my-video .vjs-menu-button-popup .vjs-menu {
+    .video-js .vjs-menu-button-popup .vjs-menu {
         bottom: -12px;
     }
     .vjs-playback-rate .vjs-menu{
@@ -1199,7 +1203,7 @@ export default {
     .vPlayer .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
         padding-right: 0;
     }
-    #my-video .vjs-menu-content {
+    .video-js .vjs-menu-content {
         padding: 5px 0;
     }
     .vPlayer .v-list--dense .v-list-item .v-list-item__subtitle,.vPlayer .v-list--dense .v-list-item .v-list-item__title,.vPlayer .v-list-item--dense .v-list-item__subtitle,.vPlayer .v-list-item--dense .v-list-item__title {
@@ -1215,10 +1219,10 @@ export default {
         width: 101px ;
         margin-right: 6px ;
     }
-    #my-video .vjs-big-play-button{
+    .video-js .vjs-big-play-button{
       margin-left: -0.6em;
     }
-    #my-video .vjs-volume-vertical{
+    .video-js .vjs-volume-vertical{
         left: -27px;
     }
     .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
@@ -1226,7 +1230,7 @@ export default {
         background-image: url('https://i.ibb.co/YB8GwMq/play-0-600.png');
         background-repeat: no-repeat;
         background-size: 15px;
-        background-position: 55% calc(50% - 0px);
+        background-position: 50% calc(50% - 0px);
         border: none !important;
         box-shadow: none !important;
     }
@@ -1263,7 +1267,7 @@ export default {
     .vPlayer .v-btn:not(.v-btn--round).v-size--default{
         right: 1.6% !important;
     }
-    // #my-video .vjs-remaining-time{
+    // .video-js .vjs-remaining-time{
     //     right: 118px;
     // }
     .vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button {
@@ -1271,7 +1275,7 @@ export default {
     }
 }
 @media screen and (max-width: 399px) {
-    #my-video .vjs-progress-control .vjs-progress-holder{
+    .video-js .vjs-progress-control .vjs-progress-holder{
         margin-right: 6px;
     }
     .video-js .vjs-picture-in-picture-control{
@@ -1286,16 +1290,16 @@ export default {
     .vjs-quality-selector.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button{
         right: 15px;
     }
-    #my-video .vjs-remaining-time{
+    .video-js .vjs-remaining-time{
         right: 118px;
     }
 }
 
 @media screen and (max-width: 356px) {
-    #my-video .vjs-remaining-time{
+    .video-js .vjs-remaining-time{
         right: 107px;
     }
-    #my-video .vjs-current-time{
+    .video-js .vjs-current-time{
         left: 73px;
     }
     .video-js .vjs-fullscreen-control{
@@ -1320,13 +1324,13 @@ export default {
     //     top: 0px;
 
     // }
-    // #my-video .vjs-current-time{
+    // .video-js .vjs-current-time{
     //     top: -1px;
     // }
-    // #my-video .vjs-remaining-time{
+    // .video-js .vjs-remaining-time{
     //     top: -1px;
     // }
-    // #my-video .vjs-menu-button-popup .vjs-menu{
+    // .video-js .vjs-menu-button-popup .vjs-menu{
     //     bottom: -2px;
     // }
 }
@@ -1417,7 +1421,7 @@ export default {
     }
 }
 @media screen and (max-width: 1244px) {
-    #my-video .vjs-big-play-button {
+    .video-js .vjs-big-play-button {
         margin-left: -0.7em;
     }
 }
@@ -1440,7 +1444,7 @@ export default {
     }
 }
 @media only screen and (max-width: 975px){
-    #my-video .vjs-big-play-button {
+    .video-js .vjs-big-play-button {
         margin-left: -0.6em;
     }
 }
@@ -1544,7 +1548,7 @@ export default {
         padding-left: 12px;
         padding-top: 6px;
     }
-    #my-video .vjs-big-play-button {
+    .video-js .vjs-big-play-button {
         width: 50px;
         height: 50px;
         top: 56%;
@@ -1562,7 +1566,7 @@ export default {
     }
 }
 @media screen and (max-width: 514px) {
-    #my-video .vjs-big-play-button {
+    .video-js .vjs-big-play-button {
         margin-left: -0.4em;
     }
 }

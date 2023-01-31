@@ -360,9 +360,9 @@ const routes = [
             }
           },
           {
-            path: '/debug',
-            name: 'debug',
-            component: () => import('pages/Document/debug.vue')
+            path: 'debug',
+            name: 'Document.Debug',
+            component: () => import('src/pages/Document/debug.vue')
           },
           {
             path: '/form-generator',
