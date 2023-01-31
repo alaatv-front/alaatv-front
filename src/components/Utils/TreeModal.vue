@@ -32,7 +32,7 @@
             <div class="question-tree">
               <tree ref="tree"
                     :key="treeKey"
-                    :no-nodes-label="'لطفا یک درس را انتخاب کنید'"
+                    :no-nodes-label="'لطفا یک پایه و درس را انتخاب کنید'"
                     tick-strategy="strict"
                     :get-node-by-id="getNodeById"
                     @ticked="updateNodes"

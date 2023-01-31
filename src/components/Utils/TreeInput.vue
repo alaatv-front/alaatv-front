@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="detail-box col-3">
-      <div class="detail-box-title">مبحث</div>
+      <div class="detail-box-title">درخت دانش</div>
       <div class="input-container flex">
         <div class="input-box">
           <q-input v-model="tagsTitles"
