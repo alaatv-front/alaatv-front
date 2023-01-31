@@ -100,7 +100,7 @@ export default class TreeAPI extends APIRepository {
       cacheKey: this.CacheList.getGradesList,
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return new TreeNode(response.data.data)
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error
