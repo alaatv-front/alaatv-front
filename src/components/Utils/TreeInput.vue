@@ -25,9 +25,12 @@
 
 <script>
 import QuestionTreeModal from 'components/Utils/TreeModal.vue'
+import inputMixin from 'quasar-form-builder/src/mixins/inputMixin.js'
+
 export default {
   name: 'TreeInput',
   components: { QuestionTreeModal },
+  mixins: [inputMixin],
   props: {
     value: {
       type: Array,
@@ -50,6 +53,7 @@ export default {
       handler () {
         this.updateTagsTitles()
         this.getTheLastSelectedNode()
+        this.updateValue()
       },
       deep: true
     },
@@ -63,6 +67,9 @@ export default {
     }
   },
   methods: {
+    updateValue () {
+      this.change(this.inputData)
+    },
     loadTreeModalNodes () {
       this.fillAllGivenSubjects()
     },
