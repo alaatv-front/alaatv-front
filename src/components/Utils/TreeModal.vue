@@ -5,30 +5,29 @@
       <div class="fit row wrap tree-inner-container">
         <div class="choose-tree-box question-details col-6">
           <div class="details-container-2 default-details-container">
-            <div class="detail-box"
-                 style="padding-right:0;">
-                 <!--              <div class="detail-box-title" style="padding-bottom: 9px;" >گروه درس</div>-->
-                 <!--              <q-select-->
-                 <!--                filled-->
-                 <!--                dense-->
-                 <!--                dropdown-icon="isax:arrow-down-1"-->
-                 <!--                v-model="group"-->
-                 <!--                option-label="title"-->
-                 <!--                :options="groupsList"-->
-                 <!--                @update:model-value="groupSelected"-->
-                 <!--              />-->
-            </div>
-            <div class="detail-box">
-              <div class="detail-box-title">نام درس</div>
-              <q-select ref="lessonSelector"
-                        v-model="lesson"
-                        filled
-                        dense
-                        dropdown-icon="isax:arrow-down-1"
-                        option-label="title"
-                        :options="lessonsList"
-                        :disable="!doesHaveLessons"
-                        @update:model-value="lessonSelected" />
+            <div class="detail-box-container row">
+              <div class="col-12 col-md-6 detail-box q-pr-sm">
+                <div class="detail-box-title">پایه تحصیلی</div>
+                <q-select v-model="grade"
+                          filled
+                          dense
+                          dropdown-icon="isax:arrow-down-1"
+                          option-label="title"
+                          :options="gradesList"
+                          @update:model-value="gradeSelected" />
+              </div>
+              <div class="col-12 col-md-6 detail-box q-pl-sm">
+                <div class="detail-box-title"> نام درس</div>
+                <q-select ref="lessonSelector"
+                          v-model="lesson"
+                          filled
+                          dense
+                          dropdown-icon="isax:arrow-down-1"
+                          option-label="title"
+                          :options="lessonsList"
+                          :disable="!doesHaveLessons"
+                          @update:model-value="lessonSelected" />
+              </div>
             </div>
             <div class="question-tree">
               <tree ref="tree"
@@ -85,12 +84,12 @@
 </template>
 <script>
 
-import Tree from 'components/Tree/Tree'
-import mixinTree from 'src/mixin/Tree'
-import { TreeNode } from 'src/models/TreeNode'
+import Tree from 'components/Tree/Tree.vue'
+import mixinTree from 'src/mixin/Tree.js'
+import { TreeNode } from 'src/models/TreeNode.js'
 
 export default {
-  name: 'QuestionTreeModal',
+  name: 'TreeModal',
   components: {
     Tree
   },
@@ -99,12 +98,6 @@ export default {
   ],
   props: {
     lessonsList: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
-    groupsList: {
       type: Array,
       default () {
         return []
@@ -136,7 +129,7 @@ export default {
     }
   },
   emits: [
-    'groupSelected',
+    'gradeSelected',
     'lessonSelected',
     'update:dialogValue',
     'update:subjectsField'
@@ -145,13 +138,14 @@ export default {
     return {
       dialogLoading: false,
       lesson: '',
-      group: '',
+      grade: '',
       selectedNodesIDs: [],
       loading: false,
       currentTreeNode: [],
       lastTreeNodes: [],
       treeKey: 0,
-      areNodesSynced: false
+      areNodesSynced: false,
+      gradesList: []
     }
   },
   computed: {
@@ -220,9 +214,16 @@ export default {
     if (this.initialLesson.id) {
       this.lesson = this.initialLesson
     }
+    this.getGradesList()
   },
   updated () {},
   methods: {
+    getGradesList () {
+
+    },
+    getSelectedGradeLessons () {
+
+    },
     updateNodes (values) {
       this.nodesUpdatedFromTree = values
       // if nodes are synced with response don't update currentTreeNode
@@ -254,8 +255,8 @@ export default {
         })
       }
     },
-    groupSelected (item) {
-      this.$emit('groupSelected', item)
+    gradeSelected (item) {
+      this.$emit('gradeSelected', item)
       this.lesson = ''
     },
     lessonSelected (lesson) {
@@ -330,7 +331,7 @@ export default {
   min-width: 830px;
   height: 580px;
   background: #FFFFFF;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 30px;
   width: 830px;
   @media screen and (max-width: 880px) {
@@ -372,7 +373,7 @@ export default {
   }
   .default-details-container {
     .detail-box {
-      margin-top: 10px;
+      //margin-top: 10px;
       .detail-box-title, .delete-all-btn {
         margin-bottom: 5px;
       }
@@ -489,6 +490,9 @@ export default {
           color: #65677F;
           background-color: #f4f5f6;
 
+        }
+        .q-field--auto-height .q-field__control {
+          border-radius: 10px;
         }
         .q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
           min-height: 40px;

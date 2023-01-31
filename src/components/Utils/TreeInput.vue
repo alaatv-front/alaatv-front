@@ -4,7 +4,7 @@
       <div class="detail-box-title">مبحث</div>
       <div class="input-container flex">
         <div class="input-box">
-          <q-input v-model="lessonsTitles"
+          <q-input v-model="tagsTitles"
                    dense
                    disable />
         </div>
@@ -12,7 +12,6 @@
           <q-btn unelevated
                  icon="isax:tree"
                  class="open-modal-btn default-detail-btn"
-                 :disable="!isTreeModalAvailable"
                  @click="dialogValue = true" />
         </div>
       </div>
@@ -20,13 +19,12 @@
     <question-tree-modal ref="questionTreeModal"
                          v-model:dialogValue="dialogValue"
                          v-model:subjectsField="allSubjects"
-                         :lessons-list="lessonsList"
                          @lessonSelected="lessonSelected" />
   </div>
 </template>
 
 <script>
-import QuestionTreeModal from 'components/Utils/TreeModal'
+import QuestionTreeModal from 'components/Utils/TreeModal.vue'
 export default {
   name: 'TreeInput',
   components: { QuestionTreeModal },
@@ -54,7 +52,7 @@ export default {
     return {
       dialogValue: false,
       allSubjects: {},
-      lessonsTitles: [],
+      tagsTitles: [],
       allSubjectsFlat: [],
       lastSelectedNodes: []
     }
@@ -62,18 +60,12 @@ export default {
   computed: {
     doesHaveLessons () {
       return !!(this.lessonsList && this.lessonsList.length > 0)
-    },
-    isTreeModalAvailable () {
-      return this.doesHaveLessons && this.editable
     }
   },
   watch: {
-    'question.id': function () {
-      this.loadQuestionDataFromResponse()
-    },
     allSubjects: {
       handler () {
-        this.updateLessonsTitles()
+        this.updateTagsTitles()
         this.getTheLastSelectedNode()
       },
       deep: true
@@ -86,11 +78,21 @@ export default {
     getUniqueListBy (arr, key) {
       return [...new Map(arr.map(item => [item[key], item])).values()]
     },
-    fillLessonFromResponse () {
-      const firstTag = this.question.tags.list[0]
-      const lesson = firstTag.ancestors[firstTag.ancestors.length - 1]
-      // this.$refs.questionTreeModal.lesson = new TreeNode(lesson)
-      this.$refs.questionTreeModal.lessonSelected(lesson)
+    updateTagsTitles () {
+      const fieldText = []
+      const flatSelectedNodes = []
+      if (Object.keys(this.allSubjects).length !== 0) {
+        for (const key in this.allSubjects) {
+          if (this.allSubjects[key].nodes && this.allSubjects[key].nodes.length > 0) {
+            this.allSubjects[key].nodes.forEach(val => {
+              fieldText.push(val.title)
+              flatSelectedNodes.push(val)
+            })
+          }
+        }
+      }
+      this.allSubjectsFlat = flatSelectedNodes
+      this.tagsTitles = fieldText
     },
     getTheLastSelectedNode () {
       const foundedNodes = []
