@@ -11,6 +11,7 @@ import StudyPlanAPI from './models/studyPlan'
 import TicketAPI from './models/ticket'
 import UserAPI from './models/user'
 import AbrishamAPI from 'src/api/models/Abrisham'
+import TreeAPI from 'src/api/models/tree'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
@@ -26,5 +27,6 @@ export const APIGateway = {
   set: new SetAPI(),
   studyPlan: new StudyPlanAPI(),
   ticket: new TicketAPI(),
-  user: new UserAPI()
+  user: new UserAPI(),
+  tree: new TreeAPI()
 }

@@ -36,7 +36,7 @@ const API_ADDRESS = {
   },
   content: {
     admin: {
-      base: apiV2Server + '/c/'
+      base: apiV2Server + '/admin/c'
     },
     show: (id) => apiV2Server + '/c/' + id,
     search: apiV2Server + '/search'
