@@ -31,7 +31,11 @@
 
         <div v-else
              class="menu-mode flex items-center">
-          <div class="header-item">افزودن به مجموعه</div>
+          <div class="header-item">
+            <q-btn flat
+                   label="افزودن به مجموعه"
+                   @click="emptyEditSelectorValue" />
+          </div>
           <div class="header-item selector">
             <q-select v-model="editSelectorValue"
                       borderless
@@ -44,8 +48,9 @@
         </div>
       </q-card>
       <q-card v-if="isInEditMode"
-              class="bg-secondary q-pa-md">
-        <form-builder v-model:value="allEditModeInputs[chosenInputIndex]" />
+              class="bg-secondary q-pa-md lower-card">
+        <form-builder ref="formBuilder"
+                      v-model:value="allEditModeInputs[chosenInputIndex]" />
       </q-card>
     </div>
   </div>
@@ -76,27 +81,187 @@ export default {
       ],
       editSelectorValue: 'ویرایش',
       editSelectorOptions: [
-        { label: 'عنوان', value: 'title' },
-        { label: 'توضیحات', value: 'description' },
-        { label: 'تگ ها', value: 'tags' },
-        { label: 'وضعیت', value: 'status' }
+        { label: 'عنوان', value: 'title-main' },
+        { label: 'توضیحات', value: 'description-main' },
+        { label: 'تگ ها', value: 'tags-main' },
+        { label: 'وضعیت', value: 'status-main' }
       ],
       allEditModeInputs: [
         [
-          { type: 'select', name: 'title', outlined: true, label: 'نوع ویرایش:', col: 'col-md-4', value: 0, options: [{ label: 'افزودن به انتهای عنوان', value: 5 }, { label: 'افزودن به ابتدای عنوان', value: 3 }, { label: 'حذف واژه از عنوان', value: 8 }, { label: 'جاگزینی واژه در توضیحات', value: 0 }] },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'متن ویرایش:', col: 'col-md-8', class: 'align-leftdfdfg' }
+          {
+            type: 'select',
+            name: 'title-main',
+            outlined: true,
+            label: 'نوع ویرایش:',
+            col: 'col-auto',
+            value: 'concatEnd',
+            options: [
+              { label: 'افزودن به انتهای عنوان', value: 'concatEnd' },
+              { label: 'افزودن به ابتدای عنوان', value: 'concatStart' },
+              { label: 'حذف واژه از عنوان', value: 'delete' },
+              { label: 'جاگزینی واژه در توضیحات', value: 'replace' }
+            ]
+          },
+          {
+            type: 'input',
+            name: 'title',
+            outlined: true,
+            filled: true,
+            autogrow: true,
+            value: null,
+            placeholder: 'متن مورد نظر خود را وارد نمایید',
+            label: 'متن ویرایش:',
+            col: 'col-md-8',
+            applyGridSystem: false
+          },
+          {
+            type: 'formBuilder',
+            name: 'replace',
+            col: 'col-md-8',
+            value: [
+              {
+                type: 'input',
+                name: 'title',
+                outlined: true,
+                filled: true,
+                autogrow: true,
+                value: null,
+                placeholder: 'واژه مورد نظر خود را وارد نمایید',
+                label: 'واژه فعلی:',
+                col: 'col-md-6'
+              },
+              {
+                type: 'input',
+                name: 'title',
+                outlined: true,
+                filled: true,
+                autogrow: true,
+                value: null,
+                placeholder: 'واژه مورد نظر خود را وارد نمایید',
+                label: 'واژه جایگزین:',
+                col: 'col-md-6'
+              }
+            ]
+          }
         ],
         [
-          { type: 'select', name: 'description', outlined: true, label: 'نوع ویرایش:', col: 'col-md-4', value: 0, options: [{ label: 'افزودن به انتهای توضیحات', value: 5 }, { label: 'افزودن به ابتدای توضیحات', value: 3 }, { label: 'حذف واژه از توضیحات', value: 8 }, { label: 'جاگزینی واژه در توضیحات', value: 0 }] },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'واژه مورد نظر خود را وارد نمایید', label: 'واژه فعلی:', col: 'col-md-4', class: 'align-leftdfdfg' },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'واژه مورد نظر خود را وارد نمایید', label: 'واژه جایگزین:', col: 'col-md-4', class: 'align-leftdfdfg' }
+          {
+            type: 'select',
+            name: 'description-main',
+            outlined: true,
+            label: 'نوع ویرایش:',
+            col: 'col-md-4',
+            value: 'concatEnd',
+            options: [
+              { label: 'افزودن به انتهای توضیحات', value: 'concatEnd' },
+              { label: 'افزودن به ابتدای توضیحات', value: 'concatStart' },
+              { label: 'حذف واژه از توضیحات', value: 'delete' },
+              { label: 'جاگزینی واژه در توضیحات', value: 'replace' }
+            ]
+          },
+          {
+            type: 'input',
+            name: 'title',
+            outlined: true,
+            filled: true,
+            autogrow:
+              true,
+            value: null,
+            placeholder: 'متن مورد نظر خود را وارد نمایید',
+            label: 'متن ویرایش:',
+            col: 'col-md-8'
+          },
+          {
+            type: 'formBuilder',
+            name: 'replace',
+            col: 'col-md-8',
+            value: [
+              {
+                type: 'input',
+                name: 'description',
+                outlined: true,
+                filled: true,
+                autogrow: true,
+                value: null,
+                placeholder: 'واژه مورد نظر خود را وارد نمایید',
+                label: 'واژه فعلی:',
+                col: 'col-md-6'
+              },
+              {
+                type: 'input',
+                name: 'description',
+                outlined: true,
+                filled: true,
+                autogrow: true,
+                value: null,
+                placeholder: 'واژه مورد نظر خود را وارد نمایید',
+                label: 'واژه جایگزین:',
+                col: 'col-md-6'
+              }
+            ]
+          }
         ],
         [
-          { type: 'select', name: 'tags', outlined: true, label: 'نوع ویرایش:', col: 'col-md-4', value: 0, options: [{ label: 'اضافه کردن تگ', value: 5 }, { label: 'حذف کردن تگ', value: 3 }, { label: 'جابجایی تگ', value: 8 }] },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'تگ ها:', col: 'col-md-8', class: 'align-leftdfdfg' }
+          {
+            type: 'select',
+            name: 'tags-main',
+            outlined: true,
+            label: 'نوع ویرایش:',
+            col: 'col-md-4',
+            value: 'add',
+            options: [
+              { label: 'اضافه کردن تگ', value: 'add' },
+              { label: 'حذف کردن تگ', value: 'delete' },
+              { label: 'جابجایی تگ', value: 'replace' }
+            ]
+          },
+          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'تگ ها:', col: 'col-md-8' },
+          {
+            type: 'formBuilder',
+            name: 'replacement-input',
+            col: 'col-md-8',
+            hidden: true,
+            value: [
+              {
+                type: 'input',
+                name: 'description',
+                outlined: true,
+                filled: true,
+                autogrow: true,
+                value: null,
+                placeholder: 'متن مورد نظر خود را وارد نمایید',
+                label: 'تگ فعلی:',
+                col: 'col-md-6'
+              },
+              {
+                type: 'input',
+                name: 'description',
+                outlined: true,
+                filled: true,
+                autogrow: true,
+                value: null,
+                placeholder: 'متن مورد نظر خود را وارد نمایید',
+                label: 'تگ جایگزین:',
+                col: 'col-md-6'
+              }
+            ]
+          }
         ],
         [
-          { type: 'select', name: 'status', outlined: true, label: 'وضعیت:', col: 'col-md-4', value: 0, options: [{ label: 'پیش نویس', value: 5 }, { label: 'زمان بندی شده', value: 3 }, { label: 'منتشر شده', value: 8 }, { label: 'غیرفعال', value: 0 }] }
+          {
+            type: 'select',
+            name: 'status-main',
+            outlined: true,
+            label: 'وضعیت:',
+            col: 'col-md-4',
+            value: 0,
+            options: [
+              { label: 'پیش نویس', value: 5 },
+              { label: 'زمان بندی شده', value: 3 },
+              { label: 'منتشر شده', value: 8 },
+              { label: 'غیرفعال', value: 0 }
+            ]
+          }
         ]
       ],
       chosenInputIndex: 0
@@ -113,6 +278,10 @@ export default {
         return
       }
       this.chooseFormBuilderInputs(inputObj.value)
+    },
+    allEditModeInputs: {
+      handler(newValue, oldValue) {},
+      deep: true
     }
   },
   methods: {
@@ -121,6 +290,9 @@ export default {
     },
     chooseFormBuilderInputs (chosenInputName) {
       this.chosenInputIndex = this.allEditModeInputs.findIndex(input => input[0].name === chosenInputName)
+    },
+    changeInputElementDisplay (inputClassName, display) {
+      document.querySelector('.' + inputClassName).style.display = display
     }
   }
 }
@@ -130,8 +302,17 @@ export default {
 .entity-edit-header {
   padding-top: 20px;
   .upper-card {
+    color: var(--alaa-Neutral2);
     display: grid;
     grid-template-columns: 180px auto;
+    :deep(.q-field) {
+      .q-field__append {
+        color: var(--alaa-Neutral2);
+      }
+      .q-field__native {
+        color: var(--alaa-Neutral2);
+      }
+    }
     .header-item {
       margin-right: 20px;
     }
@@ -146,6 +327,9 @@ export default {
     .edit-mode {
      .selector {
         width: 120px;
+     }
+      .lower-card{
+        //color: var(--alaa-TextSecondary);
       }
     }
   }
