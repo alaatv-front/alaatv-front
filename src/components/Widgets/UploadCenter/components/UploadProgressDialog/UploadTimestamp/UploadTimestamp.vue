@@ -76,6 +76,7 @@
                         :hlsSource="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'"
                         :current-time="currentTime"
                         @seeked="getTimestamp($event)" />
+          <!--          <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />-->
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>

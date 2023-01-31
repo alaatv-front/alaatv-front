@@ -1,7 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-12 flex justify-center items-center">
-
+    <div class="col-12">
       <!--      <q-uploader ref="uploadedImage"-->
       <!--                  url="https://stage-minio.alaatv.com"-->
       <!--                  max-file-size="5242880"-->
@@ -9,11 +8,20 @@
       <!--                  :factory="updatePicture"-->
       <!--                  label="Upload profile picture"-->
       <!--                  accept="image/*" />-->
-      <q-file v-model="file"
-              label="Standard"
-              @update:model-value="loggg" />
+      <div>
+        <q-file v-model="file"
+                label="Standard"
+                @update:model-value="loggg" />
 
-      {{file}}
+        {{file}}
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="row items-center justify-center">
+        <div class="col-6">
+          <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
+        </div>
+      </div>
     </div>
   </div>
 
@@ -43,6 +51,7 @@
 // }
 
 import AWSS3UploadAsh from 'aws-s3-upload-ash'
+import VideoPlayer from 'src/components/DashboardAbrisham/VideoPlayer.vue'
 const S3CustomClient = new AWSS3UploadAsh({
   bucketName: 'temp-upload',
   dirName: '',
@@ -58,6 +67,7 @@ const S3CustomClient = new AWSS3UploadAsh({
 
 export default {
   name: 'debug',
+  components: { VideoPlayer },
   mixins: [],
   beforeRouteEnter() {
     // console.log('debug beforeRouteEnter')
