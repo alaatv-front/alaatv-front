@@ -3,6 +3,7 @@ import { apiV2 } from 'src/boot/axios'
 import { TreeNode } from 'src/models/TreeNode.js'
 const APIAdresses = {
   base: '/forrest/tree',
+  getGradesList: '/forrest/tree?type=test',
   getNodeById (nodeId) {
     return '/forrest/tree/' + nodeId
   },
@@ -22,6 +23,7 @@ export default class TreeAPI extends APIRepository {
     super('tree', apiV2, '', '', APIAdresses)
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
+      getGradesList: this.name + this.APIAdresses.getGradesList,
       getNodeById: nodeId => this.name + this.APIAdresses.getNodeById(nodeId),
       getNodeByType: nodeType => this.name + this.APIAdresses.getNodeByType(nodeType),
       getNodeByTitle: nodeTitle => this.name + this.APIAdresses.getNodeByTitle(nodeTitle),
@@ -72,5 +74,37 @@ export default class TreeAPI extends APIRepository {
 
   getNodeByTitle(data) {
     return this.getNodeBy('Title', data)
+  }
+
+  editNode (nodeId, data) {
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.editNode(nodeId),
+      cacheKey: this.CacheList.editNode(nodeId),
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return new TreeNode(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getGradesList (data = {}) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getGradesList,
+      cacheKey: this.CacheList.getGradesList,
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return new TreeNode(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
   }
 }
