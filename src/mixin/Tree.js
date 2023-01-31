@@ -6,7 +6,7 @@ const mixinTree = {
       return new Promise((resolve, reject) => {
         callback
           .then(response => {
-            const node = response.data.data
+            const node = response
             let treeComponent = this.$refs[refKey]
             if (!treeComponent.createRoot) {
               treeComponent = this.$refs[refKey][0]
@@ -46,7 +46,7 @@ const mixinTree = {
       return new Promise((resolve, reject) => {
         this.getNode(id)
           .then(response => {
-            const node = response.data.data
+            const node = response
             resolve(loadChildOfNode(node, done))
           }).catch(() => {
             if (fail) {

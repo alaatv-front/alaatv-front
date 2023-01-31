@@ -15,6 +15,9 @@ const APIAdresses = {
   },
   editNode (id) {
     return '/forrest/tree/' + id
+  },
+  getLessonList (lessonId) {
+    return '/forrest/tree/' + lessonId
   }
 }
 
@@ -27,7 +30,8 @@ export default class TreeAPI extends APIRepository {
       getNodeById: nodeId => this.name + this.APIAdresses.getNodeById(nodeId),
       getNodeByType: nodeType => this.name + this.APIAdresses.getNodeByType(nodeType),
       getNodeByTitle: nodeTitle => this.name + this.APIAdresses.getNodeByTitle(nodeTitle),
-      editNode: id => this.name + this.APIAdresses.editNode(id)
+      editNode: id => this.name + this.APIAdresses.editNode(id),
+      getLessonList: id => this.name + this.APIAdresses.getLessonList(id)
     }
   }
 
@@ -100,7 +104,23 @@ export default class TreeAPI extends APIRepository {
       cacheKey: this.CacheList.getGradesList,
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return response.data.data.children
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getLessonList (data = {}) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getLessonList(data.data.id),
+      cacheKey: this.CacheList.getLessonList(data.data.id),
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return response.data.data.children
       },
       rejectCallback: (error) => {
         return error

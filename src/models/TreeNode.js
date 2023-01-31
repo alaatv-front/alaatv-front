@@ -59,7 +59,7 @@ class TreeNode extends Model {
           parentTitle: node.title
         })
       }
-      if (childNode.children.length > 0) {
+      if (childNode.children && childNode.children.length > 0) {
         // nodeId: the first given node.id
         const result = this.findNode(nodeId, childNode)
         if (result !== null) {

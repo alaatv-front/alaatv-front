@@ -97,12 +97,6 @@ export default {
     mixinTree
   ],
   props: {
-    lessonsList: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
     dialogValue: {
       type: Boolean
     },
@@ -145,7 +139,8 @@ export default {
       lastTreeNodes: [],
       treeKey: 0,
       areNodesSynced: false,
-      gradesList: []
+      gradesList: [],
+      lessonsList: []
     }
   },
   computed: {
@@ -218,8 +213,15 @@ export default {
   },
   updated () {},
   methods: {
-    getGradesList () {
-
+    async getGradesList () {
+      this.gradesList = await this.$apiGateway.tree.getGradesList()
+    },
+    async getLessonList (lessonId) {
+      this.lessonsList = await this.$apiGateway.tree.getLessonList({
+        data: {
+          id: lessonId
+        }
+      })
     },
     getSelectedGradeLessons () {
 
@@ -232,7 +234,8 @@ export default {
       }
       this.selectedNodesIDs = values.map(item => item.id)
     },
-    removeNode (node) {
+    removeNode (item) {
+      const node = item.id ? item : { id: item }
       if (this.nodesUpdatedFromTree.find(item => item.id === node.id)) {
         this.setTickedMode('tree', node.id, false)
       }
@@ -256,12 +259,13 @@ export default {
       }
     },
     gradeSelected (item) {
-      this.$emit('gradeSelected', item)
       this.lesson = ''
+      this.getLessonList(item.id)
+      this.$emit('gradeSelected', item)
     },
     lessonSelected (lesson) {
-      this.$emit('lessonSelected', lesson)
       this.showTreeModalNode(lesson)
+      this.$emit('lessonSelected', lesson)
     },
     showTreeModalNode (item) {
       this.treeKey += 1
