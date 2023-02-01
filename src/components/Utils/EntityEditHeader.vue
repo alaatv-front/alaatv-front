@@ -93,7 +93,7 @@ export default {
             name: 'title-main',
             outlined: true,
             label: 'نوع ویرایش:',
-            col: 'col-auto',
+            col: 'col-md-4',
             value: 'concatEnd',
             options: [
               { label: 'افزودن به انتهای عنوان', value: 'concatEnd' },
@@ -115,7 +115,8 @@ export default {
             applyGridSystem: false
           },
           {
-            type: 'formBuilder',
+            // type: 'formBuilder',
+            type: 'hidden',
             name: 'replace',
             col: 'col-md-8',
             value: [
@@ -172,7 +173,8 @@ export default {
             col: 'col-md-8'
           },
           {
-            type: 'formBuilder',
+            // type: 'formBuilder',
+            type: 'hidden',
             name: 'replace',
             col: 'col-md-8',
             value: [
@@ -215,10 +217,21 @@ export default {
               { label: 'جابجایی تگ', value: 'replace' }
             ]
           },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'تگ ها:', col: 'col-md-8' },
           {
-            type: 'formBuilder',
-            name: 'replacement-input',
+            type: 'input',
+            name: 'description',
+            outlined: true,
+            filled: true,
+            autogrow: true,
+            value: null,
+            placeholder: 'متن مورد نظر خود را وارد نمایید',
+            label: 'تگ ها:',
+            col: 'col-md-8'
+          },
+          {
+            // type: 'formBuilder',
+            type: 'hidden',
+            name: 'replace',
             col: 'col-md-8',
             hidden: true,
             value: [
@@ -256,10 +269,11 @@ export default {
             col: 'col-md-4',
             value: 0,
             options: [
-              { label: 'پیش نویس', value: 5 },
-              { label: 'زمان بندی شده', value: 3 },
-              { label: 'منتشر شده', value: 8 },
-              { label: 'غیرفعال', value: 0 }
+              // { label: 'پیش نویس', value: 5 },
+              // { label: 'زمان بندی شده', value: 3 },
+              // { label: 'منتشر شده', value: 8 },
+              { label: 'غیرفعال', value: 0 },
+              { label: 'فعال', value: 1 }
             ]
           }
         ]
@@ -280,19 +294,38 @@ export default {
       this.chooseFormBuilderInputs(inputObj.value)
     },
     allEditModeInputs: {
-      handler(newValue, oldValue) {},
+      handler(newValue) {
+        this.setChosenInputForm(newValue)
+      },
       deep: true
     }
   },
   methods: {
     emptyEditSelectorValue() {
       this.editSelectorValue = 'ویرایش'
+      this.$refs.formBuilder.clearFormBuilderInputValues()
     },
     chooseFormBuilderInputs (chosenInputName) {
       this.chosenInputIndex = this.allEditModeInputs.findIndex(input => input[0].name === chosenInputName)
     },
-    changeInputElementDisplay (inputClassName, display) {
-      document.querySelector('.' + inputClassName).style.display = display
+    setChosenInputForm (value) {
+      const chosenInput = value[this.chosenInputIndex]
+      if (!chosenInput[2]) {
+        return
+      }
+      if (chosenInput[0].value === chosenInput[2].name) {
+        this.setFormBuilderReplaceMode(chosenInput)
+      } else {
+        this.setFormBuilderInputMode(chosenInput)
+      }
+    },
+    setFormBuilderReplaceMode (chosenInput) {
+      chosenInput[1].type = 'hidden'
+      chosenInput[2].type = 'formBuilder'
+    },
+    setFormBuilderInputMode (chosenInput) {
+      chosenInput[1].type = 'input'
+      chosenInput[2].type = 'hidden'
     }
   }
 }
