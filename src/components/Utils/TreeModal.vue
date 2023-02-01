@@ -5,35 +5,34 @@
       <div class="fit row wrap tree-inner-container">
         <div class="choose-tree-box question-details col-6">
           <div class="details-container-2 default-details-container">
-            <div class="detail-box"
-                 style="padding-right:0;">
-                 <!--              <div class="detail-box-title" style="padding-bottom: 9px;" >گروه درس</div>-->
-                 <!--              <q-select-->
-                 <!--                filled-->
-                 <!--                dense-->
-                 <!--                dropdown-icon="isax:arrow-down-1"-->
-                 <!--                v-model="group"-->
-                 <!--                option-label="title"-->
-                 <!--                :options="groupsList"-->
-                 <!--                @update:model-value="groupSelected"-->
-                 <!--              />-->
-            </div>
-            <div class="detail-box">
-              <div class="detail-box-title">نام درس</div>
-              <q-select ref="lessonSelector"
-                        v-model="lesson"
-                        filled
-                        dense
-                        dropdown-icon="isax:arrow-down-1"
-                        option-label="title"
-                        :options="lessonsList"
-                        :disable="!doesHaveLessons"
-                        @update:model-value="lessonSelected" />
+            <div class="detail-box-container row">
+              <div class="col-12 col-md-6 detail-box q-pr-sm">
+                <div class="detail-box-title">پایه تحصیلی</div>
+                <q-select v-model="grade"
+                          filled
+                          dense
+                          dropdown-icon="isax:arrow-down-1"
+                          option-label="title"
+                          :options="gradesList"
+                          @update:model-value="gradeSelected" />
+              </div>
+              <div class="col-12 col-md-6 detail-box q-pl-sm">
+                <div class="detail-box-title"> نام درس</div>
+                <q-select ref="lessonSelector"
+                          v-model="lesson"
+                          filled
+                          dense
+                          dropdown-icon="isax:arrow-down-1"
+                          option-label="title"
+                          :options="lessonsList"
+                          :disable="!doesHaveLessons"
+                          @update:model-value="lessonSelected" />
+              </div>
             </div>
             <div class="question-tree">
               <tree ref="tree"
                     :key="treeKey"
-                    :no-nodes-label="'لطفا یک درس را انتخاب کنید'"
+                    :no-nodes-label="'لطفا یک پایه و درس را انتخاب کنید'"
                     tick-strategy="strict"
                     :get-node-by-id="getNodeById"
                     @ticked="updateNodes"
@@ -85,12 +84,12 @@
 </template>
 <script>
 
-import Tree from 'components/Tree/Tree'
-import mixinTree from 'src/mixin/Tree'
-import { TreeNode } from 'src/models/TreeNode'
+import Tree from 'components/Tree/Tree.vue'
+import mixinTree from 'src/mixin/Tree.js'
+import { TreeNode } from 'src/models/TreeNode.js'
 
 export default {
-  name: 'QuestionTreeModal',
+  name: 'TreeModal',
   components: {
     Tree
   },
@@ -98,18 +97,6 @@ export default {
     mixinTree
   ],
   props: {
-    lessonsList: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
-    groupsList: {
-      type: Array,
-      default () {
-        return []
-      }
-    },
     dialogValue: {
       type: Boolean
     },
@@ -136,7 +123,7 @@ export default {
     }
   },
   emits: [
-    'groupSelected',
+    'gradeSelected',
     'lessonSelected',
     'update:dialogValue',
     'update:subjectsField'
@@ -145,13 +132,15 @@ export default {
     return {
       dialogLoading: false,
       lesson: '',
-      group: '',
+      grade: '',
       selectedNodesIDs: [],
       loading: false,
       currentTreeNode: [],
       lastTreeNodes: [],
       treeKey: 0,
-      areNodesSynced: false
+      areNodesSynced: false,
+      gradesList: [],
+      lessonsList: []
     }
   },
   computed: {
@@ -220,9 +209,39 @@ export default {
     if (this.initialLesson.id) {
       this.lesson = this.initialLesson
     }
+    this.getGradesList()
   },
   updated () {},
   methods: {
+    getGradesList () {
+      this.dialogLoading = true
+      this.$apiGateway.tree.getGradesList()
+        .then(res => {
+          this.gradesList = res
+          this.dialogLoading = false
+        })
+        .catch(() => {
+          this.dialogLoading = false
+        })
+    },
+    getLessonList (lessonId) {
+      this.dialogLoading = true
+      this.$apiGateway.tree.getLessonList({
+        data: {
+          id: lessonId
+        }
+      })
+        .then(res => {
+          this.lessonsList = res
+          this.dialogLoading = false
+        })
+        .catch(() => {
+          this.dialogLoading = false
+        })
+    },
+    getSelectedGradeLessons () {
+
+    },
     updateNodes (values) {
       this.nodesUpdatedFromTree = values
       // if nodes are synced with response don't update currentTreeNode
@@ -231,7 +250,8 @@ export default {
       }
       this.selectedNodesIDs = values.map(item => item.id)
     },
-    removeNode (node) {
+    removeNode (item) {
+      const node = item.id ? item : { id: item }
       if (this.nodesUpdatedFromTree.find(item => item.id === node.id)) {
         this.setTickedMode('tree', node.id, false)
       }
@@ -254,13 +274,14 @@ export default {
         })
       }
     },
-    groupSelected (item) {
-      this.$emit('groupSelected', item)
+    gradeSelected (item) {
       this.lesson = ''
+      this.getLessonList(item.id)
+      this.$emit('gradeSelected', item)
     },
     lessonSelected (lesson) {
-      this.$emit('lessonSelected', lesson)
       this.showTreeModalNode(lesson)
+      this.$emit('lessonSelected', lesson)
     },
     showTreeModalNode (item) {
       this.treeKey += 1
@@ -269,6 +290,9 @@ export default {
         .then(() => {
           this.syncAllCheckedIds()
           this.selectWantedTree(this.lesson)
+          this.dialogLoading = false
+        })
+        .catch(() => {
           this.dialogLoading = false
         })
     },
@@ -330,7 +354,7 @@ export default {
   min-width: 830px;
   height: 580px;
   background: #FFFFFF;
-  border-radius: 15px;
+  border-radius: 10px;
   padding: 30px;
   width: 830px;
   @media screen and (max-width: 880px) {
@@ -372,7 +396,7 @@ export default {
   }
   .default-details-container {
     .detail-box {
-      margin-top: 10px;
+      //margin-top: 10px;
       .detail-box-title, .delete-all-btn {
         margin-bottom: 5px;
       }
@@ -458,18 +482,12 @@ export default {
     padding-left: 15px;
   }
 }
-</style>
-<style lang="scss">
-.q-dialog {
-  .q-dialog__inner--minimized > div {
-    max-width: none;
-  }
-}
+
 .tree-card {
   .question-details {
     .default-details-container {
       .detail-box {
-        .q-field {
+        :deep(.q-field) {
           background: #FFFFFF;
           border-radius: 10px;
           line-height: 24px;
@@ -482,24 +500,41 @@ export default {
             margin-top: 9px;
             padding-right: 0 !important;
             padding-left: 0 !important;
+            .q-field__control {
+              border-radius: 10px;
+              min-height: 40px;
+              color: #65677F;
+              background-color: #f4f5f6;
+              &::before {
+                display: none;
+              }
+              &::after {
+                display: none;
+              }
+            }
           }
         }
-        .q-field--auto-height .q-field__native {
-          min-height: 40px;
-          color: #65677F;
-          background-color: #f4f5f6;
-
-        }
-        .q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
-          min-height: 40px;
-          color: #65677F;
-          background-color: #f4f5f6;
-        }
-        .q-field__control::before, .q-field__control::after {
-          display: none;
-        }
-        .q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input {
-          color: #65677F;
+        :deep(.q-field--auto-height){
+          .q-field__native {
+            min-height: 40px;
+            color: #65677F;
+            //background-color: #f4f5f6;
+            &.q-field__prefix &.q-field__suffix &.q-field__input {
+              color: #65677F;
+            }
+          }
+          .q-field__control {
+            border-radius: 10px;
+            min-height: 40px;
+            color: #65677F;
+            background-color: #f4f5f6;
+            ::before {
+              display: none;
+            }
+            ::after {
+              display: none;
+            }
+          }
         }
       }
     }
