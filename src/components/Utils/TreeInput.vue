@@ -18,8 +18,7 @@
     </div>
     <question-tree-modal ref="questionTreeModal"
                          v-model:dialogValue="dialogValue"
-                         v-model:subjectsField="allSubjects"
-                         @lessonSelected="lessonSelected" />
+                         v-model:subjectsField="allSubjects" />
   </div>
 </template>
 
@@ -83,9 +82,6 @@ export default {
         }
         Object.assign(this.allSubjects[lastAncestors.id].nodes, { [index]: { ...tag } })
       })
-    },
-    lessonSelected (item) {
-      this.$emit('lessonSelected', item)
     },
     getUniqueListBy (arr, key) {
       return [...new Map(arr.map(item => [item[key], item])).values()]
