@@ -230,7 +230,7 @@ export default {
         { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', responseKey: '' },
         { type: 'button', name: 'search', icon: 'search', unelevated: true, col: 'col-md-1' },
         { type: 'button', label: 'فیلتر', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
-        { type: 'space', col: 'col-md-5', showLine: false },
+        { type: 'separator', col: 'col-md-5', size: '0' },
         { type: 'select', name: 'order', label: 'ترتیب نمایش', col: 'col-md-2', value: 0, options: [{ label: 'پیش فرض', value: 0 }, { label: 'جدید ترین', value: 8 }, { label: 'قدیمی ترین', value: 3 }] },
         {
           type: 'formBuilder',
@@ -247,6 +247,7 @@ export default {
               label: 'درخت دانش',
               responseKey: 'data.tags',
               col: 'col-md-6',
+              ignoreValue: true,
               value: [
                 {
                   crud: {
