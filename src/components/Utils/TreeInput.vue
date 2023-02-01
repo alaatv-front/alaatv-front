@@ -65,14 +65,20 @@ export default {
       deep: true
     }
   },
+  mounted () {
+    this.loadTreeModalNodes(this.value)
+  },
   methods: {
     updateValue () {
-      this.change(this.inputData)
+      this.change(this.allSubjectsFlat)
     },
-    loadTreeModalNodes () {
-      this.fillAllGivenSubjects()
+    loadTreeModalNodes (value) {
+      this.fillAllGivenSubjects(value)
     },
     fillAllGivenSubjects (val) {
+      if (!(val && val.length > 0)) {
+        return
+      }
       val.forEach((tag, index) => {
         const lastAncestors = tag.ancestors[tag.ancestors.length - 1]
         if (!this.allSubjects[lastAncestors.id]) {
