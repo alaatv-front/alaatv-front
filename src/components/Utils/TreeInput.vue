@@ -58,7 +58,7 @@ export default {
     },
     value: {
       handler (newVal) {
-        if (newVal.length > 0) {
+        if (newVal && newVal.length > 0 && this.hasValueChanged(newVal)) {
           this.loadTreeModalNodes(newVal)
         }
       },
@@ -69,6 +69,15 @@ export default {
     this.loadTreeModalNodes(this.value)
   },
   methods: {
+    hasValueChanged (val) {
+      let status = true
+      val.forEach(item => {
+        if (this.allSubjectsFlat.find(node => node.id === item.id)) {
+          status = false
+        }
+      })
+      return status
+    },
     updateValue () {
       this.change(this.allSubjectsFlat)
     },
