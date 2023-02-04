@@ -41,7 +41,7 @@
                         @update:tableSelectedValues="entitySelected"
                         @onInputClick="onEntityButtonsClicked">
             <template v-slot:after-form-builder>
-              <entity-edit-header v-model:selected-values="entitySelectedValues" />
+              <content-edit-header v-model:selected-values="entitySelectedValues" />
             </template>
             <template v-slot:no-entity>
               <div class="flex column items-center">
@@ -158,7 +158,7 @@ import UploadProgressDialog from './components/UploadProgressDialog/UploadProgre
 import { EntityIndex } from 'quasar-crud'
 import ActionBtnComponent from 'components/Utils/actionBtn.vue'
 import { shallowRef } from 'vue'
-import EntityEditHeader from 'components/Utils/EntityEditHeader.vue'
+import ContentEditHeader from 'components/Utils/ContentEditHeader.vue'
 import { APIGateway } from 'src/api/APIGateway'
 import TreeInputComponent from 'components/Utils/TreeInput.vue'
 const ActionBtn = shallowRef(ActionBtnComponent)
@@ -166,7 +166,7 @@ const TreeInput = shallowRef(TreeInputComponent)
 export default {
   name: 'UploadCenterComponent',
   components: {
-    EntityEditHeader,
+    ContentEditHeader,
     UploadProgressDialog,
     EntityIndex
   },
