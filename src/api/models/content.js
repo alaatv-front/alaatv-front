@@ -5,6 +5,10 @@ const APIAdresses = {
   admin: '/admin/c',
   show: (id) => '/c/' + id,
   search: '/search',
+  delete: '/admin/c/destroy',
+  bulkEditText: '/admin/content/bulk-edit-text',
+  bulkUpdate: '/admin/content/bulk-update',
+  bulkEditTags: '/admin/content/bulk-edit-tags',
   timestampSet: 'timepoint',
   timestampGet: (id) => `timepoint/${id}`
 }
@@ -15,7 +19,11 @@ export default class ContentAPI extends APIRepository {
       admin: this.name + this.APIAdresses.admin,
       show: id => this.name + this.APIAdresses.show(id),
       search: this.name + this.APIAdresses.search,
+      delete: this.name + this.APIAdresses.delete,
       timestampSet: this.name + this.APIAdresses.timestampSet,
+      bulkEditText: this.name + this.APIAdresses.bulkEditText,
+      bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
+      bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
       timestampGet: id => this.name + this.APIAdresses.timestampGet(id)
     }
   }
@@ -33,6 +41,74 @@ export default class ContentAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
+    })
+  }
+
+  bulkEditText(data) {
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.bulkEditText,
+      cacheKey: this.CacheList.bulkEditText,
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  bulkUpdate(data) {
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.bulkUpdate,
+      cacheKey: this.CacheList.bulkUpdate,
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  bulkEditTags(data) {
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.bulkEditTags,
+      cacheKey: this.CacheList.bulkEditTags,
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  deleteContents (data) {
+    return this.sendRequest({
+      apiMethod: 'delete',
+      api: this.api,
+      request: this.APIAdresses.delete,
+      cacheKey: this.CacheList.delete,
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
     })
   }
 
