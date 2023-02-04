@@ -184,7 +184,7 @@ export default {
         total: 'meta.total',
         currentPage: 'meta.current_page',
         perPage: 'meta.per_page',
-        pageKey: 'productPage'
+        pageKey: 'page'
       },
       table: {
         columns: [
@@ -227,25 +227,25 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', responseKey: '' },
+        { type: 'input', name: 'name', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3' },
         { type: 'button', name: 'search', icon: 'search', unelevated: true, col: 'col-md-1' },
         { type: 'button', label: 'فیلتر', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
         { type: 'separator', col: 'col-md-5', size: '0' },
-        { type: 'select', name: 'order', label: 'ترتیب نمایش', col: 'col-md-2', value: 0, options: [{ label: 'پیش فرض', value: 0 }, { label: 'جدید ترین', value: 8 }, { label: 'قدیمی ترین', value: 3 }] },
+        { type: 'select', name: 'order_type', label: 'ترتیب نمایش', col: 'col-md-2', value: 'desc', options: [{ label: 'پیش فرض', value: 'desc' }, { label: 'جدید ترین', value: 8 }, { label: 'قدیمی ترین', value: 3 }] },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
           col: 'col-md-12',
           class: 'entity-filter-box',
+          ignoreValue: true,
           value: [
-            { type: 'select', name: 'status', label: 'وضعیت', col: 'col-md-2', responseKey: 'data.enable', value: 1, options: [{ label: 'فعال', value: 1 }, { label: 'غیر فعال', value: 0 }] },
-            { type: 'date', name: 'created_at_from', value: null, label: 'تاریخ بارگزاری از', responseKey: 'data.created_at', col: 'col-md-2' },
-            { type: 'date', name: 'created_at_till', value: null, label: 'تا', responseKey: 'data.created_at', col: 'col-md-2' },
+            { type: 'select', name: 'enable', label: 'وضعیت', col: 'col-md-2', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیر فعال', value: 0 }] },
+            { type: 'date', name: 'createdAtSince', value: null, label: 'تاریخ بارگزاری از', col: 'col-md-2' },
+            { type: 'date', name: 'createdAtTill', value: null, label: 'تا', col: 'col-md-2' },
             {
               type: TreeInput,
-              name: 'tags',
+              name: 'forrest_tree.id',
               label: 'درخت دانش',
-              responseKey: 'data.tags',
               col: 'col-md-6',
               ignoreValue: true,
               value: [
@@ -616,18 +616,23 @@ export default {
       const input = inputObj.input
       const event = inputObj.event
       // console.log('event', event)
+      if (event === 'reload') {
+        this.refreshFilterBox()
+        // refresh method
+        this.$refs.entityIndex.reload()
+      }
+      if (event === 'filter') {
+        this.$refs.entityIndex.search()
+      }
       if (input.type !== 'button') {
         return
       }
       if (input.name === 'filter-button') {
         this.toggleFilterBox()
       }
-      if (event === 'reload') {
-        this.$refs.entityIndex.reload()
-      }
-      if (event === 'filter') {
-        this.$refs.entityIndex.search()
-      }
+    },
+    refreshFilterBox () {
+
     },
     toggleFilterBox () {
       this.isFilterBoxHidden = !this.isFilterBoxHidden
