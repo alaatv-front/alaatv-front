@@ -24,7 +24,7 @@
                      color="positive"
                      padding="1px 23px"
                      label="اعمال"
-                     @click="onClick('filter')" />
+                     @click="editSelectedContents" />
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
           <div class="header-item">
             <q-btn flat
                    label="افزودن به مجموعه"
-                   @click="emptyEditSelectorValue" />
+                   @click="attachToSet" />
           </div>
           <div class="header-item selector">
             <q-select v-model="editSelectorValue"
@@ -44,7 +44,8 @@
           <div class="header-item selector">
             <q-select v-model="moreSelectorValue"
                       borderless
-                      :options="moreSelectorOptions" /></div>
+                      :options="moreSelectorOptions"
+                      @update:model-value="executeMoreSelectorAction" /></div>
         </div>
       </q-card>
       <q-card v-if="isInEditMode"
@@ -81,7 +82,7 @@ export default {
       ],
       editSelectorValue: 'ویرایش',
       editSelectorOptions: [
-        { label: 'عنوان', value: 'title-main' },
+        { label: 'عنوان', value: 'name-main' },
         { label: 'توضیحات', value: 'description-main' },
         { label: 'تگ ها', value: 'tags-main' },
         { label: 'وضعیت', value: 'status-main' }
@@ -90,7 +91,7 @@ export default {
         [
           {
             type: 'select',
-            name: 'title-main',
+            name: 'name-main',
             outlined: true,
             label: 'نوع ویرایش:',
             col: 'col-md-4',
@@ -104,7 +105,7 @@ export default {
           },
           {
             type: 'input',
-            name: 'title',
+            name: 'name',
             outlined: true,
             filled: true,
             autogrow: true,
@@ -122,7 +123,7 @@ export default {
             value: [
               {
                 type: 'input',
-                name: 'title',
+                name: 'name',
                 outlined: true,
                 filled: true,
                 autogrow: true,
@@ -133,7 +134,7 @@ export default {
               },
               {
                 type: 'input',
-                name: 'title',
+                name: 'name',
                 outlined: true,
                 filled: true,
                 autogrow: true,
@@ -162,7 +163,7 @@ export default {
           },
           {
             type: 'input',
-            name: 'title',
+            name: 'description',
             outlined: true,
             filled: true,
             autogrow:
@@ -301,6 +302,76 @@ export default {
     }
   },
   methods: {
+    editSelectedContents () {
+      const currentInput = this.allEditModeInputs[this.chosenInputIndex]
+      const requestBody = this.getEditContentRequestBody(currentInput[0].value, currentInput)
+      if (!currentInput || !currentInput[0].name) {
+        return
+      }
+      const currentInputName = currentInput[0].name
+      const apiInstance = this.$apiGateway.content
+      if (currentInputName === 'tags-main') {
+        apiInstance.bulkEditTags(requestBody).then(() => {})
+          .catch(() => {})
+      } else if (currentInputName === 'status-main') {
+        apiInstance.bulkUpdate(requestBody).then(() => {})
+          .catch(() => {})
+      } else {
+        apiInstance.bulkEditText(requestBody).then(() => {})
+          .catch(() => {})
+      }
+    },
+    editContentText (data) {
+    },
+    editContentTags (data) {},
+    editContentStatus (data) {},
+    getEditContentRequestBody (mode, currentInput) {
+      const currentInputName = currentInput[0].name
+      return {
+        content_ids: this.getSelectedValuesIds(),
+        ...((currentInputName.includes('name') ||
+            currentInputName.includes('description')) &&
+          { column: currentInputName.replace('-main', '') }),
+        ...(((currentInputName !== 'status-main')) &&
+          { operation: currentInput[0].value }),
+        ...((currentInputName.includes('name') ||
+            currentInputName.includes('description')) &&
+          { text: currentInput[0].value === 'replace' ? currentInput[2].value[0].value : currentInput[1].value }),
+        ...((!currentInputName.includes('tags') && currentInput[0].value === 'replace') &&
+          { replacing_text: currentInput[2].value[1].value }),
+        ...(currentInputName.includes('tags') &&
+          { tags: currentInput[0].value === 'replace' ? currentInput[2].value[0].value : currentInput[1].value }),
+        ...((currentInputName.includes('tags') && currentInput[0].value === 'replace') &&
+          { replacing_tags: currentInput[2].value[1].value }),
+        ...(((currentInputName === 'status-main')) &&
+          { enable: currentInput[0].value })
+        // validSince: '2022-09-03 12:41:55'
+      }
+    },
+
+    deleteSelectedContents () {
+      this.$apiGateway.content.deleteContents({
+        contents: this.getSelectedValuesIds()
+      })
+        .then(() => {})
+        .catch(() => {})
+    },
+    attachToSet() {
+      const setId = '55555555'
+      this.$apiGateway.set.attachContents(setId, {
+        contents: this.getSelectedValuesIds()
+      })
+        .then(() => {})
+        .catch(() => {})
+    },
+    getSelectedValuesIds() {
+      return this.selectedValues.map(item => item.id)
+    },
+    executeMoreSelectorAction (selectedAction) {
+      if (selectedAction.value === 'delete') {
+        this.deleteSelectedContents()
+      }
+    },
     emptyEditSelectorValue() {
       this.editSelectorValue = 'ویرایش'
       this.$refs.formBuilder.clearFormBuilderInputValues()
