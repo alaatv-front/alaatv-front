@@ -231,7 +231,7 @@ export default {
         { type: 'button', name: 'search', icon: 'search', unelevated: true, col: 'col-md-1' },
         { type: 'button', label: 'فیلتر', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
         { type: 'separator', col: 'col-md-5', size: '0' },
-        { type: 'select', name: 'order_type', label: 'ترتیب نمایش', col: 'col-md-2', value: 'desc', clearable: false, options: [{ label: 'جدید ترین', value: 'desc' }, { label: 'قدیمی ترین', value: 'asc' }] },
+        { type: 'select', name: 'order_type', label: 'ترتیب نمایش', col: 'col-md-2', value: 'desc', options: [{ label: 'جدید ترین', value: 'desc' }, { label: 'قدیمی ترین', value: 'asc' }] },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
