@@ -44,7 +44,7 @@
               <content-edit-header v-model:selected-values="entitySelectedValues" />
             </template>
             <template v-slot:no-entity>
-              <div class="flex column items-center">
+              <div class="flex column items-center q-pa-lg">
                 <div class="q-mb-sm">
                   <svg width="100"
                        height="100"
@@ -231,7 +231,7 @@ export default {
         { type: 'button', name: 'search', icon: 'search', unelevated: true, col: 'col-md-1' },
         { type: 'button', label: 'فیلتر', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
         { type: 'separator', col: 'col-md-5', size: '0' },
-        { type: 'select', name: 'order_type', label: 'ترتیب نمایش', col: 'col-md-2', value: 'desc', options: [{ label: 'پیش فرض', value: 'desc' }, { label: 'جدید ترین', value: 8 }, { label: 'قدیمی ترین', value: 3 }] },
+        { type: 'select', name: 'order_type', label: 'ترتیب نمایش', col: 'col-md-2', value: 'desc', clearable: false, options: [{ label: 'جدید ترین', value: 'desc' }, { label: 'قدیمی ترین', value: 'asc' }] },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -244,7 +244,7 @@ export default {
             { type: 'date', name: 'createdAtTill', value: null, label: 'تا', col: 'col-md-2' },
             {
               type: TreeInput,
-              name: 'forrest_tree.id',
+              name: 'tag',
               label: 'درخت دانش',
               col: 'col-md-6',
               ignoreValue: true,
@@ -612,27 +612,42 @@ export default {
       this.progressDialog = !this.progressDialog
     },
     onEntityButtonsClicked(inputObj) {
-      // todo : not working properly
       const input = inputObj.input
       const event = inputObj.event
-      // console.log('event', event)
       if (event === 'reload') {
-        this.refreshFilterBox()
-        // refresh method
-        this.$refs.entityIndex.reload()
+        this.$refs.entityIndex.refreshAllInputs()
+        this.$refs.entityIndex.search()
       }
       if (event === 'filter') {
+        this.undoTagIgnoreValue()
         this.$refs.entityIndex.search()
       }
       if (input.type !== 'button') {
         return
+      } else if (input.name === 'search') {
+        this.$refs.entityIndex.search()
       }
       if (input.name === 'filter-button') {
         this.toggleFilterBox()
+        this.refreshFilterBox()
       }
     },
+    undoTagIgnoreValue() {
+      this.inputs.forEach(item => {
+        if (item.type === 'formBuilder') {
+          item.value.forEach(input => {
+            if (input.name === 'tag') {
+              input.ignoreValue = false
+            }
+          })
+        }
+      })
+    },
     refreshFilterBox () {
-
+      const array = ['enable', 'createdAtSince', 'createdAtTill', 'tag']
+      array.forEach(item => {
+        this.$refs.entityIndex.setInputByName(item, null)
+      })
     },
     toggleFilterBox () {
       this.isFilterBoxHidden = !this.isFilterBoxHidden
@@ -646,7 +661,6 @@ export default {
       document.querySelector('.entity-filter-box').style.display = display
     },
     entitySelected (val) {
-      // console.log('val', val)
       this.entitySelectedValues = val
     }
   }

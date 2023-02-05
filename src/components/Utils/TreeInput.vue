@@ -58,7 +58,14 @@ export default {
     },
     value: {
       handler (newVal) {
-        if (newVal && newVal.length > 0 && this.hasValueChanged(newVal)) {
+        if (!newVal) {
+          this.clearFormBuilderValue()
+          return
+        }
+        if (newVal.length > 0 && typeof newVal[0] === 'string') {
+          return
+        }
+        if (newVal && newVal.length > 0 && typeof newVal[0] === 'object' && this.hasValueChanged(newVal)) {
           this.loadTreeModalNodes(newVal)
         }
       },
@@ -69,6 +76,13 @@ export default {
     this.loadTreeModalNodes(this.value)
   },
   methods: {
+    clearFormBuilderValue () {
+      if (this.allSubjectsFlat.length === 0) {
+        return
+      }
+      this.allSubjects = {}
+      this.allSubjectsFlat = []
+    },
     hasValueChanged (val) {
       let status = true
       val.forEach(item => {
@@ -79,7 +93,7 @@ export default {
       return status
     },
     updateValue () {
-      this.change(this.allSubjectsFlat)
+      this.change(this.allSubjectsFlat.map(node => node.id))
     },
     loadTreeModalNodes (value) {
       this.fillAllGivenSubjects(value)

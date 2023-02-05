@@ -311,13 +311,16 @@ export default {
       const currentInputName = currentInput[0].name
       const apiInstance = this.$apiGateway.content
       if (currentInputName === 'tags-main') {
-        apiInstance.bulkEditTags(requestBody).then(() => {})
+        apiInstance.bulkEditTags(requestBody)
+          .then(() => {})
           .catch(() => {})
       } else if (currentInputName === 'status-main') {
-        apiInstance.bulkUpdate(requestBody).then(() => {})
+        apiInstance.bulkUpdate(requestBody)
+          .then(() => {})
           .catch(() => {})
       } else {
-        apiInstance.bulkEditText(requestBody).then(() => {})
+        apiInstance.bulkEditText(requestBody)
+          .then(() => {})
           .catch(() => {})
       }
     },
@@ -339,10 +342,12 @@ export default {
           { text: currentInput[0].value === 'replace' ? currentInput[2].value[0].value : currentInput[1].value }),
         ...((!currentInputName.includes('tags') && currentInput[0].value === 'replace') &&
           { replacing_text: currentInput[2].value[1].value }),
-        ...(currentInputName.includes('tags') &&
-          { tags: currentInput[0].value === 'replace' ? currentInput[2].value[0].value : currentInput[1].value }),
         ...((currentInputName.includes('tags') && currentInput[0].value === 'replace') &&
-          { replacing_tags: currentInput[2].value[1].value }),
+          { tag: currentInput[2].value[0].value }),
+        ...((currentInputName.includes('tags') && currentInput[0].value !== 'replace') &&
+          { tags: currentInput[1].value }),
+        ...((currentInputName.includes('tags') && currentInput[0].value === 'replace') &&
+          { replacing_tag: currentInput[2].value[1].value }),
         ...(((currentInputName === 'status-main')) &&
           { enable: currentInput[0].value })
         // validSince: '2022-09-03 12:41:55'
