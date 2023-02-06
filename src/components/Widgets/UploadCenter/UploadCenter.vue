@@ -149,7 +149,9 @@
         </q-tab-panel>
       </q-tab-panels>
     </div>
-    <upload-progress-dialog v-model:dialog="progressDialog" />
+    <upload-progress-dialog v-model:dialog="progressDialog"
+                            v-model:contentId="progressDialogContentId"
+                            @toggleDialog="toggleUploadProgressDialog(false)" />
   </div>
 </template>
 
@@ -175,6 +177,7 @@ export default {
       entitySelectedValues: [],
       isFilterBoxHidden: false,
       progressDialog: false,
+      progressDialogContentId: 37920,
       tab: 'today',
       expanded: true,
       selected: [],
@@ -609,6 +612,9 @@ export default {
       this.toggleFilterBox()
     },
     toggleUploadProgressDialog(value) {
+      if (value) {
+        this.progressDialogContentId = value
+      }
       this.progressDialog = !this.progressDialog
     },
     onEntityButtonsClicked(inputObj) {
