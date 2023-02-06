@@ -48,7 +48,7 @@
     "process": "^0.11.10",
     "qs": "^6.11.0",
     "quasar": "^2.11.5",
-    "quasar-crud": "^0.3.3",
+    "quasar-crud": "^0.3.4",
     "quasar-form-builder": "^0.1.85",
     "quasar-template-builder": "^1.0.20",
     "quasar-ui-q-page-builder": "^0.0.15",
