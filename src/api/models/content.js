@@ -2,22 +2,26 @@ import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Content } from 'src/models/Content'
 const APIAdresses = {
-  admin: '/admin/c',
+  admin: '/admin/contents/',
   show: (id) => '/c/' + id,
+  showAdmin: (id) => '/admin/contents/' + id,
+  update: (id) => `/admin/contents/${id}/`,
   search: '/search',
-  delete: '/admin/c/destroy',
-  bulkEditText: '/admin/content/bulk-edit-text',
-  bulkUpdate: '/admin/content/bulk-update',
-  bulkEditTags: '/admin/content/bulk-edit-tags',
+  delete: '/admin/contents/destroy',
+  bulkEditText: '/admin/contents/bulk-edit-text',
+  bulkUpdate: '/admin/contents/bulk-update',
+  bulkEditTags: '/admin/contents/bulk-edit-tags',
   timestampSet: 'timepoint',
   timestampGet: (id) => `timepoint/${id}`
 }
 export default class ContentAPI extends APIRepository {
   constructor() {
-    super('content', apiV2, '', '', APIAdresses)
+    super('content', apiV2, '/c/', new Content(), APIAdresses)
     this.CacheList = {
       admin: this.name + this.APIAdresses.admin,
       show: id => this.name + this.APIAdresses.show(id),
+      showAdmin: id => this.name + this.APIAdresses.showAdmin(id),
+      update: id => this.name + this.APIAdresses.update(id),
       search: this.name + this.APIAdresses.search,
       delete: this.name + this.APIAdresses.delete,
       timestampSet: this.name + this.APIAdresses.timestampSet,
@@ -41,6 +45,50 @@ export default class ContentAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
+    })
+  }
+
+  showAdmin(data) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.showAdmin(data),
+      cacheKey: this.CacheList.showAdmin(data),
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return new Content(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  update(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.update(data.data.id),
+      cacheKey: this.CacheList.update(data.data.id),
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return new Content(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: this.getNormalizedSendData({
+        contentset_id: null, // contentSet Id
+        isFree: null, // contentSet Id
+        name: null, // Title for content,
+        description: null, // Description for content
+        thumbnail: null, // thumbnail for contentfd
+        validSinceDate: null, // time for publish content
+        forrest_tree: null, // tree for content
+        order: null, // order of content
+        enable: null, // content status
+        display: null // content display status
+      }, data.data)
     })
   }
 
@@ -95,7 +143,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  deleteContents (data) {
+  deleteContents(data) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
