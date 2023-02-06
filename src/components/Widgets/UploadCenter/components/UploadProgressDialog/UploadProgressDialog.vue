@@ -1,5 +1,6 @@
 <template>
-  <q-dialog :model-value="dialog">
+  <q-dialog :model-value="dialog"
+            persistent>
     <div class="upload-dialog-wrapper">
       <div class="upload-dialog-header">
         <div class="upload-dialog-header-title">
@@ -8,7 +9,8 @@
         <div class="upload-dialog-header-close-btn">
           <q-btn v-close-popup
                  flat
-                 icon="close" />
+                 icon="close"
+                 @click="$emit('toggleDialog')" />
         </div>
       </div>
       <div class="upload-dialog-main-content">
@@ -24,7 +26,8 @@
                   done-icon="settings"
                   active-icon="settings"
                   :done="step > 1">
-            <upload-properties />
+            <upload-properties ref="uploadProperties"
+                               v-model:content="content" />
           </q-step>
           <q-step :name="2"
                   title="زمان کوب"
@@ -32,7 +35,8 @@
                   done-icon="shutter_speed"
                   active-icon="shutter_speed"
                   :done="step > 2">
-            <upload-timestamp />
+            <upload-timestamp v-model:content="content"
+                              @refreshContent="getContent()" />
           </q-step>
           <q-step :name="3"
                   title="انتشار فیلم"
@@ -40,7 +44,8 @@
                   done-icon="connected_tv"
                   active-icon="connected_tv"
                   :done="step > 3">
-            <upload-publish />
+            <upload-publish v-model:content="content"
+                            @update-form-data="updatePublishForm($event)" />
           </q-step>
           <template v-slot:navigation>
             <q-stepper-navigation class="stepper-footer-navigation">
@@ -52,7 +57,7 @@
                      @click="$refs.stepper.previous()" />
               <q-btn color="primary"
                      :label="step === 3 ?'انتشار' : 'بعدی'"
-                     @click="$refs.stepper.next()" />
+                     @click="gotoNextStep()" />
             </q-stepper-navigation>
           </template>
         </q-stepper>
@@ -65,6 +70,7 @@
 import UploadProperties from './UploadProperties/UploadProperties.vue'
 import UploadTimestamp from './UploadTimestamp/UploadTimestamp.vue'
 import UploadPublish from './UploadPublish/UploadPublish.vue'
+import { Content } from 'src/models/Content'
 
 export default {
   name: 'UploadProgressDialog',
@@ -75,13 +81,47 @@ export default {
   },
   props: {
     dialog: {
-      type: Boolean,
+      type: [Boolean, null],
       default: false
+    },
+    contentId: {
+      type: Number
     }
   },
+  emits: ['toggleDialog'],
   data() {
     return {
-      step: 1
+      step: 1,
+      content: new Content(),
+      publishForm: {}
+    }
+  },
+  watch: {
+    contentId(value) {
+      this.getContent()
+    }
+  },
+  mounted() {
+    this.getContent()
+  },
+  methods: {
+    getContent() {
+      this.$apiGateway.content.showAdmin(this.contentId).then(res => {
+        this.content = res
+      })
+    },
+    updatePublishForm(formData) {
+      this.publishForm = formData
+      console.log(formData)
+    },
+    gotoNextStep() {
+      this.$refs.uploadProperties.$refs.entityEditForm.editEntity()
+      this.$refs.stepper.next()
+    },
+    publish() {
+      this.$apiGateway.content.update({
+        data: this.publishForm
+      })
     }
   }
 }
