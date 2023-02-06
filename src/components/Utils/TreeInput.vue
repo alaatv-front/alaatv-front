@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="detail-box">
-      <div class="detail-box-title">درخت دانش</div>
+      <div class="detail-box-title outsideLabel">درخت دانش</div>
       <div class="input-container">
         <div class="input-box">
           <q-input v-model="tagsTitles"
                    dense
+                   outlined
                    disable />
         </div>
         <div class="icon-box">

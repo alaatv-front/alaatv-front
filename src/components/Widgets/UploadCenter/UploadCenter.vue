@@ -187,7 +187,7 @@ export default {
         total: 'meta.total',
         currentPage: 'meta.current_page',
         perPage: 'meta.per_page',
-        pageKey: 'page'
+        pageKey: 'contentPage'
       },
       table: {
         columns: [
@@ -230,11 +230,11 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'name', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3' },
-        { type: 'button', name: 'search', icon: 'search', unelevated: true, col: 'col-md-1' },
-        { type: 'button', label: 'فیلتر', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1' },
-        { type: 'separator', col: 'col-md-5', size: '0' },
-        { type: 'select', name: 'order_type', label: 'ترتیب نمایش', col: 'col-md-2', value: 'desc', options: [{ label: 'جدید ترین', value: 'desc' }, { label: 'قدیمی ترین', value: 'asc' }] },
+        { type: 'input', name: 'name', outlined: true, label: 'جستجو در فیلم ها', placeholder: 'انتخاب نمایید', col: 'col-md-3' },
+        { type: 'button', name: 'search', class: '', icon: 'search', unelevated: true, col: 'col-md-1 self-end' },
+        { type: 'button', label: 'فیلتر', class: '', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1 self-end' },
+        { type: 'separator', col: 'col-md-4', size: '0' },
+        { type: 'select', name: 'order_type', outlined: true, placeholder: '.', label: 'ترتیب نمایش', col: 'col-md-3', value: 'desc', options: [{ label: 'جدید ترین', value: 'desc' }, { label: 'قدیمی ترین', value: 'asc' }] },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -242,9 +242,9 @@ export default {
           class: 'entity-filter-box',
           ignoreValue: true,
           value: [
-            { type: 'select', name: 'enable', label: 'وضعیت', col: 'col-md-2', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیر فعال', value: 0 }] },
-            { type: 'date', name: 'createdAtSince', value: null, label: 'تاریخ بارگزاری از', col: 'col-md-2' },
-            { type: 'date', name: 'createdAtTill', value: null, label: 'تا', col: 'col-md-2' },
+            { type: 'select', name: 'enable', outlined: true, placeholder: ' ', label: 'وضعیت', col: 'col-md-2', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیر فعال', value: 0 }] },
+            { type: 'date', name: 'createdAtSince', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تاریخ بارگزاری از', col: 'col-md-2' },
+            { type: 'date', name: 'createdAtTill', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تا', col: 'col-md-2' },
             {
               type: TreeInput,
               name: 'tag',
