@@ -100,7 +100,7 @@ export default class ContentAPI extends APIRepository {
       cacheKey: this.CacheList.bulkEditText,
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -117,7 +117,7 @@ export default class ContentAPI extends APIRepository {
       cacheKey: this.CacheList.bulkUpdate,
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -134,7 +134,7 @@ export default class ContentAPI extends APIRepository {
       cacheKey: this.CacheList.bulkEditTags,
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -151,7 +151,7 @@ export default class ContentAPI extends APIRepository {
       cacheKey: this.CacheList.delete,
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error

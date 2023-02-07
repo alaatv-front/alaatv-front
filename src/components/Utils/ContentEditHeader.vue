@@ -31,19 +31,25 @@
 
         <div v-else
              class="menu-mode flex items-center">
-          <div class="header-item">
-            <q-btn flat
+          <div class="header-item flex items-center">
+            <entity-crud-form-builder v-model:value="setInput" />
+            <q-btn color="positive"
+                   class="q-ml-sm"
+                   unelevated
                    label="افزودن به مجموعه"
                    @click="attachToSet" />
           </div>
+          <div class="line header-item" />
           <div class="header-item selector">
             <q-select v-model="editSelectorValue"
                       borderless
+                      label="ویرایش"
                       :options="editSelectorOptions" />
           </div>
           <div class="header-item selector">
             <q-select v-model="moreSelectorValue"
                       borderless
+                      label="بیشتر"
                       :options="moreSelectorOptions"
                       @update:model-value="executeMoreSelectorAction" /></div>
         </div>
@@ -59,9 +65,11 @@
 
 <script>
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
+import { APIGateway } from 'src/api/APIGateway'
+import { EntityCrudFormBuilder } from 'quasar-crud'
 export default {
   name: 'EntityEditHeader',
-  components: { FormBuilder },
+  components: { FormBuilder, EntityCrudFormBuilder },
   props: {
     selectedValues: {
       default() {
@@ -87,15 +95,75 @@ export default {
         { label: 'تگ ها', value: 'tags-main' },
         { label: 'وضعیت', value: 'status-main' }
       ],
+      setInput: [
+        {
+          type: 'entity',
+          responseKey: 'data.set',
+          name: 'set',
+          placeholder: 'مجموعه محتوا را انتخاب کنید',
+          col: 'col-12',
+          selectionMode: 'single',
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'white',
+            textColor: 'black',
+            badgeColor: 'positive',
+            label: 'انتخاب از لیست مجموعه ها'
+          },
+          dialogConfirmButtonConfig: {
+            unelevated: true,
+            color: 'positive',
+            label: 'ثبت مجموعه'
+          },
+          indexConfig: {
+            apiAddress: APIGateway.set.FullAPIAdresses.base,
+            tableTitle: 'مجموعه ها',
+            tableKeys: {
+              data: 'data',
+              total: 'meta.total',
+              currentPage: 'meta.current_page',
+              perPage: 'meta.per_page',
+              pageKey: 'contentsetPage'
+            },
+            table: {
+              columns: [
+                {
+                  name: 'id',
+                  required: true,
+                  label: '#',
+                  align: 'left',
+                  field: row => row.id
+                },
+                {
+                  name: 'title',
+                  required: true,
+                  label: 'عنوان',
+                  align: 'left',
+                  field: row => row.title
+                }
+              ],
+              data: []
+            },
+            inputs: [
+              { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'انتخاب نمایید', label: 'جست و جو', col: 'col-md-3' }
+            ],
+            itemIdentifyKey: 'id'
+          },
+          itemIndicatorKey: 'title',
+          value: [],
+          selected: []
+        }
+      ],
       allEditModeInputs: [
         [
           {
             type: 'select',
             name: 'name-main',
-            outlined: true,
             label: 'نوع ویرایش:',
             col: 'col-md-4',
             value: 'concatEnd',
+            outlined: true,
+            placeholder: 'انتخاب نمایید',
             options: [
               { label: 'افزودن به انتهای عنوان', value: 'concatEnd' },
               { label: 'افزودن به ابتدای عنوان', value: 'concatStart' },
@@ -107,7 +175,6 @@ export default {
             type: 'input',
             name: 'name',
             outlined: true,
-            filled: true,
             autogrow: true,
             value: null,
             placeholder: 'متن مورد نظر خود را وارد نمایید',
@@ -125,7 +192,6 @@ export default {
                 type: 'input',
                 name: 'name',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'واژه مورد نظر خود را وارد نمایید',
@@ -136,7 +202,6 @@ export default {
                 type: 'input',
                 name: 'name',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'واژه مورد نظر خود را وارد نمایید',
@@ -150,10 +215,11 @@ export default {
           {
             type: 'select',
             name: 'description-main',
-            outlined: true,
             label: 'نوع ویرایش:',
             col: 'col-md-4',
             value: 'concatEnd',
+            outlined: true,
+            placeholder: 'انتخاب نمایید',
             options: [
               { label: 'افزودن به انتهای توضیحات', value: 'concatEnd' },
               { label: 'افزودن به ابتدای توضیحات', value: 'concatStart' },
@@ -165,9 +231,7 @@ export default {
             type: 'input',
             name: 'description',
             outlined: true,
-            filled: true,
-            autogrow:
-              true,
+            autogrow: true,
             value: null,
             placeholder: 'متن مورد نظر خود را وارد نمایید',
             label: 'متن ویرایش:',
@@ -183,7 +247,6 @@ export default {
                 type: 'input',
                 name: 'description',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'واژه مورد نظر خود را وارد نمایید',
@@ -194,7 +257,6 @@ export default {
                 type: 'input',
                 name: 'description',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'واژه مورد نظر خود را وارد نمایید',
@@ -209,6 +271,7 @@ export default {
             type: 'select',
             name: 'tags-main',
             outlined: true,
+            placeholder: 'انتخاب نمایید',
             label: 'نوع ویرایش:',
             col: 'col-md-4',
             value: 'add',
@@ -222,7 +285,6 @@ export default {
             type: 'input',
             name: 'description',
             outlined: true,
-            filled: true,
             autogrow: true,
             value: null,
             placeholder: 'متن مورد نظر خود را وارد نمایید',
@@ -240,7 +302,6 @@ export default {
                 type: 'input',
                 name: 'description',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'متن مورد نظر خود را وارد نمایید',
@@ -251,7 +312,6 @@ export default {
                 type: 'input',
                 name: 'description',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'متن مورد نظر خود را وارد نمایید',
@@ -266,9 +326,10 @@ export default {
             type: 'select',
             name: 'status-main',
             outlined: true,
+            placeholder: ' ',
             label: 'وضعیت:',
             col: 'col-md-4',
-            value: 0,
+            value: null,
             options: [
               // { label: 'پیش نویس', value: 5 },
               // { label: 'زمان بندی شده', value: 3 },
@@ -312,15 +373,33 @@ export default {
       const apiInstance = this.$apiGateway.content
       if (currentInputName === 'tags-main') {
         apiInstance.bulkEditTags(requestBody)
-          .then(() => {})
+          .then((res) => {
+            this.$q.notify({
+              type: 'positive',
+              message: res.message,
+              position: 'top'
+            })
+          })
           .catch(() => {})
       } else if (currentInputName === 'status-main') {
         apiInstance.bulkUpdate(requestBody)
-          .then(() => {})
+          .then((res) => {
+            this.$q.notify({
+              type: 'positive',
+              message: res.message,
+              position: 'top'
+            })
+          })
           .catch(() => {})
       } else {
         apiInstance.bulkEditText(requestBody)
-          .then(() => {})
+          .then((res) => {
+            this.$q.notify({
+              type: 'positive',
+              message: res.message,
+              position: 'top'
+            })
+          })
           .catch(() => {})
       }
     },
@@ -358,15 +437,30 @@ export default {
       this.$apiGateway.content.deleteContents({
         contents: this.getSelectedValuesIds()
       })
-        .then(() => {})
+        .then((res) => {
+          this.$q.notify({
+            type: 'positive',
+            message: res.message,
+            position: 'top'
+          })
+        })
         .catch(() => {})
+      this.moreSelectorValue = 'بیشتر'
     },
     attachToSet() {
-      const setId = '55555555'
+      const setId = this.setInput[0].selected.id
       this.$apiGateway.set.attachContents(setId, {
         contents: this.getSelectedValuesIds()
       })
-        .then(() => {})
+        .then((res) => {
+          this.$q.notify({
+            type: 'positive',
+            message: res.message,
+            position: 'top'
+          })
+          this.setInput[0].value = []
+          this.setInput[0].selected = []
+        })
         .catch(() => {})
     },
     getSelectedValuesIds() {
@@ -413,7 +507,7 @@ export default {
   .upper-card {
     color: var(--alaa-Neutral2);
     display: grid;
-    grid-template-columns: 180px auto;
+    grid-template-columns: 155px auto;
     :deep(.q-field) {
       .q-field__append {
         color: var(--alaa-Neutral2);
@@ -423,7 +517,8 @@ export default {
       }
     }
     .header-item {
-      margin-right: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
     }
     .line {
       //padding-bottom: 20px;
