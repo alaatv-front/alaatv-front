@@ -33,8 +33,9 @@
              class="menu-mode flex items-center">
           <div class="header-item flex items-center">
             <entity-crud-form-builder v-model:value="setInput" />
-            <q-btn color="green"
+            <q-btn color="positive"
                    class="q-ml-sm"
+                   unelevated
                    label="افزودن به مجموعه"
                    @click="attachToSet" />
           </div>
@@ -42,11 +43,13 @@
           <div class="header-item selector">
             <q-select v-model="editSelectorValue"
                       borderless
+                      label="ویرایش"
                       :options="editSelectorOptions" />
           </div>
           <div class="header-item selector">
             <q-select v-model="moreSelectorValue"
                       borderless
+                      label="بیشتر"
                       :options="moreSelectorOptions"
                       @update:model-value="executeMoreSelectorAction" /></div>
         </div>
@@ -97,19 +100,21 @@ export default {
           type: 'entity',
           responseKey: 'data.set',
           name: 'set',
-          label: 'انتخاب از لیست مجموعه ها',
           placeholder: 'مجموعه محتوا را انتخاب کنید',
           col: 'col-12',
           selectionMode: 'single',
-          buttonConfig: {
+          popUpButtonConfig: {
             unelevated: true,
             color: 'white',
             textColor: 'black',
-            badgeColor: 'white'
+            badgeColor: 'positive',
+            label: 'انتخاب از لیست مجموعه ها'
           },
-          buttonColor: 'white',
-          buttonTextColor: 'black',
-          buttonBadgeColor: 'green',
+          dialogConfirmButtonConfig: {
+            unelevated: true,
+            color: 'positive',
+            label: 'ثبت مجموعه'
+          },
           indexConfig: {
             apiAddress: APIGateway.set.FullAPIAdresses.base,
             tableTitle: 'مجموعه ها',
@@ -321,10 +326,10 @@ export default {
             type: 'select',
             name: 'status-main',
             outlined: true,
-            placeholder: 'انتخاب نمایید',
+            placeholder: ' ',
             label: 'وضعیت:',
             col: 'col-md-4',
-            value: 0,
+            value: null,
             options: [
               // { label: 'پیش نویس', value: 5 },
               // { label: 'زمان بندی شده', value: 3 },
@@ -440,6 +445,7 @@ export default {
           })
         })
         .catch(() => {})
+      this.moreSelectorValue = 'بیشتر'
     },
     attachToSet() {
       const setId = this.setInput[0].selected.id
