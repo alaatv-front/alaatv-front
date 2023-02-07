@@ -48,7 +48,7 @@ export default class SetAPI extends APIRepository {
       cacheKey: this.CacheList.attachContents(setId),
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return new Set(response.data.data)
+        return response.data
       },
       rejectCallback: (error) => {
         return error
