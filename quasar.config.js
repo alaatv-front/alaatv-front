@@ -46,7 +46,8 @@ module.exports = configure(function (ctx) {
       'breadcrumbs',
       'api-gateway',
       'registerQPageBuilder',
-      'routesLayoutConfigs'
+      'routesLayoutConfigs',
+      'enums'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -197,7 +198,7 @@ module.exports = configure(function (ctx) {
       // polyfillModulePreload: true,
       // distDir
 
-      extendViteConf (viteConf) {
+      extendViteConf(viteConf) {
         // viteConf.resolve = {
         //   alias: {
         //     src: path.resolve(__dirname, './src'),

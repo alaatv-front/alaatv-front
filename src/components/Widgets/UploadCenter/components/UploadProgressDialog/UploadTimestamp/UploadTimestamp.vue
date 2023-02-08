@@ -5,15 +5,15 @@
         <q-table title="زمان کوب"
                  :rows="rows"
                  :columns="columns"
-                 row-key="name"
+                 row-key="title"
                  flat
                  :hide-selected-banner="true"
                  :hide-pagination="false">
           <template v-slot:body="props">
             <q-tr :props="props">
-              <q-td key="name"
+              <q-td key="title"
                     :props="props">
-                <q-input v-model="props.row.name"
+                <q-input v-model="props.row.title"
                          filled
                          placeholder="عنوان"
                          :disable="rows.indexOf(props.row) !== activeIndex"
@@ -36,7 +36,7 @@
                 <q-btn v-if="props.row.action !== 'saved'"
                        color="primary"
                        label="تایید"
-                       :disable="rows.indexOf(props.row) !== activeIndex || (!props.row.name && !props.row.time)"
+                       :disable="rows.indexOf(props.row) !== activeIndex || (!props.row.title && !props.row.time)"
                        @click="saveTimestamp(props.row)" />
                 <div v-else
                      class="action-box flex justify-around items-center">
@@ -98,6 +98,11 @@ export default {
     PreviousItemDialog,
     VideoPlayer
   },
+  props: {
+    content: Object,
+    default: () => {}
+  },
+  emits: ['refreshContent'],
   data() {
     return {
       pervDialog: false,
@@ -106,6 +111,11 @@ export default {
         hours: '',
         minutes: '',
         seconds: ''
+      },
+      timestampForm: {
+        content_id: 0,
+        title: '',
+        time: 0
       },
       activeIndex: 0,
       initialPagination: {
@@ -117,33 +127,45 @@ export default {
       },
       columns: [
         {
-          name: 'name',
+          name: 'title',
           required: true,
           label: 'موارد ثبت شده',
           align: 'left',
-          field: row => row.name,
+          field: row => row.title,
           format: val => `${val}`,
           sortable: false
         },
         { name: 'time', align: 'center', label: '', field: 'time', sortable: false },
         { name: 'action', label: '', field: 'action', sortable: false }
       ],
-      rows: [
-        {
-          id: 1,
-          name: '',
-          time: '',
-          action: 'add'
-        }
-      ]
+      rows: []
     }
   },
   mounted() {
-    // this.getTimestamp()
+    this.loadTimestamps()
   },
   methods: {
+    loadTimestamps() {
+      this.content.timepoints.list.forEach(element => {
+        this.getTimestamp(element.time, false)
+        const timestamp = {
+          id: element.id,
+          title: element.title,
+          time: `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`,
+          action: 'saved'
+        }
+        this.rows.push(timestamp)
+      })
+      this.rows.push({
+        id: this.rows.length + 1,
+        title: '',
+        time: '',
+        action: 'add'
+      })
+      this.activeIndex = this.rows.length - 1
+    },
     videoSource() {
-      return new PlayerSourceList([{ link: 'https://nodes.alaatv.com/upload/introVideos/110/110zaminmoarefi.mp4' }])
+      return new PlayerSourceList(this.content.file.video)
     },
     removeTimestamp(row) {
       this.rows = this.rows.filter(x => x.id !== row.id)
@@ -158,31 +180,43 @@ export default {
       const index = this.rows.indexOf(row)
       const action = row.action
       this.rows.splice(index, 1, row)
-      this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
-      this.toggleAction(index, 'saved')
-      this.activeIndex = this.rows.length - 1
-      if (action === 'add') {
-        const last = {
-          id: this.rows.length + 1,
-          name: '',
-          time: `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`,
-          action: 'add'
-        }
-        this.rows.push(last)
-        this.activeIndex = this.rows.length - 1
+      const timestampForm = {
+        content_id: 37920,
+        title: row.title,
+        time: (Number(this.time.hours) * 3600) + (Number(this.time.minutes) * 60) + Number(this.time.seconds)
       }
+      this.$apiGateway.content.SetTimestamp({ data: timestampForm }).then(res => {
+        this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+        this.toggleAction(index, 'saved')
+        this.activeIndex = this.rows.length - 1
+        if (action === 'add') {
+          const last = {
+            id: this.rows.length + 1,
+            title: '',
+            time: `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`,
+            action: 'add'
+          }
+          this.rows.push(last)
+          this.activeIndex = this.rows.length - 1
+          this.$emit('refreshContent')
+        }
+      }).catch(err => {
+        alert(err)
+      })
     },
     toggleAction(index, action) {
       this.rows[index].action = action
     },
-    getTimestamp(time) {
+    getTimestamp(time, setActive = true) {
       const hours = Math.floor(time / 3600)
       const minutes = Math.floor(time / 60)
       const seconds = time % 60
       this.time.hours = hours < 10 ? '0' + hours : hours
       this.time.minutes = minutes < 10 ? '0' + minutes : minutes
       this.time.seconds = seconds < 10 ? '0' + seconds : seconds
-      this.rows[this.activeIndex].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+      if (setActive) {
+        this.rows[this.activeIndex].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+      }
     },
     setTimestamp(time) {
       this.currentTime = (Number(time.split(':')[0]) * 3600) + (Number(time.split(':')[1]) * 60) + Number(time.split(':')[2])

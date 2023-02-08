@@ -34,6 +34,11 @@ export default {
     FormBuilder,
     VideoPlayer
   },
+  props: {
+    content: Object,
+    default: () => {}
+  },
+  emits: ['updateFormData'],
   data() {
     return {
       inputs: [
@@ -83,8 +88,8 @@ export default {
         },
         {
           type: 'hidden',
-          responseKey: 'time',
-          name: 'time',
+          responseKey: 'date',
+          name: 'date',
           label: 'روز',
           col: 'col-md-6'
         },
@@ -101,6 +106,13 @@ export default {
   computed: {
     timePlan() {
       return this.inputs[1].value
+    },
+    formData() {
+      return {
+        is_free: this.inputs[0].value,
+        enable: this.inputs[1].value === 'public' || this.inputs[1].value === 'timePlan' ? 1 : 0,
+        ...(this.inputs[1].value === 'timePlan' && { validSinceDate: `${this.inputs[2].value + ' ' + this.inputs[3].value}` })
+      }
     }
   },
   watch: {
@@ -112,11 +124,25 @@ export default {
         this.inputs[2].type = 'hidden'
         this.inputs[3].type = 'hidden'
       }
+    },
+    formData(value) {
+      this.$emit('updateFormData', value)
     }
   },
   methods: {
     videoSource() {
-      return new PlayerSourceList([{ link: 'https://nodes.alaatv.com/upload/introVideos/110/110zaminmoarefi.mp4' }])
+      return new PlayerSourceList(this.content.file.video)
+    },
+    publish() {
+      const values = this.$refs.publishForm.getValues()
+      const type = values.find(x => x.name === 'type').value
+      const status = values.find(x => x.name === 'status').value
+      const formData = {
+        is_free: type,
+        enable: status === 'public' || status === 'timePlan' ? 1 : 0,
+        ...(status === 'timePlan' && { validSinceDate: values.find(x => x.name === 'date').value + values.find(x => x.name === 'time').value })
+      }
+      return formData
     }
   }
 }

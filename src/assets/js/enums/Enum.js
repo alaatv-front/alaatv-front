@@ -1,3 +1,4 @@
+/* It takes a list of keys and creates an object with those keys as properties */
 export default class Enum {
   constructor(...keys) {
     keys.forEach((key) => {

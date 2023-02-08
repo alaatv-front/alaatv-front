@@ -24,27 +24,34 @@
                      color="positive"
                      padding="1px 23px"
                      label="اعمال"
-                     @click="onClick('filter')" />
+                     @click="editSelectedContents" />
             </div>
           </div>
         </div>
 
         <div v-else
              class="menu-mode flex items-center">
-          <div class="header-item">
-            <q-btn flat
+          <div class="header-item flex items-center">
+            <entity-crud-form-builder v-model:value="setInput" />
+            <q-btn color="positive"
+                   class="q-ml-sm"
+                   unelevated
                    label="افزودن به مجموعه"
-                   @click="emptyEditSelectorValue" />
+                   @click="attachToSet" />
           </div>
+          <div class="line header-item" />
           <div class="header-item selector">
             <q-select v-model="editSelectorValue"
                       borderless
+                      label="ویرایش"
                       :options="editSelectorOptions" />
           </div>
           <div class="header-item selector">
             <q-select v-model="moreSelectorValue"
                       borderless
-                      :options="moreSelectorOptions" /></div>
+                      label="بیشتر"
+                      :options="moreSelectorOptions"
+                      @update:model-value="executeMoreSelectorAction" /></div>
         </div>
       </q-card>
       <q-card v-if="isInEditMode"
@@ -58,9 +65,11 @@
 
 <script>
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
+import { APIGateway } from 'src/api/APIGateway'
+import { EntityCrudFormBuilder } from 'quasar-crud'
 export default {
   name: 'EntityEditHeader',
-  components: { FormBuilder },
+  components: { FormBuilder, EntityCrudFormBuilder },
   props: {
     selectedValues: {
       default() {
@@ -81,20 +90,80 @@ export default {
       ],
       editSelectorValue: 'ویرایش',
       editSelectorOptions: [
-        { label: 'عنوان', value: 'title-main' },
+        { label: 'عنوان', value: 'name-main' },
         { label: 'توضیحات', value: 'description-main' },
         { label: 'تگ ها', value: 'tags-main' },
         { label: 'وضعیت', value: 'status-main' }
+      ],
+      setInput: [
+        {
+          type: 'entity',
+          responseKey: 'data.set',
+          name: 'set',
+          placeholder: 'مجموعه محتوا را انتخاب کنید',
+          col: 'col-12',
+          selectionMode: 'single',
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'white',
+            textColor: 'black',
+            badgeColor: 'positive',
+            label: 'انتخاب از لیست مجموعه ها'
+          },
+          dialogConfirmButtonConfig: {
+            unelevated: true,
+            color: 'positive',
+            label: 'ثبت مجموعه'
+          },
+          indexConfig: {
+            apiAddress: APIGateway.set.FullAPIAdresses.base,
+            tableTitle: 'مجموعه ها',
+            tableKeys: {
+              data: 'data',
+              total: 'meta.total',
+              currentPage: 'meta.current_page',
+              perPage: 'meta.per_page',
+              pageKey: 'contentsetPage'
+            },
+            table: {
+              columns: [
+                {
+                  name: 'id',
+                  required: true,
+                  label: '#',
+                  align: 'left',
+                  field: row => row.id
+                },
+                {
+                  name: 'title',
+                  required: true,
+                  label: 'عنوان',
+                  align: 'left',
+                  field: row => row.title
+                }
+              ],
+              data: []
+            },
+            inputs: [
+              { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'انتخاب نمایید', label: 'جست و جو', col: 'col-md-3' }
+            ],
+            itemIdentifyKey: 'id'
+          },
+          itemIndicatorKey: 'title',
+          value: [],
+          selected: []
+        }
       ],
       allEditModeInputs: [
         [
           {
             type: 'select',
-            name: 'title-main',
-            outlined: true,
+            name: 'name-main',
             label: 'نوع ویرایش:',
-            col: 'col-auto',
+            col: 'col-md-4',
             value: 'concatEnd',
+            outlined: true,
+            placeholder: 'انتخاب نمایید',
             options: [
               { label: 'افزودن به انتهای عنوان', value: 'concatEnd' },
               { label: 'افزودن به ابتدای عنوان', value: 'concatStart' },
@@ -104,9 +173,8 @@ export default {
           },
           {
             type: 'input',
-            name: 'title',
+            name: 'name',
             outlined: true,
-            filled: true,
             autogrow: true,
             value: null,
             placeholder: 'متن مورد نظر خود را وارد نمایید',
@@ -115,15 +183,15 @@ export default {
             applyGridSystem: false
           },
           {
-            type: 'formBuilder',
+            // type: 'formBuilder',
+            type: 'hidden',
             name: 'replace',
             col: 'col-md-8',
             value: [
               {
                 type: 'input',
-                name: 'title',
+                name: 'name',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'واژه مورد نظر خود را وارد نمایید',
@@ -132,9 +200,8 @@ export default {
               },
               {
                 type: 'input',
-                name: 'title',
+                name: 'name',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'واژه مورد نظر خود را وارد نمایید',
@@ -148,10 +215,11 @@ export default {
           {
             type: 'select',
             name: 'description-main',
-            outlined: true,
             label: 'نوع ویرایش:',
             col: 'col-md-4',
             value: 'concatEnd',
+            outlined: true,
+            placeholder: 'انتخاب نمایید',
             options: [
               { label: 'افزودن به انتهای توضیحات', value: 'concatEnd' },
               { label: 'افزودن به ابتدای توضیحات', value: 'concatStart' },
@@ -161,18 +229,17 @@ export default {
           },
           {
             type: 'input',
-            name: 'title',
+            name: 'description',
             outlined: true,
-            filled: true,
-            autogrow:
-              true,
+            autogrow: true,
             value: null,
             placeholder: 'متن مورد نظر خود را وارد نمایید',
             label: 'متن ویرایش:',
             col: 'col-md-8'
           },
           {
-            type: 'formBuilder',
+            // type: 'formBuilder',
+            type: 'hidden',
             name: 'replace',
             col: 'col-md-8',
             value: [
@@ -180,7 +247,6 @@ export default {
                 type: 'input',
                 name: 'description',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'واژه مورد نظر خود را وارد نمایید',
@@ -191,7 +257,6 @@ export default {
                 type: 'input',
                 name: 'description',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'واژه مورد نظر خود را وارد نمایید',
@@ -206,6 +271,7 @@ export default {
             type: 'select',
             name: 'tags-main',
             outlined: true,
+            placeholder: 'انتخاب نمایید',
             label: 'نوع ویرایش:',
             col: 'col-md-4',
             value: 'add',
@@ -215,10 +281,20 @@ export default {
               { label: 'جابجایی تگ', value: 'replace' }
             ]
           },
-          { type: 'input', name: 'description', outlined: true, filled: true, autogrow: true, value: null, placeholder: 'متن مورد نظر خود را وارد نمایید', label: 'تگ ها:', col: 'col-md-8' },
           {
-            type: 'formBuilder',
-            name: 'replacement-input',
+            type: 'input',
+            name: 'description',
+            outlined: true,
+            autogrow: true,
+            value: null,
+            placeholder: 'متن مورد نظر خود را وارد نمایید',
+            label: 'تگ ها:',
+            col: 'col-md-8'
+          },
+          {
+            // type: 'formBuilder',
+            type: 'hidden',
+            name: 'replace',
             col: 'col-md-8',
             hidden: true,
             value: [
@@ -226,7 +302,6 @@ export default {
                 type: 'input',
                 name: 'description',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'متن مورد نظر خود را وارد نمایید',
@@ -237,7 +312,6 @@ export default {
                 type: 'input',
                 name: 'description',
                 outlined: true,
-                filled: true,
                 autogrow: true,
                 value: null,
                 placeholder: 'متن مورد نظر خود را وارد نمایید',
@@ -252,14 +326,16 @@ export default {
             type: 'select',
             name: 'status-main',
             outlined: true,
+            placeholder: ' ',
             label: 'وضعیت:',
             col: 'col-md-4',
-            value: 0,
+            value: null,
             options: [
-              { label: 'پیش نویس', value: 5 },
-              { label: 'زمان بندی شده', value: 3 },
-              { label: 'منتشر شده', value: 8 },
-              { label: 'غیرفعال', value: 0 }
+              // { label: 'پیش نویس', value: 5 },
+              // { label: 'زمان بندی شده', value: 3 },
+              // { label: 'منتشر شده', value: 8 },
+              { label: 'غیرفعال', value: 0 },
+              { label: 'فعال', value: 1 }
             ]
           }
         ]
@@ -280,19 +356,146 @@ export default {
       this.chooseFormBuilderInputs(inputObj.value)
     },
     allEditModeInputs: {
-      handler(newValue, oldValue) {},
+      handler(newValue) {
+        this.setChosenInputForm(newValue)
+      },
       deep: true
     }
   },
   methods: {
+    editSelectedContents () {
+      const currentInput = this.allEditModeInputs[this.chosenInputIndex]
+      const requestBody = this.getEditContentRequestBody(currentInput[0].value, currentInput)
+      if (!currentInput || !currentInput[0].name) {
+        return
+      }
+      const currentInputName = currentInput[0].name
+      const apiInstance = this.$apiGateway.content
+      if (currentInputName === 'tags-main') {
+        apiInstance.bulkEditTags(requestBody)
+          .then((res) => {
+            this.$q.notify({
+              type: 'positive',
+              message: res.message,
+              position: 'top'
+            })
+          })
+          .catch(() => {})
+      } else if (currentInputName === 'status-main') {
+        apiInstance.bulkUpdate(requestBody)
+          .then((res) => {
+            this.$q.notify({
+              type: 'positive',
+              message: res.message,
+              position: 'top'
+            })
+          })
+          .catch(() => {})
+      } else {
+        apiInstance.bulkEditText(requestBody)
+          .then((res) => {
+            this.$q.notify({
+              type: 'positive',
+              message: res.message,
+              position: 'top'
+            })
+          })
+          .catch(() => {})
+      }
+    },
+    editContentText (data) {
+    },
+    editContentTags (data) {},
+    editContentStatus (data) {},
+    getEditContentRequestBody (mode, currentInput) {
+      const currentInputName = currentInput[0].name
+      return {
+        content_ids: this.getSelectedValuesIds(),
+        ...((currentInputName.includes('name') ||
+            currentInputName.includes('description')) &&
+          { column: currentInputName.replace('-main', '') }),
+        ...(((currentInputName !== 'status-main')) &&
+          { operation: currentInput[0].value }),
+        ...((currentInputName.includes('name') ||
+            currentInputName.includes('description')) &&
+          { text: currentInput[0].value === 'replace' ? currentInput[2].value[0].value : currentInput[1].value }),
+        ...((!currentInputName.includes('tags') && currentInput[0].value === 'replace') &&
+          { replacing_text: currentInput[2].value[1].value }),
+        ...((currentInputName.includes('tags') && currentInput[0].value === 'replace') &&
+          { tag: currentInput[2].value[0].value }),
+        ...((currentInputName.includes('tags') && currentInput[0].value !== 'replace') &&
+          { tags: currentInput[1].value }),
+        ...((currentInputName.includes('tags') && currentInput[0].value === 'replace') &&
+          { replacing_tag: currentInput[2].value[1].value }),
+        ...(((currentInputName === 'status-main')) &&
+          { enable: currentInput[0].value })
+        // validSince: '2022-09-03 12:41:55'
+      }
+    },
+
+    deleteSelectedContents () {
+      this.$apiGateway.content.deleteContents({
+        contents: this.getSelectedValuesIds()
+      })
+        .then((res) => {
+          this.$q.notify({
+            type: 'positive',
+            message: res.message,
+            position: 'top'
+          })
+        })
+        .catch(() => {})
+      this.moreSelectorValue = 'بیشتر'
+    },
+    attachToSet() {
+      const setId = this.setInput[0].selected.id
+      this.$apiGateway.set.attachContents(setId, {
+        contents: this.getSelectedValuesIds()
+      })
+        .then((res) => {
+          this.$q.notify({
+            type: 'positive',
+            message: res.message,
+            position: 'top'
+          })
+          this.setInput[0].value = []
+          this.setInput[0].selected = []
+        })
+        .catch(() => {})
+    },
+    getSelectedValuesIds() {
+      return this.selectedValues.map(item => item.id)
+    },
+    executeMoreSelectorAction (selectedAction) {
+      if (selectedAction.value === 'delete') {
+        this.deleteSelectedContents()
+      }
+    },
     emptyEditSelectorValue() {
       this.editSelectorValue = 'ویرایش'
+      this.$refs.formBuilder.clearFormBuilderInputValues()
     },
     chooseFormBuilderInputs (chosenInputName) {
       this.chosenInputIndex = this.allEditModeInputs.findIndex(input => input[0].name === chosenInputName)
     },
-    changeInputElementDisplay (inputClassName, display) {
-      document.querySelector('.' + inputClassName).style.display = display
+    setChosenInputForm (value) {
+      const chosenInput = value[this.chosenInputIndex]
+      if (!chosenInput[2]) {
+        return
+      }
+      if (chosenInput[0].value === chosenInput[2].name) {
+        this.setFormBuilderReplaceMode(chosenInput)
+      } else {
+        this.setFormBuilderInputMode(chosenInput)
+      }
+    },
+    setFormBuilderReplaceMode (chosenInput) {
+      chosenInput[1].type = 'hidden'
+      chosenInput[2].type = 'formBuilder'
+    },
+    setFormBuilderInputMode (chosenInput) {
+      chosenInput[1].type = 'input'
+      chosenInput[2].type = 'hidden'
     }
   }
 }
@@ -304,7 +507,7 @@ export default {
   .upper-card {
     color: var(--alaa-Neutral2);
     display: grid;
-    grid-template-columns: 180px auto;
+    grid-template-columns: 155px auto;
     :deep(.q-field) {
       .q-field__append {
         color: var(--alaa-Neutral2);
@@ -314,7 +517,8 @@ export default {
       }
     }
     .header-item {
-      margin-right: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
     }
     .line {
       //padding-bottom: 20px;
