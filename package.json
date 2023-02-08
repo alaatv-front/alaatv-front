@@ -11,7 +11,7 @@
     "dev": "quasar dev",
     "ssr": "quasar dev -m ssr",
     "build": "quasar build",
-    "ci": "rm -rf node_modules && yarn install --frozen-lockfile",
+    "ci": "rm -rf node_modules && yarn install --production --frozen-lockfile",
     "dev:ssr": "quasar dev -m ssr",
     "dev:android": "quasar dev -m capacitor -T android",
     "build:pwa": "quasar build -m pwa",
