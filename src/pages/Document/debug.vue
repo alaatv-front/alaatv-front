@@ -13,10 +13,14 @@
                 label="Standard"
                 @update:model-value="loggg" />
 
+        <q-uploader url="http://localhost:4444/upload"
+                    style="max-width: 300px" />
+
         {{file}}
       </div>
     </div>
-    <div class="col-12">
+    <div v-if="false"
+         class="col-12">
       <div class="row items-center justify-center">
         <div class="col-6">
           <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
@@ -30,8 +34,9 @@
 </template>
 
 <script>
-// const Minio = require('minio')
-// import * as Minio from 'minio'
+// const MinioServer = require('minio')
+// import * as MinioServer from 'minio'
+// import MinioServer from 'minio'
 
 // let Minio = null
 // let MinioServer = null
@@ -50,8 +55,8 @@
 //     })
 // }
 
-import AWSS3UploadAsh from 'aws-s3-upload-ash'
 import VideoPlayer from 'src/components/DashboardAbrisham/VideoPlayer.vue'
+import AWSS3UploadAsh from 'aws-s3-upload-ash'
 const S3CustomClient = new AWSS3UploadAsh({
   bucketName: 'temp-upload',
   dirName: '',
@@ -60,7 +65,8 @@ const S3CustomClient = new AWSS3UploadAsh({
   secretAccessKey: 'X&d2UF4d78Ar*w#Y',
   // s3Url: 'https://stage-minio.alaatv.com'
   // s3Url: 'http://192.168.8.30:9000'
-  s3Url: '/alaa/minio'
+  s3Url: '192.168.8.30:9000'
+  // s3Url: '/alaa/minio'
 })
 
 // import MinioServer from 'src/assets/js/Minio.js'
@@ -439,18 +445,20 @@ export default {
       console.log('newFile', newFile)
       // eslint-disable-next-line
       // console.log('MinioServer', MinioServer)
+
       S3CustomClient
-        .uploadFile(newFile, undefined, undefined, 'test.pdf')
+        .uploadFile(newFile, undefined, '192.168.8.30:9000', 'test.pdf')
         .then(response => console.log(response))
         .catch(err => console.error(err))
-      //
+
       // const minioServer = new MinioServer()
       // minioServer.upload(newFile)
-      // const minioClient = new Minio.Client({
+      // const minioClient = new MinioServer.Client({
       //   // endPoint: '/alaa/minio',
-      //   endPoint: 'https://stage-minio.alaatv.com',
-      //   // port: 9000,
-      //   // useSSL: true,
+      //   endPoint: 'http://192.168.8.30',
+      //   // endPoint: 'https://stage-minio.alaatv.com',
+      //   port: 9000,
+      //   useSSL: false,
       //   accessKey: 'temp-upload',
       //   secretKey: 'X&d2UF4d78Ar*w#Y'
       // })
@@ -506,4 +514,5 @@ export default {
     // }
   }
 }
+
 </script>

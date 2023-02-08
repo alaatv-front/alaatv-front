@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@kerasus/vue-audio-visual": "^2.5.1",
+    "@krasus/minio": "/home/alaa/projects/alaatv-front-vite/src/assets/js/vite-minio-export",
     "@nodeguy/server-date": "^4.0.3",
     "@quasar/extras": "^1.15.10",
     "@silvermine/videojs-quality-selector": "^1.2.5",
@@ -76,6 +77,7 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@quasar/app-vite": "^1.2.0",
     "autoprefixer": "^10.4.13",
     "eslint": "8.22.0",
