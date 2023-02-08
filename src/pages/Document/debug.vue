@@ -56,18 +56,18 @@
 // }
 
 import VideoPlayer from 'src/components/DashboardAbrisham/VideoPlayer.vue'
-import AWSS3UploadAsh from 'aws-s3-upload-ash'
-const S3CustomClient = new AWSS3UploadAsh({
-  bucketName: 'temp-upload',
-  dirName: '',
-  // region: 'us-east-1',
-  accessKeyId: 'temp-upload',
-  secretAccessKey: 'X&d2UF4d78Ar*w#Y',
-  // s3Url: 'https://stage-minio.alaatv.com'
-  // s3Url: 'http://192.168.8.30:9000'
-  s3Url: '192.168.8.30:9000'
-  // s3Url: '/alaa/minio'
-})
+// import AWSS3UploadAsh from 'aws-s3-upload-ash'
+// const S3CustomClient = new AWSS3UploadAsh({
+//   bucketName: 'temp-upload',
+//   dirName: '',
+//   // region: 'us-east-1',
+//   accessKeyId: 'temp-upload',
+//   secretAccessKey: 'X&d2UF4d78Ar*w#Y',
+//   // s3Url: 'https://stage-minio.alaatv.com'
+//   // s3Url: 'http://192.168.8.30:9000'
+//   s3Url: '192.168.8.30:9000'
+//   // s3Url: '/alaa/minio'
+// })
 
 // import MinioServer from 'src/assets/js/Minio.js'
 
@@ -446,10 +446,10 @@ export default {
       // eslint-disable-next-line
       // console.log('MinioServer', MinioServer)
 
-      S3CustomClient
-        .uploadFile(newFile, undefined, '192.168.8.30:9000', 'test.pdf')
-        .then(response => console.log(response))
-        .catch(err => console.error(err))
+      // S3CustomClient
+      //   .uploadFile(newFile, undefined, '192.168.8.30:9000', 'test.pdf')
+      //   .then(response => console.log(response))
+      //   .catch(err => console.error(err))
 
       // const minioServer = new MinioServer()
       // minioServer.upload(newFile)
