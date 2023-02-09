@@ -177,7 +177,6 @@ export default {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  //height: 100vh;
   height: calc(100vh - 20px);
   .side-logo {
     margin-top: 20px;
