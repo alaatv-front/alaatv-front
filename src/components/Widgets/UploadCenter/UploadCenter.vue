@@ -674,7 +674,9 @@ export default {
       }
       if (input.name === 'filter-button') {
         this.toggleFilterBox()
-        this.refreshFilterBox()
+        if (this.isFilterBoxHidden) {
+          this.refreshFilterBox()
+        }
       }
     },
     reloadEntity (doRefresh = false) {
