@@ -380,7 +380,7 @@ export default {
               message: res.message,
               position: 'top'
             })
-            this.$emit('contentUpdated')
+            this.contentUpdated()
           })
           .catch(() => {})
       } else if (currentInputName === 'status-main') {
@@ -391,7 +391,7 @@ export default {
               message: res.message,
               position: 'top'
             })
-            this.$emit('contentUpdated')
+            this.contentUpdated()
           })
           .catch(() => {})
       } else {
@@ -402,10 +402,13 @@ export default {
               message: res.message,
               position: 'top'
             })
-            this.$emit('contentUpdated')
+            this.contentUpdated()
           })
           .catch(() => {})
       }
+    },
+    contentUpdated () {
+      this.$emit('contentUpdated')
     },
     getEditContentRequestBody (mode, currentInput) {
       const currentInputName = currentInput[0].name
