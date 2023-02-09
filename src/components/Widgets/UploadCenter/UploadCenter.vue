@@ -628,6 +628,8 @@ export default {
     },
     setBaseMode () {
       this.$refs.entityIndex.setInputByName('order_type', 'desc')
+      this.$refs.entityIndex.setInputAttributeByName('createdAtSince', 'readonly', false)
+      this.$refs.entityIndex.setInputAttributeByName('enable', 'readonly', false)
     },
     setCreatedAtSinceMode () {
       const currentDate = moment(new Date()).format('YYYY-MM-DD')
