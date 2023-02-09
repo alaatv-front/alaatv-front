@@ -510,7 +510,7 @@ export default {
   .upper-card {
     color: var(--alaa-Neutral2);
     display: grid;
-    grid-template-columns: 155px auto;
+    grid-template-columns: 170px auto;
     :deep(.q-field) {
       .q-field__append {
         color: var(--alaa-Neutral2);
