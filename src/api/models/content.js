@@ -2,7 +2,7 @@ import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Content } from 'src/models/Content'
 const APIAdresses = {
-  admin: '/admin/contents/',
+  admin: '/admin/contents',
   show: (id) => '/c/' + id,
   showAdmin: (id) => '/admin/contents/' + id,
   update: (id) => `/admin/contents/${id}/`,
