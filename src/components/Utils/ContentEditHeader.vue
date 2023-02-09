@@ -79,7 +79,8 @@ export default {
     }
   },
   emits: [
-    'selectedValues'
+    'selectedValues',
+    'contentUpdated'
   ],
   data() {
     return {
@@ -379,6 +380,7 @@ export default {
               message: res.message,
               position: 'top'
             })
+            this.$emit('contentUpdated')
           })
           .catch(() => {})
       } else if (currentInputName === 'status-main') {
@@ -389,6 +391,7 @@ export default {
               message: res.message,
               position: 'top'
             })
+            this.$emit('contentUpdated')
           })
           .catch(() => {})
       } else {
@@ -399,14 +402,11 @@ export default {
               message: res.message,
               position: 'top'
             })
+            this.$emit('contentUpdated')
           })
           .catch(() => {})
       }
     },
-    editContentText (data) {
-    },
-    editContentTags (data) {},
-    editContentStatus (data) {},
     getEditContentRequestBody (mode, currentInput) {
       const currentInputName = currentInput[0].name
       return {

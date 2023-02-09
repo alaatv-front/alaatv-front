@@ -38,7 +38,8 @@
                     @update:tableSelectedValues="entitySelected"
                     @onInputClick="onEntityButtonsClicked">
         <template v-slot:after-form-builder>
-          <content-edit-header v-model:selected-values="entitySelectedValues" />
+          <content-edit-header v-model:selected-values="entitySelectedValues"
+                               @contentUpdated="reloadEntity(false)" />
         </template>
         <template v-slot:no-entity>
           <div class="flex column items-center q-pa-lg">
@@ -660,7 +661,7 @@ export default {
       const input = inputObj.input
       const event = inputObj.event
       if (event === 'reload') {
-        this.reloadEntity()
+        this.reloadEntity(true)
       }
       if (event === 'filter') {
         this.undoTagIgnoreValue()
@@ -676,8 +677,10 @@ export default {
         this.refreshFilterBox()
       }
     },
-    reloadEntity () {
-      this.$refs.entityIndex.refreshAllInputs()
+    reloadEntity (doRefresh = false) {
+      if (doRefresh) {
+        this.$refs.entityIndex.refreshAllInputs()
+      }
       this.$refs.entityIndex.search()
     },
     undoTagIgnoreValue() {
