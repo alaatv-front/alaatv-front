@@ -229,13 +229,13 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'hidden', name: 'content_status', value: null },
+        { type: 'hidden', name: 'content_status[]', value: null },
         { type: 'hidden', name: 'timed', value: null },
         { type: 'input', name: 'name', outlined: true, label: 'جستجو در فیلم ها', placeholder: 'انتخاب نمایید', col: 'col-md-3' },
         { type: 'button', name: 'search', class: '', icon: 'search', unelevated: true, col: 'col-md-1 self-end' },
         { type: 'button', label: 'فیلتر', class: '', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1 self-end' },
         { type: 'separator', col: 'col-md-4', size: '0' },
-        { type: 'select', name: 'order_type', outlined: true, placeholder: '.', label: 'ترتیب نمایش', col: 'col-md-3', value: 'desc', options: [{ label: 'جدید ترین', value: 'desc' }, { label: 'قدیمی ترین', value: 'asc' }] },
+        { type: 'select', name: 'order_type[]', outlined: true, placeholder: '.', label: 'ترتیب نمایش', col: 'col-md-3', value: 'desc', options: [{ label: 'جدید ترین', value: 'desc' }, { label: 'قدیمی ترین', value: 'asc' }] },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -248,7 +248,7 @@ export default {
             { type: 'date', name: 'createdAtTill', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تا', col: 'col-md-2' },
             {
               type: TreeInput,
-              name: 'tag',
+              name: 'tags[]',
               label: 'درخت دانش',
               col: 'col-md-6',
               ignoreValue: true,
@@ -283,7 +283,7 @@ export default {
       this.$refs.entityIndex.search()
     },
     setBaseMode () {
-      this.$refs.entityIndex.setInputByName('order_type', 'desc')
+      this.$refs.entityIndex.setInputByName('order_type[]', 'desc')
       this.$refs.entityIndex.setInputAttributeByName('createdAtSince', 'readonly', false)
       this.$refs.entityIndex.setInputAttributeByName('enable', 'readonly', false)
     },
@@ -294,7 +294,7 @@ export default {
       // this.$refs.entityIndex.setInputByName('createdAtTill', currentDate)
     },
     setContentStatusMode () {
-      this.$refs.entityIndex.setInputByName('content_status', '2')
+      this.$refs.entityIndex.setInputByName('content_status[]', '2')
     },
     setTimedMode () {
       this.$refs.entityIndex.setInputByName('timed', '1')
@@ -344,7 +344,7 @@ export default {
       this.inputs.forEach(item => {
         if (item.type === 'formBuilder') {
           item.value.forEach(input => {
-            if (input.name === 'tag') {
+            if (input.name === 'tags[]') {
               input.ignoreValue = false
             }
           })
@@ -352,7 +352,7 @@ export default {
       })
     },
     refreshFilterBox () {
-      const array = ['enable', 'createdAtSince', 'createdAtTill', 'tag']
+      const array = ['enable', 'createdAtSince', 'createdAtTill', 'tags[]']
       array.forEach(item => {
         this.$refs.entityIndex.setInputByName(item, null)
       })
