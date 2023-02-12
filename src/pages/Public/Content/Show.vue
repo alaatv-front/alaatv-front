@@ -27,7 +27,10 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ContentVideoPlayer'
+                        name: 'ContentVideoPlayer',
+                        options: {
+                          paginate: true
+                        }
                       }
                     ],
                     options: {

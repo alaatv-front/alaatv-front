@@ -16,7 +16,7 @@ function getEntityCrudRouteObject (path, baseRouteName, componentPath, breadcrum
   })
   return {
     path,
-    component: () => import(/* @vite-ignore */'pages/Admin/index'),
+    component: () => import(/* @vite-ignore */'pages/Admin/index.vue'),
     breadcrumbs,
     children
   }

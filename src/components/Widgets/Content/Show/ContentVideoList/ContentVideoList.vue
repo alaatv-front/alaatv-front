@@ -39,6 +39,7 @@ import { Content } from 'src/models/Content'
 import { Set } from 'src/models/Set'
 import { mixinWidget } from 'src/mixin/Mixins'
 import { scroll } from 'quasar'
+import { APIGateway } from 'src/api/APIGateway'
 
 const {
   getScrollTarget,
@@ -102,10 +103,23 @@ export default {
     loadContent() {
       this.getContentByRequest()
     },
+    getContentId () {
+      if (this.options.productId) {
+        return this.options.productId
+      }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return null
+    },
     getContentByRequest() {
       this.content.loading = true
+      const contentId = this.getContentId()
       let promise = null
-      promise = this.$apiGateway.content.show(this.options.id)
+      promise = APIGateway.content.show(contentId)
       if (promise) {
         promise
           .then((response) => {
@@ -142,7 +156,7 @@ export default {
     getSetByRequest() {
       this.set.loading = true
       let promise = null
-      promise = this.$apiGateway.set.show(this.content.set.id)
+      promise = APIGateway.set.show(this.content.set.id)
       if (promise) {
         promise
           .then((response) => {

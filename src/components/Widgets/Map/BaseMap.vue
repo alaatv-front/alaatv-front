@@ -190,16 +190,16 @@
 import { CRS, latLng } from 'leaflet'
 import { LMap, LTileLayer, LMarker, LIcon, LControl, LPolyline } from '@vue-leaflet/vue-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { MapItem, MapItemList } from 'src/models/MapItem'
-import Drawer from 'src/components/CustomDrawer'
-import adminToolBox from 'components/Widgets/Map/AdminToolBox'
-import MapFilters from './components/MapFilters'
-import mapInfo from './components/mapInfo'
+import { MapItem, MapItemList } from 'src/models/MapItem.js'
+import Drawer from 'src/components/CustomDrawer.vue'
+import adminToolBox from 'components/Widgets/Map/AdminToolBox.vue'
+import MapFilters from './components/MapFilters.vue'
+import mapInfo from './components/mapInfo.vue'
 // import EditablePolyline from 'vue-leaflet-editable-polyline'
 // import { copyText } from 'vue3-clipboard'
 // import { MapItemAction } from 'src/models/MapItemAction'
-import API_ADDRESS from 'src/api/Addresses'
-import MapItemsResponse from './MapItemsResponse'
+import API_ADDRESS from 'src/api/Addresses.js'
+import MapItemsResponse from './MapItemsResponse.js'
 
 export default {
   name: 'BaseMap',

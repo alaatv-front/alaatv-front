@@ -130,6 +130,7 @@ export default {
       // ],
       selected: [],
       api: API_ADDRESS.set.show(1287),
+      tableGridSize: 'col-4',
       tableKeys: {
         data: 'data.contents',
         total: 'meta.total',
