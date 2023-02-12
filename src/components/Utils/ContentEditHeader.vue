@@ -79,7 +79,8 @@ export default {
     }
   },
   emits: [
-    'selectedValues'
+    'selectedValues',
+    'contentUpdated'
   ],
   data() {
     return {
@@ -379,6 +380,7 @@ export default {
               message: res.message,
               position: 'top'
             })
+            this.contentUpdated()
           })
           .catch(() => {})
       } else if (currentInputName === 'status-main') {
@@ -389,6 +391,7 @@ export default {
               message: res.message,
               position: 'top'
             })
+            this.contentUpdated()
           })
           .catch(() => {})
       } else {
@@ -399,14 +402,14 @@ export default {
               message: res.message,
               position: 'top'
             })
+            this.contentUpdated()
           })
           .catch(() => {})
       }
     },
-    editContentText (data) {
+    contentUpdated () {
+      this.$emit('contentUpdated')
     },
-    editContentTags (data) {},
-    editContentStatus (data) {},
     getEditContentRequestBody (mode, currentInput) {
       const currentInputName = currentInput[0].name
       return {
@@ -507,7 +510,7 @@ export default {
   .upper-card {
     color: var(--alaa-Neutral2);
     display: grid;
-    grid-template-columns: 155px auto;
+    grid-template-columns: 170px auto;
     :deep(.q-field) {
       .q-field__append {
         color: var(--alaa-Neutral2);

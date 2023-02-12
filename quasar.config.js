@@ -231,6 +231,7 @@ module.exports = configure(function (ctx) {
           // you need to set i18n resource including paths !
           include: path.resolve(__dirname, './src/i18n/**')
         }]
+        // require('@originjs/vite-plugin-commonjs').esbuildCommonjs(['minio'])
       ]
     },
 
@@ -345,7 +346,7 @@ module.exports = configure(function (ctx) {
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
 
-      pwa: false,
+      pwa: true,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
