@@ -22,20 +22,23 @@
       }
     }
   }
-  .q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
-    min-height: 40px;
-  }
   .q-field__marginal {
     height: 40px;
   }
-  &.q-textarea--autogrow .q-textarea .q-field__control {
-    min-height: 40px;
-    height: auto !important;
-    .q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
-      min-height: auto;
-    }
-    .q-field__marginal {
-      height: auto;
+  &.q-textarea--autogrow {
+    .q-textarea {
+      .q-field__control {
+        min-height: 40px;
+        height: auto !important;
+        .q-field--auto-height {
+          .q-field__control, .q-field__native {
+            min-height: auto;
+          }
+        }
+        .q-field__marginal {
+          height: auto;
+        }
+      }
     }
   }
   &.q-textarea{
@@ -43,6 +46,44 @@
     .q-field__control {
       min-height: 40px;
       height: auto ;
+    }
+    &.q-field--labeled {
+      .q-field__control-container {
+        padding-top: 10px;
+      }
+    }
+  }
+  &.q-field--auto-height {
+    .q-field__control, .q-field__native {
+      min-height: 40px;
+    }
+    &.q-field--labeled {
+      .q-field__control-container {
+        padding-top: 0 !important;
+        color: #aeaeae;
+
+        &:focus {
+          color: black;
+        }
+      }
+    }
+  }
+  &.q-field--outlined {
+    .q-field__control:before {
+      border: 0;
+      height: 40px !important;
+    }
+  }
+
+  &.q-field--labeled {
+    .q-field__native {
+      padding-top: 0;
+      padding-bottom: 0;
+      color: #aeaeae;
+
+      &:focus {
+        color: black;
+      }
     }
   }
 }
@@ -57,38 +98,7 @@
   }
 //}
 
-.q-field--auto-height .q-field__control, .q-field--auto-height .q-field__native {
-  min-height: 40px;
-}
-.q-field--outlined .q-field__control:before {
-  border: 0;
-  height: 40px !important;
-}
-
-.q-field--labeled .q-field__native {
-  padding-top: 0;
-  padding-bottom: 0;
-  color: #aeaeae;
-
-  &:focus {
-    color: black;
-  }
-}
-
-.q-field--auto-height.q-field--labeled .q-field__control-container {
-  padding-top: 0;
-  color: #aeaeae;
-
-  &:focus {
-    color: black;
-  }
-}
-
 .q-input{
   border: 0 solid #f6f7f9;
   border-radius: 8px;
-}
-
-.q-textarea.q-field--labeled .q-field__control-container {
-  padding-top: 10px;
 }

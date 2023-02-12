@@ -177,6 +177,7 @@ export default {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  height: calc(100vh - 20px);
   .side-logo {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -193,6 +194,7 @@ export default {
   }
   .side-menu-body {
     display: grid;
+    height: calc(100vh - 200px);
     grid-template-rows: 1fr 2fr;
     .q-list {
     padding: 0;
