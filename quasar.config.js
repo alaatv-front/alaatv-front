@@ -37,7 +37,7 @@ module.exports = configure(function (ctx) {
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
       'VuexPersistedState', // load store from localstorage to use in other boots (ex: accessToken in axios boot)
-      'i18n',
+      // 'i18n',
       'icon',
       'axios',
       'appConfig',
@@ -224,14 +224,25 @@ module.exports = configure(function (ctx) {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        ['@intlify/vite-plugin-vue-i18n', {
-          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-          compositionOnly: false,
-
-          // you need to set i18n resource including paths !
-          include: path.resolve(__dirname, './src/i18n/**')
-        }]
+        // ['@intlify/vite-plugin-vue-i18n', {
+        //   // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+        //   compositionOnly: false,
+        //
+        //   // you need to set i18n resource including paths !
+        //   include: path.resolve(__dirname, './src/i18n/**')
+        // }]
         // require('@originjs/vite-plugin-commonjs').esbuildCommonjs(['minio'])
+
+        // [
+        //   require('@intlify/unplugin-vue-i18n').default,
+        //   {
+        //     // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+        //     // compositionOnly: false,
+        //
+        //     // you need to set i18n resource including paths !
+        //     include: path.resolve(__dirname, './src/i18n/**')
+        //   }
+        // ]
       ]
     },
 
@@ -346,7 +357,7 @@ module.exports = configure(function (ctx) {
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
 
-      pwa: true,
+      pwa: false,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,

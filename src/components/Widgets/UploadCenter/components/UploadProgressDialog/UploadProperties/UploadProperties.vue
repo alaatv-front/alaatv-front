@@ -10,7 +10,6 @@
                      :entity-param-key="entityParamKey"
                      :default-layout="false">
           <template #entity-index-table-selection-cell="data">
-            {{ logggg(data) }}
             <q-checkbox v-model="data.selected"
                         @update:model-value="expandRow(data)" />
           </template>
@@ -552,9 +551,6 @@ export default {
     this.getTeachers()
   },
   methods: {
-    logggg (data) {
-      console.log(data)
-    },
     getTeachers() {
       this.$apiGateway.user.getRoll({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
         this.teachers = res.list

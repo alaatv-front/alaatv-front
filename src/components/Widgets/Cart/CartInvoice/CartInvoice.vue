@@ -197,8 +197,8 @@
 </template>
 
 <script>
-import Widgets from 'src/components/PageBuilder/Widgets'
 import { Cart } from 'src/models/Cart.js'
+import Widgets from 'src/components/PageBuilder/Widgets.js'
 import Donate from 'components/Widgets/Cart/Donate/Donate.vue'
 import StickyBothSides from 'components/Utils/StickyBothSides.vue'
 

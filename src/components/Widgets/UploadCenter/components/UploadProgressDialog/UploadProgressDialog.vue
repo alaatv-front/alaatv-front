@@ -112,7 +112,6 @@ export default {
     },
     updatePublishForm(formData) {
       this.publishForm = formData
-      console.log(formData)
     },
     gotoNextStep() {
       this.$refs.uploadProperties.$refs.entityEditForm.editEntity()

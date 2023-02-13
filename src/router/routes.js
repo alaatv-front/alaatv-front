@@ -1,5 +1,5 @@
-import { auth } from './middleware/middleware'
-import EntityCrudRoutes from './EntityCrudRoutes'
+import { auth } from './middleware/middleware.js'
+import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
   {

@@ -34,13 +34,11 @@
 </template>
 
 <script>
-import CartItem from 'components/Widgets/CheckoutReview/SideComponents/CartItem'
-import { Cart } from 'src/models/Cart'
+import { Cart } from 'src/models/Cart.js'
+import CartItem from 'components/Widgets/CheckoutReview/SideComponents/CartItem.vue'
 export default {
   name: 'CartItemList',
-  components: {
-    CartItem
-  },
+  components: { CartItem },
   props: {
     items: {
       type: Cart,
