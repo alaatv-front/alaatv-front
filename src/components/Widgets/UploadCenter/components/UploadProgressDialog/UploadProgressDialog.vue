@@ -108,14 +108,19 @@ export default {
     getContent() {
       this.$apiGateway.content.showAdmin(this.contentId).then(res => {
         this.content = res
+      }).catch(() => {
+        this.content = new Content()
       })
     },
     updatePublishForm(formData) {
       this.publishForm = formData
     },
     gotoNextStep() {
-      this.$refs.uploadProperties.$refs.entityEditForm.editEntity()
-      this.$refs.stepper.next()
+      this.$refs.uploadProperties.$refs.entityEditForm.editEntity().then(res => {
+        this.$refs.stepper.next()
+      }).catch(err => {
+        console.error(err)
+      })
     },
     publish() {
       this.$apiGateway.content.update({

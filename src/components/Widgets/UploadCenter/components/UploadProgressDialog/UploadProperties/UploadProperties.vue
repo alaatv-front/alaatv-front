@@ -23,7 +23,7 @@
                 <q-radio v-model="setForm.orderType"
                          val="index"
                          label="از شماره" />
-                <q-input v-model="text"
+                <q-input v-model="setForm.order"
                          :disable="setForm.orderType === 'last'"
                          class="q-ml-sm"
                          outlined
@@ -37,7 +37,7 @@
                           :options="teachers"
                           style="width:100%"
                           option-value="id"
-                          :option-label="(item) => item.first_name + ' ' +item.last_name"
+                          :option-label="(item) => item.first_name + ' ' + item.last_name"
                           outlined />
               </div>
             </div>
@@ -78,8 +78,10 @@ import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { APIGateway } from 'src/api/APIGateway'
 import { shallowRef } from 'vue'
 import TreeInputComponent from 'components/Utils/TreeInput.vue'
+import TagsComponent from 'src/components/Utils/Tags.vue'
 
 const TreeInput = shallowRef(TreeInputComponent)
+const Tags = shallowRef(TagsComponent)
 export default {
   name: 'UploadProperties',
   components: {
@@ -121,15 +123,23 @@ export default {
           type: 'entity',
           responseKey: 'data.set',
           name: 'set',
-          label: 'مجموعه',
           placeholder: 'مجموعه محتوا را انتخاب کنید',
-          col: 'col-md-4',
+          col: 'col-12',
           selectionMode: 'single',
-          buttonColor: 'white',
-          buttonTextColor: 'black',
-          buttonBadgeColor: 'green',
           tableRowExpandable: true,
-          tableRowDefaultExpandAction: true,
+          tableRowDefaultExpandAction: false,
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'white',
+            textColor: 'black',
+            badgeColor: 'positive',
+            label: 'انتخاب از لیست مجموعه ها'
+          },
+          dialogConfirmButtonConfig: {
+            unelevated: true,
+            color: 'positive',
+            label: 'ثبت مجموعه'
+          },
           indexConfig: {
             apiAddress: APIGateway.set.FullAPIAdresses.base,
             tableTitle: 'مجموعه ها',
@@ -160,7 +170,7 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'search', value: null, label: 'جست و جو', col: 'col-md-3' }
+              { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'انتخاب نمایید', label: 'جست و جو', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'id'
           },
@@ -178,368 +188,17 @@ export default {
         },
         {
           type: TreeInput,
-          name: 'tags',
+          name: 'forrest_trees',
           label: 'درخت دانش',
           responseKey: 'data.forrest_trees',
           col: 'col-md-12',
-          value: [
-            {
-              crud: {
-                headers: {}
-              },
-              apiResource: null,
-              inputData: {
-                crud: {
-                  headers: {}
-                },
-                apiResource: null,
-                warn: {
-                  mode: false,
-                  keys: []
-                },
-                editMode: false,
-                loading: false,
-                props: [
-                  {
-                    key: 'id'
-                  },
-                  {
-                    key: 'title'
-                  },
-                  {
-                    key: 'parent'
-                  },
-                  {
-                    key: 'ancestors',
-                    default: []
-                  },
-                  {
-                    key: 'parentOfSelectedNode',
-                    default: []
-                  },
-                  {
-                    key: 'type'
-                  },
-                  {
-                    key: 'updated_at'
-                  },
-                  {
-                    key: 'created_at'
-                  },
-                  {
-                    key: 'number_of_children'
-                  },
-                  {
-                    key: 'children',
-                    default: []
-                  },
-                  {
-                    key: 'lazy',
-                    default: true
-                  },
-                  {
-                    key: 'order'
-                  },
-                  {
-                    key: 'treeNodes'
-                  }
-                ],
-                id: '6281fc192f1bafe99f05033a',
-                title: 'فصل اول: تابع',
-                parent: {
-                  id: '6281fbfd2f1bafe99f050337',
-                  title: 'حسابان ۲'
-                },
-                ancestors: [
-                  {
-                    id: '6281fb9e2f1bafe99f050334',
-                    title: 'درخت دانش'
-                  },
-                  {
-                    id: '6281fbeb2f1bafe99f050336',
-                    title: 'پایه دوازدهم'
-                  },
-                  {
-                    id: '6281fbfd2f1bafe99f050337',
-                    title: 'حسابان ۲'
-                  }
-                ],
-                parentOfSelectedNode: [],
-                type: null,
-                updated_at: '2022-11-11 10:03:34',
-                created_at: '2022-05-16 11:54:09',
-                number_of_children: 2,
-                children: [],
-                lazy: true,
-                order: 1,
-                treeNodes: null
-              },
-              warn: {
-                mode: false,
-                keys: []
-              },
-              editMode: false,
-              loading: false,
-              props: [
-                {
-                  key: 'id'
-                },
-                {
-                  key: 'title'
-                },
-                {
-                  key: 'parent'
-                },
-                {
-                  key: 'ancestors',
-                  default: []
-                },
-                {
-                  key: 'parentOfSelectedNode',
-                  default: []
-                },
-                {
-                  key: 'type'
-                },
-                {
-                  key: 'updated_at'
-                },
-                {
-                  key: 'created_at'
-                },
-                {
-                  key: 'number_of_children'
-                },
-                {
-                  key: 'children',
-                  default: []
-                },
-                {
-                  key: 'lazy',
-                  default: true
-                },
-                {
-                  key: 'order'
-                },
-                {
-                  key: 'treeNodes'
-                }
-              ],
-              id: '6281fc192f1bafe99f05033a',
-              title: 'فصل اول: تابع',
-              parent: {
-                id: '6281fbfd2f1bafe99f050337',
-                title: 'حسابان ۲'
-              },
-              ancestors: [
-                {
-                  id: '6281fb9e2f1bafe99f050334',
-                  title: 'درخت دانش'
-                },
-                {
-                  id: '6281fbeb2f1bafe99f050336',
-                  title: 'پایه دوازدهم'
-                },
-                {
-                  id: '6281fbfd2f1bafe99f050337',
-                  title: 'حسابان ۲'
-                }
-              ],
-              parentOfSelectedNode: [],
-              type: null,
-              updated_at: '2022-11-11 10:03:34',
-              created_at: '2022-05-16 11:54:09',
-              number_of_children: 2,
-              children: [],
-              lazy: true,
-              order: 1,
-              treeNodes: null
-            },
-            {
-              crud: {
-                headers: {}
-              },
-              apiResource: null,
-              inputData: {
-                crud: {
-                  headers: {}
-                },
-                apiResource: null,
-                warn: {
-                  mode: false,
-                  keys: []
-                },
-                editMode: false,
-                loading: false,
-                props: [
-                  {
-                    key: 'id'
-                  },
-                  {
-                    key: 'title'
-                  },
-                  {
-                    key: 'parent'
-                  },
-                  {
-                    key: 'ancestors',
-                    default: []
-                  },
-                  {
-                    key: 'parentOfSelectedNode',
-                    default: []
-                  },
-                  {
-                    key: 'type'
-                  },
-                  {
-                    key: 'updated_at'
-                  },
-                  {
-                    key: 'created_at'
-                  },
-                  {
-                    key: 'number_of_children'
-                  },
-                  {
-                    key: 'children',
-                    default: []
-                  },
-                  {
-                    key: 'lazy',
-                    default: true
-                  },
-                  {
-                    key: 'order'
-                  },
-                  {
-                    key: 'treeNodes'
-                  }
-                ],
-                id: '6281fc4a2f1bafe99f05033f',
-                title: 'فصل دوم: مثلثات',
-                parent: {
-                  id: '6281fbfd2f1bafe99f050337',
-                  title: 'حسابان ۲'
-                },
-                ancestors: [
-                  {
-                    id: '6281fb9e2f1bafe99f050334',
-                    title: 'درخت دانش'
-                  },
-                  {
-                    id: '6281fbeb2f1bafe99f050336',
-                    title: 'پایه دوازدهم'
-                  },
-                  {
-                    id: '6281fbfd2f1bafe99f050337',
-                    title: 'حسابان ۲'
-                  }
-                ],
-                parentOfSelectedNode: [],
-                type: null,
-                updated_at: '2022-08-15 12:24:03',
-                created_at: '2022-05-16 11:54:58',
-                number_of_children: 2,
-                children: [],
-                lazy: true,
-                order: '2',
-                treeNodes: null
-              },
-              warn: {
-                mode: false,
-                keys: []
-              },
-              editMode: false,
-              loading: false,
-              props: [
-                {
-                  key: 'id'
-                },
-                {
-                  key: 'title'
-                },
-                {
-                  key: 'parent'
-                },
-                {
-                  key: 'ancestors',
-                  default: []
-                },
-                {
-                  key: 'parentOfSelectedNode',
-                  default: []
-                },
-                {
-                  key: 'type'
-                },
-                {
-                  key: 'updated_at'
-                },
-                {
-                  key: 'created_at'
-                },
-                {
-                  key: 'number_of_children'
-                },
-                {
-                  key: 'children',
-                  default: []
-                },
-                {
-                  key: 'lazy',
-                  default: true
-                },
-                {
-                  key: 'order'
-                },
-                {
-                  key: 'treeNodes'
-                }
-              ],
-              id: '6281fc4a2f1bafe99f05033f',
-              title: 'فصل دوم: مثلثات',
-              parent: {
-                id: '6281fbfd2f1bafe99f050337',
-                title: 'حسابان ۲'
-              },
-              ancestors: [
-                {
-                  id: '6281fb9e2f1bafe99f050334',
-                  title: 'درخت دانش'
-                },
-                {
-                  id: '6281fbeb2f1bafe99f050336',
-                  title: 'پایه دوازدهم'
-                },
-                {
-                  id: '6281fbfd2f1bafe99f050337',
-                  title: 'حسابان ۲'
-                }
-              ],
-              parentOfSelectedNode: [],
-              type: null,
-              updated_at: '2022-08-15 12:24:03',
-              created_at: '2022-05-16 11:54:58',
-              number_of_children: 2,
-              children: [],
-              lazy: true,
-              order: '2',
-              treeNodes: null
-            }
-          ]
+          value: []
         },
         {
-          type: 'Select',
-          responseKey: 'data.tag',
-          name: 'tag',
-          multiple: true,
-          useChips: true,
-          useInput: true,
-          createNewValue: true,
-          hideDropdownIcon: true,
+          type: Tags,
+          name: 'tags',
           label: 'برچسب',
-          placeholder: 'وارد کنید',
+          responseKey: 'data.tags',
           col: 'col-md-12'
         }
       ],
@@ -549,6 +208,7 @@ export default {
   },
   mounted() {
     this.getTeachers()
+    this.inputs[0].selected = this.content
   },
   methods: {
     getTeachers() {
@@ -557,14 +217,14 @@ export default {
       })
     },
     expandRow (props) {
-      props.expand = !props.selected
+      props.expand = props.selected
     },
     toggleDialog() {
       this.pervDialog = !this.pervDialog
     },
     videoSource() {
       // return new PlayerSourceList('')
-      return new PlayerSourceList(this.content.file.video)
+      return new PlayerSourceList(this.content.file === null ? '' : this.content.file.video)
     }
   }
 }
