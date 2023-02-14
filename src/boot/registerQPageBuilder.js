@@ -37,7 +37,8 @@ export default boot(async function ({ app }) {
       if (widgetComponentPathInArray[widgetComponentPathInArray.length - 1] !== widgetComponentPathInArray[widgetComponentPathInArray.length - 2]) {
         continue
       }
-
+      // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
+      // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
       if (widgetComponentPathInArray.length === 1) {
         components[widgetComponentName] = (await import(`../${widgetComponentPathInArray[0]}.vue`)).default
       }
@@ -56,6 +57,8 @@ export default boot(async function ({ app }) {
       if (widgetComponentPathInArray.length === 6) {
         components[widgetComponentName] = (await import(`../${widgetComponentPathInArray[0]}/${widgetComponentPathInArray[1]}/${widgetComponentPathInArray[2]}/${widgetComponentPathInArray[3]}/${widgetComponentPathInArray[4]}/${widgetComponentPathInArray[5]}.vue`)).default
       }
+      // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
+      // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
 
       if (element.optionPanel) {
         optionPanels[widgetComponentName] = {
