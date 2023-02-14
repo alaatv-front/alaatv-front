@@ -3,6 +3,12 @@
        class="product-price justify-center "
        :class="options.className"
        :style="options.style">
+    <q-btn icon="isax:receipt-1"
+           flat
+           color="primary"
+           style="top: -30px; z-index: 2"
+           @click="favorProduct" />
+
     <div v-if="product.price.discountInPercent() && options.discount"
          class="discount-percent">
       <div class="percent">{{ '%' + product.price.discountInPercent() }}</div>
@@ -64,6 +70,9 @@ export default {
     this.getProduct()
   },
   methods: {
+    favorProduct() {
+
+    },
     getProduct() {
       this.product.loading = true
       APIGateway.product.show({ data: { id: this.options.productId }, cache: { TTL: 10000 } })
