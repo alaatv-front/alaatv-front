@@ -92,7 +92,7 @@
 <script>
 
 export default {
-  name: 'SideBar',
+  name: 'SideBarContent',
   directives: {},
   props: {
     contentFilterData: {
