@@ -36,7 +36,7 @@
                      @click="discardUpdate" />
             </div>
           </div>
-          <div class="q-ml-lg namePhone">
+          <div class="q-ml-lg namePhone full-width">
             <div class="fullName ellipsis">
               <q-tooltip> {{ fullName }} </q-tooltip>
               {{ fullName }}
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div>
-            <q-btn class="q-ml-lg"
+            <q-btn class="q-ml-lg justify-end"
                    icon="isax:edit"
                    size="sm"
                    color="white"
