@@ -42,6 +42,52 @@
 
           <router :include="keepAliveComponents" />
         </div>
+
+        <q-page-sticky position="bottom-left"
+                       :offset="fabPos">
+          <q-fab v-model="pageOptionsFloatingActionButton"
+                 v-touch-pan.prevent.mouse="moveFab"
+                 :persistent="true"
+                 label-position="top"
+                 external-label
+                 color="primary"
+                 icon="isax:edit"
+                 direction="up">
+            <template v-if="!pageBuilderEditable">
+              <q-fab-action external-label
+                            label-position="right"
+                            color="primary"
+                            icon="isax:grid-edit"
+                            label="ویرایش صفحه"
+                            @click="togglePageBuilderEditable" />
+              <q-fab-action external-label
+                            label-position="right"
+                            color="primary"
+                            icon="isax:subtitle"
+                            label="ویرایش SEO" />
+            </template>
+            <template v-else>
+              <q-fab-action external-label
+                            label-position="right"
+                            color="info"
+                            icon="isax:eye"
+                            label="پیشنمایش"
+                            @click="togglePageBuilderEditable" />
+              <q-fab-action external-label
+                            label-position="right"
+                            color="positive"
+                            icon="isax:clipboard-tick"
+                            label="تایید"
+                            @click="togglePageBuilderEditable" />
+              <q-fab-action external-label
+                            label-position="right"
+                            color="negative"
+                            icon="isax:forbidden"
+                            label="انصراف"
+                            @click="togglePageBuilderEditable" />
+            </template>
+          </q-fab>
+        </q-page-sticky>
       </template>
       <template #footer>
         <alaa-footer />
@@ -52,6 +98,7 @@
 
 <script>
 import Router from 'src/router/Router.vue'
+import { mixinPageOptions } from 'src/mixin/Mixins.js'
 import AlaaFooter from 'src/components/Widgets/Footer/Footer.vue'
 import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
@@ -67,8 +114,11 @@ export default {
     QuasarTemplateBuilder,
     templateHeader
   },
+  mixins: [mixinPageOptions],
   data () {
     return {
+      fabPos: [18, 18],
+      pageOptionsFloatingActionButton: false,
       contentVerticalScrollPosition: 0,
       keepAliveComponents: KeepAliveComponents
     }
@@ -91,6 +141,19 @@ export default {
   //   setHeight(this.calculateHeightStyle)
   // },
   methods: {
+    moveFab (ev) {
+      this.draggingFab = ev.isFirst !== true && ev.isFinal !== true
+
+      this.fabPos = [
+        this.fabPos[0] - ev.delta.x,
+        this.fabPos[1] - ev.delta.y
+      ]
+    },
+    togglePageBuilderEditable () {
+      const state = this.$store.getters['AppLayout/pageBuilderEditable']
+      this.$store.commit('AppLayout/updatePageBuilderEditable', !state)
+      this.pageOptionsFloatingActionButton = true
+    },
     onContentInsideScroll (data) {
       this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)
     },
