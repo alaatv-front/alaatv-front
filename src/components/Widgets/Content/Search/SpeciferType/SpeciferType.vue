@@ -4,10 +4,10 @@
 </template>
 
 <script>
-import ProductItem from 'components/Widgets/Content/Search/ProductItem/ProductItem'
-import ContentItem from 'components/Widgets/Content/Search/ContentItem/ContentItem'
-import { Product } from 'src/models/Product'
-import { Content } from 'src/models/Content'
+import ProductItem from 'components/Widgets/Content/Search/ProductItem/ProductItem.vue'
+import ContentItem from 'components/Widgets/Content/Search/ContentItem/ContentItem.vue'
+import { Product } from 'src/models/Product.js'
+import { Content } from 'src/models/Content.js'
 export default {
   name: 'MainContentBox',
   components: { ProductItem, ContentItem },
