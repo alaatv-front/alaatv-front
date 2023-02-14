@@ -1,5 +1,5 @@
-import { auth } from './middleware/middleware'
-import EntityCrudRoutes from './EntityCrudRoutes'
+import { auth } from './middleware/middleware.js'
+import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
   {
@@ -285,7 +285,7 @@ const routes = [
           layoutFooter: false
         },
         meta: { middlewares: [auth] },
-        component: () => import('layouts/bareLayout.vue'),
+        component: () => import('layouts/AdminLayout.vue'),
         children: [
           {
             name: 'Admin.Dashboard',
@@ -322,12 +322,12 @@ const routes = [
           },
           {
             name: 'Admin.StudyPlan',
-            path: 'study_plan',
+            path: 'study-plan',
             component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
           },
           {
             name: 'Admin.UploadCenter',
-            path: 'upload_center',
+            path: 'upload-center',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -360,9 +360,9 @@ const routes = [
             }
           },
           {
-            path: '/debug',
-            name: 'debug',
-            component: () => import('pages/Document/debug.vue')
+            path: 'debug',
+            name: 'Document.Debug',
+            component: () => import('src/pages/Document/debug.vue')
           },
           {
             path: '/form-generator',

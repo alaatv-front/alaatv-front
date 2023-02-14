@@ -10,13 +10,13 @@ function getEntityCrudRouteObject (path, baseRouteName, componentPath, breadcrum
   // console.log('removedFirstPart', removedFirstPart[0])
   AllNeededRoutes.forEach(item => {
     // Todo : find a way for 'pages/'
-    children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import(/* @vite-ignore */'pages/' + componentPath.replace(removedFirstPart[0] + '/', '')) })
+    children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import('../pages/' + componentPath.replace(removedFirstPart[0] + '/', '') + '.vue') })
     // Even this is not working
     // children.push({ name: baseRouteName + '.' + item.mode, path: item.path, component: () => import(removedFirstPart[0] + '/' + componentPath.replace(removedFirstPart[0] + '/', '')) })
   })
   return {
     path,
-    component: () => import(/* @vite-ignore */'pages/Admin/index'),
+    component: () => import('../pages/Admin/index.vue'),
     breadcrumbs,
     children
   }

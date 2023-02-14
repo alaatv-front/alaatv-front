@@ -15,7 +15,8 @@ export default class UserAPI extends APIRepository {
       orderStatus: '/payment/status',
       formData: '/megaroute/getUserFormData',
       showUser: '/getUserFor3a',
-      eventResult: '/eventresult'
+      eventResult: '/eventresult',
+      roll: (id) => `/admin/user?hasRole[]=${id}`
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -26,7 +27,8 @@ export default class UserAPI extends APIRepository {
       orderStatus: this.name + this.APIAdresses.base,
       formData: this.name + this.APIAdresses.base,
       showUser: this.name + this.APIAdresses.base,
-      eventResult: this.name + this.APIAdresses.base
+      eventResult: this.name + this.APIAdresses.base,
+      roll: (id) => this.name + this.APIAdresses.roll(id)
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
@@ -174,6 +176,26 @@ export default class UserAPI extends APIRepository {
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getRoll(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.roll(data.data.rollId),
+      cacheKey: this.CacheList.roll(data.data.rollId),
+      ...(data.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return {
+          list: response.data.data,
+          links: response.data.links,
+          meta: response.data.meta
+        }
       },
       rejectCallback: (error) => {
         return error

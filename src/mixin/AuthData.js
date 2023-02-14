@@ -13,6 +13,11 @@ const mixinAuthData = {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
     }
+  },
+  computed: {
+    isUserLogin() {
+      return !!this.user.id
+    }
   }
 }
 

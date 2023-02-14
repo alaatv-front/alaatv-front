@@ -35,9 +35,6 @@ const API_ADDRESS = {
     eventresult: apiV2Server + '/eventresult'
   },
   content: {
-    admin: {
-      base: apiV2Server + '/c/'
-    },
     show: (id) => apiV2Server + '/c/' + id,
     search: apiV2Server + '/search'
   },

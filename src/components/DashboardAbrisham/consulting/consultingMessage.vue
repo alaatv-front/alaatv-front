@@ -132,7 +132,7 @@ export default {
         @media screen and (max-width: 576px) {
             height: 80px;
         }
-        &::v-deep p {
+        &:deep(p) {
             overflow: hidden;
             margin-bottom: 0 !important;
         }

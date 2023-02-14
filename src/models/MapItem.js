@@ -1,8 +1,7 @@
+import MapItemType from './MapItemType.js'
+import MapItemEntity from './MapItemEntity.js'
+import { MapItemAction } from './MapItemAction.js'
 import { Model, Collection } from 'js-abstract-model'
-import { MapItemAction } from './MapItemAction'
-import MapItemType from './MapItemType'
-import MapItemEntity from './MapItemEntity'
-import { icon } from 'leaflet'
 
 class MapItem extends Model {
   constructor (data) {
@@ -198,16 +197,17 @@ class MapItem extends Model {
           fillColor: '',
           strokeColor: ''
         },
-        icon: icon({
-          iconUrl: '',
-          shadowUrl: '',
-
-          iconSize: [70, 70], // size of the icon
-          shadowSize: [0, 0], // size of the shadow
-          iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
-          shadowAnchor: [0, 0], // the same for the shadow
-          popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
-        })
+        icon: {}
+        // icon: (typeof window !== 'undefined') ? icon({
+        //   iconUrl: '',
+        //   shadowUrl: '',
+        //
+        //   iconSize: [70, 70], // size of the icon
+        //   shadowSize: [0, 0], // size of the shadow
+        //   iconAnchor: [0, 0], // point of the icon which will correspond to marker's location
+        //   shadowAnchor: [0, 0], // the same for the shadow
+        //   popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
+        // }) : {}
       },
       action: {
         id: 0,
