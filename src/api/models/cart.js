@@ -9,17 +9,19 @@ export default class CartAPI extends APIRepository {
       orderProduct: '/orderproduct',
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
-      review: '/checkout/review'
+      review: '/checkout/review',
+      removeItem: (id) => '/orderproduct/' + id
     }
     this.CacheList = {
       orderProduct: this.name + this.APIAdresses.orderProduct,
       discountSubmit: this.name + this.APIAdresses.discountSubmit,
       discountRemove: this.name + this.APIAdresses.discountRemove,
-      review: this.name + this.APIAdresses.review
+      review: this.name + this.APIAdresses.review,
+      removeItem: id => this.name + this.APIAdresses.removeItem(id)
     }
   }
 
-  orderProduct(data) {
+  orderProduct(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -37,7 +39,7 @@ export default class CartAPI extends APIRepository {
         products: null, // Number or String (List ofProduct's ID)
         attribute: null, // Number or String
         seller: 1 // 1: Alaa - 2: Soala
-      }, data.data)
+      }, data)
     })
   }
 
@@ -80,6 +82,24 @@ export default class CartAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.review,
       cacheKey: this.CacheList.review,
+      ...(data.cache !== undefined && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return new Cart(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      params: this.paramSerializer(data.params)
+    }
+    )
+  }
+
+  removeItem(data) {
+    return this.sendRequest({
+      apiMethod: 'delete',
+      api: this.api,
+      request: this.APIAdresses.removeItem(data.id),
+      cacheKey: this.CacheList.removeItem(data.id),
       ...(data.cache !== undefined && { cache: data.cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
