@@ -163,16 +163,16 @@
 </template>
 
 <script>
-import SpeciferType from 'components/Widgets/Content/Search/SpeciferType/SpeciferType'
-import SideBarContent from 'components/Widgets/Content/Search/SideBarContent/SideBarContent'
-import SetItem from 'components/Widgets/Content/Search/SetItem/SetItem'
-import { ContentList } from 'src/models/Content'
-import { ProductList } from 'src/models/Product'
-import { SetList } from 'src/models/Set'
-import Addresses from 'src/api/Addresses'
-import FilterData from 'src/assets/js/contentSearchFilterData'
-import StickyBothSides from 'components/Utils/StickyBothSides'
 import { computed } from 'vue'
+import { SetList } from 'src/models/Set.js'
+import Addresses from 'src/api/Addresses.js'
+import { ProductList } from 'src/models/Product.js'
+import { ContentList } from 'src/models/Content.js'
+import FilterData from 'src/assets/js/contentSearchFilterData.js'
+import StickyBothSides from 'src/components/Utils/StickyBothSides.vue'
+import SetItem from 'src/components/Widgets/Content/Search/SetItem/SetItem.vue'
+import SpeciferType from 'src/components/Widgets/Content/Search/SpeciferType/SpeciferType.vue'
+import SideBarContent from 'src/components/Widgets/Content/Search/SideBarContent/SideBarContent.vue'
 
 export default {
   name: 'Search',

@@ -4,8 +4,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs'
-import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel'
+import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
 
 export default defineComponent({
   name: 'OptionPanel',

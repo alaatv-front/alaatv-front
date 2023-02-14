@@ -185,9 +185,9 @@
 </template>
 
 <script>
-import { CartItem } from 'src/models/CartItem'
-import { OrderProduct } from 'src/models/OrderProduct'
-import CartItemsGrandMode from 'components/Widgets/CheckoutReview/SideComponents/CartItemsGrandMode'
+import { CartItem } from 'src/models/CartItem.js'
+import { OrderProduct } from 'src/models/OrderProduct.js'
+import CartItemsGrandMode from 'src/components/Widgets/CheckoutReview/SideComponents/CartItemsGrandMode.vue'
 
 export default {
   name: 'CartItem',

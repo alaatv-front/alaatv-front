@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Block from 'components/Widgets/Block/Block.vue'
+import Block from 'src/components/Widgets/Block/Block.vue'
 
 export default {
   name: 'BlockList',

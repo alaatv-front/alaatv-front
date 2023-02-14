@@ -45,7 +45,7 @@
 
 <script>
 import API_ADDRESS from 'src/api/Addresses'
-import EntityCrud from 'components/EntityCrud'
+import EntityCrud from 'src/components/EntityCrud.vue'
 
 export default {
   name: 'ScheduleManagement',
