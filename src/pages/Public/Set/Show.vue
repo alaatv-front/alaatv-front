@@ -1,7 +1,8 @@
 <template>
   <div class="userSet-page">
     <q-page-builder v-model:sections="sections"
-                    v-model::options="pageConfig" />
+                    v-model::options="pageConfig"
+                    :editable="pageBuilderEditable" />
   </div>
 </template>
 
@@ -52,6 +53,11 @@ export default {
           }
         }
       ]
+    }
+  },
+  computed: {
+    pageBuilderEditable () {
+      return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   }
 }

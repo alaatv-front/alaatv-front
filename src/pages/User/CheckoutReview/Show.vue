@@ -8,10 +8,12 @@
 </template>
 
 <script>
+
 export default {
   name: 'Cart',
   data() {
     return {
+      scrollInfo: null,
       key: 0,
       sections: [
         {
@@ -71,7 +73,9 @@ export default {
       return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   },
-  created() {}
+  created() {},
+  methods: {
+  }
 }
 </script>
 
