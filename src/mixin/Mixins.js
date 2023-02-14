@@ -7,7 +7,6 @@ import mixinAbrisham from '../mixin/Abrisham.js'
 import mixinDateOptions from '../mixin/DateOptions.js'
 import mixinPageOptions from '../mixin/PageOptions.js'
 import mixinWidget from 'components/PageBuilder/Widgets.js'
-import mixinAuthData from '../mixin/AuthData.js'
 import mixinPageBuilder from 'src/mixin/PageBuilder.js'
 
 export {
@@ -19,5 +18,6 @@ export {
   mixinAbrisham,
   mixinAuthData,
   mixinDateOptions,
-  mixinPageOptions
+  mixinPageOptions,
+  mixinPageBuilder
 }
