@@ -1,6 +1,7 @@
 <template>
-  <sticky-both-sides :top-gap="100"
-                     :bottom-gap="40"
+  <q-scroll-observer @scroll="onScroll" />
+  <sticky-both-sides :top-gap="20"
+                     :bottom-gap="10"
                      :max-width="1024">
     <div v-if="isUserLogin"
          :class="options.className"
@@ -201,11 +202,17 @@ import { Cart } from 'src/models/Cart.js'
 import Widgets from 'src/components/PageBuilder/Widgets.js'
 import Donate from 'components/Widgets/Cart/Donate/Donate.vue'
 import StickyBothSides from 'components/Utils/StickyBothSides.vue'
+import { computed } from 'vue'
 
 export default {
   name: 'CartInvoice',
   components: { StickyBothSides, Donate },
   mixins: [Widgets],
+  provide() {
+    return {
+      scrollInfo: computed(() => this.scrollInfo)
+    }
+  },
   props: {
     options: {
       type: Object,
@@ -213,14 +220,11 @@ export default {
         return {}
       }
     }
-    // cart: {
-    //   type: Object,
-    //   default: () => new Cart()
-    // }
   },
 
   data() {
     return {
+      scrollInfo: null,
       cart: new Cart(),
       couponValue: null,
       userEnteredLoginInfo: {
@@ -264,39 +268,22 @@ export default {
     this.$bus.on('removeProduct', this.cartReview)
   },
   methods: {
-    // cartReview() {
-    //   this.$store.commit('loading/loading', true)
-    //   this.$store.dispatch('Cart/reviewCart')
-    //     .then(() => {
-    //       this.$store.commit('loading/loading', false)
-    //     })
-    //     .catch(() => {
-    //       this.$store.commit('loading/loading', false)
-    //     })
-    // },
+    onScroll(info) {
+      this.scrollInfo = info
+    },
     cartReview() {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
-          // debugger
-          const invoice = response.data.data
+          const invoice = response
 
           const cart = new Cart(invoice)
 
           if (invoice.count > 0) {
-            invoice.items[0].order_product.forEach((order) => {
+            invoice.items.list[0].order_product.list.forEach((order) => {
               cart.items.list.push(order)
             })
           }
-
-          // if (product) {
-          //   const isExist = cart.items.list.find(
-          //     (item) => item.id === product.id
-          //   )
-          //   if (!isExist) {
-          //     cart.items.list.push(product)
-          //   }
-          // }
           this.cart = cart
           this.$store.dispatch('loading/overlayLoading', false)
         }).catch(() => {

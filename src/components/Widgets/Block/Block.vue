@@ -20,7 +20,7 @@
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
-        <div v-for="product in this.block.products.list"
+        <div v-for="product in block.products.list"
              :key="product.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
@@ -40,7 +40,7 @@
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
-        <div v-for="set in this.block.sets.list"
+        <div v-for="set in block.sets.list"
              :key="set.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
@@ -59,7 +59,7 @@
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
-        <div v-for="content in this.block.contents.list"
+        <div v-for="content in block.contents.list"
              :key="content.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView

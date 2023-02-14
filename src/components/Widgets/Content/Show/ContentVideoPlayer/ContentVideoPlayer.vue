@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-white shadow-4 q-mb-md q-mx-sm">
+  <div class="bg-white shadow-4 q-mb-md q-mx-sm"
+       :style="options.style">
     <video-player v-if="sources.list.length > 0"
                   :sources="sources"
                   :poster="poster" />
@@ -68,7 +69,7 @@ export default {
     }
   },
   watch: {
-    data() {
+    options() {
       this.loadContent()
     },
     'data.id': function() {
@@ -109,7 +110,6 @@ export default {
         promise
           .then((response) => {
             this.content = new Content(response)
-            this.contentNumber = this.getContentNumberInListById(this.content.id)
             this.poster = this.content.photo
             this.setSources(this.content.file.video)
             this.getSetByRequest()
@@ -152,6 +152,8 @@ export default {
         promise
           .then((response) => {
             this.set = new Set(response)
+            this.contentNumber = this.getContentNumberInListById(this.content.id)
+            console.log(this.contentNumber)
             this.set.loading = false
           })
           .catch(() => {
@@ -176,6 +178,7 @@ export default {
       this.sources = new PlayerSourceList(sources)
     },
     goToContentPage(number) {
+      console.log(number)
       const id = this.getContentIdByNumberInList(number)
       if (!id) {
         return null

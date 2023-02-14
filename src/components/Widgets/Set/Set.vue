@@ -343,20 +343,22 @@ export default {
         this.set.id = this.data
         this.getSet()
       }
+      this.set.id = this.$route.params.id
+      this.getSet()
     },
     getSet() {
       this.set.loading = true
-      const url = API_ADDRESS.set.show(this.set.id)
-      let promise = null
-      if (typeof this.options.getData === 'function') {
-        promise = this.options.getData(url)
-      } else {
-        promise = this.$axios.get(url)
-      }
+      const promise = this.$apiGateway.set.show(this.set.id)
+      // let promise = null
+      // if (typeof this.data.getData === 'function') {
+      //   promise = this.data.getData(url)
+      // } else {
+      //   promise = this.$axios.get(url)
+      // }
 
       promise
         .then((response) => {
-          this.set = new Set(response.data.data)
+          this.set = new Set(response)
           this.filterResponse(this.set.contents.list).then((res) => {
             this.indexContentTypeVideos()
           })

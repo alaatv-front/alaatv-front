@@ -175,7 +175,7 @@ import SpeciferType from 'src/components/Widgets/Content/Search/SpeciferType/Spe
 import SideBarContent from 'src/components/Widgets/Content/Search/SideBarContent/SideBarContent.vue'
 
 export default {
-  name: 'Search',
+  name: 'ContentSearch',
   components: {
     SetItem,
     SpeciferType,

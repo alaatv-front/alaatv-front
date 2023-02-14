@@ -57,12 +57,19 @@ export default {
 
     async getBlocksByRequest() {
       this.blocks.loading = true
-      try {
-        const response = await this.getApiRequest()
-        this.blocks = response
-        this.blocks.loading = false
-      } catch (e) {
-        this.blocks.loading = false
+      let promise = null
+      promise = this.getApiRequest()
+      if (promise) {
+        promise
+          .then((response) => {
+            this.blocks = response
+
+            this.blocks.loading = false
+            console.log(this.blocksToShow)
+          })
+          .catch(() => {
+            this.blocks.loading = false
+          })
       }
     },
 

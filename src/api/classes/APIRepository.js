@@ -1,6 +1,7 @@
 /* It's a class that wraps the APIInstanceWrapper class and provides a simple interface for making CRUD
 requests to a RESTful API */
 import APIInstanceWrapper from './APIInstanceWrapper'
+
 export default class APIRepository {
   constructor(name, api, urlAddress, model, APIAdresses) {
     this.name = name
@@ -62,9 +63,20 @@ export default class APIRepository {
    * @param data - The data to be sent to the server.
    * @returns The defaultSendData is being returned.
    */
-  getNormalizedSendData(defaultData, data) {
-    const defaultSendData = Object.assign(defaultData, data)
-    return defaultSendData
+  getNormalizedSendData (defaultData, data) {
+    for (const key of Object.keys(defaultData)) {
+      if (data[key] === null || data[key] === undefined) {
+        delete defaultData[key]
+      }
+    }
+    return Object.assign(defaultData, data)
+  }
+
+  /**
+  explain
+   */
+  paramSerializer(params) {
+
   }
 
   /**

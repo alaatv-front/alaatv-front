@@ -14,7 +14,8 @@
         class="set-title">
       {{content.set.title}}
     </h6>
-    <div v-html="content.inputData.body" />
+    <div v-if="content.body"
+         v-html="content.body" />
     <q-separator class="q-my-lg" />
     <q-separator class="q-my-lg" />
     <div v-if="content.tags"
@@ -97,6 +98,7 @@ export default {
         promise
           .then((response) => {
             this.content = new Content(response)
+            console.log(this.content)
             this.content.loading = false
           })
           .catch(() => {

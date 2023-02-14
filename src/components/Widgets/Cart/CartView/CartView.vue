@@ -238,37 +238,21 @@ export default {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
-          const invoice = response.data.data
+          const invoice = response
 
-          const cart = new Cart(invoice)
+          const cart = new Cart(response)
 
           if (invoice.count > 0) {
-            invoice.items[0].order_product.forEach((order) => {
+            invoice.items.list[0].order_product.list.forEach((order) => {
               cart.items.list.push(order)
             })
           }
-
-          // if (product) {
-          //   const isExist = cart.items.list.find(
-          //     (item) => item.id === product.id
-          //   )
-          //   if (!isExist) {
-          //     cart.items.list.push(product)
-          //   }
-          // }
           this.cart = cart
           this.$store.dispatch('loading/overlayLoading', false)
         }).catch(() => {
           this.$store.dispatch('loading/overlayLoading', false)
         })
     },
-    // cartReview() {
-    //   this.$store.commit('loading/loading', true)
-    //   this.$store.dispatch('Cart/reviewCart')
-    //     .then(() => {
-    //       this.$store.dispatch('loading/overlayLoading', false)
-    //     })
-    // },
 
     getOrderedList (cartItems) {
       if (!cartItems || cartItems.list?.length === 0) {
@@ -293,8 +277,8 @@ export default {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/removeItemFromCart', order)
         .then(() => {
-          this.$emit('cartReview')
           this.$store.dispatch('loading/overlayLoading', false)
+          this.cartReview()
           this.changeDialogState(false)
           this.$bus.emit('removeProduct')
         }).catch(() => {

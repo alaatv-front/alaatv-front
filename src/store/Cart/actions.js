@@ -1,18 +1,19 @@
-import API_ADDRESS from 'src/api/Addresses'
-import { axios } from 'src/boot/axios'
+// import API_ADDRESS from 'src/api/Addresses'
+// import { axios } from 'src/boot/axios'
 import CookieCart from 'src/assets/js/CookieCart'
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart'
 import { CartItem } from 'src/models/CartItem'
 import { OrderProduct } from 'src/models/OrderProduct'
-import { parse } from 'qs'
+// import { parse } from 'qs'
 
 export function addToCart (context, data) {
+  // console.log(data)
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      axios
-        .post(API_ADDRESS.cart.orderproduct.add, { product_id: data[0].id, attribute: data[0].attribute, seller: 1 })
+      const promise = this.$apiGateway.cart.orderProduct({ product_id: data[0].id, seller: 1 })
+      promise
         .then((response) => {
           Notify.create({
             type: 'positive',
@@ -55,6 +56,7 @@ export function addToCart (context, data) {
 export function reviewCart (context, product) {
   const isUserLogin = this.getters['Auth/isUserLogin']
   const currentCart = this.getters['Cart/cart']
+  const promise = this.$apiGateway.cart.review({ params: { seller: 1 } })
   const orders = []
   if (currentCart.items.list !== undefined && currentCart.items.list.length > 0) {
     currentCart.items.list.forEach(item => {
@@ -64,55 +66,70 @@ export function reviewCart (context, product) {
       })
     })
   }
-
   return new Promise((resolve, reject) => {
-    // ApiGateway.cart.review
-    axios
-      .get(API_ADDRESS.cart.review, {
-        params: {
-          seller: 1,
-          cartItems: orders
-        },
-        paramsSerializer: {
-          encode: parse,
-          serialize: params => {
-            if (params.cartItems) {
-              const q = new URLSearchParams()
-              q.set('seller', params.seller)
-              for (let item = 0; item < params.cartItems.length; item++) {
-                q.set(`cartItems[${item}][product_id]`, params.cartItems[item].product_id)
-                for (let product = 0; product < params.cartItems[item].products.length; product++) {
-                  q.set(`cartItems[${item}][products][${product}]`, params.cartItems[item].products[product].id)
-                }
-              }
-              return q
-            }
-            return params
-          }
-        }
-      })
+    promise
       .then((response) => {
         if (isUserLogin) {
           context.commit('updateCart', new Cart())
         }
         return resolve(response)
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error)
       })
   })
+  // return new Promise((resolve, reject) => {
+  //   axios
+  //     .get(API_ADDRESS.cart.review, {
+  //       params: {
+  //         seller: 1,
+  //         cartItems: orders
+  //       },
+  //       paramsSerializer: {
+  //         encode: parse,
+  //         serialize: params => {
+  //           const q = new URLSearchParams()
+  //           q.set('seller', params.seller)
+  //           for (let item = 0; item < params.cartItems.length; item++) {
+  //             q.set(`cartItems[${item}][product_id]`, params.cartItems[item].product_id)
+  //             for (let product = 0; product < params.cartItems[item].products.length; product++) {
+  //               q.set(`cartItems[${item}][products][${product}]`, params.cartItems[item].products[product].id)
+  //             }
+  //           }
+  //           return q
+  //         }
+  //       }
+  //     })
+  //     .then((response) => {
+  //       if (isUserLogin) {
+  //         context.commit('updateCart', new Cart())
+  //       }
+  //       return resolve(response)
+  //     })
+  //     .catch((error) => {
+  //       reject(error)
+  //     })
+  // })
 }
 
 export function paymentCheckout (context) {
   return new Promise((resolve, reject) => {
-    axios
-      .get(API_ADDRESS.cart.getPaymentRedirectEncryptedLink)
-      .then((response) => {
+    const promise = this.$apiGateway.cart.getPaymentRedirectEncryptedLink
+    promise
+      .then(response => {
         return resolve(response)
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error)
       })
+    // axios
+    //   .get(API_ADDRESS.cart.getPaymentRedirectEncryptedLink)
+    //   .then((response) => {
+    //     return resolve(response)
+    //   })
+    //   .catch((error) => {
+    //     reject(error)
+    //   })
   })
 }
 
@@ -121,8 +138,8 @@ export function removeItemFromCart (context, productId) {
 
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      axios
-        .delete(API_ADDRESS.cart.orderproduct.delete(productId))
+      const promise = this.$apiGateway.cart.removeItem(productId)
+      promise
         .then((response) => {
           Notify.create({
             type: 'positive',
@@ -137,6 +154,22 @@ export function removeItemFromCart (context, productId) {
         .catch((error) => {
           return reject(error)
         })
+      // axios
+      //   .delete(API_ADDRESS.cart.orderproduct.delete(productId))
+      //   .then((response) => {
+      //     Notify.create({
+      //       type: 'positive',
+      //       color: 'positive',
+      //       timeout: 5000,
+      //       position: 'top',
+      //       message: 'محصول از سبد خرید حذف شد.',
+      //       icon: 'report_problem'
+      //     })
+      //     return resolve(response)
+      //   })
+      //   .catch((error) => {
+      //     return reject(error)
+      //   })
     } else {
       const cart = this.getters['Cart/cart']
       cart.removeItem(productId)
