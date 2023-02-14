@@ -5,11 +5,12 @@
 </template>
 
 <script>
+import { mixinPageBuilder } from 'src/mixin/Mixins'
 export default {
   name: 'MyFavorites',
+  mixins: [mixinPageBuilder],
   data () {
     return {
-      pageBuilderEditable: false,
       pageConfig: {},
       sections: [
         {
@@ -39,7 +40,7 @@ export default {
                   }
                 ],
                 options: {
-                  boxed: true,
+                  boxed: false,
                   style: {
                     marginTop: '30px',
                     marginBottom: '30px'

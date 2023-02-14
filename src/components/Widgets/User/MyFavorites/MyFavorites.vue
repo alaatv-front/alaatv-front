@@ -50,7 +50,7 @@
                       transition-prev="jump-down"
                       transition-next="jump-up ">
           <q-tab-panel name="all">
-            all
+            <fav-item :options="fakeData" />
           </q-tab-panel>
 
           <q-tab-panel name="product">
@@ -62,7 +62,7 @@
           </q-tab-panel>
 
           <q-tab-panel name="content">
-            content
+            <fav-item :options="fakeData" />
           </q-tab-panel>
         </q-tab-panels>
       </div>
@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import favItem from 'components/Widgets/User/MyFavorites/favItem.vue'
+// import { Block } from 'src/models/Block.js'
 let StickySidebar = null
 if (typeof window !== 'undefined') {
   import('sticky-sidebar')
@@ -86,6 +88,7 @@ import { ContentList } from 'src/models/Content.js'
 
 export default {
   name: 'MyFavorites',
+  components: { favItem },
   data: () => ({
     storeData: [{
       contents: [{
@@ -848,6 +851,158 @@ export default {
       }],
       products: null
     }],
+    fakeData: {
+      id: 328,
+      title: 'ستارگان عدالت آموزشی آلاء - کنکور 1401',
+      offer: false,
+      url: {
+        web: 'https://alaatv.com/set/1616',
+        api: 'https://alaatv.com/set/1616'
+      },
+      order: 2,
+      contents: [
+        {
+          id: 37546,
+          redirect_url: null,
+          type: 8,
+          section: null,
+          title: 'مصاحبه با رتبه برتر های آلاء کنکور 1401، کیارش شیخی رتبه 1 منطقه 3 کنکور ریاضی 1401',
+          duration: null,
+          photo: 'https://nodes.alaatv.com/media/thumbnails/1616/1616012mori.jpg',
+          is_free: 1,
+          order: 12,
+          updated_at: '2022-09-07 12:09:15',
+          url: {
+            web: 'https://alaatv.com/c/37546',
+            api: 'https://alaatv.com/api/v2/c/37546'
+          },
+          redirect_code: null
+        },
+        {
+          id: 37550,
+          redirect_url: null,
+          type: 8,
+          section: null,
+          title: 'مصاحبه با رتبه برتر های آلاء کنکور 1401، امیر محمد رشیدی رتبه 4 منطقه 3 کنکور ریاضی 1401',
+          duration: null,
+          photo: 'https://nodes.alaatv.com/media/thumbnails/1616/1616016mard.jpg',
+          is_free: 1,
+          order: 16,
+          updated_at: '2022-09-07 12:24:14',
+          url: {
+            web: 'https://alaatv.com/c/37550',
+            api: 'https://alaatv.com/api/v2/c/37550'
+          },
+          redirect_code: null
+        },
+        {
+          id: 37548,
+          redirect_url: null,
+          type: 8,
+          section: null,
+          title: 'مصاحبه با رتبه برتر های آلاء کنکور 1401، علی شریعتی رتبه 7 منطقه 2 کنکور تجربی 1401',
+          duration: null,
+          photo: 'https://nodes.alaatv.com/media/thumbnails/1616/1616014nana.jpg',
+          is_free: 1,
+          order: 14,
+          updated_at: '2022-09-07 12:24:11',
+          url: {
+            web: 'https://alaatv.com/c/37548',
+            api: 'https://alaatv.com/api/v2/c/37548'
+          },
+          redirect_code: null
+        },
+        {
+          id: 37552,
+          redirect_url: null,
+          type: 8,
+          section: null,
+          title: 'مصاحبه با رتبه برتر های آلاء کنکور 1401،  محمد حاجی رحیم رتبه 18 منطقه 1 کنکور تجربی 1401',
+          duration: null,
+          photo: 'https://nodes.alaatv.com/media/thumbnails/1616/1616018mori.jpg',
+          is_free: 1,
+          order: 18,
+          updated_at: '2022-09-07 12:24:17',
+          url: {
+            web: 'https://alaatv.com/c/37552',
+            api: 'https://alaatv.com/api/v2/c/37552'
+          },
+          redirect_code: null
+        },
+        {
+          id: 37537,
+          redirect_url: null,
+          type: 8,
+          section: null,
+          title: 'مصاحبه با رتبه برتر های آلاء کنکور 1401، محیار اسماعیلی رتبه 34 منطقه 3 کنکور ریاضی 1401',
+          duration: null,
+          photo: 'https://nodes.alaatv.com/media/thumbnails/1616/1616003jaja.jpg',
+          is_free: 1,
+          order: 3,
+          updated_at: '2022-09-07 12:23:35',
+          url: {
+            web: 'https://alaatv.com/c/37537',
+            api: 'https://alaatv.com/api/v2/c/37537'
+          },
+          redirect_code: null
+        },
+        {
+          id: 37535,
+          redirect_url: null,
+          type: 8,
+          section: null,
+          title: 'مصاحبه با رتبه برتر های آلاء کنکور 1401، آریا مختاری رتبه 44 کنکور ریاضی 1401',
+          duration: null,
+          photo: 'https://nodes.alaatv.com/media/thumbnails/1616/1616001amir.jpg',
+          is_free: 1,
+          order: 1,
+          updated_at: '2022-09-07 12:08:52',
+          url: {
+            web: 'https://alaatv.com/c/37535',
+            api: 'https://alaatv.com/api/v2/c/37535'
+          },
+          redirect_code: null
+        },
+        {
+          id: 37536,
+          redirect_url: null,
+          type: 8,
+          section: null,
+          title: 'مصاحبه با رتبه برتر های آلاء کنکور 1401، پریسا یحیی پور  رتبه 45 منطقه 3 کنکور ریاضی 1401',
+          duration: null,
+          photo: 'https://nodes.alaatv.com/media/thumbnails/1616/1616002mori.jpg',
+          is_free: 1,
+          order: 2,
+          updated_at: '2022-09-07 12:08:55',
+          url: {
+            web: 'https://alaatv.com/c/37536',
+            api: 'https://alaatv.com/api/v2/c/37536'
+          },
+          redirect_code: null
+        },
+        {
+          id: 37538,
+          redirect_url: null,
+          type: 8,
+          section: null,
+          title: 'مصاحبه با رتبه برتر های آلاء کنکور 1401،  دانیال دارودی رتبه 77 منطقه 1 کنکور ریاضی 1401',
+          duration: null,
+          photo: 'https://nodes.alaatv.com/media/thumbnails/1616/1616004joje.jpg',
+          is_free: 1,
+          order: 4,
+          updated_at: '2022-09-07 12:08:59',
+          url: {
+            web: 'https://alaatv.com/c/37538',
+            api: 'https://alaatv.com/api/v2/c/37538'
+          },
+          redirect_code: null
+        }
+      ],
+      sets: null,
+      products: null,
+      banners: null,
+      updated_at: '2022-09-08 09:04:12'
+    },
     slider: null,
     searchText: '',
     activePanel: '',
