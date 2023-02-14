@@ -27,12 +27,11 @@
 </template>
 
 <script>
-
-import { StudyPlan } from 'src/models/StudyPlan'
-import { Plan, PlanList } from 'src/models/Plan'
-import { Major } from 'src/models/Major'
-import IndividualPlanDetails from './IndividualPlanDetails'
-import timeScheduleTable from './TimeScheduleTable'
+import { Major } from 'src/models/Major.js'
+import { StudyPlan } from 'src/models/StudyPlan.js'
+import { Plan, PlanList } from 'src/models/Plan.js'
+import timeScheduleTable from './TimeScheduleTable.vue'
+import IndividualPlanDetails from './IndividualPlanDetails.vue'
 
 export default {
   components: {

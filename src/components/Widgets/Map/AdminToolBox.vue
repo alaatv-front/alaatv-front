@@ -105,15 +105,15 @@
 </template>
 
 <script>
+import API_ADDRESS from 'src/api/Addresses.js'
 import { FormBuilder } from 'quasar-form-builder'
-import API_ADDRESS from 'src/api/Addresses'
 
-import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
-import LineType from 'components/FormBuilderCustumComponents/Map/LineType'
-import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
-import { MapItem } from 'src/models/MapItem'
-import MapItemEntity from 'src/models/MapItemEntity'
-import { MapItemAction } from 'src/models/MapItemAction'
+import { MapItem } from 'src/models/MapItem.js'
+import MapItemEntity from 'src/models/MapItemEntity.js'
+import { MapItemAction } from 'src/models/MapItemAction.js'
+import LineType from 'components/FormBuilderCustumComponents/Map/LineType.vue'
+import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity.vue'
+import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType.vue'
 
 export default {
   name: 'AdminToolBox',

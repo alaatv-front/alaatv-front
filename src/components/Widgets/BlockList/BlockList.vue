@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Block from 'components/Widgets/Block/Block.vue'
+import Block from 'src/components/Widgets/Block/Block.vue'
 
 export default {
   name: 'BlockList',
@@ -46,16 +46,16 @@ export default {
       })
     }
   },
-  created () {
-    this.loadBlocks()
+  created: async function () {
+    await this.loadBlocks()
   },
 
   methods: {
-    loadBlocks() {
-      this.getBlocksByRequest()
+    async loadBlocks() {
+      await this.getBlocksByRequest()
     },
 
-    getBlocksByRequest(url) {
+    async getBlocksByRequest() {
       this.blocks.loading = true
       let promise = null
       promise = this.getApiRequest()
@@ -80,7 +80,7 @@ export default {
       return blocks.list.slice(this.options.from, this.options.to)
     },
 
-    getApiRequest() {
+    async getApiRequest() {
       if (this.options.apiName === 'home') {
         return this.$apiGateway.pages.home({
           cache: {

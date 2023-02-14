@@ -11,7 +11,7 @@
 /* eslint-env node */
 // const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers')
-const path = require('path')
+// const path = require('path')
 const { generateWidgetList } = require('./src/widgetListGetter/index')
 const envObject = require('dotenv').config().parsed
 
@@ -37,7 +37,7 @@ module.exports = configure(function (ctx) {
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
       'VuexPersistedState', // load store from localstorage to use in other boots (ex: accessToken in axios boot)
-      'i18n',
+      // 'i18n',
       'icon',
       'axios',
       'appConfig',
@@ -46,7 +46,8 @@ module.exports = configure(function (ctx) {
       'breadcrumbs',
       'api-gateway',
       'registerQPageBuilder',
-      'routesLayoutConfigs'
+      'routesLayoutConfigs',
+      'enums'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -197,7 +198,7 @@ module.exports = configure(function (ctx) {
       // polyfillModulePreload: true,
       // distDir
 
-      extendViteConf (viteConf) {
+      extendViteConf(viteConf) {
         // viteConf.resolve = {
         //   alias: {
         //     src: path.resolve(__dirname, './src'),
@@ -223,13 +224,25 @@ module.exports = configure(function (ctx) {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        ['@intlify/vite-plugin-vue-i18n', {
-          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-          compositionOnly: false,
+        // ['@intlify/vite-plugin-vue-i18n', {
+        //   // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+        //   compositionOnly: false,
+        //
+        //   // you need to set i18n resource including paths !
+        //   include: path.resolve(__dirname, './src/i18n/**')
+        // }]
+        // require('@originjs/vite-plugin-commonjs').esbuildCommonjs(['minio'])
 
-          // you need to set i18n resource including paths !
-          include: path.resolve(__dirname, './src/i18n/**')
-        }]
+        // [
+        //   require('@intlify/unplugin-vue-i18n').default,
+        //   {
+        //     // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+        //     // compositionOnly: false,
+        //
+        //     // you need to set i18n resource including paths !
+        //     include: path.resolve(__dirname, './src/i18n/**')
+        //   }
+        // ]
       ]
     },
 
@@ -239,6 +252,15 @@ module.exports = configure(function (ctx) {
       port: 8083,
       open: true, // opens browser window automatically
       proxy: {
+        [envObject.ALAA_MINIO]: {
+          target: envObject.ALAA_MINIO_SERVER,
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_MINIO), '') // vite
+          // pathRewrite: { // webpack
+          //   ['^' + envObject.ALAA_API_V2]: ''
+          // }
+        },
         [envObject.ALAA_API_V2]: {
           target: envObject.ALAA_API_V2_SERVER,
           changeOrigin: true,
@@ -292,7 +314,7 @@ module.exports = configure(function (ctx) {
       cssAddon: true,
 
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'fa-IR', // Quasar language pack (en-US)
+      lang: 'fa', // Quasar language pack (en-US)
 
       // For special cases outside of where the auto-import strategy can have an impact
       // (like functional components as one of the examples),
@@ -303,10 +325,11 @@ module.exports = configure(function (ctx) {
 
       // Quasar plugins
       plugins: [
+        'Meta',
         'Notify',
         'Loading',
         'Dialog',
-        'Cookies'
+        'Cookies' // for cart
       ]
     },
 

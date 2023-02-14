@@ -185,15 +185,13 @@
 </template>
 
 <script>
-import Widgets from 'components/PageBuilder/Widgets'
 import { Cart } from 'src/models/Cart.js'
-// import { Product } from 'src/models/Product.js'
 import { OrderProduct } from 'src/models/OrderProduct.js'
+import Widgets from 'src/components/PageBuilder/Widgets.js'
 
 export default {
   name: 'CartView',
   mixins: [Widgets],
-
   props: {
     options: {
       type: Object,

@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16.16.0-alpine
 
 # Set working directory
 WORKDIR /usr/app
@@ -11,8 +11,7 @@ WORKDIR /usr/app
 COPY ./package*.json ./
 
 # Install dependencies
-# RUN npm install --production
-RUN npm ci
+RUN yarn install --production --frozen-lockfile
 
 # Copy all files
 COPY ./ ./
@@ -20,8 +19,12 @@ COPY ./ ./
 ## eslint
 # RUN npm run lint
 
-# Build app
-RUN npm run build:ssr
+# Build app on SSR mode
+RUN yarn build:ssr
+
+# On distributables folder install dependencies and boots up the webserver and starts listening for connections
+WORKDIR /usr/app/dist/ssr
+RUN yarn install
 
 # Expose the listening port
 EXPOSE 3000

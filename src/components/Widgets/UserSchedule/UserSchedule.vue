@@ -79,17 +79,16 @@
 </template>
 
 <script>
-
-import { Content, ContentList } from 'src/models/Content'
-import { MajorList } from 'src/models/Major'
-import CommentBox from 'src/components/DashboardAbrisham/CommentBox'
-import ContentListComponent from 'components/DashboardAbrisham/ContentListComponent'
-import chipGroup from 'components/DashboardAbrisham/chipGroup'
-import videoBox from 'src/components/DashboardAbrisham/videoBox'
-import StudyPlanGroup from 'src/components/DashboardAbrisham/studyPlanGroup/StudyPlanGroup'
-// import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 import moment from 'moment-jalaali'
-import { mixinAbrisham } from 'src/mixin/Mixins'
+import { MajorList } from 'src/models/Major.js'
+import { mixinAbrisham } from 'src/mixin/Mixins.js'
+import { Content, ContentList } from 'src/models/Content.js'
+import chipGroup from 'components/DashboardAbrisham/chipGroup.vue'
+import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
+import CommentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
+import ContentListComponent from 'components/DashboardAbrisham/ContentListComponent.vue'
+import StudyPlanGroup from 'src/components/DashboardAbrisham/studyPlanGroup/StudyPlanGroup.vue'
+// import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
 export default {
   name: 'UserSchedule',

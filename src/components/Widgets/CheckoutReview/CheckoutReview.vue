@@ -21,14 +21,14 @@
 
 <script>
 
-import CheckoutReviewCart from 'components/Widgets/CheckoutReview/CartComponents/CheckoutReviewCart'
-import CartItemList from 'components/Widgets/CheckoutReview/SideComponents/CartItemList'
-import Donate from 'components/Widgets/CheckoutReview/SideComponents/Donate'
-import API_ADDRESS from 'src/api/Addresses'
-import Login from 'components/Widgets/CheckoutReview/SideComponents/Login'
-import { Cart } from 'src/models/Cart'
-import StickyBothSides from 'components/Utils/StickyBothSides'
 import { computed } from 'vue'
+import { Cart } from 'src/models/Cart.js'
+import API_ADDRESS from 'src/api/Addresses.js'
+import StickyBothSides from 'components/Utils/StickyBothSides.vue'
+import Login from 'components/Widgets/CheckoutReview/SideComponents/Login.vue'
+import Donate from 'components/Widgets/CheckoutReview/SideComponents/Donate.vue'
+import CartItemList from 'components/Widgets/CheckoutReview/SideComponents/CartItemList.vue'
+import CheckoutReviewCart from 'components/Widgets/CheckoutReview/CartComponents/CheckoutReviewCart.vue'
 
 export default {
   name: 'CheckoutReview',

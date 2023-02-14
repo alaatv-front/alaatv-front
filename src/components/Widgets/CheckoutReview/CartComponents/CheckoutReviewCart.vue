@@ -17,7 +17,7 @@
 <script>
 import { Cart } from 'src/models/Cart.js'
 import CartEmpty from 'src/components/Widgets/CheckoutReview/CartComponents/CartEmpty.vue'
-import CartInvoice from 'src/components/Widgets/CheckoutReview/CartComponents/CartInvoice.vur'
+import CartInvoice from 'src/components/Widgets/CheckoutReview/CartComponents/CartInvoice.vue'
 
 export default {
   name: 'CheckoutReviewCart',
