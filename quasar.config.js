@@ -11,7 +11,7 @@
 /* eslint-env node */
 // const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers')
-const path = require('path')
+// const path = require('path')
 const { generateWidgetList } = require('./src/widgetListGetter/index')
 const envObject = require('dotenv').config().parsed
 
@@ -314,7 +314,7 @@ module.exports = configure(function (ctx) {
       cssAddon: true,
 
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'fa-IR', // Quasar language pack (en-US)
+      lang: 'fa', // Quasar language pack (en-US)
 
       // For special cases outside of where the auto-import strategy can have an impact
       // (like functional components as one of the examples),
@@ -325,10 +325,11 @@ module.exports = configure(function (ctx) {
 
       // Quasar plugins
       plugins: [
+        'Meta',
         'Notify',
         'Loading',
         'Dialog',
-        'Cookies'
+        'Cookies' // for cart
       ]
     },
 
