@@ -1,12 +1,12 @@
 <template>
   <div class="boxed-layout-container boxed-container">
-    <Router :include="keepAliveComponents" />
+    <router :include="keepAliveComponents" />
   </div>
 </template>
 
 <script>
-import KeepAliveComponents from 'assets/js/KeepAliveComponents'
-import Router from 'src/router/Router'
+import Router from 'src/router/Router.vue'
+import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
 // import 'src/css/Theme/theme.scss'
 export default {
   components: { Router },

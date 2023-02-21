@@ -1,8 +1,7 @@
 <template>
   <div v-if="hasGrand">
     <div class="cart-item">
-      <div
-        class="title-above">{{ rawItem.grand.title }}
+      <div class="title-above">{{ rawItem.grand.title }}
       </div>
       <div class="item-info-box row justify-between">
         <div class="info-photo col-sm-2 col-xs-3">
@@ -13,11 +12,9 @@
           <div class="title">{{ rawItem.grand.title }}</div>
           <div class="more-info-box">
             <!--       v-if="infoDetails[infoDetails.length - 1] && cartItem.product.attributes"-->
-            <div
-              v-for="(info, index) in infoDetails"
-              :key="index"
-              class="info"
-            >
+            <div v-for="(info, index) in infoDetails"
+                 :key="index"
+                 class="info">
               <div v-if="info.name">
                 <q-icon :name="info.icon" />
                 <span class="info-desc">{{ info.title }} {{ (info.desc) ? ':' : '' }} {{ info.desc }}</span>
@@ -26,50 +23,38 @@
           </div>
         </div>
         <div class="info-btn-box col-sm-2 col-xs-1">
-          <q-btn
-            class="delete-btn"
-            icon="isax:trash"
-            rounded
-            flat
-            :loading="loading"
-            @click="deleteItem"
-          >
+          <q-btn class="delete-btn"
+                 icon="isax:trash"
+                 rounded
+                 flat
+                 :loading="loading"
+                 @click="deleteItem">
             <template v-slot:loading>
-              <q-spinner
-                color="primary"
-              />
+              <q-spinner color="primary" />
             </template>
           </q-btn>
-          <q-btn
-            class="more-btn"
-            icon="isax:more-circle"
-            rounded
-            flat
-            :loading="loading"
-            @click="toggleMenu"
-          >
+          <q-btn class="more-btn"
+                 icon="isax:more-circle"
+                 rounded
+                 flat
+                 :loading="loading"
+                 @click="toggleMenu">
             <template v-slot:loading>
-              <q-spinner
-                color="primary"
-              />
+              <q-spinner color="primary" />
             </template>
           </q-btn>
         </div>
       </div>
-      <div
-        class="grand-item-other-items-box row"
-      >
-        <div class="col-md-2 clear-space"></div>
+      <div class="grand-item-other-items-box row">
+        <div class="col-md-2 clear-space" />
         <div class="col-md-10 col-sm-12">
-          <cart-items-grand-mode
-            v-for="(item, index) in rawItem.order_product.list"
-            :key="index"
-            :cart-item="item"
-          />
+          <cart-items-grand-mode v-for="(item, index) in rawItem.order_product.list"
+                                 :key="index"
+                                 :cart-item="item" />
         </div>
       </div>
       <div class="item-detail-box row items-center">
-        <div class="clear-space col-md-2"></div>
+        <div class="clear-space col-md-2" />
         <div class="time-receive col-sm-3 col-xs-12 q-py-xs q-pr-sm text-center">
           <q-icon class="q-mr-xs"
                   color="primary"
@@ -93,12 +78,10 @@
               رفتن
               به صفحه محصول
             </router-link>
-            <q-expansion-item
-              v-model="expanded"
-              class="text-center"
-              label="جزئیات محصول"
-              style="max-width: 155px"
-            >
+            <q-expansion-item v-model="expanded"
+                              class="text-center"
+                              label="جزئیات محصول"
+                              style="max-width: 155px">
               <q-card>
                 <q-card-section>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos
@@ -113,8 +96,7 @@
   </div>
   <div v-else>
     <div class="cart-item">
-      <div
-        class="title-above">{{ cartItem.product.title }}
+      <div class="title-above">{{ cartItem.product.title }}
       </div>
       <div class="item-info-box row justify-between">
         <div class="info-photo col-sm-2 col-xs-3">
@@ -125,11 +107,9 @@
           <div class="title">{{ cartItem.product.title }}</div>
           <div class="more-info-box">
             <!--       v-if="infoDetails[infoDetails.length - 1] && cartItem.product.attributes"-->
-            <div
-              v-for="(info, index) in infoDetails"
-              :key="index"
-              class="info"
-            >
+            <div v-for="(info, index) in infoDetails"
+                 :key="index"
+                 class="info">
               <div v-if="info.name">
                 <q-icon :name="info.icon" />
                 <span class="info-desc">{{ info.title }} {{ (info.desc) ? ':' : '' }} {{ info.desc }}</span>
@@ -138,42 +118,31 @@
           </div>
         </div>
         <div class="info-btn-box col-sm-2 col-xs-1">
-          <q-btn
-            class="delete-btn"
-            icon="isax:trash"
-            rounded
-            flat
-            :loading="loading"
-            @click="deleteItem"
-          >
+          <q-btn class="delete-btn"
+                 icon="isax:trash"
+                 rounded
+                 flat
+                 :loading="loading"
+                 @click="deleteItem">
             <template v-slot:loading>
-              <q-spinner
-                color="primary"
-              />
+              <q-spinner color="primary" />
             </template>
           </q-btn>
-          <q-btn
-            class="more-btn"
-            icon="isax:more-circle"
-            rounded
-            flat
-            :loading="loading"
-            @click="toggleMenu"
-          >
+          <q-btn class="more-btn"
+                 icon="isax:more-circle"
+                 rounded
+                 flat
+                 :loading="loading"
+                 @click="toggleMenu">
             <template v-slot:loading>
-              <q-spinner
-                color="primary"
-              />
+              <q-spinner color="primary" />
             </template>
           </q-btn>
         </div>
       </div>
-      <div
-        class="grand-item-other-items-box row"
-      >
-      </div>
+      <div class="grand-item-other-items-box row" />
       <div class="item-detail-box row items-center">
-        <div class="clear-space col-md-2"></div>
+        <div class="clear-space col-md-2" />
         <div class="time-receive col-sm-3 col-xs-12 q-py-xs q-pr-sm text-center">
           <q-icon class="q-mr-xs"
                   color="primary"
@@ -197,12 +166,10 @@
               رفتن
               به صفحه محصول
             </router-link>
-            <q-expansion-item
-              v-model="expanded"
-              class="text-center"
-              label="جزئیات محصول"
-              style="max-width: 155px"
-            >
+            <q-expansion-item v-model="expanded"
+                              class="text-center"
+                              label="جزئیات محصول"
+                              style="max-width: 155px">
               <q-card>
                 <q-card-section>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem, eius reprehenderit eos
@@ -218,9 +185,9 @@
 </template>
 
 <script>
-import { CartItem } from 'src/models/CartItem'
-import { OrderProduct } from 'src/models/OrderProduct'
-import CartItemsGrandMode from 'components/Widgets/CheckoutReview/SideComponents/CartItemsGrandMode'
+import { CartItem } from 'src/models/CartItem.js'
+import { OrderProduct } from 'src/models/OrderProduct.js'
+import CartItemsGrandMode from 'components/Widgets/CheckoutReview/SideComponents/CartItemsGrandMode.vue'
 
 export default {
   name: 'CartItem',
@@ -348,7 +315,6 @@ export default {
           }
         })
       } else {
-        console.log(this.localCartItem)
         if (!this.localCartItem.product.attributes) {
           return
         }

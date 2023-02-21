@@ -1,64 +1,62 @@
 <template>
   <slot v-if="currentComponent === 'entity-create'"
-        name="before-entity-create"></slot>
+        name="before-entity-create" />
   <slot v-if="currentComponent === 'entity-show'"
-        name="before-entity-show"></slot>
+        name="before-entity-show" />
   <slot v-if="currentComponent === 'entity-edit'"
-        name="before-entity-edit"></slot>
+        name="before-entity-edit" />
   <slot v-if="currentComponent === 'entity-index'"
-        name="before-entity-index"></slot>
-  <component
-    :is="currentComponent"
-    v-bind="neededConfig"
-    ref="entityComponent"
-    v-model:value="getNeededInputs"
-    :before-load-input-data="getBeforeLoadInputDataProp"
-    :after-load-input-data="getAfterLoadInputDataProp"
-    :before-get-data="getBeforeGetEditDataProp"
-  >
+        name="before-entity-index" />
+  <component :is="currentComponent"
+             v-bind="neededConfig"
+             ref="entityComponent"
+             v-model:value="getNeededInputs"
+             :before-load-input-data="getBeforeLoadInputDataProp"
+             :after-load-input-data="getAfterLoadInputDataProp"
+             :before-get-data="getBeforeGetEditDataProp">
     <template v-slot:before-form-builder>
       <slot v-if="currentComponent === 'entity-create'"
-            name="entity-create-before-form-builder"></slot>
+            name="entity-create-before-form-builder" />
       <slot v-if="currentComponent === 'entity-show'"
-            name="entity-show-before-form-builder"></slot>
+            name="entity-show-before-form-builder" />
       <slot v-if="currentComponent === 'entity-edit'"
-            name="entity-edit-before-form-builder"></slot>
+            name="entity-edit-before-form-builder" />
       <slot v-if="currentComponent === 'entity-index'"
-            name="entity-index-before-form-builder"></slot>
+            name="entity-index-before-form-builder" />
     </template>
     <template v-slot:after-form-builder>
       <slot v-if="currentComponent === 'entity-create'"
-            name="entity-create-after-form-builder"></slot>
+            name="entity-create-after-form-builder" />
       <slot v-if="currentComponent === 'entity-show'"
-            name="entity-show-after-form-builder"></slot>
+            name="entity-show-after-form-builder" />
       <slot v-if="currentComponent === 'entity-edit'"
-            name="entity-edit-after-form-builder"></slot>
+            name="entity-edit-after-form-builder" />
       <slot v-if="currentComponent === 'entity-index'"
-            name="entity-index-after-form-builder"></slot>
+            name="entity-index-after-form-builder" />
     </template>
     <template v-slot:before-index-table>
       <slot v-if="currentComponent === 'entity-index'"
-            name="entity-crud-before-index-table"></slot>
+            name="entity-crud-before-index-table" />
     </template>
     <template v-slot:after-index-table>
       <slot v-if="currentComponent === 'entity-index'"
-            name="entity-crud-after-index-table"></slot>
+            name="entity-crud-after-index-table" />
     </template>
     <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
       <slot v-if="currentComponent === 'entity-index'"
             name="entity-crud-table-cell"
             :inputData="inputData"
-            :showConfirmRemoveDialog="showConfirmRemoveDialog"></slot>
+            :showConfirmRemoveDialog="showConfirmRemoveDialog" />
     </template>
   </component>
   <slot v-if="currentComponent === 'entity-create'"
-        name="after-entity-create"></slot>
+        name="after-entity-create" />
   <slot v-if="currentComponent === 'entity-show'"
-        name="after-entity-show"></slot>
+        name="after-entity-show" />
   <slot v-if="currentComponent === 'entity-edit'"
-        name="after-entity-edit"></slot>
+        name="after-entity-edit" />
   <slot v-if="currentComponent === 'entity-index'"
-        name="after-entity-index"></slot>
+        name="after-entity-index" />
 </template>
 
 <script>

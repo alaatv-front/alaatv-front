@@ -1,17 +1,13 @@
 <template>
 
   <div class="cart-template row">
-    <div
-      v-if="count"
-      class="side-invoice col-12"
-    >
+    <div v-if="count"
+         class="side-invoice col-12">
       <cart-invoice />
     </div>
 
-    <div
-      v-if="count === 0"
-      class="empty-cart col-12"
-    >
+    <div v-if="count === 0"
+         class="empty-cart col-12">
       <cart-empty />
     </div>
 
@@ -21,7 +17,7 @@
 <script>
 import { Cart } from 'src/models/Cart.js'
 import CartEmpty from 'src/components/Widgets/CheckoutReview/CartComponents/CartEmpty.vue'
-import CartInvoice from 'src/components/Widgets/CheckoutReview/CartComponents/CartInvoice.vur'
+import CartInvoice from 'src/components/Widgets/CheckoutReview/CartComponents/CartInvoice.vue'
 
 export default {
   name: 'CheckoutReviewCart',

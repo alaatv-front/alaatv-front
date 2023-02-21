@@ -1,56 +1,38 @@
 <template>
-  <entity-edit ref="entityEdit"
-               v-model:value="inputs"
-               :api="api"
-               :entity-id-key="entityIdKey"
-               :entity-param-key="entityParamKey"
-               :show-route-name="showRouteName"
-               :defaultLayout="defaultLayout"
-               :before-send-data="beforeSendData"
-               :before-get-data="beforeGetData"
-               :after-get-data="afterGetData"
-               :after-send-data="afterSendData"
-  >
-    <template #after-form-builder>
-      <div class="col-12 q-my-md flex justify-end">
-        <q-btn class="submitBtn"
-               label="ثبت تغییرات"
-               @click="submit"
-        />
-      </div>
-    </template>
-  </entity-edit>
-  <entity-action ref="entityAction"
-                 v-model:value="actionInput"
-                 :action-method="'post'"
-                 :action-api="actionApi"
-                 :beforeDoAction="beforeDoAction"
-                 :defaultLayout="false"
-                 @onActionSuccess="onActionSuccess"
-                 @onActionError="onActionError"
-  >
-    <template #after-form-builder>
-      <div class="col-12 q-my-md flex justify-end">
-        <q-btn class="submitBtn"
-               label="ثبت رتبه کنکور"
-               @click="submitAction"
-        />
-      </div>
-    </template>
-  </entity-action>
+  <div :class="options.className"
+       :style="options.style">
+    <entity-edit ref="entityEdit"
+                 v-model:value="options.inputs"
+                 :api="api"
+                 :entity-id-key="entityIdKey"
+                 :entity-param-key="entityParamKey"
+                 :show-route-name="showRouteName"
+                 :defaultLayout="defaultLayout"
+                 :before-get-data="beforeGetData"
+                 :before-send-data="beforeSendData"
+                 :after-get-data="afterGetData"
+                 :after-send-data="afterSendData">
+      <template #after-form-builder>
+        <div class="col-12 q-my-md flex justify-end">
+          <q-btn class="submitBtn"
+                 label="ثبت تغییرات"
+                 @click="submit" />
+        </div>
+      </template>
+    </entity-edit>
+  </div>
 </template>
 
 <script>
 import { Notify } from 'quasar'
 import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import { EntityEdit, EntityAction } from 'quasar-crud'
+import { EntityEdit } from 'quasar-crud'
 
 export default {
   name: 'ProfileCrud',
   components: {
-    EntityEdit,
-    EntityAction
+    EntityEdit
   },
   mixins: [mixinWidget],
   data() {
@@ -60,7 +42,7 @@ export default {
       entityIdKey: 'id',
       entityParamKey: 'id',
       showRouteName: 'UserPanel.Profile',
-      inputs: [
+      localInputs: [
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -335,15 +317,6 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('loading/loading', true)
-    this.$refs.entityAction
-      .getAxiosPromise('get', this.actionApi)
-      .then((d) => {
-        this.$store.commit('loading/loading', false)
-      })
-      .catch((e) => {
-        this.$store.commit('loading/loading', false)
-      })
     if (this.$store.getters['Auth/incompleteProfile']) {
       Notify.create({
         message: 'لطفا ابتدا اطلاعات کاربری را کامل نمایید.',
@@ -366,7 +339,7 @@ export default {
         .catch(() => {})
     },
     afterGetData() {
-      this.inputs.forEach(input => {
+      this.options.inputs.forEach(input => {
         input.value.forEach(val => {
           if (val.value) {
             val.readonly = true
@@ -387,35 +360,10 @@ export default {
       this.$store.commit('Auth/updateUser', d.data.data)
       this.$store.commit('loading/loading', false)
     },
-    beforeDoAction(d) {
-      if (d.major) {
-        d.major_id = d.major.id
-      }
-      if (d.region) {
-        d.region_id = d.region.id
-      }
-      this.$axios
-        .get(API_ADDRESS.user.eventresult)
-        .then((response) => {
-          // TODO: Since  eventresult has not been implemented,
-          // completing this part will be done after getting this from BackEnd
-        })
-    },
-    onActionSuccess() {
-      this.$store.commit('loading/loading', false)
-    },
-    onActionError() {
-      this.$store.commit('loading/loading', false)
-    },
     submit() {
       this.$store.commit('loading/loading', true)
 
       this.$refs.entityEdit.editEntity()
-    },
-    submitAction() {
-      this.$store.commit('loading/loading', true)
-
-      this.$refs.entityAction.doAction()
     }
   }
 }

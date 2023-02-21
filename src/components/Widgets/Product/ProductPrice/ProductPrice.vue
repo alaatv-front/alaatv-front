@@ -2,8 +2,13 @@
   <div v-if="product.price"
        class="product-price justify-center "
        :class="options.className"
-       :style="options.style"
-  >
+       :style="options.style">
+    <q-btn icon="isax:receipt-1"
+           flat
+           color="primary"
+           style="top: -30px; z-index: 2"
+           @click="favorProduct" />
+
     <div v-if="product.price.discountInPercent() && options.discount"
          class="discount-percent">
       <div class="percent">{{ '%' + product.price.discountInPercent() }}</div>
@@ -11,17 +16,13 @@
     </div>
 
     <div class="price">
-      <div
-        v-if="product.price.toman('base', null) && product.has_instalment_option && options.basePrice"
-        class="product-base-price"
-      >
+      <div v-if="product.price.toman('base', null) && product.has_instalment_option && options.basePrice"
+           class="product-base-price">
         {{ product.price.toman('base', null) }}
       </div>
 
-      <sapn
-        v-if="product.price.toman('final', null) && options.finalPrice"
-        class="product-final-price"
-      >
+      <sapn v-if="product.price.toman('final', null) && options.finalPrice"
+            class="product-final-price">
         {{ product.price.toman('final', null) }}
       </sapn>
 
@@ -30,22 +31,18 @@
 
     <div v-if="options.addToCart"
          class="action">
-      <q-btn
-        v-if="product.has_instalment_option"
-        unelevated
-        class="purchase-button pay-later"
-        label="خرید اقساطی"
-        text-color="white"
-        icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
-      />
-      <q-btn
-        unelevated
-        class="purchase-button"
-        label="خرید نقدی"
-        text-color="white"
-        icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
-        @click="addToCart"
-      />
+      <q-btn v-if="product.has_instalment_option"
+             unelevated
+             class="purchase-button pay-later"
+             label="خرید اقساطی"
+             text-color="white"
+             icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png" />
+      <q-btn unelevated
+             class="purchase-button"
+             label="خرید نقدی"
+             text-color="white"
+             icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
+             @click="addToCart" />
     </div>
   </div>
 </template>
@@ -73,6 +70,9 @@ export default {
     this.getProduct()
   },
   methods: {
+    favorProduct() {
+
+    },
     getProduct() {
       this.product.loading = true
       APIGateway.product.show({ data: { id: this.options.productId }, cache: { TTL: 10000 } })

@@ -10,26 +10,20 @@
                          :thumb-style="hiddenThumbStyle"
                          @scroll="onScrollHours">
             <div class="header flex no-wrap">
-              <div
-                v-for="hour in listOfHours"
-                :key="hour"
-                class="timeTableHeader"
-                :style="{ width:  headerCellWidth + 'px'}"
-              >
-                <div class="timeTableHeaderNumber bg-pink-2"
-                >
+              <div v-for="hour in listOfHours"
+                   :key="hour"
+                   class="timeTableHeader"
+                   :style="{ width: headerCellWidth + 'px'}">
+                <div class="timeTableHeaderNumber bg-pink-2">
                   <q-avatar color="white"
-                            size="30px"
-                  >
+                            size="30px">
                     {{ hour-1 }}
                   </q-avatar>
                   <div class="hour">
-                    <div class="minutes-line">
-                    </div>
+                    <div class="minutes-line" />
                   </div>
                 </div>
-                <div class="hour-line">
-                </div>
+                <div class="hour-line" />
               </div>
             </div>
           </q-scroll-area>
@@ -37,36 +31,28 @@
       </div>
     </div>
     <div class="calender-body  row no-wrap">
-      <q-scroll-area
-        ref="daysRef"
-        visible
-        class="col-1 calender-date "
-        style="height: 550px;"
-        :thumb-style="hiddenThumbStyle"
-        @scroll="onScrollDays"
-      >
+      <q-scroll-area ref="daysRef"
+                     visible
+                     class="col-1 calender-date "
+                     style="height: 550px;"
+                     :thumb-style="hiddenThumbStyle"
+                     @scroll="onScrollDays">
         <div v-for="studyPlan in filterdPlans.list"
              :key="studyPlan.id"
-             class="date-style row justify-center items-center "
-        >
+             class="date-style row justify-center items-center ">
           <div class="date"> {{ studyPlan.shamsiDate(studyPlan.date).date }} </div>
           <q-separator />
         </div>
       </q-scroll-area>
-      <q-scroll-area
-        ref="plansRef"
-        visible
-        class="col-11 full-calender"
-        style="height: 550px; max-width: 100%"
-        @scroll="onScrollPlans"
-      >
-        <div
-          v-for="studyPlan in filterdPlans.list"
-          :key="studyPlan.id"
-        >
+      <q-scroll-area ref="plansRef"
+                     visible
+                     class="col-11 full-calender"
+                     style="height: 550px; max-width: 100%"
+                     @scroll="onScrollPlans">
+        <div v-for="studyPlan in filterdPlans.list"
+             :key="studyPlan.id">
           <plans :studyPlanData="studyPlan"
-                 @handelPlanEvent="handelPlanEvent"
-          />
+                 @handelPlanEvent="handelPlanEvent" />
           <q-separator />
         </div>
       </q-scroll-area>

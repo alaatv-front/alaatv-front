@@ -5,8 +5,7 @@
         <div class="row">
           <div class="col-md-6">
             <q-input v-model="localOptions.link"
-                     label="download link"
-            />
+                     label="download link" />
           </div>
         </div>
       </div>
@@ -15,8 +14,7 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
 
 export default defineComponent({
   name: 'OptionPanel',

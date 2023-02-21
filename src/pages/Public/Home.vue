@@ -1,19 +1,19 @@
 <template>
   <q-page-builder v-model:sections="sections"
                   v-model:options="pageConfig"
-                  :editable="pageBuilderEditable"
-  />
+                  :editable="pageBuilderEditable" />
 </template>
 
 <script>
-// import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
-
+import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
 export default {
   name: 'HomePage',
-  // mixins: [mixinOptionPanel],
+  mixins: [mixinPageOptions, mixinSEO],
   data() {
     return {
-      pageConfig: {},
+      pageTitleSection1: 'آموزش مجازی آلاء',
+      pageTitleSection2: 'با هدف توسعه عدالت آموزشی در حوزه کنکور',
+      pageDescription: 'کلاس های درس آلاء برای کنکور، دهم، یازدهم و دوازدهم و خدمات تکمیلی از قبیل همایش‌های طلایی و اردو طلایی؛ در دروس مختلف زیست شیمی فیزیک ریاضی عربی ادبیات و.',
       sections: [
         {
           data: {
@@ -117,11 +117,6 @@ export default {
           }
         }
       ]
-    }
-  },
-  computed: {
-    pageBuilderEditable () {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
     }
   }
 }

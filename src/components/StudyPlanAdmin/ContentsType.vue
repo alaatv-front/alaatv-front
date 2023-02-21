@@ -1,17 +1,14 @@
 <template>
   <div>
     <div class="row items-center">
-      <div class="col-9"><form-builder
-        ref="contentType"
-        :value="inputs"
-      /></div>
+      <div class="col-9"><form-builder ref="contentType"
+                                       :value="inputs" /></div>
       <div class="col-3 text-right">
         <q-btn icon="add"
                rounded
                unelevated
                color="green"
-               @click="addContent"
-        />
+               @click="addContent" />
       </div>
     </div>
     <div v-for="(content, index) in inputData"
@@ -19,14 +16,13 @@
          class="row items-center q-mb-sm">
       <div class="col-3">{{content.id}}</div>
       <div class="col-3">{{content.title}}</div>
-      <div class="col-3">{{  getType(content.type_id) }}</div>
+      <div class="col-3">{{ getType(content.type_id) }}</div>
       <div class="col-3 text-right">
         <q-btn icon="clear "
                rounded
                unelevated
                color="red"
-               @click="deleteContent(content)"
-        />
+               @click="deleteContent(content)" />
       </div>
     </div>
     <q-separator />

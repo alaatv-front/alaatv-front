@@ -1,39 +1,27 @@
 <template>
   <div>
-    <div
-      v-if="items.items.list.length > 0"
-      class="cart-item-list "
-    >
+    <div v-if="items.items.list.length > 0"
+         class="cart-item-list ">
       <div class="item-list-header">
         سبد خرید
       </div>
       <q-separator />
-      <div
-        v-if="items"
-      >
-        <div
-          v-for="(item, index) in items.items.list"
-          :key="index"
-          class="cart-items"
-        >
+      <div v-if="items">
+        <div v-for="(item, index) in items.items.list"
+             :key="index"
+             class="cart-items">
           <template v-if="!!(item.grand_id)">
-            <cart-item
-              :id="item.grand.id"
-              :raw-item="item"
-              :has-grand="true"
-            />
+            <cart-item :id="item.grand.id"
+                       :raw-item="item"
+                       :has-grand="true" />
             <q-separator />
           </template>
-          <template
-            v-for="(cartItem, index) in item.order_product.list"
-            v-else
-            :key="index"
-          >
-            <cart-item
-              :id="cartItem.product.id"
-              :cart-item="cartItem"
-              :has-grand="false"
-            />
+          <template v-for="(cartItem, index) in item.order_product.list"
+                    v-else
+                    :key="index">
+            <cart-item :id="cartItem.product.id"
+                       :cart-item="cartItem"
+                       :has-grand="false" />
             <q-separator />
           </template>
         </div>
@@ -46,13 +34,11 @@
 </template>
 
 <script>
-import CartItem from 'components/Widgets/CheckoutReview/SideComponents/CartItem'
-import { Cart } from 'src/models/Cart'
+import { Cart } from 'src/models/Cart.js'
+import CartItem from 'components/Widgets/CheckoutReview/SideComponents/CartItem.vue'
 export default {
   name: 'CartItemList',
-  components: {
-    CartItem
-  },
+  components: { CartItem },
   props: {
     items: {
       type: Cart,

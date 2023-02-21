@@ -1,26 +1,16 @@
 <template>
-  <div
-    class="consulting-page"
-  >
-    <div
-      class="consulting-msg"
-    >
+  <div class="consulting-page">
+    <div class="consulting-msg">
       <p class="consulting-title">
         پیام مشاور
       </p>
-      <div
-        class="consulting-main text-center"
-      >
-        <q-virtual-scroll
-          v-slot="{item, index}"
-          :items="news.list"
-          virtual-scroll-horizontal
-          @virtual-scroll="scrollMoved"
-        >
-          <consultingMessage
-            :key="index"
-            :new-item="item"
-          />
+      <div class="consulting-main text-center">
+        <q-virtual-scroll v-slot="{item, index}"
+                          :items="news.list"
+                          virtual-scroll-horizontal
+                          @virtual-scroll="scrollMoved">
+          <consultingMessage :key="index"
+                             :new-item="item" />
         </q-virtual-scroll>
         <q-skeleton v-if="news.loading"
                     type="QToolbar" />
@@ -32,49 +22,36 @@
       </div>
       <div class="title-style">   مشاوره راه ابریشم آلاء</div>
       <div class="row q-col-gutter-x-md q-mt-md">
-        <div
-          class="video-box-col col-12 col-md-8 col-xs-12"
-        >
-          <video-box
-            :content="currentContent"
-            :afterLoad="hasLoaded"
-            @favorite="toggleFavor"
-            @has_watched="watched"
-          />
+        <div class="video-box-col col-12 col-md-8 col-xs-12">
+          <video-box :content="currentContent"
+                     :afterLoad="hasLoaded"
+                     @favorite="toggleFavor"
+                     @has_watched="watched" />
           <div class="mobile-view">
             <div class="current-content-title"
                  v-text="currentContent.title" />
 
-            <comment-box
-              v-model:value="watchingContentComment"
-              @input="saveComment"
-            />
+            <comment-box v-model:value="watchingContentComment"
+                         @input="saveComment" />
           </div>
         </div>
-        <div
-          class="col-md-4 col-12 content-list-col"
-        >
-          <content-list-component
-            v-model:value="currentContent"
-            :loading="contents.loading"
-            :afterLoad="hasLoaded"
-            :contents="filteredContents"
-            :header="{ title: 'لیست فیلم ها'}"
-            type="video"
-            @input="changeCurrentContent($event.id)"
-          />
+        <div class="col-md-4 col-12 content-list-col">
+          <content-list-component v-model:value="currentContent"
+                                  :loading="contents.loading"
+                                  :afterLoad="hasLoaded"
+                                  :contents="filteredContents"
+                                  :header="{ title: 'لیست فیلم ها'}"
+                                  type="video"
+                                  @input="changeCurrentContent($event.id)" />
         </div>
       </div>
       <div class="row  q-col-gutter-x-md q-mt-lg">
-        <div class="col-8 "
-        >
+        <div class="col-8 ">
           <div class="desktop-view">
             <div class="current-content-title"
                  v-text="currentContent.title" />
-            <comment-box
-              v-model:value="watchingContentComment"
-              @input="saveComment"
-            />
+            <comment-box v-model:value="watchingContentComment"
+                         @input="saveComment" />
           </div>
         </div>
       </div>

@@ -1,12 +1,10 @@
 <template>
-  <entity-index
-    v-model:value="inputs"
-    title="لیست بن ها"
-    :api="api"
-    :table="table"
-    :table-keys="tableKeys"
-    :create-route-name="createRouteName">
-  </entity-index>
+  <entity-index v-model:value="inputs"
+                title="لیست بن ها"
+                :api="api"
+                :table="table"
+                :table-keys="tableKeys"
+                :create-route-name="createRouteName" />
 </template>
 
 <script>

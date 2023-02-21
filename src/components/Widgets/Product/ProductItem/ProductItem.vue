@@ -4,14 +4,12 @@
       <router-link :to="{
         name: 'Public.Product.Show',
         params: { id: product.id ? product.id : -1 }
-      }"
-      >
+      }">
         <lazy-img :src="product.photo"
                   :alt="product.title"
                   width="1"
                   height="1"
-                  class="img"
-        />
+                  class="img" />
         <div class="main-title ellipsis-2-lines">
           {{ product.title }}
         </div>
@@ -19,7 +17,7 @@
     </div>
     <div class="product-content-box">
       <div class="info-box">
-        <div class="teacher-image"></div>
+        <div class="teacher-image" />
         <div class="teacher-name">محمد امین نباخته</div>
         <!-- <div class="teacher-score">
           <div class="total-score">
@@ -34,8 +32,7 @@
           <div class="price-box">
             <div class="price-info">
               <div v-if="product.price['final'] !== product.price['base']"
-                   class="discount"
-              >
+                   class="discount">
                 <span>
                   %{{
                     (
@@ -61,9 +58,8 @@
                :productId="product.id"
                :data-product-id="product.id"
                class="btn-green"
-               @click="addToCart"
-        >
-          <q-icon name="add"></q-icon>
+               @click="addToCart">
+          <q-icon name="add" />
           <span>افزودن به سبد</span>
         </q-btn>
       </div>

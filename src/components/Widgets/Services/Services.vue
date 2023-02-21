@@ -7,8 +7,7 @@
          class="service"
          :href="service.link"
          :title="service.title"
-         target="_self"
-      >
+         target="_self">
         <div class="service-image">
           <q-img :src="service.icon" />
         </div>

@@ -1,10 +1,8 @@
 <template>
   <!--  v-model:index-inputs="indexInputs"-->
-  <entity-crud
-    v-model:default-inputs="defaultInputs"
-    v-model:index-inputs="indexInputs"
-    v-bind="allProps"
-  >
+  <entity-crud v-model:default-inputs="defaultInputs"
+               v-model:index-inputs="indexInputs"
+               v-bind="allProps">
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
         <template v-if="inputData.props.col.name === 'actions'">
@@ -58,7 +56,7 @@
 
 <script>
 import API_ADDRESS from 'src/api/Addresses'
-import EntityCrud from 'components/EntityCrud'
+import EntityCrud from 'src/components/EntityCrud.vue'
 
 export default {
   name: 'SlideShowManagement',

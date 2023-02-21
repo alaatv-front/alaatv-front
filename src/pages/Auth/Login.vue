@@ -1,56 +1,46 @@
 <template>
-  <div class="login-page row flex">
+  <div class="login-page">
     <q-card v-if="!userLogin"
-            class="col-lg-4 col-md-5 col-sm-6 col-xs-10 login-card my-card shadow-6">
-      <q-card-section class="row bg-blue-8 text-white justify-between">
-        <div class="row login-header-right-side justify-center items-center">
-          <q-img class="login-alaa-logo"
-                 src="img/3a-logo.png"
-                 alt="3a-logo" />
-          <p class="login-entry-title q-ml-md q-mb-none">ورود</p>
+            class="login-card">
+      <div v-if="loadingList"
+           class="text-center login-loading">
+        <q-spinner-ball color="primary"
+                        size="5em" />
+      </div>
+      <div v-else>
+        <div class="header">
+          ثبت نام و ورود
         </div>
-        <q-avatar>
-          <img src="img/alaa-logo.png"
-               alt="logo">
-        </q-avatar>
-      </q-card-section>
-      <q-linear-progress v-if="loadingList"
-                         color="warning"
-                         class="q-mt-sm" />
-      <q-separator></q-separator>
-      <div class="q-pa-lg">
-        <q-input
-          ref="userName"
-          v-model="username"
-          bottom-slots
-          color="blue-8"
-          name="userName"
-          label="شماره همراه"
-          @keydown.enter="getEnter('pass')"
-        >
-          <template v-slot:before>
-            <q-icon name="person"></q-icon>
-          </template>
-        </q-input>
-        <q-input
-          ref="pass"
-          v-model="password"
-          color="blue-8"
-          bottom-slots
-          name="pass"
-          label="رمز"
-          type="password"
-          @keydown.enter="login">
-          <template v-slot:before>
-            <q-icon name="lock"></q-icon>
-          </template>
-        </q-input>
-        <q-card-actions align="left">
-          <q-btn style="width: 80px"
-                 color="blue-8"
-                 label="ورود"
-                 @click="login" />
-        </q-card-actions>
+        <div class="phone-number">
+          <div class="label">
+            شماره همراه
+          </div>
+          <q-input ref="userName"
+                   v-model="username"
+                   bottom-slots
+                   hide-bottom-space
+                   autocomplete="off"
+                   onfocus="this.removeAttribute('readonly');"
+                   name="userName"
+                   placeholder=" - - - - - - - - - 09"
+                   @keydown.enter="getEnter('pass')" />
+        </div>
+        <div class="national-code">
+          <div class="label">
+            کد ملی
+          </div>
+          <q-input ref="pass"
+                   v-model="password"
+                   name="pass"
+                   hide-bottom-space
+                   type="password"
+                   @keydown.enter="login" />
+        </div>
+        <q-btn class="full-width login-btn"
+               unelevated
+               color="primary"
+               label="ثبت نام / ورود"
+               @click="login" />
       </div>
     </q-card>
   </div>
@@ -150,16 +140,110 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-page{
+.login-page {
   height: 100vh;
-  .login-card{
+  display: grid;
+  .login-loading {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-card {
+    width: 434px;
+    height: 485px;
     margin: auto;
-    .login-header-right-side{
-      .login-alaa-logo{
-        width: 20px;
+    box-shadow: 0 3px 10px rgba(55, 68, 87, 0.04);
+    border-radius: 20px;
+    padding:60px 67px;
+    .header{
+      margin-bottom: 50px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 37px;
+      letter-spacing: -0.03em;
+      color: var(--alaa-TextSecondary);
+    }
+    .label{
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 25px;
+      letter-spacing: -0.03em;
+      color: #434765;
+      margin-bottom: 8px;
+    }
+    .login-btn{
+      :deep(.q-btn__content){
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22px;
       }
-      .login-entry-title{
+    }
+    .phone-number{
+      margin-bottom: 16px;
+    }
+    .national-code{
+      margin-bottom: 56px;
+    }
+    :deep(.q-field--focused) {
+      appearance: none;
+    }
+    &:deep(.q-field--focused .q-field__control) {
+      background-color: rgba(255,255,255,0) !important;
+      appearance: none;
+      border: 1px solid #FFB74D;
+      box-shadow: 0 0 0 2px #FFEDD2;
+      border-radius: 8px;
+    }
+
+    &:deep(.q-field .q-field__control) {
+      height: 40px;
+      background: #F2F5F9;
+      border-radius: 8px;
+      padding-left: 0;
+    }
+
+    &:deep(.q-field__native) {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      color: #6D708B !important;
+    }
+    :deep(.q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input){
+      padding: 8px 16px;
+      border-radius: 8px
+    }
+
+    :deep(.q-field__control){
+      &::after{
+        height: 0;
+      }
+      &::before{
+        border-bottom: none;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 1023px){
+  .login-page {
+    .login-card {
+      width: 312px;
+      height: 409px;
+      border-radius: 16px;
+      padding: 40px 30px;
+
+      .header {
+        margin-bottom: 30px;
         font-size: 20px;
+        line-height: 31px;
+      }
+
+      .label {
+        font-size: 14px;
+        line-height: 22px;
+        letter-spacing: -0.03em;
       }
     }
   }

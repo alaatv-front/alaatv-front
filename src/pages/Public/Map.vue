@@ -1,9 +1,7 @@
 <template>
   <div class="MapPage-page">
-    <q-page-builder
-      v-model:sections="sections"
-      v-model::options="pageConfig"
-    />
+    <q-page-builder v-model:sections="sections"
+                    v-model::options="pageConfig" />
   </div>
 </template>
 

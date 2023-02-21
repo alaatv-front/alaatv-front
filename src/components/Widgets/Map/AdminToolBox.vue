@@ -3,52 +3,38 @@
 
     <div class="ToolBoxHeader">
       <div class="rightSide">
-        <q-icon
-          size="24px"
-          name="isax:designtools">
-        </q-icon>
+        <q-icon size="24px"
+                name="isax:designtools" />
         <span class="header-title"> جعبه ابزار</span>
       </div>
       <div class="leftSide">
-        <q-btn
-          flat
-          class=""
-          icon="isax:signpost"
-          @click="tabChanged('marker')"
-        >
-          <q-tooltip
-            anchor="top middle"
-            self="bottom middle"
-            :offset="[10, 10]"
-          >
+        <q-btn flat
+               class=""
+               icon="isax:signpost"
+               @click="tabChanged('marker')">
+          <q-tooltip anchor="top middle"
+                     self="bottom middle"
+                     :offset="[10, 10]">
             Marker
           </q-tooltip>
         </q-btn>
-        <q-btn
-          flat
-          class=""
-          icon="isax:chart-square"
-          @click="tabChanged('polyline')"
-        >
-          <q-tooltip
-            anchor="top middle"
-            self="bottom middle"
-            :offset="[10, 10]"
-          >
+        <q-btn flat
+               class=""
+               icon="isax:chart-square"
+               @click="tabChanged('polyline')">
+          <q-tooltip anchor="top middle"
+                     self="bottom middle"
+                     :offset="[10, 10]">
             Polyline
           </q-tooltip>
         </q-btn>
-        <q-btn
-          flat
-          class=""
-          icon="isax:menu-1"
-          @click="showMapInfo"
-        >
-          <q-tooltip
-            anchor="top middle"
-            self="bottom middle"
-            :offset="[10, 10]"
-          >
+        <q-btn flat
+               class=""
+               icon="isax:menu-1"
+               @click="showMapInfo">
+          <q-tooltip anchor="top middle"
+                     self="bottom middle"
+                     :offset="[10, 10]">
             Map Info
           </q-tooltip>
 
@@ -56,40 +42,33 @@
       </div>
     </div>
 
-    <q-separator
-      color="gray"
-      inset />
+    <q-separator color="gray"
+                 inset />
 
     <div v-if="toolTab === 'marker'"
          class="MarkerFormBuilderContainer q-pa-sm bg-transparent">
 
       <div v-if="canShowGeneralData"
            class="MarkerFormBuilder">
-        <form-builder
-          ref="markerInputsFormBuilder"
-          v-model:value="markerInputs"
-        />
+        <form-builder ref="markerInputsFormBuilder"
+                      v-model:value="markerInputs" />
       </div>
       <q-btn class="addMarkerBtn q-mb-xs"
              color="green-6"
              icon="isax:element-plus"
              @click="addMarker" />
       <div v-if="bufferMarker.editMode || selectedMarker.editMode"
-           class="markerToolBoxBtns"
-      >
+           class="markerToolBoxBtns">
         <q-btn class="btns"
                color="primary"
-               icon="isax:copy"
-        />
+               icon="isax:copy" />
         <q-btn class="btns"
                color="primary"
                icon="isax:save-remove"
-               @click="saveMarker"
-        />
+               @click="saveMarker" />
         <q-btn class="btns"
                color="red-6"
-               icon="isax:trash"
-        />
+               icon="isax:trash" />
       </div>
 
     </div>
@@ -99,18 +78,15 @@
 
       <div v-if="canShowGeneralData"
            class="PolylineFormBuilder">
-        <form-builder
-          ref="polylineInputsFormBuilder"
-          v-model:value="polylineInputs" />
+        <form-builder ref="polylineInputsFormBuilder"
+                      v-model:value="polylineInputs" />
 
       </div>
       <q-btn class="addPolyLineBtn q-mb-xs"
              icon="isax:refresh"
-             @click="addPolyLine"
-      />
+             @click="addPolyLine" />
       <div v-if="bufferPolyline.editMode"
-           class="PolylineToolBoxBtns"
-      >
+           class="PolylineToolBoxBtns">
         <q-btn class="btns"
                color="blue-6"
                icon="isax:copy" />
@@ -129,15 +105,15 @@
 </template>
 
 <script>
+import API_ADDRESS from 'src/api/Addresses.js'
 import { FormBuilder } from 'quasar-form-builder'
-import API_ADDRESS from 'src/api/Addresses'
 
-import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType'
-import LineType from 'components/FormBuilderCustumComponents/Map/LineType'
-import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity'
-import { MapItem } from 'src/models/MapItem'
-import MapItemEntity from 'src/models/MapItemEntity'
-import { MapItemAction } from 'src/models/MapItemAction'
+import { MapItem } from 'src/models/MapItem.js'
+import MapItemEntity from 'src/models/MapItemEntity.js'
+import { MapItemAction } from 'src/models/MapItemAction.js'
+import LineType from 'components/FormBuilderCustumComponents/Map/LineType.vue'
+import ItemEntity from 'components/FormBuilderCustumComponents/Map/ItemEntity.vue'
+import activityType from 'components/FormBuilderCustumComponents/Map/ActivityType.vue'
 
 export default {
   name: 'AdminToolBox',

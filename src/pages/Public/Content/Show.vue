@@ -1,12 +1,10 @@
 <template>
   <div class="content-show-page">
-    <q-page-builder
-      v-model:sections="sections"
-      v-model::options="pageConfig"
-      :preview="true"
-      :editable="pageBuilderEditable"
-      @toggleEdit="toggleEdit"
-    />
+    <q-page-builder v-model:sections="sections"
+                    v-model::options="pageConfig"
+                    :preview="true"
+                    :editable="pageBuilderEditable"
+                    @toggleEdit="toggleEdit" />
   </div>
 </template>
 
@@ -29,7 +27,10 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ContentVideoPlayer'
+                        name: 'ContentVideoPlayer',
+                        options: {
+                          paginate: true
+                        }
                       }
                     ],
                     options: {

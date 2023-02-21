@@ -2,47 +2,33 @@
   <div class="schedule-page">
     <!--   --------------------------------- chip group ------------------------- -->
     <div class="row items-center">
-      <div ref="schedule"></div>
-      <div
-        class="col-lg-4 col-md-5 col-12 text-md-right text-center d-flex flex-column justify-center header-label"
-      >
+      <div ref="schedule" />
+      <div class="col-lg-4 col-md-5 col-12 text-md-right text-center d-flex flex-column justify-center header-label">
         نمایش محتوا بر اساس برنامه مطالعاتی
       </div>
-      <div
-        class="d-flex col-lg-4 col-md-7 col-12 justify-center"
-      >
-        <chip-group
-          v-model:value="currentMajorId"
-          :items="majors.list"
-          :loading="majors.loading"
-          chip-title="رشته: "
-        />
+      <div class="d-flex col-lg-4 col-md-7 col-12 justify-center">
+        <chip-group v-model:value="currentMajorId"
+                    :items="majors.list"
+                    :loading="majors.loading"
+                    chip-title="رشته: " />
       </div>
     </div>
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-md q-mb-lg">
-      <div
-        class="col-12 col-md-8"
-      >
-        <video-box
-          :content="watchingContent"
-          @favorite="toggleFavor"
-          @has_watched="watched"
-          @bookmarkTimestamp="bookmarkPostIsFavored"
-        />
+      <div class="col-12 col-md-8">
+        <video-box :content="watchingContent"
+                   @favorite="toggleFavor"
+                   @has_watched="watched"
+                   @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
           <div class="current-content-title"
                v-text="watchingContent.title" />
-          <comment-box
-            v-model="watchingContent.comment"
-            :doesnt-have-content="contentsIsEmpty"
-            @input="saveComment"
-          />
+          <comment-box v-model="watchingContent.comment"
+                       :doesnt-have-content="contentsIsEmpty"
+                       @input="saveComment" />
         </div>
       </div>
-      <div
-        class="col-12 col-md-4"
-      >
+      <div class="col-12 col-md-4">
         <!--        <date-picker-->
         <!--          v-model="dateValue"-->
         <!--          element="null"-->
@@ -52,70 +38,57 @@
         <!--          @close="closeDatePicker"-->
         <!--          @change="changeDate"-->
         <!--        />-->
-        <content-list-component
-          v-model="watchingContent"
-          :loading="contents.loading"
-          :afterLoad="contentsIsEmpty"
-          :contents="contentsOfMajor"
-          :header="{ title: currentDate, button: { title: 'روزهای دیگر' }}"
-          type="video"
-          @input="changeContent($event.id)"
-          @headerAction="openDatePicker"
-        />
+        <content-list-component v-model="watchingContent"
+                                :loading="contents.loading"
+                                :afterLoad="contentsIsEmpty"
+                                :contents="contentsOfMajor"
+                                :header="{ title: currentDate, button: { title: 'روزهای دیگر' }}"
+                                type="video"
+                                @input="changeContent($event.id)"
+                                @headerAction="openDatePicker" />
       </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-md">
-      <div
-        class="col-md-8 col-12"
-      >
+      <div class="col-md-8 col-12">
         <div class="desktop-view">
           <div class="current-content-title"
                v-text="watchingContent.title" />
-          <comment-box
-            v-model="watchingContent.comment"
-            :doesnt-have-content="contentsIsEmpty"
-            @input="saveComment"
-          />
+          <comment-box v-model="watchingContent.comment"
+                       :doesnt-have-content="contentsIsEmpty"
+                       @input="saveComment" />
         </div>
       </div>
-      <div
-        class="col-md-4 col-12"
-      >
-        <content-list-component
-          :header="{ title: 'جزوه ها' }"
-          :loading="contents.loading"
-          :afterLoad="contentsIsEmpty"
-          :contents="contentsOfMajor"
-          type="pamphlet"
-          @input="changeContent($event.id)"
-        />
+      <div class="col-md-4 col-12">
+        <content-list-component :header="{ title: 'جزوه ها' }"
+                                :loading="contents.loading"
+                                :afterLoad="contentsIsEmpty"
+                                :contents="contentsOfMajor"
+                                type="pamphlet"
+                                @input="changeContent($event.id)" />
       </div>
     </div>
     <!--   --------------------------------- study plan ------------------------- -->
-    <study-plan-group
-      v-model:value="currentMajorId"
-      :majors="majors"
-      class="q-mt-lg"
-      :current-date="dateValue"
-      @contentClicked="contentClicked"
-      @scrollIsMoved="scrollIsMoved"
-    />
+    <study-plan-group v-model:value="currentMajorId"
+                      :majors="majors"
+                      class="q-mt-lg"
+                      :current-date="dateValue"
+                      @contentClicked="contentClicked"
+                      @scrollIsMoved="scrollIsMoved" />
   </div>
 </template>
 
 <script>
-
-import { Content, ContentList } from 'src/models/Content'
-import { MajorList } from 'src/models/Major'
-import CommentBox from 'src/components/DashboardAbrisham/CommentBox'
-import ContentListComponent from 'components/DashboardAbrisham/ContentListComponent'
-import chipGroup from 'components/DashboardAbrisham/chipGroup'
-import videoBox from 'src/components/DashboardAbrisham/videoBox'
-import StudyPlanGroup from 'src/components/DashboardAbrisham/studyPlanGroup/StudyPlanGroup'
-// import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 import moment from 'moment-jalaali'
-import { mixinAbrisham } from 'src/mixin/Mixins'
+import { MajorList } from 'src/models/Major.js'
+import { mixinAbrisham } from 'src/mixin/Mixins.js'
+import { Content, ContentList } from 'src/models/Content.js'
+import chipGroup from 'components/DashboardAbrisham/chipGroup.vue'
+import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
+import CommentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
+import ContentListComponent from 'components/DashboardAbrisham/ContentListComponent.vue'
+import StudyPlanGroup from 'src/components/DashboardAbrisham/studyPlanGroup/StudyPlanGroup.vue'
+// import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
 export default {
   name: 'UserSchedule',

@@ -1,34 +1,26 @@
 <template>
-  <sticky-both-sides :top-gap="100"
-                     :bottom-gap="40"
+  <q-scroll-observer @scroll="onScroll" />
+  <sticky-both-sides :top-gap="20"
+                     :bottom-gap="10"
                      :max-width="1024">
-    <div
-      v-if="isUserLogin"
-      :class="options.className"
-      :style="options.style"
-      class="invoice-container q-mb-sm">
+    <div v-if="isUserLogin"
+         :class="options.className"
+         :style="options.style"
+         class="invoice-container q-mb-sm">
       <div class="q-mb-md">
-        <Donate />
+        <donate />
       </div>
       <q-card class="invoice-cart">
         <q-card-section class="invoice-total-price-section invoice-cart-section">
-          <div
-            class="total-shopping-cart price-section"
-          >
+          <div class="total-shopping-cart price-section">
             <div class="title">جمع سبد خرید{{ `(${cart.count})` }}</div>
-            <div
-              v-if="loading"
-              class="loading-spinner"
-            >
-              <q-spinner-tail
-                color="orange"
-                size="2em"
-              />
+            <div v-if="loading"
+                 class="loading-spinner">
+              <q-spinner-tail color="orange"
+                              size="2em" />
             </div>
-            <div
-              v-else
-              class="price"
-            >
+            <div v-else
+                 class="price">
               {{ totalBasePrice }}
               <span class="iran-money-unit">تومان</span>
             </div>
@@ -36,42 +28,28 @@
 
           <div class="wallet-credit price-section">
             <div class="title">استفاده از کیف پول</div>
-            <div
-              v-if="loading"
-              class="loading-spinner"
-            >
-              <q-spinner-tail
-                color="orange"
-                size="2em"
-              />
+            <div v-if="loading"
+                 class="loading-spinner">
+              <q-spinner-tail color="orange"
+                              size="2em" />
             </div>
-            <div
-              v-else
-              class="price"
-            >
+            <div v-else
+                 class="price">
               {{ amountUsingWallet }}
               <span class="iran-money-unit">تومان</span>
             </div>
           </div>
 
-          <div
-            v-if="discountInPercent"
-            class="purchase-profit price-section"
-          >
+          <div v-if="discountInPercent"
+               class="purchase-profit price-section">
             <div class="title">سود شما از خرید</div>
-            <div
-              v-if="loading"
-              class="loading-spinner"
-            >
-              <q-spinner-tail
-                color="orange"
-                size="2em"
-              />
+            <div v-if="loading"
+                 class="loading-spinner">
+              <q-spinner-tail color="orange"
+                              size="2em" />
             </div>
-            <div
-              v-else
-              class="price"
-            >
+            <div v-else
+                 class="price">
               {{ `(${discountInPercent}٪) ` + totalDiscount }}
               <span class="iran-money-unit">تومان</span>
             </div>
@@ -84,13 +62,11 @@
           <div class="enter-coupon-code">
             <div class="title">کد تخفیف:</div>
 
-            <q-input
-              v-model="couponValue"
-              type="text"
-              label="کد تخفیف خود را وارد کنید"
-              class="coupon-input"
-              outlined
-            >
+            <q-input v-model="couponValue"
+                     type="text"
+                     label="کد تخفیف خود را وارد کنید"
+                     class="coupon-input"
+                     outlined>
               <template v-slot:append>
                 <q-btn label="ثبت"
                        flat />
@@ -104,116 +80,84 @@
         <q-card-section class="payment-section invoice-cart-section">
           <div class="final-price price-section">
             <div class="title">مبلغ نهایی</div>
-            <div
-              v-if="loading"
-              class="loading-spinner"
-            >
-              <q-spinner-tail
-                color="orange"
-                size="2em"
-              />
+            <div v-if="loading"
+                 class="loading-spinner">
+              <q-spinner-tail color="orange"
+                              size="2em" />
             </div>
-            <div
-              v-else
-              class="price"
-            >
+            <div v-else
+                 class="price">
               {{ totalFinalPrice }}
               <span class="iran-money-unit">تومان</span>
             </div>
           </div>
 
-          <div
-            v-if="isUserLogin"
-            class="payment-gateway row"
-          >
+          <div v-if="isUserLogin"
+               class="payment-gateway row">
             <p class="payment-title col-md-12 col-sm-2 col-xs-12">درگاه پرداخت</p>
 
-            <div
-              v-if="loading"
-              class="loading-spinner"
-            >
-              <q-spinner-tail
-                color="orange"
-                size="3em"
-              />
+            <div v-if="loading"
+                 class="loading-spinner">
+              <q-spinner-tail color="orange"
+                              size="3em" />
             </div>
 
-            <div
-              v-else
-              class="banks-gateway-list col-md-12 col-sm-4 col-xs-12"
-            >
+            <div v-else
+                 class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
               <div class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
-                <div
-                  class="bank-gateway"
-                  @click="clickOnGateway"
-                >
+                <div class="bank-gateway"
+                     @click="clickOnGateway">
                   <div class="bank-icon-container">
-                    <q-img
-                      src="https://nodes.alaatv.com/aaa/landing/Banklogos/saman.png"
-                      class="bank-icon"
-                    />
+                    <q-img src="https://nodes.alaatv.com/aaa/landing/Banklogos/saman.png"
+                           class="bank-icon" />
                   </div>
-                  <q-checkbox
-                    v-model="selectedBank"
-                    dir="ltr"
-                    label="بانک سامان"
-                    checked-icon="radio_button_checked"
-                    unchecked-icon="radio_button_unchecked"
-                    :class="{'checked-check-box': selectedBank}"
-                  />
+                  <q-checkbox v-model="selectedBank"
+                              dir="ltr"
+                              label="بانک سامان"
+                              checked-icon="radio_button_checked"
+                              unchecked-icon="radio_button_unchecked"
+                              :class="{'checked-check-box': selectedBank}" />
                 </div>
               </div>
             </div>
 
             <div class="payment-description col-md-12 col-sm-6 col-xs-12">
 
-              <q-input
-                v-model="shoppingDescription"
-                type="text"
-                label="اگر توضیحی درباره ی محصول دارید اینجا بنویسید"
-                class="payment-description-input"
-                outlined
-              />
+              <q-input v-model="shoppingDescription"
+                       type="text"
+                       label="اگر توضیحی درباره ی محصول دارید اینجا بنویسید"
+                       class="payment-description-input"
+                       outlined />
             </div>
 
             <div class="payment-button-container payment-button-container-desktop col-12">
-              <div
-                class="payment-button payment-button-desktop-view"
-                :class="{ 'payment-button-disable': !selectedBank}"
-                @click="payment"
-              >
+              <div class="payment-button payment-button-desktop-view"
+                   :class="{ 'payment-button-disable': !selectedBank}"
+                   @click="payment">
                 پرداخت و ثبت نهایی
               </div>
             </div>
           </div>
 
-          <q-separator
-            v-if="!isUserLogin"
-            class="invoice-separator"
-          />
+          <q-separator v-if="!isUserLogin"
+                       class="invoice-separator" />
         </q-card-section>
 
-        <q-card-section
-          v-if="!isUserLogin"
-          class="login-section invoice-cart-section"
-        >
+        <q-card-section v-if="!isUserLogin"
+                        class="login-section invoice-cart-section">
           <p class="title">برای ادامه ثبت سفارش، به حساب کاربری خود وارد شوید </p>
 
-          <q-input
-            v-model="userEnteredLoginInfo.mobile"
-            type="text"
-            label="شماره موبایل خود را وارد کنید"
-            class="login-input"
-            outlined
-          />
+          <q-input v-model="userEnteredLoginInfo.mobile"
+                   type="text"
+                   label="شماره موبایل خود را وارد کنید"
+                   class="login-input"
+                   outlined />
 
-          <q-input
-            v-model="userEnteredLoginInfo.password"
-            type="password"
-            label="رمز عبور خود را وارد کنید"
-            class="login-input"
-            outlined
-          />
+          <q-input v-model="userEnteredLoginInfo.password"
+                   type="password"
+                   label="رمز عبور خود را وارد کنید"
+                   class="login-input"
+                   outlined />
 
           <p class="no-account">
             حساب کاربری ندارید؟
@@ -222,44 +166,30 @@
             </router-link>
           </p>
 
-          <div
-            class="sign-in-button"
-            @click="login"
-          > console.log(invoice)
+          <div class="sign-in-button"
+               @click="login"> console.log(invoice)
 
             ورود به حساب کاربری
           </div>
         </q-card-section>
       </q-card>
-      <div
-        class="payment-button-container"
-      >
-        <div
-          class="final-price price-section"
-        >
+      <div class="payment-button-container">
+        <div class="final-price price-section">
           <div class="title">مبلغ نهایی:</div>
-          <div
-            v-if="loading"
-            class="loading-spinner"
-          >
-            <q-spinner-tail
-              color="orange"
-              size="2em"
-            />
+          <div v-if="loading"
+               class="loading-spinner">
+            <q-spinner-tail color="orange"
+                            size="2em" />
           </div>
-          <div
-            v-else
-            class="price"
-          >
+          <div v-else
+               class="price">
             {{ totalFinalPrice }}
             <span class="iran-money-unit">تومان</span>
           </div>
         </div>
-        <div
-          class="payment-button payment-button-mobile-view"
-          :class="{ 'payment-button-disable': !selectedBank}"
-          @click="payment"
-        >
+        <div class="payment-button payment-button-mobile-view"
+             :class="{ 'payment-button-disable': !selectedBank}"
+             @click="payment">
           پرداخت
         </div>
       </div>
@@ -268,15 +198,21 @@
 </template>
 
 <script>
-import Widgets from 'src/components/PageBuilder/Widgets'
 import { Cart } from 'src/models/Cart.js'
+import Widgets from 'src/components/PageBuilder/Widgets.js'
 import Donate from 'components/Widgets/Cart/Donate/Donate.vue'
 import StickyBothSides from 'components/Utils/StickyBothSides.vue'
+import { computed } from 'vue'
 
 export default {
   name: 'CartInvoice',
   components: { StickyBothSides, Donate },
   mixins: [Widgets],
+  provide() {
+    return {
+      scrollInfo: computed(() => this.scrollInfo)
+    }
+  },
   props: {
     options: {
       type: Object,
@@ -284,14 +220,11 @@ export default {
         return {}
       }
     }
-    // cart: {
-    //   type: Object,
-    //   default: () => new Cart()
-    // }
   },
 
   data() {
     return {
+      scrollInfo: null,
       cart: new Cart(),
       couponValue: null,
       userEnteredLoginInfo: {
@@ -335,43 +268,25 @@ export default {
     this.$bus.on('removeProduct', this.cartReview)
   },
   methods: {
-    // cartReview() {
-    //   this.$store.commit('loading/loading', true)
-    //   this.$store.dispatch('Cart/reviewCart')
-    //     .then(() => {
-    //       this.$store.commit('loading/loading', false)
-    //     })
-    //     .catch(() => {
-    //       this.$store.commit('loading/loading', false)
-    //     })
-    // },
+    onScroll(info) {
+      this.scrollInfo = info
+    },
     cartReview() {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
-          // debugger
-          const invoice = response.data.data
+          const invoice = response
 
           const cart = new Cart(invoice)
 
           if (invoice.count > 0) {
-            invoice.items[0].order_product.forEach((order) => {
+            invoice.items.list[0].order_product.list.forEach((order) => {
               cart.items.list.push(order)
             })
           }
-
-          // if (product) {
-          //   const isExist = cart.items.list.find(
-          //     (item) => item.id === product.id
-          //   )
-          //   if (!isExist) {
-          //     cart.items.list.push(product)
-          //   }
-          // }
           this.cart = cart
           this.$store.dispatch('loading/overlayLoading', false)
-        }).catch((err) => {
-          console.log('err', err)
+        }).catch(() => {
           this.$store.dispatch('loading/overlayLoading', false)
         })
     },

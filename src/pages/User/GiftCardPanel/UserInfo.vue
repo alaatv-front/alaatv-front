@@ -1,7 +1,6 @@
 <template>
-  <div>
-    UserInfo
-  </div>
+  <q-page-builder v-model:sections="sections"
+                  v-model::options="pageConfig" />
 </template>
 
 <script>
@@ -16,13 +15,13 @@ export default {
             {
               cols: [
                 {
-                  widgets: [
-                    {
-                      name: 'abrisham-news'
-                    }
-                  ]
+                  widgets: [{ name: 'GiftCardUserInfo' }]
                 }
-              ]
+              ],
+              options: {
+                boxed: true,
+                boxedWidth: 1602
+              }
             }
           ]
         }

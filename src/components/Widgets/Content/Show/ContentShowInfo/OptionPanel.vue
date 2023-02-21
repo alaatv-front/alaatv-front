@@ -6,13 +6,11 @@
           <div class="col-md-6">
             <q-select v-model="localOptions.apiName"
                       :options="apiOptions"
-                      label="api"
-            />
+                      label="api" />
           </div>
           <div class="col-md-6">
             <q-input v-model="localOptions.urlParam"
-                     label="urlParam"
-            />
+                     label="urlParam" />
           </div>
         </div>
       </div>
@@ -21,8 +19,7 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
 
 export default defineComponent({
   name: 'OptionPanel',

@@ -1,16 +1,13 @@
 <template>
   <div class="main-layout">
-    <quasar-template-builder
-      @onResize="resize">
+    <quasar-template-builder @onResize="resize">
       <template #header>
         <template-header :type="getTemplateHeaderType" />
-        <q-linear-progress
-          v-if="$store.getters['loading/loading']"
-          color="primary"
-          reverse
-          class="q-mt-sm"
-          indeterminate
-        />
+        <q-linear-progress v-if="$store.getters['loading/loading']"
+                           color="primary"
+                           reverse
+                           class="q-mt-sm"
+                           indeterminate />
       </template>
       <template #left-drawer>
         <template-side-bar :type="getLeftDrawerType" />
@@ -18,8 +15,7 @@
       <template #content>
         <div ref="contentInside"
              v-scroll="onContentInsideScroll"
-             class="content-inside"
-        >
+             class="content-inside">
           <q-dialog v-model="confirmDialogData.show"
                     persistent>
             <q-card class="q-pa-md q-pb-none">
@@ -46,6 +42,7 @@
 
           <router :include="keepAliveComponents" />
         </div>
+        <floating-action-button />
       </template>
       <template #footer>
         <alaa-footer />
@@ -61,15 +58,16 @@ import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
 import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
-// import { setHeight } from 'src/boot/page-builder'
+import FloatingActionButton from 'components/Template/FloatingActionButton/FloatingActionButton.vue'
 
 export default {
   components: {
-    TemplateSideBar,
     Router,
     AlaaFooter,
-    QuasarTemplateBuilder,
-    templateHeader
+    templateHeader,
+    TemplateSideBar,
+    FloatingActionButton,
+    QuasarTemplateBuilder
   },
   data () {
     return {
@@ -91,9 +89,6 @@ export default {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
-  // created() {
-  //   setHeight(this.calculateHeightStyle)
-  // },
   methods: {
     onContentInsideScroll (data) {
       this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)

@@ -1,15 +1,16 @@
 <template>
   <div class="video-box-container flex justify-center">
-    <video
-      id="my-video"
-      ref="videoPlayer"
-      controls
-      preload="auto"
-      :height="calcTheHeight"
-      :width="calcTheWidth"
-      class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
-      @play="playVideo"
-    />
+    <video id="my-video"
+           ref="videoPlayer"
+           controls
+           preload="auto"
+           :height="calcTheHeight"
+           :width="calcTheWidth"
+           class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
+           @play="playVideo">
+           <!-- <source src="https://example.com/index.m3u8"
+              type="application/x-mpegURL"> -->
+    </video>
   </div>
 </template>
 
@@ -31,8 +32,12 @@ export default {
   mixins: [mixinWidget],
   props: {
     sources: {
-      type: PlayerSourceList,
+      type: [String, PlayerSourceList],
       default: new PlayerSourceList()
+    },
+    hlsSource: {
+      type: String,
+      default: ''
     },
     poster: {
       type: String,
@@ -43,8 +48,12 @@ export default {
       default() {
         return true
       }
+    },
+    currentTimed: {
+      type: Number
     }
   },
+  emits: ['seeked'],
   data() {
     return {
       videoOptions: {
@@ -71,6 +80,11 @@ export default {
         languages: {
           fa
         },
+        html5: {
+          vhs: {
+            withCredentials: true
+          }
+        },
         autoplay: false,
         controls: true,
         playbackRates: [0.25, 0.5, 1, 1.5, 2],
@@ -87,11 +101,17 @@ export default {
     },
     calcTheWidth() {
       return '100%'
+    },
+    currentTime() {
+      return this.currentTimed
     }
   },
   watch: {
     sources: function (val) {
       this.reloadPlayerSources()
+    },
+    currentTime(time) {
+      this.player.currentTime(time)
     }
   },
   created() {
@@ -99,6 +119,9 @@ export default {
   },
   mounted() {
     this.initPlayer()
+    this.player.on('seeked', (event) => {
+      this.$emit('seeked', this.player.currentTime())
+    })
   },
   beforeUnmount() {
     if (this.player) {
@@ -118,7 +141,15 @@ export default {
         destination: 'https://alaatv.com',
         destinationTarget: '_blank'
       })
-      this.player.src(this.sources.list)
+      if (this.sources.list) {
+        this.player.src(this.sources.list)
+      } else {
+        this.player.src({
+          src: this.sources,
+          type: 'application/x-mpegURL'
+        })
+        // this.player.src(this.sources)
+      }
     },
     onPlayerReady() {
       // this.player.on('timeupdate', function () {
@@ -138,12 +169,19 @@ export default {
       this.setPoster()
     },
     setSources() {
-      this.videoOptions.sources = this.sources.list
+      if (this.sources.list) {
+        this.videoOptions.sources = this.sources.list
+      } else {
+        this.videoOptions.sources = this.hlsSource
+      }
     },
     setPoster() {
       this.videoOptions.poster = this.poster
     },
     reloadPlayerSources() {
+      if (!this.player) {
+        return
+      }
       this.player.src(this.sources.list)
       this.player.poster(this.poster)
     },
@@ -169,6 +207,7 @@ export default {
 
 .video-box-container{
   border-radius: inherit;
+  width: 100%;
 }
 .video-js {
   border-radius: inherit;

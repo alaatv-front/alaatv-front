@@ -4,28 +4,24 @@
       {{ label }}
     </div>
 
-    <q-option-group
-      v-model="inputData.dir"
-      :options="lineTypeOptions"
-      color="primary"
-      type="radio"
-      dense
-      inline
-      @update:model-value="onChangeLineType"
-    />
+    <q-option-group v-model="inputData.dir"
+                    :options="lineTypeOptions"
+                    color="primary"
+                    type="radio"
+                    dense
+                    inline
+                    @update:model-value="onChangeLineType" />
   </div>
-  <div  v-show="inputData.dir !=='fixed'">
+  <div v-show="inputData.dir !=='fixed'">
     <div v-if="inputData.style">
       <q-badge color="secondary">
         سرعت حرکت : از 0 تا 100 ( {{inputData.style['animation-duration'] }} )
       </q-badge>
-      <q-slider
-        v-model="inputData.style['animation-duration']"
-        :min="0"
-        :max="100"
-        :disable="disable"
-        @input="onChangeDuration"
-      />
+      <q-slider v-model="inputData.style['animation-duration']"
+                :min="0"
+                :max="100"
+                :disable="disable"
+                @input="onChangeDuration" />
     </div>
   </div>
 </template>

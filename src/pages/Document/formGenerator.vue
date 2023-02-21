@@ -1,6 +1,6 @@
 <template>
   <div dir="ltr">
-    <form-builder-generator></form-builder-generator>
+    <form-builder-generator />
   </div>
 </template>
 

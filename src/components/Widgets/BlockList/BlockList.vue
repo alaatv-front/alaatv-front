@@ -2,17 +2,14 @@
   <div :style="options.style">
     <div v-for="(block, index) in blocksToShow"
          :key="index"
-         class="block-list-widget"
-    >
-      <Block
-        :options="block"
-      />
+         class="block-list-widget">
+      <block :options="block" />
     </div>
   </div>
 </template>
 
 <script>
-import Block from 'components/Widgets/Block/Block.vue'
+import Block from 'src/components/Widgets/Block/Block.vue'
 
 export default {
   name: 'BlockList',
@@ -49,29 +46,19 @@ export default {
       })
     }
   },
-  created () {
-    this.loadBlocks()
+  created: async function () {
+    await this.loadBlocks()
   },
 
   methods: {
-    loadBlocks() {
-      this.getBlocksByRequest()
-    },
-
-    getBlocksByRequest(url) {
+    async loadBlocks() {
       this.blocks.loading = true
-      let promise = null
-      promise = this.getApiRequest()
-      if (promise) {
-        promise
-          .then((response) => {
-            this.blocks = response
-
-            this.blocks.loading = false
-          })
-          .catch(() => {
-            this.blocks.loading = false
-          })
+      try {
+        const response = await this.getApiRequest()
+        this.blocks = response
+        this.blocks.loading = false
+      } catch (e) {
+        this.blocks.loading = false
       }
     },
 
@@ -100,5 +87,4 @@ export default {
 
 <style
   lang="scss"
-  scoped
-></style>
+  scoped></style>

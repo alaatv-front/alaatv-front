@@ -1,10 +1,8 @@
 <template>
   <div ref="studyPlan"
        class="study-plan-group">
-    <q-card
-      class="study-plan"
-      flat
-    >
+    <q-card class="study-plan"
+            flat>
       <!-- ----------------------------------------------------------------------------------------------------    loading-->
       <div class="study-plan-header-title">
         جدول برنامه مطالعاتی راه ابریشم آلاء
@@ -13,18 +11,16 @@
         <span class="major-card-text">
           رشته:
         </span>
-        <q-select
-          v-model="selectedMajor"
-          :options="majors.list"
-          :option-value=" (item) => item"
-          option-label="name"
-          filled
-          dense
-          map-options
-          class="transparent"
-          dropdown-icon="mdi-chevron-down"
-          @update:model-value="changeSelectedMajor"
-        />
+        <q-select v-model="selectedMajor"
+                  :options="majors.list"
+                  :option-value=" (item) => item"
+                  option-label="name"
+                  filled
+                  dense
+                  map-options
+                  class="transparent"
+                  dropdown-icon="mdi-chevron-down"
+                  @update:model-value="changeSelectedMajor" />
       </div>
       <div id="study-scroll-1-x"
            class="all-the-expansions">
@@ -64,27 +60,25 @@
         <!--            </div>-->
         <!--          </div>-->
         <!--        </div>-->
-        <study-plan
-          v-for="(item, index) in studyPlanList.list"
-          :key="index"
-          :ref="index"
-          class="full-width"
-          :study-plan="item"
-          :selected-major="selectedMajor"
-          :study-plan-loading="studyPlanList.loading"
-          @contentClicked="contentClicked"
-          @click="planClicked(item,index)"
-        />
+        <study-plan v-for="(item, index) in studyPlanList.list"
+                    :key="index"
+                    :ref="index"
+                    class="full-width"
+                    :study-plan="item"
+                    :selected-major="selectedMajor"
+                    :study-plan-loading="studyPlanList.loading"
+                    @contentClicked="contentClicked"
+                    @click="planClicked(item,index)" />
       </div>
     </q-card>
   </div>
 </template>
 
 <script>
-import StudyPlan from './StudyPlan'
+import StudyPlan from './StudyPlan.vue'
+import { PlanList } from 'src/models/Plan.js'
+import { Major, MajorList } from 'src/models/Major.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
-import { Major, MajorList } from 'src/models/Major'
-import { PlanList } from 'src/models/Plan'
 
 export default {
   components: { StudyPlan },
@@ -301,7 +295,9 @@ export default {
     },
 
     resetAllPlans() {
-      this.studyPlanList.list.forEach(studyPlan => studyPlan.plans = new PlanList())
+      this.studyPlanList.list.forEach(studyPlan => {
+        studyPlan.plans = new PlanList()
+      })
     },
 
     changeSelectedMajor() {

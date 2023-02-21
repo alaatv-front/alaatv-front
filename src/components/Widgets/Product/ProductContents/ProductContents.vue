@@ -10,12 +10,10 @@
                 style="width: 50%" />
     </div>
     <div class="previewSetsOfProduct">
-      <q-tabs
-        v-model="tab"
-        indicator-color="transparent"
-        active-color="black"
-        class="text-grey-5 shadow-2 tabs"
-      >
+      <q-tabs v-model="tab"
+              indicator-color="transparent"
+              active-color="black"
+              class="text-grey-5 shadow-2 tabs">
         <q-tab name="videos"
                class="tab">
           <span>فیلم ها</span>
@@ -25,23 +23,19 @@
           <span>جزوات</span>
         </q-tab>
       </q-tabs>
-      <q-tab-panels
-        v-model="tab"
-        animated
-        transition-prev="scale"
-        transition-next="scale"
-        class="bg-white text-black text-center"
-      >
+      <q-tab-panels v-model="tab"
+                    animated
+                    transition-prev="scale"
+                    transition-next="scale"
+                    class="bg-white text-black text-center">
         <q-tab-panel v-if="videos.length > 0"
                      name="videos">
           <div v-dragscroll
                class="contents-block">
             <div v-for="video in videos"
                  :key="video.id">
-              <content-item
-                class="q-mr-md"
-                :options="video"
-              />
+              <content-item class="q-mr-md"
+                            :options="video" />
             </div>
           </div>
         </q-tab-panel>
@@ -53,7 +47,7 @@
             <div v-for="pamphlet in pamphlets"
                  :key="pamphlet.id"
                  class="q-mx-md">
-              <img src="public/img/PDF_file_icon.svg.png"
+              <img src="/img/PDF_file_icon.svg.png"
                    :alt="pamphlet.title"
                    style="width: 100px; height: 100px">
             </div>

@@ -6,20 +6,17 @@
           <div class="col-md-5">
             <q-select v-model="localOptions.apiName"
                       :options="apiOptions"
-                      label="api"
-            />
+                      label="api" />
           </div>
           <div v-if="localOptions.to"
                class="col-md-5 offset-1">
             <q-input v-model="localOptions.to"
-                     label="to: "
-            />
+                     label="to: " />
           </div>
           <div v-else-if="localOptions.from"
                class="col-md-5 offset-1">
             <q-input v-model="localOptions.from"
-                     label="from: "
-            />
+                     label="from: " />
           </div>
         </div>
       </div>
@@ -28,8 +25,7 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
 
 export default defineComponent({
   name: 'OptionPanel',

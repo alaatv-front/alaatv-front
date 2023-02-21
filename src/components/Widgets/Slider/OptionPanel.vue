@@ -12,13 +12,11 @@
                  icon="add"
                  @click="addBanner" />
         </div>
-        <q-table
-          dir="rtl"
-          title="جدول اسلایدها"
-          :rows="rows"
-          :columns="columns"
-          row-key="name"
-        >
+        <q-table dir="rtl"
+                 title="جدول اسلایدها"
+                 :rows="rows"
+                 :columns="columns"
+                 row-key="name">
           <template v-slot:body-cell-view="props">
             <q-td key="view"
                   :props="props"
@@ -36,8 +34,7 @@
                   class="thumbnail"
                   :props="props"
                   auto-width>
-              <lazy-img :src="props.row.photo"
-              />
+              <lazy-img :src="props.row.photo" />
             </q-td>
           </template>
           <template v-slot:body-cell-remove="props">
@@ -59,8 +56,7 @@
                 persistent>
         <q-card v-ripple
                 class="column card"
-                clickable
-        >
+                clickable>
           <div class="row col-12">
             <q-card-section class="row items-center q-pb-none">
               <q-btn v-close-popup
@@ -74,32 +70,26 @@
           <div class="col-12 row">
             <q-card-section class="col-6">
               <q-input v-model="selectedSlide.title"
-                       label="title"
-              />
+                       label="title" />
             </q-card-section>
             <q-card-section class="col-6">
               <q-input v-model="selectedSlide.link"
-                       label="link"
-              />
+                       label="link" />
             </q-card-section>
           </div>
           <div class="row col-12">
-            <q-toggle
-              v-model="isResponsive"
-              checked-icon="check"
-              color="green"
-              label="responsive features"
-              unchecked-icon="clear"
-            />
+            <q-toggle v-model="isResponsive"
+                      checked-icon="check"
+                      color="green"
+                      label="responsive features"
+                      unchecked-icon="clear" />
           </div>
-          <q-table
-            v-if="isResponsive"
-            dir="rtl"
-            title="جدول رسپانسیو"
-            :rows="responsiveRows"
-            :columns="responsiveColumns"
-            row-key="name"
-          >
+          <q-table v-if="isResponsive"
+                   dir="rtl"
+                   title="جدول رسپانسیو"
+                   :rows="responsiveRows"
+                   :columns="responsiveColumns"
+                   row-key="name">
             <template v-slot:body-cell-view="props">
               <q-td key="view"
                     :props="props"
@@ -117,8 +107,7 @@
                     class="thumbnail"
                     :props="props"
                     auto-width>
-                <lazy-img :src="props.row.thumbnail"
-                />
+                <lazy-img :src="props.row.thumbnail" />
               </q-td>
             </template>
             <template v-slot:body-cell-remove="props">
@@ -139,8 +128,7 @@
             <div class="row col-12">
               <q-card-section class="col-12">
                 <banner-preview v-model:banner="selectedSlide"
-                                @update:src="updateSrc"
-                />
+                                @update:src="updateSrc" />
               </q-card-section>
             </div>
           </div>
@@ -148,10 +136,9 @@
       </q-dialog>
       <q-dialog v-model="expandResponsiveBanner"
                 persistent>
-        <q-card
-          v-ripple
-          class="column"
-          clickable>
+        <q-card v-ripple
+                class="column"
+                clickable>
           <div class="row col-12">
             <q-card-section class="row items-center q-pb-none">
               <q-btn v-close-popup
@@ -165,8 +152,7 @@
             <q-card-section class="col-12">
               <banner-preview v-model:banner="selectedSlide"
                               :size="selectedResponsiveSize"
-                              @update:src="updateSrc"
-              />
+                              @update:src="updateSrc" />
             </q-card-section>
           </div>
         </q-card>
@@ -178,10 +164,9 @@
 <script>
 import { defineComponent } from 'vue'
 import { Banner } from 'src/models/Banner.js'
-import lazyImg from '../../../components/lazyImg.vue'
-import bannerPreview from 'components/Widgets/Slider/bannerPreview.vue'
-import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import lazyImg from 'src/components/lazyImg.vue'
+import bannerPreview from 'src/components/Widgets/Slider/bannerPreview.vue'
+import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
 
 export default defineComponent({
   name: 'OptionPanel',

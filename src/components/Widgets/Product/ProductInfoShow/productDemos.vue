@@ -3,32 +3,22 @@
     <div v-if="contents.list && contents.list.length > 0"
          class="col-md-7">
       <p class="section-title">نمونه فیلم ها</p>
-      <div
-        v-dragscroll
-        class="contents-block"
-      >
-        <div
-          v-for="content in contents.list"
-          :key="content.id"
-        >
-          <content-item
-            class="q-mr-md"
-            :data="content"
-          />
+      <div v-dragscroll
+           class="contents-block">
+        <div v-for="content in contents.list"
+             :key="content.id">
+          <content-item class="q-mr-md"
+                        :data="content" />
         </div>
       </div>
     </div>
     <div v-if="pamphlets && pamphlets.length > 0"
          class="col-md-5">
       <p class="section-title">نمونه جزوه ها</p>
-      <div
-        v-dragscroll
-        class="contents-block"
-      >
-        <div
-          v-for="pamphlet in pamphlets"
-          :key="pamphlet.id"
-        >
+      <div v-dragscroll
+           class="contents-block">
+        <div v-for="pamphlet in pamphlets"
+             :key="pamphlet.id">
           <div class="pamphlet-image">
             <q-img :src="pamphlet.photo"
                    alt="pamphlet-photo" />
@@ -40,10 +30,10 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem'
 import { dragscroll } from 'vue-dragscroll'
-import { ContentList } from 'src/models/Content'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import { ContentList } from 'src/models/Content.js'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
 export default {
   name: 'productDemos',

@@ -3,12 +3,11 @@
     <div class="box">
       <div class="logo">
         <router-link :to="{ name: 'Public.Home' }">
-          <svg
-            width="40"
-            height="40"
-            viewBox="0 0 40 40"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+          <svg width="40"
+               height="40"
+               viewBox="0 0 40 40"
+               fill="none"
+               xmlns="http://www.w3.org/2000/svg">
             <path d="M18.4486 26.9174L16.4635 14.1759L13.061 14.7109L14.9617 26.9174H18.4439H18.4486Z"
                   fill="white" />
             <path d="M32.166 14.1102H28.7261V31.9999H32.166V14.1102Z"
@@ -23,15 +22,12 @@
         </router-link>
       </div>
       <div class="menu-section">
-        <q-tabs
-          vertical
-          align="center"
-          class="menu-items"
-        >
+        <q-tabs vertical
+                align="center"
+                class="menu-items">
           <q-route-tab :to="{ name: 'UserPanel.Asset.GiftCard.Dashboard' }"
                        exact
-                       replace
-          >
+                       replace>
             <svg width="24"
                  height="24"
                  viewBox="0 0 24 24"
@@ -46,8 +42,7 @@
           </q-route-tab>
           <q-route-tab :to="{ name: 'UserPanel.Asset.GiftCard.MyGiftCards' }"
                        exact
-                       replace
-          >
+                       replace>
             <svg width="24"
                  height="24"
                  viewBox="0 0 24 24"
@@ -85,8 +80,7 @@
           </q-route-tab>
           <q-route-tab :to="{ name: 'UserPanel.Asset.GiftCard.Transactions' }"
                        exact
-                       replace
-          >
+                       replace>
             <svg width="24"
                  height="24"
                  viewBox="0 0 24 24"
@@ -116,8 +110,7 @@
           </q-route-tab>
           <q-route-tab :to="{ name: 'UserPanel.Asset.GiftCard.UserInfo' }"
                        exact
-                       replace
-          >
+                       replace>
             <svg width="24"
                  height="24"
                  viewBox="0 0 24 24"

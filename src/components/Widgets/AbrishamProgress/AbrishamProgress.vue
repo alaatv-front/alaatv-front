@@ -3,102 +3,86 @@
     <div class="row q-col-gutter-x-md items-center chip-parent">
       <div class="col-xl-3 col-sm-12 order-xl-first order-xs-last text-center  page-title">نمایش محتوا بر اساس فعالیت شما</div>
       <div class="col-xl-3 col-lg-6 col-sm-12 col-xs-6">
-        <chip-group
-          v-model:value="selectedLessonGroupId"
-          :items="lessonGroups"
-          item-text="title"
-          item-value="id"
-          :loading="lessonGroupsLoading"
-          @update:value="onChangeLessonGroup"
-        />
+        <chip-group v-model:value="selectedLessonGroupId"
+                    :items="lessonGroups"
+                    item-text="title"
+                    item-value="id"
+                    :loading="lessonGroupsLoading"
+                    @update:value="onChangeLessonGroup" />
       </div>
       <div class="col-xl-5 col-lg-6 col-sm-12 col-xs-6">
-        <chip-group
-          v-model:value="selectedLessonId"
-          :items="lessons"
-          item-text="title"
-          item-value="id"
-          class="col-md-3"
-          chip-title="درس"
-          @update:value="onChangeLesson"
-        />
+        <chip-group v-model:value="selectedLessonId"
+                    :items="lessons"
+                    item-text="title"
+                    item-value="id"
+                    class="col-md-3"
+                    chip-title="درس"
+                    @update:value="onChangeLesson" />
       </div>
     </div>
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-x-md">
-      <div
-        class="video-box-col col-12 col-md-8 col-xs-12"
-      >
+      <div class="video-box-col col-12 col-md-8 col-xs-12">
         <!--        :afterLoad="contentsIsEmpty"-->
         <video-box :lesson="currentLesson"
                    :set="currentSet"
                    :content="watchingContent"
                    @favorite="toggleFavor"
                    @toggle-video-status="updateVideoStatus"
-                   @bookmarkTimestamp="bookmarkPostIsFavored"
-        />
+                   @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
           <div class="current-content-title"
                v-text="watchingContent?.title" />
 
-          <comment-box
-            v-model:value="watchingContentComment"
-            :doesnt-have-content="contentsIsEmpty"
-            @updateComment="saveComment"
-          />
+          <comment-box v-model:value="watchingContentComment"
+                       :doesnt-have-content="contentsIsEmpty"
+                       @updateComment="saveComment" />
         </div>
       </div>
-      <div
-        class="col-md-4 col-12 content-list-col"
-      >
-        <content-list-component
-          v-model:value="watchingContent"
-          :loading="contents.loading"
-          :afterLoad="contentsIsEmpty"
-          :contents="contents"
-          :header="{ title: 'لیست فیلم ها', button: { title: 'من کجام؟' } }"
-          type="video"
-          @input="setWatchingContent"
-          @whereAmI="loadUserLastState"
-        >
+      <div class="col-md-4 col-12 content-list-col">
+        <content-list-component v-model:value="watchingContent"
+                                :loading="contents.loading"
+                                :afterLoad="contentsIsEmpty"
+                                :contents="contents"
+                                :header="{ title: 'لیست فیلم ها', button: { title: 'من کجام؟' } }"
+                                type="video"
+                                @input="setWatchingContent"
+                                @whereAmI="loadUserLastState">
           <template v-slot:filter>
             <div class="row q-col-gutter-md">
               <div class="col-sm-6 col-xs-8 select-wrapper">
-                <q-select
-                  :key="sets.list.length"
-                  :loading="contents.loading"
-                  filled
-                  :options="sets.list"
-                  class="v-select"
-                  option-label="short_title"
-                  option-value="id"
-                  :menu-props="{ bottom: true, offsetY: true }"
-                  dropdown-icon="mdi-chevron-down"
-                  dense
-                  emit-value
-                  map-options
-                  popup-content-class="popup-content-class"
-                  placeholder="انتخاب فرسنگ ها"
-                  :model-value="currentSetId"
-                  @update:model-value="setCurrentSet" />
+                <q-select :key="sets.list.length"
+                          :loading="contents.loading"
+                          filled
+                          :options="sets.list"
+                          class="v-select"
+                          option-label="short_title"
+                          option-value="id"
+                          :menu-props="{ bottom: true, offsetY: true }"
+                          dropdown-icon="mdi-chevron-down"
+                          dense
+                          emit-value
+                          map-options
+                          popup-content-class="popup-content-class"
+                          placeholder="انتخاب فرسنگ ها"
+                          :model-value="currentSetId"
+                          @update:model-value="setCurrentSet" />
               </div>
               <div class="col-sm-6 col-xs-4 select-wrapper">
-                <q-select
-                  v-model="currentSectionId"
-                  :loading="contents.loading"
-                  value="all"
-                  color="#3e5480"
-                  :menu-props="{ bottom: true, offsetY: true }"
-                  :options="sections.list"
-                  option-label="title"
-                  option-value="id"
-                  filled
-                  dropdown-icon="mdi-chevron-down"
-                  dense
-                  emit-value
-                  map-options
-                  placeholder="همه"
-                />
+                <q-select v-model="currentSectionId"
+                          :loading="contents.loading"
+                          value="all"
+                          color="#3e5480"
+                          :menu-props="{ bottom: true, offsetY: true }"
+                          :options="sections.list"
+                          option-label="title"
+                          option-value="id"
+                          filled
+                          dropdown-icon="mdi-chevron-down"
+                          dense
+                          emit-value
+                          map-options
+                          placeholder="همه" />
               </div>
             </div>
           </template>
@@ -107,29 +91,22 @@
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
     <div class="row  q-col-gutter-x-md q-mt-lg">
-      <div class="col-8"
-      >
+      <div class="col-8">
         <div class="desktop-view">
           <div class="current-content-title"
                v-text="watchingContent?.title" />
-          <comment-box
-            v-model:value="watchingContentComment"
-            :doesnt-have-content="contentsIsEmpty"
-            @updateComment="saveComment"
-          />
+          <comment-box v-model:value="watchingContentComment"
+                       :doesnt-have-content="contentsIsEmpty"
+                       @updateComment="saveComment" />
         </div>
       </div>
-      <div
-        class="col-12 col-md-4"
-      >
-        <content-list-component
-          :header="{ title: 'جزوه ها' }"
-          :loading="contents.loading"
-          :afterLoad="contentsIsEmpty"
-          :contents="contents"
-          type="pamphlet"
-          @input="setWatchingContent"
-        />
+      <div class="col-12 col-md-4">
+        <content-list-component :header="{ title: 'جزوه ها' }"
+                                :loading="contents.loading"
+                                :afterLoad="contentsIsEmpty"
+                                :contents="contents"
+                                type="pamphlet"
+                                @input="setWatchingContent" />
       </div>
     </div>
   </div>

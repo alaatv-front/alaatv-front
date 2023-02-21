@@ -12,8 +12,7 @@
     </thead>
     <tbody>
       <tr v-for="(item, index) in mapItems"
-          :key="index"
-      >
+          :key="index">
         <th scope="row">{{ index+1 }}</th>
         <td>
           <span class="m-badge m-badge--warning m-badge--wide m-badge--rounded btn"

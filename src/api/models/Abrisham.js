@@ -1,9 +1,9 @@
-import APIRepository from '../classes/APIRepository'
-import { apiV2 } from 'src/boot/axios'
-import { ContentList } from 'src/models/Content'
-import { StudyPlanList } from 'src/models/StudyPlan'
-import { PlanList } from 'src/models/Plan'
-import { LiveDescriptionList } from 'src/models/LiveDescription'
+import { apiV2 } from 'src/boot/axios.js'
+import { PlanList } from 'src/models/Plan.js'
+import { ContentList } from 'src/models/Content.js'
+import { StudyPlanList } from 'src/models/StudyPlan.js'
+import APIRepository from '../classes/APIRepository.js'
+import { LiveDescriptionList } from 'src/models/LiveDescription.js'
 
 export default class AbrishamAPI extends APIRepository {
   constructor() {

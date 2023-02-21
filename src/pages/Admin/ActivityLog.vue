@@ -1,15 +1,13 @@
 <template>
   <!--  v-model:index-inputs="indexInputs"-->
-  <entity-crud
-    v-model:default-inputs="defaultInputs"
-    v-model:index-inputs="indexInputs"
-    v-bind="allProps"
-  />
+  <entity-crud v-model:default-inputs="defaultInputs"
+               v-model:index-inputs="indexInputs"
+               v-bind="allProps" />
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
-import EntityCrud from 'components/EntityCrud'
+import API_ADDRESS from 'src/api/Addresses.js'
+import EntityCrud from 'components/EntityCrud.vue'
 
 export default {
   name: 'ActivityLog',

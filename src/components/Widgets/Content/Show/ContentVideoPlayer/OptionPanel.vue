@@ -7,13 +7,11 @@
             <q-select v-model="localOptions.paginate"
                       :options="paginate"
                       label="paginate"
-                      @input-value="localOptions.paginate = !localOptions.paginate"
-            />
+                      @input-value="localOptions.paginate = !localOptions.paginate" />
           </div>
           <div class="col-md-6">
             <q-input v-model="localOptions.id"
-                     label="content id"
-            />
+                     label="content id" />
           </div>
         </div>
       </div>
@@ -22,8 +20,7 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
 
 export default defineComponent({
   name: 'OptionPanel',

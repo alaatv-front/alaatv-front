@@ -3,16 +3,15 @@
     <router-link :to="{
       name: 'Public.Set.Show',
       params: { id: set.id ? set.id : -1 }
-    }"
-    >
+    }">
       <div class="img-box">
         <div class="img-videos">
           <div class="flex">
-            <div class="play-icon"></div>
+            <div class="play-icon" />
             {{ set.contents_count }} ویدیو
           </div>
           <div class="flex">
-            <div class="tv"></div>
+            <div class="tv" />
             ریاضی کنکور
           </div>
         </div>
@@ -21,8 +20,7 @@
                     class="img"
                     :alt="set.title"
                     width="16"
-                    height="9"
-          />
+                    height="9" />
         </div>
       </div>
       <div class="set-content-box">
@@ -37,8 +35,7 @@
           <lazy-img :src="set.author?.photo"
                     alt="set"
                     width="1"
-                    height="1"
-          />
+                    height="1" />
         </div>
         <div class="teacher-name">
           {{ set.author?.first_name + ' ' + set.author?.last_name }}
@@ -51,7 +48,7 @@
             <div class="star-score"></div>
           </div>
         </div> -->
-      <div class="three-dots"></div>
+      <div class="three-dots" />
     </div>
   </q-card>
 </template>

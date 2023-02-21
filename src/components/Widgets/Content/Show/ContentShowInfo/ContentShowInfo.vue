@@ -14,7 +14,8 @@
         class="set-title">
       {{content.set.title}}
     </h6>
-    <div v-html="content.inputData.body"></div>
+    <div v-if="content.body"
+         v-html="content.body" />
     <q-separator class="q-my-lg" />
     <q-separator class="q-my-lg" />
     <div v-if="content.tags"
@@ -33,9 +34,9 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import { Content } from 'src/models/Content.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ContentShowInfo',
@@ -78,7 +79,7 @@ export default {
     data() {
       this.loadContent()
     },
-    'data.id': function () {
+    'options.id': function () {
       this.loadContent()
     }
   },
@@ -90,9 +91,9 @@ export default {
       this.getContentByRequest()
     },
     getContentByRequest() {
-      this.content.loading = true
+      const contentId = this.getContentId()
       let promise = null
-      promise = this.$apiGateway.content.show(this.options.id)
+      promise = APIGateway.content.show(contentId)
       if (promise) {
         promise
           .then((response) => {
@@ -104,25 +105,17 @@ export default {
           })
       }
     },
-
-    getContent() {
-      this.content.loading = true
-      const url = API_ADDRESS.content.show(this.content.id)
-      let promise = null
-      if (typeof this.options.getData === 'function') {
-        promise = this.options.getData(url)
-      } else {
-        promise = this.$axios.get(url)
+    getContentId () {
+      if (this.options.productId) {
+        return this.options.productId
       }
-
-      promise
-        .then(response => {
-          this.content = new Content(response.data.data)
-          this.content.loading = false
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return null
     }
   }
 }

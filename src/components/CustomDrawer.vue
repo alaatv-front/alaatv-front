@@ -11,18 +11,16 @@
       <!--          transitionDuration: `${speed}ms`-->
       <!--        }"-->
       <!--      ></div>-->
-      <div
-        class="drawer__content"
-        :dir="directionBasedOnSideSelection('content')"
-        :style="{
-          transform: `translateX(${transformValue})`,
-          maxWidth: maxWidth,
-          transitionDuration: `${speed}ms`,
-          background: backgroundColor,
-        }"
-      >
+      <div class="drawer__content"
+           :dir="directionBasedOnSideSelection('content')"
+           :style="{
+             transform: `translateX(${transformValue})`,
+             maxWidth: maxWidth,
+             transitionDuration: `${speed}ms`,
+             background: backgroundColor,
+           }">
         <!--v-click-away="closeDrawer"-->
-        <slot></slot>
+        <slot />
       </div>
     </div>
   </div>

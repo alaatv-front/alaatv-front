@@ -1,19 +1,15 @@
 <template>
-  <entity-crud
-    v-model:index-inputs="indexInputs"
-    v-model:default-inputs="defaultInputs"
-    v-bind="allProps"
-  >
+  <entity-crud v-model:index-inputs="indexInputs"
+               v-model:default-inputs="defaultInputs"
+               v-bind="allProps">
     <template v-slot:before-entity-create>
-      <q-select
-        v-model="model"
-        use-input
-        use-chips
-        multiple
-        input-debounce="0"
-        :options="tags"
-        @new-value="createValue"
-      />
+      <q-select v-model="model"
+                use-input
+                use-chips
+                multiple
+                input-debounce="0"
+                :options="tags"
+                @new-value="createValue" />
     </template>
     <template v-slot:entity-crud-table-cell="{inputData, showConfirmRemoveDialog}">
       <q-td :props="inputData.props">
@@ -54,8 +50,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
-import EntityCrud from 'components/EntityCrud'
+import API_ADDRESS from 'src/api/Addresses.js'
+import EntityCrud from 'src/components/EntityCrud.vue'
 
 export default {
   name: 'AttributeValue',
