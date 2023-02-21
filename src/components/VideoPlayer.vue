@@ -32,7 +32,7 @@ export default {
   mixins: [mixinWidget],
   props: {
     sources: {
-      type: PlayerSourceList,
+      type: [String, PlayerSourceList],
       default: new PlayerSourceList()
     },
     hlsSource: {
@@ -49,7 +49,7 @@ export default {
         return true
       }
     },
-    currentTime: {
+    currentTimed: {
       type: Number
     }
   },
@@ -101,6 +101,9 @@ export default {
     },
     calcTheWidth() {
       return '100%'
+    },
+    currentTime() {
+      return this.currentTimed
     }
   },
   watch: {
@@ -142,9 +145,10 @@ export default {
         this.player.src(this.sources.list)
       } else {
         this.player.src({
-          src: this.hlsSource,
+          src: this.sources,
           type: 'application/x-mpegURL'
         })
+        // this.player.src(this.sources)
       }
     },
     onPlayerReady() {
@@ -175,6 +179,9 @@ export default {
       this.videoOptions.poster = this.poster
     },
     reloadPlayerSources() {
+      if (!this.player) {
+        return
+      }
       this.player.src(this.sources.list)
       this.player.poster(this.poster)
     },
@@ -200,6 +207,7 @@ export default {
 
 .video-box-container{
   border-radius: inherit;
+  width: 100%;
 }
 .video-js {
   border-radius: inherit;
