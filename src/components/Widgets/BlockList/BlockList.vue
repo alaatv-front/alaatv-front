@@ -52,13 +52,23 @@ export default {
 
   methods: {
     async loadBlocks() {
+      await this.getBlocksByRequest()
+    },
+
+    async getBlocksByRequest() {
       this.blocks.loading = true
-      try {
-        const response = await this.getApiRequest()
-        this.blocks = response
-        this.blocks.loading = false
-      } catch (e) {
-        this.blocks.loading = false
+      let promise = null
+      promise = this.getApiRequest()
+      if (promise) {
+        promise
+          .then((response) => {
+            this.blocks = response
+
+            this.blocks.loading = false
+          })
+          .catch(() => {
+            this.blocks.loading = false
+          })
       }
     },
 
@@ -79,6 +89,9 @@ export default {
       }
       if (this.options.apiName === 'shop') {
         return this.$apiGateway.pages.shop()
+      }
+      if (this.options.apiName === 'content') {
+        return this.$apiGateway.content.relatedProducts({ id: this.options.contentId })
       }
     }
   }
