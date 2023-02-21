@@ -1,11 +1,13 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Content } from 'src/models/Content'
+import { Product } from 'src/models/Product'
 const APIAdresses = {
   admin: '/admin/contents',
   show: (id) => '/c/' + id,
   showAdmin: (id) => '/admin/contents/' + id,
   update: (id) => `/admin/contents/${id}/`,
+  relatedProducts: (id) => '/c/' + id + '/products',
   search: '/search',
   delete: '/admin/contents/destroy',
   bulkEditText: '/admin/contents/bulk-edit-text',
@@ -91,6 +93,22 @@ export default class ContentAPI extends APIRepository {
         enable: null, // content status
         display: null // content display status
       }, data.data)
+    })
+  }
+
+  relatedProducts(data) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.update(data.id),
+      cacheKey: this.CacheList.update(data.id),
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return new Product(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 

@@ -1,13 +1,13 @@
-"use strict";
+'use strict'
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
-});
-exports.default = void 0;
+})
+exports.default = void 0
 
-var _Credentials = _interopRequireDefault(require("./Credentials"));
+const _Credentials = _interopRequireDefault(require('./Credentials'))
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj } }
 
 class CredentialProvider {
   constructor({
@@ -19,47 +19,46 @@ class CredentialProvider {
       accessKey,
       secretKey,
       sessionToken
-    });
+    })
   }
 
   getCredentials() {
-    return this.credentials.get();
+    return this.credentials.get()
   }
 
   setCredentials(credentials) {
     if (credentials instanceof _Credentials.default) {
-      this.credentials = credentials;
+      this.credentials = credentials
     } else {
-      throw new Error("Unable to set Credentials . it should be an instance of Credentials class");
+      throw new Error('Unable to set Credentials . it should be an instance of Credentials class')
     }
   }
 
   setAccessKey(accessKey) {
-    this.credentials.setAccessKey(accessKey);
+    this.credentials.setAccessKey(accessKey)
   }
 
   getAccessKey() {
-    return this.credentials.getAccessKey();
+    return this.credentials.getAccessKey()
   }
 
   setSecretKey(secretKey) {
-    this.credentials.setSecretKey(secretKey);
+    this.credentials.setSecretKey(secretKey)
   }
 
   getSecretKey() {
-    return this.credentials.getSecretKey();
+    return this.credentials.getSecretKey()
   }
 
   setSessionToken(sessionToken) {
-    this.credentials.setSessionToken(sessionToken);
+    this.credentials.setSessionToken(sessionToken)
   }
 
   getSessionToken() {
-    return this.credentials.getSessionToken();
+    return this.credentials.getSessionToken()
   }
-
 }
 
-var _default = CredentialProvider;
-exports.default = _default;
-//# sourceMappingURL=CredentialProvider.js.map
+const _default = CredentialProvider
+exports.default = _default
+// # sourceMappingURL=CredentialProvider.js.map

@@ -32,7 +32,10 @@ const API_ADDRESS = {
     },
     formData: apiV2Server + '/megaroute/getUserFormData',
     show_user: apiV2Server + '/getUserFor3a',
-    eventresult: apiV2Server + '/event-result'
+    eventresult: {
+      base: apiV2Server + '/event-result',
+      create: apiV2Server + '/event-result/create'
+    }
   },
   content: {
     show: (id) => apiV2Server + '/c/' + id,

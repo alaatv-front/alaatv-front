@@ -1,11 +1,11 @@
-"use strict";
+'use strict'
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
-});
-exports.getS3Endpoint = getS3Endpoint;
+})
+exports.getS3Endpoint = getS3Endpoint
 
-var _helpers = require("./helpers.js");
+const _helpers = require('./helpers.js')
 
 /*
  * MinIO Javascript Library for Amazon S3 Compatible Cloud Storage, (C) 2015, 2016 MinIO, Inc.
@@ -23,7 +23,7 @@ var _helpers = require("./helpers.js");
  * limitations under the License.
  */
 // List of currently supported endpoints.
-let awsS3Endpoint = {
+const awsS3Endpoint = {
   'us-east-1': 's3.amazonaws.com',
   'us-east-2': 's3-us-east-2.amazonaws.com',
   'us-west-1': 's3-us-west-1.amazonaws.com',
@@ -40,19 +40,19 @@ let awsS3Endpoint = {
   'cn-north-1': 's3.cn-north-1.amazonaws.com.cn',
   'ap-east-1': 's3.ap-east-1.amazonaws.com' // Add new endpoints here.
 
-}; // getS3Endpoint get relevant endpoint for the region.
+} // getS3Endpoint get relevant endpoint for the region.
 
 function getS3Endpoint(region) {
   if (!(0, _helpers.isString)(region)) {
-    throw new TypeError(`Invalid region: ${region}`);
+    throw new TypeError(`Invalid region: ${region}`)
   }
 
-  var endpoint = awsS3Endpoint[region];
+  const endpoint = awsS3Endpoint[region]
 
   if (endpoint) {
-    return endpoint;
+    return endpoint
   }
 
-  return 's3.amazonaws.com';
+  return 's3.amazonaws.com'
 }
-//# sourceMappingURL=s3-endpoints.js.map
+// # sourceMappingURL=s3-endpoints.js.map
