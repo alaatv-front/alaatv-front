@@ -53,10 +53,14 @@
         لیست کارت ها
       </div>
       <div class="table-container text-center">
+        <q-table :rows="referralCodeList.list"
+                 :columns="referralCodeColumns"
+                 hide-bottom
+                 row-key="id" />
         <!--        <v-data-table-->
         <!--          v-model:options="options"-->
         <!--          :headers="headers"-->
-        <!--          :items="giftCardList"-->
+        <!--          :items="referralCodeList"-->
         <!--          mobile-breakpoint="300"-->
         <!--          :server-items-length="100"-->
         <!--          :items-per-page="5"-->
@@ -251,7 +255,9 @@
 </template>
 
 <script>
+import { APIGateway } from 'src/api/APIGateway'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
+
 export default {
   name: 'GiftCardDashboard',
   mixins: [GiftCardMixin],
@@ -270,7 +276,33 @@ export default {
         { text: 'اشتراک گذاری', cellClass: 'big-cell-width', class: 'header-style', value: 'share' }
       ],
       options: {},
-      giftCardList: []
+      referralCodeList: [],
+      referralCodeColumns: [
+        {
+          name: 'code',
+          label: 'شماره کارت',
+          align: 'left',
+          field: row => row.code
+        },
+        {
+          name: 'discount',
+          label: 'اعتبار',
+          align: 'left',
+          field: row => row.discount
+        },
+        {
+          name: 'orders',
+          label: 'وضعیت',
+          align: 'left',
+          field: row => row.orders
+        },
+        {
+          name: 'isAssigned',
+          label: 'اشتراک گذاری',
+          align: 'left',
+          field: row => row.isAssigned
+        }
+      ]
     }
   },
   computed: {
@@ -294,8 +326,8 @@ export default {
       }
     }
   },
-  created() {
-    // this.initPage()
+  mounted () {
+    this.loadAllData()
   },
   methods: {
     async copyCodeNumberToClipboard(code) {
@@ -340,36 +372,58 @@ export default {
         return 'https://www.facebook.com/sharer/sharer.php?u=' + cartItem.url
       }
     },
-    initPage() {
+    loadAllData() {
       this.getGiftCardsData()
+      // APIGateway.referralCode.batchStore({
+      //   data: {
+      //     discounttype_id: 2, // Number -- optional
+      //     number_of_codes: 50, // Number
+      //     commission: 20, // Number
+      //     mobile: '09999999999', // String
+      //     nationalCode: '0000000000', // String
+      //     firstName: 'علی', // String
+      //     lastName: 'اسمعیلی' // String
+      //   }
+      // })
     },
 
-    async getGiftCardsData() {
+    getGiftCardsData() {
       this.loading = true
-      this.giftCardList = []
-      try {
-        const response = await this.getGiftCards()
-        // console.log(response)
-        const cardList = response.data.data
-        this.lastPage = response.data.meta.last_page
-        cardList.forEach(card => {
-          this.giftCardList.push({
-            id: card.id,
-            codeNumber: card.code,
-            validity: card.discount,
-            status: card.orders,
-            share: card.isAssigned,
-            enable: card.enable,
-            url: card.url,
-            usageNumber: card.usageNumber
-          })
+      this.referralCodeList = []
+      APIGateway.referralCode.index({ data: { page: this.page } })
+        .then(({ referralCodeList, paginate }) => {
+          this.lastPage = paginate.last_page
+          this.referralCodeList = referralCodeList
+          this.loading = false
         })
-        this.loading = false
-      } catch (error) {
-        this.loading = false
-        const messages = this.getErrorMessages(error.response.data)
-        this.showErrorMessages(messages)
-      }
+        .catch(() => {
+          this.loading = false
+        })
+
+      // this.referralCodeList = []
+      // try {
+      //   const response = await this.getGiftCards()
+      //   // console.log(response)
+      //   const cardList = response.data.data
+      //   this.lastPage = response.data.meta.last_page
+      //   cardList.forEach(card => {
+      //     this.referralCodeList.push({
+      //       id: card.id,
+      //       codeNumber: card.code,
+      //       validity: card.discount,
+      //       status: card.orders,
+      //       share: card.isAssigned,
+      //       enable: card.enable,
+      //       url: card.url,
+      //       usageNumber: card.usageNumber
+      //     })
+      //   })
+      //   this.loading = false
+      // } catch (error) {
+      //   this.loading = false
+      //   const messages = this.getErrorMessages(error.response.data)
+      //   this.showErrorMessages(messages)
+      // }
     },
     shareGiftCard: async function (card) {
       try {
@@ -391,7 +445,7 @@ export default {
       return Promise.reject('The Clipboard API is not available.')
     },
     updateTableData(cardId) {
-      this.giftCardList.forEach(item => {
+      this.referralCodeList.forEach(item => {
         if (item.id === cardId) {
           item.share = 1
         }

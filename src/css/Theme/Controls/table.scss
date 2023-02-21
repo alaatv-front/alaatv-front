@@ -1,0 +1,13 @@
+.table-container {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  .q-table__container {
+    .q-table__middle {
+      .q-table {
+        thead {
+          height: 72px;
+        }
+      }
+    }
+  }
+}

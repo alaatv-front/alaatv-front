@@ -64,11 +64,11 @@ export default class APIRepository {
    * @returns The defaultSendData is being returned.
    */
   getNormalizedSendData (defaultData, data) {
-    for (const key of Object.keys(defaultData)) {
-      if (data[key] === null || data[key] === undefined) {
-        delete defaultData[key]
-      }
-    }
+    // for (const key of Object.keys(defaultData)) {
+    //   if (data[key] === null || data[key] === undefined) {
+    //     delete defaultData[key]
+    //   }
+    // }
     return Object.assign(defaultData, data)
   }
 

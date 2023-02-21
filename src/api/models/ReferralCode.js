@@ -1,7 +1,8 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
+import { ReferralCodeList } from 'src/models/ReferralCode'
 
-export default class GiftCardAPI extends APIRepository {
+export default class ReferralCodeAPI extends APIRepository {
   constructor() {
     super('gift-card', apiV2)
     this.APIAdresses = {
@@ -18,13 +19,28 @@ export default class GiftCardAPI extends APIRepository {
   // rest
   // has get
 
-  getReferralCodes () {
+  index (data) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.base,
+      data: this.getNormalizedSendData({
+        page: 1 // Number
+      }, data.data),
       resolveCallback: (response) => {
-        return response
+        return {
+          referralCodeList: new ReferralCodeList(response.data.data),
+          paginate: response.data.meta
+          // {
+          //   current_page: 1,
+          //   from: 1,
+          //   last_page: 1,
+          //   path: 'http://office.alaa.tv:700/api/v2/referral-code',
+          //   per_page: 15,
+          //   to: 10,
+          //   total: 10
+          // }
+        }
       },
       rejectCallback: (error) => {
         return error
@@ -52,9 +68,9 @@ export default class GiftCardAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.batchStore,
       data: this.getNormalizedSendData({
+        discounttype_id: 2, // Number -- optional
         number_of_codes: 0, // Number
         commission: 0, // Number
-        discounttype_id: 0, // Number
         mobile: '', // String
         nationalCode: '', // String
         firstName: '', // String

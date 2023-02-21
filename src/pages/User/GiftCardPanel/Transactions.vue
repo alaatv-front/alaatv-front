@@ -17,7 +17,11 @@ export default {
                 {
                   widgets: [{ name: 'GiftCardTransactions' }]
                 }
-              ]
+              ],
+              options: {
+                boxed: true,
+                boxedWidth: 1602
+              }
             }
           ]
         }
