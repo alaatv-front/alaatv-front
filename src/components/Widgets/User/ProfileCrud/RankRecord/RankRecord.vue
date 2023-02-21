@@ -1,12 +1,8 @@
 <template>
-  <entity-action ref="entityAction"
+  <entity-create ref="EntityCreate"
                  v-model:value="actionInput"
-                 :action-method="'post'"
-                 :action-api="actionApi"
-                 :beforeDoAction="beforeDoAction"
-                 :defaultLayout="false"
-                 @onActionSuccess="onActionSuccess"
-                 @onActionError="onActionError">
+                 :api="api"
+                 :default-layout="false">
     <template #after-form-builder>
       <div class="col-12 q-my-md flex justify-end">
         <q-btn class="submitBtn"
@@ -14,16 +10,16 @@
                @click="submitAction" />
       </div>
     </template>
-  </entity-action>
+  </entity-create>
 </template>
 
 <script>
-import { EntityAction } from 'quasar-crud'
+import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'RankRecord',
-  components: { EntityAction },
+  components: { EntityCreate },
   data() {
     return {
       actionInput: [
@@ -40,11 +36,24 @@ export default {
             },
             {
               type: 'select',
+              name: 'event',
+              label: 'رویداد',
+              placeholder: 'انتخاب نمایید',
+              responseKey: 'data.events',
+              optionLabel: 'title',
+              options: [],
+              outlined: true,
+              multiple: false,
+              col: 'col-md-6'
+            },
+            {
+              type: 'select',
               name: 'major',
               label: 'رشته شما',
               placeholder: 'انتخاب نمایید',
               responseKey: 'data.major',
               optionLabel: 'name',
+              options: [],
               outlined: true,
               multiple: false,
               col: 'col-md-6'
@@ -55,34 +64,8 @@ export default {
               label: 'منطقه یا سهمیه',
               placeholder: 'انتخاب نمایید',
               responseKey: 'data.region',
-              optionLabel: 'name',
-              options: [
-                {
-                  id: 1,
-                  name: 'منطقه ۱',
-                  title: 'منطقه ۱'
-                },
-                {
-                  id: 2,
-                  name: 'منطقه ۲',
-                  title: 'منطقه ۲'
-                },
-                {
-                  id: 3,
-                  name: 'منطقه ۳',
-                  title: 'منطقه ۳'
-                },
-                {
-                  id: 4,
-                  name: 'شاهد',
-                  title: 'شاهد'
-                },
-                {
-                  id: 5,
-                  name: 'هیئت علمی',
-                  title: 'هیئت علمی'
-                }
-              ],
+              optionLabel: 'title',
+              options: [],
               outlined: true,
               multiple: false,
               col: 'col-md-6'
@@ -108,7 +91,6 @@ export default {
             {
               type: 'file',
               name: 'reportFile',
-              responseKey: 'data.reportFile',
               label: 'آپلود فایل کارنامه',
               outlined: true,
               placeholder: 'وارد نمایید',
@@ -127,34 +109,47 @@ export default {
           ]
         }
       ],
-      actionApi: API_ADDRESS.user.eventresult
+      api: API_ADDRESS.user.eventresult.base
     }
   },
   mounted() {
     this.$store.commit('loading/loading', true)
-    this.$refs.entityAction
-      .getAxiosPromise('get', this.actionApi)
-      .then((d) => {
+    this.$axios
+      .get(API_ADDRESS.user.eventresult.create)
+      .then((response) => {
+        this.actionInput[0].value[1].options = response.data.data.events
+        this.actionInput[0].value[2].options = response.data.data.majors
+        this.actionInput[0].value[3].options = response.data.data.regions
         this.$store.commit('loading/loading', false)
+        this.getRankRecord()
       })
       .catch((e) => {
         this.$store.commit('loading/loading', false)
       })
   },
   methods: {
+    getRankRecord() {
+      this.$axios.get(this.api)
+        .then(response => {
+          console.log(response.data.data[0])
+          this.actionInput[0].value[1].value = response.data.data[0].event.title
+          this.actionInput[0].value[2].value = response.data.data[0].major.title
+          this.actionInput[0].value[3].value = response.data.data[0].region.title
+          this.actionInput[0].value[4].value = response.data.data[0].rank
+          this.actionInput[0].value[7].value = response.data.data[0].event.title
+        })
+        .catch()
+    },
     beforeDoAction(d) {
+      if (d.events) {
+        d.event_id = d.event.id
+      }
       if (d.major) {
         d.major_id = d.major.id
       }
       if (d.region) {
         d.region_id = d.region.id
       }
-      this.$axios
-        .get(API_ADDRESS.user.eventresult)
-        .then((response) => {
-          // TODO: Since  eventresult has not been implemented,
-          // completing this part will be done after getting this from BackEnd
-        })
     },
     onActionSuccess() {
       this.$store.commit('loading/loading', false)
@@ -165,7 +160,7 @@ export default {
     submitAction() {
       this.$store.commit('loading/loading', true)
 
-      this.$refs.entityAction.doAction()
+      this.$refs.EntityCreate.createEntity()
     }
   }
 }
