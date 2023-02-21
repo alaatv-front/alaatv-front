@@ -10,8 +10,7 @@ export default class ReferralCodeAPI extends APIRepository {
       orderProducts: '/referral-code/orderproducts',
       batchStore: '/referral-code/batch-store',
       orderReferralCode: '/order-referral-code',
-      assign: (referralCode) => '/referral-code/' + referralCode + '/assign',
-      setShared: (cardId) => '/referral-code/' + cardId + '/shared'
+      assign: (referralCode) => '/referral-code/' + referralCode + '/assign'
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
   }
@@ -120,13 +119,16 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  assign (data) {
+  setShared (data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.assign(data.referralCode),
+      request: this.APIAdresses.assign(data.data.referralCode),
+      data: this.getNormalizedSendData({
+        assign: true // Boolean -- optional
+      }, data.data),
       resolveCallback: (response) => {
-        return response
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error
