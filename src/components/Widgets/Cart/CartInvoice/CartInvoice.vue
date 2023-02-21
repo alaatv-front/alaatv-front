@@ -68,8 +68,14 @@
                      class="coupon-input"
                      outlined>
               <template v-slot:append>
-                <q-btn label="ثبت"
-                       flat />
+                <q-btn v-if="!isCouponSet"
+                       label="ثبت"
+                       flat
+                       @click="setCoupon" />
+                <q-btn v-else
+                       label="حذف"
+                       flat
+                       @click="cancelCoupon" />
               </template>
             </q-input>
           </div>
@@ -203,6 +209,7 @@ import Widgets from 'src/components/PageBuilder/Widgets.js'
 import Donate from 'components/Widgets/Cart/Donate/Donate.vue'
 import StickyBothSides from 'components/Utils/StickyBothSides.vue'
 import { computed } from 'vue'
+import { Notify } from 'quasar'
 
 export default {
   name: 'CartInvoice',
@@ -225,6 +232,7 @@ export default {
   data() {
     return {
       scrollInfo: null,
+      isCouponSet: false,
       cart: new Cart(),
       couponValue: null,
       userEnteredLoginInfo: {
@@ -268,6 +276,36 @@ export default {
     this.$bus.on('removeProduct', this.cartReview)
   },
   methods: {
+    setCoupon() {
+      this.$apiGateway.coupon.base({ code: this.couponValue })
+        .then(response => {
+          this.isCouponSet = true
+          Notify.create({
+            message: 'کد تخفیف با موفقیت اعمال شد',
+            type: 'negative',
+            color: 'negative'
+          })
+        })
+        .catch(err => {
+          Notify.create({
+            message: err.message,
+            type: 'negative',
+            color: 'negative'
+          })
+        })
+    },
+    cancelCoupon() {
+      this.$apiGateway.coupon.deleteCoupon()
+        .then(response => {
+          this.isCouponSet = false
+          Notify.create({
+            message: 'کد تخفیف با موفقیت حذف شد',
+            type: 'positive',
+            color: 'positive'
+          })
+        })
+        .catch()
+    },
     onScroll(info) {
       this.scrollInfo = info
     },
