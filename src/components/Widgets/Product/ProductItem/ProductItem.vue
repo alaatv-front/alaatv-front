@@ -88,27 +88,27 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', [this.product]).then((response) => {
-        this.$store.dispatch('Cart/reviewCart', this.product).then((res) => {
-          this.$q.notify({
-            message: 'با موفقیت به سبد خرید شما افزوده شد',
-            color: 'green',
-            actions: [
-              {
-                label: 'سبد خرید',
-                icon: 'isax:shopping-cart',
-                color: 'white',
-                class: 'bg-green-3',
-                handler: () => {
-                  this.$router.push({ name: 'Public.Checkout.Review' })
-                }
-              }
-            ]
-          })
-        })
-      }).catch(() => {
+      this.$store.dispatch('Cart/addToCart', [this.product])
+        .then(() => {
+          this.$store.dispatch('Cart/reviewCart', this.product)
+            .then(() => {
+              this.$q.notify({
+                message: 'با موفقیت به سبد خرید شما افزوده شد',
+                color: 'green',
+                actions: [{
+                  label: 'سبد خرید',
+                  icon: 'isax:shopping-cart',
+                  color: 'white',
+                  class: 'bg-green-3',
+                  handler: () => {
+                    this.$router.push({ name: 'Public.Checkout.Review' })
+                  }
+                }]
+              })
+            })
+        }).catch(() => {
 
-      })
+        })
     }
   }
 }

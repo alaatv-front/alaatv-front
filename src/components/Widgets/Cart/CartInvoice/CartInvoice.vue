@@ -58,7 +58,8 @@
           <q-separator class="invoice-separator" />
         </q-card-section>
 
-        <q-card-section class="invoice-coupon-section invoice-cart-section">
+        <q-card-section v-if="isUserLogin"
+                        class="invoice-coupon-section invoice-cart-section">
           <div class="enter-coupon-code">
             <div class="title">کد تخفیف:</div>
 
@@ -76,6 +77,23 @@
                        label="حذف"
                        flat
                        @click="cancelCoupon" />
+              </template>
+            </q-input>
+          </div>
+          <div class="enter-coupon-code">
+            <div class="title">کارت هدیه:</div>
+
+            <q-input v-model="giftCardValue"
+                     dir="ltr"
+                     label="کد کارت هدیه خود را وارد کنید"
+                     class="coupon-input"
+                     outlined
+                     mask="AA-#####"
+                     fill-mask
+                     hint="مثال: AT-123456">
+              <template v-slot:append>
+                <q-btn label="ثبت"
+                       flat />
               </template>
             </q-input>
           </div>
@@ -235,6 +253,7 @@ export default {
       isCouponSet: false,
       cart: new Cart(),
       couponValue: null,
+      giftCardValue: null,
       userEnteredLoginInfo: {
         password: '',
         mobile: ''

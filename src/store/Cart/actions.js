@@ -12,7 +12,7 @@ export function addToCart (context, data) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      const promise = this.$apiGateway.cart.orderProduct({ product_id: data[0].id, seller: 1 })
+      const promise = this.$apiGateway.cart.orderProduct({ product_id: data[0].id })
       promise
         .then((response) => {
           Notify.create({
