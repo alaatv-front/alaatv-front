@@ -90,6 +90,27 @@ export default {
                 options: {
                   boxed: true
                 }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'BlockList',
+                        options: {
+                          apiName: 'content',
+                          contentId: this.$route.params.id
+                        }
+                      }
+                    ],
+                    options: {
+                      className: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true
+                }
               }
             ]
           }
