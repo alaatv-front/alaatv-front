@@ -133,12 +133,12 @@ export function paymentCheckout (context) {
   })
 }
 
-export function removeItemFromCart (context, productId) {
+export function removeItemFromCart (context, orderProductId) {
   const isUserLogin = this.getters['Auth/isUserLogin']
 
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      const promise = this.$apiGateway.cart.removeItem(productId)
+      const promise = this.$apiGateway.cart.removeItem(orderProductId)
       promise
         .then((response) => {
           Notify.create({
@@ -171,6 +171,7 @@ export function removeItemFromCart (context, productId) {
       //     return reject(error)
       //   })
     } else {
+      const productId = orderProductId
       const cart = this.getters['Cart/cart']
       cart.removeItem(productId)
       context.commit('updateCart', cart)

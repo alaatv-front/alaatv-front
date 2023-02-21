@@ -10,7 +10,7 @@ export default class CartAPI extends APIRepository {
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
       review: '/checkout/review',
-      removeItem: (id) => '/orderproduct/' + id
+      removeItem: (orderProductId) => '/orderproduct/' + orderProductId
     }
     this.CacheList = {
       orderProduct: this.name + this.APIAdresses.orderProduct,
@@ -101,13 +101,13 @@ export default class CartAPI extends APIRepository {
     )
   }
 
-  removeItem(data) {
+  removeItem(orderProductId, cache) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
-      request: this.APIAdresses.removeItem(data.id),
-      cacheKey: this.CacheList.removeItem(data.id),
-      ...(data.cache !== undefined && { cache: data.cache }),
+      request: this.APIAdresses.removeItem(orderProductId),
+      cacheKey: this.CacheList.removeItem(orderProductId),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
       },
