@@ -42,6 +42,7 @@
 
           <router :include="keepAliveComponents" />
         </div>
+        <floating-action-button />
       </template>
       <template #footer>
         <alaa-footer />
@@ -57,15 +58,16 @@ import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
 import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
-// import { setHeight } from 'src/boot/page-builder'
+import FloatingActionButton from 'components/Template/FloatingActionButton/FloatingActionButton.vue'
 
 export default {
   components: {
-    TemplateSideBar,
     Router,
     AlaaFooter,
-    QuasarTemplateBuilder,
-    templateHeader
+    templateHeader,
+    TemplateSideBar,
+    FloatingActionButton,
+    QuasarTemplateBuilder
   },
   data () {
     return {
@@ -87,9 +89,6 @@ export default {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
-  // created() {
-  //   setHeight(this.calculateHeightStyle)
-  // },
   methods: {
     onContentInsideScroll (data) {
       this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)

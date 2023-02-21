@@ -53,207 +53,103 @@
         لیست کارت ها
       </div>
       <div class="table-container text-center">
-        <!--        <v-data-table-->
-        <!--          v-model:options="options"-->
-        <!--          :headers="headers"-->
-        <!--          :items="giftCardList"-->
-        <!--          mobile-breakpoint="300"-->
-        <!--          :server-items-length="100"-->
-        <!--          :items-per-page="5"-->
-        <!--          :loading="loading"-->
-        <!--          class="gift-card-table"-->
-        <!--          disable-sort-->
-        <!--          fixed-header-->
-        <!--          hide-default-footer-->
-        <!--        >-->
-        <!--          <template v-slot:item.codeNumber="{ item }">-->
-        <!--            <div class="codeNumber"-->
-        <!--                 @click="copyCodeNumberToClipboard(item.codeNumber)">-->
-        <!--              AT-->
-        <!--              {{ item.codeNumber }}-->
-        <!--            </div>-->
-        <!--          </template>-->
-        <!--          <template v-slot:item.status="{ item }">-->
-        <!--            <div class="status-box">-->
-        <!--              <div class="dot"-->
-        <!--                   :class="item.status.length === 0 ? 'red-dot' : 'green-dot'"-->
-        <!--              />-->
-        <!--              {{ item.status.length === 0 ? 'استفاده نشده' : 'استفاده شده' }}-->
-        <!--            </div>-->
-        <!--          </template>-->
-        <!--          <template v-slot:item.share="{ item }">-->
-        <!--            <div class="">-->
-        <!--              <div class="share-box">-->
-        <!--                {{ item.share === 0 ? 'اشتراک گذاری:' : 'به اشتراک گذاشته اید' }}-->
-        <!--                &lt;!&ndash;                                    <textarea id="content" value="ffffffffff"></textarea>&ndash;&gt;-->
-        <!--                <div class="icon-container flex-center"-->
-        <!--                     @click="shareGiftCard(item)">-->
-        <!--                  <svg width="24"-->
-        <!--                       height="24"-->
-        <!--                       viewBox="0 0 24 24"-->
-        <!--                       fill="none"-->
-        <!--                       xmlns="http://www.w3.org/2000/svg">-->
-        <!--                    <path-->
-        <!--                      d="M16.33 7.90998V15.14C16.33 16.8 14.99 18.14 13.33 18.14H7.79004C6.13004 18.14 4.79004 16.8 4.79004 15.14V5.97998C4.79004 4.31998 6.13004 2.97998 7.79004 2.97998H11.4C11.64 2.97998 11.87 3.06998 12.03 3.23998L16.06 7.26998C16.23 7.43998 16.32 7.66998 16.32 7.89998L16.33 7.90998Z"-->
-        <!--                      stroke="white"-->
-        <!--                      stroke-width="1.5"-->
-        <!--                      stroke-linecap="round"-->
-        <!--                      stroke-linejoin="round" />-->
-        <!--                    <path d="M19.21 10.79V18.02C19.21 19.68 17.87 21.02 16.21 21.02H8.97998"-->
-        <!--                          stroke="white"-->
-        <!--                          stroke-width="1.5"-->
-        <!--                          stroke-linecap="round"-->
-        <!--                          stroke-linejoin="round" />-->
-        <!--                    <path-->
-        <!--                      d="M16.14 7.76998H13.54C12.44 7.76998 11.54 6.86998 11.54 5.76998V3.24998"-->
-        <!--                      stroke="white"-->
-        <!--                      stroke-width="1.5"-->
-        <!--                      stroke-linecap="round"-->
-        <!--                      stroke-linejoin="round" />-->
-        <!--                  </svg>-->
-        <!--                </div>-->
-        <!--                <v-bottom-sheet>-->
-        <!--                  <template v-slot:activator="{ on, attrs }">-->
-        <!--                    <v-btn-->
-        <!--                      color="#ff9000"-->
-        <!--                      icon-->
-        <!--                      v-bind="attrs"-->
-        <!--                      class="share-icon-button"-->
-        <!--                      v-on="on"-->
-        <!--                    >-->
-        <!--                      <i class="fi fi-rr-share icon" />-->
-        <!--                    </v-btn>-->
-        <!--                  </template>-->
-        <!--                  <v-list class="align-center">-->
-        <!--                    <div class="row download-btn"-->
-        <!--                           justify="center">-->
-        <!--                      <div class="share-parent">-->
-        <!--                        <ShareNetwork-->
-        <!--                          network="whatsapp"-->
-        <!--                          class="social-share"-->
-        <!--                        >-->
-        <!--                          <v-btn-->
-        <!--                            class="ma-2"-->
-        <!--                            color="amber darken-3"-->
-        <!--                            dark-->
-        <!--                            @click="openUrl (item,'whatsapp')"-->
-        <!--                          >-->
-        <!--                            <v-icon>mdi-whatsapp</v-icon>-->
-        <!--                          </v-btn>-->
-        <!--                        </ShareNetwork>-->
-        <!--                        <ShareNetwork-->
-        <!--                          network="telegram"-->
-        <!--                          class="social-share"-->
-        <!--                        >-->
-        <!--                          <v-btn-->
-        <!--                            class="ma-2"-->
-        <!--                            color="amber darken-3"-->
-        <!--                            dark-->
-        <!--                            @click="openUrl (item, 'telegram')"-->
-        <!--                          >-->
-        <!--                            <v-icon>mdi-telegram</v-icon>-->
-        <!--                          </v-btn>-->
-        <!--                        </ShareNetwork>-->
-        <!--                        <ShareNetwork-->
-        <!--                          network="mail"-->
-        <!--                          class="social-share"-->
-        <!--                        >-->
-        <!--                          <v-btn-->
-        <!--                            class="ma-2"-->
-        <!--                            color="amber darken-3"-->
-        <!--                            dark-->
-        <!--                            @click="openUrl (item, 'mail')"-->
-        <!--                          >-->
-        <!--                            <v-icon>mdi-mail</v-icon>-->
-        <!--                          </v-btn>-->
-        <!--                        </ShareNetwork>-->
-        <!--                        <ShareNetwork-->
-        <!--                          network="linkedin"-->
-        <!--                          class="social-share"-->
-        <!--                        >-->
-        <!--                          <v-btn-->
-        <!--                            class="ma-2"-->
-        <!--                            color="amber darken-3"-->
-        <!--                            dark-->
-        <!--                            @click="openUrl (item, 'linkedin')"-->
-        <!--                          >-->
-        <!--                            <v-icon>mdi-linkedin</v-icon>-->
-        <!--                          </v-btn>-->
-        <!--                        </ShareNetwork>-->
-        <!--                        <ShareNetwork-->
-        <!--                          network="pinterest"-->
-        <!--                          class="social-share"-->
-        <!--                        >-->
-        <!--                          <v-btn-->
-        <!--                            class="ma-2"-->
-        <!--                            color="amber darken-3"-->
-        <!--                            dark-->
-        <!--                            @click="openUrl (item, 'pinterest')"-->
-        <!--                          >-->
-        <!--                            <v-icon>mdi-pinterest</v-icon>-->
-        <!--                          </v-btn>-->
-        <!--                        </ShareNetwork>-->
-        <!--                        <ShareNetwork-->
-        <!--                          network="twitter"-->
-        <!--                          class="social-share"-->
-        <!--                        >-->
-        <!--                          <v-btn-->
-        <!--                            class="ma-2"-->
-        <!--                            color="amber darken-3"-->
-        <!--                            dark-->
-        <!--                            @click="openUrl (item, 'twitter')"-->
-        <!--                          >-->
-        <!--                            <v-icon>mdi-twitter</v-icon>-->
-        <!--                          </v-btn>-->
-        <!--                        </ShareNetwork>-->
-        <!--                        <ShareNetwork-->
-        <!--                          network="facebook"-->
-        <!--                          class="social-share"-->
-        <!--                        >-->
-        <!--                          <v-btn-->
-        <!--                            class="ma-2"-->
-        <!--                            color="amber darken-3"-->
-        <!--                            dark-->
-        <!--                            @click="openUrl (item, 'facebook')"-->
-        <!--                          >-->
-        <!--                            <v-icon>mdi-facebook</v-icon>-->
-        <!--                          </v-btn>-->
-        <!--                        </ShareNetwork>-->
-        <!--                      </div>-->
-        <!--                    </div>-->
-        <!--                  </v-list>-->
-        <!--                </v-bottom-sheet>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--          </template>-->
-        <!--          <template v-slot:item.validity="{ item }">-->
-        <!--            <div class=" validity-box">-->
-        <!--              {{ item.validity.toLocaleString('fa') }}-->
-        <!--              <div class="currency ml-2">-->
-        <!--                تومان-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--          </template>-->
-        <!--        </v-data-table>-->
+        <q-table :rows="referralCodeList.list"
+                 :columns="referralCodeColumns"
+                 :loading="loading"
+                 hide-bottom
+                 row-key="id">
+          <template #body-cell="props">
+            <q-td v-if="props.col.name === 'code'"
+                  @click="copyCodeNumberToClipboard(props.value)">
+              {{ props.value }}
+            </q-td>
+            <q-td v-else-if="props.col.name === 'isAssigned'"
+                  class="isAssigned-column">
+              <div class="share-box">
+                {{ props.value === 0 ? 'اشتراک گذاری:' : 'به اشتراک گذاشته اید' }}
+                <q-btn class="icon-container"
+                       :loading="props.row.loading">
+                  <svg width="24"
+                       height="24"
+                       viewBox="0 0 24 24"
+                       fill="none"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.33 7.90998V15.14C16.33 16.8 14.99 18.14 13.33 18.14H7.79004C6.13004 18.14 4.79004 16.8 4.79004 15.14V5.97998C4.79004 4.31998 6.13004 2.97998 7.79004 2.97998H11.4C11.64 2.97998 11.87 3.06998 12.03 3.23998L16.06 7.26998C16.23 7.43998 16.32 7.66998 16.32 7.89998L16.33 7.90998Z"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
+                    <path d="M19.21 10.79V18.02C19.21 19.68 17.87 21.02 16.21 21.02H8.97998"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
+                    <path d="M16.14 7.76998H13.54C12.44 7.76998 11.54 6.86998 11.54 5.76998V3.24998"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
+                  </svg>
+                  <q-popup-proxy :offset="[10, 10]"
+                                 transition-show="flip-up"
+                                 transition-hide="flip-down">
+                    <q-banner dense
+                              rounded>
+                      <share-network :url="props.row.url"
+                                     @on-select="shareGiftCard(props.row)" />
+
+                      <!--                                      <ShareNetwork-->
+                      <!--                                        network="facebook"-->
+                      <!--                                        class="social-share"-->
+                      <!--                                      >-->
+                      <!--                                        <v-btn-->
+                      <!--                                          class="ma-2"-->
+                      <!--                                          color="amber darken-3"-->
+                      <!--                                          dark-->
+                      <!--                                          @click="openUrl (item, 'facebook')"-->
+                      <!--                                        >-->
+                      <!--                                          <v-icon>mdi-facebook</v-icon>-->
+                      <!--                                        </v-btn>-->
+                      <!--                                      </ShareNetwork>-->
+                    </q-banner>
+                  </q-popup-proxy>
+                </q-btn>
+              </div>
+            </q-td>
+            <q-td v-else-if="props.col.name === 'orders'">
+              <div class="status-box">
+                <div class="dot"
+                     :class="props.value.length === 0 ? 'red-dot' : 'green-dot'" />
+                {{ props.value.length === 0 ? 'استفاده نشده' : 'استفاده شده' }}
+              </div>
+            </q-td>
+            <q-td v-else>
+              {{ props.value }}
+            </q-td>
+          </template>
+        </q-table>
       </div>
-      <div class="text-center">
-        <!--        <v-pagination-->
-        <!--          v-model="page"-->
-        <!--          flat-->
-        <!--          class="gift-card-pagination"-->
-        <!--          color="#ff9000"-->
-        <!--          :length="lastPage"-->
-        <!--          :total-visible="5"-->
-        <!--        ></v-pagination>-->
+      <div class="flex justify-center q-mt-xl">
+        <q-pagination v-model="page"
+                      :max="lastPage"
+                      :max-pages="6"
+                      boundary-links
+                      icon-first="isax:arrow-left-2"
+                      icon-last="isax:arrow-right-3"
+                      @update:model-value="getGiftCardsData" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { APIGateway } from 'src/api/APIGateway'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
+import ShareNetwork from 'src/components/ShareNetwork.vue'
+
 export default {
   name: 'GiftCardDashboard',
+  components: { ShareNetwork },
   mixins: [GiftCardMixin],
   data() {
     return {
@@ -270,7 +166,33 @@ export default {
         { text: 'اشتراک گذاری', cellClass: 'big-cell-width', class: 'header-style', value: 'share' }
       ],
       options: {},
-      giftCardList: []
+      referralCodeList: [],
+      referralCodeColumns: [
+        {
+          name: 'code',
+          label: 'شماره کارت',
+          align: 'center',
+          field: row => 'AT' + row.code
+        },
+        {
+          name: 'discount',
+          label: 'اعتبار',
+          align: 'center',
+          field: row => row.discount.toLocaleString('fa') + ' تومان'
+        },
+        {
+          name: 'orders',
+          label: 'وضعیت',
+          align: 'center',
+          field: row => row.orders
+        },
+        {
+          name: 'isAssigned',
+          label: 'اشتراک گذاری',
+          align: 'left',
+          field: row => row.isAssigned
+        }
+      ]
     }
   },
   computed: {
@@ -287,41 +209,24 @@ export default {
       return 1
     }
   },
-  watch: {
-    page: {
-      handler() {
-        this.getGiftCardsData()
-      }
-    }
-  },
-  created() {
-    // this.initPage()
+  mounted () {
+    this.loadAllData()
   },
   methods: {
-    async copyCodeNumberToClipboard(code) {
-      try {
-        await this.copyToClipboard(code)
-        this.toast('کد کارت هدیه شما کپی شد')
-      } catch (e) {
-        this.toast('سیستم کپی در مرورگر شماپشتیبانی نمیشود. ', 'error')
-      }
-    },
-
-    async openUrl(cartItem, socialMedia) {
-      try {
-        // await this.$axios.post('/ajax/referralCode/' + card.id + '/shared', { assign: true })
-        await this.$axios.post('/alaa/api/v2/ajax/referralCode/' + cartItem.id + '/shared', { assign: true })
-        const url = this.getShareLink(cartItem, socialMedia)
-        open(url)
-      } catch (error) {
-        if (error.response && error.response?.data) {
-          const messages = this.getErrorMessages(error.response?.data)
-          this.showErrorMessages(messages)
-          return
-        }
-
-        this.toast('سیستم اشتراک گذاری در مرورگر شماپشتیبانی نمیشود. ', 'error')
-      }
+    copyCodeNumberToClipboard(code) {
+      this.copyToClipboard(code)
+        .then(() => {
+          this.$q.notify({
+            message: 'کد کارت هدیه شما کپی شد',
+            type: 'positive'
+          })
+        })
+        .catch(() => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'مشکلی در کپی کردن کد کارت هدیه در مرورگر شما رخ داده است.'
+          })
+        })
     },
     getShareLink(cartItem, socialMedia) {
       if (socialMedia === 'telegram') {
@@ -340,49 +245,57 @@ export default {
         return 'https://www.facebook.com/sharer/sharer.php?u=' + cartItem.url
       }
     },
-    initPage() {
+    loadAllData() {
       this.getGiftCardsData()
+      // APIGateway.referralCode.batchStore({
+      //   data: {
+      //     discounttype_id: 2, // Number -- optional
+      //     number_of_codes: 50, // Number
+      //     commission: 20, // Number
+      //     mobile: '09999999999', // String
+      //     nationalCode: '0000000000', // String
+      //     firstName: 'علی', // String
+      //     lastName: 'اسمعیلی' // String
+      //   }
+      // })
     },
-
-    async getGiftCardsData() {
+    getGiftCardsData(page = 1) {
+      console.trace(page)
       this.loading = true
-      this.giftCardList = []
-      try {
-        const response = await this.getGiftCards()
-        // console.log(response)
-        const cardList = response.data.data
-        this.lastPage = response.data.meta.last_page
-        cardList.forEach(card => {
-          this.giftCardList.push({
-            id: card.id,
-            codeNumber: card.code,
-            validity: card.discount,
-            status: card.orders,
-            share: card.isAssigned,
-            enable: card.enable,
-            url: card.url,
-            usageNumber: card.usageNumber
-          })
+      this.referralCodeList = []
+      APIGateway.referralCode.index({ data: { page } })
+        .then(({ referralCodeList, paginate }) => {
+          this.lastPage = paginate.last_page
+          this.referralCodeList = referralCodeList
+          this.loading = false
         })
-        this.loading = false
-      } catch (error) {
-        this.loading = false
-        const messages = this.getErrorMessages(error.response.data)
-        this.showErrorMessages(messages)
-      }
+        .catch(() => {
+          this.loading = false
+        })
     },
-    shareGiftCard: async function (card) {
-      try {
-        await this.$axios.post('/alaa/api/v2/ajax/referralCode/' + card.id + '/shared', { assign: true })
-        this.updateTableData(card.id)
-        await this.copyToClipboard(card.url)
-        this.toast('کد لینک کارت هدیه شما کپی شد')
-      } catch (e) {
-        if (e.response && e.response?.data) {
-          const messages = this.getErrorMessages(e.response?.data)
-          this.showErrorMessages(messages)
-        }
-      }
+    shareGiftCard (card) {
+      card.loading = true
+      APIGateway.referralCode.setShared({ data: { referralCode: card.id } })
+        .then(() => {
+          card.isAssigned = 1
+          card.loading = false
+          this.copyToClipboard(card.url)
+            .then(() => {
+              this.$q.notify({
+                message: 'کد لینک کارت هدیه شما کپی شد',
+                type: 'positive'
+              })
+            })
+            .catch(() => {
+              this.$q.notify({
+                type: 'negative',
+                message: 'مشکلی در کپی کردن لینک در مرورگر شما رخ داده است.'
+              })
+            })
+        })
+        .catch(() => {
+          card.loading = false
+        })
     },
     copyToClipboard (textToCopy) {
       if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
@@ -391,15 +304,10 @@ export default {
       return Promise.reject('The Clipboard API is not available.')
     },
     updateTableData(cardId) {
-      this.giftCardList.forEach(item => {
+      this.referralCodeList.forEach(item => {
         if (item.id === cardId) {
           item.share = 1
         }
-      })
-    },
-    getGiftCards() {
-      return this.$axios.get('/alaa/api/v2/ajax/referralCodes', {
-        ...(this.page > 1 && { params: { page: this.page } })
       })
     }
   }
@@ -407,20 +315,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.show-gif-cards-page{
+@import "src/components/Widgets/User/GiftCard/Style/theme.scss";
+
+:deep(.q-table) {
+  color: $text-color-secondary;
 }
+
 .page-title {
   font-weight: 600;
   font-size: 20px;
   line-height: 31px;
   text-align: left;
   letter-spacing: -0.03em;
-  color: #8798B1;
+  color: $text-color-secondary;
   margin-bottom: 16px;
 }
 .page-introduction{
   margin-bottom: 31px;
-  color: #697D9A;
+  color: $text-color-primary;
   .description {
     font-weight: 400;
     font-size: 16px;
@@ -473,35 +385,37 @@ export default {
   line-height: 31px;
   text-align: left;
   letter-spacing: -0.03em;
-  color: #8798B1;
+  color: $text-color-secondary;
   margin-bottom: 16px;
 }
 .table-container {
   padding-bottom: 10px;
   overflow-x: scroll;
-  .flex-center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
-  .share-box {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    .share-icon-button{
-      font-size: 20px;
-      @media screen and (max-width: 599px) {
-        font-size: 16px;
+  .isAssigned-column {
+    width: 400px;
+    .share-box {
+      display: grid;
+      width: 200px;
+      grid-template-columns: 150px 50px;
+      .share-icon-button{
+        font-size: 20px;
+        @media screen and (max-width: 599px) {
+          font-size: 16px;
+        }
       }
-    }
 
-    .icon-container {
-      width: 32px;
-      height: 32px;
-      background: #FF9000;
-      box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
-      border-radius: 8px;
-      cursor: pointer;
+      .icon-container {
+        width: 32px;
+        height: 32px;
+        background: #FF9000;
+        box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 
@@ -521,11 +435,12 @@ export default {
   letter-spacing: -0.03em;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   .dot {
     width: 6px;
     height: 6px;
-    margin-left: 6px;
+    margin-right: 6px;
     border-radius: 10px;
 
     &.red-dot {

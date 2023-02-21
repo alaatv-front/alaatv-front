@@ -44,7 +44,8 @@
                   done-icon="connected_tv"
                   active-icon="connected_tv"
                   :done="step > 3">
-            <upload-publish v-model:content="content"
+            <upload-publish ref="uploadPublish"
+                            v-model:content="content"
                             @update-form-data="updatePublishForm($event)" />
           </q-step>
           <template v-slot:navigation>
@@ -98,15 +99,15 @@ export default {
   },
   watch: {
     contentId(value) {
-      this.getContent()
+      this.getContent(value)
     }
   },
-  mounted() {
-    this.getContent()
-  },
+  // mounted() {
+  //   this.getContent()
+  // },
   methods: {
-    getContent() {
-      this.$apiGateway.content.showAdmin(this.contentId).then(res => {
+    getContent(value) {
+      this.$apiGateway.content.showAdmin(value).then(res => {
         this.content = res
       }).catch(() => {
         this.content = new Content()
@@ -116,11 +117,20 @@ export default {
       this.publishForm = formData
     },
     gotoNextStep() {
-      this.$refs.uploadProperties.$refs.entityEditForm.editEntity().then(res => {
+      if (this.step === 1) {
+        this.$refs.uploadProperties.$refs.entityEditForm.editEntity().then(res => {
+          this.$refs.stepper.next()
+        }).catch(err => {
+          console.error(err)
+        })
+      } else if (this.step === 2) {
         this.$refs.stepper.next()
-      }).catch(err => {
-        console.error(err)
-      })
+      } else {
+        console.log(this.$refs.uploadPublish)
+        this.$apiGateway.content.update({
+          data: this.$refs.uploadPublish.publish()
+        })
+      }
     },
     publish() {
       this.$apiGateway.content.update({

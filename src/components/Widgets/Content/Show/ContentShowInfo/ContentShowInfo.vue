@@ -98,7 +98,6 @@ export default {
         promise
           .then((response) => {
             this.content = new Content(response)
-            console.log(this.content)
             this.content.loading = false
           })
           .catch(() => {

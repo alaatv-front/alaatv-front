@@ -6,7 +6,7 @@
         <q-btn color="primary"
                label="بارگذاری"
                icon-right="isax:add"
-               @click="toggleUploadProgressDialog" />
+               @click="toggleUploadDialog()" />
 
       </div>
       <q-tabs v-model="tab"
@@ -127,11 +127,15 @@
     <upload-progress-dialog v-model:dialog="progressDialog"
                             v-model:contentId="progressDialogContentId"
                             @toggleDialog="toggleUploadProgressDialog(false)" />
+    <upload-dialog v-model:dialog="uploadDialog"
+                   @toggleDialog="toggleUploadDialog(false)" />
+
   </div>
 </template>
 
 <script>
 import UploadProgressDialog from './components/UploadProgressDialog/UploadProgressDialog.vue'
+import UploadDialog from './components/UploadDialog/UploadDialog.vue'
 import { EntityIndex } from 'quasar-crud'
 import ActionBtnComponent from 'components/Utils/actionBtn.vue'
 import { shallowRef } from 'vue'
@@ -147,6 +151,7 @@ export default {
   components: {
     ContentEditHeader,
     UploadProgressDialog,
+    UploadDialog,
     EntityIndex
   },
   data() {
@@ -176,7 +181,8 @@ export default {
       entitySelectedValues: [],
       isFilterBoxHidden: false,
       progressDialog: false,
-      progressDialogContentId: 37920,
+      uploadDialog: false,
+      progressDialogContentId: 0,
       tab: 'createdAtSince',
       expanded: true,
       selected: [],
@@ -312,6 +318,9 @@ export default {
       }
       this.progressDialog = !this.progressDialog
     },
+    toggleUploadDialog(value) {
+      this.uploadDialog = !this.uploadDialog
+    },
     onEntityButtonsClicked(inputObj) {
       const input = inputObj.input
       const event = inputObj.event
@@ -366,6 +375,9 @@ export default {
       this.changeFilterBoxElementDisplay('flex')
     },
     changeFilterBoxElementDisplay (display) {
+      if (!document.querySelector('.entity-filter-box')) {
+        return
+      }
       document.querySelector('.entity-filter-box').style.display = display
     },
     entitySelected (val) {

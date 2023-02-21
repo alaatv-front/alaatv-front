@@ -52,24 +52,13 @@ export default {
 
   methods: {
     async loadBlocks() {
-      await this.getBlocksByRequest()
-    },
-
-    async getBlocksByRequest() {
       this.blocks.loading = true
-      let promise = null
-      promise = this.getApiRequest()
-      if (promise) {
-        promise
-          .then((response) => {
-            this.blocks = response
-
-            this.blocks.loading = false
-            console.log(this.blocksToShow)
-          })
-          .catch(() => {
-            this.blocks.loading = false
-          })
+      try {
+        const response = await this.getApiRequest()
+        this.blocks = response
+        this.blocks.loading = false
+      } catch (e) {
+        this.blocks.loading = false
       }
     },
 
@@ -80,7 +69,7 @@ export default {
       return blocks.list.slice(this.options.from, this.options.to)
     },
 
-    async getApiRequest() {
+    getApiRequest() {
       if (this.options.apiName === 'home') {
         return this.$apiGateway.pages.home({
           cache: {

@@ -1,0 +1,36 @@
+.table-container {
+  overflow-x: auto !important;
+  border-radius: 16px;
+  padding-bottom: 0 !important;
+  box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+  .q-table__container {
+    .q-table__middle {
+      .q-table {
+        thead {
+          tr {
+            height: 72px;
+            th {
+              border-bottom: 1px solid #DEDEDE;
+            }
+          }
+        }
+        tbody {
+          tr {
+            height: 60px;
+            &:nth-child(2n+1) {
+              background: rgba(246, 248, 250, 0.4);
+            }
+            &:last-child {
+              td {
+                border-bottom: none;
+              }
+            }
+            td {
+              border-bottom: 1px solid #DEDEDE;
+            }
+          }
+        }
+      }
+    }
+  }
+}
