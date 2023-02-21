@@ -63,60 +63,57 @@
                   @click="copyCodeNumberToClipboard(props.value)">
               {{ props.value }}
             </q-td>
-            <q-td v-else-if="props.col.name === 'isAssigned'">
+            <q-td v-else-if="props.col.name === 'isAssigned'"
+                  class="isAssigned-column">
+              <div class="share-box">
+                {{ props.value === 0 ? 'اشتراک گذاری:' : 'به اشتراک گذاشته اید' }}
+                <q-btn class="icon-container"
+                       :loading="props.row.loading">
+                  <svg width="24"
+                       height="24"
+                       viewBox="0 0 24 24"
+                       fill="none"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.33 7.90998V15.14C16.33 16.8 14.99 18.14 13.33 18.14H7.79004C6.13004 18.14 4.79004 16.8 4.79004 15.14V5.97998C4.79004 4.31998 6.13004 2.97998 7.79004 2.97998H11.4C11.64 2.97998 11.87 3.06998 12.03 3.23998L16.06 7.26998C16.23 7.43998 16.32 7.66998 16.32 7.89998L16.33 7.90998Z"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
+                    <path d="M19.21 10.79V18.02C19.21 19.68 17.87 21.02 16.21 21.02H8.97998"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
+                    <path d="M16.14 7.76998H13.54C12.44 7.76998 11.54 6.86998 11.54 5.76998V3.24998"
+                          stroke="white"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round" />
+                  </svg>
+                  <q-popup-proxy :offset="[10, 10]"
+                                 transition-show="flip-up"
+                                 transition-hide="flip-down">
+                    <q-banner dense
+                              rounded>
+                      <share-network :url="props.row.url"
+                                     @on-select="shareGiftCard(props.row)" />
 
-              <div class="">
-                <div class="share-box">
-                  {{ props.value === 0 ? 'اشتراک گذاری:' : 'به اشتراک گذاشته اید' }}
-                  <!--                                    <textarea id="content" value="ffffffffff"></textarea>-->
-                  <q-btn class="icon-container"
-                         :loading="props.row.loading">
-                    <svg width="24"
-                         height="24"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                      <path d="M16.33 7.90998V15.14C16.33 16.8 14.99 18.14 13.33 18.14H7.79004C6.13004 18.14 4.79004 16.8 4.79004 15.14V5.97998C4.79004 4.31998 6.13004 2.97998 7.79004 2.97998H11.4C11.64 2.97998 11.87 3.06998 12.03 3.23998L16.06 7.26998C16.23 7.43998 16.32 7.66998 16.32 7.89998L16.33 7.90998Z"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                      <path d="M19.21 10.79V18.02C19.21 19.68 17.87 21.02 16.21 21.02H8.97998"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                      <path d="M16.14 7.76998H13.54C12.44 7.76998 11.54 6.86998 11.54 5.76998V3.24998"
-                            stroke="white"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round" />
-                    </svg>
-                    <q-popup-proxy :offset="[10, 10]"
-                                   transition-show="flip-up"
-                                   transition-hide="flip-down">
-                      <q-banner dense
-                                rounded>
-                        <share-network :url="props.row.url"
-                                       @on-select="shareGiftCard(props.row)" />
-
-                        <!--                                      <ShareNetwork-->
-                        <!--                                        network="facebook"-->
-                        <!--                                        class="social-share"-->
-                        <!--                                      >-->
-                        <!--                                        <v-btn-->
-                        <!--                                          class="ma-2"-->
-                        <!--                                          color="amber darken-3"-->
-                        <!--                                          dark-->
-                        <!--                                          @click="openUrl (item, 'facebook')"-->
-                        <!--                                        >-->
-                        <!--                                          <v-icon>mdi-facebook</v-icon>-->
-                        <!--                                        </v-btn>-->
-                        <!--                                      </ShareNetwork>-->
-                      </q-banner>
-                    </q-popup-proxy>
-                  </q-btn>
-                </div>
+                      <!--                                      <ShareNetwork-->
+                      <!--                                        network="facebook"-->
+                      <!--                                        class="social-share"-->
+                      <!--                                      >-->
+                      <!--                                        <v-btn-->
+                      <!--                                          class="ma-2"-->
+                      <!--                                          color="amber darken-3"-->
+                      <!--                                          dark-->
+                      <!--                                          @click="openUrl (item, 'facebook')"-->
+                      <!--                                        >-->
+                      <!--                                          <v-icon>mdi-facebook</v-icon>-->
+                      <!--                                        </v-btn>-->
+                      <!--                                      </ShareNetwork>-->
+                    </q-banner>
+                  </q-popup-proxy>
+                </q-btn>
               </div>
             </q-td>
             <q-td v-else-if="props.col.name === 'orders'">
@@ -132,15 +129,14 @@
           </template>
         </q-table>
       </div>
-      <div class="text-center">
-        <!--        <v-pagination-->
-        <!--          v-model="page"-->
-        <!--          flat-->
-        <!--          class="gift-card-pagination"-->
-        <!--          color="#ff9000"-->
-        <!--          :length="lastPage"-->
-        <!--          :total-visible="5"-->
-        <!--        ></v-pagination>-->
+      <div class="flex justify-center q-mt-xl">
+        <q-pagination v-model="page"
+                      :max="lastPage"
+                      :max-pages="6"
+                      boundary-links
+                      icon-first="isax:arrow-left-2"
+                      icon-last="isax:arrow-right-3"
+                      @update:model-value="getGiftCardsData" />
       </div>
     </div>
   </div>
@@ -149,7 +145,7 @@
 <script>
 import { APIGateway } from 'src/api/APIGateway'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import ShareNetwork from 'components/ShareNetwork.vue'
+import ShareNetwork from 'src/components/ShareNetwork.vue'
 
 export default {
   name: 'GiftCardDashboard',
@@ -193,7 +189,7 @@ export default {
         {
           name: 'isAssigned',
           label: 'اشتراک گذاری',
-          align: 'center',
+          align: 'left',
           field: row => row.isAssigned
         }
       ]
@@ -211,13 +207,6 @@ export default {
     countOfRemainGiftCards() {
       // return this.$store.getters.appProps.countOfRemainGiftCards
       return 1
-    }
-  },
-  watch: {
-    page: {
-      handler() {
-        this.getGiftCardsData()
-      }
     }
   },
   mounted () {
@@ -270,10 +259,11 @@ export default {
       //   }
       // })
     },
-    getGiftCardsData() {
+    getGiftCardsData(page = 1) {
+      console.trace(page)
       this.loading = true
       this.referralCodeList = []
-      APIGateway.referralCode.index({ data: { page: this.page } })
+      APIGateway.referralCode.index({ data: { page } })
         .then(({ referralCodeList, paginate }) => {
           this.lastPage = paginate.last_page
           this.referralCodeList = referralCodeList
@@ -402,26 +392,30 @@ export default {
   padding-bottom: 10px;
   overflow-x: scroll;
 
-  .share-box {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    .share-icon-button{
-      font-size: 20px;
-      @media screen and (max-width: 599px) {
-        font-size: 16px;
+  .isAssigned-column {
+    width: 400px;
+    .share-box {
+      display: grid;
+      width: 200px;
+      grid-template-columns: 150px 50px;
+      .share-icon-button{
+        font-size: 20px;
+        @media screen and (max-width: 599px) {
+          font-size: 16px;
+        }
       }
-    }
 
-    .icon-container {
-      width: 32px;
-      height: 32px;
-      background: #FF9000;
-      box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      .icon-container {
+        width: 32px;
+        height: 32px;
+        background: #FF9000;
+        box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 
