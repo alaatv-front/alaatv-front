@@ -1,9 +1,9 @@
-"use strict";
+'use strict'
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
-});
-exports.default = void 0;
+})
+exports.default = void 0
 
 class Credentials {
   constructor({
@@ -11,33 +11,33 @@ class Credentials {
     secretKey,
     sessionToken
   }) {
-    this.accessKey = accessKey;
-    this.secretKey = secretKey;
-    this.sessionToken = sessionToken;
+    this.accessKey = accessKey
+    this.secretKey = secretKey
+    this.sessionToken = sessionToken
   }
 
   setAccessKey(accessKey) {
-    this.accessKey = accessKey;
+    this.accessKey = accessKey
   }
 
   getAccessKey() {
-    return this.accessKey;
+    return this.accessKey
   }
 
   setSecretKey(secretKey) {
-    this.secretKey = secretKey;
+    this.secretKey = secretKey
   }
 
   getSecretKey() {
-    return this.secretKey;
+    return this.secretKey
   }
 
   setSessionToken(sessionToken) {
-    this.sessionToken = sessionToken;
+    this.sessionToken = sessionToken
   }
 
   getSessionToken() {
-    return this.sessionToken;
+    return this.sessionToken
   }
 
   get() {
@@ -45,11 +45,10 @@ class Credentials {
       accessKey: this.accessKey,
       secretKey: this.secretKey,
       sessionToken: this.sessionToken
-    };
+    }
   }
-
 }
 
-var _default = Credentials;
-exports.default = _default;
-//# sourceMappingURL=Credentials.js.map
+const _default = Credentials
+exports.default = _default
+// # sourceMappingURL=Credentials.js.map

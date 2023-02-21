@@ -153,7 +153,6 @@ export default {
           .then((response) => {
             this.set = new Set(response)
             this.contentNumber = this.getContentNumberInListById(this.content.id)
-            console.log(this.contentNumber)
             this.set.loading = false
           })
           .catch(() => {
@@ -178,7 +177,6 @@ export default {
       this.sources = new PlayerSourceList(sources)
     },
     goToContentPage(number) {
-      console.log(number)
       const id = this.getContentIdByNumberInList(number)
       if (!id) {
         return null
