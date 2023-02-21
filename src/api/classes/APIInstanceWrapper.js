@@ -4,7 +4,7 @@ readable way */
 export default class APIInstanceWrapper {
   static getRequest(req, option) {
     if (req === 'get') {
-      return option.api.get(option.request, { params: option.params })
+      return option.api.get(option.request, { params: option.data })
     } else if (req === 'post') {
       return option.api.post(option.request, option.data)
     } else if (req === 'put') {

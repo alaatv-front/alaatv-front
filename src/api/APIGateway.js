@@ -12,11 +12,13 @@ import TicketAPI from './models/ticket'
 import UserAPI from './models/user'
 import AbrishamAPI from 'src/api/models/Abrisham'
 import TreeAPI from 'src/api/models/tree'
+import ReferralCodeAPI from 'src/api/models/ReferralCode'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
   abrisham: new AbrishamAPI(),
   attribute: new AttributeAPI(),
+  referralCode: new ReferralCodeAPI(),
   auth: new AuthAPI(),
   cart: new CartAPI(),
   content: new ContentAPI(),

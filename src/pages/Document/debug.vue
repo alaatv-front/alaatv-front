@@ -1,26 +1,6 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <!--      <q-uploader ref="uploadedImage"-->
-      <!--                  url="https://stage-minio.alaatv.com"-->
-      <!--                  max-file-size="5242880"-->
-      <!--                  auto-upload-->
-      <!--                  :factory="updatePicture"-->
-      <!--                  label="Upload profile picture"-->
-      <!--                  accept="image/*" />-->
-      <div>
-        <q-file v-model="file"
-                label="Standard"
-                @update:model-value="loggg" />
-
-        <q-uploader url="http://localhost:4444/upload"
-                    style="max-width: 300px" />
-
-        {{file}}
-      </div>
-    </div>
-    <div v-if="false"
-         class="col-12">
       <div class="row items-center justify-center">
         <div class="col-6">
           <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />

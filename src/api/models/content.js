@@ -12,7 +12,8 @@ const APIAdresses = {
   bulkUpdate: '/admin/contents/bulk-update',
   bulkEditTags: '/admin/contents/bulk-edit-tags',
   timestampSet: 'timepoint',
-  timestampGet: (id) => `timepoint/${id}`
+  timestampGet: (id) => `timepoint/${id}`,
+  presigned: '/admin/upload/presigned-request'
 }
 export default class ContentAPI extends APIRepository {
   constructor() {
@@ -28,7 +29,8 @@ export default class ContentAPI extends APIRepository {
       bulkEditText: this.name + this.APIAdresses.bulkEditText,
       bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
       bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
-      timestampGet: id => this.name + this.APIAdresses.timestampGet(id)
+      timestampGet: id => this.name + this.APIAdresses.timestampGet(id),
+      presigned: this.name + this.APIAdresses.presigned
     }
   }
 
@@ -66,7 +68,7 @@ export default class ContentAPI extends APIRepository {
 
   update(data = {}) {
     return this.sendRequest({
-      apiMethod: 'post',
+      apiMethod: 'put',
       api: this.api,
       request: this.APIAdresses.update(data.data.id),
       cacheKey: this.CacheList.update(data.data.id),
@@ -218,6 +220,26 @@ export default class ContentAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
+    })
+  }
+
+  getPresigned(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.presigned,
+      cacheKey: this.CacheList.presigned,
+      ...(data.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return response.data.data
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: this.getNormalizedSendData({
+        bucket: null, // file name(test)
+        key: null // file with type(type.mp4)
+      }, data.data)
     })
   }
 }

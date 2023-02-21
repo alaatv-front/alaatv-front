@@ -72,8 +72,7 @@
         <div class="video-box">
           <div class="video-box-title" />
           <video-player class="video"
-                        :sources="videoSource()"
-                        :hlsSource="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'"
+                        :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'"
                         :current-time="currentTime"
                         @seeked="getTimestamp($event)" />
           <!--          <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />-->
@@ -89,7 +88,7 @@
 
 <script>
 import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
-import VideoPlayer from 'src/components/VideoPlayer.vue'
+import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 
 export default {
