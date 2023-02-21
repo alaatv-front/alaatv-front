@@ -83,13 +83,13 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  review(data = {}) {
+  review(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.review,
       cacheKey: this.CacheList.review,
-      ...(data.cache !== undefined && { cache: data.cache }),
+      ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
       },
