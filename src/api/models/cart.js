@@ -21,25 +21,32 @@ export default class CartAPI extends APIRepository {
     }
   }
 
-  orderProduct(data = {}) {
+  orderProduct(data = {}, cache) {
+    const payload = {
+      product_id: data.product_id, // Number or String
+      products: data.products, // Number or String (List ofProduct's ID)
+      attribute: data.attribute, // Number or String
+      seller: 1 // 1: Alaa - 2: Soala
+    }
+    if (!payload.products) {
+      delete payload.products
+    }
+    if (!payload.attribute) {
+      delete payload.attribute
+    }
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.orderProduct,
       cacheKey: this.CacheList.orderProduct,
-      ...(data.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return response
       },
       rejectCallback: (error) => {
         return error
       },
-      data: this.getNormalizedSendData({
-        product_id: null, // Number or String
-        products: null, // Number or String (List ofProduct's ID)
-        attribute: null, // Number or String
-        seller: 1 // 1: Alaa - 2: Soala
-      }, data)
+      data: payload
     })
   }
 
