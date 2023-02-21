@@ -65,7 +65,6 @@ export default {
             this.blocks = response
 
             this.blocks.loading = false
-            console.log(this.blocksToShow)
           })
           .catch(() => {
             this.blocks.loading = false
