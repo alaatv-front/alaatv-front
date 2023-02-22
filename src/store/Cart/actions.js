@@ -12,7 +12,7 @@ export function addToCart (context, data) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      const promise = this.$apiGateway.cart.orderProduct({ product_id: data[0].id })
+      const promise = this.$apiGateway.cart.addToCart({ product_id: data[0].id })
       promise
         .then((response) => {
           Notify.create({
@@ -56,7 +56,7 @@ export function addToCart (context, data) {
 export function reviewCart (context, product) {
   const isUserLogin = this.getters['Auth/isUserLogin']
   const currentCart = this.getters['Cart/cart']
-  const promise = this.$apiGateway.cart.review({ params: { seller: 1 } })
+  const promise = this.$apiGateway.cart.reviewCart({ params: { seller: 1 } })
   const orders = []
   if (currentCart.items.list !== undefined && currentCart.items.list.length > 0) {
     currentCart.items.list.forEach(item => {
@@ -122,14 +122,6 @@ export function paymentCheckout (context) {
       .catch(error => {
         reject(error)
       })
-    // axios
-    //   .get(API_ADDRESS.cart.getPaymentRedirectEncryptedLink)
-    //   .then((response) => {
-    //     return resolve(response)
-    //   })
-    //   .catch((error) => {
-    //     reject(error)
-    //   })
   })
 }
 
@@ -138,7 +130,7 @@ export function removeItemFromCart (context, orderProductId) {
 
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      const promise = this.$apiGateway.cart.removeItem(orderProductId)
+      const promise = this.$apiGateway.cart.removeFromCart({ id: orderProductId })
       promise
         .then((response) => {
           Notify.create({
@@ -154,22 +146,6 @@ export function removeItemFromCart (context, orderProductId) {
         .catch((error) => {
           return reject(error)
         })
-      // axios
-      //   .delete(API_ADDRESS.cart.orderproduct.delete(productId))
-      //   .then((response) => {
-      //     Notify.create({
-      //       type: 'positive',
-      //       color: 'positive',
-      //       timeout: 5000,
-      //       position: 'top',
-      //       message: 'محصول از سبد خرید حذف شد.',
-      //       icon: 'report_problem'
-      //     })
-      //     return resolve(response)
-      //   })
-      //   .catch((error) => {
-      //     return reject(error)
-      //   })
     } else {
       const productId = orderProductId
       const cart = this.getters['Cart/cart']

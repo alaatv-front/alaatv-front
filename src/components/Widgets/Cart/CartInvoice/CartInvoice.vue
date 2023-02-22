@@ -1,6 +1,7 @@
 <template>
   <q-scroll-observer @scroll="onScroll" />
-  <sticky-both-sides :top-gap="20"
+  <sticky-both-sides v-if="cart.count > 0"
+                     :top-gap="20"
                      :bottom-gap="10"
                      :max-width="1024">
     <div v-if="isUserLogin"
@@ -88,8 +89,8 @@
                      label="کد کارت هدیه خود را وارد کنید"
                      class="coupon-input"
                      outlined
-                     fill-mask
-                     hint="مثال: AT-123456">
+                     :prefix=giftCardPrefix
+                     fill-mask>
               <template v-slot:append>
                 <q-btn label="ثبت"
                        flat
@@ -254,6 +255,7 @@ export default {
       cart: new Cart(),
       couponValue: null,
       giftCardValue: null,
+      giftCardPrefix: 'AT',
       userEnteredLoginInfo: {
         password: '',
         mobile: ''
@@ -295,6 +297,10 @@ export default {
     this.$bus.on('removeProduct', this.cartReview)
   },
   methods: {
+    // onPaste() {
+    //   const str = this.giftCardValue.toString()
+    //   str.replace('AT', '')
+    // },
     submitReferralCode() {
       this.$apiGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
         .then(response => {
