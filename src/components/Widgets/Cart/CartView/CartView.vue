@@ -269,9 +269,9 @@ export default {
       return customItems
     },
 
-    removeItem(order) {
+    removeItem(orderProductId) {
       this.$store.dispatch('loading/overlayLoading', true)
-      this.$store.dispatch('Cart/removeItemFromCart', order)
+      this.$store.dispatch('Cart/removeItemFromCart', orderProductId)
         .then(() => {
           this.$store.dispatch('loading/overlayLoading', false)
           this.cartReview()
@@ -284,6 +284,7 @@ export default {
     },
 
     changeDialogState (state, itemId) {
+      debugger
       if (itemId) {
         this.clickedItemIdToRemove = itemId
       }
