@@ -14,11 +14,8 @@
                   نام
                 </div>
                 <div class="input">
-                  <q-text-field v-model="user.first_name"
-                                disabled
-                                filled
-                                dense
-                                hide-details />
+                  <q-input v-model="user.first_name"
+                           filled />
                 </div>
               </div>
             </div>
@@ -28,11 +25,8 @@
                   نام خانوادگی
                 </div>
                 <div class="input">
-                  <q-text-field v-model="user.last_name"
-                                disabled
-                                filled
-                                dense
-                                hide-details />
+                  <q-input v-model="user.last_name"
+                           filled />
                 </div>
               </div>
             </div>
@@ -42,11 +36,8 @@
                   شماره همراه
                 </div>
                 <div class="input">
-                  <q-text-field v-model="user.mobile"
-                                disabled
-                                filled
-                                dense
-                                hide-details />
+                  <q-input v-model="user.mobile"
+                           filled />
                 </div>
               </div>
             </div>
@@ -56,11 +47,8 @@
                   کد ملی
                 </div>
                 <div class="input">
-                  <q-text-field v-model="user.nationalCode"
-                                disabled
-                                filled
-                                dense
-                                hide-details />
+                  <q-input v-model="user.nationalCode"
+                           filled />
                 </div>
               </div>
             </div>
@@ -97,10 +85,9 @@
                    @dragover="dragover"
                    @dragleave="dragleave"
                    @drop="drop">
-                <v-overlay absolute
-                           :value="uploadNationalCardPicLoading">
+                <q-inner-loading :showing="uploadNationalCardPicLoading">
                   کمی صبر کنید...
-                </v-overlay>
+                </q-inner-loading>
                 <input id="nationalCardFileInput"
                        ref="nationalCardFileInput"
                        type="file"
@@ -156,7 +143,7 @@
                   </div>
                   <div v-if="nationalCardPicFile && !nationalCardPicURL"
                        class="selected-pic">
-                    <v-btn fab
+                    <q-btn fab
                            dark
                            x-small
                            color="red"
@@ -164,10 +151,10 @@
                       <q-icon dark>
                         mdi-minus
                       </q-icon>
-                    </v-btn>
-                    <v-img :src="nationalCardPicObjectURL" />
+                    </q-btn>
+                    <q-img :src="nationalCardPicObjectURL" />
                     <div class="btn-upload">
-                      <v-btn :loading="false"
+                      <q-btn :loading="false"
                              :disabled="false"
                              color="primary"
                              @click="uploadNationalCardPicFile">
@@ -176,12 +163,12 @@
                                 dark>
                           mdi-cloud-upload
                         </q-icon>
-                      </v-btn>
+                      </q-btn>
                     </div>
                   </div>
                   <div v-if="!nationalCardPicFile && nationalCardPicURL"
                        class="selected-pic">
-                    <v-img :src="nationalCardPicURL" />
+                    <q-img :src="nationalCardPicURL" />
                   </div>
                 </div>
               </div>
@@ -207,10 +194,9 @@
           </div>
           <div class="col-12 col-xl-6 shaba-number-col">
             <div class="shaba-number-box">
-              <v-overlay absolute
-                         :value="shabaNumberLoading">
+              <q-inner-loading :showing="shabaNumberLoading">
                 کمی صبر کنید...
-              </v-overlay>
+              </q-inner-loading>
               <div class="title">
                 شماره شبا
               </div>
@@ -221,12 +207,11 @@
                         class="shaba-number-checked">
                   mdi-checkbox-marked-circle
                 </q-icon>
-                <q-text-field v-model="localShabaNumber"
-                              filled
-                              dense
-                              :disabled="hasShabaNumber"
-                              hide-details
-                              dir="ltr" />
+                <q-input v-model="localShabaNumber"
+                         :disabled="hasShabaNumber"
+                         suffix="IR"
+                         dir="ltr"
+                         filled />
               </div>
               <div v-if="!hasShabaNumber"
                    class="shaba-number-hint">
@@ -240,14 +225,12 @@
 
               </div>
               <div class="shaba-number-action-btn-row">
-                <v-btn v-if="!hasShabaNumber"
-                       fab
-                       dark
-                       x-small
+                <q-btn v-if="!hasShabaNumber"
+                       color="primary"
                        class="shaba-number-action-btn"
                        @click="sendShabaNumber">
                   ثبت
-                </v-btn>
+                </q-btn>
               </div>
             </div>
           </div>
@@ -368,25 +351,25 @@
                 مشاهده تصاویر قرارداد
               </div>
               <div class="content">
-                <v-dialog v-model="contractDialog"
+                <q-dialog v-model="contractDialog"
                           transition="dialog-bottom-transition"
                           max-width="600">
                   <template v-slot:default="dialog">
-                    <v-card>
-                      <v-card-text>
-                        <v-img :src="contractDialogSrc" />
-                      </v-card-text>
-                      <v-card-actions class="justify-end">
-                        <v-btn text
-                               @click="dialog.value = false">بستن</v-btn>
-                      </v-card-actions>
-                    </v-card>
+                    <q-card>
+                      <q-card-section>
+                        <q-img :src="contractDialogSrc" />
+                      </q-card-section>
+                      <q-card-actions class="justify-end">
+                        <q-btn text
+                               @click="dialog.value = false">بستن</q-btn>
+                      </q-card-actions>
+                    </q-card>
                   </template>
-                </v-dialog>
+                </q-dialog>
                 <div v-for="contractPic in contractImages"
                      :key="contractPic"
                      class="content-pic-item">
-                  <v-img :src="contractPic"
+                  <q-img :src="contractPic"
                          @click="showContractImageDialog(contractPic)" />
                 </div>
               </div>
@@ -394,29 +377,28 @@
             <div v-if="!acceptContract && (contractPdfLink || contractImages.length > 0)"
                  class="col-12">
               <div class="send-accept-contract">
-                <v-btn :disabled="!localAcceptContract"
+                <q-btn :disabled="!localAcceptContract"
                        fab
                        dark
                        x-small
                        class="send-accept-contract-btn"
                        @click="sendAcceptContract">
                   ثبت
-                </v-btn>
+                </q-btn>
               </div>
             </div>
             <div class="chk-accept-contract">
               <span class="chk-text">
                 قرارداد را به طور کامل مطالعه کردم و تمام قوانین و شرایط آن را میپذیرم.
               </span>
-              <v-checkbox v-model="localAcceptContract"
+              <q-checkbox v-model="localAcceptContract"
                           :disabled="acceptContractLoading || acceptContract || (!contractPdfLink && contractImages.length === 0)"
                           :loading="acceptContractLoading"
                           color="primary"
                           hide-details />
-              <v-overlay absolute
-                         :value="acceptContractLoading">
+              <q-inner-loading :showing="acceptContractLoading">
                 کمی صبر کنید...
-              </v-overlay>
+              </q-inner-loading>
 
             </div>
           </div>
@@ -428,7 +410,9 @@
 
 <script>
 import axios from 'axios'
+import { APIGateway } from 'src/api/APIGateway'
 import GiftCardMixin from '../Mixin/GiftCardMixin'
+
 export default {
   name: 'GiftCardUserInfo',
   mixins: [GiftCardMixin],
@@ -564,22 +548,37 @@ export default {
       return shabaNumber.replace('i', '').replace('I', '').replace('r', '').replace('R', '')
     },
     sendShabaNumber () {
-      const data = {
-        preShabaNumber: 'IR',
-        shabaNumber: this.getShabaNumberWithoutPrefix(this.localShabaNumber)
-      }
+      // const data = {
+      //   preShabaNumber: 'IR',
+      //   shabaNumber: this.getShabaNumberWithoutPrefix(this.localShabaNumber)
+      // }
       this.acceptContractLoading = true
-      axios.post('/ajax/bank-accounts', data)
-        .then(() => {
+      APIGateway.user.storeBankAccounts({ shabaNumber: this.getShabaNumberWithoutPrefix(this.localShabaNumber) })
+        .then((response) => {
+          this.acceptContractLoading = false
           this.shabaNumber = this.localShabaNumber
           this.acceptContractLoading = false
-          this.toast(' شماره شبا با موفقیت ثبت  شد', 'success')
+          this.$q.notify({
+            message: ' شماره شبا با موفقیت ثبت  شد',
+            type: 'positive'
+          })
         })
         .catch((error) => {
           const messages = this.getErrorMessages(error.response.data)
           this.showErrorMessages(messages)
           this.acceptContractLoading = false
         })
+      // axios.post('/ajax/bank-accounts', data)
+      //   .then(() => {
+      //     this.shabaNumber = this.localShabaNumber
+      //     this.acceptContractLoading = false
+      //     this.toast(' شماره شبا با موفقیت ثبت  شد', 'success')
+      //   })
+      //   .catch((error) => {
+      //     const messages = this.getErrorMessages(error.response.data)
+      //     this.showErrorMessages(messages)
+      //     this.acceptContractLoading = false
+      //   })
     },
     showContractImageDialog (src) {
       this.contractDialogSrc = src
@@ -944,19 +943,15 @@ export default {
             flex-flow: row;
             justify-content: flex-end;
             .shaba-number-action-btn {
-              background: #FF9000;
               box-shadow: 3px 3px 6px rgba(52, 54, 55, 0.04);
               border-radius: 8px;
-              font-style: normal;
               font-weight: 400;
               font-size: 16px;
               line-height: 25px;
               text-align: center;
               letter-spacing: -0.03em;
-              color: #FFFFFF;
               width: 114px;
               height: 48px;
-              padding: 12px 44px;
               cursor: pointer;
               @media screen and (max-width: 599px) {
                 padding: 5px 42px;

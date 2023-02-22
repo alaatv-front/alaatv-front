@@ -51,7 +51,7 @@ export default class UserAPI extends APIRepository {
       data: this.getNormalizedSendData({
         preShabaNumber: 'IR', // String
         shabaNumber: '' // String
-      }, data.data),
+      }, data),
       resolveCallback: (response) => {
         return response
       },
