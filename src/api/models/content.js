@@ -25,6 +25,7 @@ export default class ContentAPI extends APIRepository {
       show: id => this.name + this.APIAdresses.show(id),
       showAdmin: id => this.name + this.APIAdresses.showAdmin(id),
       update: id => this.name + this.APIAdresses.update(id),
+      relatedProducts: id => this.name + this.APIAdresses.relatedProducts(id),
       search: this.name + this.APIAdresses.search,
       delete: this.name + this.APIAdresses.delete,
       timestampSet: this.name + this.APIAdresses.timestampSet,
@@ -100,8 +101,8 @@ export default class ContentAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.update(data.id),
-      cacheKey: this.CacheList.update(data.id),
+      request: this.APIAdresses.relatedProducts(data.id),
+      cacheKey: this.CacheList.relatedProducts(data.id),
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new Product(response.data.data)

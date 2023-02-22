@@ -24,6 +24,33 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'CartEmpty',
+                        options: {
+                          text: 'سبد خرید شما خالی است',
+                          link: {
+                            text: 'بازگشت به فروشگاه',
+                            url: '/shop'
+                          },
+                          photo: 'https://nodes.alaatv.com/aaa/landing/Soalaa/States/empty_cart.png'
+                        }
+                      }
+                    ],
+                    options: {
+                      className: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362,
+                  style: {}
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
                         name: 'CartView'
                       }
                     ],
