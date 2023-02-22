@@ -4,6 +4,7 @@ import CookieCart from 'src/assets/js/CookieCart'
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart'
 import { CartItem } from 'src/models/CartItem'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { OrderProduct } from 'src/models/OrderProduct'
 // import { parse } from 'qs'
 
@@ -12,8 +13,7 @@ export function addToCart (context, data) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      const promise = this.$apiGateway.cart.addToCart({ product_id: data[0].id })
-      promise
+      APIGateway.cart.addToCart({ product_id: data[0].id })
         .then((response) => {
           Notify.create({
             type: 'positive',
@@ -56,7 +56,6 @@ export function addToCart (context, data) {
 export function reviewCart (context, product) {
   const isUserLogin = this.getters['Auth/isUserLogin']
   const currentCart = this.getters['Cart/cart']
-  const promise = this.$apiGateway.cart.reviewCart({ params: { seller: 1 } })
   const orders = []
   if (currentCart.items.list !== undefined && currentCart.items.list.length > 0) {
     currentCart.items.list.forEach(item => {
@@ -67,7 +66,7 @@ export function reviewCart (context, product) {
     })
   }
   return new Promise((resolve, reject) => {
-    promise
+    APIGateway.cart.reviewCart({ params: { seller: 1 } })
       .then((response) => {
         if (isUserLogin) {
           context.commit('updateCart', new Cart())
@@ -114,10 +113,9 @@ export function reviewCart (context, product) {
 
 export function paymentCheckout (context) {
   return new Promise((resolve, reject) => {
-    const promise = this.$apiGateway.cart.getPaymentRedirectEncryptedLink
-    promise
-      .then(response => {
-        return resolve(response)
+    APIGateway.cart.getPaymentRedirectEncryptedLink()
+      .then(encryptedPaymentRedirectLink => {
+        return resolve(encryptedPaymentRedirectLink)
       })
       .catch(error => {
         reject(error)
@@ -130,8 +128,7 @@ export function removeItemFromCart (context, orderProductId) {
 
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      const promise = this.$apiGateway.cart.removeFromCart({ id: orderProductId })
-      promise
+      APIGateway.cart.removeFromCart({ id: orderProductId })
         .then((response) => {
           Notify.create({
             type: 'positive',

@@ -1,7 +1,7 @@
 <template>
   <q-scroll-observer @scroll="onScroll" />
   <sticky-both-sides v-if="cart.count > 0"
-                     :top-gap="20"
+                     :top-gap="72"
                      :bottom-gap="10"
                      :max-width="1024">
     <div v-if="isUserLogin"
@@ -89,8 +89,9 @@
                      label="کد کارت هدیه خود را وارد کنید"
                      class="coupon-input"
                      outlined
-                     :prefix=giftCardPrefix
-                     fill-mask>
+                     mask="##-#####"
+                     :suffix=giftCardPrefix
+                     hint="مثال: AT84-27871">
               <template v-slot:append>
                 <q-btn label="ثبت"
                        flat
@@ -363,13 +364,17 @@ export default {
 
     payment() {
       if (!this.selectedBank) {
+        this.$q.notify({
+          type: 'negative',
+          message: 'درگاه بانکی انتخاب نشده است.'
+        })
         return
       }
       this.$store.commit('loading/loading', true)
 
       this.$store.dispatch('Cart/paymentCheckout')
-        .then((response) => {
-          window.open(response.data.data.url, '_self')
+        .then((encryptedPaymentRedirectLink) => {
+          window.open(encryptedPaymentRedirectLink, '_self')
           this.$store.commit('loading/loading', false)
         }).catch(() => {
           this.$store.commit('loading/loading', false)
@@ -548,6 +553,10 @@ export default {
               border-radius: 8px;
               padding: 0 16px;
               width: 286px;
+              .q-field__suffix {
+                padding-top: 6px;
+                opacity: 1 !important;
+              }
 
               @media screen and (max-width: 1439px) {
                 padding: 0 12px;

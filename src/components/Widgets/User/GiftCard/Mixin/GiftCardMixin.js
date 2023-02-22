@@ -23,16 +23,16 @@ const GiftCardMixin = {
     showErrorMessages (messages) {
       messages.forEach(message => {
         if (Array.isArray(message)) {
-          this.toast(message[0], 'error')
+          this.$q.notify({
+            type: 'negative',
+            message: message[0]
+          })
           return
         }
-        this.toast(message, 'error')
-      })
-    },
-    toast (message, type = 'success') {
-      // types : error , success
-      this.$toast(message, {
-        type
+        this.$q.notify({
+          type: 'negative',
+          message
+        })
       })
     }
   }

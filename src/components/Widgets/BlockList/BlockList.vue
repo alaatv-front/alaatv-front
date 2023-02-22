@@ -46,30 +46,25 @@ export default {
       })
     }
   },
-  created: async function () {
-    await this.loadBlocks()
+  created () {
+    this.loadBlocks()
   },
 
   methods: {
-    async loadBlocks() {
-      await this.getBlocksByRequest()
+    loadBlocks() {
+      this.getBlocksByRequest()
     },
 
-    async getBlocksByRequest() {
+    getBlocksByRequest() {
       this.blocks.loading = true
-      let promise = null
-      promise = this.getApiRequest()
-      if (promise) {
-        promise
-          .then((response) => {
-            this.blocks = response
-
-            this.blocks.loading = false
-          })
-          .catch(() => {
-            this.blocks.loading = false
-          })
-      }
+      this.getApiRequest()
+        .then((blockList) => {
+          this.blocks = blockList
+          this.blocks.loading = false
+        })
+        .catch(() => {
+          this.blocks.loading = false
+        })
     },
 
     getBlocks(blocks) {
@@ -93,6 +88,8 @@ export default {
       if (this.options.apiName === 'content') {
         return this.$apiGateway.content.relatedProducts({ id: this.options.contentId })
       }
+
+      return Promise.reject('wrong api name')
     }
   }
 }

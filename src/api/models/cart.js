@@ -5,17 +5,20 @@ import { Cart } from 'src/models/Cart'
 export default class CartAPI extends APIRepository {
   constructor() {
     super('cart', apiV2, '/orderproduct', new Cart())
+    this.seller = 1 // 1: Alaa - 2: Soala
     this.APIAdresses = {
       addToCart: '/orderproduct',
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
+      getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller,
       removeFromCart: (id) => '/orderproduct/' + id
     }
     this.CacheList = {
       addToCart: this.name + this.APIAdresses.addToCart,
       discountSubmit: this.name + this.APIAdresses.discountSubmit,
       discountRemove: this.name + this.APIAdresses.discountRemove,
+      getPaymentRedirectEncryptedLink: this.name + this.APIAdresses.getPaymentRedirectEncryptedLink,
       reviewCart: this.name + this.APIAdresses.reviewCart,
       removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id)
     }
@@ -26,7 +29,7 @@ export default class CartAPI extends APIRepository {
       product_id: data.product_id, // Number or String
       products: data.products, // Number or String (List ofProduct's ID)
       attribute: data.attribute, // Number or String
-      seller: 1 // 1: Alaa - 2: Soala
+      seller: this.seller
     }
     if (!payload.products) {
       delete payload.products
@@ -99,6 +102,22 @@ export default class CartAPI extends APIRepository {
       params: this.paramSerializer(data.params)
     }
     )
+  }
+
+  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getPaymentRedirectEncryptedLink,
+      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data.url
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
   }
 
   removeFromCart(orderProductId, cache) {
