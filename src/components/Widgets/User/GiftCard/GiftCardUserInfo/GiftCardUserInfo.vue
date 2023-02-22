@@ -209,6 +209,7 @@
                 </q-icon>
                 <q-input v-model="localShabaNumber"
                          :disabled="hasShabaNumber"
+                         mask="########################"
                          suffix="IR"
                          dir="ltr"
                          filled />
@@ -430,7 +431,7 @@ export default {
       localAcceptContract: false,
       acceptContractLoading: false,
       shabaNumberLoading: false,
-      localShabaNumber: 'IR',
+      localShabaNumber: '',
       shabaNumber: null
     }
   },
