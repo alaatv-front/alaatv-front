@@ -6,22 +6,22 @@ export default class CartAPI extends APIRepository {
   constructor() {
     super('cart', apiV2, '/orderproduct', new Cart())
     this.APIAdresses = {
-      orderProduct: '/orderproduct',
+      addToCart: '/orderproduct',
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
-      review: '/checkout/review',
-      removeItem: (id) => '/orderproduct/' + id
+      reviewCart: '/checkout/review',
+      removeFromCart: (id) => '/orderproduct/' + id
     }
     this.CacheList = {
-      orderProduct: this.name + this.APIAdresses.orderProduct,
+      addToCart: this.name + this.APIAdresses.addToCart,
       discountSubmit: this.name + this.APIAdresses.discountSubmit,
       discountRemove: this.name + this.APIAdresses.discountRemove,
-      review: this.name + this.APIAdresses.review,
-      removeItem: id => this.name + this.APIAdresses.removeItem(id)
+      reviewCart: this.name + this.APIAdresses.reviewCart,
+      removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id)
     }
   }
 
-  orderProduct(data = {}, cache) {
+  addToCart(data = {}, cache) {
     const payload = {
       product_id: data.product_id, // Number or String
       products: data.products, // Number or String (List ofProduct's ID)
@@ -37,8 +37,8 @@ export default class CartAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.orderProduct,
-      cacheKey: this.CacheList.orderProduct,
+      request: this.APIAdresses.addToCart,
+      cacheKey: this.CacheList.addToCart,
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return response
@@ -83,13 +83,13 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  review(data = {}) {
+  reviewCart(data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.review,
-      cacheKey: this.CacheList.review,
-      ...(data.cache !== undefined && { cache: data.cache }),
+      request: this.APIAdresses.reviewCart,
+      cacheKey: this.CacheList.reviewCart,
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
       },
@@ -101,13 +101,13 @@ export default class CartAPI extends APIRepository {
     )
   }
 
-  removeItem(data) {
+  removeFromCart(data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
-      request: this.APIAdresses.removeItem(data.id),
-      cacheKey: this.CacheList.removeItem(data.id),
-      ...(data.cache !== undefined && { cache: data.cache }),
+      request: this.APIAdresses.removeFromCart(data.id),
+      cacheKey: this.CacheList.removeFromCart(data.id),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
       },

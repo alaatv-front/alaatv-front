@@ -1,10 +1,6 @@
 <template>
   <div v-if="cart.count > 0"
        class="cart-count">
-    سبدخرید شما ({{cart.count}} محصول)
-  </div>
-  <div v-else
-       class="cart-count">
     سبدخرید شما ({{cart.count}})
   </div>
   <div class="cart-view-widget">

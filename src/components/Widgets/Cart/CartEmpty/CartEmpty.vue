@@ -1,24 +1,57 @@
 <template>
-  <div class="cart-container">
+  <div v-if="cart.count === 0"
+       class="cart-container">
     <div class="cart-image">
-      <q-img src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/empty_cart.png" />
+      <q-img :src=options.photo />
     </div>
-    <div class="title">سبد خرید شما خالی است!</div>
-    <router-link :to="{name: 'Public.Home'}"
+    <div class="title">{{options.text}}</div>
+    <router-link :to="{path: options.link.url}"
                  class="back">
-      بازگشت به فروشگاه
+      {{options.link.text}}
     </router-link>
   </div>
 </template>
 
 <script>
+import { Cart } from 'src/models/Cart'
+
 export default {
   name: 'CartEmpty',
+  props: {
+    options: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   data() {
-    return {}
+    return {
+      cart: new Cart()
+    }
   },
   created() {},
-  methods: {}
+  methods: {
+    cartReview() {
+      this.$store.dispatch('loading/overlayLoading', true)
+      this.$store.dispatch('Cart/reviewCart')
+        .then((response) => {
+          const invoice = response
+
+          const cart = new Cart(invoice)
+
+          if (invoice.count > 0) {
+            invoice.items.list[0].order_product.list.forEach((order) => {
+              cart.items.list.push(order)
+            })
+          }
+          this.cart = cart
+          this.$store.dispatch('loading/overlayLoading', false)
+        }).catch(() => {
+          this.$store.dispatch('loading/overlayLoading', false)
+        })
+    }
+  }
 }
 </script>
 
