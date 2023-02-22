@@ -83,12 +83,12 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  review(data = {}, cache = { TTL: 1000 }) {
+  reviewCart(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.review,
-      cacheKey: this.CacheList.review,
+      request: this.APIAdresses.reviewCart,
+      cacheKey: this.CacheList.reviewCart,
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
@@ -101,12 +101,12 @@ export default class CartAPI extends APIRepository {
     )
   }
 
-  removeItem(orderProductId, cache) {
+  removeFromCart(orderProductId, cache) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
-      request: this.APIAdresses.removeItem(orderProductId),
-      cacheKey: this.CacheList.removeItem(orderProductId),
+      request: this.APIAdresses.removeFromCart(orderProductId),
+      cacheKey: this.CacheList.removeFromCart(orderProductId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)

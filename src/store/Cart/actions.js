@@ -56,7 +56,7 @@ export function addToCart (context, data) {
 export function reviewCart (context, product) {
   const isUserLogin = this.getters['Auth/isUserLogin']
   const currentCart = this.getters['Cart/cart']
-  const promise = this.$apiGateway.cart.reviewCart({ params: { seller: 1 } }, { TTL: 10000 })
+  const promise = this.$apiGateway.cart.reviewCart({ params: { seller: 1 } })
   const orders = []
   if (currentCart.items.list !== undefined && currentCart.items.list.length > 0) {
     currentCart.items.list.forEach(item => {
