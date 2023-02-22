@@ -88,12 +88,12 @@
                      label="کد کارت هدیه خود را وارد کنید"
                      class="coupon-input"
                      outlined
-                     mask="AA-#####"
                      fill-mask
                      hint="مثال: AT-123456">
               <template v-slot:append>
                 <q-btn label="ثبت"
-                       flat />
+                       flat
+                       @click="submitReferralCode" />
               </template>
             </q-input>
           </div>
@@ -295,6 +295,13 @@ export default {
     this.$bus.on('removeProduct', this.cartReview)
   },
   methods: {
+    submitReferralCode() {
+      this.$apiGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
+        .then(response => {
+          console.log(response)
+        })
+        .catch()
+    },
     setCoupon() {
       this.$apiGateway.coupon.base({ code: this.couponValue })
         .then(response => {
