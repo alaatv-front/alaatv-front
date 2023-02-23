@@ -29,6 +29,9 @@ ARG SSR_PORT=3000
 ## eslint
 # RUN npm run lint
 
+# Copy all files
+COPY ./ ./
+
 # Build app on SSR mode
 RUN yarn build:ssr
 
