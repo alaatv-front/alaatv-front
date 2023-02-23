@@ -1,4 +1,4 @@
-FROM node:16.16.0-alpine
+FROM node:16.16.0-alpine as prebuild
 
 # Set working directory
 WORKDIR /usr/app
@@ -35,8 +35,13 @@ COPY ./ ./
 # Build app on SSR mode
 RUN yarn build:ssr
 
+FROM node:16.16.0-alpine
 # On distributables folder install dependencies and boots up the webserver and starts listening for connections
+
+COPY --from=prebuild /usr/app/dist/ssr /usr/app/dist/ssr
+
 WORKDIR /usr/app/dist/ssr
+
 RUN yarn install
 
 # Expose the listening port
