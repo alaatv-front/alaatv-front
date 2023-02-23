@@ -247,7 +247,6 @@ export default {
       this.$store.commit('loading/loading', false)
     },
     beforeSendData(d) {
-      console.log(d)
       d.postal_code = Number(d.postal_code)
       d.grade_id = d.grade.id
       d.major_id = d.major.id

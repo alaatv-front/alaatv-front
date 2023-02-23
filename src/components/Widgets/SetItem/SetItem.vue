@@ -31,14 +31,16 @@
     </router-link>
     <div class="info-box">
       <div class="teacher-info">
-        <div class="teacher-image">
+        <div v-if="set.author?.photo"
+             class="teacher-image">
           <lazy-img :src="set.author?.photo"
                     alt="set"
                     width="1"
                     height="1" />
         </div>
-        <div class="teacher-name">
-          {{ set.author?.first_name + ' ' + set.author?.last_name }}
+        <div v-if="setAuthorFullName"
+             class="teacher-name">
+          {{ setAuthorFullName }}
         </div>
       </div>
       <!-- <div class="teacher-score">
@@ -71,6 +73,14 @@ export default {
   data: () => ({
     set: new Set()
   }),
+  computed: {
+    setAuthorFullName () {
+      if (!this.set.author?.first_name && !this.set.author?.last_name) {
+        return ''
+      }
+      return this.set.author?.first_name + ' ' + this.set.author?.last_name
+    }
+  },
   created () {
     this.set = new Set(this.data)
   }
