@@ -10,8 +10,8 @@
                      :entity-param-key="entityParamKey"
                      :default-layout="false">
           <template #entity-index-table-selection-cell="data">
-            <q-checkbox v-model="data.selected"
-                        @update:model-value="expandRow(data)" />
+            <q-checkbox v-model="data.props.selected"
+                        @update:model-value="expandRow(data.props)" />
           </template>
           <template #entity-index-table-expanded-row="data">
             <div class="form-wrapper">
@@ -49,7 +49,7 @@
         <div class="reuse">
           <q-btn color="primary"
                  label="استفاده مجدد مشخصات"
-                 flat=""
+                 flat
                  @click="toggleDialog()" />
           <previous-item-dialog v-model:dialog="pervDialog" />
         </div>
@@ -170,10 +170,11 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'انتخاب نمایید', label: 'جست و جو', col: 'col-md-3' }
+              { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'جست و جو', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'id'
           },
+          itemIdentifyKey: 'id',
           itemIndicatorKey: 'title',
           value: [],
           selected: []
@@ -216,8 +217,8 @@ export default {
           col: 'col-md-12'
         }
       ],
-      entityIdKey: '',
-      entityParamKey: ''
+      entityIdKey: 'id',
+      entityParamKey: 'id'
     }
   },
   computed: {
@@ -249,7 +250,7 @@ export default {
       })
     },
     expandRow (props) {
-      props.expand = props.selected
+      props.expand = !props.selected
     },
     toggleDialog() {
       this.pervDialog = !this.pervDialog
