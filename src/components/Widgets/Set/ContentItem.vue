@@ -2,7 +2,8 @@
   <div class="content-item">
     <div class="content-item-top-border" />
     <div class="content-item-title">
-      <bookmark v-model:value="localContent.is_favored"
+      <bookmark v-if="canFavor"
+                v-model:value="localContent.is_favored"
                 :base-route="getContentBookmarkBaseRoute(content.id)" />
       <router-link v-if="content && content.id !== null"
                    :to="{ name: 'Public.Content.Show', params: { id: content.id } }"
@@ -51,6 +52,10 @@ export default {
     content: {
       type: Content,
       default: new Content()
+    },
+    canFavor: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
