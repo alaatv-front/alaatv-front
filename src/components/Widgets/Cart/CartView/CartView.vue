@@ -284,7 +284,6 @@ export default {
     },
 
     changeDialogState (state, itemId) {
-      debugger
       if (itemId) {
         this.clickedItemIdToRemove = itemId
       }
