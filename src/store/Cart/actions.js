@@ -4,6 +4,7 @@ import CookieCart from 'src/assets/js/CookieCart'
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart'
 import { CartItem } from 'src/models/CartItem'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { OrderProduct } from 'src/models/OrderProduct'
 // import { parse } from 'qs'
 
@@ -12,8 +13,7 @@ export function addToCart (context, data) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      const promise = this.$apiGateway.cart.orderProduct({ product_id: data[0].id, seller: 1 })
-      promise
+      APIGateway.cart.addToCart({ product_id: data[0].id })
         .then((response) => {
           Notify.create({
             type: 'positive',
@@ -56,7 +56,6 @@ export function addToCart (context, data) {
 export function reviewCart (context, product) {
   const isUserLogin = this.getters['Auth/isUserLogin']
   const currentCart = this.getters['Cart/cart']
-  const promise = this.$apiGateway.cart.review({ params: { seller: 1 } })
   const orders = []
   if (currentCart.items.list !== undefined && currentCart.items.list.length > 0) {
     currentCart.items.list.forEach(item => {
@@ -67,7 +66,7 @@ export function reviewCart (context, product) {
     })
   }
   return new Promise((resolve, reject) => {
-    promise
+    APIGateway.cart.reviewCart({ params: { seller: 1 } })
       .then((response) => {
         if (isUserLogin) {
           context.commit('updateCart', new Cart())
@@ -114,32 +113,22 @@ export function reviewCart (context, product) {
 
 export function paymentCheckout (context) {
   return new Promise((resolve, reject) => {
-    const promise = this.$apiGateway.cart.getPaymentRedirectEncryptedLink
-    promise
-      .then(response => {
-        return resolve(response)
+    APIGateway.cart.getPaymentRedirectEncryptedLink()
+      .then(encryptedPaymentRedirectLink => {
+        return resolve(encryptedPaymentRedirectLink)
       })
       .catch(error => {
         reject(error)
       })
-    // axios
-    //   .get(API_ADDRESS.cart.getPaymentRedirectEncryptedLink)
-    //   .then((response) => {
-    //     return resolve(response)
-    //   })
-    //   .catch((error) => {
-    //     reject(error)
-    //   })
   })
 }
 
-export function removeItemFromCart (context, productId) {
+export function removeItemFromCart (context, orderProductId) {
   const isUserLogin = this.getters['Auth/isUserLogin']
 
   return new Promise((resolve, reject) => {
     if (isUserLogin) {
-      const promise = this.$apiGateway.cart.removeItem(productId)
-      promise
+      APIGateway.cart.removeFromCart({ id: orderProductId })
         .then((response) => {
           Notify.create({
             type: 'positive',
@@ -154,23 +143,8 @@ export function removeItemFromCart (context, productId) {
         .catch((error) => {
           return reject(error)
         })
-      // axios
-      //   .delete(API_ADDRESS.cart.orderproduct.delete(productId))
-      //   .then((response) => {
-      //     Notify.create({
-      //       type: 'positive',
-      //       color: 'positive',
-      //       timeout: 5000,
-      //       position: 'top',
-      //       message: 'محصول از سبد خرید حذف شد.',
-      //       icon: 'report_problem'
-      //     })
-      //     return resolve(response)
-      //   })
-      //   .catch((error) => {
-      //     return reject(error)
-      //   })
     } else {
+      const productId = orderProductId
       const cart = this.getters['Cart/cart']
       cart.removeItem(productId)
       context.commit('updateCart', cart)

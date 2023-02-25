@@ -1,10 +1,33 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions" />
+  <option-panel-tabs v-model:options="localOptions">
+    <template #main-tab>
+      <div class="option-panel-container">
+        <div class="row">
+          <div class="col-md-12">
+            <q-input v-model="localOptions.text"
+                     left-label
+                     label="text" />
+          </div>
+          <div class="col-md-6">
+            <q-input v-model="localOptions.link.text"
+                     left-label
+                     label="link text" />
+          </div>
+          <div class="col-md-6">
+            <q-input v-model="localOptions.link.url"
+                     left-label
+                     label="link url" />
+          </div>
+        </div>
+      </div>
+    </template>
+  </option-panel-tabs>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
+import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
+import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
   name: 'OptionPanel',

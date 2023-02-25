@@ -46,20 +46,25 @@ export default {
       })
     }
   },
-  created: async function () {
-    await this.loadBlocks()
+  created () {
+    this.loadBlocks()
   },
 
   methods: {
-    async loadBlocks() {
+    loadBlocks() {
+      this.getBlocksByRequest()
+    },
+
+    getBlocksByRequest() {
       this.blocks.loading = true
-      try {
-        const response = await this.getApiRequest()
-        this.blocks = response
-        this.blocks.loading = false
-      } catch (e) {
-        this.blocks.loading = false
-      }
+      this.getApiRequest()
+        .then((blockList) => {
+          this.blocks = blockList
+          this.blocks.loading = false
+        })
+        .catch(() => {
+          this.blocks.loading = false
+        })
     },
 
     getBlocks(blocks) {
@@ -80,6 +85,11 @@ export default {
       if (this.options.apiName === 'shop') {
         return this.$apiGateway.pages.shop()
       }
+      if (this.options.apiName === 'content') {
+        return this.$apiGateway.content.relatedProducts({ id: this.options.contentId })
+      }
+
+      return Promise.reject('wrong api name')
     }
   }
 }

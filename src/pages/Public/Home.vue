@@ -11,9 +11,7 @@ export default {
   mixins: [mixinPageOptions, mixinSEO],
   data() {
     return {
-      pageTitleSection1: 'آموزش مجازی آلاء',
-      pageTitleSection2: 'با هدف توسعه عدالت آموزشی در حوزه کنکور',
-      pageDescription: 'کلاس های درس آلاء برای کنکور، دهم، یازدهم و دوازدهم و خدمات تکمیلی از قبیل همایش‌های طلایی و اردو طلایی؛ در دروس مختلف زیست شیمی فیزیک ریاضی عربی ادبیات و.',
+      pageConfig: {},
       sections: [
         {
           data: {

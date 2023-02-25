@@ -1,6 +1,7 @@
 <template>
   <q-scroll-observer @scroll="onScroll" />
-  <sticky-both-sides :top-gap="20"
+  <sticky-both-sides v-if="cart.count > 0"
+                     :top-gap="72"
                      :bottom-gap="10"
                      :max-width="1024">
     <div v-if="isUserLogin"
@@ -58,7 +59,8 @@
           <q-separator class="invoice-separator" />
         </q-card-section>
 
-        <q-card-section class="invoice-coupon-section invoice-cart-section">
+        <q-card-section v-if="isUserLogin"
+                        class="invoice-coupon-section invoice-cart-section">
           <div class="enter-coupon-code">
             <div class="title">کد تخفیف:</div>
 
@@ -68,8 +70,32 @@
                      class="coupon-input"
                      outlined>
               <template v-slot:append>
+                <q-btn v-if="!isCouponSet"
+                       label="ثبت"
+                       flat
+                       @click="setCoupon" />
+                <q-btn v-else
+                       label="حذف"
+                       flat
+                       @click="cancelCoupon" />
+              </template>
+            </q-input>
+          </div>
+          <div class="enter-coupon-code">
+            <div class="title">کارت هدیه:</div>
+
+            <q-input v-model="giftCardValue"
+                     dir="ltr"
+                     label="کد کارت هدیه خود را وارد کنید"
+                     class="coupon-input"
+                     outlined
+                     mask="##-#####"
+                     :suffix=giftCardPrefix
+                     hint="مثال: AT84-27871">
+              <template v-slot:append>
                 <q-btn label="ثبت"
-                       flat />
+                       flat
+                       @click="submitReferralCode" />
               </template>
             </q-input>
           </div>
@@ -203,6 +229,7 @@ import Widgets from 'src/components/PageBuilder/Widgets.js'
 import Donate from 'components/Widgets/Cart/Donate/Donate.vue'
 import StickyBothSides from 'components/Utils/StickyBothSides.vue'
 import { computed } from 'vue'
+import { Notify } from 'quasar'
 
 export default {
   name: 'CartInvoice',
@@ -225,8 +252,11 @@ export default {
   data() {
     return {
       scrollInfo: null,
+      isCouponSet: false,
       cart: new Cart(),
       couponValue: null,
+      giftCardValue: null,
+      giftCardPrefix: 'AT',
       userEnteredLoginInfo: {
         password: '',
         mobile: ''
@@ -268,6 +298,47 @@ export default {
     this.$bus.on('removeProduct', this.cartReview)
   },
   methods: {
+    // onPaste() {
+    //   const str = this.giftCardValue.toString()
+    //   str.replace('AT', '')
+    // },
+    submitReferralCode() {
+      this.$apiGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
+        .then(response => {
+          console.log(response)
+        })
+        .catch()
+    },
+    setCoupon() {
+      this.$apiGateway.coupon.base({ code: this.couponValue })
+        .then(response => {
+          this.isCouponSet = true
+          Notify.create({
+            message: 'کد تخفیف با موفقیت اعمال شد',
+            type: 'negative',
+            color: 'negative'
+          })
+        })
+        .catch(err => {
+          Notify.create({
+            message: err.message,
+            type: 'negative',
+            color: 'negative'
+          })
+        })
+    },
+    cancelCoupon() {
+      this.$apiGateway.coupon.deleteCoupon()
+        .then(response => {
+          this.isCouponSet = false
+          Notify.create({
+            message: 'کد تخفیف با موفقیت حذف شد',
+            type: 'positive',
+            color: 'positive'
+          })
+        })
+        .catch()
+    },
     onScroll(info) {
       this.scrollInfo = info
     },
@@ -293,13 +364,17 @@ export default {
 
     payment() {
       if (!this.selectedBank) {
+        this.$q.notify({
+          type: 'negative',
+          message: 'درگاه بانکی انتخاب نشده است.'
+        })
         return
       }
       this.$store.commit('loading/loading', true)
 
       this.$store.dispatch('Cart/paymentCheckout')
-        .then((response) => {
-          window.open(response.data.data.url, '_self')
+        .then((encryptedPaymentRedirectLink) => {
+          window.open(encryptedPaymentRedirectLink, '_self')
           this.$store.commit('loading/loading', false)
         }).catch(() => {
           this.$store.commit('loading/loading', false)
@@ -478,6 +553,10 @@ export default {
               border-radius: 8px;
               padding: 0 16px;
               width: 286px;
+              .q-field__suffix {
+                padding-top: 6px;
+                opacity: 1 !important;
+              }
 
               @media screen and (max-width: 1439px) {
                 padding: 0 12px;

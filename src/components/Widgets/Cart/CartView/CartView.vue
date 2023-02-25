@@ -1,10 +1,6 @@
 <template>
   <div v-if="cart.count > 0"
        class="cart-count">
-    سبدخرید شما ({{cart.count}} محصول)
-  </div>
-  <div v-else
-       class="cart-count">
     سبدخرید شما ({{cart.count}})
   </div>
   <div class="cart-view-widget">
@@ -273,9 +269,9 @@ export default {
       return customItems
     },
 
-    removeItem(order) {
+    removeItem(orderProductId) {
       this.$store.dispatch('loading/overlayLoading', true)
-      this.$store.dispatch('Cart/removeItemFromCart', order)
+      this.$store.dispatch('Cart/removeItemFromCart', orderProductId)
         .then(() => {
           this.$store.dispatch('loading/overlayLoading', false)
           this.cartReview()
@@ -288,6 +284,7 @@ export default {
     },
 
     changeDialogState (state, itemId) {
+      debugger
       if (itemId) {
         this.clickedItemIdToRemove = itemId
       }

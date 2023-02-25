@@ -1,3 +1,4 @@
+import SEO from './Seo'
 import Cart from './Cart'
 import Auth from './Auth'
 import process from 'process'
@@ -41,7 +42,8 @@ export default store(function (/* { ssrContext } */) {
       Auth,
       loading,
       AppLayout,
-      Cart
+      Cart,
+      SEO
     },
     plugins,
     // enable strict mode (adds overhead!)

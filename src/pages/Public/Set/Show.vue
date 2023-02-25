@@ -12,11 +12,7 @@ export default {
   name: 'Public.Set.Show',
   data() {
     return {
-      pageConfig: {
-        padding: {
-          a: 'md'
-        }
-      },
+      pageConfig: {},
       sections: [
         {
           data: {
@@ -46,7 +42,8 @@ export default {
                   }
                 ],
                 options: {
-                  boxed: false
+                  boxed: true,
+                  boxedWidth: 1362
                 }
               }
             ]

@@ -260,7 +260,6 @@ export default {
       // })
     },
     getGiftCardsData(page = 1) {
-      console.trace(page)
       this.loading = true
       this.referralCodeList = []
       APIGateway.referralCode.index({ data: { page } })
