@@ -1,63 +1,59 @@
 <template>
   <div class="userSet-page">
-    <q-page-builder v-model:sections="sections"
+    <q-page-builder v-model:sections="currenSections"
                     v-model::options="pageConfig"
                     :editable="pageBuilderEditable" />
   </div>
 </template>
 
 <script>
-
+import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
 export default {
   name: 'Public.Set.Show',
+  mixins: [mixinPageOptions, mixinSEO],
   data() {
     return {
       pageConfig: {},
       sections: [
         {
-          data: {
-            rows: [
-              {
-                cols: [
-                  // {
-                  //   widgets: [
-                  //     {
-                  //       name: 'Banner',
-                  //       data: this.$route.params.id,
-                  //       options: {
-                  //         getData: (url) => GetWidgetsData.getData(this.$axios, url)
-                  //       }
-                  //     }
-                  //   ],
-                  //   options: {
-                  //     col: 'col-3'
-                  //   }
-                  // },
-                  {
-                    widgets: [
-                      {
-                        name: 'Set'
-                      }
-                    ]
+          data:
+            {
+              rows: [
+                {
+                  cols: [
+                    {
+                      widgets: [
+                        {
+                          name: 'Set',
+                          options: {
+                            className: '',
+                            height: 'auto',
+                            boxed: false,
+                            boxedWidth: 1200,
+                            style: { marginBottom: '101px' },
+                            showCountOfContent: true,
+                            showCountOfVideo: true,
+                            showCountOfPamphlet: true,
+                            showBtnFavorSet: true,
+                            showBtnFavorContent: true
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  options: {
+                    boxed: true,
+                    boxedWidth: 1362
                   }
-                ],
-                options: {
-                  boxed: true,
-                  boxedWidth: 1362
                 }
-              }
-            ]
-          }
+              ]
+            }
         }
       ]
     }
   },
-  computed: {
-    pageBuilderEditable () {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    }
+  created () {
+    this.currenSections = this.sections
   }
 }
 </script>
-
-<style scoped></style>
