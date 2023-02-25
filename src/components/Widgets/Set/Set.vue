@@ -25,7 +25,8 @@
             <div class="section-expansion-header">
               <div class="section-expansion-header-title">
                 <div class="icon">
-                  <q-icon name="perm_identity" />
+                  <q-icon name="isax-svg:book-1"
+                          size="16.5px" />
                 </div>
                 <div class="text">
                   {{ section.section.name }}
