@@ -8,6 +8,7 @@ export default class UserAPI extends APIRepository {
     super('user', apiV2, '/user', new User())
     this.APIAdresses = {
       base: '/user',
+      bankAccounts: '/bank-accounts',
       mobileResend: '/mobile/resend',
       mobileVerify: '/mobile/verify',
       ordersById: (id) => '/user/' + id + '/orders',
@@ -22,6 +23,7 @@ export default class UserAPI extends APIRepository {
       base: this.name + this.APIAdresses.base,
       mobileResend: this.name + this.APIAdresses.base,
       mobileVerify: this.name + this.APIAdresses.base,
+      bankAccounts: this.name + this.APIAdresses.bankAccounts,
       ordersById: (id) => this.name + this.APIAdresses.ordersById(id),
       getOrders: this.name + this.APIAdresses.base,
       orderStatus: this.name + this.APIAdresses.base,
@@ -37,6 +39,25 @@ export default class UserAPI extends APIRepository {
       post: (response) => { return new User(response.data.data) },
       put: (response) => { return new User(response.data.data) },
       delete: (response) => { return new User(response.data.data) }
+    })
+  }
+
+  storeBankAccounts (data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.bankAccounts,
+      cacheKey: this.CacheList.bankAccounts,
+      data: this.getNormalizedSendData({
+        preShabaNumber: 'IR', // String
+        shabaNumber: '' // String
+      }, data.data),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 

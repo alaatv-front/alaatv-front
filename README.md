@@ -24,9 +24,13 @@ npm run lint
 
 
 
-### Build the app for production
+### Build the app for production (ssr)
 ```bash
-quasar build
+yarn ci
+yarn build:ssr
+cd dist/ssr
+yarn install
+yarn start
 ```
 
 ### Customize the configuration

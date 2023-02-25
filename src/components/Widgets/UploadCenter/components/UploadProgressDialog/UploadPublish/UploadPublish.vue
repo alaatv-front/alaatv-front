@@ -9,8 +9,7 @@
         <div class="video-box">
           <div class="video-box-title" />
           <video-player class="video"
-                        :sources="videoSource()"
-                        :hlsSource="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
+                        :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
 
           <!--          <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />-->
         </div>
@@ -25,7 +24,7 @@
 
 <script>
 import { FormBuilder } from 'quasar-form-builder'
-import VideoPlayer from 'src/components/VideoPlayer.vue'
+import VideoPlayer from 'src//components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 
 export default {
@@ -138,6 +137,7 @@ export default {
       const type = values.find(x => x.name === 'type').value
       const status = values.find(x => x.name === 'status').value
       const formData = {
+        id: this.content.id,
         is_free: type,
         enable: status === 'public' || status === 'timePlan' ? 1 : 0,
         ...(status === 'timePlan' && { validSinceDate: values.find(x => x.name === 'date').value + values.find(x => x.name === 'time').value })

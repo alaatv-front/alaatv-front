@@ -164,10 +164,9 @@
 <script>
 import { defineComponent } from 'vue'
 import { Banner } from 'src/models/Banner.js'
-import lazyImg from '../../../components/lazyImg.vue'
-import bannerPreview from 'components/Widgets/Slider/bannerPreview.vue'
-import mixinOptionPanel from 'quasar-ui-q-page-builder/src/mixin/OptionPanel.js'
-import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import lazyImg from 'src/components/lazyImg.vue'
+import bannerPreview from 'src/components/Widgets/Slider/bannerPreview.vue'
+import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
 
 export default defineComponent({
   name: 'OptionPanel',

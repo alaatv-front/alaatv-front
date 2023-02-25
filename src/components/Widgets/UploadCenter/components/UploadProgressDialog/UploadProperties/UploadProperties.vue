@@ -38,7 +38,8 @@
                           style="width:100%"
                           option-value="id"
                           :option-label="(item) => item.first_name + ' ' + item.last_name"
-                          outlined />
+                          outlined
+                          @update:model-value="setTeacher($event)" />
               </div>
             </div>
           </template>
@@ -56,10 +57,9 @@
           <div class="video-box-title">
             '
           </div>
-          <video-player class="video"
-                        :sources="videoSource()"
-                        :hlsSource="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
-          <!--          <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />-->
+          <!-- <video-player class="video"
+                        :hlsSource="'https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8'" /> -->
+          <video-player :source="'https://stage-minio.alaatv.com/alaatv/hls-test2/768001zone_master_pl.m3u8'" />
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
@@ -73,7 +73,7 @@
 <script>
 import { EntityEdit } from 'quasar-crud'
 import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
-import VideoPlayer from 'src/components/VideoPlayer.vue'
+import VideoPlayer from 'src//components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { APIGateway } from 'src/api/APIGateway'
 import { shallowRef } from 'vue'
@@ -127,7 +127,7 @@ export default {
           col: 'col-12',
           selectionMode: 'single',
           tableRowExpandable: true,
-          tableRowDefaultExpandAction: false,
+          tableRowDefaultExpandAction: true,
           popUpButtonConfig: {
             unelevated: true,
             color: 'white',
@@ -200,10 +200,38 @@ export default {
           label: 'برچسب',
           responseKey: 'data.tags',
           col: 'col-md-12'
+        },
+        {
+          type: 'hidden',
+          name: 'order',
+          label: 'برچسب',
+          responseKey: 'data.order',
+          col: 'col-md-12'
+        },
+        {
+          type: 'hidden',
+          name: 'author_id',
+          label: 'برچسب',
+          responseKey: 'data.author_id',
+          col: 'col-md-12'
         }
       ],
       entityIdKey: '',
       entityParamKey: ''
+    }
+  },
+  computed: {
+    order() {
+      return this.setForm.orderType
+    }
+  },
+  watch: {
+    order(value) {
+      if (value === 'last') {
+        this.inputs.find(x => x.name === 'order').value = -1
+      } else {
+        this.inputs.find(x => x.name === 'order').value = this.setForm.order
+      }
     }
   },
   mounted() {
@@ -211,6 +239,10 @@ export default {
     this.inputs[0].selected = this.content
   },
   methods: {
+    setTeacher(e) {
+      this.setForm.teacher = e
+      this.inputs.find(x => x.name === 'author_id').value = e.id
+    },
     getTeachers() {
       this.$apiGateway.user.getRoll({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
         this.teachers = res.list
