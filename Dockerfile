@@ -35,6 +35,10 @@ COPY ./ ./
 # Build app on SSR mode
 RUN yarn build:ssr
 
+
+##############################################
+
+
 FROM node:16.16.0-alpine
 # On distributables folder install dependencies and boots up the webserver and starts listening for connections
 
