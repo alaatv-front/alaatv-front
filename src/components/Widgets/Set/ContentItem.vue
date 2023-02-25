@@ -85,9 +85,9 @@ export default {
     },
     bookmarkContent () {
       if (this.localContent.is_favored) {
-        return this.$apiGateway.content.unfavored()
+        return this.$apiGateway.content.unfavored(this.content.id)
       }
-      return this.$apiGateway.content.favored()
+      return this.$apiGateway.content.favored(this.content.id)
     },
     onChangeFavoriteStatus (result) {
       console.log(result)
