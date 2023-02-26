@@ -115,6 +115,7 @@ export function paymentCheckout (context) {
   return new Promise((resolve, reject) => {
     APIGateway.cart.getPaymentRedirectEncryptedLink()
       .then(encryptedPaymentRedirectLink => {
+        debugger
         return resolve(encryptedPaymentRedirectLink)
       })
       .catch(error => {
