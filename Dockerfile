@@ -1,9 +1,7 @@
 FROM node:16.16.0-alpine as prebuild
 
-USER node
-
 # Set working directory
-WORKDIR /usr/app
+WORKDIR /var/www/app
 
 COPY ./package*.json ./
 
@@ -36,11 +34,10 @@ RUN yarn build:ssr
 
 FROM node:16.16.0-alpine
 
-USER node
 
-COPY --from=prebuild /usr/app/dist/ssr /usr/app/dist/ssr
+COPY --from=prebuild /var/www/app/dist/ssr /var/www/app/dist/ssr
 
-WORKDIR /usr/app/dist/ssr
+WORKDIR /var/www/app/dist/ssr
 
 RUN yarn install
 
@@ -50,4 +47,6 @@ EXPOSE 3000
 # Run container as non-root (unprivileged) user
 # The "node" user is provided in the Node.js Alpine base image
 
-CMD ["node", "/usr/app/dist/ssr/index.js"]
+USER node
+
+CMD ["node", "/var/www/app/dist/ssr/index.js"]
