@@ -4,12 +4,14 @@
     <div class="content-item-title">
       <bookmark v-if="canFavor"
                 v-model:value="localContent.is_favored"
-                :base-route="getContentBookmarkBaseRoute(content.id)" />
+                :bookmark-function="bookmarkContent"
+                @on-change-favorite-status="onChangeFavoriteStatus" />
       <router-link v-if="content && content.id !== null"
                    :to="{ name: 'Public.Content.Show', params: { id: content.id } }"
                    class="content-item">
         <div class="content-item-title-icon">
-          <q-icon name="isax:play-circle" />
+          <q-icon :name="content.isVideo() ? 'isax-svg:play-circle' : 'isax-svg:document-download'"
+                  size="16.5px" />
         </div>
         <div class="content-item-title-text">
           {{ content.title }}
@@ -81,6 +83,15 @@ export default {
     getContentBookmarkBaseRoute(id) {
       return API_ADDRESS.content.show(id)
     },
+    bookmarkContent () {
+      if (this.localContent.is_favored) {
+        return this.$apiGateway.content.unfavored(this.content.id)
+      }
+      return this.$apiGateway.content.favored(this.content.id)
+    },
+    onChangeFavoriteStatus (result) {
+      console.log(result)
+    },
     getContentDuration (duration) {
       return Math.floor(duration / 60)
     },
@@ -131,6 +142,11 @@ export default {
     .btn-download-pdf {
       width: 46px;
       height: 24px;
+      max-height: 24px;
+      min-height: 24px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
     }
   }
 }

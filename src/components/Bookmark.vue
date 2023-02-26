@@ -68,6 +68,10 @@ export default {
       default: '',
       type: String
     },
+    bookmarkFunction: {
+      default: null,
+      type: Function
+    },
     size: {
       default: '',
       type: String
@@ -75,7 +79,7 @@ export default {
   },
   emits: [
     'update:value',
-    'onLoad',
+    'onChangeFavoriteStatus',
     'onError'
   ],
   data () {
@@ -85,6 +89,9 @@ export default {
     }
   },
   computed: {
+    isUserLogin () {
+      return this.$store.getters['Auth/isUserLogin']
+    },
     isFavored: {
       get () {
         return this.value
@@ -96,24 +103,46 @@ export default {
   },
   methods: {
     bookmark () {
-      this.loading = true
-      if (!this.baseRoute) {
-        this.bookmarkWithIndividualRoutes()
+      if (!this.isUserLogin) {
+        this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params })
+        this.$store.commit('AppLayout/updateLoginDialog', true)
         return
       }
-      this.bookmarkWithBaseRoute()
+      this.loading = true
+      if (typeof this.bookmarkFunction === 'function') {
+        this.bookmarkFunction()
+          .then((res) => {
+            this.afterSuccessfulBookmarkFunction(res)
+          })
+          .catch((err) => {
+            this.afterFailedBookmarkFunction(err)
+          })
+      } else {
+        if (!this.baseRoute) {
+          this.bookmarkWithIndividualRoutes()
+          return
+        }
+        this.bookmarkWithBaseRoute()
+      }
+    },
+    afterSuccessfulBookmarkFunction (res) {
+      this.isFavored = !this.isFavored
+      this.loading = false
+      this.$emit('onChangeFavoriteStatus', res)
+    },
+    afterFailedBookmarkFunction (err) {
+      this.loading = false
+      this.$emit('onError', err)
     },
     bookmarkWithBaseRoute () {
       const nextStatus = (this.isFavored) ? 'unfavored' : 'favored'
-      this.$axios.post(this.baseRoute + '/' + nextStatus)
+      const address = (typeof this.baseRoute === 'function') ? this.baseRoute() : this.baseRoute + '/' + nextStatus
+      this.$axios.post(address)
         .then((res) => {
-          this.isFavored = !this.isFavored
-          this.loading = false
-          this.$emit('onLoad', res)
+          this.afterSuccessfulBookmarkFunction(res)
         })
         .catch((err) => {
-          this.loading = false
-          this.$emit('onError', err)
+          this.afterFailedBookmarkFunction(err)
         })
     },
     bookmarkWithIndividualRoutes () {
