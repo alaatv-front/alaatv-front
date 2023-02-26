@@ -6,11 +6,21 @@
         <bookmark v-if="localOptions.showBtnFavorSet"
                   v-model:value="set.is_favored"
                   :base-route="getSetBookmarkBaseRoute(set.id)" />
-        {{ set.title }}
+        <template v-if="set.loading">
+          <q-skeleton type="text" />
+        </template>
+        <template v-else>
+          {{ set.title }}
+        </template>
       </div>
       <div class="meta">
-        {{ set.contents_count }}
-        جلسه
+        <template v-if="set.loading">
+          <q-skeleton type="text" />
+        </template>
+        <template v-else>
+          {{ set.contents_count }}
+          جلسه
+        </template>
       </div>
     </div>
     <div class="archives-row">
@@ -18,42 +28,50 @@
         آرشیو محتوا
       </div>
       <div class="archives-list">
-        <q-expansion-item v-for="section in definedSections"
-                          :key="section.section.id"
-                          class="section-item">
-          <template #header>
-            <div class="section-expansion-header">
-              <div class="section-expansion-header-title">
-                <div class="icon">
-                  <q-icon name="isax-svg:book-1"
-                          size="16.5px" />
+
+        <template v-if="set.loading">
+          <q-skeleton height="100px" />
+          <q-skeleton height="100px" />
+          <q-skeleton height="100px" />
+          <q-skeleton height="100px" />
+        </template>
+        <template v-else>
+          <q-expansion-item v-for="section in definedSections"
+                            :key="section.section.id"
+                            class="section-item">
+            <template #header>
+              <div class="section-expansion-header">
+                <div class="section-expansion-header-title">
+                  <div class="icon">
+                    <q-icon name="isax-svg:book-1"
+                            size="16.5px" />
+                  </div>
+                  <div class="text">
+                    {{ section.section.name }}
+                  </div>
                 </div>
-                <div class="text">
-                  {{ section.section.name }}
+                <div class="section-expansion-header-meta">
+                  {{ getCountOfVideosInContents(section.contents) }}
+                  جلسه
+                  <span class="dot" />
+                  {{ getCountOfPamphletsInContents(section.contents) }}
+                  جزوه
                 </div>
               </div>
-              <div class="section-expansion-header-meta">
-                {{ getCountOfVideosInContents(section.contents) }}
-                جلسه
-                <span class="dot" />
-                {{ getCountOfPamphletsInContents(section.contents) }}
-                جزوه
-              </div>
+            </template>
+            <div class="contents-list">
+              <content-item v-for="content in section.contents"
+                            :key="content.id"
+                            :content="content" />
             </div>
-          </template>
-          <div class="contents-list">
-            <content-item v-for="content in section.contents"
+          </q-expansion-item>
+          <div v-if="contentsWithNullSection && contentsWithNullSection.length > 0"
+               class="contents-list contents-with-null-section">
+            <content-item v-for="content in contentsWithNullSection"
                           :key="content.id"
                           :content="content" />
           </div>
-        </q-expansion-item>
-
-        <div v-if="contentsWithNullSection && contentsWithNullSection.length > 0"
-             class="contents-list contents-with-null-section">
-          <content-item v-for="content in contentsWithNullSection"
-                        :key="content.id"
-                        :content="content" />
-        </div>
+        </template>
       </div>
     </div>
   </div>
