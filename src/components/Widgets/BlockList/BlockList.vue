@@ -1,10 +1,22 @@
 <template>
   <div :style="options.style">
-    <div v-for="(block, index) in blocksToShow"
-         :key="index"
-         class="block-list-widget">
-      <block :options="block" />
-    </div>
+    <template v-if="blocks.loading">
+      <q-skeleton height="100px"
+                  class="q-mb-sm" />
+      <q-skeleton height="100px"
+                  class="q-mb-sm" />
+      <q-skeleton height="100px"
+                  class="q-mb-sm" />
+      <q-skeleton height="100px"
+                  class="q-mb-sm" />
+    </template>
+    <template v-else>
+      <div v-for="(block, index) in blocksToShow"
+           :key="index"
+           class="block-list-widget">
+        <block :options="block" />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -26,13 +38,11 @@ export default {
       blocks: {}
     }
   },
-
   computed: {
     blocksToShow() {
       return this.getBlocks(this.blocks)
     }
   },
-
   watch: {
     options: {
       handler() {
@@ -49,13 +59,8 @@ export default {
   created () {
     this.loadBlocks()
   },
-
   methods: {
     loadBlocks() {
-      this.getBlocksByRequest()
-    },
-
-    getBlocksByRequest() {
       this.blocks.loading = true
       this.getApiRequest()
         .then((blockList) => {

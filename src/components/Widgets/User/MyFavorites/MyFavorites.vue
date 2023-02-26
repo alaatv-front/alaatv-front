@@ -1,5 +1,5 @@
 <template>
-  <div class="my-favorites main-content ">
+  <div class="my-favorites main-content">
     <div class="row">
       <div class="col-3 bg-transparent">
         <div class="search-box">
@@ -69,7 +69,6 @@
     </div>
 
   </div>
-
 </template>
 
 <script>
@@ -85,6 +84,7 @@ if (typeof window !== 'undefined') {
 import { SetList } from 'src/models/Set.js'
 import { ProductList } from 'src/models/Product.js'
 import { ContentList } from 'src/models/Content.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'MyFavorites',
@@ -1029,7 +1029,6 @@ export default {
       }
     ]
   }),
-
   computed: {
     products() {
       const products = this.storeData[0].products
@@ -1042,13 +1041,16 @@ export default {
       return new ContentList(this.storeData[0].contents)
     }
   },
-  created() {
-    this.initPageData()
-  },
   mounted() {
     this.closeLayoutSideBar()
   },
+  created() {
+    this.initPageData()
+  },
   methods: {
+    getFavored () {
+      APIGateway.user.getFavored()
+    },
     initPageData() {
       // const products = new ProductList(),
       //   sets = new SetList(),
@@ -1069,7 +1071,6 @@ export default {
         // innerWrapperSelector: '.sidebar__inner'
       })
     }
-
   }
 }
 </script>

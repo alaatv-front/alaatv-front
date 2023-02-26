@@ -30,10 +30,14 @@
       <div class="archives-list">
 
         <template v-if="set.loading">
-          <q-skeleton height="100px" />
-          <q-skeleton height="100px" />
-          <q-skeleton height="100px" />
-          <q-skeleton height="100px" />
+          <q-skeleton height="100px"
+                      class="q-mb-sm" />
+          <q-skeleton height="100px"
+                      class="q-mb-sm" />
+          <q-skeleton height="100px"
+                      class="q-mb-sm" />
+          <q-skeleton height="100px"
+                      class="q-mb-sm" />
         </template>
         <template v-else>
           <q-expansion-item v-for="section in definedSections"
