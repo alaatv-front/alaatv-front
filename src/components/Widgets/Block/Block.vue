@@ -26,7 +26,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="product-spacing">
-          <product-item :options="product" />
+          <product-item :options="{product, minWidth: '318px'}" />
         </div>
         <div v-if="block?.url?.web"
              class="block-item-box">
@@ -46,7 +46,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="set-spacing">
-          <set-item :data="set" />
+          <set-item :options="{set, minWidth: '318px'}" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"
@@ -65,7 +65,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="content-spacing">
-          <content-item :options="content" />
+          <content-item :options="{content, minWidth: '318px'}" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"

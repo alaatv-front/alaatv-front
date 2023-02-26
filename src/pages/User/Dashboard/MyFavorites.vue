@@ -40,7 +40,7 @@ export default {
                   }
                 ],
                 options: {
-                  boxed: false,
+                  boxed: true,
                   style: {
                     marginTop: '30px',
                     marginBottom: '30px'

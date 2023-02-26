@@ -3,6 +3,7 @@ import { User } from 'src/models/User.js'
 import { ProductList } from 'src/models/Product.js'
 import { CartItemList } from 'src/models/CartItem.js'
 import APIRepository from '../classes/APIRepository'
+import { FavoredList } from 'src/models/Favored'
 
 export default class UserAPI extends APIRepository {
   constructor() {
@@ -229,7 +230,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getPurchasedProducts (data = {}, cache = { TTL: 600000 }) {
+  getPurchasedProducts (data = {}, cache = { TTL: 6000000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -237,6 +238,7 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.purchasedProducts,
       ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
+        type: '', // String
         page: 1 // Number
       }, data),
       resolveCallback: (response) => {
@@ -260,7 +262,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getFavored (data = {}, cache = { TTL: 600000 }) {
+  getFavored (data = {}, cache = { TTL: 6000000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -272,7 +274,7 @@ export default class UserAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return {
-          referralCodeList: new ProductList(response.data.data),
+          favoredList: new FavoredList(response.data.data),
           paginate: response.data.meta
           // {
           //   current_page: 1,
