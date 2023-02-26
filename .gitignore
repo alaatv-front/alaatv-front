@@ -31,3 +31,6 @@ yarn-error.log*
 
 # widget.json
 /src/components/Widgets/widget.json
+
+
+*.code-workspace
