@@ -28,6 +28,12 @@
                       label-position="right"
                       color="info"
                       icon="isax:eye"
+                      label="نمایش کانفیگ"
+                      @click="showPageBuilderConfigs" />
+        <q-fab-action external-label
+                      label-position="right"
+                      color="info"
+                      icon="isax:eye"
                       label="پیشنمایش"
                       @click="togglePageBuilderEditable" />
         <q-fab-action external-label
@@ -63,9 +69,27 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <q-dialog v-model="pageBuilderConfigDialog">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">تنظیمات صفحه</div>
+      </q-card-section>
+      <q-card-section class="q-pt-none">
+        {{ currenSections }}
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn v-close-popup
+               flat
+               label="کپی کردن"
+               color="primary"
+               @click="copyPageBuilderConfigs" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
+import { copyToClipboard } from 'quasar'
 import { mixinPageOptions } from 'src/mixin/Mixins'
 
 export default {
@@ -74,6 +98,8 @@ export default {
   data () {
     return {
       seoDialog: false,
+      pageBuilderConfigDialog: false,
+      pageBuilderConfigs: {},
       fabPos: [18, 18],
       pageOptionsFloatingActionButton: false
     }
@@ -86,14 +112,35 @@ export default {
         this.fabPos[1] - ev.delta.y
       ]
     },
+    showPageBuilderConfigs () {
+      this.pageBuilderConfigDialog = true
+    },
+    copyPageBuilderConfigs () {
+      copyToClipboard(JSON.stringify(this.currenSections))
+        .then(() => {
+          this.$q.notify({
+            message: 'کانفیگ کپی شد',
+            type: 'positive'
+          })
+        })
+        .catch(() => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'مشکلی در کپی کردن کانفیگ رخ داده اس.'
+          })
+        })
+    },
     togglePageBuilderEditable () {
-      const newStateOfPageBuilderEditable = !this.$store.getters['AppLayout/pageBuilderEditable']
-      this.$store.commit('AppLayout/updatePageBuilderEditable', newStateOfPageBuilderEditable)
+      const newStateOfPageBuilderEditable = !this.$store.getters['PageBuilder/pageBuilderEditable']
+      this.$store.commit('PageBuilder/updatePageBuilderEditable', newStateOfPageBuilderEditable)
       if (newStateOfPageBuilderEditable) {
         setTimeout(() => {
           this.pageOptionsFloatingActionButton = true
         }, 700)
       }
+    },
+    showPageBuilderConfig () {
+
     },
     openSeoDialog () {
       this.seoDialog = true

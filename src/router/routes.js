@@ -365,6 +365,11 @@ const routes = [
             component: () => import('src/pages/Document/debug.vue')
           },
           {
+            path: 'icon-sax',
+            name: 'Document.IconSax',
+            component: () => import('src/pages/Document/IconSax.vue')
+          },
+          {
             path: '/form-generator',
             name: 'formGenerator',
             component: () => import('pages/Document/formGenerator.vue')

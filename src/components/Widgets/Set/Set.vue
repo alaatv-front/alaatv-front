@@ -1,8 +1,10 @@
 <template>
-  <div class="set">
+  <div :style="defaultOptions.style"
+       class="set">
     <div class="header">
       <div class="title">
-        <bookmark v-model:value="set.is_favored"
+        <bookmark v-if="localOptions.showBtnFavorSet"
+                  v-model:value="set.is_favored"
                   :base-route="getSetBookmarkBaseRoute(set.id)" />
         {{ set.title }}
       </div>
@@ -23,7 +25,8 @@
             <div class="section-expansion-header">
               <div class="section-expansion-header-title">
                 <div class="icon">
-                  <q-icon name="perm_identity" />
+                  <q-icon name="isax-svg:book-1"
+                          size="16.5px" />
                 </div>
                 <div class="text">
                   {{ section.section.name }}
@@ -58,18 +61,19 @@
 
 <script>
 import moment from 'moment-jalaali'
-moment.loadPersian()
-import API_ADDRESS from 'src/api/Addresses.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import { Set } from 'src/models/Set.js'
-import Bookmark from 'components/Bookmark.vue'
-import { SetSection } from 'src/models/SetSection'
 import ContentItem from './ContentItem.vue'
+import API_ADDRESS from 'src/api/Addresses.js'
+import Bookmark from 'src/components/Bookmark.vue'
+import { SetSection } from 'src/models/SetSection.js'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+
+moment.loadPersian()
 
 export default {
   name: 'SetShowInfo',
   components: { ContentItem, Bookmark },
-  mixins: [mixinWidget],
+  mixins: [PageBuilderOptionPanel],
   props: {
     data: {
       type: [Set, Number, String],
@@ -80,6 +84,18 @@ export default {
   },
   data() {
     return {
+      defaultOptions: {
+        className: '',
+        height: 'auto',
+        boxed: false,
+        boxedWidth: 1200,
+        style: {},
+        showCountOfContent: true,
+        showCountOfVideo: true,
+        showCountOfPamphlet: true,
+        showBtnFavorSet: true,
+        showBtnFavorContent: true
+      },
       tab: '',
       set: new Set(),
       sections: [],

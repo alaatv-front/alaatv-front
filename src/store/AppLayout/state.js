@@ -1,6 +1,7 @@
 const state = {
   drawer: false,
   pageBuilderEditable: false,
+  loginDialog: false,
   confirmDialog: {
     show: false,
     message: '',
