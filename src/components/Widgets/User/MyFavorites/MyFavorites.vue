@@ -1,21 +1,6 @@
 <template>
   <div class="my-favorites">
     <div class="row">
-      <div class="col-3 bg-transparent">
-        <div class="search-box">
-          <q-input v-model="searchText"
-                   outlined
-                   bg-color="white"
-                   class="search-input"
-                   placeholder="جستجو ..."
-                   dense
-                   rounded
-                   item-aligned
-                   label="" />
-        </div>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-12">
         <q-tabs v-model="activePanel"
                 indicator-color="yellow-8"
@@ -36,26 +21,43 @@
               <q-skeleton type="text" />
             </template>
             <template v-else>
-              <div class="row q-col-gutter-md">
-                <div v-for="favoredItem in productFavoreds.list"
-                     :key="favoredItem.id"
-                     class="col-12 col-md-4">
-                  <product-item :options="{product: favoredItem.getProduct(), canAddToCart: false}" />
+              <template v-if="productFavoreds.list.length > 0">
+                <div class="search-box q-mb-md">
+                  <q-input v-model="searchText"
+                           outlined
+                           placeholder="جستجو ..."
+                           dense
+                           rounded />
                 </div>
-              </div>
-              <div v-if="productFavoredsLastPage > 1"
-                   class="row">
-                <div class="col flex justify-center">
-                  <q-pagination v-model="productFavoredsPage"
-                                :max="productFavoredsLastPage"
-                                :max-pages="6"
-                                boundary-links
-                                icon-first="isax:arrow-left-2"
-                                icon-last="isax:arrow-right-3"
-                                class="gift-card-pagination"
-                                @update:model-value="getProductFavoreds(productFavoredsPage)" />
+                <div class="row q-col-gutter-md">
+                  <div v-for="favoredItem in productFavoreds.list"
+                       :key="favoredItem.id"
+                       class="col-12 col-md-4">
+                    <product-item :options="{product: favoredItem.getProduct(), canAddToCart: false}" />
+                  </div>
                 </div>
-              </div>
+                <div v-if="productFavoredsLastPage > 1"
+                     class="row">
+                  <div class="col flex justify-center">
+                    <q-pagination v-model="productFavoredsPage"
+                                  :max="productFavoredsLastPage"
+                                  :max-pages="6"
+                                  boundary-links
+                                  icon-first="isax:arrow-left-2"
+                                  icon-last="isax:arrow-right-3"
+                                  class="gift-card-pagination"
+                                  @update:model-value="getProductFavoreds(productFavoredsPage)" />
+                  </div>
+                </div>
+              </template>
+              <template v-else>
+                <div class="text-center text-color-primary">
+                  <q-icon name="isax-svg:danger"
+                          size="100px" />
+                  <br>
+                  محصولی به علاقه مندی شما اضافه نشده است.
+                </div>
+              </template>
             </template>
           </q-tab-panel>
 
@@ -64,26 +66,43 @@
               <q-skeleton type="text" />
             </template>
             <template v-else>
-              <div class="row q-col-gutter-md">
-                <div v-for="favoredItem in setFavoreds.list"
-                     :key="favoredItem.id"
-                     class="col-12 col-md-4">
-                  <set-item :options="{set: favoredItem.getSet()}" />
+              <template v-if="setFavoreds.list.length > 0">
+                <div class="search-box q-mb-md">
+                  <q-input v-model="searchText"
+                           outlined
+                           placeholder="جستجو ..."
+                           dense
+                           rounded />
                 </div>
-              </div>
-              <div v-if="setFavoredsLastPage > 1"
-                   class="row">
-                <div class="col flex justify-center">
-                  <q-pagination v-model="setFavoredsPage"
-                                :max="setFavoredsLastPage"
-                                :max-pages="6"
-                                boundary-links
-                                icon-first="isax:arrow-left-2"
-                                icon-last="isax:arrow-right-3"
-                                class="gift-card-pagination"
-                                @update:model-value="getSetFavoreds(setFavoredsPage)" />
+                <div class="row q-col-gutter-md">
+                  <div v-for="favoredItem in setFavoreds.list"
+                       :key="favoredItem.id"
+                       class="col-12 col-md-4">
+                    <set-item :options="{set: favoredItem.getSet()}" />
+                  </div>
                 </div>
-              </div>
+                <div v-if="setFavoredsLastPage > 1"
+                     class="row">
+                  <div class="col flex justify-center">
+                    <q-pagination v-model="setFavoredsPage"
+                                  :max="setFavoredsLastPage"
+                                  :max-pages="6"
+                                  boundary-links
+                                  icon-first="isax:arrow-left-2"
+                                  icon-last="isax:arrow-right-3"
+                                  class="gift-card-pagination"
+                                  @update:model-value="getSetFavoreds(setFavoredsPage)" />
+                  </div>
+                </div>
+              </template>
+              <template v-else>
+                <div class="text-center text-color-primary">
+                  <q-icon name="isax-svg:danger"
+                          size="100px" />
+                  <br>
+                  دوره ای به علاقه مندی شما اضافه نشده است.
+                </div>
+              </template>
             </template>
           </q-tab-panel>
 
@@ -92,26 +111,43 @@
               <q-skeleton type="text" />
             </template>
             <template v-else>
-              <div class="row q-col-gutter-md">
-                <div v-for="favoredItem in contentFavoreds.list"
-                     :key="favoredItem.id"
-                     class="col-12 col-md-4">
-                  <content-item :options="{content: favoredItem.getContent()}" />
+              <template v-if="contentFavoreds.list.length > 0">
+                <div class="search-box q-mb-md">
+                  <q-input v-model="searchText"
+                           outlined
+                           placeholder="جستجو ..."
+                           dense
+                           rounded />
                 </div>
-              </div>
-              <div v-if="setFavoredsLastPage > 1"
-                   class="row">
-                <div class="col flex justify-center">
-                  <q-pagination v-model="contentFavoredsPage"
-                                :max="contentFavoredsLastPage"
-                                :max-pages="6"
-                                boundary-links
-                                icon-first="isax:arrow-left-2"
-                                icon-last="isax:arrow-right-3"
-                                class="gift-card-pagination"
-                                @update:model-value="getContentFavoreds(contentFavoredsPage)" />
+                <div class="row q-col-gutter-md">
+                  <div v-for="favoredItem in contentFavoreds.list"
+                       :key="favoredItem.id"
+                       class="col-12 col-md-4">
+                    <content-item :options="{content: favoredItem.getContent()}" />
+                  </div>
                 </div>
-              </div>
+                <div v-if="setFavoredsLastPage > 1"
+                     class="row">
+                  <div class="col flex justify-center">
+                    <q-pagination v-model="contentFavoredsPage"
+                                  :max="contentFavoredsLastPage"
+                                  :max-pages="6"
+                                  boundary-links
+                                  icon-first="isax:arrow-left-2"
+                                  icon-last="isax:arrow-right-3"
+                                  class="gift-card-pagination"
+                                  @update:model-value="getContentFavoreds(contentFavoredsPage)" />
+                  </div>
+                </div>
+              </template>
+              <template v-else>
+                <div class="text-center text-color-primary">
+                  <q-icon name="isax-svg:danger"
+                          size="100px" />
+                  <br>
+                  محتوایی به علاقه مندی شما اضافه نشده است.
+                </div>
+              </template>
             </template>
           </q-tab-panel>
         </q-tab-panels>
@@ -191,3 +227,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.my-favorites {
+  .q-tab-panels {
+    border-radius: 10px;
+    box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
+  }
+}
+</style>

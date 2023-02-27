@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     loadPageBuilderData () {
-      this.pageBuilderEditable = this.$store.getters['AppLayout/pageBuilderEditable']
+      this.currenSections = this.sections
     }
   }
 }

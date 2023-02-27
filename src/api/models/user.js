@@ -267,7 +267,7 @@ export default class UserAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.favored,
-      cacheKey: this.CacheList.favored,
+      cacheKey: this.CacheList.favored + JSON.stringify(data),
       ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
         page: 1 // Number

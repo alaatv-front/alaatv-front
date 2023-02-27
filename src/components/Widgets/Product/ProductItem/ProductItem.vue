@@ -78,7 +78,7 @@ export default {
   components: { LazyImg },
   props: {
     options: {
-      type: Product,
+      type: Object,
       default: () => {
         return {
           style: {},
