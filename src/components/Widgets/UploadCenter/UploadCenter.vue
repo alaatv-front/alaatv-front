@@ -267,11 +267,23 @@ export default {
       ]
     }
   },
+  beforeMount () {
+    this.initEntityValues()
+  },
   mounted () {
     this.initFilterBoxDisplay()
-    this.setSelectedMode('createdAtSince')
   },
   methods: {
+    getRemoveMessage (row) {
+      const firstName = row.first_name
+      const lastName = row.last_name
+      return 'آیا از حذف ' + firstName + ' ' + lastName + ' اطمینان دارید؟'
+    },
+    initEntityValues () {
+      const formBuilderInputIndex = this.inputs.findIndex(input => input.name === 'formBuilderCol')
+      const inputIndex = this.inputs[formBuilderInputIndex].value.findIndex(input => input.name === 'createdAtSince')
+      this.inputs[formBuilderInputIndex].value[inputIndex].value = this.getCurrentDate()
+    },
     onTabChanged(val) {
       this.setSelectedMode(val)
     },
@@ -294,9 +306,11 @@ export default {
       this.$refs.entityIndex.setInputAttributeByName('createdAtSince', 'readonly', false)
       this.$refs.entityIndex.setInputAttributeByName('enable', 'readonly', false)
     },
+    getCurrentDate() {
+      return moment(new Date()).format('YYYY-MM-DD')
+    },
     setCreatedAtSinceMode () {
-      const currentDate = moment(new Date()).format('YYYY-MM-DD')
-      this.$refs.entityIndex.setInputByName('createdAtSince', currentDate)
+      this.$refs.entityIndex.setInputByName('createdAtSince', this.getCurrentDate())
       this.$refs.entityIndex.setInputAttributeByName('createdAtSince', 'readonly', true)
       // this.$refs.entityIndex.setInputByName('createdAtTill', currentDate)
     },
