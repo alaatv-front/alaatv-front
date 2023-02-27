@@ -1,7 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Content } from 'src/models/Content'
-import { Product } from 'src/models/Product'
+import { ProductList } from 'src/models/Product'
 const APIAdresses = {
   admin: '/admin/contents',
   show: (id) => '/c/' + id,
@@ -97,15 +97,15 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  relatedProducts(data) {
+  relatedProducts(data, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.relatedProducts(data.id),
       cacheKey: this.CacheList.relatedProducts(data.id),
-      ...(data?.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
-        return new Product(response.data.data)
+        return new ProductList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
