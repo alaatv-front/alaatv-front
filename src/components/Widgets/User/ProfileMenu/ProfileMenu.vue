@@ -64,27 +64,25 @@
         </div>
         <q-separator class="q-mt-md"
                      size="2px" />
-        <q-list class="q-mt-md">
-          <router-link :to="{name: 'UserPanel.MyPurchases'}"
-                       class="flex">
-            <q-item v-ripple
-                    clickable>
-              <q-item-section class="menu-item-custom">
-                <div class="play-btn" />
-                <div class="menu-item-title q-ml-sm">محصولات من</div>
-              </q-item-section>
-            </q-item>
-          </router-link>
-          <router-link :to="{name: 'UserPanel.MyOrders'}"
-                       class="flex">
-            <q-item v-ripple
-                    clickable>
-              <q-item-section class="menu-item-custom">
-                <div class="note" />
-                <div class="menu-item-title q-ml-sm">سفارش های من</div>
-              </q-item-section>
-            </q-item>
-          </router-link>
+        <q-list class="menu-items q-mt-md">
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.MyPurchases'}"
+                  :active="isRouteSelected('UserPanel.MyPurchases')">
+            <q-item-section class="menu-item-custom">
+              <div class="play-btn" />
+              <div class="menu-item-title q-ml-sm">محصولات من</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.MyOrders'}"
+                  :active="isRouteSelected('UserPanel.MyOrders')">
+            <q-item-section class="menu-item-custom">
+              <div class="note" />
+              <div class="menu-item-title q-ml-sm">سفارش های من</div>
+            </q-item-section>
+          </q-item>
           <q-item v-ripple
                   clickable>
             <q-item-section class="menu-item-custom">
@@ -92,16 +90,15 @@
               <div class="menu-item-title q-ml-sm">کیف پول</div>
             </q-item-section>
           </q-item>
-          <router-link class="flex"
-                       :to="{name: 'UserPanel.MyFavorites'}">
-            <q-item v-ripple
-                    clickable>
-              <q-item-section class="menu-item-custom">
-                <div class="bookmark" />
-                <div class="menu-item-title q-ml-sm">نشان شده ها</div>
-              </q-item-section>
-            </q-item>
-          </router-link>
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.MyFavorites'}"
+                  :active="isRouteSelected('UserPanel.MyFavorites')">
+            <q-item-section class="menu-item-custom">
+              <div class="bookmark" />
+              <div class="menu-item-title q-ml-sm">نشان شده ها</div>
+            </q-item-section>
+          </q-item>
           <q-item v-ripple
                   clickable>
             <q-item-section class="menu-item-custom">
@@ -123,16 +120,15 @@
               <div class="menu-item-title q-ml-sm">نظرات من</div>
             </q-item-section>
           </q-item>
-          <router-link class="flex"
-                       :to="{name: 'UserPanel.Ticket.Index'}">
-            <q-item v-ripple
-                    clickable>
-              <q-item-section class="menu-item-custom">
-                <div class="ticket" />
-                <div class="menu-item-title q-ml-sm">تیکت</div>
-              </q-item-section>
-            </q-item>
-          </router-link>
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.Ticket.Index'}"
+                  :active="isRouteSelected('UserPanel.Ticket.Index')">
+            <q-item-section class="menu-item-custom">
+              <div class="ticket" />
+              <div class="menu-item-title q-ml-sm">تیکت</div>
+            </q-item-section>
+          </q-item>
           <q-item v-ripple
                   clickable
                   @click="logout">
@@ -177,6 +173,9 @@ export default {
   },
   mounted () {},
   methods: {
+    isRouteSelected (itemName) {
+      return (this.$route.name === itemName)
+    },
     updatePhoto() {
       this.$refs.file.pickFiles()
     },
@@ -203,13 +202,31 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.q-list.menu-items {
+  :deep(.q-item) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    cursor: pointer;
+    border-radius: 14px;
+    &.q-item--active {
+      &:hover {
+        .q-focus-helper {
+          background: currentColor;
+          opacity: 0.15;
+        }
+      }
+    }
+  }
+}
+</style>
+
 <style scoped>
-a {
-  color: black;
-}
-.q-item {
-  width: 100%;
-}
 :deep(.q-btn .q-btn__content) {
   margin: 3px;
 }
