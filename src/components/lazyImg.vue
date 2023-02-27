@@ -20,18 +20,19 @@
          class="full-width img"
          :style="{height: computedHeight+'px', width: computedWidth+'px'}">
     <q-img v-else-if="qImage && (!width || !height)"
-           :src="src"
+           :src="computedSrc"
            :alt="alt">
       <slot />
     </q-img>
     <img v-else-if="!qImage && (!width || !height)"
-         :src="src"
+         :src="computedSrc"
          :alt="alt"
          class="full-width">
   </div>
 </template>
 
 <script>
+import process from 'process'
 export default {
   name: 'lazyImg',
   props: {
@@ -68,6 +69,12 @@ export default {
     }
   },
   computed: {
+    computedSrc () {
+      if (!process.env.APP_ENV !== 'production' && this.src) {
+        return this.src.replace('https://stage-minio.alaatv.com', 'https://nodes.alaatv.com')
+      }
+      return this.src
+    },
     customClass () {
       return this.class
     },
@@ -113,7 +120,7 @@ export default {
       if (this.normalizedSizeInNumber.w !== null && this.normalizedSizeInNumber.h !== null && !isNaN(parseInt(this.normalizedSizeInNumber.w)) && !isNaN(parseInt(this.normalizedSizeInNumber.h))) {
         this.computedHeight = Math.floor((parseInt(this.normalizedSizeInNumber.h) * this.computedWidth) / parseInt(this.normalizedSizeInNumber.w))
       }
-      this.lazyImageSrc = this.src
+      this.lazyImageSrc = this.computedSrc
       if (this.lazyImageSrc && !isNaN(this.computedWidth) && this.computedWidth > 0 && !isNaN(this.computedHeight) && this.computedHeight > 0) {
         this.lazyImageSrc += '?w=' + this.computedWidth + '&h=' + this.computedHeight
       }
