@@ -4883,10 +4883,10 @@ qs@6.11.0, qs@^6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-quasar-crud@^0.3.6:
-  version "0.3.10"
-  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.10.tgz#32b3e521e11fbaa649c1c53b7472ac3dc4511a58"
-  integrity sha512-p2IsofPnS/BQeUlP3Vqruev6t2Z+R3bO14+A++/NNtyRvVerWlrcVGHUXuSWwbwcGI8iy7kAmivRbui9ONfAmA==
+quasar-crud@^0.3.11:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.11.tgz#85b284d715172586f4668cd16f8724055b251ae6"
+  integrity sha512-Zz4wkOIYdyNhIBeWAdDR5B6Y/II5S99QKEeD8F1IiaYzX69GpkE78l6vLE/H5Qv4CCWGlgJooHfxXAaN6BXzFA==
   dependencies:
     "@quasar/extras" "^1.15.10"
     axios "^1.2.3"
