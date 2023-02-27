@@ -1,0 +1,9 @@
+@import "src/css/Theme/Widgets/card.scss";
+
+.custom-card {
+  & > .row {
+    @include widget-custom-card;
+    margin-top: 0;
+    margin-left: 0;
+  }
+}

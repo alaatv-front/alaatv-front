@@ -6,8 +6,6 @@ node_modules
 # Quasar core related directories
 .quasar
 /dist
-/src-ssr
-/src-pwa
 
 # Cordova related directories and files
 /src-cordova/node_modules
@@ -33,3 +31,6 @@ yarn-error.log*
 
 # widget.json
 /src/components/Widgets/widget.json
+
+
+*.code-workspace

@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-white shadow-4 q-mb-md q-mx-sm">
+  <div class="bg-white shadow-4 q-mb-md q-mx-sm"
+       :style="options.style">
     <video-player v-if="sources.list.length > 0"
                   :sources="sources"
                   :poster="poster" />
@@ -26,6 +27,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 import VideoPlayer from 'components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { Set } from 'src/models/Set'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ContentVideoPlayer',
@@ -67,7 +69,7 @@ export default {
     }
   },
   watch: {
-    data() {
+    options() {
       this.loadContent()
     },
     'data.id': function() {
@@ -87,18 +89,30 @@ export default {
     loadContent() {
       this.getContentByRequest()
     },
+    getContentId () {
+      if (this.options.productId) {
+        return this.options.productId
+      }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return null
+    },
     getContentByRequest() {
+      const contentId = this.getContentId()
       this.content.loading = true
       let promise = null
-      promise = this.$apiGateway.content.show(this.options.id)
+      promise = APIGateway.content.show(contentId)
       if (promise) {
         promise
           .then((response) => {
             this.content = new Content(response)
-            this.contentNumber = this.getContentNumberInListById(this.content.id)
             this.poster = this.content.photo
             this.setSources(this.content.file.video)
-            this.getSet()
+            this.getSetByRequest()
             this.content.loading = false
           })
           .catch(() => {
@@ -133,11 +147,12 @@ export default {
     getSetByRequest() {
       this.set.loading = true
       let promise = null
-      promise = this.$apiGateway.set.show(this.content.set.id)
+      promise = APIGateway.set.show(this.content.set.id)
       if (promise) {
         promise
           .then((response) => {
             this.set = new Set(response)
+            this.contentNumber = this.getContentNumberInListById(this.content.id)
             this.set.loading = false
           })
           .catch(() => {

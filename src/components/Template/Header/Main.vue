@@ -43,18 +43,6 @@
                 </q-item>
               </div>
             </div>
-
-            <div class="self-center"
-                 @click="togglePageBuilderEditable">
-              <q-item v-ripple
-                      clickable
-                      :active="false"
-                      active-class="active-item">
-                <q-item-section class="tab-title">
-                  ویرایش صفحه
-                </q-item-section>
-              </q-item>
-            </div>
           </q-list>
         </div>
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
@@ -87,7 +75,14 @@
                    rounded
                    size="12px"
                    class="action-btn"
-                   :to="{name: 'Public.Checkout.Review'}" />
+                   :to="{name: 'Public.Checkout.Review'}">
+              <q-menu class="user-card-dropdown"
+                      :offset="[170, 10]">
+                <div class="dropdown-box">
+                  hi
+                </div>
+              </q-menu>
+            </q-btn>
           </div>
           <q-btn v-if="isUserLogin"
                  flat
@@ -216,7 +211,7 @@ export default {
         {
           selected: 'adminPanel',
           title: 'پنل ادمین',
-          routeName: 'Admin.Dashboard',
+          routeName: 'Admin.UploadCenter.Contents',
           permission: 'all',
           children: []
         }
@@ -268,6 +263,14 @@ export default {
     }
   },
   computed: {
+    computedUserId () {
+      const user = this.$store.getters['Auth/user']
+      if (!user) {
+        return null
+      }
+
+      return user.id
+    },
     layoutLeftDrawerVisible() {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
     },
@@ -281,6 +284,11 @@ export default {
       return (itemName) => {
         return (this.$route.name === itemName)
       }
+    }
+  },
+  watch: {
+    computedUserId () {
+      this.loadAuthData()
     }
   },
   mounted () {
@@ -297,10 +305,6 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
-    togglePageBuilderEditable () {
-      const state = this.$store.getters['AppLayout/pageBuilderEditable']
-      this.$store.commit('AppLayout/updatePageBuilderEditable', !state)
-    },
     logOut() {
       return this.$store.dispatch('Auth/logOut')
     },

@@ -1,5 +1,5 @@
-import { auth } from './middleware/middleware'
-import EntityCrudRoutes from './EntityCrudRoutes'
+import { Authenticated } from './middleware/middleware.js'
+import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
   {
@@ -138,7 +138,7 @@ const routes = [
       {
         path: 'panel',
         name: 'UserPanel',
-        meta: { middlewares: [auth] },
+        meta: { middlewares: [Authenticated] },
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
@@ -284,8 +284,8 @@ const routes = [
           layoutLeftSideBarType: 'admin',
           layoutFooter: false
         },
-        meta: { middlewares: [auth] },
-        component: () => import('layouts/bareLayout.vue'),
+        meta: { middlewares: [Authenticated] },
+        component: () => import('layouts/AdminLayout.vue'),
         children: [
           {
             name: 'Admin.Dashboard',
@@ -322,12 +322,12 @@ const routes = [
           },
           {
             name: 'Admin.StudyPlan',
-            path: 'study_plan',
+            path: 'study-plan',
             component: () => import('pages/Admin/StudyPlan/StudyPlan.vue')
           },
           {
             name: 'Admin.UploadCenter',
-            path: 'upload_center',
+            path: 'upload-center',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -356,13 +356,18 @@ const routes = [
             component: () => import('pages/Document/component.vue'),
             breadcrumbs: { title: 'component' },
             meta: {
-              middlewares: [auth]
+              middlewares: [Authenticated]
             }
           },
           {
-            path: '/debug',
-            name: 'debug',
-            component: () => import('pages/Document/debug.vue')
+            path: 'debug',
+            name: 'Document.Debug',
+            component: () => import('src/pages/Document/debug.vue')
+          },
+          {
+            path: 'icon-sax',
+            name: 'Document.IconSax',
+            component: () => import('src/pages/Document/IconSax.vue')
           },
           {
             path: '/form-generator',

@@ -75,10 +75,10 @@
 </template>
 
 <script>
-import StudyPlan from './StudyPlan'
+import StudyPlan from './StudyPlan.vue'
+import { PlanList } from 'src/models/Plan.js'
+import { Major, MajorList } from 'src/models/Major.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
-import { Major, MajorList } from 'src/models/Major'
-import { PlanList } from 'src/models/Plan'
 
 export default {
   components: { StudyPlan },

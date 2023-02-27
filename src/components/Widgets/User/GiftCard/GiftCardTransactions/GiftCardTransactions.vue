@@ -89,26 +89,27 @@
               class="tabs-box"
               active-class="tab-active-class"
               @change="handleTables">
-        <q-tab key="transaction"
+        <q-tab name="transactions"
                :disabled="loading"
                active-class="active-tab-t">
           <span class="tab-title">
             تراکنش کارت‌ها
           </span>
         </q-tab>
-
-        <q-tab key="clearingHistory"
+        <q-tab name="clearingHistory"
                :disabled="loading"
                active-class="active-tab-t">
           <span class="tab-title">
             تاریخچه تسویه
           </span>
         </q-tab>
-        <div class="line-style" />
+      </q-tabs>
 
-        <q-tab-item key="transactions"
-                    disabled>
-          <div class="table-container  text-center">
+      <div class="line-style" />
+      <q-tab-panels v-model="activeTab"
+                    animated>
+        <q-tab-panel name="transactions">
+          <div class="table-container">
             <div class="table-title">
               تراکنش کارت ها
             </div>
@@ -158,11 +159,8 @@
             <!--              </template>-->
             <!--            </v-data-table>-->
           </div>
-
-        </q-tab-item>
-
-        <q-tab-item key="clearingHistory"
-                    disabled>
+        </q-tab-panel>
+        <q-tab-panel name="clearingHistory">
           <div class="table-container">
             <div class="table-title">
               تاریخچه تسویه
@@ -210,39 +208,29 @@
             <!--              </template>-->
             <!--            </v-data-table>-->
           </div>
-        </q-tab-item>
-      </q-tabs>
-    </div>
-    <div class="text-center pagination-box">
-      <!--      <v-pagination-->
-      <!--        v-model="page"-->
-      <!--        flat-->
-      <!--        class="gift-card-pagination"-->
-      <!--        color="#ff9000"-->
-      <!--        :length="lastPage"-->
-      <!--        :total-visible="5"-->
-      <!--      />-->
+        </q-tab-panel>
+      </q-tab-panels>
     </div>
     <q-dialog v-model="settlementGuideDialog"
               width="500px">
       <div class="settlementGuide-dialog">
-        <v-card>
-          <v-spacer />
-          <v-card-text>
-            <span v-html="settlementGuide" />
-          </v-card-text>
+        <!--        <v-card>-->
+        <!--          <v-spacer />-->
+        <!--          <v-card-text>-->
+        <!--            <span v-html="settlementGuide" />-->
+        <!--          </v-card-text>-->
 
-          <v-divider />
+        <!--          <v-divider />-->
 
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="#FF9000"
-                   text
-                   @click="settlementGuideDialog = false">
-              بستن
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <!--          <v-card-actions>-->
+        <!--            <v-spacer />-->
+        <!--            <v-btn color="#FF9000"-->
+        <!--                   text-->
+        <!--                   @click="settlementGuideDialog = false">-->
+        <!--              بستن-->
+        <!--            </v-btn>-->
+        <!--          </v-card-actions>-->
+        <!--        </v-card>-->
       </div>
     </q-dialog>
   </div>
@@ -252,6 +240,7 @@
 import Price from 'src/models/Price.js'
 import Assist from 'src/assets/js/Assist.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
+import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'GiftCardTransactions',
   mixins: [GiftCardMixin],
@@ -312,17 +301,15 @@ export default {
     }
 
   },
-  watch: {
-    page: {
-      handler() {
-        this.handleTables()
-      }
-    }
-  },
   created() {
-    this.setPercentage()
+    this.loadAllData()
   },
   methods: {
+    loadAllData() {
+      this.setPercentage()
+      this.getTransactionDataFromApi()
+      // this.getClearingHistoryDataFromApi()
+    },
     openSettlementGuideDialog() {
       this.settlementGuideDialog = true
     },
@@ -332,9 +319,6 @@ export default {
         return
       }
       this.percentage = (1 - (this.minAmountUntilSettlement - this.walletBalance) / this.minAmountUntilSettlement) * 100
-    },
-    getTransactions() {
-
     },
     async clearWallet() {
       try {
@@ -346,39 +330,45 @@ export default {
         this.showErrorMessages(messages)
       }
     },
-    handleTables() {
-      this.activeTab === 0 ? this.getTransactionDataFromApi() : this.getClearingHistoryDataFromApi()
-      // if (this.activeTab === 0){
-      //
-      // return
-      // }
-    },
-    async getTransactionDataFromApi() {
+    getTransactionDataFromApi(page = 1) {
       this.loading = true
-      this.transactionsTableRow = []
-      try {
-        const response = await this.TransactionApiCall()
-        this.lastPage = response.data.meta.last_page
-        const responseList = response.data.data
-        responseList.forEach(card => {
-          this.transactionsTableRow.push({
-            id: card.id,
-            name: card.full_name,
-            codeNumber: card.code,
-            productTitle: card.product,
-            purchaseDate: Assist.miladiToShamsi(card.purchased_at, true),
-            purchasePrice: new Price({ base: card.product_price }).toman('base'),
-            income: new Price({ base: card.commisson }).toman('base')
-          })
+      this.referralCodeList = []
+      APIGateway.referralCode.getOrderProducts({ data: { page } })
+        .then(() => {
+          // console.log('response', response)
+          // this.lastPage = paginate.last_page
+          // this.referralCodeList = referralCodeList
+          this.loading = false
         })
-        this.loading = false
-      } catch (err) {
-        this.loading = false
-        const messages = this.getErrorMessages(err.response.data)
-        this.showErrorMessages(messages)
-      }
+        .catch(() => {
+          this.loading = false
+        })
 
-      this.loading = false
+      // this.loading = true
+      // this.transactionsTableRow = []
+      // try {
+      //   const response = await this.TransactionApiCall()
+      //   this.lastPage = response.data.meta.last_page
+      //   const responseList = response.data.data
+      //   responseList.forEach(card => {
+      //     this.transactionsTableRow.push({
+      //       id: card.id,
+      //       name: card.full_name,
+      //       codeNumber: card.code,
+      //       productTitle: card.product,
+      //       purchaseDate: Assist.miladiToShamsi(card.purchased_at, true),
+      //       purchasePrice: new Price({ base: card.product_price }).toman('base'),
+      //       income: new Price({ base: card.commisson }).toman('base')
+      //     })
+      //   })
+      //   this.loading = false
+      // } catch (err) {
+      //   this.loading = false
+      //   const messages = this.getErrorMessages(err.response.data)
+      //   this.showErrorMessages(messages)
+      // }
+      //
+      // this.loading = false
     },
     async getClearingHistoryDataFromApi() {
       this.loading = true
@@ -632,7 +622,7 @@ export default {
   }
   .clearing-btn-box {
     display: flex;
-    justify-content: left;
+    justify-content: right;
     .clearing-btn{
       width: 134px;
       height: 48px;

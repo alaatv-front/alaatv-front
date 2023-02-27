@@ -1,5 +1,6 @@
 <template>
-  <q-card class="content-item-box">
+  <q-card class="content-item-box"
+          :style="{minWidth: options.minWidth}">
     <router-link :to="{
       name: 'Public.Content.Show',
       params: { id: content.id ? content.id : -1 }
@@ -34,15 +35,25 @@ export default {
   components: { LazyImg },
   props: {
     options: {
-      type: Content,
-      default: new Content()
+      type: Object,
+      default: () => {
+        return {
+          style: {},
+          minWidth: 'auto',
+          content: new Content()
+        }
+      }
     }
   },
   data: () => ({
     content: new Content()
   }),
   created () {
-    this.content = new Content(this.options)
+    if (!this.options.content) {
+      this.content = new Content(this.options)
+    } else {
+      this.content = new Content(this.options.content)
+    }
   }
 }
 </script>
@@ -80,7 +91,7 @@ export default {
   }
 
   &.q-card {
-    min-width: 318px;
+    //min-width: 318px;
   }
 
   .img-box {

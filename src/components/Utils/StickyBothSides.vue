@@ -131,5 +131,4 @@ export default {
 .position-fix {
   position: static;
 }
-
 </style>

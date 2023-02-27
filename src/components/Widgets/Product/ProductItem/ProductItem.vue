@@ -1,5 +1,6 @@
 <template>
-  <q-card class="product-item-box">
+  <q-card class="product-item-box"
+          :style="{minWidth: localOptions.minWidth}">
     <div class="img-box">
       <router-link :to="{
         name: 'Public.Product.Show',
@@ -54,7 +55,8 @@
             </div>
           </div>
         </div>
-        <q-btn unelevated
+        <q-btn v-if="localOptions.canAddToCart"
+               unelevated
                :productId="product.id"
                :data-product-id="product.id"
                class="btn-green"
@@ -76,39 +78,61 @@ export default {
   components: { LazyImg },
   props: {
     options: {
-      type: Product,
-      default: new Product()
+      type: Object,
+      default: () => {
+        return {
+          style: {},
+          minWidth: 'auto',
+          canAddToCart: true,
+          product: new Product()
+        }
+      }
     }
   },
   data: () => ({
-    product: new Product()
+    product: new Product(),
+    defaultOptions: {
+      style: {},
+      minWidth: 'auto',
+      canAddToCart: true,
+      product: new Product()
+    }
   }),
+  computed: {
+    localOptions () {
+      return Object.assign(this.defaultOptions, this.options)
+    }
+  },
   created () {
-    this.product = new Product(this.options)
+    if (!this.options.product) {
+      this.product = new Product(this.options)
+    } else {
+      this.product = new Product(this.options.product)
+    }
   },
   methods: {
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', [this.product]).then((response) => {
-        this.$store.dispatch('Cart/reviewCart', this.product).then((res) => {
-          this.$q.notify({
-            message: 'با موفقیت به سبد خرید شما افزوده شد',
-            color: 'green',
-            actions: [
-              {
-                label: 'سبد خرید',
-                icon: 'isax:shopping-cart',
-                color: 'white',
-                class: 'bg-green-3',
-                handler: () => {
-                  this.$router.push({ name: 'Public.Checkout.Review' })
-                }
-              }
-            ]
-          })
-        })
-      }).catch(() => {
+      this.$store.dispatch('Cart/addToCart', [this.product])
+        .then(() => {
+          this.$store.dispatch('Cart/reviewCart', this.product)
+            .then(() => {
+              this.$q.notify({
+                message: 'با موفقیت به سبد خرید شما افزوده شد',
+                color: 'green',
+                actions: [{
+                  label: 'سبد خرید',
+                  icon: 'isax:shopping-cart',
+                  color: 'white',
+                  class: 'bg-green-3',
+                  handler: () => {
+                    this.$router.push({ name: 'Public.Checkout.Review' })
+                  }
+                }]
+              })
+            })
+        }).catch(() => {
 
-      })
+        })
     }
   }
 }
@@ -191,7 +215,7 @@ export default {
   }
 
   &.q-card {
-    min-width: 318px;
+    //min-width: 318px;
   }
 
   .product-content-box {

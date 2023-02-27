@@ -5,11 +5,12 @@
 </template>
 
 <script>
+import { mixinPageBuilder } from 'src/mixin/Mixins'
 export default {
   name: 'MyFavorites',
+  mixins: [mixinPageBuilder],
   data () {
     return {
-      pageBuilderEditable: false,
       pageConfig: {},
       sections: [
         {
@@ -62,7 +63,7 @@ export default {
   },
   methods: {
     loadPageBuilderData () {
-      this.pageBuilderEditable = this.$store.getters['AppLayout/pageBuilderEditable']
+      this.currenSections = this.sections
     }
   }
 }

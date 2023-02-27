@@ -4,7 +4,7 @@ readable way */
 export default class APIInstanceWrapper {
   static getRequest(req, option) {
     if (req === 'get') {
-      return option.api.get(option.request, { params: option.params })
+      return option.api.get(option.request, { params: option.data })
     } else if (req === 'post') {
       return option.api.post(option.request, option.data)
     } else if (req === 'put') {
@@ -14,10 +14,10 @@ export default class APIInstanceWrapper {
     }
   }
 
-  static requestCache(request, option) {
+  static requestCache(method, option) {
     if (!!option.cache && !!option.cache.TTL) {
       if (option.cache.fresh) {
-        const response = this.getRequest(request, option)
+        const response = this.getRequest(method, option)
         const expiration = Date.now() + option.cache.TTL
         cache[option.cacheKey] = {
           response,
@@ -30,7 +30,7 @@ export default class APIInstanceWrapper {
             return cache[option.cacheKey].response
           } else {
             this.purgeRequest(option.cacheKey)
-            const response = this.getRequest(request, option)
+            const response = this.getRequest(method, option)
             const expiration = Date.now() + option.cache.TTL
             cache[option.cacheKey] = {
               response,
@@ -39,7 +39,7 @@ export default class APIInstanceWrapper {
             return response
           }
         } else {
-          const response = this.getRequest(request, option)
+          const response = this.getRequest(method, option)
           const expiration = Date.now() + option.cache.TTL
           cache[option.cacheKey] = {
             response,
@@ -54,11 +54,11 @@ export default class APIInstanceWrapper {
           return cache[option.cacheKey].response
         } else {
           this.purgeRequest(option.cacheKey)
-          const response = this.getRequest(request, option)
+          const response = this.getRequest(method, option)
           return response
         }
       } else {
-        return this.getRequest(request, option)
+        return this.getRequest(method, option)
       }
     }
   }

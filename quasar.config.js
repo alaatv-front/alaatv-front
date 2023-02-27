@@ -11,9 +11,9 @@
 /* eslint-env node */
 // const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers')
-const path = require('path')
+// const path = require('path')
 const { generateWidgetList } = require('./src/widgetListGetter/index')
-const envObject = require('dotenv').config().parsed
+require('dotenv').config()
 
 module.exports = configure(function (ctx) {
   return {
@@ -37,7 +37,7 @@ module.exports = configure(function (ctx) {
     // https://v2.quasar.dev/quasar-cli/boot-files
     boot: [
       'VuexPersistedState', // load store from localstorage to use in other boots (ex: accessToken in axios boot)
-      'i18n',
+      // 'i18n',
       'icon',
       'axios',
       'appConfig',
@@ -46,7 +46,8 @@ module.exports = configure(function (ctx) {
       'breadcrumbs',
       'api-gateway',
       'registerQPageBuilder',
-      'routesLayoutConfigs'
+      'routesLayoutConfigs',
+      'enums'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -93,7 +94,7 @@ module.exports = configure(function (ctx) {
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
 
-      env: envObject,
+      env: process.env,
 
       // vueLoaderOptions: {
       //   compilerOptions: {
@@ -197,7 +198,7 @@ module.exports = configure(function (ctx) {
       // polyfillModulePreload: true,
       // distDir
 
-      extendViteConf (viteConf) {
+      extendViteConf(viteConf) {
         // viteConf.resolve = {
         //   alias: {
         //     src: path.resolve(__dirname, './src'),
@@ -223,13 +224,25 @@ module.exports = configure(function (ctx) {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        ['@intlify/vite-plugin-vue-i18n', {
-          // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-          compositionOnly: false,
+        // ['@intlify/vite-plugin-vue-i18n', {
+        //   // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+        //   compositionOnly: false,
+        //
+        //   // you need to set i18n resource including paths !
+        //   include: path.resolve(__dirname, './src/i18n/**')
+        // }]
+        // require('@originjs/vite-plugin-commonjs').esbuildCommonjs(['minio'])
 
-          // you need to set i18n resource including paths !
-          include: path.resolve(__dirname, './src/i18n/**')
-        }]
+        // [
+        //   require('@intlify/unplugin-vue-i18n').default,
+        //   {
+        //     // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+        //     // compositionOnly: false,
+        //
+        //     // you need to set i18n resource including paths !
+        //     include: path.resolve(__dirname, './src/i18n/**')
+        //   }
+        // ]
       ]
     },
 
@@ -239,31 +252,40 @@ module.exports = configure(function (ctx) {
       port: 8083,
       open: true, // opens browser window automatically
       proxy: {
-        [envObject.ALAA_API_V2]: {
-          target: envObject.ALAA_API_V2_SERVER,
+        [process.env.ALAA_MINIO]: {
+          target: process.env.ALAA_MINIO_SERVER,
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_API_V2), '') // vite
+          rewrite: (path) => path.replace(new RegExp('^' + process.env.ALAA_MINIO), '') // vite
           // pathRewrite: { // webpack
-          //   ['^' + envObject.ALAA_API_V2]: ''
+          //   ['^' + process.env.ALAA_API_V2]: ''
           // }
         },
-        [envObject.ALAA_API_V1]: {
-          target: envObject.ALAA_API_V1_SERVER,
+        [process.env.ALAA_API_V2]: {
+          target: process.env.ALAA_API_V2_SERVER,
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_API_V1), '') // vite
+          rewrite: (path) => path.replace(new RegExp('^' + process.env.ALAA_API_V2), '') // vite
           // pathRewrite: { // webpack
-          //   ['^' + envObject.ALAA_API_V1]: ''
+          //   ['^' + process.env.ALAA_API_V2]: ''
           // }
         },
-        [envObject.ALAA_WEB]: {
-          target: envObject.ALAA_WEB_SERVER,
+        [process.env.ALAA_API_V1]: {
+          target: process.env.ALAA_API_V1_SERVER,
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_WEB), '') // vite
+          rewrite: (path) => path.replace(new RegExp('^' + process.env.ALAA_API_V1), '') // vite
           // pathRewrite: { // webpack
-          //   ['^' + envObject.ALAA_WEB]: ''
+          //   ['^' + process.env.ALAA_API_V1]: ''
+          // }
+        },
+        [process.env.ALAA_WEB]: {
+          target: process.env.ALAA_WEB_SERVER,
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(new RegExp('^' + process.env.ALAA_WEB), '') // vite
+          // pathRewrite: { // webpack
+          //   ['^' + process.env.ALAA_WEB]: ''
           // }
         }
       }
@@ -292,7 +314,7 @@ module.exports = configure(function (ctx) {
       cssAddon: true,
 
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'fa-IR', // Quasar language pack (en-US)
+      lang: 'fa', // Quasar language pack (en-US)
 
       // For special cases outside of where the auto-import strategy can have an impact
       // (like functional components as one of the examples),
@@ -303,10 +325,11 @@ module.exports = configure(function (ctx) {
 
       // Quasar plugins
       plugins: [
+        'Meta',
         'Notify',
         'Loading',
         'Dialog',
-        'Cookies'
+        'Cookies' // for cart
       ]
     },
 
@@ -340,7 +363,7 @@ module.exports = configure(function (ctx) {
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
 
-      prodPort: envObject.SSR_PORT, // The default port that the production server should use
+      prodPort: process.env.SSR_PORT, // The default port that the production server should use
       // (gets superseded if process.env.PORT is specified at runtime)
 
       // maxAge: 1000 * 60 * 60 * 24 * 30,

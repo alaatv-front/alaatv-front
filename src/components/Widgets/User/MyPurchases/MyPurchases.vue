@@ -112,6 +112,7 @@ import { Product, ProductList } from 'src/models/Product.js'
 import FilterBox from 'components/userPurchases/filterBox.vue'
 import PurchaseItem from 'components/userPurchases/PurchaseItem.vue'
 import showContents from 'components/userPurchases/showContents.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'MyPurchases',
@@ -912,8 +913,21 @@ export default {
   },
   mounted () {
     this.filterProduct()
+    this.getFavored()
+    this.getPurchasedProducts()
   },
   methods: {
+    initPageData () {
+      this.setFilterBoxSelected()
+      this.setFilterCategorySelected()
+      this.setFirstContentsShow()
+    },
+    getPurchasedProducts () {
+      APIGateway.user.getPurchasedProducts()
+    },
+    getFavored () {
+      APIGateway.user.getFavored()
+    },
     filterProduct () {
       this.filterProductByCategory()
       this.sortProducts()
@@ -947,11 +961,6 @@ export default {
       this.selectedFilterCategoryValue = val
       this.filterProductByCategory()
       this.filterProductBySearchInput()
-    },
-    initPageData () {
-      this.setFilterBoxSelected()
-      this.setFilterCategorySelected()
-      this.setFirstContentsShow()
     },
 
     setFirstContentsShow() {

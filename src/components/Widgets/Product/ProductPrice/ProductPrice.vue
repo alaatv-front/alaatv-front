@@ -3,6 +3,7 @@
        class="product-price justify-center "
        :class="options.className"
        :style="options.style">
+
     <div v-if="product.price.discountInPercent() && options.discount"
          class="discount-percent">
       <div class="percent">{{ '%' + product.price.discountInPercent() }}</div>

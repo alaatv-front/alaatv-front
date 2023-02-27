@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem'
 import { dragscroll } from 'vue-dragscroll'
-import { ContentList } from 'src/models/Content'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import { ContentList } from 'src/models/Content.js'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
 export default {
   name: 'productDemos',

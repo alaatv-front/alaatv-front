@@ -39,9 +39,13 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
+          <q-dialog v-model="loginDialog">
+            <auth-login />
+          </q-dialog>
 
           <router :include="keepAliveComponents" />
         </div>
+        <floating-action-button />
       </template>
       <template #footer>
         <alaa-footer />
@@ -57,15 +61,18 @@ import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
 import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
-// import { setHeight } from 'src/boot/page-builder'
+import FloatingActionButton from 'components/Template/FloatingActionButton/FloatingActionButton.vue'
+import AuthLogin from 'components/Auth.vue'
 
 export default {
   components: {
-    TemplateSideBar,
+    AuthLogin,
     Router,
     AlaaFooter,
-    QuasarTemplateBuilder,
-    templateHeader
+    templateHeader,
+    TemplateSideBar,
+    FloatingActionButton,
+    QuasarTemplateBuilder
   },
   data () {
     return {
@@ -74,6 +81,18 @@ export default {
     }
   },
   computed: {
+    loginDialog: {
+      get () {
+        return this.$store.getters['AppLayout/loginDialog']
+      },
+      set (newValue) {
+        if (!newValue) {
+          this.$store.commit('AppLayout/updateLoginDialog', false)
+          return
+        }
+        this.$store.dispatch('AppLayout/showLoginDialog')
+      }
+    },
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
     },
@@ -87,9 +106,6 @@ export default {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']
     }
   },
-  // created() {
-  //   setHeight(this.calculateHeightStyle)
-  // },
   methods: {
     onContentInsideScroll (data) {
       this.$store.commit('AppLayout/updateLayoutHeaderElevated', data > 0)

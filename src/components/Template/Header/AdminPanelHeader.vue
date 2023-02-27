@@ -43,145 +43,15 @@
                 </q-item>
               </div>
             </div>
-
-            <div class="self-center"
-                 @click="togglePageBuilderEditable">
-              <q-item v-ripple
-                      clickable
-                      :active="false"
-                      active-class="active-item">
-                <q-item-section class="tab-title">
-                  ویرایش صفحه
-                </q-item-section>
-              </q-item>
-            </div>
           </q-list>
         </div>
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
         <div class="user-action">
-          <div class="action-container">
-            <q-card-section class="search-section">
-              <q-input v-model="searchInput"
-                       filled
-                       class="search-input"
-                       placeholder="جستجو در آلا...">
-                <template v-slot:before>
-                  <q-btn flat
-                         rounded
-                         icon="isax:search-normal-1"
-                         class="search" />
-                  <!--                                      @click="filterByStatement"
-            -->
-                </template>
-              </q-input>
-            </q-card-section>
-            <!--            <q-btn-->
-            <!--              icon="isax:notification"-->
-            <!--              unelevated-->
-            <!--              rounded-->
-            <!--              size="12px"-->
-            <!--              class="action-btn"-->
-            <!--            />-->
-            <q-btn icon="isax:shopping-cart"
-                   unelevated
-                   rounded
-                   size="12px"
-                   class="action-btn"
-                   :to="{name: 'Public.Checkout.Review'}" />
-          </div>
-          <q-btn v-if="isUserLogin"
-                 flat
-                 class="btn-user-profile">
-            <lazy-img :src="user.photo"
-                      :alt="'user photo'"
-                      width="48"
-                      height="48"
-                      class="user-photo" />
-            <q-menu class="user-profile-dropdown"
-                    :offset="[170, 10]">
-              <div class="dropdown-box">
-                <div class="header">
-                  <div class="profile-box">
-                    <div class="profile-detail">
-                      <div class="profile-photo-box">
-                        <div class="profile-photo-img">
-                          <lazy-img :src="user.photo"
-                                    :alt="'user photo'"
-                                    width="60"
-                                    height="60"
-                                    class="user-photo" />
-                        </div>
-                      </div>
-                      <div v-if="isUserLogin"
-                           class="profile-detail-info">
-                        <div class="info-name">{{user.full_name}}</div>
-                        <div class="info-phoneNumber">{{user.mobile}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="body">
-                  <div class="user-panel-base-menu">
-                    <q-list class="side-menu-list"
-                            padding
-                            dark>
-                      <div v-for="(item , index) in profileTitlesList"
-                           :key="index">
-                        <div v-if="showMenuItem(/* item */)">
-                          <q-item class="item-list"
-                                  :class="{ 'alone-item': !item.children.length }"
-                                  :to="{ name: item.routeName, params: item.params }">
-                            <div class="section-title">
-                              <q-item-section class="list-section title-icon"
-                                              avatar>
-                                <q-avatar :icon="item.icon"
-                                          size="30" />
-                              </q-item-section>
-                              <q-item-section class="list-section">
-                                {{ item.title }}
-                              </q-item-section>
-                              <span class="indicator" />
-                            </div>
-                          </q-item>
-                        </div>
-                      </div>
-                    </q-list>
-                    <div v-if="isUserLogin"
-                         class="log-out"
-                         @click="logOut">
-                      <span>
-                        <q-avatar icon="isax:logout"
-                                  size="30"
-                                  dir="rtl" />
-                      </span>
-                      <span class="logout-text">خروج </span>
-                    </div>
-                    <div v-else
-                         class="log-out"
-                         @click="goToLogin">
-                      <span>
-                        <q-avatar icon="isax:logout"
-                                  size="30"
-                                  dir="rtl" />
-                      </span>
-                      <span class="logout-text">ورود </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </q-menu>
+          <q-btn unelevated
+                 :to="{name:'Public.Home'}">
+            <span class="action-btn-title">خروج از پنل ادمین</span>
+            <q-icon name="isax:arrow-left" />
           </q-btn>
-          <div v-else
-               class="sub-mit-box">
-            <q-btn unelevated
-                   class="btn-style"
-                   label="ورود"
-                   :to="{ name: 'login' }" />
-            <q-btn unelevated
-                   class="btn-style sign-up"
-                   label="ثبت نام"
-                   :to="{ name: 'login' }" />
-          </div>
         </div>
       </div>
     </div>
@@ -200,26 +70,7 @@ export default {
       searchInput: '',
       user: new User(),
       isUserLogin: false,
-      headerItems: [
-        {
-          selected: 'home',
-          title: 'صفحه اصلی',
-          to: 'Public.Home',
-          permission: 'all'
-        },
-        {
-          selected: 'shop',
-          title: 'فروشگاه',
-          to: 'Public.Shop',
-          permission: 'all'
-        },
-        {
-          selected: 'adminPanel',
-          title: 'پنل ادمین',
-          routeName: 'Admin.Dashboard',
-          permission: 'all'
-        }
-      ],
+      headerItems: [],
       profileTitlesList: [
         {
           title: 'پروفایل',
@@ -267,6 +118,14 @@ export default {
     }
   },
   computed: {
+    computedUserId () {
+      const user = this.$store.getters['Auth/user']
+      if (!user) {
+        return null
+      }
+
+      return user.id
+    },
     layoutLeftDrawerVisible() {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
     },
@@ -280,6 +139,11 @@ export default {
       return (itemName) => {
         return (this.$route.name === itemName)
       }
+    }
+  },
+  watch: {
+    computedUserId () {
+      this.loadAuthData()
     }
   },
   mounted () {
@@ -296,10 +160,6 @@ export default {
       'updateBreadcrumbLoading',
       'updateLayoutLeftDrawerVisible'
     ]),
-    togglePageBuilderEditable () {
-      const state = this.$store.getters['AppLayout/pageBuilderEditable']
-      this.$store.commit('AppLayout/updatePageBuilderEditable', !state)
-    },
     logOut() {
       return this.$store.dispatch('Auth/logOut')
     },
@@ -554,8 +414,10 @@ export default {
           }
         }
         .action-btn {
-          margin: 4px;
           color: #333;
+          .action-btn-title {
+            padding-right: 7px;
+          }
         }
         .fit-profile-img {
           width: 48px;
@@ -600,7 +462,6 @@ export default {
   border: 1px solid #F2F5F9;
   border-radius: 0 16px 16px 16px #{"/* rtl:ignore */"};
   .header {
-
     box-shadow: 0 6px 10px rgba(49, 46, 87, 0.04) #{"/* rtl:ignore */"};
     border-radius: 0 15px 0 0 #{"/* rtl:ignore */"};
   }

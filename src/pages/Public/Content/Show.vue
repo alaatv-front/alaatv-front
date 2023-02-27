@@ -27,7 +27,10 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'ContentVideoPlayer'
+                        name: 'ContentVideoPlayer',
+                        options: {
+                          paginate: true
+                        }
                       }
                     ],
                     options: {
@@ -81,6 +84,26 @@ export default {
                       style: {
                         paddingBottom: '24px'
                       }
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'Block',
+                        options: {
+                          apiName: 'content'
+                        }
+                      }
+                    ],
+                    options: {
+                      className: 'col-12'
                     }
                   }
                 ],

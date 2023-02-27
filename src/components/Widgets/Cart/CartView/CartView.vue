@@ -1,10 +1,6 @@
 <template>
   <div v-if="cart.count > 0"
        class="cart-count">
-    سبدخرید شما ({{cart.count}} محصول)
-  </div>
-  <div v-else
-       class="cart-count">
     سبدخرید شما ({{cart.count}})
   </div>
   <div class="cart-view-widget">
@@ -185,15 +181,13 @@
 </template>
 
 <script>
-import Widgets from 'components/PageBuilder/Widgets'
 import { Cart } from 'src/models/Cart.js'
-// import { Product } from 'src/models/Product.js'
 import { OrderProduct } from 'src/models/OrderProduct.js'
+import Widgets from 'src/components/PageBuilder/Widgets.js'
 
 export default {
   name: 'CartView',
   mixins: [Widgets],
-
   props: {
     options: {
       type: Object,
@@ -240,37 +234,21 @@ export default {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
-          const invoice = response.data.data
+          const invoice = response
 
-          const cart = new Cart(invoice)
+          const cart = new Cart(response)
 
           if (invoice.count > 0) {
-            invoice.items[0].order_product.forEach((order) => {
+            invoice.items.list[0].order_product.list.forEach((order) => {
               cart.items.list.push(order)
             })
           }
-
-          // if (product) {
-          //   const isExist = cart.items.list.find(
-          //     (item) => item.id === product.id
-          //   )
-          //   if (!isExist) {
-          //     cart.items.list.push(product)
-          //   }
-          // }
           this.cart = cart
           this.$store.dispatch('loading/overlayLoading', false)
         }).catch(() => {
           this.$store.dispatch('loading/overlayLoading', false)
         })
     },
-    // cartReview() {
-    //   this.$store.commit('loading/loading', true)
-    //   this.$store.dispatch('Cart/reviewCart')
-    //     .then(() => {
-    //       this.$store.dispatch('loading/overlayLoading', false)
-    //     })
-    // },
 
     getOrderedList (cartItems) {
       if (!cartItems || cartItems.list?.length === 0) {
@@ -291,12 +269,12 @@ export default {
       return customItems
     },
 
-    removeItem(order) {
+    removeItem(orderProductId) {
       this.$store.dispatch('loading/overlayLoading', true)
-      this.$store.dispatch('Cart/removeItemFromCart', order)
+      this.$store.dispatch('Cart/removeItemFromCart', orderProductId)
         .then(() => {
-          this.$emit('cartReview')
           this.$store.dispatch('loading/overlayLoading', false)
+          this.cartReview()
           this.changeDialogState(false)
           this.$bus.emit('removeProduct')
         }).catch(() => {

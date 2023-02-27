@@ -1,9 +1,11 @@
+import SEO from './Seo'
 import Cart from './Cart'
 import Auth from './Auth'
 import process from 'process'
 import loading from './loading'
 import { createStore } from 'vuex'
 import AppLayout from './AppLayout'
+import PageBuilder from './PageBuilder'
 import { store } from 'quasar/wrappers'
 import createPersistedState from 'vuex-persistedstate'
 
@@ -38,10 +40,12 @@ const debug = false
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
     modules: {
+      SEO,
+      Cart,
       Auth,
       loading,
       AppLayout,
-      Cart
+      PageBuilder
     },
     plugins,
     // enable strict mode (adds overhead!)
