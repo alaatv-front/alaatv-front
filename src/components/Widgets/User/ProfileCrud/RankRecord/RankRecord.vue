@@ -131,7 +131,6 @@ export default {
     getRankRecord() {
       this.$axios.get(this.api)
         .then(response => {
-          console.log(response.data.data[0])
           this.actionInput[0].value[1].value = response.data.data[0].event.title
           this.actionInput[0].value[2].value = response.data.data[0].major.title
           this.actionInput[0].value[3].value = response.data.data[0].region.title

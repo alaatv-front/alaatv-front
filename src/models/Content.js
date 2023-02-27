@@ -112,6 +112,14 @@ class Content extends Model {
     }
     return this.crud.create(url)
   }
+
+  isPamphlet () {
+    return this.type === 1
+  }
+
+  isVideo () {
+    return this.type === 8
+  }
 }
 
 class ContentList extends Collection {

@@ -334,8 +334,8 @@ export default {
       this.loading = true
       this.referralCodeList = []
       APIGateway.referralCode.getOrderProducts({ data: { page } })
-        .then((response) => {
-          console.log('response', response)
+        .then(() => {
+          // console.log('response', response)
           // this.lastPage = paginate.last_page
           // this.referralCodeList = referralCodeList
           this.loading = false
