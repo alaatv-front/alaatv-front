@@ -8,17 +8,40 @@
       </p>
       <q-card class="gift-text col-md-12 q-pa-md">
         <span>این محصول شامل هدایای زیر میباشد: </span>
+        <div class="flex q-py-lg">
+          <div v-for="(product, index) in products.list"
+               :key="index"
+               class="block-list-widget">
+            <div class="img-box q-mx-lg">
+              <router-link :to="{
+                name: 'Public.Product.Show',
+                params: { id: product.id ? product.id : -1 }
+              }">
+                <lazy-img :src="product.photo"
+                          :alt="product.title"
+                          width="1"
+                          height="1"
+                          class="img" />
+                <div class="main-title ellipsis-2-lines">
+                  {{ product.title }}
+                </div>
+              </router-link>
+            </div>
+          </div>
+        </div>
       </q-card>
     </div>
   </div>
 </template>
 
 <script>
-import { Product } from 'src/models/Product'
+import { ProductList } from 'src/models/Product'
 import { APIGateway } from 'src/api/APIGateway'
+import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'ProductGifts',
+  components: { LazyImg },
   props: {
     options: {
       type: Object,
@@ -29,7 +52,7 @@ export default {
   },
   data() {
     return {
-      product: new Product()
+      products: new ProductList()
     }
   },
   mounted() {
@@ -37,12 +60,10 @@ export default {
   },
   methods: {
     getProduct() {
-      APIGateway.product.show({
-        data: { id: this.options.productId },
-        cache: { TTL: 10000 }
-      })
-        .then(product => {
-          this.product = new Product(product)
+      APIGateway.product.gifts({ productId: this.$route.params.id })
+        .then(products => {
+          this.products = new ProductList(products)
+          console.log(this.products)
         })
         .catch(() => {
         })

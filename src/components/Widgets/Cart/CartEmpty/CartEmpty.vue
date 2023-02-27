@@ -30,7 +30,9 @@ export default {
       cart: new Cart()
     }
   },
-  created() {},
+  created() {
+    this.cartReview()
+  },
   methods: {
     cartReview() {
       this.$store.dispatch('loading/overlayLoading', true)
