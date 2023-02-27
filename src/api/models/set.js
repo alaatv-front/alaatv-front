@@ -24,13 +24,13 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  show(data) {
+  show(data, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.show(data),
-      cacheKey: this.CacheList.show(data),
-      ...(data?.cache && { cache: data.cache }),
+      request: this.APIAdresses.show(data.id),
+      cacheKey: this.CacheList.show(data.id),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Set(response.data.data)
       },
