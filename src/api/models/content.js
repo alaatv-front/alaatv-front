@@ -8,6 +8,8 @@ const APIAdresses = {
   showAdmin: (id) => '/admin/contents/' + id,
   update: (id) => `/admin/contents/${id}/`,
   relatedProducts: (id) => '/c/' + id + '/products',
+  favored: (id) => '/c/' + id + '/favored',
+  unfavored: (id) => '/c/' + id + '/unfavored',
   search: '/search',
   delete: '/admin/contents/destroy',
   bulkEditText: '/admin/contents/bulk-edit-text',
@@ -23,6 +25,8 @@ export default class ContentAPI extends APIRepository {
     this.CacheList = {
       admin: this.name + this.APIAdresses.admin,
       show: id => this.name + this.APIAdresses.show(id),
+      favored: id => this.name + this.APIAdresses.favored(id),
+      unfavored: id => this.name + this.APIAdresses.unfavored(id),
       showAdmin: id => this.name + this.APIAdresses.showAdmin(id),
       update: id => this.name + this.APIAdresses.update(id),
       relatedProducts: id => this.name + this.APIAdresses.relatedProducts(id),
@@ -46,6 +50,38 @@ export default class ContentAPI extends APIRepository {
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new Content(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  favored (data = {}, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.favored(data),
+      cacheKey: this.CacheList.favored(data),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  unfavored (data = {}, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unfavored(data),
+      cacheKey: this.CacheList.unfavored(data),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data
       },
       rejectCallback: (error) => {
         return error

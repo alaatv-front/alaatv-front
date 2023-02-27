@@ -13,7 +13,7 @@
 const { configure } = require('quasar/wrappers')
 // const path = require('path')
 const { generateWidgetList } = require('./src/widgetListGetter/index')
-const envObject = require('dotenv').config().parsed
+require('dotenv').config()
 
 module.exports = configure(function (ctx) {
   return {
@@ -94,7 +94,7 @@ module.exports = configure(function (ctx) {
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
 
-      env: envObject,
+      env: process.env,
 
       // vueLoaderOptions: {
       //   compilerOptions: {
@@ -252,40 +252,40 @@ module.exports = configure(function (ctx) {
       port: 8083,
       open: true, // opens browser window automatically
       proxy: {
-        [envObject.ALAA_MINIO]: {
-          target: envObject.ALAA_MINIO_SERVER,
+        [process.env.ALAA_MINIO]: {
+          target: process.env.ALAA_MINIO_SERVER,
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_MINIO), '') // vite
+          rewrite: (path) => path.replace(new RegExp('^' + process.env.ALAA_MINIO), '') // vite
           // pathRewrite: { // webpack
-          //   ['^' + envObject.ALAA_API_V2]: ''
+          //   ['^' + process.env.ALAA_API_V2]: ''
           // }
         },
-        [envObject.ALAA_API_V2]: {
-          target: envObject.ALAA_API_V2_SERVER,
+        [process.env.ALAA_API_V2]: {
+          target: process.env.ALAA_API_V2_SERVER,
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_API_V2), '') // vite
+          rewrite: (path) => path.replace(new RegExp('^' + process.env.ALAA_API_V2), '') // vite
           // pathRewrite: { // webpack
-          //   ['^' + envObject.ALAA_API_V2]: ''
+          //   ['^' + process.env.ALAA_API_V2]: ''
           // }
         },
-        [envObject.ALAA_API_V1]: {
-          target: envObject.ALAA_API_V1_SERVER,
+        [process.env.ALAA_API_V1]: {
+          target: process.env.ALAA_API_V1_SERVER,
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_API_V1), '') // vite
+          rewrite: (path) => path.replace(new RegExp('^' + process.env.ALAA_API_V1), '') // vite
           // pathRewrite: { // webpack
-          //   ['^' + envObject.ALAA_API_V1]: ''
+          //   ['^' + process.env.ALAA_API_V1]: ''
           // }
         },
-        [envObject.ALAA_WEB]: {
-          target: envObject.ALAA_WEB_SERVER,
+        [process.env.ALAA_WEB]: {
+          target: process.env.ALAA_WEB_SERVER,
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(new RegExp('^' + envObject.ALAA_WEB), '') // vite
+          rewrite: (path) => path.replace(new RegExp('^' + process.env.ALAA_WEB), '') // vite
           // pathRewrite: { // webpack
-          //   ['^' + envObject.ALAA_WEB]: ''
+          //   ['^' + process.env.ALAA_WEB]: ''
           // }
         }
       }
@@ -363,7 +363,7 @@ module.exports = configure(function (ctx) {
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
 
-      prodPort: envObject.SSR_PORT, // The default port that the production server should use
+      prodPort: process.env.SSR_PORT, // The default port that the production server should use
       // (gets superseded if process.env.PORT is specified at runtime)
 
       // maxAge: 1000 * 60 * 60 * 24 * 30,

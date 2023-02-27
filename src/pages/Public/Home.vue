@@ -1,5 +1,5 @@
 <template>
-  <q-page-builder v-model:sections="sections"
+  <q-page-builder v-model:sections="currenSections"
                   v-model:options="pageConfig"
                   :editable="pageBuilderEditable" />
 </template>
@@ -116,6 +116,9 @@ export default {
         }
       ]
     }
+  },
+  created () {
+    this.currenSections = this.sections
   }
 }
 </script>

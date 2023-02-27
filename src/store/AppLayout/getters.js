@@ -8,6 +8,9 @@ const getters = {
   appBar: (state) => {
     return state.appBar
   },
+  loginDialog: (state) => {
+    return state.loginDialog
+  },
   confirmDialog: (state) => {
     return state.confirmDialog
   },

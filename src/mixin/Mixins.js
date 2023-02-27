@@ -6,8 +6,9 @@ import mixinAuthData from '../mixin/AuthData.js'
 import mixinAbrisham from '../mixin/Abrisham.js'
 import mixinDateOptions from '../mixin/DateOptions.js'
 import mixinPageOptions from '../mixin/PageOptions.js'
-import mixinWidget from 'components/PageBuilder/Widgets.js'
 import mixinPageBuilder from 'src/mixin/PageBuilder.js'
+import mixinWidget from 'components/PageBuilder/Widgets.js'
+import PageBuilderOptionPanel from 'src/mixin/PageBuilderOptionPanel.js'
 
 export {
   mixinSEO,
@@ -19,5 +20,6 @@ export {
   mixinAuthData,
   mixinDateOptions,
   mixinPageOptions,
-  mixinPageBuilder
+  mixinPageBuilder,
+  PageBuilderOptionPanel
 }

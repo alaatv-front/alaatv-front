@@ -263,6 +263,14 @@ export default {
     }
   },
   computed: {
+    computedUserId () {
+      const user = this.$store.getters['Auth/user']
+      if (!user) {
+        return null
+      }
+
+      return user.id
+    },
     layoutLeftDrawerVisible() {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
     },
@@ -276,6 +284,11 @@ export default {
       return (itemName) => {
         return (this.$route.name === itemName)
       }
+    }
+  },
+  watch: {
+    computedUserId () {
+      this.loadAuthData()
     }
   },
   mounted () {

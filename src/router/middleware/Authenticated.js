@@ -1,4 +1,4 @@
-export default function auth(
+export default function Authenticated (
   /* { to, from, next, store } */ { next, store, to }
 ) {
   if (!process.env.SERVER && !store.getters['Auth/accessToken']) {

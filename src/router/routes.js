@@ -1,4 +1,4 @@
-import { auth } from './middleware/middleware.js'
+import { Authenticated } from './middleware/middleware.js'
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
@@ -138,7 +138,7 @@ const routes = [
       {
         path: 'panel',
         name: 'UserPanel',
-        meta: { middlewares: [auth] },
+        meta: { middlewares: [Authenticated] },
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
@@ -284,7 +284,7 @@ const routes = [
           layoutLeftSideBarType: 'admin',
           layoutFooter: false
         },
-        meta: { middlewares: [auth] },
+        meta: { middlewares: [Authenticated] },
         component: () => import('layouts/AdminLayout.vue'),
         children: [
           {
@@ -356,13 +356,18 @@ const routes = [
             component: () => import('pages/Document/component.vue'),
             breadcrumbs: { title: 'component' },
             meta: {
-              middlewares: [auth]
+              middlewares: [Authenticated]
             }
           },
           {
             path: 'debug',
             name: 'Document.Debug',
             component: () => import('src/pages/Document/debug.vue')
+          },
+          {
+            path: 'icon-sax',
+            name: 'Document.IconSax',
+            component: () => import('src/pages/Document/IconSax.vue')
           },
           {
             path: '/form-generator',
