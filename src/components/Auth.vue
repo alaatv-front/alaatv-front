@@ -49,48 +49,36 @@ import { mixinAuth } from 'src/mixin/Mixins'
 export default {
   name: 'AuthLogin',
   mixins: [mixinAuth],
+  props: {
+    redirect: {
+      type: Object,
+      default: null
+    }
+  },
   data: () => ({
     userLogin: false,
     loadingList: false,
     username: null,
     password: null
   }),
-  created () {
-    if (this.getToken()) {
-      this.getUserData()
-        .then(() => {
-          this.redirectTo()
-        })
-    }
-  },
   methods: {
     getToken () {
       return this.$store.getters['Auth/accessToken']
     },
-
     getEnter (targetRefKey) {
       this.$refs[targetRefKey].focus()
     },
-
     redirectTo () {
-      if (this.$route.query.redirectTo_exam) {
-        this.$router.push({
-          name: 'onlineQuiz.StartExamAutomatically',
-          params: {
-            examId: this.$route.query.redirectTo_exam,
-            autoStart: this.$route.query.exam_auto_start
-          }
-        })
-        return
-      }
       let redirectTo = this.$store.getters['Auth/redirectTo']
-      if (typeof redirectTo !== 'object') {
+      if (this.redirect) {
+        redirectTo = this.redirect
+      }
+      if (redirectTo === null || typeof redirectTo !== 'object') {
         redirectTo = { name: 'Public.Home' }
       }
       this.$router.push(redirectTo)
       this.$store.commit('Auth/updateRedirectTo', null)
     },
-
     handleErr (err) {
       this.loadingList = false
       const messages = []
@@ -113,7 +101,6 @@ export default {
         })
       }
     },
-
     login () {
       this.loadingList = true
       this.$store.dispatch('Auth/login', {
