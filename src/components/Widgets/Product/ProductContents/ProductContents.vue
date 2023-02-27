@@ -18,9 +18,15 @@
                class="tab">
           <span>فیلم ها</span>
         </q-tab>
-        <q-tab name="pamphlets"
+        <q-tab v-if="pamphlets.length > 0"
+               name="pamphlets"
                class="tab">
           <span>جزوات</span>
+        </q-tab>
+        <q-tab v-else
+               name="pamphlets"
+               class="tab">
+          <span>بدون جزوه</span>
         </q-tab>
       </q-tabs>
       <q-tab-panels v-model="tab"
@@ -53,6 +59,10 @@
             </div>
           </div>
         </q-tab-panel>
+        <q-banner v-else
+                  inline-actions
+                  rounded
+                  class="bg-blue text-white">جزوه ای وجود ندارد</q-banner>
       </q-tab-panels>
     </div>
   </div>
@@ -130,7 +140,7 @@ export default {
         })
     },
     getSet(id) {
-      APIGateway.set.show({ data: { id } })
+      APIGateway.set.show({ id })
         .then(set => {
           set.contents.list.forEach(content => {
             if (content.type === 8) {
