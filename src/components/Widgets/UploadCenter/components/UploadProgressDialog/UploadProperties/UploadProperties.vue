@@ -264,7 +264,7 @@ export default {
       })
     },
     expandRow (props) {
-      console.log(props)
+      // console.log(props)
       props.expand = !props.selected
     },
     toggleDialog(dialog) {
