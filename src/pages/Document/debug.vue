@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="row items-center justify-center">
         <div class="col-6">
-          <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
+          <video-player :source="'https://alaatv.com/hls/input.m3u8'" />
         </div>
       </div>
     </div>

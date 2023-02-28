@@ -126,7 +126,6 @@ export default {
       } else if (this.step === 2) {
         this.$refs.stepper.next()
       } else {
-        // console.log(this.$refs.uploadPublish)
         this.$apiGateway.content.update({
           data: this.$refs.uploadPublish.publish()
         })
