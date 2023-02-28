@@ -342,6 +342,33 @@ const routes = [
               }
             ]
           },
+          {
+            name: 'Admin.Tree',
+            path: 'tree',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Tree.Index',
+                path: '',
+                component: () => import('src/pages/Admin/Tree/Index.vue')
+              },
+              {
+                name: 'Admin.Tree.Create',
+                path: 'create',
+                component: () => import('src/pages/Admin/Tree/Create.vue')
+              },
+              {
+                name: 'Admin.Tree.Show',
+                path: ':id',
+                component: () => import('src/pages/Admin/Tree/Create.vue')
+              },
+              {
+                name: 'Admin.Tree.Edit',
+                path: ':id/edit',
+                component: () => import('src/pages/Admin/Tree/Create.vue')
+              }
+            ]
+          },
           ...EntityCrudRoutes
         ]
       },

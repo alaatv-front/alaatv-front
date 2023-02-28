@@ -12,6 +12,7 @@ import TicketAPI from './models/ticket'
 import UserAPI from './models/user'
 import AbrishamAPI from 'src/api/models/Abrisham'
 import TreeAPI from 'src/api/models/tree'
+import ForrestAPI from 'src/api/models/Forrest'
 import ReferralCodeAPI from 'src/api/models/ReferralCode'
 
 /* Exporting the APIGateway object. */
@@ -30,5 +31,6 @@ export const APIGateway = {
   studyPlan: new StudyPlanAPI(),
   ticket: new TicketAPI(),
   user: new UserAPI(),
+  forrest: new ForrestAPI(),
   tree: new TreeAPI()
 }
