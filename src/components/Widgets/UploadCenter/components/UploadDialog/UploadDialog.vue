@@ -20,7 +20,36 @@
                     auto-upload
                     :factory="factoryFn"
                     style="width: 100%;max-height: 100%;height: 100%;background: transparent;z-index: 1;"
-                    @added="noItem = false" />
+                    @added="noItem = false">
+          <template v-slot:list="scope">
+            <q-list separator>
+
+              <q-item v-for="file in scope.files"
+                      :key="file.__key">
+                <q-item-section>
+                  <q-item-label class="full-width ellipsis">
+                    {{ file.name }}
+                  </q-item-label>
+
+                  <q-item-label caption>
+                    {{ file.__sizeLabel }} / {{ file.__progressLabel }}
+                  </q-item-label>
+                </q-item-section>
+
+                <q-item-section top
+                                side>
+                  <q-btn size="12px"
+                         flat
+                         dense
+                         round
+                         icon="edite"
+                         @click="editContent(file.content)" />
+                </q-item-section>
+              </q-item>
+
+            </q-list>
+          </template>
+        </q-uploader>
         <div v-if="noItem"
              class="no-item">
           <q-icon name="cloud_upload"
@@ -48,12 +77,16 @@ export default {
       default: false
     }
   },
+  emits: ['editContent'],
   data() {
     return {
       noItem: true
     }
   },
   methods: {
+    editContent(contentId) {
+      this.$emit('editContent', contentId)
+    },
     factoryFn (files) {
       return new Promise((resolve) => {
         for (let index = 0; index < files.length; index++) {
@@ -64,6 +97,7 @@ export default {
               key: file.name
             }
           }).then(res => {
+            files[index].content = res.content_id
             resolve({
               url: res.url,
               method: 'PUT'

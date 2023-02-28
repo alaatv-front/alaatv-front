@@ -8,9 +8,7 @@
       <div class="col-6 video-box-col">
         <div class="video-box">
           <div class="video-box-title" />
-          <video-player class="video"
-                        :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />
-
+          <video-player :source="'https://alaatv.com/hls/input.m3u8'" />
           <!--          <video-player :source="'https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'" />-->
         </div>
         <div class="link-box">

@@ -5,6 +5,7 @@ import { Set } from 'src/models/Set'
 const urlAddress = {
   base: '/set',
   attachContents: (setId) => '/admin/set/' + setId + '/c/attach',
+  create: '/admin/set/',
   show: (id) => '/set/' + id
 }
 export default class SetAPI extends APIRepository {
@@ -40,7 +41,7 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  attachContents (setId, data = {}) {
+  attachContents(setId, data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

@@ -128,7 +128,8 @@
                             v-model:contentId="progressDialogContentId"
                             @toggleDialog="toggleUploadProgressDialog(false)" />
     <upload-dialog v-model:dialog="uploadDialog"
-                   @toggleDialog="toggleUploadDialog(false)" />
+                   @toggleDialog="toggleUploadDialog(false)"
+                   @editContent="toggleUploadProgressDialog($event)" />
 
   </div>
 </template>

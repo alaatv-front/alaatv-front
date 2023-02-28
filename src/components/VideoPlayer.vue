@@ -201,7 +201,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "video.js/dist/video-js.css";
 @import "@silvermine/videojs-quality-selector/dist/css/quality-selector.css";
 
