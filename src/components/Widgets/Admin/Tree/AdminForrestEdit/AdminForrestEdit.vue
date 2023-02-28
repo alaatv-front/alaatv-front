@@ -1,27 +1,24 @@
 <template>
-  <entity-show v-model:value="inputs"
-               title="نمایش درخت"
+  <entity-edit v-model:value="inputs"
+               title="ویرایش درخت"
                :api="getEntityShowAPI"
-               :entity-param-key="entityParamKey"
-               :entity-id-key="entityIdKey"
-               :index-route-name="indexRouteName"
-               :edit-route-name="editRouteName" />
+               :entity-id-key-in-response="entityIdKeyInResponse"
+               :show-route-param-key="showRouteParamKey"
+               :show-route-name="showRouteName" />
 </template>
 
 <script>
-import { EntityShow } from 'quasar-crud'
-import { APIGateway } from 'src/api/APIGateway'
+import { EntityEdit } from 'quasar-crud'
 
 export default {
   name: 'AdminForrestShow',
-  components: { EntityShow },
+  components: { EntityEdit },
   data () {
     return {
-      api: APIGateway.forrest.FullAPIAdresses.base,
-      entityIdKey: 'id',
-      editRouteName: 'Admin.Forrest.Edit',
+      entityIdKeyInResponse: 'id',
+      showRouteParamKey: 'id',
+      showRouteName: 'Admin.Forrest.Show',
       indexRouteName: 'Admin.Forrest.Index',
-      entityParamKey: 'id',
       inputs: [
         { type: 'input', name: 'title', label: 'عنوان', outlined: true, placeholder: ' ', responseKey: 'data.title', col: 'col-md-4' },
         { type: 'input', name: 'order', label: 'ترتیب', outlined: true, placeholder: ' ', responseKey: 'data.order', col: 'col-md-4' },

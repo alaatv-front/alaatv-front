@@ -23,9 +23,9 @@ export default {
       showRouteName: 'Admin.Forrest.Show',
       indexRouteName: 'Admin.Forrest.Index',
       inputs: [
-        { type: 'input', name: 'title', label: 'عنوان', col: 'col-md-4' },
-        { type: 'input', name: 'order', label: 'ترتیب', col: 'col-md-4' },
-        { type: 'input', name: 'type', label: 'دسته', col: 'col-md-4' },
+        { type: 'input', name: 'title', label: 'عنوان', outlined: true, placeholder: ' ', col: 'col-md-4' },
+        { type: 'input', name: 'order', label: 'ترتیب', outlined: true, placeholder: ' ', col: 'col-md-4' },
+        { type: 'input', name: 'type', label: 'دسته', outlined: true, placeholder: ' ', col: 'col-md-4' },
         { type: 'hidden', name: 'parent_id', value: null, label: 'شناسه', col: 'col-md-12' }
       ]
     }
