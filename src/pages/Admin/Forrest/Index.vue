@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'IndexTree',
+  name: 'IndexForrest',
   data() {
     return {
       pageConfig: {},
