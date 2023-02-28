@@ -147,6 +147,7 @@ export default {
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
+      line-height: 12px;
     }
   }
 }

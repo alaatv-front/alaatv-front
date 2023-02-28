@@ -2,6 +2,28 @@
   <div class="show-product-review"
        :style="options.style"
        :class="options.className">
+    <q-btn icon="isax:receipt-1"
+           flat
+           color="primary"
+           size="15px"
+           style="top: 70px; right: 1060px; z-index: 2"
+           @click="addToFavored" />
+    <q-btn icon="isax:share"
+           flat
+           color="primary"
+           size="15px"
+           style="top: 70px; right: 1070px; z-index: 2">
+      <q-popup-proxy :offset="[10, 10]"
+                     transition-show="flip-up"
+                     transition-hide="flip-down">
+        <q-banner dense
+                  rounded>
+          <share-network :url="pageUrl"
+                         @on-select="shareGiftCard" />
+        </q-banner>
+      </q-popup-proxy>
+    </q-btn>
+
     <div class="product-description">
       <div class="description-container">
         <p class="title-style">
@@ -21,13 +43,12 @@
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
 import { Product } from 'src/models/Product'
-// import { QuasarTemplateBuilderAppLayout } from 'quasar-template-builder'
-// import * as getters from 'src/store/AppLayout/getters'
+import ShareNetwork from 'src/components/ShareNetwork.vue'
 
 export default {
   name: 'productReview',
+  components: { ShareNetwork },
   mixins: [mixinWidget],
-
   props: {
     options: {
       type: Object,
@@ -44,7 +65,20 @@ export default {
         long: '',
         short: '',
         slogan: ''
-      }
+      },
+      share: { url: '', name: '' },
+      shareOptions: [
+        { name: 'telegram', value: 0, url: '' },
+        { name: 'whatsapp', value: 0, url: '' },
+        { name: 'mail', value: 0, url: '' },
+        { name: 'linkedIn', value: 0, url: '' },
+        { name: 'twitter', value: 0, url: '' }
+      ]
+    }
+  },
+  computed: {
+    pageUrl() {
+      return 'https://alaatv.com' + this.$route.fullPath
     }
   },
   watch: {
@@ -59,6 +93,12 @@ export default {
     this.loadProduct()
   },
   methods: {
+    addToFavored() {
+
+    },
+    shareGiftCard({ name, url }) {
+      window.open(url, '_blank')
+    },
     getProductId () {
       if (this.options.productId) {
         return this.options.productId

@@ -26,7 +26,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="product-spacing">
-          <product-item :options="product" />
+          <product-item :options="{product, minWidth: '318px'}" />
         </div>
         <div v-if="block?.url?.web"
              class="block-item-box">
@@ -46,7 +46,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="set-spacing">
-          <set-item :data="set" />
+          <set-item :options="{set, minWidth: '318px'}" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"
@@ -65,7 +65,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="content-spacing">
-          <content-item :options="content" />
+          <content-item :options="{content, minWidth: '318px'}" />
         </div>
         <div class="block-item-box">
           <a :href="block?.url?.web"
@@ -139,11 +139,11 @@ export default {
     }
   },
   mounted() {
-    // if (this.options.apiName) {
-    //   this.loadBlocks()
-    // } else {
-    // }
-    this.block = new Block(this.options)
+    if (this.options.apiName) {
+      this.loadBlocks()
+    } else {
+      this.block = new Block(this.options)
+    }
   },
 
   methods: {
@@ -151,21 +151,21 @@ export default {
       this.getBlocksByRequest()
     },
 
-    getBlocksByRequest(url) {
+    getBlocksByRequest() {
       this.block.loading = true
-      let promise = null
-      promise = this.getApiRequest()
-      if (promise) {
-        promise
-          .then((response) => {
-            this.block = new Block(response)
+      this.getApiRequest()
+        .then((products) => {
+          console.log(products)
+          this.block = new Block({
+            title: 'محصولات مرتبط',
+            products
+          })
 
-            this.block.loading = false
-          })
-          .catch(() => {
-            this.block.loading = false
-          })
-      }
+          this.block.loading = false
+        })
+        .catch(() => {
+          this.block.loading = false
+        })
     },
 
     getBlocks(blocks) {
@@ -186,6 +186,10 @@ export default {
       if (this.options.apiName === 'shop') {
         return this.$apiGateway.pages.shop()
       }
+      if (this.options.apiName === 'content') {
+        return this.$apiGateway.content.relatedProducts({ id: this.$route.params.id })
+      }
+      return Promise.reject('wrong api name')
     }
   }
 }

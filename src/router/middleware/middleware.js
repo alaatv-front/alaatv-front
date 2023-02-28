@@ -1,5 +1,5 @@
-import auth from './auth.js'
+import Authenticated from './Authenticated.js'
 import isLandingPage from './isLandingPage.js'
 import incompleteProfile from './incompleteProfile.js'
 
-export { auth, isLandingPage, incompleteProfile }
+export { Authenticated, isLandingPage, incompleteProfile }

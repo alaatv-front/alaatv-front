@@ -2,8 +2,8 @@
   <div class="row product-demos-widget"
        :class="options.className"
        :style="options.style">
-    <div v-if="contents.blocks && contents.blocks.length > 0"
-         class="demos-container col-md-12">
+    <div v-if="contents.list && contents.list.length > 0"
+         class="demos-container col-md-12 q-mt-md">
       <p class="section-title">نمونه فیلم ها</p>
       <div v-dragscroll
            class="contents-block">
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div v-if="pamphlets && pamphlets.length > 0"
-         class="demos-container col-md-12">
+         class="demos-container col-md-12 q-mt-md">
       <p class="section-title">نمونه جزوه ها</p>
       <div v-dragscroll
            class="contents-block">
@@ -50,7 +50,6 @@ import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 import { dragscroll } from 'vue-dragscroll'
 import { ContentList } from 'src/models/Content'
 import { APIGateway } from 'src/api/APIGateway'
-import { Product } from 'src/models/Product'
 // import FsLightbox from 'fslightbox-vue'
 
 export default {
@@ -110,6 +109,7 @@ export default {
       }
 
       this.getProduct(productId)
+      this.getSampleContents(productId)
     },
     getProduct(productId) {
       APIGateway.product.show({
@@ -117,12 +117,19 @@ export default {
         cache: { TTL: 10000 }
       })
         .then(product => {
-          this.contents = new Product(product)
           this.pamphlets = product.sample_photos
         })
         .catch(() => {
           this.product.loading = false
         })
+    },
+    getSampleContents(productId) {
+      APIGateway.product.sampleContent({ productId })
+        .then(response => {
+          this.contents = new ContentList(response)
+          console.log(response)
+        })
+        .catch()
     }
   }
 }

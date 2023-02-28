@@ -304,8 +304,7 @@ export default {
     // },
     submitReferralCode() {
       this.$apiGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
-        .then(response => {
-          console.log(response)
+        .then(() => {
         })
         .catch()
     },

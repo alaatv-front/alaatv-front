@@ -1,5 +1,6 @@
 <template>
-  <q-card class="set-item-box">
+  <q-card class="set-item-box"
+          :style="{minWidth: options.minWidth}">
     <router-link :to="{
       name: 'Public.Set.Show',
       params: { id: set.id ? set.id : -1 }
@@ -68,6 +69,16 @@ export default {
     data: {
       type: Set,
       default: new Set()
+    },
+    options: {
+      type: Object,
+      default: () => {
+        return {
+          style: {},
+          minWidth: 'auto',
+          set: new Set()
+        }
+      }
     }
   },
   data: () => ({
@@ -82,7 +93,11 @@ export default {
     }
   },
   created () {
-    this.set = new Set(this.data)
+    if (!this.options.set) {
+      this.set = new Set(this.data)
+    } else {
+      this.set = new Set(this.options.set)
+    }
   }
 }
 </script>
@@ -93,7 +108,8 @@ export default {
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
-  width: 260px;
+  //width: 260px;
+  width: 100%;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
@@ -296,7 +312,7 @@ export default {
   }
 
   &.q-card {
-    min-width: 318px;
+    //min-width: 318px;
   }
 
   .teacher-info {

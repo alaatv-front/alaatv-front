@@ -96,10 +96,9 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'BlockList',
+                        name: 'Block',
                         options: {
-                          apiName: 'content',
-                          contentId: this.$route.params.id
+                          apiName: 'content'
                         }
                       }
                     ],
