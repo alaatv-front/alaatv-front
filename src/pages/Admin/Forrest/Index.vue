@@ -20,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'AdminTreeIndex'
+                        name: 'AdminForrestIndex'
                       }
                     ]
                   }
