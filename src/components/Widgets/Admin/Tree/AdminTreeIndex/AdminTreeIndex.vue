@@ -14,7 +14,7 @@
                size="md"
                color="info"
                icon="info"
-               :to="{name:'Admin.Tree.Show', params: {id: inputData.props.row.id}}">
+               :to="{name:'Admin.Forrest.Show', params: {id: inputData.props.row.id}}">
           <q-tooltip>
             مشاهده
           </q-tooltip>
@@ -44,12 +44,12 @@ import { APIGateway } from 'src/api/APIGateway'
 import { EntityIndex } from 'quasar-crud'
 
 export default {
-  name: 'AdminTreeIndex',
+  name: 'AdminForrestIndex',
   components: { EntityIndex },
   data () {
     return {
       api: APIGateway.forrest.FullAPIAdresses.base,
-      createRouteName: 'Admin.Tree.Create',
+      createRouteName: 'Admin.Forrest.Create',
       tableKeys: {
         data: 'data',
         total: 'meta.total',

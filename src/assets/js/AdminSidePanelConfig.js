@@ -434,7 +434,7 @@ const list = [
   {
     title: 'مدیریت درخت های برچست',
     icon: 'isax:ticket',
-    routeName: 'Admin.Tree.Index',
+    routeName: 'Admin.Forrest.Index',
     active: false,
     show: true,
     open: false

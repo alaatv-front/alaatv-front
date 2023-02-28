@@ -343,29 +343,29 @@ const routes = [
             ]
           },
           {
-            name: 'Admin.Tree',
-            path: 'tree',
+            name: 'Admin.Forrest',
+            path: 'forrest',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
-                name: 'Admin.Tree.Index',
+                name: 'Admin.Forrest.Index',
                 path: '',
-                component: () => import('src/pages/Admin/Tree/Index.vue')
+                component: () => import('src/pages/Admin/Forrest/Index.vue')
               },
               {
-                name: 'Admin.Tree.Create',
+                name: 'Admin.Forrest.Create',
                 path: 'create',
-                component: () => import('src/pages/Admin/Tree/Create.vue')
+                component: () => import('src/pages/Admin/Forrest/Create.vue')
               },
               {
-                name: 'Admin.Tree.Show',
+                name: 'Admin.Forrest.Show',
                 path: ':id',
-                component: () => import('src/pages/Admin/Tree/Create.vue')
+                component: () => import('src/pages/Admin/Forrest/Create.vue')
               },
               {
-                name: 'Admin.Tree.Edit',
+                name: 'Admin.Forrest.Edit',
                 path: ':id/edit',
-                component: () => import('src/pages/Admin/Tree/Create.vue')
+                component: () => import('src/pages/Admin/Forrest/Create.vue')
               }
             ]
           },
