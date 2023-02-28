@@ -238,7 +238,6 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.purchasedProducts,
       ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
-        type: '', // String
         page: 1 // Number
       }, data),
       resolveCallback: (response) => {

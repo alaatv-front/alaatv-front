@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       api: APIGateway.forrest.FullAPIAdresses.base,
-      entityIdKeyInResponse: 'id',
+      entityIdKeyInResponse: 'data.id',
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Forrest.Show',
       indexRouteName: 'Admin.Forrest.Index',

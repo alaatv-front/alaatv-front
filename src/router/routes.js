@@ -79,14 +79,6 @@ const routes = [
               }
             ]
           },
-          // {
-          //   path: 'cart',
-          //   name: 'Public.Cart',
-          //   component: () => import('pages/Cart/Cart.vue'),
-          //   meta: {
-          //     middlewares: [auth]
-          //   }
-          // },
           {
             path: 'c',
             name: 'Public.Content',

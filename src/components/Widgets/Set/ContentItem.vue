@@ -89,8 +89,8 @@ export default {
       }
       return this.$apiGateway.content.favored(this.content.id)
     },
-    onChangeFavoriteStatus (result) {
-      console.log(result)
+    onChangeFavoriteStatus (/* result */) {
+      // console.log(result)
     },
     getContentDuration (duration) {
       return Math.floor(duration / 60)
