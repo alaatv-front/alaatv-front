@@ -4,7 +4,39 @@
                 :api="api"
                 :table="table"
                 :table-keys="tableKeys"
-                :create-route-name="createRouteName" />
+                :create-route-name="createRouteName">
+    <template v-slot:entity-index-table-cell="{inputData, showConfirmRemoveDialog}">
+      {{ loggg(inputData) }}
+      <template v-if="inputData.col.name === 'actions'">
+        <q-btn round
+               flat
+               dense
+               size="md"
+               color="info"
+               icon="info"
+               :to="{name:'Admin.Tree.Show', params: {id: inputData.props.row.id}}">
+          <q-tooltip>
+            مشاهده
+          </q-tooltip>
+        </q-btn>
+        <q-btn round
+               flat
+               dense
+               size="md"
+               color="negative"
+               icon="delete"
+               class="q-ml-md"
+               @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">
+          <q-tooltip>
+            حذف
+          </q-tooltip>
+        </q-btn>
+      </template>
+      <template v-else>
+        {{ inputData.col.value }}
+      </template>
+    </template>
+  </entity-index>
 </template>
 
 <script>
@@ -25,31 +57,56 @@ export default {
         perPage: 'meta.per_page',
         pageKey: 'couponPage'
       },
-      inputs: [
-        {
-          type: 'Select',
-          name: 'type',
-          responseKey: '',
-          label: ' نام کالایی که از خرید آن بن دریافت کرده است',
-          col: 'col-md-6',
-          options: [],
-          optionValue: '',
-          optionLabel: ''
-        },
-        {
-          type: 'Select',
-          name: 'couponStatus',
-          label: ' وضعیت بن',
-          col: 'col-md-6',
-          options: [
-            { id: '', value: 'فعال' },
-            { id: '', value: 'باطل شده' },
-            { id: '', value: 'استفاده شده' }
-          ],
-          optionValue: 'id',
-          optionLabel: 'value'
-        }],
-      table: []
+      inputs: [],
+      table: {
+        columns: [
+          {
+            name: 'id',
+            required: true,
+            label: '#',
+            align: 'left',
+            field: row => row.id
+          },
+          {
+            name: 'type',
+            required: true,
+            label: 'نوع',
+            align: 'left',
+            field: row => row.type
+          },
+          {
+            name: 'title',
+            required: true,
+            label: 'عنوان',
+            align: 'left',
+            field: row => row.title
+          },
+          {
+            name: 'parent',
+            required: true,
+            label: 'parent',
+            align: 'left',
+            field: row => row.parent
+          },
+          {
+            name: 'actions',
+            required: true,
+            label: '',
+            align: 'left',
+            field: ''
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    getRemoveMessage (row) {
+      const title = row.title
+      const type = row.type
+      return 'آیا از حذف ' + '(' + title + ')' + ' نوع ' + '(' + type + ')' + ' اطمینان دارید؟'
+    },
+    loggg (data) {
+      console.log(data)
     }
   }
 }
