@@ -6,7 +6,6 @@
                 :table-keys="tableKeys"
                 :create-route-name="createRouteName">
     <template v-slot:entity-index-table-cell="{inputData, showConfirmRemoveDialog}">
-      {{ loggg(inputData) }}
       <template v-if="inputData.col.name === 'actions'">
         <q-btn round
                flat
@@ -104,9 +103,6 @@ export default {
       const title = row.title
       const type = row.type
       return 'آیا از حذف ' + '(' + title + ')' + ' نوع ' + '(' + type + ')' + ' اطمینان دارید؟'
-    },
-    loggg (data) {
-      console.log(data)
     }
   }
 }

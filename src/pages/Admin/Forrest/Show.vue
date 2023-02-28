@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'IndexTree',
+  name: 'ShowForrest',
   data() {
     return {
       pageConfig: {},
@@ -20,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'AdminForrestIndex'
+                        name: 'AdminForrestCreate'
                       }
                     ]
                   }
