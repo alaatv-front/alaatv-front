@@ -28,10 +28,12 @@
                       :table-grid-size="true">
           <template #entity-index-table-cell="{inputData}">
             <template v-if="inputData.col.name === 'photo'">
-              {{ inputData.col.photo }}
-              <q-avatar size="52px">
-                <img :src="inputData.col.photo">
-              </q-avatar>
+              <!--              {{ inputData.col.photo }}-->
+              <!--              todo: entity-index-table-cell doesnt work in grid mode-->
+              <q-img src="'https://nodes.alaatv.com/upload/contentset/departmentlesson/1676867828_6421.png'"
+                     :ratio="16/9"
+                     width="142px"
+                     height="78px" />
             </template>
             <template v-else-if="inputData.col.name === 'title'">
               <div>
@@ -101,8 +103,8 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', class: 'align-left q-mt-lg q-ml-lg' },
-        { type: 'button', name: 'search', responseKey: 'statement', icon: 'search', iconRight: undefined, col: 'col-md-1', class: 'q-mt-lg q-ml-lg' }
+        { type: 'input', name: 'search-btn', outlined: true, label: 'جستجو در فیلم ها', placeholder: 'انتخاب نمایید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
+        { type: 'button', name: 'search', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' }
       ]
     }
   },
