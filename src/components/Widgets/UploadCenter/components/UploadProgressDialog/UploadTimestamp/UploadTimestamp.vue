@@ -1,6 +1,8 @@
 <template>
   <div class="upload-information-wrapper">
-    <div class="row">
+    <loading-content-in-step v-if="content.loading" />
+    <div v-else
+         class="row">
       <div class="col-6 upload-timestamp-col">
         <q-table title="زمان کوب"
                  :rows="rows"
@@ -74,7 +76,7 @@
         <div class="video-box">
           <div class="video-box-title" />
           <video-player class="video"
-                        :source="'https://alaatv.com/hls/input.m3u8'"
+                        :source="content.getVideoSource()"
                         :current-time="currentTime"
                         @seeked="getTimestamp($event)" />
         </div>
@@ -92,10 +94,13 @@ import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
 import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { Content } from 'src/models/Content'
+import LoadingContentInStep
+  from 'components/Widgets/UploadCenter/components/UploadProgressDialog/LoadingContentInStep.vue'
 
 export default {
   name: 'UploadTimestamp',
   components: {
+    LoadingContentInStep,
     PreviousItemDialog,
     VideoPlayer
   },
