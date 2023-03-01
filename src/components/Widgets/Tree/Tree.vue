@@ -1,119 +1,128 @@
 <template>
-  <q-tree ref="tree"
-          v-model:ticked="ticked"
-          v-model:expanded="expandedNodes"
-          class="q-ma-lg"
-          :nodes="nodes"
-          :no-nodes-label="noNodesLabel"
-          node-key="id"
-          control-color="secondary"
-          label-key="title"
-          icon="isax:add-square"
-          :tick-strategy="tickStrategy"
-          @update:ticked="tickedNode"
-          @lazy-load="getChildOfNode"
-          @update:expanded="nodeExpanded">
-    <template v-slot:default-header="prop">
-      <span class="node-title">
-        {{ prop.node.title }}
-        <q-icon :class="editable ? 'edit-btn': 'none-edit-btn'"
-                name="edit"
-                @click.stop
-                @keypress.stop
-                @click="openEditMenu(prop.node) " />
-      </span>
-    </template>
-  </q-tree>
-  <q-btn v-if="editable && nodes && !nodes.length"
-         label="ساخت درخت"
-         icon="add"
-         color="green"
-         flat
-         @click="toggleMenu(true)" />
-  <q-dialog v-model="editDialog "
-            persistent>
-    <q-card class="q-pa-md ">
-      <q-btn v-close-popup
-             flat
-             icon="close "
-             color="red "
-             @click="toggleMenu(false)" />
-      <q-tabs v-model="tab"
-              narrow-indicator
-              dense>
-        <q-tab v-if="nodes && !nodes.length"
-               class="text-blue"
-               name="createTree"
-               icon="add"
-               label="ساخت درخت" />
-        <q-tab v-if="nodes && nodes.length"
-               class="text-purple"
-               name="editNode"
-               icon="edit"
-               label="ویرایش " />
-        <q-tab v-if="nodes && nodes.length"
-               class="text-orange"
-               name="createNewNode"
-               icon="add"
-               label="اضافه کردن گره جدید " />
-      </q-tabs>
-      <q-tab-panels v-model="tab "
-                    animated>
-        <q-tab-panel v-if="editable && nodes && !nodes.length"
-                     name="createTree">
-          <q-input v-model="newTitle"
-                   class="q-ma-md"
-                   filled
-                   label="نام " />
-          <q-input v-model="newOrder"
-                   class="q-ma-md"
-                   filled
-                   label="ترتیب " />
-          <q-input v-model="newType"
-                   class="q-ma-md"
-                   filled
-                   label="type" />
-          <q-btn color="green "
-                 :loading="loading "
-                 @click="addNode()">
-            ایجاد درخت
-          </q-btn>
-        </q-tab-panel>
-        <q-tab-panel v-if="editable && nodes && nodes.length"
-                     name="editNode">
-          <q-input v-model="editedTitle "
-                   class="q-ma-md"
-                   filled
-                   label="نام جدید " />
-          <q-input v-model="editedOrder"
-                   class="q-ma-md"
-                   filled
-                   label="ترتیب جدید " />
-          <q-btn color="green "
-                 :loading="loading "
-                 @click="edit">
-            ثبت
-          </q-btn>
-        </q-tab-panel>
-        <q-tab-panel v-if="editable && nodes && nodes.length"
-                     name="createNewNode">
-          <q-input v-model="newTitle"
-                   class="q-ma-md"
-                   filled
-                   label="نام " />
-          <q-input v-model="newOrder"
-                   class="q-ma-md"
-                   filled
-                   label="ترتیب " />
-          <q-btn color="green "
-                 :loading="loading "
-                 @click="addNode() ">
-            اضافه شود
-          </q-btn>
-        </q-tab-panel>
-      </q-tab-panels>
-    </q-card>
-  </q-dialog>
+  <div>
+    <q-tree ref="tree"
+            v-model:ticked="ticked"
+            v-model:expanded="expandedNodes"
+            class="q-ma-lg"
+            :nodes="nodes"
+            :no-nodes-label="noNodesLabel"
+            node-key="id"
+            control-color="secondary"
+            label-key="title"
+            icon="isax:add-square"
+            :tick-strategy="tickStrategy"
+            @update:ticked="tickedNode"
+            @lazy-load="getChildOfNode"
+            @update:expanded="nodeExpanded">
+      <template v-slot:default-header="prop">
+        <span class="node-title">
+          {{ prop.node.title }}
+          <q-icon :class="editable ? 'edit-btn': 'none-edit-btn'"
+                  name="edit"
+                  @click.stop
+                  @keypress.stop
+                  @click="openEditMenu(prop.node) " />
+        </span>
+      </template>
+    </q-tree>
+    <q-btn v-if="editable && nodes && !nodes.length && showCreateBtn"
+           label="ساخت درخت"
+           icon="add"
+           color="green"
+           flat
+           @click="toggleMenu(true)" />
+    <q-dialog v-model="editDialog "
+              persistent>
+      <q-card class="q-pa-md ">
+        <q-btn v-close-popup
+               flat
+               icon="close "
+               color="red "
+               @click="toggleMenu(false)" />
+        <q-tabs v-model="tab"
+                narrow-indicator
+                dense>
+          <q-tab v-if="nodes && !nodes.length"
+                 class="text-blue"
+                 name="createTree"
+                 icon="add"
+                 label="ساخت درخت" />
+          <q-tab v-if="nodes && nodes.length"
+                 class="text-purple"
+                 name="editNode"
+                 icon="edit"
+                 label="ویرایش " />
+          <q-tab v-if="nodes && nodes.length"
+                 class="text-orange"
+                 name="createNewNode"
+                 icon="add"
+                 label="اضافه کردن گره جدید " />
+        </q-tabs>
+        <q-tab-panels v-model="tab "
+                      animated>
+          <q-tab-panel v-if="editable && nodes && !nodes.length"
+                       name="createTree">
+            <q-input v-model="newTitle"
+                     class="q-ma-md gray-input"
+                     filled
+                     dense
+                     placeholder="نام" />
+            <q-input v-model="newOrder"
+                     class="q-ma-md gray-input"
+                     filled
+                     dense
+                     placeholder="ترتیب " />
+            <q-input v-model="newType"
+                     class="q-ma-md gray-input"
+                     filled
+                     dense
+                     placeholder="دسته" />
+            <q-btn color="green "
+                   :loading="loading "
+                   @click="addNode()">
+              ایجاد درخت
+            </q-btn>
+          </q-tab-panel>
+          <q-tab-panel v-if="editable && nodes && nodes.length"
+                       name="editNode">
+            <q-input v-model="editedTitle "
+                     class="q-ma-md gray-input"
+                     filled
+                     dense
+                     placeholder="نام جدید " />
+            <q-input v-model="editedOrder"
+                     class="q-ma-md gray-input"
+                     filled
+                     dense
+                     placeholder="ترتیب جدید " />
+            <q-btn color="green "
+                   :loading="loading "
+                   @click="edit">
+              ثبت
+            </q-btn>
+          </q-tab-panel>
+          <q-tab-panel v-if="editable && nodes && nodes.length"
+                       name="createNewNode">
+            <q-input v-model="newTitle"
+                     class="q-ma-md gray-input"
+                     filled
+                     dense
+                     placeholder="نام" />
+            <q-input v-model="newOrder"
+                     class="q-ma-md gray-input"
+                     filled
+                     dense
+                     placeholder="ترتیب" />
+            <q-btn color="green "
+                   :loading="loading "
+                   @click="addNode() ">
+              اضافه شود
+            </q-btn>
+          </q-tab-panel>
+        </q-tab-panels>
+      </q-card>
+    </q-dialog>
+  </div>
 </template>
 
 <script>
@@ -133,6 +142,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showCreateBtn: {
+      type: Boolean,
+      default: true
+    },
     getNodeById: {
       type: Function,
       default: (id, done, fail, callback) => {
@@ -149,11 +162,11 @@ export default {
       }
     }
   },
-
   emits: [
     'ticked',
     'expanded',
-    'lazy-loaded'
+    'lazy-loaded',
+    'new-node-added'
   ],
   data: () => {
     return {
@@ -182,9 +195,6 @@ export default {
   watch: {
     editDialog () {
       this.tab = this.tabName
-    },
-    loading (newValue) {
-      this.$store.dispatch('loading/overlayLoading', newValue)
     }
   },
 
@@ -263,14 +273,10 @@ export default {
       const getNode = this.$refs.tree.getNodeByKey(id)
       this.addNewNode(id, this.newType, this.newTitle, this.newOrder)
         .then(response => {
-          getNode.children.unshift(new TreeNode({
-            id: response.data.data.id,
-            type: response.data.data.type,
-            title: response.data.data.title,
-            parent: response.data.data.parent.id ? response.data.data.parent.id : null
-          }))
+          getNode.children.unshift(response)
           this.editDialog = false
           this.loading = false
+          this.$emit('new-node-added', response)
         }).catch(() => {
           this.editDialog = false
           this.loading = false

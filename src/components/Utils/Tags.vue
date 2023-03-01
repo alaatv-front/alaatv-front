@@ -4,7 +4,7 @@
             use-input
             use-chips
             multiple
-            hide-dropdown-icon=""
+            hide-dropdown-icon
             input-debounce="0"
             :options="filterOptions"
             option-label="title"
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     getTags() {
-      this.$apiGateway.tree.getGradesList().then(res => {
+      this.$apiGateway.forrest.getGradesList().then(res => {
         this.stringOptions = res
         this.filterOptions = this.stringOptions
       })

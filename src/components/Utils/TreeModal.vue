@@ -215,7 +215,7 @@ export default {
   methods: {
     getGradesList () {
       this.dialogLoading = true
-      this.$apiGateway.tree.getGradesList()
+      this.$apiGateway.forrest.getGradesList()
         .then(res => {
           this.gradesList = res
           this.dialogLoading = false
@@ -226,7 +226,7 @@ export default {
     },
     getLessonList (lessonId) {
       this.dialogLoading = true
-      this.$apiGateway.tree.getLessonList({
+      this.$apiGateway.forrest.getLessonList({
         data: {
           id: lessonId
         }
