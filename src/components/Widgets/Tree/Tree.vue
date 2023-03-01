@@ -149,11 +149,11 @@ export default {
       }
     }
   },
-
   emits: [
     'ticked',
     'expanded',
-    'lazy-loaded'
+    'lazy-loaded',
+    'new-node-added'
   ],
   data: () => {
     return {
@@ -263,14 +263,10 @@ export default {
       const getNode = this.$refs.tree.getNodeByKey(id)
       this.addNewNode(id, this.newType, this.newTitle, this.newOrder)
         .then(response => {
-          getNode.children.unshift(new TreeNode({
-            id: response.data.data.id,
-            type: response.data.data.type,
-            title: response.data.data.title,
-            parent: response.data.data.parent.id ? response.data.data.parent.id : null
-          }))
+          getNode.children.unshift(response)
           this.editDialog = false
           this.loading = false
+          this.$emit('new-node-added', response)
         }).catch(() => {
           this.editDialog = false
           this.loading = false

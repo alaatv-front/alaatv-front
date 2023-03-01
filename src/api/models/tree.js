@@ -58,13 +58,13 @@ export default class TreeAPI extends APIRepository {
     })
   }
 
-  getNodeBy(value, data) {
-    const methodName = 'getNodeBy' + value
+  createNode(data = {}) {
     return this.sendRequest({
-      apiMethod: 'get',
+      apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses[methodName](data.data.id),
-      cacheKey: this.CacheList[methodName](data.data.id),
+      request: this.APIAdresses.base,
+      cacheKey: this.CacheList.base,
+      data: data.data,
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new TreeNode(response.data.data)
@@ -94,6 +94,7 @@ export default class TreeAPI extends APIRepository {
       request: this.APIAdresses.editNode(nodeId),
       cacheKey: this.CacheList.editNode(nodeId),
       ...(data?.cache && { cache: data.cache }),
+      data: data.data,
       resolveCallback: (response) => {
         return new TreeNode(response.data.data)
       },
