@@ -115,7 +115,7 @@ export default {
   methods: {
     addToCart() {
       this.addToCartLoading = true
-      this.$store.dispatch('Cart/addToCart', [this.product])
+      this.$store.dispatch('Cart/addToCart', this.product)
         .then(() => {
           this.$store.dispatch('Cart/reviewCart', this.product)
             .then(() => {

@@ -76,15 +76,12 @@ export default {
           this.product.loading = false
         })
     },
-    async addToCart() {
+    addToCart() {
       const data = {
         id: this.product.id
       }
-      try {
-        await this.$store.dispatch('Cart/addToCart', data)
-        this.$router.push({ name: 'Public.Checkout.Review' })
-      } catch (e) {
-      }
+      this.$store.dispatch('Cart/addToCart', data)
+      this.$router.push({ name: 'Public.Checkout.Review' })
     }
   }
 }
