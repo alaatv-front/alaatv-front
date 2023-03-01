@@ -8,7 +8,8 @@
                      :api="$apiGateway.content.FullAPIAdresses.showAdmin(content.id)"
                      :entity-id-key="entityIdKey"
                      :entity-param-key="entityParamKey"
-                     :default-layout="false">
+                     :default-layout="false"
+                     @onInputClick="onInputClick">
           <template #entity-index-table-selection-cell="data">
             <q-checkbox v-model="data.props.selected"
                         @update:model-value="expandRow(data.props)" />
@@ -48,20 +49,16 @@
       <div class="col-6 video-box-col">
         <div class="reuse">
           <q-btn color="primary"
-                 label="افزودن ست"
-                 flat=""
-                 @click="toggleDialog('set')" />
-          <q-btn color="primary"
                  label="استفاده مجدد مشخصات"
                  flat=""
                  @click="toggleDialog('prev')" />
           <previous-item-dialog v-model:dialog="pervDialog"
+                                :api="$apiGateway.set.FullAPIAdresses.create"
+                                @selectedUpdated="updateSet($event)"
                                 @toggleDialog="toggleDialog(('prev'))" />
         </div>
         <div class="video-box">
-          <div class="video-box-title">
-            '
-          </div>
+          <div class="video-box-title" />
           <!-- <video-player class="video"
                         :hlsSource="'https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8'" /> -->
           <video-player :source="'https://alaatv.com/hls/input.m3u8'" />
@@ -72,7 +69,7 @@
         </div>
       </div>
     </div>
-    <set-dialog :dialog="setDialogValue"
+    <set-dialog v-model:dialog="setDialogValue"
                 @toggleDialog="toggleDialog(('set'))" />
   </div>
 </template>
@@ -81,7 +78,6 @@
 import { EntityEdit } from 'quasar-crud'
 import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
 import SetDialog from './SetDialog.vue'
-// import SetButton from './SetButton.vue'
 import VideoPlayer from 'src//components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { APIGateway } from 'src/api/APIGateway'
@@ -91,7 +87,6 @@ import TagsComponent from 'src/components/Utils/Tags.vue'
 
 const TreeInput = shallowRef(TreeInputComponent)
 const Tags = shallowRef(TagsComponent)
-// const SetBtn = shallowRef(SetButton)
 export default {
   name: 'UploadProperties',
   components: {
@@ -138,7 +133,7 @@ export default {
           placeholder: 'مجموعه محتوا را انتخاب کنید',
           col: 'col-12',
           selectionMode: 'single',
-          tableRowExpandable: false,
+          tableRowExpandable: true,
           tableRowDefaultExpandAction: false,
           popUpButtonConfig: {
             unelevated: true,
@@ -183,8 +178,8 @@ export default {
             },
             inputs: [
               { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'انتخاب نمایید', label: 'جست و جو', col: 'col-md-3' },
-              { type: ' ', name: '', col: 'col-md-6' }
-              // { type: SetBtn, name: 'setButton', label: 'جست و جو', col: 'col-md-3' }
+              { type: '', name: '', col: 'col-md-6' },
+              { type: 'button', name: 'setButton', label: 'ایجاد محموعه جدید', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'id'
           },
@@ -254,6 +249,14 @@ export default {
     this.inputs[0].selected = this.content
   },
   methods: {
+    updateSet(setId) {
+      this.inputs.find(x => x.name === 'set').value = setId
+    },
+    onInputClick(e) {
+      if (e.input.name === 'setButton') {
+        this.toggleDialog('set')
+      }
+    },
     setTeacher(e) {
       this.setForm.teacher = e
       this.inputs.find(x => x.name === 'author_id').value = e.id
@@ -264,7 +267,6 @@ export default {
       })
     },
     expandRow (props) {
-      // console.log(props)
       props.expand = !props.selected
     },
     toggleDialog(dialog) {
