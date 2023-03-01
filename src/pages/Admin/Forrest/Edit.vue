@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: 'ShowForrest',
+  name: 'ForrestEdit',
   data() {
     return {
       pageConfig: {},
@@ -20,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'AdminForrestShow'
+                        name: 'AdminForrestEdit'
                       }
                     ]
                   }
