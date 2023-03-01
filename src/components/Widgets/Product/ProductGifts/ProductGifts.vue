@@ -1,5 +1,6 @@
 <template>
-  <div class="product-gift-widgets row"
+  <div v-if="products.list.length > 0"
+       class="product-gift-widgets row"
        :style="options.style"
        :class="options.className">
     <div class="gift-container">
