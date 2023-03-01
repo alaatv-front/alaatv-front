@@ -6,31 +6,30 @@ const APIAdresses = {
   base: '/forrest/tree',
   bulkIndex: '/forrest/tree/bulk',
   tags: '/forrest/tags',
-  grid: (grid) => '/forrest/tree/' + grid
-
-  // getMultiType: (types) => {
-  //   let treeAddress = '/forrest/tree?'
-  //   types.forEach(element => {
-  //     treeAddress = treeAddress + `multi-type[]=${element}&`
-  //   })
-  //   return treeAddress
-  // },
-  // getGradesList: '/forrest/tree?type=test',
-  // getNodeById(nodeId) {
-  //   return '/forrest/tree/' + nodeId
-  // },
-  // getNodeByType(nodeType) {
-  //   return '/forrest/tree?type=' + nodeType
-  // },
-  // getNodeByTitle(nodeType) {
-  //   return '/forrest/tree?title=' + nodeType
-  // },
-  // editNode(id) {
-  //   return '/forrest/tree/' + id
-  // },
-  // getLessonList(lessonId) {
-  //   return '/forrest/tree/' + lessonId
-  // }
+  grid: (grid) => '/forrest/tree/' + grid,
+  getMultiType: (types) => {
+    let treeAddress = '/forrest/tree?'
+    types.forEach(element => {
+      treeAddress = treeAddress + `multi-type[]=${element}&`
+    })
+    return treeAddress
+  },
+  getGradesList: '/forrest/tree?type=test',
+  getNodeById(nodeId) {
+    return '/forrest/tree/' + nodeId
+  },
+  getNodeByType(nodeType) {
+    return '/forrest/tree?type=' + nodeType
+  },
+  getNodeByTitle(nodeType) {
+    return '/forrest/tree?title=' + nodeType
+  },
+  editNode(id) {
+    return '/forrest/tree/' + id
+  },
+  getLessonList(lessonId) {
+    return '/forrest/tree/' + lessonId
+  }
 }
 
 export default class ForrestAPI extends APIRepository {
@@ -40,7 +39,13 @@ export default class ForrestAPI extends APIRepository {
       base: this.name + this.APIAdresses.base,
       bulkIndex: this.name + this.APIAdresses.bulkIndex,
       tags: this.name + this.APIAdresses.tags,
-      grid: (grid) => this.name + this.APIAdresses.grid(grid)
+      grid: (grid) => this.name + this.APIAdresses.grid(grid),
+      getGradesList: this.name + this.APIAdresses.getGradesList,
+      getNodeById: nodeId => this.name + this.APIAdresses.getNodeById(nodeId),
+      getNodeByType: nodeType => this.name + this.APIAdresses.getNodeByType(nodeType),
+      getNodeByTitle: nodeTitle => this.name + this.APIAdresses.getNodeByTitle(nodeTitle),
+      editNode: id => this.name + this.APIAdresses.editNode(id),
+      getLessonList: id => this.name + this.APIAdresses.getLessonList(id)
     }
   }
 
@@ -89,13 +94,34 @@ export default class ForrestAPI extends APIRepository {
     })
   }
 
+  createNode(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.base,
+      cacheKey: this.CacheList.base,
+      data: data.data,
+      ...(data?.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return new TreeNode(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   getNodeBy(value, data) {
     const methodName = 'getNodeBy' + value
+    let param = data.data.nodeType
+    if (value === 'Id') {
+      param = data.data.id
+    }
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses[methodName](data.data.id),
-      cacheKey: this.CacheList[methodName](data.data.id),
+      request: this.APIAdresses[methodName](param),
+      cacheKey: this.CacheList[methodName](param),
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new TreeNode(response.data.data)
@@ -125,6 +151,7 @@ export default class ForrestAPI extends APIRepository {
       request: this.APIAdresses.editNode(nodeId),
       cacheKey: this.CacheList.editNode(nodeId),
       ...(data?.cache && { cache: data.cache }),
+      data: data.data,
       resolveCallback: (response) => {
         return new TreeNode(response.data.data)
       },

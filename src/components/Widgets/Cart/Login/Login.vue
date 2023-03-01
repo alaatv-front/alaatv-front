@@ -48,23 +48,9 @@ import { mixinAuth } from 'src/mixin/Mixins.js'
 export default {
   name: 'login',
   mixins: [mixinAuth],
-  props: {
-    // finalPrice: {
-    //   type: String,
-    //   default: '0'
-    // }
-  },
   data: () => ({
-    // loginInfo: {
-    //   userName: {
-    //     value: '',
-    //     focus: false
-    //   },
-    //   password: {
-    //     value: '',
-    //     focus: false
-    //   }
-    // },
+    // localUser: new User(),
+    isUserLogin: false,
     username: null,
     password: null,
     rules: {
@@ -73,12 +59,14 @@ export default {
     },
     errorMessage: ''
   }),
-  computed: {
-    isUserLogin() {
-      return this.$store.getters['Auth/isUserLogin']
-    }
+  mounted () {
+    this.loadAuthData()
   },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      // this.localUser = this.$store.getters['Auth/user']
+      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
+    },
     handleErr(err) {
       this.loadingList = false
       const messages = []

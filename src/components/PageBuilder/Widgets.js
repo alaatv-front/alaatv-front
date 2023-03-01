@@ -17,6 +17,9 @@ const mixinWidget = {
       default: false
     }
   },
+  emits: [
+    'onOptionAction'
+  ],
   data() {
     return {
       defaultOptions: {}

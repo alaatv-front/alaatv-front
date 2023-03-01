@@ -20,7 +20,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'AdminForrestCreate'
+                        name: 'AdminForrestShow'
                       }
                     ]
                   }

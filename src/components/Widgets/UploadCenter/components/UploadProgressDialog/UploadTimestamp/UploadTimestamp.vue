@@ -67,7 +67,9 @@
                  label="استفاده مجدد مشخصات"
                  flat=""
                  @click="toggleDialog()" />
-          <previous-item-dialog v-model:dialog="pervDialog" />
+          <previous-item-dialog v-model:dialog="pervDialog"
+                                :api="$apiGateway.content.FullAPIAdresses.admin"
+                                @selectedUpdated="loadTimestampsFromContent($event)" />
         </div>
         <div class="video-box">
           <div class="video-box-title" />
@@ -89,6 +91,7 @@
 import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
 import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
+import { Content } from 'src/models/Content'
 
 export default {
   name: 'UploadTimestamp',
@@ -98,7 +101,7 @@ export default {
   },
   props: {
     content: Object,
-    default: () => {}
+    default: () => new Content()
   },
   emits: ['refreshContent'],
   data() {
@@ -162,11 +165,32 @@ export default {
       })
       this.activeIndex = this.rows.length - 1
     },
+    loadTimestampsFromContent(contentId) {
+      this.$apiGateway.content.showAdmin(contentId).then(res => {
+        this.rows = res.timepoints.list
+        for (let index = 0; index < this.rows.length; index++) {
+          const element = this.rows[index]
+          element.id = '#' + element.id.toString()
+          element.content_id = this.content.id
+          this.activeIndex = index
+          this.$apiGateway.content.SetTimestamp({ data: element }).then(res => {
+            element.time = this.getTimestamp(element.time)
+            this.toggleAction(index, 'saved')
+          }).catch(() => {
+          })
+        }
+      })
+    },
     videoSource() {
       return new PlayerSourceList(this.content.file.video)
     },
     removeTimestamp(row) {
-      this.rows = this.rows.filter(x => x.id !== row.id)
+      this.$apiGateway.content.DeleteTimestamp({
+        id: row.id
+      }).then(res => {
+        this.rows = this.rows.filter(x => x.id !== row.id)
+      }).catch(() => {
+      })
       this.activeIndex = this.rows.length - 1
     },
     editTimestamp(row) {
@@ -179,7 +203,7 @@ export default {
       const action = row.action
       this.rows.splice(index, 1, row)
       const timestampForm = {
-        content_id: 37920,
+        content_id: this.content.id,
         title: row.title,
         time: (Number(this.time.hours) * 3600) + (Number(this.time.minutes) * 60) + Number(this.time.seconds)
       }
@@ -198,8 +222,7 @@ export default {
           this.activeIndex = this.rows.length - 1
           this.$emit('refreshContent')
         }
-      }).catch(err => {
-        alert(err)
+      }).catch(() => {
       })
     },
     toggleAction(index, action) {

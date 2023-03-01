@@ -1,9 +1,259 @@
 <template>
-  <div class="row">
+  <div v-if="false"
+       class="row">
     <div class="col-12">
       <div class="row items-center justify-center">
         <div class="col-6">
           <video-player :source="'https://alaatv.com/hls/input.m3u8'" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6 text-center">
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+      aaaaaaaaaaaaaaaaaaa
+      <br>
+    </div>
+    <div class="col-6 text-center">
+      <div ref="MainContent"
+           class="MainContent"
+           style="height: 100%;">
+        <div ref="Sidebar">
+          <div ref="SidebarInner"
+               class="sidebar__inner">
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+            ---------------------
+            <br>
+          </div>
         </div>
       </div>
     </div>
@@ -34,6 +284,14 @@
 //       console.log('err', err)
 //     })
 // }
+
+let StickySidebar
+if (typeof window !== 'undefined') {
+  import('sticky-sidebar-v2')
+    .then((stickySidebar) => {
+      StickySidebar = stickySidebar.default
+    })
+}
 
 import VideoPlayer from 'src/components/DashboardAbrisham/VideoPlayer.vue'
 // import AWSS3UploadAsh from 'aws-s3-upload-ash'
@@ -74,6 +332,7 @@ export default {
   },
   data() {
     return {
+      stickySidebarInstance: null,
       file: null,
       pictureURL: null,
       uid: null,
@@ -418,8 +677,18 @@ export default {
   },
   mounted() {
     // console.log('debug mounted')
+    this.loadSticky()
   },
   methods: {
+    loadSticky () {
+      this.stickySidebarInstance = new StickySidebar(this.$refs.Sidebar, {
+        topSpacing: 72,
+        bottomSpacing: 20,
+        containerSelector: '.MainContent',
+        innerWrapperSelector: '.sidebar__inner',
+        scrollContainer: '#main-viewport'
+      })
+    },
     loggg (newFile) {
       // eslint-disable-next-line
       console.log('newFile', newFile)

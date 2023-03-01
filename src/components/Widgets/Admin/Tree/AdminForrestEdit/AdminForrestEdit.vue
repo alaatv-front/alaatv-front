@@ -1,12 +1,11 @@
 <template>
-  <entity-show ref="entityShow"
+  <entity-edit ref="entityEdit"
                v-model:value="inputs"
-               title="نمایش درخت"
+               title="ویرایش درخت"
                :api="getEntityShowAPI"
-               :entity-param-key="entityParamKey"
-               :entity-id-key="entityIdKey"
-               :index-route-name="indexRouteName"
-               :edit-route-name="editRouteName"
+               :entity-id-key-in-response="entityIdKeyInResponse"
+               :show-route-param-key="showRouteParamKey"
+               :show-route-name="showRouteName"
                :after-get-data="showForrest" />
   <div class="relative-position">
     <q-card class="tree-box q-my-md">
@@ -14,8 +13,11 @@
       <tree v-show="!treeLoading"
             ref="tree"
             :key="treeKey"
+            editable
             :no-nodes-label="'درخت مورد نظر بارگیری نشده است.'"
             :get-node-by-id="getNodeById"
+            :add-new-node="createNode"
+            :edit-node="editNode"
             :show-create-btn="false" />
       <q-inner-loading :showing="treeLoading">
         <q-spinner-ball color="primary"
@@ -23,29 +25,25 @@
       </q-inner-loading>
     </q-card>
   </div>
-
 </template>
 
 <script>
-import { EntityShow } from 'quasar-crud'
-import { APIGateway } from 'src/api/APIGateway'
+import { EntityEdit } from 'quasar-crud'
 import Tree from 'components/Widgets/Tree/Tree.vue'
 import { mixinTree, mixinWidget } from 'src/mixin/Mixins.js'
-
 export default {
-  name: 'AdminForrestShow',
-  components: { Tree, EntityShow },
+  name: 'AdminForrestEdit',
+  components: { Tree, EntityEdit },
   mixins: [
     mixinTree,
     mixinWidget
   ],
   data () {
     return {
-      api: APIGateway.forrest.FullAPIAdresses.base,
-      entityIdKey: 'id',
-      editRouteName: 'Admin.Forrest.Edit',
+      entityIdKeyInResponse: 'id',
+      showRouteParamKey: 'id',
+      showRouteName: 'Admin.Forrest.Show',
       indexRouteName: 'Admin.Forrest.Index',
-      entityParamKey: 'id',
       inputs: [
         { type: 'input', name: 'title', label: 'عنوان', outlined: true, placeholder: ' ', responseKey: 'data.title', col: 'col-md-4' },
         { type: 'input', name: 'order', label: 'ترتیب', outlined: true, placeholder: ' ', responseKey: 'data.order', col: 'col-md-4' },
@@ -58,10 +56,7 @@ export default {
   },
   computed: {
     getEntityShowAPI () {
-      return this.$apiGateway.forrest.FullAPIAdresses.grid(this.getEntityId)
-    },
-    getEntityId () {
-      return this.$route.params.id
+      return this.$apiGateway.forrest.FullAPIAdresses.grid(this.$route.params.id)
     },
     getTreeType () {
       const typeInput = this.inputs.find(input => input.name === 'type')
@@ -82,14 +77,10 @@ export default {
           console.error(err)
           this.treeLoading = false
         })
-    },
-    reloadTree () {
-      this.treeKey++
     }
   }
 }
 </script>
-
 <style  lang="scss" scoped>
 .tree-box {
   min-height: 150px;

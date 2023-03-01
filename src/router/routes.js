@@ -121,7 +121,7 @@ const routes = [
               {
                 path: 'review',
                 name: 'Public.Checkout.Review',
-                component: () => import('pages/User/CheckoutReview/Show.vue')
+                component: () => import('src/pages/Public/Cart/Cart.vue')
               }
             ]
           }
@@ -352,12 +352,12 @@ const routes = [
               {
                 name: 'Admin.Forrest.Show',
                 path: ':id',
-                component: () => import('src/pages/Admin/Forrest/Create.vue')
+                component: () => import('src/pages/Admin/Forrest/Show.vue')
               },
               {
                 name: 'Admin.Forrest.Edit',
                 path: ':id/edit',
-                component: () => import('src/pages/Admin/Forrest/Create.vue')
+                component: () => import('src/pages/Admin/Forrest/Edit.vue')
               }
             ]
           },
