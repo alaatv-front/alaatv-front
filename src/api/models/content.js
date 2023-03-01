@@ -204,7 +204,7 @@ export default class ContentAPI extends APIRepository {
 
   deleteContents(data) {
     return this.sendRequest({
-      apiMethod: 'delete',
+      apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.delete,
       cacheKey: this.CacheList.delete,
