@@ -12,9 +12,7 @@
                      :loaded-data="content"
                      :entity-param-key="entityParamKey"
                      :default-layout="false"
-                     @onInputClick="onInputClick"
-                     @beforeGetData="entityEditBeforeGetData"
-                     @afterGetData="entityEditAfterGetData">
+                     @onInputClick="onInputClick">
           <template #entity-index-table-selection-cell="data">
             <q-checkbox v-model="data.props.selected"
                         @update:model-value="expandRow(data.props)" />
@@ -260,14 +258,6 @@ export default {
     this.inputs[0].selected = this.content
   },
   methods: {
-    entityEditBeforeGetData () {
-      debugger
-      this.localLoading = true
-    },
-    entityEditAfterGetData () {
-      debugger
-      this.localLoading = false
-    },
     updateSet(setId) {
       this.inputs.find(x => x.name === 'set').value = setId
     },
