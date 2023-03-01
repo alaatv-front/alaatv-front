@@ -16,7 +16,8 @@ const APIAdresses = {
   bulkUpdate: '/admin/contents/bulk-update',
   bulkEditTags: '/admin/contents/bulk-edit-tags',
   timestampSet: 'timepoint',
-  timestampGet: (id) => `timepoint/${id}`,
+  getTimestamp: (id) => `timepoint/${id}`,
+  deleteTimestamp: (id) => `timepoint/${id}`,
   presigned: '/admin/upload/presigned-request'
 }
 export default class ContentAPI extends APIRepository {
@@ -36,7 +37,8 @@ export default class ContentAPI extends APIRepository {
       bulkEditText: this.name + this.APIAdresses.bulkEditText,
       bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
       bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
-      timestampGet: id => this.name + this.APIAdresses.timestampGet(id),
+      getTimestamp: id => this.name + this.APIAdresses.getTimestamp(id),
+      deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id),
       presigned: this.name + this.APIAdresses.presigned
     }
   }
@@ -57,7 +59,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  favored (data = {}, cache = { TTL: 100 }) {
+  favored(data = {}, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -73,7 +75,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  unfavored (data = {}, cache = { TTL: 100 }) {
+  unfavored(data = {}, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -264,8 +266,26 @@ export default class ContentAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.timestampGet('131107'),
-      cacheKey: this.CacheList.timestampGet('131107'),
+      request: this.APIAdresses.getTimestamp(data.id),
+      cacheKey: this.CacheList.getTimestamp(data.id),
+      ...(data.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return {
+          timestamp: response.data
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  DeleteTimestamp(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'delete',
+      api: this.api,
+      request: this.APIAdresses.deleteTimestamp(data.id),
+      cacheKey: this.CacheList.deleteTimestamp(data.id),
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {

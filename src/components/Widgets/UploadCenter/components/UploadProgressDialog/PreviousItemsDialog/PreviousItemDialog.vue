@@ -15,11 +15,14 @@
       <div class="previous-dialog-main-content">
         <entity-index ref="orderList"
                       v-model:value="inputs"
+                      v-model:table-selected-values="selected"
                       class="orders-list-entity-index"
                       :api="api"
+                      :table-selection-mode="selectionMode"
+                      :item-indicator-key="'id'"
+                      :identifyKey="'id'"
                       :table="table"
                       :table-keys="tableKeys"
-                      :item-indicator-key="'title'"
                       :create-route-name="'User.Create'"
                       :default-layout="true"
                       :table-grid-size="true" />
@@ -30,7 +33,6 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'PreviousItemsDialog',
@@ -41,18 +43,23 @@ export default {
     dialog: {
       type: Boolean,
       default: false
+    },
+    api: {
+      type: String,
+      default: ''
     }
   },
+  emits: ['selectedUpdated'],
   data() {
     return {
       // inputs: [
       //   { type: 'hidden', name: 'search', responseKey: 'search', col: 'col-12 col-lg-12 col-sm-6' }
       // ],
       selected: [],
-      api: API_ADDRESS.set.show(1287),
+      selectionMode: 'single',
       tableGridSize: true,
       tableKeys: {
-        data: 'data.contents',
+        data: 'data',
         total: 'meta.total',
         currentPage: 'meta.current_page',
         perPage: 'meta.per_page',
@@ -68,11 +75,11 @@ export default {
             field: row => row.photo
           },
           {
-            name: 'title',
+            name: 'name',
             required: true,
             label: 'عنوان',
             align: 'left',
-            field: row => row.title
+            field: row => row.name
           }
         ],
         data: []
@@ -81,6 +88,11 @@ export default {
         { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', class: 'align-left q-mt-lg q-ml-lg' },
         { type: 'button', name: 'search', responseKey: 'statement', icon: 'search', iconRight: undefined, col: 'col-md-1', class: 'q-mt-lg q-ml-lg' }
       ]
+    }
+  },
+  watch: {
+    selected(value) {
+      this.$emit('selectedUpdated', value)
     }
   }
 }

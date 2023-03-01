@@ -36,7 +36,7 @@
                   active-icon="shutter_speed"
                   :done="step > 2">
             <upload-timestamp v-model:content="content"
-                              @refreshContent="getContent()" />
+                              @refreshContent="getContent(contentId)" />
           </q-step>
           <q-step :name="3"
                   title="انتشار فیلم"
@@ -106,8 +106,8 @@ export default {
   //   this.getContent()
   // },
   methods: {
-    getContent(value) {
-      this.$apiGateway.content.showAdmin(value).then(res => {
+    getContent(contentId) {
+      this.$apiGateway.content.showAdmin(contentId).then(res => {
         this.content = res
       }).catch(() => {
         this.content = new Content()
