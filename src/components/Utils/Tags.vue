@@ -39,14 +39,9 @@ export default {
   methods: {
     getTags() {
       this.$apiGateway.forrest.getTags(['teacher', 'major', 'grade', 'system']).then(res => {
-        debugger
         this.filterOptions = []
-        const ress2 = res.map((tree) => tree.children)
-        debugger
-        ress2.foreEach(category => {
-          debugger
-          category.foreEach(item => {
-            debugger
+        res.map((tree) => tree.children).forEach(category => {
+          category.forEach(item => {
             this.stringOptions.push(item)
           })
         })
@@ -70,7 +65,7 @@ export default {
         } else {
           const needle = val.toLowerCase()
           this.filterOptions = this.stringOptions.filter(
-            v => v.toLowerCase().indexOf(needle) > -1
+            v => v.title.toLowerCase().indexOf(needle) > -1
           )
         }
       })
