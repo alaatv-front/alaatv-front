@@ -192,7 +192,7 @@ export default {
     },
     getSet() {
       this.set.loading = true
-      this.$apiGateway.set.show(this.set.id)
+      this.$apiGateway.set.show({ id: this.set.id })
         .then((set) => {
           this.set = set
           this.sections = this.getSplitedContentsToSections(this.set.contents)
