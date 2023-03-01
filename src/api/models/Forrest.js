@@ -40,6 +40,7 @@ export default class ForrestAPI extends APIRepository {
       bulkIndex: this.name + this.APIAdresses.bulkIndex,
       tags: this.name + this.APIAdresses.tags,
       grid: (grid) => this.name + this.APIAdresses.grid(grid),
+      getMultiType: (grid) => this.name + this.APIAdresses.getMultiType(grid),
       getGradesList: this.name + this.APIAdresses.getGradesList,
       getNodeById: nodeId => this.name + this.APIAdresses.getNodeById(nodeId),
       getNodeByType: nodeType => this.name + this.APIAdresses.getNodeByType(nodeType),
@@ -49,7 +50,7 @@ export default class ForrestAPI extends APIRepository {
     }
   }
 
-  index (data) {
+  index(data) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -186,6 +187,22 @@ export default class ForrestAPI extends APIRepository {
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return response.data.data.children
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getTags(data = {}, cache) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getMultiType(data),
+      cacheKey: this.CacheList.getMultiType(data),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error

@@ -178,7 +178,8 @@ export default {
             },
             inputs: [
               { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'انتخاب نمایید', label: 'جست و جو', col: 'col-md-3' },
-              { type: '', name: '', col: 'col-md-6' },
+              { type: 'input', name: 'id', value: null, outlined: true, placeholder: 'آیدی ممورد نظر را وارد کنید', label: 'آیدی', col: 'col-md-3' },
+              { type: '', name: '', col: 'col-md-3' },
               { type: 'button', name: 'setButton', label: 'ایجاد محموعه جدید', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'id'
