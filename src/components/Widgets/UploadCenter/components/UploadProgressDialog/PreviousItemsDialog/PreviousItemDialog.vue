@@ -24,8 +24,25 @@
                       :table="table"
                       :table-keys="tableKeys"
                       :create-route-name="'User.Create'"
-                      :default-layout="true"
-                      :table-grid-size="true" />
+                      :default-layout="false"
+                      :table-grid-size="true">
+          <template #entity-index-table-cell="{inputData}">
+            <template v-if="inputData.col.name === 'photo'">
+              {{ inputData.col.photo }}
+              <q-avatar size="52px">
+                <img :src="inputData.col.photo">
+              </q-avatar>
+            </template>
+            <template v-else-if="inputData.col.name === 'title'">
+              <div>
+                {{ inputData.col.title }}
+              </div>
+            </template>
+            <template v-else>
+              {{ inputData.col.value }}
+            </template>
+          </template>
+        </entity-index>
       </div>
     </div>
   </q-dialog>
@@ -70,7 +87,6 @@ export default {
           {
             name: 'photo',
             required: true,
-            label: 'فیلم',
             align: 'left',
             field: row => row.photo
           },

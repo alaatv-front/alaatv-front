@@ -38,8 +38,20 @@ export default {
   },
   methods: {
     getTags() {
-      this.$apiGateway.forrest.getGradesList().then(res => {
-        this.stringOptions = res
+      this.$apiGateway.forrest.getTags(['teacher', 'major', 'grade', 'system']).then(res => {
+        debugger
+        this.filterOptions = []
+        const ress2 = res.map((tree) => tree.children)
+        debugger
+        ress2.foreEach(category => {
+          debugger
+          category.foreEach(item => {
+            debugger
+            this.stringOptions.push(item)
+          })
+        })
+
+        // this.stringOptions = res.map((item) => item.children)
         this.filterOptions = this.stringOptions
       })
     },

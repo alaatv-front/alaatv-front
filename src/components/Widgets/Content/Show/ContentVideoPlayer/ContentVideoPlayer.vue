@@ -1,9 +1,11 @@
 <template>
-  <div class="bg-white shadow-4 q-mb-md q-mx-sm"
+  <div class="bg-white shadow-4 q-pb-md q-mx-sm full-height"
        :style="options.style">
     <video-player v-if="sources.list.length > 0"
                   :sources="sources"
                   :poster="poster" />
+    <q-img v-else
+           src="src/assets/1200x630wa.png" />
     <div class="q-pa-sm flex flex-center">
       <q-pagination v-if="options.paginate"
                     v-model="contentNumber"
@@ -110,7 +112,7 @@ export default {
         promise
           .then((response) => {
             this.content = new Content(response)
-            this.poster = this.content.photo
+            this.poster = this.content.photo ? this.content.photo : ''
             this.setSources(this.content.file.video)
             this.getSetByRequest()
             this.content.loading = false
@@ -147,7 +149,7 @@ export default {
     getSetByRequest() {
       this.set.loading = true
       let promise = null
-      promise = APIGateway.set.show(this.content.set.id)
+      promise = APIGateway.set.show({ id: this.content.set.id })
       if (promise) {
         promise
           .then((response) => {

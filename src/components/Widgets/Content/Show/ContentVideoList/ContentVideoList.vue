@@ -1,8 +1,19 @@
 <template>
+  <div v-if="content.file?.pamphlet"
+       class="download-section q-pa-md q-mx-sm q-mb-md bg-white shadow-4 rounded-borders flex">
+    <q-btn icon="isax:document-download"
+           flat
+           color="primary"
+           size="13px"
+           @click="downloadPdf" />
+    <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
+                                         :href="content.file.pamphlet[0].link"
+                                         target="_blank"> PDF </a>{{content.title}}</h6>
+  </div>
   <div class="video-list bg-white q-mx-sm q-pb-md shadow-4 ">
     <div class="q-px-md row">
-      <h6 class="main-title col-3 q-pt-lg">
-        فیلم ها
+      <h6 class="main-title col-4 q-pt-lg">
+        فیلم/جزوه ها
       </h6>
       <div class="set-title col q-ml-lg q-mt-lg">
         {{ set.title }}
@@ -100,6 +111,9 @@ export default {
     this.loadContent()
   },
   methods: {
+    downloadPdf() {
+      window.open(this.content.file.pamphlet.link, '_blank')
+    },
     loadContent() {
       this.getContentByRequest()
     },
@@ -156,7 +170,9 @@ export default {
     getSetByRequest() {
       this.set.loading = true
       let promise = null
-      promise = APIGateway.set.show(this.content.set.id)
+      promise = APIGateway.set.show({
+        id: this.content.set.id
+      })
       if (promise) {
         promise
           .then((response) => {

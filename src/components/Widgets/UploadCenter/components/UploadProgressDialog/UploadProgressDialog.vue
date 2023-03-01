@@ -107,7 +107,7 @@ export default {
   // },
   methods: {
     getContent(contentId) {
-      this.$apiGateway.content.showAdmin(contentId).then(res => {
+      this.$apiGateway.content.showAdmin(40488).then(res => {
         this.content = res
       }).catch(() => {
         this.content = new Content()
