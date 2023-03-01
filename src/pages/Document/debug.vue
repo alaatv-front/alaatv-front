@@ -955,8 +955,6 @@ export default {
           this.filterOptions = this.stringOptions.filter(
             v => v.title.toLowerCase().indexOf(needle) > -1
           )
-
-          console.log(this.filterOptions)
         }
       })
     },
