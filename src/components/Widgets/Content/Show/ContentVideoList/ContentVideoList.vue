@@ -1,5 +1,5 @@
 <template>
-  <q-card v-if="content.file?.pamphlet"
+  <q-card v-if="content.file?.pamphlet && content.file.pamphlet[0]?.link"
           class="download-section custom-card q-pa-md q-mx-md q-mb-md bg-white flex">
     <q-btn icon="isax:document-download"
            flat
