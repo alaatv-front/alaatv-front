@@ -1511,10 +1511,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@quasar/app-vite@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@quasar/app-vite/-/app-vite-1.2.0.tgz#cbe04e300fc396b5e9a3518b6c66f6edc2902916"
-  integrity sha512-MlscKt3XbNAxmyVDtVSp7WlVOnr9TWIVDLP4D8EWu1c+xsLIWIj/H1qL6l8SrCrs208uaVqWofJK2w5x9V4EmQ==
+"@quasar/app-vite@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@quasar/app-vite/-/app-vite-1.2.1.tgz#23a634e16c74b28a38cf1ad1b3633388a220f97f"
+  integrity sha512-iKvpucrnt5pQuuQxqkLLWuI7Wm9Xx9fcBK1miMHWBgdcbHOXhc/OrlxeLvRwxm7GMd91cp3nhslo5j3a+zMCOg==
   dependencies:
     "@quasar/fastclick" "1.1.5"
     "@quasar/vite-plugin" "^1.3.0"
@@ -1552,7 +1552,7 @@
     vite "^2.9.13"
     webpack-merge "^5.8.0"
 
-"@quasar/extras@^1.15.10", "@quasar/extras@^1.15.6", "@quasar/extras@^1.15.9":
+"@quasar/extras@^1.15.10", "@quasar/extras@^1.15.11", "@quasar/extras@^1.15.6", "@quasar/extras@^1.15.9":
   version "1.15.11"
   resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.11.tgz#a54d60b14446b850a1e5fccab3f381a2e447a73f"
   integrity sha512-EEXL10EJQmL9jNs5fp0Kd/nyonG8hTODolj+qpYNPG3qEEoy3txr05Pdmp9qJYaXIzP9rOS9FGhFe9Mnq6MBBg==
@@ -2144,13 +2144,6 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-s3-upload-ash@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/aws-s3-upload-ash/-/aws-s3-upload-ash-1.1.4.tgz#e86a53e781ab7332cf44242da66aae2e572f1ea5"
-  integrity sha512-IGpPJhVRWkSNGkBYpNFf7nm1iT91ZXJUKFCIsIymwx6qiCZkeVmfrDAQxdX72epHdgFR2J823dB9NNUEo8Qnfg==
-  dependencies:
-    crypto-js "^3.3.0"
-
 axios@^0.24.0:
   version "0.24.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
@@ -2158,7 +2151,7 @@ axios@^0.24.0:
   dependencies:
     follow-redirects "^1.14.4"
 
-axios@^1.2.1, axios@^1.2.3, axios@^1.3.2:
+axios@^1.2.1, axios@^1.2.3, axios@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.3.4.tgz#f5760cefd9cfb51fd2481acf88c05f67c4523024"
   integrity sha512-toYm+Bsyl6VC5wSkfkbbNB6ROv7KY93PEBBL6xyDczaIHasAiv4wPqQ/c4RjoQzipxRD2W5g21cOqQulZ7rHwQ==
@@ -2608,11 +2601,6 @@ cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
-
-crypto-js@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.3.0.tgz#846dd1cce2f68aacfa156c8578f926a609b7976b"
-  integrity sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q==
 
 crypto-random-string@^2.0.0:
   version "2.0.0"
@@ -4915,7 +4903,7 @@ pkcs7@^1.0.4:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-postcss-rtlcss@^4.0.1:
+postcss-rtlcss@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/postcss-rtlcss/-/postcss-rtlcss-4.0.2.tgz#dd3b56c18b13606ff27d6e910adcdaa38690fcd8"
   integrity sha512-Ft26Vl+lOYX5m2q/+iJC+UQ+CKQll+xQJDUMmL4u0c+/HT6H85zllrWfAusQXxN931U3Bkt8h94qBQjO/8Y3Gw==
@@ -5031,35 +5019,23 @@ qs@6.11.0, qs@^6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-quasar-crud@^0.3.12:
-  version "0.3.12"
-  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.12.tgz#99ecbad02e30a0e81b09d769a6c2494cb7afb76e"
-  integrity sha512-LLBt4h+eSizOpJkzAyp6sioBjJp5QS08MJOC692L8DQtLzOTCGWHFUB+0psI8ksD7Vnv6D0WqEAkSBXV1WY/jw==
+quasar-crud@^0.3.14:
+  version "0.3.14"
+  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.14.tgz#a405796fa8ea6e1deac9efc2404fe0e935a2e942"
+  integrity sha512-yvxmSMnyf/jcYaHkVvfcBi7FoZpdH1+EZ2TSAsABHflNk62ou4dlXhdU80hmHMIUWS9Qd7kXUp1szlyv7JQ3Xg==
   dependencies:
     "@quasar/extras" "^1.15.10"
     axios "^1.2.3"
     moment-jalaali "^0.9.6"
     quasar "^2.11.5"
-    quasar-form-builder "^0.1.88"
+    quasar-form-builder "^0.1.89"
     shvl "^3.0.0"
     vue "^3.2.45"
 
-quasar-form-builder@^0.1.88:
-  version "0.1.88"
-  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.88.tgz#39503d28b4356c00fa4befd5b62c9738f17b19df"
-  integrity sha512-PbPfdGr8wVxXq+1hY+Cy5MGFppDIiibHcR5hYsvdZ+oy1gp0Q3rMTGM8g3VznAZtlv5c5BHksiyYFYXv1zSW2A==
-  dependencies:
-    "@quasar/extras" "^1.15.10"
-    core-js "^3.27.2"
-    moment-jalaali "^0.9.6"
-    quasar "^2.11.5"
-    shvl "^3.0.0"
-    vue "^3.2.45"
-
-quasar-form-builder@^0.1.88:
-  version "0.1.88"
-  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.88.tgz#39503d28b4356c00fa4befd5b62c9738f17b19df"
-  integrity sha512-PbPfdGr8wVxXq+1hY+Cy5MGFppDIiibHcR5hYsvdZ+oy1gp0Q3rMTGM8g3VznAZtlv5c5BHksiyYFYXv1zSW2A==
+quasar-form-builder@^0.1.89:
+  version "0.1.89"
+  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.89.tgz#a5dacee43826d4009a6d0a6ac64f5caf33d7316f"
+  integrity sha512-xTJptoz5hL1Qe1/QHHYpYkN+JAL8GNuiMeeoe0q/ix+ndftT2B03nnUDZ72m6/oAJGQkybmwsBxjB6lrnP9Gbw==
   dependencies:
     "@quasar/extras" "^1.15.10"
     core-js "^3.27.2"
@@ -5092,6 +5068,11 @@ quasar@^2.10.2, quasar@^2.11.5:
   version "2.11.6"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.6.tgz#9d200a0de44dc235915fee3ea3ff5673045fdcbc"
   integrity sha512-jJniWqTtfLHDuAT1YNx6ZZdZU7nM8vwscyM7IxmijaHq+fDpgjaujDQUlJWgn5ZMkqe3Yvg93MgSxjcL71oJIw==
+
+quasar@^2.11.7:
+  version "2.11.7"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.7.tgz#0371d2cbe299305a0949332d2a3fc6929a70e2f6"
+  integrity sha512-OzDwYfoSwZbwqfNWz9Bfn1mhGE8YMxpTLhPvVkQU87ePF6qFj4aWttcTUifXITKldOAZziN1Mmv8VLQyITHwiw==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
@@ -5509,7 +5490,7 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-socket.io-client@^4.5.4:
+socket.io-client@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-4.6.1.tgz#80d97d5eb0feca448a0fb6d69a7b222d3d547eab"
   integrity sha512-5UswCV6hpaRsNg5kkEHVcbBIXEYoVbMQaHJBXJCyEQ+CiFPV1NIOY0XOFWG4XR4GZcB8Kn6AsRs/9cy9TbqVMQ==
@@ -5973,7 +5954,7 @@ video.js@^5.6.0:
     videojs-vtt.js "0.12.6"
     xhr "2.2.2"
 
-"video.js@^6 || ^7", video.js@^7.20.3, video.js@^7.5.5:
+"video.js@^6 || ^7", video.js@^7.21.3, video.js@^7.5.5:
   version "7.21.3"
   resolved "https://registry.yarnpkg.com/video.js/-/video.js-7.21.3.tgz#1a5f6379e713de3f5dc036ecdef02efb80765bdd"
   integrity sha512-fIboXbSDCT3P8eVzIEC3hnLDKC/y+6QftcHdFGUVGn5a7qmH62Mh0Bt/SrBAgdmKDQM1qdZXfXAxPg5+IaiIXQ==
