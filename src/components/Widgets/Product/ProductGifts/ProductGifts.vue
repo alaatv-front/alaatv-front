@@ -63,7 +63,6 @@ export default {
       APIGateway.product.gifts({ productId: this.$route.params.id })
         .then(products => {
           this.products = new ProductList(products)
-          console.log(this.products)
         })
         .catch(() => {
         })
