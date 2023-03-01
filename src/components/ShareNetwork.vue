@@ -67,10 +67,6 @@ export default {
   },
   methods: {
     onClickItem (item) {
-      console.log({
-        name: item.name,
-        url: this.getShareLink(item.name)
-      })
       this.$emit('on-select', {
         name: item.name,
         url: this.getShareLink(item.name)

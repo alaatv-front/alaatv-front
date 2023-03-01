@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     cartReview() {
-      this.$store.dispatch('loading/overlayLoading', true)
+      this.cart.loading = true
       this.$store.dispatch('Cart/reviewCart')
         .then((response) => {
           const invoice = response
@@ -48,9 +48,9 @@ export default {
             })
           }
           this.cart = cart
-          this.$store.dispatch('loading/overlayLoading', false)
+          this.cart.loading = false
         }).catch(() => {
-          this.$store.dispatch('loading/overlayLoading', false)
+          this.cart.loading = false
         })
     }
   }

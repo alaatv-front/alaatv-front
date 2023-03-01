@@ -127,7 +127,6 @@ export default {
       APIGateway.product.sampleContent({ productId })
         .then(response => {
           this.contents = new ContentList(response)
-          console.log(response)
         })
         .catch()
     }

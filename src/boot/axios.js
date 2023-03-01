@@ -143,10 +143,11 @@ const apiWeb = axios.create({ baseURL: webServer })
 export default boot(({ app, store, router }) => {
   const accessToken = store.getters['Auth/accessToken']
   if (accessToken) {
-    axios.defaults.headers.common.Authorization = 'Bearer ' + accessToken
-    apiV2.defaults.headers.common.Authorization = 'Bearer ' + accessToken
-    apiV1.defaults.headers.common.Authorization = 'Bearer ' + accessToken
-    apiWeb.defaults.headers.common.Authorization = 'Bearer ' + accessToken
+    const tokenType = 'Bearer'
+    axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
   }
   // for use inside Vue files (Options API) through this.$axios and this.$api
   const instance = axios.create(/* ... */)

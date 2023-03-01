@@ -73,9 +73,9 @@
 </template>
 
 <script>
-import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
 import list from 'src/assets/js/AdminSidePanelConfig.js'
 import ProfileInfo from 'components/Utils/ProfileInfo.vue'
+import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
 export default {
   name: 'AdminPanelSideBar',
   components: { ProfileInfo, menuItem },
