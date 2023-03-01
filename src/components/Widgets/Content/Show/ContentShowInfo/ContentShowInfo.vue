@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-5 bg-white q-pa-md q-mb-lg q-mx-sm rounded-borders content-info">
+  <div class="q-pa-md q-mb-lg q-mx-sm content-info">
     <div dir="ltr"
          class="float-right">
       <q-btn icon="isax:share"
@@ -47,8 +47,10 @@
         </h6>
         <div v-if="content.body"
              v-html="content.body" />
-        <q-separator class="q-my-lg" />
-        <q-separator class="q-my-lg" />
+        <q-separator v-if="content.tags"
+                     class="q-my-lg" />
+        <q-separator v-if="content.tags"
+                     class="q-my-lg" />
         <div v-if="content.tags"
              class="row">
           <p class="col-1 q-mt-sm text-center">تگ ها</p>
@@ -184,8 +186,11 @@ export default {
   }
 
   .content-info {
+    :deep(.q-tab-panels) {
+      background: transparent;
+    }
     .set-title {
-      color: blue;
+      //color: black;
     }
   }
 </style>
