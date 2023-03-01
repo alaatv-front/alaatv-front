@@ -10,8 +10,8 @@
                      :entity-param-key="entityParamKey"
                      :default-layout="false">
           <template #entity-index-table-selection-cell="data">
-            <q-checkbox v-model="data.selected"
-                        @update:model-value="expandRow(data)" />
+            <q-checkbox v-model="data.props.selected"
+                        @update:model-value="expandRow(data.props)" />
           </template>
           <template #entity-index-table-expanded-row="data">
             <div class="form-wrapper">
@@ -48,10 +48,15 @@
       <div class="col-6 video-box-col">
         <div class="reuse">
           <q-btn color="primary"
+                 label="افزودن ست"
+                 flat=""
+                 @click="toggleDialog('set')" />
+          <q-btn color="primary"
                  label="استفاده مجدد مشخصات"
                  flat=""
-                 @click="toggleDialog()" />
-          <previous-item-dialog v-model:dialog="pervDialog" />
+                 @click="toggleDialog('prev')" />
+          <previous-item-dialog v-model:dialog="pervDialog"
+                                @toggleDialog="toggleDialog(('prev'))" />
         </div>
         <div class="video-box">
           <div class="video-box-title">
@@ -59,7 +64,7 @@
           </div>
           <!-- <video-player class="video"
                         :hlsSource="'https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8'" /> -->
-          <video-player :source="'https://stage-minio.alaatv.com/alaatv/hls-test2/768001zone_master_pl.m3u8'" />
+          <video-player :source="'https://alaatv.com/hls/input.m3u8'" />
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
@@ -67,12 +72,16 @@
         </div>
       </div>
     </div>
+    <set-dialog :dialog="setDialogValue"
+                @toggleDialog="toggleDialog(('set'))" />
   </div>
 </template>
 
 <script>
 import { EntityEdit } from 'quasar-crud'
 import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
+import SetDialog from './SetDialog.vue'
+// import SetButton from './SetButton.vue'
 import VideoPlayer from 'src//components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { APIGateway } from 'src/api/APIGateway'
@@ -82,12 +91,14 @@ import TagsComponent from 'src/components/Utils/Tags.vue'
 
 const TreeInput = shallowRef(TreeInputComponent)
 const Tags = shallowRef(TagsComponent)
+// const SetBtn = shallowRef(SetButton)
 export default {
   name: 'UploadProperties',
   components: {
     EntityEdit,
     PreviousItemDialog,
-    VideoPlayer
+    VideoPlayer,
+    SetDialog
   },
   props: {
     content: Object,
@@ -96,6 +107,7 @@ export default {
   data() {
     return {
       pervDialog: false,
+      setDialogValue: false,
       teachers: [],
       setForm: {
         teacher: '',
@@ -126,8 +138,8 @@ export default {
           placeholder: 'مجموعه محتوا را انتخاب کنید',
           col: 'col-12',
           selectionMode: 'single',
-          tableRowExpandable: true,
-          tableRowDefaultExpandAction: true,
+          tableRowExpandable: false,
+          tableRowDefaultExpandAction: false,
           popUpButtonConfig: {
             unelevated: true,
             color: 'white',
@@ -170,10 +182,13 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'انتخاب نمایید', label: 'جست و جو', col: 'col-md-3' }
+              { type: 'input', name: 'search', value: null, outlined: true, placeholder: 'انتخاب نمایید', label: 'جست و جو', col: 'col-md-3' },
+              { type: ' ', name: '', col: 'col-md-6' }
+              // { type: SetBtn, name: 'setButton', label: 'جست و جو', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'id'
           },
+          itemIdentifyKey: 'id',
           itemIndicatorKey: 'title',
           value: [],
           selected: []
@@ -216,8 +231,8 @@ export default {
           col: 'col-md-12'
         }
       ],
-      entityIdKey: '',
-      entityParamKey: ''
+      entityIdKey: 'id',
+      entityParamKey: 'id'
     }
   },
   computed: {
@@ -249,10 +264,15 @@ export default {
       })
     },
     expandRow (props) {
-      props.expand = props.selected
+      // console.log(props)
+      props.expand = !props.selected
     },
-    toggleDialog() {
-      this.pervDialog = !this.pervDialog
+    toggleDialog(dialog) {
+      if (dialog === 'set') {
+        this.setDialogValue = !this.setDialogValue
+      } else {
+        this.pervDialog = !this.pervDialog
+      }
     },
     videoSource() {
       // return new PlayerSourceList('')

@@ -1,45 +1,76 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
-import { TreeNode } from 'src/models/TreeNode.js'
+import { TreeNode, TreeNodeList } from 'src/models/TreeNode.js'
+
 const APIAdresses = {
   base: '/forrest/tree',
-  getMultiType: (types) => {
-    let treeAddress = '/forrest/tree?'
-    types.forEach(element => {
-      treeAddress = treeAddress + `multi-type[]=${element}&`
-    })
-    return treeAddress
-  },
-  getGradesList: '/forrest/tree?type=test',
-  getNodeById(nodeId) {
-    return '/forrest/tree/' + nodeId
-  },
-  getNodeByType(nodeType) {
-    return '/forrest/tree?type=' + nodeType
-  },
-  getNodeByTitle(nodeType) {
-    return '/forrest/tree?title=' + nodeType
-  },
-  editNode(id) {
-    return '/forrest/tree/' + id
-  },
-  getLessonList(lessonId) {
-    return '/forrest/tree/' + lessonId
-  }
+  bulkIndex: '/forrest/tree/bulk',
+  tags: '/forrest/tags',
+  grid: (grid) => '/forrest/tree/' + grid
+
+  // getMultiType: (types) => {
+  //   let treeAddress = '/forrest/tree?'
+  //   types.forEach(element => {
+  //     treeAddress = treeAddress + `multi-type[]=${element}&`
+  //   })
+  //   return treeAddress
+  // },
+  // getGradesList: '/forrest/tree?type=test',
+  // getNodeById(nodeId) {
+  //   return '/forrest/tree/' + nodeId
+  // },
+  // getNodeByType(nodeType) {
+  //   return '/forrest/tree?type=' + nodeType
+  // },
+  // getNodeByTitle(nodeType) {
+  //   return '/forrest/tree?title=' + nodeType
+  // },
+  // editNode(id) {
+  //   return '/forrest/tree/' + id
+  // },
+  // getLessonList(lessonId) {
+  //   return '/forrest/tree/' + lessonId
+  // }
 }
 
-export default class TreeAPI extends APIRepository {
+export default class ForrestAPI extends APIRepository {
   constructor() {
     super('tree', apiV2, '', '', APIAdresses)
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
-      getGradesList: this.name + this.APIAdresses.getGradesList,
-      getNodeById: nodeId => this.name + this.APIAdresses.getNodeById(nodeId),
-      getNodeByType: nodeType => this.name + this.APIAdresses.getNodeByType(nodeType),
-      getNodeByTitle: nodeTitle => this.name + this.APIAdresses.getNodeByTitle(nodeTitle),
-      editNode: id => this.name + this.APIAdresses.editNode(id),
-      getLessonList: id => this.name + this.APIAdresses.getLessonList(id)
+      bulkIndex: this.name + this.APIAdresses.bulkIndex,
+      tags: this.name + this.APIAdresses.tags,
+      grid: (grid) => this.name + this.APIAdresses.grid(grid)
     }
+  }
+
+  index (data) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.base,
+      data: this.getNormalizedSendData({
+        page: 1 // Number
+      }, data),
+      resolveCallback: (response) => {
+        return {
+          treeNodeList: new TreeNodeList(response.data.data),
+          paginate: response.data.meta
+          // {
+          //   current_page: 1,
+          //   from: 1,
+          //   last_page: 1,
+          //   path: 'http://office.alaa.tv:700/api/v2/referral-code',
+          //   per_page: 15,
+          //   to: 10,
+          //   total: 10
+          // }
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
   }
 
   base(data = {}) {

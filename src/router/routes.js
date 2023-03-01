@@ -79,14 +79,6 @@ const routes = [
               }
             ]
           },
-          // {
-          //   path: 'cart',
-          //   name: 'Public.Cart',
-          //   component: () => import('pages/Cart/Cart.vue'),
-          //   meta: {
-          //     middlewares: [auth]
-          //   }
-          // },
           {
             path: 'c',
             name: 'Public.Content',
@@ -339,6 +331,33 @@ const routes = [
                 name: 'Admin.UploadCenter.Sets',
                 path: 'sets',
                 component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
+              }
+            ]
+          },
+          {
+            name: 'Admin.Forrest',
+            path: 'forrest',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Forrest.Index',
+                path: '',
+                component: () => import('src/pages/Admin/Forrest/Index.vue')
+              },
+              {
+                name: 'Admin.Forrest.Create',
+                path: 'create',
+                component: () => import('src/pages/Admin/Forrest/Create.vue')
+              },
+              {
+                name: 'Admin.Forrest.Show',
+                path: ':id',
+                component: () => import('src/pages/Admin/Forrest/Show.vue')
+              },
+              {
+                name: 'Admin.Forrest.Edit',
+                path: ':id/edit',
+                component: () => import('src/pages/Admin/Forrest/Edit.vue')
               }
             ]
           },

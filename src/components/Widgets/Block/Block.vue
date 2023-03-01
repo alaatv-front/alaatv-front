@@ -155,7 +155,6 @@ export default {
       this.block.loading = true
       this.getApiRequest()
         .then((products) => {
-          console.log(products)
           this.block = new Block({
             title: 'محصولات مرتبط',
             products

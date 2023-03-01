@@ -424,6 +424,22 @@ const list = [
     open: false
   },
   {
+    title: 'مدیریت دوره های آموزشی',
+    icon: 'isax:ticket',
+    routeName: 'Admin.StudyPlan',
+    active: false,
+    show: true,
+    open: false
+  },
+  {
+    title: 'مدیریت درخت های برچست',
+    icon: 'isax:ticket',
+    routeName: 'Admin.Forrest.Index',
+    active: false,
+    show: true,
+    open: false
+  },
+  {
     title: 'چیدمان صفحه',
     icon: 'isax:setting-2',
     routeName: 'Admin.Settings',

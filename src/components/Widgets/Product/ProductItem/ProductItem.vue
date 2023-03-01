@@ -57,6 +57,7 @@
         </div>
         <q-btn v-if="localOptions.canAddToCart"
                unelevated
+               :loading="addToCartLoading"
                :productId="product.id"
                :data-product-id="product.id"
                class="btn-green"
@@ -90,6 +91,7 @@ export default {
     }
   },
   data: () => ({
+    addToCartLoading: false,
     product: new Product(),
     defaultOptions: {
       style: {},
@@ -112,6 +114,7 @@ export default {
   },
   methods: {
     addToCart() {
+      this.addToCartLoading = true
       this.$store.dispatch('Cart/addToCart', [this.product])
         .then(() => {
           this.$store.dispatch('Cart/reviewCart', this.product)
@@ -129,9 +132,10 @@ export default {
                   }
                 }]
               })
+              this.addToCartLoading = false
             })
         }).catch(() => {
-
+          this.addToCartLoading = false
         })
     }
   }

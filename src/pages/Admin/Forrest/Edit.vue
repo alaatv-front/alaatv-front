@@ -1,16 +1,16 @@
 <template>
-  <div class="cart-page">
-    <q-page-builder :sections="sections"
-                    :options="options"
-                    :containerFullHeight="calculateHeightStyle" />
-  </div>
+  <q-page-builder v-model:sections="sections"
+                  v-model:options="pageConfig"
+                  :editable="pageBuilderEditable" />
 </template>
 
 <script>
+
 export default {
-  name: 'Cart',
+  name: 'ForrestEdit',
   data() {
     return {
+      pageConfig: {},
       sections: [
         {
           data: {
@@ -20,30 +20,29 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'Cart'
+                        name: 'AdminForrestEdit'
                       }
                     ]
                   }
                 ],
                 options: {
                   boxed: true,
-                  boxedWidth: 1362,
-                  style: {}
+                  boxedWidth: 1362
                 }
               }
             ]
           },
-          options: {}
+          options: {
+            // fullHeight: true
+          }
         }
-      ],
-      options: []
+      ]
     }
   },
   computed: {
-    calculateHeightStyle() {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
+    pageBuilderEditable () {
+      return this.$store.getters['AppLayout/pageBuilderEditable']
     }
-  },
-  created() {}
+  }
 }
 </script>

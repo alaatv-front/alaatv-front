@@ -59,7 +59,7 @@ const AxiosHooks = (function () {
       messages.push('موردی یافت نشد.')
     } else if (statusCode === 401) {
       messages.push('ابتدا وارد سامانه شوید.')
-      // deAuthorizeUser(router, store)
+      deAuthorizeUser(router, store)
     } else if (error.response.data.error && AjaxResponseMessages.isCustomMessage(error.response.data.error.code)) {
       console.error('error.response.data.error.code', AjaxResponseMessages.getMessage(error.response.data.error.code))
       messages.push(AjaxResponseMessages.getMessage(error.response.data.error.code))
@@ -80,6 +80,17 @@ const AxiosHooks = (function () {
     }
 
     toastMessages(messages)
+  }
+
+  function deAuthorizeUser (router, store) {
+    store.dispatch('Auth/logOut')
+    const loginRouteName = 'login'
+    const currentRoute = (router?.currentRoute?._value) ? router.currentRoute._value : (router?.history?.current) ? router.history.current : null
+    if (currentRoute && currentRoute.name === loginRouteName) {
+      return
+    }
+    store.commit('Auth/updateRedirectTo', currentRoute)
+    router.push({ name: loginRouteName })
   }
 
   function toastMessages (messages) {
