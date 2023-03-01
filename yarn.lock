@@ -5555,6 +5555,11 @@ statuses@2.0.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.1.tgz#55cb000ccf1d48728bd23c685a063998cf1a1b63"
   integrity sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==
 
+sticky-sidebar-v2@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/sticky-sidebar-v2/-/sticky-sidebar-v2-1.1.1.tgz#809a7467ffac46b14ed61d5428225cea0f46a3b1"
+  integrity sha512-AcwFftcYLhSMcXVimMN/peCnraoqU+pnRpvFhO5rcoIdvgPRFNf1Y38126CeKEuRgJffVYRCy9Mdyx4vuqkUqQ==
+
 sticky-sidebar@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/sticky-sidebar/-/sticky-sidebar-3.3.1.tgz#142bf6b64c2b416e4b707ebf8f09b8b5a5043877"

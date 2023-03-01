@@ -121,7 +121,7 @@ const routes = [
               {
                 path: 'review',
                 name: 'Public.Checkout.Review',
-                component: () => import('pages/User/CheckoutReview/Show.vue')
+                component: () => import('src/pages/Public/Cart/Cart.vue')
               }
             ]
           }
