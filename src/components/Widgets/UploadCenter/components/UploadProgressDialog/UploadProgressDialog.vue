@@ -101,13 +101,15 @@ export default {
   },
   watch: {
     contentId(value) {
-      this.getContent(value)
+      if (value) {
+        this.getContent(value)
+      }
     }
   },
   methods: {
     getContent(contentId) {
       this.content.loading = true
-      this.$apiGateway.content.showAdmin(40488).then(content => {
+      this.$apiGateway.content.showAdmin(contentId).then(content => {
         this.content = content
         this.content.loading = false
       }).catch(() => {
