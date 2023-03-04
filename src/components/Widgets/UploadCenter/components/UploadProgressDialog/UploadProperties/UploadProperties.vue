@@ -214,10 +214,10 @@ export default {
         },
         {
           type: ContentTags,
-          name: 'tags',
+          name: 'forrest_tree_tags',
           label: 'برچسب',
           placeholder: 'برچسب',
-          responseKey: 'tags',
+          responseKey: 'forrest_tree_tags',
           col: 'col-md-12'
         },
         {
