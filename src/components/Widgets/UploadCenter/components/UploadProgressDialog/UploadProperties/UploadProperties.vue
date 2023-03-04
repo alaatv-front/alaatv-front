@@ -1,12 +1,15 @@
 <template>
   <div class="upload-information-wrapper">
-    <div class="row">
+    <loading-content-in-step v-if="content.loading || localLoading" />
+    <div v-else
+         class="row">
       <div class="col-6 upload-form-col">
         <entity-edit ref="entityEditForm"
                      v-model:value="inputs"
                      title="ویرایش اطلاعات محتوا"
                      :api="$apiGateway.content.FullAPIAdresses.showAdmin(content.id)"
                      :entity-id-key="entityIdKey"
+                     :loaded-data="content"
                      :entity-param-key="entityParamKey"
                      :default-layout="false"
                      @onInputClick="onInputClick">
@@ -58,10 +61,7 @@
                                 @toggleDialog="toggleDialog(('prev'))" />
         </div>
         <div class="video-box">
-          <div class="video-box-title" />
-          <!-- <video-player class="video"
-                        :hlsSource="'https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8'" /> -->
-          <video-player :source="'https://alaatv.com/hls/input.m3u8'" />
+          <video-player :source="content.getVideoSource()" />
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
@@ -75,32 +75,38 @@
 </template>
 
 <script>
-import { EntityEdit } from 'quasar-crud'
-import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
-import SetDialog from './SetDialog.vue'
-import VideoPlayer from 'src//components/ContentVideoPlayer.vue'
-import { PlayerSourceList } from 'src/models/PlayerSource.js'
-import { APIGateway } from 'src/api/APIGateway'
 import { shallowRef } from 'vue'
-import TreeInputComponent from 'components/Utils/TreeInput.vue'
+import SetDialog from './SetDialog.vue'
+import { EntityEdit } from 'quasar-crud'
+import { Content } from 'src/models/Content.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import TagsComponent from 'src/components/Utils/Tags.vue'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
+import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
+import TreeInputComponent from 'components/Utils/TreeInput.vue'
+import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
+import LoadingContentInStep
+  from 'components/Widgets/UploadCenter/components/UploadProgressDialog/LoadingContentInStep.vue'
 
+const ContentTags = shallowRef(TagsComponent)
 const TreeInput = shallowRef(TreeInputComponent)
-const Tags = shallowRef(TagsComponent)
+
 export default {
   name: 'UploadProperties',
   components: {
+    LoadingContentInStep,
+    SetDialog,
     EntityEdit,
-    PreviousItemDialog,
     VideoPlayer,
-    SetDialog
+    PreviousItemDialog
   },
   props: {
-    content: Object,
+    content: Content,
     default: () => {}
   },
   data() {
     return {
+      localLoading: false,
       pervDialog: false,
       setDialogValue: false,
       teachers: [],
@@ -112,7 +118,7 @@ export default {
       inputs: [
         {
           type: 'input',
-          responseKey: 'data.title',
+          responseKey: 'title',
           name: 'title',
           label: 'عنوان',
           placeholder: 'وارد کنید',
@@ -120,7 +126,7 @@ export default {
         },
         {
           type: 'InputEditor',
-          responseKey: 'data.body',
+          responseKey: 'body',
           name: 'description',
           label: 'توضیحات',
           placeholder: 'وارد کنید',
@@ -128,8 +134,9 @@ export default {
         },
         {
           type: 'entity',
-          responseKey: 'data.set',
+          responseKey: 'set',
           name: 'set',
+          color: 'negative',
           placeholder: 'مجموعه محتوا را انتخاب کنید',
           col: 'col-12',
           selectionMode: 'single',
@@ -137,7 +144,7 @@ export default {
           tableRowDefaultExpandAction: false,
           popUpButtonConfig: {
             unelevated: true,
-            color: 'white',
+            color: 'grey-2',
             textColor: 'black',
             badgeColor: 'positive',
             label: 'انتخاب از لیست مجموعه ها'
@@ -191,7 +198,7 @@ export default {
         },
         {
           type: 'File',
-          responseKey: 'data.photo',
+          responseKey: 'photo',
           name: 'cover',
           label: 'کاور',
           placeholder: 'تصویر مورد نظر را آپلود کنید',
@@ -201,29 +208,30 @@ export default {
           type: TreeInput,
           name: 'forrest_trees',
           label: 'درخت دانش',
-          responseKey: 'data.forrest_trees',
+          responseKey: 'forrest_trees',
           col: 'col-md-12',
           value: []
         },
         {
-          type: Tags,
+          type: ContentTags,
           name: 'tags',
           label: 'برچسب',
-          responseKey: 'data.tags',
+          placeholder: 'برچسب',
+          responseKey: 'tags',
           col: 'col-md-12'
         },
         {
           type: 'hidden',
           name: 'order',
           label: 'برچسب',
-          responseKey: 'data.order',
+          responseKey: 'order',
           col: 'col-md-12'
         },
         {
           type: 'hidden',
           name: 'author_id',
           label: 'برچسب',
-          responseKey: 'data.author_id',
+          responseKey: 'author_id',
           col: 'col-md-12'
         }
       ],

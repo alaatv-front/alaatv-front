@@ -25,7 +25,7 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  show(data, cache) {
+  show(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

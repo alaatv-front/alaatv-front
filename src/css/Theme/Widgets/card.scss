@@ -5,7 +5,6 @@
 }
 
 .q-card.custom-card:not([class^="col"]) {
-  background: red;
   @include widget-custom-card;
 }
 

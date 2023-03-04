@@ -109,7 +109,7 @@
             </q-btn>
           </template>
           <template v-else-if="inputData.col.name === 'photo'">
-            <q-img :src="inputData.col.thumbnail"
+            <q-img :src="inputData.col.photo"
                    :ratio="16/9"
                    width="142px"
                    height="78px" />
@@ -202,7 +202,7 @@ export default {
             required: true,
             label: 'فیلم',
             align: 'left',
-            field: row => row.thumbnail
+            field: row => row.photo
           },
           {
             name: 'title',

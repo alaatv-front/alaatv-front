@@ -43,13 +43,13 @@ export default class ContentAPI extends APIRepository {
     }
   }
 
-  show(data) {
+  show(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.show(data),
       cacheKey: this.CacheList.show(data),
-      ...(data?.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Content(response.data.data)
       },
@@ -204,7 +204,7 @@ export default class ContentAPI extends APIRepository {
 
   deleteContents(data) {
     return this.sendRequest({
-      apiMethod: 'delete',
+      apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.delete,
       cacheKey: this.CacheList.delete,
