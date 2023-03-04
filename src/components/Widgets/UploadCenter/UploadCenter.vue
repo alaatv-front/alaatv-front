@@ -330,6 +330,8 @@ export default {
     toggleUploadProgressDialog(value) {
       if (value) {
         this.progressDialogContentId = value
+      } else {
+        this.progressDialogContentId = null
       }
       this.progressDialog = !this.progressDialog
     },
