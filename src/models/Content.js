@@ -55,7 +55,9 @@ class Content extends Model {
       { key: 'short_title' },
       { key: 'type' }, // 1=> pamphlet, 8=> video
       { key: 'photo' },
+      { key: 'forrest_tags' },
       { key: 'forrest_trees' },
+      { key: 'forrest_tree_tags' },
       { key: 'nextApiUrl' },
       { key: 'nextUrl' },
       { key: 'order' },
