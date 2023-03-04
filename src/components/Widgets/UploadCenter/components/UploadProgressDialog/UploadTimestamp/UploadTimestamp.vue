@@ -1,6 +1,8 @@
 <template>
   <div class="upload-information-wrapper">
-    <div class="row">
+    <loading-content-in-step v-if="content.loading" />
+    <div v-else
+         class="row">
       <div class="col-6 upload-timestamp-col">
         <q-table title="زمان کوب"
                  :rows="rows"
@@ -74,7 +76,7 @@
         <div class="video-box">
           <div class="video-box-title" />
           <video-player class="video"
-                        :source="'https://alaatv.com/hls/input.m3u8'"
+                        :source="content.getVideoSource()"
                         :current-time="currentTime"
                         @seeked="getTimestamp($event)" />
         </div>
@@ -92,10 +94,13 @@ import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
 import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { Content } from 'src/models/Content'
+import LoadingContentInStep
+  from 'components/Widgets/UploadCenter/components/UploadProgressDialog/LoadingContentInStep.vue'
 
 export default {
   name: 'UploadTimestamp',
   components: {
+    LoadingContentInStep,
     PreviousItemDialog,
     VideoPlayer
   },
@@ -114,6 +119,10 @@ export default {
         seconds: ''
       },
       timestampForm: {
+        id: 0,
+        isFavored: false,
+        favorUrl: '',
+        unfavorUrl: '',
         content_id: 0,
         title: '',
         time: 0
@@ -142,7 +151,7 @@ export default {
       rows: []
     }
   },
-  mounted() {
+  created() {
     this.loadTimestamps()
   },
   methods: {
@@ -151,6 +160,9 @@ export default {
         this.getTimestamp(element.time, false)
         const timestamp = {
           id: element.id,
+          isFavored: element.isFavored,
+          favorUrl: element.favorUrl,
+          unfavorUrl: element.unfavorUrl,
           title: element.title,
           time: `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`,
           action: 'saved'
@@ -165,8 +177,8 @@ export default {
       })
       this.activeIndex = this.rows.length - 1
     },
-    loadTimestampsFromContent(contentId) {
-      this.$apiGateway.content.showAdmin(contentId).then(res => {
+    loadTimestampsFromContent(content) {
+      this.$apiGateway.content.showAdmin(content[0].id).then(res => {
         this.rows = res.timepoints.list
         for (let index = 0; index < this.rows.length; index++) {
           const element = this.rows[index]
@@ -203,15 +215,16 @@ export default {
       const action = row.action
       this.rows.splice(index, 1, row)
       const timestampForm = {
+        id: row.id,
         content_id: this.content.id,
         title: row.title,
         time: (Number(this.time.hours) * 3600) + (Number(this.time.minutes) * 60) + Number(this.time.seconds)
       }
-      this.$apiGateway.content.SetTimestamp({ data: timestampForm }).then(res => {
-        this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
-        this.toggleAction(index, 'saved')
-        this.activeIndex = this.rows.length - 1
-        if (action === 'add') {
+      if (action === 'add') {
+        this.$apiGateway.content.SetTimestamp({ data: timestampForm }).then(res => {
+          this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+          this.toggleAction(index, 'saved')
+          this.activeIndex = this.rows.length - 1
           const last = {
             id: this.rows.length + 1,
             title: '',
@@ -221,9 +234,16 @@ export default {
           this.rows.push(last)
           this.activeIndex = this.rows.length - 1
           this.$emit('refreshContent')
-        }
-      }).catch(() => {
-      })
+        }).catch(() => {
+        })
+      } else {
+        this.$apiGateway.content.UpdateTimestamp(timestampForm).then(res => {
+          this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+          this.toggleAction(index, 'saved')
+          this.activeIndex = this.rows.length - 1
+        }).catch(() => {
+        })
+      }
     },
     toggleAction(index, action) {
       this.rows[index].action = action

@@ -86,8 +86,8 @@ export default {
     return {
       moreSelectorValue: 'بیشتر',
       moreSelectorOptions: [
-        { label: 'حذف', value: 'delete' },
-        { label: 'دانلود', value: 'download' }
+        { label: 'حذف', value: 'delete' }
+        // { label: 'دانلود', value: 'download' }
       ],
       editSelectorValue: 'ویرایش',
       editSelectorOptions: [
@@ -446,6 +446,7 @@ export default {
             message: res.message,
             position: 'top'
           })
+          this.contentUpdated()
         })
         .catch(() => {})
       this.moreSelectorValue = 'بیشتر'

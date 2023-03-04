@@ -55,9 +55,11 @@
                      color="primary"
                      label="بازگشت"
                      class="q-mr-sm"
+                     :loading="content.loading"
                      @click="$refs.stepper.previous()" />
               <q-btn color="primary"
                      :label="step === 3 ?'انتشار' : 'بعدی'"
+                     :loading="content.loading"
                      @click="gotoNextStep()" />
             </q-stepper-navigation>
           </template>
@@ -99,18 +101,20 @@ export default {
   },
   watch: {
     contentId(value) {
-      this.getContent(value)
+      if (value) {
+        this.getContent(value)
+      }
     }
   },
-  // mounted() {
-  //   this.getContent()
-  // },
   methods: {
     getContent(contentId) {
-      this.$apiGateway.content.showAdmin(40488).then(res => {
-        this.content = res
+      this.content.loading = true
+      this.$apiGateway.content.showAdmin(contentId).then(content => {
+        this.content = content
+        this.content.loading = false
       }).catch(() => {
         this.content = new Content()
+        this.content.loading = false
       })
     },
     updatePublishForm(formData) {
@@ -118,17 +122,26 @@ export default {
     },
     gotoNextStep() {
       if (this.step === 1) {
-        this.$refs.uploadProperties.$refs.entityEditForm.editEntity().then(res => {
-          this.$refs.stepper.next()
-        }).catch(err => {
-          console.error(err)
-        })
+        this.content.loading = true
+        this.$refs.uploadProperties.$refs.entityEditForm.editEntity()
+          .then(() => {
+            this.content.loading = false
+            this.$refs.stepper.next()
+          }).catch(() => {
+            this.content.loading = false
+          })
       } else if (this.step === 2) {
         this.$refs.stepper.next()
       } else {
+        this.content.loading = true
         this.$apiGateway.content.update({
           data: this.$refs.uploadPublish.publish()
         })
+          .then(() => {
+            this.content.loading = false
+          }).catch(() => {
+            this.content.loading = false
+          })
       }
     },
     publish() {

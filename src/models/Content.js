@@ -17,6 +17,7 @@ class Content extends Model {
       { key: 'content_id' },
       { key: 'apiUrl' },
       { key: 'author' },
+      { key: 'author_id' },
       { key: 'content_type' },
       { key: 'contenttype_id' },
       { key: 'context' },
@@ -33,13 +34,30 @@ class Content extends Model {
       { key: 'end' },
       { key: 'display' },
       { key: 'duration' },
-      { key: 'file' },
+      { key: 'hls' },
+      {
+        key: 'file',
+        default: {
+          pamphlet: [],
+          video: []
+        }
+      },
+      {
+        key: 'stream',
+        default: {
+          video: []
+        }
+      },
       { key: 'isFree' },
       { key: 'is_favored' },
       { key: 'title' },
+      { key: 'body' },
       { key: 'short_title' },
       { key: 'type' }, // 1=> pamphlet, 8=> video
       { key: 'photo' },
+      { key: 'forrest_tags' },
+      { key: 'forrest_trees' },
+      { key: 'forrest_tree_tags' },
       { key: 'nextApiUrl' },
       { key: 'nextUrl' },
       { key: 'order' },
@@ -82,6 +100,65 @@ class Content extends Model {
       this.file.video.forEach((item, key) => {
         this.file.video[key].link = this.file.video[key].link.replace('download=1', '')
       })
+    }
+  }
+
+  getHlsSource () {
+    return this.hls
+  }
+
+  getOrginalMp4Source () {
+    if (!this.stream?.video || this.stream.video.length === 0) {
+      return null
+    }
+
+    const target = this.stream.video.find(video => video.ext === 'mp4')
+
+    if (!target) {
+      return null
+    }
+
+    return target
+  }
+
+  getWebmSource () {
+    if (!this.stream?.video || this.stream.video.length === 0) {
+      return null
+    }
+
+    const target = this.stream.video.find(video => video.ext === 'webm')
+
+    if (!target) {
+      return null
+    }
+
+    return target
+  }
+
+  getOldVideoSource () {
+    if (!this.file?.video || this.file.video.length === 0) {
+      return null
+    }
+
+    return this.file.video
+  }
+
+  getVideoSource () {
+    const hlsSource = this.getHlsSource()
+    const oldVideoSource = this.getOldVideoSource()
+    const webmSource = this.getWebmSource()
+    const orginalMp4Source = this.getOrginalMp4Source()
+    if (hlsSource) {
+      return hlsSource
+    }
+    if (oldVideoSource) {
+      return oldVideoSource
+    }
+    if (webmSource) {
+      return webmSource
+    }
+    if (orginalMp4Source) {
+      return orginalMp4Source
     }
   }
 

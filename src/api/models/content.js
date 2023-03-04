@@ -18,6 +18,7 @@ const APIAdresses = {
   timestampSet: 'timepoint',
   getTimestamp: (id) => `timepoint/${id}`,
   deleteTimestamp: (id) => `timepoint/${id}`,
+  updateTimestamp: (id) => `timepoint/${id}`,
   presigned: '/admin/upload/presigned-request'
 }
 export default class ContentAPI extends APIRepository {
@@ -38,6 +39,7 @@ export default class ContentAPI extends APIRepository {
       bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
       bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
       getTimestamp: id => this.name + this.APIAdresses.getTimestamp(id),
+      updateTimestamp: id => this.name + this.APIAdresses.updateTimestamp(id),
       deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id),
       presigned: this.name + this.APIAdresses.presigned
     }
@@ -204,7 +206,7 @@ export default class ContentAPI extends APIRepository {
 
   deleteContents(data) {
     return this.sendRequest({
-      apiMethod: 'delete',
+      apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.delete,
       cacheKey: this.CacheList.delete,
@@ -239,13 +241,13 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  SetTimestamp(data = {}) {
+  SetTimestamp(data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.timestampSet,
       cacheKey: this.CacheList.timestampSet,
-      ...(data.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           timestamp: response.data
@@ -262,13 +264,36 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  GetTimestamp(data = {}) {
+  UpdateTimestamp(data = {}, cache) {
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.updateTimestamp(data.id),
+      cacheKey: this.CacheList.updateTimestamp(data.id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return {
+          timestamp: response.data
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: this.getNormalizedSendData({
+        content_id: null, // content Id
+        title: null, // Title for Timestamp
+        time: null // time of Video for timestamp in seconds
+      }, data)
+    })
+  }
+
+  GetTimestamp(data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.getTimestamp(data.id),
       cacheKey: this.CacheList.getTimestamp(data.id),
-      ...(data.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           timestamp: response.data
@@ -280,13 +305,13 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  DeleteTimestamp(data = {}) {
+  DeleteTimestamp(data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
       request: this.APIAdresses.deleteTimestamp(data.id),
       cacheKey: this.CacheList.deleteTimestamp(data.id),
-      ...(data.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           timestamp: response.data

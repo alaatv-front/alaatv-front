@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white shadow-4 q-pb-md q-mx-sm full-height"
-       :style="options.style">
+  <q-card class="video-player custom-card bg-white q-pb-md q-mx-md full-height"
+          :style="options.style">
     <video-player v-if="sources.list.length > 0"
                   :sources="sources"
                   :poster="poster" />
@@ -19,7 +19,7 @@
                     icon-prev="fast_rewind"
                     icon-next="fast_forward" />
     </div>
-  </div>
+  </q-card>
 </template>
 
 <script>
@@ -192,5 +192,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.video-player{
+  border-radius: 10px;
+  box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);
+}
 </style>
