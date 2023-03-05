@@ -7,9 +7,9 @@
           استفاده مجدد از مشخصات فیلم های قبلی
         </div>
         <div class="previous-dialog-header-close-btn">
-          <q-btn v-close-popup
-                 flat
-                 icon="close" />
+          <q-btn flat
+                 icon="close"
+                 @click="toggleDialog()" />
         </div>
       </div>
       <div class="previous-dialog-main-content">
@@ -26,23 +26,18 @@
                       :create-route-name="'User.Create'"
                       :default-layout="false"
                       :table-grid-size="true">
-          <template #entity-index-table-cell="{inputData}">
-            <template v-if="inputData.col.name === 'photo'">
-              <!--              {{ inputData.col.photo }}-->
-              <!--              todo: entity-index-table-cell doesnt work in grid mode-->
-              <q-img src="'https://nodes.alaatv.com/upload/contentset/departmentlesson/1676867828_6421.png'"
-                     :ratio="16/9"
-                     width="142px"
-                     height="78px" />
-            </template>
-            <template v-else-if="inputData.col.name === 'title'">
-              <div>
-                {{ inputData.col.title }}
-              </div>
-            </template>
-            <template v-else>
-              {{ inputData.col.value }}
-            </template>
+          <template #entity-index-table-item-cell="{inputData}">
+            <div class="col-3 content-col">
+              <q-card class="content-box"
+                      @click="setContent(inputData.props.row)">
+                <q-avatar size="80px">
+                  <img :src="inputData.props.row.photo || 'https://cdn.quasar.dev/img/mountains.jpg'">
+                </q-avatar>
+                <q-card-section>
+                  <div>{{ inputData.props.row.name }}</div>
+                </q-card-section>
+              </q-card>
+            </div>
           </template>
         </entity-index>
       </div>
@@ -68,7 +63,7 @@ export default {
       default: ''
     }
   },
-  emits: ['selectedUpdated'],
+  emits: ['selectedUpdated', 'toggleDialog'],
   data() {
     return {
       // inputs: [
@@ -112,6 +107,15 @@ export default {
     selected(value) {
       this.$emit('selectedUpdated', value)
     }
+  },
+  methods: {
+    toggleDialog() {
+      this.$emit('toggleDialog')
+    },
+    setContent(e) {
+      this.selected = e
+      this.toggleDialog()
+    }
   }
 }
 </script>
@@ -149,6 +153,15 @@ export default {
       bottom: 0;
       right: 0;
     }
+  }
+}
+.content-col{
+  padding: 10px;
+
+  .content-box {
+    display: flex;
+    min-height: 80px;
+    cursor: pointer;
   }
 }
 </style>

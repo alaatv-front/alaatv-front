@@ -71,7 +71,8 @@
                  @click="toggleDialog()" />
           <previous-item-dialog v-model:dialog="pervDialog"
                                 :api="$apiGateway.content.FullAPIAdresses.admin"
-                                @selectedUpdated="loadTimestampsFromContent($event)" />
+                                @selectedUpdated="loadTimestampsFromContent($event)"
+                                @toggleDialog="toggleDialog()" />
         </div>
         <div class="video-box">
           <div class="video-box-title" />
@@ -151,7 +152,7 @@ export default {
       rows: []
     }
   },
-  created() {
+  mounted() {
     this.loadTimestamps()
   },
   methods: {
@@ -178,7 +179,7 @@ export default {
       this.activeIndex = this.rows.length - 1
     },
     loadTimestampsFromContent(content) {
-      this.$apiGateway.content.showAdmin(content[0].id).then(res => {
+      this.$apiGateway.content.showAdmin(content.id).then(res => {
         this.rows = res.timepoints.list
         for (let index = 0; index < this.rows.length; index++) {
           const element = this.rows[index]
