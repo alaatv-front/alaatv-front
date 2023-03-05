@@ -1,6 +1,5 @@
 <template>
-  <q-dialog :model-value="dialog"
-            persistent>
+  <q-dialog :model-value="dialog">
     <div class="set-dialog-wrapper">
       <div class="set-dialog-header">
         <div class="set-dialog-header-title">
@@ -21,12 +20,11 @@
                        :entity-id-key="entityIdKey"
                        :entity-param-key="entityParamKey"
                        :default-layout="false" />
-
-        <div class="set-footer-navigation">
-          <q-btn color="primary"
-                 label="ذخیره"
-                 @click="saveSet()" />
-        </div>
+      </div>
+      <div class="set-footer-navigation">
+        <q-btn color="primary"
+               label="ذخیره"
+               @click="saveSet()" />
       </div>
     </div>
 
@@ -149,6 +147,7 @@ export default {
 
 <style lang="scss" scoped>
 .set-dialog-wrapper {
+  position: relative;
   width: 1280px;
   height: 990px;
   max-width: 100%;
@@ -172,17 +171,17 @@ export default {
   }
 
   .set-dialog-main-content {
-    position: relative;
     height: calc(100% - 80px);
     padding: 50px;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+  }
 
-    .set-footer-navigation {
-      position: absolute;
-      bottom: 0;
-      right: 50px;
-    }
+  .set-footer-navigation {
+    position: absolute;
+    bottom: 0;
+    right: 50px;
   }
 }
 </style>
