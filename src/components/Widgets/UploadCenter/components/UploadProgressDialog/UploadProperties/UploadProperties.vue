@@ -56,8 +56,8 @@
                  flat=""
                  @click="toggleDialog('prev')" />
           <previous-item-dialog v-model:dialog="pervDialog"
-                                :api="$apiGateway.set.FullAPIAdresses.create"
-                                @selectedUpdated="updateSet($event)"
+                                :api="$apiGateway.content.FullAPIAdresses.admin"
+                                @selectedUpdated="setValues($event)"
                                 @toggleDialog="toggleDialog(('prev'))" />
         </div>
         <div class="video-box">
@@ -101,9 +101,12 @@ export default {
     PreviousItemDialog
   },
   props: {
-    content: Content,
-    default: () => {}
+    content: {
+      type: Content,
+      default: () => {}
+    }
   },
+  emits: ['setContentInfo'],
   data() {
     return {
       localLoading: false,
@@ -199,7 +202,7 @@ export default {
         {
           type: 'File',
           responseKey: 'photo',
-          name: 'cover',
+          name: 'thumbnail',
           label: 'کاور',
           placeholder: 'تصویر مورد نظر را آپلود کنید',
           col: 'col-md-12'
@@ -242,7 +245,8 @@ export default {
   computed: {
     order() {
       return this.setForm.orderType
-    }
+    },
+    entityContent: () => this.content
   },
   watch: {
     order(value) {
@@ -258,8 +262,8 @@ export default {
     this.inputs[0].selected = this.content
   },
   methods: {
-    updateSet(setId) {
-      this.inputs.find(x => x.name === 'set').value = setId
+    setValues(content) {
+      this.$emit('setContentInfo', content)
     },
     onInputClick(e) {
       if (e.input.name === 'setButton') {
