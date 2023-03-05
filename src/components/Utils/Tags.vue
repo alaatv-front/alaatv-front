@@ -40,266 +40,23 @@ export default {
   emits: ['gradeSelected'],
   data () {
     return {
-      model: null,
+      model: [],
       filterOptions: [],
-      stringOptions: [
-        {
-          id: '63ff427566344faf860f0f9f',
-          title: 'دبیر 1',
-          parent: {
-            id: '63f37272c590054efc012d12',
-            title: 'دبیر'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d12',
-              title: 'دبیر'
-            }
-          ],
-          order: '0',
-          type: null,
-          number_of_children: 0,
-          updated_at: '2023-03-01 15:49:18',
-          created_at: '2023-03-01 15:47:57'
-        },
-        {
-          id: '63ff427c66344faf860f0fa0',
-          title: 'دبیر 2',
-          parent: {
-            id: '63f37272c590054efc012d12',
-            title: 'دبیر'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d12',
-              title: 'دبیر'
-            }
-          ],
-          order: '2',
-          type: null,
-          number_of_children: 1,
-          updated_at: '2023-03-01 15:49:18',
-          created_at: '2023-03-01 15:48:04'
-        },
-        {
-          id: '63ff429866344faf860f0fa2',
-          title: 'دبیر 3',
-          parent: {
-            id: '63f37272c590054efc012d12',
-            title: 'دبیر'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d12',
-              title: 'دبیر'
-            }
-          ],
-          order: '3',
-          type: null,
-          number_of_children: 0,
-          updated_at: '2023-03-01 15:49:18',
-          created_at: '2023-03-01 15:48:32'
-        },
-        {
-          id: '63ff42b466344faf860f0fa3',
-          title: 'دبیر 4',
-          parent: {
-            id: '63f37272c590054efc012d12',
-            title: 'دبیر'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d12',
-              title: 'دبیر'
-            }
-          ],
-          order: '4',
-          type: null,
-          number_of_children: 0,
-          updated_at: '2023-03-01 15:49:18',
-          created_at: '2023-03-01 15:49:00'
-        },
-        {
-          id: '63ff42ef66344faf860f0fa5',
-          title: 'رشته 1',
-          parent: {
-            id: '63f37272c590054efc012d13',
-            title: 'رشته'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d13',
-              title: 'رشته'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 2,
-          updated_at: '2023-03-01 15:50:52',
-          created_at: '2023-03-01 15:49:59'
-        },
-        {
-          id: '63ff42f766344faf860f0fa6',
-          title: 'رشته 2',
-          parent: {
-            id: '63f37272c590054efc012d13',
-            title: 'رشته'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d13',
-              title: 'رشته'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 0,
-          updated_at: '2023-03-01 15:50:52',
-          created_at: '2023-03-01 15:50:07'
-        },
-        {
-          id: '63ff42fe66344faf860f0fa7',
-          title: 'رشته 3',
-          parent: {
-            id: '63f37272c590054efc012d13',
-            title: 'رشته'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d13',
-              title: 'رشته'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 0,
-          updated_at: '2023-03-01 15:50:52',
-          created_at: '2023-03-01 15:50:14'
-        },
-        {
-          id: '63ff433766344faf860f0fab',
-          title: 'نظام آموزشی 1',
-          parent: {
-            id: '63f37272c590054efc012d14',
-            title: 'نظام آموزشی'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d14',
-              title: 'نظام آموزشی'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 1,
-          updated_at: '2023-03-01 15:51:11',
-          created_at: '2023-03-01 15:51:11'
-        },
-        {
-          id: '63ff433c66344faf860f0fac',
-          title: 'نظام آموزشی 2',
-          parent: {
-            id: '63f37272c590054efc012d14',
-            title: 'نظام آموزشی'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d14',
-              title: 'نظام آموزشی'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 1,
-          updated_at: '2023-03-01 15:51:16',
-          created_at: '2023-03-01 15:51:16'
-        },
-        {
-          id: '63ff434166344faf860f0fad',
-          title: 'نظام آموزشی 3',
-          parent: {
-            id: '63f37272c590054efc012d14',
-            title: 'نظام آموزشی'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d14',
-              title: 'نظام آموزشی'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 0,
-          updated_at: '2023-03-01 15:51:21',
-          created_at: '2023-03-01 15:51:21'
-        },
-        {
-          id: '63ff437c66344faf860f0fb1',
-          title: 'دوره 1',
-          parent: {
-            id: '63f37272c590054efc012d15',
-            title: 'دوره (متوسطه اول یا دوم بودن)'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d15',
-              title: 'دوره (متوسطه اول یا دوم بودن)'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 1,
-          updated_at: '2023-03-01 15:52:59',
-          created_at: '2023-03-01 15:52:20'
-        },
-        {
-          id: '63ff438066344faf860f0fb2',
-          title: 'دوره 2',
-          parent: {
-            id: '63f37272c590054efc012d15',
-            title: 'دوره (متوسطه اول یا دوم بودن)'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d15',
-              title: 'دوره (متوسطه اول یا دوم بودن)'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 1,
-          updated_at: '2023-03-01 15:52:59',
-          created_at: '2023-03-01 15:52:24'
-        },
-        {
-          id: '63ff43845b791cba140f7ff2',
-          title: 'دوره 3',
-          parent: {
-            id: '63f37272c590054efc012d15',
-            title: 'دوره (متوسطه اول یا دوم بودن)'
-          },
-          ancestors: [
-            {
-              id: '63f37272c590054efc012d15',
-              title: 'دوره (متوسطه اول یا دوم بودن)'
-            }
-          ],
-          order: 1,
-          type: null,
-          number_of_children: 0,
-          updated_at: '2023-03-01 15:52:59',
-          created_at: '2023-03-01 15:52:28'
-        }
-      ]
+      stringOptions: []
+    }
+  },
+  watch: {
+    value(value) {
+      this.model = value
     }
   },
   created() {
-    // this.getTags()
+    this.getTags()
   },
   methods: {
     getTags() {
       this.$apiGateway.forrest.getTags(['teacher', 'major', 'grade', 'system']).then(res => {
-        this.filterOptions = []
+        this.stringOptions = []
         res.map((tree) => tree.children).forEach(category => {
           category.forEach(item => {
             this.stringOptions.push(item)
@@ -307,6 +64,14 @@ export default {
         })
 
         // this.stringOptions = res.map((item) => item.children)
+        this.filterOptions = this.stringOptions
+      }).catch((err) => {
+        this.stringOptions = []
+        err.map((tree) => tree.children).forEach(category => {
+          category.forEach(item => {
+            this.stringOptions.push(item)
+          })
+        })
         this.filterOptions = this.stringOptions
       })
     },
