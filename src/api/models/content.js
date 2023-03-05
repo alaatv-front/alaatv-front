@@ -101,7 +101,9 @@ export default class ContentAPI extends APIRepository {
       cacheKey: this.CacheList.showAdmin(data),
       ...(data?.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return new Content(response.data.data)
+        const content = new Content(response.data.data)
+        fillFakeData(content)
+        return content
       },
       rejectCallback: (error) => {
         return error
@@ -132,7 +134,7 @@ export default class ContentAPI extends APIRepository {
         forrest_tree: null, // tree for content
         order: null, // order of content
         enable: null, // content status
-        display: null // content display status
+        display: 1 // content display status
       }, data.data)
     })
   }
@@ -343,3 +345,49 @@ export default class ContentAPI extends APIRepository {
     })
   }
 }
+
+const fillFakeData = (content) => {
+  content.forrest_tree_tags = forrestTreeTags
+  content.hls = 'https://alaatv.com/hls/input.m3u8'
+}
+
+const forrestTreeTags = [
+  {
+    id: '63ff427566344faf860f0f9f',
+    title: 'دبیر 1',
+    parent: {
+      id: '63f37272c590054efc012d12',
+      title: 'دبیر'
+    },
+    ancestors: [
+      {
+        id: '63f37272c590054efc012d12',
+        title: 'دبیر'
+      }
+    ],
+    order: '0',
+    type: null,
+    number_of_children: 0,
+    updated_at: '2023-03-01 15:49:18',
+    created_at: '2023-03-01 15:47:57'
+  },
+  {
+    id: '63ff427c66344faf860f0fa0',
+    title: 'دبیر 2',
+    parent: {
+      id: '63f37272c590054efc012d12',
+      title: 'دبیر'
+    },
+    ancestors: [
+      {
+        id: '63f37272c590054efc012d12',
+        title: 'دبیر'
+      }
+    ],
+    order: '2',
+    type: null,
+    number_of_children: 1,
+    updated_at: '2023-03-01 15:49:18',
+    created_at: '2023-03-01 15:48:04'
+  }
+]
