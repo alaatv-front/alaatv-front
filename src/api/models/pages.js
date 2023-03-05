@@ -15,13 +15,13 @@ export default class PagesAPI extends APIRepository {
     }
   }
 
-  home(data = {}) {
+  home(cache = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.home,
       cacheKey: this.CacheList.home,
-      ...(data.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new BlockList(response.data.data)
       },

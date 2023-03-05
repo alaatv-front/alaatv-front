@@ -9,7 +9,7 @@ export default class APIRepository {
     this.url = urlAddress
     this._model = model
     this.APIAdresses = APIAdresses
-    this.FullAPIAdresses = APIAdresses === undefined || APIAdresses === null ? {} : this.getFullAPIAdress()
+    this.FullAPIAdresses = APIAdresses === undefined || APIAdresses === null ? {} : this.getFullAPIAddress()
   }
 
   /**
@@ -17,7 +17,7 @@ export default class APIRepository {
    * @returns An object with the same keys as the APIAdresses object, but with the values being the
    * baseURL + the APIAdresses values.
    */
-  getFullAPIAdress() {
+  getFullAPIAddress() {
     const urlAddress = {}
     Object.keys(this.APIAdresses).map(item => {
       if (typeof this.APIAdresses[item] === 'function') {
@@ -39,6 +39,11 @@ export default class APIRepository {
    * @returns A promise that will resolve or reject based on the response from the API call.
    */
   sendRequest({ apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params }) {
+    if (typeof window === 'undefined') {
+      this.api.defaults.baseURL = null
+      request = this.api.defaults.serverURL + request
+    }
+
     return new Promise((resolve, reject) => {
       APIInstanceWrapper[apiMethod]({
         api,

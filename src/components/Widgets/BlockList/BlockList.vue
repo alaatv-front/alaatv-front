@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { BlockList } from 'src/models/Block.js'
 import Block from 'src/components/Widgets/Block/Block.vue'
 
 export default {
@@ -35,10 +36,18 @@ export default {
   },
   data() {
     return {
-      blocks: {}
+      // blocks: {}
     }
   },
   computed: {
+    blocks: {
+      get () {
+        return new BlockList(this.$store.getters['Widgets/data']('BlockList'))
+      },
+      set (newData) {
+        this.$store.dispatch('Widgets/updateData', { name: 'BlockList', data: newData })
+      }
+    },
     blocksToShow() {
       return this.getBlocks(this.blocks)
     }
@@ -56,25 +65,30 @@ export default {
       })
     }
   },
-  created () {
-    this.loadBlocks()
+
+  serverPrefetch () {
+    return this.loadBlocks()
   },
   methods: {
     loadBlocks() {
-      this.blocks.loading = true
-      this.getApiRequest()
-        .then((blockList) => {
-          this.blocks = blockList
-          this.blocks.loading = false
-        })
-        .catch(() => {
-          this.blocks.loading = false
-        })
+      return new Promise((resolve, reject) => {
+        this.blocks.loading = true
+        this.getApiRequest()
+          .then((blockList) => {
+            this.blocks = blockList
+            this.blocks.loading = false
+            resolve(blockList)
+          })
+          .catch(() => {
+            this.blocks.loading = false
+            reject()
+          })
+      })
     },
 
     getBlocks(blocks) {
       if (!blocks || !blocks.list || blocks.list.length === 0) {
-        return
+        return []
       }
       return blocks.list.slice(this.options.from, this.options.to)
     },
