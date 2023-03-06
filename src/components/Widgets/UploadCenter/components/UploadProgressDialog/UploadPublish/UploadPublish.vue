@@ -110,7 +110,7 @@ export default {
     },
     formData() {
       return {
-        is_free: this.inputs[0].value,
+        isFree: this.inputs[0].value === 'free' ? 1 : 0,
         enable: this.inputs[1].value === 'public' || this.inputs[1].value === 'timePlan' ? 1 : 0,
         ...(this.inputs[1].value === 'timePlan' && { validSinceDate: `${this.inputs[2].value + ' ' + this.inputs[3].value}` })
       }
@@ -136,11 +136,11 @@ export default {
     },
     publish() {
       const values = this.$refs.publishForm.getValues()
-      const type = values.find(x => x.name === 'type').value
+      const type = values.find(x => x.name === 'type').value === 'free' ? 1 : 0
       const status = values.find(x => x.name === 'status').value
       const formData = {
         id: this.content.id,
-        is_free: type,
+        isFree: type,
         enable: status === 'public' || status === 'timePlan' ? 1 : 0,
         ...(status === 'timePlan' && { validSinceDate: values.find(x => x.name === 'date').value + values.find(x => x.name === 'time').value })
       }
