@@ -145,9 +145,7 @@ export default {
         this.$refs.stepper.next()
       } else {
         this.content.loading = true
-        this.$apiGateway.content.update({
-          data: this.$refs.uploadPublish.publish()
-        })
+        this.$apiGateway.content.update(this.$refs.uploadPublish.publish())
           .then(() => {
             this.content.loading = false
           }).catch(() => {
@@ -156,9 +154,7 @@ export default {
       }
     },
     publish() {
-      this.$apiGateway.content.update({
-        data: this.publishForm
-      })
+      this.$apiGateway.content.update(this.publishForm)
     },
     toggleDialog() {
       this.$emit('toggleDialog')

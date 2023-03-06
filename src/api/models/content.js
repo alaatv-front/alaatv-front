@@ -93,13 +93,13 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  showAdmin(data) {
+  showAdmin(contentId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.showAdmin(data),
-      cacheKey: this.CacheList.showAdmin(data),
-      ...(data?.cache && { cache: data.cache }),
+      request: this.APIAdresses.showAdmin(contentId),
+      cacheKey: this.CacheList.showAdmin(contentId),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         const content = new Content(response.data.data)
         fillFakeData(content)
@@ -115,27 +115,30 @@ export default class ContentAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
-      request: this.APIAdresses.update(data.data.id),
-      cacheKey: this.CacheList.update(data.data.id),
-      ...(data?.cache && { cache: data.cache }),
+      request: this.APIAdresses.update(data.id),
+      cacheKey: this.CacheList.update(data.id),
       resolveCallback: (response) => {
         return new Content(response.data.data)
       },
       rejectCallback: (error) => {
         return error
       },
-      data: this.getNormalizedSendData({
-        contentset_id: null, // contentSet Id
-        isFree: null, // contentSet Id
-        name: null, // Title for content,
-        description: null, // Description for content
-        thumbnail: null, // thumbnail for contentfd
-        validSinceDate: null, // time for publish content
-        forrest_tree: null, // tree for content
-        order: null, // order of content
-        enable: null, // content status
-        display: 1 // content display status
-      }, data.data)
+      data: {
+        display: 1,
+        ...data
+      }
+      // data: this.getNormalizedSendData({
+      //   contentset_id: null, // contentSet Id
+      //   isFree: null, // contentSet Id
+      //   name: null, // Title for content,
+      //   description: null, // Description for content
+      //   thumbnail: null, // thumbnail for contentfd
+      //   validSinceDate: null, // time for publish content
+      //   forrest_tree: null, // tree for content
+      //   order: null, // order of content
+      //   enable: null, // content status
+      //   display: 1 // content display status
+      // }, data)
     })
   }
 
