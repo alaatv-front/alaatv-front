@@ -200,7 +200,7 @@ export default {
           selected: []
         },
         {
-          type: 'File',
+          type: 'file',
           responseKey: 'photo',
           name: 'thumbnail',
           label: 'کاور',

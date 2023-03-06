@@ -18,7 +18,6 @@
               :stack-label="!!placeholder"
               :placeholder="placeholderSetter"
               @filter="filterFn"
-              @new-value="createValue"
               @update:model-value="onChangeSelections" />
   </div>
 </template>
@@ -102,16 +101,8 @@ export default {
         this.filterOptions = this.stringOptions
       })
     },
-    createValue (val, done) {
-      if (val.length > 0) {
-        if (!this.stringOptions.includes(val)) {
-          this.stringOptions.push(val)
-        }
-        done(val, 'toggle')
-      }
-    },
     onChangeSelections ($event) {
-      this.change($event.map(item => item.id))
+      this.change(JSON.parse(JSON.stringify($event)))
     },
     filterFn (val, update) {
       update(() => {

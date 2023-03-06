@@ -35,6 +35,7 @@
 import { EntityCreate } from 'quasar-crud'
 import { shallowRef } from 'vue'
 import TagsComponent from 'src/components/Utils/Tags.vue'
+
 const Tags = shallowRef(TagsComponent)
 
 export default {
@@ -98,9 +99,9 @@ export default {
         },
         {
           type: Tags,
-          name: 'tags',
+          name: 'forrest_tree_tags',
           label: 'برچسب',
-          responseKey: 'tags',
+          responseKey: 'forrest_tree_tags',
           col: 'col-md-12'
         },
         {
