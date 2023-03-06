@@ -104,7 +104,10 @@ export default {
         return
       }
       val.forEach((tag, index) => {
-        const lastAncestors = tag.ancestors[tag.ancestors.length - 1]
+        let lastAncestors = tag
+        if (tag.ancestors) {
+          lastAncestors = tag.ancestors[tag.ancestors.length - 1]
+        }
         if (!this.allSubjects[lastAncestors.id]) {
           this.allSubjects[lastAncestors.id] = {
             nodes: []
@@ -136,6 +139,10 @@ export default {
       const foundedNodes = []
       let cleaned = []
       this.allSubjectsFlat.forEach((selectedNode) => {
+        if (!selectedNode.ancestors) {
+          foundedNodes.push(selectedNode)
+          return
+        }
         selectedNode.ancestors.forEach((parentNode) => {
           if (this.allSubjectsFlat.find(item => item.id === parentNode.id)) {
             foundedNodes.push(parentNode)
