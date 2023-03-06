@@ -51,11 +51,11 @@ export default {
           dense: 'false',
           options: [
             {
-              value: 'free',
+              value: 1,
               label: 'رایگان'
             },
             {
-              value: 'paid',
+              value: 0,
               label: 'پولی'
             }
           ],
@@ -110,7 +110,7 @@ export default {
     },
     formData() {
       return {
-        isFree: this.inputs[0].value === 'free' ? 1 : 0,
+        isFree: this.inputs[0].value,
         enable: this.inputs[1].value === 'public' || this.inputs[1].value === 'timePlan' ? 1 : 0,
         ...(this.inputs[1].value === 'timePlan' && { validSinceDate: `${this.inputs[2].value + ' ' + this.inputs[3].value}` })
       }
@@ -136,7 +136,7 @@ export default {
     },
     publish() {
       const values = this.$refs.publishForm.getValues()
-      const type = values.find(x => x.name === 'type').value === 'free' ? 1 : 0
+      const type = values.find(x => x.name === 'type').value
       const status = values.find(x => x.name === 'status').value
       const formData = {
         id: this.content.id,
