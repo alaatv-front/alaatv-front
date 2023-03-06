@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="outsideLabel">{{ label }}</div>
+  <div class="tags-selection">
+    <div class="outsideLabel">{{ placeholder ? label : null }}</div>
     <q-select v-model="model"
               filled
               outlined
@@ -14,6 +14,9 @@
               option-label="title"
               new-value-mode="add-unique"
               :options="filterOptions"
+              :label="placeholder ? null : label"
+              :stack-label="!!placeholder"
+              :placeholder="placeholderSetter"
               @filter="filterFn"
               @new-value="createValue"
               @update:model-value="onChangeSelections" />
@@ -43,6 +46,30 @@ export default {
       model: [],
       filterOptions: [],
       stringOptions: []
+    }
+  },
+  computed: {
+    placeholderSetter() {
+      if (this.value === null) {
+        return this.placeholder
+      }
+      // in single select after setting value,
+      // v-model type changes to string
+      if (typeof this.value === 'string') {
+        return ''
+      }
+      // in the multiple scenario, inputData type changes to Array!
+      if (this.multiple) {
+        if (this.value.length === 0) {
+          return this.placeholder
+        }
+        return ''
+      }
+      // be an object
+      if (Object.keys(this.value).length === 0) {
+        return this.placeholder
+      }
+      return ''
     }
   },
   watch: {
