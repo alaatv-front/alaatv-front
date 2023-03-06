@@ -71,13 +71,9 @@ export default {
       return ''
     }
   },
-  watch: {
-    value(value) {
-      this.model = value
-    }
-  },
   created() {
     this.getTags()
+    this.model = this.value
   },
   methods: {
     getTags() {
@@ -91,18 +87,11 @@ export default {
 
         // this.stringOptions = res.map((item) => item.children)
         this.filterOptions = this.stringOptions
-      }).catch((err) => {
-        this.stringOptions = []
-        err.map((tree) => tree.children).forEach(category => {
-          category.forEach(item => {
-            this.stringOptions.push(item)
-          })
-        })
-        this.filterOptions = this.stringOptions
+      }).catch(() => {
       })
     },
     onChangeSelections ($event) {
-      this.change(JSON.parse(JSON.stringify($event)))
+      this.change(JSON.parse(JSON.stringify($event.map(item => item.id))))
     },
     filterFn (val, update) {
       update(() => {
