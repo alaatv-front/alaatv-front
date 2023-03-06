@@ -15,7 +15,7 @@ export default class PagesAPI extends APIRepository {
     }
   }
 
-  home(cache = {}) {
+  home(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -31,13 +31,13 @@ export default class PagesAPI extends APIRepository {
     })
   }
 
-  shop(data = {}) {
+  shop(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.shop,
       cacheKey: this.CacheList.shop,
-      ...(data.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new BlockList(response.data.data)
       },

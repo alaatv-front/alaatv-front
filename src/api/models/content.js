@@ -137,12 +137,12 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  relatedProducts(data, cache) {
+  relatedProducts(contentId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.relatedProducts(data.id),
-      cacheKey: this.CacheList.relatedProducts(data.id),
+      request: this.APIAdresses.relatedProducts(contentId),
+      cacheKey: this.CacheList.relatedProducts(contentId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new ProductList(response.data.data)
