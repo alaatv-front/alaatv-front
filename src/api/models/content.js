@@ -93,15 +93,17 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  showAdmin(data) {
+  showAdmin(contentId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.showAdmin(data),
-      cacheKey: this.CacheList.showAdmin(data),
-      ...(data?.cache && { cache: data.cache }),
+      request: this.APIAdresses.showAdmin(contentId),
+      cacheKey: this.CacheList.showAdmin(contentId),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
-        return new Content(response.data.data)
+        const content = new Content(response.data.data)
+        fillFakeData(content)
+        return content
       },
       rejectCallback: (error) => {
         return error
@@ -113,27 +115,30 @@ export default class ContentAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
-      request: this.APIAdresses.update(data.data.id),
-      cacheKey: this.CacheList.update(data.data.id),
-      ...(data?.cache && { cache: data.cache }),
+      request: this.APIAdresses.update(data.id),
+      cacheKey: this.CacheList.update(data.id),
       resolveCallback: (response) => {
         return new Content(response.data.data)
       },
       rejectCallback: (error) => {
         return error
       },
-      data: this.getNormalizedSendData({
-        contentset_id: null, // contentSet Id
-        isFree: null, // contentSet Id
-        name: null, // Title for content,
-        description: null, // Description for content
-        thumbnail: null, // thumbnail for contentfd
-        validSinceDate: null, // time for publish content
-        forrest_tree: null, // tree for content
-        order: null, // order of content
-        enable: null, // content status
-        display: null // content display status
-      }, data.data)
+      data: {
+        display: 1,
+        ...data
+      }
+      // data: this.getNormalizedSendData({
+      //   contentset_id: null, // contentSet Id
+      //   isFree: null, // contentSet Id
+      //   name: null, // Title for content,
+      //   description: null, // Description for content
+      //   thumbnail: null, // thumbnail for contentfd
+      //   validSinceDate: null, // time for publish content
+      //   forrest_tree: null, // tree for content
+      //   order: null, // order of content
+      //   enable: null, // content status
+      //   display: 1 // content display status
+      // }, data)
     })
   }
 
@@ -343,3 +348,49 @@ export default class ContentAPI extends APIRepository {
     })
   }
 }
+
+const fillFakeData = (content) => {
+  content.forrest_tree_tags = forrestTreeTags
+  content.hls = 'https://alaatv.com/hls/input.m3u8'
+}
+
+const forrestTreeTags = [
+  {
+    id: '63ff427566344faf860f0f9f',
+    title: 'دبیر 1',
+    parent: {
+      id: '63f37272c590054efc012d12',
+      title: 'دبیر'
+    },
+    ancestors: [
+      {
+        id: '63f37272c590054efc012d12',
+        title: 'دبیر'
+      }
+    ],
+    order: '0',
+    type: null,
+    number_of_children: 0,
+    updated_at: '2023-03-01 15:49:18',
+    created_at: '2023-03-01 15:47:57'
+  },
+  {
+    id: '63ff427c66344faf860f0fa0',
+    title: 'دبیر 2',
+    parent: {
+      id: '63f37272c590054efc012d12',
+      title: 'دبیر'
+    },
+    ancestors: [
+      {
+        id: '63f37272c590054efc012d12',
+        title: 'دبیر'
+      }
+    ],
+    order: '2',
+    type: null,
+    number_of_children: 1,
+    updated_at: '2023-03-01 15:49:18',
+    created_at: '2023-03-01 15:48:04'
+  }
+]

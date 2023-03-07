@@ -7,10 +7,9 @@
           نام فایل ویدیو مربوطه
         </div>
         <div class="upload-dialog-header-close-btn">
-          <q-btn v-close-popup
-                 flat
+          <q-btn flat
                  icon="close"
-                 @click="$emit('toggleDialog')" />
+                 @click="toggleDialog()" />
         </div>
       </div>
       <div class="upload-dialog-main-content">
@@ -27,7 +26,8 @@
                   active-icon="settings"
                   :done="step > 1">
             <upload-properties ref="uploadProperties"
-                               v-model:content="content" />
+                               v-model:content="content"
+                               @setContentInfo="updateContentInfo($event)" />
           </q-step>
           <q-step :name="2"
                   title="زمان کوب"
@@ -107,6 +107,17 @@ export default {
     }
   },
   methods: {
+    updateContentInfo(event) {
+      this.content.loading = true
+      this.$apiGateway.content.showAdmin(event.id).then(content => {
+        const eventContent = content
+        eventContent.id = this.contentId
+        this.content = eventContent
+        this.content.loading = false
+      }).catch(() => {
+        this.content.loading = false
+      })
+    },
     getContent(contentId) {
       this.content.loading = true
       this.$apiGateway.content.showAdmin(contentId).then(content => {
@@ -134,9 +145,7 @@ export default {
         this.$refs.stepper.next()
       } else {
         this.content.loading = true
-        this.$apiGateway.content.update({
-          data: this.$refs.uploadPublish.publish()
-        })
+        this.$apiGateway.content.update(this.$refs.uploadPublish.publish())
           .then(() => {
             this.content.loading = false
           }).catch(() => {
@@ -145,9 +154,11 @@ export default {
       }
     },
     publish() {
-      this.$apiGateway.content.update({
-        data: this.publishForm
-      })
+      this.$apiGateway.content.update(this.publishForm)
+    },
+    toggleDialog() {
+      this.$emit('toggleDialog')
+      this.step = 1
     }
   }
 }
