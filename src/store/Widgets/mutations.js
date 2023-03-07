@@ -30,7 +30,6 @@ export function addWidgetData(state, newData) {
   const uid = newData.uid
   const widgetName = newData.name
   const widgetData = newData.data
-  const serverSideRendered = newData.serverSideRendered
   if (!widgetName) {
     return
   }
@@ -41,7 +40,6 @@ export function addWidgetData(state, newData) {
 
   state.data[widgetName].push({
     uid,
-    widgetData,
-    serverSideRendered
+    widgetData
   })
 }

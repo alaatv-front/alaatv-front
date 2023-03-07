@@ -74,6 +74,7 @@ import { APIGateway } from 'src/api/APIGateway'
 import { Product } from 'src/models/Product'
 import { Set } from 'src/models/Set'
 import { dragscroll } from 'vue-dragscroll'
+import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
 export default {
@@ -84,6 +85,7 @@ export default {
   directives: {
     dragscroll
   },
+  mixins: [mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -94,14 +96,28 @@ export default {
   },
   data() {
     return {
-      product: new Product(),
       set: new Set(),
+      product: new Product(),
       index: null,
       tab: 'pamphlets',
       videos: [],
       pamphlets: [],
       setTitle: null,
       setOptions: []
+    }
+  },
+  computed: {
+    productId () {
+      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
+        return this.options.productId
+      }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return this.product.id
     }
   },
   watch: {
@@ -112,35 +128,31 @@ export default {
       deep: true
     },
     setTitle(newVal) {
-      const set = this.product.sets.filter(set => set.title === newVal)
+      const set = this.product.sets.list.filter(set => set.title === newVal)
       this.getSet(set[0].id)
     }
   },
-  created() {
-    this.getProduct()
-  },
   methods: {
-    getProduct() {
-      APIGateway.product.show({
-        data: { id: this.options.productId },
-        cache: { TTL: 10000 }
+    prefetchServerDataPromise () {
+      this.product.loading = true
+      return this.getProduct()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.product = data
+      this.product.sets.list.forEach(set => {
+        this.setOptions.push(set.title)
       })
-        .then(product => {
-          this.product = product
-          product.sets.forEach(set => {
-            this.setOptions.push(set.title)
-          })
-          this.setTitle = this.setOptions[0]
-          // this.getSet(product.sets[0].id)
-          // this.contents = new Product(product)
-          // this.pamphlets = product.sample_photos
-        })
-        .catch(() => {
-          this.product.loading = false
-        })
+      this.setTitle = this.setOptions[0]
+      this.product.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.product.loading = false
+    },
+    getProduct() {
+      return APIGateway.product.show(this.productId)
     },
     getSet(id) {
-      APIGateway.set.show({ id })
+      APIGateway.set.show(id)
         .then(set => {
           set.contents.list.forEach(content => {
             if (content.type === 8) {
@@ -150,7 +162,6 @@ export default {
             }
           })
         })
-        .catch()
     }
   }
 }

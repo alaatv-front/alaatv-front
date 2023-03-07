@@ -33,7 +33,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  show(productId, cache = { TTL: 100 }) {
+  show(productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -41,7 +41,7 @@ export default class ProductAPI extends APIRepository {
       cacheKey: this.CacheList.show(productId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return new Product(response.data.data)
       },
       rejectCallback: (error) => {
         return error

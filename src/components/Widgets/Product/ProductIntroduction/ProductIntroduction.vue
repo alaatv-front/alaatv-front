@@ -1,8 +1,8 @@
 <template>
-  <div v-if="product.intro"
-       class="intro-video col-md-6 col-12"
-       :class="options.className"
-       :style="options.style">
+  <q-card v-if="product.intro"
+          class="intro-video custom-card q-pb-md"
+          :class="options.className"
+          :style="options.style">
     <video-player :poster="product.intro.photo"
                   :sources="videoSource()" />
     <div v-if="options.download_date"
@@ -25,18 +25,20 @@
         مدت زمان: {{ product.attributes.info.duration[0] }}
       </span>
     </div>
-  </div>
+  </q-card>
 </template>
 
 <script>
 import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import VideoPlayer from 'components/VideoPlayer.vue'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
+import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProductIntroduction',
   components: { VideoPlayer },
+  mixins: [mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -45,9 +47,23 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       product: new Product()
+    }
+  },
+  computed: {
+    productId () {
+      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
+        return this.options.productId
+      }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return this.product.id
     }
   },
   watch: {
@@ -58,24 +74,24 @@ export default {
       deep: true
     }
   },
-  created() {
-    this.getProduct()
-  },
   methods: {
+    prefetchServerDataPromise () {
+      this.product.loading = true
+      return this.getProduct()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.product = data
+      this.product.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.product.loading = false
+    },
+
     videoSource() {
       return new PlayerSourceList([{ link: this.product.intro.video }])
     },
     getProduct() {
-      this.product.loading = true
-      APIGateway.product.show({ data: { id: this.options.productId }, cache: { TTL: 10000 } })
-        .then(product => {
-          this.product = new Product(product)
-          this.product.loading = false
-          this.setInformation()
-        })
-        .catch(() => {
-          this.product.loading = false
-        })
+      return APIGateway.product.show(this.productId)
     }
   }
 }
