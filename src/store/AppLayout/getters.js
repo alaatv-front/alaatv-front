@@ -44,6 +44,9 @@ const getters = {
   headerSize: (state) => {
     return state.headerSize
   },
+  showHamburgerBtn: (state) => {
+    return state.showHamburgerBtn
+  },
   calculateContainerFullHeight: (state) => {
     let offset = 0
     // if there is a header
