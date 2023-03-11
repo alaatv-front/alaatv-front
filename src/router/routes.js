@@ -22,6 +22,7 @@ const routes = [
       layoutLeftDrawerBehavior: 'default',
       layoutRightDrawer: false,
       layoutFooter: true,
+      showHamburgerBtn: true,
       layoutFooterVisible: true,
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
@@ -130,6 +131,9 @@ const routes = [
       {
         path: 'panel',
         name: 'UserPanel',
+        layoutConfig: {
+          showHamburgerBtn: false
+        },
         meta: { middlewares: [Authenticated] },
         component: () => import('layouts/bareLayout.vue'),
         children: [
@@ -358,6 +362,33 @@ const routes = [
                 name: 'Admin.Forrest.Edit',
                 path: ':id/edit',
                 component: () => import('src/pages/Admin/Forrest/Edit.vue')
+              }
+            ]
+          },
+          {
+            name: 'Admin.Set',
+            path: 'set',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Set.Index',
+                path: '',
+                component: () => import('src/pages/Admin/Set/Index.vue')
+              },
+              {
+                name: 'Admin.Set.Create',
+                path: 'create',
+                component: () => import('src/pages/Admin/Set/Create.vue')
+              },
+              {
+                name: 'Admin.Set.Show',
+                path: ':id',
+                component: () => import('src/pages/Admin/Set/Show.vue')
+              },
+              {
+                name: 'Admin.Set.Edit',
+                path: ':id/edit',
+                component: () => import('src/pages/Admin/Set/Edit.vue')
               }
             ]
           },

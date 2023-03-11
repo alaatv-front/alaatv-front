@@ -234,7 +234,6 @@ export default {
           }
           this.rows.push(last)
           this.activeIndex = this.rows.length - 1
-          this.$emit('refreshContent')
         }).catch(() => {
         })
       } else {

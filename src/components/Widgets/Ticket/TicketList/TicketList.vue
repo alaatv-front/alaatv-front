@@ -236,28 +236,31 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'has_user_mobile', label: 'شماره همراه', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_nationalcode', label: 'کد ملی', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_firstname', label: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_lastname', label: 'نام خانوادگی', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'department_id', optionLabel: 'title', label: 'گروه', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'status_id', label: 'وضعیت', optionLabel: 'title', col: 'col-md-3' },
-        { type: 'input', name: 'order_id', label: 'شماره سفارش', col: 'col-md-3' },
-        { type: 'input', name: 'id', label: 'شماره تیکت', col: 'col-md-3' },
-        { type: 'input', name: 'title', label: 'عنوان', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_since', responseKey: 'data.from', label: 'از:', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_till', label: 'تا:', col: 'col-md-3' },
-        { type: 'date', name: 'hasMessageFromDate', label: 'تاریخ پاسخ اپراتور از:', col: 'col-md-6' },
-        { type: 'date', name: 'hasMessageToDate', label: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-6' },
+        { type: 'input', name: 'has_user_mobile', placeholder: 'شماره همراه', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_nationalcode', placeholder: 'کد ملی', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_firstname', placeholder: 'نام', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_lastname', placeholder: 'نام خانوادگی', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'department_id', optionLabel: 'title', placeholder: 'گروه', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'pirority_id', placeholder: 'اولویت', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'status_id', placeholder: 'وضعیت', optionLabel: 'title', col: 'col-md-3' },
+        { type: 'input', name: 'order_id', placeholder: 'شماره سفارش', col: 'col-md-3' },
+        { type: 'input', name: 'id', placeholder: 'شماره تیکت', col: 'col-md-3' },
+        { type: 'input', name: 'title', placeholder: 'عنوان', col: 'col-md-3' },
+        { type: 'date', name: 'created_at_since', responseKey: 'data.from', placeholder: 'از:', col: 'col-md-3' },
+        { type: 'date', name: 'created_at_till', placeholder: 'تا:', col: 'col-md-3' },
+        { type: 'date', name: 'hasMessageFromDate', placeholder: 'تاریخ پاسخ اپراتور از:', col: 'col-md-6' },
+        { type: 'date', name: 'hasMessageToDate', placeholder: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-6' },
         {
           type: 'entity',
           name: 'hasAssignees',
           selectionMode: 'multiple',
-          label: 'مسؤل',
-          buttonColor: 'primary',
-          buttonTextColor: 'white',
-          buttonBadgeColor: 'secondary',
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'primary',
+            textColor: 'white',
+            badgeColor: 'secondary',
+            label: 'مسؤل'
+          },
           indexConfig: {
             apiAddress: 'https://reqres.in/api/users',
             tableTitle: 'لیست مسؤلین',
@@ -303,10 +306,10 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
-              { type: 'input', name: 'first_name', value: null, label: 'نام', col: 'col-md-3' },
-              { type: 'input', name: 'last_name', value: null, label: 'نام خانوادگی', col: 'col-md-3' },
-              { type: 'hidden', name: 'role', value: 123, label: 'نقش', col: 'col-md-3' }
+              { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
+              { type: 'input', name: 'first_name', value: null, placeholder: 'نام', col: 'col-md-3' },
+              { type: 'input', name: 'last_name', value: null, placeholder: 'نام خانوادگی', col: 'col-md-3' },
+              { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'id',
             itemIndicatorKey: 'first_name'
@@ -320,10 +323,13 @@ export default {
           type: 'entity',
           name: 'ticketMessage',
           selectionMode: 'single',
-          label: 'پاسخگو',
-          buttonColor: 'primary',
-          buttonTextColor: 'white',
-          buttonBadgeColor: 'secondary',
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'primary',
+            textColor: 'white',
+            badgeColor: 'secondary',
+            label: 'پاسخگو'
+          },
           indexConfig: {
             apiAddress: 'https://reqres.in/api/users',
             tableTitle: 'لیست مسؤلین',
@@ -369,10 +375,10 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
-              { type: 'input', name: 'first_name', value: null, label: 'نام', col: 'col-md-3' },
-              { type: 'input', name: 'last_name', value: null, label: 'نام خانوادگی', col: 'col-md-3' },
-              { type: 'hidden', name: 'role', value: 123, label: 'نقش', col: 'col-md-3' }
+              { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
+              { type: 'input', name: 'first_name', value: null, placeholder: 'نام', col: 'col-md-3' },
+              { type: 'input', name: 'last_name', value: null, placeholder: 'نام خانوادگی', col: 'col-md-3' },
+              { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'id',
             itemIndicatorKey: 'first_name'
@@ -386,10 +392,13 @@ export default {
           type: 'entity',
           name: 'product',
           selectionMode: 'multiple',
-          label: 'انتخاب محصول',
-          buttonColor: 'primary',
-          buttonTextColor: 'white',
-          buttonBadgeColor: 'secondary',
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'primary',
+            textColor: 'white',
+            badgeColor: 'secondary',
+            label: 'انتخاب محصول'
+          },
           indexConfig: {
             apiAddress: API_ADDRESS.product.index.base,
             tableTitle: 'لیست محصولات',
@@ -456,17 +465,17 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'id', value: null, label: 'شناسه', col: 'col-md-3' },
-              { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-3' },
-              { type: 'input', name: 'short_description', value: null, label: 'توضیحات کوتاه', col: 'col-md-3' },
-              { type: 'input', name: 'long_description', value: null, label: 'توضیحات اجمالی', col: 'col-md-3' },
-              { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل پیکربندی', value: 2 }, { label: 'قابل انتخاب', value: 3 }, { label: 'اشتراک', value: 4 }], label: 'نوع محصول', col: 'col-md-3' },
-              { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], label: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
-              { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], label: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
-              { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
-              { type: 'input', name: 'name', value: null, label: 'نام', col: 'col-md-4' },
-              { type: 'input', name: 'attribute_set_id', value: null, label: 'کد دسته', col: 'col-md-4' },
-              { type: 'dateRange', name: 'created_at_range', value: [], label: 'بازه تاریخ ایجاد', col: 'col-md-4' }
+              { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
+              { type: 'input', name: 'name', value: null, placeholder: 'نام', col: 'col-md-3' },
+              { type: 'input', name: 'short_description', value: null, placeholder: 'توضیحات کوتاه', col: 'col-md-3' },
+              { type: 'input', name: 'long_description', value: null, placeholder: 'توضیحات اجمالی', col: 'col-md-3' },
+              { type: 'select', name: 'product_type_id', value: null, options: [{ label: 'ساده', value: 1 }, { label: 'قابل پیکربندی', value: 2 }, { label: 'قابل انتخاب', value: 3 }, { label: 'اشتراک', value: 4 }], placeholder: 'نوع محصول', col: 'col-md-3' },
+              { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], placeholder: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
+              { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], placeholder: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
+              { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], placeholder: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
+              { type: 'input', name: 'name', value: null, placeholder: 'نام', col: 'col-md-4' },
+              { type: 'input', name: 'attribute_set_id', value: null, placeholder: 'کد دسته', col: 'col-md-4' },
+              { type: 'dateRange', name: 'created_at_range', value: [], placeholder: 'بازه تاریخ ایجاد', col: 'col-md-4' }
             ],
             itemIdentifyKey: 'id',
             itemIndicatorKey: 'name'

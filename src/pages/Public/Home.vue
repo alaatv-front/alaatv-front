@@ -40,7 +40,7 @@ export default {
                             },
                             {
                               link: 'https://3a.alaatv.com/',
-                              icon: 'https://node6.alaatv.com/upload/homepage_icon_3a_icon.png?w=52&h=52',
+                              icon: 'https://nodes.alaatv.com/upload/homepage_icon_3a_icon.png?w=52&h=52',
                               title: 'سه آ',
                               subTitle: 'آزمون آنلاین آلاء'
                             },

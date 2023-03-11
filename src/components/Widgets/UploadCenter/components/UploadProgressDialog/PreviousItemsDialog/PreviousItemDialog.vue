@@ -31,7 +31,8 @@
               <q-card class="content-box"
                       @click="setContent(inputData.props.row)">
                 <q-avatar size="80px">
-                  <img :src="inputData.props.row.photo || 'https://cdn.quasar.dev/img/mountains.jpg'">
+                  <img :src="inputData.props.row.photo"
+                       alt="آلا">
                 </q-avatar>
                 <q-card-section>
                   <div>{{ inputData.props.row.name }}</div>

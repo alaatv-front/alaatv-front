@@ -3,19 +3,19 @@
     <div class="page-title"> وضعیت درآمد </div>
     <div class="row no-gutters introduction-box">
       <div class="col-xl-9 col-12">
-        <div class="row no-gutters card-container">
-          <div class="col-xl-4 col-lg-12">
+        <div class="row no-wrap no-gutters card-container">
+          <div class="col-sm-4 col-xs-12 q-pr-md">
             <div class="card-style income card-style-flex">
               <div class="title">
                 مجموع درآمد تا به الان
               </div>
               <div class="price-box">
-                <div class="price">{{totalCommission.toLocaleString('fa')}}</div>
+                <div class="price">{{sales_man.total_commission.toLocaleString('fa')}}</div>
                 <span class="currency">تومان</span>
               </div>
             </div>
           </div>
-          <div class="col-xl-4 col-lg-12">
+          <div class="col-sm-4 col-xs-12 q-px-md">
             <div class="card-style demand card-style-flex">
               <div class="title">
                 درآمد تسویه نشده
@@ -37,20 +37,20 @@
                                      dir="ltr" />
                 </div>
                 <div class="price-box">
-                  <div class="price">{{walletBalance.toLocaleString('fa')}}</div>
+                  <div class="price">{{sales_man.wallet_balance.toLocaleString('fa')}}</div>
                   <span class="currency">تومان</span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-xl-4 col-lg-12">
+          <div class="col-sm-4 col-xs-12 q-pl-md">
             <div class="card-style demand card-style-flex">
               <div class="title">
                 در انتظار تسویه
               </div>
               <div class="price-progress price-progress-incomeBeingSettle">
                 <div class="price-box">
-                  <div class="price">{{incomeBeingSettle}}</div>
+                  <div class="price">{{sales_man.income_being_settle}}</div>
                   <span class="currency">تومان</span>
                 </div>
               </div>
@@ -89,16 +89,12 @@
               class="tabs-box"
               active-class="tab-active-class"
               @change="handleTables">
-        <q-tab name="transactions"
-               :disabled="loading"
-               active-class="active-tab-t">
+        <q-tab name="transactions">
           <span class="tab-title">
             تراکنش کارت‌ها
           </span>
         </q-tab>
-        <q-tab name="clearingHistory"
-               :disabled="loading"
-               active-class="active-tab-t">
+        <q-tab name="clearingHistory">
           <span class="tab-title">
             تاریخچه تسویه
           </span>
@@ -109,104 +105,93 @@
       <q-tab-panels v-model="activeTab"
                     animated>
         <q-tab-panel name="transactions">
-          <div class="table-container">
-            <div class="table-title">
-              تراکنش کارت ها
-            </div>
-            <!--            <v-data-table-->
-            <!--              v-model:options="transactionsOptions"-->
-            <!--              :headers="transactionsHeaders"-->
-            <!--              :items="transactionsTableRow"-->
-            <!--              mobile-breakpoint="300"-->
-            <!--              :server-items-length="100"-->
-            <!--              :items-per-page="5"-->
-            <!--              :loading="loading"-->
-            <!--              class="gift-card-table"-->
-            <!--              disable-sort-->
-            <!--              fixed-header-->
-            <!--              hide-default-footer-->
-            <!--            >-->
-            <!--              <template v-slot:item.name="{ item }">-->
-            <!--                {{ item.name ? item.name : '-'  }}-->
-
-            <!--              </template>-->
-            <!--              <template v-slot:item.codeNumber="{ item }">-->
-            <!--                <div>-->
-            <!--                  {{ item.codeNumber ? 'AT ' + item.codeNumber : '-'}}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--              <template v-slot:item.productTitle="{ item }">-->
-            <!--                <div class="flex-center">-->
-            <!--                  <div class="product-title">-->
-            <!--                    {{ item.productTitle ? item.productTitle : '-' }}-->
-            <!--                  </div>-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--              <template v-slot:item.purchaseDate="{ item }">-->
-            <!--                <div class="flex-center">-->
-            <!--                  {{ item.purchaseDate? item.purchaseDate : '-' }}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--              <template v-slot:item.purchasePrice="{ item }">-->
-            <!--                <div class="flex-center">-->
-            <!--                  {{ item.purchasePrice? item.purchasePrice : '-' }}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--              <template v-slot:item.income="{ item }">-->
-            <!--                <div class="flex-center">-->
-            <!--                  {{ item.income? item.income : '-' }}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--            </v-data-table>-->
+          <div class="table-title q-mb-md">
+            تراکنش کارت ها
+          </div>
+          <div class="table-container text-center">
+            <q-table :rows="transactionsTableRow"
+                     :columns="transactionsHeaders"
+                     :loading="loading"
+                     hide-bottom
+                     row-key="id">
+              <template #header-cell="props">
+                <q-th :props="props"
+                      class="table-row-txt">
+                  {{ props.col.label }}
+                </q-th>
+              </template>
+              <template #body-cell="props">
+                <q-td v-if="props.col.name === 'purchased_at'"
+                      class="table-column-txt">
+                  {{ convertToShamsi(props.value, 'date') }}
+                </q-td>
+                <q-td v-else
+                      class="table-column-txt">
+                  {{ props.value }}
+                </q-td>
+              </template>
+            </q-table>
+          </div>
+          <div class="flex justify-center">
+            <q-pagination v-model="page"
+                          :max="lastPage"
+                          :max-pages="6"
+                          boundary-links
+                          icon-first="isax:arrow-left-2"
+                          icon-last="isax:arrow-right-3"
+                          class="gift-card-pagination"
+                          @update:model-value="getTransactionDataFromApi" />
           </div>
         </q-tab-panel>
         <q-tab-panel name="clearingHistory">
-          <div class="table-container">
+          <div class="">
             <div class="table-title">
               تاریخچه تسویه
             </div>
-            <!--            <v-data-table-->
-            <!--              v-model:options="clearingHistoryOptions"-->
-            <!--              :headers="clearingHistoryHeaders"-->
-            <!--              :items="clearingHistoryTableRow"-->
-            <!--              mobile-breakpoint="300"-->
-            <!--              :server-items-length="100"-->
-            <!--              :items-per-page="5"-->
-            <!--              :loading="loading"-->
-            <!--              class="gift-card-table"-->
-            <!--              disable-sort-->
-            <!--              fixed-header-->
-            <!--              hide-default-footer-->
-            <!--            >-->
-            <!--              <template v-slot:item.number="{ item }">-->
-            <!--                <div class="flex-center">-->
-            <!--                  {{ item.number }}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--              <template v-slot:item.price="{ item }">-->
-            <!--                <div class="flex-center">-->
-            <!--                  {{item.price}}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--              <template v-slot:item.date="{ item }">-->
-            <!--                <div class="flex-center">-->
-            <!--                  {{item.date }}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--              <template v-slot:item.status="{ item }">-->
-            <!--                <div class="flex-center"-->
-            <!--                     :class="(item.status.name === 5 || item.status.name === 3)? 'green-text': 'red-text'"-->
-
-            <!--                >-->
-            <!--                  {{ item.status.name }}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--              <template v-slot:item.paymentDate="{ item }">-->
-            <!--                <div class="flex-center">-->
-            <!--                  {{item.paymentDate }}-->
-            <!--                </div>-->
-            <!--              </template>-->
-            <!--            </v-data-table>-->
+            <div class="table-container text-center">
+              <q-table :rows="clearingHistoryTableRow"
+                       :columns="clearingHistoryHeaders"
+                       :loading="loading"
+                       hide-bottom
+                       row-key="id">
+                <template #header-cell="props">
+                  <q-th :props="props"
+                        class="table-row-txt">
+                    {{ props.col.label }}
+                  </q-th>
+                </template>
+                <template #body-cell="props">
+                  <!--                  <q-td v-if="props.col.name === 'settlement-date'">-->
+                  <!--                    {{ convertToShamsi(props.value, 'date') }}-->
+                  <!--                  </q-td>-->
+                  <q-td v-if="props.col.name === 'status'"
+                        class="isAssigned-column table-column-txt">
+                    <div class="share-box">
+                      {{ getWithdrawStatus(props.value) }}
+                    </div>
+                  </q-td>
+                  <q-td v-else-if="props.col.name === 'updated-at'"
+                        class="table-column-txt">
+                    {{ convertToShamsi(props.value, 'date') }}
+                  </q-td>
+                  <q-td v-else>
+                    <div class="table-column-txt">
+                      {{ props.value }}
+                    </div>
+                  </q-td>
+                </template>
+              </q-table>
+            </div>
+            <div class="flex justify-center">
+              <q-pagination v-model="historyPage"
+                            :max="historyLastPage"
+                            :max-pages="6"
+                            boundary-links
+                            icon-first="isax:arrow-left-2"
+                            icon-last="isax:arrow-right-3"
+                            class="gift-card-pagination"
+                            @update:model-value="getGiftCardsData" />
+            </div>
           </div>
         </q-tab-panel>
       </q-tab-panels>
@@ -214,23 +199,32 @@
     <q-dialog v-model="settlementGuideDialog"
               width="500px">
       <div class="settlementGuide-dialog">
-        <!--        <v-card>-->
-        <!--          <v-spacer />-->
-        <!--          <v-card-text>-->
-        <!--            <span v-html="settlementGuide" />-->
-        <!--          </v-card-text>-->
-
-        <!--          <v-divider />-->
-
-        <!--          <v-card-actions>-->
-        <!--            <v-spacer />-->
-        <!--            <v-btn color="#FF9000"-->
-        <!--                   text-->
-        <!--                   @click="settlementGuideDialog = false">-->
-        <!--              بستن-->
-        <!--            </v-btn>-->
-        <!--          </v-card-actions>-->
-        <!--        </v-card>-->
+        <q-btn color="primary"
+               icon="isax:close-circle"
+               @click="settlementGuideDialog = false" />
+        <q-card>
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
+            numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+            optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
+            obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
+            nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
+            tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
+            quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos
+            sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
+            recusandae alias error harum maxime adipisci amet laborum. Perspiciatis
+            minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit
+            quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur
+            fugiat, temporibus enim commodi iusto libero magni deleniti quod quam
+            consequuntur! Commodi minima excepturi repudiandae velit hic maxime
+            doloremque. Quaerat provident commodi consectetur veniam similique ad
+            earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo
+            fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore
+            suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
+            modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam
+            totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam
+            quasi aliquam eligendi, placeat qui corporis!</span>
+        </q-card>
       </div>
     </q-dialog>
   </div>
@@ -241,41 +235,57 @@ import Price from 'src/models/Price.js'
 import Assist from 'src/assets/js/Assist.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
 import { APIGateway } from 'src/api/APIGateway'
+import mixinDateOptions from 'src/mixin/DateOptions'
+import { ReferralCodeList } from 'src/models/ReferralCode'
+
 export default {
   name: 'GiftCardTransactions',
-  mixins: [GiftCardMixin],
+  mixins: [GiftCardMixin, mixinDateOptions],
   data: () => ({
+    sales_man: {
+      wallet_type: 'main_account',
+      wallet_balance: 9845,
+      total_commission: 55183,
+      has_signed_contract: false,
+      minAmount_until_settlement: 10000,
+      count_of_total_gift_cards: 11,
+      count_of_used_gift_cards: 0,
+      count_of_remain_gift_cards: 11,
+      income_being_settle: 90434
+    },
     test: 7000000000,
     settlementGuideDialog: false,
     percentage: 0,
     lastPage: 0,
     page: 1,
+    historyLastPage: 0,
+    historyPage: 1,
     activeTab: 'transactions',
-    transactionsHeaders: [
-      { text: 'نام خریدار', cellClass: 'custom-cell-width transaction-first-colum-padding', class: 'header-style transaction-first-colum-padding', value: 'name' },
-      { text: 'شماره کارت', cellClass: 'min-colum-width', class: 'header-style', value: 'codeNumber' },
-      { text: 'محصول', cellClass: 'title-width', class: 'header-style', value: 'productTitle' },
-      { text: 'تاریخ خرید', cellClass: 'min-colum-width', class: 'header-style', value: 'purchaseDate' },
-      { text: 'مبلغ خرید', cellClass: 'min-colum-width', class: 'header-style', value: 'purchasePrice' },
-      { text: 'درآمد شما', cellClass: 'min-colum-width', class: 'header-style', value: 'income' }
-    ],
     clearingHistoryHeaders: [
-      { text: 'شماره تراکنش', cellClass: 'custom-cell-width transaction-first-colum-padding', class: 'header-style transaction-first-colum-padding', value: 'id' },
-      { text: 'مبلغ', cellClass: 'min-colum-width', class: 'header-style', value: 'price' },
-      { text: 'تاریخ درخواست', cellClass: 'min-colum-width', class: 'header-style', value: 'date' },
-      { text: 'وضعیت', cellClass: 'custom-cell-width', class: 'header-style', value: 'status' },
-      { text: 'تاریخ پرداخت', cellClass: 'min-colum-width', class: 'header-style', value: 'paymentDate' }
+      { name: 'bank-tracking-code', align: 'center', label: 'شماره تراکنش', field: 'bank-tracking-code' },
+      { name: 'amount', align: 'center', label: 'مبلغ', field: 'amount' },
+      { name: 'settlement-date', align: 'center', label: 'تاریخ درخواست', field: 'settlement-date' },
+      { name: 'status', align: 'center', label: 'وضعیت', field: 'status' },
+      { name: 'updated-at', align: 'center', label: 'تاریخ پرداخت', field: 'updated-at' }
     ],
     loading: false,
     transactionsOptions: {},
     transactionsTableRow: [],
+    transactionsHeaders: [
+      { name: 'name', align: 'center', label: 'نام خریدار', field: 'full_name' },
+      { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
+      { name: 'product', align: 'center', label: 'محصول', field: 'product' },
+      { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
+      { name: 'product_price', align: 'center', label: 'مبلغ خرید', field: 'product_price' },
+      { name: 'commisson', align: 'center', label: 'درآمد شما', field: 'commisson' }
+    ],
     clearingHistoryOptions: {},
     clearingHistoryTableRow: []
   }),
   computed: {
     remainigAmountUntilSettlement () {
       return new Price({
-        base: this.minAmountUntilSettlement - this.walletBalance
+        base: this.minAmountUntilSettlement - this.sales_man.wallet_balance
       })
     },
     walletBalance() {
@@ -292,7 +302,7 @@ export default {
     },
     minAmountUntilSettlement() {
       // return this.$store.getters.appProps.minAmountUntilSettlement
-      return 1
+      return 1000000
     },
 
     incomeBeingSettle() {
@@ -308,6 +318,7 @@ export default {
     loadAllData() {
       this.setPercentage()
       this.getTransactionDataFromApi()
+      this.getWithdrawHistory()
       // this.getClearingHistoryDataFromApi()
     },
     openSettlementGuideDialog() {
@@ -320,22 +331,60 @@ export default {
       }
       this.percentage = (1 - (this.minAmountUntilSettlement - this.walletBalance) / this.minAmountUntilSettlement) * 100
     },
-    async clearWallet() {
-      try {
-        await this.$axios.post('/ajax/wallet/withdraw', { wallet_type_id: 1 })
-        location.reload()
-        this.toast(' با موفقیت ثبت  شد')
-      } catch (e) {
-        const messages = this.getErrorMessages(e.response.data)
-        this.showErrorMessages(messages)
+    clearWallet() {
+      APIGateway.referralCode.walletWithdraw()
+        .then((response) => {
+          location.reload()
+          this.toast(' با موفقیت ثبت  شد')
+        })
+        .catch((e) => {
+          const messages = this.getErrorMessages(e.response.data)
+          this.showErrorMessages(messages)
+        })
+    },
+    getWithdrawStatus(value) {
+      if (value === 'pending') {
+        return 'در صف انتظار'
       }
+      if (value === 'canceled') {
+        return 'پرداخت نشده'
+      }
+      if (value === 'rejected') {
+        return 'پرداخت نشده'
+      }
+      if (value === 'complete') {
+        return 'پرداخت شده'
+      }
+    },
+    getTransactionsData(page = 1) {
+      this.loading = true
+      APIGateway.referralCode.index({ data: { page } })
+        .then(({ referralCodeList, paginate }) => {
+          this.lastPage = paginate.last_page
+          this.referralCodeList = new ReferralCodeList(referralCodeList)
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    },
+    getWithdrawHistory() {
+      this.loading = true
+      APIGateway.referralCode.withdrawHistory()
+        .then(response => {
+          this.clearingHistoryTableRow = response
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
     getTransactionDataFromApi(page = 1) {
       this.loading = true
       this.referralCodeList = []
       APIGateway.referralCode.getOrderProducts({ data: { page } })
-        .then(() => {
-          // console.log('response', response)
+        .then((response) => {
+          this.transactionsTableRow = response.data.data
           // this.lastPage = paginate.last_page
           // this.referralCodeList = referralCodeList
           this.loading = false
@@ -438,6 +487,23 @@ export default {
 <style scoped lang="scss">
 
 .transition-panel{
+  .tabs-section{
+    :deep(.q-tab-panels){
+      background: transparent;
+    }
+    .table-container{
+      .table-row-txt{
+        font-size: 16px;
+        font-weight: 600;
+        color: #697D9A;
+      }
+      .table-column-txt{
+        font-size: 14px;
+        font-weight: 400;
+        color: #697D9A;
+      }
+    }
+  }
   .green-text{
     color :#E94B47;
   }
@@ -485,26 +551,24 @@ export default {
       bottom: 0;
       background: #E7ECF4;
     }
-    .table-container{
-      margin: 30px 0;
-      .table-title{
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 31px;
-        text-align: left;
-        letter-spacing: -0.03em;
-        color: #8798B1;
-        margin-bottom: 16px;
-        @media screen and (max-width: 599px) {
-          font-size: 14px;
-          line-height: 25px;
-        }
-      }
-    }
   }
 
-  .active-tab-t{
+    .table-title{
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 31px;
+      text-align: left;
+      letter-spacing: -0.03em;
+      color: #8798B1 !important;
+      margin-bottom: 16px;
+      @media screen and (max-width: 599px) {
+        font-size: 16px;
+        line-height: 25px;
+      }
+    }
+
+  .tab-active-class{
     .tab-title{
       color:#FF9000;
       font-weight: 600;
@@ -594,7 +658,7 @@ export default {
     }
   }
   .income{
-    margin: 0 0 0 15px;
+    //margin: 0 0 0 15px;
   }
   .demand{
     margin: 0 15px;

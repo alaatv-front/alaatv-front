@@ -45,8 +45,8 @@ export default {
       inputs: [
         {
           type: 'optionGroupRadio',
-          responseKey: 'type',
-          name: 'type',
+          responseKey: 'is_free',
+          name: 'isFree',
           label: 'نوع محتوا',
           dense: 'false',
           options: [
@@ -129,6 +129,9 @@ export default {
     formData(value) {
       this.$emit('updateFormData', value)
     }
+  },
+  mounted() {
+    this.inputs.find(x => x.name === 'isFree').value = this.content.is_free
   },
   methods: {
     videoSource() {
