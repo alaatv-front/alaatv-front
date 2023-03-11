@@ -1,18 +1,11 @@
 <template>
   <div class="show-gif-cards-page">
     <div class="page-title">
-      کارت های من
+      داشبورد
     </div>
     <div class="page-introduction">
       <div class="no-gutters row">
-        <div class="col-xl-6 col-12 description">
-          تعداد
-          <span>{{countOfTotalGiftCards}}</span>
-          کارت هدیه به شما اختصاص داده شده است
-          <br>
-          از این پس میتوانید با اشتراک گذاری کارت‌های زیر، پس از استفاده آن‌ها از کارت پاداش دریافت کنید و درآمد داشته باشید.
-        </div>
-        <div class="col-xl-6 col-12">
+        <div class="col-md-9 col-12">
           <div class="row card-box no-gutters">
             <div class="col-sm-6 col-12">
               <div class="card-style used-card">
@@ -21,7 +14,7 @@
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{countOfUsedGiftCards}}
+                    {{sales_man.count_of_total_gift_cards - sales_man.count_of_remain_gift_cards}}
                   </span>
                   <span>
                     کارت
@@ -36,7 +29,7 @@
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{countOfRemainGiftCards}}
+                    {{sales_man.count_of_remain_gift_cards}}
                   </span>
                   <span>
                     کارت
@@ -46,113 +39,149 @@
             </div>
           </div>
         </div>
+        <div class="col-md-3 col-12 column">
+          <div class="card-style payment-card">
+            <div class="title q-mb-lg">
+              ظرفیت تا پرداخت بعدی
+            </div>
+            <div class="pie"
+                 style="--p:88;">
+              <span class="text-center">%88</span>
+              <span class="text text-center">حداقل تسویه</span>
+            </div>
+            <div class="Payable row justify-center q-py-lg">
+              <div class="number q-mx-xs">1,850,000</div>
+              <div class="toman q-mx-xs">تومان</div>
+            </div>
+            <q-btn flat
+                   color="primary"
+                   class="count q-mt-md">
+              <span>
+                اطلاعات بیشتر
+              </span>
+              <q-icon name="isax:arrow-left" />
+            </q-btn>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="text-center">
-      <div class="table-title">
-        لیست کارت ها
-      </div>
-      <div class="table-container text-center">
-        <q-table :rows="referralCodeList.list"
-                 :columns="referralCodeColumns"
-                 :loading="loading"
-                 hide-bottom
-                 row-key="id">
-          <template #body-cell="props">
-            <q-td v-if="props.col.name === 'code'"
-                  @click="copyCodeNumberToClipboard(props.value)">
-              {{ props.value }}
-            </q-td>
-            <q-td v-else-if="props.col.name === 'isAssigned'"
-                  class="isAssigned-column">
-              <div class="share-box">
-                {{ props.value === 0 ? 'اشتراک گذاری:' : 'به اشتراک گذاشته اید' }}
-                <q-btn class="icon-container"
-                       :loading="props.row.loading">
-                  <svg width="24"
-                       height="24"
-                       viewBox="0 0 24 24"
-                       fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16.33 7.90998V15.14C16.33 16.8 14.99 18.14 13.33 18.14H7.79004C6.13004 18.14 4.79004 16.8 4.79004 15.14V5.97998C4.79004 4.31998 6.13004 2.97998 7.79004 2.97998H11.4C11.64 2.97998 11.87 3.06998 12.03 3.23998L16.06 7.26998C16.23 7.43998 16.32 7.66998 16.32 7.89998L16.33 7.90998Z"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round" />
-                    <path d="M19.21 10.79V18.02C19.21 19.68 17.87 21.02 16.21 21.02H8.97998"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round" />
-                    <path d="M16.14 7.76998H13.54C12.44 7.76998 11.54 6.86998 11.54 5.76998V3.24998"
-                          stroke="white"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round" />
-                  </svg>
-                  <q-popup-proxy :offset="[10, 10]"
-                                 transition-show="flip-up"
-                                 transition-hide="flip-down">
-                    <q-banner dense
-                              rounded>
-                      <share-network :url="props.row.url"
-                                     @on-select="shareGiftCard(props.row)" />
+    <!--    <div class="text-center">-->
+    <!--      <div class="table-title">-->
+    <!--        لیست کارت ها-->
+    <!--      </div>-->
+    <!--      <div class="table-container text-center">-->
+    <!--        <q-table :rows="referralCodeList.list"-->
+    <!--                 :columns="referralCodeColumns"-->
+    <!--                 :loading="loading"-->
+    <!--                 :rows-per-page-options="[0]"-->
+    <!--                 hide-bottom-->
+    <!--                 row-key="id">-->
+    <!--          <template #body-cell="props">-->
+    <!--            <q-td v-if="props.col.name === 'code'"-->
+    <!--                  @click="copyCodeNumberToClipboard(props.value)">-->
+    <!--              {{ props.value }}-->
+    <!--            </q-td>-->
+    <!--            <q-td v-else-if="props.col.name === 'isAssigned'"-->
+    <!--                  class="isAssigned-column">-->
+    <!--              <div class="share-box">-->
+    <!--                {{ props.value === 0 ? 'اشتراک گذاری:' : 'به اشتراک گذاشته اید' }}-->
+    <!--                <q-btn class="icon-container"-->
+    <!--                       :loading="props.row.loading">-->
+    <!--                  <svg width="24"-->
+    <!--                       height="24"-->
+    <!--                       viewBox="0 0 24 24"-->
+    <!--                       fill="none"-->
+    <!--                       xmlns="http://www.w3.org/2000/svg">-->
+    <!--                    <path d="M16.33 7.90998V15.14C16.33 16.8 14.99 18.14 13.33 18.14H7.79004C6.13004 18.14 4.79004 16.8 4.79004 15.14V5.97998C4.79004 4.31998 6.13004 2.97998 7.79004 2.97998H11.4C11.64 2.97998 11.87 3.06998 12.03 3.23998L16.06 7.26998C16.23 7.43998 16.32 7.66998 16.32 7.89998L16.33 7.90998Z"-->
+    <!--                          stroke="white"-->
+    <!--                          stroke-width="1.5"-->
+    <!--                          stroke-linecap="round"-->
+    <!--                          stroke-linejoin="round" />-->
+    <!--                    <path d="M19.21 10.79V18.02C19.21 19.68 17.87 21.02 16.21 21.02H8.97998"-->
+    <!--                          stroke="white"-->
+    <!--                          stroke-width="1.5"-->
+    <!--                          stroke-linecap="round"-->
+    <!--                          stroke-linejoin="round" />-->
+    <!--                    <path d="M16.14 7.76998H13.54C12.44 7.76998 11.54 6.86998 11.54 5.76998V3.24998"-->
+    <!--                          stroke="white"-->
+    <!--                          stroke-width="1.5"-->
+    <!--                          stroke-linecap="round"-->
+    <!--                          stroke-linejoin="round" />-->
+    <!--                  </svg>-->
+    <!--                  <q-popup-proxy :offset="[10, 10]"-->
+    <!--                                 transition-show="flip-up"-->
+    <!--                                 transition-hide="flip-down">-->
+    <!--                    <q-banner dense-->
+    <!--                              rounded>-->
+    <!--                      <share-network :url="props.row.url"-->
+    <!--                                     @on-select="shareGiftCard(props.row)" />-->
 
-                      <!--                                      <ShareNetwork-->
-                      <!--                                        network="facebook"-->
-                      <!--                                        class="social-share"-->
-                      <!--                                      >-->
-                      <!--                                        <v-btn-->
-                      <!--                                          class="ma-2"-->
-                      <!--                                          color="amber darken-3"-->
-                      <!--                                          dark-->
-                      <!--                                          @click="openUrl (item, 'facebook')"-->
-                      <!--                                        >-->
-                      <!--                                          <v-icon>mdi-facebook</v-icon>-->
-                      <!--                                        </v-btn>-->
-                      <!--                                      </ShareNetwork>-->
-                    </q-banner>
-                  </q-popup-proxy>
-                </q-btn>
-              </div>
-            </q-td>
-            <q-td v-else-if="props.col.name === 'orders'">
-              <div class="status-box">
-                <div class="dot"
-                     :class="props.value.length === 0 ? 'red-dot' : 'green-dot'" />
-                {{ props.value.length === 0 ? 'استفاده نشده' : 'استفاده شده' }}
-              </div>
-            </q-td>
-            <q-td v-else>
-              {{ props.value }}
-            </q-td>
-          </template>
-        </q-table>
-      </div>
-      <div class="flex justify-center q-mt-xl">
-        <q-pagination v-model="page"
-                      :max="lastPage"
-                      :max-pages="6"
-                      boundary-links
-                      icon-first="isax:arrow-left-2"
-                      icon-last="isax:arrow-right-3"
-                      @update:model-value="getGiftCardsData" />
-      </div>
-    </div>
+    <!--                      &lt;!&ndash;                                      <ShareNetwork&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                        network="facebook"&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                        class="social-share"&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                      >&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                        <v-btn&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                          class="ma-2"&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                          color="amber darken-3"&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                          dark&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                          @click="openUrl (item, 'facebook')"&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                        >&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                          <v-icon>mdi-facebook</v-icon>&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                        </v-btn>&ndash;&gt;-->
+    <!--                      &lt;!&ndash;                                      </ShareNetwork>&ndash;&gt;-->
+    <!--                    </q-banner>-->
+    <!--                  </q-popup-proxy>-->
+    <!--                </q-btn>-->
+    <!--              </div>-->
+    <!--            </q-td>-->
+    <!--            <q-td v-else-if="props.col.name === 'orders'">-->
+    <!--              <div class="status-box">-->
+    <!--                <div class="dot"-->
+    <!--                     :class="props.value.length === 0 ? 'red-dot' : 'green-dot'" />-->
+    <!--                {{ props.value.length === 0 ? 'استفاده نشده' : 'استفاده شده' }}-->
+    <!--              </div>-->
+    <!--            </q-td>-->
+    <!--            <q-td v-else>-->
+    <!--              {{ props.value }}-->
+    <!--            </q-td>-->
+    <!--          </template>-->
+    <!--        </q-table>-->
+    <!--      </div>-->
+    <!--      <div class="flex justify-center q-my-xl">-->
+    <!--        <q-pagination v-model="page"-->
+    <!--                      :max="lastPage"-->
+    <!--                      :max-pages="6"-->
+    <!--                      boundary-links-->
+    <!--                      icon-first="isax:arrow-left-2"-->
+    <!--                      icon-last="isax:arrow-right-3"-->
+    <!--                      @update:model-value="getGiftCardsData" />-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
 </template>
 
 <script>
 import { APIGateway } from 'src/api/APIGateway'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import ShareNetwork from 'src/components/ShareNetwork.vue'
+// import ShareNetwork from 'src/components/ShareNetwork.vue'
 
 export default {
   name: 'GiftCardDashboard',
-  components: { ShareNetwork },
+  // components: { ShareNetwork },
   mixins: [GiftCardMixin],
   data() {
     return {
+      sales_man: {
+        wallet_type: 'main_account',
+        wallet_balance: 9845,
+        total_commission: 55183,
+        has_signed_contract: false,
+        minAmount_until_settlement: 10000,
+        count_of_total_gift_cards: 11,
+        count_of_used_gift_cards: 0,
+        count_of_remain_gift_cards: 11,
+        income_being_settle: 90434
+      },
       lastPage: 0,
       page: 1,
       shareCodeLoading: false,
@@ -266,6 +295,7 @@ export default {
         .then(({ referralCodeList, paginate }) => {
           this.lastPage = paginate.last_page
           this.referralCodeList = referralCodeList
+          // console.log(this.referralCodeList.list)
           this.loading = false
         })
         .catch(() => {
@@ -312,7 +342,46 @@ export default {
   }
 }
 </script>
+<style scoped lang="css">
+.pie > .text{
+  font-weight: 400;
+  font-size: 14px;
+}
+.pie {
+  --b:20px;
+  --c:#FF9000;
+  --w:200px;
 
+  width:var(--w);
+  aspect-ratio:1;
+  position:relative;
+  display:inline-grid;
+  place-self: center;
+  margin:5px;
+  place-content:center;
+  font-size:48px;
+  font-weight:700;
+}
+.pie:before,
+.pie:after {
+  content:"";
+  position:absolute;
+  border-radius:50%;
+}
+.pie:before {
+  inset:0;
+  background:
+    radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
+    conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+  -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+  mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+}
+.pie:after {
+  inset:calc(50% - var(--b)/2);
+  background:var(--c);
+  transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
+}
+</style>
 <style lang="scss" scoped>
 @import "src/components/Widgets/User/GiftCard/Style/theme.scss";
 
@@ -327,7 +396,7 @@ export default {
   text-align: left;
   letter-spacing: -0.03em;
   color: $text-color-secondary;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 .page-introduction{
   margin-bottom: 31px;
@@ -355,6 +424,10 @@ export default {
     &.unUsed-card{
       margin-left: 15px;
     }
+    &.payment-card{
+      margin-left: 15px;
+      height: 450px;
+    }
 
     .title{
       font-weight: 600;
@@ -362,14 +435,26 @@ export default {
       line-height: 25px;
       text-align: left;
     }
+    .Payable{
+      align-items: center;
+      .number{
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 46px;
+      }
+      .toman{
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 28px;
+      }
+    }
     .count{
       font-weight: 400;
       font-size: 18px;
       line-height: 28px;
       text-align: left;
-      position: absolute;
       bottom: 20px;
-      right: 30px;
+      left: 10px;
       .number{
         font-weight: 700;
         font-size: 36px;
@@ -488,7 +573,7 @@ export default {
   .page-title {
     font-size: 18px;
     line-height: 28px;
-    margin-bottom: 10px;
+    margin-bottom: 24px;
   }
 }
 @media only screen and (max-width: 599px) {
@@ -501,7 +586,7 @@ export default {
   .page-title {
     font-size: 16px;
     line-height: 25px;
-    margin-bottom: 5px;
+    margin-bottom: 16px;
   }
   .page-introduction{
     margin-bottom: 29px;
