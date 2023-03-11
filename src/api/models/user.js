@@ -21,7 +21,8 @@ export default class UserAPI extends APIRepository {
       formData: '/megaroute/getUserFormData',
       showUser: '/getUserFor3a',
       eventResult: '/eventresult',
-      roll: (id) => `/admin/user?hasRole[]=${id}`
+      roll: (id) => `/admin/user?hasRole[]=${id}`,
+      nationalCard: '/national-card-photo'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -36,7 +37,8 @@ export default class UserAPI extends APIRepository {
       formData: this.name + this.APIAdresses.base,
       showUser: this.name + this.APIAdresses.base,
       eventResult: this.name + this.APIAdresses.base,
-      roll: (id) => this.name + this.APIAdresses.roll(id)
+      roll: (id) => this.name + this.APIAdresses.roll(id),
+      nationalCard: this.name + this.APIAdresses.nationalCard
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
@@ -45,6 +47,22 @@ export default class UserAPI extends APIRepository {
       post: (response) => { return new User(response.data.data) },
       put: (response) => { return new User(response.data.data) },
       delete: (response) => { return new User(response.data.data) }
+    })
+  }
+
+  nationalCard(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.nationalCard,
+      cacheKey: this.CacheList.nationalCard,
+      data,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 
@@ -58,6 +76,21 @@ export default class UserAPI extends APIRepository {
         preShabaNumber: 'IR', // String
         shabaNumber: '' // String
       }, data),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getBankAccounts () {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.bankAccounts,
+      cacheKey: this.CacheList.bankAccounts,
       resolveCallback: (response) => {
         return response
       },
