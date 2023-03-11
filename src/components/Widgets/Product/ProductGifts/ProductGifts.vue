@@ -1,12 +1,13 @@
 <template>
-  <div class="product-gift-widgets row"
+  <div v-if="products.list.length > 0"
+       class="product-gift-widgets row"
        :style="options.style"
        :class="options.className">
     <div class="gift-container">
       <p class="title-style">
         هدایا
       </p>
-      <q-card class="gift-text col-md-12 q-pa-md">
+      <div class="gift-text">
         <span>این محصول شامل هدایای زیر میباشد: </span>
         <div class="flex q-py-lg">
           <div v-for="(product, index) in products.list"
@@ -17,31 +18,26 @@
                 name: 'Public.Product.Show',
                 params: { id: product.id ? product.id : -1 }
               }">
-                <lazy-img :src="product.photo"
-                          :alt="product.title"
-                          width="1"
-                          height="1"
-                          class="img" />
-                <div class="main-title ellipsis-2-lines">
-                  {{ product.title }}
-                </div>
+                <product-item :options="{product, canAddToCart: false}" />
               </router-link>
             </div>
           </div>
         </div>
-      </q-card>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ProductList } from 'src/models/Product'
-import { APIGateway } from 'src/api/APIGateway'
-import LazyImg from 'components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { ProductList } from 'src/models/Product.js'
+import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'ProductGifts',
-  components: { LazyImg },
+  components: { ProductItem },
+  mixins: [mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -50,23 +46,39 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       products: new ProductList()
     }
   },
-  mounted() {
-    this.getProduct()
+  computed: {
+    productId () {
+      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
+        return this.options.productId
+      }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return this.product.id
+    }
   },
   methods: {
-    getProduct() {
-      APIGateway.product.gifts({ productId: this.$route.params.id })
-        .then(products => {
-          this.products = new ProductList(products)
-          console.log(this.products)
-        })
-        .catch(() => {
-        })
+    prefetchServerDataPromise () {
+      this.products.loading = true
+      return this.getPriductCifts()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.products = data
+      this.products.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.products.loading = false
+    },
+    getPriductCifts() {
+      return APIGateway.product.gifts(this.productId)
     }
   }
 }
@@ -83,9 +95,6 @@ export default {
 }
 
 .gift-text {
-  background-color: #FFFFFF;
-  box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
-  border-radius: 20px;
   margin-top: 20px;
   padding: 10px 20px;
 }

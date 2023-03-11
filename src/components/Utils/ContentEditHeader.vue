@@ -67,6 +67,10 @@
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
 import { APIGateway } from 'src/api/APIGateway'
 import { EntityCrudFormBuilder } from 'quasar-crud'
+import { shallowRef } from 'vue'
+import TagsComponent from 'components/Utils/Tags.vue'
+const Tags = shallowRef(TagsComponent)
+
 export default {
   name: 'EntityEditHeader',
   components: { FormBuilder, EntityCrudFormBuilder },
@@ -86,8 +90,8 @@ export default {
     return {
       moreSelectorValue: 'بیشتر',
       moreSelectorOptions: [
-        { label: 'حذف', value: 'delete' },
-        { label: 'دانلود', value: 'download' }
+        { label: 'حذف', value: 'delete' }
+        // { label: 'دانلود', value: 'download' }
       ],
       editSelectorValue: 'ویرایش',
       editSelectorOptions: [
@@ -283,15 +287,24 @@ export default {
             ]
           },
           {
-            type: 'input',
+            type: Tags,
             name: 'description',
+            label: 'متن مورد نظر خود را وارد نمایید',
+            placeholder: ' ',
             outlined: true,
-            autogrow: true,
-            value: null,
-            placeholder: 'متن مورد نظر خود را وارد نمایید',
-            label: 'تگ ها:',
+            responseKey: 'data.tags',
             col: 'col-md-8'
           },
+          // {
+          //   type: 'input',
+          //   name: 'description',
+          //   outlined: true,
+          //   autogrow: true,
+          //   value: null,
+          //   placeholder: 'متن مورد نظر خود را وارد نمایید',
+          //   label: 'تگ ها:',
+          //   col: 'col-md-8'
+          // },
           {
             // type: 'formBuilder',
             type: 'hidden',
@@ -446,6 +459,7 @@ export default {
             message: res.message,
             position: 'top'
           })
+          this.contentUpdated()
         })
         .catch(() => {})
       this.moreSelectorValue = 'بیشتر'

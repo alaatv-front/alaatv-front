@@ -1,6 +1,8 @@
 <template>
   <div class="upload-information-wrapper">
-    <div class="row">
+    <loading-content-in-step v-if="content.loading" />
+    <div v-else
+         class="row">
       <div class="col-6 upload-timestamp-col">
         <q-table title="زمان کوب"
                  :rows="rows"
@@ -67,12 +69,15 @@
                  label="استفاده مجدد مشخصات"
                  flat=""
                  @click="toggleDialog()" />
-          <previous-item-dialog v-model:dialog="pervDialog" />
+          <previous-item-dialog v-model:dialog="pervDialog"
+                                :api="$apiGateway.content.FullAPIAdresses.admin"
+                                @selectedUpdated="loadTimestampsFromContent($event)"
+                                @toggleDialog="toggleDialog()" />
         </div>
         <div class="video-box">
           <div class="video-box-title" />
           <video-player class="video"
-                        :source="'https://alaatv.com/hls/input.m3u8'"
+                        :source="content.getVideoSource()"
                         :current-time="currentTime"
                         @seeked="getTimestamp($event)" />
         </div>
@@ -89,16 +94,20 @@
 import PreviousItemDialog from '../PreviousItemsDialog/PreviousItemDialog.vue'
 import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
+import { Content } from 'src/models/Content'
+import LoadingContentInStep
+  from 'components/Widgets/UploadCenter/components/UploadProgressDialog/LoadingContentInStep.vue'
 
 export default {
   name: 'UploadTimestamp',
   components: {
+    LoadingContentInStep,
     PreviousItemDialog,
     VideoPlayer
   },
   props: {
     content: Object,
-    default: () => {}
+    default: () => new Content()
   },
   emits: ['refreshContent'],
   data() {
@@ -111,6 +120,10 @@ export default {
         seconds: ''
       },
       timestampForm: {
+        id: 0,
+        isFavored: false,
+        favorUrl: '',
+        unfavorUrl: '',
         content_id: 0,
         title: '',
         time: 0
@@ -148,6 +161,9 @@ export default {
         this.getTimestamp(element.time, false)
         const timestamp = {
           id: element.id,
+          isFavored: element.isFavored,
+          favorUrl: element.favorUrl,
+          unfavorUrl: element.unfavorUrl,
           title: element.title,
           time: `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`,
           action: 'saved'
@@ -162,11 +178,32 @@ export default {
       })
       this.activeIndex = this.rows.length - 1
     },
+    loadTimestampsFromContent(content) {
+      this.$apiGateway.content.showAdmin(content.id).then(res => {
+        this.rows = res.timepoints.list
+        for (let index = 0; index < this.rows.length; index++) {
+          const element = this.rows[index]
+          element.id = '#' + element.id.toString()
+          element.content_id = this.content.id
+          this.activeIndex = index
+          this.$apiGateway.content.SetTimestamp({ data: element }).then(res => {
+            element.time = this.getTimestamp(element.time)
+            this.toggleAction(index, 'saved')
+          }).catch(() => {
+          })
+        }
+      })
+    },
     videoSource() {
       return new PlayerSourceList(this.content.file.video)
     },
     removeTimestamp(row) {
-      this.rows = this.rows.filter(x => x.id !== row.id)
+      this.$apiGateway.content.DeleteTimestamp({
+        id: row.id
+      }).then(res => {
+        this.rows = this.rows.filter(x => x.id !== row.id)
+      }).catch(() => {
+      })
       this.activeIndex = this.rows.length - 1
     },
     editTimestamp(row) {
@@ -179,15 +216,16 @@ export default {
       const action = row.action
       this.rows.splice(index, 1, row)
       const timestampForm = {
-        content_id: 37920,
+        id: row.id,
+        content_id: this.content.id,
         title: row.title,
         time: (Number(this.time.hours) * 3600) + (Number(this.time.minutes) * 60) + Number(this.time.seconds)
       }
-      this.$apiGateway.content.SetTimestamp({ data: timestampForm }).then(res => {
-        this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
-        this.toggleAction(index, 'saved')
-        this.activeIndex = this.rows.length - 1
-        if (action === 'add') {
+      if (action === 'add') {
+        this.$apiGateway.content.SetTimestamp({ data: timestampForm }).then(res => {
+          this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+          this.toggleAction(index, 'saved')
+          this.activeIndex = this.rows.length - 1
           const last = {
             id: this.rows.length + 1,
             title: '',
@@ -197,10 +235,16 @@ export default {
           this.rows.push(last)
           this.activeIndex = this.rows.length - 1
           this.$emit('refreshContent')
-        }
-      }).catch(err => {
-        alert(err)
-      })
+        }).catch(() => {
+        })
+      } else {
+        this.$apiGateway.content.UpdateTimestamp(timestampForm).then(res => {
+          this.rows[index].time = `${this.time.hours + ':' + this.time.minutes + ':' + this.time.seconds}`
+          this.toggleAction(index, 'saved')
+          this.activeIndex = this.rows.length - 1
+        }).catch(() => {
+        })
+      }
     },
     toggleAction(index, action) {
       this.rows[index].action = action

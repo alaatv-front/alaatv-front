@@ -184,9 +184,10 @@
 </template>
 
 <script>
-import LazyImg from 'src/components/lazyImg.vue'
-import { User } from 'src/models/User'
 import { mapMutations } from 'vuex'
+import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
+
 export default {
   name: 'MainHeaderTemplate',
   components: { LazyImg },

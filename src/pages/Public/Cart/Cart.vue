@@ -1,20 +1,16 @@
 <template>
-  <div class="cart-page">
-    <q-page-builder :sections="sections"
-                    :options="options"
-                    :containerFullHeight="calculateHeightStyle"
-                    :editable="pageBuilderEditable" />
-  </div>
+  <q-page-builder :sections="currenSections"
+                  :options="options"
+                  :editable="pageBuilderEditable" />
 </template>
 
 <script>
-
+import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
 export default {
   name: 'Cart',
+  mixins: [mixinPageOptions, mixinSEO],
   data() {
     return {
-      scrollInfo: null,
-      key: 0,
       sections: [
         {
           data: {
@@ -92,19 +88,8 @@ export default {
       options: []
     }
   },
-  computed: {
-    calculateHeightStyle() {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
-    },
-    pageBuilderEditable () {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    }
-  },
-  created() {},
-  methods: {
+  created () {
+    this.currenSections = this.sections
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

@@ -1,9 +1,11 @@
 <template>
-  <div class="bg-white shadow-4 q-mb-md q-mx-sm"
-       :style="options.style">
+  <q-card class="video-player custom-card bg-white q-pb-md q-mx-md full-height"
+          :style="options.style">
     <video-player v-if="sources.list.length > 0"
                   :sources="sources"
                   :poster="poster" />
+    <q-img v-else
+           src="src/assets/1200x630wa.png" />
     <div class="q-pa-sm flex flex-center">
       <q-pagination v-if="options.paginate"
                     v-model="contentNumber"
@@ -17,7 +19,7 @@
                     icon-prev="fast_rewind"
                     icon-next="fast_forward" />
     </div>
-  </div>
+  </q-card>
 </template>
 
 <script>
@@ -110,7 +112,7 @@ export default {
         promise
           .then((response) => {
             this.content = new Content(response)
-            this.poster = this.content.photo
+            this.poster = this.content.photo ? this.content.photo : ''
             this.setSources(this.content.file.video)
             this.getSetByRequest()
             this.content.loading = false
@@ -147,7 +149,7 @@ export default {
     getSetByRequest() {
       this.set.loading = true
       let promise = null
-      promise = APIGateway.set.show(this.content.set.id)
+      promise = APIGateway.set.show({ id: this.content.set.id })
       if (promise) {
         promise
           .then((response) => {
@@ -190,5 +192,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.video-player{
+  border-radius: 10px;
+  box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);
+}
 </style>

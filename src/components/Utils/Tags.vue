@@ -1,64 +1,106 @@
 <template>
-  <q-select v-model="model"
-            outlined
-            use-input
-            use-chips
-            multiple
-            hide-dropdown-icon=""
-            input-debounce="0"
-            :options="filterOptions"
-            option-label="title"
-            option-value="id"
-            style="width: 100%"
-            @new-value="createValue"
-            @filter="filterFn" />
+  <div class="tags-selection">
+    <div class="outsideLabel">{{ placeholder ? label : null }}</div>
+    <q-select v-model="model"
+              filled
+              outlined
+              multiple
+              use-input
+              use-chips
+              hide-dropdown-icon
+              option-value="id"
+              class="full-width"
+              input-debounce="0"
+              option-label="title"
+              new-value-mode="add-unique"
+              :options="filterOptions"
+              :label="placeholder ? null : label"
+              :stack-label="!!placeholder"
+              :placeholder="placeholderSetter"
+              @filter="filterFn"
+              @update:model-value="onChangeSelections" />
+  </div>
 </template>
+
 <script>
+import inputMixin from 'quasar-form-builder/src/mixins/inputMixin.js'
+import NormalizeNumber from 'assets/js/NormalizeNumber'
 
 export default {
   name: 'Tags',
-  components: {
-  },
-  mixins: [
-  ],
+  mixins: [inputMixin],
   props: {
+    name: {
+      default: '',
+      type: String
+    },
+    value: {
+      default: () => [],
+      type: [Array, Object, String, Number, Boolean]
+    }
   },
-  emits: [
-    'gradeSelected'
-  ],
+  emits: ['gradeSelected'],
   data () {
     return {
-      model: null,
-      stringOptions: [],
-      filterOptions: []
+      model: [],
+      filterOptions: [],
+      stringOptions: []
+    }
+  },
+  computed: {
+    placeholderSetter() {
+      if (this.value === null) {
+        return this.placeholder
+      }
+      // in single select after setting value,
+      // v-model type changes to string
+      if (typeof this.value === 'string') {
+        return ''
+      }
+      // in the multiple scenario, inputData type changes to Array!
+      if (this.multiple) {
+        if (this.value.length === 0) {
+          return this.placeholder
+        }
+        return ''
+      }
+      // be an object
+      if (Object.keys(this.value).length === 0) {
+        return this.placeholder
+      }
+      return ''
     }
   },
   created() {
     this.getTags()
+    this.model = this.value
   },
   methods: {
     getTags() {
-      this.$apiGateway.tree.getGradesList().then(res => {
-        this.stringOptions = res
+      this.$apiGateway.forrest.getTags(['teacher', 'major', 'grade', 'system']).then(res => {
+        this.stringOptions = []
+        res.map((tree) => tree.children).forEach(category => {
+          category.forEach(item => {
+            this.stringOptions.push(item)
+          })
+        })
+
+        // this.stringOptions = res.map((item) => item.children)
         this.filterOptions = this.stringOptions
+      }).catch(() => {
       })
     },
-    createValue (val, done) {
-      if (val.length > 0) {
-        if (!this.stringOptions.includes(val)) {
-          this.stringOptions.push(val)
-        }
-        done(val, 'toggle')
-      }
+    onChangeSelections ($event) {
+      this.change(JSON.parse(JSON.stringify($event.map(item => item.id))))
     },
     filterFn (val, update) {
       update(() => {
         if (val === '') {
           this.filterOptions = this.stringOptions
         } else {
-          const needle = val.toLowerCase()
+          const needle = NormalizeNumber.toEnglish(val.toLowerCase())
           this.filterOptions = this.stringOptions.filter(
-            v => v.toLowerCase().indexOf(needle) > -1
+            v => NormalizeNumber.toEnglish(v.title.toLowerCase()).indexOf(needle) > -1
           )
         }
       })
@@ -66,6 +108,7 @@ export default {
   }
 }
 </script>
+
 <style scoped lang="scss">
 .action-btn-box {
   padding-top: 20px;

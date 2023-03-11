@@ -7,22 +7,39 @@
           استفاده مجدد از مشخصات فیلم های قبلی
         </div>
         <div class="previous-dialog-header-close-btn">
-          <q-btn v-close-popup
-                 flat
-                 icon="close" />
+          <q-btn flat
+                 icon="close"
+                 @click="toggleDialog()" />
         </div>
       </div>
       <div class="previous-dialog-main-content">
         <entity-index ref="orderList"
                       v-model:value="inputs"
+                      v-model:table-selected-values="selected"
                       class="orders-list-entity-index"
                       :api="api"
+                      :table-selection-mode="selectionMode"
+                      :item-indicator-key="'id'"
+                      :identifyKey="'id'"
                       :table="table"
                       :table-keys="tableKeys"
-                      :item-indicator-key="'title'"
                       :create-route-name="'User.Create'"
-                      :default-layout="true"
-                      :table-grid-size="true" />
+                      :default-layout="false"
+                      :table-grid-size="true">
+          <template #entity-index-table-item-cell="{inputData}">
+            <div class="col-3 content-col">
+              <q-card class="content-box"
+                      @click="setContent(inputData.props.row)">
+                <q-avatar size="80px">
+                  <img :src="inputData.props.row.photo || 'https://cdn.quasar.dev/img/mountains.jpg'">
+                </q-avatar>
+                <q-card-section>
+                  <div>{{ inputData.props.row.name }}</div>
+                </q-card-section>
+              </q-card>
+            </div>
+          </template>
+        </entity-index>
       </div>
     </div>
   </q-dialog>
@@ -30,7 +47,6 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
 
 export default {
   name: 'PreviousItemsDialog',
@@ -41,18 +57,23 @@ export default {
     dialog: {
       type: Boolean,
       default: false
+    },
+    api: {
+      type: String,
+      default: ''
     }
   },
+  emits: ['selectedUpdated', 'toggleDialog'],
   data() {
     return {
       // inputs: [
       //   { type: 'hidden', name: 'search', responseKey: 'search', col: 'col-12 col-lg-12 col-sm-6' }
       // ],
       selected: [],
-      api: API_ADDRESS.set.show(1287),
+      selectionMode: 'single',
       tableGridSize: true,
       tableKeys: {
-        data: 'data.contents',
+        data: 'data',
         total: 'meta.total',
         currentPage: 'meta.current_page',
         perPage: 'meta.per_page',
@@ -63,24 +84,37 @@ export default {
           {
             name: 'photo',
             required: true,
-            label: 'فیلم',
             align: 'left',
             field: row => row.photo
           },
           {
-            name: 'title',
+            name: 'name',
             required: true,
             label: 'عنوان',
             align: 'left',
-            field: row => row.title
+            field: row => row.name
           }
         ],
         data: []
       },
       inputs: [
-        { type: 'input', name: 'search-btn', value: null, label: 'جستجو در فیلم ها', col: 'col-md-3', class: 'align-left q-mt-lg q-ml-lg' },
-        { type: 'button', name: 'search', responseKey: 'statement', icon: 'search', iconRight: undefined, col: 'col-md-1', class: 'q-mt-lg q-ml-lg' }
+        { type: 'input', name: 'search-btn', outlined: true, label: 'جستجو در فیلم ها', placeholder: 'انتخاب نمایید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
+        { type: 'button', name: 'search', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' }
       ]
+    }
+  },
+  watch: {
+    selected(value) {
+      this.$emit('selectedUpdated', value)
+    }
+  },
+  methods: {
+    toggleDialog() {
+      this.$emit('toggleDialog')
+    },
+    setContent(e) {
+      this.selected = e
+      this.toggleDialog()
     }
   }
 }
@@ -119,6 +153,15 @@ export default {
       bottom: 0;
       right: 0;
     }
+  }
+}
+.content-col{
+  padding: 10px;
+
+  .content-box {
+    display: flex;
+    min-height: 80px;
+    cursor: pointer;
   }
 }
 </style>

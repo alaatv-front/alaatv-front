@@ -7,10 +7,9 @@
           نام فایل ویدیو مربوطه
         </div>
         <div class="upload-dialog-header-close-btn">
-          <q-btn v-close-popup
-                 flat
+          <q-btn flat
                  icon="close"
-                 @click="$emit('toggleDialog')" />
+                 @click="toggleDialog()" />
         </div>
       </div>
       <div class="upload-dialog-main-content">
@@ -27,7 +26,8 @@
                   active-icon="settings"
                   :done="step > 1">
             <upload-properties ref="uploadProperties"
-                               v-model:content="content" />
+                               v-model:content="content"
+                               @setContentInfo="updateContentInfo($event)" />
           </q-step>
           <q-step :name="2"
                   title="زمان کوب"
@@ -36,7 +36,7 @@
                   active-icon="shutter_speed"
                   :done="step > 2">
             <upload-timestamp v-model:content="content"
-                              @refreshContent="getContent()" />
+                              @refreshContent="getContent(contentId)" />
           </q-step>
           <q-step :name="3"
                   title="انتشار فیلم"
@@ -55,9 +55,11 @@
                      color="primary"
                      label="بازگشت"
                      class="q-mr-sm"
+                     :loading="content.loading"
                      @click="$refs.stepper.previous()" />
               <q-btn color="primary"
                      :label="step === 3 ?'انتشار' : 'بعدی'"
+                     :loading="content.loading"
                      @click="gotoNextStep()" />
             </q-stepper-navigation>
           </template>
@@ -99,18 +101,31 @@ export default {
   },
   watch: {
     contentId(value) {
-      this.getContent(value)
+      if (value) {
+        this.getContent(value)
+      }
     }
   },
-  // mounted() {
-  //   this.getContent()
-  // },
   methods: {
-    getContent(value) {
-      this.$apiGateway.content.showAdmin(value).then(res => {
-        this.content = res
+    updateContentInfo(event) {
+      this.content.loading = true
+      this.$apiGateway.content.showAdmin(event.id).then(content => {
+        const eventContent = content
+        eventContent.id = this.contentId
+        this.content = eventContent
+        this.content.loading = false
+      }).catch(() => {
+        this.content.loading = false
+      })
+    },
+    getContent(contentId) {
+      this.content.loading = true
+      this.$apiGateway.content.showAdmin(contentId).then(content => {
+        this.content = content
+        this.content.loading = false
       }).catch(() => {
         this.content = new Content()
+        this.content.loading = false
       })
     },
     updatePublishForm(formData) {
@@ -118,23 +133,32 @@ export default {
     },
     gotoNextStep() {
       if (this.step === 1) {
-        this.$refs.uploadProperties.$refs.entityEditForm.editEntity().then(res => {
-          this.$refs.stepper.next()
-        }).catch(err => {
-          console.error(err)
-        })
+        this.content.loading = true
+        this.$refs.uploadProperties.$refs.entityEditForm.editEntity()
+          .then(() => {
+            this.content.loading = false
+            this.$refs.stepper.next()
+          }).catch(() => {
+            this.content.loading = false
+          })
       } else if (this.step === 2) {
         this.$refs.stepper.next()
       } else {
-        this.$apiGateway.content.update({
-          data: this.$refs.uploadPublish.publish()
-        })
+        this.content.loading = true
+        this.$apiGateway.content.update(this.$refs.uploadPublish.publish())
+          .then(() => {
+            this.content.loading = false
+          }).catch(() => {
+            this.content.loading = false
+          })
       }
     },
     publish() {
-      this.$apiGateway.content.update({
-        data: this.publishForm
-      })
+      this.$apiGateway.content.update(this.publishForm)
+    },
+    toggleDialog() {
+      this.$emit('toggleDialog')
+      this.step = 1
     }
   }
 }

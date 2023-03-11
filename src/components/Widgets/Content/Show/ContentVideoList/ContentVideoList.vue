@@ -1,36 +1,47 @@
 <template>
-  <div class="video-list bg-white q-mx-sm q-pb-md shadow-4 ">
+  <q-card v-if="content.file?.pamphlet && content.file.pamphlet[0]?.link"
+          class="download-section custom-card q-pa-md q-mx-md q-mb-md bg-white flex">
+    <q-btn icon="isax:document-download"
+           flat
+           color="primary"
+           size="13px"
+           @click="downloadPdf" />
+    <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
+                                         :href="content.file.pamphlet[0].link"
+                                         target="_blank"> PDF </a>{{content.title}}</h6>
+  </q-card>
+  <q-card class="video-list custom-card bg-white q-mx-md q-pb-md ">
     <div class="q-px-md row">
-      <h6 class="main-title col-3 q-pt-lg">
-        فیلم ها
+      <h6 class="main-title col-4 q-pt-lg">
+        فیلم/جزوه ها
       </h6>
       <div class="set-title col q-ml-lg q-mt-lg">
         {{ set.title }}
       </div>
     </div>
-    <q-separator class="q-my-md" />
+    <q-separator class="q-ma-md" />
     <q-scroll-area class="scroll"
                    :thumb-style="thumbStyle">
       <div v-for="(content,index) in set.contents.list"
            :key="index"
            ref="items"
            :class="{current: isCurrent(content)}"
-           class="other-contents row q-pt-md">
-        <div class="col-2">
-          <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}"><img width="80"
-                                                                                          height="45"
-                                                                                          :src=content.photo>
+           class="other-contents row q-py-md">
+        <div class="col-1 q-mx-xs">
+          <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}"><q-icon name="isax:play-circle"
+                                                                                             size="sm" />
           </router-link>
         </div>
-        <router-link class="col q-ml-lg"
-                     :to="{name:'Public.Content.Show', params: {id: content.id}}">
-          <h6 class="video-title">
-            {{ content.title }}
-          </h6>
-        </router-link>
+        <div class="col">
+          <router-link :to="{name:'Public.Content.Show', params: {id: content.id}}">
+            <h6 class="video-title">
+              {{ content.title }}
+            </h6>
+          </router-link>
+        </div>
       </div>
     </q-scroll-area>
-  </div>
+  </q-card>
 </template>
 
 <script>
@@ -67,25 +78,7 @@ export default {
         backgroundColor: '#ff9000',
         width: '8px',
         opacity: '0.75'
-      },
-      sections: [
-        {
-          data: {
-            rows: [
-              {
-                cols: [
-                  {
-                    widgets: []
-                  }
-                ],
-                options: {
-                  boxed: false
-                }
-              }
-            ]
-          }
-        }
-      ]
+      }
     }
   },
   watch: {
@@ -100,6 +93,9 @@ export default {
     this.loadContent()
   },
   methods: {
+    downloadPdf() {
+      window.open(this.content.file.pamphlet.link, '_blank')
+    },
     loadContent() {
       this.getContentByRequest()
     },
@@ -156,7 +152,9 @@ export default {
     getSetByRequest() {
       this.set.loading = true
       let promise = null
-      promise = APIGateway.set.show(this.content.set.id)
+      promise = APIGateway.set.show({
+        id: this.content.set.id
+      })
       if (promise) {
         promise
           .then((response) => {
@@ -183,7 +181,8 @@ export default {
         })
     },
     isCurrent(content) {
-      return this.$route.params.id === content.id
+      const id = content.id.toString()
+      return this.$route.params.id === id
     },
     scrollToElement() {
       const index = this.set.contents.list.findIndex(content => content.id === this.content.id)
@@ -200,6 +199,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.download-section, .video-list{
+  border-radius: 10px;
+  box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);
+}
 h6 {
   margin: 0 !important;
   font-size: 20px;
@@ -207,6 +210,9 @@ h6 {
 
 .scroll {
   height: 41vh !important;
+  .other-contents{
+    align-items: center;
+  }
 }
 
 .video-list {
@@ -215,7 +221,7 @@ h6 {
 
 .video-title {
 
-  width: 300px;
+  width: 330px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

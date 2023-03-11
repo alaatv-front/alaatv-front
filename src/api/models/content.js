@@ -16,7 +16,9 @@ const APIAdresses = {
   bulkUpdate: '/admin/contents/bulk-update',
   bulkEditTags: '/admin/contents/bulk-edit-tags',
   timestampSet: 'timepoint',
-  timestampGet: (id) => `timepoint/${id}`,
+  getTimestamp: (id) => `timepoint/${id}`,
+  deleteTimestamp: (id) => `timepoint/${id}`,
+  updateTimestamp: (id) => `timepoint/${id}`,
   presigned: '/admin/upload/presigned-request'
 }
 export default class ContentAPI extends APIRepository {
@@ -36,18 +38,20 @@ export default class ContentAPI extends APIRepository {
       bulkEditText: this.name + this.APIAdresses.bulkEditText,
       bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
       bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
-      timestampGet: id => this.name + this.APIAdresses.timestampGet(id),
+      getTimestamp: id => this.name + this.APIAdresses.getTimestamp(id),
+      updateTimestamp: id => this.name + this.APIAdresses.updateTimestamp(id),
+      deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id),
       presigned: this.name + this.APIAdresses.presigned
     }
   }
 
-  show(data) {
+  show(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.show(data),
       cacheKey: this.CacheList.show(data),
-      ...(data?.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Content(response.data.data)
       },
@@ -57,7 +61,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  favored (data = {}, cache = { TTL: 100 }) {
+  favored(data = {}, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -73,7 +77,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  unfavored (data = {}, cache = { TTL: 100 }) {
+  unfavored(data = {}, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -89,15 +93,17 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  showAdmin(data) {
+  showAdmin(contentId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.showAdmin(data),
-      cacheKey: this.CacheList.showAdmin(data),
-      ...(data?.cache && { cache: data.cache }),
+      request: this.APIAdresses.showAdmin(contentId),
+      cacheKey: this.CacheList.showAdmin(contentId),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
-        return new Content(response.data.data)
+        const content = new Content(response.data.data)
+        fillFakeData(content)
+        return content
       },
       rejectCallback: (error) => {
         return error
@@ -109,36 +115,39 @@ export default class ContentAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'put',
       api: this.api,
-      request: this.APIAdresses.update(data.data.id),
-      cacheKey: this.CacheList.update(data.data.id),
-      ...(data?.cache && { cache: data.cache }),
+      request: this.APIAdresses.update(data.id),
+      cacheKey: this.CacheList.update(data.id),
       resolveCallback: (response) => {
         return new Content(response.data.data)
       },
       rejectCallback: (error) => {
         return error
       },
-      data: this.getNormalizedSendData({
-        contentset_id: null, // contentSet Id
-        isFree: null, // contentSet Id
-        name: null, // Title for content,
-        description: null, // Description for content
-        thumbnail: null, // thumbnail for contentfd
-        validSinceDate: null, // time for publish content
-        forrest_tree: null, // tree for content
-        order: null, // order of content
-        enable: null, // content status
-        display: null // content display status
-      }, data.data)
+      data: {
+        display: 1,
+        ...data
+      }
+      // data: this.getNormalizedSendData({
+      //   contentset_id: null, // contentSet Id
+      //   isFree: null, // contentSet Id
+      //   name: null, // Title for content,
+      //   description: null, // Description for content
+      //   thumbnail: null, // thumbnail for contentfd
+      //   validSinceDate: null, // time for publish content
+      //   forrest_tree: null, // tree for content
+      //   order: null, // order of content
+      //   enable: null, // content status
+      //   display: 1 // content display status
+      // }, data)
     })
   }
 
-  relatedProducts(data, cache) {
+  relatedProducts(contentId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.relatedProducts(data.id),
-      cacheKey: this.CacheList.relatedProducts(data.id),
+      request: this.APIAdresses.relatedProducts(contentId),
+      cacheKey: this.CacheList.relatedProducts(contentId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new ProductList(response.data.data)
@@ -202,7 +211,7 @@ export default class ContentAPI extends APIRepository {
 
   deleteContents(data) {
     return this.sendRequest({
-      apiMethod: 'delete',
+      apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.delete,
       cacheKey: this.CacheList.delete,
@@ -237,13 +246,13 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  SetTimestamp(data = {}) {
+  SetTimestamp(data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.timestampSet,
       cacheKey: this.CacheList.timestampSet,
-      ...(data.cache && { cache: data.cache }),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           timestamp: response.data
@@ -260,13 +269,54 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  GetTimestamp(data = {}) {
+  UpdateTimestamp(data = {}, cache) {
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.updateTimestamp(data.id),
+      cacheKey: this.CacheList.updateTimestamp(data.id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return {
+          timestamp: response.data
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: this.getNormalizedSendData({
+        content_id: null, // content Id
+        title: null, // Title for Timestamp
+        time: null // time of Video for timestamp in seconds
+      }, data)
+    })
+  }
+
+  GetTimestamp(data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.timestampGet('131107'),
-      cacheKey: this.CacheList.timestampGet('131107'),
-      ...(data.cache && { cache: data.cache }),
+      request: this.APIAdresses.getTimestamp(data.id),
+      cacheKey: this.CacheList.getTimestamp(data.id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return {
+          timestamp: response.data
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  DeleteTimestamp(data = {}, cache) {
+    return this.sendRequest({
+      apiMethod: 'delete',
+      api: this.api,
+      request: this.APIAdresses.deleteTimestamp(data.id),
+      cacheKey: this.CacheList.deleteTimestamp(data.id),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           timestamp: response.data
@@ -298,3 +348,49 @@ export default class ContentAPI extends APIRepository {
     })
   }
 }
+
+const fillFakeData = (content) => {
+  content.forrest_tree_tags = forrestTreeTags
+  content.hls = 'https://alaatv.com/hls/input.m3u8'
+}
+
+const forrestTreeTags = [
+  {
+    id: '63ff427566344faf860f0f9f',
+    title: 'دبیر 1',
+    parent: {
+      id: '63f37272c590054efc012d12',
+      title: 'دبیر'
+    },
+    ancestors: [
+      {
+        id: '63f37272c590054efc012d12',
+        title: 'دبیر'
+      }
+    ],
+    order: '0',
+    type: null,
+    number_of_children: 0,
+    updated_at: '2023-03-01 15:49:18',
+    created_at: '2023-03-01 15:47:57'
+  },
+  {
+    id: '63ff427c66344faf860f0fa0',
+    title: 'دبیر 2',
+    parent: {
+      id: '63f37272c590054efc012d12',
+      title: 'دبیر'
+    },
+    ancestors: [
+      {
+        id: '63f37272c590054efc012d12',
+        title: 'دبیر'
+      }
+    ],
+    order: '2',
+    type: null,
+    number_of_children: 1,
+    updated_at: '2023-03-01 15:49:18',
+    created_at: '2023-03-01 15:48:04'
+  }
+]

@@ -14,13 +14,15 @@
         </div>
       </div>
       <div class="upload-dialog-main-content">
-        <q-uploader color="primary"
+        <q-uploader ref="uploader"
+                    color="primary"
                     flat
                     multiple
                     auto-upload
                     :factory="factoryFn"
                     style="width: 100%;max-height: 100%;height: 100%;background: transparent;z-index: 1;"
-                    @added="noItem = false">
+                    @added="noItem = false"
+                    @factory-failed="onRejected()">
           <template v-slot:list="scope">
             <q-list separator>
 
@@ -88,7 +90,7 @@ export default {
       this.$emit('editContent', contentId)
     },
     factoryFn (files) {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         for (let index = 0; index < files.length; index++) {
           const file = files[index]
           this.$apiGateway.content.getPresigned({
@@ -102,9 +104,14 @@ export default {
               url: res.url,
               method: 'PUT'
             })
+          }).catch(() => {
+            reject()
           })
         }
       })
+    },
+    onRejected() {
+      this.$refs.uploader.reset()
     }
   }
 }

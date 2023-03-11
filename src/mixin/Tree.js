@@ -27,7 +27,7 @@ const mixinTree = {
     },
 
     getRootNode (nodeType) {
-      return APIGateway.tree.getNodeByType({
+      return APIGateway.forrest.getNodeByType({
         data: {
           nodeType
         }
@@ -35,7 +35,7 @@ const mixinTree = {
     },
 
     getNode (id) {
-      return APIGateway.tree.getNodeById({
+      return APIGateway.forrest.getNodeById({
         data: {
           id
         }
@@ -56,9 +56,9 @@ const mixinTree = {
       })
     },
 
-    createNode (parentId, title, order, callback) {
+    createNode (parentId, type, title, order, callback) {
       return new Promise((resolve, reject) => {
-        APIGateway.tree.base({
+        APIGateway.forrest.createNode({
           data: { parent_id: parentId, title, order }
         }).then(response => {
           if (callback) {
@@ -73,7 +73,7 @@ const mixinTree = {
 
     editNode (id, title, order) {
       return new Promise((resolve, reject) => {
-        APIGateway.tree.editNode(id, {
+        APIGateway.forrest.editNode(id, {
           data: { title, order }
         }).then(res => {
           resolve(res)

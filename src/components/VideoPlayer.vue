@@ -7,10 +7,7 @@
            :height="calcTheHeight"
            :width="calcTheWidth"
            class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
-           @play="playVideo">
-           <!-- <source src="https://example.com/index.m3u8"
-              type="application/x-mpegURL"> -->
-    </video>
+           @play="playVideo" />
   </div>
 </template>
 
@@ -209,13 +206,22 @@ export default {
   border-radius: inherit;
   width: 100%;
 }
-.video-js {
+:deep(.video-js) {
   border-radius: inherit;
   .vjs-tech{
     border-radius: inherit;
   }
   .my-video_html5_api{
     border-radius: inherit;
+  }
+
+  .vjs-brand-container {
+    .vjs-brand-container-link {
+      img {
+        height: 25px;
+        padding-top: 3px;
+      }
+    }
   }
 }
 .vjs-poster{
@@ -252,15 +258,6 @@ export default {
     .vjs-volume-panel {
       .vjs-volume-control {
         right: -45px !important;
-      }
-    }
-  }
-
-  .vjs-brand-container {
-    .vjs-brand-container-link {
-      img {
-        height: 25px;
-        padding-top: 3px;
       }
     }
   }

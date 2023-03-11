@@ -45,11 +45,12 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 import { dragscroll } from 'vue-dragscroll'
-import { ContentList } from 'src/models/Content'
-import { APIGateway } from 'src/api/APIGateway'
+import { Product } from 'src/models/Product.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { ContentList } from 'src/models/Content.js'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 // import FsLightbox from 'fslightbox-vue'
 
 export default {
@@ -77,21 +78,20 @@ export default {
       toggler: false
     }
   },
-  // watch: {
-  //   options: {
-  //     deep: true,
-  //     handler (newValue) {
-  //       this.contents = new ContentList(newValue.contents)
-  //       this.pamphlets = newValue.sample_photos
-  //     }
-  //   }
-  // },
-  mounted() {
-    this.loadProduct()
+  serverPrefetch () {
+    return this.loadProduct()
   },
-  methods: {
-    getProductId() {
-      if (this.options.productId) {
+  computed: {
+    product: {
+      get () {
+        return new Product(this.$store.getters['Widgets/data']('ProductIntroduction'))
+      },
+      set (newData) {
+        this.$store.dispatch('Widgets/updateData', { name: 'ProductIntroduction', data: newData })
+      }
+    },
+    productId () {
+      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
         return this.options.productId
       }
       if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
@@ -100,22 +100,16 @@ export default {
       if (this.$route.params.id) {
         return this.$route.params.id
       }
-      return null
-    },
+      return this.product.id
+    }
+  },
+  methods: {
     loadProduct() {
-      const productId = this.getProductId()
-      if (!productId) {
-        return
-      }
-
-      this.getProduct(productId)
-      this.getSampleContents(productId)
+      this.getProduct()
+      this.getSampleContents()
     },
-    getProduct(productId) {
-      APIGateway.product.show({
-        data: { id: productId },
-        cache: { TTL: 10000 }
-      })
+    getProduct() {
+      return APIGateway.product.show(this.productId)
         .then(product => {
           this.pamphlets = product.sample_photos
         })
@@ -123,12 +117,11 @@ export default {
           this.product.loading = false
         })
     },
-    getSampleContents(productId) {
-      APIGateway.product.sampleContent({ productId })
-        .then(response => {
-          this.contents = new ContentList(response)
+    getSampleContents() {
+      return APIGateway.product.sampleContent(this.productId)
+        .then(contentList => {
+          this.contents = contentList
         })
-        .catch()
     }
   }
 }
@@ -164,9 +157,6 @@ export default {
     display: flex;
     overflow: auto;
     padding: 10px 0 0 0;
-    background: #ffffff;
-    margin-right: 20px;
-    border-radius: 20px;
 
     .pamphlet-image {
       min-width: 157px;
