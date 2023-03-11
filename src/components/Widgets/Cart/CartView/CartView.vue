@@ -55,7 +55,7 @@
       </div>
     </template>
     <template v-else>
-      <div v-for="(order, i) in orderList"
+      <div v-for="(order, i) in cartItemsList"
            :key="order.orderProductId"
            class="cart-items">
         <q-card class="cart-card"
@@ -78,7 +78,7 @@
                        unelevated
                        class="trash-button"
                        icon="isax:trash"
-                       @click="changeDialogState(true, order.orderProductId)" />
+                       @click="changeDialogState(true, order)" />
               </div>
 
               <div v-if="order.grand.product && order.grand.product.attributes && order.grand.product.attributes.info"
@@ -172,7 +172,7 @@
                           <q-btn unelevated
                                  class="trash-button"
                                  icon="isax:trash"
-                                 @click="changeDialogState(true, orderProduct.id)" />
+                                 @click="changeDialogState(true, order, orderProduct)" />
                         </div>
                       </div>
                     </q-card-section>
@@ -224,7 +224,7 @@
         </div>
 
         <div class="surely-delete-button"
-             @click="removeItem(clickedItemIdToRemove)">
+             @click="removeItem">
           بله، مطمئن هستم
         </div>
       </q-card-actions>
@@ -234,9 +234,9 @@
 
 <script>
 import { Cart } from 'src/models/Cart.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { OrderProduct } from 'src/models/OrderProduct.js'
 import Widgets from 'src/components/PageBuilder/Widgets.js'
-import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'CartView',
@@ -261,7 +261,7 @@ export default {
     }
   },
   computed: {
-    orderList () {
+    cartItemsList () {
       return this.getOrderedList(this.cart.items.list)
     },
 
@@ -277,7 +277,7 @@ export default {
       }
     }
   },
-  created() {
+  mounted () {
     this.cartReview()
   },
   methods: {
@@ -320,21 +320,26 @@ export default {
       return customItems
     },
 
-    removeItem(orderProductId) {
-      this.$store.dispatch('loading/overlayLoading', true)
-      this.$store.dispatch('Cart/removeItemFromCart', orderProductId)
+    removeItem() {
+      this.$store.dispatch('Cart/removeItemFromCart', this.clickedItemIdToRemove)
         .then(() => {
-          this.$store.dispatch('loading/overlayLoading', false)
           this.cartReview()
           this.changeDialogState(false)
           this.$bus.emit('removeProduct')
         }).catch(() => {
           this.changeDialogState(false)
-          this.$store.dispatch('loading/overlayLoading', false)
         })
     },
 
-    changeDialogState (state, itemId) {
+    changeDialogState (state, cartItem, orderProduct) {
+      let itemId = cartItem?.grand?.id
+      if (!itemId) {
+        itemId = cartItem?.orderProductId
+      }
+      if (typeof orderProduct !== 'undefined') {
+        itemId = orderProduct.id
+      }
+
       if (itemId) {
         this.clickedItemIdToRemove = itemId
       }

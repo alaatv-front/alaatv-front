@@ -115,9 +115,9 @@ export default {
   methods: {
     addToCart() {
       this.addToCartLoading = true
-      this.$store.dispatch('Cart/addToCart', this.product)
+      this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
         .then(() => {
-          this.$store.dispatch('Cart/reviewCart', this.product)
+          this.$store.dispatch('Cart/reviewCart')
             .then(() => {
               this.$q.notify({
                 message: 'با موفقیت به سبد خرید شما افزوده شد',
