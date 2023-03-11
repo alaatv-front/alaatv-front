@@ -3,8 +3,12 @@ import axios from 'axios'
 import { Notify } from 'quasar'
 
 const apiV2Server = process.env.ALAA_API_V2
+const apiV2ServerTarget = process.env.ALAA_API_V2_SERVER
 const apiV1Server = process.env.ALAA_API_V1
+const apiV1ServerTarget = process.env.ALAA_API_V1_SERVER
 const webServer = process.env.ALAA_WEB
+const webServerTarget = process.env.ALAA_WEB_SERVER
+
 const AjaxResponseMessages = (function () {
   const messageMap = {
     0: 'مشکلی پیش آمده است. مجدد تلاش کنید.',
@@ -137,8 +141,11 @@ const AxiosHooks = (function () {
 // "export default () => {}" function below (which runs individually
 // for each client)
 const apiV2 = axios.create({ baseURL: apiV2Server })
+apiV2.defaults.serverURL = apiV2ServerTarget
 const apiV1 = axios.create({ baseURL: apiV1Server })
+apiV1.defaults.serverURL = apiV1ServerTarget
 const apiWeb = axios.create({ baseURL: webServer })
+apiWeb.defaults.serverURL = webServerTarget
 
 export default boot(({ app, store, router }) => {
   const accessToken = store.getters['Auth/accessToken']

@@ -1,17 +1,17 @@
 <template>
-  <div v-if="product.price"
-       class="product-price justify-center "
-       :class="options.className"
-       :style="options.style">
+  <q-card v-if="product.price"
+          class="product-price justify-center custom-card"
+          :class="options.className"
+          :style="options.style">
 
-    <div v-if="product.price.discountInPercent() && options.discount"
+    <div v-if="options.discount && discountInPercent"
          class="discount-percent">
-      <div class="percent">{{ '%' + product.price.discountInPercent() }}</div>
+      <div class="percent">{{ '%' + discountInPercent }}</div>
       <div class="discount-title">تخفیف</div>
     </div>
 
     <div class="price">
-      <div v-if="product.price.toman('base', null) && product.has_instalment_option && options.basePrice"
+      <div v-if="options.basePrice && product.has_instalment_option && product.price.toman('base', null)"
            class="product-base-price">
         {{ product.price.toman('base', null) }}
       </div>
@@ -39,15 +39,17 @@
              icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
              @click="addToCart" />
     </div>
-  </div>
+  </q-card>
 </template>
 
 <script>
-import { Product } from 'src/models/Product'
-import { APIGateway } from 'src/api/APIGateway'
+import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProductPrice',
+  mixins: [mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -61,20 +63,41 @@ export default {
       product: new Product()
     }
   },
-  created() {
-    this.getProduct()
+  computed: {
+    discountInPercent () {
+      if (this.product?.price?.discountInPercent && typeof this.product.price.discountInPercent === 'function') {
+        return this.product.price.discountInPercent()
+      }
+
+      return 0
+    },
+    productId () {
+      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
+        return this.options.productId
+      }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return this.product.id
+    }
   },
   methods: {
-    getProduct() {
+    prefetchServerDataPromise () {
       this.product.loading = true
-      APIGateway.product.show({ data: { id: this.options.productId }, cache: { TTL: 10000 } })
-        .then(product => {
-          this.product.loading = false
-          this.product = new Product(product)
-        })
-        .catch(() => {
-          this.product.loading = false
-        })
+      return this.getProduct()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.product = new Product(data)
+      this.product.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.product.loading = false
+    },
+    getProduct() {
+      return APIGateway.product.show(this.productId)
     },
     addToCart() {
       const data = {
@@ -92,10 +115,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #ffffff;
   height: 70px;
-  border-radius: 20px;
-  width: 524px;
+  width: 100%;
   padding-right: 20px;
   margin-bottom: 20px;
   @media only screen and (max-width: 1439px) {

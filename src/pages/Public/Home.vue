@@ -6,6 +6,7 @@
 
 <script>
 import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'HomePage',
   mixins: [mixinPageOptions, mixinSEO],

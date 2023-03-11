@@ -2,6 +2,7 @@ import SEO from './Seo'
 import Cart from './Cart'
 import Auth from './Auth'
 import process from 'process'
+import Widgets from './Widgets'
 import loading from './loading'
 import { createStore } from 'vuex'
 import AppLayout from './AppLayout'
@@ -43,6 +44,7 @@ export default store(function (/* { ssrContext } */) {
       SEO,
       Cart,
       Auth,
+      Widgets,
       loading,
       AppLayout,
       PageBuilder
