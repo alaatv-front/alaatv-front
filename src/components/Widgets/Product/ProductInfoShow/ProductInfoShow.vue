@@ -40,12 +40,12 @@
 
 <script>
 import { Product } from 'src/models/Product.js'
-import { mixinWidget } from 'src/mixin/Mixins'
-import { APIGateway } from 'src/api/APIGateway'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'ProductInfoShow',
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -61,8 +61,9 @@ export default {
   },
   data() {
     return {
-      samplePhotosIndex: null,
       product: new Product(),
+      samplePhotosIndex: null,
+      // product: new Product(),
       introduction: {
         intro: null,
         attributes: null,
@@ -104,6 +105,20 @@ export default {
         short: '',
         slogan: ''
       }
+    }
+  },
+  computed: {
+    productId () {
+      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
+        return this.options.productId
+      }
+      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
+        return this.$route.params[this.options.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return this.product.id
     }
   },
   watch: {
@@ -162,10 +177,19 @@ export default {
       }
     }
   },
-  created() {
-    this.loadProduct()
-  },
   methods: {
+    prefetchServerDataPromise () {
+      this.product.loading = true
+      return this.getProduct()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.product = data
+      this.product.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.product.loading = false
+    },
+
     getProductId() {
       if (this.options.productId) {
         return this.options.productId
@@ -186,20 +210,8 @@ export default {
 
       this.getProduct(productId)
     },
-    getProduct(productId) {
-      this.product.loading = true
-      APIGateway.product.show({
-        data: { id: productId },
-        cache: { TTL: 10000 }
-      })
-        .then(product => {
-          this.product = new Product(product)
-          this.product.loading = false
-          this.setInformation()
-        })
-        .catch(() => {
-          this.product.loading = false
-        })
+    getProduct() {
+      return APIGateway.product.show(this.productId)
     },
 
     setInformation() {

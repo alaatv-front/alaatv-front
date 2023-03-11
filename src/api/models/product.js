@@ -1,6 +1,7 @@
-import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
-import { Product, ProductList } from 'src/models/Product'
+import { ContentList } from 'src/models/Content.js'
+import APIRepository from '../classes/APIRepository.js'
+import { Product, ProductList } from 'src/models/Product.js'
 
 export default class ProductAPI extends APIRepository {
   constructor() {
@@ -32,32 +33,29 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  show(data) {
+  show(productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.show(data.data.id),
-      cacheKey: this.CacheList.show(data.data.id),
-      ...(data.cache && { cache: data.cache }),
+      request: this.APIAdresses.show(productId),
+      cacheKey: this.CacheList.show(productId),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return new Product(response.data.data)
       },
       rejectCallback: (error) => {
         return error
-      },
-      data: this.getNormalizedSendData({
-        code: null // number - string
-      }, data)
+      }
     })
   }
 
-  gifts(data, cache) {
+  gifts(productId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.gifts(data.productId),
-      cacheKey: this.CacheList.gifts(data.productId),
-      ...(data.cache && { cache: data.cache }),
+      request: this.APIAdresses.gifts(productId),
+      cacheKey: this.CacheList.gifts(productId),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new ProductList(response.data.data)
       },
@@ -67,15 +65,15 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  sampleContent(data, cache) {
+  sampleContent(productId, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.sampleContent(data.productId),
-      cacheKey: this.CacheList.sampleContent(data.productId),
+      request: this.APIAdresses.sampleContent(productId),
+      cacheKey: this.CacheList.sampleContent(productId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return new ContentList(response.data.data)
       },
       rejectCallback: (error) => {
         return error

@@ -30,23 +30,26 @@
           بررسی محصول
         </p>
         <q-skeleton v-if="product.loading"
-                    class="description-text"
+                    class="description-text custom-card"
                     min-width="100%"
                     type="article" />
-        <q-card class="description-text"
-                v-html="product.description?.short || product.description?.long" />
+
+        <q-card class="description-text custom-card">
+          <div v-html="description" />
+        </q-card>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins'
-import { Product } from 'src/models/Product'
+import { Product } from 'src/models/Product.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
 
 export default {
-  name: 'productReview',
+  name: 'ProductReview',
   components: { ShareNetwork },
   mixins: [mixinWidget],
   props: {
@@ -57,50 +60,17 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      defaultOptions: {},
-      product: new Product(),
-      description: {
-        long: '',
-        short: '',
-        slogan: ''
-      },
-      share: { url: '', name: '' },
-      shareOptions: [
-        { name: 'telegram', value: 0, url: '' },
-        { name: 'whatsapp', value: 0, url: '' },
-        { name: 'mail', value: 0, url: '' },
-        { name: 'linkedIn', value: 0, url: '' },
-        { name: 'twitter', value: 0, url: '' }
-      ]
-    }
-  },
   computed: {
-    pageUrl() {
-      return 'https://alaatv.com' + this.$route.fullPath
-    }
-  },
-  watch: {
-    options: {
-      deep: true,
-      handler(newValue) {
-        Object.assign(this.description, newValue)
+    product: {
+      get () {
+        return new Product(this.$store.getters['Widgets/data']('ProductReview'))
+      },
+      set (newData) {
+        this.$store.dispatch('Widgets/updateData', { name: 'ProductReview', data: newData })
       }
-    }
-  },
-  created() {
-    this.loadProduct()
-  },
-  methods: {
-    addToFavored() {
-
     },
-    shareGiftCard({ name, url }) {
-      window.open(url, '_blank')
-    },
-    getProductId () {
-      if (this.options.productId) {
+    productId () {
+      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
         return this.options.productId
       }
       if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
@@ -109,23 +79,34 @@ export default {
       if (this.$route.params.id) {
         return this.$route.params.id
       }
-      return null
+      return this.product.id
     },
-    loadProduct() {
-      this.getProductByRequest()
+    description () {
+      return this.product.description?.long || this.product.description?.short || this.product.description?.slogan || ''
     },
+    pageUrl() {
+      return 'https://alaatv.com' + this.$route.fullPath
+    }
+  },
+  serverPrefetch () {
+    return this.getProduct()
+  },
+  methods: {
+    addToFavored() {
 
-    getProductByRequest() {
-      let promise = null
-      promise = this.$apiGateway.product.show({
-        data: { id: this.options.productId },
-        cache: { TTL: 10000 }
-      })
-      promise
-        .then((response) => {
-          this.product = new Product(response)
+    },
+    shareGiftCard({ name, url }) {
+      window.open(url, '_blank')
+    },
+    getProduct() {
+      this.product.loading = true
+      return APIGateway.product.show(this.productId)
+        .then(product => {
+          this.product = product
+          this.product.loading = false
         })
         .catch(() => {
+          this.product.loading = false
         })
     }
 
@@ -168,9 +149,6 @@ h2 {
     width: 1140px;
 
     .description-text {
-      background-color: #FFFFFF;
-      box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
-      border-radius: 20px;
       margin-top: 20px;
       padding: 10px 20px;
     }

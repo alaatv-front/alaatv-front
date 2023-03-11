@@ -22,7 +22,14 @@ class Product extends Model {
       { key: 'is_free' },
       { key: 'photo' },
       { key: 'attributes' },
-      { key: 'description' },
+      {
+        key: 'description',
+        default: {
+          long: null,
+          short: null,
+          slogan: null
+        }
+      },
       { key: 'longDescription' },
       { key: 'specialDescription' },
       {
