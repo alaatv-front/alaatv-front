@@ -22,6 +22,7 @@ const routes = [
       layoutLeftDrawerBehavior: 'default',
       layoutRightDrawer: false,
       layoutFooter: true,
+      showHamburgerBtn: true,
       layoutFooterVisible: true,
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
@@ -130,6 +131,9 @@ const routes = [
       {
         path: 'panel',
         name: 'UserPanel',
+        layoutConfig: {
+          showHamburgerBtn: false
+        },
         meta: { middlewares: [Authenticated] },
         component: () => import('layouts/bareLayout.vue'),
         children: [

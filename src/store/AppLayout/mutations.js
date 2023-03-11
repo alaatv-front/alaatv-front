@@ -38,6 +38,9 @@ const mutations = {
   },
   updateVisibilityBreadcrumb: (state, data) => {
     state.breadcrumbs.visible = data
+  },
+  updateShowHamburgerBtn: (state, data) => {
+    state.showHamburgerBtn = data
   }
   // updateAppLayout: (state, data) => {
   //   const storage = JSON.parse(localStorage.getItem('vuex'))
