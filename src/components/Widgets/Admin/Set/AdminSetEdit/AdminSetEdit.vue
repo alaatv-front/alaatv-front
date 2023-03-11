@@ -61,8 +61,8 @@ export default {
           responseKey: 'data.enable',
           name: 'enable',
           label: 'وضعیت انتشار',
-          inline: 'true',
-          dense: 'false',
+          inline: true,
+          dense: false,
           options: [
             {
               value: '0',
