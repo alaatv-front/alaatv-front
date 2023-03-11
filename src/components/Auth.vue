@@ -110,11 +110,13 @@ export default {
         .then(() => {
           this.loadingList = false
           this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
-          this.getUserData()
-            .then(() => {
-              this.$store.commit('AppLayout/updateLoginDialog', false)
-              this.redirectTo()
-            })
+          // this.getUserData()
+          //   .then(() => {
+          //     this.$store.commit('AppLayout/updateLoginDialog', false)
+          //     this.redirectTo()
+          //   })
+          this.$store.commit('AppLayout/updateLoginDialog', false)
+          this.redirectTo()
         })
         .catch(err => {
           this.handleErr(err.response)
