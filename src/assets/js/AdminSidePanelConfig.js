@@ -424,17 +424,17 @@ const list = [
     open: false
   },
   {
-    title: 'مدیریت دوره های آموزشی',
+    title: 'مدیریت درخت های برچسب',
     icon: 'isax:ticket',
-    routeName: 'Admin.StudyPlan',
+    routeName: 'Admin.Forrest.Index',
     active: false,
     show: true,
     open: false
   },
   {
-    title: 'مدیریت درخت های برچست',
+    title: 'مدیریت مجموعه محتوا ها',
     icon: 'isax:ticket',
-    routeName: 'Admin.Forrest.Index',
+    routeName: 'Admin.Set.Index',
     active: false,
     show: true,
     open: false

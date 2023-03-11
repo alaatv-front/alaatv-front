@@ -4,6 +4,8 @@ import { Set } from 'src/models/Set'
 
 const urlAddress = {
   base: '/set',
+  adminBase: '/admin/set',
+  adminShow: (id) => '/admin/set/' + id,
   attachContents: (setId) => '/admin/set/' + setId + '/c/attach',
   create: '/admin/set/',
   show: (id) => '/set/' + id
