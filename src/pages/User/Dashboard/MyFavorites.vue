@@ -34,7 +34,7 @@ export default {
                           { name: 'MyFavorites' }
                         ],
                         options: {
-                          className: 'col-md-9 q-pl-md'
+                          className: 'col-12 col-lg-9  q-pl-md'
                         }
                       }
                     ],
