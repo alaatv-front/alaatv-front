@@ -361,6 +361,33 @@ const routes = [
               }
             ]
           },
+          {
+            name: 'Admin.Set',
+            path: 'set',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Set.Index',
+                path: '',
+                component: () => import('src/pages/Admin/Set/Index.vue')
+              },
+              {
+                name: 'Admin.Set.Create',
+                path: 'create',
+                component: () => import('src/pages/Admin/Set/Create.vue')
+              },
+              {
+                name: 'Admin.Set.Show',
+                path: ':id',
+                component: () => import('src/pages/Admin/Set/Show.vue')
+              },
+              {
+                name: 'Admin.Set.Edit',
+                path: ':id/edit',
+                component: () => import('src/pages/Admin/Set/Edit.vue')
+              }
+            ]
+          },
           ...EntityCrudRoutes
         ]
       },
