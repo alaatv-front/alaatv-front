@@ -29,7 +29,8 @@ const state = {
     visible: true,
     loading: false,
     path: []
-  }
+  },
+  showHamburgerBtn: true
 }
 
 export default state

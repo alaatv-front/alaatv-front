@@ -86,7 +86,17 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  reviewCart(data = {}, cache = { TTL: 1000 }) {
+  reviewCart(cartItems = [], cache = { TTL: 100 }) {
+    const queryParams = {}
+    queryParams.seller = this.seller
+    cartItems.forEach((cartItem, cartItemIndex) => {
+      queryParams['cartItems' + '[' + cartItemIndex + ']' + '[product_id]'] = cartItem.product_id
+      if (Array.isArray(cartItem.products)) {
+        cartItem.products.forEach((productItem, productItemIndex) => {
+          queryParams['cartItems' + '[' + cartItemIndex + ']' + '[products]' + '[' + productItemIndex + ']'] = productItem
+        })
+      }
+    })
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -99,9 +109,8 @@ export default class CartAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       },
-      params: this.paramSerializer(data.params)
-    }
-    )
+      data: queryParams
+    })
   }
 
   getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 100 }) {

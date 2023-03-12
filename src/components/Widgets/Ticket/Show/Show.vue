@@ -257,12 +257,12 @@ export default {
       expanded: true,
       api: API_ADDRESS.ticket.show.base,
       inputs: [
-        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', col: 'col-md-4', disable: true },
+        { type: 'input', name: 'title', responseKey: 'ticket.title', placeholder: 'عنوان', col: 'col-md-4', disable: true },
         {
           type: 'input',
           name: 'first_name',
           responseKey: 'ticket.user.first_name',
-          label: 'نام',
+          placeholder: 'نام',
           col: 'col-md-4',
           disable: true
         },
@@ -270,7 +270,7 @@ export default {
           type: 'input',
           name: 'last_name',
           responseKey: 'ticket.user.last_name',
-          label: 'نام خانوادگی',
+          placeholder: 'نام خانوادگی',
           col: 'col-md-4',
           disable: true
         },
@@ -278,7 +278,7 @@ export default {
           type: 'input',
           name: 'priority',
           responseKey: 'ticket.priority.title',
-          label: 'اولویت',
+          placeholder: 'اولویت',
           col: 'col-md-4',
           disable: true
         },
@@ -289,7 +289,7 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.department.id',
-          label: 'گروه',
+          placeholder: 'گروه',
           col: 'col-md-4'
         },
         {
@@ -299,14 +299,14 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.status.id',
-          label: 'وضعیت',
+          placeholder: 'وضعیت',
           col: 'col-md-4'
         },
         {
           type: 'dateTime',
           name: 'created_at',
           responseKey: 'ticket.created_at',
-          label: 'تاریخ ایجاد',
+          placeholder: 'تاریخ ایجاد',
           col: 'col-md-4',
           disable: true
         },
@@ -314,7 +314,7 @@ export default {
           type: 'input',
           name: 'national_code',
           responseKey: 'ticket.user.national_code',
-          label: 'کد ملی',
+          placeholder: 'کد ملی',
           col: 'col-md-4',
           disable: true
         },
@@ -322,7 +322,7 @@ export default {
           type: 'input',
           name: 'major',
           responseKey: 'ticket.user.major.name',
-          label: 'رشته',
+          placeholder: 'رشته',
           col: 'col-md-4',
           disable: true
         },
@@ -330,17 +330,17 @@ export default {
           type: 'dateTime',
           name: 'created_at',
           responseKey: 'ticket.updated_at',
-          label: 'تاریخ بروز آوری:',
+          placeholder: 'تاریخ بروز آوری:',
           col: 'col-md-4',
           disable: true
         },
-        { type: 'hidden', name: 'id', responseKey: 'ticket.id', label: 'id' },
+        { type: 'hidden', name: 'id', responseKey: 'ticket.id', placeholder: 'id' },
         { type: 'hidden', name: 'department_title', responseKey: 'ticket.department.title' },
-        { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', label: '' },
-        { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', label: '' },
-        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', label: '' },
-        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', label: '' },
-        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets', label: '' },
+        { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', placeholder: '' },
+        { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', placeholder: '' },
+        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', placeholder: '' },
+        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', placeholder: '' },
+        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets', placeholder: '' },
         { type: 'hidden', name: 'priority-id', responseKey: 'ticket.priority.id' },
         { type: 'hidden', name: 'rate', responseKey: 'ticket.rate' },
         {
@@ -348,10 +348,13 @@ export default {
           type: 'entity',
           name: 'management',
           selectionMode: 'single',
-          label: 'انتخاب کاربر',
-          buttonColor: 'blue',
-          buttonTextColor: 'white',
-          buttonBadgeColor: 'primary',
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'blue',
+            textColor: 'white',
+            badgeColor: 'primary',
+            label: 'انتخاب کاربر'
+          },
           indexConfig: {
             apiAddress: 'https://reqres.in/api/users',
             tableTitle: 'لیست کاربران',
@@ -397,9 +400,9 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'mobile', value: null, label: 'شماره تلفن', col: 'col-md-6' },
-              { type: 'input', name: 'national_code', value: null, label: 'کدملی', col: 'col-md-6' },
-              { type: 'hidden', name: 'role', value: 123, label: 'نقش', col: 'col-md-3' }
+              { type: 'input', name: 'mobile', value: null, placeholder: 'شماره تلفن', col: 'col-md-6' },
+              { type: 'input', name: 'national_code', value: null, placeholder: 'کدملی', col: 'col-md-6' },
+              { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'mobile',
             itemIndicatorKey: 'mobile'
@@ -414,10 +417,13 @@ export default {
           type: 'entity',
           name: 'editOperator', // assignees
           selectionMode: 'multiple',
-          label: 'انتخاب اپراتورها',
-          buttonColor: 'blue',
-          buttonTextColor: 'white',
-          buttonBadgeColor: 'primary',
+          popUpButtonConfig: {
+            unelevated: true,
+            color: 'blue',
+            textColor: 'white',
+            badgeColor: 'primary',
+            label: 'انتخاب اپراتورها'
+          },
           indexConfig: {
             apiAddress: 'https://reqres.in/api/users',
             tableTitle: 'لیست کاربران',
@@ -463,9 +469,9 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'mobile', value: null, label: 'شماره تلفن', col: 'col-md-6' },
-              { type: 'input', name: 'national_code', value: null, label: 'کدملی', col: 'col-md-6' },
-              { type: 'hidden', name: 'role', value: 123, label: 'نقش', col: 'col-md-3' }
+              { type: 'input', name: 'mobile', value: null, placeholder: 'شماره تلفن', col: 'col-md-6' },
+              { type: 'input', name: 'national_code', value: null, placeholder: 'کدملی', col: 'col-md-6' },
+              { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'id',
             itemIndicatorKey: 'id'
