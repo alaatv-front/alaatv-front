@@ -14,7 +14,7 @@
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
-          <div class="link-url">office.alaa.tv.18080/c/createset+1897</div>
+          <div class="link-url">{{content.stream.webm}}</div>
         </div>
       </div>
     </div>
@@ -131,7 +131,7 @@ export default {
     }
   },
   mounted() {
-    this.inputs.find(x => x.name === 'isFree').value = this.content.is_free
+    this.$refs.publishForm.setInputValues(this.content, this.inputs)
   },
   methods: {
     videoSource() {
@@ -139,7 +139,7 @@ export default {
     },
     publish() {
       const values = this.$refs.publishForm.getValues()
-      const type = values.find(x => x.name === 'type').value
+      const type = values.find(x => x.name === 'isFree').value
       const status = values.find(x => x.name === 'status').value
       const formData = {
         id: this.content.id,

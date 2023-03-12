@@ -83,7 +83,7 @@
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
-          <div class="link-url">office.alaa.tv.18080/c/createset+1897</div>
+          <div class="link-url">{{content.stream.webm}}</div>
         </div>
       </div>
     </div>
