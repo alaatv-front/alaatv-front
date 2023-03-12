@@ -294,7 +294,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getFavored (data = {}, cache = { TTL: 6000000 }) {
+  getFavored (data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

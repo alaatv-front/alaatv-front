@@ -5,7 +5,8 @@
         <!--        -----------------------------------------------------Logo Section--------------------------------------------   -->
         <div class="logo-section">
           <div class="drawer-btn hamburger">
-            <q-btn class="toolbar-button"
+            <q-btn v-if="showHamburger"
+                   class="toolbar-button"
                    icon="isax:menu-1"
                    color="white"
                    text-color="accent"
@@ -118,6 +119,9 @@ export default {
     }
   },
   computed: {
+    showHamburger () {
+      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+    },
     computedUserId () {
       const user = this.$store.getters['Auth/user']
       if (!user) {

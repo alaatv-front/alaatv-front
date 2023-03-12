@@ -12,6 +12,10 @@
       color: var(--primary-1);
       height: 40px;
       padding-left: 10px;
+      .q-field__label {
+        top: 12px;
+        transition: none;
+      }
       .q-field__append{
         height: 40px;
         .q-icon{

@@ -3,13 +3,15 @@
        class="product-contents-widget"
        :class="options.className"
        :style="options.style">
-    <div class="bg-pink-4 q-pa-md q-mb-md">
-      <q-select v-model="setTitle"
-                :options="setOptions"
-                class="bg-white q-px-md"
-                style="width: 50%" />
-    </div>
-    <div class="previewSetsOfProduct">
+    <q-card class="bg-primary  q-mb-md custom-card">
+      <q-card-section>
+        <q-select v-model="setTitle"
+                  :options="setOptions"
+                  class="bg-white"
+                  style="width: 100%;border-radius: 10px;" />
+      </q-card-section>
+    </q-card>
+    <q-card class="previewSetsOfProduct custom-card q-mb-md">
       <q-tabs v-model="tab"
               indicator-color="transparent"
               active-color="black"
@@ -34,9 +36,9 @@
                     transition-prev="scale"
                     transition-next="scale"
                     class="bg-white text-black text-center">
-        <q-tab-panel v-if="videos.length > 0"
-                     name="videos">
-          <div v-dragscroll
+        <q-tab-panel name="videos">
+          <div v-if="videos.length > 0"
+               v-dragscroll
                class="contents-block">
             <div v-for="video in videos"
                  :key="video.id">
@@ -44,11 +46,15 @@
                             :options="video" />
             </div>
           </div>
+          <q-banner v-else
+                    inline-actions
+                    rounded
+                    class="bg-grey-2 text-primary"> فیلمی وجود ندارد</q-banner>
         </q-tab-panel>
 
-        <q-tab-panel v-if="pamphlets.length > 0"
-                     name="pamphlets">
-          <div v-dragscroll
+        <q-tab-panel name="pamphlets">
+          <div v-if="pamphlets.length > 0"
+               v-dragscroll
                class="contents-block">
             <div v-for="pamphlet in pamphlets"
                  :key="pamphlet.id"
@@ -58,13 +64,13 @@
                    style="width: 100px; height: 100px">
             </div>
           </div>
+          <q-banner v-else
+                    inline-actions
+                    rounded
+                    class="bg-grey-2 text-primary">جزوه ای وجود ندارد</q-banner>
         </q-tab-panel>
-        <q-banner v-else
-                  inline-actions
-                  rounded
-                  class="bg-blue text-white">جزوه ای وجود ندارد</q-banner>
       </q-tab-panels>
-    </div>
+    </q-card>
   </div>
 
 </template>
