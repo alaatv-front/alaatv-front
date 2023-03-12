@@ -235,15 +235,15 @@ const routes = [
                 name: 'UserPanel.Asset.ChatreNejat',
                 path: 'chatre-nejat',
                 layoutConfig: {
-                  layoutHeaderType: 'abrisham',
-                  layoutLeftSideBarType: 'abrisham',
+                  layoutHeaderType: 'chatre-nejat',
+                  layoutLeftSideBarType: 'chatre-nejat',
                   layoutLeftDrawerOverlay: false,
                   layoutLeftDrawerWidth: 100,
                   layoutLeftDrawerVisible: true,
                   layoutLeftDrawerBehavior: 'default',
                   layoutFooter: false
                 },
-                component: () => import('layouts/AbrishamLayout.vue'),
+                component: () => import('layouts/ChatreNejatLayout.vue'),
                 children: [
                   {
                     name: 'UserPanel.Asset.ChatreNejat.Progress',
