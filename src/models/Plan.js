@@ -1,7 +1,9 @@
+import { Major } from './Major.js'
+import { ContentList } from './Content.js'
 import { Collection, Model } from 'js-abstract-model'
-import * as PersianDate from 'persian-date'
-import { ContentList } from './Content'
-import { Major } from './Major'
+// ToDo: use moment-jalaali
+// import * as PersianDate from 'persian-date'
+const PersianDate = null
 
 class Plan extends Model {
   constructor (data) {
