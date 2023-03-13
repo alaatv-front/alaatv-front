@@ -1,4 +1,6 @@
-import * as PersianDate from 'persian-date'
+// ToDo: use moment-jalaali
+// import * as PersianDate from 'persian-date'
+const PersianDate = null
 
 const ajaxCachePrefix = 'ajaxCache-'
 const ajaxCacheTTLPrefix = 'ajaxCacheTTL-'

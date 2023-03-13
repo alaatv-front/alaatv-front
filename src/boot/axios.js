@@ -1,6 +1,7 @@
-import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify } from 'quasar'
+import { boot } from 'quasar/wrappers'
+import APIInstanceWrapper from 'src/api/classes/APIInstanceWrapper.js'
 
 const apiV2Server = process.env.ALAA_API_V2
 const apiV2ServerTarget = process.env.ALAA_API_V2_SERVER
@@ -140,12 +141,10 @@ const AxiosHooks = (function () {
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const apiV2 = axios.create({ baseURL: apiV2Server })
-apiV2.defaults.serverURL = apiV2ServerTarget
-const apiV1 = axios.create({ baseURL: apiV1Server })
-apiV1.defaults.serverURL = apiV1ServerTarget
-const apiWeb = axios.create({ baseURL: webServer })
-apiWeb.defaults.serverURL = webServerTarget
+
+const apiV2 = APIInstanceWrapper.createInstance(apiV2Server, apiV2ServerTarget)
+const apiV1 = APIInstanceWrapper.createInstance(apiV1Server, apiV1ServerTarget)
+const apiWeb = APIInstanceWrapper.createInstance(webServer, webServerTarget)
 
 export default boot(({ app, store, router }) => {
   const accessToken = store.getters['Auth/accessToken']
@@ -170,14 +169,18 @@ export default boot(({ app, store, router }) => {
   //       so you can easily perform requests against your app's API
 
   AxiosHooks.setNotifyInstance(app.config.globalProperties.$q)
-  axios.interceptors.response.use(undefined, function (error) {
-    AxiosHooks.handleErrors(error, router, store)
-    return Promise.reject(error)
-  })
-  apiV2.interceptors.response.use(undefined, function (error) {
-    AxiosHooks.handleErrors(error, router, store)
-    return Promise.reject(error)
-  })
+  if (axios.interceptors) {
+    axios.interceptors.response.use(undefined, function (error) {
+      AxiosHooks.handleErrors(error, router, store)
+      return Promise.reject(error)
+    })
+  }
+  if (apiV2.interceptors) {
+    apiV2.interceptors.response.use(undefined, function (error) {
+      AxiosHooks.handleErrors(error, router, store)
+      return Promise.reject(error)
+    })
+  }
 
   app.axios = instance
   store.$axios = instance

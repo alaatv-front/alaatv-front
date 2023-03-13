@@ -1,6 +1,8 @@
 import { Collection, Model } from 'js-abstract-model'
 import { PlanList } from './Plan'
-import * as PersianDate from 'persian-date'
+// ToDo: use moment-jalaali
+// import * as PersianDate from 'persian-date'
+const PersianDate = null
 
 class StudyPlan extends Model {
   constructor (data) {
