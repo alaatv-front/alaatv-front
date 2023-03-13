@@ -23,7 +23,8 @@ export default {
                       }
                     ],
                     options: {
-                      className: 'col-md-3 q-pr-md '
+                      className: 'q-pr-md gt-md',
+                      colNumber: 'col-md-3'
                     }
                   },
                   {
@@ -33,7 +34,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: 'col-md-9 q-pl-md'
+                      className: 'col-12 col-lg-9  q-pl-md'
                     }
                   }
                 ],
