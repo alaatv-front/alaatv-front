@@ -332,7 +332,7 @@ export default {
       this.percentage = (1 - (this.minAmountUntilSettlement - this.walletBalance) / this.minAmountUntilSettlement) * 100
     },
     clearWallet() {
-      APIGateway.referralCode.walletWithdraw()
+      APIGateway.referralCode.getWithdrawWallet()
         .then((response) => {
           location.reload()
           this.toast(' با موفقیت ثبت  شد')
@@ -370,7 +370,7 @@ export default {
     },
     getWithdrawHistory() {
       this.loading = true
-      APIGateway.referralCode.withdrawHistory()
+      APIGateway.referralCode.getWithdrawHistory()
         .then(response => {
           this.clearingHistoryTableRow = response
           this.loading = false
@@ -392,32 +392,6 @@ export default {
         .catch(() => {
           this.loading = false
         })
-
-      // this.loading = true
-      // this.transactionsTableRow = []
-      // try {
-      //   const response = await this.TransactionApiCall()
-      //   this.lastPage = response.data.meta.last_page
-      //   const responseList = response.data.data
-      //   responseList.forEach(card => {
-      //     this.transactionsTableRow.push({
-      //       id: card.id,
-      //       name: card.full_name,
-      //       codeNumber: card.code,
-      //       productTitle: card.product,
-      //       purchaseDate: Assist.miladiToShamsi(card.purchased_at, true),
-      //       purchasePrice: new Price({ base: card.product_price }).toman('base'),
-      //       income: new Price({ base: card.commisson }).toman('base')
-      //     })
-      //   })
-      //   this.loading = false
-      // } catch (err) {
-      //   this.loading = false
-      //   const messages = this.getErrorMessages(err.response.data)
-      //   this.showErrorMessages(messages)
-      // }
-      //
-      // this.loading = false
     },
     async getClearingHistoryDataFromApi() {
       this.loading = true
