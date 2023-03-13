@@ -214,6 +214,9 @@ export default {
   .my-video_html5_api{
     border-radius: inherit;
   }
+  .vjs-modal-dialog{
+    border-radius: 20px;
+  }
 
   .vjs-brand-container {
     .vjs-brand-container-link {
@@ -223,11 +226,12 @@ export default {
       }
     }
   }
+  .vjs-poster{
+    border-radius: 20px;
+  }
 }
-.vjs-poster{
-  border-radius: inherit;
-}
-  #my-video .vjs-big-play-button {
+
+#my-video .vjs-big-play-button {
     border: none;
     width: 80px;
     height: 80px;
