@@ -1,6 +1,6 @@
 const state = {
   setList: [],
-  setTopicsList: [],
+  setTopicList: [],
   selectedTopic: ''
 }
 
