@@ -27,7 +27,7 @@ export default class ReferralCodeAPI extends APIRepository {
   // rest
   // has get
 
-  index (data, cache = { TTL: 10000 }) {
+  index (data, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -147,7 +147,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  salesManData (cache = { TTL: 5000 }) {
+  salesManData (cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -163,13 +163,12 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  walletWithdraw (cache) {
+  walletWithdraw () {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.walletWithdraw,
       cacheKey: this.CacheList.walletWithdraw,
-      ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response
       },
