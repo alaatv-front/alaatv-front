@@ -1,5 +1,5 @@
 import AttributeAPI from './models/attribute'
-import AuthAPI from './models/auth'
+import AuthAPI from './models/Auth'
 import CartAPI from './models/cart'
 import ContentAPI from './models/content'
 import CouponAPI from './models/coupon'
