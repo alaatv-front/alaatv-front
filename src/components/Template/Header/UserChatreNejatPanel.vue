@@ -1,12 +1,16 @@
 <template>
-  <div class="abrisham-header">
+  <div class="chatre-nejat-header">
+    <div class="logo-box">
+      <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+             class="logo-image" />
+      <!--      <div class="text-primary">راه ابریشم</div>-->
+    </div>
     <div class="header-box full-height flex justify-center items-center">
       <q-img src="https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png"
              class="header-logo-img" />
       <!--      <div class="text-primary">راه ابریشم</div>-->
     </div>
     <div class="profile-box flex items-center">
-      <i class="fi fi-rr-bell icon" />
       <q-avatar class="avatar">
         <img :src="user.photo"
              alt="profile-photo">
@@ -93,13 +97,27 @@ export default {
     width: 90%;
   }
 }
-.abrisham-header{
+.chatre-nejat-header{
   height: 64px;
   background: #fff;
   position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   @media screen and (max-width: 1023px) {
 
   }
+
+  .logo-box {
+    width: 44px;
+    height: 44px;
+    align-self: center;
+    margin-left: 25px;
+    visibility: hidden;
+    @media screen and (max-width: 990px) {
+      visibility: visible;
+    }
+  }
+
   .profile-box{
 
   }
@@ -116,12 +134,9 @@ export default {
     }
   }
   .profile-box {
-    position: absolute;
-    right: 0;
-    top: 0;
     height: 100%;
     @media screen and (max-width: 1904px) {
-      margin-left: 20px;
+
     }
 
     .icon {

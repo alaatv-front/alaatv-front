@@ -125,7 +125,7 @@
                            :key="index">
                         <div v-if="showMenuItem(/* item */)">
                           <q-item class="item-list"
-                                  :class="{ 'alone-item': !item.children.length }"
+                                  :class="{ 'alone-item': !(item.children && item.children.length) }"
                                   :to="{ name: item.routeName, params: item.params }">
                             <div class="section-title">
                               <q-item-section class="list-section title-icon"
@@ -256,11 +256,18 @@ export default {
         },
         {
           title: 'کارت هدیه',
-          icon: 'isax:clipboard-text',
+          icon: 'isax:gift',
           routeName: 'UserPanel.Asset.GiftCard.Dashboard',
           permission: 'all',
           active: false,
           children: []
+        },
+        {
+          title: 'داشبورد چتر نجات',
+          icon: 'isax:document-1',
+          routeName: 'UserPanel.Asset.ChatreNejat.Products',
+          permission: 'all',
+          active: false
         }
       ]
     }

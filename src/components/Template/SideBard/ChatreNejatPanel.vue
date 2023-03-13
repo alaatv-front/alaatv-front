@@ -17,7 +17,19 @@
         </q-item>
       </q-list>
     </div>
-
+    <div class="log-out menu-items">
+      <q-list class="menu-items-list">
+        <q-item class="menu-item">
+          <q-btn round
+                 flat
+                 dense
+                 size="md"
+                 color="black"
+                 icon="isax:logout"
+                 @click="logOut" />
+        </q-item>
+      </q-list>
+    </div>
   </div>
 </template>
 
@@ -30,24 +42,24 @@ export default {
     menuItems: [
       {
         icon: 'play-alt',
-        routeName: 'UserPanel.Asset.Abrisham.Progress'
-      },
-      {
-        icon: 'calendar',
-        routeName: 'UserPanel.Asset.Abrisham.Schedule'
-      },
-      {
-        icon: 'headphones',
-        routeName: 'UserPanel.Asset.Abrisham.Consulting'
-      },
-      {
-        icon: 'envelope',
-        routeName: 'UserPanel.Asset.Abrisham.News'
-      },
-      {
-        icon: 'world',
-        routeName: 'UserPanel.Asset.Abrisham.Map'
+        routeName: 'UserPanel.Asset.ChatreNejat.Products'
       }
+      // {
+      //   icon: 'calendar',
+      //   routeName: 'UserPanel.Asset.Abrisham.Schedule'
+      // },
+      // {
+      //   icon: 'headphones',
+      //   routeName: 'UserPanel.Asset.Abrisham.Consulting'
+      // },
+      // {
+      //   icon: 'envelope',
+      //   routeName: 'UserPanel.Asset.Abrisham.News'
+      // },
+      // {
+      //   icon: 'world',
+      //   routeName: 'UserPanel.Asset.Abrisham.Map'
+      // }
       // {
       //   icon: 'list-check',
       //   routeName: 'my-performance'
@@ -64,7 +76,9 @@ export default {
 
   },
   methods: {
-
+    logOut() {
+      this.$store.dispatch('Auth/logOut')
+    }
   }
 }
 </script>
@@ -72,8 +86,8 @@ export default {
 <style scoped lang="scss">
 .side-menu{
   min-height: calc(100vh - 2px) ;
-  display: flex !important;
-  flex-direction: column;
+  height: 100vh;
+  display: grid !important;
   border-right: 1px solid #e0e0e0;
   .menu-logo {
     text-align: center;
@@ -118,13 +132,13 @@ export default {
         display: flex;
         justify-content: center;
         .activate{
-          color: #ff8f00 !important;
+          color: var(--alaa-Secondary) !important;
         }
         .menu-indicator{
           position: absolute;
           height: 36px;
           width: 8px;
-          background-color:#ff8f00 ;
+          background-color:var(--alaa-Secondary) ;
           border: none;
           border-radius:0 6px 6px 0;
           left: 0;
@@ -138,7 +152,7 @@ export default {
           }
         }
         :deep(.icon){
-          color: #b1ccee;
+          color: #333333;
           font-size: 26px;
           position: relative;
           top: 5px;
