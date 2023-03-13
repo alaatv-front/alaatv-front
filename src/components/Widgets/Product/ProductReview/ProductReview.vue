@@ -2,27 +2,6 @@
   <div class="show-product-review"
        :style="options.style"
        :class="options.className">
-    <!--    <q-btn icon="isax:receipt-1"-->
-    <!--           flat-->
-    <!--           color="primary"-->
-    <!--           size="15px"-->
-    <!--           style="top: 70px; right: 1060px; z-index: 2"-->
-    <!--           @click="addToFavored" />-->
-    <!--    <q-btn icon="isax:share"-->
-    <!--           flat-->
-    <!--           color="primary"-->
-    <!--           size="15px"-->
-    <!--           style="top: 70px; right: 1070px; z-index: 2">-->
-    <!--      <q-popup-proxy :offset="[10, 10]"-->
-    <!--                     transition-show="flip-up"-->
-    <!--                     transition-hide="flip-down">-->
-    <!--        <q-banner dense-->
-    <!--                  rounded>-->
-    <!--          <share-network :url="pageUrl"-->
-    <!--                         @on-select="shareGiftCard" />-->
-    <!--        </q-banner>-->
-    <!--      </q-popup-proxy>-->
-    <!--    </q-btn>-->
     <div class="product-description">
       <div class="description-container">
         <p class="title-style">

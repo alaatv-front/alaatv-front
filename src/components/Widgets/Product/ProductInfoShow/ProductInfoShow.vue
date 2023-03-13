@@ -150,7 +150,7 @@ export default {
       return this.product.id
     },
     pageUrl() {
-      return this.$route.fullPath
+      return window.location.href
     }
   },
   watch: {
