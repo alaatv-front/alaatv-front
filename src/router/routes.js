@@ -235,30 +235,39 @@ const routes = [
                 name: 'UserPanel.Asset.ChatreNejat',
                 path: 'chatre-nejat',
                 layoutConfig: {
-                  layoutHeaderType: 'abrisham',
-                  layoutLeftSideBarType: 'abrisham',
+                  layoutHeaderType: 'chatre-nejat',
+                  layoutLeftSideBarType: 'chatre-nejat',
                   layoutLeftDrawerOverlay: false,
                   layoutLeftDrawerWidth: 100,
                   layoutLeftDrawerVisible: true,
                   layoutLeftDrawerBehavior: 'default',
                   layoutFooter: false
                 },
-                component: () => import('layouts/AbrishamLayout.vue'),
+                component: () => import('layouts/bareLayout.vue'),
                 children: [
                   {
-                    name: 'UserPanel.Asset.ChatreNejat.Progress',
-                    path: 'progress',
+                    name: 'UserPanel.Asset.ChatreNejat.Products',
+                    path: 'product',
                     component: () => import('pages/User/DashboardChatreNejat/progress.vue')
                   },
                   {
-                    name: 'UserPanel.Asset.ChatreNejat.Schedule',
-                    path: 'schedule',
-                    component: () => import('pages/User/DashboardChatreNejat/Schedule.vue')
-                  },
-                  {
-                    name: 'UserPanel.Asset.ChatreNejat.Consulting',
-                    path: 'consulting',
-                    component: () => import('pages/User/DashboardChatreNejat/Consulting.vue')
+                    name: 'UserPanel.Asset.ChatreNejat.ProductContents',
+                    path: 'product/:productId',
+                    component: () => import('layouts/ChatreNejatLayout.vue'),
+                    children: [
+                      {
+                        name: 'UserPanel.Asset.ChatreNejat.ContentList',
+                        path: 'content',
+                        component: () => import('layouts/bareLayout.vue'),
+                        children: [
+                          {
+                            name: 'UserPanel.Asset.ChatreNejat.Content',
+                            path: ':contentId',
+                            component: () => import('pages/User/DashboardChatreNejat/Consulting.vue')
+                          }
+                        ]
+                      }
+                    ]
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.News',
