@@ -22,6 +22,7 @@ const routes = [
       layoutLeftDrawerBehavior: 'default',
       layoutRightDrawer: false,
       layoutFooter: true,
+      showHamburgerBtn: true,
       layoutFooterVisible: true,
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
@@ -130,6 +131,10 @@ const routes = [
       {
         path: 'panel',
         name: 'UserPanel',
+        layoutConfig: {
+          showHamburgerBtn: false,
+          layoutLeftSideBarType: 'user-panel'
+        },
         meta: { middlewares: [Authenticated] },
         component: () => import('layouts/bareLayout.vue'),
         children: [
@@ -223,6 +228,47 @@ const routes = [
                     name: 'UserPanel.Asset.Abrisham.Map',
                     path: 'map',
                     component: () => import('pages/User/DashboardAbrisham/Map.vue')
+                  }
+                ]
+              },
+              {
+                name: 'UserPanel.Asset.ChatreNejat',
+                path: 'chatre-nejat',
+                layoutConfig: {
+                  layoutHeaderType: 'abrisham',
+                  layoutLeftSideBarType: 'abrisham',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/AbrishamLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.ChatreNejat.Progress',
+                    path: 'progress',
+                    component: () => import('pages/User/DashboardChatreNejat/progress.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.ChatreNejat.Schedule',
+                    path: 'schedule',
+                    component: () => import('pages/User/DashboardChatreNejat/Schedule.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.ChatreNejat.Consulting',
+                    path: 'consulting',
+                    component: () => import('pages/User/DashboardChatreNejat/Consulting.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.ChatreNejat.News',
+                    path: 'news',
+                    component: () => import('pages/User/DashboardChatreNejat/News.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.ChatreNejat.Map',
+                    path: 'map',
+                    component: () => import('pages/User/DashboardChatreNejat/Map.vue')
                   }
                 ]
               },
@@ -358,6 +404,33 @@ const routes = [
                 name: 'Admin.Forrest.Edit',
                 path: ':id/edit',
                 component: () => import('src/pages/Admin/Forrest/Edit.vue')
+              }
+            ]
+          },
+          {
+            name: 'Admin.Set',
+            path: 'set',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Set.Index',
+                path: '',
+                component: () => import('src/pages/Admin/Set/Index.vue')
+              },
+              {
+                name: 'Admin.Set.Create',
+                path: 'create',
+                component: () => import('src/pages/Admin/Set/Create.vue')
+              },
+              {
+                name: 'Admin.Set.Show',
+                path: ':id',
+                component: () => import('src/pages/Admin/Set/Show.vue')
+              },
+              {
+                name: 'Admin.Set.Edit',
+                path: ':id/edit',
+                component: () => import('src/pages/Admin/Set/Edit.vue')
               }
             ]
           },

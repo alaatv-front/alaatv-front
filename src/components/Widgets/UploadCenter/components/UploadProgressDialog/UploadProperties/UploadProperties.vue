@@ -12,6 +12,7 @@
                      :loaded-data="content"
                      :entity-param-key="entityParamKey"
                      :default-layout="false"
+                     :beforeSendData="content"
                      @onInputClick="onInputClick">
           <template #entity-index-table-selection-cell="data">
             <q-checkbox v-model="data.props.selected"
@@ -65,7 +66,7 @@
         </div>
         <div class="link-box">
           <div class="link-title">لینک فیلم</div>
-          <div class="link-url">office.alaa.tv.18080/c/createset+1897</div>
+          <div class="link-url">{{content.stream.webm}}</div>
         </div>
       </div>
     </div>

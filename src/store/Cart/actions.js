@@ -1,19 +1,18 @@
-// import API_ADDRESS from 'src/api/Addresses'
-// import { axios } from 'src/boot/axios'
-import CookieCart from 'src/assets/js/CookieCart'
 import { Notify } from 'quasar'
-import { Cart } from 'src/models/Cart'
-import { CartItem } from 'src/models/CartItem'
+import { Cart } from 'src/models/Cart.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import { OrderProduct } from 'src/models/OrderProduct'
-// import { parse } from 'qs'
+import CookieCart from 'src/assets/js/CookieCart.js'
 
-export function addToCart (context, data) {
-  // console.log(data)
+export function addToCart (context, newProductData) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
+    const payload = {
+      product_id: newProductData.product_id, // Number or String
+      products: newProductData.products ? newProductData.products : [], // Array (List ofProduct's ID)
+      attribute: newProductData.attribute ? newProductData.attribute : [] // Array
+    }
     if (isUserLogin) {
-      APIGateway.cart.addToCart({ product_id: data.id })
+      APIGateway.cart.addToCart(payload)
         .then((response) => {
           Notify.create({
             type: 'positive',
@@ -23,50 +22,41 @@ export function addToCart (context, data) {
             message: 'محصول به سبد خرید اضافه شد.',
             icon: 'report_problem'
           })
-          return resolve(response)
+          resolve(response)
         })
         .catch((error) => {
-          return reject(error)
+          reject(error)
         })
     } else {
       const cart = context.getters.cart
-      data.forEach(element => {
-        const product = new CartItem()
-        const orderProducts = []
-
-        if (element.product !== undefined) {
-          product.grand.id = element.product.id
-        }
-        if (element.products !== undefined) {
-          element.products.forEach(order => {
-            const orderProduct = new OrderProduct()
-            orderProduct.id = order
-            orderProducts.push(orderProduct)
-          })
-          product.order_product.list = orderProducts
-        }
-        cart.items.list.push(product)
-      })
+      cart.addToCart(payload)
       context.commit('updateCart', cart)
-      return resolve(true)
+      resolve(true)
     }
   })
 }
 
-export function reviewCart (context, product) {
+export function reviewCart (context) {
   const isUserLogin = this.getters['Auth/isUserLogin']
   const currentCart = this.getters['Cart/cart']
-  const orders = []
-  if (currentCart.items.list !== undefined && currentCart.items.list.length > 0) {
-    currentCart.items.list.forEach(item => {
-      orders.push({
-        product_id: item.grand.id,
-        products: item.order_product.list
+  const cartItems = []
+  currentCart.items.list.forEach(currentCartItem => {
+    const cartItemObject = { products: [] }
+    if (currentCartItem.grand.id) {
+      cartItemObject.product_id = currentCartItem.grand.id
+      currentCartItem.order_product.list.forEach(orderProduct => {
+        cartItemObject.products.push(orderProduct.product.id)
       })
-    })
-  }
+    } else {
+      currentCartItem.order_product.list.forEach(orderProduct => {
+        cartItemObject.product_id = orderProduct.product.id
+      })
+    }
+    cartItems.push(cartItemObject)
+  })
+
   return new Promise((resolve, reject) => {
-    APIGateway.cart.reviewCart({ params: { seller: 1 } })
+    APIGateway.cart.reviewCart(cartItems)
       .then((response) => {
         if (isUserLogin) {
           context.commit('updateCart', new Cart())
@@ -82,7 +72,7 @@ export function reviewCart (context, product) {
   //     .get(API_ADDRESS.cart.review, {
   //       params: {
   //         seller: 1,
-  //         cartItems: orders
+  //         cartItems
   //       },
   //       paramsSerializer: {
   //         encode: parse,
@@ -124,9 +114,8 @@ export function paymentCheckout (context) {
 }
 
 export function removeItemFromCart (context, orderProductId) {
-  const isUserLogin = this.getters['Auth/isUserLogin']
-
   return new Promise((resolve, reject) => {
+    const isUserLogin = this.getters['Auth/isUserLogin']
     if (isUserLogin) {
       APIGateway.cart.removeFromCart({ id: orderProductId })
         .then((response) => {
@@ -138,17 +127,17 @@ export function removeItemFromCart (context, orderProductId) {
             message: 'محصول از سبد خرید حذف شد.',
             icon: 'report_problem'
           })
-          return resolve(response)
+          resolve(response)
         })
         .catch((error) => {
-          return reject(error)
+          reject(error)
         })
     } else {
       const productId = orderProductId
-      const cart = this.getters['Cart/cart']
-      cart.removeItem(productId)
+      const cart = context.getters.cart
+      cart.removeProduct(productId)
       context.commit('updateCart', cart)
-      return resolve()
+      resolve()
     }
   })
 }

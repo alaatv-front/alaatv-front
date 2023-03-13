@@ -5,14 +5,13 @@
     </div>
     <div class="page-introduction">
       <div class="no-gutters row">
-        <div class="col-xl-6 col-12 description">
-          تعداد
-          <span>{{countOfTotalGiftCards}}</span>
-          کارت هدیه به شما اختصاص داده شده است
+        <div class="col-md-6 col-12 description column q-pt-lg">
+          <span>تعداد {{sales_man.count_of_total_gift_cards}} کارت هدیه به شما اختصاص داده شده است
+          </span>
           <br>
           از این پس میتوانید با اشتراک گذاری کارت‌های زیر، پس از استفاده آن‌ها از کارت پاداش دریافت کنید و درآمد داشته باشید.
         </div>
-        <div class="col-xl-6 col-12">
+        <div class="col-md-6 col-12">
           <div class="row card-box no-gutters">
             <div class="col-sm-6 col-12">
               <div class="card-style used-card">
@@ -21,7 +20,7 @@
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{countOfUsedGiftCards}}
+                    {{sales_man.count_of_total_gift_cards - sales_man.count_of_remain_gift_cards}}
                   </span>
                   <span>
                     کارت
@@ -36,7 +35,7 @@
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{countOfRemainGiftCards}}
+                    {{sales_man.count_of_remain_gift_cards}}
                   </span>
                   <span>
                     کارت
@@ -132,7 +131,7 @@
       <div class="flex justify-center">
         <q-pagination v-model="page"
                       :max="lastPage"
-                      :max-pages="6"
+                      :max-pages="15"
                       boundary-links
                       icon-first="isax:arrow-left-2"
                       icon-last="isax:arrow-right-3"
@@ -155,6 +154,17 @@ export default {
   mixins: [GiftCardMixin],
   data() {
     return {
+      sales_man: {
+        wallet_type: 'main_account',
+        wallet_balance: 9845,
+        total_commission: 55183,
+        has_signed_contract: false,
+        minAmount_until_settlement: 10000,
+        count_of_total_gift_cards: 11,
+        count_of_used_gift_cards: 0,
+        count_of_remain_gift_cards: 11,
+        income_being_settle: 90434
+      },
       lastPage: 0,
       page: 1,
       shareCodeLoading: false,
@@ -249,6 +259,7 @@ export default {
     },
     loadAllData() {
       this.getGiftCardsData()
+      this.getSalesMan()
       // APIGateway.referralCode.batchStore({
       //   data: {
       //     discounttype_id: 2, // Number -- optional
@@ -261,13 +272,18 @@ export default {
       //   }
       // })
     },
+    getSalesMan() {
+      APIGateway.referralCode.salesManData()
+        .then((response) => {
+        })
+        .catch()
+    },
     getGiftCardsData(page = 1) {
       this.loading = true
-      this.referralCodeList = new ReferralCodeList()
       APIGateway.referralCode.index({ data: { page } })
         .then(({ referralCodeList, paginate }) => {
           this.lastPage = paginate.last_page
-          this.referralCodeList = referralCodeList
+          this.referralCodeList = new ReferralCodeList(referralCodeList)
           this.loading = false
         })
         .catch(() => {
@@ -352,7 +368,7 @@ export default {
     justify-content: space-between;
     position: relative;
     &.used-card{
-      margin-left: 15px;
+      //margin-left: 15px;
     }
     &.unUsed-card{
       margin-left: 15px;

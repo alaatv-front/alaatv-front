@@ -2,7 +2,7 @@ import { Model, Collection } from 'js-abstract-model'
 import Price from './Price'
 import { Product } from 'src/models/Product'
 import { Coupon } from './Coupon'
-import { CartItemList } from './CartItem'
+import { CartItem, CartItemList } from './CartItem'
 class Cart extends Model {
   constructor (data) {
     super(data, [
@@ -34,26 +34,32 @@ class Cart extends Model {
   }
 
   addToCart (data) {
-    const isSelectableProduct = !!data.products
+    const isSelectableProduct = data.products && data.products.length > 0
 
     if (isSelectableProduct) {
       const grand = data.product
       const cartItemThatHasGrand = this.items.getCartItemByGrand(grand.id)
       cartItemThatHasGrand.addOrderProducts(data.products.map(product => new Product({ id: product })))
     } else {
-      const product = data.product
+      const product = new Product({ id: data.product_id })
       if (this.items.hasProduct(product.id)) {
         return
       }
-      this.items.addOrderProducts([new Product(product)])
+      this.items.add(new CartItem({
+        grand: product
+      }))
     }
 
-    this.changeCartItems()
+    // this.changeCartItems()
   }
 
-  removeItem (cartId) {
-    this.items.list = this.items.list.filter(item => item.grand.id !== cartId)
-    this.changeCartItems()
+  removeProduct (productId) {
+    this.items.removeProduct(productId)
+  }
+
+  removeItem (cartItemId) {
+    this.items.list = this.items.list.filter(item => item.grand.id !== cartItemId)
+    // this.changeCartItems()
   }
 
   removeAllItems () {
