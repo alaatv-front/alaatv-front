@@ -128,41 +128,29 @@ export default {
     getContentByRequest() {
       this.content.loading = true
       const contentId = this.getContentId()
-      let promise = null
-      promise = APIGateway.content.show(contentId)
-      if (promise) {
-        promise
-          .then((response) => {
-            this.content = new Content(response)
-            this.getSetByRequest()
-            this.content.loading = false
-          })
-          .catch(() => {
-            this.content.loading = false
-          })
-      }
+      APIGateway.content.show(contentId)
+        .then((response) => {
+          this.content = new Content(response)
+          this.getSetByRequest()
+          this.content.loading = false
+        })
+        .catch(() => {
+          this.content.loading = false
+        })
     },
 
     getSetByRequest() {
       this.set.loading = true
-      let promise = null
-      promise = APIGateway.set.show(this.content.set.id)
-      if (promise) {
-        promise
-          .then((response) => {
-            this.set = new Set(response)
-            this.scrollToElement()
-            this.set.loading = false
-            // const m = moment()
-            // m.local('fa')
-            // m.format('2023-02-23')
-            // console.log(moment(this.set.contents[0].updated_at, 'YYYY-M-D').format('jYYYY/jMM/jDD'))
-          })
-          .catch(() => {
-            this.set = new Set()
-            this.set.loading = false
-          })
-      }
+      APIGateway.set.show(this.content.set.id)
+        .then((response) => {
+          this.set = new Set(response)
+          this.scrollToElement()
+          this.set.loading = false
+        })
+        .catch(() => {
+          this.set = new Set()
+          this.set.loading = false
+        })
     },
     isCurrent(content) {
       const id = content.id.toString()

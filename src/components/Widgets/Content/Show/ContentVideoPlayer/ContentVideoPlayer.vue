@@ -106,21 +106,17 @@ export default {
     getContentByRequest() {
       const contentId = this.getContentId()
       this.content.loading = true
-      let promise = null
-      promise = APIGateway.content.show(contentId)
-      if (promise) {
-        promise
-          .then((response) => {
-            this.content = new Content(response)
-            this.poster = this.content.photo ? this.content.photo : ''
-            this.setSources(this.content.file.video)
-            this.getSetByRequest()
-            this.content.loading = false
-          })
-          .catch(() => {
-            this.content.loading = false
-          })
-      }
+      APIGateway.content.show(contentId)
+        .then((response) => {
+          this.content = new Content(response)
+          this.poster = this.content.photo ? this.content.photo : ''
+          this.setSources(this.content.file.video)
+          this.getSetByRequest()
+          this.content.loading = false
+        })
+        .catch(() => {
+          this.content.loading = false
+        })
     },
 
     getContent() {
@@ -148,20 +144,16 @@ export default {
     },
     getSetByRequest() {
       this.set.loading = true
-      let promise = null
-      promise = APIGateway.set.show(this.content.set.id)
-      if (promise) {
-        promise
-          .then((response) => {
-            this.set = new Set(response)
-            this.contentNumber = this.getContentNumberInListById(this.content.id)
-            this.set.loading = false
-          })
-          .catch(() => {
-            this.set = new Set()
-            this.set.loading = false
-          })
-      }
+      APIGateway.set.show(this.content.set.id)
+        .then((response) => {
+          this.set = new Set(response)
+          this.contentNumber = this.getContentNumberInListById(this.content.id)
+          this.set.loading = false
+        })
+        .catch(() => {
+          this.set = new Set()
+          this.set.loading = false
+        })
     },
     getSet() {
       this.set.loading = true
