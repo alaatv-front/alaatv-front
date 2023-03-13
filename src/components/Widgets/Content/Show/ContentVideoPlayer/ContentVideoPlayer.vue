@@ -149,7 +149,7 @@ export default {
     getSetByRequest() {
       this.set.loading = true
       let promise = null
-      promise = APIGateway.set.show({ id: this.content.set.id })
+      promise = APIGateway.set.show(this.content.set.id)
       if (promise) {
         promise
           .then((response) => {
@@ -170,7 +170,7 @@ export default {
           this.set = new Set(response.data.data)
           this.contentNumber = this.getContentNumberInListById(this.content.id)
         })
-        .catch((er) => {
+        .catch(() => {
           this.set = new Set()
           this.set.loading = false
         })
@@ -195,6 +195,6 @@ export default {
 <style scoped lang="scss">
 .video-player{
   border-radius: 10px;
-  box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
 }
 </style>
