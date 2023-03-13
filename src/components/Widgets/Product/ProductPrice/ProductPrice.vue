@@ -90,6 +90,7 @@ export default {
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
+      console.log(data)
       this.product = new Product(data)
       this.product.loading = false
     },
@@ -116,15 +117,13 @@ export default {
   justify-content: space-between;
   align-items: center;
   height: 70px;
-  width: 100%;
   padding-right: 20px;
-  margin-bottom: 20px;
+  margin: 0 30px 20px;
   @media only screen and (max-width: 1439px) {
-    width: 472px;
   }
   @media only screen and (max-width: 1023px) {
-    max-width: 700px;
     width: 100%;
+    margin: 0;
     padding-right: 30px;
   }
   @media only screen and (max-width: 600px) {
@@ -132,7 +131,7 @@ export default {
   }
 
   .discount-percent {
-    width: 120px;
+    //width: 120px;
     height: 70px;
     background-color: #E05555;
     color: #ffffff;

@@ -2,28 +2,27 @@
   <div class="show-product-review"
        :style="options.style"
        :class="options.className">
-    <q-btn icon="isax:receipt-1"
-           flat
-           color="primary"
-           size="15px"
-           style="top: 70px; right: 1060px; z-index: 2"
-           @click="addToFavored" />
-    <q-btn icon="isax:share"
-           flat
-           color="primary"
-           size="15px"
-           style="top: 70px; right: 1070px; z-index: 2">
-      <q-popup-proxy :offset="[10, 10]"
-                     transition-show="flip-up"
-                     transition-hide="flip-down">
-        <q-banner dense
-                  rounded>
-          <share-network :url="pageUrl"
-                         @on-select="shareGiftCard" />
-        </q-banner>
-      </q-popup-proxy>
-    </q-btn>
-
+    <!--    <q-btn icon="isax:receipt-1"-->
+    <!--           flat-->
+    <!--           color="primary"-->
+    <!--           size="15px"-->
+    <!--           style="top: 70px; right: 1060px; z-index: 2"-->
+    <!--           @click="addToFavored" />-->
+    <!--    <q-btn icon="isax:share"-->
+    <!--           flat-->
+    <!--           color="primary"-->
+    <!--           size="15px"-->
+    <!--           style="top: 70px; right: 1070px; z-index: 2">-->
+    <!--      <q-popup-proxy :offset="[10, 10]"-->
+    <!--                     transition-show="flip-up"-->
+    <!--                     transition-hide="flip-down">-->
+    <!--        <q-banner dense-->
+    <!--                  rounded>-->
+    <!--          <share-network :url="pageUrl"-->
+    <!--                         @on-select="shareGiftCard" />-->
+    <!--        </q-banner>-->
+    <!--      </q-popup-proxy>-->
+    <!--    </q-btn>-->
     <div class="product-description">
       <div class="description-container">
         <p class="title-style">
@@ -46,11 +45,9 @@
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import ShareNetwork from 'src/components/ShareNetwork.vue'
 
 export default {
   name: 'ProductReview',
-  components: { ShareNetwork },
   mixins: [mixinWidget],
   props: {
     options: {
@@ -58,6 +55,11 @@ export default {
       default: () => {
         return {}
       }
+    }
+  },
+  data() {
+    return {
+      isFavored: false
     }
   },
   computed: {
@@ -82,27 +84,19 @@ export default {
       return this.product.id
     },
     description () {
-      return this.product.description?.long || this.product.description?.short || this.product.description?.slogan || ''
-    },
-    pageUrl() {
-      return 'https://alaatv.com' + this.$route.fullPath
+      return this.product.description?.long || this.product.description?.short || this.product.description?.slogan || null
     }
   },
   serverPrefetch () {
     return this.getProduct()
   },
   methods: {
-    addToFavored() {
-
-    },
-    shareGiftCard({ name, url }) {
-      window.open(url, '_blank')
-    },
     getProduct() {
       this.product.loading = true
       return APIGateway.product.show(this.productId)
         .then(product => {
           this.product = product
+          this.isFavored = product.is_favored_2
           this.product.loading = false
         })
         .catch(() => {
@@ -141,12 +135,12 @@ h2 {
 }
 
 .product-description {
-  display: flex;
-  justify-content: center;
+  //display: flex;
+  //justify-content: center;
   margin-bottom: 80px;
 
   .description-container {
-    width: 1140px;
+    //width: 1140px;
 
     .description-text {
       margin-top: 20px;
@@ -158,7 +152,7 @@ h2 {
 @media screen and (max-width: 1199px) {
   .product-description {
     .description-container {
-      width: 908px;
+      //width: 908px;
 
       .description-text {
 
@@ -171,7 +165,7 @@ h2 {
 @media screen and (max-width: 991px) {
   .product-description {
     .description-container {
-      width: 684px;
+      //width: 684px;
     }
   }
 }
@@ -188,10 +182,10 @@ h2 {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 0 30px;
+      //margin: 0 30px;
 
       .description-text {
-        width: 516px;
+        //width: 516px;
       }
     }
 
@@ -201,7 +195,7 @@ h2 {
 @media screen and (max-width: 575px) {
   .product-description {
     .description-container {
-      margin: 0 16px;
+      //margin: 0 16px;
 
       .description-text {
         width: 100%;

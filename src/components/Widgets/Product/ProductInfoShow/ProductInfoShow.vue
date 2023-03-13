@@ -4,8 +4,34 @@
     <div class="show-product-introduction">
       <div class="product-introduction justify-center">
         <div class="intro-features col-md-12">
-          <div class="title">
-            ویژگی های این محصول
+          <div class="title full-width">
+            <span>
+              ویژگی های این محصول
+            </span>
+            <div dir="ltr"
+                 class="float-right share q-mr-lg">
+              <q-btn icon="isax:share"
+                     flat
+                     color="black"
+                     size="14px">
+                <q-tooltip anchor="top middle"
+                           self="bottom middle"
+                           :offset="[10, 10]">
+                  اشتراک گزاری
+                </q-tooltip>
+                <q-popup-proxy :offset="[10, 10]"
+                               transition-show="flip-up"
+                               transition-hide="flip-down">
+                  <q-banner dense
+                            rounded>
+                    <share-network :url="pageUrl"
+                                   @on-select="shareGiftCard" />
+                  </q-banner>
+                </q-popup-proxy>
+              </q-btn>
+              <bookmark v-model:value="product.is_favored_2"
+                        :bookmark-function="bookmarkContent" />
+            </div>
           </div>
           <div class="product-info-box row">
             <div v-for="(info, index) in information"
@@ -42,9 +68,12 @@
 import { Product } from 'src/models/Product.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import Bookmark from 'components/Bookmark.vue'
+import ShareNetwork from 'src/components/ShareNetwork.vue'
 
 export default {
   name: 'ProductInfoShow',
+  components: { Bookmark, ShareNetwork },
   mixins: [mixinWidget, mixinPrefetchServerData],
   props: {
     options: {
@@ -119,6 +148,9 @@ export default {
         return this.$route.params.id
       }
       return this.product.id
+    },
+    pageUrl() {
+      return this.$route.fullPath
     }
   },
   watch: {
@@ -184,6 +216,7 @@ export default {
     },
     prefetchServerDataPromiseThen (data) {
       this.product = data
+      this.setInformation()
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {
@@ -227,6 +260,15 @@ export default {
           info.value = this.product.attributes.info[findingAttribute]
         }
       })
+    },
+    bookmarkContent () {
+      if (this.product.is_favored_2) {
+        return this.$apiGateway.product.unfavoredProduct(this.product.id)
+      }
+      return this.$apiGateway.product.favoredProduct(this.product.id)
+    },
+    shareGiftCard({ name, url }) {
+      window.open(url, '_blank')
     }
   }
 }
@@ -290,6 +332,9 @@ p {
         font-size: 50px;
         font-weight: bold;
         line-height: 10px;
+      }
+      .share {
+        top: 50px;
       }
     }
 
