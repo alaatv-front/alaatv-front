@@ -39,11 +39,6 @@ export default class APIRepository {
    * @returns A promise that will resolve or reject based on the response from the API call.
    */
   sendRequest({ apiMethod, api, request, cacheKey, cache, resolveCallback, rejectCallback, data, params }) {
-    if (typeof window === 'undefined') {
-      this.api.defaults.baseURL = null
-      request = this.api.defaults.serverURL + request
-    }
-
     return new Promise((resolve, reject) => {
       APIInstanceWrapper[apiMethod]({
         api,
