@@ -72,7 +72,7 @@ export class Fake {
       'مبانی اینترنت اشیا'
     ]
 
-    this.photo = '/img/noImage.png'
+    this.photo = 'https://nodes.alaatv.com/upload/images/product/riazie110_20220831103918.jpg?w=400&h=400'
 
     this.url = 'http://office.alaa.tv/'
 
