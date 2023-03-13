@@ -114,8 +114,6 @@ h2 {
 }
 
 .product-description {
-  //display: flex;
-  //justify-content: center;
   margin-bottom: 80px;
 
   .description-container {
@@ -131,7 +129,6 @@ h2 {
 @media screen and (max-width: 1199px) {
   .product-description {
     .description-container {
-      //width: 908px;
 
       .description-text {
 
@@ -144,7 +141,6 @@ h2 {
 @media screen and (max-width: 991px) {
   .product-description {
     .description-container {
-      //width: 684px;
     }
   }
 }
@@ -161,10 +157,8 @@ h2 {
       display: flex;
       flex-direction: column;
       align-items: center;
-      //margin: 0 30px;
 
       .description-text {
-        //width: 516px;
       }
     }
 
@@ -174,7 +168,6 @@ h2 {
 @media screen and (max-width: 575px) {
   .product-description {
     .description-container {
-      //margin: 0 16px;
 
       .description-text {
         width: 100%;
