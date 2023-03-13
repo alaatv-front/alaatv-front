@@ -460,7 +460,7 @@ export default {
       this.getSalesMan()
     },
     getSalesMan() {
-      APIGateway.referralCode.salesManData()
+      APIGateway.referralCode.getSalesManData()
         .then((response) => {
           this.has_signed_contract = response.data.has_signed_contract
           this.loadAcceptContract()

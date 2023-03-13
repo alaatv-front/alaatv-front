@@ -106,21 +106,17 @@ export default {
     getContentByRequest() {
       const contentId = this.getContentId()
       this.content.loading = true
-      let promise = null
-      promise = APIGateway.content.show(contentId)
-      if (promise) {
-        promise
-          .then((response) => {
-            this.content = new Content(response)
-            this.poster = this.content.photo ? this.content.photo : ''
-            this.setSources(this.content.file.video)
-            this.getSetByRequest()
-            this.content.loading = false
-          })
-          .catch(() => {
-            this.content.loading = false
-          })
-      }
+      APIGateway.content.show(contentId)
+        .then((response) => {
+          this.content = new Content(response)
+          this.poster = this.content.photo ? this.content.photo : ''
+          this.setSources(this.content.file.video)
+          this.getSetByRequest()
+          this.content.loading = false
+        })
+        .catch(() => {
+          this.content.loading = false
+        })
     },
 
     getContent() {
@@ -148,20 +144,16 @@ export default {
     },
     getSetByRequest() {
       this.set.loading = true
-      let promise = null
-      promise = APIGateway.set.show({ id: this.content.set.id })
-      if (promise) {
-        promise
-          .then((response) => {
-            this.set = new Set(response)
-            this.contentNumber = this.getContentNumberInListById(this.content.id)
-            this.set.loading = false
-          })
-          .catch(() => {
-            this.set = new Set()
-            this.set.loading = false
-          })
-      }
+      APIGateway.set.show(this.content.set.id)
+        .then((response) => {
+          this.set = new Set(response)
+          this.contentNumber = this.getContentNumberInListById(this.content.id)
+          this.set.loading = false
+        })
+        .catch(() => {
+          this.set = new Set()
+          this.set.loading = false
+        })
     },
     getSet() {
       this.set.loading = true
@@ -170,7 +162,7 @@ export default {
           this.set = new Set(response.data.data)
           this.contentNumber = this.getContentNumberInListById(this.content.id)
         })
-        .catch((er) => {
+        .catch(() => {
           this.set = new Set()
           this.set.loading = false
         })
@@ -195,6 +187,6 @@ export default {
 <style scoped lang="scss">
 .video-player{
   border-radius: 10px;
-  box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
 }
 </style>

@@ -151,18 +151,14 @@ export default {
     },
     getContentByRequest() {
       const contentId = this.getContentId()
-      let promise = null
-      promise = APIGateway.content.show(contentId)
-      if (promise) {
-        promise
-          .then((response) => {
-            this.content = new Content(response)
-            this.content.loading = false
-          })
-          .catch(() => {
-            this.content.loading = false
-          })
-      }
+      APIGateway.content.show(contentId)
+        .then((response) => {
+          this.content = new Content(response)
+          this.content.loading = false
+        })
+        .catch(() => {
+          this.content.loading = false
+        })
     },
     getContentId () {
       if (this.options.productId) {

@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     getTeachers() {
-      this.$apiGateway.user.getRoll({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
+      this.$apiGateway.user.adminIndex({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
         this.inputs.find(x => x.name === 'author_id').options = res.list
       })
     },
