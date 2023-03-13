@@ -90,7 +90,6 @@ export default {
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
-      console.log(data)
       this.product = new Product(data)
       this.product.loading = false
     },
