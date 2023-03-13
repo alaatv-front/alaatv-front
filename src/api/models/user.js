@@ -244,15 +244,15 @@ export default class UserAPI extends APIRepository {
   }
 
   adminIndex(data = {}) {
-    const routeWithParams = function(defaultData, data) {
-      if (typeof data.rollId === 'object') {
+    const routeWithParams = function(defaultRoute, payload) {
+      if (typeof payload.rollId === 'object') {
         const hasRoll = []
-        data.rollId.forEach(rollId => {
+        payload.rollId.forEach(rollId => {
           hasRoll.push(rollId)
         })
-        return defaultData.concat('?hasRole[]=', hasRoll)
+        return defaultRoute.concat('?hasRole[]=', hasRoll)
       }
-      return defaultData.concat('?hasRole[]=', data.rollId)
+      return defaultRoute.concat('?hasRole[]=', payload.rollId)
     }
     const requestRoute = routeWithParams(this.APIAdresses.baseAdmin, {
       rollId: data.data.rollId // array or number
