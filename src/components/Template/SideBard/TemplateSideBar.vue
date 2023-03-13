@@ -4,6 +4,7 @@
   <user-panel-side-bar v-if="type === 'user-panel'" />
   <abrisham-panel v-if="type === 'abrisham'" />
   <gift-card-panel v-if="type === 'gift-card'" />
+  <chatre-nejat-panel v-if="type === 'chatre-nejat'" />
 </template>
 
 <script>
@@ -12,9 +13,10 @@ import AbrishamPanel from 'src/components/Template/SideBard/AbrishamPanel.vue'
 import GiftCardPanel from 'src/components/Template/SideBard/GiftCardPanel.vue'
 import AdminPanelSideBar from 'components/Template/SideBard/AdminPanelSideBar.vue'
 import UserPanelSideBar from 'components/Template/SideBard/UserPanelSideBar.vue'
+import ChatreNejatPanel from 'components/Template/SideBard/ChatreNejatPanel.vue'
 export default {
   name: 'TemplateSideBar',
-  components: { UserPanelSideBar, AdminPanelSideBar, MainSideBarTemplate, AbrishamPanel, GiftCardPanel },
+  components: { ChatreNejatPanel, UserPanelSideBar, AdminPanelSideBar, MainSideBarTemplate, AbrishamPanel, GiftCardPanel },
   props: {
     type: [String, Boolean, null],
     default: () => 'main'

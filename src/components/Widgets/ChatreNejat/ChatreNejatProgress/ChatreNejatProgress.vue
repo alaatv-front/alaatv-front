@@ -1,23 +1,56 @@
 <template>
-  <div class="userAbrishamProgress-page">
-    <div class="row q-col-gutter-x-md items-center chip-parent">
-      <div class="col-xl-3 col-sm-12 order-xl-first order-xs-last text-center  page-title">نمایش محتوا بر اساس فعالیت شما</div>
-      <div class="col-xl-3 col-lg-6 col-sm-12 col-xs-6">
-        <chip-group v-model:value="selectedLessonGroupId"
-                    :items="lessonGroups"
-                    item-text="title"
-                    item-value="id"
-                    :loading="lessonGroupsLoading"
-                    @update:value="onChangeLessonGroup" />
+  <div class="chatre-nejat-panel">
+    <div class="banner-row row">
+      <div class="col-lg-6 col-12 chatre-nejat-slogan">
+        <div class="chatre-nejat-title">
+          مشاوره
+        </div>
+        <div class="chatre-nejat-description">
+          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
+        </div>
       </div>
-      <div class="col-xl-5 col-lg-6 col-sm-12 col-xs-6">
-        <chip-group v-model:value="selectedLessonId"
-                    :items="lessons"
-                    item-text="title"
-                    item-value="id"
-                    class="col-md-3"
-                    chip-title="درس"
-                    @update:value="onChangeLesson" />
+      <div class="col-lg-6 col-12 flex flex-center">
+        <chatre-nejat-product-item :product="products[0]" />
+      </div>
+    </div>
+    <div class="products-container">
+      <div class="row">
+        <div class="col-12">
+          <div class="product-type-selection">
+            <div class="product-type-title">
+              محتوای دوره
+            </div>
+            <div class="product-type-input">
+              <q-select v-model="productType"
+                        bg-color="white"
+                        :options="productTypeOptions"
+                        borderless />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="!loading"
+           class="row">
+        <div v-for="(product,index) in products"
+             :key="index"
+             class="col-lg-6 col-12 flex flex-center">
+          <chatre-nejat-product-item :product="product" />
+        </div>
+      </div>
+      <div v-else
+           class="row">
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
       </div>
     </div>
   </div>
@@ -25,460 +58,136 @@
 </template>
 
 <script>
-import { SetList } from 'src/models/Set.js'
-import { mixinAbrisham } from 'src/mixin/Mixins.js'
-import { Content, ContentList } from 'src/models/Content.js'
-import ChipGroup from 'components/DashboardAbrisham/chipGroup.vue'
-// import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
-import { SetSectionList, SetSection } from 'src/models/SetSection.js'
-// import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
-// import ContentListComponent from 'src/components/DashboardAbrisham/ContentListComponent.vue'
-
+import ChatreNejatProductItem from 'components/DashboardChatreNejat/ChatreNejatProdutItem.vue'
+import ProductItemSkeleton from 'components/DashboardChatreNejat/ProductItemSkeleton.vue'
 export default {
-  name: 'AbrishamProgress',
+  name: 'ChatreNejatPanel',
   components: {
-    ChipGroup
-    // videoBox,
-    // commentBox,
-    // ContentListComponent
+    ChatreNejatProductItem,
+    ProductItemSkeleton
   },
-  mixins: [mixinAbrisham],
   data: () => ({
-    socialMediaDialog: false,
-    selectedLessonId: 0,
-    selectedLessonGroupId: null,
-    lessonGroups: [],
-    lessons: [],
-    contents: new ContentList(),
-    watchingContent: new Content(),
-    sets: new SetList(),
-    sections: new SetSectionList(),
-    currentSetId: null,
-    currentSectionId: 'all',
-    lessonGroupsLoading: false,
-    userLastState: {
-      setId: null,
-      contentId: null
-    }
+    loading: false,
+    products: [
+      {
+        title: null,
+        description: null,
+        teacher: null,
+        photo: null,
+        url: null,
+        lastSeen: {
+          title: null,
+          section: null,
+          url: null
+        }
+      }
+    ],
+    productType: {
+      label: 'رشته ریاضی',
+      value: 1
+    },
+    productTypeOptions: [
+      {
+        label: 'رشته ریاضی',
+        value: 1
+      },
+      {
+        label: 'رشته تجربی',
+        value: 2
+      },
+      {
+        label: 'رشته انسانی',
+        value: 3
+      }
+    ]
   }),
-  computed: {
-    contentsIsEmpty () {
-      return this.contents.list.length === 0
-    },
-    watchingContentComment() {
-      return this.watchingContent.comments[0]?.comment || ''
-    },
-    currentSet () {
-      return this.getSet(this.currentSetId)
-    },
-    currentLesson () {
-      return this.getLesson(this.selectedLessonId)
+  watch: {
+    productType(type) {
+      this.getProducts(type.value)
     }
   },
-  mounted () {
-    this.initPage()
+  created () {
+    this.getProducts(this.productType.value)
   },
   methods: {
-    loadUserLastState() {
-      this.setCurrentSet(this.userLastState.setId, this.userLastState.contentId)
-    },
-    async showUserLastState() {
-      try {
-        const response = await this.$apiGateway.abrisham.getUserLastState(this.selectedLessonId)
-        const setId = response.data.data.set.id
-        const contentId = response.data.data.id
-        this.userLastState.setId = setId
-        this.userLastState.contentId = contentId
-        this.setCurrentSet(setId, contentId)
-      } catch {
-
-      }
-    },
-
-    // getUserLastState() {
-    //   return this.$axios.get('/api/v2/product/' + this.selectedLessonId + '/toWatch')
-    // },
-
-    async initPage () {
-      const lessonGroups = await this.getLessonGroups()
-      this.showLessonGroups(lessonGroups)
-    },
-
-    showLessonGroups (lessonGroups) {
-      this.lessonGroups = lessonGroups
-      this.setLessonGroupsId()
-      const selectedLessonGroupId = this.getSelectedLessonGroupIdFromSelectedLesson()
-      if (!selectedLessonGroupId) {
-        return
-      }
-      this.setSelectedLessonGroupId(selectedLessonGroupId)
-      this.lessonGroupsLoading = false
-    },
-
-    setSelectedLessonGroupId (selectedLessonGroupId) {
-      this.selectedLessonGroupId = selectedLessonGroupId
-    },
-
-    showFirstLesson () {
-      if (this.lessons.length === 0) {
-        return
-      }
-      const firstLessonId = this.lessons[0].id
-      this.setSelectedLessonId(firstLessonId)
-    },
-
-    onChangeLessonGroup () {
-      this.showLessons(this.selectedLessonGroupId)
-    },
-
-    onChangeLesson () {
-      this.showSets(this.selectedLessonId)
-    },
-
-    getLesson (id) {
-      return this.lessons.find((lesson) => lesson.id === id)
-    },
-
-    showLessons (lessonGroupId) {
-      const selectedLessonGroup = this.getLessonGroup(lessonGroupId)
-      this.lessons = selectedLessonGroup.lessons
-      this.showFirstLesson()
-    },
-
-    setLessonGroupsId () {
-      this.lessonGroups.forEach((item, index) => {
-        item.id = index + 1
+    getProducts(type) {
+      this.loading = true
+      this.$apiGateway.chatr.products({
+        type
+      }).then(res => {
+        this.products = res
+        this.loading = false
+      }).catch(() => {
+        this.loading = false
       })
-    },
-
-    setSelectedLessonId (lessonId) {
-      this.selectedLessonId = lessonId
-    },
-
-    getLessonGroup (lessonGroupId) {
-      return this.lessonGroups.find(item => parseInt(item.id) === parseInt(lessonGroupId))
-    },
-
-    getSelectedLessonGroupIdFromSelectedLesson () {
-      const selectedLessonGroup = this.lessonGroups.find(lessonGroup => !!lessonGroup.lessons.find(lesson => lesson.selected))
-      if (!selectedLessonGroup) {
-        if (this.lessonGroups.length === 0 || this.lessonGroups[0].lessons.length === 0) {
-          return null
-        }
-
-        return this.lessonGroups[0].lessons[0].id
-      }
-      return selectedLessonGroup.id
-    },
-
-    async getLessonGroups() {
-      this.lnssonGroupsLoading = true
-      try {
-        const response = await this.$apiGateway.abrisham.getLessons()
-        if (response.status === 200) {
-          return response.data.data
-        }
-        return []
-      } catch {
-        this.lnssonGroupsLoading = true
-        return []
-      }
-    },
-
-    async showSets (lessonId) {
-      this.lnssonGroupsLoading = true
-      const sets = await this.getSets(lessonId)
-      this.setSets(sets)
-      await this.showUserLastState()
-      this.lnssonGroupsLoading = false
-      // const firstSet = this.getFirstSet()
-      // this.setCurrentSet(firstSet.id)
-    },
-
-    async getSets (lessonId) {
-      // lesson is a product
-      const response = await this.$apiGateway.abrisham.requestToGetSets(lessonId)
-
-      if (response.status === 200) {
-        return new SetList(response.data.data)
-      }
-
-      return new SetList()
-    },
-
-    setSets (sets) {
-      this.sets = sets
-    },
-
-    setCurrentSet (setId, contentId) {
-      this.currentSetId = setId
-      this.showFirstSections(contentId)
-    },
-
-    showFirstSections (contentId) {
-      this.addAllSectionToSections()
-      this.setSections()
-      const firstSection = this.getFirstSection()
-      this.setSectionActive(firstSection.id, contentId)
-    },
-
-    setSectionActive (id, contentId) {
-      this.currentSectionId = id
-      this.showFirstContent(contentId)
-    },
-
-    getSet (setId) {
-      return this.sets.list.find(setItem => setItem.id === setId)
-    },
-
-    setSections () {
-      if (!this.currentSet) {
-        return
-      }
-      this.sections = this.currentSet.sections
-    },
-
-    addAllSectionToSections () {
-      this.sets.list.forEach(set => set.sections.list.unshift(new SetSection({ id: 'all', title: 'همه' })))
-    },
-
-    getFirstSet () {
-      if (this.sets.list.length === 0) {
-        return null
-      }
-      return this.sets.list[0]
-    },
-
-    getFirstContent () {
-      if (this.contents.list.length === 0) {
-        return null
-      }
-      return this.contents.list[0]
-    },
-
-    getFirstSection () {
-      if (this.sections.list.length === 0) {
-        return null
-      }
-      return this.sections.list[0]
-    },
-
-    // requestToGetSets (params) {
-    //   return this.$axios.get('/api/v2/product/' + params.lessonId + '/sets')
-    // },
-
-    async showFirstContent (contentId) {
-      const contents = await this.getContents()
-      this.setContents(contents)
-      if (!contentId) {
-        contentId = contents.list[0].id
-      }
-      const content = this.getContent(contentId)
-      this.setWatchingContent(content)
-    },
-
-    getContent(contentId) {
-      if (contentId) {
-        return this.contents.list.find(content => content.id === contentId)
-      }
-      return this.getFirstContent()
-    },
-
-    setWatchingContent (content) {
-      this.watchingContent = content || new Content()
-    },
-
-    async getContents () {
-      this.contents.loading = true
-      try {
-        const response = await this.$apiGateway.abrisham.requestToGetContents(this.currentSetId)
-        this.contents.loading = false
-        return response
-      } catch {
-        this.contents.loading = false
-      }
-    },
-
-    setContents (contents) {
-      this.contents = contents
     }
-
-    // requestToGetContents () {
-    //   return this.$axios.get('/api/v2/set/' + this.currentSetId + '/contents')
-    // }
-
-    // getLessons () {
-    //   return this.$axios.get('/api/v2/abrisham/lessons')
-    // }
-
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.userAbrishamProgress-page {
-  margin: 0 60px 100px;
-  @media screen and (max-width: 1904px) {
-    margin: 0 10px;
-  }
-  @media screen and (max-width: 1023px) {
-    margin: 0;
-  }
+.chatre-nejat-panel {
 
-  .chip-parent{
-    .page-title{
-      color: var(--abrishamMain);
+  .banner-row {
+    padding: 40px 70px 100px;
+    background: #EAEAEA;
+
+    @media only screen and (max-width: 600px) {
+      padding: 10px 15px;
+    }
+
+    .chatre-nejat-slogan {
+      @media only screen and (max-width: 600px) {
+        padding: 0px 0px 0PX 30PX;
+      }
+    }
+
+    .chatre-nejat-title {
+      font-style: normal;
+      font-weight: 400;
       font-size: 20px;
-      font-weight: 500;
-      line-height: 1.7;
-      letter-spacing: normal;
-      margin-bottom:15px ;
-      @media screen and (max-width: 1920px){
-        margin-top: 19px;
-      }
-      @media screen and (max-width: 990px){
-        margin-top: 26px;
-        font-size: 16px;
-        width: 100%;
-        text-align: center;
-
-      }
-      @media screen and (max-width: 576px){
-        margin-top: 15px;
-
-      }
-    }
-  }
-
-  .header {
-    display: flex;
-    flex-direction: row;
-    @media screen and (max-width: 1904px) {
-      flex-direction: column !important;
+      line-height: 28px;
+      letter-spacing: -0.03em;
+      color: #333333;
     }
 
-    .header-label {
-      font-size: 20px;
-      color: #3e5480;
-      font-weight: 500;
-      padding-right: 20px;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      @media screen and (max-width: 1904px) {
-        padding-bottom: 15px !important;
-      }
-      @media screen and (max-width: 1023px) {
-        padding-bottom: 10px !important;
-      }
-      @media screen and (max-width: 768px) {
-        padding-bottom: 20px !important;
-      }
-      @media screen and (max-width: 600px) {
-        padding-bottom: 15px !important;
-        font-size: 16px;
-      }
-    }
-
-  }
-
-  .current-content-title {
-    font-size: 20px;
-    font-weight: 500;
-    color: #3e5480;
-    margin-bottom: 21px;
-    @media screen and (max-width: 1920px) {
-      margin-bottom: 15px;
-    }
-    @media screen and (max-width: 1023px) {
-      display: block;
-    }
-    @media screen and (max-width: 576px) {
+    .chatre-nejat-description {
+      font-style: normal;
+      font-weight: 400;
       font-size: 14px;
-    }
-
-    &.current-content-title-mobile {
-      display: none;
-      @media screen and (max-width: 1023px) {
-        display: block;
-        margin-top: 15px;
-        margin-bottom: 5px;
-      }
-      @media screen and (max-width: 768px) {
-        margin-top: 5px;
-      }
-      @media screen and (max-width: 576px) {
-        margin-bottom: 2px;
-      }
-      @media screen and (max-width: 350px) {
-        margin-bottom: 0;
-      }
+      line-height: 22px;
+      text-align: justify;
+      letter-spacing: -0.03em;
+      color: #333333;
+      margin-top: 16px;
+      padding-right: 50px;
     }
   }
 
-  .content-list-col {
-    padding-top: 0 !important;
-    .select-wrapper{
-      &:deep(.q-field__control){
-        background: #eff3ff;
-      }
-      &:deep(.q-field__native){
-        color: #3e5480;
-        font-size: 14px;
-        font-weight: 500;
-      }
-      &:deep(.q-icon){
-        color: #3e5480;
-        font-size: 24px;
-      }
-      &:deep(.q-field__control::after){
-        height: 0;
-      }
-      &:deep(.q-field__control::before){
-        background: transparent;
-      }
-      .popup-content-class{
-      }
-      &:deep(.q-field--filled .q-field__control::before){
-        border-bottom: none;
-      }
-    }
-  }
+  .products-container {
+    .product-type-selection{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 50px;
+      padding: 40px 50px 30px;
 
-  .video-box-col {
-    padding-top: 0 !important;
+      .product-type-title {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: -0.03em;
+        color: #333333;
+      }
 
-    .mobile-view {
-      display: none;
-      @media screen and (max-width: 1023px) {
-        display: block;
+      .product-type-input {
+        width: 130px;
+        margin: 0 20px;
       }
     }
-  }
-
-  .current-content-title {
-    font-size: 20px;
-    font-weight: 500;
-    color: #3e5480;
-    margin-bottom: 21px;
-    @media screen and (max-width: 1920px) {
-      margin-bottom: 15px;
-    }
-    @media screen and (max-width: 768px) {
-      margin-bottom: 20px;
-    }
-    @media screen and (max-width: 576px) {
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-    @media screen and (max-width: 350px) {
-      margin-bottom: 5px;
-    }
-  }
-
-  .desktop-view {
-    display: block;
-    @media screen and (max-width: 1023px) {
-      display: none;
+    .skeleton-col {
+      padding: 5px 30px;
     }
   }
 }

@@ -276,7 +276,9 @@ export default {
       this.inputs.find(x => x.name === 'author_id').value = e.id
     },
     getTeachers() {
-      this.$apiGateway.user.getRoll({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
+      this.$apiGateway.user.adminIndex({
+        data: { rollId: this.$enums.Rolls.TEACHER }
+      }).then(res => {
         this.teachers = res.list
       })
     },

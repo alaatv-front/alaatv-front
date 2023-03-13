@@ -11,6 +11,8 @@ export default class ProductAPI extends APIRepository {
       create: '/reqres/api/users',
       edit: '/admin/product',
       index: '/admin/product',
+      favored: (id) => id + '/favored',
+      unfavored: (id) => '/product/' + id + '/unfavored',
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
       sampleContent: (id) => '/product/' + id + '/sample'
@@ -18,6 +20,8 @@ export default class ProductAPI extends APIRepository {
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       create: this.name + this.APIAdresses.create,
+      favored: id => this.name + this.APIAdresses.favored(id),
+      unfavored: id => this.name + this.APIAdresses.unfavored(id),
       show: (id) => this.name + this.APIAdresses.show(id),
       gifts: (id) => this.name + this.APIAdresses.gifts(id),
       sampleContent: (id) => this.name + this.APIAdresses.sampleContent(id),
@@ -74,6 +78,38 @@ export default class ProductAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new ContentList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  favoredProduct(data = {}, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.favored(data),
+      cacheKey: this.CacheList.favored(data),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  unfavoredProduct(data = {}, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unfavored(data),
+      cacheKey: this.CacheList.unfavored(data),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data
       },
       rejectCallback: (error) => {
         return error
