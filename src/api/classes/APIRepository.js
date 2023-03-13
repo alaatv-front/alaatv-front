@@ -62,6 +62,17 @@ export default class APIRepository {
     })
   }
 
+  getPayload(defaultData, data) {
+    if (typeof data.rollId === 'object') {
+      const hasRoll = []
+      data.rollId.forEach(rollId => {
+        hasRoll.push(rollId)
+      })
+      return defaultData.concat('?hasRole[]=', hasRoll)
+    }
+    return defaultData.concat('?hasRole[]=', data.rollId)
+  }
+
   /**
    * It takes two objects, merges them, and returns the merged object
    * @param defaultData - The default data that will be sent to the server.
