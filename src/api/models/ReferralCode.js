@@ -147,7 +147,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  salesManData (cache = { TTL: 100 }) {
+  getSalesManData (cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -163,7 +163,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  walletWithdraw () {
+  getWithdrawWallet () {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -178,7 +178,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  withdrawHistory (cache) {
+  getWithdrawHistory (cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
