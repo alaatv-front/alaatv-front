@@ -7,12 +7,11 @@
         <entity-edit ref="entityEditForm"
                      v-model:value="inputs"
                      title="ویرایش اطلاعات محتوا"
-                     :api="$apiGateway.content.FullAPIAdresses.showAdmin(content.id)"
+                     :api="$apiGateway.content.APIAdresses.showAdmin(content.id)"
                      :entity-id-key="entityIdKey"
                      :loaded-data="content"
                      :entity-param-key="entityParamKey"
                      :default-layout="false"
-                     :beforeSendData="content"
                      @onInputClick="onInputClick">
           <template #entity-index-table-selection-cell="data">
             <q-checkbox v-model="data.props.selected"

@@ -103,7 +103,7 @@ export default {
   },
   computed: {
     getEntityShowAPI () {
-      return this.$apiGateway.set.FullAPIAdresses.adminShow(this.$route.params.id)
+      return this.$apiGateway.set.APIAdresses.adminShow(this.$route.params.id)
     }
   }
 }

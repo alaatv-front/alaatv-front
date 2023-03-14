@@ -143,7 +143,7 @@ import { shallowRef } from 'vue'
 import ContentEditHeader from 'components/Utils/ContentEditHeader.vue'
 import { APIGateway } from 'src/api/APIGateway'
 import TreeInputComponent from 'components/Utils/TreeInput.vue'
-import Assist from 'assets/js/Assist'
+import jalali from 'moment-jalaali'
 import moment from 'moment/moment'
 const ActionBtn = shallowRef(ActionBtnComponent)
 const TreeInput = shallowRef(TreeInputComponent)
@@ -223,7 +223,7 @@ export default {
             required: true,
             label: 'تاریخ بارگذاری',
             align: 'left',
-            field: row => Assist.miladiToShamsi(row.updated_at)
+            field: row => jalali(row.updated_at)
           },
           {
             name: 'actions',
