@@ -6,46 +6,16 @@
 @import 'src/css/Theme/Typography/typography.scss';
 @import 'src/css/Theme/FormBuilder/formBuilder.scss';
 
-  * {
-  /*font-family: 'iranyekan', 'Arial', '-apple-system', 'Helvetica Neue', Helvetica, sans-serif ;*/
-  font-family: iranyekan , 'Arial', '-apple-system', 'Helvetica Neue', Helvetica, sans-serif ;
-  }
+* {
+  font-family: IRANSansDN, 'Arial', '-apple-system', 'Helvetica Neue', Helvetica, sans-serif;
+}
 
-  body.body--light {
-    background: #F6F7FB;
-  }
-  .default-notify-class {
-    font-size: 18px;
-    /*width: 30%;*/
-    text-align: center;
-    padding: 10px 16PX;
-  }
-  /*body.body--dark {*/
-  /*  background: #000*/
-  /*}*/
+body.body--light {
+  background: #F6F7FB;
+}
 
-.boxed-container {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 1362px;
-  @media screen and (max-width: 1439px){
-    grid-template-columns: 966px;
-  }
-  @media screen and (max-width: 1023px){
-    grid-template-columns: 100%;
-    padding-left: 30px;
-    padding-right: 30px;
-    .boxed-container {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
-  @media screen and (max-width: 599px) {
-    padding-left: 20px;
-    padding-right: 20px;
-    .boxed-container {
-      padding-left: 0;
-      padding-right: 0;
-    }
-  }
+.default-notify-class {
+  font-size: 18px;
+  text-align: center;
+  padding: 10px 16PX;
 }
