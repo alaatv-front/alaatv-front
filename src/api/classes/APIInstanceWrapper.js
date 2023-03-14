@@ -16,7 +16,7 @@ export default class APIInstanceWrapper {
 
     const axiosInstance = function (baseURL, serverURL) {
       const localAxiosInstance = axios.create({ baseURL: serverURL })
-      const host = serverURL.split('/')[2]
+      const host = serverURL.split('/')[2].split(':')[0]
       const defaults = {
         baseURL,
         serverURL,
@@ -39,6 +39,7 @@ export default class APIInstanceWrapper {
             resolve(response)
           })
           .catch(error => {
+            console.error('error', error)
             reject(error)
           })
       })
