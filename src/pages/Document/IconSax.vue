@@ -19,7 +19,7 @@
                      :icon="'isax:' + svgIcon"
                      flat
                      class="full-width"
-                     @click="copyIconName('isax-svg:' + svgIcon)" />
+                     @click="copyIconName('isax:' + svgIcon)" />
             </div>
           </div>
         </q-card-section>
