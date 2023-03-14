@@ -105,7 +105,8 @@ export default class APIInstanceWrapper {
         get,
         post,
         defaults,
-        delete: deleteMethod
+        delete: deleteMethod,
+        serverInstance: true
       }
     }
 
