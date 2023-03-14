@@ -174,6 +174,9 @@ export default boot(({ app, store, router }) => {
   store.$apiWeb = apiWeb
   router.$apiWeb = apiWeb
 
+  store.$axios = apiV2
+  router.$axios = apiV2
+
   app.config.globalProperties.$axios = apiV2
   app.config.globalProperties.$apiV2 = apiV2
   app.config.globalProperties.$apiV1 = apiV1
