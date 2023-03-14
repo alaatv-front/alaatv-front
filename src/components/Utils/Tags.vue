@@ -71,9 +71,14 @@ export default {
       return ''
     }
   },
-  created() {
+  watch: {
+    value () {
+      this.inputData = this.value
+      this.model = this.value
+    }
+  },
+  mounted() {
     this.getTags()
-    this.model = this.value
   },
   methods: {
     getTags() {
@@ -84,9 +89,10 @@ export default {
             this.stringOptions.push(item)
           })
         })
-
         // this.stringOptions = res.map((item) => item.children)
         this.filterOptions = this.stringOptions
+        console.log(this.value)
+        this.onChangeSelections(this.value)
       }).catch(() => {
       })
     },
