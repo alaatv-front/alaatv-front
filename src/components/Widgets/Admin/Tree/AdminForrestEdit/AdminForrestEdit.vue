@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     getEntityShowAPI () {
-      return this.$apiGateway.forrest.FullAPIAdresses.grid(this.$route.params.id)
+      return this.$apiGateway.forrest.APIAdresses.grid(this.$route.params.id)
     },
     getTreeType () {
       const typeInput = this.inputs.find(input => input.name === 'type')

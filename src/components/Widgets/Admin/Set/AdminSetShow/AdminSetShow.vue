@@ -21,7 +21,7 @@ export default {
   ],
   data () {
     return {
-      api: APIGateway.set.FullAPIAdresses.adminBase,
+      api: APIGateway.set.APIAdresses.adminBase,
       entityIdKey: 'id',
       editRouteName: 'Admin.Set.Edit',
       indexRouteName: 'Admin.Set.Index',
@@ -83,7 +83,7 @@ export default {
   },
   computed: {
     getEntityShowAPI () {
-      return this.$apiGateway.set.FullAPIAdresses.adminShow(this.getEntityId)
+      return this.$apiGateway.set.APIAdresses.adminShow(this.getEntityId)
     },
     getEntityId () {
       return this.$route.params.id

@@ -121,7 +121,7 @@ export default {
             label: 'ثبت مجموعه'
           },
           indexConfig: {
-            apiAddress: APIGateway.set.FullAPIAdresses.base,
+            apiAddress: APIGateway.set.APIAdresses.base,
             tableTitle: 'مجموعه ها',
             tableKeys: {
               data: 'data',

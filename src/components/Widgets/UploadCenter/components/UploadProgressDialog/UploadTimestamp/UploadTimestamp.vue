@@ -70,7 +70,7 @@
                  flat=""
                  @click="toggleDialog()" />
           <previous-item-dialog v-model:dialog="pervDialog"
-                                :api="$apiGateway.content.FullAPIAdresses.admin"
+                                :api="$apiGateway.content.APIAdresses.admin"
                                 @selectedUpdated="loadTimestampsFromContent($event)"
                                 @toggleDialog="toggleDialog()" />
         </div>
