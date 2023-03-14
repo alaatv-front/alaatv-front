@@ -187,7 +187,7 @@ export default {
       tab: 'createdAtSince',
       expanded: true,
       selected: [],
-      api: APIGateway.content.FullAPIAdresses.admin,
+      api: APIGateway.content.APIAdresses.admin,
       tableKeys: {
         data: 'data',
         total: 'meta.total',
