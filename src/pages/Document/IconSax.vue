@@ -3,7 +3,7 @@
     <div class="col-10">
       <q-card>
         <q-card-section>
-          <h2>IconSax-SVG</h2>
+          <h2>IconSax-Font</h2>
         </q-card-section>
         <q-card-section>
           {{ filterIconName }}
@@ -16,7 +16,7 @@
                  :key="svgIcon"
                  class="col-md-2 text-center">
               <q-btn :label="svgIcon"
-                     :icon="'isax-svg:' + svgIcon"
+                     :icon="'isax:' + svgIcon"
                      flat
                      class="full-width"
                      @click="copyIconName('isax-svg:' + svgIcon)" />
@@ -30,7 +30,7 @@
 
 <script>
 import { copyToClipboard } from 'quasar'
-import SvgIcons from 'src/iconListDoocument/svg-icons.js'
+import IconList from 'src/iconListDoocument/font-icons.js'
 export default {
   name: 'IconSax',
   data () {
@@ -41,9 +41,9 @@ export default {
   computed: {
     svgIcons () {
       if (!this.filterIconName) {
-        return SvgIcons
+        return IconList
       }
-      return SvgIcons.filter(icon => icon.includes(this.filterIconName))
+      return IconList.filter(icon => icon.includes(this.filterIconName))
     }
   },
   methods: {
