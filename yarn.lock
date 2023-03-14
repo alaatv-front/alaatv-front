@@ -5023,11 +5023,10 @@ qs@6.11.0:
   integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
   dependencies:
     side-channel "^1.0.4"
-
-quasar-crud@^0.3.20:
-  version "0.3.20"
-  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.20.tgz#8f6390654787716a79feab1998d82ace4d822184"
-  integrity sha512-AuamXlcFBrdDXc5Xfd2U5iJ0r5IvQumb+/Ht5ffGOoClRWg+OoCV8RBAtq2ThCeJO2q9KBqCcAC44bdKrvdxLg==
+quasar-crud@^0.3.21:
+  version "0.3.21"
+  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.21.tgz#cbc7d9ce17fde491e2ef8f83b3953dcdbc074e97"
+  integrity sha512-oZjR1sMg49iyQzUdZJXA4knn53sdohNflhYpNBut3R8o/hMadD9uLTzrwA3VxCtmhNdiW0OsLkq0BNgj9HNBmw==
   dependencies:
     "@quasar/extras" "^1.15.11"
     axios "^1.3.4"

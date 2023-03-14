@@ -154,9 +154,6 @@ export default boot(({ app, store, router }) => {
     apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
   }
 
-  app.config.globalProperties.$apiV2 = apiV2
-  app.config.globalProperties.$apiV1 = apiV1
-  app.config.globalProperties.$apiWeb = apiWeb
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
 
@@ -168,17 +165,19 @@ export default boot(({ app, store, router }) => {
     })
   }
 
-  app.apiV1 = apiV1
   store.$apiV1 = apiV1
   router.$apiV1 = apiV1
 
-  app.apiV2 = apiV2
   store.$apiV2 = apiV2
   router.$apiV2 = apiV2
 
-  app.apiWeb = apiWeb
   store.$apiWeb = apiWeb
   router.$apiWeb = apiWeb
+
+  app.config.globalProperties.$axios = apiV2
+  app.config.globalProperties.$apiV2 = apiV2
+  app.config.globalProperties.$apiV1 = apiV1
+  app.config.globalProperties.$apiWeb = apiWeb
 })
 
 export { apiV1, apiV2, apiWeb }
