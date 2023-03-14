@@ -45,7 +45,7 @@ export default class ReferralCodeAPI extends APIRepository {
           //   current_page: 1,
           //   from: 1,
           //   last_page: 1,
-          //   path: 'http://office.alaa.tv:700/api/v2/referral-code',
+          //   path: '...',
           //   per_page: 15,
           //   to: 10,
           //   total: 10
