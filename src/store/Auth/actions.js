@@ -6,7 +6,9 @@ export function login (context, data) {
       context.commit('updateAccessToken', accessToken)
       context.commit('updateUser', user)
 
+      debugger
       const tokenType = 'Bearer'
+      this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
       this.$apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
       this.$apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
       this.$apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
