@@ -16,7 +16,8 @@ export default class APIInstanceWrapper {
 
     const axiosInstance = function (baseURL, serverURL) {
       const localAxiosInstance = axios.create({ baseURL: serverURL })
-      const host = serverURL.split('/')[2].split(':')[0]
+      // const host = serverURL.split('/')[2].split(':')[0]
+      const host = '127.0.0.1'
       const defaults = {
         baseURL,
         serverURL,
