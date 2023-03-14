@@ -1552,7 +1552,7 @@
     vite "^2.9.13"
     webpack-merge "^5.8.0"
 
-"@quasar/extras@^1.15.10", "@quasar/extras@^1.15.11", "@quasar/extras@^1.15.6":
+"@quasar/extras@^1.15.11", "@quasar/extras@^1.15.6":
   version "1.15.11"
   resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.11.tgz#a54d60b14446b850a1e5fccab3f381a2e447a73f"
   integrity sha512-EEXL10EJQmL9jNs5fp0Kd/nyonG8hTODolj+qpYNPG3qEEoy3txr05Pdmp9qJYaXIzP9rOS9FGhFe9Mnq6MBBg==
@@ -2151,7 +2151,7 @@ axios@^0.24.0:
   dependencies:
     follow-redirects "^1.14.4"
 
-axios@^1.2.1, axios@^1.2.3, axios@^1.3.4:
+axios@^1.2.1, axios@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.3.4.tgz#f5760cefd9cfb51fd2481acf88c05f67c4523024"
   integrity sha512-toYm+Bsyl6VC5wSkfkbbNB6ROv7KY93PEBBL6xyDczaIHasAiv4wPqQ/c4RjoQzipxRD2W5g21cOqQulZ7rHwQ==
@@ -2565,7 +2565,12 @@ core-js@^2.4.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.27.2, core-js@^3.7.0:
+core-js@^3.29.1:
+  version "3.29.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.29.1.tgz#40ff3b41588b091aaed19ca1aa5cb111803fa9a6"
+  integrity sha512-+jwgnhg6cQxKYIIjGtAHq2nwUOolo9eoFZ4sHfUH09BLXBgxnH4gA0zEd+t+BO2cNB8idaBtZFcFTRjQJRJmAw==
+
+core-js@^3.7.0:
   version "3.29.0"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.29.0.tgz#0273e142b67761058bcde5615c503c7406b572d6"
   integrity sha512-VG23vuEisJNkGl6XQmFJd3rEG/so/CNatqeE+7uZAwTSwFeB/qaO0be8xZYUNWprJ/GIwL8aMt9cj1kvbpTZhg==
@@ -5019,30 +5024,30 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-quasar-crud@^0.3.19:
-  version "0.3.19"
-  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.19.tgz#e4dc913271367b7f09e1d689cf3cab3aff3a5884"
-  integrity sha512-F/uGrEso05BR/YJ0BGsYCoRUDPdkFPTYV30BJEi0vcwPpE3ewkt4OvV0SlkUYiQL/KLJZbuaepBHP4D6OZO6EA==
+quasar-crud@^0.3.20:
+  version "0.3.20"
+  resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.20.tgz#8f6390654787716a79feab1998d82ace4d822184"
+  integrity sha512-AuamXlcFBrdDXc5Xfd2U5iJ0r5IvQumb+/Ht5ffGOoClRWg+OoCV8RBAtq2ThCeJO2q9KBqCcAC44bdKrvdxLg==
   dependencies:
-    "@quasar/extras" "^1.15.10"
-    axios "^1.2.3"
+    "@quasar/extras" "^1.15.11"
+    axios "^1.3.4"
     moment-jalaali "^0.9.6"
-    quasar "^2.11.5"
-    quasar-form-builder "^0.1.90"
+    quasar "^2.11.7"
+    quasar-form-builder "^0.1.92"
     shvl "^3.0.0"
-    vue "^3.2.45"
+    vue "^3.2.47"
 
-quasar-form-builder@^0.1.90:
-  version "0.1.90"
-  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.90.tgz#be5975f7c2bcc6b7caff92fbb36850b66e21fe3a"
-  integrity sha512-bPddNhDowCBxc9vOADSze+54vRq7+YAp7xZ43DKlsodrD5IpPZwj2Eda9TRLy6YwiqOTe2TvV0skULCSOcC3Ow==
+quasar-form-builder@^0.1.92:
+  version "0.1.92"
+  resolved "https://registry.yarnpkg.com/quasar-form-builder/-/quasar-form-builder-0.1.92.tgz#6022689794f2f8ad1d9444154fdc872ade4ee5e9"
+  integrity sha512-yTEodCVB96a2KDqaTBEzKryiSiKSMBFHKIWnd6wZSq7gU/oSxb0+/LLXEKV7O1Yf9ZmA1iEeXJGHaoRddAuMQg==
   dependencies:
-    "@quasar/extras" "^1.15.10"
-    core-js "^3.27.2"
+    "@quasar/extras" "^1.15.11"
+    core-js "^3.29.1"
     moment-jalaali "^0.9.6"
-    quasar "^2.11.5"
+    quasar "^2.11.7"
     shvl "^3.0.0"
-    vue "^3.2.45"
+    vue "^3.2.47"
 
 quasar-template-builder@^1.0.21:
   version "1.0.21"
@@ -5064,7 +5069,7 @@ quasar-ui-q-page-builder@^0.1.0:
     quasar "^2.10.2"
     vue "^3.2.45"
 
-quasar@^2.10.2, quasar@^2.11.5, quasar@^2.11.7:
+quasar@^2.10.2, quasar@^2.11.7:
   version "2.11.7"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.7.tgz#0371d2cbe299305a0949332d2a3fc6929a70e2f6"
   integrity sha512-OzDwYfoSwZbwqfNWz9Bfn1mhGE8YMxpTLhPvVkQU87ePF6qFj4aWttcTUifXITKldOAZziN1Mmv8VLQyITHwiw==
