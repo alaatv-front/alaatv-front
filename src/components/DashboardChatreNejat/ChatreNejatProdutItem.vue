@@ -47,7 +47,7 @@
               <div class="last-content-link">
                 <q-btn flat
                        icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductLayout', params: {productId: 1} }">مشاهده</q-btn>
+                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: 1} }">مشاهده</q-btn>
               </div>
             </div>
           </div>
@@ -74,7 +74,7 @@
             <div class="last-content-link">
               <q-btn flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductLayout', params: {productId: 1} }">مشاهده</q-btn>
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: 1} }">مشاهده</q-btn>
             </div>
           </div>
         </div>

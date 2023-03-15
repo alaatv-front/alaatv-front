@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'index',
+  name: 'News',
   data: () => ({
     pageConfig: {},
     sections: [
@@ -17,7 +17,7 @@ export default {
                 {
                   widgets: [
                     {
-                      name: 'chatre-nejat-progress'
+                      name: 'chatre-nejat-Content'
                     }
                   ]
                 }
