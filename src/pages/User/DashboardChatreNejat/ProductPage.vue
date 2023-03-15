@@ -17,7 +17,7 @@ export default {
                 {
                   widgets: [
                     {
-                      name: 'chatre-nejat-consulting'
+                      name: 'chatre-nejat-product-page'
                     }
                   ]
                 }
