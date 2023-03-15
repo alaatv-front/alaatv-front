@@ -1,6 +1,6 @@
-import { boot } from 'quasar/wrappers'
-import axios from 'axios'
 import { Notify } from 'quasar'
+import { boot } from 'quasar/wrappers'
+import APIInstanceWrapper from 'src/api/classes/APIInstanceWrapper.js'
 
 const apiV2Server = process.env.ALAA_API_V2
 const apiV2ServerTarget = process.env.ALAA_API_V2_SERVER
@@ -140,60 +140,47 @@ const AxiosHooks = (function () {
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const apiV2 = axios.create({ baseURL: apiV2Server })
-apiV2.defaults.serverURL = apiV2ServerTarget
-const apiV1 = axios.create({ baseURL: apiV1Server })
-apiV1.defaults.serverURL = apiV1ServerTarget
-const apiWeb = axios.create({ baseURL: webServer })
-apiWeb.defaults.serverURL = webServerTarget
+
+const apiV2 = APIInstanceWrapper.createInstance(apiV2Server, apiV2ServerTarget)
+const apiV1 = APIInstanceWrapper.createInstance(apiV1Server, apiV1ServerTarget)
+const apiWeb = APIInstanceWrapper.createInstance(webServer, webServerTarget)
 
 export default boot(({ app, store, router }) => {
   const accessToken = store.getters['Auth/accessToken']
   if (accessToken) {
     const tokenType = 'Bearer'
-    axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
     apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
     apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
     apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
   }
-  // for use inside Vue files (Options API) through this.$axios and this.$api
-  const instance = axios.create(/* ... */)
 
-  app.config.globalProperties.$axios = axios
-  // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
-  //       so you won't necessarily have to import axios in each vue file
-
-  app.config.globalProperties.$apiV2 = apiV2
-  app.config.globalProperties.$apiV1 = apiV1
-  app.config.globalProperties.$apiWeb = apiWeb
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
 
   AxiosHooks.setNotifyInstance(app.config.globalProperties.$q)
-  axios.interceptors.response.use(undefined, function (error) {
-    AxiosHooks.handleErrors(error, router, store)
-    return Promise.reject(error)
-  })
-  apiV2.interceptors.response.use(undefined, function (error) {
-    AxiosHooks.handleErrors(error, router, store)
-    return Promise.reject(error)
-  })
 
-  app.axios = instance
-  store.$axios = instance
-  router.$axios = instance
+  if (apiV2.interceptors) {
+    apiV2.interceptors.response.use(undefined, async function (error) {
+      AxiosHooks.handleErrors(error, router, store)
+    })
+  }
 
-  app.apiV1 = apiV1
   store.$apiV1 = apiV1
   router.$apiV1 = apiV1
 
-  app.apiV2 = apiV2
   store.$apiV2 = apiV2
   router.$apiV2 = apiV2
 
-  app.apiWeb = apiWeb
   store.$apiWeb = apiWeb
   router.$apiWeb = apiWeb
+
+  store.$axios = apiV2
+  router.$axios = apiV2
+
+  app.config.globalProperties.$axios = apiV2
+  app.config.globalProperties.$apiV2 = apiV2
+  app.config.globalProperties.$apiV1 = apiV1
+  app.config.globalProperties.$apiWeb = apiWeb
 })
 
-export { axios, apiV1, apiV2, apiWeb }
+export { apiV1, apiV2, apiWeb }

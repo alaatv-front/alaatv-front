@@ -17,7 +17,7 @@ export default {
   components: { EntityCreate },
   data () {
     return {
-      api: APIGateway.set.FullAPIAdresses.adminBase,
+      api: APIGateway.set.APIAdresses.adminBase,
       entityIdKeyInResponse: 'data.id',
       showRouteParamKey: 'data.id',
       showRouteName: 'Admin.Forrest.Show',

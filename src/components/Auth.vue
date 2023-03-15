@@ -109,7 +109,7 @@ export default {
       })
         .then(() => {
           this.loadingList = false
-          this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
+          // this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
           // this.getUserData()
           //   .then(() => {
           //     this.$store.commit('AppLayout/updateLoginDialog', false)

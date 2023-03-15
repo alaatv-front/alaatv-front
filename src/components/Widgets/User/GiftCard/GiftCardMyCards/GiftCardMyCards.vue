@@ -273,7 +273,7 @@ export default {
       // })
     },
     getSalesMan() {
-      APIGateway.referralCode.salesManData()
+      APIGateway.referralCode.getSalesManData()
         .then((response) => {
         })
         .catch()

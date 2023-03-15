@@ -7,39 +7,39 @@ const API_ADDRESS = {
   // socket: process.env.VUE_APP_SOCKET_TARGET_API_SERVER,
   socket: 'https://office.alaatv.com:501',
   pages: {
-    home: apiV2Server + '/home',
-    shop: apiV2Server + '/shop'
+    home: '/home',
+    shop: '/shop'
   },
   server: {
     auth: apiV2Server
   },
   auth: {
-    login: apiV2Server + '/login'
+    login: '/login'
   },
   studyPlan: {
-    edit: apiV2Server + '/plan'
+    edit: '/plan'
   },
   user: {
-    base: apiV2Server + '/user',
+    base: '/user',
     mobile: {
-      resend: apiV2Server + '/mobile/resend',
-      verify: apiV2Server + '/mobile/verify'
+      resend: '/mobile/resend',
+      verify: '/mobile/verify'
     },
     orders: {
-      ordersById: (id) => apiV2Server + '/user/' + id + '/orders',
-      getOrders: apiV2Server + '/orders',
-      status: apiV2Server + '/payment/status'
+      ordersById: (id) => '/user/' + id + '/orders',
+      getOrders: '/orders',
+      status: '/payment/status'
     },
-    formData: apiV2Server + '/megaroute/getUserFormData',
-    show_user: apiV2Server + '/getUserFor3a',
+    formData: '/megaroute/getUserFormData',
+    show_user: '/getUserFor3a',
     eventresult: {
-      base: apiV2Server + '/event-result',
-      create: apiV2Server + '/event-result/create'
+      base: '/event-result',
+      create: '/event-result/create'
     }
   },
   content: {
-    show: (id) => apiV2Server + '/c/' + id,
-    search: apiV2Server + '/search'
+    show: (id) => '/c/' + id,
+    search: '/search'
   },
   coupon: {
     create: {
@@ -49,7 +49,7 @@ const API_ADDRESS = {
       base: ''
     },
     index: {
-      base: apiV2Server + '/admin/coupon'
+      base: '/admin/coupon'
     },
     show: {
       base: '/v2/admin/coupon/10'
@@ -60,13 +60,13 @@ const API_ADDRESS = {
       base: '/reqres/api/users'
     },
     edit: {
-      base: apiV2Server + '/admin/order'
+      base: '/admin/order'
     },
     index: {
-      base: apiV2Server + '/admin/order'
+      base: '/admin/order'
     },
     show: {
-      base: apiV2Server + '/admin/order'
+      base: '/admin/order'
     }
   },
   product: {
@@ -74,345 +74,345 @@ const API_ADDRESS = {
       base: '/reqres/api/users'
     },
     edit: {
-      base: apiV2Server + '/admin/product'
+      base: '/admin/product'
     },
     index: {
-      base: apiV2Server + '/admin/product'
+      base: '/admin/product'
     },
     show: {
-      base: apiV2Server + '/product'
+      base: '/product'
     }
   },
 
   ticket: {
     create: {
-      base: apiV2Server + '/ticket'
+      base: '/ticket'
     },
     index: {
-      base: apiV2Server + '/ticket'
+      base: '/ticket'
     },
     user: {
-      getInfo: apiV2Server + '/user/getInfo'
+      getInfo: '/user/getInfo'
     },
     show: {
-      base: apiV2Server + '/ticket',
+      base: '/ticket',
       statusNotice: (ticketId) =>
-        apiV2Server + '/ticket/' + ticketId + '/sendTicketStatusNotice',
-      batchExtend: apiV2Server + '/orderproduct/batchExtend',
-      ticketMessage: apiV2Server + '/ticketMessage',
+        '/ticket/' + ticketId + '/sendTicketStatusNotice',
+      batchExtend: '/orderproduct/batchExtend',
+      ticketMessage: '/ticketMessage',
       reportMessage: (ticketId) =>
-        apiV2Server + '/ticketMessage/' + ticketId + '/report',
+        '/ticketMessage/' + ticketId + '/report',
       editAssign: (ticketId) =>
-        apiV2Server + '/ticket/' + ticketId + '/assign'
+        '/ticket/' + ticketId + '/assign'
     },
-    ticketRate: (ticketId) => apiV2Server + '/ticket/' + ticketId + '/rate'
+    ticketRate: (ticketId) => '/ticket/' + ticketId + '/rate'
   },
   attributeManagement: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   attributeValue: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   liveDescription: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   Vouchers: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   set: {
     admin: {
-      base: apiV2Server + '/set/'
+      base: '/set/'
     },
-    show: (id) => apiV2Server + '/set/' + id
+    show: (id) => '/set/' + id
   },
   sourceManagement: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   teleMarketing: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   fixUnknownUsersCity: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   section: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   attributeSetManagement: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   transaction: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   userBon: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   smsAdmin: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   coupons: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   gateway: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   activityLog: {
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     }
   },
   tags: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   blockManagement: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   ticketDepartment: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   slideShowManagement: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   users: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   permission: {
     create: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     edit: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     },
     index: {
-      base: apiV2Server + '/admin/user'
+      base: '/admin/user'
     },
     show: {
-      base: apiV2Server + '/admin/user/'
+      base: '/admin/user/'
     }
   },
   map: {
-    items: apiV2Server + '/mapDetail'
+    items: '/mapDetail'
   },
   cart: {
     orderproduct: {
-      add: apiV2Server + '/orderproduct',
-      delete (productId) { return apiV2Server + '/orderproduct/' + productId }
+      add: '/orderproduct',
+      delete (productId) { return '/orderproduct/' + productId }
     },
     discount: {
-      submit: apiV2Server + '/order/submitCoupon',
-      remove: apiV2Server + '/order/RemoveCoupon'
+      submit: '/order/submitCoupon',
+      remove: '/order/RemoveCoupon'
     },
-    review: apiV2Server + '/checkout/review',
-    getPaymentRedirectEncryptedLink: apiV2Server + '/getPaymentRedirectEncryptedLink?seller=1',
-    orderWithTransaction (orderId) { return apiV2Server + '/orderWithTransaction/' + orderId }
+    review: '/checkout/review',
+    getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=1',
+    orderWithTransaction (orderId) { return '/orderWithTransaction/' + orderId }
   }
 }
 export default API_ADDRESS

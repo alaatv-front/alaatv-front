@@ -1,12 +1,14 @@
 <template>
-  <q-page-builder v-model:sections="sections"
-                  v-model::options="pageConfig"
+  <q-page-builder v-model:sections="currenSections"
+                  v-model:options="pageConfig"
                   :editable="pageBuilderEditable" />
 </template>
 
 <script>
+import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
 export default {
   name: 'PageProfile',
+  mixins: [mixinPageOptions, mixinSEO],
   data() {
     return {
       pageConfig: {},
@@ -231,10 +233,8 @@ export default {
       options: {}
     }
   },
-  computed: {
-    pageBuilderEditable() {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    }
+  created () {
+    this.currenSections = this.sections
   }
 }
 </script>

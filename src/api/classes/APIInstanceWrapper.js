@@ -1,10 +1,216 @@
+import axios from 'axios'
+
 const cache = []
+const timeout = 0
 /* It's a wrapper for the API instance that allows you to call the API instance's methods in a more
 readable way */
 export default class APIInstanceWrapper {
+  static createInstance (baseURL, serverURL) {
+    const serverSide = typeof window === 'undefined'
+    if (!serverSide) {
+      const axiosInstance = axios.create({ baseURL })
+      axiosInstance.defaults.serverURL = serverURL
+
+      return axiosInstance
+    }
+
+    const axiosInstance = function (baseURL, serverURL) {
+      const localAxiosInstance = axios.create({ baseURL: serverURL })
+      // const host = serverURL.split('/')[2].split(':')[0]
+      const host = '127.0.0.1'
+      const defaults = {
+        baseURL,
+        serverURL,
+        headers: { 'Content-Type': 'application/json' }
+      }
+      const get = (url) => new Promise((resolve, reject) => {
+        const requestAddress = defaults.serverURL + url
+        localAxiosInstance.get(requestAddress, {
+          proxy: {
+            // protocol: 'http',
+            host
+            // port: 8886,
+            // auth: {
+            //   username: 'YOUR_API_KEY',
+            //   password: 'render_js=False&premium_proxy=True'
+            // }
+          }
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            console.error('error', error)
+            reject(error)
+          })
+      })
+      const post = (url, data) => new Promise((resolve, reject) => {
+        localAxiosInstance.post(defaults.serverURL + url, data, {
+          proxy: {
+            // protocol: 'http',
+            host
+            // port: 8886,
+            // auth: {
+            //   username: 'YOUR_API_KEY',
+            //   password: 'render_js=False&premium_proxy=True'
+            // }
+          }
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+      const put = (url, data) => new Promise((resolve, reject) => {
+        localAxiosInstance.put(defaults.serverURL + url, data, {
+          proxy: {
+            // protocol: 'http',
+            host
+            // port: 8886,
+            // auth: {
+            //   username: 'YOUR_API_KEY',
+            //   password: 'render_js=False&premium_proxy=True'
+            // }
+          }
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+      const deleteMethod = (url) => new Promise((resolve, reject) => {
+        localAxiosInstance.delete(defaults.serverURL + url, {
+          proxy: {
+            // protocol: 'http',
+            host
+            // port: 8886,
+            // auth: {
+            //   username: 'YOUR_API_KEY',
+            //   password: 'render_js=False&premium_proxy=True'
+            // }
+          }
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+
+      return {
+        put,
+        get,
+        post,
+        defaults,
+        delete: deleteMethod,
+        serverInstance: true
+      }
+    }
+
+    return axiosInstance(baseURL, serverURL)
+
+    // const fetchInstance = function (baseURL, serverURL) {
+    //   const defaults = {
+    //     baseURL,
+    //     serverURL,
+    //     headers: { 'Content-Type': 'application/json' }
+    //   }
+    //   const get = (url) => new Promise((resolve, reject) => {
+    //     const requestAddress = defaults.serverURL + url
+    //     fetch(requestAddress, {
+    //       method: 'GET',
+    //       headers: defaults.headers
+    //     })
+    //       .then(response => {
+    //         response.json()
+    //           .then(data => {
+    //             resolve({ data })
+    //           })
+    //           .catch(error => {
+    //             reject(error)
+    //           })
+    //       })
+    //       .catch(error => {
+    //         reject(error)
+    //       })
+    //   })
+    //   const post = (url, data) => new Promise((resolve, reject) => {
+    //     fetch(defaults.serverURL + url, {
+    //       method: 'POST',
+    //       body: JSON.stringify(data),
+    //       headers: defaults.headers
+    //     })
+    //       .then(response => {
+    //         response.json()
+    //           .then(data => {
+    //             resolve(data)
+    //           })
+    //           .catch(error => {
+    //             reject(error)
+    //           })
+    //       })
+    //       .catch(error => {
+    //         reject(error)
+    //       })
+    //   })
+    //   const put = (url, data) => new Promise((resolve, reject) => {
+    //     fetch(defaults.serverURL + url, {
+    //       method: 'PUT',
+    //       body: JSON.stringify(data),
+    //       headers: defaults.headers
+    //     })
+    //       .then(response => {
+    //         response.json()
+    //           .then(data => {
+    //             resolve(data)
+    //           })
+    //           .catch(error => {
+    //             reject(error)
+    //           })
+    //       })
+    //       .catch(error => {
+    //         reject(error)
+    //       })
+    //   })
+    //   const deleteMethod = (url) => new Promise((resolve, reject) => {
+    //     fetch(defaults.serverURL + url, {
+    //       method: 'DELETE',
+    //       headers: defaults.headers
+    //     })
+    //       .then(response => {
+    //         response.json()
+    //           .then(data => {
+    //             resolve(data)
+    //           })
+    //           .catch(error => {
+    //             reject(error)
+    //           })
+    //       })
+    //       .catch(error => {
+    //         reject(error)
+    //       })
+    //   })
+    //
+    //   return {
+    //     put,
+    //     get,
+    //     post,
+    //     defaults,
+    //     delete: deleteMethod
+    //   }
+    // }
+    //
+    // return fetchInstance(baseURL, serverURL)
+  }
+
   static getRequest(req, option) {
     if (req === 'get') {
-      return option.api.get(option.request, { params: option.data })
+      return option.api.get(option.request, { params: option.data, timeout })
     } else if (req === 'post') {
       return option.api.post(option.request, option.data)
     } else if (req === 'put') {

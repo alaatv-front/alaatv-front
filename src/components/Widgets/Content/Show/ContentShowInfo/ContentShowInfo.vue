@@ -72,10 +72,10 @@
 </template>
 
 <script>
+import Bookmark from 'components/Bookmark.vue'
 import { Content } from 'src/models/Content.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import { APIGateway } from 'src/api/APIGateway'
-import Bookmark from 'components/Bookmark.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
 
 export default {
@@ -151,18 +151,14 @@ export default {
     },
     getContentByRequest() {
       const contentId = this.getContentId()
-      let promise = null
-      promise = APIGateway.content.show(contentId)
-      if (promise) {
-        promise
-          .then((response) => {
-            this.content = new Content(response)
-            this.content.loading = false
-          })
-          .catch(() => {
-            this.content.loading = false
-          })
-      }
+      APIGateway.content.show(contentId)
+        .then((response) => {
+          this.content = new Content(response)
+          this.content.loading = false
+        })
+        .catch(() => {
+          this.content.loading = false
+        })
     },
     getContentId () {
       if (this.options.productId) {

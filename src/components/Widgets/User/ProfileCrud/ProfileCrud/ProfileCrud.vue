@@ -25,9 +25,10 @@
 
 <script>
 import { Notify } from 'quasar'
+import { EntityEdit } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import { EntityEdit } from 'quasar-crud'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'ProfileCrud',
@@ -37,7 +38,7 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
-      api: API_ADDRESS.user.base + '/' + this.$store.getters['Auth/user'].id,
+      api: APIGateway.user.APIAdresses.base + '/' + this.$store.getters['Auth/user'].id,
       entityIdKey: 'id',
       entityParamKey: 'id',
       showRouteName: 'UserPanel.Profile',
