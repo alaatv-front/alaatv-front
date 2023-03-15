@@ -1,5 +1,5 @@
 <template>
-  <div class="drawer-inside">
+  <div class="chatre-nejat-layout row">
     <div class="side-menu-main-layout bg-white">
       <div class="header">
         <div class="product-box">
@@ -47,16 +47,22 @@
         <div class="log-out" />
       </div>
     </div>
+    <div class="content">
+      <router :include="keepAliveComponents" />
+    </div>
   </div>
 </template>
 
 <script>
 import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
+import Router from 'src/router/Router.vue'
+import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
 export default {
   name: 'ChatreNejatLayout',
-  components: { menuItem },
+  components: { menuItem, Router },
   data () {
     return {
+      keepAliveComponents: KeepAliveComponents,
       productImg: 'https://nodes.alaatv.com/upload/images/product/riazie110_20220831103918.jpg?w=400&h=400',
       productTitle: 'زیست شناسی',
       selectedTopic: '',
