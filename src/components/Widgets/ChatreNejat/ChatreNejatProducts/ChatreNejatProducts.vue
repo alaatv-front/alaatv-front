@@ -101,14 +101,6 @@ export default {
       }
     ]
   }),
-  computed: {
-    setList() {
-      return this.$store.getters['ChatreNejat/setList']
-    },
-    setTopics() {
-      return this.$store.getters['ChatreNejat/setTopicList']
-    }
-  },
   watch: {
     productType(type) {
       this.getProducts(type.value)
@@ -116,9 +108,6 @@ export default {
   },
   created () {
     this.getProducts(this.productType.value)
-  },
-  mounted() {
-    this.getProductSets()
   },
   methods: {
     getProducts(type) {
@@ -131,9 +120,6 @@ export default {
       }).catch(() => {
         this.loading = false
       })
-    },
-    getProductSets() {
-      this.$store.dispatch('ChatreNejat/getSet', 976)
     }
   }
 }

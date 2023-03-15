@@ -91,7 +91,6 @@ export default {
         })
         // this.stringOptions = res.map((item) => item.children)
         this.filterOptions = this.stringOptions
-        console.log(this.value)
         this.onChangeSelections(this.value)
       }).catch(() => {
       })
