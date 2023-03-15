@@ -248,7 +248,7 @@ const routes = [
                   {
                     name: 'UserPanel.Asset.ChatreNejat.Products',
                     path: 'products',
-                    component: () => import('pages/User/DashboardChatreNejat/progress.vue')
+                    component: () => import('pages/User/DashboardChatreNejat/Products.vue')
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.ProductLayout',
@@ -258,19 +258,19 @@ const routes = [
                       {
                         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
                         path: '',
-                        component: () => import('pages/User/DashboardChatreNejat/Consulting.vue')
+                        component: () => import('pages/User/DashboardChatreNejat/ProductPage.vue')
                       },
                       {
                         name: 'UserPanel.Asset.ChatreNejat.Content',
                         path: 'content',
-                        component: () => import('pages/User/DashboardChatreNejat/Consulting.vue')
+                        component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                       }
                     ]
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.News',
                     path: 'news',
-                    component: () => import('pages/User/DashboardChatreNejat/News.vue')
+                    component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.Map',
