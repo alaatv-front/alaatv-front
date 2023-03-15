@@ -1,22 +1,17 @@
 <template>
-  <div class="content-show-page">
-    <q-page-builder v-model:sections="sections"
-                    v-model::options="pageConfig"
-                    :preview="true"
-                    :editable="pageBuilderEditable"
-                    @toggleEdit="toggleEdit" />
-  </div>
+  <q-page-builder v-model:sections="currenSections"
+                  v-model:options="pageConfig"
+                  :editable="pageBuilderEditable" />
 </template>
 
 <script>
+import { mixinPageOptions, mixinSEO } from 'src/mixin/Mixins'
+
 export default {
   name: 'Show',
-  beforeRouteUpdate(to, from) {
-    this.updateData(to.params.id, this.sections)
-  },
+  mixins: [mixinPageOptions, mixinSEO],
   data() {
     return {
-      editable: false,
       pageConfig: {},
       sections: [
         {
@@ -114,48 +109,11 @@ export default {
             ]
           }
         }
-      ],
-      objectNames: ['rows', 'cols', 'widgets', 'data'],
-      widgetNames: ['ContentShowInfo', 'ContentVideoPlayer', 'ContentVideoList']
+      ]
     }
   },
-  computed: {
-    pageBuilderEditable () {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    }
-  },
-  mounted() {
-    this.paddingStyle()
-  },
-  methods: {
-    toggleEdit() {
-      this.editable = !this.editable
-    },
-    paddingStyle() {
-      // document.getElementsByClassName('padding-list')[0].style.paddingBottom='16px'
-      // document.getElementsByClassName('padding-download')[0].style.paddingBottom='24px'
-    },
-    updateData(id, data) {
-      if (data.name && this.widgetNames.includes(data.name)) {
-        data.data = id
-        return
-      }
-      if (Array.isArray(data)) {
-        data.forEach(e => {
-          this.updateData(id, e)
-        })
-      } else {
-        for (const key in data) {
-          if (this.objectNames.includes(key)) {
-            this.updateData(id, data[key])
-          }
-        }
-      }
-    }
+  created () {
+    this.currenSections = this.sections
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,7 +1,8 @@
 <template>
   <q-btn class="bookmark-btn"
          rounded
-         flat
+         :flat="!color"
+         :color="color"
          :loading="loading"
          @click="bookmark">
     <q-tooltip anchor="top middle"
@@ -9,12 +10,6 @@
                :offset="[10, 10]">
       نشان کردن
     </q-tooltip>
-    <!--    <img-->
-    <!--      :class="isFavored ? 'hide' : ''"-->
-    <!--      class="btnFavorite-off"-->
-    <!--      src="https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-book-mark.png"-->
-    <!--      alt="book-mark"-->
-    <!--    >-->
     <svg :class="isFavored ? 'hide' : ''"
          class="btnFavorite-off"
          width="24"
@@ -30,8 +25,8 @@
     </svg>
     <svg class="btnFavorite-on"
          :class="isFavored ? '' : 'hide'"
-         width="22"
-         height="22"
+         width="24"
+         height="24"
          viewBox="0 0 24 24"
          fill="none"
          xmlns="http://www.w3.org/2000/svg">
@@ -60,6 +55,10 @@ export default {
       default: '',
       type: String
     },
+    color: {
+      default: undefined,
+      type: String
+    },
     favoredRoute: {
       default: '',
       type: String
@@ -71,10 +70,6 @@ export default {
     bookmarkFunction: {
       default: null,
       type: Function
-    },
-    size: {
-      default: '',
-      type: String
     }
   },
   emits: [

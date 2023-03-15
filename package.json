@@ -56,6 +56,7 @@
     "quasar-ui-q-page-builder": "^0.1.0",
     "socket.io-client": "^4.6.1",
     "sticky-sidebar-v2": "^1.1.1",
+    "underscore": "^1.13.6",
     "video.js": "^7.21.3",
     "videojs-brand": "^0.0.4",
     "videojs-contrib-ads": "^7.0.0",
