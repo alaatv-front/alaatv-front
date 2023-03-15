@@ -30,10 +30,11 @@
         </div>
         <div v-if="block?.url?.web"
              class="block-item-box">
-          <a :href="block?.url?.web"
-             class="show-more-title">
+          <q-btn :href="block?.url?.web"
+                 color="primary"
+                 size="xl">
             نمایش بیشتر
-          </a>
+          </q-btn>
         </div>
       </div>
       <div v-if="block.sets.list.length > 0"
@@ -49,10 +50,11 @@
           <set-item :options="{set, minWidth: '318px'}" />
         </div>
         <div class="block-item-box">
-          <a :href="block?.url?.web"
-             class="show-more-title">
+          <q-btn :href="block?.url?.web"
+                 color="primary"
+                 size="xl">
             نمایش بیشتر
-          </a>
+          </q-btn>
         </div>
       </div>
       <div v-if="block.contents.list.length > 0"
@@ -68,10 +70,11 @@
           <content-item :options="{content, minWidth: '318px'}" />
         </div>
         <div class="block-item-box">
-          <a :href="block?.url?.web"
-             class="show-more-title">
+          <q-btn :href="block?.url?.web"
+                 color="primary"
+                 size="xl">
             نمایش بیشتر
-          </a>
+          </q-btn>
         </div>
       </div>
     </div>

@@ -144,15 +144,15 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinWidget, mixinAuthData } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProfileMenu',
   mixins: [mixinWidget, mixinAuthData],
   data() {
     return {
-      api: API_ADDRESS.user.base,
+      api: APIGateway.user.APIAdresses.base,
       file: null,
       previewImg: null,
       controls: false
@@ -168,7 +168,7 @@ export default {
     }
   },
   created () {
-    this.api = API_ADDRESS.user.base + '/' + this.user.id
+    this.api = APIGateway.user.APIAdresses.base + '/' + this.user.id
     this.previewImg = this.user.photo
   },
   mounted () {},

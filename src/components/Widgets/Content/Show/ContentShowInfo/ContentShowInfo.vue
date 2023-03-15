@@ -72,10 +72,10 @@
 </template>
 
 <script>
+import Bookmark from 'components/Bookmark.vue'
 import { Content } from 'src/models/Content.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import { APIGateway } from 'src/api/APIGateway'
-import Bookmark from 'components/Bookmark.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
 
 export default {

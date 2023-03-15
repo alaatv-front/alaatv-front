@@ -47,7 +47,7 @@ export default {
   components: { EntityIndex },
   data () {
     return {
-      api: APIGateway.forrest.FullAPIAdresses.base,
+      api: APIGateway.forrest.APIAdresses.base,
       createRouteName: 'Admin.Forrest.Create',
       tableKeys: {
         data: 'data',

@@ -56,7 +56,7 @@
                  flat=""
                  @click="toggleDialog('prev')" />
           <previous-item-dialog v-model:dialog="pervDialog"
-                                :api="$apiGateway.content.FullAPIAdresses.admin"
+                                :api="$apiGateway.content.APIAdresses.admin"
                                 @selectedUpdated="setValues($event)"
                                 @toggleDialog="toggleDialog(('prev'))" />
         </div>
@@ -158,7 +158,7 @@ export default {
             label: 'ثبت مجموعه'
           },
           indexConfig: {
-            apiAddress: APIGateway.set.FullAPIAdresses.base,
+            apiAddress: APIGateway.set.APIAdresses.base,
             tableTitle: 'مجموعه ها',
             tableKeys: {
               data: 'data',
