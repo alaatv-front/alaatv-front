@@ -1,6 +1,8 @@
 import { Notify } from 'quasar'
-import { axios } from 'boot/axios'
+import { apiV2 } from 'boot/axios'
 import API_ADDRESS from 'src/api/Addresses'
+
+const axios = apiV2
 
 const actions = {
   editPageWidget: (context, data) => {

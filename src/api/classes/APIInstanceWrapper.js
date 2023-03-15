@@ -1,31 +1,118 @@
 import axios from 'axios'
 
-// let fetch
-// if (typeof window === 'undefined') {
-//   console.log('fetch', fetch)
-// //   import('node-fetch')
-// //     .then((Fetch) => {
-// //       fetch = Fetch
-// //     })
-// }
-
 const cache = []
 const timeout = 0
 /* It's a wrapper for the API instance that allows you to call the API instance's methods in a more
 readable way */
 export default class APIInstanceWrapper {
   static createInstance (baseURL, serverURL) {
-    const isInServer = typeof window === 'undefined'
-    if (!isInServer) {
+    const serverSide = typeof window === 'undefined'
+    if (!serverSide) {
       const axiosInstance = axios.create({ baseURL })
       axiosInstance.defaults.serverURL = serverURL
 
       return axiosInstance
     }
-    const axiosInstance = axios.create({ baseURL: serverURL })
-    // axiosInstance.defaults.serverURL = serverURL
 
-    return axiosInstance
+    const axiosInstance = function (baseURL, serverURL) {
+      const localAxiosInstance = axios.create({ baseURL: serverURL })
+      // const host = serverURL.split('/')[2].split(':')[0]
+      const host = '127.0.0.1'
+      const defaults = {
+        baseURL,
+        serverURL,
+        headers: { 'Content-Type': 'application/json' }
+      }
+      const get = (url) => new Promise((resolve, reject) => {
+        const requestAddress = defaults.serverURL + url
+        localAxiosInstance.get(requestAddress, {
+          proxy: {
+            // protocol: 'http',
+            host
+            // port: 8886,
+            // auth: {
+            //   username: 'YOUR_API_KEY',
+            //   password: 'render_js=False&premium_proxy=True'
+            // }
+          }
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            console.error('error', error)
+            reject(error)
+          })
+      })
+      const post = (url, data) => new Promise((resolve, reject) => {
+        localAxiosInstance.post(defaults.serverURL + url, data, {
+          proxy: {
+            // protocol: 'http',
+            host
+            // port: 8886,
+            // auth: {
+            //   username: 'YOUR_API_KEY',
+            //   password: 'render_js=False&premium_proxy=True'
+            // }
+          }
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+      const put = (url, data) => new Promise((resolve, reject) => {
+        localAxiosInstance.put(defaults.serverURL + url, data, {
+          proxy: {
+            // protocol: 'http',
+            host
+            // port: 8886,
+            // auth: {
+            //   username: 'YOUR_API_KEY',
+            //   password: 'render_js=False&premium_proxy=True'
+            // }
+          }
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+      const deleteMethod = (url) => new Promise((resolve, reject) => {
+        localAxiosInstance.delete(defaults.serverURL + url, {
+          proxy: {
+            // protocol: 'http',
+            host
+            // port: 8886,
+            // auth: {
+            //   username: 'YOUR_API_KEY',
+            //   password: 'render_js=False&premium_proxy=True'
+            // }
+          }
+        })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+
+      return {
+        put,
+        get,
+        post,
+        defaults,
+        delete: deleteMethod,
+        serverInstance: true
+      }
+    }
+
+    return axiosInstance(baseURL, serverURL)
 
     // const fetchInstance = function (baseURL, serverURL) {
     //   const defaults = {

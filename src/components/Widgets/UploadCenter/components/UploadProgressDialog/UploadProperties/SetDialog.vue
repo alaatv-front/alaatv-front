@@ -16,7 +16,7 @@
         <entity-create ref="setForm"
                        v-model:value="inputs"
                        title="ایجاد ست "
-                       :api="$apiGateway.set.FullAPIAdresses.create"
+                       :api="$apiGateway.set.APIAdresses.create"
                        :entity-id-key="entityIdKey"
                        :entity-param-key="entityParamKey"
                        :default-layout="false" />
@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     getTeachers() {
-      this.$apiGateway.user.getRoll({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
+      this.$apiGateway.user.adminIndex({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
         this.inputs.find(x => x.name === 'author_id').options = res.list
       })
     },

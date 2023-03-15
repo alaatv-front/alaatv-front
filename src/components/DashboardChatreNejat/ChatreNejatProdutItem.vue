@@ -45,8 +45,9 @@
                 {{ product.lastSeen.section }}
               </div>
               <div class="last-content-link">
-                <a :href="product.lastSeen.url">مشاهده</a>
-                <q-icon name="chevron_left" />
+                <q-btn flat
+                       icon-right="chevron_left"
+                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductLayout', params: {productId: 1} }">مشاهده</q-btn>
               </div>
             </div>
           </div>
@@ -71,8 +72,9 @@
               {{ product.lastSeen.section }}
             </div>
             <div class="last-content-link">
-              <a :href="product.lastSeen.url">مشاهده</a>
-              <q-icon name="chevron_left" />
+              <q-btn flat
+                     icon-right="chevron_left"
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductLayout', params: {productId: 1} }">مشاهده</q-btn>
             </div>
           </div>
         </div>

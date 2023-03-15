@@ -7,12 +7,11 @@
         <entity-edit ref="entityEditForm"
                      v-model:value="inputs"
                      title="ویرایش اطلاعات محتوا"
-                     :api="$apiGateway.content.FullAPIAdresses.showAdmin(content.id)"
+                     :api="$apiGateway.content.APIAdresses.showAdmin(content.id)"
                      :entity-id-key="entityIdKey"
                      :loaded-data="content"
                      :entity-param-key="entityParamKey"
                      :default-layout="false"
-                     :beforeSendData="content"
                      @onInputClick="onInputClick">
           <template #entity-index-table-selection-cell="data">
             <q-checkbox v-model="data.props.selected"
@@ -57,7 +56,7 @@
                  flat=""
                  @click="toggleDialog('prev')" />
           <previous-item-dialog v-model:dialog="pervDialog"
-                                :api="$apiGateway.content.FullAPIAdresses.admin"
+                                :api="$apiGateway.content.APIAdresses.admin"
                                 @selectedUpdated="setValues($event)"
                                 @toggleDialog="toggleDialog(('prev'))" />
         </div>
@@ -159,7 +158,7 @@ export default {
             label: 'ثبت مجموعه'
           },
           indexConfig: {
-            apiAddress: APIGateway.set.FullAPIAdresses.base,
+            apiAddress: APIGateway.set.APIAdresses.base,
             tableTitle: 'مجموعه ها',
             tableKeys: {
               data: 'data',
@@ -276,7 +275,9 @@ export default {
       this.inputs.find(x => x.name === 'author_id').value = e.id
     },
     getTeachers() {
-      this.$apiGateway.user.getRoll({ data: { rollId: this.$enums.Rolls.TEACHER } }).then(res => {
+      this.$apiGateway.user.adminIndex({
+        data: { rollId: this.$enums.Rolls.TEACHER }
+      }).then(res => {
         this.teachers = res.list
       })
     },

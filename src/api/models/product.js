@@ -2,6 +2,7 @@ import { apiV2 } from 'src/boot/axios'
 import { ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Product, ProductList } from 'src/models/Product.js'
+import { SetList } from 'src/models/Set.js'
 
 export default class ProductAPI extends APIRepository {
   constructor() {
@@ -11,6 +12,9 @@ export default class ProductAPI extends APIRepository {
       create: '/reqres/api/users',
       edit: '/admin/product',
       index: '/admin/product',
+      getSets: id => `/product/${id}/sets`,
+      favored: (id) => id + '/favored',
+      unfavored: (id) => '/product/' + id + '/unfavored',
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
       sampleContent: (id) => '/product/' + id + '/sample'
@@ -18,6 +22,9 @@ export default class ProductAPI extends APIRepository {
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       create: this.name + this.APIAdresses.create,
+      favored: id => this.name + this.APIAdresses.favored(id),
+      getSets: id => this.name + this.APIAdresses.getSets(id),
+      unfavored: id => this.name + this.APIAdresses.unfavored(id),
       show: (id) => this.name + this.APIAdresses.show(id),
       gifts: (id) => this.name + this.APIAdresses.gifts(id),
       sampleContent: (id) => this.name + this.APIAdresses.sampleContent(id),
@@ -80,4 +87,69 @@ export default class ProductAPI extends APIRepository {
       }
     })
   }
+
+  favoredProduct(data = {}, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.favored(data),
+      cacheKey: this.CacheList.favored(data),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  unfavoredProduct(data = {}, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unfavored(data),
+      cacheKey: this.CacheList.unfavored(data),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSets(data, cache) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getSets(data),
+      cacheKey: this.CacheList.getSets(data),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new SetList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
 }
+
+// function loadFakeSets(sets) {
+//   let categoryCounter = 1
+//   return sets.map((set, setIndex) => {
+//     if ((setIndex % 4) > 2) {
+//       categoryCounter++
+//     }
+//     const lessonName = 'درس شماره ' + categoryCounter
+//     const setCategoryName = 'سرفصل شماره ' + categoryCounter
+//     const setName = set.short_title
+//     return {
+//       id: set.id,
+//       sections: set.sections,
+//       short_title: lessonName + '-' + setCategoryName + '-' + setName
+//     }
+//   })
+// }

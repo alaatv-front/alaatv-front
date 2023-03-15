@@ -21,7 +21,7 @@ export default class UserAPI extends APIRepository {
       formData: '/megaroute/getUserFormData',
       showUser: '/getUserFor3a',
       eventResult: '/eventresult',
-      roll: (id) => `/admin/user?hasRole[]=${id}`,
+      baseAdmin: '/admin/user',
       nationalCard: '/national-card-photo'
     }
     this.CacheList = {
@@ -37,7 +37,7 @@ export default class UserAPI extends APIRepository {
       formData: this.name + this.APIAdresses.base,
       showUser: this.name + this.APIAdresses.base,
       eventResult: this.name + this.APIAdresses.base,
-      roll: (id) => this.name + this.APIAdresses.roll(id),
+      baseAdmin: this.name + this.APIAdresses.baseAdmin,
       nationalCard: this.name + this.APIAdresses.nationalCard
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
@@ -243,13 +243,30 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getRoll(data = {}) {
+  adminIndex(data = {}) {
+    const routeWithParams = function(defaultRoute, payload) {
+      if (typeof payload.rollId === 'object') {
+        const hasRoll = []
+        payload.rollId.forEach(rollId => {
+          hasRoll.push(rollId)
+        })
+        return defaultRoute.concat('?hasRole[]=', hasRoll)
+      }
+      return defaultRoute.concat('?hasRole[]=', payload.rollId)
+    }
+    const requestRoute = routeWithParams(this.APIAdresses.baseAdmin, {
+      rollId: data.data.rollId // array or number
+    })
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.roll(data.data.rollId),
-      cacheKey: this.CacheList.roll(data.data.rollId),
+      request: requestRoute,
+      cacheKey: this.CacheList.baseAdmin,
       ...(data.cache && { cache: data.cache }),
+      // paramSerializer: '/?hasRoll[]=10',
+      // params: this.getPayload({
+      //   hasRoll: [] // array
+      // }, data.data),
       resolveCallback: (response) => {
         return {
           list: response.data.data,
@@ -281,7 +298,7 @@ export default class UserAPI extends APIRepository {
           //   current_page: 1,
           //   from: 1,
           //   last_page: 1,
-          //   path: 'http://office.alaa.tv:700/api/v2/referral-code',
+          //   path: '...',
           //   per_page: 15,
           //   to: 10,
           //   total: 10
@@ -312,7 +329,7 @@ export default class UserAPI extends APIRepository {
           //   current_page: 1,
           //   from: 1,
           //   last_page: 1,
-          //   path: 'http://office.alaa.tv:700/api/v2/referral-code',
+          //   path: '...',
           //   per_page: 15,
           //   to: 10,
           //   total: 10

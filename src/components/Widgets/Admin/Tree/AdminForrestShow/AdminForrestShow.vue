@@ -41,7 +41,7 @@ export default {
   ],
   data () {
     return {
-      api: APIGateway.forrest.FullAPIAdresses.base,
+      api: APIGateway.forrest.APIAdresses.base,
       entityIdKey: 'id',
       editRouteName: 'Admin.Forrest.Edit',
       indexRouteName: 'Admin.Forrest.Index',
@@ -58,7 +58,7 @@ export default {
   },
   computed: {
     getEntityShowAPI () {
-      return this.$apiGateway.forrest.FullAPIAdresses.grid(this.getEntityId)
+      return this.$apiGateway.forrest.APIAdresses.grid(this.getEntityId)
     },
     getEntityId () {
       return this.$route.params.id

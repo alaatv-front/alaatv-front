@@ -45,7 +45,7 @@ export default class ContentAPI extends APIRepository {
     }
   }
 
-  show(data, cache = { TTL: 1000 }) {
+  show(data, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -102,7 +102,7 @@ export default class ContentAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         const content = new Content(response.data.data)
-        fillFakeData(content)
+        // fillFakeData(content)
         return content
       },
       rejectCallback: (error) => {
@@ -349,48 +349,48 @@ export default class ContentAPI extends APIRepository {
   }
 }
 
-const fillFakeData = (content) => {
-  content.forrest_tree_tags = forrestTreeTags
-  content.hls = 'https://alaatv.com/hls/input.m3u8'
-}
+// const fillFakeData = (content) => {
+//   content.forrest_tree_tags = forrestTreeTags
+//   content.hls = 'https://alaatv.com/hls/input.m3u8'
+// }
 
-const forrestTreeTags = [
-  {
-    id: '63ff427566344faf860f0f9f',
-    title: 'دبیر 1',
-    parent: {
-      id: '63f37272c590054efc012d12',
-      title: 'دبیر'
-    },
-    ancestors: [
-      {
-        id: '63f37272c590054efc012d12',
-        title: 'دبیر'
-      }
-    ],
-    order: '0',
-    type: null,
-    number_of_children: 0,
-    updated_at: '2023-03-01 15:49:18',
-    created_at: '2023-03-01 15:47:57'
-  },
-  {
-    id: '63ff427c66344faf860f0fa0',
-    title: 'دبیر 2',
-    parent: {
-      id: '63f37272c590054efc012d12',
-      title: 'دبیر'
-    },
-    ancestors: [
-      {
-        id: '63f37272c590054efc012d12',
-        title: 'دبیر'
-      }
-    ],
-    order: '2',
-    type: null,
-    number_of_children: 1,
-    updated_at: '2023-03-01 15:49:18',
-    created_at: '2023-03-01 15:48:04'
-  }
-]
+// const forrestTreeTags = [
+//   {
+//     id: '63ff427566344faf860f0f9f',
+//     title: 'دبیر 1',
+//     parent: {
+//       id: '63f37272c590054efc012d12',
+//       title: 'دبیر'
+//     },
+//     ancestors: [
+//       {
+//         id: '63f37272c590054efc012d12',
+//         title: 'دبیر'
+//       }
+//     ],
+//     order: '0',
+//     type: null,
+//     number_of_children: 0,
+//     updated_at: '2023-03-01 15:49:18',
+//     created_at: '2023-03-01 15:47:57'
+//   },
+//   {
+//     id: '63ff427c66344faf860f0fa0',
+//     title: 'دبیر 2',
+//     parent: {
+//       id: '63f37272c590054efc012d12',
+//       title: 'دبیر'
+//     },
+//     ancestors: [
+//       {
+//         id: '63f37272c590054efc012d12',
+//         title: 'دبیر'
+//       }
+//     ],
+//     order: '2',
+//     type: null,
+//     number_of_children: 1,
+//     updated_at: '2023-03-01 15:49:18',
+//     created_at: '2023-03-01 15:48:04'
+//   }
+// ]

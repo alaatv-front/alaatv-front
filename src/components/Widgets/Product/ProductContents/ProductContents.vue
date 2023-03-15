@@ -3,19 +3,25 @@
        class="product-contents-widget"
        :class="options.className"
        :style="options.style">
-    <q-card class="bg-primary  q-mb-md custom-card">
-      <q-card-section>
+    <!--    <q-card class="bg-primary  q-mb-md custom-card">-->
+    <!--      <q-card-section>-->
+    <!--        <q-select v-model="setTitle"-->
+    <!--                  :options="setOptions"-->
+    <!--                  class="bg-white"-->
+    <!--                  style="width: 100%;border-radius: 10px;" />-->
+    <!--      </q-card-section>-->
+    <!--    </q-card>-->
+    <q-card class="previewSetsOfProduct custom-card q-mb-md">
+      <div class="bg-primary q-pa-md q-mb-sm">
+        <div class="q-ml-md q-my-md text-white">انتخاب دوره</div>
         <q-select v-model="setTitle"
                   :options="setOptions"
-                  class="bg-white"
-                  style="width: 100%;border-radius: 10px;" />
-      </q-card-section>
-    </q-card>
-    <q-card class="previewSetsOfProduct custom-card q-mb-md">
+                  class="q-px-md"
+                  style="width: 50%" />
+      </div>
       <q-tabs v-model="tab"
-              indicator-color="transparent"
               active-color="black"
-              class="text-grey-5 shadow-2 tabs">
+              class="text-grey-5 bg-white tabs">
         <q-tab name="videos"
                class="tab">
           <span>فیلم ها</span>
@@ -59,6 +65,9 @@
             <div v-for="pamphlet in pamphlets"
                  :key="pamphlet.id"
                  class="q-mx-md">
+              <div class="pamphlet-title q-mb-sm column justify-center">
+                {{pamphlet.title}}
+              </div>
               <img src="/img/PDF_file_icon.svg.png"
                    :alt="pamphlet.title"
                    style="width: 100px; height: 100px">
@@ -72,7 +81,6 @@
       </q-tab-panels>
     </q-card>
   </div>
-
 </template>
 
 <script>
@@ -188,7 +196,7 @@ export default {
     border-bottom: solid 25px white;
     position: absolute;
     left: 75%;
-    top: 65px;
+    top: 100px;
   }
 
   .previewSetsOfProduct {
@@ -199,6 +207,9 @@ export default {
       background: #ffffff;
       margin-right: 20px;
       border-radius: 20px;
+      .pamphlet-title {
+        height: 40px;
+      }
     }
   }
 }

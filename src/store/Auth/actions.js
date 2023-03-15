@@ -1,12 +1,10 @@
-import API_ADDRESS from 'src/api/Addresses'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 export function login (context, data) {
-  return this.$axios.post(API_ADDRESS.auth.login, data)
-    .then(res => {
-      const accessToken = res.data.data.access_token
+  return APIGateway.auth.login(data)
+    .then(({ accessToken, user }) => {
       context.commit('updateAccessToken', accessToken)
-      context.commit('updateUser', res.data.data.user)
-      context.commit('setAccessToken', accessToken)
+      context.commit('updateUser', user)
 
       const tokenType = 'Bearer'
       this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken

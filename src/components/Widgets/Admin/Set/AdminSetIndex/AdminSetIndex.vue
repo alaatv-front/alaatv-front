@@ -53,7 +53,7 @@ export default {
   components: { EntityIndex },
   data () {
     return {
-      api: APIGateway.set.FullAPIAdresses.adminBase,
+      api: APIGateway.set.APIAdresses.adminBase,
       createRouteName: 'Admin.Set.Create',
       tableKeys: {
         data: 'data',

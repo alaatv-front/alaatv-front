@@ -10,7 +10,16 @@ export default class ReferralCodeAPI extends APIRepository {
       orderProducts: '/referral-code/orderproducts',
       batchStore: '/referral-code/batch-store',
       orderReferralCode: '/order-referral-code',
+      sales_man: '/sales-man',
+      contract: '/sales-man/contract',
+      walletWithdraw: '/wallet/withdraw',
+      walletWithdrawRequests: '/wallet/withdraw-requests',
       assign: (referralCode) => '/referral-code/' + referralCode + '/assign'
+    }
+    this.CacheList = {
+      base: this.name + this.APIAdresses.base,
+      sales_man: this.name + this.APIAdresses.sales_man,
+      walletWithdrawRequests: this.name + this.APIAdresses.walletWithdrawRequests
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
   }
@@ -18,11 +27,13 @@ export default class ReferralCodeAPI extends APIRepository {
   // rest
   // has get
 
-  index (data) {
+  index (data, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.base,
+      cacheKey: this.CacheList.base,
+      ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
         page: 1 // Number
       }, data.data),
@@ -34,7 +45,7 @@ export default class ReferralCodeAPI extends APIRepository {
           //   current_page: 1,
           //   from: 1,
           //   last_page: 1,
-          //   path: 'http://office.alaa.tv:700/api/v2/referral-code',
+          //   path: '...',
           //   per_page: 15,
           //   to: 10,
           //   total: 10
@@ -129,6 +140,67 @@ export default class ReferralCodeAPI extends APIRepository {
       }, data.data),
       resolveCallback: (response) => {
         return response.data.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSalesManData (cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.sales_man,
+      cacheKey: this.CacheList.sales_man,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getWithdrawWallet () {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.walletWithdraw,
+      cacheKey: this.CacheList.walletWithdraw,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getWithdrawHistory (cache) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.walletWithdrawRequests,
+      cacheKey: this.CacheList.walletWithdrawRequests,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  submitContract () {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.contract,
+      resolveCallback: (response) => {
+        return response
       },
       rejectCallback: (error) => {
         return error
