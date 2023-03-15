@@ -1,6 +1,7 @@
 <template>
   <div v-for="(item , index) in menu"
-       :key="index">
+       :key="index"
+       class="menu-item">
     <q-expansion-item v-if="item.children && item.children.length && item.show"
                       v-model="item.open"
                       :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"
