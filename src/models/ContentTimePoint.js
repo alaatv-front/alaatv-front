@@ -19,9 +19,17 @@ class ContentTimePoint extends Model {
         }
       },
       { key: 'isFavored' },
+      { key: 'is_favored' },
       { key: 'time' },
       { key: 'title' }
     ])
+
+    if (this.is_favored === null) {
+      this.is_favored = this.isFavored
+    }
+    if (this.isFavored === null) {
+      this.isFavored = this.is_favored
+    }
   }
 
   contentUrl (contentUrl) {

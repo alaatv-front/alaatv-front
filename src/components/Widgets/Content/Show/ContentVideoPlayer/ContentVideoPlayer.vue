@@ -1,9 +1,11 @@
 <template>
   <q-card class="video-player custom-card bg-white q-pb-md q-mx-md full-height"
           :style="options.style">
+    <!--    <video-player v-if="sources.list.length > 0"-->
+    <!--                  :sources="sources"-->
+    <!--                  :poster="poster" />-->
     <video-player v-if="sources.list.length > 0"
-                  :sources="sources"
-                  :poster="poster" />
+                  :content="content" />
     <q-img v-else
            src="src/assets/1200x630wa.png" />
     <div class="q-pa-sm flex flex-center">
@@ -26,7 +28,7 @@
 import { Content } from 'src/models/Content.js'
 import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import VideoPlayer from 'components/VideoPlayer.vue'
+import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { Set } from 'src/models/Set'
 import { APIGateway } from 'src/api/APIGateway'

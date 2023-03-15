@@ -1,49 +1,103 @@
 <template>
-  <div class="video-box-container flex justify-center">
-    <video id="my-video"
-           ref="videoPlayer"
-           controls
-           preload="auto"
-           :height="calcTheHeight"
-           :width="calcTheWidth"
+  <div ref="videoPlayerWrapper"
+       style="width: 100%;"
+       class="vPlayer">
+    <video ref="videoPlayer"
+           dir="ltr"
            class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
-           @play="playVideo" />
+           controls
+           preload="none">
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="https://videojs.com/html5-video-support/"
+           target="_blank">
+          supports HTML5 video
+        </a>
+      </p>
+    </video>
+    <div v-if="useSideBar"
+         ref="toggleTimePointsBtn">
+      <q-btn icon-right="isax:menu-1"
+             size="sm"
+             color="primary"
+             @click="toggleSideBar" />
+    </div>
+    <div ref="sideBar"
+         class="over-player-wrapper"
+         :class="{'show': localSideBar, 'hide': !localSideBar}">
+      <slot name="sideBar" />
+    </div>
   </div>
 </template>
 
 <script>
 import videojs from 'video.js'
-import videojsBrand from 'videojs-brand'
 import fa from 'video.js/dist/lang/fa.json'
-import { PlayerSourceList } from 'src/models/PlayerSource'
-import { mixinWidget } from 'src/mixin/Mixins'
-
-// require('video.js/dist/video-js.css')
-// import { VideojsQualitySelector } from '@silvermine/videojs-quality-selector'
-// VideojsQualitySelector(videojs)
-// require('@silvermine/videojs-quality-selector')(videojs)
 // require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
+// require('@silvermine/videojs-quality-selector')(videojs)
 
+// let VideojsQualitySelector
+// if (typeof window !== 'undefined') {
+//   // require('@silvermine/videojs-quality-selector')(videojs)
+// import('@silvermine/videojs-quality-selector')
+//   //   .then((VQS) => {
+//   //     // VideojsQualitySelector = VQS
+//   //     console.log('VQS', VQS)
+//   //   })
+// }
+
+import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
+
+// import 'videojs-hls-quality-selector'
+// import 'videojs-contrib-quality-levels'
+
+// QualitySelector(videojs)
+// eslint-disable-next-line no-unused-vars
+// import 'videojs-resolution-switcher'
+// import('@silvermine/videojs-quality-selector')
+// import hotkeys from 'videojs-hotkeys'
+import { Content } from 'src/models/Content'
+import { mixinAbrisham } from 'src/mixin/Mixins'
 export default {
   name: 'VideoPlayer',
-  mixins: [mixinWidget],
+  mixins: [mixinAbrisham],
   props: {
-    sources: {
-      type: [String, PlayerSourceList],
-      default: new PlayerSourceList()
+    source: {
+      type: [String, Array],
+      default () {
+        return []
+      }
     },
-    hlsSource: {
-      type: String,
-      default: ''
+    timePoints: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    useSideBar: {
+      type: Boolean,
+      default: true
     },
     poster: {
       type: String,
-      default: ''
+      default () {
+        return ''
+      }
+    },
+    sideBar: {
+      type: Boolean,
+      default: true
     },
     keepCalculating: {
       type: Boolean,
-      default() {
+      default () {
         return true
+      }
+    },
+    bookmarkLoading: {
+      type: Boolean,
+      default () {
+        return false
       }
     },
     currentTimed: {
@@ -53,8 +107,16 @@ export default {
   emits: ['seeked'],
   data() {
     return {
-      videoOptions: {
+      drawer: false,
+      player: null,
+      localSideBar: false,
+      favLoading: false,
+      options: {
+        myItems: [{
+          name: 'test'
+        }],
         controlBar: {
+          // currentTimeDisplay: true,
           TimeDivider: true,
           children: [
             'playToggle',
@@ -65,8 +127,9 @@ export default {
             'RemainingTimeDisplay',
             'volumePanel',
             'SubtitlesButton',
-            'qualitySelector',
-            'fullscreenToggle'
+            'QualitySelector',
+            'fullscreenToggle',
+            'PictureInPictureToggle'
           ],
           volumePanel: {
             inline: false,
@@ -77,19 +140,26 @@ export default {
         languages: {
           fa
         },
-        html5: {
-          vhs: {
-            withCredentials: true
-          }
-        },
         autoplay: false,
         controls: true,
-        playbackRates: [0.25, 0.5, 1, 1.5, 2],
+        playbackRates: [0.25, 0.5, 1, 1.5, 2, 2.5, 3, 4],
         nativeControlsForTouch: true,
         sources: [],
-        poster: null
+        poster: null,
+        plugins: {
+          // hotkeys: {
+          //   enableModifiersForNumbers: false,
+          //   seekStep: 5,
+          //   enableMute: true,
+          //   enableVolumeScroll: true,
+          //   enableHoverScroll: true,
+          //   enableFullscreen: true
+          // }
+        }
       },
-      player: null
+      videoIsPlaying: false,
+      currentContent: new Content(),
+      postIsFavored: {}
     }
   },
   computed: {
@@ -104,21 +174,26 @@ export default {
     }
   },
   watch: {
-    sources: function (val) {
-      this.reloadPlayerSources()
+    source: function () {
+      this.reInitVideo()
     },
     currentTime(time) {
       this.player.currentTime(time)
+    },
+    sideBar(newValue) {
+      this.localSideBar = newValue
     }
   },
   created() {
-    this.setOptions()
+    this.setPoster()
+    this.setSources()
   },
   mounted() {
     this.initPlayer()
-    this.player.on('seeked', (event) => {
-      this.$emit('seeked', this.player.currentTime())
-    })
+    this.moveSideBarElementIntoVideoPlayerElements()
+    if (this.useSideBar) {
+      this.moveSideBarToggleBtnIntoVideoPlayerElements()
+    }
   },
   beforeUnmount() {
     if (this.player) {
@@ -126,62 +201,169 @@ export default {
     }
   },
   methods: {
-    playVideo() {
-      this.$emit('play', this.player.duration())
-    },
-    initPlayer() {
-      videojs.registerPlugin('brand', videojsBrand)
-      this.player = videojs(this.$refs.videoPlayer, this.videoOptions, this.onPlayerReady)
-      this.player.brand({
-        image: 'https://nodes.alaatv.com/upload/alaa-logo-small.png',
-        title: 'alaatv',
-        destination: 'https://alaatv.com',
-        destinationTarget: '_blank'
-      })
-      if (this.sources.list) {
-        this.player.src(this.sources.list)
-      } else {
-        this.player.src({
-          src: this.sources,
-          type: 'application/x-mpegURL'
-        })
-        // this.player.src(this.sources)
+    initPlayer () {
+      // const that = this
+      const multpleSources = Array.isArray(this.source)
+      if (multpleSources) {
+        videoJsResolutionSwitcher(videojs)
+        // this.options.plugins.videoJsResolutionSwitcher = {
+        //   default: 'high',
+        //   dynamicLabel: true
+        // }
       }
-    },
-    onPlayerReady() {
+      this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
+        // this.on('timeupdate', function () {
+        //   if (that.keepCalculating) {
+        //     that.calcWatchedPercentage(this.currentTime(), this.duration())
+        //   }
+        //   // document.querySelector('.video-js').focus()
+        //   if (that.$refs.videoPlayer) {
+        //     that.$refs.videoPlayer.focus()
+        //   }
+
+        //   // this.player.el().focus()
+
+        //   if (!that.player.paused() && !that.player.userActive()) {
+        //     that.videoStatus(false)
+        //   } else if (!that.player.paused()) {
+        //     that.videoStatus(true)
+        //   }
+        // })
+      })
+
+      // this.player.hlsQualitySelector()
+      this.player.on('seeked', (event) => {
+        this.$emit('seeked', this.player.currentTime())
+      })
+      // const MenuButton = videojs.getComponent('MenuButton')
+      // const MenuItem = videojs.getComponent('MenuItem')
+      // const CustomMenuButton = videojs.extend(
+      //   MenuButton,
+      //   {
+      //     createItems: function() {
+      //       // Must return an array of `MenuItem`s
+      //       // Options passed in `addChild` are available at `this.options_`
+      //       return this.options().myItems.map(function(i) {
+      //         const item = new MenuItem(player, { label: i.name })
+      //         item.handleClick = function() { /* ... */ }
+      //         return item
+      //       })
+      //     }
+      //   }
+      // )
+
+      // // Register as a component, so it can be added
+      // videojs.registerComponent('CustomMenuButton', CustomMenuButton)
+
+      // // Use `addChild` to add an instance of the new component, with options
+      // this.player.controlBar.addChild('CustomMenuButton', {
+      //   title: 'My menu',
+      //   myItems: [{ name: 'Hello' }, { name: 'World' }]
+      // })
+      // const timeStamp = document.getElementById('videoPlayer-timeStamp')
+      // this.player.el().appendChild(timeStamp)
       // this.player.on('timeupdate', function () {
-      //   if (this.keepCalculating) {
-      //     this.calcWatchedPercentage(this.player.currentTime(), this.player.duration())
-      //   }
-      //   document.querySelector('.video-js').focus()
-      //   if (!this.player.paused() && !this.player.userActive()) {
-      //     this.videoStatus(false)
-      //   } else if (!this.player.paused()) {
-      //     this.videoStatus(true)
-      //   }
+      //     if(that.player.isFullscreen()){
+      //                 // var timeStamp = document.getElementById('videoPlayer').requestFullscreen();
+      //                 // if(!timeStamp)
+      //                 // if (!document.fullscreenElement) {
+      //                 //     timeStamp.requestFullscreen().catch(err => {
+      //                 //         alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      //                 //     });
+      //                 //     }
+      //                 //      else {
+      //                 //     document.exitFullscreen();
+      //                 // }
+
+      //     }
+      //     console.log('player.isFullscreen()' , that.player.isFullscreen());
       // })
     },
-    setOptions() {
-      this.setSources()
-      this.setPoster()
-    },
-    setSources() {
-      if (this.sources.list) {
-        this.videoOptions.sources = this.sources.list
-      } else {
-        this.videoOptions.sources = this.hlsSource
-      }
-    },
-    setPoster() {
-      this.videoOptions.poster = this.poster
-    },
-    reloadPlayerSources() {
+    changeCurrentTime (time) {
       if (!this.player) {
         return
       }
-      this.player.src(this.sources.list)
+      this.player.currentTime(time)
+    },
+    injectDomeElement (elementClass, refKey) {
+      const div = document.createElement('div')
+      div.classList = elementClass
+      div.appendChild(this.$refs[refKey])
+      this.$refs.videoPlayerWrapper.querySelector('.video-js').appendChild(div)
+    },
+    moveSideBarElementIntoVideoPlayerElements () {
+      this.injectDomeElement('over-player-wrapper-div', 'sideBar')
+    },
+    moveSideBarToggleBtnIntoVideoPlayerElements () {
+      this.injectDomeElement('toggleTimePointsBtn-wrapper', 'toggleTimePointsBtn')
+    },
+    toggleSideBar () {
+      this.localSideBar = !this.localSideBar
+      this.$emit('update:sideBar', this.localSideBar)
+    },
+    activate(time) {
+      this.player.currentTime(time)
+      this.player.play()
+      const requiredElement = document.querySelector('.video-js')
+      requiredElement.focus()
+    },
+    setSources() {
+      this.options.sources = this.source
+      console.log('this.source', this.source)
+      // const multpleSources = Array.isArray(this.source)
+      // if (multpleSources) {
+      //   this.player.updateSrc(this.source)
+      // } else {
+      //   this.options.sources = this.source
+      // }
+    },
+    setPoster() {
+      this.options.poster = this.poster
+    },
+    reInitVideo() {
+      this.player.src(this.source)
       this.player.poster(this.poster)
     },
+    toggleFavorite(id, event) {
+      const that = this
+      let count = -1
+      // let currentTimepointIndex = null
+      this.timePoints.forEach(function (item, index) {
+        count++
+        if (parseInt(item.id) === parseInt(id)) {
+          // currentTimepointIndex = index
+          item.loading = true
+          item.isFavored = !item.isFavored
+          that.postIsFavored = {
+            id: item.id,
+            isFavored: item.isFavored,
+            numberOfTimestamp: count
+          }
+        }
+      })
+      const requiredElement = document.querySelector('.video-js')
+      requiredElement.focus()
+      this.$emit('toggleBookmark', this.postIsFavored)
+      // setTimeout(function() { that.timePoints[currentTimepointIndex].loading = false }, 200) // vue/no-mutating-props
+    },
+    // postIsFavored(timeStampData){
+    //     var postStatus = 'unfavored'
+    //     if (timeStampData.isFavored){
+    //         postStatus = 'favored'
+    //     }
+    //     // /api/v2/timepoint/{timepoint_id}/favored
+    //     axios.post('/api/v2/c/timepoint/' + parseInt(timeStampData.id) + '/'+ postStatus)
+    //         .then(response => {
+    //             if (response.status === 200){
+    //                 this.timePoints.forEach( function (item) {
+    //                     if (parseInt(item.id) === parseInt(timeStampData.id)) {
+    //                         item.loading = false
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //         .catch(err => console.error(err));
+    // },
     calcWatchedPercentage(currentTime, duration) {
       const watchedPercentage = ((currentTime / duration) * 100)
       const videoPlayerTimeData = {
@@ -198,80 +380,32 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "video.js/dist/video-js.css";
-@import "@silvermine/videojs-quality-selector/dist/css/quality-selector.css";
-
-.video-box-container{
-  border-radius: inherit;
-  width: 100%;
-}
-:deep(.video-js) {
-  border-radius: inherit;
-  .vjs-tech{
-    border-radius: inherit;
-  }
-  .my-video_html5_api{
-    border-radius: inherit;
-  }
-  .vjs-modal-dialog{
-    border-radius: 20px;
-  }
-
-  .vjs-brand-container {
-    .vjs-brand-container-link {
-      img {
-        height: 25px;
-        padding-top: 3px;
+.vPlayer {
+  overflow: hidden;
+  .over-player-wrapper-div {
+    .over-player-wrapper {
+      position: absolute;
+      top: 0;
+      right: 2000px;
+      width: 100%;
+      height: 100%;
+      color: initial;
+      transition: 0.2s;
+      direction: ltr;
+      &.show {
+        right: 0;
+      }
+      &.hide {
+        right: 2000px;
       }
     }
   }
-  .vjs-poster{
-    border-radius: 20px;
+  .toggleTimePointsBtn-wrapper {
+    position: absolute;
+    top: 5px;
+    left: 5px;
   }
 }
-
-#my-video .vjs-big-play-button {
-    border: none;
-    width: 80px;
-    height: 80px;
-    line-height: 2em;
-    top: 50%;
-    margin-left: -1em;
-    color: #fff;
-    background-color: #FFB74D;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(112, 108, 162, 0.05);
-    font-size: 52px;
-    border-radius: 20px;
-    -moz-border-radius: 100px;
-    -webkit-border-radius: 100px;
-    margin-top: -0.817em;
-  }
-
-  .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
-    content: "\f4cd";
-    left: -12px;
-    top: -10px;
-    font-size: 110px;
-    font-family: iconsax;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  .vjs-control-bar {
-    .vjs-volume-panel {
-      .vjs-volume-control {
-        right: -45px !important;
-      }
-    }
-  }
-
-  .vjs-progress-control {
-    .vjs-progress-holder {
-      .vjs-play-progress::before {
-        left: -8px ;
-        right: auto ;
-      }
-    }
-  }
 </style>

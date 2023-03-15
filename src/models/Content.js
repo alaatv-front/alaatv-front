@@ -139,8 +139,29 @@ class Content extends Model {
     if (!this.file?.video || this.file.video.length === 0) {
       return null
     }
+    return this.file.video.map(item => {
+      item.src = item.link
+      item.type = item.ext
+      item.label = item.caption
+      return item
+    })[0].src
 
-    return this.file.video
+    // return [
+    //   {
+    //     src: 'https://nodes.alaatv.com/media/1374/HD_720p/1374002okij.mp4',
+    //     type: 'mp4',
+    //     label: 'کیفیت عالی'
+    //   },
+    //   {
+    //     src: 'https://nodes.alaatv.com/media/1374/hq/1374002okij.mp4',
+    //     type: 'mp4',
+    //     label: 'کیفیت بالا'
+    //   },
+    //   {
+    //     src: 'https://nodes.alaatv.com/media/1374/240p/1374002okij.mp4',
+    //     type: 'mp4',
+    //     label: 'کیفیت متوسط'
+    //   }][0].src
   }
 
   getVideoSource() {

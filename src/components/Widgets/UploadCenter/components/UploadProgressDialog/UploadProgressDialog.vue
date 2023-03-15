@@ -138,8 +138,7 @@ export default {
           .then(() => {
             this.content.loading = false
             this.$refs.stepper.next()
-          }).catch((err) => {
-            console.log(err)
+          }).catch(() => {
             this.content.loading = false
           })
       } else if (this.step === 2) {
