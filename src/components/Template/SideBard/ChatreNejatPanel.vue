@@ -1,8 +1,10 @@
 <template>
   <div class="side-menu">
     <div class="menu-logo">
-      <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-             class="logo-image" />
+      <router-link :to="{name: 'Public.Home'}">
+        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+               class="logo-image" />
+      </router-link>
     </div>
     <div class="menu-items">
       <q-list class="menu-items-list">
@@ -36,7 +38,7 @@
 <script>
 
 export default {
-  name: 'AbrishamSideMenu',
+  name: 'ChatreNejatPanel',
   data: () => ({
     isActive: null,
     menuItems: [

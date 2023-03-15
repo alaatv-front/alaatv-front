@@ -247,22 +247,22 @@ const routes = [
                 children: [
                   {
                     name: 'UserPanel.Asset.ChatreNejat.Products',
-                    path: 'products',
+                    path: 'product-list',
                     component: () => import('pages/User/DashboardChatreNejat/Products.vue')
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.ProductLayout',
-                    path: 'products/:productId',
+                    path: 'products',
                     component: () => import('layouts/ChatreNejatLayout.vue'),
                     children: [
                       {
                         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
-                        path: '',
+                        path: ':productId',
                         component: () => import('pages/User/DashboardChatreNejat/ProductPage.vue')
                       },
                       {
                         name: 'UserPanel.Asset.ChatreNejat.Content',
-                        path: 'content',
+                        path: ':productId/content',
                         component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                       }
                     ]
