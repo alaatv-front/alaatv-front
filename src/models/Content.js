@@ -101,6 +101,11 @@ class Content extends Model {
         this.file.video[key].link = this.file.video[key].link.replace('download=1', '')
       })
     }
+
+    // ToDo: must remove
+    if (!this.hls) {
+      this.hls = 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
+    }
   }
 
   getHlsSource() {
@@ -139,29 +144,33 @@ class Content extends Model {
     if (!this.file?.video || this.file.video.length === 0) {
       return null
     }
-    return this.file.video.map(item => {
-      item.src = item.link
-      item.type = item.ext
-      item.label = item.caption
-      return item
-    })[0].src
+    // return this.file.video.map(item => {
+    //   item.src = item.link
+    //   item.type = item.ext
+    //   item.label = item.caption
+    //   item.res = item.label === 'کیفیت عالی' ? 1024 : item.label === 'کیفیت بالا' ?  720 : 360
+    //   return item
+    // })
 
-    // return [
-    //   {
-    //     src: 'https://nodes.alaatv.com/media/1374/HD_720p/1374002okij.mp4',
-    //     type: 'mp4',
-    //     label: 'کیفیت عالی'
-    //   },
-    //   {
-    //     src: 'https://nodes.alaatv.com/media/1374/hq/1374002okij.mp4',
-    //     type: 'mp4',
-    //     label: 'کیفیت بالا'
-    //   },
-    //   {
-    //     src: 'https://nodes.alaatv.com/media/1374/240p/1374002okij.mp4',
-    //     type: 'mp4',
-    //     label: 'کیفیت متوسط'
-    //   }][0].src
+    return [{
+      default: true,
+      res: 1024,
+      type: 'video/mp4',
+      src: 'https://nodes.alaatv.com/media/1374/HD_720p/1374002okij.mp4',
+      label: 'کیفیت عالی'
+    },
+    {
+      src: 'https://nodes.alaatv.com/media/1374/hq/1374002okij.mp4',
+      type: 'video/mp4',
+      res: 720,
+      label: 'کیفیت بالا'
+    },
+    {
+      src: 'https://nodes.alaatv.com/media/1374/240p/1374002okij.mp4',
+      type: 'video/mp4',
+      res: 360,
+      label: 'کیفیت متوسط'
+    }]
   }
 
   getVideoSource() {

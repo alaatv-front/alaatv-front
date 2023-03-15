@@ -33,29 +33,14 @@
 <script>
 import videojs from 'video.js'
 import fa from 'video.js/dist/lang/fa.json'
-// require('@silvermine/videojs-quality-selector/dist/css/quality-selector.css')
-// require('@silvermine/videojs-quality-selector')(videojs)
-
-// let VideojsQualitySelector
-// if (typeof window !== 'undefined') {
-//   // require('@silvermine/videojs-quality-selector')(videojs)
-// import('@silvermine/videojs-quality-selector')
-//   //   .then((VQS) => {
-//   //     // VideojsQualitySelector = VQS
-//   //     console.log('VQS', VQS)
-//   //   })
-// }
-
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 
-// import 'videojs-hls-quality-selector'
-// import 'videojs-contrib-quality-levels'
+import 'videojs-hls-quality-selector'
+import 'videojs-contrib-quality-levels'
 
-// QualitySelector(videojs)
-// eslint-disable-next-line no-unused-vars
-// import 'videojs-resolution-switcher'
-// import('@silvermine/videojs-quality-selector')
-// import hotkeys from 'videojs-hotkeys'
+// https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
+// https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+
 import { Content } from 'src/models/Content'
 import { mixinAbrisham } from 'src/mixin/Mixins'
 export default {
@@ -202,14 +187,12 @@ export default {
   },
   methods: {
     initPlayer () {
-      // const that = this
-      const multpleSources = Array.isArray(this.source)
-      if (multpleSources) {
+      if (Array.isArray(this.source)) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
-        // this.options.plugins.videoJsResolutionSwitcher = {
-        //   default: 'high',
-        //   dynamicLabel: true
-        // }
+        this.options.plugins.videoJsResolutionSwitcher = {
+          default: 'کیفیت بالا',
+          dynamicLabel: true
+        }
       }
       this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
         // this.on('timeupdate', function () {
@@ -231,53 +214,13 @@ export default {
         // })
       })
 
-      // this.player.hlsQualitySelector()
+      if (typeof this.source === 'string') { // hls type
+        this.player.hlsQualitySelector()
+      }
+
       this.player.on('seeked', (event) => {
         this.$emit('seeked', this.player.currentTime())
       })
-      // const MenuButton = videojs.getComponent('MenuButton')
-      // const MenuItem = videojs.getComponent('MenuItem')
-      // const CustomMenuButton = videojs.extend(
-      //   MenuButton,
-      //   {
-      //     createItems: function() {
-      //       // Must return an array of `MenuItem`s
-      //       // Options passed in `addChild` are available at `this.options_`
-      //       return this.options().myItems.map(function(i) {
-      //         const item = new MenuItem(player, { label: i.name })
-      //         item.handleClick = function() { /* ... */ }
-      //         return item
-      //       })
-      //     }
-      //   }
-      // )
-
-      // // Register as a component, so it can be added
-      // videojs.registerComponent('CustomMenuButton', CustomMenuButton)
-
-      // // Use `addChild` to add an instance of the new component, with options
-      // this.player.controlBar.addChild('CustomMenuButton', {
-      //   title: 'My menu',
-      //   myItems: [{ name: 'Hello' }, { name: 'World' }]
-      // })
-      // const timeStamp = document.getElementById('videoPlayer-timeStamp')
-      // this.player.el().appendChild(timeStamp)
-      // this.player.on('timeupdate', function () {
-      //     if(that.player.isFullscreen()){
-      //                 // var timeStamp = document.getElementById('videoPlayer').requestFullscreen();
-      //                 // if(!timeStamp)
-      //                 // if (!document.fullscreenElement) {
-      //                 //     timeStamp.requestFullscreen().catch(err => {
-      //                 //         alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-      //                 //     });
-      //                 //     }
-      //                 //      else {
-      //                 //     document.exitFullscreen();
-      //                 // }
-
-      //     }
-      //     console.log('player.isFullscreen()' , that.player.isFullscreen());
-      // })
     },
     changeCurrentTime (time) {
       if (!this.player) {
@@ -309,13 +252,6 @@ export default {
     },
     setSources() {
       this.options.sources = this.source
-      console.log('this.source', this.source)
-      // const multpleSources = Array.isArray(this.source)
-      // if (multpleSources) {
-      //   this.player.updateSrc(this.source)
-      // } else {
-      //   this.options.sources = this.source
-      // }
     },
     setPoster() {
       this.options.poster = this.poster
@@ -327,11 +263,9 @@ export default {
     toggleFavorite(id, event) {
       const that = this
       let count = -1
-      // let currentTimepointIndex = null
       this.timePoints.forEach(function (item, index) {
         count++
         if (parseInt(item.id) === parseInt(id)) {
-          // currentTimepointIndex = index
           item.loading = true
           item.isFavored = !item.isFavored
           that.postIsFavored = {
@@ -344,26 +278,7 @@ export default {
       const requiredElement = document.querySelector('.video-js')
       requiredElement.focus()
       this.$emit('toggleBookmark', this.postIsFavored)
-      // setTimeout(function() { that.timePoints[currentTimepointIndex].loading = false }, 200) // vue/no-mutating-props
     },
-    // postIsFavored(timeStampData){
-    //     var postStatus = 'unfavored'
-    //     if (timeStampData.isFavored){
-    //         postStatus = 'favored'
-    //     }
-    //     // /api/v2/timepoint/{timepoint_id}/favored
-    //     axios.post('/api/v2/c/timepoint/' + parseInt(timeStampData.id) + '/'+ postStatus)
-    //         .then(response => {
-    //             if (response.status === 200){
-    //                 this.timePoints.forEach( function (item) {
-    //                     if (parseInt(item.id) === parseInt(timeStampData.id)) {
-    //                         item.loading = false
-    //                     }
-    //                 })
-    //             }
-    //         })
-    //         .catch(err => console.error(err));
-    // },
     calcWatchedPercentage(currentTime, duration) {
       const watchedPercentage = ((currentTime / duration) * 100)
       const videoPlayerTimeData = {
