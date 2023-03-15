@@ -131,14 +131,15 @@ export default {
     updatePublishForm(formData) {
       this.publishForm = formData
     },
-    gotoNextStep() {
+    async gotoNextStep() {
       if (this.step === 1) {
         this.content.loading = true
         this.$refs.uploadProperties.$refs.entityEditForm.editEntity()
           .then(() => {
             this.content.loading = false
             this.$refs.stepper.next()
-          }).catch(() => {
+          }).catch((err) => {
+            console.log(err)
             this.content.loading = false
           })
       } else if (this.step === 2) {
