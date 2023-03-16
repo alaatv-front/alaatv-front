@@ -1,6 +1,7 @@
 import SEO from './Seo'
 import Cart from './Cart'
 import Auth from './Auth'
+import ChatreNejat from './ChatreNejat'
 import process from 'process'
 import Widgets from './Widgets'
 import loading from './loading'
@@ -44,6 +45,7 @@ export default store(function (/* { ssrContext } */) {
       SEO,
       Cart,
       Auth,
+      ChatreNejat,
       Widgets,
       loading,
       AppLayout,

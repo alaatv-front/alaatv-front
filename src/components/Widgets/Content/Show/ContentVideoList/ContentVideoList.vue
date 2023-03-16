@@ -159,6 +159,9 @@ export default {
     scrollToElement() {
       const index = this.set.contents.list.findIndex(content => content.id === this.content.id)
       this.$nextTick(() => {
+        if (!this.$refs.items || !this.$refs.items[index]) {
+          return
+        }
         const el = this.$refs.items[index]
         const target = getScrollTarget(el)
         const offset = el.offsetTop

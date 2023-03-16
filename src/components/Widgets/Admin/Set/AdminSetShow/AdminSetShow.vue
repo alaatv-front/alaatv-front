@@ -13,6 +13,12 @@
 import { EntityShow } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import { shallowRef } from 'vue'
+import TreeInputComponent from 'components/Utils/TreeInput.vue'
+import TagsComponent from 'src/components/Utils/Tags.vue'
+
+const ContentTags = shallowRef(TagsComponent)
+const TreeInput = shallowRef(TreeInputComponent)
 export default {
   name: 'AdminSetShow',
   components: { EntityShow },
@@ -52,12 +58,28 @@ export default {
           col: 'col-md-12'
         },
         {
+          type: TreeInput,
+          name: 'forrest_tree',
+          label: 'درخت دانش',
+          responseKey: 'data.forrest_trees',
+          col: 'col-md-6',
+          value: []
+        },
+        {
+          type: ContentTags,
+          name: 'forrest_tree_tags',
+          label: 'برچسب',
+          placeholder: 'برچسب',
+          responseKey: 'data.forrest_tags',
+          col: 'col-md-6'
+        },
+        {
           type: 'file',
           responseKey: 'data.photo',
           name: 'photo',
           label: 'کاور',
           placeholder: 'تصویر مورد نظر را آپلود کنید',
-          col: 'col-md-12'
+          col: 'col-md-3'
         },
         {
           type: 'optionGroupRadio',
@@ -76,7 +98,7 @@ export default {
               label: 'قابل نمایش برای کاربران'
             }
           ],
-          col: 'col-md-12'
+          col: 'col-md-9'
         }
       ]
     }

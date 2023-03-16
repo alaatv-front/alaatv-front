@@ -12,7 +12,6 @@
                      :loaded-data="content"
                      :entity-param-key="entityParamKey"
                      :default-layout="false"
-                     :beforeSendData="content"
                      @onInputClick="onInputClick">
           <template #entity-index-table-selection-cell="data">
             <q-checkbox v-model="data.props.selected"

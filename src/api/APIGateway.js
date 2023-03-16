@@ -15,11 +15,13 @@ import TreeAPI from 'src/api/models/tree'
 import ForrestAPI from 'src/api/models/Forrest'
 import ReferralCodeAPI from 'src/api/models/ReferralCode'
 import ChatreNejatAPI from 'src/api/models/ChatreNejat'
+import ContentTimepointAPI from 'src/api/models/ContentTimepoint'
 /* Exporting the APIGateway object. */
 export const APIGateway = {
   abrisham: new AbrishamAPI(),
   attribute: new AttributeAPI(),
   referralCode: new ReferralCodeAPI(),
+  contentTimepoint: new ContentTimepointAPI(),
   auth: new AuthAPI(),
   cart: new CartAPI(),
   content: new ContentAPI(),

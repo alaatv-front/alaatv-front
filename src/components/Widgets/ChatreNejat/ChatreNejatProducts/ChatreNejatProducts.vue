@@ -61,7 +61,7 @@
 import ChatreNejatProductItem from 'components/DashboardChatreNejat/ChatreNejatProdutItem.vue'
 import ProductItemSkeleton from 'components/DashboardChatreNejat/ProductItemSkeleton.vue'
 export default {
-  name: 'ChatreNejatPanel',
+  name: 'ChatreNejatProducts',
   components: {
     ChatreNejatProductItem,
     ProductItemSkeleton
