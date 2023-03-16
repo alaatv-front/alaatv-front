@@ -38,6 +38,9 @@
         </q-card>
       </q-expansion-item>
     </q-list>
+    set:{{ setList }}
+    <br>
+    topics:{{ setTopics }}
   </div>
 </template>
 

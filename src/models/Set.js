@@ -4,7 +4,7 @@ import { ContentList } from './Content'
 import { SetSectionList } from './SetSection'
 
 class Set extends Model {
-  constructor (data) {
+  constructor(data) {
     super(data, [
       {
         key: 'url_key',
@@ -30,6 +30,7 @@ class Set extends Model {
       { key: 'setUrl' },
       { key: 'title' },
       { key: 'short_title' },
+      { key: 'last_content_user_watched' },
       {
         key: 'url',
         relatedModel: Url
@@ -50,7 +51,7 @@ class Set extends Model {
     ])
   }
 
-  loadContents () {
+  loadContents() {
     const that = this
     return new Promise((resolve, reject) => {
       that.crud.read(that.url.web, { withContents: true })
@@ -89,11 +90,11 @@ class Set extends Model {
   //     return new ContentList(this.inputData.contents);
   // }
 
-  createFavorUrl (baseUrl, favored) {
+  createFavorUrl(baseUrl, favored) {
     return baseUrl + '/set/' + this.id + '/' + ((favored) ? 'favored' : 'unfavored')
   }
 
-  setFavor (url) {
+  setFavor(url) {
     if (typeof url === 'undefined') {
       url = this.favor_url
     }
@@ -103,7 +104,7 @@ class Set extends Model {
     return this.crud.create(url)
   }
 
-  setUnfavor (url) {
+  setUnfavor(url) {
     if (typeof url === 'undefined') {
       url = this.unfavor_url
     }
@@ -115,7 +116,7 @@ class Set extends Model {
 }
 
 class SetList extends Collection {
-  model () {
+  model() {
     return Set
   }
 }

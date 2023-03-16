@@ -1,7 +1,9 @@
 import Rolls from './models/Rolls'
+import Events from './models/Events'
 
 const Enums = {
-  Rolls
+  Rolls,
+  Events
 }
 
 export default Enums
