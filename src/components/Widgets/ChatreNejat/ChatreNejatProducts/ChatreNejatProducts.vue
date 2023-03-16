@@ -12,6 +12,7 @@
       <div class="col-lg-6 col-12 flex flex-center">
         <product-item-skeleton v-if="loading" />
         <chatre-nejat-set-item v-else
+                               width="100%"
                                :setItem="advisor" />
       </div>
     </div>

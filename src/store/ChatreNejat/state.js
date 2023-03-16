@@ -1,7 +1,9 @@
 const state = {
   setList: [],
   setTopicList: [],
-  selectedTopic: ''
+  selectedTopic: '',
+  setListLoading: false,
+  setLoading: false
 }
 
 export default state

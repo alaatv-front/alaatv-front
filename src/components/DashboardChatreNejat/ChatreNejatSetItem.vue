@@ -74,7 +74,7 @@
             <div class="last-content-link">
               <q-btn flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: setItem.id} }">مشاهده</q-btn>
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="chatre-nejat-layout row">
+  <div class="chatre-nejat-layout">
     <div class="side-menu-main-layout bg-white">
       <div class="header">
         <div class="product-box">
@@ -187,134 +187,138 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.side-menu-main-layout {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  height: calc(100vh - 65px);
-  width: 350px;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 28px;
-  color: #333333;
-  .header {
-    display: grid;
-    grid-template-columns: auto auto;
-    padding: 0 25px;
-    .back-btn {
-      text-align: end;
-      cursor: pointer;
-      .alaa-logo {
-        width: 50px;
+.chatre-nejat-layout {
+  display: grid;
+    grid-template-columns: 350px auto;
+  .side-menu-main-layout {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(100vh - 65px);
+    width: 350px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #333333;
+    .header {
+      display: grid;
+      grid-template-columns: auto auto;
+      padding: 0 25px;
+      .back-btn {
+        text-align: end;
+        cursor: pointer;
+        .alaa-logo {
+          width: 50px;
+        }
+        .logo-image {
+          text-align: left;
+          .q-img__container {
+          }
+        }
       }
-      .logo-image {
-        text-align: left;
-        .q-img__container {
+      .product-box {
+        margin-bottom: 20px;
+        .photo {
+          width: 50px;
+          height: 50px;
+          margin-bottom: 10px;
+          :deep(.q-img) {
+            border-radius: 10px;
+          }
         }
       }
     }
-    .product-box {
-      margin-bottom: 20px;
-      .photo {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 10px;
-        :deep(.q-img) {
-          border-radius: 10px;
-        }
-      }
-    }
-  }
-  .side-menu-body {
-    display: grid;
-    height: calc(100vh - 200px);
-    grid-template-rows: 1fr 2fr;
-    .q-list {
-      padding: 0;
-      &.side-menu-list {
-        .search-input {
-          margin-bottom: 30px;
-        }
-        margin: 0 24px 109px 24px;
-        .menu-item-btn {
-          :deep(.q-btn__content) {
-             width: 100%;
-             display: grid;
-             grid-template-columns: auto auto auto;
-             //width: 100%;
-             padding: 5px 10px;
-             justify-content: normal;
-            .label {
-              font-size: 16px;
-              font-weight: 400;
-              line-height: 28px;
+    .side-menu-body {
+      display: grid;
+      height: calc(100vh - 200px);
+      grid-template-rows: 1fr 2fr;
+      .q-list {
+        padding: 0;
+        &.side-menu-list {
+          .search-input {
+            margin-bottom: 30px;
+          }
+          margin: 0 24px 109px 24px;
+          .menu-item-btn {
+            :deep(.q-btn__content) {
+              width: 100%;
+              display: grid;
+              grid-template-columns: auto auto auto;
+              //width: 100%;
+              padding: 5px 10px;
+              justify-content: normal;
+              .label {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 28px;
+              }
             }
           }
-        }
-        @media screen and (max-width: 1919px) {
-          margin: 0 24px 34px 24px;
-        }
-        @media screen and (max-width: 1439px) {
-          margin: 0 21px 26px 21px;
-        }
-        @media screen and (max-width: 599px) {
-          margin: 0 18px 8px 18px;
-        }
-
-        .top-separator {
-          margin: 0 40px 32px 40px;
           @media screen and (max-width: 1919px) {
-            margin: 0 30px 25px 30px;
+            margin: 0 24px 34px 24px;
           }
           @media screen and (max-width: 1439px) {
-            margin: 0 45px 22px 45px;
+            margin: 0 21px 26px 21px;
+          }
+          @media screen and (max-width: 599px) {
+            margin: 0 18px 8px 18px;
+          }
+
+          .top-separator {
+            margin: 0 40px 32px 40px;
+            @media screen and (max-width: 1919px) {
+              margin: 0 30px 25px 30px;
+            }
+            @media screen and (max-width: 1439px) {
+              margin: 0 45px 22px 45px;
+            }
+          }
+
+          .q-item {
+            padding: 0;
+            min-height: 0;
           }
         }
-
-        .q-item {
-          padding: 0;
-          min-height: 0;
+      }
+      .log-out {
+        align-self: end;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        height: 40px !important;
+        //width: 232px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        padding: 0 14px 0 10px;
+        margin: 0 0 36px 27px;
+        @media screen and (max-width: 1439px) {
+          margin: 0 31px 33px 31px;
+        }
+        @media screen and (max-width: 599px) {
+          margin: 0 30px 30px 30px;
+          //padding: 0 0 0 10px;
+        }
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        .q-avatar {
+          height: 22px;
+          width: 22px;
+          margin-right: 12px;
+          transform: matrix(-1, 0, 0, 1, 0, 0);
         }
       }
     }
-    .log-out {
-      align-self: end;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      height: 40px !important;
-      //width: 232px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      padding: 0 14px 0 10px;
-      margin: 0 0 36px 27px;
-      @media screen and (max-width: 1439px) {
-        margin: 0 31px 33px 31px;
-      }
-      @media screen and (max-width: 599px) {
-        margin: 0 30px 30px 30px;
-        //padding: 0 0 0 10px;
-      }
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-      .q-avatar {
-        height: 22px;
-        width: 22px;
-        margin-right: 12px;
-        transform: matrix(-1, 0, 0, 1, 0, 0);
-      }
-    }
-  }
-  &:deep(.side-menu-main-layout) {
-    .q-expansion-item__container {
-      .q-item {
-        display: flex;
-        padding: 0 10px !important;
-      }
-      .q-icon {
-        font-size: 21px;
+    &:deep(.side-menu-main-layout) {
+      .q-expansion-item__container {
+        .q-item {
+          display: flex;
+          padding: 0 10px !important;
+        }
+        .q-icon {
+          font-size: 21px;
+        }
       }
     }
   }

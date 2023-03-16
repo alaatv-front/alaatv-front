@@ -4,11 +4,18 @@ const mutations = {
   },
   updateSetList: (state, data) => {
     state.setList = data
-    console.log(state.setList)
   },
   updateTopicList: (state, data) => {
     state.setTopicList = data
-    console.log(state.setTopicList)
+  },
+  updateSet: (state, data) => {
+    state.setList.splice(state.setList.findIndex(set => set.id === data.id), 1, Object.assign(data, state.setList.findIndex(set => set.id === data.id)))
+  },
+  toggleSetListLoading: (state) => {
+    state.setListLoading = !state.setListLoading
+  },
+  toggleSetLoading: (state) => {
+    state.setLoading = !state.setLoading
   }
 }
 
