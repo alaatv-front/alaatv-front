@@ -16,6 +16,12 @@ const getters = {
   },
   setLoading: (state) => {
     return state.setLoading
+  },
+  selectedProduct: (state) => {
+    return state.selectedProduct
+  },
+  selectedContent: (state) => {
+    return state.selectedContent
   }
 }
 

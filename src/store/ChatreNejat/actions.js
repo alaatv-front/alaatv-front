@@ -43,6 +43,19 @@ const actions = {
     }).catch(() => {
       context.commit('toggleSetLoading')
     })
+  },
+  setSelectedProduct: (context, product) => {
+    context.commit('setSelectedProduct', product)
+  },
+  getSelectedProduct: (context, productId) => {
+    APIGateway.product.show(productId).then(res => {
+      context.commit('setSelectedProduct', res)
+    }).catch(() => { })
+  },
+  getSelectedContent: (context, contentId) => {
+    APIGateway.content.show(contentId).then(res => {
+      context.commit('setSelectedContent', res)
+    }).catch(() => { })
   }
 }
 

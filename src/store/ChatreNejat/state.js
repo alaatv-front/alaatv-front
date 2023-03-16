@@ -3,7 +3,9 @@ const state = {
   setTopicList: [],
   selectedTopic: '',
   setListLoading: false,
-  setLoading: false
+  setLoading: false,
+  selectedProduct: {},
+  selectedContent: {}
 }
 
 export default state
