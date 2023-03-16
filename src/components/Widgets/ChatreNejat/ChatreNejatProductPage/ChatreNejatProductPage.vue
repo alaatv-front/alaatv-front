@@ -93,6 +93,7 @@ export default {
   },
   mounted() {
     this.getProductSets(this.$route.params.productId)
+    this.getProduct()
   },
   methods: {
     getProductSets(productId) {
@@ -100,6 +101,9 @@ export default {
     },
     getSet(setId) {
       this.$store.dispatch('ChatreNejat/updateSet', setId)
+    },
+    getProduct() {
+      this.$store.dispatch('ChatreNejat/getSelectedProduct', this.$route.params.productId)
     }
   }
 }
