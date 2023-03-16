@@ -4,7 +4,7 @@ import { EecProduct } from '../models/EecProduct'
 import { SetList } from '../models/Set'
 
 class Product extends Model {
-  constructor (data) {
+  constructor(data) {
     super(data, [
       { key: 'id' },
       { key: 'redirect_url' },
@@ -31,6 +31,7 @@ class Product extends Model {
         }
       },
       { key: 'longDescription' },
+      { key: 'last_content_user_watched' },
       { key: 'specialDescription' },
       {
         key: 'sets',
@@ -63,7 +64,7 @@ class Product extends Model {
 }
 
 class ProductList extends Collection {
-  model () {
+  model() {
     return Product
   }
 }

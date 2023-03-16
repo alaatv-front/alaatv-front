@@ -10,7 +10,9 @@
         </div>
       </div>
       <div class="col-lg-6 col-12 flex flex-center">
-        <chatre-nejat-product-item :product="products[0]" />
+        <product-item-skeleton v-if="loading" />
+        <chatre-nejat-set-item v-else
+                               :setItem="advisor" />
       </div>
     </div>
     <div class="products-container">
@@ -24,6 +26,8 @@
               <q-select v-model="productType"
                         bg-color="white"
                         :options="productTypeOptions"
+                        option-label="title"
+                        option-value="id"
                         borderless />
             </div>
           </div>
@@ -59,63 +63,72 @@
 
 <script>
 import ChatreNejatProductItem from 'components/DashboardChatreNejat/ChatreNejatProdutItem.vue'
+import ChatreNejatSetItem from 'src/components/DashboardChatreNejat/ChatreNejatSetItem.vue'
 import ProductItemSkeleton from 'components/DashboardChatreNejat/ProductItemSkeleton.vue'
 export default {
   name: 'ChatreNejatProducts',
   components: {
     ChatreNejatProductItem,
+    ChatreNejatSetItem,
     ProductItemSkeleton
   },
   data: () => ({
     loading: false,
-    products: [
-      {
-        title: null,
-        description: null,
-        teacher: null,
-        photo: null,
-        url: null,
-        lastSeen: {
-          title: null,
-          section: null,
-          url: null
-        }
-      }
-    ],
+    products: [],
+    advisor: {},
     productType: {
-      label: 'رشته ریاضی',
-      value: 1
+      id: null,
+      name: null,
+      selected: false,
+      title: null
     },
     productTypeOptions: [
-      {
-        label: 'رشته ریاضی',
-        value: 1
-      },
-      {
-        label: 'رشته تجربی',
-        value: 2
-      },
-      {
-        label: 'رشته انسانی',
-        value: 3
-      }
     ]
   }),
   watch: {
-    productType(type) {
-      this.getProducts(type.value)
+    productType(type, oldtype) {
+      if (oldtype.id === null) {
+        return
+      }
+      this.getProducts(type.id)
     }
   },
   created () {
-    this.getProducts(this.productType.value)
+    this.loadData()
   },
   methods: {
+    loadData() {
+      this.loading = true
+      this.$apiGateway.events.formBuilder({
+        params: ['majors']
+      }).then(res => {
+        this.productTypeOptions = res.majors
+        this.productType = res.majors[0]
+        this.getAdvisor()
+        this.getProducts(this.productType.id)
+        this.loading = false
+      }).catch(() => {
+        this.loading = false
+      })
+    },
     getProducts(type) {
       this.loading = true
-      this.$apiGateway.chatr.products({
-        type
+      this.$apiGateway.events.getEventsProducts({
+        data: { major_id: type },
+        eventId: this.$enums.Events.ChatreNejat
       }).then(res => {
-        this.products = res
+        this.products = res.list
+        this.loading = false
+      }).catch(() => {
+        this.loading = false
+      })
+    },
+    getAdvisor() {
+      this.loading = true
+      this.$apiGateway.events.getEventsAdvisor({
+        eventId: this.$enums.Events.ChatreNejat
+      }).then(res => {
+        this.advisor = res
         this.loading = false
       }).catch(() => {
         this.loading = false
