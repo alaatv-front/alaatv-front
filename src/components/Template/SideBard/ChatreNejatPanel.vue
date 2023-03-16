@@ -1,6 +1,6 @@
 <template>
   <div class="chatr-side-menu">
-    <div v-if="!$q.screen.lt.md"
+    <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
         <router-link :to="{name: 'Public.Home'}">
@@ -129,10 +129,16 @@ export default {
     },
     selectedTopic () {
       return this.$store.getters['ChatreNejat/selectedTopic'] || ''
+    },
+    isDesktop () {
+      if (this.$q.screen.lt.md) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+      }
+      return !this.$q.screen.lt.md
     }
   },
   created() {
-
+  // this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
   },
   methods: {
     ...mapMutations('ChatreNejat', [
