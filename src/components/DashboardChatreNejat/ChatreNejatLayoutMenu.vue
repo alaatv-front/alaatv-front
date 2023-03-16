@@ -7,12 +7,15 @@
                filled
                class="gray-input search-input"
                placeholder="جست و جو"
-               @update:model-value ="search(titlesList)">
+               @update:model-value ="search(topicsRouteArray)">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
       </q-input>
-      <menu-item :menu="titlesList" />
+      <menu-item :key="menuKey"
+                 :menu="topicsRouteArray"
+                 :loading="topicList.length <= 0"
+                 @item-selected="itemSelected" />
       <q-item v-for="(item, index) in productItems"
               :key="index"
               class="menu-item">
@@ -32,16 +35,22 @@
 <script>
 import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
 export default {
-  name: 'LayoutMenu',
+  name: 'ChatreNejatLayoutMenu',
   components: { menuItem },
   props: {
-    titlesList: {
+    productItems: {
       type: Array,
       default: () => {
         return []
       }
     },
-    productItems: {
+    topicsRouteArray: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+    topicList: {
       type: Array,
       default: () => {
         return []
@@ -52,19 +61,23 @@ export default {
       default: () => {
         return ''
       }
+    },
+    menuKey: {
+      type: Number,
+      default: () => {
+        return 0
+      }
     }
   },
+  emits: ['itemSelected'],
   data () {
     return {
       searchText: ''
     }
   },
   methods: {
-    getSets () {
-      this.$apiGateway.product.getSets(347)
-        .then((res) => {
-          console.log(res)
-        })
+    itemSelected (topic) {
+      this.$emit('itemSelected', topic)
     },
     setSelectedTopic (TopicName) {},
     search (list, parentContain = false) {

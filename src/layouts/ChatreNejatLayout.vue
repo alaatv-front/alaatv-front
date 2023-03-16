@@ -10,6 +10,7 @@
                         size="50px" />
           </div>
           <div class="title">
+            <div class="hidden">{{topicList}}</div>
             {{ productTitle }}
             <q-skeleton v-if="productLoading" />
           </div>
@@ -20,37 +21,12 @@
                  :to="{ name: 'UserPanel.Asset.ChatreNejat.Products' }">بازگشت</q-btn>
         </div>
       </div>
-      <div class="side-menu-body">
-        <q-list class="side-menu-list"
-                padding>
-          <q-input v-model="searchText"
-                   dense
-                   filled
-                   class="gray-input search-input"
-                   placeholder="جست و جو"
-                   @update:model-value ="search(topicsRouteArray)">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-          <menu-item :key="menuKey"
-                     :menu="topicsRouteArray"
-                     :loading="topicList.length <= 0"
-                     @item-selected="itemSelected" />
-          <q-item v-for="(item, index) in productItems"
-                  :key="index"
-                  class="menu-item">
-            <q-btn flat
-                   class="full-width menu-item-btn"
-                   color="background: #EAEAEA;"
-                   :style="{background: item.name === selectedTopic? '#EAEAEA' : ''}"
-                   @click="setSelectedTopic(item.name)">
-              <div class="label">{{item.label}}</div>
-              <div class="hidden">{{topicList}}</div>
-            </q-btn>
-          </q-item>
-        </q-list>
-      </div>
+      <chatre-nejat-layout-menu :menu-key="menuKey"
+                                :topics-route-array="topicsRouteArray"
+                                :topic-list="topicList"
+                                :selected-topic="selectedTopic"
+                                :product-items="productItems"
+                                @item-selected="itemSelected" />
     </div>
     <div class="container">
       <div class="header">
@@ -93,13 +69,13 @@
 </template>
 
 <script>
-import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
 import Router from 'src/router/Router.vue'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
 import { mapMutations } from 'vuex'
+import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
 export default {
   name: 'ChatreNejatLayout',
-  components: { menuItem, Router },
+  components: { ChatreNejatLayoutMenu, Router },
   data () {
     return {
       menuKey: 0,
@@ -160,7 +136,7 @@ export default {
       return this.$store.getters['ChatreNejat/selectedProduct']
     },
     selectedTopic () {
-      return this.$store.getters['ChatreNejat/selectedTopic']
+      return this.$store.getters['ChatreNejat/selectedTopic'] || ''
     },
     selectedContent () {
       return this.$store.getters['ChatreNejat/selectedContent']
@@ -179,36 +155,6 @@ export default {
     }
   },
   methods: {
-    getSets () {
-      this.$apiGateway.product.getSets(347)
-        .then((setList) => {
-          const normalizedSets = setList.list.map(set => {
-            if (set.short_title !== null) {
-              const splitted = set.short_title.split('-')
-              const productName = splitted[0] ? splitted[0] : 'متفرقه'
-              const topicName = splitted[1] ? splitted[1] : 'متفرقه'
-              const setName = splitted[2] ? splitted[2] : 'متفرقه'
-              set.short_title = productName.trim() + '-' + topicName.trim() + '-' + setName.trim()
-
-              return set
-            } else {
-              set.short_title = 'عنوان ندارد'
-              return set
-            }
-          })
-          const topicList = normalizedSets.map(set => {
-            const splitted = set.short_title.split('-')
-            const topicName = splitted[1] ? splitted[1] : 'متفرقه'
-            return {
-              title: topicName,
-              sets: normalizedSets.filter(set => set.short_title.includes('-' + topicName + '-'))
-            }
-          })
-            .filter((topic, topicIndex, topics) => topics.findIndex(topicItem => topicItem === topic) === topicIndex)
-          this.updateSetList(normalizedSets)
-          this.updateTopicList(topicList)
-        })
-    },
     fillTopicsRouteArray (topicList) {
       this.topicsRouteArray[0].children = []
       topicList.forEach(topic => {

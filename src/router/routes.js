@@ -238,7 +238,7 @@ const routes = [
                   layoutHeaderType: 'chatre-nejat',
                   layoutLeftSideBarType: 'chatre-nejat',
                   layoutLeftDrawerOverlay: false,
-                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerWidth: 350,
                   layoutLeftDrawerVisible: true,
                   layoutLeftDrawerBehavior: 'default',
                   layoutFooter: false

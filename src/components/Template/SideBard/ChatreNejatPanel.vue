@@ -1,44 +1,58 @@
 <template>
-  <div class="side-menu">
-    <div class="menu-logo">
-      <router-link :to="{name: 'Public.Home'}">
-        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-               class="logo-image" />
-      </router-link>
+  <div class="chatr-side-menu">
+    <div v-if="!$q.screen.lt.md"
+         class="side-menu">
+      <div class="menu-logo">
+        <router-link :to="{name: 'Public.Home'}">
+          <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+                 class="logo-image" />
+        </router-link>
+      </div>
+      <div class="menu-items">
+        <q-list class="menu-items-list">
+          <q-item v-for="(item, index) in menuItems"
+                  :key="index"
+                  :to="{name:item.routeName }"
+                  class="menu-item">
+            <div v-if="$route.name === item.routeName"
+                 class="menu-indicator" />
+            <i class="icon"
+               :class="['fi-rr-' + item.icon , $route.name===item.routeName ? 'activate' :'']" />
+          </q-item>
+        </q-list>
+      </div>
+      <div class="log-out menu-items">
+        <q-list class="menu-items-list">
+          <q-item class="menu-item">
+            <q-btn round
+                   flat
+                   dense
+                   size="md"
+                   color="black"
+                   icon="isax:logout"
+                   @click="logOut" />
+          </q-item>
+        </q-list>
+      </div>
     </div>
-    <div class="menu-items">
-      <q-list class="menu-items-list">
-        <q-item v-for="(item, index) in menuItems"
-                :key="index"
-                :to="{name:item.routeName }"
-                class="menu-item">
-          <div v-if="$route.name === item.routeName"
-               class="menu-indicator" />
-          <i class="icon"
-             :class="['fi-rr-' + item.icon , $route.name===item.routeName ? 'activate' :'']" />
-        </q-item>
-      </q-list>
-    </div>
-    <div class="log-out menu-items">
-      <q-list class="menu-items-list">
-        <q-item class="menu-item">
-          <q-btn round
-                 flat
-                 dense
-                 size="md"
-                 color="black"
-                 icon="isax:logout"
-                 @click="logOut" />
-        </q-item>
-      </q-list>
-    </div>
+    <chatre-nejat-layout-menu v-else
+                              class="side-menu-items"
+                              :topics-route-array="topicsRouteArray"
+                              :topic-list="topicList"
+                              :menu-key="menuKey"
+                              :selected-topic="selectedTopic"
+                              :product-items="productItems"
+                              @item-selected="itemSelected" />
   </div>
 </template>
 
 <script>
 
+import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
+import { mapMutations } from 'vuex'
 export default {
   name: 'ChatreNejatPanel',
+  components: { ChatreNejatLayoutMenu },
   data: () => ({
     isActive: null,
     menuItems: [
@@ -71,15 +85,77 @@ export default {
       //   icon: 'stats',
       //   routeName: 'assessment'
       // },
-
+    ],
+    topicsRouteArray: [
+      {
+        title: 'سر فصل ها',
+        icon: 'isax:document-upload',
+        routeName: '',
+        active: false,
+        show: true,
+        open: false,
+        children: [
+          {
+            title: 'تایتل ست',
+            routeName: 'UserPanel.Asset.ChatreNejat.Products',
+            active: false,
+            show: true,
+            open: false
+          }
+        ]
+      }
+    ],
+    menuKey: 0,
+    productItems: [
+      {
+        name: 'pamphlet',
+        label: 'جزوات'
+      },
+      {
+        name: 'notes',
+        label: 'یادداشت ها'
+      },
+      {
+        name: 'favoredContents',
+        label: 'نشان شده ها'
+      }
     ]
   }),
+  computed: {
+    topicList () {
+      const topicList = this.$store.getters['ChatreNejat/setTopicList']
+      this.fillTopicsRouteArray(topicList)
+      return topicList
+    },
+    selectedTopic () {
+      return this.$store.getters['ChatreNejat/selectedTopic'] || ''
+    }
+  },
   created() {
 
   },
   methods: {
+    ...mapMutations('ChatreNejat', [
+      'updateSelectedTopic'
+    ]),
     logOut() {
       this.$store.dispatch('Auth/logOut')
+    },
+    fillTopicsRouteArray (topicList) {
+      this.topicsRouteArray[0].children = []
+      topicList.forEach(topic => {
+        this.topicsRouteArray[0].children.push({
+          title: topic,
+          value: topic,
+          active: false,
+          show: true,
+          open: false
+        })
+      })
+      this.menuKey++
+    },
+    itemSelected (topic) {
+      this.updateSelectedTopic(topic.title)
     }
   }
 }
@@ -178,5 +254,8 @@ export default {
   @media screen and (max-width: 768px){
     display: none;
   }
+}
+.side-menu-items{
+  padding: 20px;
 }
 </style>
