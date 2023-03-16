@@ -133,6 +133,8 @@ export default {
     isDesktop () {
       if (this.$q.screen.lt.md) {
         this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+      } else {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 100)
       }
       return !this.$q.screen.lt.md
     }
