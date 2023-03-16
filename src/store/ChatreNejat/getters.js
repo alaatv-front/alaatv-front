@@ -6,10 +6,22 @@ const getters = {
     return state.setList
   },
   setTopicList: (state) => {
-    return state.pageBuilderEditable
+    return state.setTopicList
   },
   selectedTopic: (state) => {
-    return state.pageBuilderEditable
+    return state.selectedTopic
+  },
+  setListLoading: (state) => {
+    return state.setListLoading
+  },
+  setLoading: (state) => {
+    return state.setLoading
+  },
+  selectedProduct: (state) => {
+    return state.selectedProduct
+  },
+  selectedContent: (state) => {
+    return state.selectedContent
   }
 }
 

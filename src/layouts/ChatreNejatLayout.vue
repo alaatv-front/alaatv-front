@@ -1,5 +1,5 @@
 <template>
-  <div class="chatre-nejat-layout row">
+  <div class="chatre-nejat-layout">
     <div class="side-menu-main-layout bg-white">
       <div class="header">
         <div class="product-box">

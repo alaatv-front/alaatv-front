@@ -24,6 +24,7 @@ class Set extends Model {
       { key: 'pamphlets_count' },
       { key: 'videos_count' },
       { key: 'contents_count' },
+      { key: 'contents_duration' },
       { key: 'description' },
       { key: 'photo' },
       { key: 'redirect_url' },

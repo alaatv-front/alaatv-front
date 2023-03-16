@@ -1,7 +1,11 @@
 const state = {
   setList: [],
   setTopicList: [],
-  selectedTopic: ''
+  selectedTopic: '',
+  setListLoading: false,
+  setLoading: false,
+  selectedProduct: {},
+  selectedContent: {}
 }
 
 export default state

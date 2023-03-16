@@ -262,10 +262,17 @@ const routes = [
                       },
                       {
                         name: 'UserPanel.Asset.ChatreNejat.Content',
+                        props: true,
                         path: ':productId/content',
                         component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                       }
                     ]
+                  },
+                  {
+                    name: 'UserPanel.Asset.ChatreNejat.Adviser.Content',
+                    path: ':setId/adviser/content',
+                    props: true,
+                    component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.News',
