@@ -73,8 +73,7 @@ export default {
   },
   computed: {
     selectedTopic() {
-      // return this.$store.getters['ChatreNejat/selectedTopic']
-      return 'دوازدهم'
+      return this.$store.getters['ChatreNejat/selectedTopic']
     },
     setList() {
       return this.$store.getters['ChatreNejat/setList'].filter(set => {
