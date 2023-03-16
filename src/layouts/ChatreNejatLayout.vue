@@ -378,6 +378,10 @@ export default {
         }
       }
     }
+    .content {
+      height: calc(100vh - 124px);
+      overflow-y: scroll;
+    }
   }
 }
 

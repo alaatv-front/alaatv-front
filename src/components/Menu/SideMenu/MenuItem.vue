@@ -296,10 +296,10 @@ export default {
             }
 
             .list-child-item {
-              height: 40px;
+              height: 46px;
               justify-content: right;
               margin-bottom: 8px;
-              width: 157px;
+              //width: 157px;
               border-radius: 10px;
               padding: 0 14px;
               @media screen and (max-width: 1439px) {

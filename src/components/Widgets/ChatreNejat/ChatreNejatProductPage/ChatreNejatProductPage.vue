@@ -110,8 +110,7 @@ export default {
 
 <style lang="scss" scoped>
 .product-page {
-  padding: 170px;
-
+  padding: 50px 170px 170px;
   @media only screen and (max-width: 1450px) {
     padding: 5px;
   }
