@@ -14,7 +14,7 @@ import AbrishamAPI from 'src/api/models/Abrisham'
 import TreeAPI from 'src/api/models/tree'
 import ForrestAPI from 'src/api/models/Forrest'
 import ReferralCodeAPI from 'src/api/models/ReferralCode'
-import ChatreNejatAPI from 'src/api/models/ChatreNejat'
+import EventsAPI from 'src/api/models/Events'
 import ContentTimepointAPI from 'src/api/models/ContentTimepoint'
 /* Exporting the APIGateway object. */
 export const APIGateway = {
@@ -35,5 +35,5 @@ export const APIGateway = {
   user: new UserAPI(),
   forrest: new ForrestAPI(),
   tree: new TreeAPI(),
-  chatr: new ChatreNejatAPI()
+  events: new EventsAPI()
 }
