@@ -72,8 +72,6 @@
           </div>
           <q-icon v-if="!!selectedTopic"
                   name="chevron_left" />
-          <q-icon v-if="!!selectedTopic"
-                  name="chevron_left" />
           <div v-if="!!selectedTopic"
                class="set-title">{{ selectedTopic }}</div>
           <q-icon v-if="!!selectedContentTitle"
