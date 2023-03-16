@@ -8,6 +8,9 @@ const mutations = {
   updateTopicList: (state, data) => {
     state.setTopicList = data
   },
+  updateSelectedTopic: (state, data) => {
+    state.selectedTopic = data
+  },
   updateSet: (state, data) => {
     state.setList.splice(state.setList.findIndex(set => set.id === data.id), 1, Object.assign(data, state.setList.findIndex(set => set.id === data.id)))
   },

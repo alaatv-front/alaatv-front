@@ -16,8 +16,9 @@
                   class="menu-item">
             <div v-if="$route.name === item.routeName"
                  class="menu-indicator" />
-            <i class="icon"
-               :class="['fi-rr-' + item.icon , $route.name===item.routeName ? 'activate' :'']" />
+            <q-icon class="icon"
+                    :class="[ $route.name===item.routeName ? 'activate' :'']"
+                    :name="item.icon" />
           </q-item>
         </q-list>
       </div>
@@ -57,7 +58,7 @@ export default {
     isActive: null,
     menuItems: [
       {
-        icon: 'play-alt',
+        icon: 'isax:play',
         routeName: 'UserPanel.Asset.ChatreNejat.Products'
       }
       // {

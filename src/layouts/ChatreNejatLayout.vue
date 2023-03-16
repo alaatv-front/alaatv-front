@@ -4,10 +4,12 @@
       <div class="header">
         <div class="product-box">
           <div class="photo">
-            <q-img :src="productImg"
+            <q-img v-if="!productLoading"
+                   :src="productImg"
                    class="product-image" />
-            <q-skeleton v-if="productLoading"
-                        size="50px" />
+            <q-skeleton v-else
+                        size="50px"
+                        class="q-pb-md" />
           </div>
           <div class="title">
             <div class="hidden">{{topicList}}</div>
@@ -151,7 +153,7 @@ export default {
       return !this.selectedProduct.title
     },
     productImg () {
-      return this.selectedProduct.photo || 'https://nodes.alaatv.com/upload/images/product/riazie110_20220831103918.jpg?w=400&h=400'
+      return this.selectedProduct?.photo
     }
   },
   methods: {
