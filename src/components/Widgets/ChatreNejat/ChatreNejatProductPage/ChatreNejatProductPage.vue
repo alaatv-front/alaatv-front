@@ -28,15 +28,16 @@
             <q-list separator>
               <q-item v-for="(content, index) in set.contents.list"
                       :key="index"
-                      :to="{ name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: this.$route.params.productId, setId: set.id, contentId: content.id} }"
-                      clickable>
+                      :to="{ name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: this.$route.params.productId} }"
+                      clickable
+                      @click="setSelectedData(content,set)">
                 <q-item-section avatar>
                   <q-icon color="
                     dark"
                           name="check_circle" />
                 </q-item-section>
                 <q-item-section>{{ content.title }}</q-item-section>
-                <q-item-section side="">
+                <q-item-section side>
                   {{ content.duration === null ? 'مدت ندارد' : content.duration + ' دقیقه' }}
                 </q-item-section>
               </q-item>
@@ -73,8 +74,7 @@ export default {
   },
   computed: {
     selectedTopic() {
-      // return this.$store.getters['ChatreNejat/selectedTopic']
-      return 'دوازدهم'
+      return this.$store.getters['ChatreNejat/selectedTopic']
     },
     setList() {
       return this.$store.getters['ChatreNejat/setList'].filter(set => {
@@ -96,6 +96,10 @@ export default {
     this.getProduct()
   },
   methods: {
+    setSelectedData(content, set) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+      this.$store.commit('ChatreNejat/setSelectedSet', set)
+    },
     getProductSets(productId) {
       this.$store.dispatch('ChatreNejat/getSet', productId)
     },
@@ -111,6 +115,9 @@ export default {
 
 <style lang="scss" scoped>
 .product-page {
-  padding: 170px;
+  padding: 50px 170px 170px;
+  @media only screen and (max-width: 1450px) {
+    padding: 5px;
+  }
 }
 </style>
