@@ -1,28 +1,11 @@
 <template>
   <div class="ChatreNejatContent-page">
-    <div class="row q-col-gutter-x-md items-center chip-parent">
-      <div class="col-xl-3 col-sm-12 order-xl-first order-xs-last text-center  page-title">نمایش محتوا بر اساس فعالیت شما</div>
-      <div class="col-xl-3 col-lg-6 col-sm-12 col-xs-6">
-        <chip-group v-model:value="selectedLessonGroupId"
-                    :items="lessonGroups"
-                    item-text="title"
-                    item-value="id"
-                    :loading="lessonGroupsLoading"
-                    @update:value="onChangeLessonGroup" />
-      </div>
-      <div class="col-xl-5 col-lg-6 col-sm-12 col-xs-6">
-        <chip-group v-model:value="selectedLessonId"
-                    :items="lessons"
-                    item-text="title"
-                    item-value="id"
-                    class="col-md-3"
-                    chip-title="درس"
-                    @update:value="onChangeLesson" />
-      </div>
-    </div>
+    selectedContent :{{selectedContent.id}}
+    <br>
+    selectedSet : {{selectedSet.id}}
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-x-md">
-      <div class="video-box-col col-12 col-md-8 col-xs-12">
+      <div class="video-box-col col-12 col-xs-12 col-sm-12 col-lg-8">
         <!--        :afterLoad="contentsIsEmpty"-->
         <video-box :lesson="currentLesson"
                    :set="currentSet"
@@ -39,54 +22,8 @@
                        @updateComment="saveComment" />
         </div>
       </div>
-      <div class="col-md-4 col-12 content-list-col">
-        <content-list-component v-model:value="watchingContent"
-                                :loading="contents.loading"
-                                :afterLoad="contentsIsEmpty"
-                                :contents="contents"
-                                :header="{ title: 'لیست فیلم ها', button: { title: 'من کجام؟' } }"
-                                type="video"
-                                @input="setWatchingContent"
-                                @whereAmI="loadUserLastState">
-          <template v-slot:filter>
-            <div class="row q-col-gutter-md">
-              <div class="col-sm-6 col-xs-8 select-wrapper">
-                <q-select :key="sets.list.length"
-                          :loading="contents.loading"
-                          filled
-                          :options="sets.list"
-                          class="v-select"
-                          option-label="short_title"
-                          option-value="id"
-                          :menu-props="{ bottom: true, offsetY: true }"
-                          dropdown-icon="mdi-chevron-down"
-                          dense
-                          emit-value
-                          map-options
-                          popup-content-class="popup-content-class"
-                          placeholder="انتخاب فرسنگ ها"
-                          :model-value="currentSetId"
-                          @update:model-value="setCurrentSet" />
-              </div>
-              <div class="col-sm-6 col-xs-4 select-wrapper">
-                <q-select v-model="currentSectionId"
-                          :loading="contents.loading"
-                          value="all"
-                          color="#3e5480"
-                          :menu-props="{ bottom: true, offsetY: true }"
-                          :options="sections.list"
-                          option-label="title"
-                          option-value="id"
-                          filled
-                          dropdown-icon="mdi-chevron-down"
-                          dense
-                          emit-value
-                          map-options
-                          placeholder="همه" />
-              </div>
-            </div>
-          </template>
-        </content-list-component>
+      <div class="col-12 col-xs-12 col-sm-12 col-lg-4 content-list-col">
+        <content-video-list />
       </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
@@ -107,23 +44,21 @@
 
 <script>
 import { SetList } from 'src/models/Set.js'
-import { mixinAbrisham } from 'src/mixin/Mixins.js'
+import { mixinChatreNejat } from 'src/mixin/Mixins.js'
 import { Content, ContentList } from 'src/models/Content.js'
-import ChipGroup from 'components/DashboardAbrisham/chipGroup.vue'
-import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
+import videoBox from 'src/components/DashboardChatreNejat/videoBox.vue'
 import { SetSectionList, SetSection } from 'src/models/SetSection.js'
-import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
-import ContentListComponent from 'src/components/DashboardAbrisham/ContentListComponent.vue'
+import commentBox from 'src/components/DashboardChatreNejat/CommentBox.vue'
+import ContentVideoList from 'components/Widgets/Content/Show/ContentVideoList/ContentVideoList.vue'
 
 export default {
   name: 'ChatreNejatContent',
   components: {
-    ChipGroup,
+    ContentVideoList,
     videoBox,
-    commentBox,
-    ContentListComponent
+    commentBox
   },
-  mixins: [mixinAbrisham],
+  mixins: [mixinChatreNejat],
   data: () => ({
     socialMediaDialog: false,
     selectedLessonId: 0,
@@ -143,6 +78,20 @@ export default {
     }
   }),
   computed: {
+    selectedTopic() {
+      return this.$store.getters['ChatreNejat/selectedTopic']
+    },
+    selectedContent() {
+      return this.$store.getters['ChatreNejat/selectedContent']
+    },
+    selectedSet() {
+      return this.$store.getters['ChatreNejat/selectedSet']
+    },
+    setList() {
+      return this.$store.getters['ChatreNejat/setList'].filter(set => {
+        return set.short_title.includes(this.selectedTopic)
+      })
+    },
     contentsIsEmpty () {
       return this.contents.list.length === 0
     },
@@ -156,10 +105,28 @@ export default {
       return this.getLesson(this.selectedLessonId)
     }
   },
-  mounted () {
+  watch: {
+    selectedTopic () {
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        params: {
+          productId: this.$route.params.productId
+        }
+      })
+    }
+  },
+  mounted() {
     this.initPage()
+    this.getProductSets(this.$route.params.productId)
+    this.getProduct()
   },
   methods: {
+    getProductSets(productId) {
+      this.$store.dispatch('ChatreNejat/getSet', productId)
+    },
+    getProduct() {
+      this.$store.dispatch('ChatreNejat/getSelectedProduct', this.$route.params.productId)
+    },
     loadUserLastState() {
       this.setCurrentSet(this.userLastState.setId, this.userLastState.contentId)
     },

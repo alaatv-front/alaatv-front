@@ -25,6 +25,9 @@ const mutations = {
   },
   setSelectedContent: (state, data) => {
     state.selectedContent = data
+  },
+  setSelectedSet: (state, data) => {
+    state.selectedSet = data
   }
 }
 

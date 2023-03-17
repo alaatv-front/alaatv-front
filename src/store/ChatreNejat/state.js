@@ -5,7 +5,8 @@ const state = {
   setListLoading: false,
   setLoading: false,
   selectedProduct: {},
-  selectedContent: {}
+  selectedContent: {},
+  selectedSet: {}
 }
 
 export default state

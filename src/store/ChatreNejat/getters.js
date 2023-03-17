@@ -22,6 +22,9 @@ const getters = {
   },
   selectedContent: (state) => {
     return state.selectedContent
+  },
+  selectedSet: (state) => {
+    return state.selectedSet
   }
 }
 
