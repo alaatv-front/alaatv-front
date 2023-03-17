@@ -2,25 +2,20 @@
   <div class="video-box">
     <div class="video-main">
       <div class="video-wrapper">
-        <!--        <video-player :time-points="timePoints"-->
-        <!--                      :poster="content.photo"-->
-        <!--                      :sources="sources"-->
-        <!--                      :keepCalculating="keepCalculating"-->
-        <!--                      @calcTimeData="changeVideoStatusToSeen"-->
-        <!--                      @toggleBookmark="bookmarkPostIsFavored"-->
-        <!--                      @play="setVideoDuration" />-->
-        <content-video-player v-if="content.file && content.file.video && content.inputData.can_see"
-                              :content="content" />
-        <div v-else-if="(!content.id || !content.photo)">
+        {{logg(content)}}
+        <content-video-player :content="content"
+                              :options="{
+                                paginate: false
+                              }" />
+        <div v-if="!content.id && !content.photo">
           <div class="null-video">
             <div class="content text-primary">
               <q-icon name="info" />
               اوه نه! ویدیویی وجود نداره...
             </div>
-
           </div>
         </div>
-        <div v-else>
+        <div v-else-if="content.photo && !content.photo.includes('stage-minio')">
           <a :href="content.url.web"
              target="_blank">
             <q-img class="img"
@@ -34,37 +29,10 @@
       <div class="description row justify-between">
         <div class="">
           <div class="flex flex-wrap video-title">
-            <p v-if="content.lesson_name || lesson.title"
-               class="title-item title-text video-paragraph">
-              <span v-if="lesson.title">
-                {{ lesson.title }}
-              </span>
-              <span v-else-if="content.lesson_name">
-                {{ content.lesson_name }}
-              </span>
-            </p>
-            <p v-if="(set && set.short_title) || (content.set && content.set.short_title)"
-               class="title-item title-text video-paragraph">
-              <span v-if="set && set.short_title">
-                {{ set.short_title }}
-              </span>
-              <span v-else-if="content.set && content.set.short_title">
-                {{ content.set.short_title }}
-              </span>
-            </p>
-            <p v-if="content.order || content.order === 0"
-               class="title-item title-text video-paragraph">
-              جلسه {{ content.order }}
-            </p>
+            {{content.title}}
           </div>
           <div class="flex subtitle">
-            <div class="flex part align-start">
-              <!--              <q-img-->
-              <!--                src="https://nodes.alaatv.com/upload/abrisham-panel-ic_alaa.png"-->
-              <!--                class="alaa-logo icon"-->
-              <!--              />-->
-              <p class="video-paragraph">گروه آموزشی آلاء</p>
-            </div>
+            <div class="flex part align-start" />
             <div v-if="content.author && (content.author.first_name || content.author.last_name)"
                  class="flex part align-center">
               <i class="fi fi-rr-graduation-cap icon flex" />
@@ -94,18 +62,24 @@
             </span>
           </q-btn>
           <div class="video-box-icon">
+            <!--            <q-btn unelevated-->
+            <!--                   class="icon-btn"-->
+            <!--                   :disable="!content.file"-->
+            <!--                   @click="downloadVideo= !downloadVideo">-->
+            <!--              <i class="fi fi-rr-download icon bookmark-button" />-->
+            <!--            </q-btn>-->
             <q-btn unelevated
-                   class="icon-btn"
-                   :disable="!content.file"
-                   @click="downloadVideo= !downloadVideo">
-              <i class="fi fi-rr-download icon bookmark-button" />
-            </q-btn>
-            <q-btn unelevated
-                   flat
-                   class="icon-btn"
+                   icon="isax:share"
                    @click="socialMediaDialog = !socialMediaDialog">
-              <i class="fi fi-rr-share icon bookmark-button" />
+              <q-tooltip anchor="top middle"
+                         self="bottom middle"
+                         :offset="[10, 10]">
+                اشتراک گذاری
+              </q-tooltip>
+              <!--              <i class="fi fi-rr-share icon " />-->
             </q-btn>
+            <bookmark :value="content.is_favored"
+                      @clicked="toggleFavorite" />
             <q-btn color="transparent"
                    unelevated
                    dark
@@ -166,15 +140,16 @@ import { Content } from 'src/models/Content.js'
 import shareSocial from 'assets/js/shareSocialMedia.js'
 // import VideoPlayer from 'src/components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
-import ContentVideoPlayer from 'components/ContentVideoPlayer.vue'
+import ContentVideoPlayer from 'components/Widgets/Content/Show/ContentVideoPlayer/ContentVideoPlayer.vue'
+import Bookmark from 'components/Bookmark.vue'
 export default {
   name: 'VideoBox',
 
-  components: { ContentVideoPlayer },
+  components: { Bookmark, ContentVideoPlayer },
 
   props: {
     content: {
-      type: Content,
+      type: [Content, Object],
       default: new Content()
     },
     lesson: {
@@ -204,23 +179,23 @@ export default {
       downloadVideo: false,
       socialMediaList: [
         {
-          icon: 'mdi-whatsapp',
+          icon: 'whatsapp',
           name: 'whatsapp'
         },
         {
-          icon: 'mdi-mail',
+          icon: 'mail',
           name: 'mail'
         },
         {
-          icon: 'mdi-linkedin',
+          icon: 'linkedin',
           name: 'linkedin'
         },
         {
-          icon: 'mdi-twitter',
+          icon: 'twitter',
           name: 'twitter'
         },
         {
-          icon: 'mdi-facebook',
+          icon: 'facebook',
           name: 'facebook'
         },
         {
@@ -242,6 +217,9 @@ export default {
   },
 
   methods: {
+    logg(content) {
+      console.log('content', content)
+    },
     setVideoDuration(data) {
       this.videoDuration = data
     },
