@@ -11,7 +11,7 @@
                         expand-separator
                         @show="getSet(set.id)">
         <template v-slot:header>
-          <q-item-section>
+          <q-item-section class="ellipsis   ">
             {{ set.short_title.split('-')[2] }}
           </q-item-section>
 
@@ -36,7 +36,7 @@
                     dark"
                           name="check_circle" />
                 </q-item-section>
-                <q-item-section>{{ content.title }}</q-item-section>
+                <q-item-section class="ellipsis">{{ content.title }}</q-item-section>
                 <q-item-section side>
                   {{ content.duration === null ? 'مدت ندارد' : content.duration + ' دقیقه' }}
                 </q-item-section>
