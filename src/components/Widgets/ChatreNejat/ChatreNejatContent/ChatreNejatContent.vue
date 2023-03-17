@@ -1,8 +1,5 @@
 <template>
-  <div class="ChatreNejatContent-page">
-    selectedContent :{{selectedContent.id}}
-    <br>
-    selectedSet : {{selectedSet.id}}
+  <div class="ChatreNejatContent-page q-pa-md">
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-x-md">
       <div class="video-box-col col-12 col-xs-12 col-sm-12 col-lg-8">
@@ -19,7 +16,15 @@
         </div>
       </div>
       <div class="col-12 col-xs-12 col-sm-12 col-lg-4 content-list-col">
-        <content-video-list />
+        <content-video-list :key="ContentVideoListKey"
+                            :loading="contentVideoListLoading"
+                            :content="selectedContent"
+                            :set="selectedSet"
+                            :hide-prev-btn="currentSetIndex === 0"
+                            :hide-next-btn="currentSetIndex === (setList.length - 1 )"
+                            @nextSetClicked="goToNextSet"
+                            @previousSetClicked="goToPrevSet"
+                            @contentSelected="setSelectedContent" />
       </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
@@ -44,7 +49,7 @@ import videoBox from 'src/components/DashboardChatreNejat/videoBox.vue'
 // SetSection
 import { SetSectionList } from 'src/models/SetSection.js'
 import commentBox from 'src/components/DashboardChatreNejat/CommentBox.vue'
-import ContentVideoList from 'components/Widgets/Content/Show/ContentVideoList/ContentVideoList.vue'
+import ContentVideoList from 'components/DashboardChatreNejat/ContentVideoList.vue'
 
 export default {
   name: 'ChatreNejatContent',
@@ -55,6 +60,7 @@ export default {
   },
   mixins: [mixinChatreNejat],
   data: () => ({
+    ContentVideoListKey: 0,
     socialMediaDialog: false,
     selectedLessonId: 0,
     selectedLessonGroupId: null,
@@ -76,6 +82,9 @@ export default {
     selectedTopic() {
       return this.$store.getters['ChatreNejat/selectedTopic']
     },
+    contentVideoListLoading() {
+      return !this.selectedContent.id
+    },
     selectedContent() {
       return this.$store.getters['ChatreNejat/selectedContent']
     },
@@ -89,6 +98,9 @@ export default {
     },
     watchingContentComment() {
       return this.watchingContent.comments[0]?.comment || ''
+    },
+    currentSetIndex() {
+      return this.setList.findIndex(set => set.id === this.selectedSet.id)
     },
     watchingContent: {
       get () {
@@ -132,6 +144,19 @@ export default {
     },
     getProduct() {
       this.$store.dispatch('ChatreNejat/getSelectedProduct', this.$route.params.productId)
+    },
+    goToNextSet() {
+      const nextSet = this.setList[this.currentSetIndex + 1]
+      this.$store.commit('ChatreNejat/setSelectedSet', nextSet)
+      this.ContentVideoListKey++
+    },
+    goToPrevSet() {
+      const prevSet = this.setList[this.currentSetIndex - 1]
+      this.$store.commit('ChatreNejat/setSelectedSet', prevSet)
+      this.ContentVideoListKey++
+    },
+    setSelectedContent(content) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
     }
   }
 }
@@ -144,7 +169,7 @@ export default {
     margin: 0 10px;
   }
   @media screen and (max-width: 1023px) {
-    margin: 0 20px;
+    //margin: 0 20px;
   }
 
   .chip-parent{
