@@ -117,8 +117,10 @@ export default {
   },
   mounted() {
     this.initPage()
-    this.getProductSets(this.$route.params.productId)
-    this.getProduct()
+    if (this.$route.params.productId) {
+      this.getProductSets(this.$route.params.productId)
+      this.getProduct()
+    }
   },
   methods: {
     getProductSets(productId) {
