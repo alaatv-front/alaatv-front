@@ -43,15 +43,14 @@ import 'videojs-contrib-quality-levels'
 
 import { Content } from 'src/models/Content'
 import { mixinAbrisham } from 'src/mixin/Mixins'
+import { PlayerSourceList } from 'src/models/PlayerSource'
 export default {
   name: 'VideoPlayer',
   mixins: [mixinAbrisham],
   props: {
     source: {
-      type: [String, Array],
-      default () {
-        return []
-      }
+      type: [String, PlayerSourceList],
+      default: null
     },
     timePoints: {
       type: Array,
@@ -214,7 +213,7 @@ export default {
         // })
       })
 
-      if (typeof this.source === 'string') { // hls type
+      if (typeof this.source === 'string' && this.source.includes('.m3u8')) { // hls type
         this.player.hlsQualitySelector()
       }
 
@@ -251,14 +250,19 @@ export default {
       requiredElement.focus()
     },
     setSources() {
-      this.options.sources = this.source
+      const source = this.isPlayerSourceList() ? this.source.list : this.source
+      this.options.sources = source
     },
     setPoster() {
       this.options.poster = this.poster
     },
     reInitVideo() {
-      this.player.src(this.source)
+      const source = this.isPlayerSourceList() ? this.source.list : this.source
+      this.player.src(source)
       this.player.poster(this.poster)
+    },
+    isPlayerSourceList () {
+      return (this.source && this.source.list && Array.isArray(this.source.list))
     },
     toggleFavorite(id, event) {
       const that = this

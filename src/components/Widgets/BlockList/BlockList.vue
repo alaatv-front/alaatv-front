@@ -14,7 +14,7 @@
       <div v-for="(block, index) in blocksToShow"
            :key="index"
            class="block-list-widget">
-        <block :options="block" />
+        <block :options="{block}" />
       </div>
     </template>
   </div>
@@ -43,13 +43,23 @@ export default {
   },
   computed: {
     blocksToShow() {
-      return this.getBlocks(this.blocks)
+      if (!this.blocks || !this.blocks.list || this.blocks.list.length === 0) {
+        return []
+      }
+
+      return this.blocks.list.slice(this.options.from, this.options.to)
     }
   },
   watch: {
     options: {
       handler() {
-        this.loadBlocks()
+        this.getApiRequest()
+          .then((data) => {
+            this.prefetchServerDataPromiseThen(data)
+          })
+          .catch(() => {
+            this.prefetchServerDataPromiseCatch()
+          })
       },
       deep: true
     },
@@ -71,13 +81,6 @@ export default {
     },
     prefetchServerDataPromiseCatch () {
       this.blocks.loading = false
-    },
-
-    getBlocks(blocks) {
-      if (!blocks || !blocks.list || blocks.list.length === 0) {
-        return []
-      }
-      return blocks.list.slice(this.options.from, this.options.to)
     },
     getApiRequest() {
       if (this.options.apiName === 'home') {

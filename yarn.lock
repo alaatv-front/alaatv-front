@@ -5059,10 +5059,10 @@ quasar-template-builder@^1.0.21:
     vue "^3.2.47"
     vuex "^4.1.0"
 
-quasar-ui-q-page-builder@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.0.tgz#2638a861451e32c411d7fdb2fa037421b853a6ef"
-  integrity sha512-tZJhHA0Ky0GlC66Ijerd6zj3aunt0u4KelT4UFPO2s5OPf1K3M08ih2Q40Rwy2b1VxlIQ+Fz0ZMze5rsEyKXPQ==
+quasar-ui-q-page-builder@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.1.tgz#2481917eea27c7f2840506ca0520872d17da2cbc"
+  integrity sha512-CnuBm1I6D7hudn6a9sYEw0ExsL0kLvC7/r47fAPyo6U4a2R/L6gSkocAJdLZVsFlRJODfifRzSS9OTPNVnYDKQ==
   dependencies:
     "@quasar/extras" "^1.15.6"
     "@vue/compiler-sfc" "^3.2.45"

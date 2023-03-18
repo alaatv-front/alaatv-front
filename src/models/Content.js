@@ -3,6 +3,7 @@ import { SetList } from './Set'
 import Url from './Url'
 import { ContentTimePointList } from './ContentTimePoint'
 import ContentSection from './ContentSection'
+import { PlayerSourceList } from 'src/models/PlayerSource'
 
 class Content extends Model {
   constructor(data) {
@@ -152,7 +153,7 @@ class Content extends Model {
     //   return item
     // })
 
-    return [{
+    return new PlayerSourceList([{
       default: true,
       res: 1024,
       type: 'video/mp4',
@@ -170,7 +171,7 @@ class Content extends Model {
       type: 'video/mp4',
       res: 360,
       label: 'کیفیت متوسط'
-    }]
+    }])
   }
 
   getVideoSource() {
