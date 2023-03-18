@@ -252,7 +252,7 @@ const routes = [
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.ProductLayout',
-                    path: 'products',
+                    path: 'product',
                     component: () => import('layouts/ChatreNejatLayout.vue'),
                     children: [
                       {
@@ -273,7 +273,7 @@ const routes = [
                       {
                         name: 'UserPanel.Asset.ChatreNejat.Content',
                         props: true,
-                        path: ':productId/content',
+                        path: ':productId/set/:setId/content/:contentId',
                         component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                       }
                     ]
