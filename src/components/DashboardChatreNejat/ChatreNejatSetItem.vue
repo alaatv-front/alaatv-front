@@ -40,7 +40,7 @@
               {{ setItem.last_content_user_watched?.title }}
             </div>
             <div class="last-content-footer">
-              <div class="last-content-section">
+              <div class="last-content-section ellipsis">
                 <q-icon name="menu_book" />
                 {{ setItem.title }}
               </div>
@@ -272,6 +272,7 @@ export default {
         letter-spacing: -0.03em;
         color: #333333;
         margin-bottom: 10px;
+        width: 80%;
 
         @media only screen and (max-width: 600px) {
           font-size: 14px;
