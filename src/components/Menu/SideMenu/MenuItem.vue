@@ -1,8 +1,8 @@
 <template>
-  <div v-for="(item , index) in menu"
+  <div v-for="(item , index) in computedMenu"
        :key="index"
        class="menu-item">
-    <q-expansion-item v-if="item.children && item.children.length && item.show"
+    <q-expansion-item v-if="!loading && item.children && item.children.length && item.show"
                       v-model="item.open"
                       :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"
                       :label="item.title"
@@ -17,11 +17,16 @@
           <div v-for="(subItem , i) in item.children"
                :key="i">
             <menu-item v-if="subItem.children && subItem.children.length && item.show"
-                       :menu="[subItem]" />
+                       :menu="[subItem]"
+                       @item-selected="itemSelected(item)" />
             <q-item v-else-if="subItem.show"
-                    :to="{ name: subItem.routeName, params: subItem.params }"
+                    v-ripple
+                    clickable
+                    :active="subItem.title === clickedItem.title"
+                    :to="(subItem.routeName) ?{ name: subItem.routeName, params: subItem.params }: null"
                     class="list-child-item"
-                    exact-active-class="active-route">
+                    exact-active-class="active-route"
+                    @click="itemSelected(subItem)">
               <q-item-section class="list-child-section">
                 {{ subItem.title }}
               </q-item-section>
@@ -31,12 +36,15 @@
         </q-list>
       </div>
     </q-expansion-item>
-    <q-item v-else-if="item.show"
-            v-model="clickedItem"
-            :to="(item.routeName) ? {name: item.routeName} : null"
+    <q-item v-else-if="!loading && item.show"
+            v-ripple
+            clickable
+            :active="item.title === clickedItem.title"
+            :to="(item.routeName) ? {name: item.routeName, params: item.params} : null"
             class="item-list"
             :class="{ 'alone-item': !item.children }"
-            exact-active-class="active-route">
+            exact-active-class="active-route"
+            @click="itemSelected(item)">
       <div class="section-title">
         <q-item-section class="list-section title-icon"
                         avatar>
@@ -49,6 +57,7 @@
         <!--        <span class="indicator" />-->
       </div>
     </q-item>
+    <q-skeleton v-if="loading" />
   </div>
 </template>
 
@@ -58,13 +67,42 @@ export default {
   props: {
     menu: {
       type: Object,
-      default: () => {},
-      required: false
+      default: () => {}
+    },
+    loading: {
+      type: Boolean,
+      default: () => {
+        return false
+      }
     }
   },
+  emits: ['itemSelected', 'update:menu'],
   data () {
     return {
-      clickedItem: null
+      clickedItem: {
+        title: ''
+      },
+      menuItems: []
+    }
+  },
+  computed: {
+    computedMenu: {
+      get () {
+        return this.menu
+      },
+      set (value) {
+        this.menuItems = value
+        this.$emit('update:menu', this.menuItems)
+      }
+    }
+  },
+  methods: {
+    itemSelected(item) {
+      this.clickedItem = item
+      this.$emit('itemSelected', item)
+    },
+    inactiveAllItems () {
+
     }
   }
 }
@@ -258,10 +296,10 @@ export default {
             }
 
             .list-child-item {
-              height: 30px;
+              height: 46px;
               justify-content: right;
               margin-bottom: 8px;
-              width: 157px;
+              //width: 157px;
               border-radius: 10px;
               padding: 0 14px;
               @media screen and (max-width: 1439px) {
@@ -278,7 +316,7 @@ export default {
               }
 
               .list-child-section {
-                font-size: 14px !important;
+                font-size: 16px !important;
                 justify-content: center;
               }
             }

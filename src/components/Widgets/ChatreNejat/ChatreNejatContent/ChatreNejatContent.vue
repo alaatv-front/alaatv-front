@@ -1,268 +1,332 @@
 <template>
-  <div class="news-page">
-    ff
+  <div class="ChatreNejatContent-page q-pa-md">
+    <!--   --------------------------------- video box &&  content list item ------------------------- -->
+    <div class="row q-col-gutter-x-md">
+      <div class="video-box-col col-12 col-xs-12 col-sm-12 col-lg-8">
+        <!--        :afterLoad="contentsIsEmpty"-->
+        <video-box :set="selectedSet"
+                   :content="selectedContent"
+                   @favorite="toggleFavor"
+                   @toggle-video-status="updateVideoStatus"
+                   @bookmarkTimestamp="bookmarkPostIsFavored" />
+        <div class="mobile-view">
+          <comment-box v-model:value="watchingContentComment"
+                       :doesnt-have-content="watchingContent.comments.length > 0"
+                       @updateComment="saveComment" />
+        </div>
+      </div>
+      <div class="col-12 col-xs-12 col-sm-12 col-lg-4 content-list-col">
+        <content-video-list :key="ContentVideoListKey"
+                            :loading="contentVideoListLoading"
+                            :content="selectedContent"
+                            :set="selectedSet"
+                            :hide-prev-btn="currentSetIndex === 0"
+                            :hide-next-btn="currentSetIndex === (setList.length - 1 )"
+                            @nextSetClicked="goToNextSet"
+                            @previousSetClicked="goToPrevSet"
+                            @contentSelected="setSelectedContent" />
+      </div>
+    </div>
+    <!--   --------------------------------- comment box &&  content list item------------------------- -->
+    <div class="row  q-col-gutter-x-md q-mt-lg">
+      <div class="col-8">
+        <div class="desktop-view">
+          <comment-box v-model:value="watchingContentComment"
+                       :doesnt-have-content="watchingContent.comments.length > 0"
+                       @updateComment="saveComment" />
+        </div>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
+import { SetList } from 'src/models/Set.js'
+import { mixinChatreNejat } from 'src/mixin/Mixins.js'
+import { Content, ContentList } from 'src/models/Content.js'
+import videoBox from 'src/components/DashboardChatreNejat/videoBox.vue'
+// SetSection
+import { SetSectionList } from 'src/models/SetSection.js'
+import commentBox from 'src/components/DashboardChatreNejat/CommentBox.vue'
+import ContentVideoList from 'components/DashboardChatreNejat/ContentVideoList.vue'
+
 export default {
   name: 'ChatreNejatContent',
-  components: {},
-  data() {
-    return {}
+  components: {
+    ContentVideoList,
+    videoBox,
+    commentBox
   },
-  created() {
+  mixins: [mixinChatreNejat],
+  data: () => ({
+    ContentVideoListKey: 0,
+    socialMediaDialog: false,
+    selectedLessonId: 0,
+    selectedLessonGroupId: null,
+    lessonGroups: [],
+    lessons: [],
+    contents: new ContentList(),
+    currentContent: new Content(),
+    sets: new SetList(),
+    sections: new SetSectionList(),
+    currentSetId: null,
+    currentSectionId: 'all',
+    lessonGroupsLoading: false,
+    userLastState: {
+      setId: null,
+      contentId: null
+    }
+  }),
+  computed: {
+    selectedTopic() {
+      return this.$store.getters['ChatreNejat/selectedTopic']
+    },
+    contentVideoListLoading() {
+      return !this.selectedContent.id
+    },
+    selectedContent() {
+      return this.$store.getters['ChatreNejat/selectedContent']
+    },
+    selectedSet() {
+      return this.$store.getters['ChatreNejat/selectedSet']
+    },
+    setList() {
+      return this.$store.getters['ChatreNejat/setList'].filter(set => {
+        return set.short_title.includes(this.selectedTopic)
+      })
+    },
+    watchingContentComment() {
+      return this.watchingContent.comments[0]?.comment || ''
+    },
+    currentSetIndex() {
+      return this.setList.findIndex(set => set.id === this.selectedSet.id)
+    },
+    watchingContent: {
+      get () {
+        return this.selectedContent
+      },
+      set(value) {
+        this.$store.commit('ChatreNejat/setSelectedContent', value)
+      }
+    }
+  },
+  watch: {
+    selectedTopic () {
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        params: {
+          productId: this.$route.params.productId
+        }
+      })
+    }
+  },
+  mounted() {
+    if (this.$route.params.productId) {
+      this.getProductSets(this.$route.params.productId)
+      this.getProduct()
+      // this.$apiGateway.product.getContents({
+      //   id: this.$route.params.productId
+      // }).then()
+    }
+    if (!this.selectedContent.id) {
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        params: {
+          productId: this.$route.params.productId
+        }
+      })
+    }
   },
   methods: {
+    getProductSets(productId) {
+      this.$store.dispatch('ChatreNejat/getSet', productId)
+    },
+    getProduct() {
+      this.$store.dispatch('ChatreNejat/getSelectedProduct', this.$route.params.productId)
+    },
+    goToNextSet() {
+      const nextSet = this.setList[this.currentSetIndex + 1]
+      this.$store.commit('ChatreNejat/setSelectedSet', nextSet)
+      this.ContentVideoListKey++
+    },
+    goToPrevSet() {
+      const prevSet = this.setList[this.currentSetIndex - 1]
+      this.$store.commit('ChatreNejat/setSelectedSet', prevSet)
+      this.ContentVideoListKey++
+    },
+    setSelectedContent(content) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.news-page {
-  padding: 0 60px;
-  background: white;
+.ChatreNejatContent-page {
+  margin: 0 60px 100px;
   @media screen and (max-width: 1904px) {
-    padding: 0 21px;
+    margin: 0 10px;
   }
-  @media screen and (max-width: 1264px) {
-    padding: 0 11px;
-  }
-  @media screen and (max-width: 960px) {
-    padding: 0 6px;
+  @media screen and (max-width: 1023px) {
+    //margin: 0 20px;
   }
 
-  .news-part {
-    margin-left: 9px;
-    @media screen and (max-width: 1904px) {
-      margin-left: -4px;
-    }
-    @media screen and (max-width: 1264px) {
-      margin-left: 0;
-    }
-
-    .news-top {
-      padding-bottom: 0 !important;
-
-      .news-header {
-        align-items: center;
-
-        .news-filter {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          @media screen and (max-width: 960px) {
-            flex-direction: column !important;
-          }
-
-          .news-title {
-            font-size: 20px;
-            font-weight: 500;
-            color: #3e5480;
-            @media screen and (max-width: 960px) {
-              font-size: 16px !important;
-              text-align: center;
-            }
-          }
-
-          .filter-select {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 21px;
-            @media screen and (max-width: 960px) {
-              justify-content: space-between !important;
-              margin-bottom: 25px;
-            }
-            @media screen and (max-width: 575px) {
-              margin-bottom: 20px;
-            }
-
-            .filter-default {
-              width: 119px;
-              height: 48px;
-              color: #3e5480;
-              font-size: 16px;
-              font-weight: 500;
-              border-radius: 10px;
-              margin-right: 16px;
-              justify-content: space-between;
-              @media screen and (max-width: 1264px) {
-                height: 40px !important;
-              }
-              @media screen and (max-width: 960px) {
-                width: 100px !important;
-                height: 36px;
-                font-size: 14px !important;
-              }
-              @media screen and (max-width: 768px) {
-                width: 100px !important;
-              }
-
-              &.filter-button {
-                background-color: #eff3ff;
-              }
-
-              &.filter-clicked {
-                border: solid 4px #eff3ff;
-                box-sizing: border-box;
-                background-color: #ffffff;
-              }
-
-              .fi {
-                font-size: 16px;
-                font-weight: 500;
-              }
-            }
-
-            .order-parent {
-              width: 165px;
-              &:deep(.q-field__native ){
-                span{
-                  color: var(--abrishamMain);
-                }
-
-              }
-              @media screen and (max-width: 768px) {
-                width: 134px !important;
-              }
-              @media screen and (max-width: 575px) {
-                width: 152px !important;
-              }
-
-              .order {
-                border-radius: 10px;
-              }
-            }
-          }
-        }
+  .chip-parent{
+    .page-title{
+      color: var(--abrishamMain);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.7;
+      letter-spacing: normal;
+      margin-bottom:15px ;
+      @media screen and (max-width: 1920px){
+        margin-top: 19px;
       }
-
-      .filter-list {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 20px;
-        @media screen and (max-width: 960px) {
-          justify-content: space-between;
-          margin-bottom: 16px;
-        }
-
-        .lesson-parent {
-          width: 55%;
-          .lesson {
-            margin-right: 16px;
-            border-radius: 10px;
-          }
-        }
-
-        .category-parent {
-          width: 245px;
-
-          .category {
-            border-radius: 10px;
-          }
-        }
-      }
-    }
-
-    .news-bottom {
-      padding-top: 0 !important;
-      .no-news{
-        font-weight: 500;
-        font-size: 18px;
-        margin-bottom: 20px;
-      }
-    }
-  }
-
-  .banner-col {
-    padding-bottom: 0 !important;
-
-    .banner-part {
-      display: flex;
-      flex-direction: column;
-      @media screen and (max-width: 1264px) {
-        display: grid;
-        grid-template-rows: auto;
-        overflow: hidden;
-      }
-
-      .banner {
-        margin-bottom: 20px;
-        @media screen and (max-width: 1264px) {
-          margin-bottom: 5px !important;
-          overflow-x: scroll;
-          overflow-y: hidden;
-          display: flex;
-          grid-row-start: 2;
-        }
-        @media screen and (max-width: 960px) {
-          margin-bottom: 0 !important;
-        }
-        @media screen and (max-width: 600px) {
-          margin-bottom: 0 !important;
-        }
-      }
-    }
-  }
-}
-</style>
-<style lang="scss">
-.news-page {
-  .news-part {
-    .news-header {
-      .mdi-chevron-down {
-        &:before {
-          color: #3e5480;
-        }
-      }
-
-      .v-select {
-        &.v-input--dense {
-          .v-select__selection--comma {
-            color: #3e5480;
-            font-size: 16px;
-            font-weight: 500;
-          }
-        }
-      }
-
-      .v-text-field {
-        &.v-text-field--solo {
-          &.v-input--dense {
-            > {
-              .v-input__control {
-                min-height: 48px !important;
-                @media screen and (max-width: 1264px) {
-                  min-height: 40px !important;
-                }
-                @media screen and (max-width: 768px) {
-                  min-height: 36px !important;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .theme--light {
-      &.v-label {
-        color: #3e5480;
+      @media screen and (max-width: 990px){
+        margin-top: 26px;
         font-size: 16px;
-        font-weight: 500;
-        @media screen and (max-width: 768px) {
-          font-size: 14px;
-        }
-      }
+        width: 100%;
+        text-align: center;
 
-      &.v-icon {
-        color: #3e5480;
+      }
+      @media screen and (max-width: 576px){
+        margin-top: 15px;
+
       }
     }
   }
-}
 
-.v-menu__content {
-  border-radius: 0 0 20px 20px;
+  .header {
+    display: flex;
+    flex-direction: row;
+    @media screen and (max-width: 1904px) {
+      flex-direction: column !important;
+    }
+
+    .header-label {
+      font-size: 20px;
+      color: #3e5480;
+      font-weight: 500;
+      padding-right: 20px;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      @media screen and (max-width: 1904px) {
+        padding-bottom: 15px !important;
+      }
+      @media screen and (max-width: 1023px) {
+        padding-bottom: 10px !important;
+      }
+      @media screen and (max-width: 768px) {
+        padding-bottom: 20px !important;
+      }
+      @media screen and (max-width: 600px) {
+        padding-bottom: 15px !important;
+        font-size: 16px;
+      }
+    }
+
+  }
+
+  .current-content-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #3e5480;
+    margin-bottom: 21px;
+    @media screen and (max-width: 1920px) {
+      margin-bottom: 15px;
+    }
+    @media screen and (max-width: 1023px) {
+      display: block;
+    }
+    @media screen and (max-width: 576px) {
+      font-size: 14px;
+    }
+
+    &.current-content-title-mobile {
+      display: none;
+      @media screen and (max-width: 1023px) {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+      @media screen and (max-width: 768px) {
+        margin-top: 5px;
+      }
+      @media screen and (max-width: 576px) {
+        margin-bottom: 2px;
+      }
+      @media screen and (max-width: 350px) {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .content-list-col {
+    padding-top: 0 !important;
+    .select-wrapper{
+      &:deep(.q-field__control){
+        background: #eff3ff;
+      }
+      &:deep(.q-field__native){
+        color: #3e5480;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      &:deep(.q-icon){
+        color: #3e5480;
+        font-size: 24px;
+      }
+      &:deep(.q-field__control::after){
+        height: 0;
+      }
+      &:deep(.q-field__control::before){
+        background: transparent;
+      }
+      .popup-content-class{
+      }
+      &:deep(.q-field--filled .q-field__control::before){
+        border-bottom: none;
+      }
+    }
+  }
+
+  .video-box-col {
+    padding-top: 0 !important;
+
+    .mobile-view {
+      display: none;
+      @media screen and (max-width: 1023px) {
+        display: block;
+      }
+    }
+  }
+
+  .current-content-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: #3e5480;
+    margin-bottom: 21px;
+    @media screen and (max-width: 1920px) {
+      margin-bottom: 15px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-bottom: 20px;
+    }
+    @media screen and (max-width: 576px) {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    @media screen and (max-width: 350px) {
+      margin-bottom: 5px;
+    }
+  }
+
+  .desktop-view {
+    display: block;
+    @media screen and (max-width: 1023px) {
+      display: none;
+    }
+  }
 }
 </style>

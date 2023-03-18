@@ -1,14 +1,20 @@
 <template>
-  <div class="chatre-nejat-layout row">
+  <div class="chatre-nejat-layout">
     <div class="side-menu-main-layout bg-white">
       <div class="header">
         <div class="product-box">
           <div class="photo">
-            <q-img :src="productImg"
+            <q-img v-if="!productLoading"
+                   :src="productImg"
                    class="product-image" />
+            <q-skeleton v-else
+                        size="50px"
+                        class="q-pb-md" />
           </div>
           <div class="title">
+            <div class="hidden">{{topicList}}</div>
             {{ productTitle }}
+            <q-skeleton v-if="productLoading" />
           </div>
         </div>
         <div class="back-btn">
@@ -17,55 +23,65 @@
                  :to="{ name: 'UserPanel.Asset.ChatreNejat.Products' }">بازگشت</q-btn>
         </div>
       </div>
-      <div class="side-menu-body">
-        <q-list class="side-menu-list"
-                padding>
-          <q-input v-model="searchText"
-                   dense
-                   filled
-                   class="gray-input search-input"
-                   placeholder="جست و جو"
-                   @update:model-value ="search(titlesList)">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-          <menu-item :menu="titlesList" />
-          <q-item v-for="(item, index) in productItems"
-                  :key="index"
-                  class="menu-item">
-            <q-btn flat
-                   class="full-width menu-item-btn"
-                   color="background: #EAEAEA;"
-                   :style="{background: item.name === selectedTopic? '#EAEAEA' : ''}"
-                   @click="setSelectedTopic(item.name)">
-              <div class="label">{{item.label}}</div>
-              <div />
-            </q-btn>
-          </q-item>
-        </q-list>
-        <div class="log-out" />
-      </div>
+      <chatre-nejat-layout-menu :menu-key="menuKey"
+                                :topics-route-array="topicsRouteArray"
+                                :topic-list="topicList"
+                                :selected-topic="selectedTopic"
+                                :product-items="productItems"
+                                @item-selected="itemSelected" />
     </div>
-    <div class="content">
-      <router :include="keepAliveComponents" />
+    <div class="container">
+      <div class="header">
+        <div v-if="showHamburger"
+             class="drawer-btn hamburger">
+          <q-btn class="toolbar-button"
+                 icon="isax:menu-1"
+                 color="white"
+                 text-color="accent"
+                 dense
+                 unelevated
+                 @click="toggleLeftDrawer" />
+        </div>
+        <div class="breadcrumbs flex items-center">
+          <div class="product-title">
+            {{ productTitle }}
+            <q-skeleton v-if="productLoading"
+                        type="QBadge" />
+          </div>
+          <q-icon v-if="!!selectedTopic"
+                  name="chevron_left" />
+          <div v-if="!!selectedTopic"
+               class="set-title">{{ selectedTopic }}</div>
+          <q-icon v-if="!!selectedContentTitle"
+                  name="chevron_left" />
+          <div v-if="!!selectedContentTitle"
+               class="content-title">{{ selectedContentTitle }}</div>
+        </div>
+        <div class="back-btn">
+          <q-btn flat
+                 icon-right="chevron_left"
+                 :to="{ name: 'UserPanel.Asset.ChatreNejat.Products' }">بازگشت</q-btn>
+        </div>
+      </div>
+      <div class="content">
+        <router :include="keepAliveComponents" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
 import Router from 'src/router/Router.vue'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
+import { mapMutations } from 'vuex'
+import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
 export default {
   name: 'ChatreNejatLayout',
-  components: { menuItem, Router },
+  components: { ChatreNejatLayoutMenu, Router },
   data () {
     return {
+      menuKey: 0,
       keepAliveComponents: KeepAliveComponents,
-      productImg: 'https://nodes.alaatv.com/upload/images/product/riazie110_20220831103918.jpg?w=400&h=400',
-      productTitle: 'زیست شناسی',
-      selectedTopic: '',
       productItems: [
         {
           name: 'pamphlet',
@@ -82,18 +98,17 @@ export default {
       ],
       clickedItem: null,
       searchText: '',
-      titlesList: [
+      topicsRouteArray: [
         {
-          title: 'ست تستی',
+          title: 'سر فصل ها',
           icon: 'isax:document-upload',
-          routeName: 'Admin.UploadCenter.Contents',
+          routeName: '',
           active: false,
           show: true,
           open: false,
           children: [
             {
               title: 'تایتل ست',
-              icon: 'isax:document-upload',
               routeName: 'UserPanel.Asset.ChatreNejat.Products',
               active: false,
               show: true,
@@ -101,62 +116,78 @@ export default {
             }
           ]
         }
-      ],
-      examsPlan: [
-        {
-          divider: true
-        },
-        {
-          name: 'دهم تجربی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_tajrobi_dahom.pdf'
-        },
-        {
-          name: 'دهم ریاضی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_riyazi_dahom.pdf'
-        },
-        {
-          name: 'دهم انسانی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_ensani_dahom.pdf'
-        },
-        {
-          divider: true
-        },
-        {
-          name: 'یازدهم تجربی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_tajrobi_yazdahom.pdf'
-        },
-        {
-          name: 'یازدهم ریاضی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_riyazi_yazdahom.pdf'
-        },
-        {
-          name: 'یازدهم انسانی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_ensani_yazdahom.pdf'
-        },
-        {
-          divider: true
-        },
-        {
-          name: 'دوازدهم تجربی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_tajrobi_davazdahom.pdf'
-        },
-        {
-          name: 'دوازدهم ریاضی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_riyazi_davazdahom.pdf'
-        },
-        {
-          name: 'دوازدهم انسانی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_ensani_davazdahom.pdf'
-        }
       ]
     }
   },
   computed: {
     isUserLogin() {
       return this.$store.getters['Auth/isUserLogin']
+    },
+    showHamburger () {
+      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+    },
+    topicList () {
+      const topicList = this.$store.getters['ChatreNejat/setTopicList']
+      this.fillTopicsRouteArray(topicList)
+      return topicList
+    },
+    setList () {
+      return this.$store.getters['ChatreNejat/setList']
+    },
+    selectedProduct () {
+      return this.$store.getters['ChatreNejat/selectedProduct']
+    },
+    selectedTopic () {
+      return this.$store.getters['ChatreNejat/selectedTopic'] || ''
+    },
+    selectedContent () {
+      return this.$store.getters['ChatreNejat/selectedContent']
+    },
+    selectedContentTitle () {
+      return this.selectedContent.title
+    },
+    productTitle () {
+      return this.selectedProduct.title
+    },
+    productLoading () {
+      return !this.selectedProduct.title
+    },
+    productImg () {
+      return this.selectedProduct?.photo
     }
   },
   methods: {
+    fillTopicsRouteArray (topicList) {
+      this.topicsRouteArray[0].children = []
+      topicList.forEach(topic => {
+        this.topicsRouteArray[0].children.push({
+          title: topic,
+          value: topic,
+          active: false,
+          show: true,
+          open: false
+        })
+      })
+      this.menuKey++
+    },
+    itemSelected (topic) {
+      this.updateSelectedTopic(topic.title)
+    },
+    updateSetList (normalizedSets) {
+      this.setList = normalizedSets
+    },
+    updateTopicList (topicList) {
+      this.topicList = topicList
+    },
+    ...mapMutations('AppLayout', [
+      'updateLayoutLeftDrawerVisible'
+    ]),
+    ...mapMutations('ChatreNejat', [
+      'updateSelectedTopic'
+    ]),
+    toggleLeftDrawer() {
+      this.updateLayoutLeftDrawerVisible(!this.layoutLeftDrawerVisible)
+    },
     setSelectedTopic (TopicName) {},
     search (list, parentContain = false) {
       if (!list || list.length === 0) {
@@ -187,20 +218,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.side-menu-main-layout {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  height: calc(100vh - 65px);
-  width: 350px;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 28px;
-  color: #333333;
-  .header {
-    display: grid;
-    grid-template-columns: auto auto;
-    padding: 0 25px;
+.chatre-nejat-layout {
+  display: grid;
+  grid-template-columns: 350px auto;
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: auto;
+  }
+  .side-menu-main-layout {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(100vh - 65px);
+    width: 350px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: #333333;
     .back-btn {
       text-align: end;
       cursor: pointer;
@@ -213,110 +246,143 @@ export default {
         }
       }
     }
-    .product-box {
-      margin-bottom: 20px;
-      .photo {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 10px;
-        :deep(.q-img) {
-          border-radius: 10px;
+    .header {
+      display: grid;
+      grid-template-columns: auto auto;
+      padding: 0 25px;
+      .product-box {
+        margin-bottom: 20px;
+        .photo {
+          width: 50px;
+          height: 50px;
+          margin-bottom: 10px;
+          :deep(.q-img) {
+            border-radius: 10px;
+          }
         }
       }
     }
-  }
-  .side-menu-body {
-    display: grid;
-    height: calc(100vh - 200px);
-    grid-template-rows: 1fr 2fr;
-    .q-list {
-      padding: 0;
-      &.side-menu-list {
-        .search-input {
-          margin-bottom: 30px;
-        }
-        margin: 0 24px 109px 24px;
-        .menu-item-btn {
-          :deep(.q-btn__content) {
-             width: 100%;
-             display: grid;
-             grid-template-columns: auto auto auto;
-             //width: 100%;
-             padding: 5px 10px;
-             justify-content: normal;
-            .label {
-              font-size: 16px;
-              font-weight: 400;
-              line-height: 28px;
+    .side-menu-body {
+      display: grid;
+      height: calc(100vh - 200px);
+      grid-template-rows: 1fr 2fr;
+      .q-list {
+        padding: 0;
+        &.side-menu-list {
+          .search-input {
+            margin-bottom: 30px;
+          }
+          margin: 0 24px 109px 24px;
+          .menu-item-btn {
+            :deep(.q-btn__content) {
+              width: 100%;
+              display: grid;
+              grid-template-columns: auto auto auto;
+              //width: 100%;
+              padding: 5px 10px;
+              justify-content: normal;
+              .label {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 28px;
+              }
             }
           }
-        }
-        @media screen and (max-width: 1919px) {
-          margin: 0 24px 34px 24px;
-        }
-        @media screen and (max-width: 1439px) {
-          margin: 0 21px 26px 21px;
-        }
-        @media screen and (max-width: 599px) {
-          margin: 0 18px 8px 18px;
-        }
-
-        .top-separator {
-          margin: 0 40px 32px 40px;
           @media screen and (max-width: 1919px) {
-            margin: 0 30px 25px 30px;
+            margin: 0 24px 34px 24px;
           }
           @media screen and (max-width: 1439px) {
-            margin: 0 45px 22px 45px;
+            margin: 0 21px 26px 21px;
+          }
+          @media screen and (max-width: 599px) {
+            margin: 0 18px 8px 18px;
+          }
+
+          .top-separator {
+            margin: 0 40px 32px 40px;
+            @media screen and (max-width: 1919px) {
+              margin: 0 30px 25px 30px;
+            }
+            @media screen and (max-width: 1439px) {
+              margin: 0 45px 22px 45px;
+            }
+          }
+
+          .q-item {
+            padding: 0;
+            min-height: 0;
           }
         }
-
-        .q-item {
-          padding: 0;
-          min-height: 0;
+      }
+      .log-out {
+        align-self: end;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        height: 40px !important;
+        //width: 232px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        padding: 0 14px 0 10px;
+        margin: 0 0 36px 27px;
+        @media screen and (max-width: 1439px) {
+          margin: 0 31px 33px 31px;
+        }
+        @media screen and (max-width: 599px) {
+          margin: 0 30px 30px 30px;
+          //padding: 0 0 0 10px;
+        }
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+        .q-avatar {
+          height: 22px;
+          width: 22px;
+          margin-right: 12px;
+          transform: matrix(-1, 0, 0, 1, 0, 0);
         }
       }
     }
-    .log-out {
-      align-self: end;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      height: 40px !important;
-      //width: 232px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      padding: 0 14px 0 10px;
-      margin: 0 0 36px 27px;
-      @media screen and (max-width: 1439px) {
-        margin: 0 31px 33px 31px;
-      }
-      @media screen and (max-width: 599px) {
-        margin: 0 30px 30px 30px;
-        //padding: 0 0 0 10px;
-      }
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-      .q-avatar {
-        height: 22px;
-        width: 22px;
-        margin-right: 12px;
-        transform: matrix(-1, 0, 0, 1, 0, 0);
+    &:deep(.side-menu-main-layout) {
+      .q-expansion-item__container {
+        .q-item {
+          display: flex;
+          padding: 0 10px !important;
+        }
+        .q-icon {
+          font-size: 21px;
+        }
       }
     }
+    @media screen and (max-width: 1024px) {
+      display: none;
+    }
   }
-  &:deep(.side-menu-main-layout) {
-    .q-expansion-item__container {
-      .q-item {
-        display: flex;
-        padding: 0 10px !important;
+  .container {
+    //justify-self: center;
+    .header {
+      padding-right: 20px;
+      padding-left: 20px;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      @media screen and (max-width: 1024px) {
+        display: grid;
+        grid-template-columns: 40px 1fr auto;
       }
-      .q-icon {
-        font-size: 21px;
+      .breadcrumbs {
+        @media screen and (max-width: 1024px) {
+          justify-self: self-start;
+          padding-left: 10px;
+        }
       }
+    }
+    .content {
+      height: calc(100vh - 124px);
+      overflow-y: scroll;
     }
   }
 }
+
 </style>

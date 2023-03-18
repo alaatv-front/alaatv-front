@@ -4,6 +4,7 @@ import mixinAuth from '../mixin/Auth.js'
 import mixinTicket from '../mixin/ticket.js'
 import mixinAuthData from '../mixin/AuthData.js'
 import mixinAbrisham from '../mixin/Abrisham.js'
+import mixinChatreNejat from '../mixin/ChatreNejat.js'
 import mixinDateOptions from '../mixin/DateOptions.js'
 import mixinPageOptions from '../mixin/PageOptions.js'
 import mixinPageBuilder from 'src/mixin/PageBuilder.js'
@@ -18,6 +19,7 @@ export {
   mixinWidget,
   mixinTicket,
   mixinAbrisham,
+  mixinChatreNejat,
   mixinAuthData,
   mixinDateOptions,
   mixinPageOptions,

@@ -74,7 +74,8 @@
             <div class="last-content-link">
               <q-btn flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }">مشاهده</q-btn>
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }"
+                     @click="setSelectedProduct">مشاهده</q-btn>
             </div>
           </div>
         </div>
@@ -125,6 +126,11 @@ export default {
     product: {
       type: Object,
       default: new Product()
+    }
+  },
+  methods: {
+    setSelectedProduct(product) {
+      this.$store.dispatch('setSelectedProduct', product)
     }
   }
 }

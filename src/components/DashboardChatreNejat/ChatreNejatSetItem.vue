@@ -47,7 +47,8 @@
               <div class="last-content-link">
                 <q-btn flat
                        icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: setItem.id} }">مشاهده</q-btn>
+                       :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
+                       @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
               </div>
             </div>
           </div>
@@ -74,7 +75,8 @@
             <div class="last-content-link">
               <q-btn flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: setItem.id} }">مشاهده</q-btn>
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
+                     @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
             </div>
           </div>
         </div>
@@ -125,6 +127,12 @@ export default {
     setItem: {
       type: Object,
       default: new Set()
+    }
+  },
+  methods: {
+    setSelectedData(content, set) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+      this.$store.commit('ChatreNejat/setSelectedSet', set)
     }
   }
 }
