@@ -1,5 +1,6 @@
 <template>
-  <q-card class="video-player custom-card bg-white q-pb-md q-mx-md full-height"
+  <q-card class="video-player custom-card bg-white q-mx-md full-height"
+          :class="options.paginate? 'q-pb-md': ''"
           :style="options.style">
     <!--    <video-player v-if="sources.list.length > 0"-->
     <!--                  :sources="sources"-->
@@ -8,9 +9,9 @@
                   :content="content" />
     <q-img v-else
            src="src/assets/1200x630wa.png" />
-    <div class="q-pa-sm flex flex-center">
-      <q-pagination v-if="options.paginate"
-                    v-model="contentNumber"
+    <div v-if="options.paginate"
+         class="q-pa-sm flex flex-center">
+      <q-pagination v-model="contentNumber"
                     :max="set.contents.list.length"
                     :to-fn="goToContentPage"
                     :max-pages="6"
