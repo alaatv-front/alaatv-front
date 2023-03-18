@@ -28,7 +28,7 @@
         </q-card-section>
         <q-card-section v-if="$q.screen.gt.xs"
                         class=" flex"
-                        style="width:100%">
+                        style="width: 100%;max-width: 450px;">
           <q-separator spaced
                        :vertical="$q.screen.gt.sm"
                        inset />
@@ -40,7 +40,7 @@
               {{ product.last_content_user_watched?.title }}
             </div>
             <div class="last-content-footer">
-              <div class="last-content-section">
+              <div class="last-content-section ellipsis">
                 <q-icon name="menu_book" />
                 {{ product.title }}
               </div>
@@ -55,7 +55,7 @@
       </q-card-section>
       <q-card-section v-if="$q.screen.lt.sm"
                       class=" flex"
-                      style="width:100%; padding: 0;">
+                      style="width: 100%;padding: 0;">
         <q-separator spaced
                      style="width:100%"
                      inset />
@@ -67,7 +67,7 @@
             {{ product.last_content_user_watched?.title }}
           </div>
           <div class="last-content-footer">
-            <div class="last-content-section">
+            <div class="last-content-section ellipsis">
               <q-icon name="menu_book" />
               {{ product.title }}
             </div>
@@ -194,7 +194,7 @@ export default {
     }
 
     .product-info {
-      min-width: 40%;
+      min-width: 35%;
 
       @media only screen and (max-width: 600px) {
         min-width: 100%;
@@ -270,6 +270,7 @@ export default {
         letter-spacing: -0.03em;
         color: #333333;
         margin-bottom: 10px;
+        width: 80%;
 
         @media only screen and (max-width: 600px) {
           font-size: 14px;

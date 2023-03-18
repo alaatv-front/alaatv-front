@@ -37,8 +37,8 @@ const actions = {
   },
   updateSet: (context, setId) => {
     context.commit('toggleSetLoading')
-    APIGateway.set.show(setId).then(res => {
-      context.commit('updateSet', res)
+    APIGateway.set.getContents(setId).then(res => {
+      context.commit('updateSet', { data: res, setId })
       context.commit('toggleSetLoading')
     }).catch(() => {
       context.commit('toggleSetLoading')

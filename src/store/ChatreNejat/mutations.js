@@ -12,7 +12,7 @@ const mutations = {
     state.selectedTopic = data
   },
   updateSet: (state, data) => {
-    state.setList.splice(state.setList.findIndex(set => set.id === data.id), 1, Object.assign(data, state.setList.findIndex(set => set.id === data.id)))
+    state.setList.find(set => set.id === data.setId).contents.list = data.data
   },
   toggleSetListLoading: (state) => {
     state.setListLoading = !state.setListLoading
