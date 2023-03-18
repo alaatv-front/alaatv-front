@@ -2,9 +2,9 @@
   <div class="video-box">
     <div class="video-main">
       <div class="video-wrapper">
-        <!--        :content="content"-->
         <content-video-player :options="{
           paginate: false,
+          urlParam: 'contentId',
           content
         }" />
         <div v-if="!content.id && !content.photo">
