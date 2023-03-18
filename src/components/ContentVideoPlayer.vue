@@ -64,7 +64,7 @@
     </div>
     <video-player ref="videoPlayer"
                   :source="content.getVideoSource()"
-                  :side-bar="sideBar"
+                  :side-bar="hasTimepoint"
                   :use-side-bar="hasTimepoint">
       <template #sideBar>
         <div class="timepoint-list">
@@ -136,7 +136,6 @@ export default {
   emits: ['seeked'],
   data() {
     return {
-      sideBar: false,
       currentContent: new Content()
     }
   },
