@@ -16,15 +16,16 @@
         </div>
       </div>
       <div class="col-12 col-xs-12 col-sm-12 col-lg-4 content-list-col">
-        <content-video-list :key="ContentVideoListKey"
-                            :loading="contentVideoListLoading"
-                            :content="selectedContent"
-                            :set="selectedSet"
-                            :hide-prev-btn="currentSetIndex === 0"
-                            :hide-next-btn="currentSetIndex === (setList.length - 1 )"
-                            @nextSetClicked="goToNextSet"
-                            @previousSetClicked="goToPrevSet"
-                            @contentSelected="setSelectedContent" />
+        <chatr-content-video-list :key="ContentVideoListKey"
+                                  :loading="contentVideoListLoading"
+                                  :video-list-loading="videoListLoading"
+                                  :content="selectedContent"
+                                  :set="selectedSet"
+                                  :hide-prev-btn="currentSetIndex === 0"
+                                  :hide-next-btn="currentSetIndex === (setList.length - 1 )"
+                                  @nextSetClicked="goToNextSet"
+                                  @previousSetClicked="goToPrevSet"
+                                  @contentSelected="setSelectedContent" />
       </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
@@ -49,12 +50,12 @@ import videoBox from 'src/components/DashboardChatreNejat/videoBox.vue'
 // SetSection
 import { SetSectionList } from 'src/models/SetSection.js'
 import commentBox from 'src/components/DashboardChatreNejat/CommentBox.vue'
-import ContentVideoList from 'components/DashboardChatreNejat/ContentVideoList.vue'
+import chatrContentVideoList from 'components/DashboardChatreNejat/ChatrContentVideoList.vue'
 
 export default {
   name: 'ChatreNejatContent',
   components: {
-    ContentVideoList,
+    chatrContentVideoList,
     videoBox,
     commentBox
   },
@@ -64,6 +65,8 @@ export default {
     socialMediaDialog: false,
     selectedLessonId: 0,
     selectedLessonGroupId: null,
+    contentLoading: false,
+    videoListLoading: false,
     lessonGroups: [],
     lessons: [],
     contents: new ContentList(),
@@ -83,7 +86,7 @@ export default {
       return this.$store.getters['ChatreNejat/selectedTopic']
     },
     contentVideoListLoading() {
-      return !this.selectedContent.id
+      return !this.selectedContent?.id || this.contentLoading
     },
     selectedContent() {
       return this.$store.getters['ChatreNejat/selectedContent']
@@ -97,14 +100,14 @@ export default {
       })
     },
     watchingContentComment() {
-      return this.watchingContent.comments[0]?.comment || ''
+      return this.watchingContent?.comments[0]?.comment || ''
     },
     currentSetIndex() {
       return this.setList.findIndex(set => set.id === this.selectedSet.id)
     },
     watchingContent: {
       get () {
-        return this.selectedContent
+        return this.selectedContent || new Content()
       },
       set(value) {
         this.$store.commit('ChatreNejat/setSelectedContent', value)
@@ -129,16 +132,34 @@ export default {
       //   id: this.$route.params.productId
       // }).then()
     }
-    if (!this.selectedContent.id) {
-      this.$router.push({
-        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
-        params: {
-          productId: this.$route.params.productId
-        }
-      })
+    if (!this.selectedContent.id || !this.selectedSet.id) {
+      this.storeSelectedSet(this.$route.params.setId)
+      this.storeSelectedContent(this.$route.params.contentId)
     }
   },
   methods: {
+    storeSelectedSet (setId) {
+      this.contentLoading = true
+      this.getSelectedSet(setId).then(res => {
+        this.setSelectedSet(res)
+        this.contentLoading = false
+        this.ContentVideoListKey++
+      }).catch(() => {
+        this.contentLoading = false
+        this.ContentVideoListKey++
+      })
+    },
+    storeSelectedContent (contentId) {
+      this.contentLoading = true
+      this.getSelectedContent(contentId).then(res => {
+        this.setSelectedContent(res)
+        this.contentLoading = false
+        this.ContentVideoListKey++
+      }).catch(() => {
+        this.contentLoading = false
+        this.ContentVideoListKey++
+      })
+    },
     getProductSets(productId) {
       this.$store.dispatch('ChatreNejat/getSet', productId)
     },
@@ -147,16 +168,43 @@ export default {
     },
     goToNextSet() {
       const nextSet = this.setList[this.currentSetIndex + 1]
-      this.$store.commit('ChatreNejat/setSelectedSet', nextSet)
-      this.ContentVideoListKey++
+      this.videoListLoading = true
+      this.getSelectedSet(nextSet.id).then(res => {
+        this.setSelectedSet(res)
+        this.setSelectedContent(res.contents.list[0])
+        this.videoListLoading = false
+        this.ContentVideoListKey++
+      }).catch(() => {
+        this.setSelectedSet(nextSet)
+        this.videoListLoading = false
+        this.ContentVideoListKey++
+      })
     },
     goToPrevSet() {
       const prevSet = this.setList[this.currentSetIndex - 1]
-      this.$store.commit('ChatreNejat/setSelectedSet', prevSet)
-      this.ContentVideoListKey++
+      this.videoListLoading = true
+      this.getSelectedSet(prevSet.id).then(res => {
+        this.setSelectedSet(res)
+        this.setSelectedContent(res.contents.list[0])
+        this.videoListLoading = false
+        this.ContentVideoListKey++
+      }).catch(() => {
+        this.setSelectedSet(prevSet)
+        this.videoListLoading = false
+        this.ContentVideoListKey++
+      })
     },
     setSelectedContent(content) {
       this.$store.commit('ChatreNejat/setSelectedContent', content)
+    },
+    setSelectedSet(set) {
+      this.$store.commit('ChatreNejat/setSelectedSet', set)
+    },
+    getSelectedSet (setId) {
+      return this.$apiGateway.set.show(setId)
+    },
+    getSelectedContent (contentId) {
+      return this.$apiGateway.content.show(contentId)
     }
   }
 }
