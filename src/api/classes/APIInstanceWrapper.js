@@ -15,30 +15,20 @@ export default class APIInstanceWrapper {
     }
 
     const axiosInstance = function (baseURL, serverURL) {
-      // const host = serverURL.split('/')[2]
-      const host = serverURL.split('/')[2].split(':')[0]
-      const port = serverURL.split('/')[2].split(':')[1] ? parseInt(serverURL.split('/')[2].split(':')[1]) : 80
-      // const host = '127.0.0.1'
+      const serverAddress = serverURL.split('/')[2].split(':')
+      const host = serverAddress[0]
+      const port = serverAddress[1] ? parseInt(serverAddress[1]) : 80
       const defaults = {
         baseURL,
         serverURL,
         headers: { 'Content-Type': 'application/json' }
       }
       const get = (url) => new Promise((resolve, reject) => {
-        // axios.get('http://192.168.8.12:700/api/v2/home')
-        //   .then(res => {
-        //     console.log('data', res.data)
-        //   })
-        //   .catch(err => {
-        //     console.log('err------------------>', err)
-        //   })
-
         const requestAddress = defaults.serverURL + url
         axios.get(requestAddress, {
           proxy: {
             // protocol: 'http',
             host,
-            hostname: host,
             port
             // auth: {
             //   username: 'YOUR_API_KEY',
@@ -58,7 +48,8 @@ export default class APIInstanceWrapper {
         axios.post(defaults.serverURL + url, data, {
           proxy: {
             // protocol: 'http',
-            host
+            host,
+            port
             // port: 8886,
             // auth: {
             //   username: 'YOUR_API_KEY',
@@ -77,7 +68,8 @@ export default class APIInstanceWrapper {
         axios.put(defaults.serverURL + url, data, {
           proxy: {
             // protocol: 'http',
-            host
+            host,
+            port
             // port: 8886,
             // auth: {
             //   username: 'YOUR_API_KEY',
@@ -96,7 +88,8 @@ export default class APIInstanceWrapper {
         axios.delete(defaults.serverURL + url, {
           proxy: {
             // protocol: 'http',
-            host
+            host,
+            port
             // port: 8886,
             // auth: {
             //   username: 'YOUR_API_KEY',
