@@ -100,7 +100,10 @@ export default {
       })
     },
     watchingContentComment() {
-      return this.watchingContent?.comments[0]?.comment || ''
+      if (!this.watchingContent?.comments) {
+        return
+      }
+      return this.watchingContent.comments[0]?.comment || ''
     },
     currentSetIndex() {
       return this.setList.findIndex(set => set.id === this.selectedSet.id)
