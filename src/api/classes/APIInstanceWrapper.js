@@ -15,11 +15,10 @@ export default class APIInstanceWrapper {
     }
 
     const axiosInstance = function (baseURL, serverURL) {
-      // const localAxiosInstance = axios.create()
-      // const localAxiosInstance = axios.create({ baseURL: serverURL })
       // const host = serverURL.split('/')[2]
-      // const host = serverURL.split('/')[2].split(':')[0]
-      const host = '127.0.0.1'
+      const host = serverURL.split('/')[2].split(':')[0]
+      const port = serverURL.split('/')[2].split(':')[1] ? parseInt(serverURL.split('/')[2].split(':')[1]) : 80
+      // const host = '127.0.0.1'
       const defaults = {
         baseURL,
         serverURL,
@@ -38,8 +37,9 @@ export default class APIInstanceWrapper {
         axios.get(requestAddress, {
           proxy: {
             // protocol: 'http',
-            host
-            // port: 8886,
+            host,
+            hostname: host,
+            port
             // auth: {
             //   username: 'YOUR_API_KEY',
             //   password: 'render_js=False&premium_proxy=True'
