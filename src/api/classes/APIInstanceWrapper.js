@@ -15,18 +15,27 @@ export default class APIInstanceWrapper {
     }
 
     const axiosInstance = function (baseURL, serverURL) {
-      const localAxiosInstance = axios.create({ baseURL: serverURL })
-      const host = serverURL.split('/')[2]
+      // const localAxiosInstance = axios.create()
+      // const localAxiosInstance = axios.create({ baseURL: serverURL })
+      // const host = serverURL.split('/')[2]
       // const host = serverURL.split('/')[2].split(':')[0]
-      // const host = '127.0.0.1'
+      const host = '127.0.0.1'
       const defaults = {
         baseURL,
         serverURL,
         headers: { 'Content-Type': 'application/json' }
       }
       const get = (url) => new Promise((resolve, reject) => {
+        // axios.get('http://192.168.8.12:700/api/v2/home')
+        //   .then(res => {
+        //     console.log('data', res.data)
+        //   })
+        //   .catch(err => {
+        //     console.log('err------------------>', err)
+        //   })
+
         const requestAddress = defaults.serverURL + url
-        localAxiosInstance.get(requestAddress, {
+        axios.get(requestAddress, {
           proxy: {
             // protocol: 'http',
             host
@@ -41,12 +50,12 @@ export default class APIInstanceWrapper {
             resolve(response)
           })
           .catch(error => {
-            console.error('error', error)
+            console.log('error----------*******************************************-------->', error)
             reject(error)
           })
       })
       const post = (url, data) => new Promise((resolve, reject) => {
-        localAxiosInstance.post(defaults.serverURL + url, data, {
+        axios.post(defaults.serverURL + url, data, {
           proxy: {
             // protocol: 'http',
             host
@@ -65,7 +74,7 @@ export default class APIInstanceWrapper {
           })
       })
       const put = (url, data) => new Promise((resolve, reject) => {
-        localAxiosInstance.put(defaults.serverURL + url, data, {
+        axios.put(defaults.serverURL + url, data, {
           proxy: {
             // protocol: 'http',
             host
@@ -84,7 +93,7 @@ export default class APIInstanceWrapper {
           })
       })
       const deleteMethod = (url) => new Promise((resolve, reject) => {
-        localAxiosInstance.delete(defaults.serverURL + url, {
+        axios.delete(defaults.serverURL + url, {
           proxy: {
             // protocol: 'http',
             host
