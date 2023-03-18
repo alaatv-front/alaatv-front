@@ -271,8 +271,8 @@ const routes = [
                         component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue'),
                         children: [
                           {
-                            name: 'UserPanel.Asset.ChatreNejat.ProductSingleComments',
-                            path: ':productId/comments',
+                            name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment',
+                            path: ':commentId',
                             component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
                           }
                         ]
