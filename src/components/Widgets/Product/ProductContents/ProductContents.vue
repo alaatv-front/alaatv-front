@@ -84,10 +84,10 @@
 </template>
 
 <script>
-import { APIGateway } from 'src/api/APIGateway'
-import { Product } from 'src/models/Product'
-import { Set } from 'src/models/Set'
+import { Set } from 'src/models/Set.js'
 import { dragscroll } from 'vue-dragscroll'
+import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
