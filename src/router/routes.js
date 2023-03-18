@@ -187,7 +187,7 @@ const routes = [
           },
           {
             name: 'UserPanel.Asset',
-            path: 'asset',
+            path: '',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
