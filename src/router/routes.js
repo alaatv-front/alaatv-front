@@ -287,7 +287,7 @@ const routes = [
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.Adviser.Content',
-                    path: ':setId/adviser/content',
+                    path: ':setId/adviser/content/:contentId',
                     props: true,
                     component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                   },
