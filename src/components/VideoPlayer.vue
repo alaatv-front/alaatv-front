@@ -60,7 +60,7 @@ export default {
     },
     useSideBar: {
       type: Boolean,
-      default: true
+      default: false
     },
     poster: {
       type: String,
@@ -325,6 +325,28 @@ export default {
     position: absolute;
     top: 5px;
     left: 5px;
+  }
+  .video-js {
+    .vjs-loading-spinner {
+      right: 50%;
+      margin: -25px -25px 0 0;
+      text-align: right;
+    }
+    .vjs-volume-panel {
+      .vjs-volume-control {
+        right: -3.5em;
+        margin-right: -1px;
+      }
+    }
+    .vjs-big-play-button {
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+      margin-left: -0.7em;
+      color: white;
+      border-color: var(--alaa-Primary);
+      background: var(--alaa-Primary);
+    }
   }
 }
 </style>
