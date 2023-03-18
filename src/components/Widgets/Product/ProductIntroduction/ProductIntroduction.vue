@@ -4,7 +4,7 @@
           :class="options.className"
           :style="options.style">
     <video-player :poster="product.intro.photo"
-                  :sources="videoSource()" />
+                  :source="videoSource()" />
     <div v-if="options.download_date"
          class="q-mt-md q-ml-md">
       <q-icon name="info"
@@ -88,7 +88,13 @@ export default {
     },
 
     videoSource() {
-      return new PlayerSourceList([{ link: this.product.intro.video }])
+      return new PlayerSourceList([{
+        default: true,
+        res: 1024,
+        type: 'video/mp4',
+        src: this.product.intro.video,
+        label: 'کیفیت عالی'
+      }])
     },
     getProduct() {
       return APIGateway.product.show(this.productId)
