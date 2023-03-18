@@ -1,39 +1,38 @@
 <template>
-  <div class="ChatreNejatContent-page">
-    selectedContent :{{selectedContent.id}}
-    <br>
-    selectedSet : {{selectedSet.id}}
+  <div class="ChatreNejatContent-page q-pa-md">
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-x-md">
       <div class="video-box-col col-12 col-xs-12 col-sm-12 col-lg-8">
         <!--        :afterLoad="contentsIsEmpty"-->
-        <video-box :lesson="currentLesson"
-                   :set="currentSet"
-                   :content="watchingContent"
+        <video-box :set="selectedSet"
+                   :content="selectedContent"
                    @favorite="toggleFavor"
                    @toggle-video-status="updateVideoStatus"
                    @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
-          <div class="current-content-title"
-               v-text="watchingContent?.title" />
-
           <comment-box v-model:value="watchingContentComment"
-                       :doesnt-have-content="contentsIsEmpty"
+                       :doesnt-have-content="watchingContent.comments.length > 0"
                        @updateComment="saveComment" />
         </div>
       </div>
       <div class="col-12 col-xs-12 col-sm-12 col-lg-4 content-list-col">
-        <content-video-list />
+        <content-video-list :key="ContentVideoListKey"
+                            :loading="contentVideoListLoading"
+                            :content="selectedContent"
+                            :set="selectedSet"
+                            :hide-prev-btn="currentSetIndex === 0"
+                            :hide-next-btn="currentSetIndex === (setList.length - 1 )"
+                            @nextSetClicked="goToNextSet"
+                            @previousSetClicked="goToPrevSet"
+                            @contentSelected="setSelectedContent" />
       </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
     <div class="row  q-col-gutter-x-md q-mt-lg">
       <div class="col-8">
         <div class="desktop-view">
-          <div class="current-content-title"
-               v-text="watchingContent?.title" />
           <comment-box v-model:value="watchingContentComment"
-                       :doesnt-have-content="contentsIsEmpty"
+                       :doesnt-have-content="watchingContent.comments.length > 0"
                        @updateComment="saveComment" />
         </div>
       </div>
@@ -47,9 +46,10 @@ import { SetList } from 'src/models/Set.js'
 import { mixinChatreNejat } from 'src/mixin/Mixins.js'
 import { Content, ContentList } from 'src/models/Content.js'
 import videoBox from 'src/components/DashboardChatreNejat/videoBox.vue'
-import { SetSectionList, SetSection } from 'src/models/SetSection.js'
+// SetSection
+import { SetSectionList } from 'src/models/SetSection.js'
 import commentBox from 'src/components/DashboardChatreNejat/CommentBox.vue'
-import ContentVideoList from 'components/Widgets/Content/Show/ContentVideoList/ContentVideoList.vue'
+import ContentVideoList from 'components/DashboardChatreNejat/ContentVideoList.vue'
 
 export default {
   name: 'ChatreNejatContent',
@@ -60,13 +60,14 @@ export default {
   },
   mixins: [mixinChatreNejat],
   data: () => ({
+    ContentVideoListKey: 0,
     socialMediaDialog: false,
     selectedLessonId: 0,
     selectedLessonGroupId: null,
     lessonGroups: [],
     lessons: [],
     contents: new ContentList(),
-    watchingContent: new Content(),
+    currentContent: new Content(),
     sets: new SetList(),
     sections: new SetSectionList(),
     currentSetId: null,
@@ -81,6 +82,9 @@ export default {
     selectedTopic() {
       return this.$store.getters['ChatreNejat/selectedTopic']
     },
+    contentVideoListLoading() {
+      return !this.selectedContent.id
+    },
     selectedContent() {
       return this.$store.getters['ChatreNejat/selectedContent']
     },
@@ -92,17 +96,19 @@ export default {
         return set.short_title.includes(this.selectedTopic)
       })
     },
-    contentsIsEmpty () {
-      return this.contents.list.length === 0
-    },
     watchingContentComment() {
       return this.watchingContent.comments[0]?.comment || ''
     },
-    currentSet () {
-      return this.getSet(this.currentSetId)
+    currentSetIndex() {
+      return this.setList.findIndex(set => set.id === this.selectedSet.id)
     },
-    currentLesson () {
-      return this.getLesson(this.selectedLessonId)
+    watchingContent: {
+      get () {
+        return this.selectedContent
+      },
+      set(value) {
+        this.$store.commit('ChatreNejat/setSelectedContent', value)
+      }
     }
   },
   watch: {
@@ -116,10 +122,20 @@ export default {
     }
   },
   mounted() {
-    this.initPage()
     if (this.$route.params.productId) {
       this.getProductSets(this.$route.params.productId)
       this.getProduct()
+      // this.$apiGateway.product.getContents({
+      //   id: this.$route.params.productId
+      // }).then()
+    }
+    if (!this.selectedContent.id) {
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        params: {
+          productId: this.$route.params.productId
+        }
+      })
     }
   },
   methods: {
@@ -129,238 +145,19 @@ export default {
     getProduct() {
       this.$store.dispatch('ChatreNejat/getSelectedProduct', this.$route.params.productId)
     },
-    loadUserLastState() {
-      this.setCurrentSet(this.userLastState.setId, this.userLastState.contentId)
+    goToNextSet() {
+      const nextSet = this.setList[this.currentSetIndex + 1]
+      this.$store.commit('ChatreNejat/setSelectedSet', nextSet)
+      this.ContentVideoListKey++
     },
-    async showUserLastState() {
-      try {
-        const response = await this.$apiGateway.abrisham.getUserLastState(this.selectedLessonId)
-        const setId = response.data.data.set.id
-        const contentId = response.data.data.id
-        this.userLastState.setId = setId
-        this.userLastState.contentId = contentId
-        this.setCurrentSet(setId, contentId)
-      } catch {
-
-      }
+    goToPrevSet() {
+      const prevSet = this.setList[this.currentSetIndex - 1]
+      this.$store.commit('ChatreNejat/setSelectedSet', prevSet)
+      this.ContentVideoListKey++
     },
-
-    // getUserLastState() {
-    //   return this.$axios.get('/api/v2/product/' + this.selectedLessonId + '/toWatch')
-    // },
-
-    async initPage () {
-      const lessonGroups = await this.getLessonGroups()
-      this.showLessonGroups(lessonGroups)
-    },
-
-    showLessonGroups (lessonGroups) {
-      this.lessonGroups = lessonGroups
-      this.setLessonGroupsId()
-      const selectedLessonGroupId = this.getSelectedLessonGroupIdFromSelectedLesson()
-      if (!selectedLessonGroupId) {
-        return
-      }
-      this.setSelectedLessonGroupId(selectedLessonGroupId)
-      this.lessonGroupsLoading = false
-    },
-
-    setSelectedLessonGroupId (selectedLessonGroupId) {
-      this.selectedLessonGroupId = selectedLessonGroupId
-    },
-
-    showFirstLesson () {
-      if (this.lessons.length === 0) {
-        return
-      }
-      const firstLessonId = this.lessons[0].id
-      this.setSelectedLessonId(firstLessonId)
-    },
-
-    onChangeLessonGroup () {
-      this.showLessons(this.selectedLessonGroupId)
-    },
-
-    onChangeLesson () {
-      this.showSets(this.selectedLessonId)
-    },
-
-    getLesson (id) {
-      return this.lessons.find((lesson) => lesson.id === id)
-    },
-
-    showLessons (lessonGroupId) {
-      const selectedLessonGroup = this.getLessonGroup(lessonGroupId)
-      this.lessons = selectedLessonGroup.lessons
-      this.showFirstLesson()
-    },
-
-    setLessonGroupsId () {
-      this.lessonGroups.forEach((item, index) => {
-        item.id = index + 1
-      })
-    },
-
-    setSelectedLessonId (lessonId) {
-      this.selectedLessonId = lessonId
-    },
-
-    getLessonGroup (lessonGroupId) {
-      return this.lessonGroups.find(item => parseInt(item.id) === parseInt(lessonGroupId))
-    },
-
-    getSelectedLessonGroupIdFromSelectedLesson () {
-      const selectedLessonGroup = this.lessonGroups.find(lessonGroup => !!lessonGroup.lessons.find(lesson => lesson.selected))
-      if (!selectedLessonGroup) {
-        if (this.lessonGroups.length === 0 || this.lessonGroups[0].lessons.length === 0) {
-          return null
-        }
-
-        return this.lessonGroups[0].lessons[0].id
-      }
-      return selectedLessonGroup.id
-    },
-
-    async getLessonGroups() {
-      this.lnssonGroupsLoading = true
-      try {
-        const response = await this.$apiGateway.abrisham.getLessons()
-        if (response.status === 200) {
-          return response.data.data
-        }
-        return []
-      } catch {
-        this.lnssonGroupsLoading = true
-        return []
-      }
-    },
-
-    async showSets (lessonId) {
-      this.lnssonGroupsLoading = true
-      const sets = await this.getSets(lessonId)
-      this.setSets(sets)
-      await this.showUserLastState()
-      this.lnssonGroupsLoading = false
-      // const firstSet = this.getFirstSet()
-      // this.setCurrentSet(firstSet.id)
-    },
-
-    async getSets (lessonId) {
-      // lesson is a product
-      const response = await this.$apiGateway.abrisham.requestToGetSets(lessonId)
-
-      if (response.status === 200) {
-        return new SetList(response.data.data)
-      }
-
-      return new SetList()
-    },
-
-    setSets (sets) {
-      this.sets = sets
-    },
-
-    setCurrentSet (setId, contentId) {
-      this.currentSetId = setId
-      this.showFirstSections(contentId)
-    },
-
-    showFirstSections (contentId) {
-      this.addAllSectionToSections()
-      this.setSections()
-      const firstSection = this.getFirstSection()
-      this.setSectionActive(firstSection.id, contentId)
-    },
-
-    setSectionActive (id, contentId) {
-      this.currentSectionId = id
-      this.showFirstContent(contentId)
-    },
-
-    getSet (setId) {
-      return this.sets.list.find(setItem => setItem.id === setId)
-    },
-
-    setSections () {
-      if (!this.currentSet) {
-        return
-      }
-      this.sections = this.currentSet.sections
-    },
-
-    addAllSectionToSections () {
-      this.sets.list.forEach(set => set.sections.list.unshift(new SetSection({ id: 'all', title: 'همه' })))
-    },
-
-    getFirstSet () {
-      if (this.sets.list.length === 0) {
-        return null
-      }
-      return this.sets.list[0]
-    },
-
-    getFirstContent () {
-      if (this.contents.list.length === 0) {
-        return null
-      }
-      return this.contents.list[0]
-    },
-
-    getFirstSection () {
-      if (this.sections.list.length === 0) {
-        return null
-      }
-      return this.sections.list[0]
-    },
-
-    // requestToGetSets (params) {
-    //   return this.$axios.get('/api/v2/product/' + params.lessonId + '/sets')
-    // },
-
-    async showFirstContent (contentId) {
-      const contents = await this.getContents()
-      this.setContents(contents)
-      if (!contentId) {
-        contentId = contents.list[0].id
-      }
-      const content = this.getContent(contentId)
-      this.setWatchingContent(content)
-    },
-
-    getContent(contentId) {
-      if (contentId) {
-        return this.contents.list.find(content => content.id === contentId)
-      }
-      return this.getFirstContent()
-    },
-
-    setWatchingContent (content) {
-      this.watchingContent = content || new Content()
-    },
-
-    async getContents () {
-      this.contents.loading = true
-      try {
-        const response = await this.$apiGateway.abrisham.requestToGetContents(this.currentSetId)
-        this.contents.loading = false
-        return response
-      } catch {
-        this.contents.loading = false
-      }
-    },
-
-    setContents (contents) {
-      this.contents = contents
+    setSelectedContent(content) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
     }
-
-    // requestToGetContents () {
-    //   return this.$axios.get('/api/v2/set/' + this.currentSetId + '/contents')
-    // }
-
-    // getLessons () {
-    //   return this.$axios.get('/api/v2/abrisham/lessons')
-    // }
-
   }
 }
 </script>
@@ -372,7 +169,7 @@ export default {
     margin: 0 10px;
   }
   @media screen and (max-width: 1023px) {
-    margin: 0;
+    //margin: 0 20px;
   }
 
   .chip-parent{
