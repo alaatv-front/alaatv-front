@@ -4,7 +4,7 @@
                   v-model:value="inputs"
                   v-model:table-selected-values="selected"
                   class="orders-list-entity-index"
-                  :api="$apiGateway.product.APIAdresses.getSets(975)"
+                  :api="$apiGateway.product.APIAdresses.getContents(975)"
                   :table-selection-mode="selectionMode"
                   :item-indicator-key="'id'"
                   :identifyKey="'id'"
@@ -13,7 +13,8 @@
                   :show-search-button="false"
                   :create-route-name="'User.Create'"
                   :default-layout="false"
-                  :table-grid-size="true">
+                  :table-grid-size="true"
+                  @onInputClick="onInputClick($event)">
       <template v-slot:no-entity>
         <div class="flex column items-center q-pa-lg">
           <div class="q-mb-sm">
@@ -64,13 +65,13 @@
               </q-item-section>
               <q-item-section>
                 <q-item-label class="ellipsis-2-lines"
-                              style="line-height: 22px !important;">{{inputData.props.row.short_title}}</q-item-label>
+                              style="line-height: 22px !important;">{{inputData.props.row.title}}</q-item-label>
               </q-item-section>
               <q-item-section side
                               middle>
                 <q-btn color="primary"
                        label="دانلود"
-                       @click="onClick" />
+                       @click="downloadPamphlet(inputData.props.row.file.pamphlet[0].link)" />
               </q-item-section>
             </q-item>
           </q-card>
@@ -82,6 +83,8 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
+import { openURL } from 'quasar'
+
 export default {
   name: 'ChatreNejatProductDocuments',
   components: {
@@ -120,7 +123,9 @@ export default {
       },
       inputs: [
         { type: 'input', name: 'search-btn', outlined: true, label: 'جستجو در فیلم ها', placeholder: 'انتخاب نمایید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
-        { type: 'button', name: 'search', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' },
+        { type: 'button', name: 'search', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'separator', col: 'col-md-6', size: '0' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -128,16 +133,24 @@ export default {
           class: 'entity-filter-box',
           ignoreValue: true,
           value: [
-            { type: 'select', name: 'enable', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیر فعال', value: 0 }] }
+            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] }
           ]
         }
       ]
+    }
+  },
+  computed: {
+    setTopicList() {
+      return this.$store.getters['ChatreNejat/setTopicList']
     }
   },
   watch: {
     selected(value) {
       this.$emit('selectedUpdated', value)
     }
+  },
+  mounted() {
+    this.getProductSets(this.$route.params.productId)
   },
   methods: {
     toggleDialog() {
@@ -146,22 +159,43 @@ export default {
     setContent(e) {
       this.selected = e
       this.toggleDialog()
+    },
+    downloadPamphlet(url) {
+      openURL(url)
+    },
+    onInputClick(e) {
+      if (e.input.name === 'toggle') {
+        document.getElementsByClassName('entity-filter-box')[0].classList.toggle('opened')
+      }
+    },
+    getProductSets(productId) {
+      this.$store.dispatch('ChatreNejat/getSet', productId).then(() => {
+        this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = this.setTopicList
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.content-col{
-  padding: 10px;
+.product-documents {
+  &:deep(.entity-filter-box) {
+    display: none;
+    &.opened {
+      display: flex;
+    }
+  }
+  .content-col{
+    padding: 10px;
 
-  .content-box {
-    display: flex;
-    width: 100%;
-    min-height: 80px;
-
-    .content-item {
+    .content-box {
+      display: flex;
       width: 100%;
+      min-height: 80px;
+
+      .content-item {
+        width: 100%;
+      }
     }
   }
 }

@@ -13,6 +13,7 @@ export default class ProductAPI extends APIRepository {
       edit: '/admin/product',
       index: '/admin/product',
       getSets: id => `/product/${id}/sets`,
+      getComments: id => `/product/${id}/content-comments`,
       getContents: id => `/product/${id}/contents`,
       favored: (id) => id + '/favored',
       unfavored: (id) => '/product/' + id + '/unfavored',
