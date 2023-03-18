@@ -50,24 +50,6 @@ export default {
     return {
       content: new Content(),
       set: new Set(),
-      sourceItem: [
-        {
-          src: '',
-          type: 'video/mp4',
-          label: ''
-        },
-        {
-          src: '',
-          type: 'video/mp4',
-          label: '',
-          selected: true
-        },
-        {
-          src: '',
-          type: 'video/mp4',
-          label: ''
-        }
-      ],
       sources: new PlayerSourceList(),
       poster: '',
       contentNumber: 1 // content order may not be continuously
@@ -75,14 +57,14 @@ export default {
   },
   watch: {
     options() {
-      this.loadContent()
+      this.getContentByRequest()
     },
     'data.id': function() {
-      this.loadContent()
+      this.getContentByRequest()
     }
   },
   created() {
-    this.loadContent()
+    this.getContentByRequest()
   },
   methods: {
     getContentIdByNumberInList(numberInList) {
@@ -90,9 +72,6 @@ export default {
     },
     getContentNumberInListById(contentId) {
       return this.set.contents.list.findIndex(content => parseInt(content.id) === parseInt(contentId)) + 1
-    },
-    loadContent() {
-      this.getContentByRequest()
     },
     getContentId () {
       if (this.options.productId) {

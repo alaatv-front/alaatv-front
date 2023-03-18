@@ -104,8 +104,14 @@ export default {
   mixins: [mixinWidget],
   props: {
     options: {
-      type: Block,
-      default: new Block()
+      type: Object,
+      default() {
+        return {
+          style: {},
+          apiName: null,
+          block: new Block()
+        }
+      }
     }
   },
   data: () => ({
@@ -136,24 +142,19 @@ export default {
   watch: {
     options: {
       handler() {
-        this.block = new Block(this.options)
+        this.block = new Block(this.options.block)
       },
       deep: true
     }
   },
-  mounted() {
+  created () {
     if (this.options.apiName) {
-      this.loadBlocks()
+      this.getBlocksByRequest()
     } else {
-      this.block = new Block(this.options)
+      this.block = new Block(this.options.block)
     }
   },
-
   methods: {
-    loadBlocks() {
-      this.getBlocksByRequest()
-    },
-
     getBlocksByRequest() {
       this.block.loading = true
       this.getApiRequest()
@@ -162,28 +163,21 @@ export default {
             title: 'محصولات مرتبط',
             products
           })
-
           this.block.loading = false
         })
         .catch(() => {
           this.block.loading = false
         })
     },
-
     getBlocks(blocks) {
       if (!blocks || !blocks.list || blocks.list.length === 0) {
         return
       }
       return blocks.list.slice(this.options.from, this.options.to)
     },
-
     getApiRequest() {
       if (this.options.apiName === 'home') {
-        return this.$apiGateway.pages.home({
-          cache: {
-            TTL: 100000
-          }
-        })
+        return this.$apiGateway.pages.home()
       }
       if (this.options.apiName === 'shop') {
         return this.$apiGateway.pages.shop()

@@ -187,7 +187,7 @@ const routes = [
           },
           {
             name: 'UserPanel.Asset',
-            path: 'asset',
+            path: '',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -247,7 +247,7 @@ const routes = [
                 children: [
                   {
                     name: 'UserPanel.Asset.ChatreNejat.Products',
-                    path: 'product-list',
+                    path: '',
                     component: () => import('pages/User/DashboardChatreNejat/Products.vue')
                   },
                   {

@@ -6,10 +6,6 @@ const apiV2Server = process.env.ALAA_API_V2
 const API_ADDRESS = {
   // socket: process.env.VUE_APP_SOCKET_TARGET_API_SERVER,
   socket: 'https://office.alaatv.com:501',
-  pages: {
-    home: '/home',
-    shop: '/shop'
-  },
   server: {
     auth: apiV2Server
   },

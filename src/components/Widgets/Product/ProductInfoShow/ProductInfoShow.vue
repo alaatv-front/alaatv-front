@@ -49,10 +49,13 @@
                   <div v-for="(value , i) in info.value"
                        :key="i"
                        class="info-value col-6">
-                    <span v-if="value">{{ value }}</span>
-                    <span v-else>
-                      <q-skeleton width="100px" />
-                    </span>
+                    <template v-if="!product.loading">
+                      <span v-if="value">{{ value }}</span>
+                      <span v-else>-</span>
+                    </template>
+                    <q-skeleton v-else
+                                type="text"
+                                width="70px" />
                   </div>
                 </div>
               </div>
@@ -92,7 +95,6 @@ export default {
     return {
       product: new Product(),
       samplePhotosIndex: null,
-      // product: new Product(),
       introduction: {
         intro: null,
         attributes: null,
