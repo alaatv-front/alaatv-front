@@ -110,14 +110,17 @@ export default {
     productItems: [
       {
         name: 'pamphlet',
+        routeName: 'UserPanel.Asset.ChatreNejat.ProductDocuments',
         label: 'جزوات'
       },
       {
         name: 'notes',
+        routeName: 'UserPanel.Asset.ChatreNejat.ProductComments',
         label: 'یادداشت ها'
       },
       {
         name: 'favoredContents',
+        routeName: 'UserPanel.Asset.ChatreNejat.ProductBookmarks',
         label: 'نشان شده ها'
       }
     ]

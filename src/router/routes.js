@@ -278,10 +278,10 @@ const routes = [
                         ]
                       },
                       {
-                        name: 'UserPanel.Asset.ChatreNejat.Content',
+                        name: 'UserPanel.Asset.ChatreNejat.ProductBookmarks',
                         props: true,
-                        path: ':productId/set/:setId/content/:contentId',
-                        component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
+                        path: ':productId/bookmarks',
+                        component: () => import('src/pages/User/DashboardChatreNejat/ProductBookmarks.vue')
                       }
                     ]
                   },

@@ -16,12 +16,16 @@
                  :menu="topicsRouteArray"
                  :loading="topicList.length <= 0"
                  @item-selected="itemSelected" />
+      <!--                    :active="subItem.title === clickedItem.title"
+-->
       <q-item v-for="(item, index) in productItems"
               :key="index"
+              :active="item.name === clickedProductItem"
               class="menu-item">
         <q-btn flat
                class="full-width menu-item-btn"
                color="background: #EAEAEA;"
+               :to="(item.routeName) ?{ name: item.routeName, params: item.params }: null"
                :style="{background: item.name === selectedTopic? '#EAEAEA' : ''}"
                @click="setSelectedTopic(item.name)">
           <div class="label">{{item.label}}</div>
@@ -72,14 +76,17 @@ export default {
   emits: ['itemSelected'],
   data () {
     return {
-      searchText: ''
+      searchText: '',
+      clickedProductItem: ''
     }
   },
   methods: {
     itemSelected (topic) {
       this.$emit('itemSelected', topic)
     },
-    setSelectedTopic (TopicName) {},
+    setSelectedTopic (TopicName) {
+      this.clickedProductItem = TopicName
+    },
     search (list, parentContain = false) {
       if (!list || list.length === 0) {
         return false
