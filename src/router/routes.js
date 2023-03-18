@@ -252,7 +252,7 @@ const routes = [
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.ProductLayout',
-                    path: 'products',
+                    path: 'product',
                     component: () => import('layouts/ChatreNejatLayout.vue'),
                     children: [
                       {
@@ -271,8 +271,8 @@ const routes = [
                         component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue'),
                         children: [
                           {
-                            name: 'UserPanel.Asset.ChatreNejat.ProductSingleComments',
-                            path: ':productId/comments',
+                            name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment',
+                            path: ':commentId',
                             component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
                           }
                         ]
@@ -280,14 +280,14 @@ const routes = [
                       {
                         name: 'UserPanel.Asset.ChatreNejat.Content',
                         props: true,
-                        path: ':productId/content',
+                        path: ':productId/set/:setId/content/:contentId',
                         component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                       }
                     ]
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.Adviser.Content',
-                    path: ':setId/adviser/content',
+                    path: ':setId/adviser/content/:contentId',
                     props: true,
                     component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                   },
