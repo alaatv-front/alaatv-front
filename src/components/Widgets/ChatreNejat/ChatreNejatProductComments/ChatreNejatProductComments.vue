@@ -1,10 +1,10 @@
 <template>
-  <div class="product-documents">
+  <div class="product-comments">
     <entity-index ref="orderList"
                   v-model:value="inputs"
                   v-model:table-selected-values="selected"
                   class="orders-list-entity-index"
-                  :api="$apiGateway.product.APIAdresses.getSets(975)"
+                  :api="$apiGateway.product.APIAdresses.getSets(978)"
                   :table-selection-mode="selectionMode"
                   :item-indicator-key="'id'"
                   :identifyKey="'id'"
@@ -14,7 +14,8 @@
                   :show-search-button="false"
                   show-no-entity-slot
                   :default-layout="false"
-                  :table-grid-size="true">
+                  :table-grid-size="true"
+                  @onInputClick="onInputClick($event)">
       <template v-slot:no-entity>
         <div class="flex column items-center q-pa-lg">
           <div class="q-mb-sm">
@@ -118,6 +119,7 @@ export default {
       inputs: [
         { type: 'input', name: 'search-btn', outlined: true, label: 'جستجو در فیلم ها', placeholder: 'انتخاب نمایید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
         { type: 'button', name: 'search', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'apps', unelevated: true, col: 'col-md-3 q-mt-lg q-ml-lg self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -153,58 +155,70 @@ export default {
     setContent(e) {
       this.selected = e
       this.toggleDialog()
+    },
+    onInputClick(e) {
+      if (e.input.name === 'toggle') {
+        document.getElementsByClassName('entity-filter-box')[0].setAttribute('display', 'block')
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.content-col{
-  padding: 10px;
+.product-comments{
 
-  .content-box {
-    width: 100%;
-    min-height: 240px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 30px;
-    cursor: pointer;
+  &:deep(.entity-filter-box) {
+    display: none;
+  }
+  .content-col{
+    padding: 10px;
 
-    @media only screen and (max-width: 390px) {
-      padding: 5PX;
-    }
-
-    .comment-header {
+    .content-box {
+      width: 100%;
+      min-height: 240px;
+      position: relative;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      max-height: 30px;
-    }
+      padding: 30px;
+      cursor: pointer;
 
-    .comment-time {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 19px;
-      letter-spacing: -0.02em;
-      color: #666666;
-    }
+      @media only screen and (max-width: 390px) {
+        padding: 5PX;
+      }
 
-    .comment-main {
-      padding: 5px;
-      min-height: 120px;
-    }
+      .comment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-height: 30px;
+      }
 
-    .comment-footer{
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 19px;
-      letter-spacing: -0.02em;
-      color: #666666;
+      .comment-time {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 19px;
+        letter-spacing: -0.02em;
+        color: #666666;
+      }
+
+      .comment-main {
+        padding: 5px;
+        min-height: 120px;
+      }
+
+      .comment-footer{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 19px;
+        letter-spacing: -0.02em;
+        color: #666666;
+      }
     }
   }
 }
+
 </style>

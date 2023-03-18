@@ -8,7 +8,8 @@ const urlAddress = {
   adminShow: (id) => '/admin/set/' + id,
   attachContents: (setId) => '/admin/set/' + setId + '/c/attach',
   create: '/admin/set/',
-  show: (id) => '/set/' + id
+  show: (id) => '/set/' + id,
+  getContents: (id) => '/set/' + id + '/contents'
 }
 export default class SetAPI extends APIRepository {
   constructor() {
@@ -16,6 +17,7 @@ export default class SetAPI extends APIRepository {
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       show: (id) => this.name + this.APIAdresses.show(id),
+      getContents: (id) => this.name + this.APIAdresses.getContents(id),
       attachContents: (setId) => this.name + this.APIAdresses.attachContents(setId)
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
@@ -36,6 +38,22 @@ export default class SetAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Set(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getContents(setId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getContents(setId),
+      cacheKey: this.CacheList.getContents(setId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error

@@ -32,9 +32,8 @@
                       clickable
                       @click="setSelectedData(content,set)">
                 <q-item-section avatar>
-                  <q-icon color="
-                    dark"
-                          name="check_circle" />
+                  <q-icon color="grey"
+                          :name="content.has_watch ? 'check_circle' : 'play_circle_outline'" />
                 </q-item-section>
                 <q-item-section class="ellipsis">{{ content.title }}</q-item-section>
                 <q-item-section side>
