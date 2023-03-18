@@ -28,7 +28,7 @@
             <q-list separator>
               <q-item v-for="(content, index) in set.contents.list"
                       :key="index"
-                      :to="{ name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: this.$route.params.productId} }"
+                      :to="{ name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: this.$route.params.productId, setId: set.id, contentId: content.id} }"
                       clickable
                       @click="setSelectedData(content,set)">
                 <q-item-section avatar>

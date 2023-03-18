@@ -92,6 +92,13 @@ export default {
       return this.set.contents.list.findIndex(content => parseInt(content.id) === parseInt(contentId)) + 1
     },
     loadContent() {
+      if (this.options.content && this.options.content.id) {
+        this.content = new Content(this.options.content)
+        this.poster = this.content.photo ? this.content.photo : ''
+        this.setSources(this.content.file.video)
+        this.getSetByRequest()
+        return
+      }
       this.getContentByRequest()
     },
     getContentId () {
