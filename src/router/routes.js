@@ -268,7 +268,14 @@ const routes = [
                       {
                         name: 'UserPanel.Asset.ChatreNejat.ProductComments',
                         path: ':productId/comments',
-                        component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue')
+                        component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue'),
+                        children: [
+                          {
+                            name: 'UserPanel.Asset.ChatreNejat.ProductSingleComments',
+                            path: ':productId/comments',
+                            component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
+                          }
+                        ]
                       },
                       {
                         name: 'UserPanel.Asset.ChatreNejat.Content',

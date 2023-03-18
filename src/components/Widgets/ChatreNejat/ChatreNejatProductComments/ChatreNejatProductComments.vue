@@ -1,10 +1,10 @@
 <template>
-  <div class="product-documents">
+  <div class="product-comments">
     <entity-index ref="orderList"
                   v-model:value="inputs"
                   v-model:table-selected-values="selected"
                   class="orders-list-entity-index"
-                  :api="$apiGateway.product.APIAdresses.getSets(975)"
+                  :api="$apiGateway.product.APIAdresses.getComments($route.params.productId)"
                   :table-selection-mode="selectionMode"
                   :item-indicator-key="'id'"
                   :identifyKey="'id'"
@@ -14,7 +14,8 @@
                   :show-search-button="false"
                   show-no-entity-slot
                   :default-layout="false"
-                  :table-grid-size="true">
+                  :table-grid-size="true"
+                  @onInputClick="onInputClick($event)">
       <template v-slot:no-entity>
         <div class="flex column items-center q-pa-lg">
           <div class="q-mb-sm">
@@ -61,14 +62,14 @@
                       size="18px"
                       color="grey" />
               <div class="comment-time">
-                3 اسفند 1401 ، 09:28
+                {{ inputData.props.row.created_at }}
               </div>
             </q-card-section>
             <q-card-section class="ellipsis-3-lines comment-main">
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، ...
+              {{ inputData.props.row.comment }}
             </q-card-section>
             <q-card-action class="ellipsis comment-footer">
-              {{ ('فیلان یاخته ها در بدن انسان' || selectedTopic) + '>' + ('گام اول - فیلان یاخته ها در بدن یک' || selectedSet) }}
+              {{ inputData.props.row.commentable.set.title + ' > ' + inputData.props.row.commentable.title }}
             </q-card-action>
           </q-card>
         </div>
@@ -117,7 +118,9 @@ export default {
       },
       inputs: [
         { type: 'input', name: 'search-btn', outlined: true, label: 'جستجو در فیلم ها', placeholder: 'انتخاب نمایید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
-        { type: 'button', name: 'search', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' },
+        { type: 'button', name: 'search', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'separator', col: 'col-md-6', size: '0' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -125,7 +128,7 @@ export default {
           class: 'entity-filter-box',
           ignoreValue: true,
           value: [
-            { type: 'select', name: 'enable', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیر فعال', value: 0 }] },
+            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
             { type: 'date', name: 'createdAtSince', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تاریخ ایجاد شده', col: 'col-md-2 q-mt-lg q-ml-lg' },
             { type: 'date', name: 'createdAtTill', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تا', col: 'col-md-2 q-mt-lg q-ml-lg' }
           ]
@@ -146,6 +149,9 @@ export default {
       this.$emit('selectedUpdated', value)
     }
   },
+  mounted() {
+    this.getProductSets(this.$route.params.productId)
+  },
   methods: {
     toggleDialog() {
       this.$emit('toggleDialog')
@@ -153,58 +159,78 @@ export default {
     setContent(e) {
       this.selected = e
       this.toggleDialog()
+    },
+    onInputClick(e) {
+      if (e.input.name === 'toggle') {
+        document.getElementsByClassName('entity-filter-box')[0].classList.toggle('opened')
+      }
+    },
+    getProductSets(productId) {
+      this.$store.dispatch('ChatreNejat/getSet', productId).then(() => {
+        this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = this.setTopicList
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.content-col{
-  padding: 10px;
+.product-comments{
 
-  .content-box {
-    width: 100%;
-    min-height: 240px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 30px;
-    cursor: pointer;
-
-    @media only screen and (max-width: 390px) {
-      padding: 5PX;
-    }
-
-    .comment-header {
+  &:deep(.entity-filter-box) {
+    display: none;
+    &.opened {
       display: flex;
+    }
+  }
+  .content-col{
+    padding: 10px;
+
+    .content-box {
+      width: 100%;
+      min-height: 240px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
       justify-content: space-between;
-      align-items: center;
-      max-height: 30px;
-    }
+      padding: 30px;
+      cursor: pointer;
 
-    .comment-time {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 19px;
-      letter-spacing: -0.02em;
-      color: #666666;
-    }
+      @media only screen and (max-width: 390px) {
+        padding: 5PX;
+      }
 
-    .comment-main {
-      padding: 5px;
-      min-height: 120px;
-    }
+      .comment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-height: 30px;
+      }
 
-    .comment-footer{
-      font-style: normal;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 19px;
-      letter-spacing: -0.02em;
-      color: #666666;
+      .comment-time {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 19px;
+        letter-spacing: -0.02em;
+        color: #666666;
+      }
+
+      .comment-main {
+        padding: 5px;
+        min-height: 120px;
+      }
+
+      .comment-footer{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 19px;
+        letter-spacing: -0.02em;
+        color: #666666;
+      }
     }
   }
 }
+
 </style>
