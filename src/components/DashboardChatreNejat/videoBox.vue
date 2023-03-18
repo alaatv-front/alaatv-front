@@ -5,6 +5,7 @@
         <content-video-player :options="{
           paginate: false,
           urlParam: 'contentId',
+          noRequestMode: true,
           content
         }" />
         <div v-if="!content.id && !content.photo">
@@ -242,12 +243,7 @@ export default {
   },
 
   watch: {
-    'content.id': function () {
-      if (this.content && this.content.file && this.content.file.video) {
-        this.setContentSources(this.content.file.video)
-        this.setContentTimePoint(this.content.timepoints.list)
-      }
-    }
+    'content.id': function () {}
   },
 
   methods: {

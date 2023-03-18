@@ -5,10 +5,7 @@
     <!--    <video-player v-if="sources.list.length > 0"-->
     <!--                  :sources="sources"-->
     <!--                  :poster="poster" />-->
-    <video-player v-if="sources.list.length > 0"
-                  :content="content" />
-    <q-img v-else
-           src="src/assets/1200x630wa.png" />
+    <video-player :content="content" />
     <div v-if="options.paginate"
          class="q-pa-sm flex flex-center">
       <q-pagination v-model="contentNumber"
@@ -57,16 +54,26 @@ export default {
   },
   watch: {
     options() {
-      this.getContentByRequest()
+      this.loadContent()
     },
     'data.id': function() {
-      this.getContentByRequest()
+      this.loadContent()
     }
   },
   created() {
-    this.getContentByRequest()
+    this.loadContent()
   },
   methods: {
+    loadContent () {
+      if (this.options.noRequestMode || (this.options.content && this.options.content.id)) {
+        this.content = new Content(this.options.content)
+        this.poster = this.content.photo ? this.content.photo : ''
+        this.setSources(this.content.file.video)
+        this.getSetByRequest()
+        return
+      }
+      this.getContentByRequest()
+    },
     getContentIdByNumberInList(numberInList) {
       return this.set.contents.list[numberInList - 1]?.id
     },
@@ -126,10 +133,10 @@ export default {
     },
     getSetByRequest() {
       this.set.loading = true
-      APIGateway.set.show(this.content.set.id)
+      APIGateway.set.show(this.content.set?.id || this.$route.params.setId)
         .then((response) => {
           this.set = new Set(response)
-          this.contentNumber = this.getContentNumberInListById(this.content.id)
+          this.contentNumber = this.getContentNumberInListById(this.content.set?.id || this.$route.params.setId)
           this.set.loading = false
         })
         .catch(() => {
@@ -139,7 +146,7 @@ export default {
     },
     getSet() {
       this.set.loading = true
-      this.options.getData(API_ADDRESS.set.show(this.content.set.id))
+      this.options.getData(API_ADDRESS.set.show(this.content.set?.id || this.$route.params.setId))
         .then(response => {
           this.set = new Set(response.data.data)
           this.contentNumber = this.getContentNumberInListById(this.content.id)
