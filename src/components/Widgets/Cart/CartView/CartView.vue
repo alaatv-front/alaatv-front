@@ -1,235 +1,238 @@
 <template>
-  <template v-if="cart.loading">
-    <div class="cart-count">
-      <q-skeleton type="text"
-                  width="100px" />
-    </div>
-  </template>
-  <template v-else>
-    <div v-if="cart.count > 0"
-         class="cart-count">
-      سبدخرید شما ({{cart.count}})
-    </div>
-  </template>
-  <div class="cart-view-widget">
+  <div v-if="cart.count > 0"
+       class="cart-view-container">
     <template v-if="cart.loading">
-      <div class="cart-items">
-        <q-card class="cart-card">
-          <q-card-section class="card-section">
-            <div class="order-image-section">
-              <div class="order-image-container">
-                <q-skeleton height="100%"
-                            square />
-              </div>
-            </div>
 
-            <div class="product-text-info">
-              <div class="order-item-header">
-                <div class="title ellipsis q-px-lg q-pt-lg">
-                  <q-skeleton type="text" />
-                  <q-skeleton type="text"
-                              width="85%" />
-                </div>
-                <q-skeleton type="QBtn"
-                            width="25px"
-                            height="25px" />
-              </div>
-            </div>
-          </q-card-section>
-
-          <q-card-section class="card-actions">
-            <div class="product-details row on-open-expansion">
-              <div class="price-container col-md-6 col-sm-3">
-                <q-skeleton type="text"
-                            width="150px" />
-              </div>
-              <div class="action-buttons col-md-12 col-sm-3">
-                <q-skeleton type="QBtn"
-                            height="20px" />
-              </div>
-            </div>
-
-          </q-card-section>
-
-        </q-card>
+      <div class="cart-count">
+        <q-skeleton type="text"
+                    width="100px" />
       </div>
     </template>
     <template v-else>
-      <div v-for="(order, i) in cartItemsList"
-           :key="order.orderProductId"
-           class="cart-items">
-        <q-card class="cart-card"
-                :class="order.order_product?.list.length > 0 ? '': 'cart'">
-          <q-card-section class="card-section">
-            <div class="order-image-section">
-              <div class="order-image-container">
-                <lazy-img :src="order.grand.product.photo"
-                          class="order-image" />
-              </div>
-            </div>
-
-            <div class="product-text-info">
-              <div class="order-item-header">
-                <div class="title ellipsis">
-                  {{ order.grand.title }}
-                </div>
-
-                <q-btn v-if="order.orderProductId"
-                       unelevated
-                       class="trash-button"
-                       icon="isax:trash"
-                       @click="changeDialogState(true, order)" />
-              </div>
-
-              <div v-if="order.grand.product && order.grand.product.attributes && order.grand.product.attributes.info"
-                   class="product-information">
-                <div v-if="order.grand.product.attributes.info.teacher"
-                     class="product-info">
-                  <q-icon name="isax:teacher"
-                          class="info-icon" />
-                  <div class="info-value">
-                    {{ order.grand.product.attributes.info.teacher.join('، ') }}
-                  </div>
-                </div>
-
-                <div v-if="order.grand.product.attributes.info.major"
-                     class="product-info">
-                  <q-icon name="isax:book-1"
-                          class="info-icon" />
-                  <div class="info-value">
-                    رشته تحصیلی: {{ order.grand.product.attributes.info.major.join(' - ') }}
-                  </div>
-                </div>
-
-                <div v-if="order.grand.product.attributes.info.production_year"
-                     class="product-info">
-                  <q-icon name="isax:menu-board4"
-                          class="info-icon" />
-                  <div class="info-value">
-                    {{ order.grand.product.attributes.info.production_year.join('، ') }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </q-card-section>
-
-          <q-card-section class="card-actions">
-            <div class="product-details row"
-                 :class="expandedObject[i] ?'on-open-expansion': ''">
-              <div v-if="order.grand.price"
-                   class="price-container col-md-6 col-sm-3">
-                <div class="discount-part">
-                  <div class="discount-percent">
-                    {{ order.grand.price.discountInPercent() }}%
-                  </div>
-
-                  <div class="base-price">
-                    {{ order.grand.price.toman('base', null) }}
-                  </div>
-                </div>
-
-                <div class="final-part">
-                  <div class="final-price">{{ order.grand.price.toman('final', null) }}</div>
-                  <div class="toman">تومان</div>
-                </div>
-              </div>
-
-              <div class="action-buttons col-md-12 col-sm-3"
-                   :class="expandedObject[i] ? '' : 'open-expansion'">
-                <span v-if="!expandedObject[i] || !order.order_product">
-                  <a v-if="order.grand && order.grand.url && order.grand.url.web"
-                     class="link"
-                     :href="order.grand?.url?.web">
-                    {{ descLinkLabel }}
-                  </a>
-                </span>
-
-                <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id?order.grand.product.id:-1}}"
-                             class="go-product text-primary text-center">
-                  رفتن
-                  به صفحه محصول
-                </router-link>
-                <q-expansion-item v-if="order.order_product?.list.length > 0"
-                                  v-model="expandedObject[i]"
-                                  label="جزئیات محصول"
-                                  class="details-expansion"
-                                  :class="expandedObject[i] ?'open-expansion-style': 'close-expansion-style'"
-                                  :header-class=" expandedObject[i] ? 'hide-expansion-header' : ''">
-                  <q-card class="details-expansion-card">
-                    <q-card-section class="details-expansion-card-section">
-                      <div v-for="(orderProduct, index) in order.order_product.list"
-                           :key="orderProduct.id"
-                           class="pamphlet">
-                        <div class="title ellipsis">
-                          {{ orderProduct.product.title }}
-                        </div>
-
-                        <div class="right-part">
-                          <span class="price"
-                                :class="index !== 0 ? 'without-trash': ''">
-                            {{ orderProduct.price.toman('final') }}
-                          </span>
-                          <q-btn unelevated
-                                 class="trash-button"
-                                 icon="isax:trash"
-                                 @click="changeDialogState(true, order, orderProduct)" />
-                        </div>
-                      </div>
-                    </q-card-section>
-
-                    <q-card-section class="details-expansion-actions">
-                      <a v-if="order.grand && order.grand.url && order.grand.url.web"
-                         class="link expansion-link"
-                         :href="order.grand?.url?.web">
-                        {{ descLinkLabel }}
-                      </a>
-                      <q-btn-dropdown class="details-button"
-                                      label="جزئیات محصول"
-                                      dropdown-icon="isax:arrow-up-2"
-                                      flat
-                                      @click="expandedObject[i] = !expandedObject[i]" />
-                    </q-card-section>
-                  </q-card>
-                </q-expansion-item>
-              </div>
-            </div>
-          </q-card-section>
-
-        </q-card>
+      <div class="cart-count">
+        سبدخرید شما ({{cart.count}})
       </div>
     </template>
+    <div class="cart-view-widget">
+      <template v-if="cart.loading">
+        <div class="cart-items">
+          <q-card class="cart-card">
+            <q-card-section class="card-section">
+              <div class="order-image-section">
+                <div class="order-image-container">
+                  <q-skeleton height="100%"
+                              square />
+                </div>
+              </div>
+
+              <div class="product-text-info">
+                <div class="order-item-header">
+                  <div class="title ellipsis q-px-lg q-pt-lg">
+                    <q-skeleton type="text" />
+                    <q-skeleton type="text"
+                                width="85%" />
+                  </div>
+                  <q-skeleton type="QBtn"
+                              width="25px"
+                              height="25px" />
+                </div>
+              </div>
+            </q-card-section>
+
+            <q-card-section class="card-actions">
+              <div class="product-details row on-open-expansion">
+                <div class="price-container col-md-6 col-sm-3">
+                  <q-skeleton type="text"
+                              width="150px" />
+                </div>
+                <div class="action-buttons col-md-12 col-sm-3">
+                  <q-skeleton type="QBtn"
+                              height="20px" />
+                </div>
+              </div>
+
+            </q-card-section>
+
+          </q-card>
+        </div>
+      </template>
+      <template v-else>
+        <div v-for="(order, i) in cartItemsList"
+             :key="order.orderProductId"
+             class="cart-items">
+          <q-card class="cart-card"
+                  :class="order.order_product?.list.length > 0 ? '': 'cart'">
+            <q-card-section class="card-section">
+              <div class="order-image-section">
+                <div class="order-image-container">
+                  <lazy-img :src="order.grand.product.photo"
+                            class="order-image" />
+                </div>
+              </div>
+
+              <div class="product-text-info">
+                <div class="order-item-header">
+                  <div class="title ellipsis">
+                    {{ order.grand.title }}
+                  </div>
+
+                  <q-btn v-if="order.orderProductId"
+                         unelevated
+                         class="trash-button"
+                         icon="isax:trash"
+                         @click="changeDialogState(true, order)" />
+                </div>
+
+                <div v-if="order.grand.product && order.grand.product.attributes && order.grand.product.attributes.info"
+                     class="product-information">
+                  <div v-if="order.grand.product.attributes.info.teacher"
+                       class="product-info">
+                    <q-icon name="isax:teacher"
+                            class="info-icon" />
+                    <div class="info-value">
+                      {{ order.grand.product.attributes.info.teacher.join('، ') }}
+                    </div>
+                  </div>
+
+                  <div v-if="order.grand.product.attributes.info.major"
+                       class="product-info">
+                    <q-icon name="isax:book-1"
+                            class="info-icon" />
+                    <div class="info-value">
+                      رشته تحصیلی: {{ order.grand.product.attributes.info.major.join(' - ') }}
+                    </div>
+                  </div>
+
+                  <div v-if="order.grand.product.attributes.info.production_year"
+                       class="product-info">
+                    <q-icon name="isax:menu-board4"
+                            class="info-icon" />
+                    <div class="info-value">
+                      {{ order.grand.product.attributes.info.production_year.join('، ') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </q-card-section>
+
+            <q-card-section class="card-actions">
+              <div class="product-details row"
+                   :class="expandedObject[i] ?'on-open-expansion': ''">
+                <div v-if="order.grand.price"
+                     class="price-container col-md-6 col-sm-3">
+                  <div class="discount-part">
+                    <div class="discount-percent">
+                      {{ order.grand.price.discountInPercent() }}%
+                    </div>
+
+                    <div class="base-price">
+                      {{ order.grand.price.toman('base', null) }}
+                    </div>
+                  </div>
+
+                  <div class="final-part">
+                    <div class="final-price">{{ order.grand.price.toman('final', null) }}</div>
+                    <div class="toman">تومان</div>
+                  </div>
+                </div>
+
+                <div class="action-buttons col-md-12 col-sm-3"
+                     :class="expandedObject[i] ? '' : 'open-expansion'">
+                  <span v-if="!expandedObject[i] || !order.order_product">
+                    <a v-if="order.grand && order.grand.url && order.grand.url.web"
+                       class="link"
+                       :href="order.grand?.url?.web">
+                      {{ descLinkLabel }}
+                    </a>
+                  </span>
+
+                  <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id?order.grand.product.id:-1}}"
+                               class="go-product text-primary text-center">
+                    رفتن
+                    به صفحه محصول
+                  </router-link>
+                  <q-expansion-item v-if="order.order_product?.list.length > 0"
+                                    v-model="expandedObject[i]"
+                                    label="جزئیات محصول"
+                                    class="details-expansion"
+                                    :class="expandedObject[i] ?'open-expansion-style': 'close-expansion-style'"
+                                    :header-class=" expandedObject[i] ? 'hide-expansion-header' : ''">
+                    <q-card class="details-expansion-card">
+                      <q-card-section class="details-expansion-card-section">
+                        <div v-for="(orderProduct, index) in order.order_product.list"
+                             :key="orderProduct.id"
+                             class="pamphlet">
+                          <div class="title ellipsis">
+                            {{ orderProduct.product.title }}
+                          </div>
+
+                          <div class="right-part">
+                            <span class="price"
+                                  :class="index !== 0 ? 'without-trash': ''">
+                              {{ orderProduct.price.toman('final') }}
+                            </span>
+                            <q-btn unelevated
+                                   class="trash-button"
+                                   icon="isax:trash"
+                                   @click="changeDialogState(true, order, orderProduct)" />
+                          </div>
+                        </div>
+                      </q-card-section>
+
+                      <q-card-section class="details-expansion-actions">
+                        <a v-if="order.grand && order.grand.url && order.grand.url.web"
+                           class="link expansion-link"
+                           :href="order.grand?.url?.web">
+                          {{ descLinkLabel }}
+                        </a>
+                        <q-btn-dropdown class="details-button"
+                                        label="جزئیات محصول"
+                                        dropdown-icon="isax:arrow-up-2"
+                                        flat
+                                        @click="expandedObject[i] = !expandedObject[i]" />
+                      </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </div>
+              </div>
+            </q-card-section>
+
+          </q-card>
+        </div>
+      </template>
+    </div>
+    <q-dialog v-model="dialogState"
+
+              class="delete-dialog">
+      <q-card class="delete-dialog-card">
+        <q-card-section class="close-button-section">
+          <q-icon class="close-dialog-button"
+                  name="isax:close-circle"
+                  @click="changeDialogState(false)" />
+        </q-card-section>
+
+        <q-card-section class="delete-dialog-card-section">
+          <div class="info-icon">
+            <q-icon name="isax:info-circle" />
+          </div>
+
+          <p class="are-u-sure-statement">آیا از حذف محصول مطمئن هستید؟</p>
+        </q-card-section>
+
+        <q-card-actions class="delete-dialog-card-actions">
+          <div class="dont-delete-button"
+               @click="changeDialogState(false)">
+            انصراف
+          </div>
+
+          <div class="surely-delete-button"
+               @click="removeItem">
+            بله، مطمئن هستم
+          </div>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
-
-  <q-dialog v-model="dialogState"
-            class="delete-dialog">
-    <q-card class="delete-dialog-card">
-      <q-card-section class="close-button-section">
-        <q-icon class="close-dialog-button"
-                name="isax:close-circle"
-                @click="changeDialogState(false)" />
-      </q-card-section>
-
-      <q-card-section class="delete-dialog-card-section">
-        <div class="info-icon">
-          <q-icon name="isax:info-circle" />
-        </div>
-
-        <p class="are-u-sure-statement">آیا از حذف محصول مطمئن هستید؟</p>
-      </q-card-section>
-
-      <q-card-actions class="delete-dialog-card-actions">
-        <div class="dont-delete-button"
-             @click="changeDialogState(false)">
-          انصراف
-        </div>
-
-        <div class="surely-delete-button"
-             @click="removeItem">
-          بله، مطمئن هستم
-        </div>
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
 </template>
 
 <script>

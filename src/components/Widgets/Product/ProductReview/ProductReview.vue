@@ -12,8 +12,15 @@
                     min-width="100%"
                     type="article" />
 
-        <q-card class="description-text custom-card">
+        <q-card v-if="description"
+                class="description-text custom-card">
           <div v-html="description" />
+        </q-card>
+        <q-card v-else
+                class="description-text custom-card">
+          <span>
+            توضیحی برای این محصول وجود ندارد
+          </span>
         </q-card>
       </div>
     </div>
@@ -76,6 +83,7 @@ export default {
         .then(product => {
           this.product = product
           this.isFavored = product.is_favored_2
+          console.log(this.product.description)
           this.product.loading = false
         })
         .catch(() => {

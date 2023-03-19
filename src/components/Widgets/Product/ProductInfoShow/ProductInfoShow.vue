@@ -29,7 +29,7 @@
                   </q-banner>
                 </q-popup-proxy>
               </q-btn>
-              <bookmark v-model:value="product.is_favored_2"
+              <bookmark v-model:value="isFavored"
                         :bookmark-function="bookmarkContent" />
             </div>
           </div>
@@ -95,6 +95,8 @@ export default {
     return {
       product: new Product(),
       samplePhotosIndex: null,
+      isFavored: false,
+      // product: new Product(),
       introduction: {
         intro: null,
         attributes: null,
@@ -218,6 +220,7 @@ export default {
     },
     prefetchServerDataPromiseThen (data) {
       this.product = data
+      this.isFavored = this.product.is_favored_2
       this.setInformation()
       this.product.loading = false
     },
