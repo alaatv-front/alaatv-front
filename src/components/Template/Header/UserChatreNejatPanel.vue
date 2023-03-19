@@ -51,17 +51,21 @@
 </template>
 
 <script>
+import { User } from 'src/models/User'
+
 export default {
   name: 'abrishamTemplateHeader',
   data: () => ({
+    user: new User(),
     activePage: null
   }),
-  computed: {
-    user() {
-      return this.$store.getters['Auth/user']
-    }
+  mounted () {
+    this.loadAuthData()
   },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+    },
     logOut() {
       this.$store.dispatch('Auth/logOut')
     }
