@@ -13,6 +13,8 @@ export default class ProductAPI extends APIRepository {
       edit: '/admin/product',
       index: '/admin/product',
       getSets: id => `/product/${id}/sets`,
+      getComments: id => `/product/${id}/content-comments`,
+      getContents: id => `/product/${id}/contents`,
       favored: (id) => id + '/favored',
       unfavored: (id) => '/product/' + id + '/unfavored',
       show: (id) => '/product/' + id,
@@ -24,6 +26,7 @@ export default class ProductAPI extends APIRepository {
       create: this.name + this.APIAdresses.create,
       favored: id => this.name + this.APIAdresses.favored(id),
       getSets: id => this.name + this.APIAdresses.getSets(id),
+      getContents: id => this.name + this.APIAdresses.getContents(id),
       unfavored: id => this.name + this.APIAdresses.unfavored(id),
       show: (id) => this.name + this.APIAdresses.show(id),
       gifts: (id) => this.name + this.APIAdresses.gifts(id),
@@ -129,6 +132,23 @@ export default class ProductAPI extends APIRepository {
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new SetList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getContents(data = {}, cache) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getContents(data.id),
+      cacheKey: this.CacheList.getContents(data.id),
+      ...(cache !== undefined && { cache }),
+      ...(cache !== data && { data: data.data }),
+      resolveCallback: (response) => {
+        return new ContentList(response.data.data)
       },
       rejectCallback: (error) => {
         return error

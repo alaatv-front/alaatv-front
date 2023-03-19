@@ -1,34 +1,34 @@
 <template>
-  <q-card class="custom-card product-item-card"
+  <q-card class="custom-card set-item-card"
           flat
           bordered>
     <q-card-section horizontal
-                    class="product-base-section">
+                    class="set-base-section">
       <img v-if="$q.screen.gt.xs"
-           :src="product.photo"
-           class="product-item-image">
+           :src="setItem.photo"
+           class="set-item-image">
       <q-card-section :horizontal="$q.screen.gt.xs"
-                      class="product-item-info">
+                      class="set-item-info">
         <img v-if="$q.screen.lt.sm"
-             :src="product.photo"
-             class="product-item-image">
-        <q-card-section class="product-info">
-          <div class="product-item-title ellipsis">
-            {{ product.title }}
+             :src="setItem.photo"
+             class="set-item-image">
+        <q-card-section class="set-info">
+          <div class="set-item-title ellipsis">
+            {{ setItem.title }}
           </div>
-          <div class="product-item-description">
-            {{ product.title }}
+          <div class="set-item-description">
+            {{ setItem.title }}
           </div>
-          <div class="product-item-teacher">
+          <div class="set-item-teacher">
             <q-icon name="account_circle"
                     class="q-mr-xs"
                     size="16px" />
-            {{ product.attributes?.info?.teacher[0] }}
+            {{ setItem.author?.first_name + " " + setItem.author?.last_name }}
           </div>
         </q-card-section>
         <q-card-section v-if="$q.screen.gt.xs"
                         class=" flex"
-                        style="width: 100%;max-width: 450px;">
+                        style="width:100%">
           <q-separator spaced
                        :vertical="$q.screen.gt.sm"
                        inset />
@@ -37,17 +37,18 @@
               آخرین جلسه دیده شده :
             </div>
             <div class="last-content-title ellipsis">
-              {{ product.last_content_user_watched?.title }}
+              {{ setItem.last_content_user_watched?.title }}
             </div>
             <div class="last-content-footer">
               <div class="last-content-section ellipsis">
                 <q-icon name="menu_book" />
-                {{ product.title }}
+                {{ setItem.title }}
               </div>
               <div class="last-content-link">
                 <q-btn flat
                        icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }">مشاهده</q-btn>
+                       :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
+                       @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
               </div>
             </div>
           </div>
@@ -55,7 +56,7 @@
       </q-card-section>
       <q-card-section v-if="$q.screen.lt.sm"
                       class=" flex"
-                      style="width: 100%;padding: 0;">
+                      style="width:100%; padding: 0;">
         <q-separator spaced
                      style="width:100%"
                      inset />
@@ -64,18 +65,18 @@
             آخرین جلسه دیده شده :
           </div>
           <div class="last-content-title ellipsis">
-            {{ product.last_content_user_watched?.title }}
+            {{ setItem.last_content_user_watched?.title }}
           </div>
           <div class="last-content-footer">
-            <div class="last-content-section ellipsis">
+            <div class="last-content-section">
               <q-icon name="menu_book" />
-              {{ product.title }}
+              {{ setItem.title }}
             </div>
             <div class="last-content-link">
               <q-btn flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }"
-                     @click="setSelectedProduct">مشاهده</q-btn>
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
+                     @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
             </div>
           </div>
         </div>
@@ -118,25 +119,26 @@
   </q-card>
 </template>
 <script>
-import { Product } from 'src/models/Product.js'
+import { Set } from 'src/models/Set.js'
 
 export default {
-  name: 'ChatreNejatProductItem',
+  name: 'ChatreNejatSetItem',
   props: {
-    product: {
+    setItem: {
       type: Object,
-      default: new Product()
+      default: new Set()
     }
   },
   methods: {
-    setSelectedProduct(product) {
-      this.$store.dispatch('setSelectedProduct', product)
+    setSelectedData(content, set) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+      this.$store.commit('ChatreNejat/setSelectedSet', set)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.product-item-card {
+.set-item-card {
   max-height: 148px;
   border-radius: 20px;
   background: #fff;
@@ -162,7 +164,7 @@ export default {
     box-shadow: none;
   }
 
-  .product-base-section {
+  .set-base-section {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -172,7 +174,7 @@ export default {
       display: block;
     }
 
-    .product-item-info {
+    .set-item-info {
       width: 100%;
       display: flex;
 
@@ -181,7 +183,7 @@ export default {
       }
     }
 
-    .product-item-image {
+    .set-item-image {
       width: 80px;
       height: 80px;
       background: #CACACA;
@@ -193,14 +195,14 @@ export default {
       }
     }
 
-    .product-info {
-      min-width: 35%;
+    .set-info {
+      min-width: 40%;
 
       @media only screen and (max-width: 600px) {
         min-width: 100%;
       }
 
-      .product-item-title {
+      .set-item-title {
         font-style: normal;
         font-weight: 400;
         font-size: 20px;
@@ -214,7 +216,7 @@ export default {
         }
       }
 
-      .product-item-description {
+      .set-item-description {
         font-style: normal;
         font-weight: 400;
         font-size: 12px;
@@ -230,7 +232,7 @@ export default {
         }
       }
 
-      .product-item-teacher {
+      .set-item-teacher {
         font-style: normal;
         font-weight: 400;
         font-size: 12px;

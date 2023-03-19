@@ -43,15 +43,14 @@ import 'videojs-contrib-quality-levels'
 
 import { Content } from 'src/models/Content'
 import { mixinAbrisham } from 'src/mixin/Mixins'
+import { PlayerSourceList } from 'src/models/PlayerSource'
 export default {
   name: 'VideoPlayer',
   mixins: [mixinAbrisham],
   props: {
     source: {
-      type: [String, Array],
-      default () {
-        return []
-      }
+      type: [String, PlayerSourceList],
+      default: null
     },
     timePoints: {
       type: Array,
@@ -61,7 +60,7 @@ export default {
     },
     useSideBar: {
       type: Boolean,
-      default: true
+      default: false
     },
     poster: {
       type: String,
@@ -187,7 +186,7 @@ export default {
   },
   methods: {
     initPlayer () {
-      if (Array.isArray(this.source)) { // old multiple quality type
+      if (this.isPlayerSourceList(this.source)) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
           default: 'کیفیت بالا',
@@ -214,7 +213,7 @@ export default {
         // })
       })
 
-      if (typeof this.source === 'string') { // hls type
+      if (typeof this.source === 'string' && this.source.includes('.m3u8')) { // hls type
         this.player.hlsQualitySelector()
       }
 
@@ -251,14 +250,19 @@ export default {
       requiredElement.focus()
     },
     setSources() {
-      this.options.sources = this.source
+      const source = this.isPlayerSourceList() ? this.source.list : this.source
+      this.options.sources = source
     },
     setPoster() {
       this.options.poster = this.poster
     },
     reInitVideo() {
-      this.player.src(this.source)
+      const source = this.isPlayerSourceList() ? this.source.list : this.source
+      this.player.src(source)
       this.player.poster(this.poster)
+    },
+    isPlayerSourceList () {
+      return (this.source && this.source.list && Array.isArray(this.source.list))
     },
     toggleFavorite(id, event) {
       const that = this
@@ -321,6 +325,47 @@ export default {
     position: absolute;
     top: 5px;
     left: 5px;
+  }
+  .video-js {
+    .vjs-loading-spinner {
+      right: 50%;
+      margin: -25px -25px 0 0;
+      text-align: right;
+    }
+    .vjs-volume-panel {
+      .vjs-volume-control {
+        right: -3.5em;
+        margin-right: -1px;
+      }
+    }
+    .vjs-big-play-button {
+      color: white;
+      width: 80px;
+      height: 80px;
+      margin-top: -1em;
+      margin-left: -1em;
+      border-radius: 100%;
+      background: var(--alaa-Primary);
+      border-color: var(--alaa-Primary);
+      .vjs-icon-placeholder:before {
+        display: flex;
+        font-size: 65px;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .vjs-resolution-button {
+      .vjs-menu-button {
+        .vjs-icon-placeholder {
+          &:before {
+            content: "\f114";
+            font-style: normal;
+            font-weight: normal;
+            font-family: VideoJS;
+          }
+        }
+      }
+    }
   }
 }
 </style>

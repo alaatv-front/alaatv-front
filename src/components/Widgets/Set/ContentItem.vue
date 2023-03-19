@@ -10,7 +10,7 @@
                    :to="{ name: 'Public.Content.Show', params: { id: content.id } }"
                    class="content-item">
         <div class="content-item-title-icon">
-          <q-icon :name="content.isVideo() ? 'isax-svg:play-circle' : 'isax-svg:document-download'"
+          <q-icon :name="content.isVideo() ? 'isax:play-circle' : 'isax:document-download'"
                   size="16.5px" />
         </div>
         <div class="content-item-title-text">

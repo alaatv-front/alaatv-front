@@ -3,6 +3,7 @@ import { SetList } from './Set'
 import Url from './Url'
 import { ContentTimePointList } from './ContentTimePoint'
 import ContentSection from './ContentSection'
+import { PlayerSourceList } from 'src/models/PlayerSource'
 
 class Content extends Model {
   constructor(data) {
@@ -102,10 +103,10 @@ class Content extends Model {
       })
     }
 
-    // ToDo: must remove
-    if (!this.hls) {
-      this.hls = 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
-    }
+    // // ToDo: must remove
+    // if (!this.hls) {
+    //   this.hls = 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
+    // }
   }
 
   getHlsSource() {
@@ -152,7 +153,7 @@ class Content extends Model {
     //   return item
     // })
 
-    return [{
+    return new PlayerSourceList([{
       default: true,
       res: 1024,
       type: 'video/mp4',
@@ -170,7 +171,7 @@ class Content extends Model {
       type: 'video/mp4',
       res: 360,
       label: 'کیفیت متوسط'
-    }]
+    }])
   }
 
   getVideoSource() {

@@ -187,7 +187,7 @@ const routes = [
           },
           {
             name: 'UserPanel.Asset',
-            path: 'asset',
+            path: '',
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -247,12 +247,12 @@ const routes = [
                 children: [
                   {
                     name: 'UserPanel.Asset.ChatreNejat.Products',
-                    path: 'product-list',
+                    path: '',
                     component: () => import('pages/User/DashboardChatreNejat/Products.vue')
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.ProductLayout',
-                    path: 'products',
+                    path: 'product',
                     component: () => import('layouts/ChatreNejatLayout.vue'),
                     children: [
                       {
@@ -261,11 +261,35 @@ const routes = [
                         component: () => import('pages/User/DashboardChatreNejat/ProductPage.vue')
                       },
                       {
+                        name: 'UserPanel.Asset.ChatreNejat.ProductDocuments',
+                        path: ':productId/documents',
+                        component: () => import('pages/User/DashboardChatreNejat/ProductDocuments.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.ChatreNejat.ProductComments',
+                        path: ':productId/comments',
+                        component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue'),
+                        children: [
+                          {
+                            name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment',
+                            path: ':commentId',
+                            component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
+                          }
+                        ]
+                      },
+                      {
                         name: 'UserPanel.Asset.ChatreNejat.Content',
-                        path: ':productId/content',
+                        props: true,
+                        path: ':productId/set/:setId/content/:contentId',
                         component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                       }
                     ]
+                  },
+                  {
+                    name: 'UserPanel.Asset.ChatreNejat.Adviser.Content',
+                    path: ':setId/adviser/content/:contentId',
+                    props: true,
+                    component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
                   },
                   {
                     name: 'UserPanel.Asset.ChatreNejat.News',

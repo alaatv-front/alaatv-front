@@ -1,30 +1,35 @@
 <template>
-  <q-card v-if="product.intro"
-          class="intro-video custom-card q-pb-md"
+  <q-card class="intro-video custom-card q-pb-md"
           :class="options.className"
           :style="options.style">
-    <video-player :poster="product.intro.photo"
-                  :sources="videoSource()" />
-    <div v-if="options.download_date"
-         class="q-mt-md q-ml-md">
-      <q-icon name="info"
-              color="primary"
-              size="25px"
-              class="q-pr-sm" />
-      <span>
-        زمان دریافت فایل های این محصول: {{ product.attributes.info.download_date[0] }}
-      </span>
-    </div>
-    <div v-if="product.attributes.info.duration.length > 0 && options.duration"
-         class="q-mt-md q-ml-md">
-      <q-icon name="timer"
-              color="primary"
-              size="25px"
-              class="q-pr-sm" />
-      <span>
-        مدت زمان: {{ product.attributes.info.duration[0] }}
-      </span>
-    </div>
+    <template v-if="!product.loading">
+      <video-player v-if="product.intro"
+                    :poster="product.intro.photo"
+                    :source="videoSource()" />
+      <div v-if="options.download_date"
+           class="q-mt-md q-ml-md">
+        <q-icon name="info"
+                color="primary"
+                size="25px"
+                class="q-pr-sm" />
+        <span>
+          زمان دریافت فایل های این محصول: {{ product.attributes.info.download_date[0] }}
+        </span>
+      </div>
+      <div v-if="product.attributes.info.duration.length > 0 && options.duration"
+           class="q-mt-md q-ml-md">
+        <q-icon name="timer"
+                color="primary"
+                size="25px"
+                class="q-pr-sm" />
+        <span>
+          مدت زمان: {{ product.attributes.info.duration[0] }}
+        </span>
+      </div>
+    </template>
+    <q-skeleton v-else
+                height="250px"
+                square />
   </q-card>
 </template>
 
@@ -88,7 +93,13 @@ export default {
     },
 
     videoSource() {
-      return new PlayerSourceList([{ link: this.product.intro.video }])
+      return new PlayerSourceList([{
+        default: true,
+        res: 1024,
+        type: 'video/mp4',
+        src: this.product.intro.video,
+        label: 'کیفیت عالی'
+      }])
     },
     getProduct() {
       return APIGateway.product.show(this.productId)
