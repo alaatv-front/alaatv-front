@@ -24,7 +24,6 @@
 
 <script>
 import { Content } from 'src/models/Content.js'
-import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
@@ -107,30 +106,6 @@ export default {
           this.content.loading = false
         })
     },
-
-    getContent() {
-      this.content.loading = true
-      const url = API_ADDRESS.content.show(this.options.id)
-      let promise = null
-      if (typeof this.options.getData === 'function') {
-        promise = this.options.getData(url)
-      } else {
-        promise = this.$axios.get(url)
-      }
-
-      promise
-        .then(response => {
-          this.content = new Content(response.data.data)
-          this.content.loading = false
-          this.contentNumber = this.getContentNumberInListById(this.content.id)
-          this.poster = this.content.photo
-          this.setSources(this.content.file.video)
-          this.getSet()
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
-    },
     getSetByRequest() {
       this.set.loading = true
       APIGateway.set.show(this.content.set?.id || this.$route.params.setId)
@@ -138,18 +113,6 @@ export default {
           this.set = new Set(response)
           this.contentNumber = this.getContentNumberInListById(this.content.set?.id || this.$route.params.setId)
           this.set.loading = false
-        })
-        .catch(() => {
-          this.set = new Set()
-          this.set.loading = false
-        })
-    },
-    getSet() {
-      this.set.loading = true
-      this.options.getData(API_ADDRESS.set.show(this.content.set?.id || this.$route.params.setId))
-        .then(response => {
-          this.set = new Set(response.data.data)
-          this.contentNumber = this.getContentNumberInListById(this.content.id)
         })
         .catch(() => {
           this.set = new Set()
