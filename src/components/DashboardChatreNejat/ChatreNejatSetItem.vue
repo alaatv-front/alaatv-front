@@ -84,17 +84,17 @@
       <q-card-actions v-if="$q.screen.gt.xs"
                       vertical
                       align="right">
-        <q-btn flat
-               icon="more_vert">
+        <!--        icon="more_vert"-->
+        <q-btn flat>
           <q-menu fit
                   anchor="top right"
                   self="top left">
-            <q-item clickable>
-              <q-item-section>گزینه اول</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>نمیدونم</q-item-section>
-            </q-item>
+                  <!--            <q-item clickable>-->
+                  <!--              <q-item-section>گزینه اول</q-item-section>-->
+                  <!--            </q-item>-->
+                  <!--            <q-item clickable>-->
+                  <!--              <q-item-section>نمیدونم</q-item-section>-->
+                  <!--            </q-item>-->
           </q-menu>
         </q-btn>
       </q-card-actions>
@@ -102,17 +102,17 @@
     <q-card-actions v-if="$q.screen.lt.sm"
                     vertical
                     align="right">
-      <q-btn flat
-             icon="more_vert">
+      <!--        icon="more_vert"-->
+      <q-btn flat>
         <q-menu fit
                 anchor="top right"
                 self="top left">
-          <q-item clickable>
-            <q-item-section>گزینه اول</q-item-section>
-          </q-item>
-          <q-item clickable>
-            <q-item-section>نمیدونم</q-item-section>
-          </q-item>
+                <!--          <q-item clickable>-->
+                <!--            <q-item-section>گزینه اول</q-item-section>-->
+                <!--          </q-item>-->
+                <!--          <q-item clickable>-->
+                <!--            <q-item-section>نمیدونم</q-item-section>-->
+                <!--          </q-item>-->
         </q-menu>
       </q-btn>
     </q-card-actions>

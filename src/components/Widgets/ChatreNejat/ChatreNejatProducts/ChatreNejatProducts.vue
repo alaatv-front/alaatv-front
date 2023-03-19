@@ -6,14 +6,15 @@
           مشاوره
         </div>
         <div class="chatre-nejat-description">
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.
+          حتما قبل از تماشای فیلم های دوره چتر نجات، دوره مشاوره را مشاهده بفرمایید!
         </div>
       </div>
       <div class="col-lg-6 col-12 flex flex-center">
         <product-item-skeleton v-if="loading" />
-        <chatre-nejat-set-item v-else
+        <chatre-nejat-set-item v-else-if="advisor"
                                width="100%"
                                :setItem="advisor" />
+        <div v-else>در حال حاضر محتوایی وجود ندارد.</div>
       </div>
     </div>
     <div class="products-container">
@@ -42,7 +43,11 @@
           <chatre-nejat-product-item :product="product" />
         </div>
       </div>
-      <div v-else
+      <div v-if="!loading && (!products || products.length === 0)"
+           class="flex justify-center items-center">
+        <h5>در حال حاضر محتوایی وجود ندارد.</h5>
+      </div>
+      <div v-else-if="loading"
            class="row">
         <div class="col-lg-6 col-12 skeleton-col">
           <product-item-skeleton />
@@ -127,6 +132,7 @@ export default {
           this.loading = false
         }
       }).catch(() => {
+        this.loading = false
       })
     },
     getAdvisor() {
@@ -138,6 +144,7 @@ export default {
           this.loading = false
         }
       }).catch(() => {
+        this.loading = false
       })
     }
   }
