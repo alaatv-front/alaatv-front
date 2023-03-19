@@ -48,9 +48,9 @@
 </template>
 
 <script>
-
-import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
 import { mapMutations } from 'vuex'
+import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
+
 export default {
   name: 'ChatreNejatPanel',
   components: { ChatreNejatLayoutMenu },
