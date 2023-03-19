@@ -69,9 +69,11 @@
 </template>
 
 <script>
-import ChatreNejatProductItem from 'components/DashboardChatreNejat/ChatreNejatProdutItem.vue'
+import { Set } from 'src/models/Set.js'
 import ChatreNejatSetItem from 'src/components/DashboardChatreNejat/ChatreNejatSetItem.vue'
-import ProductItemSkeleton from 'components/DashboardChatreNejat/ProductItemSkeleton.vue'
+import ProductItemSkeleton from 'src/components/DashboardChatreNejat/ProductItemSkeleton.vue'
+import ChatreNejatProductItem from 'src/components/DashboardChatreNejat/ChatreNejatProdutItem.vue'
+
 export default {
   name: 'ChatreNejatProducts',
   components: {
@@ -82,7 +84,7 @@ export default {
   data: () => ({
     loading: false,
     products: null,
-    advisor: null,
+    advisor: new Set(),
     productType: {
       id: null,
       name: null,
@@ -100,7 +102,7 @@ export default {
       this.getProducts(type.id)
     }
   },
-  created () {
+  mounted () {
     this.loadData()
   },
   methods: {

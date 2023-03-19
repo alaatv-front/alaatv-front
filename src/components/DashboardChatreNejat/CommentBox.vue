@@ -12,6 +12,7 @@
       <q-btn v-if="saveMode"
              :disabled="doesntHaveContent"
              unelevated
+             :loading="loading"
              flat
              color="red"
              class="cancel btn-size"
@@ -19,15 +20,16 @@
              @click="cancel" />
       <q-btn v-if="saveMode || value.length === 0"
              :disabled="doesntHaveContent"
+             :loading="loading"
              unelevated
              color="positive"
              label="ذخیره"
              class="submit btn-size"
              @click="saveComment" />
-
       <q-btn v-else
-             :disabled="doesntHaveContent"
              unelevated
+             :loading="loading"
+             :disabled="doesntHaveContent"
              color="primary"
              dark
              label="ویرایش"
@@ -47,6 +49,10 @@ export default {
       default: ''
     },
     doesntHaveContent: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
       type: Boolean,
       default: false
     }

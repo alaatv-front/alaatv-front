@@ -10,8 +10,9 @@
                    @toggle-video-status="updateVideoStatus"
                    @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
-          <comment-box v-model:value="watchingContentComment"
-                       :doesnt-have-content="watchingContent.comments.length > 0"
+          <comment-box :value="watchingContentComment"
+                       :loading="commentLoading"
+                       :doesnt-have-content="doesntHaveContent"
                        @updateComment="saveComment" />
         </div>
       </div>
@@ -32,8 +33,9 @@
     <div class="row  q-col-gutter-x-md q-mt-lg">
       <div class="col-8">
         <div class="desktop-view">
-          <comment-box v-model:value="watchingContentComment"
-                       :doesnt-have-content="watchingContent.comments.length > 0"
+          <comment-box :value="watchingContentComment"
+                       :loading="commentLoading"
+                       :doesnt-have-content="doesntHaveContent"
                        @updateComment="saveComment" />
         </div>
       </div>
@@ -61,6 +63,7 @@ export default {
   },
   mixins: [mixinChatreNejat],
   data: () => ({
+    commentLoading: false,
     ContentVideoListKey: 0,
     socialMediaDialog: false,
     selectedLessonId: 0,
@@ -85,6 +88,9 @@ export default {
     selectedTopic() {
       return this.$store.getters['ChatreNejat/selectedTopic']
     },
+    doesntHaveContent() {
+      return !(this.watchingContent?.id > 0)
+    },
     contentVideoListLoading() {
       return !this.selectedContent?.id || this.contentLoading
     },
@@ -101,7 +107,7 @@ export default {
     },
     watchingContentComment() {
       if (!this.watchingContent?.comments) {
-        return
+        return ''
       }
       return this.watchingContent.comments[0]?.comment || ''
     },

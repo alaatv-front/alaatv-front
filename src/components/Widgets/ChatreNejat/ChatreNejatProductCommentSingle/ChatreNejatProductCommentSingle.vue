@@ -62,7 +62,7 @@ export default {
       edit: false
     }
   },
-  created() {
+  mounted () {
     this.getComment()
     this.loadData(this.$route.params.productId)
   },
@@ -79,8 +79,7 @@ export default {
       this.$apiGateway.comment.put({ data: this.comment }).then((res) => {
         this.comment = res
         this.toggleEdit()
-      }).catch((err) => {
-        console.log(err)
+      }).catch(() => {
       })
     },
     deleteComment() {
