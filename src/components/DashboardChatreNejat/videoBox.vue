@@ -2,10 +2,12 @@
   <div class="video-box">
     <div class="video-main">
       <div class="video-wrapper">
-        <content-video-player :content="content"
-                              :options="{
-                                paginate: false
-                              }" />
+        <content-video-player :options="{
+          paginate: false,
+          urlParam: 'contentId',
+          noRequestMode: true,
+          content
+        }" />
         <div v-if="!content.id && !content.photo">
           <div class="null-video">
             <div class="content text-primary">
@@ -241,12 +243,7 @@ export default {
   },
 
   watch: {
-    'content.id': function () {
-      if (this.content && this.content.file && this.content.file.video) {
-        this.setContentSources(this.content.file.video)
-        this.setContentTimePoint(this.content.timepoints.list)
-      }
-    }
+    'content.id': function () {}
   },
 
   methods: {

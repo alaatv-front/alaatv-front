@@ -48,7 +48,7 @@
               </template>
               <template v-else>
                 <div class="text-center text-color-primary">
-                  <q-icon name="isax-svg:danger"
+                  <q-icon name="isax:danger"
                           size="100px" />
                   <br>
                   محصولی به علاقه مندی شما اضافه نشده است.
@@ -89,7 +89,7 @@
               </template>
               <template v-else>
                 <div class="text-center text-color-primary">
-                  <q-icon name="isax-svg:danger"
+                  <q-icon name="isax:danger"
                           size="100px" />
                   <br>
                   دوره ای به علاقه مندی شما اضافه نشده است.
@@ -130,7 +130,7 @@
               </template>
               <template v-else>
                 <div class="text-center text-color-primary">
-                  <q-icon name="isax-svg:danger"
+                  <q-icon name="isax:danger"
                           size="100px" />
                   <br>
                   محتوایی به علاقه مندی شما اضافه نشده است.

@@ -186,7 +186,7 @@ export default {
   },
   methods: {
     initPlayer () {
-      if (Array.isArray(this.source)) { // old multiple quality type
+      if (this.isPlayerSourceList(this.source)) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
           default: 'کیفیت بالا',
@@ -339,13 +339,32 @@ export default {
       }
     }
     .vjs-big-play-button {
-      width: 50px;
-      height: 50px;
-      border-radius: 100%;
-      margin-left: -0.7em;
       color: white;
-      border-color: var(--alaa-Primary);
+      width: 80px;
+      height: 80px;
+      margin-top: -1em;
+      margin-left: -1em;
+      border-radius: 100%;
       background: var(--alaa-Primary);
+      border-color: var(--alaa-Primary);
+      .vjs-icon-placeholder:before {
+        display: flex;
+        font-size: 65px;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .vjs-resolution-button {
+      .vjs-menu-button {
+        .vjs-icon-placeholder {
+          &:before {
+            content: "\f114";
+            font-style: normal;
+            font-weight: normal;
+            font-family: VideoJS;
+          }
+        }
+      }
     }
   }
 }

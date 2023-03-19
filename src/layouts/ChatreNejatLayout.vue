@@ -144,13 +144,13 @@ export default {
       return this.$store.getters['ChatreNejat/selectedContent']
     },
     selectedContentTitle () {
-      return this.selectedContent.title
+      return this.selectedContent?.title
     },
     productTitle () {
-      return this.selectedProduct.title
+      return this.selectedProduct?.title
     },
     productLoading () {
-      return !this.selectedProduct.title
+      return !this.selectedProduct?.title
     },
     productImg () {
       return this.selectedProduct?.photo

@@ -18,33 +18,47 @@
       <q-separator class="q-ma-md" />
       <q-scroll-area class="scroll"
                      :thumb-style="thumbStyle">
-        <div v-for="(content,index) in set.contents.list"
-             :key="index"
-             ref="items"
-             class="other-contents">
-          <q-item v-ripple
-                  clickable
-                  :active="isCurrent(content.id)"
-                  class="item-list"
-                  @click="itemSelected(content)">
-            <div class="content-show items-center">
-              <div class="">
-                <q-icon :name="content.has_watched ? 'check_circle' : 'isax:play-circle'"
-                        :color="isCurrent(content.id) ? 'primary' : ''"
-                        size="sm" />
+        <template v-if="!videoListLoading">
+          <div v-for="(content,index) in set.contents.list"
+               :key="index"
+               ref="items"
+               class="other-contents">
+            <q-item v-ripple
+                    clickable
+                    :active="isCurrent(content.id)"
+                    class="item-list"
+                    @click="itemSelected(content)">
+              <div class="content-show items-center">
+                <div class="">
+                  <q-icon :name="content.has_watched ? 'check_circle' : 'isax:play-circle'"
+                          :color="isCurrent(content.id) ? 'primary' : ''"
+                          size="sm" />
+                </div>
+                <div class="video-title q-pl-sm">
+                  {{ content.title || content.short_title }}
+                </div>
               </div>
-              <div class="video-title q-pl-sm">
-                {{ content.title || content.short_title }}
-              </div>
-            </div>
-          </q-item>
-        </div>
-        <q-item v-if=" set.contents.list.length < 2"
+            </q-item>
+          </div>
+        </template>
+        <q-item v-if=" set.contents.list.length < 2 && !videoListLoading"
                 class="item-list"
                 @click="itemSelected(content)">
           این مبحث گام سوم ندارد.
           <span class="item-list-last"
                 @click="dialog =!dialog"> بیشتر بدانید</span>
+        </q-item>
+        <q-item v-if="videoListLoading">
+          <q-skeleton type="rect"
+                      style="width: 100%;" />
+        </q-item>
+        <q-item v-if="videoListLoading">
+          <q-skeleton type="rect"
+                      style="width: 100%;" />
+        </q-item>
+        <q-item v-if="videoListLoading">
+          <q-skeleton type="rect"
+                      style="width: 100%;" />
         </q-item>
       </q-scroll-area>
     </q-card>
@@ -74,9 +88,7 @@
 <script>
 import { Content } from 'src/models/Content'
 import { Set } from 'src/models/Set'
-import { mixinWidget } from 'src/mixin/Mixins'
 import { scroll } from 'quasar'
-import mixinDateOptions from 'src/mixin/DateOptions'
 
 const {
   getScrollTarget,
@@ -84,8 +96,7 @@ const {
 } = scroll
 
 export default {
-  name: 'ContentVideoList',
-  mixins: [mixinWidget, mixinDateOptions],
+  name: 'ChatrContentVideoList',
   props: {
     options: {
       type: Object,
@@ -102,6 +113,12 @@ export default {
       default: new Set()
     },
     loading: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
+    videoListLoading: {
       type: Boolean,
       default() {
         return false
