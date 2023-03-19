@@ -117,6 +117,28 @@ export default {
                                   col: 'col-md-6 q-pr-md'
                                 },
                                 {
+                                  type: 'select',
+                                  name: 'city',
+                                  label: 'شهر',
+                                  responseKey: 'data.city',
+                                  placeholder: 'انتخاب نمایید',
+                                  optionLabel: 'title',
+                                  outlined: true,
+                                  multiple: false,
+                                  col: 'col-md-6 q-mb-md'
+                                },
+                                {
+                                  type: 'select',
+                                  name: 'province',
+                                  label: 'استان',
+                                  responseKey: 'data.province',
+                                  placeholder: 'انتخاب نمایید',
+                                  optionLabel: 'title',
+                                  outlined: true,
+                                  multiple: false,
+                                  col: 'col-md-6 q-pr-md'
+                                },
+                                {
                                   type: 'input',
                                   name: 'national_code',
                                   responseKey: 'data.national_code',
@@ -199,7 +221,7 @@ export default {
                                   label: 'آدرس محل سکونت',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-12 q-mb-md'
+                                  col: 'col-md-12 q-mb-md q-pr-md'
                                 }
                               ]
                             }

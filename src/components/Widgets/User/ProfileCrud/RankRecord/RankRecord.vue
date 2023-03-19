@@ -16,6 +16,7 @@
 <script>
 import { EntityCreate } from 'quasar-crud'
 import API_ADDRESS from 'src/api/Addresses'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'RankRecord',
@@ -36,11 +37,12 @@ export default {
             },
             {
               type: 'select',
-              name: 'event',
+              name: 'event_id',
               label: 'رویداد',
               placeholder: 'انتخاب نمایید',
               responseKey: 'data.events',
               optionLabel: 'title',
+              optionValue: 'id',
               options: [],
               outlined: true,
               multiple: false,
@@ -48,23 +50,25 @@ export default {
             },
             {
               type: 'select',
-              name: 'major',
+              name: 'major_id',
               label: 'رشته شما',
               placeholder: 'انتخاب نمایید',
               responseKey: 'data.major',
               optionLabel: 'name',
+              optionValue: 'id',
               options: [],
               outlined: true,
               multiple: false,
-              col: 'col-md-6'
+              col: 'col-md-6 q-pr-md'
             },
             {
               type: 'select',
-              name: 'region',
+              name: 'region_id',
               label: 'منطقه یا سهمیه',
               placeholder: 'انتخاب نمایید',
               responseKey: 'data.region',
               optionLabel: 'title',
+              optionValue: 'id',
               options: [],
               outlined: true,
               multiple: false,
@@ -77,7 +81,7 @@ export default {
               label: 'رتبه شما در منطقه',
               outlined: true,
               placeholder: 'وارد نمایید',
-              col: 'col-md-6'
+              col: 'col-md-6 q-pr-md'
             },
             {
               type: 'input',
@@ -94,7 +98,7 @@ export default {
               label: 'آپلود فایل کارنامه',
               outlined: true,
               placeholder: 'وارد نمایید',
-              col: 'col-md-6'
+              col: 'col-md-6 q-pr-md'
             },
             {
               type: 'checkbox',
@@ -103,13 +107,13 @@ export default {
               label: 'اجازه انتشار رتبه خود را در سایت میدهم',
               outlined: true,
               placeholder: 'وارد نمایید',
-              value: false,
+              value: 0,
               col: 'col-md-12'
             }
           ]
         }
       ],
-      api: API_ADDRESS.user.eventresult.base
+      api: APIGateway.user.APIAdresses.eventResult
     }
   },
   mounted() {
@@ -129,13 +133,13 @@ export default {
   },
   methods: {
     getRankRecord() {
-      this.$axios.get(this.api)
+      APIGateway.user.eventResult()
         .then(response => {
-          this.actionInput[0].value[1].value = response.data.data[0].event.title
-          this.actionInput[0].value[2].value = response.data.data[0].major.title
-          this.actionInput[0].value[3].value = response.data.data[0].region.title
+          this.actionInput[0].value[1].value = response.data.data[0].event
+          this.actionInput[0].value[2].value = response.data.data[0].major
+          this.actionInput[0].value[3].value = response.data.data[0].region
           this.actionInput[0].value[4].value = response.data.data[0].rank
-          this.actionInput[0].value[7].value = response.data.data[0].event.title
+          this.actionInput[0].value[7].value = response.data.data[0].enable_report_publish === 1
         })
         .catch()
     },
