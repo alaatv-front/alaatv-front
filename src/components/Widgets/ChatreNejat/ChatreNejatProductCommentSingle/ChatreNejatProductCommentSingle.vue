@@ -62,7 +62,7 @@ export default {
       edit: false
     }
   },
-  created() {
+  mounted () {
     this.getComment()
     this.loadData(this.$route.params.productId)
   },

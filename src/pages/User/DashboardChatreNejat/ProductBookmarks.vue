@@ -7,22 +7,20 @@
                   :api="api"
                   :table="table"
                   :table-keys="tableKeys"
-                  :table-selection-mode="'multiple'"
                   :item-indicator-key="'id'"
                   :default-layout="false"
                   :show-search-button="false"
                   :show-reload-button="false"
-                  :table-grid-size="true">
-      <!--      @onInputClick="onEntityButtonsClicked"-->
+                  :table-grid-size="true"
+                  @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
         <div class="col-6 col-lg-3 content-col q-pa-md">
           <q-card class="content-box flex"
                   @click="goToContent(inputData.props.row)">
-            <!--              inputData.props.row.photo || -->
             <q-img width="325px"
                    height="200px"
                    class="text-center"
-                   :src="'https://cdn.quasar.dev/img/mountains.jpg'" />
+                   :src="inputData.props.row.photo" />
             <q-card-section class="row justify-between"
                             style="min-width: 320px;">
               <div class="col-10">
@@ -45,12 +43,8 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
-import jalali from 'moment-jalaali'
 import { APIGateway } from 'src/api/APIGateway'
-import ActionBtnComponent from 'components/Utils/actionBtn.vue'
-import { shallowRef } from 'vue'
 import Bookmark from 'components/Bookmark.vue'
-const ActionBtn = shallowRef(ActionBtnComponent)
 
 export default {
   name: 'ProductBookmarks',
@@ -86,20 +80,6 @@ export default {
             field: row => row
           },
           {
-            name: 'status',
-            required: true,
-            label: 'وضعیت',
-            align: 'left',
-            field: row => row.enable ? 'فعال' : 'غیرفعال'
-          },
-          {
-            name: 'updated_at',
-            required: true,
-            label: 'تاریخ بارگذاری',
-            align: 'left',
-            field: row => jalali(row.updated_at)
-          },
-          {
             name: 'actions',
             required: true,
             label: 'عملیات',
@@ -111,11 +91,10 @@ export default {
       },
       inputs: [
         { type: 'hidden', name: 'type', value: 'content' },
-        { type: 'hidden', name: 'timed', value: null },
-        { type: 'input', name: 'name', outlined: true, label: 'جستجو در فیلم ها', placeholder: 'انتخاب نمایید', col: 'col-md-3' },
-        { type: 'button', name: 'search', class: '', icon: 'search', unelevated: true, col: 'col-md-1 self-end' },
-        { type: 'button', label: 'فیلتر', class: '', name: 'filter-button', icon: 'isax:filter', unelevated: true, col: 'col-md-1 self-end q-pr-md' },
-        { type: 'separator', col: 'col-md-4', size: '0' },
+        { type: 'input', name: 'search', outlined: true, label: 'جستجو در یادداشت ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
+        { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'separator', col: 'col-md-6', size: '0' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -123,21 +102,31 @@ export default {
           class: 'entity-filter-box',
           ignoreValue: true,
           value: [
-            { type: 'select', name: 'enable', outlined: true, placeholder: ' ', label: 'وضعیت', col: 'col-md-2', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیر فعال', value: 0 }] },
-            { type: 'date', name: 'createdAtSince', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تاریخ بارگزاری از', col: 'col-md-2' },
-            { type: 'date', name: 'createdAtTill', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تا', col: 'col-md-2' },
-            { type: ActionBtn, name: 'ActionBtn', col: 'col-12' }
+            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
+            { type: 'button', name: 'filter-btn', responseKey: 'statement', class: '', label: 'اعمال', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' }
           ]
         }
       ]
     }
   },
   computed: {
+    setTopicList() {
+      return this.$store.getters['ChatreNejat/setTopicList']
+    },
     selectedTopic () {
       return this.$store.getters['ChatreNejat/selectedTopic']
+    },
+    selectedTopicList() {
+      return this.$store.getters['ChatreNejat/setTopicList']
+    },
+    selectedTopicInput() {
+      return this.inputs.find(x => x.name === 'formBuilderCol').value[0].value
     }
   },
   watch: {
+    selectedTopicList(value) {
+      this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
+    },
     selectedTopic () {
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
@@ -145,6 +134,9 @@ export default {
           productId: this.$route.params.productId
         }
       })
+    },
+    selected(value) {
+      this.$emit('selectedUpdated', value)
     }
   },
   mounted() {
@@ -155,6 +147,20 @@ export default {
     }
   },
   methods: {
+    toggleDialog() {
+      this.$emit('toggleDialog')
+    },
+    onInputClick(e) {
+      if (e.input.name === 'toggle') {
+        document.getElementsByClassName('entity-filter-box')[0].classList.toggle('opened')
+      }
+      if (e.input.name === 'search-btn') {
+        this.$refs.entityIndex.search()
+      }
+      if (e.input.name === 'formBuilderCol') {
+        this.$refs.entityIndex.search()
+      }
+    },
     reloadEntity (doRefresh = false) {
       if (doRefresh) {
         this.$refs.entityIndex.refreshAllInputs()
@@ -187,6 +193,12 @@ export default {
     cursor: pointer;
     .bookmarks-entity-index {
 
+    }
+  }
+  &:deep(.entity-filter-box) {
+    display: none;
+    &.opened {
+      display: flex;
     }
   }
   &:deep(.q-table__top) {

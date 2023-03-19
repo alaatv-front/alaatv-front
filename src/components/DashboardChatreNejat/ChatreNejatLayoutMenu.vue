@@ -16,11 +16,9 @@
                  :menu="topicsRouteArray"
                  :loading="topicList.length <= 0"
                  @item-selected="itemSelected" />
-      <!--                    :active="subItem.title === clickedItem.title"
--->
       <q-item v-for="(item, index) in productItems"
               :key="index"
-              :active="item.name === clickedProductItem"
+              :active="item.routeName === $route.name"
               class="menu-item">
         <q-btn flat
                class="full-width menu-item-btn"
