@@ -79,8 +79,7 @@ export default {
       this.$apiGateway.comment.put({ data: this.comment }).then((res) => {
         this.comment = res
         this.toggleEdit()
-      }).catch(() => {
-      })
+      }).catch(() => {})
     },
     deleteComment() {
       this.$apiGateway.comment.delete({ data: { id: this.$route.params.commentId } }).then(() => {
