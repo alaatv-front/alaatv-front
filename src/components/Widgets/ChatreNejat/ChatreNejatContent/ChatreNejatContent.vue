@@ -131,9 +131,6 @@ export default {
     if (this.$route.params.productId) {
       this.getProductSets(this.$route.params.productId)
       this.getProduct()
-      // this.$apiGateway.product.getContents({
-      //   id: this.$route.params.productId
-      // }).then()
     }
     if (!this.selectedContent.id || !this.selectedSet.id) {
       this.storeSelectedSet(this.$route.params.setId)
