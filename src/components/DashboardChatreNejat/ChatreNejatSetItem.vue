@@ -45,7 +45,8 @@
                 {{ setItem.title }}
               </div>
               <div class="last-content-link">
-                <q-btn flat
+                <q-btn v-if="setItem.last_content_user_watched?.id"
+                       flat
                        icon-right="chevron_left"
                        :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
                        @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
@@ -73,7 +74,8 @@
               {{ setItem.title }}
             </div>
             <div class="last-content-link">
-              <q-btn flat
+              <q-btn v-if="setItem.last_content_user_watched?.id"
+                     flat
                      icon-right="chevron_left"
                      :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
                      @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
