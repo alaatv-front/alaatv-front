@@ -40,7 +40,7 @@ export default class APIInstanceWrapper {
             resolve(response)
           })
           .catch(error => {
-            console.log('error----------*******************************************-------->', error)
+            console.error(error)
             reject(error)
           })
       })

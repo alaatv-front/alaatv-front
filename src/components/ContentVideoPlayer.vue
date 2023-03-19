@@ -64,9 +64,10 @@
     </div>
     <video-player ref="videoPlayer"
                   :source="content.getVideoSource()"
-                  :side-bar="hasTimepoint"
-                  :use-side-bar="hasTimepoint">
-      <template #sideBar>
+                  :over-player="hasTimepoint"
+                  :over-player-width="'250px'"
+                  :use-over-player="hasTimepoint">
+      <template #overPlayer>
         <div class="timepoint-list">
           <q-banner class="timepoint-list-title">
             زمان کوب ها
@@ -242,7 +243,7 @@ export default {
 <style scoped lang="scss">
 .timepoint-list {
   direction: ltr;
-  width: 30%;
+  width: 100%;
   color: white;
   height: 100%;
   background: rgba(0,0,0,0.4);
