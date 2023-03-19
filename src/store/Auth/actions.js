@@ -7,12 +7,18 @@ export function login (context, data) {
       context.commit('updateUser', user)
       context.commit('updateAccessToken', accessToken)
       Cookies.set('BearerAccessToken', accessToken)
+      console.log('BearerAccessToken', accessToken)
       const tokenType = 'Bearer'
       this.$accessToken = accessToken
+      console.log('this.$accessToken', this.$accessToken)
       this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+      console.log('this.$axios')
       this.$apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+      console.log('this.$apiV1')
       this.$apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+      console.log('this.$apiV2')
       this.$apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+      console.log('this.$apiWeb')
     })
 }
 export function logOut (context, clearRedirectTo = true) {

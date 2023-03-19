@@ -21,7 +21,6 @@ export default class AuthAPI extends APIRepository {
         password: '' // String
       }, data),
       resolveCallback: (response) => {
-        console.log('response.data', response.data)
         const user = response.data.data.user
         const accessToken = response.data.data.access_token
         // const user = new User(response.data.data.user)
