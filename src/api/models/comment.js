@@ -3,7 +3,7 @@ import APIRepository from '../classes/APIRepository.js'
 import { Comment } from 'src/models/Comment.js'
 export default class CommentAPI extends APIRepository {
   constructor() {
-    super('comment', apiV2, '/comment', new Comment())
+    super('comment', apiV2, '/comment', Comment)
     this.APIAdresses = {
       base: '/comment',
       getComment: (commentId) => `/product/${commentId}/content-comments`

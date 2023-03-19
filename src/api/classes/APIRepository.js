@@ -63,7 +63,7 @@ export default class APIRepository {
    * @param data - The data to be sent to the server.
    * @returns The defaultSendData is being returned.
    */
-  getNormalizedSendData (defaultData, data) {
+  getNormalizedSendData(defaultData, data) {
     // for (const key of Object.keys(defaultData)) {
     //   if (data[key] === null || data[key] === undefined) {
     //     delete defaultData[key]
@@ -150,7 +150,7 @@ export default class APIRepository {
       rejectCallback: (error) => {
         return error
       },
-      data: new this._model(entityData)
+      data: new this._model(entityData.data)
     })
   }
 
