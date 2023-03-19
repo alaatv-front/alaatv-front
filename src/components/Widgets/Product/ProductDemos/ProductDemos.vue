@@ -122,6 +122,9 @@ export default {
         .then(contentList => {
           this.contents = contentList
         })
+        .catch(() => {
+
+        })
     }
   }
 }
