@@ -268,14 +268,12 @@ const routes = [
                       {
                         name: 'UserPanel.Asset.ChatreNejat.ProductComments',
                         path: ':productId/comments',
-                        component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue'),
-                        children: [
-                          {
-                            name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment',
-                            path: ':commentId',
-                            component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
-                          }
-                        ]
+                        component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment',
+                        path: ':productId/comments/:commentId',
+                        component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
                       },
                       {
                         name: 'UserPanel.Asset.ChatreNejat.Content',
@@ -401,7 +399,7 @@ const routes = [
             children: [
               {
                 name: 'Admin.UploadCenter.Contents',
-                path: 'contents',
+                path: '',
                 component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
               },
               {

@@ -15,17 +15,19 @@
         </a>
       </p>
     </video>
-    <div v-if="useSideBar"
-         ref="toggleTimePointsBtn">
+    <div v-if="useOverPlayer"
+         ref="overPlayer"
+         class="over-player-wrapper"
+         :style="{width: overPlayerWidth}">
       <q-btn icon-right="isax:menu-1"
              size="sm"
              color="primary"
+             class="toggleSideBarBtn"
              @click="toggleSideBar" />
-    </div>
-    <div ref="sideBar"
-         class="over-player-wrapper"
-         :class="{'show': localSideBar, 'hide': !localSideBar}">
-      <slot name="sideBar" />
+      <div class="over-player-slot"
+           :class="{'show': localOverPlayer, 'hide': !localOverPlayer}">
+        <slot name="overPlayer" />
+      </div>
     </div>
   </div>
 </template>
@@ -58,7 +60,7 @@ export default {
         return []
       }
     },
-    useSideBar: {
+    useOverPlayer: {
       type: Boolean,
       default: false
     },
@@ -68,9 +70,13 @@ export default {
         return ''
       }
     },
-    sideBar: {
+    overPlayer: {
       type: Boolean,
       default: true
+    },
+    overPlayerWidth: {
+      type: String,
+      default: '100%'
     },
     keepCalculating: {
       type: Boolean,
@@ -93,7 +99,7 @@ export default {
     return {
       drawer: false,
       player: null,
-      localSideBar: false,
+      localOverPlayer: false,
       favLoading: false,
       options: {
         myItems: [{
@@ -164,8 +170,17 @@ export default {
     currentTime(time) {
       this.player.currentTime(time)
     },
-    sideBar(newValue) {
-      this.localSideBar = newValue
+    overPlayer(newValue) {
+      this.localOverPlayer = newValue
+    },
+    useOverPlayer (newValue) {
+      if (!newValue) {
+        return
+      }
+
+      this.$nextTick(() => {
+        this.moveSideBarElementIntoVideoPlayerElements()
+      })
     }
   },
   created() {
@@ -174,10 +189,6 @@ export default {
   },
   mounted() {
     this.initPlayer()
-    this.moveSideBarElementIntoVideoPlayerElements()
-    if (this.useSideBar) {
-      this.moveSideBarToggleBtnIntoVideoPlayerElements()
-    }
   },
   beforeUnmount() {
     if (this.player) {
@@ -186,14 +197,15 @@ export default {
   },
   methods: {
     initPlayer () {
-      if (Array.isArray(this.source)) { // old multiple quality type
+      if (this.isPlayerSourceList(this.source)) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
           default: 'کیفیت بالا',
           dynamicLabel: true
         }
       }
-      this.player = videojs(this.$refs.videoPlayer, this.options, function onPlayerReady() {
+      this.player = videojs(this.$refs.videoPlayer, this.options, () => {
+        this.player.el().focus()
         // this.on('timeupdate', function () {
         //   if (that.keepCalculating) {
         //     that.calcWatchedPercentage(this.currentTime(), this.duration())
@@ -202,8 +214,6 @@ export default {
         //   if (that.$refs.videoPlayer) {
         //     that.$refs.videoPlayer.focus()
         //   }
-
-        //   // this.player.el().focus()
 
         //   if (!that.player.paused() && !that.player.userActive()) {
         //     that.videoStatus(false)
@@ -234,14 +244,11 @@ export default {
       this.$refs.videoPlayerWrapper.querySelector('.video-js').appendChild(div)
     },
     moveSideBarElementIntoVideoPlayerElements () {
-      this.injectDomeElement('over-player-wrapper-div', 'sideBar')
-    },
-    moveSideBarToggleBtnIntoVideoPlayerElements () {
-      this.injectDomeElement('toggleTimePointsBtn-wrapper', 'toggleTimePointsBtn')
+      this.injectDomeElement('over-player-wrapper-div', 'overPlayer')
     },
     toggleSideBar () {
-      this.localSideBar = !this.localSideBar
-      this.$emit('update:sideBar', this.localSideBar)
+      this.localOverPlayer = !this.localOverPlayer
+      this.$emit('update:sideBar', this.localOverPlayer)
     },
     activate(time) {
       this.player.currentTime(time)
@@ -304,27 +311,39 @@ export default {
 .vPlayer {
   overflow: hidden;
   .over-player-wrapper-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc( 100% - 30px );
+    z-index: 1;
     .over-player-wrapper {
       position: absolute;
       top: 0;
-      right: 2000px;
-      width: 100%;
+      left: 0;
       height: 100%;
-      color: initial;
-      transition: 0.2s;
-      direction: ltr;
-      &.show {
-        right: 0;
-      }
-      &.hide {
-        right: 2000px;
+      .over-player-slot {
+        left: 2000px;
+        width: 100%;
+        height: 100%;
+        color: initial;
+        transition: 0.4s;
+        direction: ltr;
+        position: relative;
+        z-index: 1;
+        &.show {
+          right: 0;
+        }
+        &.hide {
+          right: 2500px;
+        }
       }
     }
   }
-  .toggleTimePointsBtn-wrapper {
+  .toggleSideBarBtn {
     position: absolute;
     top: 5px;
     left: 5px;
+    z-index: 2;
   }
   .video-js {
     .vjs-loading-spinner {
@@ -332,20 +351,42 @@ export default {
       margin: -25px -25px 0 0;
       text-align: right;
     }
-    .vjs-volume-panel {
-      .vjs-volume-control {
-        right: -3.5em;
-        margin-right: -1px;
+    .vjs-big-play-button {
+      color: white;
+      width: 80px;
+      height: 80px;
+      margin-top: -1em;
+      margin-left: -1em;
+      border-radius: 100%;
+      background: var(--alaa-Primary);
+      border-color: var(--alaa-Primary);
+      .vjs-icon-placeholder:before {
+        display: flex;
+        font-size: 65px;
+        align-items: center;
+        justify-content: center;
       }
     }
-    .vjs-big-play-button {
-      width: 50px;
-      height: 50px;
-      border-radius: 100%;
-      margin-left: -0.7em;
-      color: white;
-      border-color: var(--alaa-Primary);
-      background: var(--alaa-Primary);
+    .vjs-control-bar {
+      z-index: 2;
+      .vjs-volume-panel {
+        .vjs-volume-control {
+          right: -3.5em;
+          margin-right: -1px;
+        }
+      }
+      .vjs-resolution-button {
+        .vjs-menu-button {
+          .vjs-icon-placeholder {
+            &:before {
+              content: "\f114";
+              font-style: normal;
+              font-weight: normal;
+              font-family: VideoJS;
+            }
+          }
+        }
+      }
     }
   }
 }

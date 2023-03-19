@@ -28,7 +28,7 @@
         </q-card-section>
         <q-card-section v-if="$q.screen.gt.xs"
                         class=" flex"
-                        style="width: 100%;max-width: 450px;">
+                        style="width: 100%;max-width: 350px;">
           <q-separator spaced
                        :vertical="$q.screen.gt.sm"
                        inset />
@@ -156,6 +156,7 @@ export default {
     max-height: 217px;
     padding: 10px 5px 10px 15px;
     align-items: flex-start;
+    width: 100%;
   }
 
   .row {
@@ -168,8 +169,21 @@ export default {
     justify-content: space-between;
     background: transparent;
 
+    @media only screen and (max-width: 1700px) {
+      width: 100%;
+    }
+    @media only screen and (max-width: 1450px) {
+      width: 80%;
+    }
+    @media only screen and (max-width: 1024px) {
+      width: 100%;
+    }
+    @media only screen and (max-width: 900px) {
+      width: 80%;
+    }
     @media only screen and (max-width: 600px) {
       display: block;
+      width: 85%;
     }
 
     .product-item-info {
@@ -187,6 +201,7 @@ export default {
       background: #CACACA;
       border-radius: 10px !important;
       margin: auto;
+      min-width: 80px;
 
       @media only screen and (max-width: 600px) {
         margin: 0 0 0 17px;
@@ -197,7 +212,7 @@ export default {
       min-width: 35%;
 
       @media only screen and (max-width: 600px) {
-        min-width: 100%;
+        min-width: 70%;
       }
 
       .product-item-title {
@@ -249,6 +264,10 @@ export default {
       margin-left: 24px;
       width: 85%;
 
+      @media only screen and (max-width: 600px) {
+          width: 100%;
+        }
+
       .last-content-pre {
         font-style: normal;
         font-weight: 400;
@@ -276,6 +295,7 @@ export default {
           font-size: 14px;
           line-height: 20px;
           margin-bottom: 5px;
+          width: 95%;
         }
 
       }

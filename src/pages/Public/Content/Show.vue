@@ -70,7 +70,7 @@ export default {
                       {
                         name: 'ContentDownloadSection',
                         options: {
-                          link: '#'
+                          link: 'https://play.google.com/store/apps/details?id=ir.sanatisharif.android.konkur96'
                         }
                       }
                     ],

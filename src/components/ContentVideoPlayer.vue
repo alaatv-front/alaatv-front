@@ -64,9 +64,10 @@
     </div>
     <video-player ref="videoPlayer"
                   :source="content.getVideoSource()"
-                  :side-bar="sideBar"
-                  :use-side-bar="hasTimepoint">
-      <template #sideBar>
+                  :over-player="hasTimepoint"
+                  :over-player-width="'250px'"
+                  :use-over-player="hasTimepoint">
+      <template #overPlayer>
         <div class="timepoint-list">
           <q-banner class="timepoint-list-title">
             زمان کوب ها
@@ -79,7 +80,7 @@
                     @click="goToTimpoint(timepoint)">
               <q-item-section avatar>
                 <bookmark v-model:value="timepoint.is_favored"
-                          color="primary"
+                          color="white"
                           size="30"
                           :bookmark-function="bookmarkTimepoint(timepoint)" />
               </q-item-section>
@@ -136,7 +137,6 @@ export default {
   emits: ['seeked'],
   data() {
     return {
-      sideBar: false,
       currentContent: new Content()
     }
   },
@@ -163,10 +163,12 @@ export default {
       this.$refs.videoPlayer.changeCurrentTime(timepoint.time)
     },
     bookmarkTimepoint (timepoint) {
-      if (timepoint.is_favored) {
-        return this.$apiGateway.contentTimepoint.unfavored(timepoint.id)
+      return () => {
+        if (timepoint.is_favored) {
+          return this.$apiGateway.contentTimepoint.unfavored(timepoint.id)
+        }
+        return this.$apiGateway.contentTimepoint.favored(timepoint.id)
       }
-      return this.$apiGateway.contentTimepoint.favored(timepoint.id)
     },
     activate(time) {
       this.player.currentTime(time)
@@ -243,7 +245,7 @@ export default {
 <style scoped lang="scss">
 .timepoint-list {
   direction: ltr;
-  width: 30%;
+  width: 100%;
   color: white;
   height: 100%;
   background: rgba(0,0,0,0.4);
