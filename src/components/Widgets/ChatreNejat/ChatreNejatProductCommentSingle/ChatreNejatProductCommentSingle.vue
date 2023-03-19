@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     getComment() {
-      this.$apiGateway.comment.getComment({ commentId: this.$route.params.productId }).then(res => {
+      this.$apiGateway.comment.get({ data: { id: this.$route.params.commentId } }).then(res => {
         this.comment = res
       }).catch(() => {})
     },

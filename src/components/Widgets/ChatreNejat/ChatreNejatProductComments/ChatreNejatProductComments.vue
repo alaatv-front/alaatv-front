@@ -184,6 +184,10 @@ export default {
       padding: 30px;
       cursor: pointer;
 
+      &:hover {
+        background: #E9E9E9;
+      }
+
       @media only screen and (max-width: 390px) {
         padding: 5PX;
       }
