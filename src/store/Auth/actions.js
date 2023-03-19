@@ -1,3 +1,4 @@
+import { Cookies } from 'quasar'
 import { APIGateway } from 'src/api/APIGateway.js'
 
 export function login (context, data) {
@@ -5,8 +6,9 @@ export function login (context, data) {
     .then(({ accessToken, user }) => {
       context.commit('updateAccessToken', accessToken)
       context.commit('updateUser', user)
-
+      Cookies.set('BearerAccessToken', accessToken)
       const tokenType = 'Bearer'
+      this.$accessToken = accessToken
       this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
       this.$apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
       this.$apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
