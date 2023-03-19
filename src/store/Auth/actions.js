@@ -13,9 +13,11 @@ export function login (context, data) {
       this.$apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
     })
 }
-export function logOut (context) {
+export function logOut (context, clearRedirectTo = true) {
   context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
-  context.commit('updateRedirectTo', null)
+  if (clearRedirectTo) {
+    context.commit('updateRedirectTo', null)
+  }
   this.$router.push({ name: 'login' })
 }
