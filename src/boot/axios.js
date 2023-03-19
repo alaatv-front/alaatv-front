@@ -1,5 +1,5 @@
-import { Notify } from 'quasar'
 import { boot } from 'quasar/wrappers'
+import { Notify, Cookies } from 'quasar'
 import APIInstanceWrapper from 'src/api/classes/APIInstanceWrapper.js'
 
 const apiV2Server = process.env.ALAA_API_V2
@@ -145,13 +145,18 @@ const apiV2 = APIInstanceWrapper.createInstance(apiV2Server, apiV2ServerTarget)
 const apiV1 = APIInstanceWrapper.createInstance(apiV1Server, apiV1ServerTarget)
 const apiWeb = APIInstanceWrapper.createInstance(webServer, webServerTarget)
 
-export default boot(({ app, store, router }) => {
-  const accessToken = store.getters['Auth/accessToken']
-  if (accessToken) {
+export default boot(({ app, store, router, ssrContext }) => {
+  const cookies = process.env.SERVER
+    ? Cookies.parseSSR(ssrContext)
+    : Cookies // otherwise we're on client
+  const cookiesAccessToken = cookies.get('BearerAccessToken')
+
+  if (cookiesAccessToken) {
     const tokenType = 'Bearer'
-    apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
-    apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
-    apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    store.$accessToken = cookiesAccessToken
+    apiV2.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
+    apiV1.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
+    apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
   }
 
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)

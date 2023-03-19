@@ -62,13 +62,13 @@ export default {
       edit: false
     }
   },
-  created() {
+  mounted () {
     this.getComment()
     this.loadData(this.$route.params.productId)
   },
   methods: {
     getComment() {
-      this.$apiGateway.comment.getComment({ commentId: this.$route.params.productId }).then(res => {
+      this.$apiGateway.comment.get({ data: { id: this.$route.params.commentId } }).then(res => {
         this.comment = res
       }).catch(() => {})
     },
@@ -79,8 +79,7 @@ export default {
       this.$apiGateway.comment.put({ data: this.comment }).then((res) => {
         this.comment = res
         this.toggleEdit()
-      }).catch((err) => {
-        console.log(err)
+      }).catch(() => {
       })
     },
     deleteComment() {

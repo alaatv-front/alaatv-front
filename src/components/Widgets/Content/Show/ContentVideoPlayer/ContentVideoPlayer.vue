@@ -2,9 +2,6 @@
   <q-card class="video-player custom-card bg-white q-mx-md full-height"
           :class="options.paginate? 'q-pb-md': ''"
           :style="options.style">
-    <!--    <video-player v-if="sources.list.length > 0"-->
-    <!--                  :sources="sources"-->
-    <!--                  :poster="poster" />-->
     <video-player :content="content" />
     <div v-if="options.paginate"
          class="q-pa-sm flex flex-center">
@@ -111,7 +108,7 @@ export default {
       APIGateway.set.show(this.content.set?.id || this.$route.params.setId)
         .then((response) => {
           this.set = new Set(response)
-          this.contentNumber = this.getContentNumberInListById(this.content.set?.id || this.$route.params.setId)
+          this.contentNumber = this.getContentNumberInListById(this.$route.params.id)
           this.set.loading = false
         })
         .catch(() => {

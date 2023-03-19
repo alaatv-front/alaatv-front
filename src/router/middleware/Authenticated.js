@@ -1,8 +1,7 @@
-export default function Authenticated (
-  /* { to, from, next, store } */ { next, store, to }
-) {
-  if (!process.env.SERVER && !store.getters['Auth/accessToken']) {
-    store.commit('Auth/updateRedirectTo', to.name)
+export default function Authenticated ({ next, store, to }) {
+  const accessToken = store.$accessToken
+  if (!accessToken) {
+    store.commit('Auth/updateRedirectTo', { name: to.name, params: to.params })
     return next({ name: 'login' })
   }
 

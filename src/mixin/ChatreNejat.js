@@ -67,19 +67,22 @@ const mixinChatreNejat = {
     },
     async updateComment(comment) {
       try {
+        this.commentLoading = true
         const response = await this.$apiGateway.abrisham.updateComment(this.watchingContent.comments[0].id, {
           comment,
           _method: 'PUT'
         })
         this.watchingContent.comments[0].comment = response.data.data.comment
         this.comment = this.watchingContent.comments[0].comment
+        this.commentLoading = false
         this.syncwatchingContentWithContentInList()
       } catch {
-
+        this.commentLoading = false
       }
     },
     async saveNewComment(comment) {
       try {
+        this.commentLoading = true
         const response = await this.$apiGateway.abrisham.saveComment({
           commentable_id: this.watchingContent.id,
           commentable_type: 'content',
@@ -90,9 +93,10 @@ const mixinChatreNejat = {
           comment: response.data.data.comment
         })
         this.comment = this.watchingContent.comments[0].comment
+        this.commentLoading = false
         this.syncwatchingContentWithContentInList()
       } catch {
-
+        this.commentLoading = false
       }
     },
     saveComment(comment) {

@@ -43,9 +43,9 @@
             <q-card-section class="ellipsis-3-lines comment-main">
               {{ inputData.props.row.comment }}
             </q-card-section>
-            <q-card-action class="ellipsis comment-footer">
+            <q-card-section class="ellipsis comment-footer">
               {{ inputData.props.row.set.short_title + ' > ' + inputData.props.row.content.title }}
-            </q-card-action>
+            </q-card-section>
           </q-card>
         </div>
       </template>
@@ -183,6 +183,10 @@ export default {
       justify-content: space-between;
       padding: 30px;
       cursor: pointer;
+
+      &:hover {
+        background: #E9E9E9;
+      }
 
       @media only screen and (max-width: 390px) {
         padding: 5PX;
