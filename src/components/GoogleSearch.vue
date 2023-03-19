@@ -139,7 +139,7 @@
         <q-card class="mobile-card">
           <q-card-section>
             <div class="search-url">
-              <q-img src="/img/alaa-logo.png"
+              <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
                      width="16px"
                      height="16px"
                      style="margin-right: 12px" />
