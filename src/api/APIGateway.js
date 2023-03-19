@@ -16,6 +16,7 @@ import ForrestAPI from 'src/api/models/Forrest'
 import ReferralCodeAPI from 'src/api/models/ReferralCode'
 import EventsAPI from 'src/api/models/Events'
 import ContentTimepointAPI from 'src/api/models/ContentTimepoint'
+import CommentAPI from 'src/api/models/comment'
 /* Exporting the APIGateway object. */
 export const APIGateway = {
   abrisham: new AbrishamAPI(),
@@ -25,6 +26,7 @@ export const APIGateway = {
   auth: new AuthAPI(),
   cart: new CartAPI(),
   content: new ContentAPI(),
+  comment: new CommentAPI(),
   coupon: new CouponAPI(),
   order: new OrderAPI(),
   pages: new PagesAPI(),
