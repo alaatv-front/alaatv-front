@@ -15,7 +15,7 @@ export default class ProductAPI extends APIRepository {
       getSets: id => `/product/${id}/sets`,
       getComments: id => `/product/${id}/content-comments`,
       getContents: id => `/product/${id}/contents`,
-      favored: (id) => id + '/favored',
+      favored: (id) => '/product/' + id + '/favored',
       unfavored: (id) => '/product/' + id + '/unfavored',
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
@@ -91,13 +91,12 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  favoredProduct(data = {}, cache = { TTL: 100 }) {
+  favoredProduct(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.favored(data),
       cacheKey: this.CacheList.favored(data),
-      ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data
       },
@@ -107,13 +106,12 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  unfavoredProduct(data = {}, cache = { TTL: 100 }) {
+  unfavoredProduct(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.unfavored(data),
       cacheKey: this.CacheList.unfavored(data),
-      ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data
       },

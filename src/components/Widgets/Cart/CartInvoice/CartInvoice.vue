@@ -1,5 +1,6 @@
 <template>
-  <div ref="CartInvoice"
+  <div v-if="cart.count > 0"
+       ref="CartInvoice"
        class="cart-invoice main-content">
     <!--    <q-scroll-observer @scroll="onScroll" />-->
     <div ref="CartInvoiceContainer"

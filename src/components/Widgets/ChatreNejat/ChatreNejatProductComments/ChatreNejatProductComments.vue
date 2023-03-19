@@ -43,9 +43,9 @@
             <q-card-section class="ellipsis-3-lines comment-main">
               {{ inputData.props.row.comment }}
             </q-card-section>
-            <q-card-action class="ellipsis comment-footer">
+            <q-card-section class="ellipsis comment-footer">
               {{ inputData.props.row.set.short_title + ' > ' + inputData.props.row.content.title }}
-            </q-card-action>
+            </q-card-section>
           </q-card>
         </div>
       </template>

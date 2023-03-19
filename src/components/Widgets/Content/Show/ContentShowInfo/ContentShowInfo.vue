@@ -28,7 +28,9 @@
     <h6 class="set-title">
       {{content.title}}
     </h6>
-    <q-tabs v-model="tab">
+    <q-tabs v-model="tab"
+            class="q-mt-md"
+            align="left">
       <q-tab name="info"
              label="توضیحات" />
       <q-tab v-if="content.file?.pamphlet"
@@ -46,19 +48,16 @@
           {{content.set.title}}
         </h6>
         <div v-if="content.body"
+             class="q-mb-xl"
              v-html="content.body" />
-        <q-separator v-if="content.tags"
-                     class="q-my-lg" />
-        <q-separator v-if="content.tags"
-                     class="q-my-lg" />
         <div v-if="content.tags"
              class="row">
           <p class="col-1 q-mt-sm text-center">تگ ها</p>
           <div class="col q-pl-sm">
             <q-badge v-for="badge in content.tags"
                      :key="badge"
-                     class="q-px-sm q-ml-sm"
-                     color="blue">
+                     class="q-pa-sm q-ml-sm q-mb-sm"
+                     color="primary">
               {{badge}}
             </q-badge>
           </div>
@@ -119,7 +118,7 @@ export default {
   },
   computed: {
     pageUrl() {
-      return 'https://alaatv.com' + this.$route.fullPath
+      return window.location.href
     }
   },
   watch: {

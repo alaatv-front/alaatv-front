@@ -80,7 +80,7 @@
                     @click="goToTimpoint(timepoint)">
               <q-item-section avatar>
                 <bookmark v-model:value="timepoint.is_favored"
-                          color="primary"
+                          color="white"
                           size="30"
                           :bookmark-function="bookmarkTimepoint(timepoint)" />
               </q-item-section>
@@ -163,10 +163,12 @@ export default {
       this.$refs.videoPlayer.changeCurrentTime(timepoint.time)
     },
     bookmarkTimepoint (timepoint) {
-      if (timepoint.is_favored) {
-        return this.$apiGateway.contentTimepoint.unfavored(timepoint.id)
+      return () => {
+        if (timepoint.is_favored) {
+          return this.$apiGateway.contentTimepoint.unfavored(timepoint.id)
+        }
+        return this.$apiGateway.contentTimepoint.favored(timepoint.id)
       }
-      return this.$apiGateway.contentTimepoint.favored(timepoint.id)
     },
     activate(time) {
       this.player.currentTime(time)

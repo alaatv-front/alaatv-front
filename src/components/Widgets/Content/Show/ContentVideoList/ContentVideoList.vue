@@ -30,7 +30,7 @@
           <div class="content q-pt-md q-px-sm"
                :class="{current: isCurrent(content)}">
             <div class="row content-show">
-              <div class=" col-1">
+              <div class=" col-1 q-mr-sm">
                 <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}"><q-icon name="isax:play-circle"
                                                                                                    :color="isCurrent(content) ? 'primary' : ''"
                                                                                                    size="sm" />
@@ -43,10 +43,17 @@
                   </h6>
                 </router-link>
               </div>
-              <div class="q-pl-md q-my-sm col-6">
-                {{content.duration}}
+              <q-tooltip>
+                {{ content.title }}
+              </q-tooltip>
+              <div v-if="content.duration"
+                   class="duration q-pl-md q-my-sm col-6">
+                {{(content.duration / 60 | 0)}}
+                دقیقه
               </div>
-              <div class="text-right q-pr-sm q-my-sm col-6">
+              <div v-else
+                   class="col-6" />
+              <div class="date text-right q-pr-sm q-my-sm col-6">
                 {{convertToShamsi(content.updated_at, 'date')}}
               </div>
             </div>
@@ -65,6 +72,7 @@ import { mixinWidget } from 'src/mixin/Mixins'
 import { scroll } from 'quasar'
 import { APIGateway } from 'src/api/APIGateway'
 import mixinDateOptions from 'src/mixin/DateOptions'
+import Time from 'src/plugins/time'
 
 const {
   getScrollTarget,
@@ -107,6 +115,9 @@ export default {
     this.loadContent()
   },
   methods: {
+    showTime(duration) {
+      return Time.msToTime(duration * 1000)
+    },
     downloadPdf() {
       window.open(this.content.file.pamphlet.link, '_blank')
     },
@@ -144,7 +155,7 @@ export default {
       APIGateway.set.show(this.content.set.id)
         .then((response) => {
           this.set = new Set(response)
-          this.scrollToElement()
+          // this.scrollToElement()
           this.set.loading = false
         })
         .catch(() => {
@@ -175,6 +186,7 @@ export default {
 
 <style lang="scss" scoped>
 .video-list-container {
+  //height: 100%;
   h6 {
     margin: 0 !important;
     font-size: 20px;
@@ -190,7 +202,7 @@ export default {
       color: #afb2c1
     }
     .scroll{
-      height: 40vh !important;
+      height: 41vh !important;
       .other-contents{
         overflow-x: hidden;
         .content{
@@ -198,8 +210,9 @@ export default {
           margin-left: 30px;
           margin-right: 42px;
           .video-title{
-            font-size: 18px;
+            font-size: 16px;
             color: #575962;
+            font-weight: 400;
             width: 250px;
             overflow: hidden;
             white-space: nowrap;
@@ -207,6 +220,10 @@ export default {
           }
           .content-show{
             align-items: center;
+            .time, .date{
+              font-size: 12px;
+              font-weight: 400;
+            }
           }
         }
         .current {

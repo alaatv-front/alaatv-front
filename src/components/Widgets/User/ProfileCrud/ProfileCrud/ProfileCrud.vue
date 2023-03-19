@@ -26,7 +26,6 @@
 <script>
 import { Notify } from 'quasar'
 import { EntityEdit } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 
@@ -43,177 +42,19 @@ export default {
       entityParamKey: 'id',
       showRouteName: 'UserPanel.Profile',
       localInputs: [],
-      // localInputs: [
-      //   {
-      //     type: 'formBuilder',
-      //     name: 'formBuilderCol',
-      //     col: 'col-md-12 q-card custom-card q-px-md q-pb-sm',
-      //     value: [
-      //       {
-      //         type: 'separator',
-      //         size: '0',
-      //         label: 'مشخصات حساب',
-      //         col: 'col-md-12 title'
-      //       },
-      //       {
-      //         type: 'input',
-      //         name: 'id',
-      //         responseKey: 'data.id',
-      //         label: 'شناسه',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-6'
-      //       },
-      //       {
-      //         type: 'input',
-      //         name: 'mobile',
-      //         responseKey: 'data.mobile',
-      //         label: 'شماره موبایل',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-6'
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     type: 'formBuilder',
-      //     name: 'formBuilderCol',
-      //     col: 'col-md-12 q-card custom-card q-mt-md q-px-md q-pb-sm',
-      //     value: [
-      //       {
-      //         type: 'separator',
-      //         size: '0',
-      //         label: 'مشخصات فردی',
-      //         col: 'col-md-12 title'
-      //       },
-      //
-      //       {
-      //         type: 'input',
-      //         name: 'first_name',
-      //         responseKey: 'data.first_name',
-      //         label: 'نام',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-6'
-      //       },
-      //       {
-      //         type: 'input',
-      //         name: 'last_name',
-      //         responseKey: 'data.last_name',
-      //         label: 'نام خانوادگی',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-6'
-      //       },
-      //       {
-      //         type: 'date',
-      //         name: 'birthdate',
-      //         responseKey: 'data.birthdate',
-      //         label: 'تاریخ تولد',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-6'
-      //       },
-      //       {
-      //         type: 'select',
-      //         name: 'gender',
-      //         label: 'جنسیت',
-      //         responseKey: 'data.gender',
-      //         placeholder: 'انتخاب نمایید',
-      //         optionLabel: 'name',
-      //         outlined: true,
-      //         multiple: false,
-      //         col: 'col-md-6'
-      //       },
-      //       {
-      //         type: 'input',
-      //         name: 'national_code',
-      //         responseKey: 'data.national_code',
-      //         label: 'کد ملی',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-6'
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     type: 'formBuilder',
-      //     name: 'formBuilderCol',
-      //     col: 'col-md-12 q-card custom-card  q-mt-md q-px-md q-pb-sm',
-      //     value: [
-      //       {
-      //         type: 'separator',
-      //         size: '0',
-      //         label: 'مشخصات تحصیلی',
-      //         col: 'col-md-12 title'
-      //       },
-      //       {
-      //         type: 'select',
-      //         name: 'grade',
-      //         label: 'مقطع تحصیلی',
-      //         placeholder: 'انتخاب نمایید',
-      //         responseKey: 'data.grade',
-      //         optionLabel: 'name',
-      //         outlined: true,
-      //         multiple: false,
-      //         col: 'col-md-6'
-      //       },
-      //       {
-      //         type: 'select',
-      //         name: 'major',
-      //         label: 'رشته تحصیلی',
-      //         placeholder: 'انتخاب نمایید',
-      //         responseKey: 'data.major',
-      //         optionLabel: 'name',
-      //         outlined: true,
-      //         multiple: false,
-      //         col: 'col-md-6'
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     type: 'formBuilder',
-      //     name: 'formBuilderCol',
-      //     col: 'col-md-12 q-card custom-card  q-mt-md q-px-md q-pb-sm',
-      //     value: [
-      //       {
-      //         type: 'separator',
-      //         size: '0',
-      //         label: 'اطلاعات تماس',
-      //         col: 'col-md-12 title'
-      //       },
-      //
-      //       {
-      //         type: 'input',
-      //         name: 'postal_code',
-      //         responseKey: 'data.postal_code',
-      //         label: 'کدپستی',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-6'
-      //       },
-      //       {
-      //         type: 'input',
-      //         name: 'email',
-      //         responseKey: 'data.email',
-      //         label: 'ایمیل',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-6'
-      //       },
-      //       {
-      //         type: 'input',
-      //         name: 'address',
-      //         responseKey: 'data.address',
-      //         label: 'آدرس محل سکونت',
-      //         outlined: true,
-      //         placeholder: 'وارد نمایید',
-      //         col: 'col-md-12'
-      //       }
-      //     ]
-      //   }
-      // ],
+      cities: [],
       defaultLayout: false
+    }
+  },
+  computed: {
+    shahrValues() {
+      const selectedProvinceId = this.localInputs[1]?.value[6]?.value?.id
+      return this.cities.filter(city => city.province.id === selectedProvinceId)
+    }
+  },
+  watch: {
+    shahrValues(newValue) {
+      this.localInputs[1].value[5].options = newValue
     }
   },
   mounted() {
@@ -227,13 +68,14 @@ export default {
   },
   methods: {
     beforeGetData() {
-      this.$axios
-        .get(API_ADDRESS.user.formData)
+      APIGateway.user.formData()
         .then((response) => {
           // edit entity
-          this.localInputs[2].value[1].options = response.data.data.grades
-          this.localInputs[2].value[2].options = response.data.data.majors
-          this.localInputs[1].value[4].options = response.data.data.genders
+          this.localInputs[2].value[1].options = response.grades
+          this.localInputs[2].value[2].options = response.majors
+          this.localInputs[1].value[4].options = response.genders
+          this.cities = response.cities
+          this.localInputs[1].value[6].options = response.provinces
         })
         .catch(() => {})
     },
@@ -249,9 +91,9 @@ export default {
     },
     beforeSendData(d) {
       d.postal_code = Number(d.postal_code)
-      d.grade_id = d.grade.id
-      d.major_id = d.major.id
-      if (!this.inputs[1].value[4].disable) {
+      d.grade_id = d.grade ? d.grade.id : null
+      d.major_id = d.major ? d.major.id : null
+      if (!this.localInputs[1].value[4].disable) {
         d.gender_id = d.gender.id
       }
     },

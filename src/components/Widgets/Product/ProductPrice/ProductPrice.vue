@@ -16,10 +16,10 @@
         {{ product.price.toman('base', null) }}
       </div>
 
-      <span v-if="product.price.toman('final', null) && options.finalPrice"
-            class="product-final-price">
+      <div v-if="product.price.toman('final', null) && options.finalPrice"
+           class="product-final-price">
         {{ product.price.toman('final', null) }}
-      </span>
+      </div>
 
       <div class="product-price-title"> تومان</div>
     </div>
