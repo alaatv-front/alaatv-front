@@ -83,7 +83,6 @@ export default {
         .then(product => {
           this.product = product
           this.isFavored = product.is_favored_2
-          console.log(this.product.description)
           this.product.loading = false
         })
         .catch(() => {
