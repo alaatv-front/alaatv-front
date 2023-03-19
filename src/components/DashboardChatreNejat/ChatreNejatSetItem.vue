@@ -189,6 +189,7 @@ export default {
       background: #CACACA;
       border-radius: 10px !important;
       margin: auto;
+      min-width: 80px;
 
       @media only screen and (max-width: 600px) {
         margin: 0 0 0 17px;
