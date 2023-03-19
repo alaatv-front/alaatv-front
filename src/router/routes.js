@@ -261,6 +261,11 @@ const routes = [
                         component: () => import('pages/User/DashboardChatreNejat/ProductPage.vue')
                       },
                       {
+                        name: 'UserPanel.Asset.ChatreNejat.Content',
+                        path: ':productId/set/:setId/content/:contentId',
+                        component: () => import('pages/User/DashboardChatreNejat/Content.vue')
+                      },
+                      {
                         name: 'UserPanel.Asset.ChatreNejat.ProductDocuments',
                         path: ':productId/documents',
                         component: () => import('pages/User/DashboardChatreNejat/ProductDocuments.vue')

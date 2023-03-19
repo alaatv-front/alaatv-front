@@ -176,7 +176,7 @@ export default {
       display: flex;
     }
   }
-  // this is piece of shit and must fixed
+  // this is a piece of shit and must be fixed
   &:deep(.q-table__top) {
     display: none !important;
   }
