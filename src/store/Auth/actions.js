@@ -4,8 +4,8 @@ import { APIGateway } from 'src/api/APIGateway.js'
 export function login (context, data) {
   return APIGateway.auth.login(data)
     .then(({ accessToken, user }) => {
-      context.commit('updateAccessToken', accessToken)
       context.commit('updateUser', user)
+      context.commit('updateAccessToken', accessToken)
       Cookies.set('BearerAccessToken', accessToken)
       const tokenType = 'Bearer'
       this.$accessToken = accessToken

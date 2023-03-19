@@ -1,6 +1,6 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
-import { User } from 'src/models/User'
+// import { User } from 'src/models/User'
 
 export default class AuthAPI extends APIRepository {
   constructor() {
@@ -21,8 +21,10 @@ export default class AuthAPI extends APIRepository {
         password: '' // String
       }, data),
       resolveCallback: (response) => {
+        console.log('response.data', response.data)
+        const user = response.data.data.user
         const accessToken = response.data.data.access_token
-        const user = new User(response.data.data.user)
+        // const user = new User(response.data.data.user)
 
         return { accessToken, user }
       },
