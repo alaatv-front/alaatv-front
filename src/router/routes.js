@@ -401,7 +401,7 @@ const routes = [
             children: [
               {
                 name: 'Admin.UploadCenter.Contents',
-                path: 'contents',
+                path: '',
                 component: () => import('pages/Admin/UploadCenter/UploadCenter.vue')
               },
               {
