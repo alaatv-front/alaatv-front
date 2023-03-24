@@ -207,7 +207,27 @@ export default {
       this.$store.commit('ChatreNejat/setSelectedSet', set)
     },
     getSelectedSet (setId) {
+      this.getSelectedSetContents(setId)
+        .then(contentList => {
+          if (contentList.list.length > 0) {
+            this.setSelectedContent(contentList.list[0])
+          }
+          const selectedSet = this.selectedSet
+          selectedSet.contents = contentList
+          this.setSelectedSet(selectedSet)
+          this.contentLoading = false
+          this.videoListLoading = false
+          this.ContentVideoListKey++
+        })
+        .catch(() => {
+          this.contentLoading = false
+          this.videoListLoading = false
+          this.ContentVideoListKey++
+        })
       return this.$apiGateway.set.show(setId)
+    },
+    getSelectedSetContents (setId) {
+      return this.$apiGateway.set.getContents(setId)
     },
     getSelectedContent (contentId) {
       return this.$apiGateway.content.show(contentId)
