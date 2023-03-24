@@ -16,13 +16,6 @@
             </div>
           </div>
         </div>
-        <div v-else-if="content.photo && !content.photo.includes('stage-minio')">
-          <a :href="content.url.web"
-             target="_blank">
-            <q-img class="img"
-                   :src="content.photo" />
-          </a>
-        </div>
       </div>
 
     </div>
