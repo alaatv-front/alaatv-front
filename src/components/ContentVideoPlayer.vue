@@ -3,6 +3,7 @@
        style="width: 100%;"
        class="vPlayer">
     <video-player ref="videoPlayer"
+                  :key="playerKey"
                   :source="content.getVideoSource()"
                   :poster="content.photo"
                   :over-player="hasTimepoint"
@@ -78,6 +79,7 @@ export default {
   emits: ['seeked'],
   data() {
     return {
+      playerKey: Date.now(),
       currentContent: new Content()
     }
   },
@@ -88,6 +90,7 @@ export default {
   },
   watch: {
     content(newValue) {
+      this.playerKey = Date.now()
       this.currentContent = newValue
     }
   },

@@ -164,7 +164,7 @@ export default {
     }
   },
   watch: {
-    source: function () {
+    source () {
       this.reInitVideo()
     },
     currentTime(time) {
@@ -263,18 +263,11 @@ export default {
       this.options.poster = this.poster
     },
     reInitVideo() {
-      if (this.isPlayerSourceList(this.source)) { // old multiple quality type
-        videoJsResolutionSwitcher(videojs)
-        this.options.plugins.videoJsResolutionSwitcher = {
-          default: 'کیفیت بالا',
-          dynamicLabel: true
-        }
-      }
-
-      if (typeof this.source === 'string' && this.source.includes('.m3u8')) { // hls type
-        this.player.hlsQualitySelector()
-      }
-
+      this.player.reset()
+      // this.player.dispose()
+      this.setPoster()
+      this.setSources()
+      this.initPlayer()
       const source = this.isPlayerSourceList() ? this.source.list : this.source
       this.player.src(source)
       this.player.poster(this.poster)
@@ -393,7 +386,7 @@ export default {
               content: "\f114";
               font-style: normal;
               font-weight: normal;
-              font-family: VideoJS, Arial,serif;
+              font-family: VideoJS, Arial, serif;
             }
           }
         }
