@@ -33,10 +33,10 @@ class PlayerSource extends Model {
       }
     ])
 
-    if (this.res) {
+    if (!this.label && this.res) {
       this.label = this.res
     }
-    if (this.link) {
+    if (!this.src && this.link) {
       this.src = this.link
     }
   }
