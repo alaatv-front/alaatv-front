@@ -140,9 +140,9 @@ export default {
     if (this.$route.params.productId) {
       this.getProductSets(this.$route.params.productId)
       this.getProduct()
-      this.storeSelectedSet(this.$route.params.setId)
-      this.storeSelectedContent(this.$route.params.contentId)
     }
+    this.storeSelectedSet(this.$route.params.setId)
+    this.storeSelectedContent(this.$route.params.contentId)
   },
   methods: {
     storeSelectedSet (setId) {
