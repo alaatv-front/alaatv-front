@@ -24,13 +24,14 @@
                     height="9" />
         </div>
       </div>
-      <div class="set-content-box">
+      <div class="set-content-box flex">
         <div class="main-title ellipsis-2-lines">
           {{ set.title }}
         </div>
       </div>
     </router-link>
-    <div class="info-box">
+    <div v-if="false"
+         class="info-box">
       <div class="teacher-info">
         <div v-if="set.author?.photo"
              class="teacher-image">
@@ -157,6 +158,7 @@ export default {
   }
 
   .set-content-box {
+    height: 30%;
     padding: 10px 16px 16px 16px;
 
     .main-title {
@@ -165,7 +167,7 @@ export default {
       font-size: 16px;
       line-height: 24px;
       letter-spacing: -0.03em;
-      margin-bottom: 15px;
+      align-self: center;
 
       a {
         margin-bottom: 0;
