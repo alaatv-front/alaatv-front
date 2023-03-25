@@ -1,6 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Set } from 'src/models/Set'
+import { ContentList } from 'src/models/Content'
 
 const urlAddress = {
   base: '/set',
@@ -53,7 +54,7 @@ export default class SetAPI extends APIRepository {
       cacheKey: this.CacheList.getContents(setId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return new ContentList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
