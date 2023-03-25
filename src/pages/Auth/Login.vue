@@ -15,7 +15,7 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
-  created () {
+  mounted () {
     this.handleAuthenticatedUser()
   },
   methods: {
@@ -24,7 +24,7 @@ export default {
         this.$router.push({ name: 'Public.Home' })
         return
       }
-      this.$store.dispatch('Auth/logOut')
+      this.$store.dispatch('Auth/logOut', false)
     }
   }
 }

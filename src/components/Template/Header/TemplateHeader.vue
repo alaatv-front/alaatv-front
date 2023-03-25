@@ -8,19 +8,19 @@
 
 <script>
 import MainHeaderTemplate from 'components/Template/Header/Main.vue'
+import AdminPanelHeader from 'components/Template/Header/AdminPanelHeader.vue'
 import UserAbrishamPanel from 'components/Template/Header/UserAbrishamPanel.vue'
 import UserGiftCardPanel from 'components/Template/Header/UserGiftCardPanel.vue'
-import AdminPanelHeader from 'components/Template/Header/AdminPanelHeader.vue'
 import UserChatreNejatPanel from 'components/Template/Header/UserChatreNejatPanel.vue'
 
 export default {
   name: 'templateHeader',
   components: {
-    UserChatreNejatPanel,
     AdminPanelHeader,
-    MainHeaderTemplate,
     UserGiftCardPanel,
-    UserAbrishamPanel
+    UserAbrishamPanel,
+    MainHeaderTemplate,
+    UserChatreNejatPanel
   },
   props: {
     type: [String, Boolean, null],

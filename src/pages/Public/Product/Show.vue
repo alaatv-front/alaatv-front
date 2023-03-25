@@ -36,7 +36,7 @@ export default {
                         name: 'ProductPrice',
                         options: {
                           productId: this.$route.params.id,
-                          // className: 'q-ml-lg',
+                          className: 'q-px-lg',
                           basePrice: true,
                           discount: true,
                           finalPrice: true,

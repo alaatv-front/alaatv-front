@@ -3,10 +3,10 @@
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
-        <router-link :to="{name: 'Public.Home'}">
-          <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-                 class="logo-image" />
-        </router-link>
+        <!--        <router-link :to="{name: 'Public.Home'}">-->
+        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+               class="logo-image" />
+        <!--        </router-link>-->
       </div>
       <div class="menu-items">
         <q-list class="menu-items-list">
@@ -48,9 +48,9 @@
 </template>
 
 <script>
-
-import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
 import { mapMutations } from 'vuex'
+import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
+
 export default {
   name: 'ChatreNejatPanel',
   components: { ChatreNejatLayoutMenu },
@@ -110,14 +110,17 @@ export default {
     productItems: [
       {
         name: 'pamphlet',
+        routeName: 'UserPanel.Asset.ChatreNejat.ProductDocuments',
         label: 'جزوات'
       },
       {
         name: 'notes',
+        routeName: 'UserPanel.Asset.ChatreNejat.ProductComments',
         label: 'یادداشت ها'
       },
       {
         name: 'favoredContents',
+        routeName: 'UserPanel.Asset.ChatreNejat.ProductBookmarks',
         label: 'نشان شده ها'
       }
     ]

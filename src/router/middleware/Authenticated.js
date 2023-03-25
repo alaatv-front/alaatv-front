@@ -1,8 +1,10 @@
-export default function Authenticated (
-  /* { to, from, next, store } */ { next, store, to }
-) {
-  if (!process.env.SERVER && !store.getters['Auth/accessToken']) {
-    store.commit('Auth/updateRedirectTo', to.name)
+export default function Authenticated ({ next, store, to }) {
+  const accessToken = store.$accessToken
+  // const hasSessionToken = Object.keys(store.$sessions).filter(sessionName => !!store.$sessions[sessionName]).length === Object.keys(store.$sessions).length
+
+  // if (!accessToken || !hasSessionToken) {
+  if (!accessToken) {
+    store.commit('Auth/updateRedirectTo', { name: to.name, params: to.params })
     return next({ name: 'login' })
   }
 

@@ -45,7 +45,8 @@
                 {{ setItem.title }}
               </div>
               <div class="last-content-link">
-                <q-btn flat
+                <q-btn v-if="setItem.last_content_user_watched?.id"
+                       flat
                        icon-right="chevron_left"
                        :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
                        @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
@@ -73,7 +74,8 @@
               {{ setItem.title }}
             </div>
             <div class="last-content-link">
-              <q-btn flat
+              <q-btn v-if="setItem.last_content_user_watched?.id"
+                     flat
                      icon-right="chevron_left"
                      :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
                      @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
@@ -84,17 +86,17 @@
       <q-card-actions v-if="$q.screen.gt.xs"
                       vertical
                       align="right">
-        <q-btn flat
-               icon="more_vert">
+        <!--        icon="more_vert"-->
+        <q-btn flat>
           <q-menu fit
                   anchor="top right"
                   self="top left">
-            <q-item clickable>
-              <q-item-section>گزینه اول</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>نمیدونم</q-item-section>
-            </q-item>
+                  <!--            <q-item clickable>-->
+                  <!--              <q-item-section>گزینه اول</q-item-section>-->
+                  <!--            </q-item>-->
+                  <!--            <q-item clickable>-->
+                  <!--              <q-item-section>نمیدونم</q-item-section>-->
+                  <!--            </q-item>-->
           </q-menu>
         </q-btn>
       </q-card-actions>
@@ -102,17 +104,17 @@
     <q-card-actions v-if="$q.screen.lt.sm"
                     vertical
                     align="right">
-      <q-btn flat
-             icon="more_vert">
+      <!--        icon="more_vert"-->
+      <q-btn flat>
         <q-menu fit
                 anchor="top right"
                 self="top left">
-          <q-item clickable>
-            <q-item-section>گزینه اول</q-item-section>
-          </q-item>
-          <q-item clickable>
-            <q-item-section>نمیدونم</q-item-section>
-          </q-item>
+                <!--          <q-item clickable>-->
+                <!--            <q-item-section>گزینه اول</q-item-section>-->
+                <!--          </q-item>-->
+                <!--          <q-item clickable>-->
+                <!--            <q-item-section>نمیدونم</q-item-section>-->
+                <!--          </q-item>-->
         </q-menu>
       </q-btn>
     </q-card-actions>
@@ -189,6 +191,7 @@ export default {
       background: #CACACA;
       border-radius: 10px !important;
       margin: auto;
+      min-width: 80px;
 
       @media only screen and (max-width: 600px) {
         margin: 0 0 0 17px;

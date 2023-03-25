@@ -21,7 +21,7 @@ export default class APIInstanceWrapper {
       const defaults = {
         baseURL,
         serverURL,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json', common: { Authorization: null } }
       }
       const get = (url) => new Promise((resolve, reject) => {
         const requestAddress = defaults.serverURL + url

@@ -261,6 +261,11 @@ const routes = [
                         component: () => import('pages/User/DashboardChatreNejat/ProductPage.vue')
                       },
                       {
+                        name: 'UserPanel.Asset.ChatreNejat.Content',
+                        path: ':productId/set/:setId/content/:contentId',
+                        component: () => import('pages/User/DashboardChatreNejat/Content.vue')
+                      },
+                      {
                         name: 'UserPanel.Asset.ChatreNejat.ProductDocuments',
                         path: ':productId/documents',
                         component: () => import('pages/User/DashboardChatreNejat/ProductDocuments.vue')
@@ -268,20 +273,18 @@ const routes = [
                       {
                         name: 'UserPanel.Asset.ChatreNejat.ProductComments',
                         path: ':productId/comments',
-                        component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue'),
-                        children: [
-                          {
-                            name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment',
-                            path: ':commentId',
-                            component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
-                          }
-                        ]
+                        component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue')
                       },
                       {
-                        name: 'UserPanel.Asset.ChatreNejat.Content',
+                        name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment',
+                        path: ':productId/comments/:commentId',
+                        component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.ChatreNejat.ProductBookmarks',
                         props: true,
-                        path: ':productId/set/:setId/content/:contentId',
-                        component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
+                        path: ':productId/bookmarks',
+                        component: () => import('src/pages/User/DashboardChatreNejat/ProductBookmarks.vue')
                       }
                     ]
                   },
