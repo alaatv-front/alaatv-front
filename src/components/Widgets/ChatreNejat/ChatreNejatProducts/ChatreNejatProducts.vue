@@ -125,6 +125,7 @@ export default {
       })
     },
     getProducts(type) {
+      this.loading = true
       this.$apiGateway.events.getEventsProducts({
         data: { major_id: type },
         eventId: this.$enums.Events.ChatreNejat
