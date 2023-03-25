@@ -140,7 +140,7 @@ export default {
 .product-item-box {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  //height: 100%;
   justify-content: space-between;
   width: 260px;
   margin-bottom: 10px;
