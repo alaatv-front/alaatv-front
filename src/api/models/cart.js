@@ -31,10 +31,10 @@ export default class CartAPI extends APIRepository {
       attribute: data.attribute, // Number or String
       seller: this.seller
     }
-    if (!payload.products) {
+    if (!payload.products || (Array.isArray(payload.products) && payload.products.length === 0)) {
       delete payload.products
     }
-    if (!payload.attribute) {
+    if (!payload.attribute || (Array.isArray(payload.attribute) && payload.attribute.length === 0)) {
       delete payload.attribute
     }
     return this.sendRequest({
