@@ -7,16 +7,16 @@
       <q-img v-if="$q.screen.gt.xs"
              :src="product.photo"
              class="product-item-image"
-             @click="setSelectedProduct(product,true)" />
+             @click="gotoProductPage(product)" />
       <q-card-section :horizontal="$q.screen.gt.xs"
                       class="product-item-info">
         <q-img v-if="$q.screen.lt.sm"
                :src="product.photo"
                class="product-item-image"
-               @click="setSelectedProduct(product,true)" />
+               @click="gotoProductPage(product)" />
         <q-card-section class="product-info">
           <div class="product-item-title ellipsis"
-               @click="setSelectedProduct(product,true)">
+               @click="gotoProductPage(product)">
             {{ product.title }}
           </div>
           <div class="product-item-description">
@@ -50,8 +50,7 @@
               <div class="last-content-link">
                 <q-btn flat
                        icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }"
-                       @click="setSelectedProduct(product,false)">مشاهده</q-btn>
+                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }">مشاهده</q-btn>
               </div>
             </div>
           </div>
@@ -78,8 +77,7 @@
             <div class="last-content-link">
               <q-btn flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }"
-                     @click="setSelectedProduct(product,false)">مشاهده</q-btn>
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }">مشاهده</q-btn>
             </div>
           </div>
         </div>
@@ -133,11 +131,8 @@ export default {
     }
   },
   methods: {
-    setSelectedProduct(product, gotoRoute) {
-      this.$store.dispatch('setSelectedProduct', product)
-      if (gotoRoute) {
-        this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: product.id } })
-      }
+    gotoProductPage(product) {
+      this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: product.id } })
     }
   }
 }
