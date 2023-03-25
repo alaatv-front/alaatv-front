@@ -70,7 +70,14 @@ export default {
       return this.product.id
     },
     description () {
-      return this.product.description?.long || this.product.description?.short || this.product.description?.slogan || null
+      if (this.product.description.long) {
+        return this.product.description.long
+      } else if (this.product.description.short) {
+        return this.product.description.short
+      } else if (this.product.description.slogan) {
+        return this.product.description.slogan
+      }
+      return null
     }
   },
   serverPrefetch () {

@@ -50,8 +50,7 @@
                        :key="i"
                        class="info-value">
                     <template v-if="!product.loading">
-                      <span v-if="value"
-                            class="value">{{ value }}</span>
+                      <span v-if="value">{{ value }}</span>
                       <span v-else>-</span>
                     </template>
                     <q-skeleton v-else
