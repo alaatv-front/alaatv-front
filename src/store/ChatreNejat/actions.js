@@ -39,7 +39,7 @@ const actions = {
     context.commit('toggleSetLoading')
     APIGateway.set.getContents(setId)
       .then(contentList => {
-        context.commit('updateSet', { data: contentList.list, setId })
+        context.commit('updateSet', { contentList, setId })
         context.commit('toggleSetLoading')
       })
       .catch(() => {
