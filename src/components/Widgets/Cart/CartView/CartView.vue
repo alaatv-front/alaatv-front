@@ -254,7 +254,7 @@ export default {
     }
   },
   emits: ['cartReview'],
-  data() {
+  data () {
     return {
       cart: new Cart(),
       dialogState: false,

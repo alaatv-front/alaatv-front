@@ -22,9 +22,9 @@
           </div>
         </template>
         <template v-else>
-          <div class="q-mb-md">
-            <donate />
-          </div>
+          <!--          <div class="q-mb-md">-->
+          <!--            <donate />-->
+          <!--          </div>-->
           <q-card class="invoice-cart">
             <q-card-section class="invoice-total-price-section invoice-cart-section">
               <div class="total-shopping-cart price-section">
@@ -244,7 +244,7 @@
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import Widgets from 'src/components/PageBuilder/Widgets.js'
-import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+// import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -256,7 +256,7 @@ if (typeof window !== 'undefined') {
 
 export default {
   name: 'CartInvoice',
-  components: { Donate },
+  // components: { Donate },
   mixins: [Widgets],
   // provide() {
   //   return {
@@ -271,7 +271,7 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       isUserLogin: false,
       stickySidebar: null,
@@ -326,7 +326,7 @@ export default {
       })
     }
   },
-  mounted() {
+  mounted () {
     this.loadAuthData()
     this.cartReview()
     this.$bus.on('removeProduct', this.cartReview)
