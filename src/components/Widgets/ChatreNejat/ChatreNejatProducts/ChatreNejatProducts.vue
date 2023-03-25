@@ -11,7 +11,7 @@
       </div>
       <div class="col-lg-6 col-12 flex flex-center">
         <product-item-skeleton v-if="loading" />
-        <chatre-nejat-set-item v-else-if="advisor"
+        <chatre-nejat-set-item v-else-if="advisor.id !== null"
                                width="100%"
                                :setItem="advisor" />
         <div v-else>در حال حاضر محتوایی وجود ندارد.</div>
