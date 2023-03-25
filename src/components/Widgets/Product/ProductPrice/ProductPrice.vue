@@ -5,7 +5,7 @@
           :style="options.style">
 
     <div v-if="options.discount && discountInPercent"
-         class="discount-percent">
+         class="discount-percent q-px-md">
       <div class="percent">{{ '%' + discountInPercent }}</div>
       <div class="discount-title">تخفیف</div>
     </div>

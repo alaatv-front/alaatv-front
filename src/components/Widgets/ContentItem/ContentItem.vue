@@ -17,7 +17,7 @@
           <div class="play-icon" />
         </div>
       </div>
-      <div class="content-content-box">
+      <div class="content-content-box flex">
         <div class="main-title ellipsis-2-lines">
           {{ content.title }}
         </div>
@@ -126,6 +126,7 @@ export default {
   }
 
   .content-content-box {
+    height: 30%;
     padding: 10px 16px 16px 16px;
 
     .main-title {
@@ -134,7 +135,7 @@ export default {
       font-size: 16px;
       line-height: 24px;
       letter-spacing: -0.03em;
-      margin-bottom: 15px;
+      align-self: center;
 
       a {
         margin-bottom: 0;
