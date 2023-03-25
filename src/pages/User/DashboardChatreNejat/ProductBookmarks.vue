@@ -15,15 +15,16 @@
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
         <div class="col-6 col-lg-3 content-col q-pa-md">
-          <q-card class="content-box flex"
-                  @click="goToContent(inputData.props.row)">
+          <q-card class="content-box flex">
             <q-img width="325px"
                    height="200px"
                    class="text-center"
-                   :src="inputData.props.row.photo" />
+                   :src="inputData.props.row.photo"
+                   @click="goToContent(inputData.props.row)" />
             <q-card-section class="row justify-between"
                             style="min-width: 320px;">
-              <div class="col-10">
+              <div class="col-10"
+                   @click="goToContent(inputData.props.row)">
                 <div>{{ inputData.props.row.set.short_title }}</div>
                 <div>{{ inputData.props.row.title }}</div>
               </div>
