@@ -321,9 +321,11 @@ export default {
         return
       }
 
-      this.$nextTick(() => {
-        this.loadSticky()
-      })
+      if (this.cart.count > 3) {
+        this.$nextTick(() => {
+          this.loadSticky()
+        })
+      }
     }
   },
   mounted () {
@@ -347,7 +349,8 @@ export default {
       this.stickySidebarInstance = new StickySidebar(this.$refs.CartInvoiceContainer, {
         topSpacing: 142,
         // bottomSpacing: 20,
-        containerSelector: '.cart-invoice.main-content',
+        containerSelector: false,
+        // containerSelector: '.cart-invoice.main-content',
         innerWrapperSelector: '.invoice-container.sidebar__inner'
         // scrollContainer: '#main-viewport'
       })
