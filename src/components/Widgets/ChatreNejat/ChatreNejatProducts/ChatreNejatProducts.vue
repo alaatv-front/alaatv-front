@@ -35,6 +35,27 @@
           </div>
         </div>
       </div>
+      <div v-if="loading"
+           class="row">
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+      </div>
       <div v-if="!loading"
            class="row">
         <div v-for="(product,index) in products"
@@ -46,27 +67,6 @@
       <div v-if="!loading && (!products || products.length === 0)"
            class="flex justify-center items-center">
         <h5>در حال حاضر محتوایی وجود ندارد.</h5>
-      </div>
-      <div v-else-if="loading"
-           class="row">
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
       </div>
     </div>
   </div>

@@ -7,16 +7,16 @@
       <q-img v-if="$q.screen.gt.xs"
              :src="setItem.photo"
              class="set-item-image"
-             @click="setSelectedData(setItem.last_content_user_watched,setItem, true)" />
+             @click="gotoAdvisorContent(setItem)" />
       <q-card-section :horizontal="$q.screen.gt.xs"
                       class="set-item-info">
         <q-img v-if="$q.screen.lt.sm"
                :src="setItem.photo"
                class="set-item-image"
-               @click="setSelectedData(setItem.last_content_user_watched,setItem, true)" />
+               @click="gotoAdvisorContent(setItem)" />
         <q-card-section class="set-info">
           <div class="set-item-title ellipsis"
-               @click="setSelectedData(setItem.last_content_user_watched,setItem, true)">
+               @click="gotoAdvisorContent(setItem)">
             {{ setItem.title }}
           </div>
           <div class="set-item-description">
@@ -51,8 +51,7 @@
                 <q-btn v-if="setItem.last_content_user_watched?.id"
                        flat
                        icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
-                       @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
+                       :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
               </div>
             </div>
           </div>
@@ -80,8 +79,7 @@
               <q-btn v-if="setItem.last_content_user_watched?.id"
                      flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }"
-                     @click="setSelectedData(setItem.last_content_user_watched,setItem)">مشاهده</q-btn>
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
             </div>
           </div>
         </div>
@@ -135,12 +133,8 @@ export default {
     }
   },
   methods: {
-    setSelectedData(content, set, gotoRoute = false) {
-      this.$store.commit('ChatreNejat/setSelectedContent', content)
-      this.$store.commit('ChatreNejat/setSelectedSet', set)
-      if (gotoRoute) {
-        this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: { setId: set.id, contentId: set.last_content_user_watched?.id } })
-      }
+    gotoAdvisorContent(set) {
+      this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: { setId: set.id, contentId: set.last_content_user_watched?.id } })
     }
   }
 }
