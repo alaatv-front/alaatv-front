@@ -12,9 +12,9 @@
                     min-width="100%"
                     type="article" />
 
-        <q-card v-if="description"
+        <q-card v-else-if="description"
                 class="description-text custom-card">
-          <div v-html="description" />
+          <span v-html="description" />
         </q-card>
         <q-card v-else
                 class="description-text custom-card">
@@ -29,12 +29,12 @@
 
 <script>
 import { Product } from 'src/models/Product.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'ProductReview',
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -45,18 +45,19 @@ export default {
   },
   data() {
     return {
-      isFavored: false
+      isFavored: false,
+      product: new Product()
     }
   },
   computed: {
-    product: {
-      get () {
-        return new Product(this.$store.getters['Widgets/data']('ProductReview'))
-      },
-      set (newData) {
-        this.$store.dispatch('Widgets/updateData', { name: 'ProductReview', data: newData })
-      }
-    },
+    // product: {
+    //   get () {
+    //     return new Product(this.$store.getters['Widgets/data']('ProductReview'))
+    //   },
+    //   set (newData) {
+    //     this.$store.dispatch('Widgets/updateData', { name: 'ProductReview', data: newData })
+    //   }
+    // },
     productId () {
       if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
         return this.options.productId
@@ -80,23 +81,23 @@ export default {
       return null
     }
   },
-  serverPrefetch () {
-    return this.getProduct()
-  },
   methods: {
+    prefetchServerDataPromise() {
+      this.product.loading = true
+      return this.getProduct()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.product = data
+      this.isFavored = data.is_favored_2
+      this.product.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.product.loading = false
+    },
     getProduct() {
       this.product.loading = true
       return APIGateway.product.show(this.productId)
-        .then(product => {
-          this.product = product
-          this.isFavored = product.is_favored_2
-          this.product.loading = false
-        })
-        .catch(() => {
-          this.product.loading = false
-        })
     }
-
   }
 }
 </script>
