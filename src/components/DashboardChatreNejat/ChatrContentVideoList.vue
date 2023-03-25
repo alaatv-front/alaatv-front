@@ -2,10 +2,10 @@
   <div class="video-list-container">
     <q-card v-if="!loading && doesHaveSet"
             class="video-list custom-card bg-white q-mx-md q-pb-md ">
-      <div class="q-px-md row"
-           style="box-shadow: none;">
+      <div class="q-px-md row header">
         <q-btn v-if="!hidePrevBtn"
                flat
+               class="q-mt-md"
                icon="chevron_right"
                @click="previousSetClicked" />
         <div class="set-title col q-ml-lg q-mt-lg">
@@ -14,6 +14,7 @@
         <q-btn v-if="!hideNextBtn"
                flat
                icon="chevron_left"
+               class="q-mt-md"
                @click="nextSetClicked" />
       </div>
       <q-separator class="q-ma-md" />
@@ -216,6 +217,9 @@ export default {
   .download-section {
   }
   .video-list {
+    .header {
+      box-shadow: none;
+    }
     .main-title{
       font-size: 18px;
       color: #575962;
