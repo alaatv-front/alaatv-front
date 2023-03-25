@@ -2,7 +2,8 @@
   <div class="video-list-container">
     <q-card v-if="!loading && doesHaveSet"
             class="video-list custom-card bg-white q-mx-md q-pb-md ">
-      <div class="q-px-md row">
+      <div class="q-px-md row"
+           style="box-shadow: none;">
         <q-btn v-if="!hidePrevBtn"
                flat
                icon="chevron_right"
@@ -41,7 +42,8 @@
             </q-item>
           </div>
         </template>
-        <q-item v-if=" set.contents.list.length < 2 && !videoListLoading"
+        <!--   v-if=      set.contents.list.length < 2 && !videoListLoading-->
+        <q-item v-if="false"
                 class="item-list"
                 @click="itemSelected(content)">
           این مبحث گام سوم ندارد.
@@ -230,6 +232,7 @@ export default {
     }
     .scroll{
       height: 40vh !important;
+      overflow-x: hidden;
       .other-contents{
         overflow-x: hidden;
         cursor: pointer;
