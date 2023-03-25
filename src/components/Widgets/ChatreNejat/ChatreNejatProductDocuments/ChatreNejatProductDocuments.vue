@@ -4,7 +4,7 @@
                   v-model:value="inputs"
                   v-model:table-selected-values="selected"
                   class="orders-list-entity-index"
-                  :api="$apiGateway.product.APIAdresses.getContents(975)"
+                  :api="$apiGateway.product.APIAdresses.getContents($route.params.productId)"
                   :table-selection-mode="selectionMode"
                   :item-indicator-key="'id'"
                   :identifyKey="'id'"
@@ -46,6 +46,7 @@
                               middle>
                 <q-btn color="primary"
                        label="دانلود"
+                       :disable="inputData.props.row.file === null || inputData.props.row.file.pamphlet[0] == null"
                        @click="downloadPamphlet(inputData.props.row.file.pamphlet[0].link)" />
               </q-item-section>
             </q-item>
@@ -110,7 +111,8 @@ export default {
           class: 'entity-filter-box',
           ignoreValue: true,
           value: [
-            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] }
+            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
+            { type: 'hidden', name: 'type', value: [1] }
           ]
         }
       ]
@@ -122,6 +124,9 @@ export default {
     },
     selectedTopicInput() {
       return this.inputs.find(x => x.name === 'formBuilderCol').value[0].value
+    },
+    selectedTopic() {
+      return this.$store.getters['ChatreNejat/selectedTopic']
     }
   },
   watch: {
@@ -133,12 +138,27 @@ export default {
     },
     setTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
+    },
+    selectedTopic (newVal) {
+      if (!newVal) {
+        return
+      }
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        params: {
+          productId: this.$route.params.productId
+        }
+      })
     }
   },
   mounted() {
     this.loadData(this.$route.params.productId)
+    this.updateSelectedTopic('')
   },
   methods: {
+    updateSelectedTopic (content) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+    },
     toggleDialog() {
       this.$emit('toggleDialog')
     },

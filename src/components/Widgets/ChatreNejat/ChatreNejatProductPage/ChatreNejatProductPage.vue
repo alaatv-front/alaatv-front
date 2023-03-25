@@ -25,18 +25,27 @@
         <q-separator inset />
         <q-card>
           <q-card-section v-if="!setLoading || set.contents.list.length > 0">
-            <q-list separator>
+            <q-list class="set-list"
+                    separator>
               <q-item v-for="(content, index) in set.contents.list"
                       :key="index"
-                      :to="{ name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: this.$route.params.productId, setId: set.id, contentId: content.id} }"
+                      :to="content.isPamphlet() ? '' : { name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: this.$route.params.productId, setId: set.id, contentId: content.id} }"
                       clickable
-                      @click="setSelectedData(content,set)">
+                      @click="setSelectedData($event,content,set)">
                 <q-item-section avatar>
                   <q-icon color="grey"
-                          :name="content.has_watch ? 'check_circle' : 'play_circle_outline'" />
+                          :name="content.isPamphlet() ? 'description' : content.has_watch ? 'check_circle' : 'play_circle_outline'" />
                 </q-item-section>
                 <q-item-section class="ellipsis">{{ content.title }}</q-item-section>
-                <q-item-section side>
+                <q-item-section v-if="content.isPamphlet()"
+                                side>
+                  <q-btn color="primary"
+                         label="دانلود"
+                         :disable="content.file === null || content.file.pamphlet.length === 0"
+                         @click="download(content)" />
+                </q-item-section>
+                <q-item-section v-else
+                                side>
                   {{ content.duration === null ? 'مدت ندارد' : content.duration + ' دقیقه' }}
                 </q-item-section>
               </q-item>
@@ -65,6 +74,8 @@
 </template>
 
 <script>
+import { openURL } from 'quasar'
+
 export default {
   name: 'ChatreNejatProductPage',
   data() {
@@ -95,9 +106,18 @@ export default {
     this.getProduct()
   },
   methods: {
-    setSelectedData(content, set) {
-      this.$store.commit('ChatreNejat/setSelectedContent', content)
-      this.$store.commit('ChatreNejat/setSelectedSet', set)
+    download(content) {
+      if (content.isPamphlet() && content.file !== null && content.file.pamphlet.length > 0) {
+        openURL(content.file.pamphlet[0].link)
+      }
+    },
+    setSelectedData(event, content, set) {
+      if (content.isPamphlet()) {
+        event.stopPropagation()
+      } else {
+        this.$store.commit('ChatreNejat/setSelectedContent', content)
+        this.$store.commit('ChatreNejat/setSelectedSet', set)
+      }
     },
     getProductSets(productId) {
       this.$store.dispatch('ChatreNejat/getSet', productId)
@@ -114,9 +134,17 @@ export default {
 
 <style lang="scss" scoped>
 .product-page {
+  width: 100%;
   padding: 50px 170px 170px;
   @media only screen and (max-width: 1450px) {
     padding: 5px;
+  }
+  @media only screen and (max-width: 400px) {
+    width: 350px;
+  }
+
+  &:deep(.q-item) {
+    flex-wrap: wrap !important;
   }
 }
 </style>

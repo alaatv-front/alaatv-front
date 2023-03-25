@@ -37,12 +37,14 @@ const actions = {
   },
   updateSet: (context, setId) => {
     context.commit('toggleSetLoading')
-    APIGateway.set.getContents(setId).then(res => {
-      context.commit('updateSet', { data: res, setId })
-      context.commit('toggleSetLoading')
-    }).catch(() => {
-      context.commit('toggleSetLoading')
-    })
+    APIGateway.set.getContents(setId)
+      .then(contentList => {
+        context.commit('updateSet', { contentList, setId })
+        context.commit('toggleSetLoading')
+      })
+      .catch(() => {
+        context.commit('toggleSetLoading')
+      })
   },
   setSelectedProduct: (context, product) => {
     context.commit('setSelectedProduct', product)

@@ -65,8 +65,10 @@
             <q-card-section class="card-section">
               <div class="order-image-section">
                 <div class="order-image-container">
-                  <lazy-img :src="order.grand.product.photo"
-                            class="order-image" />
+                  <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id?order.grand.product.id:-1}}">
+                    <lazy-img :src="order.grand.product.photo"
+                              class="order-image" />
+                  </router-link>
                 </div>
               </div>
 
@@ -254,7 +256,7 @@ export default {
     }
   },
   emits: ['cartReview'],
-  data() {
+  data () {
     return {
       cart: new Cart(),
       dialogState: false,

@@ -2,7 +2,8 @@
   <div ref="videoPlayerWrapper"
        style="width: 100%;"
        class="vPlayer">
-    <video-player ref="videoPlayer"
+    <video-player v-if="content.photo && content.isVideo() && content.hasVideoSource()"
+                  ref="videoPlayer"
                   :key="playerKey"
                   :source="content.getVideoSource()"
                   :poster="content.photo"
@@ -34,6 +35,17 @@
         </div>
       </template>
     </video-player>
+    <div v-else>
+      <q-card class="flex justify-center items-center">
+        <q-img v-if="content.photo"
+               :src="content.photo" />
+        <div v-else
+             class="flex justify-center items-center"
+             style="height: 420px; justify-content: center">
+          ویدیویی وجود ندارد!
+        </div>
+      </q-card>
+    </div>
   </div>
 </template>
 

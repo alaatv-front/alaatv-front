@@ -25,12 +25,12 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
       cart: new Cart()
     }
   },
-  created() {
+  mounted () {
     this.cartReview()
   },
   methods: {

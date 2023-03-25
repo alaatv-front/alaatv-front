@@ -150,7 +150,8 @@ export default class ProductAPI extends APIRepository {
       },
       rejectCallback: (error) => {
         return error
-      }
+      },
+      params: data.params
     })
   }
 }
