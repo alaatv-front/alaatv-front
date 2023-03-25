@@ -3,21 +3,12 @@
        class="product-contents-widget"
        :class="options.className"
        :style="options.style">
-    <!--    <q-card class="bg-primary  q-mb-md custom-card">-->
-    <!--      <q-card-section>-->
-    <!--        <q-select v-model="setTitle"-->
-    <!--                  :options="setOptions"-->
-    <!--                  class="bg-white"-->
-    <!--                  style="width: 100%;border-radius: 10px;" />-->
-    <!--      </q-card-section>-->
-    <!--    </q-card>-->
     <q-card class="previewSetsOfProduct custom-card q-mb-md">
       <div class="bg-primary q-pa-md q-mb-sm">
         <div class="q-ml-md q-my-md text-white">انتخاب دوره</div>
         <q-select v-model="setTitle"
                   :options="setOptions"
-                  class="q-px-md"
-                  style="width: 50%" />
+                  class="select-set q-px-md" />
       </div>
       <q-tabs v-model="tab"
               active-color="black"
@@ -197,9 +188,19 @@ export default {
     position: absolute;
     left: 75%;
     top: 100px;
+    @media screen and (max-width: 1024px) {
+      top: 120px
+    }
   }
 
   .previewSetsOfProduct {
+    .select-set{
+      width: 50%;
+      @media screen and (max-width: 1024px) {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
     .contents-block {
       display: flex;
       overflow: auto;

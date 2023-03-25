@@ -129,6 +129,10 @@ h2 {
     .description-text {
       margin-top: 20px;
       padding: 10px 20px;
+
+      &:deep(h2) {
+        font-size: 25px;
+      }
     }
   }
 }
