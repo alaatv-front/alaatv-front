@@ -22,7 +22,7 @@
             <q-item v-else-if="subItem.show"
                     v-ripple
                     clickable
-                    :active="subItem.title === clickedItem.title"
+                    :active="(subItem.title === selectedTopic) || (subItem.title === clickedItem.title)"
                     :to="(subItem.routeName) ?{ name: subItem.routeName, params: subItem.params }: null"
                     class="list-child-item"
                     exact-active-class="active-route"
@@ -40,7 +40,7 @@
     <q-item v-else-if="!loading && item.show"
             v-ripple
             clickable
-            :active="(item.title === selectedTopic)"
+            :active="(item.title === selectedTopic) || (item.title === clickedItem.title)"
             :to="(item.routeName) ? {name: item.routeName, params: item.params} : null"
             class="item-list"
             :class="{ 'alone-item': !item.children }"
@@ -75,12 +75,6 @@ export default {
       default: () => {
         return false
       }
-    },
-    selectedTopic: {
-      type: String,
-      default: () => {
-        return ''
-      }
     }
   },
   emits: ['itemSelected', 'update:menu'],
@@ -101,6 +95,9 @@ export default {
         this.menuItems = value
         this.$emit('update:menu', this.menuItems)
       }
+    },
+    selectedTopic() {
+      return this.$store.getters['ChatreNejat/selectedTopic']
     }
   },
   methods: {
