@@ -15,15 +15,16 @@
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
         <div class="col-6 col-lg-3 content-col q-pa-md">
-          <q-card class="content-box flex"
-                  @click="goToContent(inputData.props.row)">
+          <q-card class="content-box flex">
             <q-img width="325px"
                    height="200px"
                    class="text-center"
-                   :src="inputData.props.row.photo" />
+                   :src="inputData.props.row.photo"
+                   @click="goToContent(inputData.props.row)" />
             <q-card-section class="row justify-between"
                             style="min-width: 320px;">
-              <div class="col-10">
+              <div class="col-10"
+                   @click="goToContent(inputData.props.row)">
                 <div>{{ inputData.props.row.set.short_title }}</div>
                 <div>{{ inputData.props.row.title }}</div>
               </div>
@@ -91,6 +92,7 @@ export default {
       },
       inputs: [
         { type: 'hidden', name: 'type', value: 'content' },
+        { type: 'hidden', name: 'product_id', value: this.$route.params.productId },
         { type: 'input', name: 'search', outlined: true, label: 'جستجو در یادداشت ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
         { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
         { type: 'separator', col: 'col-md-6', size: '0' },
@@ -127,7 +129,10 @@ export default {
     selectedTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopic () {
+    selectedTopic (newVal) {
+      if (!newVal) {
+        return
+      }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
         params: {
@@ -145,8 +150,12 @@ export default {
       this.getProductSets(productId)
       this.getProduct(productId)
     }
+    this.updateSelectedTopic('')
   },
   methods: {
+    updateSelectedTopic (content) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+    },
     toggleDialog() {
       this.$emit('toggleDialog')
     },

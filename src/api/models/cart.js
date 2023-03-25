@@ -129,13 +129,12 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  removeFromCart(orderProductId, cache) {
+  removeFromCart(orderProductId) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
       request: this.APIAdresses.removeFromCart(orderProductId),
       cacheKey: this.CacheList.removeFromCart(orderProductId),
-      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
       },

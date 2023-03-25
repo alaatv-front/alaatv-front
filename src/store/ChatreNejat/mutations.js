@@ -1,3 +1,5 @@
+import { ContentList } from 'src/models/Content'
+
 const mutations = {
   updateShowHamburgerBtn: (state, data) => {
     state.showHamburgerBtn = data
@@ -12,7 +14,7 @@ const mutations = {
     state.selectedTopic = data
   },
   updateSet: (state, data) => {
-    state.setList.find(set => set.id === data.setId).contents.list = data.data.list
+    state.setList.find(set => set.id === data.setId).contents = new ContentList(data.contentList)
   },
   toggleSetListLoading: (state) => {
     state.setListLoading = !state.setListLoading

@@ -174,6 +174,10 @@ class Content extends Model {
     // }])
   }
 
+  hasVideoSource () {
+    return !!(this.getVideoSource())
+  }
+
   getVideoSource() {
     const hlsSource = this.getHlsSource()
     const oldVideoSource = this.getOldVideoSource()

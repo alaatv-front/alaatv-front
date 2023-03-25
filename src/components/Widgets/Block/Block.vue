@@ -241,7 +241,7 @@ export default {
       padding-top: 10px;
       padding-bottom: 10px;
       @media screen and (max-width: 600px){
-        height: 500px;
+        //height: 500px;
       }
     }
 

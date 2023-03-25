@@ -60,7 +60,7 @@
         <div class="back-btn">
           <q-btn flat
                  icon-right="chevron_left"
-                 :to="{ name: 'UserPanel.Asset.ChatreNejat.Products' }">بازگشت</q-btn>
+                 :to="getReturnRoute">بازگشت</q-btn>
         </div>
       </div>
       <div class="content">
@@ -108,7 +108,7 @@ export default {
           routeName: '',
           active: false,
           show: true,
-          open: false,
+          open: true,
           children: [
             {
               title: 'تایتل ست',
@@ -123,6 +123,12 @@ export default {
     }
   },
   computed: {
+    getReturnRoute () {
+      if (this.$route.name === 'UserPanel.Asset.ChatreNejat.ProductPage') {
+        return { name: 'UserPanel.Asset.ChatreNejat.Products' }
+      }
+      return { name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: this.productId } }
+    },
     isUserLogin() {
       return this.$store.getters['Auth/isUserLogin']
     },
@@ -157,6 +163,9 @@ export default {
     },
     productImg () {
       return this.selectedProduct?.photo
+    },
+    productId () {
+      return this.selectedProduct?.id
     }
   },
   methods: {

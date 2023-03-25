@@ -2,9 +2,10 @@
   <div class="video-list-container">
     <q-card v-if="!loading && doesHaveSet"
             class="video-list custom-card bg-white q-mx-md q-pb-md ">
-      <div class="q-px-md row">
+      <div class="q-px-md row header">
         <q-btn v-if="!hidePrevBtn"
                flat
+               class="q-mt-md"
                icon="chevron_right"
                @click="previousSetClicked" />
         <div class="set-title col q-ml-lg q-mt-lg">
@@ -13,6 +14,7 @@
         <q-btn v-if="!hideNextBtn"
                flat
                icon="chevron_left"
+               class="q-mt-md"
                @click="nextSetClicked" />
       </div>
       <q-separator class="q-ma-md" />
@@ -26,6 +28,8 @@
             <q-item v-ripple
                     clickable
                     :active="isCurrent(content.id)"
+                    :href="content.isPamphlet() ? content.file?.pamphlet[0]?.link: null"
+                    :target="content.isPamphlet() ? '_blank': null"
                     class="item-list"
                     @click="itemSelected(content)">
               <div class="content-show items-center">
@@ -41,7 +45,8 @@
             </q-item>
           </div>
         </template>
-        <q-item v-if=" set.contents.list.length < 2 && !videoListLoading"
+        <!--   v-if=      set.contents.list.length < 2 && !videoListLoading-->
+        <q-item v-if="false"
                 class="item-list"
                 @click="itemSelected(content)">
           این مبحث گام سوم ندارد.
@@ -214,6 +219,9 @@ export default {
   .download-section {
   }
   .video-list {
+    .header {
+      box-shadow: none;
+    }
     .main-title{
       font-size: 18px;
       color: #575962;
@@ -230,6 +238,7 @@ export default {
     }
     .scroll{
       height: 40vh !important;
+      overflow-x: hidden;
       .other-contents{
         overflow-x: hidden;
         cursor: pointer;

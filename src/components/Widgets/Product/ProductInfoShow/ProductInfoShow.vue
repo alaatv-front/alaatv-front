@@ -48,7 +48,7 @@
                 <div class="info-content">
                   <div v-for="(value , i) in info.value"
                        :key="i"
-                       class="info-value col-6">
+                       class="info-value">
                     <template v-if="!product.loading">
                       <span v-if="value">{{ value }}</span>
                       <span v-else>-</span>
@@ -344,7 +344,6 @@ p {
     }
 
     .product-info-box {
-      display: flex;
       margin-bottom: 20px;
 
       .product-info {
@@ -357,7 +356,6 @@ p {
           flex-direction: column;
           align-items: center;
           width: 120px;
-          height: 156px;
           background: #FFFFFF;
           box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6), 2px 4px 10px rgba(54, 90, 145, 0.05);
           border-radius: 15px;
@@ -399,12 +397,14 @@ p {
           }
 
           .info-content {
+            height: 30%;
             display: flex;
             flex-wrap: wrap;
             padding: 10px;
 
             .info-value {
               text-align: center;
+              align-self: center;
 
               &:after {
                 content: '-';

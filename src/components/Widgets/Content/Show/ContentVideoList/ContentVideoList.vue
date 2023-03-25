@@ -1,5 +1,5 @@
 <template>
-  <div class="video-list-container">
+  <div class="video-list-container q-mb-md">
     <q-card v-if="content.file?.pamphlet && content.file.pamphlet[0]?.link"
             class="download-section custom-card q-pa-md q-mx-md q-mb-md bg-white flex">
       <q-btn icon="isax:document-download"
@@ -11,7 +11,7 @@
                                            :href="content.file.pamphlet[0].link"
                                            target="_blank"> PDF </a>{{content.title}}</h6>
     </q-card>
-    <q-card class="video-list custom-card bg-white q-mx-md q-pb-md ">
+    <q-card class="video-list custom-card bg-white q-mx-md q-pb-md">
       <div class="q-px-md row">
         <h6 class="main-title col-4 q-pt-lg">
           فیلم/جزوه ها
@@ -30,7 +30,7 @@
           <div class="content q-pt-md q-px-sm"
                :class="{current: isCurrent(content)}">
             <div class="row content-show">
-              <div class=" col-1 q-mr-sm">
+              <div class="col-1 q-mr-sm">
                 <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}"><q-icon name="isax:play-circle"
                                                                                                    :color="isCurrent(content) ? 'primary' : ''"
                                                                                                    size="sm" />
@@ -101,6 +101,11 @@ export default {
         width: '8px',
         opacity: '0.75'
       }
+    }
+  },
+  computed: {
+    calcTheHeight() {
+      return '46vh'
     }
   },
   watch: {
@@ -186,7 +191,6 @@ export default {
 
 <style lang="scss" scoped>
 .video-list-container {
-  //height: 100%;
   h6 {
     margin: 0 !important;
     font-size: 20px;
@@ -194,6 +198,7 @@ export default {
   .download-section {
   }
   .video-list {
+    height: 500px;
     .main-title{
       font-size: 18px;
       color: #575962;
@@ -202,7 +207,7 @@ export default {
       color: #afb2c1
     }
     .scroll{
-      height: 41vh !important;
+      //height: 42vh !important;
       .other-contents{
         overflow-x: hidden;
         .content{
@@ -234,7 +239,7 @@ export default {
         height: 80%;
       }
       @media (max-width: 1023px) {
-        height: 300px !important;
+        //height: 300px !important;
       }
     }
   }
