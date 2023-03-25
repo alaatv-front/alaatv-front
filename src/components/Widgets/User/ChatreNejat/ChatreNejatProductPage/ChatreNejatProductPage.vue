@@ -36,12 +36,12 @@
                   <q-icon color="grey"
                           :name="content.isPamphlet() ? 'description' : content.has_watch ? 'check_circle' : 'play_circle_outline'" />
                 </q-item-section>
-                <q-item-section class="ellipsis">{{ content.title }}</q-item-section>
+                <q-item-section class="ellipsis cursor-pointer"
+                                @click="download(content)">{{ content.title }}</q-item-section>
                 <q-item-section v-if="content.isPamphlet()"
                                 side>
                   <q-btn color="primary"
                          label="دانلود"
-                         :disable="content.file === null || content.file.pamphlet.length === 0"
                          @click="download(content)" />
                 </q-item-section>
                 <q-item-section v-else
@@ -70,16 +70,40 @@
                     bordered />
       </q-item>
     </q-list>
+    <q-dialog v-model="productItemDialog">
+      <q-card class="custom-card">
+        <q-card-section class="flex justify-between items-center">
+          <div class="h1">
+            شما محصول را خریداری نکرده اید
+          </div>
+          <q-btn color="primary"
+                 icon="close"
+                 flat
+                 @click="toggleProductItemDialog" />
+        </q-card-section>
+        <q-card-section class="row items-center">
+          <product-item class="product-item"
+                        :options="{
+                          product: selectedProduct
+                        }" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import { openURL } from 'quasar'
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'ChatreNejatProductPage',
+  components: {
+    ProductItem
+  },
   data() {
     return {
+      productItemDialog: false
     }
   },
   computed: {
@@ -99,6 +123,9 @@ export default {
     },
     setListLoading() {
       return this.$store.getters['ChatreNejat/setListLoading']
+    },
+    selectedProduct() {
+      return this.$store.getters['ChatreNejat/selectedProduct']
     }
   },
   mounted() {
@@ -107,9 +134,14 @@ export default {
   },
   methods: {
     download(content) {
-      if (content.isPamphlet() && content.file !== null && content.file.pamphlet.length > 0) {
+      if (content.can_see === 0) {
+        this.toggleProductItemDialog()
+      } else if (content.isPamphlet() && content.file !== null && content.file.pamphlet.length > 0) {
         openURL(content.file.pamphlet[0].link)
       }
+    },
+    toggleProductItemDialog() {
+      this.productItemDialog = !this.productItemDialog
     },
     setSelectedData(event, content, set) {
       if (content.isPamphlet()) {
@@ -133,6 +165,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-item {
+  width: 318px;
+  height: 510px;
+}
 .product-page {
   width: 100%;
   padding: 50px 170px 170px;

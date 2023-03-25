@@ -35,12 +35,15 @@
               <q-item-section middle
                               avatar>
                 <q-avatar color="white"
+                          class="cursor-pointer"
                           text-color="primary"
-                          icon="download" />
+                          icon="download"
+                          @click="downloadPamphlet(inputData.props.row)" />
               </q-item-section>
               <q-item-section>
-                <q-item-label class="ellipsis-2-lines"
-                              style="line-height: 22px !important;">{{inputData.props.row.title}}</q-item-label>
+                <q-item-label class="ellipsis-2-lines cursor-pointer"
+                              style="line-height: 22px !important;"
+                              @click="downloadPamphlet(inputData.props.row)">{{inputData.props.row.title}}</q-item-label>
               </q-item-section>
               <q-item-section side
                               middle>
@@ -190,11 +193,11 @@ export default {
       this.selected = e
       this.toggleDialog()
     },
-    downloadPamphlet(product) {
-      if (product.can_see === 0) {
+    downloadPamphlet(content) {
+      if (content.can_see === 0) {
         this.toggleProductItemDialog()
       } else {
-        openURL(product.file.pamphlet[0].link)
+        openURL(content.file.pamphlet[0].link)
       }
     },
     toggleProductItemDialog() {
