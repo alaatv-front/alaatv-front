@@ -80,6 +80,7 @@ export default {
     'update:value',
     'onChangeFavoriteStatus',
     'onError',
+    'onLoad',
     'clicked'
   ],
   data () {
@@ -133,7 +134,7 @@ export default {
     afterSuccessfulBookmarkFunction (res) {
       this.isFavored = !this.isFavored
       this.loading = false
-      this.$emit('onChangeFavoriteStatus', res)
+      this.$emit('onChangeFavoriteStatus', { ...res, isFavored: !this.isFavored })
     },
     afterFailedBookmarkFunction (err) {
       this.loading = false
@@ -156,7 +157,10 @@ export default {
         .then((res) => {
           this.isFavored = !this.isFavored
           this.loading = false
-          this.$emit('onLoad', res)
+          this.$emit('onLoad', {
+            ...res,
+            isFavored: !this.isFavored
+          })
         })
         .catch((err) => {
           this.loading = false

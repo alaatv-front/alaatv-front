@@ -104,7 +104,7 @@ export default {
       topicsRouteArray: [
         {
           title: 'سر فصل ها',
-          icon: 'isax:document-upload',
+          icon: '',
           routeName: '',
           active: false,
           show: true,

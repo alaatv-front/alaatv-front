@@ -74,20 +74,9 @@
               <!--              <i class="fi fi-rr-share icon " />-->
             </q-btn>
             <bookmark :value="content.is_favored"
-                      base-mode
                       :unfavored-route="$apiGateway.content.APIAdresses.unfavored(content.id)"
                       :favored-route="$apiGateway.content.APIAdresses.favored(content.id)"
-                      @onChangeFavoriteStatus="toggleFavorite" />
-            <q-btn color="transparent"
-                   unelevated
-                   dark
-                   :loading="content.loading"
-                   class="icon-btn"
-                   @click="toggleFavorite">
-              <i class="fi fi-rr-bookmark icon bookmark-button"
-                 :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }" />
-
-            </q-btn>
+                      @onLoad="toggleFavorite" />
           </div>
         </div>
       </div>
@@ -196,7 +185,7 @@ export default {
     }
   },
 
-  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp'],
+  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite'],
 
   data() {
     return {
@@ -273,8 +262,6 @@ export default {
     },
 
     toggleFavorite(val) {
-      // eslint-disable-next-line vue/no-mutating-props
-      this.content.loading = true
       this.$emit('toggleFavorite', val)
     },
 

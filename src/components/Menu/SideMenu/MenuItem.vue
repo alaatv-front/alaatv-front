@@ -260,6 +260,9 @@ export default {
       }
 
       .side-expansion-list {
+        :deep(.q-item) {
+          padding-left: 40px;
+        }
         &.top-expansion {
           margin-bottom: 10px;
         }
