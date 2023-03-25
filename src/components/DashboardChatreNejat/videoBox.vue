@@ -1,6 +1,7 @@
 <template>
   <div class="video-box">
-    <div class="video-main">
+    <div v-if="content.id"
+         class="video-main">
       <div class="video-wrapper">
         <content-video-player v-if="content.can_see?.toString() === '1'"
                               :options="{
