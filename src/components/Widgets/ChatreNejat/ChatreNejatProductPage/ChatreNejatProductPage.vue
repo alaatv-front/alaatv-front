@@ -25,7 +25,8 @@
         <q-separator inset />
         <q-card>
           <q-card-section v-if="!setLoading || set.contents.list.length > 0">
-            <q-list separator>
+            <q-list class="set-list"
+                    separator>
               <q-item v-for="(content, index) in set.contents.list"
                       :key="index"
                       :to="content.isPamphlet() ? '' : { name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: this.$route.params.productId, setId: set.id, contentId: content.id} }"
@@ -133,9 +134,17 @@ export default {
 
 <style lang="scss" scoped>
 .product-page {
+  width: 100%;
   padding: 50px 170px 170px;
   @media only screen and (max-width: 1450px) {
     padding: 5px;
+  }
+  @media only screen and (max-width: 400px) {
+    width: 350px;
+  }
+
+  &:deep(.q-item) {
+    flex-wrap: wrap !important;
   }
 }
 </style>
