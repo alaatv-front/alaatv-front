@@ -28,6 +28,8 @@
             <q-item v-ripple
                     clickable
                     :active="isCurrent(content.id)"
+                    :href="content.isPamphlet() ? content.file?.pamphlet[0]?.link: null"
+                    :target="content.isPamphlet() ? '_blank': null"
                     class="item-list"
                     @click="itemSelected(content)">
               <div class="content-show items-center">
