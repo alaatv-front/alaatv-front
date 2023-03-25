@@ -116,7 +116,6 @@ export function paymentCheckout (context) {
 export function removeItemFromCart (context, orderProductId) {
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
-    debugger
     if (isUserLogin) {
       APIGateway.cart.removeFromCart(orderProductId)
         .then((response) => {

@@ -592,7 +592,7 @@ export default {
             .list-section {
               display: flex;
               flex-direction: row;
-              justify-content: right;
+              justify-content: flex-start;
 
               .q-avatar {
                 height: 22px;

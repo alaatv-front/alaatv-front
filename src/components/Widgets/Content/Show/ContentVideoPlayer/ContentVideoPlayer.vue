@@ -1,5 +1,5 @@
 <template>
-  <q-card class="video-player custom-card bg-white q-mx-md full-height"
+  <q-card class="video-player custom-card bg-white q-mx-md full-height q-mb-lg"
           :class="options.paginate? 'q-pb-md': ''"
           :style="options.style">
     <video-player :content="content" />
