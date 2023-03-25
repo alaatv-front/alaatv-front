@@ -4,6 +4,7 @@
        class="cart-invoice main-content">
     <!--    <q-scroll-observer @scroll="onScroll" />-->
     <div ref="CartInvoiceContainer"
+         :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
       <div v-if="isUserLogin"
            :class="options.className"
@@ -22,9 +23,9 @@
           </div>
         </template>
         <template v-else>
-          <div class="q-mb-md">
-            <donate />
-          </div>
+          <!--          <div class="q-mb-md">-->
+          <!--            <donate />-->
+          <!--          </div>-->
           <q-card class="invoice-cart">
             <q-card-section class="invoice-total-price-section invoice-cart-section">
               <div class="total-shopping-cart price-section">
@@ -244,7 +245,7 @@
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import Widgets from 'src/components/PageBuilder/Widgets.js'
-import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+// import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -256,7 +257,7 @@ if (typeof window !== 'undefined') {
 
 export default {
   name: 'CartInvoice',
-  components: { Donate },
+  // components: { Donate },
   mixins: [Widgets],
   // provide() {
   //   return {
@@ -271,8 +272,9 @@ export default {
       }
     }
   },
-  data() {
+  data () {
     return {
+      CartInvoiceContainerKey: Date.now(), // for dispose sticky
       isUserLogin: false,
       stickySidebar: null,
       scrollInfo: null,
@@ -321,12 +323,16 @@ export default {
         return
       }
 
-      this.$nextTick(() => {
-        this.loadSticky()
-      })
+      if (this.cart.count > 3) {
+        this.$nextTick(() => {
+          this.loadSticky()
+        })
+      } else {
+        this.CartInvoiceContainerKey = Date.now()
+      }
     }
   },
-  mounted() {
+  mounted () {
     this.loadAuthData()
     this.cartReview()
     this.$bus.on('removeProduct', this.cartReview)
@@ -347,7 +353,8 @@ export default {
       this.stickySidebarInstance = new StickySidebar(this.$refs.CartInvoiceContainer, {
         topSpacing: 142,
         // bottomSpacing: 20,
-        containerSelector: '.cart-invoice.main-content',
+        containerSelector: false,
+        // containerSelector: '.cart-invoice.main-content',
         innerWrapperSelector: '.invoice-container.sidebar__inner'
         // scrollContainer: '#main-viewport'
       })
