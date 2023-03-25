@@ -30,6 +30,7 @@ const actions = {
           .filter((topic, topicIndex, topics) => topics.findIndex(topicItem => topicItem === topic) === topicIndex)
         context.commit('updateSetList', normalizedSets)
         context.commit('updateTopicList', topicList)
+        context.commit('updateSelectedTopic', topicList[0])
         context.commit('toggleSetListLoading')
       }).catch(() => {
         context.commit('toggleSetListLoading')

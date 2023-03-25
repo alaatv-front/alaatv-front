@@ -4,16 +4,19 @@
           bordered>
     <q-card-section horizontal
                     class="product-base-section">
-      <img v-if="$q.screen.gt.xs"
-           :src="product.photo"
-           class="product-item-image">
+      <q-img v-if="$q.screen.gt.xs"
+             :src="product.photo"
+             class="product-item-image"
+             @click="setSelectedProduct(product,true)" />
       <q-card-section :horizontal="$q.screen.gt.xs"
                       class="product-item-info">
-        <img v-if="$q.screen.lt.sm"
-             :src="product.photo"
-             class="product-item-image">
+        <q-img v-if="$q.screen.lt.sm"
+               :src="product.photo"
+               class="product-item-image"
+               @click="setSelectedProduct(product,true)" />
         <q-card-section class="product-info">
-          <div class="product-item-title ellipsis">
+          <div class="product-item-title ellipsis"
+               @click="setSelectedProduct(product,true)">
             {{ product.title }}
           </div>
           <div class="product-item-description">
@@ -47,7 +50,8 @@
               <div class="last-content-link">
                 <q-btn flat
                        icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }">مشاهده</q-btn>
+                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }"
+                       @click="setSelectedProduct(product,false)">مشاهده</q-btn>
               </div>
             </div>
           </div>
@@ -75,7 +79,7 @@
               <q-btn flat
                      icon-right="chevron_left"
                      :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }"
-                     @click="setSelectedProduct">مشاهده</q-btn>
+                     @click="setSelectedProduct(product,false)">مشاهده</q-btn>
             </div>
           </div>
         </div>
@@ -129,8 +133,11 @@ export default {
     }
   },
   methods: {
-    setSelectedProduct(product) {
+    setSelectedProduct(product, gotoRoute) {
       this.$store.dispatch('setSelectedProduct', product)
+      if (gotoRoute) {
+        this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: product.id } })
+      }
     }
   }
 }
@@ -202,6 +209,7 @@ export default {
       border-radius: 10px !important;
       margin: auto;
       min-width: 80px;
+      cursor: pointer;
 
       @media only screen and (max-width: 600px) {
         margin: 0 0 0 17px;
@@ -222,6 +230,7 @@ export default {
         line-height: 28px;
         letter-spacing: -0.03em;
         color: #333333;
+        cursor: pointer;
 
         @media only screen and (max-width: 600px) {
           font-size: 16px;

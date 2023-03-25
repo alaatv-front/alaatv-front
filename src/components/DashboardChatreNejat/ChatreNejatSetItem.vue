@@ -4,16 +4,19 @@
           bordered>
     <q-card-section horizontal
                     class="set-base-section">
-      <img v-if="$q.screen.gt.xs"
-           :src="setItem.photo"
-           class="set-item-image">
+      <q-img v-if="$q.screen.gt.xs"
+             :src="setItem.photo"
+             class="set-item-image"
+             @click="setSelectedData(setItem.last_content_user_watched,setItem, true)" />
       <q-card-section :horizontal="$q.screen.gt.xs"
                       class="set-item-info">
-        <img v-if="$q.screen.lt.sm"
-             :src="setItem.photo"
-             class="set-item-image">
+        <q-img v-if="$q.screen.lt.sm"
+               :src="setItem.photo"
+               class="set-item-image"
+               @click="setSelectedData(setItem.last_content_user_watched,setItem, true)" />
         <q-card-section class="set-info">
-          <div class="set-item-title ellipsis">
+          <div class="set-item-title ellipsis"
+               @click="setSelectedData(setItem.last_content_user_watched,setItem, true)">
             {{ setItem.title }}
           </div>
           <div class="set-item-description">
@@ -132,9 +135,12 @@ export default {
     }
   },
   methods: {
-    setSelectedData(content, set) {
+    setSelectedData(content, set, gotoRoute = false) {
       this.$store.commit('ChatreNejat/setSelectedContent', content)
       this.$store.commit('ChatreNejat/setSelectedSet', set)
+      if (gotoRoute) {
+        this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.Adviser.Content', params: { setId: set.id, contentId: set.last_content_user_watched?.id } })
+      }
     }
   }
 }
@@ -192,6 +198,7 @@ export default {
       border-radius: 10px !important;
       margin: auto;
       min-width: 80px;
+      cursor: pointer;
 
       @media only screen and (max-width: 600px) {
         margin: 0 0 0 17px;
@@ -212,6 +219,7 @@ export default {
         line-height: 28px;
         letter-spacing: -0.03em;
         color: #333333;
+        cursor: pointer;
 
         @media only screen and (max-width: 600px) {
           font-size: 16px;
