@@ -13,17 +13,17 @@
                 size="25px"
                 class="q-pr-sm" />
         <span>
-          زمان دریافت فایل های این محصول: {{ product.attributes.info.download_date[0] }}
+          زمان دریافت فایل های این محصول: {{ product.attributes?.info.download_date[0] }}
         </span>
       </div>
-      <div v-if="product.attributes.info.duration.length > 0 && options.duration"
+      <div v-if="product.attributes?.info.duration.length > 0 && options.duration"
            class="q-mt-md q-ml-md">
         <q-icon name="timer"
                 color="primary"
                 size="25px"
                 class="q-pr-sm" />
         <span>
-          مدت زمان: {{ product.attributes.info.duration[0] }}
+          مدت زمان: {{ product.attributes?.info.duration[0] }}
         </span>
       </div>
     </template>

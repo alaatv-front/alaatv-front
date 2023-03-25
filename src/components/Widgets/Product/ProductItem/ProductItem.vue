@@ -17,10 +17,11 @@
       </router-link>
     </div>
     <div class="product-content-box">
-      <!--      <div class="info-box">-->
-      <!--        <div class="teacher-image" />-->
-      <!--        <div class="teacher-name">محمد امین نباخته</div>-->
-      <!--      </div>-->
+      <div v-if="product.attributes"
+           class="info-box">
+        <div class="teacher-image" />
+        <div class="teacher-name">{{product.attributes.info?.teacher}}</div>
+      </div>
       <div class="action-box">
         <div class="more-detail product-more-detail">
           <div class="price-box">
