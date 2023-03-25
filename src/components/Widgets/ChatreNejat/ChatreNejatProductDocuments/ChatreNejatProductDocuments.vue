@@ -4,7 +4,7 @@
                   v-model:value="inputs"
                   v-model:table-selected-values="selected"
                   class="orders-list-entity-index"
-                  :api="$apiGateway.product.APIAdresses.getContents(975)"
+                  :api="$apiGateway.product.APIAdresses.getContents($route.params.productId)"
                   :table-selection-mode="selectionMode"
                   :item-indicator-key="'id'"
                   :identifyKey="'id'"
@@ -46,6 +46,7 @@
                               middle>
                 <q-btn color="primary"
                        label="دانلود"
+                       :disable="inputData.props.row.file === null || inputData.props.row.file.pamphlet[0] == null"
                        @click="downloadPamphlet(inputData.props.row.file.pamphlet[0].link)" />
               </q-item-section>
             </q-item>
@@ -110,7 +111,8 @@ export default {
           class: 'entity-filter-box',
           ignoreValue: true,
           value: [
-            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] }
+            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
+            { type: 'hidden', name: 'type', value: [1] }
           ]
         }
       ]
