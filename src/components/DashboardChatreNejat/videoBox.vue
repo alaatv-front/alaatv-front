@@ -75,7 +75,9 @@
             </q-btn>
             <bookmark :value="content.is_favored"
                       base-mode
-                      @clicked="toggleFavorite" />
+                      :unfavored-route="$apiGateway.content.APIAdresses.unfavored(content.id)"
+                      :favored-route="$apiGateway.content.APIAdresses.favored(content.id)"
+                      @onChangeFavoriteStatus="toggleFavorite" />
             <q-btn color="transparent"
                    unelevated
                    dark
@@ -270,10 +272,10 @@ export default {
       })
     },
 
-    toggleFavorite() {
+    toggleFavorite(val) {
       // eslint-disable-next-line vue/no-mutating-props
       this.content.loading = true
-      this.$emit('favorite')
+      this.$emit('toggleFavorite', val)
     },
 
     getShareLink(content, socialMedia) {

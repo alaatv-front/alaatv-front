@@ -134,8 +134,8 @@ export default {
           padding: 5px 10px;
           justify-content: normal;
           .label {
-            font-size: 16px;
             font-weight: 400;
+            font-size: 20px ;
             line-height: 28px;
           }
         }
