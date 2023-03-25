@@ -124,6 +124,9 @@ export default {
     },
     selectedTopicInput() {
       return this.inputs.find(x => x.name === 'formBuilderCol').value[0].value
+    },
+    selectedTopic() {
+      return this.$store.getters['ChatreNejat/selectedTopic']
     }
   },
   watch: {
@@ -135,12 +138,27 @@ export default {
     },
     setTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
+    },
+    selectedTopic (newVal) {
+      if (!newVal) {
+        return
+      }
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        params: {
+          productId: this.$route.params.productId
+        }
+      })
     }
   },
   mounted() {
     this.loadData(this.$route.params.productId)
+    this.updateSelectedTopic('')
   },
   methods: {
+    updateSelectedTopic (content) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+    },
     toggleDialog() {
       this.$emit('toggleDialog')
     },

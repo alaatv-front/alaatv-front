@@ -36,10 +36,11 @@
         </q-list>
       </div>
     </q-expansion-item>
+    <!--    (item.title === clickedItem.title) || -->
     <q-item v-else-if="!loading && item.show"
             v-ripple
             clickable
-            :active="item.title === clickedItem.title"
+            :active="(item.title === selectedTopic)"
             :to="(item.routeName) ? {name: item.routeName, params: item.params} : null"
             class="item-list"
             :class="{ 'alone-item': !item.children }"
@@ -73,6 +74,12 @@ export default {
       type: Boolean,
       default: () => {
         return false
+      }
+    },
+    selectedTopic: {
+      type: String,
+      default: () => {
+        return ''
       }
     }
   },

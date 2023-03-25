@@ -20,7 +20,7 @@
         <div class="back-btn">
           <q-btn flat
                  icon-right="chevron_left"
-                 :to="{ name: 'UserPanel.Asset.ChatreNejat.Products' }">بازگشت</q-btn>
+                 :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: productId} }">بازگشت</q-btn>
         </div>
       </div>
       <chatre-nejat-layout-menu :menu-key="menuKey"
@@ -60,7 +60,7 @@
         <div class="back-btn">
           <q-btn flat
                  icon-right="chevron_left"
-                 :to="{ name: 'UserPanel.Asset.ChatreNejat.Products' }">بازگشت</q-btn>
+                 :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: productId} }">بازگشت</q-btn>
         </div>
       </div>
       <div class="content">
@@ -157,6 +157,9 @@ export default {
     },
     productImg () {
       return this.selectedProduct?.photo
+    },
+    productId () {
+      return this.selectedProduct?.id
     }
   },
   methods: {

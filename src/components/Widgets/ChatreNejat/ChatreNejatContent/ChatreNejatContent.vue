@@ -124,7 +124,10 @@ export default {
     }
   },
   watch: {
-    selectedTopic () {
+    selectedTopic (newVal) {
+      if (!newVal) {
+        return
+      }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
         params: {
@@ -137,8 +140,6 @@ export default {
     if (this.$route.params.productId) {
       this.getProductSets(this.$route.params.productId)
       this.getProduct()
-    }
-    if (!this.selectedContent.id || !this.selectedSet.id) {
       this.storeSelectedSet(this.$route.params.setId)
       this.storeSelectedContent(this.$route.params.contentId)
     }
@@ -338,6 +339,8 @@ export default {
 
   .content-list-col {
     padding-top: 0 !important;
+    overflow: auto;
+    overflow-x: hidden;
     .select-wrapper{
       &:deep(.q-field__control){
         background: #eff3ff;

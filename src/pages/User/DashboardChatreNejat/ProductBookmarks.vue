@@ -91,6 +91,7 @@ export default {
       },
       inputs: [
         { type: 'hidden', name: 'type', value: 'content' },
+        { type: 'hidden', name: 'product_id', value: this.$route.params.productId },
         { type: 'input', name: 'search', outlined: true, label: 'جستجو در یادداشت ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
         { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
         { type: 'separator', col: 'col-md-6', size: '0' },
@@ -127,7 +128,10 @@ export default {
     selectedTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopic () {
+    selectedTopic (newVal) {
+      if (!newVal) {
+        return
+      }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
         params: {
@@ -145,8 +149,12 @@ export default {
       this.getProductSets(productId)
       this.getProduct(productId)
     }
+    this.updateSelectedTopic('')
   },
   methods: {
+    updateSelectedTopic (content) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+    },
     toggleDialog() {
       this.$emit('toggleDialog')
     },

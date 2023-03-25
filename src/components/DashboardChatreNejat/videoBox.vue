@@ -56,12 +56,11 @@
             </span>
           </q-btn>
           <div class="video-box-icon">
-            <!--            <q-btn unelevated-->
-            <!--                   class="icon-btn"-->
-            <!--                   :disable="!content.file"-->
-            <!--                   @click="downloadVideo= !downloadVideo">-->
-            <!--              <i class="fi fi-rr-download icon bookmark-button" />-->
-            <!--            </q-btn>-->
+            <q-btn unelevated
+
+                   icon="isax:document-download"
+                   :disable="!content.file"
+                   @click="downloadVideo= !downloadVideo" />
             <q-btn unelevated
                    icon="isax:share"
                    @click="socialMediaDialog = !socialMediaDialog">
@@ -73,6 +72,7 @@
               <!--              <i class="fi fi-rr-share icon " />-->
             </q-btn>
             <bookmark :value="content.is_favored"
+                      base-mode
                       @clicked="toggleFavorite" />
             <q-btn color="transparent"
                    unelevated
@@ -153,10 +153,9 @@
             {{item.res}}
           </div>
           <q-btn unelevated
-                 :href="item.link +'?download=1'"
-                 class="download-btn">
-            <i class="fi fi-rr-download icon bookmark-button" />
-          </q-btn>
+                 icon="isax:document-download"
+                 :href="item.link + (item.link.includes('?') ? '' : '?') +'download=1'"
+                 class="download-btn" />
         </div>
 
       </q-card-section>
@@ -906,33 +905,6 @@ export default {
           margin: 22px;
         }
       }
-    }
-  }
-}
-
-</style>
-
-<style lang="scss">
-.video-box {
-  .video-description {
-    .description {
-      .icon-btn-box {
-        .video-box-icon {
-          .bookmark-button {
-            .v-btn__loader {
-              color: #ff8f00 !important;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.v-sheet {
-  &.v-list {
-    &:not(.v-sheet--outlined) {
-      border-radius: 40px 40px 0 0;
     }
   }
 }
