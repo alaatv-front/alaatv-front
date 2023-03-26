@@ -95,7 +95,7 @@ export default {
         this.$store.dispatch('AppLayout/showLoginDialog')
       }
     },
-    showFloatinActoinBtn () {
+    showFloatingActionBtn () {
       // return false
       // return (process.env.APP_ENV === 'production' && this.user.mobile === '09358745928') || (process.env.APP_ENV !== 'production')
       return this.user.mobile === '09358745928'
