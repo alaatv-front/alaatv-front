@@ -14,10 +14,10 @@
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
-        <div class="col-6 col-lg-3 content-col q-pa-md">
+        <div class="col-6 col-md-9 col-lg-4 content-col q-pa-md">
+          <!--          <content-item :options="{content: inputData.props.row}" />-->
           <q-card class="content-box flex">
-            <q-img width="325px"
-                   height="200px"
+            <q-img height="200px"
                    class="text-center"
                    :src="inputData.props.row.photo"
                    @click="goToContent(inputData.props.row)" />
@@ -46,12 +46,14 @@
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway'
 import Bookmark from 'components/Bookmark.vue'
+// import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
 export default {
   name: 'ProductBookmarks',
   components: {
     Bookmark,
     EntityIndex
+    // ContentItem
   },
   data() {
     return {
@@ -200,6 +202,7 @@ export default {
 .chatr-bookmarks {
   .content-box {
     cursor: pointer;
+    justify-content: center;
     .bookmarks-entity-index {
 
     }
@@ -209,6 +212,9 @@ export default {
     &.opened {
       display: flex;
     }
+  }
+  &:deep(.q-field__control) {
+    background-color: #fff !important;
   }
   &:deep(.q-table__top) {
     display: none !important;

@@ -127,9 +127,9 @@ export default {
     selectedTopic(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopicName (newVal) {
-      if (!newVal) {
-        return
+    selectedTopicName (newVal, oldVal) {
+      if (!newVal || newVal === '' || !oldVal || oldVal === '') {
+        return null
       }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
