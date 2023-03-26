@@ -140,6 +140,7 @@ export default {
       })
     },
     getAdvisor() {
+      this.advisorLoading = true
       this.$apiGateway.events.getEventsAdvisor({
         eventId: this.$enums.Events.ChatreNejat
       }).then(res => {
@@ -160,7 +161,7 @@ export default {
     padding: 40px 70px 100px;
     background: #EAEAEA;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 1024px) {
       padding: 10px 15px;
     }
 
