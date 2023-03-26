@@ -1,10 +1,8 @@
 <template>
   <q-card class="content-item-box"
           :style="{minWidth: options.minWidth}">
-    <router-link :to="{
-      name: 'Public.Content.Show',
-      params: { id: content.id ? content.id : -1 }
-    }">
+    <router-link :to="getRoutingObject"
+                 class="content-item-router-link">
       <div class="img-box">
         <div class="img-title-container">
           <lazy-img :src="content.photo"
@@ -17,22 +15,41 @@
           <div class="play-icon" />
         </div>
       </div>
-      <div class="content-content-box flex">
-        <div class="main-title ellipsis-2-lines">
-          {{ content.title }}
-        </div>
-      </div>
     </router-link>
+
+    <div class="content-content-box ">
+      <router-link :to="getRoutingObject"
+                   class="content-item-router-link">
+        <div class="content-box-text">
+          <div v-if="options.showSetTitle"
+               class="main-title ellipsis">
+            {{ content.set.title }}
+          </div>
+          <div class="title-text  ellipsis-2-lines">
+            {{ content.title }}
+          </div>
+        </div>
+      </router-link>
+      <bookmark v-if="options.showBookmark"
+                class="content-item-bookmark"
+                :value="options.content.is_favored"
+                :unfavored-route="$apiGateway.content.APIAdresses.unfavored(options.content.id)"
+                :favored-route="$apiGateway.content.APIAdresses.favored(options.content.id)"
+                @clicked="bookmarkClicked"
+                @onLoad="bookmarkLoaded" />
+    </div>
+
   </q-card>
 </template>
 
 <script>
 import { Content } from 'src/models/Content.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import Bookmark from 'components/Bookmark.vue'
 
 export default {
   name: 'contentItem',
-  components: { LazyImg },
+  components: { Bookmark, LazyImg },
   props: {
     options: {
       type: Object,
@@ -40,19 +57,42 @@ export default {
         return {
           style: {},
           minWidth: 'auto',
-          content: new Content()
+          content: new Content(),
+          showSetTitle: false,
+          showBookmark: false,
+          routeToContent: true
         }
       }
     }
   },
+  emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
     content: new Content()
   }),
+  computed: {
+    getRoutingObject() {
+      if (this.options.routeToContent) {
+        return {
+          name: 'Public.Content.Show',
+          params: { id: this.content.id ? this.content.id : -1 }
+        }
+      }
+      return {}
+    }
+  },
   created () {
     if (!this.options.content) {
       this.content = new Content(this.options)
     } else {
       this.content = new Content(this.options.content)
+    }
+  },
+  methods: {
+    bookmarkLoaded (value) {
+      this.$emit('onBookmarkLoaded', value)
+    },
+    bookmarkClicked (value) {
+      this.$emit('onBookmarkClicked', value)
     }
   }
 }
@@ -66,14 +106,12 @@ export default {
   justify-content: space-between;
   width: 260px;
   margin-bottom: 10px;
-  position: relative;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
   2px 4px 10px rgba(46, 56, 112, 0.05);
   background-color: #ffffff;
   top: 0;
   transition: all ease 0.5s;
-
   &:hover {
     box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
     5px 5px 20px rgba(0, 0, 0, 0.1);
@@ -92,6 +130,23 @@ export default {
 
   &.q-card {
     //min-width: 318px;
+  }
+
+  .content-item-bookmark {
+    position: absolute;
+    right: -18px;
+    top: -24px;
+
+  }
+
+  .content-item-router-link {
+    width: 100%;
+  }
+
+  .content-box-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .img-box {
@@ -126,33 +181,35 @@ export default {
   }
 
   .content-content-box {
-    height: 30%;
+    height: 100px;
     padding: 10px 16px 16px 16px;
-
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     .main-title {
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
       letter-spacing: -0.03em;
-      align-self: center;
+      width: 220px;
 
       a {
         margin-bottom: 0;
       }
 
-      .title-text {
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 24px;
-        letter-spacing: -0.03em;
-        color: #333333;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
+    }
+    .title-text {
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: -0.03em;
+      color: #333333;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .price-box {
@@ -377,6 +434,7 @@ export default {
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
+    flex-direction: row;
 
     .img-box {
       width: 100%;
