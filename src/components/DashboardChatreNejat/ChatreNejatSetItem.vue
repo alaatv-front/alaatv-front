@@ -29,8 +29,7 @@
           </div>
         </q-card-section>
         <q-card-section v-if="$q.screen.gt.xs"
-                        class=" flex"
-                        style="width:100%">
+                        class="last-content-card-section">
           <q-separator spaced
                        :vertical="$q.screen.gt.sm"
                        inset />
@@ -57,10 +56,8 @@
         </q-card-section>
       </q-card-section>
       <q-card-section v-if="$q.screen.lt.sm"
-                      class=" flex"
-                      style="width:100%; padding: 0;">
+                      class="last-content-card-section">
         <q-separator spaced
-                     style="width:90%"
                      inset />
         <div class="last-content">
           <div class="last-content-pre">
@@ -83,41 +80,7 @@
           </div>
         </div>
       </q-card-section>
-      <q-card-actions v-if="$q.screen.gt.xs"
-                      vertical
-                      align="right">
-        <!--        icon="more_vert"-->
-        <q-btn flat>
-          <q-menu fit
-                  anchor="top right"
-                  self="top left">
-                  <!--            <q-item clickable>-->
-                  <!--              <q-item-section>گزینه اول</q-item-section>-->
-                  <!--            </q-item>-->
-                  <!--            <q-item clickable>-->
-                  <!--              <q-item-section>نمیدونم</q-item-section>-->
-                  <!--            </q-item>-->
-          </q-menu>
-        </q-btn>
-      </q-card-actions>
     </q-card-section>
-    <q-card-actions v-if="$q.screen.lt.sm"
-                    vertical
-                    align="right">
-      <!--        icon="more_vert"-->
-      <q-btn flat>
-        <q-menu fit
-                anchor="top right"
-                self="top left">
-                <!--          <q-item clickable>-->
-                <!--            <q-item-section>گزینه اول</q-item-section>-->
-                <!--          </q-item>-->
-                <!--          <q-item clickable>-->
-                <!--            <q-item-section>نمیدونم</q-item-section>-->
-                <!--          </q-item>-->
-        </q-menu>
-      </q-btn>
-    </q-card-actions>
   </q-card>
 </template>
 <script>
@@ -140,7 +103,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .set-item-card {
-  max-height: 148px;
+  min-height: 148px;
   border-radius: 20px;
   background: #fff;
   width: 90% !important;
@@ -156,7 +119,7 @@ export default {
   }
 
   @media only screen and (max-width: 600px) {
-    max-height: 217px;
+    min-height: 217px;
     padding: 10px 5px 10px 0px;
     align-items: flex-start;
   }
@@ -251,65 +214,77 @@ export default {
       }
     }
 
-    .last-content {
-      margin-left: 24px;
-      width: 85%;
-      @media only screen and (max-width: 600px) {
-        max-width: 90%;
+    .last-content-card-section {
+      display: flex;
+      width: 100%;
+      padding: 0;
+      .last-content {
+        margin-left: 24px;
         width: 100%;
-      }
-
-      .last-content-pre {
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 22px;
-        letter-spacing: -0.03em;
-        color: #666666;
-
-        @media only screen and (max-width: 600px) {
-          font-size: 12px;
-          line-height: 16px;
-        }
-      }
-      .last-content-title {
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 28px;
-        letter-spacing: -0.03em;
-        color: #333333;
-        margin-bottom: 10px;
-        width: 80%;
-
-        @media only screen and (max-width: 600px) {
-          font-size: 14px;
-          line-height: 20px;
-          margin-bottom: 5px;
-        }
-
-      }
-      .last-content-footer {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
 
-        .last-content-section {
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 19px;
-          letter-spacing: -0.02em;
-          color: #6C6C6C;
+        @media only screen and (max-width: 1449px) {
+          max-width: 75%;
+        }
+        @media only screen and (max-width: 600px) {
+          max-width: 90%;
+          margin-left: 0;
         }
 
-        .last-content-link {
+        .last-content-pre {
           font-style: normal;
           font-weight: 400;
           font-size: 14px;
           line-height: 22px;
           letter-spacing: -0.03em;
+          color: #666666;
+
+          @media only screen and (max-width: 600px) {
+            font-size: 12px;
+            line-height: 16px;
+          }
+        }
+        .last-content-title {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 28px;
+          letter-spacing: -0.03em;
           color: #333333;
+          margin-bottom: 10px;
+          max-width: 65%;
+
+          @media only screen and (max-width: 600px) {
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 5px;
+          }
+
+        }
+        .last-content-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .last-content-section {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 19px;
+            letter-spacing: -0.02em;
+            color: #6C6C6C;
+          }
+
+          .last-content-link {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: -0.03em;
+            color: #333333;
+          }
         }
       }
     }

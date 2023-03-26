@@ -28,6 +28,7 @@ class User extends Model {
       { key: 'kartemeli' },
       { key: 'role' },
       { key: 'token' },
+      { key: 'has_purchased_anything' },
       { key: 'has_admin_permission' },
       { key: 'has_educational_permission' },
 

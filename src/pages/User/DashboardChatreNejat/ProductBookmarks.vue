@@ -1,5 +1,5 @@
 <template>
-  <div class="chatr-bookmarks q-pa-md">
+  <div class="chatr-bookmarks">
     <entity-index ref="entityIndex"
                   v-model:value="inputs"
                   class="bookmarks-entity-index"
@@ -14,29 +14,15 @@
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
-        <div class="col-6 col-lg-3 content-col q-pa-md">
-          <q-card class="content-box flex">
-            <q-img width="325px"
-                   height="200px"
-                   class="text-center"
-                   :src="inputData.props.row.photo"
-                   @click="goToContent(inputData.props.row)" />
-            <q-card-section class="row justify-between"
-                            style="min-width: 320px;">
-              <div class="col-10"
-                   @click="goToContent(inputData.props.row)">
-                <div>{{ inputData.props.row.set.short_title }}</div>
-                <div>{{ inputData.props.row.title }}</div>
-              </div>
-              <div class="col-2">
-                <bookmark v-model:value="inputData.props.row.is_favored"
-                          :unfavored-route="$apiGateway.content.APIAdresses.unfavored(inputData.props.row.id)"
-                          :favored-route="$apiGateway.content.APIAdresses.favored(inputData.props.row.id)"
-                          @onLoad="reloadEntity(false)" />
-              </div>
-            </q-card-section>
-          </q-card>
-        </div>
+        <content-item class="q-ma-md flex items-center justify-center"
+                      :options="{
+                        content: inputData.props.row,
+                        routeToContent: false,
+                        showBookmark:true,
+                        showSetTitle: true
+                      }"
+                      @onBookmarkLoaded="reloadEntity(false)"
+                      @click="goToContent($event,inputData.props.row)" />
       </template>
     </entity-index>
   </div>
@@ -45,16 +31,17 @@
 <script>
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway'
-import Bookmark from 'components/Bookmark.vue'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
 export default {
   name: 'ProductBookmarks',
   components: {
-    Bookmark,
-    EntityIndex
+    EntityIndex,
+    ContentItem
   },
   data() {
     return {
+      bookmarkClicked: false,
       isFilterBoxHidden: false,
       api: APIGateway.user.APIAdresses.favored,
       tableKeys: {
@@ -129,9 +116,9 @@ export default {
     selectedTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopic (newVal) {
-      if (!newVal) {
-        return
+    selectedTopic (newVal, oldVal) {
+      if (!newVal || newVal === '') {
+        return null
       }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
@@ -154,7 +141,7 @@ export default {
   },
   methods: {
     updateSelectedTopic (content) {
-      this.$store.commit('ChatreNejat/setSelectedContent', content)
+      this.$store.commit('ChatreNejat/updateSelectedTopic', content)
     },
     toggleDialog() {
       this.$emit('toggleDialog')
@@ -182,7 +169,10 @@ export default {
     getProduct(productId) {
       this.$store.dispatch('ChatreNejat/getSelectedProduct', productId)
     },
-    goToContent(content) {
+    goToContent(event, content) {
+      if (event.target.tagName === 'path' || event.target.type === 'button') {
+        return
+      }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.Content',
         params: {
@@ -198,17 +188,25 @@ export default {
 
 <style scoped lang="scss">
 .chatr-bookmarks {
+  padding: 16px 16px;
   .content-box {
     cursor: pointer;
+    justify-content: center;
     .bookmarks-entity-index {
 
     }
+  }
+  @media screen and (max-width: 599px) {
+    padding: 0;
   }
   &:deep(.entity-filter-box) {
     display: none;
     &.opened {
       display: flex;
     }
+  }
+  &:deep(.q-field__control) {
+    background-color: #fff !important;
   }
   &:deep(.q-table__top) {
     display: none !important;
@@ -218,6 +216,9 @@ export default {
   }
   &:deep(.formBuilder-actionBtn-ActionBtn) {
     padding: 20px;
+  }
+  &:deep(.q-table--grid .q-table__grid-content) {
+    justify-content: center;
   }
 }
 </style>

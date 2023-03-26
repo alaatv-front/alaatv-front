@@ -62,7 +62,13 @@
 
                    icon="isax:document-download"
                    :disable="!content.file"
-                   @click="downloadVideo= !downloadVideo" />
+                   @click="downloadVideo= !downloadVideo">
+              <q-tooltip anchor="top middle"
+                         self="bottom middle"
+                         :offset="[10, 10]">
+                دانلود
+              </q-tooltip>
+            </q-btn>
             <q-btn unelevated
                    icon="isax:share"
                    @click="socialMediaDialog = !socialMediaDialog">
@@ -74,18 +80,9 @@
               <!--              <i class="fi fi-rr-share icon " />-->
             </q-btn>
             <bookmark :value="content.is_favored"
-                      base-mode
-                      @clicked="toggleFavorite" />
-            <q-btn color="transparent"
-                   unelevated
-                   dark
-                   :loading="content.loading"
-                   class="icon-btn"
-                   @click="toggleFavorite">
-              <i class="fi fi-rr-bookmark icon bookmark-button"
-                 :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }" />
-
-            </q-btn>
+                      :unfavored-route="$apiGateway.content.APIAdresses.unfavored(content.id)"
+                      :favored-route="$apiGateway.content.APIAdresses.favored(content.id)"
+                      @onLoad="toggleFavorite" />
           </div>
         </div>
       </div>
@@ -194,7 +191,7 @@ export default {
     }
   },
 
-  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp'],
+  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite'],
 
   data() {
     return {
@@ -270,10 +267,8 @@ export default {
       })
     },
 
-    toggleFavorite() {
-      // eslint-disable-next-line vue/no-mutating-props
-      this.content.loading = true
-      this.$emit('favorite')
+    toggleFavorite(val) {
+      this.$emit('toggleFavorite', val)
     },
 
     getShareLink(content, socialMedia) {

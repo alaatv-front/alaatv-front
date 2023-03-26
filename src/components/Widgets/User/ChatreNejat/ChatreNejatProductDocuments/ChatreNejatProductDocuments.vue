@@ -123,11 +123,11 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'search', outlined: true, label: 'جستجو در جزوه ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
-        { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
-        { type: 'separator', col: 'col-md-6', size: '0' },
-        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' },
-        { type: 'button', name: 'grid', responseKey: 'statement', class: '', icon: 'apps', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' },
+        { type: 'input', name: 'search', outlined: true, label: 'جستجو در جزوه ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 col-xs-6 align-left q-mt-lg q-ml-lg' },
+        { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 col-sm-1 col-xs-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'separator', col: 'col-sm-2 col-md-4 col-lg-5 col-xl-6', size: '0' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'flex-end q-mt-lg q-ml-lg self-end' },
+        { type: 'button', name: 'grid', responseKey: 'statement', class: 'grid-btn', icon: 'apps', unelevated: true, col: 'flex-end q-mt-lg q-ml-lg q-sm-xs self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -166,9 +166,9 @@ export default {
     setTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopic (newVal) {
-      if (!newVal) {
-        return
+    selectedTopic (newVal, oldVal) {
+      if (!newVal || newVal === '') {
+        return null
       }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
@@ -184,7 +184,7 @@ export default {
   },
   methods: {
     updateSelectedTopic (content) {
-      this.$store.commit('ChatreNejat/setSelectedContent', content)
+      this.$store.commit('ChatreNejat/updateSelectedTopic', content)
     },
     toggleDialog() {
       this.$emit('toggleDialog')
@@ -227,6 +227,11 @@ export default {
   width: 318px;
   height: 510px;
 }
+.grid-btn {
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+}
 .product-documents {
   &:deep(.entity-filter-box) {
     display: none;
@@ -240,6 +245,11 @@ export default {
   }
   &:deep(.q-field__control) {
     background-color: #fff !important;
+  }
+  &:deep(.grid-btn) {
+    @media only screen and (max-width: 1024px) {
+      display: none;
+    }
   }
   .content-col{
     padding: 10px;
