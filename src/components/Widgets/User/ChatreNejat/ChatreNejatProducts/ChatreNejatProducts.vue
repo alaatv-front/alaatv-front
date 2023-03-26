@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="col-lg-6 col-12 flex flex-center">
-        <product-item-skeleton v-if="loading" />
+        <product-item-skeleton v-if="advisorLoading" />
         <chatre-nejat-set-item v-else-if="advisor.id !== null"
                                width="100%"
                                :setItem="advisor" />
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div v-if="loading"
+      <div v-if="productLoading"
            class="row">
         <div class="col-lg-6 col-12 skeleton-col">
           <product-item-skeleton />
@@ -56,7 +56,7 @@
           <product-item-skeleton />
         </div>
       </div>
-      <div v-if="!loading"
+      <div v-if="!productLoading"
            class="row">
         <div v-for="(product,index) in products"
              :key="index"
@@ -64,7 +64,7 @@
           <chatre-nejat-product-item :product="product" />
         </div>
       </div>
-      <div v-if="!loading && (!products || products.length === 0)"
+      <div v-if="!productLoading && (!products || products.length === 0)"
            class="flex justify-center items-center">
         <h5>در حال حاضر محتوایی وجود ندارد.</h5>
       </div>
@@ -87,7 +87,8 @@ export default {
     ProductItemSkeleton
   },
   data: () => ({
-    loading: false,
+    advisorLoading: false,
+    productLoading: false,
     products: null,
     advisor: new Set(),
     productType: {
@@ -112,7 +113,8 @@ export default {
   },
   methods: {
     loadData() {
-      this.loading = true
+      this.advisorLoading = true
+      this.productLoading = true
       this.$apiGateway.events.formBuilder({
         params: ['majors']
       }).then(res => {
@@ -121,21 +123,20 @@ export default {
         this.getAdvisor()
         this.getProducts(this.productType.id)
       }).catch(() => {
-        this.loading = false
+        this.advisorLoading = false
+        this.productLoading = false
       })
     },
     getProducts(type) {
-      this.loading = true
+      this.productLoading = true
       this.$apiGateway.events.getEventsProducts({
         data: { major_id: type },
         eventId: this.$enums.Events.ChatreNejat
       }).then(res => {
         this.products = res.list
-        if (this.advisor !== null) {
-          this.loading = false
-        }
+        this.productLoading = false
       }).catch(() => {
-        this.loading = false
+        this.productLoading = false
       })
     },
     getAdvisor() {
@@ -143,11 +144,9 @@ export default {
         eventId: this.$enums.Events.ChatreNejat
       }).then(res => {
         this.advisor = res
-        if (this.products !== null) {
-          this.loading = false
-        }
+        this.advisorLoading = false
       }).catch(() => {
-        this.loading = false
+        this.advisorLoading = false
       })
     }
   }

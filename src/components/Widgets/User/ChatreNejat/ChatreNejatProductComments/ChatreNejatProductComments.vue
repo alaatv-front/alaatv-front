@@ -189,6 +189,9 @@ export default {
   &:deep(.q-table__top) {
     display: none !important;
   }
+  &:deep(.q-field__control) {
+    background-color: #fff !important;
+  }
   .content-col{
     padding: 10px;
 

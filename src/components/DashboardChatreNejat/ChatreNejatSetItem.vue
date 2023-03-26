@@ -1,6 +1,5 @@
 <template>
   <q-card class="custom-card set-item-card"
-          flat
           bordered>
     <q-card-section horizontal
                     class="set-base-section">
@@ -45,7 +44,7 @@
             <div class="last-content-footer">
               <div class="last-content-section ellipsis">
                 <q-icon name="menu_book" />
-                {{ setItem.title }}
+                {{ setItem.last_content_user_watched?.title }}
               </div>
               <div class="last-content-link">
                 <q-btn v-if="setItem.last_content_user_watched?.id"
@@ -61,7 +60,7 @@
                       class=" flex"
                       style="width:100%; padding: 0;">
         <q-separator spaced
-                     style="width:100%"
+                     style="width:90%"
                      inset />
         <div class="last-content">
           <div class="last-content-pre">
@@ -73,7 +72,7 @@
           <div class="last-content-footer">
             <div class="last-content-section">
               <q-icon name="menu_book" />
-              {{ setItem.title }}
+              {{ setItem.last_content_user_watched?.title }}
             </div>
             <div class="last-content-link">
               <q-btn v-if="setItem.last_content_user_watched?.id"
@@ -144,7 +143,7 @@ export default {
   max-height: 148px;
   border-radius: 20px;
   background: #fff;
-  width: 90%;
+  width: 90% !important;
   margin: 10px;
   padding: 24px 5px 24px 30px;
   box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
@@ -158,7 +157,7 @@ export default {
 
   @media only screen and (max-width: 600px) {
     max-height: 217px;
-    padding: 10px 5px 10px 15px;
+    padding: 10px 5px 10px 0px;
     align-items: flex-start;
   }
 
@@ -203,7 +202,7 @@ export default {
       min-width: 40%;
 
       @media only screen and (max-width: 600px) {
-        min-width: 100%;
+        max-width: 100%;
       }
 
       .set-item-title {
@@ -255,6 +254,10 @@ export default {
     .last-content {
       margin-left: 24px;
       width: 85%;
+      @media only screen and (max-width: 600px) {
+        max-width: 90%;
+        width: 100%;
+      }
 
       .last-content-pre {
         font-style: normal;
