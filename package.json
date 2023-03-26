@@ -53,7 +53,7 @@
     "quasar-crud": "^0.3.21",
     "quasar-form-builder": "^0.1.92",
     "quasar-template-builder": "^1.0.21",
-    "quasar-ui-q-page-builder": "^0.1.8",
+    "quasar-ui-q-page-builder": "^0.1.10",
     "socket.io-client": "^4.6.1",
     "sticky-sidebar-v2": "^1.1.1",
     "underscore": "^1.13.6",
@@ -81,6 +81,6 @@
     "yarn": ">= 1.21.1"
   },
   "devDependencies": {
-    "quasar-app-extension-q-page-builder": "^0.1.8"
+    "quasar-app-extension-q-page-builder": "^0.1.10"
   }
 }

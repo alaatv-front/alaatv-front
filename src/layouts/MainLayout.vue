@@ -45,7 +45,7 @@
 
           <router :include="keepAliveComponents" />
         </div>
-        <floating-action-button v-if="false" />
+        <floating-action-button />
       </template>
       <template #footer>
         <alaa-footer />
