@@ -112,12 +112,12 @@ export default {
       return this.$store.getters['ChatreNejat/selectedTopic']
     },
     setList() {
-      const setsList = this.$store.getters['ChatreNejat/setList'].filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
-      setsList.map(set => {
-        set.expand = false
-        return set
-      })
-      return setsList
+      return this.$store.getters['ChatreNejat/setList']
+        .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
+        .map(set => {
+          set.expand = false
+          return set
+        })
     },
     setTopicList() {
       return this.$store.getters['ChatreNejat/setTopicList']
