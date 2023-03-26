@@ -224,8 +224,12 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        @media only screen and (max-width: 1449px) {
+          max-width: 75%;
+        }
         @media only screen and (max-width: 600px) {
           max-width: 90%;
+          margin-left: 0;
         }
 
         .last-content-pre {

@@ -125,7 +125,7 @@ export default {
   },
   watch: {
     selectedTopic (newVal, oldVal) {
-      if (!newVal || newVal === '' || !oldVal || oldVal === '') {
+      if (!newVal || newVal === '') {
         return null
       }
       this.$router.push({
