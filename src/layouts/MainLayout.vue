@@ -96,8 +96,9 @@ export default {
       }
     },
     showFloatinActoinBtn () {
-      return false
+      // return false
       // return (process.env.APP_ENV === 'production' && this.user.mobile === '09358745928') || (process.env.APP_ENV !== 'production')
+      return this.user.mobile === '09358745928'
     },
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
