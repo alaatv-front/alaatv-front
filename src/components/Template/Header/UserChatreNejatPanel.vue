@@ -59,9 +59,9 @@ export default {
   }),
   mounted () {
     this.loadAuthData()
-    // if (this.$q.screen.lt.md) {
-    //   this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
-    // }
+    if (window.innerWidth < 1024) {
+      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+    }
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
