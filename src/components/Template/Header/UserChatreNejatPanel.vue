@@ -3,12 +3,10 @@
     <div class="logo-box">
       <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
              class="logo-image" />
-      <!--      <div class="text-primary">راه ابریشم</div>-->
     </div>
     <div class="header-box full-height flex justify-center items-center">
       <q-img src="https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png"
              class="header-logo-img" />
-      <!--      <div class="text-primary">راه ابریشم</div>-->
     </div>
     <div class="profile-box flex items-center">
       <q-avatar class="avatar">
@@ -61,6 +59,9 @@ export default {
   }),
   mounted () {
     this.loadAuthData()
+    if (this.$q.screen.lt.md) {
+      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+    }
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
