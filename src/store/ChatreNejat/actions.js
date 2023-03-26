@@ -35,6 +35,9 @@ const actions = {
         context.commit('toggleSetListLoading')
       })
   },
+  setSelectedTopic: (context, topic) => {
+    context.commit('updateSelectedTopic', topic)
+  },
   updateSet: (context, setId) => {
     context.commit('toggleSetLoading')
     APIGateway.set.getContents(setId)
