@@ -30,8 +30,7 @@
           </div>
         </q-card-section>
         <q-card-section v-if="$q.screen.gt.xs"
-                        class=" flex"
-                        style="width: 100%;max-width: 350px;">
+                        class="last-content-card-section">
           <q-separator spaced
                        :vertical="$q.screen.gt.sm"
                        inset />
@@ -57,10 +56,8 @@
         </q-card-section>
       </q-card-section>
       <q-card-section v-if="$q.screen.lt.sm"
-                      class=" flex"
-                      style="width: 100%;padding: 0;">
+                      class="last-content-card-section">
         <q-separator spaced
-                     style="width:100%"
                      inset />
         <div class="last-content">
           <div class="last-content-pre">
@@ -82,41 +79,7 @@
           </div>
         </div>
       </q-card-section>
-      <q-card-actions v-if="$q.screen.gt.xs"
-                      vertical
-                      align="right">
-        <!--        icon="more_vert"-->
-        <q-btn flat>
-          <q-menu fit
-                  anchor="top right"
-                  self="top left">
-                  <!--            <q-item clickable>-->
-                  <!--              <q-item-section>گزینه اول</q-item-section>-->
-                  <!--            </q-item>-->
-                  <!--            <q-item clickable>-->
-                  <!--              <q-item-section>نمیدونم</q-item-section>-->
-                  <!--            </q-item>-->
-          </q-menu>
-        </q-btn>
-      </q-card-actions>
     </q-card-section>
-    <q-card-actions v-if="$q.screen.lt.sm"
-                    vertical
-                    align="right">
-      <!--       icon="more_vert"-->
-      <q-btn flat>
-        <q-menu fit
-                anchor="top right"
-                self="top left">
-                <!--          <q-item clickable>-->
-                <!--            <q-item-section>گزینه اول</q-item-section>-->
-                <!--          </q-item>-->
-                <!--          <q-item clickable>-->
-                <!--            <q-item-section>نمیدونم</q-item-section>-->
-                <!--          </q-item>-->
-        </q-menu>
-      </q-btn>
-    </q-card-actions>
   </q-card>
 </template>
 <script>
@@ -264,69 +227,74 @@ export default {
       }
     }
 
-    .last-content {
-      margin-left: 24px;
-      width: 85%;
-
-      @media only screen and (max-width: 600px) {
-          width: 100%;
-        }
-
-      .last-content-pre {
-        font-style: normal;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 22px;
-        letter-spacing: -0.03em;
-        color: #666666;
-
-        @media only screen and (max-width: 600px) {
-          font-size: 12px;
-          line-height: 16px;
-        }
-      }
-      .last-content-title {
-        font-style: normal;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 28px;
-        letter-spacing: -0.03em;
-        color: #333333;
-        margin-bottom: 10px;
-        width: 80%;
-
-        @media only screen and (max-width: 600px) {
-          font-size: 14px;
-          line-height: 20px;
-          margin-bottom: 5px;
-          width: 95%;
-        }
-
-      }
-      .last-content-footer {
+    .last-content-card-section {
+      display: flex;
+      width: 100%;
+      padding: 0;
+      .last-content {
+        margin-left: 24px;
+        width: 100%;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
 
-        .last-content-section {
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 19px;
-          letter-spacing: -0.02em;
-          color: #6C6C6C;
-        }
-
-        .last-content-link {
+        .last-content-pre {
           font-style: normal;
           font-weight: 400;
           font-size: 14px;
           line-height: 22px;
           letter-spacing: -0.03em;
+          color: #666666;
+
+          @media only screen and (max-width: 600px) {
+            font-size: 12px;
+            line-height: 16px;
+          }
+        }
+        .last-content-title {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 28px;
+          letter-spacing: -0.03em;
           color: #333333;
+          margin-bottom: 10px;
+          width: 80%;
+
+          @media only screen and (max-width: 600px) {
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 5px;
+            width: 95%;
+          }
+
+        }
+        .last-content-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .last-content-section {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 19px;
+            letter-spacing: -0.02em;
+            color: #6C6C6C;
+          }
+
+          .last-content-link {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            letter-spacing: -0.03em;
+            color: #333333;
+          }
         }
       }
     }
+
   }
 }
 </style>

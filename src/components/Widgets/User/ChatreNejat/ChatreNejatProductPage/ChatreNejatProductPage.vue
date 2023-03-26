@@ -111,9 +111,7 @@ export default {
       return this.$store.getters['ChatreNejat/selectedTopic']
     },
     setList() {
-      return this.$store.getters['ChatreNejat/setList'].filter(set => {
-        return set.short_title.includes(this.selectedTopic)
-      })
+      return this.$store.getters['ChatreNejat/setList'].filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
     },
     setTopicList() {
       return this.$store.getters['ChatreNejat/setTopicList']
@@ -154,6 +152,8 @@ export default {
     getProductSets(productId) {
       this.$store.dispatch('ChatreNejat/getSet', productId).then(() => {
         this.$store.dispatch('ChatreNejat/setSelectedTopic', this.setTopicList[0])
+      }).catch(() => {
+
       })
     },
     getSet(setId) {
