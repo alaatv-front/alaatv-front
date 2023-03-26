@@ -42,7 +42,6 @@
           <q-dialog v-model="loginDialog">
             <auth-login />
           </q-dialog>
-
           <router :include="keepAliveComponents" />
         </div>
         <floating-action-button v-if="showFloatinActoinBtn" />
