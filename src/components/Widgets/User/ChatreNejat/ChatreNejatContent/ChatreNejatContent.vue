@@ -6,7 +6,7 @@
         <!--        :afterLoad="contentsIsEmpty"-->
         <video-box :set="selectedSet"
                    :content="selectedContent"
-                   @favorite="toggleFavor"
+                   @toggleFavorite="toggleFavor"
                    @toggle-video-status="updateVideoStatus"
                    @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
@@ -124,9 +124,9 @@ export default {
     }
   },
   watch: {
-    selectedTopic (newVal) {
-      if (!newVal) {
-        return
+    selectedTopic (newVal, oldVal) {
+      if (!newVal || newVal === '' || !oldVal || oldVal === '') {
+        return null
       }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
@@ -245,6 +245,9 @@ export default {
   }
   @media screen and (max-width: 1023px) {
     //margin: 0 20px;
+  }
+  @media screen and (max-width: 400px) {
+    margin: 0;
   }
 
   .chip-parent{

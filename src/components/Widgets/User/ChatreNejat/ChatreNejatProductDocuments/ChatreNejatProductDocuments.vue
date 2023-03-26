@@ -166,9 +166,9 @@ export default {
     setTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopic (newVal) {
-      if (!newVal) {
-        return
+    selectedTopic (newVal, oldVal) {
+      if (!newVal || newVal === '' || !oldVal || oldVal === '') {
+        return null
       }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
@@ -184,7 +184,7 @@ export default {
   },
   methods: {
     updateSelectedTopic (content) {
-      this.$store.commit('ChatreNejat/setSelectedContent', content)
+      this.$store.commit('ChatreNejat/updateSelectedTopic', content)
     },
     toggleDialog() {
       this.$emit('toggleDialog')
