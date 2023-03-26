@@ -4,6 +4,7 @@
             class="rounded-borders">
       <q-expansion-item v-for="(set, index) in setList"
                         :key="index"
+                        v-model="set.expand"
                         popup
                         header-class="bg-white"
                         separator
@@ -111,7 +112,12 @@ export default {
       return this.$store.getters['ChatreNejat/selectedTopic']
     },
     setList() {
-      return this.$store.getters['ChatreNejat/setList'].filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
+      return this.$store.getters['ChatreNejat/setList']
+        .filter(set => (new RegExp('\\-\\s*' + this.selectedTopic + '\\s*\\-')).test(set.short_title))
+        .map(set => {
+          set.expand = false
+          return set
+        })
     },
     setTopicList() {
       return this.$store.getters['ChatreNejat/setTopicList']
@@ -124,6 +130,13 @@ export default {
     },
     selectedProduct() {
       return this.$store.getters['ChatreNejat/selectedProduct']
+    }
+  },
+  watch: {
+    setTopicList(newVal, oldVal) {
+      if (this.selectedTopic === null) {
+        this.$store.dispatch('ChatreNejat/setSelectedTopic', this.setTopicList[0])
+      }
     }
   },
   mounted() {
@@ -150,11 +163,7 @@ export default {
       }
     },
     getProductSets(productId) {
-      this.$store.dispatch('ChatreNejat/getSet', productId).then(() => {
-        this.$store.dispatch('ChatreNejat/setSelectedTopic', this.setTopicList[0])
-      }).catch(() => {
-
-      })
+      this.$store.dispatch('ChatreNejat/getSet', productId)
     },
     getSet(setId) {
       this.$store.dispatch('ChatreNejat/updateSet', setId)

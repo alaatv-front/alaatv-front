@@ -238,6 +238,10 @@ export default {
         flex-direction: column;
         justify-content: center;
 
+        @media only screen and (max-width: 600px) {
+          margin-left: 0;
+        }
+
         .last-content-pre {
           font-style: normal;
           font-weight: 400;
