@@ -149,7 +149,7 @@ class Content extends Model {
       item.src = item.link
       item.type = 'video/mp4' // item.ext
       item.label = item.caption
-      item.res = (item.label === 'کیفیت عالی') ? 1024 : (item.label === 'کیفیت بالا') ? 720 : 360
+      item.res = (item.label === 'کیفیت عالی') ? 720 : (item.label === 'کیفیت بالا') ? 480 : 240
       return item
     }))
 
