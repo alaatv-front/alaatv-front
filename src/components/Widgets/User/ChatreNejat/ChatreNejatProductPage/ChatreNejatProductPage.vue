@@ -134,7 +134,7 @@ export default {
   },
   watch: {
     setTopicList(newVal, oldVal) {
-      if (this.selectedTopic === null) {
+      if (!this.selectedTopic) {
         this.$store.dispatch('ChatreNejat/setSelectedTopic', this.setTopicList[0])
       }
     }
