@@ -145,33 +145,37 @@ class Content extends Model {
     if (!this.file?.video || this.file.video.length === 0) {
       return null
     }
-    // return this.file.video.map(item => {
-    //   item.src = item.link
-    //   item.type = item.ext
-    //   item.label = item.caption
-    //   item.res = item.label === 'کیفیت عالی' ? 1024 : item.label === 'کیفیت بالا' ?  720 : 360
-    //   return item
-    // })
+    return new PlayerSourceList(this.file.video.map(item => {
+      item.src = item.link
+      item.type = 'video/mp4' // item.ext
+      item.label = item.caption
+      item.res = (item.label === 'کیفیت عالی') ? 1024 : (item.label === 'کیفیت بالا') ? 720 : 360
+      return item
+    }))
 
-    return new PlayerSourceList([{
-      default: true,
-      res: 1024,
-      type: 'video/mp4',
-      src: 'https://nodes.alaatv.com/media/1374/HD_720p/1374002okij.mp4',
-      label: 'کیفیت عالی'
-    },
-    {
-      src: 'https://nodes.alaatv.com/media/1374/hq/1374002okij.mp4',
-      type: 'video/mp4',
-      res: 720,
-      label: 'کیفیت بالا'
-    },
-    {
-      src: 'https://nodes.alaatv.com/media/1374/240p/1374002okij.mp4',
-      type: 'video/mp4',
-      res: 360,
-      label: 'کیفیت متوسط'
-    }])
+    // return new PlayerSourceList([{
+    //   default: true,
+    //   res: 1024,
+    //   type: 'video/mp4',
+    //   src: 'https://nodes.alaatv.com/media/1374/HD_720p/1374002okij.mp4',
+    //   label: 'کیفیت عالی'
+    // },
+    // {
+    //   src: 'https://nodes.alaatv.com/media/1374/hq/1374002okij.mp4',
+    //   type: 'video/mp4',
+    //   res: 720,
+    //   label: 'کیفیت بالا'
+    // },
+    // {
+    //   src: 'https://nodes.alaatv.com/media/1374/240p/1374002okij.mp4',
+    //   type: 'video/mp4',
+    //   res: 360,
+    //   label: 'کیفیت متوسط'
+    // }])
+  }
+
+  hasVideoSource () {
+    return !!(this.getVideoSource())
   }
 
   getVideoSource() {

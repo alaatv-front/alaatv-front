@@ -70,6 +70,10 @@ export default {
     bookmarkFunction: {
       default: null,
       type: Function
+    },
+    baseMode: {
+      default: false,
+      type: Boolean
     }
   },
   emits: [
@@ -106,6 +110,10 @@ export default {
         return
       }
       this.loading = true
+      if (this.baseMode) {
+        this.loading = false
+        return
+      }
       if (typeof this.bookmarkFunction === 'function') {
         this.bookmarkFunction()
           .then((res) => {

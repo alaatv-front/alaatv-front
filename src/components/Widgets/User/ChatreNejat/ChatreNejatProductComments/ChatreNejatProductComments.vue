@@ -115,6 +115,9 @@ export default {
   computed: {
     selectedTopic() {
       return this.$store.getters['ChatreNejat/setTopicList']
+    },
+    selectedTopicName() {
+      return this.$store.getters['ChatreNejat/selectedTopic']
     }
   },
   watch: {
@@ -123,12 +126,27 @@ export default {
     },
     selectedTopic(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
+    },
+    selectedTopicName (newVal) {
+      if (!newVal) {
+        return
+      }
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        params: {
+          productId: this.$route.params.productId
+        }
+      })
     }
   },
   mounted() {
     this.loadData(this.$route.params.productId)
+    this.updateSelectedTopic('')
   },
   methods: {
+    updateSelectedTopic (content) {
+      this.$store.commit('ChatreNejat/setSelectedContent', content)
+    },
     toggleDialog() {
       this.$emit('toggleDialog')
     },
@@ -170,6 +188,9 @@ export default {
   // this is piece of shit and must fixed
   &:deep(.q-table__top) {
     display: none !important;
+  }
+  &:deep(.q-field__control) {
+    background-color: #fff !important;
   }
   .content-col{
     padding: 10px;

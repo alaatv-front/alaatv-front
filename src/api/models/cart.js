@@ -31,10 +31,10 @@ export default class CartAPI extends APIRepository {
       attribute: data.attribute, // Number or String
       seller: this.seller
     }
-    if (!payload.products) {
+    if (!payload.products || (Array.isArray(payload.products) && payload.products.length === 0)) {
       delete payload.products
     }
-    if (!payload.attribute) {
+    if (!payload.attribute || (Array.isArray(payload.attribute) && payload.attribute.length === 0)) {
       delete payload.attribute
     }
     return this.sendRequest({
@@ -129,13 +129,12 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  removeFromCart(orderProductId, cache) {
+  removeFromCart(orderProductId) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
       request: this.APIAdresses.removeFromCart(orderProductId),
       cacheKey: this.CacheList.removeFromCart(orderProductId),
-      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
       },

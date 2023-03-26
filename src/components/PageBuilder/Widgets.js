@@ -20,12 +20,12 @@ const mixinWidget = {
   emits: [
     'onOptionAction'
   ],
-  data() {
+  data () {
     return {
       defaultOptions: {}
     }
   },
-  created() {
+  created () {
     this.mergeOptionsToDefaultOptions()
   },
   // computed: {

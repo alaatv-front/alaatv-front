@@ -2,6 +2,7 @@ import { boot } from 'quasar/wrappers'
 import { Notify, Cookies } from 'quasar'
 import APIInstanceWrapper from 'src/api/classes/APIInstanceWrapper.js'
 
+const sessionNames = process.env.SESSION_NAMES ? process.env.SESSION_NAMES.split(',') : []
 const apiV2Server = process.env.ALAA_API_V2
 const apiV2ServerTarget = process.env.ALAA_API_V2_SERVER
 const apiV1Server = process.env.ALAA_API_V1
@@ -149,7 +150,15 @@ export default boot(({ app, store, router, ssrContext }) => {
   const cookies = process.env.SERVER
     ? Cookies.parseSSR(ssrContext)
     : Cookies // otherwise we're on client
+
   const cookiesAccessToken = cookies.get('BearerAccessToken')
+  store.$sessions = []
+  sessionNames.forEach(sessionName => {
+    const sessionValue = cookies.get(sessionName)
+    if (sessionValue) {
+      store.$sessions[sessionName] = sessionValue
+    }
+  })
 
   if (cookiesAccessToken) {
     const tokenType = 'Bearer'

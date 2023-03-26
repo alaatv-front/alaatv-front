@@ -124,7 +124,10 @@ export default {
     }
   },
   watch: {
-    selectedTopic () {
+    selectedTopic (newVal) {
+      if (!newVal) {
+        return
+      }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
         params: {
@@ -138,10 +141,8 @@ export default {
       this.getProductSets(this.$route.params.productId)
       this.getProduct()
     }
-    if (!this.selectedContent.id || !this.selectedSet.id) {
-      this.storeSelectedSet(this.$route.params.setId)
-      this.storeSelectedContent(this.$route.params.contentId)
-    }
+    this.storeSelectedSet(this.$route.params.setId)
+    this.storeSelectedContent(this.$route.params.contentId)
   },
   methods: {
     storeSelectedSet (setId) {
@@ -207,7 +208,27 @@ export default {
       this.$store.commit('ChatreNejat/setSelectedSet', set)
     },
     getSelectedSet (setId) {
+      this.getSelectedSetContents(setId)
+        .then(contentList => {
+          if (contentList.list.length > 0) {
+            this.setSelectedContent(contentList.list[0])
+          }
+          const selectedSet = this.selectedSet
+          selectedSet.contents = contentList
+          this.setSelectedSet(selectedSet)
+          this.contentLoading = false
+          this.videoListLoading = false
+          this.ContentVideoListKey++
+        })
+        .catch(() => {
+          this.contentLoading = false
+          this.videoListLoading = false
+          this.ContentVideoListKey++
+        })
       return this.$apiGateway.set.show(setId)
+    },
+    getSelectedSetContents (setId) {
+      return this.$apiGateway.set.getContents(setId)
     },
     getSelectedContent (contentId) {
       return this.$apiGateway.content.show(contentId)
@@ -318,6 +339,8 @@ export default {
 
   .content-list-col {
     padding-top: 0 !important;
+    overflow: auto;
+    overflow-x: hidden;
     .select-wrapper{
       &:deep(.q-field__control){
         background: #eff3ff;

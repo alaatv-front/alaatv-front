@@ -11,7 +11,7 @@
       </div>
       <div class="col-lg-6 col-12 flex flex-center">
         <product-item-skeleton v-if="loading" />
-        <chatre-nejat-set-item v-else-if="advisor"
+        <chatre-nejat-set-item v-else-if="advisor.id !== null"
                                width="100%"
                                :setItem="advisor" />
         <div v-else>در حال حاضر محتوایی وجود ندارد.</div>
@@ -35,6 +35,27 @@
           </div>
         </div>
       </div>
+      <div v-if="loading"
+           class="row">
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+        <div class="col-lg-6 col-12 skeleton-col">
+          <product-item-skeleton />
+        </div>
+      </div>
       <div v-if="!loading"
            class="row">
         <div v-for="(product,index) in products"
@@ -46,27 +67,6 @@
       <div v-if="!loading && (!products || products.length === 0)"
            class="flex justify-center items-center">
         <h5>در حال حاضر محتوایی وجود ندارد.</h5>
-      </div>
-      <div v-else-if="loading"
-           class="row">
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
-        <div class="col-lg-6 col-12 skeleton-col">
-          <product-item-skeleton />
-        </div>
       </div>
     </div>
   </div>
@@ -125,6 +125,7 @@ export default {
       })
     },
     getProducts(type) {
+      this.loading = true
       this.$apiGateway.events.getEventsProducts({
         data: { major_id: type },
         eventId: this.$enums.Events.ChatreNejat

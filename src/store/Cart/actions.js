@@ -117,7 +117,7 @@ export function removeItemFromCart (context, orderProductId) {
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
     if (isUserLogin) {
-      APIGateway.cart.removeFromCart({ id: orderProductId })
+      APIGateway.cart.removeFromCart(orderProductId)
         .then((response) => {
           Notify.create({
             type: 'positive',
