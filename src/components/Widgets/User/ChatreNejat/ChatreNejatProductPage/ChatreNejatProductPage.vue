@@ -151,8 +151,9 @@ export default {
     },
     getProductSets(productId) {
       this.$store.dispatch('ChatreNejat/getSet', productId).then(() => {
-        this.$store.dispatch('ChatreNejat/setSelectedTopic')
+        this.$store.dispatch('ChatreNejat/setSelectedTopic', this.setTopicList[0])
       }).catch(() => {
+
       })
     },
     getSet(setId) {
