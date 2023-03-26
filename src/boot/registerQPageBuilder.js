@@ -83,7 +83,6 @@ export default boot(async function ({ app }) {
         }
         // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
         // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
-
       }
     }
 
