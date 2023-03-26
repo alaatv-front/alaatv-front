@@ -62,7 +62,13 @@
 
                    icon="isax:document-download"
                    :disable="!content.file"
-                   @click="downloadVideo= !downloadVideo" />
+                   @click="downloadVideo= !downloadVideo">
+              <q-tooltip anchor="top middle"
+                         self="bottom middle"
+                         :offset="[10, 10]">
+                دانلود
+              </q-tooltip>
+            </q-btn>
             <q-btn unelevated
                    icon="isax:share"
                    @click="socialMediaDialog = !socialMediaDialog">
