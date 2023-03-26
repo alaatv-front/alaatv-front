@@ -14,7 +14,7 @@
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
-        <div class="col-6 col-md-9 col-lg-4 content-col q-pa-md">
+        <div class="col-12 col-sm-6 col-md-9 col-lg-4 content-col q-pa-md">
           <!--          <content-item :options="{content: inputData.props.row}" />-->
           <q-card class="content-box flex">
             <q-img height="200px"
