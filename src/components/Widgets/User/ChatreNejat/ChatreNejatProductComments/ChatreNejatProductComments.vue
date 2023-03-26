@@ -92,10 +92,10 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'search', outlined: true, label: 'جستجو در یادداشت ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
-        { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
-        { type: 'separator', col: 'col-md-6', size: '0' },
-        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'input', name: 'search', outlined: true, label: 'جستجو در یادداشت ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 col-xs-6 align-left q-mt-lg q-ml-lg' },
+        { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 col-sm-1 col-xs-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'separator', col: 'col-sm-2 col-md-4 col-lg-5 col-xl-6', size: '0' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'flex-end q-mt-lg q-ml-lg self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -128,7 +128,7 @@ export default {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
     selectedTopicName (newVal, oldVal) {
-      if (!newVal || newVal === '' || !oldVal || oldVal === '') {
+      if (!newVal || newVal === '') {
         return null
       }
       this.$router.push({

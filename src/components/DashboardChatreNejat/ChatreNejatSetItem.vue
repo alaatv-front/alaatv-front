@@ -103,7 +103,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .set-item-card {
-  max-height: 148px;
+  min-height: 148px;
   border-radius: 20px;
   background: #fff;
   width: 90% !important;
@@ -119,7 +119,7 @@ export default {
   }
 
   @media only screen and (max-width: 600px) {
-    max-height: 217px;
+    min-height: 217px;
     padding: 10px 5px 10px 0px;
     align-items: flex-start;
   }
@@ -224,8 +224,13 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        @media only screen and (max-width: 1449px) {
+          max-width: 75%;
+        }
         @media only screen and (max-width: 600px) {
           max-width: 90%;
+          margin-left: 0;
         }
 
         .last-content-pre {
@@ -249,7 +254,7 @@ export default {
           letter-spacing: -0.03em;
           color: #333333;
           margin-bottom: 10px;
-          width: 80%;
+          max-width: 65%;
 
           @media only screen and (max-width: 600px) {
             font-size: 14px;
