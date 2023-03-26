@@ -38,7 +38,7 @@
             <div class="last-content-pre">
               آخرین جلسه دیده شده :
             </div>
-            <div class="last-content-title ellipsis">
+            <div class="last-content-title ellipsis-2-lines">
               {{ product.last_content_user_watched?.title }}
             </div>
             <div class="last-content-footer">
@@ -63,7 +63,7 @@
           <div class="last-content-pre">
             آخرین جلسه دیده شده :
           </div>
-          <div class="last-content-title ellipsis">
+          <div class="last-content-title ellipsis-2-lines">
             {{ product.last_content_user_watched?.title }}
           </div>
           <div class="last-content-footer">
@@ -102,7 +102,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .product-item-card {
-  max-height: 148px;
+  min-height: 148px;
   border-radius: 20px;
   background: #fff;
   width: 90%;
@@ -118,7 +118,7 @@ export default {
   }
 
   @media only screen and (max-width: 600px) {
-    max-height: 217px;
+    min-height: 217px;
     padding: 10px 5px 10px 15px;
     align-items: flex-start;
     width: 100%;
@@ -134,21 +134,8 @@ export default {
     justify-content: space-between;
     background: transparent;
 
-    @media only screen and (max-width: 1700px) {
-      width: 100%;
-    }
-    @media only screen and (max-width: 1450px) {
-      width: 80%;
-    }
-    @media only screen and (max-width: 1024px) {
-      width: 100%;
-    }
-    @media only screen and (max-width: 900px) {
-      width: 80%;
-    }
     @media only screen and (max-width: 600px) {
       display: block;
-      width: 85%;
     }
 
     .product-item-info {
@@ -263,7 +250,7 @@ export default {
           letter-spacing: -0.03em;
           color: #333333;
           margin-bottom: 10px;
-          width: 80%;
+          max-width: 65%;
 
           @media only screen and (max-width: 600px) {
             font-size: 14px;
