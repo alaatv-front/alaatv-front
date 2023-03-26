@@ -45,7 +45,7 @@
 
           <router :include="keepAliveComponents" />
         </div>
-        <floating-action-button v-if="user.has_purchased_anything" />
+        <floating-action-button v-if="showFloatinActoinBtn" />
       </template>
       <template #footer>
         <alaa-footer />
@@ -95,6 +95,9 @@ export default {
         }
         this.$store.dispatch('AppLayout/showLoginDialog')
       }
+    },
+    showFloatinActoinBtn () {
+      return (process.env.APP_ENV === 'production' && this.user.mobile === '09358745928') || (process.env.APP_ENV !== 'production')
     },
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
