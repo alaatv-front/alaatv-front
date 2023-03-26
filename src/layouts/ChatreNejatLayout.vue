@@ -104,7 +104,7 @@ export default {
       topicsRouteArray: [
         {
           title: 'سر فصل ها',
-          icon: 'isax:document-upload',
+          icon: '',
           routeName: '',
           active: false,
           show: true,
@@ -392,7 +392,7 @@ export default {
     }
     .content {
       height: calc(100vh - 124px);
-      overflow-y: scroll;
+      //overflow-y: scroll;
     }
   }
 }
