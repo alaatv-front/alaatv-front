@@ -1,5 +1,5 @@
 <template>
-  <div class="chatr-bookmarks q-pa-md">
+  <div class="chatr-bookmarks">
     <entity-index ref="entityIndex"
                   v-model:value="inputs"
                   class="bookmarks-entity-index"
@@ -14,28 +14,15 @@
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
-        <div class="col-6 col-lg-3 content-col q-pa-md">
-          <q-card class="content-box flex"
-                  @click="goToContent(inputData.props.row)">
-            <q-img width="325px"
-                   height="200px"
-                   class="text-center"
-                   :src="inputData.props.row.photo" />
-            <q-card-section class="row justify-between"
-                            style="min-width: 320px;">
-              <div class="col-10">
-                <div>{{ inputData.props.row.set.short_title }}</div>
-                <div>{{ inputData.props.row.title }}</div>
-              </div>
-              <div class="col-2">
-                <bookmark v-model:value="inputData.props.row.is_favored"
-                          :unfavored-route="$apiGateway.content.APIAdresses.unfavored(inputData.props.row.id)"
-                          :favored-route="$apiGateway.content.APIAdresses.favored(inputData.props.row.id)"
-                          @onLoad="reloadEntity(false)" />
-              </div>
-            </q-card-section>
-          </q-card>
-        </div>
+        <content-item class="q-ma-md flex items-center justify-center"
+                      :options="{
+                        content: inputData.props.row,
+                        routeToContent: false,
+                        showBookmark:true,
+                        showSetTitle: true
+                      }"
+                      @onBookmarkLoaded="reloadEntity(false)"
+                      @click="goToContent($event,inputData.props.row)" />
       </template>
     </entity-index>
   </div>
@@ -44,16 +31,17 @@
 <script>
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway'
-import Bookmark from 'components/Bookmark.vue'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
 export default {
   name: 'ProductBookmarks',
   components: {
-    Bookmark,
-    EntityIndex
+    EntityIndex,
+    ContentItem
   },
   data() {
     return {
+      bookmarkClicked: false,
       isFilterBoxHidden: false,
       api: APIGateway.user.APIAdresses.favored,
       tableKeys: {
@@ -92,10 +80,10 @@ export default {
       inputs: [
         { type: 'hidden', name: 'type', value: 'content' },
         { type: 'hidden', name: 'product_id', value: this.$route.params.productId },
-        { type: 'input', name: 'search', outlined: true, label: 'جستجو در یادداشت ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
+        { type: 'input', name: 'search', outlined: true, label: 'جستجو در نشان شده ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 col-xs-6 align-left q-mt-lg q-ml-lg align-left q-mt-lg q-ml-lg' },
         { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
-        { type: 'separator', col: 'col-md-6', size: '0' },
-        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'separator', col: 'col-sm-2 col-md-4 col-lg-5 col-xl-6', size: '0' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'col-md-1 q-mt-lg  self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -103,8 +91,8 @@ export default {
           class: 'entity-filter-box',
           ignoreValue: true,
           value: [
-            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
-            { type: 'button', name: 'filter-btn', responseKey: 'statement', class: '', label: 'اعمال', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' }
+            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-6  col-md-4 col-lg-2 col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
+            { type: 'button', name: 'filter-btn', responseKey: 'statement', class: '', label: 'اعمال', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-md self-end' }
           ]
         }
       ]
@@ -129,8 +117,8 @@ export default {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
     selectedTopic (newVal) {
-      if (!newVal) {
-        return
+      if (!newVal || newVal === '') {
+        return null
       }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
@@ -153,7 +141,7 @@ export default {
   },
   methods: {
     updateSelectedTopic (content) {
-      this.$store.commit('ChatreNejat/setSelectedContent', content)
+      this.$store.commit('ChatreNejat/updateSelectedTopic', content)
     },
     toggleDialog() {
       this.$emit('toggleDialog')
@@ -181,7 +169,10 @@ export default {
     getProduct(productId) {
       this.$store.dispatch('ChatreNejat/getSelectedProduct', productId)
     },
-    goToContent(content) {
+    goToContent(event, content) {
+      if (event.target.tagName === 'path' || event.target.type === 'button') {
+        return
+      }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.Content',
         params: {
@@ -197,17 +188,25 @@ export default {
 
 <style scoped lang="scss">
 .chatr-bookmarks {
+  padding: 16px 16px;
   .content-box {
     cursor: pointer;
+    justify-content: center;
     .bookmarks-entity-index {
 
     }
+  }
+  @media screen and (max-width: 599px) {
+    padding: 0;
   }
   &:deep(.entity-filter-box) {
     display: none;
     &.opened {
       display: flex;
     }
+  }
+  &:deep(.q-field__control) {
+    background-color: #fff !important;
   }
   &:deep(.q-table__top) {
     display: none !important;
@@ -217,6 +216,9 @@ export default {
   }
   &:deep(.formBuilder-actionBtn-ActionBtn) {
     padding: 20px;
+  }
+  &:deep(.q-table--grid .q-table__grid-content) {
+    justify-content: center;
   }
 }
 </style>

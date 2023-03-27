@@ -2,6 +2,16 @@
   <div class="side-menu-body chatr-menu-body">
     <q-list class="side-menu-list"
             padding>
+      <div v-if="showHamburger"
+           class="drawer-btn hamburger">
+        <q-btn class="toolbar-button"
+               icon="isax:menu-1"
+               color="white"
+               text-color="accent"
+               dense
+               unelevated
+               @click="toggleLeftDrawer" />
+      </div>
       <q-input v-model="searchText"
                dense
                filled
@@ -14,7 +24,6 @@
       </q-input>
       <menu-item :key="menuKey"
                  :menu="topicsRouteArray"
-                 :selected-topic="selectedTopic"
                  :loading="topicList.length <= 0"
                  @item-selected="itemSelected" />
       <q-item v-for="(item, index) in productItems"
@@ -79,7 +88,18 @@ export default {
       clickedProductItem: ''
     }
   },
+  computed: {
+    showHamburger () {
+      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+    },
+    layoutLeftDrawerVisible() {
+      return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
+    }
+  },
   methods: {
+    toggleLeftDrawer() {
+      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', !this.layoutLeftDrawerVisible)
+    },
     itemSelected (topic) {
       this.$emit('itemSelected', topic)
     },
@@ -135,8 +155,8 @@ export default {
           padding: 5px 10px;
           justify-content: normal;
           .label {
-            font-size: 16px;
             font-weight: 400;
+            font-size: 20px ;
             line-height: 28px;
           }
         }

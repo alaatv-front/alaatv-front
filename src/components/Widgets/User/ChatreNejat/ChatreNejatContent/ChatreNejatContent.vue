@@ -6,7 +6,7 @@
         <!--        :afterLoad="contentsIsEmpty"-->
         <video-box :set="selectedSet"
                    :content="selectedContent"
-                   @favorite="toggleFavor"
+                   @toggleFavorite="toggleFavor"
                    @toggle-video-status="updateVideoStatus"
                    @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
@@ -31,7 +31,7 @@
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
     <div class="row  q-col-gutter-x-md q-mt-lg">
-      <div class="col-8">
+      <div class="col-12 col-lg-8">
         <div class="desktop-view">
           <comment-box :value="watchingContentComment"
                        :loading="commentLoading"
@@ -86,7 +86,11 @@ export default {
   }),
   computed: {
     selectedTopic() {
-      return this.$store.getters['ChatreNejat/selectedTopic']
+      const topic = this.$store.getters['ChatreNejat/selectedTopic']
+      if (!topic) {
+        this.storeSelectedTopic()
+      }
+      return topic
     },
     doesntHaveContent() {
       return !(this.watchingContent?.id > 0)
@@ -99,6 +103,9 @@ export default {
     },
     selectedSet() {
       return this.$store.getters['ChatreNejat/selectedSet']
+    },
+    selectedTopicList() {
+      return this.$store.getters['ChatreNejat/setTopicList']
     },
     setList() {
       return this.$store.getters['ChatreNejat/setList'].filter(set => {
@@ -125,8 +132,8 @@ export default {
   },
   watch: {
     selectedTopic (newVal) {
-      if (!newVal) {
-        return
+      if (!newVal || newVal === '') {
+        return null
       }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
@@ -140,21 +147,30 @@ export default {
     if (this.$route.params.productId) {
       this.getProductSets(this.$route.params.productId)
       this.getProduct()
-      this.storeSelectedSet(this.$route.params.setId)
-      this.storeSelectedContent(this.$route.params.contentId)
     }
+    this.storeSelectedSet(this.$route.params.setId)
+    this.storeSelectedContent(this.$route.params.contentId)
   },
   methods: {
+    storeSelectedTopic () {
+      if (!this.selectedSet.id) {
+        return
+      }
+      const topic = this.selectedSet.short_title.split('-')[1].trim()
+      const topicList = this.selectedTopicList.map(topic => topic.trim())
+      this.updateSelectedTopic(topicList.find(item => item === topic))
+    },
     storeSelectedSet (setId) {
       this.contentLoading = true
-      this.getSelectedSet(setId).then(res => {
-        this.setSelectedSet(res)
-        this.contentLoading = false
-        this.ContentVideoListKey++
-      }).catch(() => {
-        this.contentLoading = false
-        this.ContentVideoListKey++
-      })
+      this.getSelectedSet(setId)
+        .then(res => {
+          this.updateSelectedSet(res)
+          this.contentLoading = false
+          this.ContentVideoListKey++
+        }).catch(() => {
+          this.contentLoading = false
+          this.ContentVideoListKey++
+        })
     },
     storeSelectedContent (contentId) {
       this.contentLoading = true
@@ -176,56 +192,67 @@ export default {
     goToNextSet() {
       const nextSet = this.setList[this.currentSetIndex + 1]
       this.videoListLoading = true
-      this.getSelectedSet(nextSet.id).then(res => {
-        this.setSelectedSet(res)
-        this.setSelectedContent(res.contents.list[0])
-        this.videoListLoading = false
-        this.ContentVideoListKey++
-      }).catch(() => {
-        this.setSelectedSet(nextSet)
-        this.videoListLoading = false
-        this.ContentVideoListKey++
-      })
+      this.getSelectedSet(nextSet.id)
+        .then(res => {
+          this.updateSelectedSet(res)
+          this.videoListLoading = false
+          this.ContentVideoListKey++
+        }).catch(() => {
+          this.updateSelectedSet(nextSet)
+          this.videoListLoading = false
+          this.ContentVideoListKey++
+        })
     },
     goToPrevSet() {
       const prevSet = this.setList[this.currentSetIndex - 1]
       this.videoListLoading = true
-      this.getSelectedSet(prevSet.id).then(res => {
-        this.setSelectedSet(res)
-        this.setSelectedContent(res.contents.list[0])
-        this.videoListLoading = false
-        this.ContentVideoListKey++
-      }).catch(() => {
-        this.setSelectedSet(prevSet)
-        this.videoListLoading = false
-        this.ContentVideoListKey++
-      })
+      this.getSelectedSet(prevSet.id)
+        .then(res => {
+          this.updateSelectedSet(res)
+          this.videoListLoading = false
+          this.ContentVideoListKey++
+        }).catch(() => {
+          this.updateSelectedSet(prevSet)
+          this.videoListLoading = false
+          this.ContentVideoListKey++
+        })
     },
     setSelectedContent(content) {
       this.$store.commit('ChatreNejat/setSelectedContent', content)
     },
-    setSelectedSet(set) {
+    updateSelectedSet(set) {
       this.$store.commit('ChatreNejat/setSelectedSet', set)
     },
+    updateSelectedTopic(topic) {
+      this.$store.dispatch('ChatreNejat/setSelectedTopic', topic)
+    },
     getSelectedSet (setId) {
-      this.getSelectedSetContents(setId)
-        .then(contentList => {
-          if (contentList.list.length > 0) {
-            this.setSelectedContent(contentList.list[0])
-          }
-          const selectedSet = this.selectedSet
-          selectedSet.contents = contentList
-          this.setSelectedSet(selectedSet)
-          this.contentLoading = false
-          this.videoListLoading = false
-          this.ContentVideoListKey++
-        })
-        .catch(() => {
-          this.contentLoading = false
-          this.videoListLoading = false
-          this.ContentVideoListKey++
-        })
-      return this.$apiGateway.set.show(setId)
+      return new Promise((resolve, reject) => {
+        this.$apiGateway.set.show(setId)
+          .then(res => {
+            this.getSelectedSetContents(setId)
+              .then(contentList => {
+                if (contentList.list.length > 0) {
+                  this.setSelectedContent(contentList.list[0])
+                }
+                const selectedSet = res
+                selectedSet.contents = contentList
+                resolve(selectedSet)
+                this.contentLoading = false
+                this.videoListLoading = false
+                this.ContentVideoListKey++
+              })
+              .catch(() => {
+                reject()
+                this.contentLoading = false
+                this.videoListLoading = false
+                this.ContentVideoListKey++
+              })
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     },
     getSelectedSetContents (setId) {
       return this.$apiGateway.set.getContents(setId)
@@ -245,6 +272,9 @@ export default {
   }
   @media screen and (max-width: 1023px) {
     //margin: 0 20px;
+  }
+  @media screen and (max-width: 400px) {
+    margin: 0;
   }
 
   .chip-parent{

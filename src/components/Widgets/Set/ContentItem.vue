@@ -1,7 +1,7 @@
 <template>
   <div class="content-item">
     <div class="content-item-top-border" />
-    <div class="content-item-title">
+    <div class="content-item-title q-px-lg">
       <bookmark v-if="canFavor"
                 v-model:value="localContent.is_favored"
                 :bookmark-function="bookmarkContent"
@@ -13,12 +13,12 @@
           <q-icon :name="content.isVideo() ? 'isax:play-circle' : 'isax:document-download'"
                   size="16.5px" />
         </div>
-        <div class="content-item-title-text">
+        <div class="content-item-title-text ellipsis-2-lines">
           {{ content.title }}
         </div>
       </router-link>
     </div>
-    <div class="content-item-meta">
+    <div class="content-item-meta q-pr-lg">
       <template v-if="content.isVideo()">
         <div class="content-item-meta-updated-at">
           {{ getShamsiDate(content.updated_at.split(' ')[0], false) }}
@@ -104,7 +104,7 @@ export default {
 
 <style lang="scss" scoped>
 .content-item {
-  padding: 0 40px;
+  //padding: 0 40px;
   height: 64px;
   position: relative;
   display: flex;

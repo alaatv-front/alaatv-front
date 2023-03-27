@@ -76,14 +76,7 @@
                    rounded
                    size="12px"
                    class="action-btn"
-                   :to="{name: 'Public.Checkout.Review'}">
-              <q-menu class="user-card-dropdown"
-                      :offset="[170, 10]">
-                <div class="dropdown-box">
-                  hi
-                </div>
-              </q-menu>
-            </q-btn>
+                   :to="{name: 'Public.Checkout.Review'}" />
           </div>
           <q-btn v-if="isUserLogin"
                  flat
@@ -128,13 +121,13 @@
                                   :class="{ 'alone-item': !(item.children && item.children.length) }"
                                   :to="{ name: item.routeName, params: item.params }">
                             <div class="section-title">
+                              <q-item-section class="list-section">
+                                {{ item.title }}
+                              </q-item-section>
                               <q-item-section class="list-section title-icon"
                                               avatar>
                                 <q-avatar :icon="item.icon"
                                           size="30" />
-                              </q-item-section>
-                              <q-item-section class="list-section">
-                                {{ item.title }}
                               </q-item-section>
                               <span class="indicator" />
                             </div>
@@ -197,6 +190,7 @@ export default {
       showHamburgerConfig: true,
       searchInput: '',
       user: new User(),
+      isAdmin: false,
       isUserLogin: false,
       headerItems: [
         {
@@ -210,14 +204,14 @@ export default {
           title: 'فروشگاه',
           routeName: 'Public.Shop',
           permission: 'all'
-        },
-        {
-          selected: 'adminPanel',
-          title: 'پنل ادمین',
-          routeName: 'Admin.UploadCenter.Contents',
-          permission: 'all',
-          children: []
         }
+        // {
+        //   selected: 'adminPanel',
+        //   title: 'پنل ادمین',
+        //   routeName: 'Admin.UploadCenter.Contents',
+        //   permission: 'all',
+        //   children: []
+        // }
       ],
       profileTitlesList: [
         {
@@ -306,10 +300,20 @@ export default {
   },
   mounted () {
     this.loadAuthData()
+    if (this.isAdmin) {
+      this.headerItems.push({
+        selected: 'adminPanel',
+        title: 'پنل ادمین',
+        routeName: 'Admin.UploadCenter.Contents',
+        permission: 'all',
+        children: []
+      })
+    }
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
+      this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
     ...mapMutations('AppLayout', [
@@ -734,7 +738,7 @@ export default {
               align-items: center;
 
               .title-icon {
-                margin-right: 12px;
+                margin-left: 12px;
               }
 
               .q-item__section--side {
@@ -745,7 +749,7 @@ export default {
             .list-section {
               display: flex;
               flex-direction: row;
-              justify-content: right;
+              justify-content: flex-start;
 
               .q-avatar {
                 height: 22px;

@@ -4,7 +4,7 @@
        class="menu-item">
     <q-expansion-item v-if="!loading && item.children && item.children.length && item.show"
                       v-model="item.open"
-                      :header-style="{fontSize:'16px', height:'40px', borderRadius: '14px'}"
+                      :header-style="{height:'40px', borderRadius: '14px'}"
                       :label="item.title"
                       :icon="item.icon"
                       class="side-expansion-list">
@@ -22,7 +22,7 @@
             <q-item v-else-if="subItem.show"
                     v-ripple
                     clickable
-                    :active="subItem.title === clickedItem.title"
+                    :active="(subItem.title === selectedTopic) || (subItem.title === clickedItem.title)"
                     :to="(subItem.routeName) ?{ name: subItem.routeName, params: subItem.params }: null"
                     class="list-child-item"
                     exact-active-class="active-route"
@@ -40,7 +40,7 @@
     <q-item v-else-if="!loading && item.show"
             v-ripple
             clickable
-            :active="(item.title === selectedTopic)"
+            :active="(item.title === selectedTopic) || (item.title === clickedItem.title)"
             :to="(item.routeName) ? {name: item.routeName, params: item.params} : null"
             class="item-list"
             :class="{ 'alone-item': !item.children }"
@@ -75,12 +75,6 @@ export default {
       default: () => {
         return false
       }
-    },
-    selectedTopic: {
-      type: String,
-      default: () => {
-        return ''
-      }
     }
   },
   emits: ['itemSelected', 'update:menu'],
@@ -101,6 +95,9 @@ export default {
         this.menuItems = value
         this.$emit('update:menu', this.menuItems)
       }
+    },
+    selectedTopic() {
+      return this.$store.getters['ChatreNejat/selectedTopic']
     }
   },
   methods: {
@@ -212,8 +209,10 @@ export default {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          font-size: 16px;
-          font-weight: 500;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 20px;
+          line-height: 28px;
           cursor: pointer;
           padding: 0 14px 0 10px;
           border-radius: 14px;
@@ -261,6 +260,9 @@ export default {
       }
 
       .side-expansion-list {
+        :deep(.q-item) {
+          padding-left: 40px;
+        }
         &.top-expansion {
           margin-bottom: 10px;
         }
@@ -289,6 +291,9 @@ export default {
 
               .item-list-expansion-title {
                 justify-content: start;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 28px;
               }
             }
 
@@ -303,12 +308,21 @@ export default {
             }
 
             .list-child-item {
-              height: 46px;
+              height: 40px;
               justify-content: right;
               margin-bottom: 8px;
+              margin-left: 20px;
               //width: 157px;
               border-radius: 10px;
               padding: 0 14px;
+              display: flex;
+              align-items: center;
+              .list-child-section {
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 25px;
+                margin-right: 5px;
+              }
               @media screen and (max-width: 1439px) {
                 width: 148px;
               }
@@ -323,7 +337,7 @@ export default {
               }
 
               .list-child-section {
-                font-size: 16px !important;
+                //font-size: 16px !important;
                 justify-content: center;
               }
             }
@@ -385,5 +399,9 @@ export default {
       transform: matrix(-1, 0, 0, 1, 0, 0);
     }
   }
+}
+.expansion-header {
+  font-size: 20px;
+  line-height: 28px;
 }
 </style>

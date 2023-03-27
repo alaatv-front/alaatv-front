@@ -1552,10 +1552,15 @@
     vite "^2.9.13"
     webpack-merge "^5.8.0"
 
-"@quasar/extras@^1.15.11", "@quasar/extras@^1.15.6":
+"@quasar/extras@^1.15.11":
   version "1.15.11"
   resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.11.tgz#a54d60b14446b850a1e5fccab3f381a2e447a73f"
   integrity sha512-EEXL10EJQmL9jNs5fp0Kd/nyonG8hTODolj+qpYNPG3qEEoy3txr05Pdmp9qJYaXIzP9rOS9FGhFe9Mnq6MBBg==
+
+"@quasar/extras@^1.16.1":
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.16.1.tgz#1be607c200c8426497b7a6de21056edb28ef122a"
+  integrity sha512-bRnWSC469Qogw0ceDVd0yTQVBQjyhV6L10EMixXK1dpOs9tWGKRVgyyGZ5DEBkDgyn4BeRuV5s5e9VrQdQPsOg==
 
 "@quasar/fastclick@1.1.5":
   version "1.1.5"
@@ -1853,7 +1858,7 @@
     postcss "^8.4.14"
     source-map "^0.6.1"
 
-"@vue/compiler-sfc@3.2.47", "@vue/compiler-sfc@^3.2.45":
+"@vue/compiler-sfc@3.2.47", "@vue/compiler-sfc@^3.2.47":
   version "3.2.47"
   resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.2.47.tgz#1bdc36f6cdc1643f72e2c397eb1a398f5004ad3d"
   integrity sha512-rog05W+2IFfxjMcFw10tM9+f7i/+FFpZJJ5XHX72NP9eC2uRD+42M3pYcQqDXVYoj74kHMSEdQ/WmCjt8JFksQ==
@@ -5024,6 +5029,13 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
+quasar-app-extension-q-page-builder@^0.1.15:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/quasar-app-extension-q-page-builder/-/quasar-app-extension-q-page-builder-0.1.15.tgz#d94b9ef048c9bae28c01a321dda757405dd2435c"
+  integrity sha512-XWjfHB2rh3wDf6eJU30THWa4a+ZIVyBoMrqAMZ7ozTxVNzFMiPlDW4TMoCKwMuLu6Oe0a8VZ2J8OCXy6EB4wQQ==
+  dependencies:
+    quasar-ui-q-page-builder "^0.1.15"
+
 quasar-crud@^0.3.21:
   version "0.3.21"
   resolved "https://registry.yarnpkg.com/quasar-crud/-/quasar-crud-0.3.21.tgz#cbc7d9ce17fde491e2ef8f83b3953dcdbc074e97"
@@ -5059,20 +5071,25 @@ quasar-template-builder@^1.0.21:
     vue "^3.2.47"
     vuex "^4.1.0"
 
-quasar-ui-q-page-builder@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.1.tgz#2481917eea27c7f2840506ca0520872d17da2cbc"
-  integrity sha512-CnuBm1I6D7hudn6a9sYEw0ExsL0kLvC7/r47fAPyo6U4a2R/L6gSkocAJdLZVsFlRJODfifRzSS9OTPNVnYDKQ==
+quasar-ui-q-page-builder@^0.1.15:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.15.tgz#fb32b0d3935db78649733927167d542be6136539"
+  integrity sha512-LwydUt+wH78vz0BEh3IjyroYXIIe4MXymcMbm4R+EYYfgcG9XGxCpLmgbiWk3do9OvlqLV5UecGbzb2SZJCriA==
   dependencies:
-    "@quasar/extras" "^1.15.6"
-    "@vue/compiler-sfc" "^3.2.45"
-    quasar "^2.10.2"
-    vue "^3.2.45"
+    "@quasar/extras" "^1.16.1"
+    "@vue/compiler-sfc" "^3.2.47"
+    quasar "^2.11.9"
+    vue "^3.2.47"
 
-quasar@^2.10.2, quasar@^2.11.7:
+quasar@^2.11.7:
   version "2.11.7"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.7.tgz#0371d2cbe299305a0949332d2a3fc6929a70e2f6"
   integrity sha512-OzDwYfoSwZbwqfNWz9Bfn1mhGE8YMxpTLhPvVkQU87ePF6qFj4aWttcTUifXITKldOAZziN1Mmv8VLQyITHwiw==
+
+quasar@^2.11.9:
+  version "2.11.9"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.9.tgz#239413cd14e9be9bcabc125f97209944832e5277"
+  integrity sha512-ZHSZRQJk/zN6whhvihh0EyRpAs3IYBZZ+1O5/RSe7nXyOXOVi6RwPBzleab5HoTxtHL5Yuk3/bKgb3CywAyBQQ==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
@@ -6147,7 +6164,7 @@ vue@^2.6.12:
     "@vue/compiler-sfc" "2.7.14"
     csstype "^3.1.0"
 
-vue@^3.2.37, vue@^3.2.45, vue@^3.2.47:
+vue@^3.2.37, vue@^3.2.47:
   version "3.2.47"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.47.tgz#3eb736cbc606fc87038dbba6a154707c8a34cff0"
   integrity sha512-60188y/9Dc9WVrAZeUVSDxRQOZ+z+y5nO2ts9jWXSTkMvayiWxCWOWtBQoYjLeccfXkiiPZWAHcV+WTPhkqJHQ==

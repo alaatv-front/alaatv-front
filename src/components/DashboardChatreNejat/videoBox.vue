@@ -1,19 +1,21 @@
 <template>
   <div class="video-box">
-    <div class="video-main">
+    <div v-if="content.id"
+         class="video-main">
       <div class="video-wrapper">
-        <content-video-player :options="{
-          paginate: false,
-          urlParam: 'contentId',
-          noRequestMode: true,
-          content
-        }" />
-        <div v-if="!content.id && !content.photo">
-          <div class="null-video">
-            <div class="content text-primary">
-              <q-icon name="info" />
-              اوه نه! ویدیویی وجود نداره...
-            </div>
+        <content-video-player v-if="content.can_see?.toString() === '1'"
+                              :options="{
+                                paginate: false,
+                                urlParam: 'contentId',
+                                noRequestMode: true,
+                                content
+                              }" />
+        <div v-else>
+          <div class="null-video flex justify-center items-center">
+            <product-item class="product-item"
+                          :options="{
+                            product: selectedProduct
+                          }" />
           </div>
         </div>
       </div>
@@ -22,12 +24,12 @@
     <div class="video-description">
       <div class="description row justify-between items-center">
         <div class="">
-          <div class="flex flex-wrap video-title">
+          <div class="flex flex-wrap video-title ellipsis-2-lines">
             {{content.title}}
           </div>
           <div class="flex subtitle">
             <div class="flex part align-start" />
-            <div v-if="content.author && (content.author.first_name || content.author.last_name)"
+            <div v-if="content.author && (content.author.first_name || content.author.last_name) "
                  class="flex part align-center">
               <i class="fi fi-rr-graduation-cap icon flex" />
               <p class="video-paragraph">
@@ -60,7 +62,13 @@
 
                    icon="isax:document-download"
                    :disable="!content.file"
-                   @click="downloadVideo= !downloadVideo" />
+                   @click="downloadVideo= !downloadVideo">
+              <q-tooltip anchor="top middle"
+                         self="bottom middle"
+                         :offset="[10, 10]">
+                دانلود
+              </q-tooltip>
+            </q-btn>
             <q-btn unelevated
                    icon="isax:share"
                    @click="socialMediaDialog = !socialMediaDialog">
@@ -72,18 +80,9 @@
               <!--              <i class="fi fi-rr-share icon " />-->
             </q-btn>
             <bookmark :value="content.is_favored"
-                      base-mode
-                      @clicked="toggleFavorite" />
-            <q-btn color="transparent"
-                   unelevated
-                   dark
-                   :loading="content.loading"
-                   class="icon-btn"
-                   @click="toggleFavorite">
-              <i class="fi fi-rr-bookmark icon bookmark-button"
-                 :class="{ 'favorite-bookmark': content.is_favored , 'icon': !content.is_favored }" />
-
-            </q-btn>
+                      :unfavored-route="$apiGateway.content.APIAdresses.unfavored(content.id)"
+                      :favored-route="$apiGateway.content.APIAdresses.favored(content.id)"
+                      @onLoad="toggleFavorite" />
           </div>
         </div>
       </div>
@@ -169,10 +168,11 @@ import shareSocial from 'assets/js/shareSocialMedia.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import ContentVideoPlayer from 'components/Widgets/Content/Show/ContentVideoPlayer/ContentVideoPlayer.vue'
 import Bookmark from 'components/Bookmark.vue'
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 export default {
   name: 'VideoBox',
 
-  components: { Bookmark, ContentVideoPlayer },
+  components: { ProductItem, Bookmark, ContentVideoPlayer },
 
   props: {
     content: {
@@ -191,7 +191,7 @@ export default {
     }
   },
 
-  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp'],
+  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite'],
 
   data() {
     return {
@@ -233,11 +233,15 @@ export default {
       videoDuration: null
     }
   },
+  computed: {
+    selectedProduct() {
+      return this.$store.getters['ChatreNejat/selectedProduct']
+    }
+  },
 
   watch: {
     'content.id': function () {}
   },
-
   methods: {
     setVideoDuration(data) {
       this.videoDuration = data
@@ -263,10 +267,8 @@ export default {
       })
     },
 
-    toggleFavorite() {
-      // eslint-disable-next-line vue/no-mutating-props
-      this.content.loading = true
-      this.$emit('favorite')
+    toggleFavorite(val) {
+      this.$emit('toggleFavorite', val)
     },
 
     getShareLink(content, socialMedia) {
@@ -358,6 +360,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-item {
+  width: 318px;
+  height: 510px;
+}
 .download-item{
   width: 488px;
   padding: 15px 24px;
@@ -426,7 +432,7 @@ export default {
     border-radius: 30px;
 
     .null-video {
-      margin: 200px auto;
+      //margin: 200px auto;
       .content{
         padding: 30px;
         border: 1px solid var(--alaa-Primary);
@@ -447,7 +453,7 @@ export default {
   .video-description {
     align-items: flex-start;
     @media screen and (max-width: 1200px) {
-      margin-bottom: 0 !important;
+      margin-bottom: 20px !important;
     }
     @media screen and (max-width: 350px) {
       margin-bottom: 16px;
@@ -469,6 +475,7 @@ export default {
         color: #3e5480;
         font-size: 20px;
         line-height: 40px;
+        max-width: 450px;
         @media screen and (max-width: 350px) {
           font-size: 16px !important;
           text-align: right;

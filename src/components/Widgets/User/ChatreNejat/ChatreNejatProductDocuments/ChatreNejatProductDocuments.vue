@@ -35,41 +35,65 @@
               <q-item-section middle
                               avatar>
                 <q-avatar color="white"
+                          class="cursor-pointer"
                           text-color="primary"
-                          icon="download" />
+                          icon="download"
+                          @click="downloadPamphlet(inputData.props.row)" />
               </q-item-section>
               <q-item-section>
-                <q-item-label class="ellipsis-2-lines"
-                              style="line-height: 22px !important;">{{inputData.props.row.title}}</q-item-label>
+                <q-item-label class="ellipsis-2-lines cursor-pointer"
+                              style="line-height: 22px !important;"
+                              @click="downloadPamphlet(inputData.props.row)">{{inputData.props.row.title}}</q-item-label>
               </q-item-section>
               <q-item-section side
                               middle>
                 <q-btn color="primary"
                        label="دانلود"
-                       :disable="inputData.props.row.file === null || inputData.props.row.file.pamphlet[0] == null"
-                       @click="downloadPamphlet(inputData.props.row.file.pamphlet[0].link)" />
+                       @click="downloadPamphlet(inputData.props.row)" />
               </q-item-section>
             </q-item>
           </q-card>
         </div>
       </template>
     </entity-index>
+    <q-dialog v-model="productItemDialog">
+      <q-card class="custom-card">
+        <q-card-section class="flex justify-between items-center">
+          <div class="h1">
+            شما محصول را خریداری نکرده اید
+          </div>
+          <q-btn color="primary"
+                 icon="close"
+                 flat
+                 @click="toggleProductItemDialog" />
+        </q-card-section>
+        <q-card-section class="row items-center">
+          <product-item class="product-item"
+                        :options="{
+                          product: selectedProduct
+                        }" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import { EntityIndex } from 'quasar-crud'
 import { openURL } from 'quasar'
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'ChatreNejatProductDocuments',
   components: {
-    EntityIndex
+    EntityIndex,
+    ProductItem
   },
   data() {
     return {
       grid: true,
       selected: [],
+      productItemDialog: false,
       selectionMode: 'single',
       tableGridSize: true,
       tableKeys: {
@@ -99,11 +123,11 @@ export default {
         data: []
       },
       inputs: [
-        { type: 'input', name: 'search', outlined: true, label: 'جستجو در جزوه ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
-        { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
-        { type: 'separator', col: 'col-md-5', size: '0' },
-        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' },
-        { type: 'button', name: 'grid', responseKey: 'statement', class: '', icon: 'apps', unelevated: true, col: 'q-mt-lg q-ml-lg self-end' },
+        { type: 'input', name: 'search', outlined: true, label: 'جستجو در جزوه ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 col-xs-6 align-left q-mt-lg q-ml-lg' },
+        { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 col-sm-1 col-xs-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'separator', col: 'col-sm-2 col-md-4 col-lg-5 col-xl-6', size: '0' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'flex-end q-mt-lg q-ml-lg self-end' },
+        { type: 'button', name: 'grid', responseKey: 'statement', class: 'grid-btn', icon: 'apps', unelevated: true, col: 'flex-end q-mt-lg q-ml-lg q-sm-xs self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -127,6 +151,9 @@ export default {
     },
     selectedTopic() {
       return this.$store.getters['ChatreNejat/selectedTopic']
+    },
+    selectedProduct() {
+      return this.$store.getters['ChatreNejat/selectedProduct']
     }
   },
   watch: {
@@ -139,9 +166,9 @@ export default {
     setTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopic (newVal) {
-      if (!newVal) {
-        return
+    selectedTopic (newVal, oldVal) {
+      if (!newVal || newVal === '') {
+        return null
       }
       this.$router.push({
         name: 'UserPanel.Asset.ChatreNejat.ProductPage',
@@ -157,7 +184,7 @@ export default {
   },
   methods: {
     updateSelectedTopic (content) {
-      this.$store.commit('ChatreNejat/setSelectedContent', content)
+      this.$store.commit('ChatreNejat/updateSelectedTopic', content)
     },
     toggleDialog() {
       this.$emit('toggleDialog')
@@ -166,8 +193,15 @@ export default {
       this.selected = e
       this.toggleDialog()
     },
-    downloadPamphlet(url) {
-      openURL(url)
+    downloadPamphlet(content) {
+      if (content.can_see === 0) {
+        this.toggleProductItemDialog()
+      } else {
+        openURL(content.file.pamphlet[0].link)
+      }
+    },
+    toggleProductItemDialog() {
+      this.productItemDialog = !this.productItemDialog
     },
     onInputClick(e) {
       if (e.input.name === 'toggle') {
@@ -177,7 +211,7 @@ export default {
         this.grid = !this.grid
       }
       if (e.input.name === 'search-btn') {
-        this.$refs.commentsIndex.search()
+        this.$refs.pamphletIndex.search()
       }
     },
     loadData(productId) {
@@ -189,6 +223,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-item {
+  width: 318px;
+  height: 510px;
+}
+.grid-btn {
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+}
 .product-documents {
   &:deep(.entity-filter-box) {
     display: none;
@@ -199,6 +242,14 @@ export default {
   // this is a piece of shit and must be fixed
   &:deep(.q-table__top) {
     display: none !important;
+  }
+  &:deep(.q-field__control) {
+    background-color: #fff !important;
+  }
+  &:deep(.grid-btn) {
+    @media only screen and (max-width: 1024px) {
+      display: none;
+    }
   }
   .content-col{
     padding: 10px;

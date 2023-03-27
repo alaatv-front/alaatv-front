@@ -10,9 +10,8 @@ const mixinChatreNejat = {
 
       this.contents.list[targetContentIndex] = new Content(this.watchingContent)
     },
-    toggleFavor() {
-      this.watchingContent.loading = true
-      this.watchingContent.is_favored ? this.setUnfavored() : this.setFavored()
+    toggleFavor(value) {
+      this.watchingContent.is_favored = value.isFavored
     },
     updateVideoStatus(data) {
       const hasWatch = data || this.watchingContent.has_watched

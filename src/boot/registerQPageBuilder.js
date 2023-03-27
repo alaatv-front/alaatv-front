@@ -2,7 +2,6 @@ import { boot } from 'quasar/wrappers'
 // import VuePlugin from 'quasar-ui-q-page-builder'
 import QPageBuilder from 'quasar-ui-q-page-builder/src/components/QPageBuilder.vue'
 import widgetList from '../components/Widgets/widget.json'
-// import { defineAsyncComponent } from 'vue'
 
 const widgets = []
 function extractWidgets (json) {
@@ -20,7 +19,6 @@ function extractWidgets (json) {
 extractWidgets(widgetList)
 export const widgetExpanded = widgets
 export default boot(async function ({ app }) {
-  // app.use(VuePlugin)
   app.config.globalProperties.$q.$QPageBuilderWidgetList = widgetExpanded
 
   async function registerWidgets (widgetsList) {
@@ -33,6 +31,7 @@ export default boot(async function ({ app }) {
       const widgetComponentPath = element.path + '/' + widgetComponentName
       const widgetOptionPanelPath = element.path + '/' + 'OptionPanel'
       const widgetComponentPathInArray = widgetComponentPath.split('/')
+      const widgetOptionPanelPathInArray = widgetOptionPanelPath.split('/')
 
       if (widgetComponentPathInArray[widgetComponentPathInArray.length - 1] !== widgetComponentPathInArray[widgetComponentPathInArray.length - 2]) {
         continue
@@ -61,11 +60,29 @@ export default boot(async function ({ app }) {
       // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
 
       if (element.optionPanel) {
-        optionPanels[widgetComponentName] = {
-          name: widgetComponentName,
-          tagName: widgetComponentName[0].toLowerCase() + widgetComponentName.slice(1, widgetComponentName.length).replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`),
-          path: '../' + widgetOptionPanelPath + '.vue'
+        const optionPanelWidgetName = widgetComponentName + 'OptionPanel'
+        // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
+        // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
+        if (widgetOptionPanelPathInArray.length === 1) {
+          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}.vue`)).default
         }
+        if (widgetOptionPanelPathInArray.length === 2) {
+          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}.vue`)).default
+        }
+        if (widgetOptionPanelPathInArray.length === 3) {
+          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}/${widgetOptionPanelPathInArray[2]}.vue`)).default
+        }
+        if (widgetOptionPanelPathInArray.length === 4) {
+          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}/${widgetOptionPanelPathInArray[2]}/${widgetOptionPanelPathInArray[3]}.vue`)).default
+        }
+        if (widgetOptionPanelPathInArray.length === 5) {
+          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}/${widgetOptionPanelPathInArray[2]}/${widgetOptionPanelPathInArray[3]}/${widgetOptionPanelPathInArray[4]}.vue`)).default
+        }
+        if (widgetOptionPanelPathInArray.length === 6) {
+          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}/${widgetOptionPanelPathInArray[2]}/${widgetOptionPanelPathInArray[3]}/${widgetOptionPanelPathInArray[4]}/${widgetOptionPanelPathInArray[5]}.vue`)).default
+        }
+        // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
+        // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
       }
     }
 

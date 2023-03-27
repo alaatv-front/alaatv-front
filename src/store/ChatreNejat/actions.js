@@ -11,9 +11,9 @@ const actions = {
         const normalizedSets = setList.list.map(set => {
           if (set.short_title !== null) {
             const splitted = set.short_title.split('-')
-            const productName = splitted[0] ? splitted[0] : 'متفرقه'
-            const topicName = splitted[1] ? splitted[1] : 'متفرقه'
-            const setName = splitted[2] ? splitted[2] : 'متفرقه'
+            const productName = splitted[0] ? splitted[0].trim() : 'متفرقه'
+            const topicName = splitted[1] ? splitted[1].trim() : 'متفرقه'
+            const setName = splitted[2] ? splitted[2].trim() : 'متفرقه'
             set.short_title = productName + '-' + topicName + '-' + setName
 
             return set
@@ -34,6 +34,9 @@ const actions = {
       }).catch(() => {
         context.commit('toggleSetListLoading')
       })
+  },
+  setSelectedTopic: (context, topic) => {
+    context.commit('updateSelectedTopic', topic)
   },
   updateSet: (context, setId) => {
     context.commit('toggleSetLoading')

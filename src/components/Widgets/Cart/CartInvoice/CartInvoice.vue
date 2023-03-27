@@ -4,6 +4,7 @@
        class="cart-invoice main-content">
     <!--    <q-scroll-observer @scroll="onScroll" />-->
     <div ref="CartInvoiceContainer"
+         :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
       <div v-if="isUserLogin"
            :class="options.className"
@@ -273,6 +274,7 @@ export default {
   },
   data () {
     return {
+      CartInvoiceContainerKey: Date.now(), // for dispose sticky
       isUserLogin: false,
       stickySidebar: null,
       scrollInfo: null,
@@ -325,6 +327,8 @@ export default {
         this.$nextTick(() => {
           this.loadSticky()
         })
+      } else {
+        this.CartInvoiceContainerKey = Date.now()
       }
     }
   },

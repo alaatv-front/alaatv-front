@@ -216,6 +216,8 @@ export default {
       width: 26px;
       height: 26px;
       padding: 0;
+      font-size: 10px;
+      color: $primary !important;
       .q-btn__content {
         margin: 3px;
         svg {
