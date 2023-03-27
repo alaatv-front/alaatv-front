@@ -23,10 +23,10 @@
         <div class="content-box-text">
           <div v-if="defaultOptions.showSetTitle"
                class="main-title ellipsis">
-            {{ content.set.title }}
+            {{ content.set.short_title}}
           </div>
           <div class="title-text  ellipsis-2-lines">
-            {{ content.title }}
+            {{ content.short_title ? content.short_title : content.title }}
           </div>
         </div>
       </router-link>
