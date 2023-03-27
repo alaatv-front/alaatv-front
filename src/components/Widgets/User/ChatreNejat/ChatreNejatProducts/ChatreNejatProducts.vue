@@ -64,7 +64,7 @@
           <chatre-nejat-product-item :product="product" />
         </div>
       </div>
-      <div v-if="!productLoading && (!products || products.length === 0)"
+      <div v-if="!productLoading && products.length === 0"
            class="flex justify-center items-center">
         <h5>در حال حاضر محتوایی وجود ندارد.</h5>
       </div>
@@ -89,7 +89,7 @@ export default {
   data: () => ({
     advisorLoading: false,
     productLoading: false,
-    products: null,
+    products: [],
     advisor: new Set(),
     productType: {
       id: null,
