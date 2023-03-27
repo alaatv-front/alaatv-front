@@ -21,9 +21,7 @@ export default class SetAPI extends APIRepository {
       base: this.name + this.APIAdresses.base,
       show: (id) => this.name + this.APIAdresses.show(id),
       getContents: (id) => this.name + this.APIAdresses.getContents(id),
-      attachContents: (setId) => this.name + this.APIAdresses.attachContents(setId),
-      favored: id => this.name + this.APIAdresses.favored(id),
-      unfavored: id => this.name + this.APIAdresses.unfavored(id)
+      attachContents: (setId) => this.name + this.APIAdresses.attachContents(setId)
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
@@ -83,13 +81,11 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  favored(data = {}, cache = { TTL: 100 }) {
+  favored(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.favored(data),
-      cacheKey: this.CacheList.favored(data),
-      ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data
       },
@@ -99,13 +95,11 @@ export default class SetAPI extends APIRepository {
     })
   }
 
-  unfavored(data = {}, cache = { TTL: 100 }) {
+  unfavored(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.unfavored(data),
-      cacheKey: this.CacheList.unfavored(data),
-      ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data
       },
