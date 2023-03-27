@@ -1,6 +1,6 @@
 <template>
   <q-card class="content-item-box"
-          :style="{minWidth: options.minWidth}">
+          :style="{minWidth: defaultOptions.minWidth}">
     <router-link :to="getRoutingObject"
                  class="content-item-router-link">
       <div class="img-box">
@@ -21,7 +21,7 @@
       <router-link :to="getRoutingObject"
                    class="content-item-router-link">
         <div class="content-box-text">
-          <div v-if="options.showSetTitle"
+          <div v-if="defaultOptions.showSetTitle"
                class="main-title ellipsis">
             {{ content.set.title }}
           </div>
@@ -30,7 +30,7 @@
           </div>
         </div>
       </router-link>
-      <bookmark v-if="options.showBookmark"
+      <bookmark v-if="defaultOptions.showBookmark"
                 class="content-item-bookmark"
                 :value="options.content.is_favored"
                 :unfavored-route="$apiGateway.content.APIAdresses.unfavored(options.content.id)"
@@ -46,32 +46,35 @@
 import { Content } from 'src/models/Content.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import Bookmark from 'components/Bookmark.vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'contentItem',
-  components: { Bookmark, LazyImg },
+  components: { LazyImg, Bookmark },
+  mixins: [mixinWidget],
   props: {
     options: {
       type: Object,
       default: () => {
-        return {
-          style: {},
-          minWidth: 'auto',
-          content: new Content(),
-          showSetTitle: false,
-          showBookmark: false,
-          routeToContent: true
-        }
+        return {}
       }
     }
   },
   emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
-    content: new Content()
+    content: new Content(),
+    defaultOptions: {
+      style: {},
+      minWidth: 'auto',
+      content: new Content(),
+      showSetTitle: false,
+      showBookmark: false,
+      routeToContent: true
+    }
   }),
   computed: {
     getRoutingObject() {
-      if (this.options.routeToContent) {
+      if (this.defaultOptions.routeToContent) {
         return {
           name: 'Public.Content.Show',
           params: { id: this.content.id ? this.content.id : -1 }
