@@ -100,7 +100,6 @@ export default {
       this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: product.id } })
     },
     gotoLastContent(product) {
-      console.log(product)
       this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.Content', params: { productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id } })
     }
   }
