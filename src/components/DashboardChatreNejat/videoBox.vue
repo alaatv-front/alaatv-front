@@ -80,9 +80,9 @@
               <!--              <i class="fi fi-rr-share icon " />-->
             </q-btn>
             <bookmark :value="content.is_favored"
-                      :unfavored-route="$apiGateway.content.APIAdresses.unfavored(content.id)"
-                      :favored-route="$apiGateway.content.APIAdresses.favored(content.id)"
-                      @onLoad="toggleFavorite" />
+                      :unfavored-function="() => $apiGateway.content.unfavored(content.id)"
+                      :favored-function="() => $apiGateway.content.favored(content.id)"
+                      @update:value="toggleFavorite" />
           </div>
         </div>
       </div>

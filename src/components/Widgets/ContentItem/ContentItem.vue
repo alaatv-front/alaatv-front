@@ -33,10 +33,10 @@
       <bookmark v-if="defaultOptions.showBookmark"
                 class="content-item-bookmark"
                 :value="options.content.is_favored"
-                :unfavored-route="$apiGateway.content.APIAdresses.unfavored(options.content.id)"
-                :favored-route="$apiGateway.content.APIAdresses.favored(options.content.id)"
+                :unfavored-function="() => $apiGateway.content.unfavored(options.content.id)"
+                :favored-function="() => $apiGateway.content.favored(options.content.id)"
                 @clicked="bookmarkClicked"
-                @onLoad="bookmarkLoaded" />
+                @update:value="bookmarkUpdated" />
     </div>
 
   </q-card>
@@ -91,7 +91,7 @@ export default {
     }
   },
   methods: {
-    bookmarkLoaded (value) {
+    bookmarkUpdated (value) {
       this.$emit('onBookmarkLoaded', value)
     },
     bookmarkClicked (value) {

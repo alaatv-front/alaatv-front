@@ -4,8 +4,8 @@
     <div class="content-item-title q-px-lg">
       <bookmark v-if="canFavor"
                 v-model:value="localContent.is_favored"
-                :bookmark-function="bookmarkContent"
-                @on-change-favorite-status="onChangeFavoriteStatus" />
+                :unfavored-function="() => $apiGateway.content.unfavored(content.id)"
+                :favored-function="() => $apiGateway.content.favored(content.id)" />
       <router-link v-if="content && content.id !== null"
                    :to="{ name: 'Public.Content.Show', params: { id: content.id } }"
                    class="content-item">
@@ -82,15 +82,6 @@ export default {
     },
     getContentBookmarkBaseRoute(id) {
       return API_ADDRESS.content.show(id)
-    },
-    bookmarkContent () {
-      if (this.localContent.is_favored) {
-        return this.$apiGateway.content.unfavored(this.content.id)
-      }
-      return this.$apiGateway.content.favored(this.content.id)
-    },
-    onChangeFavoriteStatus (/* result */) {
-      // console.log(result)
     },
     getContentDuration (duration) {
       return Math.floor(duration / 60)
