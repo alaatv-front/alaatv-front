@@ -35,6 +35,9 @@
 <script>
 import videojs from 'video.js'
 import fa from 'video.js/dist/lang/fa.json'
+import { Content } from 'src/models/Content'
+import { mixinAbrisham } from 'src/mixin/Mixins'
+import { PlayerSourceList } from 'src/models/PlayerSource'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 
 import 'videojs-hls-quality-selector'
@@ -43,9 +46,6 @@ import 'videojs-contrib-quality-levels'
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
-import { Content } from 'src/models/Content'
-import { mixinAbrisham } from 'src/mixin/Mixins'
-import { PlayerSourceList } from 'src/models/PlayerSource'
 export default {
   name: 'VideoPlayer',
   mixins: [mixinAbrisham],
@@ -53,12 +53,6 @@ export default {
     source: {
       type: [String, PlayerSourceList],
       default: null
-    },
-    timePoints: {
-      type: Array,
-      default () {
-        return []
-      }
     },
     useOverPlayer: {
       type: Boolean,
@@ -189,6 +183,11 @@ export default {
   },
   mounted() {
     this.initPlayer()
+    if (this.useOverPlayer) {
+      this.$nextTick(() => {
+        this.moveSideBarElementIntoVideoPlayerElements()
+      })
+    }
   },
   beforeUnmount() {
     if (this.player) {
@@ -274,25 +273,6 @@ export default {
     },
     isPlayerSourceList () {
       return (this.source && this.source.list && Array.isArray(this.source.list))
-    },
-    toggleFavorite(id/* , event */) {
-      const that = this
-      let count = -1
-      this.timePoints.forEach(function (item) {
-        count++
-        if (parseInt(item.id) === parseInt(id)) {
-          item.loading = true
-          item.isFavored = !item.isFavored
-          that.postIsFavored = {
-            id: item.id,
-            isFavored: item.isFavored,
-            numberOfTimestamp: count
-          }
-        }
-      })
-      const requiredElement = document.querySelector('.video-js')
-      requiredElement.focus()
-      this.$emit('toggleBookmark', this.postIsFavored)
     },
     calcWatchedPercentage(currentTime, duration) {
       const watchedPercentage = ((currentTime / duration) * 100)
