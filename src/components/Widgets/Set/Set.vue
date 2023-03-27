@@ -5,7 +5,8 @@
       <div class="title">
         <bookmark v-if="localOptions.showBtnFavorSet"
                   v-model:value="set.is_favored"
-                  :base-route="getSetBookmarkBaseRoute(set.id)" />
+                  :unfavored-function="() => $apiGateway.set.unfavored(set.id)"
+                  :favored-function="() => $apiGateway.set.favored(set.id)" />
         <template v-if="set.loading">
           <q-skeleton type="text" />
         </template>

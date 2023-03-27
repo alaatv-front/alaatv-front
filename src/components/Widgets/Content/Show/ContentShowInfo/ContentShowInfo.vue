@@ -22,8 +22,8 @@
         </q-popup-proxy>
       </q-btn>
       <bookmark v-model:value="content.is_favored"
-                :bookmark-function="bookmarkContent"
-                @on-change-favorite-status="onChangeFavoriteStatus" />
+                :unfavored-function="() => $apiGateway.content.unfavored(content.id)"
+                :favored-function="() => $apiGateway.content.favored(content.id)" />
     </div>
     <h6 class="set-title">
       {{content.title}}
@@ -144,9 +144,6 @@ export default {
         return this.$apiGateway.content.unfavored(this.content.id)
       }
       return this.$apiGateway.content.favored(this.content.id)
-    },
-    onChangeFavoriteStatus (/* result */) {
-      // console.log(result)
     },
     getContentByRequest() {
       const contentId = this.getContentId()

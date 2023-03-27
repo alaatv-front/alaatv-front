@@ -30,7 +30,8 @@
                 </q-popup-proxy>
               </q-btn>
               <bookmark v-model:value="isFavored"
-                        :bookmark-function="bookmarkContent" />
+                        :unfavored-function="() => $apiGateway.product.unfavoredProduct(this.product.id)"
+                        :favored-function="() => $apiGateway.product.favoredProduct(this.product.id)" />
             </div>
           </div>
           <div class="product-info-box row">
@@ -265,12 +266,6 @@ export default {
           info.value = this.product.attributes.info[findingAttribute]
         }
       })
-    },
-    bookmarkContent () {
-      if (this.product.is_favored_2) {
-        return this.$apiGateway.product.unfavoredProduct(this.product.id)
-      }
-      return this.$apiGateway.product.favoredProduct(this.product.id)
     },
     shareGiftCard({ name, url }) {
       window.open(url, '_blank')
