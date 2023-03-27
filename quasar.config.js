@@ -89,7 +89,7 @@ module.exports = configure(function (ctx) {
       preloadChunks: true,
       showProgress: true,
       gzip: true,
-      analyze: true,
+      analyze: false,
 
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
@@ -358,7 +358,7 @@ module.exports = configure(function (ctx) {
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
 
-      pwa: false,
+      pwa: true,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
