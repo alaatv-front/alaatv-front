@@ -209,13 +209,13 @@ export default {
         .other-contents{
           .content{
             border-radius: 10px;
-            margin-left: 30px;
-            margin-right: 42px;
+            margin-left: 10px;
+            margin-right: 15px;
             .video-title{
               font-size: 16px;
               color: #575962;
               font-weight: 400;
-              width: 250px;
+              max-width: 300px;
               overflow: hidden;
               white-space: nowrap;
               text-overflow: ellipsis;
