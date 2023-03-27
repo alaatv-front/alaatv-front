@@ -190,6 +190,7 @@ export default {
       showHamburgerConfig: true,
       searchInput: '',
       user: new User(),
+      isAdmin: false,
       isUserLogin: false,
       headerItems: [
         {
@@ -203,14 +204,14 @@ export default {
           title: 'فروشگاه',
           routeName: 'Public.Shop',
           permission: 'all'
-        },
-        {
-          selected: 'adminPanel',
-          title: 'پنل ادمین',
-          routeName: 'Admin.UploadCenter.Contents',
-          permission: 'all',
-          children: []
         }
+        // {
+        //   selected: 'adminPanel',
+        //   title: 'پنل ادمین',
+        //   routeName: 'Admin.UploadCenter.Contents',
+        //   permission: 'all',
+        //   children: []
+        // }
       ],
       profileTitlesList: [
         {
@@ -299,10 +300,20 @@ export default {
   },
   mounted () {
     this.loadAuthData()
+    if (this.isAdmin) {
+      this.headerItems.push({
+        selected: 'adminPanel',
+        title: 'پنل ادمین',
+        routeName: 'Admin.UploadCenter.Contents',
+        permission: 'all',
+        children: []
+      })
+    }
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
+      this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
     ...mapMutations('AppLayout', [
