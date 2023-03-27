@@ -453,7 +453,7 @@ export default {
   .video-description {
     align-items: flex-start;
     @media screen and (max-width: 1200px) {
-      margin-bottom: 0 !important;
+      margin-bottom: 20px !important;
     }
     @media screen and (max-width: 350px) {
       margin-bottom: 16px;
