@@ -44,7 +44,7 @@
           </q-dialog>
           <router :include="keepAliveComponents" />
         </div>
-        <floating-action-button v-if="showFloatinActoinBtn" />
+        <floating-action-button v-if="showFloatingActionBtn" />
       </template>
       <template #footer>
         <alaa-footer />
