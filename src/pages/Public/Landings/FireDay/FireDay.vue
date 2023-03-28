@@ -136,7 +136,7 @@ export default {
                   }
                 ],
                 options: {
-                  fullHeight: true,
+                  fullHeight: 'calc( 100vh - 72px )',
                   boxed: true,
                   boxedWidth: 1362
                 }
@@ -144,7 +144,7 @@ export default {
             ]
           },
           options: {
-            fullHeight: true,
+            fullHeight: 'calc( 100vh - 72px )',
             verticalAlign: 'center',
             style: {
               background: 'rgba(18,13,0,0.72)'
@@ -340,7 +340,7 @@ export default {
             ]
           },
           options: {
-            fullHeight: true,
+            fullHeight: 'calc( 100vh - 72px )',
             verticalAlign: 'start',
             style: {
               background: '#FFFFFF'
