@@ -43,12 +43,12 @@
                     {{ item.title }}
                   </q-item-section>
                 </q-item>
-                <template v-if="item.selected === 'basicContents'">
-                  <mega-menu :menuContent="item" />
-                </template>
-                <template v-if="item.selected === 'konkurConference'">
-                  <mega-menu :menuContent="item" />
-                </template>
+                <!--                <template v-if="item.selected === 'basicContents'">-->
+                <!--                  <mega-menu :menuContent="item" />-->
+                <!--                </template>-->
+                <!--                <template v-if="item.selected === 'konkurConference'">-->
+                <!--                  <mega-menu :menuContent="item" />-->
+                <!--                </template>-->
                 <template v-if="item.selected === 'firstMidSchool'">
                   <simple-menu :menuContent="item" />
                 </template>
@@ -198,12 +198,12 @@
 import { mapMutations } from 'vuex'
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import megaMenu from './magaMenu.vue'
+// import megaMenu from './magaMenu.vue'
 import simpleMenu from './simpleMenu.vue'
 
 export default {
   name: 'MainHeaderTemplate',
-  components: { LazyImg, megaMenu, simpleMenu },
+  components: { LazyImg, simpleMenu },
   data() {
     return {
       conferenceMenu: false,
