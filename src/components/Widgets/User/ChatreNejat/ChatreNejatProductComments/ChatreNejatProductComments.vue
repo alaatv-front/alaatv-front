@@ -127,7 +127,7 @@ export default {
     selectedTopic(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopicName (newVal, oldVal) {
+    selectedTopicName (newVal) {
       if (!newVal || newVal === '') {
         return null
       }
@@ -141,7 +141,7 @@ export default {
   },
   mounted() {
     this.loadData(this.$route.params.productId)
-    this.updateSelectedTopic('')
+    this.updateSelectedTopic('...')
   },
   methods: {
     updateSelectedTopic (content) {

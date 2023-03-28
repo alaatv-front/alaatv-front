@@ -137,7 +137,7 @@ export default {
       this.getProductSets(productId)
       this.getProduct(productId)
     }
-    this.updateSelectedTopic('')
+    this.updateSelectedTopic('...')
   },
   methods: {
     updateSelectedTopic (content) {
