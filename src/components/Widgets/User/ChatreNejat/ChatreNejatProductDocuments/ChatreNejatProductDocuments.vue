@@ -160,13 +160,13 @@ export default {
     selected(value) {
       this.$emit('selectedUpdated', value)
     },
-    selectedTopicInput(value) {
+    selectedTopicInput() {
       this.$refs.pamphletIndex.search()
     },
     setTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopic (newVal, oldVal) {
+    selectedTopic (newVal) {
       if (!newVal || newVal === '') {
         return null
       }
@@ -180,7 +180,7 @@ export default {
   },
   mounted() {
     this.loadData(this.$route.params.productId)
-    this.updateSelectedTopic('')
+    this.updateSelectedTopic('...')
   },
   methods: {
     updateSelectedTopic (content) {

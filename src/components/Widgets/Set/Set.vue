@@ -4,8 +4,9 @@
     <div class="header">
       <div class="title">
         <bookmark v-if="localOptions.showBtnFavorSet"
-                  v-model:value="set.is_favored"
-                  :base-route="getSetBookmarkBaseRoute(set.id)" />
+                  :is-favored="set.is_favored"
+                  :loading="bookmarkLoading"
+                  @clicked="handleSetBookmark" />
         <template v-if="set.loading">
           <q-skeleton type="text" />
         </template>
@@ -106,6 +107,7 @@ export default {
   },
   data() {
     return {
+      bookmarkLoading: false,
       defaultOptions: {
         className: '',
         height: 'auto',
@@ -151,6 +153,28 @@ export default {
     this.loadSet()
   },
   methods: {
+    handleSetBookmark () {
+      this.bookmarkLoading = true
+      if (this.set.is_favored) {
+        this.$apiGateway.content.unfavored(this.set.id)
+          .then(() => {
+            this.set.is_favored = !this.set.is_favored
+            this.bookmarkLoading = false
+          })
+          .catch(() => {
+            this.bookmarkLoading = false
+          })
+        return
+      }
+      this.$apiGateway.content.favored(this.set.id)
+        .then(() => {
+          this.set.is_favored = !this.set.is_favored
+          this.bookmarkLoading = false
+        })
+        .catch(() => {
+          this.bookmarkLoading = false
+        })
+    },
     getCountOfVideosInContents (contents) {
       return contents.filter(content => content.isVideo()).length
     },

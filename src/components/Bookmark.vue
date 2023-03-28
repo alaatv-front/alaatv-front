@@ -48,59 +48,29 @@
 export default {
   name: 'Bookmark',
   props: {
-    value: {
+    isFavored: {
       default: false,
       type: Boolean
     },
-    baseRoute: {
-      default: '',
-      type: String
+    loading: {
+      default: false,
+      type: Boolean
     },
     color: {
       default: undefined,
       type: String
-    },
-    favoredRoute: {
-      default: '',
-      type: String
-    },
-    unfavoredRoute: {
-      default: '',
-      type: String
-    },
-    bookmarkFunction: {
-      default: null,
-      type: Function
-    },
-    baseMode: {
-      default: false,
-      type: Boolean
     }
   },
   emits: [
     'update:value',
-    'onChangeFavoriteStatus',
-    'onError',
-    'onLoad',
     'clicked'
   ],
   data () {
-    return {
-      loading: false
-      // isFavored: false
-    }
+    return {}
   },
   computed: {
     isUserLogin () {
       return this.$store.getters['Auth/isUserLogin']
-    },
-    isFavored: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('update:value', value)
-      }
     }
   },
   methods: {
@@ -109,64 +79,7 @@ export default {
       if (!this.isUserLogin) {
         this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params })
         this.$store.commit('AppLayout/updateLoginDialog', true)
-        return
       }
-      this.loading = true
-      if (this.baseMode) {
-        this.loading = false
-        return
-      }
-      if (typeof this.bookmarkFunction === 'function') {
-        this.bookmarkFunction()
-          .then((res) => {
-            this.afterSuccessfulBookmarkFunction(res)
-          })
-          .catch((err) => {
-            this.afterFailedBookmarkFunction(err)
-          })
-      } else {
-        if (!this.baseRoute) {
-          this.bookmarkWithIndividualRoutes()
-          return
-        }
-        this.bookmarkWithBaseRoute()
-      }
-    },
-    afterSuccessfulBookmarkFunction (res) {
-      this.isFavored = !this.isFavored
-      this.loading = false
-      this.$emit('onChangeFavoriteStatus', { ...res, isFavored: !this.isFavored })
-    },
-    afterFailedBookmarkFunction (err) {
-      this.loading = false
-      this.$emit('onError', err)
-    },
-    bookmarkWithBaseRoute () {
-      const nextStatus = (this.isFavored) ? 'unfavored' : 'favored'
-      const address = (typeof this.baseRoute === 'function') ? this.baseRoute() : this.baseRoute + '/' + nextStatus
-      this.$axios.post(address)
-        .then((res) => {
-          this.afterSuccessfulBookmarkFunction(res)
-        })
-        .catch((err) => {
-          this.afterFailedBookmarkFunction(err)
-        })
-    },
-    bookmarkWithIndividualRoutes () {
-      const nextStatus = (this.isFavored) ? 'unfavoredRoute' : 'favoredRoute'
-      this.$axios.post(this[nextStatus])
-        .then((res) => {
-          this.isFavored = !this.isFavored
-          this.loading = false
-          this.$emit('onLoad', {
-            ...res,
-            isFavored: !this.isFavored
-          })
-        })
-        .catch((err) => {
-          this.loading = false
-          this.$emit('onError', err)
-        })
     }
   }
 }
