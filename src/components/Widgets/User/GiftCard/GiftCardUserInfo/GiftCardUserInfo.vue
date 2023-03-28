@@ -196,9 +196,8 @@
                 <q-icon v-if="hasShabaNumber"
                         color="green"
                         right
-                        class="shaba-number-checked">
-                  mdi-checkbox-marked-circle
-                </q-icon>
+                        name="mdi-cellphone"
+                        class="shaba-number-checked" />
                 <q-input v-model="localShabaNumber"
                          :disabled="hasShabaNumber"
                          mask="########################"
@@ -404,6 +403,7 @@ export default {
   mixins: [GiftCardMixin],
   data () {
     return {
+      bankAccounts: {},
       has_signed_contract: false,
       contractDialog: false,
       contractDialogSrc: null,
@@ -462,29 +462,29 @@ export default {
     getSalesMan() {
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
-          this.has_signed_contract = response.data.has_signed_contract
+          this.has_signed_contract = response.has_signed_contract
           this.loadAcceptContract()
         })
         .catch()
     },
     loadShabaNumber () {
       APIGateway.user.getBankAccounts()
-        .then(response => {
-          // console.log(response)
+        .then(bankAccounts => {
+          this.bankAccounts = bankAccounts
+          if (this.bankAccounts.length === 0) {
+            return
+          }
+          const bankAccount = this.bankAccounts[0]
+          if (!bankAccount || !bankAccount.sheba) {
+            return
+          }
+          this.shabaNumber = bankAccount.sheba
+          if (this.shabaNumber) {
+            this.hasShabaNumber = true
+            this.localShabaNumber = this.shabaNumber
+          }
         })
         .catch()
-      if (!this.bankAccounts || this.bankAccounts.length === 0) {
-        return
-      }
-      const bankAccount = this.bankAccounts[0]
-      if (!bankAccount || !bankAccount.preShabaNumber || !bankAccount.shabaNumber) {
-        return
-      }
-      this.shabaNumber = bankAccount.preShabaNumber + bankAccount.shabaNumber
-      if (this.shabaNumber) {
-        this.hasShabaNumber = true
-        this.localShabaNumber = this.shabaNumber
-      }
     },
     loadNationalCardPicURL () {
       this.nationalCardPicURL = this.user.kartemeli
