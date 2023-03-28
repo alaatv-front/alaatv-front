@@ -3,9 +3,9 @@
     <div class="content-item-top-border" />
     <div class="content-item-title q-px-lg">
       <bookmark v-if="canFavor"
-                v-model:value="localContent.is_favored"
-                :unfavored-function="() => $apiGateway.content.unfavored(content.id)"
-                :favored-function="() => $apiGateway.content.favored(content.id)" />
+                :is-favored="localContent.is_favored"
+                :loading="bookmarkLoading"
+                @clicked="handleContentBookmark" />
       <router-link v-if="content && content.id !== null"
                    :to="{ name: 'Public.Content.Show', params: { id: content.id } }"
                    class="content-item">
@@ -62,6 +62,7 @@ export default {
   },
   data () {
     return {
+      bookmarkLoading: false,
       localContent: new Content()
     }
   },
@@ -69,6 +70,28 @@ export default {
     this.localContent = this.content
   },
   methods: {
+    handleContentBookmark () {
+      this.bookmarkLoading = true
+      if (this.localContent.is_favored) {
+        this.$apiGateway.content.unfavored(this.content.id)
+          .then(() => {
+            this.localContent.is_favored = !this.localContent.is_favored
+            this.bookmarkLoading = false
+          })
+          .catch(() => {
+            this.bookmarkLoading = false
+          })
+        return
+      }
+      this.$apiGateway.content.favored(this.content.id)
+        .then(() => {
+          this.localContent.is_favored = !this.localContent.is_favored
+          this.bookmarkLoading = false
+        })
+        .catch(() => {
+          this.bookmarkLoading = false
+        })
+    },
     downloadPdf () {
       if (!this.content?.file?.pamphlet || !this.content?.file?.pamphlet[0] || !!this.content?.file?.pamphlet[0].link) {
         this.$q.notify({

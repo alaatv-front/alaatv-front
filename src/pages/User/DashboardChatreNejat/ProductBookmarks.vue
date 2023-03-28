@@ -14,7 +14,7 @@
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
-        <content-item class="q-ma-md flex items-center justify-center"
+        <content-item class="q-ma-md"
                       :options="{
                         content: inputData.props.row,
                         routeToContent: false,
@@ -170,7 +170,7 @@ export default {
       this.$store.dispatch('ChatreNejat/getSelectedProduct', productId)
     },
     goToContent(event, content) {
-      if (event.target.tagName === 'path' || event.target.type === 'button') {
+      if (event.target.localName === 'i' || event.target.localName === 'button') {
         return
       }
       this.$router.push({

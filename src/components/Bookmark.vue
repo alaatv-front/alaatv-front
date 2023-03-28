@@ -48,82 +48,38 @@
 export default {
   name: 'Bookmark',
   props: {
-    value: {
+    isFavored: {
+      default: false,
+      type: Boolean
+    },
+    loading: {
       default: false,
       type: Boolean
     },
     color: {
       default: undefined,
       type: String
-    },
-    favoredFunction: {
-      default: null,
-      type: [Function, Promise]
-    },
-    unfavoredFunction: {
-      default: null,
-      type: [Function, Promise]
     }
   },
   emits: [
     'update:value',
-    'onError',
-    'onLoad',
     'clicked'
   ],
   data () {
-    return {
-      loading: false
-    }
+    return {}
   },
   computed: {
     isUserLogin () {
       return this.$store.getters['Auth/isUserLogin']
-    },
-    isFavored: {
-      get () {
-        return this.value
-      },
-      set (value) {
-        this.$emit('update:value', value)
-      }
     }
   },
   methods: {
     bookmark () {
       this.$emit('clicked')
-      this.loading = true
       if (!this.isUserLogin) {
         this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params })
         this.$store.commit('AppLayout/updateLoginDialog', true)
-        return
       }
-      if (typeof this.favoredFunction === 'function' &&
-        typeof this.unfavoredFunction === 'function') {
-        this.callBookmarkFunctions()
-      } else {
-        console.error('bookmark error: typeof passed functions must be function')
-        this.loading = false
-      }
-    },
-    callBookmarkFunctions () {
-      const methodToCall = (this.isFavored) ? this.unfavoredFunction : this.favoredFunction
-      methodToCall()
-        .then((res) => {
-          this.afterSuccessfulBookmarkFunction(res)
-        })
-        .catch((err) => {
-          this.afterFailedBookmarkFunction(err)
-        })
-    },
-    afterSuccessfulBookmarkFunction (res) {
-      this.isFavored = !this.isFavored
-      this.loading = false
-      this.$emit('onLoad', res)
-    },
-    afterFailedBookmarkFunction (err) {
-      this.loading = false
-      this.$emit('onError', err)
     }
   }
 }
