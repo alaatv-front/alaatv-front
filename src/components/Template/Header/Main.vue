@@ -213,12 +213,12 @@ export default {
       isAdmin: false,
       isUserLogin: false,
       headerItems: [
-        // {
-        //   selected: 'home',
-        //   title: 'صفحه اصلی',
-        //   routeName: 'Public.Home',
-        //   permission: 'all'
-        // },
+        {
+          selected: 'home',
+          title: 'صفحه اصلی',
+          routeName: 'Public.Home',
+          permission: 'all'
+        },
         {
           selected: 'shop',
           title: 'فروشگاه',
@@ -292,13 +292,6 @@ export default {
               items: ['ریاضی']
             }
           ]
-        },
-        {
-          selected: 'adminPanel',
-          title: 'پنل ادمین',
-          routeName: 'Admin.UploadCenter.Contents',
-          permission: 'all',
-          children: []
         }
         // {
         //   selected: 'adminPanel',
