@@ -30,7 +30,7 @@ module.exports = configure(function (ctx) {
     },
 
     // https://v2.quasar.dev/quasar-cli/prefetch-feature
-    // preFetch: true,
+    preFetch: false,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -86,8 +86,8 @@ module.exports = configure(function (ctx) {
       ],
 
       rtl: true, // https://v2.quasar.dev/options/rtl-support
-      preloadChunks: true,
-      showProgress: true,
+      preloadChunks: false,
+      showProgress: false,
       gzip: true,
       analyze: false,
 
@@ -358,7 +358,7 @@ module.exports = configure(function (ctx) {
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
 
-      pwa: true,
+      pwa: false,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
