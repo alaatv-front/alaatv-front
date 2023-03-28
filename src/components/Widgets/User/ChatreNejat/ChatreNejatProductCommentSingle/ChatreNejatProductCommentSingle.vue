@@ -37,7 +37,7 @@
       </q-card-section>
       <q-card-section class="comment-footer">
         <div class="comment-time">
-          {{ comment.created_at }}
+          {{ getShamsiDate(comment.created_at) }}
         </div>
         <div class="comment-">
           <q-btn color="primary"
@@ -53,7 +53,8 @@
 <script>
 import { Comment } from 'src/models/Comment.js'
 import { copyToClipboard } from 'quasar'
-
+import moment from 'moment-jalaali'
+moment.loadPersian()
 export default {
   name: 'ChatreNejatProductCommentSingle',
   data() {
@@ -121,6 +122,9 @@ export default {
       }).onDismiss(() => {
         // console.log('I am triggered on both OK and Cancel')
       })
+    },
+    getShamsiDate (date) {
+      return moment(date, 'YYYY/M/D').locale('fa').format('jD jMMMM jYYYY')
     }
   }
 }
@@ -138,6 +142,16 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      @media screen and (max-width: 1024px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+      }
+
+      .comment-title {
+        align-self: flex-start;
+      }
     }
 
     .comment-main {
