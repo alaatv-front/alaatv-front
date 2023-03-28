@@ -80,10 +80,10 @@ export default {
       inputs: [
         { type: 'hidden', name: 'type', value: 'content' },
         { type: 'hidden', name: 'product_id', value: this.$route.params.productId },
-        { type: 'input', name: 'search', outlined: true, label: 'جستجو در یادداشت ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 align-left q-mt-lg q-ml-lg' },
+        { type: 'input', name: 'search', outlined: true, label: 'جستجو در نشان شده ها', placeholder: 'عبارت مورد نظر را وارد کنید', col: 'col-md-3 col-xs-6 align-left q-mt-lg q-ml-lg align-left q-mt-lg q-ml-lg' },
         { type: 'button', name: 'search-btn', responseKey: 'statement', class: '', icon: 'search', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
-        { type: 'separator', col: 'col-md-6', size: '0' },
-        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' },
+        { type: 'separator', col: 'col-sm-2 col-md-4 col-lg-5 col-xl-6', size: '0' },
+        { type: 'button', name: 'toggle', responseKey: 'statement', class: '', icon: 'filter_alt', unelevated: true, col: 'col-md-1 q-mt-lg  self-end' },
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
@@ -91,8 +91,8 @@ export default {
           class: 'entity-filter-box',
           ignoreValue: true,
           value: [
-            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
-            { type: 'button', name: 'filter-btn', responseKey: 'statement', class: '', label: 'اعمال', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' }
+            { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-6  col-md-4 col-lg-2 col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
+            { type: 'button', name: 'filter-btn', responseKey: 'statement', class: '', label: 'اعمال', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-md self-end' }
           ]
         }
       ]
@@ -116,7 +116,7 @@ export default {
     selectedTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     },
-    selectedTopic (newVal, oldVal) {
+    selectedTopic (newVal) {
       if (!newVal || newVal === '') {
         return null
       }

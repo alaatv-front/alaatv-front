@@ -36,28 +36,11 @@ class ContentTimePoint extends Model {
     return contentUrl + '?t=' + this.time
   }
 
-  createFavorUrl (baseUrl, favored) {
-    return baseUrl + '/c/timepoint/' + this.id + '/' + ((favored) ? 'favored' : 'unfavored')
-  }
-
-  setFavor (url) {
-    if (typeof url === 'undefined') {
-      url = this.favor_url
+  formattedTime () {
+    if (!this.time) {
+      return '00:00:00'
     }
-    if (url === null) {
-      console.error('url is null.')
-    }
-    return this.crud.create(url)
-  }
-
-  setUnfavor (url) {
-    if (typeof url === 'undefined') {
-      url = this.unfavor_url
-    }
-    if (url === null) {
-      console.error('url is null.')
-    }
-    return this.crud.create(url)
+    return new Date(this.time * 1000).toISOString().substring(11, 19)
   }
 }
 

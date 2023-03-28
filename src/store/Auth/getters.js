@@ -9,7 +9,7 @@ export function isUserLogin (state) {
 }
 
 export function isAdmin (state) {
-  return !!new User(state.user).mobile === '09358745928'
+  return new User(state.user).mobile === '09358745928'
 }
 
 export function accessToken (state) {

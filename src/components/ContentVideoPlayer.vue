@@ -15,7 +15,7 @@
           <q-banner class="timepoint-list-title">
             زمان کوب ها
           </q-banner>
-          <q-list>
+          <q-list class="timepoint-list-items">
             <q-item v-for="timepoint in content.timepoints.list"
                     :key="timepoint.id"
                     v-ripple
@@ -27,8 +27,9 @@
                           size="30"
                           :bookmark-function="bookmarkTimepoint(timepoint)" />
               </q-item-section>
-              <q-item-section>
-                {{ timepoint.title }}
+              <q-item-section class="text-section">
+                <span>{{ timepoint.title }}</span>
+                <span>{{ timepoint.formattedTime() }}</span>
               </q-item-section>
             </q-item>
           </q-list>
@@ -209,6 +210,16 @@ export default {
     text-align: center;
     background: rgba(0,0,0,0.7);
   }
+  .timepoint-list-items {
+    .text-section {
+      display: flex;
+      flex-flow: row;
+      font-size: 0.7rem;
+      font-weight: bold;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
   :deep(.q-list) {
     height: calc(100% - 54px);
     overflow: auto;
@@ -216,6 +227,8 @@ export default {
       width: 26px;
       height: 26px;
       padding: 0;
+      font-size: 10px;
+      color: $primary !important;
       .q-btn__content {
         margin: 3px;
         svg {
