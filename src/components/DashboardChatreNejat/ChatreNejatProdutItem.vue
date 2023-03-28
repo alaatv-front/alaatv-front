@@ -38,7 +38,8 @@
             <div class="last-content-pre">
               آخرین جلسه دیده شده :
             </div>
-            <div class="last-content-title ellipsis-2-lines">
+            <div class="last-content-title ellipsis-2-lines"
+                 @click="gotoLastContent(product)">
               {{ product.last_content_user_watched?.title }}
             </div>
             <div class="last-content-footer">
@@ -49,7 +50,7 @@
               <div class="last-content-link">
                 <q-btn flat
                        icon-right="chevron_left"
-                       :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }">مشاهده</q-btn>
+                       :to="{ name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
               </div>
             </div>
           </div>
@@ -63,7 +64,8 @@
           <div class="last-content-pre">
             آخرین جلسه دیده شده :
           </div>
-          <div class="last-content-title ellipsis-2-lines">
+          <div class="last-content-title ellipsis-2-lines"
+               @click="gotoLastContent(product)">
             {{ product.last_content_user_watched?.title }}
           </div>
           <div class="last-content-footer">
@@ -74,7 +76,7 @@
             <div class="last-content-link">
               <q-btn flat
                      icon-right="chevron_left"
-                     :to="{ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: {productId: product.id} }">مشاهده</q-btn>
+                     :to="{ name: 'UserPanel.Asset.ChatreNejat.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
             </div>
           </div>
         </div>
@@ -96,6 +98,9 @@ export default {
   methods: {
     gotoProductPage(product) {
       this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: product.id } })
+    },
+    gotoLastContent(product) {
+      this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.Content', params: { productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id } })
     }
   }
 }
@@ -251,6 +256,7 @@ export default {
           color: #333333;
           margin-bottom: 10px;
           max-width: 65%;
+          cursor: pointer;
 
           @media only screen and (max-width: 600px) {
             font-size: 14px;

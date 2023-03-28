@@ -44,7 +44,7 @@
           </q-dialog>
           <router :include="keepAliveComponents" />
         </div>
-        <floating-action-button v-if="showFloatinActoinBtn" />
+        <floating-action-button v-if="isAdmin" />
       </template>
       <template #footer>
         <alaa-footer />
@@ -77,6 +77,7 @@ export default {
   data () {
     return {
       user: new User(),
+      isAdmin: true,
       isUserLogin: false,
       contentVerticalScrollPosition: 0,
       keepAliveComponents: KeepAliveComponents
@@ -94,10 +95,6 @@ export default {
         }
         this.$store.dispatch('AppLayout/showLoginDialog')
       }
-    },
-    showFloatinActoinBtn () {
-      return false
-      // return (process.env.APP_ENV === 'production' && this.user.mobile === '09358745928') || (process.env.APP_ENV !== 'production')
     },
     confirmDialogData () {
       return this.$store.getters['AppLayout/confirmDialog']
@@ -118,6 +115,7 @@ export default {
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
+      // this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
     onContentInsideScroll (data) {

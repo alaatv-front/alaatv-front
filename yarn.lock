@@ -1557,6 +1557,11 @@
   resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.11.tgz#a54d60b14446b850a1e5fccab3f381a2e447a73f"
   integrity sha512-EEXL10EJQmL9jNs5fp0Kd/nyonG8hTODolj+qpYNPG3qEEoy3txr05Pdmp9qJYaXIzP9rOS9FGhFe9Mnq6MBBg==
 
+"@quasar/extras@^1.16.1":
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.16.1.tgz#1be607c200c8426497b7a6de21056edb28ef122a"
+  integrity sha512-bRnWSC469Qogw0ceDVd0yTQVBQjyhV6L10EMixXK1dpOs9tWGKRVgyyGZ5DEBkDgyn4BeRuV5s5e9VrQdQPsOg==
+
 "@quasar/fastclick@1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@quasar/fastclick/-/fastclick-1.1.5.tgz#948e79c44098cced6c3d1645315683ebc29ed834"
@@ -3931,11 +3936,6 @@ inherits@2, inherits@2.0.4, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-inherits@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
-  integrity sha512-x00IRNXNy63jwGkJmzPigoySHbaqpNuzKbBOmzK+g2OdZpQ9w+sxCN+VSB3ja7IAge2OP2qpfxTjeNcyjmW1uw==
-
 inquirer@^8.2.1:
   version "8.2.5"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-8.2.5.tgz#d8654a7542c35a9b9e069d27e2df4858784d54f8"
@@ -4891,14 +4891,6 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-path@^0.12.7:
-  version "0.12.7"
-  resolved "https://registry.yarnpkg.com/path/-/path-0.12.7.tgz#d4dc2a506c4ce2197eb481ebfcd5b36c0140b10f"
-  integrity sha512-aXXC6s+1w7otVF9UletFkFcDsJeO7lSZBPUQhtb5O0xJe8LtYhj/GxldoL09bBj9+ZmE2hNoHqQSFMN5fikh4Q==
-  dependencies:
-    process "^0.11.1"
-    util "^0.10.3"
-
 persian-date@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/persian-date/-/persian-date-1.1.0.tgz#a06155797bca20217fa8302101ea5efd041a3221"
@@ -4965,7 +4957,7 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-process@^0.11.1, process@^0.11.10:
+process@^0.11.10:
   version "0.11.10"
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
@@ -5037,12 +5029,12 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-quasar-app-extension-q-page-builder@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/quasar-app-extension-q-page-builder/-/quasar-app-extension-q-page-builder-0.1.13.tgz#7b07feb54a2c6092c82179edd7117a0c4b243108"
-  integrity sha512-VhhbU+482Uqde6O1ApbUJjSG0prveNfJbOo4VqRIV3RNE/23V7j0P6RRRnRlV0ogF9XrEv093DIds5rUi+U3hg==
+quasar-app-extension-q-page-builder@^0.1.21:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/quasar-app-extension-q-page-builder/-/quasar-app-extension-q-page-builder-0.1.21.tgz#1ce4e4aa9ca7dbf8f543cf101666cb9d33609b1d"
+  integrity sha512-09KlnVvrT/1T/1O0J/NWbWT1NeAkOQaA94W1Mhd/AwcSLmJuAUcGgagEttuo1+Z8E1cmduSwDzPCt5Oh+9vdpA==
   dependencies:
-    quasar-ui-q-page-builder "^0.1.13"
+    quasar-ui-q-page-builder "^0.1.21"
 
 quasar-crud@^0.3.21:
   version "0.3.21"
@@ -5079,15 +5071,13 @@ quasar-template-builder@^1.0.21:
     vue "^3.2.47"
     vuex "^4.1.0"
 
-quasar-ui-q-page-builder@^0.1.13:
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.13.tgz#e8362f190d8d31d372b406f8a43858f58bc86f0f"
-  integrity sha512-CxAUuUTWJ5iamhzXExefoD2GF6Idh/phNYngnRO6cFJiLWcCuTNUVQTZVT9p14xr0Ke+KOP5lxwuTL66re/xMQ==
+quasar-ui-q-page-builder@^0.1.21:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.21.tgz#04b1bacb3c67b89ed8d9e5113b8676fc5ba8c469"
+  integrity sha512-VjEXx1xGuYb3zxjG08fDezEibz+BVJJCQyjeuwbPyWGl8SlLdbSzbtnAqZdwQQoMKYALx5Wyw4mEAMNsQBDq4Q==
   dependencies:
-    "@quasar/extras" "^1.15.11"
+    "@quasar/extras" "^1.16.1"
     "@vue/compiler-sfc" "^3.2.47"
-    fs "^0.0.1-security"
-    path "^0.12.7"
     quasar "^2.11.9"
     vue "^3.2.47"
 
@@ -5950,13 +5940,6 @@ util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
-
-util@^0.10.3:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/util/-/util-0.10.4.tgz#3aa0125bfe668a4672de58857d3ace27ecb76901"
-  integrity sha512-0Pm9hTQ3se5ll1XihRic3FDIku70C+iHUdT/W926rSgHV5QgXsYbKZN8MSC3tJtSkhuROzvsQjAaFENRXr+19A==
-  dependencies:
-    inherits "2.0.3"
 
 utils-merge@1.0.1:
   version "1.0.1"

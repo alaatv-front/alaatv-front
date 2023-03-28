@@ -21,46 +21,49 @@
         </div>
       </div>
       <q-separator class="q-ma-md" />
-      <q-scroll-area class="scroll"
-                     :thumb-style="thumbStyle">
-        <div v-for="(content,index) in set.contents.list"
-             :key="index"
-             ref="items"
-             class="other-contents">
-          <div class="content q-pt-md q-px-sm"
-               :class="{current: isCurrent(content)}">
-            <div class="row content-show">
-              <div class="col-1 q-mr-sm">
-                <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}"><q-icon name="isax:play-circle"
-                                                                                                   :color="isCurrent(content) ? 'primary' : ''"
-                                                                                                   size="sm" />
-                </router-link>
+      <q-responsive class="responsive"
+                    :ratio="11/12">
+        <q-scroll-area class="scroll"
+                       :thumb-style="thumbStyle">
+          <div v-for="(content,index) in set.contents.list"
+               :key="index"
+               ref="items"
+               class="other-contents">
+            <div class="content q-pt-md q-px-sm"
+                 :class="{current: isCurrent(content)}">
+              <div class="row content-show">
+                <div class="col-1 q-mr-sm">
+                  <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}"><q-icon name="isax:play-circle"
+                                                                                                     :color="isCurrent(content) ? 'primary' : ''"
+                                                                                                     size="sm" />
+                  </router-link>
+                </div>
+                <div class="col-10">
+                  <router-link :to="{name:'Public.Content.Show', params: {id: content.id}}">
+                    <h6 class="video-title">
+                      {{ content.title }}
+                    </h6>
+                  </router-link>
+                </div>
+                <q-tooltip>
+                  {{ content.title }}
+                </q-tooltip>
+                <div v-if="content.duration"
+                     class="duration q-pl-md q-my-sm col-6">
+                  {{(content.duration / 60 | 0)}}
+                  دقیقه
+                </div>
+                <div v-else
+                     class="col-6" />
+                <div class="date text-right q-pr-sm q-my-sm col-6">
+                  {{convertToShamsi(content.updated_at, 'date')}}
+                </div>
               </div>
-              <div class="col-10">
-                <router-link :to="{name:'Public.Content.Show', params: {id: content.id}}">
-                  <h6 class="video-title">
-                    {{ content.title }}
-                  </h6>
-                </router-link>
-              </div>
-              <q-tooltip>
-                {{ content.title }}
-              </q-tooltip>
-              <div v-if="content.duration"
-                   class="duration q-pl-md q-my-sm col-6">
-                {{(content.duration / 60 | 0)}}
-                دقیقه
-              </div>
-              <div v-else
-                   class="col-6" />
-              <div class="date text-right q-pr-sm q-my-sm col-6">
-                {{convertToShamsi(content.updated_at, 'date')}}
-              </div>
+              <q-separator />
             </div>
-            <q-separator />
           </div>
-        </div>
-      </q-scroll-area>
+        </q-scroll-area>
+      </q-responsive>
     </q-card>
   </div>
 </template>
@@ -101,11 +104,6 @@ export default {
         width: '8px',
         opacity: '0.75'
       }
-    }
-  },
-  computed: {
-    calcTheHeight() {
-      return '46vh'
     }
   },
   watch: {
@@ -160,8 +158,8 @@ export default {
       APIGateway.set.show(this.content.set.id)
         .then((response) => {
           this.set = new Set(response)
-          // this.scrollToElement()
           this.set.loading = false
+          this.scrollToElement()
         })
         .catch(() => {
           this.set = new Set()
@@ -198,7 +196,6 @@ export default {
   .download-section {
   }
   .video-list {
-    height: 500px;
     .main-title{
       font-size: 18px;
       color: #575962;
@@ -206,40 +203,35 @@ export default {
     .set-title{
       color: #afb2c1
     }
-    .scroll{
-      //height: 42vh !important;
-      .other-contents{
-        overflow-x: hidden;
-        .content{
-          border-radius: 10px;
-          margin-left: 30px;
-          margin-right: 42px;
-          .video-title{
-            font-size: 16px;
-            color: #575962;
-            font-weight: 400;
-            width: 250px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
-          .content-show{
-            align-items: center;
-            .time, .date{
-              font-size: 12px;
+    .responsive{
+      max-height: 500px !important;
+      .scroll{
+        .other-contents{
+          .content{
+            border-radius: 10px;
+            margin-left: 10px;
+            margin-right: 15px;
+            .video-title{
+              font-size: 16px;
+              color: #575962;
               font-weight: 400;
+              max-width: 300px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+            .content-show{
+              align-items: center;
+              .time, .date{
+                font-size: 12px;
+                font-weight: 400;
+              }
             }
           }
+          .current {
+            background: #ffd196 12%;
+          }
         }
-        .current {
-          background: #ffd196 12%;
-        }
-      }
-      @media (min-width: 1023px) {
-        height: 80%;
-      }
-      @media (max-width: 1023px) {
-        //height: 300px !important;
       }
     }
   }
