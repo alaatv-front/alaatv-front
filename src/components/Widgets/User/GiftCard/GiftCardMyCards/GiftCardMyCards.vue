@@ -156,14 +156,14 @@ export default {
     return {
       sales_man: {
         wallet_type: 'main_account',
-        wallet_balance: 9845,
-        total_commission: 55183,
+        wallet_balance: 0,
+        total_commission: 0,
         has_signed_contract: false,
-        minAmount_until_settlement: 10000,
-        count_of_total_gift_cards: 11,
+        minAmount_until_settlement: 0,
+        count_of_total_gift_cards: 0,
         count_of_used_gift_cards: 0,
-        count_of_remain_gift_cards: 11,
-        income_being_settle: 90434
+        count_of_remain_gift_cards: 0,
+        income_being_settle: 0
       },
       lastPage: 0,
       page: 1,
@@ -275,6 +275,7 @@ export default {
     getSalesMan() {
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
+          this.sales_man = response
         })
         .catch()
     },

@@ -1,5 +1,5 @@
 <template>
-  <q-card class="content-item-box"
+  <q-card class="content-item-box flex items-center justify-center"
           :style="{minWidth: defaultOptions.minWidth}">
     <router-link :to="getRoutingObject"
                  class="content-item-router-link">
@@ -32,11 +32,9 @@
       </router-link>
       <bookmark v-if="defaultOptions.showBookmark"
                 class="content-item-bookmark"
-                :value="options.content.is_favored"
-                :unfavored-route="$apiGateway.content.APIAdresses.unfavored(options.content.id)"
-                :favored-route="$apiGateway.content.APIAdresses.favored(options.content.id)"
-                @clicked="bookmarkClicked"
-                @onLoad="bookmarkLoaded" />
+                :is-favored="bookmarkValue"
+                :loading="bookmarkLoading"
+                @clicked="handleContentBookmark" />
     </div>
 
   </q-card>
@@ -62,6 +60,7 @@ export default {
   },
   emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
+    bookmarkLoading: false,
     content: new Content(),
     defaultOptions: {
       style: {},
@@ -81,6 +80,14 @@ export default {
         }
       }
       return {}
+    },
+    bookmarkValue: {
+      get () {
+        return this.options.content.is_favored
+      },
+      set () {
+        this.bookmarkUpdated()
+      }
     }
   },
   created () {
@@ -91,7 +98,29 @@ export default {
     }
   },
   methods: {
-    bookmarkLoaded (value) {
+    handleContentBookmark () {
+      this.bookmarkLoading = true
+      if (this.bookmarkValue) {
+        this.$apiGateway.content.unfavored(this.content.id)
+          .then(() => {
+            this.bookmarkValue = !this.bookmarkValue
+            this.bookmarkLoading = false
+          })
+          .catch(() => {
+            this.bookmarkLoading = false
+          })
+        return
+      }
+      this.$apiGateway.content.favored(this.content.id)
+        .then(() => {
+          this.bookmarkValue = !this.bookmarkValue
+          this.bookmarkLoading = false
+        })
+        .catch(() => {
+          this.bookmarkLoading = false
+        })
+    },
+    bookmarkUpdated (value) {
       this.$emit('onBookmarkLoaded', value)
     },
     bookmarkClicked (value) {
@@ -105,7 +134,6 @@ export default {
 .content-item-box {
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: space-between;
   width: 260px;
   margin-bottom: 10px;

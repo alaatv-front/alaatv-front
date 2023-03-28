@@ -3,7 +3,6 @@
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-x-md">
       <div class="video-box-col col-12 col-xs-12 col-sm-12 col-lg-8">
-        <!--        :afterLoad="contentsIsEmpty"-->
         <video-box :set="selectedSet"
                    :content="selectedContent"
                    @toggleFavorite="toggleFavor"
@@ -233,7 +232,10 @@ export default {
             this.getSelectedSetContents(setId)
               .then(contentList => {
                 if (contentList.list.length > 0) {
-                  this.setSelectedContent(contentList.list[0])
+                  const selectedContentIndex = contentList.list
+                    .findIndex(content => content.id.toString() ===
+                      this.$route.params.contentId.toString()) || 0
+                  this.setSelectedContent(contentList.list[selectedContentIndex])
                 }
                 const selectedSet = res
                 selectedSet.contents = contentList

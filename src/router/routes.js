@@ -321,11 +321,11 @@ const routes = [
                 },
                 component: () => import('layouts/GiftCardLayout.vue'),
                 children: [
-                  {
-                    name: 'UserPanel.Asset.GiftCard.Dashboard',
-                    path: 'dashboard',
-                    component: () => import('pages/User/GiftCardPanel/Dashboard.vue')
-                  },
+                  // {
+                  //   name: 'UserPanel.Asset.GiftCard.Dashboard',
+                  //   path: 'dashboard',
+                  //   component: () => import('pages/User/GiftCardPanel/Dashboard.vue')
+                  // },
                   {
                     name: 'UserPanel.Asset.GiftCard.MyGiftCards',
                     path: 'my-gift-cards',

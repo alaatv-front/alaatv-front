@@ -21,9 +21,9 @@
           </q-banner>
         </q-popup-proxy>
       </q-btn>
-      <bookmark v-model:value="content.is_favored"
-                :bookmark-function="bookmarkContent"
-                @on-change-favorite-status="onChangeFavoriteStatus" />
+      <bookmark :is-favored="content.is_favored"
+                :loading="bookmarkLoading"
+                @clicked="handleContentBookmark" />
     </div>
     <h6 class="set-title">
       {{content.title}}
@@ -94,6 +94,7 @@ export default {
   },
   data() {
     return {
+      bookmarkLoading: false,
       tab: 'info',
       content: new Content(),
       sections: [
@@ -133,6 +134,28 @@ export default {
     this.loadContent()
   },
   methods: {
+    handleContentBookmark () {
+      this.bookmarkLoading = true
+      if (this.content.is_favored) {
+        this.$apiGateway.content.unfavored(this.content.id)
+          .then(() => {
+            this.content.is_favored = !this.content.is_favored
+            this.bookmarkLoading = false
+          })
+          .catch(() => {
+            this.bookmarkLoading = false
+          })
+        return
+      }
+      this.$apiGateway.content.favored(this.content.id)
+        .then(() => {
+          this.content.is_favored = !this.content.is_favored
+          this.bookmarkLoading = false
+        })
+        .catch(() => {
+          this.bookmarkLoading = false
+        })
+    },
     shareGiftCard({ name, url }) {
       window.open(url, '_blank')
     },
@@ -144,9 +167,6 @@ export default {
         return this.$apiGateway.content.unfavored(this.content.id)
       }
       return this.$apiGateway.content.favored(this.content.id)
-    },
-    onChangeFavoriteStatus (/* result */) {
-      // console.log(result)
     },
     getContentByRequest() {
       const contentId = this.getContentId()

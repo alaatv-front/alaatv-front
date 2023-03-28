@@ -4,15 +4,12 @@
           :style="options.style">
     <video-player :content="content" />
     <div v-if="options.paginate"
-         class="q-pa-sm flex flex-center">
+         class="q-py-sm flex flex-center paginate">
       <q-pagination v-model="contentNumber"
                     :max="set.contents.list.length"
                     :to-fn="goToContentPage"
                     :max-pages="3"
                     direction-links
-                    boundary-links
-                    icon-first="skip_previous"
-                    icon-last="skip_next"
                     icon-prev="fast_rewind"
                     icon-next="fast_forward" />
     </div>
@@ -137,5 +134,15 @@ export default {
 .video-player{
   border-radius: 10px;
   box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+
+  .paginate {
+    flex-wrap: wrap;
+
+    @media screen and(max-width: 400px) {
+      &:deep(.q-pagination__content) {
+        display: block !important;
+      }
+    }
+  }
 }
 </style>
