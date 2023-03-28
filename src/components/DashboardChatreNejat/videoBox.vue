@@ -59,10 +59,11 @@
           </q-btn>
           <div class="video-box-icon">
             <q-btn unelevated
-
+                   :href="content.isPamphlet() ? content.file?.pamphlet[0]?.link: null"
+                   :target="content.isPamphlet() ? '_blank': null"
                    icon="isax:document-download"
                    :disable="!content.file"
-                   @click="downloadVideo= !downloadVideo">
+                   @click="downloadContent">
               <q-tooltip anchor="top middle"
                          self="bottom middle"
                          :offset="[10, 10]">
@@ -79,10 +80,9 @@
               </q-tooltip>
               <!--              <i class="fi fi-rr-share icon " />-->
             </q-btn>
-            <bookmark :value="content.is_favored"
-                      :unfavored-route="$apiGateway.content.APIAdresses.unfavored(content.id)"
-                      :favored-route="$apiGateway.content.APIAdresses.favored(content.id)"
-                      @onLoad="toggleFavorite" />
+            <bookmark :is-favored="contentFavored"
+                      :loading="bookmarkLoading"
+                      @clicked="handleContentBookmark" />
           </div>
         </div>
       </div>
@@ -156,7 +156,6 @@
                  :href="item.link + (item.link.includes('?') ? '' : '?') +'download=1'"
                  class="download-btn" />
         </div>
-
       </q-card-section>
     </q-card>
   </q-dialog>
@@ -195,6 +194,7 @@ export default {
 
   data() {
     return {
+      bookmarkLoading: false,
       sheet: false,
       keepCalculating: true,
       timePoints: [],
@@ -236,6 +236,14 @@ export default {
   computed: {
     selectedProduct() {
       return this.$store.getters['ChatreNejat/selectedProduct']
+    },
+    contentFavored: {
+      get() {
+        return this.content.is_favored
+      },
+      set(value) {
+        this.toggleFavorite(value)
+      }
     }
   },
 
@@ -243,6 +251,34 @@ export default {
     'content.id': function () {}
   },
   methods: {
+    handleContentBookmark () {
+      this.bookmarkLoading = true
+      if (this.contentFavored) {
+        this.$apiGateway.content.unfavored(this.content.id)
+          .then(() => {
+            this.contentFavored = !this.contentFavored
+            this.bookmarkLoading = false
+          })
+          .catch(() => {
+            this.bookmarkLoading = false
+          })
+        return
+      }
+      this.$apiGateway.content.favored(this.content.id)
+        .then(() => {
+          this.contentFavored = !this.contentFavored
+          this.bookmarkLoading = false
+        })
+        .catch(() => {
+          this.bookmarkLoading = false
+        })
+    },
+    downloadContent () {
+      if (this.content.isPamphlet()) {
+        return
+      }
+      this.downloadVideo = !this.downloadVideo
+    },
     setVideoDuration(data) {
       this.videoDuration = data
     },

@@ -8,6 +8,8 @@ const urlAddress = {
   adminBase: '/admin/set',
   adminShow: (id) => '/admin/set/' + id,
   attachContents: (setId) => '/admin/set/' + setId + '/c/attach',
+  favored: (id) => '/set/' + id + '/favored',
+  unfavored: (id) => '/set/' + id + '/unfavored',
   create: '/admin/set/',
   show: (id) => '/set/' + id,
   getContents: (id) => '/set/' + id + '/contents'
@@ -76,6 +78,34 @@ export default class SetAPI extends APIRepository {
         return error
       },
       data
+    })
+  }
+
+  favored(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.favored(data),
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  unfavored(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unfavored(data),
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 }
