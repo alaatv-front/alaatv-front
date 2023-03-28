@@ -125,6 +125,17 @@ const routes = [
                 component: () => import('src/pages/Public/Cart/Cart.vue')
               }
             ]
+          },
+          {
+            path: 'landing',
+            name: 'Public.Landing',
+            children: [
+              {
+                path: '36',
+                name: 'Public.Checkout.FireDay',
+                component: () => import('src/pages/Public/Landings/FireDay/FireDay.vue')
+              }
+            ]
           }
         ]
       },

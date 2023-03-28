@@ -77,7 +77,7 @@ export default {
   data () {
     return {
       user: new User(),
-      isAdmin: false,
+      isAdmin: true,
       isUserLogin: false,
       contentVerticalScrollPosition: 0,
       keepAliveComponents: KeepAliveComponents
@@ -115,7 +115,7 @@ export default {
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
-      this.isAdmin = this.$store.getters['Auth/isAdmin']
+      // this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
     onContentInsideScroll (data) {
