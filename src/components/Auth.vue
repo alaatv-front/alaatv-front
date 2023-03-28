@@ -1,7 +1,7 @@
 <template>
   <q-card v-if="!userLogin"
           class="login-card">
-    <div v-if="loadingList"
+    <div v-if="loading"
          class="text-center login-loading">
       <q-spinner-ball color="primary"
                       size="5em" />
@@ -57,10 +57,13 @@ export default {
   },
   data: () => ({
     userLogin: false,
-    loadingList: false,
+    loading: true,
     username: null,
     password: null
   }),
+  mounted () {
+    this.loading = false
+  },
   methods: {
     getToken () {
       return this.$store.getters['Auth/accessToken']
@@ -80,7 +83,7 @@ export default {
       this.$store.commit('Auth/updateRedirectTo', null)
     },
     handleErr (err) {
-      this.loadingList = false
+      this.loading = false
       const messages = []
       for (const key in err.data.errors) {
         err.data.errors[key].forEach(message => {
@@ -102,13 +105,13 @@ export default {
       }
     },
     login () {
-      this.loadingList = true
+      this.loading = true
       this.$store.dispatch('Auth/login', {
         mobile: this.username,
         password: this.password
       })
         .then(() => {
-          this.loadingList = false
+          this.loading = false
           // this.$axios.defaults.headers.common.Authorization = 'Bearer ' + this.$store.getters['Auth/accessToken']
           // this.getUserData()
           //   .then(() => {

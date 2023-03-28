@@ -8,7 +8,7 @@
       <q-pagination v-model="contentNumber"
                     :max="set.contents.list.length"
                     :to-fn="goToContentPage"
-                    :max-pages="6"
+                    :max-pages="3"
                     direction-links
                     boundary-links
                     icon-first="skip_previous"
