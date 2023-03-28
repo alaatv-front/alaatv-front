@@ -37,13 +37,13 @@
                       size="18px"
                       color="grey" />
               <div class="comment-time">
-                {{ inputData.props.row.created_at }}
+                {{ getShamsiDate(inputData.props.row.created_at) }}
               </div>
             </q-card-section>
-            <q-card-section class="ellipsis-3-lines comment-main">
+            <q-card-section class="comment-main">
               {{ inputData.props.row.comment }}
             </q-card-section>
-            <q-card-section class="ellipsis comment-footer">
+            <q-card-section class="comment-footer">
               {{ inputData.props.row.set.short_title + ' > ' + inputData.props.row.content.title }}
             </q-card-section>
           </q-card>
@@ -55,6 +55,9 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
+import moment from 'moment-jalaali'
+moment.loadPersian()
+
 export default {
   name: 'ChatreNejatProductComments',
   components: {
@@ -171,6 +174,9 @@ export default {
     },
     gotoComment(commentId) {
       this.$router.push({ name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment', params: { productId: this.$route.params.productId, commentId } })
+    },
+    getShamsiDate (date) {
+      return moment(date, 'YYYY/M/D').locale('fa').format('jD jMMMM jYYYY')
     }
   }
 }
@@ -209,8 +215,8 @@ export default {
         background: #E9E9E9;
       }
 
-      @media only screen and (max-width: 390px) {
-        padding: 5PX;
+      @media only screen and (max-width: 600px) {
+        padding: 10PX;
       }
 
       .comment-header {
@@ -232,6 +238,11 @@ export default {
       .comment-main {
         padding: 5px;
         min-height: 120px;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .comment-footer{
@@ -241,6 +252,11 @@ export default {
         line-height: 19px;
         letter-spacing: -0.02em;
         color: #666666;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
