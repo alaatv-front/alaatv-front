@@ -102,11 +102,14 @@ const videoJsResolutionSwitcher = function(videojs) {
   const MenuButton = videojs.getComponent('MenuButton')
   class ResolutionMenuButton extends MenuButton {
     constructor (player, options, settings, label) {
-      super(player, options)
+      super(player, options, settings)
+      // // Sets this.player_, this.options_ and initializes the component
+      // // MenuButton.call(this, player, options, settings)
+      // super(player, options, settings)
+
       this.sources = options.sources
       this.label = label
       this.label.innerHTML = options.initialySelectedLabel
-      // Sets this.player_, this.options_ and initializes the component
       MenuButton.call(this, player, options, settings)
       this.controlText('کیفیت')
 
@@ -121,7 +124,10 @@ const videoJsResolutionSwitcher = function(videojs) {
 
     createItems () {
       const menuItems = []
-      const labels = (this.sources && this.sources.label) || {}
+      const sources = this.sources
+      // const sources = this.player_.options_.sources
+      const labels = (sources && sources.label) || {}
+      console.log('sources', sources)
       const onClickUnselectOthers = function(clickedItem) {
         menuItems.forEach((item) => {
           item.selected(item === clickedItem)

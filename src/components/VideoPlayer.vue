@@ -38,9 +38,10 @@ import { Content } from 'src/models/Content'
 import { mixinAbrisham } from 'src/mixin/Mixins'
 import { PlayerSourceList } from 'src/models/PlayerSource'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
+import videojsBrand from 'videojs-brand'
 
 import 'videojs-hls-quality-selector'
-import 'videojs-contrib-quality-levels'
+// import 'videojs-contrib-quality-levels'
 
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
@@ -195,6 +196,7 @@ export default {
   },
   methods: {
     initPlayer () {
+      videojs.registerPlugin('brand', videojsBrand)
       if (this.isPlayerSourceList(this.source)) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
@@ -203,6 +205,12 @@ export default {
         }
       }
       this.player = videojs(this.$refs.videoPlayer, this.options, () => {
+        this.player.brand({
+          image: 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png?w=30&h=30',
+          title: 'آلاء',
+          destination: '/',
+          destinationTarget: '_blank'
+        })
         this.player.el().focus()
         // this.on('timeupdate', function () {
         //   if (that.keepCalculating) {
@@ -228,6 +236,39 @@ export default {
       this.player.on('seeked', () => {
         this.$emit('seeked', this.player.currentTime())
       })
+
+      // const events = [
+      //   'loadstart',
+      //   'progress',
+      //   'suspend',
+      //   'abort',
+      //   'error',
+      //   'emptied',
+      //   'stalled',
+      //   'loadedmetadata',
+      //   'loadeddata',
+      //   'canplay',
+      //   'canplaythrough',
+      //   'playing',
+      //   'waiting',
+      //   'seeking',
+      //   'seeked',
+      //   'ended',
+      //   'durationchange',
+      //   'timeupdate',
+      //   'play',
+      //   'pause',
+      //   'ratechange',
+      //   'resize',
+      //   'volumechange'
+      // ]
+      //
+      // events.forEach(event => {
+      //   this.player.on(event, () => {
+      //     console.log('event: ', event)
+      //     console.log('sources: ', this.player.sources)
+      //   })
+      // })
     },
     changeCurrentTime (time) {
       if (!this.player) {

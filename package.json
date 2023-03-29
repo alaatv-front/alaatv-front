@@ -54,7 +54,7 @@
     "quasar-app-extension-q-page-builder": "^0.1.23",
     "socket.io-client": "^4.6.1",
     "sticky-sidebar-v2": "^1.1.1",
-    "video.js": "^8.0.4",
+    "video.js": "^7.21.2",
     "videojs-brand": "^0.0.4",
     "videojs-contrib-quality-levels": "^3.0.0",
     "videojs-hls-quality-selector": "^1.1.4",
