@@ -104,10 +104,17 @@ export default {
                             fontStyle: 'normal'
                           }
                         }
+                      },
+                      {
+                        name: 'ActionButton',
+                        options: {
+                          label: 'ثبت نام',
+                          color: 'primary'
+                        }
                       }
                     ],
                     options: {
-                      className: 'flex column justify-center items-center',
+                      className: '',
                       style: {},
                       colNumber: 'col-md-6'
                     }
@@ -161,7 +168,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: 'feature',
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -202,7 +209,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: 'flex column justify-center items-center',
+                      className: '',
                       style: {},
                       colNumber: 'col-md-12'
                     }
@@ -261,7 +268,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: 'flex column justify-center items-center',
+                      className: '',
                       style: {},
                       colNumber: 'col-md-12'
                     }
@@ -286,10 +293,8 @@ export default {
                       }
                     ],
                     options: {
-                      className: 'flex column justify-center items-center',
-                      style: {
-                        padding: '15px'
-                      },
+                      className: '',
+                      style: {},
                       colNumber: 'col-12 col-md-4'
                     }
                   },
@@ -305,10 +310,8 @@ export default {
                       }
                     ],
                     options: {
-                      className: 'flex column justify-center items-center',
-                      style: {
-                        padding: '15px'
-                      },
+                      className: '',
+                      style: {},
                       colNumber: 'col-12 col-md-4'
                     }
                   },
@@ -324,10 +327,8 @@ export default {
                       }
                     ],
                     options: {
-                      className: 'flex column justify-center items-center',
-                      style: {
-                        padding: '15px'
-                      },
+                      className: '',
+                      style: {},
                       colNumber: 'col-12 col-md-4'
                     }
                   }
@@ -344,6 +345,200 @@ export default {
             verticalAlign: 'start',
             style: {
               background: '#FFFFFF'
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'ComparisonTable',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '40px 0px 16px 10px'
+                          },
+                          title: 'مقایسه دوره 110 آلاء و راه ابریشم آلاء',
+                          color: 'transparent',
+                          flat: true,
+                          attributesLabel: 'ویژگی ها',
+                          attributes: [
+                            {
+                              label: 'زمان آموزش',
+                              name: 'duration',
+                              type: 'text'
+                            },
+                            {
+                              label: 'مخاطب دوره',
+                              name: 'participant',
+                              type: 'text'
+                            },
+                            {
+                              label: 'درسنامه فشرده',
+                              name: 'document',
+                              type: 'boolean'
+                            },
+                            {
+                              label: 'کارگاه حل تست',
+                              name: 'bootCamp',
+                              type: 'boolean'
+                            },
+                            {
+                              label: 'آزمون آزمایشی',
+                              name: 'test',
+                              type: 'boolean'
+                            }
+                          ],
+                          records: [
+                            {
+                              title: '110',
+                              key: '110',
+                              action: {
+                                type: 'scroll',
+                                label: 'جزئیات و ثبت نام',
+                                className: 'feature'
+                              },
+                              attributes: [
+                                {
+                                  name: 'duration',
+                                  value: '3 ماه'
+                                },
+                                {
+                                  name: 'participant',
+                                  value: 'اغلب فارغ التحصیلان'
+                                },
+                                {
+                                  name: 'document',
+                                  value: true
+                                },
+                                {
+                                  name: 'bootCamp',
+                                  value: true
+                                },
+                                {
+                                  name: 'test',
+                                  value: true
+                                }
+                              ]
+                            },
+                            {
+                              title: 'راه ابریشم',
+                              key: 'abrisham',
+                              action: {
+                                type: 'link',
+                                label: 'جزئیات و ثبت نام',
+                                url: 'https://alaatv.com/landing/25'
+                              },
+                              attributes: [
+                                {
+                                  name: 'duration',
+                                  value: '6 ماه'
+                                },
+                                {
+                                  name: 'participant',
+                                  value: 'اغلب فارغ التحصیلان'
+                                },
+                                {
+                                  name: 'document',
+                                  value: false
+                                },
+                                {
+                                  name: 'bootCamp',
+                                  value: true
+                                },
+                                {
+                                  name: 'test',
+                                  value: true
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              }
+            ]
+          },
+          options: {
+            fullHeight: false,
+            verticalAlign: 'start',
+            style: {
+              background: '#F9F4EF'
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'FAQ',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '40px 0px 16px 10px'
+                          },
+                          title: 'سوالات متداول',
+                          FAQList: [
+                            {
+                              label: 'تستم حل میکنید؟',
+                              text: 'توی دوره آموزش جامع کنکور 110 آلاء، دو نوع کلاس تستی و کنکوری برگزار میشه. در درجه اول حل تست آموزشی در کنار درسنامه ویدیویی و جزوات کنکوری دوره و بعد حل تست صد ها پیشرفته کنکوری در قالب تمارین. پس هم با یک کلاس آموزشی طرفی هم کلاس تحلیل تست.'
+                            },
+                            {
+                              label: '110 برنامه مطالعاتی داره؟',
+                              text: 'در سریع ترین کلاس آموزش کنکور مجازی آلاء که عنوانش 110 باشه؛ انقدر مباحث رو بهت سریع و اصولی آموزش میدیم که با هر برنامه مطالعاتی مدنظرت، همخونی داشته باشه. برنامه مشاورت یا آزمونت یا هر برنامه‌ دیگه‌ای. با حدود 6 ساعت مطالعه در روز توی 3 ماه در تمام دروس، کل نکات کنکور رو به همراه حل تست هایی با استاندارد کنکور سراسری میتونی حل بکنی. کلاس آموزشی کنکور که با هر برنامه‌ای جور باشه قشنگه، مثل 110 آلاء.'
+                            },
+                            {
+                              label: 'کنار دوره 110، آزمون آزمایشی باید ثبت نام کنم؟',
+                              text: 'اینکه بری آزمون یا نه، به اختیار خودت و یا مشاورت اما، توصیه آلاء اینکه حتما آزمون آزمایشی برای تجربه و درک فضای آزمون و یادگیری مواجهه با تست در قالب رسمی آزمون خیلی برات اهمیت داره. البته که آزمون منظم موجب پایبندی به برنامه مطالعاتی هم میشه. توی کلاس جامع تست و آموزش 110 که یک دوره فشرده 3 ماهه هست، آزمون های جامع و آنلاین سه‌آ آلاءکه مطابقت داره با استاندارد سوالات کنکور سراسری، به شما هدیه داده میشه تا بتونی از جهت آزمون جامع و شبیه ساز کنکور سراسری هم خیالت راحت باشه.'
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              }
+            ]
+          },
+          options: {
+            fullHeight: false,
+            verticalAlign: 'start',
+            style: {
+              background: '#F9F4EF'
             }
           }
         }

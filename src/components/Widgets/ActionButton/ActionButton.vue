@@ -1,13 +1,11 @@
 <template>
-  <div class="action-button-widget-container"
-       :style="options.style"
-       :class="options.customClass">
-    <q-btn :color="color"
-           :icon="icon"
-           :label="label"
-           :flat="flat"
-           @click="takeAction" />
-  </div>
+  <q-btn :color="color"
+         :icon="icon"
+         :label="label"
+         :flat="flat"
+         :class="options.customClass"
+         :style="options.style"
+         @click="takeAction" />
 </template>
 
 <script>

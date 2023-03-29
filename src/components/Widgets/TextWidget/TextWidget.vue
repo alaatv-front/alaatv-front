@@ -1,7 +1,7 @@
 <template>
   <div class="text-widget-container"
        :style="options.style"
-       :class="options.customClass">
+       :class="options.className">
     <span class="text"
           v-html="options.text" />
   </div>
