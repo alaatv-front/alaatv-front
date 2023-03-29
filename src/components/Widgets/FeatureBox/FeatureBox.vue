@@ -54,7 +54,7 @@ export default {
 <style lang="scss" scoped>
 .feature-card {
   width: 100%;
-  max-width: 350px;
+  max-width: 100%;
   .feature-horizontal-section {
 
     .feature-image {
