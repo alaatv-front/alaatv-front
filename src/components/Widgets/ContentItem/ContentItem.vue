@@ -134,7 +134,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 260px;
+  width: 318px;
   margin-bottom: 10px;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
