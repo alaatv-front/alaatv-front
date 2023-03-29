@@ -23,10 +23,11 @@
       <div class="title-style">   مشاوره راه ابریشم آلاء</div>
       <div class="row q-col-gutter-x-md q-mt-md">
         <div class="video-box-col col-12 col-md-8 col-xs-12">
+          <!--          @has_watched="watched"-->
+          <!--                               :afterLoad="hasLoaded"
+-->
           <video-box :content="currentContent"
-                     :afterLoad="hasLoaded"
-                     @favorite="toggleFavor"
-                     @has_watched="watched" />
+                     @favorite="toggleFavor" />
           <div class="mobile-view">
             <div class="current-content-title"
                  v-text="currentContent.title" />
@@ -69,7 +70,12 @@ import ContentListComponent from 'components/DashboardAbrisham/ContentListCompon
 import consultingMessage from 'src/components/DashboardAbrisham/consulting/consultingMessage.vue'
 export default {
   name: 'AbrishamConsulting',
-  components: { ContentListComponent, commentBox, videoBox, consultingMessage },
+  components: {
+    ContentListComponent,
+    commentBox,
+    videoBox,
+    consultingMessage
+  },
   mixins: [mixinAbrisham],
   data() {
     return {
@@ -82,7 +88,8 @@ export default {
       currentContent: new Content(),
       contentListLoading: false,
       comment: '',
-      hasLoaded: false
+      hasLoaded: false,
+      watchingContent: new Content()
     }
   },
   computed: {
@@ -94,7 +101,7 @@ export default {
     }
   },
   async created() {
-    await this.getLoadContents()
+    await this.getLoadContents(1213)
     await this.nextPage()
   },
   methods: {
@@ -129,10 +136,14 @@ export default {
       }
     },
     async getLoadContents(setId) {
-      this.contents = await this.$apiGateway.abrisham.getConsultingContentList(setId)
-      this.setCurrentContent()
-      this.contentListLoading = false
-      this.hasLoaded = true
+      try {
+        this.contents = await this.$apiGateway.abrisham.getConsultingContentList(setId)
+        this.setCurrentContent()
+        this.contentListLoading = false
+        this.hasLoaded = true
+      } catch {
+        this.contentListLoading = false
+      }
     },
     // async getContentList(setId) {
     //   // set/1213/contents
