@@ -25,11 +25,16 @@
                   v-ripple
                   clickable
                   :to="{name:item.routeName}"
+                  class="menu-item"
                   @click='setActivePage(item)'>
             <q-item-section class="text-center">
-              <i class="menu-item-icon flex"
-                 :class="['fi-rr-' + item.icon]" />
-              {{item.title}}
+              <q-icon :name="item.icon"
+                      size="20px" />
+              <!--              <i class="menu-item-icon flex"-->
+              <!--                 :class="['fi-rr-' + item.icon]" />-->
+              <span class="title">
+                {{item.title}}
+              </span>
             </q-item-section>
           </q-item>
 
@@ -52,32 +57,32 @@ export default {
     keepAliveComponents: KeepAliveComponents,
     expandedNavigation: null,
     activePage: {
-      icon: 'calendar',
+      icon: 'isax:calendar',
       routeName: 'UserPanel.Asset.Abrisham.Schedule',
       title: 'برنامه مطالعاتی'
     },
     menuItem: [
       {
-        icon: 'play-alt',
+        icon: 'isax:play',
         routeName: 'UserPanel.Asset.Abrisham.Progress',
         title: 'فیلم ها'
       },
       {
-        icon: 'calendar',
+        icon: 'isax:calendar',
         routeName: 'UserPanel.Asset.Abrisham.Schedule',
         title: 'برنامه مطالعاتی'
       },
       {
-        icon: 'headphones',
+        icon: 'isax:headphone',
         routeName: 'UserPanel.Asset.Abrisham.Consulting',
         title: 'مشاوره'
       },
       {
-        icon: 'envelope',
+        icon: 'isax:firstline',
         routeName: 'UserPanel.Asset.Abrisham.News',
         title: 'اخبار و اطلاعیه'
       }, {
-        icon: 'world',
+        icon: 'isax:map',
         routeName: 'UserPanel.Asset.Abrisham.Map',
         title: 'نقشه'
       }
@@ -88,6 +93,9 @@ export default {
   },
   mounted () {
     this.activePage = this.getPageFromRouteName()
+    if (window.innerWidth < 1024) {
+      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+    }
   },
   methods: {
     getPageFromRouteName () {
@@ -126,6 +134,16 @@ color: var(--abrishamMain);
 }
 .abrisham-layout{
   background: white;
+  .menu-item {
+    :deep(.q-item__section) {
+      align-items: center;
+      display: grid;
+      grid-template-columns: 20px 1fr;
+    }
+    .title {
+      justify-self: center;
+    }
+  }
   @media screen and(max-width: 1023px) {
     padding: 0 21px;
   }
