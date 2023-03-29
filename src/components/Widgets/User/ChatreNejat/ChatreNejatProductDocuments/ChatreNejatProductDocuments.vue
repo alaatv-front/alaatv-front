@@ -165,17 +165,6 @@ export default {
     },
     setTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
-    },
-    selectedTopic (newVal) {
-      if (!newVal || newVal === '') {
-        return null
-      }
-      this.$router.push({
-        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
-        params: {
-          productId: this.$route.params.productId
-        }
-      })
     }
   },
   mounted() {
