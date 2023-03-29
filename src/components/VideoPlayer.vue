@@ -1,6 +1,5 @@
 <template>
   <div ref="videoPlayerWrapper"
-       style="width: 100%;"
        class="vPlayer">
     <video ref="videoPlayer"
            dir="ltr"
@@ -127,7 +126,7 @@ export default {
         autoplay: false,
         controls: true,
         playbackRates: [0.25, 0.5, 1, 1.5, 2, 2.5, 3, 4],
-        nativeControlsForTouch: true,
+        nativeControlsForTouch: false,
         sources: [],
         poster: null,
         plugins: {
@@ -293,6 +292,7 @@ export default {
 <style lang="scss">
 @import "video.js/dist/video-js.css";
 .vPlayer {
+  width: 100%;
   overflow: hidden;
   .over-player-wrapper-div {
     position: absolute;
