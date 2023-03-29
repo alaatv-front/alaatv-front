@@ -25,8 +25,6 @@
                :key="index"
                ref="items"
                class="other-contents">
-            <!--                                :target="content.isPamphlet() ? '_blank': null"
--->
             <q-item v-ripple
                     clickable
                     :active="isCurrent(content.id)"
