@@ -30,8 +30,8 @@
     <div v-if="loading"
          class="d-xl-none d-lg-none d-md-none d-sm-none d-xs-block">
       <q-skeleton class="q-mb-md"
-                  type="chip" />
-      <q-skeleton type="chip" />
+                  type="QChip" />
+      <q-skeleton type="QChip" />
     </div>
     <div class="drop-down-select-box q-mt-md flex xl-hide lg-hide md-hide sm-hide">
       <q-select v-model="selectedId"
