@@ -32,10 +32,10 @@ export default {
         icon: 'isax:play',
         routeName: 'UserPanel.Asset.Abrisham.Progress'
       },
-      {
-        icon: 'isax:calendar',
-        routeName: 'UserPanel.Asset.Abrisham.Schedule'
-      },
+      // {
+      //   icon: 'isax:calendar',
+      //   routeName: 'UserPanel.Asset.Abrisham.Schedule'
+      // },
       {
         icon: 'isax:headphone',
         routeName: 'UserPanel.Asset.Abrisham.Consulting'

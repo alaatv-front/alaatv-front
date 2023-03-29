@@ -57,9 +57,9 @@ export default {
     keepAliveComponents: KeepAliveComponents,
     expandedNavigation: null,
     activePage: {
-      icon: 'isax:calendar',
-      routeName: 'UserPanel.Asset.Abrisham.Schedule',
-      title: 'برنامه مطالعاتی'
+      icon: 'isax:play',
+      routeName: 'UserPanel.Asset.Abrisham.Progress',
+      title: 'فیلم ها'
     },
     menuItem: [
       {
@@ -67,11 +67,11 @@ export default {
         routeName: 'UserPanel.Asset.Abrisham.Progress',
         title: 'فیلم ها'
       },
-      {
-        icon: 'isax:calendar',
-        routeName: 'UserPanel.Asset.Abrisham.Schedule',
-        title: 'برنامه مطالعاتی'
-      },
+      // {
+      //   icon: 'isax:calendar',
+      //   routeName: 'UserPanel.Asset.Abrisham.Schedule',
+      //   title: 'برنامه مطالعاتی'
+      // },
       {
         icon: 'isax:headphone',
         routeName: 'UserPanel.Asset.Abrisham.Consulting',
