@@ -60,7 +60,7 @@
         <div class="back-btn">
           <q-btn flat
                  icon-right="chevron_left"
-                 :to="getReturnRoute">بازگشت</q-btn>
+                 @click="goBack">بازگشت</q-btn>
         </div>
       </div>
       <div class="content">
@@ -123,12 +123,6 @@ export default {
     }
   },
   computed: {
-    getReturnRoute () {
-      if (this.$route.name === 'UserPanel.Asset.ChatreNejat.ProductPage') {
-        return { name: 'UserPanel.Asset.ChatreNejat.Products' }
-      }
-      return { name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: this.productId } }
-    },
     isUserLogin() {
       return this.$store.getters['Auth/isUserLogin']
     },
@@ -169,6 +163,20 @@ export default {
     }
   },
   methods: {
+    goBack () {
+      if (this.$route.name === 'UserPanel.Asset.ChatreNejat.ProductPage') {
+        this.$router.push(
+          { name: 'UserPanel.Asset.ChatreNejat.Products' }
+        )
+        return
+      } else if (this.$route.params?.contentId) {
+        this.$router.push(
+          { name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: this.productId } }
+        )
+        return
+      }
+      this.$router.back()
+    },
     fillTopicsRouteArray (topicList) {
       this.topicsRouteArray[0].children = []
       topicList.forEach(topic => {

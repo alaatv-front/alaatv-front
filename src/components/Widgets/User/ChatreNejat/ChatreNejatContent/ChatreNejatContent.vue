@@ -21,8 +21,8 @@
                                   :video-list-loading="videoListLoading"
                                   :content="selectedContent"
                                   :set="selectedSet"
-                                  :hide-prev-btn="currentSetIndex === 0"
-                                  :hide-next-btn="currentSetIndex === (setList.length - 1 )"
+                                  :hide-prev-btn="hidePrevBtn"
+                                  :hide-next-btn="hideNextBtn"
                                   @nextSetClicked="goToNextSet"
                                   @previousSetClicked="goToPrevSet"
                                   @contentSelected="setSelectedContent" />
@@ -84,6 +84,12 @@ export default {
     }
   }),
   computed: {
+    hidePrevBtn () {
+      return this.currentSetIndex === 0
+    },
+    hideNextBtn () {
+      return this.currentSetIndex === (this.setList.length - 1)
+    },
     selectedTopic() {
       const topic = this.$store.getters['ChatreNejat/selectedTopic']
       if (!topic) {
@@ -107,7 +113,11 @@ export default {
       return this.$store.getters['ChatreNejat/setTopicList']
     },
     setList() {
-      return this.$store.getters['ChatreNejat/setList'].filter(set => {
+      const setList = this.$store.getters['ChatreNejat/setList']
+      if (setList.length === 0) {
+        return [this.selectedSet]
+      }
+      return setList.filter(set => {
         return set.short_title.includes(this.selectedTopic)
       })
     },
@@ -129,23 +139,13 @@ export default {
       }
     }
   },
-  watch: {
-    selectedTopic (newVal) {
-      if (!newVal || newVal === '') {
-        return null
-      }
-      this.$router.push({
-        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
-        params: {
-          productId: this.$route.params.productId
-        }
-      })
-    }
-  },
   mounted() {
     if (this.$route.params.productId) {
       this.getProductSets(this.$route.params.productId)
       this.getProduct()
+    } else {
+      this.$store.commit('ChatreNejat/updateSetList', [])
+      this.$store.commit('ChatreNejat/updateTopicList', [])
     }
     this.storeSelectedSet(this.$route.params.setId)
     this.storeSelectedContent(this.$route.params.contentId)
@@ -218,9 +218,45 @@ export default {
     },
     setSelectedContent(content) {
       this.$store.commit('ChatreNejat/setSelectedContent', content)
+      if (!content.id) {
+        return
+      }
+      if (this.$route.params.contentId === content.id.toString()) {
+        return
+      }
+      const contentId = content.id || this.selectedContent.id
+      if (content.isPamphlet()) {
+        this.$router.push({
+          name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+          params: { productId: this.productId }
+        })
+        return
+      }
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.Content',
+        params: {
+          productId: this.$route.params.productId,
+          setId: this.selectedSet.id,
+          contentId
+        }
+      })
     },
     updateSelectedSet(set) {
       this.$store.commit('ChatreNejat/setSelectedSet', set)
+      if (!set.id) {
+        return
+      }
+      if (this.$route.params.setId === set.id.toString()) {
+        return
+      }
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.Content',
+        params: {
+          productId: this.$route.params.productId,
+          setId: set.id,
+          contentId: set.contents.list[0].id || this.selectedContent.id
+        }
+      })
     },
     updateSelectedTopic(topic) {
       this.$store.dispatch('ChatreNejat/setSelectedTopic', topic)
@@ -232,23 +268,26 @@ export default {
             this.getSelectedSetContents(setId)
               .then(contentList => {
                 if (contentList.list.length > 0) {
-                  const selectedContentIndex = contentList.list
+                  let selectedContentIndex = contentList.list
                     .findIndex(content => content.id.toString() ===
-                      this.$route.params.contentId.toString()) || 0
+                      this.$route.params.contentId.toString())
+                  if (selectedContentIndex === -1) {
+                    selectedContentIndex = 0
+                  }
                   this.setSelectedContent(contentList.list[selectedContentIndex])
                 }
                 const selectedSet = res
                 selectedSet.contents = contentList
-                resolve(selectedSet)
                 this.contentLoading = false
                 this.videoListLoading = false
                 this.ContentVideoListKey++
+                resolve(selectedSet)
               })
               .catch(() => {
-                reject()
                 this.contentLoading = false
                 this.videoListLoading = false
                 this.ContentVideoListKey++
+                reject()
               })
           })
           .catch(() => {
