@@ -101,7 +101,16 @@ export default {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', !this.layoutLeftDrawerVisible)
     },
     itemSelected (topic) {
+      if (!this.$route.params.productId) {
+        return
+      }
       this.$emit('itemSelected', topic)
+      this.$router.push({
+        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        params: {
+          productId: this.$route.params.productId
+        }
+      })
     },
     setSelectedTopic (TopicName) {
       this.clickedProductItem = TopicName

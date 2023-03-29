@@ -25,11 +25,11 @@
                :key="index"
                ref="items"
                class="other-contents">
+            <!--                                :target="content.isPamphlet() ? '_blank': null"
+-->
             <q-item v-ripple
                     clickable
                     :active="isCurrent(content.id)"
-                    :href="content.isPamphlet() ? content.file?.pamphlet[0]?.link: null"
-                    :target="content.isPamphlet() ? '_blank': null"
                     class="item-list"
                     @click="itemSelected(content)">
               <div class="content-show items-center">
@@ -170,6 +170,10 @@ export default {
   methods: {
     itemSelected(item) {
       this.clickedItem = item
+      if (item.isPamphlet()) {
+        window.open(item.file?.pamphlet[0]?.link, '_blank')
+        return
+      }
       this.$emit('contentSelected', item)
     },
     nextSetClicked() {
