@@ -8,7 +8,7 @@
           <q-btn outline
                  class="full-width advance-search-btn-text"
                  color="primary"
-                 label="جستوجوی پیشرفته"
+                 label="جستجوی پیشرفته"
                  icon-right="mdi-feature-search-outline"
                  @click="advanceSearchModal = true" />
         </div>
@@ -18,7 +18,7 @@
             <div class="modal-content">
               <q-card-section class="row justify-between">
                 <div class="advance-search-modal-title">
-                  جستوجوی پیشرفته
+                  جستجوی پیشرفته
                 </div>
                 <div class="btn-box">
                   <q-btn v-close-popup
@@ -107,11 +107,6 @@
                  class="alert alert-warning alert-dismissible fade show error-alert"
                  role="alert">
               <strong>متاسفیم!</strong>با توجه به خواسته شما موردی یافت نشد.
-              <q-btn class="close"
-                     data-dismiss="alert"
-                     aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </q-btn>
             </div>
           </div>
           <div class="">
@@ -394,7 +389,7 @@ export default {
 
     updateNewUrl () {
       const tags = []
-      this.selectedTags.forEach((tag, index) => {
+      this.selectedTags.forEach((tag) => {
         tags.push('tags[]=' + encodeURIComponent(tag.value))
       })
       this.new_url = '?' + tags.join('&')
@@ -450,7 +445,7 @@ export default {
         // const lastElementIndex = this.sets.list.length - 1
         // this.sets.list[lastElementIndex][type] = 'loading'
         this.$nextTick(() => {
-          if (window.imageObserver) window.imageObserver.observe()
+          // if (window?.imageObserver) window.imageObserver.observe()
         })
       })
       this.sets.paginate = { links: data.links, meta: data.meta }
@@ -522,7 +517,7 @@ export default {
       sample.forEach(item => this.productAndContentList.push(item))
       oldList.list.splice(0, count)
       this.$nextTick(() => {
-        if (window.imageObserver) window.imageObserver.observe()
+        // if (window?.imageObserver) window.imageObserver.observe()
       })
     },
 
