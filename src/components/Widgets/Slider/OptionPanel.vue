@@ -166,7 +166,8 @@ import { defineComponent } from 'vue'
 import { Banner } from 'src/models/Banner.js'
 import lazyImg from 'src/components/lazyImg.vue'
 import bannerPreview from 'src/components/Widgets/Slider/bannerPreview.vue'
-import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
+import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
+import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
   name: 'OptionPanel',

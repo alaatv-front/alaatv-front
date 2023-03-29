@@ -4,23 +4,28 @@
       <div class="option-panel-container">
         <div class="row">
           <div class="col">
-            <q-list bordered>
+            <q-list separator>
               <q-item v-for="(service, serviceIndex) in localOptions.services"
-                      :key="'service-'+serviceIndex"
-                      v-ripple
-                      clickable>
+                      :key="'service-'+serviceIndex">
                 <q-item-section>
-                  <q-input v-model="service.link"
-                           label="link" />
-                  <q-input v-model="service.icon"
-                           label="icon" />
-                  <q-input v-model="service.title"
-                           label="title" />
-                  <q-input v-model="service.subTitle"
-                           label="subTitle" />
-                  <q-img :src="service.icon" />
+                  <q-item-label>
+                    <q-input v-model="service.title"
+                             label="title" />
+                    <br>
+                    <q-input v-model="service.subTitle"
+                             label="subTitle" />
+                    <br>
+                  </q-item-label>
+                  <q-item-label caption
+                                lines="2">
+                    <q-input v-model="service.link"
+                             label="link" />
+                    <br>
+                    <q-input v-model="service.icon"
+                             label="icon" />
+                  </q-item-label>
                 </q-item-section>
-                <q-item-section thumbnail>
+                <q-item-section avatar>
                   <q-img :src="service.icon" />
                 </q-item-section>
               </q-item>
@@ -34,7 +39,8 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { mixinOptionPanel, OptionPanelTabs } from 'quasar-ui-q-page-builder'
+import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
+import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
   name: 'OptionPanel',

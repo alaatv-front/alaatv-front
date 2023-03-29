@@ -33,7 +33,8 @@
                  class="tabs-list-container">
               <div v-if="showMenuItem(/* item */)"
                    class="self-center">
-                <q-item v-ripple
+                <q-item v-if="item.routeName"
+                        v-ripple
                         clickable
                         :active="isRouteSelected(item.routeName)"
                         active-class="active-item"
@@ -42,6 +43,15 @@
                     {{ item.title }}
                   </q-item-section>
                 </q-item>
+                <!--                <template v-if="item.selected === 'basicContents'">-->
+                <!--                  <mega-menu :menuContent="item" />-->
+                <!--                </template>-->
+                <!--                <template v-if="item.selected === 'konkurConference'">-->
+                <!--                  <mega-menu :menuContent="item" />-->
+                <!--                </template>-->
+                <template v-if="item.selected === 'firstMidSchool'">
+                  <simple-menu :menuContent="item" />
+                </template>
               </div>
             </div>
           </q-list>
@@ -49,21 +59,21 @@
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
         <div class="user-action">
           <div class="action-container">
-            <q-card-section class="search-section">
-              <q-input v-model="searchInput"
-                       filled
-                       class="search-input"
-                       placeholder="جستجو در آلا...">
-                <template v-slot:before>
-                  <q-btn flat
-                         rounded
-                         icon="isax:search-normal-1"
-                         class="search" />
-                  <!--                                      @click="filterByStatement"
-            -->
-                </template>
-              </q-input>
-            </q-card-section>
+            <!--            <q-card-section ref="searchInput"-->
+            <!--                            class="search-section">-->
+            <!--              <q-input v-model="searchInput"-->
+            <!--                       filled-->
+            <!--                       class="search-input"-->
+            <!--                       placeholder="جستجو در آلا...">-->
+            <!--                <template v-slot:prepend>-->
+            <!--                  <q-btn flat-->
+            <!--                         rounded-->
+            <!--                         icon="isax:search-normal-1"-->
+            <!--                         class="search"-->
+            <!--                         @click="filterByStatement" />-->
+            <!--                </template>-->
+            <!--              </q-input>-->
+            <!--            </q-card-section>-->
             <!--            <q-btn-->
             <!--              icon="isax:notification"-->
             <!--              unelevated-->
@@ -76,7 +86,14 @@
                    rounded
                    size="12px"
                    class="action-btn"
-                   :to="{name: 'Public.Checkout.Review'}" />
+                   :to="{name: 'Public.Checkout.Review'}">
+              <q-menu class="user-card-dropdown"
+                      :offset="[170, 10]">
+                <div class="dropdown-box">
+                  hi
+                </div>
+              </q-menu>
+            </q-btn>
           </div>
           <q-btn v-if="isUserLogin"
                  flat
@@ -181,12 +198,15 @@
 import { mapMutations } from 'vuex'
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
+// import megaMenu from './magaMenu.vue'
+import simpleMenu from './simpleMenu.vue'
 
 export default {
   name: 'MainHeaderTemplate',
-  components: { LazyImg },
+  components: { LazyImg, simpleMenu },
   data() {
     return {
+      conferenceMenu: false,
       showHamburgerConfig: true,
       searchInput: '',
       user: new User(),
@@ -204,6 +224,74 @@ export default {
           title: 'فروشگاه',
           routeName: 'Public.Shop',
           permission: 'all'
+        },
+        {
+          selected: 'basicContents',
+          title: 'فیلم های پایه و کنکور آلاء',
+          routeName: '',
+          permission: 'all',
+          children: [
+            {
+              title: 'دوازدهم و کنکور',
+              children: [
+                {
+                  title: 'دروس اختصاصی ریاضی و تجربی'
+                },
+                {
+                  title: 'شیمی'
+                },
+                {
+                  title: 'فیزیک'
+                }
+              ]
+            },
+            {
+              title: 'یازدهم',
+              children: [
+                {}
+              ]
+            }
+          ]
+        },
+        {
+          selected: 'konkurConference',
+          title: 'همایش کنکوری آلاء',
+          routeName: '',
+          permission: 'all',
+          children: [
+            {
+              title: 'چتر نجات',
+              photo: ''
+            },
+            {
+              title: 'راه ابریشم',
+              photo: ''
+            },
+            {
+              title: 'کارت هدیه آلاء',
+              photo: ''
+            }
+          ]
+        },
+        {
+          selected: 'firstMidSchool',
+          title: 'متوسطه اول',
+          routeName: '',
+          permission: 'all',
+          children: [
+            {
+              title: 'هفتم',
+              items: ['ریاضی', 'ادبیات']
+            },
+            {
+              title: 'هشتم',
+              items: ['هندسه', 'ریاضی', 'ادبیات']
+            },
+            {
+              title: 'نهم',
+              items: ['ریاضی']
+            }
+          ]
         }
         // {
         //   selected: 'adminPanel',
@@ -311,6 +399,12 @@ export default {
     }
   },
   methods: {
+    filterByStatement() {
+      const param = {
+        q: this.searchInput
+      }
+      this.$router.push({ name: 'Public.Content.Search', query: param })
+    },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isAdmin = this.$store.getters['Auth/isAdmin']
@@ -470,10 +564,10 @@ export default {
           .search-section {
             height: 40px;
             .search-input {
-              width: 317px;
+              width: 300px;
               height: 40px;
               background: #F1F3F4;
-              border-radius: 10px;
+              //border-radius: 10px;
 
               &:deep(.q-field__append) {
                 padding-right: 8px !important;
@@ -525,7 +619,7 @@ export default {
             }
 
             .q-field__inner {
-              border-radius: 0px;
+              //border-radius: 0px;
               .q-field__control {
                 color: transparent;
                 min-height: 0;

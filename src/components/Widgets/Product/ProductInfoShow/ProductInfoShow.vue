@@ -29,8 +29,9 @@
                   </q-banner>
                 </q-popup-proxy>
               </q-btn>
-              <bookmark v-model:value="isFavored"
-                        :bookmark-function="bookmarkContent" />
+              <bookmark :is-favored="product.is_favored"
+                        :loading="bookmarkLoading"
+                        @clicked="handleProductBookmark" />
             </div>
           </div>
           <div class="product-info-box row">
@@ -93,6 +94,7 @@ export default {
   },
   data() {
     return {
+      bookmarkLoading: false,
       product: new Product(),
       samplePhotosIndex: null,
       isFavored: false,
@@ -214,6 +216,28 @@ export default {
     }
   },
   methods: {
+    handleProductBookmark () {
+      this.bookmarkLoading = true
+      if (this.product.is_favored) {
+        this.$apiGateway.content.unfavored(this.product.id)
+          .then(() => {
+            this.product.is_favored = !this.product.is_favored
+            this.bookmarkLoading = false
+          })
+          .catch(() => {
+            this.bookmarkLoading = false
+          })
+        return
+      }
+      this.$apiGateway.content.favored(this.product.id)
+        .then(() => {
+          this.product.is_favored = !this.product.is_favored
+          this.bookmarkLoading = false
+        })
+        .catch(() => {
+          this.bookmarkLoading = false
+        })
+    },
     prefetchServerDataPromise () {
       this.product.loading = true
       return this.getProduct()
@@ -265,12 +289,6 @@ export default {
           info.value = this.product.attributes.info[findingAttribute]
         }
       })
-    },
-    bookmarkContent () {
-      if (this.product.is_favored_2) {
-        return this.$apiGateway.product.unfavoredProduct(this.product.id)
-      }
-      return this.$apiGateway.product.favoredProduct(this.product.id)
     },
     shareGiftCard({ name, url }) {
       window.open(url, '_blank')

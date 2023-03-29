@@ -155,7 +155,7 @@ export default class ReferralCodeAPI extends APIRepository {
       cacheKey: this.CacheList.sales_man,
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error
