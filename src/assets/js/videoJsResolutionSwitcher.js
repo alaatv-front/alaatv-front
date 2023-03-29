@@ -102,15 +102,15 @@ const videoJsResolutionSwitcher = function(videojs) {
   const MenuButton = videojs.getComponent('MenuButton')
   class ResolutionMenuButton extends MenuButton {
     constructor (player, options, settings, label) {
+      options.groupedSrc = options.sources
       super(player, options, settings)
       // // Sets this.player_, this.options_ and initializes the component
       // // MenuButton.call(this, player, options, settings)
-      // super(player, options, settings)
 
       this.sources = options.sources
       this.label = label
       this.label.innerHTML = options.initialySelectedLabel
-      MenuButton.call(this, player, options, settings)
+      // MenuButton.call(this, player, options, settings)
       this.controlText('کیفیت')
 
       if (settings.dynamicLabel) {
@@ -124,10 +124,9 @@ const videoJsResolutionSwitcher = function(videojs) {
 
     createItems () {
       const menuItems = []
-      const sources = this.sources
-      // const sources = this.player_.options_.sources
+      // const sources = this.sources
+      const sources = this.options_.groupedSrc
       const labels = (sources && sources.label) || {}
-      console.log('sources', sources)
       const onClickUnselectOthers = function(clickedItem) {
         menuItems.forEach((item) => {
           item.selected(item === clickedItem)
@@ -151,6 +150,7 @@ const videoJsResolutionSwitcher = function(videojs) {
           menuItemsHolder[key] = menuItems[menuItems.length - 1]
         }
       }
+
       return menuItems
     }
   }
@@ -160,7 +160,7 @@ const videoJsResolutionSwitcher = function(videojs) {
    * @param {object} [options] configuration for the plugin
    */
   const videoJsResolutionSwitcher = function(options) {
-    const settings = videojs.mergeOptions(defaults, options),
+    const settings = videojs.obj.merge(defaults, options),
       player = this,
       label = document.createElement('span')
     let groupedSrc = {}
