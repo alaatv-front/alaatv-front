@@ -1,6 +1,6 @@
 <template>
-  <q-card class="content-item-box flex items-center justify-center"
-          :style="{minWidth: defaultOptions.minWidth}">
+  <q-card class="content-item-box"
+          :style="{minWidth: options.minWidth}">
     <router-link :to="getRoutingObject"
                  class="content-item-router-link">
       <div class="img-box">
@@ -15,11 +15,7 @@
           <div class="play-icon" />
         </div>
       </div>
-    </router-link>
-
-    <div class="content-content-box ">
-      <router-link :to="getRoutingObject"
-                   class="content-item-router-link">
+      <div class="content-content-box ">
         <div class="content-box-text">
           <div v-if="defaultOptions.showSetTitle"
                class="main-title ellipsis">
@@ -29,13 +25,16 @@
             {{ content.short_title ? content.short_title : content.title }}
           </div>
         </div>
-      </router-link>
-      <bookmark v-if="defaultOptions.showBookmark"
-                class="content-item-bookmark"
-                :is-favored="bookmarkValue"
-                :loading="bookmarkLoading"
-                @clicked="handleContentBookmark" />
-    </div>
+        <bookmark v-if="defaultOptions.showBookmark"
+                  class="content-item-bookmark"
+                  :value="options.content.is_favored"
+                  :unfavored-route="$apiGateway.content.APIAdresses.unfavored(options.content.id)"
+                  :favored-route="$apiGateway.content.APIAdresses.favored(options.content.id)"
+                  @clicked="bookmarkClicked"
+                  @onLoad="bookmarkLoaded" />
+
+      </div>
+    </router-link>
 
   </q-card>
 </template>
@@ -458,13 +457,10 @@ export default {
     }
   }
 
-  @media screen and (max-width: 575px) {
-    width: 310px;
-    min-height: 120px;
-    max-height: 280px;
+  @media screen and (max-width: 600px) {
+    width: 250px;
     display: flex;
     border-radius: 18px;
-    margin-bottom: 16px;
     flex-direction: row;
 
     .img-box {
@@ -551,6 +547,10 @@ export default {
         /* margin-left: 3px; */
       }
     }
+  }
+
+  @media screen and(max-width: 350px) {
+    width: 150px;
   }
 }
 </style>

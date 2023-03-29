@@ -148,7 +148,7 @@ export default {
   flex-direction: column;
   //height: 100%;
   justify-content: space-between;
-  width: 260px;
+  width: 310px;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
@@ -171,7 +171,7 @@ export default {
       font-size: 16px;
       line-height: 24px;
       letter-spacing: -0.03em;
-      margin: 16px;
+      margin: 16px 16px 0;
 
       @media screen and (max-width: 600px){
         font-size: 14px;
@@ -351,6 +351,8 @@ export default {
         padding-top: 3px;
       }
     }
+    @media screen and(max-width: 600px) {
+    }
   }
 
   .info-box {
@@ -464,9 +466,8 @@ export default {
     }
   }
 
-  @media screen and (max-width: 575px) {
-    width: 310px;
-    min-height: 460px;
+  @media screen and (max-width: 600px) {
+    width: 240px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
@@ -529,12 +530,12 @@ export default {
 
       .action-box {
         .more-detail {
-          a {
-          }
-
           .more {
             display: none;
           }
+        }
+        .btn-green{
+          margin-left: 20px;
         }
 
         .btn-style {
@@ -557,6 +558,15 @@ export default {
       .discount {
         height: 20px;
         /* margin-left: 3px; */
+      }
+    }
+  }
+
+  @media screen and (max-width: 350px){
+    width: 150px;
+    .product-content-box{
+      .action-box{
+        display: block;
       }
     }
   }
