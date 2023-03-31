@@ -71,7 +71,7 @@
   </option-panel-tabs>
 </template>
 <script>
-import { defineComponent, getCurrentInstance } from 'vue'
+import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
@@ -92,7 +92,6 @@ export default defineComponent({
       fontStyle: ['inherit', 'normal', 'italic'],
       foreColor: '#000000',
       token: null,
-      proxy: getCurrentInstance(),
       responsiveOpts: ['xs', 'sm', 'md', 'lg', 'xl'],
       responsive: 'xs',
       defaultOptions: {
