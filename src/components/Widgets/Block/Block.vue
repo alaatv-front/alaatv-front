@@ -26,7 +26,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="product-spacing">
-          <product-item :options="{product, minWidth: '318px'}" />
+          <product-item :options="{product, minWidth: '100px'}" />
         </div>
         <div v-if="block?.url?.web"
              class="block-item-box">
@@ -47,7 +47,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="set-spacing">
-          <set-item :options="{set, minWidth: '318px'}" />
+          <set-item :options="{set, minWidth: '100px'}" />
         </div>
         <div class="block-item-box">
           <q-btn :href="block?.url?.web"
@@ -67,7 +67,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="content-spacing">
-          <content-item :options="{content, minWidth: '318px'}" />
+          <content-item :options="{content, minWidth: '100px'}" />
         </div>
         <div class="block-item-box">
           <q-btn :href="block?.url?.web"
@@ -223,6 +223,9 @@ export default {
       &:hover {
         padding: 0 0 6px 0;
         border-color: #333333;
+      }
+      @media screen and (max-width: 350px){
+        font-size: 16px;
       }
     }
   }

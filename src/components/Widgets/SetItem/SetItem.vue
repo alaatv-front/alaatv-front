@@ -109,8 +109,8 @@ export default {
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
-  //width: 260px;
-  width: 100%;
+  width: 318px;
+  //width: 100%;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
@@ -449,9 +449,8 @@ export default {
     }
   }
 
-  @media screen and (max-width: 575px) {
-    width: 310px;
-    min-height: 270px;
+  @media screen and (max-width: 600px) {
+    width: 250px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
@@ -541,6 +540,10 @@ export default {
         /* margin-left: 3px; */
       }
     }
+  }
+
+  @media screen and (max-width: 350px){
+    width: 150px;
   }
 
 }
