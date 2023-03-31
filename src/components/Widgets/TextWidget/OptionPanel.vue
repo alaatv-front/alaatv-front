@@ -4,7 +4,8 @@
       <div class="option-panel-container">
         <div class="row">
           <div class="col-md-12">
-            <q-editor v-model="localOptions.text"
+            <q-editor ref="editor"
+                      v-model="localOptions.text"
                       min-height="10rem"
                       :toolbar="[
                         [
@@ -15,10 +16,32 @@
                             list: 'only-icons',
                           },
                         ],
-                        ['bold', 'italic', 'strike', 'underline'],
+                        ['bold', 'italic', 'strike', 'underline', 'token'],
                         ['quote', 'unordered', 'ordered', 'outdent', 'indent'],
                         ['viewsource']
-                      ]" />
+                      ]">
+              <template v-slot:token>
+                <q-btn-dropdown ref="token"
+                                dense
+                                unelevated
+                                color="white"
+                                icon="colorize"
+                                text-color="primary"
+                                size="sm">
+                  <q-list dense>
+                    <q-item tag="label"
+                            clickable>
+                      <q-item-section>
+                        <q-btn icon="check"
+                               @click="color('foreColor', foreColor)" />
+                        <q-color v-model="foreColor"
+                                 class="my-picker" />
+                      </q-item-section>
+                    </q-item>
+                  </q-list>
+                </q-btn-dropdown>
+              </template>
+            </q-editor>
           </div>
           <div class="col-md-3">
             <q-select v-model="responsive"
@@ -48,7 +71,7 @@
   </option-panel-tabs>
 </template>
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, getCurrentInstance } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
@@ -67,6 +90,9 @@ export default defineComponent({
   data() {
     return {
       fontStyle: ['inherit', 'normal', 'italic'],
+      foreColor: '#000000',
+      token: null,
+      proxy: getCurrentInstance(),
       responsiveOpts: ['xs', 'sm', 'md', 'lg', 'xl'],
       responsive: 'xs',
       defaultOptions: {
@@ -98,6 +124,15 @@ export default defineComponent({
       this.responsive = 'sm'
     } else if (windowWidth < 600) {
       this.responsive = 'xs'
+    }
+  },
+  methods: {
+    color(cmd, name) {
+      const edit = this.$refs.editor
+      this.$refs.token.hide()
+      edit.caret.restore()
+      edit.runCmd(cmd, name)
+      edit.focus()
     }
   }
 })
