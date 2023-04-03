@@ -55,13 +55,13 @@
                    unelevated />
           </div>
         </div>
-        <div class="q-mt-lg status">
-          <div class="flex no-wrap q-mx-md status-detail">
-            دانش آموز &#9679; ریاضی دوازدهم
-            <div>۹۵۵</div>
-            <div class="yellow-star" />
-          </div>
-        </div>
+        <!--        <div class="q-mt-lg status">-->
+        <!--          <div class="flex no-wrap q-mx-md status-detail">-->
+        <!--            دانش آموز &#9679; ریاضی دوازدهم-->
+        <!--            <div>۹۵۵</div>-->
+        <!--            <div class="yellow-star" />-->
+        <!--          </div>-->
+        <!--        </div>-->
         <q-separator class="q-mt-md"
                      size="2px" />
         <q-list class="menu-items q-mt-md">

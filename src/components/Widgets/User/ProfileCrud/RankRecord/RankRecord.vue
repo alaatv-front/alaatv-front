@@ -27,13 +27,13 @@ export default {
         {
           type: 'formBuilder',
           name: 'formBuilderCol',
-          col: 'col-md-12 custom-card  q-mt-md',
+          col: 'col-md-12 custom-card q-mt-md',
           value: [
             {
               type: 'separator',
               size: '0',
               label: 'ثبت رتبه کنکور',
-              col: 'col-md-12 title'
+              col: 'col-xs-12 title'
             },
             {
               type: 'select',
@@ -46,7 +46,7 @@ export default {
               options: [],
               outlined: true,
               multiple: false,
-              col: 'col-md-6'
+              col: 'col-xs-6'
             },
             {
               type: 'select',
@@ -59,7 +59,7 @@ export default {
               options: [],
               outlined: true,
               multiple: false,
-              col: 'col-md-6 q-pr-md'
+              col: 'col-xs-6 q-pr-md'
             },
             {
               type: 'select',
@@ -72,7 +72,7 @@ export default {
               options: [],
               outlined: true,
               multiple: false,
-              col: 'col-md-6'
+              col: 'col-xs-6'
             },
             {
               type: 'input',
@@ -81,7 +81,7 @@ export default {
               label: 'رتبه شما در منطقه',
               outlined: true,
               placeholder: 'وارد نمایید',
-              col: 'col-md-6 q-pr-md'
+              col: 'col-xs-6 q-pr-md'
             },
             {
               type: 'input',
@@ -90,7 +90,7 @@ export default {
               label: 'شماره داوطلبی شما',
               outlined: true,
               placeholder: 'وارد نمایید',
-              col: 'col-md-6'
+              col: 'col-xs-6'
             },
             {
               type: 'file',
@@ -98,7 +98,7 @@ export default {
               label: 'آپلود فایل کارنامه',
               outlined: true,
               placeholder: 'وارد نمایید',
-              col: 'col-md-6 q-pr-md'
+              col: 'col-xs-6 q-pr-md'
             },
             {
               type: 'checkbox',
@@ -135,11 +135,13 @@ export default {
     getRankRecord() {
       APIGateway.user.eventResult()
         .then(response => {
-          this.actionInput[0].value[1].value = response.data.data[0].event
-          this.actionInput[0].value[2].value = response.data.data[0].major
-          this.actionInput[0].value[3].value = response.data.data[0].region
-          this.actionInput[0].value[4].value = response.data.data[0].rank
-          this.actionInput[0].value[7].value = response.data.data[0].enable_report_publish === 1
+          if (response[0]) {
+            this.actionInput[0].value[1].value = response[0].event
+            this.actionInput[0].value[2].value = response[0].major
+            this.actionInput[0].value[3].value = response[0].region
+            this.actionInput[0].value[4].value = response[0].rank
+            this.actionInput[0].value[7].value = response[0].enable_report_publish === 1
+          }
         })
         .catch()
     },

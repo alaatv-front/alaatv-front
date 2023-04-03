@@ -92,7 +92,7 @@ export default class UserAPI extends APIRepository {
       request: this.APIAdresses.bankAccounts,
       cacheKey: this.CacheList.bankAccounts,
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -235,7 +235,7 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.eventResult,
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error
