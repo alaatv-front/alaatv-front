@@ -27,11 +27,9 @@
         </div>
         <bookmark v-if="defaultOptions.showBookmark"
                   class="content-item-bookmark"
-                  :value="options.content.is_favored"
-                  :unfavored-route="$apiGateway.content.APIAdresses.unfavored(options.content.id)"
-                  :favored-route="$apiGateway.content.APIAdresses.favored(options.content.id)"
-                  @clicked="bookmarkClicked"
-                  @onLoad="bookmarkLoaded" />
+                  :is-favored="options.content.is_favored"
+                  :loading="bookmarkLoading"
+                  @clicked="handleContentBookmark" />
 
       </div>
     </router-link>
@@ -97,12 +95,13 @@ export default {
     }
   },
   methods: {
-    handleContentBookmark () {
+    handleContentBookmark (value) {
       this.bookmarkLoading = true
       if (this.bookmarkValue) {
-        this.$apiGateway.content.unfavored(this.content.id)
+        this.$apiGateway.content.unfavored(this.options.content.id)
           .then(() => {
             this.bookmarkValue = !this.bookmarkValue
+            this.bookmarkClicked(value)
             this.bookmarkLoading = false
           })
           .catch(() => {
@@ -110,9 +109,10 @@ export default {
           })
         return
       }
-      this.$apiGateway.content.favored(this.content.id)
+      this.$apiGateway.content.favored(this.options.content.id)
         .then(() => {
           this.bookmarkValue = !this.bookmarkValue
+          this.bookmarkClicked(value)
           this.bookmarkLoading = false
         })
         .catch(() => {
