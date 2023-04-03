@@ -350,6 +350,13 @@ export default {
           routeName: 'UserPanel.Asset.ChatreNejat.Products',
           permission: 'all',
           active: false
+        },
+        {
+          title: 'داشبورد ابریشم',
+          icon: 'isax:document-1',
+          routeName: 'UserPanel.Asset.Abrisham.Progress',
+          permission: 'all',
+          active: false
         }
       ]
     }

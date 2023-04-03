@@ -16,9 +16,9 @@
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-md q-mb-lg">
       <div class="col-12 col-md-8">
+        <!--        @has_watched="watched"-->
         <video-box :content="watchingContent"
                    @favorite="toggleFavor"
-                   @has_watched="watched"
                    @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
           <div class="current-content-title"

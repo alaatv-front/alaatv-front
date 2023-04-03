@@ -129,6 +129,12 @@ p {
       position: absolute;
       right: 15px;
       height: 100%;
+      @media screen and (max-width: 599px ) {
+        flex-direction: column;
+        .videoOrder-title {
+          margin-right: 0 !important;
+        }
+      }
     }
 
     .inner-content {

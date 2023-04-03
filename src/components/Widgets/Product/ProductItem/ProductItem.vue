@@ -1,5 +1,56 @@
 <template>
-  <q-card class="product-item-box"
+  <q-card v-if="loading"
+          class="product-item-box q-pa-md"
+          :style="{minWidth: localOptions.minWidth}">
+    <div style="max-width: 300px">
+      <q-skeleton height="270px"
+                  square
+                  animation="fade" />
+      <q-skeleton type="text"
+                  animation="fade" />
+      <q-item>
+        <q-item-section avatar>
+          <q-skeleton type="QAvatar"
+                      animation="fade" />
+        </q-item-section>
+
+        <q-item-section>
+          <q-item-label>
+            <q-skeleton type="text"
+                        animation="fade" />
+          </q-item-label>
+          <q-item-label caption>
+            <q-skeleton type="text"
+                        animation="fade" />
+          </q-item-label>
+        </q-item-section>
+      </q-item>
+
+      <div class="row items-start no-wrap q-mt-sm">
+        <div class="col q-pr-sm">
+          <q-skeleton type="text"
+                      square
+                      width="30%"
+                      animation="fade" />
+          <q-skeleton type="text"
+                      square
+                      height="12px"
+                      animation="fade" />
+          <q-skeleton type="text"
+                      square
+                      height="12px"
+                      width="75%"
+                      animation="fade" />
+        </div>
+        <q-skeleton width="56px"
+                    height="20px"
+                    square
+                    animation="fade" />
+      </div>
+    </div>
+  </q-card>
+  <q-card v-else
+          class="product-item-box"
           :style="{minWidth: localOptions.minWidth}">
     <div class="img-box">
       <router-link :to="{
@@ -92,6 +143,7 @@ export default {
   },
   data: () => ({
     addToCartLoading: false,
+    loading: false,
     product: new Product(),
     defaultOptions: {
       style: {},
@@ -106,10 +158,19 @@ export default {
     }
   },
   created () {
-    if (!this.options.product) {
-      this.product = new Product(this.options)
-    } else {
+    if (this.options.product) {
       this.product = new Product(this.options.product)
+    } else if (this.options.productId || this.options.paramKey || this.$route.params.id) {
+      this.loading = true
+      const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
+      this.$apiGateway.product.show(productId).then(product => {
+        this.product = product
+        this.loading = false
+      }).catch(() => {
+        this.loading = false
+      })
+    } else {
+      this.product = new Product(this.options)
     }
   },
   methods: {
