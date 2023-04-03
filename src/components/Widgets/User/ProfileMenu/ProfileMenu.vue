@@ -83,13 +83,13 @@
               <div class="menu-item-title q-ml-sm">سفارش های من</div>
             </q-item-section>
           </q-item>
-          <q-item v-ripple
-                  clickable>
-            <q-item-section class="menu-item-custom">
-              <div class="empty-wallet" />
-              <div class="menu-item-title q-ml-sm">کیف پول</div>
-            </q-item-section>
-          </q-item>
+          <!--          <q-item v-ripple-->
+          <!--                  clickable>-->
+          <!--            <q-item-section class="menu-item-custom">-->
+          <!--              <div class="empty-wallet" />-->
+          <!--              <div class="menu-item-title q-ml-sm">کیف پول</div>-->
+          <!--            </q-item-section>-->
+          <!--          </q-item>-->
           <q-item v-ripple
                   clickable
                   :to="{name: 'UserPanel.MyFavorites'}"
@@ -99,27 +99,27 @@
               <div class="menu-item-title q-ml-sm">نشان شده ها</div>
             </q-item-section>
           </q-item>
-          <q-item v-ripple
-                  clickable>
-            <q-item-section class="menu-item-custom">
-              <div class="leightner" />
-              <div class="menu-item-title q-ml-sm">جعبه لایتنر</div>
-            </q-item-section>
-          </q-item>
-          <q-item v-ripple
-                  clickable>
-            <q-item-section class="menu-item-custom">
-              <div class="channels" />
-              <div class="menu-item-title q-ml-sm">کانال‌های من</div>
-            </q-item-section>
-          </q-item>
-          <q-item v-ripple
-                  clickable>
-            <q-item-section class="menu-item-custom">
-              <div class="messages" />
-              <div class="menu-item-title q-ml-sm">نظرات من</div>
-            </q-item-section>
-          </q-item>
+          <!--          <q-item v-ripple-->
+          <!--                  clickable>-->
+          <!--            <q-item-section class="menu-item-custom">-->
+          <!--              <div class="leightner" />-->
+          <!--              <div class="menu-item-title q-ml-sm">جعبه لایتنر</div>-->
+          <!--            </q-item-section>-->
+          <!--          </q-item>-->
+          <!--          <q-item v-ripple-->
+          <!--                  clickable>-->
+          <!--            <q-item-section class="menu-item-custom">-->
+          <!--              <div class="channels" />-->
+          <!--              <div class="menu-item-title q-ml-sm">کانال‌های من</div>-->
+          <!--            </q-item-section>-->
+          <!--          </q-item>-->
+          <!--          <q-item v-ripple-->
+          <!--                  clickable>-->
+          <!--            <q-item-section class="menu-item-custom">-->
+          <!--              <div class="messages" />-->
+          <!--              <div class="menu-item-title q-ml-sm">نظرات من</div>-->
+          <!--            </q-item-section>-->
+          <!--          </q-item>-->
           <q-item v-ripple
                   clickable
                   :to="{name: 'UserPanel.Ticket.Index'}"
