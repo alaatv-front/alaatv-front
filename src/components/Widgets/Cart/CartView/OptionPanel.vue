@@ -1,5 +1,15 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions" />
+  <option-panel-tabs v-model:options="localOptions">
+    <template #main-tab>
+      <div class="option-panel-container">
+        <div class="row">
+          <div class="col-12">
+            <q-input v-model="localOptions.title" />
+          </div>
+        </div>
+      </div>
+    </template>
+  </option-panel-tabs>
 </template>
 
 <script>

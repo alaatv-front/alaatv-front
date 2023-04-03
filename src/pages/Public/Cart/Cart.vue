@@ -47,7 +47,10 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'CartView'
+                        name: 'CartView',
+                        options: {
+                          title: 'سبد خرید شما'
+                        }
                       }
                     ],
                     options: {
@@ -59,7 +62,25 @@ export default {
                       {
                         name: 'CartInvoice',
                         options: {
-                          className: 'q-mt-md'
+                          className: 'q-mt-md',
+                          totalPrice: 'جمع سبد خرید',
+                          hasTotalPrice: true,
+                          useWallet: 'استفاده از کیف پول',
+                          hasUseWallet: true,
+                          purchaseProfit: 'سود شما از خرید',
+                          hasPurchaseProfit: true,
+                          discountPercent: 'کد تخفیف',
+                          hasDiscountPercent: true,
+                          giftcard: 'کارت هدیه',
+                          hasGiftcard: true,
+                          finalPrice: 'مبلغ نهایی',
+                          hasFinalPrice: true,
+                          paymentMethod: 'درگاه پرداخت',
+                          hasPaymentMethod: true,
+                          commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
+                          hasComment: true,
+                          paymentBtn: 'پرداخت و ثبت نهایی',
+                          hasPaymentBtn: true
                         }
                       },
                       {

@@ -10,7 +10,7 @@
     </template>
     <template v-else>
       <div class="cart-count">
-        سبدخرید شما ({{cart.count}})
+        {{options.title}} ({{cart.count}})
       </div>
     </template>
     <div class="cart-view-widget">
