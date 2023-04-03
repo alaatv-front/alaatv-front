@@ -9,6 +9,7 @@
                :key="index"
                :name="tab.name"
                :label="tab.label"
+               :icon="tab.icon"
                class="product-tab"
                content-class="product-tab-content" />
       </q-tabs>
