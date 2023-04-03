@@ -5,6 +5,7 @@
 </template>
 
 <script>
+const productsList = [980, 979, 978, 976]
 import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
 
 export default {
@@ -493,6 +494,235 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'TextWidget',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '20px 0px 16px 10px',
+                            marginTop: ''
+                          },
+                          text: 'ثبت نام',
+                          color: '#3D3F46',
+                          customClass: 'text-center',
+                          fontFamily: '',
+                          xs: {
+                            fontSize: '14px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          sm: {
+                            fontSize: '18px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          md: {
+                            fontSize: '20px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          lg: {
+                            fontSize: '28px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          xl: {
+                            fontSize: '32px',
+                            fontWeight: '500',
+                            fontStyle: 'normal'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-12'
+                    }
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'TextWidget',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '20px 0px 16px 10px',
+                            marginTop: ''
+                          },
+                          text: 'رشته مورد نظر را انتخاب کنید',
+                          color: '#3D3F46',
+                          customClass: 'text-center',
+                          fontFamily: '',
+                          xs: {
+                            fontSize: '14px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          sm: {
+                            fontSize: '18px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          md: {
+                            fontSize: '20px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          lg: {
+                            fontSize: '22px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          xl: {
+                            fontSize: '26px',
+                            fontWeight: '500',
+                            fontStyle: 'normal'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'ProductsTabPanel',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '40px 0px 16px 10px'
+                          },
+                          tabsList: [
+                            {
+                              name: 'riazi',
+                              label: 'ریاضی',
+                              products: productsList,
+                              spacialProducts: productsList
+                            },
+                            {
+                              name: 'tajrobi',
+                              label: 'تجربی',
+                              products: productsList
+                            },
+                            {
+                              name: 'ensani',
+                              label: 'انسانی',
+                              products: productsList
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              }
+            ]
+          },
+          options: {
+            fullHeight: true,
+            verticalAlign: 'start',
+            style: {
+              background: '#FFFFFF'
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'TextWidget',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '20px 0px 16px 10px',
+                            marginTop: ''
+                          },
+                          text: 'سوالات متداول',
+                          color: '#3D3F46',
+                          customClass: 'text-center',
+                          fontFamily: '',
+                          xs: {
+                            fontSize: '14px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          sm: {
+                            fontSize: '18px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          md: {
+                            fontSize: '20px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          lg: {
+                            fontSize: '28px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          xl: {
+                            fontSize: '32px',
+                            fontWeight: '500',
+                            fontStyle: 'normal'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
                         name: 'FAQ',
                         options: {
                           className: '',
@@ -502,7 +732,6 @@ export default {
                           style: {
                             padding: '40px 0px 16px 10px'
                           },
-                          title: 'سوالات متداول',
                           FAQList: [
                             {
                               label: 'تستم حل میکنید؟',
