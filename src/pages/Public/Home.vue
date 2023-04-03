@@ -57,7 +57,7 @@ export default {
                               subTitle: 'صفر تا صد رایگان'
                             },
                             {
-                              link: 'panel/asset/abrisham/progress',
+                              link: 'panel/abrisham/progress',
                               icon: 'https://nodes.alaatv.com/upload/homepage_icon_silkroad2_icon.png?w=52&h=52',
                               title: 'همایش راه ابریشم',
                               subTitle: 'برنامه ای کامل ویژه کنکوری ها'

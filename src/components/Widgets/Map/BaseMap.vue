@@ -271,9 +271,9 @@ export default {
       expansionIcon: '',
       toolsDrawer: false,
       filterValues: [],
-      crs: CRS.Simple,
+      crs: CRS?.Simple,
       mapZoom: 3,
-      mapCenter: latLng(-12000, 13200),
+      mapCenter: null,
       mapBounds: null,
       minZoom: 3,
       maxZoom: 11,
@@ -281,10 +281,10 @@ export default {
       maxBoundsViscosity: 1,
       currentZoom: 3,
       currentCenter: [0, 0],
-      baseUrl: window.baseUrl,
-      mapVersion: window.mapVersion,
-      contentSearchApi: window.contentSearchApi,
-      url: 'https://nodes.alaatv.com/upload/raheAbrishamMap/{z}/{x}/{y}.png?v=' + this.mapVersion,
+      baseUrl: '',
+      mapVersion: '',
+      contentSearchApi: '',
+      url: '',
       adminToolBox: {
         marker: {
           id: 0,
@@ -400,10 +400,18 @@ export default {
       }
     }
   },
-  created() {
-    this.getNodes()
+  mounted () {
+    this.baseUrl = window.baseUrl
+    this.mapVersion = window.mapVersion
+    this.contentSearchApi = window.contentSearchApi
+    this.url = 'https://nodes.alaatv.com/upload/raheAbrishamMap/{z}/{x}/{y}.png?v=' + this.mapVersion
+    this.crs = CRS?.Simple
+    this.mapCenter = latLng(-12000, 13200)
     this.initMap()
     this.initTemplateData()
+  },
+  created() {
+    this.getNodes()
   },
   // watch: {
   //   adminToolBox: {
@@ -599,7 +607,7 @@ export default {
         mapMaxResolution = 0.12500000,
         mapMinResolution = Math.pow(2, mapMaxZoom) * mapMaxResolution,
         // tileExtent = mapExtent,
-        crs = CRS.Simple
+        crs = CRS?.Simple
       // crs.transformation = new L.Transformation(1, -tileExtent[0], -1, tileExtent[3])
       crs.scale = function(zoom) {
         return Math.pow(2, zoom) / mapMinResolution
