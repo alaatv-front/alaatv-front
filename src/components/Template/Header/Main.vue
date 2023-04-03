@@ -658,8 +658,10 @@ export default {
           height: 48px;
           border-radius: 16px;
           :deep(.q-btn__content) {
+            width: 100%;
             margin: 0;
             .user-photo {
+              width: 100%;
               img {
                 border: 2px solid #FFB74D;
                 border-radius: 16px;

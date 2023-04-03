@@ -86,21 +86,12 @@ module.exports = configure(function (ctx) {
       ],
 
       rtl: true, // https://v2.quasar.dev/options/rtl-support
-      preloadChunks: false,
-      showProgress: false,
+      preloadChunks: true,
+      showProgress: true,
       gzip: true,
-      analyze: false,
-
-      // Options below are automatically set depending on the env, set them if you want to override
-      // extractCSS: false,
+      analyze: true,
 
       env: process.env,
-
-      // vueLoaderOptions: {
-      //   compilerOptions: {
-      //     isCustomElement: (tag) => tag.startsWith('q-'),
-      //   }
-      // },
 
       // https://v2.quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
@@ -183,20 +174,8 @@ module.exports = configure(function (ctx) {
         node: 'node16'
       },
 
-      // vueRouterBase,
-      // vueDevtools,
-      // vueOptionsAPI: false,
-
-      // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
-
-      // publicPath: '/',
-      // analyze: true,
-      // env: {},
-      // rawDefine: {}
-      // ignorePublicFolder: true,
       // minify: false,
       // polyfillModulePreload: true,
-      // distDir
 
       extendViteConf(viteConf) {
         // viteConf.resolve = {
@@ -221,8 +200,6 @@ module.exports = configure(function (ctx) {
         //   ]
         // }
       },
-      // viteVuePluginOptions: {},
-
       vitePlugins: [
         // ['@intlify/vite-plugin-vue-i18n', {
         //   // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`

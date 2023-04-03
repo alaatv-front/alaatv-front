@@ -118,9 +118,6 @@ export default {
   computed: {
     selectedTopic() {
       return this.$store.getters['ChatreNejat/setTopicList']
-    },
-    selectedTopicName() {
-      return this.$store.getters['ChatreNejat/selectedTopic']
     }
   },
   watch: {
@@ -129,17 +126,6 @@ export default {
     },
     selectedTopic(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
-    },
-    selectedTopicName (newVal) {
-      if (!newVal || newVal === '') {
-        return null
-      }
-      this.$router.push({
-        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
-        params: {
-          productId: this.$route.params.productId
-        }
-      })
     }
   },
   mounted() {
