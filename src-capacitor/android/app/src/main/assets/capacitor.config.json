@@ -1,0 +1,10 @@
+{
+  "appId": "org.alaatv.app",
+  "appName": "alaatv",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www",
+  "server": {
+    "url": "http://192.168.3.124:8084"
+  }
+}

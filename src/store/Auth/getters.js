@@ -11,7 +11,7 @@ export function isUserLogin (state) {
 }
 
 export function isAdmin (state) {
-  return (appenv === 'production' && new User(state.user).mobile === '09358745928') || (appenv !== 'production')
+  return (appenv === 'production' && new User(state.user).mobile === '09358745928') || (appenv === 'development')
 }
 
 export function accessToken (state) {
