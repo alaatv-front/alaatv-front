@@ -148,6 +148,39 @@ export default {
                   boxed: true,
                   boxedWidth: 1362
                 }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'ActionButton',
+                        options: {
+                          imageSource: '/src/assets/goDown.svg',
+                          color: 'primary'
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {
+                        display: 'flex',
+                        justifyContent: 'center'
+                      },
+                      colNumber: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: '100%',
+                  style: {
+                    maxWidth: '100%',
+                    width: '100%',
+                    position: 'absolute',
+                    bottom: '0'
+                  }
+                }
               }
             ]
           },
@@ -155,7 +188,8 @@ export default {
             fullHeight: 'calc( 100vh - 72px )',
             verticalAlign: 'center',
             style: {
-              background: 'rgba(18,13,0,0.72)'
+              background: 'url("https://nodes.alaatv.com/upload/landing/110/header.jpg")',
+              backgroundSize: 'contain'
             }
           }
         },
@@ -922,8 +956,11 @@ export default {
                           boxed: true,
                           boxedWidth: 1200,
                           style: {
-                            padding: '40px 0px 16px 10px'
+                            padding: '10px 0px 16px 10px',
+                            background: '#FFFFFF',
+                            borderRadius: '30px'
                           },
+                          bordered: true,
                           expansionList: [
                             {
                               id: 1,

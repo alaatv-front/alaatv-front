@@ -1,5 +1,7 @@
 <template>
-  <div class="expansion-container">
+  <div class="expansion-container"
+       :style="options.style"
+       :class="options.className">
     <q-expansion-item v-for="(item, index) in expansionList"
                       :key="index"
                       v-model="item.expanded"
@@ -9,11 +11,12 @@
                       :caption="item.caption"
                       :expand-icon-class="expandIconClass"
                       :hide-expand-icon="theme === 'theme2'"
+                      header-class="expand-header"
                       @update:model-value="toggleExpand(item.id)">
       <template v-if="theme === 'theme2'"
                 v-slot:header="{ expanded }">
         <q-item clickable
-                class="expand-header"
+                class="expand-header theme-2"
                 @click="headerClick($event)">
           <q-item-section>
             <q-item-label>{{ item.label }}</q-item-label>
@@ -25,7 +28,7 @@
                    class="open-btn"
                    color="primary"
                    flat
-                   label="اظلاعات بیشتر"
+                   label="اطلاعات بیشتر"
                    @click="openExpand(item.id)" />
           </q-item-section>
         </q-item>
@@ -98,6 +101,7 @@ export default {
         item.expanded = true
         return item
       })
+      this.toggleExpand(itemId)
     },
     headerClick(event) {
       event.stopPropagation()
@@ -116,7 +120,7 @@ export default {
     display: none;
   }
   .expand-header {
-    width:100%
+    width:100%;
   }
   .text {
     padding: 1.5rem 2rem;

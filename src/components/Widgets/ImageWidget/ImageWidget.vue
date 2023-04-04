@@ -1,7 +1,9 @@
 <template>
   <q-img :src="imageSource"
          spinner-color="primary"
-         spinner-size="82px" />
+         spinner-size="82px"
+         :style="options.style"
+         :class="options.className" />
 </template>
 
 <script>

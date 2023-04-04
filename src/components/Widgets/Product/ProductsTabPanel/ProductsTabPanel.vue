@@ -1,9 +1,12 @@
 <template>
-  <div class="products-tab-panel-container">
+  <div class="products-tab-panel-container"
+       :style="options.style"
+       :class="options.className">
     <div class="tabs-wrapper">
       <q-tabs v-model="tab"
               active-color="primary"
               active-bg-color="white"
+              indicator-color="white"
               class="product-tabs">
         <q-tab v-for="(tab, index) in tabsList"
                :key="index"
@@ -123,6 +126,10 @@ export default {
       .product-tab {
         border-radius: 10px;
         margin: 5px;
+
+        &:deep(.q-tab__content .q-focus-helper) {
+          display: none;
+        }
 
         &:deep(.q-tab__label) {
           font-size: 18px;
