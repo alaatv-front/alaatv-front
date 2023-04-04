@@ -43,12 +43,15 @@
                     {{ item.title }}
                   </q-item-section>
                 </q-item>
-                <!--                <template v-if="item.selected === 'basicContents'">-->
-                <!--                  <mega-menu :menuContent="item" />-->
-                <!--                </template>-->
-                <!--                <template v-if="item.selected === 'konkurConference'">-->
-                <!--                  <mega-menu :menuContent="item" />-->
-                <!--                </template>-->
+                <template v-if="item.selected === 'basicContents'">
+                  <mega-menu :menuContent="item"
+                             :data="menuData[0]" />
+                </template>
+                <template v-if="item.selected === 'konkurConference'">
+                  <mega-menu :menuContent="item"
+                             :left-side-image="true"
+                             :data="menuData[1]" />
+                </template>
                 <template v-if="item.selected === 'firstMidSchool'">
                   <simple-menu :menuContent="item" />
                 </template>
@@ -198,14 +201,16 @@
 import { mapMutations } from 'vuex'
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
-// import megaMenu from './magaMenu.vue'
+import megaMenu from './magaMenu.vue'
 import simpleMenu from './simpleMenu.vue'
+import megaMenuData from 'components/Template/Header/megaMenuData.js'
 
 export default {
   name: 'MainHeaderTemplate',
-  components: { LazyImg, simpleMenu },
+  components: { LazyImg, megaMenu, simpleMenu },
   data() {
     return {
+      menuData: megaMenuData,
       conferenceMenu: false,
       showHamburgerConfig: true,
       searchInput: '',
@@ -229,49 +234,13 @@ export default {
           selected: 'basicContents',
           title: 'فیلم های پایه و کنکور آلاء',
           routeName: '',
-          permission: 'all',
-          children: [
-            {
-              title: 'دوازدهم و کنکور',
-              children: [
-                {
-                  title: 'دروس اختصاصی ریاضی و تجربی'
-                },
-                {
-                  title: 'شیمی'
-                },
-                {
-                  title: 'فیزیک'
-                }
-              ]
-            },
-            {
-              title: 'یازدهم',
-              children: [
-                {}
-              ]
-            }
-          ]
+          permission: 'all'
         },
         {
           selected: 'konkurConference',
           title: 'همایش کنکوری آلاء',
           routeName: '',
-          permission: 'all',
-          children: [
-            {
-              title: 'چتر نجات',
-              photo: ''
-            },
-            {
-              title: 'راه ابریشم',
-              photo: ''
-            },
-            {
-              title: 'کارت هدیه آلاء',
-              photo: ''
-            }
-          ]
+          permission: 'all'
         },
         {
           selected: 'firstMidSchool',
@@ -281,17 +250,56 @@ export default {
           children: [
             {
               title: 'هفتم',
-              items: ['ریاضی', 'ادبیات']
+              tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'هفتم'],
+              category: 'haftom',
+              items: [
+                {
+                  title: 'ریاضی',
+                  tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'هفتم', 'ریاضی']
+                },
+                {
+                  title: 'ادبیات',
+                  href: '/set/1047'
+                }
+              ]
             },
             {
               title: 'هشتم',
-              items: ['هندسه', 'ریاضی', 'ادبیات']
+              tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'هشتم'],
+              category: 'hashtom',
+              items: [
+                {
+                  title: 'ادبیات',
+                  href: '/set/1085'
+                },
+                {
+                  title: 'هندسه',
+                  tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'هشتم', 'هندسه']
+                },
+                {
+                  title: 'ریاضی',
+                  tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'هشتم', 'ریاضی']
+                }
+              ]
             },
             {
               title: 'نهم',
-              items: ['ریاضی']
+              tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'نهم', 'ریاضی'],
+              category: 'nohom',
+              items: [
+                {
+                  title: 'ریاضی',
+                  tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'نهم', 'ریاضی']
+                }
+              ]
             }
           ]
+        },
+        {
+          selected: 'olympiad',
+          title: 'المپیاد',
+          routeName: '',
+          permission: 'all'
         }
         // {
         //   selected: 'adminPanel',
