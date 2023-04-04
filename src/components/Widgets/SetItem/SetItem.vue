@@ -158,7 +158,7 @@ export default {
   }
 
   .set-content-box {
-    height: 30%;
+    height: 100px;
     padding: 10px 16px 16px 16px;
 
     .main-title {
