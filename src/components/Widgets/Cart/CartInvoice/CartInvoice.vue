@@ -216,8 +216,7 @@
                 </p>
 
                 <div class="sign-in-button"
-                     @click="login"> console.log(invoice)
-
+                     @click="login">
                   ورود به حساب کاربری
                 </div>
               </q-card-section>
