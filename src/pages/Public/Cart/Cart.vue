@@ -82,12 +82,6 @@ export default {
                           paymentBtn: 'پرداخت و ثبت نهایی',
                           hasPaymentBtn: true
                         }
-                      },
-                      {
-                        name: 'cartLogin',
-                        options: {
-                          className: 'q-mt-md'
-                        }
                       }
                     ],
                     options: {
