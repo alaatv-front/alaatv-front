@@ -656,6 +656,77 @@ export default {
                           },
                           color: 'transparent',
                           flat: true,
+                          header: ['ویژگی ها', '110', 'راه ابریشم'],
+                          rows: [
+                            {
+                              col0: 'زمان آموزش',
+                              col1: {
+                                type: 'text',
+                                value: '3 ماه'
+                              },
+                              col2: {
+                                type: 'text',
+                                value: '6 ماه'
+                              }
+                            },
+                            {
+                              col0: 'مخاطب دوره',
+                              col1: {
+                                type: 'text',
+                                value: 'اغلب فارغ التحصیلان'
+                              },
+                              col2: {
+                                type: 'text',
+                                value: 'اغلب فارغ التحصیلان'
+                              }
+                            },
+                            {
+                              col0: 'درسنامه فشرده',
+                              col1: {
+                                type: 'boolean',
+                                value: true
+                              },
+                              col2: {
+                                type: 'boolean',
+                                value: false
+                              }
+                            },
+                            {
+                              col0: 'کارگاه حل تست',
+                              col1: {
+                                type: 'boolean',
+                                value: true
+                              },
+                              col2: {
+                                type: 'boolean',
+                                value: true
+                              }
+                            },
+                            {
+                              col0: 'آزمون آزمایشی',
+                              col1: {
+                                type: 'boolean',
+                                value: true
+                              },
+                              col2: {
+                                type: 'boolean',
+                                value: true
+                              }
+                            },
+                            {
+                              col0: 'action',
+                              col1: {
+                                type: 'scroll',
+                                label: 'جزئیات و ثبت نام',
+                                className: 'feature'
+                              },
+                              col2: {
+                                type: 'link',
+                                label: 'جزئیات و ثبت نام',
+                                url: 'https://alaatv.com/landing/25'
+                              }
+                            }
+                          ],
                           attributesLabel: 'ویژگی ها',
                           attributes: [
                             {
