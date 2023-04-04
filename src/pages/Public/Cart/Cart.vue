@@ -84,7 +84,7 @@ export default {
                         }
                       },
                       {
-                        name: 'Login',
+                        name: 'cartLogin',
                         options: {
                           className: 'q-mt-md'
                         }

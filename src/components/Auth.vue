@@ -1,47 +1,94 @@
 <template>
-  <q-card v-if="!userLogin"
-          class="login-card">
-    <div v-if="loading"
-         class="text-center login-loading">
-      <q-spinner-ball color="primary"
-                      size="5em" />
-    </div>
-    <div v-else>
-      <div class="header">
-        ثبت نام و ورود
+  <q-card v-if="defaultLayout"
+          class="default-login-card">
+    <div v-if="!userLogin">
+      <div v-if="loading"
+           class="text-center login-loading">
+        <q-spinner-ball color="primary"
+                        size="5em" />
       </div>
-      <div class="phone-number">
-        <div class="label">
-          شماره همراه
+      <div v-else>
+        <div class="header">
+          ثبت نام و ورود
         </div>
-        <q-input ref="userName"
-                 v-model="username"
-                 bottom-slots
-                 hide-bottom-space
-                 autocomplete="off"
-                 onfocus="this.removeAttribute('readonly');"
-                 name="userName"
-                 placeholder=" - - - - - - - - - 09"
-                 @keydown.enter="getEnter('pass')" />
-      </div>
-      <div class="national-code">
-        <div class="label">
-          کد ملی
+        <div class="phone-number">
+          <div class="label">
+            شماره همراه
+          </div>
+          <q-input ref="userName"
+                   v-model="username"
+                   bottom-slots
+                   hide-bottom-space
+                   autocomplete="off"
+                   onfocus="this.removeAttribute('readonly');"
+                   name="userName"
+                   placeholder=" - - - - - - - - - 09"
+                   @keydown.enter="getEnter('pass')" />
         </div>
-        <q-input ref="pass"
-                 v-model="password"
-                 name="pass"
-                 hide-bottom-space
-                 type="password"
-                 @keydown.enter="login" />
+        <div class="national-code">
+          <div class="label">
+            کد ملی
+          </div>
+          <q-input ref="pass"
+                   v-model="password"
+                   name="pass"
+                   hide-bottom-space
+                   type="password"
+                   @keydown.enter="login" />
+        </div>
+        <q-btn class="full-width login-btn"
+               unelevated
+               color="primary"
+               label="ثبت نام / ورود"
+               @click="login" />
       </div>
-      <q-btn class="full-width login-btn"
-             unelevated
-             color="primary"
-             label="ثبت نام / ورود"
-             @click="login" />
     </div>
   </q-card>
+  <div v-else>
+    <div v-if="!userLogin"
+         class="login-card">
+      <div v-if="loading"
+           class="text-center login-loading">
+        <q-spinner-ball color="primary"
+                        size="5em" />
+      </div>
+      <div v-else>
+        <!--        <div class="header">-->
+        <!--          ثبت نام و ورود-->
+        <!--        </div>-->
+        <div class="phone-number">
+          <div class="label">
+            شماره همراه
+          </div>
+          <q-input ref="userName"
+                   v-model="username"
+                   bottom-slots
+                   hide-bottom-space
+                   autocomplete="off"
+                   onfocus="this.removeAttribute('readonly');"
+                   name="userName"
+                   placeholder=" - - - - - - - - - 09"
+                   @keydown.enter="getEnter('pass')" />
+        </div>
+        <div class="national-code">
+          <div class="label">
+            کد ملی
+          </div>
+          <q-input ref="pass"
+                   v-model="password"
+                   name="pass"
+                   hide-bottom-space
+                   type="password"
+                   @keydown.enter="login" />
+        </div>
+        <q-btn class="full-width login-btn"
+               unelevated
+               color="green-6"
+               label="ثبت نام / ورود"
+               @click="login" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -53,6 +100,10 @@ export default {
     redirect: {
       type: Object,
       default: null
+    },
+    defaultLayout: {
+      default: true,
+      type: Boolean
     }
   },
   data: () => ({
@@ -130,7 +181,86 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-card {
+.login-card{
+  margin: auto;
+  border-radius: 20px;
+  padding:60px 67px;
+  .login-loading {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header{
+    margin-bottom: 50px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 37px;
+    letter-spacing: -0.03em;
+    color: var(--alaa-TextSecondary);
+  }
+  .label{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: -0.03em;
+    color: #434765;
+    margin-bottom: 8px;
+  }
+  .login-btn{
+    :deep(.q-btn__content){
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 22px;
+    }
+  }
+  .phone-number{
+    margin-bottom: 16px;
+  }
+  .national-code{
+    margin-bottom: 56px;
+  }
+  :deep(.q-field--focused) {
+    appearance: none;
+  }
+  &:deep(.q-field--focused .q-field__control) {
+    background-color: rgba(255,255,255,0) !important;
+    appearance: none;
+    border: 1px solid #FFB74D;
+    box-shadow: 0 0 0 2px #FFEDD2;
+    border-radius: 8px;
+  }
+
+  &:deep(.q-field .q-field__control) {
+    height: 40px;
+    background: #F2F5F9;
+    border-radius: 8px;
+    padding-left: 0;
+  }
+
+  &:deep(.q-field__native) {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #6D708B !important;
+  }
+  :deep(.q-field__native, .q-field__prefix, .q-field__suffix, .q-field__input){
+    padding: 8px 16px;
+    border-radius: 8px
+  }
+
+  :deep(.q-field__control){
+    &::after{
+      height: 0;
+    }
+    &::before{
+      border-bottom: none;
+    }
+  }
+}
+.default-login-card {
   width: 434px;
   height: 485px;
   margin: auto;
@@ -213,7 +343,7 @@ export default {
   }
 }
 @media only screen and (max-width: 1023px){
-  .login-card {
+  .default-login-card {
     width: 312px;
     height: 409px;
     border-radius: 16px;
