@@ -156,8 +156,11 @@ export default {
                       {
                         name: 'ActionButton',
                         options: {
-                          imageSource: '/src/assets/goDown.svg',
-                          color: 'primary'
+                          // imageSource: '/src/assets/goDown.svg',
+                          icon: 'expand_more',
+                          color: 'primary',
+                          action: 'scroll',
+                          scrollTo: 'feature'
                         }
                       }
                     ],
@@ -583,6 +586,65 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'TextWidget',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '20px 0px 16px 10px',
+                            marginTop: ''
+                          },
+                          text: 'مقایسه دوره 110 آلاء و راه ابریشم آلاء',
+                          color: '#3D3F46',
+                          customClass: 'text-center',
+                          fontFamily: '',
+                          xs: {
+                            fontSize: '14px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          sm: {
+                            fontSize: '18px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          md: {
+                            fontSize: '20px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          lg: {
+                            fontSize: '28px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          xl: {
+                            fontSize: '32px',
+                            fontWeight: '500',
+                            fontStyle: 'normal'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
                         name: 'ComparisonTable',
                         options: {
                           className: '',
@@ -592,9 +654,79 @@ export default {
                           style: {
                             padding: '40px 0px 16px 10px'
                           },
-                          title: 'مقایسه دوره 110 آلاء و راه ابریشم آلاء',
                           color: 'transparent',
                           flat: true,
+                          header: ['ویژگی ها', '110', 'راه ابریشم'],
+                          rows: [
+                            {
+                              col0: 'زمان آموزش',
+                              col1: {
+                                type: 'text',
+                                value: '3 ماه'
+                              },
+                              col2: {
+                                type: 'text',
+                                value: '6 ماه'
+                              }
+                            },
+                            {
+                              col0: 'مخاطب دوره',
+                              col1: {
+                                type: 'text',
+                                value: 'اغلب فارغ التحصیلان'
+                              },
+                              col2: {
+                                type: 'text',
+                                value: 'اغلب فارغ التحصیلان'
+                              }
+                            },
+                            {
+                              col0: 'درسنامه فشرده',
+                              col1: {
+                                type: 'boolean',
+                                value: true
+                              },
+                              col2: {
+                                type: 'boolean',
+                                value: false
+                              }
+                            },
+                            {
+                              col0: 'کارگاه حل تست',
+                              col1: {
+                                type: 'boolean',
+                                value: true
+                              },
+                              col2: {
+                                type: 'boolean',
+                                value: true
+                              }
+                            },
+                            {
+                              col0: 'آزمون آزمایشی',
+                              col1: {
+                                type: 'boolean',
+                                value: true
+                              },
+                              col2: {
+                                type: 'boolean',
+                                value: true
+                              }
+                            },
+                            {
+                              col0: 'action',
+                              col1: {
+                                type: 'scroll',
+                                label: 'جزئیات و ثبت نام',
+                                className: 'feature'
+                              },
+                              col2: {
+                                type: 'link',
+                                label: 'جزئیات و ثبت نام',
+                                url: 'https://alaatv.com/landing/25'
+                              }
+                            }
+                          ],
                           attributesLabel: 'ویژگی ها',
                           attributes: [
                             {
