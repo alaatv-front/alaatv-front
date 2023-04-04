@@ -10,7 +10,9 @@
            :hide-selected-banner="true"
            :hide-no-data="true"
            :hide-pagination="true"
-           class="comparison-table">
+           class="comparison-table"
+           :style="options.style"
+           :class="options.className">
     <template v-slot:header="props">
       <q-tr :props="props">
         <q-th v-for="col in props.cols"
