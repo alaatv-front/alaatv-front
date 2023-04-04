@@ -3,9 +3,14 @@
          :icon="icon"
          :label="label"
          :flat="flat"
-         :class="options.customClass"
+         :class="customClass"
          :style="options.style"
-         @click="takeAction" />
+         class="action-btn"
+         @click="takeAction">
+    <img v-if="imageSource"
+         :src="imageSource"
+         alt="actionBtn">
+  </q-btn>
 </template>
 
 <script>
@@ -26,7 +31,9 @@ export default {
       icon: '',
       label: '',
       flat: false,
-      callBack: null
+      callBack: null,
+      imageSource: '',
+      customClass: ''
     }
   },
   watch: {
@@ -46,15 +53,45 @@ export default {
       this.label = this.options.label
       this.flat = this.options.flat
       this.callBack = this.options.callBack
+      this.imageSource = this.options.imageSource
+      this.customClass = this.options.customClass
+      if (this.options.imageSource) {
+        this.flat = true
+        this.customClass = this.options.customClass + ' img-btn'
+      }
+    },
+    scrollToElement(className) {
+      const el = document.getElementsByClassName(className)[0]
+      const headerOffset = 60
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
     },
     takeAction() {
-      this.callBack()
+      if (this.callBack) {
+        this.callBack()
+      } else if (this.options.action && this.options.action === 'scroll') {
+        this.scrollToElement(this.options.scrollTo)
+      } else if (this.options.action && this.options.action === 'link') {
+        this.router.push(this.options.route)
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.action-button-widget-container {
+.action-btn {
+  &.img-btn{
+    &:deep(.q-btn__content){
+      margin: 0;
+    }
+    &:deep(.q-focus-helper) {
+    display: none;
+  }
+  }
 }
 </style>
