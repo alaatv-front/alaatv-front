@@ -25,6 +25,7 @@ export default {
                         name: 'BlockList',
                         options: {
                           to: 1,
+                          from: 0,
                           apiName: 'home'
                         }
                       },
@@ -97,6 +98,7 @@ export default {
                         data: 'home',
                         options: {
                           from: 1,
+                          to: -1,
                           apiName: 'home'
                         }
                       }
