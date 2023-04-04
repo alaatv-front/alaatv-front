@@ -156,8 +156,11 @@ export default {
                       {
                         name: 'ActionButton',
                         options: {
-                          imageSource: '/src/assets/goDown.svg',
-                          color: 'primary'
+                          // imageSource: '/src/assets/goDown.svg',
+                          icon: 'expand_more',
+                          color: 'primary',
+                          action: 'scroll',
+                          scrollTo: 'feature'
                         }
                       }
                     ],
@@ -583,6 +586,65 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'TextWidget',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '20px 0px 16px 10px',
+                            marginTop: ''
+                          },
+                          text: 'مقایسه دوره 110 آلاء و راه ابریشم آلاء',
+                          color: '#3D3F46',
+                          customClass: 'text-center',
+                          fontFamily: '',
+                          xs: {
+                            fontSize: '14px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          sm: {
+                            fontSize: '18px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          md: {
+                            fontSize: '20px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          lg: {
+                            fontSize: '28px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          xl: {
+                            fontSize: '32px',
+                            fontWeight: '500',
+                            fontStyle: 'normal'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
                         name: 'ComparisonTable',
                         options: {
                           className: '',
@@ -592,7 +654,6 @@ export default {
                           style: {
                             padding: '40px 0px 16px 10px'
                           },
-                          title: 'مقایسه دوره 110 آلاء و راه ابریشم آلاء',
                           color: 'transparent',
                           flat: true,
                           attributesLabel: 'ویژگی ها',
