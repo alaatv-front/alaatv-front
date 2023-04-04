@@ -12,8 +12,8 @@
                 class="menu-item">
           <div v-if="$route.name === item.routeName"
                class="menu-indicator" />
-          <i class="icon"
-             :class="['fi-rr-' + item.icon , $route.name===item.routeName ? 'activate' :'']" />
+          <q-icon :name="item.icon"
+                  size="26px" />
         </q-item>
       </q-list>
     </div>
@@ -29,23 +29,23 @@ export default {
     isActive: null,
     menuItems: [
       {
-        icon: 'play-alt',
+        icon: 'isax:play',
         routeName: 'UserPanel.Asset.Abrisham.Progress'
       },
+      // {
+      //   icon: 'isax:calendar',
+      //   routeName: 'UserPanel.Asset.Abrisham.Schedule'
+      // },
       {
-        icon: 'calendar',
-        routeName: 'UserPanel.Asset.Abrisham.Schedule'
-      },
-      {
-        icon: 'headphones',
+        icon: 'isax:headphone',
         routeName: 'UserPanel.Asset.Abrisham.Consulting'
       },
       {
-        icon: 'envelope',
+        icon: 'isax:firstline',
         routeName: 'UserPanel.Asset.Abrisham.News'
       },
       {
-        icon: 'world',
+        icon: 'isax:map',
         routeName: 'UserPanel.Asset.Abrisham.Map'
       }
       // {
@@ -117,6 +117,7 @@ export default {
         text-align: center;
         display: flex;
         justify-content: center;
+        align-items: center;
         .activate{
           color: #ff8f00 !important;
         }
