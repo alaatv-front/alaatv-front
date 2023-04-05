@@ -5050,7 +5050,7 @@ quasar-template-builder@^1.0.21:
     vue "^3.2.47"
     vuex "^4.1.0"
 
-quasar-ui-q-page-builder@^0.1.30:
+quasar-ui-q-page-builder@^0.1.23, quasar-ui-q-page-builder@^0.1.30:
   version "0.1.30"
   resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.30.tgz#46f0d14434912f38069b95ac1697f837e5cd79bf"
   integrity sha512-k6t+WUA+ggx460lMl47pyxEjy0fAxgc3VsfWGSdFf9SuHvd6czbtrDXMVVpZj8g8KSUNnwssp4CQnXpfkJTP9A==
