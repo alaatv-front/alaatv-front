@@ -65,7 +65,7 @@
                   </div>
                 </div>
                 <q-card class="custom-card bg-grey-1">
-                  <q-list v-for="(product, productIndex) in item.spacialProducts"
+                  <q-list v-for="(product, productIndex) in item.specialProducts"
                           :key="productIndex">
                     <q-item v-ripple
                             tag="label">
@@ -166,31 +166,26 @@ export default defineComponent({
   },
   methods: {
     removeProduct (id, tabIndex, isSpecial = false) {
-      const tabObject = this.localOptions.tabsList[tabIndex]
-      let productIndex
-      if (isSpecial) {
-        productIndex = tabObject.specialProducts
-          .findIndex((item) => item === id)
-        tabObject.specialProducts.splice(productIndex, 1)
-      } else {
-        productIndex = tabObject.products
-          .findIndex((item) => item === id)
-        tabObject.products.splice(productIndex, 1)
+      const keyName = isSpecial ? 'specialProducts' : 'products'
+      if (!this.localOptions.tabsList[tabIndex][keyName]) {
+        return
       }
-      this.localOptions.tabsList[tabIndex] = tabObject
+      const productIndex = this.localOptions.tabsList[tabIndex][keyName]
+        .findIndex((item) => item === id)
+      this.localOptions.tabsList[tabIndex][keyName].splice(productIndex, 1)
     },
     openProduct (id, tabIndex, isSpecial = false) {
+      if (!id) {
+        return
+      }
       this.dialogProductId = id
       this.currentTabIndex = tabIndex
       this.productDialog = true
       this.isSpecial = isSpecial
     },
     addProduct (id) {
-      if (this.isSpecial) {
-        this.localOptions.tabsList[this.currentTabIndex].specialProducts.push(id)
-      } else {
-        this.localOptions.tabsList[this.currentTabIndex].products.push(id)
-      }
+      const keyName = this.isSpecial ? 'specialProducts' : 'products'
+      this.localOptions.tabsList[this.currentTabIndex][keyName].push(id)
       this.cancelProduct()
     },
     cancelProduct () {

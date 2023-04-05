@@ -21,9 +21,9 @@
                      :key="index"
                      :name="tab.name"
                      class="product-tab-panel">
-          <div v-if="tab.spacialProducts"
+          <div v-if="tab.specialProducts"
                class="product-panel-spacial-content">
-            <product-item v-for="(product, index) in tab.spacialProducts"
+            <product-item v-for="(product, index) in tab.specialProducts"
                           :key="index"
                           :options="{productId: product}"
                           class="product-item" />
