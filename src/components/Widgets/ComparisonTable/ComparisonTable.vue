@@ -31,16 +31,14 @@
               :key="col.name"
               :props="props"
               class="comparison-td">
-          <div v-if="col.name === 'col0'">
-            {{ props.row[col.name] === 'action' ? '' : props.row[col.name] }}
-          </div>
-          <div v-else-if="props.row[col.name].type === 'boolean'">
-            <q-icon :name="props.row[col.name].value ? 'check_circle' : 'cancel'"
-                    :color="props.row[col.name].value ? 'green' : 'red'"
-                    size="22px" />
+          <div v-if="props.row[col.name].type === 'image'">
+            <q-img :src="props.row[col.name].value"
+                   width="22px"
+                   spinner-color="primary"
+                   spinner-size="22" />
           </div>
           <div v-else-if="props.row[col.name].type === 'text'">
-            {{ props.row[col.name].value }}
+            {{ props.row[col.name] === 'action' ? '' : props.row[col.name].value }}
           </div>
           <div v-else-if="props.row[col.name].type === 'link'">
             <q-btn color="primary"
@@ -146,7 +144,7 @@ export default {
     },
     scrollToElement(className) {
       const el = document.getElementsByClassName(className)[0]
-      const headerOffset = 60
+      const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset
       window.scrollTo({

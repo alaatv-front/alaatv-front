@@ -62,7 +62,7 @@ export default {
     },
     scrollToElement(className) {
       const el = document.getElementsByClassName(className)[0]
-      const headerOffset = 60
+      const headerOffset = 0
       const elementPosition = el.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset
       window.scrollTo({
@@ -90,8 +90,8 @@ export default {
       margin: 0;
     }
     &:deep(.q-focus-helper) {
-    display: none;
-  }
+      display: none;
+    }
   }
 }
 </style>
