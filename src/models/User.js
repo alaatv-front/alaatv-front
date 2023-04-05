@@ -25,6 +25,7 @@ class User extends Model {
       { key: 'school' },
       { key: 'user_exam_status' },
       { key: 'photo' },
+      { key: 'name_slug' },
       { key: 'kartemeli' },
       { key: 'role' },
       { key: 'token' },

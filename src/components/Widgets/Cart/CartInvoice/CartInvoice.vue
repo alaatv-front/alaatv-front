@@ -262,7 +262,7 @@
 // import { computed } from 'vue'
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
-import Widgets from 'src/components/PageBuilder/Widgets.js'
+import Widgets from 'src/mixin/Widgets.js'
 // import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import AuthLogin from 'components/Auth.vue'
 

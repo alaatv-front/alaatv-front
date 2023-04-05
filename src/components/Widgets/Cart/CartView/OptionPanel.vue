@@ -36,7 +36,8 @@ export default defineComponent({
         height: 'auto',
         boxed: false,
         boxedWidth: 1200,
-        style: {}
+        style: {},
+        title: 'سبد خرید شما'
       }
     }
   },
