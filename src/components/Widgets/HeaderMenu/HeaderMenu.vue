@@ -2,13 +2,13 @@
   <div class="header-menu">
     <div class="logo-pic"
          @click="routeTo('Public.Home')">
-      <lazy-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+      <lazy-img :src="logoImage"
                 :alt="'logo'"
                 width="40"
                 height="40"
                 class="logo-pic-img" />
       <div class="logo-text">
-        مدرسه آنلاین آلاء
+        {{ logoSlogan }}
       </div>
 
     </div>
@@ -23,9 +23,10 @@
       </q-list>
     </div>
     <div class="user">
-      <q-btn color="white"
+      <q-btn v-if="action"
+             color="white"
              flat
-             label="ثبت نام"
+             :label="actionButtonLabel"
              @click="routeTo('Login')" />
     </div>
   </div>
@@ -47,7 +48,11 @@ export default {
   },
   data() {
     return {
-      menuLink: []
+      menuLink: [],
+      logoImage: '',
+      logoSlogan: '',
+      action: false,
+      actionButtonLabel: ''
     }
   },
   watch: {
@@ -63,6 +68,10 @@ export default {
   methods: {
     loadConfig() {
       this.menuLink = this.options.menuLink
+      this.logoImage = this.options.logoImage
+      this.logoSlogan = this.options.logoSlogan
+      this.action = this.options.action
+      this.actionButtonLabel = this.options.actionButtonLabel
     },
     routeTo(name) {
       this.$router.push({ name })
