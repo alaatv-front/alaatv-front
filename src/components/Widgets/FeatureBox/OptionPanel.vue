@@ -2,16 +2,25 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container">
-        <div class="row">
-          <div class="col-12">
-            <q-input v-model="localOptions.title" />
-          </div>
+        <div class="input-container q-py-md">
+          <div class="outsideLabel">image</div>
+          <q-input v-model="localOptions.image"
+                   label="image" />
+        </div>
+        <div class="input-container q-py-md">
+          <div class="outsideLabel">title</div>
+          <q-input v-model="localOptions.title"
+                   label="image" />
+        </div>
+        <div class="input-container q-py-md">
+          <div class="outsideLabel">description</div>
+          <q-input v-model="localOptions.description"
+                   label="image" />
         </div>
       </div>
     </template>
   </option-panel-tabs>
 </template>
-
 <script>
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
@@ -29,17 +38,6 @@ export default defineComponent({
       }
     }
   },
-  data() {
-    return {
-      defaultOptions: {
-        className: '',
-        height: 'auto',
-        boxed: false,
-        boxedWidth: 1200,
-        style: {}
-      }
-    }
-  },
   watch: {
     localOptions: {
       handler(newVal) {
@@ -50,7 +48,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped>
-
-</style>

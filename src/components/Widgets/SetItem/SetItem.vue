@@ -107,10 +107,8 @@ export default {
 .set-item-box {
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: space-between;
   width: 318px;
-  //width: 100%;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
@@ -158,7 +156,7 @@ export default {
   }
 
   .set-content-box {
-    height: 30%;
+    min-height: 75px;
     padding: 10px 16px 16px 16px;
 
     .main-title {

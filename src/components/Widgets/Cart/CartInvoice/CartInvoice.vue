@@ -2,12 +2,11 @@
   <div v-if="cart.count > 0"
        ref="CartInvoice"
        class="cart-invoice main-content">
-    <!--    <q-scroll-observer @scroll="onScroll" />-->
-    <div ref="CartInvoiceContainer"
+    <div v-if="isUserLogin"
+         ref="CartInvoiceContainer"
          :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
-      <div v-if="isUserLogin"
-           :class="options.className"
+      <div :class="options.className"
            :style="options.style"
            class="invoice-container q-mb-sm sidebar__inner">
         <template v-if="cartLoading">
@@ -28,8 +27,9 @@
           <!--          </div>-->
           <q-card class="invoice-cart">
             <q-card-section class="invoice-total-price-section invoice-cart-section">
-              <div class="total-shopping-cart price-section">
-                <div class="title">جمع سبد خرید{{ `(${cart.count})` }}</div>
+              <div v-if="localOptions.hasTotalPrice"
+                   class="total-shopping-cart price-section">
+                <div class="title">{{localOptions.totalPrice}}{{ `(${cart.count})` }}</div>
                 <div v-if="loading"
                      class="loading-spinner">
                   <q-spinner-tail color="orange"
@@ -42,8 +42,9 @@
                 </div>
               </div>
 
-              <div class="wallet-credit price-section">
-                <div class="title">استفاده از کیف پول</div>
+              <div v-if="localOptions.hasUseWallet"
+                   class="wallet-credit price-section">
+                <div class="title">{{localOptions.useWallet}}</div>
                 <div v-if="loading"
                      class="loading-spinner">
                   <q-spinner-tail color="orange"
@@ -56,9 +57,9 @@
                 </div>
               </div>
 
-              <div v-if="discountInPercent"
+              <div v-if="discountInPercent && localOptions.hasPurchaseProfit"
                    class="purchase-profit price-section">
-                <div class="title">سود شما از خرید</div>
+                <div class="title">{{localOptions.purchaseProfit}}</div>
                 <div v-if="loading"
                      class="loading-spinner">
                   <q-spinner-tail color="orange"
@@ -76,8 +77,9 @@
 
             <q-card-section v-if="isUserLogin"
                             class="invoice-coupon-section invoice-cart-section">
-              <div class="enter-coupon-code">
-                <div class="title">کد تخفیف:</div>
+              <div v-if="localOptions.hasDiscountPercent"
+                   class="enter-coupon-code">
+                <div class="title">{{localOptions.discountPercent}}</div>
 
                 <q-input v-model="couponValue"
                          type="text"
@@ -96,8 +98,9 @@
                   </template>
                 </q-input>
               </div>
-              <div class="enter-coupon-code">
-                <div class="title">کارت هدیه:</div>
+              <div v-if="localOptions.hasGiftcard"
+                   class="enter-coupon-code">
+                <div class="title">{{localOptions.giftcard}}</div>
 
                 <q-input v-model="giftCardValue"
                          dir="ltr"
@@ -119,8 +122,9 @@
             </q-card-section>
 
             <q-card-section class="payment-section invoice-cart-section">
-              <div class="final-price price-section">
-                <div class="title">مبلغ نهایی</div>
+              <div v-if="localOptions.hasFinalPrice"
+                   class="final-price price-section">
+                <div class="title">{{localOptions.finalPrice}}</div>
                 <div v-if="loading"
                      class="loading-spinner">
                   <q-spinner-tail color="orange"
@@ -135,47 +139,51 @@
 
               <div v-if="isUserLogin"
                    class="payment-gateway row">
-                <p class="payment-title col-md-12 col-sm-2 col-xs-12">درگاه پرداخت</p>
+                <div v-if="localOptions.hasPaymentMethod">
+                  <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
+                  <div v-if="loading"
 
-                <div v-if="loading"
-                     class="loading-spinner">
-                  <q-spinner-tail color="orange"
-                                  size="3em" />
-                </div>
+                       class="loading-spinner">
+                    <q-spinner-tail color="orange"
+                                    size="3em" />
+                  </div>
+                  <div v-else
 
-                <div v-else
-                     class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
-                  <div class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
-                    <div class="bank-gateway"
-                         @click="clickOnGateway">
-                      <div class="bank-icon-container">
-                        <q-img src="https://nodes.alaatv.com/aaa/landing/Banklogos/saman.png"
-                               class="bank-icon" />
+                       class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
+                    <div class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
+                      <div class="bank-gateway"
+                           @click="clickOnGateway">
+                        <div class="bank-icon-container">
+                          <q-img src="https://nodes.alaatv.com/aaa/landing/Banklogos/saman.png"
+                                 class="bank-icon" />
+                        </div>
+                        <q-checkbox v-model="selectedBank"
+                                    dir="ltr"
+                                    label="بانک سامان"
+                                    checked-icon="radio_button_checked"
+                                    unchecked-icon="radio_button_unchecked"
+                                    :class="{'checked-check-box': selectedBank}" />
                       </div>
-                      <q-checkbox v-model="selectedBank"
-                                  dir="ltr"
-                                  label="بانک سامان"
-                                  checked-icon="radio_button_checked"
-                                  unchecked-icon="radio_button_unchecked"
-                                  :class="{'checked-check-box': selectedBank}" />
                     </div>
                   </div>
                 </div>
 
                 <div class="payment-description col-md-12 col-sm-6 col-xs-12">
 
-                  <q-input v-model="shoppingDescription"
+                  <q-input v-if="localOptions.hasComment"
+                           v-model="shoppingDescription"
                            type="text"
-                           label="اگر توضیحی درباره ی محصول دارید اینجا بنویسید"
+                           :label="localOptions.commentLabel"
                            class="payment-description-input"
                            outlined />
                 </div>
 
-                <div class="payment-button-container payment-button-container-desktop col-12">
+                <div v-if="localOptions.hasPaymentBtn"
+                     class="payment-button-container payment-button-container-desktop col-12">
                   <div class="payment-button payment-button-desktop-view"
                        :class="{ 'payment-button-disable': !selectedBank}"
                        @click="payment">
-                    پرداخت و ثبت نهایی
+                    {{localOptions.paymentBtn}}
                   </div>
                 </div>
               </div>
@@ -208,8 +216,7 @@
               </p>
 
               <div class="sign-in-button"
-                   @click="login"> console.log(invoice)
-
+                   @click="login">
                 ورود به حساب کاربری
               </div>
             </q-card-section>
@@ -237,6 +244,17 @@
         </template>
       </div>
     </div>
+    <q-card v-else
+            class="login custom-card bg-white q-mx-md q-mb-md">
+      <div class="login-text bg-green-3 q-px-md q-mt-lg q-mx-md">
+        <div class="bg-grey-3 q-pa-md text-center">
+          <p>پیش از ثبت سفارش وارد حساب کاربری خود شوید</p>
+          <p>اگر حساب کاربری در آلاء ندارید با وارد کردن شماره همراه و کد ملی خود میتوانید به سادگی حساب خود را ایجاد
+            کنید</p>
+        </div>
+      </div>
+      <auth-login :default-layout="false" />
+    </q-card>
   </div>
 </template>
 
@@ -246,6 +264,7 @@ import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import Widgets from 'src/components/PageBuilder/Widgets.js'
 // import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+import AuthLogin from 'components/Auth.vue'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -257,7 +276,7 @@ if (typeof window !== 'undefined') {
 
 export default {
   name: 'CartInvoice',
-  // components: { Donate },
+  components: { AuthLogin },
   mixins: [Widgets],
   // provide() {
   //   return {
@@ -289,7 +308,27 @@ export default {
       },
       selectedBank: true,
       shoppingDescription: '',
-      loading: false
+      loading: false,
+      defaultOptions: {
+        totalPrice: 'جمع سبد خرید',
+        hasTotalPrice: true,
+        useWallet: 'استفاده از کیف پول',
+        hasUseWallet: true,
+        purchaseProfit: 'سود شما از خرید',
+        hasPurchaseProfit: true,
+        discountPercent: 'کد تخفیف',
+        hasDiscountPercent: true,
+        giftcard: 'کارت هدیه',
+        hasGiftcard: true,
+        finalPrice: 'مبلغ نهایی',
+        hasFinalPrice: true,
+        paymentMethod: 'درگاه پرداخت',
+        hasPaymentMethod: true,
+        commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
+        hasComment: true,
+        paymentBtn: 'پرداخت و ثبت نهایی',
+        hasPaymentBtn: true
+      }
     }
   },
   computed: {
@@ -1079,6 +1118,15 @@ export default {
         }
       }
 
+    }
+  }
+  .login {
+    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+    padding: 30px 0;
+    margin-top: 65px;
+    .login-text {
+      border-radius: 8px;
     }
   }
 }
