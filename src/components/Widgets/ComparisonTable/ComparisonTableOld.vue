@@ -1,6 +1,6 @@
 <template>
   <q-table :title="title"
-           row-key="col0"
+           row-key="attribute"
            :columns="columns"
            :color="color"
            :flat="true"
@@ -27,30 +27,30 @@
     <template v-slot:body="props">
       <q-tr :props="props"
             class="comparison-tr">
-        <q-td v-for="col in columns"
-              :key="col.name"
+        <q-td v-for="item in rows"
+              :key="item.name"
               :props="props"
               class="comparison-td">
-          <div v-if="col.name === 'col0'">
-            {{ props.row[col.name] === 'action' ? '' : props.row[col.name] }}
+          <div v-if="item.name === 'attribute'">
+            {{ props.row.attribute === 'action' ? '' : props.row.attribute }}
           </div>
-          <div v-else-if="props.row[col.name].type === 'boolean'">
-            <q-icon :name="props.row[col.name].value ? 'check_circle' : 'cancel'"
-                    :color="props.row[col.name].value ? 'green' : 'red'"
+          <div v-else-if="props.row[item.name].type === 'boolean'">
+            <q-icon :name="props.row[item.name].value ? 'check_circle' : 'cancel'"
+                    :color="props.row[item.name].value ? 'green' : 'red'"
                     size="22px" />
           </div>
-          <div v-else-if="props.row[col.name].type === 'text'">
-            {{ props.row[col.name].value }}
+          <div v-else-if="props.row[item.name].type === 'text'">
+            {{ props.row[item.name].value }}
           </div>
-          <div v-else-if="props.row[col.name].type === 'link'">
+          <div v-else-if="props.row[item.name].type === 'link'">
             <q-btn color="primary"
-                   :label="props.row[col.name].label"
-                   :href="props.row[col.name].url" />
+                   :label="props.row[item.name].label"
+                   :href="props.row[item.name].url" />
           </div>
-          <div v-else-if="props.row[col.name].type === 'scroll'">
+          <div v-else-if="props.row[item.name].type === 'scroll'">
             <q-btn color="primary"
-                   :label="props.row[col.name].label"
-                   @click="scrollToElement(props.row[col.name].className)" />
+                   :label="props.row[item.name].label"
+                   @click="scrollToElement(props.row[item.name].className)" />
           </div>
         </q-td>
       </q-tr>
@@ -104,7 +104,6 @@ export default {
       this.attributes = this.options.attributes
       this.records = this.options.records
       this.header = this.options.header
-      this.rows = this.options.rows
       this.getColumns()
       // this.getRows()
     },
@@ -118,7 +117,8 @@ export default {
         this.columns.push(
           {
             name: `col${index}`,
-            label: header
+            label: header,
+            field: row => row[`col${index}`]
           })
       }
     },
