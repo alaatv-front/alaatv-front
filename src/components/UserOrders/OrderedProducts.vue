@@ -125,7 +125,7 @@
 
 <script>
 import { OrderItem } from 'src/models/OrderItem.js'
-import Widgets from 'src/components/PageBuilder/Widgets.js'
+import Widgets from 'src/mixin/Widgets.js'
 
 export default {
   name: 'OrderedProducts',

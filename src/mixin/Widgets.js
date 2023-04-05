@@ -1,11 +1,5 @@
 const mixinWidget = {
   props: {
-    defaultOptions: {
-      type: Object,
-      default() {
-        return {}
-      }
-    },
     data: {
       type: Object,
       default() {
@@ -28,11 +22,10 @@ const mixinWidget = {
   ],
   data () {
     return {
-      // defaultOptions: {}
+      defaultOptions: {}
     }
   },
   created () {
-    console.log(this.localOptions)
     this.mergeOptionsToDefaultOptions()
   },
   computed: {
