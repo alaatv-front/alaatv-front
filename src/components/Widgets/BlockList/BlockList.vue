@@ -38,7 +38,16 @@ export default {
   },
   data() {
     return {
-      blocks: new BlockList()
+      blocks: new BlockList(),
+      defaultOptions: {
+        className: '',
+        height: 'auto',
+        boxed: false,
+        boxedWidth: 1200,
+        style: {},
+        from: 0,
+        to: -1
+      }
     }
   },
   computed: {

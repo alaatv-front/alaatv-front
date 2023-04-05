@@ -6,6 +6,7 @@
 
 <script>
 const productsList = [980, 979, 978, 976]
+const productsList2 = [979, 976, 975]
 import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
 
 export default {
@@ -976,17 +977,19 @@ export default {
                               name: 'riazi',
                               label: 'ریاضی',
                               products: productsList,
-                              spacialProducts: productsList
+                              specialProducts: productsList2
                             },
                             {
                               name: 'tajrobi',
                               label: 'تجربی',
-                              products: productsList
+                              products: productsList,
+                              specialProducts: productsList2
                             },
                             {
                               name: 'ensani',
                               label: 'انسانی',
-                              products: productsList
+                              products: productsList,
+                              specialProducts: productsList2
                             }
                           ]
                         }
