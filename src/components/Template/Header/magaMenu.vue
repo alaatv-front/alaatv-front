@@ -9,7 +9,7 @@
             <div v-for="item in data.megaMenu.categoryItemsCol"
                  :key="item">
               <router-link v-if="item.tags"
-                           :to="{ path: 'c', query: { 'tags[]': item.tags } }">
+                           :to="{ name: 'Public.Content.Search', query: { 'tags[]': item.tags } }">
                 <q-item :class="{item: isItemSelected(item)}"
                         clickable
                         @mouseover="categories[item.category] = true">
@@ -51,7 +51,7 @@
                        :key="col"
                        class="col-md-4 text-subtitle1 q-mb-xs">
                     <q-list>
-                      <router-link :to="{ path: 'c', query: { 'tags[]': col.tags } }">
+                      <router-link :to="{ name: 'Public.Content.Search', query: { 'tags[]': col.tags } }">
                         <q-item clickable>
                           <q-item-section class="list-title">
                             {{col.title.title}}
@@ -60,7 +60,7 @@
                       </router-link>
                       <div v-for="colItem in col.items"
                            :key="colItem">
-                        <router-link :to="{ path: 'c', query: { 'tags[]': colItem.tags } }">
+                        <router-link :to="{ name: 'Public.Content.Search', query: { 'tags[]': colItem.tags } }">
                           <q-item clickable>
                             <q-item-section>
                               {{colItem.title}}
