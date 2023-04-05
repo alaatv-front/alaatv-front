@@ -10,7 +10,7 @@
     </template>
     <template v-else>
       <div class="cart-count">
-        {{options.title}} ({{cart.count}})
+        {{localOptions.title}} ({{cart.count}})
       </div>
     </template>
     <div class="cart-view-widget">
@@ -241,7 +241,7 @@
 import { Cart } from 'src/models/Cart.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { OrderProduct } from 'src/models/OrderProduct.js'
-import Widgets from 'src/components/PageBuilder/Widgets.js'
+import Widgets from 'src/mixin/Widgets.js'
 
 export default {
   name: 'CartView',
@@ -262,7 +262,15 @@ export default {
       dialogState: false,
       test: null,
       expandedObject: {},
-      clickedItemIdToRemove: null
+      clickedItemIdToRemove: null,
+      defaultOptions: {
+        className: '',
+        height: 'auto',
+        boxed: false,
+        boxedWidth: 1200,
+        style: {},
+        title: 'سبد خرید شما'
+      }
     }
   },
   computed: {
