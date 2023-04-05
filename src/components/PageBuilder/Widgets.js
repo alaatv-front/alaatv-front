@@ -1,5 +1,11 @@
 const mixinWidget = {
   props: {
+    defaultOptions: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
     data: {
       type: Object,
       default() {
@@ -22,13 +28,19 @@ const mixinWidget = {
   ],
   data () {
     return {
-      defaultOptions: {}
+      // defaultOptions: {}
     }
   },
   created () {
+    console.log(this.localOptions)
     this.mergeOptionsToDefaultOptions()
   },
-  // computed: {
+  computed: {
+    localOptions: {
+      get() {
+        return Object.assign(this.defaultOptions, this.options)
+      }
+    }
   //   className() {
   //     if (!this.defaultOptions.className) {
   //       this.defaultOptions.className = ''
@@ -46,7 +58,7 @@ const mixinWidget = {
   //     }
   //     return this.defaultOptions.style
   //   }
-  // },
+  },
   methods: {
     mergeOptionsToDefaultOptions () {
       Object.assign(this.defaultOptions, this.options)

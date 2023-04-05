@@ -1,47 +1,51 @@
 <template>
-  <q-card v-if="!userLogin"
-          class="login-card">
-    <div v-if="loading"
-         class="text-center login-loading">
-      <q-spinner-ball color="primary"
-                      size="5em" />
-    </div>
-    <div v-else>
-      <div class="header">
-        ثبت نام و ورود
+  <div class="login-card"
+       :class="{defaultLoginCard: defaultLayout}">
+    <div v-if="!userLogin">
+      <div v-if="loading"
+           class="text-center login-loading">
+        <q-spinner-ball color="primary"
+                        size="5em" />
       </div>
-      <div class="phone-number">
-        <div class="label">
-          شماره همراه
+      <div v-else>
+        <div v-if="defaultLayout"
+             class="header">
+          ثبت نام و ورود
         </div>
-        <q-input ref="userName"
-                 v-model="username"
-                 bottom-slots
-                 hide-bottom-space
-                 autocomplete="off"
-                 onfocus="this.removeAttribute('readonly');"
-                 name="userName"
-                 placeholder=" - - - - - - - - - 09"
-                 @keydown.enter="getEnter('pass')" />
-      </div>
-      <div class="national-code">
-        <div class="label">
-          کد ملی
+        <div class="phone-number">
+          <div class="label">
+            شماره همراه
+          </div>
+          <q-input ref="userName"
+                   v-model="username"
+                   bottom-slots
+                   hide-bottom-space
+                   autocomplete="off"
+                   onfocus="this.removeAttribute('readonly');"
+                   name="userName"
+                   placeholder=" - - - - - - - - - 09"
+                   @keydown.enter="getEnter('pass')" />
         </div>
-        <q-input ref="pass"
-                 v-model="password"
-                 name="pass"
-                 hide-bottom-space
-                 type="password"
-                 @keydown.enter="login" />
+        <div class="national-code">
+          <div class="label">
+            کد ملی
+          </div>
+          <q-input ref="pass"
+                   v-model="password"
+                   name="pass"
+                   hide-bottom-space
+                   type="password"
+                   @keydown.enter="login" />
+        </div>
+        <q-btn class="full-width login-btn"
+               :class="{'bg-green-6': !defaultLayout}"
+               unelevated
+               color="primary"
+               label="ثبت نام / ورود"
+               @click="login" />
       </div>
-      <q-btn class="full-width login-btn"
-             unelevated
-             color="primary"
-             label="ثبت نام / ورود"
-             @click="login" />
     </div>
-  </q-card>
+  </div>
 </template>
 
 <script>
@@ -53,6 +57,10 @@ export default {
     redirect: {
       type: Object,
       default: null
+    },
+    defaultLayout: {
+      default: true,
+      type: Boolean
     }
   },
   data: () => ({
@@ -130,11 +138,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-card {
+.defaultLoginCard{
   width: 434px;
   height: 485px;
+}
+.login-card {
+  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(112, 108, 162, 0.05);
+  background: #fff;
   margin: auto;
-  box-shadow: 0 3px 10px rgba(55, 68, 87, 0.04);
   border-radius: 20px;
   padding:60px 67px;
   .login-loading {
@@ -213,7 +224,7 @@ export default {
   }
 }
 @media only screen and (max-width: 1023px){
-  .login-card {
+  .default-login-card {
     width: 312px;
     height: 409px;
     border-radius: 16px;

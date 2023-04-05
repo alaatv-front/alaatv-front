@@ -47,7 +47,10 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'CartView'
+                        name: 'CartView',
+                        options: {
+                          title: 'سبد خرید شما'
+                        }
                       }
                     ],
                     options: {
@@ -58,12 +61,6 @@ export default {
                     widgets: [
                       {
                         name: 'CartInvoice',
-                        options: {
-                          className: 'q-mt-md'
-                        }
-                      },
-                      {
-                        name: 'Login',
                         options: {
                           className: 'q-mt-md'
                         }
