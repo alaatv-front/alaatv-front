@@ -40,12 +40,12 @@
           <div v-else-if="props.row[col.name].type === 'text'">
             {{ props.row[col.name] === 'action' ? '' : props.row[col.name].value }}
           </div>
-          <div v-else-if="props.row[col.name].type === 'link'">
+          <div v-else-if="props.row[col.name].type === 'action' && props.row[col.name].actionType === 'link'">
             <q-btn color="primary"
                    :label="props.row[col.name].label"
                    :href="props.row[col.name].url" />
           </div>
-          <div v-else-if="props.row[col.name].type === 'scroll'">
+          <div v-else-if="props.row[col.name].type === 'action' && props.row[col.name].actionType === 'scroll'">
             <q-btn color="primary"
                    :label="props.row[col.name].label"
                    @click="scrollToElement(props.row[col.name].className)" />
