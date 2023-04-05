@@ -41,14 +41,14 @@ export default defineComponent({
   data() {
     return {
       apiOptions: ['home', 'shop'],
-      listSlice: 'to',
-      sliceOptions: ['to', 'from'],
       defaultOptions: {
         className: '',
         height: 'auto',
         boxed: false,
         boxedWidth: 1200,
-        style: {}
+        style: {},
+        from: 0,
+        to: -1
       }
     }
   },

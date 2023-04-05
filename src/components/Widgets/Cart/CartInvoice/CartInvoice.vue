@@ -2,228 +2,129 @@
   <div v-if="cart.count > 0"
        ref="CartInvoice"
        class="cart-invoice main-content">
-    <div v-if="isUserLogin">
-      <div ref="CartInvoiceContainer"
-           :key="CartInvoiceContainerKey"
-           class="cart-invoice-container sidebar">
-        <div :class="options.className"
-             :style="options.style"
-             class="invoice-container q-mb-sm sidebar__inner">
-          <template v-if="cartLoading">
-            <div class="q-pa-lg">
-              <div class="q-mb-md">
-                <q-skeleton height="100px"
-                            square />
-              </div>
-              <div>
-                <q-skeleton height="300px"
-                            square />
-              </div>
+    <div v-if="isUserLogin"
+         ref="CartInvoiceContainer"
+         :key="CartInvoiceContainerKey"
+         class="cart-invoice-container sidebar">
+      <div :class="options.className"
+           :style="options.style"
+           class="invoice-container q-mb-sm sidebar__inner">
+        <template v-if="cartLoading">
+          <div class="q-pa-lg">
+            <div class="q-mb-md">
+              <q-skeleton height="100px"
+                          square />
             </div>
-          </template>
-          <template v-else>
-            <!--          <div class="q-mb-md">-->
-            <!--            <donate />-->
-            <!--          </div>-->
-            <q-card class="invoice-cart">
-              <q-card-section class="invoice-total-price-section invoice-cart-section">
-                <div v-if="options.hasTotalPrice"
-                     class="total-shopping-cart price-section">
-                  <div class="title">{{options.totalPrice}}{{ `(${cart.count})` }}</div>
-                  <div v-if="loading"
-                       class="loading-spinner">
-                    <q-spinner-tail color="orange"
-                                    size="2em" />
-                  </div>
-                  <div v-else
-                       class="price">
-                    {{ totalBasePrice }}
-                    <span class="iran-money-unit">تومان</span>
-                  </div>
+            <div>
+              <q-skeleton height="300px"
+                          square />
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <!--          <div class="q-mb-md">-->
+          <!--            <donate />-->
+          <!--          </div>-->
+          <q-card class="invoice-cart">
+            <q-card-section class="invoice-total-price-section invoice-cart-section">
+              <div v-if="localOptions.hasTotalPrice"
+                   class="total-shopping-cart price-section">
+                <div class="title">{{localOptions.totalPrice}}{{ `(${cart.count})` }}</div>
+                <div v-if="loading"
+                     class="loading-spinner">
+                  <q-spinner-tail color="orange"
+                                  size="2em" />
                 </div>
-
-                <div v-if="options.hasUseWallet"
-                     class="wallet-credit price-section">
-                  <div class="title">{{options.useWallet}}</div>
-                  <div v-if="loading"
-                       class="loading-spinner">
-                    <q-spinner-tail color="orange"
-                                    size="2em" />
-                  </div>
-                  <div v-else
-                       class="price">
-                    {{ amountUsingWallet }}
-                    <span class="iran-money-unit">تومان</span>
-                  </div>
+                <div v-else
+                     class="price">
+                  {{ totalBasePrice }}
+                  <span class="iran-money-unit">تومان</span>
                 </div>
+              </div>
 
-                <div v-if="discountInPercent && options.hasPurchaseProfit"
-                     class="purchase-profit price-section">
-                  <div class="title">{{options.purchaseProfit}}</div>
-                  <div v-if="loading"
-                       class="loading-spinner">
-                    <q-spinner-tail color="orange"
-                                    size="2em" />
-                  </div>
-                  <div v-else
-                       class="price">
-                    {{ `(${discountInPercent}٪) ` + totalDiscount }}
-                    <span class="iran-money-unit">تومان</span>
-                  </div>
+              <div v-if="localOptions.hasUseWallet"
+                   class="wallet-credit price-section">
+                <div class="title">{{localOptions.useWallet}}</div>
+                <div v-if="loading"
+                     class="loading-spinner">
+                  <q-spinner-tail color="orange"
+                                  size="2em" />
                 </div>
-
-                <q-separator class="invoice-separator" />
-              </q-card-section>
-
-              <q-card-section v-if="isUserLogin"
-                              class="invoice-coupon-section invoice-cart-section">
-                <div v-if="options.hasDiscountPercent"
-                     class="enter-coupon-code">
-                  <div class="title">{{options.discountPercent}}</div>
-
-                  <q-input v-model="couponValue"
-                           type="text"
-                           label="کد تخفیف خود را وارد کنید"
-                           class="coupon-input"
-                           outlined>
-                    <template v-slot:append>
-                      <q-btn v-if="!isCouponSet"
-                             label="ثبت"
-                             flat
-                             @click="setCoupon" />
-                      <q-btn v-else
-                             label="حذف"
-                             flat
-                             @click="cancelCoupon" />
-                    </template>
-                  </q-input>
+                <div v-else
+                     class="price">
+                  {{ amountUsingWallet }}
+                  <span class="iran-money-unit">تومان</span>
                 </div>
-                <div v-if="options.hasGiftcard"
-                     class="enter-coupon-code">
-                  <div class="title">{{options.giftcard}}</div>
+              </div>
 
-                  <q-input v-model="giftCardValue"
-                           dir="ltr"
-                           label="کد کارت هدیه خود را وارد کنید"
-                           class="coupon-input"
-                           outlined
-                           mask="##-#####"
-                           :suffix=giftCardPrefix
-                           hint="مثال: AT84-27871">
-                    <template v-slot:append>
-                      <q-btn label="ثبت"
-                             flat
-                             @click="submitReferralCode" />
-                    </template>
-                  </q-input>
+              <div v-if="discountInPercent && localOptions.hasPurchaseProfit"
+                   class="purchase-profit price-section">
+                <div class="title">{{localOptions.purchaseProfit}}</div>
+                <div v-if="loading"
+                     class="loading-spinner">
+                  <q-spinner-tail color="orange"
+                                  size="2em" />
                 </div>
-
-                <q-separator class="invoice-separator" />
-              </q-card-section>
-
-              <q-card-section class="payment-section invoice-cart-section">
-                <div v-if="options.hasFinalPrice"
-                     class="final-price price-section">
-                  <div class="title">{{options.finalPrice}}</div>
-                  <div v-if="loading"
-                       class="loading-spinner">
-                    <q-spinner-tail color="orange"
-                                    size="2em" />
-                  </div>
-                  <div v-else
-                       class="price">
-                    {{ totalFinalPrice }}
-                    <span class="iran-money-unit">تومان</span>
-                  </div>
+                <div v-else
+                     class="price">
+                  {{ `(${discountInPercent}٪) ` + totalDiscount }}
+                  <span class="iran-money-unit">تومان</span>
                 </div>
+              </div>
 
-                <div v-if="isUserLogin"
-                     class="payment-gateway row">
-                  <div v-if="options.hasPaymentMethod">
-                    <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{options.paymentMethod}}</p>
-                    <div v-if="loading"
+              <q-separator class="invoice-separator" />
+            </q-card-section>
 
-                         class="loading-spinner">
-                      <q-spinner-tail color="orange"
-                                      size="3em" />
-                    </div>
-                    <div v-else
+            <q-card-section v-if="isUserLogin"
+                            class="invoice-coupon-section invoice-cart-section">
+              <div v-if="localOptions.hasDiscountPercent"
+                   class="enter-coupon-code">
+                <div class="title">{{localOptions.discountPercent}}</div>
 
-                         class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
-                      <div class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
-                        <div class="bank-gateway"
-                             @click="clickOnGateway">
-                          <div class="bank-icon-container">
-                            <q-img src="https://nodes.alaatv.com/aaa/landing/Banklogos/saman.png"
-                                   class="bank-icon" />
-                          </div>
-                          <q-checkbox v-model="selectedBank"
-                                      dir="ltr"
-                                      label="بانک سامان"
-                                      checked-icon="radio_button_checked"
-                                      unchecked-icon="radio_button_unchecked"
-                                      :class="{'checked-check-box': selectedBank}" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="payment-description col-md-12 col-sm-6 col-xs-12">
-
-                    <q-input v-if="options.hasComment"
-                             v-model="shoppingDescription"
-                             type="text"
-                             :label="options.commentLabel"
-                             class="payment-description-input"
-                             outlined />
-                  </div>
-
-                  <div v-if="options.hasPaymentBtn"
-                       class="payment-button-container payment-button-container-desktop col-12">
-                    <div class="payment-button payment-button-desktop-view"
-                         :class="{ 'payment-button-disable': !selectedBank}"
-                         @click="payment">
-                      {{options.paymentBtn}}
-                    </div>
-                  </div>
-                </div>
-
-                <q-separator v-if="!isUserLogin"
-                             class="invoice-separator" />
-              </q-card-section>
-
-              <q-card-section v-if="!isUserLogin"
-                              class="login-section invoice-cart-section">
-                <p class="title">برای ادامه ثبت سفارش، به حساب کاربری خود وارد شوید </p>
-
-                <q-input v-model="userEnteredLoginInfo.mobile"
+                <q-input v-model="couponValue"
                          type="text"
-                         label="شماره موبایل خود را وارد کنید"
-                         class="login-input"
-                         outlined />
+                         label="کد تخفیف خود را وارد کنید"
+                         class="coupon-input"
+                         outlined>
+                  <template v-slot:append>
+                    <q-btn v-if="!isCouponSet"
+                           label="ثبت"
+                           flat
+                           @click="setCoupon" />
+                    <q-btn v-else
+                           label="حذف"
+                           flat
+                           @click="cancelCoupon" />
+                  </template>
+                </q-input>
+              </div>
+              <div v-if="localOptions.hasGiftcard"
+                   class="enter-coupon-code">
+                <div class="title">{{localOptions.giftcard}}</div>
 
-                <q-input v-model="userEnteredLoginInfo.password"
-                         type="password"
-                         label="رمز عبور خود را وارد کنید"
-                         class="login-input"
-                         outlined />
+                <q-input v-model="giftCardValue"
+                         dir="ltr"
+                         label="کد کارت هدیه خود را وارد کنید"
+                         class="coupon-input"
+                         outlined
+                         mask="##-#####"
+                         :suffix=giftCardPrefix
+                         hint="مثال: AT84-27871">
+                  <template v-slot:append>
+                    <q-btn label="ثبت"
+                           flat
+                           @click="submitReferralCode" />
+                  </template>
+                </q-input>
+              </div>
 
-                <p class="no-account">
-                  حساب کاربری ندارید؟
-                  <router-link to="/"
-                               class="sign-in">ثبت نام کنید
-                  </router-link>
-                </p>
+              <q-separator class="invoice-separator" />
+            </q-card-section>
 
-                <div class="sign-in-button"
-                     @click="login">
-                  ورود به حساب کاربری
-                </div>
-              </q-card-section>
-            </q-card>
-            <div class="payment-button-container">
-              <div class="final-price price-section">
-                <div class="title">مبلغ نهایی:</div>
+            <q-card-section class="payment-section invoice-cart-section">
+              <div v-if="localOptions.hasFinalPrice"
+                   class="final-price price-section">
+                <div class="title">{{localOptions.finalPrice}}</div>
                 <div v-if="loading"
                      class="loading-spinner">
                   <q-spinner-tail color="orange"
@@ -235,14 +136,112 @@
                   <span class="iran-money-unit">تومان</span>
                 </div>
               </div>
-              <div class="payment-button payment-button-mobile-view"
-                   :class="{ 'payment-button-disable': !selectedBank}"
-                   @click="payment">
-                پرداخت
+
+              <div v-if="isUserLogin"
+                   class="payment-gateway row">
+                <div v-if="localOptions.hasPaymentMethod">
+                  <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
+                  <div v-if="loading"
+
+                       class="loading-spinner">
+                    <q-spinner-tail color="orange"
+                                    size="3em" />
+                  </div>
+                  <div v-else
+
+                       class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
+                    <div class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
+                      <div class="bank-gateway"
+                           @click="clickOnGateway">
+                        <div class="bank-icon-container">
+                          <q-img src="https://nodes.alaatv.com/aaa/landing/Banklogos/saman.png"
+                                 class="bank-icon" />
+                        </div>
+                        <q-checkbox v-model="selectedBank"
+                                    dir="ltr"
+                                    label="بانک سامان"
+                                    checked-icon="radio_button_checked"
+                                    unchecked-icon="radio_button_unchecked"
+                                    :class="{'checked-check-box': selectedBank}" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="payment-description col-md-12 col-sm-6 col-xs-12">
+
+                  <q-input v-if="localOptions.hasComment"
+                           v-model="shoppingDescription"
+                           type="text"
+                           :label="localOptions.commentLabel"
+                           class="payment-description-input"
+                           outlined />
+                </div>
+
+                <div v-if="localOptions.hasPaymentBtn"
+                     class="payment-button-container payment-button-container-desktop col-12">
+                  <div class="payment-button payment-button-desktop-view"
+                       :class="{ 'payment-button-disable': !selectedBank}"
+                       @click="payment">
+                    {{localOptions.paymentBtn}}
+                  </div>
+                </div>
+              </div>
+
+              <q-separator v-if="!isUserLogin"
+                           class="invoice-separator" />
+            </q-card-section>
+
+            <q-card-section v-if="!isUserLogin"
+                            class="login-section invoice-cart-section">
+              <p class="title">برای ادامه ثبت سفارش، به حساب کاربری خود وارد شوید </p>
+
+              <q-input v-model="userEnteredLoginInfo.mobile"
+                       type="text"
+                       label="شماره موبایل خود را وارد کنید"
+                       class="login-input"
+                       outlined />
+
+              <q-input v-model="userEnteredLoginInfo.password"
+                       type="password"
+                       label="رمز عبور خود را وارد کنید"
+                       class="login-input"
+                       outlined />
+
+              <p class="no-account">
+                حساب کاربری ندارید؟
+                <router-link to="/"
+                             class="sign-in">ثبت نام کنید
+                </router-link>
+              </p>
+
+              <div class="sign-in-button"
+                   @click="login">
+                ورود به حساب کاربری
+              </div>
+            </q-card-section>
+          </q-card>
+          <div class="payment-button-container">
+            <div class="final-price price-section">
+              <div class="title">مبلغ نهایی:</div>
+              <div v-if="loading"
+                   class="loading-spinner">
+                <q-spinner-tail color="orange"
+                                size="2em" />
+              </div>
+              <div v-else
+                   class="price">
+                {{ totalFinalPrice }}
+                <span class="iran-money-unit">تومان</span>
               </div>
             </div>
-          </template>
-        </div>
+            <div class="payment-button payment-button-mobile-view"
+                 :class="{ 'payment-button-disable': !selectedBank}"
+                 @click="payment">
+              پرداخت
+            </div>
+          </div>
+        </template>
       </div>
     </div>
     <q-card v-else
@@ -309,7 +308,27 @@ export default {
       },
       selectedBank: true,
       shoppingDescription: '',
-      loading: false
+      loading: false,
+      defaultOptions: {
+        totalPrice: 'جمع سبد خرید',
+        hasTotalPrice: true,
+        useWallet: 'استفاده از کیف پول',
+        hasUseWallet: true,
+        purchaseProfit: 'سود شما از خرید',
+        hasPurchaseProfit: true,
+        discountPercent: 'کد تخفیف',
+        hasDiscountPercent: true,
+        giftcard: 'کارت هدیه',
+        hasGiftcard: true,
+        finalPrice: 'مبلغ نهایی',
+        hasFinalPrice: true,
+        paymentMethod: 'درگاه پرداخت',
+        hasPaymentMethod: true,
+        commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
+        hasComment: true,
+        paymentBtn: 'پرداخت و ثبت نهایی',
+        hasPaymentBtn: true
+      }
     }
   },
   computed: {

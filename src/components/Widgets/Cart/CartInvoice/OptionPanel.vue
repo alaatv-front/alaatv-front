@@ -9,7 +9,7 @@
           <div class="col-md-4 offset-1 text-right">
             <q-checkbox v-model="localOptions.hasTotalPrice"
                         left-label
-                        label="جمع سبد خرید" />
+                        :label="localOptions.totalPrice" />
           </div>
           <div class="col-md-7">
             <q-input v-model="localOptions.useWallet" />
@@ -73,7 +73,7 @@
           <div class="col-md-4 offset-1 text-right">
             <q-checkbox v-model="localOptions.hasPaymentBtn"
                         left-label
-                        label="توضیحات" />
+                        label="پرداخت و ثبت نهایی" />
           </div>
         </div>
       </div>
@@ -105,7 +105,25 @@ export default defineComponent({
         height: 'auto',
         boxed: false,
         boxedWidth: 1200,
-        style: {}
+        style: {},
+        totalPrice: 'جمع سبد خرید',
+        hasTotalPrice: true,
+        useWallet: 'استفاده از کیف پول',
+        hasUseWallet: true,
+        purchaseProfit: 'سود شما از خرید',
+        hasPurchaseProfit: true,
+        discountPercent: 'کد تخفیف',
+        hasDiscountPercent: true,
+        giftcard: 'کارت هدیه',
+        hasGiftcard: true,
+        finalPrice: 'مبلغ نهایی',
+        hasFinalPrice: true,
+        paymentMethod: 'درگاه پرداخت',
+        hasPaymentMethod: true,
+        commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
+        hasComment: true,
+        paymentBtn: 'پرداخت و ثبت نهایی',
+        hasPaymentBtn: true
       }
     }
   },
