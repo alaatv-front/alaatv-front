@@ -49,7 +49,6 @@ export default {
                       {
                         name: 'CartView',
                         options: {
-                          title: 'سبد خرید شما'
                         }
                       }
                     ],
