@@ -6,7 +6,8 @@ class Major extends Model {
       { key: 'id' },
       { key: 'name' },
       { key: 'lessons' },
-      { key: 'title' }
+      { key: 'title' },
+      { key: 'selected' }
     ])
   }
 
