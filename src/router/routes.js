@@ -129,11 +129,14 @@ const routes = [
           {
             path: 'landing',
             name: 'Public.Landing',
+            layoutConfig: {
+              layoutHeader: false
+            },
             children: [
               {
                 path: '36',
                 name: 'Public.Checkout.FireDay',
-                component: () => import('src/pages/Public/Landings/FireDay/FireDay.vue')
+                component: () => import('src/pages/Public/Landings/FireDay.vue')
               }
             ]
           }
