@@ -62,12 +62,12 @@
                   width="1"
                   height="1"
                   class="img" />
-        <div class="main-title ellipsis-2-lines">
-          {{ product.title }}
-        </div>
       </router-link>
     </div>
     <div class="product-content-box">
+      <div class="main-title ellipsis-2-lines">
+        {{ product.title }}
+      </div>
       <div v-if="product.attributes"
            class="info-box">
         <div class="teacher-image">
@@ -457,7 +457,7 @@ export default {
     background: #4caf50;
     color: white;
     @media screen and (max-width: 600px){
-      font-size: 8px;
+      font-size: 11px;
       margin: 5px;
     }
   }
@@ -624,10 +624,32 @@ export default {
   }
 
   @media screen and (max-width: 350px){
-    width: 150px;
+    flex-direction: row;
+    padding: 10px;
+    width: 300px;
+    .img-box{
+      a{
+        .img{
+          border-radius: 20px;
+        }
+      }
+    }
     .product-content-box{
       .action-box{
         display: block;
+        .price-box{
+          display: block;
+          .price-info{
+            margin-right: 10px;
+            align-items: center;
+            .discount{
+              margin-right: 5px;
+            }
+          }
+        }
+        .btn-green{
+          width: 100px;
+        }
       }
     }
   }

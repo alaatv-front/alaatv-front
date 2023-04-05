@@ -38,13 +38,13 @@ export default {
                             {
                               type: 'formBuilder',
                               name: 'accountInfo',
-                              col: 'col-md-12 custom-card q-pb-sm',
+                              col: 'col-12 custom-card',
                               value: [
                                 {
                                   type: 'separator',
                                   size: '0',
                                   label: 'مشخصات حساب',
-                                  col: 'col-md-12 title'
+                                  col: 'col-12 title'
                                 },
                                 {
                                   type: 'input',
@@ -53,7 +53,7 @@ export default {
                                   label: 'شناسه',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-6 q-mb-md'
+                                  col: 'col-xs-6'
                                 },
                                 {
                                   type: 'input',
@@ -62,20 +62,20 @@ export default {
                                   label: 'شماره موبایل',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-6 q-pr-md'
+                                  col: 'col-xs-6 q-pr-md q-mb-md'
                                 }
                               ]
                             },
                             {
                               type: 'formBuilder',
                               name: 'formBuilderCol',
-                              col: 'col-md-12 custom-card',
+                              col: 'col-xs-12 custom-card',
                               value: [
                                 {
                                   type: 'separator',
                                   size: '0',
                                   label: 'مشخصات فردی',
-                                  col: 'col-md-12 title'
+                                  col: 'col-xs-12 title'
                                 },
 
                                 {
@@ -85,7 +85,7 @@ export default {
                                   label: 'نام',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-6 q-mb-md'
+                                  col: 'col-xs-6 q-mb-md'
                                 },
                                 {
                                   type: 'input',
@@ -94,7 +94,7 @@ export default {
                                   label: 'نام خانوادگی',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-6 q-pr-md'
+                                  col: 'col-xs-6 q-pr-md'
                                 },
                                 {
                                   type: 'date',
@@ -103,7 +103,7 @@ export default {
                                   label: 'تاریخ تولد',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-6 q-mb-md'
+                                  col: 'col-xs-6 q-mb-md'
                                 },
                                 {
                                   type: 'select',
@@ -114,7 +114,7 @@ export default {
                                   optionLabel: 'name',
                                   outlined: true,
                                   multiple: false,
-                                  col: 'col-md-6 q-pr-md'
+                                  col: 'col-xs-6 q-pr-md'
                                 },
                                 {
                                   type: 'select',
@@ -125,7 +125,7 @@ export default {
                                   optionLabel: 'title',
                                   outlined: true,
                                   multiple: false,
-                                  col: 'col-md-6 q-mb-md'
+                                  col: 'col-xs-6 q-mb-md'
                                 },
                                 {
                                   type: 'select',
@@ -136,7 +136,7 @@ export default {
                                   optionLabel: 'title',
                                   outlined: true,
                                   multiple: false,
-                                  col: 'col-md-6 q-pr-md'
+                                  col: 'col-xs-6 q-pr-md'
                                 },
                                 {
                                   type: 'input',
@@ -145,20 +145,20 @@ export default {
                                   label: 'کد ملی',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-6 q-mb-md'
+                                  col: 'col-xs-6 q-mb-md'
                                 }
                               ]
                             },
                             {
                               type: 'formBuilder',
                               name: 'formBuilderCol',
-                              col: 'col-md-12 custom-card ',
+                              col: 'col-xs-12 custom-card ',
                               value: [
                                 {
                                   type: 'separator',
                                   size: '0',
                                   label: 'مشخصات تحصیلی',
-                                  col: 'col-md-12 title'
+                                  col: 'col-xs-12 title'
                                 },
                                 {
                                   type: 'select',
@@ -169,7 +169,7 @@ export default {
                                   optionLabel: 'name',
                                   outlined: true,
                                   multiple: false,
-                                  col: 'col-md-6 q-mb-md'
+                                  col: 'col-xs-6'
                                 },
                                 {
                                   type: 'select',
@@ -180,20 +180,20 @@ export default {
                                   optionLabel: 'name',
                                   outlined: true,
                                   multiple: false,
-                                  col: 'col-md-6 q-pr-md'
+                                  col: 'col-xs-6 q-pr-md q-mb-md'
                                 }
                               ]
                             },
                             {
                               type: 'formBuilder',
                               name: 'formBuilderCol',
-                              col: 'col-md-12 custom-card ',
+                              col: 'col-xs-12 custom-card ',
                               value: [
                                 {
                                   type: 'separator',
                                   size: '0',
                                   label: 'اطلاعات تماس',
-                                  col: 'col-md-12 title'
+                                  col: 'col-xs-12 title'
                                 },
 
                                 {
@@ -203,7 +203,7 @@ export default {
                                   label: 'کدپستی',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-6q -mb-md'
+                                  col: 'col-xs-6 q-mb-md'
                                 },
                                 {
                                   type: 'input',
@@ -212,7 +212,7 @@ export default {
                                   label: 'ایمیل',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-6 q-pr-md'
+                                  col: 'col-xs-6 q-pr-md'
                                 },
                                 {
                                   type: 'input',
@@ -221,7 +221,7 @@ export default {
                                   label: 'آدرس محل سکونت',
                                   outlined: true,
                                   placeholder: 'وارد نمایید',
-                                  col: 'col-md-12 q-mb-md q-pr-md'
+                                  col: 'col-xs-12 q-mb-md q-pr-md'
                                 }
                               ]
                             }
