@@ -28,17 +28,24 @@ export default {
                           menuLink: [
                             {
                               label: 'صفحه اصلی',
+                              type: 'link',
                               route: ''
                             },
                             {
                               label: 'دوره ها',
-                              route: ''
+                              type: 'scroll',
+                              className: 'feature'
                             },
                             {
                               label: 'سوالات متداول',
+                              type: 'link',
                               route: ''
                             }
-                          ]
+                          ],
+                          logoImage: 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png',
+                          logoSlogan: 'مدرسه آنلاین آلا',
+                          action: true,
+                          actionButtonLabel: 'ثبت نام'
                         }
                       }
                     ],
