@@ -2,8 +2,10 @@ import { apiV2 } from 'src/boot/axios.js'
 import { User } from 'src/models/User.js'
 import { ProductList } from 'src/models/Product.js'
 import { CartItemList } from 'src/models/CartItem.js'
+// import { BankAccountsList } from 'src/models/BankAccounts'
 import APIRepository from '../classes/APIRepository'
 import { FavoredList } from 'src/models/Favored'
+import { BankAccountsList } from 'src/models/BankAccounts'
 
 export default class UserAPI extends APIRepository {
   constructor() {
@@ -92,7 +94,7 @@ export default class UserAPI extends APIRepository {
       request: this.APIAdresses.bankAccounts,
       cacheKey: this.CacheList.bankAccounts,
       resolveCallback: (response) => {
-        return response.data
+        return new BankAccountsList(response.data)
       },
       rejectCallback: (error) => {
         return error
