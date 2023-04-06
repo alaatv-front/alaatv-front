@@ -10,9 +10,9 @@
                  :key="item">
               <router-link v-if="item.tags"
                            :to="{ path: 'c', query: { 'tags[]': item.tags } }">
-                <q-item :class="{item: isItemSelected(item)}"
+                <q-item class="item"
                         clickable
-                        @mouseover="categories[item.category] = true">
+                        @mouseover="showData(item.category)">
                   <q-item-section>
                     {{ item.title }}
                   </q-item-section>
@@ -20,9 +20,9 @@
               </router-link>
               <router-link v-else
                            :to="{path: item.path}">
-                <q-item :class="{item: isItemSelected(item)}"
+                <q-item class="item"
                         clickable
-                        @mouseover="categories[item.category] = true">
+                        @mouseover="showData(item.category)">
                   <q-item-section>
                     {{item.title}}
                   </q-item-section>
@@ -37,14 +37,14 @@
              :key="item">
           <div>
             <div v-if="item.photo">
-              <div v-if="categories[item.category]">
+              <div v-if="item.showData">
                 <q-responsive :ratio="1998/553">
                   <q-img :src="item.photo" />
                 </q-responsive>
               </div>
             </div>
             <div v-else>
-              <div v-if="categories[item.category]"
+              <div v-if="item.showData"
                    :style="{background: item.bg}">
                 <div class="row">
                   <div v-for="col in item.cols"
@@ -71,10 +71,11 @@
                     </q-list>
                   </div>
                 </div>
-                <div v-if="item.category === 'davazdahomVaKonkur'"
+
+                <div v-if="item.showData"
                      class="magaMenu-svg-container">
                   <div class="megaMenu-svg-title">
-                    دوازدهم و کنکور
+                    {{item.svg.title}}
                   </div>
                   <div class="megaMenu-svg">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -82,91 +83,12 @@
                          width="100"
                          height="100">
                       <g>
-                        <path style="fill:#900C3F"
+                        <path :style="{fill: item.svg.pathColor1}"
                               d="M405.39,412.764c-69.689,56.889-287.289,56.889-355.556,0s-62.578-300.089,0-364.089  s292.978-64,355.556,0S475.079,355.876,405.39,412.764z"
                               data-original="#5CA4DA"
                               class=""
                               data-old_color="#5CA4DA" />
-                        <path style="fill:#AA0F4A"
-                              d="M229.034,313.209c-62.578,49.778-132.267,75.378-197.689,76.8  C-17.01,307.52-7.055,106.987,49.834,48.676c51.2-52.622,211.911-62.578,304.356-29.867  C376.945,112.676,330.012,232.142,229.034,313.209z"
-                              data-original="#6DAFE0"
-                              class="active-path"
-                              data-old_color="#6DAFE0" />
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-
-                <div v-if="item.category === 'yazdahom'"
-                     class="col magaMenu-svg-container">
-                  <div class="megaMenu-svg-title">
-                    یازدهم
-                  </div>
-                  <div class="megaMenu-svg">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 455.431 455.431"
-                         width="100"
-                         height="100">
-                      <g>
-                        <path style="fill:#C70039"
-                              d="M405.39,412.764c-69.689,56.889-287.289,56.889-355.556,0s-62.578-300.089,0-364.089  s292.978-64,355.556,0S475.079,355.876,405.39,412.764z"
-                              data-original="#5CA4DA"
-                              class=""
-                              data-old_color="#5CA4DA" />
-                        <path style="fill:#E90849"
-                              d="M229.034,313.209c-62.578,49.778-132.267,75.378-197.689,76.8  C-17.01,307.52-7.055,106.987,49.834,48.676c51.2-52.622,211.911-62.578,304.356-29.867  C376.945,112.676,330.012,232.142,229.034,313.209z"
-                              data-original="#6DAFE0"
-                              class="active-path"
-                              data-old_color="#6DAFE0" />
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-
-                <div v-if="item.category === 'dahom'"
-                     class="col magaMenu-svg-container">
-                  <div class="megaMenu-svg-title">
-                    دهم
-                  </div>
-                  <div class="megaMenu-svg">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 455.431 455.431"
-                         width="100"
-                         height="100">
-                      <g>
-                        <path style="fill:#FF5733"
-                              d="M405.39,412.764c-69.689,56.889-287.289,56.889-355.556,0s-62.578-300.089,0-364.089  s292.978-64,355.556,0S475.079,355.876,405.39,412.764z"
-                              data-original="#5CA4DA"
-                              class="active-path"
-                              data-old_color="#5CA4DA" />
-                        <path style="fill:#FF6F51"
-                              d="M229.034,313.209c-62.578,49.778-132.267,75.378-197.689,76.8  C-17.01,307.52-7.055,106.987,49.834,48.676c51.2-52.622,211.911-62.578,304.356-29.867  C376.945,112.676,330.012,232.142,229.034,313.209z"
-                              data-original="#6DAFE0"
-                              class=""
-                              data-old_color="#6DAFE0" />
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-
-                <div v-if="item.category === 'nezameGhadim'"
-                     class="col magaMenu-svg-container">
-                  <div class="megaMenu-svg-title">
-                    کنکور نظام قدیم
-                  </div>
-                  <div class="megaMenu-svg">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 455.431 455.431"
-                         xml:space="preserve"
-                         width="100"
-                         height="100">
-                      <g>
-                        <path style="fill:#FF9000"
-                              d="M405.39,412.764c-69.689,56.889-287.289,56.889-355.556,0s-62.578-300.089,0-364.089  s292.978-64,355.556,0S475.079,355.876,405.39,412.764z"
-                              data-original="#5CA4DA"
-                              class=""
-                              data-old_color="#5CA4DA" />
-                        <path style="fill:#FFA229"
+                        <path :style="{fill: item.svg.pathColor2}"
                               d="M229.034,313.209c-62.578,49.778-132.267,75.378-197.689,76.8  C-17.01,307.52-7.055,106.987,49.834,48.676c51.2-52.622,211.911-62.578,304.356-29.867  C376.945,112.676,330.012,232.142,229.034,313.209z"
                               data-original="#6DAFE0"
                               class="active-path"
@@ -194,90 +116,20 @@ export default {
       default() {
         return {}
       }
-    },
-    leftSideImage: {
-      type: Boolean,
-      default: false
-    },
-    megaMenuConference: {
-      type: Boolean,
-      default: false
-    },
-    menuLabel: {
-      type: String,
-      default: ''
-    }
-  },
-  data() {
-    return {
-      menu: false,
-      menuOver: false,
-      listOver: false,
-      categories: {
-        davazdahomVaKonkur: true,
-        yazdahom: false,
-        dahom: false,
-        nezameGhadim: false,
-        chatrNejat: true,
-        raheAbrisham: false,
-        giftcard: false
-      },
-      conferenceCategories: {
-      }
-    }
-  },
-  watch: {
-    'categories.davazdahomVaKonkur': function(val) {
-      if (val) {
-        this.categories.yazdahom = this.categories.dahom = this.categories.nezameGhadim = false
-      }
-    },
-    'categories.yazdahom': function(val) {
-      if (val) {
-        this.categories.davazdahomVaKonkur = this.categories.dahom = this.categories.nezameGhadim = false
-      }
-    },
-    'categories.dahom': function(val) {
-      if (val) {
-        this.categories.yazdahom = this.categories.davazdahomVaKonkur = this.categories.nezameGhadim = false
-      }
-    },
-    'categories.nezameGhadim': function(val) {
-      if (val) {
-        this.categories.yazdahom = this.categories.dahom = this.categories.davazdahomVaKonkur = false
-      }
-    },
-    'categories.chatrNejat': function (val) {
-      if (val) {
-        this.categories.raheAbrisham = this.categories.giftcard = false
-      }
-    },
-    'categories.raheAbrisham': function (val) {
-      if (val) {
-        this.categories.chatrNejat = this.categories.giftcard = false
-      }
-    },
-    'categories.giftcard': function (val) {
-      if (val) {
-        this.categories.chatrNejat = this.categories.raheAbrisham = false
-      }
     }
   },
   methods: {
-    isItemSelected(item) {
-      return this.categories[item.category] || this.conferenceCategories[item.category]
-    },
-    subCategoryBackground(category) {
-      if (category === 'davazdahomVaKonkur') {
-        return '#ffd6e6'
-      }
+    showData(category) {
+      this.data.megaMenu.subCategoryItemsCol.forEach(item => {
+        item.showData = item.category === category
+      })
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.item {
+.item:hover {
   font-weight: bold;
   background-color: orange;
 }
