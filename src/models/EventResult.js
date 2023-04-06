@@ -7,9 +7,7 @@ class EventResult extends Model {
   constructor(data) {
     super(data, [
       { key: 'id' },
-      {
-        key: 'event'
-      },
+      { key: 'event' },
       { key: 'rank' },
       { key: 'enable_report_publish' },
       { key: 'comment' },
