@@ -22,12 +22,12 @@
             </template>
             <template v-slot:body="props">
               <q-tr :props="props">
-                {{ logger(props) }}
-                <q-td :key="props.row.name"
+                <q-td v-for="(item, index) in props.cols"
+                      :key="'col'+ index"
                       :props="props">
-                  {{ props.row[props.row.name] }}
+                  {{ item.value }}
                   <q-popup-edit v-slot="scope"
-                                v-model="props.row.name">
+                                v-model="props.row['col'+ index].value">
                     <q-input v-model="scope.value"
                              dense
                              autofocus
@@ -35,45 +35,6 @@
                              @keyup.enter="scope.set" />
                   </q-popup-edit>
                 </q-td>
-                <!--                <q-td key="col0"-->
-                <!--                      :props="props">-->
-                <!--                  {{ props.row.col0.value }}-->
-                <!--                  <q-popup-edit v-slot="scope"-->
-                <!--                                v-model="props.row.col0.value"-->
-                <!--                                title="Update calories"-->
-                <!--                                buttons>-->
-                <!--                    <q-input v-model="scope.value"-->
-                <!--                             type="number"-->
-                <!--                             dense-->
-                <!--                             autofocus />-->
-                <!--                  </q-popup-edit>-->
-                <!--                </q-td>-->
-                <!--                <q-td key="fat"-->
-                <!--                      :props="props">-->
-                <!--                  <div class="text-pre-wrap">{{ props.row.fat }}</div>-->
-                <!--                  <q-popup-edit v-slot="scope"-->
-                <!--                                v-model="props.row.fat">-->
-                <!--                    <q-input v-model="scope.value"-->
-                <!--                             type="textarea"-->
-                <!--                             dense-->
-                <!--                             autofocus />-->
-                <!--                  </q-popup-edit>-->
-                <!--                </q-td>-->
-                <!--                <q-td key="carbs"-->
-                <!--                      :props="props">-->
-                <!--                  {{ props.row.carbs }}-->
-                <!--                  <q-popup-edit v-slot="scope"-->
-                <!--                                v-model="props.row.carbs"-->
-                <!--                                title="Update carbs"-->
-                <!--                                buttons-->
-                <!--                                persistent>-->
-                <!--                    <q-input v-model="scope.value"-->
-                <!--                             type="number"-->
-                <!--                             dense-->
-                <!--                             autofocus-->
-                <!--                             hint="Use buttons to close" />-->
-                <!--                  </q-popup-edit>-->
-                <!--                </q-td>-->
               </q-tr>
             </template>
           </q-table>
@@ -102,63 +63,71 @@ export default defineComponent({
   data() {
     return {
       rows: [
-        // {
-        //   name: 'col0'
-        // },
-        // {
-        //   name: 'col1'
-        // },
-        // {
-        //   name: 'col2'
-        // }
         {
-          col0: 'sdfsdfdfs'
-
+          col0: {
+            value: 'sdfsdfdfs'
+          },
+          col1: {
+            value: '۳۳۳'
+          },
+          col2: {
+            value: '۰۰۰'
+          }
         },
         {
-          col1: 'sdfsdsfdfdffdfs'
-
+          col0: {
+            value: 'sdfsdfdfs'
+          },
+          col1: {
+            value: '۳۳۳'
+          },
+          col2: {
+            value: '۰۰۰'
+          }
+        },
+        {
+          col0: {
+            value: '237'
+          },
+          col1: {
+            value: '۰۰۰۰'
+          },
+          col2: {
+            value: 'شسعاهعشسای'
+          }
+        },
+        {
+          col0: {
+            value: '237'
+          },
+          col1: {
+            value: '۰۰۰۰'
+          },
+          col2: {
+            value: 'شسعاهعشسای'
+          }
+        },
+        {
+          col0: {
+            value: '237'
+          },
+          col1: {
+            value: '۰۰۰۰'
+          },
+          col2: {
+            value: 'شسعاهعشسای'
+          }
         }
-        // {
-        //   name: 'Ice cream sandwich',
-        //   calories: 237,
-        //   fat: 9.0,
-        //   carbs: 37,
-        //   protein: 4.3,
-        //   sodium: 129,
-        //   calcium: '8%',
-        //   iron: '1%'
-        // },
-        // {
-        //   name: 'Eclair',
-        //   calories: 262,
-        //   fat: 16.0,
-        //   carbs: 23,
-        //   protein: 6.0,
-        //   sodium: 337,
-        //   calcium: '6%',
-        //   iron: '7%'
-        // },
-        // {
-        //   name: 'Cupcake',
-        //   calories: 305,
-        //   fat: 3.7,
-        //   carbs: 67,
-        //   protein: 4.3,
-        //   sodium: 413,
-        //   calcium: '3%',
-        //   iron: '8%'
-        // }
       ],
       columns: [
         {
           name: 'col0',
           label: 'ویژگی ها',
           format: val => `${val}`,
-          field: row => row.value
+          field: row => row.col0.value
         },
-        { name: 'col1', label: '110', format: val => `${val}`, field: row => row.value },
-        { name: 'col2', label: 'راه ابریشم', format: val => `${val}`, field: row => row.value }
+        { name: 'col1', label: '110', format: val => `${val}`, field: row => row.col1.value },
+        { name: 'col2', label: 'راه ابریشم', format: val => `${val}`, field: row => row.col2.value }
       ],
       rowCount: 10,
       loading: false,
