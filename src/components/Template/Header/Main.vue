@@ -501,6 +501,12 @@ export default {
                       ]
                     }
                   ],
+                  showData: true,
+                  svg: {
+                    title: 'دوازدهم و کنکور',
+                    pathColor1: '#900C3F',
+                    pathColor2: '#AA0F4A'
+                  },
                   category: 'davazdahomVaKonkur',
                   bg: '#ffd6e6'
                 },
@@ -672,7 +678,13 @@ export default {
                     }
                   ],
                   category: 'yazdahom',
-                  bg: '#ffe0e9'
+                  showData: false,
+                  bg: '#ffe0e9',
+                  svg: {
+                    title: 'یازدهم',
+                    pathColor1: '#C70039',
+                    pathColor2: '#E90849'
+                  }
                 },
                 {
                   cols: [
@@ -834,7 +846,13 @@ export default {
                     }
                   ],
                   category: 'dahom',
-                  bg: '#ffe6dd'
+                  showData: false,
+                  bg: '#ffe6dd',
+                  svg: {
+                    title: 'دهم',
+                    pathColor1: '#FF5733',
+                    pathColor2: '#FF6F51'
+                  }
                 },
                 {
                   cols: [
@@ -1033,7 +1051,13 @@ export default {
                     }
                   ],
                   category: 'nezameGhadim',
-                  bg: '#fff2e1'
+                  showData: false,
+                  bg: '#fff2e1',
+                  svg: {
+                    title: 'کنکور نظام قدیم',
+                    pathColor1: '#FF9000',
+                    pathColor2: '#FFA229'
+                  }
                 }
               ]
             },
@@ -1081,16 +1105,19 @@ export default {
               subCategoryItemsCol: [
                 {
                   cols: [],
+                  showData: true,
                   category: 'chatrNejat',
                   photo: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg'
                 },
                 {
                   cols: [],
+                  showData: false,
                   category: 'raheAbrisham',
                   photo: 'https://nodes.alaatv.com/upload/abrisham_mega_menu_1401.jpg'
                 },
                 {
                   cols: [],
+                  showData: false,
                   category: 'giftcard',
                   photo: 'https://nodes.alaatv.com/upload/taftan_mega_menu_1400.jpg'
                 }
