@@ -2,22 +2,54 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
+        <q-expansion-item class="q-py-md"
+                          expand-separator
+                          label="ویرایش ستون ها">
+          <q-card class="custom-card">
+            <q-card-section>
+              <q-expansion-item v-for="(item, index) in headers"
+                                :key="index"
+                                expand-separator>
+                <template v-slot:header>
+                  <q-btn color="negative"
+                         icon="close"
+                         size="14px"
+                         class="q-mr-sm"
+                         @click="removeItem(index)" />
+                  <q-input v-model="item.label"
+                           label="label"
+                           disable />
+                </template>
+                <div class="text">
+                  <editor v-model:value="item.label" />
+                </div>
+              </q-expansion-item>
+            </q-card-section>
+
+            <div class="row q-gutter-xs justify-center">
+              <q-btn color="positive"
+                     class="full-width"
+                     label="ستون جدید"
+                     @click="addItem" />
+            </div>
+          </q-card>
+        </q-expansion-item>
         <div class="table-rows flex justify-between">
           <q-table flat
                    bordered
-                   title="Treats"
-                   :rows="rows"
-                   :columns="columns"
+                   :rows="localOptions.rows"
+                   :columns="columns2"
+                   :rows-per-page-options="[0]"
                    binary-state-sort>
             <template v-slot:top>
-              <q-btn color="primary"
+              <q-btn color="positive"
                      :disable="loading"
-                     label="Add row"
+                     label="اضافه کردن ردیف جدید"
                      @click="addRow" />
               <q-btn class="q-ml-sm"
-                     color="primary"
+                     color="negative"
                      :disable="loading"
-                     label="Remove row"
+                     label="حذف ردیف"
                      @click="removeRow" />
             </template>
             <template v-slot:body="props">
@@ -25,15 +57,54 @@
                 <q-td v-for="(item, index) in props.cols"
                       :key="'col'+ index"
                       :props="props">
-                  {{ item.value }}
-                  <q-popup-edit v-slot="scope"
-                                v-model="props.row['col'+ index].value">
-                    <q-input v-model="scope.value"
-                             dense
-                             autofocus
-                             counter
-                             @keyup.enter="scope.set" />
-                  </q-popup-edit>
+                  <div v-if="props.row['col'+ index].type === 'text'">
+                    {{ item.value }}
+                    <q-popup-edit v-slot="scope"
+                                  v-model="props.row['col'+ index].value">
+                      <q-input v-model="scope.value"
+                               dense
+                               autofocus
+                               counter
+                               @keyup.enter="scope.set" />
+                    </q-popup-edit>
+                  </div>
+                  <div v-if="props.row['col'+ index].type === 'image'">
+                    <q-img :src="props.row['col'+ index].value"
+                           width="30px" />
+                    <q-popup-edit v-slot="scope"
+                                  v-model="props.row['col'+ index].value">
+                      <q-input v-model="scope.value"
+                               dense
+                               autofocus
+                               counter
+                               @keyup.enter="scope.set" />
+                    </q-popup-edit>
+                  </div>
+                  <div v-if="props.row['col'+ index].type === 'action'">
+                    <q-btn v-if="props.row['col'+ index].value.label"
+                           color="primary"
+                           :label="props.row['col'+ index].value.label" />
+                    <q-popup-edit v-slot="scope"
+                                  v-model="props.row['col'+ index].value">
+                      <q-input v-model="scope.value.label"
+                               dense
+                               autofocus
+                               counter
+                               @keyup.enter="scope.set" />
+                      <q-input v-if="props.row['col'+ index].value.url"
+                               v-model="scope.value.url"
+                               dense
+                               autofocus
+                               counter
+                               @keyup.enter="scope.set" />
+                      <q-input v-if="props.row['col'+ index].value.className"
+                               v-model="scope.value.className"
+                               dense
+                               autofocus
+                               counter
+                               @keyup.enter="scope.set" />
+                    </q-popup-edit>
+                  </div>
                 </q-td>
               </q-tr>
             </template>
@@ -47,10 +118,11 @@
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import Editor from 'components/Utils/Editor.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs },
+  components: { Editor, OptionPanelTabs },
   mixins: [mixinOptionPanel],
   props: {
     options: {
@@ -62,63 +134,6 @@ export default defineComponent({
   },
   data() {
     return {
-      rows: [
-        {
-          col0: {
-            value: 'sdfsdfdfs'
-          },
-          col1: {
-            value: '۳۳۳'
-          },
-          col2: {
-            value: '۰۰۰'
-          }
-        },
-        {
-          col0: {
-            value: 'sdfsdfdfs'
-          },
-          col1: {
-            value: '۳۳۳'
-          },
-          col2: {
-            value: '۰۰۰'
-          }
-        },
-        {
-          col0: {
-            value: '237'
-          },
-          col1: {
-            value: '۰۰۰۰'
-          },
-          col2: {
-            value: 'شسعاهعشسای'
-          }
-        },
-        {
-          col0: {
-            value: '237'
-          },
-          col1: {
-            value: '۰۰۰۰'
-          },
-          col2: {
-            value: 'شسعاهعشسای'
-          }
-        },
-        {
-          col0: {
-            value: '237'
-          },
-          col1: {
-            value: '۰۰۰۰'
-          },
-          col2: {
-            value: 'شسعاهعشسای'
-          }
-        }
-      ],
       columns: [
         {
           name: 'col0',
@@ -143,6 +158,34 @@ export default defineComponent({
       set(value) {
         this.localOptions = value
       }
+    },
+    columns2: {
+      get() {
+        return this.options.header.map((item, index) => {
+          return {
+            name: 'col' + index,
+            label: item,
+            format: val => `${val}`,
+            field: row => row['col' + index].value,
+            align: 'center'
+          }
+        })
+      },
+      set(value) {
+        this.localOptions.header = value.map((item) => item.label)
+      }
+    },
+    headers: {
+      get() {
+        return this.options.header.map(item => {
+          return {
+            label: item
+          }
+        })
+      },
+      set(value) {
+        this.localOptions.header = value.map((item) => item.label)
+      }
     }
   },
   watch: {
@@ -154,31 +197,34 @@ export default defineComponent({
     }
   },
   methods: {
-    logger(data) {
-      console.log('data', data)
-    },
     addRow () {
       this.loading = true
       const
-        index = this.rows.length + 1,
-        row = this.rows[Math.floor(Math.random() * this.rows.length)]
+        index = this.localOptions.rows.length + 1,
+        row = this.localOptions.rows[Math.floor(Math.random() * this.localOptions.rows.length)]
 
-      if (this.rows.length === 0) {
+      if (this.localOptions.rows.length === 0) {
         debugger
         this.rowCount = 0
       }
 
       row.id = ++this.rowCount
       const newRow = { ...row }
-      this.rows = [...this.rows.slice(0, index), newRow, ...this.rows.slice(index)]
+      this.localOptions.rows = [...this.localOptions.rows.slice(0, index), newRow, ...this.localOptions.rows.slice(index)]
       this.loading = false
     },
 
     removeRow () {
       this.loading = true
-      const index = this.rows.length - 1
-      this.rows = [...this.rows.slice(0, index), ...this.rows.slice(index + 1)]
+      const index = this.localOptions.rows.length - 1
+      this.localOptions.rows = [...this.localOptions.rows.slice(0, index), ...this.localOptions.rows.slice(index + 1)]
       this.loading = false
+    },
+    addItem () {
+      this.localOptions.header.push('label')
+    },
+    removeItem (itemIndex) {
+      this.localOptions.header.splice(itemIndex, 1)
     }
   }
 })
