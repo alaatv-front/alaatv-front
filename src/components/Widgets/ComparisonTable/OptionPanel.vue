@@ -38,7 +38,7 @@
           <q-table flat
                    bordered
                    :rows="localOptions.rows"
-                   :columns="columns2"
+                   :columns="columns"
                    :rows-per-page-options="[0]"
                    binary-state-sort>
             <template v-slot:top>
@@ -134,16 +134,6 @@ export default defineComponent({
   },
   data() {
     return {
-      columns: [
-        {
-          name: 'col0',
-          label: 'ویژگی ها',
-          format: val => `${val}`,
-          field: row => row.col0.value
-        },
-        { name: 'col1', label: '110', format: val => `${val}`, field: row => row.col1.value },
-        { name: 'col2', label: 'راه ابریشم', format: val => `${val}`, field: row => row.col2.value }
-      ],
       rowCount: 10,
       loading: false,
       filter: ''
@@ -159,7 +149,7 @@ export default defineComponent({
         this.localOptions = value
       }
     },
-    columns2: {
+    columns: {
       get() {
         return this.options.header.map((item, index) => {
           return {
