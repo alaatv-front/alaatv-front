@@ -36,15 +36,7 @@ export default defineComponent({
     }
   },
   data () {
-    return {
-      data: [
-        'accent',
-        'dark',
-        'positive',
-        'customGray',
-        'primary'
-      ]
-    }
+    return {}
   },
   computed: {
     value: {
