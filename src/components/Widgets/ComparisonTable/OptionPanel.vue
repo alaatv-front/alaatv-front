@@ -194,7 +194,6 @@ export default defineComponent({
         row = this.localOptions.rows[Math.floor(Math.random() * this.localOptions.rows.length)]
 
       if (this.localOptions.rows.length === 0) {
-        debugger
         this.rowCount = 0
       }
 
