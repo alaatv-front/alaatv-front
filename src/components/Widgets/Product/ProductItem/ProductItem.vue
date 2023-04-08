@@ -77,7 +77,8 @@
                     text-color="white"
                     icon="account_circle" />
         </div>
-        <div class="teacher-name">{{product.attributes.info?.teacher[0]}}</div>
+        <div v-if="product.attributes.info"
+             class="teacher-name">{{getTeacherOfProduct()}}</div>
       </div>
       <div class="action-box">
         <div class="more-detail product-more-detail">
@@ -164,7 +165,7 @@ export default {
       this.loading = true
       const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
       this.$apiGateway.product.show(productId).then(product => {
-        this.product = product
+        this.product = new Product(product)
         this.loading = false
       }).catch(() => {
         this.loading = false
@@ -174,6 +175,12 @@ export default {
     }
   },
   methods: {
+    getTeacherOfProduct() {
+      if (this.product.attributes.info.teacher) {
+        return this.product.attributes.info.teacher[0]
+      }
+      return null
+    },
     addToCart() {
       this.addToCartLoading = true
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
@@ -623,7 +630,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 350px){
+  @media screen and (max-width: 600px){
     flex-direction: row;
     padding: 10px;
     width: 300px;
