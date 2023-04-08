@@ -3,16 +3,16 @@ import { Content } from 'src/models/Content'
 const mixinAbrisham = {
   methods: {
     syncwatchingContentWithContentInList() {
-      const targetContentIndex = this.contents.list.indexOf(item => item.id === this.watchingContent.id)
-      if (!targetContentIndex) {
+      const targetContentIndex = this.contents.list.findIndex(item => item.id.toString() === this.watchingContent.id.toString())
+      if (typeof targetContentIndex === 'undefined' || targetContentIndex === -1) {
         return false
       }
 
       this.contents.list[targetContentIndex] = new Content(this.watchingContent)
     },
-    toggleFavor() {
-      this.watchingContent.loading = true
-      this.watchingContent.is_favored ? this.setUnfavored() : this.setFavored()
+    toggleFavor(value) {
+      this.watchingContent.is_favored = value
+      this.syncwatchingContentWithContentInList()
     },
     updateVideoStatus(data) {
       const hasWatch = data || this.watchingContent.has_watched
@@ -39,26 +39,6 @@ const mixinAbrisham = {
           watchable_type: 'content'
         })
         this.watchingContent.has_watched = false
-        this.watchingContent.loading = false
-        this.syncwatchingContentWithContentInList()
-      } catch {
-        this.watchingContent.loading = false
-      }
-    },
-    async setFavored() {
-      try {
-        await this.$apiGateway.abrisham.setVideoFavored(this.watchingContent.id)
-        this.watchingContent.is_favored = true
-        this.watchingContent.loading = false
-        this.syncwatchingContentWithContentInList()
-      } catch {
-        this.watchingContent.loading = false
-      }
-    },
-    async setUnfavored() {
-      try {
-        await this.$apiGateway.abrisham.setVideoUnFavored(this.watchingContent.id)
-        this.watchingContent.is_favored = false
         this.watchingContent.loading = false
         this.syncwatchingContentWithContentInList()
       } catch {

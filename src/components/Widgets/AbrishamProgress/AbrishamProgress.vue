@@ -27,7 +27,7 @@
         <video-box :lesson="currentLesson"
                    :set="currentSet"
                    :content="watchingContent"
-                   @favorite="toggleFavor"
+                   @toggleFavorite="toggleFavor"
                    @toggle-video-status="updateVideoStatus"
                    @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
@@ -46,7 +46,7 @@
                                 :contents="contents"
                                 :header="{ title: 'لیست فیلم ها', button: { title: 'من کجام؟' } }"
                                 type="video"
-                                @input="setWatchingContent"
+                                @itemClicked="setWatchingContent"
                                 @whereAmI="loadUserLastState">
           <template v-slot:filter>
             <div class="row q-col-gutter-md">
@@ -106,7 +106,8 @@
                                 :afterLoad="contentsIsEmpty"
                                 :contents="contents"
                                 type="pamphlet"
-                                @input="setWatchingContent" />
+                                @itemClicked="setWatchingContent"
+                                @whereAmI="loadUserLastState" />
       </div>
     </div>
   </div>
@@ -328,7 +329,11 @@ export default {
     },
 
     addAllSectionToSections () {
-      this.sets.list.forEach(set => set.sections.list.unshift(new SetSection({ id: 'all', title: 'همه' })))
+      this.sets.list.forEach(set => {
+        if (!set.sections.list.find(item => item.id === 'all')) {
+          set.sections.list.unshift(new SetSection({ id: 'all', title: 'همه' }))
+        }
+      })
     },
 
     getFirstSet () {
