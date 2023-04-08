@@ -26,6 +26,30 @@ export default {
                         options: {
                           scrollTarget: 'feature'
                         }
+                      },
+                      {
+                        name: 'ActionButton',
+                        options: {
+                          label: 'نیاز به راهنمایی داری ؟',
+                          color: 'primary',
+                          action: 'event',
+                          eventName: 'newsletter',
+                          fixed: true,
+                          fixedPosition: 'bottom-left'
+                        }
+                      },
+                      {
+                        name: 'Newsletter',
+                        eventName: 'newsletter',
+                        options: {
+                          verification: true,
+                          userInputs: {
+                            first_name: true,
+                            last_name: true,
+                            major: true,
+                            grade: true
+                          }
+                        }
                       }
                     ],
                     options: {
@@ -202,11 +226,13 @@ export default {
                         options: {
                           label: 'ثبت نام',
                           color: 'primary',
+                          action: 'scroll',
+                          scrollTo: 'courses',
                           style: {
-                            marginLeft: '',
-                            marginRight: ''
+                            paddingLeft: '30px',
+                            paddingRight: '30px'
                           },
-                          className: 'float-left'
+                          className: 'float-right'
                         }
                       }
                     ],

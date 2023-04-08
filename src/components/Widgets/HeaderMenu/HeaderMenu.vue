@@ -29,8 +29,6 @@
              flat
              :label="actionButtonLabel"
              @click="toggleDialog" />
-      <newsletter v-model:dialog="signupDialog"
-                  @toggle-dialog="toggleDialog" />
     </div>
   </div>
 </template>
@@ -38,10 +36,9 @@
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
 import { openURL } from 'quasar'
-import Newsletter from '../Newsletter/Newsletter.vue'
 export default {
   name: 'HeaderMenu',
-  components: { LazyImg, Newsletter },
+  components: { LazyImg },
   props: {
     options: {
       type: Object,
@@ -56,8 +53,7 @@ export default {
       logoImage: '',
       logoSlogan: '',
       action: false,
-      actionButtonLabel: '',
-      signupDialog: false
+      actionButtonLabel: ''
     }
   },
   watch: {
@@ -97,9 +93,6 @@ export default {
         top: offsetPosition,
         behavior: 'smooth'
       })
-    },
-    toggleDialog() {
-      this.signupDialog = !this.signupDialog
     }
   }
 }

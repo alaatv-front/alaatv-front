@@ -5,25 +5,29 @@
     </q-card-section>
     <q-card-section class="dialog-subtitle">اظلاعات خود را وارد نمایید</q-card-section>
     <q-card-section class="login-input-wrapper">
-      <q-input v-model="form.first_name"
+      <q-input v-if="userInputs.first_name"
+               v-model="form.first_name"
                class="landing-text-input"
                placeholder="نام"
                :rules="rules"
                outlined
                color="primary" />
-      <q-input v-model="form.last_name"
+      <q-input v-if="userInputs.last_name"
+               v-model="form.last_name"
                class="landing-text-input"
                placeholder="نام خانوادگی"
                :rules="rules"
                outlined
                color="primary" />
-      <q-select v-model="form.major"
+      <q-select v-if="userInputs.major"
+                v-model="form.major"
                 class="landing-text-input"
                 hide-dropdown-icon
                 :options="stringOptions.major"
                 label="رشته"
                 filled />
-      <q-select v-model="form.grade"
+      <q-select v-if="userInputs.grade"
+                v-model="form.grade"
                 hide-dropdown-icon
                 class="landing-text-input"
                 :options="stringOptions.grade"
@@ -48,9 +52,9 @@ export default {
   components: {
   },
   props: {
-    inputLength: {
-      type: Number,
-      default: 6
+    options: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -70,13 +74,23 @@ export default {
       stringOptions: {
         major: [],
         grade: []
+      },
+      userInputs: {
+        first_name: true,
+        last_name: true,
+        major: true,
+        grade: true
       }
     }
   },
   mounted() {
-    this.getTags()
+    this.loadConfig()
   },
   methods: {
+    loadConfig() {
+      this.userInputs = this.options.userInputs
+      this.getTags()
+    },
     getTags() {
       this.$apiGateway.forrest.getTags(['major', 'grade']).then(res => {
         this.stringOptions = []

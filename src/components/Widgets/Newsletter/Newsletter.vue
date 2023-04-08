@@ -1,5 +1,6 @@
 <template>
-  <q-dialog :model-value="dialog">
+  <q-dialog :model-value="dialog"
+            persistent>
     <q-card class="custom-card signup-dialog-card">
       <q-card-section>
         <q-btn color="primary"
@@ -15,15 +16,20 @@
                    header-class="stepper-fire-day-landing-header-less"
                    class="signup-dialog-stepper"
                    animated>
-          <q-step :name="1">
+          <q-step :name="'signup'"
+                  title="signup">
             <signup-step @gotoNextStep="gotoNextStep" />
           </q-step>
-          <q-step :name="2">
+          <q-step v-if="verification"
+                  :name="'verification'"
+                  title="verification">
             <verification-step @gotoNextStep="gotoNextStep"
                                @gotoPrevStep="gotoPrevStep" />
           </q-step>
-          <q-step :name="3">
-            <info-completion @gotoPrevStep="gotoPrevStep" />
+          <q-step :name="'info'"
+                  title="info">
+            <info-completion :options="options.userInputs"
+                             @gotoPrevStep="gotoPrevStep" />
           </q-step>
         </q-stepper>
       </q-card-section>
@@ -44,20 +50,37 @@ export default {
     InfoCompletion
   },
   props: {
-    dialog: {
-      type: Boolean,
-      default: false
+    options: {
+      type: Object,
+      default: () => {}
     }
   },
-  emits: ['toggleDialog'],
   data() {
     return {
-      step: 1
+      dialog: false,
+      eventName: '',
+      step: 'signup',
+      verification: true
     }
   },
+  watch: {
+    options: {
+      handler() {
+        this.loadConfig()
+      }
+    }
+  },
+  mounted() {
+    this.loadConfig()
+    this.$bus.on(this.eventName, this.toggleDialog)
+  },
   methods: {
+    loadConfig() {
+      this.verification = this.options.verification
+      this.eventName = this.options.eventName ? this.options.eventName : 'newsletter'
+    },
     toggleDialog() {
-      this.$emit('toggleDialog')
+      this.dialog = !this.dialog
     },
     gotoNextStep() {
       this.$refs.stepper.next()

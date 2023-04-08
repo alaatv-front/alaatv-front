@@ -54,12 +54,6 @@ export default {
   components: {
     VOtpInput
   },
-  props: {
-    inputLength: {
-      type: Number,
-      default: 6
-    }
-  },
   emits: ['gotoPrevStep', 'gotoNextStep'],
   data() {
     return {
