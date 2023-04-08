@@ -155,7 +155,17 @@ export default class ReferralCodeAPI extends APIRepository {
       cacheKey: this.CacheList.sales_man,
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        return response.data
+        return {
+          wallet_type: response.data.wallet_type,
+          wallet_balance: response.data.wallet_balance,
+          total_commission: response.data.total_commission,
+          has_signed_contract: response.data.has_signed_contract,
+          minAmount_until_settlement: response.data.minAmount_until_settlement,
+          count_of_total_gift_cards: response.data.count_of_total_gift_cards,
+          count_of_used_gift_cards: response.data.count_of_used_gift_cards,
+          count_of_remain_gift_cards: response.data.count_of_remain_gift_cards,
+          income_being_settle: response.data.income_being_settle
+        }
       },
       rejectCallback: (error) => {
         return error

@@ -2,7 +2,9 @@
   <div class="video-player-widget-container"
        :style="options.style"
        :class="options.customClass">
-    <video-player :source="url" />
+    <video-player ref="videoPlayer"
+                  :key="playerKey"
+                  :source="url" />
   </div>
 </template>
 
@@ -16,7 +18,9 @@ export default {
     options: {
       type: Object,
       default: () => {
-        return {}
+        return {
+          playerKey: Date.now()
+        }
       }
     }
   },

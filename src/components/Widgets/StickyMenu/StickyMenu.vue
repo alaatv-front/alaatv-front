@@ -1,5 +1,6 @@
 <template>
-  <div class="header-menu">
+  <div id="stickyMenu"
+       class="header-menu">
     <div class="logo-pic"
          @click="routeTo('Public.Home')">
       <lazy-img :src="logoImage"
@@ -38,7 +39,7 @@ import LazyImg from 'src/components/lazyImg.vue'
 import { openURL } from 'quasar'
 
 export default {
-  name: 'HeaderMenu',
+  name: 'StickyMenu',
   components: { LazyImg },
   props: {
     options: {
@@ -94,6 +95,11 @@ export default {
         top: offsetPosition,
         behavior: 'smooth'
       })
+    },
+    getOffset(className) {
+      const el = document.getElementsByClassName(className)[0]
+      const elementPosition = el.getBoundingClientRect().top
+      return elementPosition
     }
   }
 }
@@ -101,8 +107,14 @@ export default {
 
 <style lang="scss" scoped>
 .header-menu {
+  position: fixed;
+  height: 70px;
+  top: 0;
   display: flex;
   justify-content: space-between;
+  background-color: #fff;
+  z-index: 110;
+  width: 100%;
 
   .logo-pic {
     cursor: pointer;
