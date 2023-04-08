@@ -18,15 +18,14 @@ export default {
     options: {
       type: Object,
       default: () => {
-        return {
-          playerKey: Date.now()
-        }
+        return {}
       }
     }
   },
   data() {
     return {
-      url: ''
+      url: '',
+      playerKey: Date.now()
     }
   },
   watch: {

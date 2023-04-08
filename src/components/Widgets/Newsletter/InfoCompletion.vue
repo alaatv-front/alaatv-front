@@ -1,0 +1,233 @@
+<template>
+  <q-card class="dialog-card">
+    <q-card-section class="dialog-title">
+      ثبت نام
+    </q-card-section>
+    <q-card-section class="dialog-subtitle">اظلاعات خود را وارد نمایید</q-card-section>
+    <q-card-section class="login-input-wrapper">
+      <q-input v-model="form.first_name"
+               class="landing-text-input"
+               placeholder="نام"
+               :rules="rules"
+               outlined
+               color="primary" />
+      <q-input v-model="form.last_name"
+               class="landing-text-input"
+               placeholder="نام خانوادگی"
+               :rules="rules"
+               outlined
+               color="primary" />
+      <q-select v-model="form.major"
+                class="landing-text-input"
+                hide-dropdown-icon
+                :options="stringOptions.major"
+                label="رشته"
+                filled />
+      <q-select v-model="form.grade"
+                hide-dropdown-icon
+                class="landing-text-input"
+                :options="stringOptions.grade"
+                label="پایه تحصیلی"
+                filled />
+    </q-card-section>
+    <q-card-actions class="dialog-action">
+      <q-btn class="send-btn"
+             :disabled="loading"
+             color="primary"
+             @click="getCodeForLogin">
+        تایید کد
+      </q-btn>
+    </q-card-actions>
+  </q-card>
+</template>
+
+<script>
+
+export default {
+  name: 'InfoCompletion',
+  components: {
+  },
+  props: {
+    inputLength: {
+      type: Number,
+      default: 6
+    }
+  },
+  data() {
+    return {
+      loading: false,
+      otpInput: null,
+      bindModal: '',
+      rules: {
+        required: value => !!value || 'این فیلد الزامی است'
+      },
+      form: {
+        first_name: '',
+        last_name: '',
+        major: '',
+        grade: ''
+      },
+      stringOptions: {
+        major: [],
+        grade: []
+      }
+    }
+  },
+  mounted() {
+    this.getTags()
+  },
+  methods: {
+    getTags() {
+      this.$apiGateway.forrest.getTags(['major', 'grade']).then(res => {
+        this.stringOptions = []
+        res.map((tree) => tree.children).forEach(category => {
+          category.forEach(item => {
+            this.stringOptions[category].push(item)
+          })
+        })
+        // this.stringOptions = res.map((item) => item.children)
+        // this.filterOptions = this.stringOptions
+        // this.onChangeSelections(this.value)
+      }).catch(() => {
+      })
+    },
+    onChangeSelections ($event) {
+      this.change(JSON.parse(JSON.stringify($event.map(item => item.id))))
+    },
+    getCodeForLogin() {
+      const loginData = {
+        mobile: this.mobile
+      }
+      this.sendCodeRequest(loginData)
+    },
+    setLoading(loading) {
+      this.loading = loading
+    },
+    showMessage(message, type = 'negative') {
+      this.$q.notify({
+        message,
+        color: type,
+        position: 'top',
+        multiLine: true
+      })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.login-input-wrapper{
+  direction: rtl;
+}
+.dialog-card {
+    background: transparent;
+    box-shadow: none !important;
+
+    .dialog-title {
+        display: flex;
+        justify-content: center;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+        text-align: center;
+        letter-spacing: -0.03em;
+        color: #383838;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .dialog-subtitle {
+        margin-top: 16px;
+        padding-bottom: 0;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        text-align: center;
+        letter-spacing: -0.03em;
+        color: #383838;
+
+        @media screen and (max-width: 1439px) {
+            margin-top: 16px;
+        }
+        @media screen and (max-width: 1023px) {
+            margin-top: 16px;
+        }
+        @media screen and (max-width: 599px) {
+            margin-top: 16px;
+        }
+    }
+    .dialog-action {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 10px;
+
+        .send-btn {
+            width: 100%;
+            margin-bottom: 24px;
+            box-shadow: none;
+
+            @media screen and (max-width: 1439px) {
+                width: 280px;
+            }
+            @media screen and (max-width: 1023px) {
+                width: 280px;
+            }
+            @media screen and (max-width: 599px) {
+                width: 240px;
+            }
+        }
+
+        @media screen and (max-width: 1439px) {
+            margin-top: 60px;
+        }
+        @media screen and (max-width: 1023px) {
+            margin-top: 60px;
+        }
+        @media screen and (max-width: 599px) {
+            margin-top: 49px;
+        }
+    }
+ .landing-text-input {
+    height: 40px;
+    background: #F7E5C6;
+    border-radius: 8px;
+    margin: 3px 0;
+
+    &:deep(.q-field__native) {
+      text-align: left;
+    }
+
+    &.desabled {
+      background: #F7E5C6;
+      mix-blend-mode: normal;
+      opacity: .4;
+    }
+  }
+}
+
+</style>
+
+<style>
+.landing-otp-input {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  margin: 0 10px;
+  font-size: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+/* Background colour of an input field with value */
+.landing-otp-input.is-complete {
+  background-color: #e4e4e4;
+}
+.landing-otp-input::-webkit-inner-spin-button,
+.landing-otp-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
