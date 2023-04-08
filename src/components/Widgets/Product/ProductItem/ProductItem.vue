@@ -77,8 +77,8 @@
                     text-color="white"
                     icon="account_circle" />
         </div>
-        <div v-if="product.attributes.info && product.attributes.info.teacher"
-             class="teacher-name">{{product.attributes.info.teacher[0]}}</div>
+        <div v-if="product.attributes.info"
+             class="teacher-name">{{getTeacherOfProduct()}}</div>
       </div>
       <div class="action-box">
         <div class="more-detail product-more-detail">
@@ -175,6 +175,12 @@ export default {
     }
   },
   methods: {
+    getTeacherOfProduct() {
+      if (this.product.attributes.info.teacher) {
+        return this.product.attributes.info.teacher[0]
+      }
+      return null
+    },
     addToCart() {
       this.addToCartLoading = true
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
