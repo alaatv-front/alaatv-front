@@ -110,6 +110,8 @@ export default {
     }
   },
 
+  emits: ['itemClicked'],
+
   data() {
     return {
       selectedItem: new Content()
@@ -142,7 +144,7 @@ export default {
       this.$emit('clicked')
     },
     changeSelectedId(content) {
-      this.$emit('input', content)
+      this.$emit('itemClicked', content)
     }
   }
 }
