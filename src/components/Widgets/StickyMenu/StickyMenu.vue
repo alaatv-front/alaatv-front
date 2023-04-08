@@ -55,13 +55,31 @@ export default {
       logoImage: '',
       logoSlogan: '',
       action: false,
-      actionButtonLabel: ''
+      actionButtonLabel: '',
+      scrollTarget: ''
+    }
+  },
+  computed: {
+    scrollOffset() {
+      return window.scrollY
+    },
+    toScrollTarget() {
+      return this.getOffset(this.scrollTarget)
     }
   },
   watch: {
     options: {
       handler() {
         this.loadConfig()
+      }
+    },
+    toScrollTarget(val) {
+    },
+    scrollOffset(value) {
+      if (value < this.toScrollTarget) {
+        document.getElementById('stickyMenu').style.display = 'none'
+      } else {
+        document.getElementById('stickyMenu').style.display = 'flex'
       }
     }
   },
@@ -75,6 +93,7 @@ export default {
       this.logoSlogan = this.options.logoSlogan
       this.action = this.options.action
       this.actionButtonLabel = this.options.actionButtonLabel
+      this.scrollTarget = this.options.scrollTarget
     },
     routeTo(name) {
       this.$router.push({ name })
@@ -97,9 +116,14 @@ export default {
       })
     },
     getOffset(className) {
-      const el = document.getElementsByClassName(className)[0]
-      const elementPosition = el.getBoundingClientRect().top
-      return elementPosition
+      if (className) {
+        const el = document.getElementsByClassName(className)[0]
+        const elementPosition = el.getBoundingClientRect().top
+        return elementPosition
+      }
+    },
+    setDisplay() {
+      document.getElementById('stickyMenu').style.display = 'flex'
     }
   }
 }
@@ -110,7 +134,7 @@ export default {
   position: fixed;
   height: 70px;
   top: 0;
-  display: flex;
+  display: none;
   justify-content: space-between;
   background-color: #fff;
   z-index: 110;

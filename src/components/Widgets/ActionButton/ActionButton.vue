@@ -3,7 +3,7 @@
          :icon="icon"
          :label="label"
          :flat="flat"
-         :class="customClass"
+         :class="className"
          :style="options.style"
          class="action-btn"
          @click="takeAction">
@@ -33,7 +33,10 @@ export default {
       flat: false,
       callBack: null,
       imageSource: '',
-      customClass: ''
+      className: '',
+      fixed: false,
+      fixedPosition: '',
+      eventArgs: null
     }
   },
   watch: {
@@ -53,11 +56,17 @@ export default {
       this.label = this.options.label
       this.flat = this.options.flat
       this.callBack = this.options.callBack
+      this.eventArgs = this.options.eventArgs
       this.imageSource = this.options.imageSource
-      this.customClass = this.options.customClass
+      this.className = this.options.className
+      this.fixed = this.options.fixed
+      this.fixedPosition = this.options.fixedPosition
       if (this.options.imageSource) {
         this.flat = true
-        this.customClass = this.options.customClass + ' img-btn'
+        this.className = this.options.className + ' img-btn'
+      }
+      if (this.fixed) {
+        this.className = this.options.className + ' fixed-btn' + ` ${this.fixedPosition}`
       }
     },
     scrollToElement(className) {
@@ -77,6 +86,8 @@ export default {
         this.scrollToElement(this.options.scrollTo)
       } else if (this.options.action && this.options.action === 'link') {
         this.router.push(this.options.route)
+      } else if (this.options.action && this.options.action === 'event') {
+        this.$bus.emit(this.options.eventName, this.eventArgs)
       }
     }
   }
@@ -85,6 +96,28 @@ export default {
 
 <style lang="scss" scoped>
 .action-btn {
+
+  &.fixed-btn {
+    position: fixed;
+    z-index: 1;
+
+    &.top-right {
+      top: 0;
+      right: 0;
+    }
+    &.top-left {
+      top: 0;
+      left: 0;
+    }
+    &.bottom-right {
+      bottom: 0;
+      right: 0;
+    }
+    &.bottom-left {
+      bottom: 0;
+      left: 0;
+    }
+  }
   &.img-btn{
     &:deep(.q-btn__content){
       margin: 0;

@@ -24,7 +24,10 @@ export default class UserAPI extends APIRepository {
       showUser: '/getUserFor3a',
       eventResult: '/event-result',
       baseAdmin: '/admin/user',
-      nationalCard: '/national-card-photo'
+      nationalCard: '/national-card-photo',
+      resendGuest: '/mobile/resendGuest',
+      verifyMoshavereh: '/mobile/verifyMoshavereh',
+      newsletter: '/newsletter'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -68,7 +71,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  storeBankAccounts (data = {}) {
+  storeBankAccounts(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -87,7 +90,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getBankAccounts () {
+  getBankAccounts() {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -246,7 +249,7 @@ export default class UserAPI extends APIRepository {
   }
 
   adminIndex(data = {}) {
-    const routeWithParams = function(defaultRoute, payload) {
+    const routeWithParams = function (defaultRoute, payload) {
       if (typeof payload.rollId === 'object') {
         const hasRoll = []
         payload.rollId.forEach(rollId => {
@@ -282,7 +285,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getPurchasedProducts (data = {}, cache = { TTL: 6000000 }) {
+  getPurchasedProducts(data = {}, cache = { TTL: 6000000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -313,7 +316,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getFavored (data = {}, cache) {
+  getFavored(data = {}, cache) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -337,6 +340,62 @@ export default class UserAPI extends APIRepository {
           //   total: 10
           // }
         }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  resendGuest(data) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.resendGuest,
+      data: this.getNormalizedSendData({
+        mobile: '' // String
+      }, data),
+      resolveCallback: (response) => {
+        return response.data.message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  verifyMoshavereh(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.verifyMoshavereh,
+      data: this.getNormalizedSendData({
+        code: '' // String
+      }, data),
+      resolveCallback: (response) => {
+        return response.data.message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  newsletter(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.verifyMoshavereh,
+      data: this.getNormalizedSendData({
+        mobile: '', // String
+        code: '', // String
+        first_name: '', // String
+        last_name: '', // String
+        major_id: '', // String
+        grade_id: '' // String
+      }, data),
+      resolveCallback: (response) => {
+        return response.data.message
       },
       rejectCallback: (error) => {
         return error

@@ -1,5 +1,5 @@
 <template>
-  <q-card class="custom-card feature-card">
+  <q-card class="feature-card">
     <q-card-section class="feature-horizontal-section"
                     horizontal>
       <img class="feature-image"
@@ -55,6 +55,7 @@ export default {
 .feature-card {
   width: 100%;
   max-width: 100%;
+  box-shadow: none;
   .feature-horizontal-section {
 
     .feature-image {
@@ -62,8 +63,29 @@ export default {
       height: 100px;
     }
 
+    .feature-title {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 35px;
+
+      @media screen and (max-width: 600px) {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 26px;
+      }
+    }
+
     .feature-description {
       max-width: 300px;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 31px;
+
+      @media screen and (max-width: 600px) {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+      }
     }
   }
 }
