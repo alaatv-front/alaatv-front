@@ -28,7 +28,7 @@
              color="white"
              flat
              :label="actionButtonLabel"
-             @click="routeTo('Login')" />
+             @click="toggleDialog" />
     </div>
   </div>
 </template>
@@ -36,7 +36,6 @@
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
 import { openURL } from 'quasar'
-
 export default {
   name: 'HeaderMenu',
   components: { LazyImg },
@@ -103,6 +102,7 @@ export default {
 .header-menu {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   .logo-pic {
     cursor: pointer;

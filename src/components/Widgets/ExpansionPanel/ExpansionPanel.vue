@@ -121,6 +121,14 @@ export default {
   }
   .expand-header {
     width:100%;
+
+    &.theme-2 {
+
+      @media screen and (max-width: 600px) {
+        display: flex;
+        flex-direction: column;
+      }
+    }
   }
   .text {
     padding: 1.5rem 2rem;
@@ -135,7 +143,11 @@ export default {
     }
 
     .open-btn {
-      margin-top: 100px
+      margin-top: 100px;
+
+      @media screen and (max-width: 600px) {
+        margin-top: 10px;
+      }
     }
 
     .close-btn {
