@@ -23,6 +23,43 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'StickyMenu',
+                        options: {
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {
+
+                      },
+                      colNumber: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: false,
+                  boxedWidth: 1362,
+                  style: {
+                  }
+                }
+              }
+            ]
+          },
+          options: {
+            verticalAlign: 'center',
+            style: {
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
                         name: 'HeaderMenu',
                         options: {
                           menuLink: [
@@ -2022,16 +2059,25 @@ export default {
                               }
                             },
                             {
-                              col0: 'action',
+                              col0: {
+                                type: 'action',
+                                value: ''
+                              },
                               col1: {
-                                type: 'scroll',
-                                label: 'جزئیات و ثبت نام',
-                                className: 'feature'
+                                type: 'action',
+                                actionType: 'scroll',
+                                value: {
+                                  label: 'جزئیات و ثبت نام',
+                                  className: 'feature'
+                                }
                               },
                               col2: {
-                                type: 'link',
-                                label: 'جزئیات و ثبت نام',
-                                url: 'https://alaatv.com/landing/25'
+                                action: 'action',
+                                actionType: 'link',
+                                value: {
+                                  label: 'جزئیات و ثبت نام',
+                                  url: 'https://alaatv.com/landing/25'
+                                }
                               }
                             }
                           ],
