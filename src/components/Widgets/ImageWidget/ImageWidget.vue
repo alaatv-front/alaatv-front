@@ -1,5 +1,5 @@
 <template>
-  <q-img :src="imageSource"
+  <q-img :src="options.imageSource"
          spinner-color="primary"
          spinner-size="82px"
          :style="options.style"
