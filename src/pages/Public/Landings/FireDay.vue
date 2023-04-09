@@ -622,11 +622,11 @@ export default {
                             {
                               id: 2,
                               code: 'S1',
-                              rank: 4,
-                              first_name: 'امیر محمد',
-                              last_name: 'رشیدی احمد آبادی',
+                              rank: 3,
+                              first_name: 'فریدون',
+                              last_name: 'صلح جو',
                               major: 'ریاضی',
-                              distraction: '3',
+                              distraction: 'سهمیه',
                               created_at: '2022-09-07 17:16:59',
                               updated_at: null,
                               deleted_at: null
@@ -634,11 +634,11 @@ export default {
                             {
                               id: 3,
                               code: 'S2',
-                              rank: 3,
-                              first_name: 'فریدون',
-                              last_name: 'صلح جو',
+                              rank: 4,
+                              first_name: 'امیر محمد',
+                              last_name: 'رشیدی احمد آبادی',
                               major: 'ریاضی',
-                              distraction: 'سهمیه',
+                              distraction: '3',
                               created_at: '2022-09-07 17:16:59',
                               updated_at: null,
                               deleted_at: null
