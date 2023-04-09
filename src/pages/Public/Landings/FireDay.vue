@@ -40,7 +40,7 @@ export default {
                       },
                       {
                         name: 'Newsletter',
-                        eventName: '              ',
+                        eventName: 'newsletter',
                         options: {
                           verification: true,
                           userInputs: {
