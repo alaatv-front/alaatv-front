@@ -9,7 +9,7 @@
               class="rounded-borders dropdown">
         <div v-for="item in menuContent.children"
              :key="item">
-          <router-link :to="{path: 'c', query: {'tags[]': item.tags}}">
+          <router-link :to="{name: 'Public.Content.Search', query: {'tags[]': item.tags}}">
             <q-item v-ripple
                     clickable
                     :class="{hoveredItem: isItemSelected(item)}"
@@ -26,7 +26,7 @@
                   <div v-for="child in item.items"
                        :key="child">
                     <router-link v-if="child.tags"
-                                 :to="{path: 'c', query: {'tags[]': child.tags }}">
+                                 :to="{name: 'Public.Content.Search', query: {'tags[]': child.tags }}">
                       <q-item clickable
                               class="childItem">
                         <q-item-section>

@@ -1,18 +1,16 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
-      <div class="option-panel-container q-py-md">
-        <div class="row q-gutter-md">
-          <div class="input-container">
-            <div class="outsideLabel">label</div>
-            <q-input v-model="value.label"
-                     label="label" />
-          </div>
-          <div class="input-container">
-            <div class="outsideLabel">icon name</div>
-            <q-input v-model="value.icon"
-                     label="icon name" />
-          </div>
+      <div class="option-panel-container">
+        <div class="input-container q-py-md">
+          <div class="outsideLabel">لینک عکس</div>
+          <q-input v-model="localOptions.imageSource"
+                   label="image" />
+        </div>
+        <div class="input-container q-py-md">
+          <div class="outsideLabel">height</div>
+          <q-input v-model="localOptions.height"
+                   label="image" />
         </div>
       </div>
     </template>
@@ -35,19 +33,6 @@ export default defineComponent({
       }
     }
   },
-  data () {
-    return {}
-  },
-  computed: {
-    value: {
-      get() {
-        return this.localOptions
-      },
-      set(value) {
-        this.localOptions = value
-      }
-    }
-  },
   watch: {
     localOptions: {
       handler(newVal) {
@@ -55,7 +40,6 @@ export default defineComponent({
       },
       deep: true
     }
-  },
-  methods: {}
+  }
 })
 </script>

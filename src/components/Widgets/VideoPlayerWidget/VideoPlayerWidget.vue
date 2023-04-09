@@ -2,7 +2,9 @@
   <div class="video-player-widget-container"
        :style="options.style"
        :class="options.customClass">
-    <video-player :source="url" />
+    <video-player ref="videoPlayer"
+                  :key="playerKey"
+                  :source="url" />
   </div>
 </template>
 
@@ -22,7 +24,8 @@ export default {
   },
   data() {
     return {
-      url: ''
+      url: '',
+      playerKey: Date.now()
     }
   },
   watch: {

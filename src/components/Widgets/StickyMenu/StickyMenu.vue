@@ -1,5 +1,6 @@
 <template>
-  <div class="header-menu">
+  <div id="stickyMenu"
+       class="header-menu">
     <div class="logo-pic"
          @click="routeTo('Public.Home')">
       <lazy-img :src="logoImage"
@@ -28,7 +29,7 @@
              color="white"
              flat
              :label="actionButtonLabel"
-             @click="toggleDialog" />
+             @click="routeTo('Login')" />
     </div>
   </div>
 </template>
@@ -36,8 +37,9 @@
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
 import { openURL } from 'quasar'
+
 export default {
-  name: 'HeaderMenu',
+  name: 'StickyMenu',
   components: { LazyImg },
   props: {
     options: {
@@ -53,13 +55,31 @@ export default {
       logoImage: '',
       logoSlogan: '',
       action: false,
-      actionButtonLabel: ''
+      actionButtonLabel: '',
+      scrollTarget: ''
+    }
+  },
+  computed: {
+    scrollOffset() {
+      return window.scrollY
+    },
+    toScrollTarget() {
+      return this.getOffset(this.scrollTarget)
     }
   },
   watch: {
     options: {
       handler() {
         this.loadConfig()
+      }
+    },
+    toScrollTarget(val) {
+    },
+    scrollOffset(value) {
+      if (value < this.toScrollTarget) {
+        document.getElementById('stickyMenu').style.display = 'none'
+      } else {
+        document.getElementById('stickyMenu').style.display = 'flex'
       }
     }
   },
@@ -73,6 +93,7 @@ export default {
       this.logoSlogan = this.options.logoSlogan
       this.action = this.options.action
       this.actionButtonLabel = this.options.actionButtonLabel
+      this.scrollTarget = this.options.scrollTarget
     },
     routeTo(name) {
       this.$router.push({ name })
@@ -93,6 +114,16 @@ export default {
         top: offsetPosition,
         behavior: 'smooth'
       })
+    },
+    getOffset(className) {
+      if (className) {
+        const el = document.getElementsByClassName(className)[0]
+        const elementPosition = el.getBoundingClientRect().top
+        return elementPosition
+      }
+    },
+    setDisplay() {
+      document.getElementById('stickyMenu').style.display = 'flex'
     }
   }
 }
@@ -100,9 +131,14 @@ export default {
 
 <style lang="scss" scoped>
 .header-menu {
-  display: flex;
+  position: fixed;
+  height: 70px;
+  top: 0;
+  display: none;
   justify-content: space-between;
-  align-items: center;
+  background-color: #fff;
+  z-index: 110;
+  width: 100%;
 
   .logo-pic {
     cursor: pointer;

@@ -47,9 +47,7 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'CartView',
-                        options: {
-                        }
+                        name: 'CartView'
                       }
                     ],
                     options: {

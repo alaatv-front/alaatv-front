@@ -156,15 +156,15 @@ export default class ReferralCodeAPI extends APIRepository {
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return {
-          wallet_type: response.data.wallet_type,
-          wallet_balance: response.data.wallet_balance,
-          total_commission: response.data.total_commission,
-          has_signed_contract: response.data.has_signed_contract,
-          minAmount_until_settlement: response.data.minAmount_until_settlement,
-          count_of_total_gift_cards: response.data.count_of_total_gift_cards,
-          count_of_used_gift_cards: response.data.count_of_used_gift_cards,
-          count_of_remain_gift_cards: response.data.count_of_remain_gift_cards,
-          income_being_settle: response.data.income_being_settle
+          wallet_type: response.data.wallet_type ? response.data.wallet_type.toString() : null, // type: String,  Example: main_account
+          wallet_balance: response.data.wallet_balance ? response.data.wallet_balance.toNumber() : null, // type: Number,  Example: 10000
+          total_commission: response.data.total_commission ? response.data.total_commission.toNumber() : null, // type: Number,  Example: 10000
+          has_signed_contract: response.data.has_signed_contract ? response.data.has_signed_contract : null, // type: Boolean(true/false)
+          minAmount_until_settlement: response.data.minAmount_until_settlement ? response.data.minAmount_until_settlement.toNumber() : null, // type: Number,  Example: 10000
+          count_of_total_gift_cards: response.data.count_of_total_gift_cards ? response.data.count_of_total_gift_cards.toNumber() : null, // type: Number,  Example: 11
+          count_of_used_gift_cards: response.data.count_of_used_gift_cards ? response.data.count_of_used_gift_cards.toNumber() : null, // type: Number,  Example: 3
+          count_of_remain_gift_cards: response.data.count_of_remain_gift_cards ? response.data.count_of_remain_gift_cards.toNumber() : null, // type: Number,  Example: 8
+          income_being_settle: response.data.income_being_settle ? response.data.income_being_settle.toNumber() : null // type: Number,  Example: 90000
         }
       },
       rejectCallback: (error) => {

@@ -34,10 +34,8 @@ export default {
     }
   },
   methods: {
-    isRouteSelected () {
-      return (itemName) => {
-        return (this.$route.name === itemName)
-      }
+    isRouteSelected (itemName) {
+      return (this.$route.name === itemName)
     }
   }
 }
