@@ -135,12 +135,12 @@ const routes = [
             children: [
               {
                 path: '36',
-                name: 'Public.Checkout.FireDay',
+                name: 'Public.Landing.FireDay',
                 component: () => import('src/pages/Public/Landings/FireDay.vue')
               },
               {
                 path: '15',
-                name: 'Public.Checkout.Arash',
+                name: 'Public.Landing.Arash',
                 component: () => import('src/pages/Public/Landings/Arash.vue')
               }
             ]
