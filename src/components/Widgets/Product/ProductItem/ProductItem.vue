@@ -1,7 +1,7 @@
 <template>
   <q-card v-if="loading"
           class="product-item-box q-pa-md"
-          :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
+          :style="{minWidth: localOptions.minWidth}">
     <div style="max-width: 300px">
       <q-skeleton height="270px"
                   square
@@ -51,9 +51,12 @@
   </q-card>
   <q-card v-else
           class="product-item-box"
-          :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
+          :style="{minWidth: localOptions.minWidth}">
     <div class="img-box">
-      <router-link :to="getRoutingObject">
+      <router-link :to="{
+        name: 'Public.Product.Show',
+        params: { id: product.id ? product.id : -1 }
+      }">
         <lazy-img :src="product.photo"
                   :alt="product.title"
                   width="1"
@@ -62,10 +65,8 @@
       </router-link>
     </div>
     <div class="product-content-box">
-      <div class="title-box">
-        <div class="main-title ellipsis-2-lines">
-          {{ product.title }}
-        </div>
+      <div class="main-title ellipsis-2-lines">
+        {{ product.title }}
       </div>
       <div v-if="product.attributes"
            class="info-box">
@@ -138,8 +139,7 @@ export default {
           minWidth: 'auto',
           canAddToCart: true,
           showPrice: true,
-          product: new Product(),
-          routeToProduct: true
+          product: new Product()
         }
       }
     }
@@ -153,22 +153,12 @@ export default {
       minWidth: 'auto',
       canAddToCart: true,
       showPrice: true,
-      product: new Product(),
-      routeToProduct: true
+      product: new Product()
     }
   }),
   computed: {
     localOptions () {
       return Object.assign(this.defaultOptions, this.options)
-    },
-    getRoutingObject() {
-      if (this.defaultOptions.routeToProduct) {
-        return {
-          name: 'Public.Product.Show',
-          params: { id: this.product.id || -1 }
-        }
-      }
-      return {}
     }
   },
   created () {
@@ -229,6 +219,7 @@ export default {
   flex-direction: column;
   //height: 100%;
   justify-content: space-between;
+  width: 310px;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
@@ -245,6 +236,41 @@ export default {
   }
 
   .img-box {
+    .main-title {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.03em;
+      margin: 16px 16px 0;
+
+      @media screen and (max-width: 600px){
+        font-size: 14px;
+        line-height: 16px;
+      }
+
+      a {
+        margin-bottom: 0;
+      }
+
+      .title-text {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: -0.03em;
+        color: #333333;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        @media screen and (max-width: 600px){
+          font-size: 12px;
+          line-height: 14px;
+        }
+      }
+    }
 
     a {
       border-radius: inherit;
@@ -269,12 +295,6 @@ export default {
 
   .product-content-box {
     padding: 10px 16px 16px 16px;
-
-    .title-box {
-      min-height: 42px;
-      display: flex;
-      align-items: center;
-    }
 
     .price-box {
       display: flex;
