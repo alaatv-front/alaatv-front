@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       dialog: false,
-      eventName: '',
+      eventName: 'newsletter',
       step: 'signup',
       verification: true,
       userForm: {

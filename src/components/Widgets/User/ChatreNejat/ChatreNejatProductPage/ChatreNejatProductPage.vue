@@ -5,16 +5,15 @@
       <q-expansion-item v-for="(set, index) in setList"
                         :key="index"
                         v-model="set.expand"
+                        popup
                         header-class="bg-white"
                         separator
                         switch-toggle-side
                         expand-separator
                         @show="getSet(set.id)">
         <template v-slot:header>
-          <q-item-section class="set-title">
-            <div class="ellipsis set-title-text">
-              {{ set.short_title.split('-')[2] }}
-            </div>
+          <q-item-section class="ellipsis">
+            {{ set.short_title.split('-')[2] }}
           </q-item-section>
 
           <q-item-section side>
@@ -38,11 +37,9 @@
                   <q-icon color="grey"
                           :name="content.isPamphlet() ? 'description' : content.has_watch ? 'check_circle' : 'play_circle_outline'" />
                 </q-item-section>
-                <q-item-section class="cursor-pointer content-title"
+                <q-item-section class="cursor-pointer ellipsis"
                                 @click="download(content)">
-                  <div class="ellipsis content-title-text">
-                    {{ content.title }}
-                  </div>
+                  {{ content.title }}
                 </q-item-section>
                 <q-item-section v-if="content.isPamphlet()"
                                 side>
@@ -191,36 +188,38 @@ export default {
   @media only screen and (max-width: 1450px) {
     padding: 5px;
   }
-
+  @media only screen and (max-width: 400px) {
+    width: 350px;
+  }
   &:deep(.q-item) {
     flex-wrap: wrap !important;
   }
-  &:deep(.q-expansion-item--expanded) {
-    .set-title {
-      .set-title-text {
-        white-space: normal;
-      }
-    }
-    .content-title {
-      max-width: 80%;
-      .content-title-text {
-      }
-    }
-  }
+  // &:deep(.q-expansion-item--expanded) {
+  //   .set-title {
+  //     .set-title-text {
+  //       white-space: normal;
+  //     }
+  //   }
+  //   .content-title {
+  //     max-width: 80%;
+  //     .content-title-text {
+  //     }
+  //   }
+  // }
 
-  .set-title {
-    max-width: 70%;
+  // .set-title {
+  //   max-width: 70%;
 
-    .set-title-text {
-      max-width: 100%;
-    }
-  }
-  .content-title {
-    max-width: 80%;
+  //   .set-title-text {
+  //     max-width: 100%;
+  //   }
+  // }
+  // .content-title {
+  //   max-width: 80%;
 
-    .content-title-text {
-      max-width: 100%;
-    }
-  }
+  //   .content-title-text {
+  //     max-width: 100%;
+  //   }
+  // }
 }
 </style>
