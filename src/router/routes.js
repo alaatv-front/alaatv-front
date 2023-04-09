@@ -137,6 +137,11 @@ const routes = [
                 path: '36',
                 name: 'Public.Checkout.FireDay',
                 component: () => import('src/pages/Public/Landings/FireDay.vue')
+              },
+              {
+                path: '15',
+                name: 'Public.Checkout.Arash',
+                component: () => import('src/pages/Public/Landings/Arash.vue')
               }
             ]
           }

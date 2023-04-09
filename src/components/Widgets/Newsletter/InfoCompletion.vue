@@ -20,17 +20,21 @@
                outlined
                color="primary" />
       <q-select v-if="userInputs.major"
-                v-model="form.major"
+                v-model="form.major_id"
                 class="landing-text-input"
                 hide-dropdown-icon
                 :options="stringOptions.major"
+                option-label="title"
+                option-value="id"
                 label="رشته"
                 filled />
       <q-select v-if="userInputs.grade"
-                v-model="form.grade"
+                v-model="form.grade_id"
                 hide-dropdown-icon
                 class="landing-text-input"
                 :options="stringOptions.grade"
+                option-label="title"
+                option-value="id"
                 label="پایه تحصیلی"
                 filled />
     </q-card-section>
@@ -38,7 +42,7 @@
       <q-btn class="send-btn"
              :disabled="loading"
              color="primary"
-             @click="getCodeForLogin">
+             @click="updateUser">
         تایید کد
       </q-btn>
     </q-card-actions>
@@ -55,8 +59,13 @@ export default {
     options: {
       type: Object,
       default: () => {}
+    },
+    userInfo: {
+      type: Object,
+      default: () => {}
     }
   },
+  emits: ['toggleDialog'],
   data() {
     return {
       loading: false,
@@ -66,10 +75,12 @@ export default {
         required: value => !!value || 'این فیلد الزامی است'
       },
       form: {
+        mobile: '',
+        code: '',
         first_name: '',
         last_name: '',
-        major: '',
-        grade: ''
+        major_id: '',
+        grade_id: ''
       },
       stringOptions: {
         major: [],
@@ -99,20 +110,21 @@ export default {
             this.stringOptions[category].push(item)
           })
         })
-        // this.stringOptions = res.map((item) => item.children)
-        // this.filterOptions = this.stringOptions
-        // this.onChangeSelections(this.value)
       }).catch(() => {
       })
     },
-    onChangeSelections ($event) {
-      this.change(JSON.parse(JSON.stringify($event.map(item => item.id))))
-    },
-    getCodeForLogin() {
-      const loginData = {
-        mobile: this.mobile
-      }
-      this.sendCodeRequest(loginData)
+    updateUser() {
+      this.form.mobile = this.userInfo.mobile
+      this.form.code = this.userInfo.code
+      this.setLoading(true)
+      this.$apiGateway.user.newsletter(this.form)
+        .then(res => {
+          this.$emit('toggleDialog')
+          this.setLoading(false)
+        })
+        .catch(() => {
+          this.setLoading(false)
+        })
     },
     setLoading(loading) {
       this.loading = loading

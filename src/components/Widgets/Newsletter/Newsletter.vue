@@ -18,18 +18,22 @@
                    animated>
           <q-step :name="'signup'"
                   title="signup">
-            <signup-step @gotoNextStep="gotoNextStep" />
+            <signup-step @goto-next-step="gotoNextStep"
+                         @update-user="updateUser($event)" />
           </q-step>
           <q-step v-if="verification"
                   :name="'verification'"
                   title="verification">
-            <verification-step @gotoNextStep="gotoNextStep"
-                               @gotoPrevStep="gotoPrevStep" />
+            <verification-step :userInfo="userForm"
+                               @update-user="updateUser($event)"
+                               @goto-next-step="gotoNextStep"
+                               @goto-prev-step="gotoPrevStep" />
           </q-step>
           <q-step :name="'info'"
                   title="info">
             <info-completion :options="options.userInputs"
-                             @gotoPrevStep="gotoPrevStep" />
+                             :userInfo="userForm"
+                             @toggle-dialog="toggleDialog" />
           </q-step>
         </q-stepper>
       </q-card-section>
@@ -60,7 +64,11 @@ export default {
       dialog: false,
       eventName: '',
       step: 'signup',
-      verification: true
+      verification: true,
+      userForm: {
+        mobile: '',
+        code: ''
+      }
     }
   },
   watch: {
@@ -87,6 +95,9 @@ export default {
     },
     gotoPrevStep() {
       this.$refs.stepper.previous()
+    },
+    updateUser(userInfo) {
+      this.userForm = userInfo
     }
   }
 }

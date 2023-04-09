@@ -144,6 +144,7 @@ export default {
   .tab-panels-wrapper {
 
     .product-tab-panels {
+      background: transparent;
       .product-tab-panel {
         .product-panel-spacial-content {
           display: flex;

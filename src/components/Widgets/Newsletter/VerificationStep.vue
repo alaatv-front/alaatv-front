@@ -54,7 +54,13 @@ export default {
   components: {
     VOtpInput
   },
-  emits: ['gotoPrevStep', 'gotoNextStep'],
+  props: {
+    userInfo: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  emits: ['gotoPrevStep', 'gotoNextStep', 'updateUser'],
   data() {
     return {
       loading: false,
@@ -70,13 +76,12 @@ export default {
       const verifyData = {
         code: this.otpValue
       }
-      this.$apiGateway.auth.verifyCode(verifyData)
+      this.$apiGateway.user.verifyMoshavereh(verifyData)
         .then(res => {
           this.$emit('gotoNextStep')
           this.setLoading(false)
         })
         .catch(() => {
-          this.$emit('gotoNextStep')
           this.setLoading(false)
         })
     },
@@ -106,22 +111,24 @@ export default {
     resend() {
       this.date = Date.now() + 120000
       const loginData = {
-        mobile: this.userMobile
+        mobile: this.userInfo.mobile
       }
       this.resendRequest(loginData)
       this.canReset = false
     },
     resendRequest(userInfo) {
       this.setLoading(true)
-      this.$apiGateway.user.verifyMoshavereh(userInfo)
-        .then(response => {
-          this.updateUserData({
-            mobile: this.userMobile
+      this.$apiGateway.user.resendGuest(userInfo)
+        .then(res => {
+          this.showMessage(res, 'success')
+          this.$emit('updateUser', {
+            mobile: this.userInfo.mobile,
+            code: this.otpValue
           })
+          this.$emit('gotoNextStep')
           this.setLoading(false)
         })
-        .catch(err => {
-          this.showMessage(err, 'success')
+        .catch(() => {
           this.setLoading(false)
         })
     },

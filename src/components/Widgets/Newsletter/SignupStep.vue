@@ -34,7 +34,7 @@ export default {
       default: false
     }
   },
-  emits: ['gotoNextStep'],
+  emits: ['gotoNextStep', 'updateUser'],
   data() {
     return {
       loading: false,
@@ -59,6 +59,10 @@ export default {
       this.$apiGateway.user.resendGuest(userInfo)
         .then(res => {
           this.showMessage(res, 'success')
+          this.$emit('updateUser', {
+            mobile: this.mobile,
+            code: res.code ? res.code : ''
+          })
           this.$emit('gotoNextStep')
           this.setLoading(false)
         })
