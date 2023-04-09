@@ -14,6 +14,7 @@
                        class="q-mr-sm"
                        @click="removeItem(index)" />
                 <q-input v-model="item.label"
+                         class="full-width"
                          label="label" />
               </template>
               <div class="text">
