@@ -4,21 +4,11 @@ import { Block } from 'src/models/Block'
 class BankAccounts extends Model {
   constructor(data) {
     super(data, [
-      {
-        key: 'id'
-      },
-      {
-        key: 'card-number'
-      },
-      {
-        key: 'sheba'
-      },
-      {
-        key: 'status'
-      },
-      {
-        key: 'verify'
-      }
+      { key: 'id' },
+      { key: 'card-number' },
+      { key: 'sheba' },
+      { key: 'status' },
+      { key: 'verify' }
     ])
   }
 }

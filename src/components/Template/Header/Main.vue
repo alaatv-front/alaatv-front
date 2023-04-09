@@ -230,7 +230,6 @@ export default {
               categoryItemsCol: [
                 {
                   title: 'دوازدهم و کنکور',
-                  category: 'davazdahomVaKonkur',
                   href: 'https://alaatv.com/c?tags[]=نظام_آموزشی_جدید&tags[]=دوازدهم&tags[]=کنکور',
                   tags: [
                     'نظام_آموزشی_جدید',
@@ -240,7 +239,6 @@ export default {
                 },
                 {
                   title: 'یازدهم',
-                  category: 'yazdahom',
                   href: 'https://alaatv.com/c?tags[]=نظام_آموزشی_جدید&tags[]=یازدهم',
                   tags: [
                     'نظام_آموزشی_جدید',
@@ -249,7 +247,6 @@ export default {
                 },
                 {
                   title: 'دهم',
-                  category: 'dahom',
                   href: 'https://alaatv.com/c?tags[]=نظام_آموزشی_جدید&tags[]=دهم',
                   tags: [
                     'نظام_آموزشی_جدید',
@@ -258,7 +255,6 @@ export default {
                 },
                 {
                   title: 'کنکور نظام قدیم',
-                  category: 'nezameGhadim',
                   href: 'https://alaatv.com/c?tags[]=نظام_آموزشی_قدیم&tags[]=کنکور',
                   tags: [
                     'نظام_آموزشی_قدیم',
@@ -501,8 +497,10 @@ export default {
                       ]
                     }
                   ],
-                  category: 'davazdahomVaKonkur',
-                  bg: '#ffd6e6'
+                  showData: true,
+                  photo: '',
+                  backgroundColor: '#ffd6e6',
+                  backgroundImage: ''
                 },
                 {
                   cols: [
@@ -671,8 +669,10 @@ export default {
                       ]
                     }
                   ],
-                  category: 'yazdahom',
-                  bg: '#ffe0e9'
+                  showData: false,
+                  photo: '',
+                  backgroundColor: '#ffe0e9',
+                  backgroundImage: ''
                 },
                 {
                   cols: [
@@ -833,8 +833,10 @@ export default {
                       ]
                     }
                   ],
-                  category: 'dahom',
-                  bg: '#ffe6dd'
+                  showData: false,
+                  photo: '',
+                  backgroundColor: '#ffe6dd',
+                  backgroundImage: ''
                 },
                 {
                   cols: [
@@ -1032,8 +1034,10 @@ export default {
                       ]
                     }
                   ],
-                  category: 'nezameGhadim',
-                  bg: '#fff2e1'
+                  showData: false,
+                  photo: '',
+                  backgroundColor: '#fff2e1',
+                  backgroundImage: ''
                 }
               ]
             },
@@ -1058,21 +1062,18 @@ export default {
               categoryItemsCol: [
                 {
                   title: 'چتر نجات',
-                  category: 'chatrNejat',
                   href: 'https://alaatv.com/landing/37',
                   photo: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg',
                   path: 'landing/37'
                 },
                 {
                   title: 'راه ابریشم',
-                  category: 'raheAbrisham',
                   href: 'https://alaatv.com/landing/25',
                   photo: 'https://nodes.alaatv.com/upload/abrisham_mega_menu_1401.jpg',
                   path: 'landing/25'
                 },
                 {
                   title: 'کارت هدیه آلاء',
-                  category: 'giftcard',
                   href: 'https://alaatv.com/landing/34',
                   photo: 'https://nodes.alaatv.com/upload/taftan_mega_menu_1400.jpg',
                   path: 'landing/34'
@@ -1081,18 +1082,18 @@ export default {
               subCategoryItemsCol: [
                 {
                   cols: [],
-                  category: 'chatrNejat',
-                  photo: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg'
+                  showData: true,
+                  backgroundImage: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg'
                 },
                 {
                   cols: [],
-                  category: 'raheAbrisham',
-                  photo: 'https://nodes.alaatv.com/upload/abrisham_mega_menu_1401.jpg'
+                  showData: false,
+                  backgroundImage: 'https://nodes.alaatv.com/upload/abrisham_mega_menu_1401.jpg'
                 },
                 {
                   cols: [],
-                  category: 'giftcard',
-                  photo: 'https://nodes.alaatv.com/upload/taftan_mega_menu_1400.jpg'
+                  showData: false,
+                  backgroundImage: 'https://nodes.alaatv.com/upload/taftan_mega_menu_1400.jpg'
                 }
               ]
             },
