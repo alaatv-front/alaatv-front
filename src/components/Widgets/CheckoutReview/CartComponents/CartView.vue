@@ -172,7 +172,7 @@
 </template>
 
 <script>
-import Widgets from 'components/PageBuilder/Widgets'
+import Widgets from 'src/mixin/Widgets.js'
 import { Product } from 'src/models/Product'
 
 export default {

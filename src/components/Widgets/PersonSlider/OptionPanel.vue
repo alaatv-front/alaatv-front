@@ -85,6 +85,7 @@ export default defineComponent({
         { name: 'last_name', align: 'center', label: 'نام خانوادگی', field: row => row.last_name },
         { name: 'major', align: 'center', label: 'رشته', field: row => row.major },
         { name: 'rank', align: 'center', label: 'رتبه', field: row => row.rank },
+        { name: 'distraction', align: 'center', label: 'منطقه', field: row => row.distraction },
         { name: 'actions', align: 'right', label: 'عملیات', field: row => row.id }
       ]
     }
@@ -107,3 +108,11 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.option-panel-container{
+  .table-rows{
+    place-content: center;
+  }
+}
+</style>
