@@ -197,7 +197,7 @@
 </template>
 
 <script>
-import Widgets from 'components/PageBuilder/Widgets'
+import Widgets from 'src/mixin/Widgets.js'
 import Addresses from 'src/api/Addresses.js'
 
 export default {
