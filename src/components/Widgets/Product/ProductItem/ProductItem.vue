@@ -80,7 +80,8 @@
         <div v-if="product.attributes.info"
              class="teacher-name">{{getTeacherOfProduct()}}</div>
       </div>
-      <div class="action-box">
+      <div v-if="localOptions.showPrice"
+           class="action-box">
         <div class="more-detail product-more-detail">
           <div class="price-box">
             <div class="price-info">
@@ -137,6 +138,7 @@ export default {
           style: {},
           minWidth: 'auto',
           canAddToCart: true,
+          showPrice: true,
           product: new Product()
         }
       }
@@ -150,6 +152,7 @@ export default {
       style: {},
       minWidth: 'auto',
       canAddToCart: true,
+      showPrice: true,
       product: new Product()
     }
   }),
