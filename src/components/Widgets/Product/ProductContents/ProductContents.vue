@@ -4,16 +4,24 @@
        :class="options.className"
        :style="options.style">
     <q-card class="previewSetsOfProduct custom-card q-mb-md">
-      <div class="bg-primary q-pa-md q-mb-sm">
-        <div class="q-ml-md q-my-md text-white">انتخاب دوره</div>
+      <div v-if="setOptions.length > 0"
+           class="box bg-primary q-pa-md q-mb-sm row">
+        <div class="q-my-md text-white text-subtitle1 text-weight-bolder title">
+          انتخاب دوره
+        </div>
         <q-select v-model="setTitle"
                   :options="setOptions"
                   class="select-set q-px-md" />
       </div>
+      <div v-else
+           class="bg-primary q-pa-md q-mb-sm text-white flex justify-center">
+        دوره ای وجود ندارد
+      </div>
       <q-tabs v-model="tab"
               active-color="black"
               class="text-grey-5 bg-white tabs">
-        <q-tab name="videos"
+        <q-tab v-if="videos.length > 0"
+               name="videos"
                class="tab">
           <span>فیلم ها</span>
         </q-tab>
@@ -22,13 +30,9 @@
                class="tab">
           <span>جزوات</span>
         </q-tab>
-        <q-tab v-else
-               name="pamphlets"
-               class="tab">
-          <span>بدون جزوه</span>
-        </q-tab>
       </q-tabs>
-      <q-tab-panels v-model="tab"
+      <q-tab-panels v-if="pamphlets.length > 0 || videos.length > 0"
+                    v-model="tab"
                     animated
                     transition-prev="scale"
                     transition-next="scale"
@@ -94,6 +98,10 @@
                     class="bg-grey-2 text-primary">جزوه ای وجود ندارد</q-banner>
         </q-tab-panel>
       </q-tab-panels>
+      <q-banner v-else
+                inline-actions
+                rounded
+                class="bg-grey-2 text-primary text-center">محتوایی وجود ندارد</q-banner>
     </q-card>
   </div>
 </template>
@@ -171,6 +179,10 @@ export default {
       this.product.sets.list.forEach(set => {
         this.setOptions.push(set.title)
       })
+      if (this.setOptions.length === 0) {
+        this.product.loading = false
+        return
+      }
       this.setTitle = this.setOptions[0]
       this.product.loading = false
     },
@@ -184,7 +196,7 @@ export default {
       APIGateway.set.show(id)
         .then(set => {
           set.contents.list.forEach(content => {
-            if (content.type === 8) {
+            if (content.isVideo()) {
               this.videos.push(content)
             } else {
               this.pamphlets.push(content)
@@ -200,24 +212,24 @@ export default {
 .product-contents-widget {
   .tabs {
     .tab {
-      font-size: 30px !important;
-    }
-  }
-
-  .previewSetsOfProduct:before {
-    content: ' ';
-    border-right: solid 25px transparent;
-    border-left: solid 25px transparent;
-    border-bottom: solid 25px white;
-    position: absolute;
-    left: 75%;
-    top: 100px;
-    @media screen and (max-width: 1024px) {
-      top: 120px
+      font-size: 16px;
     }
   }
 
   .previewSetsOfProduct {
+    .box {
+      justify-content: space-between;
+      align-items: center;
+      @media screen and (max-width: 1024px) {
+        justify-content: center;
+      }
+      .title {
+        margin-left: 8px;
+        @media screen and (max-width: 1024px) {
+          margin-left: 0;
+        }
+      }
+    }
     .select-set{
       width: 50%;
       @media screen and (max-width: 1024px) {
