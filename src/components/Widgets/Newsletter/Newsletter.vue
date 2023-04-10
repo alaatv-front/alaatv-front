@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import SignupStep from './SignupStep.vue'
-import VerificationStep from './VerificationStep.vue'
-import InfoCompletion from './InfoCompletion.vue'
+import SignupStep from './components/SignupStep.vue'
+import VerificationStep from './components/VerificationStep.vue'
+import InfoCompletion from './components/InfoCompletion.vue'
 
 export default {
   name: 'SignupModal',
