@@ -47,6 +47,7 @@ module.exports = configure(function (ctx) {
       'api-gateway',
       'registerQPageBuilder',
       'routesLayoutConfigs',
+      'GetRouteSettingFromServer',
       'enums'
     ],
 
