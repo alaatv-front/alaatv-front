@@ -4,7 +4,8 @@
          :width="getImageWidth(options)"
          :height="getImageHeight(options)"
          :style="options.style"
-         :class="options.className" />
+         :class="options.className"
+         @click="takeAction(options.action)" />
 </template>
 
 <script>
@@ -132,6 +133,17 @@ export default {
         return options.xs?.width ? options.xs.width : options.sm?.width ? options.sm.width : options.md?.width ? options.md.width : options.lg?.width ? options.lg.width : options.xl?.width
       } else {
         return ''
+      }
+    },
+    takeAction(action) {
+      if (this.callBack) {
+        this.callBack()
+      } else if (action.name === 'scroll') {
+        this.scrollToElement(action.scrollTo)
+      } else if (action.name === 'link') {
+        this.router.push(action.route)
+      } else if (action.name === 'event') {
+        this.$bus.emit(action.eventName, action.eventArgs)
       }
     }
   }
