@@ -2,14 +2,14 @@
   <div v-for="(item, index) in itemList"
        :key="index"
        class="product-panel">
-    <div v-if="item.label"
+    <div v-if="item.label "
          class="col-12 product-label"
          :style="labelStyle">
       {{ item.label }}
     </div>
     <product-shelf-row v-if="isProduct(item)"
                        :products-list="item.products"
-                       :layout="layout"
+                       :layout="item.shelfRowLabelStyle"
                        :rowStyle="item.rowStyle" />
     <div v-else
          class="product-content row"

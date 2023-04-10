@@ -23,7 +23,7 @@
                    :name="`productTab_${index}`"
                    class="product-tab-panel">
         <product-tab-row v-if="isProduct(item)"
-                         :layout="layout"
+                         :layout="item.shelfRowLabelStyle"
                          :products-list="item.products"
                          :rowStyle="item.rowStyle"
                          :className="item.className" />
