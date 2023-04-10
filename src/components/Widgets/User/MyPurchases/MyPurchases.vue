@@ -32,7 +32,7 @@
       </div>
     </div>
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
-    <div class="col-sm-12 productsCol q-pa-sm-sm q-pa-xs-xs">
+    <div class="col-12 productsCol q-pa-sm-sm q-pa-xs-xs">
       <div class="q-mb-md productsSearch ">
         <q-input v-model="searchTarget"
                  outlined
@@ -47,22 +47,22 @@
           </template>
         </q-input>
       </div>
-      <div class="q-px-xs-none row">
-        <!--        class="row"-->
+      <div class="q-px-xs-none row justify-center items-center">
         <!--        <q-infinite-scroll ref="contentAndProductList"-->
         <!--                           :offset="250"-->
         <!--                           class="row"-->
         <!--                           @load="chargeProductList">-->
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
-             class="q-ma-md">
-          <product-item :options="{
+             class="col-12 col-sm-6 col-md-auto col-lg-auto q-ma-md-md q-mb-sm-md flex justify-center">
+          <product-item class="product-item"
+                        :options="{
                           canAddToCart: false,
                           showPrice: false,
                           product,
                           routeToProduct: false
                         }"
-                        @click="productItemClicked(product.id)" />
+                        @click="productItemClicked(product)" />
         </div>
         <!--          <div v-for="(item, index) in items"-->
         <!--               :key="index"-->
@@ -84,8 +84,7 @@
         <!--          </q-infinite-scroll>-->
       </div>
       <!--    --------------------------------------------------------------------------- show content box   --------------------------------------------------------------------------- -->
-      <div v-if="!currentProduct.title && !loading"
-           class="m-portlet__body">
+      <div v-if="!currentProduct.title && !loading">
         <div class="text-center bg-primary q-pa-lg noContentMessage">
           <div>
             <q-icon size="28px"
@@ -100,7 +99,7 @@
             position="bottom">
     <div class="product-contents">
       <product-contents :options="{
-        productId: currentProductId
+        product: selectedProduct
       }" />
     </div>
   </q-dialog>
@@ -127,7 +126,7 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
-      currentProductId: '',
+      selectedProduct: new Product(),
       productContentsDialog: false,
       items: [{}, {}, {}, {}, {}, {}, {}],
       scrollTargetRef: null,
@@ -171,8 +170,8 @@ export default {
   },
   watch: {
     searchTarget (value) {
-      this.filterProductBySearchInput()
-      this.products.list = this.products.list.splice(0, this.products.list.length)
+      // this.filterProductBySearchInput()
+      // this.products.list = this.products.list.splice(0, this.products.list.length)
     }
   },
   async mounted () {
@@ -210,8 +209,8 @@ export default {
         done()
       }, 2000)
     },
-    productItemClicked (productId) {
-      this.currentProductId = productId
+    productItemClicked (product) {
+      this.selectedProduct = product
       this.productContentsDialog = !this.productContentsDialog
     },
     filterProduct () {
@@ -250,11 +249,10 @@ export default {
     },
 
     setFirstContentsShow() {
-      // todo : don't commit
-      // if (this.products.list.length === 0 || this.products.list[0].sets.list.length === 0) {
-      //   return
-      // }
-      const firstSet = this.products.list[1].sets.list[0]
+      if (this.products.list.length === 0 || this.products.list[0].sets.list.length === 0) {
+        return
+      }
+      const firstSet = this.products.list[0].sets.list[0]
       this.handlesTabs()
       this.getContentsData(firstSet)
     },
@@ -270,57 +268,7 @@ export default {
     getContentsData (set) {
       this.selectedSet.loading = true
       this.selectedSet.contents.clear()
-      const testFile = {
-        video: [
-          {
-            link: 'https://alaatv.com/d/eyJpdiI6IkJ6dGdWVmxQNFEzSVdncWFpYU9WWkE9PSIsInZhbHVlIjoiVDY3dTBkbGd2a3hpTnRxWEV3bTA2aisyaGE2OFdzNWtNYjc5b1EvdUNNSVpVZlczMHdtY3ZCMm1FcnBFdStWNmZTcFMzcjh3WFJob3Y0c1cwa2M5UnRSV0gxWXh3WVBPdVJkMGV0UXpYZzA0VGQyMzJHZHU3TXBGbFhrWEpaVVA1cEhvNDF3R2ZldHorUSs0dExKR01ra1ZhdDh4S01JcGNVcFBrNWVVV2ZHQmpuUW5vTXdaWlhTSFZ0N0JrZVdnIiwibWFjIjoiYTdkMGEyNmRjZWY4NWI4Yjg5ZmZmNzdkMWJjYzM3MTM0OWY0MzM4ZmI3MTA4YmU4ODI5YjhhMmYyYzkwMjA3YyIsInRhZyI6IiJ9',
-            ext: 'mp4',
-            size: '1.2 G',
-            caption: 'کیفیت عالی',
-            res: '720p'
-          },
-          {
-            link: 'https://alaatv.com/d/eyJpdiI6IjJ2MEhsRHdXeFdJcHNock1jbnlNUlE9PSIsInZhbHVlIjoiVjZXMVhyMFZsNUh6QnlJM1Z0cTMzYy9WT1hLUXQwWTNoVXZkbzRRcGtpWEQ5SXNESzlqb3NSS3l4bkxDZDdCd3oybHpzZVg4ZzlkWFZqdkQ3YytnQVM5bnJsMjBIZUVMSFVCMVVZdlhOOE0vZG5xZ1R3ekhNWWx4VXUxQ1RCbng4SFNPQnFCZ1VwV2R0bDRpcmNnMWZWdjNzWGhoSHRTcVN0V3UyUmtrb1l3PSIsIm1hYyI6ImZlNmQwY2QyZmYxNDFmMDdhZjQzYjU3MTljNTFmNThlNmE0MWJjN2U0MWViOTZjOTg4OWQ3YWQ1NTc5MzU3ZGUiLCJ0YWciOiIifQ==',
-            ext: 'mp4',
-            size: '90 MB',
-            caption: 'کیفیت بالا',
-            res: '480p'
-          },
-          {
-            link: 'https://alaatv.com/d/eyJpdiI6IkY1WjJnZlJHVko0VjcrSWZ5RGxYL3c9PSIsInZhbHVlIjoiM25ZUEZmQjdWcFNOSGRKcU9nN3VZaThjWjk1bEg2dllpUUg5QmIvZ2Y2NWhJQ01pSUpITnpWeU5Icis1NnRZSDZjY3dNM0Y4UlpaZ1Exb0VxSlhqVDVQRGhkdDFFQzNNRTVISTR4OTBMQTQvbk5vd3Y0YWFLZWwxSit0SVpOOUZCck5KSC9hcGh1YW9ERDF3TXBlYldFZzJxLzd6a2ErY29PQ1Vzb3JNSEVvPSIsIm1hYyI6ImQ3NTZmMDlhNTY5MDM2YWM3NzY5NjA4NzMzM2VhNjQzOTYxMTYzMDllMmQ0Yjg1YTc4ZDU1OTkxNzYzMWNhN2QiLCJ0YWciOiIifQ==',
-            ext: 'mp4',
-            size: '36 MB',
-            caption: 'کیفیت متوسط',
-            res: '240p'
-          }
-        ],
-        pamphlet: null,
-        voice: null
-      }
-      const testPamphlet = {
-        video: null,
-        pamphlet: [
-          {
-            link: 'https://alaatv.com/d/eyJpdiI6InR2RExYRXduVmtIZDdoeHpDSm9adHc9PSIsInZhbHVlIjoidkl2ZnJvT1BERzQ1L01TdmRINThNbGZDMmk2eTdveDZHNG9OQml1Y2RmNkNRcEt4K2dCeWJFbytKL3pCTU51KzBZZ29PWlNiSC9Qd3FhSWUrSmxPVHZOaG5DWW0rcldYVER1aWlBVHQwUEYxUlFKaE1aL0Z6NmpqVDQvR2lBY094L0k4azk5ZXVhM0graklINFVFcFFsTmQ0QThoU21LSk5FWm1kVGlxWVVRNEErU04zckVJNXlqa2ZFaDdNSnREIiwibWFjIjoiNmU4NGE5YWM1YzgyMTE3ZmM1YmNhNjY1YzVkZjZhMjAyYTg4ZjBmZDA4MzcyNWUyYzM2Nzg2YmQ2NDAxNWFlNiIsInRhZyI6IiJ9',
-            ext: 'pdf',
-            size: '401 KB',
-            caption: 'جزوه'
-          }
-        ],
-        voice: null
-      }
       this.getSelectedSetContents(set.id).then((contentResponse) => {
-        contentResponse.list.forEach(content => {
-          if (content.isVideo()) {
-            content.file = testFile
-          } else {
-            content.file = {
-              video: null,
-              pamphlet: testPamphlet,
-              voice: null
-            }
-          }
-        })
         this.selectedSet = set
         this.selectedSet.contents.list = contentResponse.list
         this.selectedSet.loading = false
@@ -352,11 +300,27 @@ export default {
 
 <style scoped lang="scss">
 .product-contents {
-  min-width: 350px;
+  width: 1024px;
+  max-width: 1024px;
   :deep(.q-card.custom-card:not([class^=col])) {
     box-shadow: none;
   }
+  @media screen and (max-width: 1023px) {
+    min-width: 320px;
+    padding: 20px;
+  }
 }
+
+.product-item {
+  width: 245px;
+  @media screen and (max-width: 1024px) {
+    width: 300px;
+  }
+  @media screen and (max-width: 790px) {
+    margin: 15px;
+  }
+}
+
 .costume-background-color{
   background: #F6F8FA !important;
 }
