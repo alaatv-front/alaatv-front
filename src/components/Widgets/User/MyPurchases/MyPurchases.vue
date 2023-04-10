@@ -47,42 +47,44 @@
           </template>
         </q-input>
       </div>
-      <div class="q-px-xs-none q-pa-sm-md">
+      <div class="q-px-xs-none row">
         <!--        class="row"-->
-        <q-infinite-scroll ref="contentAndProductList"
-                           :offset="250"
-                           class="row"
-                           @load="chargeProductList">
-          <div v-for="(product, index) in filteredProduct.list"
-               :key="index"
-               class="q-ma-md">
-            <product-item :options="{
-              canAddToCart: false,
-              showPrice: false,
-              product
-            }" />
-          </div>
-          <!--          <div v-for="(item, index) in items"-->
-          <!--               :key="index"-->
-          <!--               class="caption">-->
-          <!--            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.</p>-->
-          <!--          </div>-->
-          <template v-slot:loading>
-            <div class="row justify-center q-my-md">
-              <q-spinner-dots color="primary"
-                              size="40px" />
-            </div>
-          </template>
-          <!--          <template v-slot:loading>-->
-          <!--            <div class="row justify-center q-my-md">-->
-          <!--              <q-spinner-dots color="primary"-->
-          <!--                              size="40px" />-->
-          <!--            </div>-->
-          <!--          </template>-->
-        </q-infinite-scroll>
+        <!--        <q-infinite-scroll ref="contentAndProductList"-->
+        <!--                           :offset="250"-->
+        <!--                           class="row"-->
+        <!--                           @load="chargeProductList">-->
+        <div v-for="(product, index) in filteredProduct.list"
+             :key="index"
+             class="q-ma-md">
+          <product-item :options="{
+                          canAddToCart: false,
+                          showPrice: false,
+                          product,
+                          routeToProduct: false
+                        }"
+                        @click="productItemClicked(product.id)" />
+        </div>
+        <!--          <div v-for="(item, index) in items"-->
+        <!--               :key="index"-->
+        <!--               class="caption">-->
+        <!--            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.</p>-->
+        <!--          </div>-->
+        <!--          <template v-slot:loading>-->
+        <!--            <div class="row justify-center q-my-md">-->
+        <!--              <q-spinner-dots color="primary"-->
+        <!--                              size="40px" />-->
+        <!--            </div>-->
+        <!--</template>-->
+        <!--          <template v-slot:loading>-->
+        <!--            <div class="row justify-center q-my-md">-->
+        <!--              <q-spinner-dots color="primary"-->
+        <!--                              size="40px" />-->
+        <!--            </div>-->
+        <!--          </template>-->
+        <!--          </q-infinite-scroll>-->
       </div>
       <!--    --------------------------------------------------------------------------- show content box   --------------------------------------------------------------------------- -->
-      <div v-if="!currentProduct.title"
+      <div v-if="!currentProduct.title && !loading"
            class="m-portlet__body">
         <div class="text-center bg-primary q-pa-lg noContentMessage">
           <div>
@@ -94,6 +96,14 @@
       </div>
     </div>
   </div>
+  <q-dialog v-model="productContentsDialog"
+            position="bottom">
+    <div class="product-contents">
+      <product-contents :options="{
+        productId: currentProductId
+      }" />
+    </div>
+  </q-dialog>
 </template>
 
 <script>
@@ -104,10 +114,12 @@ import FilterBox from 'src/components/userPurchases/filterBox.vue'
 // import PurchaseItem from 'src/components/userPurchases/PurchaseItem.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+import ProductContents from 'components/Widgets/Product/ProductContents/ProductContents.vue'
 
 export default {
   name: 'MyPurchases',
   components: {
+    ProductContents,
     ProductItem,
     FilterBox
     // PurchaseItem
@@ -115,6 +127,8 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
+      currentProductId: '',
+      productContentsDialog: false,
       items: [{}, {}, {}, {}, {}, {}, {}],
       scrollTargetRef: null,
       loading: false,
@@ -190,17 +204,15 @@ export default {
       })
     },
     chargeProductList(index, done) {
-      console.log('chargeProductList', index)
+      // console.log('chargeProductList', index)
       setTimeout(() => {
         this.products.push(...this.products)
         done()
       }, 2000)
-      // this.getPurchasedProducts(index)
-      //   .then((response) => {
-      //     this.products.push(...response.referralCodeList)
-      //     done()
-      //   })
-      //   .catch(() => {})
+    },
+    productItemClicked (productId) {
+      this.currentProductId = productId
+      this.productContentsDialog = !this.productContentsDialog
     },
     filterProduct () {
       this.filterProductByCategory()
@@ -339,11 +351,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.product-contents {
+  min-width: 350px;
+  :deep(.q-card.custom-card:not([class^=col])) {
+    box-shadow: none;
+  }
+}
 .costume-background-color{
   background: #F6F8FA !important;
-}
-.test{
-  overflow-x: scroll;
 }
 .filter-box-container{
   overflow-x: scroll;
