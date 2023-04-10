@@ -1,8 +1,8 @@
 <template>
-  <q-btn :color="color"
-         :icon="icon"
-         :label="label"
-         :flat="flat"
+  <q-btn :color="options.color"
+         :icon="options.icon"
+         :label="options.label"
+         :flat="options.flat"
          :class="className"
          :style="options.style"
          class="action-btn"

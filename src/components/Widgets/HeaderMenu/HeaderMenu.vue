@@ -28,7 +28,7 @@
              color="white"
              flat
              :label="actionButtonLabel"
-             @click="toggleDialog" />
+             @click="takeAction(item)" />
     </div>
   </div>
 </template>
@@ -80,8 +80,10 @@ export default {
     takeAction(item) {
       if (item.type === 'link') {
         openURL(item.route)
-      } else {
+      } else if (item.type === 'scroll') {
         this.scrollToElement(item.className)
+      } else if (item.type === 'event') {
+        this.$bus.emit(item.eventName, item.eventArgs)
       }
     },
     scrollToElement(className) {
