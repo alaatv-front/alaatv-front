@@ -53,10 +53,7 @@
           class="product-item-box"
           :style="{minWidth: localOptions.minWidth}">
     <div class="img-box">
-      <router-link :to="{
-        name: 'Public.Product.Show',
-        params: { id: product.id ? product.id : -1 }
-      }">
+      <router-link :to="getRoutingObject">
         <lazy-img :src="product.photo"
                   :alt="product.title"
                   width="1"
@@ -141,7 +138,8 @@ export default {
           minWidth: 'auto',
           canAddToCart: true,
           showPrice: true,
-          product: new Product()
+          product: new Product(),
+          routeToProduct: true
         }
       }
     }
@@ -155,12 +153,22 @@ export default {
       minWidth: 'auto',
       canAddToCart: true,
       showPrice: true,
-      product: new Product()
+      product: new Product(),
+      routeToProduct: true
     }
   }),
   computed: {
     localOptions () {
       return Object.assign(this.defaultOptions, this.options)
+    },
+    getRoutingObject() {
+      if (this.defaultOptions.routeToProduct) {
+        return {
+          name: 'Public.Product.Show',
+          params: { id: this.product.id || -1 }
+        }
+      }
+      return {}
     }
   },
   created () {
