@@ -2,17 +2,32 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container q-py-md">
-        <div class="row q-gutter-md">
-          <div class="input-container">
+        <div class="row q-gutter-sm">
+          <div class="input-container col-md-3">
             <div class="outsideLabel">label</div>
-            <q-input v-model="value.label"
+            <q-input v-model="localOptions.label"
                      label="label" />
           </div>
-          <div class="input-container">
+          <div class="input-container col-md-3">
             <div class="outsideLabel">icon name</div>
-            <q-input v-model="value.icon"
+            <q-input v-model="localOptions.icon"
                      label="icon name" />
           </div>
+          <div class="input-container col-md-3">
+            <div class="outsideLabel">color</div>
+            <q-input v-model="localOptions.color"
+                     label="color" />
+          </div>
+          <div class="input-container">
+            <div class="outsideLabel">flat</div>
+            <q-checkbox v-model="localOptions.flat"
+                        left-label />
+          </div>
+        </div>
+        <div class="input-container q-mt-md">
+          <div class="outsideLabel">image source</div>
+          <q-input v-model="localOptions.imageSource"
+                   label="image source" />
         </div>
       </div>
     </template>

@@ -1,29 +1,29 @@
 <template>
-  <q-card class="intro-video custom-card q-pb-md"
+  <q-card v-if="product.intro"
+          class="intro-video custom-card q-pb-md"
           :class="options.className"
           :style="options.style">
     <template v-if="!product.loading">
-      <video-player v-if="product.intro"
-                    :poster="product.intro.photo"
+      <video-player :poster="product.intro.photo"
                     :source="videoSource()" />
-      <div v-if="options.download_date"
+      <div v-if="options.download_date && product.attributes.info.download_date"
            class="q-mt-md q-ml-md">
         <q-icon name="info"
                 color="primary"
                 size="25px"
                 class="q-pr-sm" />
         <span>
-          زمان دریافت فایل های این محصول: {{ product.attributes?.info.download_date[0] }}
+          زمان دریافت فایل های این محصول: {{ getDownloadDate() }}
         </span>
       </div>
-      <div v-if="product.attributes?.info.duration.length > 0 && options.duration"
+      <div v-if="product.attributes.info.duration && options.duration"
            class="q-mt-md q-ml-md">
         <q-icon name="timer"
                 color="primary"
                 size="25px"
                 class="q-pr-sm" />
         <span>
-          مدت زمان: {{ product.attributes?.info.duration[0] }}
+          مدت زمان: {{ getDuration() }}
         </span>
       </div>
     </template>
@@ -80,12 +80,24 @@ export default {
     }
   },
   methods: {
+    getDownloadDate() {
+      if (this.product.attributes.download_date) {
+        return this.product.attributes.download_date[0]
+      }
+      return null
+    },
+    getDuration() {
+      if (this.product.attributes.duration) {
+        return this.product.attributes.duration[0]
+      }
+      return null
+    },
     prefetchServerDataPromise () {
       this.product.loading = true
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
-      this.product = data
+      this.product = new Product(data)
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {

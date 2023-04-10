@@ -34,7 +34,7 @@
             </div>
           </q-card>
         </q-expansion-item>
-        <div class="table-rows flex justify-between">
+        <div class="table-rows justify-between">
           <q-table flat
                    bordered
                    :rows="localOptions.rows"
@@ -52,6 +52,25 @@
                      label="حذف ردیف"
                      @click="removeRow" />
             </template>
+            <template v-slot:header="props">
+              <q-tr :props="props">
+                <q-th v-for="(item, index) in props.cols"
+                      :key="'col'+ index"
+                      :props="props">
+                  <div>
+                    {{item.label}}
+                    <q-popup-edit v-slot="scope"
+                                  v-model="props.cols[index]">
+                      <q-input v-model="scope.value.label"
+                               dense
+                               autofocus
+                               counter
+                               @keyup.enter="scope.set" />
+                    </q-popup-edit>
+                  </div>
+                </q-th>
+              </q-tr>
+            </template>
             <template v-slot:body="props">
               <q-tr :props="props">
                 <q-td v-for="(item, index) in props.cols"
@@ -60,24 +79,32 @@
                   <div v-if="props.row['col'+ index].type === 'text'">
                     {{ item.value }}
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index].value">
-                      <q-input v-model="scope.value"
+                                  v-model="props.row['col'+ index]">
+                      <q-input v-model="scope.value.value"
                                dense
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
+                      <q-select v-model="scope.value.type"
+                                class="q-mt-md"
+                                :options="typeOptions"
+                                @keyup.enter="scope.set" />
                     </q-popup-edit>
                   </div>
                   <div v-if="props.row['col'+ index].type === 'image'">
                     <q-img :src="props.row['col'+ index].value"
                            width="30px" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index].value">
-                      <q-input v-model="scope.value"
+                                  v-model="props.row['col'+ index]">
+                      <q-input v-model="scope.value.value"
                                dense
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
+                      <q-select v-model="scope.value.type"
+                                class="q-mt-md"
+                                :options="typeOptions"
+                                @keyup.enter="scope.set" />
                     </q-popup-edit>
                   </div>
                   <div v-if="props.row['col'+ index].type === 'action'">
@@ -85,24 +112,35 @@
                            color="primary"
                            :label="props.row['col'+ index].value.label" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index].value">
-                      <q-input v-model="scope.value.label"
+                                  v-model="props.row['col'+ index]">
+                      <q-input v-model="scope.value.value.label"
                                dense
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
                       <q-input v-if="props.row['col'+ index].value.url"
-                               v-model="scope.value.url"
+                               v-model="scope.value.value.url"
                                dense
+                               class="q-my-sm"
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
                       <q-input v-if="props.row['col'+ index].value.className"
-                               v-model="scope.value.className"
+                               v-model="scope.value.value.className"
                                dense
+                               class="q-my-sm"
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
+                      <q-select v-model="scope.value.type"
+                                class="q-mt-md"
+                                :options="typeOptions"
+                                @keyup.enter="scope.set" />
+                      {{scope}}
+                      <q-select v-model="scope.value.actionType"
+                                class="q-mt-md"
+                                :options="actionTypeOptions"
+                                @keyup.enter="scope.set" />
                     </q-popup-edit>
                   </div>
                 </q-td>
@@ -136,7 +174,9 @@ export default defineComponent({
     return {
       rowCount: 10,
       loading: false,
-      filter: ''
+      filter: '',
+      typeOptions: ['text', 'image', 'action'],
+      actionTypeOptions: ['scroll', 'link']
 
     }
   },
