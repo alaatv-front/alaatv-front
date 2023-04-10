@@ -440,6 +440,67 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'Separator',
+                        options: {
+                          className: '',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
+                          style: {}
+                        }
+                      },
+                      {
+                        name: 'ProductsTabPanel',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          type: 'group',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '40px 0px 16px 10px'
+                          },
+                          list: [
+                            {
+                              type: 'product',
+                              label: 'آرش + تایتان: جمع بندی جامع و جمع بندی سطح بالا',
+                              rowStyle: {
+                                justifyContent: 'flex-start'
+                              },
+                              products: [
+                                980,
+                                979,
+                                978
+                              ]
+                            }
+                          ],
+                          productGroupLayout: 'shelf',
+                          rowLayout: 'scroll',
+                          shelfRowLabelStyle: {
+                            color: '#FB4D7A',
+                            fontSize: '28px',
+                            textAlign: 'center'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
                         name: 'TextWidget',
                         options: {
                           className: '',
@@ -448,14 +509,14 @@ export default {
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: '70px'
+                            marginTop: ''
                           },
-                          text: '<div style="text-align: center;">ثبت نام</div>',
+                          text: '<div style="text-align: center;"><font color="#ffffff">مشاهده تک درس ها</font><br></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
                           fontFamily: '',
                           xs: {
-                            fontSize: '18px',
+                            fontSize: '14px',
                             fontWeight: '400',
                             fontStyle: 'normal'
                           },
@@ -470,12 +531,12 @@ export default {
                             fontStyle: 'normal'
                           },
                           lg: {
-                            fontSize: '28px',
+                            fontSize: '22px',
                             fontWeight: '400',
                             fontStyle: 'normal'
                           },
                           xl: {
-                            fontSize: '32px',
+                            fontSize: '26px',
                             fontWeight: '500',
                             fontStyle: 'normal'
                           }
@@ -485,9 +546,130 @@ export default {
                     options: {
                       className: '',
                       style: {},
-                      colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
+                      colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
                   },
+                  {
+                    widgets: [
+                      {
+                        name: 'ImageWidget',
+                        options: {
+                          className: '',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
+                          xs: {
+                            height: '150px',
+                            width: '300px'
+                          },
+                          sm: {
+                            height: '150px',
+                            width: '300px'
+                          },
+                          md: {
+                            height: '300px',
+                            width: '500px'
+                          },
+                          lg: {
+                            height: '300px',
+                            width: '500px'
+                          },
+                          xl: {
+                            height: '300px',
+                            width: '500px'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              }
+            ]
+          },
+          options: {
+            fullHeight: true,
+            verticalAlign: 'center',
+            style: {
+              background: '#911932',
+              minHeight: '100vh'
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'Separator',
+                        options: {
+                          className: '',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
+                          style: {}
+                        }
+                      },
+                      {
+                        name: 'ProductsTabPanel',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          type: 'group',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '40px 0px 16px 10px'
+                          },
+                          list: [
+                            {
+                              type: 'product',
+                              label: 'آرش: جمع‌بندی جامع',
+                              rowStyle: {
+                                justifyContent: 'flex-start'
+                              },
+                              products: [
+                                980,
+                                979,
+                                978
+                              ]
+                            }
+                          ],
+                          productGroupLayout: 'shelf',
+                          rowLayout: 'scroll',
+                          shelfRowLabelStyle: {
+                            color: '#FB4D7A',
+                            fontSize: '28px',
+                            textAlign: 'center'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              },
+              {
+                cols: [
                   {
                     widgets: [
                       {
@@ -501,7 +683,290 @@ export default {
                             padding: '20px 0px 16px 10px',
                             marginTop: ''
                           },
-                          text: '<div style="text-align: center;">رشته مورد نظر را انتخاب کنید</div>',
+                          text: '<div style="text-align: center;"><font color="#ffffff">مشاهده تک درس ها</font><br></div>',
+                          color: '#3D3F46',
+                          customClass: 'text-center',
+                          fontFamily: '',
+                          xs: {
+                            fontSize: '14px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          sm: {
+                            fontSize: '18px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          md: {
+                            fontSize: '20px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          lg: {
+                            fontSize: '22px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          xl: {
+                            fontSize: '26px',
+                            fontWeight: '500',
+                            fontStyle: 'normal'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
+                    }
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'ImageWidget',
+                        options: {
+                          className: '',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
+                          xs: {
+                            height: '150px',
+                            width: '300px'
+                          },
+                          sm: {
+                            height: '150px',
+                            width: '300px'
+                          },
+                          md: {
+                            height: '300px',
+                            width: '500px'
+                          },
+                          lg: {
+                            height: '300px',
+                            width: '500px'
+                          },
+                          xl: {
+                            height: '300px',
+                            width: '500px'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              }
+            ]
+          },
+          options: {
+            fullHeight: true,
+            verticalAlign: 'center',
+            style: {
+              background: '#911932',
+              minHeight: '100vh'
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'Separator',
+                        options: {
+                          className: '',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
+                          style: {}
+                        }
+                      },
+                      {
+                        name: 'ProductsTabPanel',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          type: 'group',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '40px 0px 16px 10px'
+                          },
+                          list: [
+                            {
+                              type: 'product',
+                              label: 'تایتان: جمع بندی سطح بالا',
+                              rowStyle: {
+                                justifyContent: 'flex-start'
+                              },
+                              products: [
+                                980,
+                                979,
+                                978
+                              ]
+                            }
+                          ],
+                          productGroupLayout: 'shelf',
+                          rowLayout: 'scroll',
+                          shelfRowLabelStyle: {
+                            color: '#FB4D7A',
+                            fontSize: '28px',
+                            textAlign: 'center'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'TextWidget',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '20px 0px 16px 10px',
+                            marginTop: ''
+                          },
+                          text: '<div style="text-align: center;"><font color="#ffffff">مشاهده تک درس ها</font><br></div>',
+                          color: '#3D3F46',
+                          customClass: 'text-center',
+                          fontFamily: '',
+                          xs: {
+                            fontSize: '14px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          sm: {
+                            fontSize: '18px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          md: {
+                            fontSize: '20px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          lg: {
+                            fontSize: '22px',
+                            fontWeight: '400',
+                            fontStyle: 'normal'
+                          },
+                          xl: {
+                            fontSize: '26px',
+                            fontWeight: '500',
+                            fontStyle: 'normal'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
+                    }
+                  },
+                  {
+                    widgets: [
+                      {
+                        name: 'ImageWidget',
+                        options: {
+                          className: '',
+                          boxed: true,
+                          boxedWidth: 1200,
+                          imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
+                          xs: {
+                            height: '150px',
+                            width: '300px'
+                          },
+                          sm: {
+                            height: '150px',
+                            width: '300px'
+                          },
+                          md: {
+                            height: '300px',
+                            width: '500px'
+                          },
+                          lg: {
+                            height: '300px',
+                            width: '500px'
+                          },
+                          xl: {
+                            height: '300px',
+                            width: '500px'
+                          }
+                        }
+                      }
+                    ],
+                    options: {
+                      className: '',
+                      style: {},
+                      colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: true,
+                  boxedWidth: 1362
+                }
+              }
+            ]
+          },
+          options: {
+            fullHeight: true,
+            verticalAlign: 'center',
+            style: {
+              background: '#911932',
+              minHeight: '100vh'
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'TextWidget',
+                        options: {
+                          className: '',
+                          height: 'auto',
+                          boxed: false,
+                          boxedWidth: 1200,
+                          style: {
+                            padding: '20px 0px 16px 10px',
+                            marginTop: ''
+                          },
+                          text: '<div style="text-align: center;"><font color="#ffffff">رشته مورد نظر را انتخاب کنید</font></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
                           fontFamily: '',
@@ -720,7 +1185,7 @@ export default {
                             padding: '20px 0px 16px 10px',
                             marginTop: ''
                           },
-                          text: '<div style="text-align: center;">سوالات متداول</div>',
+                          text: '<div style="text-align: center;"><font color="#ffffff">سوالات متداول</font></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
                           fontFamily: '',

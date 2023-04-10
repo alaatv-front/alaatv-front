@@ -130,7 +130,8 @@ const routes = [
             path: 'landing',
             name: 'Public.Landing',
             layoutConfig: {
-              layoutHeader: false
+              layoutHeader: false,
+              layoutFooter: false
             },
             children: [
               {

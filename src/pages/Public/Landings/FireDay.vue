@@ -2032,7 +2032,7 @@ export default {
                         name: 'ImageWidget',
                         options: {
                           className: '',
-                          height: 'auto',
+                          height: '',
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/110/4.png',
