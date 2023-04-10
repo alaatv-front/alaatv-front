@@ -11,6 +11,7 @@
         </div>
         <q-select v-model="setTitle"
                   :options="setOptions"
+                  behavior="menu"
                   class="select-set q-px-md" />
       </div>
       <div v-else
