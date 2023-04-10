@@ -4,23 +4,16 @@
        :class="options.className"
        :style="options.style">
     <q-card class="previewSetsOfProduct custom-card q-mb-md">
-      <div v-if="product.loading"
-           class="q-py-md">
-        <q-skeleton type="QToolbar" />
-      </div>
       <div v-if="setOptions.length > 0"
            class="box bg-primary q-pa-md q-mb-sm row">
         <div class="q-my-md text-white text-subtitle1 text-weight-bolder title">
           انتخاب دوره
         </div>
         <q-select v-model="setTitle"
-                  :options="filteredOptions"
-                  behavior="menu"
-                  use-input
-                  class="select-set q-px-md"
-                  @filter="filterSetTitle" />
+                  :options="setOptions"
+                  class="select-set q-px-md" />
       </div>
-      <div v-else-if="!product.loading"
+      <div v-else
            class="bg-primary q-pa-md q-mb-sm text-white flex justify-center">
         دوره ای وجود ندارد
       </div>
@@ -38,18 +31,21 @@
           <span>جزوات</span>
         </q-tab>
       </q-tabs>
-      <q-tab-panels v-if="!loadingSet && (pamphlets.length > 0 || videos.length > 0)"
+      <q-tab-panels v-if="pamphlets.length > 0 || videos.length > 0"
                     v-model="tab"
                     animated
                     transition-prev="scale"
                     transition-next="scale"
-                    class="bg-white text-black text-center tab-panels">
+                    class="bg-white text-black text-center">
         <q-tab-panel name="videos">
           <div v-if="videos.length > 0"
                v-dragscroll
                class="contents-block">
-            <block-component class="block"
-                             :options="getBlockOptions" />
+            <div v-for="video in videos"
+                 :key="video.id">
+              <content-item class="q-mr-md"
+                            :options="video" />
+            </div>
           </div>
           <q-banner v-else
                     inline-actions
@@ -102,15 +98,10 @@
                     class="bg-grey-2 text-primary">جزوه ای وجود ندارد</q-banner>
         </q-tab-panel>
       </q-tab-panels>
-      <q-banner v-else-if="!product.loading && !loadingSet"
+      <q-banner v-else
                 inline-actions
                 rounded
                 class="bg-grey-2 text-primary text-center">محتوایی وجود ندارد</q-banner>
-      <div v-if="product.loading || loadingSet"
-           class="q-py-md">
-        <q-skeleton type="QToolbar" />
-      </div>
-
     </q-card>
   </div>
 </template>
@@ -119,15 +110,14 @@
 import { Set } from 'src/models/Set.js'
 import { dragscroll } from 'vue-dragscroll'
 import { Product } from 'src/models/Product.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { ContentList } from 'src/models/Content'
-import { Block } from 'src/models/Block.js'
-import BlockComponent from 'components/Widgets/Block/Block.vue'
+import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
 export default {
   name: 'ProductContents',
   components: {
-    BlockComponent
+    ContentItem
   },
   directives: {
     dragscroll
@@ -143,7 +133,6 @@ export default {
   },
   data() {
     return {
-      loadingSet: false,
       set: new Set(),
       product: new Product(),
       index: null,
@@ -151,21 +140,10 @@ export default {
       videos: [],
       pamphlets: [],
       setTitle: null,
-      setOptions: [],
-      contents: new ContentList(),
-      filteredOptions: []
+      setOptions: []
     }
   },
   computed: {
-    getBlockOptions () {
-      return {
-        block: new Block({
-          title: '',
-          contents: this.contents
-        }),
-        gridView: this.options.contentGridView
-      }
-    },
     productId () {
       if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
         return this.options.productId
@@ -182,87 +160,41 @@ export default {
   watch: {
     options: {
       handler() {
-        this.setProduct()
+        this.getProduct()
       },
       deep: true
     },
     setTitle(newVal) {
-      if (!newVal) {
-        return
-      }
       const set = this.product.sets.list.filter(set => set.title === newVal)
       this.getSet(set[0].id)
-    },
-    setOptions(newVal) {
-      this.filteredOptions = newVal
     }
   },
   methods: {
-    filterSetTitle (val, update) {
-      if (val === '') {
-        update(() => {
-          this.filteredOptions = this.setOptions
-        })
-        return
-      }
-
-      update(() => {
-        const needle = val.toLowerCase()
-        this.filteredOptions = this.setOptions.filter(v => v.indexOf(needle) > -1)
-      })
-    },
-    setProductSets (product) {
-      this.setOptions = product.sets.list.map(set => set.title)
-      if (this.setOptions.length === 0) {
-        this.product.loading = false
-        return
-      }
-      this.setTitle = this.setOptions[0]
-    },
-    setProduct () {
-      this.product.loading = true
-      if (this.options.product.id) {
-        this.product = this.options.product
-        this.setProductSets(this.product)
-        this.product.loading = false
-        return
-      }
-      this.getProduct().then((data) => {
-        this.product = data
-        this.setProductSets(this.product)
-        this.product.loading = false
-      })
-        .catch(() => {
-          this.product.loading = false
-        })
-    },
     prefetchServerDataPromise () {
-      if (this.options.product?.id || !this.productId) {
-        return new Promise((resolve) => {
-          resolve(new Product())
-        })
-      }
       this.product.loading = true
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
       this.product = data
-      this.setProductSets(this.product)
+      this.product.sets.list.forEach(set => {
+        this.setOptions.push(set.title)
+      })
+      if (this.setOptions.length === 0) {
+        this.product.loading = false
+        return
+      }
+      this.setTitle = this.setOptions[0]
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
     getProduct() {
-      return this.$apiGateway.product.show(this.productId)
+      return APIGateway.product.show(this.productId)
     },
     getSet(id) {
-      this.loadingSet = true
-      this.$apiGateway.set.show(id)
+      APIGateway.set.show(id)
         .then(set => {
-          this.videos = []
-          this.pamphlets = []
-          this.contents = set.contents
           set.contents.list.forEach(content => {
             if (content.isVideo()) {
               this.videos.push(content)
@@ -270,10 +202,6 @@ export default {
               this.pamphlets.push(content)
             }
           })
-          this.loadingSet = false
-        })
-        .catch(() => {
-          this.loadingSet = false
         })
     }
   }
@@ -292,7 +220,6 @@ export default {
     .box {
       justify-content: space-between;
       align-items: center;
-      box-shadow: none;
       @media screen and (max-width: 1024px) {
         justify-content: center;
       }
@@ -310,9 +237,6 @@ export default {
         margin-bottom: 20px;
       }
     }
-    .tab-panels {
-      padding-top: 0;
-    }
     .contents-block {
       display: flex;
       overflow: auto;
@@ -326,33 +250,6 @@ export default {
       .pdf-icon {
         width: 100px;
         height: 100px;
-      }
-      .block {
-        margin-bottom: 0;
-        :deep(.scroll-view) {
-          overflow-x: hidden;
-        }
-        :deep(.block-header) {
-          justify-content: normal;
-        }
-        :deep(.block-item-box){
-          display: none;
-        }
-        :deep(.q-tab-panel){
-          padding-top: 0;
-        }
-        :deep(.block-header) {
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-        :deep(.item-container) {
-          .content-spacing{
-            width: 290px;
-          }
-        }
-        :deep(.content-item-box) {
-          width: auto;
-        }
       }
     }
   }
