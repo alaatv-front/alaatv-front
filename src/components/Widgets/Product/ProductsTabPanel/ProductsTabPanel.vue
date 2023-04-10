@@ -1,56 +1,28 @@
 <template>
-  <div class="products-tab-panel-container"
+  <div v-if="productGroupLayout === 'tab'"
+       class="products-tab-"
        :style="options.style"
        :class="options.className">
-    <div class="tabs-wrapper">
-      <q-tabs v-model="tab"
-              active-color="primary"
-              active-bg-color="white"
-              indicator-color="white"
-              class="product-tabs">
-        <q-tab v-for="(tab, index) in tabsList"
-               :key="index"
-               :name="tab.name"
-               :label="tab.label"
-               :icon="tab.icon"
-               class="product-tab"
-               content-class="product-tab-content" />
-      </q-tabs>
-    </div>
-    <div class="tab-panels-wrapper">
-      <q-tab-panels v-model="tab"
-                    animated
-                    class="product-tab-panels">
-        <q-tab-panel v-for="(tab, index) in tabsList"
-                     :key="index"
-                     :name="tab.name"
-                     class="product-tab-panel">
-          <div v-if="tab.specialProducts"
-               class="product-panel-spacial-content">
-            <product-item v-for="(product, index) in tab.specialProducts"
-                          :key="index"
-                          :options="{productId: product}"
-                          class="product-item" />
-          </div>
-          <div class="product-panel-content">
-            <product-item v-for="(product, index) in tab.products"
-                          :key="index"
-                          :options="{productId: product}"
-                          class="product-item" />
-          </div>
-        </q-tab-panel>
-      </q-tab-panels>
-    </div>
+    <product-tab :layout="options.rowLayout"
+                 :itemList="groups" /></div>
+  <div v-else-if="productGroupLayout === 'shelf'"
+       class="product-shelf-row">
+    <product-shelf :itemList="groups"
+                   :layout="options.rowLayout"
+                   :rowStyle="options.rowStyle"
+                   :labelStyle="options.shelfRowLabelStyle" />
   </div>
 </template>
 
 <script>
-import ProductItem from '../ProductItem/ProductItem.vue'
+import ProductTab from './components/ProductTab.vue'
+import ProductShelf from './components/ProductShelf.vue'
 
 export default {
   name: 'ProductsTabPanel',
   components: {
-    ProductItem
+    ProductTab,
+    ProductShelf
   },
   props: {
     options: {
@@ -65,7 +37,8 @@ export default {
       title: '',
       subtitle: '',
       tab: '',
-      tabsList: []
+      groups: [],
+      productGroupLayout: ''
     }
   },
   watch: {
@@ -80,8 +53,8 @@ export default {
   },
   methods: {
     loadConfig() {
-      this.tabsList = this.options.tabsList
-      this.tab = this.options.tabsList[0]?.name
+      this.groups = this.options.list
+      this.productGroupLayout = this.options.productGroupLayout
     }
   }
 }
@@ -146,34 +119,31 @@ export default {
     .product-tab-panels {
       background: transparent;
       .product-tab-panel {
-        .product-panel-spacial-content {
-          display: flex;
-          overflow-x: auto;
-          justify-content: space-between;
-          align-items: center;
-          padding: 15px 15px 5px;
-          border-radius: 30px;
-          background: #F9F4EF;
-          @media screen and (max-width: 600px){
-            flex-direction: column;
-          }
-        }
         .product-panel-content {
-          display: flex;
-          overflow-x: auto;
           justify-content: space-between;
-          align-items: center;
           padding: 40px 0;
           width: 100%;
 
+          &.special {
+            padding: 15px 15px 5px;
+            border-radius: 30px;
+            background: #F9F4EF;
+          }
+
           @media screen and (max-width: 600px){
-            flex-direction: column;
             padding: 0;
+
+            &.special {
+              padding: 5px;
+            }
           }
         }
       }
     }
 
   }
+}
+.product-shelf-row {
+
 }
 </style>

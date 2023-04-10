@@ -399,12 +399,12 @@ export default {
                             width: '500px'
                           },
                           lg: {
-                            height: '400px',
-                            width: '1200px'
+                            height: '491px',
+                            width: '1385px'
                           },
                           xl: {
-                            height: '400px',
-                            width: '1200px'
+                            height: '491px',
+                            width: '1385px'
                           }
                         }
                       }
@@ -554,49 +554,127 @@ export default {
                         options: {
                           className: '',
                           height: 'auto',
+                          type: 'group',
                           boxed: true,
                           boxedWidth: 1200,
                           style: {
                             padding: '40px 0px 16px 10px'
                           },
-                          tabsList: [
+                          list: [
                             {
-                              name: 'riazi',
+                              className: '',
+                              height: 'auto',
+                              type: 'group',
+                              boxed: true,
+                              boxedWidth: 1200,
+                              style: {
+                                padding: '40px 0px 16px 10px'
+                              },
                               label: 'ریاضی',
-                              products: [
-                                980,
-                                979,
-                                978,
-                                976
+                              list: [
+                                {
+                                  type: 'product',
+                                  label: 'آرش',
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                },
+                                {
+                                  type: 'product',
+                                  label: 'آرش و تایتان',
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                },
+                                {
+                                  type: 'product',
+                                  label: 'تایتان',
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                }
                               ],
-                              spacialProducts: [
-                                980,
-                                979,
-                                978,
-                                976
-                              ]
+                              productGroupLayout: 'tab',
+                              rowLayout: 'scroll',
+                              shelfRowLabelStyle: {
+                                color: '#ffffff',
+                                fontSize: '28px',
+                                textAlign: 'center'
+                              }
                             },
                             {
-                              name: 'tajrobi',
+                              className: '',
+                              height: 'auto',
+                              type: 'group',
+                              boxed: true,
+                              boxedWidth: 1200,
+                              style: {
+                                padding: '40px 0px 16px 10px'
+                              },
                               label: 'تجربی',
-                              products: [
-                                980,
-                                979,
-                                978,
-                                976
-                              ]
-                            },
-                            {
-                              name: 'ensani',
-                              label: 'انسانی',
-                              products: [
-                                980,
-                                979,
-                                978,
-                                976
-                              ]
+                              list: [
+                                {
+                                  type: 'product',
+                                  label: 'آرش',
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                },
+                                {
+                                  type: 'product',
+                                  label: 'آرش و تایتان',
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                },
+                                {
+                                  type: 'product',
+                                  label: 'تایتان',
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                }
+                              ],
+                              productGroupLayout: 'tab',
+                              rowLayout: 'scroll',
+                              shelfRowLabelStyle: {
+                                color: '#ffffff',
+                                fontSize: '28px',
+                                textAlign: 'center'
+                              }
                             }
-                          ]
+                          ],
+                          productGroupLayout: 'tab',
+                          rowLayout: 'scroll',
+                          shelfRowLabelStyle: {
+                            color: '#ffffff',
+                            fontSize: '28px',
+                            textAlign: 'center'
+                          }
                         }
                       }
                     ],

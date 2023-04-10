@@ -2514,26 +2514,51 @@ export default {
                           style: {
                             padding: '40px 0px 16px 10px'
                           },
-                          tabsList: [
+                          productGroupLayout: 'tab',
+                          rowLayout: 'grid',
+                          type: 'group',
+                          list: [
                             {
-                              name: 'riazi',
+                              className: '',
+                              height: 'auto',
+                              boxed: true,
+                              boxedWidth: 1200,
+                              style: {
+                                padding: '40px 0px 16px 10px'
+                              },
+                              productGroupLayout: 'shelf',
+                              rowLayout: 'grid',
+                              type: 'group',
                               label: 'ریاضی',
-                              products: [
-                                980,
-                                979,
-                                978,
-                                976
-                              ],
-                              spacialProducts: [
-                                980,
-                                979,
-                                978,
-                                976
+                              list: [
+                                {
+                                  type: 'product',
+                                  rowStyle: {
+                                    background: '#F9F4EF',
+                                    padding: '15px 15px 5px',
+                                    borderRadius: '10px'
+                                  },
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                },
+                                {
+                                  type: 'product',
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                }
                               ]
                             },
                             {
-                              name: 'tajrobi',
                               label: 'تجربی',
+                              type: 'product',
                               products: [
                                 980,
                                 979,
@@ -2542,8 +2567,8 @@ export default {
                               ]
                             },
                             {
-                              name: 'ensani',
                               label: 'انسانی',
+                              type: 'product',
                               products: [
                                 980,
                                 979,
