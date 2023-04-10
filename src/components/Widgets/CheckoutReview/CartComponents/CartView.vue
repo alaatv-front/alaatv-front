@@ -172,12 +172,12 @@
 </template>
 
 <script>
-import Widgets from 'components/PageBuilder/Widgets'
 import { Product } from 'src/models/Product'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'cartView',
-  mixins: [Widgets],
+  mixins: [mixinWidget],
 
   props: {
     getData: {

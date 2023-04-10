@@ -197,12 +197,12 @@
 </template>
 
 <script>
-import Widgets from 'components/PageBuilder/Widgets'
 import Addresses from 'src/api/Addresses.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'CartInvoice',
-  mixins: [Widgets],
+  mixins: [mixinWidget],
   props: {
     data: {
       type: Object,

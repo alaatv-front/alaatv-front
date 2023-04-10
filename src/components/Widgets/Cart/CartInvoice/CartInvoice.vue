@@ -262,7 +262,7 @@
 // import { computed } from 'vue'
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
-import Widgets from 'src/mixin/Widgets.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 // import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import AuthLogin from 'components/Auth.vue'
 
@@ -277,7 +277,7 @@ if (typeof window !== 'undefined') {
 export default {
   name: 'CartInvoice',
   components: { AuthLogin },
-  mixins: [Widgets],
+  mixins: [mixinWidget],
   // provide() {
   //   return {
   //     scrollInfo: computed(() => this.scrollInfo)
