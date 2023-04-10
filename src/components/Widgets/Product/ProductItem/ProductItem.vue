@@ -1,7 +1,7 @@
 <template>
   <q-card v-if="loading"
           class="product-item-box q-pa-md"
-          :style="{minWidth: localOptions.minWidth}">
+          :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
     <div style="max-width: 300px">
       <q-skeleton height="270px"
                   square
@@ -51,7 +51,7 @@
   </q-card>
   <q-card v-else
           class="product-item-box"
-          :style="{minWidth: localOptions.minWidth}">
+          :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
     <div class="img-box">
       <router-link :to="getRoutingObject">
         <lazy-img :src="product.photo"
