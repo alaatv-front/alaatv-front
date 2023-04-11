@@ -53,7 +53,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
@@ -113,14 +113,14 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
                   }
                 ],
                 options: {
-                  className: '',
+                  className: null,
                   height: 'auto',
                   boxed: true,
                   boxedWidth: '1200',
@@ -140,18 +140,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '100px 0 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;">فقط <font color="#ff8f00">3ماه</font>،تا موفقیت در کنکور</div>',
                           color: '#ffffff',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '20px',
                             fontWeight: '400',
@@ -182,18 +182,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '40px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: 'پیشنهاد ویژه آلاء برای آلایی هایی که زمان کمی تا کنکور دارن و می‌خوان کاملا کنکوری همه دروس رو فقط در عرض<font color="#ff8f00">3 ماه</font> از صفر با درسنامه‌ای کامل و حل صد ها تست یاد بگیرند.',
                           color: '#ffffff',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -237,7 +237,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12'
                     }
@@ -247,7 +247,7 @@ export default {
                       {
                         name: 'VideoPlayerWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           style: {
                             padding: '25px'
@@ -259,7 +259,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12'
                     }
@@ -286,7 +286,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {
                         display: 'flex',
                         justifyContent: 'center'
@@ -378,7 +378,7 @@ export default {
                           text: '<div style="text-align: center;">با فوریت 110 آلاء تا کنکور</div>',
                           color: '#3D3F46',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '18px',
                             fontWeight: '400',
@@ -408,7 +408,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -426,19 +426,19 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '10px 0px 16px 10px',
-                            marginTop: '',
+                            marginTop: null,
                             marginBottom: '20px'
                           },
                           text: '<div style="text-align: center;">فقط توی 3 ماه، کل نکات کنکور بهت آموزش میده</div>',
                           color: '#3D3F46',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -468,7 +468,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
@@ -493,7 +493,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12 col-md-4'
                     }
@@ -510,7 +510,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12 col-md-4'
                     }
@@ -527,14 +527,14 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12 col-md-4'
                     }
                   }
                 ],
                 options: {
-                  className: '',
+                  className: null,
                   height: 'auto',
                   boxed: true,
                   boxedWidth: 1362,
@@ -566,7 +566,7 @@ export default {
                           text: '<div style="text-align: center;">بخشی از رتبه برتر های آلاء در کنکور سال قبل<br></div>',
                           color: '#3D3F46',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -596,7 +596,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
@@ -1836,14 +1836,14 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
                   }
                 ],
                 options: {
-                  className: '',
+                  className: null,
                   height: 'auto',
                   boxed: false,
                   boxedWidth: 1362,
@@ -1863,7 +1863,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -1874,7 +1874,7 @@ export default {
                           text: '<div style="text-align: center;"><b>دوره فوریت کنکور 110 آلاء، جمع بندی نیست؛</b></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '500',
@@ -1904,7 +1904,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
@@ -1922,18 +1922,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '10px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;"><b><font color="#ff8f00">سریع ترین دوره جامع کنکور</font> آلاست.</b></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '500',
@@ -1963,7 +1963,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -1981,7 +1981,7 @@ export default {
                       {
                         name: 'ExpansionPanel',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -2018,10 +2018,10 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {
-                        paddingLeft: '',
-                        paddingRight: ''
+                        paddingLeft: null,
+                        paddingRight: null
                       },
                       colNumber: 'col-md-6'
                     }
@@ -2031,8 +2031,8 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: '',
-                          height: '',
+                          className: null,
+                          height: null,
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/110/4.png',
@@ -2067,7 +2067,7 @@ export default {
                   }
                 ],
                 options: {
-                  className: '',
+                  className: null,
                   height: 'auto',
                   boxed: true,
                   boxedWidth: 1362,
@@ -2102,18 +2102,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;">مقایسه دوره 110 آلاء و راه ابریشم آلاء</div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -2143,7 +2143,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -2161,7 +2161,7 @@ export default {
                       {
                         name: 'ComparisonTable',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -2249,7 +2249,7 @@ export default {
                             {
                               col0: {
                                 type: 'action',
-                                value: ''
+                                value: null
                               },
                               col1: {
                                 type: 'action',
@@ -2365,7 +2365,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
@@ -2397,7 +2397,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -2408,7 +2408,7 @@ export default {
                           text: '<div style="text-align: center;">ثبت نام</div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '18px',
                             fontWeight: '400',
@@ -2438,7 +2438,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
@@ -2448,18 +2448,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;">رشته مورد نظر را انتخاب کنید</div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -2489,7 +2489,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
@@ -2507,7 +2507,7 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -2519,7 +2519,7 @@ export default {
                           type: 'group',
                           list: [
                             {
-                              className: '',
+                              className: null,
                               height: 'auto',
                               boxed: true,
                               boxedWidth: 1200,
@@ -2581,7 +2581,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
@@ -2614,18 +2614,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;">سوالات متداول</div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '18px',
                             fontWeight: '400',
@@ -2655,7 +2655,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -2673,7 +2673,7 @@ export default {
                       {
                         name: 'ExpansionPanel',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -2708,7 +2708,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }

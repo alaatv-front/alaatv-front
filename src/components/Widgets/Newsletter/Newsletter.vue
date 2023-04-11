@@ -66,8 +66,8 @@ export default {
       step: 'signup',
       verification: true,
       userForm: {
-        mobile: '',
-        code: ''
+        mobile: null,
+        code: null
       }
     }
   },

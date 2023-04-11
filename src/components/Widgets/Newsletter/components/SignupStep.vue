@@ -61,7 +61,7 @@ export default {
           this.showMessage(res, 'success')
           this.$emit('updateUser', {
             mobile: this.mobile,
-            code: res.code ? res.code : ''
+            code: res.code ? res.code : null
           })
           this.$emit('gotoNextStep')
           this.setLoading(false)

@@ -49,14 +49,14 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
                   }
                 ],
                 options: {
-                  className: '',
+                  className: null,
                   height: 'auto',
                   boxed: true,
                   boxedWidth: '1200',
@@ -76,18 +76,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '100px 0 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: right;">خودت رو برای هر قرعه‌ای آماده کن!<br></div>',
                           color: '#ffffff',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '20px',
                             fontWeight: '400',
@@ -118,18 +118,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '40px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: 'با جمع بندی های آلاء، مهم نیست قرعه به چه گروهی بیفته چون برنده تویی ...',
                           color: '#ffffff',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -159,7 +159,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12'
                     }
@@ -169,7 +169,7 @@ export default {
                       {
                         name: 'VideoPlayerWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           style: {
                             padding: '25px'
@@ -181,7 +181,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12'
                     }
@@ -208,7 +208,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {
                         display: 'flex',
                         justifyContent: 'center'
@@ -300,7 +300,7 @@ export default {
                           text: '<div style="text-align: right;"><font color="#fb4d7a">جمع‌بندی آرش آلاء</font></div>',
                           color: '#3D3F46',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '18px',
                             fontWeight: '400',
@@ -337,12 +337,12 @@ export default {
                           boxedWidth: 1200,
                           style: {
                             padding: '40px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div><font color="#ffffff">مربی: من نیاز دارم کل مباحث هر سه سال کنکور رو با درسنامۀ فشرده و ترکیبی و کلی تست یک‌جا جمع‌بندی کنم.</font></div><div><font color="#ffffff">آنالیزور: پس به هر درصدی که بخوایی برسی و تو هر سطحی که هستی، آرش نیاز اساسی توِئه.</font></div>',
                           color: '#3D3F46',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -372,7 +372,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -382,7 +382,7 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: '',
+                          className: null,
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
@@ -442,7 +442,7 @@ export default {
                       {
                         name: 'Separator',
                         options: {
-                          className: '',
+                          className: null,
                           boxed: false,
                           boxedWidth: 1200,
                           image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
@@ -452,7 +452,7 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           type: 'group',
                           boxed: true,
@@ -485,7 +485,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -503,18 +503,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;"><font color="#ffffff">مشاهده تک درس ها</font><br></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -544,7 +544,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
@@ -554,7 +554,7 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: '',
+                          className: null,
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
@@ -582,7 +582,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
@@ -614,7 +614,7 @@ export default {
                       {
                         name: 'Separator',
                         options: {
-                          className: '',
+                          className: null,
                           boxed: false,
                           boxedWidth: 1200,
                           image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
@@ -624,7 +624,7 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           type: 'group',
                           boxed: true,
@@ -657,7 +657,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -675,18 +675,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;"><font color="#ffffff">مشاهده تک درس ها</font><br></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -716,7 +716,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
@@ -726,7 +726,7 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: '',
+                          className: null,
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
@@ -754,7 +754,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
@@ -786,7 +786,7 @@ export default {
                       {
                         name: 'Separator',
                         options: {
-                          className: '',
+                          className: null,
                           boxed: false,
                           boxedWidth: 1200,
                           image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
@@ -796,7 +796,7 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           type: 'group',
                           boxed: true,
@@ -829,7 +829,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -847,18 +847,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;"><font color="#ffffff">مشاهده تک درس ها</font><br></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -888,7 +888,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
@@ -898,7 +898,7 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: '',
+                          className: null,
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
@@ -926,7 +926,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
@@ -958,18 +958,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;"><font color="#ffffff">رشته مورد نظر را انتخاب کنید</font></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -999,7 +999,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
@@ -1017,7 +1017,7 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           type: 'group',
                           boxed: true,
@@ -1027,7 +1027,7 @@ export default {
                           },
                           list: [
                             {
-                              className: '',
+                              className: null,
                               height: 'auto',
                               type: 'group',
                               boxed: true,
@@ -1080,7 +1080,7 @@ export default {
                               }
                             },
                             {
-                              className: '',
+                              className: null,
                               height: 'auto',
                               type: 'group',
                               boxed: true,
@@ -1144,7 +1144,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
@@ -1177,18 +1177,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
                           text: '<div style="text-align: center;"><font color="#ffffff">سوالات متداول</font></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '18px',
                             fontWeight: '400',
@@ -1218,7 +1218,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
@@ -1236,7 +1236,7 @@ export default {
                       {
                         name: 'ExpansionPanel',
                         options: {
-                          className: '',
+                          className: null,
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -1326,7 +1326,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
+                      className: null,
                       style: {},
                       colNumber: 'col-12'
                     }
