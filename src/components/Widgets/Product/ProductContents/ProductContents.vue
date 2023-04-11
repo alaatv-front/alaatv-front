@@ -237,7 +237,7 @@ export default {
         })
     },
     prefetchServerDataPromise () {
-      if (this.options.product.id || !this.productId) {
+      if (this.options.product?.id || !this.productId) {
         return new Promise((resolve) => {
           resolve(new Product())
         })
