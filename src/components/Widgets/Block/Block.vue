@@ -109,7 +109,8 @@ export default {
         return {
           style: {},
           apiName: null,
-          block: new Block()
+          block: new Block(),
+          gridView: false
         }
       }
     }
@@ -143,6 +144,7 @@ export default {
     options: {
       handler() {
         this.block = new Block(this.options.block)
+        this.isGridView = this.options?.gridView || this.isGridView
       },
       deep: true
     }
@@ -153,6 +155,9 @@ export default {
     } else {
       this.block = new Block(this.options.block)
     }
+  },
+  mounted () {
+    this.isGridView = this.options?.gridView || this.isGridView
   },
   methods: {
     getBlocksByRequest() {
