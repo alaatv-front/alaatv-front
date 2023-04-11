@@ -4,17 +4,23 @@
        :class="options.className"
        :style="options.style">
     <q-card class="previewSetsOfProduct custom-card q-mb-md">
+      <div v-if="product.loading"
+           class="q-py-md">
+        <q-skeleton type="QToolbar" />
+      </div>
       <div v-if="setOptions.length > 0"
            class="box bg-primary q-pa-md q-mb-sm row">
         <div class="q-my-md text-white text-subtitle1 text-weight-bolder title">
           انتخاب دوره
         </div>
         <q-select v-model="setTitle"
-                  :options="setOptions"
+                  :options="filteredOptions"
                   behavior="menu"
-                  class="select-set q-px-md" />
+                  use-input
+                  class="select-set q-px-md"
+                  @filter="filterSetTitle" />
       </div>
-      <div v-else
+      <div v-else-if="!product.loading"
            class="bg-primary q-pa-md q-mb-sm text-white flex justify-center">
         دوره ای وجود ندارد
       </div>
@@ -32,7 +38,7 @@
           <span>جزوات</span>
         </q-tab>
       </q-tabs>
-      <q-tab-panels v-if="pamphlets.length > 0 || videos.length > 0"
+      <q-tab-panels v-if="!loadingSet && (pamphlets.length > 0 || videos.length > 0)"
                     v-model="tab"
                     animated
                     transition-prev="scale"
@@ -99,10 +105,15 @@
                     class="bg-grey-2 text-primary">جزوه ای وجود ندارد</q-banner>
         </q-tab-panel>
       </q-tab-panels>
-      <q-banner v-else
+      <q-banner v-else-if="!product.loading && !loadingSet"
                 inline-actions
                 rounded
                 class="bg-grey-2 text-primary text-center">محتوایی وجود ندارد</q-banner>
+      <div v-if="product.loading || loadingSet"
+           class="q-py-md">
+        <q-skeleton type="QToolbar" />
+      </div>
+
     </q-card>
   </div>
 </template>
@@ -111,7 +122,6 @@
 import { Set } from 'src/models/Set.js'
 import { dragscroll } from 'vue-dragscroll'
 import { Product } from 'src/models/Product.js'
-import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
@@ -134,6 +144,7 @@ export default {
   },
   data() {
     return {
+      loadingSet: false,
       set: new Set(),
       product: new Product(),
       index: null,
@@ -141,7 +152,8 @@ export default {
       videos: [],
       pamphlets: [],
       setTitle: null,
-      setOptions: []
+      setOptions: [],
+      filteredOptions: []
     }
   },
   computed: {
@@ -161,41 +173,86 @@ export default {
   watch: {
     options: {
       handler() {
-        this.getProduct()
+        this.setProduct()
       },
       deep: true
     },
     setTitle(newVal) {
+      if (!newVal) {
+        return
+      }
       const set = this.product.sets.list.filter(set => set.title === newVal)
       this.getSet(set[0].id)
+    },
+    setOptions(newVal) {
+      this.filteredOptions = newVal
     }
   },
   methods: {
-    prefetchServerDataPromise () {
-      this.product.loading = true
-      return this.getProduct()
-    },
-    prefetchServerDataPromiseThen (data) {
-      this.product = data
-      this.product.sets.list.forEach(set => {
-        this.setOptions.push(set.title)
+    filterSetTitle (val, update) {
+      if (val === '') {
+        update(() => {
+          this.filteredOptions = this.setOptions
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.filteredOptions = this.setOptions.filter(v => v.indexOf(needle) > -1)
       })
+    },
+    setProductSets (product) {
+      this.setOptions = product.sets.list.map(set => set.title)
       if (this.setOptions.length === 0) {
         this.product.loading = false
         return
       }
       this.setTitle = this.setOptions[0]
+    },
+    setProduct () {
+      this.product.loading = true
+      if (this.options.product.id) {
+        this.product = this.options.product
+        this.setProductSets(this.product)
+        this.product.loading = false
+        return
+      }
+      this.getProduct().then((data) => {
+        this.product = data
+        this.setProductSets(this.product)
+        this.product.loading = false
+      })
+        .catch(() => {
+          this.product.loading = false
+        })
+    },
+    prefetchServerDataPromise () {
+      if (this.options.product.id || !this.productId) {
+        return new Promise((resolve) => {
+          resolve(new Product())
+        })
+      }
+      this.product.loading = true
+      return this.getProduct()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.product = data
+      this.setProductSets(this.product)
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
     getProduct() {
-      return APIGateway.product.show(this.productId)
+      return this.$apiGateway.product.show(this.productId)
     },
     getSet(id) {
-      APIGateway.set.show(id)
+      this.loadingSet = true
+      this.$apiGateway.set.show(id)
         .then(set => {
+          this.videos = []
+          this.pamphlets = []
           set.contents.list.forEach(content => {
             if (content.isVideo()) {
               this.videos.push(content)
@@ -203,6 +260,10 @@ export default {
               this.pamphlets.push(content)
             }
           })
+          this.loadingSet = false
+        })
+        .catch(() => {
+          this.loadingSet = false
         })
     }
   }
@@ -221,6 +282,7 @@ export default {
     .box {
       justify-content: space-between;
       align-items: center;
+      box-shadow: none;
       @media screen and (max-width: 1024px) {
         justify-content: center;
       }
