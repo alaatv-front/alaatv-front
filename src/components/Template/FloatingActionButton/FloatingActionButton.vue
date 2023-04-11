@@ -1,6 +1,7 @@
 <template>
   <q-page-sticky position="bottom-left"
-                 :offset="fabPos">
+                 :offset="fabPos"
+                 class="floating-action-btn-page-builder">
     <q-fab v-model="pageOptionsFloatingActionButton"
            v-touch-pan.prevent.mouse="moveFab"
            :persistent="true"
@@ -169,6 +170,17 @@ export default {
       pageOptionsFloatingActionButton: false
     }
   },
+  computed: {
+    canShowDynamicSettings () {
+      return this.hasDynamicSetting || this.hasDynamicSettingWithParams
+    },
+    hasDynamicSetting () {
+      return !!this.$route.meta?.hasDynamicSetting
+    },
+    hasDynamicSettingWithParams () {
+      return !!this.$route.meta?.hasDynamicSettingWithParams
+    }
+  },
   created () {
     this.loadDefaultSeoData()
   },
@@ -189,8 +201,8 @@ export default {
     updateSetting () {
       const params = JSON.stringify(this.$route.params)
       const routeName = this.$route.name
-      const key = 'route_name:' + routeName + '-params:' + params
-      const sections = this.$store.getters['PageBuilder/currentSections']
+      const key = 'route_name:' + routeName + (this.hasDynamicSettingWithParams ? ('-params:' + params) : '')
+      const sections = this.$store.getters['PageBuilder/currentSections'] ? this.$store.getters['PageBuilder/currentSections'] : []
       const seo = {
         title: this.$store.getters['SEO/title'],
         description: this.$store.getters['SEO/description'],
@@ -205,7 +217,7 @@ export default {
       }).getStringifyValue()
       APIGateway.pageSetting.update({ key, value })
         .then(() => {
-          this.currenSections = []
+          this.currenSections = sections
           this.$store.commit('PageBuilder/updatePageBuilderEditable', false)
         })
     },
@@ -267,6 +279,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.floating-action-btn-page-builder {
+  z-index: 2001;
+}
+</style>
 
 <style lang="scss">
 .seo-option-panel-in-floating-btn {
