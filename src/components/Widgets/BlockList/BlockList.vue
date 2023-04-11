@@ -1,5 +1,5 @@
 <template>
-  <div :style="defaultOptions.style">
+  <div :style="localOptions.style">
     <template v-if="blocks.loading">
       <q-skeleton height="100px"
                   class="q-mb-sm" />
@@ -35,8 +35,6 @@ export default {
       defaultOptions: {
         className: '',
         height: 'auto',
-        boxed: false,
-        boxedWidth: 1200,
         style: {},
         from: 0,
         to: -1
