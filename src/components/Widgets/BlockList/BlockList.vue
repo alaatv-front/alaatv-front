@@ -1,5 +1,5 @@
 <template>
-  <div :style="options.style">
+  <div :style="localOptions.style">
     <template v-if="blocks.loading">
       <q-skeleton height="100px"
                   class="q-mb-sm" />
@@ -22,28 +22,19 @@
 
 <script>
 import { BlockList } from 'src/models/Block.js'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import Block from 'src/components/Widgets/Block/Block.vue'
-import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'BlockList',
   components: { Block },
-  mixins: [mixinPrefetchServerData],
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
       blocks: new BlockList(),
       defaultOptions: {
         className: '',
         height: 'auto',
-        boxed: false,
-        boxedWidth: 1200,
         style: {},
         from: 0,
         to: -1
@@ -56,7 +47,7 @@ export default {
         return []
       }
 
-      return this.blocks.list.slice(this.options.from, this.options.to)
+      return this.blocks.list.slice(this.defaultOptions.from, this.defaultOptions.to)
     }
   },
   watch: {
@@ -92,14 +83,14 @@ export default {
       this.blocks.loading = false
     },
     getApiRequest() {
-      if (this.options.apiName === 'home') {
+      if (this.defaultOptions.apiName === 'home') {
         return this.$apiGateway.pages.home()
       }
-      if (this.options.apiName === 'shop') {
+      if (this.defaultOptions.apiName === 'shop') {
         return this.$apiGateway.pages.shop()
       }
-      if (this.options.apiName === 'content') {
-        return this.$apiGateway.content.relatedProducts(this.options.contentId)
+      if (this.defaultOptions.apiName === 'content') {
+        return this.$apiGateway.content.relatedProducts(this.defaultOptions.contentId)
       }
 
       return Promise.reject('wrong api name')

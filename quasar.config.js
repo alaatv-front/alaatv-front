@@ -30,7 +30,7 @@ module.exports = configure(function (ctx) {
     },
 
     // https://v2.quasar.dev/quasar-cli/prefetch-feature
-    preFetch: false,
+    preFetch: true,
 
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -47,6 +47,7 @@ module.exports = configure(function (ctx) {
       'api-gateway',
       'registerQPageBuilder',
       'routesLayoutConfigs',
+      'GetRouteSettingFromServer',
       'enums'
     ],
 

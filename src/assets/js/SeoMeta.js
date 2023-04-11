@@ -1,30 +1,46 @@
 class SeoMeta {
-  static getMixin (title1, title2, description) {
+  static getMixin ({
+    title,
+    description,
+    robots,
+    ogTitle,
+    ogUrl,
+    ogDescription,
+    ogImage
+  }) {
     return {
-
-      // sets document title
-      title: title1,
+      title,
       // optional; sets final title as "Index Page - My Website", useful for multiple level meta
-      titleTemplate: title => `${title} ` + title2,
+      // titleTemplate: title => `${title} ` + title2,
 
       // meta tags
       meta: {
         description: { name: 'description', content: description },
+        robots: {
+          name: 'robots',
+          content: robots
+        },
         ogTitle: {
           property: 'og:title',
-          content: title1,
+          content: ogTitle
           // optional; similar to titleTemplate, but allows templating with other meta properties
-          template: ogTitle => `${ogTitle} ` + title2
+          // template: ogTitle => `${ogTitle} ` + title2
+        },
+        ogUrl: {
+          property: 'og:url',
+          content: ogUrl
         },
         ogDescription: {
           property: 'og:description',
-          content: description
+          content: ogDescription
+        },
+        ogImage: {
+          property: 'og:image',
+          content: ogImage
         },
         twitterTitle: {
           property: 'twitter:title',
-          content: title1,
-          // optional; similar to titleTemplate, but allows templating with other meta properties
-          template: twitterTitle => `${twitterTitle} ` + title2
+          content: title
         },
         twitterDescription: {
           property: 'twitter:description',
@@ -32,7 +48,7 @@ class SeoMeta {
         },
         twitterSite: {
           property: 'twitter:site',
-          content: title1
+          content: title
         }
       }
     }
