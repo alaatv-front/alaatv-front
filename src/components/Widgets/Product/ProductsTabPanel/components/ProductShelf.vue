@@ -10,6 +10,7 @@
     <product-shelf-row v-if="isProduct(item)"
                        :products-list="item.products"
                        :layout="item.shelfRowLabelStyle"
+                       :className="item.className"
                        :rowStyle="item.rowStyle" />
     <div v-else
          class="product-content row"

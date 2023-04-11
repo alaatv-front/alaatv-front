@@ -2,13 +2,13 @@
   <div class="product-content-wrapper">
     <div v-if="loading"
          class="product-content row"
-         :class="{'scroll': layout === 'scroll'}"
+         :class="{'scroll': layout === 'scroll',...className}"
          :style="rowStyle">
       <product-row-skeleton :skeletons="4" />
     </div>
     <div v-else
          class="product-content row"
-         :class="{'scroll': layout === 'scroll'}"
+         :class="{'scroll': layout === 'scroll',...className}"
          :style="rowStyle">
       <product-item v-for="(product, index) in products.list"
                     :key="index"
@@ -41,6 +41,10 @@ export default {
     layout: {
       type: String,
       default: 'scroll'
+    },
+    className: {
+      type: [Array, String],
+      default: null
     }
   },
   data() {
