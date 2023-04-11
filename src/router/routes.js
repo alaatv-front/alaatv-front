@@ -151,6 +151,11 @@ const routes = [
                 path: '15',
                 name: 'Public.Landing.Arash',
                 component: () => import('src/pages/Public/Landings/Arash.vue')
+              },
+              {
+                path: '9',
+                name: 'Public.Landing.Taftan',
+                component: () => import('src/pages/Public/Landings/Taftan.vue')
               }
             ]
           }
