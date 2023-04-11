@@ -1,19 +1,21 @@
 <template>
   <div class="services-widget"
        :style="options.style">
-    <div class="services">
-      <a v-for="(service, index) in options.services"
-         :key="index"
-         class="service"
-         :href="service.link"
-         :title="service.title"
-         target="_self">
-        <div class="service-image">
-          <q-img :src="service.icon" />
-        </div>
-        <p class="service-title">{{ service.title }}</p>
-        <p class="service-subtitle">{{ service.subTitle }}</p>
-      </a>
+    <div class="services row q-col-gutter-md q-mt-md justify-center">
+      <div v-for="(service, index) in options.services"
+           :key="index"
+           class="col-xs-4 col-sm-3 col-md-2">
+        <a class="service"
+           :href="service.link"
+           :title="service.title"
+           target="_self">
+          <div class="service-image">
+            <q-img :src="service.icon" />
+          </div>
+          <p class="service-title">{{ service.title }}</p>
+          <p class="service-subtitle">{{ service.subTitle }}</p>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -48,29 +50,23 @@ export default {
   border-radius: 10px;
 
   .services {
-    margin: 20px;
-    max-width: 1600px;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    @media screen and (max-width: 600px){
-      margin: 20px 5px;
-      justify-content: center
-    }
     .service {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 170px;
       color: #000000;
       text-align: center;
+      &:hover, &:focus {
+        .service-image {
+          .q-img {
+            transform: scale(.9);
+          }
+          &:after {
+            transform: rotate(135deg);
+          }
 
-      @media screen and (max-width: 600px){
-        width: 150px;
+        }
       }
-
       .service-image {
         width: 92px;
         height: 92px;
@@ -130,21 +126,6 @@ export default {
         font-size: 12px;
         color: var(--alaa-TextSecondary);
       }
-
-    }
-    .service {
-      &:hover, &:focus {
-        .service-image {
-          .q-img {
-            transform: scale(.9);
-          }
-          &:after {
-            transform: rotate(135deg);
-          }
-
-        }
-      }
-
     }
   }
 }

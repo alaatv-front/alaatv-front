@@ -22,8 +22,8 @@
 
 <script>
 import { BlockList } from 'src/models/Block.js'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import Block from 'src/components/Widgets/Block/Block.vue'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'BlockList',
@@ -34,6 +34,7 @@ export default {
       blocks: new BlockList(),
       defaultOptions: {
         className: '',
+        apiName: 'home',
         height: 'auto',
         style: {},
         from: 0,
@@ -53,13 +54,7 @@ export default {
   watch: {
     options: {
       handler() {
-        this.getApiRequest()
-          .then((data) => {
-            this.prefetchServerDataPromiseThen(data)
-          })
-          .catch(() => {
-            this.prefetchServerDataPromiseCatch()
-          })
+        this.reloadWidget()
       },
       deep: true
     },
@@ -69,10 +64,23 @@ export default {
       })
     }
   },
-
+  // created () {
+  //   console.log('created')
+  // },
+  // mounted () {
+  //   console.log('mounted')
+  // },
   methods: {
+    reloadWidget () {
+      this.getApiRequest()
+        .then((data) => {
+          this.prefetchServerDataPromiseThen(data)
+        })
+        .catch(() => {
+          this.prefetchServerDataPromiseCatch()
+        })
+    },
     prefetchServerDataPromise () {
-      this.blocks.loading = true
       return this.getApiRequest()
     },
     prefetchServerDataPromiseThen (data) {
@@ -83,6 +91,8 @@ export default {
       this.blocks.loading = false
     },
     getApiRequest() {
+      this.blocks.loading = true
+
       if (this.defaultOptions.apiName === 'home') {
         return this.$apiGateway.pages.home()
       }
@@ -98,7 +108,3 @@ export default {
   }
 }
 </script>
-
-<style
-  lang="scss"
-  scoped></style>

@@ -1,47 +1,15 @@
 <template>
-  <q-page-builder v-model:sections="sections"
+  <q-page-builder v-model:sections="currenSections"
                   v-model:options="pageConfig"
-                  :editable="pageBuilderEditable" />
+                  :editable="pageBuilderEditable"
+                  :loading="pageBuilderLoading" />
 </template>
 
 <script>
+import { mixinPrefetchServerData, mixinPageOptions, mixinSEO } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ShopPage',
-  data() {
-    return {
-      pageConfig: {},
-      sections: [
-        {
-          data: {
-            rows: [
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'blockList',
-                        options: {
-                          apiName: 'shop'
-                        }
-                      }
-                    ]
-                  }
-                ],
-                options: {
-                  boxed: true
-                }
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  computed: {
-    pageBuilderEditable() {
-      return this.$store.getters['AppLayout/pageBuilderEditable']
-    }
-  }
+  mixins: [mixinPrefetchServerData, mixinPageOptions, mixinSEO]
 }
 </script>
