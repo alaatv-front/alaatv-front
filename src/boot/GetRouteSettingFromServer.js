@@ -15,6 +15,11 @@ export default boot((context) => {
       return next()
     }
 
+    const currentSections = store.getters['PageBuilder/currentSections']
+    if (currentSections.length > 0) {
+      return next()
+    }
+
     try {
       const params = JSON.stringify(to.params)
       const routeName = to.name
