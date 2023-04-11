@@ -65,8 +65,8 @@ export default {
     return {
       loading: false,
       otpInput: null,
-      bindModal: '',
-      otpValue: '',
+      bindModal: null,
+      otpValue: null,
       canReset: true,
       date: Date.now() + 120000
     }

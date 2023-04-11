@@ -25,9 +25,9 @@ export default {
   },
   data() {
     return {
-      title: '',
-      description: '',
-      img: ''
+      title: null,
+      description: null,
+      img: null
     }
   },
   watch: {

@@ -70,17 +70,17 @@ export default {
     return {
       loading: false,
       otpInput: null,
-      bindModal: '',
+      bindModal: null,
       rules: {
         required: value => !!value || 'این فیلد الزامی است'
       },
       form: {
-        mobile: '',
-        code: '',
-        first_name: '',
-        last_name: '',
-        major_id: '',
-        grade_id: ''
+        mobile: null,
+        code: null,
+        first_name: null,
+        last_name: null,
+        major_id: null,
+        grade_id: null
       },
       stringOptions: {
         major: [],

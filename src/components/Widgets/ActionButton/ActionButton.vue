@@ -27,15 +27,15 @@ export default {
   },
   data() {
     return {
-      color: '',
-      icon: '',
-      label: '',
+      color: null,
+      icon: null,
+      label: null,
       flat: false,
       callBack: null,
-      imageSource: '',
-      className: '',
+      imageSource: null,
+      className: null,
       fixed: false,
-      fixedPosition: '',
+      fixedPosition: null,
       eventArgs: null
     }
   },

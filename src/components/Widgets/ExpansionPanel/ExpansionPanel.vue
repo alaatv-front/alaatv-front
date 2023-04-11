@@ -62,8 +62,8 @@ export default {
   data() {
     return {
       expansionList: [],
-      expandIconClass: '',
-      theme: ''
+      expandIconClass: null,
+      theme: null
     }
   },
   watch: {

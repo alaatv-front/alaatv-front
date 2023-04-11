@@ -41,7 +41,7 @@ export default {
       rules: {
         required: value => !!value || 'این فیلد الزامی است'
       },
-      mobile: ''
+      mobile: null
     }
   },
   methods: {

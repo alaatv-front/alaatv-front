@@ -21,38 +21,35 @@ export default {
   },
   data() {
     return {
-      imageSource: '',
-      ratio: '',
+      imageSource: null,
+      ratio: null,
       windowWidth: 0,
       xs: {
-        height: '',
-        width: '',
-        src: ''
+        height: null,
+        width: null,
+        src: null
       },
       sm: {
-        height: '',
-        width: '',
-        src: ''
+        height: null,
+        width: null,
+        src: null
       },
       md: {
-        height: '',
-        width: '',
-        src: ''
+        height: null,
+        width: null,
+        src: null
       },
       lg: {
-        height: '',
-        width: '',
-        src: ''
+        height: null,
+        width: null,
+        src: null
       },
       xl: {
-        height: '',
-        width: '',
-        src: ''
+        height: null,
+        width: null,
+        src: null
       }
     }
-  },
-  computed: {
-
   },
   watch: {
     options: {

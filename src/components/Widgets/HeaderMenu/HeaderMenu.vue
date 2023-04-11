@@ -50,10 +50,10 @@ export default {
   data() {
     return {
       menuLink: [],
-      logoImage: '',
-      logoSlogan: '',
+      logoImage: null,
+      logoSlogan: null,
       action: false,
-      actionButtonLabel: ''
+      actionButtonLabel: null
     }
   },
   watch: {

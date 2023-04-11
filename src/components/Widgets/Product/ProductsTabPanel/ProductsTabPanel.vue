@@ -34,11 +34,11 @@ export default {
   },
   data() {
     return {
-      title: '',
-      subtitle: '',
-      tab: '',
+      title: null,
+      subtitle: null,
+      tab: null,
       groups: [],
-      productGroupLayout: ''
+      productGroupLayout: null
     }
   },
   watch: {
