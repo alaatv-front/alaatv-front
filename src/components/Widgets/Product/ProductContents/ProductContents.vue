@@ -162,7 +162,8 @@ export default {
         block: new Block({
           title: '',
           contents: this.contents
-        })
+        }),
+        gridView: this.options.contentGridView
       }
     },
     productId () {
