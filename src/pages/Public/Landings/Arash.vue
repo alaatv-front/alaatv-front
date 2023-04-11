@@ -49,14 +49,11 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
                       colNumber: 'col-12'
                     }
                   }
                 ],
                 options: {
-                  className: null,
                   height: 'auto',
                   boxed: true,
                   boxedWidth: '1200',
@@ -76,7 +73,6 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -118,7 +114,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -159,8 +155,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
                       colNumber: 'col-md-6 col-lg-6 col-xl-6 col-sm-12 col-xs-12'
                     }
                   },
@@ -169,7 +163,7 @@ export default {
                       {
                         name: 'VideoPlayerWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           style: {
                             padding: '25px'
@@ -181,8 +175,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
                       colNumber: 'col-md-6 col-sm-12 col-xs-12'
                     }
                   }
@@ -208,7 +200,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
                       style: {
                         display: 'flex',
                         justifyContent: 'center'
@@ -372,8 +363,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   },
@@ -382,7 +371,6 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: null,
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
@@ -411,7 +399,7 @@ export default {
                     ],
                     options: {
                       className: 'flex flex-center',
-                      style: {},
+
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -442,7 +430,6 @@ export default {
                       {
                         name: 'Separator',
                         options: {
-                          className: null,
                           boxed: false,
                           boxedWidth: 1200,
                           image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
@@ -452,7 +439,6 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: null,
                           height: 'auto',
                           type: 'group',
                           boxed: true,
@@ -485,8 +471,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -503,7 +487,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -544,8 +528,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
                   },
@@ -554,7 +537,7 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: null,
+
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
@@ -582,8 +565,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
                   }
@@ -614,7 +596,7 @@ export default {
                       {
                         name: 'Separator',
                         options: {
-                          className: null,
+
                           boxed: false,
                           boxedWidth: 1200,
                           image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
@@ -624,7 +606,7 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           type: 'group',
                           boxed: true,
@@ -657,8 +639,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -675,7 +656,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -716,8 +697,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
                   },
@@ -726,7 +706,7 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: null,
+
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
@@ -754,8 +734,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
                   }
@@ -786,7 +765,7 @@ export default {
                       {
                         name: 'Separator',
                         options: {
-                          className: null,
+
                           boxed: false,
                           boxedWidth: 1200,
                           image: 'https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png',
@@ -796,7 +775,7 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           type: 'group',
                           boxed: true,
@@ -829,8 +808,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -847,7 +825,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -888,8 +866,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
                   },
@@ -898,7 +875,7 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: null,
+
                           boxed: true,
                           boxedWidth: 1200,
                           imageSource: 'https://nodes.alaatv.com/upload/landing/1200.png',
@@ -926,8 +903,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-6 col-sm-12 col-xs-12 col-lg-6 col-xl-6'
                     }
                   }
@@ -958,7 +934,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -999,8 +975,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   }
@@ -1017,7 +992,7 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           type: 'group',
                           boxed: true,
@@ -1027,7 +1002,7 @@ export default {
                           },
                           list: [
                             {
-                              className: null,
+
                               height: 'auto',
                               type: 'group',
                               boxed: true,
@@ -1080,7 +1055,7 @@ export default {
                               }
                             },
                             {
-                              className: null,
+
                               height: 'auto',
                               type: 'group',
                               boxed: true,
@@ -1144,8 +1119,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-12'
                     }
                   }
@@ -1177,7 +1151,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -1218,8 +1192,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -1236,7 +1209,7 @@ export default {
                       {
                         name: 'ExpansionPanel',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -1326,8 +1299,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-12'
                     }
                   }

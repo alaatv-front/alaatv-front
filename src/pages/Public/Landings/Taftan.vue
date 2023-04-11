@@ -29,8 +29,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-12'
                     }
                   }
@@ -89,14 +88,13 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-12'
                     }
                   }
                 ],
                 options: {
-                  className: null,
+
                   height: 'auto',
                   boxed: true,
                   boxedWidth: '1200',
@@ -116,7 +114,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -158,7 +156,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -199,8 +197,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   },
@@ -209,7 +206,7 @@ export default {
                       {
                         name: 'VideoPlayerWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           style: {
                             padding: '25px'
@@ -221,8 +218,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -336,8 +332,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -354,7 +349,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -396,8 +391,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   }
@@ -421,8 +415,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-12 col-md-4'
                     }
                   },
@@ -438,8 +431,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-12 col-md-4'
                     }
                   },
@@ -455,14 +447,13 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-12 col-md-4'
                     }
                   }
                 ],
                 options: {
-                  className: null,
+
                   height: 'auto',
                   boxed: true,
                   boxedWidth: 1362,
@@ -483,7 +474,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -524,8 +515,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   }
@@ -542,7 +532,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -583,8 +573,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -601,7 +590,7 @@ export default {
                       {
                         name: 'ExpansionPanel',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -638,7 +627,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
+
                       style: {
                         paddingLeft: null,
                         paddingRight: null
@@ -651,7 +640,7 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: null,
+
                           height: null,
                           boxed: true,
                           boxedWidth: 1200,
@@ -681,13 +670,13 @@ export default {
                     ],
                     options: {
                       className: 'flex flex-center',
-                      style: {},
+
                       colNumber: 'col-md-6 col-sm-12 col-xs-12'
                     }
                   }
                 ],
                 options: {
-                  className: null,
+
                   height: 'auto',
                   boxed: true,
                   boxedWidth: 1362,
@@ -722,7 +711,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -763,8 +752,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   },
@@ -773,7 +761,7 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -814,8 +802,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
+
                       colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   }
@@ -832,7 +819,6 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: null,
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -844,7 +830,6 @@ export default {
                           type: 'group',
                           list: [
                             {
-                              className: null,
                               height: 'auto',
                               boxed: true,
                               boxedWidth: 1200,
@@ -906,8 +891,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
                       colNumber: 'col-12'
                     }
                   }
@@ -939,7 +922,6 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: null,
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
@@ -980,8 +962,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
                       colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
@@ -998,7 +978,6 @@ export default {
                       {
                         name: 'ExpansionPanel',
                         options: {
-                          className: null,
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -1100,8 +1079,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: null,
-                      style: {},
                       colNumber: 'col-12'
                     }
                   }
