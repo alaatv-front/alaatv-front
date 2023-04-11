@@ -99,7 +99,8 @@
             position="bottom">
     <div class="product-contents">
       <product-contents :options="{
-        product: selectedProduct
+        product: selectedProduct,
+        contentGridView: true
       }" />
     </div>
   </q-dialog>
