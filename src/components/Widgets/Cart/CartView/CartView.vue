@@ -239,14 +239,14 @@
 
 <script>
 import { Cart } from 'src/models/Cart.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { OrderProduct } from 'src/models/OrderProduct.js'
-import Widgets from 'src/mixin/Widgets.js'
 
 export default {
   name: 'CartView',
   components: { LazyImg },
-  mixins: [Widgets],
+  mixins: [mixinWidget],
   props: {
     options: {
       type: Object,

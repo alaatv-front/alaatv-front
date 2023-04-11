@@ -135,6 +135,14 @@ const routes = [
             },
             children: [
               {
+                path: ':landing_name',
+                meta: {
+                  hasDynamicSetting: true
+                },
+                name: 'Public.Landing',
+                component: () => import('src/pages/Public/Landings/Landing.vue')
+              },
+              {
                 path: '36',
                 name: 'Public.Landing.FireDay',
                 component: () => import('src/pages/Public/Landings/FireDay.vue')
