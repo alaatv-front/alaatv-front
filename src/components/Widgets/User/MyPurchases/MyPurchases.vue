@@ -4,7 +4,7 @@
                      indeterminate />
   <div class="row q-pa-md">
     <!--    ----------------------------------------------------------------------- filter boxes ------------------------------------------------------------------------------- -->
-    <div class="col-12">
+    <div class="col-12 q-pa-md bg-white header">
       <div class="filter-box-container">
         <div class="q-mb-lg filter-box">
           <q-icon name="mdi-tune-vertical-variant q-mr-md"
@@ -30,10 +30,7 @@
           </div>
         </div>
       </div>
-    </div>
-    <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
-    <div class="col-12 productsCol q-pa-sm-sm q-pa-xs-xs">
-      <div class="q-mb-md productsSearch ">
+      <div class="q-my-md productsSearch ">
         <q-input v-model="searchTarget"
                  outlined
                  standout
@@ -47,6 +44,9 @@
           </template>
         </q-input>
       </div>
+    </div>
+    <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
+    <div class="col-12 productsCol q-pa-sm-sm q-pa-xs-xs">
       <div class="q-px-xs-none row justify-center items-center">
         <!--        <q-infinite-scroll ref="contentAndProductList"-->
         <!--                           :offset="250"-->
@@ -300,6 +300,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.header {
+  border-radius: 14px;
+}
 .product-contents {
   width: 1024px;
   max-width: 1024px;
@@ -326,7 +329,7 @@ export default {
   background: #F6F8FA !important;
 }
 .filter-box-container{
-  overflow-x: scroll;
+  overflow-x: auto;
   .filter-box{
     display: flex;
     justify-content: center;
