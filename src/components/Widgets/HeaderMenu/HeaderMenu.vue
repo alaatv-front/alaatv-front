@@ -2,19 +2,19 @@
   <div class="header-menu">
     <div class="logo-pic"
          @click="routeTo('Public.Home')">
-      <lazy-img :src="logoImage"
+      <lazy-img :src="localOptions.logoImage"
                 :alt="'logo'"
                 width="40"
                 height="40"
                 class="logo-pic-img" />
       <div class="logo-text">
-        {{ logoSlogan }}
+        {{ localOptions.logoSlogan }}
       </div>
 
     </div>
     <div class="routes">
       <q-list class="routes-list">
-        <q-item v-for="item in menuLink"
+        <q-item v-for="item in localOptions.menuLink"
                 :key="item"
                 class="route-link"
                 clickable
@@ -24,11 +24,11 @@
       </q-list>
     </div>
     <div class="user">
-      <q-btn v-if="action"
+      <q-btn v-if="localOptions.hasAction"
              color="white"
              flat
-             :label="actionButtonLabel"
-             @click="takeAction(item)" />
+             :label="localOptions.action.buttonLabel"
+             @click="takeAction(localOptions.action)" />
     </div>
   </div>
 </template>
@@ -36,44 +36,31 @@
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
 import { openURL } from 'quasar'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'HeaderMenu',
   components: { LazyImg },
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      menuLink: [],
-      logoImage: null,
-      logoSlogan: null,
-      action: false,
-      actionButtonLabel: null
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
+      defaultOptions: {
+        menuLink: [],
+        logoImage: null,
+        logoSlogan: null,
+        hasAction: false,
+        action: {
+          buttonLabel: null,
+          type: null,
+          className: null,
+          route: null,
+          eventName: null,
+          eventArgs: null
+        }
       }
     }
   },
-  mounted() {
-    this.loadConfig()
-  },
   methods: {
-    loadConfig() {
-      this.menuLink = this.options.menuLink
-      this.logoImage = this.options.logoImage
-      this.logoSlogan = this.options.logoSlogan
-      this.action = this.options.action
-      this.actionButtonLabel = this.options.actionButtonLabel
-    },
     routeTo(name) {
       this.$router.push({ name })
     },

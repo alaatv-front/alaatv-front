@@ -1,19 +1,19 @@
 <template>
   <div class="expansion-container"
-       :style="options.style"
-       :class="options.className">
-    <q-expansion-item v-for="(item, index) in expansionList"
+       :style="localOptions.style"
+       :class="localOptions.className">
+    <q-expansion-item v-for="(item, index) in localOptions.expansionList"
                       :key="index"
                       v-model="item.expanded"
                       expand-separator
                       :icon="item.icon"
                       :label="item.label"
                       :caption="item.caption"
-                      :expand-icon-class="expandIconClass"
-                      :hide-expand-icon="theme === 'theme2'"
+                      :expand-icon-class="localOptions.expandIconClass"
+                      :hide-expand-icon="localOptions.theme === 'theme2'"
                       header-class="expand-header"
                       @update:model-value="toggleExpand(item.id)">
-      <template v-if="theme === 'theme2'"
+      <template v-if="localOptions.theme === 'theme2'"
                 v-slot:header="{ expanded }">
         <q-item clickable
                 class="expand-header theme-2"
@@ -36,7 +36,7 @@
       <div class="text">
         {{ item.text }}
       </div>
-      <div v-if="theme === 'theme2'"
+      <div v-if="localOptions.theme === 'theme2'"
            class="theme-action-btn">
         <q-btn color="primary"
                class="close-btn"
@@ -49,55 +49,37 @@
 </template>
 
 <script>
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'ExpansionPanel',
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      expansionList: [],
-      expandIconClass: null,
-      theme: null
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
+      defaultOptions: {
+        expansionList: [],
+        expandIconClass: null,
+        theme: null
       }
     }
   },
-  mounted() {
-    this.loadConfig()
-  },
   methods: {
-    loadConfig() {
-      this.expansionList = this.options.expansionList
-      this.expandIconClass = this.options.expandIconClass
-      this.theme = this.options.theme
-    },
     toggleExpand(itemId) {
-      if (this.options.toggle) {
-        this.expansionList.filter(item => item.id !== itemId).map(item => {
+      if (this.localOptions.toggle) {
+        this.localOptions.expansionList.filter(item => item.id !== itemId).map(item => {
           item.expanded = false
           return item
         })
       }
     },
     closeExpand(itemId) {
-      this.expansionList.filter(item => item.id === itemId).map(item => {
+      this.localOptions.expansionList.filter(item => item.id === itemId).map(item => {
         item.expanded = false
         return item
       })
     },
     openExpand(itemId) {
-      this.expansionList.filter(item => item.id === itemId).map(item => {
+      this.localOptions.expansionList.filter(item => item.id === itemId).map(item => {
         item.expanded = true
         return item
       })

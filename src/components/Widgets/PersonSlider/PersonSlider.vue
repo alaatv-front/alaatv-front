@@ -2,7 +2,7 @@
   <q-virtual-scroll v-if="sliderItems"
                     ref="virtualScroll"
                     v-slot="{ item, index }"
-                    :items="sliderItems"
+                    :items="localOptions.sliderItems"
                     class="student-scroll-bar"
                     virtual-scroll-horizontal>
     <q-card :key="index"
@@ -40,38 +40,23 @@
 </template>
 
 <script>
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'PersonSlider',
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      sliderItems: [],
+      defaultOptions: {
+        sliderItems: []
+      },
       scrollIndex: 0
     }
   },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
-      }
-    }
-  },
   mounted() {
-    this.loadConfig()
     this.init()
   },
   methods: {
-    loadConfig() {
-      this.sliderItems = this.options.sliderItems
-    },
     init() {
       setInterval(() => {
         this.scrollIndex += 1

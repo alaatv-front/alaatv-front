@@ -31,7 +31,7 @@
           </q-step>
           <q-step :name="'info'"
                   title="info">
-            <info-completion :options="options.userInputs"
+            <info-completion :options="localOptions.userInputs"
                              :userInfo="userForm"
                              @toggle-dialog="toggleDialog" />
           </q-step>
@@ -45,6 +45,7 @@
 import SignupStep from './components/SignupStep.vue'
 import VerificationStep from './components/VerificationStep.vue'
 import InfoCompletion from './components/InfoCompletion.vue'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'SignupModal',
@@ -53,40 +54,31 @@ export default {
     VerificationStep,
     InfoCompletion
   },
-  props: {
-    options: {
-      type: Object,
-      default: () => {}
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
       dialog: false,
-      eventName: 'newsletter',
-      step: 'signup',
-      verification: true,
       userForm: {
         mobile: null,
         code: null
-      }
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
+      },
+      step: 'signup',
+      defaultOptions: {
+        eventName: 'newsletter',
+        verification: true,
+        userInputs: {
+          first_name: true,
+          last_name: true,
+          major: true,
+          grade: true
+        }
       }
     }
   },
   mounted() {
-    this.loadConfig()
-    this.$bus.on(this.eventName, this.toggleDialog)
+    this.$bus.on(this.localOptions.eventName, this.toggleDialog)
   },
   methods: {
-    loadConfig() {
-      this.verification = this.options.verification
-      this.eventName = this.options.eventName ? this.options.eventName : 'newsletter'
-    },
     toggleDialog() {
       this.dialog = !this.dialog
     },

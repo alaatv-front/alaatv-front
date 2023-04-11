@@ -1,22 +1,23 @@
 <template>
-  <div v-if="productGroupLayout === 'tab'"
+  <div v-if="localOptions.productGroupLayout === 'tab'"
        class="products-tab-"
-       :style="options.style"
-       :class="options.className">
-    <product-tab :layout="options.rowLayout"
-                 :itemList="groups" /></div>
-  <div v-else-if="productGroupLayout === 'shelf'"
+       :style="localOptions.style"
+       :class="localOptions.className">
+    <product-tab :layout="localOptions.rowLayout"
+                 :itemList="localOptions.list" /></div>
+  <div v-else-if="localOptions.productGroupLayout === 'shelf'"
        class="product-shelf-row">
-    <product-shelf :itemList="groups"
-                   :layout="options.rowLayout"
-                   :rowStyle="options.rowStyle"
-                   :labelStyle="options.shelfRowLabelStyle" />
+    <product-shelf :itemList="localOptions.list"
+                   :layout="localOptions.rowLayout"
+                   :rowStyle="localOptions.rowStyle"
+                   :labelStyle="localOptions.shelfRowLabelStyle" />
   </div>
 </template>
 
 <script>
 import ProductTab from './components/ProductTab.vue'
 import ProductShelf from './components/ProductShelf.vue'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProductsTabPanel',
@@ -24,37 +25,21 @@ export default {
     ProductTab,
     ProductShelf
   },
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      title: null,
-      subtitle: null,
-      tab: null,
-      groups: [],
-      productGroupLayout: null
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
+      defaultOptions: {
+        title: null,
+        subtitle: null,
+        tab: null,
+        list: [],
+        productGroupLayout: null,
+        className: '',
+        rowLayout: null,
+        style: {},
+        rowStyle: {},
+        shelfRowLabelStyle: {}
       }
-    }
-  },
-  mounted() {
-    this.loadConfig()
-  },
-  methods: {
-    loadConfig() {
-      this.groups = this.options.list
-      this.productGroupLayout = this.options.productGroupLayout
     }
   }
 }

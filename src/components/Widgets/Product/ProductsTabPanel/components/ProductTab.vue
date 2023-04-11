@@ -1,9 +1,9 @@
 <template>
   <div class="tabs-wrapper">
     <q-tabs v-model="tabModel"
-            active-color="primary"
-            active-bg-color="white"
-            indicator-color="white"
+            :active-color="activeColor"
+            :active-bg-color="activeBgColor"
+            :indicator-color="indicatorColor"
             class="product-tabs">
       <q-tab v-for="(tab, index) in itemList"
              :key="index"
@@ -55,12 +55,23 @@ export default {
     layout: {
       type: String,
       default: 'scroll'
+    },
+    activeColor: {
+      type: String,
+      default: 'primary'
+    },
+    activeBgColor: {
+      type: String,
+      default: 'white'
+    },
+    indicatorColor: {
+      type: String,
+      default: 'white'
     }
   },
   data() {
     return {
-      tabModel: '',
-      productList: []
+      tabModel: ''
     }
   },
   mounted() {

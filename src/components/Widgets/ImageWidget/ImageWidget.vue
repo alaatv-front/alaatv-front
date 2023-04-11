@@ -1,80 +1,68 @@
 <template>
-  <q-img :src="getImageSource(options)"
+  <q-img :src="getImageSource(localOptions)"
+         :ratio="localOptions.ratio"
          spinner-color="primary"
-         :width="getImageWidth(options)"
-         :height="getImageHeight(options)"
-         :style="options.style"
-         :class="options.className"
-         @click="takeAction(options.action)" />
+         :width="getImageWidth(localOptions)"
+         :height="getImageHeight(localOptions)"
+         :style="localOptions.style"
+         :class="localOptions.className"
+         @click="takeAction(localOptions.action)" />
 </template>
 
 <script>
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'ImageWidget',
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      imageSource: null,
-      ratio: null,
       windowWidth: 0,
-      xs: {
-        height: null,
-        width: null,
-        src: null
-      },
-      sm: {
-        height: null,
-        width: null,
-        src: null
-      },
-      md: {
-        height: null,
-        width: null,
-        src: null
-      },
-      lg: {
-        height: null,
-        width: null,
-        src: null
-      },
-      xl: {
-        height: null,
-        width: null,
-        src: null
-      }
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
+      defaultOptions: {
+        imageSource: null,
+        ratio: null,
+        action: {
+          name: null,
+          route: null,
+          scrollTo: null,
+          eventName: null,
+          eventArgs: null
+        },
+        xs: {
+          height: null,
+          width: null,
+          src: null
+        },
+        sm: {
+          height: null,
+          width: null,
+          src: null
+        },
+        md: {
+          height: null,
+          width: null,
+          src: null
+        },
+        lg: {
+          height: null,
+          width: null,
+          src: null
+        },
+        xl: {
+          height: null,
+          width: null,
+          src: null
+        }
       }
     }
   },
   mounted() {
-    this.loadConfig()
     window.addEventListener('resize', this.onResize)
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
-    loadConfig() {
-      this.imageSource = this.options.imageSource
-      this.windowWidth = window.innerWidth
-      this.xs = this.options.xs
-      this.sm = this.options.sm
-      this.md = this.options.md
-      this.lg = this.options.lg
-      this.xl = this.options.xl
-    },
     onResize() {
       this.windowWidth = window.innerWidth
     },
