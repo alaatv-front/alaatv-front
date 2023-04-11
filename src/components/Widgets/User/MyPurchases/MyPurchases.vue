@@ -38,9 +38,22 @@
                  rounded
                  filled
                  class="form-control m-input m-input--air"
-                 placeholder="جستجو ...">
-          <template v-slot:prepend>
-            <q-icon name="mdi-magnify" />
+                 placeholder="جستجو ..."
+                 @keydown.enter="filterProductBySearchInput">
+          <template v-slot:append>
+            <q-icon v-if="searchTarget !== ''"
+                    name="close"
+                    class="cursor-pointer"
+                    @click="searchTarget = ''" />
+          </template>
+
+          <template v-slot:after>
+            <q-btn round
+                   dense
+                   unelevated
+                   color="primary"
+                   icon="search"
+                   @click="filterProductBySearchInput" />
           </template>
         </q-input>
       </div>
@@ -108,7 +121,6 @@
 
 <script>
 import { Set } from 'src/models/Set.js'
-import Assist from 'src/plugins/Assist.js'
 import { Product, ProductList } from 'src/models/Product.js'
 import FilterBox from 'src/components/userPurchases/filterBox.vue'
 // import PurchaseItem from 'src/components/userPurchases/PurchaseItem.vue'
@@ -194,13 +206,17 @@ export default {
     },
     async setPurchasedProducts () {
       this.loading = true
+      this.filteredProduct = new ProductList()
+      this.products = new ProductList()
       const response = await this.getPurchasedProducts()
       this.products = response.referralCodeList
       this.loading = false
     },
     getPurchasedProducts (page = 1) {
+      // console.log('getPurchasedProducts', this.searchTarget)
       return this.$apiGateway.user.getPurchasedProducts({
-        page
+        page,
+        ...(this.searchTarget && { title: this.searchTarget })
       })
     },
     chargeProductList(index, done) {
@@ -218,14 +234,10 @@ export default {
       this.filterProductByCategory()
       this.sortProducts()
     },
-    filterProductBySearchInput () {
-      if (!this.searchTarget) {
-        return
-      }
-      this.filteredProduct.list = this.filteredProduct.list.filter(this.hasSearchTarget)
-    },
-    hasSearchTarget (data) {
-      return Assist.stringContain(this.searchTarget, data.title) || data.sets.list.filter(set => (Assist.stringContain(this.searchTarget, set.title))).length > 0
+    async filterProductBySearchInput () {
+      // console.log(' this.searchTarget', this.searchTarget)
+      await this.setPurchasedProducts()
+      this.filteredProduct = this.products
     },
     filterProductByCategory () {
       const newList = this.products.list.filter(product => product.category === this.selectedFilterCategoryValue || this.selectedFilterCategoryValue === 'all')
@@ -241,12 +253,10 @@ export default {
     onChangeFilterSortBox (val) {
       this.selectedFilterBoxValue = val
       this.sortProducts()
-      this.filterProductBySearchInput()
     },
     onChangeFilterBoxCategory (val) {
       this.selectedFilterCategoryValue = val
       this.filterProductByCategory()
-      this.filterProductBySearchInput()
     },
 
     setFirstContentsShow() {
