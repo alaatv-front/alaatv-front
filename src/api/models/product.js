@@ -121,6 +121,28 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
+  getProductList(data, cache) {
+    const queryParams = {}
+    queryParams.seller = this.seller
+    data.productList.forEach((product, productIndex) => {
+      queryParams['ids' + '[' + productIndex + ']'] = product
+    })
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.base,
+      cacheKey: this.CacheList.base,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: queryParams
+    })
+  }
+
   getSets(data, cache) {
     return this.sendRequest({
       apiMethod: 'get',

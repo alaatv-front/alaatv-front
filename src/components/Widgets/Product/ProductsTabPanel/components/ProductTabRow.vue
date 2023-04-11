@@ -1,11 +1,18 @@
 <template>
   <div class="product-tab-wrapper">
-    <div class="product-panel-content row"
+    <div v-if="loading"
+         class="product-panel-content row"
          :class="{'scroll': layout === 'scroll',...className}"
          :style="rowStyle">
-      <product-item v-for="(product, index) in productsList"
+      <product-row-skeleton :skeletons="4" />
+    </div>
+    <div v-else
+         class="product-panel-content row"
+         :class="{'scroll': layout === 'scroll',...className}"
+         :style="rowStyle">
+      <product-item v-for="(product, index) in products.list"
                     :key="index"
-                    :options="{productId: product}"
+                    :options="{product: product}"
                     class="product-item col-md-4"
                     :class="{'q-mx-xs': layout === 'scroll'}" />
     </div>
@@ -14,11 +21,13 @@
 
 <script>
 import ProductItem from '../../ProductItem/ProductItem.vue'
+import ProductRowSkeleton from './ProductRowSkeleton.vue'
 
 export default {
   name: 'ProductTabRow',
   components: {
-    ProductItem
+    ProductItem,
+    ProductRowSkeleton
   },
   props: {
     productsList: {
@@ -39,7 +48,26 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      loading: false,
+      products: []
+    }
+  },
+  mounted() {
+    this.getProducts()
+  },
+  methods: {
+    getProducts() {
+      this.loading = true
+      this.$apiGateway.product.getProductList({ productList: this.productsList })
+        .then(productList => {
+          this.products = productList
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    }
   }
 }
 </script>

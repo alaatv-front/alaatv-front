@@ -1,22 +1,33 @@
 <template>
-  <div class="product-content row"
-       :class="{'scroll': layout === 'scroll'}"
-       :style="rowStyle">
-    <product-item v-for="(product, index) in productsList"
-                  :key="index"
-                  :options="{productId: product}"
-                  class="product-item col-md-4"
-                  :class="{'q-mx-xs': layout === 'scroll'}" />
+  <div class="product-content-wrapper">
+    <div v-if="loading"
+         class="product-content row"
+         :class="{'scroll': layout === 'scroll'}"
+         :style="rowStyle">
+      <product-row-skeleton :skeletons="4" />
+    </div>
+    <div v-else
+         class="product-content row"
+         :class="{'scroll': layout === 'scroll'}"
+         :style="rowStyle">
+      <product-item v-for="(product, index) in products.list"
+                    :key="index"
+                    :options="{product: product}"
+                    class="product-item col-md-4"
+                    :class="{'q-mx-xs': layout === 'scroll'}" />
+    </div>
   </div>
 </template>
 
 <script>
 import ProductItem from '../../ProductItem/ProductItem.vue'
+import ProductRowSkeleton from './ProductRowSkeleton.vue'
 
 export default {
   name: 'ProductShelfRow',
   components: {
-    ProductItem
+    ProductItem,
+    ProductRowSkeleton
   },
   props: {
     productsList: {
@@ -33,7 +44,26 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      loading: false,
+      products: []
+    }
+  },
+  mounted() {
+    this.getProducts()
+  },
+  methods: {
+    getProducts() {
+      this.loading = true
+      this.$apiGateway.product.getProductList({ productList: this.productsList })
+        .then(productList => {
+          this.products = productList
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    }
   }
 }
 </script>
