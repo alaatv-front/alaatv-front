@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import menuItem from 'components/Menu/SideMenu/MenuItem.vue'
+import menuItem from 'src/components/Menu/SideMenu/MenuItem.vue'
 
 export default {
   name: 'MainSideBarTemplate',
