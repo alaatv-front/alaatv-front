@@ -29,7 +29,13 @@
                       color="info"
                       icon="isax:eye"
                       label="نمایش کانفیگ"
-                      @click="showPageBuilderConfigs" />
+                      @click="showPageBuilderShowConfigs" />
+        <q-fab-action external-label
+                      label-position="right"
+                      color="info"
+                      icon="isax:eye"
+                      label="وارد کردن کانفیگ"
+                      @click="showPageBuilderImportConfigs" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
@@ -94,12 +100,13 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-  <q-dialog v-model="pageBuilderConfigDialog">
+  <q-dialog v-model="pageBuilderShowConfigDialog"
+            class="pageBuilderShowConfigDialog">
     <q-card>
       <q-card-section>
         <div class="text-h6">تنظیمات صفحه</div>
       </q-card-section>
-      <q-card-section class="q-pt-none">
+      <q-card-section class="pageBuilderShowConfigDialog-config-section">
         {{ currenSections }}
       </q-card-section>
       <q-card-actions align="right">
@@ -108,6 +115,26 @@
                label="کپی کردن"
                color="primary"
                @click="copyPageBuilderConfigs" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+  <q-dialog v-model="pageBuilderImportConfigDialog"
+            class="pageBuilderImportConfigDialog">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">وارد کردن تنظیمات صفحه</div>
+      </q-card-section>
+      <q-card-section class="pageBuilderImportConfigDialog-config-section">
+        <q-input v-model="pageBuilderImportedConfigs"
+                 type="textarea"
+                 label="configs" />
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn v-close-popup
+               flat
+               label="وارد کردن تنظیمات"
+               color="primary"
+               @click="importPageBuilderConfigs" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -124,6 +151,7 @@ export default {
   mixins: [mixinPageOptions],
   data () {
     return {
+      pageBuilderImportedConfigs: null,
       seo: {
         title: null,
         description: null,
@@ -134,7 +162,8 @@ export default {
         ogImage: null
       },
       seoDialog: false,
-      pageBuilderConfigDialog: false,
+      pageBuilderShowConfigDialog: false,
+      pageBuilderImportConfigDialog: false,
       pageBuilderConfigs: {},
       fabPos: [18, 18],
       pageOptionsFloatingActionButton: false
@@ -144,6 +173,9 @@ export default {
     this.loadDefaultSeoData()
   },
   methods: {
+    importPageBuilderConfigs () {
+      this.$store.commit('PageBuilder/updateCurrentSections', JSON.parse(this.pageBuilderImportedConfigs))
+    },
     updateSeo () {
       this.$store.commit('SEO/updateTitle', this.seo.title)
       this.$store.commit('SEO/updateDescription', this.seo.description)
@@ -193,8 +225,11 @@ export default {
         this.fabPos[1] - ev.delta.y
       ]
     },
-    showPageBuilderConfigs () {
-      this.pageBuilderConfigDialog = true
+    showPageBuilderShowConfigs () {
+      this.pageBuilderShowConfigDialog = true
+    },
+    showPageBuilderImportConfigs () {
+      this.pageBuilderImportConfigDialog = true
     },
     copyPageBuilderConfigs () {
       copyToClipboard(JSON.stringify(this.currenSections))
@@ -238,6 +273,12 @@ export default {
   &.q-card {
     width: 700px;
     max-width: 80vw;
+  }
+}
+.pageBuilderShowConfigDialog {
+  .pageBuilderShowConfigDialog-config-section {
+    overflow: auto;
+    max-height: 50vh;
   }
 }
 </style>
