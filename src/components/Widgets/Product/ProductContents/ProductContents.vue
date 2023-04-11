@@ -43,16 +43,13 @@
                     animated
                     transition-prev="scale"
                     transition-next="scale"
-                    class="bg-white text-black text-center">
+                    class="bg-white text-black text-center tab-panels">
         <q-tab-panel name="videos">
           <div v-if="videos.length > 0"
                v-dragscroll
                class="contents-block">
-            <div v-for="video in videos"
-                 :key="video.id">
-              <content-item class="q-mr-md"
-                            :options="video" />
-            </div>
+            <block-component class="block"
+                             :options="getBlockOptions" />
           </div>
           <q-banner v-else
                     inline-actions
@@ -123,12 +120,14 @@ import { Set } from 'src/models/Set.js'
 import { dragscroll } from 'vue-dragscroll'
 import { Product } from 'src/models/Product.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
+import { ContentList } from 'src/models/Content'
+import { Block } from 'src/models/Block.js'
+import BlockComponent from 'components/Widgets/Block/Block.vue'
 
 export default {
   name: 'ProductContents',
   components: {
-    ContentItem
+    BlockComponent
   },
   directives: {
     dragscroll
@@ -153,10 +152,19 @@ export default {
       pamphlets: [],
       setTitle: null,
       setOptions: [],
+      contents: new ContentList(),
       filteredOptions: []
     }
   },
   computed: {
+    getBlockOptions () {
+      return {
+        block: new Block({
+          title: '',
+          contents: this.contents
+        })
+      }
+    },
     productId () {
       if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
         return this.options.productId
@@ -253,6 +261,7 @@ export default {
         .then(set => {
           this.videos = []
           this.pamphlets = []
+          this.contents = set.contents
           set.contents.list.forEach(content => {
             if (content.isVideo()) {
               this.videos.push(content)
@@ -300,6 +309,9 @@ export default {
         margin-bottom: 20px;
       }
     }
+    .tab-panels {
+      padding-top: 0;
+    }
     .contents-block {
       display: flex;
       overflow: auto;
@@ -313,6 +325,33 @@ export default {
       .pdf-icon {
         width: 100px;
         height: 100px;
+      }
+      .block {
+        margin-bottom: 0;
+        :deep(.scroll-view) {
+          overflow-x: hidden;
+        }
+        :deep(.block-header) {
+          justify-content: normal;
+        }
+        :deep(.block-item-box){
+          display: none;
+        }
+        :deep(.q-tab-panel){
+          padding-top: 0;
+        }
+        :deep(.block-header) {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        :deep(.item-container) {
+          .content-spacing{
+            width: 290px;
+          }
+        }
+        :deep(.content-item-box) {
+          width: auto;
+        }
       }
     }
   }
