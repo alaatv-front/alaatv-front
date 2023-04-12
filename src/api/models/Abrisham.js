@@ -26,8 +26,7 @@ export default class AbrishamAPI extends APIRepository {
       plan: (id) => '/studyPlan/' + id + '/plans',
       updateComment: (id) => '/comment/' + id,
       favored: (id) => '/c/' + id + '/favored',
-      unFavored: (id) => '/c/' + id + '/unfavored',
-      timePoint: (id, status) => '/c/timepoint/' + id + '/' + status
+      unFavored: (id) => '/c/' + id + '/unfavored'
 
     }
     this.restUrl = (id) => this.url + '/' + id
@@ -254,21 +253,6 @@ export default class AbrishamAPI extends APIRepository {
   }
 
   setVideoUnFavored(id, data) {
-    return this.sendRequest({
-      apiMethod: 'post',
-      api: this.api,
-      request: this.APIAdresses.unFavored(id),
-      resolveCallback: (response) => {
-        return response
-      },
-      rejectCallback: (error) => {
-        return error
-      },
-      data
-    })
-  }
-
-  bookmarkPostIsFavored(id, data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

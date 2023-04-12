@@ -84,7 +84,6 @@ const mixinAbrisham = {
         if (timeStampData.isFavored) {
           postStatus = 'favored'
         }
-        await this.$apiGateway.abrisham.bookmarkPostIsFavored(parseInt(timeStampData.id), postStatus)
         this.watchingContent.timepoints.list.forEach(item => {
           if (parseInt(item.id) === parseInt(timeStampData.id)) {
             item.loading = false
