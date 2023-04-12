@@ -174,7 +174,7 @@ export default {
     },
     async showUserLastState() {
       try {
-        const response = await this.$apiGateway.abrisham.getUserLastState(this.selectedLessonId)
+        const response = await this.$apiGateway.user.getUserLastState(this.selectedLessonId)
         const setId = response.data.data.set.id
         const contentId = response.data.data.id
         this.userLastState.setId = setId
@@ -287,7 +287,7 @@ export default {
 
     async getSets (lessonId) {
       // lesson is a product
-      const response = await this.$apiGateway.abrisham.requestToGetSets(lessonId)
+      const response = await this.$apiGateway.product.getSets(lessonId)
 
       if (response.status === 200) {
         return new SetList(response.data.data)
@@ -385,7 +385,7 @@ export default {
     async getContents () {
       this.contents.loading = true
       try {
-        const response = await this.$apiGateway.abrisham.requestToGetContents(this.currentSetId)
+        const response = await this.$apiGateway.set.getContents(this.currentSetId)
         this.contents.loading = false
         return response
       } catch {

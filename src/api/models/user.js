@@ -6,6 +6,9 @@ import APIRepository from '../classes/APIRepository'
 import { FavoredList } from 'src/models/Favored'
 import { BankAccountsList } from 'src/models/BankAccounts'
 import { EventResult } from 'src/models/EventResult'
+import { StudyPlanList } from 'src/models/StudyPlan'
+import { PlanList } from 'src/models/Plan'
+import { LiveDescriptionList } from 'src/models/LiveDescription'
 
 export default class UserAPI extends APIRepository {
   constructor() {
@@ -29,7 +32,13 @@ export default class UserAPI extends APIRepository {
       resendGuest: '/mobile/resendGuest',
       getUserRoleAndPermission: '/getUserRoleAndPermission',
       verifyMoshavereh: '/mobile/verifyMoshavereh',
-      newsletter: '/newsletter'
+      newsletter: '/newsletter',
+      userLastState: (id) => '/product/' + id + '/toWatch',
+      studyPlan: (id) => '/studyEvent/' + id + '/studyPlans',
+      plan: (id) => '/studyPlan/' + id + '/plans',
+      pinedNews: '/livedescription/getPined',
+      liveDescription: '/livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc',
+      observedLiveDescription: (id) => '/livedescription' + id + '/seen'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -437,6 +446,97 @@ export default class UserAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return response.data.message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getUserLastState(id) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.userLastState(id),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getStudyEvents(id) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.studyPlan(id),
+      resolveCallback: (response) => {
+        return new StudyPlanList(response.data.data)
+      },
+      rejectCallback: () => {
+        return new StudyPlanList()
+      }
+    })
+  }
+
+  getPlan(id) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.plan(id),
+      resolveCallback: (response) => {
+        return new PlanList(response.data.data)
+      },
+      rejectCallback: () => {
+        return new PlanList()
+      }
+    })
+  }
+
+  getNewsList(data) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.liveDescription,
+      resolveCallback: (response) => {
+        return {
+          data: new LiveDescriptionList(response.data.data),
+          meta: response.data.meta
+        }
+      },
+      rejectCallback: (er) => {
+        return er
+      },
+      data
+    })
+  }
+
+  getPinedNews() {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.pinedNews,
+      resolveCallback: (response) => {
+        return {
+          data: new LiveDescriptionList(response.data.data),
+          meta: response.data.meta
+        }
+      },
+      rejectCallback: (er) => {
+        return er
+      }
+    })
+  }
+
+  getNewsHasBeenSeen(id) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.observedLiveDescription(id),
+      resolveCallback: (response) => {
+        return response
       },
       rejectCallback: (error) => {
         return error

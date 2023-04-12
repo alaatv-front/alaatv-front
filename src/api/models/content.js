@@ -1,6 +1,6 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
-import { Content } from 'src/models/Content'
+import { Content, ContentList } from 'src/models/Content'
 import { ProductList } from 'src/models/Product'
 const APIAdresses = {
   search: '/search',
@@ -21,6 +21,12 @@ const APIAdresses = {
   unfavored: (id) => '/c/' + id + '/unfavored',
   relatedProducts: (id) => '/c/' + id + '/products',
   timestampBookmarkStatus: (id, status) => '/c/timepoint/' + id + '/' + status,
+  consultingContent: 'set/1213/contents',
+  saveComment: '/comment',
+  updateComment: (id) => '/comment/' + id,
+  watchedVideo: '/watched',
+  unWatchedVideo: '/unwatched'
+
 }
 export default class ContentAPI extends APIRepository {
   constructor() {
@@ -360,6 +366,80 @@ export default class ContentAPI extends APIRepository {
       rejectCallback: (error) => {
         return error
       }
+    })
+  }
+
+  getConsultingContentList() {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.consultingContent,
+      resolveCallback: (response) => {
+        return new ContentList(response.data.data)
+      },
+      rejectCallback: () => {
+        return new ContentList()
+      }
+    })
+  }
+
+  saveComment(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.saveComment,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  updateComment(id, data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.updateComment(id),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  setVideoWatched(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.watchedVideo,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
+    })
+  }
+
+  setVideoUnWatched(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unWatchedVideo,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data
     })
   }
 }
