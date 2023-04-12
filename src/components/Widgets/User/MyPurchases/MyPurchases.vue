@@ -61,10 +61,6 @@
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
     <div class="col-12 productsCol q-pa-sm-sm q-pa-xs-xs">
       <div class="q-px-xs-none row justify-center items-center">
-        <!--        <q-infinite-scroll ref="contentAndProductList"-->
-        <!--                           :offset="250"-->
-        <!--                           class="row"-->
-        <!--                           @load="chargeProductList">-->
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
              class="col-12 col-sm-6 col-md-auto col-lg-auto q-ma-md-md q-mb-sm-md flex justify-center">
@@ -77,25 +73,10 @@
                         }"
                         @click="productItemClicked(product)" />
         </div>
-        <!--          <div v-for="(item, index) in items"-->
-        <!--               :key="index"-->
-        <!--               class="caption">-->
-        <!--            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.</p>-->
-        <!--          </div>-->
-        <!--          <template v-slot:loading>-->
-        <!--            <div class="row justify-center q-my-md">-->
-        <!--              <q-spinner-dots color="primary"-->
-        <!--                              size="40px" />-->
-        <!--            </div>-->
-        <!--</template>-->
-        <!--          <template v-slot:loading>-->
-        <!--            <div class="row justify-center q-my-md">-->
-        <!--              <q-spinner-dots color="primary"-->
-        <!--                              size="40px" />-->
-        <!--            </div>-->
-        <!--          </template>-->
-        <!--          </q-infinite-scroll>-->
       </div>
+      <pagination :meta="productPaginationMeta"
+                  :disable="loading"
+                  @updateCurrentPage="getProductsByPage" />
       <!--    --------------------------------------------------------------------------- show content box   --------------------------------------------------------------------------- -->
       <div v-if="!currentProduct.title && !loading">
         <div class="text-center bg-primary q-pa-lg noContentMessage">
@@ -127,18 +108,29 @@ import FilterBox from 'src/components/userPurchases/filterBox.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 import ProductContents from 'components/Widgets/Product/ProductContents/ProductContents.vue'
+import Pagination from 'components/Utils/Pagination.vue'
 
 export default {
   name: 'MyPurchases',
   components: {
+    Pagination,
     ProductContents,
     ProductItem,
     FilterBox
-    // PurchaseItem
   },
   mixins: [mixinWidget],
   data () {
     return {
+      productPaginationMeta: {
+        current_page: 1,
+        from: 1,
+        last_page: 1,
+        path: 'https://alaatv.com/api/v2/user/products',
+        per_page: 15,
+        to: 3,
+        total: 3,
+        count: 3
+      },
       selectedProduct: new Product(),
       productContentsDialog: false,
       items: [{}, {}, {}, {}, {}, {}, {}],
@@ -148,19 +140,20 @@ export default {
       showContentDialog: false,
       selectedTab: 'pamphlet',
       searchTarget: '',
-      selectedFilterBoxValue: null,
+      selectedFilterBoxValue: 'asc',
       selectedFilterCategoryValue: null,
+      currentPage: 1,
       filterBoxCategory: [],
       filteredProduct: new ProductList(),
       filterBoxSort: [
         {
           name: 'جدید ترین ها',
-          value: 'data-sort1',
+          value: 'asc',
           selected: true
         },
         {
           name: 'قدیمی ترین ها',
-          value: 'data-sort2',
+          value: 'desc',
           selected: false
         }],
       selectedSet: new Set(),
@@ -181,15 +174,8 @@ export default {
       return new Product()
     }
   },
-  watch: {
-    searchTarget (value) {
-      // this.filterProductBySearchInput()
-      // this.products.list = this.products.list.splice(0, this.products.list.length)
-    }
-  },
   async mounted () {
     await this.initFilterProduct()
-    await this.setPurchasedProducts()
     this.setFilterBoxSelected()
     this.setFilterCategorySelected()
     this.setFirstContentsShow()
@@ -210,21 +196,19 @@ export default {
       this.products = new ProductList()
       const response = await this.getPurchasedProducts()
       this.products = response.referralCodeList
+      this.productPaginationMeta = response.paginate
       this.loading = false
     },
-    getPurchasedProducts (page = 1) {
-      // console.log('getPurchasedProducts', this.searchTarget)
+    getPurchasedProducts () {
       return this.$apiGateway.user.getPurchasedProducts({
-        page,
-        ...(this.searchTarget && { title: this.searchTarget })
+        ...(this.currentPage && { page: this.currentPage }),
+        ...(this.searchTarget && { title: this.searchTarget }),
+        ...(this.selectedFilterBoxValue && { sort_by_order_completed_at: this.selectedFilterBoxValue })
       })
     },
-    chargeProductList(index, done) {
-      // console.log('chargeProductList', index)
-      setTimeout(() => {
-        this.products.push(...this.products)
-        done()
-      }, 2000)
+    getProductsByPage (pageNum) {
+      this.currentPage = pageNum
+      this.sortProducts()
     },
     productItemClicked (product) {
       this.selectedProduct = product
@@ -235,7 +219,6 @@ export default {
       this.sortProducts()
     },
     async filterProductBySearchInput () {
-      // console.log(' this.searchTarget', this.searchTarget)
       await this.setPurchasedProducts()
       this.filteredProduct = this.products
     },
@@ -243,12 +226,9 @@ export default {
       const newList = this.products.list.filter(product => product.category === this.selectedFilterCategoryValue || this.selectedFilterCategoryValue === 'all')
       this.filteredProduct = new ProductList(newList)
     },
-    sortProducts () {
-      if (this.selectedFilterBoxValue === 'data-sort1') {
-        this.filteredProduct.sortByKey('category', 'asc')
-        return
-      }
-      this.filteredProduct.sortByKey('category', 'des')
+    async sortProducts () {
+      await this.setPurchasedProducts()
+      this.filteredProduct = this.products
     },
     onChangeFilterSortBox (val) {
       this.selectedFilterBoxValue = val
