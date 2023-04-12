@@ -120,7 +120,7 @@ import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { Content, ContentList } from 'src/models/Content.js'
 import ChipGroup from 'components/DashboardAbrisham/chipGroup.vue'
 import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
-import { SetSectionList, SetSection } from 'src/models/SetSection.js'
+import { SetSection, SetSectionList } from 'src/models/SetSection.js'
 import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
 import ContentListComponent from 'src/components/DashboardAbrisham/ContentListComponent.vue'
 
@@ -287,13 +287,7 @@ export default {
 
     async getSets (lessonId) {
       // lesson is a product
-      const response = await this.$apiGateway.product.getSets(lessonId)
-
-      if (response.status === 200) {
-        return new SetList(response.data.data)
-      }
-
-      return new SetList()
+      return await this.$apiGateway.product.getSets(lessonId)
     },
 
     setSets (sets) {
@@ -386,6 +380,7 @@ export default {
       this.contents.loading = true
       try {
         const response = await this.$apiGateway.set.getContents(this.currentSetId)
+
         this.contents.loading = false
         return response
       } catch {
