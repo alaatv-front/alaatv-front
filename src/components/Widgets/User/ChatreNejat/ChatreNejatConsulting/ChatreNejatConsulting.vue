@@ -119,7 +119,7 @@ export default {
       // livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc&liveDescriptionPage=1
       //  s.get(window.APIAddresses.liveDescription + '&' + param)
       try {
-        const response = await this.$apiGateway.abrisham.getNewsList(param)
+        const response = await this.$apiGateway.user.getNewsList(param)
         this.newsNextPage = parseInt(response.meta.current_page) + 1
         this.newsLastPage = response.meta.last_page
         this.news = response.data
@@ -129,7 +129,7 @@ export default {
       }
     },
     async getLoadContents(setId) {
-      this.contents = await this.$apiGateway.abrisham.getConsultingContentList(setId)
+      this.contents = await this.$apiGateway.content.getConsultingContentList(setId)
       this.setCurrentContent()
       this.contentListLoading = false
       this.hasLoaded = true
