@@ -19,7 +19,8 @@ const APIAdresses = {
   deleteTimestamp: (id) => `/timepoint/${id}`,
   updateTimestamp: (id) => `/timepoint/${id}`,
   unfavored: (id) => '/c/' + id + '/unfavored',
-  relatedProducts: (id) => '/c/' + id + '/products'
+  relatedProducts: (id) => '/c/' + id + '/products',
+  timestampBookmarkStatus: (id, status) => '/c/timepoint/' + id + '/' + status,
 }
 export default class ContentAPI extends APIRepository {
   constructor() {
@@ -345,6 +346,20 @@ export default class ContentAPI extends APIRepository {
         bucket: null, // file name(test)
         key: null // file with type(type.mp4)
       }, data.data)
+    })
+  }
+
+  setBookmarkTimepointFavoredStatus(id, data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.timestampBookmarkStatus(id, data.status),
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 }

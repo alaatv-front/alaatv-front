@@ -22,10 +22,11 @@
                     clickable
                     @click="goToTimpoint(timepoint)">
               <q-item-section avatar>
-                <bookmark v-model:value="timepoint.is_favored"
-                          color="white"
+                <bookmark color="white"
                           size="30"
-                          :bookmark-function="bookmarkTimepoint(timepoint)" />
+                          :is-favored="timepointFavored[timepoint.id]"
+                          :loading="bookmarkLoading[timepoint.id]"
+                          @clicked="handleTimepointBookmark(timepoint.id)" />
               </q-item-section>
               <q-item-section class="text-section">
                 <span>{{ timepoint.title }}</span>
@@ -79,12 +80,6 @@ export default {
         return true
       }
     },
-    bookmarkLoading: {
-      type: Boolean,
-      default () {
-        return false
-      }
-    },
     currentTimed: {
       type: Number
     }
@@ -93,7 +88,9 @@ export default {
   data() {
     return {
       playerKey: Date.now(),
-      currentContent: new Content()
+      currentContent: new Content(),
+      timepointFavored: {},
+      bookmarkLoading: {}
     }
   },
   computed: {
@@ -116,19 +113,39 @@ export default {
     }
   },
   methods: {
+    handleTimepointBookmark (timepointId) {
+      this.bookmarkLoading[timepointId] = true
+      if (this.timepointFavored[timepointId]) {
+        this.$apiGateway.content.setBookmarkTimepointFavoredStatus(timepointId, {
+          status: 'unfavored'
+        })
+          .then(() => {
+            this.timepointFavored[timepointId] = !this.timepointFavored[timepointId]
+            this.toggleFavorite(this.content.id)
+            this.bookmarkLoading[timepointId] = false
+          })
+          .catch(() => {
+            this.bookmarkLoading[timepointId] = false
+          })
+        return
+      }
+      this.$apiGateway.content.setBookmarkTimepointFavoredStatus(timepointId, {
+        status: 'favored'
+      })
+        .then(() => {
+          this.timepointFavored[timepointId] = !this.timepointFavored[timepointId]
+          this.toggleFavorite(this.content.id)
+          this.bookmarkLoading[timepointId] = false
+        })
+        .catch(() => {
+          this.bookmarkLoading[timepointId] = false
+        })
+    },
     goToTimpoint (timepoint) {
       if (!this.$refs.videoPlayer) {
         return
       }
       this.$refs.videoPlayer.changeCurrentTime(timepoint.time)
-    },
-    bookmarkTimepoint (timepoint) {
-      return () => {
-        if (timepoint.is_favored) {
-          return this.$apiGateway.contentTimepoint.unfavored(timepoint.id)
-        }
-        return this.$apiGateway.contentTimepoint.favored(timepoint.id)
-      }
     },
     activate(time) {
       this.player.currentTime(time)
