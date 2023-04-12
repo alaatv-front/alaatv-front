@@ -124,12 +124,12 @@
 </template>
 
 <script>
+import { mixinWidget } from 'src/mixin/Mixins.js'
 import { OrderItem } from 'src/models/OrderItem.js'
-import Widgets from 'src/mixin/Widgets.js'
 
 export default {
   name: 'OrderedProducts',
-  mixins: [Widgets],
+  mixins: [mixinWidget],
   props: {
     // order: {
     //   type: Order,

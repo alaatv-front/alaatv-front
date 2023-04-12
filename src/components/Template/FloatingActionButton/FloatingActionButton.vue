@@ -1,6 +1,7 @@
 <template>
   <q-page-sticky position="bottom-left"
-                 :offset="fabPos">
+                 :offset="fabPos"
+                 class="floating-action-btn-page-builder">
     <q-fab v-model="pageOptionsFloatingActionButton"
            v-touch-pan.prevent.mouse="moveFab"
            :persistent="true"
@@ -29,7 +30,13 @@
                       color="info"
                       icon="isax:eye"
                       label="نمایش کانفیگ"
-                      @click="showPageBuilderConfigs" />
+                      @click="showPageBuilderShowConfigs" />
+        <q-fab-action external-label
+                      label-position="right"
+                      color="info"
+                      icon="isax:eye"
+                      label="وارد کردن کانفیگ"
+                      @click="showPageBuilderImportConfigs" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
@@ -41,7 +48,7 @@
                       color="positive"
                       icon="isax:clipboard-tick"
                       label="تایید"
-                      @click="togglePageBuilderEditable" />
+                      @click="acceptPageBuilderConfig" />
         <q-fab-action external-label
                       label-position="right"
                       color="negative"
@@ -52,13 +59,38 @@
     </q-fab>
   </q-page-sticky>
   <q-dialog v-model="seoDialog">
-    <q-card>
+    <q-card class="seo-option-panel-in-floating-btn">
       <q-card-section>
-        <div class="text-h6">Alert</div>
+        <div class="text-h6">SEO</div>
       </q-card-section>
 
       <q-card-section class="q-pt-none">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
+        <div dir="ltr">
+          main:
+        </div>
+        <q-input v-model="seo.title"
+                 label="title" />
+        <q-input v-model="seo.description"
+                 label="description"
+                 type="textarea" />
+        <q-input v-model="seo.robots"
+                 label="description" />
+        <q-separator />
+        <div dir="ltr">
+          open graph:
+        </div>
+        <q-input v-model="seo.ogTitle"
+                 label="open graph title" />
+        <q-input v-model="seo.ogDescription"
+                 label="open graph description"
+                 type="textarea" />
+        <q-input v-model="seo.ogUrl"
+                 label="open graph url"
+                 dir="ltr" />
+        <q-input v-model="seo.ogImage"
+                 label="open graph image"
+                 dir="ltr" />
+        <q-img :src="seo.ogImage" />
       </q-card-section>
 
       <q-card-actions align="right">
@@ -69,12 +101,13 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-  <q-dialog v-model="pageBuilderConfigDialog">
+  <q-dialog v-model="pageBuilderShowConfigDialog"
+            class="pageBuilderShowConfigDialog">
     <q-card>
       <q-card-section>
         <div class="text-h6">تنظیمات صفحه</div>
       </q-card-section>
-      <q-card-section class="q-pt-none">
+      <q-card-section class="pageBuilderShowConfigDialog-config-section">
         {{ currenSections }}
       </q-card-section>
       <q-card-actions align="right">
@@ -86,25 +119,117 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <q-dialog v-model="pageBuilderImportConfigDialog"
+            class="pageBuilderImportConfigDialog">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">وارد کردن تنظیمات صفحه</div>
+      </q-card-section>
+      <q-card-section class="pageBuilderImportConfigDialog-config-section">
+        <q-input v-model="pageBuilderImportedConfigs"
+                 type="textarea"
+                 label="configs" />
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn v-close-popup
+               flat
+               label="وارد کردن تنظیمات"
+               color="primary"
+               @click="importPageBuilderConfigs" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
 import { copyToClipboard } from 'quasar'
 import { mixinPageOptions } from 'src/mixin/Mixins'
+import { APIGateway } from 'src/api/APIGateway'
+import { PageSetting } from 'src/models/PageSetting'
 
 export default {
   name: 'FloatingActionButton',
   mixins: [mixinPageOptions],
   data () {
     return {
+      pageBuilderImportedConfigs: null,
+      seo: {
+        title: null,
+        description: null,
+        robots: null,
+        ogTitle: null,
+        ogUrl: null,
+        ogDescription: null,
+        ogImage: null
+      },
       seoDialog: false,
-      pageBuilderConfigDialog: false,
+      pageBuilderShowConfigDialog: false,
+      pageBuilderImportConfigDialog: false,
       pageBuilderConfigs: {},
       fabPos: [18, 18],
       pageOptionsFloatingActionButton: false
     }
   },
+  computed: {
+    canShowDynamicSettings () {
+      return this.hasDynamicSetting || this.hasDynamicSettingWithParams
+    },
+    hasDynamicSetting () {
+      return !!this.$route.meta?.hasDynamicSetting
+    },
+    hasDynamicSettingWithParams () {
+      return !!this.$route.meta?.hasDynamicSettingWithParams
+    }
+  },
+  created () {
+    this.loadDefaultSeoData()
+  },
   methods: {
+    importPageBuilderConfigs () {
+      this.$store.commit('PageBuilder/updateCurrentSections', JSON.parse(this.pageBuilderImportedConfigs))
+    },
+    updateSeo () {
+      this.$store.commit('SEO/updateTitle', this.seo.title)
+      this.$store.commit('SEO/updateDescription', this.seo.description)
+      this.$store.commit('SEO/updateRobots', this.seo.robots)
+      this.$store.commit('SEO/updateOgTitle', this.seo.ogTitle)
+      this.$store.commit('SEO/updateOgDescription', this.seo.ogDescription)
+      this.$store.commit('SEO/updateOgUrl', this.seo.ogUrl)
+      this.$store.commit('SEO/updateOgImage', this.seo.ogImage)
+      this.updateSetting()
+    },
+    updateSetting () {
+      const params = JSON.stringify(this.$route.params)
+      const routeName = this.$route.name
+      const key = 'route_name:' + routeName + (this.hasDynamicSettingWithParams ? ('-params:' + params) : '')
+      const sections = this.$store.getters['PageBuilder/currentSections'] ? this.$store.getters['PageBuilder/currentSections'] : []
+      const seo = {
+        title: this.$store.getters['SEO/title'],
+        description: this.$store.getters['SEO/description'],
+        robots: this.$store.getters['SEO/robots'],
+        ogTitle: this.$store.getters['SEO/ogTitle'],
+        ogUrl: this.$store.getters['SEO/ogUrl'],
+        ogDescription: this.$store.getters['SEO/ogDescription'],
+        ogImage: this.$store.getters['SEO/ogImage']
+      }
+      const value = new PageSetting({
+        value: { sections, seo, layoutConfig: {} }
+      }).getStringifyValue()
+      APIGateway.pageSetting.update({ key, value })
+        .then(() => {
+          this.currenSections = sections
+          this.$store.commit('PageBuilder/updatePageBuilderEditable', false)
+        })
+    },
+    loadDefaultSeoData () {
+      this.seo.title = this.$store.getters['SEO/title']
+      this.seo.description = this.$store.getters['SEO/description']
+      this.seo.robots = this.$store.getters['SEO/robots']
+      this.seo.ogTitle = this.$store.getters['SEO/ogTitle'] ? this.$store.getters['SEO/ogTitle'] : this.seo.title
+      this.seo.ogUrl = this.$store.getters['SEO/ogUrl'] ? this.$store.getters['SEO/ogUrl'] : ''
+      this.seo.ogDescription = this.$store.getters['SEO/ogDescription'] ? this.$store.getters['SEO/ogDescription'] : this.seo.description
+      this.seo.ogImage = this.$store.getters['SEO/ogImage']
+    },
     moveFab (ev) {
       // this.draggingFab = ev.isFirst !== true && ev.isFinal !== true
       this.fabPos = [
@@ -112,8 +237,11 @@ export default {
         this.fabPos[1] - ev.delta.y
       ]
     },
-    showPageBuilderConfigs () {
-      this.pageBuilderConfigDialog = true
+    showPageBuilderShowConfigs () {
+      this.pageBuilderShowConfigDialog = true
+    },
+    showPageBuilderImportConfigs () {
+      this.pageBuilderImportConfigDialog = true
     },
     copyPageBuilderConfigs () {
       copyToClipboard(JSON.stringify(this.currenSections))
@@ -139,6 +267,9 @@ export default {
         }, 700)
       }
     },
+    acceptPageBuilderConfig () {
+      this.updateSetting()
+    },
     showPageBuilderConfig () {
 
     },
@@ -149,6 +280,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.floating-action-btn-page-builder {
+  z-index: 2001;
+}
+</style>
 
+<style lang="scss">
+.seo-option-panel-in-floating-btn {
+  &.q-card {
+    width: 700px;
+    max-width: 80vw;
+  }
+}
+.pageBuilderShowConfigDialog {
+  .pageBuilderShowConfigDialog-config-section {
+    overflow: auto;
+    max-height: 50vh;
+  }
+}
 </style>

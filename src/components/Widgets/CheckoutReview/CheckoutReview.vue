@@ -24,11 +24,11 @@
 import { computed } from 'vue'
 import { Cart } from 'src/models/Cart.js'
 import API_ADDRESS from 'src/api/Addresses.js'
-import StickyBothSides from 'components/Utils/StickyBothSides.vue'
-import Login from 'components/Widgets/CheckoutReview/SideComponents/Login.vue'
-import Donate from 'components/Widgets/CheckoutReview/SideComponents/Donate.vue'
-import CartItemList from 'components/Widgets/CheckoutReview/SideComponents/CartItemList.vue'
-import CheckoutReviewCart from 'components/Widgets/CheckoutReview/CartComponents/CheckoutReviewCart.vue'
+import StickyBothSides from 'src/components/Utils/StickyBothSides.vue'
+import Login from 'src/components/Widgets/CheckoutReview/SideComponents/Login.vue'
+import Donate from 'src/components/Widgets/CheckoutReview/SideComponents/Donate.vue'
+import CartItemList from 'src/components/Widgets/CheckoutReview/SideComponents/CartItemList.vue'
+import CheckoutReviewCart from 'src/components/Widgets/CheckoutReview/CartComponents/CheckoutReviewCart.vue'
 
 export default {
   name: 'CheckoutReview',

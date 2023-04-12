@@ -1,4 +1,7 @@
 const mutations = {
+  updatePageBuilderLoading: (state, newInfo) => {
+    state.pageBuilderLoading = newInfo
+  },
   updatePageBuilderEditable: (state, newInfo) => {
     state.pageBuilderEditable = newInfo
   },

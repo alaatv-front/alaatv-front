@@ -61,11 +61,17 @@ const routes = [
           {
             path: '',
             name: 'Public.Home',
+            meta: {
+              hasDynamicSetting: true
+            },
             component: () => import('src/pages/Public/Home.vue')
           },
           {
             path: 'shop',
             name: 'Public.Shop',
+            meta: {
+              hasDynamicSetting: true
+            },
             component: () => import('pages/Public/Shop.vue')
           },
           {
@@ -134,7 +140,18 @@ const routes = [
             },
             children: [
               {
+                path: ':landing_name',
+                meta: {
+                  hasDynamicSettingWithParams: true
+                },
+                name: 'Public.Landing',
+                component: () => import('src/pages/Public/Landings/Landing.vue')
+              },
+              {
                 path: '36',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 name: 'Public.Checkout.FireDay',
                 component: () => import('src/pages/Public/Landings/FireDay.vue')
               }

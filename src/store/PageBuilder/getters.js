@@ -1,4 +1,7 @@
 const getters = {
+  pageBuilderLoading: (state) => {
+    return state.pageBuilderLoading
+  },
   pageBuilderEditable: (state) => {
     return state.pageBuilderEditable
   },

@@ -25,6 +25,12 @@ const mixinWidget = {
       defaultOptions: {}
     }
   },
+  watch: {
+    editable () {
+      console.log('editable')
+      this.reloadWidget()
+    }
+  },
   created () {
     this.mergeOptionsToDefaultOptions()
   },
@@ -53,6 +59,7 @@ const mixinWidget = {
   //   }
   },
   methods: {
+    reloadWidget () {},
     mergeOptionsToDefaultOptions () {
       Object.assign(this.defaultOptions, this.options)
       if (!this.defaultOptions.style) {
