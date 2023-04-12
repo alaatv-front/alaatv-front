@@ -33,22 +33,22 @@ export default class ContentAPI extends APIRepository {
     super('content', apiV2, '/c/', new Content(), APIAdresses)
     this.CacheList = {
       admin: this.name + this.APIAdresses.admin,
-      search: this.name + this.APIAdresses.search,
-      delete: this.name + this.APIAdresses.delete,
-      presigned: this.name + this.APIAdresses.presigned,
       show: id => this.name + this.APIAdresses.show(id),
-      bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
-      update: id => this.name + this.APIAdresses.update(id),
-      bulkEditText: this.name + this.APIAdresses.bulkEditText,
-      timestampSet: this.name + this.APIAdresses.timestampSet,
-      bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
       favored: id => this.name + this.APIAdresses.favored(id),
       unfavored: id => this.name + this.APIAdresses.unfavored(id),
       showAdmin: id => this.name + this.APIAdresses.showAdmin(id),
-      getTimestamp: id => this.name + this.APIAdresses.getTimestamp(id),
+      update: id => this.name + this.APIAdresses.update(id),
       relatedProducts: id => this.name + this.APIAdresses.relatedProducts(id),
+      search: this.name + this.APIAdresses.search,
+      delete: this.name + this.APIAdresses.delete,
+      timestampSet: this.name + this.APIAdresses.timestampSet,
+      bulkEditText: this.name + this.APIAdresses.bulkEditText,
+      bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
+      bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
+      getTimestamp: id => this.name + this.APIAdresses.getTimestamp(id),
       updateTimestamp: id => this.name + this.APIAdresses.updateTimestamp(id),
-      deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id)
+      deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id),
+      presigned: this.name + this.APIAdresses.presigned
     }
   }
 
