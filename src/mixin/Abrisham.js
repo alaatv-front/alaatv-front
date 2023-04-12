@@ -21,7 +21,7 @@ const mixinAbrisham = {
     },
     async setVideoStatusToWatched() {
       try {
-        await this.$apiGateway.abrisham.setVideoWatched({
+        await this.$apiGateway.content.setVideoWatched({
           watchable_id: this.watchingContent.id,
           watchable_type: 'content'
         })
@@ -34,7 +34,7 @@ const mixinAbrisham = {
     },
     async setVideoStatusToUnwatched() {
       try {
-        await this.$apiGateway.abrisham.setVideoUnWatched({
+        await this.$apiGateway.content.setVideoUnWatched({
           watchable_id: this.watchingContent.id,
           watchable_type: 'content'
         })
@@ -47,7 +47,7 @@ const mixinAbrisham = {
     },
     async updateComment(comment) {
       try {
-        const response = await this.$apiGateway.abrisham.updateComment(this.watchingContent.comments[0].id, {
+        const response = await this.$apiGateway.content.updateComment(this.watchingContent.comments[0].id, {
           comment,
           _method: 'PUT'
         })
@@ -60,7 +60,7 @@ const mixinAbrisham = {
     },
     async saveNewComment(comment) {
       try {
-        const response = await this.$apiGateway.abrisham.saveComment({
+        const response = await this.$apiGateway.content.saveComment({
           commentable_id: this.watchingContent.id,
           commentable_type: 'content',
           comment
