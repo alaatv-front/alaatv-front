@@ -247,144 +247,144 @@ export default {
         { type: 'date', name: 'created_at_till', placeholder: 'تا:', col: 'col-md-3' },
         { type: 'date', name: 'hasMessageFromDate', placeholder: 'تاریخ پاسخ اپراتور از:', col: 'col-md-6' },
         { type: 'date', name: 'hasMessageToDate', placeholder: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-6' },
-        {
-          type: 'entity',
-          name: 'hasAssignees',
-          selectionMode: 'multiple',
-          popUpButtonConfig: {
-            unelevated: true,
-            color: 'primary',
-            textColor: 'white',
-            badgeColor: 'secondary',
-            label: 'مسؤل'
-          },
-          indexConfig: {
-            apiAddress: 'https://reqres.in/api/users',
-            tableTitle: 'لیست مسؤلین',
-            showTableItemsRouteName: 'Admin.BlockManagement.Show',
-            tableKeys: {
-              data: 'data',
-              total: 'total',
-              currentPage: 'page',
-              perPage: 'per_page',
-              pageKey: 'page'
-            },
-            table: {
-              columns: [
-                {
-                  name: 'id',
-                  required: true,
-                  label: '#',
-                  align: 'left',
-                  field: row => row.id
-                },
-                {
-                  name: 'first_name',
-                  required: true,
-                  label: 'نام',
-                  align: 'left',
-                  field: row => row.first_name
-                },
-                {
-                  name: 'last_name',
-                  required: true,
-                  label: 'نام خانوادگی',
-                  align: 'left',
-                  field: row => row.last_name
-                },
-                {
-                  name: 'role',
-                  required: true,
-                  label: 'نقش',
-                  align: 'left',
-                  field: row => row.email
-                }
-              ],
-              data: []
-            },
-            inputs: [
-              { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
-              { type: 'input', name: 'first_name', value: null, placeholder: 'نام', col: 'col-md-3' },
-              { type: 'input', name: 'last_name', value: null, placeholder: 'نام خانوادگی', col: 'col-md-3' },
-              { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
-            ],
-            itemIdentifyKey: 'id',
-            itemIndicatorKey: 'first_name'
-          },
-          value: [],
-          responseKey: '',
-          selected: [],
-          col: 'col-md-3'
-        },
-        {
-          type: 'entity',
-          name: 'ticketMessage',
-          selectionMode: 'single',
-          popUpButtonConfig: {
-            unelevated: true,
-            color: 'primary',
-            textColor: 'white',
-            badgeColor: 'secondary',
-            label: 'پاسخگو'
-          },
-          indexConfig: {
-            apiAddress: 'https://reqres.in/api/users',
-            tableTitle: 'لیست مسؤلین',
-            showTableItemsRouteName: 'Admin.BlockManagement.Show',
-            tableKeys: {
-              data: 'data',
-              total: 'total',
-              currentPage: 'page',
-              perPage: 'per_page',
-              pageKey: 'page'
-            },
-            table: {
-              columns: [
-                {
-                  name: 'id',
-                  required: true,
-                  label: '#',
-                  align: 'left',
-                  field: row => row.id
-                },
-                {
-                  name: 'first_name',
-                  required: true,
-                  label: 'نام',
-                  align: 'left',
-                  field: row => row.first_name
-                },
-                {
-                  name: 'last_name',
-                  required: true,
-                  label: 'نام خانوادگی',
-                  align: 'left',
-                  field: row => row.last_name
-                },
-                {
-                  name: 'role',
-                  required: true,
-                  label: 'نقش',
-                  align: 'left',
-                  field: row => row.email
-                }
-              ],
-              data: []
-            },
-            inputs: [
-              { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
-              { type: 'input', name: 'first_name', value: null, placeholder: 'نام', col: 'col-md-3' },
-              { type: 'input', name: 'last_name', value: null, placeholder: 'نام خانوادگی', col: 'col-md-3' },
-              { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
-            ],
-            itemIdentifyKey: 'id',
-            itemIndicatorKey: 'first_name'
-          },
-          value: [],
-          responseKey: '',
-          selected: [],
-          col: 'col-md-3'
-        },
+        // {
+        //   type: 'entity',
+        //   name: 'hasAssignees',
+        //   selectionMode: 'multiple',
+        //   popUpButtonConfig: {
+        //     unelevated: true,
+        //     color: 'primary',
+        //     textColor: 'white',
+        //     badgeColor: 'secondary',
+        //     label: 'مسؤل'
+        //   },
+        //   indexConfig: {
+        //     apiAddress: 'https://reqres.in/api/users',
+        //     tableTitle: 'لیست مسؤلین',
+        //     showTableItemsRouteName: 'Admin.BlockManagement.Show',
+        //     tableKeys: {
+        //       data: 'data',
+        //       total: 'total',
+        //       currentPage: 'page',
+        //       perPage: 'per_page',
+        //       pageKey: 'page'
+        //     },
+        //     table: {
+        //       columns: [
+        //         {
+        //           name: 'id',
+        //           required: true,
+        //           label: '#',
+        //           align: 'left',
+        //           field: row => row.id
+        //         },
+        //         {
+        //           name: 'first_name',
+        //           required: true,
+        //           label: 'نام',
+        //           align: 'left',
+        //           field: row => row.first_name
+        //         },
+        //         {
+        //           name: 'last_name',
+        //           required: true,
+        //           label: 'نام خانوادگی',
+        //           align: 'left',
+        //           field: row => row.last_name
+        //         },
+        //         {
+        //           name: 'role',
+        //           required: true,
+        //           label: 'نقش',
+        //           align: 'left',
+        //           field: row => row.email
+        //         }
+        //       ],
+        //       data: []
+        //     },
+        //     inputs: [
+        //       { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
+        //       { type: 'input', name: 'first_name', value: null, placeholder: 'نام', col: 'col-md-3' },
+        //       { type: 'input', name: 'last_name', value: null, placeholder: 'نام خانوادگی', col: 'col-md-3' },
+        //       { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
+        //     ],
+        //     itemIdentifyKey: 'id',
+        //     itemIndicatorKey: 'first_name'
+        //   },
+        //   value: [],
+        //   responseKey: '',
+        //   selected: [],
+        //   col: 'col-md-3'
+        // },
+        // {
+        //   type: 'entity',
+        //   name: 'ticketMessage',
+        //   selectionMode: 'single',
+        //   popUpButtonConfig: {
+        //     unelevated: true,
+        //     color: 'primary',
+        //     textColor: 'white',
+        //     badgeColor: 'secondary',
+        //     label: 'پاسخگو'
+        //   },
+        //   indexConfig: {
+        //     apiAddress: 'https://reqres.in/api/users',
+        //     tableTitle: 'لیست مسؤلین',
+        //     showTableItemsRouteName: 'Admin.BlockManagement.Show',
+        //     tableKeys: {
+        //       data: 'data',
+        //       total: 'total',
+        //       currentPage: 'page',
+        //       perPage: 'per_page',
+        //       pageKey: 'page'
+        //     },
+        //     table: {
+        //       columns: [
+        //         {
+        //           name: 'id',
+        //           required: true,
+        //           label: '#',
+        //           align: 'left',
+        //           field: row => row.id
+        //         },
+        //         {
+        //           name: 'first_name',
+        //           required: true,
+        //           label: 'نام',
+        //           align: 'left',
+        //           field: row => row.first_name
+        //         },
+        //         {
+        //           name: 'last_name',
+        //           required: true,
+        //           label: 'نام خانوادگی',
+        //           align: 'left',
+        //           field: row => row.last_name
+        //         },
+        //         {
+        //           name: 'role',
+        //           required: true,
+        //           label: 'نقش',
+        //           align: 'left',
+        //           field: row => row.email
+        //         }
+        //       ],
+        //       data: []
+        //     },
+        //     inputs: [
+        //       { type: 'input', name: 'id', value: null, placeholder: 'شناسه', col: 'col-md-3' },
+        //       { type: 'input', name: 'first_name', value: null, placeholder: 'نام', col: 'col-md-3' },
+        //       { type: 'input', name: 'last_name', value: null, placeholder: 'نام خانوادگی', col: 'col-md-3' },
+        //       { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
+        //     ],
+        //     itemIdentifyKey: 'id',
+        //     itemIndicatorKey: 'first_name'
+        //   },
+        //   value: [],
+        //   responseKey: '',
+        //   selected: [],
+        //   col: 'col-md-3'
+        // },
         {
           type: 'entity',
           name: 'product',
