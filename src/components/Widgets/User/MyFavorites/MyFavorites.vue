@@ -30,10 +30,10 @@
                            rounded
                            @keydown.enter="searchInProductFavoreds" />
                 </div>
-                <div class="row q-col-gutter-md">
+                <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in productFavoreds.list"
                        :key="favoredItem.id"
-                       class="col-12 col-md-4">
+                       class="col-12 col-md-4 product-item">
                     <product-item :options="{product: favoredItem.getProduct(), canAddToCart: false}" />
                   </div>
                 </div>
@@ -71,10 +71,10 @@
                            rounded
                            @keydown.enter="searchInSetFavoreds" />
                 </div>
-                <div class="row q-col-gutter-md">
+                <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in setFavoreds.list"
                        :key="favoredItem.id"
-                       class="col-12 col-md-4">
+                       class="col-12 col-md-4 set-item ">
                     <set-item :options="{set: favoredItem.getSet()}" />
                   </div>
                 </div>
@@ -112,10 +112,10 @@
                            rounded
                            @keydown.enter="searchInContentFavoreds" />
                 </div>
-                <div class="row q-col-gutter-md">
+                <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in contentFavoreds.list"
                        :key="favoredItem.id"
-                       class="col-12 col-md-4">
+                       class="col-12 col-md-4 content-item">
                     <content-item :options="{content: favoredItem.getContent()}" />
                   </div>
                 </div>
@@ -301,6 +301,15 @@ export default {
   .q-tab-panels {
     border-radius: 10px;
     box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
+  }
+  .product-item {
+    width: 310px;
+  }
+  .set-item {
+    width: 330px;
+  }
+  .content-item {
+    width: 330px;
   }
 }
 </style>
