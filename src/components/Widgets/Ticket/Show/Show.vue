@@ -136,7 +136,7 @@
       <send-message-input ref="SendMessageInput"
                           class="q-my-lg"
                           :isAdmin="isAdmin"
-                          :send-loading="sendLoading"
+                          :send-loading="loading"
                           @creatTicket="sendTicketMessage" />
       <drawer :is-open="logDrawer"
               max-width="310px"

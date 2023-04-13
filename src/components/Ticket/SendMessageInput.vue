@@ -71,6 +71,7 @@
                  class="btn  actionBtn"
                  color="primary"
                  icon="isax:image"
+                 :loading="sendLoading"
                  @click="getFile">
             <input ref="myFileInput"
                    style="display:none"
@@ -83,7 +84,7 @@
                     persistent
                     class="imageModal"
                     @close="clearMessage">
-            <q-card>
+            <q-card class="imageModal-card">
               <div>
                 <!--                <cropper-->
                 <!--                  ref="cropper"-->
@@ -97,22 +98,23 @@
                 <!--                  }"-->
                 <!--                  @change="change"-->
                 <!--                />-->
+                <q-img :src="imgURL" />
 
                 <div class="slider_box">
                   <q-btn unelevated
                          class="delete-pic-btn"
                          label="حذف"
                          @click="clearMessage" />
-                  <div class="angle-slider">
-                    <p class="title">میزان چرخش :</p>
-                    <input id="slider"
-                           v-model="rotateAngle"
-                           class="angle_slider"
-                           type="range"
-                           min="0"
-                           max="360"
-                           @change="rotate">
-                  </div>
+                  <!--                  <div class="angle-slider">-->
+                  <!--                    <p class="title">میزان چرخش :</p>-->
+                  <!--                    <input id="slider"-->
+                  <!--                           v-model="rotateAngle"-->
+                  <!--                           class="angle_slider"-->
+                  <!--                           type="range"-->
+                  <!--                           min="0"-->
+                  <!--                           max="360"-->
+                  <!--                           @change="rotate">-->
+                  <!--                  </div>-->
                 </div>
 
                 <q-input v-model="newMessageTextInModal"
@@ -144,6 +146,7 @@
                  color="teal-7"
                  icon="attach_file"
                  class="actionBtn full-height attach-file"
+                 :loading="sendLoading"
                  @click="$refs.fileInput.click()" />
           <input ref="fileInput"
                  type="file"
@@ -237,9 +240,10 @@ export default {
   data: () => ({
     recordCurrentStatus: false,
     microphoneBtnLoading: false,
-    fileInput: '',
+    fileInput: null,
     assignTo: null,
     imgURL: '',
+    imgBlob: '',
     orderDrawer: false,
     orderLoading: false,
     resultURL: '',
@@ -401,9 +405,6 @@ export default {
       }
     }
   },
-  mounted () {
-  //  sdklmfldsf
-  },
   methods: {
     async onOpenOrderList() {
       this.orderDrawer = true
@@ -519,9 +520,11 @@ export default {
           URL.revokeObjectURL(this.imgURL)
         }
         const blob = URL.createObjectURL(files[0])
+        this.imgBlob = files[0]
         const reader = new FileReader()
         reader.onload = (e) => {
           this.imgURL = blob
+          this.resultURL = blob
         }
         reader.readAsArrayBuffer(files[0])
       }
@@ -538,7 +541,8 @@ export default {
 
     clearMessage() {
       this.newMessage.text = ''
-      this.imgURL = ''
+      this.imgURL = null
+      this.imgBlob = null
       this.resultURL = ''
       this.showVoicePlayer = false
       this.userPicSelected = false
@@ -553,12 +557,13 @@ export default {
     emitData(isPrivate) {
       this.$emit('creatTicket', {
         isPrivate,
-        ...(this.resultURL && { resultURL: this.resultURL }),
+        ...(this.resultURL && { resultURL: this.imgBlob }),
         ...(this.resultURL && { caption: this.newMessageTextInModal }),
         ...(this.newMessage.text && { body: this.newMessage.text }),
         ...(this.recordedVoiceBlob && { voice: this.recordedVoiceBlob }),
-        ...(this.fileInput && { file: this.fileInput })
+        ...(this.fileInput && { file: this.fileInput[0] })
       })
+      this.clearMessage()
     }
 
   }
@@ -593,18 +598,10 @@ export default {
 </style>
 
 <style scoped lang="scss">
-.attach-file {
-  width: 64px;
-  border-radius: 0;
-}
-
-.msg-input-box {
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
-}
-
 .imageModal {
+  .imageModal-card {
+    width: 320px;
+  }
   .slider_box {
     display: flex;
     justify-content: center;
@@ -690,6 +687,17 @@ export default {
     max-width: 50%;
     margin: 0;
   }
+}
+
+.attach-file {
+  width: 64px;
+  border-radius: 0;
+}
+
+.msg-input-box {
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
 }
 
 .SendMessageInput {
