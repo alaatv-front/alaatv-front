@@ -35,6 +35,14 @@ export default {
     EntityEdit
   },
   mixins: [mixinWidget],
+  props: {
+    options: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       api: APIGateway.user.APIAdresses.base + '/' + this.$store.getters['Auth/user'].id,
@@ -43,13 +51,17 @@ export default {
       showRouteName: 'UserPanel.Profile',
       localInputs: [],
       cities: [],
+      selectedProvinceId: 0,
       defaultLayout: false
     }
   },
   computed: {
     shahrValues() {
-      const selectedProvinceId = this.localInputs[1]?.value[6]?.value?.id
-      return this.cities.filter(city => city.province.id === selectedProvinceId)
+      if (this.localInputs[1]) {
+        const selectedProvinceId = this.localInputs[1].value[6]?.value?.id
+        return this.cities.filter(city => city.province.id === selectedProvinceId)
+      }
+      return null
     }
   },
   watch: {
@@ -71,11 +83,12 @@ export default {
       APIGateway.user.formData()
         .then((response) => {
           // edit entity
+          this.localInputs[1].value[6].options = response.provinces
           this.localInputs[2].value[1].options = response.grades
           this.localInputs[2].value[2].options = response.majors
           this.localInputs[1].value[4].options = response.genders
           this.cities = response.cities
-          this.localInputs[1].value[6].options = response.provinces
+          // this.selectedProvinceId = this.localInputs[1].value[6].value?.id
         })
         .catch(() => {})
     },
