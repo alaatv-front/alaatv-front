@@ -37,6 +37,32 @@
             <q-input v-model="localOptions[size].src"
                      label="image link" />
           </div>
+          <div class="action col-md-12">
+            <div class="cehckBox">
+              <q-checkbox v-model="localOptions.hasAction"
+                          label="hasAction"
+                          right-label />
+            </div>
+            <div v-if="localOptions.hasAction"
+                 class="action-container">
+              <div class="col-3">
+                <q-select v-model="localOptions.action.type"
+                          :options="actionTypes" />
+              </div>
+              <div class="col-9">
+                <q-input v-model="localOptions.action.route"
+                         label="route" />
+              </div>
+              <div class="col-6">
+                <q-input v-model="localOptions.action.eventName"
+                         label="event name" />
+              </div>
+              <div class="col-6">
+                <q-input v-model="localOptions.action.eventArgs"
+                         label="event args" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </template>
@@ -62,7 +88,8 @@ export default defineComponent({
   data() {
     return {
       size: 'xs',
-      sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl']
+      sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
+      actionTypes: ['event', 'scroll', 'link']
     }
   },
   watch: {
