@@ -12,104 +12,102 @@
           تعداد کل یافته ها: {{ totalTickets}}
         </p>
       </template>
-      <template v-slot:table-cell="{inputData, showConfirmRemoveDialog}">
-        <q-td :props="inputData.props">
-          <template v-if="inputData.props.col.name === 'status'">
-            <div v-if="inputData.props.expand">
-              <q-select v-model="inputData.props.row.status"
-                        outlined
-                        dense
-                        :options="ticketStatuses"
-                        option-label="title" />
-            </div>
-            <template v-else>
-              <q-chip :color="checkStatusColor(inputData.props.row.status.id)"
-                      :style="{color: '#FFF', height: '26px'}">
-                {{ inputData.props.row.status.title }}
-              </q-chip>
-            </template>
-          </template>
-          <template v-if="inputData.props.col.name === 'title'">
-            <div class="title-class ellipsis">
-              {{inputData.props.row.title}}
-            </div>
-          </template>
-          <template v-if="inputData.props.col.name === 'score'">
-            <q-img :src="rateImg(inputData.props.row.rate)"
-                   class="rate-img" />
-          </template>
-          <template v-if="inputData.props.col.name === 'department'">
-            <q-select v-if="inputData.props.expand"
-                      v-model="inputData.props.row.department"
+      <template v-slot:entity-index-table-cell="{inputData,showConfirmRemoveDialog}">
+        <template v-if="inputData.col.name === 'status'">
+          <div v-if="inputData.props.expand">
+            <q-select v-model="inputData.props.row.status"
                       outlined
                       dense
-                      :options="departmentList.list"
+                      :options="ticketStatuses"
                       option-label="title" />
-            <p v-else>{{inputData.props.row.department.title}}</p>
-
-          </template>
-          <template v-if="inputData.props.col.name === 'actions'">
-            <div v-if="inputData.props.expand">
-              <q-btn round
-                     flat
-                     dense
-                     color="green"
-                     icon="check"
-                     :loading="loading"
-                     class="q-mr-md"
-                     @click="updateTicket(inputData.props)" />
-              <q-btn round
-                     flat
-                     dense
-                     color="red"
-
-                     icon="close"
-                     @click="inputData.props.expand = false" />
-
-            </div>
-            <template v-else>
-              <q-btn round
-                     flat
-                     dense
-                     size="md"
-                     color="info"
-                     icon="info"
-                     :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
-                <q-tooltip>
-                  مشاهده
-                </q-tooltip>
-              </q-btn>
-              <q-btn round
-                     flat
-                     dense
-                     size="md"
-                     color="amber-14"
-                     icon="edit"
-                     class="q-ml-xs"
-                     @click="setEditMode(inputData.props)">
-                <q-tooltip>
-                  ویرایش
-                </q-tooltip>
-              </q-btn>
-              <q-btn round
-                     flat
-                     dense
-                     size="md"
-                     color="negative"
-                     icon="delete"
-                     :loading="loading"
-                     class="q-ml-md"
-                     @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
-                <q-tooltip>
-                  حذف
-                </q-tooltip>
-              </q-btn>
-            </template>
-          </template>
+          </div>
           <template v-else>
-            {{ inputData.props.value }}
+            <q-chip :color="checkStatusColor(inputData.props.row.status.id)"
+                    :style="{color: '#FFF', height: '26px'}">
+              {{ inputData.props.row.status.title }}
+            </q-chip>
           </template>
-        </q-td>
+        </template>
+        <template v-if="inputData.col.name === 'title'">
+          <div class="title-class ellipsis">
+            {{inputData.props.row.title}}
+          </div>
+        </template>
+        <template v-if="inputData.col.name === 'score'">
+          <q-img :src="rateImg(inputData.props.row.rate)"
+                 class="rate-img" />
+        </template>
+        <template v-if="inputData.col.name === 'department'">
+          <q-select v-if="inputData.props.expand"
+                    v-model="inputData.props.row.department"
+                    outlined
+                    dense
+                    :options="departmentList.list"
+                    option-label="title" />
+          <p v-else>{{inputData.props.row.department.title}}</p>
+
+        </template>
+        <template v-if="inputData.col.name === 'actions'">
+          <div v-if="inputData.props.expand">
+            <q-btn round
+                   flat
+                   dense
+                   color="green"
+                   icon="check"
+                   :loading="loading"
+                   class="q-mr-md"
+                   @click="updateTicket(inputData.props)" />
+            <q-btn round
+                   flat
+                   dense
+                   color="red"
+
+                   icon="close"
+                   @click="inputData.props.expand = false" />
+
+          </div>
+          <template v-else>
+            <q-btn round
+                   flat
+                   dense
+                   size="md"
+                   color="info"
+                   icon="info"
+                   :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
+              <q-tooltip>
+                مشاهده
+              </q-tooltip>
+            </q-btn>
+            <q-btn round
+                   flat
+                   dense
+                   size="md"
+                   color="amber-14"
+                   icon="edit"
+                   class="q-ml-xs"
+                   @click="setEditMode(inputData.props)">
+              <q-tooltip>
+                ویرایش
+              </q-tooltip>
+            </q-btn>
+            <q-btn round
+                   flat
+                   dense
+                   size="md"
+                   color="negative"
+                   icon="delete"
+                   :loading="loading"
+                   class="q-ml-md"
+                   @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
+              <q-tooltip>
+                حذف
+              </q-tooltip>
+            </q-btn>
+          </template>
+        </template>
+        <template v-else>
+          {{ inputData.col.value }}
+        </template>
       </template>
     </entity-index>
   </div>
@@ -117,9 +115,8 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
-
+import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'TicketList',
   components: { EntityIndex },
@@ -138,7 +135,7 @@ export default {
   data () {
     return {
       totalTickets: 0,
-      api: API_ADDRESS.ticket.index.base,
+      api: APIGateway.ticket.APIAdresses.base,
       tableKeys: {
         data: 'data',
         total: 'meta.total',
@@ -228,7 +225,7 @@ export default {
           {
             name: 'actions',
             required: true,
-            label: '',
+            label: 'عملیات',
             align: 'left',
             field: ''
           }
@@ -400,7 +397,7 @@ export default {
             label: 'انتخاب محصول'
           },
           indexConfig: {
-            apiAddress: API_ADDRESS.product.index.base,
+            apiAddress: APIGateway.product.APIAdresses.base,
             tableTitle: 'لیست محصولات',
             showTableItemsRouteName: 'Admin.Product.Show',
             tableKeys: {
