@@ -3,22 +3,22 @@
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <q-checkbox v-model="accountInfo"
                         left-label
                         label="مشخصات حساب" />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <q-checkbox v-model="personalInfo"
                         left-label
                         label="مشخصات فردی" />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <q-checkbox v-model="educationalInfo"
                         left-label
                         label="مشخصات تحصیلی" />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <q-checkbox v-model="contactInfo"
                         left-label
                         label="اطلاعات تماس" />
