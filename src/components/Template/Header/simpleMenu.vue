@@ -7,23 +7,23 @@
       <q-list bordered
               padding
               class="rounded-borders dropdown">
-        <div v-for="item in menuContent.children"
-             :key="item">
+        <div v-for="(item, index) in menuContent.children"
+             :key="index">
           <router-link :to="{name: 'Public.Content.Search', query: {'tags[]': item.tags}}">
             <q-item v-ripple
                     clickable
-                    :class="{hoveredItem: isItemSelected(item)}"
-                    @mouseover="categories[item.category] = true">
+                    class="item"
+                    @mouseover="showData(index)">
               <q-item-section>
                 {{item.title}}
               </q-item-section>
-              <q-menu v-model="categories[item.category]"
+              <q-menu v-model="item.selected"
                       fit
                       anchor="top left"
                       class="dropdown2">
                 <q-list style="width: 200px"
-                        @mouseover="categories[item.category] = true">
-                  <div v-for="child in item.items"
+                        @mouseover="showData(index)">
+                  <div v-for="child in item.children"
                        :key="child">
                     <router-link v-if="child.tags"
                                  :to="{name: 'Public.Content.Search', query: {'tags[]': child.tags }}">
@@ -72,12 +72,7 @@ export default {
     return {
       menu: false,
       menuOver: false,
-      listOver: false,
-      categories: {
-        haftom: false,
-        hashtom: false,
-        nohom: false
-      }
+      listOver: false
     }
   },
   watch: {
@@ -86,26 +81,16 @@ export default {
     },
     listOver (val) {
       this.debounceFunc()
-    },
-    'categories.haftom': function(val) {
-      if (val) {
-        this.categories.hashtom = this.categories.nohom = false
-      }
-    },
-    'categories.hashtom': function(val) {
-      if (val) {
-        this.categories.haftom = this.categories.nohom = false
-      }
-    },
-    'categories.nohom': function(val) {
-      if (val) {
-        this.categories.hashtom = this.categories.haftom = false
-      }
     }
   },
   methods: {
     isItemSelected(item) {
-      return this.categories[item.category]
+      return item.selected
+    },
+    showData(colIndex) {
+      this.menuContent.children.forEach((item, subIndex) => {
+        item.selected = colIndex === subIndex
+      })
     }
   },
   debounceFunc: debounce(function() { this.checkMenu() }, 1),
@@ -120,7 +105,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hoveredItem{
+.item:hover{
     font-weight: bold;
     background-color: orange;
 }
