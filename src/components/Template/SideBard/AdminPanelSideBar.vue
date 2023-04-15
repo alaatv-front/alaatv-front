@@ -56,7 +56,8 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <menu-item :menu="titlesList" />
+          <menu-item class="menu-item"
+                     :menu="titlesList" />
         </q-list>
         <div class="log-out"
              @click="logOut">
@@ -173,6 +174,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+:deep(.menu-item) {
+  .item-list {
+    font-size: 18px !important;
+  }
+}
 .side-menu-main-layout {
   display: flex;
   flex-direction: column;

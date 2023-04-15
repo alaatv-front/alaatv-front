@@ -5,6 +5,7 @@ import { User } from 'src/models/User'
 const mixinTicket = {
   data: () => ({
     loading: false,
+    sendLoading: false,
     departmentList: new TicketDepartmentList(),
     ticketStatuses: [],
     ticketPriorityOption: []
@@ -572,52 +573,7 @@ const mixinTicket = {
         this.loading = false
       } catch {
         this.loading = false
-        this.user = new User({
-          id: 1204622,
-          first_name: 'میترا',
-          last_name: 'زلفی خرم',
-          name_slug: null,
-          mobile: '09388131193',
-          mobile_verified_at: '2021-12-09 02:21:42',
-          national_code: '4900443050',
-          photo: 'https://nodes.alaatv.com/upload/images/profile/1639488191_2782.jpg',
-          kartemeli: null,
-          province: null,
-          city: null,
-          address: 'یسبسبسللسبسیبیلسییلی',
-          postal_code: null,
-          school: null,
-          email: null,
-          bio: null,
-          info: null,
-          major: {
-            id: 2,
-            name: 'تجربی',
-            title: 'تجربی',
-            selected: false
-          },
-          grade: {
-            id: 1,
-            name: 'دهم',
-            title: 'دهم'
-          },
-          gender: {
-            id: 2,
-            name: 'خانم',
-            title: 'خانم'
-          },
-          profile_completion: 88,
-          wallet_balance: 0,
-          updated_at: '2022-05-23 07:59:18',
-          created_at: '2021-05-17 23:25:19',
-          edit_profile_url: null,
-          birthdate: '1995-06-15T00:00:00.000000Z',
-          has_purchased_anything: true,
-          shahr: {
-            id: 1378,
-            title: 'ملارد'
-          }
-        })
+        this.user = new User()
       }
     },
 
@@ -629,7 +585,7 @@ const mixinTicket = {
       const formData = new FormData()
 
       if (data.resultURL) {
-        formData.append('photo', this.createBlob(data.resultURL))
+        formData.append('photo', data.resultURL)
         formData.append('body', data.caption)
       }
 

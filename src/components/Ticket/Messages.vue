@@ -48,26 +48,11 @@
         <div v-if="data.files.voice"
              dir="ltr">
           <div class="flex voice-player-section">
-            <q-btn v-if="!showVoicePlayerIsPlaying"
-                   size="30px"
-                   unelevated
-                   icon="isax:play"
-                   class="play-btn"
-                   @click="playRecordedVoice" />
-            <q-btn v-else
-                   size="30px"
-                   unelevated
-                   @click="pauseRecordedVoice">
-              <q-icon name="isax:pause" />
-            </q-btn>
-            <!--            <av-waveform ref="waveform"-->
-            <!--                         class="av-waveform"-->
-            <!--                         :audio-src="data.files.voice"-->
-            <!--                         :playtime-font-family="'IRANSans'"-->
-            <!--                         :audio-controls="false"-->
-            <!--                         :canv-width="900"-->
-            <!--                         :canv-height="64"-->
-            <!--            ></av-waveform>-->
+            <div class="audio-wrapper q-pt-lg">
+              <audio :src="data.files.voice"
+                     controls
+                     class="js-audio audio" />
+            </div>
           </div>
         </div>
         <q-img v-if="data.files.photo"
@@ -187,7 +172,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .user-photo {
   border-radius: 50%;
 }
