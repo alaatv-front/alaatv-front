@@ -6,7 +6,7 @@
       <div class="col-2 q-pb-md">
         <div class="q-mb-md">
           <q-list>
-            <div v-for="(item, index) in data.categoryItemsCol"
+            <div v-for="(item, index) in data.children"
                  :key="index">
               <router-link v-if="item.tags"
                            :to="{ name: 'Public.Content.Search', query: { 'tags[]': item.tags } }">
@@ -18,8 +18,8 @@
                   </q-item-section>
                 </q-item>
               </router-link>
-              <router-link v-else
-                           :to="{path: item.path}">
+              <router-link v-else-if="item.routeName"
+                           :to="{name: item.routeName}">
                 <q-item class="item"
                         clickable
                         @mouseover="showData(index)">
