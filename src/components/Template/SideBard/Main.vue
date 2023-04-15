@@ -209,7 +209,8 @@ export default {
                         'ریاضی_پایه'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 },
                 {
                   title: 'دروس اختصاصی انسانی',
@@ -255,7 +256,8 @@ export default {
                         'علوم_و_فنون_ادبی'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 },
                 {
                   title: 'دروس عمومی',
@@ -338,9 +340,11 @@ export default {
                         'نظام_آموزشی_قدیم'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 }
-              ]
+              ],
+              show: true
             },
             {
               title: 'یازدهم',
@@ -433,7 +437,8 @@ export default {
                         'حسابان'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 },
                 {
                   title: 'دروس اختصاصی انسانی',
@@ -454,7 +459,8 @@ export default {
                         'علوم_و_فنون_ادبی'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 },
                 {
                   title: 'دروس عمومی',
@@ -506,9 +512,11 @@ export default {
                         'دین_و_زندگی'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 }
-              ]
+              ],
+              show: true
             },
             {
               title: 'دهم',
@@ -583,7 +591,8 @@ export default {
                         'ریاضی_پایه'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 },
                 {
                   title: 'دروس اختصاصی انسانی',
@@ -614,7 +623,8 @@ export default {
                         'علوم_و_فنون_ادبی'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 },
                 {
                   title: 'دروس عمومی',
@@ -666,10 +676,11 @@ export default {
                         'دین_و_زندگی'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 }
               ],
-              showData: false,
+              show: true,
               photo: '',
               backgroundColor: '#ffe6dd',
               backgroundImage: ''
@@ -774,7 +785,8 @@ export default {
                         'ریاضی_پایه'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 },
                 {
                   title: 'دروس اختصاصی انسانی',
@@ -815,12 +827,13 @@ export default {
                         'زبان_و_ادبیات_فارسی_انسانی'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 },
                 {
                   title: 'دروس عمومی',
                   href: 'https://alaatv.com/c?tags[]=نظام_آموزشی_قدیم&tags[]=کنکور&tags[]=زبان_انگلیسی&tags[]=عربی&tags[]=زبان_و_ادبیات_فارسی&tags[]=دین_و_زندگی',
-                  children: [
+                  tags: [
                     'نظام_آموزشی_قدیم',
                     'کنکور',
                     'زبان_انگلیسی',
@@ -828,7 +841,7 @@ export default {
                     'زبان_و_ادبیات_فارسی',
                     'دین_و_زندگی'
                   ],
-                  items: [
+                  children: [
                     {
                       title: 'انگلیسی',
                       href: 'https://alaatv.com/c?tags[]=نظام_آموزشی_قدیم&tags[]=کنکور&tags[]=زبان_انگلیسی',
@@ -867,10 +880,11 @@ export default {
                         'دین_و_زندگی'
                       ]
                     }
-                  ]
+                  ],
+                  show: true
                 }
               ],
-              showData: false,
+              show: true,
               photo: '',
               backgroundColor: '#fff2e1',
               backgroundImage: ''
@@ -1658,7 +1672,8 @@ export default {
               type: 'text'
             }
           ],
-          show: true
+          show: false,
+          mobileMode: true
         },
         {
           selected: 'konkurConference',
@@ -1701,7 +1716,8 @@ export default {
               type: 'image'
             }
           ],
-          show: true
+          show: false,
+          mobileMode: true
         },
         {
           selected: 'firstMidSchool',
@@ -1722,7 +1738,8 @@ export default {
                   title: 'ادبیات',
                   href: '/set/1047'
                 }
-              ]
+              ],
+              show: true
             },
             {
               title: 'هشتم',
@@ -1740,7 +1757,8 @@ export default {
                   title: 'ریاضی',
                   tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'هشتم', 'ریاضی']
                 }
-              ]
+              ],
+              show: true
             },
             {
               title: 'نهم',
@@ -1750,10 +1768,12 @@ export default {
                   title: 'ریاضی',
                   tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'نهم', 'ریاضی']
                 }
-              ]
+              ],
+              show: true
             }
           ],
-          show: true
+          show: false,
+          mobileMode: true
         },
         {
           selected: 'olympiad',
@@ -1761,14 +1781,8 @@ export default {
           routeName: 'Public.Content.Search',
           permission: 'all',
           tags: ['المپیاد'],
-          show: true
-        },
-        {
-          title: 'آلاخونه',
-          href: 'forum.alaatv.com',
-          show: true,
-          active: false,
-          open: false
+          show: false,
+          mobileMode: true
         },
         {
           title: 'تیکت پشتیبانی',
@@ -1859,6 +1873,13 @@ export default {
   methods: {
     handleResize() {
       this.windowWidth = window.innerWidth
+      if (this.windowWidth < 1024) {
+        this.titlesList.forEach(item => {
+          if (item.mobileMode) {
+            item.show = true
+          }
+        })
+      }
     },
     // updateMenuItems () {
     //   if (!this.isUserLogin) {

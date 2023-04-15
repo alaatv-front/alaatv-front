@@ -18,7 +18,7 @@
                   </q-item-section>
                 </q-item>
               </router-link>
-              <router-link v-else-if="item.routeName"
+              <router-link v-else
                            :to="{name: item.routeName}">
                 <q-item class="item"
                         clickable
