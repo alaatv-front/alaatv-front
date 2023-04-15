@@ -44,7 +44,7 @@
           </q-dialog>
           <router :include="keepAliveComponents" />
         </div>
-        <floating-action-button v-if="isAdmin" />
+        <floating-action-button v-if="isAdmin && canShowFloatingActionBtn" />
       </template>
       <template #footer>
         <alaa-footer />
@@ -84,6 +84,15 @@ export default {
     }
   },
   computed: {
+    canShowFloatingActionBtn () {
+      return this.hasDynamicSetting || this.hasDynamicSettingWithParams
+    },
+    hasDynamicSetting () {
+      return !!this.$route.meta?.hasDynamicSetting
+    },
+    hasDynamicSettingWithParams () {
+      return !!this.$route.meta?.hasDynamicSettingWithParams
+    },
     loginDialog: {
       get () {
         return this.$store.getters['AppLayout/loginDialog']

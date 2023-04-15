@@ -61,11 +61,17 @@ const routes = [
           {
             path: '',
             name: 'Public.Home',
+            meta: {
+              hasDynamicSetting: true
+            },
             component: () => import('src/pages/Public/Home.vue')
           },
           {
             path: 'shop',
             name: 'Public.Shop',
+            meta: {
+              hasDynamicSetting: true
+            },
             component: () => import('pages/Public/Shop.vue')
           },
           {
@@ -137,7 +143,7 @@ const routes = [
               {
                 path: ':landing_name',
                 meta: {
-                  hasDynamicSetting: true
+                  hasDynamicSettingWithParams: true
                 },
                 name: 'Public.Landing',
                 component: () => import('src/pages/Public/Landings/Landing.vue')
