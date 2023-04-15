@@ -83,7 +83,6 @@ export default {
     return {
       clickedItem: null,
       searchText: '',
-      windowWidth: 0,
       titlesList: [
         {
           selected: 'home',
@@ -1872,14 +1871,12 @@ export default {
   },
   methods: {
     handleResize() {
-      this.windowWidth = window.innerWidth
-      if (this.windowWidth < 1024) {
-        this.titlesList.forEach(item => {
-          if (item.mobileMode) {
-            item.show = true
-          }
-        })
-      }
+      const windowWidth = window.innerWidth
+      this.titlesList.forEach(item => {
+        if (item.mobileMode) {
+          item.show = windowWidth < 1024
+        }
+      })
     },
     // updateMenuItems () {
     //   if (!this.isUserLogin) {
