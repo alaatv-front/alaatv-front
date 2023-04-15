@@ -302,14 +302,5 @@ export default {
     border-radius: 10px;
     box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
   }
-  .product-item {
-    width: 310px;
-  }
-  .set-item {
-    width: 330px;
-  }
-  .content-item {
-    width: 330px;
-  }
 }
 </style>
