@@ -65,8 +65,10 @@
       </router-link>
     </div>
     <div class="product-content-box">
-      <div class="main-title ellipsis-2-lines">
-        {{ product.title }}
+      <div class="title-box">
+        <div class="main-title ellipsis-2-lines">
+          {{ product.title }}
+        </div>
       </div>
       <div v-if="product.attributes"
            class="info-box">
@@ -216,7 +218,6 @@ export default {
   flex-direction: column;
   //height: 100%;
   justify-content: space-between;
-  //width: 310px;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
@@ -233,41 +234,6 @@ export default {
   }
 
   .img-box {
-    .main-title {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: -0.03em;
-      margin: 16px 16px 0;
-
-      @media screen and (max-width: 600px){
-        font-size: 14px;
-        line-height: 16px;
-      }
-
-      a {
-        margin-bottom: 0;
-      }
-
-      .title-text {
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 24px;
-        letter-spacing: -0.03em;
-        color: #333333;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        text-overflow: ellipsis;
-        overflow: hidden;
-
-        @media screen and (max-width: 600px){
-          font-size: 12px;
-          line-height: 14px;
-        }
-      }
-    }
 
     a {
       border-radius: inherit;
@@ -292,6 +258,12 @@ export default {
 
   .product-content-box {
     padding: 10px 16px 16px 16px;
+
+    .title-box {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+    }
 
     .price-box {
       display: flex;

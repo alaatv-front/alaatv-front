@@ -14,7 +14,8 @@
           <div class="null-video flex justify-center items-center">
             <product-item class="product-item"
                           :options="{
-                            product: selectedProduct
+                            product: selectedProduct,
+                            minWidth: '318px'
                           }" />
           </div>
         </div>
@@ -396,10 +397,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.product-item {
-  width: 318px;
-  height: 510px;
-}
 .download-item{
   width: 488px;
   padding: 15px 24px;
