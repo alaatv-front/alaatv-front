@@ -1,8 +1,13 @@
 <template>
-  <q-btn-dropdown flat
+  <q-btn-dropdown v-model="showMenu"
+                  flat
                   content-style="width: 1100px; right: 360px; border-radius: 10px"
-                  :label="data.title">
-    <div class="row">
+                  :label="data.title"
+                  @mouseover="onMouseover"
+                  @mouseleave="onMouseleave">
+    <div class="row"
+         @mouseover="onMouseover"
+         @mouseleave="onMouseleave">
       <div class="col-2 q-pb-md">
         <div class="q-mb-md">
           <q-list>
@@ -99,7 +104,24 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      showMenu: false,
+      onMouseleaveSetTimeout: null
+    }
+  },
   methods: {
+    onMouseover () {
+      this.showMenu = true
+      if (window && this.onMouseleaveSetTimeout) {
+        window.clearInterval(this.onMouseleaveSetTimeout)
+      }
+    },
+    onMouseleave () {
+      this.onMouseleaveSetTimeout = setTimeout(() => {
+        this.showMenu = false
+      }, 50)
+    },
     showData(colIndex) {
       this.data.subCategoryItemsCol.forEach((item, subIndex) => {
         item.selected = colIndex === subIndex
