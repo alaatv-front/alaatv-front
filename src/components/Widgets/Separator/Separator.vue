@@ -1,61 +1,45 @@
 <template>
-  <div v-if="options.image"
+  <div v-if="localOptions.image"
        class="separator-image-wrapper"
-       :style="options.style"
-       :class="options.className">
-    <q-img :src="image"
+       :style="localOptions.style"
+       :class="localOptions.className">
+    <q-img :src="localOptions.image"
            class="separator-image"
            alt="separator"
-           :height="options.height"
-           :width="options.width"
-           :style="options.ImageStyle"
-           :class="options.ImageClassName" /></div>
+           :height="localOptions.height"
+           :width="localOptions.width"
+           :style="localOptions.ImageStyle"
+           :class="localOptions.ImageClassName" /></div>
   <q-separator v-else
-               :style="options.style"
-               :class="options.className"
-               :spaced="spaced"
-               :dark="dark"
-               :inset="inset"
-               :vertical="vertical" />
+               :style="localOptions.style"
+               :class="localOptions.className"
+               :spaced="localOptions.spaced"
+               :dark="localOptions.dark"
+               :inset="localOptions.inset"
+               :vertical="localOptions.vertical" />
 </template>
 
 <script>
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'Separator',
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      spaced: false,
-      dark: false,
-      inset: false,
-      vertical: false,
-      image: null
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
+      defaultOptions: {
+        spaced: false,
+        dark: false,
+        inset: false,
+        vertical: false,
+        image: null,
+        ImageStyle: null,
+        ImageClassName: null,
+        height: null,
+        width: null,
+        style: {},
+        className: ''
       }
-    }
-  },
-  mounted() {
-    this.loadConfig()
-  },
-  methods: {
-    loadConfig() {
-      this.spaced = this.options.spaced
-      this.dark = this.options.dark
-      this.inset = this.options.inset
-      this.vertical = this.options.vertical
-      this.image = this.options.image
     }
   }
 }

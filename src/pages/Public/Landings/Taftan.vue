@@ -822,6 +822,9 @@ export default {
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
+                          activeColor: 'primary',
+                          indicatorColor: 'white',
+                          activeBgColor: 'white',
                           style: {
                             padding: '40px 0px 16px 10px'
                           },

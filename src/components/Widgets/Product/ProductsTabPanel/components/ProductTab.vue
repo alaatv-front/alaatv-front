@@ -23,11 +23,13 @@
                    :name="`productTab_${index}`"
                    class="product-tab-panel">
         <product-tab-row v-if="isProduct(item)"
+                         :loading="loading"
                          :layout="item.shelfRowLabelStyle"
                          :products-list="item.products"
                          :rowStyle="item.rowStyle"
                          :className="item.className" />
         <products-tab-panel v-else
+                            :isWidget="false"
                             :options="item" />
       </q-tab-panel>
     </q-tab-panels>
@@ -51,6 +53,10 @@ export default {
     itemList: {
       type: Array,
       default: () => []
+    },
+    loading: {
+      type: Boolean,
+      default: false
     },
     layout: {
       type: String,

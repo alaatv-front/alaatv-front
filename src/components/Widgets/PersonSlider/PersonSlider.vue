@@ -1,5 +1,5 @@
 <template>
-  <q-virtual-scroll v-if="sliderItems"
+  <q-virtual-scroll v-if="localOptions.sliderItems"
                     ref="virtualScroll"
                     v-slot="{ item, index }"
                     :items="localOptions.sliderItems"
@@ -58,13 +58,15 @@ export default {
   },
   methods: {
     init() {
-      setInterval(() => {
-        this.scrollIndex += 1
-        if (this.scrollIndex > this.sliderItems.length) {
-          this.scrollIndex = 0
-        }
-        this.$refs.virtualScroll.scrollTo(this.scrollIndex)
-      }, 2000)
+      if (this.$refs.virtualScroll) {
+        setInterval(() => {
+          this.scrollIndex += 1
+          if (this.scrollIndex > this.localOptions.sliderItems.length) {
+            this.scrollIndex = 0
+          }
+          this.$refs.virtualScroll.scrollTo(this.scrollIndex)
+        }, 2000)
+      }
     }
   }
 }

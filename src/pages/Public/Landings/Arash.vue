@@ -997,12 +997,14 @@ export default {
                           type: 'group',
                           boxed: true,
                           boxedWidth: 1200,
+                          activeColor: 'primary',
+                          indicatorColor: 'white',
+                          activeBgColor: 'white',
                           style: {
                             padding: '40px 0px 16px 10px'
                           },
                           list: [
                             {
-
                               height: 'auto',
                               type: 'group',
                               boxed: true,

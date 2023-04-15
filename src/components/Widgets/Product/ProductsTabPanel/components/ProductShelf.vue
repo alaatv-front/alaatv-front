@@ -8,6 +8,7 @@
       {{ item.label }}
     </div>
     <product-shelf-row v-if="isProduct(item)"
+                       :loading="loading"
                        :products-list="item.products"
                        :layout="item.shelfRowLabelStyle"
                        :className="item.className"
@@ -16,7 +17,8 @@
          class="product-content row"
          :class="{'scroll': layout === 'scroll'}"
          :style="rowStyle">
-      <products-tab-panel :options="item" />
+      <products-tab-panel :isWidget="false"
+                          :options="item" />
     </div>
   </div>
 </template>
@@ -36,6 +38,14 @@ export default {
   },
   props: {
     itemList: {
+      type: Object,
+      default: () => {}
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    products: {
       type: Object,
       default: () => {}
     },

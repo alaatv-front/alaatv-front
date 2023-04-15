@@ -10,7 +10,7 @@
          class="product-panel-content row"
          :class="{'scroll': layout === 'scroll',...className}"
          :style="rowStyle">
-      <product-item v-for="(product, index) in products.list"
+      <product-item v-for="(product, index) in productsList"
                     :key="index"
                     :options="{product: product}"
                     class="product-item col-md-4"
@@ -42,31 +42,13 @@ export default {
       type: String,
       default: 'scroll'
     },
+    loading: {
+      type: Boolean,
+      default: false
+    },
     className: {
       type: [Array, String],
       default: null
-    }
-  },
-  data() {
-    return {
-      loading: false,
-      products: []
-    }
-  },
-  mounted() {
-    this.getProducts()
-  },
-  methods: {
-    getProducts() {
-      this.loading = true
-      this.$apiGateway.product.getProductList({ productList: this.productsList })
-        .then(productList => {
-          this.products = productList
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
     }
   }
 }

@@ -1,13 +1,19 @@
 <template>
   <div v-if="localOptions.productGroupLayout === 'tab'"
-       class="products-tab-"
+       class="product-tab"
        :style="localOptions.style"
        :class="localOptions.className">
     <product-tab :layout="localOptions.rowLayout"
-                 :itemList="localOptions.list" /></div>
+                 :loading="loading"
+                 :itemList="products"
+                 :active-bg-color="localOptions.activeBgColor"
+                 :active-color="localOptions.activeColor"
+                 :indicator-color="localOptions.indicatorColor" />
+  </div>
   <div v-else-if="localOptions.productGroupLayout === 'shelf'"
        class="product-shelf-row">
-    <product-shelf :itemList="localOptions.list"
+    <product-shelf :itemList="products"
+                   :loading="loading"
                    :layout="localOptions.rowLayout"
                    :rowStyle="localOptions.rowStyle"
                    :labelStyle="localOptions.shelfRowLabelStyle" />
@@ -26,8 +32,17 @@ export default {
     ProductShelf
   },
   mixins: [mixinPrefetchServerData, mixinWidget],
+  props: {
+    isWidget: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
+      products: [],
+      productFlatList: [],
+      loading: false,
       defaultOptions: {
         title: null,
         subtitle: null,
@@ -38,7 +53,57 @@ export default {
         rowLayout: null,
         style: {},
         rowStyle: {},
-        shelfRowLabelStyle: {}
+        shelfRowLabelStyle: {},
+        activeColor: null,
+        indicatorColor: null,
+        activeBgColor: null
+      }
+    }
+  },
+  mounted() {
+    this.getProducts()
+  },
+  methods: {
+    extractProducts(group) {
+      for (let index = 0; index < group.length; index++) {
+        const groupItem = group[index]
+        if (groupItem.type === 'group') {
+          this.extractProducts(groupItem.list)
+        } else {
+          this.productFlatList.push(...groupItem.products)
+        }
+      }
+    },
+    replaceProducts(optionList, productList) {
+      for (let index = 0; index < optionList.length; index++) {
+        const group = optionList[index]
+        if (group.type === 'group') {
+          this.replaceProducts(optionList[index].list, productList)
+        } else {
+          for (let productIndex = 0; productIndex < optionList[index].products.length; productIndex++) {
+            optionList[index].products[productIndex] = productList.find(product => product.id === optionList[index].products[productIndex])
+          }
+        }
+      }
+    },
+    getProducts() {
+      if (!this.isWidget) {
+        this.products = this.defaultOptions.list
+        return
+      }
+      const products = this.localOptions.list
+      this.extractProducts(this.localOptions.list)
+      if (this.isWidget) {
+        this.loading = true
+        this.$apiGateway.product.getProductList({ productList: this.productFlatList })
+          .then(productList => {
+            this.replaceProducts(products, productList.list)
+            this.products = products
+            this.loading = false
+          })
+          .catch(() => {
+            this.loading = false
+          })
       }
     }
   }
