@@ -224,7 +224,7 @@ export default {
           routeName: '',
           permission: 'all',
           type: 'megaMenu',
-          categoryItemsCol: [
+          children: [
             {
               title: 'دوازدهم و کنکور',
               href: 'https://alaatv.com/c?tags[]=نظام_آموزشی_جدید&tags[]=دوازدهم&tags[]=کنکور',
@@ -1776,7 +1776,8 @@ export default {
               backgroundImage: '',
               type: 'text'
             }
-          ]
+          ],
+          show: true
         },
         {
           selected: 'konkurConference',
@@ -1784,24 +1785,19 @@ export default {
           routeName: '',
           permission: 'all',
           type: 'megaMenu',
-          categoryItemsCol: [
+          children: [
             {
               title: 'چتر نجات',
-              href: 'https://alaatv.com/landing/37',
-              photo: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg',
-              path: 'landing/37'
+              routeName: 'Public.Checkout.FireDay',
+              badge: 'جدید'
             },
             {
               title: 'راه ابریشم',
-              href: 'https://alaatv.com/landing/25',
-              photo: 'https://nodes.alaatv.com/upload/abrisham_mega_menu_1401.jpg',
-              path: 'landing/25'
+              routeName: ''
             },
             {
               title: 'کارت هدیه آلاء',
-              href: 'https://alaatv.com/landing/34',
-              photo: 'https://nodes.alaatv.com/upload/taftan_mega_menu_1400.jpg',
-              path: 'landing/34'
+              routeName: 'UserPanel.Asset.GiftCard.MyGiftCards'
             }
           ],
           subCategoryItemsCol: [
@@ -1809,24 +1805,25 @@ export default {
               cols: [],
               selected: true,
               backgroundImage: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg',
-              type: 'image',
-              routeName: 'Public.Checkout.FireDay'
+              routeName: 'Public.Checkout.FireDay',
+              type: 'image'
             },
             {
               cols: [],
               selected: false,
               backgroundImage: 'https://nodes.alaatv.com/upload/abrisham_mega_menu_1401.jpg',
-              type: 'image',
-              routeName: ''
+              routeName: '',
+              type: 'image'
             },
             {
               cols: [],
               selected: false,
               backgroundImage: 'https://nodes.alaatv.com/upload/taftan_mega_menu_1400.jpg',
-              type: 'image',
-              routeName: ''
+              routeName: 'UserPanel.Asset.GiftCard.MyGiftCards',
+              type: 'image'
             }
-          ]
+          ],
+          show: true
         },
         {
           selected: 'firstMidSchool',
@@ -1847,8 +1844,7 @@ export default {
                   title: 'ادبیات',
                   href: '/set/1047'
                 }
-              ],
-              selected: false
+              ]
             },
             {
               title: 'هشتم',
@@ -1866,8 +1862,7 @@ export default {
                   title: 'ریاضی',
                   tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'هشتم', 'ریاضی']
                 }
-              ],
-              selected: false
+              ]
             },
             {
               title: 'نهم',
@@ -1877,10 +1872,10 @@ export default {
                   title: 'ریاضی',
                   tags: ['نظام_آموزشی_جدید', 'متوسطه1', 'نهم', 'ریاضی']
                 }
-              ],
-              selected: false
+              ]
             }
-          ]
+          ],
+          show: true
         },
         {
           selected: 'olympiad',
