@@ -1658,7 +1658,7 @@ export default {
               type: 'text'
             }
           ],
-          show: false
+          show: true
         },
         {
           selected: 'konkurConference',
@@ -1701,7 +1701,7 @@ export default {
               type: 'image'
             }
           ],
-          show: false
+          show: true
         },
         {
           selected: 'firstMidSchool',
@@ -1753,7 +1753,7 @@ export default {
               ]
             }
           ],
-          show: false
+          show: true
         },
         {
           selected: 'olympiad',
@@ -1761,7 +1761,7 @@ export default {
           routeName: 'Public.Content.Search',
           permission: 'all',
           tags: ['المپیاد'],
-          show: false
+          show: true
         },
         {
           title: 'آلاخونه',

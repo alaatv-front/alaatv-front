@@ -1807,7 +1807,7 @@ export default {
           subCategoryItemsCol: [
             {
               cols: [],
-              selected: false,
+              selected: true,
               backgroundImage: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg',
               type: 'image',
               routeName: 'Public.Checkout.FireDay'
@@ -1848,7 +1848,7 @@ export default {
                   href: '/set/1047'
                 }
               ],
-              selected: true
+              selected: false
             },
             {
               title: 'هشتم',
