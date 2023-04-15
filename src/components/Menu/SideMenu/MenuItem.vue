@@ -2,7 +2,7 @@
   <div v-for="(item , index) in computedMenu"
        :key="index"
        class="menu-item">
-    <q-expansion-item v-if="!loading && item.children && item.children.length > 0"
+    <q-expansion-item v-if="!loading && item.children && item.children.length > 0 && item.show"
                       :header-style="{height:'40px', borderRadius: '14px'}"
                       :label="item.title"
                       :icon="item.icon"
@@ -41,7 +41,7 @@
       </div>
     </q-expansion-item>
     <!--    (item.title === clickedItem.title) || -->
-    <q-item v-else-if="!loading"
+    <q-item v-else-if="!loading && !item.children"
             v-ripple
             clickable
             :active="(item.title === selectedTopic) || (item.title === clickedItem.title) || ($route.name === item.routeName)"
