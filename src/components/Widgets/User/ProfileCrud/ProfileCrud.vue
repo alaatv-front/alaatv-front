@@ -43,7 +43,6 @@ export default {
       showRouteName: 'UserPanel.Profile',
       localInputs: [],
       cities: [],
-      selectedProvinceId: 0,
       defaultLayout: false
     }
   },
@@ -58,13 +57,13 @@ export default {
     }
   },
   mounted() {
-    this.localInputs = this.options.inputs
     if (this.$store.getters['Auth/incompleteProfile']) {
       Notify.create({
         message: 'لطفا ابتدا اطلاعات کاربری را کامل نمایید.',
         color: 'warning'
       })
     }
+    this.localInputs = this.options.inputs
   },
   methods: {
     beforeGetData() {
