@@ -91,7 +91,7 @@ export default {
           textColor: 'black',
           toggleTextColor: 'white',
           col: 'col-md-4',
-          size: '22px'
+          size: '14px'
         }
       ],
       userRole: '',

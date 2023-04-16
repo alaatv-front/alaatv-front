@@ -216,7 +216,7 @@ export default {
   flex-direction: column;
   //height: 100%;
   justify-content: space-between;
-  width: 310px;
+  //width: 310px;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
