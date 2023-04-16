@@ -14,15 +14,7 @@ import optionPanelComponent from './optionPanelComponent.vue'
 export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs, optionPanelComponent },
-  mixins: [mixinOptionPanel],
-  props: {
-    options: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  }
+  mixins: [mixinOptionPanel]
 })
 </script>
 <style lang="scss" scoped>
