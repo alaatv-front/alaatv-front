@@ -68,7 +68,7 @@ export default {
                             },
                             {
                               type: 'formBuilder',
-                              name: 'formBuilderCol',
+                              name: 'personalInfo',
                               col: 'col-xs-12 custom-card',
                               value: [
                                 {
@@ -77,7 +77,6 @@ export default {
                                   label: 'مشخصات فردی',
                                   col: 'col-xs-12 title'
                                 },
-
                                 {
                                   type: 'input',
                                   name: 'first_name',
@@ -151,7 +150,7 @@ export default {
                             },
                             {
                               type: 'formBuilder',
-                              name: 'formBuilderCol',
+                              name: 'educationalInfo',
                               col: 'col-xs-12 custom-card ',
                               value: [
                                 {
@@ -186,7 +185,7 @@ export default {
                             },
                             {
                               type: 'formBuilder',
-                              name: 'formBuilderCol',
+                              name: 'contactInfo',
                               col: 'col-xs-12 custom-card ',
                               value: [
                                 {

@@ -23,6 +23,7 @@ export default class UserAPI extends APIRepository {
       formData: '/megaroute/getUserFormData',
       showUser: '/getUserFor3a',
       eventResult: '/event-result',
+      createEventResult: '/event-result/create',
       baseAdmin: '/admin/user',
       nationalCard: '/national-card-photo',
       resendGuest: '/mobile/resendGuest',
@@ -42,6 +43,7 @@ export default class UserAPI extends APIRepository {
       formData: this.name + this.APIAdresses.base,
       showUser: this.name + this.APIAdresses.base,
       eventResult: this.name + this.APIAdresses.base,
+      createEventResult: this.name + this.APIAdresses.createEventResult,
       baseAdmin: this.name + this.APIAdresses.baseAdmin,
       nationalCard: this.name + this.APIAdresses.nationalCard
     }
@@ -241,6 +243,27 @@ export default class UserAPI extends APIRepository {
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return new EventResult(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  createEventResult(data = {}, cache) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.createEventResult,
+      cacheKey: this.CacheList.createEventResult,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return {
+          events: response.data.data.events,
+          majors: response.data.data.majors,
+          eventResultStatuses: response.data.data.eventResultStatuses,
+          regions: response.data.data.regions
+        }
       },
       rejectCallback: (error) => {
         return error
