@@ -37,14 +37,6 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [mixinOptionPanel],
-  props: {
-    options: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  },
   data() {
     return {
       accountInfo: true,
@@ -231,12 +223,6 @@ export default defineComponent({
     }
   },
   watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    },
     accountInfo(newVal) {
       if (!newVal) {
         this.removeBox('accountInfo')
