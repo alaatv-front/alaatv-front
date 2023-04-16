@@ -24,7 +24,7 @@
                 </q-item>
               </router-link>
               <router-link v-else
-                           :to="{name: item.routeName}">
+                           :to="{name: item.route.name, params: item.route.params}">
                 <q-item class="item"
                         clickable
                         @mouseover="showData(index)">
@@ -43,7 +43,7 @@
           <div>
             <div v-if="item.type === 'image'">
               <div v-if="item.selected">
-                <router-link :to="{name: item.routeName}">
+                <router-link :to="{name: item.route.name, params: item.route.params}">
                   <q-responsive :ratio="1998/553">
                     <q-img :src="item.backgroundImage" />
                   </q-responsive>

@@ -28,7 +28,7 @@
         <!--        -----------------------------------------------------Tabs Section--------------------------------------------   -->
         <div class="tab-section">
           <q-list class="flex tabs-list">
-            <div v-for="(item , index) in headerItems"
+            <div v-for="(item , index) in items"
                  :key="index"
                  class="tabs-list-container">
               <div v-if="showMenuItem(/* item */)"
@@ -191,6 +191,7 @@ import LazyImg from 'src/components/lazyImg.vue'
 import megaMenu from './magaMenu.vue'
 import simpleMenu from './simpleMenu.vue'
 import itemMenu from 'components/Template/Header/itemMenu.vue'
+import menuItems from 'components/Template/menuData.js'
 
 export default {
   name: 'MainHeaderTemplate',
@@ -203,6 +204,7 @@ export default {
       user: new User(),
       isAdmin: false,
       isUserLogin: false,
+      items: menuItems,
       headerItems: [
         {
           selected: 'home',

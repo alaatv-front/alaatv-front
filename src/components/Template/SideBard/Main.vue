@@ -75,6 +75,7 @@
 
 <script>
 import menuItem from 'src/components/Menu/SideMenu/MenuItem.vue'
+import menuItems from 'components/Template/menuData.js'
 
 export default {
   name: 'MainSideBarTemplate',
@@ -83,6 +84,7 @@ export default {
     return {
       clickedItem: null,
       searchText: '',
+      items: menuItems,
       titlesList: [
         {
           selected: 'home',
@@ -1791,22 +1793,6 @@ export default {
           active: false,
           open: false
         }
-        // ,
-        // {
-        //   title: 'تنظیمات',
-        //   icon: 'isax:setting-2',
-        //   routeName: 'Admin.Settings',
-        //   show: true,
-        //   active: false,
-        //   children: []
-        // }
-        // {
-        //   title: 'سوالات متداول',
-        //   icon: 'isax:message-question',
-        //   routeName: 'faq',
-        //   active: false,
-        //   children: []
-        // }
       ],
       examsPlan: [
         {

@@ -21,7 +21,7 @@
             <q-item v-else
                     v-ripple
                     clickable
-                    :active="(subItem.title === selectedTopic) || (subItem.title === clickedItem.title)"
+                    :active="isActive(subItem)"
                     :to="redirectRoute(subItem)"
                     class="list-child-item"
                     exact-active-class="active-route"
@@ -109,6 +109,9 @@ export default {
     }
   },
   methods: {
+    isActive(subItem) {
+      return (subItem.title === this.selectedTopic) || (subItem.title === this.clickedItem.title)
+    },
     redirectRoute(item) {
       if (item.tags) {
         return { name: 'Public.Content.Search', query: { 'tags[]': item.tags } }
