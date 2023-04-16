@@ -44,7 +44,7 @@
     <q-item v-else-if="!loading && !item.children"
             v-ripple
             clickable
-            :active="(item.title === selectedTopic) || (item.title === clickedItem.title) || ($route.name === item.routeName)"
+            :active="isActive(item)"
             :to="redirectRoute(item)"
             class="item-list"
             :class="{ 'alone-item': !item.children }"
@@ -109,8 +109,8 @@ export default {
     }
   },
   methods: {
-    isActive(subItem) {
-      return (subItem.title === this.selectedTopic) || (subItem.title === this.clickedItem.title)
+    isActive(item) {
+      return (item.title === this.selectedTopic) || (item.title === this.clickedItem.title)
     },
     redirectRoute(item) {
       if (item.tags) {
