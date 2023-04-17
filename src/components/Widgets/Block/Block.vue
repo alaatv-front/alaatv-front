@@ -2,25 +2,25 @@
   <div class="block-section">
     <div v-if="isThereData"
          class="block-header row q-pa-md q-mb-sm"
-         :class="block.headerCustomClass">
-      <a :href="block?.url?.web"
+         :class="localOptions.block.headerCustomClass">
+      <a :href="localOptions.block?.url?.web"
          class="block-title">
-        {{ block.title }}
+        {{ localOptions.block.title }}
       </a>
-      <q-btn v-if="!block.banners || block.banners.list.length === 0"
+      <q-btn v-if="!localOptions.block.banners || localOptions.block.banners.list.length === 0"
              round
              color="primary"
              :icon="isGridView ? 'sync_alt' : 'grid_view'"
              @click="isGridView = !isGridView" />
     </div>
     <div class="block-container">
-      <slider v-if="block.banners && block.banners.list.length > 0"
+      <slider v-if="localOptions.block.banners && localOptions.block.banners.list.length > 0"
               :options="bannerSlides" />
-      <div v-if="block.products.list.length > 0"
+      <div v-if="localOptions.block.products.list.length > 0"
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
-        <div v-for="product in block.products.list"
+        <div v-for="product in localOptions.block.products.list"
              :key="product.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
@@ -28,20 +28,20 @@
              class="product-spacing">
           <product-item :options="{product, minWidth: defaultMinWidth}" />
         </div>
-        <div v-if="block?.url?.web"
+        <div v-if="localOptions.block?.url?.web"
              class="block-item-box">
-          <q-btn :href="block?.url?.web"
+          <q-btn :href="localOptions.block?.url?.web"
                  color="primary"
                  size="xl">
             نمایش بیشتر
           </q-btn>
         </div>
       </div>
-      <div v-if="block.sets.list.length > 0"
+      <div v-if="localOptions.block.sets.list.length > 0"
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
-        <div v-for="set in block.sets.list"
+        <div v-for="set in localOptions.block.sets.list"
              :key="set.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
@@ -50,18 +50,18 @@
           <set-item :options="{set, minWidth: defaultMinWidth}" />
         </div>
         <div class="block-item-box">
-          <q-btn :href="block?.url?.web"
+          <q-btn :href="localOptions.block?.url?.web"
                  color="primary"
                  size="xl">
             نمایش بیشتر
           </q-btn>
         </div>
       </div>
-      <div v-if="block.contents.list.length > 0"
+      <div v-if="localOptions.block.contents.list.length > 0"
            v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
-        <div v-for="content in block.contents.list"
+        <div v-for="content in localOptions.block.contents.list"
              :key="content.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
@@ -70,7 +70,7 @@
           <content-item :options="{content, minWidth: defaultMinWidth}" />
         </div>
         <div class="block-item-box">
-          <q-btn :href="block?.url?.web"
+          <q-btn :href="localOptions.block?.url?.web"
                  color="primary"
                  size="xl">
             نمایش بیشتر
@@ -112,32 +112,24 @@ export default {
     }
   }),
   computed: {
-    block: {
-      get () {
-        return this.localOptions.block
-      },
-      set (value) {
-        this.localOptions.block = value
-      }
-    },
     isThereData() {
       return !!(
-        this.block.banners.list.length ||
-        this.block.products.list.length ||
-        this.block.contents.list.length ||
-        this.block.sets.list.length
+        this.localOptions.block.banners.list.length ||
+        this.localOptions.block.products.list.length ||
+        this.localOptions.block.contents.list.length ||
+        this.localOptions.block.sets.list.length
       )
     },
     blocksToShow() {
       return this.getBlocks(this.blocks)
     },
     bannerSlides() {
-      this.block.banners.list.forEach(element => {
+      this.localOptions.block.banners.list.forEach(element => {
         element.photo = {
           src: element.photo
         }
       })
-      return this.block.banners
+      return this.localOptions.block.banners
     },
     isGridView: {
       get () {
@@ -153,24 +145,24 @@ export default {
   },
   methods: {
     initBlockValue () {
-      if (this.block && this.block.id) {
-        this.block = new Block(this.localOptions.block)
+      if (this.localOptions.block && this.localOptions.block.id) {
+        this.localOptions.block = new Block(this.localOptions.block)
       } else if (this.localOptions.apiName) {
         this.getBlocksByRequest()
       }
     },
     getBlocksByRequest() {
-      this.block.loading = true
+      this.localOptions.block.loading = true
       this.getApiRequest()
         .then((products) => {
-          this.block = new Block({
+          this.localOptions.block = new Block({
             title: 'محصولات مرتبط',
             products
           })
-          this.block.loading = false
+          this.localOptions.block.loading = false
         })
         .catch(() => {
-          this.block.loading = false
+          this.localOptions.block.loading = false
         })
     },
     getBlocks(blocks) {
