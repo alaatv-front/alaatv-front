@@ -26,6 +26,7 @@ export default class UserAPI extends APIRepository {
       baseAdmin: '/admin/user',
       nationalCard: '/national-card-photo',
       resendGuest: '/mobile/resendGuest',
+      getUserRoleAndPermission: '/getUserRoleAndPermission',
       verifyMoshavereh: '/mobile/verifyMoshavereh',
       newsletter: '/newsletter'
     }
@@ -43,7 +44,8 @@ export default class UserAPI extends APIRepository {
       showUser: this.name + this.APIAdresses.base,
       eventResult: this.name + this.APIAdresses.base,
       baseAdmin: this.name + this.APIAdresses.baseAdmin,
-      nationalCard: this.name + this.APIAdresses.nationalCard
+      nationalCard: this.name + this.APIAdresses.nationalCard,
+      getUserRoleAndPermission: this.name + this.APIAdresses.getUserRoleAndPermission
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
@@ -309,6 +311,22 @@ export default class UserAPI extends APIRepository {
           //   total: 10
           // }
         }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getUserRoleAndPermission(data = {}, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getUserRoleAndPermission,
+      cacheKey: this.CacheList.getUserRoleAndPermission,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data
       },
       rejectCallback: (error) => {
         return error
