@@ -157,7 +157,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getCategories(cache = { TTL: 1000 }) {
+  getCategories(cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
