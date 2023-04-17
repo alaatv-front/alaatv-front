@@ -38,7 +38,7 @@
           <span>جزوات</span>
         </q-tab>
       </q-tabs>
-      <q-tab-panels v-if="!loadingSet && (pamphlets.length > 0 || videos.length > 0)"
+      <q-tab-panels v-if="!set.loading && (pamphlets.length > 0 || videos.length > 0)"
                     v-model="tab"
                     animated
                     transition-prev="scale"
@@ -102,11 +102,11 @@
                     class="bg-grey-2 text-primary">جزوه ای وجود ندارد</q-banner>
         </q-tab-panel>
       </q-tab-panels>
-      <q-banner v-else-if="!product.loading && !loadingSet"
+      <q-banner v-else-if="!product.loading && !set.loading"
                 inline-actions
                 rounded
                 class="bg-grey-2 text-primary text-center">محتوایی وجود ندارد</q-banner>
-      <div v-if="product.loading || loadingSet"
+      <div v-if="product.loading || set.loading"
            class="q-py-md">
         <q-skeleton type="QToolbar" />
       </div>
@@ -119,7 +119,7 @@
 import { Set } from 'src/models/Set.js'
 import { dragscroll } from 'vue-dragscroll'
 import { Product } from 'src/models/Product.js'
-import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content'
 import { Block } from 'src/models/Block.js'
 import BlockComponent from 'components/Widgets/Block/Block.vue'
@@ -132,22 +132,16 @@ export default {
   directives: {
     dragscroll
   },
-  mixins: [mixinPrefetchServerData],
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [
+    mixinPrefetchServerData,
+    mixinWidget
+  ],
   data() {
     return {
-      loadingSet: false,
       set: new Set(),
       product: new Product(),
       index: null,
-      tab: 'pamphlets',
+      tab: 'videos',
       videos: [],
       pamphlets: [],
       setTitle: null,
@@ -257,7 +251,7 @@ export default {
       return this.$apiGateway.product.show(this.productId)
     },
     getSet(id) {
-      this.loadingSet = true
+      this.set.loading = true
       this.$apiGateway.set.show(id)
         .then(set => {
           this.videos = []
@@ -270,10 +264,10 @@ export default {
               this.pamphlets.push(content)
             }
           })
-          this.loadingSet = false
+          this.set.loading = false
         })
         .catch(() => {
-          this.loadingSet = false
+          this.set.loading = false
         })
     }
   }
