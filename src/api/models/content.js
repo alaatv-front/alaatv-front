@@ -369,11 +369,12 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  getConsultingContentList() {
+  getConsultingContentList(cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.consultingContent,
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new ContentList(response.data.data)
       },
