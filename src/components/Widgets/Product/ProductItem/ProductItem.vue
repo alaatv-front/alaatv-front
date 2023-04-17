@@ -125,25 +125,12 @@
 <script>
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'productItem',
   components: { LazyImg },
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {
-          style: {},
-          minWidth: 'auto',
-          canAddToCart: true,
-          showPrice: true,
-          product: new Product(),
-          routeToProduct: true
-        }
-      }
-    }
-  },
+  mixins: [mixinWidget],
   data: () => ({
     addToCartLoading: false,
     loading: false,
@@ -158,9 +145,6 @@ export default {
     }
   }),
   computed: {
-    localOptions () {
-      return Object.assign(this.defaultOptions, this.options)
-    },
     getRoutingObject() {
       if (this.defaultOptions.routeToProduct) {
         return {
