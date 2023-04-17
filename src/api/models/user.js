@@ -285,7 +285,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getPurchasedProducts(data = {}) {
+  getPurchasedProducts(data = {}, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -294,6 +294,7 @@ export default class UserAPI extends APIRepository {
       data: this.getNormalizedSendData({
         page: 1 // Number
       }, data),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           referralCodeList: new ProductList(response.data.data),
