@@ -250,7 +250,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  createEventResult(data = {}, cache) {
+  createEventResult(data = {}, cache = 100) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
