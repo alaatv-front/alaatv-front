@@ -231,12 +231,6 @@ export default {
         })
     },
     prefetchServerDataPromise () {
-      if (this.options.product?.id || !this.productId) {
-        return new Promise((resolve) => {
-          resolve(new Product())
-        })
-      }
-      this.product.loading = true
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
@@ -248,6 +242,12 @@ export default {
       this.product.loading = false
     },
     getProduct() {
+      if (this.options.product?.id || !this.productId) {
+        return new Promise((resolve) => {
+          resolve(new Product())
+        })
+      }
+      this.product.loading = true
       return this.$apiGateway.product.show(this.productId)
     },
     getSet(id) {
