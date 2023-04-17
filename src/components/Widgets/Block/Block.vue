@@ -102,22 +102,14 @@ export default {
     dragscroll
   },
   mixins: [mixinWidget],
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {
-          style: {},
-          apiName: null,
-          block: new Block(),
-          gridView: false
-        }
-      }
-    }
-  },
   data: () => ({
-    isGridView: false,
-    block: new Block()
+    block: new Block(),
+    defaultOptions: {
+      style: {},
+      apiName: null,
+      block: new Block(),
+      gridView: false
+    }
   }),
   computed: {
     isThereData() {
@@ -138,26 +130,25 @@ export default {
         }
       })
       return this.block.banners
+    },
+    isGridView () {
+      return this.localOptions.gridView
     }
   },
   watch: {
-    options: {
+    localOptions: {
       handler() {
-        this.block = new Block(this.options.block)
-        this.isGridView = this.options?.gridView || this.isGridView
+        this.block = new Block(this.localOptions.block)
       },
       deep: true
     }
   },
   created () {
-    if (this.options.apiName) {
+    if (this.localOptions.apiName) {
       this.getBlocksByRequest()
     } else {
-      this.block = new Block(this.options.block)
+      this.block = new Block(this.localOptions.block)
     }
-  },
-  mounted () {
-    this.isGridView = this.options?.gridView || this.isGridView
   },
   methods: {
     getBlocksByRequest() {
@@ -178,16 +169,16 @@ export default {
       if (!blocks || !blocks.list || blocks.list.length === 0) {
         return
       }
-      return blocks.list.slice(this.options.from, this.options.to)
+      return blocks.list.slice(this.localOptions.from, this.localOptions.to)
     },
     getApiRequest() {
-      if (this.options.apiName === 'home') {
+      if (this.localOptions.apiName === 'home') {
         return this.$apiGateway.pages.home()
       }
-      if (this.options.apiName === 'shop') {
+      if (this.localOptions.apiName === 'shop') {
         return this.$apiGateway.pages.shop()
       }
-      if (this.options.apiName === 'content') {
+      if (this.localOptions.apiName === 'content') {
         return this.$apiGateway.content.relatedProducts({ id: this.$route.params.id })
       }
       return Promise.reject('wrong api name')
