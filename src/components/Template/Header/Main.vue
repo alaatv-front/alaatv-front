@@ -76,14 +76,7 @@
                    rounded
                    size="12px"
                    class="action-btn"
-                   :to="{name: 'Public.Checkout.Review'}">
-              <q-menu class="user-card-dropdown"
-                      :offset="[170, 10]">
-                <div class="dropdown-box">
-                  hi
-                </div>
-              </q-menu>
-            </q-btn>
+                   :to="{name: 'Public.Checkout.Review'}" />
           </div>
           <q-btn v-if="isUserLogin"
                  flat
