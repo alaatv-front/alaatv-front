@@ -287,16 +287,16 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getPurchasedProducts(data = {}, cache = { TTL: 6000000 }) {
+  getPurchasedProducts(data = {}, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.purchasedProducts,
       cacheKey: this.CacheList.purchasedProducts,
-      ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
         page: 1 // Number
       }, data),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           referralCodeList: new ProductList(response.data.data),
