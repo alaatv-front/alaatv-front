@@ -20,7 +20,7 @@ export default class ProductAPI extends APIRepository {
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
       sampleContent: (id) => '/product/' + id + '/sample',
-      productCategories: '/product-categories'
+      categories: '/product-categories'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -32,7 +32,7 @@ export default class ProductAPI extends APIRepository {
       show: (id) => this.name + this.APIAdresses.show(id),
       gifts: (id) => this.name + this.APIAdresses.gifts(id),
       sampleContent: (id) => this.name + this.APIAdresses.sampleContent(id),
-      productCategories: this.name + this.APIAdresses.productCategories,
+      categories: this.name + this.APIAdresses.categories,
       edit: this.name + this.APIAdresses.edit
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
@@ -157,12 +157,12 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductCategories(cache = { TTL: 1000 }) {
+  getCategories(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.productCategories,
-      cacheKey: this.CacheList.productCategories,
+      request: this.APIAdresses.categories,
+      cacheKey: this.CacheList.categories,
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data.data
