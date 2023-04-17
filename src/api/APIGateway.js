@@ -18,6 +18,7 @@ import StudyPlanAPI from 'src/api/models/studyPlan.js'
 import PageSettingAPI from 'src/api/models/PageSetting.js'
 import ReferralCodeAPI from 'src/api/models/ReferralCode.js'
 import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
+import PlanAPI from 'src/api/models/Plan.js'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
@@ -27,6 +28,7 @@ export const APIGateway = {
   cart: new CartAPI(),
   tree: new TreeAPI(),
   pages: new PagesAPI(),
+  plan: new PlanAPI(),
   order: new OrderAPI(),
   events: new EventsAPI(),
   coupon: new CouponAPI(),

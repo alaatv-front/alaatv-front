@@ -174,7 +174,7 @@ export default {
     },
     async showUserLastState() {
       try {
-        const response = await this.$apiGateway.user.getUserLastState(this.selectedLessonId)
+        const response = await this.$apiGateway.product.getUserLastState(this.selectedLessonId)
         const setId = response.data.data.set.id
         const contentId = response.data.data.id
         this.userLastState.setId = setId

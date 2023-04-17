@@ -28,7 +28,8 @@ export default class ProductAPI extends APIRepository {
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
       sampleContent: (id) => '/product/' + id + '/sample',
-      categories: '/product-categories'
+      categories: '/product-categories',
+      userLastState: (id) => '/product/' + id + '/toWatch'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -191,6 +192,21 @@ export default class ProductAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getUserLastState(id, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.userLastState(id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response
       },
       rejectCallback: (error) => {
         return error
