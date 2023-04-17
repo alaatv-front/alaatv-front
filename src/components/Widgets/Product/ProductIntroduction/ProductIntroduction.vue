@@ -81,13 +81,13 @@ export default {
   },
   methods: {
     getDownloadDate() {
-      if (this.product.attributes.download_date[0]) {
+      if (this.product.attributes.download_date) {
         return this.product.attributes.download_date[0]
       }
       return null
     },
     getDuration() {
-      if (this.product.attributes.duration[0]) {
+      if (this.product.attributes.duration) {
         return this.product.attributes.duration[0]
       }
       return null

@@ -132,13 +132,14 @@ export default {
   methods: {
     getRankRecord() {
       APIGateway.user.eventResult()
-        .then(response => {
-          if (response[0]) {
-            this.$refs.EntityCreate.setInputAttributeByName('event_id', 'value', response[0].event)
-            this.$refs.EntityCreate.setInputAttributeByName('major_id', 'value', response[0].major)
-            this.$refs.EntityCreate.setInputAttributeByName('region_id', 'value', response[0].region)
-            this.$refs.EntityCreate.setInputAttributeByName('rank', 'value', response[0].rank)
-            this.$refs.EntityCreate.setInputAttributeByName('enableReportPublish', 'value', response[0].enable_report_publish === 1)
+        .then(eventResult => {
+          const firstEventResult = eventResult[0]
+          if (firstEventResult) {
+            this.$refs.EntityCreate.setInputAttributeByName('event_id', 'value', firstEventResult.event)
+            this.$refs.EntityCreate.setInputAttributeByName('major_id', 'value', firstEventResult.major)
+            this.$refs.EntityCreate.setInputAttributeByName('region_id', 'value', firstEventResult.region)
+            this.$refs.EntityCreate.setInputAttributeByName('rank', 'value', firstEventResult.rank)
+            this.$refs.EntityCreate.setInputAttributeByName('enableReportPublish', 'value', firstEventResult.enable_report_publish === 1)
           }
         })
         .catch()
