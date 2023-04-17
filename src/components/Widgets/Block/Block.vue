@@ -131,8 +131,13 @@ export default {
       })
       return this.block.banners
     },
-    isGridView () {
-      return this.localOptions.gridView
+    isGridView: {
+      get () {
+        return this.localOptions.gridView
+      },
+      set (value) {
+        this.localOptions.gridView = value
+      }
     }
   },
   watch: {
