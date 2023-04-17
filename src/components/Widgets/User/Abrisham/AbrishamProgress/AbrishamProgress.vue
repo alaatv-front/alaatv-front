@@ -174,9 +174,9 @@ export default {
     },
     async showUserLastState() {
       try {
-        const response = await this.$apiGateway.product.getUserLastState(this.selectedLessonId)
-        const setId = response.data.data.set.id
-        const contentId = response.data.data.id
+        const userLastState = await this.$apiGateway.product.getUserLastState(this.selectedLessonId)
+        const setId = userLastState.data.data.set.id
+        const contentId = userLastState.data.data.id
         this.userLastState.setId = setId
         this.userLastState.contentId = contentId
         this.setCurrentSet(setId, contentId)
@@ -264,9 +264,9 @@ export default {
     async getLessonGroups() {
       this.lnssonGroupsLoading = true
       try {
-        const response = await this.$apiGateway.abrisham.getLessons()
-        if (response.status === 200) {
-          return response.data.data
+        const lessons = await this.$apiGateway.abrisham.getLessons()
+        if (lessons.status === 200) {
+          return lessons.data.data
         }
         return []
       } catch {
@@ -379,10 +379,10 @@ export default {
     async getContents () {
       this.contents.loading = true
       try {
-        const response = await this.$apiGateway.set.getContents(this.currentSetId)
+        const contents = await this.$apiGateway.set.getContents(this.currentSetId)
 
         this.contents.loading = false
-        return response
+        return contents
       } catch {
         this.contents.loading = false
       }
