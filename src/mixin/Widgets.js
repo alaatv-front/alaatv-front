@@ -27,7 +27,6 @@ const mixinWidget = {
   },
   watch: {
     editable () {
-      console.log('editable')
       this.reloadWidget()
     }
   },
