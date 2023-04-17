@@ -16,7 +16,7 @@
             زمان کوب ها
           </q-banner>
           <q-list class="timepoint-list-items">
-            <q-item v-for="timepoint in content.timepoints.list"
+            <q-item v-for="(timepoint) in currentContent.timepoints.list"
                     :key="timepoint.id"
                     v-ripple
                     clickable
@@ -24,8 +24,8 @@
               <q-item-section avatar>
                 <bookmark color="white"
                           size="30"
-                          :is-favored="timepointFavored[timepoint.id]"
-                          :loading="bookmarkLoading[timepoint.id]"
+                          :is-favored="timepoint.isFavored"
+                          :loading="timepoint.loading"
                           @clicked="handleTimepointBookmark(timepoint.id)" />
               </q-item-section>
               <q-item-section class="text-section">
@@ -88,14 +88,17 @@ export default {
   data() {
     return {
       playerKey: Date.now(),
-      currentContent: new Content(),
-      timepointFavored: {},
-      bookmarkLoading: {}
+      currentContent: new Content()
     }
   },
   computed: {
     hasTimepoint () {
       return this.content.timepoints.list.length > 0
+    },
+    currentContentTimepoint () {
+      return (timepointId) => {
+        return this.currentContent.timepoints.list.find(item => item.id === timepointId)
+      }
     }
   },
   watch: {
@@ -111,18 +114,19 @@ export default {
   },
   methods: {
     handleTimepointBookmark (timepointId) {
-      this.bookmarkLoading[timepointId] = true
-      if (this.timepointFavored[timepointId]) {
+      const timepointIndex = this.currentContent.timepoints.list.findIndex(item => item.id === timepointId)
+      this.currentContent.timepoints.list[timepointIndex].loading = true
+      if (this.currentContentTimepoint(timepointId).isFavored) {
         this.$apiGateway.content.setBookmarkTimepointFavoredStatus(timepointId, {
           status: 'unfavored'
         })
           .then(() => {
-            this.timepointFavored[timepointId] = !this.timepointFavored[timepointId]
+            this.currentContent.timepoints.list[timepointIndex].isFavored = !this.currentContentTimepoint(timepointId).isFavored
             this.toggleFavorite(this.content.id)
-            this.bookmarkLoading[timepointId] = false
+            this.currentContent.timepoints.list[timepointIndex].loading = false
           })
           .catch(() => {
-            this.bookmarkLoading[timepointId] = false
+            this.currentContent.timepoints.list[timepointIndex].loading = false
           })
         return
       }
@@ -130,12 +134,12 @@ export default {
         status: 'favored'
       })
         .then(() => {
-          this.timepointFavored[timepointId] = !this.timepointFavored[timepointId]
+          this.currentContent.timepoints.list[timepointIndex].isFavored = !this.currentContentTimepoint(timepointId).isFavored
           this.toggleFavorite(this.content.id)
-          this.bookmarkLoading[timepointId] = false
+          this.currentContent.timepoints.list[timepointIndex].loading = false
         })
         .catch(() => {
-          this.bookmarkLoading[timepointId] = false
+          this.currentContent.timepoints.list[timepointIndex].loading = false
         })
     },
     goToTimpoint (timepoint) {
