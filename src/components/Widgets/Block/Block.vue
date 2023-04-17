@@ -103,7 +103,6 @@ export default {
   },
   mixins: [mixinWidget],
   data: () => ({
-    block: new Block(),
     defaultMinWidth: '318px',
     defaultOptions: {
       style: {},
@@ -113,6 +112,14 @@ export default {
     }
   }),
   computed: {
+    block: {
+      get () {
+        return this.localOptions.block
+      },
+      set (value) {
+        this.localOptions.block = value
+      }
+    },
     isThereData() {
       return !!(
         this.block.banners.list.length ||
@@ -141,22 +148,17 @@ export default {
       }
     }
   },
-  watch: {
-    localOptions: {
-      handler() {
-        this.block = new Block(this.localOptions.block)
-      },
-      deep: true
-    }
-  },
   created () {
-    if (this.localOptions.apiName) {
-      this.getBlocksByRequest()
-    } else {
-      this.block = new Block(this.localOptions.block)
-    }
+    this.initBlockValue()
   },
   methods: {
+    initBlockValue () {
+      if (this.block && this.block.id) {
+        this.block = new Block(this.localOptions.block)
+      } else if (this.localOptions.apiName) {
+        this.getBlocksByRequest()
+      }
+    },
     getBlocksByRequest() {
       this.block.loading = true
       this.getApiRequest()
