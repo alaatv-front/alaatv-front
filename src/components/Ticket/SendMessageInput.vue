@@ -47,13 +47,23 @@
         </q-select>
       </div>
       <div class=" SendMessageInput ">
-        <div v-show="canShowMic"
-             class="input-group-prepend">
-          <q-btn v-longpress="recordVoice"
-                 unelevated
-                 class="btn  actionBtn btnRecordVoiceForUpload"
-                 color="positive"
-                 icon="isax:microphone" />
+        <div v-show="canShowMic">
+          <div class="input-group-prepend">
+            <q-btn unelevated
+                   class="btn  actionBtn btnRecordVoiceForUpload"
+                   color="positive"
+                   icon="isax:microphone"
+                   :loading="microphoneBtnLoading"
+                   @click="recordVoice(true)" />
+          </div>
+          <div v-if="recordCurrentStatus"
+               class="input-group-prepend">
+            <q-btn unelevated
+                   class="btn  actionBtn btnRecordVoiceForUpload"
+                   color="negative"
+                   icon="isax:pause"
+                   @click="recordVoice(false)" />
+          </div>
         </div>
         <div v-show="canShowSelectPic"
              class="input-group-append">
@@ -61,6 +71,7 @@
                  class="btn  actionBtn"
                  color="primary"
                  icon="isax:image"
+                 :loading="sendLoading"
                  @click="getFile">
             <input ref="myFileInput"
                    style="display:none"
@@ -73,7 +84,7 @@
                     persistent
                     class="imageModal"
                     @close="clearMessage">
-            <q-card>
+            <q-card class="imageModal-card">
               <div>
                 <!--                <cropper-->
                 <!--                  ref="cropper"-->
@@ -87,22 +98,23 @@
                 <!--                  }"-->
                 <!--                  @change="change"-->
                 <!--                />-->
+                <q-img :src="imgURL" />
 
                 <div class="slider_box">
                   <q-btn unelevated
                          class="delete-pic-btn"
                          label="حذف"
                          @click="clearMessage" />
-                  <div class="angle-slider">
-                    <p class="title">میزان چرخش :</p>
-                    <input id="slider"
-                           v-model="rotateAngle"
-                           class="angle_slider"
-                           type="range"
-                           min="0"
-                           max="360"
-                           @change="rotate">
-                  </div>
+                  <!--                  <div class="angle-slider">-->
+                  <!--                    <p class="title">میزان چرخش :</p>-->
+                  <!--                    <input id="slider"-->
+                  <!--                           v-model="rotateAngle"-->
+                  <!--                           class="angle_slider"-->
+                  <!--                           type="range"-->
+                  <!--                           min="0"-->
+                  <!--                           max="360"-->
+                  <!--                           @change="rotate">-->
+                  <!--                  </div>-->
                 </div>
 
                 <q-input v-model="newMessageTextInModal"
@@ -134,6 +146,7 @@
                  color="teal-7"
                  icon="attach_file"
                  class="actionBtn full-height attach-file"
+                 :loading="sendLoading"
                  @click="$refs.fileInput.click()" />
           <input ref="fileInput"
                  type="file"
@@ -159,148 +172,48 @@
             </q-tooltip>
           </q-btn>
         </div>
-        <!--        <q-no-ssr>-->
-        <!--          <av-waveform-->
-        <!--            v-if="recordedVoice !== null"-->
-        <!--            v-show="showVoicePlayer"-->
-        <!--            ref="playAudio"-->
-        <!--            class="av-waveform"-->
-        <!--            :audio-src="recordedVoice"-->
-        <!--            :playtime-font-family="'IRANSans'"-->
-        <!--            :audio-controls="false"-->
-        <!--            :canv-width="1285"-->
-        <!--            :canv-height="64"-->
-        <!--          />-->
-        <!--        </q-no-ssr>-->
-        <!--        <q-no-ssr>-->
-        <!--          <av-media-->
-        <!--            v-show="showVoiceVisualizer"-->
-        <!--            class="voiceVisualizer"-->
-        <!--            type="wform"-->
-        <!--            :media="streamVoice"-->
-        <!--            line-color="#ff9000"-->
-        <!--            :canv-width="1285"-->
-        <!--            :canv-height="64"-->
-        <!--          />-->
-        <!--        </q-no-ssr>-->
         <q-input v-show="canShowTextarea"
                  v-model="newMessage.text"
                  borderless
                  class="newMessageText"
                  placeholder="متن پیام ..." />
-
-        <div v-if="recordedVoice !== null"
-             v-show="showVoicePlayer"
-             class="input-group-prepend">
-          <q-btn v-if="!showVoicePlayerIsPlaying"
-                 unelevated
-                 color="primary"
-                 class="btn  actionBtn"
-                 icon="isax:play"
-                 @click="playRecordedVoice" />
-          <q-btn v-else
-                 unelevated
-                 color="primary"
-                 class="btn  actionBtn"
-                 icon="isax:pause"
-                 @click="pauseRecordedVoice" />
-        </div>
         <div v-if="recordedVoice !== null"
              v-show="showVoicePlayer"
              class="input-group-prepend">
           <q-btn unelevated
-                 color="primary"
+                 color="negative"
                  class="btn  actionBtn"
                  icon="isax:play-remove"
-                 @click="clearMessage" />
+                 @click="clearMessage">
+            <q-tooltip>
+              حذف ویس
+            </q-tooltip>
+          </q-btn>
         </div>
+      </div>
+      <div v-if="recordedVoice !== null"
+           v-show="showVoicePlayer"
+           class="audio-wrapper q-pt-lg">
+        <audio :src="recordedVoice"
+               controls
+               class="js-audio audio" />
       </div>
     </q-card>
   </q-no-ssr>
 </template>
 
 <script>
-// ToDo: index.js?dd82:556 [webpack-dev-server] WARNING
-// chunk vendor [mini-css-extract-plugin]
-// Conflicting order. Following module has been added:
-//   * css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-50.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-50.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-50.use[3]!./node_modules/@quasar/app-webpack/lib/webpack/loader.quasar-sass-variables.js!./node_modules/@quasar/app-webpack/lib/webpack/loader.vue.auto-import-quasar.js??ruleSet[0].use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[1]!./node_modules/quasar-crud/src/components/Entity/EntityAction.vue?vue&type=style&index=0&id=f9dd49ae&lang=sass
-//   despite it was not able to fulfill desired ordering with these modules:
-//   * css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-38.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-38.use[2]!./node_modules/vue-advanced-cropper/dist/style.css
-// - couldn't fulfill desired order of chunk group(s) ,
-// - while fulfilling desired order of chunk group(s) ,
 
 import { UserList } from 'src/models/User.js'
 import Drawer from 'components/CustomDrawer.vue'
-// import { Cropper } from 'vue-advanced-cropper'
 import { CartItemList } from 'src/models/CartItem.js'
 import UserOrderList from 'components/Ticket/userOrderList.vue'
-// import AvMedia from '@kerasus/vue-audio-visual/src/components/AvMedia.js'
-// import AvWaveform from '@kerasus/vue-audio-visual/src/components/AvWaveform.js'
-// import 'vue-advanced-cropper/dist/style.css'
-
-const longpress = {
-  // created(el, binding) { /*, vNode */
-  //   if (typeof binding.value !== 'function') {
-  //     // const compName = vNode.context.name
-  //     // let warn = `[longpress:] provided expression '${binding.expression}' is not a function, but has to be`
-  //     // if (compName) {
-  //     //   warn += `Found in component '${compName}' `
-  //     // }
-  //   }
-  //
-  //   // Define variable
-  //   let pressTimer = null
-  //
-  //   const start = (e) => {
-  //     if (e.type === 'click' && e.button !== 0) {
-  //       return
-  //     }
-  //
-  //     handler('longpress-start')
-  //
-  //     if (pressTimer === null) {
-  //       pressTimer = setTimeout(() => {
-  //         // Run function
-  //         handler('longpress-holding')
-  //       }, 1)
-  //     }
-  //   }
-  //
-  //   const cancel = (e) => {
-  //     if (pressTimer !== null) {
-  //       clearTimeout(pressTimer)
-  //       pressTimer = null
-  //       handler('longpress-left')
-  //     }
-  //   }
-  //
-  //   // Run
-  //   const handler = (e) => {
-  //     binding.value(e)
-  //   }
-  //
-  //   // Add Event listeners
-  //   el.addEventListener('mousedown', start)
-  //   el.addEventListener('touchstart', start)
-  //   // Cancel timeouts if these events happen
-  //   el.addEventListener('click', cancel)
-  //   el.addEventListener('mouseout', cancel)
-  //   el.addEventListener('touchend', cancel)
-  //   el.addEventListener('touchcancel', cancel)
-  // }
-}
 
 export default {
   name: 'SendMessageInput',
   components: {
-    // AvWaveform,
-    // Cropper,
-    // AvMedia,
     Drawer,
     UserOrderList
-  },
-  directives: {
-    longpress
   },
   props: {
     sendLoading: {
@@ -325,9 +238,12 @@ export default {
     }
   },
   data: () => ({
-    fileInput: '',
+    recordCurrentStatus: false,
+    microphoneBtnLoading: false,
+    fileInput: null,
     assignTo: null,
     imgURL: '',
+    imgBlob: '',
     orderDrawer: false,
     orderLoading: false,
     resultURL: '',
@@ -525,11 +441,12 @@ export default {
     },
 
     recordVoice(status) {
-      if (status === 'longpress-start') {
+      this.recordCurrentStatus = status
+      if (this.recordCurrentStatus) {
         this.recordStart()
-      } else if (status === 'longpress-left') {
-        this.recordStop()
+        return
       }
+      this.recordStop()
     },
 
     recordStart() {
@@ -553,6 +470,7 @@ export default {
         that.streamVoice = stream
 
         that.mediaRecorder = new MediaRecorder(stream)
+        that.microphoneBtnLoading = true
         that.mediaRecorder.start()
 
         that.mediaRecorder.onstop = function (e) {
@@ -564,6 +482,8 @@ export default {
           stream.getTracks().forEach(function (track) {
             track.stop()
           })
+
+          that.microphoneBtnLoading = false
         }
 
         that.mediaRecorder.ondataavailable = function (e) {
@@ -584,31 +504,9 @@ export default {
       if (this.mediaRecorder) {
         this.mediaRecorder.stop()
       }
-      this.canShowMic = false
       this.showVoicePlayer = true
       this.showVoiceVisualizer = false
       this.audioPlayerLastPlayedTime = 0
-    },
-
-    playRecordedVoice() {
-      const audioPlayer = this.$refs.playAudio.audio,
-        that = this
-      audioPlayer.src = this.recordedVoice
-      audioPlayer.currentTime = this.audioPlayerLastPlayedTime
-      audioPlayer.onended = function () {
-        audioPlayer.currentTime = 0
-        that.audioPlayerLastPlayedTime = 0
-        that.showVoicePlayerIsPlaying = false
-      }
-      audioPlayer.play()
-      this.showVoicePlayerIsPlaying = true
-    },
-
-    pauseRecordedVoice() {
-      const audioPlayer = this.$refs.playAudio.audio
-      audioPlayer.pause()
-      this.audioPlayerLastPlayedTime = audioPlayer.currentTime
-      this.showVoicePlayerIsPlaying = false
     },
 
     getFile() {
@@ -622,9 +520,11 @@ export default {
           URL.revokeObjectURL(this.imgURL)
         }
         const blob = URL.createObjectURL(files[0])
+        this.imgBlob = files[0]
         const reader = new FileReader()
         reader.onload = (e) => {
           this.imgURL = blob
+          this.resultURL = blob
         }
         reader.readAsArrayBuffer(files[0])
       }
@@ -641,7 +541,8 @@ export default {
 
     clearMessage() {
       this.newMessage.text = ''
-      this.imgURL = ''
+      this.imgURL = null
+      this.imgBlob = null
       this.resultURL = ''
       this.showVoicePlayer = false
       this.userPicSelected = false
@@ -656,12 +557,13 @@ export default {
     emitData(isPrivate) {
       this.$emit('creatTicket', {
         isPrivate,
-        ...(this.resultURL && { resultURL: this.resultURL }),
+        ...(this.resultURL && { resultURL: this.imgBlob }),
         ...(this.resultURL && { caption: this.newMessageTextInModal }),
         ...(this.newMessage.text && { body: this.newMessage.text }),
         ...(this.recordedVoiceBlob && { voice: this.recordedVoiceBlob }),
-        ...(this.fileInput && { file: this.fileInput })
+        ...(this.fileInput && { file: this.fileInput[0] })
       })
+      this.clearMessage()
     }
 
   }
@@ -680,21 +582,26 @@ export default {
   background-color: #ffb822;
   border-color: #ffb822;
 }
+
+.audio-wrapper {
+  margin: 0 0 2rem 0;
+}
+
+.audio {
+  width: 100%;
+
+  &::-webkit-media-controls-panel {
+    background: white;
+  }
+}
+
 </style>
 
 <style scoped lang="scss">
-.attach-file {
-  width: 64px;
-  border-radius: 0;
-}
-
-.msg-input-box {
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
-}
-
 .imageModal {
+  .imageModal-card {
+    width: 320px;
+  }
   .slider_box {
     display: flex;
     justify-content: center;
@@ -780,6 +687,17 @@ export default {
     max-width: 50%;
     margin: 0;
   }
+}
+
+.attach-file {
+  width: 64px;
+  border-radius: 0;
+}
+
+.msg-input-box {
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
 }
 
 .SendMessageInput {

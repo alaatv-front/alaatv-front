@@ -117,11 +117,11 @@
           </q-expansion-item>
           <!--          <change-user @changeUser="ChangeUser" />-->
           <div v-if="isAdmin">
-            <q-btn unelevated
-                   color="blue"
-                   :loading="loading"
-                   @click="editAssignedSupporters">ویرایش اپراتورها
-            </q-btn>
+            <!--            <q-btn unelevated-->
+            <!--                   color="blue"-->
+            <!--                   :loading="loading"-->
+            <!--                   @click="editAssignedSupporters">ویرایش اپراتورها-->
+            <!--            </q-btn>-->
           </div>
           <ticket-rate v-if="!isAdmin"
                        :rate="getInputsValue('rate')"
@@ -136,7 +136,7 @@
       <send-message-input ref="SendMessageInput"
                           class="q-my-lg"
                           :isAdmin="isAdmin"
-                          :send-loading="sendLoading"
+                          :send-loading="loading"
                           @creatTicket="sendTicketMessage" />
       <drawer :is-open="logDrawer"
               max-width="310px"
@@ -412,77 +412,77 @@ export default {
           itemIdentifyKey: 'mobile',
           selected: null,
           col: 'col-md-4'
-        },
-        {
-          type: 'entity',
-          name: 'editOperator', // assignees
-          selectionMode: 'multiple',
-          popUpButtonConfig: {
-            unelevated: true,
-            color: 'blue',
-            textColor: 'white',
-            badgeColor: 'primary',
-            label: 'انتخاب اپراتورها'
-          },
-          indexConfig: {
-            apiAddress: 'https://reqres.in/api/users',
-            tableTitle: 'لیست کاربران',
-            showTableItemsRouteName: 'Admin.BlockManagement.Show',
-            tableKeys: {
-              data: 'data',
-              total: 'total',
-              currentPage: 'page',
-              perPage: 'per_page',
-              pageKey: 'page'
-            },
-            table: {
-              columns: [
-                {
-                  name: 'id',
-                  required: true,
-                  label: '#',
-                  align: 'left',
-                  field: row => row.id
-                },
-                {
-                  name: 'first_name',
-                  required: true,
-                  label: 'نام',
-                  align: 'left',
-                  field: row => row.first_name
-                },
-                {
-                  name: 'last_name',
-                  required: true,
-                  label: 'نام خانوادگی',
-                  align: 'left',
-                  field: row => row.last_name
-                },
-                {
-                  name: 'role',
-                  required: true,
-                  label: 'نقش',
-                  align: 'left',
-                  field: row => row.email
-                }
-              ],
-              data: []
-            },
-            inputs: [
-              { type: 'input', name: 'mobile', value: null, placeholder: 'شماره تلفن', col: 'col-md-6' },
-              { type: 'input', name: 'national_code', value: null, placeholder: 'کدملی', col: 'col-md-6' },
-              { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
-            ],
-            itemIdentifyKey: 'id',
-            itemIndicatorKey: 'id'
-          },
-          itemIdentifyKey: 'id',
-          itemIndicatorKey: 'id',
-          value: [],
-          responseKey: 'ticket.assignees',
-          selected: [],
-          col: 'col-md-6'
         }
+        // {
+        //   type: 'entity',
+        //   name: 'editOperator', // assignees
+        //   selectionMode: 'multiple',
+        //   popUpButtonConfig: {
+        //     unelevated: true,
+        //     color: 'blue',
+        //     textColor: 'white',
+        //     badgeColor: 'primary',
+        //     label: 'انتخاب اپراتورها'
+        //   },
+        //   indexConfig: {
+        //     apiAddress: 'https://reqres.in/api/users',
+        //     tableTitle: 'لیست کاربران',
+        //     showTableItemsRouteName: 'Admin.BlockManagement.Show',
+        //     tableKeys: {
+        //       data: 'data',
+        //       total: 'total',
+        //       currentPage: 'page',
+        //       perPage: 'per_page',
+        //       pageKey: 'page'
+        //     },
+        //     table: {
+        //       columns: [
+        //         {
+        //           name: 'id',
+        //           required: true,
+        //           label: '#',
+        //           align: 'left',
+        //           field: row => row.id
+        //         },
+        //         {
+        //           name: 'first_name',
+        //           required: true,
+        //           label: 'نام',
+        //           align: 'left',
+        //           field: row => row.first_name
+        //         },
+        //         {
+        //           name: 'last_name',
+        //           required: true,
+        //           label: 'نام خانوادگی',
+        //           align: 'left',
+        //           field: row => row.last_name
+        //         },
+        //         {
+        //           name: 'role',
+        //           required: true,
+        //           label: 'نقش',
+        //           align: 'left',
+        //           field: row => row.email
+        //         }
+        //       ],
+        //       data: []
+        //     },
+        //     inputs: [
+        //       { type: 'input', name: 'mobile', value: null, placeholder: 'شماره تلفن', col: 'col-md-6' },
+        //       { type: 'input', name: 'national_code', value: null, placeholder: 'کدملی', col: 'col-md-6' },
+        //       { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
+        //     ],
+        //     itemIdentifyKey: 'id',
+        //     itemIndicatorKey: 'id'
+        //   },
+        //   itemIdentifyKey: 'id',
+        //   itemIndicatorKey: 'id',
+        //   value: [],
+        //   responseKey: 'ticket.assignees',
+        //   selected: [],
+        //   col: 'col-md-6'
+        // }
       ]
     }
   },
