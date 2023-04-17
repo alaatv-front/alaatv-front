@@ -104,7 +104,6 @@
 import { Set } from 'src/models/Set.js'
 import { Product, ProductList } from 'src/models/Product.js'
 import FilterBox from 'src/components/userPurchases/filterBox.vue'
-// import PurchaseItem from 'src/components/userPurchases/PurchaseItem.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 import ProductContents from 'components/Widgets/Product/ProductContents/ProductContents.vue'
