@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     getMainColor (obj) {
-      return this.departmentStatus.find(item => obj.action === item.title).color
+      return this.departmentStatus.find(item => obj.action === item.title)?.color
     },
     initStatusData() {
       this.departmentStatus = [
