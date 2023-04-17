@@ -307,7 +307,7 @@ export default {
   },
   methods: {
     async seenNews(newsId) {
-      await this.$apiGateway.user.getNewsHasBeenSeen(newsId)
+      await this.$apiGateway.liveDescription.getNewsHasBeenSeen(newsId)
     },
     async getNewPinLiveDescription(index, done) {
       this.pinNews.loading = true
@@ -316,7 +316,7 @@ export default {
           this.$refs.pinedNewsList.stop()
           return
         }
-        const response = await this.$apiGateway.user.getPinedNews()
+        const response = await this.$apiGateway.liveDescription.getPinedNews()
         this.pinNewsNextPage = parseInt(response.meta.current_page) + 1
         this.pinNewsLastPage = response.meta.last_page
         this.pinNews = response.data
@@ -335,7 +335,13 @@ export default {
           return
         }
         const params = this.generateParams()
-        const response = await this.$apiGateway.user.getNewsList(params)
+        const liveDescriptionParams = {
+          ...params,
+          created_at_since: '2022-07-09',
+          'order_by[]': 'created_at',
+          'order_type[]': 'desc'
+        }
+        const response = await this.$apiGateway.liveDescription.getNewsList(liveDescriptionParams)
         this.unpinNewsNextPage = +response.meta.current_page + 1
         this.unpinNewsLastPage = response.meta.last_page
         this.unpinNews = response.data

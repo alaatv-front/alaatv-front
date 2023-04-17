@@ -115,11 +115,17 @@ export default {
         return
       }
       const param = this.generateParams()
+      const liveDescriptionParams = {
+        ...param,
+        created_at_since: '2022-07-09',
+        'order_by[]': 'created_at',
+        'order_type[]': 'desc'
+      }
       this.news.loading = true
       // livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc&liveDescriptionPage=1
       //  s.get(window.APIAddresses.liveDescription + '&' + param)
       try {
-        const response = await this.$apiGateway.user.getNewsList(param)
+        const response = await this.$apiGateway.liveDescription.getNewsList(liveDescriptionParams)
         this.newsNextPage = parseInt(response.meta.current_page) + 1
         this.newsLastPage = response.meta.last_page
         this.news = response.data
