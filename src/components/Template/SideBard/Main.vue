@@ -57,7 +57,7 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <menu-item :menu="titlesList" />
+          <menu-item :menu="items" />
         </q-list>
         <div class="log-out"
              @click="logOut">
@@ -149,7 +149,7 @@ export default {
   methods: {
     handleResize() {
       const windowWidth = window.innerWidth
-      this.titlesList.forEach(item => {
+      this.items.forEach(item => {
         if (item.mobileMode) {
           item.show = windowWidth < 1024
         }
