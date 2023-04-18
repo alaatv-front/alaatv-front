@@ -1,6 +1,6 @@
 import { apiV2 } from 'src/boot/axios'
 import { SetList } from 'src/models/Set.js'
-import { ContentList } from 'src/models/Content.js'
+import { Content, ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Product, ProductList } from 'src/models/Product.js'
 
@@ -206,7 +206,7 @@ export default class ProductAPI extends APIRepository {
       request: this.APIAdresses.userLastState(id),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return new Content(response.data.data)
       },
       rejectCallback: (error) => {
         return error

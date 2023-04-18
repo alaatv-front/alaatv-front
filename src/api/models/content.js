@@ -2,6 +2,7 @@ import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Content, ContentList } from 'src/models/Content'
 import { ProductList } from 'src/models/Product'
+import { Comment } from 'src/models/Comment'
 const APIAdresses = {
   search: '/search',
   admin: '/admin/contents',
@@ -355,16 +356,20 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  setBookmarkTimepointFavoredStatus(data = {
-    id: '',
-    status: 'favored'
-  }) {
+  setBookmarkTimepointFavoredStatus(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      id: '',
+      status: 'favored'
+    }, data)
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.timestampBookmarkStatus(data.id, data.status),
+      request: this.APIAdresses.timestampBookmarkStatus(mergedData.id, mergedData.status),
       resolveCallback: (response) => {
-        return response.data
+        const defaultMessageObject = {
+          message: '' // String
+        }
+        return this.getNormalizedSendData(defaultMessageObject, response.data).message
       },
       rejectCallback: (error) => {
         return error
@@ -387,76 +392,90 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  saveComment(data = {
-    commentable_id: '',
-    commentable_type: 'content',
-    comment: ''
-  }) {
+  saveComment(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      commentable_id: '',
+      commentable_type: 'content',
+      comment: ''
+    }, data)
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.saveComment,
       resolveCallback: (response) => {
-        return response.data.data
+        return new Comment(response.data.data)
       },
       rejectCallback: (error) => {
         return error
       },
-      data
+      data: mergedData
     })
   }
 
-  updateComment(data = {
-    id: '',
-    data: {}
-  }) {
+  updateComment(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      id: '',
+      data: {}
+    }, data)
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.updateComment(data.id),
+      request: this.APIAdresses.updateComment(mergedData.id),
       resolveCallback: (response) => {
-        return response.data.data
+        return new Comment(response.data.data)
       },
       rejectCallback: (error) => {
         return error
       },
-      data: data.data
+      data: mergedData.data
     })
   }
 
-  setVideoWatched(data = {
-    watchable_id: '',
-    watchable_type: 'content'
-  }) {
+  setVideoWatched(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      watchable_id: '',
+      watchable_type: 'content'
+    }, data)
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.watchedVideo,
       resolveCallback: (response) => {
-        return response.data
+        const defaultResponseObject = {
+          id: '',
+          watchable_id: '',
+          watchable_type: 'content',
+          watchable: new Content(),
+          seconds_watched: null
+        }
+        return this.getNormalizedSendData(defaultResponseObject, response.data.data)
       },
       rejectCallback: (error) => {
         return error
       },
-      data
+      data: mergedData
     })
   }
 
-  setVideoUnWatched(data = {
-    watchable_id: '',
-    watchable_type: 'content'
-  }) {
+  setVideoUnWatched(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      watchable_id: '',
+      watchable_type: 'content'
+    }, data)
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.unWatchedVideo,
       resolveCallback: (response) => {
-        return response.data
+        const defaultResponseObject = {
+          message: '' // String
+        }
+        return this.getNormalizedSendData(defaultResponseObject, response.data.data)
       },
       rejectCallback: (error) => {
         return error
       },
-      data
+      data: mergedData
     })
   }
 }
