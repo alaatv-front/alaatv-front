@@ -118,7 +118,7 @@ export default {
       this.form.code = this.userInfo.code
       this.setLoading(true)
       this.$apiGateway.user.newsletter(this.form)
-        .then(res => {
+        .then(() => {
           this.$emit('toggleDialog')
           this.setLoading(false)
         })
