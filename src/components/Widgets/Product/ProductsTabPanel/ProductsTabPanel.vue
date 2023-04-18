@@ -47,14 +47,15 @@ export default {
       }
     },
     replaceProducts(optionList, productList) {
-      for (let index = 0; index < optionList.length; index++) {
-        const group = optionList[index]
+      for (let groupIndex = 0; groupIndex < optionList.length; groupIndex++) {
+        const group = optionList[groupIndex]
         if (group.type === 'GroupList') {
-          this.replaceProducts(optionList[index].data, productList)
-        } else {
-          for (let productIndex = 0; productIndex < optionList[index].data.length; productIndex++) {
-            if (productList.find(product => product.id === optionList[index].data[productIndex])) {
-              optionList[index].data[productIndex] = productList.find(product => product.id === optionList[index].data[productIndex])
+          this.replaceProducts(optionList[groupIndex].data, productList)
+        } else if (group.type === 'ProductList') {
+          for (let productIndex = 0; productIndex < optionList[groupIndex].data.length; productIndex++) {
+            const productItem = productList.find(product => product.id === optionList[groupIndex].data[productIndex])
+            if (productItem) {
+              optionList[groupIndex].data[productIndex] = productItem
             }
           }
         }
