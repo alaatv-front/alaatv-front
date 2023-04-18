@@ -410,6 +410,7 @@ export default {
     z-index: 2;
   }
   .video-js {
+    background-color: transparent;
     .vjs-loading-spinner {
       right: 50%;
       margin: -25px -25px 0 0;
