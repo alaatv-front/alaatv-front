@@ -124,7 +124,6 @@ export default {
         current_page: 1,
         from: 1,
         last_page: 1,
-        path: 'https://alaatv.com/api/v2/user/products',
         per_page: 15,
         to: 3,
         total: 3,
