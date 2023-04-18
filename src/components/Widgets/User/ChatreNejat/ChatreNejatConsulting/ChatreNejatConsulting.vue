@@ -125,10 +125,10 @@ export default {
       // livedescription?created_at_since=2022-07-09&order_by[]=created_at&order_type[]=desc&liveDescriptionPage=1
       //  s.get(window.APIAddresses.liveDescription + '&' + param)
       try {
-        const response = await this.$apiGateway.liveDescription.getNewsList(liveDescriptionParams)
-        this.newsNextPage = parseInt(response.meta.current_page) + 1
-        this.newsLastPage = response.meta.last_page
-        this.news = response.data
+        const newsList = await this.$apiGateway.liveDescription.getNewsList(liveDescriptionParams)
+        this.newsNextPage = parseInt(newsList.meta.current_page) + 1
+        this.newsLastPage = newsList.meta.last_page
+        this.news = newsList.data
         this.news.loading = false
       } catch {
         this.news.loading = false
