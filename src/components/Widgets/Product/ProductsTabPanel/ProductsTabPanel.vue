@@ -65,7 +65,7 @@ export default {
     },
     getProductsPromise() {
       this.extractProducts(JSON.parse(JSON.stringify(this.data)))
-      return this.$apiGateway.product.getProductList({ productList: this.productFlatList })
+      return this.$apiGateway.product.getProductList(this.productFlatList)
     },
     prefetchServerDataPromise () {
       this.loading = true
