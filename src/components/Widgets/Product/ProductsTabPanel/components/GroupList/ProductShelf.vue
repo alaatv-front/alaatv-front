@@ -1,43 +1,41 @@
 <template>
-  <div v-for="(item, index) in itemList"
+  <div v-for="(item, index) in data"
        :key="index"
        class="product-panel">
-    <div v-if="item.label "
+    <div v-if="item.options.label "
          class="col-12 product-label"
-         :style="labelStyle">
-      {{ item.label }}
+         :style="item.options.labelStyle">
+      {{ item.options.label }}
     </div>
-    <product-shelf-row v-if="isProduct(item)"
-                       :loading="loading"
-                       :products-list="item.products"
-                       :layout="item.shelfRowLabelStyle"
-                       :className="item.className"
-                       :rowStyle="item.rowStyle" />
+    <product-list v-if="isProduct(item)"
+                  :loading="loading"
+                  :data="item.data"
+                  :options="item.options" />
     <div v-else
          class="product-content row"
-         :class="{'scroll': layout === 'scroll'}"
-         :style="rowStyle">
-      <products-tab-panel :isWidget="false"
-                          :options="item" />
+         :class="{'scroll': item.options.rowLayout === 'ScrollRow'}"
+         :style="item.options.style">
+      <product-panel :loading="loading"
+                     :data="data"
+                     :options="item.options" />
     </div>
   </div>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import ProductShelfRow from './ProductShelfRow.vue'
-// import ProductsTabPanel from '../ProductsTabPanel.vue'
+import ProductList from '../ProductList/ProductList.vue'
 
 export default {
   name: 'ProductShelf',
   components: {
-    ProductShelfRow,
-    ProductsTabPanel: defineAsyncComponent(() =>
-      import('../ProductsTabPanel.vue')
+    ProductList,
+    ProductPanel: defineAsyncComponent(() =>
+      import('../ProductPanel.vue')
     )
   },
   props: {
-    itemList: {
+    data: {
       type: Object,
       default: () => {}
     },
@@ -45,21 +43,13 @@ export default {
       type: Boolean,
       default: false
     },
-    products: {
-      type: Object,
-      default: () => {}
-    },
-    labelStyle: {
-      type: Object,
-      default: () => {}
-    },
-    rowStyle: {
-      type: Object,
-      default: () => {}
-    },
     layout: {
       type: String,
       default: 'scroll'
+    },
+    options: {
+      type: Object,
+      default: () => {}
     }
   },
   methods: {

@@ -50,6 +50,9 @@ export default {
                             grade: true
                           }
                         }
+                      },
+                      {
+                        name: 'FloatingCart'
                       }
                     ],
                     options: {
@@ -2455,81 +2458,53 @@ export default {
                     widgets: [
                       {
                         name: 'ProductsTabPanel',
+                        style: {
+                          padding: '40px 0px 16px 10px'
+                        },
                         options: {
-
-                          height: 'auto',
-                          boxed: true,
-                          boxedWidth: 1200,
-                          activeColor: 'primary',
-                          indicatorColor: 'white',
-                          activeBgColor: 'white',
-                          style: {
-                            padding: '40px 0px 16px 10px'
-                          },
-                          productGroupLayout: 'tab',
-                          rowLayout: 'grid',
-                          type: 'group',
-                          list: [
-                            {
-
-                              height: 'auto',
-                              boxed: true,
-                              boxedWidth: 1200,
+                        },
+                        data: [
+                          {
+                            type: 'GroupList',
+                            options: {
+                              layout: 'ProductTab',
                               style: {
                                 padding: '40px 0px 16px 10px'
                               },
-                              productGroupLayout: 'shelf',
-                              rowLayout: 'grid',
-                              type: 'group',
-                              label: 'ریاضی',
-                              list: [
-                                {
-                                  type: 'product',
-                                  rowStyle: {
-                                    background: '#F9F4EF',
-                                    padding: '15px 15px 5px',
-                                    borderRadius: '10px'
-                                  },
-                                  products: [
-                                    980,
-                                    979,
-                                    978,
-                                    976
-                                  ]
+                              activeColor: 'primary',
+                              activeBgColor: 'white',
+                              indicatorColor: 'white'
+                            },
+                            data: [
+                              {
+                                type: 'ProductList',
+                                options: {
+                                  label: 'ریاضی',
+                                  rowLayout: 'ScrollRow'
                                 },
-                                {
-                                  type: 'product',
-                                  products: [
-                                    980,
-                                    979,
-                                    978,
-                                    976
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              label: 'تجربی',
-                              type: 'product',
-                              products: [
-                                980,
-                                979,
-                                978,
-                                976
-                              ]
-                            },
-                            {
-                              label: 'انسانی',
-                              type: 'product',
-                              products: [
-                                980,
-                                979,
-                                978,
-                                976
-                              ]
-                            }
-                          ]
-                        }
+                                data: [
+                                  983,
+                                  981,
+                                  980,
+                                  979
+                                ]
+                              },
+                              {
+                                type: 'ProductList',
+                                options: {
+                                  label: 'تجربی',
+                                  rowLayout: 'ScrollRow'
+                                },
+                                data: [
+                                  983,
+                                  981,
+                                  980,
+                                  979
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     ],
                     options: {

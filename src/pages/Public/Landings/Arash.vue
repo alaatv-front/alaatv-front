@@ -438,36 +438,39 @@ export default {
                       },
                       {
                         name: 'ProductsTabPanel',
+                        style: {
+                          padding: '5px 0px 16px 10px'
+                        },
                         options: {
-                          height: 'auto',
-                          type: 'group',
-                          boxed: true,
-                          boxedWidth: 1200,
-                          style: {
-                            padding: '40px 0px 16px 10px'
-                          },
-                          list: [
-                            {
-                              type: 'product',
-                              label: 'آرش + تایتان: جمع بندی جامع و جمع بندی سطح بالا',
-                              rowStyle: {
+                        },
+                        data: [
+                          {
+                            type: 'GroupList',
+                            options: {
+                              layout: 'ProductShelf',
+                              style: {
                                 justifyContent: 'flex-start'
+                              }
+                            },
+                            data: [{
+                              type: 'ProductList',
+                              options: {
+                                label: 'آرش',
+                                rowLayout: 'ScrollRow',
+                                labelStyle: {
+                                  color: '#FB4D7A',
+                                  fontSize: '28px',
+                                  textAlign: 'center'
+                                }
                               },
-                              products: [
+                              data: [
                                 980,
                                 979,
                                 978
                               ]
-                            }
-                          ],
-                          productGroupLayout: 'shelf',
-                          rowLayout: 'scroll',
-                          shelfRowLabelStyle: {
-                            color: '#FB4D7A',
-                            fontSize: '28px',
-                            textAlign: 'center'
+                            }]
                           }
-                        }
+                        ]
                       }
                     ],
                     options: {
@@ -605,37 +608,39 @@ export default {
                       },
                       {
                         name: 'ProductsTabPanel',
+                        style: {
+                          padding: '5px 0px 16px 10px'
+                        },
                         options: {
-
-                          height: 'auto',
-                          type: 'group',
-                          boxed: true,
-                          boxedWidth: 1200,
-                          style: {
-                            padding: '40px 0px 16px 10px'
-                          },
-                          list: [
-                            {
-                              type: 'product',
-                              label: 'آرش: جمع‌بندی جامع',
-                              rowStyle: {
+                        },
+                        data: [
+                          {
+                            type: 'GroupList',
+                            options: {
+                              layout: 'ProductShelf',
+                              style: {
                                 justifyContent: 'flex-start'
+                              }
+                            },
+                            data: [{
+                              type: 'ProductList',
+                              options: {
+                                label: 'آرش و تفتان',
+                                rowLayout: 'ScrollRow',
+                                labelStyle: {
+                                  color: '#FB4D7A',
+                                  fontSize: '28px',
+                                  textAlign: 'center'
+                                }
                               },
-                              products: [
+                              data: [
                                 980,
                                 979,
                                 978
                               ]
-                            }
-                          ],
-                          productGroupLayout: 'shelf',
-                          rowLayout: 'scroll',
-                          shelfRowLabelStyle: {
-                            color: '#FB4D7A',
-                            fontSize: '28px',
-                            textAlign: 'center'
+                            }]
                           }
-                        }
+                        ]
                       }
                     ],
                     options: {
@@ -774,37 +779,39 @@ export default {
                       },
                       {
                         name: 'ProductsTabPanel',
+                        style: {
+                          padding: '5px 0px 16px 10px'
+                        },
                         options: {
-
-                          height: 'auto',
-                          type: 'group',
-                          boxed: true,
-                          boxedWidth: 1200,
-                          style: {
-                            padding: '40px 0px 16px 10px'
-                          },
-                          list: [
-                            {
-                              type: 'product',
-                              label: 'تایتان: جمع بندی سطح بالا',
-                              rowStyle: {
+                        },
+                        data: [
+                          {
+                            type: 'GroupList',
+                            options: {
+                              layout: 'ProductShelf',
+                              style: {
                                 justifyContent: 'flex-start'
+                              }
+                            },
+                            data: [{
+                              type: 'ProductList',
+                              options: {
+                                label: 'تفتان',
+                                rowLayout: 'ScrollRow',
+                                labelStyle: {
+                                  color: '#FB4D7A',
+                                  fontSize: '28px',
+                                  textAlign: 'center'
+                                }
                               },
-                              products: [
+                              data: [
                                 980,
                                 979,
                                 978
                               ]
-                            }
-                          ],
-                          productGroupLayout: 'shelf',
-                          rowLayout: 'scroll',
-                          shelfRowLabelStyle: {
-                            color: '#FB4D7A',
-                            fontSize: '28px',
-                            textAlign: 'center'
+                            }]
                           }
-                        }
+                        ]
                       }
                     ],
                     options: {
@@ -991,133 +998,148 @@ export default {
                     widgets: [
                       {
                         name: 'ProductsTabPanel',
+                        style: {
+                          padding: '40px 0px 16px 10px'
+                        },
                         options: {
-
-                          height: 'auto',
-                          type: 'group',
-                          boxed: true,
-                          boxedWidth: 1200,
-                          activeColor: 'primary',
-                          indicatorColor: 'white',
-                          activeBgColor: 'white',
-                          style: {
-                            padding: '40px 0px 16px 10px'
-                          },
-                          list: [
-                            {
-                              height: 'auto',
-                              type: 'group',
-                              boxed: true,
-                              boxedWidth: 1200,
+                        },
+                        data: [
+                          {
+                            type: 'GroupList',
+                            options: {
+                              layout: 'ProductTab',
                               style: {
                                 padding: '40px 0px 16px 10px'
                               },
-                              label: 'ریاضی',
-                              list: [
-                                {
-                                  type: 'product',
-                                  label: 'آرش',
-                                  products: [
-                                    980,
-                                    979,
-                                    978,
-                                    976
-                                  ]
-                                },
-                                {
-                                  type: 'product',
-                                  label: 'آرش و تایتان',
-                                  products: [
-                                    980,
-                                    979,
-                                    978,
-                                    976
-                                  ]
-                                },
-                                {
-                                  type: 'product',
-                                  label: 'تایتان',
-                                  products: [
-                                    980,
-                                    979,
-                                    978,
-                                    976,
-                                    979,
-                                    978,
-                                    976
-                                  ]
-                                }
-                              ],
-                              productGroupLayout: 'tab',
-                              rowLayout: 'scroll',
-                              shelfRowLabelStyle: {
-                                color: '#ffffff',
-                                fontSize: '28px',
-                                textAlign: 'center'
-                              }
+                              activeColor: 'primary',
+                              activeBgColor: 'white',
+                              indicatorColor: 'white'
                             },
-                            {
-
-                              height: 'auto',
-                              type: 'group',
-                              boxed: true,
-                              boxedWidth: 1200,
-                              style: {
-                                padding: '40px 0px 16px 10px'
+                            data: [
+                              {
+                                type: 'GroupList',
+                                options: {
+                                  layout: 'ProductTab',
+                                  label: 'ریاضی',
+                                  labelStyle: {
+                                    color: '#ffffff',
+                                    fontSize: '28px',
+                                    textAlign: 'center'
+                                  },
+                                  activeColor: 'primary',
+                                  activeBgColor: 'white',
+                                  indicatorColor: 'white'
+                                },
+                                data: [
+                                  {
+                                    type: 'ProductList',
+                                    options: {
+                                      label: 'آرش',
+                                      rowLayout: 'ScrollRow'
+                                    },
+                                    data: [
+                                      980,
+                                      979,
+                                      978,
+                                      976
+                                    ]
+                                  },
+                                  {
+                                    type: 'ProductList',
+                                    options: {
+                                      label: 'آرش و تایتان',
+                                      rowLayout: 'ScrollRow'
+                                    },
+                                    data: [
+                                      980,
+                                      979,
+                                      978,
+                                      976
+                                    ]
+                                  },
+                                  {
+                                    type: 'ProductList',
+                                    options: {
+                                      label: 'تایتان',
+                                      rowLayout: 'ScrollRow'
+                                    },
+                                    data: [
+                                      980,
+                                      979,
+                                      978,
+                                      976,
+                                      979,
+                                      978,
+                                      976
+                                    ]
+                                  }
+                                ]
                               },
-                              label: 'تجربی',
-                              list: [
-                                {
-                                  type: 'product',
-                                  label: 'آرش',
-                                  products: [
-                                    980,
-                                    979,
-                                    978,
-                                    976
-                                  ]
+                              {
+                                type: 'GroupList',
+                                options: {
+                                  style: {
+                                    padding: '40px 0px 16px 10px'
+                                  },
+                                  layout: 'GroupTab',
+                                  label: 'تجربی',
+                                  labelStyle: {
+                                    color: '#ffffff',
+                                    fontSize: '28px',
+                                    textAlign: 'center'
+                                  },
+                                  activeColor: 'primary',
+                                  activeBgColor: 'white',
+                                  indicatorColor: 'white'
                                 },
-                                {
-                                  type: 'product',
-                                  label: 'آرش و تایتان',
-                                  products: [
-                                    980,
-                                    979,
-                                    978,
-                                    976
-                                  ]
-                                },
-                                {
-                                  type: 'product',
-                                  label: 'تایتان',
-                                  products: [
-                                    980,
-                                    979,
-                                    978,
-                                    976,
-                                    979,
-                                    978,
-                                    976
-                                  ]
-                                }
-                              ],
-                              productGroupLayout: 'tab',
-                              rowLayout: 'scroll',
-                              shelfRowLabelStyle: {
-                                color: '#ffffff',
-                                fontSize: '28px',
-                                textAlign: 'center'
+                                data: [
+                                  {
+                                    type: 'ProductList',
+                                    options: {
+                                      label: 'آرش',
+                                      rowLayout: 'ScrollRow'
+                                    },
+                                    data: [
+                                      980,
+                                      979,
+                                      978,
+                                      976
+                                    ]
+                                  },
+                                  {
+                                    type: 'ProductList',
+                                    options: {
+                                      label: 'آرش و تایتان',
+                                      rowLayout: 'ScrollRow'
+                                    },
+                                    data: [
+                                      980,
+                                      979,
+                                      978,
+                                      976
+                                    ]
+                                  },
+                                  {
+                                    type: 'ProductList',
+                                    options: {
+                                      label: 'تایتان',
+                                      rowLayout: 'ScrollRow'
+                                    },
+                                    data: [
+                                      980,
+                                      979,
+                                      978,
+                                      976,
+                                      979,
+                                      978,
+                                      976
+                                    ]
+                                  }
+                                ]
                               }
-                            }
-                          ],
-                          productGroupLayout: 'tab',
-                          rowLayout: 'scroll',
-                          shelfRowLabelStyle: {
-                            color: '#ffffff',
-                            fontSize: '28px',
-                            textAlign: 'center'
+                            ]
                           }
-                        }
+                        ]
                       }
                     ],
                     options: {

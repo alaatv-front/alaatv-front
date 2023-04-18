@@ -1,15 +1,15 @@
 <template>
   <div class="tabs-wrapper">
     <q-tabs v-model="tabModel"
-            :active-color="activeColor"
-            :active-bg-color="activeBgColor"
-            :indicator-color="indicatorColor"
+            :active-color="options.activeColor"
+            :active-bg-color="options.activeBgColor"
+            :indicator-color="options.indicatorColor"
             class="product-tabs">
-      <q-tab v-for="(tab, index) in itemList"
+      <q-tab v-for="(tab, index) in data"
              :key="index"
              :name="`productTab_${index}`"
-             :label="tab.label"
-             :icon="tab.icon"
+             :label="tab.options.label"
+             :icon="tab.options.icon"
              class="product-tab"
              content-class="product-tab-content" />
     </q-tabs>
@@ -18,19 +18,18 @@
     <q-tab-panels v-model="tabModel"
                   animated
                   class="product-tab-panels">
-      <q-tab-panel v-for="(item, index) in itemList"
+      <q-tab-panel v-for="(item, index) in data"
                    :key="index"
                    :name="`productTab_${index}`"
                    class="product-tab-panel">
-        <product-tab-row v-if="isProduct(item)"
-                         :loading="loading"
-                         :layout="item.shelfRowLabelStyle"
-                         :products-list="item.products"
-                         :rowStyle="item.rowStyle"
-                         :className="item.className" />
-        <products-tab-panel v-else
-                            :isWidget="false"
-                            :options="item" />
+        <product-list v-if="isProduct(item)"
+                      :loading="loading"
+                      :data="item.data"
+                      :options="item.options" />
+        <product-panel v-else
+                       :loading="loading"
+                       :data="data"
+                       :options="item.options" />
       </q-tab-panel>
     </q-tab-panels>
   </div>
@@ -38,19 +37,18 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
-// import ProductsTabPanel from '../ProductsTabPanel.vue'
-import ProductTabRow from './ProductTabRow.vue'
+import ProductList from '../ProductList/ProductList.vue'
 
 export default {
   name: 'ProductsTab',
   components: {
-    ProductsTabPanel: defineAsyncComponent(() =>
-      import('../ProductsTabPanel.vue')
+    ProductPanel: defineAsyncComponent(() =>
+      import('../ProductPanel.vue')
     ),
-    ProductTabRow
+    ProductList
   },
   props: {
-    itemList: {
+    data: {
       type: Array,
       default: () => []
     },
@@ -62,17 +60,9 @@ export default {
       type: String,
       default: 'scroll'
     },
-    activeColor: {
-      type: String,
-      default: 'primary'
-    },
-    activeBgColor: {
-      type: String,
-      default: 'white'
-    },
-    indicatorColor: {
-      type: String,
-      default: 'white'
+    options: {
+      type: Object,
+      default: () => {}
     }
   },
   data() {
@@ -85,7 +75,7 @@ export default {
   },
   methods: {
     isProduct(item) {
-      return item.type === 'product'
+      return item.type === 'ProductList'
     }
   }
 }

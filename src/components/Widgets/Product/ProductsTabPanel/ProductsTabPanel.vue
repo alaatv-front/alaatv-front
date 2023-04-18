@@ -1,41 +1,31 @@
 <template>
-  <div v-if="localOptions.productGroupLayout === 'tab'"
-       class="product-tab"
-       :style="localOptions.style"
+  <div class="product-shelf-row"
+       :style="style"
        :class="localOptions.className">
-    <product-tab :layout="localOptions.rowLayout"
-                 :loading="loading"
-                 :itemList="products"
-                 :active-bg-color="localOptions.activeBgColor"
-                 :active-color="localOptions.activeColor"
-                 :indicator-color="localOptions.indicatorColor" />
-  </div>
-  <div v-else-if="localOptions.productGroupLayout === 'shelf'"
-       class="product-shelf-row">
-    <product-shelf :itemList="products"
-                   :loading="loading"
-                   :layout="localOptions.rowLayout"
-                   :rowStyle="localOptions.rowStyle"
-                   :labelStyle="localOptions.shelfRowLabelStyle" />
+    <product-panel :loading="loading"
+                   :data="products"
+                   :options="localOptions" />
   </div>
 </template>
 
 <script>
-import ProductTab from './components/ProductTab.vue'
-import ProductShelf from './components/ProductShelf.vue'
+import ProductPanel from './components/ProductPanel.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProductsTabPanel',
   components: {
-    ProductTab,
-    ProductShelf
+    ProductPanel
   },
   mixins: [mixinPrefetchServerData, mixinWidget],
   props: {
-    isWidget: {
+    style: {
       type: Boolean,
       default: true
+    },
+    data: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -44,67 +34,53 @@ export default {
       productFlatList: [],
       loading: false,
       defaultOptions: {
-        title: null,
-        subtitle: null,
-        tab: null,
-        list: [],
-        productGroupLayout: null,
-        className: '',
-        rowLayout: null,
-        style: {},
-        rowStyle: {},
-        shelfRowLabelStyle: {},
-        activeColor: null,
-        indicatorColor: null,
-        activeBgColor: null
+        className: ''
       }
     }
-  },
-  mounted() {
-    this.getProducts()
   },
   methods: {
     extractProducts(group) {
       for (let index = 0; index < group.length; index++) {
         const groupItem = group[index]
-        if (groupItem.type === 'group') {
-          this.extractProducts(groupItem.list)
+        if (groupItem.type === 'GroupList') {
+          this.extractProducts(groupItem.data)
         } else {
-          this.productFlatList.push(...groupItem.products)
+          this.productFlatList.push(...groupItem.data)
         }
       }
     },
     replaceProducts(optionList, productList) {
       for (let index = 0; index < optionList.length; index++) {
         const group = optionList[index]
-        if (group.type === 'group') {
-          this.replaceProducts(optionList[index].list, productList)
+        if (group.type === 'GroupList') {
+          this.replaceProducts(optionList[index].data, productList)
         } else {
-          for (let productIndex = 0; productIndex < optionList[index].products.length; productIndex++) {
-            optionList[index].products[productIndex] = productList.find(product => product.id === optionList[index].products[productIndex])
+          for (let productIndex = 0; productIndex < optionList[index].data.length; productIndex++) {
+            if (productList.find(product => product.id === optionList[index].data[productIndex])) {
+              optionList[index].data[productIndex] = productList.find(product => product.id === optionList[index].data[productIndex])
+            }
           }
         }
       }
     },
-    getProducts() {
-      if (!this.isWidget) {
-        this.products = this.defaultOptions.list
-        return
-      }
-      const products = this.localOptions.list
-      this.extractProducts(this.localOptions.list)
-      if (this.isWidget) {
-        this.loading = true
-        this.$apiGateway.product.getProductList({ productList: this.productFlatList })
-          .then(productList => {
-            this.replaceProducts(products, productList.list)
-            this.products = products
-            this.loading = false
-          })
-          .catch(() => {
-            this.loading = false
-          })
-      }
+    getProductsPromise() {
+      this.extractProducts(JSON.parse(JSON.stringify(this.data)))
+      return this.$apiGateway.product.getProductList({ productList: this.productFlatList })
+    },
+    prefetchServerDataPromise () {
+      this.loading = true
+      return this.getProductsPromise()
+    },
+    prefetchServerDataPromiseThen (productList) {
+      console.log('data****************', this.data)
+      console.trace('pList****************', productList)
+      const products = this.data
+      this.replaceProducts(products, productList.list)
+      this.products = products
+      this.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.loading = false
     }
   }
 }

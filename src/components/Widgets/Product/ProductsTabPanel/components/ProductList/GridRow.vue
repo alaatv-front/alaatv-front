@@ -2,53 +2,44 @@
   <div class="product-content-wrapper">
     <div v-if="loading"
          class="product-content row"
-         :class="{'scroll': layout === 'scroll',...className}"
-         :style="rowStyle">
+         :class="options.className"
+         :style="options.style">
       <product-row-skeleton :skeletons="4" />
     </div>
     <div v-else
          class="product-content row"
-         :class="{'scroll': layout === 'scroll',...className}"
-         :style="rowStyle">
-      <product-item v-for="(product, index) in productsList"
+         :class="options.className"
+         :style="options.style">
+      <product-item v-for="(product, index) in data"
                     :key="index"
                     :options="{product: product}"
-                    class="product-item col-md-4"
-                    :class="{'q-mx-xs': layout === 'scroll'}" />
+                    class="product-item col-md-3" />
     </div>
   </div>
 </template>
 
 <script>
-import ProductItem from '../../ProductItem/ProductItem.vue'
-import ProductRowSkeleton from './ProductRowSkeleton.vue'
+import ProductItem from '../../../ProductItem/ProductItem.vue'
+import ProductRowSkeleton from '../ProductRowSkeleton.vue'
 
 export default {
-  name: 'ProductShelfRow',
+  name: 'GridRow',
   components: {
     ProductItem,
     ProductRowSkeleton
   },
   props: {
-    productsList: {
+    data: {
       type: Object,
       default: () => {}
     },
-    rowStyle: {
+    options: {
       type: Object,
       default: () => {}
-    },
-    layout: {
-      type: String,
-      default: 'scroll'
     },
     loading: {
       type: Boolean,
       default: false
-    },
-    className: {
-      type: [Array, String],
-      default: null
     }
   }
 }
@@ -66,19 +57,12 @@ export default {
     max-width: 100%;
   }
 
-  &.special {
-    padding: 15px 15px 5px;
-    margin-bottom: 5px;
-    border-radius: 30px;
-    background: #F9F4EF;
-  }
-
   @media screen and (max-width: 600px){
     padding: 0;
+  }
 
-    &.special {
-      padding: 5px;
-    }
+  .product-item {
+    padding: 5px;
   }
 }
 </style>
