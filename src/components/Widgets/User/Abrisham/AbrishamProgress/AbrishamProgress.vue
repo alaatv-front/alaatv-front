@@ -264,8 +264,8 @@ export default {
     async getLessonGroups() {
       this.lnssonGroupsLoading = true
       try {
-        const lessons = await this.$apiGateway.abrisham.getLessons()
-        return lessons.data
+        const lessonsResponse = await this.$apiGateway.abrisham.getLessons()
+        return lessonsResponse.data
       } catch {
         this.lnssonGroupsLoading = true
         return []
@@ -354,6 +354,7 @@ export default {
 
     async showFirstContent (contentId) {
       const contents = await this.getContents()
+      this.contents.loading = false
       this.setContents(contents)
       if (!contentId) {
         contentId = contents.list[0].id
@@ -376,10 +377,7 @@ export default {
     async getContents () {
       this.contents.loading = true
       try {
-        const contents = await this.$apiGateway.set.getContents(this.currentSetId)
-
-        this.contents.loading = false
-        return contents
+        return await this.$apiGateway.set.getContents(this.currentSetId)
       } catch {
         this.contents.loading = false
       }
