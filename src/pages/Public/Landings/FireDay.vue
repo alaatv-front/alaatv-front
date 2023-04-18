@@ -2476,16 +2476,41 @@ export default {
                               },
                               data: [
                                 {
-                                  type: 'ProductList',
+                                  type: 'GroupList',
                                   options: {
                                     label: 'ریاضی',
-                                    rowLayout: 'ScrollRow'
+                                    layout: 'ProductShelf'
                                   },
                                   data: [
-                                    983,
-                                    981,
-                                    980,
-                                    979
+                                    {
+                                      type: 'ProductList',
+                                      options: {
+                                        rowLayout: 'ScrollRow',
+                                        style: {
+                                          background: '#F9F4EF',
+                                          padding: '5px',
+                                          borderRadius: '30px'
+                                        }
+                                      },
+                                      data: [
+                                        983,
+                                        981,
+                                        980,
+                                        979
+                                      ]
+                                    },
+                                    {
+                                      type: 'ProductList',
+                                      options: {
+                                        rowLayout: 'ScrollRow'
+                                      },
+                                      data: [
+                                        983,
+                                        981,
+                                        980,
+                                        979
+                                      ]
+                                    }
                                   ]
                                 },
                                 {
