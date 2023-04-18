@@ -48,6 +48,12 @@ class ContentTimePointList extends Collection {
   model () {
     return ContentTimePoint
   }
+
+  removeAllTimes () {
+    this.list.forEach(timepoint => {
+      timepoint.time = 0
+    })
+  }
 }
 
 export { ContentTimePoint, ContentTimePointList }
