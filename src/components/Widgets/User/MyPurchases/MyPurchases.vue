@@ -122,16 +122,16 @@ export default {
     return {
       productPaginationMeta: {
         current_page: 1,
-        from: 1,
+        from: 0,
         last_page: 1,
-        per_page: 15,
-        to: 3,
-        total: 3,
-        count: 3
+        links: [],
+        path: '',
+        per_page: 0,
+        to: 0,
+        total: 0
       },
       selectedProduct: new Product(),
       productContentsDialog: false,
-      items: [{}, {}, {}, {}, {}, {}, {}],
       scrollTargetRef: null,
       loading: false,
       dataLoaded: false,
@@ -192,9 +192,9 @@ export default {
       this.loading = true
       this.filteredProduct = new ProductList()
       this.products = new ProductList()
-      const response = await this.getPurchasedProducts()
-      this.products = response.referralCodeList
-      this.productPaginationMeta = response.paginate
+      const purchasedProducts = await this.getPurchasedProducts()
+      this.products = purchasedProducts.referralCodeList
+      this.productPaginationMeta = purchasedProducts.paginate
       this.loading = false
     },
     getPurchasedProducts () {
