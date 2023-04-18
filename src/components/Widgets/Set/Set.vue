@@ -156,7 +156,7 @@ export default {
     handleSetBookmark () {
       this.bookmarkLoading = true
       if (this.set.is_favored) {
-        this.$apiGateway.content.unfavored(this.set.id)
+        this.$apiGateway.set.unfavored(this.set.id)
           .then(() => {
             this.set.is_favored = !this.set.is_favored
             this.bookmarkLoading = false
@@ -166,7 +166,7 @@ export default {
           })
         return
       }
-      this.$apiGateway.content.favored(this.set.id)
+      this.$apiGateway.set.favored(this.set.id)
         .then(() => {
           this.set.is_favored = !this.set.is_favored
           this.bookmarkLoading = false
