@@ -1,6 +1,6 @@
 <template>
   <div class="product-shelf-row"
-       :style="style"
+       :style="localOptions.style"
        :class="localOptions.className">
     <product-panel :loading="loading"
                    :data="products"
@@ -19,10 +19,6 @@ export default {
   },
   mixins: [mixinPrefetchServerData, mixinWidget],
   props: {
-    style: {
-      type: Boolean,
-      default: true
-    },
     data: {
       type: Array,
       default: () => []
@@ -34,7 +30,8 @@ export default {
       productFlatList: [],
       loading: false,
       defaultOptions: {
-        className: ''
+        className: '',
+        style: {}
       }
     }
   },
