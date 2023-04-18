@@ -94,11 +94,6 @@ export default {
   computed: {
     hasTimepoint () {
       return this.content.timepoints.list.length > 0
-    },
-    currentContentTimepoint () {
-      return (timepointId) => {
-        return this.currentContent.timepoints.list.find(item => item.id === timepointId)
-      }
     }
   },
   watch: {
@@ -113,9 +108,12 @@ export default {
     }
   },
   methods: {
+    getCurrentContentTimepoint (timepointId) {
+      return this.currentContent.timepoints.list.find(item => item.id === timepointId)
+    },
     handleTimepointBookmark (timepointId) {
       const timepointIndex = this.currentContent.timepoints.list.findIndex(item => item.id === timepointId)
-      const currentContentTimepoint = this.currentContentTimepoint(timepointId)
+      const currentContentTimepoint = this.getCurrentContentTimepoint(timepointId)
       this.currentContent.timepoints.list[timepointIndex].loading = true
       const isFavoredStatus = currentContentTimepoint.isFavored ? 'unfavored' : 'favored'
       this.changeTimepointStatus({
