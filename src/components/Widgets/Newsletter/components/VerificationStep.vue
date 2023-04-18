@@ -3,116 +3,87 @@
     <q-card-section class="dialog-title">
       ثبت نام
     </q-card-section>
-    <q-card-section class="dialog-subtitle">اظلاعات خود را وارد نمایید</q-card-section>
+    <q-card-section class="dialog-subtitle"> کد ۶ رقمی خود را وارد کنید</q-card-section>
     <q-card-section class="login-input-wrapper">
-      <q-input v-if="userInputs.first_name"
-               v-model="form.first_name"
-               class="landing-text-input"
-               placeholder="نام"
-               :rules="rules"
-               outlined
-               color="primary" />
-      <q-input v-if="userInputs.last_name"
-               v-model="form.last_name"
-               class="landing-text-input"
-               placeholder="نام خانوادگی"
-               :rules="rules"
-               outlined
-               color="primary" />
-      <q-select v-if="userInputs.major"
-                v-model="form.major"
-                class="landing-text-input"
-                hide-dropdown-icon
-                :options="stringOptions.major"
-                label="رشته"
-                filled />
-      <q-select v-if="userInputs.grade"
-                v-model="form.grade"
-                hide-dropdown-icon
-                class="landing-text-input"
-                :options="stringOptions.grade"
-                label="پایه تحصیلی"
-                filled />
+      <v-otp-input ref="otpInput"
+                   v-model:value="bindModal"
+                   input-classes="landing-otp-input"
+                   separator=""
+                   :num-inputs="6"
+                   :should-auto-focus="true"
+                   input-type="letter-numeric"
+                   :conditionalClass="['one', 'two', 'three', 'four','five','six']"
+                   :placeholder="[]"
+                   @on-change="handleOnChange"
+                   @on-complete="handleOnComplete" />
     </q-card-section>
     <q-card-actions class="dialog-action">
       <q-btn class="send-btn"
              :disabled="loading"
              color="primary"
-             @click="getCodeForLogin">
+             @click="verifyCode">
         تایید کد
       </q-btn>
+      <q-btn class="send-btn"
+             :disabled="loading"
+             color="warning"
+             @click="changeNumber">
+        تغییر شماره
+      </q-btn>
+    </q-card-actions>
+    <q-card-actions class="code-resend-wrapper">
+      <q-btn v-if="canReset"
+             color="warning"
+             class="resend-btn"
+             flat
+             label="ارسال مجدد"
+             @click="resend" />
+      <timer v-else
+             ref="timer"
+             :end-date="date"
+             @end="onTimerEnd" />
     </q-card-actions>
   </q-card>
 </template>
 
 <script>
+import VOtpInput from 'vue3-otp-input'
 
 export default {
-  name: 'InfoCompletion',
+  name: 'VerificationStep',
   components: {
+    VOtpInput
   },
   props: {
-    options: {
+    userInfo: {
       type: Object,
       default: () => {}
     }
   },
+  emits: ['gotoPrevStep', 'gotoNextStep', 'updateUser'],
   data() {
     return {
       loading: false,
       otpInput: null,
-      bindModal: '',
-      rules: {
-        required: value => !!value || 'این فیلد الزامی است'
-      },
-      form: {
-        first_name: '',
-        last_name: '',
-        major: '',
-        grade: ''
-      },
-      stringOptions: {
-        major: [],
-        grade: []
-      },
-      userInputs: {
-        first_name: true,
-        last_name: true,
-        major: true,
-        grade: true
-      }
+      bindModal: null,
+      otpValue: null,
+      canReset: true,
+      date: Date.now() + 120000
     }
   },
-  mounted() {
-    this.loadConfig()
-  },
   methods: {
-    loadConfig() {
-      this.userInputs = this.options.userInputs
-      this.getTags()
-    },
-    getTags() {
-      this.$apiGateway.forrest.getTags(['major', 'grade']).then(res => {
-        this.stringOptions = []
-        res.map((tree) => tree.children).forEach(category => {
-          category.forEach(item => {
-            this.stringOptions[category].push(item)
-          })
-        })
-        // this.stringOptions = res.map((item) => item.children)
-        // this.filterOptions = this.stringOptions
-        // this.onChangeSelections(this.value)
-      }).catch(() => {
-      })
-    },
-    onChangeSelections ($event) {
-      this.change(JSON.parse(JSON.stringify($event.map(item => item.id))))
-    },
-    getCodeForLogin() {
-      const loginData = {
-        mobile: this.mobile
+    verifyCode() {
+      const verifyData = {
+        code: this.otpValue
       }
-      this.sendCodeRequest(loginData)
+      this.$apiGateway.user.verifyMoshavereh(verifyData)
+        .then(() => {
+          this.$emit('gotoNextStep')
+          this.setLoading(false)
+        })
+        .catch(() => {
+          this.setLoading(false)
+        })
     },
     setLoading(loading) {
       this.loading = loading
@@ -124,6 +95,45 @@ export default {
         position: 'top',
         multiLine: true
       })
+    },
+    handleOnComplete(value) {
+      this.otpValue = value
+    },
+    handleOnChange(value) {
+
+    },
+    clearInput() {
+      this.otpInput.value?.clearInput()
+    },
+    changeNumber() {
+      this.$emit('gotoPrevStep')
+    },
+    resend() {
+      this.date = Date.now() + 120000
+      const loginData = {
+        mobile: this.userInfo.mobile
+      }
+      this.resendRequest(loginData)
+      this.canReset = false
+    },
+    resendRequest(userInfo) {
+      this.setLoading(true)
+      this.$apiGateway.user.resendGuest(userInfo)
+        .then(message => {
+          this.showMessage(message, 'success')
+          this.$emit('updateUser', {
+            mobile: this.userInfo.mobile,
+            code: this.otpValue
+          })
+          this.$emit('gotoNextStep')
+          this.setLoading(false)
+        })
+        .catch(() => {
+          this.setLoading(false)
+        })
+    },
+    onTimerEnd() {
+      this.canReset = true
     }
   }
 }
@@ -132,6 +142,24 @@ export default {
 <style lang="scss" scoped>
 .login-input-wrapper{
   direction: rtl;
+}
+
+.code-resend-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  color: #A12047;
+
+  .resend-btn{
+      height: 20px;
+      min-width: 64px;
+      padding: 0px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      letter-spacing: -0.03em;
+  }
 }
 .dialog-card {
     background: transparent;
@@ -152,7 +180,7 @@ export default {
     }
 
     .dialog-subtitle {
-        margin-top: 16px;
+        margin-top: 24px;
         padding-bottom: 0;
         font-style: normal;
         font-weight: 400;
@@ -176,7 +204,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-top: 10px;
+        margin-top: 20px;
 
         .send-btn {
             width: 100%;
@@ -208,11 +236,6 @@ export default {
     height: 40px;
     background: #F7E5C6;
     border-radius: 8px;
-    margin: 3px 0;
-
-    &:deep(.q-field__native) {
-      text-align: left;
-    }
 
     &.desabled {
       background: #F7E5C6;

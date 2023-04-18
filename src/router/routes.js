@@ -136,7 +136,8 @@ const routes = [
             path: 'landing',
             name: 'Public.Landing',
             layoutConfig: {
-              layoutHeader: false
+              layoutHeader: false,
+              layoutFooter: false
             },
             children: [
               {
@@ -149,11 +150,18 @@ const routes = [
               },
               {
                 path: '36',
-                meta: {
-                  hasDynamicSetting: true
-                },
-                name: 'Public.Checkout.FireDay',
+                name: 'Public.Landing.FireDay',
                 component: () => import('src/pages/Public/Landings/FireDay.vue')
+              },
+              {
+                path: '15',
+                name: 'Public.Landing.Arash',
+                component: () => import('src/pages/Public/Landings/Arash.vue')
+              },
+              {
+                path: '9',
+                name: 'Public.Landing.Taftan',
+                component: () => import('src/pages/Public/Landings/Taftan.vue')
               }
             ]
           }

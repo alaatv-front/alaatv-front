@@ -1,14 +1,22 @@
 import { apiV2 } from 'src/boot/axios'
+import { SetList } from 'src/models/Set.js'
 import { ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Product, ProductList } from 'src/models/Product.js'
-import { SetList } from 'src/models/Set.js'
 
 export default class ProductAPI extends APIRepository {
   constructor() {
     super('product', apiV2)
     this.APIAdresses = {
       base: '/product',
+      bulk: (productIds) => {
+        const idParams = []
+        productIds.forEach((productId, productIndex) => {
+          idParams.push('ids' + '[' + productIndex + ']=' + productId)
+        })
+        const queryParams = idParams.join('&')
+        return '/product?' + queryParams
+      },
       create: '/reqres/api/users',
       edit: '/admin/product',
       index: '/admin/product',
@@ -24,6 +32,7 @@ export default class ProductAPI extends APIRepository {
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
+      bulk: (productIds) => this.name + this.APIAdresses.bulk(productIds),
       create: this.name + this.APIAdresses.create,
       favored: id => this.name + this.APIAdresses.favored(id),
       getSets: id => this.name + this.APIAdresses.getSets(id),
@@ -116,6 +125,22 @@ export default class ProductAPI extends APIRepository {
       cacheKey: this.CacheList.unfavored(data),
       resolveCallback: (response) => {
         return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getProductList(productIds, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.bulk(productIds),
+      cacheKey: this.CacheList.bulk(productIds),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
