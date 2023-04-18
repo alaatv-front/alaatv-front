@@ -65,12 +65,6 @@ export default {
     padding: 40px 0;
     width: 100%;
 
-    &.scroll {
-      overflow-x: auto;
-      flex-wrap: nowrap !important;
-      max-width: 100%;
-    }
-
     @media screen and (max-width: 600px){
       padding: 0;
     }

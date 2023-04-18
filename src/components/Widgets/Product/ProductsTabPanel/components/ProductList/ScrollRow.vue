@@ -48,21 +48,22 @@ export default {
 <style lang="scss" scoped>
 .product-content-wrapper {
   width: 100%;
-}
-.product-content {
-  justify-content: flex-start;
-  padding: 40px 0;
-  width: 100%;
-  overflow-x: auto;
-  flex-wrap: nowrap !important;
-  max-width: 100%;
 
-  @media screen and (max-width: 600px){
-    padding: 0;
-  }
+  .product-content {
+    justify-content: flex-start;
+    padding: 40px 0;
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    max-width: 100%;
 
-  .product-item {
-    margin: 5px;
+    @media screen and (max-width: 600px){
+      padding: 0;
+    }
+
+    .product-item {
+      margin: 5px;
+    }
   }
 }
 </style>

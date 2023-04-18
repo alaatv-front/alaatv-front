@@ -115,18 +115,8 @@ export default {
         padding: 40px 0;
         width: 100%;
 
-        &.special {
-          padding: 15px 15px 5px;
-          border-radius: 30px;
-          background: #F9F4EF;
-        }
-
         @media screen and (max-width: 600px){
           padding: 0;
-
-          &.special {
-            padding: 5px;
-          }
         }
       }
     }
