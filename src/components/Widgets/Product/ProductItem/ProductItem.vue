@@ -134,7 +134,6 @@ export default {
   data: () => ({
     addToCartLoading: false,
     loading: false,
-    product: new Product(),
     defaultOptions: {
       style: {},
       minWidth: 'auto',
@@ -153,6 +152,17 @@ export default {
         }
       }
       return {}
+    },
+    product: {
+      get() {
+        if (!this.localOptions.product) {
+          return new Product()
+        }
+        return this.localOptions.product
+      },
+      set(value) {
+        this.localOptions.product = value
+      }
     }
   },
   created () {
