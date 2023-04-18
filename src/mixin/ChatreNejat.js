@@ -67,11 +67,14 @@ const mixinChatreNejat = {
     async updateComment(comment) {
       try {
         this.commentLoading = true
-        const response = await this.$apiGateway.content.updateComment(this.watchingContent.comments[0].id, {
-          comment,
-          _method: 'PUT'
+        const updateCommentResponse = await this.$apiGateway.content.updateComment({
+          id: this.watchingContent.comments[0].id,
+          data: {
+            comment,
+            _method: 'PUT'
+          }
         })
-        this.watchingContent.comments[0].comment = response.data.data.comment
+        this.watchingContent.comments[0].comment = updateCommentResponse.comment
         this.comment = this.watchingContent.comments[0].comment
         this.commentLoading = false
         this.syncwatchingContentWithContentInList()
@@ -82,14 +85,14 @@ const mixinChatreNejat = {
     async saveNewComment(comment) {
       try {
         this.commentLoading = true
-        const response = await this.$apiGateway.content.saveComment({
+        const savedComment = await this.$apiGateway.content.saveComment({
           commentable_id: this.watchingContent.id,
           commentable_type: 'content',
           comment
         })
         this.watchingContent.comments.push({
-          id: response.data.data.id,
-          comment: response.data.data.comment
+          id: savedComment.id,
+          comment: savedComment.comment
         })
         this.comment = this.watchingContent.comments[0].comment
         this.commentLoading = false
@@ -107,7 +110,8 @@ const mixinChatreNejat = {
         if (timeStampData.isFavored) {
           postStatus = 'favored'
         }
-        await this.$apiGateway.content.setBookmarkTimepointFavoredStatus(parseInt(timeStampData.id), {
+        await this.$apiGateway.content.setBookmarkTimepointFavoredStatus({
+          id: parseInt(timeStampData.id),
           status: postStatus
         })
         this.watchingContent.timepoints.list.forEach(item => {
