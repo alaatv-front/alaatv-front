@@ -115,14 +115,15 @@ export default {
   methods: {
     handleTimepointBookmark (timepointId) {
       const timepointIndex = this.currentContent.timepoints.list.findIndex(item => item.id === timepointId)
+      const currentContentTimepoint = this.currentContentTimepoint(timepointId)
       this.currentContent.timepoints.list[timepointIndex].loading = true
-      if (this.currentContentTimepoint(timepointId).isFavored) {
+      if (currentContentTimepoint.isFavored) {
         this.$apiGateway.content.setBookmarkTimepointFavoredStatus({
           id: timepointId,
           status: 'unfavored'
         })
           .then(() => {
-            this.currentContent.timepoints.list[timepointIndex].isFavored = !this.currentContentTimepoint(timepointId).isFavored
+            this.currentContent.timepoints.list[timepointIndex].isFavored = !currentContentTimepoint.isFavored
             this.toggleFavorite(this.content.id)
             this.currentContent.timepoints.list[timepointIndex].loading = false
           })
@@ -136,7 +137,7 @@ export default {
         status: 'favored'
       })
         .then(() => {
-          this.currentContent.timepoints.list[timepointIndex].isFavored = !this.currentContentTimepoint(timepointId).isFavored
+          this.currentContent.timepoints.list[timepointIndex].isFavored = !currentContentTimepoint.isFavored
           this.toggleFavorite(this.content.id)
           this.currentContent.timepoints.list[timepointIndex].loading = false
         })
