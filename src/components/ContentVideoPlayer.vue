@@ -117,32 +117,26 @@ export default {
       const timepointIndex = this.currentContent.timepoints.list.findIndex(item => item.id === timepointId)
       const currentContentTimepoint = this.currentContentTimepoint(timepointId)
       this.currentContent.timepoints.list[timepointIndex].loading = true
-      if (currentContentTimepoint.isFavored) {
-        this.$apiGateway.content.setBookmarkTimepointFavoredStatus({
-          id: timepointId,
-          status: 'unfavored'
-        })
-          .then(() => {
-            this.currentContent.timepoints.list[timepointIndex].isFavored = !currentContentTimepoint.isFavored
-            this.toggleFavorite(this.content.id)
-            this.currentContent.timepoints.list[timepointIndex].loading = false
-          })
-          .catch(() => {
-            this.currentContent.timepoints.list[timepointIndex].loading = false
-          })
-        return
-      }
+      const isFavoredStatus = currentContentTimepoint.isFavored ? 'unfavored' : 'favored'
+      this.changeTimepointStatus({
+        timepointId,
+        isFavoredStatus,
+        timepointIndex,
+        currentContentTimepoint
+      })
+    },
+    changeTimepointStatus (data) {
       this.$apiGateway.content.setBookmarkTimepointFavoredStatus({
-        id: timepointId,
-        status: 'favored'
+        id: data.timepointId,
+        status: data.isFavoredStatus
       })
         .then(() => {
-          this.currentContent.timepoints.list[timepointIndex].isFavored = !currentContentTimepoint.isFavored
+          this.currentContent.timepoints.list[data.timepointIndex].isFavored = !data.currentContentTimepoint.isFavored
           this.toggleFavorite(this.content.id)
-          this.currentContent.timepoints.list[timepointIndex].loading = false
+          this.currentContent.timepoints.list[data.timepointIndex].loading = false
         })
         .catch(() => {
-          this.currentContent.timepoints.list[timepointIndex].loading = false
+          this.currentContent.timepoints.list[data.timepointIndex].loading = false
         })
     },
     goToTimpoint (timepoint) {
