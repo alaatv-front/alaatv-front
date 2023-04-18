@@ -355,13 +355,16 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  setBookmarkTimepointFavoredStatus(id, data = {}) {
+  setBookmarkTimepointFavoredStatus(data = {
+    id: '',
+    status: 'favored'
+  }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.timestampBookmarkStatus(id, data.status),
+      request: this.APIAdresses.timestampBookmarkStatus(data.id, data.status),
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -384,13 +387,17 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  saveComment(data) {
+  saveComment(data = {
+    commentable_id: '',
+    commentable_type: 'content',
+    comment: ''
+  }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.saveComment,
       resolveCallback: (response) => {
-        return response
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error
@@ -399,28 +406,34 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  updateComment(id, data) {
+  updateComment(data = {
+    id: '',
+    data: {}
+  }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.updateComment(id),
+      request: this.APIAdresses.updateComment(data.id),
       resolveCallback: (response) => {
-        return response
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error
       },
-      data
+      data: data.data
     })
   }
 
-  setVideoWatched(data) {
+  setVideoWatched(data = {
+    watchable_id: '',
+    watchable_type: 'content'
+  }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.watchedVideo,
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -429,13 +442,16 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  setVideoUnWatched(data) {
+  setVideoUnWatched(data = {
+    watchable_id: '',
+    watchable_type: 'content'
+  }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.unWatchedVideo,
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error
