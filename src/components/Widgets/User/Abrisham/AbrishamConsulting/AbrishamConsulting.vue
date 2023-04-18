@@ -124,7 +124,7 @@ export default {
       const param = this.generateParams()
       const liveDescriptionParams = {
         ...param,
-        created_at_since: '2022-07-09',
+        created_at_since: this.$enums.Events.abrisham,
         'order_by[]': 'created_at',
         'order_type[]': 'desc'
       }
