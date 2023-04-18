@@ -77,7 +77,7 @@ export default {
         code: this.otpValue
       }
       this.$apiGateway.user.verifyMoshavereh(verifyData)
-        .then(res => {
+        .then(() => {
           this.$emit('gotoNextStep')
           this.setLoading(false)
         })
@@ -119,8 +119,8 @@ export default {
     resendRequest(userInfo) {
       this.setLoading(true)
       this.$apiGateway.user.resendGuest(userInfo)
-        .then(res => {
-          this.showMessage(res, 'success')
+        .then(message => {
+          this.showMessage(message, 'success')
           this.$emit('updateUser', {
             mobile: this.userInfo.mobile,
             code: this.otpValue

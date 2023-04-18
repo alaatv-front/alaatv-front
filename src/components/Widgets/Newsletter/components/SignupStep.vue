@@ -57,11 +57,11 @@ export default {
     sendCodeRequest(userInfo) {
       this.setLoading(true)
       this.$apiGateway.user.resendGuest(userInfo)
-        .then(res => {
-          this.showMessage(res, 'success')
+        .then(user => {
+          this.showMessage(user, 'success')
           this.$emit('updateUser', {
             mobile: this.mobile,
-            code: res.code ? res.code : null
+            code: user.code ? user.code : null
           })
           this.$emit('gotoNextStep')
           this.setLoading(false)
