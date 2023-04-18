@@ -1,78 +1,39 @@
 <template>
   <div class="text-widget-container"
-       :style="options.style"
-       :class="options.className">
+       :style="localOptions.style"
+       :class="localOptions.className">
     <span class="text"
-          v-html="options.text" />
+          v-html="localOptions.text" />
   </div>
 </template>
 
 <script>
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'TextWidget',
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      fontFamily: null,
-      color: null,
-      fontSize: null,
-      fontWeight: null,
-      fontStyle: null,
-      lgFontSize: null,
-      lgFontWeight: null,
-      lgFontStyle: null,
-      mdFontSize: null,
-      mdFontWeight: null,
-      mdFontStyle: null,
-      smFontSize: null,
-      smFontWeight: null,
-      smFontStyle: null,
-      xsFontSize: null,
-      xsFontWeight: null,
-      xsFontStyle: null
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.setTextStyle()
-      },
-      deep: true
-    }
-  },
-  mounted() {
-    this.setTextStyle()
-  },
-  methods: {
-    setTextStyle() {
-      this.color = this.options.color
-      this.fontFamily = this.options.fontFamily
-      this.fontSize = this.options.xl.fontSize
-      this.fontWeight = this.options.xl.fontWeight
-      this.fontStyle = this.options.xl.fontStyle
-
-      this.lgFontSize = this.options.lg.fontSize
-      this.lgFontWeight = this.options.lg.fontWeight
-      this.lgFontStyle = this.options.lg.fontStyle
-
-      this.mdFontSize = this.options.md.fontSize
-      this.mdFontWeight = this.options.md.fontWeight
-      this.mdFontStyle = this.options.md.fontStyle
-
-      this.smFontSize = this.options.sm.fontSize
-      this.smFontWeight = this.options.sm.fontWeight
-      this.smFontStyle = this.options.sm.fontStyle
-
-      this.xsFontSize = this.options.xs.fontSize
-      this.xsFontWeight = this.options.xs.fontWeight
-      this.xsFontStyle = this.options.xs.fontStyle
+      defaultOptions: {
+        fontFamily: null,
+        color: null,
+        fontSize: null,
+        fontWeight: null,
+        fontStyle: null,
+        lgFontSize: null,
+        lgFontWeight: null,
+        lgFontStyle: null,
+        mdFontSize: null,
+        mdFontWeight: null,
+        mdFontStyle: null,
+        smFontSize: null,
+        smFontWeight: null,
+        smFontStyle: null,
+        xsFontSize: null,
+        xsFontWeight: null,
+        xsFontStyle: null
+      }
     }
   }
 }
@@ -87,34 +48,34 @@ export default {
 }
 
 .text {
-  color: v-bind(color);
-  font-size: v-bind(fontSize);
-  font-weight: v-bind(fontWeight);
-  font-family: v-bind(fontFamily);
-  font-style: v-bind(fontStyle);
+  color: v-bind('localOptions.color');
+  font-size: v-bind('localOptions.fontSize');
+  font-weight: v-bind('localOptions.fontWeight');
+  font-family: v-bind('localOptions.fontFamily');
+  font-style: v-bind('localOptions.fontStyle');
 
   @media screen and (max-width: 1920px) {
-    font-size: v-bind(lgFontSize);
-    font-weight: v-bind(lgFontWeight);
-    font-style: v-bind(lgFontStyle);
+    font-size: v-bind('localOptions.lgFontSize');
+    font-weight: v-bind('localOptions.lgFontWeight');
+    font-style: v-bind('localOptions.lgFontStyle');
   }
 
   @media screen and (max-width: 1440px) {
-    font-size: v-bind(lgFontSize);
-    font-weight: v-bind(lgFontWeight);
-    font-style: v-bind(lgFontStyle);
+    font-size: v-bind('localOptions.lgFontSize');
+    font-weight: v-bind('localOptions.lgFontWeight');
+    font-style: v-bind('localOptions.lgFontStyle');
   }
 
   @media screen and (max-width: 1024px) {
-    font-size: v-bind(smFontSize);
-    font-weight: v-bind(smFontWeight);
-    font-style: v-bind(smFontStyle);
+    font-size: v-bind('localOptions.smFontSize');
+    font-weight: v-bind('localOptions.smFontWeight');
+    font-style: v-bind('localOptions.smFontStyle');
   }
 
   @media screen and (max-width: 600px) {
-    font-size: v-bind(xsFontSize);
-    font-weight: v-bind(xsFontWeight);
-    font-style: v-bind(xsFontStyle);
+    font-size: v-bind('localOptions.xsFontSize');
+    font-weight: v-bind('localOptions.xsFontWeight');
+    font-style: v-bind('localOptions.xsFontStyle');
   }
 }
 </style>
