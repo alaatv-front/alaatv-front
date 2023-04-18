@@ -43,6 +43,27 @@ import videojsBrand from 'videojs-brand'
 import 'videojs-hls-quality-selector'
 // import 'videojs-contrib-quality-levels'
 
+// // redefineTap
+// // https://stackoverflow.com/questions/28070934/video-js-player-pause-play-with-a-single-tap-on-a-mobile
+// if (typeof window !== 'undefined') {
+//   videojs.MediaTechController.prototype.onTap = function() {
+//     if (this.player().controls()) {
+//       if (this.player().paused()) {
+//         this.player().play()
+//       } else {
+//         this.player().pause()
+//       }
+//     }
+//   }
+//   player.on('click', function() {
+//     if (player.paused()) {
+//       player.play();
+//     } else {
+//       player.pause();
+//     }
+//   });
+// }
+
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
@@ -116,7 +137,7 @@ export default {
             'PictureInPictureToggle'
           ],
           volumePanel: {
-            inline: false,
+            inline: true,
             vertical: true
           }
         },
@@ -126,8 +147,8 @@ export default {
         },
         autoplay: false,
         controls: true,
-        playbackRates: [0.25, 0.5, 1, 1.5, 2, 2.5, 3, 4],
-        nativeControlsForTouch: false,
+        playbackRates: [0.5, 1, 1.5, 2, 3, 4],
+        nativeControlsForTouch: true,
         sources: [],
         poster: null,
         plugins: {
@@ -195,6 +216,28 @@ export default {
     }
   },
   methods: {
+    focusOnPlayer () {
+      this.player.el().focus()
+    },
+    setPlayerBrand () {
+      this.player.brand({
+        image: 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png?w=30&h=30',
+        title: 'آلاء',
+        destination: '/',
+        destinationTarget: '_blank'
+      })
+    },
+    redefineTap () {
+      this.player.on('touchend', function() { // tap
+        if (this.player().controls()) {
+          if (this.player().paused()) {
+            this.player().play()
+          } else {
+            this.player().pause()
+          }
+        }
+      })
+    },
     initPlayer () {
       videojs.registerPlugin('brand', videojsBrand)
       if (this.isPlayerSourceList(this.source)) { // old multiple quality type
@@ -205,13 +248,9 @@ export default {
         }
       }
       this.player = videojs(this.$refs.videoPlayer, this.options, () => {
-        this.player.brand({
-          image: 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png?w=30&h=30',
-          title: 'آلاء',
-          destination: '/',
-          destinationTarget: '_blank'
-        })
-        this.player.el().focus()
+        this.setPlayerBrand()
+        this.focusOnPlayer()
+        this.redefineTap()
         // this.on('timeupdate', function () {
         //   if (that.keepCalculating) {
         //     that.calcWatchedPercentage(this.currentTime(), this.duration())
@@ -371,6 +410,7 @@ export default {
     z-index: 2;
   }
   .video-js {
+    background-color: transparent;
     .vjs-loading-spinner {
       right: 50%;
       margin: -25px -25px 0 0;

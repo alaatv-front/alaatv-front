@@ -134,7 +134,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  //width: 318px;
   margin-bottom: 10px;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
@@ -177,6 +176,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 48px;
   }
 
   .img-box {
@@ -472,7 +472,6 @@ export default {
     }
 
     .content-content-box {
-      padding: 0 0 0 16px;
       width: 100%;
 
       .main-title {

@@ -4,16 +4,31 @@
        :class="options.className"
        :style="options.style">
     <q-card class="previewSetsOfProduct custom-card q-mb-md">
-      <div class="bg-primary q-pa-md q-mb-sm">
-        <div class="q-ml-md q-my-md text-white">انتخاب دوره</div>
+      <div v-if="product.loading"
+           class="q-py-md">
+        <q-skeleton type="QToolbar" />
+      </div>
+      <div v-if="setOptions.length > 0"
+           class="box bg-primary q-pa-md q-mb-sm row">
+        <div class="q-my-md text-white text-subtitle1 text-weight-bolder title">
+          انتخاب دوره
+        </div>
         <q-select v-model="setTitle"
-                  :options="setOptions"
-                  class="select-set q-px-md" />
+                  :options="filteredOptions"
+                  behavior="menu"
+                  use-input
+                  class="select-set q-px-md"
+                  @filter="filterSetTitle" />
+      </div>
+      <div v-else-if="!product.loading"
+           class="bg-primary q-pa-md q-mb-sm text-white flex justify-center">
+        دوره ای وجود ندارد
       </div>
       <q-tabs v-model="tab"
               active-color="black"
               class="text-grey-5 bg-white tabs">
-        <q-tab name="videos"
+        <q-tab v-if="videos.length > 0"
+               name="videos"
                class="tab">
           <span>فیلم ها</span>
         </q-tab>
@@ -22,26 +37,19 @@
                class="tab">
           <span>جزوات</span>
         </q-tab>
-        <q-tab v-else
-               name="pamphlets"
-               class="tab">
-          <span>بدون جزوه</span>
-        </q-tab>
       </q-tabs>
-      <q-tab-panels v-model="tab"
+      <q-tab-panels v-if="!set.loading && (pamphlets.length > 0 || videos.length > 0)"
+                    v-model="tab"
                     animated
                     transition-prev="scale"
                     transition-next="scale"
-                    class="bg-white text-black text-center">
+                    class="bg-white text-black text-center tab-panels">
         <q-tab-panel name="videos">
           <div v-if="videos.length > 0"
                v-dragscroll
                class="contents-block">
-            <div v-for="video in videos"
-                 :key="video.id">
-              <content-item class="q-mr-md"
-                            :options="video" />
-            </div>
+            <block-component class="block"
+                             :options="getBlockOptions" />
           </div>
           <q-banner v-else
                     inline-actions
@@ -66,7 +74,8 @@
                    y="0px"
                    viewBox="0 0 512 512"
                    xml:space="preserve"
-                   class="pdf-icon">
+                   class="pdf-icon"
+                   @click="downloadPamphlet(pamphlet)">
                 <path style="fill:#F4A14E;"
                       d="M512,256c0,19.508-2.184,38.494-6.311,56.738c-6.416,28.348-17.533,54.909-32.496,78.817  c-0.637,1.024-1.285,2.048-1.943,3.072C425.681,465.251,346.3,512,256,512S86.319,465.251,40.751,394.627  c-19.822-30.699-33.249-65.912-38.4-103.769c-1.191-8.735-1.933-17.617-2.215-26.624C0.042,261.496,0,258.759,0,256  c0-24.9,3.553-48.964,10.177-71.722c2.654-9.101,5.799-17.993,9.415-26.645c5.862-14.106,12.967-27.564,21.159-40.26  C86.319,46.749,165.7,0,256,0s169.681,46.749,215.249,117.373c10.365,16.06,18.986,33.353,25.59,51.618  c3.124,8.673,5.81,17.565,8.004,26.645c2.111,8.714,3.772,17.607,4.953,26.645c1.16,8.746,1.86,17.638,2.111,26.645  C511.969,251.277,512,253.628,512,256z" />
                 <path style="fill:#F9EED7;"
@@ -94,6 +103,15 @@
                     class="bg-grey-2 text-primary">جزوه ای وجود ندارد</q-banner>
         </q-tab-panel>
       </q-tab-panels>
+      <q-banner v-else-if="!product.loading && !set.loading"
+                inline-actions
+                rounded
+                class="bg-grey-2 text-primary text-center">محتوایی وجود ندارد</q-banner>
+      <div v-if="product.loading || set.loading"
+           class="q-py-md">
+        <q-skeleton type="QToolbar" />
+      </div>
+
     </q-card>
   </div>
 </template>
@@ -102,40 +120,48 @@
 import { Set } from 'src/models/Set.js'
 import { dragscroll } from 'vue-dragscroll'
 import { Product } from 'src/models/Product.js'
-import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
+import { ContentList } from 'src/models/Content'
+import { Block } from 'src/models/Block.js'
+import BlockComponent from 'components/Widgets/Block/Block.vue'
+import { openURL } from 'quasar'
 
 export default {
   name: 'ProductContents',
   components: {
-    ContentItem
+    BlockComponent
   },
   directives: {
     dragscroll
   },
-  mixins: [mixinPrefetchServerData],
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [
+    mixinPrefetchServerData,
+    mixinWidget
+  ],
   data() {
     return {
       set: new Set(),
       product: new Product(),
       index: null,
-      tab: 'pamphlets',
+      tab: 'videos',
       videos: [],
       pamphlets: [],
       setTitle: null,
-      setOptions: []
+      setOptions: [],
+      contents: new ContentList(),
+      filteredOptions: []
     }
   },
   computed: {
+    getBlockOptions () {
+      return {
+        block: new Block({
+          title: '',
+          contents: this.contents
+        }),
+        gridView: this.options.contentGridView
+      }
+    },
     productId () {
       if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
         return this.options.productId
@@ -152,45 +178,102 @@ export default {
   watch: {
     options: {
       handler() {
-        this.getProduct()
+        this.setProduct()
       },
       deep: true
     },
     setTitle(newVal) {
+      if (!newVal) {
+        return
+      }
       const set = this.product.sets.list.filter(set => set.title === newVal)
       this.getSet(set[0].id)
+    },
+    setOptions(newVal) {
+      this.filteredOptions = newVal
     }
   },
   methods: {
-    prefetchServerDataPromise () {
+    filterSetTitle (val, update) {
+      if (val === '') {
+        update(() => {
+          this.filteredOptions = this.setOptions
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.filteredOptions = this.setOptions.filter(v => v.indexOf(needle) > -1)
+      })
+    },
+    setProductSets (product) {
+      this.setOptions = product.sets.list.map(set => set.title)
+      if (this.setOptions.length === 0) {
+        this.product.loading = false
+        return
+      }
+      this.setTitle = this.setOptions[0]
+    },
+    setProduct () {
       this.product.loading = true
+      if (this.options.product.id) {
+        this.product = this.options.product
+        this.setProductSets(this.product)
+        this.product.loading = false
+        return
+      }
+      this.getProduct().then((data) => {
+        this.product = data
+        this.setProductSets(this.product)
+        this.product.loading = false
+      })
+        .catch(() => {
+          this.product.loading = false
+        })
+    },
+    prefetchServerDataPromise () {
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
       this.product = data
-      this.product.sets.list.forEach(set => {
-        this.setOptions.push(set.title)
-      })
-      this.setTitle = this.setOptions[0]
+      this.setProductSets(this.product)
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
     getProduct() {
-      return APIGateway.product.show(this.productId)
+      if (this.options.product?.id || !this.productId) {
+        return new Promise((resolve) => {
+          resolve(new Product())
+        })
+      }
+      this.product.loading = true
+      return this.$apiGateway.product.show(this.productId)
     },
     getSet(id) {
-      APIGateway.set.show(id)
+      this.set.loading = true
+      this.$apiGateway.set.show(id)
         .then(set => {
+          this.videos = []
+          this.pamphlets = []
+          this.contents = set.contents
           set.contents.list.forEach(content => {
-            if (content.type === 8) {
+            if (content.isVideo()) {
               this.videos.push(content)
             } else {
               this.pamphlets.push(content)
             }
           })
+          this.set.loading = false
         })
+        .catch(() => {
+          this.set.loading = false
+        })
+    },
+    downloadPamphlet(pamphlet) {
+      openURL(pamphlet.file.pamphlets[0].url)
     }
   }
 }
@@ -200,30 +283,34 @@ export default {
 .product-contents-widget {
   .tabs {
     .tab {
-      font-size: 30px !important;
-    }
-  }
-
-  .previewSetsOfProduct:before {
-    content: ' ';
-    border-right: solid 25px transparent;
-    border-left: solid 25px transparent;
-    border-bottom: solid 25px white;
-    position: absolute;
-    left: 75%;
-    top: 100px;
-    @media screen and (max-width: 1024px) {
-      top: 120px
+      font-size: 16px;
     }
   }
 
   .previewSetsOfProduct {
+    .box {
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: none;
+      @media screen and (max-width: 1024px) {
+        justify-content: center;
+      }
+      .title {
+        margin-left: 8px;
+        @media screen and (max-width: 1024px) {
+          margin-left: 0;
+        }
+      }
+    }
     .select-set{
       width: 50%;
       @media screen and (max-width: 1024px) {
         width: 100%;
         margin-bottom: 20px;
       }
+    }
+    .tab-panels {
+      padding-top: 0;
     }
     .contents-block {
       display: flex;
@@ -236,8 +323,36 @@ export default {
         height: 40px;
       }
       .pdf-icon {
-        width: 100px;
-        height: 100px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+      }
+      .block {
+        margin-bottom: 0;
+        :deep(.scroll-view) {
+          overflow-x: hidden;
+        }
+        :deep(.block-header) {
+          justify-content: normal;
+        }
+        :deep(.block-item-box){
+          display: none;
+        }
+        :deep(.q-tab-panel){
+          padding-top: 0;
+        }
+        :deep(.block-header) {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        :deep(.item-container) {
+          .content-spacing{
+            width: 290px;
+          }
+        }
+        :deep(.content-item-box) {
+          width: auto;
+        }
       }
     }
   }

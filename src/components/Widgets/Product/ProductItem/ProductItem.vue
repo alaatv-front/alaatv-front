@@ -1,7 +1,7 @@
 <template>
   <q-card v-if="loading"
           class="product-item-box q-pa-md"
-          :style="{minWidth: localOptions.minWidth}">
+          :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
     <div style="max-width: 300px">
       <q-skeleton height="270px"
                   square
@@ -51,12 +51,9 @@
   </q-card>
   <q-card v-else
           class="product-item-box"
-          :style="{minWidth: localOptions.minWidth}">
+          :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
     <div class="img-box">
-      <router-link :to="{
-        name: 'Public.Product.Show',
-        params: { id: product.id ? product.id : -1 }
-      }">
+      <router-link :to="getRoutingObject">
         <lazy-img :src="product.photo"
                   :alt="product.title"
                   width="1"
@@ -65,8 +62,10 @@
       </router-link>
     </div>
     <div class="product-content-box">
-      <div class="main-title ellipsis-2-lines">
-        {{ product.title }}
+      <div class="title-box">
+        <div class="main-title ellipsis-2-lines">
+          {{ product.title }}
+        </div>
       </div>
       <div v-if="product.attributes"
            class="info-box">
@@ -80,7 +79,8 @@
         <div v-if="product.attributes.info"
              class="teacher-name">{{getTeacherOfProduct()}}</div>
       </div>
-      <div class="action-box">
+      <div v-if="localOptions.showPrice"
+           class="action-box">
         <div class="more-detail product-more-detail">
           <div class="price-box">
             <div class="price-info">
@@ -102,7 +102,8 @@
                   </div>
                   <div class="price-Toman">تومان</div>
                 </div>
-                <div class="main-price">{{ product.price['base'] }}</div>
+                <div v-if="product.price['discount'] !== 0"
+                     class="main-price">{{ product.price['base'] }}</div>
               </div>
             </div>
           </div>
@@ -125,37 +126,44 @@
 <script>
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'productItem',
   components: { LazyImg },
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {
-          style: {},
-          minWidth: 'auto',
-          canAddToCart: true,
-          product: new Product()
-        }
-      }
-    }
-  },
+  mixins: [mixinWidget],
   data: () => ({
     addToCartLoading: false,
     loading: false,
-    product: new Product(),
     defaultOptions: {
       style: {},
       minWidth: 'auto',
       canAddToCart: true,
-      product: new Product()
+      showPrice: true,
+      product: new Product(),
+      routeToProduct: true
     }
   }),
   computed: {
-    localOptions () {
-      return Object.assign(this.defaultOptions, this.options)
+    getRoutingObject() {
+      if (this.defaultOptions.routeToProduct) {
+        return {
+          name: 'Public.Product.Show',
+          params: { id: this.product.id || -1 }
+        }
+      }
+      return {}
+    },
+    product: {
+      get() {
+        if (!this.localOptions.product) {
+          return new Product()
+        }
+        return this.localOptions.product
+      },
+      set(value) {
+        this.localOptions.product = value
+      }
     }
   },
   created () {
@@ -187,19 +195,6 @@ export default {
         .then(() => {
           this.$store.dispatch('Cart/reviewCart')
             .then(() => {
-              this.$q.notify({
-                message: 'با موفقیت به سبد خرید شما افزوده شد',
-                color: 'green',
-                actions: [{
-                  label: 'سبد خرید',
-                  icon: 'isax:shopping-cart',
-                  color: 'white',
-                  class: 'bg-green-3',
-                  handler: () => {
-                    this.$router.push({ name: 'Public.Checkout.Review' })
-                  }
-                }]
-              })
               this.addToCartLoading = false
             })
         }).catch(() => {
@@ -216,7 +211,6 @@ export default {
   flex-direction: column;
   //height: 100%;
   justify-content: space-between;
-  //width: 310px;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
@@ -233,41 +227,6 @@ export default {
   }
 
   .img-box {
-    .main-title {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: -0.03em;
-      margin: 16px 16px 0;
-
-      @media screen and (max-width: 600px){
-        font-size: 14px;
-        line-height: 16px;
-      }
-
-      a {
-        margin-bottom: 0;
-      }
-
-      .title-text {
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 24px;
-        letter-spacing: -0.03em;
-        color: #333333;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        text-overflow: ellipsis;
-        overflow: hidden;
-
-        @media screen and (max-width: 600px){
-          font-size: 12px;
-          line-height: 14px;
-        }
-      }
-    }
 
     a {
       border-radius: inherit;
@@ -292,6 +251,12 @@ export default {
 
   .product-content-box {
     padding: 10px 16px 16px 16px;
+
+    .title-box {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+    }
 
     .price-box {
       display: flex;

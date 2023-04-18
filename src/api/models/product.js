@@ -1,14 +1,22 @@
 import { apiV2 } from 'src/boot/axios'
+import { SetList } from 'src/models/Set.js'
 import { ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Product, ProductList } from 'src/models/Product.js'
-import { SetList } from 'src/models/Set.js'
 
 export default class ProductAPI extends APIRepository {
   constructor() {
     super('product', apiV2)
     this.APIAdresses = {
       base: '/product',
+      bulk: (productIds) => {
+        const idParams = []
+        productIds.forEach((productId, productIndex) => {
+          idParams.push('ids' + '[' + productIndex + ']=' + productId)
+        })
+        const queryParams = idParams.join('&')
+        return '/product?' + queryParams
+      },
       create: '/reqres/api/users',
       edit: '/admin/product',
       index: '/admin/product',
@@ -19,10 +27,12 @@ export default class ProductAPI extends APIRepository {
       unfavored: (id) => '/product/' + id + '/unfavored',
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
-      sampleContent: (id) => '/product/' + id + '/sample'
+      sampleContent: (id) => '/product/' + id + '/sample',
+      categories: '/product-categories'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
+      bulk: (productIds) => this.name + this.APIAdresses.bulk(productIds),
       create: this.name + this.APIAdresses.create,
       favored: id => this.name + this.APIAdresses.favored(id),
       getSets: id => this.name + this.APIAdresses.getSets(id),
@@ -31,6 +41,7 @@ export default class ProductAPI extends APIRepository {
       show: (id) => this.name + this.APIAdresses.show(id),
       gifts: (id) => this.name + this.APIAdresses.gifts(id),
       sampleContent: (id) => this.name + this.APIAdresses.sampleContent(id),
+      categories: this.name + this.APIAdresses.categories,
       edit: this.name + this.APIAdresses.edit
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
@@ -121,6 +132,22 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
+  getProductList(productIds, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.bulk(productIds),
+      cacheKey: this.CacheList.bulk(productIds),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   getSets(data, cache) {
     return this.sendRequest({
       apiMethod: 'get',
@@ -152,6 +179,22 @@ export default class ProductAPI extends APIRepository {
         return error
       },
       params: data.params
+    })
+  }
+
+  getCategories(cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.categories,
+      cacheKey: this.CacheList.categories,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 }

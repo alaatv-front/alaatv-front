@@ -3,11 +3,11 @@
     <q-card-section class="feature-horizontal-section"
                     horizontal>
       <img class="feature-image"
-           :src="img">
+           :src="localOptions.img">
       <q-card-section>
-        <div class="feature-title ellipsis">{{ title }}</div>
+        <div class="feature-title ellipsis">{{ localOptions.title }}</div>
         <div class="feature-description">
-          {{ description }}
+          {{ localOptions.description }}
         </div>
       </q-card-section>
     </q-card-section>
@@ -15,37 +15,18 @@
 </template>
 
 <script>
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'FeatureBox',
-  props: {
-    options: {
-      type: Object,
-      default: () => {}
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      title: '',
-      description: '',
-      img: ''
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.setFeature()
-      },
-      deep: true
-    }
-  },
-  mounted() {
-    this.setFeature()
-  },
-  methods: {
-    setFeature() {
-      this.title = this.options.title
-      this.description = this.options.description
-      this.img = this.options.image
+      defaultOptions: {
+        title: null,
+        description: null,
+        img: null
+      }
     }
   }
 }
