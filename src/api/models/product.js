@@ -9,6 +9,7 @@ export default class ProductAPI extends APIRepository {
     super('product', apiV2)
     this.APIAdresses = {
       base: '/product',
+      bulk: '/product',
       create: '/reqres/api/users',
       edit: '/admin/product',
       index: '/admin/product',
@@ -24,6 +25,7 @@ export default class ProductAPI extends APIRepository {
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
+      bulk: (params) => this.name + this.APIAdresses.bulk + params,
       create: this.name + this.APIAdresses.create,
       favored: id => this.name + this.APIAdresses.favored(id),
       getSets: id => this.name + this.APIAdresses.getSets(id),
@@ -123,17 +125,17 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductList(data, cache) {
+  getProductList(data, cache = { TTL: 100 }) {
     const queryParams = {}
-    queryParams.seller = this.seller
     data.productList.forEach((product, productIndex) => {
       queryParams['ids' + '[' + productIndex + ']'] = product
     })
+    const cacheKey = Object.values(queryParams).join('')
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.base,
-      cacheKey: this.CacheList.base,
+      request: this.APIAdresses.bulk,
+      cacheKey: this.CacheList.bulk(cacheKey),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new ProductList(response.data.data)

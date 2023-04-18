@@ -72,8 +72,6 @@ export default {
       return this.getProductsPromise()
     },
     prefetchServerDataPromiseThen (productList) {
-      console.log('data****************', this.data)
-      console.trace('pList****************', productList)
       const products = this.data
       this.replaceProducts(products, productList.list)
       this.products = products
