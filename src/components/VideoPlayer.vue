@@ -228,7 +228,7 @@ export default {
       })
     },
     redefineTap () {
-      this.player.on('touchend', function() {
+      this.player.on('touchend', function() { // tap
         if (this.player().controls()) {
           if (this.player().paused()) {
             this.player().play()
