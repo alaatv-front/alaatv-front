@@ -175,8 +175,8 @@ export default {
     async showUserLastState() {
       try {
         const userLastState = await this.$apiGateway.product.getUserLastState(this.selectedLessonId)
-        const setId = userLastState.data.data.set.id
-        const contentId = userLastState.data.data.id
+        const setId = userLastState.set.id
+        const contentId = userLastState.id
         this.userLastState.setId = setId
         this.userLastState.contentId = contentId
         this.setCurrentSet(setId, contentId)

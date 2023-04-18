@@ -181,7 +181,7 @@ export default class ProductAPI extends APIRepository {
       request: this.APIAdresses.userLastState(id),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error
