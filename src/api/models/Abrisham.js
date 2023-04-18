@@ -33,7 +33,7 @@ export default class AbrishamAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.lesson,
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error

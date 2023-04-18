@@ -265,10 +265,7 @@ export default {
       this.lnssonGroupsLoading = true
       try {
         const lessons = await this.$apiGateway.abrisham.getLessons()
-        if (lessons.status === 200) {
-          return lessons.data.data
-        }
-        return []
+        return lessons.data
       } catch {
         this.lnssonGroupsLoading = true
         return []

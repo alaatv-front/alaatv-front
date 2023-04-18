@@ -316,10 +316,10 @@ export default {
           this.$refs.pinedNewsList.stop()
           return
         }
-        const response = await this.$apiGateway.liveDescription.getPinedNews()
-        this.pinNewsNextPage = parseInt(response.meta.current_page) + 1
-        this.pinNewsLastPage = response.meta.last_page
-        this.pinNews = response.data
+        const pinnedNews = await this.$apiGateway.liveDescription.getPinedNews()
+        this.pinNewsNextPage = parseInt(pinnedNews.meta.current_page) + 1
+        this.pinNewsLastPage = pinnedNews.meta.last_page
+        this.pinNews = pinnedNews.data
         // this.pinNews = new LiveDescriptionList(this.fakeData)
         this.pinNews.loading = false
         done()
@@ -341,10 +341,10 @@ export default {
           'order_by[]': 'created_at',
           'order_type[]': 'desc'
         }
-        const response = await this.$apiGateway.liveDescription.getNewsList(liveDescriptionParams)
-        this.unpinNewsNextPage = +response.meta.current_page + 1
-        this.unpinNewsLastPage = response.meta.last_page
-        this.unpinNews = response.data
+        const newsList = await this.$apiGateway.liveDescription.getNewsList(liveDescriptionParams)
+        this.unpinNewsNextPage = +newsList.meta.current_page + 1
+        this.unpinNewsLastPage = newsList.meta.last_page
+        this.unpinNews = newsList.data
         // this.unpinNews = new LiveDescriptionList(this.fakeData)
         this.unpinNews.loading = false
         done()
