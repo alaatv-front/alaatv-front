@@ -7,16 +7,10 @@
          :style="item.options.labelStyle">
       {{ item.options.label }}
     </div>
-    <product-list v-if="isProduct(item)"
-                  :loading="loading"
-                  :data="item.data"
-                  :options="item.options" />
-    <div v-else
-         class="product-content row"
-         :class="{'scroll': item.options.rowLayout === 'ScrollRow'}"
+    <div class="product-content row"
          :style="item.options.style">
       <product-panel :loading="loading"
-                     :data="data"
+                     :data="[item]"
                      :options="item.options" />
     </div>
   </div>
@@ -24,12 +18,10 @@
 
 <script>
 import { defineAsyncComponent } from 'vue'
-import ProductList from '../ProductList/ProductList.vue'
 
 export default {
   name: 'ProductShelf',
   components: {
-    ProductList,
     ProductPanel: defineAsyncComponent(() =>
       import('../ProductPanel.vue')
     )

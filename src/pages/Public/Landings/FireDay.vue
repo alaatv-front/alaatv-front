@@ -2458,53 +2458,53 @@ export default {
                     widgets: [
                       {
                         name: 'ProductsTabPanel',
-                        style: {
-                          padding: '40px 0px 16px 10px'
-                        },
                         options: {
-                        },
-                        data: [
-                          {
-                            type: 'GroupList',
-                            options: {
-                              layout: 'ProductTab',
-                              style: {
-                                padding: '40px 0px 16px 10px'
-                              },
-                              activeColor: 'primary',
-                              activeBgColor: 'white',
-                              indicatorColor: 'white'
-                            },
-                            data: [
-                              {
-                                type: 'ProductList',
-                                options: {
-                                  label: 'ریاضی',
-                                  rowLayout: 'ScrollRow'
+                          style: {
+                            padding: '40px 0px 16px 10px'
+                          },
+                          data: [
+                            {
+                              type: 'GroupList',
+                              options: {
+                                layout: 'ProductTab',
+                                style: {
+                                  padding: '40px 0px 16px 10px'
                                 },
-                                data: [
-                                  983,
-                                  981,
-                                  980,
-                                  979
-                                ]
+                                activeColor: 'primary',
+                                activeBgColor: 'white',
+                                indicatorColor: 'white'
                               },
-                              {
-                                type: 'ProductList',
-                                options: {
-                                  label: 'تجربی',
-                                  rowLayout: 'ScrollRow'
+                              data: [
+                                {
+                                  type: 'ProductList',
+                                  options: {
+                                    label: 'ریاضی',
+                                    rowLayout: 'ScrollRow'
+                                  },
+                                  data: [
+                                    983,
+                                    981,
+                                    980,
+                                    979
+                                  ]
                                 },
-                                data: [
-                                  983,
-                                  981,
-                                  980,
-                                  979
-                                ]
-                              }
-                            ]
-                          }
-                        ]
+                                {
+                                  type: 'ProductList',
+                                  options: {
+                                    label: 'تجربی',
+                                    rowLayout: 'ScrollRow'
+                                  },
+                                  data: [
+                                    983,
+                                    981,
+                                    980,
+                                    979
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       }
                     ],
                     options: {

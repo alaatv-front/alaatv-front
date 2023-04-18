@@ -1,5 +1,5 @@
 <template>
-  <div class="product-shelf-row"
+  <div class="product-panels-row"
        :style="localOptions.style"
        :class="localOptions.className">
     <product-panel :loading="loading"
@@ -18,12 +18,6 @@ export default {
     ProductPanel
   },
   mixins: [mixinPrefetchServerData, mixinWidget],
-  props: {
-    data: {
-      type: Array,
-      default: () => []
-    }
-  },
   data() {
     return {
       products: [],
@@ -31,7 +25,8 @@ export default {
       loading: false,
       defaultOptions: {
         className: '',
-        style: {}
+        style: {},
+        data: []
       }
     }
   },
@@ -62,7 +57,7 @@ export default {
       }
     },
     getProductsPromise() {
-      this.extractProducts(JSON.parse(JSON.stringify(this.data)))
+      this.extractProducts(this.localOptions.data)
       return this.$apiGateway.product.getProductList(this.productFlatList)
     },
     prefetchServerDataPromise () {
@@ -70,7 +65,7 @@ export default {
       return this.getProductsPromise()
     },
     prefetchServerDataPromiseThen (productList) {
-      const products = this.data
+      const products = this.localOptions.data
       this.replaceProducts(products, productList.list)
       this.products = products
       this.loading = false
@@ -165,7 +160,7 @@ export default {
 
   }
 }
-.product-shelf-row {
-
+.product-panels-row {
+  width: 100%;
 }
 </style>

@@ -13,7 +13,7 @@
       <product-item v-for="(product, index) in data"
                     :key="index"
                     :options="{product: product}"
-                    class="product-item col-md-3" />
+                    class="product-item col-md-4" />
     </div>
   </div>
 </template>
@@ -46,8 +46,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-content-wrapper {
+  width: 100%;
+}
 .product-content {
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 40px 0;
   width: 100%;
 
@@ -62,7 +65,6 @@ export default {
   }
 
   .product-item {
-    padding: 5px;
   }
 }
 </style>

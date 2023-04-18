@@ -121,7 +121,4 @@ export default {
 
   }
 }
-.product-shelf-row {
-
-}
 </style>
