@@ -10,15 +10,17 @@
 </template>
 
 <script>
-
-import ProductTab from './ProductTab.vue'
-import ProductShelf from './ProductShelf.vue'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'GroupList',
   components: {
-    ProductTab,
-    ProductShelf
+    ProductTab: defineAsyncComponent(() =>
+      import('./ProductTab.vue')
+    ),
+    ProductShelf: defineAsyncComponent(() =>
+      import('./ProductShelf.vue')
+    )
   },
   props: {
     options: {
