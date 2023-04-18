@@ -10,10 +10,11 @@
          class="product-content row"
          :class="options.className"
          :style="options.style">
-      <product-item v-for="(product, index) in data"
-                    :key="index"
-                    :options="{product: product}"
-                    class="product-item col-md-3" />
+      <div v-for="(product, index) in data"
+           :key="index"
+           class="product-item col-md-3">
+        <product-item :options="{product: product}" />
+      </div>
     </div>
   </div>
 </template>
@@ -62,7 +63,7 @@ export default {
     }
 
     .product-item {
-      margin: 5px;
+      padding: 5px;
     }
   }
 }
