@@ -155,6 +155,17 @@ export default {
       return {}
     }
   },
+  watch: {
+    localOptions: {
+      handler (value) {
+        if (!value.product?.id) {
+          return
+        }
+        this.product = value.product
+      },
+      deep: true
+    }
+  },
   created () {
     if (this.options.product) {
       this.product = new Product(this.options.product)
