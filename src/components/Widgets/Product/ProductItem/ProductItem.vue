@@ -134,7 +134,6 @@ export default {
   data: () => ({
     addToCartLoading: false,
     loading: false,
-    product: new Product(),
     defaultOptions: {
       style: {},
       minWidth: 'auto',
@@ -153,17 +152,17 @@ export default {
         }
       }
       return {}
-    }
-  },
-  watch: {
-    localOptions: {
-      handler (value) {
-        if (!value.product?.id) {
-          return
+    },
+    product: {
+      get() {
+        if (!this.localOptions.product) {
+          return new Product()
         }
-        this.product = value.product
+        return this.localOptions.product
       },
-      deep: true
+      set(value) {
+        this.localOptions.product = value
+      }
     }
   },
   created () {
