@@ -1,5 +1,8 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
+import { Content } from 'src/models/Content'
+import { AbrishamLessonList } from 'src/models/AbrishamLesson'
+import { AbrishamMajorList } from 'src/models/AbrishamMajor'
 
 export default class AbrishamAPI extends APIRepository {
   constructor() {
@@ -18,7 +21,7 @@ export default class AbrishamAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.karvan,
       resolveCallback: (response) => {
-        return response
+        return new Content(response.data)
       },
       rejectCallback: (error) => {
         return error
@@ -33,7 +36,7 @@ export default class AbrishamAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.lesson,
       resolveCallback: (response) => {
-        return response.data
+        return new AbrishamLessonList(response.data.data).list
       },
       rejectCallback: (error) => {
         return error
@@ -47,7 +50,7 @@ export default class AbrishamAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.majors,
       resolveCallback: (response) => {
-        return response
+        return new AbrishamMajorList(response.data.data).list
       },
       rejectCallback: (error) => {
         return error

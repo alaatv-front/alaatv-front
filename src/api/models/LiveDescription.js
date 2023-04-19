@@ -6,7 +6,7 @@ export default class StudyPlanAPI extends APIRepository {
   constructor() {
     super('liveDescription', apiV2, '/liveDescription', new LiveDescription())
     this.APIAdresses = {
-      liveDescription: '/livedescription?created_at_since=2022-07-09&order_by[]=created_at&',
+      liveDescription: '/livedescription',
       pinedNews: '/livedescription/getPined',
       observedLiveDescription: (id) => '/livedescription' + id + '/seen'
     }

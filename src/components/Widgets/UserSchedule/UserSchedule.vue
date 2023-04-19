@@ -167,8 +167,7 @@ export default {
 
     async loadMajors () {
       this.majors.loading = true
-      const response = await this.$apiGateway.abrisham.requestToGetMajors()
-      const majors = response.data.data
+      const majors = await this.$apiGateway.abrisham.requestToGetMajors()
       this.setMajors(majors)
       this.loadCurrentMajor(majors)
       this.setMajorsColor()
@@ -346,8 +345,7 @@ export default {
     },
 
     async loadContentsColor () {
-      const response = await this.$apiGateway.abrisham.getLessons()
-      const lessonGroups = response.data.data
+      const lessonGroups = await this.$apiGateway.abrisham.getLessons()
 
       this.setContentsColor(this.contents, lessonGroups)
     },

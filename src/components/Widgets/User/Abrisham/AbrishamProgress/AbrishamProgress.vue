@@ -264,8 +264,7 @@ export default {
     async getLessonGroups() {
       this.lnssonGroupsLoading = true
       try {
-        const lessonsResponse = await this.$apiGateway.abrisham.getLessons()
-        return lessonsResponse.data
+        return this.$apiGateway.abrisham.getLessons()
       } catch {
         this.lnssonGroupsLoading = true
         return []
