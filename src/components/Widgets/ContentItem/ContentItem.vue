@@ -211,7 +211,7 @@ export default {
   }
 
   .content-content-box {
-    min-height: 60px;
+    min-height: 100px;
     padding: 10px 16px 16px 16px;
     position: relative;
     display: flex;
