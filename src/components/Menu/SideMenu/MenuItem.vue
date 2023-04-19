@@ -2,8 +2,7 @@
   <div v-for="(item , index) in computedMenu"
        :key="index"
        class="menu-item">
-    <q-expansion-item v-if="!loading && item.children && item.children.length && item.show"
-                      v-model="item.open"
+    <q-expansion-item v-if="!loading && item.children && item.children.length > 0 && item.show"
                       :header-style="{height:'40px', borderRadius: '14px'}"
                       :label="item.title"
                       :icon="item.icon"
@@ -16,20 +15,25 @@
         <q-list class="list-expansion">
           <div v-for="(subItem , i) in item.children"
                :key="i">
-            <menu-item v-if="subItem.children && subItem.children.length && item.show"
+            <menu-item v-if="subItem.children && subItem.children.length > 0"
                        :menu="[subItem]"
                        @item-selected="itemSelected(item)" />
-            <q-item v-else-if="subItem.show"
+            <q-item v-else
                     v-ripple
                     clickable
-                    :active="(subItem.title === selectedTopic) || (subItem.title === clickedItem.title)"
-                    :to="(subItem.routeName) ?{ name: subItem.routeName, params: subItem.params }: null"
+                    :active="isActive(subItem)"
+                    :to="redirectRoute(subItem)"
                     class="list-child-item"
                     exact-active-class="active-route"
                     @click="itemSelected(subItem)">
               <q-item-section class="list-child-section">
                 {{ subItem.title }}
               </q-item-section>
+              <q-badge v-if="subItem.badge"
+                       class="badge q-py-xs"
+                       align="middle">
+                {{subItem.badge}}
+              </q-badge>
               <span class="indicator" />
             </q-item>
           </div>
@@ -37,11 +41,11 @@
       </div>
     </q-expansion-item>
     <!--    (item.title === clickedItem.title) || -->
-    <q-item v-else-if="!loading && item.show"
+    <q-item v-else-if="!loading && !item.children"
             v-ripple
             clickable
-            :active="(item.title === selectedTopic) || (item.title === clickedItem.title)"
-            :to="(item.routeName) ? {name: item.routeName, params: item.params} : null"
+            :active="isActive(item)"
+            :to="redirectRoute(item)"
             class="item-list"
             :class="{ 'alone-item': !item.children }"
             exact-active-class="active-route"
@@ -58,6 +62,10 @@
         <!--        <span class="indicator" />-->
       </div>
     </q-item>
+    <q-badge v-if="item.badge"
+             align="middle">
+      {{item.badge}}
+    </q-badge>
     <q-skeleton v-if="loading" />
   </div>
 </template>
@@ -101,6 +109,17 @@ export default {
     }
   },
   methods: {
+    isActive(item) {
+      return (item.title === this.selectedTopic) || (item.title === this.clickedItem.title)
+    },
+    redirectRoute(item) {
+      if (item.tags) {
+        return { name: 'Public.Content.Search', query: { 'tags[]': item.tags } }
+      } else if (item.href) {
+        return { path: item.href }
+      }
+      return { name: item.routeName }
+    },
     itemSelected(item) {
       this.clickedItem = item
       this.$emit('itemSelected', item)
@@ -211,7 +230,7 @@ export default {
           justify-content: center;
           font-style: normal;
           font-weight: 400;
-          font-size: 20px;
+          font-size: 15px;
           line-height: 28px;
           cursor: pointer;
           padding: 0 14px 0 10px;
@@ -260,6 +279,8 @@ export default {
       }
 
       .side-expansion-list {
+        margin-left: 12px;
+
         :deep(.q-item) {
           padding-left: 40px;
         }
@@ -268,8 +289,7 @@ export default {
         }
 
         .expansion-body {
-          display: flex;
-          margin-left: 8px;
+          color: #5867dd;
         }
 
         .q-expansion-item__content {
@@ -319,7 +339,7 @@ export default {
               align-items: center;
               .list-child-section {
                 font-weight: 400;
-                font-size: 16px;
+                font-size: 15px;
                 line-height: 25px;
                 margin-right: 5px;
               }
@@ -403,5 +423,25 @@ export default {
 .expansion-header {
   font-size: 20px;
   line-height: 28px;
+}
+</style>
+
+<style lang="css" scoped>
+.badge{
+  animation: badge 1s infinite;
+}
+@keyframes badge {
+  0% {
+    -moz-box-shadow:0 0 0 0 rgba(55, 55, 55, 0.68);
+    box-shadow:0 0 0 0 rgba(55, 55, 55, 0.68);
+  }
+  70% {
+    -moz-box-shadow:0 0 0 10px rgba(0,0,0,0);
+    box-shadow:0 0 0 10px rgba(0,0,0,0);
+  }
+  100% {
+    -moz-box-shadow:0 0 0 0 rgba(0,0,0,0);
+    box-shadow:0 0 0 0 rgba(0,0,0,0);
+  }
 }
 </style>
