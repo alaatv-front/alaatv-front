@@ -93,10 +93,10 @@ import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.
 export default {
   name: 'Block',
   components: {
-    ContentItem,
+    Slider,
     SetItem,
-    ProductItem,
-    Slider
+    ContentItem,
+    ProductItem
   },
   directives: {
     dragscroll
@@ -179,7 +179,7 @@ export default {
         return this.$apiGateway.pages.shop()
       }
       if (this.localOptions.apiName === 'content') {
-        return this.$apiGateway.content.relatedProducts({ id: this.$route.params.id })
+        return this.$apiGateway.content.relatedProducts(this.$route.params.id)
       }
       return Promise.reject('wrong api name')
     }
