@@ -24,7 +24,7 @@
               <q-item-section avatar>
                 <bookmark color="white"
                           size="30"
-                          :is-favored="timepoint.isFavored"
+                          :is-favored="timepoint.is_favored"
                           :loading="timepoint.loading"
                           @clicked="handleTimepointBookmark(timepoint.id)" />
               </q-item-section>
@@ -118,7 +118,7 @@ export default {
       const timepointIndex = this.currentContent.timepoints.list.findIndex(item => item.id === timepointId)
       const currentContentTimepoint = this.getCurrentContentTimepoint(timepointId)
       this.currentContent.timepoints.list[timepointIndex].loading = true
-      const isFavoredStatus = currentContentTimepoint.isFavored ? 'unfavored' : 'favored'
+      const isFavoredStatus = currentContentTimepoint.is_favored ? 'unfavored' : 'favored'
       this.changeTimepointStatus({
         timepointId,
         isFavoredStatus,
@@ -132,7 +132,7 @@ export default {
         status: data.isFavoredStatus
       })
         .then(() => {
-          this.currentContent.timepoints.list[data.timepointIndex].isFavored = !data.currentContentTimepoint.isFavored
+          this.currentContent.timepoints.list[data.timepointIndex].is_favored = !data.currentContentTimepoint.is_favored
           this.toggleFavorite(this.content.id)
           this.currentContent.timepoints.list[data.timepointIndex].loading = false
         })
@@ -171,10 +171,10 @@ export default {
         if (parseInt(item.id) === parseInt(id)) {
           // currentTimepointIndex = index
           item.loading = true
-          item.isFavored = !item.isFavored
+          item.is_favored = !item.is_favored
           that.postIsFavored = {
             id: item.id,
-            isFavored: item.isFavored,
+            isFavored: item.is_favored,
             numberOfTimestamp: count
           }
         }
