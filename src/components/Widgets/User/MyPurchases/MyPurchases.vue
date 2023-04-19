@@ -150,12 +150,6 @@ export default {
     }
   },
   computed: {
-    videoContents() {
-      return this.selectedSet.contents.list.filter(content => content.type === 8)
-    },
-    pamphletsContents() {
-      return this.selectedSet.contents.list.filter(content => content.type === 1)
-    },
     currentProduct () {
       if (this.filteredProduct.list.length > 0) {
         return this.filteredProduct.list[0]
@@ -244,10 +238,10 @@ export default {
 
     getContentsData (set) {
       this.selectedSet.loading = true
-      this.selectedSet.contents.clear()
+      this.selectedSet.contents = []
       this.getSelectedSetContents(set.id).then((contents) => {
         this.selectedSet = set
-        this.selectedSet.contents.list = contents.list
+        this.selectedSet.contents = contents
         this.selectedSet.loading = false
       })
         .catch(() => {
@@ -268,7 +262,7 @@ export default {
         : 'video'
     },
     getSelectedSetContents (setId) {
-      return this.$apiGateway.set.getContents(setId)
+      return this.$apiGateway.set.getContents(setId).list
     }
   }
 
