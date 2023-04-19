@@ -120,16 +120,7 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
-      productPaginationMeta: {
-        current_page: 1,
-        from: 0,
-        last_page: 1,
-        links: [],
-        path: '',
-        per_page: 0,
-        to: 0,
-        total: 0
-      },
+      productPaginationMeta: {},
       selectedProduct: new Product(),
       productContentsDialog: false,
       scrollTargetRef: null,
