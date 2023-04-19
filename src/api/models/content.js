@@ -1,8 +1,9 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
-import { Content, ContentList } from 'src/models/Content'
+import { Content } from 'src/models/Content'
 import { ProductList } from 'src/models/Product'
 import { Comment } from 'src/models/Comment'
+import { APIGateway } from 'src/api/APIGateway'
 const APIAdresses = {
   search: '/search',
   admin: '/admin/contents',
@@ -22,7 +23,6 @@ const APIAdresses = {
   unfavored: (id) => '/c/' + id + '/unfavored',
   relatedProducts: (id) => '/c/' + id + '/products',
   timestampBookmarkStatus: (id, status) => '/c/timepoint/' + id + '/' + status,
-  consultingContent: 'set/1213/contents',
   saveComment: '/comment',
   updateComment: (id) => '/comment/' + id,
   watchedVideo: '/watched',
@@ -377,19 +377,8 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  getConsultingContentList(cache = { TTL: 100 }) {
-    return this.sendRequest({
-      apiMethod: 'get',
-      api: this.api,
-      request: this.APIAdresses.consultingContent,
-      ...(cache && { cache }),
-      resolveCallback: (response) => {
-        return new ContentList(response.data.data)
-      },
-      rejectCallback: () => {
-        return new ContentList()
-      }
-    })
+  getConsultingContentList() {
+    return APIGateway.set.getContents(1213)
   }
 
   saveComment(data = {}) {
