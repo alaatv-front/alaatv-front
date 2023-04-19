@@ -186,12 +186,12 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { User } from 'src/models/User.js'
-import LazyImg from 'src/components/lazyImg.vue'
 import megaMenu from './magaMenu.vue'
 import simpleMenu from './simpleMenu.vue'
-import itemMenu from 'components/Template/Header/itemMenu.vue'
+import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import menuItems from 'components/Template/menuData.js'
+import itemMenu from 'components/Template/Header/itemMenu.vue'
 
 export default {
   name: 'MainHeaderTemplate',
@@ -299,6 +299,16 @@ export default {
   },
   mounted () {
     this.loadAuthData()
+    if (this.isAdmin) {
+      this.items.push({
+        selected: 'adminPanel',
+        title: 'پنل ادمین',
+        routeName: 'Admin.UploadCenter.Contents',
+        type: 'itemMenu',
+        permission: 'all',
+        show: false
+      })
+    }
   },
   methods: {
     filterByStatement() {
