@@ -92,7 +92,7 @@ export default {
         })
     },
     downloadPdf () {
-      if (!this.content?.file?.pamphlet || !this.content?.file?.pamphlet[0] || !!this.content?.file?.pamphlet[0].link) {
+      if (!this.content?.file?.pamphlet || !this.content?.file?.pamphlet[0] || !this.content?.file?.pamphlet[0].link) {
         this.$q.notify({
           type: 'negative',
           message: 'مشکلی در دانلود فایل pdf این محتوا رخ داده است.'

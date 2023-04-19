@@ -14,7 +14,6 @@
           <div class="flex pop-up">
             <div class="tv" />
             <span class="title">
-              <!--              ریاضی کنکور-->
               {{ set.short_title }}
             </span>
           </div>
@@ -145,7 +144,7 @@ export default {
       position: absolute;
       width: 100%;
       height: 40px;
-      top: 140px;
+      bottom: 82px;
       left: 0;
       display: flex;
       align-items: center;
@@ -156,7 +155,7 @@ export default {
       z-index: 2;
       .pop-up {
         .title {
-          width: 80px;
+          max-width: 80px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
