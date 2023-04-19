@@ -285,11 +285,6 @@ export default {
         return true
         // return (item.permission === 'all' || this.user.hasPermission(item.permission))
       }
-    },
-    isRouteSelected () {
-      return (itemName) => {
-        return (this.$route.name === itemName)
-      }
     }
   },
   watch: {
@@ -299,18 +294,25 @@ export default {
   },
   mounted () {
     this.loadAuthData()
-    if (this.isAdmin) {
-      this.items.push({
-        selected: 'adminPanel',
-        title: 'پنل ادمین',
-        routeName: 'Admin.UploadCenter.Contents',
-        type: 'itemMenu',
-        permission: 'all',
-        show: false
-      })
-    }
+    this.checkMenurItemsForAuthenticatedUser()
   },
   methods: {
+    checkMenurItemsForAuthenticatedUser () {
+      // ToDo: check menu items by user role
+      if (this.isAdmin) {
+        const hasAdminPanel = this.items.find((item) => item.routeName === 'Admin.UploadCenter.Contents')
+        if (!hasAdminPanel) {
+          this.items.push({
+            selected: 'adminPanel',
+            title: 'پنل ادمین',
+            routeName: 'Admin.UploadCenter.Contents',
+            type: 'itemMenu',
+            permission: 'all',
+            show: false
+          })
+        }
+      }
+    },
     filterByStatement() {
       const param = {
         q: this.searchInput
