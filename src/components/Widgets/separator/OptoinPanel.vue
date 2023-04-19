@@ -45,6 +45,7 @@
                      label="width" />
           </div>
         </div>
+      </div>
     </template>
   </option-panel-tabs>
 </template>
