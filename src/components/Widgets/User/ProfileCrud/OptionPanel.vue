@@ -3,22 +3,22 @@
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <q-checkbox v-model="accountInfo"
                         left-label
                         label="مشخصات حساب" />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <q-checkbox v-model="personalInfo"
                         left-label
                         label="مشخصات فردی" />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <q-checkbox v-model="educationalInfo"
                         left-label
                         label="مشخصات تحصیلی" />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <q-checkbox v-model="contactInfo"
                         left-label
                         label="اطلاعات تماس" />
@@ -37,14 +37,6 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [mixinOptionPanel],
-  props: {
-    options: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  },
   data() {
     return {
       accountInfo: true,
@@ -231,12 +223,6 @@ export default defineComponent({
     }
   },
   watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    },
     accountInfo(newVal) {
       if (!newVal) {
         this.removeBox('accountInfo')

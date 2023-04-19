@@ -1,70 +1,15 @@
 <template>
-  <q-page-builder v-model:sections="sections"
-                  v-model::options="pageConfig"
-                  :editable="pageBuilderEditable" />
+  <q-page-builder v-model:sections="currenSections"
+                  v-model:options="pageConfig"
+                  :editable="pageBuilderEditable"
+                  :loading="pageBuilderLoading" />
 </template>
 
 <script>
-import { mixinPageBuilder } from 'src/mixin/Mixins'
+import { mixinSEO, mixinPageOptions, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'MyFavorites',
-  mixins: [mixinPageBuilder],
-  data () {
-    return {
-      pageConfig: {},
-      sections: [
-        {
-          data:
-            {
-              rows:
-                [
-                  {
-                    cols: [
-                      {
-                        widgets: [
-                          { name: 'ProfileMenu' }
-                        ],
-                        options: {
-                          className: 'q-pr-md gt-md',
-                          colNumber: 'col-md-3',
-                          style: {}
-                        }
-                      }, {
-                        widgets: [
-                          { name: 'MyFavorites' }
-                        ],
-                        options: {
-                          className: 'col-12 col-lg-9  q-pl-md'
-                        }
-                      }
-                    ],
-                    options: {
-                      boxed: true,
-                      style: {
-                        marginTop: '30px',
-                        marginBottom: '30px',
-                        maxWidth: '1200px',
-                        width: '1200px'
-                      }
-                    }
-                  }]
-            }
-        }]
-
-    }
-  },
-  computed: {
-    calculateHeightStyle () {
-      return this.$store.getters['AppLayout/calculateContainerFullHeight']
-    }
-  },
-  mounted () {
-    this.loadPageBuilderData()
-  },
-  methods: {
-    loadPageBuilderData () {
-      this.currenSections = this.sections
-    }
-  }
+  mixins: [mixinPrefetchServerData, mixinPageOptions, mixinSEO]
 }
 </script>

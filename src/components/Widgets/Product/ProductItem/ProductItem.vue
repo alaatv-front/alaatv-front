@@ -102,7 +102,8 @@
                   </div>
                   <div class="price-Toman">تومان</div>
                 </div>
-                <div class="main-price">{{ product.price['base'] }}</div>
+                <div v-if="product.price['discount'] !== 0"
+                     class="main-price">{{ product.price['base'] }}</div>
               </div>
             </div>
           </div>
@@ -134,7 +135,6 @@ export default {
   data: () => ({
     addToCartLoading: false,
     loading: false,
-    product: new Product(),
     defaultOptions: {
       style: {},
       minWidth: 'auto',
@@ -153,6 +153,17 @@ export default {
         }
       }
       return {}
+    },
+    product: {
+      get() {
+        if (!this.localOptions.product) {
+          return new Product()
+        }
+        return this.localOptions.product
+      },
+      set(value) {
+        this.localOptions.product = value
+      }
     }
   },
   created () {
@@ -184,19 +195,6 @@ export default {
         .then(() => {
           this.$store.dispatch('Cart/reviewCart')
             .then(() => {
-              this.$q.notify({
-                message: 'با موفقیت به سبد خرید شما افزوده شد',
-                color: 'green',
-                actions: [{
-                  label: 'سبد خرید',
-                  icon: 'isax:shopping-cart',
-                  color: 'white',
-                  class: 'bg-green-3',
-                  handler: () => {
-                    this.$router.push({ name: 'Public.Checkout.Review' })
-                  }
-                }]
-              })
               this.addToCartLoading = false
             })
         }).catch(() => {

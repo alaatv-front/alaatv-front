@@ -15,7 +15,6 @@
 
 <script>
 import { EntityCreate } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
 import { APIGateway } from 'src/api/APIGateway'
 
 export default {
@@ -118,12 +117,11 @@ export default {
   },
   mounted() {
     this.$store.commit('loading/loading', true)
-    this.$axios
-      .get(API_ADDRESS.user.eventresult.create)
-      .then((response) => {
-        this.actionInput[0].value[1].options = response.data.data.events
-        this.actionInput[0].value[2].options = response.data.data.majors
-        this.actionInput[0].value[3].options = response.data.data.regions
+    APIGateway.user.createEventResult()
+      .then((eventResult) => {
+        this.$refs.EntityCreate.setInputAttributeByName('event_id', 'options', eventResult.events)
+        this.$refs.EntityCreate.setInputAttributeByName('major_id', 'options', eventResult.majors)
+        this.$refs.EntityCreate.setInputAttributeByName('region_id', 'options', eventResult.regions)
         this.$store.commit('loading/loading', false)
         this.getRankRecord()
       })
@@ -134,13 +132,14 @@ export default {
   methods: {
     getRankRecord() {
       APIGateway.user.eventResult()
-        .then(response => {
-          if (response[0]) {
-            this.actionInput[0].value[1].value = response[0].event
-            this.actionInput[0].value[2].value = response[0].major
-            this.actionInput[0].value[3].value = response[0].region
-            this.actionInput[0].value[4].value = response[0].rank
-            this.actionInput[0].value[7].value = response[0].enable_report_publish === 1
+        .then(eventResult => {
+          const firstEventResult = eventResult[0]
+          if (firstEventResult) {
+            this.$refs.EntityCreate.setInputAttributeByName('event_id', 'value', firstEventResult.event)
+            this.$refs.EntityCreate.setInputAttributeByName('major_id', 'value', firstEventResult.major)
+            this.$refs.EntityCreate.setInputAttributeByName('region_id', 'value', firstEventResult.region)
+            this.$refs.EntityCreate.setInputAttributeByName('rank', 'value', firstEventResult.rank)
+            this.$refs.EntityCreate.setInputAttributeByName('enableReportPublish', 'value', firstEventResult.enable_report_publish === 1)
           }
         })
         .catch()

@@ -82,6 +82,9 @@ const routes = [
               {
                 name: 'Public.Product.Show',
                 path: ':id',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 component: () => import('pages/Public/Product/Show.vue')
               }
             ]
@@ -94,11 +97,17 @@ const routes = [
               {
                 name: 'Public.Content.Show',
                 path: ':id',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 component: () => import('pages/Public/Content/Show.vue')
               },
               {
                 name: 'Public.Content.Search',
                 path: '',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 component: () => import('pages/Public/Content/Search.vue')
               }
             ]
@@ -111,6 +120,9 @@ const routes = [
               {
                 name: 'Public.Set.Show',
                 path: ':id',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 component: () => import('pages/Public/Set/Show.vue')
               }
             ]
@@ -128,6 +140,9 @@ const routes = [
               {
                 path: 'review',
                 name: 'Public.Checkout.Review',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 component: () => import('src/pages/Public/Cart/Cart.vue')
               }
             ]
@@ -136,7 +151,8 @@ const routes = [
             path: 'landing',
             name: 'Public.Landing',
             layoutConfig: {
-              layoutHeader: false
+              layoutHeader: false,
+              layoutFooter: false
             },
             children: [
               {
@@ -149,11 +165,18 @@ const routes = [
               },
               {
                 path: '36',
-                meta: {
-                  hasDynamicSetting: true
-                },
-                name: 'Public.Checkout.FireDay',
+                name: 'Public.Landing.FireDay',
                 component: () => import('src/pages/Public/Landings/FireDay.vue')
+              },
+              {
+                path: '15',
+                name: 'Public.Landing.Arash',
+                component: () => import('src/pages/Public/Landings/Arash.vue')
+              },
+              {
+                path: '9',
+                name: 'Public.Landing.Taftan',
+                component: () => import('src/pages/Public/Landings/Taftan.vue')
               }
             ]
           }
@@ -170,6 +193,7 @@ const routes = [
         component: () => import('layouts/bareLayout.vue'),
         children: [
           {
+            // ToDo: check this to remove
             name: 'UserPanel.CompleteInfo',
             path: 'complete-info',
             component: () => import('pages/User/UserInfoForm.vue')
@@ -177,21 +201,33 @@ const routes = [
           {
             name: 'UserPanel.Profile',
             path: 'profile',
+            meta: {
+              hasDynamicSetting: true
+            },
             component: () => import('pages/User/Profile/Profile.vue')
           },
           {
             name: 'UserPanel.MyOrders',
             path: 'my-orders',
+            meta: {
+              hasDynamicSetting: true
+            },
             component: () => import('pages/User/Orders/userOrders.vue')
           },
           {
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
+            meta: {
+              hasDynamicSetting: true
+            },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')
           },
           {
             name: 'UserPanel.MyFavorites',
             path: 'my-favorites',
+            meta: {
+              hasDynamicSetting: true
+            },
             component: () => import('pages/User/Dashboard/MyFavorites.vue')
           },
           {
@@ -202,16 +238,25 @@ const routes = [
               {
                 path: '',
                 name: 'UserPanel.Ticket.Index',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 component: () => import('pages/User/Ticket/List.vue')
               },
               {
                 path: 'create',
                 name: 'UserPanel.Ticket.Create',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 component: () => import('pages/User/Ticket/Create.vue')
               },
               {
                 path: ':id',
                 name: 'UserPanel.Ticket.Show',
+                meta: {
+                  hasDynamicSetting: true
+                },
                 component: () => import('pages/User/Ticket/Show.vue')
               }
             ]

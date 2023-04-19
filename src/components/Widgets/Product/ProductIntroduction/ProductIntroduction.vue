@@ -6,7 +6,7 @@
     <template v-if="!product.loading">
       <video-player :poster="product.intro.photo"
                     :source="videoSource()" />
-      <div v-if="options.download_date && product.attributes.info.download_date"
+      <div v-if="options.download_date && getDownloadDate()"
            class="q-mt-md q-ml-md">
         <q-icon name="info"
                 color="primary"
@@ -16,7 +16,7 @@
           زمان دریافت فایل های این محصول: {{ getDownloadDate() }}
         </span>
       </div>
-      <div v-if="product.attributes.info.duration && options.duration"
+      <div v-if="getDuration() && options.duration"
            class="q-mt-md q-ml-md">
         <q-icon name="timer"
                 color="primary"

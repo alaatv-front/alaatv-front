@@ -19,6 +19,8 @@
       <div v-if="product.price.toman('final', null) && options.finalPrice"
            class="product-final-price">
         {{ product.price.toman('final', null) }}
+        <div v-if="product.price.toman('discount') !== 0"
+             class="main-price">{{ product.price['base'] }}</div>
       </div>
 
       <div class="product-price-title"> تومان</div>
@@ -100,11 +102,9 @@ export default {
       return APIGateway.product.show(this.productId)
     },
     addToCart() {
-      const data = {
-        id: this.product.id
-      }
-      this.$store.dispatch('Cart/addToCart', data)
-      this.$router.push({ name: 'Public.Checkout.Review' })
+      this.$store.dispatch('Cart/addToCart', { product_id: this.product.id }).then(() => {
+        this.$router.push({ name: 'Public.Checkout.Review' })
+      })
     }
   }
 }
@@ -179,6 +179,18 @@ export default {
     letter-spacing: -0.05em;
     margin-left: 5px;
     margin-right: 10px;
+
+    .main-price {
+      text-decoration: line-through;
+      /* margin-left: 12px; */
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19px;
+      color: #656f7b;
+
+      opacity: 0.4;
+    }
   }
 
   .product-price-title {

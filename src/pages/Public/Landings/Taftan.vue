@@ -5,8 +5,6 @@
 </template>
 
 <script>
-const productsList = [980, 979, 978, 976]
-const productsList2 = [979, 976, 975]
 import { mixinSEO, mixinPageOptions } from 'src/mixin/Mixins.js'
 
 export default {
@@ -24,27 +22,117 @@ export default {
                   {
                     widgets: [
                       {
+                        name: 'StickyMenu',
+                        options: {
+                          scrollTarget: 'feature'
+                        }
+                      }
+                    ],
+                    options: {
+
+                      colNumber: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+                  boxed: false,
+                  boxedWidth: 1362,
+                  style: {
+                    width: null,
+                    maxWidth: null
+                  }
+                }
+              }
+            ]
+          },
+          options: {
+            fullHeight: false,
+            verticalAlign: 'center',
+            style: {
+              minHeight: 'auto'
+            }
+          }
+        },
+        {
+          data: {
+            rows: [
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
+                        name: 'HeaderMenu',
+                        options: {
+                          menuLink: [
+                            {
+                              label: 'صفحه اصلی',
+                              type: 'link',
+                              route: 'http://localhost:8083/'
+                            },
+                            {
+                              label: 'دوره ها',
+                              type: 'scroll',
+                              className: 'courses'
+                            },
+                            {
+                              label: 'سوالات متداول',
+                              type: 'scroll',
+                              className: 'faq-row'
+                            }
+                          ],
+                          logoImage: 'https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png',
+                          logoSlogan: 'مدرسه آنلاین آلا',
+                          action: true,
+                          actionButtonLabel: 'ثبت نام'
+                        }
+                      }
+                    ],
+                    options: {
+
+                      colNumber: 'col-12'
+                    }
+                  }
+                ],
+                options: {
+
+                  height: 'auto',
+                  boxed: true,
+                  boxedWidth: '1200',
+                  gutterXSize: 'md',
+                  gutterYSize: 'md',
+                  absolute: 'top',
+                  style: {
+                    maxWidth: '1200px',
+                    width: '1200px'
+                  }
+                }
+              },
+              {
+                cols: [
+                  {
+                    widgets: [
+                      {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '100px 0 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
-                          text: 'فقط 3ماه،تا موفقیت در کنکور',
+                          text: '<div style="text-align: center;">اردوی نوروزی تفتان آلاء<br></div>',
                           color: '#ffffff',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
-                            fontSize: '14px',
+                            fontSize: '20px',
                             fontWeight: '400',
                             fontStyle: 'normal'
                           },
                           sm: {
-                            fontSize: '16px',
+                            fontSize: '20px',
                             fontWeight: '400',
                             fontStyle: 'normal'
                           },
@@ -68,18 +156,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '40px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
-                          text: 'پیشنهاد ویژه آلاء برای آلایی هایی که زمان کمی تا کنکور دارن و می‌خوان کاملا کنکوری همه دروس رو فقط در عرض3 ماه از صفر با درسنامه‌ای کامل و حل صد ها تست یاد بگیرند.',
+                          text: '<div style="text-align: center;">جمع بندی ٪۶۲.۵ کنکور (دروس پایه) در ۲۷ روز</div>',
                           color: '#ffffff',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -106,19 +194,11 @@ export default {
                             fontStyle: 'normal'
                           }
                         }
-                      },
-                      {
-                        name: 'ActionButton',
-                        options: {
-                          label: 'ثبت نام',
-                          color: 'primary'
-                        }
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-6'
+
+                      colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   },
                   {
@@ -126,7 +206,7 @@ export default {
                       {
                         name: 'VideoPlayerWidget',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           style: {
                             padding: '25px'
@@ -138,62 +218,66 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-6'
+
+                      colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
                 ],
                 options: {
-                  fullHeight: 'calc( 100vh - 72px )',
+                  fullHeight: true,
                   boxed: true,
                   boxedWidth: 1362
-                }
-              },
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'ActionButton',
-                        options: {
-                          // imageSource: '/src/assets/goDown.svg',
-                          icon: 'expand_more',
-                          color: 'primary',
-                          action: 'scroll',
-                          scrollTo: 'feature'
-                        }
-                      }
-                    ],
-                    options: {
-                      className: '',
-                      style: {
-                        display: 'flex',
-                        justifyContent: 'center'
-                      },
-                      colNumber: 'col-12'
-                    }
-                  }
-                ],
-                options: {
-                  boxed: true,
-                  boxedWidth: '100%',
-                  style: {
-                    maxWidth: '100%',
-                    width: '100%',
-                    position: 'absolute',
-                    bottom: '0'
-                  }
                 }
               }
             ]
           },
           options: {
-            fullHeight: 'calc( 100vh - 72px )',
+            fullHeight: true,
+            backgrounds: {
+              xs: {
+                size: 'cover',
+                color: null,
+                image: 'url(https://nodes.alaatv.com/upload/landing/576.png)',
+                repeat: 'no-repeat',
+                position: 'center center',
+                attachment: null
+              },
+              sm: {
+                size: 'cover',
+                color: null,
+                image: 'url(https://nodes.alaatv.com/upload/landing/992.png)',
+                repeat: 'no-repeat',
+                position: 'center center',
+                attachment: null
+              },
+              md: {
+                size: 'cover',
+                color: null,
+                image: 'url(https://nodes.alaatv.com/upload/landing/1200.png)',
+                repeat: 'no-repeat',
+                position: 'center center',
+                attachment: null
+              },
+              lg: {
+                size: 'cover',
+                color: null,
+                image: 'url(https://nodes.alaatv.com/upload/landing/1480.png)',
+                repeat: 'no-repeat',
+                position: 'center center',
+                attachment: null
+              },
+              xl: {
+                size: 'cover',
+                color: null,
+                image: 'url(https://nodes.alaatv.com/upload/landing/1920.png)',
+                repeat: 'no-repeat',
+                position: 'center center',
+                attachment: null
+              }
+            },
             verticalAlign: 'center',
             style: {
-              background: 'url("https://nodes.alaatv.com/upload/landing/110/header.jpg")',
-              backgroundSize: 'contain'
+              minHeight: '100vh'
             }
           }
         },
@@ -213,14 +297,14 @@ export default {
                           boxedWidth: 1200,
                           style: {
                             padding: '40px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: '70px'
                           },
-                          text: 'با فوریت 110 آلاء تا کنکور',
+                          text: '<div style="text-align: center;">با فوریت 110 آلاء تا کنکور</div>',
                           color: '#3D3F46',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
-                            fontSize: '14px',
+                            fontSize: '18px',
                             fontWeight: '400',
                             fontStyle: 'normal'
                           },
@@ -248,9 +332,8 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-12'
+
+                      colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
                 ],
@@ -266,18 +349,19 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '10px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null,
+                            marginBottom: '20px'
                           },
-                          text: 'فقط توی 3 ماه، کل نکات کنکور بهت آموزش میده',
+                          text: '<div style="text-align: center;">فقط توی 3 ماه، کل نکات کنکور بهت آموزش میده</div>',
                           color: '#3D3F46',
                           customClass: 'text-left',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -307,9 +391,8 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-12'
+
+                      colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   }
                 ],
@@ -327,13 +410,12 @@ export default {
                         options: {
                           title: 'اگر فارغ التحصیلی',
                           description: 'این دوره پیشنهاد اول آلاء به شماست',
-                          image: 'https://cdn.quasar.dev/img/mountains.jpg'
+                          image: 'https://nodes.alaatv.com/upload/landing/110/1.png?w=93&h=93'
                         }
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
+
                       colNumber: 'col-12 col-md-4'
                     }
                   },
@@ -344,13 +426,12 @@ export default {
                         options: {
                           title: 'اگر دانش آموزی',
                           description: 'از صفر، کل دروس کنکور توی 3 ماه بهت یاد میده',
-                          image: 'https://cdn.quasar.dev/img/mountains.jpg'
+                          image: 'https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93'
                         }
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
+
                       colNumber: 'col-12 col-md-4'
                     }
                   },
@@ -361,20 +442,29 @@ export default {
                         options: {
                           title: 'دنبال یادگیری سریع و کاملی',
                           description: 'صفر تا صد کنکور با درسنامه و تحلیل تست توی 3 ماه',
-                          image: 'https://cdn.quasar.dev/img/mountains.jpg'
+                          image: 'https://nodes.alaatv.com/upload/landing/110/3.png'
                         }
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
+
                       colNumber: 'col-12 col-md-4'
                     }
                   }
                 ],
                 options: {
+
+                  height: 'auto',
                   boxed: true,
-                  boxedWidth: 1362
+                  boxedWidth: 1362,
+                  gutterXSize: 'md',
+                  gutterYSize: 'md',
+                  absolute: 'none',
+                  style: {
+                    marginBottom: '40px',
+                    maxWidth: '1362px',
+                    width: '1362px'
+                  }
                 }
               },
               {
@@ -384,50 +474,49 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: '70px'
                           },
-                          text: 'دوره فوریت کنکور 110 آلاء، جمع بندی نیست؛',
+                          text: '<div style="text-align: center;"><b>دوره فوریت کنکور 110 آلاء، جمع بندی نیست؛</b></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
-                            fontWeight: '400',
+                            fontWeight: '500',
                             fontStyle: 'normal'
                           },
                           sm: {
                             fontSize: '18px',
-                            fontWeight: '400',
+                            fontWeight: '500',
                             fontStyle: 'normal'
                           },
                           md: {
                             fontSize: '20px',
-                            fontWeight: '400',
+                            fontWeight: '600',
                             fontStyle: 'normal'
                           },
                           lg: {
                             fontSize: '24px',
-                            fontWeight: '400',
+                            fontWeight: '700',
                             fontStyle: 'normal'
                           },
                           xl: {
                             fontSize: '28px',
-                            fontWeight: '500',
+                            fontWeight: '700',
                             fontStyle: 'normal'
                           }
                         }
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-12'
+
+                      colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   }
                 ],
@@ -443,50 +532,49 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '10px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
-                          text: 'سریع ترین دوره جامع کنکور آلاست.',
+                          text: '<div style="text-align: center;"><b><font color="#ff8f00">سریع ترین دوره جامع کنکور</font> آلاست.</b></div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
-                            fontWeight: '400',
+                            fontWeight: '500',
                             fontStyle: 'normal'
                           },
                           sm: {
                             fontSize: '18px',
-                            fontWeight: '400',
+                            fontWeight: '500',
                             fontStyle: 'normal'
                           },
                           md: {
                             fontSize: '20px',
-                            fontWeight: '400',
+                            fontWeight: '600',
                             fontStyle: 'normal'
                           },
                           lg: {
                             fontSize: '24px',
-                            fontWeight: '400',
+                            fontWeight: '700',
                             fontStyle: 'normal'
                           },
                           xl: {
                             fontSize: '28px',
-                            fontWeight: '500',
+                            fontWeight: '700',
                             fontStyle: 'normal'
                           }
                         }
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-12'
+
+                      colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
                 ],
@@ -502,7 +590,7 @@ export default {
                       {
                         name: 'ExpansionPanel',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
@@ -539,8 +627,11 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
+
+                      style: {
+                        paddingLeft: null,
+                        paddingRight: null
+                      },
                       colNumber: 'col-md-6'
                     }
                   },
@@ -549,24 +640,54 @@ export default {
                       {
                         name: 'ImageWidget',
                         options: {
-                          className: '',
-                          height: 'auto',
+
+                          height: null,
                           boxed: true,
                           boxedWidth: 1200,
-                          imageSource: 'https://nodes.alaatv.com/upload/landing/110/4.png'
+                          imageSource: 'https://nodes.alaatv.com/upload/landing/110/4.png',
+                          xs: {
+                            height: '300px',
+                            width: '300px'
+                          },
+                          sm: {
+                            height: '300px',
+                            width: '300px'
+                          },
+                          md: {
+                            height: '400px',
+                            width: '400px'
+                          },
+                          lg: {
+                            height: '500px',
+                            width: '500px'
+                          },
+                          xl: {
+                            height: '500px',
+                            width: '500px'
+                          }
                         }
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-6'
+                      className: 'flex flex-center',
+
+                      colNumber: 'col-md-6 col-sm-12 col-xs-12'
                     }
                   }
                 ],
                 options: {
+
+                  height: 'auto',
                   boxed: true,
-                  boxedWidth: 1362
+                  boxedWidth: 1362,
+                  gutterXSize: 'md',
+                  gutterYSize: 'md',
+                  absolute: 'none',
+                  style: {
+                    marginBottom: '70px',
+                    maxWidth: '1362px',
+                    width: '1362px'
+                  }
                 }
               }
             ]
@@ -575,7 +696,8 @@ export default {
             fullHeight: 'calc( 100vh - 72px )',
             verticalAlign: 'start',
             style: {
-              background: '#FFFFFF'
+              background: '#FFFFFF',
+              minHeight: 'calc( 100vh - 72px )'
             }
           }
         },
@@ -589,20 +711,20 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: '70px'
                           },
-                          text: 'مقایسه دوره 110 آلاء و راه ابریشم آلاء',
+                          text: '<div style="text-align: center;">ثبت نام سریع در تفتان آلاء</div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
-                            fontSize: '14px',
+                            fontSize: '18px',
                             fontWeight: '400',
                             fontStyle: 'normal'
                           },
@@ -630,275 +752,8 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-12'
-                    }
-                  }
-                ],
-                options: {
-                  boxed: true,
-                  boxedWidth: 1362
-                }
-              },
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'ComparisonTable',
-                        options: {
-                          className: '',
-                          height: 'auto',
-                          boxed: true,
-                          boxedWidth: 1200,
-                          style: {
-                            padding: '40px 0px 16px 10px'
-                          },
-                          color: 'transparent',
-                          flat: true,
-                          header: ['ویژگی ها', '110', 'راه ابریشم'],
-                          rows: [
-                            {
-                              col0: 'زمان آموزش',
-                              col1: {
-                                type: 'text',
-                                value: '3 ماه'
-                              },
-                              col2: {
-                                type: 'text',
-                                value: '6 ماه'
-                              }
-                            },
-                            {
-                              col0: 'مخاطب دوره',
-                              col1: {
-                                type: 'text',
-                                value: 'اغلب فارغ التحصیلان'
-                              },
-                              col2: {
-                                type: 'text',
-                                value: 'اغلب فارغ التحصیلان'
-                              }
-                            },
-                            {
-                              col0: 'درسنامه فشرده',
-                              col1: {
-                                type: 'boolean',
-                                value: true
-                              },
-                              col2: {
-                                type: 'boolean',
-                                value: false
-                              }
-                            },
-                            {
-                              col0: 'کارگاه حل تست',
-                              col1: {
-                                type: 'boolean',
-                                value: true
-                              },
-                              col2: {
-                                type: 'boolean',
-                                value: true
-                              }
-                            },
-                            {
-                              col0: 'آزمون آزمایشی',
-                              col1: {
-                                type: 'boolean',
-                                value: true
-                              },
-                              col2: {
-                                type: 'boolean',
-                                value: true
-                              }
-                            },
-                            {
-                              col0: 'action',
-                              col1: {
-                                type: 'scroll',
-                                label: 'جزئیات و ثبت نام',
-                                className: 'feature'
-                              },
-                              col2: {
-                                type: 'link',
-                                label: 'جزئیات و ثبت نام',
-                                url: 'https://alaatv.com/landing/25'
-                              }
-                            }
-                          ],
-                          attributesLabel: 'ویژگی ها',
-                          attributes: [
-                            {
-                              label: 'زمان آموزش',
-                              name: 'duration',
-                              type: 'text'
-                            },
-                            {
-                              label: 'مخاطب دوره',
-                              name: 'participant',
-                              type: 'text'
-                            },
-                            {
-                              label: 'درسنامه فشرده',
-                              name: 'document',
-                              type: 'boolean'
-                            },
-                            {
-                              label: 'کارگاه حل تست',
-                              name: 'bootCamp',
-                              type: 'boolean'
-                            },
-                            {
-                              label: 'آزمون آزمایشی',
-                              name: 'test',
-                              type: 'boolean'
-                            }
-                          ],
-                          records: [
-                            {
-                              title: '110',
-                              key: '110',
-                              action: {
-                                type: 'scroll',
-                                label: 'جزئیات و ثبت نام',
-                                className: 'feature'
-                              },
-                              attributes: [
-                                {
-                                  name: 'duration',
-                                  value: '3 ماه'
-                                },
-                                {
-                                  name: 'participant',
-                                  value: 'اغلب فارغ التحصیلان'
-                                },
-                                {
-                                  name: 'document',
-                                  value: true
-                                },
-                                {
-                                  name: 'bootCamp',
-                                  value: true
-                                },
-                                {
-                                  name: 'test',
-                                  value: true
-                                }
-                              ]
-                            },
-                            {
-                              title: 'راه ابریشم',
-                              key: 'abrisham',
-                              action: {
-                                type: 'link',
-                                label: 'جزئیات و ثبت نام',
-                                url: 'https://alaatv.com/landing/25'
-                              },
-                              attributes: [
-                                {
-                                  name: 'duration',
-                                  value: '6 ماه'
-                                },
-                                {
-                                  name: 'participant',
-                                  value: 'اغلب فارغ التحصیلان'
-                                },
-                                {
-                                  name: 'document',
-                                  value: false
-                                },
-                                {
-                                  name: 'bootCamp',
-                                  value: true
-                                },
-                                {
-                                  name: 'test',
-                                  value: true
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    ],
-                    options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-12'
-                    }
-                  }
-                ],
-                options: {
-                  boxed: true,
-                  boxedWidth: 1362
-                }
-              }
-            ]
-          },
-          options: {
-            fullHeight: false,
-            verticalAlign: 'start',
-            style: {
-              background: '#F9F4EF'
-            }
-          }
-        },
-        {
-          data: {
-            rows: [
-              {
-                cols: [
-                  {
-                    widgets: [
-                      {
-                        name: 'TextWidget',
-                        options: {
-                          className: '',
-                          height: 'auto',
-                          boxed: false,
-                          boxedWidth: 1200,
-                          style: {
-                            padding: '20px 0px 16px 10px',
-                            marginTop: ''
-                          },
-                          text: 'ثبت نام',
-                          color: '#3D3F46',
-                          customClass: 'text-center',
-                          fontFamily: '',
-                          xs: {
-                            fontSize: '14px',
-                            fontWeight: '400',
-                            fontStyle: 'normal'
-                          },
-                          sm: {
-                            fontSize: '18px',
-                            fontWeight: '400',
-                            fontStyle: 'normal'
-                          },
-                          md: {
-                            fontSize: '20px',
-                            fontWeight: '400',
-                            fontStyle: 'normal'
-                          },
-                          lg: {
-                            fontSize: '28px',
-                            fontWeight: '400',
-                            fontStyle: 'normal'
-                          },
-                          xl: {
-                            fontSize: '32px',
-                            fontWeight: '500',
-                            fontStyle: 'normal'
-                          }
-                        }
-                      }
-                    ],
-                    options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-12'
+
+                      colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   },
                   {
@@ -906,18 +761,18 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
+
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
-                          text: 'رشته مورد نظر را انتخاب کنید',
+                          text: '<div style="text-align: center;">برای مشاهدۀ دوره‌های جمع‌بندی، رشتۀ خود را انتخاب کنید</div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
                             fontSize: '14px',
                             fontWeight: '400',
@@ -947,9 +802,8 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-12'
+
+                      colNumber: 'col-md-12 col-lg-12 col-xl-12 col-sm-12 col-xs-12'
                     }
                   }
                 ],
@@ -965,39 +819,81 @@ export default {
                       {
                         name: 'ProductsTabPanel',
                         options: {
-                          className: '',
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
+                          activeColor: 'primary',
+                          indicatorColor: 'white',
+                          activeBgColor: 'white',
                           style: {
                             padding: '40px 0px 16px 10px'
                           },
-                          tabsList: [
+                          productGroupLayout: 'tab',
+                          rowLayout: 'grid',
+                          type: 'group',
+                          list: [
                             {
-                              name: 'riazi',
-                              label: 'ریاضی',
-                              products: productsList,
-                              specialProducts: productsList2
-                            },
-                            {
-                              name: 'tajrobi',
+                              height: 'auto',
+                              boxed: true,
+                              boxedWidth: 1200,
+                              style: {
+                                padding: '40px 0px 16px 10px'
+                              },
+                              productGroupLayout: 'shelf',
+                              rowLayout: 'grid',
+                              type: 'group',
                               label: 'تجربی',
-                              products: productsList,
-                              specialProducts: productsList2
+                              list: [
+                                {
+                                  type: 'product',
+                                  rowStyle: {
+                                    background: '#F9F4EF',
+                                    padding: '15px 15px 5px',
+                                    borderRadius: '10px'
+                                  },
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                },
+                                {
+                                  type: 'product',
+                                  products: [
+                                    980,
+                                    979,
+                                    978,
+                                    976
+                                  ]
+                                }
+                              ]
                             },
                             {
-                              name: 'ensani',
-                              label: 'انسانی',
-                              products: productsList,
-                              specialProducts: productsList2
+                              label: 'ریاضی',
+                              type: 'product',
+                              products: [
+                                980,
+                                979,
+                                978,
+                                976
+                              ]
+                            },
+                            {
+                              label: 'تفتان قدیم',
+                              type: 'product',
+                              products: [
+                                980,
+                                979,
+                                978,
+                                976
+                              ]
                             }
                           ]
                         }
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
                       colNumber: 'col-12'
                     }
                   }
@@ -1010,10 +906,12 @@ export default {
             ]
           },
           options: {
+            className: 'courses',
             fullHeight: true,
             verticalAlign: 'start',
             style: {
-              background: '#FFFFFF'
+              background: '#FFFFFF',
+              minHeight: '100vh'
             }
           }
         },
@@ -1027,20 +925,19 @@ export default {
                       {
                         name: 'TextWidget',
                         options: {
-                          className: '',
                           height: 'auto',
                           boxed: false,
                           boxedWidth: 1200,
                           style: {
                             padding: '20px 0px 16px 10px',
-                            marginTop: ''
+                            marginTop: null
                           },
-                          text: 'سوالات متداول',
+                          text: '<div style="text-align: center;">سوالات متداول</div>',
                           color: '#3D3F46',
                           customClass: 'text-center',
-                          fontFamily: '',
+                          fontFamily: null,
                           xs: {
-                            fontSize: '14px',
+                            fontSize: '18px',
                             fontWeight: '400',
                             fontStyle: 'normal'
                           },
@@ -1068,9 +965,7 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
-                      colNumber: 'col-md-12'
+                      colNumber: 'col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-12'
                     }
                   }
                 ],
@@ -1086,33 +981,100 @@ export default {
                       {
                         name: 'ExpansionPanel',
                         options: {
-                          className: '',
                           height: 'auto',
                           boxed: true,
                           boxedWidth: 1200,
                           style: {
                             padding: '10px 0px 16px 10px',
                             background: '#FFFFFF',
-                            borderRadius: '30px'
+                            borderRadius: '30px',
+                            marginBottom: '40px'
                           },
                           bordered: true,
+                          toggle: true,
                           expansionList: [
                             {
                               id: 1,
-                              label: 'تستم حل میکنید؟',
-                              text: 'توی دوره آموزش جامع کنکور 110 آلاء، دو نوع کلاس تستی و کنکوری برگزار میشه. در درجه اول حل تست آموزشی در کنار درسنامه ویدیویی و جزوات کنکوری دوره و بعد حل تست صد ها پیشرفته کنکوری در قالب تمارین. پس هم با یک کلاس آموزشی طرفی هم کلاس تحلیل تست.',
+                              label: 'داداش این همایش تفتان آلا چی چی هس اصلا؟',
+                              text: 'همایش تفتان مخصوص جمع بندی دوران طلایی نوروز هست و کل دهم و یازدهم که 62.5 درصد کنکورت هست رو پوشش می ده<br>',
                               expanded: false
                             },
                             {
                               id: 2,
-                              label: '110 برنامه مطالعاتی داره؟',
-                              text: 'در سریع ترین کلاس آموزش کنکور مجازی آلاء که عنوانش 110 باشه؛ انقدر مباحث رو بهت سریع و اصولی آموزش میدیم که با هر برنامه مطالعاتی مدنظرت، همخونی داشته باشه. برنامه مشاورت یا آزمونت یا هر برنامه‌ دیگه‌ای. با حدود 6 ساعت مطالعه در روز توی 3 ماه در تمام دروس، کل نکات کنکور رو به همراه حل تست هایی با استاندارد کنکور سراسری میتونی حل بکنی. کلاس آموزشی کنکور که با هر برنامه‌ای جور باشه قشنگه، مثل 110 آلاء.',
+                              label: 'همایش تفتان چی داره که بقیه دوره های جمع بندی مشابه ندارن؟',
+                              text: '<span style="color: rgb(51, 51, 51); font-family: IRANSans;">اولا برنامه مطالعاتیش با رویکردهای روانشناختی طراحی شده و همچنین قرار نیست هر روز از صبح تا شب مطالعه کنین!</span><br style="background-repeat: no-repeat; padding: 0px; margin: 0px; color: rgb(51, 51, 51); font-family: IRANSans;"><span style="color: rgb(51, 51, 51); font-family: IRANSans;">دوما اقدام گرایی که جزء جدایی ناپذیر یادگیری هست در این برنامه مطالعاتی تفتان مد نظر قرار داده شده و شما فقط ویدئو نمی بینی!</span><br>',
                               expanded: false
                             },
                             {
                               id: 3,
-                              label: 'کنار دوره 110، آزمون آزمایشی باید ثبت نام کنم؟',
-                              text: 'اینکه بری آزمون یا نه، به اختیار خودت و یا مشاورت اما، توصیه آلاء اینکه حتما آزمون آزمایشی برای تجربه و درک فضای آزمون و یادگیری مواجهه با تست در قالب رسمی آزمون خیلی برات اهمیت داره. البته که آزمون منظم موجب پایبندی به برنامه مطالعاتی هم میشه. توی کلاس جامع تست و آموزش 110 که یک دوره فشرده 3 ماهه هست، آزمون های جامع و آنلاین سه‌آ آلاءکه مطابقت داره با استاندارد سوالات کنکور سراسری، به شما هدیه داده میشه تا بتونی از جهت آزمون جامع و شبیه ساز کنکور سراسری هم خیالت راحت باشه.',
+                              label: 'همایش تفتان آلاء فقط به درد پایه دوازدهمیا و کنکوریا می خوره؟',
+                              text: 'همایش تفتان آلاء برای داوطلبان کنکور 1401 طراحی و تولید شده؛ اما اگر دانش آموزان پایه بخوان برای جمع بندی درساشون ازش استفاده کنن هیچ مشکلی مانع اونا نمیشه.',
+                              expanded: false
+                            },
+                            {
+                              id: 4,
+                              label: 'با هر سطح علمی میشه از همایش تفتان استفاده کرد و نتیجه گرفت؟',
+                              text: 'بله؛ همایش تفتان به صورتی طراحی شده که هر دانش آموزی با هر سطحی می تونه ازش استفاده کنه؛ چون هم درسنامه فشرده و نکته محور داره و هم تست .',
+                              expanded: false
+                            },
+                            {
+                              id: 5,
+                              label: 'همایش تفتان به صورت پک فیزیکی ارسال می شه یا یه دوره دانلودیه؟',
+                              text: '<div>تمام خدمات آلاء داخل سایت و اپ آلاء عرضه میشه و انقدر امکانات باحال و جذاب براتون طی روند یادگیری آماده کردیم تا از آموزش آنلاین لذت ببرید😃</div><div>و به‌طور پیوسته این امکانات خفن داره تکمیل و افزوده میشه تا تجربه متفاوت آموزشی رو براتون ایجاد کنیم 😎</div><div><br></div><div>درنتیجه، همایش دانلودی تفتان که شامل فیلم ها و جزوات میشه رو از تاریخ 21 اسفند، داخل پروفایلتون قرار میدیم و قابل دانلود هستند .</div><div>هیچگونه ارسال پستی نداریم چون به تجربه جذاب آموزش آنلاین با آلاء اعتقاد داریم 😊.</div>',
+                              expanded: false
+                            },
+                            {
+                              id: 6,
+                              label: 'همایش تفتان برنامه مطالعاتی داره؟',
+                              text: 'بله همایش تفتان برای رشته های ریاضی و تجربی دارای یک برنامه مطالعاتی با رویکرد روانشناختی و اقدام گرا هست.',
+                              expanded: false
+                            },
+                            {
+                              id: 7,
+                              label: 'اینکه می گن این همایش طبق ظرفیت ذهن ما طراحی شده یعنی چی؟',
+                              text: 'تمام سعی تیم طراحی محصول این بوده تا با بهره گیری از اصول حافظه، اصول یادگیری و ارتباط یادگیری با میزان هشیاری، متد صحیح تدریس و ایجاد انسجام بین این موارد، محصولی ارزشمند برای شما عزیزان تولید بشه',
+                              expanded: false
+                            },
+                            {
+                              id: 8,
+                              label: 'برنامه مطالعاتی تفتان از چه موقع شروع می شه؟ و تا کی ادامه داره؟',
+                              text: 'برنامه مطالعاتی همایش تفتان از 21 اسفند شروع می شه و تا 25 فروردین ادامه داره.',
+                              expanded: false
+                            },
+                            {
+                              id: 9,
+                              label: 'آیا تو عید همه روزش بایستی درس بخونیم؟ می پوسیم که...اون لالوها استراحتی واسش نذاشتین',
+                              text: 'نخیر؛ برنامه تفتان طوری طراحی شده تا در تاریخ های 1 ، 2 ، 5 ،7 ، 12 ، 13، 19 و23 فروردین استراحت داشته باشین.',
+                              expanded: false
+                            },
+                            {
+                              id: 10,
+                              label: 'شدنیه که منو دوستم و خالم و عمم با هم دیگه مشترک یه تفتان بخریم و استفاده کنیم؟ آلاء راضیه؟',
+                              text: 'منافع مادی دوره های غیررایگان آلاء، صرف نگه‌داری هزاران ساعت محتوای رایگان سایت آلا، توسعه هرچه بیشتر امکانات رایگان و هزینه های خیلی زیاد مجموعه آلاء میشه؛ واسه همین اشتراکی خرید کردن، دریافت رایگان محتوای غیررایگان آلاء از بقیه کانال ها و هر نوع استفاده غیرقانونی از این محصول ها شرعا، قانونا و اخلاقا صحیح نیست و مجموعه آلاء به هیچ عنوان رضایت نخواهد داشت .',
+                              expanded: false
+                            },
+                            {
+                              id: 11,
+                              label: 'تو تفتان فقط درسنامه داریم یا اینکه تست هم داخلش هست؟',
+                              text: 'ادر همایش تفتان ویدئو ها دو تا ماهیت دارن؛ یا ویدئوها درسنامه هستند یا اینکه ویدئو تحلیل تست هستن',
+                              expanded: false
+                            },
+                            {
+                              id: 12,
+                              label: 'همایش تفتان برای کدوم درس های کنکور هست؟',
+                              text: 'در رشته های تجربی و ریاضی همه دروس پایه پوشش داده میشن',
+                              expanded: false
+                            },
+                            {
+                              id: 13,
+                              label: 'دبیران همایش تفتان کیان؟',
+                              text: 'دبیران تفتان 1401 دبیران با تجربه با سابقه تالیف کتاب کمک آموزشی یا طراحی سوالات آزمون های آزمایشی معتبر یا مدرسین مدارس برتر کشور هستن.',
+                              expanded: false
+                            },
+                            {
+                              id: 14,
+                              label: 'من تفتان سال گذشته رو داشتم، آیا لازمه برا امسال رو هم بخرم؟',
+                              text: 'در تفتان 1401 همه چی به شکل متفاوت تری طراحی شده. دبیران جدیدی حاضر هستن و برنامه جدیدی تنظیم شده. در ضمن مدت زمان کل همایش تفتان 1401، 33 % از همایش تفتان 1400 کم تر هست😃',
                               expanded: false
                             }
                           ]
@@ -1120,8 +1082,6 @@ export default {
                       }
                     ],
                     options: {
-                      className: '',
-                      style: {},
                       colNumber: 'col-12'
                     }
                   }
@@ -1134,10 +1094,12 @@ export default {
             ]
           },
           options: {
+            className: 'faq-row',
             fullHeight: false,
             verticalAlign: 'start',
             style: {
-              background: '#F9F4EF'
+              background: '#F9F4EF',
+              minHeight: 'auto'
             }
           }
         }

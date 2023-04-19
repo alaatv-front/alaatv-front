@@ -3,45 +3,45 @@ import { apiV2 } from 'src/boot/axios'
 import { Content } from 'src/models/Content'
 import { ProductList } from 'src/models/Product'
 const APIAdresses = {
-  admin: '/admin/contents',
-  show: (id) => '/c/' + id,
-  showAdmin: (id) => '/admin/contents/' + id,
-  update: (id) => `/admin/contents/${id}/`,
-  relatedProducts: (id) => '/c/' + id + '/products',
-  favored: (id) => '/c/' + id + '/favored',
-  unfavored: (id) => '/c/' + id + '/unfavored',
   search: '/search',
+  admin: '/admin/contents',
+  timestampSet: '/timepoint',
+  show: (id) => '/c/' + id,
   delete: '/admin/contents/destroy',
-  bulkEditText: '/admin/contents/bulk-edit-text',
   bulkUpdate: '/admin/contents/bulk-update',
+  presigned: '/admin/upload/presigned-request',
+  bulkEditText: '/admin/contents/bulk-edit-text',
   bulkEditTags: '/admin/contents/bulk-edit-tags',
-  timestampSet: 'timepoint',
-  getTimestamp: (id) => `timepoint/${id}`,
-  deleteTimestamp: (id) => `timepoint/${id}`,
-  updateTimestamp: (id) => `timepoint/${id}`,
-  presigned: '/admin/upload/presigned-request'
+  favored: (id) => '/c/' + id + '/favored',
+  update: (id) => `/admin/contents/${id}/`,
+  getTimestamp: (id) => `/timepoint/${id}`,
+  showAdmin: (id) => '/admin/contents/' + id,
+  deleteTimestamp: (id) => `/timepoint/${id}`,
+  updateTimestamp: (id) => `/timepoint/${id}`,
+  unfavored: (id) => '/c/' + id + '/unfavored',
+  relatedProducts: (id) => '/c/' + id + '/products'
 }
 export default class ContentAPI extends APIRepository {
   constructor() {
     super('content', apiV2, '/c/', new Content(), APIAdresses)
     this.CacheList = {
       admin: this.name + this.APIAdresses.admin,
+      search: this.name + this.APIAdresses.search,
+      delete: this.name + this.APIAdresses.delete,
+      presigned: this.name + this.APIAdresses.presigned,
       show: id => this.name + this.APIAdresses.show(id),
+      bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
+      update: id => this.name + this.APIAdresses.update(id),
+      bulkEditText: this.name + this.APIAdresses.bulkEditText,
+      timestampSet: this.name + this.APIAdresses.timestampSet,
+      bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
       favored: id => this.name + this.APIAdresses.favored(id),
       unfavored: id => this.name + this.APIAdresses.unfavored(id),
       showAdmin: id => this.name + this.APIAdresses.showAdmin(id),
-      update: id => this.name + this.APIAdresses.update(id),
-      relatedProducts: id => this.name + this.APIAdresses.relatedProducts(id),
-      search: this.name + this.APIAdresses.search,
-      delete: this.name + this.APIAdresses.delete,
-      timestampSet: this.name + this.APIAdresses.timestampSet,
-      bulkEditText: this.name + this.APIAdresses.bulkEditText,
-      bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
-      bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
       getTimestamp: id => this.name + this.APIAdresses.getTimestamp(id),
+      relatedProducts: id => this.name + this.APIAdresses.relatedProducts(id),
       updateTimestamp: id => this.name + this.APIAdresses.updateTimestamp(id),
-      deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id),
-      presigned: this.name + this.APIAdresses.presigned
+      deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id)
     }
   }
 

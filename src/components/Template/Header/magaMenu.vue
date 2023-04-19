@@ -1,12 +1,17 @@
 <template>
-  <q-btn-dropdown flat
+  <q-btn-dropdown v-model="showMenu"
+                  flat
                   content-style="width: 1100px; right: 360px; border-radius: 10px"
-                  :label="data.menuTitle">
-    <div class="row">
+                  :label="data.title"
+                  @mouseover="onMouseover"
+                  @mouseleave="onMouseleave">
+    <div class="row"
+         @mouseover="onMouseover"
+         @mouseleave="onMouseleave">
       <div class="col-2 q-pb-md">
         <div class="q-mb-md">
           <q-list>
-            <div v-for="(item, index) in data.megaMenu.categoryItemsCol"
+            <div v-for="(item, index) in data.children"
                  :key="index">
               <router-link v-if="item.tags"
                            :to="{ name: 'Public.Content.Search', query: { 'tags[]': item.tags } }">
@@ -19,7 +24,7 @@
                 </q-item>
               </router-link>
               <router-link v-else
-                           :to="{path: item.path}">
+                           :to="{name: item.route.name, params: item.route.params}">
                 <q-item class="item"
                         clickable
                         @mouseover="showData(index)">
@@ -33,18 +38,20 @@
         </div>
       </div>
       <div class="col-10">
-        <div v-for="(item, index) in data.megaMenu.subCategoryItemsCol"
+        <div v-for="(item, index) in data.subCategoryItemsCol"
              :key="index">
           <div>
-            <div v-if="item.backgroundImage">
-              <div v-if="item.showData">
-                <q-responsive :ratio="1998/553">
-                  <q-img :src="item.backgroundImage" />
-                </q-responsive>
+            <div v-if="item.type === 'image'">
+              <div v-if="item.selected">
+                <router-link :to="{name: item.route.name, params: item.route.params}">
+                  <q-responsive :ratio="1998/553">
+                    <q-img :src="item.backgroundImage" />
+                  </q-responsive>
+                </router-link>
               </div>
             </div>
-            <div v-else>
-              <div v-if="item.showData"
+            <div v-else-if="item.type === 'text'">
+              <div v-if="item.selected"
                    :style="{background: item.backgroundColor}">
                 <div class="row">
                   <div v-for="col in item.cols"
@@ -72,7 +79,7 @@
                   </div>
                 </div>
 
-                <div v-if="item.showData"
+                <div v-if="item.selected"
                      class="magaMenu-photo-container">
                   <q-img :src="item.photo" />
                 </div>
@@ -97,10 +104,27 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      showMenu: false,
+      onMouseleaveSetTimeout: null
+    }
+  },
   methods: {
+    onMouseover () {
+      this.showMenu = true
+      if (window && this.onMouseleaveSetTimeout) {
+        window.clearInterval(this.onMouseleaveSetTimeout)
+      }
+    },
+    onMouseleave () {
+      this.onMouseleaveSetTimeout = setTimeout(() => {
+        this.showMenu = false
+      }, 50)
+    },
     showData(colIndex) {
-      this.data.megaMenu.subCategoryItemsCol.forEach((item, subIndex) => {
-        item.showData = colIndex === subIndex
+      this.data.subCategoryItemsCol.forEach((item, subIndex) => {
+        item.selected = colIndex === subIndex
       })
     }
   }

@@ -57,7 +57,7 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <menu-item :menu="titlesList" />
+          <menu-item :menu="items" />
         </q-list>
         <div class="log-out"
              @click="logOut">
@@ -75,6 +75,7 @@
 
 <script>
 import menuItem from 'src/components/Menu/SideMenu/MenuItem.vue'
+import menuItems from 'components/Template/menuData.js'
 
 export default {
   name: 'MainSideBarTemplate',
@@ -83,32 +84,7 @@ export default {
     return {
       clickedItem: null,
       searchText: '',
-      titlesList: [
-        {
-          title: 'تیکت پشتیبانی',
-          icon: 'isax:ticket',
-          routeName: 'UserPanel.Ticket.Index',
-          active: false,
-          show: true,
-          open: false
-        }
-        // ,
-        // {
-        //   title: 'تنظیمات',
-        //   icon: 'isax:setting-2',
-        //   routeName: 'Admin.Settings',
-        //   show: true,
-        //   active: false,
-        //   children: []
-        // }
-        // {
-        //   title: 'سوالات متداول',
-        //   icon: 'isax:message-question',
-        //   routeName: 'faq',
-        //   active: false,
-        //   children: []
-        // }
-      ],
+      items: menuItems,
       examsPlan: [
         {
           divider: true
@@ -163,7 +139,22 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
+  mounted() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   methods: {
+    handleResize() {
+      const windowWidth = window.innerWidth
+      this.items.forEach(item => {
+        if (item.mobileMode) {
+          item.show = windowWidth < 1024
+        }
+      })
+    },
     // updateMenuItems () {
     //   if (!this.isUserLogin) {
     //     this.titlesList.splice(0, 1)

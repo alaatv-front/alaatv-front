@@ -74,7 +74,8 @@
                    y="0px"
                    viewBox="0 0 512 512"
                    xml:space="preserve"
-                   class="pdf-icon">
+                   class="pdf-icon"
+                   @click="downloadPamphlet(pamphlet)">
                 <path style="fill:#F4A14E;"
                       d="M512,256c0,19.508-2.184,38.494-6.311,56.738c-6.416,28.348-17.533,54.909-32.496,78.817  c-0.637,1.024-1.285,2.048-1.943,3.072C425.681,465.251,346.3,512,256,512S86.319,465.251,40.751,394.627  c-19.822-30.699-33.249-65.912-38.4-103.769c-1.191-8.735-1.933-17.617-2.215-26.624C0.042,261.496,0,258.759,0,256  c0-24.9,3.553-48.964,10.177-71.722c2.654-9.101,5.799-17.993,9.415-26.645c5.862-14.106,12.967-27.564,21.159-40.26  C86.319,46.749,165.7,0,256,0s169.681,46.749,215.249,117.373c10.365,16.06,18.986,33.353,25.59,51.618  c3.124,8.673,5.81,17.565,8.004,26.645c2.111,8.714,3.772,17.607,4.953,26.645c1.16,8.746,1.86,17.638,2.111,26.645  C511.969,251.277,512,253.628,512,256z" />
                 <path style="fill:#F9EED7;"
@@ -123,6 +124,7 @@ import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content'
 import { Block } from 'src/models/Block.js'
 import BlockComponent from 'components/Widgets/Block/Block.vue'
+import { openURL } from 'quasar'
 
 export default {
   name: 'ProductContents',
@@ -269,6 +271,9 @@ export default {
         .catch(() => {
           this.set.loading = false
         })
+    },
+    downloadPamphlet(pamphlet) {
+      openURL(pamphlet.file.pamphlets[0].url)
     }
   }
 }
@@ -318,8 +323,9 @@ export default {
         height: 40px;
       }
       .pdf-icon {
-        width: 100px;
-        height: 100px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
       }
       .block {
         margin-bottom: 0;
