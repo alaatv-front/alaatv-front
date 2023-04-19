@@ -185,7 +185,8 @@ export default {
     },
     async setFilterBoxCategories() {
       this.loading = true
-      this.filterBoxCategory = await this.$apiGateway.product.getCategories()
+      const categories = await this.$apiGateway.product.getCategories()
+      this.filterBoxCategory = categories.list
       this.loading = false
     },
     async setPurchasedProducts () {

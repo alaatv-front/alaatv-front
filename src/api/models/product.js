@@ -3,6 +3,7 @@ import { SetList } from 'src/models/Set.js'
 import { Content, ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Product, ProductList } from 'src/models/Product.js'
+import { ProductCategoryList } from 'src/models/ProductCategory'
 
 export default class ProductAPI extends APIRepository {
   constructor() {
@@ -191,7 +192,7 @@ export default class ProductAPI extends APIRepository {
       cacheKey: this.CacheList.categories,
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return new ProductCategoryList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
