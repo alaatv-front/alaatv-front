@@ -30,6 +30,7 @@ class Content extends Model {
       { key: 'lesson_name' },
       { key: 'lesson' },
       { key: 'can_see' },
+      { key: 'can_user_use_timepoint' },
       { key: 'color' },
       { key: 'start' },
       { key: 'end' },

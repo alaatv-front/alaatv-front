@@ -1,42 +1,38 @@
 <template>
-  <q-btn :color="color"
-         :icon="icon"
-         :label="label"
-         :flat="flat"
-         :class="className"
-         :style="options.style"
+  <q-btn :color="localOptions.color"
+         :icon="localOptions.icon"
+         :label="localOptions.label"
+         :flat="localOptions.flat"
+         :class="localOptions.className"
+         :style="localOptions.style"
          class="action-btn"
          @click="takeAction">
-    <img v-if="imageSource"
-         :src="imageSource"
+    <img v-if="localOptions.imageSource"
+         :src="localOptions.imageSource"
          alt="actionBtn">
   </q-btn>
 </template>
 
 <script>
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ActionButton',
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
-      color: '',
-      icon: '',
-      label: '',
-      flat: false,
-      callBack: null,
-      imageSource: '',
-      className: '',
-      fixed: false,
-      fixedPosition: '',
-      eventArgs: null
+      defaultOptions: {
+        color: null,
+        icon: null,
+        label: null,
+        flat: false,
+        callBack: null,
+        imageSource: null,
+        className: null,
+        fixed: false,
+        fixedPosition: null,
+        eventArgs: null
+      }
     }
   },
   watch: {
@@ -51,22 +47,12 @@ export default {
   },
   methods: {
     loadConfig() {
-      this.color = this.options.color
-      this.icon = this.options.icon
-      this.label = this.options.label
-      this.flat = this.options.flat
-      this.callBack = this.options.callBack
-      this.eventArgs = this.options.eventArgs
-      this.imageSource = this.options.imageSource
-      this.className = this.options.className
-      this.fixed = this.options.fixed
-      this.fixedPosition = this.options.fixedPosition
-      if (this.options.imageSource) {
-        this.flat = true
-        this.className = this.options.className + ' img-btn'
+      if (this.localOptions.imageSource) {
+        this.localOptions.flat = true
+        this.localOptions.className = this.localOptions.className + ' img-btn'
       }
-      if (this.fixed) {
-        this.className = this.options.className + ' fixed-btn' + ` ${this.fixedPosition}`
+      if (this.localOptions.fixed) {
+        this.localOptions.className = this.localOptions.className + ' fixed-btn' + ` ${this.localOptions.fixedPosition}`
       }
     },
     scrollToElement(className) {

@@ -3,7 +3,7 @@ import { Cart } from 'src/models/Cart.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import CookieCart from 'src/assets/js/CookieCart.js'
 
-export function addToCart (context, newProductData) {
+export function addToCart(context, newProductData) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     const payload = {
@@ -20,7 +20,16 @@ export function addToCart (context, newProductData) {
             timeout: 5000,
             position: 'top',
             message: 'محصول به سبد خرید اضافه شد.',
-            icon: 'report_problem'
+            icon: 'report_problem',
+            actions: [{
+              label: 'سبد خرید',
+              icon: 'isax:shopping-cart',
+              color: 'white',
+              class: 'bg-green-3',
+              handler: () => {
+                this.$router.push({ name: 'Public.Checkout.Review' })
+              }
+            }]
           })
           resolve(response)
         })
@@ -36,7 +45,7 @@ export function addToCart (context, newProductData) {
   })
 }
 
-export function reviewCart (context) {
+export function reviewCart(context) {
   const isUserLogin = this.getters['Auth/isUserLogin']
   const currentCart = this.getters['Cart/cart']
   const cartItems = []
@@ -101,7 +110,7 @@ export function reviewCart (context) {
   // })
 }
 
-export function paymentCheckout (context) {
+export function paymentCheckout(context) {
   return new Promise((resolve, reject) => {
     APIGateway.cart.getPaymentRedirectEncryptedLink()
       .then(encryptedPaymentRedirectLink => {
@@ -113,7 +122,7 @@ export function paymentCheckout (context) {
   })
 }
 
-export function removeItemFromCart (context, orderProductId) {
+export function removeItemFromCart(context, orderProductId) {
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
     if (isUserLogin) {
@@ -142,7 +151,7 @@ export function removeItemFromCart (context, orderProductId) {
   })
 }
 
-export function deleteList (context) {
+export function deleteList(context) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   const cart = context.getters.cart
 

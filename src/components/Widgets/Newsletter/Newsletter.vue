@@ -18,18 +18,22 @@
                    animated>
           <q-step :name="'signup'"
                   title="signup">
-            <signup-step @gotoNextStep="gotoNextStep" />
+            <signup-step @goto-next-step="gotoNextStep"
+                         @update-user="updateUser($event)" />
           </q-step>
           <q-step v-if="verification"
                   :name="'verification'"
                   title="verification">
-            <verification-step @gotoNextStep="gotoNextStep"
-                               @gotoPrevStep="gotoPrevStep" />
+            <verification-step :userInfo="userForm"
+                               @update-user="updateUser($event)"
+                               @goto-next-step="gotoNextStep"
+                               @goto-prev-step="gotoPrevStep" />
           </q-step>
           <q-step :name="'info'"
                   title="info">
-            <info-completion :options="options.userInputs"
-                             @gotoPrevStep="gotoPrevStep" />
+            <info-completion :options="localOptions.userInputs"
+                             :userInfo="userForm"
+                             @toggle-dialog="toggleDialog" />
           </q-step>
         </q-stepper>
       </q-card-section>
@@ -38,9 +42,10 @@
 </template>
 
 <script>
-import SignupStep from './SignupStep.vue'
-import VerificationStep from './VerificationStep.vue'
-import InfoCompletion from './InfoCompletion.vue'
+import SignupStep from './components/SignupStep.vue'
+import VerificationStep from './components/VerificationStep.vue'
+import InfoCompletion from './components/InfoCompletion.vue'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'SignupModal',
@@ -49,36 +54,31 @@ export default {
     VerificationStep,
     InfoCompletion
   },
-  props: {
-    options: {
-      type: Object,
-      default: () => {}
-    }
-  },
+  mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
       dialog: false,
-      eventName: '',
+      userForm: {
+        mobile: null,
+        code: null
+      },
       step: 'signup',
-      verification: true
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
+      defaultOptions: {
+        eventName: 'newsletter',
+        verification: true,
+        userInputs: {
+          first_name: true,
+          last_name: true,
+          major: true,
+          grade: true
+        }
       }
     }
   },
   mounted() {
-    this.loadConfig()
-    this.$bus.on(this.eventName, this.toggleDialog)
+    this.$bus.on(this.localOptions.eventName, this.toggleDialog)
   },
   methods: {
-    loadConfig() {
-      this.verification = this.options.verification
-      this.eventName = this.options.eventName ? this.options.eventName : 'newsletter'
-    },
     toggleDialog() {
       this.dialog = !this.dialog
     },
@@ -87,6 +87,9 @@ export default {
     },
     gotoPrevStep() {
       this.$refs.stepper.previous()
+    },
+    updateUser(userInfo) {
+      this.userForm = userInfo
     }
   }
 }

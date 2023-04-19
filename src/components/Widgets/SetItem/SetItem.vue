@@ -108,7 +108,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  //width: 318px;
   margin-bottom: 10px;
   position: relative;
   border-radius: 20px;
