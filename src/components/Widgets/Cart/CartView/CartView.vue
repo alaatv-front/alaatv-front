@@ -369,7 +369,7 @@ export default {
   font-size: 14px;
   line-height: 22px;
   color: #6D708B;
-  margin: 24px 0 22px 0;
+  margin: 24px 0 24px 0;
 
   @media screen and (max-width: 1439px) {
     letter-spacing: -0.03em;
