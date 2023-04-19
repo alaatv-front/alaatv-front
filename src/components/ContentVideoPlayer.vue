@@ -105,6 +105,9 @@ export default {
     content(newValue) {
       this.playerKey = Date.now()
       this.currentContent = newValue
+      if (!this.currentContent.can_user_use_timepoint) {
+        this.currentContent.timepoints.removeAllTimes()
+      }
     }
   },
   beforeUnmount() {
