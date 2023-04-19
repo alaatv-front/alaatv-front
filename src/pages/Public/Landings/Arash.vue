@@ -452,23 +452,25 @@ export default {
                                   justifyContent: 'flex-start'
                                 }
                               },
-                              data: [{
-                                type: 'ProductList',
-                                options: {
-                                  label: 'آرش',
-                                  rowLayout: 'ScrollRow',
-                                  labelStyle: {
-                                    color: '#FB4D7A',
-                                    fontSize: '28px',
-                                    textAlign: 'center'
-                                  }
-                                },
-                                data: [
-                                  980,
-                                  979,
-                                  978
-                                ]
-                              }]
+                              data: [
+                                {
+                                  type: 'ProductList',
+                                  options: {
+                                    label: 'آرش',
+                                    layout: 'ScrollRow',
+                                    labelStyle: {
+                                      color: '#FB4D7A',
+                                      fontSize: '28px',
+                                      textAlign: 'center'
+                                    }
+                                  },
+                                  data: [
+                                    980,
+                                    979,
+                                    978
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }
@@ -626,7 +628,7 @@ export default {
                                 type: 'ProductList',
                                 options: {
                                   label: 'آرش و تفتان',
-                                  rowLayout: 'ScrollRow',
+                                  layout: 'ScrollRow',
                                   labelStyle: {
                                     color: '#FB4D7A',
                                     fontSize: '28px',
@@ -798,7 +800,7 @@ export default {
                                   type: 'ProductList',
                                   options: {
                                     label: 'تفتان',
-                                    rowLayout: 'ScrollRow',
+                                    layout: 'ScrollRow',
                                     labelStyle: {
                                       color: '#FB4D7A',
                                       fontSize: '28px',
@@ -1037,7 +1039,7 @@ export default {
                                       type: 'ProductList',
                                       options: {
                                         label: 'آرش',
-                                        rowLayout: 'ScrollRow'
+                                        layout: 'ScrollRow'
                                       },
                                       data: [
                                         980,
@@ -1050,7 +1052,7 @@ export default {
                                       type: 'ProductList',
                                       options: {
                                         label: 'آرش و تایتان',
-                                        rowLayout: 'ScrollRow'
+                                        layout: 'ScrollRow'
                                       },
                                       data: [
                                         980,
@@ -1063,7 +1065,7 @@ export default {
                                       type: 'ProductList',
                                       options: {
                                         label: 'تایتان',
-                                        rowLayout: 'ScrollRow'
+                                        layout: 'ScrollRow'
                                       },
                                       data: [
                                         980,
@@ -1096,7 +1098,7 @@ export default {
                                       type: 'ProductList',
                                       options: {
                                         label: 'آرش',
-                                        rowLayout: 'ScrollRow'
+                                        layout: 'ScrollRow'
                                       },
                                       data: [
                                         980,
@@ -1109,7 +1111,7 @@ export default {
                                       type: 'ProductList',
                                       options: {
                                         label: 'آرش و تایتان',
-                                        rowLayout: 'ScrollRow'
+                                        layout: 'ScrollRow'
                                       },
                                       data: [
                                         980,
@@ -1122,7 +1124,7 @@ export default {
                                       type: 'ProductList',
                                       options: {
                                         label: 'تایتان',
-                                        rowLayout: 'ScrollRow'
+                                        layout: 'ScrollRow'
                                       },
                                       data: [
                                         980,

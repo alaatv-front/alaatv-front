@@ -2468,7 +2468,7 @@ export default {
                               options: {
                                 layout: 'ProductTab',
                                 style: {
-                                  padding: '40px 0px 16px 10px'
+                                  padding: '10px 0px 16px 10px'
                                 },
                                 activeColor: 'primary',
                                 activeBgColor: 'white',
@@ -2485,7 +2485,13 @@ export default {
                                     {
                                       type: 'ProductList',
                                       options: {
-                                        rowLayout: 'ScrollRow',
+                                        label: 'محصولات ویژه',
+                                        labelStyle: {
+                                          color: '#FB4D7A',
+                                          fontSize: '28px',
+                                          textAlign: 'center'
+                                        },
+                                        layout: 'ScrollRow',
                                         style: {
                                           background: '#F9F4EF',
                                           padding: '5px',
@@ -2502,7 +2508,7 @@ export default {
                                     {
                                       type: 'ProductList',
                                       options: {
-                                        rowLayout: 'ScrollRow'
+                                        layout: 'ScrollRow'
                                       },
                                       data: [
                                         983,
@@ -2514,16 +2520,24 @@ export default {
                                   ]
                                 },
                                 {
-                                  type: 'ProductList',
+                                  type: 'GroupList',
                                   options: {
                                     label: 'تجربی',
-                                    rowLayout: 'ScrollRow'
+                                    layout: 'ProductShelf'
                                   },
                                   data: [
-                                    983,
-                                    981,
-                                    980,
-                                    979
+                                    {
+                                      type: 'ProductList',
+                                      options: {
+                                        layout: 'ScrollRow'
+                                      },
+                                      data: [
+                                        983,
+                                        981,
+                                        980,
+                                        979
+                                      ]
+                                    }
                                   ]
                                 }
                               ]
