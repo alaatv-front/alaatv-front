@@ -299,15 +299,6 @@ export default {
   },
   mounted () {
     this.loadAuthData()
-    if (this.isAdmin) {
-      this.headerItems.push({
-        selected: 'adminPanel',
-        title: 'پنل ادمین',
-        routeName: 'Admin.UploadCenter.Contents',
-        permission: 'all',
-        children: []
-      })
-    }
   },
   methods: {
     filterByStatement() {
