@@ -48,13 +48,12 @@ export default {
   },
   computed: {
     shahrValues() {
-      const selectedProvinceId = this.localInputs[1]?.value[6]?.value?.id
-      return this.cities.filter(city => city.province.id === selectedProvinceId)
+      return this.cities.filter(city => city.province.id === this.$refs.entityEdit.getInputsByName('province').value?.id)
     }
   },
   watch: {
     shahrValues(newValue) {
-      this.localInputs[1].value[5].options = newValue
+      this.$refs.entityEdit.getInputsByName('city').options = newValue
     }
   },
   mounted() {
@@ -69,13 +68,14 @@ export default {
   methods: {
     beforeGetData() {
       APIGateway.user.formData()
-        .then((response) => {
+        .then((formData) => {
           // edit entity
-          this.localInputs[2].value[1].options = response.grades
-          this.localInputs[2].value[2].options = response.majors
-          this.localInputs[1].value[4].options = response.genders
-          this.cities = response.cities
-          this.localInputs[1].value[6].options = response.provinces
+          this.$refs.entityEdit.setInputAttributeByName('gender', 'options', formData.genders)
+          this.$refs.entityEdit.setInputAttributeByName('province', 'options', formData.provinces)
+          this.$refs.entityEdit.setInputAttributeByName('grade', 'options', formData.grades)
+          this.$refs.entityEdit.setInputAttributeByName('major', 'options', formData.majors)
+          this.cities = formData.cities
+          // this.selectedProvinceId = this.localInputs[1].value[6].value?.id
         })
         .catch(() => {})
     },
@@ -93,7 +93,7 @@ export default {
       d.postal_code = Number(d.postal_code)
       d.grade_id = d.grade ? d.grade.id : null
       d.major_id = d.major ? d.major.id : null
-      if (!this.localInputs[1].value[4].disable) {
+      if (!this.$refs.entityEdit.getInputsByName('gender').disable) {
         d.gender_id = d.gender.id
       }
     },

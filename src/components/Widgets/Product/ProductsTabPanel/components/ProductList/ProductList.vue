@@ -1,7 +1,7 @@
 <template>
   <div :style="options.style"
        :class="options.className">
-    <component :is="options.rowLayout"
+    <component :is="options.layout"
                :loading="loading"
                :data="data"
                :options="options" />
