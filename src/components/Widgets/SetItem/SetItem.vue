@@ -14,7 +14,6 @@
           <div class="flex pop-up">
             <div class="tv" />
             <span class="title">
-              <!--              ریاضی کنکور-->
               {{ set.short_title }}
             </span>
           </div>
