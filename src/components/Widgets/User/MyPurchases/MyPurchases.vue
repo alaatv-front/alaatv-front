@@ -63,7 +63,7 @@
       <div class="q-px-xs-none row justify-center items-center">
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
-             class="col-12 col-sm-6 col-lg-4 flex justify-center">
+             class="col-12 col-sm-6 col-md-4 col-lg-4 flex justify-center">
           <div class="q-ma-md-md q-mb-sm-md q-ma-sm-md q-ma-none">
             <product-item :options="{
                             canAddToCart: false,
