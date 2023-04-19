@@ -218,9 +218,12 @@ export default {
       this.set.loading = true
       this.$apiGateway.set.show(this.set.id)
         .then((set) => {
-          this.set = set
-          this.sections = this.getSplitedContentsToSections(this.set.contents)
-          this.set.loading = false
+          this.$apiGateway.set.getContents(set.id).then((contents) => {
+            this.set = set
+            this.set.contents = contents
+            this.sections = this.getSplitedContentsToSections(this.set.contents)
+            this.set.loading = false
+          })
         })
         .catch(() => {
           this.set.loading = false
