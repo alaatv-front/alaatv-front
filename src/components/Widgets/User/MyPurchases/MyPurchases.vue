@@ -39,7 +39,7 @@
                  filled
                  class="form-control m-input m-input--air"
                  placeholder="جستجو ..."
-                 @keydown.enter="filterProductBySearchInput">
+                 @keydown.enter="sortProducts">
           <template v-slot:append>
             <q-icon v-if="searchTarget !== ''"
                     name="close"
@@ -53,7 +53,7 @@
                    unelevated
                    color="primary"
                    icon="search"
-                   @click="filterProductBySearchInput" />
+                   @click="sortProducts" />
           </template>
         </q-input>
       </div>
@@ -207,10 +207,6 @@ export default {
     filterProduct () {
       this.filterProductByCategory()
       this.sortProducts()
-    },
-    async filterProductBySearchInput () {
-      await this.setPurchasedProducts()
-      this.filteredProduct = this.products
     },
     filterProductByCategory () {
       const newList = this.products.list.filter(product => product.category === this.selectedFilterCategoryValue || this.selectedFilterCategoryValue === 'all')
