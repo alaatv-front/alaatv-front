@@ -221,7 +221,7 @@ export default {
     },
 
     setFirstContentsShow() {
-      if (this.products.list.length === 0 || this.products.list[0].sets.list.length === 0) {
+      if ((this.products.list.length === 0 && this.products.list[0]) || this.products.list[0].sets.list.length === 0) {
         return
       }
       const firstSet = this.products.list[0].sets.list[0]
