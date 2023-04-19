@@ -63,15 +63,16 @@
       <div class="q-px-xs-none row justify-center items-center">
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
-             class="col-12 col-sm-6 col-md-auto col-lg-auto q-ma-md-md q-mb-sm-md flex justify-center">
-          <product-item class="product-item"
-                        :options="{
-                          canAddToCart: false,
-                          showPrice: false,
-                          product,
-                          routeToProduct: false
-                        }"
-                        @click="productItemClicked(product)" />
+             class="col-12 col-sm-6 col-lg-4 flex justify-center">
+          <div class="q-ma-md-md q-mb-sm-md q-ma-sm-md q-ma-none">
+            <product-item :options="{
+                            canAddToCart: false,
+                            showPrice: false,
+                            product,
+                            routeToProduct: false
+                          }"
+                          @click="productItemClicked(product)" />
+          </div>
         </div>
       </div>
       <pagination :meta="productPaginationMeta"
@@ -282,16 +283,6 @@ export default {
   @media screen and (max-width: 1023px) {
     min-width: 320px;
     padding: 20px;
-  }
-}
-
-.product-item {
-  width: 245px;
-  @media screen and (max-width: 1024px) {
-    width: 300px;
-  }
-  @media screen and (max-width: 790px) {
-    margin: 15px;
   }
 }
 
