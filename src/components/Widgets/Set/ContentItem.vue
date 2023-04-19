@@ -20,12 +20,11 @@
     </div>
     <div class="content-item-meta q-pr-lg">
       <template v-if="content.isVideo()">
-        <div class="content-item-meta-updated-at">
+        <div :class="{'content-item-meta-updated-at': this.doesHaveDuration(content.duration)}">
           {{ getShamsiDate(content.updated_at.split(' ')[0], false) }}
         </div>
         <div class="content-item-meta-time">
-          {{ getContentDuration(content.duration) }}
-          دقیقه
+          {{ getContentDurationTitle(content.duration)}}
         </div>
       </template>
       <template v-else>
@@ -106,8 +105,14 @@ export default {
     getContentBookmarkBaseRoute(id) {
       return API_ADDRESS.content.show(id)
     },
-    getContentDuration (duration) {
-      return Math.floor(duration / 60)
+    getContentDurationTitle (duration) {
+      if (!this.doesHaveDuration(duration)) {
+        return
+      }
+      return Math.floor(duration / 60) + ' دقیقه'
+    },
+    doesHaveDuration(duration) {
+      return !!duration
     },
     getShamsiDate (date) {
       return moment(date, 'YYYY/M/D').locale('fa').format('jD jMMMM jYYYY')
