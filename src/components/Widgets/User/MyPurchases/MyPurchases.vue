@@ -245,9 +245,9 @@ export default {
     getContentsData (set) {
       this.selectedSet.loading = true
       this.selectedSet.contents.clear()
-      this.getSelectedSetContents(set.id).then((contentResponse) => {
+      this.getSelectedSetContents(set.id).then((contents) => {
         this.selectedSet = set
-        this.selectedSet.contents.list = contentResponse.list
+        this.selectedSet.contents.list = contents.list
         this.selectedSet.loading = false
       })
         .catch(() => {
