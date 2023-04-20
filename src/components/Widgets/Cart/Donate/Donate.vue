@@ -77,9 +77,9 @@ export default {
           this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-veryHappy.png'
         }
       }
-      this.addDonateToCatr()
+      this.addDonateToCart()
     },
-    addDonateToCatr() {
+    addDonateToCart() {
       this.$store.dispatch('Cart/addToCart', { product_id: 180 })
         .then(() => {
           this.$store.dispatch('Cart/reviewCart')
