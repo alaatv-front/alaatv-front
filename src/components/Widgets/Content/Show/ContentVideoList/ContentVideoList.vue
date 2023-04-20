@@ -33,9 +33,15 @@
                  :class="{current: isCurrent(content)}">
               <div class="row content-show">
                 <div class="col-1 q-mr-sm">
-                  <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}"><q-icon name="isax:play-circle"
-                                                                                                     :color="isCurrent(content) ? 'primary' : ''"
-                                                                                                     size="sm" />
+                  <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}">
+                    <q-icon v-if="content.type === 8"
+                            name="isax:play-circle"
+                            :color="isCurrent(content) ? 'primary' : ''"
+                            size="sm" />
+                    <q-icon v-else
+                            name="isax:book-1"
+                            :color="isCurrent(content) ? 'primary' : ''"
+                            size="sm" />
                   </router-link>
                 </div>
                 <div class="col-10">
