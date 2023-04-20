@@ -76,7 +76,13 @@
                    rounded
                    size="12px"
                    class="action-btn"
-                   :to="{name: 'Public.Checkout.Review'}" />
+                   :to="{name: 'Public.Checkout.Review'}">
+              <q-badge color="primary"
+                       floating
+                       rounded>
+                {{cartCount}}
+              </q-badge>
+            </q-btn>
           </div>
           <q-btn v-if="isUserLogin"
                  flat
@@ -259,6 +265,9 @@ export default {
     }
   },
   computed: {
+    cartCount() {
+      return this.$store.getters['Cart/cart'].count
+    },
     showHamburger () {
       return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
     },
