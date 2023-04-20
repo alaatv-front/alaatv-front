@@ -33,7 +33,7 @@
             align="left">
       <q-tab name="info"
              label="توضیحات" />
-      <q-tab v-if="content.file?.pamphlet"
+      <q-tab v-if="hasPamphlet()"
              name="pamphlets"
              label="جزوات" />
     </q-tabs>
@@ -136,6 +136,9 @@ export default {
     this.loadContent()
   },
   methods: {
+    hasPamphlet() {
+      return this.content.file.pamphlet && this.content.file.pamphlet.length > 0
+    },
     handleContentBookmark () {
       this.bookmarkLoading = true
       if (this.content.is_favored) {
@@ -175,6 +178,7 @@ export default {
       APIGateway.content.show(contentId)
         .then((response) => {
           this.content = new Content(response)
+          console.log(this.content)
           this.content.loading = false
         })
         .catch(() => {
