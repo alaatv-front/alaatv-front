@@ -22,9 +22,9 @@
           </div>
         </template>
         <template v-else>
-          <!--          <div class="q-mb-md">-->
-          <!--            <donate />-->
-          <!--          </div>-->
+          <div class="q-mb-md">
+            <donate />
+          </div>
           <q-card class="invoice-cart">
             <q-card-section class="invoice-total-price-section invoice-cart-section">
               <div v-if="localOptions.hasTotalPrice"
@@ -263,7 +263,7 @@
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-// import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import AuthLogin from 'components/Auth.vue'
 
 let StickySidebar
@@ -276,7 +276,7 @@ if (typeof window !== 'undefined') {
 
 export default {
   name: 'CartInvoice',
-  components: { AuthLogin },
+  components: { AuthLogin, Donate },
   mixins: [mixinWidget],
   // provide() {
   //   return {
@@ -422,8 +422,8 @@ export default {
           this.isCouponSet = true
           Notify.create({
             message: 'کد تخفیف با موفقیت اعمال شد',
-            type: 'negative',
-            color: 'negative'
+            type: 'positive',
+            color: 'positive'
           })
         })
         .catch(err => {

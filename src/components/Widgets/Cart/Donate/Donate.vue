@@ -1,6 +1,5 @@
 <template>
-  <div class="donate bg-white"
-       :style="options.style">
+  <div class="donate bg-white">
     <p>کمک مالی به آلاء</p>
     <q-separator />
     <div class="row q-my-md text-center reverse-wrap">
@@ -46,16 +45,19 @@ export default {
   data() {
     return {
       helpAlaa: false,
-      donateCost: [{
-        cost: 5000,
-        isActive: false
-      }, {
-        cost: 10000,
-        isActive: false
-      }, {
-        cost: 20000,
-        isActive: false
-      }],
+      donateCost: [
+        {
+          cost: 5000,
+          isActive: false
+        }
+        // {
+        //   cost: 10000,
+        //   isActive: false
+        // }, {
+        //   cost: 20000,
+        //   isActive: false
+        // }
+      ],
       src: 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
     }
   },
@@ -75,6 +77,14 @@ export default {
           this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-veryHappy.png'
         }
       }
+      this.addDonateToCatr()
+    },
+    addDonateToCatr() {
+      this.$store.dispatch('Cart/addToCart', { product_id: 180 })
+        .then(() => {
+          this.$store.dispatch('Cart/reviewCart')
+        })
+        .catch(() => {})
     }
   }
 }
