@@ -54,12 +54,14 @@
              class="row">
           <p class="col-1 q-mt-sm text-center">تگ ها</p>
           <div class="col q-pl-sm">
-            <q-badge v-for="badge in content.tags"
-                     :key="badge"
-                     class="q-pa-sm q-ml-sm q-mb-sm"
-                     color="primary">
-              {{badge}}
-            </q-badge>
+            <router-link v-for="badge in content.tags"
+                         :key="badge"
+                         :to="{name: 'Public.Content.Search', query: {'tags[]': badge } }">
+              <q-badge class="q-pa-sm q-ml-sm q-mb-sm"
+                       color="primary">
+                {{badge}}
+              </q-badge>
+            </router-link>
           </div>
         </div>
       </q-tab-panel>
