@@ -1,14 +1,14 @@
-import APIRepository from '../classes/APIRepository'
+import APIRepository from '../classes/APIRepository.js'
 import { apiV2 } from 'src/boot/axios'
-import { LiveDescription, LiveDescriptionList } from 'src/models/LiveDescription'
+import { LiveDescription, LiveDescriptionList } from 'src/models/LiveDescription.js'
 
-export default class StudyPlanAPI extends APIRepository {
+export default class LiveDescriptionAPI extends APIRepository {
   constructor() {
     super('liveDescription', apiV2, '/liveDescription', new LiveDescription())
     this.APIAdresses = {
       liveDescription: '/livedescription',
       pinedNews: '/livedescription/getPined',
-      observedLiveDescription: (id) => '/livedescription' + id + '/seen'
+      observedLiveDescription: (id) => '/livedescription/' + id + '/seen'
     }
     this.CacheList = {
       liveDescription: this.name + this.APIAdresses.liveDescription,
@@ -61,7 +61,8 @@ export default class StudyPlanAPI extends APIRepository {
       request: this.APIAdresses.observedLiveDescription(id),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response
+        // todo : response.data is unknown due to no available responses
+        return response.data
       },
       rejectCallback: (error) => {
         return error

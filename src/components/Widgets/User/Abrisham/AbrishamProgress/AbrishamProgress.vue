@@ -264,7 +264,13 @@ export default {
     async getLessonGroups() {
       this.lnssonGroupsLoading = true
       try {
-        return this.$apiGateway.abrisham.getLessons()
+        const lessonList = await this.$apiGateway.abrisham.getLessons()
+        return lessonList.map((item) => {
+          return {
+            title: item.title,
+            lessons: item.lessons.list
+          }
+        })
       } catch {
         this.lnssonGroupsLoading = true
         return []

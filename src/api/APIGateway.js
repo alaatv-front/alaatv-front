@@ -18,6 +18,7 @@ import StudyPlanAPI from 'src/api/models/studyPlan.js'
 import PageSettingAPI from 'src/api/models/PageSetting.js'
 import ReferralCodeAPI from 'src/api/models/ReferralCode.js'
 import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
+import LiveDescriptionAPI from 'src/api/models/LiveDescription.js'
 import PlanAPI from 'src/api/models/Plan.js'
 
 /* Exporting the APIGateway object. */
@@ -40,6 +41,7 @@ export const APIGateway = {
   abrisham: new AbrishamAPI(),
   attribute: new AttributeAPI(),
   studyPlan: new StudyPlanAPI(),
+  liveDescription: new LiveDescriptionAPI(),
   pageSetting: new PageSettingAPI(),
   referralCode: new ReferralCodeAPI(),
   contentTimepoint: new ContentTimepointAPI()

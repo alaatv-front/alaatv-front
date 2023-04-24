@@ -345,8 +345,12 @@ export default {
     },
 
     async loadContentsColor () {
-      const lessonGroups = await this.$apiGateway.abrisham.getLessons()
-
+      const lessonGroups = await this.$apiGateway.abrisham.getLessons().map((item) => {
+        return {
+          title: item.title,
+          lessons: item.lessons.list
+        }
+      })
       this.setContentsColor(this.contents, lessonGroups)
     },
 

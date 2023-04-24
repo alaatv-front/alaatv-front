@@ -2,19 +2,13 @@ import { Collection, Model } from 'js-abstract-model'
 class AbrishamLesson extends Model {
   constructor (data) {
     super(data, [
+      { key: 'id' },
       { key: 'title' },
       {
-        key: 'lessons',
-        default: [
-          {
-            id: 0,
-            title: '',
-            color: '',
-            selected: false
-          }
-        ]
+        key: 'selected',
+        default: false
       },
-      { key: 'id' }
+      { key: 'color' }
     ])
   }
 }

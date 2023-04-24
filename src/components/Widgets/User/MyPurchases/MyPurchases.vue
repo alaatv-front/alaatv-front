@@ -60,19 +60,22 @@
     </div>
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
     <div class="col-12 productsCol q-pa-sm-sm q-pa-xs-xs">
-      <div class="q-px-xs-none row justify-center items-center">
+      <div class="q-px-xs-none row justify-center items-center full-width">
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
              class="col-12 col-sm-6 col-md-4 col-lg-4 flex justify-center">
-          <div class="q-ma-md-md q-mb-sm-md q-ma-sm-md q-ma-none">
-            <product-item :options="{
-                            canAddToCart: false,
-                            showPrice: false,
-                            product,
-                            routeToProduct: false
-                          }"
-                          @click="productItemClicked(product)" />
-          </div>
+          <!--          <div class="q-ma-md-md q-mb-sm-md q-ma-sm-md q-ma-none">-->
+          <product-item :options="{
+                          canAddToCart: false,
+                          showPrice: false,
+                          product,
+                          style: {
+                            width:'100%'
+                          },
+                          routeToProduct: false
+                        }"
+                        @click="productItemClicked(product)" />
+          <!--          </div>-->
         </div>
       </div>
       <pagination :meta="productPaginationMeta"
@@ -221,7 +224,7 @@ export default {
     },
 
     setFirstContentsShow() {
-      if ((this.products.list.length === 0 && this.products.list[0]) || this.products.list[0].sets.list.length === 0) {
+      if ((this.products.list.length === 0 && this.products.list[0]) || this.products.list[0]?.sets?.list.length !== 0) {
         return
       }
       const firstSet = this.products.list[0].sets.list[0]
