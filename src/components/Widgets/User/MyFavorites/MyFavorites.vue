@@ -116,7 +116,10 @@
                   <div v-for="favoredItem in contentFavoreds.list"
                        :key="favoredItem.id"
                        class="col-12 col-md-4 content-item">
-                    <content-item :options="{content: favoredItem}" />
+                    <content-item :options="{
+                      content: favoredItem,
+                      showDownloadMenu: true
+                    }" />
                   </div>
                 </div>
                 <div v-if="contentPaginationLastPage > 1"
@@ -266,7 +269,6 @@ export default {
         ...(searchTitle !== undefined && { search: searchTitle })
       })
         .then(({ favoredList, paginate }) => {
-          console.log('favoredList', favoredList)
           this.contentFavoreds = favoredList
           this.contentPaginationMeta = paginate
           this.contentFavoredsPage = paginate.current_page

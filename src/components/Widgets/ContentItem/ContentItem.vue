@@ -34,21 +34,26 @@
                 :is-favored="options.content.is_favored"
                 :loading="bookmarkLoading"
                 @clicked="handleContentBookmark" />
-      {{logger(localOptions.content)}}
       <q-btn v-if="localOptions.showDownloadMenu && localOptions.content.file?.video"
-             color="primary"
-             label="Basic Menu">
+             class="content-item-more-btn"
+             flat
+             :class="{'has-bookmark':defaultOptions.showBookmark}"
+             icon="isax:more-circle">
+        <q-tooltip anchor="top middle"
+                   self="bottom middle"
+                   :offset="[10, 10]">
+          دانلود محتوا
+        </q-tooltip>
         <q-menu>
           <q-list>
-            <q-item v-close-popup
-                    clickable />
-            <q-item v-for="(item, index) in localOptions.file.video"
+            <q-item v-for="(item, index) in localOptions.content.file.video"
                     :key="index"
                     v-close-popup
                     clickable
                     class="route-link"
-                    @click="takeAction(item)">
-              <q-item-section>{{ item.label }}</q-item-section>
+                    target="_blank"
+                    :href="item.link + (item.link.includes('?') ? '' : '?') +'download=1'">
+              <q-item-section> دانلود فایل با {{ item.caption }}</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
@@ -86,7 +91,7 @@ export default {
       content: new Content(),
       showSetTitle: false,
       showBookmark: false,
-      showDownloadMenu: true,
+      showDownloadMenu: false,
       routeToContent: true
     }
   }),
@@ -117,9 +122,6 @@ export default {
     }
   },
   methods: {
-    logger(data) {
-      console.log('data', data)
-    },
     handleContentBookmark (value) {
       this.bookmarkLoading = true
       if (this.bookmarkValue) {
@@ -191,6 +193,15 @@ export default {
     right: -18px;
     top: -24px;
 
+  }
+
+  .content-item-more-btn {
+    position: absolute;
+    top: -13px;
+    right: -4px;
+    &.has-bookmark {
+      right: 28px;
+    }
   }
 
   .content-item-router-link {
