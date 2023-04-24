@@ -59,12 +59,11 @@
       </div>
     </div>
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
-    <div class="col-12 productsCol q-pa-sm-sm q-pa-xs-xs">
-      <div class="q-px-xs-none row justify-center items-center full-width">
+    <div class="col-12 productsCol q-mt-md q-px-xs-md q-px-none">
+      <div class="row justify-center items-center q-gutter-sm-lg">
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
-             class="col-12 col-sm-6 col-md-4 col-lg-4 flex justify-center">
-          <!--          <div class="q-ma-md-md q-mb-sm-md q-ma-sm-md q-ma-none">-->
+             class="col-12 col-sm-4 col-md-3">
           <product-item :options="{
                           canAddToCart: false,
                           showPrice: false,
@@ -75,7 +74,6 @@
                           routeToProduct: false
                         }"
                         @click="productItemClicked(product)" />
-          <!--          </div>-->
         </div>
       </div>
       <pagination :meta="productPaginationMeta"
