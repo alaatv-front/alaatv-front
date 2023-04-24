@@ -209,6 +209,7 @@ export default {
 .product-item-box {
   display: flex;
   flex-direction: column;
+  width: 100%;
   //height: 100%;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -598,7 +599,7 @@ export default {
   @media screen and (max-width: 600px){
     flex-direction: row;
     padding: 10px;
-    width: 300px;
+    width: 100%;
     .img-box{
       a{
         .img{
