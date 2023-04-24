@@ -1,6 +1,4 @@
 <template>
-  <!--  <component :is="item.options.layout + 'OptionPanel'"-->
-  <!--             :data="item.data" />-->
   <div v-if="localItem.options.layout === 'ProductShelf'">
     <product-shelf-option-panel :data="localItem.data"
                                 :options="localItem.options" />
@@ -12,7 +10,6 @@
 </template>
 
 <script>
-// import { defineAsyncComponent } from 'vue'
 import productShelfOptionPanel from 'components/Widgets/Product/ProductsTabPanel/GroupListOptionPanel/ProductShelfOptionPanel.vue'
 import ProductTabOptionPanel from 'components/Widgets/Product/ProductsTabPanel/GroupListOptionPanel/ProductTabOptionPanel.vue'
 
@@ -21,8 +18,6 @@ export default {
   components: {
     productShelfOptionPanel,
     ProductTabOptionPanel
-    // ProductShelfOptionPanel: defineAsyncComponent(() => import('./ProductShelfOptionPanel')),
-    // ProductTabOptionPanel: defineAsyncComponent(() => import('./ProductTabOptionPanel'))
   },
   props: {
     data: {

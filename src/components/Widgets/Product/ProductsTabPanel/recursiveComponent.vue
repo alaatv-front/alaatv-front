@@ -1,54 +1,16 @@
 <template>
   <div class="option-panel-container">
-    <div class="row">
-      <div class="col-12">
-        <!--        <q-input v-model="value.style.padding" />-->
-      </div>
-    </div>
     <component :is="value.type.concat('OptionPanel')"
                :item="value" />
   </div>
-  <!--      <div class="row q-gutter-xs justify-center">-->
-  <!--        <q-btn color="positive"-->
-  <!--               class="full-width"-->
-  <!--               label="اضافه کردن تب پنل جدید"-->
-  <!--               @click="addTabPanel" />-->
-  <!--      </div>-->
-  <!--    <q-dialog v-model="productDialog"-->
-  <!--              persistent>-->
-  <!--      <q-card class="custom-card q-ma-md">-->
-  <!--        <product-item class="product-item"-->
-  <!--                      :options="{-->
-  <!--                        productId: dialogProductId-->
-  <!--                      }" />-->
-  <!--        <div class="q-ma-md">-->
-  <!--          <div class="row q-gutter-xs justify-center">-->
-  <!--            <q-btn color="positive"-->
-  <!--                   class="full-width"-->
-  <!--                   label="محصول را اضافه کن"-->
-  <!--                   @click="addProduct(dialogProductId)" />-->
-  <!--            <q-btn color="negative"-->
-  <!--                   class="full-width"-->
-  <!--                   label="بیخیال"-->
-  <!--                   @click="cancelProduct(dialogProductId)" />-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </q-card>-->
-  <!--    </q-dialog>-->
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue'
-// import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
-// import GroupListOptionPanel from 'components/Widgets/Product/ProductsTabPanel/GroupListOptionPanel/GroupListOptionPanel.vue'
-// import ProductListOptionPanel from 'components/Widgets/Product/ProductsTabPanel/ProductListOptionPanel/ProductListOptionPanel.vue'
 
 export default {
   name: 'component',
   components: {
-    // ProductItem,
-    // GroupListOptionPanel,
-    // ProductListOptionPanel
     GroupListOptionPanel: defineAsyncComponent(() => import('./GroupListOptionPanel/GroupListOptionPanel.vue')),
     ProductListOptionPanel: defineAsyncComponent(() => import('./ProductListOptionPanel/ProductListOptionPanel.vue'))
   },
@@ -72,24 +34,14 @@ export default {
       set(value) {
         this.$emit('update:options', value)
       }
-    },
-    item: {
-      get() {
-        return this.data
-      },
-      set(newVal) {
-        this.$emit('update:data', newVal)
-      }
     }
   },
   watch: {
-    // localOptions: {
-    //   handler(newVal) {
-    //     console.log(newVal)
-    //     this.$emit('update:options', newVal)
-    //   },
-    //   deep: true
-    // }
+    value: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      }
+    }
   },
   methods: {
     removeProduct (id, tabIndex, isSpecial = false) {

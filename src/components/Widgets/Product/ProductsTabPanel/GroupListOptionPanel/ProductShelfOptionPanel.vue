@@ -38,7 +38,6 @@
 </template>
 
 <script>
-// import recursiveComponent from 'components/Widgets/Product/ProductsTabPanel/recursiveComponent.vue'
 import { defineAsyncComponent } from 'vue'
 
 export default {
