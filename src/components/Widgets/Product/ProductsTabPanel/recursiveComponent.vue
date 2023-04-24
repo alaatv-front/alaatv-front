@@ -5,33 +5,8 @@
         <!--        <q-input v-model="value.style.padding" />-->
       </div>
     </div>
-    <div v-for="(item, index) in options.data"
-         :key="index">
-      <q-card class="custom-card">
-        <q-card-section>
-          <q-expansion-item expand-separator>
-            <template v-slot:header>
-              <q-btn color="negative"
-                     icon="close"
-                     class="q-mr-sm"
-                     @click="removeTabPanel(index)" />
-              <q-input v-model="item.options.label"
-                       autogrow
-                       class="full-width"
-                       label="label" />
-            </template>
-            <div v-if="item.type === 'GroupList'">
-              <group-list-option-panel :item="item" />
-            </div>
-            <div v-else>
-              <product-list-option-panel :item="item" />
-            </div>
-          </q-expansion-item>
-        </q-card-section>
-      </q-card>
-      <!--    <component :is="item.type.concat('OptionPanel')"-->
-      <!--               :item="item" />-->
-    </div>
+    <component :is="value.type.concat('OptionPanel')"
+               :item="value" />
   </div>
   <!--      <div class="row q-gutter-xs justify-center">-->
   <!--        <q-btn color="positive"-->
@@ -63,19 +38,19 @@
 </template>
 
 <script>
-// import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from 'vue'
 // import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
-import GroupListOptionPanel from 'components/Widgets/Product/ProductsTabPanel/GroupListOptionPanel/GroupListOptionPanel.vue'
-import ProductListOptionPanel from 'components/Widgets/Product/ProductsTabPanel/ProductListOptionPanel/ProductListOptionPanel.vue'
+// import GroupListOptionPanel from 'components/Widgets/Product/ProductsTabPanel/GroupListOptionPanel/GroupListOptionPanel.vue'
+// import ProductListOptionPanel from 'components/Widgets/Product/ProductsTabPanel/ProductListOptionPanel/ProductListOptionPanel.vue'
 
 export default {
   name: 'component',
   components: {
     // ProductItem,
-    GroupListOptionPanel,
-    ProductListOptionPanel
-    // GroupListOptionPanel: defineAsyncComponent(() => import('./GroupListOptionPanel/GroupListOptionPanel.vue')),
-    // ProductListOptionPanel: defineAsyncComponent(() => import('./ProductListOptionPanel/ProductListOptionPanel.vue'))
+    // GroupListOptionPanel,
+    // ProductListOptionPanel
+    GroupListOptionPanel: defineAsyncComponent(() => import('./GroupListOptionPanel/GroupListOptionPanel.vue')),
+    ProductListOptionPanel: defineAsyncComponent(() => import('./ProductListOptionPanel/ProductListOptionPanel.vue'))
   },
   props: {
     options: {
@@ -87,12 +62,6 @@ export default {
   },
   data () {
     return {
-      productId: '',
-      currentTabIndex: '',
-      specialProductId: '',
-      isSpecial: false,
-      dialogProductId: '',
-      productDialog: false
     }
   },
   computed: {
@@ -122,9 +91,6 @@ export default {
     //   deep: true
     // }
   },
-  mounted() {
-    console.log(this.value)
-  },
   methods: {
     removeProduct (id, tabIndex, isSpecial = false) {
       const keyName = isSpecial ? 'specialProducts' : 'products'
@@ -144,13 +110,7 @@ export default {
       this.productDialog = true
       this.isSpecial = isSpecial
     },
-    addProduct (id) {
-      const keyName = this.isSpecial ? 'specialProducts' : 'products'
-      this.value.list[this.currentTabIndex][keyName].push(id)
-      this.cancelProduct()
-    },
     cancelProduct () {
-      this.isSpecial = false
       this.productDialog = false
       this.currentTabIndex = ''
       this.specialProductId = ''
