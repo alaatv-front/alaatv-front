@@ -32,6 +32,7 @@ export default {
   },
   mounted () {
     this.cartReview()
+    this.$bus.on('removeProduct', this.cartReview)
   },
   methods: {
     cartReview() {

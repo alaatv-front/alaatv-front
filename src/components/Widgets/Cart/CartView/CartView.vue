@@ -123,11 +123,13 @@
                 <div v-if="order.grand.price"
                      class="price-container col-md-6 col-sm-3">
                   <div class="discount-part">
-                    <div class="discount-percent">
+                    <div v-if="hasDiscount(order)"
+                         class="discount-percent">
                       {{ order.grand.price.discountInPercent() }}%
                     </div>
 
-                    <div class="base-price">
+                    <div v-if="hasDiscount(order)"
+                         class="base-price">
                       {{ order.grand.price.toman('base', null) }}
                     </div>
                   </div>
@@ -294,6 +296,9 @@ export default {
     this.cartReview()
   },
   methods: {
+    hasDiscount(order) {
+      return order.grand.price.discountInPercent() > 0
+    },
     cartReview() {
       this.cart.loading = true
       this.$store.dispatch('Cart/reviewCart')
@@ -369,7 +374,7 @@ export default {
   font-size: 14px;
   line-height: 22px;
   color: #6D708B;
-  margin: 24px 0 22px 0;
+  margin: 24px 0 24px 0;
 
   @media screen and (max-width: 1439px) {
     letter-spacing: -0.03em;
