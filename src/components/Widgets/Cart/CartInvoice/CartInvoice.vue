@@ -77,7 +77,7 @@
 
             <q-card-section v-if="isUserLogin"
                             class="invoice-coupon-section invoice-cart-section">
-              <div v-if="localOptions.hasDiscountPercent"
+              <div v-if="localOptions.hasDiscountPercent && !dense"
                    class="enter-coupon-code">
                 <div class="title">{{localOptions.discountPercent}}</div>
 
@@ -98,7 +98,7 @@
                   </template>
                 </q-input>
               </div>
-              <div v-if="localOptions.hasGiftcard"
+              <div v-if="localOptions.hasGiftcard && !dense"
                    class="enter-coupon-code">
                 <div class="title">{{localOptions.giftcard}}</div>
 
@@ -139,7 +139,7 @@
 
               <div v-if="isUserLogin"
                    class="payment-gateway row">
-                <div v-if="localOptions.hasPaymentMethod">
+                <div v-if="localOptions.hasPaymentMethod && !dense">
                   <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
                   <div v-if="loading"
 
@@ -168,7 +168,8 @@
                   </div>
                 </div>
 
-                <div class="payment-description col-md-12 col-sm-6 col-xs-12">
+                <div v-if="!dense"
+                     class="payment-description col-md-12 col-sm-6 col-xs-12">
 
                   <q-input v-if="localOptions.hasComment"
                            v-model="shoppingDescription"
@@ -289,6 +290,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    dense: {
+      type: Boolean,
+      default: false
     }
   },
   data () {

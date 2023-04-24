@@ -44,7 +44,9 @@
     </q-card-section>
     <q-card-section class="message-body">
       <div class="body ">
-        <div v-html="data.body" />
+        <div v-if="data.body">
+          <div v-html="data.body" />
+        </div>
         <div v-if="data.files.voice"
              dir="ltr">
           <div class="flex voice-player-section">
@@ -58,6 +60,15 @@
         <q-img v-if="data.files.photo"
                :src="data.files.photo"
                class="q-my-lg" />
+        <div v-if="data.files.file"
+             class="q-pa-md">
+          <q-btn color="primary"
+                 :href="data.files.file"
+                 target="_blank"
+                 icon-right="isax:document-download">
+            <span class="q-pr-sm">دانلود فایل</span>
+          </q-btn>
+        </div>
       </div>
       <q-separator class="q-my-md" />
       <div class="flex">

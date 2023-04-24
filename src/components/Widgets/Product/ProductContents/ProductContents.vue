@@ -273,7 +273,19 @@ export default {
         })
     },
     downloadPamphlet(pamphlet) {
-      openURL(pamphlet.file.pamphlets[0].url)
+      this.$apiGateway.content.show(pamphlet.id)
+        .then(content => {
+          if (content.file && content.file.pamphlet && content.file.pamphlet[0]) {
+            openURL(content.file.pamphlet[0].link)
+          } else {
+            this.$q.notify({
+              type: 'negative',
+              message: 'فایلی برای دانلود وجود ندارد',
+              position: 'top'
+            })
+          }
+        })
+        .catch(() => {})
     }
   }
 }

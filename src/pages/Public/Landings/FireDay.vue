@@ -2204,7 +2204,9 @@ export default {
                             {
                               col0: {
                                 type: 'action',
-                                value: null
+                                value: {
+                                  label: null
+                                }
                               },
                               col1: {
                                 type: 'action',

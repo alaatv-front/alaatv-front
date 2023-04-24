@@ -106,7 +106,7 @@ export default {
               label: 'اجازه انتشار رتبه خود را در سایت میدهم',
               outlined: true,
               placeholder: 'وارد نمایید',
-              value: 0,
+              value: false,
               col: 'col-md-12'
             }
           ]
