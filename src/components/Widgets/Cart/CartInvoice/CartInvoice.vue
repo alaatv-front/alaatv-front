@@ -77,7 +77,7 @@
 
             <q-card-section v-if="isUserLogin"
                             class="invoice-coupon-section invoice-cart-section">
-              <div v-if="localOptions.hasDiscountPercent && !dense"
+              <div v-if="localOptions.hasDiscountPercent && !localOptions.dense"
                    class="enter-coupon-code">
                 <div class="title">{{localOptions.discountPercent}}</div>
 
@@ -98,7 +98,7 @@
                   </template>
                 </q-input>
               </div>
-              <div v-if="localOptions.hasGiftcard && !dense"
+              <div v-if="localOptions.hasGiftcard && !localOptions.dense"
                    class="enter-coupon-code">
                 <div class="title">{{localOptions.giftcard}}</div>
 
@@ -139,7 +139,7 @@
 
               <div v-if="isUserLogin"
                    class="payment-gateway row">
-                <div v-if="localOptions.hasPaymentMethod && !dense">
+                <div v-if="localOptions.hasPaymentMethod && !localOptions.dense">
                   <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
                   <div v-if="loading"
 
@@ -168,7 +168,7 @@
                   </div>
                 </div>
 
-                <div v-if="!dense"
+                <div v-if="!localOptions.dense"
                      class="payment-description col-md-12 col-sm-6 col-xs-12">
 
                   <q-input v-if="localOptions.hasComment"
@@ -290,10 +290,6 @@ export default {
       default: () => {
         return {}
       }
-    },
-    dense: {
-      type: Boolean,
-      default: false
     }
   },
   data () {
@@ -332,7 +328,8 @@ export default {
         commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
         hasComment: true,
         paymentBtn: 'پرداخت و ثبت نهایی',
-        hasPaymentBtn: true
+        hasPaymentBtn: true,
+        dense: false
       }
     }
   },
