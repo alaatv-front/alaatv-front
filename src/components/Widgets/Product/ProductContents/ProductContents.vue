@@ -275,7 +275,15 @@ export default {
     downloadPamphlet(pamphlet) {
       this.$apiGateway.content.show(pamphlet.id)
         .then(content => {
-          openURL(content.file.pamphlet[0].link)
+          if (content.file && content.file.pamphlet && content.file.pamphlet[0]) {
+            openURL(content.file.pamphlet[0].link)
+          } else {
+            this.$q.notify({
+              type: 'negative',
+              message: 'فایلی برای دانلود وجود ندارد',
+              position: 'top'
+            })
+          }
         })
         .catch(() => {})
     }
