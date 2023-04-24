@@ -239,8 +239,8 @@ export default {
 
     getContentsData (set) {
       this.selectedSet.loading = true
-      this.selectedSet.contents = []
-      this.getSelectedSetContents(set.id).then((contents) => {
+      this.selectedSet.contents.clear()
+      this.$apiGateway.set.getContents(set.id).then((contents) => {
         this.selectedSet = set
         this.selectedSet.contents = contents
         this.selectedSet.loading = false
@@ -261,9 +261,6 @@ export default {
       this.selectedTab = contentType === 'pamphlet'
         ? 'pamphlet'
         : 'video'
-    },
-    getSelectedSetContents (setId) {
-      return this.$apiGateway.set.getContents(setId).list
     }
   }
 
