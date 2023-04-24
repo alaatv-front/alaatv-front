@@ -48,9 +48,6 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs, recursiveComponent },
   mixins: [mixinOptionPanel],
-  mounted() {
-    console.log(this.localOptions)
-  },
   methods: {
     addTabPanel() {
 
