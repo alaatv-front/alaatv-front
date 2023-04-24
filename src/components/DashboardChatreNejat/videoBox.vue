@@ -10,8 +10,9 @@
                                 noRequestMode: true,
                                 content
                               }" />
-        <div v-else>
-          <div class="null-video flex justify-center items-center">
+        <div v-else
+             class="row justify-center">
+          <div class="null-video col-6 flex justify-center items-center">
             <product-item class="product-item"
                           :options="{
                             product: selectedProduct,
