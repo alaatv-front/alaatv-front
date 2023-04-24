@@ -33,7 +33,7 @@
             align="left">
       <q-tab name="info"
              label="توضیحات" />
-      <q-tab v-if="content.file?.pamphlet"
+      <q-tab v-if="hasPamphlet()"
              name="pamphlets"
              label="جزوات" />
     </q-tabs>
@@ -54,12 +54,14 @@
              class="row">
           <p class="col-1 q-mt-sm text-center">تگ ها</p>
           <div class="col q-pl-sm">
-            <q-badge v-for="badge in content.tags"
-                     :key="badge"
-                     class="q-pa-sm q-ml-sm q-mb-sm"
-                     color="primary">
-              {{badge}}
-            </q-badge>
+            <router-link v-for="badge in content.tags"
+                         :key="badge"
+                         :to="{name: 'Public.Content.Search', query: {'tags[]': badge } }">
+              <q-badge class="q-pa-sm q-ml-sm q-mb-sm"
+                       color="primary">
+                {{badge}}
+              </q-badge>
+            </router-link>
           </div>
         </div>
       </q-tab-panel>
@@ -134,6 +136,9 @@ export default {
     this.loadContent()
   },
   methods: {
+    hasPamphlet() {
+      return this.content.file.pamphlet && this.content.file.pamphlet.length > 0
+    },
     handleContentBookmark () {
       this.bookmarkLoading = true
       if (this.content.is_favored) {
@@ -173,6 +178,7 @@ export default {
       APIGateway.content.show(contentId)
         .then((response) => {
           this.content = new Content(response)
+          console.log(this.content)
           this.content.loading = false
         })
         .catch(() => {
