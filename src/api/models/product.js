@@ -104,7 +104,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  favoredProduct(data = {}) {
+  favored(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -119,7 +119,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  unfavoredProduct(data = {}) {
+  unfavored(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
