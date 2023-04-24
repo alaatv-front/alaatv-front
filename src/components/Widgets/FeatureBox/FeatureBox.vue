@@ -1,7 +1,8 @@
 <template>
   <q-card class="feature-card">
     <q-card-section class="feature-horizontal-section"
-                    horizontal>
+                    :class="localOptions.className"
+                    :horizontal="localOptions.horizontal">
       <img class="feature-image"
            :src="localOptions.img">
       <q-card-section>
@@ -25,7 +26,8 @@ export default {
       defaultOptions: {
         title: null,
         description: null,
-        img: null
+        img: null,
+        horizontal: true
       }
     }
   }
