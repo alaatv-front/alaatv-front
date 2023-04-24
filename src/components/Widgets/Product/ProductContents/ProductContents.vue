@@ -273,7 +273,11 @@ export default {
         })
     },
     downloadPamphlet(pamphlet) {
-      openURL(pamphlet.file.pamphlets[0].url)
+      this.$apiGateway.content.show(pamphlet.id)
+        .then(content => {
+          openURL(content.file.pamphlet[0].link)
+        })
+        .catch(() => {})
     }
   }
 }
