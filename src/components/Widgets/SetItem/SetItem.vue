@@ -11,9 +11,11 @@
             <div class="play-icon" />
             {{ set.contents_count }} ویدیو
           </div>
-          <div class="flex">
+          <div class="flex pop-up">
             <div class="tv" />
-            ریاضی کنکور
+            <span class="title">
+              {{ set.short_title }}
+            </span>
           </div>
         </div>
         <div class="img-container">
@@ -142,7 +144,7 @@ export default {
       position: absolute;
       width: 100%;
       height: 40px;
-      top: 140px;
+      bottom: 82px;
       left: 0;
       display: flex;
       align-items: center;
@@ -151,6 +153,14 @@ export default {
       justify-content: space-between;
       transition: all ease 0.5s;
       z-index: 2;
+      .pop-up {
+        .title {
+          max-width: 80px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
     }
   }
 
