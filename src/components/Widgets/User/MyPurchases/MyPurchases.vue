@@ -68,9 +68,6 @@
                           canAddToCart: false,
                           showPrice: false,
                           product,
-                          style: {
-                            width:'100%'
-                          },
                           routeToProduct: false
                         }"
                         @click="productItemClicked(product)" />
