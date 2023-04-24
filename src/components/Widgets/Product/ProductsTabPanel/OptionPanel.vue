@@ -1,7 +1,40 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
-      <recursive-component v-model:options="localOptions" />
+      <div class="option-panel-container">
+        <div class="row">
+          <div class="col-12">
+            <q-input v-model="localOptions.style.padding"
+                     label="padding" />
+          </div>
+        </div>
+        <div v-for="(item, index) in localOptions.data"
+             :key="index">
+          <q-card class="custom-card">
+            <q-card-section>
+              <q-expansion-item expand-separator>
+                <template v-slot:header>
+                  <q-btn color="negative"
+                         icon="close"
+                         class="q-mr-sm"
+                         @click="removeTabPanel(index)" />
+                  <q-input v-model="item.type"
+                           autogrow
+                           class="full-width"
+                           label="label" />
+                </template>
+                <recursive-component :options="item" />
+              </q-expansion-item>
+            </q-card-section>
+          </q-card>
+        </div>
+      </div>
+      <div class="row q-gutter-xs justify-center">
+        <q-btn color="positive"
+               class="full-width"
+               label="اضافه کردن تب پنل جدید"
+               @click="addTabPanel" />
+      </div>
     </template>
   </option-panel-tabs>
 </template>
@@ -17,6 +50,11 @@ export default defineComponent({
   mixins: [mixinOptionPanel],
   mounted() {
     console.log(this.localOptions)
+  },
+  methods: {
+    addTabPanel() {
+
+    }
   }
 })
 </script>

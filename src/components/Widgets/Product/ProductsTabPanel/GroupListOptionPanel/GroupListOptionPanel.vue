@@ -1,11 +1,13 @@
 <template>
   <!--  <component :is="item.options.layout + 'OptionPanel'"-->
   <!--             :data="item.data" />-->
-  <div v-if="item.options.layout === 'ProductShelf'">
-    <product-shelf-option-panel :data="item.data" />
+  <div v-if="localItem.options.layout === 'ProductShelf'">
+    <product-shelf-option-panel :data="localItem.data"
+                                :options="localItem.options" />
   </div>
   <div v-else>
-    <product-tab-option-panel :data="item.data" />
+    <product-tab-option-panel :data="localItem.data"
+                              :options="localItem.options" />
   </div>
 </template>
 
@@ -36,21 +38,17 @@ export default {
   },
   data() {
     return {
-      layoutOptions: ['ProductShelf', 'ProductTab']
     }
   },
   computed: {
-    localOptions: {
+    localItem: {
       get() {
-        return this.item.options
+        return this.item
       },
-      set() {
-
+      set(newVal) {
+        this.$emit('update:item', newVal)
       }
     }
-  },
-  mounted() {
-    console.log(this.item)
   }
 }
 </script>

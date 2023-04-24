@@ -1,72 +1,45 @@
 <template>
   <div class="option-panel-container">
-    <div v-for="item in localData"
-         :key="item">
-      <div class="row">
-        <div class="col-3">
-          <q-input v-model="item.options.activeColor" />
-        </div>
-        <div class="col-3">
-          <q-input v-model="item.options.activeBgColor" />
-        </div>
-        <div class="col-3">
-          <q-input v-model="item.options.indicatorColor" />
-        </div>
+    <div class="row q-px-md q-col-gutter-md">
+      <div class="col-3">
+        <div class="outsideLabel">activeColor</div>
+        <q-input v-model="localOptions.activeColor" />
       </div>
-      <recursive-component :options="item" />
+      <div class="col-3">
+        <div class="outsideLabel">activeBgColor</div>
+        <q-input v-model="localOptions.activeBgColor" />
+      </div>
+      <div class="col-3">
+        <div class="outsideLabel">indicatorColor</div>
+        <q-input v-model="localOptions.indicatorColor" />
+      </div>
+      <div class="col-3">
+        <div class="outsideLabel">type</div>
+        <q-select v-model="localOptions.layout"
+                  :options="layoutOptions" />
+      </div>
+    </div>
+    <div v-for="(item, index) in localData"
+         :key="item">
+      <q-card class="custom-card">
+        <q-card-section>
+          <q-expansion-item expand-separator>
+            <template v-slot:header>
+              <q-btn color="negative"
+                     icon="close"
+                     class="q-mr-sm"
+                     @click="removeTabPanel(index)" />
+              <q-input v-model="item.options.label"
+                       autogrow
+                       class="full-width"
+                       label="label" />
+            </template>
+            <recursive-component :options="item" />
+          </q-expansion-item>
+        </q-card-section>
+      </q-card>
     </div>
   </div>
-<!--  <div class="row q-col-gutter-md">-->
-<!--    <div class="col-md-6">-->
-<!--      <div class="outSideLabel">-->
-<!--        productGroupLayout-->
-<!--      </div>-->
-<!--      <q-radio v-model="localOptions.layout"-->
-<!--               label="ProductTab"-->
-<!--               val="ProductTab" />-->
-<!--      <q-radio v-model="localOptions.layout"-->
-<!--               label="ProductShelf"-->
-<!--               val="ProductShelf" />-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div v-for="(item, index) in data"-->
-<!--       :key="index">-->
-<!--    <q-card class="custom-card">-->
-<!--      <q-card-section>-->
-<!--        <q-expansion-item expand-separator>-->
-<!--          <template v-slot:header>-->
-<!--            <q-btn color="negative"-->
-<!--                   icon="close"-->
-<!--                   class="q-mr-sm"-->
-<!--                   @click="removeTabPanel(index)" />-->
-<!--            <q-input v-model="item.options.label"-->
-<!--                     autogrow-->
-<!--                     class="full-width"-->
-<!--                     label="label" />-->
-<!--          </template>-->
-<!--          <div v-if="item.type === 'GroupListOptionPanel'">-->
-
-<!--            <div v-if="item.options.label === 'ProductShelf'">-->
-<!--              <group-list-shelf-option-panel :data="item.data"-->
-<!--                                             :options="item.options" />-->
-<!--            </div>-->
-<!--            <div v-else-if="item.options.label === 'ProductTab'">-->
-<!--              <group-list-tab-option-panel :data="item.data"-->
-<!--                                           :options="item.options" />-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div v-else-if="item.type === 'ProductList'">-->
-<!--            <div v-if="item.options.rowLayout === 'ScrollRow'">-->
-<!--              <product-list-scroll-option-panel />-->
-<!--            </div>-->
-<!--            <div v-else-if="item.options.rowLayout === 'GridRow'">-->
-<!--              <product-list-grid-option-panel />-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </q-expansion-item>-->
-<!--      </q-card-section>-->
-<!--    </q-card>-->
-<!--  </div>-->
 </template>
 
 <script>
@@ -79,6 +52,17 @@ export default {
     data: {
       type: Array,
       default: () => []
+    },
+    options: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+      layoutOptions: ['ProductTab', 'ProductShelf']
     }
   },
   computed: {
@@ -89,6 +73,19 @@ export default {
       set(newVal) {
         this.$emit('update:data', newVal)
       }
+    },
+    localOptions: {
+      get() {
+        return this.options
+      },
+      set(newVal) {
+        this.$emit('update:options', newVal)
+      }
+    }
+  },
+  methods: {
+    removeTabPanel(itemIndex) {
+      this.localData.splice(itemIndex, 1)
     }
   }
 }
