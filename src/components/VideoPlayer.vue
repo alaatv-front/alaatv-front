@@ -109,7 +109,7 @@ export default {
       type: Number
     }
   },
-  emits: ['seeked'],
+  emits: ['seeked', 'update:sideBar'],
   data() {
     return {
       drawer: false,

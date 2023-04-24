@@ -307,7 +307,7 @@ export default {
   },
   methods: {
     async seenNews(newsId) {
-      await this.$apiGateway.abrisham.getNewsHasBeenSeen(newsId)
+      await this.$apiGateway.liveDescription.getNewsHasBeenSeen(newsId)
     },
     async getNewPinLiveDescription(index, done) {
       this.pinNews.loading = true
@@ -316,10 +316,10 @@ export default {
           this.$refs.pinedNewsList.stop()
           return
         }
-        const response = await this.$apiGateway.abrisham.getPinedNews()
-        this.pinNewsNextPage = parseInt(response.meta.current_page) + 1
-        this.pinNewsLastPage = response.meta.last_page
-        this.pinNews = response.data
+        const pinnedNews = await this.$apiGateway.liveDescription.getPinedNews()
+        this.pinNewsNextPage = parseInt(pinnedNews.meta.current_page) + 1
+        this.pinNewsLastPage = pinnedNews.meta.last_page
+        this.pinNews = pinnedNews.data
         // this.pinNews = new LiveDescriptionList(this.fakeData)
         this.pinNews.loading = false
         done()
@@ -335,10 +335,16 @@ export default {
           return
         }
         const params = this.generateParams()
-        const response = await this.$apiGateway.abrisham.getNewsList(params)
-        this.unpinNewsNextPage = +response.meta.current_page + 1
-        this.unpinNewsLastPage = response.meta.last_page
-        this.unpinNews = response.data
+        const liveDescriptionParams = {
+          ...params,
+          created_at_since: this.$enums.Events.abrisham,
+          'order_by[]': 'created_at',
+          'order_type[]': 'desc'
+        }
+        const newsList = await this.$apiGateway.liveDescription.getNewsList(liveDescriptionParams)
+        this.unpinNewsNextPage = +newsList.meta.current_page + 1
+        this.unpinNewsLastPage = newsList.meta.last_page
+        this.unpinNews = newsList.data
         // this.unpinNews = new LiveDescriptionList(this.fakeData)
         this.unpinNews.loading = false
         done()

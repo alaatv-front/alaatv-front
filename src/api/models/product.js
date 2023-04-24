@@ -1,8 +1,9 @@
 import { apiV2 } from 'src/boot/axios'
 import { SetList } from 'src/models/Set.js'
-import { ContentList } from 'src/models/Content.js'
+import { Content, ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Product, ProductList } from 'src/models/Product.js'
+import { ProductCategoryList } from 'src/models/ProductCategory'
 
 export default class ProductAPI extends APIRepository {
   constructor() {
@@ -28,7 +29,8 @@ export default class ProductAPI extends APIRepository {
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
       sampleContent: (id) => '/product/' + id + '/sample',
-      categories: '/product-categories'
+      categories: '/product-categories',
+      userLastState: (id) => '/product/' + id + '/toWatch'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -190,7 +192,22 @@ export default class ProductAPI extends APIRepository {
       cacheKey: this.CacheList.categories,
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return new ProductCategoryList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getUserLastState(id, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.userLastState(id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new Content(response.data.data)
       },
       rejectCallback: (error) => {
         return error

@@ -10,8 +10,9 @@
                                 noRequestMode: true,
                                 content
                               }" />
-        <div v-else>
-          <div class="null-video flex justify-center items-center">
+        <div v-else
+             class="row justify-center">
+          <div class="video-not-available col-6">
             <product-item class="product-item"
                           :options="{
                             product: selectedProduct,
@@ -464,7 +465,7 @@ export default {
     margin-bottom: 25px;
     border-radius: 30px;
 
-    .null-video {
+    .video-not-available {
       //margin: 200px auto;
       .content{
         padding: 30px;

@@ -14,15 +14,16 @@
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
-        <content-item class="q-ma-md col-5 col-lg-3"
-                      :options="{
-                        content: inputData.props.row,
-                        routeToContent: false,
-                        showBookmark:true,
-                        showSetTitle: true
-                      }"
-                      @onBookmarkLoaded="reloadEntity(false)"
-                      @click="goToContent($event,inputData.props.row)" />
+        <div class="q-pa-md col-5 col-lg-3">
+          <content-item :options="{
+                          content: inputData.props.row,
+                          routeToContent: false,
+                          showBookmark:true,
+                          showSetTitle: true
+                        }"
+                        @onBookmarkLoaded="reloadEntity(false)"
+                        @click="goToContent($event,inputData.props.row)" />
+        </div>
       </template>
     </entity-index>
   </div>

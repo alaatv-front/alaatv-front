@@ -2,14 +2,13 @@
   <div class="video-box">
     <div class="video-main">
       <div class="video-wrapper">
-        <video-player v-if="content.file && content.file.video && content.can_see"
-                      :time-points="timePoints"
-                      :poster="content.photo"
-                      :sources="sources"
-                      :keepCalculating="keepCalculating"
-                      @calcTimeData="changeVideoStatusToSeen"
-                      @toggleBookmark="bookmarkPostIsFavored"
-                      @play="setVideoDuration" />
+        <content-video-player v-if="content.id && content.file && content.file.video && content.can_see?.toString() === '1'"
+                              :content="content"
+                              :keep-calculating="keepCalculating"
+                              :poster="content.photo"
+                              @calcTimeData="changeVideoStatusToSeen"
+                              @toggleBookmark="bookmarkPostIsFavored"
+                              @seeked="setVideoDuration" />
         <div v-else-if="(!content.id || !content.photo)">
           <div class="null-video">
             <div class="content text-primary">
@@ -183,14 +182,17 @@
 <script>
 import { Content } from 'src/models/Content.js'
 import shareSocial from 'assets/js/shareSocialMedia.js'
-import VideoPlayer from 'src/components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import Bookmark from 'components/Bookmark.vue'
+import ContentVideoPlayer from 'components/ContentVideoPlayer.vue'
 
 export default {
   name: 'VideoBox',
 
-  components: { Bookmark, VideoPlayer },
+  components: {
+    ContentVideoPlayer,
+    Bookmark
+  },
 
   props: {
     content: {
