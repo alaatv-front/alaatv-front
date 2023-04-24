@@ -193,7 +193,6 @@ export default {
     }
   },
   created() {
-    this.seenNews(347)
     this.lessons = [
       {
         id: 347,
