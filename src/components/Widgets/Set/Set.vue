@@ -218,9 +218,12 @@ export default {
       this.set.loading = true
       this.$apiGateway.set.show(this.set.id)
         .then((set) => {
-          this.set = set
-          this.sections = this.getSplitedContentsToSections(this.set.contents)
-          this.set.loading = false
+          this.$apiGateway.set.getContents(set.id).then((contents) => {
+            this.set = set
+            this.set.contents = contents
+            this.sections = this.getSplitedContentsToSections(this.set.contents)
+            this.set.loading = false
+          })
         })
         .catch(() => {
           this.set.loading = false
@@ -247,6 +250,10 @@ export default {
     }
     .archives-list {
       margin-top: 20px;
+      @media screen and (max-width: 599px) {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
       .section-item {
         margin-bottom: 20px;
         border-radius: 16px;

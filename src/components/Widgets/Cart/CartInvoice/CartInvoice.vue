@@ -22,9 +22,9 @@
           </div>
         </template>
         <template v-else>
-          <!--          <div class="q-mb-md">-->
-          <!--            <donate />-->
-          <!--          </div>-->
+          <div class="q-mb-md">
+            <donate />
+          </div>
           <q-card class="invoice-cart">
             <q-card-section class="invoice-total-price-section invoice-cart-section">
               <div v-if="localOptions.hasTotalPrice"
@@ -77,7 +77,7 @@
 
             <q-card-section v-if="isUserLogin"
                             class="invoice-coupon-section invoice-cart-section">
-              <div v-if="localOptions.hasDiscountPercent"
+              <div v-if="localOptions.hasDiscountPercent && !localOptions.dense"
                    class="enter-coupon-code">
                 <div class="title">{{localOptions.discountPercent}}</div>
 
@@ -98,7 +98,7 @@
                   </template>
                 </q-input>
               </div>
-              <div v-if="localOptions.hasGiftcard"
+              <div v-if="localOptions.hasGiftcard && !localOptions.dense"
                    class="enter-coupon-code">
                 <div class="title">{{localOptions.giftcard}}</div>
 
@@ -139,7 +139,7 @@
 
               <div v-if="isUserLogin"
                    class="payment-gateway row">
-                <div v-if="localOptions.hasPaymentMethod">
+                <div v-if="localOptions.hasPaymentMethod && !localOptions.dense">
                   <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
                   <div v-if="loading"
 
@@ -168,7 +168,8 @@
                   </div>
                 </div>
 
-                <div class="payment-description col-md-12 col-sm-6 col-xs-12">
+                <div v-if="!localOptions.dense"
+                     class="payment-description col-md-12 col-sm-6 col-xs-12">
 
                   <q-input v-if="localOptions.hasComment"
                            v-model="shoppingDescription"
@@ -263,7 +264,7 @@
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-// import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 import AuthLogin from 'components/Auth.vue'
 
 let StickySidebar
@@ -276,7 +277,7 @@ if (typeof window !== 'undefined') {
 
 export default {
   name: 'CartInvoice',
-  components: { AuthLogin },
+  components: { AuthLogin, Donate },
   mixins: [mixinWidget],
   // provide() {
   //   return {
@@ -327,7 +328,8 @@ export default {
         commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
         hasComment: true,
         paymentBtn: 'پرداخت و ثبت نهایی',
-        hasPaymentBtn: true
+        hasPaymentBtn: true,
+        dense: false
       }
     }
   },
@@ -422,8 +424,8 @@ export default {
           this.isCouponSet = true
           Notify.create({
             message: 'کد تخفیف با موفقیت اعمال شد',
-            type: 'negative',
-            color: 'negative'
+            type: 'positive',
+            color: 'positive'
           })
         })
         .catch(err => {

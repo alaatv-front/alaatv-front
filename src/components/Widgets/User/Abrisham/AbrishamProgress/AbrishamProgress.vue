@@ -120,7 +120,7 @@ import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { Content, ContentList } from 'src/models/Content.js'
 import ChipGroup from 'components/DashboardAbrisham/chipGroup.vue'
 import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
-import { SetSectionList, SetSection } from 'src/models/SetSection.js'
+import { SetSection, SetSectionList } from 'src/models/SetSection.js'
 import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
 import ContentListComponent from 'src/components/DashboardAbrisham/ContentListComponent.vue'
 
@@ -174,9 +174,9 @@ export default {
     },
     async showUserLastState() {
       try {
-        const response = await this.$apiGateway.abrisham.getUserLastState(this.selectedLessonId)
-        const setId = response.data.data.set.id
-        const contentId = response.data.data.id
+        const userLastState = await this.$apiGateway.product.getUserLastState(this.selectedLessonId)
+        const setId = userLastState.set.id
+        const contentId = userLastState.id
         this.userLastState.setId = setId
         this.userLastState.contentId = contentId
         this.setCurrentSet(setId, contentId)
@@ -264,11 +264,13 @@ export default {
     async getLessonGroups() {
       this.lnssonGroupsLoading = true
       try {
-        const response = await this.$apiGateway.abrisham.getLessons()
-        if (response.status === 200) {
-          return response.data.data
-        }
-        return []
+        const lessonList = await this.$apiGateway.abrisham.getLessons()
+        return lessonList.map((item) => {
+          return {
+            title: item.title,
+            lessons: item.lessons.list
+          }
+        })
       } catch {
         this.lnssonGroupsLoading = true
         return []
@@ -287,13 +289,7 @@ export default {
 
     async getSets (lessonId) {
       // lesson is a product
-      const response = await this.$apiGateway.abrisham.requestToGetSets(lessonId)
-
-      if (response.status === 200) {
-        return new SetList(response.data.data)
-      }
-
-      return new SetList()
+      return await this.$apiGateway.product.getSets(lessonId)
     },
 
     setSets (sets) {
@@ -363,6 +359,7 @@ export default {
 
     async showFirstContent (contentId) {
       const contents = await this.getContents()
+      this.contents.loading = false
       this.setContents(contents)
       if (!contentId) {
         contentId = contents.list[0].id
@@ -385,9 +382,7 @@ export default {
     async getContents () {
       this.contents.loading = true
       try {
-        const response = await this.$apiGateway.abrisham.requestToGetContents(this.currentSetId)
-        this.contents.loading = false
-        return response
+        return await this.$apiGateway.set.getContents(this.currentSetId)
       } catch {
         this.contents.loading = false
       }

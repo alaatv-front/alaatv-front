@@ -39,7 +39,7 @@
                  filled
                  class="form-control m-input m-input--air"
                  placeholder="جستجو ..."
-                 @keydown.enter="filterProductBySearchInput">
+                 @keydown.enter="sortProducts">
           <template v-slot:append>
             <q-icon v-if="searchTarget !== ''"
                     name="close"
@@ -53,19 +53,18 @@
                    unelevated
                    color="primary"
                    icon="search"
-                   @click="filterProductBySearchInput" />
+                   @click="sortProducts" />
           </template>
         </q-input>
       </div>
     </div>
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
-    <div class="col-12 productsCol q-pa-sm-sm q-pa-xs-xs">
-      <div class="q-px-xs-none row justify-center items-center">
+    <div class="col-12 productsCol q-mt-md q-px-xs-md q-px-none">
+      <div class="row justify-center items-center q-gutter-sm-lg">
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
-             class="col-12 col-sm-6 col-md-auto col-lg-auto q-ma-md-md q-mb-sm-md flex justify-center">
-          <product-item class="product-item"
-                        :options="{
+             class="col-12 col-sm-4 col-md-3">
+          <product-item :options="{
                           canAddToCart: false,
                           showPrice: false,
                           product,
@@ -120,19 +119,9 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
-      productPaginationMeta: {
-        current_page: 1,
-        from: 1,
-        last_page: 1,
-        path: 'https://alaatv.com/api/v2/user/products',
-        per_page: 15,
-        to: 3,
-        total: 3,
-        count: 3
-      },
+      productPaginationMeta: {},
       selectedProduct: new Product(),
       productContentsDialog: false,
-      items: [{}, {}, {}, {}, {}, {}, {}],
       scrollTargetRef: null,
       loading: false,
       dataLoaded: false,
@@ -160,12 +149,6 @@ export default {
     }
   },
   computed: {
-    videoContents() {
-      return this.selectedSet.contents.list.filter(content => content.type === 8)
-    },
-    pamphletsContents() {
-      return this.selectedSet.contents.list.filter(content => content.type === 1)
-    },
     currentProduct () {
       if (this.filteredProduct.list.length > 0) {
         return this.filteredProduct.list[0]
@@ -186,16 +169,17 @@ export default {
     },
     async setFilterBoxCategories() {
       this.loading = true
-      this.filterBoxCategory = await this.$apiGateway.product.getCategories()
+      const categories = await this.$apiGateway.product.getCategories()
+      this.filterBoxCategory = categories.list
       this.loading = false
     },
     async setPurchasedProducts () {
       this.loading = true
       this.filteredProduct = new ProductList()
       this.products = new ProductList()
-      const response = await this.getPurchasedProducts()
-      this.products = response.referralCodeList
-      this.productPaginationMeta = response.paginate
+      const purchasedProducts = await this.getPurchasedProducts()
+      this.products = purchasedProducts.referralCodeList
+      this.productPaginationMeta = purchasedProducts.paginate
       this.loading = false
     },
     getPurchasedProducts () {
@@ -217,10 +201,6 @@ export default {
       this.filterProductByCategory()
       this.sortProducts()
     },
-    async filterProductBySearchInput () {
-      await this.setPurchasedProducts()
-      this.filteredProduct = this.products
-    },
     filterProductByCategory () {
       const newList = this.products.list.filter(product => product.category === this.selectedFilterCategoryValue || this.selectedFilterCategoryValue === 'all')
       this.filteredProduct = new ProductList(newList)
@@ -239,7 +219,7 @@ export default {
     },
 
     setFirstContentsShow() {
-      if (this.products.list.length === 0 || this.products.list[0].sets.list.length === 0) {
+      if ((this.products.list.length === 0 && this.products.list[0]) || !this.products.list[0]?.sets) {
         return
       }
       const firstSet = this.products.list[0].sets.list[0]
@@ -258,9 +238,9 @@ export default {
     getContentsData (set) {
       this.selectedSet.loading = true
       this.selectedSet.contents.clear()
-      this.getSelectedSetContents(set.id).then((contentResponse) => {
+      this.$apiGateway.set.getContents(set.id).then((contents) => {
         this.selectedSet = set
-        this.selectedSet.contents.list = contentResponse.list
+        this.selectedSet.contents = contents
         this.selectedSet.loading = false
       })
         .catch(() => {
@@ -279,9 +259,6 @@ export default {
       this.selectedTab = contentType === 'pamphlet'
         ? 'pamphlet'
         : 'video'
-    },
-    getSelectedSetContents (setId) {
-      return this.$apiGateway.set.getContents(setId)
     }
   }
 
@@ -301,16 +278,6 @@ export default {
   @media screen and (max-width: 1023px) {
     min-width: 320px;
     padding: 20px;
-  }
-}
-
-.product-item {
-  width: 245px;
-  @media screen and (max-width: 1024px) {
-    width: 300px;
-  }
-  @media screen and (max-width: 790px) {
-    margin: 15px;
   }
 }
 

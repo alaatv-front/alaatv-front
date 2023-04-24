@@ -68,7 +68,7 @@ export function reviewCart(context) {
     APIGateway.cart.reviewCart(cartItems)
       .then((response) => {
         if (isUserLogin) {
-          context.commit('updateCart', new Cart())
+          context.commit('updateCart', new Cart(response))
         }
         return resolve(response)
       })
