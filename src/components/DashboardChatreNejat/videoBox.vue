@@ -12,7 +12,7 @@
                               }" />
         <div v-else
              class="row justify-center">
-          <div class="null-video col-6 flex justify-center items-center">
+          <div class="video-not-available col-6">
             <product-item class="product-item"
                           :options="{
                             product: selectedProduct,
@@ -465,7 +465,7 @@ export default {
     margin-bottom: 25px;
     border-radius: 30px;
 
-    .null-video {
+    .video-not-available {
       //margin: 200px auto;
       .content{
         padding: 30px;
