@@ -15,7 +15,10 @@
           <div class="play-icon" />
         </div>
       </div>
-      <div class="content-content-box ">
+    </router-link>
+    <div class="content-content-box ">
+      <router-link :to="getRoutingObject"
+                   class="content-item-router-link">
         <div class="content-box-text">
           <div v-if="defaultOptions.showSetTitle"
                class="main-title ellipsis">
@@ -25,14 +28,32 @@
             {{ content.short_title ? content.short_title : content.title }}
           </div>
         </div>
-        <bookmark v-if="defaultOptions.showBookmark"
-                  class="content-item-bookmark"
-                  :is-favored="options.content.is_favored"
-                  :loading="bookmarkLoading"
-                  @clicked="handleContentBookmark" />
-
-      </div>
-    </router-link>
+      </router-link>
+      <bookmark v-if="defaultOptions.showBookmark"
+                class="content-item-bookmark"
+                :is-favored="options.content.is_favored"
+                :loading="bookmarkLoading"
+                @clicked="handleContentBookmark" />
+      {{logger(localOptions.content)}}
+      <q-btn v-if="localOptions.showDownloadMenu && localOptions.content.file?.video"
+             color="primary"
+             label="Basic Menu">
+        <q-menu>
+          <q-list>
+            <q-item v-close-popup
+                    clickable />
+            <q-item v-for="(item, index) in localOptions.file.video"
+                    :key="index"
+                    v-close-popup
+                    clickable
+                    class="route-link"
+                    @click="takeAction(item)">
+              <q-item-section>{{ item.label }}</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
+    </div>
 
   </q-card>
 </template>
@@ -65,6 +86,7 @@ export default {
       content: new Content(),
       showSetTitle: false,
       showBookmark: false,
+      showDownloadMenu: true,
       routeToContent: true
     }
   }),
@@ -95,6 +117,9 @@ export default {
     }
   },
   methods: {
+    logger(data) {
+      console.log('data', data)
+    },
     handleContentBookmark (value) {
       this.bookmarkLoading = true
       if (this.bookmarkValue) {
