@@ -561,6 +561,20 @@ const routes = [
             }
           },
           {
+            path: 'theme',
+            name: 'Document.Theme',
+            component: () => import('layouts/bareLayout.vue'),
+            breadcrumbs: { title: 'Theme' },
+            children: [
+              {
+                path: 'controls',
+                name: 'Document.Theme.Controls',
+                component: () => import('src/pages/Document/Theme/Controls.vue'),
+                breadcrumbs: { title: 'Controls' }
+              }
+            ]
+          },
+          {
             path: 'debug',
             name: 'Document.Debug',
             component: () => import('src/pages/Document/debug.vue')
