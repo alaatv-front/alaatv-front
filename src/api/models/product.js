@@ -104,14 +104,17 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  favored(data = {}) {
+  favored(productId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.favored(data),
-      cacheKey: this.CacheList.favored(data),
+      request: this.APIAdresses.favored(productId),
+      cacheKey: this.CacheList.favored(productId),
       resolveCallback: (response) => {
-        return response.data
+        const defaultMessageObject = {
+          message: '' // String
+        }
+        return this.getNormalizedSendData(defaultMessageObject, response.data).message
       },
       rejectCallback: (error) => {
         return error
@@ -119,14 +122,17 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  unfavored(data = {}) {
+  unfavored(productId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.unfavored(data),
-      cacheKey: this.CacheList.unfavored(data),
+      request: this.APIAdresses.unfavored(productId),
+      cacheKey: this.CacheList.unfavored(productId),
       resolveCallback: (response) => {
-        return response.data
+        const defaultMessageObject = {
+          message: '' // String
+        }
+        return this.getNormalizedSendData(defaultMessageObject, response.data).message
       },
       rejectCallback: (error) => {
         return error
