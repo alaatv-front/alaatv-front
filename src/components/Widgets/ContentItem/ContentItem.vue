@@ -16,7 +16,7 @@
         </div>
       </div>
     </router-link>
-    <div class="content-content-box ">
+    <div class="content-info-container ">
       <router-link :to="getRoutingObject"
                    class="content-item-router-link">
         <div class="content-box-text">
@@ -29,7 +29,7 @@
           </div>
         </div>
       </router-link>
-      <div class="content-item-container">
+      <div class="content-action-container">
         <bookmark v-if="defaultOptions.showBookmark"
                   class="content-item-bookmark"
                   :is-favored="options.content.is_favored"
@@ -189,7 +189,7 @@ export default {
     //min-width: 318px;
   }
 
-  .content-item-container{
+  .content-action-container{
     position: absolute;
     right: 0;
     top: -10px;
@@ -240,7 +240,7 @@ export default {
     }
   }
 
-  .content-content-box {
+  .content-info-container {
     min-height: 100px;
     padding: 10px 16px 16px 16px;
     position: relative;
@@ -428,7 +428,7 @@ export default {
       }
     }
 
-    .content-content-box {
+    .content-info-container {
       .main-title {
         a {
         }
@@ -501,7 +501,7 @@ export default {
       }
     }
 
-    .content-content-box {
+    .content-info-container {
       width: 100%;
 
       .main-title {
