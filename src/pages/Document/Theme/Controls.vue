@@ -23,7 +23,7 @@
           extra small
         </div>
         <div class="col-md-2">
-          <q-btn size="xs"
+          <q-btn class="q-btn-xs"
                  color="primary">
             متن دکمه
           </q-btn>
@@ -42,11 +42,14 @@
         </div>
         <div class="col-md-2">
           <q-btn size="xs"
-                 color="primary">
+                 color="primary"
+                 disable>
             متن دکمه
           </q-btn>
         </div>
-        <div class="col-md-3" />
+        <div class="col-md-3">
+          Neutral
+        </div>
       </div>
       <div class="row q-col-gutter-md q-mt-md">
         <div class="col-md-1">
@@ -54,29 +57,102 @@
         </div>
         <div class="col-md-2">
           <q-btn class="q-btn-sm"
-                 color="secondary">
+                 color="secondary"
+                 outline>
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-2">
           <q-btn class="q-btn-sm"
-                 color="secondary">
+                 color="secondary"
+                 outline>
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-2">
           <q-btn class="q-btn-sm"
-                 color="secondary">
+                 color="secondary"
+                 outline>
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-2">
           <q-btn class="q-btn-sm"
-                 color="secondary">
+                 color="secondary"
+                 outline
+                 disable>
             متن دکمه
           </q-btn>
         </div>
-        <div class="col-md-3" />
+        <div class="col-md-3">
+          Outline
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-md">
+        <div class="col-md-1">
+          medium
+        </div>
+        <div class="col-md-2">
+          <q-btn color="secondary"
+                 flat>
+            متن دکمه
+          </q-btn>
+        </div>
+        <div class="col-md-2">
+          <q-btn color="secondary"
+                 flat>
+            متن دکمه
+          </q-btn>
+        </div>
+        <div class="col-md-2">
+          <q-btn color="secondary"
+                 flat>
+            متن دکمه
+          </q-btn>
+        </div>
+        <div class="col-md-2">
+          <q-btn color="secondary"
+                 flat
+                 disable>
+            متن دکمه
+          </q-btn>
+        </div>
+        <div class="col-md-3">
+          Flat
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-md">
+        <div class="col-md-1">
+          Large
+        </div>
+        <div class="col-md-2">
+          <q-btn size="lg"
+                 color="primary">
+            متن دکمه
+          </q-btn>
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xs"
+                 color="primary">
+            متن دکمه
+          </q-btn>
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xs"
+                 color="primary">
+            متن دکمه
+          </q-btn>
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xs"
+                 color="primary"
+                 disable>
+            متن دکمه
+          </q-btn>
+        </div>
+        <div class="col-md-3">
+          Neutral
+        </div>
       </div>
     </div>
   </div>
