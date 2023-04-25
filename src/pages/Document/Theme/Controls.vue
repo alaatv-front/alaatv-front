@@ -20,7 +20,7 @@
       </div>
       <div class="row q-col-gutter-md q-mt-md">
         <div class="col-md-1">
-          extra small
+          Extra Small
         </div>
         <div class="col-md-2">
           <q-btn class="q-btn-xs"
@@ -29,19 +29,19 @@
           </q-btn>
         </div>
         <div class="col-md-2">
-          <q-btn size="xs"
+          <q-btn class="q-btn-xs"
                  color="primary">
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-2">
-          <q-btn size="xs"
+          <q-btn class="q-btn-xs"
                  color="primary">
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-2">
-          <q-btn size="xs"
+          <q-btn class="q-btn-xs"
                  color="primary"
                  disable>
             متن دکمه
@@ -53,7 +53,7 @@
       </div>
       <div class="row q-col-gutter-md q-mt-md">
         <div class="col-md-1">
-          small
+          Small
         </div>
         <div class="col-md-2">
           <q-btn class="q-btn-sm"
@@ -90,7 +90,7 @@
       </div>
       <div class="row q-col-gutter-md q-mt-md">
         <div class="col-md-1">
-          medium
+          Medium
         </div>
         <div class="col-md-2">
           <q-btn color="secondary"
