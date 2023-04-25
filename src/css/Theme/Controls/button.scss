@@ -6,11 +6,6 @@
   //align-items: center;
   //text-align: center;
   border-radius: 8px;
-  &.q-btn-sm {
-    font-size: 14px;
-    padding: 6px 12px;
-    line-height: 20px;
-  }
   &.q-hoverable:hover > .q-focus-helper {
     background: currentColor;
     opacity: 0.15;
@@ -27,6 +22,27 @@
   }
   .q-btn__content {
     margin: 0;
+  }
+  &.q-btn-xs {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  &.q-btn-sm {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  // md size
+  font-size: 16px;
+  padding: 8px 16px;
+
+  &.q-btn-lg {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+  &.q-btn-xl {
+    font-size: 16px;
+    padding: 14px 18px;
   }
   //
   //&.q-btn--outline::before {
