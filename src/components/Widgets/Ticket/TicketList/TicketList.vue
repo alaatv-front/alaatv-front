@@ -553,7 +553,6 @@ export default {
 
 <style scoped lang="scss">
 .ticket-index{
-  padding:30px 70px;
   @media screen and (max-width: 1450px){
     padding: 10px;
   }
