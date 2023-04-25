@@ -15,7 +15,10 @@
           <div class="play-icon" />
         </div>
       </div>
-      <div class="content-content-box ">
+    </router-link>
+    <div class="content-info-container ">
+      <router-link :to="getRoutingObject"
+                   class="content-item-router-link">
         <div class="content-box-text">
           <div v-if="defaultOptions.showSetTitle"
                class="main-title ellipsis">
@@ -25,14 +28,38 @@
             {{ content.short_title ? content.short_title : content.title }}
           </div>
         </div>
+      </router-link>
+      <div class="content-action-container">
         <bookmark v-if="defaultOptions.showBookmark"
                   class="content-item-bookmark"
                   :is-favored="options.content.is_favored"
                   :loading="bookmarkLoading"
                   @clicked="handleContentBookmark" />
-
+        <q-btn v-if="localOptions.showDownloadMenu && localOptions.content.file?.video"
+               class="content-item-more-btn"
+               flat
+               icon="isax:more-circle">
+          <q-tooltip anchor="top middle"
+                     self="bottom middle"
+                     :offset="[10, 10]">
+            دانلود محتوا
+          </q-tooltip>
+          <q-menu>
+            <q-list>
+              <q-item v-for="(item, index) in localOptions.content.file.video"
+                      :key="index"
+                      v-close-popup
+                      clickable
+                      class="route-link"
+                      target="_blank"
+                      :href="item.link + (item.link.includes('?') ? '' : '?') +'download=1'">
+                <q-item-section> دانلود فایل با {{ item.caption }}</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
       </div>
-    </router-link>
+    </div>
 
   </q-card>
 </template>
@@ -65,6 +92,7 @@ export default {
       content: new Content(),
       showSetTitle: false,
       showBookmark: false,
+      showDownloadMenu: false,
       routeToContent: true
     }
   }),
@@ -161,11 +189,13 @@ export default {
     //min-width: 318px;
   }
 
-  .content-item-bookmark {
+  .content-action-container{
     position: absolute;
-    right: -18px;
-    top: -24px;
-
+    right: 0;
+    top: -10px;
+    .content-item-bookmark {
+      margin: -10px;
+    }
   }
 
   .content-item-router-link {
@@ -210,7 +240,7 @@ export default {
     }
   }
 
-  .content-content-box {
+  .content-info-container {
     min-height: 100px;
     padding: 10px 16px 16px 16px;
     position: relative;
@@ -398,7 +428,7 @@ export default {
       }
     }
 
-    .content-content-box {
+    .content-info-container {
       .main-title {
         a {
         }
@@ -471,7 +501,7 @@ export default {
       }
     }
 
-    .content-content-box {
+    .content-info-container {
       width: 100%;
 
       .main-title {

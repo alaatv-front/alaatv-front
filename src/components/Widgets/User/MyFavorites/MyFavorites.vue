@@ -116,7 +116,10 @@
                   <div v-for="favoredItem in contentFavoreds.list"
                        :key="favoredItem.id"
                        class="col-12 col-md-4 content-item">
-                    <content-item :options="{content: favoredItem.getContent()}" />
+                    <content-item :options="{
+                      content: favoredItem,
+                      showDownloadMenu: true
+                    }" />
                   </div>
                 </div>
                 <div v-if="contentPaginationLastPage > 1"

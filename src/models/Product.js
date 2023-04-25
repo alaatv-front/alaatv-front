@@ -45,6 +45,14 @@ class Product extends Model {
         key: 'isFavored',
         default: false
       },
+      {
+        key: 'is_favored_2',
+        default: false
+      },
+      {
+        key: 'is_favored',
+        default: false
+      },
       { key: 'catalog' },
       {
         key: 'eec',
@@ -60,6 +68,12 @@ class Product extends Model {
         default: []
       }
     ])
+    if (this.is_favored_2) {
+      this.is_favored = this.is_favored_2
+    }
+    if (this.isFavored) {
+      this.is_favored = this.isFavored
+    }
   }
 }
 

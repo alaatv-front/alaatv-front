@@ -219,7 +219,7 @@ export default {
     handleProductBookmark () {
       this.bookmarkLoading = true
       if (this.product.is_favored) {
-        this.$apiGateway.content.unfavored(this.product.id)
+        this.$apiGateway.product.unfavored(this.product.id)
           .then(() => {
             this.product.is_favored = !this.product.is_favored
             this.bookmarkLoading = false
@@ -229,7 +229,7 @@ export default {
           })
         return
       }
-      this.$apiGateway.content.favored(this.product.id)
+      this.$apiGateway.product.favored(this.product.id)
         .then(() => {
           this.product.is_favored = !this.product.is_favored
           this.bookmarkLoading = false

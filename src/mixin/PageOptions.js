@@ -19,6 +19,9 @@ const mixinPageOptions = {
     initialSections() {
       return this.$store.getters['PageBuilder/initialSections']
     },
+    pageDataLoaded () {
+      return this.$store.getters['PageBuilder/pageDataLoaded']
+    },
     pageBuilderLoading: {
       get() {
         return this.$store.getters['PageBuilder/pageBuilderLoading']
@@ -57,6 +60,8 @@ const mixinPageOptions = {
       this.$store.commit('SEO/updateOgImage', seo.ogImage)
 
       this.pageBuilderLoading = false
+
+      this.$store.commit('PageBuilder/updatePageDataLoaded', true)
     },
     prefetchServerDataPromiseCatch () {
       this.pageBuilderLoading = false
