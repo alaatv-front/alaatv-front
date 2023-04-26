@@ -57,7 +57,8 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <menu-item :menu="items" />
+          <menu-item :menu="items"
+                     :has-items-color="true" />
         </q-list>
         <div class="log-out"
              @click="logOut">
