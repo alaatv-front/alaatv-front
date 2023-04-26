@@ -7,8 +7,7 @@
                       :label="item.title"
                       :icon="item.icon"
                       class="side-expansion-list">
-      <div class="expansion-body"
-           :class="{expansionBodyColor: hasItemsColor}">
+      <div class="expansion-body">
         <q-separator dark
                      size="2px"
                      vertical
@@ -75,10 +74,6 @@
 export default {
   name: 'MenuItem',
   props: {
-    hasItemsColor: {
-      type: Boolean,
-      default: false
-    },
     menuItemsColor: {
       type: String,
       default: ''
@@ -297,8 +292,7 @@ export default {
           margin-bottom: 10px;
         }
 
-        .expansion-body {}
-        .expansionBodyColor{
+        .expansion-body {
           color: v-bind('menuItemsColor');
         }
 

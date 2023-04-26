@@ -58,8 +58,7 @@
             </template>
           </q-input>
           <menu-item :menu="items"
-                     :menu-items-color="'#5867dd'"
-                     :has-items-color="true" />
+                     :menu-items-color="'#5867dd'" />
         </q-list>
         <div class="log-out"
              @click="logOut">
