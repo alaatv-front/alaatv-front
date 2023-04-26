@@ -2,6 +2,8 @@ import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Content } from 'src/models/Content'
 import { ProductList } from 'src/models/Product'
+import { Comment } from 'src/models/Comment'
+import { APIGateway } from 'src/api/APIGateway'
 const APIAdresses = {
   search: '/search',
   admin: '/admin/contents',
@@ -19,29 +21,35 @@ const APIAdresses = {
   deleteTimestamp: (id) => `/timepoint/${id}`,
   updateTimestamp: (id) => `/timepoint/${id}`,
   unfavored: (id) => '/c/' + id + '/unfavored',
-  relatedProducts: (id) => '/c/' + id + '/products'
+  relatedProducts: (id) => '/c/' + id + '/products',
+  timestampBookmarkStatus: (id, status) => '/c/timepoint/' + id + '/' + status,
+  saveComment: '/comment',
+  updateComment: (id) => '/comment/' + id,
+  watchedVideo: '/watched',
+  unWatchedVideo: '/unwatched'
+
 }
 export default class ContentAPI extends APIRepository {
   constructor() {
     super('content', apiV2, '/c/', new Content(), APIAdresses)
     this.CacheList = {
       admin: this.name + this.APIAdresses.admin,
-      search: this.name + this.APIAdresses.search,
-      delete: this.name + this.APIAdresses.delete,
-      presigned: this.name + this.APIAdresses.presigned,
       show: id => this.name + this.APIAdresses.show(id),
-      bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
-      update: id => this.name + this.APIAdresses.update(id),
-      bulkEditText: this.name + this.APIAdresses.bulkEditText,
-      timestampSet: this.name + this.APIAdresses.timestampSet,
-      bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
       favored: id => this.name + this.APIAdresses.favored(id),
       unfavored: id => this.name + this.APIAdresses.unfavored(id),
       showAdmin: id => this.name + this.APIAdresses.showAdmin(id),
-      getTimestamp: id => this.name + this.APIAdresses.getTimestamp(id),
+      update: id => this.name + this.APIAdresses.update(id),
       relatedProducts: id => this.name + this.APIAdresses.relatedProducts(id),
+      search: this.name + this.APIAdresses.search,
+      delete: this.name + this.APIAdresses.delete,
+      timestampSet: this.name + this.APIAdresses.timestampSet,
+      bulkEditText: this.name + this.APIAdresses.bulkEditText,
+      bulkUpdate: this.name + this.APIAdresses.bulkUpdate,
+      bulkEditTags: this.name + this.APIAdresses.bulkEditTags,
+      getTimestamp: id => this.name + this.APIAdresses.getTimestamp(id),
       updateTimestamp: id => this.name + this.APIAdresses.updateTimestamp(id),
-      deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id)
+      deleteTimestamp: id => this.name + this.APIAdresses.deleteTimestamp(id),
+      presigned: this.name + this.APIAdresses.presigned
     }
   }
 
@@ -345,6 +353,118 @@ export default class ContentAPI extends APIRepository {
         bucket: null, // file name(test)
         key: null // file with type(type.mp4)
       }, data.data)
+    })
+  }
+
+  setBookmarkTimepointFavoredStatus(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      id: '',
+      status: 'favored'
+    }, data)
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.timestampBookmarkStatus(mergedData.id, mergedData.status),
+      resolveCallback: (response) => {
+        const defaultMessageObject = {
+          message: '' // String
+        }
+        return this.getNormalizedSendData(defaultMessageObject, response.data).message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getConsultingContentList() {
+    return APIGateway.set.getContents(1213)
+  }
+
+  saveComment(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      commentable_id: '',
+      commentable_type: 'content',
+      comment: ''
+    }, data)
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.saveComment,
+      resolveCallback: (response) => {
+        return new Comment(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: mergedData
+    })
+  }
+
+  updateComment(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      id: '',
+      data: {}
+    }, data)
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.updateComment(mergedData.id),
+      resolveCallback: (response) => {
+        return new Comment(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: mergedData.data
+    })
+  }
+
+  setVideoWatched(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      watchable_id: '',
+      watchable_type: 'content'
+    }, data)
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.watchedVideo,
+      resolveCallback: (response) => {
+        const defaultResponseObject = {
+          id: '',
+          watchable_id: '',
+          watchable_type: 'content',
+          watchable: new Content(),
+          seconds_watched: null
+        }
+        return this.getNormalizedSendData(defaultResponseObject, response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: mergedData
+    })
+  }
+
+  setVideoUnWatched(data = {}) {
+    const mergedData = this.getNormalizedSendData({
+      watchable_id: '',
+      watchable_type: 'content'
+    }, data)
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.unWatchedVideo,
+      resolveCallback: (response) => {
+        const defaultResponseObject = {
+          message: '' // String
+        }
+        return this.getNormalizedSendData(defaultResponseObject, response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: mergedData
     })
   }
 }

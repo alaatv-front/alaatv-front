@@ -20,7 +20,7 @@
                class="flex seen justify-center align-center">
             <i class="fi fi-rr-check icon" />
           </div>
-          <q-img v-if="type === 'pamphlet'"
+          <q-img v-if="type === 'pamphlet' && content.file.pamphlet.length > 0"
                  src="https://nodes.alaatv.com/upload/abrisham-panel-pdf.png"
                  class="content-list-image" />
         </div>
@@ -56,7 +56,7 @@
             </p>
           </div>
         </div>
-        <div v-else-if="type === 'pamphlet'"
+        <div v-else-if="type === 'pamphlet' && content.file.pamphlet.length > 0"
              class="sheet-icon flex justify-between items-center">
           <div class="title-box">
             <p class="contentListItem-title">
@@ -66,10 +66,11 @@
               {{ content.title }}
             </p>
           </div>
-          <div v-if="content.file">
-            <a :href="content.file.pamphlet[0].link">
-              <i class="fi fi-rr-download download-icon" />
-            </a>
+          <div>
+            <q-btn unelevated
+                   icon="isax:document-download"
+                   class="icon-btn"
+                   :href="content.file.pamphlet[0].link" />
           </div>
         </div>
       </div>

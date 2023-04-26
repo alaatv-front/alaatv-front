@@ -20,7 +20,7 @@ const mixinChatreNejat = {
     },
     async setVideoStatusToWatched() {
       try {
-        await this.$apiGateway.abrisham.setVideoWatched({
+        await this.$apiGateway.content.setVideoWatched({
           watchable_id: this.watchingContent.id,
           watchable_type: 'content'
         })
@@ -33,7 +33,7 @@ const mixinChatreNejat = {
     },
     async setVideoStatusToUnwatched() {
       try {
-        await this.$apiGateway.abrisham.setVideoUnWatched({
+        await this.$apiGateway.content.setVideoUnWatched({
           watchable_id: this.watchingContent.id,
           watchable_type: 'content'
         })
@@ -46,7 +46,7 @@ const mixinChatreNejat = {
     },
     async setFavored() {
       try {
-        await this.$apiGateway.abrisham.setVideoFavored(this.watchingContent.id)
+        await this.$apiGateway.content.favored(this.watchingContent.id)
         this.watchingContent.is_favored = true
         this.watchingContent.loading = false
         this.syncwatchingContentWithContentInList()
@@ -56,7 +56,7 @@ const mixinChatreNejat = {
     },
     async setUnfavored() {
       try {
-        await this.$apiGateway.abrisham.setVideoUnFavored(this.watchingContent.id)
+        await this.$apiGateway.content.unfavored(this.watchingContent.id)
         this.watchingContent.is_favored = false
         this.watchingContent.loading = false
         this.syncwatchingContentWithContentInList()
@@ -67,11 +67,14 @@ const mixinChatreNejat = {
     async updateComment(comment) {
       try {
         this.commentLoading = true
-        const response = await this.$apiGateway.abrisham.updateComment(this.watchingContent.comments[0].id, {
-          comment,
-          _method: 'PUT'
+        const updateCommentResponse = await this.$apiGateway.content.updateComment({
+          id: this.watchingContent.comments[0].id,
+          data: {
+            comment,
+            _method: 'PUT'
+          }
         })
-        this.watchingContent.comments[0].comment = response.data.data.comment
+        this.watchingContent.comments[0].comment = updateCommentResponse.comment
         this.comment = this.watchingContent.comments[0].comment
         this.commentLoading = false
         this.syncwatchingContentWithContentInList()
@@ -82,14 +85,14 @@ const mixinChatreNejat = {
     async saveNewComment(comment) {
       try {
         this.commentLoading = true
-        const response = await this.$apiGateway.abrisham.saveComment({
+        const savedComment = await this.$apiGateway.content.saveComment({
           commentable_id: this.watchingContent.id,
           commentable_type: 'content',
           comment
         })
         this.watchingContent.comments.push({
-          id: response.data.data.id,
-          comment: response.data.data.comment
+          id: savedComment.id,
+          comment: savedComment.comment
         })
         this.comment = this.watchingContent.comments[0].comment
         this.commentLoading = false
@@ -107,7 +110,10 @@ const mixinChatreNejat = {
         if (timeStampData.isFavored) {
           postStatus = 'favored'
         }
-        await this.$apiGateway.abrisham.bookmarkPostIsFavored(parseInt(timeStampData.id), postStatus)
+        await this.$apiGateway.content.setBookmarkTimepointFavoredStatus({
+          id: parseInt(timeStampData.id),
+          status: postStatus
+        })
         this.watchingContent.timepoints.list.forEach(item => {
           if (parseInt(item.id) === parseInt(timeStampData.id)) {
             item.loading = false
