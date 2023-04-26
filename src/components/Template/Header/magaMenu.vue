@@ -16,7 +16,7 @@
               <router-link v-if="item.tags"
                            :to="{ name: 'Public.Content.Search', query: { 'tags[]': item.tags } }">
                 <q-item class="item"
-                        :class="{arrow: selectedIndex === index }"
+                        :class="{arrow: isSelectedItem(index) }"
                         clickable
                         @mouseover="showData(index)">
                   <q-item-section>
@@ -28,7 +28,7 @@
               <router-link v-else
                            :to="{name: item.route.name, params: item.route.params}">
                 <q-item class="item"
-                        :class="{arrow: selectedIndex === index }"
+                        :class="{arrow: isSelectedItem(index) }"
                         clickable
                         @mouseover="showData(index)">
                   <q-item-section>
@@ -115,12 +115,10 @@ export default {
       onMouseleaveSetTimeout: null
     }
   },
-  computed: {
-    selectedIndex() {
-      return this.data.subCategoryItemsCol.findIndex(item => item.selected)
-    }
-  },
   methods: {
+    isSelectedItem(index) {
+      return this.data.subCategoryItemsCol.findIndex(item => item.selected) === index
+    },
     onMouseover () {
       this.showMenu = true
       if (window && this.onMouseleaveSetTimeout) {
