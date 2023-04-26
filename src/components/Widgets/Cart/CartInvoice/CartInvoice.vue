@@ -29,13 +29,7 @@
                 <div v-if="localOptions.hasTotalPrice"
                      class="total-shopping-cart price-section">
                   <div class="title">{{localOptions.totalPrice}}{{ `(${cart.count})` }}</div>
-                  <div v-if="loading"
-                       class="loading-spinner">
-                    <q-spinner-tail color="orange"
-                                    size="2em" />
-                  </div>
-                  <div v-else
-                       class="price">
+                  <div class="price">
                     {{ totalBasePrice }}
                     <span class="iran-money-unit">تومان</span>
                   </div>
@@ -44,13 +38,7 @@
                 <div v-if="localOptions.hasUseWallet"
                      class="wallet-credit price-section">
                   <div class="title">{{localOptions.useWallet}}</div>
-                  <div v-if="loading"
-                       class="loading-spinner">
-                    <q-spinner-tail color="orange"
-                                    size="2em" />
-                  </div>
-                  <div v-else
-                       class="price">
+                  <div class="price">
                     {{ amountUsingWallet }}
                     <span class="iran-money-unit">تومان</span>
                   </div>
@@ -59,13 +47,7 @@
                 <div v-if="discountInPercent && localOptions.hasPurchaseProfit"
                      class="purchase-profit price-section">
                   <div class="title">{{localOptions.purchaseProfit}}</div>
-                  <div v-if="loading"
-                       class="loading-spinner">
-                    <q-spinner-tail color="orange"
-                                    size="2em" />
-                  </div>
-                  <div v-else
-                       class="price">
+                  <div class="price">
                     {{ `(${discountInPercent}٪) ` + totalDiscount }}
                     <span class="iran-money-unit">تومان</span>
                   </div>
@@ -74,8 +56,7 @@
                 <q-separator class="invoice-separator" />
               </q-card-section>
 
-              <q-card-section v-if="isUserLogin"
-                              class="invoice-coupon-section invoice-cart-section">
+              <q-card-section class="invoice-coupon-section invoice-cart-section">
                 <div v-if="localOptions.hasDiscountPercent && !dense"
                      class="enter-coupon-code">
                   <div class="title">{{localOptions.discountPercent}}</div>
@@ -124,31 +105,16 @@
                 <div v-if="localOptions.hasFinalPrice"
                      class="final-price price-section">
                   <div class="title">{{localOptions.finalPrice}}</div>
-                  <div v-if="loading"
-                       class="loading-spinner">
-                    <q-spinner-tail color="orange"
-                                    size="2em" />
-                  </div>
-                  <div v-else
-                       class="price">
+                  <div class="price">
                     {{ totalFinalPrice }}
                     <span class="iran-money-unit">تومان</span>
                   </div>
                 </div>
 
-                <div v-if="isUserLogin"
-                     class="payment-gateway row">
+                <div class="payment-gateway row">
                   <div v-if="localOptions.hasPaymentMethod && !dense">
                     <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
-                    <div v-if="loading"
-
-                         class="loading-spinner">
-                      <q-spinner-tail color="orange"
-                                      size="3em" />
-                    </div>
-                    <div v-else
-
-                         class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
+                    <div class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
                       <div class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
                         <div class="bank-gateway"
                              @click="clickOnGateway">
@@ -188,12 +154,10 @@
                   </div>
                 </div>
 
-                <q-separator v-if="!isUserLogin"
-                             class="invoice-separator" />
+                <q-separator class="invoice-separator" />
               </q-card-section>
 
-              <q-card-section v-if="!isUserLogin"
-                              class="login-section invoice-cart-section">
+              <q-card-section class="login-section invoice-cart-section">
                 <p class="title">برای ادامه ثبت سفارش، به حساب کاربری خود وارد شوید </p>
 
                 <q-input v-model="userEnteredLoginInfo.mobile"
@@ -224,13 +188,7 @@
             <div class="payment-button-container">
               <div class="final-price price-section">
                 <div class="title">مبلغ نهایی:</div>
-                <div v-if="loading"
-                     class="loading-spinner">
-                  <q-spinner-tail color="orange"
-                                  size="2em" />
-                </div>
-                <div v-else
-                     class="price">
+                <div class="price">
                   {{ totalFinalPrice }}
                   <span class="iran-money-unit">تومان</span>
                 </div>
@@ -310,7 +268,6 @@ export default {
       },
       selectedBank: true,
       shoppingDescription: '',
-      loading: false,
       defaultOptions: {
         totalPrice: 'جمع سبد خرید',
         hasTotalPrice: true,
@@ -335,9 +292,6 @@ export default {
     }
   },
   computed: {
-    cartCount() {
-      return this.$store.getters['Cart/cart'].count
-    },
     cartLoading () {
       return this.cart.loading
     },

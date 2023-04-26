@@ -302,25 +302,6 @@ export default {
     this.checkMenurItemsForAuthenticatedUser()
   },
   methods: {
-    cartReview() {
-      this.cart.loading = true
-      this.$store.dispatch('Cart/reviewCart')
-        .then((response) => {
-          const invoice = response
-
-          const cart = new Cart(invoice)
-
-          if (invoice.count > 0) {
-            invoice.items.list[0].order_product.list.forEach((order) => {
-              cart.items.list.push(order)
-            })
-          }
-          this.cart = cart
-          this.cart.loading = false
-        }).catch(() => {
-          this.cart.loading = false
-        })
-    },
     checkMenurItemsForAuthenticatedUser () {
       // ToDo: check menu items by user role
       if (this.isAdmin) {
