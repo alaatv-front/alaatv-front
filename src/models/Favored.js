@@ -6,7 +6,12 @@ import { Model, Collection } from 'js-abstract-model'
 
 class Favored extends Model {
   constructor (data) {
+    const set = new Set()
+    const content = new Content()
+    const product = new Product()
+    const additionalProps = Object.assign(Object.assign(set.props, product.props), content.props)
     super(data, [
+      ...additionalProps,
       { key: 'id' },
       { key: 'is_purchased' },
       { key: 'photo' },
@@ -48,6 +53,18 @@ class Favored extends Model {
 class FavoredList extends Collection {
   model () {
     return Favored
+  }
+
+  getContents () {
+    return this.list.map(item => item.getContent())
+  }
+
+  getProducts () {
+    return this.list.map(item => item.getProduct())
+  }
+
+  getSets () {
+    return this.list.map(item => item.getSet())
   }
 }
 export { Favored, FavoredList }

@@ -1,8 +1,9 @@
 import { apiV2 } from 'src/boot/axios'
 import { SetList } from 'src/models/Set.js'
-import { ContentList } from 'src/models/Content.js'
+import { Content, ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Product, ProductList } from 'src/models/Product.js'
+import { ProductCategoryList } from 'src/models/ProductCategory'
 
 export default class ProductAPI extends APIRepository {
   constructor() {
@@ -28,7 +29,8 @@ export default class ProductAPI extends APIRepository {
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
       sampleContent: (id) => '/product/' + id + '/sample',
-      categories: '/product-categories'
+      categories: '/product-categories',
+      userLastState: (id) => '/product/' + id + '/toWatch'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -102,14 +104,17 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  favoredProduct(data = {}) {
+  favored(productId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.favored(data),
-      cacheKey: this.CacheList.favored(data),
+      request: this.APIAdresses.favored(productId),
+      cacheKey: this.CacheList.favored(productId),
       resolveCallback: (response) => {
-        return response.data
+        const defaultMessageObject = {
+          message: '' // String
+        }
+        return this.getNormalizedSendData(defaultMessageObject, response.data).message
       },
       rejectCallback: (error) => {
         return error
@@ -117,14 +122,17 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  unfavoredProduct(data = {}) {
+  unfavored(productId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.unfavored(data),
-      cacheKey: this.CacheList.unfavored(data),
+      request: this.APIAdresses.unfavored(productId),
+      cacheKey: this.CacheList.unfavored(productId),
       resolveCallback: (response) => {
-        return response.data
+        const defaultMessageObject = {
+          message: '' // String
+        }
+        return this.getNormalizedSendData(defaultMessageObject, response.data).message
       },
       rejectCallback: (error) => {
         return error
@@ -190,7 +198,22 @@ export default class ProductAPI extends APIRepository {
       cacheKey: this.CacheList.categories,
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return new ProductCategoryList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getUserLastState(id, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.userLastState(id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new Content(response.data.data)
       },
       rejectCallback: (error) => {
         return error

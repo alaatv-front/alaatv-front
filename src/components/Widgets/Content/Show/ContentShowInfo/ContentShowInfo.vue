@@ -178,7 +178,6 @@ export default {
       APIGateway.content.show(contentId)
         .then((response) => {
           this.content = new Content(response)
-          console.log(this.content)
           this.content.loading = false
         })
         .catch(() => {

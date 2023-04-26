@@ -1,6 +1,6 @@
 <template>
   <div class="row  justify-center">
-    <div class="col-8 q-mb-xl">
+    <div class="col-12 q-mb-xl">
       <entity-edit ref="entityEdit"
                    v-model:value="inputs"
                    :show-save-button="false"

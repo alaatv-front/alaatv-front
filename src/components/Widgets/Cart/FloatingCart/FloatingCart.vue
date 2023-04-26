@@ -9,8 +9,7 @@
            @click="nextMorph" />
 
     <q-card v-morph:card1:mygroup:500.resize="morphGroupModel"
-            class="cart-floating-card q-ma-md bg-primary text-white"
-            style="width: 500px; border-bottom-left-radius: 2em">
+            class="cart-floating-card q-ma-md bg-primary text-white">
       <q-card-section>
         <div class="row">
           <div class="col-12">
@@ -22,7 +21,7 @@
             <cart-view />
           </div>
           <div class="col-xs-12">
-            <cart-invoice :dense="true" />
+            <cart-invoice :options="cartInvoiceOptions" />
           </div>
         </div>
       </q-card-section>
@@ -63,6 +62,9 @@ export default {
           url: '/shop'
         },
         photo: 'https://nodes.alaatv.com/aaa/landing/Soalaa/States/empty_cart.png'
+      },
+      cartInvoiceOptions: {
+        dense: true
       }
     }
   },
@@ -95,6 +97,13 @@ export default {
     border-radius: 30px;
     max-height: 780px;
     overflow-y: auto;
+    width: 500px;
+    border-bottom-left-radius: 2em;
+
+    @media screen and (max-width: 600px) {
+      width: 300px;
+      height: 650px;
+    }
 
     .cart-container {
       margin-bottom: 0;
@@ -106,6 +115,10 @@ export default {
     &:deep(.cart-view-widget) {
       overflow-y: auto;
       max-height: 250px;
+
+      @media screen and (max-width: 600px) {
+        max-height: 190px;
+      }
     }
     &:deep(.cart-invoice .cart-invoice-container .invoice-container) {
       margin: 0;

@@ -167,7 +167,7 @@ export default {
       this.studyPlanList.loading = true
       const studyPlanNumber = 5
       try {
-        this.studyPlanList = await this.$apiGateway.abrisham.getStudyEvents(studyPlanNumber)
+        this.studyPlanList = await this.$apiGateway.studyPlan.getStudyEvents(studyPlanNumber)
         this.studyPlanList.loading = false
         if (!this.currentDate) {
           await this.loadTodayPlan()
@@ -195,7 +195,7 @@ export default {
       this.studyPlanList.loading = true
       if (!planId) return
       try {
-        const studyPlans = await this.$apiGateway.abrisham.getPlan(planId)
+        const studyPlans = await this.$apiGateway.studyPlan.getPlans(planId)
         this.setPlan(planId, studyPlans)
         this.studyPlanList.loading = false
       } catch (e) {
