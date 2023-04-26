@@ -80,8 +80,8 @@ export default {
     },
     menu: {
       // ToDO: will be deprecate
-      type: Object,
-      default: () => {}
+      type: Array,
+      default: () => []
     },
     items: {
       type: Array,
