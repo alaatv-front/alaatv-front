@@ -79,8 +79,13 @@ export default {
       default: ''
     },
     menu: {
+      // ToDO: will be deprecate
       type: Object,
       default: () => {}
+    },
+    items: {
+      type: Array,
+      default: () => []
     },
     loading: {
       type: Boolean,
@@ -101,7 +106,11 @@ export default {
   computed: {
     computedMenu: {
       get () {
-        return this.menu
+        if (this.menu.length > 0) {
+          return this.menu
+        } else {
+          return this.items
+        }
       },
       set (value) {
         this.menuItems = value

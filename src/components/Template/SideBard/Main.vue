@@ -57,7 +57,7 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <menu-item :menu="items"
+          <menu-item :menu="menuItems"
                      :menu-items-color="'#5867dd'" />
         </q-list>
         <div class="log-out"
@@ -85,7 +85,7 @@ export default {
     return {
       clickedItem: null,
       searchText: '',
-      items: menuItems,
+      menuItems,
       examsPlan: [
         {
           divider: true
