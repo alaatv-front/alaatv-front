@@ -77,7 +77,7 @@
                    size="12px"
                    class="action-btn"
                    :to="{name: 'Public.Checkout.Review'}">
-              <q-badge v-if="cartOrdersCount !== 0"
+              <q-badge v-if="cartOrdersCount > 0"
                        color="primary"
                        floating
                        rounded>
