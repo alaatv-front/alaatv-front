@@ -79,6 +79,10 @@ export default {
       type: Boolean,
       default: false
     },
+    menuItemsColor: {
+      type: String,
+      default: ''
+    },
     menu: {
       type: Object,
       default: () => {}
@@ -295,7 +299,7 @@ export default {
 
         .expansion-body {}
         .expansionBodyColor{
-          color: #5867dd;
+          color: v-bind('menuItemsColor');
         }
 
         .q-expansion-item__content {
