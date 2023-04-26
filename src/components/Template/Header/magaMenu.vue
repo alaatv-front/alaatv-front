@@ -134,9 +134,6 @@ export default {
       this.data.subCategoryItemsCol.forEach((item, subIndex) => {
         item.selected = colIndex === subIndex
       })
-      this.data.children.forEach((item, subIndex) => {
-        item.hover = colIndex === subIndex
-      })
     }
   }
 }
