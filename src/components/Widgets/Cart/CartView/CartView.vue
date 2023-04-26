@@ -133,13 +133,6 @@
 
                 <div class="action-buttons col-md-12 col-sm-3"
                      :class="expandedObject[i] ? '' : 'open-expansion'">
-                  <span v-if="!expandedObject[i] || !order.order_product">
-                    <router-link v-if="order.grand.product.id"
-                                 :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
-                                 class="link expansion-link">
-                      {{ descLinkLabel }}
-                    </router-link>
-                  </span>
 
                   <router-link v-if="order.grand.product.id"
                                :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
