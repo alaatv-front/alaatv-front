@@ -8,11 +8,12 @@
                   @mouseleave="onMouseleave">
     <q-list bordered
             padding
-            class="rounded-borders dropdown"
+            class="list rounded-borders"
             @mouseover="onMouseover"
             @mouseleave="onMouseleave">
       <div v-for="(item, index) in menuContent.children"
-           :key="index">
+           :key="index"
+           class="items">
         <router-link :to="{name: 'Public.Content.Search', query: {'tags[]': item.tags}}">
           <q-item v-ripple
                   clickable
@@ -21,6 +22,7 @@
             <q-item-section>
               {{item.title}}
             </q-item-section>
+            <p><i class="arrow" /></p>
             <q-menu v-model="item.selected"
                     fit
                     anchor="top left"
@@ -113,12 +115,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.item:hover{
-    font-weight: bold;
-    background-color: orange;
-}
-.childItem:hover{
-  font-weight: bold;
-  background-color: orange;
-}
+  .list {
+    .items {
+      .item {
+        &:hover {
+          font-weight: bold;
+          background-color: orange;
+          &:deep(.q-focus-helper) {
+            background-color: transparent !important;
+          }
+        }
+        &:deep(.q-focus-helper) {
+          background-color: transparent !important;
+        }
+        .arrow {
+          position: absolute;
+          top: 18px;
+          right: 15px;
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+          transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+        }
+        .dropdown2 {
+          .childItem:hover{
+            font-weight: bold;
+            background-color: orange;
+          }
+        }
+      }
+    }
+  }
 </style>
