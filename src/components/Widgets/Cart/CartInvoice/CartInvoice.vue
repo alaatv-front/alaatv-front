@@ -157,33 +157,6 @@
                 <q-separator class="invoice-separator" />
               </q-card-section>
 
-              <q-card-section class="login-section invoice-cart-section">
-                <p class="title">برای ادامه ثبت سفارش، به حساب کاربری خود وارد شوید </p>
-
-                <q-input v-model="userEnteredLoginInfo.mobile"
-                         type="text"
-                         label="شماره موبایل خود را وارد کنید"
-                         class="login-input"
-                         outlined />
-
-                <q-input v-model="userEnteredLoginInfo.password"
-                         type="password"
-                         label="رمز عبور خود را وارد کنید"
-                         class="login-input"
-                         outlined />
-
-                <p class="no-account">
-                  حساب کاربری ندارید؟
-                  <router-link to="/"
-                               class="sign-in">ثبت نام کنید
-                  </router-link>
-                </p>
-
-                <div class="sign-in-button"
-                     @click="login">
-                  ورود به حساب کاربری
-                </div>
-              </q-card-section>
             </q-card>
             <div class="payment-button-container">
               <div class="final-price price-section">
