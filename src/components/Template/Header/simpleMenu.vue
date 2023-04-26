@@ -21,6 +21,7 @@
             <q-item-section>
               {{item.title}}
             </q-item-section>
+            <p><i class="arrow" /></p>
             <q-menu v-model="item.selected"
                     fit
                     anchor="top left"
@@ -113,9 +114,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.item {
+  &:deep(.q-focus-helper) {
+    background-color: transparent !important;
+  }
+}
 .item:hover{
-    font-weight: bold;
-    background-color: orange;
+  font-weight: bold;
+  background-color: orange;
+  &:deep(.q-focus-helper) {
+    background-color: transparent !important;
+  }
+}
+.arrow {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+.arrow {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
 }
 .childItem:hover{
   font-weight: bold;
