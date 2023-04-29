@@ -156,11 +156,17 @@
       </div>
     </div>
   </div>
+  <checkbox />
 </template>
 
 <script>
+import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
+
 export default {
-  name: 'Controls'
+  name: 'Controls',
+  components: {
+    Checkbox
+  }
 }
 </script>
 
