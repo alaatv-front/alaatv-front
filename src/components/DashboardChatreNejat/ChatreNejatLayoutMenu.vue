@@ -24,6 +24,7 @@
       </q-input>
       <menu-item :key="menuKey"
                  :menu="topicsRouteArray"
+                 :items="topicsRouteArray"
                  :loading="topicList.length <= 0"
                  @item-selected="itemSelected" />
       <q-item v-for="(item, index) in productItems"
