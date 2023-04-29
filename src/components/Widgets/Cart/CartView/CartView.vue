@@ -1,6 +1,10 @@
 <template>
   <div class="cart-view-container">
     <template v-if="cart.loading">
+      <div class="cart-count">
+        <q-skeleton type="text"
+                    width="100px" />
+      </div>
       <div class="cart-items">
         <q-card class="cart-card">
           <q-card-section class="card-section">
