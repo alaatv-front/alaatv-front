@@ -16,23 +16,28 @@
               <router-link v-if="item.tags"
                            :to="{ name: 'Public.Content.Search', query: { 'tags[]': item.tags } }">
                 <q-item class="item"
+                        :class="{arrow: isSelectedItem(index) }"
                         clickable
                         @mouseover="showData(index)">
                   <q-item-section>
                     {{ item.title }}
                   </q-item-section>
+                  <div class="left-arrow" />
                 </q-item>
               </router-link>
               <router-link v-else
                            :to="{name: item.route.name, params: item.route.params}">
                 <q-item class="item"
+                        :class="{arrow: isSelectedItem(index) }"
                         clickable
                         @mouseover="showData(index)">
                   <q-item-section>
                     {{item.title}}
                   </q-item-section>
+                  <div class="left-arrow" />
                 </q-item>
               </router-link>
+
             </div>
           </q-list>
         </div>
@@ -111,6 +116,9 @@ export default {
     }
   },
   methods: {
+    isSelectedItem(index) {
+      return this.data.subCategoryItemsCol.findIndex(item => item.selected) === index
+    },
     onMouseover () {
       this.showMenu = true
       if (window && this.onMouseleaveSetTimeout) {
@@ -132,10 +140,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.item:hover {
+.arrow{
+  margin-right: 14px;
+  transition: border-left 1s;
+  z-index: 2;
   font-weight: bold;
   background-color: orange;
+  &:after {
+    content:'';
+    position: absolute;
+    left: 169px;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    border-left: 25px solid orange;
+    border-top: 24px solid transparent;
+    border-bottom: 24px solid transparent;
+  }
+  &:deep(.q-focus-helper) {
+    background-color: transparent !important;
+  }
 }
+
 .list-title{
   font-weight: bold;
 }

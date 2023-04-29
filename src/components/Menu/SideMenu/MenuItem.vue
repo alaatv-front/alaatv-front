@@ -74,9 +74,18 @@
 export default {
   name: 'MenuItem',
   props: {
+    menuItemsColor: {
+      type: String,
+      default: ''
+    },
     menu: {
-      type: Object,
-      default: () => {}
+      // ToDO: will be deprecate
+      type: Array,
+      default: () => []
+    },
+    items: {
+      type: Array,
+      default: () => []
     },
     loading: {
       type: Boolean,
@@ -97,7 +106,11 @@ export default {
   computed: {
     computedMenu: {
       get () {
-        return this.menu
+        if (this.menu.length > 0) {
+          return this.menu
+        } else {
+          return this.items
+        }
       },
       set (value) {
         this.menuItems = value
@@ -289,7 +302,7 @@ export default {
         }
 
         .expansion-body {
-          color: #5867dd;
+          color: v-bind('menuItemsColor');
         }
 
         .q-expansion-item__content {
