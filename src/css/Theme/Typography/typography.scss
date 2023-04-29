@@ -5,7 +5,61 @@ a{
   color: #1D1D1D;
 }
 :root{
---katexFontSize: #{$katexFontSize};
---katexLineHeight: #{$katexLineHeight}
+  --katexFontSize: #{$katexFontSize};
+  --katexLineHeight: #{$katexLineHeight}
 }
 
+h1 {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 68px;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 42px;
+  letter-spacing: -0.02em;
+}
+
+h4 {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: -0.03em;
+}
+
+p {
+  .p1{
+    font-family: IRANSansXFaNum;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.02em;
+  }
+  .p2{
+    font-family: IRANSansXFaNum;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+  }
+}
