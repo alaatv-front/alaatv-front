@@ -1,62 +1,52 @@
 <template>
-  <div v-if="cart.count > 0"
-       class="cart-view-container">
+  <div class="cart-view-container">
     <template v-if="cart.loading">
+      <div class="cart-items">
+        <q-card class="cart-card">
+          <q-card-section class="card-section">
+            <div class="order-image-section">
+              <div class="order-image-container">
+                <q-skeleton height="100%"
+                            square />
+              </div>
+            </div>
 
-      <div class="cart-count">
-        <q-skeleton type="text"
-                    width="100px" />
+            <div class="product-text-info">
+              <div class="order-item-header">
+                <div class="title ellipsis q-px-lg q-pt-lg">
+                  <q-skeleton type="text" />
+                  <q-skeleton type="text"
+                              width="85%" />
+                </div>
+                <q-skeleton type="QBtn"
+                            width="25px"
+                            height="25px" />
+              </div>
+            </div>
+          </q-card-section>
+
+          <q-card-section class="card-actions">
+            <div class="product-details row expanded">
+              <div class="price-container col-md-6 col-sm-3">
+                <q-skeleton type="text"
+                            width="150px" />
+              </div>
+              <div class="action-buttons col-md-12 col-sm-3">
+                <q-skeleton type="QBtn"
+                            height="20px" />
+              </div>
+            </div>
+
+          </q-card-section>
+
+        </q-card>
       </div>
     </template>
-    <template v-else>
+    <template v-else-if="cart.count > 0">
       <div class="cart-count">
         {{localOptions.title}} ({{cart.count}})
       </div>
-    </template>
-    <div class="cart-view-widget">
-      <template v-if="cart.loading">
-        <div class="cart-items">
-          <q-card class="cart-card">
-            <q-card-section class="card-section">
-              <div class="order-image-section">
-                <div class="order-image-container">
-                  <q-skeleton height="100%"
-                              square />
-                </div>
-              </div>
-
-              <div class="product-text-info">
-                <div class="order-item-header">
-                  <div class="title ellipsis q-px-lg q-pt-lg">
-                    <q-skeleton type="text" />
-                    <q-skeleton type="text"
-                                width="85%" />
-                  </div>
-                  <q-skeleton type="QBtn"
-                              width="25px"
-                              height="25px" />
-                </div>
-              </div>
-            </q-card-section>
-
-            <q-card-section class="card-actions">
-              <div class="product-details row on-open-expansion">
-                <div class="price-container col-md-6 col-sm-3">
-                  <q-skeleton type="text"
-                              width="150px" />
-                </div>
-                <div class="action-buttons col-md-12 col-sm-3">
-                  <q-skeleton type="QBtn"
-                              height="20px" />
-                </div>
-              </div>
-
-            </q-card-section>
-
-          </q-card>
-        </div>
-      </template>
-      <template v-else>
+      <div class="cart-view-widget">
         <div v-for="(order, i) in cartItemsList"
              :key="order.orderProductId"
              class="cart-items">
@@ -65,7 +55,8 @@
             <q-card-section class="card-section">
               <div class="order-image-section">
                 <div class="order-image-container">
-                  <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id?order.grand.product.id:-1}}">
+                  <router-link v-if="order.grand.product.id"
+                               :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}">
                     <lazy-img :src="order.grand.product.photo"
                               class="order-image" />
                   </router-link>
@@ -85,7 +76,7 @@
                          @click="changeDialogState(true, order)" />
                 </div>
 
-                <div v-if="order.grand.product && order.grand.product.attributes && order.grand.product.attributes.info"
+                <div v-if="order.grand.product?.attributes?.info"
                      class="product-information">
                   <div v-if="order.grand.product.attributes.info.teacher"
                        class="product-info">
@@ -119,7 +110,7 @@
 
             <q-card-section class="card-actions">
               <div class="product-details row"
-                   :class="expandedObject[i] ?'on-open-expansion': ''">
+                   :class="expandedObject[i] ?'expanded': ''">
                 <div v-if="order.grand.price"
                      class="price-container col-md-6 col-sm-3">
                   <div class="discount-part">
@@ -142,15 +133,9 @@
 
                 <div class="action-buttons col-md-12 col-sm-3"
                      :class="expandedObject[i] ? '' : 'open-expansion'">
-                  <span v-if="!expandedObject[i] || !order.order_product">
-                    <a v-if="order.grand && order.grand.url && order.grand.url.web"
-                       class="link"
-                       :href="order.grand?.url?.web">
-                      {{ descLinkLabel }}
-                    </a>
-                  </span>
 
-                  <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id?order.grand.product.id:-1}}"
+                  <router-link v-if="order.grand.product.id"
+                               :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
                                class="go-product text-primary text-center">
                     رفتن
                     به صفحه محصول
@@ -184,11 +169,11 @@
                       </q-card-section>
 
                       <q-card-section class="details-expansion-actions">
-                        <a v-if="order.grand && order.grand.url && order.grand.url.web"
-                           class="link expansion-link"
-                           :href="order.grand?.url?.web">
+                        <router-link v-if="order.grand.product.id"
+                                     :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
+                                     class="link expansion-link">
                           {{ descLinkLabel }}
-                        </a>
+                        </router-link>
                         <q-btn-dropdown class="details-button"
                                         label="جزئیات محصول"
                                         dropdown-icon="isax:arrow-up-2"
@@ -203,8 +188,8 @@
 
           </q-card>
         </div>
-      </template>
-    </div>
+      </div>
+    </template>
     <q-dialog v-model="dialogState"
 
               class="delete-dialog">
@@ -592,7 +577,7 @@ export default {
             margin-top: 0;
           }
 
-          &.on-open-expansion {
+          &.expanded {
             flex-direction: column;
             margin-top: 0;
           }

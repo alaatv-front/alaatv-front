@@ -77,10 +77,11 @@
                    size="12px"
                    class="action-btn"
                    :to="{name: 'Public.Checkout.Review'}">
-              <q-badge color="primary"
+              <q-badge v-if="cartOrdersCount > 0"
+                       color="primary"
                        floating
                        rounded>
-                {{cartCount}}
+                {{cartOrdersCount}}
               </q-badge>
             </q-btn>
           </div>
@@ -191,12 +192,14 @@ import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import menuItems from 'components/Template/menuData.js'
 import itemMenu from 'components/Template/Header/itemMenu.vue'
+import { Cart } from 'src/models/Cart'
 
 export default {
   name: 'MainHeaderTemplate',
   components: { LazyImg, megaMenu, simpleMenu, itemMenu },
   data() {
     return {
+      cart: new Cart(),
       conferenceMenu: false,
       showHamburgerConfig: true,
       searchInput: '',
@@ -265,8 +268,8 @@ export default {
     }
   },
   computed: {
-    cartCount() {
-      return this.$store.getters['Cart/cart'].count
+    cartOrdersCount () {
+      return this.$store.getters['Cart/cart'].items.list.length
     },
     showHamburger () {
       return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
