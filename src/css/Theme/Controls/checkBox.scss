@@ -8,5 +8,14 @@
         border-radius: 5px;
         border: 1px solid;
       }
+
+      &::before{
+        border-radius: 4px !important;
+        background: #F5F5F5;
+      }
+    }
+
+    &.disabled {
+      opacity: 0.3 !important;
     }
 }
