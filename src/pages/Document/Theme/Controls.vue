@@ -157,15 +157,19 @@
     </div>
   </div>
   <checkbox />
+  <typography />
+  <color />
 </template>
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
+import Color from 'components/Theme/Color/Color.vue'
 
 export default {
   name: 'Controls',
   components: {
-    Checkbox
+    Checkbox,
+    Color
   }
 }
 </script>
