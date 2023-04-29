@@ -4,7 +4,7 @@
       <h2>
         Typography
       </h2>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <h1>
             مدرسه آنلاین آلا
@@ -21,7 +21,7 @@
           </h1>
         </div>
       </div>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <h2>
             مدرسه آنلاین آلا
@@ -38,7 +38,7 @@
           </h2>
         </div>
       </div>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <h3>
             مدرسه آنلاین آلا
@@ -55,7 +55,7 @@
           </h3>
         </div>
       </div>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <h4>
             مدرسه آنلاین آلا
@@ -72,7 +72,7 @@
           </h4>
         </div>
       </div>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <span class="text-body1">
             مدرسه آنلاین آلا
@@ -89,7 +89,7 @@
           </span>
         </div>
       </div>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <span class="text-body2">
             مدرسه آنلاین آلا
@@ -102,11 +102,11 @@
         </div>
         <div class="col-md-2">
           <span class="text-body2">
-            P1
+            P2
           </span>
         </div>
       </div>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <span class="text-weight-bold">
             مدرسه آنلاین آلا
@@ -123,7 +123,7 @@
           </span>
         </div>
       </div>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <span class="text-weight-medium">
             مدرسه آنلاین آلا
@@ -140,7 +140,7 @@
           </span>
         </div>
       </div>
-      <div class="row q-col-gutter-md q-my-xs">
+      <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
           <span class="text-weight-regular">
             مدرسه آنلاین آلا
