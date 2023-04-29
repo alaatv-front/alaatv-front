@@ -163,14 +163,12 @@
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
-import Typography from 'components/Theme/Typography/Typography.vue'
 import Color from 'components/Theme/Color/Color.vue'
 
 export default {
   name: 'Controls',
   components: {
     Checkbox,
-    Typography,
     Color
   }
 }
