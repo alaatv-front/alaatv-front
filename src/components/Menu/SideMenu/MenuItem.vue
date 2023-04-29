@@ -6,6 +6,7 @@
                       :header-style="{height:'40px', borderRadius: '14px'}"
                       :label="item.title"
                       :icon="item.icon"
+                      :default-opened="item.open"
                       class="side-expansion-list">
       <div class="expansion-body">
         <q-separator dark
@@ -130,6 +131,8 @@ export default {
         return { name: 'Public.Content.Search', query: { 'tags[]': item.tags } }
       } else if (item.href) {
         return { path: item.href }
+      } else if (!item.routeName) {
+        return undefined
       }
       return { name: item.routeName }
     },
