@@ -157,7 +157,6 @@
     </div>
   </div>
   <checkbox />
-  <typography />
   <color />
 </template>
 
