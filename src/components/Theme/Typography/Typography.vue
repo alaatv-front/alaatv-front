@@ -4,7 +4,7 @@
       <h2>
         Typography
       </h2>
-      <div class="row q-col-gutter-md">
+      <div class="row q-col-gutter-md q-my-xs">
         <div class="col-md-5">
           <h1>
             مدرسه آنلاین آلا
@@ -21,7 +21,7 @@
           </h1>
         </div>
       </div>
-      <div class="row q-col-gutter-md">
+      <div class="row q-col-gutter-md q-my-xs">
         <div class="col-md-5">
           <h2>
             مدرسه آنلاین آلا
@@ -38,7 +38,7 @@
           </h2>
         </div>
       </div>
-      <div class="row q-col-gutter-md">
+      <div class="row q-col-gutter-md q-my-xs">
         <div class="col-md-5">
           <h3>
             مدرسه آنلاین آلا
@@ -55,7 +55,7 @@
           </h3>
         </div>
       </div>
-      <div class="row q-col-gutter-md">
+      <div class="row q-col-gutter-md q-my-xs">
         <div class="col-md-5">
           <h4>
             مدرسه آنلاین آلا
@@ -72,21 +72,89 @@
           </h4>
         </div>
       </div>
-      <div class="row q-col-gutter-md">
+      <div class="row q-col-gutter-md q-my-xs">
         <div class="col-md-5">
-          <p class="p1">
+          <span class="text-body1">
             مدرسه آنلاین آلا
-          </p>
+          </span>
         </div>
         <div class="col-md-5">
-          <p class="p1">
+          <span class="text-body1">
             IransansXfaNum - 14 regular
-          </p>
+          </span>
         </div>
         <div class="col-md-2">
-          <p class="p1">
+          <span class="text-body1">
             P1
-          </p>
+          </span>
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-my-xs">
+        <div class="col-md-5">
+          <span class="text-body2">
+            مدرسه آنلاین آلا
+          </span>
+        </div>
+        <div class="col-md-5">
+          <span class="text-body2">
+            IransansXfaNum - 12 regular
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span class="text-body2">
+            P1
+          </span>
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-my-xs">
+        <div class="col-md-5">
+          <span class="text-weight-bold">
+            مدرسه آنلاین آلا
+          </span>
+        </div>
+        <div class="col-md-5">
+          <span class="text-weight-bold">
+            IransansXfaNum - 16 demibold
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span class="text-weight-bold">
+            B1
+          </span>
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-my-xs">
+        <div class="col-md-5">
+          <span class="text-weight-medium">
+            مدرسه آنلاین آلا
+          </span>
+        </div>
+        <div class="col-md-5">
+          <span class="text-weight-medium">
+            IransansXfaNum - 16 medium
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span class="text-weight-medium">
+            B2
+          </span>
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-my-xs">
+        <div class="col-md-5">
+          <span class="text-weight-regular">
+            مدرسه آنلاین آلا
+          </span>
+        </div>
+        <div class="col-md-5">
+          <span class="text-weight-regular">
+            IransansXfaNum - 14 demibold
+          </span>
+        </div>
+        <div class="col-md-2">
+          <span class="text-weight-regular">
+            B3
+          </span>
         </div>
       </div>
 

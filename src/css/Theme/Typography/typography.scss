@@ -10,56 +10,74 @@ a{
 }
 
 h1 {
+  margin: 0;
   font-family: IRANSansXFaNum;
   font-style: normal;
   font-weight: 700;
   font-size: 48px;
   line-height: 68px;
-  letter-spacing: -0.02em;
 }
 
 h2 {
+  margin: 0;
   font-family: IRANSansXFaNum;
   font-style: normal;
   font-weight: 600;
   font-size: 36px;
   line-height: 54px;
-  letter-spacing: -0.02em;
 }
 
 h3 {
+  margin: 0;
   font-family: IRANSansXFaNum;
   font-style: normal;
   font-weight: 600;
   font-size: 28px;
   line-height: 42px;
-  letter-spacing: -0.02em;
 }
 
 h4 {
+  margin: 0;
   font-family: IRANSansXFaNum;
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
   line-height: 27px;
-  letter-spacing: -0.03em;
 }
 
-p {
-  .p1{
-    font-family: IRANSansXFaNum;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: -0.02em;
-  }
-  .p2{
-    font-family: IRANSansXFaNum;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 18px;
-    letter-spacing: -0.02em;
-  }
+.text-body1 {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
 }
+.text-body2 {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+}
+.text-weight-bold {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+.text-weight-medium {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+.text-weight-regular {
+  font-family: IRANSansXFaNum;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 140%;
+}
+
