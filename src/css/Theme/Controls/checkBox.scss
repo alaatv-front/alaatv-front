@@ -4,6 +4,7 @@
       &.q-checkbox__inner--falsy{
         color: var(--alaa-TextSecondary) !important;
       }
+
       .q-checkbox__bg{
         border-radius: 5px;
         border: 1px solid;
@@ -11,7 +12,16 @@
 
       &::before{
         border-radius: 4px !important;
-        background: #F5F5F5;
+        background: currentColor;
+        opacity: .15 !important;
+      }
+    }
+
+    &.hovered {
+
+      .q-checkbox__inner {
+        border-radius: 4px !important;
+
       }
     }
 

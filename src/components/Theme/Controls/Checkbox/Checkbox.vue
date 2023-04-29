@@ -41,25 +41,27 @@
           </div>
           <div class="with-title">
             <q-checkbox v-model="falseValue"
+                        class="hovered"
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="trueValue"
-                        class="true"
+                        class="hovered"
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="maybeValue"
-                        class="true"
+                        class="hovered"
                         left-label
                         label="عنوان" />
           </div>
           <div class="title-less">
             <q-checkbox v-model="falseValue"
+                        class="hovered"
                         left-label />
             <q-checkbox v-model="trueValue"
-                        class="true"
+                        class="hovered"
                         left-label />
             <q-checkbox v-model="maybeValue"
-                        class="true"
+                        class="hovered"
                         left-label />
           </div>
         </div>
@@ -131,23 +133,6 @@ export default defineComponent({
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    &.hover {
-
-      &:deep(.q-checkbox){
-
-        &.true{
-          .q-checkbox__inner{
-            border-radius: 4px !important;
-            background: rgba($color: $primary, $alpha: .15);
-          }
-        }
-        .q-checkbox__inner{
-          border-radius: 4px !important;
-          background: #F5F5F5;
-        }
-      }
-    }
 
     .with-title {
       width: 100%;
