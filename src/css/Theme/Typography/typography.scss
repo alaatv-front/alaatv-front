@@ -5,7 +5,77 @@ a{
   color: #1D1D1D;
 }
 :root{
---katexFontSize: #{$katexFontSize};
---katexLineHeight: #{$katexLineHeight}
+  --katexFontSize: #{$katexFontSize};
+  --katexLineHeight: #{$katexLineHeight}
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-style: normal;
+}
+h1 {
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 68px;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 42px;
+}
+
+h4 {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+h5{
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+h6{
+  font-weight: 500;
+  font-size: 8px;
+  line-height: 10px;
+}
+
+.text-body1 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+.text-body2 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+}
+.text-weight-bold {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+.text-weight-medium {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+.text-weight-regular {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
 }
 
