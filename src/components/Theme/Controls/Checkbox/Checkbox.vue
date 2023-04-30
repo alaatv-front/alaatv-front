@@ -1,7 +1,14 @@
 <template>
   <div class="checkbox-container">
-    <div class="row">
-      <div class="col-4">
+    <div class="row flex flex-center">
+      <div class="col-md-9">
+        <div class="checkbox-title">
+          Checkbox
+        </div>
+      </div>
+    </div>
+    <div class="row flex flex-center">
+      <div class="col-md-3">
         <div class="checkbox-group">
           <div class="group-title">
             default
@@ -27,33 +34,39 @@
           </div>
         </div>
       </div>
-      <div class="col-4">
-        <div class="checkbox-group">
+      <div class="col-md-3">
+        <div class="checkbox-group hover">
           <div class="group-title">
             hover
           </div>
           <div class="with-title">
             <q-checkbox v-model="falseValue"
+                        class="hovered"
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="trueValue"
+                        class="hovered"
                         left-label
                         label="عنوان" />
             <q-checkbox v-model="maybeValue"
+                        class="hovered"
                         left-label
                         label="عنوان" />
           </div>
           <div class="title-less">
             <q-checkbox v-model="falseValue"
+                        class="hovered"
                         left-label />
             <q-checkbox v-model="trueValue"
+                        class="hovered"
                         left-label />
             <q-checkbox v-model="maybeValue"
+                        class="hovered"
                         left-label />
           </div>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-md-3">
         <div class="checkbox-group">
           <div class="group-title">
             disable
