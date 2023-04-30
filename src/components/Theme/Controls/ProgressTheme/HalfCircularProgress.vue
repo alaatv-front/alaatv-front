@@ -30,7 +30,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'CircularProgress2',
+  name: 'HalfCircularProgress',
   props: {
     value: {
       type: Number,
