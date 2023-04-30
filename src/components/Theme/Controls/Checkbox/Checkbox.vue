@@ -115,39 +115,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.checkbox-container {
-  margin: 40px 0 20px;
-  padding: 40px 0;
-  background: #ffffff;
-
-  .checkbox-title {
-    font-size: 28px;
-    font-weight: 300;
-    line-height: 3.75rem;
-    letter-spacing: -0.00833em;
-  }
-  .checkbox-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    .with-title {
-      width: 100%;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .title-less {
-      width: 100%;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-    }
-  }
-}
-</style>
