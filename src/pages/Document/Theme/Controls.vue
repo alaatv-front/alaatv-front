@@ -158,17 +158,32 @@
   </div>
   <checkbox />
   <color />
+  <progress-theme />
+  <slider-range />
+  <toggle-theme />
+  <pagination-theme />
+  <typography />
 </template>
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 import Color from 'components/Theme/Color/Color.vue'
+import ProgressTheme from 'components/Theme/Controls/ProgressTheme/ProgressTheme.vue'
+import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue'
+import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
+import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
+import Typography from 'components/Theme/Typography/Typography.vue'
 
 export default {
   name: 'Controls',
   components: {
     Checkbox,
     Color
+    ProgressTheme,
+    SliderRange,
+    ToggleTheme,
+    PaginationTheme,
+    Typography
   }
 }
 </script>
