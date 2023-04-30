@@ -157,15 +157,20 @@
     </div>
   </div>
   <checkbox />
+
+  <toggle-theme />
 </template>
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 
+import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
 export default {
   name: 'Controls',
   components: {
-    Checkbox
+    Checkbox,
+
+    ToggleTheme
   }
 }
 </script>
