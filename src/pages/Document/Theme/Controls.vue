@@ -157,15 +157,19 @@
     </div>
   </div>
   <checkbox />
+
+  <slider-range />
 </template>
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 
+import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue'
 export default {
   name: 'Controls',
   components: {
-    Checkbox
+    Checkbox,
+    SliderRange
   }
 }
 </script>
