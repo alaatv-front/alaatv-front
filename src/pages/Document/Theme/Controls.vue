@@ -158,17 +158,20 @@
   </div>
   <checkbox />
   <progress-theme />
+  <toggle-theme />
 </template>
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 import ProgressTheme from 'components/Theme/Controls/ProgressTheme/ProgressTheme.vue'
 
+import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
 export default {
   name: 'Controls',
   components: {
     Checkbox,
     ProgressTheme
+    ToggleTheme
   }
 }
 </script>
