@@ -161,6 +161,7 @@
   <slider-range />
   <toggle-theme />
   <pagination-theme />
+  <scroll />
   <typography />
 </template>
 
@@ -171,6 +172,7 @@ import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue
 import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
 import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
 import Typography from 'components/Theme/Typography/Typography.vue'
+import Scroll from 'components/Theme/Controls/Scroll/Scroll'
 
 export default {
   name: 'Controls',
@@ -180,7 +182,8 @@ export default {
     SliderRange,
     ToggleTheme,
     PaginationTheme,
-    Typography
+    Typography,
+    Scroll
   }
 }
 </script>
