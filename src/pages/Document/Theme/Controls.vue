@@ -157,6 +157,8 @@
     </div>
   </div>
   <checkbox />
+
+  <toggle-theme />
   <typography />
 </template>
 
@@ -164,9 +166,13 @@
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 import Typography from 'components/Theme/Typography/Typography.vue'
 
+import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
 export default {
   name: 'Controls',
   components: {
+    Checkbox,
+
+    ToggleTheme
     Checkbox,
     Typography
   }
