@@ -29,13 +29,13 @@
                              class="q-ma-md" />
       </div>
       <div class="col-md-3 flex flex-center">
-        <circular-progress2 :value="21"
-                            :min="0"
-                            :max="50"
-                            :size="200"
-                            :showValue="true"
-                            :icon="'dew_point'"
-                            :fontSize="'24px'" />
+        <half-circular-progress :value="21"
+                                :min="0"
+                                :max="50"
+                                :size="200"
+                                :showValue="true"
+                                :icon="'dew_point'"
+                                :fontSize="'24px'" />
       </div>
     </div>
   </div>
@@ -43,12 +43,12 @@
 
 <script>
 import { defineComponent } from 'vue'
-import CircularProgress2 from './CircularProgress2.vue'
+import HalfCircularProgress from './CircularProgress2.vue'
 
 export default defineComponent({
   name: 'ProgressTheme',
   components: {
-    CircularProgress2
+    HalfCircularProgress
   },
   data() {
     return {
