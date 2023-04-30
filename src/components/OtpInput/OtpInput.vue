@@ -59,6 +59,18 @@ export default {
       return nonNullFields.join('')
     }
   },
+  watch: {
+    composite(newValue) {
+      if (newValue) {
+        // You should emit this value, e.g.
+        this.$emit('update:modelValue', newValue)
+        // Notify.create({
+        //   message: `New input: ${composite}`,
+        //   type: 'positive'
+        // })
+      }
+    }
+  },
   beforeUpdate() {
     this.fields = []
   },

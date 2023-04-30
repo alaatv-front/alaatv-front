@@ -152,9 +152,6 @@
       }
     }
   }
-  &.q-field--with-bottom {
-    padding-bottom: 0;
-  }
   &.largeInput {
     .q-field__inner {
       .q-field__control {
@@ -184,11 +181,6 @@
   }
 }
 
-.otp-hint {
-  color: #EF5350;
-  margin-left: 4px;
-  margin-top: 8px;
-}
 
 //.form-builder-input.form-builder-select.form-builder-dateTime {
   .outsideLabel {
