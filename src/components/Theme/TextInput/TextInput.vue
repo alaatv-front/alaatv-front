@@ -120,52 +120,24 @@
       </div>
       <div class="row q-my-lg text-center">
         <div class="col-md-12">
-          <v-otp-input ref="otpInput"
-                       v-model:value="bindModal"
-                       class="otp-input"
-                       input-classes="otp-input"
-                       separator=""
-                       :num-inputs="6"
-                       :should-auto-focus="true"
-                       input-type="letter-numeric"
-                       :conditionalClass="['one', 'two', 'three', 'four','five','six']"
-                       :placeholder="[]"
-                       @on-change="handleOnChange"
-                       @on-complete="handleOnComplete" />
-          <!--          <div class="row justify-center">-->
-          <!--            <q-input v-for="i in inputLength"-->
-          <!--                     :key="i"-->
-          <!--                     v-model="fieldValues[i - 1]"-->
-          <!--                     maxlength="1"-->
-          <!--                     v-bind="$attrs"-->
-          <!--                     class="otp-input"-->
-          <!--                     @keyup="onKeyUp($event, i - 1)" />-->
-          <!--          </div>-->
+          <div class="row justify-center">
+            <otp-input :input-length="6" />
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import VOtpInput from 'vue3-otp-input'
+import OtpInput from 'components/OtpInput/OtpInput.vue'
 
 export default {
   name: 'TextInput',
-  components: { VOtpInput },
+  components: { OtpInput },
   data() {
     return {
       input1: 'متن وارد شده',
-      input4: '',
-      bindModal: '000000',
-      otpValue: null
-    }
-  },
-  methods: {
-    handleOnChange(value) {
-
-    },
-    handleOnComplete(value) {
-      this.otpValue = value
+      input4: ''
     }
   }
 }

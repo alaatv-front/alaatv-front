@@ -157,15 +157,18 @@
     </div>
   </div>
   <checkbox />
+  <text-input />
 </template>
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
+import TextInput from 'components/Theme/TextInput/TextInput.vue'
 
 export default {
   name: 'Controls',
   components: {
-    Checkbox
+    Checkbox,
+    TextInput
   }
 }
 </script>
