@@ -185,6 +185,8 @@ export default {
     Scroll
     PaginationTheme,
     Typography
+    PaginationTheme,
+    Scroll
   }
 }
 </script>
