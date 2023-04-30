@@ -43,7 +43,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import HalfCircularProgress from './CircularProgress2.vue'
+import HalfCircularProgress from './HalfCircularProgress.vue'
 
 export default defineComponent({
   name: 'ProgressTheme',
