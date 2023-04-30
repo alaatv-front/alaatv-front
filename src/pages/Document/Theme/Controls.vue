@@ -157,27 +157,40 @@
     </div>
   </div>
   <checkbox />
+  <color />
   <progress-theme />
   <slider-range />
   <toggle-theme />
   <radio-btn />
+  <pagination-theme />
+  <scroll />
+  <typography />
 </template>
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
+import Color from 'components/Theme/Color/Color.vue'
 import ProgressTheme from 'components/Theme/Controls/ProgressTheme/ProgressTheme.vue'
 import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue'
 import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
 import RadioBtn from 'src/components/Theme/Controls/RadioBtn/RadioBtn.vue'
+import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
+import Typography from 'components/Theme/Typography/Typography.vue'
+import Scroll from 'components/Theme/Controls/Scroll/Scroll'
+
 
 export default {
   name: 'Controls',
   components: {
     Checkbox,
+    Color
     ProgressTheme,
     SliderRange,
     ToggleTheme,
     RadioBtn
+    PaginationTheme,
+    Typography,
+    Scroll
   }
 }
 </script>
