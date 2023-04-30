@@ -1,9 +1,9 @@
 <template>
-  <div class="progress-container">
+  <div class="toggle-container">
     <div class="row flex flex-center">
       <div class="col-md-9">
-        <div class="progress-title">
-          Progress
+        <div class="toggle-title">
+          toggle
         </div>
       </div>
     </div>
@@ -94,3 +94,12 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.toggle-container {
+  padding: 40px 0;
+  .toggle-title {
+    font-size: 28px;
+  }
+}
+</style>
