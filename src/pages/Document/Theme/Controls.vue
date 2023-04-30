@@ -160,6 +160,7 @@
   <progress-theme />
   <slider-range />
   <toggle-theme />
+  <pagination-theme />
 </template>
 
 <script>
@@ -167,6 +168,7 @@ import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
 import ProgressTheme from 'components/Theme/Controls/ProgressTheme/ProgressTheme.vue'
 import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue'
 import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
+import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
 
 export default {
   name: 'Controls',
@@ -174,7 +176,8 @@ export default {
     Checkbox,
     ProgressTheme,
     SliderRange,
-    ToggleTheme
+    ToggleTheme,
+    PaginationTheme
   }
 }
 </script>
