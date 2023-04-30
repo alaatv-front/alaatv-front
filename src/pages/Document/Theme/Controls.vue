@@ -182,10 +182,7 @@ export default {
     SliderRange,
     ToggleTheme,
     PaginationTheme,
-    Scroll
-    PaginationTheme,
-    Typography
-    PaginationTheme,
+    Typography,
     Scroll
   }
 }
