@@ -1,9 +1,9 @@
 <template>
-  <div class="slider-container">
+  <div class="pagination-container">
     <div class="row flex flex-center">
       <div class="col-md-9">
-        <div class="slider-title">
-          Slider & Range
+        <div class="pagination-title">
+          Pagination
         </div>
       </div>
     </div>
@@ -47,10 +47,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .slider-container {
+  .pagination-container {
     padding: 40px;
 
-    .slider-title {
+    .pagination-title {
       font-size: 28px;
     }
   }
