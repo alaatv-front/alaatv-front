@@ -16,6 +16,7 @@
       <div class="col-md-3">
         <q-linear-progress :value="value1"
                            rounded
+                           track-color="white"
                            size="15px"
                            class="q-mt-md" />
       </div>
