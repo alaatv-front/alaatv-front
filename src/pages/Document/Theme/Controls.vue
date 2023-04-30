@@ -175,8 +175,7 @@ import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
 export default {
   name: 'Controls',
   components: {
-    Checkbox,
-    Typography
+    Typography,
     Checkbox,
     ProgressTheme,
     SliderRange,
