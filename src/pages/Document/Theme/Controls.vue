@@ -172,8 +172,8 @@ export default {
   name: 'Controls',
   components: {
     Checkbox,
-    ProgressTheme
-    SliderRange
+    ProgressTheme,
+    SliderRange,
     ToggleTheme
   }
 }
