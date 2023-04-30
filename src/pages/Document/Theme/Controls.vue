@@ -157,15 +157,18 @@
     </div>
   </div>
   <checkbox />
+  <progress-theme />
 </template>
 
 <script>
 import Checkbox from 'components/Theme/Controls/Checkbox/Checkbox.vue'
+import ProgressTheme from 'components/Theme/Controls/ProgressTheme/ProgressTheme.vue'
 
 export default {
   name: 'Controls',
   components: {
-    Checkbox
+    Checkbox,
+    ProgressTheme
   }
 }
 </script>
