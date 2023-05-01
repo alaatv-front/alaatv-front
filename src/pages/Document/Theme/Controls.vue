@@ -236,6 +236,7 @@
   <pagination-theme />
   <scroll />
   <typography />
+  <text-input />
 </template>
 
 <script>
@@ -248,7 +249,7 @@ import RadioBtn from 'src/components/Theme/Controls/RadioBtn/RadioBtn.vue'
 import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
 import Typography from 'components/Theme/Typography/Typography.vue'
 import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
-
+import TextInput from 'components/Theme/TextInput/TextInput.vue'
 
 export default {
   name: 'Controls',
@@ -258,10 +259,11 @@ export default {
     ProgressTheme,
     SliderRange,
     ToggleTheme,
-    RadioBtn
+    RadioBtn,
     PaginationTheme,
     Typography,
-    Scroll
+    Scroll,
+    TextInput
   }
 }
 </script>
