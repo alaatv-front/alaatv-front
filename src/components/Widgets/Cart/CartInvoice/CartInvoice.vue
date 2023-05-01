@@ -65,11 +65,13 @@
                            type="text"
                            label="کد تخفیف خود را وارد کنید"
                            class="coupon-input"
+                           :loading="couponLoading"
                            outlined>
                     <template v-slot:append>
                       <q-btn v-if="!isCouponSet"
                              label="ثبت"
                              flat
+                             :loading="couponLoading"
                              @click="setCoupon" />
                       <q-btn v-else
                              label="حذف"
@@ -89,10 +91,12 @@
                            outlined
                            mask="##-#####"
                            :suffix=giftCardPrefix
+                           :loading="referralCodeLoading"
                            hint="مثال: AT84-27871">
                     <template v-slot:append>
                       <q-btn label="ثبت"
                              flat
+                             :loading="referralCodeLoading"
                              @click="submitReferralCode" />
                     </template>
                   </q-input>
@@ -192,12 +196,12 @@
 </template>
 
 <script>
-// import { computed } from 'vue'
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
+import AuthLogin from 'components/Auth.vue'
+import { APIGateway } from 'src/api/APIGateway'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
-import AuthLogin from 'components/Auth.vue'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -226,6 +230,8 @@ export default {
   },
   data () {
     return {
+      couponLoading: false,
+      referralCodeLoading: false,
       CartInvoiceContainerKey: Date.now(), // for dispose sticky
       isUserLogin: false,
       stickySidebar: null,
@@ -344,31 +350,33 @@ export default {
     //   str.replace('AT', '')
     // },
     submitReferralCode() {
-      this.$apiGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
+      this.referralCodeLoading = true
+      APIGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
         .then(() => {
+          this.referralCodeLoading = false
         })
-        .catch()
+        .catch(() => {
+          this.referralCodeLoading = false
+        })
     },
     setCoupon() {
-      this.$apiGateway.coupon.base({ code: this.couponValue })
-        .then(response => {
+      this.couponLoading = true
+      APIGateway.coupon.base({ code: this.couponValue })
+        .then(() => {
           this.isCouponSet = true
+          this.couponLoading = false
           Notify.create({
             message: 'کد تخفیف با موفقیت اعمال شد',
             type: 'positive',
             color: 'positive'
           })
         })
-        .catch(err => {
-          Notify.create({
-            message: err.message,
-            type: 'negative',
-            color: 'negative'
-          })
+        .catch(() => {
+          this.couponLoading = false
         })
     },
     cancelCoupon() {
-      this.$apiGateway.coupon.deleteCoupon()
+      APIGateway.coupon.deleteCoupon()
         .then(response => {
           this.isCouponSet = false
           Notify.create({

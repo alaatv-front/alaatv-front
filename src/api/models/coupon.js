@@ -22,10 +22,8 @@ export default class CouponAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAddresses.base,
-      cacheKey: this.CacheList.base,
-      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error

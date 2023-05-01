@@ -1,7 +1,9 @@
 import { boot } from 'quasar/wrappers'
 // import VuePlugin from 'quasar-ui-q-page-builder'
-import QPageBuilder from 'quasar-ui-q-page-builder/src/components/QPageBuilder.vue'
 import widgetList from '../components/Widgets/widget.json'
+import QPageBuilder from 'quasar-ui-q-page-builder/src/components/QPageBuilder.vue'
+import PageBuilderComponents from '../components/Widgets/PageBuilderComponents.js'
+import PageBuilderOptionPanels from '../components/Widgets/PageBuilderOptionPanels.js'
 
 const widgets = []
 function extractWidgets (json) {
@@ -18,80 +20,11 @@ function extractWidgets (json) {
 }
 extractWidgets(widgetList)
 export const widgetExpanded = widgets
-export default boot(async function ({ app }) {
+export default boot(function ({ app }) {
   app.config.globalProperties.$q.$QPageBuilderWidgetList = widgetExpanded
 
-  async function registerWidgets (widgetsList) {
-    const components = {}
-    const optionPanels = {}
-    const widgetsListLength = widgetsList.length
-    for (let i = 0; i < widgetsListLength; i++) {
-      const element = widgetsList[i]
-      const widgetComponentName = element.name
-      const widgetComponentPath = element.path + '/' + widgetComponentName
-      const widgetOptionPanelPath = element.path + '/' + 'OptionPanel'
-      const widgetComponentPathInArray = widgetComponentPath.split('/')
-      const widgetOptionPanelPathInArray = widgetOptionPanelPath.split('/')
-
-      if (widgetComponentPathInArray[widgetComponentPathInArray.length - 1] !== widgetComponentPathInArray[widgetComponentPathInArray.length - 2]) {
-        continue
-      }
-      // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
-      // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
-      if (widgetComponentPathInArray.length === 1) {
-        components[widgetComponentName] = (await import(`../${widgetComponentPathInArray[0]}.vue`)).default
-      }
-      if (widgetComponentPathInArray.length === 2) {
-        components[widgetComponentName] = (await import(`../${widgetComponentPathInArray[0]}/${widgetComponentPathInArray[1]}.vue`)).default
-      }
-      if (widgetComponentPathInArray.length === 3) {
-        components[widgetComponentName] = (await import(`../${widgetComponentPathInArray[0]}/${widgetComponentPathInArray[1]}/${widgetComponentPathInArray[2]}.vue`)).default
-      }
-      if (widgetComponentPathInArray.length === 4) {
-        components[widgetComponentName] = (await import(`../${widgetComponentPathInArray[0]}/${widgetComponentPathInArray[1]}/${widgetComponentPathInArray[2]}/${widgetComponentPathInArray[3]}.vue`)).default
-      }
-      if (widgetComponentPathInArray.length === 5) {
-        components[widgetComponentName] = (await import(`../${widgetComponentPathInArray[0]}/${widgetComponentPathInArray[1]}/${widgetComponentPathInArray[2]}/${widgetComponentPathInArray[3]}/${widgetComponentPathInArray[4]}.vue`)).default
-      }
-      if (widgetComponentPathInArray.length === 6) {
-        components[widgetComponentName] = (await import(`../${widgetComponentPathInArray[0]}/${widgetComponentPathInArray[1]}/${widgetComponentPathInArray[2]}/${widgetComponentPathInArray[3]}/${widgetComponentPathInArray[4]}/${widgetComponentPathInArray[5]}.vue`)).default
-      }
-      // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
-      // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
-
-      if (element.optionPanel) {
-        const optionPanelWidgetName = widgetComponentName + 'OptionPanel'
-        // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
-        // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
-        if (widgetOptionPanelPathInArray.length === 1) {
-          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}.vue`)).default
-        }
-        if (widgetOptionPanelPathInArray.length === 2) {
-          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}.vue`)).default
-        }
-        if (widgetOptionPanelPathInArray.length === 3) {
-          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}/${widgetOptionPanelPathInArray[2]}.vue`)).default
-        }
-        if (widgetOptionPanelPathInArray.length === 4) {
-          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}/${widgetOptionPanelPathInArray[2]}/${widgetOptionPanelPathInArray[3]}.vue`)).default
-        }
-        if (widgetOptionPanelPathInArray.length === 5) {
-          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}/${widgetOptionPanelPathInArray[2]}/${widgetOptionPanelPathInArray[3]}/${widgetOptionPanelPathInArray[4]}.vue`)).default
-        }
-        if (widgetOptionPanelPathInArray.length === 6) {
-          optionPanels[optionPanelWidgetName] = (await import(`../${widgetOptionPanelPathInArray[0]}/${widgetOptionPanelPathInArray[1]}/${widgetOptionPanelPathInArray[2]}/${widgetOptionPanelPathInArray[3]}/${widgetOptionPanelPathInArray[4]}/${widgetOptionPanelPathInArray[5]}.vue`)).default
-        }
-        // https://github.com/vitejs/vite/issues/4945#issuecomment-951770052
-        // :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :( :(
-      }
-    }
-
-    app.config.globalProperties.$q.$pageBuilderWidgetComponents = components
-    app.config.globalProperties.$q.$pageBuilderWidgetOptionPanels = optionPanels
-  }
-
-  await registerWidgets(widgetExpanded)
-
+  app.config.globalProperties.$q.$pageBuilderWidgetComponents = PageBuilderComponents
+  app.config.globalProperties.$q.$pageBuilderWidgetOptionPanels = PageBuilderOptionPanels
   // app.component('q-page-builder', VuePlugin.QPageBuilder)
   app.component('q-page-builder', QPageBuilder)
 })
