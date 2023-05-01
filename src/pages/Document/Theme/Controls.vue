@@ -197,6 +197,39 @@
         </div>
         <div class="col-md-2">
           <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary"
+                 disable />
+        </div>
+        <div class="col-md-3">
+          Round
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-lg">
+        <div class="col-md-1">
+          Extra Large
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
                  square
                  icon="isax:user"
                  color="primary" />
