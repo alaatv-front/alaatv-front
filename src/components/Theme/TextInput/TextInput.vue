@@ -109,7 +109,7 @@
         </div>
       </div>
 
-      <div class="row text-center q-col-gutter-md q-my-xl">
+      <div class="row text-center q-col-gutter-md q-mb-lg q-mt-xl">
         <div class="col-md-4">
           error
         </div>
@@ -118,11 +118,17 @@
           default
         </div>
       </div>
-      <div class="row q-my-lg text-center">
-        <div class="col-md-12">
-          <div class="row justify-center">
-            <otp-input :input-length="6" />
-          </div>
+      <div class="row q-my-md">
+        <div class="col-md-4">
+          <otp-input :input-length="6"
+                     :error="true"
+                     :hint="'کد اشتباه است لطفا مجددا امتحان کنید'" />
+        </div>
+        <div class="col-md-4">
+          <otp-input :input-length="6" />
+        </div>
+        <div class="col-md-4">
+          <otp-input :input-length="6" />
         </div>
       </div>
     </div>

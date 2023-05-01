@@ -1,13 +1,24 @@
 <template>
-  <q-input v-for="i in length"
-           v-bind="$attrs"
-           :key="i"
-           :ref="el => updateFieldRef(el, i - 1)"
-           v-model="fieldValues[i - 1]"
-           class="otp-input"
-           maxlength="1"
-           @keyup="onKeyUp($event, i - 1)"
-           @update:model-value="onUpdate($event, i - 1)" />
+  <div class="row">
+    <q-input v-for="i in length"
+             v-bind="$attrs"
+             :key="i"
+             :ref="el => updateFieldRef(el, i - 1)"
+             v-model="fieldValues[i - 1]"
+             lazy-rules
+             :rules="rules"
+             :error="error"
+             class="otp-input"
+             maxlength="1"
+             @keyup="onKeyUp($event, i - 1)"
+             @update:model-value="onUpdate($event, i - 1)" />
+  </div>
+  <div class="col-md-12">
+    <div v-if="hint"
+         class="otp-hint">
+      {{ hint }}
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -16,6 +27,18 @@ export default {
     inputLength: {
       type: Number,
       default: 6
+    },
+    rules: {
+      type: Array,
+      default: () => []
+    },
+    error: {
+      type: Boolean,
+      default: false
+    },
+    hint: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -34,18 +57,6 @@ export default {
         return ''
       }
       return nonNullFields.join('')
-    }
-  },
-  watch: {
-    composite(newValue) {
-      if (newValue) {
-        // You should emit this value, e.g.
-        this.$emit('update:modelValue', newValue)
-        // Notify.create({
-        //   message: `New input: ${composite}`,
-        //   type: 'positive'
-        // })
-      }
     }
   },
   beforeUpdate() {

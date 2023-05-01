@@ -4,7 +4,7 @@
   max-width: 0;
 }
 .q-field {
-  height: 40px;
+  height: fit-content;
   .q-field__inner{
     background: #f6f7f9;
     border-radius: 8px;
@@ -81,13 +81,7 @@
         }
       }
       .q-field__bottom {
-        //  font-family: IRANSansXFaNum;
-        //  font-style: normal;
-        //  font-weight: 400;
-        //  font-size: 12px;
-        //  line-height: 18px;
         color: #EF5350 !important;
-        //  padding: 30px 0 0;
       }
     }
   }
@@ -158,6 +152,9 @@
       }
     }
   }
+  &.q-field--with-bottom {
+    padding-bottom: 0;
+  }
   &.largeInput {
     .q-field__inner {
       .q-field__control {
@@ -187,6 +184,11 @@
   }
 }
 
+.otp-hint {
+  color: #EF5350;
+  margin-left: 4px;
+  margin-top: 8px;
+}
 
 //.form-builder-input.form-builder-select.form-builder-dateTime {
   .outsideLabel {
