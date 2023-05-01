@@ -269,7 +269,7 @@ export default {
   },
   computed: {
     cartOrdersCount () {
-      return this.$store.getters['Cart/cart'].items.list.length
+      return this.$store.getters['Cart/cart'].count
     },
     showHamburger () {
       return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
