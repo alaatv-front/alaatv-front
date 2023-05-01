@@ -571,6 +571,12 @@ const routes = [
                 name: 'Document.Theme.Controls',
                 component: () => import('src/pages/Document/Theme/Controls.vue'),
                 breadcrumbs: { title: 'Controls' }
+              },
+              {
+                path: 'dialog',
+                name: 'Document.Theme.Dialog',
+                component: () => import('src/pages/Document/Theme/DialogPage.vue'),
+                breadcrumbs: { title: 'Controls' }
               }
             ]
           },
