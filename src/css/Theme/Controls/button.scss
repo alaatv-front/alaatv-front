@@ -1,21 +1,31 @@
 .q-btn {
-  //font-style: normal;
-  //font-weight: 500;
-  //line-height: 24px;
-  //padding: 0;
-  //align-items: center;
-  //text-align: center;
-  border-radius: 8px;
+  &.q-btn--outline {
+    border: 1px solid #777777;
+  }
   &.q-hoverable:hover > .q-focus-helper {
-    background: currentColor;
     opacity: 0.15;
+  }
+  &.q-focusable:focus {
+    box-shadow: 0px 0px 0px 4px #E8E8E8;
   }
   &.q-focusable:focus > .q-focus-helper {
     opacity: 0.22 !important;
   }
+  &.q-btn--round {
+    //border-radius: 50%;
+  }
   &.q-btn--actionable.q-btn--standard:active:before,
   &.q-btn--actionable.q-btn--standard.q-btn--active:before {
     box-shadow: 0px 0px 0px 4px #FFF2C9 !important;
+  }
+  &.disabled {
+    &.q-btn--outline {
+      border: 1px solid #E8E8E8;
+    }
+    background: $grey2 !important;
+    .q-btn__content{
+      color: $grey4;
+    }
   }
   &:before {
     box-shadow: none;
@@ -51,8 +61,8 @@
   //  filter: drop-shadow(-2px -4px 10px rgba(255, 255, 255, 0.6)) drop-shadow(2px 4px 10px rgba(112, 108, 162, 0.05));
   //}
 }
-.q-btn:not(.q-btn--rounded) {
-  border-radius: 10px;
+.q-btn:not(.q-btn--rounded, .q-btn--round) {
+  border-radius: 8px;
 }
 .btn-sm {
   padding: 0 5px 0 7px;
