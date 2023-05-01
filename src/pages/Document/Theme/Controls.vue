@@ -14,7 +14,7 @@
           focus
         </div>
         <div class="col-md-2">
-          focus
+          disable
         </div>
         <div class="col-md-3" />
       </div>
@@ -48,7 +48,7 @@
           </q-btn>
         </div>
         <div class="col-md-3">
-          Neutral
+          Standard
         </div>
       </div>
       <div class="row q-col-gutter-md q-mt-md">
@@ -127,33 +127,104 @@
         </div>
         <div class="col-md-2">
           <q-btn size="lg"
+                 rounded
                  color="primary">
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-2">
-          <q-btn size="xs"
+          <q-btn size="lg"
+                 rounded
                  color="primary">
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-2">
-          <q-btn size="xs"
+          <q-btn size="lg"
+                 rounded
                  color="primary">
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-2">
-          <q-btn size="xs"
+          <q-btn size="lg"
+                 rounded
                  color="primary"
                  disable>
             متن دکمه
           </q-btn>
         </div>
         <div class="col-md-3">
-          Neutral
+          Rounded
         </div>
       </div>
+      <div class="row q-col-gutter-md q-mt-lg">
+        <div class="col-md-1">
+          Extra Large
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary"
+                 disable />
+        </div>
+        <div class="col-md-3">
+          Round
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-lg">
+        <div class="col-md-1">
+          Extra Large
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 square
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 square
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 square
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 square
+                 icon="isax:user"
+                 color="primary"
+                 disable />
+        </div>
+        <div class="col-md-3">
+          Square
+        </div>
+      </div>
+
     </div>
   </div>
   <checkbox />
@@ -174,13 +245,13 @@ import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue
 import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
 import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
 import Typography from 'components/Theme/Typography/Typography.vue'
-import Scroll from 'components/Theme/Controls/Scroll/Scroll'
+import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
 
 export default {
   name: 'Controls',
   components: {
     Checkbox,
-    Color
+    Color,
     ProgressTheme,
     SliderRange,
     ToggleTheme,
