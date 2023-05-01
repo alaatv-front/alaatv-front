@@ -117,6 +117,20 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.otp-input {
+  margin: 0 4px;
+  &:deep(.q-field__control) {
+    padding-left: 17px;
+    height: 56px;
+    text-align: center;
+    border-radius: 8px;
+    width: 46px;
+  }
+}
+.otp-hint {
+  color: #EF5350;
+  margin-left: 4px;
+  margin-top: 8px;
+}
 </style>
