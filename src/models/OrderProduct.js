@@ -47,8 +47,19 @@ class OrderProductList extends Collection {
     return this.list.findIndex(order => order.product.id === productId)
   }
 
+  getOrderProductIndex (orderProductId) {
+    return this.list.findIndex(order => order.id === orderProductId)
+  }
+
   removeProduct (productId) {
     const index = this.getProductIndex(productId)
+    if (index !== -1) {
+      this.list.splice(index, 1)
+    }
+  }
+
+  removeOrderProduct (orderProductId) {
+    const index = this.getOrderProductIndex(orderProductId)
     if (index !== -1) {
       this.list.splice(index, 1)
     }
