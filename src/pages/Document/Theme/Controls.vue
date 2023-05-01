@@ -164,6 +164,7 @@
   <pagination-theme />
   <scroll />
   <typography />
+  <avatar />
 </template>
 
 <script>
@@ -174,13 +175,15 @@ import SliderRange from 'components/Theme/Controls/Slider&Range/Slider&Range.vue
 import ToggleTheme from 'components/Theme/Controls/ToggleTheme/ToggleTheme.vue'
 import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
 import Typography from 'components/Theme/Typography/Typography.vue'
-import Scroll from 'components/Theme/Controls/Scroll/Scroll'
+import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
+import Avatar from 'components/Theme/Controls/Avatar/Avatar.vue'
 
 export default {
   name: 'Controls',
   components: {
+    Avatar,
     Checkbox,
-    Color
+    Color,
     ProgressTheme,
     SliderRange,
     ToggleTheme,
