@@ -1,5 +1,5 @@
 <template>
-  <div class="text">
+  <div class="scroll-row-container">
     <div class="flex items-center">
       <div class="q-mr-sm">اضافه کردن محصول</div>
       <q-input v-model="productId"
@@ -14,7 +14,7 @@
       </div>
     </div>
     <q-card class="custom-card bg-grey-1">
-      <q-list v-for="(product, productIndex) in localData.data"
+      <q-list v-for="(product, productIndex) in localOptions.data"
               :key="productIndex">
         <q-item v-ripple
                 class=" shadow-3"
@@ -57,10 +57,17 @@
 </template>
 
 <script>
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'ProductListGridOptionPanel',
+  components: {
+    ProductItem
+  },
+  mixins: [PageBuilderOptionPanel],
   props: {
-    data: {
+    options: {
       type: Array,
       default: () => []
     }
@@ -72,16 +79,6 @@ export default {
       specialProductId: '',
       dialogProductId: '',
       productDialog: false
-    }
-  },
-  computed: {
-    localData: {
-      get() {
-        return this.data
-      },
-      set(newVal) {
-        this.$emit('update:data', newVal)
-      }
     }
   },
   methods: {
@@ -105,7 +102,7 @@ export default {
     },
     addProduct (id) {
       const keyName = this.isSpecial ? 'specialProducts' : 'products'
-      this.localData.list[this.currentTabIndex][keyName].push(id)
+      this.localOptions.list[this.currentTabIndex][keyName].push(id)
       this.cancelProduct()
     },
     cancelProduct () {
