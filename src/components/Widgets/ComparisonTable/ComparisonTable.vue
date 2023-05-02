@@ -1,18 +1,18 @@
 <template>
-  <q-table :title="title"
+  <q-table :title="localOptions.title"
            row-key="col0"
-           :columns="columns"
-           :color="color"
+           :columns="localOptions.columns"
+           :color="localOptions.color"
            :flat="true"
-           :rows="rows"
+           :rows="localOptions.rows"
            :pagination="Pagination"
            :hide-bottom="true"
            :hide-selected-banner="true"
            :hide-no-data="true"
            :hide-pagination="true"
            class="comparison-table"
-           :style="options.style"
-           :class="options.className">
+           :style="localOptions.style"
+           :class="localOptions.className">
     <template v-slot:header="props">
       <q-tr :props="props">
         <q-th v-for="col in props.cols"
@@ -27,7 +27,7 @@
     <template v-slot:body="props">
       <q-tr :props="props"
             class="comparison-tr">
-        <q-td v-for="col in columns"
+        <q-td v-for="col in localOptions.columns"
               :key="col.name"
               :props="props"
               class="comparison-td">
@@ -57,11 +57,11 @@
 </template>
 
 <script>
-// import { scroll } from 'quasar'
-// const { getScrollTarget, setVerticalScrollPosition } = scroll
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ComparisonTable',
+  mixins: [mixinPrefetchServerData, mixinWidget],
   props: {
     options: {
       type: Object,
@@ -73,47 +73,37 @@ export default {
   data() {
     return {
       Pagination: {
-        rowsPerPage: 6
+        rowsPerPage: 100
       },
-      columns: [],
-      rows: [],
-      records: [],
-      attributes: [],
-      title: '',
-      color: '',
-      flat: false
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.loadConfig()
+      defaultOptions: {
+        columns: [],
+        rows: [],
+        records: [],
+        attributes: [],
+        title: '',
+        color: '',
+        flat: false
       }
     }
   },
-  mounted() {
-    this.loadConfig()
-  },
-  methods: {
-    loadConfig() {
-      this.title = this.options.title
-      this.flat = this.options.flat
-      this.color = this.options.color
-      this.attributes = this.options.attributes
-      this.records = this.options.records
-      this.header = this.options.header
-      this.rows = this.options.rows
+  watch: {
+    options() {
       this.getColumns()
       // this.getRows()
-    },
+    }
+  },
+  mounted() {
+    this.getColumns()
+    // this.getRows()
+  },
+  methods: {
     getColumns() {
-      // this.columns.push({ name: 'attribute', label: this.options.attributesLabel, field: 'attribute' })
-      // this.records.forEach(record => {
-      //   this.columns.push({ name: record.key, label: record.title, field: record.key })
-      // })
-      for (let index = 0; index < this.header.length; index++) {
-        const header = this.header[index]
-        this.columns.push(
+      for (let index = 0; index < this.localOptions.header.length; index++) {
+        if (this.localOptions.columns.some(e => e.name === `col${index}`)) {
+          return
+        }
+        const header = this.localOptions.header[index]
+        this.localOptions.columns.push(
           {
             name: `col${index}`,
             label: header
@@ -121,26 +111,26 @@ export default {
       }
     },
     getRows() {
-      this.attributes.forEach(attribute => {
+      this.localOptions.attributes.forEach(attribute => {
         const row = {
           attribute: attribute.label
         }
-        this.records.forEach(record => {
+        this.localOptions.records.forEach(record => {
           const attr = record.attributes.find(x => x.name === attribute.name)
           row[record.key] = {
             type: attribute.type,
             value: attr.value
           }
         })
-        this.rows.push(row)
+        this.localOptions.rows.push(row)
       })
       const actionRow = {
         attribute: 'action'
       }
-      this.records.forEach(record => {
+      this.localOptions.records.forEach(record => {
         actionRow[record.key] = { ...record.action, rowType: 'action' }
       })
-      this.rows.push(actionRow)
+      this.localOptions.rows.push(actionRow)
     },
     scrollToElement(className) {
       const el = document.getElementsByClassName(className)[0]
