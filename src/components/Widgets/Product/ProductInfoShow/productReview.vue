@@ -2,7 +2,10 @@
   <div class="product-review">
     <p class="review-title"> بررسی محصول</p>
     <q-card class="custom-card">
-      <q-card-section v-html="description.long" />
+      <q-card-section v-if="description.long"
+                      v-html="description.long" />
+      <q-card-section v-else-if="description.short"
+                      v-html="description.short" />
 
     </q-card>
   </div>
