@@ -17,7 +17,6 @@
       <slider v-if="localOptions.block.banners && localOptions.block.banners.list.length > 0"
               :options="bannerSlides" />
       <div v-if="localOptions.block.products.list.length > 0"
-           v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
         <div v-for="product in localOptions.block.products.list"
@@ -38,7 +37,6 @@
         </div>
       </div>
       <div v-if="localOptions.block.sets.list.length > 0"
-           v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
         <div v-for="set in localOptions.block.sets.list"
@@ -58,7 +56,6 @@
         </div>
       </div>
       <div v-if="localOptions.block.contents.list.length > 0"
-           v-dragscroll
            class="item-container"
            :class="isGridView ? 'row' : 'scroll-view'">
         <div v-for="content in localOptions.block.contents.list"
@@ -82,7 +79,6 @@
 </template>
 
 <script>
-import { dragscroll } from 'vue-dragscroll'
 import { Block } from 'src/models/Block.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import Slider from 'components/Widgets/Slider/Slider.vue'
@@ -97,9 +93,6 @@ export default {
     SetItem,
     ContentItem,
     ProductItem
-  },
-  directives: {
-    dragscroll
   },
   mixins: [mixinWidget],
   data: () => ({
