@@ -197,6 +197,39 @@
         </div>
         <div class="col-md-2">
           <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
+                 round
+                 icon="isax:user"
+                 color="primary"
+                 disable />
+        </div>
+        <div class="col-md-3">
+          Round
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-mt-lg">
+        <div class="col-md-1">
+          Extra Large
+        </div>
+        <div class="col-md-2">
+          <q-btn size="xl"
                  square
                  icon="isax:user"
                  color="primary" />
@@ -236,6 +269,7 @@
   <pagination-theme />
   <scroll />
   <typography />
+  <text-input />
 </template>
 
 <script>
@@ -248,7 +282,7 @@ import RadioBtn from 'src/components/Theme/Controls/RadioBtn/RadioBtn.vue'
 import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
 import Typography from 'components/Theme/Typography/Typography.vue'
 import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
-
+import TextInput from 'components/Theme/TextInput/TextInput.vue'
 
 export default {
   name: 'Controls',
@@ -258,10 +292,11 @@ export default {
     ProgressTheme,
     SliderRange,
     ToggleTheme,
-    RadioBtn
+    RadioBtn,
     PaginationTheme,
     Typography,
-    Scroll
+    Scroll,
+    TextInput
   }
 }
 </script>
