@@ -1,67 +1,69 @@
 <template>
-  <q-btn-dropdown v-model="showMenu"
-                  flat
-                  :label="menuContent.title"
-                  content-style="right: 905px !important; width: 200px"
-                  class="dropdown-btn"
-                  @mouseover="onMouseover"
-                  @mouseleave="onMouseleave">
-    <q-list bordered
-            padding
-            class="list rounded-borders"
-            @mouseover="onMouseover"
-            @mouseleave="onMouseleave">
-      <div v-for="(item, index) in menuContent.children"
-           :key="index"
-           class="items">
-        <router-link :to="{name: 'Public.Content.Search', query: {'tags[]': item.tags}}">
-          <q-item v-ripple
-                  clickable
-                  class="item"
-                  @mouseover="showData(index)">
-            <q-item-section>
-              {{item.title}}
-            </q-item-section>
-            <p><i class="arrow" /></p>
-            <q-menu v-model="item.selected"
-                    fit
-                    anchor="top left"
-                    class="dropdown2">
-              <q-list style="width: 200px"
-                      @mouseover="showData(index)">
-                <div v-for="child in item.children"
-                     :key="child">
-                  <router-link v-if="child.tags"
-                               :to="{name: 'Public.Content.Search', query: {'tags[]': child.tags }}">
-                    <q-item clickable
-                            class="childItem">
-                      <q-item-section>
-                        {{child.title}}
-                      </q-item-section>
-                    </q-item>
-                  </router-link>
-                  <router-link v-else
-                               :to="{path: child.href}">
-                    <q-item clickable
-                            class="childItem">
-                      <q-item-section>
-                        {{child.title}}
-                      </q-item-section>
-                    </q-item>
-                  </router-link>
-                </div>
-              </q-list>
-            </q-menu>
-          </q-item>
-        </router-link>
-      </div>
-    </q-list>
-  </q-btn-dropdown>
+  <router-link :to="{name: 'Public.Content.Search', query: {'tags[]': menuContent.tags}}">
+    <q-btn-dropdown v-model="showMenu"
+                    flat
+                    :label="menuContent.title"
+                    content-style="right: 905px !important; width: 200px"
+                    class="dropdown-btn"
+                    @mouseover="onMouseover"
+                    @mouseleave="onMouseleave">
+      <q-list bordered
+              padding
+              class="list rounded-borders"
+              @mouseover="onMouseover"
+              @mouseleave="onMouseleave">
+        <div v-for="(item, index) in menuContent.children"
+             :key="index"
+             class="items">
+          <router-link :to="{name: 'Public.Content.Search', query: {'tags[]': item.tags}}">
+            <q-item v-ripple
+                    clickable
+                    class="item"
+                    @mouseover="showData(index)">
+              <q-item-section>
+                {{item.title}}
+              </q-item-section>
+              <p><i class="arrow" /></p>
+              <q-menu v-model="item.selected"
+                      fit
+                      anchor="top left"
+                      class="dropdown2"
+                      @mouseover="onMouseover"
+                      @mouseleave="onMouseleave">
+                <q-list style="width: 200px"
+                        @mouseover="showData(index)">
+                  <div v-for="child in item.children"
+                       :key="child">
+                    <router-link v-if="child.tags"
+                                 :to="{name: 'Public.Content.Search', query: {'tags[]': child.tags }}">
+                      <q-item clickable
+                              class="childItem">
+                        <q-item-section>
+                          {{child.title}}
+                        </q-item-section>
+                      </q-item>
+                    </router-link>
+                    <router-link v-else
+                                 :to="{path: child.href}">
+                      <q-item clickable
+                              class="childItem">
+                        <q-item-section>
+                          {{child.title}}
+                        </q-item-section>
+                      </q-item>
+                    </router-link>
+                  </div>
+                </q-list>
+              </q-menu>
+            </q-item>
+          </router-link>
+        </div>
+      </q-list>
+    </q-btn-dropdown>
+  </router-link>
 </template>
 
 <script>
-
-import { debounce } from 'quasar'
 
 export default {
   name: 'simpleMenu',
@@ -89,10 +91,10 @@ export default {
     onMouseleave () {
       this.onMouseleaveSetTimeout = setTimeout(() => {
         this.showMenu = false
+        this.menuContent.children.forEach(item => {
+          item.selected = false
+        })
       }, 50)
-      this.menuContent.children.forEach(item => {
-        item.selected = false
-      })
     },
     isItemSelected(item) {
       return item.selected
@@ -101,14 +103,6 @@ export default {
       this.menuContent.children.forEach((item, subIndex) => {
         item.selected = colIndex === subIndex
       })
-    }
-  },
-  debounceFunc: debounce(function() { this.checkMenu() }, 1),
-  checkMenu () {
-    if (this.menuOver || this.listOver) {
-      this.menu = true
-    } else {
-      this.menu = false
     }
   }
 }
@@ -139,13 +133,13 @@ export default {
           transform: rotate(-45deg);
           -webkit-transform: rotate(-45deg);
         }
-        .dropdown2 {
-          .childItem:hover{
-            font-weight: bold;
-            background-color: orange;
-          }
-        }
       }
+    }
+  }
+  .dropdown2 {
+    .childItem:hover {
+      font-weight: bold;
+      background-color: orange;
     }
   }
 </style>
