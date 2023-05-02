@@ -72,6 +72,10 @@ class CartItemList extends Collection {
       }
     })
   }
+
+  removeOrderProduct (orderProductId) {
+    this.list.forEach(cartItem => cartItem.order_product.removeOrderProduct(orderProductId))
+  }
 }
 
 export { CartItem, CartItemList }
