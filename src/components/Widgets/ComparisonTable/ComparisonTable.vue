@@ -1,7 +1,7 @@
 <template>
   <q-table :title="localOptions.title"
            row-key="col0"
-           :columns="localOptions.columns"
+           :columns="computedColumns"
            :color="localOptions.color"
            :flat="true"
            :rows="localOptions.rows"
@@ -27,7 +27,7 @@
     <template v-slot:body="props">
       <q-tr :props="props"
             class="comparison-tr">
-        <q-td v-for="col in localOptions.columns"
+        <q-td v-for="col in computedColumns"
               :key="col.name"
               :props="props"
               class="comparison-td">
@@ -86,52 +86,25 @@ export default {
       }
     }
   },
-  watch: {
-    options() {
-      this.getColumns()
-      // this.getRows()
-    }
-  },
-  mounted() {
-    this.getColumns()
-    // this.getRows()
-  },
-  methods: {
-    getColumns() {
-      for (let index = 0; index < this.localOptions.header.length; index++) {
-        if (this.localOptions.columns.some(e => e.name === `col${index}`)) {
+  computed: {
+    computedColumns() {
+      const headerLength = this.localOptions.header.length
+      const columns = []
+      for (let index = 0; index < headerLength; index++) {
+        if (this.localOptions.columns.some(e => e.name === this.getColName(index))) {
           return
         }
         const header = this.localOptions.header[index]
-        this.localOptions.columns.push(
+        columns.push(
           {
-            name: `col${index}`,
+            name: this.getColName(index),
             label: header
           })
       }
-    },
-    getRows() {
-      this.localOptions.attributes.forEach(attribute => {
-        const row = {
-          attribute: attribute.label
-        }
-        this.localOptions.records.forEach(record => {
-          const attr = record.attributes.find(x => x.name === attribute.name)
-          row[record.key] = {
-            type: attribute.type,
-            value: attr.value
-          }
-        })
-        this.localOptions.rows.push(row)
-      })
-      const actionRow = {
-        attribute: 'action'
-      }
-      this.localOptions.records.forEach(record => {
-        actionRow[record.key] = { ...record.action, rowType: 'action' }
-      })
-      this.localOptions.rows.push(actionRow)
-    },
+      return columns
+    }
+  },
+  methods: {
     scrollToElement(className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0
@@ -141,6 +114,9 @@ export default {
         top: offsetPosition,
         behavior: 'smooth'
       })
+    },
+    getColName(colIndex) {
+      return `col${colIndex}`
     }
   }
 }
