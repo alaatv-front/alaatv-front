@@ -3,12 +3,13 @@
        class="set">
     <div class="header">
       <div class="title">
-        <bookmark v-if="localOptions.showBtnFavorSet"
+        <bookmark v-if="localOptions.showBtnFavorSet && !set.loading"
                   :is-favored="set.is_favored"
                   :loading="bookmarkLoading"
                   @clicked="handleSetBookmark" />
         <template v-if="set.loading">
-          <q-skeleton type="text" />
+          <q-skeleton width="300px"
+                      type="text" />
         </template>
         <template v-else>
           {{ set.title }}
@@ -25,7 +26,8 @@
       </div>
     </div>
     <div class="archives-row">
-      <div class="title">
+      <div v-if="!set.loading"
+           class="title">
         آرشیو محتوا
       </div>
       <div class="archives-list">
