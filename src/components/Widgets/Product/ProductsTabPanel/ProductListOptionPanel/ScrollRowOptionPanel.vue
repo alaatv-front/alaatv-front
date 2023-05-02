@@ -2,22 +2,22 @@
   <div class="scroll-row-container">
     <div class="row q-ma-md q-col-gutter-md">
       <div class="col-md-3">
-        <q-input v-model="localData.options.label"
+        <q-input v-model="localOptions.options.label"
                  label="label" />
       </div>
-      <div v-if="localData.options.label && localData.options.labelStyle"
+      <div v-if="localOptions.options.label && localOptions.options.labelStyle"
            class="col-md-3">
-        <q-input v-model="localData.options.labelStyle.color"
+        <q-input v-model="localOptions.options.labelStyle.color"
                  label="label color" />
       </div>
-      <div v-if="localData.options.label && localData.options.labelStyle"
+      <div v-if="localOptions.options.label && localOptions.options.labelStyle"
            class="col-md-3">
-        <q-input v-model="localData.options.labelStyle.fontSize"
+        <q-input v-model="localOptions.options.labelStyle.fontSize"
                  label="label font size" />
       </div>
-      <div v-if="localData.options.label && localData.options.labelStyle"
+      <div v-if="localOptions.options.label && localOptions.options.labelStyle"
            class="col-md-3">
-        <q-input v-model="localData.options.labelStyle.textAlign"
+        <q-input v-model="localOptions.options.labelStyle.textAlign"
                  label="label align" />
       </div>
     </div>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <q-card class="custom-card bg-grey-1">
-      <q-list v-for="(product, productIndex) in localData.data"
+      <q-list v-for="(product, productIndex) in localOptions.data"
               :key="productIndex">
         <q-item v-ripple
                 class=" shadow-3"
@@ -79,12 +79,14 @@
 
 <script>
 import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'productListScrollOptionPanel',
   components: {
     ProductItem
   },
+  mixins: [PageBuilderOptionPanel],
   props: {
     data: {
       type: Array,
@@ -100,20 +102,10 @@ export default {
       productDialog: false
     }
   },
-  computed: {
-    localData: {
-      get() {
-        return this.data
-      },
-      set(newVal) {
-        this.$emit('update:data', newVal)
-      }
-    }
-  },
   watch: {
-    'localData.options.label': function (newVal) {
+    'localOptions.options.label': function (newVal) {
       if (newVal) {
-        this.localData.options.labelStyle = {
+        this.localOptions.options.labelStyle = {
           color: '',
           fontSize: '',
           textAlign: ''
@@ -142,7 +134,7 @@ export default {
     },
     addProduct (id) {
       const keyName = this.isSpecial ? 'specialProducts' : 'products'
-      this.localData.list[this.currentTabIndex][keyName].push(id)
+      this.localOptions.list[this.currentTabIndex][keyName].push(id)
       this.cancelProduct()
     },
     cancelProduct () {
