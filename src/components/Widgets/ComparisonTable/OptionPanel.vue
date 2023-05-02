@@ -76,10 +76,10 @@
                 <q-td v-for="(item, index) in props.cols"
                       :key="'col'+ index"
                       :props="props">
-                  <div v-if="props.row['col'+ index].type === 'text'">
+                  <div v-if="props.row[getColName(index)].type === 'text'">
                     {{ item.value }}
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value"
                                dense
                                autofocus
@@ -88,14 +88,14 @@
                       <q-select v-model="scope.value.type"
                                 class="q-mt-md"
                                 :options="typeOptions"
-                                @keyup.enter="scope.set" />
+                                @update:model-value="changeType(scope.value, props.rowIndex, index)" />
                     </q-popup-edit>
                   </div>
-                  <div v-if="props.row['col'+ index].type === 'image'">
-                    <q-img :src="props.row['col'+ index].value"
+                  <div v-if="props.row[getColName(index)].type === 'image'">
+                    <q-img :src="props.row[getColName(index)].value"
                            width="30px" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value"
                                dense
                                autofocus
@@ -104,28 +104,27 @@
                       <q-select v-model="scope.value.type"
                                 class="q-mt-md"
                                 :options="typeOptions"
-                                @keyup.enter="scope.set" />
+                                @update:model-value="changeType(scope.value, props.rowIndex, index)" />
                     </q-popup-edit>
                   </div>
-                  <div v-if="props.row['col'+ index].type === 'action'">
-                    <q-btn v-if="props.row['col'+ index].value.label"
-                           color="primary"
-                           :label="props.row['col'+ index].value.label" />
+                  <div v-if="props.row[getColName(index)].type === 'action'">
+                    <q-btn color="primary"
+                           :label="props.row[getColName(index)].value.label" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value.label"
                                dense
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
-                      <q-input v-if="props.row['col'+ index].value.url"
+                      <q-input v-if="props.row[getColName(index)].actionType === 'link'"
                                v-model="scope.value.value.url"
                                dense
                                class="q-my-sm"
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
-                      <q-input v-if="props.row['col'+ index].value.className"
+                      <q-input v-if="props.row[getColName(index)].actionType === 'scroll'"
                                v-model="scope.value.value.className"
                                dense
                                class="q-my-sm"
@@ -136,11 +135,10 @@
                                 class="q-mt-md"
                                 :options="typeOptions"
                                 @keyup.enter="scope.set" />
-                      {{scope}}
                       <q-select v-model="scope.value.actionType"
                                 class="q-mt-md"
                                 :options="actionTypeOptions"
-                                @keyup.enter="scope.set" />
+                                @update:model-value="changeType(scope.value, props.rowIndex, index)" />
                     </q-popup-edit>
                   </div>
                 </q-td>
@@ -227,6 +225,24 @@ export default defineComponent({
     }
   },
   methods: {
+    getColName(index) {
+      return 'col' + index
+    },
+    changeType(value, rowIndex, colIndex) {
+      const row = this.localOptions.rows[rowIndex]
+      const col = row[this.getColName(colIndex)]
+      col.type = value.type
+      if (value.type === 'action') {
+        col.value = {
+          label: '',
+          className: '',
+          url: ''
+        }
+      }
+      if (value.type === 'text' || value.type === 'image') {
+        col.value = ''
+      }
+    },
     addRow () {
       this.loading = true
       const
