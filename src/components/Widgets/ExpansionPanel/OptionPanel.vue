@@ -17,6 +17,10 @@
                          class="full-width"
                          label="label" />
               </template>
+              <div class="caption q-my-md q-mx-xl">
+                <q-input v-model="item.caption"
+                         label="caption" />
+              </div>
               <div class="text">
                 <editor v-model:value="item.text" />
               </div>

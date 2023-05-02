@@ -1,5 +1,26 @@
 <template>
-  <div class="text">
+  <div class="scroll-row-container">
+    <div class="row q-ma-md q-col-gutter-md">
+      <div class="col-md-3">
+        <q-input v-model="localData.options.label"
+                 label="label" />
+      </div>
+      <div v-if="localData.options.label && localData.options.labelStyle"
+           class="col-md-3">
+        <q-input v-model="localData.options.labelStyle.color"
+                 label="label color" />
+      </div>
+      <div v-if="localData.options.label && localData.options.labelStyle"
+           class="col-md-3">
+        <q-input v-model="localData.options.labelStyle.fontSize"
+                 label="label font size" />
+      </div>
+      <div v-if="localData.options.label && localData.options.labelStyle"
+           class="col-md-3">
+        <q-input v-model="localData.options.labelStyle.textAlign"
+                 label="label align" />
+      </div>
+    </div>
     <div class="flex items-center">
       <div class="q-mr-sm">اضافه کردن محصول</div>
       <q-input v-model="productId"
@@ -57,8 +78,13 @@
 </template>
 
 <script>
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+
 export default {
   name: 'productListScrollOptionPanel',
+  components: {
+    ProductItem
+  },
   props: {
     data: {
       type: Array,
@@ -81,6 +107,17 @@ export default {
       },
       set(newVal) {
         this.$emit('update:data', newVal)
+      }
+    }
+  },
+  watch: {
+    'localData.options.label': function (newVal) {
+      if (newVal) {
+        this.localData.options.labelStyle = {
+          color: '',
+          fontSize: '',
+          textAlign: ''
+        }
       }
     }
   },

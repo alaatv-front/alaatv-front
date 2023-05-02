@@ -1,5 +1,5 @@
 <template>
-  <div class="text">
+  <div class="scroll-row-container">
     <div class="flex items-center">
       <div class="q-mr-sm">اضافه کردن محصول</div>
       <q-input v-model="productId"
@@ -57,8 +57,13 @@
 </template>
 
 <script>
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+
 export default {
   name: 'ProductListGridOptionPanel',
+  components: {
+    ProductItem
+  },
   props: {
     data: {
       type: Array,
