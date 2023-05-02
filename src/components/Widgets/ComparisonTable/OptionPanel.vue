@@ -76,10 +76,10 @@
                 <q-td v-for="(item, index) in props.cols"
                       :key="'col'+ index"
                       :props="props">
-                  <div v-if="props.row[this.getColName(index)].type === 'text'">
+                  <div v-if="props.row[getColName(index)].type === 'text'">
                     {{ item.value }}
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row[this.getColName(index)]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value"
                                dense
                                autofocus
@@ -91,11 +91,11 @@
                                 @update:model-value="changeType(scope.value, props.rowIndex, index)" />
                     </q-popup-edit>
                   </div>
-                  <div v-if="props.row[this.getColName(index)].type === 'image'">
-                    <q-img :src="props.row[this.getColName(index)].value"
+                  <div v-if="props.row[getColName(index)].type === 'image'">
+                    <q-img :src="props.row[getColName(index)].value"
                            width="30px" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row[this.getColName(index)]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value"
                                dense
                                autofocus
@@ -107,24 +107,24 @@
                                 @update:model-value="changeType(scope.value, props.rowIndex, index)" />
                     </q-popup-edit>
                   </div>
-                  <div v-if="props.row[this.getColName(index)].type === 'action'">
+                  <div v-if="props.row[getColName(index)].type === 'action'">
                     <q-btn color="primary"
-                           :label="props.row[this.getColName(index)].value.label" />
+                           :label="props.row[getColName(index)].value.label" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row[this.getColName(index)]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value.label"
                                dense
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
-                      <q-input v-if="props.row[this.getColName(index)].actionType === 'link'"
+                      <q-input v-if="props.row[getColName(index)].actionType === 'link'"
                                v-model="scope.value.value.url"
                                dense
                                class="q-my-sm"
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
-                      <q-input v-if="props.row[this.getColName(index)].actionType === 'scroll'"
+                      <q-input v-if="props.row[getColName(index)].actionType === 'scroll'"
                                v-model="scope.value.value.className"
                                dense
                                class="q-my-sm"
