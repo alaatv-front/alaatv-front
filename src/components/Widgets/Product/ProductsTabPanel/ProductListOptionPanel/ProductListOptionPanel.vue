@@ -1,9 +1,9 @@
 <template>
   <div v-if="item.options.layout === 'GridRow'">
-    <grid-row-option-panel :data="item" />
+    <grid-row-option-panel :options="item" />
   </div>
   <div v-else>
-    <scroll-row-option-panel :data="item" />
+    <scroll-row-option-panel :options="item" />
   </div>
 </template>
 
