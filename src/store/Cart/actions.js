@@ -140,10 +140,14 @@ export function paymentCheckout(context) {
 }
 
 export function removeItemFromCart(context, orderProductId) {
-  const removeProductFromStore = function () {
-    const productId = orderProductId
+  const removeProductFromStore = function (productId) {
     const cart = context.getters.cart
     cart.removeProduct(productId)
+    context.commit('updateCart', cart)
+  }
+  const removeOrderProductFromCart = function (orderProductId) {
+    const cart = context.getters.cart
+    cart.items.removeOrderProduct(orderProductId)
     context.commit('updateCart', cart)
   }
   return new Promise((resolve, reject) => {
@@ -151,7 +155,7 @@ export function removeItemFromCart(context, orderProductId) {
     if (isUserLogin) {
       APIGateway.cart.removeFromCart(orderProductId)
         .then((response) => {
-          removeProductFromStore()
+          removeOrderProductFromCart(orderProductId)
           Notify.create({
             type: 'positive',
             color: 'positive',
@@ -166,7 +170,8 @@ export function removeItemFromCart(context, orderProductId) {
           reject(error)
         })
     } else {
-      removeProductFromStore()
+      const productId = orderProductId
+      removeProductFromStore(productId)
       resolve()
     }
   })
