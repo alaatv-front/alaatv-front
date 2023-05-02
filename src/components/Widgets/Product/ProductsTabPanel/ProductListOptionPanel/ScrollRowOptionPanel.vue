@@ -88,7 +88,7 @@ export default {
   },
   mixins: [PageBuilderOptionPanel],
   props: {
-    data: {
+    options: {
       type: Array,
       default: () => []
     }
@@ -99,17 +99,19 @@ export default {
       currentTabIndex: '',
       specialProductId: '',
       dialogProductId: '',
-      productDialog: false
-    }
-  },
-  watch: {
-    'localOptions.options.label': function (newVal) {
-      if (newVal) {
-        this.localOptions.options.labelStyle = {
-          color: '',
-          fontSize: '',
-          textAlign: ''
-        }
+      productDialog: false,
+      defaultOptions: {
+        type: '',
+        options: {
+          label: '',
+          layout: '',
+          labelStyle: {
+            color: 'red',
+            fontSize: '',
+            textAlign: ''
+          }
+        },
+        data: []
       }
     }
   },
