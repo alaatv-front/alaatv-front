@@ -12,9 +12,54 @@
           <q-input v-model="localOptions.logoSlogan"
                    label="logoSlogan" />
         </div>
+        <div class="row q-col-gutter-md">
+          <div class="input-container col-md-2">
+            <div class="outsideLabel">hasAction</div>
+            <q-checkbox v-model="localOptions.hasAction" />
+          </div>
+          <div v-if="localOptions.hasAction"
+               class="col-md-10">
+            <div class="row q-col-gutter-md">
+              <div class="input-container col-md-4 q-py-md">
+                <div class="outsideLabel">type</div>
+                <q-select v-model="localOptions.action.type"
+                          :options="actionTypeOptions" />
+              </div>
+              <div class="input-container col-md-4 q-py-md">
+                <div class="outsideLabel">buttonLabel</div>
+                <q-input v-model="localOptions.action.buttonLabel"
+                         label="buttonLabel" />
+              </div>
+              <div v-if="localOptions.action.type === 'scroll'"
+                   class="input-container col-md-4 q-py-md">
+                <div class="outsideLabel">scrollTo</div>
+                <q-input v-model="localOptions.action.scrollTo"
+                         label="scrollTo" />
+              </div>
+              <div v-if="localOptions.action.type === 'link'"
+                   class="input-container col-md-4 q-py-md">
+                <div class="outsideLabel">route</div>
+                <q-input v-model="localOptions.action.route"
+                         label="route" />
+              </div>
+              <div v-if="localOptions.action.type === 'event'"
+                   class="input-container col-md-4 q-py-md">
+                <div class="outsideLabel">eventName</div>
+                <q-input v-model="localOptions.action.eventName"
+                         label="eventName" />
+              </div>
+              <div v-if="localOptions.action.type === 'event'"
+                   class="input-container col-md-4 q-py-md">
+                <div class="outsideLabel">eventArgs</div>
+                <q-input v-model="localOptions.action.eventArgs"
+                         label="eventArgs" />
+              </div>
+            </div>
+          </div>
+        </div>
         <q-card class="custom-card">
           <q-card-section>
-            <q-expansion-item v-for="(item, index) in options.menuLink"
+            <q-expansion-item v-for="(item, index) in localOptions.menuLink"
                               :key="index"
                               expand-separator>
               <template v-slot:header>
@@ -80,15 +125,21 @@ export default defineComponent({
   },
   data() {
     return {
-      menuLinkType: ''
-    }
-  },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
+      actionTypeOptions: ['link', 'event', 'scroll'],
+      defaultOptions: {
+        menuLink: [],
+        logoImage: null,
+        logoSlogan: null,
+        hasAction: false,
+        action: {
+          buttonLabel: null,
+          type: null,
+          scrollTo: null,
+          route: null,
+          eventName: null,
+          eventArgs: null
+        }
+      }
     }
   },
   methods: {
