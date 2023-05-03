@@ -20,38 +20,38 @@
           <div v-if="localOptions.hasAction"
                class="col-md-10">
             <div class="row q-col-gutter-md">
-              <div class="input-container col-md-4 q-py-md">
+              <div class="input-container col-md-3 q-py-md">
                 <div class="outsideLabel">type</div>
-                <q-select v-model="localOptions.action.type"
-                          :options="actionTypeOptions" />
+                <q-select v-model="localOptions.actionObject.type"
+                          :options="actionObjectTypeOptions" />
               </div>
-              <div class="input-container col-md-4 q-py-md">
+              <div class="input-container col-md-3 q-py-md">
                 <div class="outsideLabel">buttonLabel</div>
-                <q-input v-model="localOptions.action.buttonLabel"
+                <q-input v-model="localOptions.actionObject.buttonLabel"
                          label="buttonLabel" />
               </div>
-              <div v-if="localOptions.action.type === 'scroll'"
-                   class="input-container col-md-4 q-py-md">
+              <div v-if="localOptions.actionObject.type === 'scroll'"
+                   class="input-container col-md-3 q-py-md">
                 <div class="outsideLabel">scrollTo</div>
-                <q-input v-model="localOptions.action.scrollTo"
+                <q-input v-model="localOptions.actionObject.scrollTo"
                          label="scrollTo" />
               </div>
-              <div v-if="localOptions.action.type === 'link'"
-                   class="input-container col-md-4 q-py-md">
+              <div v-if="localOptions.actionObject.type === 'link'"
+                   class="input-container col-md-3 q-py-md">
                 <div class="outsideLabel">route</div>
-                <q-input v-model="localOptions.action.route"
+                <q-input v-model="localOptions.actionObject.route"
                          label="route" />
               </div>
-              <div v-if="localOptions.action.type === 'event'"
-                   class="input-container col-md-4 q-py-md">
+              <div v-if="localOptions.actionObject.type === 'event'"
+                   class="input-container col-md-3 q-py-md">
                 <div class="outsideLabel">eventName</div>
-                <q-input v-model="localOptions.action.eventName"
+                <q-input v-model="localOptions.actionObject.eventName"
                          label="eventName" />
               </div>
-              <div v-if="localOptions.action.type === 'event'"
-                   class="input-container col-md-4 q-py-md">
+              <div v-if="localOptions.actionObject.type === 'event'"
+                   class="input-container col-md-3 q-py-md">
                 <div class="outsideLabel">eventArgs</div>
-                <q-input v-model="localOptions.action.eventArgs"
+                <q-input v-model="localOptions.actionObject.eventArgs"
                          label="eventArgs" />
               </div>
             </div>
@@ -125,13 +125,13 @@ export default defineComponent({
   },
   data() {
     return {
-      actionTypeOptions: ['link', 'event', 'scroll'],
+      actionObjectTypeOptions: ['link', 'event', 'scroll'],
       defaultOptions: {
         menuLink: [],
         logoImage: null,
         logoSlogan: null,
         hasAction: false,
-        action: {
+        actionObject: {
           buttonLabel: null,
           type: null,
           scrollTo: null,
