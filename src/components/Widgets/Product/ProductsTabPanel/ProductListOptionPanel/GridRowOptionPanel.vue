@@ -1,5 +1,5 @@
 <template>
-  <div class="text">
+  <div class="scroll-row-container">
     <div class="flex items-center">
       <div class="q-mr-sm">اضافه کردن محصول</div>
       <q-input v-model="productId"
@@ -14,7 +14,7 @@
       </div>
     </div>
     <q-card class="custom-card bg-grey-1">
-      <q-list v-for="(product, productIndex) in localData.data"
+      <q-list v-for="(product, productIndex) in localOptions.data"
               :key="productIndex">
         <q-item v-ripple
                 class=" shadow-3"
@@ -57,10 +57,18 @@
 </template>
 
 <script>
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import { Product } from 'src/models/Product'
+
 export default {
   name: 'ProductListGridOptionPanel',
+  components: {
+    ProductItem
+  },
+  mixins: [PageBuilderOptionPanel],
   props: {
-    data: {
+    options: {
       type: Array,
       default: () => []
     }
@@ -74,38 +82,24 @@ export default {
       productDialog: false
     }
   },
-  computed: {
-    localData: {
-      get() {
-        return this.data
-      },
-      set(newVal) {
-        this.$emit('update:data', newVal)
-      }
-    }
-  },
   methods: {
-    openProduct (id, tabIndex, isSpecial = false) {
+    openProduct (id) {
       if (!id) {
         return
       }
       this.dialogProductId = id
-      this.currentTabIndex = tabIndex
       this.productDialog = true
-      this.isSpecial = isSpecial
     },
-    removeProduct (id, tabIndex, isSpecial = false) {
-      const keyName = isSpecial ? 'specialProducts' : 'products'
-      if (!this.value.list[tabIndex][keyName]) {
+    removeProduct (id, productIndex) {
+      if (!this.localOptions.data[productIndex]) {
         return
       }
-      const productIndex = this.value.list[tabIndex][keyName]
-        .findIndex((item) => item === id)
-      this.value.list[tabIndex][keyName].splice(productIndex, 1)
+      this.localOptions.data.splice(productIndex, 1)
     },
     addProduct (id) {
-      const keyName = this.isSpecial ? 'specialProducts' : 'products'
-      this.localData.list[this.currentTabIndex][keyName].push(id)
+      const newProduct = new Product({ id })
+      this.localOptions.data.push(newProduct)
+
       this.cancelProduct()
     },
     cancelProduct () {
