@@ -1,76 +1,85 @@
 <template>
   <div class="video-list-container q-mb-md">
-    <q-card v-if="content.file?.pamphlet && content.file.pamphlet[0]?.link"
-            class="download-section custom-card q-pa-md q-mx-md q-mb-md bg-white flex">
-      <q-btn icon="isax:document-download"
-             flat
-             color="primary"
-             size="13px"
-             @click="downloadPdf" />
-      <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
-                                           :href="content.file.pamphlet[0].link"
-                                           target="_blank"> PDF </a>{{content.title}}</h6>
-    </q-card>
-    <q-card class="video-list custom-card bg-white q-mx-md q-pb-md">
-      <div class="q-px-md row">
-        <h6 class="main-title col-4 q-pt-lg">
-          فیلم/جزوه ها
-        </h6>
-        <div class="set-title col q-ml-lg q-mt-lg">
-          {{ set.title }}
-        </div>
+    <template v-if="content.loading">
+      <div class="q-mx-md">
+        <q-responsive :ratio="3/4">
+          <q-skeleton />
+        </q-responsive>
       </div>
-      <q-separator class="q-ma-md" />
-      <q-responsive class="responsive"
-                    :ratio="11/12">
-        <q-scroll-area class="scroll"
-                       :thumb-style="thumbStyle">
-          <div v-for="(content,index) in set.contents.list"
-               :key="index"
-               ref="items"
-               class="other-contents">
-            <div class="content q-pt-md q-px-sm"
-                 :class="{current: isCurrent(content)}">
-              <div class="row content-show">
-                <div class="col-1 q-mr-sm">
-                  <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}">
-                    <q-icon v-if="content.type === 8"
-                            name="isax:play-circle"
-                            :color="isCurrent(content) ? 'primary' : ''"
-                            size="sm" />
-                    <q-icon v-else
-                            name="isax:book-1"
-                            :color="isCurrent(content) ? 'primary' : ''"
-                            size="sm" />
-                  </router-link>
-                </div>
-                <div class="col-10">
-                  <router-link :to="{name:'Public.Content.Show', params: {id: content.id}}">
-                    <h6 class="video-title">
-                      {{ content.title }}
-                    </h6>
-                  </router-link>
-                </div>
-                <q-tooltip>
-                  {{ content.title }}
-                </q-tooltip>
-                <div v-if="content.duration"
-                     class="duration q-pl-md q-my-sm col-6">
-                  {{(content.duration / 60 | 0)}}
-                  دقیقه
-                </div>
-                <div v-else
-                     class="col-6" />
-                <div class="date text-right q-pr-sm q-my-sm col-6">
-                  {{convertToShamsi(content.updated_at, 'date')}}
-                </div>
-              </div>
-              <q-separator />
-            </div>
+    </template>
+    <template v-else>
+      <q-card v-if="content.file?.pamphlet && content.file.pamphlet[0]?.link"
+              class="download-section custom-card q-pa-md q-mx-md q-mb-md bg-white flex">
+        <q-btn icon="isax:document-download"
+               flat
+               color="primary"
+               size="13px"
+               @click="downloadPdf" />
+        <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
+                                             :href="content.file.pamphlet[0].link"
+                                             target="_blank"> PDF </a>{{content.title}}</h6>
+      </q-card>
+      <q-card class="video-list custom-card bg-white q-mx-md q-pb-md">
+        <div class="q-px-md row">
+          <h6 class="main-title col-4 q-pt-lg">
+            فیلم/جزوه ها
+          </h6>
+          <div class="set-title col q-ml-lg q-mt-lg">
+            {{ set.title }}
           </div>
-        </q-scroll-area>
-      </q-responsive>
-    </q-card>
+        </div>
+        <q-separator class="q-ma-md" />
+        <q-responsive class="responsive"
+                      :ratio="11/12">
+          <q-scroll-area class="scroll"
+                         :thumb-style="thumbStyle">
+            <div v-for="(content,index) in set.contents.list"
+                 :key="index"
+                 ref="items"
+                 class="other-contents">
+              <div class="content q-pt-md q-px-sm"
+                   :class="{current: isCurrent(content)}">
+                <div class="row content-show">
+                  <div class="col-1 q-mr-sm">
+                    <router-link :to="{name: 'Public.Content.Show', params: {id: content.id}}">
+                      <q-icon v-if="content.type === 8"
+                              name="isax:play-circle"
+                              :color="isCurrent(content) ? 'primary' : ''"
+                              size="sm" />
+                      <q-icon v-else
+                              name="isax:book-1"
+                              :color="isCurrent(content) ? 'primary' : ''"
+                              size="sm" />
+                    </router-link>
+                  </div>
+                  <div class="col-10">
+                    <router-link :to="{name:'Public.Content.Show', params: {id: content.id}}">
+                      <h6 class="video-title">
+                        {{ content.title }}
+                      </h6>
+                    </router-link>
+                  </div>
+                  <q-tooltip>
+                    {{ content.title }}
+                  </q-tooltip>
+                  <div v-if="content.duration"
+                       class="duration q-pl-md q-my-sm col-6">
+                    {{(content.duration / 60 | 0)}}
+                    دقیقه
+                  </div>
+                  <div v-else
+                       class="col-6" />
+                  <div class="date text-right q-pr-sm q-my-sm col-6">
+                    {{convertToShamsi(content.updated_at, 'date')}}
+                  </div>
+                </div>
+                <q-separator />
+              </div>
+            </div>
+          </q-scroll-area>
+        </q-responsive>
+      </q-card>
+    </template>
   </div>
 </template>
 
