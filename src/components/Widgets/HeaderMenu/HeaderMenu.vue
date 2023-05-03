@@ -27,8 +27,8 @@
       <q-btn v-if="localOptions.hasAction"
              color="white"
              flat
-             :label="localOptions.action.buttonLabel"
-             @click="takeAction(localOptions.action)" />
+             :label="localOptions.actionObject.buttonLabel"
+             @click="takeAction(localOptions.actionObject)" />
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@ export default {
         logoImage: null,
         logoSlogan: null,
         hasAction: false,
-        action: {
+        actionObject: {
           buttonLabel: null,
           type: null,
           className: null,
