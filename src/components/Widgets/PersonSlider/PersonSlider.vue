@@ -64,7 +64,7 @@ export default {
           if (this.scrollIndex > this.localOptions.sliderItems.length) {
             this.scrollIndex = 0
           }
-          this.$refs.virtualScroll.scrollTo(this.scrollIndex)
+          this.$refs.virtualScroll?.scrollTo(this.scrollIndex)
         }, 2000)
       }
     }
