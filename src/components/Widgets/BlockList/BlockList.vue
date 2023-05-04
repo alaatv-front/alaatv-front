@@ -34,7 +34,7 @@ export default {
       blocks: new BlockList(),
       defaultOptions: {
         className: '',
-        apiName: 'shop',
+        apiName: 'home',
         height: 'auto',
         style: {},
         from: 0,
@@ -63,6 +63,9 @@ export default {
         block.headerCustomClass = `banner-header-${index}` + ' '
       })
     }
+  },
+  created() {
+    this.setDefaultApiName()
   },
   methods: {
     reloadWidget () {
@@ -98,6 +101,13 @@ export default {
       }
 
       return Promise.reject('wrong api name')
+    },
+    setDefaultApiName () {
+      if (this.$route.name === 'Public.Home') {
+        this.defaultOptions.apiName = 'home'
+      } else if (this.$route.name === 'Public.Shop') {
+        this.defaultOptions.apiName = 'shop'
+      }
     }
   }
 }
