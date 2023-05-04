@@ -34,7 +34,7 @@ export default {
       blocks: new BlockList(),
       defaultOptions: {
         className: '',
-        apiName: 'home',
+        apiName: 'shop',
         height: 'auto',
         style: {},
         from: 0,
