@@ -359,7 +359,7 @@ export default {
         }
         :deep(.item-container) {
           .content-spacing{
-            width: 290px;
+            margin-right: 20px;
           }
         }
         :deep(.content-item-box) {
