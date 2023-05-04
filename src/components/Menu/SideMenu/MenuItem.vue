@@ -27,8 +27,14 @@
                     class="list-child-item"
                     exact-active-class="active-route"
                     @click="itemSelected(subItem)">
-              <q-item-section class="list-child-section">
+              <q-tooltip v-if="showChildItemTooltip"
+                         anchor="top middle"
+                         self="bottom middle"
+                         :offset="[10, 10]">
                 {{ subItem.title }}
+              </q-tooltip>
+              <q-item-section class="list-child-section">
+                <q-item-label lines="1">{{ subItem.title }}</q-item-label>
               </q-item-section>
               <q-badge v-if="subItem.badge"
                        class="badge q-py-xs"
@@ -87,6 +93,12 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    showChildItemTooltip: {
+      type: Boolean,
+      default: () => {
+        return false
+      }
     },
     loading: {
       type: Boolean,
