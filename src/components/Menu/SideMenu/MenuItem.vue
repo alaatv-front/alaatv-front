@@ -6,6 +6,7 @@
                       :header-style="{height:'40px', borderRadius: '14px'}"
                       :label="item.title"
                       :icon="item.icon"
+                      :default-opened="item.open"
                       class="side-expansion-list">
       <div class="expansion-body">
         <q-separator dark
@@ -74,9 +75,18 @@
 export default {
   name: 'MenuItem',
   props: {
+    menuItemsColor: {
+      type: String,
+      default: ''
+    },
     menu: {
-      type: Object,
-      default: () => {}
+      // ToDO: will be deprecate
+      type: Array,
+      default: () => []
+    },
+    items: {
+      type: Array,
+      default: () => []
     },
     loading: {
       type: Boolean,
@@ -97,7 +107,11 @@ export default {
   computed: {
     computedMenu: {
       get () {
-        return this.menu
+        if (this.menu.length > 0) {
+          return this.menu
+        } else {
+          return this.items
+        }
       },
       set (value) {
         this.menuItems = value
@@ -117,6 +131,8 @@ export default {
         return { name: 'Public.Content.Search', query: { 'tags[]': item.tags } }
       } else if (item.href) {
         return { path: item.href }
+      } else if (!item.routeName) {
+        return undefined
       }
       return { name: item.routeName }
     },
@@ -289,7 +305,7 @@ export default {
         }
 
         .expansion-body {
-          color: #5867dd;
+          color: v-bind('menuItemsColor');
         }
 
         .q-expansion-item__content {

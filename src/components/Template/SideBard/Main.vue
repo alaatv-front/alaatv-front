@@ -57,7 +57,8 @@
               <q-icon name="search" />
             </template>
           </q-input>
-          <menu-item :menu="items" />
+          <menu-item :items="menuItems"
+                     :menu-items-color="'#5867dd'" />
         </q-list>
         <div class="log-out"
              @click="logOut">
@@ -84,7 +85,7 @@ export default {
     return {
       clickedItem: null,
       searchText: '',
-      items: menuItems,
+      menuItems,
       examsPlan: [
         {
           divider: true
@@ -149,7 +150,7 @@ export default {
   methods: {
     handleResize() {
       const windowWidth = window.innerWidth
-      this.items.forEach(item => {
+      this.menuItems.forEach(item => {
         if (item.mobileMode) {
           item.show = windowWidth < 1024
         }

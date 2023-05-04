@@ -59,11 +59,36 @@ export default defineComponent({
       responsiveOpts: ['xs', 'sm', 'md', 'lg', 'xl'],
       responsive: 'xs',
       defaultOptions: {
-        className: '',
-        height: 'auto',
-        boxed: false,
-        boxedWidth: 1200,
-        style: {}
+        fontFamily: null,
+        color: null,
+        fontSize: null,
+        fontWeight: null,
+        fontStyle: null,
+        xs: {
+          fontSize: null,
+          fontWeight: null,
+          fontStyle: null
+        },
+        sm: {
+          fontSize: null,
+          fontWeight: null,
+          fontStyle: null
+        },
+        md: {
+          fontSize: null,
+          fontWeight: null,
+          fontStyle: null
+        },
+        lg: {
+          fontSize: null,
+          fontWeight: null,
+          fontStyle: null
+        },
+        xl: {
+          fontSize: null,
+          fontWeight: null,
+          fontStyle: null
+        }
       }
     }
   },

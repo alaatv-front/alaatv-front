@@ -40,6 +40,23 @@ export function addToCart(context, newProductData) {
       const cart = context.getters.cart
       cart.addToCart(payload)
       context.commit('updateCart', cart)
+      Notify.create({
+        type: 'positive',
+        color: 'positive',
+        timeout: 5000,
+        position: 'top',
+        message: 'محصول به سبد خرید اضافه شد.',
+        icon: 'report_problem',
+        actions: [{
+          label: 'سبد خرید',
+          icon: 'isax:shopping-cart',
+          color: 'white',
+          class: 'bg-green-3',
+          handler: () => {
+            this.$router.push({ name: 'Public.Checkout.Review' })
+          }
+        }]
+      })
       resolve(true)
     }
   })
@@ -123,11 +140,22 @@ export function paymentCheckout(context) {
 }
 
 export function removeItemFromCart(context, orderProductId) {
+  const removeProductFromStore = function (productId) {
+    const cart = context.getters.cart
+    cart.removeProduct(productId)
+    context.commit('updateCart', cart)
+  }
+  const removeOrderProductFromCart = function (orderProductId) {
+    const cart = context.getters.cart
+    cart.items.removeOrderProduct(orderProductId)
+    context.commit('updateCart', cart)
+  }
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
     if (isUserLogin) {
       APIGateway.cart.removeFromCart(orderProductId)
         .then((response) => {
+          removeOrderProductFromCart(orderProductId)
           Notify.create({
             type: 'positive',
             color: 'positive',
@@ -143,9 +171,7 @@ export function removeItemFromCart(context, orderProductId) {
         })
     } else {
       const productId = orderProductId
-      const cart = context.getters.cart
-      cart.removeProduct(productId)
-      context.commit('updateCart', cart)
+      removeProductFromStore(productId)
       resolve()
     }
   })

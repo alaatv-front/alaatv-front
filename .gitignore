@@ -31,6 +31,8 @@ yarn-error.log*
 
 # widget.json
 /src/components/Widgets/widget.json
+/src/components/Widgets/PageBuilderComponents.js
+/src/components/Widgets/PageBuilderOptionPanels.js
 
 
 *.code-workspace
