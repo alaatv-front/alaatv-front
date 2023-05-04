@@ -4,6 +4,7 @@
   <user-abrisham-panel v-if="type === 'abrisham'" />
   <user-gift-card-panel v-if="type === 'gift-card'" />
   <user-chatre-nejat-panel v-if="type === 'chatre-nejat'" />
+  <user-emtahan-nahaee-panel v-if="type === 'emtahan-nahaee'" />
 </template>
 
 <script>
@@ -12,6 +13,7 @@ import AdminPanelHeader from 'components/Template/Header/AdminPanelHeader.vue'
 import UserAbrishamPanel from 'components/Template/Header/UserAbrishamPanel.vue'
 import UserGiftCardPanel from 'components/Template/Header/UserGiftCardPanel.vue'
 import UserChatreNejatPanel from 'components/Template/Header/UserChatreNejatPanel.vue'
+import UserEmtahanNahaeePanel from 'src/components/Template/Header/UserEmtahanNahaeePanel.vue'
 
 export default {
   name: 'templateHeader',
@@ -20,7 +22,8 @@ export default {
     UserGiftCardPanel,
     UserAbrishamPanel,
     MainHeaderTemplate,
-    UserChatreNejatPanel
+    UserChatreNejatPanel,
+    UserEmtahanNahaeePanel
   },
   props: {
     type: [String, Boolean, null],

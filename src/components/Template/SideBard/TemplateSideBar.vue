@@ -5,18 +5,29 @@
   <abrisham-panel v-if="type === 'abrisham'" />
   <gift-card-panel v-if="type === 'gift-card'" />
   <chatre-nejat-panel v-if="type === 'chatre-nejat'" />
+  <emtahan-nahaee-panel v-if="type === 'emtahan-nahaee'" />
 </template>
 
 <script>
 import MainSideBarTemplate from 'src/components/Template/SideBard/Main.vue'
 import AbrishamPanel from 'src/components/Template/SideBard/AbrishamPanel.vue'
 import GiftCardPanel from 'src/components/Template/SideBard/GiftCardPanel.vue'
-import AdminPanelSideBar from 'components/Template/SideBard/AdminPanelSideBar.vue'
 import UserPanelSideBar from 'components/Template/SideBard/UserPanelSideBar.vue'
 import ChatreNejatPanel from 'components/Template/SideBard/ChatreNejatPanel.vue'
+import EmtahanNahaeePanel from 'src/components/Template/SideBard/EmtahanNahaeePanel.vue'
+import AdminPanelSideBar from 'components/Template/SideBard/AdminPanelSideBar.vue'
+
 export default {
   name: 'TemplateSideBar',
-  components: { ChatreNejatPanel, UserPanelSideBar, AdminPanelSideBar, MainSideBarTemplate, AbrishamPanel, GiftCardPanel },
+  components: {
+    AbrishamPanel,
+    GiftCardPanel,
+    ChatreNejatPanel,
+    UserPanelSideBar,
+    AdminPanelSideBar,
+    EmtahanNahaeePanel,
+    MainSideBarTemplate
+  },
   props: {
     type: [String, Boolean, null],
     default: () => 'main'
