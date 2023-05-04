@@ -74,7 +74,7 @@
                  label="description"
                  type="textarea" />
         <q-input v-model="seo.robots"
-                 label="description" />
+                 label="robots" />
         <q-separator />
         <div dir="ltr">
           open graph:
@@ -90,13 +90,35 @@
         <q-input v-model="seo.ogImage"
                  label="open graph image"
                  dir="ltr" />
-        <q-img :src="seo.ogImage" />
+        <q-img class="og-image"
+               :src="seo.ogImage" />
       </q-card-section>
-
+      <q-card-section>
+        <div class="vue-google-serp">
+          <div class="preview">
+            <h3>{{ truncateString(seo.title,titleLength)}}</h3>
+            <cite>{{seo.ogUrl}}</cite>
+            <p>{{ truncateString(seo.description, descriptionLengthMobile)}}</p>
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-section>
+        <div class="vue-google-serp-mobile">
+          <div class="preview">
+            <h3>{{ truncateString(seo.title,titleLength)}}</h3>
+            <cite>{{seo.ogUrl}}</cite>
+            <p>{{ truncateString(seo.description, descriptionLengthMobile)}}</p>
+          </div>
+        </div>
+      </q-card-section>
       <q-card-actions align="right">
         <q-btn v-close-popup
+               label="save"
+               color="primary"
+               @click="updateSeo" />
+        <q-btn v-close-popup
                flat
-               label="OK"
+               label="close"
                color="primary" />
       </q-card-actions>
     </q-card>
@@ -153,6 +175,9 @@ export default {
   data () {
     return {
       pageBuilderImportedConfigs: null,
+      titleLength: 60,
+      descriptionLength: 160,
+      descriptionLengthMobile: 80,
       seo: {
         title: null,
         description: null,
@@ -185,6 +210,9 @@ export default {
     this.loadDefaultSeoData()
   },
   methods: {
+    truncateString(string, length) {
+      return string.length > length ? string.slice(0, length) + '...' : string
+    },
     importPageBuilderConfigs () {
       this.$store.commit('PageBuilder/updateCurrentSections', JSON.parse(this.pageBuilderImportedConfigs))
     },
@@ -283,6 +311,90 @@ export default {
 <style lang="scss" scoped>
 .floating-action-btn-page-builder {
   z-index: 2001;
+}
+
+.og-image {
+  width: 200px;
+  margin: 0 auto;
+}
+.vue-google-serp {
+  direction: rtl;
+  font-family: arial, sans-serif !important;
+  margin: 0;
+  padding: 0;
+  .preview {
+    padding: 20px;
+    max-width: 600px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  h3 {
+    font-family: arial, sans-serif !important;
+    margin: 0;
+    color: rgb(26, 13, 171);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  p {
+    font-family: arial, sans-serif !important;
+    margin: 0;
+    color: rgb(84, 84, 84);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  cite {
+    font-family: arial, sans-serif !important;
+    margin: 0;
+    font-style: normal;
+    height: 18px;
+    color: rgb(0, 102, 33);
+    font-size: 14px;
+    line-height: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.vue-google-serp-mobile {
+  direction: rtl;
+  font-family: arial, sans-serif !important;
+  margin: 0;
+  padding: 0;
+  .preview {
+    padding: 20px;
+    max-width: 350px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  h3 {
+    font-family: arial, sans-serif !important;
+    margin: 0 0 5px 0;
+    color: rgb(26, 13, 171);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  p {
+    font-family: arial, sans-serif !important;
+    margin: 0;
+    color: rgb(84, 84, 84);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  cite {
+    font-family: arial, sans-serif !important;
+    margin: 0;
+    font-style: normal;
+    height: 18px;
+    color: rgb(0, 102, 33);
+    font-size: 14px;
+    line-height: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 </style>
 

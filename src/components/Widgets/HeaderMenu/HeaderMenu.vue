@@ -27,8 +27,8 @@
       <q-btn v-if="localOptions.hasAction"
              color="white"
              flat
-             :label="localOptions.action.buttonLabel"
-             @click="takeAction(localOptions.action)" />
+             :label="localOptions.actionObject.buttonLabel"
+             @click="takeAction(localOptions.actionObject)" />
     </div>
   </div>
 </template>
@@ -36,12 +36,12 @@
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
 import { openURL } from 'quasar'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'HeaderMenu',
   components: { LazyImg },
-  mixins: [mixinPrefetchServerData, mixinWidget],
+  mixins: [mixinWidget],
   data() {
     return {
       defaultOptions: {
@@ -49,7 +49,7 @@ export default {
         logoImage: null,
         logoSlogan: null,
         hasAction: false,
-        action: {
+        actionObject: {
           buttonLabel: null,
           type: null,
           className: null,

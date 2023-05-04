@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'PersonSlider',
-  mixins: [mixinPrefetchServerData, mixinWidget],
+  mixins: [mixinWidget],
   data() {
     return {
       defaultOptions: {
@@ -64,7 +64,7 @@ export default {
           if (this.scrollIndex > this.localOptions.sliderItems.length) {
             this.scrollIndex = 0
           }
-          this.$refs.virtualScroll.scrollTo(this.scrollIndex)
+          this.$refs.virtualScroll?.scrollTo(this.scrollIndex)
         }, 2000)
       }
     }
