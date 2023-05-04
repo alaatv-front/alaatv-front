@@ -34,7 +34,7 @@
         </q-item>
       </template>
       <div class="text">
-        {{ item.text }}
+        <span v-html="item.text" />
       </div>
       <div v-if="localOptions.theme === 'theme2'"
            class="theme-action-btn">
