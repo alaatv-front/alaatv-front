@@ -45,7 +45,7 @@
 import SignupStep from './components/SignupStep.vue'
 import VerificationStep from './components/VerificationStep.vue'
 import InfoCompletion from './components/InfoCompletion.vue'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'SignupModal',
@@ -54,7 +54,7 @@ export default {
     VerificationStep,
     InfoCompletion
   },
-  mixins: [mixinPrefetchServerData, mixinWidget],
+  mixins: [mixinWidget],
   data() {
     return {
       dialog: false,

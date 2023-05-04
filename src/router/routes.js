@@ -382,6 +382,71 @@ const routes = [
                 ]
               },
               {
+                name: 'UserPanel.Asset.EmtahanNahaee',
+                path: 'emtahan-nahaee',
+                layoutConfig: {
+                  layoutHeaderType: 'emtahan-nahaee',
+                  layoutLeftSideBarType: 'emtahan-nahaee',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/bareLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.EmtahanNahaee.Products',
+                    path: '',
+                    component: () => import('pages/User/DashboardEmtahanNahaee/Products.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.EmtahanNahaee.ProductLayout',
+                    path: 'product',
+                    component: () => import('layouts/EmtahanNahaeeLayout.vue'),
+                    children: [
+                      {
+                        name: 'UserPanel.Asset.EmtahanNahaee.ProductPage',
+                        path: ':productId',
+                        component: () => import('pages/User/DashboardEmtahanNahaee/ProductPage.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.EmtahanNahaee.Content',
+                        path: ':productId/set/:setId/content/:contentId',
+                        component: () => import('pages/User/DashboardEmtahanNahaee/Content.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.EmtahanNahaee.ProductDocuments',
+                        path: ':productId/documents',
+                        component: () => import('pages/User/DashboardEmtahanNahaee/ProductDocuments.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.EmtahanNahaee.ProductComments',
+                        path: ':productId/comments',
+                        component: () => import('pages/User/DashboardEmtahanNahaee/ProductComments.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.EmtahanNahaee.ProductSingleComment',
+                        path: ':productId/comments/:commentId',
+                        component: () => import('pages/User/DashboardEmtahanNahaee/ProductCommentSingle.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.EmtahanNahaee.ProductBookmarks',
+                        props: true,
+                        path: ':productId/bookmarks',
+                        component: () => import('src/pages/User/DashboardEmtahanNahaee/ProductBookmarks.vue')
+                      }
+                    ]
+                  },
+                  {
+                    name: 'UserPanel.Asset.EmtahanNahaee.Adviser.Content',
+                    path: ':setId/adviser/content/:contentId',
+                    props: true,
+                    component: () => import('src/pages/User/DashboardEmtahanNahaee/Content.vue')
+                  }
+                ]
+              },
+              {
                 name: 'UserPanel.Asset.GiftCard',
                 path: 'gift-card',
                 layoutConfig: {
