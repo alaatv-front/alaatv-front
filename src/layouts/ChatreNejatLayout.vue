@@ -75,6 +75,7 @@ import Router from 'src/router/Router.vue'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
 import { mapMutations } from 'vuex'
 import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
+import { Content } from 'src/models/Content'
 export default {
   name: 'ChatreNejatLayout',
   components: { ChatreNejatLayoutMenu, Router },
@@ -144,6 +145,9 @@ export default {
       return this.$store.getters['ChatreNejat/selectedTopic'] || ''
     },
     selectedContent () {
+      if (!this.$route.params?.contentId) {
+        return new Content()
+      }
       return this.$store.getters['ChatreNejat/selectedContent']
     },
     selectedContentTitle () {
