@@ -49,7 +49,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
+import ChatreNejatLayoutMenu from 'src/components/DashboardEmtahanNaahee/ChatreNejatLayoutMenu.vue'
 
 export default {
   name: 'ChatreNejatPanel',

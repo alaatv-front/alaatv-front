@@ -74,7 +74,7 @@
 import Router from 'src/router/Router.vue'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
 import { mapMutations } from 'vuex'
-import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
+import ChatreNejatLayoutMenu from 'src/components/DashboardEmtahanNaahee/ChatreNejatLayoutMenu.vue'
 export default {
   name: 'ChatreNejatLayout',
   components: { ChatreNejatLayoutMenu, Router },
