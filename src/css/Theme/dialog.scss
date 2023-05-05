@@ -34,6 +34,9 @@
       height: 40px;
       border-radius: 8px;
     }
+    .q-btn--outline:before {
+      border: 0 solid $grey5;
+    }
     .dialog-action-default-btn {
       color: $grey6;
     }
