@@ -5,16 +5,29 @@
       <div v-for="(service, index) in options.services"
            :key="index"
            class="col-xs-4 col-sm-3 col-md-2">
-        <a class="service"
-           :href="service.link"
-           :title="service.title"
-           target="_self">
-          <div class="service-image">
-            <q-img :src="service.icon" />
+        <div class="service">
+          <div v-if="service.link">
+            <a class="service"
+               :href="service.link"
+               :title="service.title"
+               target="_self">
+              <div class="service-image">
+                <q-img :src="service.icon" />
+              </div>
+              <p class="service-title">{{ service.title }}</p>
+              <p class="service-subtitle">{{ service.subTitle }}</p>
+            </a>
           </div>
-          <p class="service-title">{{ service.title }}</p>
-          <p class="service-subtitle">{{ service.subTitle }}</p>
-        </a>
+          <div v-else-if="service.scrollTo"
+               class="cursor-pointer"
+               @click="scrollToElement(service.scrollTo)">
+            <div class="service-image">
+              <q-img :src="service.icon" />
+            </div>
+            <p class="service-title">{{ service.title }}</p>
+            <p class="service-subtitle">{{ service.subTitle }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -36,6 +49,121 @@ export default {
   },
   data () {
     return {
+      defaultOptions: {
+        className: '',
+        style: {},
+        services: []
+      }
+    }
+  },
+  mounted() {
+    console.log(JSON.stringify([{
+      data: {
+        rows: [{
+          cols: [{
+            widgets: [{
+              name: 'BlockList',
+              options: {
+                to: 1,
+                apiName: 'home'
+              }
+            }, {
+              name: 'Services',
+              options: {
+                services: [{
+                  action: 'scroll',
+                  scrollTo: '#konkoor2',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_konkur_icon.png?w=52&h=52',
+                  title: 'کنکور',
+                  subTitle: 'صفر تا صد رایگان'
+                }, {
+                  action: 'link',
+                  link: 'https://3a.alaatv.com/',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_3a_icon.png?w=52&h=52',
+                  title: 'سه آ',
+                  subTitle: 'آزمون آنلاین آلاء'
+                }, {
+                  action: 'scroll',
+                  scrollTo: '#yazdahom',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_grade11_icon.png?w=52&h=52',
+                  title: 'یازدهم',
+                  subTitle: 'صفر تا صد رایگان'
+                }, {
+                  action: 'scroll',
+                  scrollTo: '#dahom',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_grade10_icon.png?w=52&h=52',
+                  title: 'دهم',
+                  subTitle: 'صفر تا صد رایگان'
+                }, {
+                  action: 'link',
+                  link: 'panel/abrisham/progress',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_silkroad2_icon.png?w=52&h=52',
+                  title: 'همایش راه ابریشم',
+                  subTitle: 'برنامه ای کامل ویژه کنکوری ها'
+                }, {
+                  action: 'link',
+                  link: '/landing/10',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_godar_icon.png?w=52&h=52',
+                  title: 'همایش گدار',
+                  subTitle: 'جمع بندی نیم سال اول دوازدهم'
+                }, {
+                  action: 'link',
+                  link: '/landing/9',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_taftan_icon.png?w=52&h=52',
+                  title: 'همایش تفتان',
+                  subTitle: 'جمع بندی دهم و یازدهم'
+                }, {
+                  action: 'link',
+                  link: '/landing/15',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_arash_icon.png?w=52&h=52',
+                  title: 'همایش آرش',
+                  subTitle: 'جمع بندی کامل کنکور'
+                }, {
+                  action: 'link',
+                  link: '/h',
+                  icon: 'https://nodes.alaatv.com/upload/homepage_icon_hekmat_icon.png?w=52&h=52',
+                  title: 'طرح حکمت',
+                  subTitle: 'ویژه خانواده های نیروهای مسلح'
+                }],
+                style: { 'margin-bottom': '20px' }
+              }
+            }, {
+              name: 'BlockList',
+              options: {
+                from: 1,
+                apiName: 'home'
+              }
+            }]
+          }],
+          options: {
+            boxed: true,
+            boxedWidth: 1362
+          }
+        }]
+      },
+      options: {
+        fullHeight: true,
+        verticalAlign: 'center'
+      }
+    }]))
+  },
+  methods: {
+    scrollToElement(className) {
+      const el = document.getElementsByClassName(className)[0]
+      const headerOffset = 100
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    },
+    goToLink(service) {
+      if (service.link[0] === '#') {
+        return { name: 'Public.Home', hash: '.banner-header-8' }
+      } else {
+        return { path: service.link }
+      }
     }
   }
 
