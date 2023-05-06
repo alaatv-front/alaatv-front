@@ -67,6 +67,9 @@ export default {
       })
     }
   },
+  created() {
+    this.setDefaultApiName()
+  },
   methods: {
     reloadWidget () {
       this.getApiRequest()
@@ -101,6 +104,13 @@ export default {
       }
 
       return Promise.reject('wrong api name')
+    },
+    setDefaultApiName () {
+      if (this.$route.name === 'Public.Home') {
+        this.defaultOptions.apiName = 'home'
+      } else if (this.$route.name === 'Public.Shop') {
+        this.defaultOptions.apiName = 'shop'
+      }
     }
   }
 }

@@ -24,10 +24,41 @@
                         left-label />
           </div>
         </div>
-        <div class="input-container q-mt-md">
+        <div class="input-container q-my-md">
           <div class="outsideLabel">image source</div>
           <q-input v-model="localOptions.imageSource"
                    label="image source" />
+        </div>
+        <div class="row q-col-gutter-sm">
+          <div class="input-container col-md-2">
+            <div class="outsideLabel">action</div>
+            <q-select v-model="localOptions.action"
+                      :options="actionOptions" />
+          </div>
+          <div v-if="localOptions.action === 'scroll'"
+               class="input-container col-md-10">
+            <div class="outsideLabel">scrollTo</div>
+            <q-input v-model="localOptions.scrollTo"
+                     label="scrollTo" />
+          </div>
+          <div v-if="localOptions.action === 'link'"
+               class="input-container col-md-10">
+            <div class="outsideLabel">route</div>
+            <q-input v-model="localOptions.route"
+                     label="route" />
+          </div>
+          <div v-if="localOptions.action === 'event'"
+               class="input-container col-md-5">
+            <div class="outsideLabel">eventName</div>
+            <q-input v-model="localOptions.eventName"
+                     label="eventName" />
+          </div>
+          <div v-if="localOptions.action === 'event'"
+               class="input-container col-md-5">
+            <div class="outsideLabel">eventArgs</div>
+            <q-input v-model="localOptions.eventArgs"
+                     label="eventArgs" />
+          </div>
         </div>
       </div>
     </template>
@@ -51,26 +82,25 @@ export default defineComponent({
     }
   },
   data () {
-    return {}
-  },
-  computed: {
-    value: {
-      get() {
-        return this.localOptions
-      },
-      set(value) {
-        this.localOptions = value
+    return {
+      actionOptions: ['scroll', 'link', 'event'],
+      defaultOptions: {
+        color: null,
+        icon: null,
+        label: null,
+        flat: false,
+        callBack: null,
+        imageSource: null,
+        className: null,
+        fixed: false,
+        fixedPosition: null,
+        eventArgs: null,
+        action: null,
+        scrollTo: null,
+        route: null,
+        eventName: null
       }
     }
-  },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    }
-  },
-  methods: {}
+  }
 })
 </script>
