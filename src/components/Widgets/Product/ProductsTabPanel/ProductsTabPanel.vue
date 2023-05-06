@@ -49,7 +49,6 @@ export default {
         } else if (group.type === 'ProductList') {
           for (let productIndex = 0; productIndex < optionList[groupIndex].data.length; productIndex++) {
             const productItem = productList.find(product => product.id === optionList[groupIndex].data[productIndex].id)
-            console.log(productItem)
             if (productItem) {
               optionList[groupIndex].data[productIndex] = productItem
             }
