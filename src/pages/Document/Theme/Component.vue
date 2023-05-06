@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="dialog">
+    dialog & BottomSheet
     <example-dialog />
     <example-bottom-sheet />
   </div>
@@ -9,11 +10,7 @@
 import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
 import ExampleBottomSheet from 'components/Theme/Dialog/ExampleBottomSheet.vue'
 export default {
-  name: 'DialogPage',
+  name: 'Component',
   components: { ExampleBottomSheet, ExampleDialog }
 }
 </script>
-
-<style scoped>
-
-</style>
