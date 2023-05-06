@@ -96,9 +96,7 @@ export default {
     },
     showChildItemTooltip: {
       type: Boolean,
-      default: () => {
-        return false
-      }
+      default: false
     },
     loading: {
       type: Boolean,
