@@ -172,11 +172,15 @@
 //.form-builder-input.form-builder-select.form-builder-dateTime {
   .outsideLabel {
     font-style: normal;
-    font-weight: 600;
+    margin-bottom: 8px;
+    color: $grey9;
+    font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    margin-bottom: 8px;
-    color: #3F454F;
+    letter-spacing: -0.02em;
+    &.disabled {
+      color: $grey4;
+    }
   }
 //}
 
