@@ -269,6 +269,7 @@
   <pagination-theme />
   <scroll />
   <typography />
+  <avatar />
   <text-input />
 </template>
 
@@ -282,11 +283,13 @@ import RadioBtn from 'src/components/Theme/Controls/RadioBtn/RadioBtn.vue'
 import PaginationTheme from 'src/components/Theme/Controls/PaginationTheme/PaginationTheme.vue'
 import Typography from 'components/Theme/Typography/Typography.vue'
 import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
+import Avatar from 'components/Theme/Controls/Avatar/Avatar.vue'
 import TextInput from 'components/Theme/TextInput/TextInput.vue'
 
 export default {
   name: 'Controls',
   components: {
+    Avatar,
     Checkbox,
     Color,
     ProgressTheme,
