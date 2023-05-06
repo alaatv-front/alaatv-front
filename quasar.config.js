@@ -440,7 +440,7 @@ module.exports = configure(function (ctx) {
       capacitorCliPreparationParams: ['sync', ctx.targetName]
     },
     bin: {
-      linuxAndroidStudio: '/home/alaa/Downloads/android-studio-2022.2.1.18-linux/android-studio/bin/studio.sh'
+      linuxAndroidStudio: process.env.LINUX_ANDROID_STUDIO
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
