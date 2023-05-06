@@ -271,6 +271,7 @@
   <typography />
   <avatar />
   <text-input />
+  <dropdown />
 </template>
 
 <script>
@@ -285,10 +286,12 @@ import Typography from 'components/Theme/Typography/Typography.vue'
 import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
 import Avatar from 'components/Theme/Controls/Avatar/Avatar.vue'
 import TextInput from 'components/Theme/TextInput/TextInput.vue'
+import Dropdown from 'components/Theme/Controls/Dropdown/Dropdown.vue'
 
 export default {
   name: 'Controls',
   components: {
+    Dropdown,
     Avatar,
     Checkbox,
     Color,
