@@ -14,27 +14,36 @@
 }
 .q-table {
   .q-tr {
+    .q-td {
+      background: $grey1;
+      padding: 20px 10px;
+      border-bottom: 4px solid $grey2 !important;
+    }
     &.selected {
       border-radius: 8px;
+      .q-td {
+        background: $secondary1;
+        border-radius: 8px;
+      }
     }
-  }
-  :first-child {
-    &.q-td {
-      border-bottom-left-radius: 8px;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 0;
+    :first-child {
+      &.q-td {
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 0;
+      }
+      td:after {
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 0;
+      }
     }
-  }
-  :last-child {
-    &.q-td {
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
+    :last-child {
+      &.q-td {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
     }
-  }
-  .q-td {
-    background: $grey1;
-    padding: 20px 10px;
-    border-bottom: 4px solid $grey2 !important;
   }
 
   //  we can't style tr for hover normally,
@@ -46,8 +55,33 @@
   }
 
   tbody td:after {
-    //background: $secondary1;
-    background: rgba(224, 242, 241, 0.3);
+    background: transparent;
+  }
+
+  tbody td:last-child {
+    :after {
+      border-bottom-left-radius: 8px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 0;
+    }
+  }
+
+  tbody tr {
+    :first-child {
+      td:after {
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 0;
+      }
+    }
+  }
+
+  tbody tr.selected :first-child {
+    td::after {
+      border-bottom-left-radius: 8px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 0;
+    }
   }
 
   .q-checkbox__inner--truthy, .q-checkbox__inner--indet {
