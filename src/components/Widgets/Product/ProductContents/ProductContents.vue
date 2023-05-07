@@ -164,7 +164,11 @@ export default {
           title: '',
           contents: this.contents
         }),
-        gridView: this.options.contentGridView
+        gridView: this.options.contentGridView,
+        contentMinWidth: {
+          inGridView: '240px',
+          inScrollView: '318px'
+        }
       }
     },
     productId () {
