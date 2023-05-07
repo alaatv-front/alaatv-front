@@ -4,11 +4,6 @@
   "bundledWebRuntime": false,
   "npmClient": "yarn",
   "webDir": "www",
-  "plugins": {
-    "StatusBar": {
-      "backgroundColor": "#ffc107"
-    }
-  },
   "server": {
     "url": "http://192.168.3.134:8083"
   }
