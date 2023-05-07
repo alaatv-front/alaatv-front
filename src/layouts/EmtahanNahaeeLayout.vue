@@ -20,7 +20,7 @@
         <div class="back-btn">
           <q-btn flat
                  icon-right="chevron_left"
-                 :to="{ name: 'UserPanel.Asset.ChatreNejat.Products' }">بازگشت</q-btn>
+                 :to="{ name: 'UserPanel.Asset.EmtahanNahaee.Products' }">بازگشت</q-btn>
         </div>
       </div>
       <chatre-nejat-layout-menu :menu-key="menuKey"
@@ -74,8 +74,7 @@
 import Router from 'src/router/Router.vue'
 import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
 import { mapMutations } from 'vuex'
-import ChatreNejatLayoutMenu from 'components/DashboardChatreNejat/ChatreNejatLayoutMenu.vue'
-import { Content } from 'src/models/Content'
+import ChatreNejatLayoutMenu from 'src/components/DashboardEmtahanNaahee/ChatreNejatLayoutMenu.vue'
 export default {
   name: 'ChatreNejatLayout',
   components: { ChatreNejatLayoutMenu, Router },
@@ -86,17 +85,17 @@ export default {
       productItems: [
         {
           name: 'pamphlet',
-          routeName: 'UserPanel.Asset.ChatreNejat.ProductDocuments',
+          routeName: 'UserPanel.Asset.EmtahanNahaee.ProductDocuments',
           label: 'جزوات'
         },
         {
           name: 'notes',
-          routeName: 'UserPanel.Asset.ChatreNejat.ProductComments',
+          routeName: 'UserPanel.Asset.EmtahanNahaee.ProductComments',
           label: 'یادداشت ها'
         },
         {
           name: 'favoredContents',
-          routeName: 'UserPanel.Asset.ChatreNejat.ProductBookmarks',
+          routeName: 'UserPanel.Asset.EmtahanNahaee.ProductBookmarks',
           label: 'نشان شده ها'
         }
       ],
@@ -113,7 +112,7 @@ export default {
           children: [
             {
               title: 'تایتل ست',
-              routeName: 'UserPanel.Asset.ChatreNejat.Products',
+              routeName: 'UserPanel.Asset.EmtahanNahaee.Products',
               active: false,
               show: true,
               open: false
@@ -145,9 +144,6 @@ export default {
       return this.$store.getters['ChatreNejat/selectedTopic'] || ''
     },
     selectedContent () {
-      if (!this.$route.params?.contentId) {
-        return new Content()
-      }
       return this.$store.getters['ChatreNejat/selectedContent']
     },
     selectedContentTitle () {
@@ -168,14 +164,14 @@ export default {
   },
   methods: {
     goBack () {
-      if (this.$route.name === 'UserPanel.Asset.ChatreNejat.ProductPage') {
+      if (this.$route.name === 'UserPanel.Asset.EmtahanNahaee.ProductPage') {
         this.$router.push(
-          { name: 'UserPanel.Asset.ChatreNejat.Products' }
+          { name: 'UserPanel.Asset.EmtahanNahaee.Products' }
         )
         return
       } else if (this.$route.params?.contentId) {
         this.$router.push(
-          { name: 'UserPanel.Asset.ChatreNejat.ProductPage', params: { productId: this.productId } }
+          { name: 'UserPanel.Asset.EmtahanNahaee.ProductPage', params: { productId: this.productId } }
         )
         return
       }
