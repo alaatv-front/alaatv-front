@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-
-    namespace 'org.alaatv.app'
+    namespace 'ir.sanatisharif.android.konkur96'
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "org.alaatv.app"
+        applicationId "ir.sanatisharif.android.konkur96"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -30,10 +29,14 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     implementation project(':capacitor-android')
-    testImplementation "junit:junit:$junitVersion"
+  implementation 'com.google.android.material:material:1.9.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+  testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+
+    implementation "com.airbnb.android:lottie:6.0.0"
 }
 
 apply from: 'capacitor.build.gradle'
