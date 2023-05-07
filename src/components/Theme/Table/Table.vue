@@ -12,41 +12,17 @@
                 :item-indicator-key="'id'"
                 :default-layout="false"
                 :show-search-button="false"
-                :show-reload-button="true">
+                :show-reload-button="false">
     <template #entity-index-table-cell="{inputData}">
       <template v-if="inputData.col.name === 'actions'">
-        <!--                  <q-btn round-->
-        <!--                         flat-->
-        <!--                         dense-->
-        <!--                         size="md"-->
-        <!--                         icon="isax:chart-2"-->
-        <!--                         class="q-ml-md"-->
-        <!--                         @click="showConfirmRemoveDialog(inputData.props.row, 'id', getRemoveMessage(inputData.props.row))">-->
-        <!--                    <q-tooltip>-->
-        <!--                      زمانکوب-->
-        <!--                    </q-tooltip>-->
-        <!--                  </q-btn>-->
-        <q-btn round
-               flat
-               dense
-               size="md"
-               color="info"
-               icon="edit"
-               @click="toggleUploadProgressDialog(inputData.props.row.id)">
+        <q-btn square
+               size="sm"
+               color="grey-2"
+               icon="isax:menu-1">
           <q-tooltip>
-            ویرایش
+            عملیات بیشتر
           </q-tooltip>
         </q-btn>
-      </template>
-      <template v-else-if="inputData.col.name === 'photo'">
-        <q-img :src="inputData.col.photo"
-               :ratio="16/9"
-               width="142px"
-               height="78px" />
-      </template>
-      <template v-else-if="inputData.col.name === 'title'">
-        <div class="text-body1">{{inputData.col.value.name}}</div>
-        <div v-html="inputData.col.value.description" />
       </template>
       <template v-else>
         {{ inputData.col.value }}
