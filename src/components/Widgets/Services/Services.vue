@@ -66,13 +66,6 @@ export default {
         top: offsetPosition,
         behavior: 'smooth'
       })
-    },
-    goToLink(service) {
-      if (service.link[0] === '#') {
-        return { name: 'Public.Home', hash: '.banner-header-8' }
-      } else {
-        return { path: service.link }
-      }
     }
   }
 
