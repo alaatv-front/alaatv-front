@@ -24,6 +24,7 @@
       </q-input>
       <menu-item :key="menuKey"
                  :items="topicsRouteArray"
+                 :show-child-item-tooltip="true"
                  :loading="topicList.length <= 0"
                  @item-selected="itemSelected" />
       <q-item v-for="(item, index) in productItems"
@@ -155,6 +156,11 @@ export default {
         margin-bottom: 30px;
       }
       margin: 0 24px 109px 24px;
+      :deep(.menu-item) {
+        .list-child-item {
+          max-width: 260px;
+        }
+      }
       .menu-item-btn {
         :deep(.q-btn__content) {
           width: 100%;

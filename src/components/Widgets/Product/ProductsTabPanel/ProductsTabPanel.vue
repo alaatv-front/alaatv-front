@@ -48,7 +48,7 @@ export default {
           this.replaceProducts(optionList[groupIndex].data, productList)
         } else if (group.type === 'ProductList') {
           for (let productIndex = 0; productIndex < optionList[groupIndex].data.length; productIndex++) {
-            const productItem = productList.find(product => product.id === optionList[groupIndex].data[productIndex])
+            const productItem = productList.find(product => product.id === optionList[groupIndex].data[productIndex].id)
             if (productItem) {
               optionList[groupIndex].data[productIndex] = productItem
             }
@@ -58,7 +58,8 @@ export default {
     },
     getProductsPromise() {
       this.extractProducts(this.localOptions.data)
-      return this.$apiGateway.product.getProductList(this.productFlatList)
+      const productIdList = this.productFlatList.map(product => product.id)
+      return this.$apiGateway.product.getProductList(productIdList)
     },
     prefetchServerDataPromise () {
       this.loading = true

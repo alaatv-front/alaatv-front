@@ -1,5 +1,7 @@
 <template>
-  <div class="header-menu">
+  <div class="header-menu"
+       :class="options.className"
+       :style="options.style">
     <div class="logo-pic"
          @click="routeTo('Public.Home')">
       <lazy-img :src="localOptions.logoImage"
@@ -27,8 +29,8 @@
       <q-btn v-if="localOptions.hasAction"
              color="white"
              flat
-             :label="localOptions.action.buttonLabel"
-             @click="takeAction(localOptions.action)" />
+             :label="localOptions.actionObject.buttonLabel"
+             @click="takeAction(localOptions.actionObject)" />
     </div>
   </div>
 </template>
@@ -36,20 +38,22 @@
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
 import { openURL } from 'quasar'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'HeaderMenu',
   components: { LazyImg },
-  mixins: [mixinPrefetchServerData, mixinWidget],
+  mixins: [mixinWidget],
   data() {
     return {
       defaultOptions: {
+        style: {},
+        className: '',
         menuLink: [],
         logoImage: null,
         logoSlogan: null,
         hasAction: false,
-        action: {
+        actionObject: {
           buttonLabel: null,
           type: null,
           className: null,
@@ -111,7 +115,6 @@ export default {
     }
     .logo-text {
       padding: 0 10px;
-      color: #fff;
       padding: 0 10px;
       font-weight: 400;
       font-size: 16px;
@@ -129,7 +132,6 @@ export default {
       display: flex;
 
       .route-link {
-        color: #fff;
         margin: 0 20px;
         font-weight: 400;
         font-size: 16px;
