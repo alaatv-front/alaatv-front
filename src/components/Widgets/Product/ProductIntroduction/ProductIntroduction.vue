@@ -1,6 +1,6 @@
 <template>
   <q-card v-if="product.intro"
-          class="intro-video custom-card q-pb-md"
+          class="intro-video custom-card"
           :class="options.className"
           :style="options.style">
     <template v-if="!product.loading">
