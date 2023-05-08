@@ -164,7 +164,7 @@ export default {
           title: '',
           contents: this.contents
         }),
-        gridView: this.options.contentGridView,
+        gridView: this.localOptions.contentGridView,
         contentMinWidth: {
           inGridView: '240px',
           inScrollView: '318px'
