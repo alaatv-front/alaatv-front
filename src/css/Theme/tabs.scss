@@ -1,0 +1,24 @@
+.q-tab {
+  padding: 0 12px;
+  .q-tab__content {
+    display: flex;
+    flex-direction: row;
+    width: 80px;
+    .q-tab__indicator {
+      border: 2px solid $primary;
+      border-radius: 8px;
+    }
+  }
+  .q-tab__label {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+    color: $grey9;
+  }
+  .q-tab__icon {
+    width: 13px;
+    height: 13px;
+    margin-right: 6px;
+  }
+}
