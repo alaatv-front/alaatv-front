@@ -7,9 +7,7 @@
         <div class="img-title-container">
           <lazy-img :src="content.photo"
                     :alt="content.title"
-                    class="img"
-                    width="16"
-                    height="9" />
+                    class="img" />
         </div>
         <div class="play-btn">
           <div class="play-icon" />
@@ -216,10 +214,15 @@ export default {
       border-radius: inherit;
       box-shadow: none;
       width: 100%;
+      height: 100%;
 
       .img {
         width: inherit;
+        height: 100%;
         border-radius: 20px 20px 0 0;
+        :deep(img) {
+          border-radius: 20px 20px 0 0;
+        }
       }
     }
 
@@ -424,6 +427,7 @@ export default {
 
   @media screen and (max-width: 992px) {
     .img-box {
+      height: 100%;
       .img {
       }
     }
@@ -498,6 +502,10 @@ export default {
 
       .img {
         border-radius: 10px;
+        :deep(img) {
+          border-radius: 20px 0 0 20px;
+          height: 100%;
+        }
       }
     }
 
