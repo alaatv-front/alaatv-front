@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'ir.sanatisharif.android.konkur96'
+    namespace rootProject.ext.appId
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "ir.sanatisharif.android.konkur96"
