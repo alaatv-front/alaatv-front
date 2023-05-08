@@ -58,7 +58,11 @@ export default defineComponent({
   },
   data () {
     return {
-      expansionList: []
+      defaultOptions: {
+        expansionList: [],
+        expandIconClass: null,
+        theme: null
+      }
     }
   },
   watch: {
@@ -71,7 +75,12 @@ export default defineComponent({
   },
   methods: {
     addItem () {
-      this.localOptions.expansionList.push([])
+      this.localOptions.expansionList.push({
+        label: '',
+        caption: '',
+        text: '',
+        expanded: false
+      })
     },
     removeItem (itemIndex) {
       this.localOptions.expansionList.splice(itemIndex, 1)

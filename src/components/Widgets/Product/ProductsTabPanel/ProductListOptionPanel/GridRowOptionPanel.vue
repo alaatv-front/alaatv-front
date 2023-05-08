@@ -59,6 +59,7 @@
 <script>
 import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import { Product } from 'src/models/Product'
 
 export default {
   name: 'ProductListGridOptionPanel',
@@ -82,27 +83,23 @@ export default {
     }
   },
   methods: {
-    openProduct (id, tabIndex, isSpecial = false) {
+    openProduct (id) {
       if (!id) {
         return
       }
       this.dialogProductId = id
-      this.currentTabIndex = tabIndex
       this.productDialog = true
-      this.isSpecial = isSpecial
     },
-    removeProduct (id, tabIndex, isSpecial = false) {
-      const keyName = isSpecial ? 'specialProducts' : 'products'
-      if (!this.value.list[tabIndex][keyName]) {
+    removeProduct (id, productIndex) {
+      if (!this.localOptions.data[productIndex]) {
         return
       }
-      const productIndex = this.value.list[tabIndex][keyName]
-        .findIndex((item) => item === id)
-      this.value.list[tabIndex][keyName].splice(productIndex, 1)
+      this.localOptions.data.splice(productIndex, 1)
     },
     addProduct (id) {
-      const keyName = this.isSpecial ? 'specialProducts' : 'products'
-      this.localOptions.list[this.currentTabIndex][keyName].push(id)
+      const newProduct = new Product({ id })
+      this.localOptions.data.push(newProduct)
+
       this.cancelProduct()
     },
     cancelProduct () {
