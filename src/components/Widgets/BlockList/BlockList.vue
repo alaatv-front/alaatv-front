@@ -38,7 +38,8 @@ export default {
         apiName: 'home',
         height: 'auto',
         style: {},
-        from: 0
+        from: 0,
+        to: null
       }
     }
   },
@@ -47,11 +48,10 @@ export default {
       if (!this.blocks || !this.blocks.list || this.blocks.list.length === 0) {
         return []
       }
-      if (this.defaultOptions.to) {
+      if (this.defaultOptions.to || typeof this.defaultOptions.to === 'number') {
         return this.blocks.list.slice(this.defaultOptions.from, this.defaultOptions.to)
-      } else {
-        return this.blocks.list.slice(this.defaultOptions.from)
       }
+      return this.blocks.list.slice(this.defaultOptions.from)
     }
   },
   watch: {

@@ -27,16 +27,13 @@
                         <q-select v-model="service.action"
                                   :options="actionsOptions" />
                       </div>
-                      <div v-if="service.action === 'link'"
-                           class="col-md-9">
-                        <div class="outsideLabel">link</div>
-                        <q-input v-model="service.link"
+                      <div class="col-md-9">
+                        <div class="outsideLabel">{{service.action}}</div>
+                        <q-input v-if="service.action === 'link'"
+                                 v-model="service.link"
                                  label="link" />
-                      </div>
-                      <div v-else-if="service.action === 'scroll'"
-                           class="col-md-9">
-                        <div class="outsideLabel">scroll to</div>
-                        <q-input v-model="service.scrollTo"
+                        <q-input v-else-if="service.action === 'scroll'"
+                                 v-model="service.scrollTo"
                                  label="scroll to" />
                       </div>
                     </div>
