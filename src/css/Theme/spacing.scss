@@ -1,78 +1,136 @@
-$alaa-spacing-base   : 4px !default;
-$alaa-space-none : 0 !default;
-$alaa-space-1   : $alaa-spacing-base !default;
-$alaa-space-2   : $alaa-spacing-base * 2 !default;
-$alaa-space-3   : $alaa-spacing-base * 3 !default;
-$alaa-space-4   : $alaa-spacing-base * 4 !default;
-$alaa-space-5   : $alaa-spacing-base * 5 !default;
-$alaa-space-6   : $alaa-spacing-base * 6 !default;
-$alaa-space-7   : $alaa-spacing-base * 8 !default;
-$alaa-space-8   : $alaa-spacing-base * 10 !default;
-$alaa-space-9   : $alaa-spacing-base * 12 !default;
-$alaa-space-10   : $alaa-spacing-base * 14 !default;
-$alaa-space-11  : $alaa-spacing-base * 16 !default;
-$alaa-space-12   : $alaa-spacing-base * 20 !default;
+$spacing-base   : 4px !default;
+$spacing-none : 0 !default;
+$space-1   : $spacing-base !default;
+$space-2   : $spacing-base * 2 !default;
+$space-3   : $spacing-base * 3 !default;
+$space-4   : $spacing-base * 4 !default;
+$space-5   : $spacing-base * 5 !default;
+$space-6   : $spacing-base * 6 !default;
+$space-7   : $spacing-base * 8 !default;
+$space-8   : $spacing-base * 10 !default;
+$space-9   : $spacing-base * 12 !default;
+$space-10   : $spacing-base * 14 !default;
+$space-11  : $spacing-base * 16 !default;
+$space-12   : $spacing-base * 20 !default;
+//------------------------------------
+$q-space-none : (x: $spacing-none, y: $spacing-none) !default;
+$q-space-xs   : (x: $spacing-base, y: $spacing-base) !default;
+$q-space-sm   : (x: $space-2, y: $space-2) !default;
+$q-space-md   : (x: $space-4, y: $space-4) !default;
+$q-space-lg   : (x: $space-7, y: $space-7) !default;
+$q-space-xl   : (x: $space-12, y: $space-12) !default;
 
-$alaa-spaces: (
-  'none': $alaa-space-none,
-  '1': $alaa-space-1,
-  '2': $alaa-space-2,
-  '3': $alaa-space-3,
-  '4': $alaa-space-4,
-  '5': $alaa-space-5,
-  '6': $alaa-space-6,
-  '7': $alaa-space-7,
-  '8': $alaa-space-8,
-  '9': $alaa-space-9,
-  '10': $alaa-space-10,
-  '11': $alaa-space-11,
-  '12': $alaa-space-12,
+$all-q-spaces: ('none': $q-space-none, 'xs': $q-space-xs, 'sm': $q-space-sm, 'md': $q-space-md, 'lg': $q-space-lg, 'xl': $q-space-xl) !default;
+
+@each $space, $value in $all-q-spaces {
+  .q-pa-#{$space} {
+    padding: map-get($value, "y") map-get($value, "x");
+  }
+  .q-pl-#{$space} {
+    padding-left: map-get($value, "x");
+  }
+  .q-pr-#{$space} {
+    padding-right: map-get($value, "x");
+  }
+  .q-pt-#{$space} {
+    padding-top: map-get($value, "y");
+  }
+  .q-pb-#{$space} {
+    padding-bottom: map-get($value, "y");
+  }
+  .q-px-#{$space} {
+    padding-left: map-get($value, "x");
+    padding-right: map-get($value, "x");
+  }
+  .q-py-#{$space} {
+    padding-top:  map-get($value, "y");
+    padding-bottom:  map-get($value, "y");
+  }
+  .q-ma-#{$space} {
+    margin: map-get($value, "y") map-get($value, "x");
+  }
+  .q-ml-#{$space} {
+    margin-left: map-get($value, "x");
+  }
+  .q-mr-#{$space} {
+    margin-right: map-get($value, "x");
+  }
+  .q-mt-#{$space} {
+    margin-top: map-get($value, "y");
+  }
+  .q-mb-#{$space} {
+    margin-bottom: map-get($value, "y");
+  }
+  .q-mx-#{$space} {
+    margin-left: map-get($value, "x");
+    margin-right: map-get($value, "x");
+  }
+  .q-my-#{$space} {
+    margin-top: map-get($value, "y");
+    margin-bottom: map-get($value, "y");
+  }
+}
+
+$all-spaces: (
+  'none': $spacing-none,
+  '1': $space-1,
+  '2': $space-2,
+  '3': $space-3,
+  '4': $space-4,
+  '5': $space-5,
+  '6': $space-6,
+  '7': $space-7,
+  '8': $space-8,
+  '9': $space-9,
+  '10': $space-10,
+  '11': $space-11,
+  '12': $space-12,
 ) !default;
 
-@each $space, $value in $alaa-spaces {
-  .alaa-pa-#{$space} {
+@each $space, $value in $all-spaces {
+  .q-pa-#{$space} {
     padding: $value;
   }
-  .alaa-pl-#{$space} {
+  .q-pl-#{$space} {
     padding-left: $value;
   }
-  .alaa-pr-#{$space} {
+  .q-pr-#{$space} {
     padding-right: $value;
   }
-  .alaa-pt-#{$space} {
+  .q-pt-#{$space} {
     padding-top: $value;
   }
-  .alaa-pb-#{$space} {
+  .q-pb-#{$space} {
     padding-bottom: $value;
   }
-  .alaa-px-#{$space} {
+  .q-px-#{$space} {
     padding-left: $value;
     padding-right: $value;
   }
-  .alaa-py-#{$space} {
+  .q-py-#{$space} {
     padding-top: $value;
     padding-bottom: $value;
   }
-  .alaa-ma-#{$space} {
+  .q-ma-#{$space} {
     margin: $value;
   }
-  .alaa-ml-#{$space} {
+  .q-ml-#{$space} {
     margin-left: $value;
   }
-  .alaa-mr-#{$space} {
+  .q-mr-#{$space} {
     margin-right: $value;
   }
-  .alaa-mt-#{$space} {
+  .q-mt-#{$space} {
     margin-top: $value;
   }
-  .alaa-mb-#{$space} {
+  .q-mb-#{$space} {
     margin-bottom: $value;
   }
-  .alaa-mx-#{$space} {
+  .q-mx-#{$space} {
     margin-left: $value;
     margin-right: $value;
   }
-  .alaa-my-#{$space} {
+  .q-my-#{$space} {
     margin-top: $value;
     margin-bottom: $value;
   }

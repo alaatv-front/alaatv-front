@@ -3,8 +3,8 @@
     <div v-for="(item , index) in 12"
          :key="index">
       <div class="bg-primary"
-           :class="'alaa-mb-' + item">
-        {{ 'alaa-mb-' + item + ': ' }}
+           :class="'q-mb-' + item">
+        {{ 'q-mb-' + item + ': ' }}
       </div>
     </div>
   </div>
@@ -18,6 +18,6 @@ export default {
 
 <style scoped lang="scss">
 .test {
-  margin: $alaa-space-12;
+  margin: $space-12;
 }
 </style>
