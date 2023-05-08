@@ -428,8 +428,6 @@ export default {
   @media screen and (max-width: 992px) {
     .img-box {
       height: 100%;
-      .img {
-      }
     }
 
     .content-info-container {
