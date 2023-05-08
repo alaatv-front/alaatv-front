@@ -27,7 +27,6 @@
     </div>
     <div class="user">
       <q-btn v-if="localOptions.hasAction"
-             color="white"
              flat
              :label="localOptions.actionObject.buttonLabel"
              @click="takeAction(localOptions.actionObject)" />
