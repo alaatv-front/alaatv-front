@@ -104,7 +104,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  favored(productId, cache = { TTL: 100 }) {
+  favored(productId) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -122,7 +122,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  unfavored(productId, cache = { TTL: 100 }) {
+  unfavored(productId) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
