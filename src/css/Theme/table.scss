@@ -49,38 +49,40 @@
   //  we can't style tr for hover normally,
   //  so this is Quasar's alternative way ( background with opacity)
   //  and therefore our alternative way
-  tbody td:before {
-    //background: $primary1;
-    background: rgba(238, 230, 203, 0.3);
-  }
-
-  tbody td:after {
-    background: transparent;
-  }
-
-  tbody td:last-child {
-    :after {
-      border-bottom-left-radius: 8px;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 0;
+  tbody {
+    td:before {
+      //background: $primary1;
+      background: rgba(238, 230, 203, 0.3);
     }
-  }
 
-  tbody tr {
-    :first-child {
-      td:after {
+    td:after {
+      background: transparent;
+    }
+
+    td:last-child {
+      :after {
         border-bottom-left-radius: 8px;
         border-top-left-radius: 8px;
         border-top-right-radius: 0;
       }
     }
-  }
 
-  tbody tr.selected :first-child {
-    td::after {
-      border-bottom-left-radius: 8px;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 0;
+    tr {
+      :first-child {
+        td:after {
+          border-bottom-left-radius: 8px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 0;
+        }
+      }
+    }
+
+    tr.selected :first-child {
+      td::after {
+        border-bottom-left-radius: 8px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 0;
+      }
     }
   }
 
