@@ -19,25 +19,30 @@
       padding: 20px 10px;
       border-bottom: 4px solid $grey2 !important;
     }
+
     &.selected {
       border-radius: 8px;
+
       .q-td {
         background: $secondary1;
         border-radius: 8px;
       }
     }
+
     :first-child {
       &.q-td {
         border-bottom-left-radius: 8px;
         border-top-left-radius: 8px;
         border-top-right-radius: 0;
       }
+
       td:after {
         border-bottom-left-radius: 8px;
         border-top-left-radius: 8px;
         border-top-right-radius: 0;
       }
     }
+
     :last-child {
       &.q-td {
         border-top-right-radius: 8px;
@@ -45,27 +50,29 @@
       }
     }
   }
-
   //  we can't style tr for hover normally,
   //  so this is Quasar's alternative way ( background with opacity)
   //  and therefore our alternative way
   tbody {
-    td:before {
-      //background: $primary1;
-      background: rgba(238, 230, 203, 0.3);
-    }
+    td {
+      &:before {
+        //background: $primary1;
+        background: rgba(238, 230, 203, 0.3);
+      }
 
-    td:after {
-      background: transparent;
-    }
+      &:after {
+        background: transparent;
+      }
 
-    td:last-child {
-      :after {
-        border-bottom-left-radius: 8px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 0;
+      &:last-child {
+        :after {
+          border-bottom-left-radius: 8px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 0;
+        }
       }
     }
+
 
     tr {
       :first-child {
@@ -75,13 +82,13 @@
           border-top-right-radius: 0;
         }
       }
-    }
 
-    tr.selected :first-child {
-      td::after {
-        border-bottom-left-radius: 8px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 0;
+      .selected :first-child {
+        td::after {
+          border-bottom-left-radius: 8px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 0;
+        }
       }
     }
   }
