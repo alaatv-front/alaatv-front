@@ -54,28 +54,27 @@
   //  so this is Quasar's alternative way ( background with opacity)
   //  and therefore our alternative way
   tbody {
-    td {
-      &:before {
-        //background: $primary1;
-        background: rgba(238, 230, 203, 0.3);
-      }
+    tr {
+      td {
+        &:before {
+          //background: $primary1;
+          background: rgba(238, 230, 203, 0.3);
+        }
 
-      &:after {
-        background: transparent;
-      }
+        &:after {
+          background: transparent;
+        }
 
-      &:last-child {
-        :after {
-          border-bottom-left-radius: 8px;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 0;
+        &:last-child {
+          :after {
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 0;
+          }
         }
       }
-    }
 
-
-    tr {
-      :first-child {
+      &:first-child {
         td:after {
           border-bottom-left-radius: 8px;
           border-top-left-radius: 8px;
@@ -83,7 +82,7 @@
         }
       }
 
-      .selected :first-child {
+      .selected:first-child {
         td::after {
           border-bottom-left-radius: 8px;
           border-top-left-radius: 8px;
