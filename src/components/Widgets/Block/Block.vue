@@ -238,6 +238,7 @@ export default {
     }
 
     .item-container {
+      justify-content: center;
       .block-item-box {
         display: flex;
         align-items: center;

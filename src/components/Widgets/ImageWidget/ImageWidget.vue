@@ -21,6 +21,7 @@ export default {
       defaultOptions: {
         imageSource: null,
         ratio: null,
+        hasAction: false,
         action: {
           name: null,
           route: null,

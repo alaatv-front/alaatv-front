@@ -24,7 +24,6 @@
       </q-input>
       <menu-item :key="menuKey"
                  :items="topicsRouteArray"
-                 :show-child-item-tooltip="true"
                  :loading="topicList.length <= 0"
                  @item-selected="itemSelected" />
       <q-item v-for="(item, index) in productItems"
@@ -107,7 +106,7 @@ export default {
       }
       this.$emit('itemSelected', topic)
       this.$router.push({
-        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
+        name: 'UserPanel.Asset.EmtahanNahaee.ProductPage',
         params: {
           productId: this.$route.params.productId
         }
@@ -156,11 +155,6 @@ export default {
         margin-bottom: 30px;
       }
       margin: 0 24px 109px 24px;
-      :deep(.menu-item) {
-        .list-child-item {
-          max-width: 260px;
-        }
-      }
       .menu-item-btn {
         :deep(.q-btn__content) {
           width: 100%;

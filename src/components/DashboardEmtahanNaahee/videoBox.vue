@@ -486,7 +486,6 @@ export default {
 
   .video-description {
     align-items: flex-start;
-    margin-bottom: 10px;
     @media screen and (max-width: 1200px) {
       margin-bottom: 20px !important;
     }
@@ -586,13 +585,15 @@ export default {
         justify-content: flex-end;
         @media screen and (max-width: 1200px) {
           flex-direction: column !important;
+          align-items: flex-end !important;
         }
         @media screen and (max-width: 959px) {
           flex-direction: row !important;
-          align-items: center !important;
+          align-items: flex-start !important;
         }
         @media screen and (max-width: 768px) {
           flex-direction: column !important;
+          align-items: flex-end !important;
         }
         @media screen and (max-width: 576px) {
           display: flex;
@@ -602,11 +603,10 @@ export default {
 
         .seen-btn {
           @media screen and (max-width: 1200px) {
-            //margin-bottom: 15px;
+            margin-bottom: 15px;
           }
           @media screen and (max-width: 960px) {
             height: 40px !important;
-            margin-bottom: 0;
             box-sizing: border-box;
           }
 
@@ -668,21 +668,9 @@ export default {
         .video-box-icon {
           margin-left: 20px;
           padding-top: 10px;
-          @media screen and (max-width: 1200px) {
-            margin-left: 0;
-            padding-top: 0;
-          }
-          @media screen and (max-width: 960px) {
-            margin-left: 20px;
-            padding-top: 0;
-          }
-          @media screen and (max-width: 768px) {
-            margin-left: 0;
-          }
           @media screen and (max-width: 576px) {
-            margin-left: 10px;
             padding-top: 0;
-            padding-bottom: 0;
+            padding-bottom: 10px;
           }
 
           .icon-btn {
