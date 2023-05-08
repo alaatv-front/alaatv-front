@@ -18,14 +18,14 @@
               :options="bannerSlides" />
       <div v-if="localOptions.block.products.list.length > 0"
            class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'">
+           :class="isGridView ? 'row grid_view' : 'scroll-view'">
         <div v-for="product in localOptions.block.products.list"
              :key="product.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="product-spacing">
-          <product-item :options="{product, minWidth: defaultMinWidth}" />
+          <product-item :options="{product, minWidth: productItemMinWidth}" />
         </div>
         <div v-if="localOptions.block?.url?.web"
              class="block-item-box">
@@ -38,14 +38,14 @@
       </div>
       <div v-if="localOptions.block.sets.list.length > 0"
            class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'">
+           :class="isGridView ? 'row grid_view' : 'scroll-view'">
         <div v-for="set in localOptions.block.sets.list"
              :key="set.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="set-spacing">
-          <set-item :options="{set, minWidth: defaultMinWidth}" />
+          <set-item :options="{set, minWidth: setItemMinWidth}" />
         </div>
         <div class="block-item-box">
           <q-btn :href="localOptions.block?.url?.web"
@@ -57,14 +57,14 @@
       </div>
       <div v-if="localOptions.block.contents.list.length > 0"
            class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'">
+           :class="isGridView ? 'row grid_view' : 'scroll-view'">
         <div v-for="content in localOptions.block.contents.list"
              :key="content.id"
              :class="{
                'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
              }"
              class="content-spacing">
-          <content-item :options="{content, minWidth: defaultMinWidth}" />
+          <content-item :options="{content, minWidth: contentItemMinWidth}" />
         </div>
         <div class="block-item-box">
           <q-btn :href="localOptions.block?.url?.web"
@@ -101,7 +101,19 @@ export default {
       style: {},
       apiName: null,
       block: new Block(),
-      gridView: false
+      gridView: false,
+      contentMinWidth: {
+        inGridView: '318px',
+        inScrollView: '318px'
+      },
+      setMinWidth: {
+        inGridView: '318px',
+        inScrollView: '318px'
+      },
+      productMinWidth: {
+        inGridView: '318px',
+        inScrollView: '318px'
+      }
     }
   }),
   computed: {
@@ -113,8 +125,23 @@ export default {
         this.localOptions.block.sets.list.length
       )
     },
-    blocksToShow() {
-      return this.getBlocks(this.blocks)
+    productItemMinWidth() {
+      if (this.isGridView) {
+        return this.localOptions.productMinWidth.inGridView
+      }
+      return this.localOptions.productMinWidth.inScrollView
+    },
+    setItemMinWidth() {
+      if (this.isGridView) {
+        return this.localOptions.setMinWidth.inGridView
+      }
+      return this.localOptions.setMinWidth.inScrollView
+    },
+    contentItemMinWidth() {
+      if (this.isGridView) {
+        return this.localOptions.contentMinWidth.inGridView
+      }
+      return this.localOptions.contentMinWidth.inScrollView
     },
     bannerSlides() {
       this.localOptions.block.banners.list.forEach(element => {
@@ -193,6 +220,7 @@ export default {
 
 .block-section {
   margin-bottom: 30px;
+  width: 100%;
   .block-header {
     border-radius: 10px;
     justify-content: space-between;
@@ -222,6 +250,7 @@ export default {
   .block-container {
     display: flex;
     margin-bottom: 5px;
+    width: 100%;
     .scroll-view {
       display: flex;
       width: 100%;
@@ -238,7 +267,10 @@ export default {
     }
 
     .item-container {
-      justify-content: center;
+      &.grid_view {
+        justify-content: center;
+        width: 100%;
+      }
       .block-item-box {
         display: flex;
         align-items: center;
