@@ -56,8 +56,6 @@
       <router-link :to="getRoutingObject">
         <lazy-img :src="product.photo"
                   :alt="product.title"
-                  width="1"
-                  height="1"
                   class="img" />
       </router-link>
     </div>
@@ -234,9 +232,11 @@ export default {
       width: 100%;
       height: 270px;
 
-      .img {
+      :deep(.img) {
         width: inherit;
-        border-radius: 20px 20px 0 0;
+        img {
+          border-radius: 20px 20px 0 0;
+        }
 
         @media screen and (max-width: 600px){
           width: 100%;
