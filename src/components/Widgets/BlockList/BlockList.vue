@@ -13,6 +13,7 @@
     <template v-else>
       <div v-for="(block, index) in blocksToShow"
            :key="index"
+           :class="block.headerCustomClass"
            class="block-list-widget">
         <block :options="{block}" />
       </div>
@@ -38,7 +39,7 @@ export default {
         height: 'auto',
         style: {},
         from: 0,
-        to: -1
+        to: undefined
       }
     }
   },
@@ -47,7 +48,6 @@ export default {
       if (!this.blocks || !this.blocks.list || this.blocks.list.length === 0) {
         return []
       }
-
       return this.blocks.list.slice(this.defaultOptions.from, this.defaultOptions.to)
     }
   },
