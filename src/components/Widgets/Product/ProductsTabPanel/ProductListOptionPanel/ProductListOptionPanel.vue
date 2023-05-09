@@ -18,11 +18,7 @@ export default {
     GridRowOptionPanel,
     ScrollRowOptionPanel
   },
-  mixins: [PageBuilderOptionPanel],
-  data() {
-    return {
-    }
-  }
+  mixins: [PageBuilderOptionPanel]
 }
 </script>
 

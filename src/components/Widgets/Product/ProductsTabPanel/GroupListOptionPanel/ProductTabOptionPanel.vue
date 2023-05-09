@@ -29,10 +29,9 @@
                      icon="close"
                      class="q-mr-sm"
                      @click="removeTabPanel(index)" />
-              <q-input v-model="item.type"
-                       autogrow
-                       class="full-width"
-                       label="label" />
+              <div class="expansion-label q-mt-sm full-width">
+                {{item.type}}
+              </div>
             </template>
             <recursive-component :options="item" />
           </q-expansion-item>
