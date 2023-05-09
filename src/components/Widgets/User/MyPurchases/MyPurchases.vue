@@ -22,7 +22,7 @@
           </div>
           <div class="sortingFilter-item subject q-mr-md">
             <filter-box ref="filterBoxCategory"
-                        v-model:categorySelected="selectedFilterCategoryValue"
+                        v-model:categorySelected="currentCategory"
                         type="filterBoxCategory"
                         :items="filterBoxCategory"
                         :custom-class="'filter'"
@@ -129,7 +129,6 @@ export default {
       selectedTab: 'pamphlet',
       searchTarget: '',
       selectedFilterBoxValue: 'asc',
-      selectedFilterCategoryValue: null,
       currentPage: 1,
       filterBoxCategory: [],
       filteredProduct: new ProductList(),
@@ -145,7 +144,8 @@ export default {
           selected: false
         }],
       selectedSet: new Set(),
-      products: new ProductList()
+      products: new ProductList(),
+      currentCategory: ''
     }
   },
   computed: {
@@ -185,6 +185,7 @@ export default {
     getPurchasedProducts () {
       return this.$apiGateway.user.getPurchasedProducts({
         ...(this.currentPage && { page: this.currentPage }),
+        ...(this.currentCategory && { category: this.currentCategory }),
         ...(this.searchTarget && { title: this.searchTarget }),
         ...(this.selectedFilterBoxValue && { sort_by_order_completed_at: this.selectedFilterBoxValue })
       })
@@ -198,12 +199,7 @@ export default {
       this.productContentsDialog = !this.productContentsDialog
     },
     filterProduct () {
-      this.filterProductByCategory()
       this.sortProducts()
-    },
-    filterProductByCategory () {
-      const newList = this.products.list.filter(product => product.category === this.selectedFilterCategoryValue || this.selectedFilterCategoryValue === 'all')
-      this.filteredProduct = new ProductList(newList)
     },
     async sortProducts () {
       await this.setPurchasedProducts()
@@ -214,8 +210,8 @@ export default {
       this.sortProducts()
     },
     onChangeFilterBoxCategory (val) {
-      this.selectedFilterCategoryValue = val
-      this.filterProductByCategory()
+      this.currentCategory = val
+      this.sortProducts()
     },
 
     setFirstContentsShow() {
