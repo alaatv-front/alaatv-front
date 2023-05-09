@@ -81,8 +81,6 @@ export default defineComponent({
         dense: false,
         marginBottom: '100px'
       }
-    }
-  },
   methods: {
     addItem () {
       this.localOptions.expansionList.push({

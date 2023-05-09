@@ -60,11 +60,16 @@
         <q-tab-panel name="pamphlets">
           <div v-if="pamphlets.length > 0"
                v-dragscroll
-               class="contents-block">
+               class="pamphlet-list">
             <div v-for="pamphlet in pamphlets"
                  :key="pamphlet.id"
-                 class="q-mx-md">
-              <div class="pamphlet-title q-mb-sm column justify-center">
+                 class="q-mx-md pamphlet">
+              <q-tooltip anchor="top middle"
+                         self="bottom middle"
+                         :offset="[10, 10]">
+                {{pamphlet.title}}
+              </q-tooltip>
+              <div class="pamphlet-title q-mb-sm column justify-center ellipsis-2-lines">
                 {{pamphlet.title}}
               </div>
               <svg version="1.1"
@@ -159,7 +164,11 @@ export default {
           title: '',
           contents: this.contents
         }),
-        gridView: this.options.contentGridView
+        gridView: this.localOptions.contentGridView,
+        contentMinWidth: {
+          inGridView: '240px',
+          inScrollView: '318px'
+        }
       }
     },
     productId () {
@@ -333,6 +342,7 @@ export default {
       border-radius: 20px;
       .pamphlet-title {
         height: 40px;
+        max-width: 110px;
       }
       .pdf-icon {
         width: 50px;
@@ -359,7 +369,53 @@ export default {
         }
         :deep(.item-container) {
           .content-spacing{
-            width: 290px;
+            margin-right: 20px;
+          }
+        }
+        :deep(.content-item-box) {
+          width: auto;
+        }
+      }
+    }
+    .pamphlet-list {
+      display: flex;
+      overflow: auto;
+      padding: 10px 0 0 0;
+      background: #ffffff;
+      margin-right: 20px;
+      border-radius: 20px;
+      .pamphlet {
+        min-width: 110px;
+      }
+      .pamphlet-title {
+        height: 40px;
+      }
+      .pdf-icon {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+      }
+      .block {
+        margin-bottom: 0;
+        :deep(.scroll-view) {
+          overflow-x: hidden;
+        }
+        :deep(.block-header) {
+          justify-content: normal;
+        }
+        :deep(.block-item-box){
+          display: none;
+        }
+        :deep(.q-tab-panel){
+          padding-top: 0;
+        }
+        :deep(.block-header) {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        :deep(.item-container) {
+          .content-spacing{
+            margin-right: 20px;
           }
         }
         :deep(.content-item-box) {
