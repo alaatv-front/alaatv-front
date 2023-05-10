@@ -437,7 +437,11 @@ export default class UserAPI extends APIRepository {
         grade_id: '' // String
       }, data),
       resolveCallback: (response) => {
-        return response.data[0].message
+        if (response.data.length > 0) {
+          return response.data[0].message
+        } else {
+          return ''
+        }
       },
       rejectCallback: (error) => {
         return error

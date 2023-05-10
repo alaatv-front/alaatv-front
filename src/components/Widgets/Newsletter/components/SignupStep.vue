@@ -58,7 +58,6 @@ export default {
       this.setLoading(true)
       this.$apiGateway.user.resendGuest(userInfo)
         .then(userData => {
-          console.log(userData)
           this.showMessage(userData.message, 'success')
           this.$emit('updateUser', {
             mobile: this.mobile,
