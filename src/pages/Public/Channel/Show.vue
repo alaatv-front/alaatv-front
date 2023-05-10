@@ -26,10 +26,16 @@ export default {
                   {
                     widgets: [
                       {
-                        name: 'Show',
-                        options: {
-                          showRouteName: 'Admin.Ticket.Show'
-                        }
+                        name: 'ChannelInfo',
+                        options: {}
+                      },
+                      {
+                        name: 'ChannelBanner',
+                        options: {}
+                      },
+                      {
+                        name: 'ChannelTabPanel',
+                        options: {}
                       }
                     ]
                   }
@@ -56,6 +62,25 @@ export default {
     // const key = 'route_name:' + routeName /* + '-params:' + params */
     // const value = pageSetting.getStringifyValue()
     // APIGateway.pageSetting.create({ key, value })
+    this.setChannel()
+  },
+  methods: {
+    async setChannel() {
+      const channel = await this.$apiGateway.channel.get({
+        data: {
+          id: 89
+        }
+      })
+      this.setChannelDataInWidget(channel)
+    },
+    setChannelDataInWidget(channel) {
+      this.sections[0]
+        .data.rows[0]
+        .cols[0].widgets
+        .forEach(item => {
+          item.options.channel = Object.assign(channel, this.options)
+        })
+    }
   }
 }
 </script>
