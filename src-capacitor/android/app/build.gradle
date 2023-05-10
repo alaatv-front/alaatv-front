@@ -4,7 +4,7 @@ android {
     namespace rootProject.ext.appId
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "ir.sanatisharif.android.konkur96"
+        applicationId rootProject.ext.appId
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
