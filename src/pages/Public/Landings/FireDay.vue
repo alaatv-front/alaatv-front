@@ -2126,9 +2126,9 @@ export default {
                           color: 'transparent',
                           flat: true,
                           header: [
-                            'ویژگی ها',
-                            '110',
-                            'راه ابریشم'
+                            { label: 'ویژگی ها' },
+                            { label: '110' },
+                            { label: 'راه ابریشم' }
                           ],
                           rows: [
                             {
