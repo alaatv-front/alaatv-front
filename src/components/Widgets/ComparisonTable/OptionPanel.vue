@@ -7,7 +7,7 @@
                           label="ویرایش ستون ها">
           <q-card class="custom-card">
             <q-card-section>
-              <q-expansion-item v-for="(item, index) in headers"
+              <q-expansion-item v-for="(item, index) in localOptions.header"
                                 :key="index"
                                 expand-separator>
                 <template v-slot:header>
@@ -17,8 +17,7 @@
                          class="q-mr-sm"
                          @click="removeItem(index)" />
                   <q-input v-model="item.label"
-                           label="label"
-                           disable />
+                           label="label" />
                 </template>
                 <div class="text">
                   <editor v-model:value="item.label" />
@@ -50,7 +49,7 @@
                      color="negative"
                      :disable="loading"
                      label="حذف ردیف"
-                     @click="removeRow" />
+                     @click="showDialog = true" />
             </template>
             <template v-slot:header="props">
               <q-tr :props="props">
@@ -59,14 +58,6 @@
                       :props="props">
                   <div>
                     {{item.label}}
-                    <q-popup-edit v-slot="scope"
-                                  v-model="props.cols[index]">
-                      <q-input v-model="scope.value.label"
-                               dense
-                               autofocus
-                               counter
-                               @keyup.enter="scope.set" />
-                    </q-popup-edit>
                   </div>
                 </q-th>
               </q-tr>
@@ -147,6 +138,25 @@
           </q-table>
         </div>
       </div>
+      <q-dialog v-model="showDialog">
+        <q-card class="custom-card q-pa-lg">
+          <div class="text">
+            کدام ردیف را میخواهید حذف کنید؟
+          </div>
+          <div class="q-my-md">
+            <q-select v-model="rowNumberToDelete"
+                      :options="deleteRowOptions" />
+          </div>
+          <div class="flex">
+            <q-btn label="تایید"
+                   flat
+                   @click="removeRow()" />
+            <q-btn label="لغو"
+                   flat
+                   @click="showDialog = false" />
+          </div>
+        </q-card>
+      </q-dialog>
     </template>
   </option-panel-tabs>
 </template>
@@ -171,11 +181,15 @@ export default defineComponent({
   data() {
     return {
       loading: false,
+      rowNumberToDelete: null,
+      showDialog: false,
+      deleteRowOptions: [],
       filter: '',
       typeOptions: ['text', 'image', 'action'],
       actionTypeOptions: ['scroll', 'link'],
       defaultOptions: {
         columns: [],
+        header: [],
         rows: [],
         records: [],
         attributes: [],
@@ -188,34 +202,44 @@ export default defineComponent({
   computed: {
     columns: {
       get() {
-        return this.options.header.map((item, index) => {
+        return this.localOptions.header.map((item, index) => {
           return {
             name: 'col' + index,
-            label: item,
+            label: item.label,
             format: val => `${val}`,
             field: row => row['col' + index].value,
             align: 'center'
           }
         })
-      },
-      set(value) {
-        this.localOptions.header = value.map((item) => item.label)
       }
-    },
-    headers: {
-      get() {
-        return this.options.header.map(item => {
-          return {
-            label: item
-          }
-        })
-      },
-      set(value) {
-        this.localOptions.header = value.map((item) => item.label)
-      }
+      // set(value) {
+      //   this.localOptions.header = value.map((item) => item.label)
+      // }
     }
   },
+  watch: {
+    localOptions: {
+      handler(val) {
+        console.log(val)
+      },
+      deep: true
+    },
+    columns: {
+      handler(val) {
+        console.log(val)
+      },
+      deep: true
+    }
+  },
+  mounted() {
+    this.fillDeleteRowOptions()
+  },
   methods: {
+    fillDeleteRowOptions() {
+      this.localOptions.rows.forEach((item, index) => {
+        this.deleteRowOptions.push(index + 1)
+      })
+    },
     getColName(index) {
       return 'col' + index
     },
@@ -261,13 +285,11 @@ export default defineComponent({
     },
 
     removeRow () {
-      this.loading = true
-      const index = this.localOptions.rows.length - 1
-      this.localOptions.rows = [...this.localOptions.rows.slice(0, index), ...this.localOptions.rows.slice(index + 1)]
-      this.loading = false
+      this.localOptions.rows.splice(this.rowNumberToDelete - 1, 1)
+      this.showDialog = false
     },
     addItem () {
-      this.localOptions.header.push('label')
+      this.localOptions.header.push({ label: 'label' })
     },
     removeItem (itemIndex) {
       this.localOptions.header.splice(itemIndex, 1)
