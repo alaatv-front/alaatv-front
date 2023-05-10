@@ -305,13 +305,5 @@ export default {
     border-radius: 10px;
     box-shadow: 0 6px 5px rgb(0 0 0 / 3%);
   }
-  //.set-item {
-  //  display: grid;
-  //  justify-content: center;
-  //}
-  //.content-item {
-  //  display: grid;
-  //  justify-content: center;
-  //}
 }
 </style>
