@@ -397,7 +397,7 @@ export default class UserAPI extends APIRepository {
         mobile: '' // String
       }, data),
       resolveCallback: (response) => {
-        return response.data.message
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -426,17 +426,22 @@ export default class UserAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.verifyMoshavereh,
+      request: this.APIAdresses.newsletter,
       data: this.getNormalizedSendData({
         mobile: '', // String
         code: '', // String
         first_name: '', // String
         last_name: '', // String
         major_id: '', // String
+        event_id: '', // String
         grade_id: '' // String
       }, data),
       resolveCallback: (response) => {
-        return response.data.message
+        if (response.data.length > 0) {
+          return response.data[0].message
+        } else {
+          return ''
+        }
       },
       rejectCallback: (error) => {
         return error
