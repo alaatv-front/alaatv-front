@@ -140,19 +140,20 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductList(productIds, cache = { TTL: 100 }) {
+  getProductList(data, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.bulk(productIds),
-      cacheKey: this.CacheList.bulk(productIds),
+      request: this.APIAdresses.bulk(data.productIds),
+      cacheKey: this.CacheList.bulk(data.productIds),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new ProductList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
-      }
+      },
+      data: data.params
     })
   }
 
