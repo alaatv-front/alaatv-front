@@ -33,7 +33,7 @@
                 <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in productFavoreds.list"
                        :key="favoredItem.id"
-                       class="col-12 col-md-4 product-item flex justify-center">
+                       class="col-12 col-sm-4 col-md-4 product-item flex justify-center">
                     <product-item :options="{product: favoredItem.getProduct(), canAddToCart: false}" />
                   </div>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in setFavoreds.list"
                        :key="favoredItem.id"
-                       class="col-12 col-md-4 set-item flex justify-center">
+                       class="col-12 col-sm-6 col-md-4 set-item">
                     <set-item :options="{set: favoredItem.getSet()}" />
                   </div>
                 </div>
@@ -115,7 +115,7 @@
                 <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in contentFavoreds.list"
                        :key="favoredItem.id"
-                       class="col-12 col-sm-6 col-md-4 content-item flex justify-center">
+                       class="col-12 col-sm-6 col-md-4 content-item">
                     <content-item :options="{
                       content: favoredItem,
                       showDownloadMenu: true

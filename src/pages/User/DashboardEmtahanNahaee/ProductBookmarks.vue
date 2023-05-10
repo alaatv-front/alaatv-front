@@ -14,7 +14,7 @@
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
       <template #entity-index-table-item-cell="{inputData}">
-        <div class="q-pa-md col-5 col-lg-3">
+        <div class="q-pa-md col-12 col-sm-6 col-lg-3">
           <content-item :options="{
                           content: inputData.props.row,
                           routeToContent: false,
