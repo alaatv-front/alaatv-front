@@ -56,8 +56,6 @@
       <router-link :to="getRoutingObject">
         <lazy-img :src="product.photo"
                   :alt="product.title"
-                  width="1"
-                  height="1"
                   class="img" />
       </router-link>
     </div>
@@ -223,7 +221,7 @@ export default defineComponent({
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin: auto auto 10px;
   position: relative;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
@@ -241,14 +239,13 @@ export default defineComponent({
   .img-box {
 
     a {
-      border-radius: inherit;
       box-shadow: none;
       width: 100%;
       height: 270px;
-
+      border-radius: 20px 20px 0 0;
       .img {
+        border-radius: inherit;
         width: inherit;
-        border-radius: 20px 20px 0 0;
 
         @media screen and (max-width: 600px){
           width: 100%;
