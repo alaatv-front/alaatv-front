@@ -98,7 +98,6 @@ export default {
   watch: {
     content: {
       handler (newVal) {
-        console.log(newVal)
         this.playerKey = Date.now()
         this.currentContent = newVal
         if (!this.currentContent.can_user_use_timepoint) {
