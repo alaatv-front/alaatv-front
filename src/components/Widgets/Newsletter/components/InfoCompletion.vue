@@ -43,7 +43,7 @@
              :disabled="loading"
              color="primary"
              @click="updateUser">
-        تایید کد
+        ارسال
       </q-btn>
     </q-card-actions>
   </q-card>
@@ -63,6 +63,10 @@ export default {
     userInfo: {
       type: Object,
       default: () => {}
+    },
+    event_id: {
+      type: String,
+      default: null
     }
   },
   emits: ['toggleDialog'],
@@ -83,8 +87,70 @@ export default {
         grade_id: null
       },
       stringOptions: {
-        major: [],
-        grade: []
+        major: [
+          {
+            id: 1,
+            title: 'ریاضی'
+          },
+          {
+            id: 2,
+            title: 'تجربی'
+          },
+          {
+            id: 3,
+            title: 'انسانی'
+          }
+        ],
+        grade: [
+          {
+            id: 5,
+            title: 'هفتم'
+          },
+          {
+            id: 6,
+            title: 'هشتم'
+          },
+          {
+            id: 7,
+            title: 'نهم'
+          },
+          {
+            id: 1,
+            title: 'دهم'
+          },
+          {
+            id: 2,
+            title: 'یازدهم'
+          },
+          {
+            id: 8,
+            title: 'دوازدهم'
+          },
+          {
+            id: 9,
+            title: 'فارغ التحصیل نظام جدید'
+          },
+          {
+            id: 10,
+            title: 'فارغ التحصیل نظام قدیم'
+          },
+          {
+            id: 11,
+            title: 'دانشجو'
+          },
+          {
+            id: 12,
+            title: 'اولیای دانش آموز'
+          },
+          {
+            id: 13,
+            title: 'معلم'
+          },
+          {
+            id: 14,
+            title: 'سایر'
+          }
+        ]
       },
       userInputs: {
         first_name: true,
@@ -99,8 +165,8 @@ export default {
   },
   methods: {
     loadConfig() {
-      this.userInputs = this.options.userInputs
-      this.getTags()
+      this.userInputs = this.options
+      // this.getTags()
     },
     getTags() {
       this.$apiGateway.forrest.getTags(['major', 'grade']).then(res => {
@@ -117,7 +183,15 @@ export default {
       this.form.mobile = this.userInfo.mobile
       this.form.code = this.userInfo.code
       this.setLoading(true)
-      this.$apiGateway.user.newsletter(this.form)
+      this.$apiGateway.user.newsletter({
+        mobile: this.form.mobile, // String
+        code: this.form.code, // String
+        first_name: this.form.first_name, // String
+        last_name: this.form.last_name, // String
+        event_id: this.event_id, // String
+        major_id: this.form.major_id.id, // String
+        grade_id: this.form.grade_id.id // String
+      })
         .then(() => {
           this.$emit('toggleDialog')
           this.setLoading(false)

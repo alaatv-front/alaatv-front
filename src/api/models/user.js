@@ -397,7 +397,7 @@ export default class UserAPI extends APIRepository {
         mobile: '' // String
       }, data),
       resolveCallback: (response) => {
-        return response.data.message
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -426,7 +426,7 @@ export default class UserAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.verifyMoshavereh,
+      request: this.APIAdresses.newsletter,
       data: this.getNormalizedSendData({
         mobile: '', // String
         code: '', // String

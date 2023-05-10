@@ -18,21 +18,21 @@
                    animated>
           <q-step :name="'signup'"
                   title="signup">
-            <signup-step @goto-next-step="gotoNextStep"
+            <signup-step @goto-next-step="gotoNextStep('signup')"
                          @update-user="updateUser($event)" />
           </q-step>
-          <q-step v-if="verification"
-                  :name="'verification'"
+          <q-step :name="'verification'"
                   title="verification">
             <verification-step :userInfo="userForm"
                                @update-user="updateUser($event)"
-                               @goto-next-step="gotoNextStep"
+                               @goto-next-step="gotoNextStep()"
                                @goto-prev-step="gotoPrevStep" />
           </q-step>
           <q-step :name="'info'"
                   title="info">
             <info-completion :options="localOptions.userInputs"
                              :userInfo="userForm"
+                             :eventId="eventId"
                              @toggle-dialog="toggleDialog" />
           </q-step>
         </q-stepper>
@@ -48,7 +48,7 @@ import InfoCompletion from './components/InfoCompletion.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
-  name: 'SignupModal',
+  name: 'Newsletter',
   components: {
     SignupStep,
     VerificationStep,
@@ -66,6 +66,7 @@ export default {
       defaultOptions: {
         eventName: 'newsletter',
         verification: true,
+        eventId: null,
         userInputs: {
           first_name: true,
           last_name: true,
@@ -82,8 +83,12 @@ export default {
     toggleDialog() {
       this.dialog = !this.dialog
     },
-    gotoNextStep() {
-      this.$refs.stepper.next()
+    gotoNextStep(currentStep) {
+      if (currentStep === 'signup' && this.localOptions.verification) {
+        this.$refs.stepper.goTo('info')
+      } else {
+        this.$refs.stepper.next()
+      }
     },
     gotoPrevStep() {
       this.$refs.stepper.previous()
