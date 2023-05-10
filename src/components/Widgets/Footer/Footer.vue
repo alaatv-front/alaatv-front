@@ -264,7 +264,7 @@
             <div class="footer-row">
               <div class="footer-logo-item item-soala">
                 <router-link :to="{name: 'Public.Home'}">
-                  <q-img src="https://nodes.alaatv.com/upload/landing/logo.png"
+                  <q-img src="https://nodes.alaatv.com/upload/new-footer-alaaLogo.png"
                          alt="آلاء" />
                 </router-link>
               </div>
