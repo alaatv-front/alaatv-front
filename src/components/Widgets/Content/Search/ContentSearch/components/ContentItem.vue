@@ -6,9 +6,6 @@
       <div class="content-img-box">
         <lazy-img :src="data.photo"
                   :alt="data.title"
-                  width="16"
-                  height="9"
-                  q-image
                   class="img" />
       </div>
     </router-link>
@@ -118,12 +115,8 @@ p {
       height: 100%;
       width: inherit;
       border-radius: 15px 0 0 15px;
-      :deep(.q-img) {
-        height: 100%;
-        border-radius: 15px 0 0 15px;
-        @media screen and (max-width: 800px) {
-          border-radius: 15px 15px 0 0 !important;
-        }
+      @media screen and (max-width: 800px) {
+        border-radius: 15px 15px 0 0 !important;
       }
     }
   }

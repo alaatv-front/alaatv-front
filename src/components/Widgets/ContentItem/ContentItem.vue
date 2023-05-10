@@ -192,7 +192,7 @@ export default {
   .content-action-container{
     position: absolute;
     right: 0;
-    top: -10px;
+    top: -5px;
     .content-item-bookmark {
       margin: -10px;
     }

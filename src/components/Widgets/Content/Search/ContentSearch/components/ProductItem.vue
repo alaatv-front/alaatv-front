@@ -418,11 +418,11 @@ export default {
   background: white;
   border-radius: 15px;
   .pic {
-    width: 35%;
+    width: 200px;
     height: 100%;
     border-radius: 15px !important;
     z-index: 3;
-    @media screen and (max-width: 800px) {
+    @media screen and (max-width: 599px) {
       width: 100%;
       border-radius: 15px 15px 0 0 !important;
     }
@@ -432,13 +432,13 @@ export default {
         width: 100%;
         height: 100%;
         border-radius: 15px 0 0 15px;
-        @media screen and (max-width: 800px) {
+        @media screen and (max-width: 599px) {
           border-radius: 15px 15px 0 0 !important;
         }
         :deep(.q-img) {
           height: 100%;
           border-radius: 15px 0 0 15px;
-          @media screen and (max-width: 800px) {
+          @media screen and (max-width: 599px) {
             border-radius: 15px 15px 0 0 !important;
           }
         }
@@ -497,7 +497,7 @@ export default {
           }
 
         }
-        @media screen and (max-width: 800px){
+        @media screen and (max-width: 599px){
           position: relative;
           width: 100px;
           top: 5px;
@@ -545,7 +545,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 599px) {
     width: 100% !important;
     flex-direction: column;
     max-height: none;
@@ -713,7 +713,7 @@ export default {
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 25px;
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 599px) {
 
   }
 }
@@ -728,7 +728,7 @@ export default {
   width: 33%;
   padding-left: 10px;
   align-items: flex-start;
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 599px) {
     align-items: center;
   }
 }
