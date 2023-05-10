@@ -2,10 +2,14 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container">
-        <div class="row">
-          <div class="col-md-12 q-my-sm">
+        <div class="row q-col-gutter-md">
+          <div class="col-md-6 q-my-sm">
             <div class="outsideLabel">event name</div>
             <q-input v-model="localOptions.eventName" />
+          </div>
+          <div class="col-md-6 q-my-sm">
+            <div class="outsideLabel">event id</div>
+            <q-input v-model="localOptions.eventId" />
           </div>
           <div class="col-md-2">
             <div class="outsideLabel">verification</div>
@@ -45,6 +49,7 @@ export default {
       defaultOptions: {
         eventName: 'newsletter',
         verification: true,
+        eventId: null,
         userInputs: {
           first_name: true,
           last_name: true,
