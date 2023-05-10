@@ -20,9 +20,10 @@
       <router-link :to="getRoutingObject"
                    class="content-item-router-link">
         <div class="content-box-text">
-          <div v-if="defaultOptions.showSetTitle"
-               class="main-title ellipsis">
-            {{ content.set.short_title}}
+          <div class="main-title ellipsis">
+            <div v-if="defaultOptions.showSetTitle">
+              {{ content.set.short_title}}
+            </div>
           </div>
           <div class="title-text  ellipsis-2-lines">
             {{ content.short_title ? content.short_title : content.title }}
@@ -192,7 +193,7 @@ export default {
   .content-action-container{
     position: absolute;
     right: 0;
-    top: -5px;
+    top: -2px;
     .content-item-bookmark {
       margin: -10px;
     }
@@ -203,9 +204,9 @@ export default {
   }
 
   .content-box-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
     min-height: 48px;
   }
 
@@ -243,19 +244,18 @@ export default {
   }
 
   .content-info-container {
-    min-height: 100px;
+    min-height: 110px;
     padding: 10px 16px 16px 16px;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: 1fr;
     .main-title {
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
       letter-spacing: -0.03em;
-      width: 220px;
+      width: 185px;
 
       a {
         margin-bottom: 0;
@@ -272,6 +272,7 @@ export default {
       -webkit-box-orient: vertical;
       text-overflow: ellipsis;
       overflow: hidden;
+      align-self: center;
     }
 
     .price-box {
