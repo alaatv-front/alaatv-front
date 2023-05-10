@@ -2,7 +2,7 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container">
-        <div class="row">
+        <div class="row q-col-gutter-md">
           <div class="col-md-6 q-my-sm">
             <div class="outsideLabel">event name</div>
             <q-input v-model="localOptions.eventName" />
