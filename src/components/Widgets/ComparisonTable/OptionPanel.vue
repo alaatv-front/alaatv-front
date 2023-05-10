@@ -152,14 +152,14 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import Editor from 'components/Utils/Editor.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
   components: { Editor, OptionPanelTabs },
-  mixins: [mixinOptionPanel],
+  mixins: [PageBuilderOptionPanel],
   props: {
     options: {
       type: Object,
@@ -170,23 +170,22 @@ export default defineComponent({
   },
   data() {
     return {
-      rowCount: 10,
       loading: false,
       filter: '',
       typeOptions: ['text', 'image', 'action'],
-      actionTypeOptions: ['scroll', 'link']
-
+      actionTypeOptions: ['scroll', 'link'],
+      defaultOptions: {
+        columns: [],
+        rows: [],
+        records: [],
+        attributes: [],
+        title: '',
+        color: '',
+        flat: false
+      }
     }
   },
   computed: {
-    value: {
-      get() {
-        return this.options
-      },
-      set(value) {
-        this.localOptions = value
-      }
-    },
     columns: {
       get() {
         return this.options.header.map((item, index) => {
@@ -216,14 +215,6 @@ export default defineComponent({
       }
     }
   },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    }
-  },
   methods: {
     getColName(index) {
       return 'col' + index
@@ -247,13 +238,23 @@ export default defineComponent({
       this.loading = true
       const
         index = this.localOptions.rows.length + 1,
-        row = this.localOptions.rows[Math.floor(Math.random() * this.localOptions.rows.length)]
-
-      if (this.localOptions.rows.length === 0) {
-        this.rowCount = 0
-      }
-
-      row.id = ++this.rowCount
+        row = {
+          col0: {
+            type: 'text',
+            value: 'text'
+          },
+          col1: {
+            type: 'image',
+            value: 'https://nodes.alaatv.com/upload/landing/32/landing32/tableOfDifferences/landing-32-table-of-differences-tick-circle.png'
+          },
+          col2: {
+            type: 'action',
+            actionType: 'link',
+            value: {
+              label: 'button'
+            }
+          }
+        }
       const newRow = { ...row }
       this.localOptions.rows = [...this.localOptions.rows.slice(0, index), newRow, ...this.localOptions.rows.slice(index)]
       this.loading = false
