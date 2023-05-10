@@ -32,7 +32,7 @@
                   title="info">
             <info-completion :options="localOptions.userInputs"
                              :userInfo="userForm"
-                             :eventId="eventId"
+                             :eventId="localOptions.eventId"
                              @toggle-dialog="toggleDialog" />
           </q-step>
         </q-stepper>

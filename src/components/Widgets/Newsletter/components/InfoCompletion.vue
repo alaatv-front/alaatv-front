@@ -64,7 +64,7 @@ export default {
       type: Object,
       default: () => {}
     },
-    event_id: {
+    eventId: {
       type: String,
       default: null
     }
@@ -188,7 +188,7 @@ export default {
         code: this.form.code, // String
         first_name: this.form.first_name, // String
         last_name: this.form.last_name, // String
-        event_id: this.event_id, // String
+        event_id: this.eventId, // String
         major_id: this.form.major_id.id, // String
         grade_id: this.form.grade_id.id // String
       })

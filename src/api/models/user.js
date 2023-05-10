@@ -433,10 +433,11 @@ export default class UserAPI extends APIRepository {
         first_name: '', // String
         last_name: '', // String
         major_id: '', // String
+        event_id: '', // String
         grade_id: '' // String
       }, data),
       resolveCallback: (response) => {
-        return response.data.message
+        return response.data[0].message
       },
       rejectCallback: (error) => {
         return error
