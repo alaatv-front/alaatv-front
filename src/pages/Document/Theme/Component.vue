@@ -12,6 +12,10 @@
     tabs
     <example-tabs />
   </div>
+  <div class="spacing">
+    Spacing
+    <spacing />
+  </div>
 </template>
 
 <script>
@@ -19,8 +23,9 @@ import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
 import ExampleBottomSheet from 'components/Theme/Dialog/ExampleBottomSheet.vue'
 import ExampleTabs from 'components/Theme/Tabs/ExampleTabs.vue'
 import ExampleTable from 'components/Theme/Table/Table.vue'
+import Spacing from 'components/Theme/Spacing/Spacing.vue'
 export default {
   name: 'Component',
-  components: { ExampleTable, ExampleTabs, ExampleBottomSheet, ExampleDialog }
+  components: { Spacing, ExampleTabs, ExampleTableو ExampleBottomSheet, ExampleDialog }
 }
 </script>
