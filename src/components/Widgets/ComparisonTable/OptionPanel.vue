@@ -211,24 +211,10 @@ export default defineComponent({
             align: 'center'
           }
         })
+      },
+      set(value) {
+        this.localOptions.header = value.map((item) => item.label)
       }
-      // set(value) {
-      //   this.localOptions.header = value.map((item) => item.label)
-      // }
-    }
-  },
-  watch: {
-    localOptions: {
-      handler(val) {
-        console.log(val)
-      },
-      deep: true
-    },
-    columns: {
-      handler(val) {
-        console.log(val)
-      },
-      deep: true
     }
   },
   mounted() {
