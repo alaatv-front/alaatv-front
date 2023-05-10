@@ -3,24 +3,32 @@
     <p>کمک مالی به آلاء</p>
     <q-separator />
     <div class="row q-my-md text-center reverse-wrap">
-      <div class="row col-md-8 col-sm-9 col-xs-12 items-center"
+      <div class="flex items-center"
            style="font-size: 14px">
-        <div :class="{activeHelp:!helpAlaa}"
-             class="donate-help col-md-12 col-xs-6 border text-center q-py-sm"
-             @click="helpAlaa=false; activeDonateCost()">
-          <span>
-            به آلاء کمک نمیکنم
-          </span>
-        </div>
-        <div class="cost row text-center q-mt-md col-md-12 col-xs-6">
-          <div v-for="(cost,idx) in donateCost"
-               :key="idx"
-               :class="{activeDonate:cost.isActive}"
-               class="cost-donate col border q-mx-xs q-pa-sm"
-               @click="activeDonateCost(idx); helpAlaa=true">
-            <span>{{ cost.cost }}</span>
-          </div>
-        </div>
+        <div class="q-mr-sm">5000 تومان به آلاء کمک</div>
+        <q-btn-toggle v-model="donate"
+                      unelevated
+                      glossy
+                      toggle-color="primary"
+                      :options="[
+                        {label: 'میکنم', value: 'doHelp'},
+                        {label: 'نمیکنم', value: 'dontHelp'},
+                      ]"
+                      @update:model-value="doAction()" />
+        <!--        <q-btn :class="{activeHelp:!helpAlaa}"-->
+        <!--               :disable="!disableCostButton"-->
+        <!--               class="donate-help col-md-12 col-xs-6 border text-center q-py-sm"-->
+        <!--               label="به آلاء کمک نمیکنم"-->
+        <!--               @click="helpAlaa=false; activeDonateCost()" />-->
+        <!--        <div class="cost row text-center q-mt-md col-md-12 col-xs-6">-->
+        <!--          <q-btn v-for="(cost,idx) in donateCost"-->
+        <!--                 :key="idx"-->
+        <!--                 :label="cost.cost"-->
+        <!--                 :class="{activeDonate:cost.isActive}"-->
+        <!--                 :disable="disableCostButton"-->
+        <!--                 class="cost-donate col border q-mx-xs q-pa-sm"-->
+        <!--                 @click="activeDonateCost(idx); helpAlaa=true" />-->
+        <!--        </div>-->
       </div>
       <div class="col-md-4 col-sm-3 col-xs-12">
         <q-img width="100px"
@@ -44,7 +52,10 @@ export default {
   },
   data() {
     return {
+      donate: 'dontHelp',
       helpAlaa: false,
+      disableCostButton: false,
+
       donateCost: [
         {
           cost: 5000,
@@ -62,6 +73,13 @@ export default {
     }
   },
   methods: {
+    doAction() {
+      if (this.donate === 'doHelp') {
+        this.addDonateToCart()
+      } else {
+        this.removeDonateFromCart()
+      }
+    },
     activeDonateCost(idx) {
       if (!this.helpAlaa) {
         this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
@@ -79,10 +97,17 @@ export default {
       }
       this.addDonateToCart()
     },
+    removeDonateFromCart() {
+      this.$store.dispatch('Cart/removeItemFromCart', 180)
+        .then(() => {
+          this.$emit('cartReview')
+        })
+        .catch(() => {})
+    },
     addDonateToCart() {
       this.$store.dispatch('Cart/addToCart', { product_id: 180 })
         .then(() => {
-          this.$store.dispatch('Cart/reviewCart')
+          this.$emit('cartReview')
         })
         .catch(() => {})
     }

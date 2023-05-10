@@ -124,14 +124,15 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import { mixinWidget } from 'src/mixin/Mixins'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins'
 
-export default {
+export default defineComponent({
   name: 'productItem',
   components: { LazyImg },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   data: () => ({
     addToCartLoading: false,
     loading: false,
@@ -166,22 +167,6 @@ export default {
       }
     }
   },
-  created () {
-    if (this.options.product) {
-      this.product = new Product(this.options.product)
-    } else if (this.options.productId || this.options.paramKey || this.$route.params.id) {
-      this.loading = true
-      const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
-      this.$apiGateway.product.show(productId).then(product => {
-        this.product = new Product(product)
-        this.loading = false
-      }).catch(() => {
-        this.loading = false
-      })
-    } else {
-      this.product = new Product(this.options)
-    }
-  },
   methods: {
     getTeacherOfProduct() {
       if (this.product.attributes.info.teacher) {
@@ -190,7 +175,6 @@ export default {
       return null
     },
     addToCart() {
-      this.addToCartLoading = true
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
         .then(() => {
           this.$store.dispatch('Cart/reviewCart')
@@ -200,9 +184,37 @@ export default {
         }).catch(() => {
           this.addToCartLoading = false
         })
+    },
+    getProductItemPromise() {
+      if (this.options.product) {
+        this.product = new Product(this.options.product)
+        return new Promise((resolve) => {
+          resolve(this.product)
+        })
+      } else if (this.options.productId || this.options.paramKey || this.$route.params.id) {
+        this.loading = true
+        const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
+        return this.$apiGateway.product.show(productId)
+      } else {
+        this.product = new Product(this.options)
+        return new Promise((resolve) => {
+          resolve(this.product)
+        })
+      }
+    },
+    prefetchServerDataPromise () {
+      this.loading = true
+      return this.getProductItemPromise()
+    },
+    prefetchServerDataPromiseThen (product) {
+      this.product = new Product(product)
+      this.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.loading = false
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
