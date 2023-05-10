@@ -457,7 +457,6 @@ export default {
   }
 
   @media screen and (max-width: 600px) {
-    width: 250px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
@@ -548,10 +547,5 @@ export default {
       }
     }
   }
-
-  @media screen and (max-width: 350px){
-    width: 150px;
-  }
-
 }
 </style>

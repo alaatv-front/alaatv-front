@@ -7,6 +7,8 @@
         <div class="img-title-container">
           <lazy-img :src="content.photo"
                     :alt="content.title"
+                    width="16"
+                    height="9"
                     class="img" />
         </div>
         <div class="play-btn">
@@ -220,9 +222,6 @@ export default {
         width: inherit;
         height: 100%;
         border-radius: 20px 20px 0 0;
-        :deep(img) {
-          border-radius: 20px 20px 0 0;
-        }
       }
     }
 
@@ -485,101 +484,6 @@ export default {
       .discount {
         span {
         }
-      }
-    }
-  }
-
-  @media screen and (max-width: 600px) {
-    width: 250px;
-    display: flex;
-    border-radius: 18px;
-    flex-direction: row;
-
-    .img-box {
-      width: 100%;
-
-      .img {
-        border-radius: 10px;
-        :deep(img) {
-          border-radius: 20px 0 0 20px;
-          height: 100%;
-        }
-      }
-    }
-
-    .content-info-container {
-      width: 100%;
-
-      .main-title {
-        margin-bottom: 0;
-
-        a {
-        }
-
-        .title-box {
-          height: 44px;
-          justify-content: center;
-
-          .title-text {
-            -webkit-line-clamp: 2;
-          }
-        }
-      }
-
-      .price-box {
-        margin-bottom: 0;
-
-        .add-cart-info {
-          .add-cart-icon {
-          }
-        }
-
-        .price-info {
-          .final-price-box {
-            .final-price {
-              margin-left: 2px;
-            }
-          }
-
-          .main-price {
-            margin-left: 4px;
-          }
-
-          .price-Toman {
-          }
-        }
-      }
-
-      .action-box {
-        .more-detail {
-          a {
-          }
-
-          .more {
-            display: none;
-          }
-        }
-
-        .btn-style {
-          width: 100px;
-          height: 25px !important;
-          border-radius: 8px;
-
-          img {
-            margin-left: 0;
-          }
-
-          .content {
-          }
-
-          .active {
-          }
-        }
-      }
-
-      .discount {
-        height: 20px;
-        /* margin-left: 3px; */
       }
     }
   }

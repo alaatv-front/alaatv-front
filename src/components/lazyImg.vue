@@ -162,14 +162,13 @@ export default {
 }
 </script>
 
-<style>
-.img{
-  border-radius: inherit;
-}
-</style>
-
 <style lang="scss" scoped>
 .lazy-img {
   font-size: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.img{
+  border-radius: inherit;
 }
 </style>
