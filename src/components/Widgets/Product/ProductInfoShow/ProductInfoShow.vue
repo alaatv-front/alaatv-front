@@ -252,26 +252,6 @@ export default {
       this.product.loading = false
     },
 
-    getProductId() {
-      if (this.options.productId) {
-        return this.options.productId
-      }
-      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
-        return this.$route.params[this.options.urlParam]
-      }
-      if (this.$route.params.id) {
-        return this.$route.params.id
-      }
-      return null
-    },
-    loadProduct() {
-      const productId = this.getProductId()
-      if (!productId) {
-        return
-      }
-
-      this.getProduct(productId)
-    },
     getProduct() {
       return APIGateway.product.show(this.productId)
     },

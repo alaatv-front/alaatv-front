@@ -12,7 +12,7 @@
                       :expand-icon-class="localOptions.expandIconClass"
                       :hide-expand-icon="localOptions.theme === 'theme2'"
                       header-class="expand-header"
-                      @update:model-value="toggleExpand(item.id)">
+                      @update:model-value="toggleExpand(index)">
       <template v-if="localOptions.theme === 'theme2'"
                 v-slot:header="{ expanded }">
         <q-item clickable
@@ -29,7 +29,7 @@
                    color="primary"
                    flat
                    label="اطلاعات بیشتر"
-                   @click="openExpand(item.id)" />
+                   @click="openExpand(index)" />
           </q-item-section>
         </q-item>
       </template>
@@ -42,7 +42,7 @@
                class="close-btn"
                flat
                label="بستن"
-               @click="closeExpand(item.id)" />
+               @click="closeExpand(index)" />
       </div>
     </q-expansion-item>
   </div>
@@ -59,31 +59,34 @@ export default {
       defaultOptions: {
         expansionList: [],
         expandIconClass: null,
-        theme: null
+        theme: null,
+        dense: false,
+        marginBottom: '100px'
       }
     }
   },
   methods: {
-    toggleExpand(itemId) {
+    toggleExpand(ItemIndex) {
       if (this.localOptions.toggle) {
-        this.localOptions.expansionList.filter(item => item.id !== itemId).map(item => {
+        this.localOptions.expansionList.filter((item, index) => index !== ItemIndex).map(item => {
           item.expanded = false
           return item
         })
       }
     },
-    closeExpand(itemId) {
-      this.localOptions.expansionList.filter(item => item.id === itemId).map(item => {
+    closeExpand(ItemIndex) {
+      this.localOptions.expansionList.filter((item, index) => index === ItemIndex).map(item => {
         item.expanded = false
         return item
       })
     },
-    openExpand(itemId) {
-      this.localOptions.expansionList.filter(item => item.id === itemId).map(item => {
-        item.expanded = true
-        return item
-      })
-      this.toggleExpand(itemId)
+    openExpand(ItemIndex) {
+      this.localOptions.expansionList
+        .filter((item, index) => index === ItemIndex).map(item => {
+          item.expanded = true
+          return item
+        })
+      this.toggleExpand(ItemIndex)
     },
     headerClick(event) {
       event.stopPropagation()
@@ -125,7 +128,7 @@ export default {
     }
 
     .open-btn {
-      margin-top: 100px;
+      margin-top: v-bind('localOptions.marginBottom');
 
       @media screen and (max-width: 600px) {
         margin-top: 10px;
