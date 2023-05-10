@@ -61,8 +61,7 @@ export default {
   components: { VideoPlayer, Bookmark },
   props: {
     content: {
-      type: Content,
-      default: new Content()
+      type: Content
     },
     showTimePoints: {
       type: Boolean,
@@ -97,12 +96,15 @@ export default {
     }
   },
   watch: {
-    content(newValue) {
-      this.playerKey = Date.now()
-      this.currentContent = newValue
-      if (!this.currentContent.can_user_use_timepoint) {
-        this.currentContent.timepoints.removeAllTimes()
-      }
+    content: {
+      handler (newVal) {
+        this.playerKey = Date.now()
+        this.currentContent = newVal
+        if (!this.currentContent.can_user_use_timepoint) {
+          this.currentContent.timepoints.removeAllTimes()
+        }
+      },
+      deep: true
     }
   },
   beforeUnmount() {
