@@ -90,9 +90,13 @@ export default {
       this.product.loading = false
     },
     getProduct() {
-      if (!this.productId) {
+      if (this.options.product) {
+        return new Promise(resolve => {
+          resolve(new Product(this.options.product))
+        })
+      } else if (!this.productId) {
         return new Promise((resolve) => {
-          resolve(new Product())
+          resolve()
         })
       }
       this.product.loading = true
