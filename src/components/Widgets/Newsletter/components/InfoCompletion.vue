@@ -192,7 +192,8 @@ export default {
         major_id: this.form.major_id.id, // String
         grade_id: this.form.grade_id.id // String
       })
-        .then(() => {
+        .then((message) => {
+          this.showMessage(message, 'positive')
           this.$emit('toggleDialog')
           this.setLoading(false)
         })
