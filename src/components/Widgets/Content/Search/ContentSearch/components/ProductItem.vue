@@ -435,13 +435,6 @@ export default {
         @media screen and (max-width: 599px) {
           border-radius: 15px 15px 0 0 !important;
         }
-        :deep(.q-img) {
-          height: 100%;
-          border-radius: 15px 0 0 15px;
-          @media screen and (max-width: 599px) {
-            border-radius: 15px 15px 0 0 !important;
-          }
-        }
       }
     }
   }
