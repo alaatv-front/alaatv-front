@@ -1,4 +1,8 @@
 <template>
+  <div class="Shadow">
+    Shadow
+    <example-shadow />
+  </div>
   <div class="dialog">
     dialog & BottomSheet
     <example-dialog />
@@ -22,10 +26,11 @@
 import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
 import ExampleBottomSheet from 'components/Theme/Dialog/ExampleBottomSheet.vue'
 import ExampleTabs from 'components/Theme/Tabs/ExampleTabs.vue'
+import ExampleShadow from 'components/Theme/Controls/Shadow/Shadow.vue'
 import ExampleTable from 'components/Theme/Table/Table.vue'
 import Spacing from 'components/Theme/Spacing/Spacing.vue'
 export default {
   name: 'Component',
-  components: { Spacing, ExampleTabs, ExampleTableو ExampleBottomSheet, ExampleDialog }
+  components: { ExampleShadow, Spacing, ExampleTabs, ExampleTable, ExampleBottomSheet, ExampleDialog }
 }
 </script>
