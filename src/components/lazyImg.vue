@@ -167,8 +167,8 @@ export default {
   font-size: 0;
   border-radius: inherit;
   overflow: hidden;
-}
-.img{
-  border-radius: inherit;
+  .img{
+    border-radius: inherit;
+  }
 }
 </style>
