@@ -6,8 +6,6 @@
       <div class="content-img-box">
         <lazy-img :src="data.photo"
                   :alt="data.title"
-                  width="16"
-                  height="9"
                   class="img" />
       </div>
     </router-link>
@@ -100,24 +98,25 @@ p {
   min-height: 170px;
   max-height: 170px;
   display: flex;
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 800px) {
     max-height: none;
     flex-direction: column;
   }
 
   .content-img-box {
     width: 300px !important;
+    height: 100%;
     position: relative;
     z-index: 5;
-    @media screen and (max-width: 599px){
+    @media screen and (max-width: 800px){
       width: 100% !important;
     }
     .img {
+      height: 100%;
       width: inherit;
       border-radius: 15px 0 0 15px;
-      @media screen and (max-width: 1024px) {
+      @media screen and (max-width: 800px) {
         border-radius: 15px 15px 0 0 !important;
-        width: 100% !important;
       }
     }
   }

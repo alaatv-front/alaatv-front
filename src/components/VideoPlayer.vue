@@ -145,6 +145,7 @@ export default {
         languages: {
           fa
         },
+        responsive: true,
         autoplay: false,
         controls: true,
         playbackRates: [0.5, 1, 1.5, 2, 3, 4],
@@ -423,6 +424,10 @@ export default {
       border-radius: 100%;
       background: $primary;
       border-color: $primary;
+
+      @media screen and(max-width: 600px) {
+        margin-top: -60px;
+      }
       .vjs-icon-placeholder:before {
         display: flex;
         font-size: 65px;
