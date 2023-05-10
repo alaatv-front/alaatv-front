@@ -78,6 +78,7 @@ export default {
       defaultOptions: {
         columns: [],
         rows: [],
+        header: [],
         records: [],
         attributes: [],
         title: '',
@@ -98,7 +99,7 @@ export default {
         columns.push(
           {
             name: this.getColName(index),
-            label: header
+            label: header.label
           })
       }
       return columns
