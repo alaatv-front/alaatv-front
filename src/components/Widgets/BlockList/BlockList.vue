@@ -49,6 +49,13 @@ export default {
         return []
       }
       return this.blocks.list.slice(this.defaultOptions.from, this.defaultOptions.to)
+    },
+    apiName () {
+      if (this.options.apiName) {
+        return this.options.apiName
+      }
+
+      return this.defaultOptions.apiName
     }
   },
   watch: {
@@ -63,9 +70,6 @@ export default {
         block.headerCustomClass = `banner-header-${index}` + ' '
       })
     }
-  },
-  created() {
-    this.setDefaultApiName()
   },
   methods: {
     reloadWidget () {
@@ -89,25 +93,17 @@ export default {
     },
     getApiRequest() {
       this.blocks.loading = true
-
-      if (this.defaultOptions.apiName === 'home') {
+      if (this.apiName === 'home') {
         return this.$apiGateway.pages.home()
       }
-      if (this.defaultOptions.apiName === 'shop') {
+      if (this.apiName === 'shop') {
         return this.$apiGateway.pages.shop()
       }
-      if (this.defaultOptions.apiName === 'content') {
+      if (this.apiName === 'content') {
         return this.$apiGateway.content.relatedProducts(this.defaultOptions.contentId)
       }
 
       return Promise.reject('wrong api name')
-    },
-    setDefaultApiName () {
-      if (this.$route.name === 'Public.Home') {
-        this.defaultOptions.apiName = 'home'
-      } else if (this.$route.name === 'Public.Shop') {
-        this.defaultOptions.apiName = 'shop'
-      }
     }
   }
 }
