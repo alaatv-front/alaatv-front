@@ -90,6 +90,21 @@ const routes = [
             ]
           },
           {
+            path: 'ch',
+            name: 'Public.Channel',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Public.Channel.Show',
+                path: ':id',
+                meta: {
+                  hasDynamicSetting: true
+                },
+                component: () => import('pages/Public/Channel/Show.vue')
+              }
+            ]
+          },
+          {
             path: 'c',
             name: 'Public.Content',
             component: () => import('layouts/bareLayout.vue'),
