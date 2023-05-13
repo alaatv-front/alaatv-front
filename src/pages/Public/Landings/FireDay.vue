@@ -43,6 +43,7 @@ export default {
                         eventName: 'newsletter',
                         options: {
                           verification: true,
+                          eventId: '10',
                           userInputs: {
                             first_name: true,
                             last_name: true,

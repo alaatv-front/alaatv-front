@@ -119,8 +119,8 @@ export default {
     resendRequest(userInfo) {
       this.setLoading(true)
       this.$apiGateway.user.resendGuest(userInfo)
-        .then(message => {
-          this.showMessage(message, 'success')
+        .then(userData => {
+          this.showMessage(userData.message, 'success')
           this.$emit('updateUser', {
             mobile: this.userInfo.mobile,
             code: this.otpValue
