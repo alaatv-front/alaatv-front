@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     reloadWidget () {
-      this.getApiRequest()
+      this.prefetchServerDataPromise()
         .then((data) => {
           this.prefetchServerDataPromiseThen(data)
         })
@@ -82,6 +82,11 @@ export default {
         })
     },
     prefetchServerDataPromise () {
+      if (this.options.blocks.list.length > 0) {
+        return new Promise((resolve) => {
+          resolve(this.options.blocks)
+        })
+      }
       return this.getApiRequest()
     },
     prefetchServerDataPromiseThen (data) {
