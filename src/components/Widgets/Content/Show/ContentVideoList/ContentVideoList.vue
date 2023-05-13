@@ -8,15 +8,18 @@
       </div>
     </template>
     <template v-else>
-      <q-card v-if="this.content.file.pamphlet"
+      <q-card v-if="hasPamphlet()"
               class="download-section custom-card q-pa-md q-mx-md q-mb-md bg-white flex">
         <div class="row">
           <div class="col-md-1">
-            <q-btn icon="isax:document-download"
-                   flat
-                   color="primary"
-                   size="13px"
-                   @click="downloadPdf" />
+            <a :href="content.file.pamphlet[0].link"
+               :title="content.file.pamphlet[0].ext"
+               target="_blank">
+              <q-btn icon="isax:document-download"
+                     flat
+                     color="primary"
+                     size="13px" />
+            </a>
           </div>
           <div class="col-md-11">
             <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
@@ -140,11 +143,11 @@ export default {
     this.loadContent()
   },
   methods: {
+    hasPamphlet() {
+      return this.content.file.pamphlet && this.content.file.pamphlet[0]
+    },
     showTime(duration) {
       return Time.msToTime(duration * 1000)
-    },
-    downloadPdf() {
-      window.open(this.content.file.pamphlet[0].link, '_blank')
     },
     loadContent() {
       this.getContentByRequest()
