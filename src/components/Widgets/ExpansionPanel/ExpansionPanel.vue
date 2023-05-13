@@ -65,6 +65,11 @@ export default {
       }
     }
   },
+  computed: {
+    computedMargin() {
+      return this.localOptions.dense ? '5px' : this.localOptions.marginBottom
+    }
+  },
   methods: {
     toggleExpand(ItemIndex) {
       if (this.localOptions.toggle) {
@@ -128,7 +133,7 @@ export default {
     }
 
     .open-btn {
-      margin-top: v-bind('localOptions.marginBottom');
+      margin-top: v-bind('computedMargin');
 
       @media screen and (max-width: 600px) {
         margin-top: 10px;

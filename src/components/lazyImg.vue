@@ -1,5 +1,6 @@
 <template>
-  <div :class="customClass">
+  <div :class="customClass"
+       class="lazy-img">
     <q-resize-observer @resize="onresize" />
     <q-img v-if="qImage && width && height"
            ref="LazyImage"
@@ -161,8 +162,13 @@ export default {
 }
 </script>
 
-<style>
-.img{
+<style lang="scss" scoped>
+.lazy-img {
+  font-size: 0;
   border-radius: inherit;
+  overflow: hidden;
+  .img{
+    border-radius: inherit;
+  }
 }
 </style>

@@ -144,7 +144,7 @@ export default {
       position: absolute;
       width: 100%;
       height: 40px;
-      bottom: 82px;
+      bottom: 75px;
       left: 0;
       display: flex;
       align-items: center;
@@ -457,7 +457,6 @@ export default {
   }
 
   @media screen and (max-width: 600px) {
-    width: 250px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
@@ -548,10 +547,5 @@ export default {
       }
     }
   }
-
-  @media screen and (max-width: 350px){
-    width: 150px;
-  }
-
 }
 </style>
