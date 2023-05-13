@@ -17,6 +17,7 @@
                target="_blank">
               <q-btn icon="isax:document-download"
                      flat
+                     :disable="content.can_see"
                      color="primary"
                      size="13px" />
             </a>
