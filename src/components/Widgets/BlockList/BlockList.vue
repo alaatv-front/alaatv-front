@@ -82,7 +82,7 @@ export default {
         })
     },
     prefetchServerDataPromise () {
-      if (this.options.blocks.list.length > 0) {
+      if (this.options.blocks && this.options.blocks.list.length > 0) {
         return new Promise((resolve) => {
           resolve(this.options.blocks)
         })
