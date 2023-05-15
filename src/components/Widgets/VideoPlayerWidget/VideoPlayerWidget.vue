@@ -36,5 +36,8 @@ export default {
 
 <style lang="scss" scoped>
 .video-player-widget-container {
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 0 !important;
 }
 </style>
