@@ -7,12 +7,12 @@
       <product-row-skeleton :skeletons="4" />
     </div>
     <div v-else
-         class="product-content row"
+         class="product-content row justify-center items-center"
          :class="options.className"
          :style="options.style">
       <div v-for="(product, index) in data"
            :key="index"
-           class="product-item col-md-4">
+           class="product-item col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <product-item :options="{product: product}" />
       </div>
     </div>
@@ -51,7 +51,7 @@ export default {
   width: 100%;
 
   .product-content {
-    justify-content: flex-start;
+    //justify-content: flex-start;
     padding: 40px 0;
     width: 100%;
 
