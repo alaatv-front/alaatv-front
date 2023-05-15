@@ -64,6 +64,7 @@ export default {
       type: Boolean
     }
   },
+  emits: ['onLoggedIn'],
   data: () => ({
     userLogin: false,
     loading: true,
@@ -132,6 +133,7 @@ export default {
           //     this.redirectTo()
           //   })
           this.$store.commit('AppLayout/updateLoginDialog', false)
+          this.$emit('onLoggedIn')
           this.redirectTo()
         })
         .catch(err => {

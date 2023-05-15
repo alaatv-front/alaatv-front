@@ -188,7 +188,8 @@
                 </div>
               </div>
               <auth-login :default-layout="false"
-                          :redirect="false" />
+                          :redirect="false"
+                          @on-logged-in="loadAuthData" />
             </q-card>
           </div>
         </template>
