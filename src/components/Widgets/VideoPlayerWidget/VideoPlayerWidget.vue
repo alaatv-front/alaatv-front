@@ -4,44 +4,27 @@
        :class="options.customClass">
     <video-player ref="videoPlayer"
                   :key="playerKey"
-                  :source="url" />
+                  :source="options.url" />
   </div>
 </template>
 
 <script>
 import VideoPlayer from 'src/components/VideoPlayer.vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'VideoPlayerWidget',
   components: { VideoPlayer },
-  props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
+  mixins: [mixinWidget],
   data() {
     return {
       url: '',
-      playerKey: Date.now()
-    }
-  },
-  watch: {
-    options: {
-      handler() {
-        this.setSource()
+      defaultOptions: {
+        src: '',
+        url: '',
+        poster: ''
       },
-      deep: true
-    }
-  },
-  mounted() {
-    this.setSource()
-  },
-  methods: {
-    setSource() {
-      this.url = this.options.url
+      playerKey: Date.now()
     }
   }
 }
