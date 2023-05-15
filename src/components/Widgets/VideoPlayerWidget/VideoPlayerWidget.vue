@@ -20,15 +20,12 @@ export default {
   data() {
     return {
       url: '',
+      defaultOptions: {
+        src: '',
+        url: '',
+        poster: ''
+      },
       playerKey: Date.now()
-    }
-  },
-  mounted() {
-    this.setSource()
-  },
-  methods: {
-    setSource() {
-      this.url = this.options.url
     }
   }
 }

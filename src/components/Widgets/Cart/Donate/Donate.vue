@@ -105,7 +105,7 @@ export default {
         .catch(() => {})
     },
     addDonateToCart() {
-      this.$store.dispatch('Cart/addToCart', { product_id: 180 })
+      this.$store.dispatch('Cart/addToCart', { products: [179], product_id: 180 })
         .then(() => {
           this.$emit('cartReview')
         })
