@@ -21,7 +21,8 @@
         </template>
         <template v-else-if="cart.count > 0">
           <div v-if="isUserLogin">
-            <div class="q-mb-md">
+            <div v-if="!dense"
+                 class="q-mb-md">
               <donate @cart-review="cartReview" />
             </div>
             <q-card class="invoice-cart">
