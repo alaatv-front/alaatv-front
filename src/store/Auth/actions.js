@@ -5,7 +5,7 @@ export function login (context, data) {
   const setVars = (user, accessToken) => {
     context.commit('updateUser', user)
     context.commit('updateAccessToken', accessToken)
-    Cookies.set('BearerAccessToken', accessToken)
+    Cookies.set('BearerAccessToken', accessToken, { path: '/' })
     const tokenType = 'Bearer'
     this.$accessToken = accessToken
     this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
