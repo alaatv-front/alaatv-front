@@ -56,6 +56,8 @@
       <router-link :to="getRoutingObject">
         <lazy-img :src="product.photo"
                   :alt="product.title"
+                  height="100%"
+                  width="100%"
                   class="img" />
       </router-link>
     </div>
