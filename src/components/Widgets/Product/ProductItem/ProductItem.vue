@@ -569,6 +569,9 @@ export default defineComponent({
       }
 
       .action-box {
+        flex-flow: column;
+        justify-content: space-around;
+        align-items: stretch;
         .more-detail {
           .more {
             display: none;
