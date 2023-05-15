@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       defaultOptions: {
+        bgColor: null,
         color: null,
         icon: null,
         label: null,

@@ -8,15 +8,60 @@
             <q-input v-model="localOptions.label"
                      label="label" />
           </div>
-          <div class="input-container col-md-3">
+          <div class="input-container col-md-2">
             <div class="outsideLabel">icon name</div>
             <q-input v-model="localOptions.icon"
                      label="icon name" />
           </div>
-          <div class="input-container col-md-3">
-            <div class="outsideLabel">color</div>
-            <q-input v-model="localOptions.color"
-                     label="color" />
+          <div v-if="localOptions.flat"
+               class="col-md-4 row">
+            <div class="input-container col-md-6">
+              <div class="outsideLabel">background color</div>
+              <q-input v-model="localOptions.style.background"
+                       icon="colorize"
+                       label="background color">
+                <template v-slot:append>
+                  <q-icon name="colorize"
+                          class="cursor-pointer">
+                    <q-popup-proxy cover
+                                   transition-show="scale"
+                                   transition-hide="scale">
+                      <q-color v-model="localOptions.style.background"
+                               label="backgroundColor"
+                               :default-value="'rgba(34,255,0,0.72)'"
+                               format-model="rgba" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+            <div class="input-container col-md-5 q-mx-sm">
+              <div class="outsideLabel">color</div>
+              <q-input v-model="localOptions.color"
+                       label="color">
+                <template v-slot:append>
+                  <q-icon name="colorize"
+                          class="cursor-pointer">
+                    <q-popup-proxy cover
+                                   transition-show="scale"
+                                   transition-hide="scale">
+                      <q-color v-model="localOptions.style.background"
+                               label="backgroundColor"
+                               :default-value="'rgba(34,255,0,0.72)'"
+                               format-model="rgba" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+          </div>
+          <div v-else
+               class="col-md-4">
+            <div class="input-container col-md-12">
+              <div class="outsideLabel">color</div>
+              <q-input v-model="localOptions.color"
+                       label="color" />
+            </div>
           </div>
           <div class="input-container">
             <div class="outsideLabel">flat</div>
@@ -83,8 +128,10 @@ export default defineComponent({
   },
   data () {
     return {
+      showCollorPicker: false,
       actionOptions: ['scroll', 'link', 'event'],
       defaultOptions: {
+        bgColor: null,
         color: null,
         icon: null,
         label: null,
