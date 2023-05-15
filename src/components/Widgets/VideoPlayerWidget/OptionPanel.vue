@@ -54,33 +54,24 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
 
 export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
-  mixins: [mixinOptionPanel],
-  props: {
-    options: {
-      type: Object,
-      default() {
-        return {}
+  mixins: [PageBuilderOptionPanel],
+  data() {
+    return {
+      srcType: '',
+      defaultOptions: {
+        src: '',
+        url: '',
+        poster: ''
       }
     }
   },
-  data() {
-    return {
-      srcType: ''
-    }
-  },
   watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    },
     srcType (newVal) {
       if (newVal === 'multipleQuality') {
         this.localOptions.src = ['', '', '']

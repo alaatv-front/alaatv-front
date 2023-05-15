@@ -63,14 +63,6 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { Editor, OptionPanelTabs },
   mixins: [PageBuilderOptionPanel],
-  props: {
-    options: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  },
   data () {
     return {
       themeOptions: ['theme1', 'theme2'],
@@ -80,6 +72,15 @@ export default defineComponent({
         theme: null,
         dense: false,
         marginBottom: '100px'
+      }
+    }
+  },
+  watch: {
+    'localOptions.dense': function (value) {
+      if (value) {
+        this.localOptions.marginBottom = '5px'
+      } else {
+        this.localOptions.marginBottom = '100px'
       }
     }
   },
