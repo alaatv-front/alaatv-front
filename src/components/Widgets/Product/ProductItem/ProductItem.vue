@@ -438,8 +438,7 @@ export default defineComponent({
     background: #4caf50;
     color: white;
     @media screen and (max-width: 600px){
-      font-size: 11px;
-      margin: 5px;
+      margin: 20px;
     }
   }
 
@@ -509,7 +508,6 @@ export default defineComponent({
   }
 
   @media screen and (max-width: 600px) {
-    width: 240px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
@@ -600,36 +598,6 @@ export default defineComponent({
       .discount {
         height: 20px;
         /* margin-left: 3px; */
-      }
-    }
-  }
-
-  @media screen and (max-width: 600px){
-    flex-direction: row;
-    padding: 10px;
-    .img-box{
-      a{
-        .img{
-          border-radius: 20px;
-        }
-      }
-    }
-    .product-content-box{
-      .action-box{
-        display: block;
-        .price-box{
-          display: block;
-          .price-info{
-            margin-right: 10px;
-            align-items: center;
-            .discount{
-              margin-right: 5px;
-            }
-          }
-        }
-        .btn-green{
-          width: 100px;
-        }
       }
     }
   }
