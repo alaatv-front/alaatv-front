@@ -36,7 +36,7 @@ export function login (context, data) {
 export function logOut (context, clearRedirectTo = true) {
   context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
-  Cookies.set('BearerAccessToken', '')
+  Cookies.set('BearerAccessToken', '', { path: '/' })
   if (clearRedirectTo) {
     context.commit('updateRedirectTo', null)
   }
