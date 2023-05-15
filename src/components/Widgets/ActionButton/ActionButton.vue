@@ -1,6 +1,5 @@
 <template>
-  <q-btn :color="localOptions.color"
-         :label="localOptions.label"
+  <q-btn :label="localOptions.label"
          :flat="localOptions.flat"
          :class="localOptions.className"
          :style="localOptions.style"
@@ -23,7 +22,6 @@ export default {
   data() {
     return {
       defaultOptions: {
-        bgColor: null,
         color: null,
         icon: null,
         label: null,
