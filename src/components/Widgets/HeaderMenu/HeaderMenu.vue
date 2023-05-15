@@ -71,7 +71,11 @@ export default {
       if (item.type === 'link') {
         openURL(item.route)
       } else if (item.type === 'scroll') {
-        this.scrollToElement(item.scrollTo)
+        if (item.scrollTo) {
+          this.scrollToElement(item.scrollTo)
+        } else {
+          this.scrollToElement(item.className)
+        }
       } else if (item.type === 'event') {
         this.$bus.emit(item.eventName, item.eventArgs)
       }
