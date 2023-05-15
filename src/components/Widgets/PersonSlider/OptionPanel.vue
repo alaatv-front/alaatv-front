@@ -54,13 +54,13 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
 
 export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
-  mixins: [mixinOptionPanel],
+  mixins: [PageBuilderOptionPanel],
   props: {
     options: {
       type: Object,
@@ -87,20 +87,23 @@ export default defineComponent({
         { name: 'rank', align: 'center', label: 'رتبه', field: row => row.rank },
         { name: 'distraction', align: 'center', label: 'منطقه', field: row => row.distraction },
         { name: 'actions', align: 'right', label: 'عملیات', field: row => row.id }
-      ]
-    }
-  },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
+      ],
+      defaultOptions: {
+        sliderItems: []
+      }
     }
   },
   methods: {
     addRow () {
-      this.localOptions.sliderItems.unshift(this.localOptions.sliderItems[0])
+      const newRow = {
+        code: '',
+        rank: 0,
+        first_name: '',
+        last_name: '',
+        major: '',
+        distraction: ''
+      }
+      this.localOptions.sliderItems.unshift(newRow)
     },
     removeRow(index) {
       this.localOptions.sliderItems.splice(index, 1)

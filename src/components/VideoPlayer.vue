@@ -456,6 +456,14 @@ export default {
         }
       }
     }
+    .vjs-play-progress {
+      &:before {
+        /*rtl:ignore*/
+        right: -0.5em;
+        /*rtl:ignore*/
+        left: auto;
+      }
+    }
   }
 }
 </style>
