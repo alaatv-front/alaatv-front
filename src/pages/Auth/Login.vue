@@ -46,6 +46,6 @@ export default {
 <style lang="scss" scoped>
 .login-page {
   height: 100vh;
-  display: grid;
+  display: flex;
 }
 </style>
