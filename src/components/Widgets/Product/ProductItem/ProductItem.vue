@@ -507,6 +507,16 @@ export default defineComponent({
     }
   }
 
+  @media screen and (max-width: 700px) {
+    .product-content-box {
+      .action-box {
+        flex-flow: column;
+        justify-content: space-around;
+        align-items: stretch;
+      }
+    }
+  }
+
   @media screen and (max-width: 600px) {
     display: flex;
     border-radius: 18px;

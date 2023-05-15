@@ -49,7 +49,8 @@
 </template>
 
 <script>
-import { mixinAuth } from 'src/mixin/Mixins'
+import { mixinAuth } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'AuthLogin',
   mixins: [mixinAuth],

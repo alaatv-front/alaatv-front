@@ -678,7 +678,7 @@ const routes = [
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/:catchAll(.*)*',
+    path: '/404/:catchAll(.*)*',
     name: 'NotFound',
     component:
       () => import('pages/Error404.vue')

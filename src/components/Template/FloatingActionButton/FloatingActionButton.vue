@@ -211,6 +211,9 @@ export default {
   },
   methods: {
     truncateString(string, length) {
+      if (!string) {
+        return ''
+      }
       return string.length > length ? string.slice(0, length) + '...' : string
     },
     importPageBuilderConfigs () {

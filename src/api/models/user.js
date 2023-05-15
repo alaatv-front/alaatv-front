@@ -349,7 +349,8 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.getUserRoleAndPermission,
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        return response.data
+        const permissions = response.data.data.permissions // Array of string
+        return permissions
       },
       rejectCallback: (error) => {
         return error
