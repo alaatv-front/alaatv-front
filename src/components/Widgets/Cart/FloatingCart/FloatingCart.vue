@@ -13,24 +13,24 @@
       <q-card-section>
         <div class="row">
           <div class="col-12">
-            <cart-empty :options="CartEmptyOptions" />
+            <cart-empty ref="cartEmpty"
+                        :options="CartEmptyOptions" />
           </div>
+          <q-btn flat
+                 class="cart-floating-close"
+                 icon="close"
+                 @click="nextMorph" />
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <cart-view />
+            <cart-view ref="cartView" />
           </div>
           <div class="col-xs-12">
-            <cart-invoice :options="cartInvoiceOptions" />
+            <cart-invoice ref="cartInvoice"
+                          :dense="dense" />
           </div>
         </div>
       </q-card-section>
-
-      <q-card-actions align="right">
-        <q-btn flat
-               label="بستن"
-               @click="nextMorph" />
-      </q-card-actions>
     </q-card>
   </div>
 </template>
@@ -61,15 +61,18 @@ export default {
           text: 'بازگشت به فروشگاه',
           url: '/shop'
         },
-        photo: 'https://nodes.alaatv.com/aaa/landing/Soalaa/States/empty_cart.png'
+        photo: 'https://nodes.alaatv.com/upload/empty-cart.png'
       },
-      cartInvoiceOptions: {
-        dense: true
-      }
+      dense: true
     }
   },
   methods: {
     nextMorph () {
+      if (this.morphGroupModel === 'btn') {
+        this.$refs.cartEmpty.cartReview()
+        this.$refs.cartView.cartReview()
+        this.$refs.cartInvoice.cartReview()
+      }
       this.morphGroupModel = nextMorphStep[this.morphGroupModel]
     }
   }
@@ -101,7 +104,7 @@ export default {
     border-bottom-left-radius: 2em;
 
     @media screen and (max-width: 600px) {
-      width: 300px;
+      width: 330px;
       height: 650px;
     }
 
@@ -115,13 +118,14 @@ export default {
     &:deep(.cart-view-widget) {
       overflow-y: auto;
       max-height: 250px;
-
-      @media screen and (max-width: 600px) {
-        max-height: 190px;
-      }
     }
     &:deep(.cart-invoice .cart-invoice-container .invoice-container) {
       margin: 0;
+    }
+
+    .cart-floating-close{
+      position: absolute;
+      right: 0;
     }
   }
 }
