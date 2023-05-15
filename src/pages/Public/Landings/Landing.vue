@@ -6,38 +6,47 @@
 </template>
 
 <script>
+import { User } from 'src/models/User.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { PageSetting } from 'src/models/PageSetting.js'
 import { mixinSEO, mixinPageOptions, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { User } from 'src/models/User'
 
 export default {
   name: 'Landing',
   mixins: [mixinPrefetchServerData, mixinPageOptions, mixinSEO],
   data () {
     return {
-      user: new User()
+      user: new User(),
+      isUserLogin: false
     }
   },
   mounted () {
     this.loadAuthData()
     // ToDo: must call after prefetchServerDataPromiseThen or prefetchServerDataPromiseCatch (mixinPageOptions)
-    if (this.user.hasPermission('editSiteSetting')) {
-      setTimeout(() => {
-        this.checkNewLanding()
-      }, 1000)
-    } else {
-      this.$router.push({ name: 'NotFound' })
-    }
+    setTimeout(() => {
+      this.checkNewLanding()
+    }, 1000)
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
+      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
     checkNewLanding () {
       if (this.pageDataLoaded) {
         return
       }
+
+      if (!this.isUserLogin) {
+        this.$router.push({ name: 'NotFound' })
+        return
+      }
+
+      if (!this.user.hasPermission('editSiteSetting')) {
+        this.$router.push({ name: 'NotFound' })
+        return
+      }
+
       this.$q.dialog({
         title: 'ساخت لندینگ جدید',
         message: 'از نام لندینگ ' + this.$route.params.landing_name + ' اطمینان دارید؟ ',
