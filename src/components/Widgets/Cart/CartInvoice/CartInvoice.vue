@@ -226,6 +226,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    dense: {
+      type: Boolean,
+      default: false
     }
   },
   data () {

@@ -1,16 +1,17 @@
 <template>
   <div class="video-player-widget-container"
-       :style="options.style"
-       :class="options.customClass">
+       :style="localOptions.style"
+       :class="localOptions.customClass">
     <video-player ref="videoPlayer"
                   :key="playerKey"
-                  :source="options.url" />
+                  :source="url"
+                  :poster="localOptions.poster" />
   </div>
 </template>
 
 <script>
 import VideoPlayer from 'src/components/VideoPlayer.vue'
-import { mixinWidget } from 'src/mixin/Mixins'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'VideoPlayerWidget',
@@ -19,12 +20,15 @@ export default {
   data() {
     return {
       url: '',
-      defaultOptions: {
-        src: '',
-        url: '',
-        poster: ''
-      },
       playerKey: Date.now()
+    }
+  },
+  mounted() {
+    this.setSource()
+  },
+  methods: {
+    setSource() {
+      this.url = this.options.url
     }
   }
 }
