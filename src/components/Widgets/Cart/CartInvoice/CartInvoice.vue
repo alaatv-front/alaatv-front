@@ -187,7 +187,8 @@
                     کنید</p>
                 </div>
               </div>
-              <auth-login :default-layout="false" />
+              <auth-login :default-layout="false"
+                          :redirect="false" />
             </q-card>
           </div>
         </template>

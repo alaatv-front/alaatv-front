@@ -85,6 +85,10 @@ export default {
       if (this.redirect) {
         redirectTo = this.redirect
       }
+      if (this.redirect === false) {
+        this.$store.commit('Auth/updateRedirectTo', null)
+        return
+      }
       if (redirectTo === null || typeof redirectTo !== 'object') {
         redirectTo = { name: 'Public.Home' }
       }
