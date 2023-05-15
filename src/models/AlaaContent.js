@@ -1,12 +1,12 @@
 import { Collection, Model } from 'js-abstract-model'
-import API_ADDRESS from '../api/Addresses'
+import { APIGateway } from 'src/api/APIGateway'
 
 class AlaaContent extends Model {
   constructor (data) {
     super(data, [
       {
         key: 'baseRoute',
-        default: API_ADDRESS.content.base
+        default: APIGateway.content.APIAdresses.base
       },
       { key: 'id' },
       { key: 'type' },

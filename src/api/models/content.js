@@ -5,6 +5,7 @@ import { ProductList } from 'src/models/Product'
 import { Comment } from 'src/models/Comment'
 import { APIGateway } from 'src/api/APIGateway'
 const APIAdresses = {
+  base: '/c',
   search: '/search',
   admin: '/admin/contents',
   timestampSet: '/timepoint',

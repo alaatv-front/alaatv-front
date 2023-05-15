@@ -21,6 +21,7 @@ import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
 import LiveDescriptionAPI from 'src/api/models/LiveDescription.js'
 import PlanAPI from 'src/api/models/Plan.js'
 import ChannelAPI from 'src/api/models/Channel'
+import MapAPI from 'src/api/models/Map'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
@@ -46,5 +47,6 @@ export const APIGateway = {
   liveDescription: new LiveDescriptionAPI(),
   pageSetting: new PageSettingAPI(),
   referralCode: new ReferralCodeAPI(),
-  contentTimepoint: new ContentTimepointAPI()
+  contentTimepoint: new ContentTimepointAPI(),
+  map: new MapAPI()
 }

@@ -8,8 +8,25 @@ export default class OrderAPI extends APIRepository {
       orderCoupon: '/orderCoupon',
       edit: '/admin/order',
       index: '/admin/order',
-      show: '/admin/order'
+      show: '/admin/order',
+      status: '/payment/status',
+      ordersById: (id) => '/user/' + id + '/orders'
+
     }
+  }
+
+  getPaymentStatus() {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.status,
+      resolveCallback: (response) => {
+        return response.data.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
   }
 
   SubmitCouponOnOrder (data = {}) {
