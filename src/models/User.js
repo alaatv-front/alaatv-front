@@ -36,6 +36,10 @@ class User extends Model {
       { key: 'mobile_verified_at' },
       { key: 'wallet_balance' },
       { key: 'profile_completion' },
+      {
+        key: 'permissions',
+        default: []
+      },
 
       {
         key: 'gender',
@@ -59,6 +63,10 @@ class User extends Model {
     if (!this.full_name) {
       this.full_name = this.first_name + ' ' + this.last_name
     }
+  }
+
+  hasPermission (permission) {
+    return !!this.permissions.includes(permission)
   }
 
   getCompletionInfoKeys () {
