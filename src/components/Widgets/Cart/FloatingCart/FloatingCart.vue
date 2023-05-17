@@ -7,12 +7,12 @@
            size="lg"
            icon="shopping_cart"
            @click="nextMorph">
-      <q-badge v-if="cartOrdersCount > 0"
+      <q-badge v-if="cart.count > 0"
                color="positive"
                text-color="white"
                floating
                rounded
-               :label="cartOrdersCount" />
+               :label="cart.count" />
     </q-btn>
     <q-card v-morph:card1:mygroup:500.resize="morphGroupModel"
             class="cart-floating-card q-ma-md bg-primary text-white">
@@ -45,6 +45,7 @@
 import CartEmpty from '../CartEmpty/CartEmpty.vue'
 import CartInvoice from '../CartInvoice/CartInvoice.vue'
 import CartView from '../CartView/CartView.vue'
+import { Cart } from 'src/models/Cart.js'
 
 const nextMorphStep = {
   btn: 'card1',
@@ -69,17 +70,35 @@ export default {
         },
         photo: 'https://nodes.alaatv.com/upload/empty-cart.png'
       },
-      dense: true
+      dense: true,
+      cart: new Cart()
     }
   },
-  computed: {
-    cartOrdersCount () {
-      return this.$store.getters['Cart/cart'].count
-    }
+  mounted () {
+    this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
     nextMorph () {
       this.morphGroupModel = nextMorphStep[this.morphGroupModel]
+    },
+    cartReview() {
+      this.cart.loading = true
+      this.$store.dispatch('Cart/reviewCart')
+        .then((response) => {
+          const invoice = response
+
+          const cart = new Cart(invoice)
+
+          if (invoice.count > 0) {
+            invoice.items.list[0].order_product.list.forEach((order) => {
+              cart.items.list.push(order)
+            })
+          }
+          this.cart = cart
+          this.cart.loading = false
+        }).catch(() => {
+          this.cart.loading = false
+        })
     }
   }
 }
