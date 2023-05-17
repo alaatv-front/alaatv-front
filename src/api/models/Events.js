@@ -33,7 +33,7 @@ export default class EventsAPI extends APIRepository {
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png'
       },
       {
-        id: 18,
+        id: 12,
         name: 'emtahan-nahaee-9',
         logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png'
       }
