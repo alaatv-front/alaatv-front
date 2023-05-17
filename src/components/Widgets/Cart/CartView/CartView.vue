@@ -332,7 +332,7 @@ export default {
         .then(() => {
           this.cartReview()
           this.changeDialogState(false)
-          this.$bus.emit('removeProduct')
+          this.$bus.emit('refreshCart')
         }).catch(() => {
           this.changeDialogState(false)
         })

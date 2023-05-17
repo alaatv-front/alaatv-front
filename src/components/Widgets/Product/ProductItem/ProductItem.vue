@@ -177,10 +177,7 @@ export default defineComponent({
     addToCart() {
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
         .then(() => {
-          this.$store.dispatch('Cart/reviewCart')
-            .then(() => {
-              this.addToCartLoading = false
-            })
+          this.$bus.emit('refreshCart')
         }).catch(() => {
           this.addToCartLoading = false
         })

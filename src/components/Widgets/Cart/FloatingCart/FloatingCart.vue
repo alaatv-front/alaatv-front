@@ -6,8 +6,14 @@
            color="primary"
            size="lg"
            icon="shopping_cart"
-           @click="nextMorph" />
-
+           @click="nextMorph">
+      <q-badge v-if="cartOrdersCount > 0"
+               color="positive"
+               text-color="white"
+               floating
+               rounded
+               :label="cartOrdersCount" />
+    </q-btn>
     <q-card v-morph:card1:mygroup:500.resize="morphGroupModel"
             class="cart-floating-card q-ma-md bg-primary text-white">
       <q-card-section>
@@ -66,13 +72,13 @@ export default {
       dense: true
     }
   },
+  computed: {
+    cartOrdersCount () {
+      return this.$store.getters['Cart/cart'].count
+    }
+  },
   methods: {
     nextMorph () {
-      if (this.morphGroupModel === 'btn') {
-        this.$refs.cartEmpty.cartReview()
-        this.$refs.cartView.cartReview()
-        this.$refs.cartInvoice.cartReview()
-      }
       this.morphGroupModel = nextMorphStep[this.morphGroupModel]
     }
   }
@@ -114,10 +120,6 @@ export default {
     &:deep(.cart-image) {
       height: 140px;
       margin-top: 0px;
-    }
-    &:deep(.cart-view-widget) {
-      overflow-y: auto;
-      max-height: 250px;
     }
     &:deep(.cart-invoice .cart-invoice-container .invoice-container) {
       margin: 0;
