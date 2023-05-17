@@ -6,7 +6,6 @@ import Widgets from './Widgets'
 import loading from './loading'
 import { createStore } from 'vuex'
 import AppLayout from './AppLayout'
-import ChatreNejat from './ChatreNejat'
 import PageBuilder from './PageBuilder'
 import { store } from 'quasar/wrappers'
 import TripleTitleSet from './TripleTitleSet'
@@ -50,7 +49,6 @@ export default store(function (/* { ssrContext } */) {
       loading,
       AppLayout,
       PageBuilder,
-      ChatreNejat,
       TripleTitleSet
     },
     plugins,

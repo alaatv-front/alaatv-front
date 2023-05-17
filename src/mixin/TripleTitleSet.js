@@ -20,7 +20,7 @@ const mixinTripleTitleSet = {
       }
       APIGateway.events.getEventInfoByName(this.$route.params.eventName)
         .then(event => {
-          this.event = event.id
+          this.event = event
         })
         .catch(() => {
           this.$router.push({ name: 'NotFound' })

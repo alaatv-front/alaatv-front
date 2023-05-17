@@ -1,5 +1,6 @@
 import { Set } from 'src/models/Set.js'
 import { apiV2 } from 'src/boot/axios.js'
+import { ProductList } from 'src/models/Product.js'
 import APIRepository from '../classes/APIRepository.js'
 
 const APIAdresses = {
@@ -45,6 +46,28 @@ export default class EventsAPI extends APIRepository {
 
       resolve(event)
     })
+  }
+
+  getEventsProducts(data, cache) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.eventsProducts(data.eventId),
+      cacheKey: this.CacheList.eventsProducts(data.eventId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      data: data.data
+    })
+    // const products = new Promise((resolve, reject) => {
+    //   const productList = fake.fakeData(product, 5)
+    //   resolve(productList)
+    // })
+    // return products
   }
 
   formBuilder(data = {}, cache = { TTL: 100 }) {
