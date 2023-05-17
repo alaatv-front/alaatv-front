@@ -130,21 +130,21 @@ export default {
       return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
     },
     topicList () {
-      const topicList = this.$store.getters['ChatreNejat/setTopicList']
+      const topicList = this.$store.getters['TripleTitleSet/setTopicList']
       this.fillTopicsRouteArray(topicList)
       return topicList
     },
     setList () {
-      return this.$store.getters['ChatreNejat/setList']
+      return this.$store.getters['TripleTitleSet/setList']
     },
     selectedProduct () {
-      return this.$store.getters['ChatreNejat/selectedProduct']
+      return this.$store.getters['TripleTitleSet/selectedProduct']
     },
     selectedTopic () {
-      return this.$store.getters['ChatreNejat/selectedTopic'] || ''
+      return this.$store.getters['TripleTitleSet/selectedTopic'] || ''
     },
     selectedContent () {
-      return this.$store.getters['ChatreNejat/selectedContent']
+      return this.$store.getters['TripleTitleSet/selectedContent']
     },
     selectedContentTitle () {
       return this.selectedContent?.title
