@@ -333,7 +333,7 @@ export default {
         .then(() => {
           this.cartReview()
           this.changeDialogState(false)
-          this.$bus.emit('refreshCart')
+          this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
           this.changeDialogState(false)
         })
