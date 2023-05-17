@@ -5,7 +5,7 @@ export function login (context, data) {
   const setVars = (user, accessToken) => {
     context.commit('updateUser', user)
     context.commit('updateAccessToken', accessToken)
-    Cookies.set('BearerAccessToken', accessToken)
+    Cookies.set('BearerAccessToken', accessToken, { path: '/' })
     const tokenType = 'Bearer'
     this.$accessToken = accessToken
     this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
@@ -36,7 +36,7 @@ export function login (context, data) {
 export function logOut (context, clearRedirectTo = true) {
   context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
-  Cookies.set('BearerAccessToken', '')
+  Cookies.set('BearerAccessToken', '', { path: '/' })
   if (clearRedirectTo) {
     context.commit('updateRedirectTo', null)
   }

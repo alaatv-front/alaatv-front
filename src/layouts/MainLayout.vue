@@ -44,7 +44,7 @@
           </q-dialog>
           <router :include="keepAliveComponents" />
         </div>
-        <floating-action-button v-if="isAdmin && canShowFloatingActionBtn" />
+        <floating-action-button v-if="canShowFloatingActionBtn" />
       </template>
       <template #footer>
         <alaa-footer />
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { User } from 'src/models/User.js'
 import Router from 'src/router/Router.vue'
 import AuthLogin from 'components/Auth.vue'
 import AlaaFooter from 'src/components/Widgets/Footer/Footer.vue'
@@ -62,7 +63,6 @@ import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
 import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
 import FloatingActionButton from 'components/Template/FloatingActionButton/FloatingActionButton.vue'
-import { User } from 'src/models/User'
 
 export default {
   components: {
@@ -77,7 +77,6 @@ export default {
   data () {
     return {
       user: new User(),
-      isAdmin: true,
       isUserLogin: false,
       contentVerticalScrollPosition: 0,
       keepAliveComponents: KeepAliveComponents
@@ -124,7 +123,6 @@ export default {
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
-      this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
     onContentInsideScroll (data) {

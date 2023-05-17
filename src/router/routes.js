@@ -498,7 +498,19 @@ const routes = [
                 ]
               }
             ]
-          }]
+          },
+          {
+            path: 'order/:orderId/thankYou',
+            name: 'UserPanel.ThankYouPage',
+            component: () => import('src/pages/ThankYouPage/ThankYouPage.vue'),
+            layoutConfig: {
+              layoutHeader: true,
+              layoutHeaderType: 'main',
+              layoutHeaderVisible: true,
+              layoutLeftDrawerVisible: false
+            }
+          }
+        ]
       },
       {
         path: 'admin',
