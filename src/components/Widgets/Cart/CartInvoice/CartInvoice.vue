@@ -103,7 +103,8 @@
                   </q-input>
                 </div>
 
-                <q-separator class="invoice-separator" />
+                <q-separator v-if="!dense"
+                             class="invoice-separator" />
               </q-card-section>
 
               <q-card-section class="payment-section invoice-cart-section">
@@ -320,7 +321,7 @@ export default {
   mounted () {
     this.loadAuthData()
     this.cartReview()
-    this.$bus.on('removeProduct', this.cartReview)
+    this.$bus.on('refreshCart', this.cartReview)
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
