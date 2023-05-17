@@ -4,15 +4,17 @@
   <user-abrisham-panel v-if="type === 'abrisham'" />
   <user-gift-card-panel v-if="type === 'gift-card'" />
   <user-chatre-nejat-panel v-if="type === 'chatre-nejat'" />
+  <triple-title-set-panel v-if="type === 'triple-title-set'" />
   <user-emtahan-nahaee-panel v-if="type === 'emtahan-nahaee'" />
 </template>
 
 <script>
-import MainHeaderTemplate from 'components/Template/Header/Main.vue'
-import AdminPanelHeader from 'components/Template/Header/AdminPanelHeader.vue'
-import UserAbrishamPanel from 'components/Template/Header/UserAbrishamPanel.vue'
-import UserGiftCardPanel from 'components/Template/Header/UserGiftCardPanel.vue'
-import UserChatreNejatPanel from 'components/Template/Header/UserChatreNejatPanel.vue'
+import MainHeaderTemplate from 'src/components/Template/Header/Main.vue'
+import AdminPanelHeader from 'src/components/Template/Header/AdminPanelHeader.vue'
+import UserAbrishamPanel from 'src/components/Template/Header/UserAbrishamPanel.vue'
+import UserGiftCardPanel from 'src/components/Template/Header/UserGiftCardPanel.vue'
+import TripleTitleSetPanel from 'src/components/Template/Header/TripleTitleSetPanel.vue'
+import UserChatreNejatPanel from 'src/components/Template/Header/UserChatreNejatPanel.vue'
 import UserEmtahanNahaeePanel from 'src/components/Template/Header/UserEmtahanNahaeePanel.vue'
 
 export default {
@@ -22,6 +24,7 @@ export default {
     UserGiftCardPanel,
     UserAbrishamPanel,
     MainHeaderTemplate,
+    TripleTitleSetPanel,
     UserChatreNejatPanel,
     UserEmtahanNahaeePanel
   },

@@ -496,6 +496,71 @@ const routes = [
                     component: () => import('pages/User/GiftCardPanel/UserInfo.vue')
                   }
                 ]
+              },
+              {
+                name: 'UserPanel.Asset.TripleTitleSet',
+                path: ':eventName',
+                layoutConfig: {
+                  layoutHeaderType: 'triple-title-set',
+                  layoutLeftSideBarType: 'triple-title-set',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('src/layouts/bareLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.Products',
+                    path: '',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.ProductLayout',
+                    path: 'product',
+                    component: () => import('src/layouts/TripleTitleSetLayout.vue'),
+                    children: [
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductPage',
+                        path: ':productId',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductPage.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.Content',
+                        path: ':productId/set/:setId/content/:contentId',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductDocuments',
+                        path: ':productId/documents',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductDocuments.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductComments',
+                        path: ':productId/comments',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductComments.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductSingleComment',
+                        path: ':productId/comments/:commentId',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductCommentSingle.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductBookmarks',
+                        props: true,
+                        path: ':productId/bookmarks',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductBookmarks.vue')
+                      }
+                    ]
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content',
+                    path: ':setId/adviser/content/:contentId',
+                    props: true,
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                  }
+                ]
               }
             ]
           },

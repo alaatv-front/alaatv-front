@@ -1,8 +1,7 @@
-import APIRepository from '../classes/APIRepository.js'
+import { Set } from 'src/models/Set.js'
 import { apiV2 } from 'src/boot/axios.js'
-import { ProductList } from 'src/models/Product'
-import { Set } from 'src/models/Set'
-// import { Fake } from '../classes/fakeDataGenerator.js'
+import APIRepository from '../classes/APIRepository.js'
+
 const APIAdresses = {
   base: 'events',
   formBuilder: '/admin/form-builder',
@@ -20,29 +19,35 @@ export default class EventsAPI extends APIRepository {
     }
   }
 
-  getEventsProducts(data, cache) {
-    return this.sendRequest({
-      apiMethod: 'get',
-      api: this.api,
-      request: this.APIAdresses.eventsProducts(data.eventId),
-      cacheKey: this.CacheList.eventsProducts(data.eventId),
-      ...(cache && { cache }),
-      resolveCallback: (response) => {
-        return new ProductList(response.data.data)
+  getEventInfoByName(eventName) {
+    const events = [
+      {
+        id: 10,
+        name: 'chatre-nejat',
+        logo: 'https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png'
       },
-      rejectCallback: (error) => {
-        return error
+      {
+        id: 11,
+        name: 'emtahan-nahaee',
+        logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png'
       },
-      data: data.data
+      {
+        id: 18,
+        name: 'emtahan-nahaee-9',
+        logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png'
+      }
+    ]
+    return new Promise((resolve, reject) => {
+      const event = events.find(eventItem => eventItem.name === eventName)
+      if (!event) {
+        reject()
+      }
+
+      resolve(event)
     })
-    // const products = new Promise((resolve, reject) => {
-    //   const productList = fake.fakeData(product, 5)
-    //   resolve(productList)
-    // })
-    // return products
   }
 
-  formBuilder(data = {}, cache) {
+  formBuilder(data = {}, cache = { TTL: 100 }) {
     const routeWithParams = function (defaultRoute, payload) {
       if (!Array.isArray(payload.types)) {
         const types = []
@@ -71,7 +76,7 @@ export default class EventsAPI extends APIRepository {
     })
   }
 
-  getEventsAdvisor(data, cache) {
+  getEventsAdvisor(data, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
