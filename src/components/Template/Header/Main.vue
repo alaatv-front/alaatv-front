@@ -16,7 +16,7 @@
           </div>
           <div class="logo-pic">
             <div class="homepage">
-              <lazy-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+              <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
                         :alt="'logo'"
                         width="40"
                         height="40"

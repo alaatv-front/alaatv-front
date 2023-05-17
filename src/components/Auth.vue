@@ -49,7 +49,8 @@
 </template>
 
 <script>
-import { mixinAuth } from 'src/mixin/Mixins'
+import { mixinAuth } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'AuthLogin',
   mixins: [mixinAuth],
@@ -63,6 +64,7 @@ export default {
       type: Boolean
     }
   },
+  emits: ['onLoggedIn'],
   data: () => ({
     userLogin: false,
     loading: true,
@@ -83,6 +85,10 @@ export default {
       let redirectTo = this.$store.getters['Auth/redirectTo']
       if (this.redirect) {
         redirectTo = this.redirect
+      }
+      if (this.redirect === false) {
+        this.$store.commit('Auth/updateRedirectTo', null)
+        return
       }
       if (redirectTo === null || typeof redirectTo !== 'object') {
         redirectTo = { name: 'Public.Home' }
@@ -127,6 +133,7 @@ export default {
           //     this.redirectTo()
           //   })
           this.$store.commit('AppLayout/updateLoginDialog', false)
+          this.$emit('onLoggedIn')
           this.redirectTo()
         })
         .catch(err => {

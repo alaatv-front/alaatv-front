@@ -21,7 +21,8 @@
         </template>
         <template v-else-if="cart.count > 0">
           <div v-if="isUserLogin">
-            <div class="q-mb-md">
+            <div v-if="!dense"
+                 class="q-mb-md">
               <donate @cart-review="cartReview" />
             </div>
             <q-card class="invoice-cart">
@@ -102,7 +103,8 @@
                   </q-input>
                 </div>
 
-                <q-separator class="invoice-separator" />
+                <q-separator v-if="!dense"
+                             class="invoice-separator" />
               </q-card-section>
 
               <q-card-section class="payment-section invoice-cart-section">
@@ -180,13 +182,15 @@
           <div v-else>
             <q-card class="login custom-card bg-white q-mx-md q-mb-md">
               <div class="login-text bg-green-3 q-px-md q-mt-lg q-mx-md">
-                <div class="bg-grey-3 q-pa-md text-center">
+                <div class="bg-grey-3 q-pa-md text-center text-grey-9">
                   <p>پیش از ثبت سفارش وارد حساب کاربری خود شوید</p>
                   <p>اگر حساب کاربری در آلاء ندارید با وارد کردن شماره همراه و کد ملی خود میتوانید به سادگی حساب خود را ایجاد
                     کنید</p>
                 </div>
               </div>
-              <auth-login :default-layout="false" />
+              <auth-login :default-layout="false"
+                          :redirect="false"
+                          @on-logged-in="loadAuthData" />
             </q-card>
           </div>
         </template>
@@ -226,6 +230,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    dense: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -313,7 +321,7 @@ export default {
   mounted () {
     this.loadAuthData()
     this.cartReview()
-    this.$bus.on('removeProduct', this.cartReview)
+    this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
