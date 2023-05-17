@@ -177,7 +177,7 @@ export default defineComponent({
     addToCart() {
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
         .then(() => {
-          this.$bus.emit('refreshCart')
+          this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
           this.addToCartLoading = false
         })

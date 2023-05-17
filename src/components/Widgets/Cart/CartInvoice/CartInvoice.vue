@@ -321,7 +321,7 @@ export default {
   mounted () {
     this.loadAuthData()
     this.cartReview()
-    this.$bus.on('refreshCart', this.cartReview)
+    this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
