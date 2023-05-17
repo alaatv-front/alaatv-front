@@ -283,6 +283,7 @@ export default {
   },
   mounted () {
     this.cartReview()
+    this.$bus.on('refreshCart', this.cartReview)
   },
   methods: {
     hasDiscount(order) {
