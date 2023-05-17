@@ -1,6 +1,7 @@
 <template>
   <div class="chatre-nejat-panel">
-    <div class="banner-row row">
+    <div v-if="canShowAdvisor"
+         class="banner-row row">
       <div class="col-lg-6 col-12 chatre-nejat-slogan">
         <div class="chatre-nejat-title">
           مشاوره
@@ -101,6 +102,11 @@ export default {
     },
     productTypeOptions: []
   }),
+  computed: {
+    canShowAdvisor () {
+      return this.advisorLoading || (!this.advisorLoading && this.advisor.id)
+    }
+  },
   watch: {
     productType(type, oldtype) {
       if (oldtype.id === null) {
