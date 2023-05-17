@@ -164,8 +164,9 @@ export default {
         return
       }
       this.$router.push({
-        name: 'UserPanel.Asset.ChatreNejat.Content',
+        name: 'UserPanel.Asset.TripleTitleSet.Content',
         params: {
+          eventName: this.$route.params.eventName,
           productId: this.$route.params.productId,
           setId: content.set.id,
           contentId: content.id

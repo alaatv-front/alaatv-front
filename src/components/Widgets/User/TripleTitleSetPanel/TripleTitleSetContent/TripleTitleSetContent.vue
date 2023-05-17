@@ -45,7 +45,7 @@
 
 <script>
 import { SetList } from 'src/models/Set.js'
-import { mixinChatreNejat } from 'src/mixin/Mixins.js'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
 import { SetSectionList } from 'src/models/SetSection.js'
 import { Content, ContentList } from 'src/models/Content.js'
 import videoBox from 'src/components/DashboardTripleTitleSet/videoBox.vue'
@@ -59,7 +59,7 @@ export default {
     commentBox,
     ContentVideoList
   },
-  mixins: [mixinChatreNejat],
+  mixins: [mixinTripleTitleSet],
   data: () => ({
     commentLoading: false,
     ContentVideoListKey: 0,

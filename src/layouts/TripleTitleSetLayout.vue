@@ -207,7 +207,7 @@ export default {
     ...mapMutations('AppLayout', [
       'updateLayoutLeftDrawerVisible'
     ]),
-    ...mapMutations('ChatreNejat', [
+    ...mapMutations('TripleTitleSet', [
       'updateSelectedTopic'
     ]),
     toggleLeftDrawer() {
