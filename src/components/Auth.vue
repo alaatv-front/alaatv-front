@@ -56,7 +56,7 @@ export default {
   mixins: [mixinAuth],
   props: {
     redirect: {
-      type: Object,
+      type: (Object, Boolean),
       default: null
     },
     defaultLayout: {

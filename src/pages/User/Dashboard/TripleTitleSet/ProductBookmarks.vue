@@ -101,13 +101,13 @@ export default {
   },
   computed: {
     setTopicList() {
-      return this.$store.getters['ChatreNejat/setTopicList']
+      return this.$store.getters['TripleTitleSet/setTopicList']
     },
     selectedTopic () {
-      return this.$store.getters['ChatreNejat/selectedTopic']
+      return this.$store.getters['TripleTitleSet/selectedTopic']
     },
     selectedTopicList() {
-      return this.$store.getters['ChatreNejat/setTopicList']
+      return this.$store.getters['TripleTitleSet/setTopicList']
     },
     selectedTopicInput() {
       return this.inputs.find(x => x.name === 'formBuilderCol').value[0].value
@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     updateSelectedTopic (content) {
-      this.$store.commit('ChatreNejat/updateSelectedTopic', content)
+      this.$store.commit('TripleTitleSet/updateSelectedTopic', content)
     },
     toggleDialog() {
       this.$emit('toggleDialog')
@@ -154,18 +154,19 @@ export default {
       this.$refs.entityIndex.search()
     },
     getProductSets(productId) {
-      this.$store.dispatch('ChatreNejat/getSet', productId)
+      this.$store.dispatch('TripleTitleSet/getSet', productId)
     },
     getProduct(productId) {
-      this.$store.dispatch('ChatreNejat/getSelectedProduct', productId)
+      this.$store.dispatch('TripleTitleSet/getSelectedProduct', productId)
     },
     goToContent(event, content) {
       if (event.target.localName === 'i' || event.target.localName === 'button') {
         return
       }
       this.$router.push({
-        name: 'UserPanel.Asset.ChatreNejat.Content',
+        name: 'UserPanel.Asset.TripleTitleSet.Content',
         params: {
+          eventName: this.$route.params.eventName,
           productId: this.$route.params.productId,
           setId: content.set.id,
           contentId: content.id
