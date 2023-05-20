@@ -332,136 +332,6 @@ const routes = [
                 ]
               },
               {
-                name: 'UserPanel.Asset.ChatreNejat',
-                path: 'chatre-nejat',
-                layoutConfig: {
-                  layoutHeaderType: 'chatre-nejat',
-                  layoutLeftSideBarType: 'chatre-nejat',
-                  layoutLeftDrawerOverlay: false,
-                  layoutLeftDrawerWidth: 100,
-                  layoutLeftDrawerVisible: true,
-                  layoutLeftDrawerBehavior: 'default',
-                  layoutFooter: false
-                },
-                component: () => import('layouts/bareLayout.vue'),
-                children: [
-                  {
-                    name: 'UserPanel.Asset.ChatreNejat.Products',
-                    path: '',
-                    component: () => import('pages/User/DashboardChatreNejat/Products.vue')
-                  },
-                  {
-                    name: 'UserPanel.Asset.ChatreNejat.ProductLayout',
-                    path: 'product',
-                    component: () => import('layouts/ChatreNejatLayout.vue'),
-                    children: [
-                      {
-                        name: 'UserPanel.Asset.ChatreNejat.ProductPage',
-                        path: ':productId',
-                        component: () => import('pages/User/DashboardChatreNejat/ProductPage.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.ChatreNejat.Content',
-                        path: ':productId/set/:setId/content/:contentId',
-                        component: () => import('pages/User/DashboardChatreNejat/Content.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.ChatreNejat.ProductDocuments',
-                        path: ':productId/documents',
-                        component: () => import('pages/User/DashboardChatreNejat/ProductDocuments.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.ChatreNejat.ProductComments',
-                        path: ':productId/comments',
-                        component: () => import('pages/User/DashboardChatreNejat/ProductComments.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.ChatreNejat.ProductSingleComment',
-                        path: ':productId/comments/:commentId',
-                        component: () => import('pages/User/DashboardChatreNejat/ProductCommentSingle.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.ChatreNejat.ProductBookmarks',
-                        props: true,
-                        path: ':productId/bookmarks',
-                        component: () => import('src/pages/User/DashboardChatreNejat/ProductBookmarks.vue')
-                      }
-                    ]
-                  },
-                  {
-                    name: 'UserPanel.Asset.ChatreNejat.Adviser.Content',
-                    path: ':setId/adviser/content/:contentId',
-                    props: true,
-                    component: () => import('src/pages/User/DashboardChatreNejat/Content.vue')
-                  }
-                ]
-              },
-              {
-                name: 'UserPanel.Asset.EmtahanNahaee',
-                path: 'emtahan-nahaee',
-                layoutConfig: {
-                  layoutHeaderType: 'emtahan-nahaee',
-                  layoutLeftSideBarType: 'emtahan-nahaee',
-                  layoutLeftDrawerOverlay: false,
-                  layoutLeftDrawerWidth: 100,
-                  layoutLeftDrawerVisible: true,
-                  layoutLeftDrawerBehavior: 'default',
-                  layoutFooter: false
-                },
-                component: () => import('layouts/bareLayout.vue'),
-                children: [
-                  {
-                    name: 'UserPanel.Asset.EmtahanNahaee.Products',
-                    path: '',
-                    component: () => import('pages/User/DashboardEmtahanNahaee/Products.vue')
-                  },
-                  {
-                    name: 'UserPanel.Asset.EmtahanNahaee.ProductLayout',
-                    path: 'product',
-                    component: () => import('layouts/EmtahanNahaeeLayout.vue'),
-                    children: [
-                      {
-                        name: 'UserPanel.Asset.EmtahanNahaee.ProductPage',
-                        path: ':productId',
-                        component: () => import('pages/User/DashboardEmtahanNahaee/ProductPage.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.EmtahanNahaee.Content',
-                        path: ':productId/set/:setId/content/:contentId',
-                        component: () => import('pages/User/DashboardEmtahanNahaee/Content.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.EmtahanNahaee.ProductDocuments',
-                        path: ':productId/documents',
-                        component: () => import('pages/User/DashboardEmtahanNahaee/ProductDocuments.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.EmtahanNahaee.ProductComments',
-                        path: ':productId/comments',
-                        component: () => import('pages/User/DashboardEmtahanNahaee/ProductComments.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.EmtahanNahaee.ProductSingleComment',
-                        path: ':productId/comments/:commentId',
-                        component: () => import('pages/User/DashboardEmtahanNahaee/ProductCommentSingle.vue')
-                      },
-                      {
-                        name: 'UserPanel.Asset.EmtahanNahaee.ProductBookmarks',
-                        props: true,
-                        path: ':productId/bookmarks',
-                        component: () => import('src/pages/User/DashboardEmtahanNahaee/ProductBookmarks.vue')
-                      }
-                    ]
-                  },
-                  {
-                    name: 'UserPanel.Asset.EmtahanNahaee.Adviser.Content',
-                    path: ':setId/adviser/content/:contentId',
-                    props: true,
-                    component: () => import('src/pages/User/DashboardEmtahanNahaee/Content.vue')
-                  }
-                ]
-              },
-              {
                 name: 'UserPanel.Asset.GiftCard',
                 path: 'gift-card',
                 layoutConfig: {
@@ -496,9 +366,86 @@ const routes = [
                     component: () => import('pages/User/GiftCardPanel/UserInfo.vue')
                   }
                 ]
+              },
+              {
+                name: 'UserPanel.Asset.TripleTitleSet',
+                path: ':eventName',
+                layoutConfig: {
+                  layoutHeaderType: 'triple-title-set',
+                  layoutLeftSideBarType: 'triple-title-set',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('src/layouts/bareLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.Products',
+                    path: '',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.ProductLayout',
+                    path: 'product',
+                    component: () => import('src/layouts/TripleTitleSetLayout.vue'),
+                    children: [
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductPage',
+                        path: ':productId',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductPage.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.Content',
+                        path: ':productId/set/:setId/content/:contentId',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductDocuments',
+                        path: ':productId/documents',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductDocuments.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductComments',
+                        path: ':productId/comments',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductComments.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductSingleComment',
+                        path: ':productId/comments/:commentId',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductCommentSingle.vue')
+                      },
+                      {
+                        name: 'UserPanel.Asset.TripleTitleSet.ProductBookmarks',
+                        props: true,
+                        path: ':productId/bookmarks',
+                        component: () => import('src/pages/User/Dashboard/TripleTitleSet/ProductBookmarks.vue')
+                      }
+                    ]
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content',
+                    path: ':setId/adviser/content/:contentId',
+                    props: true,
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                  }
+                ]
               }
             ]
-          }]
+          },
+          {
+            path: 'order/:orderId/thankYou',
+            name: 'UserPanel.ThankYouPage',
+            component: () => import('src/pages/ThankYouPage/ThankYouPage.vue'),
+            layoutConfig: {
+              layoutHeader: true,
+              layoutHeaderType: 'main',
+              layoutHeaderVisible: true,
+              layoutLeftDrawerVisible: false
+            }
+          }
+        ]
       },
       {
         path: 'admin',

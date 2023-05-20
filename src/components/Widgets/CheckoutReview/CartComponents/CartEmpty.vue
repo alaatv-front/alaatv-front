@@ -1,7 +1,7 @@
 <template>
   <div class="cart-container">
     <div class="cart-image">
-      <q-img src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/empty_cart.png" />
+      <q-img src="https://nodes.alaatv.com/upload/empty-cart.png" />
     </div>
     <div class="title">سبد خرید شما خالی است!</div>
     <router-link :to="{name: 'HomePage'}"

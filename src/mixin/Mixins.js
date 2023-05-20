@@ -5,10 +5,10 @@ import mixinTicket from '../mixin/ticket.js'
 import mixinWidget from 'src/mixin/Widgets.js'
 import mixinAuthData from '../mixin/AuthData.js'
 import mixinAbrisham from '../mixin/Abrisham.js'
-import mixinChatreNejat from '../mixin/ChatreNejat.js'
 import mixinDateOptions from '../mixin/DateOptions.js'
 import mixinPageOptions from '../mixin/PageOptions.js'
 import mixinPageBuilder from 'src/mixin/PageBuilder.js'
+import mixinTripleTitleSet from '../mixin/TripleTitleSet.js'
 import mixinPrefetchServerData from 'src/mixin/PrefetchServerData.js'
 import PageBuilderOptionPanel from 'src/mixin/PageBuilderOptionPanel.js'
 
@@ -20,10 +20,10 @@ export {
   mixinTicket,
   mixinAbrisham,
   mixinAuthData,
-  mixinChatreNejat,
   mixinDateOptions,
   mixinPageOptions,
   mixinPageBuilder,
+  mixinTripleTitleSet,
   PageBuilderOptionPanel,
   mixinPrefetchServerData
 }
