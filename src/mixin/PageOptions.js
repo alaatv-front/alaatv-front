@@ -63,7 +63,7 @@ const mixinPageOptions = {
 
       this.$store.commit('PageBuilder/updatePageDataLoaded', true)
     },
-    prefetchServerDataPromiseCatch (error) {
+    prefetchServerDataPromiseCatch () {
       this.pageBuilderLoading = false
     },
     getPageConfigRequest() {
