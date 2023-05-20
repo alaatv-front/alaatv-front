@@ -4,7 +4,7 @@
        :class="localOptions.customClass">
     <video-player ref="videoPlayer"
                   :key="playerKey"
-                  :source="url"
+                  :source="localOptions.url"
                   :poster="localOptions.poster" />
   </div>
 </template>
@@ -19,11 +19,11 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
-      url: '',
       defaultOptions: {
         src: '',
         url: '',
-        poster: ''
+        poster: '',
+        srcType: ''
       },
       playerKey: Date.now()
     }
