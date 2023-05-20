@@ -172,7 +172,7 @@ export default {
         .then((response) => {
           this.content = new Content(response)
           if (this.content.file.pamphlet) {
-            this.videoListRatio = 4 / 3
+            this.videoListRatio = 5 / 4
           }
           this.getSetByRequest()
           this.content.loading = false
@@ -235,6 +235,9 @@ export default {
     .responsive{
       max-height: 500px !important;
       .scroll{
+        &:deep(.q-scrollarea__content) {
+          width: -webkit-fill-available
+        }
         .other-contents{
           .content{
             border-radius: 10px;
