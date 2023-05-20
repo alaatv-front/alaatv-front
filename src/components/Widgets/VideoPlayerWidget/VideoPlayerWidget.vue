@@ -4,14 +4,14 @@
        :class="localOptions.customClass">
     <video-player ref="videoPlayer"
                   :key="playerKey"
-                  :source="url"
+                  :source="localOptions.url"
                   :poster="localOptions.poster" />
   </div>
 </template>
 
 <script>
-import VideoPlayer from 'src/components/VideoPlayer.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
 
 export default {
   name: 'VideoPlayerWidget',
@@ -19,11 +19,11 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
-      url: '',
       defaultOptions: {
         src: '',
         url: '',
-        poster: ''
+        poster: '',
+        srcType: ''
       },
       playerKey: Date.now()
     }
