@@ -230,8 +230,8 @@
 
 <script>
 import { Cart } from 'src/models/Cart.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 import { OrderProduct } from 'src/models/OrderProduct.js'
 
 export default {
