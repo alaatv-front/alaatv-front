@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import VideoPlayer from 'src/components/VideoPlayer.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import VideoPlayer from 'src/components/VideoPlayer.vue'
 
 export default {
   name: 'VideoPlayerWidget',

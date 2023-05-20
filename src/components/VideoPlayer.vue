@@ -33,12 +33,12 @@
 
 <script>
 import videojs from 'video.js'
-import fa from 'video.js/dist/lang/fa.json'
-import { Content } from 'src/models/Content'
-import { mixinAbrisham } from 'src/mixin/Mixins'
-import { PlayerSourceList } from 'src/models/PlayerSource'
-import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 import videojsBrand from 'videojs-brand'
+import fa from 'video.js/dist/lang/fa.json'
+import { Content } from 'src/models/Content.js'
+import { mixinAbrisham } from 'src/mixin/Mixins.js'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
+import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 
 import 'videojs-hls-quality-selector'
 // import 'videojs-contrib-quality-levels'
@@ -230,6 +230,7 @@ export default {
     },
     redefineTap () {
       this.player.on('touchend', function() { // tap
+        debugger
         if (this.player().controls()) {
           if (this.player().paused()) {
             this.player().play()
