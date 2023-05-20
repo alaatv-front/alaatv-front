@@ -1,22 +1,22 @@
 <template>
-  <div>
-    hi
-  </div>
-<!--  <q-page-builder v-model:sections="currenSections"-->
-<!--                  v-model:options="pageConfig"-->
-<!--                  :editable="pageBuilderEditable"-->
-<!--                  :loading="pageBuilderLoading" />-->
+  <!--  <div>-->
+  <!--    hi-->
+  <!--  </div>-->
+  <q-page-builder v-model:sections="currenSections"
+                  v-model:options="pageConfig"
+                  :editable="pageBuilderEditable"
+                  :loading="pageBuilderLoading" />
 </template>
 
 <script>
 import { User } from 'src/models/User.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { PageSetting } from 'src/models/PageSetting.js'
-// import { mixinSEO, mixinPageOptions, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinSEO, mixinPageOptions, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'Landing',
-  // mixins: [mixinPrefetchServerData, mixinPageOptions, mixinSEO],
+  mixins: [mixinPrefetchServerData, mixinPageOptions, mixinSEO],
   data () {
     return {
       user: new User(),
