@@ -230,7 +230,6 @@ export default {
     },
     redefineTap () {
       this.player.on('touchend', function() { // tap
-        debugger
         if (this.player().controls()) {
           if (this.player().paused()) {
             this.player().play()
