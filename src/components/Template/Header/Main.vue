@@ -250,13 +250,13 @@ export default {
           active: false,
           children: []
         },
-        {
-          title: 'داشبورد چتر نجات',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.ChatreNejat.Products',
-          permission: 'all',
-          active: false
-        },
+        // {
+        //   title: 'داشبورد چتر نجات',
+        //   icon: 'isax:document-1',
+        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+        //   permission: 'all',
+        //   active: false
+        // },
         {
           title: 'داشبورد ابریشم',
           icon: 'isax:document-1',

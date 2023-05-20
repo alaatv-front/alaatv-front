@@ -129,7 +129,7 @@ export default {
       }
     },
     selectedTopic() {
-      return this.$store.getters['ChatreNejat/selectedTopic']
+      return this.$store.getters['TripleTitleSet/selectedTopic']
     }
   },
   methods: {

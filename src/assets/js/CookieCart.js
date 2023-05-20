@@ -4,6 +4,7 @@ import { Cart } from 'src/models/Cart'
 export default class CookieCart {
   static setCartInCookie(cart) {
     Cookies.set('cartItems', JSON.stringify(cart), {
+      path: '/',
       expires: '365d'
     })
   }

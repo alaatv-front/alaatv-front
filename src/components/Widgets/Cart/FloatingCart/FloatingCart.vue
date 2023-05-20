@@ -6,8 +6,14 @@
            color="primary"
            size="lg"
            icon="shopping_cart"
-           @click="nextMorph" />
-
+           @click="nextMorph">
+      <q-badge v-if="cart.count > 0"
+               color="positive"
+               text-color="white"
+               floating
+               rounded
+               :label="cart.count" />
+    </q-btn>
     <q-card v-morph:card1:mygroup:500.resize="morphGroupModel"
             class="cart-floating-card q-ma-md bg-primary text-white">
       <q-card-section>
@@ -39,6 +45,7 @@
 import CartEmpty from '../CartEmpty/CartEmpty.vue'
 import CartInvoice from '../CartInvoice/CartInvoice.vue'
 import CartView from '../CartView/CartView.vue'
+import { Cart } from 'src/models/Cart.js'
 
 const nextMorphStep = {
   btn: 'card1',
@@ -63,17 +70,35 @@ export default {
         },
         photo: 'https://nodes.alaatv.com/upload/empty-cart.png'
       },
-      dense: true
+      dense: true,
+      cart: new Cart()
     }
+  },
+  mounted () {
+    this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
     nextMorph () {
-      if (this.morphGroupModel === 'btn') {
-        this.$refs.cartEmpty.cartReview()
-        this.$refs.cartView.cartReview()
-        this.$refs.cartInvoice.cartReview()
-      }
       this.morphGroupModel = nextMorphStep[this.morphGroupModel]
+    },
+    cartReview() {
+      this.cart.loading = true
+      this.$store.dispatch('Cart/reviewCart')
+        .then((response) => {
+          const invoice = response
+
+          const cart = new Cart(invoice)
+
+          if (invoice.count > 0) {
+            invoice.items.list[0].order_product.list.forEach((order) => {
+              cart.items.list.push(order)
+            })
+          }
+          this.cart = cart
+          this.cart.loading = false
+        }).catch(() => {
+          this.cart.loading = false
+        })
     }
   }
 }
@@ -114,10 +139,6 @@ export default {
     &:deep(.cart-image) {
       height: 140px;
       margin-top: 0px;
-    }
-    &:deep(.cart-view-widget) {
-      overflow-y: auto;
-      max-height: 250px;
     }
     &:deep(.cart-invoice .cart-invoice-container .invoice-container) {
       margin: 0;

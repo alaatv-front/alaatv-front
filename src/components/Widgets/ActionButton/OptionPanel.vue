@@ -79,6 +79,17 @@
             <q-checkbox v-model="localOptions.flat"
                         left-label />
           </div>
+          <div class="input-container col-md-2">
+            <div class="outsideLabel">fix</div>
+            <q-checkbox v-model="localOptions.fixed"
+                        left-label />
+          </div>
+          <div class="input-container col-md-4">
+            <div class="outsideLabel">flat</div>
+            <q-select v-model="localOptions.fixedPosition"
+                      :options="positionOptions"
+                      left-label />
+          </div>
         </div>
         <div class="input-container q-my-md">
           <div class="outsideLabel">image source</div>
@@ -140,6 +151,7 @@ export default defineComponent({
   data () {
     return {
       actionOptions: ['scroll', 'link', 'event'],
+      positionOptions: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
       defaultOptions: {
         color: null,
         icon: null,
@@ -162,7 +174,11 @@ export default defineComponent({
     'localOptions.flat': function (val) {
       if (val) {
         this.localOptions.style.background = ''
-        this.localOptions.color = ''
+      }
+    },
+    'localOptions.fixed': function (val) {
+      if (!val) {
+        this.localOptions.fixedPosition = null
       }
     }
   }
