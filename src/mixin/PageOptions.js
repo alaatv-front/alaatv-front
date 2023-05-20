@@ -44,11 +44,9 @@ const mixinPageOptions = {
       return this.getPageConfigRequest()
     },
     prefetchServerDataPromiseThen (pageSetting) {
-      console.warn('prefetchServerDataPromiseThen: ', pageSetting)
       const sections = pageSetting.value.sections
       const seo = pageSetting.value.seo
 
-      console.warn('PageBuilder sections: ', sections)
       // PageBuilder
       this.$store.commit('PageBuilder/updateCurrentSections', sections)
 
@@ -66,16 +64,13 @@ const mixinPageOptions = {
       this.$store.commit('PageBuilder/updatePageDataLoaded', true)
     },
     prefetchServerDataPromiseCatch (error) {
-      console.warn('prefetchServerDataPromiseCatch: ', error)
       this.pageBuilderLoading = false
     },
     getPageConfigRequest() {
-      console.warn('getPageConfigRequest')
       this.pageBuilderLoading = true
       const params = JSON.stringify(this.$route.params)
       const routeName = this.$route.name
       const key = 'route_name:' + routeName + (this.hasDynamicSettingWithParams ? ('-params:' + params) : '')
-      console.warn('APIGateway.pageSetting.get(key): ', key)
       return APIGateway.pageSetting.get(key)
     }
   }
