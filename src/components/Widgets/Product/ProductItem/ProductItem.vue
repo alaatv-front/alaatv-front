@@ -62,11 +62,13 @@
       </router-link>
     </div>
     <div class="product-content-box">
-      <div class="title-box">
-        <div class="main-title ellipsis-2-lines">
-          {{ product.title }}
+      <router-link :to="getRoutingObject">
+        <div class="title-box">
+          <div class="main-title ellipsis-2-lines">
+            {{ product.title }}
+          </div>
         </div>
-      </div>
+      </router-link>
       <div v-if="product.attributes"
            class="info-box">
         <div class="teacher-image">
@@ -82,31 +84,33 @@
       <div v-if="localOptions.showPrice"
            class="action-box">
         <div class="more-detail product-more-detail">
-          <div class="price-box">
-            <div class="price-info">
-              <div v-if="product.price['final'] !== product.price['base']"
-                   class="discount">
-                <span>
-                  %{{
-                    (
-                      (1 - product.price['final'] / product.price['base']) *
-                      100
-                    ).toFixed(0)
-                  }}
-                </span>
-              </div>
-              <div class="price-container">
-                <div class="final-price-box">
-                  <div class="final-price">
-                    {{ product.price['final'] }}
-                  </div>
-                  <div class="price-Toman">تومان</div>
+          <router-link :to="getRoutingObject">
+            <div class="price-box">
+              <div class="price-info">
+                <div v-if="product.price['final'] !== product.price['base']"
+                     class="discount">
+                  <span>
+                    %{{
+                      (
+                        (1 - product.price['final'] / product.price['base']) *
+                        100
+                      ).toFixed(0)
+                    }}
+                  </span>
                 </div>
-                <div v-if="product.price['discount'] !== 0"
-                     class="main-price">{{ product.price['base'] }}</div>
+                <div class="price-container">
+                  <div class="final-price-box">
+                    <div class="final-price">
+                      {{ product.price['final'] }}
+                    </div>
+                    <div class="price-Toman">تومان</div>
+                  </div>
+                  <div v-if="product.price['discount'] !== 0"
+                       class="main-price">{{ product.price['base'] }}</div>
+                </div>
               </div>
             </div>
-          </div>
+          </router-link>
         </div>
         <q-btn v-if="localOptions.canAddToCart"
                unelevated
