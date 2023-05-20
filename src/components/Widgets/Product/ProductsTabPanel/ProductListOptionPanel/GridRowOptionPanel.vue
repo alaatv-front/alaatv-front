@@ -100,7 +100,8 @@ export default {
       this.localOptions.data.splice(productIndex, 1)
     },
     addProduct (id) {
-      const newProduct = new Product({ id })
+      const peoductId = Number(id)
+      const newProduct = new Product({ id: peoductId })
       this.localOptions.data.push(newProduct)
 
       this.cancelProduct()
