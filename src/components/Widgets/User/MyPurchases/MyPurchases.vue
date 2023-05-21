@@ -128,19 +128,19 @@ export default {
       showContentDialog: false,
       selectedTab: 'pamphlet',
       searchTarget: '',
-      selectedFilterBoxValue: 'asc',
+      selectedFilterBoxValue: 'desc',
       currentPage: 1,
       filterBoxCategory: [],
       filteredProduct: new ProductList(),
       filterBoxSort: [
         {
           name: 'جدید ترین ها',
-          value: 'asc',
+          value: 'desc',
           selected: true
         },
         {
           name: 'قدیمی ترین ها',
-          value: 'desc',
+          value: 'asc',
           selected: false
         }],
       selectedSet: new Set(),
