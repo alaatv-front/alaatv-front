@@ -7,17 +7,17 @@
                     virtual-scroll-horizontal>
     <q-card :key="index"
             class="scroll-item-card">
-      <q-img :src="`https://nodes.alaatv.com/upload/landing/110/Rotbeh/${item.code}.png`"
-             width="160px"
-             height="160px"
-             spinner-color="primary"
-             class="student-img"
-             spinner-size="82px">
+      <lazy-img :src="item.image"
+                width="160px"
+                height="160px"
+                spinner-color="primary"
+                class="student-img"
+                spinner-size="82px">
         <div class="student-major"
              :class="{'riazi': item.major === 'ریاضی', 'tajrobi': item.major === 'تجربی'}">
           {{ item.major }}
         </div>
-      </q-img>
+      </lazy-img>
       <q-card-section class="person-name-card-section">
         <div class="student-name ellipsis-2-lines">{{ item.first_name + ' ' + item.last_name }}</div>
       </q-card-section>
@@ -41,9 +41,11 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'PersonSlider',
+  components: { LazyImg },
   mixins: [mixinWidget],
   data() {
     return {
