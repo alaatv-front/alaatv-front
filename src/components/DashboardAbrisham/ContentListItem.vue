@@ -274,6 +274,9 @@ export default {
               font-size: 12px;
               max-width: 338px;
             }
+            @media screen and (max-width: 599px) {
+              max-width: 200px;
+            }
             @media screen and (max-width: 350px) {
               font-size: 12px;
             }
@@ -294,6 +297,9 @@ export default {
             }
             @media screen and (max-width: 768px) {
               font-size: 14px;
+            }
+            @media screen and (max-width: 599px) {
+              max-width: 200px;
             }
             @media screen and (max-width: 350px) {
               font-size: 14px;
