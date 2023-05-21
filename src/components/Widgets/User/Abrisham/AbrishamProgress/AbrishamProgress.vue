@@ -57,7 +57,7 @@
         <content-list-component v-model:value="watchingContent"
                                 :loading="contents.loading"
                                 :afterLoad="contentsIsEmpty"
-                                :contents="contents"
+                                :contents="filteredContents"
                                 :header="{ title: 'لیست فیلم ها', button: { title: 'من کجام؟' } }"
                                 type="video"
                                 @itemClicked="setWatchingContent"
@@ -96,7 +96,8 @@
                           dense
                           emit-value
                           map-options
-                          placeholder="همه" />
+                          placeholder="همه"
+                          @update:model-value="setCurrentSection" />
               </div>
             </div>
           </template>
@@ -133,7 +134,7 @@
                                 :header="{ title: 'جزوه ها' }"
                                 :loading="contents.loading"
                                 :afterLoad="contentsIsEmpty"
-                                :contents="contents"
+                                :contents="filteredContents"
                                 type="pamphlet"
                                 @itemClicked="setWatchingContent"
                                 @whereAmI="loadUserLastState" />
@@ -176,6 +177,7 @@ export default {
     lessonGroups: [],
     lessons: [],
     contents: new ContentList(),
+    filteredContents: new ContentList(),
     watchingContent: new Content(),
     sets: new SetList(),
     sections: new SetSectionList(),
@@ -336,6 +338,14 @@ export default {
       this.sets = sets
     },
 
+    setCurrentSection (sectionId) {
+      this.filterContentsBasedOnSection(sectionId)
+    },
+
+    filterContentsBasedOnSection (sectionId) {
+      this.filteredContents.list = this.contents.list.filter(content => content.section.id === sectionId)
+    },
+
     setCurrentSet (setId, contentId) {
       this.currentSetId = setId
       this.showFirstSections(contentId)
@@ -350,6 +360,7 @@ export default {
 
     setSectionActive (id, contentId) {
       this.currentSectionId = id
+      this.filterContentsBasedOnSection(id)
       this.showFirstContent(contentId)
     },
 
