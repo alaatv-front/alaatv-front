@@ -147,7 +147,7 @@ export default {
   // this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
   },
   methods: {
-    ...mapMutations('ChatreNejat', [
+    ...mapMutations('TripleTitleSet', [
       'updateSelectedTopic'
     ]),
     logOut() {

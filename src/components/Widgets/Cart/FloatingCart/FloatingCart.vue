@@ -42,10 +42,10 @@
 </template>
 
 <script>
+import { Cart } from 'src/models/Cart.js'
+import CartView from '../CartView/CartView.vue'
 import CartEmpty from '../CartEmpty/CartEmpty.vue'
 import CartInvoice from '../CartInvoice/CartInvoice.vue'
-import CartView from '../CartView/CartView.vue'
-import { Cart } from 'src/models/Cart.js'
 
 const nextMorphStep = {
   btn: 'card1',
@@ -55,9 +55,9 @@ const nextMorphStep = {
 export default {
   name: 'FloatingCart',
   components: {
+    CartView,
     CartEmpty,
-    CartInvoice,
-    CartView
+    CartInvoice
   },
   data() {
     return {
