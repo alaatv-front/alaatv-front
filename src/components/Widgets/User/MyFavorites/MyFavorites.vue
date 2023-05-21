@@ -21,20 +21,20 @@
               <q-skeleton type="text" />
             </template>
             <template v-else>
+              <div class="search-box q-mb-md">
+                <q-input v-model="searchTextIn.products"
+                         outlined
+                         placeholder="جستجو ..."
+                         dense
+                         rounded
+                         @keydown.enter="searchInProductFavoreds" />
+              </div>
               <template v-if="productFavoreds.list.length > 0">
-                <div class="search-box q-mb-md">
-                  <q-input v-model="searchTextIn.products"
-                           outlined
-                           placeholder="جستجو ..."
-                           dense
-                           rounded
-                           @keydown.enter="searchInProductFavoreds" />
-                </div>
                 <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in productFavoreds.list"
                        :key="favoredItem.id"
                        class="col-12 col-sm-4 col-md-4 product-item flex justify-center">
-                    <product-item :options="{product: favoredItem.getProduct(), canAddToCart: false}" />
+                    <product-item :options="{product: favoredItem, canAddToCart: false , showPrice: false}" />
                   </div>
                 </div>
                 <div v-if="productPaginationLastPage > 1"
@@ -62,20 +62,20 @@
               <q-skeleton type="text" />
             </template>
             <template v-else>
+              <div class="search-box q-mb-md">
+                <q-input v-model="searchTextIn.sets"
+                         outlined
+                         placeholder="جستجو ..."
+                         dense
+                         rounded
+                         @keydown.enter="searchInSetFavoreds" />
+              </div>
               <template v-if="setFavoreds.list.length > 0">
-                <div class="search-box q-mb-md">
-                  <q-input v-model="searchTextIn.sets"
-                           outlined
-                           placeholder="جستجو ..."
-                           dense
-                           rounded
-                           @keydown.enter="searchInSetFavoreds" />
-                </div>
                 <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in setFavoreds.list"
                        :key="favoredItem.id"
                        class="col-12 col-sm-6 col-md-4 set-item">
-                    <set-item :options="{set: favoredItem.getSet()}" />
+                    <set-item :options="{set: favoredItem}" />
                   </div>
                 </div>
                 <div v-if="setPaginationLastPage > 1"
@@ -103,15 +103,15 @@
               <q-skeleton type="text" />
             </template>
             <template v-else>
+              <div class="search-box q-mb-md">
+                <q-input v-model="searchTextIn.contents"
+                         outlined
+                         placeholder="جستجو ..."
+                         dense
+                         rounded
+                         @keydown.enter="searchInContentFavoreds" />
+              </div>
               <template v-if="contentFavoreds.list.length > 0">
-                <div class="search-box q-mb-md">
-                  <q-input v-model="searchTextIn.contents"
-                           outlined
-                           placeholder="جستجو ..."
-                           dense
-                           rounded
-                           @keydown.enter="searchInContentFavoreds" />
-                </div>
                 <div class="row q-col-gutter-md justify-center">
                   <div v-for="favoredItem in contentFavoreds.list"
                        :key="favoredItem.id"
