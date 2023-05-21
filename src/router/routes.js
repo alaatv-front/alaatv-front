@@ -175,7 +175,7 @@ const routes = [
                 meta: {
                   hasDynamicSettingWithParams: true
                 },
-                name: 'Public.Landing',
+                name: 'Public.Landing.DynamicName',
                 component: () => import('src/pages/Public/Landings/Landing.vue')
               }
               // {
