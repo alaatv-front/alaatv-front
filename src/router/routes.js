@@ -175,33 +175,33 @@ const routes = [
                 meta: {
                   hasDynamicSettingWithParams: true
                 },
-                name: 'Public.Landing',
+                name: 'Public.Landing.DynamicName',
                 component: () => import('src/pages/Public/Landings/Landing.vue')
-              },
-              {
-                path: '36',
-                name: 'Public.Landing.FireDay',
-                meta: {
-                  hasDynamicSetting: true
-                },
-                component: () => import('src/pages/Public/Landings/FireDay.vue')
-              },
-              {
-                path: '15',
-                name: 'Public.Landing.Arash',
-                meta: {
-                  hasDynamicSetting: true
-                },
-                component: () => import('src/pages/Public/Landings/Arash.vue')
-              },
-              {
-                path: '9',
-                name: 'Public.Landing.Taftan',
-                meta: {
-                  hasDynamicSetting: true
-                },
-                component: () => import('src/pages/Public/Landings/Taftan.vue')
               }
+              // {
+              //   path: '36',
+              //   name: 'Public.Landing.FireDay',
+              //   meta: {
+              //     hasDynamicSetting: true
+              //   },
+              //   component: () => import('src/pages/Public/Landings/FireDay.vue')
+              // },
+              // {
+              //   path: '15',
+              //   name: 'Public.Landing.Arash',
+              //   meta: {
+              //     hasDynamicSetting: true
+              //   },
+              //   component: () => import('src/pages/Public/Landings/Arash.vue')
+              // },
+              // {
+              //   path: '9',
+              //   name: 'Public.Landing.Taftan',
+              //   meta: {
+              //     hasDynamicSetting: true
+              //   },
+              //   component: () => import('src/pages/Public/Landings/Taftan.vue')
+              // }
             ]
           }
         ]
