@@ -241,9 +241,14 @@ export default {
         }
       })
     },
+    hasPlugin (pluginName) {
+      return Object.keys(videojs.getPlugins()).includes(pluginName)
+    },
     initPlayer () {
-      videojs.registerPlugin('brand', videojsBrand)
-      if (this.isPlayerSourceList(this.source)) { // old multiple quality type
+      if (!this.hasPlugin('brand')) {
+        videojs.registerPlugin('brand', videojsBrand)
+      }
+      if (this.isPlayerSourceList(this.source) && !this.hasPlugin('videoJsResolutionSwitcher')) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
           default: 'کیفیت بالا',
