@@ -332,7 +332,7 @@ export default {
     }
     .tab-panels {
       padding-top: 0;
-      max-height: calc(100vh - 230px);
+      max-height: calc(100vh - 315px);
       overflow-y: auto;
     }
     .contents-block {
@@ -341,6 +341,7 @@ export default {
       padding: 10px 0 0 0;
       background: #ffffff;
       margin-right: 20px;
+      margin-left: 20px;
       border-radius: 20px;
       .pamphlet-title {
         height: 40px;
@@ -353,9 +354,6 @@ export default {
       }
       .block {
         margin-bottom: 0;
-        :deep(.scroll-view) {
-          overflow-x: auto;
-        }
         :deep(.block-header) {
           justify-content: normal;
         }
@@ -372,6 +370,7 @@ export default {
         :deep(.item-container) {
           .content-spacing{
             margin-right: 20px;
+            margin-left: 20px;
           }
         }
         :deep(.content-item-box) {
@@ -385,6 +384,7 @@ export default {
       padding: 10px 0 0 0;
       background: #ffffff;
       margin-right: 20px;
+      margin-left: 20px;
       border-radius: 20px;
       .pamphlet {
         min-width: 110px;
@@ -399,9 +399,6 @@ export default {
       }
       .block {
         margin-bottom: 0;
-        :deep(.scroll-view) {
-          overflow-x: hidden;
-        }
         :deep(.block-header) {
           justify-content: normal;
         }
@@ -418,6 +415,7 @@ export default {
         :deep(.item-container) {
           .content-spacing{
             margin-right: 20px;
+            margin-left: 20px;
           }
         }
         :deep(.content-item-box) {

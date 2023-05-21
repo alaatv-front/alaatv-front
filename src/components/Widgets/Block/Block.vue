@@ -254,7 +254,7 @@ export default {
     .scroll-view {
       display: flex;
       width: 100%;
-      overflow-x: scroll;
+      overflow-x: auto;
       /* this padding is needed due to move animation of card
       to avoid overflow behavior:
       https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
