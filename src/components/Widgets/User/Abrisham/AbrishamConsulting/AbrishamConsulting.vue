@@ -181,7 +181,7 @@ export default {
       this.contentListLoading = true
       try {
         this.contents = await this.$apiGateway.content.getConsultingContentList()
-        this.contents = this.contents.list.filter(content => content.isVideo())
+        this.contents.list = this.contents.list.filter(content => content.isVideo())
         this.setCurrentContent()
         this.contentListLoading = false
         this.hasLoaded = true
