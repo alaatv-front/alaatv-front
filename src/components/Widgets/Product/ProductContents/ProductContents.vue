@@ -46,7 +46,6 @@
                     class="bg-white text-black text-center tab-panels">
         <q-tab-panel name="videos">
           <div v-if="videos.length > 0"
-               v-dragscroll
                class="contents-block">
             <block-component class="block"
                              :options="getBlockOptions" />
@@ -154,7 +153,11 @@ export default {
       setTitle: null,
       setOptions: [],
       contents: new ContentList(),
-      filteredOptions: []
+      filteredOptions: [],
+      defaultOptions: {
+        showContentDownloadMenu: false,
+        contentGridView: false
+      }
     }
   },
   computed: {
@@ -165,9 +168,9 @@ export default {
           contents: this.contents
         }),
         gridView: this.localOptions.contentGridView,
+        showContentDownloadMenu: this.localOptions.showContentDownloadMenu,
         contentMinWidth: {
-          inGridView: '240px',
-          inScrollView: '318px'
+          inScrollView: '100px'
         }
       }
     },
@@ -267,7 +270,17 @@ export default {
         .then(set => {
           this.videos = []
           this.pamphlets = []
-          this.contents = set.contents
+          this.contents = new ContentList()
+          this.setContents(set)
+        })
+        .catch(() => {
+          this.set.loading = false
+        })
+    },
+    setContents (set) {
+      this.$apiGateway.set.getContents(set.id)
+        .then(ContentList => {
+          this.contents = ContentList
           set.contents.list.forEach(content => {
             if (content.isVideo()) {
               this.videos.push(content)
@@ -367,12 +380,6 @@ export default {
           padding-top: 0;
           padding-bottom: 0;
         }
-        :deep(.item-container) {
-          .content-spacing{
-            margin-right: 20px;
-            margin-left: 20px;
-          }
-        }
         :deep(.content-item-box) {
           width: auto;
         }
@@ -411,12 +418,6 @@ export default {
         :deep(.block-header) {
           padding-top: 0;
           padding-bottom: 0;
-        }
-        :deep(.item-container) {
-          .content-spacing{
-            margin-right: 20px;
-            margin-left: 20px;
-          }
         }
         :deep(.content-item-box) {
           width: auto;

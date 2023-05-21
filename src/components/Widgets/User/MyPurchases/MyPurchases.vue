@@ -60,7 +60,7 @@
     </div>
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
     <div class="col-12 productsCol q-mt-md q-px-xs-md q-px-none">
-      <div class="row justify-center items-center q-gutter-sm-lg">
+      <div class="row justify-center items-center q-col-gutter-sm-lg">
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
              class="col-12 col-sm-4 col-md-3">
@@ -73,7 +73,8 @@
                         @click="productItemClicked(product)" />
         </div>
       </div>
-      <pagination :meta="productPaginationMeta"
+      <pagination v-if="filteredProduct.list.length > 0"
+                  :meta="productPaginationMeta"
                   :disable="loading"
                   @updateCurrentPage="getProductsByPage" />
       <!--    --------------------------------------------------------------------------- show content box   --------------------------------------------------------------------------- -->
@@ -92,8 +93,9 @@
             position="bottom">
     <div class="product-contents">
       <product-contents :options="{
-        product: selectedProduct,
-        contentGridView: true
+        productId: selectedProduct.id,
+        contentGridView: true,
+        showContentDownloadMenu: true
       }" />
     </div>
   </q-dialog>
