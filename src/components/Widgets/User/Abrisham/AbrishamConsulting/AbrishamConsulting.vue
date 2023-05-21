@@ -33,7 +33,7 @@
                  v-text="currentContent.title" />
 
             <comment-box v-model:value="watchingContentComment"
-                         @input="saveComment" />
+                         @updateComment="saveComment" />
           </div>
         </div>
         <div class="col-md-4 col-12 content-list-col">
@@ -43,7 +43,7 @@
                                   :contents="filteredContents"
                                   :header="{ title: 'لیست فیلم ها'}"
                                   type="video"
-                                  @input="changeCurrentContent($event.id)" />
+                                  @itemClicked="changeCurrentContent($event.id)" />
         </div>
       </div>
       <div class="row  q-col-gutter-x-md q-mt-lg">
@@ -52,7 +52,7 @@
             <div class="current-content-title"
                  v-text="currentContent.title" />
             <comment-box v-model:value="watchingContentComment"
-                         @input="saveComment" />
+                         @updateComment="saveComment" />
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@ export default {
     }
   },
   async created() {
-    await this.getLoadContents(1213)
+    await this.loadContents()
     await this.nextPage()
   },
   methods: {
@@ -141,9 +141,10 @@ export default {
         this.news.loading = false
       }
     },
-    async getLoadContents(setId) {
+    async loadContents() {
       try {
-        this.contents = await this.$apiGateway.content.getConsultingContentList(setId)
+        this.contents = await this.$apiGateway.content.getConsultingContentList()
+        this.contents = this.contents.list.filter(content => content.isVideo())
         this.setCurrentContent()
         this.contentListLoading = false
         this.hasLoaded = true
@@ -151,13 +152,8 @@ export default {
         this.contentListLoading = false
       }
     },
-    // async getContentList(setId) {
-    //   // set/1213/contents
-    //
-    //   return await this.$axios.get(window.APIAddresses.consultingContents)
-    // },
     setCurrentContent() {
-      const currentContent = this.contents.list.find(item => item.type === 8)
+      const currentContent = this.contents.list.find(content => content.isVideo())
       if (!currentContent) return
       this.changeCurrentContent(currentContent.id)
     },
