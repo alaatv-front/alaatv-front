@@ -381,7 +381,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    height: calc( 100% - 30px );
+    height: 100%;
     z-index: 1;
     .over-player-wrapper {
       position: absolute;
