@@ -34,7 +34,7 @@
                   <div v-for="favoredItem in productFavoreds.list"
                        :key="favoredItem.id"
                        class="col-12 col-sm-4 col-md-4 product-item flex justify-center">
-                    <product-item :options="{product: favoredItem.getProduct(), canAddToCart: false , showPrice: false}" />
+                    <product-item :options="{product: favoredItem, canAddToCart: false , showPrice: false}" />
                   </div>
                 </div>
                 <div v-if="productPaginationLastPage > 1"
@@ -75,7 +75,7 @@
                   <div v-for="favoredItem in setFavoreds.list"
                        :key="favoredItem.id"
                        class="col-12 col-sm-6 col-md-4 set-item">
-                    <set-item :options="{set: favoredItem.getSet()}" />
+                    <set-item :options="{set: favoredItem}" />
                   </div>
                 </div>
                 <div v-if="setPaginationLastPage > 1"
