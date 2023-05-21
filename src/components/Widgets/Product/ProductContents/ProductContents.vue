@@ -352,7 +352,7 @@ export default {
       .block {
         margin-bottom: 0;
         :deep(.scroll-view) {
-          overflow-x: hidden;
+          overflow-x: auto;
         }
         :deep(.block-header) {
           justify-content: normal;
