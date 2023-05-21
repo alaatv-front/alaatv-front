@@ -1,4 +1,7 @@
 <template>
+  <!--  <div>-->
+  <!--    hi-->
+  <!--  </div>-->
   <q-page-builder v-model:sections="currenSections"
                   v-model:options="pageConfig"
                   :editable="pageBuilderEditable"
@@ -38,12 +41,12 @@ export default {
       }
 
       if (!this.isUserLogin) {
-        this.$router.push({ name: 'NotFound' })
+        // this.$router.push({ name: 'NotFound' })
         return
       }
 
       if (!this.user.hasPermission('editSiteSetting')) {
-        this.$router.push({ name: 'NotFound' })
+        // this.$router.push({ name: 'NotFound' })
         return
       }
 
@@ -55,7 +58,7 @@ export default {
       }).onOk(() => {
         this.createNewLanding()
       }).onCancel(() => {
-        this.$router.push({ name: 'Public.Home' })
+        // this.$router.push({ name: 'Public.Home' })
       })
     },
     createNewLanding () {

@@ -16,15 +16,15 @@
     </video>
     <div v-if="useOverPlayer"
          ref="overPlayer"
-         class="over-player-wrapper"
-         :style="{width: overPlayerWidth}">
+         class="over-player-wrapper">
       <q-btn icon-right="isax:menu-1"
              size="sm"
              color="primary"
              class="toggleSideBarBtn"
              @click="toggleSideBar" />
       <div class="over-player-slot"
-           :class="{'show': localOverPlayer, 'hide': !localOverPlayer}">
+           :class="{'show': localOverPlayer, 'hide': !localOverPlayer}"
+           :style="{width: overPlayerWidth}">
         <slot name="overPlayer" />
       </div>
     </div>
@@ -112,6 +112,7 @@ export default {
   emits: ['seeked', 'update:sideBar'],
   data() {
     return {
+      width: '',
       drawer: false,
       player: null,
       localOverPlayer: false,
@@ -200,6 +201,7 @@ export default {
     }
   },
   created() {
+    this.width = this.overPlayerWidth
     this.setPoster()
     this.setSources()
   },
@@ -327,7 +329,7 @@ export default {
     },
     toggleSideBar () {
       this.localOverPlayer = !this.localOverPlayer
-      this.$emit('update:sideBar', this.localOverPlayer)
+      // this.$emit('update:sideBar', this.localOverPlayer)
     },
     activate(time) {
       this.player.currentTime(time)
@@ -388,7 +390,6 @@ export default {
       height: 100%;
       .over-player-slot {
         left: 2000px;
-        width: 100%;
         height: 100%;
         color: initial;
         transition: 0.4s;
@@ -399,6 +400,7 @@ export default {
           right: 0;
         }
         &.hide {
+          width: 0 !important;
           right: 2500px;
         }
       }
