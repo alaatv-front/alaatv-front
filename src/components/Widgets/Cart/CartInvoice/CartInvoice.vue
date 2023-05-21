@@ -203,8 +203,8 @@
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
 import AuthLogin from 'components/Auth.vue'
-import { APIGateway } from 'src/api/APIGateway'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 
 let StickySidebar
