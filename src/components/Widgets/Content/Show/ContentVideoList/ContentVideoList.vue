@@ -8,16 +8,26 @@
       </div>
     </template>
     <template v-else>
-      <q-card v-if="content.file?.pamphlet && content.file.pamphlet[0]?.link"
+      <q-card v-if="hasPamphlet()"
               class="download-section custom-card q-pa-md q-mx-md q-mb-md bg-white flex">
-        <q-btn icon="isax:document-download"
-               flat
-               color="primary"
-               size="13px"
-               @click="downloadPdf" />
-        <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
-                                             :href="content.file.pamphlet[0].link"
-                                             target="_blank"> PDF </a>{{content.title}}</h6>
+        <div class="row">
+          <div class="col-md-1">
+            <a :href="content.file.pamphlet[0].link"
+               :title="content.file.pamphlet[0].ext"
+               target="_blank">
+              <q-btn icon="isax:document-download"
+                     flat
+                     :disable="content.can_see"
+                     color="primary"
+                     size="13px" />
+            </a>
+          </div>
+          <div class="col-md-11">
+            <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
+                                                 :href="content.file.pamphlet[0].link"
+                                                 target="_blank"> PDF </a>{{content.title}}</h6>
+          </div>
+        </div>
       </q-card>
       <q-card class="video-list custom-card bg-white q-mx-md q-pb-md">
         <div class="q-px-md row">
@@ -30,7 +40,7 @@
         </div>
         <q-separator class="q-ma-md" />
         <q-responsive class="responsive"
-                      :ratio="11/12">
+                      :ratio="videoListRatio">
           <q-scroll-area class="scroll"
                          :thumb-style="thumbStyle">
             <div v-for="(content,index) in set.contents.list"
@@ -110,6 +120,7 @@ export default {
   },
   data() {
     return {
+      videoListRatio: 11 / 12,
       content: new Content(),
       set: new Set(),
       thumbStyle: {
@@ -133,11 +144,11 @@ export default {
     this.loadContent()
   },
   methods: {
+    hasPamphlet() {
+      return this.content.file.pamphlet && this.content.file.pamphlet[0]
+    },
     showTime(duration) {
       return Time.msToTime(duration * 1000)
-    },
-    downloadPdf() {
-      window.open(this.content.file.pamphlet.link, '_blank')
     },
     loadContent() {
       this.getContentByRequest()
@@ -160,6 +171,9 @@ export default {
       APIGateway.content.show(contentId)
         .then((response) => {
           this.content = new Content(response)
+          if (this.content.file.pamphlet) {
+            this.videoListRatio = 5 / 4
+          }
           this.getSetByRequest()
           this.content.loading = false
         })
@@ -221,6 +235,9 @@ export default {
     .responsive{
       max-height: 500px !important;
       .scroll{
+        &:deep(.q-scrollarea__content) {
+          width: -webkit-fill-available
+        }
         .other-contents{
           .content{
             border-radius: 10px;

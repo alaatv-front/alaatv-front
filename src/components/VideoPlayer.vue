@@ -16,15 +16,15 @@
     </video>
     <div v-if="useOverPlayer"
          ref="overPlayer"
-         class="over-player-wrapper"
-         :style="{width: overPlayerWidth}">
+         class="over-player-wrapper">
       <q-btn icon-right="isax:menu-1"
              size="sm"
              color="primary"
              class="toggleSideBarBtn"
              @click="toggleSideBar" />
       <div class="over-player-slot"
-           :class="{'show': localOverPlayer, 'hide': !localOverPlayer}">
+           :class="{'show': localOverPlayer, 'hide': !localOverPlayer}"
+           :style="{width: overPlayerWidth}">
         <slot name="overPlayer" />
       </div>
     </div>
@@ -33,12 +33,12 @@
 
 <script>
 import videojs from 'video.js'
-import fa from 'video.js/dist/lang/fa.json'
-import { Content } from 'src/models/Content'
-import { mixinAbrisham } from 'src/mixin/Mixins'
-import { PlayerSourceList } from 'src/models/PlayerSource'
-import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 import videojsBrand from 'videojs-brand'
+import fa from 'video.js/dist/lang/fa.json'
+import { Content } from 'src/models/Content.js'
+import { mixinAbrisham } from 'src/mixin/Mixins.js'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
+import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 
 import 'videojs-hls-quality-selector'
 // import 'videojs-contrib-quality-levels'
@@ -112,6 +112,7 @@ export default {
   emits: ['seeked', 'update:sideBar'],
   data() {
     return {
+      width: '',
       drawer: false,
       player: null,
       localOverPlayer: false,
@@ -145,6 +146,7 @@ export default {
         languages: {
           fa
         },
+        responsive: true,
         autoplay: false,
         controls: true,
         playbackRates: [0.5, 1, 1.5, 2, 3, 4],
@@ -199,6 +201,7 @@ export default {
     }
   },
   created() {
+    this.width = this.overPlayerWidth
     this.setPoster()
     this.setSources()
   },
@@ -326,7 +329,7 @@ export default {
     },
     toggleSideBar () {
       this.localOverPlayer = !this.localOverPlayer
-      this.$emit('update:sideBar', this.localOverPlayer)
+      // this.$emit('update:sideBar', this.localOverPlayer)
     },
     activate(time) {
       this.player.currentTime(time)
@@ -387,7 +390,6 @@ export default {
       height: 100%;
       .over-player-slot {
         left: 2000px;
-        width: 100%;
         height: 100%;
         color: initial;
         transition: 0.4s;
@@ -398,6 +400,7 @@ export default {
           right: 0;
         }
         &.hide {
+          width: 0 !important;
           right: 2500px;
         }
       }
@@ -423,6 +426,10 @@ export default {
       border-radius: 100%;
       background: $primary;
       border-color: $primary;
+
+      @media screen and(max-width: 600px) {
+        margin-top: -60px;
+      }
       .vjs-icon-placeholder:before {
         display: flex;
         font-size: 65px;
@@ -449,6 +456,14 @@ export default {
             }
           }
         }
+      }
+    }
+    .vjs-play-progress {
+      &:before {
+        /*rtl:ignore*/
+        right: -0.5em;
+        /*rtl:ignore*/
+        left: auto;
       }
     }
   }

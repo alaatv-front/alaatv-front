@@ -16,7 +16,7 @@
           </div>
           <div class="logo-pic">
             <div class="homepage">
-              <lazy-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+              <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
                         :alt="'logo'"
                         width="40"
                         height="40"
@@ -250,13 +250,13 @@ export default {
           active: false,
           children: []
         },
-        {
-          title: 'داشبورد چتر نجات',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.ChatreNejat.Products',
-          permission: 'all',
-          active: false
-        },
+        // {
+        //   title: 'داشبورد چتر نجات',
+        //   icon: 'isax:document-1',
+        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+        //   permission: 'all',
+        //   active: false
+        // },
         {
           title: 'داشبورد ابریشم',
           icon: 'isax:document-1',
