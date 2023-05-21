@@ -332,6 +332,8 @@ export default {
     }
     .tab-panels {
       padding-top: 0;
+      max-height: calc(100vh - 230px);
+      overflow-y: auto;
     }
     .contents-block {
       display: flex;
