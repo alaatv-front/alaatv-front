@@ -459,7 +459,7 @@ export default {
 .userAbrishamProgress-page {
   margin: 0 60px 100px;
   @media screen and (max-width: 1904px) {
-    margin: 0 10px;
+    margin: 0 10px 40px;
   }
   @media screen and (max-width: 1023px) {
     margin: 0;
