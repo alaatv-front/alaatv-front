@@ -163,19 +163,13 @@ export default {
   overflow: hidden;
   margin-bottom: 50px;
   @media screen and (max-width: 1023px){
-    max-height: 707px;
-    min-height: fit-content;
-
+    height: 540px;
   }
   @media screen and (max-width: 1200px) {
     border-radius: 20px;
   }
   @media screen and (max-width: 768px) {
     border-radius: 15px;
-  }
-  @media screen and (max-width: 600px) {
-    border-radius: 15px;
-    max-height: 540px;
   }
   &.no-data{
     height: 170px;
