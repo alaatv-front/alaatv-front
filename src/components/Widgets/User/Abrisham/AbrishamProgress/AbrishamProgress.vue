@@ -223,10 +223,6 @@ export default {
       }
     },
 
-    // getUserLastState() {
-    //   return this.$axios.get('/api/v2/product/' + this.selectedLessonId + '/toWatch')
-    // },
-
     async initPage () {
       this.progressLoading = true
       const lessonGroups = await this.getLessonGroups()
@@ -343,6 +339,10 @@ export default {
     },
 
     filterContentsBasedOnSection (sectionId) {
+      if (sectionId === 'all') {
+        this.filteredContents.list = this.contents.list
+        return
+      }
       this.filteredContents.list = this.contents.list.filter(content => content.section.id === sectionId)
     },
 
@@ -358,10 +358,10 @@ export default {
       this.setSectionActive(firstSection.id, contentId)
     },
 
-    setSectionActive (id, contentId) {
-      this.currentSectionId = id
-      this.filterContentsBasedOnSection(id)
-      this.showFirstContent(contentId)
+    async setSectionActive (sectionId, contentId) {
+      this.currentSectionId = sectionId
+      await this.showFirstContent(contentId)
+      this.filterContentsBasedOnSection(sectionId)
     },
 
     getSet (setId) {
@@ -404,12 +404,8 @@ export default {
       return this.sections.list[0]
     },
 
-    // requestToGetSets (params) {
-    //   return this.$axios.get('/api/v2/product/' + params.lessonId + '/sets')
-    // },
-
     async showFirstContent (contentId) {
-      const contents = await this.getContents()
+      const contents = await this.getContentsOfSet(this.currentSetId)
       this.contents.loading = false
       this.setContents(contents)
       if (!contentId) {
@@ -430,10 +426,10 @@ export default {
       this.watchingContent = content || new Content()
     },
 
-    async getContents () {
+    async getContentsOfSet (setId) {
       this.contents.loading = true
       try {
-        return await this.$apiGateway.set.getContents(this.currentSetId)
+        return await this.$apiGateway.set.getContents(setId)
       } catch {
         this.contents.loading = false
       }
@@ -442,14 +438,6 @@ export default {
     setContents (contents) {
       this.contents = contents
     }
-
-    // requestToGetContents () {
-    //   return this.$axios.get('/api/v2/set/' + this.currentSetId + '/contents')
-    // }
-
-    // getLessons () {
-    //   return this.$axios.get('/api/v2/abrisham/lessons')
-    // }
 
   }
 }
