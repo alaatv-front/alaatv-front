@@ -156,7 +156,8 @@ export default {
       filteredOptions: [],
       defaultOptions: {
         showContentDownloadMenu: false,
-        contentGridView: false
+        contentGridView: false,
+        product: new Product()
       }
     }
   },
@@ -175,11 +176,11 @@ export default {
       }
     },
     productId () {
-      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
-        return this.options.productId
+      if (typeof this.localOptions.productId !== 'undefined' && this.localOptions.productId !== null) {
+        return this.localOptions.productId
       }
-      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
-        return this.$route.params[this.options.urlParam]
+      if (this.localOptions.urlParam && this.$route.params[this.localOptions.urlParam]) {
+        return this.$route.params[this.localOptions.urlParam]
       }
       if (this.$route.params.id) {
         return this.$route.params.id
@@ -229,8 +230,8 @@ export default {
     },
     setProduct () {
       this.product.loading = true
-      if (this.options.product.id) {
-        this.product = this.options.product
+      if (this.localOptions.product.id) {
+        this.product = this.localOptions.product
         this.setProductSets(this.product)
         this.product.loading = false
         return
@@ -256,7 +257,7 @@ export default {
       this.product.loading = false
     },
     getProduct() {
-      if (this.options.product?.id || !this.productId) {
+      if (this.localOptions.product?.id || !this.productId) {
         return new Promise((resolve) => {
           resolve(new Product())
         })
