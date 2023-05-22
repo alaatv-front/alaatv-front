@@ -462,7 +462,7 @@ export default {
     margin: 0 10px 40px;
   }
   @media screen and (max-width: 1023px) {
-    margin: 0;
+    margin: 0 0 30px;
   }
 
   .chip-parent{
