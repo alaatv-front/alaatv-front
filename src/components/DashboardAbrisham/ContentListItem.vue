@@ -58,7 +58,7 @@
         </div>
         <div v-else-if="type === 'pamphlet' && content.file.pamphlet.length > 0"
              class="sheet-icon flex justify-between items-center">
-          <div class="title-box">
+          <div class="title-box title-box-pamphlet">
             <p class="contentListItem-title">
               {{ content.short_title }}
             </p>
@@ -270,6 +270,9 @@ export default {
               color: #9fa5c0;
               max-width: 202px;
             }
+            @media screen and (max-width: 1400px) {
+              max-width: 200px;
+            }
             @media screen and (max-width: 768px) {
               font-size: 12px;
               max-width: 338px;
@@ -303,6 +306,16 @@ export default {
             }
             @media screen and (max-width: 350px) {
               font-size: 14px;
+            }
+          }
+
+          &.title-box-pamphlet {
+            max-width: 180px;
+            @media screen and (max-width: 1023px){
+              max-width: 180px;
+            }
+            @media screen and (max-width: 768px) {
+              max-width: 166px;
             }
           }
         }
