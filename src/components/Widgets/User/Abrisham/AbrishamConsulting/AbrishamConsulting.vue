@@ -1,6 +1,43 @@
 <template>
   <div class="consulting-page">
-    <div class="consulting-msg">
+
+    <div v-if="news.loading || this.contentListLoading"
+         class="consulting-msg">
+      <p class="consulting-title">
+        <q-skeleton width="150px" />
+      </p>
+      <div class="consulting-main text-center">
+        <q-skeleton height="190px" />
+      </div>
+      <div class="title-style">  <q-skeleton width="150px" /> </div>
+      <div class="row q-col-gutter-x-md q-mt-md">
+        <div class="video-box-col col-12 col-md-8 col-xs-12">
+          <q-skeleton :height="$q.screen.lt.md ? '200px' : '700px'" />
+          <div class="mobile-view">
+            <q-skeleton width="50px" />
+
+            <q-skeleton height="200px" />
+          </div>
+        </div>
+        <div class="col-md-4 col-12 content-list-col">
+          <q-skeleton :height="$q.screen.lt.md ? '200px' : '700px'" />
+        </div>
+      </div>
+      <div class="row  q-col-gutter-x-md q-mt-lg">
+        <div class="col-8 ">
+          <div class="desktop-view">
+            <q-skeleton width="50px"
+                        class="q-my-sm" />
+            <q-skeleton width="150px"
+                        class="q-my-sm" />
+
+            <q-skeleton height="200px" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="!news.loading && !this.contentListLoading && contents.list.length > 0"
+         class="consulting-msg">
       <p class="consulting-title">
         پیام مشاور
       </p>
@@ -24,8 +61,7 @@
       <div class="row q-col-gutter-x-md q-mt-md">
         <div class="video-box-col col-12 col-md-8 col-xs-12">
           <!--          @has_watched="watched"-->
-          <!--                               :afterLoad="hasLoaded"
--->
+          <!--                               :afterLoad="hasLoaded"-->
           <video-box :content="currentContent"
                      @favorite="toggleFavor" />
           <div class="mobile-view">
@@ -142,6 +178,7 @@ export default {
       }
     },
     async getLoadContents(setId) {
+      this.contentListLoading = true
       try {
         this.contents = await this.$apiGateway.content.getConsultingContentList(setId)
         this.setCurrentContent()
