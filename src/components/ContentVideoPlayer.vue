@@ -30,7 +30,9 @@
               </q-item-section>
               <q-item-section class="text-section">
                 <span>{{ timepoint.title }}</span>
-                <span>{{ timepoint.formattedTime() }}</span>
+                <span v-if="currentContent.can_user_use_timepoint">
+                  {{ timepoint.formattedTime() }}
+                </span>
               </q-item-section>
             </q-item>
           </q-list>
@@ -52,8 +54,8 @@
 </template>
 
 <script>
-import Bookmark from 'components/Bookmark.vue'
 import { Content } from 'src/models/Content.js'
+import Bookmark from 'src/components/Bookmark.vue'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
 
 export default {
@@ -146,6 +148,19 @@ export default {
       if (!this.$refs.videoPlayer) {
         return
       }
+      if (!this.currentContent.can_user_use_timepoint) {
+        this.$q.dialog({
+          title: 'استفاده از زمان کوب',
+          message: 'جهت استفاده از زمان کوب می بایست اشتراک خریداری کنید.',
+          cancel: true,
+          persistent: true
+        }).onOk(() => {
+          this.$router.push({ name: 'Public.Landing.DynamicName', params: { landing_name: 'timepoint' } })
+        }).onCancel(() => {
+          // this.$router.push({ name: 'Public.Home' })
+        })
+        return
+      }
       this.$refs.videoPlayer.changeCurrentTime(timepoint.time)
     },
     activate(time) {
@@ -226,6 +241,7 @@ export default {
   width: 100%;
   color: white;
   height: 100%;
+  padding-bottom: 30px;
   background: rgba(0,0,0,0.4);
   .timepoint-list-title {
     text-align: center;

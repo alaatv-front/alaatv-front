@@ -241,9 +241,14 @@ export default {
         }
       })
     },
+    hasPlugin (pluginName) {
+      return Object.keys(videojs.getPlugins()).includes(pluginName)
+    },
     initPlayer () {
-      videojs.registerPlugin('brand', videojsBrand)
-      if (this.isPlayerSourceList(this.source)) { // old multiple quality type
+      if (!this.hasPlugin('brand')) {
+        videojs.registerPlugin('brand', videojsBrand)
+      }
+      if (this.isPlayerSourceList(this.source) && !this.hasPlugin('videoJsResolutionSwitcher')) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
           default: 'کیفیت بالا',
@@ -381,7 +386,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    height: calc( 100% - 30px );
+    height: 100%;
     z-index: 1;
     .over-player-wrapper {
       position: absolute;
