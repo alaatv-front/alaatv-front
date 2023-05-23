@@ -7,7 +7,6 @@
                     :items="lessonGroups"
                     item-text="title"
                     item-value="id"
-                    :loading="lessonGroupsLoading"
                     @update:value="onChangeLessonGroup" />
       </div>
       <div class="col-xl-5 col-lg-6 col-sm-12 col-xs-6">
@@ -22,7 +21,8 @@
     </div>
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-x-md">
-      <div class="video-box-col col-12 col-md-8 col-xs-12">
+      <div v-if="!contents.loading && !lessonGroupsLoading"
+           class="video-box-col col-12 col-md-8 col-xs-12">
         <!--        :afterLoad="contentsIsEmpty"-->
         <video-box :lesson="currentLesson"
                    :set="currentSet"
@@ -39,7 +39,21 @@
                        @updateComment="saveComment" />
         </div>
       </div>
-      <div class="col-md-4 col-12 content-list-col">
+      <div v-else
+           class="video-box-col col-12 col-md-8 col-xs-12">
+        <q-skeleton :height="$q.screen.lt.md ? '200px' : '700px'" />
+        <div class="mobile-view">
+
+          <q-skeleton width="50px"
+                      class="q-my-sm" />
+          <q-skeleton width="150px"
+                      class="q-my-sm" />
+
+          <q-skeleton height="200px" />
+        </div>
+      </div>
+      <div v-if="!contents.loading && !lessonGroupsLoading"
+           class="col-md-4 col-12 content-list-col">
         <content-list-component v-model:value="watchingContent"
                                 :loading="contents.loading"
                                 :afterLoad="contentsIsEmpty"
@@ -88,30 +102,52 @@
           </template>
         </content-list-component>
       </div>
+      <div v-else
+           class="col-md-4 col-12 content-list-col">
+        <q-skeleton :height="$q.screen.lt.md ? '200px' : '700px'" />
+      </div>
     </div>
     <!--   --------------------------------- comment box &&  content list item------------------------- -->
     <div class="row  q-col-gutter-x-md q-mt-lg">
       <div class="col-8">
-        <div class="desktop-view">
+        <div v-if="!contents.loading && !lessonGroupsLoading"
+             class="desktop-view">
           <div class="current-content-title"
                v-text="watchingContent?.title" />
           <comment-box v-model:value="watchingContentComment"
                        :doesnt-have-content="contentsIsEmpty"
                        @updateComment="saveComment" />
         </div>
+        <div v-else
+             class="desktop-view">
+          <q-skeleton width="50px"
+                      class="q-my-sm" />
+          <q-skeleton width="150px"
+                      class="q-my-sm" />
+
+          <q-skeleton height="200px" />
+        </div>
       </div>
       <div class="col-12 col-md-4">
-        <content-list-component :header="{ title: 'جزوه ها' }"
+        <content-list-component v-if="!contents.loading && !lessonGroupsLoading"
+                                :header="{ title: 'جزوه ها' }"
                                 :loading="contents.loading"
                                 :afterLoad="contentsIsEmpty"
                                 :contents="contents"
                                 type="pamphlet"
                                 @itemClicked="setWatchingContent"
                                 @whereAmI="loadUserLastState" />
+        <template v-else>
+          <q-skeleton width="50px"
+                      class="q-my-sm" />
+          <q-skeleton width="150px"
+                      class="q-my-sm" />
+
+          <q-skeleton height="200px" />
+        </template>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -149,7 +185,8 @@ export default {
     userLastState: {
       setId: null,
       contentId: null
-    }
+    },
+    progressLoading: false
   }),
   computed: {
     contentsIsEmpty () {
@@ -181,7 +218,6 @@ export default {
         this.userLastState.contentId = contentId
         this.setCurrentSet(setId, contentId)
       } catch {
-
       }
     },
 
@@ -190,7 +226,9 @@ export default {
     // },
 
     async initPage () {
+      this.progressLoading = true
       const lessonGroups = await this.getLessonGroups()
+      this.progressLoading = false
       this.showLessonGroups(lessonGroups)
     },
 
@@ -262,7 +300,8 @@ export default {
     },
 
     async getLessonGroups() {
-      this.lnssonGroupsLoading = true
+      this.lessonGroupsLoading = true
+      this.progressLoading = true
       try {
         const lessonList = await this.$apiGateway.abrisham.getLessons()
         return lessonList.map((item) => {
@@ -272,17 +311,18 @@ export default {
           }
         })
       } catch {
-        this.lnssonGroupsLoading = true
+        this.lessonGroupsLoading = false
+        this.progressLoading = false
         return []
       }
     },
 
     async showSets (lessonId) {
-      this.lnssonGroupsLoading = true
+      this.lessonGroupsLoading = true
       const sets = await this.getSets(lessonId)
       this.setSets(sets)
       await this.showUserLastState()
-      this.lnssonGroupsLoading = false
+      this.lessonGroupsLoading = false
       // const firstSet = this.getFirstSet()
       // this.setCurrentSet(firstSet.id)
     },
