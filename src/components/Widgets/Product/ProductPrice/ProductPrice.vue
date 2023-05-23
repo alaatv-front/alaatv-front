@@ -20,7 +20,7 @@
            class="product-final-price">
         {{ product.price.toman('final', null) }}
         <div v-if="product.price.toman('discount') !== 0"
-             class="main-price">{{ product.price['base'] }}</div>
+             class="main-price">{{ product.price.toman('base', false) }}</div>
       </div>
 
       <div class="product-price-title"> تومان</div>
