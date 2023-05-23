@@ -8,8 +8,9 @@
         {{ localOptions.block.title }}
       </a>
       <q-btn v-if="!localOptions.block.banners || localOptions.block.banners.list.length === 0"
-             round
              color="primary"
+             size="md"
+             square
              :icon="isGridView ? 'sync_alt' : 'grid_view'"
              @click="isGridView = !isGridView" />
     </div>
