@@ -272,7 +272,7 @@ export default {
       return this.$store.getters['Cart/cart'].count
     },
     showHamburger () {
-      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.lg
     },
     computedUserId () {
       const user = this.$store.getters['Auth/user']
