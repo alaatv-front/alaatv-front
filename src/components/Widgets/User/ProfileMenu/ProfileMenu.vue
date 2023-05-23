@@ -99,6 +99,42 @@
               <div class="menu-item-title q-ml-sm">نشان شده ها</div>
             </q-item-section>
           </q-item>
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.Asset.Abrisham.Progress'}">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
+                  href="https://alaatv.com/asset/abrishamPro#/user-abrisham-progress">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم پرو</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: 'chatre-nejat'}}">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">داشبورد چترنجات</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: 'emtahan-nahaee'}}">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">داشبورد امتحان نهایی</div>
+            </q-item-section>
+          </q-item>
           <!--          <q-item v-ripple-->
           <!--                  clickable>-->
           <!--            <q-item-section class="menu-item-custom">-->
@@ -257,6 +293,11 @@ export default {
 }
 .note {
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGaSURBVHgB1VXdbYMwEHZI8p4RyARNFJB4JBM0naBlg46QTNBmgjYTtJ0gPCIhiEdgBN4R0O+LjOTQ8JNWPPSTjO3z3fnz+XwIMRBGbYu2bS+Kongpy9K8MBqNkul06gVBkNzs2HEcM8uyI8eGYfj6GjZz0c3yPJ9LKdNejskSDB/RaLyA02UYhlLXWQDj8fgE5hJ6Eux3dfZGnSXYHKH8BKOzDONZfXM4NbXpBic7kVAj49VqxaObOOIafUpWnKP5mtpMydIoiuYgb0KPdgnm66uMARdMD4hbwtipDfZkrzXG9IC1JQ2oi+6LtrqjSTXgzucj4MYrmTJ6Fh1gnLkpQ1nF2hAD4f85njQtWJblIvXeauJ9HMev4i+OeftII1+X4ZJEXzQ6Vq/NE7/EpG2R6dO23laEGh3jFfKpfogW4Bl7ONn7TY7xsnzE+OFaraiAjT9FH4Blidbr1nUgg7a01WX1PPbR7rtiq4O6LLPIIl+XX1Q39cdgpWKhkarvwoYfFiVVW346JlQZ3ILBXVt8K/DvgljvdKeD4htwX79yq2BfSgAAAABJRU5ErkJggg==');
+  margin-right: 10px;
+  width: 22px;
+  height: 22px;
+}
+.dashboard {
   margin-right: 10px;
   width: 22px;
   height: 22px;
