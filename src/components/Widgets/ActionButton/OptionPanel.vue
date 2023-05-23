@@ -8,20 +8,87 @@
             <q-input v-model="localOptions.label"
                      label="label" />
           </div>
-          <div class="input-container col-md-3">
+          <div class="input-container col-md-2">
             <div class="outsideLabel">icon name</div>
             <q-input v-model="localOptions.icon"
                      label="icon name" />
           </div>
-          <div class="input-container col-md-3">
-            <div class="outsideLabel">color</div>
-            <q-input v-model="localOptions.color"
-                     label="color" />
+          <div v-if="!localOptions.flat"
+               class="col-md-5 row">
+            <div class="input-container col-md-6">
+              <div class="outsideLabel">background color</div>
+              <q-input v-model="localOptions.style.background"
+                       icon="colorize"
+                       label="background color">
+                <template v-slot:append>
+                  <q-icon name="colorize"
+                          class="cursor-pointer">
+                    <q-popup-proxy cover
+                                   transition-show="scale"
+                                   transition-hide="scale">
+                      <q-color v-model="localOptions.style.background"
+                               label="backgroundColor"
+                               format-model="rgba" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+            <div class="input-container col-md-5 q-mx-sm">
+              <div class="outsideLabel">color</div>
+              <q-input v-model="localOptions.style.color"
+                       label="color">
+                <template v-slot:append>
+                  <q-icon name="colorize"
+                          class="cursor-pointer">
+                    <q-popup-proxy cover
+                                   transition-show="scale"
+                                   transition-hide="scale">
+                      <q-color v-model="localOptions.style.color"
+                               label="backgroundColor"
+                               format-model="rgba" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
           </div>
-          <div class="input-container">
+          <div v-else
+               class="col-md-4">
+            <div class="input-container col-md-12">
+              <div class="outsideLabel">color</div>
+              <q-input v-model="localOptions.style.color"
+                       label="color">
+                <template v-slot:append>
+                  <q-icon name="colorize"
+                          class="cursor-pointer">
+                    <q-popup-proxy cover
+                                   transition-show="scale"
+                                   transition-hide="scale">
+                      <q-color v-model="localOptions.style.color"
+                               label="backgroundColor"
+                               format-model="rgba" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+          </div>
+          <div class="input-container col-md-1">
             <div class="outsideLabel">flat</div>
             <q-checkbox v-model="localOptions.flat"
                         left-label />
+          </div>
+          <div class="input-container col-md-2">
+            <div class="outsideLabel">fix</div>
+            <q-checkbox v-model="localOptions.fixed"
+                        left-label />
+          </div>
+          <div class="input-container col-md-4">
+            <div class="outsideLabel">flat</div>
+            <q-select v-model="localOptions.fixedPosition"
+                      :options="positionOptions"
+                      left-label />
           </div>
         </div>
         <div class="input-container q-my-md">
@@ -84,6 +151,7 @@ export default defineComponent({
   data () {
     return {
       actionOptions: ['scroll', 'link', 'event'],
+      positionOptions: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
       defaultOptions: {
         color: null,
         icon: null,
@@ -99,6 +167,18 @@ export default defineComponent({
         scrollTo: null,
         route: null,
         eventName: null
+      }
+    }
+  },
+  watch: {
+    'localOptions.flat': function (val) {
+      if (val) {
+        this.localOptions.style.background = ''
+      }
+    },
+    'localOptions.fixed': function (val) {
+      if (!val) {
+        this.localOptions.fixedPosition = null
       }
     }
   }

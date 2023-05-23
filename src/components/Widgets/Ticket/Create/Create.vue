@@ -77,6 +77,7 @@ export default {
           responseKey: 'data.title',
           value: '',
           label: 'عنوان',
+          placeholder: ' ',
           col: 'col-md-6'
         },
         {
@@ -90,7 +91,7 @@ export default {
           toggleColor: 'blue',
           textColor: 'black',
           toggleTextColor: 'white',
-          col: 'col-md-4',
+          col: 'col-md-6',
           size: '14px'
         }
       ],

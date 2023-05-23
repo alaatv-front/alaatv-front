@@ -16,15 +16,15 @@
     </video>
     <div v-if="useOverPlayer"
          ref="overPlayer"
-         class="over-player-wrapper"
-         :style="{width: overPlayerWidth}">
+         class="over-player-wrapper">
       <q-btn icon-right="isax:menu-1"
              size="sm"
              color="primary"
              class="toggleSideBarBtn"
              @click="toggleSideBar" />
       <div class="over-player-slot"
-           :class="{'show': localOverPlayer, 'hide': !localOverPlayer}">
+           :class="{'show': localOverPlayer, 'hide': !localOverPlayer}"
+           :style="{width: overPlayerWidth}">
         <slot name="overPlayer" />
       </div>
     </div>
@@ -33,12 +33,12 @@
 
 <script>
 import videojs from 'video.js'
-import fa from 'video.js/dist/lang/fa.json'
-import { Content } from 'src/models/Content'
-import { mixinAbrisham } from 'src/mixin/Mixins'
-import { PlayerSourceList } from 'src/models/PlayerSource'
-import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 import videojsBrand from 'videojs-brand'
+import fa from 'video.js/dist/lang/fa.json'
+import { Content } from 'src/models/Content.js'
+import { mixinAbrisham } from 'src/mixin/Mixins.js'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
+import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 
 import 'videojs-hls-quality-selector'
 // import 'videojs-contrib-quality-levels'
@@ -112,6 +112,7 @@ export default {
   emits: ['seeked', 'update:sideBar'],
   data() {
     return {
+      width: '',
       drawer: false,
       player: null,
       localOverPlayer: false,
@@ -200,6 +201,7 @@ export default {
     }
   },
   created() {
+    this.width = this.overPlayerWidth
     this.setPoster()
     this.setSources()
   },
@@ -239,9 +241,14 @@ export default {
         }
       })
     },
+    hasPlugin (pluginName) {
+      return Object.keys(videojs.getPlugins()).includes(pluginName)
+    },
     initPlayer () {
-      videojs.registerPlugin('brand', videojsBrand)
-      if (this.isPlayerSourceList(this.source)) { // old multiple quality type
+      if (!this.hasPlugin('brand')) {
+        videojs.registerPlugin('brand', videojsBrand)
+      }
+      if (this.isPlayerSourceList(this.source) && !this.hasPlugin('videoJsResolutionSwitcher')) { // old multiple quality type
         videoJsResolutionSwitcher(videojs)
         this.options.plugins.videoJsResolutionSwitcher = {
           default: 'کیفیت بالا',
@@ -327,7 +334,7 @@ export default {
     },
     toggleSideBar () {
       this.localOverPlayer = !this.localOverPlayer
-      this.$emit('update:sideBar', this.localOverPlayer)
+      // this.$emit('update:sideBar', this.localOverPlayer)
     },
     activate(time) {
       this.player.currentTime(time)
@@ -379,7 +386,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    height: calc( 100% - 30px );
+    height: 100%;
     z-index: 1;
     .over-player-wrapper {
       position: absolute;
@@ -388,7 +395,6 @@ export default {
       height: 100%;
       .over-player-slot {
         left: 2000px;
-        width: 100%;
         height: 100%;
         color: initial;
         transition: 0.4s;
@@ -399,6 +405,7 @@ export default {
           right: 0;
         }
         &.hide {
+          width: 0 !important;
           right: 2500px;
         }
       }
@@ -454,6 +461,14 @@ export default {
             }
           }
         }
+      }
+    }
+    .vjs-play-progress {
+      &:before {
+        /*rtl:ignore*/
+        right: -0.5em;
+        /*rtl:ignore*/
+        left: auto;
       }
     }
   }

@@ -30,12 +30,12 @@
 </template>
 
 <script>
+import { Set } from 'src/models/Set.js'
 import { Content } from 'src/models/Content.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
-import { Set } from 'src/models/Set'
-import { APIGateway } from 'src/api/APIGateway'
+import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 
 export default {
   name: 'ContentVideoPlayer',

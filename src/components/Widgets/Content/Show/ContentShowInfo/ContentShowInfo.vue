@@ -37,47 +37,32 @@
         <h6 class="set-title">
           {{content.title}}
         </h6>
-        <q-tabs v-model="tab"
-                class="q-mt-md"
-                align="left">
-          <q-tab name="info"
-                 label="توضیحات" />
-          <q-tab v-if="hasPamphlet()"
-                 name="pamphlets"
-                 label="جزوات" />
-        </q-tabs>
-        <q-tab-panels v-model="tab"
-                      animated>
-          <q-tab-panel name="info">
-            <div v-if="content.author">
-              {{content.author.first_name}} {{content.author.last_name}}
+        <div class="description q-mt-lg">
+          <div v-if="content.author">
+            {{content.author.first_name}} {{content.author.last_name}}
+          </div>
+          <h6 v-if="content.set"
+              class="set-title">
+            {{content.set.title}}
+          </h6>
+          <div v-if="content.body"
+               class="q-mb-xl"
+               v-html="content.body" />
+          <div v-if="content.tags"
+               class="row">
+            <p class="col-1 q-mt-sm text-center">تگ ها</p>
+            <div class="col q-pl-sm">
+              <router-link v-for="badge in content.tags"
+                           :key="badge"
+                           :to="{name: 'Public.Content.Search', query: {'tags[]': badge } }">
+                <q-badge class="q-pa-sm q-ml-sm q-mb-sm"
+                         color="primary">
+                  {{badge}}
+                </q-badge>
+              </router-link>
             </div>
-            <h6 v-if="content.set"
-                class="set-title">
-              {{content.set.title}}
-            </h6>
-            <div v-if="content.body"
-                 class="q-mb-xl"
-                 v-html="content.body" />
-            <div v-if="content.tags"
-                 class="row">
-              <p class="col-1 q-mt-sm text-center">تگ ها</p>
-              <div class="col q-pl-sm">
-                <router-link v-for="badge in content.tags"
-                             :key="badge"
-                             :to="{name: 'Public.Content.Search', query: {'tags[]': badge } }">
-                  <q-badge class="q-pa-sm q-ml-sm q-mb-sm"
-                           color="primary">
-                    {{badge}}
-                  </q-badge>
-                </router-link>
-              </div>
-            </div>
-          </q-tab-panel>
-          <q-tab-panel name="pamphlets">
-            psp
-          </q-tab-panel>
-        </q-tab-panels>
+          </div>
+        </div>
       </div>
     </template>
   </div>
@@ -215,14 +200,5 @@ export default {
 <style lang="scss" scoped>
   h6 {
     margin: 0 !important;
-  }
-
-  .content-info {
-    :deep(.q-tab-panels) {
-      background: transparent;
-    }
-    .set-title {
-      //color: black;
-    }
   }
 </style>

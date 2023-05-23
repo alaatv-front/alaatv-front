@@ -230,8 +230,8 @@
 
 <script>
 import { Cart } from 'src/models/Cart.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 import { OrderProduct } from 'src/models/OrderProduct.js'
 
 export default {
@@ -283,6 +283,7 @@ export default {
   },
   mounted () {
     this.cartReview()
+    this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
     hasDiscount(order) {
@@ -332,7 +333,7 @@ export default {
         .then(() => {
           this.cartReview()
           this.changeDialogState(false)
-          this.$bus.emit('removeProduct')
+          this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
           this.changeDialogState(false)
         })

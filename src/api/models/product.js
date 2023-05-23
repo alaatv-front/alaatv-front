@@ -56,7 +56,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  show(productId, cache = { TTL: 1000 }) {
+  show(productId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
