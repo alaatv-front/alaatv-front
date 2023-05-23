@@ -17,16 +17,16 @@
       <slider v-if="localOptions.block.banners && localOptions.block.banners.list.length > 0"
               :options="bannerSlides" />
       <div v-if="localOptions.block.products.list.length > 0"
-           v-dragscroll
-           class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'">
+           class="row item-container q-col-gutter-md"
+           :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="product in localOptions.block.products.list"
              :key="product.id"
              :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
              }"
              class="product-spacing">
-          <product-item :options="{product, minWidth: defaultMinWidth}" />
+          <product-item :options="{product, minWidth: productItemMinWidth}" />
         </div>
         <div v-if="localOptions.block?.url?.web"
              class="block-item-box">
@@ -38,16 +38,16 @@
         </div>
       </div>
       <div v-if="localOptions.block.sets.list.length > 0"
-           v-dragscroll
-           class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'">
+           class="row item-container q-col-gutter-md"
+           :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="set in localOptions.block.sets.list"
              :key="set.id"
              :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
              }"
              class="set-spacing">
-          <set-item :options="{set, minWidth: defaultMinWidth}" />
+          <set-item :options="{set, minWidth: setItemMinWidth}" />
         </div>
         <div class="block-item-box">
           <q-btn :href="localOptions.block?.url?.web"
@@ -58,16 +58,16 @@
         </div>
       </div>
       <div v-if="localOptions.block.contents.list.length > 0"
-           v-dragscroll
-           class="item-container"
-           :class="isGridView ? 'row' : 'scroll-view'">
+           class="row item-container q-col-gutter-md"
+           :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="content in localOptions.block.contents.list"
              :key="content.id"
              :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
              }"
              class="content-spacing">
-          <content-item :options="{content, minWidth: defaultMinWidth}" />
+          <content-item :options="{content, minWidth: contentItemMinWidth ,showDownloadMenu: localOptions.showContentDownloadMenu}" />
         </div>
         <div class="block-item-box">
           <q-btn :href="localOptions.block?.url?.web"
@@ -82,7 +82,6 @@
 </template>
 
 <script>
-import { dragscroll } from 'vue-dragscroll'
 import { Block } from 'src/models/Block.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import Slider from 'components/Widgets/Slider/Slider.vue'
@@ -98,17 +97,27 @@ export default {
     ContentItem,
     ProductItem
   },
-  directives: {
-    dragscroll
-  },
   mixins: [mixinWidget],
   data: () => ({
-    defaultMinWidth: '318px',
+    defaultMinWidth: 'auto',
     defaultOptions: {
       style: {},
       apiName: null,
       block: new Block(),
-      gridView: false
+      gridView: false,
+      showContentDownloadMenu: false,
+      contentMinWidth: {
+        inGridView: 'auto',
+        inScrollView: 'auto'
+      },
+      setMinWidth: {
+        inGridView: 'auto',
+        inScrollView: 'auto'
+      },
+      productMinWidth: {
+        inGridView: 'auto',
+        inScrollView: 'auto'
+      }
     }
   }),
   computed: {
@@ -120,8 +129,23 @@ export default {
         this.localOptions.block.sets.list.length
       )
     },
-    blocksToShow() {
-      return this.getBlocks(this.blocks)
+    productItemMinWidth() {
+      if (this.isGridView) {
+        return this.localOptions.productMinWidth.inGridView
+      }
+      return this.localOptions.productMinWidth.inScrollView
+    },
+    setItemMinWidth() {
+      if (this.isGridView) {
+        return this.localOptions.setMinWidth.inGridView
+      }
+      return this.localOptions.setMinWidth.inScrollView
+    },
+    contentItemMinWidth() {
+      if (this.isGridView) {
+        return this.localOptions.contentMinWidth.inGridView
+      }
+      return this.localOptions.contentMinWidth.inScrollView
     },
     bannerSlides() {
       this.localOptions.block.banners.list.forEach(element => {
@@ -188,18 +212,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.product-spacing {
-  margin-right: 30px;
-}
-.set-spacing {
-  margin-right: 30px;
-}
-.content-spacing {
-  margin-right: 30px;
-}
-
 .block-section {
   margin-bottom: 30px;
+  width: 100%;
   .block-header {
     border-radius: 10px;
     justify-content: space-between;
@@ -229,10 +244,12 @@ export default {
   .block-container {
     display: flex;
     margin-bottom: 5px;
+    width: 100%;
     .scroll-view {
       display: flex;
       width: 100%;
-      overflow-x: scroll;
+      overflow-x: auto;
+      flex-wrap: nowrap;
       /* this padding is needed due to move animation of card
       to avoid overflow behavior:
       https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
@@ -245,6 +262,9 @@ export default {
     }
 
     .item-container {
+      &.grid_view {
+        justify-content: center;
+      }
       .block-item-box {
         display: flex;
         align-items: center;

@@ -3,30 +3,39 @@
        class="set">
     <div class="header">
       <div class="title">
-        <bookmark v-if="localOptions.showBtnFavorSet"
+        <bookmark v-if="localOptions.showBtnFavorSet && !set.loading"
                   :is-favored="set.is_favored"
                   :loading="bookmarkLoading"
                   @clicked="handleSetBookmark" />
         <template v-if="set.loading">
-          <q-skeleton type="text" />
+          <q-skeleton width="300px"
+                      type="text" />
         </template>
         <template v-else>
           {{ set.title }}
         </template>
       </div>
-      <div class="meta">
-        <template v-if="set.loading">
-          <q-skeleton type="text" />
-        </template>
-        <template v-else>
-          {{ set.contents_count }}
-          جلسه
-        </template>
-      </div>
     </div>
     <div class="archives-row">
-      <div class="title">
-        آرشیو محتوا
+      <div class="archives-header">
+        <div class="archives-title">
+          <template v-if="!set.loading">
+            آرشیو محتوا
+          </template>
+          <template v-if="set.loading">
+            <q-skeleton width="100px"
+                        type="text" />
+          </template>
+        </div>
+        <div class="archives-meta">
+          <template v-if="set.loading">
+            <q-skeleton type="text" />
+          </template>
+          <template v-else>
+            {{ set.contents_count }}
+            جلسه
+          </template>
+        </div>
       </div>
       <div class="archives-list">
 
@@ -241,12 +250,35 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
-    .title {}
-    .meta {}
+
+    @media screen and (max-width: 599px) {
+      flex-direction: column;
+    }
+    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .archives-row {
-    .title {
+    .archives-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-top: 40px;
+      padding: 0 25px;
+
+      .archives-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      }
+      .archives-meta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
     .archives-list {
       margin-top: 20px;

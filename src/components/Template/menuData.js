@@ -1660,6 +1660,7 @@ const menuItems = [
     selected: 'firstMidSchool',
     title: 'متوسطه اول',
     routeName: '',
+    tags: ['نظام_آموزشی_جدید', 'متوسطه1'],
     permission: 'all',
     type: 'simpleMenu',
     children: [

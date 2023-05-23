@@ -20,6 +20,7 @@ import ReferralCodeAPI from 'src/api/models/ReferralCode.js'
 import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
 import LiveDescriptionAPI from 'src/api/models/LiveDescription.js'
 import PlanAPI from 'src/api/models/Plan.js'
+import ChannelAPI from 'src/api/models/Channel'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
@@ -37,6 +38,7 @@ export const APIGateway = {
   forrest: new ForrestAPI(),
   comment: new CommentAPI(),
   content: new ContentAPI(),
+  channel: new ChannelAPI(),
   product: new ProductAPI(),
   abrisham: new AbrishamAPI(),
   attribute: new AttributeAPI(),

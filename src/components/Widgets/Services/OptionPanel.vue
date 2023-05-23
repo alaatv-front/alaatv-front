@@ -18,11 +18,25 @@
                   </q-item-label>
                   <q-item-label caption
                                 lines="2">
-                    <q-input v-model="service.link"
-                             label="link" />
-                    <br>
                     <q-input v-model="service.icon"
                              label="icon" />
+                    <br>
+                    <div class="row q-col-gutter-md">
+                      <div class="col-md-3">
+                        <div class="outsideLabel">action</div>
+                        <q-select v-model="service.action"
+                                  :options="actionsOptions" />
+                      </div>
+                      <div class="col-md-9">
+                        <div class="outsideLabel">{{service.action}}</div>
+                        <q-input v-if="service.action === 'link'"
+                                 v-model="service.link"
+                                 label="link" />
+                        <q-input v-else-if="service.action === 'scroll'"
+                                 v-model="service.scrollTo"
+                                 label="scroll to" />
+                      </div>
+                    </div>
                   </q-item-label>
                 </q-item-section>
                 <q-item-section avatar>
@@ -39,15 +53,16 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
-  mixins: [mixinOptionPanel],
+  mixins: [PageBuilderOptionPanel],
   data() {
     return {
+      actionsOptions: ['scroll', 'link'],
       defaultOptions: {
         className: '',
         style: {},

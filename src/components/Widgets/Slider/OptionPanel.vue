@@ -166,7 +166,7 @@ import { defineComponent } from 'vue'
 import { Banner } from 'src/models/Banner.js'
 import lazyImg from 'src/components/lazyImg.vue'
 import bannerPreview from 'src/components/Widgets/Slider/bannerPreview.vue'
-import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 
 export default defineComponent({
@@ -176,7 +176,7 @@ export default defineComponent({
     bannerPreview,
     lazyImg
   },
-  mixins: [mixinOptionPanel],
+  mixins: [PageBuilderOptionPanel],
   data() {
     return {
       windowWidth: 0,
@@ -285,39 +285,7 @@ export default defineComponent({
         }
       ],
       defaultOptions: {
-        features: {
-          xl: {
-            src: '',
-            width: '',
-            height: ''
-          },
-          lg: {
-            src: '',
-            width: '',
-            height: ''
-          },
-          md: {
-            src: '',
-            width: '',
-            height: ''
-          },
-          sm: {
-            src: '',
-            width: '',
-            height: ''
-          },
-          xs: {
-            src: '',
-            width: '',
-            height: ''
-          }
-        },
-        photo: {
-          src: ''
-        },
-        title: '',
-        ratio: 1,
-        link: ''
+        list: []
       }
     }
   },
@@ -325,14 +293,7 @@ export default defineComponent({
     selectedSlide: {
       handler() {
         this.updateBanner()
-      },
-      deep: true
-    },
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
+      }
     }
   },
   created() {
@@ -429,8 +390,7 @@ export default defineComponent({
       }
     },
     updateBanner() {
-      const index = this.localOptions.list.findIndex(banner => banner.title === this.selectedSlide.title)
-      this.localOptions.list[index] = this.selectedSlide
+      this.localOptions.list[this.selectedBannerIndex] = this.selectedSlide
       this.updateTable()
     },
     showFullBanner(index) {
