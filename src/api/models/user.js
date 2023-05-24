@@ -11,6 +11,7 @@ export default class UserAPI extends APIRepository {
   constructor() {
     super('user', apiV2, '/user', new User())
     this.APIAdresses = {
+      create: '/admin/user',
       base: '/user',
       favored: '/user/favored',
       purchasedProducts: '/user/products',
@@ -29,7 +30,35 @@ export default class UserAPI extends APIRepository {
       resendGuest: '/mobile/resendGuest',
       getUserRoleAndPermission: '/getUserRoleAndPermission',
       verifyMoshavereh: '/mobile/verifyMoshavereh',
-      newsletter: '/newsletter'
+      newsletter: '/newsletter',
+      admin: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      },
+      fixUnknownUsersCity: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      }
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -228,7 +257,7 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.showUser,
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error

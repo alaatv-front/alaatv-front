@@ -45,7 +45,7 @@
 
 <script>
 import { User } from 'src/models/User.js'
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Verify',
@@ -78,7 +78,7 @@ export default {
     verifyCode () {
       const that = this
       //  that.modelValue.loading = true
-      this.$axios.post(API_ADDRESS.user.mobile.verify, { code: this.typedCode })
+      APIGateway.user.mobileVerify({ code: this.typedCode })
         .then(() => {
           // that.user.loading = false
           that.$emit('verified')
@@ -102,7 +102,7 @@ export default {
     sendCode () {
       const that = this
       // this.user.loading = true
-      this.$axios.get(API_ADDRESS.user.mobile.resend)
+      APIGateway.user.mobileResend()
         .then((resp) => {
         //  that.user.loading = false
           that.code = resp

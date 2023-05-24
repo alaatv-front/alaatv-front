@@ -14,7 +14,21 @@ export default class TicketAPI extends APIRepository {
       statusNotice: (ticketId) => '/ticket/' + ticketId + '/sendTicketStatusNotice',
       editAssign: (ticketId) => '/ticket/' + ticketId + '/assign',
       reportMessage: (ticketId) => 'ticket' + ticketId + '/report',
-      ticketRate: (ticketId) => 'ticket' + ticketId + '/rate'
+      ticketRate: (ticketId) => 'ticket' + ticketId + '/rate',
+      ticketDepartment: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      }
     }
     this.restUrl = (id) => this.url + '/' + id
   }

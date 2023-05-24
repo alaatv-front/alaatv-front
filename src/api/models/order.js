@@ -6,12 +6,40 @@ export default class OrderAPI extends APIRepository {
     super('order', apiV2)
     this.APIAdresses = {
       orderCoupon: '/orderCoupon',
+      create: '/reqres/api/users',
       edit: '/admin/order',
       index: '/admin/order',
       show: '/admin/order',
       status: '/payment/status',
-      ordersById: (id) => '/user/' + id + '/orders'
-
+      ordersById: (id) => '/user/' + id + '/orders',
+      transaction: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      },
+      userBon: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      }
     }
   }
 

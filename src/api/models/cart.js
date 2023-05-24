@@ -12,7 +12,8 @@ export default class CartAPI extends APIRepository {
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
       getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller,
-      removeFromCart: (id) => '/orderproduct/' + id
+      removeFromCart: (id) => '/orderproduct/' + id,
+      orderWithTransaction: (orderId) => '/orderWithTransaction/' + orderId
     }
     this.CacheList = {
       addToCart: this.name + this.APIAdresses.addToCart,
@@ -137,6 +138,22 @@ export default class CartAPI extends APIRepository {
       cacheKey: this.CacheList.removeFromCart(orderProductId),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getorderWithTransaction(data) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.orderWithTransaction(data.orderId),
+      cacheKey: this.CacheList.orderWithTransaction(data.orderId),
+      ...(!!data.cache && { cache: data.cache }),
+      resolveCallback: (response) => {
+        return response.data.data.paymentstatus
       },
       rejectCallback: (error) => {
         return error

@@ -22,6 +22,16 @@ import LiveDescriptionAPI from 'src/api/models/LiveDescription.js'
 import PlanAPI from 'src/api/models/Plan.js'
 import ChannelAPI from 'src/api/models/Channel'
 import MapAPI from 'src/api/models/Map'
+import VoucherAPI from 'src/api/models/voucher'
+import BlockAPI from 'src/api/models/block'
+import SectionAPI from 'src/api/models/section'
+import SourceAPI from 'src/api/models/source'
+import GatewayAPI from 'src/api/models/gateway'
+import SmsAPI from 'src/api/models/sms'
+import SlideShowAPI from 'src/api/models/slideShow'
+import PermissionAPI from 'src/api/models/permission'
+import TagAPI from 'src/api/models/tag'
+import TeleMarketingAPI from 'src/api/models/teleMarketing'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
@@ -48,5 +58,15 @@ export const APIGateway = {
   pageSetting: new PageSettingAPI(),
   referralCode: new ReferralCodeAPI(),
   contentTimepoint: new ContentTimepointAPI(),
-  map: new MapAPI()
+  map: new MapAPI(),
+  voucher: new VoucherAPI(),
+  block: new BlockAPI(),
+  section: new SectionAPI(),
+  source: new SourceAPI(),
+  gateway: new GatewayAPI(),
+  sms: new SmsAPI(),
+  slideShow: new SlideShowAPI(),
+  permission: new PermissionAPI(),
+  tag: new TagAPI(),
+  teleMarketing: new TeleMarketingAPI()
 }

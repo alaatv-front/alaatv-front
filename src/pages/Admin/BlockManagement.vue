@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'BlockManagement',
@@ -58,10 +58,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.blockManagement.show.base,
-            edit: API_ADDRESS.blockManagement.edit.base,
-            create: API_ADDRESS.blockManagement.create.base,
-            index: API_ADDRESS.blockManagement.index.base
+            show: APIGateway.block.APIAdresses.blockManagement.show.base,
+            edit: APIGateway.block.APIAdresses.blockManagement.edit.base,
+            create: APIGateway.block.APIAdresses.blockManagement.create.base,
+            index: APIGateway.block.APIAdresses.blockManagement.index.base
           },
           title: {
             show: 'اطلاعات بلاک ها',

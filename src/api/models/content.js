@@ -27,7 +27,35 @@ const APIAdresses = {
   saveComment: '/comment',
   updateComment: (id) => '/comment/' + id,
   watchedVideo: '/watched',
-  unWatchedVideo: '/unwatched'
+  unWatchedVideo: '/unwatched',
+  adminContent: {
+    create: {
+      base: '/admin/user'
+    },
+    edit: {
+      base: '/admin/user/'
+    },
+    index: {
+      base: '/admin/user'
+    },
+    show: {
+      base: '/admin/user/'
+    }
+  },
+  scheduleManagement: {
+    create: {
+      base: '/admin/user'
+    },
+    edit: {
+      base: '/admin/user/'
+    },
+    index: {
+      base: '/admin/user'
+    },
+    show: {
+      base: '/admin/user/'
+    }
+  }
 
 }
 export default class ContentAPI extends APIRepository {

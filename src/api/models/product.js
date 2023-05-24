@@ -18,9 +18,12 @@ export default class ProductAPI extends APIRepository {
         const queryParams = idParams.join('&')
         return '/product?' + queryParams
       },
-      create: '/reqres/api/users',
-      edit: '/admin/product',
-      index: '/admin/product',
+      admin: {
+        create: '/reqres/api/users',
+        edit: '/admin/product',
+        index: '/admin/product',
+        show: '/admin/product'
+      },
       getSets: id => `/product/${id}/sets`,
       getComments: id => `/product/${id}/content-comments`,
       getContents: id => `/product/${id}/contents`,
