@@ -1,5 +1,8 @@
 import { Cart } from 'src/models/Cart'
 
 export function cart (state) {
-  return new Cart(state.cart)
+  const oldLoading = state.cart.loading
+  const newCart = new Cart(state.cart)
+  newCart.loading = oldLoading
+  return newCart
 }

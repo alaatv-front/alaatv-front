@@ -57,7 +57,7 @@
         <content-list-component v-model:value="watchingContent"
                                 :loading="contents.loading"
                                 :afterLoad="contentsIsEmpty"
-                                :contents="contents"
+                                :contents="filteredContents"
                                 :header="{ title: 'لیست فیلم ها', button: { title: 'من کجام؟' } }"
                                 type="video"
                                 @itemClicked="setWatchingContent"
@@ -96,7 +96,8 @@
                           dense
                           emit-value
                           map-options
-                          placeholder="همه" />
+                          placeholder="همه"
+                          @update:model-value="setCurrentSection" />
               </div>
             </div>
           </template>
@@ -133,7 +134,7 @@
                                 :header="{ title: 'جزوه ها' }"
                                 :loading="contents.loading"
                                 :afterLoad="contentsIsEmpty"
-                                :contents="contents"
+                                :contents="filteredContents"
                                 type="pamphlet"
                                 @itemClicked="setWatchingContent"
                                 @whereAmI="loadUserLastState" />
@@ -176,6 +177,7 @@ export default {
     lessonGroups: [],
     lessons: [],
     contents: new ContentList(),
+    filteredContents: new ContentList(),
     watchingContent: new Content(),
     sets: new SetList(),
     sections: new SetSectionList(),
@@ -220,10 +222,6 @@ export default {
       } catch {
       }
     },
-
-    // getUserLastState() {
-    //   return this.$axios.get('/api/v2/product/' + this.selectedLessonId + '/toWatch')
-    // },
 
     async initPage () {
       this.progressLoading = true
@@ -336,6 +334,18 @@ export default {
       this.sets = sets
     },
 
+    setCurrentSection (sectionId) {
+      this.filterContentsBasedOnSection(sectionId)
+    },
+
+    filterContentsBasedOnSection (sectionId) {
+      if (sectionId === 'all') {
+        this.filteredContents.list = this.contents.list
+        return
+      }
+      this.filteredContents.list = this.contents.list.filter(content => content.section.id === sectionId)
+    },
+
     setCurrentSet (setId, contentId) {
       this.currentSetId = setId
       this.showFirstSections(contentId)
@@ -348,9 +358,10 @@ export default {
       this.setSectionActive(firstSection.id, contentId)
     },
 
-    setSectionActive (id, contentId) {
-      this.currentSectionId = id
-      this.showFirstContent(contentId)
+    async setSectionActive (sectionId, contentId) {
+      this.currentSectionId = sectionId
+      await this.showFirstContent(contentId)
+      this.filterContentsBasedOnSection(sectionId)
     },
 
     getSet (setId) {
@@ -393,12 +404,8 @@ export default {
       return this.sections.list[0]
     },
 
-    // requestToGetSets (params) {
-    //   return this.$axios.get('/api/v2/product/' + params.lessonId + '/sets')
-    // },
-
     async showFirstContent (contentId) {
-      const contents = await this.getContents()
+      const contents = await this.getContentsOfSet(this.currentSetId)
       this.contents.loading = false
       this.setContents(contents)
       if (!contentId) {
@@ -419,10 +426,10 @@ export default {
       this.watchingContent = content || new Content()
     },
 
-    async getContents () {
+    async getContentsOfSet (setId) {
       this.contents.loading = true
       try {
-        return await this.$apiGateway.set.getContents(this.currentSetId)
+        return await this.$apiGateway.set.getContents(setId)
       } catch {
         this.contents.loading = false
       }
@@ -432,14 +439,6 @@ export default {
       this.contents = contents
     }
 
-    // requestToGetContents () {
-    //   return this.$axios.get('/api/v2/set/' + this.currentSetId + '/contents')
-    // }
-
-    // getLessons () {
-    //   return this.$axios.get('/api/v2/abrisham/lessons')
-    // }
-
   }
 }
 </script>
@@ -448,10 +447,10 @@ export default {
 .userAbrishamProgress-page {
   margin: 0 60px 100px;
   @media screen and (max-width: 1904px) {
-    margin: 0 10px;
+    margin: 0 10px 40px;
   }
   @media screen and (max-width: 1023px) {
-    margin: 0;
+    margin: 0 0 30px;
   }
 
   .chip-parent{
