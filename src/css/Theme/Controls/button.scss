@@ -13,6 +13,7 @@
   }
   &.q-btn--round {
     //border-radius: 50%;
+    padding: 8px;
   }
   &.q-btn--actionable.q-btn--standard:active:before,
   &.q-btn--actionable.q-btn--standard.q-btn--active:before {
@@ -40,7 +41,6 @@
     }
 
     &.q-btn-sm {
-      font-size: 14px;
       padding: 8px;
     }
 
@@ -48,12 +48,10 @@
     padding: 11px;
 
     &.q-btn-lg {
-      font-size: 16px;
       padding: 14px;
     }
 
     &.q-btn-xl {
-      font-size: 16px;
       padding: 18px;
     }
 
@@ -67,8 +65,13 @@
 }
 .q-btn:not(.q-btn--square) {
   &.q-btn-xs {
-    font-size: 12px;
-    padding: 4px 10px;
+    font-size: 14px;
+    padding: 3px 12px 4px;
+    gap: 4px;
+    line-height: 21px;
+    font-weight: 600;
+    width: 54px;
+    height: 21px;
   }
   &.q-btn-sm {
     font-size: 14px;

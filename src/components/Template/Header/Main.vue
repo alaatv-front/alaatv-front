@@ -6,12 +6,13 @@
         <div class="logo-section">
           <div class="drawer-btn hamburger">
             <q-btn v-if="showHamburger"
-                   class="toolbar-button"
+                   class="toolbar-button q-btn-sm"
                    icon="isax:menu-1"
                    color="white"
                    text-color="accent"
                    dense
                    unelevated
+                   square
                    @click="toggleLeftDrawer" />
           </div>
           <div class="logo-pic">
@@ -613,8 +614,8 @@ export default {
     background: #FFFFFF;
     border-radius: 16px;
     display: flex;
-    margin-bottom: 0px;
-    padding: 0px;
+    margin-bottom: 0;
+    padding: 0;
 
     .btn-style{
       width: 96px;
