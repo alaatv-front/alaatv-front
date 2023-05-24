@@ -105,7 +105,7 @@ export default class ReferralCodeAPI extends APIRepository {
         order_id: 0 // Number
       }, data.data),
       resolveCallback: (response) => {
-        return response
+        return response.data
       },
       rejectCallback: (error) => {
         return error

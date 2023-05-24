@@ -47,8 +47,32 @@ class OrderProductList extends Collection {
     return this.list.findIndex(order => order.product.id === productId)
   }
 
+  getOrderProductIndex (orderProductId) {
+    return this.list.findIndex(order => order.id === orderProductId)
+  }
+
+  addProduct (productId, attributevalues = null) {
+    if (this.hasProduct(productId)) {
+      return
+    }
+
+    this.add({
+      id: productId,
+      attributevalues,
+      order_id: productId,
+      product: new Product({ id: productId })
+    })
+  }
+
   removeProduct (productId) {
     const index = this.getProductIndex(productId)
+    if (index !== -1) {
+      this.list.splice(index, 1)
+    }
+  }
+
+  removeOrderProduct (orderProductId) {
+    const index = this.getOrderProductIndex(orderProductId)
     if (index !== -1) {
       this.list.splice(index, 1)
     }
