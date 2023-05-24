@@ -17,12 +17,13 @@
       <slider v-if="localOptions.block.banners && localOptions.block.banners.list.length > 0"
               :options="bannerSlides" />
       <div v-if="localOptions.block.products.list.length > 0"
-           class="item-container"
-           :class="isGridView ? 'row grid_view' : 'scroll-view'">
+           class="row item-container q-col-gutter-md"
+           :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="product in localOptions.block.products.list"
              :key="product.id"
              :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
              }"
              class="product-spacing">
           <product-item :options="{product, minWidth: productItemMinWidth}" />
@@ -37,12 +38,13 @@
         </div>
       </div>
       <div v-if="localOptions.block.sets.list.length > 0"
-           class="item-container"
-           :class="isGridView ? 'row grid_view' : 'scroll-view'">
+           class="row item-container q-col-gutter-md"
+           :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="set in localOptions.block.sets.list"
              :key="set.id"
              :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
              }"
              class="set-spacing">
           <set-item :options="{set, minWidth: setItemMinWidth}" />
@@ -56,15 +58,16 @@
         </div>
       </div>
       <div v-if="localOptions.block.contents.list.length > 0"
-           class="item-container"
-           :class="isGridView ? 'row grid_view' : 'scroll-view'">
+           class="row item-container q-col-gutter-md"
+           :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="content in localOptions.block.contents.list"
              :key="content.id"
              :class="{
-               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView
+               'col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12': isGridView,
+               'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
              }"
              class="content-spacing">
-          <content-item :options="{content, minWidth: contentItemMinWidth}" />
+          <content-item :options="{content, minWidth: contentItemMinWidth ,showDownloadMenu: localOptions.showContentDownloadMenu}" />
         </div>
         <div class="block-item-box">
           <q-btn :href="localOptions.block?.url?.web"
@@ -96,23 +99,24 @@ export default {
   },
   mixins: [mixinWidget],
   data: () => ({
-    defaultMinWidth: '318px',
+    defaultMinWidth: 'auto',
     defaultOptions: {
       style: {},
       apiName: null,
       block: new Block(),
       gridView: false,
+      showContentDownloadMenu: false,
       contentMinWidth: {
-        inGridView: '318px',
-        inScrollView: '318px'
+        inGridView: 'auto',
+        inScrollView: 'auto'
       },
       setMinWidth: {
-        inGridView: '318px',
-        inScrollView: '318px'
+        inGridView: 'auto',
+        inScrollView: 'auto'
       },
       productMinWidth: {
-        inGridView: '318px',
-        inScrollView: '318px'
+        inGridView: 'auto',
+        inScrollView: 'auto'
       }
     }
   }),
@@ -208,16 +212,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.product-spacing {
-  margin-right: 30px;
-}
-.set-spacing {
-  margin-right: 30px;
-}
-.content-spacing {
-  margin-right: 30px;
-}
-
 .block-section {
   margin-bottom: 30px;
   width: 100%;
@@ -254,7 +248,8 @@ export default {
     .scroll-view {
       display: flex;
       width: 100%;
-      overflow-x: scroll;
+      overflow-x: auto;
+      flex-wrap: nowrap;
       /* this padding is needed due to move animation of card
       to avoid overflow behavior:
       https://stackoverflow.com/questions/6421966/css-overflow-x-visible-and-overflow-y-hidden-causing-scrollbar-issue
@@ -269,7 +264,6 @@ export default {
     .item-container {
       &.grid_view {
         justify-content: center;
-        width: 100%;
       }
       .block-item-box {
         display: flex;

@@ -12,19 +12,30 @@
       <template #before-form-builder>
         <q-dialog v-model="showDialog"
                   no-backdrop-dismiss>
-          <q-card class="row justify-center q-pa-md">
-            <q-btn v-for="department in departmentList.list"
-                   :key="department.id"
-                   v-close-popup
-                   unelevated
-                   class="departmentActionBtn col-3 q-ma-md"
-                   icon="isax:search-status .path4:before"
-                   @click="selectDepartment(department)">
-              <span class="full-width q-pt-sm">
-                {{department.title}}
-              </span>
-            </q-btn>
-          </q-card>
+          <div>
+            <q-card class="q-pa-md">
+              <div class="row justify-end">
+                <q-btn v-close-popup
+                       flat
+                       icon="close"
+                       text
+                       @click="goBackToList" />
+              </div>
+              <div class="row justify-center">
+                <q-btn v-for="department in departmentList.list"
+                       :key="department.id"
+                       v-close-popup
+                       unelevated
+                       class="departmentActionBtn col-3 q-ma-md"
+                       icon="isax:search-status .path4:before"
+                       @click="selectDepartment(department)">
+                  <span class="full-width q-pt-sm">
+                    {{department.title}}
+                  </span>
+                </q-btn>
+              </div>
+            </q-card>
+          </div>
         </q-dialog>
       </template>
     </entity-create>
@@ -102,6 +113,12 @@ export default {
   computed: {
     canChoseOrder() {
       return [2].includes(this.selectedDepartment.id)
+    },
+    getRoutingObject() {
+      if (this.$route.name.includes('Admin')) {
+        return { name: 'Admin.Ticket.Index' }
+      }
+      return { name: 'UserPanel.Ticket' }
     }
   },
 
@@ -110,6 +127,15 @@ export default {
   },
 
   methods: {
+    goBackToList() {
+      const ticketRouteObj = { name: 'Admin.Ticket.Index' }
+      if (this.$route.name.includes('Admin')) {
+        this.$router.push(ticketRouteObj)
+        return
+      }
+      ticketRouteObj.name = 'UserPanel.Ticket.Index'
+      this.$router.push(ticketRouteObj)
+    },
     initPageData() {
       this.setRoleAndPermissions()
     },
