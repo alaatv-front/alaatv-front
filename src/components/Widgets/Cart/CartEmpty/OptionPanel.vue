@@ -4,9 +4,9 @@
       <div class="option-panel-container">
         <div class="row">
           <div class="col-md-12">
-            <q-input v-model="localOptions.text"
+            <q-input v-model="localOptions.photo"
                      left-label
-                     label="text" />
+                     label="photo" />
           </div>
           <div class="col-md-6">
             <q-input v-model="localOptions.link.text"
@@ -48,7 +48,12 @@ export default defineComponent({
         height: 'auto',
         boxed: false,
         boxedWidth: 1200,
-        style: {}
+        style: {},
+        photo: '',
+        link: {
+          text: '',
+          url: ''
+        }
       }
     }
   },

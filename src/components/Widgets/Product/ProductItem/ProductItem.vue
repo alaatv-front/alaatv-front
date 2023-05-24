@@ -56,17 +56,19 @@
       <router-link :to="getRoutingObject">
         <lazy-img :src="product.photo"
                   :alt="product.title"
-                  width="1"
-                  height="1"
+                  height="100%"
+                  width="100%"
                   class="img" />
       </router-link>
     </div>
     <div class="product-content-box">
-      <div class="title-box">
-        <div class="main-title ellipsis-2-lines">
-          {{ product.title }}
+      <router-link :to="getRoutingObject">
+        <div class="title-box">
+          <div class="main-title ellipsis-2-lines">
+            {{ product.title }}
+          </div>
         </div>
-      </div>
+      </router-link>
       <div v-if="product.attributes"
            class="info-box">
         <div class="teacher-image">
@@ -82,31 +84,33 @@
       <div v-if="localOptions.showPrice"
            class="action-box">
         <div class="more-detail product-more-detail">
-          <div class="price-box">
-            <div class="price-info">
-              <div v-if="product.price['final'] !== product.price['base']"
-                   class="discount">
-                <span>
-                  %{{
-                    (
-                      (1 - product.price['final'] / product.price['base']) *
-                      100
-                    ).toFixed(0)
-                  }}
-                </span>
-              </div>
-              <div class="price-container">
-                <div class="final-price-box">
-                  <div class="final-price">
-                    {{ product.price['final'] }}
-                  </div>
-                  <div class="price-Toman">تومان</div>
+          <router-link :to="getRoutingObject">
+            <div class="price-box">
+              <div class="price-info">
+                <div v-if="product.price['final'] !== product.price['base']"
+                     class="discount">
+                  <span>
+                    %{{
+                      (
+                        (1 - product.price['final'] / product.price['base']) *
+                        100
+                      ).toFixed(0)
+                    }}
+                  </span>
                 </div>
-                <div v-if="product.price['discount'] !== 0"
-                     class="main-price">{{ product.price['base'] }}</div>
+                <div class="price-container">
+                  <div class="final-price-box">
+                    <div class="final-price">
+                      {{ product.price['final'] }}
+                    </div>
+                    <div class="price-Toman">تومان</div>
+                  </div>
+                  <div v-if="product.price['discount'] !== 0"
+                       class="main-price">{{ product.price['base'] }}</div>
+                </div>
               </div>
             </div>
-          </div>
+          </router-link>
         </div>
         <q-btn v-if="localOptions.canAddToCart"
                unelevated
@@ -124,14 +128,15 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import { mixinWidget } from 'src/mixin/Mixins'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
-export default {
+export default defineComponent({
   name: 'productItem',
   components: { LazyImg },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   data: () => ({
     addToCartLoading: false,
     loading: false,
@@ -166,22 +171,6 @@ export default {
       }
     }
   },
-  created () {
-    if (this.options.product) {
-      this.product = new Product(this.options.product)
-    } else if (this.options.productId || this.options.paramKey || this.$route.params.id) {
-      this.loading = true
-      const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
-      this.$apiGateway.product.show(productId).then(product => {
-        this.product = new Product(product)
-        this.loading = false
-      }).catch(() => {
-        this.loading = false
-      })
-    } else {
-      this.product = new Product(this.options)
-    }
-  },
   methods: {
     getTeacherOfProduct() {
       if (this.product.attributes.info.teacher) {
@@ -193,16 +182,42 @@ export default {
       this.addToCartLoading = true
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
         .then(() => {
-          this.$store.dispatch('Cart/reviewCart')
-            .then(() => {
-              this.addToCartLoading = false
-            })
+          this.addToCartLoading = false
+          this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
           this.addToCartLoading = false
         })
+    },
+    getProductItemPromise() {
+      if (this.options.product) {
+        this.product = new Product(this.options.product)
+        return new Promise((resolve) => {
+          resolve(this.product)
+        })
+      } else if (this.options.productId || this.options.paramKey || this.$route.params.id) {
+        this.loading = true
+        const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
+        return this.$apiGateway.product.show(productId)
+      } else {
+        this.product = new Product(this.options)
+        return new Promise((resolve) => {
+          resolve(this.product)
+        })
+      }
+    },
+    prefetchServerDataPromise () {
+      this.loading = true
+      return this.getProductItemPromise()
+    },
+    prefetchServerDataPromiseThen (product) {
+      this.product = new Product(product)
+      this.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.loading = false
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -211,7 +226,7 @@ export default {
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin: auto auto 10px;
   position: relative;
   border-radius: 20px;
   box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
@@ -229,14 +244,13 @@ export default {
   .img-box {
 
     a {
-      border-radius: inherit;
       box-shadow: none;
       width: 100%;
       height: 270px;
-
+      border-radius: 20px 20px 0 0;
       .img {
+        border-radius: inherit;
         width: inherit;
-        border-radius: 20px 20px 0 0;
 
         @media screen and (max-width: 600px){
           width: 100%;
@@ -429,8 +443,7 @@ export default {
     background: #4caf50;
     color: white;
     @media screen and (max-width: 600px){
-      font-size: 11px;
-      margin: 5px;
+      margin: 20px;
     }
   }
 
@@ -499,8 +512,17 @@ export default {
     }
   }
 
+  @media screen and (max-width: 700px) {
+    .product-content-box {
+      .action-box {
+        flex-flow: column;
+        justify-content: space-around;
+        align-items: stretch;
+      }
+    }
+  }
+
   @media screen and (max-width: 600px) {
-    width: 240px;
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
@@ -591,36 +613,6 @@ export default {
       .discount {
         height: 20px;
         /* margin-left: 3px; */
-      }
-    }
-  }
-
-  @media screen and (max-width: 600px){
-    flex-direction: row;
-    padding: 10px;
-    .img-box{
-      a{
-        .img{
-          border-radius: 20px;
-        }
-      }
-    }
-    .product-content-box{
-      .action-box{
-        display: block;
-        .price-box{
-          display: block;
-          .price-info{
-            margin-right: 10px;
-            align-items: center;
-            .discount{
-              margin-right: 5px;
-            }
-          }
-        }
-        .btn-green{
-          width: 100px;
-        }
       }
     }
   }

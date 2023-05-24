@@ -16,7 +16,7 @@
           </div>
           <div class="logo-pic">
             <div class="homepage">
-              <lazy-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+              <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
                         :alt="'logo'"
                         width="40"
                         height="40"
@@ -76,11 +76,13 @@
                    rounded
                    size="12px"
                    class="action-btn"
+                   :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
-              <q-badge color="primary"
+              <q-badge v-if="mounted && cartOrdersCount > 0"
+                       color="primary"
                        floating
                        rounded>
-                {{cartCount}}
+                {{cartOrdersCount}}
               </q-badge>
             </q-btn>
           </div>
@@ -189,14 +191,15 @@ import megaMenu from './magaMenu.vue'
 import simpleMenu from './simpleMenu.vue'
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import menuItems from 'components/Template/menuData.js'
-import itemMenu from 'components/Template/Header/itemMenu.vue'
+import menuItems from 'src/components/Template/menuData.js'
+import itemMenu from 'src/components/Template/Header/itemMenu.vue'
 
 export default {
   name: 'MainHeaderTemplate',
   components: { LazyImg, megaMenu, simpleMenu, itemMenu },
   data() {
     return {
+      mounted: false,
       conferenceMenu: false,
       showHamburgerConfig: true,
       searchInput: '',
@@ -247,13 +250,13 @@ export default {
           active: false,
           children: []
         },
-        {
-          title: 'داشبورد چتر نجات',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.ChatreNejat.Products',
-          permission: 'all',
-          active: false
-        },
+        // {
+        //   title: 'داشبورد چتر نجات',
+        //   icon: 'isax:document-1',
+        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+        //   permission: 'all',
+        //   active: false
+        // },
         {
           title: 'داشبورد ابریشم',
           icon: 'isax:document-1',
@@ -265,11 +268,17 @@ export default {
     }
   },
   computed: {
-    cartCount() {
-      return this.$store.getters['Cart/cart'].count
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
+    cartOrdersCount () {
+      return this.cart.count
+    },
+    cartLoading () {
+      return this.cart.loading
     },
     showHamburger () {
-      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.lg
     },
     computedUserId () {
       const user = this.$store.getters['Auth/user']
@@ -295,6 +304,7 @@ export default {
     }
   },
   mounted () {
+    this.mounted = true
     this.loadAuthData()
     this.checkMenurItemsForAuthenticatedUser()
   },

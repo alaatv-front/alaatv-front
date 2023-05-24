@@ -1,12 +1,12 @@
 <template>
-  <q-btn :color="localOptions.color"
-         :icon="localOptions.icon"
-         :label="localOptions.label"
+  <q-btn :label="localOptions.label"
          :flat="localOptions.flat"
          :class="localOptions.className"
          :style="localOptions.style"
          class="action-btn"
          @click="takeAction">
+    <q-icon v-if="localOptions.icon"
+            :name="localOptions.icon" />
     <img v-if="localOptions.imageSource"
          :src="localOptions.imageSource"
          alt="actionBtn">
@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ActionButton',
-  mixins: [mixinPrefetchServerData, mixinWidget],
+  mixins: [mixinWidget],
   data() {
     return {
       defaultOptions: {
@@ -31,6 +31,10 @@ export default {
         className: null,
         fixed: false,
         fixedPosition: null,
+        action: null,
+        scrollTo: null,
+        route: null,
+        eventName: null,
         eventArgs: null
       }
     }

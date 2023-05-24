@@ -81,7 +81,44 @@ export default defineComponent({
     return {
       size: 'xs',
       sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
-      actionTypes: ['event', 'scroll', 'link']
+      actionTypes: ['event', 'scroll', 'link'],
+      defaultOptions: {
+        imageSource: null,
+        ratio: null,
+        hasAction: false,
+        action: {
+          name: null,
+          route: null,
+          scrollTo: null,
+          eventName: null,
+          eventArgs: null
+        },
+        xs: {
+          height: null,
+          width: null,
+          src: null
+        },
+        sm: {
+          height: null,
+          width: null,
+          src: null
+        },
+        md: {
+          height: null,
+          width: null,
+          src: null
+        },
+        lg: {
+          height: null,
+          width: null,
+          src: null
+        },
+        xl: {
+          height: null,
+          width: null,
+          src: null
+        }
+      }
     }
   }
 })
