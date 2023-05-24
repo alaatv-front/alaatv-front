@@ -74,34 +74,34 @@
       </div>
       <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
-          <span class="text-body1">
+          <span class="body1">
             مدرسه آنلاین آلا
           </span>
         </div>
         <div class="col-md-5">
-          <span class="text-body1">
+          <span class="body1">
             IransansXfaNum - 14 regular
           </span>
         </div>
         <div class="col-md-2">
-          <span class="text-body1">
+          <span class="body1">
             P1
           </span>
         </div>
       </div>
       <div class="row q-col-gutter-md q-my-sm">
         <div class="col-md-5">
-          <span class="text-body2">
+          <span class="body2">
             مدرسه آنلاین آلا
           </span>
         </div>
         <div class="col-md-5">
-          <span class="text-body2">
+          <span class="body2">
             IransansXfaNum - 12 regular
           </span>
         </div>
         <div class="col-md-2">
-          <span class="text-body2">
+          <span class="body2">
             P2
           </span>
         </div>
