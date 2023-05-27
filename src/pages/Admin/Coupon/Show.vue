@@ -10,7 +10,7 @@
 
 <script>
 import { EntityShow } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Show',
@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       inputs: [],
-      api: API_ADDRESS.coupon.show.base,
+      api: APIGateway.coupon.APIAddresses.show,
       entityIdKey: '',
       entityParamKey: '',
       editRouteName: 'Admin.Coupon.Edit',

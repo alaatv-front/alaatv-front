@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ThankYouPage',
@@ -59,10 +59,9 @@ export default {
   methods: {
     onLoadPage () {
       this.loading = true
-      this.$axios.get(API_ADDRESS.cart.orderWithTransaction(this.orderId))
-        .then((response) => {
+      APIGateway.cart.getorderWithTransaction({ orderId: this.orderId })
+        .then((paymentStatus) => {
           this.loading = false
-          const paymentStatus = response.data.data.paymentstatus
 
           if (paymentStatus.id === 3) {
             this.hasPaid = true

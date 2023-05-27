@@ -172,7 +172,7 @@ import moment from 'moment-jalaali'
 import EntityIndex from 'quasar-crud/src/components/Entity/Index/EntityIndex.vue'
 import { User } from 'src/models/User.js'
 import { Order } from 'src/models/Order.js'
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 import { shallowRef } from 'vue'
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
 import ActionBtnComponent from 'components/Utils/actionBtn.vue'
@@ -278,7 +278,7 @@ export default {
       return this.getInput('filterInputs', 'till').value
     },
     getEntityApi() {
-      return API_ADDRESS.user.orders.ordersById(this.user.id)
+      return APIGateway.user.APIAdresses.ordersById(this.user.id)
     },
     windowSize () {
       return this.$store.getters['AppLayout/windowSize']
@@ -346,8 +346,8 @@ export default {
     },
     async getPaymentStatus() {
       try {
-        const response = await this.$axios.get(API_ADDRESS.user.orders.status(this.user.id))
-        this.getInput('filterInputs', 'paymentStatuses').options = response.data.data
+        const paymentStatus = APIGateway.order.getPaymentStatus(this.user.id)
+        this.getInput('filterInputs', 'paymentStatuses').options = paymentStatus
         this.loading = false
       } catch (e) {
         this.loading = false

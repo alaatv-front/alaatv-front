@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Gateway',
@@ -55,10 +55,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.gateway.show.base,
-            edit: API_ADDRESS.gateway.edit.base,
-            create: API_ADDRESS.gateway.create.base,
-            index: API_ADDRESS.gateway.index.base
+            show: APIGateway.gateway.APIAdresses.gateway.show.base,
+            edit: APIGateway.gateway.APIAdresses.gateway.edit.base,
+            create: APIGateway.gateway.APIAdresses.gateway.create.base,
+            index: APIGateway.gateway.APIAdresses.gateway.index.base
           },
           title: {
             show: 'اطلاعات درگاه ها',
