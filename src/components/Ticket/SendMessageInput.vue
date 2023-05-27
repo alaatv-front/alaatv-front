@@ -422,7 +422,6 @@ export default {
     callGetOrderApi() {
       const userId = this.$store.getters['Auth/user'].id
       return this.$apiGateway.user.ordersById(userId)
-      // return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
     },
     loadFile(event) {
       const { files } = event.target

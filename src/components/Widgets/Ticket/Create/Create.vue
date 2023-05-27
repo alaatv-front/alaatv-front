@@ -53,10 +53,10 @@
 
 <script>
 import { EntityCreate } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketDepartment } from 'src/models/TicketDepartment.js'
 import SendMessageInput from 'components/Ticket/SendMessageInput.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Create',
@@ -79,7 +79,7 @@ export default {
   data () {
     return {
       showDialog: true,
-      api: API_ADDRESS.ticket.create.base,
+      api: APIGateway.ticket.APIAdresses.base,
       selectedDepartment: new TicketDepartment(),
       inputs: [
         {

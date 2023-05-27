@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'AttributeValue',
@@ -66,10 +66,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.attributeValue.show.base,
-            edit: API_ADDRESS.attributeValue.edit.base,
-            create: API_ADDRESS.attributeValue.create.base,
-            index: API_ADDRESS.attributeValue.index.base
+            show: APIGateway.attribute.APIAdresses.attributeValue.show.base,
+            edit: APIGateway.attribute.APIAdresses.attributeValue.edit.base,
+            create: APIGateway.attribute.APIAdresses.attributeValue.create.base,
+            index: APIGateway.attribute.APIAdresses.attributeValue.index.base
           },
           title: {
             show: 'اطلاعات مقدار صفت',

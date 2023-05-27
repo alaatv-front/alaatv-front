@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'SourceManagement',
@@ -58,10 +58,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.sourceManagement.show.base,
-            edit: API_ADDRESS.sourceManagement.edit.base,
-            create: API_ADDRESS.sourceManagement.create.base,
-            index: API_ADDRESS.sourceManagement.index.base
+            show: APIGateway.source.APIAdresses.sourceManagement.show.base,
+            edit: APIGateway.source.APIAdresses.sourceManagement.edit.base,
+            create: APIGateway.source.APIAdresses.sourceManagement.create.base,
+            index: APIGateway.source.APIAdresses.sourceManagement.index.base
           },
           title: {
             show: 'اطلاعات  منبع ها',

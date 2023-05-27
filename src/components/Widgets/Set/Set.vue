@@ -95,7 +95,6 @@
 import moment from 'moment-jalaali'
 import { Set } from 'src/models/Set.js'
 import ContentItem from './ContentItem.vue'
-import API_ADDRESS from 'src/api/Addresses.js'
 import Bookmark from 'src/components/Bookmark.vue'
 import { SetSection } from 'src/models/SetSection.js'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
@@ -189,9 +188,6 @@ export default {
     },
     getCountOfPamphletsInContents (contents) {
       return contents.filter(content => content.isPamphlet()).length
-    },
-    getSetBookmarkBaseRoute(id) {
-      return API_ADDRESS.set.show(id)
     },
     loadSet() {
       if (typeof this.data === 'object') {
