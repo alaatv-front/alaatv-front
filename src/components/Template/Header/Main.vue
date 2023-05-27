@@ -74,8 +74,8 @@
             <!--            />-->
             <q-btn icon="isax:shopping-cart"
                    unelevated
-                   rounded
                    size="12px"
+                   round
                    class="action-btn"
                    :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
@@ -592,8 +592,8 @@ export default {
               img {
                 border: 2px solid #FFB74D;
                 border-radius: 16px;
-                max-width: 100%;
-                width: 100%;
+                //max-width: 100%;
+                //width: 100%;
               }
             }
           }
