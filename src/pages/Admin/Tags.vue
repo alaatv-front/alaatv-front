@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Tags',
@@ -58,10 +58,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.tags.show.base,
-            edit: API_ADDRESS.tags.edit.base,
-            create: API_ADDRESS.tags.create.base,
-            index: API_ADDRESS.tags.index.base
+            show: APIGateway.tag.APIAdresses.show.base,
+            edit: APIGateway.tag.APIAdresses.edit.base,
+            create: APIGateway.tag.APIAdresses.create.base,
+            index: APIGateway.tag.APIAdresses.index.base
           },
           title: {
             show: 'اطلاعات تگ ها',

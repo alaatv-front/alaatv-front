@@ -10,7 +10,7 @@
 
 <script>
 import { EntityCreate } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Create',
@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       expanded: true,
-      api: API_ADDRESS.product.create.base,
+      api: APIGateway.product.APIAdresses.admin.create,
       entityIdKeyInResponse: 'id',
       showRouteParamKey: 'id',
       showRouteName: 'Admin.OldUser.Show',

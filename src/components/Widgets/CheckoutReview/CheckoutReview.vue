@@ -23,12 +23,12 @@
 
 import { computed } from 'vue'
 import { Cart } from 'src/models/Cart.js'
-import API_ADDRESS from 'src/api/Addresses.js'
 import StickyBothSides from 'src/components/Utils/StickyBothSides.vue'
 import Login from 'src/components/Widgets/CheckoutReview/SideComponents/Login.vue'
 import Donate from 'src/components/Widgets/CheckoutReview/SideComponents/Donate.vue'
 import CartItemList from 'src/components/Widgets/CheckoutReview/SideComponents/CartItemList.vue'
 import CheckoutReviewCart from 'src/components/Widgets/CheckoutReview/CartComponents/CheckoutReviewCart.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'CheckoutReview',
@@ -62,9 +62,9 @@ export default {
     },
     checkoutReview() {
       this.$store.dispatch('loading/overlayLoading', true)
-      this.$axios.get(API_ADDRESS.cart.review)
-        .then((res) => {
-          this.items = new Cart(res.data.data)
+      APIGateway.cart.reviewCart()
+        .then((cart) => {
+          this.items = cart
           this.$store.dispatch('loading/overlayLoading', false)
         })
         .catch(() => {

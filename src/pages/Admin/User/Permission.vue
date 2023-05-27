@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Permission',
@@ -58,7 +58,7 @@ export default {
     return {
       allProps: {
         config: {
-          api: API_ADDRESS.permission.show.base,
+          api: APIGateway.permission.APIAdresses.show,
           // or
           // api: {
           //   show: API_ADDRESS.users.show.base,
