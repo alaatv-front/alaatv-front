@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Sets',
@@ -57,7 +57,7 @@ export default {
       expanded: true,
       allProps: {
         config: {
-          api: API_ADDRESS.set.admin.base,
+          api: APIGateway.set.APIAdresses.adminBase,
           title: {
             show: 'اطلاعات  دسته محتوا',
             edit: 'ویرایش  دسته محتوا',

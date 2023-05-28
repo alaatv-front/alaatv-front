@@ -6,6 +6,10 @@ export default class LiveDescriptionAPI extends APIRepository {
   constructor() {
     super('liveDescription', apiV2, '/liveDescription', new LiveDescription())
     this.APIAdresses = {
+      create: '/admin/user',
+      edit: '/admin/user',
+      index: '/admin/user',
+      show: '/admin/user',
       liveDescription: '/livedescription',
       pinedNews: '/livedescription/getPined',
       observedLiveDescription: (id) => '/livedescription/' + id + '/seen'

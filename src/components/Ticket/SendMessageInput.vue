@@ -46,8 +46,9 @@
         <!--        </template>-->
         </q-select>
       </div>
-      <div class=" SendMessageInput ">
-        <div v-show="canShowMic">
+      <div class="SendMessageInput row">
+        <div v-show="canShowMic"
+             class="row">
           <div class="input-group-prepend">
             <q-btn unelevated
                    class="btn  actionBtn btnRecordVoiceForUpload"
@@ -140,7 +141,7 @@
 
           </q-dialog>
         </div>
-        <div v-if="canShowSelectFile">
+        <div v-if="canShowSelectFile && !recordCurrentStatus">
           <q-btn unelevated
                  square
                  color="teal-7"
@@ -172,11 +173,6 @@
             </q-tooltip>
           </q-btn>
         </div>
-        <q-input v-show="canShowTextarea"
-                 v-model="newMessage.text"
-                 borderless
-                 class="newMessageText"
-                 placeholder="متن پیام ..." />
         <div v-if="recordedVoice !== null"
              v-show="showVoicePlayer"
              class="input-group-prepend">
@@ -198,6 +194,11 @@
                controls
                class="js-audio audio" />
       </div>
+      <q-input v-show="canShowTextarea"
+               v-model="newMessage.text"
+               borderless
+               class="newMessageText col-12"
+               placeholder="متن پیام ..." />
     </q-card>
   </q-no-ssr>
 </template>
@@ -421,7 +422,6 @@ export default {
     callGetOrderApi() {
       const userId = this.$store.getters['Auth/user'].id
       return this.$apiGateway.user.ordersById(userId)
-      // return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
     },
     loadFile(event) {
       const { files } = event.target
@@ -702,8 +702,9 @@ export default {
 
 .SendMessageInput {
   display: flex;
-
+  min-height: 40px;
   .input-group-prepend {
+    height: 100%;
     .btn {
       width: 64px;
       padding: 0;

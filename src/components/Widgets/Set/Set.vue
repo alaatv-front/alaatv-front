@@ -15,20 +15,27 @@
           {{ set.title }}
         </template>
       </div>
-      <div class="meta">
-        <template v-if="set.loading">
-          <q-skeleton type="text" />
-        </template>
-        <template v-else>
-          {{ set.contents_count }}
-          جلسه
-        </template>
-      </div>
     </div>
     <div class="archives-row">
-      <div v-if="!set.loading"
-           class="title">
-        آرشیو محتوا
+      <div class="archives-header">
+        <div class="archives-title">
+          <template v-if="!set.loading">
+            آرشیو محتوا
+          </template>
+          <template v-if="set.loading">
+            <q-skeleton width="100px"
+                        type="text" />
+          </template>
+        </div>
+        <div class="archives-meta">
+          <template v-if="set.loading">
+            <q-skeleton type="text" />
+          </template>
+          <template v-else>
+            {{ set.contents_count }}
+            جلسه
+          </template>
+        </div>
       </div>
       <div class="archives-list">
 
@@ -88,7 +95,6 @@
 import moment from 'moment-jalaali'
 import { Set } from 'src/models/Set.js'
 import ContentItem from './ContentItem.vue'
-import API_ADDRESS from 'src/api/Addresses.js'
 import Bookmark from 'src/components/Bookmark.vue'
 import { SetSection } from 'src/models/SetSection.js'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
@@ -183,9 +189,6 @@ export default {
     getCountOfPamphletsInContents (contents) {
       return contents.filter(content => content.isPamphlet()).length
     },
-    getSetBookmarkBaseRoute(id) {
-      return API_ADDRESS.set.show(id)
-    },
     loadSet() {
       if (typeof this.data === 'object') {
         this.set = this.data
@@ -243,12 +246,35 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
-    .title {}
-    .meta {}
+
+    @media screen and (max-width: 599px) {
+      flex-direction: column;
+    }
+    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   .archives-row {
-    .title {
+    .archives-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-top: 40px;
+      padding: 0 25px;
+
+      .archives-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      }
+      .archives-meta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
     .archives-list {
       margin-top: 20px;

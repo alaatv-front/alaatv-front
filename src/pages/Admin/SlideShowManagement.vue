@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'SlideShowManagement',
@@ -71,10 +71,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.slideShowManagement.show.base,
-            edit: API_ADDRESS.slideShowManagement.edit.base,
-            create: API_ADDRESS.slideShowManagement.create.base,
-            index: API_ADDRESS.slideShowManagement.index.base
+            show: APIGateway.slideShow.APIAdresses.slideShowManagement.show.base,
+            edit: APIGateway.slideShow.APIAdresses.slideShowManagement.edit.base,
+            create: APIGateway.slideShow.APIAdresses.slideShowManagement.create.base,
+            index: APIGateway.slideShow.APIAdresses.slideShowManagement.index.base
           },
           title: {
             show: 'اطلاعات اسلایدشو ها',

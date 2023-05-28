@@ -1,9 +1,9 @@
 import { Model, Collection } from 'js-abstract-model'
-import { SetList } from './Set'
-import Url from './Url'
-import { ContentTimePointList } from './ContentTimePoint'
-import ContentSection from './ContentSection'
-import { PlayerSourceList } from 'src/models/PlayerSource'
+import Url from './Url.js'
+import { SetList } from './Set.js'
+import ContentSection from './ContentSection.js'
+import { ContentTimePointList } from './ContentTimePoint.js'
+import { PlayerSourceList } from 'src/models/PlayerSource.js'
 
 class Content extends Model {
   constructor(data) {
@@ -102,6 +102,10 @@ class Content extends Model {
       this.file.video.forEach((item, key) => {
         this.file.video[key].link = this.file.video[key].link.replace('download=1', '')
       })
+    }
+
+    if (!this.section.id) {
+      this.section = new ContentSection()
     }
 
     // // ToDo: must remove
