@@ -76,8 +76,9 @@
                    rounded
                    size="12px"
                    class="action-btn"
+                   :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
-              <q-badge v-if="cartOrdersCount > 0"
+              <q-badge v-if="mounted && cartOrdersCount > 0"
                        color="primary"
                        floating
                        rounded>
@@ -190,16 +191,15 @@ import megaMenu from './magaMenu.vue'
 import simpleMenu from './simpleMenu.vue'
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import menuItems from 'components/Template/menuData.js'
-import itemMenu from 'components/Template/Header/itemMenu.vue'
-import { Cart } from 'src/models/Cart'
+import menuItems from 'src/components/Template/menuData.js'
+import itemMenu from 'src/components/Template/Header/itemMenu.vue'
 
 export default {
   name: 'MainHeaderTemplate',
   components: { LazyImg, megaMenu, simpleMenu, itemMenu },
   data() {
     return {
-      cart: new Cart(),
+      mounted: false,
       conferenceMenu: false,
       showHamburgerConfig: true,
       searchInput: '',
@@ -268,11 +268,17 @@ export default {
     }
   },
   computed: {
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
     cartOrdersCount () {
-      return this.$store.getters['Cart/cart'].count
+      return this.cart.count
+    },
+    cartLoading () {
+      return this.cart.loading
     },
     showHamburger () {
-      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.lg
     },
     computedUserId () {
       const user = this.$store.getters['Auth/user']
@@ -298,6 +304,7 @@ export default {
     }
   },
   mounted () {
+    this.mounted = true
     this.loadAuthData()
     this.checkMenurItemsForAuthenticatedUser()
   },

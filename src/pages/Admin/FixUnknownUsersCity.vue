@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'FixUnknownUsersCity',
@@ -67,10 +67,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.fixUnknownUsersCity.show.base,
-            edit: API_ADDRESS.fixUnknownUsersCity.edit.base,
-            create: API_ADDRESS.fixUnknownUsersCity.create.base,
-            index: API_ADDRESS.fixUnknownUsersCity.index.base
+            show: APIGateway.user.APIAdresses.fixUnknownUsersCity.show.base,
+            edit: APIGateway.user.APIAdresses.fixUnknownUsersCity.edit.base,
+            create: APIGateway.user.APIAdresses.fixUnknownUsersCity.create.base,
+            index: APIGateway.user.APIAdresses.fixUnknownUsersCity.index.base
           },
           title: {
             show: 'اطلاعات  استان و شهر کاربران',

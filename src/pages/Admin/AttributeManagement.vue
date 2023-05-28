@@ -82,8 +82,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'AttributeManagement',
@@ -99,10 +99,10 @@ export default {
         config: {
           // toDo : temp, 'Content' should be replaced with 'order'
           api: {
-            show: API_ADDRESS.attributeManagement.show.base,
-            edit: API_ADDRESS.attributeManagement.edit.base,
-            create: API_ADDRESS.attributeManagement.create.base,
-            index: API_ADDRESS.attributeManagement.index.base
+            show: APIGateway.attribute.APIAddresses.attributeManagement.show.base,
+            edit: APIGateway.attribute.APIAddresses.attributeManagement.edit.base,
+            create: APIGateway.attribute.APIAddresses.attributeManagement.create.base,
+            index: APIGateway.attribute.APIAddresses.attributeManagement.index.base
           },
           title: {
             show: 'اطلاعات صفت',
@@ -188,10 +188,10 @@ export default {
       allEntityCrudChildProps: {
         config: {
           api: {
-            show: API_ADDRESS.attributeValue.show.base,
-            edit: API_ADDRESS.attributeValue.edit.base,
-            create: API_ADDRESS.attributeValue.create.base,
-            index: API_ADDRESS.attributeValue.index.base
+            show: APIGateway.attribute.APIAdresses.attributeValue.show.base,
+            edit: APIGateway.attribute.APIAdresses.attributeValue.edit.base,
+            create: APIGateway.attribute.APIAdresses.attributeValue.create.base,
+            index: APIGateway.attribute.APIAdresses.attributeValue.index.base
           },
           title: {
             show: 'اطلاعات مقدار صفت',
