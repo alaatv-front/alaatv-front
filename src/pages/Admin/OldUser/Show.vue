@@ -10,14 +10,14 @@
 
 <script>
 import { EntityShow } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
+import { APIGateway } from 'src/api/APIGateway'
 export default {
   name: 'Show',
   components: { EntityShow },
   data () {
     return {
       expanded: true,
-      api: API_ADDRESS.users.show.base,
+      api: APIGateway.user.APIAdresses.admin.show.base,
       entityIdKey: 'id',
       entityParamKey: 'id',
       editRouteName: 'Admin.OldUser.Edit',

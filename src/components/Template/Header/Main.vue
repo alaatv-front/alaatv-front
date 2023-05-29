@@ -278,7 +278,7 @@ export default {
       return this.cart.loading
     },
     showHamburger () {
-      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.lg
     },
     computedUserId () {
       const user = this.$store.getters['Auth/user']

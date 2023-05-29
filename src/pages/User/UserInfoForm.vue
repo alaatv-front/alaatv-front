@@ -148,8 +148,8 @@
 import Time from 'src/plugins/time.js'
 import { User } from 'src/models/User.js'
 import Verify from 'pages/Auth/Verify.vue'
-import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'UserInfoForm',
@@ -283,11 +283,11 @@ export default {
     getUserData () {
       const that = this
       this.user.loading = true
-      this.$axios.get(API_ADDRESS.user.show_user)
-        .then((response) => {
+      APIGateway.user.showUser()
+        .then((userData) => {
           this.user.loading = false
           that.getUserFormData()
-          that.$store.commit('Auth/updateUser', response.data.data)
+          that.$store.commit('Auth/updateUser', userData)
           this.canRedirect()
         })
       // .catch(e => {
@@ -325,13 +325,13 @@ export default {
     },
     getUserFormData () {
       this.user.loading = true
-      this.$axios.get(API_ADDRESS.user.formData)
+      APIGateway.user.formData()
         .then((resp) => {
-          this.genders = resp.data.data.genders
-          this.grades = resp.data.data.grades
-          this.majors = resp.data.data.majors
-          this.provinces = resp.data.data.provinces
-          this.cities = resp.data.data.cities
+          this.genders = resp.genders
+          this.grades = resp.grades
+          this.majors = resp.majors
+          this.provinces = resp.provinces
+          this.cities = resp.cities
           this.user.loading = false
           // this.loadSomeData()
           this.userData = this.user

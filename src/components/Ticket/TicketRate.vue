@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'TicketRate',
@@ -85,14 +85,12 @@ export default {
       if (!this.isSelected(this.selectedId, rateId)) {
         return false
       }
-      this.$axios.post(API_ADDRESS.ticket.ticketRate(this.ticketId), {
-        rate: rateId
-      })
-        .then((res) => {
+      APIGateway.ticket.sendTicketRate(this.ticketId, { rate: rateId })
+        .then((message) => {
           this.ActiveAndCheckImages(rateId)
           this.selectedId = rateId
           this.$q.notify({
-            message: res.data.message,
+            message,
             type: 'positive'
           })
         })

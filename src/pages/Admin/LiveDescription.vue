@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'LiveDescription',
@@ -67,10 +67,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.liveDescription.show.base,
-            edit: API_ADDRESS.liveDescription.edit.base,
-            create: API_ADDRESS.liveDescription.create.base,
-            index: API_ADDRESS.liveDescription.index.base
+            show: APIGateway.liveDescription.APIAdresses.show,
+            edit: APIGateway.liveDescription.APIAdresses.edit,
+            create: APIGateway.liveDescription.APIAdresses.create,
+            index: APIGateway.liveDescription.APIAdresses.index
           },
           title: {
             show: 'اطلاعات  خبر ها',
