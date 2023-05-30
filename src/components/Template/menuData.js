@@ -1601,8 +1601,8 @@ const menuItems = [
       {
         title: 'چتر نجات',
         route: {
-          name: 'Public.Landing.FireDay',
-          params: ''
+          name: 'Public.Landing.DynamicName',
+          params: { landing_name: 37 }
         },
         badge: 'جدید'
       },
@@ -1627,8 +1627,8 @@ const menuItems = [
         selected: true,
         backgroundImage: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg',
         route: {
-          name: 'Public.Landing.FireDay',
-          params: ''
+          name: 'Public.Landing.DynamicName',
+          params: { landing_name: 37 }
         },
         type: 'image'
       },
