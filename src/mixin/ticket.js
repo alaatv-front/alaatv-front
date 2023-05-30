@@ -11,9 +11,8 @@ const mixinTicket = {
     ticketPriorityOption: []
   }),
   computed: {
-    isAdmin() {
-      // return this.$store.getters['Auth/user'].has_admin_permission
-      return true
+    isInAdminPage () {
+      return !!this.$route.name.includes('Admin')
     }
   },
   mounted() {
