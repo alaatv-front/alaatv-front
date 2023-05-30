@@ -694,7 +694,6 @@ export default {
 }
 
 .attach-file {
-  //width: 64px;
   border-radius: 0;
 }
 
@@ -719,8 +718,6 @@ export default {
   .input-group-prepend {
     height: 100%;
     .btn {
-      //width: 64px;
-      //padding: 0;
       border-radius: 0;
     }
   }
@@ -732,14 +729,11 @@ export default {
 
   .input-group-append {
     .btn {
-      //width: 64px;
-      //padding: 0;
       border-radius: 0;
     }
 
     &.adminSend {
       display: flex;
-      //flex-direction: column;
     }
   }
 
