@@ -4,6 +4,7 @@
       <entity-edit ref="entityEdit"
                    v-model:value="inputs"
                    :show-save-button="false"
+                   :show-close-button="false"
                    :title="'شماره تیکت ' + getInputsValue('id') + ' در ' + getInputsValue('department_title')"
                    :api="api"
                    entity-id-key="id"
@@ -11,7 +12,7 @@
                    :show-route-name="options.indexRouteName"
                    :after-load-input-data="checkLoadInputData">
         <template #before-form-builder>
-          <div class="flex justify-around">
+          <div class="flex justify-around q-mb-md">
             <q-btn rounded
                    color="blue"
                    icon="isax:archive-book"
@@ -30,10 +31,19 @@
                 باز شدن لیست خرید
               </q-tooltip>
             </q-btn>
+            <q-btn rounded
+                   color="blue"
+                   :loading="loading"
+                   icon="isax:document4"
+                   :to="ticketListRoute">
+              <q-tooltip>
+                بازگشت به صفحه لیست تیکت ها
+              </q-tooltip>
+            </q-btn>
           </div>
           <div v-if="isInAdminPage"
-               class="row q-mt-lg">
-            <div class="col-4 q-px-lg">
+               class="row q-my-lg q-col-gutter-md">
+            <div class="col-4">
               <q-btn unelevated
                      class="full-width"
                      icon="isax:user"
@@ -44,7 +54,7 @@
                 <q-tooltip>ویرایش اطلاعات کاربر</q-tooltip>
               </q-btn>
             </div>
-            <div class="col-4 q-px-lg">
+            <div class="col-4">
               <q-btn unelevated
                      class="full-width"
                      :loading="loading"
@@ -54,7 +64,7 @@
                 <q-tooltip>ویرایش اطلاعات تیکت</q-tooltip>
               </q-btn>
             </div>
-            <div class="col-4 q-px-lg">
+            <div class="col-4">
               <q-btn unelevated
                      class="full-width"
                      icon="isax:sms"
@@ -587,6 +597,12 @@ export default {
     },
     editAssignInput() {
       return this.inputs.find(item => item.name === 'editOperator')
+    },
+    ticketListRoute () {
+      if (this.$route.name.includes('Admin')) {
+        return { name: 'Admin.Ticket.Index' }
+      }
+      return { name: 'UserPanel.Ticket.Index' }
     }
   },
   watch: {
