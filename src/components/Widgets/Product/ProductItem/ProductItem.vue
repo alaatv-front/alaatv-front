@@ -101,12 +101,12 @@
                 <div class="price-container">
                   <div class="final-price-box">
                     <div class="final-price">
-                      {{ product.price['final'] }}
+                      {{ product.price.toman('final', false) }}
                     </div>
                     <div class="price-Toman">تومان</div>
                   </div>
                   <div v-if="product.price['discount'] !== 0"
-                       class="main-price">{{ product.price['base'] }}</div>
+                       class="main-price">{{ product.price.toman('base', false) }}</div>
                 </div>
               </div>
             </div>
