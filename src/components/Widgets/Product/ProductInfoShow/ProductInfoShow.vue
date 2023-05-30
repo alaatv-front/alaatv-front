@@ -52,7 +52,7 @@
                        class="info-value">
                     <template v-if="!product.loading">
                       <span v-if="value"
-                            class="ellipsis">{{ value }}</span>
+                            class="ellipsis value-span">{{ value }}</span>
                       <span v-else>-</span>
                     </template>
                     <q-skeleton v-else
@@ -404,6 +404,11 @@ p {
             .info-value {
               text-align: center;
               align-self: center;
+
+              .value-span {
+                display: inline-block;
+                max-width: 110px;
+              }
 
               &:after {
                 content: '-';

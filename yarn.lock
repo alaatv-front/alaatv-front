@@ -1498,7 +1498,7 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@quasar/app-vite@^1.2.1":
+"@quasar/app-vite@^1.4.3":
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/@quasar/app-vite/-/app-vite-1.4.3.tgz#442944cace5008c473411212b04af3a46090ae0a"
   integrity sha512-5iMs1sk6fyYTFoRVySwFXWL/PS23UEsdk+YSFejhXnSs5fVDmb2GQMguCHwDl3jPIHjZ7A+XKkb2iWx9pjiPXw==
@@ -1548,10 +1548,10 @@
   resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.16.1.tgz#1be607c200c8426497b7a6de21056edb28ef122a"
   integrity sha512-bRnWSC469Qogw0ceDVd0yTQVBQjyhV6L10EMixXK1dpOs9tWGKRVgyyGZ5DEBkDgyn4BeRuV5s5e9VrQdQPsOg==
 
-"@quasar/extras@^1.16.2":
-  version "1.16.3"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.16.3.tgz#72216e2d450a2ee70613957da88191339b90de41"
-  integrity sha512-c9p2j4KWrWqOcCcCD9IMjgPZzAiXKSMEMc3uYbqa5mHlEJ1kl88OMaeJUcmP+INRQ29AFSEQ9tZE20jLmdnLXw==
+"@quasar/extras@^1.16.4":
+  version "1.16.4"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.16.4.tgz#34fc2517fffecb5c27e4cea1b69b62aaf890ff73"
+  integrity sha512-q2kPTNHI5aprgE2yQfRIf6aud+qSXH3YTNmhcfRp/rENh7kRjoM+b5BBPxgHlO1si1ARddbmr+Fxu/L05hfXnQ==
 
 "@quasar/render-ssr-error@^1.0.1":
   version "1.0.1"
@@ -5033,10 +5033,10 @@ quasar-form-builder@^0.1.92:
     shvl "^3.0.0"
     vue "^3.2.47"
 
-quasar-template-builder@^1.0.21:
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/quasar-template-builder/-/quasar-template-builder-1.0.21.tgz#b959751247e5d3194307e4f465e9620a2ca6460c"
-  integrity sha512-KaqKIRU3R1rsPO6H2ovqEZODqmLG8ab33G2Ysf8hclmXUMfJuZY29HgnOFLg1UNXlpJtqRRFIf4ShN+VpyqmtA==
+quasar-template-builder@^1.0.23:
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/quasar-template-builder/-/quasar-template-builder-1.0.23.tgz#36c82757e9f343c21ff6d3a6a4ce6760edf5436e"
+  integrity sha512-W+hMug1QvFCPr7ePHolrEod00tdYXwpd03QRQwNI598VUN7vIGILh+rdbVE/XIkYAtYdgkHK0QehiDDXKVcQsA==
   dependencies:
     "@quasar/extras" "^1.15.11"
     quasar "^2.11.7"
@@ -5054,11 +5054,6 @@ quasar-ui-q-page-builder@^0.1.39:
     shvl "^3.0.0"
     vue "^3.2.47"
 
-quasar@^2.11.10:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.12.0.tgz#f145ad2b677a0925ea9ca6a3b44b5502be1cbd87"
-  integrity sha512-B8xoeOWNs/Iv7M+FGRvXGYI1qDnJH8AtIb7RiP+zMfMkBcEp+6HJHU/9ODPemC4yteDjO+HPX2f7OhNZKgsPIw==
-
 quasar@^2.11.7:
   version "2.11.7"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.7.tgz#0371d2cbe299305a0949332d2a3fc6929a70e2f6"
@@ -5068,6 +5063,11 @@ quasar@^2.11.9:
   version "2.11.9"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.9.tgz#239413cd14e9be9bcabc125f97209944832e5277"
   integrity sha512-ZHSZRQJk/zN6whhvihh0EyRpAs3IYBZZ+1O5/RSe7nXyOXOVi6RwPBzleab5HoTxtHL5Yuk3/bKgb3CywAyBQQ==
+
+quasar@^2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.12.0.tgz#f145ad2b677a0925ea9ca6a3b44b5502be1cbd87"
+  integrity sha512-B8xoeOWNs/Iv7M+FGRvXGYI1qDnJH8AtIb7RiP+zMfMkBcEp+6HJHU/9ODPemC4yteDjO+HPX2f7OhNZKgsPIw==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
