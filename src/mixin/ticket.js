@@ -16,10 +16,14 @@ const mixinTicket = {
       return true
     }
   },
-  created() {
+  mounted() {
+    this.initTicket()
     this.setPageData()
   },
   methods: {
+    initTicket () {
+      // here goes the custom methods developer chooses to run before mixin
+    },
     async setPageData() {
       // this.setRoleAndPermissions()
       this.loading = true
