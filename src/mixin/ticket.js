@@ -489,8 +489,9 @@ const mixinTicket = {
         }
         this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
+        const showRouteName = this.isInAdminPage ? 'Admin.Ticket.Show' : 'UserPanel.Ticket.Show'
         await this.$router.push({
-          name: 'Admin.Ticket.Show',
+          name: showRouteName,
           params: { id: response.data.data.id }
         })
       } catch {
