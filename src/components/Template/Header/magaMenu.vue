@@ -22,10 +22,16 @@
                   <q-item-section>
                     {{ item.title }}
                   </q-item-section>
+                  <q-badge v-if="item.badge"
+                           color="blue"
+                           class="badge q-py-xs"
+                           align="middle">
+                    {{item.badge}}
+                  </q-badge>
                   <div class="left-arrow" />
                 </q-item>
               </router-link>
-              <router-link v-else
+              <router-link v-else-if="item.route.name"
                            :to="{name: item.route.name, params: item.route.params}">
                 <q-item class="item"
                         :class="{arrow: isSelectedItem(index) }"
@@ -34,9 +40,33 @@
                   <q-item-section>
                     {{item.title}}
                   </q-item-section>
+                  <q-badge v-if="item.badge"
+                           color="blue"
+                           class="badge q-py-xs"
+                           align="middle">
+                    {{item.badge}}
+                  </q-badge>
                   <div class="left-arrow" />
                 </q-item>
               </router-link>
+              <a v-else
+                 :href="item.route.externalLink">
+                <q-item class="item"
+                        :class="{arrow: isSelectedItem(index) }"
+                        clickable
+                        @mouseover="showData(index)">
+                  <q-item-section>
+                    {{item.title}}
+                  </q-item-section>
+                  <q-badge v-if="item.badge"
+                           color="blue"
+                           class="badge q-py-xs"
+                           align="middle">
+                    {{item.badge}}
+                  </q-badge>
+                  <div class="left-arrow" />
+                </q-item>
+              </a>
 
             </div>
           </q-list>
@@ -48,11 +78,18 @@
           <div>
             <div v-if="item.type === 'image'">
               <div v-if="item.selected">
-                <router-link :to="{name: item.route.name, params: item.route.params}">
+                <router-link v-if="item.route.name"
+                             :to="{name: item.route.name, params: item.route.params}">
                   <q-responsive :ratio="1998/553">
                     <q-img :src="item.backgroundImage" />
                   </q-responsive>
                 </router-link>
+                <a v-else-if="item.route.externalLink"
+                   :href="item.route.externalLink">
+                  <q-responsive :ratio="1998/553">
+                    <q-img :src="item.backgroundImage" />
+                  </q-responsive>
+                </a>
               </div>
             </div>
             <div v-else-if="item.type === 'text'">
@@ -140,6 +177,29 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.item {
+  .badge{
+    position: absolute;
+    top: 13px;
+    left: 130px;
+    z-index: 100;
+    animation: badge 1s infinite;
+  }
+  @keyframes badge {
+    0% {
+      -moz-box-shadow:0 0 0 0 rgba(55, 55, 55, 0.68);
+      box-shadow:0 0 0 0 rgba(55, 55, 55, 0.68);
+    }
+    70% {
+      -moz-box-shadow:0 0 0 10px rgba(0,0,0,0);
+      box-shadow:0 0 0 10px rgba(0,0,0,0);
+    }
+    100% {
+      -moz-box-shadow:0 0 0 0 rgba(0,0,0,0);
+      box-shadow:0 0 0 0 rgba(0,0,0,0);
+    }
+  }
+}
 .arrow{
   margin-right: 14px;
   transition: border-left 1s;

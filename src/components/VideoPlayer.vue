@@ -446,8 +446,8 @@ export default {
       z-index: 2;
       .vjs-volume-panel {
         .vjs-volume-control {
-          right: -3.5em;
-          margin-right: -1px;
+          // right: -3.5em;
+          // margin-right: -1px;
         }
       }
       .vjs-resolution-button {
@@ -471,6 +471,27 @@ export default {
         left: auto;
       }
     }
+    .vjs-volume-tooltip {
+      float: right;
+    }
+    .vjs-volume-level {
+      right: 0;
+    }
   }
+}
+
+.vjs-slider-horizontal .vjs-volume-level:before {
+  left: 0;
+  right: auto;
+}
+.video-js .vjs-volume-level {
+    /* right: 0; */
+}
+.video-js .vjs-volume-tooltip {
+    /* float: left; */
+}
+.vPlayer .video-js .vjs-control-bar .vjs-volume-panel .vjs-volume-control {
+    /* left: -3.5em; */
+    /* margin-left: -1px; */
 }
 </style>

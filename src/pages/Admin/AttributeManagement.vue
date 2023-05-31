@@ -268,7 +268,7 @@ export default {
         { type: 'select', name: 'is_free', value: null, options: [{ label: 'رایگان', value: 1 }, { label: 'غیر رایگان', value: 0 }], label: 'وضعیت رایگان / غیر رایگان', col: 'col-md-3' },
         { type: 'select', name: 'enable', value: null, options: [{ label: 'فعال', value: 1 }, { label: 'غیرفعال', value: 0 }], label: 'وضعیت فعال / غیرفعال', col: 'col-md-3' },
         { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], label: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_range', value: [], label: 'تاریخ ثبت ایجاد', col: 'col-md-4' }
+        { type: 'date', calendarIcon: ' ', name: 'created_at_range', value: [], label: 'تاریخ ثبت ایجاد', col: 'col-md-4' }
       ]
     }
   },
