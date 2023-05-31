@@ -234,6 +234,7 @@ export default class GAEE {
     this.getDataLayer()
     this.impression_view(impressions)
     if (this.reportGtmEecOnConsole) {
+      // eslint-disable-next-line no-console
       console.log('gtmEecImpressionView: ', impressions)
     }
   }
@@ -243,6 +244,7 @@ export default class GAEE {
     const impressions = this.getElementData_product(element)
     this.impression_view(impressions)
     if (this.reportGtmEecOnConsole) {
+      // eslint-disable-next-line no-console
       console.log('gtmEecImpressionView: ', impressions)
     }
   }
@@ -253,6 +255,7 @@ export default class GAEE {
       actionFieldList = impressions[0].list
     this.impression_click(actionFieldList, impressions)
     if (this.reportGtmEecOnConsole) {
+      // eslint-disable-next-line no-console
       console.log('gtmEecImpressionClick: ', impressions)
     }
   }
@@ -267,6 +270,7 @@ export default class GAEE {
     const promotions = this.getElementData_advertisement(element)
     this.promotion_view(promotions)
     if (this.reportGtmEecOnConsole) {
+      // eslint-disable-next-line no-console
       console.log('gtmEecPromotionView: ', promotions)
     }
   }
@@ -276,6 +280,7 @@ export default class GAEE {
     const promotion = this.getElementData_advertisement(element)
     this.promotion_click(promotion)
     if (this.reportGtmEecOnConsole) {
+      // eslint-disable-next-line no-console
       console.log('gtmEecPromotionClick: ', promotion)
     }
   }
