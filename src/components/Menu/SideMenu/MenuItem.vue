@@ -117,7 +117,6 @@ export default {
   computed: {
     computedMenu: {
       get () {
-        console.log('this.menu', this.menu)
         if (this.menu.length > 0) {
           return this.menu
         } else {
