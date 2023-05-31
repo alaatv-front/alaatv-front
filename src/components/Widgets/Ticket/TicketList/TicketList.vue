@@ -1,115 +1,132 @@
 <template>
   <div class="ticket-index">
-    <entity-index v-model:value="inputs"
-                  title="لیست تیکت ها"
-                  :api="api"
-                  :table="table"
-                  :table-keys="tableKeys"
-                  :create-route-name="options.createRouteName"
-                  @onPageChanged="filterInputs">
-      <template v-slot:before-index-table>
-        <p class="q-ma-lg">
-          تعداد کل یافته ها: {{ totalTickets}}
-        </p>
-      </template>
-      <template v-slot:entity-index-table-cell="{inputData,showConfirmRemoveDialog}">
-        <template v-if="inputData.col.name === 'status'">
-          <div v-if="inputData.props.expand">
-            <q-select v-model="inputData.props.row.status"
+    <div v-if="isEntityReady">
+      <entity-index v-model:value="inputs"
+                    title="لیست تیکت ها"
+                    :api="api"
+                    :table="table"
+                    :table-keys="tableKeys"
+                    :create-route-name="options.createRouteName"
+                    @onPageChanged="filterInputs">
+        <template v-slot:before-index-table>
+          <p class="q-ma-lg">
+            تعداد کل یافته ها: {{ totalTickets}}
+          </p>
+        </template>
+        <template v-slot:entity-index-table-cell="{inputData,showConfirmRemoveDialog}">
+          <template v-if="inputData.col.name === 'status'">
+            <div v-if="inputData.props.expand">
+              <q-select v-model="inputData.props.row.status"
+                        outlined
+                        dense
+                        :options="ticketStatuses"
+                        option-label="title" />
+            </div>
+            <template v-else>
+              <q-chip :color="checkStatusColor(inputData.props.row.status.id)"
+                      :style="{color: '#FFF', height: '26px'}">
+                {{ inputData.props.row.status.title }}
+              </q-chip>
+            </template>
+          </template>
+          <template v-if="inputData.col.name === 'title'">
+            <div class="title-class ellipsis">
+              {{inputData.props.row.title}}
+            </div>
+          </template>
+          <template v-if="inputData.col.name === 'score'">
+            <q-img :src="rateImg(inputData.props.row.rate)"
+                   class="rate-img" />
+          </template>
+          <template v-if="inputData.col.name === 'department'">
+            <q-select v-if="inputData.props.expand"
+                      v-model="inputData.props.row.department"
                       outlined
                       dense
-                      :options="ticketStatuses"
+                      :options="departmentList.list"
                       option-label="title" />
-          </div>
+            <p v-else>{{inputData.props.row.department.title}}</p>
+
+          </template>
+          <template v-if="inputData.col.name === 'actions'">
+            <div v-if="!isInAdminPage">
+              <q-btn round
+                     flat
+                     dense
+                     size="md"
+                     color="info"
+                     icon="info"
+                     :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
+                <q-tooltip>
+                  مشاهده
+                </q-tooltip>
+              </q-btn>
+            </div>
+            <div v-else>
+              <div v-if="inputData.props.expand">
+                <q-btn round
+                       flat
+                       dense
+                       color="green"
+                       icon="check"
+                       :loading="loading"
+                       class="q-mr-md"
+                       @click="updateTicket(inputData.props)" />
+                <q-btn round
+                       flat
+                       dense
+                       color="red"
+
+                       icon="close"
+                       @click="inputData.props.expand = false" />
+
+              </div>
+              <template v-else>
+                <q-btn round
+                       flat
+                       dense
+                       size="md"
+                       color="info"
+                       icon="info"
+                       :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
+                  <q-tooltip>
+                    مشاهده
+                  </q-tooltip>
+                </q-btn>
+                <q-btn round
+                       flat
+                       dense
+                       size="md"
+                       color="amber-14"
+                       icon="edit"
+                       class="q-ml-xs"
+                       @click="setEditMode(inputData.props)">
+                  <q-tooltip>
+                    ویرایش
+                  </q-tooltip>
+                </q-btn>
+                <q-btn round
+                       flat
+                       dense
+                       size="md"
+                       color="negative"
+                       icon="delete"
+                       :loading="loading"
+                       class="q-ml-md"
+                       @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
+                  <q-tooltip>
+                    حذف
+                  </q-tooltip>
+                </q-btn>
+              </template>
+            </div>
+          </template>
           <template v-else>
-            <q-chip :color="checkStatusColor(inputData.props.row.status.id)"
-                    :style="{color: '#FFF', height: '26px'}">
-              {{ inputData.props.row.status.title }}
-            </q-chip>
+            {{ inputData.col.value }}
           </template>
         </template>
-        <template v-if="inputData.col.name === 'title'">
-          <div class="title-class ellipsis">
-            {{inputData.props.row.title}}
-          </div>
-        </template>
-        <template v-if="inputData.col.name === 'score'">
-          <q-img :src="rateImg(inputData.props.row.rate)"
-                 class="rate-img" />
-        </template>
-        <template v-if="inputData.col.name === 'department'">
-          <q-select v-if="inputData.props.expand"
-                    v-model="inputData.props.row.department"
-                    outlined
-                    dense
-                    :options="departmentList.list"
-                    option-label="title" />
-          <p v-else>{{inputData.props.row.department.title}}</p>
-
-        </template>
-        <template v-if="inputData.col.name === 'actions'">
-          <div v-if="inputData.props.expand">
-            <q-btn round
-                   flat
-                   dense
-                   color="green"
-                   icon="check"
-                   :loading="loading"
-                   class="q-mr-md"
-                   @click="updateTicket(inputData.props)" />
-            <q-btn round
-                   flat
-                   dense
-                   color="red"
-
-                   icon="close"
-                   @click="inputData.props.expand = false" />
-
-          </div>
-          <template v-else>
-            <q-btn round
-                   flat
-                   dense
-                   size="md"
-                   color="info"
-                   icon="info"
-                   :to="{name:options.showRouteName, params: {id: inputData.props.row.id}}">
-              <q-tooltip>
-                مشاهده
-              </q-tooltip>
-            </q-btn>
-            <q-btn round
-                   flat
-                   dense
-                   size="md"
-                   color="amber-14"
-                   icon="edit"
-                   class="q-ml-xs"
-                   @click="setEditMode(inputData.props)">
-              <q-tooltip>
-                ویرایش
-              </q-tooltip>
-            </q-btn>
-            <q-btn round
-                   flat
-                   dense
-                   size="md"
-                   color="negative"
-                   icon="delete"
-                   :loading="loading"
-                   class="q-ml-md"
-                   @click="showConfirmRemoveDialog(inputData.props.row, 'id', 'آیا از حذف تیکت اطمینان دارید ؟')">
-              <q-tooltip>
-                حذف
-              </q-tooltip>
-            </q-btn>
-          </template>
-        </template>
-        <template v-else>
-          {{ inputData.col.value }}
-        </template>
-      </template>
-    </entity-index>
+      </entity-index>
+    </div>
   </div>
 </template>
 
@@ -117,6 +134,7 @@
 import { EntityIndex } from 'quasar-crud'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway'
+import moment from 'moment-jalaali'
 export default {
   name: 'TicketList',
   components: { EntityIndex },
@@ -134,6 +152,7 @@ export default {
   },
   data () {
     return {
+      isEntityReady: false,
       totalTickets: 0,
       api: APIGateway.ticket.APIAdresses.base,
       tableKeys: {
@@ -143,7 +162,61 @@ export default {
         perPage: 'meta.per_page',
         pageKey: 'productPage'
       },
-      table: {
+      userTable: {
+        columns: [
+          {
+            name: 'id',
+            required: true,
+            label: 'شناسه',
+            align: 'left',
+            field: row => row.id
+          },
+          {
+            name: 'title',
+            required: true,
+            label: 'عنوان',
+            align: 'left',
+            field: ''
+          },
+          {
+            name: 'status',
+            required: true,
+            label: 'وضعیت',
+            align: 'left',
+            field: ''
+          },
+          {
+            name: 'created_at',
+            required: true,
+            label: 'تاریخ ایجاد',
+            align: 'left',
+            field: row => this.getShamsiDate(row.created_at)
+          },
+          {
+            name: 'updated_at',
+            required: true,
+            label: 'آخرین بروزرسانی',
+            align: 'left',
+            field: row => this.getShamsiDate(row.updated_at)
+          },
+          {
+            name: 'priority',
+            required: true,
+            label: 'اولویت',
+            align: 'left',
+            field: row => row.priority.title
+          },
+          {
+            name: 'actions',
+            required: true,
+            label: 'مشاهده',
+            align: 'left',
+            field: ''
+          }
+        ],
+        data: []
+      },
+      adminTable: {
         columns: [
           {
             name: 'id',
@@ -232,21 +305,30 @@ export default {
         ],
         data: []
       },
-      inputs: [
-        { type: 'input', name: 'has_user_mobile', placeholder: 'شماره همراه', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_nationalcode', placeholder: 'کد ملی', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_firstname', placeholder: 'نام', col: 'col-md-3' },
-        { type: 'input', name: 'has_user_lastname', placeholder: 'نام خانوادگی', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'department_id', optionLabel: 'title', placeholder: 'گروه', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'pirority_id', placeholder: 'اولویت', col: 'col-md-3' },
-        { type: 'select', options: [], name: 'status_id', placeholder: 'وضعیت', optionLabel: 'title', col: 'col-md-3' },
-        { type: 'input', name: 'order_id', placeholder: 'شماره سفارش', col: 'col-md-3' },
-        { type: 'input', name: 'id', placeholder: 'شماره تیکت', col: 'col-md-3' },
-        { type: 'input', name: 'title', placeholder: 'عنوان', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_since', responseKey: 'data.from', placeholder: 'از:', col: 'col-md-3' },
-        { type: 'date', name: 'created_at_till', placeholder: 'تا:', col: 'col-md-3' },
-        { type: 'date', name: 'hasMessageFromDate', placeholder: 'تاریخ پاسخ اپراتور از:', col: 'col-md-6' },
-        { type: 'date', name: 'hasMessageToDate', placeholder: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-6' },
+      userInputs: [
+        { type: 'hidden', options: [], name: 'department_id' },
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', placeholder: ' ', col: 'col-md-4' },
+        { type: 'select', options: [], name: 'status_id', label: 'وضعیت', placeholder: ' ', optionLabel: 'title', col: 'col-md-4' },
+        { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: ' ', col: 'col-md-4' },
+        { type: 'input', name: 'title', label: 'عنوان', placeholder: ' ', col: 'col-md-4' },
+        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', placeholder: ' ', col: 'col-md-4' },
+        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', placeholder: ' ', col: 'col-md-4' }
+      ],
+      adminInputs: [
+        { type: 'input', name: 'has_user_mobile', label: 'شماره همراه', placeholder: ' ', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_nationalcode', label: 'کد ملی', placeholder: ' ', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_firstname', label: 'نام', placeholder: ' ', col: 'col-md-3' },
+        { type: 'input', name: 'has_user_lastname', label: 'نام خانوادگی', placeholder: ' ', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'department_id', optionLabel: 'title', label: 'گروه', placeholder: ' ', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', placeholder: ' ', col: 'col-md-3' },
+        { type: 'select', options: [], name: 'status_id', label: 'وضعیت', placeholder: ' ', optionLabel: 'title', col: 'col-md-3' },
+        { type: 'input', name: 'order_id', label: 'شماره سفارش', placeholder: ' ', col: 'col-md-3' },
+        { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: ' ', col: 'col-md-3' },
+        { type: 'input', name: 'title', label: 'عنوان', placeholder: ' ', col: 'col-md-3' },
+        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', placeholder: ' ', col: 'col-md-3' },
+        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', placeholder: ' ', col: 'col-md-3' },
+        { type: 'date', name: 'hasMessageFromDate', calendarIcon: ' ', placeholder: 'تاریخ پاسخ اپراتور از:', col: 'col-md-6' },
+        { type: 'date', name: 'hasMessageToDate', calendarIcon: ' ', placeholder: 'تاریخ پاسخ اپراتور تا:', col: 'col-md-6' },
         // {
         //   type: 'entity',
         //   name: 'hasAssignees',
@@ -472,7 +554,7 @@ export default {
               { type: 'select', name: 'display', value: null, options: [{ label: 'نمایش', value: 1 }, { label: 'عدم نمایش', value: 0 }], placeholder: 'وضعیت نمایش / عدم نمایش', col: 'col-md-3' },
               { type: 'input', name: 'name', value: null, placeholder: 'نام', col: 'col-md-4' },
               { type: 'input', name: 'attribute_set_id', value: null, placeholder: 'کد دسته', col: 'col-md-4' },
-              { type: 'dateRange', name: 'created_at_range', value: [], placeholder: 'بازه تاریخ ایجاد', col: 'col-md-4' }
+              { type: 'dateRange', calendarIcon: ' ', name: 'created_at_range', value: [], placeholder: 'بازه تاریخ ایجاد', col: 'col-md-4' }
             ],
             itemIdentifyKey: 'id',
             itemIndicatorKey: 'name'
@@ -483,10 +565,15 @@ export default {
           col: 'col-md-3'
         },
         { type: 'Checkbox', name: 'hasReported', value: 0, trueValue: 1, falseValue: 0, label: 'مشاهده موارد گزارش شده', col: 'col-md-3' }
-      ]
+      ],
+      inputs: [],
+      table: {}
     }
   },
   computed: {
+    isInAdminPage () {
+      return !!this.$route.name.includes('Admin')
+    },
     userCanFilterSupporter() {
       return true
     },
@@ -501,10 +588,26 @@ export default {
       return []
     }
   },
-  created() {
+  mounted () {
     this.setData()
+    this.isEntityReady = true
   },
   methods: {
+    initTicket () {
+      this.setEntityValues()
+    },
+    getShamsiDate (date) {
+      return moment(date, 'YYYY-M-D').format('jYYYY/jMM/jDD')
+    },
+    setEntityValues () {
+      if (this.$route.name.includes('Admin')) {
+        this.table = this.adminTable
+        this.inputs = this.adminInputs
+        return
+      }
+      this.table = this.userTable
+      this.inputs = this.userInputs
+    },
     filterInputs(res) {
       this.totalTickets = res.data?.meta?.total
       if (!this.userCanFilterSupporter) {

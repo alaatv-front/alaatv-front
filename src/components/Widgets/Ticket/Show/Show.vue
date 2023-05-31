@@ -306,6 +306,7 @@ export default {
           type: 'dateTime',
           name: 'created_at',
           responseKey: 'ticket.created_at',
+          calendarIcon: ' ',
           placeholder: 'تاریخ ایجاد',
           col: 'col-md-4',
           disable: true
@@ -330,6 +331,7 @@ export default {
           type: 'dateTime',
           name: 'created_at',
           responseKey: 'ticket.updated_at',
+          calendarIcon: ' ',
           placeholder: 'تاریخ بروز آوری:',
           col: 'col-md-4',
           disable: true
