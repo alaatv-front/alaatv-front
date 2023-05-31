@@ -300,14 +300,18 @@ export default {
               color: #3e5480;
               margin-bottom: 0;
             }
+            @media screen and (max-width: 1550px) {
+              max-width: 235px;
+            }
             @media screen and (max-width: 1200px) {
               max-width: 150px;
             }
             @media screen and (max-width: 1023px) {
-              max-width: 200px;
+              max-width: 100%;
             }
             @media screen and (max-width: 768px) {
               font-size: 14px;
+              max-width: 200px;
             }
           }
 
