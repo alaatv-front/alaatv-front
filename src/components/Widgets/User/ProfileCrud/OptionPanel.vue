@@ -111,6 +111,7 @@ export default defineComponent({
               responseKey: 'data.birthdate',
               label: 'تاریخ تولد',
               outlined: true,
+              calendarIcon: ' ',
               placeholder: 'وارد نمایید',
               col: 'col-md-6'
             },
