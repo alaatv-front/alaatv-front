@@ -17,7 +17,7 @@
           <div v-for="(subItem , i) in item.children"
                :key="i">
             <menu-item v-if="subItem.children && subItem.children.length > 0"
-                       :menu="[subItem]"
+                       :items="[subItem]"
                        @item-selected="itemSelected(item)" />
             <q-item v-else
                     v-ripple
@@ -117,6 +117,7 @@ export default {
   computed: {
     computedMenu: {
       get () {
+        console.log('this.menu', this.menu)
         if (this.menu.length > 0) {
           return this.menu
         } else {

@@ -57,7 +57,7 @@
             </template>
           </q-input>
           <menu-item class="menu-item"
-                     :menu="titlesList" />
+                     :items="titlesList" />
         </q-list>
         <div class="log-out"
              @click="logOut">
@@ -146,6 +146,7 @@ export default {
     //   }
     // },
     search (list, parentContain = false) {
+      console.log('list', list)
       if (!list || list.length === 0) {
         return false
       }

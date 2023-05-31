@@ -52,7 +52,7 @@
                    filled
                    class="gray-input search-input"
                    placeholder="جست و جو"
-                   @update:model-value ="search(titlesList)">
+                   @update:model-value ="search(menuItems)">
             <template v-slot:append>
               <q-icon name="search" />
             </template>
