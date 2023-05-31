@@ -17,7 +17,8 @@
                 <div class="telegram">
                   <q-btn flat
                          rounded
-                         class="btn-social">
+                         class="btn-social"
+                         :href="'https://telegram.me/alaa_sanatisharif'">
                     <svg width="24"
                          height="24"
                          viewBox="0 0 24 24"
@@ -39,7 +40,8 @@
                 <div class="instagram">
                   <q-btn flat
                          rounded
-                         class="btn-social">
+                         class="btn-social"
+                         :href="'https://www.instagram.com/alaa_sanatisharif'">
                     <svg width="24"
                          height="24"
                          viewBox="0 0 24 24"
