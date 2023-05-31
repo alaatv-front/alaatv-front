@@ -4,6 +4,7 @@
       <entity-edit ref="entityEdit"
                    v-model:value="inputs"
                    :show-save-button="false"
+                   :show-close-button="false"
                    :title="'شماره تیکت ' + getInputsValue('id') + ' در ' + getInputsValue('department_title')"
                    :api="api"
                    entity-id-key="id"
@@ -11,7 +12,7 @@
                    :show-route-name="options.indexRouteName"
                    :after-load-input-data="checkLoadInputData">
         <template #before-form-builder>
-          <div class="flex justify-around">
+          <div class="flex justify-around q-mb-md">
             <q-btn rounded
                    color="blue"
                    icon="isax:archive-book"
@@ -20,7 +21,7 @@
                 باز شدن لیست اتفاقات
               </q-tooltip>
             </q-btn>
-            <q-btn v-if="isAdmin"
+            <q-btn v-if="isInAdminPage"
                    rounded
                    color="blue"
                    :loading="loading"
@@ -30,10 +31,19 @@
                 باز شدن لیست خرید
               </q-tooltip>
             </q-btn>
+            <q-btn rounded
+                   color="blue"
+                   :loading="loading"
+                   icon="isax:document4"
+                   :to="ticketListRoute">
+              <q-tooltip>
+                بازگشت به صفحه لیست تیکت ها
+              </q-tooltip>
+            </q-btn>
           </div>
-          <div v-if="isAdmin"
-               class="row q-mt-lg">
-            <div class="col-4 q-px-lg">
+          <div v-if="isInAdminPage"
+               class="row q-my-lg q-col-gutter-md">
+            <div class="col-4">
               <q-btn unelevated
                      class="full-width"
                      icon="isax:user"
@@ -44,7 +54,7 @@
                 <q-tooltip>ویرایش اطلاعات کاربر</q-tooltip>
               </q-btn>
             </div>
-            <div class="col-4 q-px-lg">
+            <div class="col-4">
               <q-btn unelevated
                      class="full-width"
                      :loading="loading"
@@ -54,7 +64,7 @@
                 <q-tooltip>ویرایش اطلاعات تیکت</q-tooltip>
               </q-btn>
             </div>
-            <div class="col-4 q-px-lg">
+            <div class="col-4">
               <q-btn unelevated
                      class="full-width"
                      icon="isax:sms"
@@ -67,7 +77,8 @@
           </div>
         </template>
         <template #after-form-builder>
-          <q-expansion-item v-model="updateUserTem"
+          <q-expansion-item v-if="isInAdminPage"
+                            v-model="updateUserTem"
                             label="تغییر کاربر"
                             class="q-my-lg rounded-borders">
             <q-card>
@@ -116,14 +127,14 @@
             </q-card>
           </q-expansion-item>
           <!--          <change-user @changeUser="ChangeUser" />-->
-          <div v-if="isAdmin">
+          <div v-if="isInAdminPage">
             <!--            <q-btn unelevated-->
             <!--                   color="blue"-->
             <!--                   :loading="loading"-->
             <!--                   @click="editAssignedSupporters">ویرایش اپراتورها-->
             <!--            </q-btn>-->
           </div>
-          <ticket-rate v-if="!isAdmin"
+          <ticket-rate v-if="!isInAdminPage"
                        :rate="getInputsValue('rate')"
                        :ticket-id="getInputsValue('id')"
                        class="q-ml-lg q-mt-lg" />
@@ -131,18 +142,18 @@
       </entity-edit>
       <messages v-for="(item, index) in userMessageArray"
                 :key="index"
-                :is-user-admin="isAdmin"
+                :is-user-admin="isInAdminPage"
                 :data="item" />
       <send-message-input ref="SendMessageInput"
                           class="q-my-lg"
-                          :isAdmin="isAdmin"
+                          :isAdmin="isInAdminPage"
                           :send-loading="loading"
                           @creatTicket="sendTicketMessage" />
       <drawer :is-open="logDrawer"
               max-width="310px"
               side="left">
         <q-scroll-area class="fit">
-          <q-btn icon="mdi-close"
+          <q-btn icon="close"
                  unelevated
                  class="close-btn"
                  @click="logDrawer = false" />
@@ -156,7 +167,7 @@
                     narrow-indicator>
               <q-tab name="events"
                      label="رویداد ها" />
-              <q-tab v-if="isAdmin"
+              <q-tab v-if="isInAdminPage"
                      name="otherTickets"
                      label="تیکت های دیگر کاربر" />
             </q-tabs>
@@ -189,7 +200,7 @@
       <drawer :is-open="orderDrawer"
               max-width="1016px">
         <q-scroll-area class="fit">
-          <q-btn icon="mdi-close"
+          <q-btn icon="close"
                  class="close-btn"
                  unelevated
                  @click="orderDrawer = false" />
@@ -256,29 +267,33 @@ export default {
       userMessageArray: [],
       expanded: true,
       api: APIGateway.ticket.APIAdresses.base,
-      inputs: [
-        { type: 'input', name: 'title', responseKey: 'ticket.title', placeholder: 'عنوان', col: 'col-md-4', disable: true },
+      inputs: [],
+      userInputs: [
+        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', placeholder: ' ', col: 'col-md-4', disable: true },
         {
           type: 'input',
           name: 'first_name',
+          placeholder: ' ',
           responseKey: 'ticket.user.first_name',
-          placeholder: 'نام',
+          label: 'نام',
           col: 'col-md-4',
           disable: true
         },
         {
           type: 'input',
           name: 'last_name',
+          placeholder: ' ',
           responseKey: 'ticket.user.last_name',
-          placeholder: 'نام خانوادگی',
+          label: 'نام خانوادگی',
           col: 'col-md-4',
           disable: true
         },
         {
           type: 'input',
           name: 'priority',
+          placeholder: ' ',
           responseKey: 'ticket.priority.title',
-          placeholder: 'اولویت',
+          label: 'اولویت',
           col: 'col-md-4',
           disable: true
         },
@@ -289,7 +304,9 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.department.id',
-          placeholder: 'گروه',
+          placeholder: ' ',
+          label: 'گروه',
+          disable: true,
           col: 'col-md-4'
         },
         {
@@ -299,7 +316,9 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           responseKey: 'ticket.status.id',
-          placeholder: 'وضعیت',
+          placeholder: ' ',
+          label: 'وضعیت',
+          disable: true,
           col: 'col-md-4'
         },
         {
@@ -307,23 +326,8 @@ export default {
           name: 'created_at',
           responseKey: 'ticket.created_at',
           calendarIcon: ' ',
-          placeholder: 'تاریخ ایجاد',
-          col: 'col-md-4',
-          disable: true
-        },
-        {
-          type: 'input',
-          name: 'national_code',
-          responseKey: 'ticket.user.national_code',
-          placeholder: 'کد ملی',
-          col: 'col-md-4',
-          disable: true
-        },
-        {
-          type: 'input',
-          name: 'major',
-          responseKey: 'ticket.user.major.name',
-          placeholder: 'رشته',
+          label: 'تاریخ ایجاد',
+          placeholder: ' ',
           col: 'col-md-4',
           disable: true
         },
@@ -332,7 +336,106 @@ export default {
           name: 'created_at',
           responseKey: 'ticket.updated_at',
           calendarIcon: ' ',
-          placeholder: 'تاریخ بروز آوری:',
+          placeholder: ' ',
+          label: 'تاریخ بروز آوری:',
+          col: 'col-md-4',
+          disable: true
+        },
+        { type: 'hidden', name: 'id', responseKey: 'ticket.id', placeholder: 'id' },
+        { type: 'hidden', name: 'department_title', responseKey: 'ticket.department.title' },
+        { type: 'hidden', name: 'messages', responseKey: 'ticket.messages', placeholder: '' },
+        { type: 'hidden', name: 'img', responseKey: 'ticket.user.photo', placeholder: '' },
+        { type: 'hidden', name: 'logs', responseKey: 'ticket.logs', placeholder: '' },
+        { type: 'hidden', name: 'userId', responseKey: 'ticket.user.id', placeholder: '' },
+        { type: 'hidden', name: 'otherTickets', responseKey: 'other_tickets', placeholder: '' },
+        { type: 'hidden', name: 'priority-id', responseKey: 'ticket.priority.id' },
+        { type: 'hidden', name: 'rate', responseKey: 'ticket.rate' }
+      ],
+      adminInputs: [
+        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', placeholder: ' ', col: 'col-md-4', disable: true },
+        {
+          type: 'input',
+          name: 'first_name',
+          placeholder: ' ',
+          responseKey: 'ticket.user.first_name',
+          label: 'نام',
+          col: 'col-md-4',
+          disable: true
+        },
+        {
+          type: 'input',
+          name: 'last_name',
+          placeholder: ' ',
+          responseKey: 'ticket.user.last_name',
+          label: 'نام خانوادگی',
+          col: 'col-md-4',
+          disable: true
+        },
+        {
+          type: 'input',
+          name: 'priority',
+          placeholder: ' ',
+          responseKey: 'ticket.priority.title',
+          label: 'اولویت',
+          col: 'col-md-4',
+          disable: true
+        },
+        {
+          type: 'select',
+          name: 'department',
+          options: [],
+          optionLabel: 'title',
+          optionValue: 'id',
+          responseKey: 'ticket.department.id',
+          placeholder: ' ',
+          label: 'گروه',
+          col: 'col-md-4'
+        },
+        {
+          type: 'select',
+          name: 'status',
+          options: [],
+          optionLabel: 'title',
+          optionValue: 'id',
+          responseKey: 'ticket.status.id',
+          placeholder: ' ',
+          label: 'وضعیت',
+          col: 'col-md-4'
+        },
+        {
+          type: 'dateTime',
+          name: 'created_at',
+          responseKey: 'ticket.created_at',
+          calendarIcon: ' ',
+          label: 'تاریخ ایجاد',
+          placeholder: ' ',
+          col: 'col-md-4',
+          disable: true
+        },
+        {
+          type: 'input',
+          name: 'national_code',
+          responseKey: 'ticket.user.national_code',
+          placeholder: ' ',
+          label: 'کد ملی',
+          col: 'col-md-4',
+          disable: true
+        },
+        {
+          type: 'input',
+          name: 'major',
+          responseKey: 'ticket.user.major.name',
+          placeholder: ' ',
+          label: 'رشته',
+          col: 'col-md-4',
+          disable: true
+        },
+        {
+          type: 'dateTime',
+          name: 'created_at',
+          responseKey: 'ticket.updated_at',
+          calendarIcon: ' ',
+          label: 'تاریخ بروز آوری:',
           col: 'col-md-4',
           disable: true
         },
@@ -346,7 +449,7 @@ export default {
         { type: 'hidden', name: 'priority-id', responseKey: 'ticket.priority.id' },
         { type: 'hidden', name: 'rate', responseKey: 'ticket.rate' },
         {
-          isAdmin: true,
+          isInAdminPage: true,
           type: 'entity',
           name: 'management',
           selectionMode: 'single',
@@ -402,9 +505,9 @@ export default {
               data: []
             },
             inputs: [
-              { type: 'input', name: 'mobile', value: null, placeholder: 'شماره تلفن', col: 'col-md-6' },
-              { type: 'input', name: 'national_code', value: null, placeholder: 'کدملی', col: 'col-md-6' },
-              { type: 'hidden', name: 'role', value: 123, placeholder: 'نقش', col: 'col-md-3' }
+              { type: 'input', name: 'mobile', value: null, label: 'شماره تلفن', col: 'col-md-6' },
+              { type: 'input', name: 'national_code', value: null, label: 'کدملی', col: 'col-md-6' },
+              { type: 'hidden', name: 'role', value: 123, label: 'نقش', col: 'col-md-3' }
             ],
             itemIdentifyKey: 'mobile',
             itemIndicatorKey: 'mobile'
@@ -489,8 +592,17 @@ export default {
     }
   },
   computed: {
+    isInAdminPage () {
+      return !!this.$route.name.includes('Admin')
+    },
     editAssignInput() {
       return this.inputs.find(item => item.name === 'editOperator')
+    },
+    ticketListRoute () {
+      if (this.$route.name.includes('Admin')) {
+        return { name: 'Admin.Ticket.Index' }
+      }
+      return { name: 'UserPanel.Ticket.Index' }
     }
   },
   watch: {
@@ -505,6 +617,16 @@ export default {
     this.api += '/' + this.$route.params.id
   },
   methods: {
+    initTicket () {
+      this.setEntityValues()
+    },
+    setEntityValues () {
+      if (this.$route.name.includes('Admin')) {
+        this.inputs = this.adminInputs
+        return
+      }
+      this.inputs = this.userInputs
+    },
     async editAssignedSupporters() {
       const usersId = []
       this.editAssignInput.selected.forEach(item => {
@@ -520,7 +642,7 @@ export default {
     },
 
     filterDataForUserRole() {
-      this.inputs = this.inputs.filter(input => !input.isAdmin)
+      this.inputs = this.inputs.filter(input => !input.isInAdminPage)
     },
 
     getLogsInputValue () {
@@ -876,7 +998,7 @@ export default {
       // ]
 
       this.userId = this.getInputsValue('userId')
-      if (!this.isAdmin) {
+      if (!this.isInAdminPage) {
         return
       }
       this.filterDataForUserRole()
