@@ -8,8 +8,6 @@
              class="btn-user-profile">
         <lazy-img :src="user.photo"
                   :alt="'user photo'"
-                  width="48"
-                  height="48"
                   class="user-photo" />
         <q-menu class="user-profile-dropdown"
                 :offset="[170, 10]">
@@ -21,8 +19,6 @@
                     <div class="profile-photo-img">
                       <lazy-img :src="user.photo"
                                 :alt="'user photo'"
-                                width="60"
-                                height="60"
                                 class="user-photo" />
                     </div>
                   </div>
