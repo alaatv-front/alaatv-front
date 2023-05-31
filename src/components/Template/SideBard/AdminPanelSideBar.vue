@@ -146,7 +146,6 @@ export default {
     //   }
     // },
     search (list, parentContain = false) {
-      console.log('list', list)
       if (!list || list.length === 0) {
         return false
       }
