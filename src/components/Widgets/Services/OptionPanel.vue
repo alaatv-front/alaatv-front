@@ -34,7 +34,7 @@
                                  label="link" />
                         <q-input v-else-if="service.action === 'scroll'"
                                  v-model="service.scrollTo"
-                                 label="scroll to" />
+                                 label="element id" />
                       </div>
                     </div>
                   </q-item-label>

@@ -12,6 +12,7 @@
     </template>
     <template v-else>
       <div v-for="(block, index) in blocksToShow"
+           :id="block.id"
            :key="index"
            :class="block.headerCustomClass"
            class="block-list-widget">
