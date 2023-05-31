@@ -153,7 +153,7 @@
               max-width="310px"
               side="left">
         <q-scroll-area class="fit">
-          <q-btn icon="mdi-close"
+          <q-btn icon="close"
                  unelevated
                  class="close-btn"
                  @click="logDrawer = false" />
@@ -200,7 +200,7 @@
       <drawer :is-open="orderDrawer"
               max-width="1016px">
         <q-scroll-area class="fit">
-          <q-btn icon="mdi-close"
+          <q-btn icon="close"
                  class="close-btn"
                  unelevated
                  @click="orderDrawer = false" />
