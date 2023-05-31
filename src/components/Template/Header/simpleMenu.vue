@@ -3,7 +3,7 @@
     <q-btn-dropdown v-model="showMenu"
                     flat
                     :label="menuContent.title"
-                    content-style="right: 905px !important; width: 200px"
+                    content-style="width: 200px"
                     class="dropdown-btn"
                     @mouseover="onMouseover"
                     @mouseleave="onMouseleave">
