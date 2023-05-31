@@ -213,15 +213,16 @@ export default {
       return this.$store.getters['AppLayout/windowSize'].x <= 1024
     }
   },
-  // watch: {
-  //   '$route' :
-  // },
+  watch: {
+    $route: {
+      handler () {
+        this.setContentSearch()
+      },
+      deep: true
+    }
+  },
   created () {
-    this.setInitData()
-    this.convertFilterData()
-    this.getUrlParams()
-    this.updateNewUrl()
-    this.getPageData()
+    this.setContentSearch()
   },
   mounted () {
     // if (!this.mobileMode) {
@@ -229,6 +230,14 @@ export default {
     // }
   },
   methods: {
+    setContentSearch () {
+      this.setInitData()
+      this.convertFilterData()
+      this.getUrlParams()
+      this.updateNewUrl()
+      this.getPageData()
+    },
+
     setInitData () {
       this.contentSearchApi = APIGateway.content.APIAdresses.search
       this.backData = FilterData
