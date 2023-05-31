@@ -18,7 +18,7 @@
         </a>
         <div v-else
              class="service cursor-pointer"
-             @click="scrollToElement(service.scrollTo)">
+             @click="scrollToElement(service)">
           <div class="service-image">
             <q-img :src="service.icon" />
           </div>
@@ -41,8 +41,13 @@ export default {
     }
   },
   methods: {
-    scrollToElement(id) {
-      const el = document.getElementById(id)
+    scrollToElement(service) {
+      let el = null
+      if (service.action === 'scrollToId') {
+        el = document.getElementById(service.scrollToId)
+      } else if (service.action === 'scrollToClass') {
+        el = document.getElementById(service.scrollToClass)
+      }
       const headerOffset = 150
       const elementPosition = el.getBoundingClientRect().top
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset

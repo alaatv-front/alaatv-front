@@ -32,9 +32,12 @@
                         <q-input v-if="service.action === 'link'"
                                  v-model="service.link"
                                  label="link" />
-                        <q-input v-else-if="service.action === 'scroll'"
-                                 v-model="service.scrollTo"
+                        <q-input v-else-if="service.action === 'scrollToId'"
+                                 v-model="service.scrollToId"
                                  label="element id" />
+                        <q-input v-else-if="service.action === 'scrollToClass'"
+                                 v-model="service.scrollToClass"
+                                 label="element className" />
                       </div>
                     </div>
                   </q-item-label>
@@ -62,7 +65,7 @@ export default defineComponent({
   mixins: [PageBuilderOptionPanel],
   data() {
     return {
-      actionsOptions: ['scroll', 'link'],
+      actionsOptions: ['scrollToId', 'scrollToClass', 'link'],
       defaultOptions: {
         className: '',
         style: {},
