@@ -167,7 +167,6 @@ import StickyBothSides from 'components/Utils/StickyBothSides.vue'
 import SetItem from 'components/Widgets/Content/Search/ContentSearch/components/SetItem.vue'
 import SpeciferType from 'components/Widgets/Content/Search/ContentSearch/components/SpeciferType.vue'
 import SideBarContent from 'components/Widgets/Content/Search/SideBarContent/SideBarContent.vue'
-import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ContentSearch',
@@ -239,7 +238,7 @@ export default {
     },
 
     setInitData () {
-      this.contentSearchApi = APIGateway.content.APIAdresses.search
+      this.contentSearchApi = this.$apiGateway.content.APIAdresses.search
       this.backData = FilterData
     },
 
