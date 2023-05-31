@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'AttributeSetManagement',
@@ -72,10 +72,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.attributeSetManagement.show.base,
-            edit: API_ADDRESS.attributeSetManagement.edit.base,
-            create: API_ADDRESS.attributeSetManagement.create.base,
-            index: API_ADDRESS.attributeSetManagement.index.base
+            show: APIGateway.attribute.attributeSetManagement.show.base,
+            edit: APIGateway.attribute.attributeSetManagement.edit.base,
+            create: APIGateway.attribute.attributeSetManagement.create.base,
+            index: APIGateway.attribute.attributeSetManagement.index.base
           },
           title: {
             show: 'اطلاعات دسته صفت',

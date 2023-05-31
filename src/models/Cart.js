@@ -1,8 +1,10 @@
+import Price from 'src/models/Price.js'
+import { Coupon } from 'src/models/Coupon.js'
+import { Product } from 'src/models/Product.js'
 import { Model, Collection } from 'js-abstract-model'
-import Price from './Price'
-import { Product } from 'src/models/Product'
-import { Coupon } from './Coupon'
-import { CartItem, CartItemList } from './CartItem'
+import { OrderProduct } from 'src/models/OrderProduct.js'
+import { CartItem, CartItemList } from 'src/models/CartItem.js'
+
 class Cart extends Model {
   constructor (data) {
     super(data, [
@@ -35,20 +37,56 @@ class Cart extends Model {
 
   addToCart (data) {
     const isSelectableProduct = data.products && data.products.length > 0
-
-    if (isSelectableProduct) {
-      const grand = data.product
-      const cartItemThatHasGrand = this.items.getCartItemByGrand(grand.id)
-      cartItemThatHasGrand.addOrderProducts(data.products.map(product => new Product({ id: product })))
-    } else {
+    const isConfigurableProduct = data.attribute && data.attribute.length > 0
+    const isSimpleProduct = !isSelectableProduct && !isConfigurableProduct
+    const addSimpleProduct = (data) => {
       const product = new Product({ id: data.product_id })
       if (this.items.hasProduct(product.id)) {
         return
       }
-      this.items.add(new CartItem({
-        grand: product
+      const getItemWithNullGrandIndex = () => this.items.list.findIndex(item => item.grand.id === null)
+
+      let itemWithNullGrandIndex = getItemWithNullGrandIndex()
+      if (itemWithNullGrandIndex === -1) {
+        this.items.add(new CartItem())
+        itemWithNullGrandIndex = getItemWithNullGrandIndex()
+      }
+      this.items.list[itemWithNullGrandIndex].order_product.add(new OrderProduct({
+        product,
+        id: product.id,
+        order_id: product.id
       }))
     }
+    const addSelectableProduct = (data) => {
+      const grandProduct = new Product({ id: data.product_id })
+      const products = data.products
+      this.items.addProductsByGrand(grandProduct.id, products)
+    }
+    const addConfigurableProduct = (data) => {
+      this.items.addConfigurableProduct(data.product_id, data.attribute)
+    }
+
+    if (isSimpleProduct) {
+      addSimpleProduct(data)
+    } else if (isSelectableProduct) {
+      addSelectableProduct(data)
+    } else if (isConfigurableProduct) {
+      addConfigurableProduct(data)
+    }
+
+    // if (isSelectableProduct) {
+    //   const grand = data.product
+    //   const cartItemThatHasGrand = this.items.getCartItemByGrand(grand.id)
+    //   cartItemThatHasGrand.addOrderProducts(data.products.map(product => new Product({ id: product })))
+    // } else {
+    //   const product = new Product({ id: data.product_id })
+    //   if (this.items.hasProduct(product.id)) {
+    //     return
+    //   }
+    //   this.items.add(new CartItem({
+    //     grand: product
+    //   }))
+    // }
 
     // this.changeCartItems()
   }

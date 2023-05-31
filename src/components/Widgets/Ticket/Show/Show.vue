@@ -204,7 +204,7 @@
 <script>
 import { EntityEdit } from 'quasar-crud'
 import { User } from 'src/models/User.js'
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 import Drawer from 'src/components/CustomDrawer.vue'
 import LogList from 'src/components/Ticket/LogList.vue'
 import Messages from 'src/components/Ticket/Messages.vue'
@@ -255,7 +255,7 @@ export default {
       userId: null,
       userMessageArray: [],
       expanded: true,
-      api: API_ADDRESS.ticket.show.base,
+      api: APIGateway.ticket.APIAdresses.base,
       inputs: [
         { type: 'input', name: 'title', responseKey: 'ticket.title', placeholder: 'عنوان', col: 'col-md-4', disable: true },
         {
@@ -306,6 +306,7 @@ export default {
           type: 'dateTime',
           name: 'created_at',
           responseKey: 'ticket.created_at',
+          calendarIcon: ' ',
           placeholder: 'تاریخ ایجاد',
           col: 'col-md-4',
           disable: true
@@ -330,6 +331,7 @@ export default {
           type: 'dateTime',
           name: 'created_at',
           responseKey: 'ticket.updated_at',
+          calendarIcon: ' ',
           placeholder: 'تاریخ بروز آوری:',
           col: 'col-md-4',
           disable: true
@@ -508,7 +510,6 @@ export default {
       this.editAssignInput.selected.forEach(item => {
         usersId.push(item.id)
       })
-      //  await this.$axios.post(API_ADDRESS.ticket.show.editAssign()
       try {
         this.loading = true
         await this.$apiGateway.ticket.editTicketAssignedSupporters(this.getInputsValue('id'), { assign: usersId })
@@ -525,26 +526,9 @@ export default {
     getLogsInputValue () {
       return this.getInputsValue('logs')
     },
-    // updateTicketData() {
-    //   this.$axios.put(API_ADDRESS.ticket.show.base + '/' + this.getInputsValue('id'), {
-    //     department_id: this.getInputsValue('department'),
-    //     id: this.getInputsValue('id'),
-    //     priority_id: this.getInputsValue('priority-id'),
-    //     status_id: this.getInputsValue('status'),
-    //     title: this.getInputsValue('title'),
-    //     user_id: this.getInputsValue('userId')
-    //   })
-    //     .then((res) => {
-    //       this.$q.notify({
-    //         message: 'تغییرات با موفقیت اعمال شد.',
-    //         type: 'positive'
-    //       })
-    //     })
-    // },
     openShopLogList() {
       this.orderDrawer = this.orderDrawer === false
       this.orderLoading = true
-      // this.$axios.get(API_ADDRESS.user.orders.ordersById(this.userId))
       this.$apiGateway.user.ordersById({
         data: {
           userId: this.userId
@@ -901,7 +885,6 @@ export default {
       this.logDrawer = this.logDrawer === false
     },
     async sendTicketStatusNotice(ticketId) {
-      //  this.$axios.post(API_ADDRESS.ticket.show.statusNotice(ticketId))
       const res = await this.$apiGateway.ticket.sendTicketStatusNotice(ticketId)
       this.$q.notify({
         message: res.data.message,

@@ -101,12 +101,12 @@
                 <div class="price-container">
                   <div class="final-price-box">
                     <div class="final-price">
-                      {{ product.price['final'] }}
+                      {{ finalPrice }}
                     </div>
                     <div class="price-Toman">تومان</div>
                   </div>
                   <div v-if="product.price['discount'] !== 0"
-                       class="main-price">{{ product.price['base'] }}</div>
+                       class="main-price">{{ basePrice }}</div>
                 </div>
               </div>
             </div>
@@ -131,7 +131,7 @@
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'productItem',
@@ -164,11 +164,17 @@ export default defineComponent({
         if (!this.localOptions.product) {
           return new Product()
         }
-        return this.localOptions.product
+        return new Product(this.localOptions.product)
       },
       set(value) {
         this.localOptions.product = value
       }
+    },
+    finalPrice () {
+      return this.product.price.toman('final', false)
+    },
+    basePrice () {
+      return this.product.price.toman('base', false)
     }
   },
   methods: {
@@ -179,8 +185,10 @@ export default defineComponent({
       return null
     },
     addToCart() {
+      this.addToCartLoading = true
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
         .then(() => {
+          this.addToCartLoading = false
           this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
           this.addToCartLoading = false

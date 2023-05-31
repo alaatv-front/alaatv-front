@@ -488,9 +488,5 @@ export default {
       }
     }
   }
-
-  @media screen and(max-width: 350px) {
-    width: 150px;
-  }
 }
 </style>

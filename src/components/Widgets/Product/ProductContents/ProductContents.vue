@@ -46,7 +46,6 @@
                     class="bg-white text-black text-center tab-panels">
         <q-tab-panel name="videos">
           <div v-if="videos.length > 0"
-               v-dragscroll
                class="contents-block">
             <block-component class="block"
                              :options="getBlockOptions" />
@@ -154,7 +153,12 @@ export default {
       setTitle: null,
       setOptions: [],
       contents: new ContentList(),
-      filteredOptions: []
+      filteredOptions: [],
+      defaultOptions: {
+        showContentDownloadMenu: false,
+        contentGridView: false,
+        product: new Product()
+      }
     }
   },
   computed: {
@@ -165,18 +169,18 @@ export default {
           contents: this.contents
         }),
         gridView: this.localOptions.contentGridView,
+        showContentDownloadMenu: this.localOptions.showContentDownloadMenu,
         contentMinWidth: {
-          inGridView: '240px',
-          inScrollView: '318px'
+          inScrollView: '100px'
         }
       }
     },
     productId () {
-      if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
-        return this.options.productId
+      if (typeof this.localOptions.productId !== 'undefined' && this.localOptions.productId !== null) {
+        return this.localOptions.productId
       }
-      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
-        return this.$route.params[this.options.urlParam]
+      if (this.localOptions.urlParam && this.$route.params[this.localOptions.urlParam]) {
+        return this.$route.params[this.localOptions.urlParam]
       }
       if (this.$route.params.id) {
         return this.$route.params.id
@@ -226,8 +230,8 @@ export default {
     },
     setProduct () {
       this.product.loading = true
-      if (this.options.product.id) {
-        this.product = this.options.product
+      if (this.localOptions.product.id) {
+        this.product = this.localOptions.product
         this.setProductSets(this.product)
         this.product.loading = false
         return
@@ -253,7 +257,7 @@ export default {
       this.product.loading = false
     },
     getProduct() {
-      if (this.options.product?.id || !this.productId) {
+      if (this.localOptions.product?.id || !this.productId) {
         return new Promise((resolve) => {
           resolve(new Product())
         })
@@ -267,7 +271,17 @@ export default {
         .then(set => {
           this.videos = []
           this.pamphlets = []
-          this.contents = set.contents
+          this.contents = new ContentList()
+          this.setContents(set)
+        })
+        .catch(() => {
+          this.set.loading = false
+        })
+    },
+    setContents (set) {
+      this.$apiGateway.set.getContents(set.id)
+        .then(ContentList => {
+          this.contents = ContentList
           set.contents.list.forEach(content => {
             if (content.isVideo()) {
               this.videos.push(content)
@@ -332,6 +346,8 @@ export default {
     }
     .tab-panels {
       padding-top: 0;
+      max-height: calc(100vh - 315px);
+      overflow-y: auto;
     }
     .contents-block {
       display: flex;
@@ -339,6 +355,7 @@ export default {
       padding: 10px 0 0 0;
       background: #ffffff;
       margin-right: 20px;
+      margin-left: 20px;
       border-radius: 20px;
       .pamphlet-title {
         height: 40px;
@@ -351,9 +368,6 @@ export default {
       }
       .block {
         margin-bottom: 0;
-        :deep(.scroll-view) {
-          overflow-x: hidden;
-        }
         :deep(.block-header) {
           justify-content: normal;
         }
@@ -367,11 +381,6 @@ export default {
           padding-top: 0;
           padding-bottom: 0;
         }
-        :deep(.item-container) {
-          .content-spacing{
-            margin-right: 20px;
-          }
-        }
         :deep(.content-item-box) {
           width: auto;
         }
@@ -383,6 +392,7 @@ export default {
       padding: 10px 0 0 0;
       background: #ffffff;
       margin-right: 20px;
+      margin-left: 20px;
       border-radius: 20px;
       .pamphlet {
         min-width: 110px;
@@ -397,9 +407,6 @@ export default {
       }
       .block {
         margin-bottom: 0;
-        :deep(.scroll-view) {
-          overflow-x: hidden;
-        }
         :deep(.block-header) {
           justify-content: normal;
         }
@@ -412,11 +419,6 @@ export default {
         :deep(.block-header) {
           padding-top: 0;
           padding-bottom: 0;
-        }
-        :deep(.item-container) {
-          .content-spacing{
-            margin-right: 20px;
-          }
         }
         :deep(.content-item-box) {
           width: auto;

@@ -107,7 +107,7 @@
   </q-card>
 </template>
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 import { mixinDateOptions, mixinTicket } from 'src/mixin/Mixins.js'
 // import AvWaveform from '@kerasus/vue-audio-visual/src/components/AvWaveform.js'
 
@@ -169,12 +169,10 @@ export default {
       this.showVoicePlayerIsPlaying = false
     },
     sendReport () {
-      this.$axios.post(API_ADDRESS.ticket.show.reportMessage(this.data.id), {
-        report_description: this.userReportDescription
-      })
-        .then((res) => {
+      APIGateway.ticket.show.reportMessage(this.data.id, { report_description: this.userReportDescription })
+        .then((message) => {
           this.$q.notify({
-            message: res.data.message,
+            message,
             type: 'positive'
           })
         })
