@@ -6,7 +6,7 @@
     <q-card-section class="dialog-subtitle"> کد ۶ رقمی خود را وارد کنید</q-card-section>
     <q-card-section class="login-input-wrapper">
       <v-otp-input ref="otpInput"
-                   v-model:value="bindModal"
+                   v-model:value="code"
                    input-classes="landing-otp-input"
                    separator=""
                    :num-inputs="6"
@@ -48,11 +48,13 @@
 
 <script>
 import VOtpInput from 'vue3-otp-input'
+import Timer from './Timer.vue'
 
 export default {
   name: 'VerificationStep',
   components: {
-    VOtpInput
+    VOtpInput,
+    Timer
   },
   props: {
     userInfo: {
@@ -65,16 +67,21 @@ export default {
     return {
       loading: false,
       otpInput: null,
-      bindModal: null,
       otpValue: null,
       canReset: true,
       date: Date.now() + 120000
     }
   },
+  computed: {
+    code() {
+      return this.userInfo.code
+    }
+  },
   methods: {
     verifyCode() {
       const verifyData = {
-        code: this.otpValue
+        mobile: this.userInfo.mobile,
+        code: this.otpValue ? this.otpValue : this.userInfo.code
       }
       this.$apiGateway.user.verifyMoshavereh(verifyData)
         .then(() => {
@@ -125,7 +132,6 @@ export default {
             mobile: this.userInfo.mobile,
             code: this.otpValue
           })
-          this.$emit('gotoNextStep')
           this.setLoading(false)
         })
         .catch(() => {
@@ -148,7 +154,7 @@ export default {
   display: flex;
   justify-content: flex-end;
   padding: 0;
-  color: #A12047;
+  color: $primary;
 
   .resend-btn{
       height: 20px;
