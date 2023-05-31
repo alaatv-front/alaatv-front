@@ -101,12 +101,12 @@
                 <div class="price-container">
                   <div class="final-price-box">
                     <div class="final-price">
-                      {{ product.price.toman('final', false) }}
+                      {{ finalPrice }}
                     </div>
                     <div class="price-Toman">تومان</div>
                   </div>
                   <div v-if="product.price['discount'] !== 0"
-                       class="main-price">{{ product.price.toman('base', false) }}</div>
+                       class="main-price">{{ basePrice }}</div>
                 </div>
               </div>
             </div>
@@ -164,11 +164,17 @@ export default defineComponent({
         if (!this.localOptions.product) {
           return new Product()
         }
-        return this.localOptions.product
+        return new Product(this.localOptions.product)
       },
       set(value) {
         this.localOptions.product = value
       }
+    },
+    finalPrice () {
+      return this.product.price.toman('final', false)
+    },
+    basePrice () {
+      return this.product.price.toman('base', false)
     }
   },
   methods: {

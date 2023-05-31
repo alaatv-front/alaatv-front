@@ -108,8 +108,8 @@ export default {
           ignoreValue: true,
           value: [
             { type: 'select', name: 'contentset_title', outlined: true, placeholder: ' ', label: 'فصل', col: 'col-md-2 q-mt-lg q-ml-lg', value: null, options: [] },
-            { type: 'date', name: 'created_at_since', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تاریخ ایجاد شده', col: 'col-md-2 q-mt-lg q-ml-lg' },
-            { type: 'date', name: 'created_at_till', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تا', col: 'col-md-2 q-mt-lg q-ml-lg' },
+            { type: 'date', calendarIcon: ' ', name: 'created_at_since', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تاریخ ایجاد شده', col: 'col-md-2 q-mt-lg q-ml-lg' },
+            { type: 'date', calendarIcon: ' ', name: 'created_at_till', outlined: true, placeholder: 'انتخاب نمایید', value: null, label: 'تا', col: 'col-md-2 q-mt-lg q-ml-lg' },
             { type: 'button', name: 'filter-btn', responseKey: 'statement', class: '', label: 'اعمال', unelevated: true, col: 'col-md-1 q-mt-lg q-ml-lg self-end' }
           ]
         }
