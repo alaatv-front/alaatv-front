@@ -45,7 +45,7 @@
                         :canChoseOrder="canChoseOrder"
                         :canAssign-ticket="canAssignTicket"
                         :send-loading="loading"
-                        :isAdmin="isAdmin"
+                        :isAdmin="isInAdminPage"
                         @creatTicket="sendTicket" />
   </div>
 
