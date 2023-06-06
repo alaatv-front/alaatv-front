@@ -112,6 +112,10 @@ export function reviewCart(context) {
     APIGateway.cart.reviewCart(cartItems)
       .then((cart) => {
         context.commit('updateCart', cart)
+        const analyticsInstance = new AEE({
+          debugMode: true
+        })
+        analyticsInstance.checkout(1, 'reviewAndPayment', cart.items.list[0]?.order_product?.list.map(item => item.product))
         setCartLoading(false)
         return resolve(cart)
       })
