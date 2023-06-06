@@ -353,9 +353,14 @@ export default {
       :deep(.q-tab-panel) {
         padding: 0;
       }
-      .block {
-        :deep(.block-container) {
-          margin-left: 12px;
+    }
+    .block {
+      :deep(.block-container) {
+        .grid_view {
+          margin-left: -5px;
+        }
+        .scroll-view {
+          margin-left: 0;
         }
       }
     }
