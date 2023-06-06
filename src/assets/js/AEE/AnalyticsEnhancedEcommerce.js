@@ -1,287 +1,58 @@
-export default class GAEE {
-  constructor() {
-    this.doesReportGtmEecOnConsole = false
-  }
+import GTMEvents from 'assets/js/AEE/GoogleAnalyticsEnhancedEcommerce.js'
 
-  getDataLayer() {
-    window.dataLayer = window.dataLayer || []
-    return window.dataLayer
-  }
-
-  action_checkoutOption(step, option) {
-    window.dataLayer.push({
-      event: 'eec.checkout_option',
-      ecommerce: {
-        checkout_option: {
-          actionField: {
-            step,
-            option
-          }
-        }
-      }
-    })
-  }
-
-  action_purchase(actionField, products) {
-    window.dataLayer.push({
-      event: 'eec.purchase',
-      ecommerce: {
-        // currencyCode: 'IRR',
-        currencyCode: 'USD',
-        purchase: {
-          actionField,
-          products
-        }
-      }
-    })
-  }
-
-  action_productAddToCart(actionFieldList, products) {
-    window.dataLayer.push({
-      event: 'eec.add',
-      ecommerce: {
-        add: {
-          actionField: {
-            list: actionFieldList
-          },
-          products: [products]
-        }
-      }
-    })
-  }
-
-  action_productRemoveFromCart(actionFieldList, products) {
-    const productsArray = (Array.isArray(products)) ? products : [products]
-    window.dataLayer.push({
-      event: 'eec.remove',
-      ecommerce: {
-        remove: {
-          actionField: {
-            list: actionFieldList
-          },
-          products: productsArray
-        }
-      }
-    })
-  }
-
-  action_productDetailViews(actionFieldList, product) {
-    window.dataLayer.push({
-      event: 'eec.detail',
-      ecommerce: {
-        detail: {
-          actionField: {
-            list: actionFieldList
-          },
-          products: [{
-            id: product.id, // (String) The SKU of the product. I recommend sending any variant IDs using a Product-scoped Custom Dimension. Example: 'P12345'
-            name: product.name, // (String) The name of the product. Any variant name can be sent with the variant key. Example: 'T-Shirt'
-            price: product.price,
-            brand: product.brand, // (String) The brand name of the product. Example: 'NIKE'
-            category: product.category, // (String) Product category of the item. Can have maximum five levels of hierarchy. Example: 'clothes/shirts/t-shirts'
-            variant: product.variant // (String) What variant of the main product this is. Example: 'Large'
-            // dimensionN : product.dimensionN,//(String) A Product-scoped Custom Dimension for index number N. Example: 'Blue'
-            // metricN : product.metricN, //(Integer) A Product-scoped Custom Metric for index number N. Example: 3
-          }]
-        }
-      }
-    })
-  }
-
-  action_checkout(step, option, products) {
-    window.dataLayer.push({
-      event: 'eec.checkout',
-      ecommerce: {
-        checkout: {
-          actionField: {
-            step,
-            option
-          },
-          products
-        }
-      }
-    })
-  }
-
-  impression_view(impressions) {
-    // sample impression object => {
-    //     'name': 'Triblend Android T-Shirt',       // Name or ID is required.
-    //     'id': '12345',
-    //     'price': '15.25',
-    //     'brand': 'Google',
-    //     'category': 'Apparel',
-    //     'variant': 'Gray',
-    //     'list': 'Search Results',
-    //     'position': 1
-    // },
-
-    window.dataLayer.push({
-      event: 'eec.impressionView',
-      ecommerce: {
-        impressions
-      }
-    })
-  }
-
-  impression_click(actionFieldList, product) {
-    window.dataLayer.push({
-      event: 'eec.impressionClick',
-      ecommerce: {
-        click: {
-          actionField: {
-            list: actionFieldList
-          },
-          products: [product]
-        }
-      }
-    })
-  }
-
-  promotion_view(promotions) {
-    window.dataLayer.push({
-      event: 'eec.promotionView',
-      ecommerce: {
-        promoView: {
-          promotions
-        }
-      }
-    })
-  }
-
-  promotion_click(promotion) {
-    window.dataLayer.push({
-      event: 'eec.promotionClick',
-      ecommerce: {
-        promoClick: {
-          promotions: promotion
-        }
-      }
-    })
-  }
-
-  getElementData(element = {
-    data: {}
-  }, data) {
-    const elementData = element.data(data)
-    if (typeof elementData !== 'undefined') {
-      return elementData
-    }
-    return 'undefined'
-  }
-
-  getElementData_product(element) {
-    const gtmEecImpressionView = []
-    gtmEecImpressionView.push({
-      id: this.getElementData(element, 'gtm-eec-product-id').toString(),
-      name: this.getElementData(element, 'gtm-eec-product-name').toString(),
-      price: this.getElementData(element, 'gtm-eec-product-price').toString(),
-      brand: this.getElementData(element, 'gtm-eec-product-brand').toString(),
-      category: this.getElementData(element, 'gtm-eec-product-category').toString(),
-      variant: this.getElementData(element, 'gtm-eec-product-variant').toString(),
-      list: this.getElementData(element, 'gtm-eec-product-list').toString(),
-      position: this.getElementData(element, 'gtm-eec-product-position')
-    })
-    return gtmEecImpressionView
-  }
-
-  getElementData_advertisement(element) {
-    const gtmEecPromotionView = []
-    gtmEecPromotionView.push({
-      id: this.getElementData(element, 'gtm-eec-promotion-id').toString(),
-      name: this.getElementData(element, 'gtm-eec-promotion-name').toString(),
-      creative: this.getElementData(element, 'gtm-eec-promotion-creative').toString(),
-      position: this.getElementData(element, 'gtm-eec-promotion-position')
-    })
-    return gtmEecPromotionView
-  }
-
-  // ---------------------------------return----------------
-  reportGtmEecOnConsole() {
-    return this.doesReportGtmEecOnConsole
+export default class AEE {
+  constructor(options = {
+    reportGtmEecOnConsole: false
+  }) {
+    this.reportGtmEecOnConsole = options.reportGtmEecOnConsole
+    this.GTMEvents = new GTMEvents()
   }
 
   productDetailViews(actionFieldList, product) {
-    this.getDataLayer()
-    this.action_productDetailViews(actionFieldList, product)
+    this.GTMEvents.action_productDetailViews(actionFieldList, product)
   }
 
   productAddToCart(actionFieldList, products) {
-    this.getDataLayer()
-    this.action_productAddToCart(actionFieldList, products)
+    this.GTMEvents.action_productAddToCart(actionFieldList, products)
   }
 
   productRemoveFromCart(actionFieldList, product) {
-    this.getDataLayer()
-    this.action_productRemoveFromCart(actionFieldList, product)
+    this.GTMEvents.action_productRemoveFromCart(actionFieldList, product)
   }
 
   checkout(step, option, products) {
-    this.getDataLayer()
-    this.action_checkout(step, option, products)
+    this.GTMEvents.action_checkout(step, option, products)
   }
 
   checkoutOption(step, option) {
-    this.getDataLayer()
-    this.action_checkoutOption(step, option)
+    this.GTMEvents.action_checkoutOption(step, option)
   }
 
   purchase(actionField, products) {
-    this.getDataLayer()
-    this.action_purchase(actionField, products)
+    this.GTMEvents.action_purchase(actionField, products)
   }
 
   impressionView(impressions) {
-    this.getDataLayer()
-    this.impression_view(impressions)
-    if (this.reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecImpressionView: ', impressions)
-    }
+    this.GTMEvents.impression_view(impressions, this.reportGtmEecOnConsole)
   }
 
   impressionViewSingleItem(element) {
-    this.getDataLayer()
-    const impressions = this.getElementData_product(element)
-    this.impression_view(impressions)
-    if (this.reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecImpressionView: ', impressions)
-    }
+    this.GTMEvents.impressionViewSingleItem(element, this.reportGtmEecOnConsole)
   }
 
   impressionClick(element) {
-    this.getDataLayer()
-    const impressions = this.getElementData_product(element),
-      actionFieldList = impressions[0].list
-    this.impression_click(actionFieldList, impressions)
-    if (this.reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecImpressionClick: ', impressions)
-    }
+    this.GTMEvents.impressionClick(element, this.reportGtmEecOnConsole)
   }
 
   promotionView(promotions) {
-    this.getDataLayer()
-    this.promotion_view(promotions)
+    this.GTMEvents.promotion_view(promotions)
   }
 
   promotionViewSingleItem(element) {
-    this.getDataLayer()
-    const promotions = this.getElementData_advertisement(element)
-    this.promotion_view(promotions)
-    if (this.reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecPromotionView: ', promotions)
-    }
+    this.GTMEvents.promotionViewSingleItem(element, this.reportGtmEecOnConsole)
   }
 
   promotionClick(element) {
-    this.getDataLayer()
-    const promotion = this.getElementData_advertisement(element)
-    this.promotion_click(promotion)
-    if (this.reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecPromotionClick: ', promotion)
-    }
+    this.GTMEvents.promotionClick(element, this.reportGtmEecOnConsole)
   }
 }
