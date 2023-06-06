@@ -16,11 +16,14 @@ const mixinTicket = {
     }
   },
   mounted() {
-    this.initTicket()
-    this.setPageData()
+    this.setUpTicket()
   },
   methods: {
-    initTicket () {
+    async setUpTicket () {
+      await this.initTicket()
+      this.setPageData()
+    },
+    async initTicket () {
       // here goes the custom methods developer chooses to run before mixin
     },
     async setPageData() {
@@ -85,6 +88,10 @@ const mixinTicket = {
         label: 'بحرانی',
         value: '4'
       }]
+    },
+
+    getTicketData () {
+      return APIGateway.ticket.getNeededDataToCreateTicket()
     },
 
     getDepartments() {

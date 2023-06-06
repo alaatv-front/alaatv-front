@@ -1,12 +1,14 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { User } from 'src/models/User'
+import { TicketDepartmentList } from 'src/models/TicketDepartment'
 
 export default class TicketAPI extends APIRepository {
   constructor() {
     super('ticket', apiV2, '/ticket')
     this.APIAdresses = {
       base: '/ticket',
+      create: '/ticket/create',
       updateTicketApi: (ticketId) => '/ticket/' + ticketId,
       getInfo: '/user/getInfo',
       ticketMessage: '/ticketMessage',
@@ -29,6 +31,9 @@ export default class TicketAPI extends APIRepository {
           base: '/admin/user/'
         }
       }
+    }
+    this.CacheList = {
+      create: '/ticket/create'
     }
     this.restUrl = (id) => this.url + '/' + id
   }
@@ -167,6 +172,26 @@ export default class TicketAPI extends APIRepository {
         return error
       },
       data
+    })
+  }
+
+  getNeededDataToCreateTicket(cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.create,
+      resolveCallback: (response) => {
+        const ticketData = response.data
+        return {
+          departments: new TicketDepartmentList(ticketData.departments),
+          statuses: ticketData.statuses,
+          priorities: ticketData.priorities
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      },
+      ...(cache && { cache })
     })
   }
 }
