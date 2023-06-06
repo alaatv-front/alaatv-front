@@ -84,7 +84,7 @@ export default {
       this.dialog = !this.dialog
     },
     gotoNextStep(currentStep) {
-      if (currentStep === 'signup' && this.localOptions.verification) {
+      if (currentStep === 'signup' && !this.localOptions.verification) {
         this.$refs.stepper.goTo('info')
       } else {
         this.$refs.stepper.next()

@@ -160,7 +160,6 @@
 <script>
 import { computed } from 'vue'
 import { SetList } from 'src/models/Set.js'
-import Addresses from 'src/api/Addresses.js'
 import { ProductList } from 'src/models/Product.js'
 import { ContentList } from 'src/models/Content.js'
 import FilterData from 'assets/js/contentSearchFilterData.js'
@@ -213,12 +212,16 @@ export default {
       return this.$store.getters['AppLayout/windowSize'].x <= 1024
     }
   },
+  watch: {
+    $route: {
+      handler () {
+        this.setContentSearch()
+      },
+      deep: true
+    }
+  },
   created () {
-    this.setInitData()
-    this.convertFilterData()
-    this.getUrlParams()
-    this.updateNewUrl()
-    this.getPageData()
+    this.setContentSearch()
   },
   mounted () {
     // if (!this.mobileMode) {
@@ -226,8 +229,16 @@ export default {
     // }
   },
   methods: {
+    setContentSearch () {
+      this.setInitData()
+      this.convertFilterData()
+      this.getUrlParams()
+      this.updateNewUrl()
+      this.getPageData()
+    },
+
     setInitData () {
-      this.contentSearchApi = Addresses.content.search
+      this.contentSearchApi = this.$apiGateway.content.APIAdresses.search
       this.backData = FilterData
     },
 
@@ -237,8 +248,7 @@ export default {
         url = url.concat(this.new_url)
       }
       this.searchLoading = true
-      const that = this
-      that.$axios.get(url)
+      this.$apiV2.get(url)
         .then(res => {
           const sets = res.data.data.sets
           const products = res.data.data.products
@@ -249,17 +259,17 @@ export default {
             const responseData = data.response
             let oldList = {}
             if (data.key === 'products') {
-              oldList = that.products
+              oldList = this.products
             }
             if (data.key === 'contents') {
-              oldList = that.contents
+              oldList = this.contents
             }
             if (responseData === null) {
               if (data.key === 'contents') this.canSendVideoReq = false
               else this.canSendProductReq = false
             }
-            that.loadItemFromResponse(responseData, oldList, data.key)
-            that.resetLists(data, oldList)
+            this.loadItemFromResponse(responseData, oldList, data.key)
+            this.resetLists(data, oldList)
           })
           this.stopReq = false
           this.searchLoading = false

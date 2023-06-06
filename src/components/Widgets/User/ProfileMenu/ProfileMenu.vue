@@ -52,7 +52,8 @@
                    size="sm"
                    color="white"
                    text-color="accent"
-                   unelevated />
+                   unelevated
+                   :to="{name: 'UserPanel.Profile'}" />
           </div>
         </div>
         <!--        <div class="q-mt-lg status">-->
@@ -65,6 +66,16 @@
         <q-separator class="q-mt-md"
                      size="2px" />
         <q-list class="menu-items q-mt-md">
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.Profile'}"
+                  :active="isRouteSelected('UserPanel.Profile')">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:user dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">پروفایل</div>
+            </q-item-section>
+          </q-item>
           <q-item v-ripple
                   clickable
                   :to="{name: 'UserPanel.MyPurchases'}"

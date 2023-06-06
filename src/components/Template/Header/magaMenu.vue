@@ -1,78 +1,80 @@
 <template>
   <q-btn-dropdown v-model="showMenu"
                   flat
-                  content-style="width: 1100px; right: 360px; border-radius: 10px"
+                  content-class="megaMenu"
                   :label="data.title"
                   @mouseover="onMouseover"
                   @mouseleave="onMouseleave">
-    <div class="row"
+    <div class="row justify-between"
          @mouseover="onMouseover"
          @mouseleave="onMouseleave">
-      <div class="col-2 q-pb-md">
-        <div class="q-mb-md">
-          <q-list>
-            <div v-for="(item, index) in data.children"
-                 :key="index">
-              <router-link v-if="item.tags"
-                           :to="{ name: 'Public.Content.Search', query: { 'tags[]': item.tags } }">
-                <q-item class="item"
-                        :class="{arrow: isSelectedItem(index) }"
-                        clickable
-                        @mouseover="showData(index)">
-                  <q-item-section>
-                    {{ item.title }}
-                  </q-item-section>
-                  <q-badge v-if="item.badge"
-                           color="blue"
-                           class="badge q-py-xs"
-                           align="middle">
-                    {{item.badge}}
-                  </q-badge>
-                  <div class="left-arrow" />
-                </q-item>
-              </router-link>
-              <router-link v-else-if="item.route.name"
-                           :to="{name: item.route.name, params: item.route.params}">
-                <q-item class="item"
-                        :class="{arrow: isSelectedItem(index) }"
-                        clickable
-                        @mouseover="showData(index)">
-                  <q-item-section>
-                    {{item.title}}
-                  </q-item-section>
-                  <q-badge v-if="item.badge"
-                           color="blue"
-                           class="badge q-py-xs"
-                           align="middle">
-                    {{item.badge}}
-                  </q-badge>
-                  <div class="left-arrow" />
-                </q-item>
-              </router-link>
-              <a v-else
-                 :href="item.route.externalLink">
-                <q-item class="item"
-                        :class="{arrow: isSelectedItem(index) }"
-                        clickable
-                        @mouseover="showData(index)">
-                  <q-item-section>
-                    {{item.title}}
-                  </q-item-section>
-                  <q-badge v-if="item.badge"
-                           color="blue"
-                           class="badge q-py-xs"
-                           align="middle">
-                    {{item.badge}}
-                  </q-badge>
-                  <div class="left-arrow" />
-                </q-item>
-              </a>
+      <div class="col-lg-2 col-md-3 category-items">
+        <q-scroll-area class="scroll">
+          <div class="q-mb-xs q-mr-md">
+            <q-list>
+              <div v-for="(item, index) in data.children"
+                   :key="index">
+                <router-link v-if="item.tags"
+                             :to="{ name: 'Public.Content.Search', query: { 'tags[]': item.tags } }">
+                  <q-item class="item"
+                          :class="{arrow: isSelectedItem(index) }"
+                          clickable
+                          @mouseover="showData(index)">
+                    <q-item-section>
+                      {{ item.title }}
+                    </q-item-section>
+                    <q-badge v-if="item.badge"
+                             color="blue"
+                             class="badge q-py-xs"
+                             align="middle">
+                      {{item.badge}}
+                    </q-badge>
+                    <div class="left-arrow" />
+                  </q-item>
+                </router-link>
+                <router-link v-else-if="item.route.name"
+                             :to="{name: item.route.name, params: item.route.params}">
+                  <q-item class="item"
+                          :class="{arrow: isSelectedItem(index) }"
+                          clickable
+                          @mouseover="showData(index)">
+                    <q-item-section>
+                      {{item.title}}
+                    </q-item-section>
+                    <q-badge v-if="item.badge"
+                             color="blue"
+                             class="badge q-py-xs"
+                             align="middle">
+                      {{item.badge}}
+                    </q-badge>
+                    <div class="left-arrow" />
+                  </q-item>
+                </router-link>
+                <a v-else
+                   :href="item.route.externalLink">
+                  <q-item class="item"
+                          :class="{arrow: isSelectedItem(index) }"
+                          clickable
+                          @mouseover="showData(index)">
+                    <q-item-section>
+                      {{item.title}}
+                    </q-item-section>
+                    <q-badge v-if="item.badge"
+                             color="blue"
+                             class="badge q-py-xs"
+                             align="middle">
+                      {{item.badge}}
+                    </q-badge>
+                    <div class="left-arrow" />
+                  </q-item>
+                </a>
 
-            </div>
-          </q-list>
-        </div>
+              </div>
+            </q-list>
+          </div>
+        </q-scroll-area>
       </div>
-      <div class="col-10">
+      <div class="col-lg-10 col-md-9 sub-category-items">
         <div v-for="(item, index) in data.subCategoryItemsCol"
              :key="index">
           <div>
@@ -177,11 +179,26 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.category-items {
+  width: 175px;
+  .scroll {
+    height: 100%;
+  }
+  @media screen and(max-width: 1400px) {
+    width: 200px;
+    .scroll {
+      height: 200px;
+    }
+  }
+}
+.sub-category-items {
+  place-self: center;
+}
 .item {
   .badge{
     position: absolute;
     top: 13px;
-    left: 130px;
+    left: 115px;
     z-index: 100;
     animation: badge 1s infinite;
   }
@@ -209,7 +226,7 @@ export default {
   &:after {
     content:'';
     position: absolute;
-    left: 169px;
+    left: 145px;
     right: 0;
     bottom: 0;
     margin: 0 auto;
@@ -218,6 +235,9 @@ export default {
     border-left: 25px solid orange;
     border-top: 24px solid transparent;
     border-bottom: 24px solid transparent;
+    @media screen and (max-width: 1400px){
+      left: 170px;
+    }
   }
   &:deep(.q-focus-helper) {
     background-color: transparent !important;
@@ -249,6 +269,21 @@ export default {
     width: 100px;
     height: 100px;
     position: absolute;
+  }
+}
+</style>
+
+<style lang="scss">
+.megaMenu {
+  width: 1060px;
+  max-width: 1060px !important;
+  left: 360px;
+  border-radius: 10px;
+
+  @media screen and (max-width: 1440px){
+    max-width: 850px !important;
+    width: 850px;
+    left: 140px;
   }
 }
 </style>
