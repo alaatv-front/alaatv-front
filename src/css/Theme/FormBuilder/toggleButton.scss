@@ -5,18 +5,23 @@
     @include global-outsideLabel;
   }
 
+  .q-btn-group {
+    border-radius: 10px;
+    overflow: hidden;
+  }
   .q-btn-toggle {
-    width: 122px;
-    border-radius: 15px;
     height: 32px;
     box-shadow: none;
     background-color: var(--3a-Neutral3);
     justify-content: space-between;
-
+    :first-child {
+      &.q-btn {
+        border-radius: unset;
+      }
+    }
     .q-btn {
       height: 32px;
       width: 58px;
-      border-radius: 15px !important;
       font-style: normal;
       font-weight: 400;
       font-size: 14px !important;

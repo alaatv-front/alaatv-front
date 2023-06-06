@@ -407,7 +407,7 @@ export default {
         grid-template-columns: auto auto;
       }
       @media screen and (max-width: 599px) {
-        grid-template-columns: 1fr;
+        //grid-template-columns: 1fr;
       }
       .logo-section {
         align-items: center;
@@ -417,9 +417,9 @@ export default {
           justify-self: start;
         }
         @media screen and (max-width: 599px) {
-          justify-self: center;
-          justify-content: space-between;
-          width: 100%;
+          //justify-self: center;
+          //justify-content: space-between;
+          //width: 100%;
         }
         .logo-pic {
           cursor: pointer;
@@ -571,7 +571,7 @@ export default {
           height: 64px;
         }
         @media screen and (max-width: 599px) {
-          display: none;
+          //display: none;
         }
         display: flex;
         //justify-content: flex-end;

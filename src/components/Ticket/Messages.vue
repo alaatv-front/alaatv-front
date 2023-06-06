@@ -28,7 +28,7 @@
         <span class="q-mr-xs">
           {{ this.data.user.role }} : {{userIsCustomer ?'ماه' : getAdminName()}}
         </span>
-        <q-icon v-if="!isAdmin"
+        <q-icon v-if="!isInAdminPage"
                 size="16px"
                 name="isax:user"
                 class="user-icon" />
