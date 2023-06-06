@@ -353,6 +353,11 @@ export default {
       :deep(.q-tab-panel) {
         padding: 0;
       }
+      .block {
+        :deep(.block-container) {
+          margin-left: 12px;
+        }
+      }
     }
     .contents-block {
       display: flex;

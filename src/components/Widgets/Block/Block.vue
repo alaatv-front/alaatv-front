@@ -17,7 +17,7 @@
       <slider v-if="localOptions.block.banners && localOptions.block.banners.list.length > 0"
               :options="bannerSlides" />
       <div v-if="localOptions.block.products.list.length > 0"
-           class="row item-container q-col-gutter-md full-width"
+           class="row item-container q-col-gutter-md"
            :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="product in localOptions.block.products.list"
              :key="product.id"
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div v-if="localOptions.block.sets.list.length > 0"
-           class="row item-container q-col-gutter-md full-width"
+           class="row item-container q-col-gutter-md"
            :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="set in localOptions.block.sets.list"
              :key="set.id"
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div v-if="localOptions.block.contents.list.length > 0"
-           class="row item-container q-col-gutter-md full-width"
+           class="row item-container q-col-gutter-md"
            :class="isGridView ? 'grid_view' : 'scroll-view'">
         <div v-for="content in localOptions.block.contents.list"
              :key="content.id"
@@ -262,6 +262,7 @@ export default {
     }
 
     .item-container {
+      width: 100%;
       &.grid_view {
         justify-content: center;
       }
