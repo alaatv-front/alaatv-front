@@ -120,13 +120,6 @@ export default defineComponent({
       }
     }
   },
-  mounted() {
-    this.localOptions.sliderItems.forEach((row, index) => {
-      row.order = Number(index + 1)
-      row.image = `https://nodes.alaatv.com/upload/landing/110/Rotbeh/${row.code}.png`
-      delete row.code
-    })
-  },
   methods: {
     reIndexRows(item, index, value) {
       if (value > this.localOptions.sliderItems[index][item.name]) {
