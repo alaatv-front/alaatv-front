@@ -268,7 +268,7 @@ export default class ContentAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.search,
-      cacheKey: this.CacheList.orderProduct,
+      cacheKey: this.CacheList.search,
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {

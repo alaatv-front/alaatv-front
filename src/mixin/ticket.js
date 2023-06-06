@@ -11,15 +11,18 @@ const mixinTicket = {
     ticketPriorityOption: []
   }),
   computed: {
-    isAdmin() {
-      // return this.$store.getters['Auth/user'].has_admin_permission
-      return true
+    isInAdminPage () {
+      return !!this.$route.name.includes('Admin')
     }
   },
-  created() {
+  mounted() {
+    this.initTicket()
     this.setPageData()
   },
   methods: {
+    initTicket () {
+      // here goes the custom methods developer chooses to run before mixin
+    },
     async setPageData() {
       // this.setRoleAndPermissions()
       this.loading = true
@@ -486,8 +489,9 @@ const mixinTicket = {
         }
         this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
+        const showRouteName = this.isInAdminPage ? 'Admin.Ticket.Show' : 'UserPanel.Ticket.Show'
         await this.$router.push({
-          name: 'Admin.Ticket.Show',
+          name: showRouteName,
           params: { id: response.data.data.id }
         })
       } catch {
