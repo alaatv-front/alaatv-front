@@ -59,7 +59,6 @@
     "videojs-contrib-ads": "^7.3.1",
     "videojs-contrib-quality-levels": "^3.0.0",
     "videojs-hls-quality-selector": "^1.1.4",
-    "videojsx-vast-plugin": "^1.0.4",
     "vue": "^3.2.47",
     "vue-advanced-cropper": "^2.8.8",
     "vue-dragscroll": "^4.0.5",

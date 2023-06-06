@@ -14,6 +14,32 @@
         </a>
       </p>
     </video>
+
+    <q-btn ref="VastTimerBtn"
+           size="sm"
+           color="primary"
+           class="VastTimerBtn">
+      VastTimerBtn
+    </q-btn>
+    <q-btn ref="VastSkipAdBtn"
+           size="sm"
+           color="primary"
+           class="VastSkipAdBtn">
+      VastSkipAdBtn
+    </q-btn>
+    <q-btn ref="VastLinkBtn"
+           size="sm"
+           color="primary"
+           class="VastLinkBtn">
+      VastLinkBtn
+    </q-btn>
+
+    <q-btn icon-right="isax:menu-1"
+           size="sm"
+           color="primary"
+           class="toggleSideBarBtn"
+           @click="toggleSideBar" />
+
     <div v-if="useOverPlayer"
          ref="overPlayer"
          class="over-player-wrapper">
@@ -35,12 +61,14 @@
 import videojs from 'video.js'
 import videojsBrand from 'videojs-brand'
 import fa from 'video.js/dist/lang/fa.json'
-import { Content } from 'src/models/Content.js'
+// import 'videojs-contrib-ads/dist/videojs.ads.js'
+import 'videojs-contrib-ads'
 import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 
 import 'videojs-hls-quality-selector'
+import { APIGateway } from 'src/api/APIGateway'
 // import 'videojs-contrib-quality-levels'
 
 // // redefineTap
@@ -165,7 +193,6 @@ export default {
         }
       },
       videoIsPlaying: false,
-      currentContent: new Content(),
       postIsFavored: {}
     }
   },
@@ -219,6 +246,58 @@ export default {
     }
   },
   methods: {
+    getVast () {
+      return APIGateway.vast.getXml()
+      // .then((vast) => {
+      // console.log('xml', xml)
+      // })
+      // .catch(() => {
+      //
+      // })
+    },
+    loadVast () {
+      this.player.ads({
+        // debug: true,
+        allowVjsAutoplay: true
+      })
+
+      // request ads whenever there's new video content
+      this.player.on('contentchanged', function() {
+        // in a real plugin, you might fetch new ad inventory here
+        this.player().trigger('adsready')
+      })
+
+      this.player.on('readyforpreroll', () => {
+        this.player.ads.startLinearAdMode()
+
+        // this.injectDomeElement('over-player-VastTimerBtn-div', 'VastTimerBtn')
+        // this.injectDomeElement('over-player-VastSkipAdBtn-div', 'VastSkipAdBtn')
+        // this.injectDomeElement('over-player-VastLinkBtn-div', 'VastLinkBtn')
+
+        // play your linear ad content
+        // in this example, we use a static mp4
+        this.player.src('https://nodes.alaatv.com/upload/vast/videos/HD_720p/pre_roll_nahayi.mp4')
+        this.player.controlBar.progressControl.disable()
+        this.player.reset()
+        this.player.play()
+
+        // send event when ad is playing to remove loading spinner
+        this.player.one('adplaying', function() {
+          this.player().trigger('ads-ad-started')
+        })
+
+        // resume content when all your linear ads have finished
+        this.player.one('adended', function() {
+          this.player().ads.endLinearAdMode()
+          this.player().controlBar.progressControl.enable()
+          this.player().reset()
+          this.player().play()
+        })
+      })
+
+      // in a real plugin, you might fetch ad inventory here
+      this.player.trigger('adsready')
+    },
     focusOnPlayer () {
       this.player.el().focus()
     },
@@ -255,7 +334,10 @@ export default {
           dynamicLabel: true
         }
       }
-      this.player = videojs(this.$refs.videoPlayer, this.options, () => {
+
+      this.player = videojs(this.$refs.videoPlayer, this.options)
+      this.loadVast()
+      this.player.ready(() => {
         this.setPlayerBrand()
         this.focusOnPlayer()
         this.redefineTap()
@@ -333,6 +415,7 @@ export default {
       this.injectDomeElement('over-player-wrapper-div', 'overPlayer')
     },
     toggleSideBar () {
+      console.log('toggleSideBar')
       this.localOverPlayer = !this.localOverPlayer
       // this.$emit('update:sideBar', this.localOverPlayer)
     },
