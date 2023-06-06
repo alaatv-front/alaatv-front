@@ -15,16 +15,16 @@
             </template>
             <template v-slot:body="props">
               <q-tr :props="props">
-                <q-td v-for="(item) in props.cols"
+                <q-td v-for="item in props.cols"
                       :key="item.name"
                       :props="props">
                   <template v-if="item.name === 'image'">
-                    {{item.image}}
                     <q-img :src="item.value"
                            width="40px"
                            height="40px" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row[item.name]">
+                                  v-model="props.row[item.name]"
+                                  buttons>
                       <q-input v-model="scope.value"
                                dense
                                autofocus
@@ -46,10 +46,21 @@
                       </q-tooltip>
                     </q-btn>
                   </template>
+                  <template v-else-if="item.name === 'rank' || item.name === 'order'">
+                    {{ item.value }}
+                    <q-popup-edit v-slot="scope"
+                                  v-model.number="props.row[item.name]">
+                      <q-input v-model.number="scope.value"
+                               dense
+                               autofocus
+                               @keyup.enter="reIndexRows(item, props.rowIndex, scope.value)" />
+                    </q-popup-edit>
+                  </template>
                   <template v-else>
                     {{ item.value }}
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row[item.name]">
+                                  v-model="props.row[item.name]"
+                                  buttons>
                       <q-input v-model="scope.value"
                                dense
                                autofocus
@@ -99,7 +110,7 @@ export default defineComponent({
         { name: 'first_name', align: 'center', label: 'نام', field: row => row.first_name },
         { name: 'last_name', align: 'center', label: 'نام خانوادگی', field: row => row.last_name },
         { name: 'major', align: 'center', label: 'رشته', field: row => row.major },
-        { name: 'rank', align: 'center', label: 'رتبه', field: row => row.rank },
+        { name: 'rank', align: 'center', label: 'رتبه', field: row => row.rank, sortable: true },
         { name: 'distraction', align: 'center', label: 'منطقه', field: row => row.distraction },
         { name: 'image', label: 'تصویر', align: 'center', field: row => row.image },
         { name: 'actions', align: 'right', label: 'عملیات', field: row => row.id }
@@ -109,10 +120,18 @@ export default defineComponent({
       }
     }
   },
-  mounted() {
-    // console.log(typeof this.localOptions.sliderItems[0].order)
-  },
   methods: {
+    reIndexRows(item, index, value) {
+      if (value > this.localOptions.sliderItems[index][item.name]) {
+        this.localOptions.sliderItems[index][item.name] = Number(value + 1)
+      } else {
+        this.localOptions.sliderItems[index][item.name] = Number(value - 1)
+      }
+      this.localOptions.sliderItems.sort((a, b) => a[item.name] - b[item.name])
+      this.localOptions.sliderItems.forEach((row, index) => {
+        row.order = Number(index + 1)
+      })
+    },
     addRow () {
       const newRow = {
         order: this.localOptions.sliderItems.length + 1,
@@ -123,7 +142,6 @@ export default defineComponent({
         distraction: '',
         image: ''
       }
-      console.log(typeof newRow.order)
       this.localOptions.sliderItems.unshift(newRow)
     },
     removeRow(index) {
