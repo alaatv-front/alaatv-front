@@ -1,6 +1,8 @@
 import { Notify } from 'quasar'
 import { APIGateway } from 'src/api/APIGateway.js'
 import CookieCart from 'src/assets/js/CookieCart.js'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
+import { Product } from 'src/models/Product'
 
 export function addToCart(context, newProductData) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
@@ -166,6 +168,10 @@ export function removeItemFromCart(context, orderProductId) {
         .then((response) => {
           removeByOrderProductId(orderProductId)
           showNotify()
+          const analyticsInstance = new AEE({
+            debugMode: true
+          })
+          analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product({ id: orderProductId }))
           resolve(response)
         })
         .catch((error) => {
@@ -174,6 +180,10 @@ export function removeItemFromCart(context, orderProductId) {
     } else {
       const productId = orderProductId
       removeByProductId(productId)
+      const analyticsInstance = new AEE({
+        debugMode: true
+      })
+      analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product({ id: productId }))
       showNotify()
       resolve()
     }
