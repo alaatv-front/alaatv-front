@@ -616,7 +616,13 @@ export default {
   created() {
     this.api += '/' + this.$route.params.id
   },
+  mounted () {
+    this.setInputs()
+  },
   methods: {
+    setInputs () {
+      this.getInput('department').options = this.getDepartments()
+    },
     initTicket () {
       this.setEntityValues()
     },

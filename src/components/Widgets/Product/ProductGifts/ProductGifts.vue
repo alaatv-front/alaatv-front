@@ -9,20 +9,8 @@
       </p>
       <div class="gift-text">
         <span>این محصول شامل هدایای زیر میباشد: </span>
-        <div class="flex q-py-lg">
-          <div v-for="(product, index) in products.list"
-               :key="index"
-               class="block-list-widget">
-            <div class="img-box q-mx-lg">
-              <router-link :to="{
-                name: 'Public.Product.Show',
-                params: { id: product.id ? product.id : -1 }
-              }">
-                <product-item :options="{product, canAddToCart: false}" />
-              </router-link>
-            </div>
-          </div>
-        </div>
+        <block-component class="block"
+                         :options="getBlockOptions" />
       </div>
     </div>
   </div>
@@ -32,11 +20,14 @@
 import { APIGateway } from 'src/api/APIGateway.js'
 import { ProductList } from 'src/models/Product.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+import BlockComponent from 'components/Widgets/Block/Block.vue'
+import { Block } from 'src/models/Block.js'
 
 export default {
   name: 'ProductGifts',
-  components: { ProductItem },
+  components: {
+    BlockComponent
+  },
   mixins: [mixinPrefetchServerData],
   props: {
     options: {
@@ -52,6 +43,18 @@ export default {
     }
   },
   computed: {
+    getBlockOptions () {
+      return {
+        block: new Block({
+          title: '',
+          products: this.products
+        }),
+        productItemOptions: {
+          canAddToCart: false,
+          showPrice: false
+        }
+      }
+    },
     productId () {
       if (typeof this.options.productId !== 'undefined' && this.options.productId !== null) {
         return this.options.productId
