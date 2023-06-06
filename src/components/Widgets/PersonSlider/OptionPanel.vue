@@ -15,10 +15,24 @@
             </template>
             <template v-slot:body="props">
               <q-tr :props="props">
-                <q-td v-for="(item) in props.cols"
+                <q-td v-for="item in props.cols"
                       :key="item.name"
                       :props="props">
-                  <template v-if="item.name === 'actions'">
+                  <template v-if="item.name === 'image'">
+                    <q-img :src="item.value"
+                           width="40px"
+                           height="40px" />
+                    <q-popup-edit v-slot="scope"
+                                  v-model="props.row[item.name]"
+                                  buttons>
+                      <q-input v-model="scope.value"
+                               dense
+                               autofocus
+                               counter
+                               @keyup.enter="scope.set" />
+                    </q-popup-edit>
+                  </template>
+                  <template v-else-if="item.name === 'actions'">
                     <q-btn round
                            flat
                            dense
@@ -32,10 +46,21 @@
                       </q-tooltip>
                     </q-btn>
                   </template>
+                  <template v-else-if="item.name === 'rank' || item.name === 'order'">
+                    {{ item.value }}
+                    <q-popup-edit v-slot="scope"
+                                  v-model.number="props.row[item.name]">
+                      <q-input v-model.number="scope.value"
+                               dense
+                               autofocus
+                               @keyup.enter="reIndexRows(item, props.rowIndex, scope.value)" />
+                    </q-popup-edit>
+                  </template>
                   <template v-else>
                     {{ item.value }}
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row[item.name]">
+                                  v-model="props.row[item.name]"
+                                  buttons>
                       <q-input v-model="scope.value"
                                dense
                                autofocus
@@ -75,17 +100,19 @@ export default defineComponent({
       rowCount: 0,
       columns: [
         {
-          name: 'code',
-          label: 'کد',
-          align: 'left',
-          field: row => row.code,
-          format: val => `${val}`
+          name: 'order',
+          label: 'ترتیب',
+          align: 'center',
+          field: row => row.order,
+          format: val => `${val}`,
+          sortable: true
         },
         { name: 'first_name', align: 'center', label: 'نام', field: row => row.first_name },
         { name: 'last_name', align: 'center', label: 'نام خانوادگی', field: row => row.last_name },
         { name: 'major', align: 'center', label: 'رشته', field: row => row.major },
-        { name: 'rank', align: 'center', label: 'رتبه', field: row => row.rank },
+        { name: 'rank', align: 'center', label: 'رتبه', field: row => row.rank, sortable: true },
         { name: 'distraction', align: 'center', label: 'منطقه', field: row => row.distraction },
+        { name: 'image', label: 'تصویر', align: 'center', field: row => row.image },
         { name: 'actions', align: 'right', label: 'عملیات', field: row => row.id }
       ],
       defaultOptions: {
@@ -93,15 +120,34 @@ export default defineComponent({
       }
     }
   },
+  mounted() {
+    this.localOptions.sliderItems.forEach((row, index) => {
+      row.order = Number(index + 1)
+      row.image = `https://nodes.alaatv.com/upload/landing/110/Rotbeh/${row.code}.png`
+      delete row.code
+    })
+  },
   methods: {
+    reIndexRows(item, index, value) {
+      if (value > this.localOptions.sliderItems[index][item.name]) {
+        this.localOptions.sliderItems[index][item.name] = Number(value + 1)
+      } else {
+        this.localOptions.sliderItems[index][item.name] = Number(value - 1)
+      }
+      this.localOptions.sliderItems.sort((a, b) => a[item.name] - b[item.name])
+      this.localOptions.sliderItems.forEach((row, index) => {
+        row.order = Number(index + 1)
+      })
+    },
     addRow () {
       const newRow = {
-        code: '',
+        order: this.localOptions.sliderItems.length + 1,
         rank: 0,
         first_name: '',
         last_name: '',
         major: '',
-        distraction: ''
+        distraction: '',
+        image: ''
       }
       this.localOptions.sliderItems.unshift(newRow)
     },
