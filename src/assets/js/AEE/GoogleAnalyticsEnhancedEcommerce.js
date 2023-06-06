@@ -1,8 +1,10 @@
 import GTMBase from 'assets/js/AEE/GoogleTagManager'
 
 export default class GTMEvents {
-  constructor() {
-    this.GTM = new GTMBase()
+  constructor(options = {
+    debugMode: false
+  }) {
+    this.GTM = new GTMBase(options)
   }
 
   action_checkoutOption(step, option) {
@@ -100,7 +102,7 @@ export default class GTMEvents {
     })
   }
 
-  impression_view(impressions, reportGtmEecOnConsole) {
+  impression_view(impressions) {
     // sample impression object => {
     //     'name': 'Triblend Android T-Shirt',       // Name or ID is required.
     //     'id': '12345',
@@ -118,10 +120,6 @@ export default class GTMEvents {
         impressions
       }
     })
-    if (reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecImpressionView: ', impressions)
-    }
   }
 
   impression_click(actionFieldList, product) {
@@ -196,40 +194,24 @@ export default class GTMEvents {
     return gtmEecPromotionView
   }
 
-  impressionViewSingleItem(element, reportGtmEecOnConsole) {
+  impressionViewSingleItem(element) {
     const impressions = this.getElementData_product(element)
     this.impression_view(impressions)
-    if (reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecImpressionView: ', impressions)
-    }
   }
 
-  impressionClick(element, reportGtmEecOnConsole) {
+  impressionClick(element) {
     const impressions = this.getElementData_product(element),
       actionFieldList = impressions[0].list
     this.impression_click(actionFieldList, impressions)
-    if (reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecImpressionClick: ', impressions)
-    }
   }
 
-  promotionViewSingleItem(element, reportGtmEecOnConsole) {
+  promotionViewSingleItem(element) {
     const promotions = this.getElementData_advertisement(element)
     this.promotion_view(promotions)
-    if (reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecPromotionView: ', promotions)
-    }
   }
 
-  promotionClick(element, reportGtmEecOnConsole) {
+  promotionClick(element) {
     const promotion = this.getElementData_advertisement(element)
     this.promotion_click(promotion)
-    if (reportGtmEecOnConsole) {
-      // eslint-disable-next-line no-console
-      console.log('gtmEecPromotionClick: ', promotion)
-    }
   }
 }

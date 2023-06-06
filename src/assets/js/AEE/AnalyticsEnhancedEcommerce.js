@@ -2,10 +2,9 @@ import GTMEvents from 'assets/js/AEE/GoogleAnalyticsEnhancedEcommerce.js'
 
 export default class AEE {
   constructor(options = {
-    reportGtmEecOnConsole: false
+    debugMode: false
   }) {
-    this.reportGtmEecOnConsole = options.reportGtmEecOnConsole
-    this.GTMEvents = new GTMEvents()
+    this.GTMEvents = new GTMEvents(options)
   }
 
   productDetailViews(actionFieldList, product) {
@@ -33,15 +32,15 @@ export default class AEE {
   }
 
   impressionView(impressions) {
-    this.GTMEvents.impression_view(impressions, this.reportGtmEecOnConsole)
+    this.GTMEvents.impression_view(impressions)
   }
 
   impressionViewSingleItem(element) {
-    this.GTMEvents.impressionViewSingleItem(element, this.reportGtmEecOnConsole)
+    this.GTMEvents.impressionViewSingleItem(element)
   }
 
   impressionClick(element) {
-    this.GTMEvents.impressionClick(element, this.reportGtmEecOnConsole)
+    this.GTMEvents.impressionClick(element)
   }
 
   promotionView(promotions) {
@@ -49,10 +48,10 @@ export default class AEE {
   }
 
   promotionViewSingleItem(element) {
-    this.GTMEvents.promotionViewSingleItem(element, this.reportGtmEecOnConsole)
+    this.GTMEvents.promotionViewSingleItem(element)
   }
 
   promotionClick(element) {
-    this.GTMEvents.promotionClick(element, this.reportGtmEecOnConsole)
+    this.GTMEvents.promotionClick(element)
   }
 }
