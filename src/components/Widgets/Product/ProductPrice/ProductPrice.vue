@@ -48,6 +48,7 @@
 import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ProductPrice',
@@ -104,6 +105,10 @@ export default {
     addToCart() {
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id }).then(() => {
         this.$router.push({ name: 'Public.Checkout.Review' })
+        const analyticsInstance = new AEE({
+          debugMode: true
+        })
+        analyticsInstance.productAddToCart('product.addToCart', [this.product.eec.getData()])
       })
     }
   }

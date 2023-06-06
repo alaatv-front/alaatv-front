@@ -132,6 +132,7 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default defineComponent({
   name: 'productItem',
@@ -189,6 +190,10 @@ export default defineComponent({
       this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
         .then(() => {
           this.addToCartLoading = false
+          const analyticsInstance = new AEE({
+            debugMode: true
+          })
+          analyticsInstance.productAddToCart('product.addToCart', [this.product.eec.getData()])
           this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
           this.addToCartLoading = false
