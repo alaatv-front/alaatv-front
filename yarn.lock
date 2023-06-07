@@ -5990,6 +5990,13 @@ videojs-brand@^0.0.4:
   dependencies:
     video.js "^5.6.0"
 
+videojs-contrib-ads@^7.3.1:
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/videojs-contrib-ads/-/videojs-contrib-ads-7.3.1.tgz#ea8fea53811a64694219a949185a7abe6b9340db"
+  integrity sha512-jhJ6Mn3k+78Jto+FlhUJAuSGXzxMxFx7MKY1rfcUdB/bM9rf8fZvMXiIBUVlt7QbzMUHA1RLjw4MytJa+AGYbQ==
+  dependencies:
+    global "^4.3.2"
+
 videojs-contrib-quality-levels@3.0.0, videojs-contrib-quality-levels@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/videojs-contrib-quality-levels/-/videojs-contrib-quality-levels-3.0.0.tgz#bc66f1333b763754b4425455bee4ef6e5ba53984"

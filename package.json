@@ -56,6 +56,7 @@
     "sticky-sidebar-v2": "^1.1.1",
     "video.js": "^8.0.4",
     "videojs-brand": "^0.0.4",
+    "videojs-contrib-ads": "^7.3.1",
     "videojs-contrib-quality-levels": "^3.0.0",
     "videojs-hls-quality-selector": "^1.1.4",
     "vue": "^3.2.47",
