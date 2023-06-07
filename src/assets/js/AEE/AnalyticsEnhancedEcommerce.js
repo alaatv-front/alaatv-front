@@ -39,8 +39,8 @@ export default class AEE {
     this.GTMEvents.impressionViewSingleItem(element)
   }
 
-  impressionClick(element) {
-    this.GTMEvents.impressionClick(element)
+  impressionClick(impressions) {
+    this.GTMEvents.impression_click(impressions)
   }
 
   promotionView(promotions) {
@@ -51,7 +51,7 @@ export default class AEE {
     this.GTMEvents.promotionViewSingleItem(element)
   }
 
-  promotionClick(element) {
-    this.GTMEvents.promotionClick(element)
+  promotionClick(promotions) {
+    this.GTMEvents.promotion_click(promotions)
   }
 }

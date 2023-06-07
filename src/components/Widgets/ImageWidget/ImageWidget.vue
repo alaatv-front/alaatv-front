@@ -11,6 +11,7 @@
 
 <script>
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 export default {
   name: 'ImageWidget',
@@ -60,11 +61,42 @@ export default {
   mounted() {
     this.windowWidth = window.innerWidth
     window.addEventListener('resize', this.onResize)
+    this.$nextTick(() => {
+      this.setAEEEvent()
+    })
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    setProductIntersectionObserver () {
+      const elements = document.querySelectorAll('[src="' + this.localOptions.imageSource + '"]')
+      const observer = new IntersectionObserver(this.handleIntersection)
+
+      elements.forEach(obs => {
+        observer.observe(obs)
+      })
+    },
+    handleIntersection(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          this.ImageIsViewed()
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    ImageIsViewed () {
+      const analyticsInstance = new AEE({
+        debugMode: true
+      })
+      analyticsInstance.promotionView([this.localOptions.AEEEventBody])
+    },
+    setAEEEvent () {
+      if (!this.localOptions.useAEEEvent) {
+        return
+      }
+      this.setProductIntersectionObserver()
+    },
     onResize() {
       this.windowWidth = window.innerWidth
     },
