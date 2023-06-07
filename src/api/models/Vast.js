@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import { xml2json } from 'xml-js'
 import APIRepository from '../classes/APIRepository'
 
 export default class VastAPI extends APIRepository {
@@ -20,7 +21,9 @@ export default class VastAPI extends APIRepository {
       cacheKey: this.CacheList.base,
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data
+        return response.data // vastXml
+        // return Assist.parseXmlToJson(response.data)
+        // return xml2json(response.data)
       },
       rejectCallback: (error) => {
         return error
