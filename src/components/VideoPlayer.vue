@@ -15,24 +15,21 @@
       </p>
     </video>
 
-    <q-btn ref="VastTimerBtn"
-           size="sm"
-           color="primary"
-           class="VastTimerBtn">
-      VastTimerBtn
-    </q-btn>
-    <q-btn ref="VastSkipAdBtn"
-           size="sm"
-           color="primary"
-           class="VastSkipAdBtn">
-      VastSkipAdBtn
-    </q-btn>
-    <q-btn ref="VastLinkBtn"
-           size="sm"
-           color="primary"
-           class="VastLinkBtn">
-      VastLinkBtn
-    </q-btn>
+    <div class="VastElements">
+      <div ref="VastTimerBtn"
+           class="VastElement VastTimerBtn hide">
+        VastTimerBtn:
+        {{ vastTimer }}
+      </div>
+      <div ref="VastSkipAdBtn"
+           class="VastElement VastSkipAdBtn hide">
+        VastSkipAdBtn
+      </div>
+      <div ref="VastLinkBtn"
+           class="VastElement VastLinkBtn hide">
+        VastLinkBtn
+      </div>
+    </div>
 
     <q-btn icon-right="isax:menu-1"
            size="sm"
@@ -140,7 +137,9 @@ export default {
   emits: ['seeked', 'update:sideBar'],
   data() {
     return {
+      vastTimer: 0,
       width: '',
+      showVastElements: false,
       drawer: false,
       player: null,
       localOverPlayer: false,
@@ -255,6 +254,74 @@ export default {
       //
       // })
     },
+    showVastElement (vastClassName) {
+      this.removeVastClass(vastClassName, 'hide')
+      this.addVastClass(vastClassName, 'show')
+    },
+    hideVastElement (vastClassName) {
+      this.removeVastClass(vastClassName, 'show')
+      this.addVastClass(vastClassName, 'hide')
+    },
+    addVastClass (vastClassName, classValue) {
+      const vastElement = this.vastElementExist(vastClassName)
+      if (!vastElement) {
+        return false
+      }
+
+      vastElement.classList.add(classValue)
+    },
+    removeVastClass (vastClassName, classValue) {
+      const vastElement = this.vastElementExist(vastClassName)
+      if (!vastElement) {
+        return false
+      }
+
+      vastElement.classList.remove(classValue)
+    },
+    vastElementExistAndHasClass (vastClassName, classValue) {
+      debugger
+      const vastElement = this.vastElementExist(vastClassName)
+      if (!vastElement) {
+        return false
+      }
+
+      if (!this.vastElementHasClass(vastElement, classValue)) {
+        return false
+      }
+
+      return vastElement
+    },
+    vastElementHasClass (vastElement, classValue) {
+      if (!vastElement) {
+        return false
+      }
+
+      return vastElement.classList.contains(classValue)
+    },
+    vastElementExist (vastClassName) {
+      const vastElement = this.$refs.videoPlayerWrapper.getElementsByClassName(vastClassName)[0]
+      if (!vastElement) {
+        return false
+      }
+
+      return vastElement
+    },
+    loadVastDomElements () {
+      this.injectDomeElement('over-player-VastTimerBtn-div', 'VastTimerBtn')
+      this.injectDomeElement('over-player-VastSkipAdBtn-div', 'VastSkipAdBtn')
+      this.injectDomeElement('over-player-VastLinkBtn-div', 'VastLinkBtn')
+
+      this.vastTimer = 10
+      setTimeout(() => {
+        this.vastTimer--
+      }, 1000)
+      setTimeout(() => {
+        this.showVastElement('VastTimerBtn')
+      }, 500)
+      // setTimeout(() => {
+      //   this.hideVastElement('VastTimerBtn')
+      // }, 3000)
+    },
     loadVast () {
       this.player.ads({
         // debug: true,
@@ -270,9 +337,7 @@ export default {
       this.player.on('readyforpreroll', () => {
         this.player.ads.startLinearAdMode()
 
-        // this.injectDomeElement('over-player-VastTimerBtn-div', 'VastTimerBtn')
-        // this.injectDomeElement('over-player-VastSkipAdBtn-div', 'VastSkipAdBtn')
-        // this.injectDomeElement('over-player-VastLinkBtn-div', 'VastLinkBtn')
+        this.loadVastDomElements()
 
         // play your linear ad content
         // in this example, we use a static mp4
@@ -408,14 +473,14 @@ export default {
     injectDomeElement (elementClass, refKey) {
       const div = document.createElement('div')
       div.classList = elementClass
-      div.appendChild(this.$refs[refKey])
+      const child = this.$refs[refKey].$el ? this.$refs[refKey].$el : this.$refs[refKey]
+      div.appendChild(child)
       this.$refs.videoPlayerWrapper.querySelector('.video-js').appendChild(div)
     },
     moveSideBarElementIntoVideoPlayerElements () {
       this.injectDomeElement('over-player-wrapper-div', 'overPlayer')
     },
     toggleSideBar () {
-      console.log('toggleSideBar')
       this.localOverPlayer = !this.localOverPlayer
       // this.$emit('update:sideBar', this.localOverPlayer)
     },
@@ -465,6 +530,65 @@ export default {
 .vPlayer {
   width: 100%;
   overflow: hidden;
+  .VastElements {
+    display: none;
+  }
+  .VastElement {
+    position: absolute;
+    bottom: 60px;
+    height: 50px;
+    border: solid 2px $primary;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 1s;
+    &.VastTimerBtn {
+      $width: 150px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      width: $width;
+      cursor: not-allowed;
+      &.show {
+        left: 0;
+      }
+      &.hide {
+        left: -$width;
+      }
+    }
+    &.VastSkipAdBtn {
+      $width: 150px;
+      left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      width: $width;
+      &.show {
+        left: 0;
+      }
+      &.hide {
+        left: -$width;
+      }
+    }
+    &.VastLinkBtn {
+      $width: 150px;
+      right: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
+      width: $width;
+      &.show {
+        right: 0;
+      }
+      &.hide {
+        right: -$width;
+      }
+    }
+  }
   .over-player-wrapper-div {
     position: absolute;
     top: 0;
