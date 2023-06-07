@@ -1,11 +1,11 @@
 {
-	"appId": "ir.sanatisharif.android.konkur96",
-	"appName": "alaatv",
+	"appId": "${ANDROID_APPLICATION_ID}",
+    "appName": "${ANDROID_APP_NAME}",
 	"bundledWebRuntime": false,
 	"npmClient": "yarn",
 	"webDir": "www",
 	"server": {
 		"androidScheme": "https",
-		"url": "http://192.168.3.102:8083"
+		"url": "${APP_URL}"
 	}
 }
