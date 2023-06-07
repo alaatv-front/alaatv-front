@@ -354,6 +354,16 @@ export default {
         padding: 0;
       }
     }
+    .block {
+      :deep(.block-container) {
+        .grid_view {
+          margin-left: -5px;
+        }
+        .scroll-view {
+          margin-left: 0;
+        }
+      }
+    }
     .contents-block {
       display: flex;
       overflow: auto;
