@@ -219,10 +219,9 @@ export default defineComponent({
     },
     addToCart() {
       this.addToCartLoading = true
-      this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
+      this.$store.dispatch('Cart/addToCart', this.product)
         .then(() => {
           this.addToCartLoading = false
-          this.analyticsInstance.productAddToCart('product.addToCart', [this.product.eec.getData()])
           this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
           this.addToCartLoading = false

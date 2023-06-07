@@ -44,6 +44,12 @@ export function addToCart(context, newProductData) {
     const reviewCart = () => {
       this.dispatch('Cart/reviewCart')
     }
+    const pushAEEEvent = () => {
+      const analyticsInstance = new AEE({
+        debugMode: true
+      })
+      analyticsInstance.productAddToCart('product.addToCart', [newProductData.eec.getData()])
+    }
 
     setCartLoading(true)
     if (isUserLogin) {
@@ -52,6 +58,7 @@ export function addToCart(context, newProductData) {
           updateCart(payload)
           showNotify()
           setCartLoading(false)
+          pushAEEEvent()
           reviewCart()
           resolve(response)
         })
@@ -63,6 +70,7 @@ export function addToCart(context, newProductData) {
       updateCart(payload)
       showNotify()
       setCartLoading(false)
+      pushAEEEvent()
       reviewCart()
       resolve(true)
     }
