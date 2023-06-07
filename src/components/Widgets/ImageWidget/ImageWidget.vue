@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       windowWidth: 0,
+      analyticsInstance: null,
       defaultOptions: {
         imageSource: null,
         ratio: null,
@@ -86,15 +87,18 @@ export default {
       })
     },
     ImageIsViewed () {
-      const analyticsInstance = new AEE({
-        debugMode: true
-      })
-      analyticsInstance.promotionView([this.localOptions.AEEEventBody])
+      this.analyticsInstance.promotionView([this.localOptions.AEEEventBody])
+    },
+    pushClickedEvent () {
+      this.analyticsInstance.promotionClick([this.localOptions.AEEEventBody])
     },
     setAEEEvent () {
       if (!this.localOptions.useAEEEvent) {
         return
       }
+      this.analyticsInstance = new AEE({
+        debugMode: true
+      })
       this.setProductIntersectionObserver()
     },
     onResize() {
@@ -155,6 +159,10 @@ export default {
       }
     },
     takeAction(action) {
+      if (!this.localOptions.hasAction) {
+        return
+      }
+      this.pushClickedEvent()
       if (this.callBack) {
         this.callBack()
       } else if (action.name === 'scroll') {
