@@ -146,7 +146,8 @@ export function paymentCheckout(context) {
   })
 }
 
-export function removeItemFromCart(context, orderProductId) {
+export function removeItemFromCart(context, orderProduct) {
+  const orderProductId = orderProduct.id
   const remove = function (productId, orderProductId) {
     const cart = context.getters.cart
     if (typeof productId !== 'undefined') {
@@ -172,6 +173,12 @@ export function removeItemFromCart(context, orderProductId) {
       icon: 'report_problem'
     })
   }
+  const pushAEEEvent = function () {
+    const analyticsInstance = new AEE({
+      debugMode: true
+    })
+    analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product(orderProduct.product))
+  }
 
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
@@ -179,11 +186,8 @@ export function removeItemFromCart(context, orderProductId) {
       APIGateway.cart.removeFromCart(orderProductId)
         .then((response) => {
           removeByOrderProductId(orderProductId)
+          pushAEEEvent()
           showNotify()
-          const analyticsInstance = new AEE({
-            debugMode: true
-          })
-          analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product({ id: orderProductId }))
           resolve(response)
         })
         .catch((error) => {
@@ -192,10 +196,7 @@ export function removeItemFromCart(context, orderProductId) {
     } else {
       const productId = orderProductId
       removeByProductId(productId)
-      const analyticsInstance = new AEE({
-        debugMode: true
-      })
-      analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product({ id: productId }))
+      pushAEEEvent()
       showNotify()
       resolve()
     }
