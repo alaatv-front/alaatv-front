@@ -206,6 +206,7 @@ import AuthLogin from 'components/Auth.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -418,6 +419,13 @@ export default {
         })
     },
 
+    pushAEEEvent () {
+      const analyticsInstance = new AEE({
+        debugMode: true
+      })
+      analyticsInstance.checkoutOption(2, 'Saman Bank')
+    },
+
     payment() {
       if (!this.selectedBank) {
         this.$q.notify({
@@ -426,6 +434,7 @@ export default {
         })
         return
       }
+      this.pushAEEEvent()
       this.$store.commit('loading/loading', true)
 
       this.$store.dispatch('Cart/paymentCheckout')
