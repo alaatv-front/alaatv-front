@@ -117,13 +117,16 @@ export function reviewCart(context) {
 
   return new Promise((resolve, reject) => {
     setCartLoading(true)
+    const pushAEEEvent = (cart) => {
+      const analyticsInstance = new AEE({
+        debugMode: true
+      })
+      analyticsInstance.checkout(1, 'reviewAndPayment', cart.items.list[0]?.order_product?.list.map(item => item.product))
+    }
     APIGateway.cart.reviewCart(cartItems)
       .then((cart) => {
         context.commit('updateCart', cart)
-        const analyticsInstance = new AEE({
-          debugMode: true
-        })
-        analyticsInstance.checkout(1, 'reviewAndPayment', cart.items.list[0]?.order_product?.list.map(item => item.product))
+        pushAEEEvent(cart)
         setCartLoading(false)
         return resolve(cart)
       })
