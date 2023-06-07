@@ -1,6 +1,6 @@
 {
 	"appId": "${ANDROID_APPLICATION_ID}",
-    "appName": "${ANDROID_APP_NAME}",
+	"appName": "${ANDROID_APP_NAME}",
 	"bundledWebRuntime": false,
 	"npmClient": "yarn",
 	"webDir": "www",
