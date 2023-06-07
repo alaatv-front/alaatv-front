@@ -307,9 +307,9 @@ export default {
       return vastElement
     },
     loadVastDomElements () {
-      this.injectDomeElement('over-player-VastTimerBtn-div', 'VastTimerBtn')
-      this.injectDomeElement('over-player-VastSkipAdBtn-div', 'VastSkipAdBtn')
-      this.injectDomeElement('over-player-VastLinkBtn-div', 'VastLinkBtn')
+      this.injectDomeElement(this.$refs.VastTimerBtn)
+      this.injectDomeElement(this.$refs.VastSkipAdBtn)
+      this.injectDomeElement(this.$refs.VastLinkBtn)
 
       this.vastTimer = 10
       setTimeout(() => {
@@ -470,7 +470,10 @@ export default {
       }
       this.player.currentTime(time)
     },
-    injectDomeElement (elementClass, refKey) {
+    injectDomeElement (element) {
+      this.$refs.videoPlayerWrapper.querySelector('.video-js').appendChild(element)
+    },
+    createDomeElement (elementClass, refKey) {
       const div = document.createElement('div')
       div.classList = elementClass
       const child = this.$refs[refKey].$el ? this.$refs[refKey].$el : this.$refs[refKey]
@@ -478,7 +481,7 @@ export default {
       this.$refs.videoPlayerWrapper.querySelector('.video-js').appendChild(div)
     },
     moveSideBarElementIntoVideoPlayerElements () {
-      this.injectDomeElement('over-player-wrapper-div', 'overPlayer')
+      this.createDomeElement('over-player-wrapper-div', 'overPlayer')
     },
     toggleSideBar () {
       this.localOverPlayer = !this.localOverPlayer
