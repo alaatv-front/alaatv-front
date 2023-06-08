@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ContentItem',
@@ -72,10 +72,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.content.admin.base,
-            edit: API_ADDRESS.content.admin.base,
-            create: API_ADDRESS.content.admin.base,
-            index: API_ADDRESS.content.admin.base
+            show: APIGateway.content.APIAdresses.adminContent.show.base,
+            edit: APIGateway.content.APIAdresses.adminContent.edit.base,
+            create: APIGateway.content.APIAdresses.adminContent.create.base,
+            index: APIGateway.content.APIAdresses.adminContent.index.base
           },
           title: {
             show: 'اطلاعات محتوا',

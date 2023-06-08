@@ -57,7 +57,7 @@
             </template>
           </q-input>
           <menu-item class="menu-item"
-                     :menu="titlesList" />
+                     :items="titlesList" />
         </q-list>
         <div class="log-out"
              @click="logOut">

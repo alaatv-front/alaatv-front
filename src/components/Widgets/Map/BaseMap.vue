@@ -189,7 +189,7 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 import mapInfo from './components/mapInfo.vue'
 import MapFilters from './components/MapFilters.vue'
 import Drawer from 'src/components/CustomDrawer.vue'
@@ -698,7 +698,9 @@ export default {
     },
     saveMapItem() {
       const newMapItem = new MapItem(this.adminToolBox.marker)
-      this.$axios.post(API_ADDRESS.map.items, newMapItem)
+      APIGateway.map.saveMapItem(newMapItem)
+        .then(() => {})
+        .catch(() => {})
     },
     deleteAdminMapItem(data) {
     },

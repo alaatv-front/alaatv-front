@@ -14,6 +14,26 @@
         </a>
       </p>
     </video>
+
+    <div class="VastElements">
+      <div ref="VastTimerBtn"
+           class="VastElement VastTimerBtn hide" />
+      <div ref="VastSkipAdBtn"
+           class="VastElement VastSkipAdBtn hide">
+        رد کردن
+      </div>
+      <div ref="VastLinkBtn"
+           class="VastElement VastLinkBtn hide">
+        اطلاعات بیشتر
+      </div>
+    </div>
+
+    <q-btn icon-right="isax:menu-1"
+           size="sm"
+           color="primary"
+           class="toggleSideBarBtn"
+           @click="toggleSideBar" />
+
     <div v-if="useOverPlayer"
          ref="overPlayer"
          class="over-player-wrapper">
@@ -35,12 +55,14 @@
 import videojs from 'video.js'
 import videojsBrand from 'videojs-brand'
 import fa from 'video.js/dist/lang/fa.json'
-import { Content } from 'src/models/Content.js'
+// import 'videojs-contrib-ads/dist/videojs.ads.js'
+import 'videojs-contrib-ads'
 import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
 
 import 'videojs-hls-quality-selector'
+import { APIGateway } from 'src/api/APIGateway'
 // import 'videojs-contrib-quality-levels'
 
 // // redefineTap
@@ -71,6 +93,10 @@ export default {
   name: 'VideoPlayer',
   mixins: [mixinAbrisham],
   props: {
+    hasVast: {
+      type: Boolean,
+      default: false
+    },
     source: {
       type: [String, PlayerSourceList],
       default: null
@@ -112,7 +138,13 @@ export default {
   emits: ['seeked', 'update:sideBar'],
   data() {
     return {
+      vastSrc: null,
+      vastLink: null,
+      vastSkipOffset: null,
+      vastStartOffset: null,
+      vastTimerInterval: null,
       width: '',
+      showVastElements: false,
       drawer: false,
       player: null,
       localOverPlayer: false,
@@ -165,7 +197,6 @@ export default {
         }
       },
       videoIsPlaying: false,
-      currentContent: new Content(),
       postIsFavored: {}
     }
   },
@@ -219,6 +250,210 @@ export default {
     }
   },
   methods: {
+    getVast () {
+      return APIGateway.vast.getXml()
+        .then((vastXml) => {
+          this.startVast(vastXml)
+        })
+        .catch(() => {
+        })
+    },
+    showVastElement (vastClassName) {
+      this.removeVastClass(vastClassName, 'hide')
+      this.addVastClass(vastClassName, 'show')
+    },
+    hideVastElement (vastClassName) {
+      this.removeVastClass(vastClassName, 'show')
+      this.addVastClass(vastClassName, 'hide')
+    },
+    addVastClass (vastClassName, classValue) {
+      const vastElement = this.vastElementExist(vastClassName)
+      if (!vastElement) {
+        return false
+      }
+
+      vastElement.classList.add(classValue)
+    },
+    removeVastClass (vastClassName, classValue) {
+      const vastElement = this.vastElementExist(vastClassName)
+      if (!vastElement) {
+        return false
+      }
+
+      vastElement.classList.remove(classValue)
+    },
+    vastElementExist (vastClassName) {
+      const vastElement = this.$refs.videoPlayerWrapper.getElementsByClassName(vastClassName)[0]
+      if (!vastElement) {
+        return false
+      }
+
+      return vastElement
+    },
+    loadVastDomElements () {
+      this.injectDomeElement(this.$refs.VastTimerBtn)
+      this.injectDomeElement(this.$refs.VastSkipAdBtn)
+      this.injectDomeElement(this.$refs.VastLinkBtn)
+    },
+    showVastLinkBtn (link, title = 'اطلاعات بیشتر') {
+      this.showVastElement('VastLinkBtn')
+      this.updateVastElementInnerHTML('VastLinkBtn', '<a href="' + link + '" target="_blank">' + title + '</a>')
+    },
+    stopVastTimer () {
+      if (this.vastTimerInterval) {
+        clearInterval(this.vastTimerInterval)
+      }
+      this.updateVastTimer(0)
+      this.hideVastElement('VastTimerBtn')
+    },
+    startVastTimer (endTimerCallback) {
+      this.showVastElement('VastTimerBtn')
+      if (this.vastTimerInterval) {
+        clearInterval(this.vastTimerInterval)
+      }
+      let seconds = this.getVastTimerSeconds()
+      if (seconds === 0) {
+        this.stopVastTimer()
+        return
+      }
+      this.updateVastTimer(seconds--)
+      this.vastTimerInterval = setInterval(() => {
+        this.updateVastTimer(seconds--)
+        if (seconds < 0) {
+          this.stopVastTimer()
+          endTimerCallback()
+        }
+      }, 1000)
+    },
+    getVastTimerSeconds () {
+      if (!this.vastSkipOffset) {
+        return 0
+      }
+
+      const array = this.vastSkipOffset.split(':')
+      return (array[0] * 60 * 60) + (array[1] * 60) + array[2]
+    },
+    updateVastTimer (timer) {
+      this.updateVastElementInnerHTML('VastTimerBtn', timer + ' ثانیه')
+    },
+    updateVastElementInnerHTML (vastClassName, innerHTML) {
+      const vastElement = this.vastElementExist(vastClassName)
+      if (!vastElement) {
+        return false
+      }
+
+      vastElement.innerHTML = innerHTML
+    },
+    sowVastSkipAdBtn () {
+      const vastClassName = 'VastSkipAdBtn'
+      this.showVastElement(vastClassName)
+      const vastElement = this.vastElementExist(vastClassName)
+      if (!vastElement) {
+        return false
+      }
+      vastElement.addEventListener('click', (event) => {
+        // this.player.trigger('adended')
+        // this.player.trigger('nopreroll')
+        this.player.ads.endLinearAdMode()
+        this.player.controlBar.progressControl.enable()
+        this.hideVastElement('VastTimerBtn')
+        this.hideVastElement('VastSkipAdBtn')
+        this.hideVastElement('VastLinkBtn')
+
+        // this.player.reset()
+        // this.player.dispose()
+        // this.setPoster()
+        // this.setSources()
+        // const source = this.isPlayerSourceList() ? this.source.list : this.source
+        // this.player.src(source)
+        // this.player.poster(this.poster)
+        //
+        // this.player.reset()
+        // this.player.play()
+        // this.endVast(this.player)
+      })
+    },
+    loadVast () {
+      this.player.ads({
+        debug: false,
+        allowVjsAutoplay: true
+        // contentIsLive: false,
+        // debug: true,
+        // liveCuePoints: false,
+        // postrollTimeout: 5000,
+        // prerollTimeout: 5000,
+        // stitchedAds: false,
+        // timeout: 5000
+      })
+
+      // request ads whenever there's new video content
+      this.player.on('contentchanged', function() {
+        // in a real plugin, you might fetch new ad inventory here
+        this.player().trigger('adsready')
+      })
+
+      this.player.on('readyforpreroll', () => {
+        this.player.ads.startLinearAdMode()
+
+        this.loadVastDomElements()
+
+        this.showVastLinkBtn(this.vastLink)
+        this.startVastTimer(() => {
+          this.sowVastSkipAdBtn()
+        })
+
+        // play your linear ad content
+        // in this example, we use a static mp4
+        // this.player.src('https://nodes.alaatv.com/upload/vast/videos/HD_720p/pre_roll_nahayi.mp4')
+        this.player.src(this.vastSrc)
+        this.player.controlBar.progressControl.disable()
+        this.player.reset()
+        this.player.play()
+
+        // send event when ad is playing to remove loading spinner
+        this.player.one('adplaying', function() {
+          this.player().trigger('ads-ad-started')
+        })
+
+        // resume content when all your linear ads have finished
+        this.player.one('adended', () => {
+          this.endVast(this.player)
+        })
+
+        // this.player.one('adskip', () => {
+        //   this.endVast(this.player)
+        // })
+      })
+
+      if (this.hasVast) {
+        this.getVast()
+      }
+    },
+    startVast (vastXml) {
+      const parser = new DOMParser()
+      const xmlDoc = parser.parseFromString(vastXml, 'text/xml')
+      this.vastSrc = xmlDoc.getElementsByTagName('MediaFile')[0].childNodes[0].nodeValue
+      this.vastLink = xmlDoc.getElementsByTagName('ClickThrough')[0].childNodes[0].nodeValue
+      this.vastStartOffset = xmlDoc.getElementsByTagName('Linear')[0].getAttribute('startoffset')
+      this.vastSkipOffset = xmlDoc.getElementsByTagName('Linear')[0].getAttribute('skipoffset')
+
+      // in a real plugin, you might fetch ad inventory here
+      this.player.trigger('adsready')
+    },
+    endVast (player, withoutReset = true) {
+      if (!player) {
+        player = this.palyer
+      }
+      player.ads.endLinearAdMode()
+      player.controlBar.progressControl.enable()
+      if (withoutReset) {
+        player.reset()
+        player.play()
+      }
+      this.hideVastElement('VastTimerBtn')
+      this.hideVastElement('VastSkipAdBtn')
+      this.hideVastElement('VastLinkBtn')
+    },
     focusOnPlayer () {
       this.player.el().focus()
     },
@@ -255,7 +490,10 @@ export default {
           dynamicLabel: true
         }
       }
-      this.player = videojs(this.$refs.videoPlayer, this.options, () => {
+
+      this.player = videojs(this.$refs.videoPlayer, this.options)
+      this.loadVast()
+      this.player.ready(() => {
         this.setPlayerBrand()
         this.focusOnPlayer()
         this.redefineTap()
@@ -323,14 +561,18 @@ export default {
       }
       this.player.currentTime(time)
     },
-    injectDomeElement (elementClass, refKey) {
+    injectDomeElement (element) {
+      this.$refs.videoPlayerWrapper.querySelector('.video-js').appendChild(element)
+    },
+    createDomeElement (elementClass, refKey) {
       const div = document.createElement('div')
       div.classList = elementClass
-      div.appendChild(this.$refs[refKey])
+      const child = this.$refs[refKey].$el ? this.$refs[refKey].$el : this.$refs[refKey]
+      div.appendChild(child)
       this.$refs.videoPlayerWrapper.querySelector('.video-js').appendChild(div)
     },
     moveSideBarElementIntoVideoPlayerElements () {
-      this.injectDomeElement('over-player-wrapper-div', 'overPlayer')
+      this.createDomeElement('over-player-wrapper-div', 'overPlayer')
     },
     toggleSideBar () {
       this.localOverPlayer = !this.localOverPlayer
@@ -382,6 +624,79 @@ export default {
 .vPlayer {
   width: 100%;
   overflow: hidden;
+  .VastElements {
+    display: none;
+  }
+  .VastElement {
+    position: absolute;
+    bottom: 60px;
+    height: 50px;
+    border: solid 2px $primary;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 1s;
+    &.VastTimerBtn {
+      $width: 150px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      width: $width;
+      cursor: not-allowed;
+      &.show {
+        left: 0;
+      }
+      &.hide {
+        left: -$width;
+      }
+    }
+    &.VastSkipAdBtn {
+      $width: 150px;
+      left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      width: $width;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      &.show {
+        left: 0;
+      }
+      &.hide {
+        left: -$width;
+      }
+    }
+    &.VastLinkBtn {
+      $width: 150px;
+      right: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
+      width: $width;
+      &.show {
+        right: 0;
+      }
+      &.hide {
+        right: -$width;
+      }
+      a {
+        width: 100%;
+        height: 100%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+    }
+  }
   .over-player-wrapper-div {
     position: absolute;
     top: 0;
@@ -446,8 +761,8 @@ export default {
       z-index: 2;
       .vjs-volume-panel {
         .vjs-volume-control {
-          right: -3.5em;
-          margin-right: -1px;
+          // right: -3.5em;
+          // margin-right: -1px;
         }
       }
       .vjs-resolution-button {
@@ -471,6 +786,27 @@ export default {
         left: auto;
       }
     }
+    .vjs-volume-tooltip {
+      float: right;
+    }
+    .vjs-volume-level {
+      right: 0;
+    }
   }
+}
+
+.vjs-slider-horizontal .vjs-volume-level:before {
+  left: 0;
+  right: auto;
+}
+.video-js .vjs-volume-level {
+    /* right: 0; */
+}
+.video-js .vjs-volume-tooltip {
+    /* float: left; */
+}
+.vPlayer .video-js .vjs-control-bar .vjs-volume-panel .vjs-volume-control {
+    /* left: -3.5em; */
+    /* margin-left: -1px; */
 }
 </style>

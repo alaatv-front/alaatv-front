@@ -146,8 +146,7 @@ export default {
     selectedTags: {
       handler (newVal) {
         if (newVal) {
-          this.syncSelectedTagViaContentSearchData(newVal)
-          this.sortFilterBasedOnSelected()
+          this.syncSelectedTags(newVal)
         }
       }
     }
@@ -158,6 +157,12 @@ export default {
     this.sortFilterBasedOnSelected()
   },
   methods: {
+    syncSelectedTags(selectedTags) {
+      this.contentSearchData = JSON.parse(JSON.stringify(this.contentFilterData))
+      this.mergeContentSearchDataActiveKeyWithSelectedFields()
+      this.syncSelectedTagViaContentSearchData(selectedTags)
+      this.sortFilterBasedOnSelected()
+    },
     syncSelectedTagViaContentSearchData (selectedTags) {
       selectedTags.forEach(tag => {
         Object.keys(this.contentSearchData).forEach(key => {

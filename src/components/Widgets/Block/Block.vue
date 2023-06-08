@@ -27,7 +27,7 @@
                'col-xl-3 col-lg-3 col-md-4 col-sm-5 col-xs-9': !isGridView,
              }"
              class="product-spacing">
-          <product-item :options="{product, minWidth: productItemMinWidth}" />
+          <product-item :options="{product, minWidth: productItemMinWidth, ...defaultOptions.productItemOptions}" />
         </div>
         <div v-if="localOptions.block?.url?.web"
              class="block-item-box">
@@ -107,6 +107,7 @@ export default {
       block: new Block(),
       gridView: false,
       showContentDownloadMenu: false,
+      productItemOptions: {},
       contentMinWidth: {
         inGridView: 'auto',
         inScrollView: 'auto'
@@ -263,6 +264,7 @@ export default {
     }
 
     .item-container {
+      width: 100%;
       &.grid_view {
         justify-content: center;
       }

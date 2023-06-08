@@ -1,7 +1,11 @@
 {
-  "appId": "org.alaatv.app",
-  "appName": "alaatv",
+  "appId": "${ANDROID_APPLICATION_ID}",
+  "appName": "${ANDROID_APP_NAME}",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
-  "webDir": "www"
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "url": "${APP_URL}"
+  }
 }

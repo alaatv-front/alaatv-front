@@ -1,50 +1,74 @@
+import MapAPI from 'src/api/models/Map.js'
+import SmsAPI from 'src/api/models/sms.js'
+import TagAPI from 'src/api/models/tag.js'
 import SetAPI from 'src/api/models/set.js'
 import CartAPI from 'src/api/models/cart.js'
 import AuthAPI from 'src/api/models/Auth.js'
 import UserAPI from 'src/api/models/user.js'
 import TreeAPI from 'src/api/models/tree.js'
+import PlanAPI from 'src/api/models/Plan.js'
+import VastAPI from 'src/api/models/Vast.js'
+import BlockAPI from 'src/api/models/block.js'
 import OrderAPI from 'src/api/models/order.js'
 import PagesAPI from 'src/api/models/pages.js'
 import TicketAPI from 'src/api/models/ticket.js'
 import CouponAPI from 'src/api/models/coupon.js'
 import EventsAPI from 'src/api/models/Events.js'
+import SourceAPI from 'src/api/models/source.js'
 import ContentAPI from 'src/api/models/content.js'
 import ProductAPI from 'src/api/models/product.js'
 import ForrestAPI from 'src/api/models/Forrest.js'
 import CommentAPI from 'src/api/models/comment.js'
+import ChannelAPI from 'src/api/models/Channel.js'
+import VoucherAPI from 'src/api/models/voucher.js'
+import SectionAPI from 'src/api/models/section.js'
+import GatewayAPI from 'src/api/models/gateway.js'
 import AbrishamAPI from 'src/api/models/Abrisham.js'
 import AttributeAPI from 'src/api/models/attribute.js'
 import StudyPlanAPI from 'src/api/models/studyPlan.js'
+import SlideShowAPI from 'src/api/models/slideShow.js'
+import PermissionAPI from 'src/api/models/permission.js'
 import PageSettingAPI from 'src/api/models/PageSetting.js'
 import ReferralCodeAPI from 'src/api/models/ReferralCode.js'
-import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
+import TeleMarketingAPI from 'src/api/models/teleMarketing.js'
 import LiveDescriptionAPI from 'src/api/models/LiveDescription.js'
-import PlanAPI from 'src/api/models/Plan.js'
-import ChannelAPI from 'src/api/models/Channel'
+import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
 
 /* Exporting the APIGateway object. */
 export const APIGateway = {
+  tag: new TagAPI(),
   set: new SetAPI(),
+  map: new MapAPI(),
+  sms: new SmsAPI(),
   auth: new AuthAPI(),
   user: new UserAPI(),
   cart: new CartAPI(),
   tree: new TreeAPI(),
-  pages: new PagesAPI(),
   plan: new PlanAPI(),
+  vast: new VastAPI(),
+  block: new BlockAPI(),
+  pages: new PagesAPI(),
   order: new OrderAPI(),
   events: new EventsAPI(),
+  source: new SourceAPI(),
   coupon: new CouponAPI(),
   ticket: new TicketAPI(),
   forrest: new ForrestAPI(),
   comment: new CommentAPI(),
+  voucher: new VoucherAPI(),
+  section: new SectionAPI(),
+  gateway: new GatewayAPI(),
   content: new ContentAPI(),
   channel: new ChannelAPI(),
   product: new ProductAPI(),
   abrisham: new AbrishamAPI(),
+  slideShow: new SlideShowAPI(),
   attribute: new AttributeAPI(),
   studyPlan: new StudyPlanAPI(),
-  liveDescription: new LiveDescriptionAPI(),
+  permission: new PermissionAPI(),
   pageSetting: new PageSettingAPI(),
   referralCode: new ReferralCodeAPI(),
+  teleMarketing: new TeleMarketingAPI(),
+  liveDescription: new LiveDescriptionAPI(),
   contentTimepoint: new ContentTimepointAPI()
 }
