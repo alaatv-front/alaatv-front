@@ -277,9 +277,7 @@ export default {
       window.open(url, '_blank')
     },
     updateEECEventDetail() {
-      const analyticsInstance = new AEE({
-        debugMode: true
-      })
+      const analyticsInstance = new AEE()
       analyticsInstance.productDetailViews('product.show', [this.product.eec.getData()])
     }
   }

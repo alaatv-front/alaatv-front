@@ -7,7 +7,7 @@ export default class GTMBase {
       return
     }
     window.dataLayer = window.dataLayer || []
-    this.debugMode = options.debugMode
+    this.debugMode = (process.env.APP_ENV === 'development') || options.debugMode
   }
 
   pushEvent (eventObject) {

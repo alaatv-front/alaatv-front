@@ -45,9 +45,7 @@ export function addToCart(context, newProductData) {
       this.dispatch('Cart/reviewCart')
     }
     const pushAEEEvent = () => {
-      const analyticsInstance = new AEE({
-        debugMode: true
-      })
+      const analyticsInstance = new AEE()
       analyticsInstance.productAddToCart('product.addToCart', [newProductData.eec.getData()])
     }
 
@@ -118,9 +116,7 @@ export function reviewCart(context) {
   return new Promise((resolve, reject) => {
     setCartLoading(true)
     const pushAEEEvent = (cart) => {
-      const analyticsInstance = new AEE({
-        debugMode: true
-      })
+      const analyticsInstance = new AEE()
       analyticsInstance.checkout(1, 'reviewAndPayment', cart.items.list[0]?.order_product?.list.map(item => item.product))
     }
     APIGateway.cart.reviewCart(cartItems)
@@ -177,9 +173,7 @@ export function removeItemFromCart(context, orderProduct) {
     })
   }
   const pushAEEEvent = function () {
-    const analyticsInstance = new AEE({
-      debugMode: true
-    })
+    const analyticsInstance = new AEE()
     analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product(orderProduct.product))
   }
 

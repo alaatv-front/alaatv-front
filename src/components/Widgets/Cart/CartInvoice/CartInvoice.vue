@@ -420,9 +420,7 @@ export default {
     },
 
     pushAEEEvent () {
-      const analyticsInstance = new AEE({
-        debugMode: true
-      })
+      const analyticsInstance = new AEE()
       analyticsInstance.checkoutOption(2, 'Saman Bank')
     },
 

@@ -184,9 +184,7 @@ export default defineComponent({
     }
   },
   mounted () {
-    this.analyticsInstance = new AEE({
-      debugMode: true
-    })
+    this.analyticsInstance = new AEE()
   },
   methods: {
     setProductIntersectionObserver () {

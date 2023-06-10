@@ -96,9 +96,7 @@ export default {
       if (!this.localOptions.useAEEEvent) {
         return
       }
-      this.analyticsInstance = new AEE({
-        debugMode: true
-      })
+      this.analyticsInstance = new AEE()
       this.setProductIntersectionObserver()
     },
     onResize() {

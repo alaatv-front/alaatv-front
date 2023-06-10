@@ -61,9 +61,7 @@ export default {
   },
   methods: {
     pushPurchaseEvent (order) {
-      const analyticsInstance = new AEE({
-        debugMode: true
-      })
+      const analyticsInstance = new AEE()
       const AEEData = order.getAEEData()
       analyticsInstance.purchase(AEEData.actionField, AEEData.products)
     },
