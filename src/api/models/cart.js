@@ -177,12 +177,12 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getorderWithTransaction(data = { orderId: '' }, cache = { TTL: 100 }) {
+  getorderWithTransaction(orderId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.orderWithTransaction(data.orderId),
-      cacheKey: this.CacheList.orderWithTransaction(data.orderId),
+      request: this.APIAdresses.orderWithTransaction(orderId),
+      cacheKey: this.CacheList.orderWithTransaction(orderId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Order(response.data.data)

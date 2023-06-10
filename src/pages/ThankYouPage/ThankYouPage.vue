@@ -69,7 +69,7 @@ export default {
     },
     onLoadPage () {
       this.loading = true
-      APIGateway.cart.getorderWithTransaction({ orderId: this.orderId })
+      APIGateway.cart.getorderWithTransaction(this.orderId)
         .then((order) => {
           this.loading = false
 
