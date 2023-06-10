@@ -158,60 +158,64 @@ export default class GTMEvents {
     })
   }
 
-  getElementData(element = {
-    data: {}
-  }, data) {
-    const elementData = element.data(data)
-    if (typeof elementData !== 'undefined') {
-      return elementData
-    }
-    return 'undefined'
-  }
+  // not using right now
+  // getElementData(element = {
+  //   data: {}
+  // }, data) {
+  //   const elementData = element.data(data)
+  //   if (typeof elementData !== 'undefined') {
+  //     return elementData
+  //   }
+  //   return 'undefined'
+  // }
 
-  getElementData_product(element) {
-    const gtmEecImpressionView = []
-    gtmEecImpressionView.push({
-      id: this.getElementData(element, 'gtm-eec-product-id').toString(),
-      name: this.getElementData(element, 'gtm-eec-product-name').toString(),
-      price: this.getElementData(element, 'gtm-eec-product-price').toString(),
-      brand: this.getElementData(element, 'gtm-eec-product-brand').toString(),
-      category: this.getElementData(element, 'gtm-eec-product-category').toString(),
-      variant: this.getElementData(element, 'gtm-eec-product-variant').toString(),
-      list: this.getElementData(element, 'gtm-eec-product-list').toString(),
-      position: this.getElementData(element, 'gtm-eec-product-position')
-    })
-    return gtmEecImpressionView
-  }
+  // not using right now
+  // getElementData_product(element) {
+  //   const gtmEecImpressionView = []
+  //   gtmEecImpressionView.push({
+  //     id: this.getElementData(element, 'gtm-eec-product-id').toString(),
+  //     name: this.getElementData(element, 'gtm-eec-product-name').toString(),
+  //     price: this.getElementData(element, 'gtm-eec-product-price').toString(),
+  //     brand: this.getElementData(element, 'gtm-eec-product-brand').toString(),
+  //     category: this.getElementData(element, 'gtm-eec-product-category').toString(),
+  //     variant: this.getElementData(element, 'gtm-eec-product-variant').toString(),
+  //     list: this.getElementData(element, 'gtm-eec-product-list').toString(),
+  //     position: this.getElementData(element, 'gtm-eec-product-position')
+  //   })
+  //   return gtmEecImpressionView
+  // }
 
-  getElementData_advertisement(element) {
-    const gtmEecPromotionView = []
-    gtmEecPromotionView.push({
-      id: this.getElementData(element, 'gtm-eec-promotion-id').toString(),
-      name: this.getElementData(element, 'gtm-eec-promotion-name').toString(),
-      creative: this.getElementData(element, 'gtm-eec-promotion-creative').toString(),
-      position: this.getElementData(element, 'gtm-eec-promotion-position')
-    })
-    return gtmEecPromotionView
-  }
+  // not using right now
+  // getElementData_advertisement(element) {
+  //   const gtmEecPromotionView = []
+  //   gtmEecPromotionView.push({
+  //     id: this.getElementData(element, 'gtm-eec-promotion-id').toString(),
+  //     name: this.getElementData(element, 'gtm-eec-promotion-name').toString(),
+  //     creative: this.getElementData(element, 'gtm-eec-promotion-creative').toString(),
+  //     position: this.getElementData(element, 'gtm-eec-promotion-position')
+  //   })
+  //   return gtmEecPromotionView
+  // }
 
-  impressionViewSingleItem(element) {
-    const impressions = this.getElementData_product(element)
-    this.impression_view(impressions)
-  }
-
-  impressionClick(element) {
-    const impressions = this.getElementData_product(element),
-      actionFieldList = impressions[0].list
-    this.impression_click(actionFieldList, impressions)
-  }
-
-  promotionViewSingleItem(element) {
-    const promotions = this.getElementData_advertisement(element)
-    this.promotion_view(promotions)
-  }
-
-  promotionClick(element) {
-    const promotion = this.getElementData_advertisement(element)
-    this.promotion_click(promotion)
-  }
+  // not using right now
+  // impressionViewSingleItem(element) {
+  //   const impressions = this.getElementData_product(element)
+  //   this.impression_view(impressions)
+  // }
+  //
+  // impressionClick(element) {
+  //   const impressions = this.getElementData_product(element),
+  //     actionFieldList = impressions[0].list
+  //   this.impression_click(actionFieldList, impressions)
+  // }
+  //
+  // promotionViewSingleItem(element) {
+  //   const promotions = this.getElementData_advertisement(element)
+  //   this.promotion_view(promotions)
+  // }
+  //
+  // promotionClick(element) {
+  //   const promotion = this.getElementData_advertisement(element)
+  //   this.promotion_click(promotion)
+  // }
 }
