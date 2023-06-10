@@ -87,7 +87,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  reviewCart(cartItems = [], cache = { TTL: 100 }) {
+  reviewCart(cartItems = [], cache = { TTL: 1000 }) {
     const queryParams = {}
     queryParams.seller = this.seller
 
@@ -144,7 +144,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 100 }) {
+  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

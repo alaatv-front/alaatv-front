@@ -17,7 +17,7 @@ export default class StudyPlanAPI extends APIRepository {
     }
   }
 
-  getStudyEvents(id, cache = { TTL: 100 }) {
+  getStudyEvents(id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -32,7 +32,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getPlans(id, cache = { TTL: 100 }) {
+  getPlans(id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

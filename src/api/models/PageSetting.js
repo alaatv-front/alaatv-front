@@ -16,7 +16,7 @@ export default class PageSettingAPI extends APIRepository {
     }
   }
 
-  index (data, cache = { TTL: 100 }) {
+  index (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -82,7 +82,7 @@ export default class PageSettingAPI extends APIRepository {
     })
   }
 
-  get (data, cache = { TTL: 100 }) {
+  get (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

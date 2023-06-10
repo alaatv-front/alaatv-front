@@ -60,7 +60,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  show(productId, cache = { TTL: 100 }) {
+  show(productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -76,7 +76,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  gifts(productId, cache = { TTL: 100 }) {
+  gifts(productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -144,7 +144,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductList(data, cache = { TTL: 100 }) {
+  getProductList(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -195,7 +195,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getCategories(cache = { TTL: 100 }) {
+  getCategories(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -211,7 +211,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getUserLastState(id, cache = { TTL: 100 }) {
+  getUserLastState(id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
