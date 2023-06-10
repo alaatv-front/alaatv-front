@@ -1,8 +1,10 @@
+@import "src/css/Theme/colors.scss";
+
 ::-webkit-scrollbar{
   width: 6px ;
   height: 5px;
   border-radius: 6px ;
-  background-color: var(--alaa-Primary) ;
+  background-color: $primary;
 }
 
 ::-webkit-scrollbar-track{
@@ -12,5 +14,5 @@
 
 ::-webkit-scrollbar-thumb{
   border-radius: 6px ;
-  background-color: var(--alaa-Primary) ;
+  background-color: $primary;
 }

@@ -9,6 +9,7 @@
                   :poster="content.photo"
                   :over-player="hasTimepoint"
                   :over-player-width="'250px'"
+                  :has-vast="true"
                   :use-over-player="hasTimepoint">
       <template #overPlayer>
         <div class="timepoint-list">
