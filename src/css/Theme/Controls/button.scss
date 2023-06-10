@@ -1,13 +1,13 @@
 .q-btn {
   &.q-btn--outline {
-    border: 1px solid #BDBDBD;
+    border: 1px solid $grey5;
   }
   &.q-btn--outline:hover {
-    border: 1px solid #9E9E9E;
+    border: 1px solid $grey6;
   }
   &.q-btn--outline:focus {
-    border: 1px solid #9E9E9E;
-    box-shadow: 0 0 0 4px #F5F5F5;
+    border: 1px solid $grey6;
+    box-shadow: 0 0 0 4px $grey2;
   }
 
   &.q-hoverable:hover > .q-focus-helper {

@@ -592,8 +592,8 @@ export default {
               img {
                 border: 2px solid #FFB74D;
                 border-radius: 16px;
-                //max-width: 100%;
-                //width: 100%;
+                max-width: 100%;
+                width: 100%;
               }
             }
           }
