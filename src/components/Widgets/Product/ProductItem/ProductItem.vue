@@ -50,10 +50,13 @@
     </div>
   </q-card>
   <q-card v-else
+          :ref="productRef"
           class="product-item-box"
+          :class="'productItem' + product.id"
           :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
     <div class="img-box">
-      <router-link :to="getRoutingObject">
+      <router-link :to="getRoutingObject"
+                   @click="productClicked">
         <lazy-img :src="product.photo"
                   :alt="product.title"
                   height="100%"
@@ -62,7 +65,8 @@
       </router-link>
     </div>
     <div class="product-content-box">
-      <router-link :to="getRoutingObject">
+      <router-link :to="getRoutingObject"
+                   @click="productClicked">
         <div class="title-box">
           <div class="main-title ellipsis-2-lines">
             {{ product.title }}
@@ -84,7 +88,8 @@
       <div v-if="localOptions.showPrice"
            class="action-box">
         <div class="more-detail product-more-detail">
-          <router-link :to="getRoutingObject">
+          <router-link :to="getRoutingObject"
+                       @click="productClicked">
             <div class="price-box">
               <div class="price-info">
                 <div v-if="product.price['final'] !== product.price['base']"
@@ -132,12 +137,15 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default defineComponent({
   name: 'productItem',
   components: { LazyImg },
   mixins: [mixinWidget, mixinPrefetchServerData],
   data: () => ({
+    productRef: 'product' + Date.now(),
+    analyticsInstance: null,
     addToCartLoading: false,
     loading: false,
     defaultOptions: {
@@ -177,7 +185,32 @@ export default defineComponent({
       return this.product.price.toman('base', false)
     }
   },
+  mounted () {
+    this.analyticsInstance = new AEE()
+  },
   methods: {
+    setProductIntersectionObserver () {
+      const elements = [this.$refs[this.productRef].$el]
+      const observer = new IntersectionObserver(this.handleIntersection)
+
+      elements.forEach(obs => {
+        observer.observe(obs)
+      })
+    },
+    handleIntersection(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          this.productIsViewed()
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    productIsViewed () {
+      this.analyticsInstance.impressionView([this.product.eec.getData()])
+    },
+    productClicked () {
+      this.analyticsInstance.impressionClick([this.product.eec.getData()])
+    },
     getTeacherOfProduct() {
       if (this.product.attributes.info.teacher) {
         return this.product.attributes.info.teacher[0]
@@ -186,7 +219,7 @@ export default defineComponent({
     },
     addToCart() {
       this.addToCartLoading = true
-      this.$store.dispatch('Cart/addToCart', { product_id: this.product.id })
+      this.$store.dispatch('Cart/addToCart', this.product)
         .then(() => {
           this.addToCartLoading = false
           this.$bus.emit('busEvent-refreshCart')
@@ -218,6 +251,11 @@ export default defineComponent({
     prefetchServerDataPromiseThen (product) {
       this.product = new Product(product)
       this.loading = false
+      if (window) {
+        this.$nextTick(() => {
+          this.setProductIntersectionObserver()
+        })
+      }
     },
     prefetchServerDataPromiseCatch () {
       this.loading = false
