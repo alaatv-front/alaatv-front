@@ -71,10 +71,10 @@
 
 <script>
 import { Product } from 'src/models/Product.js'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import Bookmark from 'components/Bookmark.vue'
+import Bookmark from 'src/components/Bookmark.vue'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProductInfoShow',
