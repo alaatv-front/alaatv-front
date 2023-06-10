@@ -50,6 +50,7 @@
     </div>
   </q-card>
   <q-card v-else
+          :ref="productRef"
           class="product-item-box"
           :class="'productItem' + product.id"
           :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
@@ -143,6 +144,7 @@ export default defineComponent({
   components: { LazyImg },
   mixins: [mixinWidget, mixinPrefetchServerData],
   data: () => ({
+    productRef: 'product' + Date.now(),
     analyticsInstance: null,
     addToCartLoading: false,
     loading: false,
@@ -188,7 +190,7 @@ export default defineComponent({
   },
   methods: {
     setProductIntersectionObserver () {
-      const elements = document.querySelectorAll('.productItem' + this.product.id)
+      const elements = [this.$refs[this.productRef].$el]
       const observer = new IntersectionObserver(this.handleIntersection)
 
       elements.forEach(obs => {
@@ -248,8 +250,12 @@ export default defineComponent({
     },
     prefetchServerDataPromiseThen (product) {
       this.product = new Product(product)
-      this.setProductIntersectionObserver()
       this.loading = false
+      if (window) {
+        this.$nextTick(() => {
+          this.setProductIntersectionObserver()
+        })
+      }
     },
     prefetchServerDataPromiseCatch () {
       this.loading = false

@@ -1,5 +1,6 @@
 <template>
-  <q-img :src="getImageSource(localOptions)"
+  <q-img :ref="imageRef"
+         :src="getImageSource(localOptions)"
          :ratio="localOptions.ratio"
          spinner-color="primary"
          :width="getImageWidth(localOptions)"
@@ -18,6 +19,7 @@ export default {
   mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
+      imageRef: 'img' + Date.now(),
       windowWidth: 0,
       analyticsInstance: null,
       defaultOptions: {
@@ -71,7 +73,7 @@ export default {
   },
   methods: {
     setProductIntersectionObserver () {
-      const elements = document.querySelectorAll('[src="' + this.localOptions.imageSource + '"]')
+      const elements = [this.$refs[this.imageRef].$el]
       const observer = new IntersectionObserver(this.handleIntersection)
 
       elements.forEach(obs => {
