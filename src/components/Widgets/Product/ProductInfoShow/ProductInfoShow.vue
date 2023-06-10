@@ -248,9 +248,7 @@ export default {
       this.product = new Product(data)
       this.isFavored = this.product.is_favored_2
       if (window) {
-        this.$nextTick(() => {
-          this.updateEECEventDetail()
-        })
+        this.updateEECEventDetail()
       }
       this.setInformation()
       this.product.loading = false
