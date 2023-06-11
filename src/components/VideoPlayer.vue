@@ -183,8 +183,16 @@ export default {
     }
   },
   watch: {
-    source () {
-      this.reInitVideo()
+    source: {
+      handler () {
+        if (typeof window === 'undefined') {
+          return
+        }
+        this.$nextTick(() => {
+          this.reInitVideo()
+        })
+      },
+      immediate: true
     },
     currentTime(time) {
       this.player.currentTime(time)
@@ -208,7 +216,7 @@ export default {
     this.setSources()
   },
   mounted() {
-    this.initPlayer()
+    // this.initPlayer()
     if (this.useOverPlayer) {
       this.$nextTick(() => {
         this.moveSideBarElementIntoVideoPlayerElements()
@@ -552,7 +560,9 @@ export default {
       this.options.poster = this.poster
     },
     reInitVideo() {
-      this.player.reset()
+      if (this.player?.reset) {
+        this.player.reset()
+      }
       // this.player.dispose()
       this.setPoster()
       this.setSources()
