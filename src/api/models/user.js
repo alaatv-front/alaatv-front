@@ -339,7 +339,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getPurchasedProducts(data = {}, cache = { TTL: 100 }) {
+  getPurchasedProducts(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -370,7 +370,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getUserRoleAndPermission(data = {}, cache = { TTL: 100 }) {
+  getUserRoleAndPermission(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
