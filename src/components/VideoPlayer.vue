@@ -105,7 +105,7 @@ export default {
       type: Number
     }
   },
-  emits: ['seeked', 'update:sideBar'],
+  emits: ['seeked', 'adStarted', 'update:sideBar'],
   data() {
     return {
       isInVastMode: false,
@@ -352,11 +352,11 @@ export default {
         // timeout: 5000
       })
 
-      // request ads whenever there's new video content
-      this.player.on('contentchanged', function() {
-        // in a real plugin, you might fetch new ad inventory here
-        this.player().trigger('adsready')
-      })
+      // // request ads whenever there's new video content
+      // this.player.on('contentchanged', function() {
+      //   // in a real plugin, you might fetch new ad inventory here
+      //   this.player().trigger('adsready')
+      // })
 
       this.player.on('readyforpreroll', () => {
         this.isInVastMode = true
@@ -461,7 +461,10 @@ export default {
       }
 
       this.player = videojs(this.$refs.videoPlayer, this.options)
-      // this.loadVast()
+      if (this.hasVast) {
+        this.loadVast()
+      }
+
       this.player.ready(() => {
         this.setPlayerBrand()
         this.focusOnPlayer()
@@ -705,6 +708,11 @@ export default {
   }
   .video-js {
     background-color: transparent;
+    &.vjs-ad-playing {
+      .vjs-resolution-button {
+        display: none;
+      }
+    }
     .vjs-loading-spinner {
       right: 50%;
       margin: -25px -25px 0 0;

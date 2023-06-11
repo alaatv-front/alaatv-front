@@ -62,6 +62,12 @@ const videoJsResolutionSwitcher = function(videojs) {
       // Remember player state
       const currentTime = this.player_.currentTime()
       const isPaused = this.player_.paused()
+
+      // error: The play() request was interrupted by a call to pause().
+      // https://stackoverflow.com/questions/36803176/how-to-prevent-the-play-request-was-interrupted-by-a-call-to-pause-error
+      // const isPlaying = video.currentTime > 0 && !video.paused && !video.ended
+      //   && video.readyState > video.HAVE_CURRENT_DATA;
+
       this.showAsLabel()
 
       // add .current class
@@ -89,7 +95,8 @@ const videoJsResolutionSwitcher = function(videojs) {
           this.player_.handleTechSeeked_()
           if (!isPaused) {
           // Start playing and hide loadingSpinner (flash issue ?)
-            this.player_.play().handleTechSeeked_()
+          //   this.player_.play().handleTechSeeked_()
+            this.player_.play()
           }
           this.player_.trigger('resolutionchange')
         })
