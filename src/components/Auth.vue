@@ -136,8 +136,8 @@ export default {
           this.$emit('onLoggedIn')
           this.redirectTo()
         })
-        .catch(err => {
-          this.handleErr(err.response)
+        .catch(() => {
+          this.loading = false
         })
     }
   }
