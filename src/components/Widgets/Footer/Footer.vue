@@ -247,7 +247,7 @@ export default {
         {
           title: 'card',
           icon: 'isax:card',
-          to: 'Public.Checkout',
+          to: 'Public.Checkout.Review',
           active: false
         },
         {
@@ -284,6 +284,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "src/css/Theme/sizes.scss";
 .main-footer {
   .homePage-footer-container {
     @media screen and (max-width:599px){
@@ -661,7 +662,7 @@ export default {
     left: 0;
     width: 100%;
 
-    height: 72px;
+    height: $mobileFooterHeight;
     display: none;
     background: white;
     border-radius: 16px 16px 0;
