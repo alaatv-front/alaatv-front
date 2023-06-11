@@ -2,16 +2,20 @@
   <div class="action-box-container row justify-between items-center"
        :class="localOptions.className"
        :style="localOptions.style">
-    <div class="col-lg-1 col-md-6 col-xs-2">
-      <q-icon :name="localOptions.icon"
-              :size="localOptions.iconSize"
-              :style="localOptions.iconStyle" />
+    <div class="content col-lg-9 col-sm-8 col-xs-12">
+      <div class="row items-center q-col-gutter-xs">
+        <div class="col-sm-1 col-xs-2 image">
+          <q-icon :name="localOptions.icon"
+                  :size="localOptions.iconSize"
+                  :style="localOptions.iconStyle" />
+        </div>
+        <div class="col-sm-11 col-xs-10 text-container">
+          <span class="text"
+                v-html="localOptions.text" />
+        </div>
+      </div>
     </div>
-    <div class="text-left col-lg-8 col-xs-10">
-      <span class="text"
-            v-html="localOptions.text" />
-    </div>
-    <div class="action-btn col-lg-3 col-xs-12 text-center">
+    <div class="action-btn col-lg-3 col-sm-4 col-xs-12">
       <action-button v-model:options="localOptions.button" />
     </div>
   </div>
@@ -103,21 +107,29 @@ export default {
 <style scoped lang="scss">
 .action-box-container {
   padding: 15px 16px;
-  @media screen and (max-width: 1440px) {
-    padding: 12px 15px;
-  }
-  @media screen and (max-width: 1024px) {
-    padding: 12px 16px;
-  }
-  @media screen and (max-width: 600px) {
-    .action-btn {
+  .action-btn {
+    text-align: right;
+    @media screen and (max-width: 599px) {
       margin-top: 26px;
       margin-bottom: 4px;
+      text-align: center !important;
     }
-    padding: 12px 12px;
   }
-  @media screen and (max-width: 350px) {
-    padding: 26px 26px;
+  .content {
+    text-align: center;
+    .image {
+      text-align: right;
+    }
+    .text-container {
+      @media screen and (min-width: 599px) {
+        text-align: left;
+      }
+    }
+    @media screen and (max-width: 599px) {
+      margin-top: 26px;
+      margin-bottom: 4px;
+      text-align: center !important;
+    }
   }
   .text {
     line-height: v-bind('localOptions.textOptions.xl.lineHeight');

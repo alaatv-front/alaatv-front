@@ -2,6 +2,7 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container q-my-md">
+        <div class="outsideLabel">border radius</div>
         <q-input v-model="localOptions.style.borderRadius" />
         <div class="btn-options">
           <h4 class="text-center">Button</h4>
