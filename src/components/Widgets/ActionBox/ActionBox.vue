@@ -1,18 +1,14 @@
 <template>
-  <div class="action-box-container row justify-between items-center"
+  <div class="action-box-container row items-center"
        :class="localOptions.className"
        :style="localOptions.style">
-    <div class="content col-lg-9 col-sm-8 col-xs-12">
-      <div class="row items-center q-col-gutter-xs">
-        <div class="col-sm-1 col-xs-2 image">
-          <q-icon :name="localOptions.icon"
-                  :size="localOptions.iconSize"
-                  :style="localOptions.iconStyle" />
-        </div>
-        <div class="col-sm-11 col-xs-10 text-container">
-          <span class="text"
-                v-html="localOptions.text" />
-        </div>
+    <div class="contents-container col-lg-9 col-sm-8 col-xs-12">
+      <div class="contents row items-center q-col-gutter-md no-wrap">
+        <q-icon :name="localOptions.icon"
+                :size="localOptions.iconSize"
+                :style="localOptions.iconStyle" />
+        <span class="text"
+              v-html="localOptions.text" />
       </div>
     </div>
     <div class="action-btn col-lg-3 col-sm-4 col-xs-12">
@@ -115,14 +111,10 @@ export default {
       text-align: center !important;
     }
   }
-  .content {
-    text-align: center;
-    .image {
-      text-align: right;
-    }
-    .text-container {
-      @media screen and (min-width: 599px) {
-        text-align: left;
+  .contents-container {
+    .contents {
+      @media screen and (max-width: 599px) {
+        place-content: center;
       }
     }
     @media screen and (max-width: 599px) {
@@ -166,6 +158,9 @@ export default {
       font-style: v-bind('localOptions.textOptions.xs.fontStyle');
       line-height: v-bind('localOptions.textOptions.xs.lineHeight');
     }
+  }
+  @media screen and (max-width: 600px) {
+    //padding: 15px 50px;
   }
 
 }
