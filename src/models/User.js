@@ -1,13 +1,12 @@
 /* eslint-disable camelcase,prefer-const */
 import { Model, Collection } from 'js-abstract-model'
-import API_ADDRESS from '../api/Addresses'
 
 class User extends Model {
   constructor (data) {
     super(data, [
       {
         key: 'baseRoute',
-        default: API_ADDRESS.user.base
+        default: '/user'
       },
       { key: 'id' },
       { key: 'first_name' },

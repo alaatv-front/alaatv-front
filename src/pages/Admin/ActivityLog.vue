@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ActivityLog',
@@ -21,7 +21,7 @@ export default {
       expanded: true,
       allProps: {
         config: {
-          api: API_ADDRESS.blockManagement.index.base,
+          api: APIGateway.block.APIAdresses.blockManagement.index.base,
           title: {
             show: 'اطلاعات لاگ ها',
             edit: 'ویرایش لاگ ها',

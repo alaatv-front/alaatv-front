@@ -6,12 +6,13 @@
         <div class="logo-section">
           <div class="drawer-btn hamburger">
             <q-btn v-if="showHamburger"
-                   class="toolbar-button"
+                   class="toolbar-button q-btn-sm"
                    icon="isax:menu-1"
                    color="white"
                    text-color="accent"
                    dense
                    unelevated
+                   square
                    @click="toggleLeftDrawer" />
           </div>
           <div class="logo-pic">
@@ -73,8 +74,8 @@
             <!--            />-->
             <q-btn icon="isax:shopping-cart"
                    unelevated
-                   rounded
                    size="12px"
+                   round
                    class="action-btn"
                    :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
@@ -407,7 +408,7 @@ export default {
         grid-template-columns: auto auto;
       }
       @media screen and (max-width: 599px) {
-        grid-template-columns: 1fr;
+        //grid-template-columns: 1fr;
       }
       .logo-section {
         align-items: center;
@@ -417,9 +418,9 @@ export default {
           justify-self: start;
         }
         @media screen and (max-width: 599px) {
-          justify-self: center;
-          justify-content: space-between;
-          width: 100%;
+          //justify-self: center;
+          //justify-content: space-between;
+          //width: 100%;
         }
         .logo-pic {
           cursor: pointer;
@@ -571,7 +572,7 @@ export default {
           height: 64px;
         }
         @media screen and (max-width: 599px) {
-          display: none;
+          //display: none;
         }
         display: flex;
         //justify-content: flex-end;
@@ -613,8 +614,8 @@ export default {
     background: #FFFFFF;
     border-radius: 16px;
     display: flex;
-    margin-bottom: 0px;
-    padding: 0px;
+    margin-bottom: 0;
+    padding: 0;
 
     .btn-style{
       width: 96px;

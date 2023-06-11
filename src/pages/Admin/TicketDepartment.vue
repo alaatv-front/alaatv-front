@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'TicketDepartment',
@@ -58,10 +58,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.ticketDepartment.show.base,
-            edit: API_ADDRESS.ticketDepartment.edit.base,
-            create: API_ADDRESS.ticketDepartment.create.base,
-            index: API_ADDRESS.ticketDepartment.index.base
+            show: APIGateway.ticket.APIAdresses.ticketDepartment.show.base,
+            edit: APIGateway.ticket.APIAdresses.ticketDepartment.edit.base,
+            create: APIGateway.ticket.APIAdresses.ticketDepartment.create.base,
+            index: APIGateway.ticket.APIAdresses.ticketDepartment.index.base
           },
           title: {
             show: 'اطلاعات تیکت ها',

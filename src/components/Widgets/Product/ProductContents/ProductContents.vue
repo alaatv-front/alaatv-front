@@ -349,6 +349,21 @@ export default {
       max-height: calc(100vh - 315px);
       overflow-y: auto;
     }
+    @media screen and (max-width: 599px) {
+      :deep(.q-tab-panel) {
+        padding: 0;
+      }
+    }
+    .block {
+      :deep(.block-container) {
+        .grid_view {
+          margin-left: -5px;
+        }
+        .scroll-view {
+          margin-left: 0;
+        }
+      }
+    }
     .contents-block {
       display: flex;
       overflow: auto;

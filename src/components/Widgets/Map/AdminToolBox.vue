@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 import { FormBuilder } from 'quasar-form-builder'
 
 import { MapItem } from 'src/models/MapItem.js'
@@ -157,7 +157,7 @@ export default {
       toolBoxBufferMarker: null,
       bufferPolyline: null,
       expanded: true,
-      api: API_ADDRESS.map.items,
+      api: APIGateway.map.APIAddresses.items,
       entityIdKeyInResponse: 'data.id',
       showRouteParamKey: 'id',
       showRouteName: 'Admin.Exam.Show',
