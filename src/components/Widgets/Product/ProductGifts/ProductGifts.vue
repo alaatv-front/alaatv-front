@@ -17,11 +17,11 @@
 </template>
 
 <script>
+import { Block } from 'src/models/Block.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { ProductList } from 'src/models/Product.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import BlockComponent from 'components/Widgets/Block/Block.vue'
-import { Block } from 'src/models/Block.js'
+import BlockComponent from 'src/components/Widgets/Block/Block.vue'
 
 export default {
   name: 'ProductGifts',

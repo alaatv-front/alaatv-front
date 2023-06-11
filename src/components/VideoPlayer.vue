@@ -28,13 +28,7 @@
       </div>
     </div>
 
-    <q-btn icon-right="isax:menu-1"
-           size="sm"
-           color="primary"
-           class="toggleSideBarBtn"
-           @click="toggleSideBar" />
-
-    <div v-if="useOverPlayer"
+    <div v-if="useOverPlayer && !isInVastMode"
          ref="overPlayer"
          class="over-player-wrapper">
       <q-btn icon-right="isax:menu-1"
@@ -52,39 +46,15 @@
 </template>
 
 <script>
+import 'videojs-contrib-ads'
 import videojs from 'video.js'
+import 'videojs-hls-quality-selector'
 import videojsBrand from 'videojs-brand'
 import fa from 'video.js/dist/lang/fa.json'
-// import 'videojs-contrib-ads/dist/videojs.ads.js'
-import 'videojs-contrib-ads'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
-
-import 'videojs-hls-quality-selector'
-import { APIGateway } from 'src/api/APIGateway'
-// import 'videojs-contrib-quality-levels'
-
-// // redefineTap
-// // https://stackoverflow.com/questions/28070934/video-js-player-pause-play-with-a-single-tap-on-a-mobile
-// if (typeof window !== 'undefined') {
-//   videojs.MediaTechController.prototype.onTap = function() {
-//     if (this.player().controls()) {
-//       if (this.player().paused()) {
-//         this.player().play()
-//       } else {
-//         this.player().pause()
-//       }
-//     }
-//   }
-//   player.on('click', function() {
-//     if (player.paused()) {
-//       player.play();
-//     } else {
-//       player.pause();
-//     }
-//   });
-// }
 
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
@@ -138,6 +108,7 @@ export default {
   emits: ['seeked', 'update:sideBar'],
   data() {
     return {
+      isInVastMode: false,
       vastSrc: null,
       vastLink: null,
       vastSkipOffset: null,
@@ -352,25 +323,12 @@ export default {
         return false
       }
       vastElement.addEventListener('click', (event) => {
-        // this.player.trigger('adended')
-        // this.player.trigger('nopreroll')
         this.player.ads.endLinearAdMode()
         this.player.controlBar.progressControl.enable()
         this.hideVastElement('VastTimerBtn')
         this.hideVastElement('VastSkipAdBtn')
         this.hideVastElement('VastLinkBtn')
-
-        // this.player.reset()
-        // this.player.dispose()
-        // this.setPoster()
-        // this.setSources()
-        // const source = this.isPlayerSourceList() ? this.source.list : this.source
-        // this.player.src(source)
-        // this.player.poster(this.poster)
-        //
-        // this.player.reset()
-        // this.player.play()
-        // this.endVast(this.player)
+        this.isInVastMode = false
       })
     },
     loadVast () {
@@ -393,6 +351,7 @@ export default {
       })
 
       this.player.on('readyforpreroll', () => {
+        this.isInVastMode = true
         this.player.ads.startLinearAdMode()
 
         this.loadVastDomElements()
@@ -411,12 +370,14 @@ export default {
         this.player.play()
 
         // send event when ad is playing to remove loading spinner
-        this.player.one('adplaying', function() {
-          this.player().trigger('ads-ad-started')
+        this.player.one('adplaying', () => {
+          this.player.trigger('ads-ad-started')
+          this.$emit('adStarted')
         })
 
         // resume content when all your linear ads have finished
         this.player.one('adended', () => {
+          this.isInVastMode = false
           this.endVast(this.player)
         })
 
