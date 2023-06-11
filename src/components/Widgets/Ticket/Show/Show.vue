@@ -1,7 +1,8 @@
 <template>
   <div class="row  justify-center">
     <div class="col-12 q-mb-xl">
-      <entity-edit ref="entityEdit"
+      <entity-edit v-if="isEntityReady"
+                   ref="entityEdit"
                    v-model:value="inputs"
                    :show-save-button="false"
                    :show-close-button="false"
@@ -250,6 +251,7 @@ export default {
   data() {
     return {
       logList: [],
+      isEntityReady: false,
       sendLoading: false,
       updateUserTem: false,
       phoneNumber: null,
@@ -616,15 +618,16 @@ export default {
   created() {
     this.api += '/' + this.$route.params.id
   },
-  mounted () {
-    this.setInputs()
-  },
   methods: {
-    setInputs () {
-      this.getInput('department').options = this.getDepartments()
+    async setInputs () {
+      const ticketFields = await this.getTicketData()
+      this.getInput('department').options = ticketFields.departments.list
+      this.getInput('status').options = ticketFields.statuses
     },
-    initTicket () {
+    async initTicket () {
       this.setEntityValues()
+      await this.setInputs()
+      this.isEntityReady = true
     },
     setEntityValues () {
       if (this.$route.name.includes('Admin')) {

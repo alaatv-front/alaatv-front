@@ -39,9 +39,12 @@
 
 <script>
 import { APIGateway } from 'src/api/APIGateway'
+import mixinAuthData from 'src/mixin/AuthData'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 export default {
   name: 'ThankYouPage',
+  mixins: [mixinAuthData],
   data() {
     return {
       loading: false,
@@ -57,15 +60,21 @@ export default {
     this.onLoadPage()
   },
   methods: {
+    pushPurchaseEvent (order) {
+      const analyticsInstance = new AEE()
+      const AEEData = order.getAEEData()
+      analyticsInstance.purchase(AEEData.actionField, AEEData.products)
+    },
     onLoadPage () {
       this.loading = true
-      APIGateway.cart.getorderWithTransaction({ orderId: this.orderId })
-        .then((paymentStatus) => {
+      APIGateway.cart.getorderWithTransaction(this.orderId)
+        .then((order) => {
           this.loading = false
 
-          if (paymentStatus.id === 3) {
+          if (order.paymentstatus.id === 3) {
             this.hasPaid = true
-          } else if (paymentStatus.id === 1) {
+            this.pushPurchaseEvent(order)
+          } else if (order.paymentstatus.id === 1) {
             this.hasPaid = false
           }
         })

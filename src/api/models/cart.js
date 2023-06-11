@@ -1,6 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Cart } from 'src/models/Cart'
+import { Order } from 'src/models/Order'
 
 export default class CartAPI extends APIRepository {
   constructor() {
@@ -21,7 +22,8 @@ export default class CartAPI extends APIRepository {
       discountRemove: this.name + this.APIAdresses.discountRemove,
       getPaymentRedirectEncryptedLink: this.name + this.APIAdresses.getPaymentRedirectEncryptedLink,
       reviewCart: this.name + this.APIAdresses.reviewCart,
-      removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id)
+      removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id),
+      orderWithTransaction: orderId => this.name + this.APIAdresses.orderWithTransaction(orderId)
     }
   }
 
@@ -87,7 +89,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  reviewCart(cartItems = [], cache = { TTL: 100 }) {
+  reviewCart(cartItems = [], cache = { TTL: 1000 }) {
     const queryParams = {}
     queryParams.seller = this.seller
 
@@ -144,7 +146,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 100 }) {
+  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -175,15 +177,15 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getorderWithTransaction(data) {
+  getorderWithTransaction(orderId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.orderWithTransaction(data.orderId),
-      cacheKey: this.CacheList.orderWithTransaction(data.orderId),
-      ...(!!data.cache && { cache: data.cache }),
+      request: this.APIAdresses.orderWithTransaction(orderId),
+      cacheKey: this.CacheList.orderWithTransaction(orderId),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data.paymentstatus
+        return new Order(response.data.data)
       },
       rejectCallback: (error) => {
         return error

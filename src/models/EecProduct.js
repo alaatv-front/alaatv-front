@@ -30,7 +30,7 @@ class EecProduct extends Model {
   }
 
   getData () {
-    const obj = {
+    return {
       id: this.id,
       name: this.name,
       price: this.price,
@@ -41,7 +41,6 @@ class EecProduct extends Model {
       list: this.list,
       position: this.position
     }
-    return obj
   }
 }
 export { EecProduct }

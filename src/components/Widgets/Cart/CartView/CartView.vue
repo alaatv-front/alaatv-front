@@ -254,6 +254,7 @@ export default {
       test: null,
       expandedObject: {},
       clickedItemIdToRemove: null,
+      clickedProductToRemove: null,
       defaultOptions: {
         className: '',
         height: 'auto',
@@ -329,7 +330,7 @@ export default {
     },
 
     removeItem() {
-      this.$store.dispatch('Cart/removeItemFromCart', this.clickedItemIdToRemove)
+      this.$store.dispatch('Cart/removeItemFromCart', this.clickedProductToRemove)
         .then(() => {
           this.cartReview()
           this.changeDialogState(false)
@@ -350,6 +351,7 @@ export default {
 
       if (itemId) {
         this.clickedItemIdToRemove = itemId
+        this.clickedProductToRemove = orderProduct.product
       }
       this.dialogState = state
     }
