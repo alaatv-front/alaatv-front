@@ -1,6 +1,8 @@
 import { Notify } from 'quasar'
 import { APIGateway } from 'src/api/APIGateway.js'
 import CookieCart from 'src/assets/js/CookieCart.js'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
+import { Product } from 'src/models/Product'
 
 export function addToCart(context, newProductData) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
@@ -42,6 +44,10 @@ export function addToCart(context, newProductData) {
     const reviewCart = () => {
       this.dispatch('Cart/reviewCart')
     }
+    const pushAEEEvent = () => {
+      const analyticsInstance = new AEE()
+      analyticsInstance.productAddToCart('product.addToCart', [newProductData.eec.getData()])
+    }
 
     setCartLoading(true)
     if (isUserLogin) {
@@ -50,6 +56,7 @@ export function addToCart(context, newProductData) {
           updateCart(payload)
           showNotify()
           setCartLoading(false)
+          pushAEEEvent()
           reviewCart()
           resolve(response)
         })
@@ -61,6 +68,7 @@ export function addToCart(context, newProductData) {
       updateCart(payload)
       showNotify()
       setCartLoading(false)
+      pushAEEEvent()
       reviewCart()
       resolve(true)
     }
@@ -107,9 +115,14 @@ export function reviewCart(context) {
 
   return new Promise((resolve, reject) => {
     setCartLoading(true)
+    const pushAEEEvent = (cart) => {
+      const analyticsInstance = new AEE()
+      analyticsInstance.checkout(1, 'reviewAndPayment', cart.items.list[0]?.order_product?.list.map(item => item.product))
+    }
     APIGateway.cart.reviewCart(cartItems)
       .then((cart) => {
         context.commit('updateCart', cart)
+        pushAEEEvent(cart)
         setCartLoading(false)
         return resolve(cart)
       })
@@ -132,7 +145,8 @@ export function paymentCheckout(context) {
   })
 }
 
-export function removeItemFromCart(context, orderProductId) {
+export function removeItemFromCart(context, orderProduct) {
+  const orderProductId = orderProduct.id
   const remove = function (productId, orderProductId) {
     const cart = context.getters.cart
     if (typeof productId !== 'undefined') {
@@ -158,6 +172,10 @@ export function removeItemFromCart(context, orderProductId) {
       icon: 'report_problem'
     })
   }
+  const pushAEEEvent = function () {
+    const analyticsInstance = new AEE()
+    analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product(orderProduct.product))
+  }
 
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
@@ -165,6 +183,7 @@ export function removeItemFromCart(context, orderProductId) {
       APIGateway.cart.removeFromCart(orderProductId)
         .then((response) => {
           removeByOrderProductId(orderProductId)
+          pushAEEEvent()
           showNotify()
           resolve(response)
         })
@@ -174,6 +193,7 @@ export function removeItemFromCart(context, orderProductId) {
     } else {
       const productId = orderProductId
       removeByProductId(productId)
+      pushAEEEvent()
       showNotify()
       resolve()
     }

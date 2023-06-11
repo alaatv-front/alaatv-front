@@ -32,15 +32,15 @@
 <script>
 import { Set } from 'src/models/Set.js'
 import { Content } from 'src/models/Content.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ContentVideoPlayer',
   components: { VideoPlayer },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -66,10 +66,23 @@ export default {
       this.loadContent()
     }
   },
-  created() {
-    this.loadContent()
-  },
   methods: {
+
+    prefetchServerDataPromise () {
+      this.content.loading = true
+      return this.getContentByRequest()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.content = new Content(data)
+      this.poster = this.content.photo ? this.content.photo : ''
+      this.setSources(this.content.file.video)
+      this.getSetByRequest()
+      this.content.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.content.loading = false
+    },
+
     loadContent () {
       if (this.options.noRequestMode || (this.options.content && this.options.content.id)) {
         this.content = new Content(this.options.content)
@@ -78,7 +91,13 @@ export default {
         this.getSetByRequest()
         return
       }
-      this.getContentByRequest()
+      this.prefetchServerDataPromise()
+        .then((content) => {
+          this.prefetchServerDataPromiseThen(content)
+        })
+        .catch(() => {
+          this.prefetchServerDataPromiseCatch()
+        })
     },
     getContentIdByNumberInList(numberInList) {
       return this.set.contents.list[numberInList - 1]?.id
@@ -101,17 +120,7 @@ export default {
     getContentByRequest() {
       const contentId = this.getContentId()
       this.content.loading = true
-      APIGateway.content.show(contentId)
-        .then((response) => {
-          this.content = new Content(response)
-          this.poster = this.content.photo ? this.content.photo : ''
-          this.setSources(this.content.file.video)
-          this.getSetByRequest()
-          this.content.loading = false
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
+      return APIGateway.content.show(contentId)
     },
     getSetByRequest() {
       this.set.loading = true

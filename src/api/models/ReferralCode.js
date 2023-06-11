@@ -27,7 +27,7 @@ export default class ReferralCodeAPI extends APIRepository {
   // rest
   // has get
 
-  index (data, cache = { TTL: 100 }) {
+  index (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -147,7 +147,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getSalesManData (cache = { TTL: 100 }) {
+  getSalesManData (cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

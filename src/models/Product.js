@@ -74,6 +74,18 @@ class Product extends Model {
     if (this.isFavored) {
       this.is_favored = this.isFavored
     }
+    this.fillEECData(data)
+  }
+
+  fillEECData(data) {
+    if (!data) {
+      return
+    }
+    this.eec.id = this.id
+    this.eec.name = this.title
+    this.eec.price = this.price.final
+    this.eec.category = (!data.category) ? '-' : data.category
+    this.eec.variant = (!data.variant) ? '-' : data.variant
   }
 }
 

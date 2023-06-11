@@ -21,7 +21,7 @@ export default class LiveDescriptionAPI extends APIRepository {
     }
   }
 
-  getNewsList(data, cache = { TTL: 100 }) {
+  getNewsList(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -40,7 +40,7 @@ export default class LiveDescriptionAPI extends APIRepository {
     })
   }
 
-  getPinedNews(cache = { TTL: 100 }) {
+  getPinedNews(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -58,7 +58,7 @@ export default class LiveDescriptionAPI extends APIRepository {
     })
   }
 
-  getNewsHasBeenSeen(id, cache = { TTL: 100 }) {
+  getNewsHasBeenSeen(id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

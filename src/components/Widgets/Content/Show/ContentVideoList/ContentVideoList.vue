@@ -94,13 +94,13 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import { Set } from 'src/models/Set'
-import { mixinWidget } from 'src/mixin/Mixins'
 import { scroll } from 'quasar'
-import { APIGateway } from 'src/api/APIGateway'
-import mixinDateOptions from 'src/mixin/DateOptions'
-import Time from 'src/plugins/time'
+import Time from 'src/plugins/time.js'
+import { Set } from 'src/models/Set.js'
+import { Content } from 'src/models/Content.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import mixinDateOptions from 'src/mixin/DateOptions.js'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 
 const {
   getScrollTarget,
@@ -109,7 +109,7 @@ const {
 
 export default {
   name: 'ContentVideoList',
-  mixins: [mixinWidget, mixinDateOptions],
+  mixins: [mixinWidget, mixinDateOptions, mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -140,18 +140,37 @@ export default {
       this.loadContent()
     }
   },
-  created() {
-    this.loadContent()
-  },
   methods: {
+    prefetchServerDataPromise () {
+      this.content.loading = true
+      return this.getContentByRequest()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.content = new Content(data)
+      if (this.content.file.pamphlet) {
+        this.videoListRatio = 5 / 4
+      }
+      this.getSetByRequest()
+      this.content.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.content.loading = false
+    },
+    loadContent() {
+      this.prefetchServerDataPromise()
+        .then((content) => {
+          this.prefetchServerDataPromiseThen(content)
+        })
+        .catch(() => {
+          this.prefetchServerDataPromiseCatch()
+        })
+    },
+
     hasPamphlet() {
       return this.content.file.pamphlet && this.content.file.pamphlet[0]
     },
     showTime(duration) {
       return Time.msToTime(duration * 1000)
-    },
-    loadContent() {
-      this.getContentByRequest()
     },
     getContentId () {
       if (this.options.productId) {
@@ -168,25 +187,14 @@ export default {
     getContentByRequest() {
       this.content.loading = true
       const contentId = this.getContentId()
-      APIGateway.content.show(contentId)
-        .then((response) => {
-          this.content = new Content(response)
-          if (this.content.file.pamphlet) {
-            this.videoListRatio = 5 / 4
-          }
-          this.getSetByRequest()
-          this.content.loading = false
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
+      return APIGateway.content.show(contentId)
     },
 
     getSetByRequest() {
       this.set.loading = true
       APIGateway.set.show(this.content.set.id)
-        .then((response) => {
-          this.set = new Set(response)
+        .then((set) => {
+          this.set = new Set(set)
           this.set.loading = false
           this.scrollToElement()
         })
