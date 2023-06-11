@@ -4,9 +4,9 @@
        :style="localOptions.style">
     <div class="contents-container col-lg-9 col-sm-8 col-xs-12">
       <div class="contents row items-center q-col-gutter-md no-wrap">
-        <q-icon :name="localOptions.icon"
-                :size="localOptions.iconSize"
-                :style="localOptions.iconStyle" />
+        <q-img :src="localOptions.src"
+               :width="localOptions.imageWidth"
+               :height="localOptions.imageHeight" />
         <span class="text"
               v-html="localOptions.text" />
       </div>
@@ -28,11 +28,9 @@ export default {
   data() {
     return {
       defaultOptions: {
-        icon: '',
-        iconSize: null,
-        iconStyle: {
-          color: ''
-        },
+        src: '',
+        imageWidth: '50px',
+        imageHeight: '50px',
         text: 'متن مورد نظر را وارد کنید ...',
         textOptions: {
           fontFamily: null,
@@ -158,9 +156,6 @@ export default {
       font-style: v-bind('localOptions.textOptions.xs.fontStyle');
       line-height: v-bind('localOptions.textOptions.xs.lineHeight');
     }
-  }
-  @media screen and (max-width: 600px) {
-    //padding: 15px 50px;
   }
 
 }

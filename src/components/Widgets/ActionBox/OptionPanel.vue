@@ -116,36 +116,22 @@
             </div>
           </div>
         </div>
-        <div class="icon-options row q-gutter-sm q-my-md">
-          <h4 class="text-center col-md-12">Icon</h4>
+        <div class="img-options row q-gutter-sm q-my-md">
+          <h4 class="text-center col-md-12">Image</h4>
           <div class="input-container col-md-3">
-            <div class="outsideLabel">icon</div>
-            <q-input v-model="localOptions.icon"
-                     label="icon" />
+            <div class="outsideLabel">image source</div>
+            <q-input v-model="localOptions.src"
+                     label="image source" />
           </div>
           <div class="input-container col-md-3">
-            <div class="outsideLabel">icon size</div>
-            <q-input v-model="localOptions.iconSize"
-                     label="icon size" />
+            <div class="outsideLabel">image width</div>
+            <q-input v-model="localOptions.imageWidth"
+                     label="image width" />
           </div>
           <div class="input-container col-md-3">
-            <div class="outsideLabel">icon color</div>
-            <q-input v-model="localOptions.iconStyle.color"
-                     icon="colorize"
-                     label="icon color">
-              <template v-slot:append>
-                <q-icon name="colorize"
-                        class="cursor-pointer">
-                  <q-popup-proxy cover
-                                 transition-show="scale"
-                                 transition-hide="scale">
-                    <q-color v-model="localOptions.iconStyle.color"
-                             label="backgroundColor"
-                             format-model="rgba" />
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
+            <div class="outsideLabel">image height</div>
+            <q-input v-model="localOptions.imageHeight"
+                     label="image height" />
           </div>
         </div>
         <div class="text-options">
@@ -177,11 +163,9 @@ export default defineComponent({
       actionOptions: ['scroll', 'link', 'event'],
       positionOptions: ['top-right', 'top-left', 'bottom-right', 'bottom-left'],
       defaultOptions: {
-        icon: '',
-        iconSize: null,
-        iconStyle: {
-          color: ''
-        },
+        src: '',
+        imageWidth: '50px',
+        imageHeight: '50px',
         text: 'متن مورد نظر را وارد کنید ...',
         textOptions: {
           fontFamily: null,
@@ -245,9 +229,6 @@ export default defineComponent({
         }
       }
     }
-  },
-  mounted() {
-    console.log(this.localOptions)
   }
 })
 </script>
