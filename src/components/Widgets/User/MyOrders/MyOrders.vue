@@ -345,6 +345,7 @@ export default {
     async getPaymentStatus() {
       try {
         const paymentStatus = await APIGateway.order.getPaymentStatus(this.user.id)
+        console.log(paymentStatus)
         this.getInput('filterInputs', 'paymentStatuses').options = paymentStatus
         this.loading = false
       } catch (e) {

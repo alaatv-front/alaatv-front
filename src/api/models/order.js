@@ -49,7 +49,7 @@ export default class OrderAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.status,
       resolveCallback: (response) => {
-        return response.data.data
+        return response.data.data.paymentStatuses
       },
       rejectCallback: (error) => {
         return error
