@@ -19,3 +19,9 @@ body.body--light {
   text-align: center;
   padding: 10px 16PX;
 }
+
+@media screen and (max-width:600px){
+  .q-page-container {
+    margin-bottom: $mobileFooterHeight;
+  }
+}

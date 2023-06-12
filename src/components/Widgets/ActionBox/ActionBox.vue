@@ -3,11 +3,11 @@
        :class="localOptions.className"
        :style="localOptions.style">
     <div class="contents-container col-lg-9 col-sm-8 col-xs-12">
-      <div class="contents row items-center q-col-gutter-md no-wrap">
+      <div class="contents row items-center no-wrap">
         <q-img :src="localOptions.src"
                :width="localOptions.imageWidth"
                :height="localOptions.imageHeight" />
-        <span class="text"
+        <span class="text q-ml-md"
               v-html="localOptions.text" />
       </div>
     </div>
