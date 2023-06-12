@@ -107,6 +107,7 @@ export default {
   emits: ['seeked', 'adStarted', 'update:sideBar'],
   data() {
     return {
+      needReInitVideo: false,
       isInVastMode: false,
       vastSrc: null,
       vastLink: null,
@@ -188,7 +189,11 @@ export default {
           return
         }
         this.$nextTick(() => {
-          this.reInitVideo()
+          if (this.$refs.videoPlayer) {
+            this.reInitVideo()
+          } else {
+            this.needReInitVideo = true
+          }
         })
       },
       immediate: true
@@ -215,7 +220,11 @@ export default {
     this.setSources()
   },
   mounted() {
-    // this.initPlayer()
+    if (this.needReInitVideo) {
+      this.$nextTick(() => {
+        this.reInitVideo()
+      })
+    }
     if (this.useOverPlayer) {
       this.$nextTick(() => {
         this.moveSideBarElementIntoVideoPlayerElements()
