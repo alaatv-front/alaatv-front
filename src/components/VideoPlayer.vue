@@ -107,6 +107,7 @@ export default {
   emits: ['seeked', 'adStarted', 'update:sideBar'],
   data() {
     return {
+      needReInitVideo: false,
       isInVastMode: false,
       vastSrc: null,
       vastLink: null,
@@ -152,7 +153,7 @@ export default {
         autoplay: false,
         controls: true,
         playbackRates: [0.5, 1, 1.5, 2, 3, 4],
-        nativeControlsForTouch: true,
+        nativeControlsForTouch: false,
         sources: [],
         poster: null,
         plugins: {
@@ -188,7 +189,11 @@ export default {
           return
         }
         this.$nextTick(() => {
-          this.reInitVideo()
+          if (this.$refs.videoPlayer) {
+            this.reInitVideo()
+          } else {
+            this.needReInitVideo = true
+          }
         })
       },
       immediate: true
@@ -215,7 +220,11 @@ export default {
     this.setSources()
   },
   mounted() {
-    // this.initPlayer()
+    if (this.needReInitVideo) {
+      this.$nextTick(() => {
+        this.reInitVideo()
+      })
+    }
     if (this.useOverPlayer) {
       this.$nextTick(() => {
         this.moveSideBarElementIntoVideoPlayerElements()
@@ -418,8 +427,15 @@ export default {
       })
     },
     redefineTap () {
-      this.player.on('touchend', function() { // tap
+      this.player.on('touchend', function(e) { // tap
         if (this.player().controls()) {
+          const classes = [
+            'vjs-tech'
+          ]
+          const canDoAction = !classes.find(className => e.target.classList.contains(className))
+          if (canDoAction) {
+            return
+          }
           if (this.player().paused()) {
             this.player().play()
           } else {
@@ -598,8 +614,8 @@ export default {
     align-items: center;
     cursor: pointer;
     transition: all 1s;
+    $width: 150px;
     &.VastTimerBtn {
-      $width: 150px;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
       border-left: none;
@@ -613,7 +629,6 @@ export default {
       }
     }
     &.VastSkipAdBtn {
-      $width: 150px;
       left: 0;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
@@ -632,7 +647,6 @@ export default {
       }
     }
     &.VastLinkBtn {
-      $width: 150px;
       right: 0;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
@@ -654,6 +668,34 @@ export default {
         font-size: 0.8rem;
       }
     }
+    @media screen and(max-width: 600px) {
+      height: 35px;
+      $screen-max-600-width: 100px;
+      &.VastTimerBtn {
+        width: $screen-max-600-width;
+        font-size: 0.7rem;
+        &.hide {
+          left: -$screen-max-600-width;
+        }
+      }
+      &.VastSkipAdBtn {
+        width: $screen-max-600-width;
+        font-size: 0.7rem;
+        &.hide {
+          left: -$screen-max-600-width;
+        }
+      }
+      &.VastLinkBtn {
+        width: $screen-max-600-width;
+        &.hide {
+          right: -$screen-max-600-width;
+        }
+        a {
+          font-size: 0.7rem;
+        }
+      }
+    }
+
   }
   .over-player-wrapper-div {
     position: absolute;
