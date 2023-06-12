@@ -10,7 +10,7 @@ export default class OrderAPI extends APIRepository {
       edit: '/admin/order',
       index: '/admin/order',
       show: '/admin/order',
-      status: '/payment/status',
+      status: '/admin/form-builder?types[]=paymentStatuses',
       ordersById: (id) => '/user/' + id + '/orders',
       transaction: {
         create: {
@@ -45,7 +45,7 @@ export default class OrderAPI extends APIRepository {
 
   getPaymentStatus() {
     return this.sendRequest({
-      apiMethod: 'post',
+      apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.status,
       resolveCallback: (response) => {

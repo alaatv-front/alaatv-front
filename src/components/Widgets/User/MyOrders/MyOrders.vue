@@ -62,9 +62,7 @@
             </div>
             <q-expansion-item v-model="filterExpanded"
                               icon="perm_identity"
-                              class="expand-filter"
-                              label="Account settings"
-                              caption="John Doe">
+                              class="expand-filter">
               <div class="row filter-items">
                 <div class="col-12">
                   <form-builder ref="filterSlot"
@@ -201,9 +199,9 @@ export default {
       ],
       filterInputs: [
         { type: 'select', name: 'paymentStatuses', dropdownIcon: 'isax:arrow-down-1', optionValue: 'id', optionLabel: 'name', responseKey: 'paymentStatuses', multiple: true, label: 'وضعیت پرداخت', placeholder: ' ', col: 'filter-option col-sm-6 col-lg-4 col-xs-12' },
-        { type: 'date', name: 'since', responseKey: 'since', label: 'تاریخ سفارش', placeholder: ' از', calendarIcon: ' ', col: 'col-lg-3 col-sm-6 col-xs-12' },
-        { type: 'date', name: 'till', label: ' ', placeholder: 'تا', calendarIcon: ' ', responseKey: 'till', col: 'col-lg-3 col-sm-6 col-xs-12' },
-        { type: ActionBtn, name: 'ActionBtn', col: 'col-lg-2 col-sm-6 col-xs-12' }
+        { type: 'date', name: 'since', responseKey: 'since', label: 'تاریخ سفارش از', placeholder: ' از', calendarIcon: ' ', col: 'col-lg-3 col-sm-6 col-xs-12' },
+        { type: 'date', name: 'till', label: 'تاریخ سفارش تا', placeholder: 'تا', calendarIcon: ' ', responseKey: 'till', col: 'col-lg-3 col-sm-6 col-xs-12' },
+        { type: ActionBtn, name: 'ActionBtn', col: 'col-lg-2 col-sm-6 col-xs-12 q-mt-lg' }
       ],
       searchInput: '',
       table: {
@@ -220,8 +218,8 @@ export default {
             required: true,
             label: 'وضعیت ‌پرداخت',
             align: 'left',
-            field: row => row.paymentstatus.name,
-            classes: row => row.paymentstatus.id === 1 ? 'payment-not-okay' : row.paymentstatus.id === 3 ? 'payment-okay' : row.paymentstatus.id === 4 ? 'payment-installment' : ''
+            field: row => row.paymentstatus.name
+            // classes: row => row.paymentstatus.id === 1 ? 'payment-not-okay' : row.paymentstatus.id === 3 ? 'payment-okay' : row.paymentstatus.id === 4 ? 'payment-installment' : ''
           },
           {
             name: 'price',
@@ -303,7 +301,7 @@ export default {
       this.updateInputsValue('search', value)
     }
   },
-  created() {
+  mounted() {
     this.getPaymentStatus()
   },
   methods: {
@@ -346,7 +344,7 @@ export default {
     },
     async getPaymentStatus() {
       try {
-        const paymentStatus = APIGateway.order.getPaymentStatus(this.user.id)
+        const paymentStatus = APIGateway.order.getPaymentStatus()
         this.getInput('filterInputs', 'paymentStatuses').options = paymentStatus
         this.loading = false
       } catch (e) {
