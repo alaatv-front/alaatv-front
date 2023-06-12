@@ -145,8 +145,8 @@ export function paymentCheckout(context) {
   })
 }
 
-export function removeItemFromCart(context, orderProduct) {
-  const orderProductId = orderProduct.id
+export function removeItemFromCart(context, product) {
+  // const orderProductId = orderProduct.id
   const remove = function (productId, orderProductId) {
     const cart = context.getters.cart
     if (typeof productId !== 'undefined') {
@@ -159,9 +159,9 @@ export function removeItemFromCart(context, orderProduct) {
   const removeByProductId = function (productId) {
     remove(productId)
   }
-  const removeByOrderProductId = function (orderProductId) {
-    remove(undefined, orderProductId)
-  }
+  // const removeByOrderProductId = function (orderProductId) {
+  //   remove(undefined, orderProductId)
+  // }
   const showNotify = function () {
     Notify.create({
       type: 'positive',
@@ -174,15 +174,16 @@ export function removeItemFromCart(context, orderProduct) {
   }
   const pushAEEEvent = function () {
     const analyticsInstance = new AEE()
-    analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product(orderProduct.product))
+    analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product(product))
   }
 
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
     if (isUserLogin) {
-      APIGateway.cart.removeFromCart(orderProductId)
+      APIGateway.cart.removeFromCartByProductId(product.id)
         .then((response) => {
-          removeByOrderProductId(orderProductId)
+          removeByProductId(product.id)
+          // removeByOrderProductId(orderProductId)
           pushAEEEvent()
           showNotify()
           resolve(response)
@@ -191,8 +192,8 @@ export function removeItemFromCart(context, orderProduct) {
           reject(error)
         })
     } else {
-      const productId = orderProductId
-      removeByProductId(productId)
+      // const productId = orderProductId
+      removeByProductId(product.id)
       pushAEEEvent()
       showNotify()
       resolve()
