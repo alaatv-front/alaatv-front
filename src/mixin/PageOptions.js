@@ -44,24 +44,7 @@ const mixinPageOptions = {
     prefetchServerDataPromise () {
       return this.getPageConfigRequest()
     },
-    prefetchServerDataPromiseThen (pageSetting) {
-      const sections = pageSetting.value.sections
-      const seo = pageSetting.value.seo
-
-      // PageBuilder
-      this.$store.commit('PageBuilder/updateCurrentSections', sections)
-
-      // SEO
-      this.$store.commit('SEO/updateTitle', seo.title)
-      this.$store.commit('SEO/updateDescription', seo.description)
-      this.$store.commit('SEO/updateRobots', seo.robots)
-      this.$store.commit('SEO/updateOgTitle', seo.ogTitle)
-      this.$store.commit('SEO/updateOgDescription', seo.ogDescription)
-      this.$store.commit('SEO/updateOgUrl', seo.ogUrl)
-      this.$store.commit('SEO/updateOgImage', seo.ogImage)
-
-      this.pageBuilderLoading = false
-
+    prefetchServerDataPromiseThen () {
       this.$store.commit('PageBuilder/updatePageDataLoaded', true)
     },
     prefetchServerDataPromiseCatch () {
