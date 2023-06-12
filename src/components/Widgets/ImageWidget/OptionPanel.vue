@@ -75,7 +75,7 @@
             <div v-if="localOptions.hasAction"
                  class="action-container">
               <div class="col-3">
-                <q-select v-model="localOptions.action.type"
+                <q-select v-model="localOptions.action.name"
                           :options="actionTypes" />
               </div>
               <div class="col-9">
