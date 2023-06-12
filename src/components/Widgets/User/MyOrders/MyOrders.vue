@@ -307,9 +307,6 @@ export default {
     this.getPaymentStatus()
   },
   methods: {
-    loggg (data) {
-      console.log('data', data)
-    },
     onPageChange(response) {
       if (!this.isFirstReq) {
         return
@@ -370,7 +367,6 @@ export default {
       this.$refs.orderList.clearData()
     },
     showDetailsDialog(rowData) {
-      console.log('rowData', rowData)
       this.currentOrder = new Order(rowData)
       this.detailsDialog = true
     },
