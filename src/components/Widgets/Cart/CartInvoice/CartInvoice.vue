@@ -982,13 +982,13 @@ export default {
         &.payment-button-container-desktop {
           display: flex;
           @media screen and (max-width: 599px) {
-            display: none;
+            //display: none;
           }
         }
 
         @media screen and (max-width: 599px) {
           position: fixed;
-          bottom: 0;
+          bottom: 65px;
           left: 0;
           right: 0;
           display: flex;

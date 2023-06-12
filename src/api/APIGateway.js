@@ -2,6 +2,7 @@ import MapAPI from 'src/api/models/Map.js'
 import SmsAPI from 'src/api/models/sms.js'
 import TagAPI from 'src/api/models/tag.js'
 import SetAPI from 'src/api/models/set.js'
+import SeoAPI from 'src/api/models/Seo.js'
 import CartAPI from 'src/api/models/cart.js'
 import AuthAPI from 'src/api/models/Auth.js'
 import UserAPI from 'src/api/models/user.js'
@@ -38,6 +39,7 @@ import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
 export const APIGateway = {
   tag: new TagAPI(),
   set: new SetAPI(),
+  seo: new SeoAPI(),
   map: new MapAPI(),
   sms: new SmsAPI(),
   auth: new AuthAPI(),
