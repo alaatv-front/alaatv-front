@@ -74,7 +74,7 @@ export default {
         margin: 0 auto;
 
         .q-img {
-          margin: 20px;
+          margin: 15px;
           transition: transform .4s ease;
           -webkit-transition: transform .4s ease;
           -moz-transition: transform .4s ease;

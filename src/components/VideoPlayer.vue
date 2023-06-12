@@ -105,7 +105,7 @@ export default {
       type: Number
     }
   },
-  emits: ['seeked', 'update:sideBar'],
+  emits: ['seeked', 'adStarted', 'update:sideBar'],
   data() {
     return {
       isInVastMode: false,
@@ -183,8 +183,16 @@ export default {
     }
   },
   watch: {
-    source () {
-      this.reInitVideo()
+    source: {
+      handler () {
+        if (typeof window === 'undefined') {
+          return
+        }
+        this.$nextTick(() => {
+          this.reInitVideo()
+        })
+      },
+      immediate: true
     },
     currentTime(time) {
       this.player.currentTime(time)
@@ -208,7 +216,7 @@ export default {
     this.setSources()
   },
   mounted() {
-    this.initPlayer()
+    // this.initPlayer()
     if (this.useOverPlayer) {
       this.$nextTick(() => {
         this.moveSideBarElementIntoVideoPlayerElements()
@@ -344,11 +352,11 @@ export default {
         // timeout: 5000
       })
 
-      // request ads whenever there's new video content
-      this.player.on('contentchanged', function() {
-        // in a real plugin, you might fetch new ad inventory here
-        this.player().trigger('adsready')
-      })
+      // // request ads whenever there's new video content
+      // this.player.on('contentchanged', function() {
+      //   // in a real plugin, you might fetch new ad inventory here
+      //   this.player().trigger('adsready')
+      // })
 
       this.player.on('readyforpreroll', () => {
         this.isInVastMode = true
@@ -453,7 +461,10 @@ export default {
       }
 
       this.player = videojs(this.$refs.videoPlayer, this.options)
-      this.loadVast()
+      if (this.hasVast) {
+        this.loadVast()
+      }
+
       this.player.ready(() => {
         this.setPlayerBrand()
         this.focusOnPlayer()
@@ -552,7 +563,9 @@ export default {
       this.options.poster = this.poster
     },
     reInitVideo() {
-      this.player.reset()
+      if (this.player?.reset) {
+        this.player.reset()
+      }
       // this.player.dispose()
       this.setPoster()
       this.setSources()
@@ -695,6 +708,11 @@ export default {
   }
   .video-js {
     background-color: transparent;
+    &.vjs-ad-playing {
+      .vjs-resolution-button {
+        display: none;
+      }
+    }
     .vjs-loading-spinner {
       right: 50%;
       margin: -25px -25px 0 0;
