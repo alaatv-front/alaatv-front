@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import 'videojs-contrib-ads'
 import videojs from 'video.js'
 import 'videojs-hls-quality-selector'
 import videojsBrand from 'videojs-brand'
@@ -105,7 +104,7 @@ export default {
       type: Number
     }
   },
-  emits: ['seeked', 'update:sideBar'],
+  emits: ['seeked', 'adStarted', 'update:sideBar'],
   data() {
     return {
       isInVastMode: false,
@@ -183,8 +182,16 @@ export default {
     }
   },
   watch: {
-    source () {
-      this.reInitVideo()
+    source: {
+      handler () {
+        if (typeof window === 'undefined') {
+          return
+        }
+        this.$nextTick(() => {
+          this.reInitVideo()
+        })
+      },
+      immediate: true
     },
     currentTime(time) {
       this.player.currentTime(time)
@@ -208,7 +215,7 @@ export default {
     this.setSources()
   },
   mounted() {
-    this.initPlayer()
+    // this.initPlayer()
     if (this.useOverPlayer) {
       this.$nextTick(() => {
         this.moveSideBarElementIntoVideoPlayerElements()
@@ -224,7 +231,7 @@ export default {
     getVast () {
       return APIGateway.vast.getXml()
         .then((vastXml) => {
-          this.startVast(vastXml)
+          this.loadVast(vastXml)
         })
         .catch(() => {
         })
@@ -323,37 +330,36 @@ export default {
         return false
       }
       vastElement.addEventListener('click', (event) => {
-        this.player.ads.endLinearAdMode()
-        this.player.controlBar.progressControl.enable()
-        this.hideVastElement('VastTimerBtn')
-        this.hideVastElement('VastSkipAdBtn')
-        this.hideVastElement('VastLinkBtn')
-        this.isInVastMode = false
+        this.endVast()
       })
     },
-    loadVast () {
-      this.player.ads({
-        debug: false,
-        allowVjsAutoplay: true
-        // contentIsLive: false,
-        // debug: true,
-        // liveCuePoints: false,
-        // postrollTimeout: 5000,
-        // prerollTimeout: 5000,
-        // stitchedAds: false,
-        // timeout: 5000
-      })
+    loadVast (vastXml) {
+      const parser = new DOMParser()
+      const xmlDoc = parser.parseFromString(vastXml, 'text/xml')
+      this.vastSrc = xmlDoc.getElementsByTagName('MediaFile')[0].childNodes[0].nodeValue
+      this.vastLink = xmlDoc.getElementsByTagName('ClickThrough')[0].childNodes[0].nodeValue
+      this.vastStartOffset = xmlDoc.getElementsByTagName('Linear')[0].getAttribute('startoffset')
+      this.vastSkipOffset = xmlDoc.getElementsByTagName('Linear')[0].getAttribute('skipoffset')
 
-      // request ads whenever there's new video content
-      this.player.on('contentchanged', function() {
-        // in a real plugin, you might fetch new ad inventory here
-        this.player().trigger('adsready')
-      })
+      this.player.addClass('vjs-ad-playing')
 
-      this.player.on('readyforpreroll', () => {
+      setTimeout(() => {
         this.isInVastMode = true
-        this.player.ads.startLinearAdMode()
+        const playerSourceList = new PlayerSourceList([{
+          src: this.vastSrc,
+          type: 'video/mp4',
+          label: 'کیفیت عالی',
+          caption: 'کیفیت عالی',
+          link: this.vastSrc,
+          res: 720,
+          selected: false
+        }])
+        const source = this.isPlayerSourceList() ? playerSourceList.list : this.vastSrc
+        this.player.src(source)
+      }, 100)
 
+      this.player.one('play', () => {
+        this.player.controlBar.progressControl.disable()
         this.loadVastDomElements()
 
         this.showVastLinkBtn(this.vastLink)
@@ -361,34 +367,14 @@ export default {
           this.sowVastSkipAdBtn()
         })
 
-        // play your linear ad content
-        // in this example, we use a static mp4
-        // this.player.src('https://nodes.alaatv.com/upload/vast/videos/HD_720p/pre_roll_nahayi.mp4')
-        this.player.src(this.vastSrc)
-        this.player.controlBar.progressControl.disable()
-        this.player.reset()
-        this.player.play()
-
-        // send event when ad is playing to remove loading spinner
-        this.player.one('adplaying', () => {
-          this.player.trigger('ads-ad-started')
-          this.$emit('adStarted')
-        })
-
-        // resume content when all your linear ads have finished
-        this.player.one('adended', () => {
-          this.isInVastMode = false
-          this.endVast(this.player)
-        })
-
-        // this.player.one('adskip', () => {
-        //   this.endVast(this.player)
-        // })
+        this.$emit('adStarted')
       })
-
-      if (this.hasVast) {
-        this.getVast()
-      }
+      this.player.one('ended', () => {
+        if (!this.isInVastMode) {
+          return
+        }
+        this.endVast()
+      })
     },
     startVast (vastXml) {
       const parser = new DOMParser()
@@ -401,20 +387,25 @@ export default {
       // in a real plugin, you might fetch ad inventory here
       this.player.trigger('adsready')
     },
-    endVast (player, withoutReset = true) {
-      if (!player) {
-        player = this.palyer
-      }
-      player.ads.endLinearAdMode()
-      player.controlBar.progressControl.enable()
-      if (withoutReset) {
-        player.reset()
-        player.play()
-      }
+    endVast () {
+      this.isInVastMode = false
+      this.player.controlBar.progressControl.enable()
       this.hideVastElement('VastTimerBtn')
       this.hideVastElement('VastSkipAdBtn')
       this.hideVastElement('VastLinkBtn')
+      this.player.removeClass('vjs-ad-playing')
+      // setTimeout(() => {
+      this.setPoster()
+      this.setSources()
+      const source = this.isPlayerSourceList() ? this.source.list : this.source
+      this.player.src(source)
+      this.player.poster(this.poster)
+      // this.player.reset()
+      this.player.play()
+      // }, 100)
+      this.$emit('adEnded')
     },
+
     focusOnPlayer () {
       this.player.el().focus()
     },
@@ -440,7 +431,7 @@ export default {
     hasPlugin (pluginName) {
       return Object.keys(videojs.getPlugins()).includes(pluginName)
     },
-    initPlayer () {
+    initPlayer (withVast) {
       if (!this.hasPlugin('brand')) {
         videojs.registerPlugin('brand', videojsBrand)
       }
@@ -453,7 +444,11 @@ export default {
       }
 
       this.player = videojs(this.$refs.videoPlayer, this.options)
-      this.loadVast()
+      if (this.hasVast && (typeof withVast === 'undefined' || withVast === true)) {
+        // this.loadVast()
+        this.getVast()
+      }
+
       this.player.ready(() => {
         this.setPlayerBrand()
         this.focusOnPlayer()
@@ -545,18 +540,20 @@ export default {
       const requiredElement = document.querySelector('.video-js')
       requiredElement.focus()
     },
-    setSources() {
-      this.options.sources = this.isPlayerSourceList() ? this.source.list : this.source
+    setSources(sources) {
+      this.options.sources = sources || (this.isPlayerSourceList() ? this.source.list : this.source)
     },
-    setPoster() {
-      this.options.poster = this.poster
+    setPoster(poster) {
+      this.options.poster = poster || this.poster
     },
-    reInitVideo() {
-      this.player.reset()
+    reInitVideo(withVast) {
+      if (this.player?.reset) {
+        this.player.reset()
+      }
       // this.player.dispose()
       this.setPoster()
       this.setSources()
-      this.initPlayer()
+      this.initPlayer(withVast)
       const source = this.isPlayerSourceList() ? this.source.list : this.source
       this.player.src(source)
       this.player.poster(this.poster)
@@ -695,6 +692,11 @@ export default {
   }
   .video-js {
     background-color: transparent;
+    &.vjs-ad-playing {
+      .vjs-resolution-button {
+        display: none;
+      }
+    }
     .vjs-loading-spinner {
       right: 50%;
       margin: -25px -25px 0 0;
