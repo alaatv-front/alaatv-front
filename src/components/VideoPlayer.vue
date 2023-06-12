@@ -418,8 +418,15 @@ export default {
       })
     },
     redefineTap () {
-      this.player.on('touchend', function() { // tap
+      this.player.on('touchend', function(e) { // tap
         if (this.player().controls()) {
+          const classes = [
+            'vjs-tech'
+          ]
+          const canDoAction = !classes.find(className => e.target.classList.contains(className))
+          if (canDoAction) {
+            return
+          }
           if (this.player().paused()) {
             this.player().play()
           } else {
