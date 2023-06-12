@@ -1,6 +1,6 @@
 const AppIndexedDB = (function () {
   const DBName = 'AlaaTV_DB',
-    consoleLog = false
+    debugMode = false
 
   function query(useDB) {
     const openRequest = indexedDB.open(DBName, 1)
@@ -56,25 +56,25 @@ const AppIndexedDB = (function () {
 
       // ConstraintError occurs when an object with the same id already exists
       if (transaction.error.name === 'ConstraintError') {
-        if (consoleLog) {
-          console.log('item with such id already exists') // handle the error
+        if (debugMode) {
+          console.warn('item with such id already exists') // handle the error
         }
       } else {
-        if (consoleLog) {
-          console.log("unexpected error, can't handle it") // handle the error
+        if (debugMode) {
+          console.warn("unexpected error, can't handle it") // handle the error
         }
       }
     }
     transaction.onabort = function() {
       if (transaction.error.name === 'ConstraintError') {
-        if (consoleLog) {
-          console.log('item with such id already exists') // handle the error
+        if (debugMode) {
+          console.warn('item with such id already exists') // handle the error
         }
       }
     }
     transaction.onsuccess = function(event) {
-      if (consoleLog) {
-        console.log('[Transaction] ALL DONE!')
+      if (debugMode) {
+        console.warn('[Transaction] ALL DONE!')
       }
     }
 

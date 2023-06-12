@@ -310,7 +310,7 @@ export default {
         return
       }
 
-      if (this.cart.count > 3) {
+      if (this.cart.count > 3 && typeof window !== 'undefined' && window.screen.width > 600) {
         this.$nextTick(() => {
           this.loadSticky()
         })
