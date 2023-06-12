@@ -74,43 +74,38 @@
               </div>
             </q-expansion-item>
           </template>
-          <template #table-cell="{inputData}">
-            <q-td :props="inputData.props">
-              <template v-if="inputData.props.col.name === 'details'">
-                <q-btn round
-                       flat
-                       dense
-                       size="md"
-                       @click="showDetailsDialog(inputData.props.row)">
-                  <!--              <q-tooltip anchor="top middle"-->
-                  <!--                         self="bottom middle">-->
-                  <!--                مشاهده-->
-                  <!--              </q-tooltip>-->
-                  <svg width="24"
-                       height="24"
-                       viewBox="0 0 24 24"
-                       fill="none"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12"
-                            cy="6"
-                            r="2"
-                            fill="#6D708B" />
-                    <circle cx="12"
-                            cy="12"
-                            r="2"
-                            fill="#6D708B" />
-                    <circle cx="12"
-                            cy="18"
-                            r="2"
-                            fill="#6D708B" />
-                  </svg>
-                </q-btn>
-              </template>
-              <template v-else>
-                {{ inputData.props.value }}
-              </template>
-            </q-td>
+          <template v-slot:entity-index-table-cell="{inputData}">
+            <template v-if="inputData.col.name === 'details'">
+              <q-btn round
+                     flat
+                     dense
+                     size="md"
+                     @click="showDetailsDialog(inputData.props.row)">
+                <svg width="24"
+                     height="24"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12"
+                          cy="6"
+                          r="2"
+                          fill="#6D708B" />
+                  <circle cx="12"
+                          cy="12"
+                          r="2"
+                          fill="#6D708B" />
+                  <circle cx="12"
+                          cy="18"
+                          r="2"
+                          fill="#6D708B" />
+                </svg>
+              </q-btn>
+            </template>
+            <template v-else>
+              {{ inputData.col.value }}
+            </template>
           </template>
+
           <template v-slot:table-item-cell="{inputData}">
             <q-card class="details-table-mobile">
               <div class="details-info">
@@ -168,17 +163,18 @@
 </template>
 
 <script>
+import { shallowRef } from 'vue'
 import moment from 'moment-jalaali'
-import EntityIndex from 'quasar-crud/src/components/Entity/Index/EntityIndex.vue'
 import { User } from 'src/models/User.js'
 import { Order } from 'src/models/Order.js'
 import { APIGateway } from 'src/api/APIGateway'
-import { shallowRef } from 'vue'
 import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
-import ActionBtnComponent from 'components/Utils/actionBtn.vue'
+import ActionBtnComponent from 'src/components/Utils/actionBtn.vue'
+import OrderDetailsCard from 'src/components/UserOrders/OrderDetailsCard.vue'
+import OrderDetailsDialog from 'src/components/UserOrders/OrderDetailsDialog.vue'
+import EntityIndex from 'quasar-crud/src/components/Entity/Index/EntityIndex.vue'
+
 const ActionBtn = shallowRef(ActionBtnComponent)
-import OrderDetailsCard from 'components/UserOrders/OrderDetailsCard.vue'
-import OrderDetailsDialog from 'components/UserOrders/OrderDetailsDialog.vue'
 
 export default {
   name: 'MyOrders',
@@ -221,7 +217,12 @@ export default {
             label: 'وضعیت ‌پرداخت',
             align: 'left',
             field: row => row.paymentstatus.name,
-            classes: row => row.paymentstatus.id === 1 ? 'payment-not-okay' : row.paymentstatus.id === 3 ? 'payment-okay' : row.paymentstatus.id === 4 ? 'payment-installment' : ''
+            classes: row => {
+              if (!row) {
+                return ''
+              }
+              return row.paymentstatus.id === 1 ? 'payment-not-okay' : row.paymentstatus.id === 3 ? 'payment-okay' : row.paymentstatus.id === 4 ? 'payment-installment' : ''
+            }
           },
           {
             name: 'price',
@@ -241,8 +242,7 @@ export default {
             name: 'details',
             required: true,
             label: 'جزئیات',
-            align: 'left',
-            field: row => row.actions
+            align: 'left'
           }
         ],
         data: []
@@ -303,10 +303,13 @@ export default {
       this.updateInputsValue('search', value)
     }
   },
-  created() {
+  mounted () {
     this.getPaymentStatus()
   },
   methods: {
+    loggg (data) {
+      console.log('data', data)
+    },
     onPageChange(response) {
       if (!this.isFirstReq) {
         return
@@ -346,7 +349,7 @@ export default {
     },
     async getPaymentStatus() {
       try {
-        const paymentStatus = APIGateway.order.getPaymentStatus(this.user.id)
+        const paymentStatus = await APIGateway.order.getPaymentStatus(this.user.id)
         this.getInput('filterInputs', 'paymentStatuses').options = paymentStatus
         this.loading = false
       } catch (e) {
@@ -367,6 +370,7 @@ export default {
       this.$refs.orderList.clearData()
     },
     showDetailsDialog(rowData) {
+      console.log('rowData', rowData)
       this.currentOrder = new Order(rowData)
       this.detailsDialog = true
     },
