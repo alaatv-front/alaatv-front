@@ -1,5 +1,5 @@
 <template>
-  <div class="video-list-container q-mb-md">
+  <div class="video-list-container">
     <template v-if="content.loading">
       <div class="q-mx-md">
         <q-responsive :ratio="3/4">
@@ -29,12 +29,12 @@
           </div>
         </div>
       </q-card>
-      <q-card class="video-list custom-card bg-white q-mx-md q-pb-md">
+      <q-card class="video-list custom-card">
         <div class="q-px-md row">
           <h6 class="main-title col-4 q-pt-lg">
             فیلم/جزوه ها
           </h6>
-          <div class="set-title col q-ml-lg q-mt-lg">
+          <div class="set-title col q-ml-lg q-mt-lg q-mb-sm">
             {{ set.title }}
           </div>
         </div>
