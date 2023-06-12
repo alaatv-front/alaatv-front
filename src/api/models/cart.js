@@ -14,6 +14,7 @@ export default class CartAPI extends APIRepository {
       reviewCart: '/checkout/review',
       getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller,
       removeFromCart: (id) => '/orderproduct/' + id,
+      removeFromCartByProductId: (id) => 'remove-order-product/' + id,
       orderWithTransaction: (orderId) => '/orderWithTransaction/' + orderId
     }
     this.CacheList = {
@@ -23,6 +24,7 @@ export default class CartAPI extends APIRepository {
       getPaymentRedirectEncryptedLink: this.name + this.APIAdresses.getPaymentRedirectEncryptedLink,
       reviewCart: this.name + this.APIAdresses.reviewCart,
       removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id),
+      removeFromCartByProductId: id => this.name + this.APIAdresses.removeFromCartByProductId(id),
       orderWithTransaction: orderId => this.name + this.APIAdresses.orderWithTransaction(orderId)
     }
   }
@@ -168,6 +170,21 @@ export default class CartAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.removeFromCart(orderProductId),
       cacheKey: this.CacheList.removeFromCart(orderProductId),
+      resolveCallback: (response) => {
+        return new Cart(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  removeFromCartByProductId(productId) {
+    return this.sendRequest({
+      apiMethod: 'delete',
+      api: this.api,
+      request: this.APIAdresses.removeFromCartByProductId(productId),
+      cacheKey: this.CacheList.removeFromCartByProductId(productId),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
       },

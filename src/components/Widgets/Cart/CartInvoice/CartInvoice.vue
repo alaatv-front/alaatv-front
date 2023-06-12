@@ -23,7 +23,8 @@
           <div v-if="isUserLogin">
             <div v-if="!dense"
                  class="q-mb-md">
-              <donate @cart-review="cartReview" />
+              <donate :cart="cart"
+                      @cart-review="cartReview" />
             </div>
             <q-card class="invoice-cart">
               <q-card-section class="invoice-total-price-section invoice-cart-section">
@@ -271,7 +272,7 @@ export default {
         hasFinalPrice: true,
         paymentMethod: 'درگاه پرداخت',
         hasPaymentMethod: true,
-        commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
+        commentLabel: 'اگر توضیحی درباره ی محصول دارید اینجا بنویسید',
         hasComment: true,
         paymentBtn: 'پرداخت و ثبت نهایی',
         hasPaymentBtn: true,
