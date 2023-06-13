@@ -34,7 +34,13 @@
                   <div v-for="favoredItem in productFavoreds.list"
                        :key="favoredItem.id"
                        class="col-12 col-sm-4 col-md-4 product-item flex justify-center">
-                    <product-item :options="{product: favoredItem, canAddToCart: false , showPrice: false}" />
+                    <product-item :options="{
+                                    product: favoredItem,
+                                    canAddToCart: false ,
+                                    showPrice: false,
+                                    showBookmark: true
+                                  }"
+                                  @onBookmarkClicked="getProductFavoreds" />
                   </div>
                 </div>
                 <div v-if="productPaginationLastPage > 1"
@@ -75,7 +81,11 @@
                   <div v-for="favoredItem in setFavoreds.list"
                        :key="favoredItem.id"
                        class="col-12 col-sm-6 col-md-4 set-item">
-                    <set-item :options="{set: favoredItem}" />
+                    <set-item :options="{
+                                set: favoredItem,
+                                showBookmark: true
+                              }"
+                              @onBookmarkClicked="getSetFavoreds" />
                   </div>
                 </div>
                 <div v-if="setPaginationLastPage > 1"
@@ -117,9 +127,11 @@
                        :key="favoredItem.id"
                        class="col-12 col-sm-6 col-md-4 content-item">
                     <content-item :options="{
-                      content: favoredItem,
-                      showDownloadMenu: true
-                    }" />
+                                    content: favoredItem,
+                                    showDownloadMenu: true,
+                                    showBookmark: true
+                                  }"
+                                  @onBookmarkClicked="getContentFavoreds" />
                   </div>
                 </div>
                 <div v-if="contentPaginationLastPage > 1"
