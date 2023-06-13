@@ -171,11 +171,15 @@
           <div v-else
                class="sub-mit-box">
             <q-btn unelevated
-                   class="btn-style"
+                   class="btn-style sign-up lt-lg"
                    label="ورود"
                    :to="{ name: 'login' }" />
             <q-btn unelevated
-                   class="btn-style sign-up"
+                   class="btn-style gt-md"
+                   label="ورود"
+                   :to="{ name: 'login' }" />
+            <q-btn unelevated
+                   class="btn-style sign-up gt-md"
                    label="ثبت نام"
                    :to="{ name: 'login' }" />
           </div>

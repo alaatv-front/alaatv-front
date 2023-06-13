@@ -362,8 +362,11 @@ const videoJsResolutionSwitcher = function(videojs) {
     })
   }
 
-  // register the plugin on client side
-  videojs.registerPlugin('videoJsResolutionSwitcher', videoJsResolutionSwitcher)
+  const pluginName = 'videoJsResolutionSwitcher'
+  if (!Object.keys(videojs.getPlugins()).includes(pluginName)) {
+    // register the plugin on client side
+    videojs.registerPlugin(pluginName, videoJsResolutionSwitcher)
+  }
 }
 
 export default videoJsResolutionSwitcher

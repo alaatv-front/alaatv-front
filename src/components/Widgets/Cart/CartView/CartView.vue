@@ -167,7 +167,7 @@
                             <q-btn unelevated
                                    class="trash-button"
                                    icon="isax:trash"
-                                   @click="changeDialogState(true, order, orderProduct)" />
+                                   @click="changeDialogState(true, order, orderProduct.product)" />
                           </div>
                         </div>
                       </q-card-section>
@@ -340,7 +340,7 @@ export default {
     },
 
     changeDialogState (state, cartItem, orderProduct) {
-      let item = cartItem?.grand
+      let item = cartItem?.grand.product
       if (typeof orderProduct !== 'undefined') {
         item = orderProduct
       }

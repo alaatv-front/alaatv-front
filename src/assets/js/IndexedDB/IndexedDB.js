@@ -57,24 +57,24 @@ const AppIndexedDB = (function () {
       // ConstraintError occurs when an object with the same id already exists
       if (transaction.error.name === 'ConstraintError') {
         if (debugMode) {
-          console.warn('item with such id already exists') // handle the error
+          // console.warn('item with such id already exists') // handle the error
         }
       } else {
         if (debugMode) {
-          console.warn("unexpected error, can't handle it") // handle the error
+          // console.warn("unexpected error, can't handle it") // handle the error
         }
       }
     }
     transaction.onabort = function() {
       if (transaction.error.name === 'ConstraintError') {
         if (debugMode) {
-          console.warn('item with such id already exists') // handle the error
+          // console.warn('item with such id already exists') // handle the error
         }
       }
     }
     transaction.onsuccess = function(event) {
       if (debugMode) {
-        console.warn('[Transaction] ALL DONE!')
+        // console.warn('[Transaction] ALL DONE!')
       }
     }
 
