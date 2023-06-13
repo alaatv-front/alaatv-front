@@ -40,6 +40,9 @@
 </template>
 
 <script>
+import { Product } from 'src/models/Product'
+import { Cart } from 'src/models/Cart'
+
 export default {
   name: 'Donate',
   props: {
@@ -48,6 +51,10 @@ export default {
       default: () => {
         return {}
       }
+    },
+    cart: {
+      type: Cart,
+      default: new Cart()
     }
   },
   data() {
@@ -70,6 +77,15 @@ export default {
         // }
       ],
       src: 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
+    }
+  },
+  mounted() {
+    if (this.cart.order_has_donate) {
+      this.donate = 'doHelp'
+      this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-happy.png'
+    } else {
+      this.donate = 'dontHelp'
+      this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
     }
   },
   methods: {
@@ -98,16 +114,18 @@ export default {
       this.addDonateToCart()
     },
     removeDonateFromCart() {
-      this.$store.dispatch('Cart/removeItemFromCart', 180)
+      this.$store.dispatch('Cart/removeItemFromCart', new Product({ id: 180 }))
         .then(() => {
           this.$emit('cartReview')
+          this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
         })
         .catch(() => {})
     },
     addDonateToCart() {
-      this.$store.dispatch('Cart/addToCart', { products: [179], product_id: 180 })
+      this.$store.dispatch('Cart/addToCart', new Product({ id: 180 }))
         .then(() => {
           this.$emit('cartReview')
+          this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-happy.png'
         })
         .catch(() => {})
     }

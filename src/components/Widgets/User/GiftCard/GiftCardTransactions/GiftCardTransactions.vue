@@ -196,35 +196,16 @@
         </q-tab-panel>
       </q-tab-panels>
     </div>
-    <q-dialog v-model="settlementGuideDialog"
-              width="500px">
+    <q-dialog v-model="settlementGuideDialog">
       <div class="settlementGuide-dialog">
         <q-btn color="primary"
                icon="isax:close-circle"
                @click="settlementGuideDialog = false" />
-        <q-card>
-          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-            numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-            optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-            obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-            nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-            tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-            quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos
-            sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
-            recusandae alias error harum maxime adipisci amet laborum. Perspiciatis
-            minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit
-            quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur
-            fugiat, temporibus enim commodi iusto libero magni deleniti quod quam
-            consequuntur! Commodi minima excepturi repudiandae velit hic maxime
-            doloremque. Quaerat provident commodi consectetur veniam similique ad
-            earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo
-            fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore
-            suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
-            modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam
-            totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam
-            quasi aliquam eligendi, placeat qui corporis!</span>
-        </q-card>
+        <div class="text q-my-lg">
+          <span>
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+          </span>
+        </div>
       </div>
     </q-dialog>
   </div>
@@ -311,7 +292,7 @@ export default {
     }
 
   },
-  created() {
+  mounted() {
     this.loadAllData()
   },
   methods: {
@@ -326,7 +307,6 @@ export default {
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
           this.sales_man = response
-          this.loadAcceptContract()
         })
         .catch()
     },
@@ -536,7 +516,7 @@ export default {
     }
   }
 
-    .table-title{
+  .table-title{
       font-style: normal;
       font-weight: 600;
       font-size: 20px;
@@ -691,11 +671,24 @@ export default {
   .pagination-box{
     margin-top: 40px
   }
-  .settlementGuide-dialog {
-    padding: 20px;
+  .dialog-container {
+    .settlementGuide-dialog {
+      background-color: #E5E5E5;
+      height: 100%;
+      padding: 20px;
+    }
   }
 }
 @media only screen and (max-width: 1903px){
+    .settlementGuide-dialog {
+      background-color: white;
+      border-radius: 20px;
+      padding: 20px;
+      .text {
+        font-size: 20px;
+      }
+    }
+
   .introduction-box{
     margin-bottom: 24px;
     .left-side{
