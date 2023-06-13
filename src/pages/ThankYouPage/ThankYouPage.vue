@@ -73,6 +73,7 @@ export default {
     onLoadPage () {
       this.clearCart()
       this.loading = true
+      this.$store.dispatch('Cart/reviewCart')
       APIGateway.cart.getorderWithTransaction(this.orderId)
         .then((order) => {
           this.loading = false
