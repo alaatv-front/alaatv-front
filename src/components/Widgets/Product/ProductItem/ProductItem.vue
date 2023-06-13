@@ -73,6 +73,13 @@
           </div>
         </div>
       </router-link>
+      <div class="product-action-container">
+        <bookmark v-if="defaultOptions.showBookmark"
+                  class="product-item-bookmark"
+                  :is-favored="localOptions.product.is_favored"
+                  :loading="bookmarkLoading"
+                  @clicked="handleProductBookmark" />
+      </div>
       <div v-if="product.attributes"
            class="info-box">
         <div class="teacher-image">
@@ -138,11 +145,16 @@ import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import Bookmark from 'components/Bookmark.vue'
 
 export default defineComponent({
   name: 'productItem',
-  components: { LazyImg },
+  components: {
+    LazyImg,
+    Bookmark
+  },
   mixins: [mixinWidget, mixinPrefetchServerData],
+  emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
     productRef: 'product' + Date.now(),
     analyticsInstance: null,
@@ -154,8 +166,11 @@ export default defineComponent({
       canAddToCart: true,
       showPrice: true,
       product: new Product(),
-      routeToProduct: true
-    }
+      routeToProduct: true,
+      showBookmark: false
+    },
+    bookmarkLoading: false,
+    bookmarkValue: false
   }),
   computed: {
     getRoutingObject() {
@@ -183,6 +198,14 @@ export default defineComponent({
     },
     basePrice () {
       return this.product.price.toman('base', false)
+    }
+  },
+  watch: {
+    bookmarkValue(newVal) {
+      if (newVal) {
+        this.bookmarkUpdated()
+      }
+      this.localOptions.product.is_favored = newVal
     }
   },
   mounted () {
@@ -250,6 +273,7 @@ export default defineComponent({
     },
     prefetchServerDataPromiseThen (product) {
       this.product = new Product(product)
+      this.updateBookmarkValue()
       this.loading = false
       if (window) {
         this.$nextTick(() => {
@@ -259,6 +283,39 @@ export default defineComponent({
     },
     prefetchServerDataPromiseCatch () {
       this.loading = false
+    },
+    updateBookmarkValue () {
+      this.bookmarkValue = this.localOptions.product.is_favored
+    },
+    handleProductBookmark (value) {
+      this.bookmarkLoading = true
+      if (this.bookmarkValue) {
+        this.$apiGateway.product.unfavored(this.localOptions.product.id)
+          .then(() => {
+            this.bookmarkValue = !this.bookmarkValue
+            this.bookmarkClicked(value)
+            this.bookmarkLoading = false
+          })
+          .catch(() => {
+            this.bookmarkLoading = false
+          })
+        return
+      }
+      this.$apiGateway.product.favored(this.localOptions.product.id)
+        .then(() => {
+          this.bookmarkValue = !this.bookmarkValue
+          this.bookmarkClicked(value)
+          this.bookmarkLoading = false
+        })
+        .catch(() => {
+          this.bookmarkLoading = false
+        })
+    },
+    bookmarkUpdated (value) {
+      this.$emit('onBookmarkLoaded', value)
+    },
+    bookmarkClicked (value) {
+      this.$emit('onBookmarkClicked', value)
     }
   }
 })
@@ -308,6 +365,7 @@ export default defineComponent({
   }
 
   .product-content-box {
+    position: relative;
     padding: 10px 16px 16px 16px;
 
     .title-box {
@@ -443,6 +501,15 @@ export default defineComponent({
       }
     }
     @media screen and(max-width: 600px) {
+    }
+  }
+
+  .product-action-container{
+    position: absolute;
+    right: 0;
+    top: -2px;
+    .product-item-bookmark {
+      margin: -10px;
     }
   }
 
