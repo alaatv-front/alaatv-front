@@ -12,7 +12,8 @@ export default class CartAPI extends APIRepository {
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
-      getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller,
+      // getPaymentRedirectEncryptedLink: (device, paymentMethod) => '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device='+device+'&paymentMethod=' + paymentMethod,
+      getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=web',
       removeFromCart: (id) => '/orderproduct/' + id,
       removeFromCartByProductId: (id) => 'remove-order-product/' + id,
       orderWithTransaction: (orderId) => '/orderWithTransaction/' + orderId
