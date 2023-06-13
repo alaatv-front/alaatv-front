@@ -203,6 +203,14 @@ const routes = [
               //   component: () => import('src/pages/Public/Landings/Taftan.vue')
               // }
             ]
+          },
+          {
+            path: 'h',
+            name: 'Public.RegisterHekmatCoupon',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/Public/RegisterHekmatCoupon.vue')
           }
         ]
       },
