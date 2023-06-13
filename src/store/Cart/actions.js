@@ -133,9 +133,9 @@ export function reviewCart(context) {
   })
 }
 
-export function paymentCheckout(context) {
+export function paymentCheckout(context, paymentMethod) {
   return new Promise((resolve, reject) => {
-    APIGateway.cart.getPaymentRedirectEncryptedLink()
+    APIGateway.cart.getPaymentRedirectEncryptedLink({ device: 'web', paymentMethod })
       .then(encryptedPaymentRedirectLink => {
         return resolve(encryptedPaymentRedirectLink)
       })
