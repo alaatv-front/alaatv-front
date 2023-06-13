@@ -382,6 +382,7 @@ module.exports = configure(function (ctx) {
       manifest: {
         name: 'مدرسه آنلاین آلاء',
         short_name: 'آلاء',
+        start_url: '/',
         background_color: '#FFFFFF',
         theme_color: '#ffc107',
         description: 'آموزش مجازی آلاء',
