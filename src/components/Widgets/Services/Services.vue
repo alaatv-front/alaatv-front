@@ -41,21 +41,15 @@ export default {
   },
   methods: {
     onDragStart(event, service, serviceIndex) {
-      console.log(event)
-      // debugger
-      // emit('onDrag', 'DragStart')
       event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
       this.localDraggable = event
-      // console.log('onDragStart', event.dataTransfer.getData('value'))
     },
     onDragLeave() {
 
     },
     onDragOver(event) {
-      // debugger
       event.preventDefault()
-      // console.log('onDragOver', event.dataTransfer.getData('value'))
     },
     onDrop(event, newIndex, parent) {
       // debugger
@@ -87,12 +81,11 @@ export default {
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
     },
     scrollToElement(service) {
-      debugger
       let el = null
       if (service.action === 'scrollToId') {
         el = document.getElementById(service.scrollToId)
       } else if (service.action === 'scrollToClass') {
-        el = document.getElementsByClassName(service.scrollToClass)[0]
+        el = document.getElementsByClassName(service.scrollToClass)
       }
       const headerOffset = 150
       const elementPosition = el.getBoundingClientRect().top

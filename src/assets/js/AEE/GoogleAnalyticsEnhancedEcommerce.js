@@ -96,7 +96,7 @@ export default class GTMEvents {
             step,
             option
           },
-          products
+          ...(products?.length > 0 && { products })
         }
       }
     })

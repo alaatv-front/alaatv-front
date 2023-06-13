@@ -289,7 +289,8 @@ export default {
         paymentBtn: 'پرداخت و ثبت نهایی',
         hasPaymentBtn: true,
         dense: false
-      }
+      },
+      analyticsInstance: null
     }
   },
   computed: {
@@ -330,15 +331,27 @@ export default {
       } else {
         this.CartInvoiceContainerKey = Date.now()
       }
+    },
+    selectedBank (newValue) {
+      if (typeof newValue === 'string') {
+        this.updateEECEvent(newValue)
+      }
     }
   },
   mounted () {
     this.loadAuthData()
     this.cartReview()
     this.getGateways()
+    this.setupEECEvent()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
+    setupEECEvent () {
+      this.analyticsInstance = new AEE()
+    },
+    updateEECEvent (value) {
+      this.analyticsInstance.checkout(2, value)
+    },
     getGateways () {
       this.gateways.loading = true
       APIGateway.cart.getGateways()
@@ -445,11 +458,6 @@ export default {
         })
     },
 
-    pushAEEEvent () {
-      const analyticsInstance = new AEE()
-      analyticsInstance.checkoutOption(2, 'Saman Bank')
-    },
-
     payment() {
       if (!this.selectedBank) {
         this.$q.notify({
@@ -458,7 +466,6 @@ export default {
         })
         return
       }
-      this.pushAEEEvent()
       this.$store.commit('loading/loading', true)
 
       this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
