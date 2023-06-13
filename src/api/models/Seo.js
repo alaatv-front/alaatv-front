@@ -14,7 +14,6 @@ export default class ContentAPI extends APIRepository {
   }
 
   show(data, cache = { TTL: 1000 }) {
-    console.log('target', this.APIAdresses.base(data.type, data.id))
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

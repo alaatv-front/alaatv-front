@@ -26,12 +26,24 @@
                     height="9" />
         </div>
       </div>
-      <div class="set-content-box flex">
+    </router-link>
+    <div class="set-content-box flex">
+      <router-link :to="{
+        name: 'Public.Set.Show',
+        params: { id: set.id ? set.id : -1 }
+      }">
         <div class="main-title ellipsis-2-lines">
           {{ set.title }}
         </div>
+      </router-link>
+      <div class="set-action-container">
+        <bookmark v-if="defaultOptions.showBookmark"
+                  class="set-item-bookmark"
+                  :is-favored="localOptions.set.is_favored"
+                  :loading="bookmarkLoading"
+                  @clicked="handleSetBookmark" />
       </div>
-    </router-link>
+    </div>
     <div v-if="false"
          class="info-box">
       <div class="teacher-info">
@@ -62,12 +74,16 @@
 <script>
 import { Set } from 'src/models/Set.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import Bookmark from 'components/Bookmark.vue'
+import { mixinWidget } from 'src/mixin/Mixins'
 
 export default {
   name: 'setItem',
   components: {
-    LazyImg
+    LazyImg,
+    Bookmark
   },
+  mixins: [mixinWidget],
   props: {
     data: {
       type: Set,
@@ -76,16 +92,21 @@ export default {
     options: {
       type: Object,
       default: () => {
-        return {
-          style: {},
-          minWidth: 'auto',
-          set: new Set()
-        }
+        return {}
       }
     }
   },
+  emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
-    set: new Set()
+    set: new Set(),
+    defaultOptions: {
+      showBookmark: false,
+      style: {},
+      minWidth: 'auto',
+      set: new Set()
+    },
+    bookmarkLoading: false,
+    bookmarkValue: false
   }),
   computed: {
     setAuthorFullName () {
@@ -95,11 +116,57 @@ export default {
       return this.set.author?.first_name + ' ' + this.set.author?.last_name
     }
   },
+  watch: {
+    bookmarkValue(newVal) {
+      if (newVal) {
+        this.bookmarkUpdated()
+      }
+      this.localOptions.set.is_favored = newVal
+    }
+  },
   created () {
     if (!this.options.set) {
       this.set = new Set(this.data)
     } else {
       this.set = new Set(this.options.set)
+    }
+  },
+  mounted () {
+    this.updateBookmarkValue()
+  },
+  methods: {
+    updateBookmarkValue () {
+      this.bookmarkValue = this.localOptions.set.is_favored
+    },
+    handleSetBookmark (value) {
+      this.bookmarkLoading = true
+      if (this.bookmarkValue) {
+        this.$apiGateway.set.unfavored(this.localOptions.set.id)
+          .then(() => {
+            this.bookmarkValue = !this.bookmarkValue
+            this.bookmarkClicked(value)
+            this.bookmarkLoading = false
+          })
+          .catch(() => {
+            this.bookmarkLoading = false
+          })
+        return
+      }
+      this.$apiGateway.set.favored(this.localOptions.set.id)
+        .then(() => {
+          this.bookmarkValue = !this.bookmarkValue
+          this.bookmarkClicked(value)
+          this.bookmarkLoading = false
+        })
+        .catch(() => {
+          this.bookmarkLoading = false
+        })
+    },
+    bookmarkUpdated (value) {
+      this.$emit('onBookmarkLoaded', value)
+    },
+    bookmarkClicked (value) {
+      this.$emit('onBookmarkClicked', value)
     }
   }
 }
@@ -165,8 +232,9 @@ export default {
   }
 
   .set-content-box {
+    position: relative;
     min-height: 75px;
-    padding: 10px 16px 16px 16px;
+    padding: 10px 26px 16px 26px;
 
     .main-title {
       font-style: normal;
@@ -391,6 +459,15 @@ export default {
     margin-left: 8px;
   }
 
+  .set-action-container{
+    position: absolute;
+    right: 0;
+    top: -2px;
+    .set-item-bookmark {
+      margin: -10px;
+    }
+  }
+
   @media screen and (max-width: 992px) {
     .img-box {
       .img {
@@ -472,7 +549,7 @@ export default {
     }
 
     .set-content-box {
-      padding: 0 0 0 16px;
+      padding: 10px 25px 0 25px;
       width: 100%;
 
       .main-title {

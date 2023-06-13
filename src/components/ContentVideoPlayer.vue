@@ -8,7 +8,7 @@
                   :poster="content.photo"
                   :over-player="hasTimepoint"
                   :over-player-width="'250px'"
-                  :has-vast="canInitVAST"
+                  :has-vast="canInitVAST && contentHasVast"
                   :use-over-player="hasTimepoint"
                   @adStarted="adStarted">
       <template #overPlayer>
@@ -97,6 +97,9 @@ export default {
     }
   },
   computed: {
+    contentHasVast () {
+      return this.content.has_vast
+    },
     hasTimepoint () {
       return this.content.timepoints.list.length > 0
     }

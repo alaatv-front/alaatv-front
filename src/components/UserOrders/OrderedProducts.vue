@@ -470,10 +470,9 @@ export default {
             display: flex;
             align-items: center;
             width: 100%;
-            justify-content: left;
+            justify-content: right;
 
             &.expansion-closed {
-              margin-top: -50px;
               @media screen and (max-width: 1023px) {
                 margin-top: -42px !important;
               }
@@ -641,10 +640,8 @@ export default {
           }
         }
       }
-
     }
   }
-
 }
 
 .delete-dialog {
