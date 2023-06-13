@@ -1,6 +1,5 @@
 <template>
-  <div class="services-widget"
-       :style="options.style">
+  <div class="services-widget">
     <div class="services row q-col-gutter-md q-mt-md justify-center">
       <div v-for="(service, index) in options.services"
            :key="index"
@@ -41,12 +40,58 @@ export default {
     }
   },
   methods: {
+    onDragStart(event, service, serviceIndex) {
+      console.log(event)
+      // debugger
+      // emit('onDrag', 'DragStart')
+      event.dataTransfer.dropEffect = 'move'
+      event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
+      this.localDraggable = event
+      // console.log('onDragStart', event.dataTransfer.getData('value'))
+    },
+    onDragLeave() {
+
+    },
+    onDragOver(event) {
+      // debugger
+      event.preventDefault()
+      // console.log('onDragOver', event.dataTransfer.getData('value'))
+    },
+    onDrop(event, newIndex, parent) {
+      // debugger
+      const valueStringfied = event.dataTransfer.getData('value')
+      const value = valueStringfied ? JSON.parse(valueStringfied) : null
+      const widget = value.widget
+      const widgetOldIndex = value.widgetIndex
+      const widgetNewIndex = newIndex
+      if (this.localDraggable) {
+        this.updatePosition(this.localOptions.services, widgetOldIndex, widgetNewIndex)
+      } else {
+        this.addToIndex(this.localOptions.services, widget, widgetNewIndex)
+      }
+
+      this.localDraggable = null
+      // emit('onDrag', 'Drop')
+      event.stopPropagation()
+    },
+    addToIndex(list, newItem, index) {
+      // debugger
+      if (list.length > index) {
+        list.splice(index, 0, newItem)
+      } else {
+        list.push(newItem)
+      }
+    },
+    updatePosition(list, oldIndex, newIndex) {
+      // debugger
+      list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
+    },
     scrollToElement(service) {
       let el = null
       if (service.action === 'scrollToId') {
         el = document.getElementById(service.scrollToId)
       } else if (service.action === 'scrollToClass') {
-        el = document.getElementById(service.scrollToClass)
+        el = document.getElementsByClassName(service.scrollToClass)
       }
       const headerOffset = 150
       const elementPosition = el.getBoundingClientRect().top
