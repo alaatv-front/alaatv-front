@@ -1,7 +1,8 @@
-import APIRepository from '../classes/APIRepository'
-import { apiV2 } from 'src/boot/axios'
-import { Cart } from 'src/models/Cart'
-import { Order } from 'src/models/Order'
+import { apiV2 } from 'src/boot/axios.js'
+import { Cart } from 'src/models/Cart.js'
+import { Order } from 'src/models/Order.js'
+import { GatewayList } from 'src/models/Gateway.js'
+import APIRepository from '../classes/APIRepository.js'
 
 export default class CartAPI extends APIRepository {
   constructor() {
@@ -9,20 +10,22 @@ export default class CartAPI extends APIRepository {
     this.seller = 1 // 1: Alaa - 2: Soala
     this.APIAdresses = {
       addToCart: '/orderproduct',
+      gateways: '/gateways',
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
-      // getPaymentRedirectEncryptedLink: (device, paymentMethod) => '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device='+device+'&paymentMethod=' + paymentMethod,
-      getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=web',
+      getPaymentRedirectEncryptedLink: (device, paymentMethod) => '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device + '&paymentMethod=' + paymentMethod,
+      // getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=web',
       removeFromCart: (id) => '/orderproduct/' + id,
       removeFromCartByProductId: (id) => 'remove-order-product/' + id,
       orderWithTransaction: (orderId) => '/orderWithTransaction/' + orderId
     }
     this.CacheList = {
       addToCart: this.name + this.APIAdresses.addToCart,
+      gateways: this.name + this.APIAdresses.gateways,
       discountSubmit: this.name + this.APIAdresses.discountSubmit,
       discountRemove: this.name + this.APIAdresses.discountRemove,
-      getPaymentRedirectEncryptedLink: this.name + this.APIAdresses.getPaymentRedirectEncryptedLink,
+      getPaymentRedirectEncryptedLink: (device, paymentMethod) => this.name + this.APIAdresses.getPaymentRedirectEncryptedLink(device, paymentMethod),
       reviewCart: this.name + this.APIAdresses.reviewCart,
       removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id),
       removeFromCartByProductId: id => this.name + this.APIAdresses.removeFromCartByProductId(id),
@@ -149,12 +152,28 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 1000 }) {
+  getGateways(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.getPaymentRedirectEncryptedLink,
-      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink,
+      request: this.APIAdresses.gateways,
+      cacheKey: this.CacheList.gateways,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new GatewayList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getPaymentRedirectEncryptedLink(data = { device: 'web', paymentMethod: null }, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod),
+      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data.data.url
