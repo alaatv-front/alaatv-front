@@ -87,11 +87,12 @@ export default {
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
     },
     scrollToElement(service) {
+      debugger
       let el = null
       if (service.action === 'scrollToId') {
         el = document.getElementById(service.scrollToId)
       } else if (service.action === 'scrollToClass') {
-        el = document.getElementsByClassName(service.scrollToClass)
+        el = document.getElementsByClassName(service.scrollToClass)[0]
       }
       const headerOffset = 150
       const elementPosition = el.getBoundingClientRect().top
