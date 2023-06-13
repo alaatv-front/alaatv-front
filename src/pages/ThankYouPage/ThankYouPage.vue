@@ -65,7 +65,13 @@ export default {
       const AEEData = order.getAEEData()
       analyticsInstance.purchase(AEEData.actionField, AEEData.products)
     },
+    clearCart () {
+      const cart = this.$store.getters['Cart/cart']
+      cart.removeAllItems()
+      this.$store.commit('Cart/updateCart', cart)
+    },
     onLoadPage () {
+      this.clearCart()
       this.loading = true
       APIGateway.cart.getorderWithTransaction(this.orderId)
         .then((order) => {
