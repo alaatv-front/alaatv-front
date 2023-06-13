@@ -307,7 +307,7 @@ export default {
       },
       userInputs: [
         { type: 'hidden', options: [], name: 'department_id' },
-        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', placeholder: ' ', col: 'col-md-4' },
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', optionLabel: 'title', placeholder: ' ', col: 'col-md-4' },
         { type: 'select', options: [], name: 'status_id', label: 'وضعیت', placeholder: ' ', optionLabel: 'title', col: 'col-md-4' },
         { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: ' ', col: 'col-md-4' },
         { type: 'input', name: 'title', label: 'عنوان', placeholder: ' ', col: 'col-md-4' },
@@ -588,13 +588,11 @@ export default {
       return []
     }
   },
-  mounted () {
-    this.setData()
-    this.isEntityReady = true
-  },
   methods: {
-    initTicket () {
+    async initTicket () {
       this.setEntityValues()
+      await this.setInputs()
+      this.isEntityReady = true
     },
     getShamsiDate (date) {
       return moment(date, 'YYYY-M-D').format('jYYYY/jMM/jDD')
@@ -625,10 +623,11 @@ export default {
       }
       this.updateTicketData(ticketId, payload)
     },
-    setData() {
-      this.getInput('department_id').options = this.departmentList.list
-      this.getInput('pirority_id').options = this.ticketPriorityOption
-      this.getInput('status_id').options = this.ticketStatuses
+    async setInputs () {
+      const ticketFields = await this.getTicketData()
+      this.getInput('department_id').options = ticketFields.departments.list
+      this.getInput('pirority_id').options = ticketFields.priorities
+      this.getInput('status_id').options = ticketFields.statuses
     },
     setEditMode(data) {
       data.expand = true
