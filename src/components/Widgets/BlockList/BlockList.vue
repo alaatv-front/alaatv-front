@@ -68,7 +68,7 @@ export default {
     },
     blocks() {
       this.blocks.list.forEach((block, index) => {
-        block.headerCustomClass = `banner-header-${index}` + ' '
+        block.headerCustomClass = `block-header-${index}` + ' '
       })
     }
   },
