@@ -81,6 +81,8 @@ const AxiosHooks = (function () {
           messages = messages.concat(getMessagesFromArrayWithRecursion(value))
         }
       }
+    } else if (!error.response.data.errors && error.response.data.message) {
+      messages.push(error.response.data.message)
     }
 
     toastMessages(messages)
