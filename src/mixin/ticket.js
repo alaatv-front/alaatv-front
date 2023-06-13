@@ -11,17 +11,19 @@ const mixinTicket = {
     ticketPriorityOption: []
   }),
   computed: {
-    isAdmin() {
-      // return this.$store.getters['Auth/user'].has_admin_permission
-      return true
+    isInAdminPage () {
+      return !!this.$route.name.includes('Admin')
     }
   },
   mounted() {
-    this.initTicket()
-    this.setPageData()
+    this.setUpTicket()
   },
   methods: {
-    initTicket () {
+    async setUpTicket () {
+      await this.initTicket()
+      this.setPageData()
+    },
+    async initTicket () {
       // here goes the custom methods developer chooses to run before mixin
     },
     async setPageData() {
@@ -86,6 +88,10 @@ const mixinTicket = {
         label: 'بحرانی',
         value: '4'
       }]
+    },
+
+    getTicketData () {
+      return APIGateway.ticket.getNeededDataToCreateTicket()
     },
 
     getDepartments() {
@@ -490,8 +496,9 @@ const mixinTicket = {
         }
         this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
+        const showRouteName = this.isInAdminPage ? 'Admin.Ticket.Show' : 'UserPanel.Ticket.Show'
         await this.$router.push({
-          name: 'Admin.Ticket.Show',
+          name: showRouteName,
           params: { id: response.data.data.id }
         })
       } catch {

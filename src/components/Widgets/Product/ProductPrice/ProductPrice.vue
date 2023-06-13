@@ -102,7 +102,7 @@ export default {
       return APIGateway.product.show(this.productId)
     },
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', { product_id: this.product.id }).then(() => {
+      this.$store.dispatch('Cart/addToCart', this.product).then(() => {
         this.$router.push({ name: 'Public.Checkout.Review' })
       })
     }

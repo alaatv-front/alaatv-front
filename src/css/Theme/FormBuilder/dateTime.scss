@@ -79,7 +79,7 @@
           .q-field__native {
             &.q-placeholder {
               background: #F4F5F6;
-              border-radius: 8px;
+              border-radius: 8px 0 0 8px;
               direction: ltr;
               text-align: left;
             }

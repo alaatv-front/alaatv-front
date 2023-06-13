@@ -167,7 +167,7 @@
                             <q-btn unelevated
                                    class="trash-button"
                                    icon="isax:trash"
-                                   @click="changeDialogState(true, order, orderProduct)" />
+                                   @click="changeDialogState(true, order, orderProduct.product)" />
                           </div>
                         </div>
                       </q-card-section>
@@ -253,7 +253,7 @@ export default {
       dialogState: false,
       test: null,
       expandedObject: {},
-      clickedItemIdToRemove: null,
+      clickedOrderProductToRemove: null,
       defaultOptions: {
         className: '',
         height: 'auto',
@@ -329,7 +329,7 @@ export default {
     },
 
     removeItem() {
-      this.$store.dispatch('Cart/removeItemFromCart', this.clickedItemIdToRemove)
+      this.$store.dispatch('Cart/removeItemFromCart', this.clickedOrderProductToRemove)
         .then(() => {
           this.cartReview()
           this.changeDialogState(false)
@@ -340,16 +340,13 @@ export default {
     },
 
     changeDialogState (state, cartItem, orderProduct) {
-      let itemId = cartItem?.grand?.id
-      if (!itemId) {
-        itemId = cartItem?.orderProductId
-      }
+      let item = cartItem?.grand.product
       if (typeof orderProduct !== 'undefined') {
-        itemId = orderProduct.id
+        item = orderProduct
       }
 
-      if (itemId) {
-        this.clickedItemIdToRemove = itemId
+      if (item?.id) {
+        this.clickedOrderProductToRemove = item
       }
       this.dialogState = state
     }
@@ -922,7 +919,7 @@ export default {
         color: #FFFFFF;
         width: 144px;
         height: 40px;
-        background: #8075DC;
+        background: $primary;
         box-shadow: 0 4px 12px rgba(62, 61, 67, 0.15);
         border-radius: 8px;
         cursor: pointer;
