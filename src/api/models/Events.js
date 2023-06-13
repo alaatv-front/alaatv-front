@@ -70,7 +70,7 @@ export default class EventsAPI extends APIRepository {
     // return products
   }
 
-  formBuilder(data = {}, cache = { TTL: 100 }) {
+  formBuilder(data = {}, cache = { TTL: 1000 }) {
     const routeWithParams = function (defaultRoute, payload) {
       if (!Array.isArray(payload.types)) {
         const types = []
@@ -99,7 +99,7 @@ export default class EventsAPI extends APIRepository {
     })
   }
 
-  getEventsAdvisor(data, cache = { TTL: 100 }) {
+  getEventsAdvisor(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

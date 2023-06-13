@@ -23,7 +23,8 @@
           <div v-if="isUserLogin">
             <div v-if="!dense"
                  class="q-mb-md">
-              <donate @cart-review="cartReview" />
+              <donate :cart="cart"
+                      @cart-review="cartReview" />
             </div>
             <q-card class="invoice-cart">
               <q-card-section class="invoice-total-price-section invoice-cart-section">
@@ -206,6 +207,7 @@ import AuthLogin from 'components/Auth.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -270,7 +272,7 @@ export default {
         hasFinalPrice: true,
         paymentMethod: 'درگاه پرداخت',
         hasPaymentMethod: true,
-        commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
+        commentLabel: 'اگر توضیحی درباره ی محصول دارید اینجا بنویسید',
         hasComment: true,
         paymentBtn: 'پرداخت و ثبت نهایی',
         hasPaymentBtn: true,
@@ -309,7 +311,7 @@ export default {
         return
       }
 
-      if (this.cart.count > 3) {
+      if (this.cart.count > 3 && typeof window !== 'undefined' && window.screen.width > 600) {
         this.$nextTick(() => {
           this.loadSticky()
         })
@@ -418,6 +420,11 @@ export default {
         })
     },
 
+    pushAEEEvent () {
+      const analyticsInstance = new AEE()
+      analyticsInstance.checkoutOption(2, 'Saman Bank')
+    },
+
     payment() {
       if (!this.selectedBank) {
         this.$q.notify({
@@ -426,6 +433,7 @@ export default {
         })
         return
       }
+      this.pushAEEEvent()
       this.$store.commit('loading/loading', true)
 
       this.$store.dispatch('Cart/paymentCheckout')
@@ -974,13 +982,13 @@ export default {
         &.payment-button-container-desktop {
           display: flex;
           @media screen and (max-width: 599px) {
-            display: none;
+            //display: none;
           }
         }
 
         @media screen and (max-width: 599px) {
           position: fixed;
-          bottom: 0;
+          bottom: 65px;
           left: 0;
           right: 0;
           display: flex;

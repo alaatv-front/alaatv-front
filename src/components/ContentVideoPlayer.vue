@@ -1,6 +1,5 @@
 <template>
   <div ref="videoPlayerWrapper"
-       style="width: 100%;"
        class="vPlayer">
     <video-player v-if="content.photo && content.isVideo() && content.hasVideoSource()"
                   ref="videoPlayer"
@@ -9,15 +8,17 @@
                   :poster="content.photo"
                   :over-player="hasTimepoint"
                   :over-player-width="'250px'"
-                  :has-vast="true"
-                  :use-over-player="hasTimepoint">
+                  :has-vast="canInitVAST"
+                  :use-over-player="hasTimepoint"
+                  @adStarted="adStarted">
       <template #overPlayer>
         <div class="timepoint-list">
           <q-banner class="timepoint-list-title">
             زمان کوب ها
+            ({{ currentContent.timepoints.list.length }})
           </q-banner>
           <q-list class="timepoint-list-items">
-            <q-item v-for="(timepoint) in currentContent.timepoints.list"
+            <q-item v-for="timepoint in currentContent.timepoints.list"
                     :key="timepoint.id"
                     v-ripple
                     clickable
@@ -58,6 +59,7 @@
 import { Content } from 'src/models/Content.js'
 import Bookmark from 'src/components/Bookmark.vue'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
+import TimeElapsedSinceLastEvent from 'src/assets/js/TimeElapsedSinceLastEvent.js'
 
 export default {
   name: 'ContentVideoPlayer',
@@ -89,6 +91,7 @@ export default {
   emits: ['seeked'],
   data() {
     return {
+      canInitVAST: false,
       playerKey: Date.now(),
       currentContent: new Content()
     }
@@ -101,12 +104,13 @@ export default {
   watch: {
     content: {
       handler (newVal) {
-        this.playerKey = Date.now()
+        // this.playerKey = Date.now()
         this.currentContent = newVal
         if (!this.currentContent.can_user_use_timepoint) {
           this.currentContent.timepoints.removeAllTimes()
         }
       },
+      immediate: true,
       deep: true
     }
   },
@@ -115,7 +119,13 @@ export default {
       this.player.dispose()
     }
   },
+  beforeMount () {
+    this.canInitVAST = TimeElapsedSinceLastEvent.canInitVAST()
+  },
   methods: {
+    adStarted () {
+      TimeElapsedSinceLastEvent.setEventOccurrenceTime()
+    },
     getCurrentContentTimepoint (timepointId) {
       return this.currentContent.timepoints.list.find(item => item.id === timepointId)
     },
@@ -237,41 +247,44 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.timepoint-list {
-  direction: ltr;
+.vPlayer {
   width: 100%;
-  color: white;
-  height: 100%;
-  padding-bottom: 30px;
-  background: rgba(0,0,0,0.4);
-  .timepoint-list-title {
-    text-align: center;
-    background: rgba(0,0,0,0.7);
-  }
-  .timepoint-list-items {
-    .text-section {
-      display: flex;
-      flex-flow: row;
-      font-size: 0.7rem;
-      font-weight: bold;
-      align-items: center;
-      justify-content: space-between;
+  .timepoint-list {
+    direction: ltr;
+    width: 100%;
+    color: white;
+    height: 100%;
+    padding-bottom: 30px;
+    background: rgba(0,0,0,0.4);
+    .timepoint-list-title {
+      text-align: center;
+      background: rgba(0,0,0,0.7);
     }
-  }
-  :deep(.q-list) {
-    height: calc(100% - 54px);
-    overflow: auto;
-    .bookmark-btn.q-btn {
-      width: 26px;
-      height: 26px;
-      padding: 0;
-      font-size: 10px;
-      color: $primary !important;
-      .q-btn__content {
-        margin: 3px;
-        svg {
-          width: 20px;
-          height: 20px;
+    .timepoint-list-items {
+      .text-section {
+        display: flex;
+        flex-flow: row;
+        font-size: 0.7rem;
+        font-weight: bold;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    :deep(.q-list) {
+      height: calc(100% - 54px);
+      overflow: auto;
+      .bookmark-btn.q-btn {
+        width: 26px;
+        height: 26px;
+        padding: 0;
+        font-size: 10px;
+        color: $primary !important;
+        .q-btn__content {
+          margin: 3px;
+          svg {
+            width: 20px;
+            height: 20px;
+          }
         }
       }
     }

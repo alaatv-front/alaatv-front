@@ -1,6 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Cart } from 'src/models/Cart'
+import { Order } from 'src/models/Order'
 
 export default class CartAPI extends APIRepository {
   constructor() {
@@ -13,6 +14,7 @@ export default class CartAPI extends APIRepository {
       reviewCart: '/checkout/review',
       getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller,
       removeFromCart: (id) => '/orderproduct/' + id,
+      removeFromCartByProductId: (id) => 'remove-order-product/' + id,
       orderWithTransaction: (orderId) => '/orderWithTransaction/' + orderId
     }
     this.CacheList = {
@@ -21,7 +23,9 @@ export default class CartAPI extends APIRepository {
       discountRemove: this.name + this.APIAdresses.discountRemove,
       getPaymentRedirectEncryptedLink: this.name + this.APIAdresses.getPaymentRedirectEncryptedLink,
       reviewCart: this.name + this.APIAdresses.reviewCart,
-      removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id)
+      removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id),
+      removeFromCartByProductId: id => this.name + this.APIAdresses.removeFromCartByProductId(id),
+      orderWithTransaction: orderId => this.name + this.APIAdresses.orderWithTransaction(orderId)
     }
   }
 
@@ -87,7 +91,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  reviewCart(cartItems = [], cache = { TTL: 100 }) {
+  reviewCart(cartItems = [], cache = { TTL: 1000 }) {
     const queryParams = {}
     queryParams.seller = this.seller
 
@@ -144,7 +148,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 100 }) {
+  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -175,15 +179,30 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getorderWithTransaction(data) {
+  removeFromCartByProductId(productId) {
+    return this.sendRequest({
+      apiMethod: 'delete',
+      api: this.api,
+      request: this.APIAdresses.removeFromCartByProductId(productId),
+      cacheKey: this.CacheList.removeFromCartByProductId(productId),
+      resolveCallback: (response) => {
+        return new Cart(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getorderWithTransaction(orderId, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.orderWithTransaction(data.orderId),
-      cacheKey: this.CacheList.orderWithTransaction(data.orderId),
-      ...(!!data.cache && { cache: data.cache }),
+      request: this.APIAdresses.orderWithTransaction(orderId),
+      cacheKey: this.CacheList.orderWithTransaction(orderId),
+      ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data.paymentstatus
+        return new Order(response.data.data)
       },
       rejectCallback: (error) => {
         return error

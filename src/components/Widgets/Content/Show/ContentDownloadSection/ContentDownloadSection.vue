@@ -1,5 +1,5 @@
 <template>
-  <q-card class="download-section custom-card q-mx-md bg-white rounded-borders">
+  <q-card class="download-section custom-card rounded-borders">
     <h6 class="text-grey q-pt-md q-pl-md">دانلود محتوا</h6>
     <q-separator class="q-ma-md" />
     <div v-if="content.is_free && content.file?.video"
@@ -19,11 +19,14 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content.js'
 import { openURL } from 'quasar'
+import { Content } from 'src/models/Content.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ContentDownloadSection',
+  mixins: [mixinWidget, mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -38,21 +41,32 @@ export default {
       content: new Content()
     }
   },
-  created() {
-    this.getContentByRequest()
-  },
   methods: {
+    prefetchServerDataPromise () {
+      this.content.loading = true
+      return this.getContentByRequest()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.content = new Content(data)
+      this.content.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.content.loading = false
+    },
+    loadContent() {
+      this.prefetchServerDataPromise()
+        .then((content) => {
+          this.prefetchServerDataPromiseThen(content)
+        })
+        .catch(() => {
+          this.prefetchServerDataPromiseCatch()
+        })
+    },
+
     getContentByRequest() {
       this.content.loading = true
       const contentId = this.getContentId()
-      this.$apiGateway.content.show(contentId)
-        .then((response) => {
-          this.content = new Content(response)
-          this.content.loading = false
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
+      return APIGateway.content.show(contentId)
     },
     getContentId () {
       if (this.options.productId) {

@@ -22,7 +22,7 @@ class Order extends Model {
       //   key: 'order_product',
       //   relatedModel: OrderItemCollection
       // },
-      // { key: 'orderproducts' },
+      { key: 'orderproducts' },
       { key: 'orderstatus' },
       { key: 'paymentstatus' },
       { key: 'successful_transactions' },
@@ -78,6 +78,32 @@ class Order extends Model {
       string = Math.round((this.price * this.coupon_info.discount) / 100) + ' تومان '
     }
     return string
+  }
+
+  getAEEData () {
+    return {
+      actionField: {
+        actionField: {
+          id: this.id,
+          affiliation: '-',
+          revenue: this.paid_price,
+          tax: '-',
+          shipping: '-',
+          coupon: '-'
+        }
+      },
+      products: this.orderproducts.map(orderProduct => {
+        const product = orderProduct.product
+        return {
+          id: product.id,
+          name: product.title,
+          category: product.category,
+          brand: 'آلاء',
+          quantity: orderProduct.quantity,
+          price: orderProduct.price.final
+        }
+      })
+    }
   }
 }
 

@@ -278,10 +278,10 @@ export default {
     }
     .archives-list {
       margin-top: 20px;
-      @media screen and (max-width: 599px) {
-        margin-left: 10px;
-        margin-right: 10px;
-      }
+      //@media screen and (max-width: 599px) {
+      //  margin-left: 10px;
+      //  margin-right: 10px;
+      //}
       .section-item {
         margin-bottom: 20px;
         border-radius: 16px;
