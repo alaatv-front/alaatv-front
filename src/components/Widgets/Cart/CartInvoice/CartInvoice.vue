@@ -23,7 +23,8 @@
           <div v-if="isUserLogin">
             <div v-if="!dense"
                  class="q-mb-md">
-              <donate @cart-review="cartReview" />
+              <donate :cart="cart"
+                      @cart-review="cartReview" />
             </div>
             <q-card class="invoice-cart">
               <q-card-section class="invoice-total-price-section invoice-cart-section">
@@ -271,7 +272,7 @@ export default {
         hasFinalPrice: true,
         paymentMethod: 'درگاه پرداخت',
         hasPaymentMethod: true,
-        commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
+        commentLabel: 'اگر توضیحی درباره ی محصول دارید اینجا بنویسید',
         hasComment: true,
         paymentBtn: 'پرداخت و ثبت نهایی',
         hasPaymentBtn: true,
@@ -310,7 +311,7 @@ export default {
         return
       }
 
-      if (this.cart.count > 3) {
+      if (this.cart.count > 3 && typeof window !== 'undefined' && window.screen.width > 600) {
         this.$nextTick(() => {
           this.loadSticky()
         })
@@ -981,13 +982,13 @@ export default {
         &.payment-button-container-desktop {
           display: flex;
           @media screen and (max-width: 599px) {
-            display: none;
+            //display: none;
           }
         }
 
         @media screen and (max-width: 599px) {
           position: fixed;
-          bottom: 0;
+          bottom: 65px;
           left: 0;
           right: 0;
           display: flex;

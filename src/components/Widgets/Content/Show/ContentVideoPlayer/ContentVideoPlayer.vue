@@ -8,23 +8,21 @@
       </div>
     </template>
     <template v-else>
-      <div class="q-mx-md q-mb-lg">
-        <q-card class="video-player custom-card bg-white"
-                :class="options.paginate? 'q-pb-md': ''"
-                :style="options.style">
-          <video-player :content="content" />
-          <div v-if="options.paginate"
-               class="q-py-sm flex flex-center paginate">
-            <q-pagination v-model="contentNumber"
-                          :max="set.contents.list.length"
-                          :to-fn="goToContentPage"
-                          :max-pages="3"
-                          direction-links
-                          icon-prev="fast_rewind"
-                          icon-next="fast_forward" />
-          </div>
-        </q-card>
-      </div>
+      <q-card class="video-player custom-card bg-white"
+              :class="options.paginate? 'q-pb-md': ''"
+              :style="options.style">
+        <video-player :content="content" />
+        <div v-if="options.paginate"
+             class="q-py-sm flex flex-center paginate">
+          <q-pagination v-model="contentNumber"
+                        :max="set.contents.list.length"
+                        :to-fn="goToContentPage"
+                        :max-pages="3"
+                        direction-links
+                        icon-prev="fast_rewind"
+                        icon-next="fast_forward" />
+        </div>
+      </q-card>
     </template>
   </div>
 </template>
@@ -159,6 +157,14 @@ export default {
 
   .paginate {
     flex-wrap: wrap;
+    :deep(.q-pagination) {
+      .q-pagination__content {
+        .q-pagination__middle {
+          display: inline-flex;
+          vertical-align: middle;
+        }
+      }
+    }
 
     @media screen and(max-width: 400px) {
       &:deep(.q-pagination__content) {

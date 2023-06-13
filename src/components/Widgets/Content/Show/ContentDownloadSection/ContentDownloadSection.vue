@@ -1,5 +1,5 @@
 <template>
-  <q-card class="download-section custom-card q-mx-md bg-white rounded-borders">
+  <q-card class="download-section custom-card rounded-borders">
     <h6 class="text-grey q-pt-md q-pl-md">دانلود محتوا</h6>
     <q-separator class="q-ma-md" />
     <div v-if="content.is_free && content.file?.video"
