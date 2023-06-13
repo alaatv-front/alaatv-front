@@ -1,5 +1,5 @@
 <template>
-  <div class="video-list-container q-mb-md">
+  <div class="video-list-container">
     <template v-if="content.loading">
       <div class="q-mx-md">
         <q-responsive :ratio="3/4">
@@ -8,29 +8,39 @@
       </div>
     </template>
     <template v-else>
-      <q-card v-if="content.file?.pamphlet && content.file.pamphlet[0]?.link"
+      <q-card v-if="hasPamphlet()"
               class="download-section custom-card q-pa-md q-mx-md q-mb-md bg-white flex">
-        <q-btn icon="isax:document-download"
-               flat
-               color="primary"
-               size="13px"
-               @click="downloadPdf" />
-        <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
-                                             :href="content.file.pamphlet[0].link"
-                                             target="_blank"> PDF </a>{{content.title}}</h6>
+        <div class="row">
+          <div class="col-md-1">
+            <a :href="content.file.pamphlet[0].link"
+               :title="content.file.pamphlet[0].ext"
+               target="_blank">
+              <q-btn icon="isax:document-download"
+                     flat
+                     :disable="!!content.can_see"
+                     color="primary"
+                     size="13px" />
+            </a>
+          </div>
+          <div class="col-md-11">
+            <h6 class="q-pt-xs q-pl-md">دانلود<a class="text-primary"
+                                                 :href="content.file.pamphlet[0].link"
+                                                 target="_blank"> PDF </a>{{content.title}}</h6>
+          </div>
+        </div>
       </q-card>
-      <q-card class="video-list custom-card bg-white q-mx-md q-pb-md">
+      <q-card class="video-list custom-card">
         <div class="q-px-md row">
           <h6 class="main-title col-4 q-pt-lg">
             فیلم/جزوه ها
           </h6>
-          <div class="set-title col q-ml-lg q-mt-lg">
+          <div class="set-title col q-ml-lg q-mt-lg q-mb-sm">
             {{ set.title }}
           </div>
         </div>
         <q-separator class="q-ma-md" />
         <q-responsive class="responsive"
-                      :ratio="11/12">
+                      :ratio="videoListRatio">
           <q-scroll-area class="scroll"
                          :thumb-style="thumbStyle">
             <div v-for="(content,index) in set.contents.list"
@@ -84,13 +94,13 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import { Set } from 'src/models/Set'
-import { mixinWidget } from 'src/mixin/Mixins'
 import { scroll } from 'quasar'
-import { APIGateway } from 'src/api/APIGateway'
-import mixinDateOptions from 'src/mixin/DateOptions'
-import Time from 'src/plugins/time'
+import Time from 'src/plugins/time.js'
+import { Set } from 'src/models/Set.js'
+import { Content } from 'src/models/Content.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import mixinDateOptions from 'src/mixin/DateOptions.js'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 
 const {
   getScrollTarget,
@@ -99,7 +109,7 @@ const {
 
 export default {
   name: 'ContentVideoList',
-  mixins: [mixinWidget, mixinDateOptions],
+  mixins: [mixinWidget, mixinDateOptions, mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -110,6 +120,7 @@ export default {
   },
   data() {
     return {
+      videoListRatio: 11 / 12,
       content: new Content(),
       set: new Set(),
       thumbStyle: {
@@ -129,18 +140,37 @@ export default {
       this.loadContent()
     }
   },
-  created() {
-    this.loadContent()
-  },
   methods: {
-    showTime(duration) {
-      return Time.msToTime(duration * 1000)
+    prefetchServerDataPromise () {
+      this.content.loading = true
+      return this.getContentByRequest()
     },
-    downloadPdf() {
-      window.open(this.content.file.pamphlet.link, '_blank')
+    prefetchServerDataPromiseThen (data) {
+      this.content = new Content(data)
+      if (this.content.file.pamphlet) {
+        this.videoListRatio = 5 / 4
+      }
+      this.getSetByRequest()
+      this.content.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.content.loading = false
     },
     loadContent() {
-      this.getContentByRequest()
+      this.prefetchServerDataPromise()
+        .then((content) => {
+          this.prefetchServerDataPromiseThen(content)
+        })
+        .catch(() => {
+          this.prefetchServerDataPromiseCatch()
+        })
+    },
+
+    hasPamphlet() {
+      return this.content.file.pamphlet && this.content.file.pamphlet[0]
+    },
+    showTime(duration) {
+      return Time.msToTime(duration * 1000)
     },
     getContentId () {
       if (this.options.productId) {
@@ -157,22 +187,14 @@ export default {
     getContentByRequest() {
       this.content.loading = true
       const contentId = this.getContentId()
-      APIGateway.content.show(contentId)
-        .then((response) => {
-          this.content = new Content(response)
-          this.getSetByRequest()
-          this.content.loading = false
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
+      return APIGateway.content.show(contentId)
     },
 
     getSetByRequest() {
       this.set.loading = true
       APIGateway.set.show(this.content.set.id)
-        .then((response) => {
-          this.set = new Set(response)
+        .then((set) => {
+          this.set = new Set(set)
           this.set.loading = false
           this.scrollToElement()
         })
@@ -221,6 +243,9 @@ export default {
     .responsive{
       max-height: 500px !important;
       .scroll{
+        &:deep(.q-scrollarea__content) {
+          width: -webkit-fill-available
+        }
         .other-contents{
           .content{
             border-radius: 10px;

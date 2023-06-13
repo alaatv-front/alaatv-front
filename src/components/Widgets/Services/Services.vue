@@ -4,7 +4,7 @@
     <div class="services row q-col-gutter-md q-mt-md justify-center">
       <div v-for="(service, index) in options.services"
            :key="index"
-           class="col-xs-4 col-sm-3 col-md-2">
+           class="col-xs-4 col-sm-3 col-md-1">
         <a class="service"
            :href="service.link"
            :title="service.title"
@@ -45,11 +45,10 @@ export default {
 <style lang="scss" scoped>
 .services-widget {
   background: white;
-  display: flex;
-  justify-content: center;
   border-radius: 10px;
 
   .services {
+    justify-content: space-around;
     .service {
       display: flex;
       flex-direction: column;
@@ -75,7 +74,7 @@ export default {
         margin: 0 auto;
 
         .q-img {
-          margin: 20px;
+          margin: 15px;
           transition: transform .4s ease;
           -webkit-transition: transform .4s ease;
           -moz-transition: transform .4s ease;

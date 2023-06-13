@@ -1,5 +1,6 @@
 <template>
-  <q-img :src="getImageSource(localOptions)"
+  <q-img :ref="imageRef"
+         :src="getImageSource(localOptions)"
          :ratio="localOptions.ratio"
          spinner-color="primary"
          :width="getImageWidth(localOptions)"
@@ -11,16 +12,20 @@
 
 <script>
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 export default {
   name: 'ImageWidget',
   mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
+      imageRef: 'img' + Date.now(),
       windowWidth: 0,
+      analyticsInstance: null,
       defaultOptions: {
         imageSource: null,
         ratio: null,
+        hasAction: false,
         action: {
           name: null,
           route: null,
@@ -59,11 +64,43 @@ export default {
   mounted() {
     this.windowWidth = window.innerWidth
     window.addEventListener('resize', this.onResize)
+    this.$nextTick(() => {
+      this.setAEEEvent()
+    })
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    setProductIntersectionObserver () {
+      const elements = [this.$refs[this.imageRef].$el]
+      const observer = new IntersectionObserver(this.handleIntersection)
+
+      elements.forEach(obs => {
+        observer.observe(obs)
+      })
+    },
+    handleIntersection(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          this.ImageIsViewed()
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    ImageIsViewed () {
+      this.analyticsInstance.promotionView([this.localOptions.AEEEventBody])
+    },
+    pushClickedEvent () {
+      this.analyticsInstance.promotionClick([this.localOptions.AEEEventBody])
+    },
+    setAEEEvent () {
+      if (!this.localOptions.useAEEEvent) {
+        return
+      }
+      this.analyticsInstance = new AEE()
+      this.setProductIntersectionObserver()
+    },
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -122,6 +159,10 @@ export default {
       }
     },
     takeAction(action) {
+      if (!this.localOptions.hasAction) {
+        return
+      }
+      this.pushClickedEvent()
       if (this.callBack) {
         this.callBack()
       } else if (action.name === 'scroll') {

@@ -23,7 +23,7 @@
                      unelevated
                      class="trash-button"
                      icon="isax:trash"
-                     @click="changeDialogState(true, order.orderProductId)" />
+                     @click="changeDialogState(true,order, order.orderProductId)" />
             </div>
 
             <div v-if="order.grand && order.grand.attributes && order.grand.attributes.info"
@@ -112,7 +112,7 @@
                         <q-btn unelevated
                                :class="index === 0 ? 'trash-button': 'hidden-trash-button'"
                                icon="isax:trash"
-                               @click="changeDialogState(true, orderProduct.id)" />
+                               @click="changeDialogState(true, order, orderProduct)" />
                       </div>
                     </div>
                   </q-card-section>
@@ -163,7 +163,7 @@
         </div>
 
         <div class="surely-delete-button"
-             @click="removeItem(clickedItemIdToRemove)">
+             @click="removeItem(clickedProductToRemove)">
           بله، مطمئن هستم
         </div>
       </q-card-actions>
@@ -189,7 +189,8 @@ export default {
       dialogState: false,
       test: null,
       expandedObject: {},
-      clickedItemIdToRemove: null
+      clickedItemIdToRemove: null,
+      clickedProductToRemove: null
     }
   },
 
@@ -260,9 +261,18 @@ export default {
         })
     },
 
-    changeDialogState (state, itemId) {
+    changeDialogState (state, cartItem, orderProduct) {
+      let itemId = cartItem?.grand?.id
+      if (!itemId) {
+        itemId = cartItem?.orderProductId
+      }
+      if (typeof orderProduct !== 'undefined') {
+        itemId = orderProduct.id
+      }
+
       if (itemId) {
         this.clickedItemIdToRemove = itemId
+        this.clickedProductToRemove = orderProduct.product
       }
       this.dialogState = state
     }

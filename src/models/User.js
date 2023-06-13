@@ -1,13 +1,12 @@
 /* eslint-disable camelcase,prefer-const */
 import { Model, Collection } from 'js-abstract-model'
-import API_ADDRESS from '../api/Addresses'
 
 class User extends Model {
   constructor (data) {
     super(data, [
       {
         key: 'baseRoute',
-        default: API_ADDRESS.user.base
+        default: '/user'
       },
       { key: 'id' },
       { key: 'first_name' },
@@ -36,6 +35,10 @@ class User extends Model {
       { key: 'mobile_verified_at' },
       { key: 'wallet_balance' },
       { key: 'profile_completion' },
+      {
+        key: 'permissions',
+        default: []
+      },
 
       {
         key: 'gender',
@@ -59,6 +62,10 @@ class User extends Model {
     if (!this.full_name) {
       this.full_name = this.first_name + ' ' + this.last_name
     }
+  }
+
+  hasPermission (permission) {
+    return !!this.permissions.includes(permission)
   }
 
   getCompletionInfoKeys () {

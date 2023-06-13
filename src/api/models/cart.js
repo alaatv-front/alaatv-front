@@ -1,6 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { Cart } from 'src/models/Cart'
+import { Order } from 'src/models/Order'
 
 export default class CartAPI extends APIRepository {
   constructor() {
@@ -12,7 +13,8 @@ export default class CartAPI extends APIRepository {
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
       getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller,
-      removeFromCart: (id) => '/orderproduct/' + id
+      removeFromCart: (id) => '/orderproduct/' + id,
+      orderWithTransaction: (orderId) => '/orderWithTransaction/' + orderId
     }
     this.CacheList = {
       addToCart: this.name + this.APIAdresses.addToCart,
@@ -20,7 +22,8 @@ export default class CartAPI extends APIRepository {
       discountRemove: this.name + this.APIAdresses.discountRemove,
       getPaymentRedirectEncryptedLink: this.name + this.APIAdresses.getPaymentRedirectEncryptedLink,
       reviewCart: this.name + this.APIAdresses.reviewCart,
-      removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id)
+      removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id),
+      orderWithTransaction: orderId => this.name + this.APIAdresses.orderWithTransaction(orderId)
     }
   }
 
@@ -86,17 +89,47 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  reviewCart(cartItems = [], cache = { TTL: 100 }) {
+  reviewCart(cartItems = [], cache = { TTL: 1000 }) {
     const queryParams = {}
     queryParams.seller = this.seller
-    cartItems.forEach((cartItem, cartItemIndex) => {
-      queryParams['cartItems' + '[' + cartItemIndex + ']' + '[product_id]'] = cartItem.product_id
-      if (Array.isArray(cartItem.products)) {
-        cartItem.products.forEach((productItem, productItemIndex) => {
-          queryParams['cartItems' + '[' + cartItemIndex + ']' + '[products]' + '[' + productItemIndex + ']'] = productItem
-        })
+
+    const setCartItemParam = function (cartItemIndex, paramsKey, value) {
+      queryParams['cartItems' + '[' + cartItemIndex + ']' + paramsKey] = value
+    }
+    const setProductsParams = function (cartItemIndex, products) {
+      if (!Array.isArray(products)) {
+        return
       }
-    })
+      const cartItemProductsLength = products.length
+      for (let productItemIndex = 0; productItemIndex < cartItemProductsLength; productItemIndex++) {
+        const productItem = products[productItemIndex]
+        setCartItemParam(cartItemIndex, '[products]' + '[' + productItemIndex + ']', productItem)
+      }
+    }
+    const setAttributesParams = function (cartItemIndex, attributes) {
+      if (!Array.isArray(attributes)) {
+        return
+      }
+      const cartItemAttributesLength = attributes.length
+      for (let attributeItemIndex = 0; attributeItemIndex < cartItemAttributesLength; attributeItemIndex++) {
+        const attributeItem = attributes[attributeItemIndex]
+        setCartItemParam(cartItemIndex, '[products]' + '[' + attributeItemIndex + ']', attributeItem)
+      }
+    }
+
+    const cartItemLength = cartItems.length
+    let cartItemIndex = 0
+    for (let i = 0; i < cartItemLength; i++) {
+      const cartItem = cartItems[i]
+      if (!cartItem.product_id) {
+        continue
+      }
+      setCartItemParam(cartItemIndex, '[product_id]', cartItem.product_id)
+      setProductsParams(cartItemIndex, cartItem.products)
+      setAttributesParams(cartItemIndex, cartItem.attribute)
+      cartItemIndex++
+    }
+
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -113,7 +146,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 100 }) {
+  getPaymentRedirectEncryptedLink(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -137,6 +170,22 @@ export default class CartAPI extends APIRepository {
       cacheKey: this.CacheList.removeFromCart(orderProductId),
       resolveCallback: (response) => {
         return new Cart(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getorderWithTransaction(orderId, cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.orderWithTransaction(orderId),
+      cacheKey: this.CacheList.orderWithTransaction(orderId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new Order(response.data.data)
       },
       rejectCallback: (error) => {
         return error

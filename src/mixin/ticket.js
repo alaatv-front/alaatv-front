@@ -1,6 +1,6 @@
-import API_ADDRESS from 'src/api/Addresses'
 import { TicketDepartmentList } from 'src/models/TicketDepartment'
 import { User } from 'src/models/User'
+import { APIGateway } from 'src/api/APIGateway'
 
 const mixinTicket = {
   data: () => ({
@@ -11,15 +11,21 @@ const mixinTicket = {
     ticketPriorityOption: []
   }),
   computed: {
-    isAdmin() {
-      // return this.$store.getters['Auth/user'].has_admin_permission
-      return true
+    isInAdminPage () {
+      return !!this.$route.name.includes('Admin')
     }
   },
-  created() {
-    this.setPageData()
+  mounted() {
+    this.setUpTicket()
   },
   methods: {
+    async setUpTicket () {
+      await this.initTicket()
+      this.setPageData()
+    },
+    async initTicket () {
+      // here goes the custom methods developer chooses to run before mixin
+    },
     async setPageData() {
       // this.setRoleAndPermissions()
       this.loading = true
@@ -82,6 +88,10 @@ const mixinTicket = {
         label: 'بحرانی',
         value: '4'
       }]
+    },
+
+    getTicketData () {
+      return APIGateway.ticket.getNeededDataToCreateTicket()
     },
 
     getDepartments() {
@@ -486,8 +496,9 @@ const mixinTicket = {
         }
         this.showMessagesInNotify(['تیکت شما با موفقیت ایجاد شد'], 'positive')
         this.loading = false
+        const showRouteName = this.isInAdminPage ? 'Admin.Ticket.Show' : 'UserPanel.Ticket.Show'
         await this.$router.push({
-          name: 'Admin.Ticket.Show',
+          name: showRouteName,
           params: { id: response.data.data.id }
         })
       } catch {
@@ -554,7 +565,7 @@ const mixinTicket = {
     },
 
     callCreatTicketApi (formData) {
-      return this.$axios.post(API_ADDRESS.ticket.create.base, formData)
+      return APIGateway.ticket.creatTicket(formData)
     },
 
     async getUserInfo() {
@@ -564,11 +575,6 @@ const mixinTicket = {
       }
       this.loading = true
       try {
-        // const payload = {
-        //   mobile: '09388131193',
-        //   nationalCode: '4900443050'
-        // }
-        // this.$axios.post(API_ADDRESS.ticket.user.getInfo, payload)
         this.user = await this.$apiGateway.ticket.getUserData(payload)
         this.loading = false
       } catch {
@@ -578,7 +584,7 @@ const mixinTicket = {
     },
 
     callSendTicketMsgApi(formData) {
-      return this.$axios.post(API_ADDRESS.ticket.show.ticketMessage, formData)
+      return APIGateway.ticket.sendTicketMessage(formData)
     },
 
     setTicketFormData (data, isMsg) {

@@ -1,14 +1,14 @@
 <template>
   <div class="content-item">
     <div class="content-item-top-border" />
-    <div class="content-item-title q-px-lg">
+    <div class="content-item-title q-px-md-lg q-px-xs-md">
       <bookmark v-if="canFavor"
                 :is-favored="localContent.is_favored"
                 :loading="bookmarkLoading"
                 @clicked="handleContentBookmark" />
       <router-link v-if="content && content.id !== null"
                    :to="{ name: 'Public.Content.Show', params: { id: content.id } }"
-                   class="content-item">
+                   class="content-item-link">
         <div class="content-item-title-icon">
           <q-icon :name="content.isVideo() ? 'isax:play-circle' : 'isax:document-download'"
                   size="16.5px" />
@@ -18,7 +18,7 @@
         </div>
       </router-link>
     </div>
-    <div class="content-item-meta q-pr-lg">
+    <div class="content-item-meta q-pr-md-lg q-pr-xs-md">
       <template v-if="content.isVideo()">
         <div :class="{'content-item-meta-updated-at': this.doesHaveDuration(content.duration)}">
           {{ getShamsiDate(content.updated_at.split(' ')[0], false) }}
@@ -41,8 +41,8 @@
 <script>
 import moment from 'moment-jalaali'
 import Bookmark from 'components/Bookmark.vue'
-import API_ADDRESS from 'src/api/Addresses.js'
 import { Content } from 'src/models/Content.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 moment.loadPersian()
 
@@ -103,7 +103,7 @@ export default {
       window.open(this.content.file.pamphlet[0].link, '_blank')
     },
     getContentBookmarkBaseRoute(id) {
-      return API_ADDRESS.content.show(id)
+      return APIGateway.content.show(id)
     },
     getContentDurationTitle (duration) {
       if (!this.doesHaveDuration(duration)) {
@@ -124,7 +124,7 @@ export default {
 <style lang="scss" scoped>
 .content-item {
   //padding: 0 40px;
-  height: 64px;
+  height: 95px;
   position: relative;
   display: flex;
   align-items: center;
@@ -147,16 +147,35 @@ export default {
   .content-item-title {
     display: flex;
     justify-content: flex-start;
+    width: calc( 100% - 170px );
+    .content-item-link {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-flow: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .bookmark-btn {
+      margin: 0;
+      padding: 0;
+    }
     .content-item-title-icon {
       margin-right: 11px;
       font-size: 16px;
     }
   }
   .content-item-meta {
+    width: 170px;
     display: flex;
     justify-content: flex-end;
     .content-item-meta-updated-at {
-      margin-right: 40px;
+      //margin-right: 40px;
+      width: 100px;
+      padding-right: 10px;
+    }
+    .content-item-meta-time {
+      width: 60px;
+      //padding-right: 10px;
     }
     .btn-download-pdf {
       width: 46px;
@@ -167,6 +186,17 @@ export default {
       font-weight: 400;
       font-size: 14px;
       line-height: 12px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    flex-wrap: wrap;
+    .content-item-title {
+      width: 100%;
+      height: 65px;
+    }
+    .content-item-meta {
+      width: 100%;
+      height: 30px;
     }
   }
 }

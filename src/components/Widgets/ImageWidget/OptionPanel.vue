@@ -39,6 +39,35 @@
           </div>
           <div class="action col-md-12">
             <div class="cehckBox">
+              <q-checkbox v-model="localOptions.useAEEEvent"
+                          label="استفاده از ایونت GTM"
+                          right-label />
+            </div>
+            <div v-if="localOptions.useAEEEvent"
+                 class="action-container q-gutter-lg-md">
+              <div>فیلد های مورد نظر ایونت GTM :</div>
+              <div class="col-9">
+                <div class="outsideLabel">id</div>
+                <q-input v-model="localOptions.AEEEventBody.id"
+                         label="id" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">name</div>
+                <q-input v-model="localOptions.AEEEventBody.name"
+                         label="name" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">creative</div>
+                <q-input v-model="localOptions.AEEEventBody.creative"
+                         label="creative" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">position</div>
+                <q-input v-model="localOptions.AEEEventBody.position"
+                         label="position" />
+              </div>
+            </div>
+            <div class="cehckBox">
               <q-checkbox v-model="localOptions.hasAction"
                           label="hasAction"
                           right-label />
@@ -81,7 +110,51 @@ export default defineComponent({
     return {
       size: 'xs',
       sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
-      actionTypes: ['event', 'scroll', 'link']
+      actionTypes: ['event', 'scroll', 'link'],
+      defaultOptions: {
+        imageSource: null,
+        ratio: null,
+        hasAction: false,
+        useAEEEvent: false,
+        AEEEventBody: {
+          id: '-',
+          name: '-',
+          creative: null,
+          position: null
+        },
+        action: {
+          name: null,
+          route: null,
+          scrollTo: null,
+          eventName: null,
+          eventArgs: null
+        },
+        xs: {
+          height: null,
+          width: null,
+          src: null
+        },
+        sm: {
+          height: null,
+          width: null,
+          src: null
+        },
+        md: {
+          height: null,
+          width: null,
+          src: null
+        },
+        lg: {
+          height: null,
+          width: null,
+          src: null
+        },
+        xl: {
+          height: null,
+          width: null,
+          src: null
+        }
+      }
     }
   }
 })

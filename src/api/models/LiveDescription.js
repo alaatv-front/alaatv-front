@@ -6,6 +6,10 @@ export default class LiveDescriptionAPI extends APIRepository {
   constructor() {
     super('liveDescription', apiV2, '/liveDescription', new LiveDescription())
     this.APIAdresses = {
+      create: '/admin/user',
+      edit: '/admin/user',
+      index: '/admin/user',
+      show: '/admin/user',
       liveDescription: '/livedescription',
       pinedNews: '/livedescription/getPined',
       observedLiveDescription: (id) => '/livedescription/' + id + '/seen'
@@ -17,7 +21,7 @@ export default class LiveDescriptionAPI extends APIRepository {
     }
   }
 
-  getNewsList(data, cache = { TTL: 100 }) {
+  getNewsList(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -36,7 +40,7 @@ export default class LiveDescriptionAPI extends APIRepository {
     })
   }
 
-  getPinedNews(cache = { TTL: 100 }) {
+  getPinedNews(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -54,7 +58,7 @@ export default class LiveDescriptionAPI extends APIRepository {
     })
   }
 
-  getNewsHasBeenSeen(id, cache = { TTL: 100 }) {
+  getNewsHasBeenSeen(id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

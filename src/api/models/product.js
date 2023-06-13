@@ -16,11 +16,15 @@ export default class ProductAPI extends APIRepository {
           idParams.push('ids' + '[' + productIndex + ']=' + productId)
         })
         const queryParams = idParams.join('&')
-        return '/product?' + queryParams
+        const queryParamsWithDisplay = queryParams + (queryParams.length > 0 ? queryParams + '&' : '') + 'display=2'
+        return '/product?' + queryParamsWithDisplay
       },
-      create: '/reqres/api/users',
-      edit: '/admin/product',
-      index: '/admin/product',
+      admin: {
+        create: '/reqres/api/users',
+        edit: '/admin/product',
+        index: '/admin/product',
+        show: '/admin/product'
+      },
       getSets: id => `/product/${id}/sets`,
       getComments: id => `/product/${id}/content-comments`,
       getContents: id => `/product/${id}/contents`,
@@ -72,7 +76,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  gifts(productId, cache = { TTL: 100 }) {
+  gifts(productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -104,7 +108,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  favored(productId, cache = { TTL: 100 }) {
+  favored(productId) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -122,7 +126,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  unfavored(productId, cache = { TTL: 100 }) {
+  unfavored(productId) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -140,19 +144,20 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductList(productIds, cache = { TTL: 100 }) {
+  getProductList(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.bulk(productIds),
-      cacheKey: this.CacheList.bulk(productIds),
+      request: this.APIAdresses.bulk(data.productIds),
+      cacheKey: this.CacheList.bulk(data.productIds),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new ProductList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
-      }
+      },
+      data: data.params
     })
   }
 
@@ -190,7 +195,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getCategories(cache = { TTL: 100 }) {
+  getCategories(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -206,7 +211,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getUserLastState(id, cache = { TTL: 100 }) {
+  getUserLastState(id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

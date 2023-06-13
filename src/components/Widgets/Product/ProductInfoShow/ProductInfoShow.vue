@@ -51,7 +51,8 @@
                        :key="i"
                        class="info-value">
                     <template v-if="!product.loading">
-                      <span v-if="value">{{ value }}</span>
+                      <span v-if="value"
+                            class="ellipsis value-span">{{ value }}</span>
                       <span v-else>-</span>
                     </template>
                     <q-skeleton v-else
@@ -70,10 +71,11 @@
 
 <script>
 import { Product } from 'src/models/Product.js'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import Bookmark from 'components/Bookmark.vue'
+import Bookmark from 'src/components/Bookmark.vue'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+import AEE from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProductInfoShow',
@@ -243,8 +245,11 @@ export default {
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
-      this.product = data
+      this.product = new Product(data)
       this.isFavored = this.product.is_favored_2
+      if (window) {
+        this.updateEECEventDetail()
+      }
       this.setInformation()
       this.product.loading = false
     },
@@ -252,26 +257,6 @@ export default {
       this.product.loading = false
     },
 
-    getProductId() {
-      if (this.options.productId) {
-        return this.options.productId
-      }
-      if (this.options.urlParam && this.$route.params[this.options.urlParam]) {
-        return this.$route.params[this.options.urlParam]
-      }
-      if (this.$route.params.id) {
-        return this.$route.params.id
-      }
-      return null
-    },
-    loadProduct() {
-      const productId = this.getProductId()
-      if (!productId) {
-        return
-      }
-
-      this.getProduct(productId)
-    },
     getProduct() {
       return APIGateway.product.show(this.productId)
     },
@@ -292,6 +277,10 @@ export default {
     },
     shareGiftCard({ name, url }) {
       window.open(url, '_blank')
+    },
+    updateEECEventDetail() {
+      const analyticsInstance = new AEE()
+      analyticsInstance.productDetailViews('product.show', [this.product.eec.getData()])
     }
   }
 }
@@ -423,6 +412,11 @@ p {
             .info-value {
               text-align: center;
               align-self: center;
+
+              .value-span {
+                display: inline-block;
+                max-width: 110px;
+              }
 
               &:after {
                 content: '-';

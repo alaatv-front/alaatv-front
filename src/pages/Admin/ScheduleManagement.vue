@@ -44,8 +44,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ScheduleManagement',
@@ -61,10 +61,10 @@ export default {
         config: {
           // toDo : temp, 'Content' should be replaced with 'ScheduleManagement'
           api: {
-            show: API_ADDRESS.content.show.base,
-            edit: API_ADDRESS.content.edit.base,
-            create: API_ADDRESS.content.create.base,
-            index: API_ADDRESS.content.index.base
+            show: APIGateway.content.APIAdresses.scheduleManagement.show,
+            edit: APIGateway.content.APIAdresses.scheduleManagement.edit,
+            create: APIGateway.content.APIAdresses.scheduleManagement.create,
+            index: APIGateway.content.APIAdresses.scheduleManagement.index
           },
           title: {
             show: 'مشاهده شیفت کاری',

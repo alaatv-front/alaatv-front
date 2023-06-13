@@ -9,7 +9,17 @@ class Favored extends Model {
     const set = new Set()
     const content = new Content()
     const product = new Product()
-    const additionalProps = Object.assign(Object.assign(set.props, product.props), content.props)
+    const individualSetProps = set.props.filter(setItem =>
+      !product.props.find(productItem => setItem.key === productItem.key) ||
+      !content.props.find(contentItem => setItem.key === contentItem.key)
+    )
+    const individualContentProps = content.props.filter(contentItem =>
+      !product.props.find(productItem => contentItem.key === productItem.key))
+    const additionalProps = [
+      ...individualSetProps,
+      ...individualContentProps,
+      ...product.props
+    ]
     super(data, [
       ...additionalProps,
       { key: 'id' },

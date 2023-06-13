@@ -1,8 +1,8 @@
-import APIRepository from '../classes/APIRepository.js'
+import { Set } from 'src/models/Set.js'
 import { apiV2 } from 'src/boot/axios.js'
-import { ProductList } from 'src/models/Product'
-import { Set } from 'src/models/Set'
-// import { Fake } from '../classes/fakeDataGenerator.js'
+import { ProductList } from 'src/models/Product.js'
+import APIRepository from '../classes/APIRepository.js'
+
 const APIAdresses = {
   base: 'events',
   formBuilder: '/admin/form-builder',
@@ -18,6 +18,34 @@ export default class EventsAPI extends APIRepository {
       eventsProducts: (eventId) => this.name + this.APIAdresses.eventsProducts(eventId),
       eventAdvisor: (eventId) => this.name + this.APIAdresses.eventAdvisor(eventId)
     }
+  }
+
+  getEventInfoByName(eventName) {
+    const events = [
+      {
+        id: 10,
+        name: 'chatre-nejat',
+        logo: 'https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png'
+      },
+      {
+        id: 11,
+        name: 'emtahan-nahaee',
+        logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png'
+      },
+      {
+        id: 12,
+        name: 'emtahan-nahaee-9',
+        logo: 'https://nodes.alaatv.com/upload/landing/41/emtehan-nahayi-nohom-logo.png'
+      }
+    ]
+    return new Promise((resolve, reject) => {
+      const event = events.find(eventItem => eventItem.name === eventName)
+      if (!event) {
+        reject()
+      }
+
+      resolve(event)
+    })
   }
 
   getEventsProducts(data, cache) {
@@ -42,7 +70,7 @@ export default class EventsAPI extends APIRepository {
     // return products
   }
 
-  formBuilder(data = {}, cache) {
+  formBuilder(data = {}, cache = { TTL: 1000 }) {
     const routeWithParams = function (defaultRoute, payload) {
       if (!Array.isArray(payload.types)) {
         const types = []
@@ -71,7 +99,7 @@ export default class EventsAPI extends APIRepository {
     })
   }
 
-  getEventsAdvisor(data, cache) {
+  getEventsAdvisor(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

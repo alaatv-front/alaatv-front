@@ -1,6 +1,5 @@
 <template>
-  <q-btn :color="localOptions.color"
-         :label="localOptions.label"
+  <q-btn :label="localOptions.label"
          :flat="localOptions.flat"
          :class="localOptions.className"
          :style="localOptions.style"
@@ -15,11 +14,11 @@
 </template>
 
 <script>
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ActionButton',
-  mixins: [mixinPrefetchServerData, mixinWidget],
+  mixins: [mixinWidget],
   data() {
     return {
       defaultOptions: {

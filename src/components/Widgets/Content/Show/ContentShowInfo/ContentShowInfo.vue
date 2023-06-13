@@ -37,63 +37,48 @@
         <h6 class="set-title">
           {{content.title}}
         </h6>
-        <q-tabs v-model="tab"
-                class="q-mt-md"
-                align="left">
-          <q-tab name="info"
-                 label="توضیحات" />
-          <q-tab v-if="hasPamphlet()"
-                 name="pamphlets"
-                 label="جزوات" />
-        </q-tabs>
-        <q-tab-panels v-model="tab"
-                      animated>
-          <q-tab-panel name="info">
-            <div v-if="content.author">
-              {{content.author.first_name}} {{content.author.last_name}}
+        <div class="description q-mt-lg">
+          <div v-if="content.author">
+            {{content.author.first_name}} {{content.author.last_name}}
+          </div>
+          <h6 v-if="content.set"
+              class="set-title">
+            {{content.set.title}}
+          </h6>
+          <div v-if="content.body"
+               class="q-mb-xl"
+               v-html="content.body" />
+          <div v-if="content.tags"
+               class="row">
+            <p class="col-1 q-mt-sm text-center">تگ ها</p>
+            <div class="col q-pl-sm">
+              <router-link v-for="badge in content.tags"
+                           :key="badge"
+                           :to="{name: 'Public.Content.Search', query: {'tags[]': badge } }">
+                <q-badge class="q-pa-sm q-ml-sm q-mb-sm"
+                         color="primary">
+                  {{badge}}
+                </q-badge>
+              </router-link>
             </div>
-            <h6 v-if="content.set"
-                class="set-title">
-              {{content.set.title}}
-            </h6>
-            <div v-if="content.body"
-                 class="q-mb-xl"
-                 v-html="content.body" />
-            <div v-if="content.tags"
-                 class="row">
-              <p class="col-1 q-mt-sm text-center">تگ ها</p>
-              <div class="col q-pl-sm">
-                <router-link v-for="badge in content.tags"
-                             :key="badge"
-                             :to="{name: 'Public.Content.Search', query: {'tags[]': badge } }">
-                  <q-badge class="q-pa-sm q-ml-sm q-mb-sm"
-                           color="primary">
-                    {{badge}}
-                  </q-badge>
-                </router-link>
-              </div>
-            </div>
-          </q-tab-panel>
-          <q-tab-panel name="pamphlets">
-            psp
-          </q-tab-panel>
-        </q-tab-panels>
+          </div>
+        </div>
       </div>
     </template>
   </div>
 </template>
 
 <script>
-import Bookmark from 'components/Bookmark.vue'
+import Bookmark from 'src/components/Bookmark.vue'
 import { Content } from 'src/models/Content.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ContentShowInfo',
   components: { Bookmark, ShareNetwork },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   beforeRouteUpdate() {
     this.loadContent()
   },
@@ -143,10 +128,29 @@ export default {
       this.loadContent()
     }
   },
-  created() {
-    this.loadContent()
-  },
+
   methods: {
+    prefetchServerDataPromise () {
+      this.content.loading = true
+      return this.getContentByRequest()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.content = new Content(data)
+      this.content.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.content.loading = false
+    },
+    loadContent() {
+      this.prefetchServerDataPromise()
+        .then((content) => {
+          this.prefetchServerDataPromiseThen(content)
+        })
+        .catch(() => {
+          this.prefetchServerDataPromiseCatch()
+        })
+    },
+
     hasPamphlet() {
       return this.content.file.pamphlet && this.content.file.pamphlet.length > 0
     },
@@ -175,26 +179,11 @@ export default {
     shareGiftCard({ name, url }) {
       window.open(url, '_blank')
     },
-    loadContent() {
-      this.getContentByRequest()
-    },
-    bookmarkContent () {
-      if (this.content.is_favored) {
-        return this.$apiGateway.content.unfavored(this.content.id)
-      }
-      return this.$apiGateway.content.favored(this.content.id)
-    },
+
     getContentByRequest() {
       this.content.loading = true
       const contentId = this.getContentId()
-      APIGateway.content.show(contentId)
-        .then((response) => {
-          this.content = new Content(response)
-          this.content.loading = false
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
+      return APIGateway.content.show(contentId)
     },
     getContentId () {
       if (this.options.productId) {
@@ -215,14 +204,5 @@ export default {
 <style lang="scss" scoped>
   h6 {
     margin: 0 !important;
-  }
-
-  .content-info {
-    :deep(.q-tab-panels) {
-      background: transparent;
-    }
-    .set-title {
-      //color: black;
-    }
   }
 </style>

@@ -50,8 +50,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Order',
@@ -67,10 +67,10 @@ export default {
         config: {
           // toDo : temp, 'Content' should be replaced with 'order'
           api: {
-            show: API_ADDRESS.order.show.base,
-            edit: API_ADDRESS.order.edit.base,
-            create: API_ADDRESS.order.create.base,
-            index: API_ADDRESS.order.index.base
+            show: APIGateway.order.APIAdresses.show,
+            edit: APIGateway.order.APIAdresses.edit,
+            create: APIGateway.order.APIAdresses.create,
+            index: APIGateway.order.APIAdresses.index
           },
           title: {
             show: 'اطلاعات محتوا',

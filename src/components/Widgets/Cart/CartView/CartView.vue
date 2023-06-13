@@ -230,8 +230,8 @@
 
 <script>
 import { Cart } from 'src/models/Cart.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 import { OrderProduct } from 'src/models/OrderProduct.js'
 
 export default {
@@ -253,7 +253,7 @@ export default {
       dialogState: false,
       test: null,
       expandedObject: {},
-      clickedItemIdToRemove: null,
+      clickedOrderProductToRemove: null,
       defaultOptions: {
         className: '',
         height: 'auto',
@@ -283,6 +283,7 @@ export default {
   },
   mounted () {
     this.cartReview()
+    this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
     hasDiscount(order) {
@@ -328,27 +329,24 @@ export default {
     },
 
     removeItem() {
-      this.$store.dispatch('Cart/removeItemFromCart', this.clickedItemIdToRemove)
+      this.$store.dispatch('Cart/removeItemFromCart', this.clickedOrderProductToRemove)
         .then(() => {
           this.cartReview()
           this.changeDialogState(false)
-          this.$bus.emit('removeProduct')
+          this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
           this.changeDialogState(false)
         })
     },
 
     changeDialogState (state, cartItem, orderProduct) {
-      let itemId = cartItem?.grand?.id
-      if (!itemId) {
-        itemId = cartItem?.orderProductId
-      }
+      let item = cartItem?.grand
       if (typeof orderProduct !== 'undefined') {
-        itemId = orderProduct.id
+        item = orderProduct
       }
 
-      if (itemId) {
-        this.clickedItemIdToRemove = itemId
+      if (item?.id) {
+        this.clickedOrderProductToRemove = item
       }
       this.dialogState = state
     }

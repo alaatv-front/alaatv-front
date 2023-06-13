@@ -17,7 +17,7 @@
           <div v-for="(subItem , i) in item.children"
                :key="i">
             <menu-item v-if="subItem.children && subItem.children.length > 0"
-                       :menu="[subItem]"
+                       :items="[subItem]"
                        @item-selected="itemSelected(item)" />
             <q-item v-else
                     v-ripple
@@ -27,8 +27,14 @@
                     class="list-child-item"
                     exact-active-class="active-route"
                     @click="itemSelected(subItem)">
-              <q-item-section class="list-child-section">
+              <q-tooltip v-if="showChildItemTooltip"
+                         anchor="top middle"
+                         self="bottom middle"
+                         :offset="[10, 10]">
                 {{ subItem.title }}
+              </q-tooltip>
+              <q-item-section class="list-child-section">
+                <q-item-label lines="1">{{ subItem.title }}</q-item-label>
               </q-item-section>
               <q-badge v-if="subItem.badge"
                        class="badge q-py-xs"
@@ -88,6 +94,10 @@ export default {
       type: Array,
       default: () => []
     },
+    showChildItemTooltip: {
+      type: Boolean,
+      default: false
+    },
     loading: {
       type: Boolean,
       default: () => {
@@ -119,7 +129,7 @@ export default {
       }
     },
     selectedTopic() {
-      return this.$store.getters['ChatreNejat/selectedTopic']
+      return this.$store.getters['TripleTitleSet/selectedTopic']
     }
   },
   methods: {

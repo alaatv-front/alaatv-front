@@ -13,6 +13,7 @@
     <template v-else>
       <div v-for="(block, index) in blocksToShow"
            :key="index"
+           :class="block.headerCustomClass"
            class="block-list-widget">
         <block :options="{block}" />
       </div>
@@ -38,7 +39,7 @@ export default {
         height: 'auto',
         style: {},
         from: 0,
-        to: -1
+        to: undefined
       }
     }
   },
@@ -47,8 +48,14 @@ export default {
       if (!this.blocks || !this.blocks.list || this.blocks.list.length === 0) {
         return []
       }
-
       return this.blocks.list.slice(this.defaultOptions.from, this.defaultOptions.to)
+    },
+    apiName () {
+      if (this.options.apiName) {
+        return this.options.apiName
+      }
+
+      return this.defaultOptions.apiName
     }
   },
   watch: {
@@ -66,7 +73,7 @@ export default {
   },
   methods: {
     reloadWidget () {
-      this.getApiRequest()
+      this.prefetchServerDataPromise()
         .then((data) => {
           this.prefetchServerDataPromiseThen(data)
         })
@@ -75,6 +82,11 @@ export default {
         })
     },
     prefetchServerDataPromise () {
+      if (this.options.blocks && this.options.blocks.list.length > 0) {
+        return new Promise((resolve) => {
+          resolve(this.options.blocks)
+        })
+      }
       return this.getApiRequest()
     },
     prefetchServerDataPromiseThen (data) {
@@ -86,14 +98,13 @@ export default {
     },
     getApiRequest() {
       this.blocks.loading = true
-
-      if (this.defaultOptions.apiName === 'home') {
+      if (this.apiName === 'home') {
         return this.$apiGateway.pages.home()
       }
-      if (this.defaultOptions.apiName === 'shop') {
+      if (this.apiName === 'shop') {
         return this.$apiGateway.pages.shop()
       }
-      if (this.defaultOptions.apiName === 'content') {
+      if (this.apiName === 'content') {
         return this.$apiGateway.content.relatedProducts(this.defaultOptions.contentId)
       }
 

@@ -20,7 +20,7 @@
            class="product-final-price">
         {{ product.price.toman('final', null) }}
         <div v-if="product.price.toman('discount') !== 0"
-             class="main-price">{{ product.price['base'] }}</div>
+             class="main-price">{{ product.price.toman('base', false) }}</div>
       </div>
 
       <div class="product-price-title"> تومان</div>
@@ -102,7 +102,7 @@ export default {
       return APIGateway.product.show(this.productId)
     },
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', { product_id: this.product.id }).then(() => {
+      this.$store.dispatch('Cart/addToCart', this.product).then(() => {
         this.$router.push({ name: 'Public.Checkout.Review' })
       })
     }
