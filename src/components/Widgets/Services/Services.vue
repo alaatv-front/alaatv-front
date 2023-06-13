@@ -41,21 +41,15 @@ export default {
   },
   methods: {
     onDragStart(event, service, serviceIndex) {
-      console.log(event)
-      // debugger
-      // emit('onDrag', 'DragStart')
       event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
       this.localDraggable = event
-      // console.log('onDragStart', event.dataTransfer.getData('value'))
     },
     onDragLeave() {
 
     },
     onDragOver(event) {
-      // debugger
       event.preventDefault()
-      // console.log('onDragOver', event.dataTransfer.getData('value'))
     },
     onDrop(event, newIndex, parent) {
       // debugger
