@@ -27,7 +27,7 @@
         </div>
         <!--        -----------------------------------------------------Tabs Section--------------------------------------------   -->
         <div class="tab-section">
-          <q-list class="flex tabs-list">
+          <q-list class="tabs-list">
             <div v-for="(item , index) in items"
                  :key="index"
                  class="tabs-list-container">
@@ -467,16 +467,17 @@ export default {
       .tab-section {
         height: 72px;
         margin-left: 24px;
+        overflow: auto;
         .tabs-list {
           height: 72px;
-          .tab-title {
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 25px;
-          }
-          .tabs-list-container{
-            display: grid;
+          display: flex;
+          flex-flow: row;
+          flex-wrap: nowrap;
+          overflow: auto;
+          .tabs-list-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
         }
         @media screen and (max-width: 1023px) {
@@ -581,7 +582,7 @@ export default {
         //justify-content: flex-end;
         align-items: center;
         height: 72px;
-        justify-self: end;
+        justify-self: flex-end;
         .btn-user-profile {
           margin-left: 18px;
           width: 48px;
