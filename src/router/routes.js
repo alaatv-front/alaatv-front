@@ -340,6 +340,47 @@ const routes = [
                 ]
               },
               {
+                name: 'UserPanel.Asset.AbrishamPro',
+                path: 'abrisham-pro',
+                layoutConfig: {
+                  layoutHeaderType: 'abrisham',
+                  layoutLeftSideBarType: 'abrisham',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/AbrishamLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Progress',
+                    path: 'progress',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/progress.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Schedule',
+                    path: 'schedule',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Schedule.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Consulting',
+                    path: 'consulting',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Consulting.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.News',
+                    path: 'news',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/News.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Map',
+                    path: 'map',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Map.vue')
+                  }
+                ]
+              },
+              {
                 name: 'UserPanel.Asset.GiftCard',
                 path: 'gift-card',
                 layoutConfig: {

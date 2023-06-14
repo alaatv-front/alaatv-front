@@ -2,11 +2,11 @@ export default class GTMBase {
   constructor(options = {
     debugMode: false
   }) {
-    if (!window) {
+    if (typeof window === 'undefined') {
       console.error('window in not defined and for AEE you need window')
-      return
+    } else {
+      window.dataLayer = window.dataLayer || []
     }
-    window.dataLayer = window.dataLayer || []
     this.debugMode = (process.env.APP_ENV === 'development') || options.debugMode
   }
 

@@ -1,4 +1,4 @@
-import GTMBase from 'assets/js/AEE/GoogleTagManager'
+import GTMBase from 'assets/js/AEE/GoogleTagManager.js'
 
 export default class GTMEvents {
   constructor(options = {
