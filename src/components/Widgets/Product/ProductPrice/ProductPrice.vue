@@ -48,6 +48,7 @@
 import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ProductPrice',
@@ -93,10 +94,19 @@ export default {
     },
     prefetchServerDataPromiseThen (data) {
       this.product = new Product(data)
+      if (window) {
+        this.updateEECEventDetail()
+      }
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
+    },
+    updateEECEventDetail() {
+      AEE.productDetailViews('product.show', this.product.eec.getData(), {
+        TTl: 1000,
+        key: this.product.id
+      })
     },
     getProduct() {
       return APIGateway.product.show(this.productId)
