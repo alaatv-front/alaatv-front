@@ -155,8 +155,7 @@
           <!--          </template>-->
         </entity-index>
       </div>
-      <order-details-dialog v-if="windowSize.x >= 600"
-                            v-model:dialogValue="detailsDialog"
+      <order-details-dialog v-model:dialogValue="detailsDialog"
                             :order="currentOrder" />
     </template>
   </div>

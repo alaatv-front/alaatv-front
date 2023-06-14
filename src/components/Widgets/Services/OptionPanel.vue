@@ -1,48 +1,64 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
-      <div class="option-panel-container">
+      <div class="option-panel-container"
+           @dragover="onDragOver"
+           @dragleave="onDragLeave"
+           @drop="onDrop($event, 0, true)">
         <div class="row">
           <div class="col">
             <q-list separator>
-              <q-item v-for="(service, serviceIndex) in localOptions.services"
-                      :key="'service-'+serviceIndex">
-                <q-item-section>
-                  <q-item-label>
-                    <q-input v-model="service.title"
-                             label="title" />
-                    <br>
-                    <q-input v-model="service.subTitle"
-                             label="subTitle" />
-                    <br>
-                  </q-item-label>
-                  <q-item-label caption
-                                lines="2">
-                    <q-input v-model="service.icon"
-                             label="icon" />
-                    <br>
-                    <div class="row q-col-gutter-md">
-                      <div class="col-md-3">
-                        <div class="outsideLabel">action</div>
-                        <q-select v-model="service.action"
-                                  :options="actionsOptions" />
+              <div v-for="(service, serviceIndex) in localOptions.services"
+                   :key="'service-'+serviceIndex"
+                   draggable="true"
+                   @dragstart="onDragStart($event, service, serviceIndex)"
+                   @dragover="onDragOver"
+                   @dragleave="onDragLeave"
+                   @drop="onDrop($event, serviceIndex)">
+                <q-item>
+                  <q-item-section>
+                    <q-item-label>
+                      <q-input v-model="service.title"
+                               label="title" />
+                      <br>
+                      <q-input v-model="service.subTitle"
+                               label="subTitle" />
+                      <br>
+                    </q-item-label>
+                    <q-item-label caption
+                                  lines="2">
+                      <q-input v-model="service.icon"
+                               label="icon" />
+                      <br>
+                      <div class="row q-col-gutter-md">
+                        <div class="col-md-3">
+                          <div class="outsideLabel">action</div>
+                          <q-select v-model="service.action"
+                                    :options="actionsOptions" />
+                        </div>
+                        <div class="col-md-9">
+                          <div class="outsideLabel">{{service.action}}</div>
+                          <q-input v-if="service.action === 'link'"
+                                   v-model="service.link"
+                                   label="link" />
+                          <q-input v-else-if="service.action === 'scrollToId'"
+                                   v-model="service.scrollToId"
+                                   label="element id" />
+                          <q-input v-else-if="service.action === 'scrollToClass'"
+                                   v-model="service.scrollToClass"
+                                   dir="ltr"
+                                   label="element className" />
+                        </div>
                       </div>
-                      <div class="col-md-9">
-                        <div class="outsideLabel">{{service.action}}</div>
-                        <q-input v-if="service.action === 'link'"
-                                 v-model="service.link"
-                                 label="link" />
-                        <q-input v-else-if="service.action === 'scroll'"
-                                 v-model="service.scrollTo"
-                                 label="scroll to" />
-                      </div>
-                    </div>
-                  </q-item-label>
-                </q-item-section>
-                <q-item-section avatar>
-                  <q-img :src="service.icon" />
-                </q-item-section>
-              </q-item>
+                    </q-item-label>
+                  </q-item-section>
+                  <q-item-section avatar
+                                  class="cursor-pointer">
+                    {{service.title}}
+                    <q-img :src="service.icon" />
+                  </q-item-section>
+                </q-item>
+              </div>
             </q-list>
           </div>
         </div>
@@ -62,12 +78,51 @@ export default defineComponent({
   mixins: [PageBuilderOptionPanel],
   data() {
     return {
-      actionsOptions: ['scroll', 'link'],
+      actionsOptions: ['scrollToId', 'scrollToClass', 'link'],
+      localDraggable: null,
       defaultOptions: {
         className: '',
         style: {},
         services: []
       }
+    }
+  },
+  methods: {
+    onDragStart(event, service, serviceIndex) {
+      event.dataTransfer.dropEffect = 'move'
+      event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
+      this.localDraggable = event
+      // console.log('onDragStart', event.dataTransfer.getData('value'))
+    },
+    onDragLeave() {
+    },
+    onDragOver(event) {
+      event.preventDefault()
+    },
+    onDrop(event, newIndex, parent) {
+      const valueStringfied = event.dataTransfer.getData('value')
+      const value = valueStringfied ? JSON.parse(valueStringfied) : null
+      const service = value.service
+      const serviceOldIndex = value.serviceIndex
+      const serviceNewIndex = newIndex
+      if (this.localDraggable) {
+        this.updatePosition(this.localOptions.services, serviceOldIndex, serviceNewIndex)
+      } else {
+        this.addToIndex(this.localOptions.services, service, serviceNewIndex)
+      }
+
+      this.localDraggable = null
+      event.stopPropagation()
+    },
+    addToIndex(list, newItem, index) {
+      if (list.length > index) {
+        list.splice(index, 0, newItem)
+      } else {
+        list.push(newItem)
+      }
+    },
+    updatePosition(list, oldIndex, newIndex) {
+      list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
     }
   }
 })

@@ -18,7 +18,7 @@
         script = d.createElement('script')
         script.type = 'text/javascript'
         script.async = true
-        script.src = 'https://www.googletagmanager.com/gtag/js?' + import.meta.env.VITE_GOOGLE_ANALYTICS
+        script.src = 'https://www.googletagmanager.com/gtag/js?' + import.meta.env.GOOGLE_TAG_MANAGER_TOKEN
         d.getElementsByTagName('head')[0].appendChild(script)
       }(document));
     </script>
@@ -27,7 +27,7 @@
       function gtag() { dataLayer.push(arguments) }
       gtag('js', new Date());
 
-      gtag('config', import.meta.env.VITE_GOOGLE_ANALYTICS)
+      gtag('config', import.meta.env.GOOGLE_TAG_MANAGER_TOKEN)
     </script>
     <!-- Google Tag Manager -->
     <script type="module">
@@ -39,7 +39,7 @@
         }); const f = d.getElementsByTagName(s)[0],
           j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
           'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f)
-      })(window, document, 'script', 'dataLayer', import.meta.env.VITE_GOOGLE_ANALYTICS)
+      })(window, document, 'script', 'dataLayer', import.meta.env.GOOGLE_TAG_MANAGER_TOKEN)
     </script>
     <!-- End Google Tag Manager -->
 

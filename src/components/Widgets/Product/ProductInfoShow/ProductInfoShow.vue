@@ -280,7 +280,7 @@ export default {
     },
     updateEECEventDetail() {
       const analyticsInstance = new AEE()
-      analyticsInstance.productDetailViews('product.show', [this.product.eec.getData()])
+      analyticsInstance.productDetailViews('product.show', this.product.eec.getData())
     }
   }
 }
