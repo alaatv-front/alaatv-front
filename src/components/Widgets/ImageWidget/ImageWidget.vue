@@ -87,16 +87,23 @@ export default {
         }
       })
     },
+    getAEEKey() {
+      let AEEKey
+      Object.values(this.localOptions.AEEEventBody).forEach(item => {
+        AEEKey += item
+      })
+      return AEEKey
+    },
     ImageIsViewed () {
       AEE.promotionView([this.localOptions.AEEEventBody], {
         TTl: 1000,
-        key: this.localOptions.AEEEventBody.id
+        key: this.getAEEKey()
       })
     },
     pushClickedEvent () {
       AEE.promotionClick([this.localOptions.AEEEventBody], {
         TTl: 1000,
-        key: this.localOptions.AEEEventBody.id
+        key: this.getAEEKey()
       })
     },
     setAEEEvent () {

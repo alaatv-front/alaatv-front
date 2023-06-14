@@ -28,7 +28,7 @@ class AEEClass {
   }
 
   productDetailViews(actionFieldList, product, cache = {
-    TTl: 100,
+    TTl: 1000,
     key: '0'
   }) {
     const a = this.canEventBeCached({
@@ -49,7 +49,7 @@ class AEEClass {
   }
 
   productAddToCart(actionFieldList, products, cache = {
-    TTl: 100,
+    TTl: 1000,
     key: '0'
   }) {
     if (cache &&
@@ -68,7 +68,7 @@ class AEEClass {
   }
 
   productRemoveFromCart(actionFieldList, product, cache = {
-    TTl: 100,
+    TTl: 1000,
     key: '0'
   }) {
     if (cache &&
@@ -87,7 +87,7 @@ class AEEClass {
   }
 
   checkout(step, option, products, cache = {
-    TTl: 100,
+    TTl: 1000,
     key: '0'
   }) {
     if (cache &&
@@ -106,7 +106,7 @@ class AEEClass {
   }
 
   checkoutOption(step, option, cache = {
-    TTl: 100,
+    TTl: 1000,
     key: '0'
   }) {
     if (cache &&
@@ -125,7 +125,7 @@ class AEEClass {
   }
 
   purchase(actionField, products, cache = {
-    TTl: 100,
+    TTl: 1000,
     key: '0'
   }) {
     if (cache &&
@@ -144,7 +144,7 @@ class AEEClass {
   }
 
   impressionView(impressions, cache = {
-    TTl: 0,
+    TTl: 1000,
     key: '100'
   }) {
     if (cache &&
@@ -163,7 +163,7 @@ class AEEClass {
   }
 
   impressionClick(impressions, cache = {
-    TTl: 0,
+    TTl: 1000,
     key: '100'
   }) {
     if (cache &&
@@ -182,7 +182,7 @@ class AEEClass {
   }
 
   promotionView(promotions, cache = {
-    TTl: 100,
+    TTl: 1000,
     key: '0'
   }) {
     if (cache &&
@@ -201,7 +201,7 @@ class AEEClass {
   }
 
   promotionClick(promotions, cache = {
-    TTl: 100,
+    TTl: 1000,
     key: '0'
   }) {
     if (cache &&
