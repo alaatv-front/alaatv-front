@@ -44,9 +44,9 @@ export function addToCart(context, newProductData) {
     const reviewCart = () => {
       this.dispatch('Cart/reviewCart')
     }
-    const pushAEEEvent = () => {
+    const pushAEEEvent = (product) => {
       const analyticsInstance = new AEE()
-      analyticsInstance.productAddToCart('product.addToCart', [newProductData.eec.getData()])
+      analyticsInstance.productAddToCart('product.addToCart', [product.eec.getData()])
     }
 
     setCartLoading(true)
@@ -56,7 +56,7 @@ export function addToCart(context, newProductData) {
           updateCart(payload)
           showNotify()
           setCartLoading(false)
-          pushAEEEvent()
+          pushAEEEvent(newProductData)
           reviewCart()
           resolve(response)
         })
@@ -68,7 +68,7 @@ export function addToCart(context, newProductData) {
       updateCart(payload)
       showNotify()
       setCartLoading(false)
-      pushAEEEvent()
+      pushAEEEvent(newProductData)
       reviewCart()
       resolve(true)
     }
@@ -117,7 +117,7 @@ export function reviewCart(context) {
     setCartLoading(true)
     const pushAEEEvent = (cart) => {
       const analyticsInstance = new AEE()
-      analyticsInstance.checkout(1, 'reviewAndPayment', cart.items.list[0]?.order_product?.list.map(item => item.product))
+      analyticsInstance.checkout(1, 'reviewAndPayment', cart.items.list[0]?.order_product?.list.map(item => item.product.eec.getData()))
     }
     APIGateway.cart.reviewCart(cartItems)
       .then((cart) => {
@@ -133,9 +133,9 @@ export function reviewCart(context) {
   })
 }
 
-export function paymentCheckout(context) {
+export function paymentCheckout(context, paymentMethod) {
   return new Promise((resolve, reject) => {
-    APIGateway.cart.getPaymentRedirectEncryptedLink()
+    APIGateway.cart.getPaymentRedirectEncryptedLink({ device: 'web', paymentMethod })
       .then(encryptedPaymentRedirectLink => {
         return resolve(encryptedPaymentRedirectLink)
       })
@@ -172,9 +172,10 @@ export function removeItemFromCart(context, product) {
       icon: 'report_problem'
     })
   }
-  const pushAEEEvent = function () {
+  const pushAEEEvent = function (product) {
     const analyticsInstance = new AEE()
-    analyticsInstance.productRemoveFromCart('order.checkoutReview', new Product(product))
+    const productToPush = new Product(product)
+    analyticsInstance.productRemoveFromCart('order.checkoutReview', productToPush.eec.getData())
   }
 
   return new Promise((resolve, reject) => {
@@ -184,7 +185,7 @@ export function removeItemFromCart(context, product) {
         .then((response) => {
           removeByProductId(product.id)
           // removeByOrderProductId(orderProductId)
-          pushAEEEvent()
+          pushAEEEvent(product)
           showNotify()
           resolve(response)
         })
@@ -194,7 +195,7 @@ export function removeItemFromCart(context, product) {
     } else {
       // const productId = orderProductId
       removeByProductId(product.id)
-      pushAEEEvent()
+      pushAEEEvent(product)
       showNotify()
       resolve()
     }

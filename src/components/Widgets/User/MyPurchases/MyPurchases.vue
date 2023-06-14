@@ -6,27 +6,22 @@
     <!--    ----------------------------------------------------------------------- filter boxes ------------------------------------------------------------------------------- -->
     <div class="col-12 q-pa-md bg-white header">
       <div class="filter-box-container">
-        <div class="q-mb-lg filter-box">
-          <q-icon name="mdi-tune-vertical-variant q-mr-md"
-                  class="">
-            <q-tooltip>
-              مرتب سازی بر اساس
-            </q-tooltip>
-          </q-icon>
-          <div class="sortingFilter-item date q-mr-md">
-            <filter-box v-model:boxSortSelected="selectedFilterBoxValue"
-                        :items="filterBoxSort"
-                        type="filterBoxSort"
-                        :custom-class="'sort'"
-                        @update:filterBoxSort="onChangeFilterSortBox" />
+        <div class="outsideLabel">مرتب سازی بر اساس: </div>
+        <div class="q-mb-sm filter-box row q-col-gutter-md">
+          <div class="sortingFilter-item col-12 col-sm-6 date">
+            <q-select v-model="selectedFilterBoxValue"
+                      :options="filterBoxSort"
+                      option-value="value"
+                      map-options
+                      @update:model-value="onChangeFilterSortBox" />
           </div>
-          <div class="sortingFilter-item subject q-mr-md">
-            <filter-box ref="filterBoxCategory"
-                        v-model:categorySelected="currentCategory"
-                        type="filterBoxCategory"
-                        :items="filterBoxCategory"
-                        :custom-class="'filter'"
-                        @update:filterBoxCategory="onChangeFilterBoxCategory" />
+          <div class="sortingFilter-item col-12 col-sm-6 subject">
+            <q-select v-model="currentCategory"
+                      :options="filterBoxCategory"
+                      option-value="value"
+                      option-label="name"
+                      map-options
+                      @update:model-value="onChangeFilterBoxCategory" />
           </div>
         </div>
       </div>
@@ -104,7 +99,6 @@
 <script>
 import { Set } from 'src/models/Set.js'
 import { Product, ProductList } from 'src/models/Product.js'
-import FilterBox from 'src/components/userPurchases/filterBox.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 import ProductContents from 'components/Widgets/Product/ProductContents/ProductContents.vue'
@@ -115,8 +109,7 @@ export default {
   components: {
     Pagination,
     ProductContents,
-    ProductItem,
-    FilterBox
+    ProductItem
   },
   mixins: [mixinWidget],
   data () {
@@ -136,12 +129,12 @@ export default {
       filteredProduct: new ProductList(),
       filterBoxSort: [
         {
-          name: 'جدید ترین ها',
+          label: 'جدید ترین ها',
           value: 'desc',
           selected: true
         },
         {
-          name: 'قدیمی ترین ها',
+          label: 'قدیمی ترین ها',
           value: 'asc',
           selected: false
         }],
@@ -208,11 +201,11 @@ export default {
       this.filteredProduct = this.products
     },
     onChangeFilterSortBox (val) {
-      this.selectedFilterBoxValue = val
+      this.selectedFilterBoxValue = val?.value || val
       this.sortProducts()
     },
     onChangeFilterBoxCategory (val) {
-      this.currentCategory = val
+      this.currentCategory = val?.value || val
       this.sortProducts()
     },
 
@@ -284,13 +277,6 @@ export default {
 }
 .filter-box-container{
   overflow-x: auto;
-  .filter-box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 820px;
-  }
-
 }
 .noContentMessage{
   font-size: 18px;

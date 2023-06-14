@@ -26,17 +26,19 @@
       <div v-else
            class="my-orders-list">
         <div class="title">
-          سفارش های من</div>
+          سفارش های من
+        </div>
         <entity-index ref="orderList"
                       v-model:value="inputs"
                       class="orders-list-entity-index"
-                      title="سفارش های من"
                       :api="getEntityApi"
                       :table="table"
                       :table-keys="tableKeys"
                       :default-layout="false"
                       :table-grid-size="$q.screen.lt.md"
-                      :create-route-name="'Admin.Exam.Create'"
+                      :show-expand-button="false"
+                      :show-reload-button="false"
+                      :show-search-button="false"
                       @onPageChanged="onPageChange">
           <template v-slot:before-index-table="">
             <div class="row items-center search-box">
@@ -153,8 +155,7 @@
           <!--          </template>-->
         </entity-index>
       </div>
-      <order-details-dialog v-if="windowSize.x >= 600"
-                            v-model:dialogValue="detailsDialog"
+      <order-details-dialog v-model:dialogValue="detailsDialog"
                             :order="currentOrder" />
     </template>
   </div>
@@ -194,10 +195,39 @@ export default {
         { type: 'hidden', name: 'search', responseKey: 'search', col: 'col-12 col-lg-12 col-sm-6' }
       ],
       filterInputs: [
-        { type: 'select', name: 'paymentStatuses', dropdownIcon: 'isax:arrow-down-1', optionValue: 'id', optionLabel: 'name', responseKey: 'paymentStatuses', multiple: true, label: 'وضعیت پرداخت', placeholder: ' ', col: 'filter-option col-sm-6 col-lg-4 col-xs-12' },
-        { type: 'date', name: 'since', responseKey: 'since', label: 'تاریخ سفارش از', placeholder: ' از', calendarIcon: ' ', col: 'col-lg-3 col-sm-6 col-xs-12' },
-        { type: 'date', name: 'till', label: 'تاریخ سفارش تا', placeholder: 'تا', calendarIcon: ' ', responseKey: 'till', col: 'col-lg-3 col-sm-6 col-xs-12' },
-        { type: ActionBtn, name: 'ActionBtn', col: 'col-lg-2 col-sm-6 col-xs-12 q-mt-lg' }
+        {
+          type: 'select',
+          name: 'paymentStatuses',
+          dropdownIcon: 'isax:arrow-down-1',
+          optionValue: 'id',
+          optionLabel: 'name',
+          multiple: true,
+          label: 'وضعیت پرداخت',
+          placeholder: ' ',
+          col: 'filter-option col-sm-6 col-lg-4 col-xs-12'
+        },
+        {
+          type: 'date',
+          name: 'since',
+          responseKey: 'since',
+          label: 'تاریخ سفارش از',
+          placeholder: ' از',
+          calendarIcon: ' ',
+          col: 'col-lg-3 col-sm-6 col-xs-12'
+        },
+        {
+          type: 'date',
+          name: 'till',
+          label: 'تاریخ سفارش تا',
+          placeholder: 'تا',
+          calendarIcon: ' ',
+          col: 'col-lg-3 col-sm-6 col-xs-12'
+        },
+        {
+          type: ActionBtn,
+          name: 'ActionBtn',
+          col: 'col-lg-2 col-sm-6 col-xs-12 q-mt-lg'
+        }
       ],
       searchInput: '',
       table: {
@@ -403,6 +433,130 @@ export default {
 <style scoped lang="scss">
 .my-orders-list{
   margin-bottom: 200px;
+  :deep(.entity-index) {
+    .q-expansion-item {
+      .q-expansion-item__container {
+        .expand-filter{
+          &:deep(.q-item-type){
+            display: none;
+          }
+          .filter-option {
+            .q-field {
+              .q-field__inner {
+                .q-field__control {
+                  background-color: white;
+                }
+              }
+            }
+          }
+          .form-builder-date-time-col {
+            .form-calender {
+              .q-field__inner {
+                .q-field__control {
+                  .q-field__control-container {
+                    .q-field__native {
+                      &.q-placeholder {
+                        background: white;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .filter-items{
+            font-weight: 400!important;
+            font-size: 16px;
+            line-height: 25px;
+            letter-spacing: -0.03em;
+            color: #434765;
+            margin-bottom: 30px;
+            position: relative;
+            @media screen and (max-width: 1439px){
+              margin-bottom: 24px;
+            }
+
+            @media screen and (max-width: 599px){
+              margin-bottom: 20px;
+            }
+
+            &:deep(.filter-option){
+              .outsideLabel{
+                //padding-bottom: 8px;
+              }
+              @media screen and (max-width: 1439px) {
+                order: 3;
+              }
+              @media screen and (max-width: 599px) {
+                padding-left: 16px;
+                padding-right: 0;
+              }
+            }
+            &:deep(.till){
+              padding-top: 40px;
+              @media screen and (max-width: 599px) {
+                padding: 1px;
+              }
+            }
+            &:deep(.since){
+              .outsideLabel{
+                padding-bottom: 8px;
+              }
+              &:deep(.q-icon){
+                &::before{
+                  content: '';
+                }
+              }
+              @media screen and (max-width: 599px) {
+                padding: 1px 1px 8px;
+              }
+              @media screen and (max-width: 1439px) {
+
+              }
+            }
+            &:deep(.formBuilder-actionBtn-ActionBtn){
+              @media screen and (max-width: 1439px){
+                text-align: right;
+                order:3
+              }
+            }
+            .action-btn{
+              @media screen and (max-width: 1439px) {
+                position: absolute;
+                bottom: 0;
+                margin-top:10px;
+              }
+              @media screen and (max-width: 599px){
+                position: relative;
+              }
+            }
+            .select-input{
+
+            }
+            .filter-inputs{
+              @media screen and (max-width: 1439px) {
+                order: 1;
+              }
+            }
+            .filter-btn{
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 22px;
+              letter-spacing: -0.03em;
+              color: #FFFFFF;
+            }
+            .reload-icon{
+              color: #6D708B;
+              margin-right: 16px;
+            }
+          }
+        }
+        .q-item {
+          display: none;
+        }
+      }
+    }
+  }
 }
 .filter-toggle{
   color:#6D708B;
@@ -414,100 +568,6 @@ export default {
   margin-bottom: 20px;
   @media  screen and (max-width: 599px){
     margin-bottom: 20px;
-  }
-}
-.expand-filter{
-  &:deep(.q-item-type){
-    display: none;
-  }
-  .filter-option{
-
-  }
-  .filter-items{
-    font-weight: 400!important;
-    font-size: 16px;
-    line-height: 25px;
-    letter-spacing: -0.03em;
-    color: #434765;
-    margin-bottom: 30px;
-    position: relative;
-    @media screen and (max-width: 1439px){
-      margin-bottom: 24px;
-    }
-
-    @media screen and (max-width: 599px){
-      margin-bottom: 20px;
-    }
-
-    &:deep(.filter-option){
-      .outsideLabel{
-        padding-bottom: 8px;
-      }
-      @media screen and (max-width: 1439px) {
-        order: 3;
-      }
-      @media screen and (max-width: 599px) {
-        padding-left: 16px;
-        padding-right: 0;
-      }
-    }
-    &:deep(.till){
-      padding-top: 40px;
-      @media screen and (max-width: 599px) {
-        padding: 1px;
-      }
-    }
-    &:deep(.since){
-      .outsideLabel{
-        padding-bottom: 8px;
-      }
-      &:deep(.q-icon){
-        &::before{
-          content: '';
-        }
-      }
-      @media screen and (max-width: 599px) {
-        padding: 1px 1px 8px;
-      }
-      @media screen and (max-width: 1439px) {
-
-      }
-    }
-    &:deep(.formBuilder-actionBtn-ActionBtn){
-      @media screen and (max-width: 1439px){
-        text-align: right;
-        order:3
-      }
-    }
-    .action-btn{
-      @media screen and (max-width: 1439px) {
-        position: absolute;
-        bottom: 0;
-        margin-top:10px;
-      }
-      @media screen and (max-width: 599px){
-        position: relative;
-      }
-    }
-    .select-input{
-
-    }
-    .filter-inputs{
-      @media screen and (max-width: 1439px) {
-        order: 1;
-      }
-    }
-    .filter-btn{
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 22px;
-      letter-spacing: -0.03em;
-      color: #FFFFFF;
-    }
-    .reload-icon{
-      color: #6D708B;
-      margin-right: 16px;
-    }
   }
 }
 .search-input{

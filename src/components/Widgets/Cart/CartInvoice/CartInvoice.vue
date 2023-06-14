@@ -122,20 +122,30 @@
                   <div v-if="localOptions.hasPaymentMethod && !dense">
                     <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
                     <div class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
-                      <div class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
-                        <div class="bank-gateway"
-                             @click="clickOnGateway">
-                          <div class="bank-icon-container">
-                            <q-img src="https://nodes.alaatv.com/aaa/landing/Banklogos/saman.png"
-                                   class="bank-icon" />
+                      <div class="row q-col-gutter-sm">
+                        <template v-if="gateways.loading">
+                          کمی صبر کنید...
+                        </template>
+                        <template v-else>
+                          <div v-for="gateway in gateways.list"
+                               :key="gateway.id"
+                               class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
+                            <div class="bank-gateway">
+                              <div class="bank-icon-container">
+                                <q-img :src="gateway.photo"
+                                       class="bank-icon" />
+                              </div>
+                              <q-radio v-model="selectedBank"
+                                       dir="ltr"
+                                       size="20px"
+                                       color="primary"
+                                       :label="gateway.displayName"
+                                       :val="gateway.name"
+                                       checked-icon="radio_button_checked"
+                                       unchecked-icon="radio_button_unchecked" />
+                            </div>
                           </div>
-                          <q-checkbox v-model="selectedBank"
-                                      dir="ltr"
-                                      label="بانک سامان"
-                                      checked-icon="radio_button_checked"
-                                      unchecked-icon="radio_button_unchecked"
-                                      :class="{'checked-check-box': selectedBank}" />
-                        </div>
+                        </template>
                       </div>
                     </div>
                   </div>
@@ -206,8 +216,9 @@ import { Cart } from 'src/models/Cart.js'
 import AuthLogin from 'components/Auth.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { GatewayList } from 'src/models/Gateway.js'
+import AEE from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
-import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -240,6 +251,7 @@ export default {
   },
   data () {
     return {
+      gateways: new GatewayList(),
       couponLoading: false,
       referralCodeLoading: false,
       CartInvoiceContainerKey: Date.now(), // for dispose sticky
@@ -277,7 +289,8 @@ export default {
         paymentBtn: 'پرداخت و ثبت نهایی',
         hasPaymentBtn: true,
         dense: false
-      }
+      },
+      analyticsInstance: null
     }
   },
   computed: {
@@ -318,14 +331,39 @@ export default {
       } else {
         this.CartInvoiceContainerKey = Date.now()
       }
+    },
+    selectedBank (newValue) {
+      if (typeof newValue === 'string') {
+        this.updateEECEvent(newValue)
+      }
     }
   },
   mounted () {
     this.loadAuthData()
     this.cartReview()
+    this.getGateways()
+    this.setupEECEvent()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
+    setupEECEvent () {
+      this.analyticsInstance = new AEE()
+    },
+    updateEECEvent (value) {
+      this.analyticsInstance.checkout(2, value)
+    },
+    getGateways () {
+      this.gateways.loading = true
+      APIGateway.cart.getGateways()
+        .then(gateways => {
+          this.gateways = new GatewayList(gateways)
+          this.gateways.loading = false
+          this.selectedBank = this.gateways.list[0].name
+        })
+        .catch(() => {
+          this.gateways.loading = false
+        })
+    },
     loadAuthData () { // prevent Hydration node mismatch
       // this.localUser = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
@@ -420,11 +458,6 @@ export default {
         })
     },
 
-    pushAEEEvent () {
-      const analyticsInstance = new AEE()
-      analyticsInstance.checkoutOption(2, 'Saman Bank')
-    },
-
     payment() {
       if (!this.selectedBank) {
         this.$q.notify({
@@ -433,10 +466,9 @@ export default {
         })
         return
       }
-      this.pushAEEEvent()
       this.$store.commit('loading/loading', true)
 
-      this.$store.dispatch('Cart/paymentCheckout')
+      this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
           window.open(encryptedPaymentRedirectLink, '_self')
           this.$store.commit('loading/loading', false)
@@ -459,7 +491,7 @@ export default {
     },
 
     clickOnGateway() {
-      this.selectedBank = !this.selectedBank
+      // this.selectedBank = !this.selectedBank
     }
   }
 }
@@ -794,26 +826,32 @@ export default {
 
                     .checked-check-box {
                       &:deep(.q-icon) {
-                        color: #FFB74D;
-
+                        color: $primary;
                       }
                     }
 
-                    &:deep(.q-checkbox__inner  ) {
+                    .q-radio {
+                      width: calc( 100% - 64px );
+                      justify-content: space-between;
+                    }
+
+                    &:deep(.q-radio__inner  ) {
                       width: 20px;
                     }
 
-                    &:deep(.q-checkbox__icon-container ) {
+                    &:deep(.q-radio__icon-container ) {
                       width: 20px;
                     }
 
-                    &:deep(.q-checkbox__label) {
+                    &:deep(.q-radio__label) {
                       font-style: normal;
                       font-weight: 400;
                       font-size: 11px;
                       line-height: 19px;
                       letter-spacing: -0.05em;
                       color: #23263B;
+                      text-align: left;
+                      padding-right: 10px;
                     }
 
                     @media screen and (max-width: 1439px) {
