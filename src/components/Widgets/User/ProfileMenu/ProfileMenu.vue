@@ -121,6 +121,15 @@
           </q-item>
           <q-item v-ripple
                   clickable
+                  :to="{name: 'UserPanel.Asset.AbrishamPro.Progress'}">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم پرو</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
                   href="https://alaatv.com/asset/abrishamPro#/user-abrisham-progress">
             <q-item-section class="menu-item-custom">
               <q-icon name="isax:document-1 dashboard"
