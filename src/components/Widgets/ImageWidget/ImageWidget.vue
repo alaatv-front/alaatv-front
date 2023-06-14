@@ -12,7 +12,7 @@
 
 <script>
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ImageWidget',
@@ -21,7 +21,6 @@ export default {
     return {
       imageRef: 'img' + Date.now(),
       windowWidth: 0,
-      analyticsInstance: null,
       defaultOptions: {
         imageSource: null,
         ratio: null,
@@ -88,17 +87,29 @@ export default {
         }
       })
     },
+    getAEEKey() {
+      let AEEKey
+      Object.values(this.localOptions.AEEEventBody).forEach(item => {
+        AEEKey += item
+      })
+      return AEEKey
+    },
     ImageIsViewed () {
-      this.analyticsInstance.promotionView([this.localOptions.AEEEventBody])
+      AEE.promotionView([this.localOptions.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
     },
     pushClickedEvent () {
-      this.analyticsInstance.promotionClick([this.localOptions.AEEEventBody])
+      AEE.promotionClick([this.localOptions.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
     },
     setAEEEvent () {
       if (!this.localOptions.useAEEEvent) {
         return
       }
-      this.analyticsInstance = new AEE()
       this.setProductIntersectionObserver()
     },
     onResize() {
