@@ -37,6 +37,11 @@ export function logOut (context, clearRedirectTo = true) {
   context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
   Cookies.set('BearerAccessToken', '', { path: '/' })
+  this.$accessToken = null
+  this.$axios.defaults.headers.common.Authorization = null
+  this.$apiV1.defaults.headers.common.Authorization = null
+  this.$apiV2.defaults.headers.common.Authorization = null
+  this.$apiWeb.defaults.headers.common.Authorization = null
   if (clearRedirectTo) {
     context.commit('updateRedirectTo', null)
   }
