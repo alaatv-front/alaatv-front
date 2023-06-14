@@ -41,7 +41,205 @@ export default {
       entityIdKey: 'id',
       entityParamKey: 'id',
       showRouteName: 'UserPanel.Profile',
-      localInputs: [],
+      localInputs: [
+        {
+          type: 'formBuilder',
+          name: 'accountInfo',
+          col: 'col-12 custom-card q-mt-md',
+          value: [{
+            type: 'separator',
+            size: '0',
+            label: 'مشخصات حساب',
+            col: 'col-12 title',
+            ignoreValue: true
+          }, {
+            type: 'input',
+            name: 'id',
+            responseKey: 'data.id',
+            label: 'شناسه',
+            outlined: true,
+            placeholder: 'وارد نمایید',
+            col: 'col-xs-6',
+            value: 1,
+            readonly: true
+          }, {
+            type: 'input',
+            name: 'mobile',
+            responseKey: 'data.mobile',
+            label: 'شماره موبایل',
+            outlined: true,
+            placeholder: 'وارد نمایید',
+            col: 'col-xs-6 q-pr-md q-mb-md',
+            value: '09999999999',
+            readonly: true
+          }],
+          ignoreValue: true
+        },
+        {
+          type: 'formBuilder',
+          name: 'formBuilderCol',
+          col: 'col-xs-12 custom-card q-mt-md',
+          value: [
+            {
+              type: 'separator',
+              size: '0',
+              label: 'مشخصات فردی',
+              col: 'col-xs-12 title',
+              ignoreValue: true
+            },
+            {
+              type: 'input',
+              name: 'first_name',
+              responseKey: 'data.first_name',
+              label: 'نام',
+              outlined: true,
+              placeholder: 'وارد نمایید',
+              col: 'col-xs-6 q-mb-md',
+              value: 'راستاک',
+              readonly: true
+            }, {
+              type: 'input',
+              name: 'last_name',
+              responseKey: 'data.last_name',
+              label: 'نام خانوادگی',
+              outlined: true,
+              placeholder: 'وارد نمایید',
+              col: 'col-xs-6 q-pr-md',
+              value: 'مددی',
+              readonly: true
+            }, {
+              type: 'date',
+              name: 'birthdate',
+              responseKey: 'data.birthdate',
+              label: 'تاریخ تولد',
+              outlined: true,
+              calendarIcon: ' ',
+              placeholder: 'وارد نمایید',
+              col: 'col-xs-6 q-mb-md',
+              value: null
+            }, {
+              type: 'select',
+              name: 'gender',
+              label: 'جنسیت',
+              responseKey: 'data.gender',
+              placeholder: 'انتخاب نمایید',
+              optionLabel: 'name',
+              outlined: true,
+              multiple: false,
+              col: 'col-xs-6 q-pr-md',
+              value: null
+            }, {
+              type: 'select',
+              name: 'city',
+              label: 'شهر',
+              responseKey: 'data.city',
+              placeholder: 'انتخاب نمایید',
+              optionLabel: 'title',
+              outlined: true,
+              multiple: false,
+              col: 'col-xs-6 q-mb-md',
+              value: null
+            }, {
+              type: 'select',
+              name: 'province',
+              label: 'استان',
+              responseKey: 'data.province',
+              placeholder: 'انتخاب نمایید',
+              optionLabel: 'title',
+              outlined: true,
+              multiple: false,
+              col: 'col-xs-6 q-pr-md',
+              value: null
+            }, {
+              type: 'input',
+              name: 'national_code',
+              responseKey: 'data.national_code',
+              label: 'کد ملی',
+              outlined: true,
+              placeholder: 'وارد نمایید',
+              col: 'col-xs-6 q-mb-md',
+              value: '0000000000',
+              readonly: true
+            }],
+          ignoreValue: true
+        },
+        {
+          type: 'formBuilder',
+          name: 'formBuilderCol',
+          col: 'col-xs-12 custom-card q-mt-md',
+          value: [{
+            type: 'separator',
+            size: '0',
+            label: 'مشخصات تحصیلی',
+            col: 'col-xs-12 title',
+            ignoreValue: true
+          }, {
+            type: 'select',
+            name: 'grade',
+            label: 'مقطع تحصیلی',
+            placeholder: 'انتخاب نمایید',
+            responseKey: 'data.grade',
+            optionLabel: 'name',
+            outlined: true,
+            multiple: false,
+            col: 'col-xs-6',
+            value: null
+          }, {
+            type: 'select',
+            name: 'major',
+            label: 'رشته تحصیلی',
+            placeholder: 'انتخاب نمایید',
+            responseKey: 'data.major',
+            optionLabel: 'name',
+            outlined: true,
+            multiple: false,
+            col: 'col-xs-6 q-pr-md q-mb-md',
+            value: null
+          }],
+          ignoreValue: true
+        },
+        {
+          type: 'formBuilder',
+          name: 'formBuilderCol',
+          col: 'col-xs-12 custom-card q-mt-md',
+          value: [{
+            type: 'separator',
+            size: '0',
+            label: 'اطلاعات تماس',
+            col: 'col-xs-12 title',
+            ignoreValue: true
+          }, {
+            type: 'input',
+            name: 'postal_code',
+            responseKey: 'data.postal_code',
+            label: 'کدپستی',
+            outlined: true,
+            placeholder: 'وارد نمایید',
+            col: 'col-xs-6 q-mb-md',
+            value: null
+          }, {
+            type: 'input',
+            name: 'email',
+            responseKey: 'data.email',
+            label: 'ایمیل',
+            outlined: true,
+            placeholder: 'وارد نمایید',
+            col: 'col-xs-6 q-pr-md',
+            value: 'kparia@gmail.com',
+            readonly: true
+          }, {
+            type: 'input',
+            name: 'address',
+            responseKey: 'data.address',
+            label: 'آدرس محل سکونت',
+            outlined: true,
+            placeholder: 'وارد نمایید',
+            col: 'col-xs-12 q-mb-md q-pr-md',
+            value: null
+          }],
+          ignoreValue: true
+        }
+      ],
       cities: [],
       defaultLayout: false
     }
@@ -63,7 +261,6 @@ export default {
         color: 'warning'
       })
     }
-    this.localInputs = this.options.inputs
   },
   methods: {
     beforeGetData() {
@@ -77,7 +274,8 @@ export default {
           this.cities = formData.cities
           // this.selectedProvinceId = this.localInputs[1].value[6].value?.id
         })
-        .catch(() => {})
+        .catch(() => {
+        })
     },
     afterGetData() {
       this.options.inputs.forEach(input => {
