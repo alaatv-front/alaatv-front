@@ -1,7 +1,7 @@
 import { Notify } from 'quasar'
 import { APIGateway } from 'src/api/APIGateway.js'
 import CookieCart from 'src/assets/js/CookieCart.js'
-import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { Product } from 'src/models/Product'
 
 export function addToCart(context, newProductData) {
@@ -45,8 +45,7 @@ export function addToCart(context, newProductData) {
       this.dispatch('Cart/reviewCart')
     }
     const pushAEEEvent = (product) => {
-      const analyticsInstance = new AEE()
-      analyticsInstance.productAddToCart('product.addToCart', [product.eec.getData()])
+      AEE.productAddToCart('product.addToCart', [product.eec.getData()])
     }
 
     setCartLoading(true)
@@ -116,8 +115,14 @@ export function reviewCart(context) {
   return new Promise((resolve, reject) => {
     setCartLoading(true)
     const pushAEEEvent = (cart) => {
-      const analyticsInstance = new AEE()
-      analyticsInstance.checkout(1, 'reviewAndPayment', cart.items.list[0]?.order_product?.list.map(item => item.product.eec.getData()))
+      AEE.checkout(1,
+        'reviewAndPayment',
+        cart.items.list[0]?.order_product?.list.map(item => item.product.eec.getData()),
+        {
+          TTl: 1000,
+          key: 'reviewCart'
+        }
+      )
     }
     APIGateway.cart.reviewCart(cartItems)
       .then((cart) => {
@@ -173,9 +178,8 @@ export function removeItemFromCart(context, product) {
     })
   }
   const pushAEEEvent = function (product) {
-    const analyticsInstance = new AEE()
     const productToPush = new Product(product)
-    analyticsInstance.productRemoveFromCart('order.checkoutReview', productToPush.eec.getData())
+    AEE.productRemoveFromCart('order.checkoutReview', productToPush.eec.getData())
   }
 
   return new Promise((resolve, reject) => {
