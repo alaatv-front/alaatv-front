@@ -47,7 +47,7 @@
         <floating-action-button v-if="canShowFloatingActionBtn" />
       </template>
       <template #footer>
-        <alaa-footer />
+        <alaa-footer :type="getFooterType" />
       </template>
     </quasar-template-builder>
   </div>
@@ -112,6 +112,9 @@ export default {
     },
     getLeftDrawerType() {
       return this.$store.getters['AppLayout/layoutLeftSideBarType']
+    },
+    getFooterType() {
+      return this.$store.getters['AppLayout/layoutFooterType']
     },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']

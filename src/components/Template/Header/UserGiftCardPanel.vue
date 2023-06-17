@@ -149,12 +149,12 @@ export default {
     line-height: 37px;
     letter-spacing: -0.03em;
     color: #697D9A;
-    margin-top: 40px;
-    margin-left: 96px;
+    margin-top: 24px;
+    margin-left: 30px;
   }
   .dropdown-menu {
-    margin-top: 40px;
-    margin-right: 96px;
+    margin-top: 24px;
+    margin-right: 30px;
     .btn-user-profile {
       margin-left: 18px;
       width: 48px;

@@ -1,5 +1,6 @@
 <template>
-  <div class="main-footer">
+  <div v-if="type === 'main'"
+       class="main-footer">
     <div class="homePage-footer-container">
       <div class="footer-box-1">
         <div class="content-layout box-1-details ">
@@ -226,6 +227,30 @@
       </q-list>
     </div>
   </div>
+  <div v-else-if="type === 'gift-card'"
+       class="gift-card-footer">
+    <div class="mobile-footer">
+      <q-list>
+        <q-item v-for="(item , index) in giftCardFooterItems"
+                :key="index"
+                v-ripple
+                clickable
+                class="q-mt-sm"
+                :active="isRouteSelected(item.to)"
+                active-class="active-item"
+                exact-active-class="active-route"
+                :to="{ name: item.to }">
+          <q-item-section avatar>
+            <q-icon :name="item.icon"
+                    :class="{ active: $route.name === item.to }"
+                    color="white"
+                    size="20px" />
+            <div class="line" />
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -235,6 +260,10 @@ import LazyImg from 'components/lazyImg.vue'
 export default {
   name: 'AlaaFooter',
   components: { LazyImg },
+  props: {
+    type: [String, Boolean, null],
+    default: () => 'main'
+  },
   data() {
     return {
       mobileFooterItems: [
@@ -260,6 +289,32 @@ export default {
           title: 'home',
           icon: 'isax:home',
           to: 'Public.Home',
+          active: false
+        }
+      ],
+      giftCardFooterItems: [
+        {
+          title: 'home',
+          icon: 'isax:home',
+          to: 'Public.Home',
+          active: false
+        },
+        {
+          title: 'card',
+          icon: 'isax:cards',
+          to: 'UserPanel.Asset.GiftCard.MyGiftCards',
+          active: false
+        },
+        {
+          title: 'transaction',
+          icon: 'isax:empty-wallet',
+          to: 'UserPanel.Asset.GiftCard.Transactions',
+          active: false
+        },
+        {
+          title: 'profile',
+          icon: 'isax:user',
+          to: 'UserPanel.Asset.GiftCard.UserInfo',
           active: false
         }
       ],
@@ -698,6 +753,97 @@ export default {
           .q-item__section {
             background-color: lighten($primary,34%);
             padding: 12px
+          }
+        }
+        .q-item__section {
+          padding: 0;
+          width: $itemSize;
+          min-width: $itemSize;
+          max-width: $itemSize;
+          min-height: $itemSize;
+          max-height: $itemSize;
+          height: $itemSize;
+          border-radius: 8px;
+          align-items: center;
+          justify-content: center;
+          .active {
+            //background-color: rgba(128, 117, 220, 0.34);
+            //background-color: lighten($primary,34%);
+            //border-radius: 8px;
+          }
+        }
+      }
+    }
+
+    .active-route {
+      background-color: rgba(128, 117, 220, 0.34);
+      border-radius: 8px;
+
+      .indicator {
+        height: 6px;
+        width: 6px;
+        background-color: white;
+        border-radius: 50%;
+        margin: auto;
+      }
+    }
+  }
+}
+.gift-card-footer {
+  .mobile-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    height: $mobileFooterHeight;
+    display: none;
+    background: #FF9000;
+    border-radius: 16px 16px 0;
+    box-shadow: 0 -6px 10px rgba(112, 108, 161, 0.07);
+
+    @media screen and (max-width:1024px){
+      display: block;
+      height: 72px;
+    }
+
+    $itemSize: 44px;
+
+    .q-list {
+      height: 100%;
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      align-items: center;
+      .q-item {
+        width: $itemSize;
+        min-width: $itemSize;
+        max-width: $itemSize;
+        min-height: $itemSize;
+        max-height: $itemSize;
+        height: $itemSize;
+        padding: 0;
+        margin-top: 0;
+        margin-right: 30px;
+        &.active-item {
+          //background-color: red;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+        &.q-item--active {
+          .q-item__section {
+            display: grid;
+            padding: 12px;
+            place-items: center;
+            .line {
+              display: block;
+              height: 20px;
+              width: 32px;
+              background-color: white;
+              margin-top: 20px;
+              border-radius: 4px;
+            }
           }
         }
         .q-item__section {
