@@ -115,8 +115,9 @@ export default {
         })
     },
     onProductClicked(product) {
+      debugger
       if (!product.is_purchased) {
-        window.location.hash = product.live_link
+        window.location.href = product.live_link
       } else {
         this.$router.push({ name: 'Public.Product.Show', params: { id: product.id } })
       }
