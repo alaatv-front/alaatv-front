@@ -209,6 +209,9 @@ export default defineComponent({
   },
   methods: {
     setProductIntersectionObserver () {
+      if (!this.$refs[this.productRef]?.$el) {
+        return
+      }
       const elements = [this.$refs[this.productRef].$el]
       const observer = new IntersectionObserver(this.handleIntersection)
 
