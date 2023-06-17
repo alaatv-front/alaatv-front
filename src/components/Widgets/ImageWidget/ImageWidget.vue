@@ -6,7 +6,7 @@
          :width="getImageWidth(localOptions)"
          :height="getImageHeight(localOptions)"
          :style="localOptions.style"
-         :class="localOptions.className"
+         :class="{'cursor-pointer': localOptions.hasAction, ...localOptions.className}"
          @click="takeAction(localOptions.action)" />
 </template>
 
@@ -190,3 +190,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.cursor-pointer {
+  cursor: pointer;
+}
+</style>
