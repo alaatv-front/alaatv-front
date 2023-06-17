@@ -56,7 +56,7 @@
 <script>
 import { User } from 'src/models/User.js'
 import Router from 'src/router/Router.vue'
-import AuthLogin from 'components/Auth.vue'
+import AuthLogin from 'src/components/Auth.vue'
 import AlaaFooter from 'src/components/Widgets/Footer/Footer.vue'
 import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'

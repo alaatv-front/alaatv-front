@@ -34,6 +34,7 @@ export default class ProductAPI extends APIRepository {
       gifts: (id) => '/gift-products/' + id,
       sampleContent: (id) => '/product/' + id + '/sample',
       categories: '/product-categories',
+      liveConductors: '/live-conductors',
       userLastState: (id) => '/product/' + id + '/toWatch'
     }
     this.CacheList = {
@@ -69,6 +70,25 @@ export default class ProductAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Product(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  liveConductors(cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.liveConductors,
+      cacheKey: this.CacheList.liveConductors,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data.map(item => {
+          item.product.live_link = item.live_link
+          return item.product
+        }))
       },
       rejectCallback: (error) => {
         return error

@@ -11,8 +11,8 @@
 </template>
 
 <script>
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ImageWidget',
@@ -25,6 +25,7 @@ export default {
         imageSource: null,
         ratio: null,
         hasAction: false,
+        useAEEEvent: false,
         action: {
           name: null,
           route: null,
@@ -173,7 +174,9 @@ export default {
       if (!this.localOptions.hasAction) {
         return
       }
-      this.pushClickedEvent()
+      if (this.localOptions.useAEEEvent) {
+        this.pushClickedEvent()
+      }
       if (this.callBack) {
         this.callBack()
       } else if (action.name === 'scroll') {
