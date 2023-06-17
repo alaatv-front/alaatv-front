@@ -137,8 +137,8 @@
                               </div>
                               <q-radio v-model="selectedBank"
                                        dir="ltr"
-                                       size="20px"
                                        color="primary"
+                                       size="30px"
                                        :label="gateway.displayName"
                                        :val="gateway.name"
                                        checked-icon="radio_button_checked"
@@ -829,14 +829,14 @@ export default {
                       width: calc( 100% - 64px );
                       justify-content: space-between;
                     }
-
-                    &:deep(.q-radio__inner  ) {
-                      width: 20px;
-                    }
-
-                    &:deep(.q-radio__icon-container ) {
-                      width: 20px;
-                    }
+                    //
+                    //&:deep(.q-radio__inner  ) {
+                    //  width: 20px;
+                    //}
+                    //
+                    //&:deep(.q-radio__icon-container ) {
+                    //  width: 20px;
+                    //}
 
                     &:deep(.q-radio__label) {
                       font-style: normal;
