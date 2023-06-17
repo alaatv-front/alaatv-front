@@ -89,7 +89,7 @@ class Order extends Model {
           revenue: this.paid_price,
           tax: '-',
           shipping: '-',
-          coupon: '-'
+          coupon: this.coupon_info.couponCode
         }
       },
       products: this.orderproducts.map(orderProduct => {

@@ -267,6 +267,13 @@ export default {
           routeName: 'UserPanel.Asset.Abrisham.Progress',
           permission: 'all',
           active: false
+        },
+        {
+          title: 'داشبورد ابریشم پرو',
+          icon: 'isax:document-1',
+          routeName: 'UserPanel.Asset.AbrishamPro.Progress',
+          permission: 'all',
+          active: false
         }
       ]
     }

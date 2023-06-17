@@ -144,7 +144,7 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import Bookmark from 'components/Bookmark.vue'
 
 export default defineComponent({
@@ -157,7 +157,6 @@ export default defineComponent({
   emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
     productRef: 'product' + Date.now(),
-    analyticsInstance: null,
     addToCartLoading: false,
     loading: false,
     defaultOptions: {
@@ -208,9 +207,6 @@ export default defineComponent({
       this.localOptions.product.is_favored = newVal
     }
   },
-  mounted () {
-    this.analyticsInstance = new AEE()
-  },
   methods: {
     setProductIntersectionObserver () {
       const elements = [this.$refs[this.productRef].$el]
@@ -229,10 +225,16 @@ export default defineComponent({
       })
     },
     productIsViewed () {
-      this.analyticsInstance.impressionView([this.product.eec.getData()])
+      AEE.impressionView([this.product.eec.getData()], {
+        TTl: 1000,
+        key: this.product.id
+      })
     },
     productClicked () {
-      this.analyticsInstance.impressionClick([this.product.eec.getData()])
+      AEE.impressionClick([this.product.eec.getData()], {
+        TTl: 1000,
+        key: this.product.id
+      })
     },
     getTeacherOfProduct() {
       if (this.product.attributes.info.teacher) {

@@ -121,14 +121,14 @@
 </template>
 
 <script>
-import { Set } from 'src/models/Set.js'
-import { dragscroll } from 'vue-dragscroll'
-import { Product } from 'src/models/Product.js'
-import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
-import { ContentList } from 'src/models/Content'
-import { Block } from 'src/models/Block.js'
-import BlockComponent from 'components/Widgets/Block/Block.vue'
 import { openURL } from 'quasar'
+import { Set, SetList } from 'src/models/Set.js'
+import { dragscroll } from 'vue-dragscroll'
+import { Block } from 'src/models/Block.js'
+import { Product } from 'src/models/Product.js'
+import { ContentList } from 'src/models/Content.js'
+import BlockComponent from 'src/components/Widgets/Block/Block.vue'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProductContents',
@@ -145,6 +145,7 @@ export default {
   data() {
     return {
       set: new Set(),
+      sets: new SetList(),
       product: new Product(),
       index: null,
       tab: 'videos',
@@ -199,7 +200,7 @@ export default {
       if (!newVal) {
         return
       }
-      const set = this.product.sets.list.filter(set => set.title === newVal)
+      const set = this.sets.list.filter(set => set.title || set.short_title === newVal)
       this.getSet(set[0].id)
     },
     setOptions(newVal) {
@@ -220,8 +221,8 @@ export default {
         this.filteredOptions = this.setOptions.filter(v => v.indexOf(needle) > -1)
       })
     },
-    setProductSets (product) {
-      this.setOptions = product.sets.list.map(set => set.title)
+    setProductSets (sets) {
+      this.setOptions = sets.list.map(set => set.title || set.short_title)
       if (this.setOptions.length === 0) {
         this.product.loading = false
         return
@@ -232,38 +233,39 @@ export default {
       this.product.loading = true
       if (this.localOptions.product.id) {
         this.product = this.localOptions.product
-        this.setProductSets(this.product)
+        this.setProductSets(this.product.sets)
         this.product.loading = false
         return
       }
-      this.getProduct().then((data) => {
-        this.product = data
-        this.setProductSets(this.product)
-        this.product.loading = false
-      })
+      this.getSetsOfProduct()
+        .then((data) => {
+          this.sets = new SetList(data)
+          this.setProductSets(this.sets)
+          this.product.loading = false
+        })
         .catch(() => {
           this.product.loading = false
         })
     },
     prefetchServerDataPromise () {
-      return this.getProduct()
+      return this.getSetsOfProduct()
     },
     prefetchServerDataPromiseThen (data) {
-      this.product = data
-      this.setProductSets(this.product)
+      this.sets = new SetList(data)
+      this.setProductSets(this.sets)
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
-    getProduct() {
+    getSetsOfProduct() {
       if (this.localOptions.product?.id || !this.productId) {
         return new Promise((resolve) => {
           resolve(new Product())
         })
       }
       this.product.loading = true
-      return this.$apiGateway.product.show(this.productId)
+      return this.$apiGateway.product.getSets(this.productId)
     },
     getSet(id) {
       this.set.loading = true

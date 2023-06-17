@@ -2,7 +2,7 @@
   <q-card class="download-section custom-card rounded-borders">
     <h6 class="text-grey q-pt-md q-pl-md">دانلود محتوا</h6>
     <q-separator class="q-ma-md" />
-    <div v-if="content.is_free && content.file?.video"
+    <div v-if="!content.is_free && content.file?.video"
          class="q-py-xl flex flex-center column">
       <q-btn v-for="(video, index) in content.file.video"
              :key="index"
