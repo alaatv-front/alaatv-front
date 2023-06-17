@@ -24,6 +24,7 @@ const routes = [
       layoutFooter: true,
       showHamburgerBtn: true,
       layoutFooterVisible: true,
+      layoutFooterType: 'main',
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
       layoutBreadcrumbs: {
@@ -390,7 +391,8 @@ const routes = [
                   layoutLeftDrawerWidth: 126,
                   layoutLeftDrawerVisible: true,
                   layoutLeftSideBarType: 'gift-card',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'gift-card'
                 },
                 component: () => import('layouts/GiftCardLayout.vue'),
                 children: [

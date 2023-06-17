@@ -74,21 +74,23 @@
             </div>
             <div v-if="localOptions.hasAction"
                  class="action-container">
-              <div class="col-3">
-                <q-select v-model="localOptions.action.type"
+              <div>
+                <q-select v-model="localOptions.action.name"
                           :options="actionTypes" />
               </div>
-              <div class="col-9">
+              <div v-if="localOptions.action.name === 'link'">
                 <q-input v-model="localOptions.action.route"
                          label="route" />
               </div>
-              <div class="col-6">
+              <div v-if="localOptions.action.name === 'event'">
                 <q-input v-model="localOptions.action.eventName"
                          label="event name" />
-              </div>
-              <div class="col-6">
                 <q-input v-model="localOptions.action.eventArgs"
                          label="event args" />
+              </div>
+              <div v-if="localOptions.action.name === 'scroll'">
+                <q-input v-model="localOptions.action.scrollTo"
+                         label="scrollTo class" />
               </div>
             </div>
           </div>
@@ -97,6 +99,7 @@
     </template>
   </option-panel-tabs>
 </template>
+
 <script>
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
