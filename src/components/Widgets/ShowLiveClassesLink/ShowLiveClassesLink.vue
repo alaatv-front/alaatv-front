@@ -115,7 +115,6 @@ export default {
         })
     },
     onProductClicked(product) {
-      debugger
       if (!product.is_purchased) {
         window.location.href = product.live_link
       } else {
