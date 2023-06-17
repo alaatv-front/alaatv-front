@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="itemMenu">
     <q-item v-if="item.tags"
             v-ripple
             clickable
@@ -41,14 +41,17 @@ export default {
 }
 </script>
 
-<style scoped>
-.active-item {
-  color: #FFC107;
-}
-.tab-title {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 25px;
+<style scoped lang="scss">
+.itemMenu {
+  .active-item {
+    color: #FFC107;
+  }
+  .tab-title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    white-space: nowrap;
+  }
 }
 </style>

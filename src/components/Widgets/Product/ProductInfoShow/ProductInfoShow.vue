@@ -74,7 +74,7 @@ import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import Bookmark from 'src/components/Bookmark.vue'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
-import AEE from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
@@ -279,8 +279,10 @@ export default {
       window.open(url, '_blank')
     },
     updateEECEventDetail() {
-      const analyticsInstance = new AEE()
-      analyticsInstance.productDetailViews('product.show', this.product.eec.getData())
+      AEE.productDetailViews('product.show', this.product.eec.getData(), {
+        TTl: 1000,
+        key: this.product.id
+      })
     }
   }
 }

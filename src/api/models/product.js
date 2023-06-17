@@ -161,12 +161,12 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getSets(data, cache) {
+  getSets(productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.getSets(data),
-      cacheKey: this.CacheList.getSets(data),
+      request: this.APIAdresses.getSets(productId),
+      cacheKey: this.CacheList.getSets(productId),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new SetList(response.data.data)

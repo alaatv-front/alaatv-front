@@ -180,7 +180,8 @@ export default {
     async loadContents() {
       this.contentListLoading = true
       try {
-        this.contents = await this.$apiGateway.content.getConsultingContentList()
+        const isPro = this.$route.name.includes('UserPanel.Asset.AbrishamPro.')
+        this.contents = await this.$apiGateway.content.getConsultingContentList(isPro)
         this.contents.list = this.contents.list.filter(content => content.isVideo())
         this.setCurrentContent()
         this.contentListLoading = false

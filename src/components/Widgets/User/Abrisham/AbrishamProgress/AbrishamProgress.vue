@@ -155,9 +155,9 @@
 import { SetList } from 'src/models/Set.js'
 import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { Content, ContentList } from 'src/models/Content.js'
-import ChipGroup from 'components/DashboardAbrisham/chipGroup.vue'
 import videoBox from 'src/components/DashboardAbrisham/videoBox.vue'
 import { SetSection, SetSectionList } from 'src/models/SetSection.js'
+import ChipGroup from 'src/components/DashboardAbrisham/chipGroup.vue'
 import commentBox from 'src/components/DashboardAbrisham/CommentBox.vue'
 import ContentListComponent from 'src/components/DashboardAbrisham/ContentListComponent.vue'
 
@@ -301,7 +301,8 @@ export default {
       this.lessonGroupsLoading = true
       this.progressLoading = true
       try {
-        const lessonList = await this.$apiGateway.abrisham.getLessons()
+        const isPro = this.$route.name.includes('UserPanel.Asset.AbrishamPro.')
+        const lessonList = await this.$apiGateway.abrisham.getLessons(isPro)
         return lessonList.map((item) => {
           return {
             title: item.title,

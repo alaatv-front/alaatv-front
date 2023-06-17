@@ -217,7 +217,7 @@ import AuthLogin from 'components/Auth.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
-import AEE from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 
 let StickySidebar
@@ -289,8 +289,7 @@ export default {
         paymentBtn: 'پرداخت و ثبت نهایی',
         hasPaymentBtn: true,
         dense: false
-      },
-      analyticsInstance: null
+      }
     }
   },
   computed: {
@@ -342,15 +341,11 @@ export default {
     this.loadAuthData()
     this.cartReview()
     this.getGateways()
-    this.setupEECEvent()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
-    setupEECEvent () {
-      this.analyticsInstance = new AEE()
-    },
     updateEECEvent (value) {
-      this.analyticsInstance.checkout(2, value)
+      AEE.checkout(2, value)
     },
     getGateways () {
       this.gateways.loading = true
