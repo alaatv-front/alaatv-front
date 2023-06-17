@@ -30,9 +30,10 @@
                    class="col-md-3 col-sm-6 col-xs-12">
                 <product-item class="product-item"
                               :options="{
-                                canAddToCart: false,
-                                routeToProduct: false,
-                                product: product
+                                canAddToCart: !product.is_purchased,
+                                showPrice: !product.is_purchased,
+                                routeToProduct: !product.is_purchased,
+                                product: product,
                               }"
                               @click="onProductClicked(product)" />
               </div>
@@ -117,9 +118,10 @@ export default {
     onProductClicked(product) {
       if (product.is_purchased) {
         window.location.href = product.live_link
-      } else {
-        this.$router.push({ name: 'Public.Product.Show', params: { id: product.id } })
       }
+      // else {
+      //   this.$router.push({ name: 'Public.Product.Show', params: { id: product.id } })
+      // }
     }
   }
 }
