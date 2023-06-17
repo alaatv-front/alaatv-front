@@ -11,6 +11,7 @@ export default class AbrishamAPI extends APIRepository {
       majors: '/abrisham/majors',
       karvan: '/abrisham/whereIsKarvan'
     }
+
     this.restUrl = (id) => this.url + '/' + id
   }
 
@@ -29,11 +30,16 @@ export default class AbrishamAPI extends APIRepository {
     })
   }
 
-  getLessons() {
+  getLessons(isPro) {
+    const data = {}
+    if (isPro) {
+      data.isPro = 1
+    }
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.lesson,
+      data,
       resolveCallback: (response) => {
         return new AbrishamMajorList(response.data.data).list
       },

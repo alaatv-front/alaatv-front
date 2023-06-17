@@ -341,6 +341,9 @@ export default {
           'order_by[]': 'created_at',
           'order_type[]': 'desc'
         }
+        if (this.$route.name.includes('UserPanel.Asset.AbrishamPro.')) {
+          liveDescriptionParams.isPro = 1
+        }
         const newsList = await this.$apiGateway.liveDescription.getNewsList(liveDescriptionParams)
         this.unpinNewsNextPage = +newsList.meta.current_page + 1
         this.unpinNewsLastPage = newsList.meta.last_page
