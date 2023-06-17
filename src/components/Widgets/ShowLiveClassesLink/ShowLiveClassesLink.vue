@@ -115,7 +115,7 @@ export default {
         })
     },
     onProductClicked(product) {
-      if (!product.is_purchased) {
+      if (product.is_purchased) {
         window.location.href = product.live_link
       } else {
         this.$router.push({ name: 'Public.Product.Show', params: { id: product.id } })
