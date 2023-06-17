@@ -94,6 +94,7 @@ export default {
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
     toggleDialog() {
+      this.loadAuthData()
       if (this.isUserLogin) {
         this.dialog = !this.dialog
         this.getLiveConductors()
