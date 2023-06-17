@@ -21,7 +21,8 @@
                    bottom-slots
                    hide-bottom-space
                    autocomplete="off"
-                   type="number"
+                   pattern="[0-9]*"
+                   inputmode="numeric"
                    onfocus="this.removeAttribute('readonly');"
                    name="userName"
                    placeholder=" - - - - - - - - - 09"
