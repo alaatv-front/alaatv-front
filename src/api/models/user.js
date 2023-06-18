@@ -1,18 +1,19 @@
-import { apiV2 } from 'src/boot/axios.js'
 import { User } from 'src/models/User.js'
+import { apiV2 } from 'src/boot/axios.js'
 import { ProductList } from 'src/models/Product.js'
+import { FavoredList } from 'src/models/Favored.js'
 import { CartItemList } from 'src/models/CartItem.js'
-import APIRepository from '../classes/APIRepository'
-import { FavoredList } from 'src/models/Favored'
-import { BankAccountsList } from 'src/models/BankAccounts'
-import { EventResult } from 'src/models/EventResult'
+import { EventResult } from 'src/models/EventResult.js'
+import APIRepository from '../classes/APIRepository.js'
+import { BankAccountsList } from 'src/models/BankAccounts.js'
 
 export default class UserAPI extends APIRepository {
   constructor() {
-    super('user', apiV2, '/user', new User())
+    super('user', apiV2, '/user', User)
     this.APIAdresses = {
       create: '/admin/user',
       base: '/user',
+      byId: (id) => '/user/' + id,
       favored: '/user/favored',
       purchasedProducts: '/user/products',
       bankAccounts: '/bank-accounts',
@@ -67,6 +68,7 @@ export default class UserAPI extends APIRepository {
       mobileResend: this.name + this.APIAdresses.base,
       mobileVerify: this.name + this.APIAdresses.base,
       bankAccounts: this.name + this.APIAdresses.bankAccounts,
+      byId: (id) => this.name + this.APIAdresses.byId(id),
       ordersById: (id) => this.name + this.APIAdresses.ordersById(id),
       getOrders: this.name + this.APIAdresses.base,
       orderStatus: this.name + this.APIAdresses.base,
@@ -116,6 +118,22 @@ export default class UserAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  updateProfile(data = {}) {
+    delete data.photo
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.byId(data.id),
+      data,
+      resolveCallback: (response) => {
+        return new User(response.data.data)
       },
       rejectCallback: (error) => {
         return error
