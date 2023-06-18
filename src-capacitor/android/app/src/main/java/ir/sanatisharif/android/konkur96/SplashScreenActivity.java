@@ -17,6 +17,10 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private LottieAnimationView lottieAnimationView ;
 
+    private boolean isShownOnce = false ;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void startMainActivity(){
 
+
       lottieAnimationView = findViewById(R.id.splash_alaa);
 
       lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
@@ -44,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         @Override
         public void onAnimationEnd(@NonNull Animator animation) {
 
-          Log.i("===>", "onAnimationEnd: ");
+          isShownOnce = true ;
           Intent intent = new Intent(SplashScreenActivity.this , MainActivity.class);
           startActivity(intent);
         }
@@ -76,5 +81,24 @@ public class SplashScreenActivity extends AppCompatActivity {
       // finally change the color
       window.setStatusBarColor(ContextCompat.getColor(this,R.color.alaaPrimary));
     }
+
+
+
+    /*
+    * the isShownOnce boolean is for when user started the app
+    * and seen the splash screen launcher then after searching
+    * in app wants to exit the app not going back to splash again!
+    *  */
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (isShownOnce){
+      finish();
+      System.exit(0);
+    }
+  }
+
+
 
 }
