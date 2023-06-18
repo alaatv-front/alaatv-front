@@ -152,22 +152,11 @@ export default {
     },
     getLiveConductors () {
       this.products.loading = true
-      // [
-      // 1077,
-      //   1078,
-      //   1083,
-      //   1084,
-      //   1081,
-      //   1080,
-      //   1071,
-      //   1079,
-      //   1070,
-      //   1067,
-      //   1082
-      // ]
-
       APIGateway.product.getProductList({
-        productIds: this.localOptions.data.map(product => product.id)
+        productIds: this.localOptions.data.map(product => product.id),
+        params: {
+          length: this.localOptions.data.length
+        }
       })
         .then((products) => {
           this.products = new ProductList(products)
