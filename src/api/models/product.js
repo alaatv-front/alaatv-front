@@ -16,7 +16,7 @@ export default class ProductAPI extends APIRepository {
           idParams.push('ids' + '[' + productIndex + ']=' + productId)
         })
         const queryParams = idParams.join('&')
-        const queryParamsWithDisplay = queryParams + (queryParams.length > 0 ? queryParams + '&' : '') + 'display=2'
+        const queryParamsWithDisplay = queryParams + (queryParams.length > 0 ? '&' : '') + 'display=2'
         return '/product?' + queryParamsWithDisplay
       },
       admin: {
@@ -26,6 +26,7 @@ export default class ProductAPI extends APIRepository {
         show: '/admin/product'
       },
       getSets: id => `/product/${id}/sets`,
+      liveLink: id => `/product/${id}/liveInfo`,
       getComments: id => `/product/${id}/content-comments`,
       getContents: id => `/product/${id}/contents`,
       favored: (id) => '/product/' + id + '/favored',
@@ -40,6 +41,7 @@ export default class ProductAPI extends APIRepository {
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       bulk: (productIds) => this.name + this.APIAdresses.bulk(productIds),
+      liveLink: (id) => this.name + this.APIAdresses.liveLink(id),
       create: this.name + this.APIAdresses.create,
       favored: id => this.name + this.APIAdresses.favored(id),
       getSets: id => this.name + this.APIAdresses.getSets(id),
@@ -178,6 +180,22 @@ export default class ProductAPI extends APIRepository {
         return error
       },
       data: data.params
+    })
+  }
+
+  getLiveLink(productId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.liveLink(productId),
+      cacheKey: this.CacheList.liveLink(productId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data.live_link // String
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 
