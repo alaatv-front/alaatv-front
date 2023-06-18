@@ -673,10 +673,11 @@ const routes = [
   }
   // are u mr Esmaeili ? '' : dont touch this route
 
+  // must status 404
   // Always leave this as last one,
   // but you can also remove it
   // {
-  //   path: '/:catchAll(.*)*',
+  //   path: '/404/:catchAll(.*)*',
   //   name: 'NotFound',
   //   component:
   //     () => import('pages/Error404.vue')
