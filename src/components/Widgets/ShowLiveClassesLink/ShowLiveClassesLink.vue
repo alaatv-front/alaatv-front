@@ -134,7 +134,7 @@ export default {
   },
   methods: {
     hasNikname () {
-      return this.user.full_name.length > 1
+      return this.user.first_name && this.user.last_name && this.user.first_name.length + this.user.last_name.length > 1
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
