@@ -12,7 +12,7 @@
       <q-card-section>
         <div class="products-list">
           <div class="row q-col-gutter-lg">
-            <template v-if="products.loading">
+            <template v-if="products.loading || liveLinkLoading">
               <div v-for="number in 4"
                    :key="number"
                    class="col-md-3 col-sm-6 col-xs-12">
@@ -59,6 +59,40 @@
       </q-card-section>
     </q-card>
   </q-dialog>
+
+  <q-dialog v-model="infoDialog"
+            persistent>
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">نام و نام خانوادگی خود را وارد کنید</div>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none">
+        <q-input v-model="user.first_name"
+                 dense
+                 autofocus
+                 :loading="user.loading || liveLinkLoading"
+                 label="نام" />
+        <q-input v-model="user.last_name"
+                 dense
+                 autofocus
+                 :loading="user.loading || liveLinkLoading"
+                 label="نام خانوادگی" />
+      </q-card-section>
+
+      <q-card-actions align="left"
+                      class="text-primary">
+        <q-btn v-close-popup
+               flat
+               :loading="user.loading || liveLinkLoading"
+               label="انصراف" />
+        <q-btn flat
+               label="ثبت"
+               :loading="user.loading || liveLinkLoading"
+               @click="updateFullname" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -80,7 +114,12 @@ export default {
       isUserLogin: false,
       products: new ProductList(),
       dialog: false,
+      selectedProduct: null,
+      liveLinkLoading: false,
+      infoDialog: false,
       defaultOptions: {
+        data: [],
+        style: {},
         eventName: 'showLiveClassesLink'
       }
     }
@@ -90,6 +129,9 @@ export default {
     this.$bus.on(this.localOptions.eventName, this.toggleDialog)
   },
   methods: {
+    hasNikname () {
+      return this.user.full_name.length > 1
+    },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
@@ -106,7 +148,23 @@ export default {
     },
     getLiveConductors () {
       this.products.loading = true
-      APIGateway.product.liveConductors()
+      // [
+      // 1077,
+      //   1078,
+      //   1083,
+      //   1084,
+      //   1081,
+      //   1080,
+      //   1071,
+      //   1079,
+      //   1070,
+      //   1067,
+      //   1082
+      // ]
+
+      APIGateway.product.getProductList({
+        productIds: this.localOptions.data.map(product => product.id)
+      })
         .then((products) => {
           this.products = new ProductList(products)
           this.products.loading = false
@@ -115,23 +173,39 @@ export default {
           this.products.loading = false
         })
     },
+    updateFullname () {
+      this.user.loading = true
+      APIGateway.user.updateProfile(this.user)
+        .then(() => {
+          this.user.loading = false
+          this.goToLiveLink()
+        })
+        .catch(() => {
+          this.user.loading = false
+        })
+    },
+    goToLiveLink () {
+      this.liveLinkLoading = true
+      APIGateway.product.getLiveLink(this.selectedProduct.id)
+        .then((liveLink) => {
+          window.location.href = liveLink
+          this.liveLinkLoading = false
+        })
+        .catch(() => {
+          this.liveLinkLoading = false
+        })
+    },
     onProductClicked(product) {
-      if (product.is_purchased) {
-        window.location.href = product.live_link
+      this.selectedProduct = product
+      if (!product.is_purchased) {
+        return
       }
-      // else {
-      //   this.$router.push({ name: 'Public.Product.Show', params: { id: product.id } })
-      // }
+      if (!this.hasNikname()) {
+        this.infoDialog = true
+        return
+      }
+      this.goToLiveLink()
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.ShowLiveClassesLink{
-  .products-list {
-    //max-height: 50vh;
-  }
-}
-
-</style>
