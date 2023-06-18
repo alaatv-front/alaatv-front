@@ -135,6 +135,19 @@
           <span>افزودن به سبد</span>
         </q-btn>
       </div>
+      <div v-if="localOptions.customAction"
+           class="action-box">
+        <div class="more-detail product-more-detail">
+          {{ localOptions.customActionMessage }}
+        </div>
+        <q-btn unelevated
+               class="btn-green"
+               @click="customActionClicked">
+          <span>
+            {{ localOptions.customActionLabel }}
+          </span>
+        </q-btn>
+      </div>
     </div>
   </q-card>
 </template>
@@ -162,6 +175,9 @@ export default defineComponent({
       style: {},
       minWidth: 'auto',
       canAddToCart: true,
+      customAction: false,
+      customActionLabel: null,
+      customActionMessage: null,
       loading: false,
       showPrice: true,
       product: new Product(),
@@ -318,6 +334,9 @@ export default defineComponent({
     },
     bookmarkUpdated (value) {
       this.$emit('onBookmarkLoaded', value)
+    },
+    customActionClicked () {
+      this.$emit('onCustomActionClicked')
     },
     bookmarkClicked (value) {
       this.$emit('onBookmarkClicked', value)

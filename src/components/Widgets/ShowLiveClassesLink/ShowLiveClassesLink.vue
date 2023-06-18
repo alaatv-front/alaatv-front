@@ -33,8 +33,12 @@
                                 canAddToCart: !product.is_purchased,
                                 showPrice: !product.is_purchased,
                                 routeToProduct: !product.is_purchased,
+                                customAction: product.is_purchased,
+                                customActionLabel: 'رفتن به کلاس',
+                                customActionMessage: 'این محصول را خریده اید',
                                 product: product,
                               }"
+                              @onCustomActionClicked="onProductClicked(product)"
                               @click="onProductClicked(product)" />
               </div>
             </template>
@@ -42,7 +46,7 @@
               <div class="col-12">
                 <q-banner class="bg-primary text-white">
                   <h4 class="text-center">
-                    همایش آنلانی وجود ندارد
+                    همایش آنلاینی وجود ندارد
                   </h4>
                   <template v-slot:action>
                     <q-btn size="xl"
