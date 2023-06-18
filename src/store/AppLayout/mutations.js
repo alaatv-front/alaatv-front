@@ -24,6 +24,9 @@ const mutations = {
   updateLayoutRightSideBarType: (state, newInfo) => {
     state.layoutRightSideBarType = newInfo
   },
+  updateLayoutFooterType: (state, newInfo) => {
+    state.layoutFooterType = newInfo
+  },
   showConfirmDialog: (state, newInfo) => {
     state.confirmDialog = newInfo
   },

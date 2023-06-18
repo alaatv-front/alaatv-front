@@ -62,6 +62,9 @@
                   <router-link v-if="order.grand.product.id"
                                :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}">
                     <lazy-img :src="order.grand.product.photo"
+                              :alt="order.grand.product.title"
+                              width="1"
+                              height="1"
                               class="order-image" />
                   </router-link>
                 </div>

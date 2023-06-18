@@ -1,8 +1,8 @@
 <template>
-  <q-card v-if="loading"
+  <q-card v-if="localOptions.loading"
           class="product-item-box q-pa-md"
           :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
-    <div style="max-width: 300px">
+    <div>
       <q-skeleton height="270px"
                   square
                   animation="fade" />
@@ -143,9 +143,9 @@
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import Bookmark from 'src/components/Bookmark.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
-import Bookmark from 'components/Bookmark.vue'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default defineComponent({
   name: 'productItem',
@@ -158,11 +158,11 @@ export default defineComponent({
   data: () => ({
     productRef: 'product' + Date.now(),
     addToCartLoading: false,
-    loading: false,
     defaultOptions: {
       style: {},
       minWidth: 'auto',
       canAddToCart: true,
+      loading: false,
       showPrice: true,
       product: new Product(),
       routeToProduct: true,
@@ -209,6 +209,9 @@ export default defineComponent({
   },
   methods: {
     setProductIntersectionObserver () {
+      if (!this.$refs[this.productRef]?.$el) {
+        return
+      }
       const elements = [this.$refs[this.productRef].$el]
       const observer = new IntersectionObserver(this.handleIntersection)
 

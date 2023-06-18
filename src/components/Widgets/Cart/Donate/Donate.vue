@@ -31,20 +31,23 @@
         <!--        </div>-->
       </div>
       <div class="col-md-4 col-sm-3 col-xs-12">
-        <q-img width="100px"
-               height="100px"
-               :src="src" />
+        <lazy-img :src="src"
+                  :alt="src"
+                  width="1"
+                  height="1" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Product } from 'src/models/Product'
-import { Cart } from 'src/models/Cart'
+import { Cart } from 'src/models/Cart.js'
+import LazyImg from 'components/lazyImg.vue'
+import { Product } from 'src/models/Product.js'
 
 export default {
   name: 'Donate',
+  components: { LazyImg },
   props: {
     options: {
       type: Object,

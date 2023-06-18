@@ -47,7 +47,7 @@
         <floating-action-button v-if="canShowFloatingActionBtn" />
       </template>
       <template #footer>
-        <alaa-footer />
+        <alaa-footer :type="getFooterType" />
       </template>
     </quasar-template-builder>
   </div>
@@ -56,7 +56,7 @@
 <script>
 import { User } from 'src/models/User.js'
 import Router from 'src/router/Router.vue'
-import AuthLogin from 'components/Auth.vue'
+import AuthLogin from 'src/components/Auth.vue'
 import AlaaFooter from 'src/components/Widgets/Footer/Footer.vue'
 import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
@@ -112,6 +112,9 @@ export default {
     },
     getLeftDrawerType() {
       return this.$store.getters['AppLayout/layoutLeftSideBarType']
+    },
+    getFooterType() {
+      return this.$store.getters['AppLayout/layoutFooterType']
     },
     calculateHeightStyle() {
       return this.$store.getters['AppLayout/calculateContainerFullHeight']

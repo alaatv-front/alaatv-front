@@ -146,6 +146,17 @@
               <div class="menu-item-title q-ml-sm">داشبورد امتحان نهایی</div>
             </q-item-section>
           </q-item>
+          <q-item v-ripple
+                  clickable
+                  @click="runEvent('showLiveClassesLink')">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">
+                همایش های آنلاین
+              </div>
+            </q-item-section>
+          </q-item>
           <!--          <q-item v-ripple-->
           <!--                  clickable>-->
           <!--            <q-item-section class="menu-item-custom">-->
@@ -220,6 +231,9 @@ export default {
   },
   mounted () {},
   methods: {
+    runEvent (eventName) {
+      this.$bus.emit(eventName)
+    },
     isRouteSelected (itemName) {
       return (this.$route.name === itemName)
     },
