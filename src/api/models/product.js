@@ -16,7 +16,7 @@ export default class ProductAPI extends APIRepository {
           idParams.push('ids' + '[' + productIndex + ']=' + productId)
         })
         const queryParams = idParams.join('&')
-        const queryParamsWithDisplay = queryParams + (queryParams.length > 0 ? '&' : '') + 'display=2'
+        const queryParamsWithDisplay = queryParams + (queryParams.length > 0 ? '&' : '') + 'length=' + queryParams.length
         return '/product?' + queryParamsWithDisplay
       },
       admin: {
