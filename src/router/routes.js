@@ -670,7 +670,7 @@ const routes = [
         ]
       }
     ]
-  },
+  }
   // are u mr Esmaeili ? '' : dont touch this route
 
   // Always leave this as last one,
