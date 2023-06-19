@@ -62,7 +62,7 @@ export default {
   }
   .product-content {
     justify-content: space-between;
-    padding: 40px 0;
+    padding: 10px 0 40px;
     width: 100%;
 
     @media screen and (max-width: 600px){

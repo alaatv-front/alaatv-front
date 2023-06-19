@@ -19,6 +19,16 @@
                   :options="layoutOptions" />
       </div>
     </div>
+    <div class="space q-mx-md q-mt-md">
+      <q-expansion-item expand-separator
+                        label="space">
+        <q-card>
+          <q-card-section>
+            <margin-and-padding v-model:value="localOptions.options.tabsStyle" />
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
+    </div>
     <div v-for="(item, index) in localOptions.data"
          :key="item">
       <q-card class="custom-card">
@@ -44,14 +54,37 @@
 <script>
 import { defineAsyncComponent } from 'vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import marginAndPadding from 'components/Widgets/Product/ProductsTabPanel/marginAndPadding.vue'
 
 export default {
   name: 'groupListTabOptionPanel',
-  components: { recursiveComponent: defineAsyncComponent(() => import('../recursiveComponent.vue')) },
+  components: {
+    recursiveComponent: defineAsyncComponent(() => import('../recursiveComponent.vue')),
+    marginAndPadding
+  },
   mixins: [PageBuilderOptionPanel],
   data() {
     return {
-      layoutOptions: ['ProductTab', 'ProductShelf']
+      layoutOptions: ['ProductTab', 'ProductShelf'],
+      defaultOptions: {
+        options: {
+          activeBgColor: '',
+          activeColor: '',
+          indicatorColor: '',
+          layout: 'ProductTab',
+          tabsStyle: {
+            marginTop: '',
+            marginLeft: '',
+            marginBottom: '',
+            paddingTop: '',
+            paddingLeft: '',
+            paddingRight: '',
+            paddingBottom: ''
+          }
+        },
+        data: [],
+        type: 'GroupList'
+      }
     }
   },
   methods: {

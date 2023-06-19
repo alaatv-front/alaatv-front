@@ -22,7 +22,8 @@
                 {{item.type}}
               </div>
             </template>
-            <recursive-component :options="item" />
+            <recursive-component :options="item"
+                                 :layout="'ProductShelf'" />
           </q-expansion-item>
         </q-card-section>
       </q-card>

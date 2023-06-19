@@ -1,5 +1,6 @@
 <template>
-  <div class="tabs-wrapper">
+  <div class="tabs-wrapper"
+       :style="options.tabsStyle">
     <q-tabs v-model="tabModel"
             :active-color="options.activeColor"
             :active-bg-color="options.activeBgColor"
@@ -60,7 +61,26 @@ export default {
   },
   data() {
     return {
-      tabModel: ''
+      tabModel: '',
+      defaultOptions: {
+        options: {
+          activeBgColor: '',
+          activeColor: '',
+          indicatorColor: '',
+          layout: 'ProductTab',
+          tabsStyle: {
+            marginTop: '',
+            marginLeft: '',
+            marginBottom: '',
+            paddingTop: '',
+            paddingLeft: '',
+            paddingRight: '',
+            paddingBottom: ''
+          }
+        },
+        data: [],
+        type: 'GroupList'
+      }
     }
   },
   mounted() {

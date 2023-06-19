@@ -1,6 +1,7 @@
 <template>
   <div class="option-panel-container">
     <component :is="localOptions.type.concat('OptionPanel')"
+               :layout="layout"
                :options="localOptions" />
   </div>
 </template>
@@ -16,6 +17,12 @@ export default {
     ProductListOptionPanel: defineAsyncComponent(() => import('./ProductListOptionPanel/ProductListOptionPanel.vue'))
   },
   mixins: [PageBuilderOptionPanel],
+  props: {
+    layout: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       defaultOptions: {
