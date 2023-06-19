@@ -389,9 +389,10 @@ const routes = [
                   layoutHeaderType: 'gift-card',
                   layoutLeftDrawer: true,
                   layoutLeftDrawerWidth: 126,
-                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerVisible: false,
                   layoutLeftSideBarType: 'gift-card',
                   layoutFooter: true,
+                  // layoutLeftDrawerBehavior: 'default',
                   layoutFooterType: 'gift-card'
                 },
                 component: () => import('layouts/GiftCardLayout.vue'),
