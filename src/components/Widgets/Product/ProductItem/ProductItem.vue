@@ -1,8 +1,8 @@
 <template>
-  <q-card v-if="loading"
+  <q-card v-if="localOptions.loading"
           class="product-item-box q-pa-md"
           :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
-    <div style="max-width: 300px">
+    <div>
       <q-skeleton height="270px"
                   square
                   animation="fade" />
@@ -135,6 +135,19 @@
           <span>افزودن به سبد</span>
         </q-btn>
       </div>
+      <div v-if="localOptions.customAction"
+           class="action-box">
+        <div class="more-detail product-more-detail">
+          {{ localOptions.customActionMessage }}
+        </div>
+        <q-btn unelevated
+               class="btn-green"
+               @click="customActionClicked">
+          <span>
+            {{ localOptions.customActionLabel }}
+          </span>
+        </q-btn>
+      </div>
     </div>
   </q-card>
 </template>
@@ -143,9 +156,9 @@
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import Bookmark from 'src/components/Bookmark.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
-import Bookmark from 'components/Bookmark.vue'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default defineComponent({
   name: 'productItem',
@@ -157,13 +170,15 @@ export default defineComponent({
   emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
     productRef: 'product' + Date.now(),
-    analyticsInstance: null,
     addToCartLoading: false,
-    loading: false,
     defaultOptions: {
       style: {},
       minWidth: 'auto',
       canAddToCart: true,
+      customAction: false,
+      customActionLabel: null,
+      customActionMessage: null,
+      loading: false,
       showPrice: true,
       product: new Product(),
       routeToProduct: true,
@@ -208,11 +223,11 @@ export default defineComponent({
       this.localOptions.product.is_favored = newVal
     }
   },
-  mounted () {
-    this.analyticsInstance = new AEE()
-  },
   methods: {
     setProductIntersectionObserver () {
+      if (!this.$refs[this.productRef]?.$el) {
+        return
+      }
       const elements = [this.$refs[this.productRef].$el]
       const observer = new IntersectionObserver(this.handleIntersection)
 
@@ -229,10 +244,16 @@ export default defineComponent({
       })
     },
     productIsViewed () {
-      this.analyticsInstance.impressionView([this.product.eec.getData()])
+      AEE.impressionView([this.product.eec.getData()], {
+        TTl: 1000,
+        key: this.product.id
+      })
     },
     productClicked () {
-      this.analyticsInstance.impressionClick([this.product.eec.getData()])
+      AEE.impressionClick([this.product.eec.getData()], {
+        TTl: 1000,
+        key: this.product.id
+      })
     },
     getTeacherOfProduct() {
       if (this.product.attributes.info.teacher) {
@@ -313,6 +334,9 @@ export default defineComponent({
     },
     bookmarkUpdated (value) {
       this.$emit('onBookmarkLoaded', value)
+    },
+    customActionClicked () {
+      this.$emit('onCustomActionClicked')
     },
     bookmarkClicked (value) {
       this.$emit('onBookmarkClicked', value)

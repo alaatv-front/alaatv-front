@@ -62,22 +62,6 @@ export default {
         routeName: 'UserPanel.Asset.TripleTitleSet.Products'
       }
       // {
-      //   icon: 'calendar',
-      //   routeName: 'UserPanel.Asset.Abrisham.Schedule'
-      // },
-      // {
-      //   icon: 'headphones',
-      //   routeName: 'UserPanel.Asset.Abrisham.Consulting'
-      // },
-      // {
-      //   icon: 'envelope',
-      //   routeName: 'UserPanel.Asset.Abrisham.News'
-      // },
-      // {
-      //   icon: 'world',
-      //   routeName: 'UserPanel.Asset.Abrisham.Map'
-      // }
-      // {
       //   icon: 'list-check',
       //   routeName: 'my-performance'
       //

@@ -1,4 +1,4 @@
-import GTMBase from 'assets/js/AEE/GoogleTagManager'
+import GTMBase from 'assets/js/AEE/GoogleTagManager.js'
 
 export default class GTMEvents {
   constructor(options = {
@@ -96,7 +96,7 @@ export default class GTMEvents {
             step,
             option
           },
-          products
+          ...(products?.length > 0 && { products })
         }
       }
     })

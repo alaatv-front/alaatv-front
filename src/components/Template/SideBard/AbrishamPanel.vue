@@ -8,9 +8,9 @@
       <q-list class="menu-items-list">
         <q-item v-for="(item, index) in menuItems"
                 :key="index"
-                :to="{name:item.routeName }"
+                :to="{name:item.routeName(isPro) }"
                 class="menu-item">
-          <div v-if="$route.name === item.routeName"
+          <div v-if="$route.name === item.routeName(isPro)"
                class="menu-indicator" />
           <q-icon :name="item.icon"
                   size="26px" />
@@ -30,23 +30,23 @@ export default {
     menuItems: [
       {
         icon: 'isax:play',
-        routeName: 'UserPanel.Asset.Abrisham.Progress'
+        routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Progress'
       },
       // {
       //   icon: 'isax:calendar',
-      //   routeName: 'UserPanel.Asset.Abrisham.Schedule'
+      //   routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Schedule'
       // },
       {
         icon: 'isax:headphone',
-        routeName: 'UserPanel.Asset.Abrisham.Consulting'
+        routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Consulting'
       },
       {
         icon: 'isax:firstline',
-        routeName: 'UserPanel.Asset.Abrisham.News'
+        routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.News'
       },
       {
         icon: 'isax:map',
-        routeName: 'UserPanel.Asset.Abrisham.Map'
+        routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Map'
       }
       // {
       //   icon: 'list-check',
@@ -60,11 +60,10 @@ export default {
 
     ]
   }),
-  created() {
-
-  },
-  methods: {
-
+  computed: {
+    isPro () {
+      return this.$route.name.includes('UserPanel.Asset.AbrishamPro.')
+    }
   }
 }
 </script>

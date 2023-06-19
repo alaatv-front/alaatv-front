@@ -21,6 +21,8 @@
                    bottom-slots
                    hide-bottom-space
                    autocomplete="off"
+                   pattern="[0-9]*"
+                   inputmode="numeric"
                    onfocus="this.removeAttribute('readonly');"
                    name="userName"
                    placeholder=" - - - - - - - - - 09"
@@ -35,6 +37,8 @@
                    name="pass"
                    hide-bottom-space
                    type="password"
+                   pattern="[0-9]*"
+                   inputmode="numeric"
                    @keydown.enter="login" />
         </div>
         <q-btn class="full-width login-btn"

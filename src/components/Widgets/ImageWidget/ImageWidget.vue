@@ -6,13 +6,13 @@
          :width="getImageWidth(localOptions)"
          :height="getImageHeight(localOptions)"
          :style="localOptions.style"
-         :class="localOptions.className"
+         :class="{'cursor-pointer': localOptions.hasAction, ...localOptions.className}"
          @click="takeAction(localOptions.action)" />
 </template>
 
 <script>
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 export default {
   name: 'ImageWidget',
@@ -21,11 +21,11 @@ export default {
     return {
       imageRef: 'img' + Date.now(),
       windowWidth: 0,
-      analyticsInstance: null,
       defaultOptions: {
         imageSource: null,
         ratio: null,
         hasAction: false,
+        useAEEEvent: false,
         action: {
           name: null,
           route: null,
@@ -88,17 +88,29 @@ export default {
         }
       })
     },
+    getAEEKey() {
+      let AEEKey
+      Object.values(this.localOptions.AEEEventBody).forEach(item => {
+        AEEKey += item
+      })
+      return AEEKey
+    },
     ImageIsViewed () {
-      this.analyticsInstance.promotionView([this.localOptions.AEEEventBody])
+      AEE.promotionView([this.localOptions.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
     },
     pushClickedEvent () {
-      this.analyticsInstance.promotionClick([this.localOptions.AEEEventBody])
+      AEE.promotionClick([this.localOptions.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
     },
     setAEEEvent () {
       if (!this.localOptions.useAEEEvent) {
         return
       }
-      this.analyticsInstance = new AEE()
       this.setProductIntersectionObserver()
     },
     onResize() {
@@ -162,7 +174,9 @@ export default {
       if (!this.localOptions.hasAction) {
         return
       }
-      this.pushClickedEvent()
+      if (this.localOptions.useAEEEvent) {
+        this.pushClickedEvent()
+      }
       if (this.callBack) {
         this.callBack()
       } else if (action.name === 'scroll') {
@@ -176,3 +190,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.cursor-pointer {
+  cursor: pointer;
+}
+</style>

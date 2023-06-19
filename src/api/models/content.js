@@ -406,8 +406,9 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  getConsultingContentList() {
-    return APIGateway.set.getContents(1213)
+  getConsultingContentList(isPro) {
+    const setId = isPro ? 1597 : 1213
+    return APIGateway.set.getContents(setId)
   }
 
   saveComment(data = {}) {

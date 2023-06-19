@@ -24,6 +24,7 @@ const routes = [
       layoutFooter: true,
       showHamburgerBtn: true,
       layoutFooterVisible: true,
+      layoutFooterType: 'main',
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
       layoutBreadcrumbs: {
@@ -203,6 +204,14 @@ const routes = [
               //   component: () => import('src/pages/Public/Landings/Taftan.vue')
               // }
             ]
+          },
+          {
+            path: 'h',
+            name: 'Public.RegisterHekmatCoupon',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/Public/RegisterHekmatCoupon.vue')
           }
         ]
       },
@@ -332,6 +341,47 @@ const routes = [
                 ]
               },
               {
+                name: 'UserPanel.Asset.AbrishamPro',
+                path: 'abrisham-pro',
+                layoutConfig: {
+                  layoutHeaderType: 'abrisham',
+                  layoutLeftSideBarType: 'abrisham',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/AbrishamLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Progress',
+                    path: 'progress',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/progress.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Schedule',
+                    path: 'schedule',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Schedule.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Consulting',
+                    path: 'consulting',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Consulting.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.News',
+                    path: 'news',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/News.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Map',
+                    path: 'map',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Map.vue')
+                  }
+                ]
+              },
+              {
                 name: 'UserPanel.Asset.GiftCard',
                 path: 'gift-card',
                 layoutConfig: {
@@ -341,7 +391,8 @@ const routes = [
                   layoutLeftDrawerWidth: 126,
                   layoutLeftDrawerVisible: true,
                   layoutLeftSideBarType: 'gift-card',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'gift-card'
                 },
                 component: () => import('layouts/GiftCardLayout.vue'),
                 children: [
@@ -624,11 +675,11 @@ const routes = [
 
   // Always leave this as last one,
   // but you can also remove it
-  {
-    path: '/404/:catchAll(.*)*',
-    name: 'NotFound',
-    component:
-      () => import('pages/Error404.vue')
-  }
+  // {
+  //   path: '/:catchAll(.*)*',
+  //   name: 'NotFound',
+  //   component:
+  //     () => import('pages/Error404.vue')
+  // }
 ]
 export default routes

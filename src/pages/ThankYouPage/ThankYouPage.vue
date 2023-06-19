@@ -40,7 +40,7 @@
 <script>
 import { APIGateway } from 'src/api/APIGateway'
 import mixinAuthData from 'src/mixin/AuthData'
-import AEE from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ThankYouPage',
@@ -61,9 +61,8 @@ export default {
   },
   methods: {
     pushPurchaseEvent (order) {
-      const analyticsInstance = new AEE()
       const AEEData = order.getAEEData()
-      analyticsInstance.purchase(AEEData.actionField, AEEData.products)
+      AEE.purchase(AEEData.actionField, AEEData.products)
     },
     clearCart () {
       const cart = this.$store.getters['Cart/cart']

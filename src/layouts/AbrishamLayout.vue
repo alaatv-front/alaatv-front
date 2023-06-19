@@ -24,7 +24,7 @@
           <q-item v-if="activePage && item.icon !== activePage.icon"
                   v-ripple
                   clickable
-                  :to="{name:item.routeName}"
+                  :to="{name:item.routeName(isPro)}"
                   class="menu-item"
                   @click='setActivePage(item)'>
             <q-item-section class="text-center">
@@ -58,36 +58,41 @@ export default {
     expandedNavigation: null,
     activePage: {
       icon: 'isax:play',
-      routeName: 'UserPanel.Asset.Abrisham.Progress',
+      routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Progress',
       title: 'فیلم ها'
     },
     menuItem: [
       {
         icon: 'isax:play',
-        routeName: 'UserPanel.Asset.Abrisham.Progress',
+        routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Progress',
         title: 'فیلم ها'
       },
       // {
       //   icon: 'isax:calendar',
-      //   routeName: 'UserPanel.Asset.Abrisham.Schedule',
+      //   routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Schedule',
       //   title: 'برنامه مطالعاتی'
       // },
       {
         icon: 'isax:headphone',
-        routeName: 'UserPanel.Asset.Abrisham.Consulting',
+        routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Consulting',
         title: 'مشاوره'
       },
       {
         icon: 'isax:firstline',
-        routeName: 'UserPanel.Asset.Abrisham.News',
+        routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.News',
         title: 'اخبار و اطلاعیه'
       }, {
         icon: 'isax:map',
-        routeName: 'UserPanel.Asset.Abrisham.Map',
+        routeName: (isPro) => 'UserPanel.Asset.Abrisham' + (isPro ? 'Pro' : '') + '.Map',
         title: 'نقشه'
       }
     ]
   }),
+  computed: {
+    isPro () {
+      return this.$route.name.includes('UserPanel.Asset.AbrishamPro.')
+    }
+  },
   created() {
     this.activePage = this.getPageFromRouteName()
   },
@@ -99,7 +104,7 @@ export default {
   },
   methods: {
     getPageFromRouteName () {
-      const page = this.menuItem.find(item => item.routeName === this.$route.name)
+      const page = this.menuItem.find(item => item.routeName(this.isPro) === this.$route.name)
       if (page) {
         return page
       }

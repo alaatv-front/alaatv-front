@@ -49,8 +49,8 @@
     "process": "^0.11.10",
     "quasar": "^2.12.0",
     "quasar-app-extension-q-page-builder": "^0.1.40",
-    "quasar-crud": "^0.3.23",
-    "quasar-form-builder": "^0.1.92",
+    "quasar-crud": "^0.3.24",
+    "quasar-form-builder": "^0.1.93",
     "quasar-template-builder": "^1.0.23",
     "quasar-ui-q-page-builder": "^0.1.40",
     "socket.io-client": "^4.6.1",
@@ -66,12 +66,20 @@
     "vue3-otp-input": "^0.4.1",
     "vuex": "^4.1.0",
     "vuex-persistedstate": "^4.1.0",
-    "workbox-build": "^6.5.4",
+    "workbox-build": "^6.5.0",
     "workbox-window": "^6.5.4"
   },
   "engines": {
     "node": "^19 || ^18 || ^16 || ^14.19",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
+  },
+  "devDependencies": {
+    "workbox-cacheable-response": "^6.5.0",
+    "workbox-core": "^6.5.0",
+    "workbox-expiration": "^6.5.0",
+    "workbox-precaching": "^6.5.0",
+    "workbox-routing": "^6.5.0",
+    "workbox-strategies": "^6.5.0"
   }
 }

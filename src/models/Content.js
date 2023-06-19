@@ -37,6 +37,7 @@ class Content extends Model {
       { key: 'display' },
       { key: 'duration' },
       { key: 'hls' },
+      { key: 'has_vast' },
       {
         key: 'file',
         default: {
