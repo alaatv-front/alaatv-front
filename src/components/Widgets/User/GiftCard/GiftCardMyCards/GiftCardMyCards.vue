@@ -221,7 +221,7 @@ export default {
       return 1
     }
   },
-  created () {
+  mounted () {
     this.loadAllData()
   },
   methods: {

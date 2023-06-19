@@ -24,6 +24,7 @@ const routes = [
       layoutFooter: true,
       showHamburgerBtn: true,
       layoutFooterVisible: true,
+      layoutFooterType: 'main',
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
       layoutBreadcrumbs: {
@@ -390,7 +391,8 @@ const routes = [
                   layoutLeftDrawerWidth: 126,
                   layoutLeftDrawerVisible: true,
                   layoutLeftSideBarType: 'gift-card',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'gift-card'
                 },
                 component: () => import('layouts/GiftCardLayout.vue'),
                 children: [
@@ -673,11 +675,11 @@ const routes = [
 
   // Always leave this as last one,
   // but you can also remove it
-  {
-    path: '/404/:catchAll(.*)*',
-    name: 'NotFound',
-    component:
-      () => import('pages/Error404.vue')
-  }
+  // {
+  //   path: '/:catchAll(.*)*',
+  //   name: 'NotFound',
+  //   component:
+  //     () => import('pages/Error404.vue')
+  // }
 ]
 export default routes

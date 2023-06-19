@@ -132,13 +132,15 @@
                                class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
                             <div class="bank-gateway">
                               <div class="bank-icon-container">
-                                <q-img :src="gateway.photo"
-                                       class="bank-icon" />
+                                <lazy-img :src="gateway.photo"
+                                          :alt="gateway.photo"
+                                          width="1"
+                                          height="1" />
                               </div>
                               <q-radio v-model="selectedBank"
                                        dir="ltr"
-                                       size="20px"
                                        color="primary"
+                                       size="30px"
                                        :label="gateway.displayName"
                                        :val="gateway.name"
                                        checked-icon="radio_button_checked"
@@ -213,7 +215,8 @@
 <script>
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
-import AuthLogin from 'components/Auth.vue'
+import AuthLogin from 'src/components/Auth.vue'
+import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
@@ -230,7 +233,7 @@ if (typeof window !== 'undefined') {
 
 export default {
   name: 'CartInvoice',
-  components: { AuthLogin, Donate },
+  components: { LazyImg, AuthLogin, Donate },
   mixins: [mixinWidget],
   // provide() {
   //   return {
@@ -829,14 +832,14 @@ export default {
                       width: calc( 100% - 64px );
                       justify-content: space-between;
                     }
-
-                    &:deep(.q-radio__inner  ) {
-                      width: 20px;
-                    }
-
-                    &:deep(.q-radio__icon-container ) {
-                      width: 20px;
-                    }
+                    //
+                    //&:deep(.q-radio__inner  ) {
+                    //  width: 20px;
+                    //}
+                    //
+                    //&:deep(.q-radio__icon-container ) {
+                    //  width: 20px;
+                    //}
 
                     &:deep(.q-radio__label) {
                       font-style: normal;
