@@ -6,10 +6,18 @@ export function updateAxiosAuthorization (state, accessToken) {
   const token = accessToken ? (tokenType + ' ' + accessToken) : null
 
   this.$accessToken = accessToken
-  this.$axios.defaults.headers.common.Authorization = token
-  this.$apiV1.defaults.headers.common.Authorization = token
-  this.$apiV2.defaults.headers.common.Authorization = token
-  this.$apiWeb.defaults.headers.common.Authorization = token
+  if (this.$axios) {
+    this.$axios.defaults.headers.common.Authorization = token
+  }
+  if (this.$apiV1) {
+    this.$apiV1.defaults.headers.common.Authorization = token
+  }
+  if (this.$apiV2) {
+    this.$apiV2.defaults.headers.common.Authorization = token
+  }
+  if (this.$apiWeb) {
+    this.$apiWeb.defaults.headers.common.Authorization = token
+  }
 }
 
 export function updateAccessToken(state, newInfo) {

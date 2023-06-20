@@ -149,23 +149,6 @@ const apiV1 = APIInstanceWrapper.createInstance(apiV1Server, apiV1ServerTarget)
 const apiWeb = APIInstanceWrapper.createInstance(webServer, webServerTarget)
 
 export default boot(({ app, store, router, ssrContext }) => {
-  const cookies = process.env.SERVER
-    ? Cookies.parseSSR(ssrContext)
-    : Cookies // otherwise we're on client
-
-  const cookiesAccessToken = cookies.get('BearerAccessToken')
-
-  if (cookiesAccessToken) {
-    const tokenType = 'Bearer'
-    store.$accessToken = cookiesAccessToken
-    apiV2.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
-    apiV1.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
-    apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
-  } else {
-    console.error('axios boot->Auth/logOut')
-    store.dispatch('Auth/logOut')
-  }
-
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
 
@@ -193,6 +176,23 @@ export default boot(({ app, store, router, ssrContext }) => {
   app.config.globalProperties.$apiV2 = apiV2
   app.config.globalProperties.$apiV1 = apiV1
   app.config.globalProperties.$apiWeb = apiWeb
+
+  const cookies = process.env.SERVER
+    ? Cookies.parseSSR(ssrContext)
+    : Cookies // otherwise we're on client
+
+  const cookiesAccessToken = cookies.get('BearerAccessToken')
+
+  if (cookiesAccessToken) {
+    const tokenType = 'Bearer'
+    store.$accessToken = cookiesAccessToken
+    apiV2.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
+    apiV1.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
+    apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
+  } else {
+    console.error('axios boot->Auth/logOut')
+    store.dispatch('Auth/logOut')
+  }
 })
 
 export { apiV1, apiV2, apiWeb }
