@@ -23,7 +23,7 @@ export default defineComponent({
     }
   },
   created () {
-    this.setServiceWorker()
+    // this.setServiceWorker()
     // this.checkInternetConnection()
   },
   methods: {
