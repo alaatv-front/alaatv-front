@@ -1,18 +1,21 @@
 <template>
-  <q-img :ref="imageRef"
-         :src="getImageSource(localOptions)"
-         :ratio="localOptions.ratio"
-         spinner-color="primary"
-         :width="getImageWidth(localOptions)"
-         :height="getImageHeight(localOptions)"
-         :style="localOptions.style"
-         :class="{'cursor-pointer': localOptions.hasAction, ...localOptions.className}"
-         @click="takeAction(localOptions.action)" />
+  <component :is="parentComponent"
+             :to="localOptions.action.route"
+             :href="localOptions.action.route">
+    <q-img :src="getImageSource(options)"
+           :ratio="options.ratio"
+           spinner-color="primary"
+           :width="getImageWidth(options)"
+           :height="getImageHeight(options)"
+           :style="options.style"
+           :class="options.className"
+           @click="takeAction(options.action)" />
+  </component>
 </template>
 
 <script>
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ImageWidget',
@@ -59,6 +62,18 @@ export default {
           src: null
         }
       }
+    }
+  },
+  computed: {
+    parentComponent() {
+      if (this.localOptions.action.route) {
+        if (this.isExternal(this.localOptions.action.route)) {
+          return 'a'
+        } else {
+          return 'router-link'
+        }
+      }
+      return 'div'
     }
   },
   mounted() {
@@ -170,6 +185,15 @@ export default {
         return ''
       }
     },
+    checkDomain(url) {
+      if (url.indexOf('//') === 0) {
+        url = location.protocol + url
+      }
+      return url.toLowerCase().replace(/([a-z])?:\/\//, '$1').split('/')[0]
+    },
+    isExternal(url) {
+      return ((url.indexOf(':') > -1 || url.indexOf('//') > -1) && this.checkDomain(location.href) !== this.checkDomain(url))
+    },
     takeAction(action) {
       if (!this.localOptions.hasAction) {
         return
@@ -181,8 +205,6 @@ export default {
         this.callBack()
       } else if (action.name === 'scroll') {
         this.scrollToElement(action.scrollTo)
-      } else if (action.name === 'link') {
-        this.router.push(action.route)
       } else if (action.name === 'event') {
         this.$bus.emit(action.eventName, action.eventArgs)
       }
