@@ -18,6 +18,25 @@
         <q-select v-model="localOptions.options.layout"
                   :options="layoutOptions" />
       </div>
+      <div class="col-4">
+        <div class="outsideLabel">event name</div>
+        <div class="row">
+          <q-input v-model="eventName" />
+          <q-btn color="positive"
+                 icon="check"
+                 class="q-mr-sm"
+                 @click="addEvent(eventName)" />
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="outsideLabel">events</div>
+        <q-select v-model="selectedEvent"
+                  :options="localOptions.options.events" />
+      </div>
+      <div class="col-4">
+        <div class="outsideLabel">tabName</div>
+        <q-input v-model="localOptions.options[selectedEvent]" />
+      </div>
     </div>
     <div class="space q-mx-md q-mt-md">
       <q-expansion-item expand-separator
@@ -66,11 +85,14 @@ export default {
   data() {
     return {
       layoutOptions: ['ProductTab', 'ProductShelf'],
+      eventName: '',
+      selectedEvent: '',
       defaultOptions: {
         options: {
           activeBgColor: '',
           activeColor: '',
           indicatorColor: '',
+          events: [],
           layout: 'ProductTab',
           tabsStyle: {
             marginTop: '',
@@ -88,6 +110,12 @@ export default {
     }
   },
   methods: {
+    addEvent(eventName) {
+      if (!this.localOptions.options.events) {
+        this.localOptions.options.events = []
+      }
+      this.localOptions.options.events.push(eventName)
+    },
     removeTabPanel(itemIndex) {
       this.localOptions.data.splice(itemIndex, 1)
     }

@@ -1,5 +1,6 @@
 <template>
-  <div class="tabs-wrapper"
+  <div ref="productTab"
+       class="tabs-wrapper"
        :style="options.tabsStyle">
     <q-tabs v-model="tabModel"
             :active-color="options.activeColor"
@@ -87,6 +88,17 @@ export default {
     this.tabModel = 'productTab_0'
   },
   methods: {
+    changeTab(tabName) {
+      this.tabModel = tabName
+      const el = this.$refs.productTab
+      const headerOffset = 150
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    },
     isProduct(item) {
       return item.type === 'ProductList'
     }
