@@ -389,7 +389,7 @@ const routes = [
                   layoutHeaderType: 'gift-card',
                   layoutLeftDrawer: true,
                   layoutLeftDrawerWidth: 126,
-                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerVisible: false,
                   layoutLeftSideBarType: 'gift-card',
                   layoutFooter: true,
                   layoutFooterType: 'gift-card'
@@ -670,7 +670,7 @@ const routes = [
         ]
       }
     ]
-  },
+  }
   // are u mr Esmaeili ? '' : dont touch this route
 
   // Always leave this as last one,
