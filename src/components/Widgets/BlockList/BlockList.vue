@@ -12,7 +12,7 @@
     </template>
     <template v-else>
       <div v-for="(block, index) in blocksToShow"
-           :id="block.id"
+           :id="'block-' + block.id"
            :key="index"
            :class="block.headerCustomClass"
            class="block-list-widget">
@@ -68,7 +68,7 @@ export default {
     },
     blocks() {
       this.blocks.list.forEach((block, index) => {
-        block.headerCustomClass = `banner-header-${index}` + ' '
+        block.headerCustomClass = `block-header-${index}` + ' '
       })
     }
   },

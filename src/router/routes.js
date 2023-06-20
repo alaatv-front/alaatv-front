@@ -389,7 +389,7 @@ const routes = [
                   layoutHeaderType: 'gift-card',
                   layoutLeftDrawer: true,
                   layoutLeftDrawerWidth: 126,
-                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerVisible: false,
                   layoutLeftSideBarType: 'gift-card',
                   layoutFooter: true,
                   layoutFooterType: 'gift-card'
@@ -670,13 +670,14 @@ const routes = [
         ]
       }
     ]
-  },
+  }
   // are u mr Esmaeili ? '' : dont touch this route
 
+  // must status 404
   // Always leave this as last one,
   // but you can also remove it
   // {
-  //   path: '/:catchAll(.*)*',
+  //   path: '/404/:catchAll(.*)*',
   //   name: 'NotFound',
   //   component:
   //     () => import('pages/Error404.vue')
