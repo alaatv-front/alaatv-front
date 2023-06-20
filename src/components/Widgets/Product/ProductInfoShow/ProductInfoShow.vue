@@ -34,12 +34,13 @@
                         @clicked="handleProductBookmark" />
             </div>
           </div>
-          <div class="product-info-box row">
+          <div v-if="!product.loading"
+               class="product-info-box row">
             <div v-for="(info, index) in information"
                  :key="index"
                  class="product-info col-grow">
               <div class="product-info-inside q-ma-sm">
-                <div class="info-header ">
+                <div class="info-header">
                   <q-img :src="info.src"
                          class="info-image img" />
                   <p class="info-title">
@@ -52,7 +53,9 @@
                        class="info-value">
                     <template v-if="!product.loading">
                       <span v-if="value"
-                            class="ellipsis value-span">{{ value }}</span>
+                            class="ellipsis value-span">
+                        {{ value }}
+                      </span>
                       <span v-else>-</span>
                     </template>
                     <q-skeleton v-else
@@ -247,11 +250,13 @@ export default {
     prefetchServerDataPromiseThen (data) {
       this.product = new Product(data)
       this.isFavored = this.product.is_favored_2
+      this.setInformation()
       if (window) {
         this.updateEECEventDetail()
       }
-      this.setInformation()
-      this.product.loading = false
+      this.$nextTick(() => {
+        this.product.loading = false
+      })
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
