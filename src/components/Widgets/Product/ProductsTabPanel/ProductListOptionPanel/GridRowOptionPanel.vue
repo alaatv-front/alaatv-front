@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+import { Product } from 'src/models/Product.js'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
-import { Product } from 'src/models/Product'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'ProductListGridOptionPanel',

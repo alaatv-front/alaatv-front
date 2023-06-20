@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -16,6 +15,10 @@ import com.airbnb.lottie.LottieAnimationView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private LottieAnimationView lottieAnimationView ;
+
+    private boolean isShownOnce = false ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +29,14 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void init(){
 
-      setStatusBarColor();
+      //setStatusBarColor();
+      setTransparentFullScreen();
       startMainActivity();
 
     }
 
     private void startMainActivity(){
+
 
       lottieAnimationView = findViewById(R.id.splash_alaa);
 
@@ -44,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         @Override
         public void onAnimationEnd(@NonNull Animator animation) {
 
-          Log.i("===>", "onAnimationEnd: ");
+          isShownOnce = true ;
           Intent intent = new Intent(SplashScreenActivity.this , MainActivity.class);
           startActivity(intent);
         }
@@ -76,5 +81,30 @@ public class SplashScreenActivity extends AppCompatActivity {
       // finally change the color
       window.setStatusBarColor(ContextCompat.getColor(this,R.color.alaaPrimary));
     }
+
+    private void setTransparentFullScreen(){
+
+      Window w = getWindow();
+      w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+    }
+
+
+    /*
+    * the isShownOnce boolean is for when user started the app
+    * and seen the splash screen launcher then after searching
+    * in app wants to exit the app not going back to splash again!
+    *  */
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (isShownOnce){
+      finish();
+      System.exit(0);
+    }
+  }
+
+
 
 }

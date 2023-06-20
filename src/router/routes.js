@@ -24,6 +24,7 @@ const routes = [
       layoutFooter: true,
       showHamburgerBtn: true,
       layoutFooterVisible: true,
+      layoutFooterType: 'main',
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
       layoutBreadcrumbs: {
@@ -388,9 +389,10 @@ const routes = [
                   layoutHeaderType: 'gift-card',
                   layoutLeftDrawer: true,
                   layoutLeftDrawerWidth: 126,
-                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerVisible: false,
                   layoutLeftSideBarType: 'gift-card',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'gift-card'
                 },
                 component: () => import('layouts/GiftCardLayout.vue'),
                 children: [
@@ -668,16 +670,17 @@ const routes = [
         ]
       }
     ]
-  },
+  }
   // are u mr Esmaeili ? '' : dont touch this route
 
+  // must status 404
   // Always leave this as last one,
   // but you can also remove it
-  {
-    path: '/404/:catchAll(.*)*',
-    name: 'NotFound',
-    component:
-      () => import('pages/Error404.vue')
-  }
+  // {
+  //   path: '/404/:catchAll(.*)*',
+  //   name: 'NotFound',
+  //   component:
+  //     () => import('pages/Error404.vue')
+  // }
 ]
 export default routes
