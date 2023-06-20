@@ -1,6 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import { Notify, Cookies } from 'quasar'
 import APIInstanceWrapper from 'src/api/classes/APIInstanceWrapper.js'
+import { logOut } from 'src/store/Auth/actions'
 
 const apiV2Server = process.env.ALAA_API_V2
 const apiV2ServerTarget = process.env.ALAA_API_V2_SERVER
@@ -161,6 +162,9 @@ export default boot(({ app, store, router, ssrContext }) => {
     apiV2.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
     apiV1.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
     apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
+  } else {
+    console.error('axios boot->Auth/logOut')
+    store.dispatch('Auth/logOut')
   }
 
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
