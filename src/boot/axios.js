@@ -1,7 +1,6 @@
 import { boot } from 'quasar/wrappers'
 import { Notify, Cookies } from 'quasar'
 import APIInstanceWrapper from 'src/api/classes/APIInstanceWrapper.js'
-import { logOut } from 'src/store/Auth/actions'
 
 const apiV2Server = process.env.ALAA_API_V2
 const apiV2ServerTarget = process.env.ALAA_API_V2_SERVER
