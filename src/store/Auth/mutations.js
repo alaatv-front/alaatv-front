@@ -1,6 +1,17 @@
 export function updateUser(state, newInfo) {
   state.user = newInfo
 }
+export function updateAxiosAuthorization (state, accessToken) {
+  const tokenType = 'Bearer'
+  const token = accessToken ? (tokenType + ' ' + accessToken) : null
+
+  this.$accessToken = accessToken
+  this.$axios.defaults.headers.common.Authorization = token
+  this.$apiV1.defaults.headers.common.Authorization = token
+  this.$apiV2.defaults.headers.common.Authorization = token
+  this.$apiWeb.defaults.headers.common.Authorization = token
+}
+
 export function updateAccessToken(state, newInfo) {
   state.accessToken = newInfo
 }

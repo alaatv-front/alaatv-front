@@ -20,4 +20,7 @@ export default boot(({ store, ssrContext }) => {
       clone: false
     })
   )
+
+  const accessToken = store.getters['Auth/accessToken']
+  store.commit('Auth/updateAxiosAuthorization', accessToken)
 })

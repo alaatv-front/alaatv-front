@@ -1,17 +1,19 @@
 import { Cookies } from 'quasar'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { updateAxiosAuthorization } from 'src/store/Auth/mutations'
 
 export function login (context, data) {
   const setVars = (user, accessToken) => {
     context.commit('updateUser', user)
     context.commit('updateAccessToken', accessToken)
     Cookies.set('BearerAccessToken', accessToken, { path: '/' })
-    const tokenType = 'Bearer'
-    this.$accessToken = accessToken
-    this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
-    this.$apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
-    this.$apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
-    this.$apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    // const tokenType = 'Bearer'
+    // this.$accessToken = accessToken
+    // this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    // this.$apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    // this.$apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    // this.$apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    context.commit('updateAxiosAuthorization', accessToken)
   }
   return new Promise((resolve, reject) => {
     APIGateway.auth.login(data)
