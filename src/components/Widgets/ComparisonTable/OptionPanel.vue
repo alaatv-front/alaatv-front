@@ -122,6 +122,13 @@
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
+                      <q-input v-if="props.row[getColName(index)].actionType === 'event'"
+                               v-model="scope.value.value.eventName"
+                               dense
+                               class="q-my-sm"
+                               autofocus
+                               counter
+                               @keyup.enter="scope.set" />
                       <q-select v-model="scope.value.type"
                                 class="q-mt-md"
                                 :options="typeOptions"
@@ -186,7 +193,7 @@ export default defineComponent({
       deleteRowOptions: [],
       filter: '',
       typeOptions: ['text', 'image', 'action'],
-      actionTypeOptions: ['scroll', 'link'],
+      actionTypeOptions: ['scroll', 'link', 'event'],
       defaultOptions: {
         columns: [],
         header: [],
