@@ -14,13 +14,15 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBarLaunch"
+            android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"
             android:exported="true">
 
         </activity>
 
-      <activity android:name="ir.sanatisharif.android.konkur96.SplashScreenActivity"
+      <activity
+        android:name="ir.sanatisharif.android.konkur96.SplashScreenActivity"
+        android:theme="@style/AppTheme.NoActionBar"
         android:exported="true">
 
         <intent-filter>
