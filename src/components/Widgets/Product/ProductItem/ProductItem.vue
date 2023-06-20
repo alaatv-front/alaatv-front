@@ -296,7 +296,7 @@ export default defineComponent({
       this.product = new Product(product)
       this.updateBookmarkValue()
       this.loading = false
-      if (window) {
+      if (typeof window !== 'undefined') {
         this.$nextTick(() => {
           this.setProductIntersectionObserver()
         })
