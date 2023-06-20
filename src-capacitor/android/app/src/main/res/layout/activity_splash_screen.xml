@@ -15,6 +15,6 @@
     app:lottie_autoPlay="true"
     app:lottie_loop="false"
     app:lottie_speed="1"
-    app:lottie_rawRes="@raw/splash" />
+    app:lottie_rawRes="@raw/alaa_splash" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
