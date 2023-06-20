@@ -140,8 +140,19 @@
 </template>
 
 <script>
+import { useQuasar } from 'quasar'
 export default {
-  name: 'GiftCardPanel'
+  name: 'GiftCardPanel',
+  data() {
+    return {
+      q: useQuasar()
+    }
+  },
+  beforeMount() {
+    if (this.q.screen.width > 1024) {
+      this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', true)
+    }
+  }
 }
 </script>
 
@@ -149,8 +160,8 @@ export default {
 .sidebar {
   background: #F5F7FA;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -10px;
+  right: 10px;
   width: 100%;
   height: 100%;
   .box {
@@ -187,10 +198,21 @@ export default {
           .q-tab {
             min-height: 64px;
             max-height: 64px;
+            .q-tab__indicator {
+              width: 9px;
+              height: 30px;
+              position: absolute;
+              top: 20px;
+              left: -3px;
+              border-radius: 10px;
+            }
           }
         }
       }
     }
+  }
+  @media screen and (max-width: 1024px) {
+    //display: none;
   }
 }
 </style>
