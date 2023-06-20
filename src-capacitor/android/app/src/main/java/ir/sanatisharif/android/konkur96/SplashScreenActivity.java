@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -30,7 +29,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void init(){
 
-      setStatusBarColor();
+      //setStatusBarColor();
+      setTransparentFullScreen();
       startMainActivity();
 
     }
@@ -82,6 +82,12 @@ public class SplashScreenActivity extends AppCompatActivity {
       window.setStatusBarColor(ContextCompat.getColor(this,R.color.alaaPrimary));
     }
 
+    private void setTransparentFullScreen(){
+
+      Window w = getWindow();
+      w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+    }
 
 
     /*

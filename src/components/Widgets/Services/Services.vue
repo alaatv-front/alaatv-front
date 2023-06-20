@@ -85,7 +85,7 @@ export default {
       if (service.action === 'scrollToId') {
         el = document.getElementById(service.scrollToId)
       } else if (service.action === 'scrollToClass') {
-        el = document.getElementsByClassName(service.scrollToClass)
+        el = document.getElementsByClassName(service.scrollToClass)[0]
       }
       const headerOffset = 150
       const elementPosition = el.getBoundingClientRect().top

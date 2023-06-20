@@ -2,9 +2,9 @@
   <div class="transition-panel">
     <div class="page-title"> وضعیت درآمد </div>
     <div class="row no-gutters introduction-box">
-      <div class="col-xl-9 col-12">
-        <div class="row no-wrap no-gutters card-container">
-          <div class="col-sm-4 col-xs-12 q-pr-md">
+      <div class="col-xl-9 col-xs-12">
+        <div class="row q-col-gutter-md card-container">
+          <div class="col-md-4 col-xs-12 ">
             <div class="card-style income card-style-flex">
               <div class="title">
                 مجموع درآمد تا به الان
@@ -15,7 +15,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4 col-xs-12 q-px-md">
+          <div class="col-md-4 col-xs-12 ">
             <div class="card-style demand card-style-flex">
               <div class="title">
                 درآمد تسویه نشده
@@ -43,7 +43,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4 col-xs-12 q-pl-md">
+          <div class="col-md-4 col-xs-12 ">
             <div class="card-style demand card-style-flex">
               <div class="title">
                 در انتظار تسویه
@@ -58,7 +58,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-3 col-12">
+      <div class="col-xl-3 col-xs-12">
         <div class="left-side">
           <div class="clearing-title">
             درخواست تسویه حساب
