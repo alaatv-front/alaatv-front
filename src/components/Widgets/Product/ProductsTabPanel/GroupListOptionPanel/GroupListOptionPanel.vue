@@ -55,7 +55,8 @@ export default {
             color: '',
             fontSize: '',
             textAlign: ''
-          }
+          },
+          colNumber: 'col'
         },
         type: 'ProductList',
         data: []

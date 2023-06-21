@@ -1,6 +1,7 @@
 <template>
   <div v-for="(item, index) in data"
        :key="index"
+       ref="productShelf"
        class="product-panel">
     <div v-if="item.options.label "
          class="col-12 product-label"
@@ -45,6 +46,16 @@ export default {
     }
   },
   methods: {
+    scrollToShelf () {
+      const el = this.$refs.productShelf
+      const headerOffset = 150
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    },
     isProduct(item) {
       return item.type === 'product'
     }
@@ -62,7 +73,7 @@ export default {
   }
   .product-content {
     justify-content: space-between;
-    padding: 40px 0;
+    padding: 10px 0 40px;
     width: 100%;
 
     @media screen and (max-width: 600px){
