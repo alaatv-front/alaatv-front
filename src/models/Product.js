@@ -36,6 +36,10 @@ class Product extends Model {
       { key: 'last_content_user_watched' },
       { key: 'specialDescription' },
       {
+        key: 'children',
+        default: []
+      },
+      {
         key: 'sets',
         relatedModel: SetList
       },
@@ -77,6 +81,14 @@ class Product extends Model {
       this.is_favored = this.isFavored
     }
     this.fillEECData(data)
+  }
+
+  getChildren () {
+    return new ProductList(this.children)
+  }
+
+  hasChildren () {
+    return this.children.length > 0
   }
 
   fillEECData(data) {
