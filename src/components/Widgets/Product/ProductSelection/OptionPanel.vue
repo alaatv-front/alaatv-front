@@ -3,9 +3,25 @@
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row">
-          <div class="col-md-6">
-            <div class="outsideLabel">list height</div>
-            <q-input v-model="localOptions.listHeight" />
+          <div class="col-md-4">
+            <q-checkbox v-model="localOptions.basePrice"
+                        left-label
+                        label="قیمت اصلی" />
+          </div>
+          <div class="col-md-4">
+            <q-checkbox v-model="localOptions.discount"
+                        left-label
+                        label="تخفیف" />
+          </div>
+          <div class="col-md-4">
+            <q-checkbox v-model="localOptions.finalPrice"
+                        left-label
+                        label="قیمت نهایی" />
+          </div>
+          <div class="col-md-5">
+            <q-checkbox v-model="localOptions.addToCart"
+                        left-label
+                        label="افزودن به سبد خرید" />
           </div>
         </div>
       </div>
@@ -21,33 +37,15 @@ export default defineComponent({
   name: 'OptionPanel',
   components: { OptionPanelTabs },
   mixins: [mixinOptionPanel],
-  props: {
-    options: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
-  },
   data() {
     return {
-      apiOptions: ['home', 'shop'],
       defaultOptions: {
-        listHeight: '',
         className: '',
         height: 'auto',
         boxed: false,
         boxedWidth: 1200,
         style: {}
       }
-    }
-  },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
     }
   }
 })

@@ -1,9 +1,11 @@
 <template>
   <div v-if="localOptions.options.layout === 'GridRow'">
-    <grid-row-option-panel :options="localOptions" />
+    <grid-row-option-panel :options="localOptions"
+                           :layout="layout" />
   </div>
   <div v-else>
-    <scroll-row-option-panel :options="localOptions" />
+    <scroll-row-option-panel :options="localOptions"
+                             :layout="layout" />
   </div>
 </template>
 
@@ -18,7 +20,13 @@ export default {
     GridRowOptionPanel,
     ScrollRowOptionPanel
   },
-  mixins: [PageBuilderOptionPanel]
+  mixins: [PageBuilderOptionPanel],
+  props: {
+    layout: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 

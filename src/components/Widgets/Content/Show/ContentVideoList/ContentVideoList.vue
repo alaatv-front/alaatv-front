@@ -120,6 +120,9 @@ export default {
   },
   data() {
     return {
+      defaultOptions: {
+        listHeight: ''
+      },
       videoListRatio: 11 / 12,
       content: new Content(),
       set: new Set(),
@@ -241,7 +244,7 @@ export default {
       color: #afb2c1
     }
     .responsive{
-      max-height: 500px !important;
+      max-height: v-bind('options.listHeight') !important;
       .scroll{
         &:deep(.q-scrollarea__content) {
           width: -webkit-fill-available

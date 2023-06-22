@@ -5,13 +5,16 @@ export function login (context, data) {
   const setVars = (user, accessToken) => {
     context.commit('updateUser', user)
     context.commit('updateAccessToken', accessToken)
-    Cookies.set('BearerAccessToken', accessToken, { path: '/' })
-    const tokenType = 'Bearer'
-    this.$accessToken = accessToken
-    this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
-    this.$apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
-    this.$apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
-    this.$apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    if (typeof window !== 'undefined') {
+      Cookies.set('BearerAccessToken', accessToken, { path: '/' })
+    }
+    // const tokenType = 'Bearer'
+    // this.$accessToken = accessToken
+    // this.$axios.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    // this.$apiV1.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    // this.$apiV2.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    // this.$apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + accessToken
+    context.commit('updateAxiosAuthorization', accessToken)
   }
   return new Promise((resolve, reject) => {
     APIGateway.auth.login(data)
@@ -36,12 +39,16 @@ export function login (context, data) {
 export function logOut (context, clearRedirectTo = true) {
   context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
-  Cookies.set('BearerAccessToken', '', { path: '/' })
-  this.$accessToken = null
-  this.$axios.defaults.headers.common.Authorization = null
-  this.$apiV1.defaults.headers.common.Authorization = null
-  this.$apiV2.defaults.headers.common.Authorization = null
-  this.$apiWeb.defaults.headers.common.Authorization = null
+
+  if (typeof window !== 'undefined') {
+    Cookies.set('BearerAccessToken', '', { path: '/' })
+  }
+  context.commit('updateAxiosAuthorization', null)
+  // this.$accessToken = null
+  // this.$axios.defaults.headers.common.Authorization = null
+  // this.$apiV1.defaults.headers.common.Authorization = null
+  // this.$apiV2.defaults.headers.common.Authorization = null
+  // this.$apiWeb.defaults.headers.common.Authorization = null
   if (clearRedirectTo) {
     context.commit('updateRedirectTo', null)
   }

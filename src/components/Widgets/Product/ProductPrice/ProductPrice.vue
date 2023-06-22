@@ -48,7 +48,7 @@
 import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ProductPrice',
