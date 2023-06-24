@@ -1,8 +1,6 @@
 <template>
   <div v-if="product.hasChildren()"
-       class="ProductSelection"
-       :class="options.className"
-       :style="options.style">
+       class="ProductSelection">
     <product-price-child-item :product="product"
                               @changeSelected="onChangeSelectedProducts" />
   </div>
@@ -10,26 +8,19 @@
 
 <script>
 import { Product } from 'src/models/Product.js'
-import { APIGateway } from 'src/api/APIGateway.js'
-import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import ProductPriceChildItem from 'components/Widgets/Product/ProductPrice/ChildItem.vue'
 
 export default {
   name: 'ProductSelection',
   components: { ProductPriceChildItem },
-  mixins: [mixinPrefetchServerData],
   props: {
-    options: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
-  data() {
-    return {
-      product: new Product()
+    product: {
+      type: Product,
+      default: new Product()
+    },
+    selectedIds: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
@@ -54,36 +45,8 @@ export default {
     }
   },
   methods: {
-    prefetchServerDataPromise () {
-      this.product.loading = true
-      return this.getProduct()
-    },
-    prefetchServerDataPromiseThen (data) {
-      this.product = new Product(data)
-      if (window) {
-        this.updateEECEventDetail()
-      }
-      this.product.loading = false
-    },
-    prefetchServerDataPromiseCatch () {
-      this.product.loading = false
-    },
-    updateEECEventDetail() {
-      AEE.productDetailViews('product.show', this.product.eec.getData(), {
-        TTl: 1000,
-        key: this.product.id
-      })
-    },
-    getProduct() {
-      return APIGateway.product.show(this.productId)
-    },
     onChangeSelectedProducts (selectedProducts) {
-      console.log('selectedProducts', selectedProducts)
-    },
-    addToCart() {
-      this.$store.dispatch('Cart/addToCart', this.product).then(() => {
-        this.$router.push({ name: 'Public.Checkout.Review' })
-      })
+      this.$emit('update:selectedIds', selectedProducts)
     }
   }
 }

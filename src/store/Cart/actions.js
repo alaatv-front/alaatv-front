@@ -8,7 +8,8 @@ export function addToCart(context, newProductData) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
   return new Promise((resolve, reject) => {
     const payload = {
-      product_id: newProductData.id, // Number or String
+      product: newProductData.product, // Number or String
+      product_id: newProductData.product.id, // Number or String
       products: newProductData.products ? newProductData.products : [], // Array (List ofProduct's ID)
       attribute: newProductData.attribute ? newProductData.attribute : [] // Array
     }
