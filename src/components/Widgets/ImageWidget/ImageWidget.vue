@@ -1,6 +1,7 @@
 <template>
   <component :is="parentComponent"
              :to="localOptions.action.route"
+             :class="options.className"
              :href="localOptions.action.route">
     <q-img :src="getImageSource(options)"
            :ratio="options.ratio"
@@ -8,7 +9,7 @@
            :width="getImageWidth(options)"
            :height="getImageHeight(options)"
            :style="options.style"
-           :class="options.className"
+           :class="{'cursor-pointer': localOptions.hasAction}"
            @click="takeAction(options.action)" />
   </component>
 </template>

@@ -2,19 +2,14 @@
   <div class="ProductPriceChildItem">
     <div v-if="product.hasChildren()"
          class="ProductPriceChildItem-with-child">
-      <q-expansion-item expand-separator>
+      <q-expansion-item expand-separator
+                        dense
+                        dense-toggle>
         <template v-slot:header>
-          <!--          <q-item-section avatar>-->
-          <!--            <q-avatar icon="bluetooth" color="primary" text-color="white" />-->
-          <!--          </q-item-section>-->
           <q-item-section>
-            {{ product.title }}
-            ({{ product.id }})
-          </q-item-section>
-
-          <q-item-section side>
-            <q-toggle v-model="parentSelected"
-                      @update:modelValue="onChangeParentSelected" />
+            <q-checkbox v-model="selected"
+                        :label="product.title + '(' + product.id + ')'"
+                        @update:modelValue="onChangeProductWithChildSelected" />
           </q-item-section>
         </template>
         <q-card>
@@ -22,7 +17,7 @@
                                     :key="productCh.id"
                                     :ref="'ProductPriceChildItem' + productCh.id"
                                     :product="productCh"
-                                    @changeSelectedProducts="onChangeSelectedProducts" />
+                                    @changeSelected="onChangeSelected" />
         </q-card>
       </q-expansion-item>
     </div>
@@ -30,12 +25,9 @@
          class="ProductPriceChildItem-without-child">
       <q-item>
         <q-item-section>
-          {{ product.title }}
-          ({{ product.id }})
-        </q-item-section>
-        <q-item-section side>
-          <q-toggle v-model="childSelected"
-                    @update:modelValue="onChangeChildSelected" />
+          <q-checkbox v-model="selected"
+                      :label="product.title + '(' + product.id + ')'"
+                      @update:modelValue="onChangeChildlessProductSelected" />
         </q-item-section>
       </q-item>
     </div>
@@ -56,74 +48,103 @@ export default defineComponent({
   },
   data() {
     return {
-      selectedProductIds: [],
-      parentSelected: false,
-      childSelected: false
+      selectedOnes: [],
+      selected: false
     }
   },
   methods: {
-    onChangeSelectedProducts (selectedProductIds) {
-      if (selectedProductIds.length === 0) {
-        // remove child product id from selectedProductIds
-        const include = this.selectedProductIds.includes(this.product.id)
-        this.selectedProductIds = []
-        if (include) {
-          this.selectedProductIds = [this.product.id]
-          // this.onChangeChildSelected(true, true)
+    onChangeChildlessProductSelected () {
+      this.setSelectedAndSelectedOnesAndEmitThem()
+    },
+    onChangeProductWithChildSelected (newValue) {
+      this.changeSelectedAllOfProducts(newValue, this.product, this)
+      this.setSelectedAndSelectedOnesAndEmitThem()
+    },
+    onChangeSelected () {
+      this.setSelectedAndSelectedOnesAndEmitThem()
+    },
+    setSelectedAndSelectedOnesAndEmitThem () {
+      this.setSelected()
+      this.setSelectedOnes()
+      this.emitSelected()
+    },
+    setSelected () {
+      this.selected = this.getSelectedBasedOnChildren(this.product, this)
+    },
+    setSelectedOnes () {
+      this.selectedOnes = this.getAllChildProductId(this.product, this)
+    },
+    emitSelected () {
+      this.$emit('changeSelected', this.selectedOnes)
+    },
+    getSelectedBasedOnChildren (grandProduct, grandInstance) {
+      let selected = null
+      let allSelected = true
+      let allNotSelected = true
+      let hasNullSelectedChild = false
+      if (grandProduct.hasChildren()) {
+        const productChList = grandProduct.getChildren().list
+        const productChListLength = productChList.length
+        for (let i = 0; i < productChListLength; i++) {
+          const productCh = productChList[i]
+          const productChInstance = grandInstance.$refs['ProductPriceChildItem' + productCh.id][0]
+          if (!productChInstance.selected) {
+            allSelected = false
+          }
+          if (productChInstance.selected) {
+            allNotSelected = false
+          }
+          if (productChInstance.selected === null) {
+            hasNullSelectedChild = true
+          }
+          selected = this.getSelectedBasedOnChildren(productCh, productChInstance)
         }
+      } else {
+        selected = grandInstance.selected
       }
 
-      // add child product id to selectedProductIds
-      selectedProductIds.forEach(productChId => {
-        if (!this.selectedProductIds.includes(productChId)) {
-          this.addToSelectedProducts(productChId)
+      if (grandProduct.hasChildren() && ((!allSelected && !allNotSelected) || hasNullSelectedChild)) {
+        return null
+      }
+      if (grandProduct.hasChildren() && allSelected && !allNotSelected) {
+        return true
+      }
+      if (grandProduct.hasChildren() && !allSelected && allNotSelected) {
+        return false
+      }
+      if (!grandProduct.hasChildren()) {
+        return selected
+      }
+    },
+    getAllChildProductId (grandProduct, grandInstance) {
+      if (grandProduct.hasChildren()) {
+        let selectedOnes = []
+        const productChList = grandProduct.getChildren().list
+        const productChListLength = productChList.length
+        for (let i = 0; i < productChListLength; i++) {
+          const productCh = productChList[i]
+          const productChInstance = grandInstance.$refs['ProductPriceChildItem' + productCh.id][0]
+          selectedOnes = selectedOnes.concat(this.getAllChildProductId(productCh, productChInstance)).filter(item => item !== null)
         }
-      })
-      this.$emit('changeSelectedProducts', this.selectedProductIds)
+        if (!grandInstance.selected) {
+          return selectedOnes
+        }
+        return selectedOnes.concat([grandProduct.id])
+      }
+
+      if (!grandInstance.selected) {
+        return []
+      }
+      return [grandProduct.id]
     },
-    onChangeParentSelected (newValue) {
-      this.changeSelectedProducts(newValue, this.product, this)
-      this.onChangeChildSelected(newValue)
-    },
-    changeSelectedProducts (newState, grandProduct, grandInstance) {
+    changeSelectedAllOfProducts (newState, grandProduct, grandInstance) {
       grandProduct.getChildren().list.forEach(productCh => {
         const productChInstance = grandInstance.$refs['ProductPriceChildItem' + productCh.id][0]
-        if (newState) {
-          productChInstance.addToSelectedProducts(productCh.id)
-          productChInstance.childSelected = true
-        } else {
-          productChInstance.removeFromSelectedProducts(productCh.id)
-          productChInstance.childSelected = false
-        }
-        productChInstance.onChangeChildSelected(newState)
+        productChInstance.selected = newState
         if (productCh.hasChildren()) {
-          this.changeSelectedProducts(newState, productCh, productChInstance)
+          this.changeSelectedAllOfProducts(newState, productCh, productChInstance)
         }
       })
-    },
-    onChangeChildSelected (newValue, withEmit = true) {
-      if (newValue) {
-        this.addToSelectedProducts(this.product.id)
-      } else {
-        this.removeFromSelectedProducts(this.product.id)
-      }
-
-      if (withEmit) {
-        this.$emit('changeSelectedProducts', this.selectedProductIds)
-      }
-    },
-    addToSelectedProducts (productId) {
-      if (this.selectedProductIds.includes(productId)) {
-        return
-      }
-      this.selectedProductIds.push(productId)
-    },
-    removeFromSelectedProducts (productId) {
-      const target = this.selectedProductIds.findIndex(productIdItem => productIdItem === productId)
-      if (target === -1) {
-        return
-      }
-      this.selectedProductIds.splice(target, 1)
     }
   }
 })
@@ -138,19 +159,27 @@ export default defineComponent({
     :deep(.q-expansion-item) {
       .q-expansion-item__container {
         .q-item {
+          border-radius: 15px;
           //.q-focus-helper {
           //  background: white;
           //}
         }
         .q-expansion-item__content {
           padding-left: 20px;
+          .q-card {
+            border-radius: 15px;
+          }
         }
       }
     }
   }
   .ProductPriceChildItem-without-child {
+    border-radius: 15px;
     &:hover {
       background: #e8e8e8;
+    }
+    .q-item {
+      height: 44px;
     }
   }
 }
