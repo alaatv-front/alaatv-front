@@ -69,7 +69,6 @@
                   </router-link>
                 </div>
               </div>
-
               <div class="product-text-info">
                 <div class="order-item-header">
                   <div class="title ellipsis">
@@ -114,7 +113,6 @@
                 </div>
               </div>
             </q-card-section>
-
             <q-card-section class="card-actions">
               <div class="product-details row"
                    :class="expandedObject[i] ?'expanded': ''">
@@ -131,16 +129,13 @@
                       {{ order.grand.price.toman('base', null) }}
                     </div>
                   </div>
-
                   <div class="final-part">
                     <div class="final-price">{{ order.grand.price.toman('final', null) }}</div>
                     <div class="toman">تومان</div>
                   </div>
                 </div>
-
                 <div class="action-buttons col-md-12 col-sm-3"
                      :class="expandedObject[i] ? '' : 'open-expansion'">
-
                   <router-link v-if="order.grand.product.id"
                                :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
                                class="go-product text-primary text-center">
@@ -192,7 +187,6 @@
                 </div>
               </div>
             </q-card-section>
-
           </q-card>
         </div>
       </div>
@@ -216,15 +210,19 @@
         </q-card-section>
 
         <q-card-actions class="delete-dialog-card-actions">
-          <div class="dont-delete-button"
-               @click="changeDialogState(false)">
+          <q-btn class="dont-delete-button"
+                 unelevated
+                 :loading="cart.loading"
+                 @click="changeDialogState(false)">
             انصراف
-          </div>
+          </q-btn>
 
-          <div class="surely-delete-button"
-               @click="removeItem">
+          <q-btn class="surely-delete-button"
+                 unelevated
+                 :loading="cart.loading"
+                 @click="removeItem">
             بله، مطمئن هستم
-          </div>
+          </q-btn>
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -252,7 +250,7 @@ export default {
   emits: ['cartReview'],
   data () {
     return {
-      cart: new Cart(),
+      // cart: new Cart(),
       dialogState: false,
       test: null,
       expandedObject: {},
@@ -268,6 +266,9 @@ export default {
     }
   },
   computed: {
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
     cartItemsList () {
       return this.getOrderedList(this.cart.items.list)
     },
@@ -332,13 +333,14 @@ export default {
     },
 
     removeItem() {
+      this.changeDialogState(false)
       this.$store.dispatch('Cart/removeItemFromCart', this.clickedOrderProductToRemove)
         .then(() => {
           this.cartReview()
-          this.changeDialogState(false)
           this.$bus.emit('busEvent-refreshCart')
         }).catch(() => {
-          this.changeDialogState(false)
+          this.cartReview()
+          this.$bus.emit('busEvent-refreshCart')
         })
     },
 
