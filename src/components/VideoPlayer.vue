@@ -589,6 +589,15 @@ export default {
     },
     videoStatus(val) {
       this.videoIsPlaying = val
+    },
+    toggleFullScreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen()
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen()
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen()
+      }
     }
   }
 }

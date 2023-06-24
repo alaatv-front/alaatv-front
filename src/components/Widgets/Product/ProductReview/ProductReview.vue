@@ -10,7 +10,7 @@
         <q-skeleton v-if="product.loading"
                     class="description-text custom-card"
                     min-width="100%"
-                    type="article" />
+                    type="rect" />
 
         <q-card v-else-if="description"
                 class="description-text custom-card">

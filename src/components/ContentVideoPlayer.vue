@@ -163,6 +163,7 @@ export default {
         return
       }
       if (!this.currentContent.can_user_use_timepoint) {
+        this.$refs.videoPlayer.toggleFullScreen()
         this.$q.dialog({
           title: 'استفاده از زمان کوب',
           message: 'جهت استفاده از زمان کوب می بایست اشتراک خریداری کنید.',

@@ -1,6 +1,57 @@
 <template>
   <div class="scroll-row-container">
-    <div class="row">
+    <div class="row q-my-xs q-col-gutter-md">
+      <div class="col-md-3 ">
+        <div class="outsideLabel">label</div>
+        <q-input v-model="localOptions.options.label"
+                 label="label" />
+      </div>
+      <div v-if="layout === 'ProductShelf'"
+           class="col-md-9">
+        <div class="row q-col-gutter-md">
+          <div class="col-md-4">
+            <div class="outsideLabel">label color</div>
+            <q-input v-model="localOptions.options.labelStyle.color"
+                     label="label color" />
+          </div>
+          <div class="col-md-4">
+            <div class="outsideLabel">label font size</div>
+            <q-input v-model="localOptions.options.labelStyle.fontSize"
+                     label="label font size" />
+          </div>
+          <div class="col-md-4">
+            <div class="outsideLabel">label align</div>
+            <q-select v-model="localOptions.options.labelStyle.textAlign"
+                      :options="textAlignOptions"
+                      label="label align" />
+          </div>
+        </div>
+      </div>
+      <div class="col-12 q-pa-md">
+        <q-expansion-item expand-separator
+                          label="grid system">
+          <q-card>
+            <q-card-section>
+              <q-item v-for="size in sizes"
+                      :key="size">
+                <q-item-section avatar>
+                  {{ size }}
+                </q-item-section>
+                <q-item-section>
+                  <q-slider v-model="sizeValue[size]"
+                            :min="1"
+                            :max="12"
+                            :step="1"
+                            :label-value="sizeValue[size] ? (sizeValue[size] + '/12') : 0"
+                            label
+                            color="light-green"
+                            @update:modelValue="calcColNumberClass" />
+                </q-item-section>
+              </q-item>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
+      </div>
       <div class="col-md-6 q-ml-md">
         <div class="outsideLabel">اضافه کردن محصول</div>
         <div class="flex items-center">
@@ -21,14 +72,15 @@
         <q-select v-model="localOptions.options.layout"
                   :options="layoutOptions" />
       </div>
-    </div>    <q-card class="custom-card bg-grey-1">
+    </div>
+    <q-card class="custom-card bg-grey-1">
       <q-list v-for="(product, productIndex) in localOptions.data"
               :key="productIndex">
         <q-item v-ripple
                 class=" shadow-3"
                 tag="label">
           <q-item-section>
-            <q-item-label>{{product.id}}</q-item-label>
+            <q-item-label>{{ product.id }}</q-item-label>
           </q-item-section>
           <q-item-section side>
             <q-btn color="negative"
@@ -75,38 +127,78 @@ export default {
     ProductItem
   },
   mixins: [PageBuilderOptionPanel],
+  props: {
+    layout: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
+      sizes: ['xs', 'sm', 'md', 'lg', 'xl'],
+      sizeValue: {
+        xs: 0,
+        sm: 0,
+        md: 0,
+        lg: 0,
+        xl: 0
+      },
       layoutOptions: ['ScrollRow', 'GridRow'],
+      responsiveOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
+      textAlignOptions: ['right', 'center', 'left'],
+      responsive: 'lg',
       productId: null,
       currentTabIndex: '',
       specialProductId: '',
       dialogProductId: '',
-      productDialog: false
+      productDialog: false,
+      defaultOptions: {
+        options: {
+          label: '',
+          layout: 'GridRow',
+          // labelStyle: {
+          //   color: '',
+          //   fontSize: '',
+          //   textAlign: 'center'
+          // },
+          colNumber: 'col'
+        },
+        data: [],
+        type: ''
+      }
     }
   },
   methods: {
-    openProduct (id) {
+    calcColNumberClass() {
+      this.localOptions.options.colNumber = Object.keys(this.sizeValue).map(key => this.getCol(key, this.sizeValue[key])).join(' ')
+    },
+    getCol(size, number) {
+      if (!number) {
+        return ''
+      }
+      return 'col-' + size + '-' + number
+    },
+    openProduct(id) {
       if (!id) {
         return
       }
       this.dialogProductId = id
       this.productDialog = true
     },
-    removeProduct (id, productIndex) {
+    removeProduct(id, productIndex) {
       if (!this.localOptions.data[productIndex]) {
         return
       }
       this.localOptions.data.splice(productIndex, 1)
     },
-    addProduct (id) {
+    addProduct(id) {
       const peoductId = Number(id)
       const newProduct = new Product({ id: peoductId })
       this.localOptions.data.push(newProduct)
 
       this.cancelProduct()
     },
-    cancelProduct () {
+    cancelProduct() {
       this.productDialog = false
       this.currentTabIndex = ''
       this.specialProductId = ''

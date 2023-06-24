@@ -125,7 +125,7 @@ export default {
         .catch(() => {})
     },
     addDonateToCart() {
-      this.$store.dispatch('Cart/addToCart', new Product({ id: 180 }))
+      this.$store.dispatch('Cart/addToCart', { product: new Product({ id: 180 }) })
         .then(() => {
           this.$emit('cartReview')
           this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-happy.png'

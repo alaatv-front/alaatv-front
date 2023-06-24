@@ -1,57 +1,65 @@
 <template>
-  <q-card v-if="product.price"
-          class="product-price justify-center custom-card"
-          :class="options.className"
-          :style="options.style">
+  <div class="product-price-parent">
+    <product-selection v-if="product.hasChildren()"
+                       v-model:selectedIds="selectedIds"
+                       class="q-mb-lg"
+                       :product="product" />
+    <q-card v-if="product.price"
+            class="product-price justify-center custom-card"
+            :class="options.className"
+            :style="options.style">
 
-    <div v-if="options.discount && discountInPercent"
-         class="discount-percent q-px-md">
-      <div class="percent">{{ '%' + discountInPercent }}</div>
-      <div class="discount-title">تخفیف</div>
-    </div>
-
-    <div class="price">
-      <div v-if="options.basePrice && product.has_instalment_option && product.price.toman('base', null)"
-           class="product-base-price">
-        {{ product.price.toman('base', null) }}
+      <div v-if="options.discount && discountInPercent"
+           class="discount-percent q-px-md">
+        <div class="percent">{{ '%' + discountInPercent }}</div>
+        <div class="discount-title">تخفیف</div>
       </div>
 
-      <div v-if="product.price.toman('final', null) && options.finalPrice"
-           class="product-final-price">
-        {{ product.price.toman('final', null) }}
-        <div v-if="product.price.toman('discount') !== 0"
-             class="main-price">{{ product.price.toman('base', false) }}</div>
+      <div class="price">
+        <div v-if="options.basePrice && product.has_instalment_option && product.price.toman('base', null)"
+             class="product-base-price">
+          {{ product.price.toman('base', null) }}
+        </div>
+
+        <div v-if="product.price.toman('final', null) && options.finalPrice"
+             class="product-final-price">
+          {{ product.price.toman('final', null) }}
+          <div v-if="product.price.toman('discount') !== 0"
+               class="main-price">{{ product.price.toman('base', false) }}</div>
+        </div>
+
+        <div class="product-price-title"> تومان</div>
       </div>
 
-      <div class="product-price-title"> تومان</div>
-    </div>
-
-    <div v-if="options.addToCart"
-         class="action">
-      <q-btn v-if="product.has_instalment_option"
-             unelevated
-             class="purchase-button pay-later"
-             label="خرید اقساطی"
-             text-color="white"
-             icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png" />
-      <q-btn unelevated
-             class="purchase-button"
-             label="خرید نقدی"
-             text-color="white"
-             icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
-             @click="addToCart" />
-    </div>
-  </q-card>
+      <div v-if="options.addToCart"
+           class="action">
+        <q-btn v-if="product.has_instalment_option"
+               unelevated
+               class="purchase-button pay-later"
+               label="خرید اقساطی"
+               text-color="white"
+               icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png" />
+        <q-btn unelevated
+               class="purchase-button"
+               label="خرید نقدی"
+               text-color="white"
+               icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
+               @click="addToCart" />
+      </div>
+    </q-card>
+  </div>
 </template>
 
 <script>
 import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import ProductSelection from 'src/components/Widgets/Product/ProductPrice/ProductSelection.vue'
 
 export default {
   name: 'ProductPrice',
+  components: { ProductSelection },
   mixins: [mixinPrefetchServerData],
   props: {
     options: {
@@ -63,7 +71,8 @@ export default {
   },
   data() {
     return {
-      product: new Product()
+      product: new Product(),
+      selectedIds: []
     }
   },
   computed: {
@@ -112,118 +121,120 @@ export default {
       return APIGateway.product.show(this.productId)
     },
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', this.product).then(() => {
-        this.$router.push({ name: 'Public.Checkout.Review' })
-      })
+      this.$store.dispatch('Cart/addToCart', { product: this.product, products: this.selectedIds })
+        .then(() => {
+          this.$router.push({ name: 'Public.Checkout.Review' })
+        })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.product-price {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 70px;
-  padding-right: 20px;
-  margin: 0 30px 20px;
-  @media only screen and (max-width: 1439px) {
-  }
-  @media only screen and (max-width: 1023px) {
-    width: 100%;
-    margin: 0;
-    padding-right: 30px;
-  }
-  @media only screen and (max-width: 600px) {
-    font-size: 14px;
-  }
-
-  .discount-percent {
-    //width: 120px;
-    height: 70px;
-    background-color: #E05555;
-    color: #ffffff;
-    border-radius: 20px 0 0 20px;
+.product-price-parent {
+  .product-price {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-
+    height: 70px;
+    padding-right: 20px;
+    @media only screen and (max-width: 1439px) {
+    }
+    @media only screen and (max-width: 1023px) {
+      width: 100%;
+      margin: 0;
+      padding-right: 30px;
+    }
     @media only screen and (max-width: 600px) {
-      flex-direction: column;
-      padding: 5px;
-    }
-
-  .percent {
-    margin-right: 5px;
-  }
-}
-
-.price {
-  display: flex;
-  align-items: center;
-  margin: 0 20px;
-  @media only screen and (max-width: 1023px) {
-    margin: 0 10px;
-  }
-  @media only screen and (max-width: 1023px) {
-    //flex-direction: column;
-    padding-left: 30px;
-  }
-
-  .product-base-price {
-    text-decoration: line-through;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 24px;
-    color: #E05555;
-    margin-right: 10px;
-  }
-
-  .product-final-price {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 31px;
-    letter-spacing: -0.05em;
-    margin-left: 5px;
-    margin-right: 10px;
-
-    .main-price {
-      text-decoration: line-through;
-      /* margin-left: 12px; */
-      font-style: normal;
-      font-weight: 400;
       font-size: 14px;
-      line-height: 19px;
-      color: #656f7b;
-
-      opacity: 0.4;
     }
+
+    .discount-percent {
+      //width: 120px;
+      height: 70px;
+      background-color: #E05555;
+      color: #ffffff;
+      border-radius: 20px 0 0 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      @media only screen and (max-width: 600px) {
+        flex-direction: column;
+        padding: 5px;
+      }
+
+      .percent {
+        margin-right: 5px;
+      }
+    }
+
+    .price {
+      display: flex;
+      align-items: center;
+      margin: 0 20px;
+      @media only screen and (max-width: 1023px) {
+        margin: 0 10px;
+      }
+      @media only screen and (max-width: 1023px) {
+        //flex-direction: column;
+        padding-left: 30px;
+      }
+
+      .product-base-price {
+        text-decoration: line-through;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 24px;
+        color: #E05555;
+        margin-right: 10px;
+      }
+
+      .product-final-price {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 31px;
+        letter-spacing: -0.05em;
+        margin-left: 5px;
+        margin-right: 10px;
+
+        .main-price {
+          text-decoration: line-through;
+          /* margin-left: 12px; */
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 19px;
+          color: #656f7b;
+
+          opacity: 0.4;
+        }
+      }
+
+      .product-price-title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 17px;
+      }
+    }
+
+    .purchase-button {
+      display: flex;
+      width: 117px;
+      height: 40px;
+      background-color: #4CAF50;
+      border-radius: 10px;
+      justify-content: center;
+      align-items: center;
+
+      &.pay-later {
+        background-color: #75B7FF;
+      }
+    }
+
   }
-
-  .product-price-title {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 17px;
-  }
-}
-
-.purchase-button {
-  display: flex;
-  width: 117px;
-  height: 40px;
-  background-color: #4CAF50;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-
-&.pay-later {
-   background-color: #75B7FF;
- }
-}
-
 }
 </style>
