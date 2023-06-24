@@ -4,7 +4,7 @@
        :class="options.className"
        :style="options.style">
     <product-price-child-item :product="product"
-                              @changeSelectedProducts="onChangeSelectedProducts" />
+                              @changeSelected="onChangeSelectedProducts" />
   </div>
 </template>
 
