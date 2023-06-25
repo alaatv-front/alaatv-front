@@ -54,15 +54,13 @@
         <div v-for="(order, i) in cartItemsList"
              :key="i"
              class="cart-items">
-          <q-card class="cart-card"
-                  :class="order.order_product?.list.length > 0 ? '': 'cart'">
+          <q-card class="cart-card cart">
             <q-card-section class="card-section">
               <div class="order-image-section">
                 <div class="order-image-container">
-                  <router-link v-if="order.grand.id"
-                               :to="{name: 'Public.Product.Show', params:{id: order.grand.id}}">
-                    <lazy-img :src="order.grand.photo"
-                              :alt="order.grand.title"
+                  <router-link :to="{name: 'Public.Product.Show', params:{id: getProductKey(order, 'id')}}">
+                    <lazy-img :src="getProductKey(order, 'photo')"
+                              :alt="getProductKey(order, 'title')"
                               width="1"
                               height="1"
                               class="order-image" />
@@ -72,9 +70,8 @@
               <div class="product-text-info">
                 <div class="order-item-header">
                   <div class="title ellipsis">
-                    {{ order.grand.title }}
+                    {{ getProductKey(order, 'title') }}
                   </div>
-
                   <q-btn v-if="!order.hasGrand()"
                          unelevated
                          class="trash-button"
@@ -82,38 +79,37 @@
                          @click="changeDialogState(true, order)" />
                 </div>
 
-                <div v-if="order.grand.attributes?.info"
+                <div v-if="getProductKey(order, 'attributes')?.info"
                      class="product-information">
-                  <div v-if="order.grand.attributes.info.teacher"
+                  <div v-if="getProductKey(order, 'attributes').info.teacher"
                        class="product-info">
                     <q-icon name="isax:teacher"
                             class="info-icon" />
                     <div class="info-value">
-                      {{ order.grand.attributes.info.teacher.join('، ') }}
+                      {{ getProductKey(order, 'attributes').info.teacher.join('، ') }}
                     </div>
                   </div>
-
-                  <div v-if="order.grand.attributes.info.major"
+                  <div v-if="getProductKey(order, 'attributes').info.major"
                        class="product-info">
                     <q-icon name="isax:book-1"
                             class="info-icon" />
                     <div class="info-value">
-                      رشته تحصیلی: {{ order.grand.attributes.info.major.join(' - ') }}
+                      رشته تحصیلی: {{ getProductKey(order, 'attributes').info.major.join(' - ') }}
                     </div>
                   </div>
-
-                  <div v-if="order.grand.attributes.info.production_year"
+                  <div v-if="getProductKey(order, 'attributes').info.production_year"
                        class="product-info">
                     <q-icon name="isax:menu-board4"
                             class="info-icon" />
                     <div class="info-value">
-                      {{ order.grand.attributes.info.production_year.join('، ') }}
+                      {{ getProductKey(order, 'attributes').info.production_year.join('، ') }}
                     </div>
                   </div>
                 </div>
               </div>
             </q-card-section>
-            <q-card-section class="card-actions">
+            <q-card-section v-if="order.hasGrand()"
+                            class="card-actions">
               <div class="product-details row"
                    :class="expandedObject[i] ?'expanded': ''">
                 <div v-if="order.grand.price.final !== null"
@@ -134,8 +130,7 @@
                     <div class="toman">تومان</div>
                   </div>
                 </div>
-                <div v-if="order.hasGrand()"
-                     class="action-buttons col-md-12 col-sm-3"
+                <div class="action-buttons col-md-12 col-sm-3"
                      :class="expandedObject[i] ? '' : 'open-expansion'">
                   <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.id}}"
                                class="go-product text-primary text-center">
@@ -164,7 +159,7 @@
                             <q-btn unelevated
                                    class="trash-button"
                                    icon="isax:trash"
-                                   @click="changeDialogState(true, order, orderProduct.product)" />
+                                   @click="changeDialogState(true, orderProduct)" />
                           </div>
                         </div>
                       </q-card-section>
@@ -231,7 +226,7 @@
 import { Cart } from 'src/models/Cart.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import { OrderProduct } from 'src/models/OrderProduct.js'
+import { CartItem } from 'src/models/CartItem.js'
 
 export default {
   name: 'CartView',
@@ -288,6 +283,13 @@ export default {
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
+    getProductKey (order, key) {
+      if (order.hasGrand()) {
+        return order.grand[key]
+      }
+
+      return order.order_product.list[0].product[key]
+    },
     hasDiscount(order) {
       return order.grand.price.discountInPercent() > 0
     },
@@ -318,11 +320,14 @@ export default {
       const customItems = []
 
       cartItems.forEach((item, i) => {
-        if (item.grand !== undefined && item.grand.id) {
+        if (item.hasGrand()) {
           customItems.push(item)
-        } else if (item.grand !== undefined && !item.grand.id && item.order_product.list.length > 0) {
+        } else {
           item.order_product.list.forEach(order => {
-            customItems.push({ grand: new OrderProduct(order), orderProductId: order.id })
+            // customItems.push({ grand: new OrderProduct(order), orderProductId: order.id })
+            customItems.push(new CartItem({
+              order_product: [order]
+            }))
           })
         }
         this.expandedObject[i] = true
@@ -337,22 +342,25 @@ export default {
         .then(() => {
           this.cartReview()
           this.$bus.emit('busEvent-refreshCart')
-        }).catch(() => {
+        })
+        .catch(() => {
           this.cartReview()
           this.$bus.emit('busEvent-refreshCart')
         })
     },
 
-    changeDialogState (state, cartItem, orderProduct) {
-      let item = cartItem?.grand.product
-      if (typeof orderProduct !== 'undefined') {
-        item = orderProduct
-      }
-
-      if (item?.id) {
-        this.clickedOrderProductToRemove = item
-      }
+    changeDialogState (state, cartItem) {
       this.dialogState = state
+      if (!state) {
+        return
+      }
+      if (cartItem.hasGrand && cartItem.hasGrand()) {
+        this.clickedOrderProductToRemove = cartItem.grand
+      } else if (cartItem.hasGrand && !cartItem.hasGrand()) {
+        this.clickedOrderProductToRemove = cartItem.order_product.list[0].product
+      } else if (!cartItem.hasGrand) {
+        this.clickedOrderProductToRemove = cartItem.product
+      }
     }
   }
 }
