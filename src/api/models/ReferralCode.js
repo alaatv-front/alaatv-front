@@ -19,7 +19,8 @@ export default class ReferralCodeAPI extends APIRepository {
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       sales_man: this.name + this.APIAdresses.sales_man,
-      walletWithdrawRequests: this.name + this.APIAdresses.walletWithdrawRequests
+      walletWithdrawRequests: this.name + this.APIAdresses.walletWithdrawRequests,
+      orderProducts: this.name + this.APIAdresses.orderProducts
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
   }
@@ -58,17 +59,20 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getOrderProducts() {
+  getOrderProducts(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.orderProducts,
+      cacheKey: this.CacheList.orderProducts,
+      ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data.data // Transactions Table Row: Array of Objects
       },
       rejectCallback: (error) => {
         return error
-      }
+      },
+      ...(data && { data })
     })
   }
 
