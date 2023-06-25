@@ -105,8 +105,8 @@ export default class ReferralCodeAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.orderReferralCode,
       data: this.getNormalizedSendData({
-        referral_code: '', // String
-        order_id: 0 // Number
+        referral_code: null // String
+        // order_id: 0 // Number
       }, data.data),
       resolveCallback: (response) => {
         return response.data
@@ -123,7 +123,7 @@ export default class ReferralCodeAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.orderReferralCode,
       data: this.getNormalizedSendData({
-        order_id: 0 // Number
+        order_id: null // Number
       }, data.data),
       resolveCallback: (response) => {
         return response

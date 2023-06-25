@@ -15,35 +15,24 @@
                         {label: 'نمیکنم', value: 'dontHelp'},
                       ]"
                       @update:model-value="doAction()" />
-        <!--        <q-btn :class="{activeHelp:!helpAlaa}"-->
-        <!--               :disable="!disableCostButton"-->
-        <!--               class="donate-help col-md-12 col-xs-6 border text-center q-py-sm"-->
-        <!--               label="به آلاء کمک نمیکنم"-->
-        <!--               @click="helpAlaa=false; activeDonateCost()" />-->
-        <!--        <div class="cost row text-center q-mt-md col-md-12 col-xs-6">-->
-        <!--          <q-btn v-for="(cost,idx) in donateCost"-->
-        <!--                 :key="idx"-->
-        <!--                 :label="cost.cost"-->
-        <!--                 :class="{activeDonate:cost.isActive}"-->
-        <!--                 :disable="disableCostButton"-->
-        <!--                 class="cost-donate col border q-mx-xs q-pa-sm"-->
-        <!--                 @click="activeDonateCost(idx); helpAlaa=true" />-->
-        <!--        </div>-->
       </div>
       <div class="col-md-4 col-sm-3 col-xs-12">
-        <lazy-img :src="src"
-                  :alt="src"
+        <lazy-img :src="donateImage"
+                  :alt="donateImage"
                   width="1"
                   height="1" />
       </div>
+      <q-inner-loading :showing="cart.loading">
+        <q-spinner-gears size="50px"
+                         color="primary" />
+      </q-inner-loading>
     </div>
   </div>
 </template>
 
 <script>
-import { Cart } from 'src/models/Cart.js'
-import LazyImg from 'components/lazyImg.vue'
 import { Product } from 'src/models/Product.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'Donate',
@@ -54,10 +43,6 @@ export default {
       default: () => {
         return {}
       }
-    },
-    cart: {
-      type: Cart,
-      default: new Cart()
     }
   },
   data() {
@@ -65,6 +50,7 @@ export default {
       donate: 'dontHelp',
       helpAlaa: false,
       disableCostButton: false,
+      donateProductId: 180,
 
       donateCost: [
         {
@@ -80,6 +66,19 @@ export default {
         // }
       ],
       src: 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
+    }
+  },
+  computed: {
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
+    hasDonate () {
+      return this.cart.isExistInCart(this.donateProductId)
+    },
+    donateImage () {
+      const sadImage = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
+      const happyImage = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-happy.png'
+      return this.hasDonate ? happyImage : sadImage
     }
   },
   mounted() {
@@ -99,36 +98,17 @@ export default {
         this.removeDonateFromCart()
       }
     },
-    activeDonateCost(idx) {
-      if (!this.helpAlaa) {
-        this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
-      }
-      this.donateCost.forEach(e => {
-        e.isActive = false
-      })
-      if (typeof idx === 'number') {
-        this.donateCost[idx].isActive = true
-        if (idx === 0 || idx === 1) {
-          this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-happy.png'
-        } else {
-          this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-veryHappy.png'
-        }
-      }
-      this.addDonateToCart()
-    },
     removeDonateFromCart() {
-      this.$store.dispatch('Cart/removeItemFromCart', new Product({ id: 180 }))
+      this.$store.dispatch('Cart/removeItemFromCart', new Product({ id: this.donateProductId }))
         .then(() => {
           this.$emit('cartReview')
-          this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
         })
         .catch(() => {})
     },
     addDonateToCart() {
-      this.$store.dispatch('Cart/addToCart', { product: new Product({ id: 180 }) })
+      this.$store.dispatch('Cart/addToCart', { product: new Product({ id: this.donateProductId }) })
         .then(() => {
           this.$emit('cartReview')
-          this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-happy.png'
         })
         .catch(() => {})
     }

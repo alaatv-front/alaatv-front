@@ -1,8 +1,8 @@
 import { Notify } from 'quasar'
+import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import CookieCart from 'src/assets/js/CookieCart.js'
-import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
-import { Product } from 'src/models/Product'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export function addToCart(context, newProductData) {
   const isUserLogin = !!this.getters['Auth/isUserLogin']
@@ -78,53 +78,56 @@ export function addToCart(context, newProductData) {
 export function reviewCart(context) {
   const currentCart = this.getters['Cart/cart']
   const cartItems = []
+  const isUserLogin = !!this.getters['Auth/isUserLogin']
   const setCartLoading = (loadingState) => {
     const cart = context.getters.cart
     cart.loading = loadingState
     context.commit('updateCart', cart)
   }
-  currentCart.items.list.forEach(currentCartItem => {
-    if (currentCartItem.grand.id) {
-      const cartItemObject = {
-        products: [],
-        attribute: [],
-        product_id: null
+  const pushAEEEvent = (cart) => {
+    AEE.checkout(1,
+      'reviewAndPayment',
+      cart.items.list[0]?.order_product?.list.map(item => item.product.eec.getData()),
+      {
+        TTl: 1000,
+        key: 'reviewCart'
       }
-      // selectable
-      cartItemObject.product_id = currentCartItem.grand.id
-      currentCartItem.order_product.list.forEach(orderProduct => {
-        cartItemObject.products.push(orderProduct.product.id)
-      })
-      cartItems.push(cartItemObject)
-    } else {
-      // simple and configurable
-      currentCartItem.order_product.list.forEach(orderProduct => {
+    )
+  }
+  if (!isUserLogin) {
+    currentCart.items.list.forEach(currentCartItem => {
+      if (currentCartItem.grand.id) {
         const cartItemObject = {
           products: [],
           attribute: [],
           product_id: null
         }
-        cartItemObject.product_id = orderProduct.product.id
-        if (orderProduct.attributevalues) {
-          cartItemObject.attribute = orderProduct.attributevalues
-        }
+        // selectable
+        cartItemObject.product_id = currentCartItem.grand.id
+        currentCartItem.order_product.list.forEach(orderProduct => {
+          cartItemObject.products.push(orderProduct.product.id)
+        })
         cartItems.push(cartItemObject)
-      })
-    }
-  })
+      } else {
+        // simple and configurable
+        currentCartItem.order_product.list.forEach(orderProduct => {
+          const cartItemObject = {
+            products: [],
+            attribute: [],
+            product_id: null
+          }
+          cartItemObject.product_id = orderProduct.product.id
+          if (orderProduct.attributevalues) {
+            cartItemObject.attribute = orderProduct.attributevalues
+          }
+          cartItems.push(cartItemObject)
+        })
+      }
+    })
+  }
 
   return new Promise((resolve, reject) => {
     setCartLoading(true)
-    const pushAEEEvent = (cart) => {
-      AEE.checkout(1,
-        'reviewAndPayment',
-        cart.items.list[0]?.order_product?.list.map(item => item.product.eec.getData()),
-        {
-          TTl: 1000,
-          key: 'reviewCart'
-        }
-      )
-    }
     APIGateway.cart.reviewCart(cartItems)
       .then((cart) => {
         context.commit('updateCart', cart)
@@ -152,6 +155,11 @@ export function paymentCheckout(context, paymentMethod) {
 }
 
 export function removeItemFromCart(context, product) {
+  const setCartLoading = (loadingState) => {
+    const cart = context.getters.cart
+    cart.loading = loadingState
+    context.commit('updateCart', cart)
+  }
   // const orderProductId = orderProduct.id
   const remove = function (productId, orderProductId) {
     const cart = context.getters.cart
@@ -186,15 +194,18 @@ export function removeItemFromCart(context, product) {
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
     if (isUserLogin) {
+      setCartLoading(true)
       APIGateway.cart.removeFromCartByProductId(product.id)
         .then((response) => {
           removeByProductId(product.id)
           // removeByOrderProductId(orderProductId)
           pushAEEEvent(product)
           showNotify()
+          setCartLoading(false)
           resolve(response)
         })
         .catch((error) => {
+          setCartLoading(false)
           reject(error)
         })
     } else {
