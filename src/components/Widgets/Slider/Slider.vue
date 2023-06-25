@@ -117,6 +117,7 @@ export default {
       this.slide = 0
     }
     window.addEventListener('resize', this.onResize)
+    this.windowWidth = window.innerWidth
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
