@@ -34,6 +34,10 @@ class CartItem extends Model {
     return isGrand || findInOrderProduct
   }
 
+  hasGrand() {
+    return this.grand.id !== null
+  }
+
   isGrand(productId) {
     return this.grand.id === productId
   }

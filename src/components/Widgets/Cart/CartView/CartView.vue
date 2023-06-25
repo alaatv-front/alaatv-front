@@ -52,17 +52,17 @@
       </div>
       <div class="cart-view-widget">
         <div v-for="(order, i) in cartItemsList"
-             :key="order.orderProductId"
+             :key="i"
              class="cart-items">
           <q-card class="cart-card"
                   :class="order.order_product?.list.length > 0 ? '': 'cart'">
             <q-card-section class="card-section">
               <div class="order-image-section">
                 <div class="order-image-container">
-                  <router-link v-if="order.grand.product.id"
-                               :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}">
-                    <lazy-img :src="order.grand.product.photo"
-                              :alt="order.grand.product.title"
+                  <router-link v-if="order.grand.id"
+                               :to="{name: 'Public.Product.Show', params:{id: order.grand.id}}">
+                    <lazy-img :src="order.grand.photo"
+                              :alt="order.grand.title"
                               width="1"
                               height="1"
                               class="order-image" />
@@ -75,39 +75,39 @@
                     {{ order.grand.title }}
                   </div>
 
-                  <q-btn v-if="order.orderProductId"
+                  <q-btn v-if="!order.hasGrand()"
                          unelevated
                          class="trash-button"
                          icon="isax:trash"
                          @click="changeDialogState(true, order)" />
                 </div>
 
-                <div v-if="order.grand.product?.attributes?.info"
+                <div v-if="order.grand.attributes?.info"
                      class="product-information">
-                  <div v-if="order.grand.product.attributes.info.teacher"
+                  <div v-if="order.grand.attributes.info.teacher"
                        class="product-info">
                     <q-icon name="isax:teacher"
                             class="info-icon" />
                     <div class="info-value">
-                      {{ order.grand.product.attributes.info.teacher.join('، ') }}
+                      {{ order.grand.attributes.info.teacher.join('، ') }}
                     </div>
                   </div>
 
-                  <div v-if="order.grand.product.attributes.info.major"
+                  <div v-if="order.grand.attributes.info.major"
                        class="product-info">
                     <q-icon name="isax:book-1"
                             class="info-icon" />
                     <div class="info-value">
-                      رشته تحصیلی: {{ order.grand.product.attributes.info.major.join(' - ') }}
+                      رشته تحصیلی: {{ order.grand.attributes.info.major.join(' - ') }}
                     </div>
                   </div>
 
-                  <div v-if="order.grand.product.attributes.info.production_year"
+                  <div v-if="order.grand.attributes.info.production_year"
                        class="product-info">
                     <q-icon name="isax:menu-board4"
                             class="info-icon" />
                     <div class="info-value">
-                      {{ order.grand.product.attributes.info.production_year.join('، ') }}
+                      {{ order.grand.attributes.info.production_year.join('، ') }}
                     </div>
                   </div>
                 </div>
@@ -116,7 +116,7 @@
             <q-card-section class="card-actions">
               <div class="product-details row"
                    :class="expandedObject[i] ?'expanded': ''">
-                <div v-if="order.grand.price"
+                <div v-if="order.grand.price.final !== null"
                      class="price-container col-md-6 col-sm-3">
                   <div class="discount-part">
                     <div v-if="hasDiscount(order)"
@@ -134,10 +134,10 @@
                     <div class="toman">تومان</div>
                   </div>
                 </div>
-                <div class="action-buttons col-md-12 col-sm-3"
+                <div v-if="order.hasGrand()"
+                     class="action-buttons col-md-12 col-sm-3"
                      :class="expandedObject[i] ? '' : 'open-expansion'">
-                  <router-link v-if="order.grand.product.id"
-                               :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
+                  <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.id}}"
                                class="go-product text-primary text-center">
                     رفتن
                     به صفحه محصول
@@ -156,7 +156,6 @@
                           <div class="title ellipsis">
                             {{ orderProduct.product.title }}
                           </div>
-
                           <div class="right-part">
                             <span class="price"
                                   :class="index !== 0 ? 'without-trash': ''">
@@ -169,10 +168,9 @@
                           </div>
                         </div>
                       </q-card-section>
-
                       <q-card-section class="details-expansion-actions">
-                        <router-link v-if="order.grand.product.id"
-                                     :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
+                        <router-link v-if="order.hasGrand()"
+                                     :to="{name: 'Public.Product.Show', params:{id: order.grand.id}}"
                                      class="link expansion-link">
                           {{ descLinkLabel }}
                         </router-link>
@@ -329,6 +327,7 @@ export default {
         }
         this.expandedObject[i] = true
       })
+
       return customItems
     },
 
@@ -566,8 +565,8 @@ export default {
           display: flex;
           justify-content: space-between;
           width: 100%;
-          margin-top: -32px;
-          margin-left: 164px;
+          //margin-top: -32px;
+          //margin-left: 164px;
 
           @media screen and (max-width: 1439px) {
             margin-left: 160px;
@@ -581,11 +580,6 @@ export default {
           }
 
           @media screen and (max-width: 599px) {
-            margin-top: 0;
-          }
-
-          &.expanded {
-            flex-direction: column;
             margin-top: 0;
           }
 
@@ -669,13 +663,13 @@ export default {
             display: flex;
             align-items: center;
             width: 100%;
-            justify-content: left;
+            justify-content: flex-end;
 
             .link {
               font-weight: 600;
               font-size: 12px;
               line-height: 19px;
-              color: #9690E4;
+              color: $primary;
               cursor: pointer;
               text-decoration: none;
               margin-right: 24px;
@@ -747,7 +741,7 @@ export default {
                   }
 
                   .pamphlet {
-                    padding: 10px 16px;
+                    padding: 0 16px;
                     background: #FFFFFF;
                     border: 1.5px solid #E4E8EF;
                     border-radius: 8px;
@@ -756,6 +750,8 @@ export default {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    flex-flow: row;
+                    flex-wrap: wrap;
 
                     @media screen and (max-width: 599px) {
                       flex-direction: column;
@@ -769,15 +765,16 @@ export default {
                       font-size: 12px;
                       line-height: 19px;
                       letter-spacing: -0.03em;
-                      color: #6D708B;padding-right: 30px;
-                      width: 100%;
+                      color: #6D708B;
+                      padding-right: 10px;
+                      width: calc( 100% - 100px );
                     }
 
                     .right-part {
                       display: flex;
                       align-items: center;
-                      width: 100%;
-                      justify-content: flex-end;
+                      width: 100px;
+                      justify-content: space-between;
 
                       .price {
                         font-style: normal;
@@ -785,19 +782,6 @@ export default {
                         font-size: 12px;
                         line-height: 19px;
                         color: #6D708B;
-                        margin-right: 16px;
-
-                        &.without-trash {
-                          margin-right: 36px;
-
-                          @media screen and (max-width: 599px) {
-                            margin-right: 28px;
-                          }
-                        }
-
-                        @media screen and (max-width: 599px) {
-                          margin-right: 10px;
-                        }
                       }
 
                       .hidden-trash-button {
@@ -860,14 +844,22 @@ export default {
                 border-radius: 100%;
               }
             }
-
           }
+
+          &.expanded {
+            .action-buttons {
+              .go-product {
+                display: none;
+              }
+            }
+            flex-direction: column;
+            margin-top: 0;
+          }
+
         }
       }
-
     }
   }
-
 }
 
 .delete-dialog {
