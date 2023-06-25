@@ -35,7 +35,7 @@
             </div>
           </div>
           <div v-if="!product.loading"
-               class="product-info-box row">
+               class="product-info-box row full-width">
             <div v-for="(info, index) in information"
                  :key="index"
                  class="product-info col-grow">
@@ -330,7 +330,6 @@ p {
   .intro-features {
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
     align-items: center;
     @media screen and(max-width: 599px) {
       padding: 0;

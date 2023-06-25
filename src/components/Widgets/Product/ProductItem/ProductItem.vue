@@ -262,8 +262,12 @@ export default defineComponent({
       return null
     },
     addToCart() {
+      if (this.product.hasChildren()) {
+        this.$router.push({ name: 'Public.Product.Show', params: { id: this.product.id } })
+        return
+      }
       this.addToCartLoading = true
-      this.$store.dispatch('Cart/addToCart', this.product)
+      this.$store.dispatch('Cart/addToCart', { product: this.product })
         .then(() => {
           this.addToCartLoading = false
           this.$bus.emit('busEvent-refreshCart')
