@@ -1,5 +1,19 @@
 <template>
   <div class="product-price-parent">
+    <q-banner v-if="product.is_purchased"
+              inline-actions
+              rounded
+              class="product-purchased">
+      شما این محصول را قبلا خریداری کرده اید
+
+      <template v-slot:action>
+        <q-btn color="primary"
+               unelevated
+               text-color="white"
+               label="مشاهده فیلم ها و جزوه ها"
+               :to="{name: 'UserPanel.MyPurchases' }" />
+      </template>
+    </q-banner>
     <product-selection v-if="product.hasChildren()"
                        v-model:selectedIds="selectedIds"
                        class="q-mb-lg"
@@ -235,6 +249,13 @@ export default {
       }
     }
 
+  }
+
+  .product-purchased{
+    margin: 10px 0;
+    box-shadow: -2px -4px 10px rgb(255 255 255 / 60%), 2px 4px 10px rgb(112 108 162 / 5%);
+    border-radius: 20px;
+    background: #fff;
   }
 }
 </style>
