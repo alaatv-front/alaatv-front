@@ -668,6 +668,20 @@ const routes = [
             component: () => import('pages/Document/formGenerator.vue')
           }
         ]
+      },
+      {
+        path: '',
+        name: 'redirect',
+        children: [
+          {
+            path: 't',
+            redirect: { name: 'UserPanel.Ticket.Index' }
+          },
+          {
+            path: 'asset',
+            redirect: { name: 'UserPanel.MyPurchases' }
+          }
+        ]
       }
     ]
   }
