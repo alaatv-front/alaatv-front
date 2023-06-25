@@ -117,7 +117,6 @@ export default {
       this.slide = 0
     }
     window.addEventListener('resize', this.onResize)
-    console.log(this.localOptions.transition.swipeable)
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
