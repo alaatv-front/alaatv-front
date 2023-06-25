@@ -26,10 +26,15 @@
                       :name="index">
       <a :href="slide.link">
         <lazy-img v-if="slide.photo.src !== ''"
+                  q-image="true"
+                  height="524px"
+                  width="1362px"
                   :src="slide.photo.src"
                   :alt="slide.title" />
         <lazy-img v-else
                   qImage="true"
+                  height="524px"
+                  width="1362px"
                   :src="responsiveFeatures(slide.features).src"
                   :alt="slide.title" />
         <q-tooltip v-if="slide.title"
@@ -112,6 +117,7 @@ export default {
       this.slide = 0
     }
     window.addEventListener('resize', this.onResize)
+    console.log(this.localOptions.transition.swipeable)
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
