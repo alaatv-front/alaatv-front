@@ -146,5 +146,20 @@ export default {
   //.image {
   //  width: 100%;
   //}
+  @media screen and (max-width: 600px){
+    &:deep(.q-carousel__navigation){
+      bottom: 3px;
+      .q-btn {
+        margin: 0;
+        padding: 0;
+      }
+    }
+    &:deep(.q-carousel__next-arrow) {
+      right: 0;
+    }
+    &:deep(.q-carousel__prev-arrow) {
+      left: 0;
+    }
+  }
 }
 </style>
