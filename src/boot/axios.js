@@ -189,24 +189,18 @@ export default boot(({ app, store, router, ssrContext }) => {
     const tokenType = 'Bearer'
     store.$accessToken = cookiesAccessToken
 
-    apiV2.interceptors.request.use(config => {
+    const internalAxiosRequesConfig = (config) => {
       config.headers.Authorization = `${tokenType} ${cookiesAccessToken}`
       return config
-    }, error => {
+    }
+    const onRejectAxios = (error) => {
       return Promise.reject(error)
-    })
-    apiV1.interceptors.request.use(config => {
-      config.headers.Authorization = `${tokenType} ${cookiesAccessToken}`
-      return config
-    }, error => {
-      return Promise.reject(error)
-    })
-    apiWeb.interceptors.request.use(config => {
-      config.headers.Authorization = `${tokenType} ${cookiesAccessToken}`
-      return config
-    }, error => {
-      return Promise.reject(error)
-    })
+    }
+
+    apiV2.interceptors.request.use(internalAxiosRequesConfig, onRejectAxios)
+    apiV1.interceptors.request.use(internalAxiosRequesConfig, onRejectAxios)
+    apiWeb.interceptors.request.use(internalAxiosRequesConfig, onRejectAxios)
+
     // apiV2.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
     // apiV1.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
     // apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
