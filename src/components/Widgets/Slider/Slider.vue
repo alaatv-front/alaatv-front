@@ -27,14 +27,14 @@
       <a :href="slide.link">
         <lazy-img v-if="slide.photo.src !== ''"
                   q-image="true"
-                  height="524px"
-                  width="1362px"
+                  :height="slide.photo.height"
+                  :width="slide.photo.width"
                   :src="slide.photo.src"
                   :alt="slide.title" />
         <lazy-img v-else
                   qImage="true"
-                  height="524px"
-                  width="1362px"
+                  :height="responsiveFeatures(slide.features).height"
+                  :width="responsiveFeatures(slide.features).width"
                   :src="responsiveFeatures(slide.features).src"
                   :alt="slide.title" />
         <q-tooltip v-if="slide.title"
@@ -116,6 +116,7 @@ export default {
     if (this.options && this.options.list && this.options.list.length > 0) {
       this.slide = 0
     }
+
     window.addEventListener('resize', this.onResize)
     this.windowWidth = window.innerWidth
   },
