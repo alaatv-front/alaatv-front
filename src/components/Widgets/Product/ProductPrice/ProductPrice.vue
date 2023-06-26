@@ -17,29 +17,36 @@
     <product-selection v-if="product.hasChildren()"
                        v-model:selectedIds="selectedIds"
                        class="q-mb-lg"
-                       :product="product" />
-    <q-card v-if="product.price"
-            class="product-price justify-center custom-card"
+                       :product="product"
+                       @update:selectedIds="onChangeSelectedIds" />
+    <q-card class="product-price justify-center custom-card"
             :class="options.className"
             :style="options.style">
 
-      <div v-if="options.discount && discountInPercent"
+      <div v-if="options.discount && discountInPercent > 0"
            class="discount-percent q-px-md">
         <div class="percent">{{ '%' + discountInPercent }}</div>
         <div class="discount-title">تخفیف</div>
       </div>
 
       <div class="price">
-        <div v-if="options.basePrice && product.has_instalment_option && product.price.toman('base', null)"
+        <div v-if="options.basePrice && product.has_instalment_option"
              class="product-base-price">
-          {{ product.price.toman('base', null) }}
+          {{ productPrice.toman('base', null) }}
         </div>
 
-        <div v-if="product.price.toman('final', null) && options.finalPrice"
+        <div v-if="productPrice.toman('final', null) && options.finalPrice"
              class="product-final-price">
-          {{ product.price.toman('final', null) }}
-          <div v-if="product.price.toman('discount') !== 0"
-               class="main-price">{{ product.price.toman('base', false) }}</div>
+          <q-skeleton v-if="productPrice.loading"
+                      type="text"
+                      width="70px" />
+          <template v-else>
+            {{ productPrice.toman('final', null) }}
+            <div v-if="productPrice.discount"
+                 class="main-price">
+              {{ productPrice.toman('base', false) }}
+            </div>
+          </template>
         </div>
 
         <div class="product-price-title"> تومان</div>
@@ -65,6 +72,7 @@
 </template>
 
 <script>
+import Price from 'src/models/Price.js'
 import { Product } from 'src/models/Product.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
@@ -86,13 +94,14 @@ export default {
   data() {
     return {
       product: new Product(),
+      productPrice: new Price(),
       selectedIds: []
     }
   },
   computed: {
     discountInPercent () {
-      if (this.product?.price?.discountInPercent && typeof this.product.price.discountInPercent === 'function') {
-        return this.product.price.discountInPercent()
+      if (this.productPrice.discountInPercent && typeof this.productPrice.discountInPercent === 'function') {
+        return this.productPrice.discountInPercent()
       }
 
       return 0
@@ -111,12 +120,27 @@ export default {
     }
   },
   methods: {
+    onChangeSelectedIds (newValue) {
+      this.productPrice.loading = true
+      APIGateway.product.getPrice({
+        product_id: this.product.id,
+        products: newValue
+      })
+        .then((price) => {
+          this.productPrice = new Price(price)
+          this.productPrice.loading = false
+        })
+        .catch(() => {
+          this.productPrice.loading = false
+        })
+    },
     prefetchServerDataPromise () {
       this.product.loading = true
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
       this.product = new Product(data)
+      this.productPrice = this.product.price
       if (window) {
         this.updateEECEventDetail()
       }

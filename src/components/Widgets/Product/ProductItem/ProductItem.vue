@@ -271,7 +271,8 @@ export default defineComponent({
         .then(() => {
           this.addToCartLoading = false
           this.$bus.emit('busEvent-refreshCart')
-        }).catch(() => {
+        })
+        .catch(() => {
           this.addToCartLoading = false
         })
     },
