@@ -26,7 +26,7 @@
                 </div>
               </template>
               <template v-else-if="products.list.length > 0">
-                <div class="row">
+                <div class="row q-col-gutter-lg">
                   <div v-for="product in products.list.filter(product => product.is_live)"
                        :key="product.id"
                        class="col-md-3 col-sm-6 col-xs-12">
@@ -45,7 +45,7 @@
                   </div>
                 </div>
                 <q-separator class="q-my-lg" />
-                <div class="row">
+                <div class="row q-col-gutter-lg">
                   <div v-for="product in products.list.filter(product => !product.is_live)"
                        :key="product.id"
                        class="col-md-3 col-sm-6 col-xs-12">
