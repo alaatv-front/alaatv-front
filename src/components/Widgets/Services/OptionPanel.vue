@@ -5,8 +5,13 @@
            @dragover="onDragOver"
            @dragleave="onDragLeave"
            @drop="onDrop($event, 0, true)">
-        <div class="row">
-          <div class="col">
+        <div class="row q-mt-md">
+          <div class="col-12 text-center">
+            <q-btn label="افزودن به لیست سرویس ها"
+                   color="green"
+                   @click="addService" />
+          </div>
+          <div class="col-12">
             <q-list separator>
               <div v-for="(service, serviceIndex) in localOptions.services"
                    :key="'service-'+serviceIndex"
@@ -16,6 +21,11 @@
                    @dragleave="onDragLeave"
                    @drop="onDrop($event, serviceIndex)">
                 <q-item>
+                  <q-item-section side>
+                    <q-btn icon="close"
+                           color="red"
+                           @click="removeService(serviceIndex)" />
+                  </q-item-section>
                   <q-item-section>
                     <q-item-label>
                       <q-input v-model="service.title"
@@ -88,6 +98,20 @@ export default defineComponent({
     }
   },
   methods: {
+    addService() {
+      this.localOptions.services.push({
+        title: '',
+        subTitle: '',
+        icon: '',
+        action: '',
+        link: '',
+        scrollToId: '',
+        scrollToClass: ''
+      })
+    },
+    removeService(serviceIndex) {
+      this.localOptions.services.splice(serviceIndex, 1)
+    },
     onDragStart(event, service, serviceIndex) {
       event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
