@@ -12,24 +12,24 @@
       <q-card-section>
         <div class="products-list">
           <div class="row q-col-gutter-lg">
-            <template v-if="products.loading || liveLinkLoading">
-              <div v-for="number in 4"
-                   :key="number"
-                   class="col-md-3 col-sm-6 col-xs-12">
-                <product-item class="product-item"
-                              :options="{
-                                canAddToCart: false,
-                                routeToProduct: false,
-                                loading: true
-                              }" />
-              </div>
-            </template>
-            <template v-else-if="products.list.length > 0">
-              <div v-for="product in products.list"
-                   :key="product.id">
-                <div v-if="product.is_live"
-                     class="col-12">
-                  <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-12">
+              <template v-if="products.loading || liveLinkLoading">
+                <div v-for="number in 4"
+                     :key="number"
+                     class="col-md-3 col-sm-6 col-xs-12">
+                  <product-item class="product-item"
+                                :options="{
+                                  canAddToCart: false,
+                                  routeToProduct: false,
+                                  loading: true
+                                }" />
+                </div>
+              </template>
+              <template v-else-if="products.list.length > 0">
+                <div class="row">
+                  <div v-for="product in products.list.filter(product => product.is_live)"
+                       :key="product.id"
+                       class="col-md-3 col-sm-6 col-xs-12">
                     <product-item class="product-item"
                                   :options="{
                                     canAddToCart: !product.is_purchased,
@@ -44,9 +44,11 @@
                                   @click="onProductClicked(product)" />
                   </div>
                 </div>
-                <div v-else
-                     class="col">
-                  <div class="col-md-3 col-sm-6 col-xs-12">
+                <q-separator class="q-my-lg" />
+                <div class="row">
+                  <div v-for="product in products.list.filter(product => !product.is_live)"
+                       :key="product.id"
+                       class="col-md-3 col-sm-6 col-xs-12">
                     <product-item class="product-item"
                                   :options="{
                                     canAddToCart: !product.is_purchased,
@@ -61,24 +63,24 @@
                                   @click="onProductClicked(product)" />
                   </div>
                 </div>
-              </div>
-            </template>
-            <template v-else>
-              <div class="col-12">
-                <q-banner class="bg-primary text-white">
-                  <h4 class="text-center">
-                    همایش آنلاینی وجود ندارد
-                  </h4>
-                  <template v-slot:action>
-                    <q-btn size="xl"
-                           padding="xs xl"
-                           color="info"
-                           label="بستن"
-                           @click="toggleDialog" />
-                  </template>
-                </q-banner>
-              </div>
-            </template>
+              </template>
+              <template v-else>
+                <div class="col-12">
+                  <q-banner class="bg-primary text-white">
+                    <h4 class="text-center">
+                      همایش آنلاینی وجود ندارد
+                    </h4>
+                    <template v-slot:action>
+                      <q-btn size="xl"
+                             padding="xs xl"
+                             color="info"
+                             label="بستن"
+                             @click="toggleDialog" />
+                    </template>
+                  </q-banner>
+                </div>
+              </template>
+            </div>
           </div>
         </div>
       </q-card-section>
