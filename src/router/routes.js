@@ -212,6 +212,14 @@ const routes = [
               hasDynamicSetting: true
             },
             component: () => import('src/pages/Public/RegisterHekmatCoupon.vue')
+          },
+          {
+            path: 't',
+            redirect: { name: 'UserPanel.Ticket.Index' }
+          },
+          {
+            path: 'asset',
+            redirect: { name: 'UserPanel.MyPurchases' }
           }
         ]
       },
@@ -666,20 +674,6 @@ const routes = [
             path: '/form-generator',
             name: 'formGenerator',
             component: () => import('pages/Document/formGenerator.vue')
-          }
-        ]
-      },
-      {
-        path: '',
-        name: 'redirect',
-        children: [
-          {
-            path: 't',
-            redirect: { name: 'UserPanel.Ticket.Index' }
-          },
-          {
-            path: 'asset',
-            redirect: { name: 'UserPanel.MyPurchases' }
           }
         ]
       }
