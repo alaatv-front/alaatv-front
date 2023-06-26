@@ -26,20 +26,41 @@
             </template>
             <template v-else-if="products.list.length > 0">
               <div v-for="product in products.list"
-                   :key="product.id"
-                   class="col-md-3 col-sm-6 col-xs-12">
-                <product-item class="product-item"
-                              :options="{
-                                canAddToCart: !product.is_purchased,
-                                showPrice: !product.is_purchased,
-                                routeToProduct: !product.is_purchased,
-                                customAction: product.is_purchased,
-                                customActionLabel: 'رفتن به کلاس',
-                                customActionMessage: 'این محصول را خریده اید',
-                                product: product,
-                              }"
-                              @onCustomActionClicked="onProductClicked(product)"
-                              @click="onProductClicked(product)" />
+                   :key="product.id">
+                <div v-if="product.is_live"
+                     class="col-12">
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <product-item class="product-item"
+                                  :options="{
+                                    canAddToCart: !product.is_purchased,
+                                    showPrice: !product.is_purchased,
+                                    routeToProduct: !product.is_purchased,
+                                    customAction: product.is_purchased,
+                                    customActionLabel: 'رفتن به کلاس',
+                                    customActionMessage: 'این محصول را خریده اید',
+                                    product: product,
+                                  }"
+                                  @onCustomActionClicked="onProductClicked(product)"
+                                  @click="onProductClicked(product)" />
+                  </div>
+                </div>
+                <div v-else
+                     class="col">
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <product-item class="product-item"
+                                  :options="{
+                                    canAddToCart: !product.is_purchased,
+                                    showPrice: !product.is_purchased,
+                                    routeToProduct: !product.is_purchased,
+                                    customAction: product.is_purchased,
+                                    customActionLabel: 'رفتن به کلاس',
+                                    customActionMessage: 'این محصول را خریده اید',
+                                    product: product,
+                                  }"
+                                  @onCustomActionClicked="onProductClicked(product)"
+                                  @click="onProductClicked(product)" />
+                  </div>
+                </div>
               </div>
             </template>
             <template v-else>
