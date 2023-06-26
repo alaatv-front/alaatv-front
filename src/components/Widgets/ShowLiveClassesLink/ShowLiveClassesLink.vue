@@ -152,12 +152,7 @@ export default {
     },
     getLiveConductors () {
       this.products.loading = true
-      APIGateway.product.getProductList({
-        productIds: this.localOptions.data.map(product => product.id),
-        params: {
-          length: this.localOptions.data.length
-        }
-      })
+      APIGateway.product.getLiveProducts()
         .then((products) => {
           this.products = new ProductList(products)
           this.products.loading = false
