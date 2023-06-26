@@ -91,15 +91,20 @@
                            label="کد کارت هدیه خود را وارد کنید"
                            class="coupon-input"
                            outlined
-                           mask="##-#####"
+                           mask="##-######"
                            :suffix=giftCardPrefix
                            :loading="referralCodeLoading"
                            hint="مثال: AT84-27871">
                     <template v-slot:append>
-                      <q-btn label="ثبت"
+                      <q-btn v-if="!isReferralSet"
+                             label="ثبت"
                              flat
                              :loading="referralCodeLoading"
                              @click="submitReferralCode" />
+                      <q-btn v-else
+                             label="حذف"
+                             flat
+                             @click="cancelReferral" />
                     </template>
                   </q-input>
                 </div>
@@ -262,6 +267,7 @@ export default {
       stickySidebar: null,
       scrollInfo: null,
       isCouponSet: false,
+      isReferralSet: false,
       cart: new Cart(),
       couponValue: null,
       giftCardValue: null,
@@ -399,7 +405,9 @@ export default {
       this.referralCodeLoading = true
       APIGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
         .then(() => {
+          this.isReferralSet = true
           this.referralCodeLoading = false
+          this.cartReview()
         })
         .catch(() => {
           this.referralCodeLoading = false
@@ -411,6 +419,7 @@ export default {
         .then(() => {
           this.isCouponSet = true
           this.couponLoading = false
+          this.cartReview()
           Notify.create({
             message: 'کد تخفیف با موفقیت اعمال شد',
             type: 'positive',
@@ -425,8 +434,26 @@ export default {
       APIGateway.coupon.deleteCoupon()
         .then(response => {
           this.isCouponSet = false
+          this.couponValue = ''
+          this.cartReview()
           Notify.create({
             message: 'کد تخفیف با موفقیت حذف شد',
+            type: 'positive',
+            color: 'positive'
+          })
+        })
+        .catch()
+    },
+    cancelReferral() {
+      APIGateway.referralCode.DeleteReferralCodeFromOrder({
+        order_id: this.cart.getOrderId()
+      })
+        .then(response => {
+          this.isReferralSet = false
+          this.giftCardValue = ''
+          this.cartReview()
+          Notify.create({
+            message: 'کارت هدیه با موفقیت حذف شد',
             type: 'positive',
             color: 'positive'
           })
@@ -443,6 +470,16 @@ export default {
           const invoice = response
 
           const cart = new Cart(invoice)
+
+          if (cart.coupon) {
+            this.couponValue = cart.coupon.code
+            this.isCouponSet = true
+          }
+
+          if (cart.referralCode) {
+            this.giftCardValue = cart.referralCode.code
+            this.isReferralSet = true
+          }
 
           if (invoice.count > 0) {
             invoice.items.list[0].order_product.list.forEach((order) => {

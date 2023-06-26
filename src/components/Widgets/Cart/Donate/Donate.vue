@@ -73,7 +73,7 @@ export default {
       return this.$store.getters['Cart/cart']
     },
     hasDonate () {
-      return this.cart.isExistInCart(this.donateProductId)
+      return this.cart.order_has_donate
     },
     donateImage () {
       const sadImage = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
@@ -81,13 +81,16 @@ export default {
       return this.hasDonate ? happyImage : sadImage
     }
   },
-  mounted() {
-    if (this.cart.order_has_donate) {
-      this.donate = 'doHelp'
-      this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-happy.png'
-    } else {
-      this.donate = 'dontHelp'
-      this.src = 'https://nodes.alaatv.com/upload/landing/yalda1400/yalda-landing-modal-emoji-sad.png'
+  watch: {
+    hasDonate: {
+      immediate: true,
+      handler (newValue) {
+        if (newValue) {
+          this.donate = 'doHelp'
+        } else {
+          this.donate = 'dontHelp'
+        }
+      }
     }
   },
   methods: {

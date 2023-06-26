@@ -5,44 +5,11 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>">
-
     <link rel="icon" type="image/png" sizes="16x16" href="https://nodes.alaatv.com/upload/alaa-logo-favicon.png">
     <link rel="icon" type="image/png" sizes="128x128" href="https://nodes.alaatv.com/upload/alaa-logo-favicon.png">
     <link rel="icon" type="image/png" sizes="96x96" href="https://nodes.alaatv.com/upload/alaa-logo-favicon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://nodes.alaatv.com/upload/alaa-logo-favicon.png">
     <link rel="icon" type="image/ico" href="https://nodes.alaatv.com/upload/alaa-logo.png">
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script type="module">
-      (function(d, script) {
-        script = d.createElement('script')
-        script.type = 'text/javascript'
-        script.async = true
-        script.src = 'https://www.googletagmanager.com/gtag/js?' + import.meta.env.VITE_GOOGLE_TAG_MANAGER_TOKEN
-        d.getElementsByTagName('head')[0].appendChild(script)
-      }(document));
-    </script>
-    <script type="module">
-      window.dataLayer = window.dataLayer || []
-      function gtag() { dataLayer.push(arguments) }
-      gtag('js', new Date());
-
-      gtag('config', import.meta.env.VITE_GOOGLE_TAG_MANAGER_TOKEN)
-    </script>
-    <!-- Google Tag Manager -->
-    <script type="module">
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || []; w[l].push({
-          'gtm.start':
-            new Date().getTime(),
-          event: 'gtm.js'
-        }); const f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s), dl = l !== 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f)
-      })(window, document, 'script', 'dataLayer', import.meta.env.VITE_GOOGLE_TAG_MANAGER_TOKEN)
-    </script>
-    <!-- End Google Tag Manager -->
-
   </head>
   <body>
     <!-- quasar:entry-point -->

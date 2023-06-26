@@ -181,7 +181,9 @@ export default boot(({ app, store, router, ssrContext }) => {
     ? Cookies.parseSSR(ssrContext)
     : Cookies // otherwise we're on client
 
-  const cookiesAccessToken = cookies.get('BearerAccessToken')
+  const cookiesAccessTokenInCookies = cookies.get('BearerAccessToken')
+  const accessTokenInLocalStorage = store.getters['Auth/accessToken']
+  const cookiesAccessToken = accessTokenInLocalStorage || cookiesAccessTokenInCookies
 
   if (cookiesAccessToken) {
     const tokenType = 'Bearer'

@@ -317,9 +317,15 @@ export default {
   mounted () {
     this.mounted = true
     this.loadAuthData()
+    this.refreshCartListener()
     this.checkMenurItemsForAuthenticatedUser()
   },
   methods: {
+    refreshCartListener () {
+      this.$bus.on('busEvent-refreshCart', () => {
+        this.$store.dispatch('Cart/reviewCart')
+      })
+    },
     checkMenurItemsForAuthenticatedUser () {
       // ToDo: check menu items by user role
       if (this.isAdmin) {
