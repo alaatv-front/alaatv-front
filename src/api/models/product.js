@@ -1,7 +1,8 @@
-import { apiV2 } from 'src/boot/axios'
+import Price from 'src/models/Price.js'
+import { apiV2 } from 'src/boot/axios.js'
 import { SetList } from 'src/models/Set.js'
-import { Content, ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
+import { Content, ContentList } from 'src/models/Content.js'
 import { Product, ProductList } from 'src/models/Product.js'
 import { ProductCategoryList } from 'src/models/ProductCategory'
 
@@ -34,6 +35,7 @@ export default class ProductAPI extends APIRepository {
       unfavored: (id) => '/product/' + id + '/unfavored',
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
+      getPrice: (productId) => '/getPricgroupIndexe/' + productId,
       sampleContent: (id) => '/product/' + id + '/sample',
       categories: '/product-categories',
       liveConductors: '/live-conductors',
@@ -160,6 +162,25 @@ export default class ProductAPI extends APIRepository {
           message: '' // String
         }
         return this.getNormalizedSendData(defaultMessageObject, response.data).message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getPrice(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.getPrice(data.product_id),
+      data: this.getNormalizedSendData({
+        mainAttributeValues: [], // Array
+        extraAttributeValues: [], // Array
+        products: [] // Array
+      }, data),
+      resolveCallback: (response) => {
+        return new Price(response.data.data)
       },
       rejectCallback: (error) => {
         return error

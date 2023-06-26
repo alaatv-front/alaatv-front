@@ -45,8 +45,16 @@ export default {
     }
   },
   methods: {
+    removeProductIdFromSelectedOnes (selectedOnes) {
+      const target = selectedOnes.findIndex(item => item === this.product.id)
+      if (target === -1) {
+        return selectedOnes
+      }
+      selectedOnes.splice(target, 1)
+      return selectedOnes
+    },
     onChangeSelectedProducts (selectedProducts) {
-      this.$emit('update:selectedIds', selectedProducts)
+      this.$emit('update:selectedIds', this.removeProductIdFromSelectedOnes(selectedProducts))
     }
   }
 }
