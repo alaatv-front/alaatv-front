@@ -371,9 +371,9 @@ export default {
     getTransactionDataFromApi(page = 1) {
       this.loading = true
       this.referralCodeList = []
-      APIGateway.referralCode.getOrderProducts({ data: { page } })
-        .then((response) => {
-          this.transactionsTableRow = response.data.data
+      APIGateway.referralCode.getOrderProducts({ page })
+        .then((transactionsTableRow) => {
+          this.transactionsTableRow = transactionsTableRow
           // this.lastPage = paginate.last_page
           // this.referralCodeList = referralCodeList
           this.loading = false

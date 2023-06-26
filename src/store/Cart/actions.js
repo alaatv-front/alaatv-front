@@ -56,7 +56,7 @@ export function addToCart(context, newProductData) {
           updateCart(payload)
           showNotify()
           setCartLoading(false)
-          pushAEEEvent(newProductData)
+          pushAEEEvent(newProductData.product)
           reviewCart()
           resolve(response)
         })
@@ -68,7 +68,7 @@ export function addToCart(context, newProductData) {
       updateCart(payload)
       showNotify()
       setCartLoading(false)
-      pushAEEEvent(newProductData)
+      pushAEEEvent(newProductData.product)
       reviewCart()
       resolve(true)
     }

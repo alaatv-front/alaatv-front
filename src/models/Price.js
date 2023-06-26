@@ -15,13 +15,16 @@ class Price extends Model {
   toman (key, suffix) {
     if (this[key]) {
       let string = this[key].toLocaleString('fa')
+      if (string.length === 0) {
+        string = '0'
+      }
       if (typeof suffix === 'undefined' || suffix) {
         string += ' تومان '
       }
 
       return string
     }
-    return null
+    return '0'
   }
 
   discountInPercent () {

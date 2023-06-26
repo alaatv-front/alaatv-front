@@ -26,10 +26,15 @@
                       :name="index">
       <a :href="slide.link">
         <lazy-img v-if="slide.photo.src !== ''"
+                  q-image="true"
+                  height="524px"
+                  width="1362px"
                   :src="slide.photo.src"
                   :alt="slide.title" />
         <lazy-img v-else
                   qImage="true"
+                  height="524px"
+                  width="1362px"
                   :src="responsiveFeatures(slide.features).src"
                   :alt="slide.title" />
         <q-tooltip v-if="slide.title"
@@ -146,5 +151,20 @@ export default {
   //.image {
   //  width: 100%;
   //}
+  @media screen and (max-width: 600px){
+    &:deep(.q-carousel__navigation){
+      bottom: 3px;
+      .q-btn {
+        margin: 0;
+        padding: 0;
+      }
+    }
+    &:deep(.q-carousel__next-arrow) {
+      right: 0;
+    }
+    &:deep(.q-carousel__prev-arrow) {
+      left: 0;
+    }
+  }
 }
 </style>
