@@ -9,6 +9,7 @@ import process from 'process'
 // const { Network } = Plugins
 
 import { defineComponent } from 'vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default defineComponent({
   name: 'App',
@@ -26,7 +27,20 @@ export default defineComponent({
     // this.setServiceWorker()
     // this.checkInternetConnection()
   },
+  mounted () {
+    this.checkWebVersion()
+  },
   methods: {
+    checkWebVersion () {
+      const webAppVersion = '1.0.0'
+      APIGateway.version.getLastVersion()
+        .then((version) => {
+          const isLastVersion = version.web.last_version === webAppVersion
+          if (!isLastVersion) {
+            window.location.reload()
+          }
+        })
+    },
     // async checkInternetConnection () {
     //   Network.addListener('networkStatusChange', (status) => {
     //     // alert("Network status changed" + status)
