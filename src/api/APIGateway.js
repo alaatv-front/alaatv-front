@@ -24,6 +24,7 @@ import ChannelAPI from 'src/api/models/Channel.js'
 import VoucherAPI from 'src/api/models/voucher.js'
 import SectionAPI from 'src/api/models/section.js'
 import GatewayAPI from 'src/api/models/gateway.js'
+import VersionAPI from 'src/api/models/Version.js'
 import AbrishamAPI from 'src/api/models/Abrisham.js'
 import AttributeAPI from 'src/api/models/attribute.js'
 import StudyPlanAPI from 'src/api/models/studyPlan.js'
@@ -63,6 +64,7 @@ export const APIGateway = {
   content: new ContentAPI(),
   channel: new ChannelAPI(),
   product: new ProductAPI(),
+  version: new VersionAPI(),
   abrisham: new AbrishamAPI(),
   slideShow: new SlideShowAPI(),
   attribute: new AttributeAPI(),
