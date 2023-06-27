@@ -312,7 +312,9 @@ export default defineComponent({
       this.localOptions.list.push({
         title: '',
         photo: {
-          src: ''
+          src: '',
+          width: '',
+          height: ''
         },
         features: {
           xl: {

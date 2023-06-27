@@ -12,52 +12,75 @@
       <q-card-section>
         <div class="products-list">
           <div class="row q-col-gutter-lg">
-            <template v-if="products.loading || liveLinkLoading">
-              <div v-for="number in 4"
-                   :key="number"
-                   class="col-md-3 col-sm-6 col-xs-12">
-                <product-item class="product-item"
-                              :options="{
-                                canAddToCart: false,
-                                routeToProduct: false,
-                                loading: true
-                              }" />
-              </div>
-            </template>
-            <template v-else-if="products.list.length > 0">
-              <div v-for="product in products.list"
-                   :key="product.id"
-                   class="col-md-3 col-sm-6 col-xs-12">
-                <product-item class="product-item"
-                              :options="{
-                                canAddToCart: !product.is_purchased,
-                                showPrice: !product.is_purchased,
-                                routeToProduct: !product.is_purchased,
-                                customAction: product.is_purchased,
-                                customActionLabel: 'رفتن به کلاس',
-                                customActionMessage: 'این محصول را خریده اید',
-                                product: product,
-                              }"
-                              @onCustomActionClicked="onProductClicked(product)"
-                              @click="onProductClicked(product)" />
-              </div>
-            </template>
-            <template v-else>
-              <div class="col-12">
-                <q-banner class="bg-primary text-white">
-                  <h4 class="text-center">
-                    همایش آنلاینی وجود ندارد
-                  </h4>
-                  <template v-slot:action>
-                    <q-btn size="xl"
-                           padding="xs xl"
-                           color="info"
-                           label="بستن"
-                           @click="toggleDialog" />
-                  </template>
-                </q-banner>
-              </div>
-            </template>
+            <div class="col-12">
+              <template v-if="products.loading || liveLinkLoading">
+                <div v-for="number in 4"
+                     :key="number"
+                     class="col-md-3 col-sm-6 col-xs-12">
+                  <product-item class="product-item"
+                                :options="{
+                                  canAddToCart: false,
+                                  routeToProduct: false,
+                                  loading: true
+                                }" />
+                </div>
+              </template>
+              <template v-else-if="products.list.length > 0">
+                <div class="row q-col-gutter-lg">
+                  <div v-for="product in products.list.filter(product => product.is_live)"
+                       :key="product.id"
+                       class="col-md-3 col-sm-6 col-xs-12">
+                    <product-item class="product-item"
+                                  :options="{
+                                    canAddToCart: !product.is_purchased,
+                                    showPrice: !product.is_purchased,
+                                    routeToProduct: !product.is_purchased,
+                                    customAction: product.is_purchased,
+                                    customActionLabel: 'رفتن به کلاس',
+                                    customActionMessage: 'این محصول را خریده اید',
+                                    product: product,
+                                  }"
+                                  @onCustomActionClicked="onProductClicked(product)"
+                                  @click="onProductClicked(product)" />
+                  </div>
+                </div>
+                <q-separator class="q-my-lg" />
+                <div class="row q-col-gutter-lg">
+                  <div v-for="product in products.list.filter(product => !product.is_live)"
+                       :key="product.id"
+                       class="col-md-3 col-sm-6 col-xs-12">
+                    <product-item class="product-item"
+                                  :options="{
+                                    canAddToCart: !product.is_purchased,
+                                    showPrice: !product.is_purchased,
+                                    routeToProduct: !product.is_purchased,
+                                    customAction: product.is_purchased,
+                                    customActionLabel: 'رفتن به کلاس',
+                                    customActionMessage: 'این محصول را خریده اید',
+                                    product: product,
+                                  }"
+                                  @onCustomActionClicked="onProductClicked(product)"
+                                  @click="onProductClicked(product)" />
+                  </div>
+                </div>
+              </template>
+              <template v-else>
+                <div class="col-12">
+                  <q-banner class="bg-primary text-white">
+                    <h4 class="text-center">
+                      همایش آنلاینی وجود ندارد
+                    </h4>
+                    <template v-slot:action>
+                      <q-btn size="xl"
+                             padding="xs xl"
+                             color="info"
+                             label="بستن"
+                             @click="toggleDialog" />
+                    </template>
+                  </q-banner>
+                </div>
+              </template>
+            </div>
           </div>
         </div>
       </q-card-section>
@@ -152,12 +175,7 @@ export default {
     },
     getLiveConductors () {
       this.products.loading = true
-      APIGateway.product.getProductList({
-        productIds: this.localOptions.data.map(product => product.id),
-        params: {
-          length: this.localOptions.data.length
-        }
-      })
+      APIGateway.product.getLiveProducts()
         .then((products) => {
           this.products = new ProductList(products)
           this.products.loading = false

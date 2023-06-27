@@ -1,4 +1,5 @@
-import GTMEvents from 'assets/js/AEE/GoogleAnalyticsEnhancedEcommerce.js'
+import GTMEvents from 'src/assets/js/AEE/GoogleAnalyticsEnhancedEcommerce.js'
+
 class AEEClass {
   constructor(options = {
     debugMode: false

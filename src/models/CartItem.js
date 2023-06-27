@@ -110,12 +110,16 @@ class CartItemList extends Collection {
 
   removeProduct(productId) {
     this.list.forEach((cartItem, cartItemIndex) => {
+      const hasGrand = cartItem.hasGrand()
       const isGrand = cartItem.isGrand(productId)
       const isInOrderProduct = !!cartItem.isInOrderProducts(productId)
       if (isGrand) {
         this.list.splice(cartItemIndex, 1)
       } else if (isInOrderProduct) {
         cartItem.removeFromOrderProducts(productId)
+        if (hasGrand && cartItem.order_product.list.length === 0) {
+          this.list.splice(cartItemIndex, 1)
+        }
       }
     })
   }

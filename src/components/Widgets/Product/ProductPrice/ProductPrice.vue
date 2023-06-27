@@ -59,11 +59,13 @@
                class="purchase-button pay-later"
                label="خرید اقساطی"
                text-color="white"
+               :loading="cart.loading"
                icon="https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png" />
         <q-btn unelevated
                class="purchase-button"
                label="خرید نقدی"
                text-color="white"
+               :loading="cart.loading"
                icon="img:https://nodes.alaatv.com/upload/landing/28/productSection/landing-taftan-product--section-add-square.png"
                @click="addToCart" />
       </div>
@@ -99,6 +101,9 @@ export default {
     }
   },
   computed: {
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
     discountInPercent () {
       if (this.productPrice.discountInPercent && typeof this.productPrice.discountInPercent === 'function') {
         return this.productPrice.discountInPercent()
@@ -159,6 +164,17 @@ export default {
       return APIGateway.product.show(this.productId)
     },
     addToCart() {
+      if (this.product.hasChildren() && this.selectedIds.length === 0) {
+        this.$q.notify({
+          type: 'negative',
+          color: 'negative',
+          timeout: 5000,
+          position: 'top',
+          message: 'یکی از موارد قابل انتخاب محصول را انتخاب کنید.',
+          icon: 'report_problem'
+        })
+        return
+      }
       this.$store.dispatch('Cart/addToCart', { product: this.product, products: this.selectedIds })
         .then(() => {
           this.$router.push({ name: 'Public.Checkout.Review' })

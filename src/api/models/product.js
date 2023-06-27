@@ -21,6 +21,7 @@ export default class ProductAPI extends APIRepository {
         const queryParamsWithDisplay = queryParams + (queryParams.length > 0 ? '&' : '') + 'display=2'
         return '/product?' + queryParamsWithDisplay
       },
+      liveProducts: '/product/lives',
       admin: {
         create: '/reqres/api/users',
         edit: '/admin/product',
@@ -44,6 +45,7 @@ export default class ProductAPI extends APIRepository {
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       bulk: (productIds) => this.name + this.APIAdresses.bulk(productIds),
+      liveProducts: this.name + this.APIAdresses.liveProducts,
       liveLink: (id) => this.name + this.APIAdresses.liveLink(id),
       create: this.name + this.APIAdresses.create,
       favored: id => this.name + this.APIAdresses.favored(id),
@@ -202,6 +204,22 @@ export default class ProductAPI extends APIRepository {
         return error
       },
       data: data.params
+    })
+  }
+
+  getLiveProducts(cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.liveProducts,
+      cacheKey: this.CacheList.liveProducts,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 
