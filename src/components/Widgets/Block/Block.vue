@@ -267,6 +267,15 @@ export default {
       &.grid_view {
         justify-content: center;
       }
+
+      .content-spacing {
+        transition: all ease 0.5s;
+
+        &:hover{
+          margin-top: -10px;
+        }
+      }
+
       .block-item-box {
         display: flex;
         align-items: center;

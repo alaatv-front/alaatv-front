@@ -10,6 +10,16 @@
       <div v-else>
         <div v-if="defaultLayout"
              class="header">
+          <q-btn flat
+                 rounded
+                 :to="{name: 'Public.Home'}">
+            <q-avatar size="42px">
+              <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
+                        width="40"
+                        height="40"
+                        class="full-width" />
+            </q-avatar>
+          </q-btn>
           ثبت نام و ورود
         </div>
         <div class="phone-number">
@@ -54,9 +64,11 @@
 
 <script>
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'AuthLogin',
+  components: { LazyImg },
   mixins: [mixinAuth],
   props: {
     redirect: {

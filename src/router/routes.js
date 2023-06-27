@@ -212,6 +212,14 @@ const routes = [
               hasDynamicSetting: true
             },
             component: () => import('src/pages/Public/RegisterHekmatCoupon.vue')
+          },
+          {
+            path: 't',
+            redirect: { name: 'UserPanel.Ticket.Index' }
+          },
+          {
+            path: 'asset',
+            redirect: { name: 'UserPanel.MyPurchases' }
           }
         ]
       },
