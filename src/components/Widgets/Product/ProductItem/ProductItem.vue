@@ -126,7 +126,7 @@
         </div>
         <q-btn v-if="localOptions.canAddToCart"
                unelevated
-               :loading="addToCartLoading"
+               :loading="cart.loading"
                :productId="product.id"
                :data-product-id="product.id"
                class="btn-green"
@@ -170,7 +170,6 @@ export default defineComponent({
   emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
     productRef: 'product' + Date.now(),
-    addToCartLoading: false,
     defaultOptions: {
       style: {},
       minWidth: 'auto',
@@ -188,6 +187,9 @@ export default defineComponent({
     bookmarkValue: false
   }),
   computed: {
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
     getRoutingObject() {
       if (this.defaultOptions.routeToProduct) {
         return {
@@ -266,14 +268,9 @@ export default defineComponent({
         this.$router.push({ name: 'Public.Product.Show', params: { id: this.product.id } })
         return
       }
-      this.addToCartLoading = true
       this.$store.dispatch('Cart/addToCart', { product: this.product })
         .then(() => {
-          this.addToCartLoading = false
           this.$bus.emit('busEvent-refreshCart')
-        })
-        .catch(() => {
-          this.addToCartLoading = false
         })
     },
     getProductItemPromise() {

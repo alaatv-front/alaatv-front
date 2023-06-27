@@ -6,7 +6,11 @@ export function login (context, data) {
     context.commit('updateUser', user)
     context.commit('updateAccessToken', accessToken)
     if (typeof window !== 'undefined') {
-      Cookies.set('BearerAccessToken', accessToken, { path: '/' })
+      Cookies.set('BearerAccessToken', accessToken, {
+        domain: '.' + window.location.host,
+        path: '/',
+        expires: '365d'
+      })
     }
     // const tokenType = 'Bearer'
     // this.$accessToken = accessToken
@@ -41,7 +45,11 @@ export function logOut (context, clearRedirectTo = true) {
   context.commit('updateUser', null)
 
   if (typeof window !== 'undefined') {
-    Cookies.set('BearerAccessToken', '', { path: '/' })
+    Cookies.set('BearerAccessToken', '', {
+      domain: '.' + window.location.host,
+      path: '/',
+      expires: '365d'
+    })
   }
   context.commit('updateAxiosAuthorization', null)
   // this.$accessToken = null

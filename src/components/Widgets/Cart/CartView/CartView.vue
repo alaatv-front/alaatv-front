@@ -312,7 +312,6 @@ export default {
           this.cart.loading = false
         })
     },
-
     getOrderedList (cartItems) {
       if (!cartItems || cartItems.list?.length === 0) {
         return
@@ -335,7 +334,6 @@ export default {
 
       return customItems
     },
-
     removeItem() {
       this.changeDialogState(false)
       this.$store.dispatch('Cart/removeItemFromCart', this.clickedOrderProductToRemove)
@@ -348,7 +346,6 @@ export default {
           this.$bus.emit('busEvent-refreshCart')
         })
     },
-
     changeDialogState (state, cartItem) {
       this.dialogState = state
       if (!state) {

@@ -5,7 +5,7 @@ const timeout = 0
 /* It's a wrapper for the API instance that allows you to call the API instance's methods in a more
 readable way */
 export default class APIInstanceWrapper {
-  static createInstance (baseURL, serverURL) {
+  static createInstance(baseURL, serverURL) {
     const serverSide = typeof window === 'undefined'
     if (!serverSide) {
       const axiosInstance = axios.create({ baseURL })
@@ -107,6 +107,7 @@ export default class APIInstanceWrapper {
       })
 
       return {
+        interceptors: axios.interceptors,
         put,
         get,
         post,
