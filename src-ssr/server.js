@@ -31,8 +31,14 @@ export const create = ssrCreate((/* { ... } */) => {
   const app = express()
   // app.use(audit({
   //   doubleAudit: true,
+  //   request: {
+  //     excludeHeaders: ['*'], // Exclude all headers from responses,
+  //     excludeBody: ['*'], // Exclude all body from responses
+  //   },
   //   response: {
-  //     maxBodyLength: 100 // limit length to 50 chars + '...'
+  //     excludeHeaders: ['*'], // Exclude all headers from responses,
+  //     excludeBody: ['*'], // Exclude all body from responses
+  //     maxBodyLength: 1 // limit length to 50 chars + '...'
   //   }
   // }))
 
