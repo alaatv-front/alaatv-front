@@ -18,7 +18,7 @@ import {
   ssrRenderPreloadTag,
   ssrServeStaticContent
 } from 'quasar/wrappers'
-import audit from 'express-requests-logger'
+// import audit from 'express-requests-logger'
 
 /**
  * Create your webserver and return its instance.
@@ -29,12 +29,12 @@ import audit from 'express-requests-logger'
  */
 export const create = ssrCreate((/* { ... } */) => {
   const app = express()
-  app.use(audit({
-    doubleAudit: true,
-    response: {
-      maxBodyLength: 100 // limit length to 50 chars + '...'
-    }
-  }))
+  // app.use(audit({
+  //   doubleAudit: true,
+  //   response: {
+  //     maxBodyLength: 100 // limit length to 50 chars + '...'
+  //   }
+  // }))
 
   // attackers can use this header to detect apps running Express
   // and then launch specifically-targeted attacks
