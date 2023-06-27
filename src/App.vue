@@ -27,9 +27,9 @@ export default defineComponent({
     // this.setServiceWorker()
     // this.checkInternetConnection()
   },
-  mounted () {
-    this.checkWebVersion()
-  },
+  // mounted () {
+    // this.checkWebVersion()
+  // },
   methods: {
     checkWebVersion () {
       const webAppVersion = '1.0.0'
