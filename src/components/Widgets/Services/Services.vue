@@ -52,7 +52,6 @@ export default {
       event.preventDefault()
     },
     onDrop(event, newIndex, parent) {
-      // debugger
       const valueStringfied = event.dataTransfer.getData('value')
       const value = valueStringfied ? JSON.parse(valueStringfied) : null
       const widget = value.widget
@@ -69,7 +68,6 @@ export default {
       event.stopPropagation()
     },
     addToIndex(list, newItem, index) {
-      // debugger
       if (list.length > index) {
         list.splice(index, 0, newItem)
       } else {
@@ -77,7 +75,6 @@ export default {
       }
     },
     updatePosition(list, oldIndex, newIndex) {
-      // debugger
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
     },
     scrollToElement(service) {

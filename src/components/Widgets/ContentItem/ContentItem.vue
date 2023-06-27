@@ -173,7 +173,6 @@ export default {
   &:hover {
     box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
     5px 5px 20px rgba(0, 0, 0, 0.1);
-    top: -10px;
 
     .img-box .img-videos {
       opacity: 0.6;

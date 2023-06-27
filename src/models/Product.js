@@ -20,6 +20,8 @@ class Product extends Model {
         key: 'teacher_image'
       },
       { key: 'is_free' },
+      { key: 'is_live' },
+      { key: 'is_active' },
       { key: 'is_purchased' },
       { key: 'live_link' },
       { key: 'photo' },

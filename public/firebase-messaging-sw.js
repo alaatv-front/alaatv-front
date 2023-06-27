@@ -31,6 +31,7 @@ const messaging = firebase.messaging()
 messaging.getToken({ vapidKey: 'BO_z4fxtwD_L-TTQMh3OE7iIX77M2jezra4Kj7x9dI_nE8_OdLtmxUhJrvTOtS9sSClKqe1pEMA6gLNJr8sdfPY' })
   .then((currentToken) => {
     if (currentToken) {
+      // eslint-disable-next-line
       console.warn('client token', currentToken)
       const channel = new BroadcastChannel('sw-fcm-token')
       channel.postMessage({ title: 'Hello from SW', fcm: currentToken })
@@ -38,6 +39,7 @@ messaging.getToken({ vapidKey: 'BO_z4fxtwD_L-TTQMh3OE7iIX77M2jezra4Kj7x9dI_nE8_O
       // Show permission request UI
       const channel = new BroadcastChannel('sw-permission-request')
       channel.postMessage()
+      // eslint-disable-next-line
       console.log('No registration token available. Request permission to generate one.')
       // ...
     }
