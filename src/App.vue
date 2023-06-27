@@ -28,7 +28,7 @@ export default defineComponent({
     // this.checkInternetConnection()
   },
   // mounted () {
-    // this.checkWebVersion()
+  // this.checkWebVersion()
   // },
   methods: {
     checkWebVersion () {
