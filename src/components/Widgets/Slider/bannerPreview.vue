@@ -75,15 +75,11 @@ export default {
       } else {
         this.image.src = this.banner.photo.src
       }
-      this.updateImage()
     },
     updateImage() {
       this.visible = true
       this.img.src = this.image.src
-      this.image.width = this.img.width
-      this.image.height = this.img.height
       this.img.onload = () => {
-        this.img.src = this.image.src
         this.image.width = this.img.width
         this.image.height = this.img.height
         this.visible = false
