@@ -188,12 +188,15 @@ export default {
     },
     checkDomain(url) {
       if (url.indexOf('//') === 0) {
-        url = location.protocol + url
+        url = window.location.protocol + url
       }
       return url.toLowerCase().replace(/([a-z])?:\/\//, '$1').split('/')[0]
     },
     isExternal(url) {
-      return ((url.indexOf(':') > -1 || url.indexOf('//') > -1) && this.checkDomain(location.href) !== this.checkDomain(url))
+      if (typeof window === 'undefined') {
+        return true
+      }
+      return ((url.indexOf(':') > -1 || url.indexOf('//') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
     },
     takeAction(action) {
       if (!this.localOptions.hasAction) {
