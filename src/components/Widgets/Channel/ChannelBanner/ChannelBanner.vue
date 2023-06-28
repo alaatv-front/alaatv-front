@@ -1,7 +1,7 @@
 <template>
   <div class="ChannelBanner q-py-lg row justify-center">
     <div class="photo col-12 col-md-9">
-      <lazy-img :src="localOptions.channel.photo" />
+      <lazy-img :src="channel.photo" />
     </div>
   </div>
 </template>
@@ -10,6 +10,7 @@
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { Channel } from 'src/models/Channel.js'
 import LazyImg from 'components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ChannelBanner',
@@ -17,9 +18,20 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
-      defaultOptions: {
-        channel: new Channel()
-      }
+      channel: new Channel()
+    }
+  },
+  mounted() {
+    this.setChannel()
+  },
+  methods: {
+    setChannel() {
+      const id = this.$route.params.id
+      APIGateway.channel.getChannel({ id })
+        .then(channel => {
+          this.channel = channel
+        })
+        .catch(() => {})
     }
   }
 }
