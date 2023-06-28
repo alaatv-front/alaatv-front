@@ -59,7 +59,7 @@
 import { ref } from 'vue'
 import { Banner, BannerList } from 'src/models/Banner.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import lazyImg from '../../../components/lazyImg.vue'
+import lazyImg from 'components/lazyImg.vue'
 import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 export default {
@@ -177,6 +177,9 @@ export default {
       this.setSliderIntersectionObserver(sliderIndex)
     },
     onResize() {
+      if (typeof window === 'undefined') {
+        return
+      }
       this.windowWidth = window.innerWidth
     },
     responsiveFeatures (features) {
