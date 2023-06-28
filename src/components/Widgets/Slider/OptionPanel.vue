@@ -442,7 +442,6 @@ export default defineComponent({
       this.selectedSlide = new Banner(this.localOptions.list[index - 1])
       this.selectedBannerIndex = index - 1
       this.updateResponsiveRows()
-      console.log(this.localOptions.list[this.selectedBannerIndex])
     },
     showFullResponsiveBanner(name) {
       this.expandResponsiveBanner = true

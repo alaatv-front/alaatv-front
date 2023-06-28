@@ -90,7 +90,6 @@ export default {
   methods: {
     setProductIntersectionObserver () {
       const elements = [this.$refs[this.imageRef].$el]
-      console.log(elements)
       const observer = new IntersectionObserver(this.handleIntersection)
 
       elements.forEach(obs => {
