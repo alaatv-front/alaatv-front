@@ -205,7 +205,7 @@ export default boot(({ app, store, router, ssrContext }) => {
     // apiV1.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
     // apiWeb.defaults.headers.common.Authorization = tokenType + ' ' + cookiesAccessToken
   } else {
-    console.error('axios boot->Auth/logOut')
+    // console.error('axios boot->Auth/logOut')
     store.dispatch('Auth/logOut')
   }
 })

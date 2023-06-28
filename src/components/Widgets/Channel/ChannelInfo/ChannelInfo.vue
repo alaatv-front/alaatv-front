@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import { Channel } from 'src/models/Channel.js'
-import LazyImg from 'components/lazyImg.vue'
+import LazyImg from 'src/components/lazyImg.vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ChannelInfo',
