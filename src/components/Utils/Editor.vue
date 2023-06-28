@@ -45,7 +45,8 @@
                 }
               ],
               ['viewsource']
-            ]">
+            ]"
+            @paste.prevent="onPaste">
     <template v-slot:token>
       <q-btn-dropdown ref="colorPicker"
                       dense
@@ -95,6 +96,11 @@ export default {
     }
   },
   methods: {
+    onPaste(evt) {
+      const str = evt.clipboardData.getData('text')
+      const replace = str.replace(/(<([^>]+)>)/ig, '')
+      this.editorValue = replace
+    },
     color(cmd, name) {
       const edit = this.$refs.editor
       this.$refs.colorPicker.hide()
