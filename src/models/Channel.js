@@ -1,7 +1,7 @@
+import Url from 'src/models/Url.js'
+import { SetList } from 'src/models/Set.js'
+import { BlockList } from 'src/models/Block.js'
 import { Model, Collection } from 'js-abstract-model'
-import Url from './Url'
-import { SetList } from 'src/models/Set'
-import { BlockList } from 'src/models/Block'
 
 class Channel extends Model {
   constructor(data) {

@@ -3,7 +3,7 @@ export default class GTMBase {
     debugMode: false
   }) {
     if (typeof window === 'undefined') {
-      console.trace('warn: window in not defined and for AEE you need window')
+      // console.trace('warn: window in not defined and for AEE you need window')
     } else {
       window.dataLayer = window.dataLayer || []
     }
