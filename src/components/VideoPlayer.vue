@@ -118,7 +118,7 @@ export default {
       showVastElements: false,
       drawer: false,
       player: null,
-      localOverPlayer: false,
+      localOverPlayer: true,
       favLoading: false,
       options: {
         myItems: [{
