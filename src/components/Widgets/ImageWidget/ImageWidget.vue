@@ -3,7 +3,8 @@
              :to="localOptions.action.route"
              :class="options.className"
              :href="localOptions.action.route">
-    <q-img :src="getImageSource(options)"
+    <q-img :ref="imageRef"
+           :src="getImageSource(options)"
            :ratio="options.ratio"
            spinner-color="primary"
            :width="getImageWidth(options)"
@@ -89,6 +90,7 @@ export default {
   },
   methods: {
     setProductIntersectionObserver () {
+      debugger
       const elements = [this.$refs[this.imageRef].$el]
       const observer = new IntersectionObserver(this.handleIntersection)
 
