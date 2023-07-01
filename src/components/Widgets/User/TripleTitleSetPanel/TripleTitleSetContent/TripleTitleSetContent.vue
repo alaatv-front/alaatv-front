@@ -174,18 +174,9 @@ export default {
   },
   methods: {
     goBack () {
-      if (this.$route.name === 'UserPanel.Asset.TripleTitleSet.ProductPage' || this.$route.name === 'UserPanel.Asset.TripleTitleSet.Adviser.Content') {
-        this.$router.push(
-          { name: 'UserPanel.Asset.TripleTitleSet.Products' }
-        )
-        return
-      } else if (this.$route.params?.contentId) {
-        this.$router.push(
-          { name: 'UserPanel.Asset.TripleTitleSet.ProductPage', params: { productId: this.productId } }
-        )
-        return
-      }
-      this.$router.back()
+      this.$router.push(
+        { name: 'UserPanel.Asset.TripleTitleSet.Products' }
+      )
     },
     storeSelectedTopic () {
       if (!this.selectedSet.id) {
