@@ -42,6 +42,11 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/ios@^5.0.0":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.0.5.tgz#799c6eb3bf5988ff1e394a28d7f5caa8435460da"
+  integrity sha512-U72TPbKN1HlUqEGCOPsCBp6j93Qu1TazWUuA8Q1yfcGDfSOE0zMDNl3eU7XO5OyzpV7z9lf8NJdehimezVl7sA==
+
 "@ionic/cli-framework-output@^2.2.5":
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/@ionic/cli-framework-output/-/cli-framework-output-2.2.6.tgz#abbbe4982e82a9a4bfab3d34c372447cd48f25b3"
@@ -125,11 +130,6 @@
     tslib "^2.0.1"
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
-
-"@jcesarmobile/ssl-skip@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@jcesarmobile/ssl-skip/-/ssl-skip-0.2.0.tgz#c621ddcbf285bd4eef679545ae41a260aa0d698f"
-  integrity sha512-hkhOM5+qPm5xzOYcbUODzYTZKyATEM3qixzUL1gJsJckZ5wAUQxyZJFM3hcUANv8fV8cONfX7A+d/DJpzVvM+Q==
 
 "@types/fs-extra@^8.0.0":
   version "8.1.2"
