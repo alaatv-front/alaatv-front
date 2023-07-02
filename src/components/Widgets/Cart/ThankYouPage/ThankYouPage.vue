@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import { APIGateway } from 'src/api/APIGateway'
-import mixinAuthData from 'src/mixin/AuthData'
-import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import mixinAuthData from 'src/mixin/AuthData.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ThankYouPage',
