@@ -1593,7 +1593,7 @@ const menuItems = [
   },
   {
     selected: 'konkurConference',
-    title: 'همایش کنکوری آلاء',
+    title: 'دوره های برگزیده آلاء',
     routeName: '',
     permission: 'all',
     type: 'megaMenu',
