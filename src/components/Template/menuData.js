@@ -1602,14 +1602,20 @@ const menuItems = [
         title: 'امتحان نهایی',
         route: {
           externalLink: 'https://alaatv.com/landing/38'
-        },
-        badge: 'جدید'
+        }
       },
       {
         title: 'امتحان نهایی نهم',
         route: {
           name: 'Public.Landing.DynamicName',
           params: { landing_name: 'emtehan-nahaee-nohom' }
+        }
+      },
+      {
+        title: 'آرش',
+        route: {
+          name: 'Public.Landing.DynamicName',
+          params: { landing_name: 'arashads' }
         },
         badge: 'جدید'
       },
@@ -1617,13 +1623,13 @@ const menuItems = [
         title: 'چتر نجات',
         route: {
           externalLink: 'https://alaatv.com/landing/37'
-        },
-        badge: 'جدید'
+        }
       },
       {
         title: 'راه ابریشم',
         route: {
-          externalLink: 'https://alaatv.com/landing/25'
+          name: 'Public.Landing.DynamicName',
+          params: { landing_name: 'rahabrisham' }
         }
       },
       {
@@ -1664,6 +1670,16 @@ const menuItems = [
       {
         cols: [],
         selected: false,
+        backgroundImage: 'https://nodes.alaatv.com/upload/arash_1402_mega_menu.jpg?w=1066&h=295',
+        route: {
+          name: 'Public.Landing.DynamicName',
+          params: { landing_name: 'arashads' }
+        },
+        type: 'image'
+      },
+      {
+        cols: [],
+        selected: false,
         backgroundImage: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg',
         route: {
           externalLink: 'https://alaatv.com/landing/37',
@@ -1676,14 +1692,15 @@ const menuItems = [
         selected: false,
         backgroundImage: 'https://nodes.alaatv.com/upload/abrisham_mega_menu_1401.jpg',
         route: {
-          externalLink: 'https://alaatv.com/landing/25'
+          name: 'Public.Landing.DynamicName',
+          params: { landing_name: 'rahabrisham' }
         },
         type: 'image'
       },
       {
         cols: [],
         selected: false,
-        backgroundImage: 'https://nodes.alaatv.com/upload/taftan_mega_menu_1400.jpg',
+        backgroundImage: 'https://nodes.alaatv.com/upload/gift-card-mega-menu-background.jpg?w=1066&h=294',
         route: {
           name: 'UserPanel.Asset.GiftCard.MyGiftCards',
           params: ''
