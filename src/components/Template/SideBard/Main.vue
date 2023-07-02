@@ -59,8 +59,11 @@
           </q-input>
           <menu-item :items="menuItems"
                      :menu-items-color="'#5867dd'" />
+          <menu-item :items="menuItemsExtra"
+                     :menu-items-color="'#5867dd'" />
         </q-list>
-        <div class="log-out"
+        <div v-if="isUserLogin"
+             class="log-out"
              @click="logOut">
           <span>
             <q-avatar icon="isax:logout"
@@ -75,17 +78,37 @@
 </template>
 
 <script>
+import { User } from 'src/models/User.js'
+import menuItems from 'src/components/Template/menuData.js'
 import menuItem from 'src/components/Menu/SideMenu/MenuItem.vue'
-import menuItems from 'components/Template/menuData.js'
 
 export default {
   name: 'MainSideBarTemplate',
   components: { menuItem },
   data () {
     return {
+      user: new User(),
+      isAdmin: false,
+      isUserLogin: false,
       clickedItem: null,
       searchText: '',
       menuItems,
+      menuItemsExtra: [
+        {
+          title: 'سوالا',
+          externalLink: 'https://soalaa.com',
+          type: 'itemMenu',
+          permission: 'all',
+          show: true
+        },
+        {
+          title: 'آلاخونه',
+          externalLink: 'https://forum.alaatv.com',
+          type: 'itemMenu',
+          permission: 'all',
+          show: true
+        }
+      ],
       examsPlan: [
         {
           divider: true
@@ -135,19 +158,20 @@ export default {
       ]
     }
   },
-  computed: {
-    isUserLogin() {
-      return this.$store.getters['Auth/isUserLogin']
-    }
-  },
   mounted() {
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
+    this.loadAuthData()
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.handleResize)
   },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.isAdmin = this.$store.getters['Auth/isAdmin']
+      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
+    },
     handleResize() {
       const windowWidth = window.innerWidth
       this.menuItems.forEach(item => {

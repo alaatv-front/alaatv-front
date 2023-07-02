@@ -198,9 +198,7 @@
                   <div class="q-mx-xs">2012 </div>
                   <div>©</div>
                 </div>
-
               </a>
-
             </div>
           </div>
         </div>
@@ -254,8 +252,8 @@
 </template>
 
 <script>
-import { User } from 'src/models/User'
-import LazyImg from 'components/lazyImg.vue'
+import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'AlaaFooter',
@@ -270,7 +268,7 @@ export default {
         {
           title: 'profile',
           icon: 'isax:user',
-          to: 'UserPanel.Profile',
+          to: 'UserPanel.Dashboard',
           active: false
         },
         {

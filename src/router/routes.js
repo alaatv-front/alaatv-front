@@ -240,6 +240,14 @@ const routes = [
             component: () => import('pages/User/UserInfoForm.vue')
           },
           {
+            name: 'UserPanel.Dashboard',
+            path: 'dashboard',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/Dashboard.vue')
+          },
+          {
             name: 'UserPanel.Profile',
             path: 'profile',
             meta: {
