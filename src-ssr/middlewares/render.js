@@ -3,17 +3,21 @@ import { ssrMiddleware } from 'quasar/wrappers'
 // since it captures everything and tries to
 // render the page with Vue
 
+const logRequest = process.env.LOG_REQUEST === 'true'
+
 export default ssrMiddleware(({ app, resolve, render, serve }) => {
   // we capture any other Express route and hand it
   // over to Vue and Vue Router to render our page
   app.get(resolve.urlPath('*'), (req, res) => {
 
     const reqTimestamp = Date.now()
-    console.log('req timestamp: ' + reqTimestamp + ' ----> ', {
-      url: req.url,
-      method: req.method,
-      rawHeaders: req.rawHeaders
-    })
+    if (logRequest) {
+      console.log('req timestamp: ' + reqTimestamp + ' ----> ', {
+        url: req.url,
+        method: req.method,
+        rawHeaders: req.rawHeaders
+      })
+    }
 
     res.setHeader('Content-Type', 'text/html')
 
@@ -21,13 +25,15 @@ export default ssrMiddleware(({ app, resolve, render, serve }) => {
       .then(html => {
         // now let's send the rendered html to the client
         res.send(html)
-        console.log('res timestamp: ' + Date.now() + ' ----> ', {
-          reqTimestamp: reqTimestamp,
-          statusCode: res.statusCode,
-          url: res.req.url,
-          method: res.req.method,
-          _header: res._header
-        })
+        if (logRequest) {
+          console.log('res timestamp: ' + Date.now() + ' ----> ', {
+            reqTimestamp: reqTimestamp,
+            statusCode: res.statusCode,
+            url: res.req.url,
+            method: res.req.method,
+            _header: res._header
+          })
+        }
       })
       .catch(err => {
         // oops, we had an error while rendering the page

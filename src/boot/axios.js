@@ -156,7 +156,7 @@ export default boot(({ app, store, router, ssrContext }) => {
 
   if (apiV2.interceptors) {
     apiV2.interceptors.response.use(undefined, async function (error) {
-      return await AxiosHooks.handleErrors(error, router, store)
+      return Promise.reject(await AxiosHooks.handleErrors(error, router, store))
     })
   }
 
