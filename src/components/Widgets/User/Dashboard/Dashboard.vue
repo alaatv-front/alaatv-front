@@ -47,6 +47,14 @@ export default {
           children: []
         },
         {
+          title: 'سفارش های من',
+          icon: 'isax:stickynote4',
+          routeName: 'UserPanel.MyOrders',
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
           title: 'فیلم ها و جزوه های من',
           icon: 'isax:task-square',
           routeName: 'UserPanel.MyPurchases',
@@ -65,9 +73,35 @@ export default {
           children: []
         },
         {
-          title: 'سفارش‌ ها',
-          icon: 'isax:clipboard-text',
-          routeName: 'UserPanel.MyOrders',
+          title: 'داشبورد راه ابریشم',
+          icon: 'isax:gps',
+          routeName: 'UserPanel.Asset.Abrisham.Progress',
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
+          title: 'داشبورد راه ابریشم پرو',
+          icon: 'isax:activity',
+          routeName: 'UserPanel.Asset.AbrishamPro.Progress',
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
+          title: 'داشبورد چترنجات',
+          icon: 'isax:global',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+          params: { eventName: 'chatre-nejat' },
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
+          title: 'داشبورد امتحان نهایی',
+          icon: 'isax:bill',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+          params: { eventName: 'emtahan-nahaee' },
           permission: 'all',
           active: false,
           children: []
@@ -80,26 +114,13 @@ export default {
           active: false,
           children: []
         },
-        // {
-        //   title: 'داشبورد چتر نجات',
-        //   icon: 'isax:document-1',
-        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-        //   permission: 'all',
-        //   active: false
-        // },
         {
-          title: 'داشبورد ابریشم',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.Abrisham.Progress',
+          title: 'تیکت',
+          icon: 'isax:ticket',
+          routeName: 'UserPanel.Ticket.Index',
           permission: 'all',
-          active: false
-        },
-        {
-          title: 'داشبورد ابریشم پرو',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.AbrishamPro.Progress',
-          permission: 'all',
-          active: false
+          active: false,
+          children: []
         }
       ]
     }
