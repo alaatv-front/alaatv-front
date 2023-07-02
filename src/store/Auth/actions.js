@@ -40,7 +40,10 @@ export function login (context, data) {
       })
   })
 }
-export function logOut (context, clearRedirectTo = true) {
+export function logOut (context, payload) {
+  const redirectTo = payload?.redirectTo
+  const clearRedirectTo = payload?.clearRedirectTo
+
   context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
 
@@ -57,8 +60,10 @@ export function logOut (context, clearRedirectTo = true) {
   // this.$apiV1.defaults.headers.common.Authorization = null
   // this.$apiV2.defaults.headers.common.Authorization = null
   // this.$apiWeb.defaults.headers.common.Authorization = null
-  if (clearRedirectTo) {
+  if (typeof clearRedirectTo === 'undefined' || clearRedirectTo === true) {
     context.commit('updateRedirectTo', null)
   }
-  this.$router.push({ name: 'login' })
+  if (typeof redirectTo === 'undefined' || redirectTo === true) {
+    this.$router.push({ name: 'login' })
+  }
 }
