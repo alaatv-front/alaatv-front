@@ -626,23 +626,23 @@ export default {
     transition: all 1s;
     $width: 150px;
     &.VastTimerBtn {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-left: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
       width: $width;
       cursor: not-allowed;
       &.show {
-        left: 0;
+        right: 0;
       }
       &.hide {
-        left: -$width;
+        right: -$width;
       }
     }
     &.VastSkipAdBtn {
-      left: 0;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      border-left: none;
+      right: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
       width: $width;
       color: white;
       display: flex;
@@ -650,23 +650,23 @@ export default {
       justify-content: center;
       font-size: 0.8rem;
       &.show {
-        left: 0;
-      }
-      &.hide {
-        left: -$width;
-      }
-    }
-    &.VastLinkBtn {
-      right: 0;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-      border-right: none;
-      width: $width;
-      &.show {
         right: 0;
       }
       &.hide {
         right: -$width;
+      }
+    }
+    &.VastLinkBtn {
+      left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      width: $width;
+      &.show {
+        left: 0;
+      }
+      &.hide {
+        left: -$width;
       }
       a {
         width: 100%;
