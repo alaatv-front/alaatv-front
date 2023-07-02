@@ -7,7 +7,7 @@ export function login (context, data) {
     context.commit('updateAccessToken', accessToken)
     if (typeof window !== 'undefined') {
       Cookies.set('BearerAccessToken', accessToken, {
-        domain: '.' + window.location.host,
+        // domain: '.' + window.location.host,
         path: '/',
         expires: '365d'
       })
@@ -49,7 +49,7 @@ export function logOut (context, payload) {
 
   if (typeof window !== 'undefined') {
     Cookies.set('BearerAccessToken', '', {
-      domain: '.' + window.location.host,
+      // domain: '.' + window.location.host,
       path: '/',
       expires: '365d'
     })
