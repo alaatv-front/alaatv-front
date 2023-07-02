@@ -89,7 +89,7 @@ export default {
           value: '',
           label: 'عنوان',
           placeholder: ' ',
-          col: 'col-md-6'
+          col: 'col-sm-6 col-xs-12'
         },
         {
           type: 'toggleButton',
@@ -102,7 +102,7 @@ export default {
           toggleColor: 'blue',
           textColor: 'black',
           toggleTextColor: 'white',
-          col: 'col-md-6',
+          col: 'col-sm-6 col-xs-12',
           size: '14px'
         }
       ],

@@ -1,22 +1,18 @@
 <template>
   <div class="row">
-    <div class="col-9">
-      <div class="row">
-        <template v-for="item in imgData"
-                  :key="item">
-          <div class="col-4 q-px-lg">
-            <div class="rate"
-                 @click="selectedImgActions(item.id)">
-              <q-img class="rate-img"
-                     :src="item.url" />
-              <div class="rate-title">
-                {{item.title}}
-              </div>
-            </div>
+    <template v-for="item in imgData"
+              :key="item">
+      <div class="col-4 q-px-lg">
+        <div class="rate"
+             @click="selectedImgActions(item.id)">
+          <q-img class="rate-img"
+                 :src="item.url" />
+          <div class="rate-title">
+            {{item.title}}
           </div>
-        </template>
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -124,6 +120,8 @@ export default {
 <style lang="scss" scoped>
 .rate{
   display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
   .rate-img {
     width: 70px;
@@ -132,7 +130,7 @@ export default {
   .rate-title {
     display: flex;
     align-items: center;
-    margin-left: 16px;
+    margin-top: 5px;
     font-weight: 500;
     font-size: 16px;
   }
