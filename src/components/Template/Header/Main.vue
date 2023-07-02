@@ -22,10 +22,10 @@
                         height="40"
                         class="logo-pic-img gt-xs"
                         @click="routeTo('Public.Home')" />
-              <lazy-img src="https://nodes.alaatv.com/upload/alaa-footer-desc.png"
+              <lazy-img src="https://nodes.alaatv.com/upload/mobile-header-logo.png"
                         :alt="'logo'"
-                        width="180"
-                        height="52"
+                        width="640"
+                        height="72"
                         class="logo-pic-img lt-sm"
                         @click="routeTo('Public.Home')" />
             </div>
@@ -456,13 +456,19 @@ export default {
             .logo-pic-img {
               height: 40px;
               width: 40px;
+              display: flex;
+              flex-flow: row;
+              justify-content: center;
+              align-items: center;
               @media screen and (max-width: 1023px) {
                 height: 48px;
                 width: 48px;
               }
               @media screen and (max-width: 599px) {
-                height: auto;
                 width: 100%;
+                img {
+                  height: auto !important;
+                }
               }
             }
             @media screen and (max-width: 599px) {
