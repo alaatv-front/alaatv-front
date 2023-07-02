@@ -1,5 +1,25 @@
 <template>
   <div class="ChatreNejatContent-page q-pa-md">
+    <div v-if="isAdvisor"
+         class="row">
+      <div class="col-12 flex justify-between q-mb-md">
+        <div class="breadcrumbs flex items-center">
+          <div class="breadcrumbs-item"
+               :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">
+            چتر نجات
+          </div>
+          <q-icon name="chevron_left" />
+          <div class="content-title">
+            مشاوره
+          </div>
+        </div>
+        <div class="back-btn">
+          <q-btn flat
+                 icon-right="chevron_left"
+                 @click="goBack">بازگشت</q-btn>
+        </div>
+      </div>
+    </div>
     <!--   --------------------------------- video box &&  content list item ------------------------- -->
     <div class="row q-col-gutter-x-md">
       <div class="video-box-col col-12 col-xs-12 col-sm-12 col-lg-8">
@@ -83,6 +103,9 @@ export default {
     }
   }),
   computed: {
+    isAdvisor () {
+      return this.$route.name === 'UserPanel.Asset.TripleTitleSet.Adviser.Content'
+    },
     hidePrevBtn () {
       return this.currentSetIndex === 0
     },
@@ -150,6 +173,11 @@ export default {
     this.storeSelectedContent(this.$route.params.contentId)
   },
   methods: {
+    goBack () {
+      this.$router.push(
+        { name: 'UserPanel.Asset.TripleTitleSet.Products' }
+      )
+    },
     storeSelectedTopic () {
       if (!this.selectedSet.id) {
         return
@@ -315,6 +343,26 @@ export default {
   }
   @media screen and (max-width: 400px) {
     margin: 0;
+  }
+
+  .back-btn {
+    text-align: end;
+    cursor: pointer;
+    .alaa-logo {
+      width: 50px;
+    }
+    .logo-image {
+      text-align: left;
+      .q-img__container {
+      }
+    }
+  }
+
+  .breadcrumbs {
+    @media screen and (max-width: 1024px) {
+      justify-self: self-start;
+      padding-left: 10px;
+    }
   }
 
   .chip-parent{

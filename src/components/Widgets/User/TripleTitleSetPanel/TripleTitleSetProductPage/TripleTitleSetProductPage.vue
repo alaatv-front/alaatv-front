@@ -20,7 +20,7 @@
             {{set.contents_count}} گام
           </q-item-section>
           <q-item-section side>
-            {{set.contents_duration}} دقیقه
+            {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : set.contents_duration + ' دقیقه'}}
           </q-item-section>
         </template>
         <q-separator inset />
@@ -49,7 +49,7 @@
                 </q-item-section>
                 <q-item-section v-else
                                 side>
-                  {{ content.duration === null ? 'مدت ندارد' : content.duration + ' دقیقه' }}
+                  {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : content.duration + ' دقیقه' }}
                 </q-item-section>
               </q-item>
             </q-list>
@@ -183,13 +183,14 @@ export default {
   height: 510px;
 }
 .product-page {
-  width: 100%;
+  max-width: 100%;
   padding: 50px 170px 170px;
   @media only screen and (max-width: 1450px) {
     padding: 5px;
   }
   @media only screen and (max-width: 400px) {
-    width: 350px;
+    max-width: 350px;
+    margin: 30px auto;
   }
   &:deep(.q-item) {
     flex-wrap: wrap !important;
@@ -207,19 +208,19 @@ export default {
   //   }
   // }
 
-  // .set-title {
-  //   max-width: 70%;
+  .set-title {
+    max-width: 70%;
 
-  //   .set-title-text {
-  //     max-width: 100%;
-  //   }
-  // }
-  // .content-title {
-  //   max-width: 80%;
+    .set-title-text {
+      max-width: 100%;
+    }
+  }
+  .content-title {
+    max-width: 80%;
 
-  //   .content-title-text {
-  //     max-width: 100%;
-  //   }
-  // }
+    .content-title-text {
+      max-width: 100%;
+    }
+  }
 }
 </style>

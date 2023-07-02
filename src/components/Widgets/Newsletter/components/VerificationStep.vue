@@ -273,4 +273,13 @@ export default {
   -webkit-appearance: none;
   margin: 0;
 }
+@media screen and (max-width: 599px) {
+  .landing-otp-input {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 5px !important;
+    margin: 0 5px !important;
+    font-size: 16px !important;
+  }
+}
 </style>

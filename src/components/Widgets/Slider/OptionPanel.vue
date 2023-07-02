@@ -76,6 +76,39 @@
               <q-input v-model="selectedSlide.link"
                        label="link" />
             </q-card-section>
+            <q-card-section class="col-6">
+              <div class="cehckBox">
+                <q-checkbox v-model="localOptions.list[selectedBannerIndex].useAEEEvent"
+                            label="استفاده از ایونت GTM"
+                            right-label />
+              </div>
+            </q-card-section>
+            <q-card-section class="col-12">
+              <div v-if="localOptions.list[selectedBannerIndex].useAEEEvent"
+                   class="action-container q-gutter-lg-md">
+                <div>فیلد های مورد نظر ایونت GTM :</div>
+                <div class="col-9">
+                  <div class="outsideLabel">id</div>
+                  <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.id"
+                           label="id" />
+                </div>
+                <div class="col-6">
+                  <div class="outsideLabel">name</div>
+                  <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.name"
+                           label="name" />
+                </div>
+                <div class="col-6">
+                  <div class="outsideLabel">creative</div>
+                  <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.creative"
+                           label="creative" />
+                </div>
+                <div class="col-6">
+                  <div class="outsideLabel">position</div>
+                  <q-input v-model="localOptions.list[selectedBannerIndex].AEEEventBody.position"
+                           label="position" />
+                </div>
+              </div>
+            </q-card-section>
           </div>
           <div class="row col-12">
             <q-toggle v-model="isResponsive"
@@ -128,6 +161,7 @@
             <div class="row col-12">
               <q-card-section class="col-12">
                 <banner-preview v-model:banner="selectedSlide"
+                                v-model:options="localOptions"
                                 @update:src="updateSrc" />
               </q-card-section>
             </div>
@@ -151,6 +185,7 @@
           <div class="col-12 row">
             <q-card-section class="col-12">
               <banner-preview v-model:banner="selectedSlide"
+                              v-model:options="localOptions"
                               :size="selectedResponsiveSize"
                               @update:src="updateSrc" />
             </q-card-section>
@@ -343,7 +378,14 @@ export default defineComponent({
             height: ''
           }
         },
-        link: ''
+        link: '',
+        useAEEEvent: false,
+        AEEEventBody: {
+          id: '-',
+          name: '-',
+          creative: null,
+          position: null
+        }
       })
       this.rows.push({
         name: rowNumber,
