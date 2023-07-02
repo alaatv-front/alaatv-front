@@ -307,12 +307,12 @@ export default {
       },
       userInputs: [
         { type: 'hidden', options: [], name: 'department_id' },
-        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', optionLabel: 'title', placeholder: ' ', col: 'col-md-4' },
-        { type: 'select', options: [], name: 'status_id', label: 'وضعیت', placeholder: ' ', optionLabel: 'title', col: 'col-md-4' },
-        { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: ' ', col: 'col-md-4' },
-        { type: 'input', name: 'title', label: 'عنوان', placeholder: ' ', col: 'col-md-4' },
-        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', placeholder: ' ', col: 'col-md-4' },
-        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', placeholder: ' ', col: 'col-md-4' }
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', optionLabel: 'title', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'select', options: [], name: 'status_id', label: 'وضعیت', placeholder: ' ', optionLabel: 'title', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'input', name: 'title', label: 'عنوان', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' }
       ],
       adminInputs: [
         { type: 'input', name: 'has_user_mobile', label: 'شماره همراه', placeholder: ' ', col: 'col-md-3' },

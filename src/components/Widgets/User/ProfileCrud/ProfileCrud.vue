@@ -60,7 +60,7 @@ export default {
             outlined: true,
             placeholder: 'وارد نمایید',
             col: 'col-xs-6',
-            value: 1,
+            value: null,
             readonly: true
           }, {
             type: 'input',
@@ -95,8 +95,7 @@ export default {
               outlined: true,
               placeholder: 'وارد نمایید',
               col: 'col-xs-6 q-mb-md',
-              value: 'راستاک',
-              readonly: true
+              value: null
             }, {
               type: 'input',
               name: 'last_name',
@@ -105,8 +104,7 @@ export default {
               outlined: true,
               placeholder: 'وارد نمایید',
               col: 'col-xs-6 q-pr-md',
-              value: 'مددی',
-              readonly: true
+              value: null
             }, {
               type: 'date',
               name: 'birthdate',
@@ -158,7 +156,7 @@ export default {
               outlined: true,
               placeholder: 'وارد نمایید',
               col: 'col-xs-6 q-mb-md',
-              value: '0000000000',
+              value: '',
               readonly: true
             }],
           ignoreValue: true
