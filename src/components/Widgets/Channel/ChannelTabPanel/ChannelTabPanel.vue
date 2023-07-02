@@ -16,18 +16,18 @@
                   animated
                   class="q-pa-sm panels">
       <q-tab-panel name="normal_blocks">
-        <block-list v-if="localOptions.channel.normal_blocks.list.length > 0"
+        <block-list v-if="channel.normal_blocks.list.length > 0"
                     :options="{
-                      blocks: localOptions.channel.normal_blocks
+                      blocks: channel.normal_blocks
                     }" />
         <div v-else>
           <div>محتوایی برای نمایش وجود ندارد</div>
         </div>
       </q-tab-panel>
       <q-tab-panel name="future_blocks">
-        <block-list v-if="localOptions.channel.future_blocks.list.length > 0"
+        <block-list v-if="channel.future_blocks.list.length > 0"
                     :options="{
-                      blocks: localOptions.channel.future_blocks,
+                      blocks: channel.future_blocks,
                       apiName: 'none'
                     }" />
         <div v-else>
@@ -42,6 +42,7 @@
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { Channel } from 'src/models/Channel.js'
 import BlockList from 'components/Widgets/BlockList/BlockList.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ChannelTabPanel',
@@ -49,10 +50,21 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
-      defaultOptions: {
-        channel: new Channel()
-      },
+      channel: new Channel(),
       tab: 'normal_blocks'
+    }
+  },
+  mounted() {
+    this.setChannel()
+  },
+  methods: {
+    setChannel() {
+      const id = this.$route.params.id
+      APIGateway.channel.getChannel({ id })
+        .then(channel => {
+          this.channel = channel
+        })
+        .catch(() => {})
     }
   }
 }

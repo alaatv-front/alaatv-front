@@ -23,8 +23,10 @@
               class="slider-widget">
     <q-carousel-slide v-for="(slide, index) in options.list"
                       :key="index"
+                      :ref="'slider' + index"
                       :name="index">
-      <a :href="slide.link">
+      <a :href="slide.link"
+         @click="takeAction(slide)">
         <lazy-img v-if="slide.photo.src !== ''"
                   q-image
                   :height="slide.photo.height"
@@ -55,9 +57,10 @@
 
 <script>
 import { ref } from 'vue'
-import { BannerList } from 'src/models/Banner.js'
+import { Banner, BannerList } from 'src/models/Banner.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import lazyImg from '../../../components/lazyImg.vue'
+import lazyImg from 'components/lazyImg.vue'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 export default {
   name: 'Slider',
@@ -73,8 +76,10 @@ export default {
   },
   data () {
     return {
+      sliderRef: 'slider' + Date.now(),
       slide: ref(null),
       fullscreen: ref(false),
+      selectedSlide: new Banner(),
       windowWidth: 0,
       defaultOptions: {
         list: [],
@@ -112,6 +117,14 @@ export default {
       }
     }
   },
+  watch: {
+    slide(newVal) {
+      this.selectedSlide = new Banner(this.localOptions.list[newVal])
+      this.$nextTick(() => {
+        this.setAEEEvent(newVal)
+      })
+    }
+  },
   mounted () {
     if (this.options && this.options.list && this.options.list.length > 0) {
       this.slide = 0
@@ -124,7 +137,49 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    setSliderIntersectionObserver (sliderIndex) {
+      const slideRef = 'slider' + sliderIndex
+      const element = this.$refs[slideRef][0].$el
+      const observer = new IntersectionObserver(this.handleIntersection)
+      observer.observe(element)
+    },
+    handleIntersection(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          this.slideViewed()
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    getAEEKey() {
+      let AEEKey
+      Object.values(this.selectedSlide.AEEEventBody).forEach(item => {
+        AEEKey += item
+      })
+      return AEEKey
+    },
+    slideViewed () {
+      AEE.promotionView([this.selectedSlide.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
+    },
+    pushClickedEvent (slide) {
+      AEE.promotionClick([slide.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
+    },
+    setAEEEvent (sliderIndex) {
+      if (!this.selectedSlide.useAEEEvent) {
+        return
+      }
+      this.setSliderIntersectionObserver(sliderIndex)
+    },
     onResize() {
+      if (typeof window === 'undefined') {
+        return
+      }
       this.windowWidth = window.innerWidth
     },
     responsiveFeatures (features) {
@@ -138,6 +193,11 @@ export default {
         return features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
       } else if (this.windowWidth <= 599) {
         return features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
+      }
+    },
+    takeAction(slide) {
+      if (slide.useAEEEvent) {
+        this.pushClickedEvent(slide)
       }
     }
   }

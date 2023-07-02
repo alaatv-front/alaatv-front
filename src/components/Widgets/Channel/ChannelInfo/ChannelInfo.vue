@@ -6,15 +6,15 @@
                   height="150px" />
       <div v-if="!loading">
         <q-card-section>
-          {{ localOptions.channel.title }}
+          {{ channel.title }}
         </q-card-section>
         <q-separator />
         <q-card-section class="box row q-gutter-x-lg q-pa-lg">
           <div class="photo col-12 col-md-3 q-pa-lg q-pa-md-none">
-            <lazy-img :src="localOptions.channel.photo" />
+            <lazy-img :src="channel.photo" />
           </div>
           <div class="text col-12 col-md-8 q-pa-lg q-pa-md-none">
-            {{ localOptions.channel.description }}
+            {{ channel.description }}
           </div>
         </q-card-section>
       </div>
@@ -23,9 +23,10 @@
 </template>
 
 <script>
-import { Channel } from 'src/models/Channel.js'
-import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import { Channel } from 'src/models/Channel.js'
+import LazyImg from 'components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ChannelInfo',
@@ -33,10 +34,21 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
-      defaultOptions: {
-        channel: new Channel()
-      },
+      channel: new Channel(),
       loading: false
+    }
+  },
+  mounted() {
+    this.setChannel()
+  },
+  methods: {
+    setChannel() {
+      const id = this.$route.params.id
+      APIGateway.channel.getChannel({ id })
+        .then(channel => {
+          this.channel = channel
+        })
+        .catch(() => {})
     }
   }
 }

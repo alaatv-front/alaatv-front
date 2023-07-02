@@ -203,7 +203,7 @@ export default {
     display: none !important;
   }
   &:deep(.quasar-crud-index-table) {
-    padding: 0 !important;
+    padding: 20px 10 !important;
   }
   &:deep(.formBuilder-actionBtn-ActionBtn) {
     padding: 20px;
