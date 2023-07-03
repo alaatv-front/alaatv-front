@@ -805,7 +805,7 @@ export default {
 
     height: $mobileFooterHeight;
     display: none;
-    background: #FF9000;
+    background: $primary;
     border-radius: 16px 16px 0;
     box-shadow: 0 -6px 10px rgba(112, 108, 161, 0.07);
 
