@@ -7,3 +7,5 @@
 /src-ssr
 babel.config.js
 /src/assets/js/Minio.js
+/public/najva-messaging-sw.js
+

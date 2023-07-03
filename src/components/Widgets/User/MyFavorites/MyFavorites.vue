@@ -1,5 +1,14 @@
 <template>
   <div class="my-favorites">
+    <div class="lt-sm flex justify-end">
+      <q-btn flat
+             color="grey"
+             :to="{name: 'UserPanel.Dashboard'}">
+        <q-icon name="isax:layer"
+                class="q-mr-sm" />
+        >
+      </q-btn>
+    </div>
     <div class="row">
       <div class="col-12">
         <q-tabs v-model="activePanel"

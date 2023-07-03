@@ -37,7 +37,7 @@ export default {
         this.redirectTo()
         return
       }
-      this.$store.dispatch('Auth/logOut', false)
+      this.$store.dispatch('Auth/logOut', { clearRedirectTo: false })
     }
   }
 }
