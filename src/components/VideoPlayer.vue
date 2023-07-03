@@ -230,6 +230,9 @@ export default {
         this.moveSideBarElementIntoVideoPlayerElements()
       })
     }
+    this.$refs.videoPlayer.addEventListener('webkitfullscreenchange', this.onWebKitFullScreenChange)
+    this.$refs.videoPlayer.addEventListener('mozfullscreenchange', this.onMozFullScreenChange)
+    this.$refs.videoPlayer.addEventListener('fullscreenchange', this.onFullScreenChange)
   },
   beforeUnmount() {
     if (this.player) {
@@ -460,7 +463,25 @@ export default {
         }
       }
 
-      this.player = videojs(this.$refs.videoPlayer, this.options)
+      this.player = videojs(this.$refs.videoPlayer, this.options, function() {
+        this.on('fullscreenchange', function() {
+          if (this.isFullscreen()) {
+            console.log('Entered fullscreen mode')
+            screen.orientation.unlock()
+          } else {
+            // Video exited fullscreen mode
+            console.log('Exited fullscreen mode')
+            screen.orientation.lock('portrait')
+          }
+        })
+      })
+
+      window.addEventListener('orientationchange', function() {
+        console.log(this.screen.orientation.type)
+      })
+
+      // this.player = videojs(this.$refs.videoPlayer, this.options, this.onFullScreenChange)
+
       if (this.hasVast && (typeof withVast === 'undefined' || withVast === true)) {
         // this.loadVast()
         this.getVast()
@@ -598,6 +619,25 @@ export default {
       } else if (document.msExitFullscreen) { /* IE11 */
         document.msExitFullscreen()
       }
+    },
+    onWebKitFullScreenChange() {
+      console.log('on web kit')
+      debugger
+    },
+    onMozFullScreenChange() {
+      console.log('on moz')
+      debugger
+    },
+    onFullScreenChange() {
+      this.on('fullscreenchange', function() {
+        if (this.isFullscreen()) {
+          // Video is in fullscreen mode
+          console.log('Entered fullscreen mode')
+        } else {
+          // Video exited fullscreen mode
+          console.log('Exited fullscreen mode')
+        }
+      })
     }
   }
 }
