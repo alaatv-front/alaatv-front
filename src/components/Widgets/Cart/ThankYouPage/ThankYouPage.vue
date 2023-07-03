@@ -93,23 +93,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.cart-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0.7;
-  width: 245px;
-  height: 245px;
-  margin-top: 223px;
-  font-size: 200px;
-}
 .cart-container {
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 100px;
+  //margin-bottom: 100px;
+
+  .cart-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+    width: 245px;
+    height: 245px;
+    font-size: 200px;
+  }
 
   .title {
     font-style: normal;
@@ -147,6 +147,8 @@ export default {
     margin-top: 20px;
     text-decoration: none;
   }
+}
+.cart-container {
 }
 
 @media screen and (max-width: 1439px) {

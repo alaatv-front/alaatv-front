@@ -1,6 +1,15 @@
 <template>
   <div :class="options.className"
        :style="options.style">
+    <div class="lt-sm flex justify-end">
+      <q-btn flat
+             color="grey"
+             :to="{name: 'UserPanel.Dashboard'}">
+        <q-icon name="isax:layer"
+                class="q-mr-sm" />
+        >
+      </q-btn>
+    </div>
     <entity-edit ref="entityEdit"
                  v-model:value="inputs"
                  :api="api"

@@ -1,5 +1,15 @@
 <template>
   <div class="ticket-index">
+    <div v-if="!isInAdminPage"
+         class="lt-sm flex justify-end">
+      <q-btn flat
+             color="grey"
+             :to="{name: 'UserPanel.Dashboard'}">
+        <q-icon name="isax:layer"
+                class="q-mr-sm" />
+        >
+      </q-btn>
+    </div>
     <div v-if="isEntityReady">
       <entity-index v-model:value="inputs"
                     title="لیست تیکت ها"
