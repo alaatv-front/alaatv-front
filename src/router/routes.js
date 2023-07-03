@@ -240,6 +240,14 @@ const routes = [
             component: () => import('pages/User/UserInfoForm.vue')
           },
           {
+            name: 'UserPanel.Dashboard',
+            path: 'dashboard',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/Dashboard.vue')
+          },
+          {
             name: 'UserPanel.Profile',
             path: 'profile',
             meta: {
@@ -496,7 +504,10 @@ const routes = [
           {
             path: 'order/:orderId/thankYou',
             name: 'UserPanel.ThankYouPage',
-            component: () => import('src/pages/ThankYouPage/ThankYouPage.vue'),
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/ThankYouPage.vue'),
             layoutConfig: {
               layoutHeader: true,
               layoutHeaderType: 'main',

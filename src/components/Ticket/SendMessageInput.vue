@@ -10,8 +10,9 @@
         <drawer :is-open="orderDrawer"
                 max-width="1016px">
           <q-scroll-area class="fit">
-            <q-btn icon="mdi-close"
-                   class="close-btn"
+            <q-btn icon="isax:close-circle"
+                   color="primary"
+                   class="close-btn q-ma-sm"
                    unelevated
                    @click="orderDrawer = false" />
             <user-order-list :user-orders-list="userOrderData?.list"

@@ -23,10 +23,10 @@ export default defineComponent({
       return this.$store.getters['Auth/accessToken']
     }
   },
-  created () {
-    // this.setServiceWorker()
-    // this.checkInternetConnection()
-  },
+  // created () {
+  // this.setServiceWorker()
+  // this.checkInternetConnection()
+  // },
   // mounted () {
   // this.checkWebVersion()
   // },

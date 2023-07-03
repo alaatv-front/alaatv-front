@@ -198,9 +198,7 @@
                   <div class="q-mx-xs">2012 </div>
                   <div>©</div>
                 </div>
-
               </a>
-
             </div>
           </div>
         </div>
@@ -218,10 +216,19 @@
                 exact-active-class="active-route"
                 :to="{ name: item.to }">
           <q-item-section avatar>
-            <q-icon :name="item.icon"
+            <q-icon v-if="item.title !== 'profile' || user.id === null"
+                    :name="item.icon"
                     :class="{ active: $route.name === item.to }"
                     color="primary"
-                    size="20px" />
+                    size="35px" />
+            <q-avatar v-else
+                      size="35px">
+              <lazy-img :src="user.photo"
+                        :alt="'user photo'"
+                        width="35"
+                        height="35"
+                        class="user-photo" />
+            </q-avatar>
           </q-item-section>
         </q-item>
       </q-list>
@@ -254,8 +261,8 @@
 </template>
 
 <script>
-import { User } from 'src/models/User'
-import LazyImg from 'components/lazyImg.vue'
+import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'AlaaFooter',
@@ -270,7 +277,7 @@ export default {
         {
           title: 'profile',
           icon: 'isax:user',
-          to: 'UserPanel.Profile',
+          to: 'UserPanel.Dashboard',
           active: false
         },
         {
@@ -752,7 +759,7 @@ export default {
         &.q-item--active {
           .q-item__section {
             background-color: lighten($primary,34%);
-            padding: 12px
+            padding: 0;
           }
         }
         .q-item__section {
@@ -766,6 +773,9 @@ export default {
           border-radius: 8px;
           align-items: center;
           justify-content: center;
+          .user-photo {
+            width: 100%;
+          }
           .active {
             //background-color: rgba(128, 117, 220, 0.34);
             //background-color: lighten($primary,34%);
@@ -798,7 +808,7 @@ export default {
 
     height: $mobileFooterHeight;
     display: none;
-    background: #FF9000;
+    background: $primary;
     border-radius: 16px 16px 0;
     box-shadow: 0 -6px 10px rgba(112, 108, 161, 0.07);
 

@@ -20,7 +20,13 @@
                         :alt="'logo'"
                         width="40"
                         height="40"
-                        class="logo-pic-img"
+                        class="logo-pic-img gt-xs"
+                        @click="routeTo('Public.Home')" />
+              <lazy-img src="https://nodes.alaatv.com/upload/mobile-header-logo.png"
+                        :alt="'logo'"
+                        width="640"
+                        height="72"
+                        class="logo-pic-img lt-sm"
                         @click="routeTo('Public.Home')" />
             </div>
           </div>
@@ -47,7 +53,7 @@
           </q-list>
         </div>
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
-        <div class="user-action">
+        <div class="user-action gt-xs">
           <div class="action-container">
             <!--            <q-card-section ref="searchInput"-->
             <!--                            class="search-section">-->
@@ -71,7 +77,7 @@
             <!--              size="12px"-->
             <!--              class="action-btn"-->
             <!--            />-->
-            <q-btn icon="isax:shopping-cart"
+            <q-btn icon="isax:shopping-cart gt-xs"
                    unelevated
                    rounded
                    size="12px"
@@ -119,30 +125,9 @@
                 </div>
                 <div class="body">
                   <div class="user-panel-base-menu">
-                    <q-list class="side-menu-list"
-                            padding
-                            dark>
-                      <div v-for="(item , index) in profileTitlesList"
-                           :key="index">
-                        <div v-if="showMenuItem(/* item */)">
-                          <q-item class="item-list"
-                                  :class="{ 'alone-item': !(item.children && item.children.length) }"
-                                  :to="{ name: item.routeName, params: item.params }">
-                            <div class="section-title">
-                              <q-item-section class="list-section">
-                                {{ item.title }}
-                              </q-item-section>
-                              <q-item-section class="list-section title-icon"
-                                              avatar>
-                                <q-avatar :icon="item.icon"
-                                          size="30" />
-                              </q-item-section>
-                              <span class="indicator" />
-                            </div>
-                          </q-item>
-                        </div>
-                      </div>
-                    </q-list>
+
+                    <user-dashboard-items />
+
                     <div v-if="isUserLogin"
                          class="log-out"
                          @click="logOut">
@@ -197,10 +182,11 @@ import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import menuItems from 'src/components/Template/menuData.js'
 import itemMenu from 'src/components/Template/Header/itemMenu.vue'
+import UserDashboardItems from 'components/UserDashboardItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
-  components: { LazyImg, megaMenu, simpleMenu, itemMenu },
+  components: { UserDashboardItems, LazyImg, megaMenu, simpleMenu, itemMenu },
   data() {
     return {
       mounted: false,
@@ -210,72 +196,7 @@ export default {
       user: new User(),
       isAdmin: false,
       isUserLogin: false,
-      items: menuItems,
-      profileTitlesList: [
-        {
-          title: 'پروفایل',
-          icon: 'isax:user',
-          routeName: 'UserPanel.Profile',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'فیلم ها و جزوه های من',
-          icon: 'isax:task-square',
-          routeName: 'UserPanel.MyPurchases',
-          params: null,
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'علاقه مندی های من',
-          icon: 'isax:heart',
-          routeName: 'UserPanel.MyFavorites',
-          params: null,
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'سفارش‌ ها',
-          icon: 'isax:clipboard-text',
-          routeName: 'UserPanel.MyOrders',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'کارت هدیه',
-          icon: 'isax:gift',
-          routeName: 'UserPanel.Asset.GiftCard.MyGiftCards',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        // {
-        //   title: 'داشبورد چتر نجات',
-        //   icon: 'isax:document-1',
-        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-        //   permission: 'all',
-        //   active: false
-        // },
-        {
-          title: 'داشبورد ابریشم',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.Abrisham.Progress',
-          permission: 'all',
-          active: false
-        },
-        {
-          title: 'داشبورد ابریشم پرو',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.AbrishamPro.Progress',
-          permission: 'all',
-          active: false
-        }
-      ]
+      items: menuItems
     }
   },
   computed: {
@@ -424,7 +345,7 @@ export default {
         grid-template-columns: auto auto;
       }
       @media screen and (max-width: 599px) {
-        //grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
       }
       .logo-section {
         align-items: center;
@@ -434,9 +355,9 @@ export default {
           justify-self: start;
         }
         @media screen and (max-width: 599px) {
-          //justify-self: center;
-          //justify-content: space-between;
-          //width: 100%;
+          justify-self: center;
+          justify-content: center;
+          width: 100%;
         }
         .logo-pic {
           cursor: pointer;
@@ -450,11 +371,27 @@ export default {
             .logo-pic-img {
               height: 40px;
               width: 40px;
+              display: flex;
+              flex-flow: row;
+              justify-content: center;
+              align-items: center;
               @media screen and (max-width: 1023px) {
                 height: 48px;
                 width: 48px;
               }
+              @media screen and (max-width: 599px) {
+                width: 100%;
+                img {
+                  height: auto !important;
+                }
+              }
             }
+            @media screen and (max-width: 599px) {
+              width: 100%;
+            }
+          }
+          @media screen and (max-width: 599px) {
+            width: 200px;
           }
           //img {
           //
@@ -468,7 +405,9 @@ export default {
             margin-left: -8px;
           }
           @media screen and (max-width: 599px) {
-            margin-left: 0;
+            position: absolute;
+            left: 20px;
+            top: 10px;
           }
         }
         .drawer-btn {
