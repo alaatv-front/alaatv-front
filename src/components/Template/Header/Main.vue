@@ -125,30 +125,9 @@
                 </div>
                 <div class="body">
                   <div class="user-panel-base-menu">
-                    <q-list class="side-menu-list"
-                            padding
-                            dark>
-                      <div v-for="(item , index) in profileTitlesList"
-                           :key="index">
-                        <div v-if="showMenuItem(/* item */)">
-                          <q-item class="item-list"
-                                  :class="{ 'alone-item': !(item.children && item.children.length) }"
-                                  :to="{ name: item.routeName, params: item.params }">
-                            <div class="section-title">
-                              <q-item-section class="list-section">
-                                {{ item.title }}
-                              </q-item-section>
-                              <q-item-section class="list-section title-icon"
-                                              avatar>
-                                <q-avatar :icon="item.icon"
-                                          size="30" />
-                              </q-item-section>
-                              <span class="indicator" />
-                            </div>
-                          </q-item>
-                        </div>
-                      </div>
-                    </q-list>
+
+                    <user-dashboard-items />
+
                     <div v-if="isUserLogin"
                          class="log-out"
                          @click="logOut">
@@ -203,10 +182,11 @@ import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import menuItems from 'src/components/Template/menuData.js'
 import itemMenu from 'src/components/Template/Header/itemMenu.vue'
+import UserDashboardItems from 'components/UserDashboardItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
-  components: { LazyImg, megaMenu, simpleMenu, itemMenu },
+  components: { UserDashboardItems, LazyImg, megaMenu, simpleMenu, itemMenu },
   data() {
     return {
       mounted: false,
@@ -216,72 +196,7 @@ export default {
       user: new User(),
       isAdmin: false,
       isUserLogin: false,
-      items: menuItems,
-      profileTitlesList: [
-        {
-          title: 'پروفایل',
-          icon: 'isax:user',
-          routeName: 'UserPanel.Profile',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'فیلم ها و جزوه های من',
-          icon: 'isax:task-square',
-          routeName: 'UserPanel.MyPurchases',
-          params: null,
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'علاقه مندی های من',
-          icon: 'isax:heart',
-          routeName: 'UserPanel.MyFavorites',
-          params: null,
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'سفارش‌ ها',
-          icon: 'isax:clipboard-text',
-          routeName: 'UserPanel.MyOrders',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        {
-          title: 'کارت هدیه',
-          icon: 'isax:gift',
-          routeName: 'UserPanel.Asset.GiftCard.MyGiftCards',
-          permission: 'all',
-          active: false,
-          children: []
-        },
-        // {
-        //   title: 'داشبورد چتر نجات',
-        //   icon: 'isax:document-1',
-        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products',
-        //   permission: 'all',
-        //   active: false
-        // },
-        {
-          title: 'داشبورد ابریشم',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.Abrisham.Progress',
-          permission: 'all',
-          active: false
-        },
-        {
-          title: 'داشبورد ابریشم پرو',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.AbrishamPro.Progress',
-          permission: 'all',
-          active: false
-        }
-      ]
+      items: menuItems
     }
   },
   computed: {
