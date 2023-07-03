@@ -156,7 +156,7 @@ export default boot(({ app, store, router, ssrContext }) => {
 
   if (apiV2.interceptors) {
     apiV2.interceptors.response.use(undefined, async function (error) {
-      return await AxiosHooks.handleErrors(error, router, store)
+      return Promise.reject(await AxiosHooks.handleErrors(error, router, store))
     })
   }
 
@@ -181,7 +181,9 @@ export default boot(({ app, store, router, ssrContext }) => {
     ? Cookies.parseSSR(ssrContext)
     : Cookies // otherwise we're on client
 
-  const cookiesAccessTokenInCookies = cookies.get('BearerAccessToken')
+  const allCookies = cookies.getAll()
+  const cookiesAccessTokenInCookies = cookies.get('BearerAccessToken') ? cookies.get('BearerAccessToken') : allCookies.BearerAccessToken
+  // const cookiesAccessTokenInCookies = cookies.get('BearerAccessToken')
   const accessTokenInLocalStorage = store.getters['Auth/accessToken']
   const cookiesAccessToken = accessTokenInLocalStorage || cookiesAccessTokenInCookies
 

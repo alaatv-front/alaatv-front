@@ -271,14 +271,14 @@ export default {
       api: APIGateway.ticket.APIAdresses.base,
       inputs: [],
       userInputs: [
-        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', placeholder: ' ', col: 'col-md-4', disable: true },
+        { type: 'input', name: 'title', responseKey: 'ticket.title', label: 'عنوان', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12', disable: true },
         {
           type: 'input',
           name: 'first_name',
           placeholder: ' ',
           responseKey: 'ticket.user.first_name',
           label: 'نام',
-          col: 'col-md-4',
+          col: 'col-md-4 col-sm-6 col-xs-12',
           disable: true
         },
         {
@@ -287,7 +287,7 @@ export default {
           placeholder: ' ',
           responseKey: 'ticket.user.last_name',
           label: 'نام خانوادگی',
-          col: 'col-md-4',
+          col: 'col-md-4 col-sm-6 col-xs-12',
           disable: true
         },
         {
@@ -296,7 +296,7 @@ export default {
           placeholder: ' ',
           responseKey: 'ticket.priority.title',
           label: 'اولویت',
-          col: 'col-md-4',
+          col: 'col-md-4 col-sm-6 col-xs-12',
           disable: true
         },
         {
@@ -309,7 +309,7 @@ export default {
           placeholder: ' ',
           label: 'گروه',
           disable: true,
-          col: 'col-md-4'
+          col: 'col-md-4 col-sm-6 col-xs-12'
         },
         {
           type: 'select',
@@ -321,7 +321,7 @@ export default {
           placeholder: ' ',
           label: 'وضعیت',
           disable: true,
-          col: 'col-md-4'
+          col: 'col-md-4 col-sm-6 col-xs-12'
         },
         {
           type: 'dateTime',
@@ -330,7 +330,7 @@ export default {
           calendarIcon: ' ',
           label: 'تاریخ ایجاد',
           placeholder: ' ',
-          col: 'col-md-4',
+          col: 'col-md-4 col-sm-6 col-xs-12',
           disable: true
         },
         {
@@ -340,7 +340,7 @@ export default {
           calendarIcon: ' ',
           placeholder: ' ',
           label: 'تاریخ بروز آوری:',
-          col: 'col-md-4',
+          col: 'col-md-4 col-sm-6 col-xs-12',
           disable: true
         },
         { type: 'hidden', name: 'id', responseKey: 'ticket.id', placeholder: 'id' },

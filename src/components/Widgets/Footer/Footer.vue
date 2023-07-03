@@ -198,9 +198,7 @@
                   <div class="q-mx-xs">2012 </div>
                   <div>©</div>
                 </div>
-
               </a>
-
             </div>
           </div>
         </div>
@@ -218,10 +216,19 @@
                 exact-active-class="active-route"
                 :to="{ name: item.to }">
           <q-item-section avatar>
-            <q-icon :name="item.icon"
+            <q-icon v-if="item.title !== 'profile' || user.id === null"
+                    :name="item.icon"
                     :class="{ active: $route.name === item.to }"
                     color="primary"
                     size="20px" />
+            <q-avatar v-else
+                      size="20px">
+              <lazy-img :src="user.photo"
+                        :alt="'user photo'"
+                        width="20"
+                        height="20"
+                        class="user-photo" />
+            </q-avatar>
           </q-item-section>
         </q-item>
       </q-list>
@@ -254,8 +261,8 @@
 </template>
 
 <script>
-import { User } from 'src/models/User'
-import LazyImg from 'components/lazyImg.vue'
+import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'AlaaFooter',
@@ -270,7 +277,7 @@ export default {
         {
           title: 'profile',
           icon: 'isax:user',
-          to: 'UserPanel.Profile',
+          to: 'UserPanel.Dashboard',
           active: false
         },
         {

@@ -20,7 +20,13 @@
                         :alt="'logo'"
                         width="40"
                         height="40"
-                        class="logo-pic-img"
+                        class="logo-pic-img gt-xs"
+                        @click="routeTo('Public.Home')" />
+              <lazy-img src="https://nodes.alaatv.com/upload/mobile-header-logo.png"
+                        :alt="'logo'"
+                        width="640"
+                        height="72"
+                        class="logo-pic-img lt-sm"
                         @click="routeTo('Public.Home')" />
             </div>
           </div>
@@ -47,7 +53,7 @@
           </q-list>
         </div>
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
-        <div class="user-action">
+        <div class="user-action gt-xs">
           <div class="action-container">
             <!--            <q-card-section ref="searchInput"-->
             <!--                            class="search-section">-->
@@ -71,7 +77,7 @@
             <!--              size="12px"-->
             <!--              class="action-btn"-->
             <!--            />-->
-            <q-btn icon="isax:shopping-cart"
+            <q-btn icon="isax:shopping-cart gt-xs"
                    unelevated
                    rounded
                    size="12px"
@@ -424,7 +430,7 @@ export default {
         grid-template-columns: auto auto;
       }
       @media screen and (max-width: 599px) {
-        //grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
       }
       .logo-section {
         align-items: center;
@@ -434,9 +440,9 @@ export default {
           justify-self: start;
         }
         @media screen and (max-width: 599px) {
-          //justify-self: center;
-          //justify-content: space-between;
-          //width: 100%;
+          justify-self: center;
+          justify-content: center;
+          width: 100%;
         }
         .logo-pic {
           cursor: pointer;
@@ -450,11 +456,27 @@ export default {
             .logo-pic-img {
               height: 40px;
               width: 40px;
+              display: flex;
+              flex-flow: row;
+              justify-content: center;
+              align-items: center;
               @media screen and (max-width: 1023px) {
                 height: 48px;
                 width: 48px;
               }
+              @media screen and (max-width: 599px) {
+                width: 100%;
+                img {
+                  height: auto !important;
+                }
+              }
             }
+            @media screen and (max-width: 599px) {
+              width: 100%;
+            }
+          }
+          @media screen and (max-width: 599px) {
+            width: 200px;
           }
           //img {
           //
@@ -468,7 +490,9 @@ export default {
             margin-left: -8px;
           }
           @media screen and (max-width: 599px) {
-            margin-left: 0;
+            position: absolute;
+            left: 20px;
+            top: 10px;
           }
         }
         .drawer-btn {
