@@ -220,13 +220,13 @@
                     :name="item.icon"
                     :class="{ active: $route.name === item.to }"
                     color="primary"
-                    size="20px" />
+                    size="35px" />
             <q-avatar v-else
-                      size="20px">
+                      size="35px">
               <lazy-img :src="user.photo"
                         :alt="'user photo'"
-                        width="20"
-                        height="20"
+                        width="35"
+                        height="35"
                         class="user-photo" />
             </q-avatar>
           </q-item-section>
@@ -759,7 +759,7 @@ export default {
         &.q-item--active {
           .q-item__section {
             background-color: lighten($primary,34%);
-            padding: 12px
+            padding: 0;
           }
         }
         .q-item__section {
@@ -773,6 +773,9 @@ export default {
           border-radius: 8px;
           align-items: center;
           justify-content: center;
+          .user-photo {
+            width: 100%;
+          }
           .active {
             //background-color: rgba(128, 117, 220, 0.34);
             //background-color: lighten($primary,34%);
