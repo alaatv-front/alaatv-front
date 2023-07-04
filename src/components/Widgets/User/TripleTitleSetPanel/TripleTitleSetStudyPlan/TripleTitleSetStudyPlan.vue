@@ -183,7 +183,6 @@ export default {
     getChangePlanOptions() {
       this.$apiGateway.studyPlan.getChangePlanOptions()
         .then(options => {
-          // debugger
           this.majorOptions = options.majors
           this.gradeOptions = options.grades
           this.planOptions = options.studyPlans
