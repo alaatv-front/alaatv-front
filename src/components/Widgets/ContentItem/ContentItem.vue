@@ -7,9 +7,9 @@
         <div class="img-title-container">
           <lazy-img :src="content.photo"
                     :alt="content.title"
-                    class="img"
                     width="16"
-                    height="9" />
+                    height="9"
+                    class="img" />
         </div>
         <div class="play-btn">
           <div class="play-icon" />
@@ -20,9 +20,10 @@
       <router-link :to="getRoutingObject"
                    class="content-item-router-link">
         <div class="content-box-text">
-          <div v-if="defaultOptions.showSetTitle"
-               class="main-title ellipsis">
-            {{ content.set.short_title}}
+          <div class="main-title ellipsis">
+            <div v-if="defaultOptions.showSetTitle">
+              {{ content.set.short_title}}
+            </div>
           </div>
           <div class="title-text  ellipsis-2-lines">
             {{ content.short_title ? content.short_title : content.title }}
@@ -192,7 +193,7 @@ export default {
   .content-action-container{
     position: absolute;
     right: 0;
-    top: -10px;
+    top: -2px;
     .content-item-bookmark {
       margin: -10px;
     }
@@ -203,9 +204,9 @@ export default {
   }
 
   .content-box-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
     min-height: 48px;
   }
 
@@ -216,9 +217,11 @@ export default {
       border-radius: inherit;
       box-shadow: none;
       width: 100%;
+      height: 100%;
 
       .img {
         width: inherit;
+        height: 100%;
         border-radius: 20px 20px 0 0;
       }
     }
@@ -241,19 +244,18 @@ export default {
   }
 
   .content-info-container {
-    min-height: 100px;
+    min-height: 110px;
     padding: 10px 16px 16px 16px;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: 1fr;
     .main-title {
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
       letter-spacing: -0.03em;
-      width: 220px;
+      width: 185px;
 
       a {
         margin-bottom: 0;
@@ -270,6 +272,7 @@ export default {
       -webkit-box-orient: vertical;
       text-overflow: ellipsis;
       overflow: hidden;
+      align-self: center;
     }
 
     .price-box {
@@ -424,8 +427,7 @@ export default {
 
   @media screen and (max-width: 992px) {
     .img-box {
-      .img {
-      }
+      height: 100%;
     }
 
     .content-info-container {
@@ -485,101 +487,6 @@ export default {
         }
       }
     }
-  }
-
-  @media screen and (max-width: 600px) {
-    width: 250px;
-    display: flex;
-    border-radius: 18px;
-    flex-direction: row;
-
-    .img-box {
-      width: 100%;
-
-      .img {
-        border-radius: 10px;
-      }
-    }
-
-    .content-info-container {
-      width: 100%;
-
-      .main-title {
-        margin-bottom: 0;
-
-        a {
-        }
-
-        .title-box {
-          height: 44px;
-          justify-content: center;
-
-          .title-text {
-            -webkit-line-clamp: 2;
-          }
-        }
-      }
-
-      .price-box {
-        margin-bottom: 0;
-
-        .add-cart-info {
-          .add-cart-icon {
-          }
-        }
-
-        .price-info {
-          .final-price-box {
-            .final-price {
-              margin-left: 2px;
-            }
-          }
-
-          .main-price {
-            margin-left: 4px;
-          }
-
-          .price-Toman {
-          }
-        }
-      }
-
-      .action-box {
-        .more-detail {
-          a {
-          }
-
-          .more {
-            display: none;
-          }
-        }
-
-        .btn-style {
-          width: 100px;
-          height: 25px !important;
-          border-radius: 8px;
-
-          img {
-            margin-left: 0;
-          }
-
-          .content {
-          }
-
-          .active {
-          }
-        }
-      }
-
-      .discount {
-        height: 20px;
-        /* margin-left: 3px; */
-      }
-    }
-  }
-
-  @media screen and(max-width: 350px) {
-    width: 150px;
   }
 }
 </style>

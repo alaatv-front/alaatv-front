@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ContentSection',
@@ -67,10 +67,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.section.show.base,
-            edit: API_ADDRESS.section.edit.base,
-            create: API_ADDRESS.section.create.base,
-            index: API_ADDRESS.section.index.base
+            show: APIGateway.section.APIAdresses.sections.show.base,
+            edit: APIGateway.section.APIAdresses.sections.edit.base,
+            create: APIGateway.section.APIAdresses.sections.create.base,
+            index: APIGateway.section.APIAdresses.sections.index.base
           },
           title: {
             show: 'اطلاعات  سکشن ها',

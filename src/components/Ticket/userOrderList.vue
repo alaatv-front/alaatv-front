@@ -235,7 +235,7 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
+import { APIGateway } from 'src/api/APIGateway'
 import { mixinDateOptions } from 'src/mixin/Mixins.js'
 
 export default {
@@ -297,9 +297,7 @@ export default {
       this.batchExtendPostRequest()
     },
     batchExtendPostRequest () {
-      this.$axios.post(API_ADDRESS.ticket.show.batchExtend, {
-        orderproducts: this.extendProductArray
-      })
+      APIGateway.ticket.batchExtend({ orderproducts: this.extendProductArray })
         .then((res) => {
           this.extendProductArray = []
           // console.log(res)

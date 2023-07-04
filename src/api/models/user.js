@@ -11,6 +11,7 @@ export default class UserAPI extends APIRepository {
   constructor() {
     super('user', apiV2, '/user', new User())
     this.APIAdresses = {
+      create: '/admin/user',
       base: '/user',
       favored: '/user/favored',
       purchasedProducts: '/user/products',
@@ -29,7 +30,35 @@ export default class UserAPI extends APIRepository {
       resendGuest: '/mobile/resendGuest',
       getUserRoleAndPermission: '/getUserRoleAndPermission',
       verifyMoshavereh: '/mobile/verifyMoshavereh',
-      newsletter: '/newsletter'
+      newsletter: '/newsletter',
+      admin: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      },
+      fixUnknownUsersCity: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      }
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -228,7 +257,7 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.showUser,
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
-        return response
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error
@@ -349,7 +378,8 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.getUserRoleAndPermission,
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        return response.data
+        const permissions = response.data.data.permissions // Array of string
+        return permissions
       },
       rejectCallback: (error) => {
         return error
@@ -397,7 +427,7 @@ export default class UserAPI extends APIRepository {
         mobile: '' // String
       }, data),
       resolveCallback: (response) => {
-        return response.data.message
+        return response.data
       },
       rejectCallback: (error) => {
         return error
@@ -426,17 +456,22 @@ export default class UserAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
-      request: this.APIAdresses.verifyMoshavereh,
+      request: this.APIAdresses.newsletter,
       data: this.getNormalizedSendData({
         mobile: '', // String
         code: '', // String
         first_name: '', // String
         last_name: '', // String
         major_id: '', // String
+        event_id: '', // String
         grade_id: '' // String
       }, data),
       resolveCallback: (response) => {
-        return response.data.message
+        if (response.data.length > 0) {
+          return response.data[0].message
+        } else {
+          return ''
+        }
       },
       rejectCallback: (error) => {
         return error

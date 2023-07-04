@@ -7,7 +7,7 @@
                           label="ویرایش ستون ها">
           <q-card class="custom-card">
             <q-card-section>
-              <q-expansion-item v-for="(item, index) in headers"
+              <q-expansion-item v-for="(item, index) in localOptions.header"
                                 :key="index"
                                 expand-separator>
                 <template v-slot:header>
@@ -17,8 +17,7 @@
                          class="q-mr-sm"
                          @click="removeItem(index)" />
                   <q-input v-model="item.label"
-                           label="label"
-                           disable />
+                           label="label" />
                 </template>
                 <div class="text">
                   <editor v-model:value="item.label" />
@@ -50,7 +49,7 @@
                      color="negative"
                      :disable="loading"
                      label="حذف ردیف"
-                     @click="removeRow" />
+                     @click="showDialog = true" />
             </template>
             <template v-slot:header="props">
               <q-tr :props="props">
@@ -59,14 +58,6 @@
                       :props="props">
                   <div>
                     {{item.label}}
-                    <q-popup-edit v-slot="scope"
-                                  v-model="props.cols[index]">
-                      <q-input v-model="scope.value.label"
-                               dense
-                               autofocus
-                               counter
-                               @keyup.enter="scope.set" />
-                    </q-popup-edit>
                   </div>
                 </q-th>
               </q-tr>
@@ -76,10 +67,10 @@
                 <q-td v-for="(item, index) in props.cols"
                       :key="'col'+ index"
                       :props="props">
-                  <div v-if="props.row['col'+ index].type === 'text'">
+                  <div v-if="props.row[getColName(index)].type === 'text'">
                     {{ item.value }}
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value"
                                dense
                                autofocus
@@ -88,14 +79,14 @@
                       <q-select v-model="scope.value.type"
                                 class="q-mt-md"
                                 :options="typeOptions"
-                                @keyup.enter="scope.set" />
+                                @update:model-value="changeType(scope.value, props.rowIndex, index)" />
                     </q-popup-edit>
                   </div>
-                  <div v-if="props.row['col'+ index].type === 'image'">
-                    <q-img :src="props.row['col'+ index].value"
+                  <div v-if="props.row[getColName(index)].type === 'image'">
+                    <q-img :src="props.row[getColName(index)].value"
                            width="30px" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value"
                                dense
                                autofocus
@@ -104,28 +95,27 @@
                       <q-select v-model="scope.value.type"
                                 class="q-mt-md"
                                 :options="typeOptions"
-                                @keyup.enter="scope.set" />
+                                @update:model-value="changeType(scope.value, props.rowIndex, index)" />
                     </q-popup-edit>
                   </div>
-                  <div v-if="props.row['col'+ index].type === 'action'">
-                    <q-btn v-if="props.row['col'+ index].value.label"
-                           color="primary"
-                           :label="props.row['col'+ index].value.label" />
+                  <div v-if="props.row[getColName(index)].type === 'action'">
+                    <q-btn color="primary"
+                           :label="props.row[getColName(index)].value.label" />
                     <q-popup-edit v-slot="scope"
-                                  v-model="props.row['col'+ index]">
+                                  v-model="props.row[getColName(index)]">
                       <q-input v-model="scope.value.value.label"
                                dense
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
-                      <q-input v-if="props.row['col'+ index].value.url"
+                      <q-input v-if="props.row[getColName(index)].actionType === 'link'"
                                v-model="scope.value.value.url"
                                dense
                                class="q-my-sm"
                                autofocus
                                counter
                                @keyup.enter="scope.set" />
-                      <q-input v-if="props.row['col'+ index].value.className"
+                      <q-input v-if="props.row[getColName(index)].actionType === 'scroll'"
                                v-model="scope.value.value.className"
                                dense
                                class="q-my-sm"
@@ -136,11 +126,10 @@
                                 class="q-mt-md"
                                 :options="typeOptions"
                                 @keyup.enter="scope.set" />
-                      {{scope}}
                       <q-select v-model="scope.value.actionType"
                                 class="q-mt-md"
                                 :options="actionTypeOptions"
-                                @keyup.enter="scope.set" />
+                                @update:model-value="changeType(scope.value, props.rowIndex, index)" />
                     </q-popup-edit>
                   </div>
                 </q-td>
@@ -149,19 +138,38 @@
           </q-table>
         </div>
       </div>
+      <q-dialog v-model="showDialog">
+        <q-card class="custom-card q-pa-lg">
+          <div class="text">
+            کدام ردیف را میخواهید حذف کنید؟
+          </div>
+          <div class="q-my-md">
+            <q-select v-model="rowNumberToDelete"
+                      :options="deleteRowOptions" />
+          </div>
+          <div class="flex">
+            <q-btn label="تایید"
+                   flat
+                   @click="removeRow()" />
+            <q-btn label="لغو"
+                   flat
+                   @click="showDialog = false" />
+          </div>
+        </q-card>
+      </q-dialog>
     </template>
   </option-panel-tabs>
 </template>
 <script>
 import { defineComponent } from 'vue'
-import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import Editor from 'components/Utils/Editor.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
   components: { Editor, OptionPanelTabs },
-  mixins: [mixinOptionPanel],
+  mixins: [PageBuilderOptionPanel],
   props: {
     options: {
       type: Object,
@@ -172,29 +180,32 @@ export default defineComponent({
   },
   data() {
     return {
-      rowCount: 10,
       loading: false,
+      rowNumberToDelete: null,
+      showDialog: false,
+      deleteRowOptions: [],
       filter: '',
       typeOptions: ['text', 'image', 'action'],
-      actionTypeOptions: ['scroll', 'link']
-
+      actionTypeOptions: ['scroll', 'link'],
+      defaultOptions: {
+        columns: [],
+        header: [],
+        rows: [],
+        records: [],
+        attributes: [],
+        title: '',
+        color: '',
+        flat: false
+      }
     }
   },
   computed: {
-    value: {
-      get() {
-        return this.options
-      },
-      set(value) {
-        this.localOptions = value
-      }
-    },
     columns: {
       get() {
-        return this.options.header.map((item, index) => {
+        return this.localOptions.header.map((item, index) => {
           return {
             name: 'col' + index,
-            label: item,
+            label: item.label,
             format: val => `${val}`,
             field: row => row['col' + index].value,
             align: 'center'
@@ -204,53 +215,67 @@ export default defineComponent({
       set(value) {
         this.localOptions.header = value.map((item) => item.label)
       }
-    },
-    headers: {
-      get() {
-        return this.options.header.map(item => {
-          return {
-            label: item
-          }
-        })
-      },
-      set(value) {
-        this.localOptions.header = value.map((item) => item.label)
-      }
     }
   },
-  watch: {
-    localOptions: {
-      handler(newVal) {
-        this.$emit('update:options', newVal)
-      },
-      deep: true
-    }
+  mounted() {
+    this.fillDeleteRowOptions()
   },
   methods: {
+    fillDeleteRowOptions() {
+      this.localOptions.rows.forEach((item, index) => {
+        this.deleteRowOptions.push(index + 1)
+      })
+    },
+    getColName(index) {
+      return 'col' + index
+    },
+    changeType(value, rowIndex, colIndex) {
+      const row = this.localOptions.rows[rowIndex]
+      const col = row[this.getColName(colIndex)]
+      col.type = value.type
+      if (value.type === 'action') {
+        col.value = {
+          label: '',
+          className: '',
+          url: ''
+        }
+      }
+      if (value.type === 'text' || value.type === 'image') {
+        col.value = ''
+      }
+    },
     addRow () {
       this.loading = true
       const
         index = this.localOptions.rows.length + 1,
-        row = this.localOptions.rows[Math.floor(Math.random() * this.localOptions.rows.length)]
-
-      if (this.localOptions.rows.length === 0) {
-        this.rowCount = 0
-      }
-
-      row.id = ++this.rowCount
+        row = {
+          col0: {
+            type: 'text',
+            value: 'text'
+          },
+          col1: {
+            type: 'image',
+            value: 'https://nodes.alaatv.com/upload/landing/32/landing32/tableOfDifferences/landing-32-table-of-differences-tick-circle.png'
+          },
+          col2: {
+            type: 'action',
+            actionType: 'link',
+            value: {
+              label: 'button'
+            }
+          }
+        }
       const newRow = { ...row }
       this.localOptions.rows = [...this.localOptions.rows.slice(0, index), newRow, ...this.localOptions.rows.slice(index)]
       this.loading = false
     },
 
     removeRow () {
-      this.loading = true
-      const index = this.localOptions.rows.length - 1
-      this.localOptions.rows = [...this.localOptions.rows.slice(0, index), ...this.localOptions.rows.slice(index + 1)]
-      this.loading = false
+      this.localOptions.rows.splice(this.rowNumberToDelete - 1, 1)
+      this.showDialog = false
     },
     addItem () {
-      this.localOptions.header.push('label')
+      this.localOptions.header.push({ label: 'label' })
     },
     removeItem (itemIndex) {
       this.localOptions.header.splice(itemIndex, 1)

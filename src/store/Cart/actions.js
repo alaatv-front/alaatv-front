@@ -1,5 +1,4 @@
 import { Notify } from 'quasar'
-import { Cart } from 'src/models/Cart.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import CookieCart from 'src/assets/js/CookieCart.js'
 
@@ -11,103 +10,114 @@ export function addToCart(context, newProductData) {
       products: newProductData.products ? newProductData.products : [], // Array (List ofProduct's ID)
       attribute: newProductData.attribute ? newProductData.attribute : [] // Array
     }
-    if (isUserLogin) {
-      APIGateway.cart.addToCart(payload)
-        .then((response) => {
-          Notify.create({
-            type: 'positive',
-            color: 'positive',
-            timeout: 5000,
-            position: 'top',
-            message: 'محصول به سبد خرید اضافه شد.',
-            icon: 'report_problem',
-            actions: [{
-              label: 'سبد خرید',
-              icon: 'isax:shopping-cart',
-              color: 'white',
-              class: 'bg-green-3',
-              handler: () => {
-                this.$router.push({ name: 'Public.Checkout.Review' })
-              }
-            }]
-          })
-          resolve(response)
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    } else {
+    const setCartLoading = (loadingState) => {
+      const cart = context.getters.cart
+      cart.loading = loadingState
+      context.commit('updateCart', cart)
+    }
+    const updateCart = (payload) => {
       const cart = context.getters.cart
       cart.addToCart(payload)
       context.commit('updateCart', cart)
+    }
+    const showNotify = () => {
+      Notify.create({
+        type: 'positive',
+        color: 'positive',
+        timeout: 5000,
+        position: 'top',
+        message: 'محصول به سبد خرید اضافه شد.',
+        icon: 'report_problem',
+        actions: [{
+          label: 'سبد خرید',
+          icon: 'isax:shopping-cart',
+          color: 'white',
+          class: 'bg-green-3',
+          handler: () => {
+            this.$router.push({ name: 'Public.Checkout.Review' })
+          }
+        }]
+      })
+    }
+    const reviewCart = () => {
+      this.dispatch('Cart/reviewCart')
+    }
+
+    setCartLoading(true)
+    if (isUserLogin) {
+      APIGateway.cart.addToCart(payload)
+        .then((response) => {
+          updateCart(payload)
+          showNotify()
+          setCartLoading(false)
+          reviewCart()
+          resolve(response)
+        })
+        .catch((error) => {
+          setCartLoading(false)
+          reject(error)
+        })
+    } else {
+      updateCart(payload)
+      showNotify()
+      setCartLoading(false)
+      reviewCart()
       resolve(true)
     }
   })
 }
 
 export function reviewCart(context) {
-  const isUserLogin = this.getters['Auth/isUserLogin']
   const currentCart = this.getters['Cart/cart']
   const cartItems = []
+  const setCartLoading = (loadingState) => {
+    const cart = context.getters.cart
+    cart.loading = loadingState
+    context.commit('updateCart', cart)
+  }
   currentCart.items.list.forEach(currentCartItem => {
-    const cartItemObject = { products: [] }
     if (currentCartItem.grand.id) {
+      const cartItemObject = {
+        products: [],
+        attribute: [],
+        product_id: null
+      }
+      // selectable
       cartItemObject.product_id = currentCartItem.grand.id
       currentCartItem.order_product.list.forEach(orderProduct => {
         cartItemObject.products.push(orderProduct.product.id)
       })
+      cartItems.push(cartItemObject)
     } else {
+      // simple and configurable
       currentCartItem.order_product.list.forEach(orderProduct => {
+        const cartItemObject = {
+          products: [],
+          attribute: [],
+          product_id: null
+        }
         cartItemObject.product_id = orderProduct.product.id
+        if (orderProduct.attributevalues) {
+          cartItemObject.attribute = orderProduct.attributevalues
+        }
+        cartItems.push(cartItemObject)
       })
     }
-    cartItems.push(cartItemObject)
   })
 
   return new Promise((resolve, reject) => {
+    setCartLoading(true)
     APIGateway.cart.reviewCart(cartItems)
-      .then((response) => {
-        if (isUserLogin) {
-          context.commit('updateCart', new Cart(response))
-        }
-        return resolve(response)
+      .then((cart) => {
+        context.commit('updateCart', cart)
+        setCartLoading(false)
+        return resolve(cart)
       })
       .catch(error => {
+        setCartLoading(false)
         reject(error)
       })
   })
-  // return new Promise((resolve, reject) => {
-  //   axios
-  //     .get(API_ADDRESS.cart.review, {
-  //       params: {
-  //         seller: 1,
-  //         cartItems
-  //       },
-  //       paramsSerializer: {
-  //         encode: parse,
-  //         serialize: params => {
-  //           const q = new URLSearchParams()
-  //           q.set('seller', params.seller)
-  //           for (let item = 0; item < params.cartItems.length; item++) {
-  //             q.set(`cartItems[${item}][product_id]`, params.cartItems[item].product_id)
-  //             for (let product = 0; product < params.cartItems[item].products.length; product++) {
-  //               q.set(`cartItems[${item}][products][${product}]`, params.cartItems[item].products[product].id)
-  //             }
-  //           }
-  //           return q
-  //         }
-  //       }
-  //     })
-  //     .then((response) => {
-  //       if (isUserLogin) {
-  //         context.commit('updateCart', new Cart())
-  //       }
-  //       return resolve(response)
-  //     })
-  //     .catch((error) => {
-  //       reject(error)
-  //     })
-  // })
 }
 
 export function paymentCheckout(context) {
@@ -123,19 +133,39 @@ export function paymentCheckout(context) {
 }
 
 export function removeItemFromCart(context, orderProductId) {
+  const remove = function (productId, orderProductId) {
+    const cart = context.getters.cart
+    if (typeof productId !== 'undefined') {
+      cart.removeProduct(productId)
+    } else if (typeof orderProductId !== 'undefined') {
+      cart.items.removeOrderProduct(orderProductId)
+    }
+    context.commit('updateCart', cart)
+  }
+  const removeByProductId = function (productId) {
+    remove(productId)
+  }
+  const removeByOrderProductId = function (orderProductId) {
+    remove(undefined, orderProductId)
+  }
+  const showNotify = function () {
+    Notify.create({
+      type: 'positive',
+      color: 'positive',
+      timeout: 5000,
+      position: 'top',
+      message: 'محصول از سبد خرید حذف شد.',
+      icon: 'report_problem'
+    })
+  }
+
   return new Promise((resolve, reject) => {
     const isUserLogin = this.getters['Auth/isUserLogin']
     if (isUserLogin) {
       APIGateway.cart.removeFromCart(orderProductId)
         .then((response) => {
-          Notify.create({
-            type: 'positive',
-            color: 'positive',
-            timeout: 5000,
-            position: 'top',
-            message: 'محصول از سبد خرید حذف شد.',
-            icon: 'report_problem'
-          })
+          removeByOrderProductId(orderProductId)
+          showNotify()
           resolve(response)
         })
         .catch((error) => {
@@ -143,9 +173,8 @@ export function removeItemFromCart(context, orderProductId) {
         })
     } else {
       const productId = orderProductId
-      const cart = context.getters.cart
-      cart.removeProduct(productId)
-      context.commit('updateCart', cart)
+      removeByProductId(productId)
+      showNotify()
       resolve()
     }
   })

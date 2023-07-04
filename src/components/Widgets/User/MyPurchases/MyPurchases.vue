@@ -22,7 +22,7 @@
           </div>
           <div class="sortingFilter-item subject q-mr-md">
             <filter-box ref="filterBoxCategory"
-                        v-model:categorySelected="selectedFilterCategoryValue"
+                        v-model:categorySelected="currentCategory"
                         type="filterBoxCategory"
                         :items="filterBoxCategory"
                         :custom-class="'filter'"
@@ -60,7 +60,7 @@
     </div>
     <!--    ------------------------------------------------------------------------ banner search products ------------------------------------------------------------------------------ -->
     <div class="col-12 productsCol q-mt-md q-px-xs-md q-px-none">
-      <div class="row justify-center items-center q-gutter-sm-lg">
+      <div class="row justify-center items-center q-col-gutter-sm-lg">
         <div v-for="(product, index) in filteredProduct.list"
              :key="index"
              class="col-12 col-sm-4 col-md-3">
@@ -73,7 +73,8 @@
                         @click="productItemClicked(product)" />
         </div>
       </div>
-      <pagination :meta="productPaginationMeta"
+      <pagination v-if="filteredProduct.list.length > 0"
+                  :meta="productPaginationMeta"
                   :disable="loading"
                   @updateCurrentPage="getProductsByPage" />
       <!--    --------------------------------------------------------------------------- show content box   --------------------------------------------------------------------------- -->
@@ -92,8 +93,9 @@
             position="bottom">
     <div class="product-contents">
       <product-contents :options="{
-        product: selectedProduct,
-        contentGridView: true
+        productId: selectedProduct.id,
+        contentGridView: true,
+        showContentDownloadMenu: true
       }" />
     </div>
   </q-dialog>
@@ -128,24 +130,24 @@ export default {
       showContentDialog: false,
       selectedTab: 'pamphlet',
       searchTarget: '',
-      selectedFilterBoxValue: 'asc',
-      selectedFilterCategoryValue: null,
+      selectedFilterBoxValue: 'desc',
       currentPage: 1,
       filterBoxCategory: [],
       filteredProduct: new ProductList(),
       filterBoxSort: [
         {
           name: 'جدید ترین ها',
-          value: 'asc',
+          value: 'desc',
           selected: true
         },
         {
           name: 'قدیمی ترین ها',
-          value: 'desc',
+          value: 'asc',
           selected: false
         }],
       selectedSet: new Set(),
-      products: new ProductList()
+      products: new ProductList(),
+      currentCategory: ''
     }
   },
   computed: {
@@ -185,6 +187,7 @@ export default {
     getPurchasedProducts () {
       return this.$apiGateway.user.getPurchasedProducts({
         ...(this.currentPage && { page: this.currentPage }),
+        ...(this.currentCategory && { category: this.currentCategory }),
         ...(this.searchTarget && { title: this.searchTarget }),
         ...(this.selectedFilterBoxValue && { sort_by_order_completed_at: this.selectedFilterBoxValue })
       })
@@ -198,12 +201,7 @@ export default {
       this.productContentsDialog = !this.productContentsDialog
     },
     filterProduct () {
-      this.filterProductByCategory()
       this.sortProducts()
-    },
-    filterProductByCategory () {
-      const newList = this.products.list.filter(product => product.category === this.selectedFilterCategoryValue || this.selectedFilterCategoryValue === 'all')
-      this.filteredProduct = new ProductList(newList)
     },
     async sortProducts () {
       await this.setPurchasedProducts()
@@ -214,8 +212,8 @@ export default {
       this.sortProducts()
     },
     onChangeFilterBoxCategory (val) {
-      this.selectedFilterCategoryValue = val
-      this.filterProductByCategory()
+      this.currentCategory = val
+      this.sortProducts()
     },
 
     setFirstContentsShow() {

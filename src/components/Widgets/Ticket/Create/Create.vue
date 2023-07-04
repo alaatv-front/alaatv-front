@@ -12,19 +12,30 @@
       <template #before-form-builder>
         <q-dialog v-model="showDialog"
                   no-backdrop-dismiss>
-          <q-card class="row justify-center q-pa-md">
-            <q-btn v-for="department in departmentList.list"
-                   :key="department.id"
-                   v-close-popup
-                   unelevated
-                   class="departmentActionBtn col-3 q-ma-md"
-                   icon="isax:search-status .path4:before"
-                   @click="selectDepartment(department)">
-              <span class="full-width q-pt-sm">
-                {{department.title}}
-              </span>
-            </q-btn>
-          </q-card>
+          <div>
+            <q-card class="q-pa-md">
+              <div class="row justify-end">
+                <q-btn v-close-popup
+                       flat
+                       icon="close"
+                       text
+                       @click="goBackToList" />
+              </div>
+              <div class="row justify-center">
+                <q-btn v-for="department in departmentList.list"
+                       :key="department.id"
+                       v-close-popup
+                       unelevated
+                       class="departmentActionBtn col-3 q-ma-md"
+                       icon="isax:search-status .path4:before"
+                       @click="selectDepartment(department)">
+                  <span class="full-width q-pt-sm">
+                    {{department.title}}
+                  </span>
+                </q-btn>
+              </div>
+            </q-card>
+          </div>
         </q-dialog>
       </template>
     </entity-create>
@@ -34,7 +45,7 @@
                         :canChoseOrder="canChoseOrder"
                         :canAssign-ticket="canAssignTicket"
                         :send-loading="loading"
-                        :isAdmin="isAdmin"
+                        :isAdmin="isInAdminPage"
                         @creatTicket="sendTicket" />
   </div>
 
@@ -42,10 +53,10 @@
 
 <script>
 import { EntityCreate } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketDepartment } from 'src/models/TicketDepartment.js'
 import SendMessageInput from 'components/Ticket/SendMessageInput.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Create',
@@ -68,7 +79,7 @@ export default {
   data () {
     return {
       showDialog: true,
-      api: API_ADDRESS.ticket.create.base,
+      api: APIGateway.ticket.APIAdresses.base,
       selectedDepartment: new TicketDepartment(),
       inputs: [
         {
@@ -77,6 +88,7 @@ export default {
           responseKey: 'data.title',
           value: '',
           label: 'عنوان',
+          placeholder: ' ',
           col: 'col-md-6'
         },
         {
@@ -90,7 +102,7 @@ export default {
           toggleColor: 'blue',
           textColor: 'black',
           toggleTextColor: 'white',
-          col: 'col-md-4',
+          col: 'col-md-6',
           size: '14px'
         }
       ],
@@ -101,6 +113,12 @@ export default {
   computed: {
     canChoseOrder() {
       return [2].includes(this.selectedDepartment.id)
+    },
+    getRoutingObject() {
+      if (this.$route.name.includes('Admin')) {
+        return { name: 'Admin.Ticket.Index' }
+      }
+      return { name: 'UserPanel.Ticket' }
     }
   },
 
@@ -109,6 +127,15 @@ export default {
   },
 
   methods: {
+    goBackToList() {
+      const ticketRouteObj = { name: 'Admin.Ticket.Index' }
+      if (this.$route.name.includes('Admin')) {
+        this.$router.push(ticketRouteObj)
+        return
+      }
+      ticketRouteObj.name = 'UserPanel.Ticket.Index'
+      this.$router.push(ticketRouteObj)
+    },
     initPageData() {
       this.setRoleAndPermissions()
     },

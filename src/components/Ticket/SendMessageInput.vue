@@ -46,65 +46,67 @@
         <!--        </template>-->
         </q-select>
       </div>
-      <div class=" SendMessageInput ">
-        <div v-show="canShowMic">
-          <div class="input-group-prepend">
-            <q-btn unelevated
-                   class="btn  actionBtn btnRecordVoiceForUpload"
-                   color="positive"
-                   icon="isax:microphone"
-                   :loading="microphoneBtnLoading"
-                   @click="recordVoice(true)" />
+      <div class="SendMessageInput-container">
+        <div class="SendMessageInput row">
+          <div v-show="canShowMic"
+               class="row">
+            <div class="input-group-prepend">
+              <q-btn unelevated
+                     class="btn  actionBtn btnRecordVoiceForUpload"
+                     color="positive"
+                     icon="isax:microphone"
+                     :loading="microphoneBtnLoading"
+                     @click="recordVoice(true)" />
+            </div>
+            <div v-if="recordCurrentStatus"
+                 class="input-group-prepend">
+              <q-btn unelevated
+                     class="btn  actionBtn btnRecordVoiceForUpload"
+                     color="negative"
+                     icon="isax:pause"
+                     @click="recordVoice(false)" />
+            </div>
           </div>
-          <div v-if="recordCurrentStatus"
-               class="input-group-prepend">
+          <div v-show="canShowSelectPic"
+               class="input-group-append">
             <q-btn unelevated
-                   class="btn  actionBtn btnRecordVoiceForUpload"
-                   color="negative"
-                   icon="isax:pause"
-                   @click="recordVoice(false)" />
-          </div>
-        </div>
-        <div v-show="canShowSelectPic"
-             class="input-group-append">
-          <q-btn unelevated
-                 class="btn  actionBtn"
-                 color="primary"
-                 icon="isax:image"
-                 :loading="sendLoading"
-                 @click="getFile">
-            <input ref="myFileInput"
-                   style="display:none"
-                   type="file"
-                   accept="image/*"
-                   @change="loadImage($event)">
-          </q-btn>
+                   class="btn  actionBtn"
+                   color="primary"
+                   icon="isax:image"
+                   :loading="sendLoading"
+                   @click="getFile">
+              <input ref="myFileInput"
+                     style="display:none"
+                     type="file"
+                     accept="image/*"
+                     @change="loadImage($event)">
+            </q-btn>
 
-          <q-dialog v-model="showModalStatus"
-                    persistent
-                    class="imageModal"
-                    @close="clearMessage">
-            <q-card class="imageModal-card">
-              <div>
-                <!--                <cropper-->
-                <!--                  ref="cropper"-->
-                <!--                  class="cropper"-->
-                <!--                  :src="imgURL"-->
-                <!--                  :canvas="{-->
-                <!--                    minHeight: 0,-->
-                <!--                    minWidth: 0,-->
-                <!--                    maxHeight: 2048,-->
-                <!--                    maxWidth: 2048,-->
-                <!--                  }"-->
-                <!--                  @change="change"-->
-                <!--                />-->
-                <q-img :src="imgURL" />
+            <q-dialog v-model="showModalStatus"
+                      persistent
+                      class="imageModal"
+                      @close="clearMessage">
+              <q-card class="imageModal-card">
+                <div>
+                  <!--                <cropper-->
+                  <!--                  ref="cropper"-->
+                  <!--                  class="cropper"-->
+                  <!--                  :src="imgURL"-->
+                  <!--                  :canvas="{-->
+                  <!--                    minHeight: 0,-->
+                  <!--                    minWidth: 0,-->
+                  <!--                    maxHeight: 2048,-->
+                  <!--                    maxWidth: 2048,-->
+                  <!--                  }"-->
+                  <!--                  @change="change"-->
+                  <!--                />-->
+                  <q-img :src="imgURL" />
 
-                <div class="slider_box">
-                  <q-btn unelevated
-                         class="delete-pic-btn"
-                         label="حذف"
-                         @click="clearMessage" />
+                  <div class="slider_box">
+                    <q-btn unelevated
+                           class="delete-pic-btn"
+                           label="حذف"
+                           @click="clearMessage" />
                   <!--                  <div class="angle-slider">-->
                   <!--                    <p class="title">میزان چرخش :</p>-->
                   <!--                    <input id="slider"-->
@@ -115,81 +117,84 @@
                   <!--                           max="360"-->
                   <!--                           @change="rotate">-->
                   <!--                  </div>-->
+                  </div>
+
+                  <q-input v-model="newMessageTextInModal"
+                           borderless
+                           class="imageInput"
+                           placeholder="متن پیام ..." />
+
                 </div>
+                <div class="adminSendPic">
+                  <q-btn unelevated
+                         class="imageBtn BtnSuccess"
+                         :loading="sendLoading"
+                         icon="isax:tick-square"
+                         @click="emitData(false)" />
+                  <q-btn v-if="isAdmin"
+                         unelevated
+                         class="imageBtn BtnWarning"
+                         :loading="sendLoading"
+                         icon="isax:card-send"
+                         @click="emitData(true)" />
+                </div>
+              </q-card>
 
-                <q-input v-model="newMessageTextInModal"
-                         borderless
-                         class="imageInput"
-                         placeholder="متن پیام ..." />
+            </q-dialog>
+          </div>
+          <div v-if="canShowSelectFile && !recordCurrentStatus">
+            <q-btn unelevated
+                   square
+                   color="teal-7"
+                   icon="attach_file"
+                   class="actionBtn full-height attach-file"
+                   :loading="sendLoading"
+                   @click="$refs.fileInput.click()" />
+            <input ref="fileInput"
+                   type="file"
+                   style="display: none;"
+                   @change="loadFile($event)">
+          </div>
 
-              </div>
-              <div class="adminSendPic">
-                <q-btn unelevated
-                       class="imageBtn BtnSuccess"
-                       :loading="sendLoading"
-                       icon="isax:tick-square"
-                       @click="emitData(false)" />
-                <q-btn v-if="isAdmin"
-                       unelevated
-                       class="imageBtn BtnWarning"
-                       :loading="sendLoading"
-                       icon="isax:card-send"
-                       @click="emitData(true)" />
-              </div>
-            </q-card>
-
-          </q-dialog>
-        </div>
-        <div v-if="canShowSelectFile">
-          <q-btn unelevated
-                 square
-                 color="teal-7"
-                 icon="attach_file"
-                 class="actionBtn full-height attach-file"
-                 :loading="sendLoading"
-                 @click="$refs.fileInput.click()" />
-          <input ref="fileInput"
-                 type="file"
-                 style="display: none;"
-                 @change="loadFile($event)">
-        </div>
-
-        <div v-show="canShowSendBtn"
-             class="input-group-append adminSend">
-          <q-btn size="12px"
-                 class="btn  actionBtn sendBtn BtnSuccess "
-                 :loading="sendLoading"
-                 icon="isax:send-1"
-                 @click="emitData(false)" />
-          <q-btn v-if="isAdmin"
-                 size="12px"
-                 class="btn  actionBtn sendBtn BtnWarning"
-                 :loading="sendLoading"
-                 icon="isax:directbox-send"
-                 @click="emitData(true)">
-            <q-tooltip>
-              ارسال به صورت خصوصی
-            </q-tooltip>
-          </q-btn>
+          <div v-show="canShowSendBtn"
+               class="input-group-append adminSend">
+            <q-btn size="12px"
+                   unelevated
+                   class="btn  actionBtn sendBtn BtnSuccess "
+                   :loading="sendLoading"
+                   icon="isax:send-1"
+                   @click="emitData(false)" />
+            <q-btn v-if="isAdmin"
+                   size="12px"
+                   unelevated
+                   class="btn  actionBtn sendBtn BtnWarning"
+                   :loading="sendLoading"
+                   icon="isax:directbox-send"
+                   @click="emitData(true)">
+              <q-tooltip>
+                ارسال به صورت خصوصی
+              </q-tooltip>
+            </q-btn>
+          </div>
+          <div v-if="recordedVoice !== null"
+               v-show="showVoicePlayer"
+               class="input-group-prepend">
+            <q-btn unelevated
+                   color="negative"
+                   class="btn  actionBtn"
+                   icon="isax:play-remove"
+                   @click="clearMessage">
+              <q-tooltip>
+                حذف ویس
+              </q-tooltip>
+            </q-btn>
+          </div>
         </div>
         <q-input v-show="canShowTextarea"
                  v-model="newMessage.text"
                  borderless
                  class="newMessageText"
                  placeholder="متن پیام ..." />
-        <div v-if="recordedVoice !== null"
-             v-show="showVoicePlayer"
-             class="input-group-prepend">
-          <q-btn unelevated
-                 color="negative"
-                 class="btn  actionBtn"
-                 icon="isax:play-remove"
-                 @click="clearMessage">
-            <q-tooltip>
-              حذف ویس
-            </q-tooltip>
-          </q-btn>
-        </div>
       </div>
       <div v-if="recordedVoice !== null"
            v-show="showVoicePlayer"
@@ -421,7 +426,6 @@ export default {
     callGetOrderApi() {
       const userId = this.$store.getters['Auth/user'].id
       return this.$apiGateway.user.ordersById(userId)
-      // return this.$axios.get(API_ADDRESS.user.orders.ordersById(userId))
     },
     loadFile(event) {
       const { files } = event.target
@@ -690,7 +694,6 @@ export default {
 }
 
 .attach-file {
-  width: 64px;
   border-radius: 0;
 }
 
@@ -700,13 +703,21 @@ export default {
   box-shadow: 2px -4px 10px rgba(255, 255, 255, 0.6), -2px 4px 10px rgba(46, 56, 112, 0.05);
 }
 
+.SendMessageInput-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  @media screen and (max-width: 450px) {
+    display: block;
+  }
+}
+
 .SendMessageInput {
   display: flex;
+  min-height: 40px;
 
   .input-group-prepend {
+    height: 100%;
     .btn {
-      width: 64px;
-      padding: 0;
       border-radius: 0;
     }
   }
@@ -718,14 +729,11 @@ export default {
 
   .input-group-append {
     .btn {
-      width: 64px;
-      padding: 0;
       border-radius: 0;
     }
 
     &.adminSend {
       display: flex;
-      flex-direction: column;
     }
   }
 

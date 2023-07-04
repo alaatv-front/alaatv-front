@@ -5,6 +5,7 @@ import { ProductList } from 'src/models/Product'
 import { Comment } from 'src/models/Comment'
 import { APIGateway } from 'src/api/APIGateway'
 const APIAdresses = {
+  base: '/c',
   search: '/search',
   admin: '/admin/contents',
   timestampSet: '/timepoint',
@@ -26,7 +27,35 @@ const APIAdresses = {
   saveComment: '/comment',
   updateComment: (id) => '/comment/' + id,
   watchedVideo: '/watched',
-  unWatchedVideo: '/unwatched'
+  unWatchedVideo: '/unwatched',
+  adminContent: {
+    create: {
+      base: '/admin/user'
+    },
+    edit: {
+      base: '/admin/user/'
+    },
+    index: {
+      base: '/admin/user'
+    },
+    show: {
+      base: '/admin/user/'
+    }
+  },
+  scheduleManagement: {
+    create: {
+      base: '/admin/user'
+    },
+    edit: {
+      base: '/admin/user/'
+    },
+    index: {
+      base: '/admin/user'
+    },
+    show: {
+      base: '/admin/user/'
+    }
+  }
 
 }
 export default class ContentAPI extends APIRepository {
@@ -239,7 +268,7 @@ export default class ContentAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.search,
-      cacheKey: this.CacheList.orderProduct,
+      cacheKey: this.CacheList.search,
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {

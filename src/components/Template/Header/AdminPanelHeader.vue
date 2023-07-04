@@ -6,17 +6,18 @@
         <div class="logo-section">
           <div class="drawer-btn hamburger">
             <q-btn v-if="showHamburger"
-                   class="toolbar-button"
+                   class="toolbar-button q-btn-sm"
                    icon="isax:menu-1"
                    color="white"
                    text-color="accent"
                    dense
+                   square
                    unelevated
                    @click="toggleLeftDrawer" />
           </div>
           <div class="logo-pic">
             <div class="homepage">
-              <lazy-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+              <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
                         :alt="'logo'"
                         width="40"
                         height="40"

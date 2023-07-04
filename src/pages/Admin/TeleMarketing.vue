@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'TeleMarketing',
@@ -52,10 +52,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.teleMarketing.show.base,
-            edit: API_ADDRESS.teleMarketing.edit.base,
-            create: API_ADDRESS.teleMarketing.create.base,
-            index: API_ADDRESS.teleMarketing.index.base
+            show: APIGateway.teleMarketing.APIAdresses.show,
+            edit: APIGateway.teleMarketing.APIAdresses.edit,
+            create: APIGateway.teleMarketing.APIAdresses.create,
+            index: APIGateway.teleMarketing.APIAdresses.index
           },
           title: {
             show: 'اطلاعات سفارش',

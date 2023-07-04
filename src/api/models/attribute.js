@@ -1,12 +1,52 @@
-import APIRepository from '../classes/APIRepository'
-import { apiV2 } from 'src/boot/axios'
+import { apiV2 } from 'src/boot/axios.js'
+import APIRepository from '../classes/APIRepository.js'
 
 export default class AttributeAPI extends APIRepository {
   constructor() {
-    super('attribute', apiV2, '/admin/user')
-    this.APIAddresses = {
-      management: '/admin/user',
-      value: '/admin/user'
+    super('attributes', apiV2)
+    this.APIAdresses = {
+      attributeSetManagement: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      },
+      attributeManagement: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      },
+      attributeValue: {
+        create: {
+          base: '/admin/user'
+        },
+        edit: {
+          base: '/admin/user/'
+        },
+        index: {
+          base: '/admin/user'
+        },
+        show: {
+          base: '/admin/user/'
+        }
+      }
     }
   }
 }

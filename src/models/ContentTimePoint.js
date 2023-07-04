@@ -1,7 +1,4 @@
 import { Model, Collection } from 'js-abstract-model'
-// import {Set} from "./Set";
-// import Url from "./Url";
-
 class ContentTimePoint extends Model {
   constructor (data) {
     super(data, [

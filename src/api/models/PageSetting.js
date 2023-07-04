@@ -74,7 +74,7 @@ export default class PageSettingAPI extends APIRepository {
       request: this.APIAdresses.updateWithKey(settingKey),
       data: formData,
       resolveCallback: (response) => {
-        return response
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error

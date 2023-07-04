@@ -1,4 +1,5 @@
 <template>
+  dflskgmfldkm
   <q-card v-for="c in cards"
           :key="c"
           class="q-mt-none q-mx-sm q-mb-md custom-card">
@@ -14,7 +15,7 @@ import FormBuilder from 'quasar-form-builder/src/FormBuilder.vue'
 import inputMixin from 'quasar-form-builder/src/mixins/inputMixin.js'
 
 export default {
-  name: 'Profile.vue',
+  name: 'Profile',
   components: { FormBuilder },
   mixins: [mixinWidget, inputMixin],
   data() {
@@ -63,11 +64,12 @@ export default {
               col: 'col-md-6'
             },
             {
-              type: 'input',
+              type: 'date',
               responseKey: 'birthdate',
               name: 'birthdate',
-              label: 'تاریخ تولد',
-              placeholder: '۱۳۷۷/۰۷/۱۵',
+              label: 'تاریخ تولدdhfdhf',
+              placeholder: ' ',
+              calendarIcon: ' ',
               col: 'col-md-6'
             },
             {

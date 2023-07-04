@@ -1,4 +1,4 @@
-import API_ADDRESS from 'src/api/Addresses'
+import { APIGateway } from 'src/api/APIGateway'
 
 const mixinAuth = {
   computed: {
@@ -13,7 +13,7 @@ const mixinAuth = {
   },
   methods: {
     async getUserData () {
-      this.$axios.get(API_ADDRESS.user.show_user)
+      APIGateway.user.showUser()
         .then((response) => {
           this.$store.commit('Auth/updateUser', response.data.data)
         })
