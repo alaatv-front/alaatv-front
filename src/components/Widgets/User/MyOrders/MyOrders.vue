@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div class="lt-sm flex justify-end">
+      <q-btn flat
+             color="grey"
+             :to="{name: 'UserPanel.Dashboard'}">
+        <q-icon name="isax:layer"
+                class="q-mr-sm" />
+        >
+      </q-btn>
+    </div>
     <div v-if="loading"
          class="flex justify-center q-mt-xl">
       <q-spinner-ball color="primary"
