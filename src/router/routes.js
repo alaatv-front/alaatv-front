@@ -454,6 +454,11 @@ const routes = [
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue')
                   },
                   {
+                    name: 'UserPanel.Asset.TripleTitleSet.Dashboard',
+                    path: 'dashboard',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Dashboard.vue')
+                  },
+                  {
                     name: 'UserPanel.Asset.TripleTitleSet.ProductLayout',
                     path: 'product',
                     component: () => import('src/layouts/TripleTitleSetLayout.vue'),
