@@ -647,6 +647,7 @@ export default {
 .vPlayer {
   width: 100%;
   overflow: hidden;
+  display: contents;
   .VastElements {
     display: none;
   }
@@ -782,6 +783,7 @@ export default {
     z-index: 2;
   }
   .video-js {
+    overflow: hidden;
     background-color: transparent;
     &.vjs-ad-playing {
       .vjs-resolution-button {

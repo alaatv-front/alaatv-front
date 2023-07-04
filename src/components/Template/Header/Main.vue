@@ -125,29 +125,7 @@
                 </div>
                 <div class="body">
                   <div class="user-panel-base-menu">
-
                     <user-dashboard-items />
-
-                    <div v-if="isUserLogin"
-                         class="log-out"
-                         @click="logOut">
-                      <span>
-                        <q-avatar icon="isax:logout"
-                                  size="30"
-                                  dir="rtl" />
-                      </span>
-                      <span class="logout-text">خروج </span>
-                    </div>
-                    <div v-else
-                         class="log-out"
-                         @click="goToLogin">
-                      <span>
-                        <q-avatar icon="isax:logout"
-                                  size="30"
-                                  dir="rtl" />
-                      </span>
-                      <span class="logout-text">ورود </span>
-                    </div>
                   </div>
                 </div>
               </div>

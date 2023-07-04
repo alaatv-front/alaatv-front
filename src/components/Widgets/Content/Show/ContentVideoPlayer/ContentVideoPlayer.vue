@@ -154,6 +154,7 @@ export default {
 .video-player{
   border-radius: 10px;
   box-shadow: 0 6px 5px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
 
   .paginate {
     flex-wrap: wrap;

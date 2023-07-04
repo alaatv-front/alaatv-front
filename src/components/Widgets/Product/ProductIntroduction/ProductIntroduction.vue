@@ -133,5 +133,7 @@ export default {
 </script>
 
 <style scoped>
-
+.intro-video {
+  overflow: hidden;
+}
 </style>
