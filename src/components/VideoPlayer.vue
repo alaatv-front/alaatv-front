@@ -466,11 +466,10 @@ export default {
       this.player = videojs(this.$refs.videoPlayer, this.options, function() {
         this.on('fullscreenchange', function() {
           if (this.isFullscreen()) {
-            console.log('Entered fullscreen mode')
+            // Video entered fullscreen mode
             screen.orientation.unlock()
           } else {
             // Video exited fullscreen mode
-            console.log('Exited fullscreen mode')
             screen.orientation.lock('portrait')
           }
         })
