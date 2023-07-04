@@ -496,6 +496,11 @@ const routes = [
                     path: ':setId/adviser/content/:contentId',
                     props: true,
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
+                    path: 'study-plan',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/StudyPlan.vue')
                   }
                 ]
               }
