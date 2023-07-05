@@ -115,7 +115,7 @@
                    height="78px" />
           </template>
           <template v-else-if="inputData.col.name === 'title'">
-            <div class="body1">{{inputData.col.value.name}}</div>
+            <div class="text-body1">{{inputData.col.value.name}}</div>
             <div v-html="inputData.col.value.description" />
           </template>
           <template v-else>

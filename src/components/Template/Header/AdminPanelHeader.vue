@@ -6,12 +6,11 @@
         <div class="logo-section">
           <div class="drawer-btn hamburger">
             <q-btn v-if="showHamburger"
-                   class="toolbar-button q-btn-sm"
+                   class="toolbar-button"
                    icon="isax:menu-1"
                    color="white"
                    text-color="accent"
                    dense
-                   square
                    unelevated
                    @click="toggleLeftDrawer" />
           </div>
