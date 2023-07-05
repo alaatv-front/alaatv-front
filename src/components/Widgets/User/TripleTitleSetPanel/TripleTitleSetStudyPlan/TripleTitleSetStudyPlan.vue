@@ -169,12 +169,12 @@ export default {
     }
   },
   mounted() {
-    this.showMyStudyPlan()
+    this.getMyStudyPlan()
     this.getChangePlanOptions()
   },
   methods: {
-    showMyStudyPlan() {
-      this.$apiGateway.studyPlan.showMyStudyPlan()
+    getMyStudyPlan() {
+      this.$apiGateway.studyPlan.getMyStudyPlan()
         .then(response => {
           this.planType = response.data.data.title
         })

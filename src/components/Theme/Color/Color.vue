@@ -324,7 +324,7 @@ export default {
       background: #49498c;
     }
     .grey6{
-      background: $grey6;
+      background: $grey-6;
     }
     .grey7{
       background: $grey7;

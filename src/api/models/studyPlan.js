@@ -10,7 +10,7 @@ export default class StudyPlanAPI extends APIRepository {
       studyEvent: (id) => '/studyEvent/' + id + '/studyPlans',
       getPlans: (id) => '/studyPlan/' + id + '/plans',
       planOptions: 'abrisham/selectPlan/create',
-      showStudyPlan: 'abrisham/myStudyPlan'
+      getStudyPlan: 'abrisham/myStudyPlan'
     }
     this.CacheList = {
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
@@ -66,13 +66,13 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  showMyStudyPlan() {
+  getMyStudyPlan() {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.showStudyPlan,
+      request: this.APIAdresses.getStudyPlan,
       resolveCallback: (response) => {
-        return response.data.data
+        return new StudyPlan(response.data.data)
       },
       rejectCallback: (error) => {
         return error

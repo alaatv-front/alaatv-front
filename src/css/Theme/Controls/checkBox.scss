@@ -1,5 +1,6 @@
-.q-checkbox{
-  margin-right: 8px;
+.new-theme {
+  .q-checkbox{
+    margin-right: 8px;
     .q-checkbox__inner{
       &.q-checkbox__inner--falsy{
         color: var(--alaa-TextSecondary) !important;
@@ -28,4 +29,18 @@
     &.disabled {
       opacity: 0.3 !important;
     }
+  }
+}
+
+.q-checkbox{
+  margin-right: 8px;
+  .q-checkbox__inner{
+    &.q-checkbox__inner--falsy{
+      color: var(--alaa-TextSecondary) !important;
+    }
+    .q-checkbox__bg{
+      border-radius: 5px;
+      border: 1px solid;
+    }
+  }
 }

@@ -1,13 +1,15 @@
-.q-slider__thumb {
+.new-theme {
+  .q-slider__thumb {
 
-  &::after {
-    content: "";
-    position: absolute;
-    top: 21%;
-    right: 22%;
-    width: 20px;
-    height: 19px;
-    border-radius: 50px;
-    background: #ffffff;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 21%;
+      right: 22%;
+      width: 20px;
+      height: 19px;
+      border-radius: 50px;
+      background: #ffffff;
+    }
   }
 }
