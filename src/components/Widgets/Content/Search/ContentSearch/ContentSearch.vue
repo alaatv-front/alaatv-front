@@ -247,7 +247,7 @@ export default {
     },
 
     getSearchUrl () {
-      debugger
+      // debugger
       this.updateNewUrl()
       let url = this.contentSearchApi
       if (this.new_url && this.new_url.length > 2) {
@@ -565,7 +565,7 @@ export default {
 
     getItems (items, key) {
       let url = this.getSearchUrl()
-      debugger
+      // debugger
       if (items.paginate && items.paginate.links.next) {
         url = items.paginate.links.next
       }
