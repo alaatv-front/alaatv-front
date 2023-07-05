@@ -9,7 +9,7 @@
       برنامه مطالعاتی شماره 1 - فارغ التحصیلان رشته ریاضی
     </div>
     <div class="col-6 text-right">
-      <q-img src="img/studyPlan/Nut.png"
+      <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet/Nut.png"
              width="24px" />
       <q-btn flat
              label="تغییر برنامه مطالعاتی"
@@ -27,7 +27,7 @@
         <q-card-section>
           <div class="row items-center justify-between">
             <div>
-              <q-img src="img/studyPlan/CalendarCheck.png"
+              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet/CalendarCheck.png"
                      width="24px" />
               تنظیمات برنامه مطالعاتی
             </div>
