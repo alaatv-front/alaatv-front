@@ -2,7 +2,8 @@
   <component :is="parentComponent"
              :to="localOptions.action.route"
              :class="options.className"
-             :href="localOptions.action.route">
+             :href="localOptions.action.route"
+             @click="onClickLink">
     <q-img :ref="imageRef"
            :src="getImageSource(options)"
            :ratio="options.ratio"
@@ -89,6 +90,11 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onClickLink () {
+      if (this.parentComponent === 'a') {
+        window.location.href = this.localOptions.action.route
+      }
+    },
     setProductIntersectionObserver () {
       const elements = [this.$refs[this.imageRef].$el]
       const observer = new IntersectionObserver(this.handleIntersection)
