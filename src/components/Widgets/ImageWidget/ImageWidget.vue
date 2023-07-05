@@ -207,7 +207,9 @@ export default {
       if (typeof window === 'undefined') {
         return true
       }
-      return ((url.indexOf(':') > -1 || url.indexOf('//') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
+      // return ((url.indexOf(':') > -1 || url.indexOf('//') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
+      // return ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
+      return (url.indexOf('http://') > -1 || url.indexOf('https://') > -1)
     },
     takeAction(action) {
       if (!this.localOptions.hasAction) {
