@@ -164,7 +164,13 @@ import UserDashboardItems from 'src/components/UserDashboardItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
-  components: { UserDashboardItems, LazyImg, megaMenu, simpleMenu, itemMenu },
+  components: {
+    UserDashboardItems,
+    LazyImg,
+    megaMenu,
+    simpleMenu,
+    itemMenu
+  },
   data() {
     return {
       mounted: false,
@@ -188,9 +194,6 @@ export default {
       return this.cart.loading
     },
     showHamburger () {
-      if (typeof window === 'undefined') {
-        return
-      }
       return this.$store.getters['AppLayout/showHamburgerBtn']
     },
     computedUserId () {
@@ -355,9 +358,9 @@ export default {
           }
           .homepage {
             .logo-pic-img {
-              height: 40px;
+              //height: 40px;
               //width: 40px;
-              width: 100%;
+              //width: 100%;
               display: flex;
               flex-flow: row;
               justify-content: center;
