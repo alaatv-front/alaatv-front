@@ -496,6 +496,11 @@ const routes = [
                     path: ':setId/adviser/content/:contentId',
                     props: true,
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
+                    path: 'study-plan',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/StudyPlan.vue')
                   }
                 ]
               }
@@ -667,6 +672,12 @@ const routes = [
                 path: 'controls',
                 name: 'Document.Theme.Controls',
                 component: () => import('src/pages/Document/Theme/Controls.vue'),
+                breadcrumbs: { title: 'Controls' }
+              },
+              {
+                path: 'component',
+                name: 'Document.Theme.Component',
+                component: () => import('src/pages/Document/Theme/Component.vue'),
                 breadcrumbs: { title: 'Controls' }
               }
             ]
