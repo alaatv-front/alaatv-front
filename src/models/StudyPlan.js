@@ -12,7 +12,6 @@ class StudyPlan extends Model {
       { key: 'title' },
       { key: 'date' },
       { key: 'body' },
-      { key: 'passed_days' },
       {
         key: 'plans',
         relatedModel: PlanList
