@@ -247,7 +247,7 @@ export default {
     },
 
     getSearchUrl () {
-      // debugger
+      this.getUrlParams()
       this.updateNewUrl()
       let url = this.contentSearchApi
       if (this.new_url && this.new_url.length > 2) {
@@ -408,7 +408,7 @@ export default {
       this.$router.push({ name: 'Public.Content.Search', query: tags })
     },
 
-    updateNewUrl () {
+    updateNewUrl (fresh = false) {
       const tags = []
       this.selectedTags.forEach((tag) => {
         tags.push('tags[]=' + encodeURIComponent(tag.value))
@@ -565,7 +565,6 @@ export default {
 
     getItems (items, key) {
       let url = this.getSearchUrl()
-      // debugger
       if (items.paginate && items.paginate.links.next) {
         url = items.paginate.links.next
       }
