@@ -39,7 +39,7 @@ export const create = ssrCreate((/* { ... } */) => {
     if (heapMemoryAllocation > maxHeapMemoryAllocationInPercent) {
       console.log('memoryResidentSetSizeInMB: ', memoryResidentSetSizeInMB)
       console.log('heapMemoryAllocation: ', heapMemoryAllocation)
-      process.exit(1)
+      process.exit(110)
     }
   }, heapMemoryAllocationInterval)
 
