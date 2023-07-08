@@ -21,7 +21,8 @@
         </div>
       </q-item>
       <q-item v-if="isUserLogin"
-              class="item-list alone-item q-mt-lg"
+              class="item-list alone-item q-mt-lg q-mb-md"
+              clickable
               @click="logOut">
         <div class="section-title">
           <q-item-section class="list-section">
@@ -146,7 +147,7 @@ export default {
       this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
-    logOut() {
+    logOut () {
       return this.$store.dispatch('Auth/logOut')
     },
     showMenuItem () {

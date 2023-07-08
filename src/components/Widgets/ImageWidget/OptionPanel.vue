@@ -5,7 +5,7 @@
         <div class="row q-col-gutter-md">
           <div class="input-container col-12 q-mt-md">
 
-            <div class="outsideLabel">لینک عکس</div>
+            <div class="outsideLabel">آدرس فایل عکس</div>
             <q-input v-model="localOptions.imageSource"
                      label="image" />
           </div>

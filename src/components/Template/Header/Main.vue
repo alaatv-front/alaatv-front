@@ -6,7 +6,7 @@
         <div class="logo-section">
           <div class="drawer-btn hamburger">
             <q-btn v-if="showHamburger"
-                   class="toolbar-button"
+                   class="toolbar-button lt-md"
                    icon="isax:menu-1"
                    color="white"
                    text-color="accent"
@@ -20,13 +20,13 @@
                         :alt="'logo'"
                         width="40"
                         height="40"
-                        class="logo-pic-img gt-xs"
+                        class="logo-pic-img gt-sm"
                         @click="routeTo('Public.Home')" />
               <lazy-img src="https://nodes.alaatv.com/upload/mobile-header-logo.png"
                         :alt="'logo'"
                         width="640"
                         height="72"
-                        class="logo-pic-img lt-sm"
+                        class="logo-pic-img lt-md"
                         @click="routeTo('Public.Home')" />
             </div>
           </div>
@@ -53,7 +53,7 @@
           </q-list>
         </div>
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
-        <div class="user-action gt-xs">
+        <div class="user-action gt-sm">
           <div class="action-container">
             <!--            <q-card-section ref="searchInput"-->
             <!--                            class="search-section">-->
@@ -160,11 +160,17 @@ import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import menuItems from 'src/components/Template/menuData.js'
 import itemMenu from 'src/components/Template/Header/itemMenu.vue'
-import UserDashboardItems from 'components/UserDashboardItems.vue'
+import UserDashboardItems from 'src/components/UserDashboardItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
-  components: { UserDashboardItems, LazyImg, megaMenu, simpleMenu, itemMenu },
+  components: {
+    UserDashboardItems,
+    LazyImg,
+    megaMenu,
+    simpleMenu,
+    itemMenu
+  },
   data() {
     return {
       mounted: false,
@@ -188,7 +194,7 @@ export default {
       return this.cart.loading
     },
     showHamburger () {
-      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.lg
+      return this.$store.getters['AppLayout/showHamburgerBtn']
     },
     computedUserId () {
       const user = this.$store.getters['Auth/user']
@@ -320,7 +326,8 @@ export default {
       grid-template-columns: 86px auto 156px;
       height: 100%;
       @media screen and (max-width: 1023px) {
-        grid-template-columns: auto auto;
+        //grid-template-columns: auto auto;
+        grid-template-columns: 1fr;
       }
       @media screen and (max-width: 599px) {
         grid-template-columns: 1fr;
@@ -330,7 +337,10 @@ export default {
         display: flex;
         justify-content: space-between;
         @media screen and (max-width: 1023px) {
-          justify-self: start;
+          //justify-self: start;
+          justify-self: center;
+          justify-content: center;
+          width: 100%;
         }
         @media screen and (max-width: 599px) {
           justify-self: center;
@@ -343,28 +353,28 @@ export default {
           height: 72px;
           align-items: center;
           @media screen and (max-width: 1023px) {
+            width: 200px;
             height: 64px;
           }
-          :deep(.homepage) {
+          .homepage {
             .logo-pic-img {
-              height: 40px;
-              width: 40px;
+              //height: 40px;
+              //width: 40px;
+              //width: 100%;
               display: flex;
               flex-flow: row;
               justify-content: center;
               align-items: center;
+              height: 48px;
+              width: 48px;
               @media screen and (max-width: 1023px) {
-                height: 48px;
-                width: 48px;
-              }
-              @media screen and (max-width: 599px) {
                 width: 100%;
                 img {
                   height: auto !important;
                 }
               }
             }
-            @media screen and (max-width: 599px) {
+            @media screen and (max-width: 1023px) {
               width: 100%;
             }
           }
@@ -379,8 +389,11 @@ export default {
           //display: none;
           @media screen and (max-width: 1023px) {
             //display: block;
-            margin-right: 20px;
-            margin-left: -8px;
+            //margin-right: 20px;
+            //margin-left: -8px;
+            position: absolute;
+            left: 20px;
+            top: 10px;
           }
           @media screen and (max-width: 599px) {
             position: absolute;

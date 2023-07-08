@@ -75,7 +75,7 @@ export default {
       } else if (this.options.action && this.options.action === 'scroll') {
         this.scrollToElement(this.options.scrollTo)
       } else if (this.options.action && this.options.action === 'link') {
-        this.router.push(this.options.route)
+        this.$router.push(this.options.route)
       } else if (this.options.action && this.options.action === 'event') {
         this.$bus.emit(this.options.eventName, this.eventArgs)
       }

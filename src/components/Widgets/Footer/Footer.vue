@@ -204,7 +204,7 @@
         </div>
       </div>
     </div>
-    <div class="mobile-footer">
+    <div class="mobile-footer lt-md">
       <q-list>
         <q-item v-for="(item , index) in mobileFooterItems"
                 :key="index"
@@ -725,15 +725,9 @@ export default {
     width: 100%;
 
     height: $mobileFooterHeight;
-    display: none;
     background: white;
     border-radius: 16px 16px 0;
     box-shadow: 0 -6px 10px rgba(112, 108, 161, 0.07);
-
-    @media screen and (max-width:600px){
-      display: block;
-      height: 72px;
-    }
 
     $itemSize: 44px;
 
