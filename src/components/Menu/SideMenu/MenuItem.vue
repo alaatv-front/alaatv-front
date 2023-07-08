@@ -149,7 +149,7 @@ export default {
     itemSelected(item) {
       this.clickedItem = item
       this.$emit('itemSelected', item)
-      if (!this.redirectRoute(item)) {
+      if (!this.redirectRoute(item) && item.externalLink) {
         window.location.href = item.externalLink
       }
     },
