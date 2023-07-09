@@ -17,7 +17,7 @@ class Plan extends Model {
       { key: 'start' },
       { key: 'end' },
       { key: 'date' },
-      { key: 'plan_name' },
+      { key: 'product' },
       { key: 'has_watched' },
       { key: 'description' },
       { key: 'long_description' },

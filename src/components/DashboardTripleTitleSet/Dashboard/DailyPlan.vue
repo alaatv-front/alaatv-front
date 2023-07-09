@@ -8,11 +8,11 @@
           </div>
           <div class="navigation">
             <q-btn class="navigation-btn"
-                   rounded
+                   round
                    icon="chevron_right"
-                   @click="scrollToIndex('perv')" />
+                   @click="scrollToIndex('prev')" />
             <q-btn class="navigation-btn"
-                   rounded
+                   round
                    icon="chevron_left"
                    @click="scrollToIndex('next')" />
           </div>
@@ -24,54 +24,8 @@
                             virtual-scroll-horizontal
                             @virtual-scroll="onVirtualScroll">
             <div :key="index"
-                 class="row plan-row items-center">
-              <div class="paln-item-box"
-                   :style="{borderRight: `8px solid ${item.borderColor}` }">
-                <div class="plan-item-header">
-                  <div class="plan-time"
-                       :class="{'now': isNow(item.start, item.end)}">
-                    <div class="from">{{ getTime(item.start) }}</div>
-                    <div class="text">تا</div>
-                    <div class="till">{{ getTime(item.end) }}</div>
-                  </div>
-                </div>
-                <div class="plan-item-info">
-                  <div class="item-title ellipsis">{{ item.title }}</div>
-                  <div class="item-plan ellipsis">
-                    <q-icon name="import_contacts"
-                            size="18px"
-                            class="q-mr-sm" />
-                    {{ item.plan_name }}
-                  </div>
-                </div>
-                <q-separator inset />
-                <div class="plan-item-footer">
-                  <div class="footer-text"
-                       :class="{'watched-text': item.has_watched}">
-                    {{ item.has_watched ? 'مشاهده شده' : 'مشاهده' }}
-                  </div>
-                  <div class="footer-action">
-                    <q-btn v-if="!item.has_watched && isNow(item.start, item.end)"
-                           color="primary"
-                           rounded
-                           unelevated
-                           size="16px"
-                           icon="play_arrow"
-                           @click="onClick" />
-                    <q-btn v-else-if="!item.has_watched && !isNow(item.start, item.end)"
-                           class="future"
-                           rounded
-                           unelevated
-                           size="16px"
-                           icon="chevron_left"
-                           @click="onClick" />
-                    <q-icon v-else
-                            name="check_circle"
-                            class="watched"
-                            size="42px" />
-                  </div>
-                </div>
-              </div>
+                 class="plan-item-wrapper">
+              <plan-item :plan="item" />
             </div>
           </q-virtual-scroll>
         </div>
@@ -82,102 +36,77 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import PlanItem from 'src/components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
 export default defineComponent({
   name: 'DailyPlan',
+  components: {
+    PlanItem
+  },
+  mixins: [mixinTripleTitleSet],
+  props: {
+    studyPlanId: {
+      type: Number,
+      default: null
+    }
+  },
   data() {
     return {
+      studyPlanList: [],
       planList: [],
-      virtualListIndex: 3,
+      targetIndex: 0,
+      virtualListIndex: 0,
       baseIndex: 3,
       lastScroll: 'next'
     }
   },
   mounted() {
-    this.setVirtualListIndex()
     this.getPlans()
   },
   methods: {
-    setVirtualListIndex() {
-      if (this.$q.screen.lt.md) {
-        this.virtualListIndex = 1
-        this.baseIndex = 1
-      } else if (this.$q.screen.lt.sm) {
-        this.virtualListIndex = 0
-        this.baseIndex = 0
-      } else {
-        this.virtualListIndex = 3
-        this.baseIndex = 3
-      }
-    },
     getPlans() {
-      this.$apiGateway.plan.getPlans()
-        .then(planList => {
-          this.planList = planList
+      // TODO: change form data with today and event name
+      // const today = this.getToday()
+      this.$apiGateway.studyPlan.getStudyPlans({
+        study_event: 6,
+        since_date: '2022-03-12',
+        till_date: '2022-03-12'
+      })
+        .then(studyPlanList => {
+          this.studyPlanList = studyPlanList
+          // TODO: revert comparison to studyPlanId
+          // this.planList = this.studyPlanList.list?.find(x => x.id === this.studyPlanId).plans.list
+          this.planList = this.studyPlanList.list?.find(x => x.id === 216).plans.list
         })
-        .catch(planList => {
-        // log(err)
-          this.planList = planList.list
-        })
+        .catch(() => {})
     },
-    isNow(start, end) {
-      const now = new Date()
-      const startDate = new Date(start)
-      const endDate = new Date(end)
-      const hour = now.getHours()
-      const minute = now.getMinutes()
-      const startHour = startDate.getHours()
-      const startMin = startDate.getMinutes()
-      const endHour = endDate.getHours()
-      const endMin = endDate.getMinutes()
+    getToday() {
+      const date = new Date()
+      const year = {
+        year: 'numeric'
+      }
+      const month = {
+        month: '2-digit'
+      }
+      const day = {
+        day: '2-digit'
+      }
 
-      if ((startHour <= hour && startMin <= minute) && (hour <= endHour && minute <= endMin)) {
-        return true
-      } else {
-        return false
-      }
-    },
-    getTime(time) {
-      const date = new Date(time)
-      let min = date.getMinutes()
-      if (min === 0) {
-        min = '00'
-      }
-      return date.getHours() + ':' + min
+      return `${date.toLocaleDateString(undefined, year)}-${date.toLocaleDateString(undefined, month)}-${date.toLocaleDateString(undefined, day)}`
     },
     onVirtualScroll ({ index }) {
-      this.virtualListIndex = index
+      if (this.targetIndex === index) {
+        this.virtualListIndex = index
+      }
     },
     scrollToIndex(dir) {
-      if (dir === 'next') {
-        if (this.lastScroll === 'next') {
-          this.virtualListIndex = this.virtualListIndex + 1
-          if (this.virtualListIndex > (this.planList.length - 1)) {
-            return
-          }
-          this.$refs.virtualListRef.scrollTo(this.virtualListIndex, 'start-force')
-        } else {
-          this.virtualListIndex = this.virtualListIndex + this.baseIndex + 1
-          if (this.virtualListIndex > (this.planList.length - 1)) {
-            return
-          }
-          this.$refs.virtualListRef.scrollTo(this.virtualListIndex, 'start-force')
-        }
-      } else {
-        if (this.lastScroll === 'perv') {
-          this.virtualListIndex = this.virtualListIndex - 1
-          if (this.virtualListIndex < 0) {
-            return
-          }
-          this.$refs.virtualListRef.scrollTo(this.virtualListIndex, 'start-force')
-        } else {
-          this.virtualListIndex = this.virtualListIndex - this.baseIndex - 1
-          if (this.virtualListIndex < 0) {
-            return
-          }
-          this.$refs.virtualListRef.scrollTo(this.virtualListIndex, 'start-force')
-        }
+      this.targetIndex = 0
+      if (dir === 'next' && this.virtualListIndex < this.planList.length - 1) {
+        this.targetIndex = this.virtualListIndex + 1
+      } else if (dir === 'prev' && this.virtualListIndex > 0) {
+        this.targetIndex = this.virtualListIndex - 1
       }
-      this.lastScroll = dir
+      this.$refs.virtualListRef.scrollTo(this.targetIndex, 'start-force')
     }
   }
 })
@@ -185,9 +114,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .daily-plan-wrapper {
-  height: 320px;
+  height: 280px;
   width: 100%;
-  margin: 40px 0px;
+  margin: 30px 0px 10px;
 
   .daily-plan-header {
     display: flex;
@@ -208,6 +137,7 @@ export default defineComponent({
       color: #757575;
       background: #FFF;
       margin: 0 6px;
+      border-radius: 50%;
     }
   }
 
@@ -229,103 +159,17 @@ export default defineComponent({
       background-color: transparent;
     }
 
-    .plan-row {
-      .paln-item-box{
-        width: 390px;
-        height: 210px;
-        border-radius: 12px;
-        background: #FFF;
-        padding: 16px 28px 20px 20px;
+    .plan-item-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      &:not(:first-child) {
+        margin-left: 30px;
 
         @media only screen and (max-width: 600px) {
-          width: 230px;
-          height: 196px;
+          margin-left: 15px;
         }
-
-        .plan-item-header {
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-
-          .plan-time {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 3px 6px 4px 6px;
-            border-radius: 8px;
-            background: #ECEFF1;
-            &.now {
-              background: #FFD54F;
-            }
-          }
-        }
-
-        .plan-item-info {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: flex-start;
-          margin-bottom: 25px;
-
-          .item-title {
-            max-width: 100%;
-            color:#424242;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-            letter-spacing: -0.32px;
-            margin: 15px 0;
-          }
-
-          .item-plan {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            max-width: 100%;
-            color: #757575;
-            font-size: 12px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            letter-spacing: -0.24px;
-          }
-        }
-
-        .plan-item-footer {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-top: 10px;
-
-          .footer-text {
-            color: #424242;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: normal;
-            letter-spacing: -0.32px;
-
-            &.watched-text {
-              color: #26A69A;
-            }
-          }
-
-          .footer-action {
-
-            .future{
-              color: #616161;
-              background: #ECEFF1;
-            }
-            .watched {
-              color: #26A69A;
-            }
-          }
-        }
-      }
-
-      &:not(:last-child) {
-        margin-right: 30px;
       }
     }
   }

@@ -1,15 +1,18 @@
 <template>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
       <div class="user-info-wrapper">
         <div class="user-avatar">
           <q-avatar size="64px"
                     font-size="52px"
-                    color="grey" />
+                    color="grey">
+            <q-img :src="user.photo"
+                   spinner-color="primary" />
+          </q-avatar>
         </div>
         <div class="user-intro">
           <div class="intro-title">
-            سلام کریم عزیز
+            سلام {{ user.first_name }} عزیز
           </div>
           <div class="intro-subtitle">
             به کاروانسرای راه ابریشم آلاء خوش اومدی!
@@ -17,21 +20,21 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
       <div class="countdown-wrapper">
         <div class="calendar">
           <div class="calendar-title">
             <div class="calendar-line right" />
-            <div class="title-text">خرداد</div>
+            <div class="title-text">{{ persianDate.month }}</div>
             <div class="calendar-line left" />
           </div>
-          <div class="calendar-date">۳۱</div>
+          <div class="calendar-date">{{ persianDate.day }}</div>
         </div>
         <div class="counter">
           <div class="counter-title">مانده تا کنکور ۱۴۰۳</div>
           <div class="counter-number">
             <div class="counter-number-day">
-              ۱۶۸
+              {{ counterData.tillFirstTurn }}
             </div>
             <div class="counter-number-title">
               روز
@@ -44,9 +47,63 @@
 </template>
 
 <script>
+import { User } from 'src/models/User'
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'DashboardHeader'
+  name: 'DashboardHeader',
+  data() {
+    return {
+      user: new User(),
+      counterData: {
+        now: '',
+        tillFirstTurn: 0,
+        tillSecondTurn: 0
+      },
+      persianDate: {
+        year: '',
+        month: '',
+        day: ''
+      }
+    }
+  },
+  created() {
+    this.loadData()
+  },
+  methods: {
+    loadData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.getCounterData()
+    },
+    getCounterData() {
+      this.$apiGateway.abrisham.getCounter()
+        .then(counterData => {
+          this.counterData = counterData
+          this.persianDate = this.getPersianDate(counterData.now)
+        })
+        .catch(() => {})
+    },
+    getPersianDate(serverDate) {
+      const date = new Date(serverDate)
+      const year = {
+        year: 'numeric',
+        calendar: 'persian'
+      }
+      const month = {
+        month: 'long',
+        calendar: 'persian'
+      }
+      const day = {
+        day: 'numeric',
+        calendar: 'persian'
+      }
+
+      return {
+        year: date.toLocaleDateString('fa-IR', year),
+        month: date.toLocaleDateString('fa-IR', month),
+        day: date.toLocaleDateString('fa-IR', day)
+      }
+    }
+  }
 })
 </script>
 
@@ -55,6 +112,10 @@ export default defineComponent({
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  @media only screen and (max-width: 600px) {
+    justify-content: center;
+  }
 
   .user-avatar {
     display: flex;
@@ -95,7 +156,8 @@ export default defineComponent({
   align-items: center;
 
   @media only screen and (max-width: 600px) {
-    margin-top: 36px;
+    justify-content: center;
+    margin-top: 26px;
   }
 
   .calendar {

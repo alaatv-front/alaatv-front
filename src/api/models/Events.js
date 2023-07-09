@@ -39,7 +39,7 @@ export default class EventsAPI extends APIRepository {
       },
       {
         id: 13,
-        studyEventId: 4,
+        studyEventId: 6,
         name: 'abrisham2',
         logo: 'https://nodes.alaatv.com/upload/abrisham-panel-logotype.png'
       }
