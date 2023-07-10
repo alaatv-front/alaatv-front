@@ -31,7 +31,6 @@ export default {
       this.$store.commit('Auth/updateRedirectTo', null)
     },
     handleAuthenticatedUser () {
-      console.log('handleAuthenticatedUser')
       // ToDo: must check this if
       if (this.isUserLogin) {
         // this.$router.push({ name: 'Public.Home' })
