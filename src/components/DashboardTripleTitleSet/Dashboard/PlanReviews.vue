@@ -52,7 +52,25 @@ export default defineComponent({
         .then(studyPlanList => {
           // TODO: revert comparison to studyPlanId
           // this.planList = this.studyPlanList.list?.find(x => x.id === this.studyPlanId).plans.list
+          if (studyPlanList.list.length === 0) {
+            this.loading = false
+            this.$q.notify({
+              message: 'برنامه ای وجود ندارد',
+              color: 'warning',
+              position: 'top'
+            })
+            return
+          }
           const planList = studyPlanList.list?.find(x => x.id === 216).plans.list
+          if (planList.length === 0) {
+            this.loading = false
+            this.$q.notify({
+              message: 'برنامه ای موردنظر پیدا نشد',
+              color: 'warning',
+              position: 'top'
+            })
+            return
+          }
           const plan = planList.find(x => x.has_watched === false) || planList[planList.length - 1]
           const content = plan.contents.list.find(x => x.type.id === 4) || new Content()
           this.loading = false
