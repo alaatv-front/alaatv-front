@@ -51,7 +51,7 @@
                 </q-item-section>
                 <q-item-section v-else
                                 side>
-                  {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : content.duration + ' دقیقه' }}
+                  {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
                 </q-item-section>
               </q-item>
             </q-list>
