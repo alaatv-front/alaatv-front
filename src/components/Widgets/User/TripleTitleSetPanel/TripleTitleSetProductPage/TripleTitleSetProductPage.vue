@@ -12,15 +12,17 @@
                         expand-separator
                         @show="getSet(set.id)">
         <template v-slot:header>
-          <q-item-section class="ellipsis">
+          <q-item-section class="title-column ellipsis">
             {{ set.short_title.split('-')[2] }}
           </q-item-section>
 
-          <q-item-section side>
+          <q-item-section side
+                          class="steps-count-column">
             {{set.contents_count}} گام
           </q-item-section>
-          <q-item-section side>
-            {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : set.contents_duration + ' دقیقه'}}
+          <q-item-section side
+                          class="duration-column">
+            {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
           </q-item-section>
         </template>
         <q-separator inset />
@@ -49,7 +51,7 @@
                 </q-item-section>
                 <q-item-section v-else
                                 side>
-                  {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : content.duration + ' دقیقه' }}
+                  {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
                 </q-item-section>
               </q-item>
             </q-list>
@@ -146,6 +148,16 @@ export default {
     this.getProduct()
   },
   methods: {
+    humanizeDuration (durationInSeconds) {
+      const durationInMinutes = Math.floor(durationInSeconds / 60)
+      const houres = Math.floor(durationInMinutes / 60)
+      const minutes = durationInMinutes % 60
+      if (houres > 0) {
+        return houres + ' ساعت و ' + minutes + ' دقیقه'
+      }
+
+      return minutes + ' دقیقه'
+    },
     download(content) {
       if (content.can_see === 0) {
         this.toggleProductItemDialog()
@@ -194,6 +206,23 @@ export default {
   }
   &:deep(.q-item) {
     flex-wrap: wrap !important;
+    justify-content: flex-end;
+  }
+  .q-expansion-item {
+    @media only screen and (max-width: 1440px) {
+      padding: 0;
+      .q-expansion-item__container {
+        .q-item {
+          .q-item__section {
+            &.title-column {
+              width: calc( 100% - 56px );
+              flex-basis: calc( 100% - 56px );
+            }
+          }
+        }
+      }
+    }
+    //background: red;
   }
   // &:deep(.q-expansion-item--expanded) {
   //   .set-title {
