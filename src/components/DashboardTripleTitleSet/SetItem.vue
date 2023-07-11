@@ -21,11 +21,12 @@
           <div class="set-item-description">
             {{ setItem.title }}
           </div>
-          <div class="set-item-teacher">
+          <div v-if="setItem?.author"
+               class="set-item-teacher">
             <q-icon name="account_circle"
                     class="q-mr-xs"
                     size="16px" />
-            {{ setItem.author?.first_name + " " + setItem.author?.last_name }}
+            {{ setItem?.author?.first_name + " " + setItem?.author?.last_name }}
           </div>
           <div class="product-item-progress">
             <div class="progress-description">
@@ -112,7 +113,7 @@ export default {
   },
   computed: {
     percent() {
-      return (this.setItem.progress) * 100
+      return (this.setItem?.progress || 0) * 100
     }
   },
   methods: {
