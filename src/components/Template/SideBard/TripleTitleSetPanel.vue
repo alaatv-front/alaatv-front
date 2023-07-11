@@ -78,7 +78,7 @@ export default {
         routeName: '',
         active: false,
         show: true,
-        open: false,
+        open: true,
         children: [
           {
             title: 'تایتل ست',
