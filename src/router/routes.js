@@ -444,7 +444,9 @@ const routes = [
                   layoutLeftDrawerWidth: 100,
                   layoutLeftDrawerVisible: true,
                   layoutLeftDrawerBehavior: 'default',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'triple-title-set'
+
                 },
                 component: () => import('src/layouts/bareLayout.vue'),
                 children: [
@@ -452,6 +454,11 @@ const routes = [
                     name: 'UserPanel.Asset.TripleTitleSet.Products',
                     path: '',
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.Dashboard',
+                    path: 'dashboard',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Dashboard.vue')
                   },
                   {
                     name: 'UserPanel.Asset.TripleTitleSet.ProductLayout',
