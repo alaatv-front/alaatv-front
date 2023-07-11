@@ -36,6 +36,12 @@ export default class EventsAPI extends APIRepository {
         id: 12,
         name: 'emtahan-nahaee-9',
         logo: 'https://nodes.alaatv.com/upload/landing/41/emtehan-nahayi-nohom-logo.png'
+      },
+      {
+        id: 13,
+        studyEventId: 6,
+        name: 'abrisham2',
+        logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png'
       }
     ]
     return new Promise((resolve, reject) => {
