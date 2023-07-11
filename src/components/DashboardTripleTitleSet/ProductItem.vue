@@ -111,10 +111,9 @@ export default {
       default: new Product()
     }
   },
-  data() {
-    return {
-      progress: 0.85,
-      percent: 85
+  computed: {
+    percent() {
+      return (this.setItem.progress) * 100
     }
   },
   methods: {
