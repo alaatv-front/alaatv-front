@@ -22,11 +22,13 @@
           <div class="product-item-description">
             {{ product.title }}
           </div>
-          <div class="product-item-teacher">
+          <div v-for="(teacher, index) in product.attributes?.info?.teacher"
+               :key="index"
+               class="product-item-teacher">
             <q-icon name="account_circle"
                     class="q-mr-xs"
                     size="16px" />
-            {{ product.attributes?.info?.teacher[0] }}
+            {{ teacher }}
           </div>
           <div class="product-item-progress">
             <div class="progress-description">
@@ -111,10 +113,9 @@ export default {
       default: new Product()
     }
   },
-  data() {
-    return {
-      progress: 0.85,
-      percent: 85
+  computed: {
+    percent() {
+      return (this.product?.progress || 0) * 100
     }
   },
   methods: {
