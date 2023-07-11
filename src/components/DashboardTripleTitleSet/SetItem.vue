@@ -39,7 +39,7 @@
             <div class="progress-bar">
               <q-linear-progress reverse
                                  color="teal-4"
-                                 :value="progress"
+                                 :value="setItem.progress"
                                  class="q-mt-md" />
             </div>
           </div>
@@ -110,10 +110,9 @@ export default {
       default: new Set()
     }
   },
-  data() {
-    return {
-      progress: 0.33,
-      percent: 33
+  computed: {
+    percent() {
+      return (this.setItem.progress) * 100
     }
   },
   methods: {

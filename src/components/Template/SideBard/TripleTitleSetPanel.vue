@@ -106,11 +106,11 @@ export default {
       {
         icon: 'playlist_play',
         routeName: 'UserPanel.Asset.TripleTitleSet.Products'
-      },
-      {
-        icon: 'calendar_today',
-        routeName: 'UserPanel.Asset.TripleTitleSet.Products'
       }
+      // {
+      //   icon: 'calendar_today',
+      //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+      // }
       // {
       //   icon: 'list-check',
       //   routeName: 'my-performance'
@@ -308,6 +308,7 @@ export default {
   }
 }
 .side-menu-items{
+  z-index: 99999;
   padding: 20px;
 }
 

@@ -1,7 +1,25 @@
 <template>
   <div class="row">
     <div class="col-12 col-md-6">
-      <div class="user-info-wrapper">
+      <div v-if="loading"
+           class="user-info-wrapper">
+        <div class="user-avatar">
+          <q-skeleton size="64px"
+                      type="circle" />
+        </div>
+        <div class="user-intro">
+          <div class="intro-title">
+            <q-skeleton width="100px"
+                        height="20px" />
+          </div>
+          <div class="intro-subtitle q-mt-md">
+            <q-skeleton width="150px"
+                        height="20px" />
+          </div>
+        </div>
+      </div>
+      <div v-else
+           class="user-info-wrapper">
         <div class="user-avatar">
           <q-avatar size="64px"
                     font-size="52px"
@@ -21,7 +39,19 @@
       </div>
     </div>
     <div class="col-12 col-md-6">
-      <div class="countdown-wrapper">
+      <div v-if="loading"
+           class="countdown-wrapper">
+        <div class="calendar">
+          <q-skeleton width="110px"
+                      height="104px" />
+        </div>
+        <div class="counter">
+          <q-skeleton width="160px"
+                      height="100px" />
+        </div>
+      </div>
+      <div v-else
+           class="countdown-wrapper">
         <div class="calendar">
           <div class="calendar-title">
             <div class="calendar-line right" />
@@ -51,9 +81,16 @@ import { User } from 'src/models/User'
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'DashboardHeader',
+  props: {
+    studyPlanId: {
+      type: Number,
+      default: null
+    }
+  },
   data() {
     return {
       user: new User(),
+      loading: false,
       counterData: {
         now: '',
         tillFirstTurn: 0,
@@ -66,21 +103,30 @@ export default defineComponent({
       }
     }
   },
-  created() {
+  watch: {
+    studyPlanId() {
+      this.getCounterData()
+    }
+  },
+  mounted() {
     this.loadData()
   },
   methods: {
-    loadData () { // prevent Hydration node mismatch
+    loadData () {
       this.user = this.$store.getters['Auth/user']
       this.getCounterData()
     },
     getCounterData() {
+      this.loading = true
       this.$apiGateway.abrisham.getCounter()
         .then(counterData => {
           this.counterData = counterData
           this.persianDate = this.getPersianDate(counterData.now)
+          this.loading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     },
     getPersianDate(serverDate) {
       const date = new Date(serverDate)

@@ -1,16 +1,19 @@
 <template>
   <div class="row">
-    <div class="col-md-9  info-col">
+    <div class="col-12 col-lg-9  info-col">
       <div class="row">
         <div class="col-12 col-md-4">
-          <plan-status :passedDays="studyPlanInfo?.passed_days" />
+          <plan-status :passedDays="studyPlanInfo?.passed_days"
+                       :loading="loading" />
         </div>
         <div class="col-12 col-md-3">
           <plan-statics :watched="studyPlanInfo?.count_of_watched_sessions"
-                        :remained="studyPlanInfo?.count_of_remained_sessions" />
+                        :remained="studyPlanInfo?.count_of_remained_sessions"
+                        :loading="loading" />
         </div>
         <div class="col-12 col-md-5">
-          <plan-reviews />
+          <plan-reviews :studyPlanId="studyPlanInfo?.id"
+                        :loading="loading" />
         </div>
       </div>
     </div>
@@ -30,6 +33,10 @@ export default defineComponent({
     PlanReviews
   },
   props: {
+    loading: {
+      type: Boolean,
+      default: false
+    },
     studyPlanInfo: {
       type: Object,
       default() {

@@ -3,7 +3,13 @@
     <div class="col-12">
       <div class="daily-plan-wrapper">
         <div class="daily-plan-header">
-          <div class="plan-title">
+          <div v-if="loading"
+               class="plan-title">
+            <q-skeleton height="35px"
+                        width="130px" />
+          </div>
+          <div v-else
+               class="plan-title">
             برنامه امروز
           </div>
           <div class="navigation">
@@ -17,7 +23,16 @@
                    @click="scrollToIndex('next')" />
           </div>
         </div>
-        <div class="scroll-wrapper">
+        <div v-if="loading"
+             class="flex justify-evenly">
+          <q-skeleton v-for="item in 4"
+                      :key="item"
+                      height="150px"
+                      width="300px"
+                      class="q-my-md" />
+        </div>
+        <div v-else
+             class="scroll-wrapper">
           <q-virtual-scroll v-slot="{ item, index }"
                             ref="virtualListRef"
                             :items="planList"
@@ -57,7 +72,13 @@ export default defineComponent({
       targetIndex: 0,
       virtualListIndex: 0,
       baseIndex: 3,
-      lastScroll: 'next'
+      lastScroll: 'next',
+      loading: false
+    }
+  },
+  watch: {
+    studyPlanId() {
+      this.getPlans()
     }
   },
   mounted() {
@@ -65,20 +86,21 @@ export default defineComponent({
   },
   methods: {
     getPlans() {
-      // TODO: change form data with today and event name
-      // const today = this.getToday()
+      const today = this.getToday()
+      this.loading = true
       this.$apiGateway.studyPlan.getStudyPlans({
-        study_event: 6,
-        since_date: '2022-03-12',
-        till_date: '2022-03-12'
+        study_event: this.studyPlanId,
+        since_date: today,
+        till_date: today
       })
         .then(studyPlanList => {
           this.studyPlanList = studyPlanList
-          // TODO: revert comparison to studyPlanId
-          // this.planList = this.studyPlanList.list?.find(x => x.id === this.studyPlanId).plans.list
-          this.planList = this.studyPlanList.list?.find(x => x.id === 216).plans.list
+          this.planList = this.studyPlanList.list?.find(x => x.id === this.studyPlanId).plans.list
+          this.loading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     },
     getToday() {
       const date = new Date()

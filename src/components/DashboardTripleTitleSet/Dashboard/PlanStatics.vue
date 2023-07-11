@@ -1,5 +1,30 @@
 <template>
-  <div v-if="showChart"
+  <div v-if="loading"
+       class="statics-wrapper">
+    <q-skeleton type="circle"
+                size="200px" />
+    <div class="statics-info q-pt-md">
+      <div class="sessions-info">
+        <div class="session-icon">
+          <q-skeleton type="circle"
+                      size="15px" />
+        </div>
+        <div class="session-text">
+          <q-skeleton width="150px" />
+        </div>
+      </div>
+      <div class="sessions-info q-py-sm">
+        <div class="session-icon">
+          <q-skeleton type="circle"
+                      size="15px" />
+        </div>
+        <div class="session-text">
+          <q-skeleton width="150px" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else
        class="statics-wrapper">
     <q-circular-progress :min="0"
                          :max="100"
@@ -38,19 +63,14 @@
 
 <script>
 import { defineComponent } from 'vue'
-// let highcharts
-// if (typeof window !== 'undefined') {
-//   import('highcharts-vue')
-//     .then(({ Chart }) => {
-//       highcharts = Chart
-//     })
-// }
+
 export default defineComponent({
   name: 'PlanStatics',
-  components: {
-    // highcharts
-  },
   props: {
+    loading: {
+      type: Boolean,
+      default: false
+    },
     watched: {
       type: Number,
       default: 0
@@ -62,71 +82,11 @@ export default defineComponent({
   },
   data() {
     return {
-      showChart: false
-      // chartOptionsExam: {
-      //   chart: {
-      //     height: '150',
-      //     width: '150',
-      //     type: 'pie',
-      //     plotShadow: false
-      //   },
-      //   credits: {
-      //     enabled: false
-      //   },
-      //   tooltip: {
-      //     shared: false,
-      //     useHTML: true,
-      //     borderWidth: 0,
-      //     backgroundColor: 'rgba(255,255,255,0)',
-      //     shadow: false
-      //     // formatter: function () {
-      //     //   const point = this.point
-      //     //   return '<span class="myTooltip" style="padding:5px;border-radius:5px;background-color:' + point.color + ';">' + point.y + '&nbsp' + 'سوال' + '</span>'
-      //     // }
-      //   },
-      //   plotOptions: {
-      //     pie: {
-      //       innerSize: '98%',
-      //       startAngle: 0,
-      //       endAngle: 0,
-      //       borderWidth: 20,
-      //       center: ['50%', '52%'],
-      //       size: '150%',
-      //       borderColor: null,
-      //       backgroundColor: '#F2F5F9',
-      //       slicedOffset: 16,
-      //       dataLabels: {
-      //         connectorWidth: 0
-      //       }
-      //     }
-      //   },
-      //   title: {
-      //     y: 20,
-      //     style: {
-      //       useHTML: true,
-      //       fontSize: '12px'
-      //     },
-      //     verticalAlign: 'middle',
-      //     floating: true,
-      //     text: ' '
-      //   },
-      //   series: [{
-      //     id: 'idData',
-      //     data: [
-      //       { name: '', y: 0, color: '#9690E4' }
-      //     ]
-      //   }]
-      // }
     }
   },
   computed: {
     percent() {
       return Math.floor((this.watched * 100) / (this.watched + this.remained)) || 0
-    }
-  },
-  mounted() {
-    if (typeof window !== 'undefined') {
-      this.showChart = true
     }
   }
 })

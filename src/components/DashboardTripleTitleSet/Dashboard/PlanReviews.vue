@@ -1,5 +1,19 @@
 <template>
-  <div class="review-wrapper">
+  <div v-if="loading || reviewLoading"
+       class="review-wrapper">
+    <div class="review-title">
+      <q-skeleton width="100px" />
+    </div>
+    <div class="review-list">
+      <q-skeleton width="100%"
+                  height="100px"
+                  class="q-my-md" />
+      <q-skeleton width="100%"
+                  height="100px" />
+    </div>
+  </div>
+  <div v-else
+       class="review-wrapper">
     <div class="review-title">گزارش ها</div>
     <div class="review-list">
       <div v-for="(item, index) in reviewList"
@@ -11,7 +25,7 @@
         <div class="review">
           <q-btn flat
                  label="مشاهده"
-                 :loading="loading"
+                 :loading="linkLoading"
                  @click="gotoLink(item.date)" />
         </div>
       </div>
@@ -25,35 +39,53 @@ import { Content } from 'src/models/Content'
 
 export default defineComponent({
   name: 'PlanReviews',
+  props: {
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    studyPlanId: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       reviewList: [],
-      loading: false
+      linkLoading: false,
+      reviewLoading: false
     }
   },
-  created() {
+  watch: {
+    studyPlanId() {
+      this.getReviews()
+    }
+  },
+  mounted() {
     this.getReviews()
   },
   methods: {
     getReviews() {
+      this.reviewLoading = true
       this.$apiGateway.abrisham.getReports()
         .then(reportList => {
           this.reviewList = reportList
+          this.reviewLoading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.reviewLoading = false
+        })
     },
     gotoLink(date) {
-      this.loading = true
+      this.linkLoading = true
       this.$apiGateway.studyPlan.getStudyPlans({
-        study_event: 6,
+        study_event: this.studyPlanId,
         since_date: date,
         till_date: date
       })
         .then(studyPlanList => {
-          // TODO: revert comparison to studyPlanId
-          // this.planList = this.studyPlanList.list?.find(x => x.id === this.studyPlanId).plans.list
           if (studyPlanList.list.length === 0) {
-            this.loading = false
+            this.linkLoading = false
             this.$q.notify({
               message: 'برنامه ای وجود ندارد',
               color: 'warning',
@@ -61,9 +93,9 @@ export default defineComponent({
             })
             return
           }
-          const planList = studyPlanList.list?.find(x => x.id === 216).plans.list
+          const planList = studyPlanList.list?.find(x => x.id === this.studyPlanId).plans.list
           if (planList.length === 0) {
-            this.loading = false
+            this.linkLoading = false
             this.$q.notify({
               message: 'برنامه ای موردنظر پیدا نشد',
               color: 'warning',
@@ -73,7 +105,7 @@ export default defineComponent({
           }
           const plan = planList.find(x => x.has_watched === false) || planList[planList.length - 1]
           const content = plan.contents.list.find(x => x.type.id === 4) || new Content()
-          this.loading = false
+          this.linkLoading = false
           if (content.id) {
             this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.Content', params: { productId: plan.product.id, setId: content.set.id, contentId: content.id } })
           } else {
@@ -90,7 +122,7 @@ export default defineComponent({
             color: 'warning',
             position: 'top'
           })
-          this.loading = false
+          this.linkLoading = false
         })
     }
   }
@@ -122,6 +154,10 @@ export default defineComponent({
       justify-content: center;
       align-items: flex-end;
       padding: 30px 20px 20px;
+
+      &.skeleton {
+        background:transparent;
+      }
 
       .review-item-title {
         color: #424242;

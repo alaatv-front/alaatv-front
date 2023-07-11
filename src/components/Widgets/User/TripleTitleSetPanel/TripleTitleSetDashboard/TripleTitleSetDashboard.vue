@@ -1,8 +1,9 @@
 <template>
   <div class="triple-title-set-dashboard-container new-theme">
-    <dashboard-header />
+    <dashboard-header :studyPlanId="studyPlanId" />
     <daily-plan :studyPlanId="studyPlanId" />
-    <status-and-review :studyPlanInfo="studyPlanInfo" />
+    <status-and-review :loading="loading"
+                       :studyPlanInfo="studyPlanInfo" />
     <study-plan-selection-dialog :dialog="dialog"
                                  @toggle-dialog="onToggleDialog" />
   </div>
@@ -25,6 +26,7 @@ export default defineComponent({
   },
   data() {
     return {
+      loading: false,
       studyPlanInfo: {
         id: null,
         title: '',
@@ -40,19 +42,28 @@ export default defineComponent({
       return this.studyPlanInfo.id
     }
   },
-  created() {
+  mounted() {
     this.getMyStudyPlan()
   },
   methods: {
     getMyStudyPlan() {
+      this.loading = true
       this.$apiGateway.studyPlan.getMyStudyPlan()
         .then(studyPlanInfo => {
-          this.studyPlanInfo = studyPlanInfo
-          if (!studyPlanInfo.id) {
-            this.dialog = true
+          if (!studyPlanInfo || !studyPlanInfo.id) {
+            // this.dialog = true
           }
+          this.loading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.$router.push({ name: 'Public.Home' })
+          this.$q.notify({
+            message: 'بارگذاری داشبورد با مشکل روبرو شده است، لطفا دوباره تلاش کنید',
+            color: 'warning',
+            position: 'top'
+          })
+          this.loading = false
+        })
     },
     onToggleDialog() {
       this.dialog = !this.dialog

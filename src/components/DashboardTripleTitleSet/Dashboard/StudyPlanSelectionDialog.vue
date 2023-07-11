@@ -116,40 +116,9 @@ export default defineComponent({
   data() {
     return {
       inputsOptions: {
-        grades: [
-          {
-            id: 4,
-            title: 'فارغ التحصیل'
-          },
-          {
-            id: 8,
-            title: 'دوازدهم'
-          }
-        ],
-        majors: [
-          {
-            id: 1,
-            title: 'ریاضی'
-          },
-          {
-            id: 2,
-            title: 'تجربی'
-          },
-          {
-            id: 3,
-            title: 'انسانی'
-          }
-        ],
-        studyPlans: [
-          {
-            id: 1,
-            title: 'برنامه اول'
-          },
-          {
-            id: 2,
-            title: 'برنامه دوم'
-          }
-        ]
+        grades: [],
+        majors: [],
+        studyPlans: []
       },
       formData: {
         study_method_id: null,

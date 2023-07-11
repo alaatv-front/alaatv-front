@@ -9,8 +9,8 @@ export default class StudyPlanAPI extends APIRepository {
       plan: '/plan',
       studyEvent: (id) => '/studyEvent/' + id + '/studyPlans',
       getPlans: (id) => '/studyPlan/' + id + '/plans',
-      planOptions: 'abrisham/selectPlan/create',
-      myStudyPlan: 'abrisham/myStudyPlan',
+      planOptions: '/abrisham/selectPlan/create',
+      myStudyPlan: '/abrisham/myStudyPlan',
       StudyPlan: '/studyPlan'
     }
     this.CacheList = {

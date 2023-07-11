@@ -2,12 +2,11 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Content } from 'src/models/Content.js'
 import { AbrishamMajorList } from 'src/models/AbrishamMajor'
-
 const APIAdresses = {
   lesson: '/abrisham/lessons',
   majors: '/abrisham/majors',
   karvan: '/abrisham/whereIsKarvan',
-  counter: 'konkur1403Countdown',
+  counter: '/konkur1403Countdown',
   systemReport: '/abrisham/systemReport',
   myStudyPlan: '/abrisham/myStudyPlan',
   getOptions: '/abrisham/selectPlan/create'
@@ -67,7 +66,11 @@ export default class AbrishamAPI extends APIRepository {
       cacheKey: this.CacheList.counter,
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return {
+          now: response.data.data?.now,
+          tillFirstTurn: response.data.data?.tillFirstTurn,
+          tillSecondTurn: response.data.data?.tillSecondTurn
+        }
       },
       rejectCallback: (error) => {
         return error
