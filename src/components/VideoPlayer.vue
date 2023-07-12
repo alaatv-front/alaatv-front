@@ -475,10 +475,6 @@ export default {
         })
       })
 
-      window.addEventListener('orientationchange', function() {
-        console.log(this.screen.orientation.type)
-      })
-
       // this.player = videojs(this.$refs.videoPlayer, this.options, this.onFullScreenChange)
 
       if (this.hasVast && (typeof withVast === 'undefined' || withVast === true)) {
@@ -618,25 +614,6 @@ export default {
       } else if (document.msExitFullscreen) { /* IE11 */
         document.msExitFullscreen()
       }
-    },
-    onWebKitFullScreenChange() {
-      console.log('on web kit')
-      debugger
-    },
-    onMozFullScreenChange() {
-      console.log('on moz')
-      debugger
-    },
-    onFullScreenChange() {
-      this.on('fullscreenchange', function() {
-        if (this.isFullscreen()) {
-          // Video is in fullscreen mode
-          console.log('Entered fullscreen mode')
-        } else {
-          // Video exited fullscreen mode
-          console.log('Exited fullscreen mode')
-        }
-      })
     }
   }
 }
