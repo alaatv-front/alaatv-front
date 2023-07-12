@@ -4,10 +4,10 @@
          class="row">
       <div class="col-12 flex justify-between q-mb-md">
         <div class="breadcrumbs flex items-center">
-          <div class="breadcrumbs-item"
-               :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">
-            چتر نجات
-          </div>
+          <router-link class="breadcrumbs-item"
+                       :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: $route.params.eventName} }">
+            دوره ها
+          </router-link>
           <q-icon name="chevron_left" />
           <div class="content-title">
             مشاوره

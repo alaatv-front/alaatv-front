@@ -148,7 +148,8 @@ export default {
     this.getProduct()
   },
   methods: {
-    humanizeDuration (durationInMinutes) {
+    humanizeDuration (durationInSeconds) {
+      const durationInMinutes = Math.floor(durationInSeconds / 60)
       const houres = Math.floor(durationInMinutes / 60)
       const minutes = durationInMinutes % 60
       if (houres > 0) {

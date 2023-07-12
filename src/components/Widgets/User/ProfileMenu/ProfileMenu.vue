@@ -130,6 +130,15 @@
           </q-item>
           <q-item v-ripple
                   clickable
+                  :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: 'abrisham2'}}">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم ۲</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
                   :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: 'chatre-nejat'}}">
             <q-item-section class="menu-item-custom">
               <q-icon name="isax:document-1 dashboard"
