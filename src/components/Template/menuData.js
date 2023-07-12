@@ -1616,8 +1616,7 @@ const menuItems = [
         route: {
           name: 'Public.Landing.DynamicName',
           params: { landing_name: 'arashads' }
-        },
-        badge: 'جدید'
+        }
       },
       {
         title: 'چتر نجات',
@@ -1630,7 +1629,8 @@ const menuItems = [
         route: {
           name: 'Public.Landing.DynamicName',
           params: { landing_name: 'rahabrisham' }
-        }
+        },
+        badge: 'جدید'
       },
       {
         title: 'کارت هدیه آلاء',

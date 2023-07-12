@@ -20,7 +20,8 @@
     </div>
     <div class="content-item-meta q-pr-md-lg q-pr-xs-md">
       <template v-if="content.isVideo()">
-        <div :class="{'content-item-meta-updated-at': this.doesHaveDuration(content.duration)}">
+        <div v-if="false"
+             :class="{'content-item-meta-updated-at': this.doesHaveDuration(content.duration)}">
           {{ getShamsiDate(content.updated_at.split(' ')[0], false) }}
         </div>
         <div class="content-item-meta-time">
