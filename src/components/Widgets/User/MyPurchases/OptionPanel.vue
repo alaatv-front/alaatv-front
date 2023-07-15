@@ -5,7 +5,7 @@
         <div class="row q-col-gutter-md">
           <div class="input-container col-12 q-mt-md">
 
-            <div class="outsideLabel">آدرس فایل عکس</div>
+            <div class="outsideLabel">لیست فیلتر های محصولات</div>
             <q-input v-model="filterItem"
                      label="فیلتر"
                      @keydown.enter.prevent="addItem">
