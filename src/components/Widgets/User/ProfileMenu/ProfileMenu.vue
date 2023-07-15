@@ -4,8 +4,12 @@
       <q-card-section>
         <div class="user-info">
           <div class="user-photo">
-            <q-img :src="previewImg"
-                   class="previewImg" />
+            <q-avatar>
+              <lazy-img :src="previewImg"
+                        width="70"
+                        height="70"
+                        class="full-width" />
+            </q-avatar>
             <q-file ref="file"
                     v-model="file"
                     :model-value="file"
@@ -211,15 +215,19 @@
 </template>
 
 <script>
+import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinWidget, mixinAuthData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProfileMenu',
+  components: { LazyImg },
   mixins: [mixinWidget, mixinAuthData],
   data() {
     return {
       api: APIGateway.user.APIAdresses.base,
+      user: new User(),
       file: null,
       previewImg: null,
       controls: false
@@ -236,10 +244,15 @@ export default {
   },
   created () {
     this.api = APIGateway.user.APIAdresses.base + '/' + this.user.id
-    this.previewImg = this.user.photo
   },
-  mounted () {},
+  mounted () {
+    this.loadAuthData()
+  },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.previewImg = this.user.photo
+    },
     runEvent (eventName) {
       this.$bus.emit(eventName)
     },
@@ -304,6 +317,7 @@ export default {
     position: relative;
     .user-photo {
       width: 80px;
+      padding: 5px;
     }
     .namePhone {
       width: calc( 100% - 80px );
@@ -325,11 +339,6 @@ export default {
   position: absolute;
   left: 55px;
   top: 75px;
-}
-.previewImg {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
 }
 .sticky-menu {
   position: sticky;
