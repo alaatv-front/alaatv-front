@@ -230,9 +230,6 @@ export default {
         this.moveSideBarElementIntoVideoPlayerElements()
       })
     }
-    this.$refs.videoPlayer.addEventListener('webkitfullscreenchange', this.onWebKitFullScreenChange)
-    this.$refs.videoPlayer.addEventListener('mozfullscreenchange', this.onMozFullScreenChange)
-    this.$refs.videoPlayer.addEventListener('fullscreenchange', this.onFullScreenChange)
   },
   beforeUnmount() {
     if (this.player) {
@@ -465,12 +462,14 @@ export default {
 
       this.player = videojs(this.$refs.videoPlayer, this.options, function() {
         this.on('fullscreenchange', function() {
-          if (this.isFullscreen()) {
+          if (window !== undefined) {
+            if (this.isFullscreen()) {
             // Video entered fullscreen mode
-            screen.orientation.unlock()
-          } else {
+              window.screen.orientation.unlock()
+            } else {
             // Video exited fullscreen mode
-            screen.orientation.lock('portrait')
+              window.screen.orientation.lock('portrait')
+            }
           }
         })
       })

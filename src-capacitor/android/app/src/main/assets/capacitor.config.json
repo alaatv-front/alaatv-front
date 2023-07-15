@@ -1,5 +1,5 @@
 {
-	"appId": "com.alaatv.ios",
+	"appId": "${ANDROID_APPLICATION_ID}",
 	"appName": "alaatv",
 	"bundledWebRuntime": false,
 	"npmClient": "yarn",
