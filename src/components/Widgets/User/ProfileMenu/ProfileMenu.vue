@@ -1,11 +1,15 @@
 <template>
-  <div class="sticky-menu">
+  <div class="ProfileMenu sticky-menu">
     <q-card class="custom-card">
       <q-card-section>
-        <div class="flex no-wrap">
-          <div>
-            <q-img :src="previewImg"
-                   class="previewImg" />
+        <div class="user-info">
+          <div class="user-photo">
+            <q-avatar>
+              <lazy-img :src="previewImg"
+                        width="70"
+                        height="70"
+                        class="full-width" />
+            </q-avatar>
             <q-file ref="file"
                     v-model="file"
                     :model-value="file"
@@ -46,7 +50,7 @@
               {{ user.mobile }}
             </div>
           </div>
-          <div>
+          <div class="edit-action">
             <q-btn class="q-ml-lg justify-end"
                    icon="isax:edit"
                    size="sm"
@@ -211,15 +215,19 @@
 </template>
 
 <script>
+import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinWidget, mixinAuthData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProfileMenu',
+  components: { LazyImg },
   mixins: [mixinWidget, mixinAuthData],
   data() {
     return {
       api: APIGateway.user.APIAdresses.base,
+      user: new User(),
       file: null,
       previewImg: null,
       controls: false
@@ -236,10 +244,15 @@ export default {
   },
   created () {
     this.api = APIGateway.user.APIAdresses.base + '/' + this.user.id
-    this.previewImg = this.user.photo
   },
-  mounted () {},
+  mounted () {
+    this.loadAuthData()
+  },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.previewImg = this.user.photo
+    },
     runEvent (eventName) {
       this.$bus.emit(eventName)
     },
@@ -296,7 +309,29 @@ export default {
 }
 </style>
 
-<style scoped>
+<style scoped lang="scss">
+.ProfileMenu {
+  .user-info {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    .user-photo {
+      width: 80px;
+      padding: 5px;
+    }
+    .namePhone {
+      width: calc( 100% - 80px );
+      .fullName {
+        width: 100%;
+      }
+    }
+    .edit-action {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
 :deep(.q-btn .q-btn__content) {
   margin: 3px;
 }
@@ -304,11 +339,6 @@ export default {
   position: absolute;
   left: 55px;
   top: 75px;
-}
-.previewImg {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
 }
 .sticky-menu {
   position: sticky;
@@ -382,8 +412,8 @@ export default {
   font-size: 7px;
   position: absolute;
   border-radius: 50%;
-  top: 75px;
-  left: 10px;
+  top: 45px;
+  left: 0;
 }
 .fullName {
   width: 95px;

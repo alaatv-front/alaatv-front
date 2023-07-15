@@ -95,6 +95,7 @@
       </div>
     </div>
     <q-dialog v-model="productContentsDialog"
+              full-width
               position="bottom">
       <div class="product-contents">
         <product-contents :options="{

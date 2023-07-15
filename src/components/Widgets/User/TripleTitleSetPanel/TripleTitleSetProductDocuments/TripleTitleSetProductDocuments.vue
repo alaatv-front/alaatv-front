@@ -11,7 +11,8 @@
                   :table="table"
                   :table-keys="tableKeys"
                   :show-search-button="false"
-                  :create-route-name="'User.Create'"
+                  :show-expand-button="false"
+                  :show-reload-button="false"
                   :default-layout="false"
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
