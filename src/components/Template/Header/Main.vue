@@ -33,24 +33,7 @@
         </div>
         <!--        -----------------------------------------------------Tabs Section--------------------------------------------   -->
         <div class="tab-section">
-          <q-list class="tabs-list">
-            <div v-for="(item , index) in items"
-                 :key="index"
-                 class="tabs-list-container">
-              <div v-if="showMenuItem(/* item */)"
-                   class="self-center">
-                <template v-if="item.type === 'itemMenu'">
-                  <item-menu :item="item" />
-                </template>
-                <template v-if="item.type === 'megaMenu'">
-                  <mega-menu :data="item" />
-                </template>
-                <template v-if="item.type === 'simpleMenu'">
-                  <simple-menu :menuContent="item" />
-                </template>
-              </div>
-            </div>
-          </q-list>
+          <main-header-menu-items />
         </div>
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
         <div class="user-action gt-sm">
@@ -154,22 +137,17 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import megaMenu from './magaMenu.vue'
-import simpleMenu from './simpleMenu.vue'
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import menuItems from 'src/components/Template/menuData.js'
-import itemMenu from 'src/components/Template/Header/itemMenu.vue'
 import UserDashboardItems from 'src/components/UserDashboardItems.vue'
+import MainHeaderMenuItems from 'src/components/Template/Header/MainHeaderMenuItems/MainHeaderMenuItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
   components: {
+    MainHeaderMenuItems,
     UserDashboardItems,
-    LazyImg,
-    megaMenu,
-    simpleMenu,
-    itemMenu
+    LazyImg
   },
   data() {
     return {
@@ -179,8 +157,7 @@ export default {
       searchInput: '',
       user: new User(),
       isAdmin: false,
-      isUserLogin: false,
-      items: menuItems
+      isUserLogin: false
     }
   },
   computed: {
@@ -206,12 +183,6 @@ export default {
     },
     layoutLeftDrawerVisible() {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
-    },
-    showMenuItem () {
-      return (/* item */) => {
-        return true
-        // return (item.permission === 'all' || this.user.hasPermission(item.permission))
-      }
     }
   },
   watch: {
