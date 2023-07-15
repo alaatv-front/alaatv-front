@@ -3,10 +3,10 @@
     <div v-if="isDesktop"
          class="side-menu">
       <div class="menu-logo">
-        <!--        <router-link :to="{name: 'Public.Home'}">-->
-        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-               class="logo-image" />
-        <!--        </router-link>-->
+        <router-link :to="{name: 'Public.Home'}">
+          <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+                 class="logo-image" />
+        </router-link>
       </div>
       <div class="menu-items">
         <q-list class="menu-items-list">
@@ -78,7 +78,7 @@ export default {
         routeName: '',
         active: false,
         show: true,
-        open: false,
+        open: true,
         children: [
           {
             title: 'تایتل ست',

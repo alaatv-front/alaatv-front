@@ -102,6 +102,15 @@ export default {
           children: []
         },
         {
+          title: 'داشبورد راه ابریشم ۲',
+          icon: 'isax:activity',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+          params: { eventName: 'abrisham2' },
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
           title: 'داشبورد چترنجات',
           icon: 'isax:global',
           routeName: 'UserPanel.Asset.TripleTitleSet.Products',

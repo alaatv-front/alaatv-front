@@ -4,14 +4,15 @@
                   v-model:value="inputs"
                   v-model:table-selected-values="selected"
                   class="orders-list-entity-index"
-                  :api="$apiGateway.product.APIAdresses.getContents($route.params.productId)"
+                  :api="api"
                   :table-selection-mode="selectionMode"
                   :item-indicator-key="'id'"
                   :identifyKey="'id'"
                   :table="table"
                   :table-keys="tableKeys"
                   :show-search-button="false"
-                  :create-route-name="'User.Create'"
+                  :show-expand-button="false"
+                  :show-reload-button="false"
                   :default-layout="false"
                   :table-grid-size="true"
                   @onInputClick="onInputClick($event)">
@@ -24,12 +25,12 @@
                       text-color="white"
                       icon="description" />
           </div>
-          <div>محتوایی وجود نداره!</div>
+          <div>حزوه ای وجود نداره!</div>
         </div>
       </template>
       <template #entity-index-table-item-cell="{inputData}">
         <div class="col-12 content-col"
-             :class="{'col-md-4':grid}">
+             :class="{ 'col-md-4': grid }">
           <q-card class="content-box">
             <q-item class="content-item">
               <q-item-section middle
@@ -81,6 +82,7 @@
 <script>
 import { openURL } from 'quasar'
 import { EntityIndex } from 'quasar-crud'
+import { APIGateway } from 'src/api/APIGateway.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
@@ -91,6 +93,7 @@ export default {
   },
   data() {
     return {
+      api: '',
       grid: true,
       selected: [],
       productItemDialog: false,
@@ -166,6 +169,9 @@ export default {
     setTopicList(value) {
       this.inputs.find(x => x.name === 'formBuilderCol').value[0].options = value
     }
+  },
+  created () {
+    this.api = APIGateway.product.APIAdresses.getContents(this.$route.params.productId)
   },
   mounted() {
     this.loadData(this.$route.params.productId)

@@ -12,11 +12,10 @@
                               }" />
         <div v-else
              class="row justify-center">
-          <div class="video-not-available col-6">
+          <div class="video-not-available col-12">
             <product-item class="product-item"
                           :options="{
-                            product: selectedProduct,
-                            minWidth: '318px'
+                            product: selectedProduct
                           }" />
           </div>
         </div>

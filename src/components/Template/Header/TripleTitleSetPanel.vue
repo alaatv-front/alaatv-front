@@ -1,8 +1,10 @@
 <template>
   <div class="chatre-nejat-header">
     <div class="logo-box">
-      <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-             class="logo-image" />
+      <router-link :to="{name: 'Public.Home'}">
+        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+               class="logo-image" />
+      </router-link>
     </div>
     <div class="header-box full-height flex justify-center items-center">
       <q-img :src="event.logo"

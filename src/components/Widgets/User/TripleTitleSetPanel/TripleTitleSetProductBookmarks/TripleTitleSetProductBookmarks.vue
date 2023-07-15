@@ -7,6 +7,7 @@
                   :api="api"
                   :table="table"
                   :table-keys="tableKeys"
+                  :show-expand-button="false"
                   :item-indicator-key="'id'"
                   :default-layout="false"
                   :show-search-button="false"
