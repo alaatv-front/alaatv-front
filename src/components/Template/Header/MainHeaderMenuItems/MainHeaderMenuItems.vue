@@ -23,13 +23,21 @@
            class="edit-btn"
            @click="addItem" />
   </q-list>
+  <q-dialog v-model="optionDialog"
+            full-width>
+    <q-card>
+      <q-card-section>
+        sss
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
 import menuItems from 'src/components/Template/menuData.js'
-import itemMenu from 'src/components/Template/Header/itemMenu.vue'
-import megaMenu from 'src/components/Template/Header/magaMenu.vue'
-import simpleMenu from 'src/components/Template/Header/simpleMenu.vue'
+import itemMenu from 'components/Template/Header/MainHeaderMenuItems/itemMenu.vue'
+import megaMenu from 'components/Template/Header/MainHeaderMenuItems/magaMenu.vue'
+import simpleMenu from 'components/Template/Header/MainHeaderMenuItems/simpleMenu.vue'
 
 export default {
   name: 'MainHeaderMenuItems',
@@ -40,6 +48,7 @@ export default {
   },
   data() {
     return {
+      optionDialog: false,
       mounted: false,
       conferenceMenu: false,
       showHamburgerConfig: true,
