@@ -412,8 +412,8 @@ export default {
   font-size: 7px;
   position: absolute;
   border-radius: 50%;
-  top: 75px;
-  left: 10px;
+  top: 45px;
+  left: 0;
 }
 .fullName {
   width: 95px;
