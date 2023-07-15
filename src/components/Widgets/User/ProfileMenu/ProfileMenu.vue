@@ -1,9 +1,9 @@
 <template>
-  <div class="sticky-menu">
+  <div class="ProfileMenu sticky-menu">
     <q-card class="custom-card">
       <q-card-section>
-        <div class="flex no-wrap">
-          <div>
+        <div class="user-info">
+          <div class="user-photo">
             <q-img :src="previewImg"
                    class="previewImg" />
             <q-file ref="file"
@@ -46,7 +46,7 @@
               {{ user.mobile }}
             </div>
           </div>
-          <div>
+          <div class="edit-action">
             <q-btn class="q-ml-lg justify-end"
                    icon="isax:edit"
                    size="sm"
@@ -296,7 +296,28 @@ export default {
 }
 </style>
 
-<style scoped>
+<style scoped lang="scss">
+.ProfileMenu {
+  .user-info {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    .user-photo {
+      width: 80px;
+    }
+    .namePhone {
+      width: calc( 100% - 80px );
+      .fullName {
+        width: 100%;
+      }
+    }
+    .edit-action {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
 :deep(.q-btn .q-btn__content) {
   margin: 3px;
 }
