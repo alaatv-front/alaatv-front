@@ -21,6 +21,19 @@
         </div>
       </q-item>
       <q-item v-if="isUserLogin"
+              class="item-list wallet-balance">
+        <div class="section-title">
+          <q-item-section class="list-section">
+            موجودی کیف پول
+          </q-item-section>
+          <q-item-section class="list-section title-icon"
+                          avatar>
+            {{ user.wallet_balance }}
+          </q-item-section>
+          <span class="indicator" />
+        </div>
+      </q-item>
+      <q-item v-if="isUserLogin"
               class="item-list alone-item q-mt-lg q-mb-md"
               clickable
               @click="logOut">
@@ -201,6 +214,11 @@ export default {
           cursor: pointer;
           padding: 0 14px 0 10px;
           border-radius: 14px;
+
+          &.wallet-balance {
+            cursor: default !important;
+          }
+
           &.alone-item {
             height: 40px;
 
