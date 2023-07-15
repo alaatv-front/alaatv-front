@@ -3,6 +3,20 @@
     <q-list class="side-menu-list"
             padding
             dark>
+      <q-item v-if="isUserLogin"
+              class="item-list wallet-balance">
+        <div class="section-title">
+          <q-item-section class="list-section">
+            موجودی کیف پول
+          </q-item-section>
+          <q-item-section class="list-section title-icon"
+                          avatar>
+            {{ user.wallet_balance.toLocaleString('fa') }}
+            تومان
+          </q-item-section>
+          <span class="indicator" />
+        </div>
+      </q-item>
       <q-item v-for="(item , index) in profileTitlesList"
               :key="index"
               class="item-list"
@@ -16,19 +30,6 @@
                           avatar>
             <q-avatar :icon="item.icon"
                       size="30" />
-          </q-item-section>
-          <span class="indicator" />
-        </div>
-      </q-item>
-      <q-item v-if="isUserLogin"
-              class="item-list wallet-balance">
-        <div class="section-title">
-          <q-item-section class="list-section">
-            موجودی کیف پول
-          </q-item-section>
-          <q-item-section class="list-section title-icon"
-                          avatar>
-            {{ user.wallet_balance }}
           </q-item-section>
           <span class="indicator" />
         </div>
