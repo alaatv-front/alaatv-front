@@ -169,7 +169,7 @@ export default {
       }
 
       if (priorityId) {
-        this.$refs.EntityCreate.setInputByName('priority_id', priorityId)
+        this.$refs.EntityCreate.setInputByName('priority_id', parseInt(priorityId))
       }
     },
     goBackToList() {
