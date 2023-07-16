@@ -51,7 +51,7 @@ class Order extends Model {
       return
     }
     const orderProductsGrands = flatOrderProducts
-      .filter((orderProductItem, index, array) => !!array.findIndex(item => item.grand?.id !== orderProductItem.grand?.id))
+      .filter((orderProductItem, index, array) => array.findIndex(item => item.grand?.id === orderProductItem.grand?.id) === index)
       .map(item => item.grand)
 
     orderProductsGrands.forEach(grand => {
