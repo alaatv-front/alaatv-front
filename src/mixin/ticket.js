@@ -21,10 +21,14 @@ const mixinTicket = {
   methods: {
     async setUpTicket () {
       await this.initTicket()
-      this.setPageData()
+      await this.setPageData()
+      await this.afterGetAllPageData()
     },
     async initTicket () {
       // here goes the custom methods developer chooses to run before mixin
+    },
+    async afterGetAllPageData () {
+      // here goes the custom methods developer chooses to run after get all page data
     },
     async setPageData() {
       // this.setRoleAndPermissions()

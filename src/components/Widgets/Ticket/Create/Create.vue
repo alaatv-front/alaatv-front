@@ -40,7 +40,8 @@
       </template>
     </entity-create>
     <q-separator class="q-my-md" />
-    <send-message-input ref="SendMessageInput"
+    <send-message-input v-if="mounted"
+                        ref="SendMessageInput"
                         :role="userRole"
                         :canChoseOrder="canChoseOrder"
                         :canAssign-ticket="canAssignTicket"
@@ -48,15 +49,14 @@
                         :isAdmin="isInAdminPage"
                         @creatTicket="sendTicket" />
   </div>
-
 </template>
 
 <script>
 import { EntityCreate } from 'quasar-crud'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketDepartment } from 'src/models/TicketDepartment.js'
-import SendMessageInput from 'components/Ticket/SendMessageInput.vue'
-import { APIGateway } from 'src/api/APIGateway'
+import SendMessageInput from 'src/components/Ticket/SendMessageInput.vue'
 
 export default {
   name: 'Create',
@@ -78,6 +78,7 @@ export default {
   },
   data () {
     return {
+      mounted: false,
       showDialog: true,
       api: APIGateway.ticket.APIAdresses.base,
       selectedDepartment: new TicketDepartment(),
@@ -121,12 +122,48 @@ export default {
       return { name: 'UserPanel.Ticket' }
     }
   },
-
   created() {
     this.initPageData()
   },
-
+  mounted () {
+    this.mounted = true
+  },
   methods: {
+    afterGetAllPageData () {
+      this.checkQueryParams()
+    },
+    checkQueryParams () {
+      const title = this.$route.query.t
+      const message = this.$route.query.m
+      const priorityId = this.$route.query.p
+      const departmentId = this.$route.query.d
+      const targetDepartmentIndex = this.departmentList.list.findIndex(dep => parseInt(dep.id) === parseInt(departmentId))
+      if (targetDepartmentIndex !== -1) {
+        setTimeout(() => {
+          this.selectDepartment(this.departmentList.list[targetDepartmentIndex])
+          this.showDialog = false
+          this.$refs.EntityCreate.setInputByName('title', title)
+        }, 500)
+      }
+
+      if (title) {
+        setTimeout(() => {
+          this.$refs.EntityCreate.setInputByName('title', title)
+        }, 500)
+      }
+
+      if (message) {
+        setTimeout(() => {
+          this.$refs.SendMessageInput.newMessage.text = message
+        }, 500)
+      }
+
+      if (priorityId) {
+        setTimeout(() => {
+          this.$refs.EntityCreate.setInputByName('priority_id', priorityId)
+        }, 500)
+      }
+    },
     goBackToList() {
       const ticketRouteObj = { name: 'Admin.Ticket.Index' }
       if (this.$route.name.includes('Admin')) {
@@ -143,7 +180,6 @@ export default {
       this.userRole = 'user'
       this.canAssignTicket = false
     },
-
     selectDepartment (department) {
       this.selectedDepartment = department
     }
