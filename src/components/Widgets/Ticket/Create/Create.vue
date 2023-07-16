@@ -153,7 +153,6 @@ export default {
       const message = this.$route.query.m
       const priorityId = this.$route.query.p
       const departmentId = this.$route.query.d
-      console.log('title', title)
       const targetDepartmentIndex = this.departmentList.list.findIndex(dep => parseInt(dep.id) === parseInt(departmentId))
       if (targetDepartmentIndex !== -1) {
         this.selectDepartment(this.departmentList.list[targetDepartmentIndex])
