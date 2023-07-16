@@ -1,6 +1,7 @@
 <template>
   <div class="page-content">
-    <entity-create ref="EntityCreate"
+    <entity-create v-if="mounted"
+                   ref="EntityCreate"
                    v-model:value="inputs"
                    :title="selectedDepartment.title"
                    :api="api"
@@ -126,10 +127,10 @@ export default {
     this.initPageData()
   },
   mounted () {
-    this.mounted = true
   },
   methods: {
     afterGetAllPageData () {
+      this.mounted = true
       this.checkQueryParams()
     },
     async initTicket () {
@@ -152,29 +153,21 @@ export default {
       const departmentId = this.$route.query.d
       const targetDepartmentIndex = this.departmentList.list.findIndex(dep => parseInt(dep.id) === parseInt(departmentId))
       if (targetDepartmentIndex !== -1) {
-        setTimeout(() => {
-          this.selectDepartment(this.departmentList.list[targetDepartmentIndex])
-          this.showDialog = false
-          this.$refs.EntityCreate.setInputByName('title', title)
-        }, 500)
+        this.selectDepartment(this.departmentList.list[targetDepartmentIndex])
+        this.showDialog = false
+        this.$refs.EntityCreate.setInputByName('title', title)
       }
 
       if (title) {
-        setTimeout(() => {
-          this.$refs.EntityCreate.setInputByName('title', title)
-        }, 500)
+        this.$refs.EntityCreate.setInputByName('title', title)
       }
 
       if (message) {
-        setTimeout(() => {
-          this.$refs.SendMessageInput.newMessage.text = message
-        }, 500)
+        this.$refs.SendMessageInput.newMessage.text = message
       }
 
       if (priorityId) {
-        setTimeout(() => {
-          this.$refs.EntityCreate.setInputByName('priority_id', priorityId)
-        }, 500)
+        this.$refs.EntityCreate.setInputByName('priority_id', priorityId)
       }
     },
     goBackToList() {
