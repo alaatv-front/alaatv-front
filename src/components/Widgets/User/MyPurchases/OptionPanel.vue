@@ -25,7 +25,20 @@
                       :key="index"
                       clickable>
                 <q-item-section>
-                  {{ item }}
+                  <div class="row q-col-gutter-lg-md">
+                    <div class="col-md-4 col-12">
+                      <q-input v-model="localOptions.filterBoxCategory[index].name"
+                               label="نام ظاهری" />
+                    </div>
+                    <div class="col-md-4 col-12">
+                      <q-input v-model="localOptions.filterBoxCategory[index].value"
+                               label="مقدار فیلتر" />
+                    </div>
+                    <div class="col-md-4 col-12">
+                      <q-checkbox v-model="localOptions.filterBoxCategory[index].selected"
+                                  label="انتخاب شده پیشفرض" />
+                    </div>
+                  </div>
                 </q-item-section>
                 <q-item-section side>
                   <q-btn color="primary"
@@ -64,7 +77,11 @@ export default defineComponent({
       this.defaultOptions.filterBoxCategory.splice(index, 1)
     },
     addItem() {
-      this.defaultOptions.filterBoxCategory.push(this.filterItem)
+      this.defaultOptions.filterBoxCategory.push({
+        name: this.filterItem,
+        selected: false,
+        value: null
+      })
       this.filterItem = ''
     }
   }
