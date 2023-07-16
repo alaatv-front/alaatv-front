@@ -132,6 +132,14 @@ export default {
     afterGetAllPageData () {
       this.checkQueryParams()
     },
+    async initTicket () {
+      await this.setInputs()
+    },
+    async setInputs () {
+      const ticketFields = await this.getTicketData()
+      this.departmentList.list = ticketFields.departments.list
+      this.getInput('priority_id').options = ticketFields.priorities.list
+    },
     checkQueryParams () {
       const title = this.$route.query.t
       const message = this.$route.query.m

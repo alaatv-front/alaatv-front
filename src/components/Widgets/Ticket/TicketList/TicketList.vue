@@ -651,8 +651,8 @@ export default {
     async setInputs () {
       const ticketFields = await this.getTicketData()
       this.getInput('department_id').options = ticketFields.departments.list
-      this.getInput('pirority_id').options = ticketFields.priorities
-      this.getInput('status_id').options = ticketFields.statuses
+      this.getInput('pirority_id').options = ticketFields.priorities.list
+      this.getInput('status_id').options = ticketFields.statuses.list
     },
     setEditMode(data) {
       data.expand = true

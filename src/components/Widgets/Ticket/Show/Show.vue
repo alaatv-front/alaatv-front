@@ -622,7 +622,7 @@ export default {
     async setInputs () {
       const ticketFields = await this.getTicketData()
       this.getInput('department').options = ticketFields.departments.list
-      this.getInput('status').options = ticketFields.statuses
+      this.getInput('status').options = ticketFields.statuses.list
     },
     async initTicket () {
       this.setEntityValues()
