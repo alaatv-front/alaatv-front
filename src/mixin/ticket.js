@@ -1,12 +1,16 @@
 import { TicketDepartmentList } from 'src/models/TicketDepartment'
 import { User } from 'src/models/User'
 import { APIGateway } from 'src/api/APIGateway'
+import { TicketPriorityList } from 'src/models/TicketPriority'
+import { TicketStatusList } from 'src/models/TicketStatus'
 
 const mixinTicket = {
   data: () => ({
     loading: false,
     sendLoading: false,
     departmentList: new TicketDepartmentList(),
+    ticketStatusList: new TicketStatusList(),
+    ticketPriorityList: new TicketPriorityList(),
     ticketStatuses: [],
     ticketPriorityOption: []
   }),
@@ -21,20 +25,39 @@ const mixinTicket = {
   methods: {
     async setUpTicket () {
       await this.initTicket()
-      this.setPageData()
+      await this.setPageData()
+      await this.afterGetAllPageData()
     },
     async initTicket () {
       // here goes the custom methods developer chooses to run before mixin
     },
+    async afterGetAllPageData () {
+      // here goes the custom methods developer chooses to run after get all page data
+    },
     async setPageData() {
       // this.setRoleAndPermissions()
       this.loading = true
-      try {
-        await Promise.all([this.setDepartments(), this.setStatuses(), this.setPriorityOption()])
-        this.loading = false
-      } catch {
-        this.loading = false
-      }
+      this.getTicketData()
+        .then((ticketFields) => {
+          this.ticketStatusList = new TicketStatusList(ticketFields.statuses)
+          this.departmentList = new TicketDepartmentList(ticketFields.departments)
+          this.ticketPriorityList = new TicketPriorityList(ticketFields.priorities)
+
+          this.ticketStatuses = this.ticketStatusList.list
+          this.ticketPriorityOption = this.ticketPriorityList.list
+
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+
+      // try {
+      //   await Promise.all([this.setDepartments(), this.setStatuses(), this.setPriorityOption()])
+      //   this.loading = false
+      // } catch {
+      //   this.loading = false
+      // }
     },
 
     async setStatuses() {
@@ -490,7 +513,7 @@ const mixinTicket = {
     async sendCreateTicketReq (formData) {
       this.loading = true
       try {
-        const response = await this.$apiGateway.ticket.creatTicket(formData)
+        const response = await APIGateway.ticket.creatTicket(formData)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
         }
@@ -509,8 +532,7 @@ const mixinTicket = {
     async sendTicketMsg(formData) {
       this.loading = true
       try {
-        // const response = await this.callSendTicketMsgApi(formData)
-        const response = await this.$apiGateway.ticket.sendTicketMessage(formData)
+        const response = await APIGateway.ticket.sendTicketMessage(formData)
         this.userMessageArray.unshift(response.data.data.ticketMessage)
         if (this.$refs.SendMessageInput) {
           this.$refs.SendMessageInput.clearMessage()
@@ -564,10 +586,6 @@ const mixinTicket = {
       return this.$apiGateway.ticket.updateTicket(ticketId, payloadData)
     },
 
-    callCreatTicketApi (formData) {
-      return APIGateway.ticket.creatTicket(formData)
-    },
-
     async getUserInfo() {
       const payload = {
         mobile: this.phoneNumber,
@@ -581,10 +599,6 @@ const mixinTicket = {
         this.loading = false
         this.user = new User()
       }
-    },
-
-    callSendTicketMsgApi(formData) {
-      return APIGateway.ticket.sendTicketMessage(formData)
     },
 
     setTicketFormData (data, isMsg) {

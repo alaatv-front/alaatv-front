@@ -460,7 +460,22 @@ export default {
         }
       }
 
-      this.player = videojs(this.$refs.videoPlayer, this.options)
+      this.player = videojs(this.$refs.videoPlayer, this.options, function() {
+        this.on('fullscreenchange', function() {
+          if (window !== undefined) {
+            if (this.isFullscreen()) {
+            // Video entered fullscreen mode
+              window.screen.orientation.unlock()
+            } else {
+            // Video exited fullscreen mode
+              window.screen.orientation.lock('portrait')
+            }
+          }
+        })
+      })
+
+      // this.player = videojs(this.$refs.videoPlayer, this.options, this.onFullScreenChange)
+
       if (this.hasVast && (typeof withVast === 'undefined' || withVast === true)) {
         // this.loadVast()
         this.getVast()

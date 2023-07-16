@@ -1,7 +1,9 @@
-import APIRepository from '../classes/APIRepository'
-import { apiV2 } from 'src/boot/axios'
-import { User } from 'src/models/User'
-import { TicketDepartmentList } from 'src/models/TicketDepartment'
+import { apiV2 } from 'src/boot/axios.js'
+import { User } from 'src/models/User.js'
+import APIRepository from '../classes/APIRepository.js'
+import { TicketPriorityList } from 'src/models/TicketPriority.js'
+import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
+import { TicketStatusList } from 'src/models/TicketStatus'
 
 export default class TicketAPI extends APIRepository {
   constructor() {
@@ -184,8 +186,8 @@ export default class TicketAPI extends APIRepository {
         const ticketData = response.data
         return {
           departments: new TicketDepartmentList(ticketData.departments),
-          statuses: ticketData.statuses,
-          priorities: ticketData.priorities
+          priorities: new TicketPriorityList(ticketData.priorities),
+          statuses: new TicketStatusList(ticketData.statuses)
         }
       },
       rejectCallback: (error) => {

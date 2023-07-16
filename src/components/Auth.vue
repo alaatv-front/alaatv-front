@@ -89,7 +89,7 @@ export default {
   }),
   mounted () {
     this.loading = false
-    this.$store.dispatch('Auth/logOut', { redirectTo: false })
+    this.$store.dispatch('Auth/logOut', { redirectTo: false, clearRedirectTo: false })
   },
   methods: {
     getToken () {

@@ -14,8 +14,8 @@
             <q-list>
               <div v-for="(item, index) in data.children"
                    :key="index">
-                <router-link v-if="item.tags"
-                             :to="{ name: 'Public.Content.Search', query: { 'tags[]': item.tags } }">
+                <router-link v-if="item.route"
+                             :to="item.route">
                   <q-item class="item"
                           :class="{arrow: isSelectedItem(index) }"
                           clickable
@@ -32,26 +32,8 @@
                     <div class="left-arrow" />
                   </q-item>
                 </router-link>
-                <router-link v-else-if="item.route.name"
-                             :to="{name: item.route.name, params: item.route.params}">
-                  <q-item class="item"
-                          :class="{arrow: isSelectedItem(index) }"
-                          clickable
-                          @mouseover="showData(index)">
-                    <q-item-section>
-                      {{item.title}}
-                    </q-item-section>
-                    <q-badge v-if="item.badge"
-                             color="blue"
-                             class="badge q-py-xs"
-                             align="middle">
-                      {{item.badge}}
-                    </q-badge>
-                    <div class="left-arrow" />
-                  </q-item>
-                </router-link>
-                <a v-else
-                   :href="item.route.externalLink">
+                <a v-else-if="item.externalLink"
+                   :href="item.externalLink">
                   <q-item class="item"
                           :class="{arrow: isSelectedItem(index) }"
                           clickable
@@ -68,7 +50,22 @@
                     <div class="left-arrow" />
                   </q-item>
                 </a>
-
+                <q-item v-else
+                        class="item"
+                        :class="{arrow: isSelectedItem(index) }"
+                        clickable
+                        @mouseover="showData(index)">
+                  <q-item-section>
+                    {{item.title}}
+                  </q-item-section>
+                  <q-badge v-if="item.badge"
+                           color="blue"
+                           class="badge q-py-xs"
+                           align="middle">
+                    {{item.badge}}
+                  </q-badge>
+                  <div class="left-arrow" />
+                </q-item>
               </div>
             </q-list>
           </div>
@@ -79,39 +76,43 @@
              :key="index">
           <div>
             <div v-if="item.type === 'image'">
-              <div v-if="item.selected">
-                <router-link v-if="item.route.name"
-                             :to="{name: item.route.name, params: item.route.params}">
+              <div v-show="item.selected">
+                <router-link v-if="item.route"
+                             :to="item.route">
                   <q-responsive :ratio="1998/553">
                     <q-img :src="item.backgroundImage" />
                   </q-responsive>
                 </router-link>
-                <a v-else-if="item.route.externalLink"
-                   :href="item.route.externalLink">
+                <a v-else-if="item.externalLink"
+                   :href="item.externalLink">
                   <q-responsive :ratio="1998/553">
                     <q-img :src="item.backgroundImage" />
                   </q-responsive>
                 </a>
+                <q-responsive v-else
+                              :ratio="1998/553">
+                  <q-img :src="item.backgroundImage" />
+                </q-responsive>
               </div>
             </div>
             <div v-else-if="item.type === 'text'">
-              <div v-if="item.selected"
+              <div v-show="item.selected"
                    :style="{background: item.backgroundColor}">
                 <div class="row">
-                  <div v-for="col in item.cols"
-                       :key="col"
+                  <div v-for="(col, colIndex) in item.cols"
+                       :key="colIndex"
                        class="col-md-4 text-subtitle1 q-mb-xs">
                     <q-list>
-                      <router-link :to="{ name: 'Public.Content.Search', query: { 'tags[]': col.tags } }">
+                      <router-link :to="col.title.route">
                         <q-item clickable>
                           <q-item-section class="list-title">
                             {{col.title.title}}
                           </q-item-section>
                         </q-item>
                       </router-link>
-                      <div v-for="colItem in col.items"
-                           :key="colItem">
-                        <router-link :to="{ name: 'Public.Content.Search', query: { 'tags[]': colItem.tags } }">
+                      <div v-for="(colItem, colItemIndex) in col.items"
+                           :key="colItemIndex">
+                        <router-link :to="colItem.route">
                           <q-item clickable>
                             <q-item-section>
                               {{colItem.title}}
@@ -123,7 +124,7 @@
                   </div>
                 </div>
 
-                <div v-if="item.selected"
+                <div v-show="item.selected"
                      class="magaMenu-photo-container">
                   <q-img :src="item.photo" />
                 </div>
@@ -146,6 +147,10 @@ export default {
       default() {
         return {}
       }
+    },
+    editable: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -154,7 +159,19 @@ export default {
       onMouseleaveSetTimeout: null
     }
   },
+  mounted () {
+    this.selectFirstItem()
+  },
   methods: {
+    selectFirstItem () {
+      this.data.subCategoryItemsCol.forEach((item, subIndex) => {
+        item.selected = subIndex === 0
+      })
+    },
+    editItem (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    },
     isSelectedItem(index) {
       return this.data.subCategoryItemsCol.findIndex(item => item.selected) === index
     },
