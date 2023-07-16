@@ -138,7 +138,12 @@ export default {
     async setInputs () {
       const ticketFields = await this.getTicketData()
       this.departmentList.list = ticketFields.departments.list
-      this.getInput('priority_id').options = ticketFields.priorities.list
+      this.getInput('priority_id').options = ticketFields.priorities.list.map(item => {
+        return {
+          label: item.title,
+          value: item.id
+        }
+      })
     },
     checkQueryParams () {
       const title = this.$route.query.t
