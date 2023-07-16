@@ -194,29 +194,12 @@ export default {
     this.mounted = true
     this.loadAuthData()
     this.refreshCartListener()
-    this.checkMenurItemsForAuthenticatedUser()
   },
   methods: {
     refreshCartListener () {
       this.$bus.on('busEvent-refreshCart', () => {
         this.$store.dispatch('Cart/reviewCart')
       })
-    },
-    checkMenurItemsForAuthenticatedUser () {
-      // ToDo: check menu items by user role
-      if (this.isAdmin) {
-        const hasAdminPanel = this.items.find((item) => item.routeName === 'Admin.UploadCenter.Contents')
-        if (!hasAdminPanel) {
-          this.items.push({
-            selected: 'adminPanel',
-            title: 'پنل ادمین',
-            routeName: 'Admin.UploadCenter.Contents',
-            type: 'itemMenu',
-            permission: 'all',
-            show: false
-          })
-        }
-      }
     },
     filterByStatement() {
       const param = {
