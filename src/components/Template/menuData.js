@@ -6,7 +6,7 @@ const menuItems = [
     },
     type: 'itemMenu',
     permission: 'all',
-    show: true
+    mobileMode: true
   },
   {
     title: 'فروشگاه',
@@ -15,7 +15,7 @@ const menuItems = [
     },
     type: 'itemMenu',
     permission: 'all',
-    show: true
+    mobileMode: true
   },
   {
     title: 'فیلم های پایه و کنکور آلاء',
@@ -2112,7 +2112,6 @@ const menuItems = [
         type: 'text'
       }
     ],
-    show: false,
     mobileMode: true
   },
   {
@@ -2218,7 +2217,6 @@ const menuItems = [
         type: 'image'
       }
     ],
-    show: false,
     mobileMode: true
   },
   {
@@ -2327,7 +2325,6 @@ const menuItems = [
         show: true
       }
     ],
-    show: false,
     mobileMode: true
   },
   {
@@ -2350,7 +2347,7 @@ const menuItems = [
     route: {
       name: 'UserPanel.Ticket.Index'
     },
-    show: true,
+    mobileMode: true,
     active: false,
     open: false
   }
