@@ -41,7 +41,7 @@
             </div>
           </div>
           <div class="q-ml-lg namePhone full-width">
-            <div class="fullName ellipsis">
+            <div class="fullName ellipsis-2-lines">
               <q-tooltip> {{ fullName }} </q-tooltip>
               {{ fullName }}
             </div>
