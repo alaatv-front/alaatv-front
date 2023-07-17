@@ -31,6 +31,14 @@ const mixinPageOptions = {
         return this.$store.commit('PageBuilder/updatePageBuilderLoading', newInfo)
       }
     },
+    menuItems: {
+      get() {
+        return this.$store.getters['PageBuilder/menuItems']
+      },
+      set(newInfo) {
+        return this.$store.commit('PageBuilder/updateMenuItems', newInfo)
+      }
+    },
     currenSections: {
       get() {
         return this.$store.getters['PageBuilder/currentSections']

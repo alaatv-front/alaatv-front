@@ -1,6 +1,6 @@
 <template>
   <q-list class="MainHeaderMenuItems">
-    <div v-for="(item , index) in items"
+    <div v-for="(item , index) in menuItems"
          :key="index"
          class="tabs-list-container">
       <div v-if="showMenuItem(/* item */)"
@@ -252,7 +252,9 @@
 
 <script>
 import { User } from 'src/models/User.js'
-import menuItems from 'src/components/Template/menuData.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+// import menuItems from 'src/components/Template/menuData.js'
+import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import itemMenu from 'src/components/Template/Header/MainHeaderMenuItems/itemMenu.vue'
 import megaMenu from 'src/components/Template/Header/MainHeaderMenuItems/magaMenu.vue'
 import simpleMenu from 'src/components/Template/Header/MainHeaderMenuItems/simpleMenu.vue'
@@ -264,6 +266,7 @@ export default {
     simpleMenu,
     itemMenu
   },
+  mixins: [mixinPrefetchServerData],
   data() {
     return {
       selectedIndex: null,
@@ -277,11 +280,19 @@ export default {
       user: new User(),
       isAdmin: false,
       isUserLogin: false,
-      items: menuItems,
+      items: [],
       menuTypeOptions: ['itemMenu', 'megaMenu', 'simpleMenu']
     }
   },
   computed: {
+    menuItems: {
+      get() {
+        return this.$store.getters['PageBuilder/menuItems']
+      },
+      set(newInfo) {
+        return this.$store.commit('PageBuilder/updateMenuItems', newInfo)
+      }
+    },
     itemHasRoute() {
       return this.items[this.selectedIndex].route
     },
@@ -297,8 +308,22 @@ export default {
   },
   mounted () {
     this.checkMenurItemsForAuthenticatedUser()
+    this.items = this.menuItems
   },
   methods: {
+    prefetchServerDataPromise () {
+      return this.getPageConfigRequest()
+    },
+    prefetchServerDataPromiseThen (menuItems) {
+      this.menuItems = menuItems
+      this.items = this.menuItems
+    },
+    prefetchServerDataPromiseCatch () {
+    },
+    getPageConfigRequest() {
+      const key = '(menuItems)headerLayout:mainLayout'
+      return APIGateway.pageSetting.getMenuItems(key)
+    },
     openDialog({ index, childrenIndex }) {
       this.selectedIndex = index
       if (childrenIndex) {

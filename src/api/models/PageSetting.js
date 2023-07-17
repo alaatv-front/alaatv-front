@@ -102,4 +102,21 @@ export default class PageSettingAPI extends APIRepository {
       }
     })
   }
+
+  getMenuItems (data, cache = { TTL: 30000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getWithKey(encodeURI(data)),
+      cacheKey: this.CacheList.getWithKey(encodeURI(data)),
+      data: { service_id: this.serviceId },
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data.value
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
 }
