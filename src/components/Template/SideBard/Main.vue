@@ -108,53 +108,6 @@ export default {
           permission: 'all',
           mobileMode: true
         }
-      ],
-      examsPlan: [
-        {
-          divider: true
-        },
-        {
-          name: 'دهم تجربی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_tajrobi_dahom.pdf'
-        },
-        {
-          name: 'دهم ریاضی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_riyazi_dahom.pdf'
-        },
-        {
-          name: 'دهم انسانی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_ensani_dahom.pdf'
-        },
-        {
-          divider: true
-        },
-        {
-          name: 'یازدهم تجربی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_tajrobi_yazdahom.pdf'
-        },
-        {
-          name: 'یازدهم ریاضی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_riyazi_yazdahom.pdf'
-        },
-        {
-          name: 'یازدهم انسانی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_ensani_yazdahom.pdf'
-        },
-        {
-          divider: true
-        },
-        {
-          name: 'دوازدهم تجربی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_tajrobi_davazdahom.pdf'
-        },
-        {
-          name: 'دوازدهم ریاضی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_riyazi_davazdahom.pdf'
-        },
-        {
-          name: 'دوازدهم انسانی',
-          link: 'https://nodes.alaatv.com/aaa/pdf/1401_plan_ensani_davazdahom.pdf'
-        }
       ]
     }
   },

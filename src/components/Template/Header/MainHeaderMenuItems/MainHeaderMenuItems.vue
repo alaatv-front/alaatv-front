@@ -63,7 +63,7 @@
           <div class="col-3 q-mt-lg">
             <q-checkbox v-model="items[selectedIndex].mobileMode"
                         right-label
-                        label="show in mobile menu" />
+                        label="نمایش در منوی جانبی ( موبایل )" />
           </div>
         </div>
       </q-card-section>
@@ -176,7 +176,21 @@
                 <div class="row q-mb-md justify-between">
                   <div class="col-3">
                     <div class="outsidelabel">background color</div>
-                    <q-input v-model="item.backgroundColor" />
+                    <q-input v-model="item.backgroundColor"
+                             icon="colorize">
+                      <template v-slot:append>
+                        <q-icon name="colorize"
+                                class="cursor-pointer">
+                          <q-popup-proxy cover
+                                         transition-show="scale"
+                                         transition-hide="scale">
+                            <q-color v-model="item.backgroundColor"
+                                     label="backgroundColor"
+                                     format-model="rgba" />
+                          </q-popup-proxy>
+                        </q-icon>
+                      </template>
+                    </q-input>
                   </div>
                   <div class="col-6">
                     <q-btn icon="add"
@@ -322,7 +336,7 @@ export default {
                 }
               },
               items: [{
-                title: 'شیمی',
+                title: 'آیتم جدید',
                 route: {
                   path: '/',
                   query: {
