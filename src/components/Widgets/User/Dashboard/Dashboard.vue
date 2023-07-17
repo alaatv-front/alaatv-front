@@ -4,11 +4,13 @@
       <div class="profile-detail">
         <div class="profile-photo-box">
           <div class="profile-photo-img">
-            <lazy-img :src="user.photo"
-                      :alt="'user photo'"
-                      width="60"
-                      height="60"
-                      class="user-photo" />
+            <q-avatar>
+              <lazy-img :src="user.photo"
+                        :alt="'user photo'"
+                        width="70"
+                        height="70"
+                        class="full-width" />
+            </q-avatar>
           </div>
         </div>
         <div v-if="isUserLogin"
@@ -84,8 +86,7 @@ export default {
         border-radius: 16px;
         position: relative;
         .profile-photo-img {
-          .q-img {
-            border-radius: 16px;
+          .q-avatar {
             height: 100%;
           }
           width: 60px;

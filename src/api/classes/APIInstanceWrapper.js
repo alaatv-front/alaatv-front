@@ -26,6 +26,7 @@ export default class APIInstanceWrapper {
       }
       const get = (url) => new Promise((resolve, reject) => {
         const requestAddress = defaults.serverURL + url
+        axios.defaults.headers.common.Authorization = defaults.headers.common.Authorization
         axios.get(requestAddress, {
           proxy: {
             // protocol: 'http',

@@ -1,8 +1,8 @@
 <template>
-  <router-link :to="{name: 'Public.Content.Search', query: {'tags[]': menuContent.tags}}">
+  <router-link :to="data.route">
     <q-btn-dropdown v-model="showMenu"
                     flat
-                    :label="menuContent.title"
+                    :label="data.title"
                     content-style="width: 200px"
                     class="dropdown-btn"
                     @mouseover="onMouseover"
@@ -12,10 +12,10 @@
               class="list rounded-borders"
               @mouseover="onMouseover"
               @mouseleave="onMouseleave">
-        <div v-for="(item, index) in menuContent.children"
+        <div v-for="(item, index) in data.children"
              :key="index"
              class="items">
-          <router-link :to="{name: 'Public.Content.Search', query: {'tags[]': item.tags}}">
+          <router-link :to="item.route">
             <q-item v-ripple
                     clickable
                     class="item"
@@ -34,17 +34,7 @@
                         @mouseover="showData(index)">
                   <div v-for="child in item.children"
                        :key="child">
-                    <router-link v-if="child.tags"
-                                 :to="{name: 'Public.Content.Search', query: {'tags[]': child.tags }}">
-                      <q-item clickable
-                              class="childItem">
-                        <q-item-section>
-                          {{child.title}}
-                        </q-item-section>
-                      </q-item>
-                    </router-link>
-                    <router-link v-else
-                                 :to="{path: child.href}">
+                    <router-link :to="child.route">
                       <q-item clickable
                               class="childItem">
                         <q-item-section>
@@ -68,11 +58,15 @@
 export default {
   name: 'simpleMenu',
   props: {
-    menuContent: {
+    data: {
       type: Object,
       default() {
         return {}
       }
+    },
+    editable: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -91,7 +85,7 @@ export default {
     onMouseleave () {
       this.onMouseleaveSetTimeout = setTimeout(() => {
         this.showMenu = false
-        this.menuContent.children.forEach(item => {
+        this.data.children.forEach(item => {
           item.selected = false
         })
       }, 50)
@@ -100,7 +94,7 @@ export default {
       return item.selected
     },
     showData(colIndex) {
-      this.menuContent.children.forEach((item, subIndex) => {
+      this.data.children.forEach((item, subIndex) => {
         item.selected = colIndex === subIndex
       })
     }
