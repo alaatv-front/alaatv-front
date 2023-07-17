@@ -36,7 +36,7 @@
                                flat
                                size="10px"
                                class="edit-btn"
-                               @click="editItem" />
+                               @click="editItem($event, index)" />
                       </q-item-section>
                       <q-badge v-if="item.badge"
                                color="blue"
@@ -60,7 +60,7 @@
                                flat
                                size="10px"
                                class="edit-btn"
-                               @click="editItem" />
+                               @click="editItem($event, index)" />
                       </q-item-section>
                       <q-badge v-if="item.badge"
                                color="blue"
@@ -83,7 +83,7 @@
                              flat
                              size="10px"
                              class="edit-btn"
-                             @click="editItem" />
+                             @click="editItem($event, index)" />
                     </q-item-section>
                     <q-badge v-if="item.badge"
                              color="blue"
@@ -186,6 +186,10 @@ export default {
         return {}
       }
     },
+    index: {
+      type: Number,
+      default: null
+    },
     editable: {
       type: Boolean,
       default: false
@@ -204,13 +208,15 @@ export default {
     addItem (event) {
       event.preventDefault()
       event.stopPropagation()
+      this.$emit('add-children')
     },
     selectFirstItem () {
       this.data.subCategoryItemsCol.forEach((item, subIndex) => {
         item.selected = subIndex === 0
       })
     },
-    editItem (event) {
+    editItem (event, childrenIndex) {
+      this.$emit('open-dialog', { index: this.index, childrenIndex })
       event.preventDefault()
       event.stopPropagation()
     },

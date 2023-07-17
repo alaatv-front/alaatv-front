@@ -194,7 +194,7 @@ export default {
     this.mounted = true
     this.loadAuthData()
     this.refreshCartListener()
-    this.checkMenurItemsForAuthenticatedUser()
+    // this.checkMenurItemsForAuthenticatedUser()
   },
   methods: {
     refreshCartListener () {

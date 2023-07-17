@@ -28,6 +28,10 @@ export default {
         return {}
       }
     },
+    index: {
+      type: Number,
+      default: null
+    },
     editable: {
       type: Boolean,
       default: false
@@ -35,6 +39,7 @@ export default {
   },
   methods: {
     editItem (event) {
+      this.$emit('open-dialog', { index: this.index, undefined })
       event.preventDefault()
       event.stopPropagation()
     },

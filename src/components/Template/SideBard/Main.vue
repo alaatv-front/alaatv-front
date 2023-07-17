@@ -99,14 +99,14 @@ export default {
           externalLink: 'https://soalaa.com',
           type: 'itemMenu',
           permission: 'all',
-          show: true
+          mobileMode: true
         },
         {
           title: 'آلاخونه',
           externalLink: 'https://forum.alaatv.com',
           type: 'itemMenu',
           permission: 'all',
-          show: true
+          mobileMode: true
         }
       ],
       examsPlan: [
