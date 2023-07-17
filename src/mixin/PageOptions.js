@@ -49,14 +49,18 @@ const mixinPageOptions = {
     }
   },
   methods: {
+    onFetchData (/* data */) {},
+    onFailedFetchData (/* error */) {},
     prefetchServerDataPromise () {
       return this.getPageConfigRequest()
     },
-    prefetchServerDataPromiseThen () {
+    prefetchServerDataPromiseThen (data) {
       this.$store.commit('PageBuilder/updatePageDataLoaded', true)
+      this.onFetchData(data)
     },
-    prefetchServerDataPromiseCatch () {
+    prefetchServerDataPromiseCatch (error) {
       this.pageBuilderLoading = false
+      this.onFailedFetchData(error)
     },
     getPageConfigRequest() {
       // this.pageBuilderLoading = true
