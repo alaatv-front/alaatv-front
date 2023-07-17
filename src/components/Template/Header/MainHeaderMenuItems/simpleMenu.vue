@@ -36,7 +36,7 @@
                          flat
                          size="10px"
                          class="edit-btn"
-                         @click="editItem" />
+                         @click="editItem($event, index)" />
                 </q-item-section>
                 <p><i class="arrow" /></p>
                 <q-menu v-model="item.selected"
@@ -80,6 +80,10 @@ export default {
         return {}
       }
     },
+    index: {
+      type: Number,
+      default: null
+    },
     editable: {
       type: Boolean,
       default: false
@@ -92,7 +96,8 @@ export default {
     }
   },
   methods: {
-    editItem (event) {
+    editItem (event, childrenIndex) {
+      this.$emit('open-dialog', { index: this.index, childrenIndex })
       event.preventDefault()
       event.stopPropagation()
     },
