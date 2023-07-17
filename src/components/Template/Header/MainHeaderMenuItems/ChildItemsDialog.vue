@@ -225,7 +225,6 @@ export default {
       })
     },
     removeItemFromSimpleMenu(index) {
-      debugger
       this.localItems[this.selectedIndex].children.splice(index, 1)
     },
     addItemToSimpleMenu() {
