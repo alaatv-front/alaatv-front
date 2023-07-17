@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { User } from 'src/models/User.js'
 import menuItems from 'src/components/Template/menuData.js'
 import itemMenu from 'src/components/Template/Header/itemMenu.vue'
 import megaMenu from 'src/components/Template/Header/magaMenu.vue'
@@ -44,7 +45,9 @@ export default {
       conferenceMenu: false,
       showHamburgerConfig: true,
       searchInput: '',
+      user: new User(),
       isAdmin: false,
+      isUserLogin: false,
       items: menuItems
     }
   },
@@ -59,7 +62,31 @@ export default {
       }
     }
   },
+  mounted () {
+    this.checkMenurItemsForAuthenticatedUser()
+  },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.isAdmin = this.$store.getters['Auth/isAdmin']
+      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
+    },
+    checkMenurItemsForAuthenticatedUser () {
+      // ToDo: check menu items by user role
+      if (this.isAdmin) {
+        const hasAdminPanel = this.items.find((item) => item.routeName === 'Admin.UploadCenter.Contents')
+        if (!hasAdminPanel) {
+          this.items.push({
+            selected: 'adminPanel',
+            title: 'پنل ادمین',
+            routeName: 'Admin.UploadCenter.Contents',
+            type: 'itemMenu',
+            permission: 'all',
+            show: false
+          })
+        }
+      }
+    },
     addItem (event) {
       event.preventDefault()
       event.stopPropagation()

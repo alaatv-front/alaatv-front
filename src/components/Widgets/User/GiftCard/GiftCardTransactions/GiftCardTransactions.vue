@@ -190,7 +190,7 @@
                             icon-first="isax:arrow-left-2"
                             icon-last="isax:arrow-right-3"
                             class="gift-card-pagination"
-                            @update:model-value="getGiftCardsData" />
+                            @update:model-value="getWithdrawHistory" />
             </div>
           </div>
         </q-tab-panel>
@@ -357,9 +357,9 @@ export default {
           this.loading = false
         })
     },
-    getWithdrawHistory() {
+    getWithdrawHistory(page = 1) {
       this.loading = true
-      APIGateway.referralCode.getWithdrawHistory()
+      APIGateway.referralCode.getWithdrawHistory({ page })
         .then(response => {
           this.clearingHistoryTableRow = response
           this.loading = false
