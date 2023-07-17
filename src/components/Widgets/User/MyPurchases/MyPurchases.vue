@@ -27,7 +27,7 @@
             </div>
             <div class="sortingFilter-item col-12 col-sm-6 subject">
               <q-select v-model="currentCategory"
-                        :options="filterBoxCategory"
+                        :options="localOptions.filterBoxCategory"
                         option-value="value"
                         option-label="name"
                         map-options
@@ -126,6 +126,9 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
+      defaultOptions: {
+        filterBoxCategory: []
+      },
       productPaginationMeta: {},
       selectedProduct: new Product(),
       productContentsDialog: false,
@@ -137,7 +140,6 @@ export default {
       searchTarget: '',
       selectedFilterBoxValue: 'desc',
       currentPage: 1,
-      filterBoxCategory: [],
       filteredProduct: new ProductList(),
       filterBoxSort: [
         {
@@ -170,14 +172,14 @@ export default {
     this.setFirstContentsShow()
   },
   methods: {
-    async initFilterProduct () {
-      await this.setFilterBoxCategories()
+    initFilterProduct () {
+      // await this.setFilterBoxCategories()
       this.filterProduct()
     },
     async setFilterBoxCategories() {
       this.loading = true
       const categories = await this.$apiGateway.product.getCategories()
-      this.filterBoxCategory = categories.list
+      this.defaultOptions.filterBoxCategory = categories.list
       this.loading = false
     },
     async setPurchasedProducts () {
@@ -235,7 +237,7 @@ export default {
     },
 
     setFilterCategorySelected () {
-      this.onChangeFilterBoxCategory(this.filterBoxCategory[0].value)
+      this.onChangeFilterBoxCategory(this.localOptions.filterBoxCategory[0].value)
     },
 
     getContentsData (set) {

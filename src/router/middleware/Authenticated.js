@@ -4,7 +4,7 @@ export default function Authenticated ({ next, store, to }) {
 
   // if (!accessToken || !hasSessionToken) {
   if (!accessToken) {
-    store.commit('Auth/updateRedirectTo', { name: to.name, params: to.params })
+    store.commit('Auth/updateRedirectTo', { name: to.name, params: to.params, query: to.query })
     return next({ name: 'login' })
   }
 
