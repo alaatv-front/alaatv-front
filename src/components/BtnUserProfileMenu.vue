@@ -83,7 +83,7 @@ export default {
 
 <style scoped lang="scss">
 .BtnUserProfileMenu {
-  margin-left: 18px;
+  //margin-left: 18px;
   width: 48px;
   height: 48px;
   border-radius: 16px;
