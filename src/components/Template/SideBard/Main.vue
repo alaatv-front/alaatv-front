@@ -59,24 +59,7 @@ export default {
       user: new User(),
       isAdmin: false,
       isUserLogin: false,
-      clickedItem: null,
-      searchText: '',
-      menuItemsExtra: [
-        {
-          title: 'سوالا',
-          externalLink: 'https://soalaa.com',
-          type: 'itemMenu',
-          permission: 'all',
-          mobileMode: true
-        },
-        {
-          title: 'آلاخونه',
-          externalLink: 'https://forum.alaatv.com',
-          type: 'itemMenu',
-          permission: 'all',
-          mobileMode: true
-        }
-      ]
+      searchText: ''
     }
   },
   computed: {
