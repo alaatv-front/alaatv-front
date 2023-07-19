@@ -2,7 +2,7 @@
   <div v-for="(item , index) in computedMenu"
        :key="index"
        class="menu-item">
-    <q-expansion-item v-if="!loading && item.children && item.children.length > 0 && item.mobileMode"
+    <q-expansion-item v-if="!loading && item.children && item.children.length > 0"
                       :header-style="{height:'40px', borderRadius: '14px'}"
                       :label="item.title"
                       :icon="item.icon"
@@ -48,7 +48,7 @@
       </div>
     </q-expansion-item>
     <!--    (item.title === clickedItem.title) || -->
-    <q-item v-else-if="!loading && !item.children && item.mobileMode"
+    <q-item v-else-if="!loading && !item.children"
             v-ripple
             clickable
             :active="isActive(item)"
