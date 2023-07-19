@@ -23,7 +23,7 @@
               <q-list>
                 <div v-for="(item, index) in data.children"
                      :key="index">
-                  <router-link v-if="item.route"
+                  <router-link v-if="isValidRoute(item.route)"
                                :to="item.route">
                     <q-item class="item"
                             :class="{arrow: isSelectedItem(index) }"
@@ -31,12 +31,12 @@
                             @mouseover="showData(index)">
                       <q-item-section>
                         {{ item.title }}
-                        <q-btn v-if="editable"
-                               icon="edit"
-                               flat
-                               size="10px"
-                               class="edit-btn"
-                               @click="editItem($event, index)" />
+                        <!--                        <q-btn v-if="editable"-->
+                        <!--                               icon="edit"-->
+                        <!--                               flat-->
+                        <!--                               size="10px"-->
+                        <!--                               class="edit-btn"-->
+                        <!--                               @click="editItem($event, index)" />-->
                       </q-item-section>
                       <q-badge v-if="item.badge"
                                color="blue"
@@ -55,12 +55,12 @@
                             @mouseover="showData(index)">
                       <q-item-section>
                         {{item.title}}
-                        <q-btn v-if="editable"
-                               icon="edit"
-                               flat
-                               size="10px"
-                               class="edit-btn"
-                               @click="editItem($event, index)" />
+                        <!--                        <q-btn v-if="editable"-->
+                        <!--                               icon="edit"-->
+                        <!--                               flat-->
+                        <!--                               size="10px"-->
+                        <!--                               class="edit-btn"-->
+                        <!--                               @click="editItem($event, index)" />-->
                       </q-item-section>
                       <q-badge v-if="item.badge"
                                color="blue"
@@ -78,12 +78,12 @@
                           @mouseover="showData(index)">
                     <q-item-section>
                       {{item.title}}
-                      <q-btn v-if="editable"
-                             icon="edit"
-                             flat
-                             size="10px"
-                             class="edit-btn"
-                             @click="editItem($event, index)" />
+                      <!--                      <q-btn v-if="editable"-->
+                      <!--                             icon="edit"-->
+                      <!--                             flat-->
+                      <!--                             size="10px"-->
+                      <!--                             class="edit-btn"-->
+                      <!--                             @click="editItem($event, index)" />-->
                     </q-item-section>
                     <q-badge v-if="item.badge"
                              color="blue"
@@ -97,12 +97,12 @@
                 <q-item class="item"
                         clickable>
                   <q-item-section>
-                    <q-btn v-if="editable"
-                           icon="add"
-                           flat
-                           size="10px"
-                           class="edit-btn"
-                           @click="addItem" />
+                    <!--                    <q-btn v-if="editable"-->
+                    <!--                           icon="add"-->
+                    <!--                           flat-->
+                    <!--                           size="10px"-->
+                    <!--                           class="edit-btn"-->
+                    <!--                           @click="addItem" />-->
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -110,12 +110,12 @@
           </q-scroll-area>
         </div>
         <div class="col-lg-10 col-md-9 sub-category-items">
-          <div v-for="(item, index) in data.subCategoryItemsCol"
+          <div v-for="(item, index) in data.children"
                :key="index">
             <div>
               <div v-if="item.type === 'image'">
                 <div v-show="item.selected">
-                  <router-link v-if="item.route"
+                  <router-link v-if="isValidRoute(item.route)"
                                :to="item.route">
                     <q-responsive :ratio="1998/553">
                       <q-img :src="item.backgroundImage" />
@@ -137,33 +137,47 @@
                 <div v-show="item.selected"
                      :style="{background: item.backgroundColor}">
                   <div class="row">
-                    <div v-for="(col, colIndex) in item.cols"
+                    <div v-for="(col, colIndex) in item.children"
                          :key="colIndex"
                          class="col-md-4 text-subtitle1 q-mb-xs">
                       <q-list>
-                        <router-link :to="col.title.route">
+                        <router-link v-if="isValidRoute(col.route)"
+                                     :to="col.route">
                           <q-item clickable>
                             <q-item-section class="list-title">
-                              {{col.title.title}}
+                              {{col.title}}
                             </q-item-section>
                           </q-item>
                         </router-link>
-                        <div v-for="(colItem, colItemIndex) in col.items"
+                        <q-item v-else
+                                clickable>
+                          <q-item-section class="list-title">
+                            {{col.title}}
+                          </q-item-section>
+                        </q-item>
+                        <div v-for="(colItem, colItemIndex) in col.children"
                              :key="colItemIndex">
-                          <router-link :to="colItem.route">
+                          <router-link v-if="isValidRoute(colItem.route)"
+                                       :to="colItem.route">
                             <q-item clickable>
                               <q-item-section>
                                 {{colItem.title}}
                               </q-item-section>
                             </q-item>
                           </router-link>
+                          <q-item v-else
+                                  clickable>
+                            <q-item-section>
+                              {{colItem.title}}
+                            </q-item-section>
+                          </q-item>
                         </div>
                       </q-list>
                     </div>
                   </div>
                   <div v-show="item.selected"
                        class="magaMenu-photo-container">
-                    <q-img :src="item.photo" />
+                    <q-img :src="item.backgroundImage" />
                   </div>
                 </div>
               </div>
@@ -173,12 +187,25 @@
       </div>
     </template>
   </q-btn-dropdown>
+  <q-dialog v-if="editable"
+            v-model="optionDialog"
+            full-width>
+    <div class="bg-white">
+      <q-btn color="primary"
+             icon="close"
+             class="q-ma-md"
+             @click="optionDialog = false" />
+      <option-panel v-model:menuItem="localData" />
+    </div>
+  </q-dialog>
 </template>
 
 <script>
+import OptionPanel from 'src/components/Template/Header/MainHeaderMenuItems/OptionPanels/OptionPanel.vue'
 
 export default {
   name: 'magaMenu',
+  components: { OptionPanel },
   props: {
     data: {
       type: Object,
@@ -197,31 +224,49 @@ export default {
   },
   data() {
     return {
+      optionDialog: false,
       showMenu: false,
       onMouseleaveSetTimeout: null
+    }
+  },
+  computed: {
+    localData: {
+      set (newValue) {
+        this.$emit('update:data', newValue)
+      },
+      get () {
+        return this.data
+      }
     }
   },
   mounted () {
     this.selectFirstItem()
   },
   methods: {
+    isValidRoute (route) {
+      return route || route?.name || route?.path || (route?.query['tags[]'] && route.query['tags[]'].length > 0)
+    },
     addItem (event) {
       event.preventDefault()
       event.stopPropagation()
       this.$emit('add-children')
     },
     selectFirstItem () {
-      this.data.subCategoryItemsCol.forEach((item, subIndex) => {
+      if (!this.data.children) {
+        return
+      }
+      this.data.children.forEach((item, subIndex) => {
         item.selected = subIndex === 0
       })
     },
     editItem (event, childrenIndex) {
-      this.$emit('open-dialog', { index: this.index, childrenIndex })
       event.preventDefault()
       event.stopPropagation()
+      this.optionDialog = true
+      // this.$emit('open-dialog', { index: this.index, childrenIndex })
     },
     isSelectedItem(index) {
-      return this.data.subCategoryItemsCol.findIndex(item => item.selected) === index
+      return this.data.children.findIndex(item => item.selected) === index
     },
     onMouseover () {
       this.showMenu = true
@@ -235,7 +280,7 @@ export default {
       }, 50)
     },
     showData(colIndex) {
-      this.data.subCategoryItemsCol.forEach((item, subIndex) => {
+      this.data.children.forEach((item, subIndex) => {
         item.selected = colIndex === subIndex
       })
     }

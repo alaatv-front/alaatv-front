@@ -36,13 +36,19 @@
                       color="info"
                       icon="isax:eye"
                       label="نمایش کانفیگ منو"
-                      @click="showPageBuilderShowConfigs" />
+                      @click="showMenuItemsConfigsDialog" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
                       icon="isax:eye"
-                      label="وارد کردن کانفیگ"
+                      label="وارد کردن کانفیگ صفحه"
                       @click="showPageBuilderImportConfigs" />
+        <q-fab-action external-label
+                      label-position="right"
+                      color="info"
+                      icon="isax:eye"
+                      label="وارد کردن کانفیگ منو"
+                      @click="showMenuItemsImportConfigDialog" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
@@ -191,6 +197,26 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <q-dialog v-model="menuItemsImportConfigDialog"
+            class="menuItemsImportConfigDialog">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">وارد کردن تنظیمات منو</div>
+      </q-card-section>
+      <q-card-section class="menuItemsImportConfigDialog-config-section">
+        <q-input v-model="pageBuilderImportedConfigs"
+                 type="textarea"
+                 label="configs" />
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn v-close-popup
+               flat
+               label="وارد کردن تنظیمات"
+               color="primary"
+               @click="importMenuItemsConfigs" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -219,6 +245,7 @@ export default {
       },
       seoDialog: false,
       showMenuItemsDialog: false,
+      menuItemsImportConfigDialog: false,
       pageBuilderShowConfigDialog: false,
       pageBuilderImportConfigDialog: false,
       pageBuilderConfigs: {},
@@ -249,6 +276,9 @@ export default {
     },
     importPageBuilderConfigs () {
       this.$store.commit('PageBuilder/updateCurrentSections', JSON.parse(this.pageBuilderImportedConfigs))
+    },
+    importMenuItemsConfigs () {
+      this.$store.commit('PageBuilder/updateMenuItems', JSON.parse(this.menuItems))
     },
     updateSeo () {
       this.$store.commit('SEO/updateTitle', this.seo.title)
@@ -302,8 +332,14 @@ export default {
     showPageBuilderShowConfigs () {
       this.pageBuilderShowConfigDialog = true
     },
+    showMenuItemsConfigsDialog () {
+      this.showMenuItemsDialog = true
+    },
     showPageBuilderImportConfigs () {
       this.pageBuilderImportConfigDialog = true
+    },
+    showMenuItemsImportConfigDialog () {
+      this.menuItemsImportConfigDialog = true
     },
     copyPageBuilderConfigs () {
       copyToClipboard(JSON.stringify(this.currenSections))

@@ -3,25 +3,22 @@
     <div v-for="(item , index) in menuItems"
          :key="index"
          class="tabs-list-container">
-      <div v-if="showMenuItem(/* item */)"
-           class="self-center">
+      <div class="self-center">
         <item-menu v-if="item.type === 'itemMenu'"
-                   :data="item"
+                   v-model:data="menuItems[index]"
                    :index="index"
                    :editable="pageBuilderEditable"
-                   @open-dialog="openDialog" />
+                   @update:data="onUpdateData" />
         <mega-menu v-if="item.type === 'megaMenu'"
-                   :data="item"
+                   v-model:data="menuItems[index]"
                    :index="index"
                    :editable="pageBuilderEditable"
-                   @add-children="addChildToMegaMenu(index)"
-                   @open-dialog="openDialog" />
+                   @update:data="onUpdateData" />
         <simple-menu v-if="item.type === 'simpleMenu'"
-                     :data="item"
+                     v-model:data="menuItems[index]"
                      :index="index"
                      :editable="pageBuilderEditable"
-                     @add-children="addChildToSimpleMenu(index)"
-                     @open-dialog="openDialog" />
+                     @update:data="onUpdateData" />
       </div>
     </div>
     <q-btn v-if="pageBuilderEditable"
@@ -31,38 +28,12 @@
            class="edit-btn"
            @click="addItem" />
   </q-list>
-  <q-dialog v-model="optionDialog"
-            full-width>
-    <div class="bg-white">
-      <q-btn color="primary"
-             icon="close"
-             class="q-ma-md"
-             @click="optionDialog = false" />
-      <item-dialog v-model:items="items"
-                   v-model:selectedIndex="selectedIndex"
-                   v-model:selectedChildIndex="selectedChildIndex" />
-    </div>
-  </q-dialog>
-  <q-dialog v-model="childItemOption"
-            full-width>
-    <div class="bg-white">
-      <q-btn icon="close"
-             color="primary"
-             class="q-ma-md"
-             @click="childItemOption = false" />
-      <child-items-dialog v-model:items="items"
-                          v-model:selectedIndex="selectedIndex"
-                          v-model:selectedChildIndex="selectedChildIndex" />
-    </div>
-  </q-dialog>
 </template>
 
 <script>
 import { User } from 'src/models/User.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 // import menuItems from 'src/components/Template/menuData.js'
-import childItemsDialog from 'components/Template/Header/MainHeaderMenuItems/ChildItemsDialog.vue'
-import itemDialog from 'components/Template/Header/MainHeaderMenuItems/itemDialog.vue'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import itemMenu from 'src/components/Template/Header/MainHeaderMenuItems/itemMenu.vue'
 import megaMenu from 'src/components/Template/Header/MainHeaderMenuItems/magaMenu.vue'
@@ -72,27 +43,16 @@ export default {
   name: 'MainHeaderMenuItems',
   components: {
     megaMenu,
-    simpleMenu,
     itemMenu,
-    childItemsDialog,
-    itemDialog
+    simpleMenu
   },
   mixins: [mixinPrefetchServerData],
   data() {
     return {
-      selectedIndex: null,
-      selectedChildIndex: null,
-      optionDialog: false,
-      childItemOption: false,
       mounted: false,
-      conferenceMenu: false,
-      showHamburgerConfig: true,
-      searchInput: '',
       user: new User(),
       isAdmin: false,
-      isUserLogin: false,
-      items: [],
-      menuTypeOptions: ['itemMenu', 'megaMenu', 'simpleMenu']
+      isUserLogin: false
     }
   },
   computed: {
@@ -115,8 +75,9 @@ export default {
     }
   },
   mounted () {
+    this.loadAuthData()
     this.checkMenurItemsForAuthenticatedUser()
-    this.items = this.menuItems
+    // this.menuItems = menuItems
   },
   methods: {
     prefetchServerDataPromise () {
@@ -124,22 +85,12 @@ export default {
     },
     prefetchServerDataPromiseThen (menuItems) {
       this.menuItems = menuItems
-      this.items = this.menuItems
     },
     prefetchServerDataPromiseCatch () {
     },
     getPageConfigRequest() {
       const key = '(menuItems)headerLayout:mainLayout'
       return APIGateway.pageSetting.getMenuItems(key)
-    },
-    openDialog({ index, childrenIndex }) {
-      this.selectedIndex = index
-      if (childrenIndex) {
-        this.childItemOption = true
-        this.selectedChildIndex = childrenIndex
-      } else {
-        this.optionDialog = true
-      }
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
@@ -149,9 +100,9 @@ export default {
     checkMenurItemsForAuthenticatedUser () {
       // ToDo: check menu items by user role
       if (this.isAdmin) {
-        const hasAdminPanel = this.items.find((item) => item.routeName === 'Admin.UploadCenter.Contents')
+        const hasAdminPanel = this.menuItems.find((item) => item.routeName === 'Admin.UploadCenter.Contents')
         if (!hasAdminPanel) {
-          this.items.push({
+          this.menuItems.push({
             selected: 'adminPanel',
             title: 'پنل ادمین',
             routeName: 'Admin.UploadCenter.Contents',
@@ -165,7 +116,7 @@ export default {
     addItem (event) {
       event.preventDefault()
       event.stopPropagation()
-      this.items.push({
+      this.menuItems.push({
         title: 'آیتم جدید',
         type: 'itemMenu',
         route: {
@@ -174,111 +125,23 @@ export default {
             'tags[]': []
           }
         },
-        children: [{
-          title: 'آیتم جدید',
-          route: {
-            path: '/',
-            query: {
-              'tags[]': []
-            }
-          }
-        }],
-        subCategoryItemsCol: [{
-          cols: [
-            {
-              title: {
-                title: 'آیتم جدید',
-                route: {
-                  path: '/',
-                  query: {
-                    'tags[]': []
-                  }
-                }
-              },
-              items: [{
-                title: 'آیتم جدید',
-                route: {
-                  path: '/',
-                  query: {
-                    'tags[]': []
-                  }
-                }
-              }]
-            }
-          ],
-          photo: '',
-          backgroundColor: '#ffd6e6',
-          backgroundImage: '',
-          externalLink: '',
-          route: {
-            path: '/',
-            query: {
-              'tags[]': []
-            }
-          },
-          type: 'text'
-        }],
         mobileMode: true
       })
     },
-    addCol() {
-      this.items[this.selectedIndex].subCategoryItemsCol[this.selectedChildIndex].cols.push({
-        title: {
-          title: 'آیتم جدید',
-          route: {
-            path: '/',
-            query: {
-              'tags[]': []
+    onUpdateData () {
+      const deleteChildren = (list) => {
+        list.forEach((subItem, subItemIndex) => {
+          if (subItem.deleted) {
+            list.splice(subItemIndex, 1)
+          } else {
+            if (subItem.children) {
+              deleteChildren(list[subItemIndex].children)
             }
           }
-        },
-        items: [{
-          title: 'آیتم جدید',
-          route: {
-            path: '/',
-            query: {
-              'tags[]': []
-            }
-          }
-        }]
-      })
-    },
-    addChildToMegaMenu(index) {
-      this.items[index].children.push({
-        title: 'آیتم جدید',
-        route: {
-          path: '/',
-          query: {
-            'tags[]': []
-          }
-        },
-        badge: ''
-      })
-      this.items[index].subCategoryItemsCol.push({
-        cols: [],
-        photo: '',
-        backgroundColor: '#ffd6e6',
-        backgroundImage: '',
-        externalLink: '',
-        route: {
-          path: '/',
-          query: {
-            'tags[]': []
-          }
-        },
-        type: 'text'
-      })
-    },
-    addChildToSimpleMenu(index) {
-      this.items[index].children.push({
-        title: 'آیتم جدید',
-        route: {
-          path: '/',
-          query: {
-            'tags[]': []
-          }
-        }
-      })
+        })
+      }
+
+      deleteChildren(this.menuItems)
     }
   }
 }
