@@ -204,7 +204,7 @@
         <div class="text-h6">وارد کردن تنظیمات منو</div>
       </q-card-section>
       <q-card-section class="menuItemsImportConfigDialog-config-section">
-        <q-input v-model="pageBuilderImportedConfigs"
+        <q-input v-model="menuItemsImportedConfigs"
                  type="textarea"
                  label="configs" />
       </q-card-section>
@@ -231,6 +231,7 @@ export default {
   data () {
     return {
       pageBuilderImportedConfigs: null,
+      menuItemsImportedConfigs: null,
       titleLength: 60,
       descriptionLength: 160,
       descriptionLengthMobile: 80,
@@ -278,7 +279,7 @@ export default {
       this.$store.commit('PageBuilder/updateCurrentSections', JSON.parse(this.pageBuilderImportedConfigs))
     },
     importMenuItemsConfigs () {
-      this.$store.commit('PageBuilder/updateMenuItems', JSON.parse(this.menuItems))
+      this.$store.commit('PageBuilder/updateMenuItems', JSON.parse(this.menuItemsImportedConfigs))
     },
     updateSeo () {
       this.$store.commit('SEO/updateTitle', this.seo.title)
