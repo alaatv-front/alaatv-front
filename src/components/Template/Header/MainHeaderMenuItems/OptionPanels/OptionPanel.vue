@@ -24,6 +24,9 @@
           <q-input v-model="localMenuItem.title" />
         </div>
         <div class="col-md-4 col-12">
+          <q-checkbox v-model="localMenuItem.desktopMode"
+                      right-label
+                      label="نمایش در منوی اصلی ( دسکتاپ )" />
           <q-checkbox v-model="localMenuItem.mobileMode"
                       right-label
                       label="نمایش در منوی جانبی ( موبایل )" />

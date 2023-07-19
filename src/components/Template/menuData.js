@@ -1131,6 +1131,7 @@ const menuItems = [
         type: 'image'
       }
     ],
+    desktopMode: true,
     mobileMode: true
   },
   {
@@ -1249,6 +1250,8 @@ const menuItems = [
       }
     },
     permission: 'all',
+    type: 'itemMenu',
+    desktopMode: false,
     mobileMode: true
   },
   {
@@ -1257,9 +1260,9 @@ const menuItems = [
     route: {
       name: 'UserPanel.Ticket.Index'
     },
-    mobileMode: true,
-    active: false,
-    open: false
+    type: 'itemMenu',
+    desktopMode: false,
+    mobileMode: true
   }
 ]
 
