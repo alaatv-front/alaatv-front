@@ -206,6 +206,32 @@ const routes = [
             ]
           },
           {
+            path: 'live',
+            name: 'Public.Live',
+            layoutConfig: {
+              layoutHeader: false,
+              layoutFooter: false
+            },
+            children: [
+              {
+                path: '',
+                meta: {
+                  hasDynamicSetting: true
+                },
+                name: 'Public.Live.Index',
+                component: () => import('src/pages/Public/Live/Index.vue')
+              },
+              {
+                path: ':live_name',
+                meta: {
+                  hasDynamicSettingWithParams: true
+                },
+                name: 'Public.Live.DynamicName',
+                component: () => import('src/pages/Public/Live/Live.vue')
+              }
+            ]
+          },
+          {
             path: 'h',
             name: 'Public.RegisterHekmatCoupon',
             meta: {
