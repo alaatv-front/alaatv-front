@@ -33,7 +33,6 @@
 import { dragscroll } from 'vue-dragscroll'
 import { Product } from 'src/models/Product.js'
 import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
-import { APIGateway } from 'src/api/APIGateway.js'
 import { ContentList } from 'src/models/Content.js'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
 
@@ -103,13 +102,17 @@ export default {
       return this.$apiGateway.product.show(this.productId)
     },
     getSampleContents() {
-      return APIGateway.product.sampleContent(this.productId)
-        .then(contentList => {
-          this.contents = contentList
-        })
-        .catch(() => {
+      if (this.options.contents) {
+        this.contents = this.options.contents
+      } else {
+        return this.$apiGateway.product.sampleContent(this.productId)
+          .then(contentList => {
+            this.contents = contentList
+          })
+          .catch(() => {
 
-        })
+          })
+      }
     }
   }
 }
@@ -122,6 +125,7 @@ export default {
 
   .demos-container {
     width: 1140px;
+    max-width: 100%;
   }
 
   .section-title {

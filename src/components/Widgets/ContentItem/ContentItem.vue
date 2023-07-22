@@ -2,6 +2,7 @@
   <q-card class="content-item-box"
           :style="{minWidth: options.minWidth}">
     <router-link :to="getRoutingObject"
+                 target= '_blank'
                  class="content-item-router-link">
       <div class="img-box">
         <div class="img-title-container">
