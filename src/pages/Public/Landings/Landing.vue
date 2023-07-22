@@ -1,7 +1,4 @@
 <template>
-  <!--  <div>-->
-  <!--    hi-->
-  <!--  </div>-->
   <q-page-builder v-model:sections="currenSections"
                   v-model:options="pageConfig"
                   :editable="pageBuilderEditable"
@@ -25,28 +22,37 @@ export default {
   },
   mounted () {
     this.loadAuthData()
-    // ToDo: must call after prefetchServerDataPromiseThen or prefetchServerDataPromiseCatch (mixinPageOptions)
-    setTimeout(() => {
-      this.checkNewLanding()
-    }, 1000)
+    // // ToDo: must call after prefetchServerDataPromiseThen or prefetchServerDataPromiseCatch (mixinPageOptions)
+    // setTimeout(() => {
+    //   this.checkNewLanding()
+    // }, 1000)
   },
   methods: {
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
+    onFailedFetchData () {
+      setTimeout(() => {
+        this.checkNewLanding()
+      }, 1000)
+    },
+    goToNotFoundLanding () {
+      // this.$router.push({ name: 'NotFound' })
+      this.$router.push({ name: 'Public.Content.Search' })
+    },
     checkNewLanding () {
-      if (this.pageDataLoaded) {
-        return
-      }
+      // if (this.pageDataLoaded) {
+      //   return
+      // }
 
       if (!this.isUserLogin) {
-        // this.$router.push({ name: 'NotFound' })
+        this.goToNotFoundLanding()
         return
       }
 
       if (!this.user.hasPermission('editSiteSetting')) {
-        // this.$router.push({ name: 'NotFound' })
+        this.goToNotFoundLanding()
         return
       }
 
@@ -59,6 +65,7 @@ export default {
         this.createNewLanding()
       }).onCancel(() => {
         // this.$router.push({ name: 'Public.Home' })
+        this.goToNotFoundLanding()
       })
     },
     createNewLanding () {

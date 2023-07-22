@@ -36,6 +36,8 @@ export default class ReferralCodeAPI extends APIRepository {
       cacheKey: this.CacheList.base,
       ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
+        isAssigned: null, // Number
+        isUsed: null, // Number
         page: 1 // Number
       }, data.data),
       resolveCallback: (response) => {

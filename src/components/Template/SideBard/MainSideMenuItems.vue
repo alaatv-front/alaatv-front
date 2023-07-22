@@ -1,20 +1,20 @@
 <template>
-  <q-list class="MainHeaderMenuItems">
+  <q-list class="MainSideMenuItems">
     <div v-for="(item , index) in menuItems"
          :key="index"
          class="tabs-list-container">
       <div class="self-center">
-        <item-menu v-if="item.type === 'itemMenu' && canShowInTopMenu(item)"
+        <item-menu v-if="item.type === 'itemMenu'"
                    v-model:data="menuItems[index]"
                    :index="index"
                    :editable="pageBuilderEditable"
                    @update:data="onUpdateData" />
-        <mega-menu v-if="item.type === 'megaMenu' && canShowInTopMenu(item)"
+        <mega-menu v-if="item.type === 'megaMenu'"
                    v-model:data="menuItems[index]"
                    :index="index"
                    :editable="pageBuilderEditable"
                    @update:data="onUpdateData" />
-        <simple-menu v-if="item.type === 'simpleMenu' && canShowInTopMenu(item)"
+        <simple-menu v-if="item.type === 'simpleMenu'"
                      v-model:data="menuItems[index]"
                      :index="index"
                      :editable="pageBuilderEditable"
@@ -40,7 +40,7 @@ import megaMenu from 'src/components/Template/Header/MainHeaderMenuItems/magaMen
 import simpleMenu from 'src/components/Template/Header/MainHeaderMenuItems/simpleMenu.vue'
 
 export default {
-  name: 'MainHeaderMenuItems',
+  name: 'MainSideMenuItems',
   components: {
     megaMenu,
     itemMenu,
@@ -80,9 +80,6 @@ export default {
     // this.menuItems = menuItems
   },
   methods: {
-    canShowInTopMenu (item) {
-      return (typeof item.desktopMode === 'undefined' || item.desktopMode === true || this.pageBuilderEditable)
-    },
     prefetchServerDataPromise () {
       return this.getPageConfigRequest()
     },
@@ -151,16 +148,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.MainHeaderMenuItems {
-  height: 72px;
-  display: flex;
-  flex-flow: row;
-  flex-wrap: nowrap;
-  overflow: auto;
-  .tabs-list-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.MainSideMenuItems {
+
 }
 </style>

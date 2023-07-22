@@ -111,7 +111,7 @@
           <div class="table-container text-center">
             <q-table :rows="transactionsTableRow"
                      :columns="transactionsHeaders"
-                     :loading="loading"
+                     :loading="transactionsTableRowLoading"
                      hide-bottom
                      row-key="id">
               <template #header-cell="props">
@@ -133,7 +133,8 @@
             </q-table>
           </div>
           <div class="flex justify-center">
-            <q-pagination v-model="page"
+            <q-pagination v-if="lastPage > 1"
+                          v-model="page"
                           :max="lastPage"
                           :max-pages="6"
                           boundary-links
@@ -151,7 +152,7 @@
             <div class="table-container text-center">
               <q-table :rows="clearingHistoryTableRow"
                        :columns="clearingHistoryHeaders"
-                       :loading="loading"
+                       :loading="clearingHistoryTableRowLoading"
                        hide-bottom
                        row-key="id">
                 <template #header-cell="props">
@@ -183,7 +184,8 @@
               </q-table>
             </div>
             <div class="flex justify-center">
-              <q-pagination v-model="historyPage"
+              <q-pagination v-if="historyLastPage > 1"
+                            v-model="historyPage"
                             :max="historyLastPage"
                             :max-pages="6"
                             boundary-links
@@ -252,6 +254,7 @@ export default {
     loading: false,
     transactionsOptions: {},
     transactionsTableRow: [],
+    transactionsTableRowLoading: false,
     transactionsHeaders: [
       { name: 'name', align: 'center', label: 'نام خریدار', field: 'full_name' },
       { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
@@ -261,7 +264,8 @@ export default {
       { name: 'commisson', align: 'center', label: 'درآمد شما', field: 'commisson' }
     ],
     clearingHistoryOptions: {},
-    clearingHistoryTableRow: []
+    clearingHistoryTableRow: [],
+    clearingHistoryTableRowLoading: false
   }),
   computed: {
     remainigAmountUntilSettlement () {
@@ -358,32 +362,32 @@ export default {
         })
     },
     getWithdrawHistory(page = 1) {
-      this.loading = true
+      this.clearingHistoryTableRowLoading = true
       APIGateway.referralCode.getWithdrawHistory({ page })
         .then(response => {
           this.clearingHistoryTableRow = response
-          this.loading = false
+          this.clearingHistoryTableRowLoading = false
         })
         .catch(() => {
-          this.loading = false
+          this.clearingHistoryTableRowLoading = false
         })
     },
     getTransactionDataFromApi(page = 1) {
-      this.loading = true
+      this.transactionsTableRowLoading = true
       this.referralCodeList = []
       APIGateway.referralCode.getOrderProducts({ page })
         .then((transactionsTableRow) => {
           this.transactionsTableRow = transactionsTableRow
           // this.lastPage = paginate.last_page
           // this.referralCodeList = referralCodeList
-          this.loading = false
+          this.transactionsTableRowLoading = false
         })
         .catch(() => {
-          this.loading = false
+          this.transactionsTableRowLoading = false
         })
     },
     async getClearingHistoryDataFromApi() {
-      this.loading = true
+      this.clearingHistoryTableRowLoading = true
       this.clearingHistoryTableRow = []
       try {
         const response = await this.clearingHistoryApiCall()
@@ -399,14 +403,14 @@ export default {
             paymentDate: Assist.miladiToShamsi(card.completed_at, true)
           })
         })
-        this.loading = false
+        this.clearingHistoryTableRowLoading = false
       } catch (err) {
-        this.loading = false
+        this.clearingHistoryTableRowLoading = false
         const messages = this.getErrorMessages(err.response.data)
         this.showErrorMessages(messages)
       }
 
-      this.loading = false
+      this.clearingHistoryTableRowLoading = false
     },
     TransactionApiCall() {
       return this.$axios.get('/ajax/referralCode/orderproducts', {
