@@ -24,6 +24,7 @@
     "@capacitor/core": "^5.0.4",
     "@gtm-support/vue-gtm": "^2.0.0",
     "@nodeguy/server-date": "^4.0.3",
+    "@phosphor-icons/vue": "^2.1.4",
     "@quasar/app-vite": "^1.4.3",
     "@quasar/extras": "^1.16.5",
     "@vue-leaflet/vue-leaflet": "^0.7.0",

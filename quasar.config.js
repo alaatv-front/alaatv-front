@@ -49,7 +49,8 @@ module.exports = configure(function (ctx) {
       'routesLayoutConfigs',
       'GetRouteSettingFromServer',
       'enums',
-      'gtm'
+      'gtm',
+      'PhosphorIcons'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -319,16 +320,16 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#property-sourcefiles
     sourceFiles: {
-    //   rootComponent: 'src/App.vue',
-    //   router: 'src/router/index',
-    //   store: 'src/store/index',
+      //   rootComponent: 'src/App.vue',
+      //   router: 'src/router/index',
+      //   store: 'src/store/index',
 
       pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
       pwaServiceWorker: 'src-pwa/custom-service-worker',
       pwaManifestFile: 'src-pwa/manifest.json'
 
-    //   electronMain: 'src-electron/electron-main',
-    //   electronPreload: 'src-electron/electron-preload'
+      //   electronMain: 'src-electron/electron-main',
+      //   electronPreload: 'src-electron/electron-preload'
     },
 
     // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
@@ -436,7 +437,7 @@ module.exports = configure(function (ctx) {
           }
         ]
       },
-      extendGenerateSWOptions (cfg) {
+      extendGenerateSWOptions(cfg) {
         cfg.skipWaiting = false
         cfg.clientsClaim = false
       }
