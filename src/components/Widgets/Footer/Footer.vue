@@ -115,12 +115,12 @@
               <div class="main-title">دسته بندی های محبوب</div>
               <q-btn flat
                      class="sub-title"
-                     :to="'/landing/rahe-abrisham'">
+                     :to="{name: 'Public.Landing.DynamicName', params: {landing_name: 'rahabrisham'}}">
                 راه ابریشم
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="'/landing/emtehan-nahaee-nohom'">
+                     :to="{name: 'Public.Landing.DynamicName', params: {landing_name: 'emtehan-nahaee-nohom'}}">
                 امتحان نهایی
               </q-btn>
             </div>

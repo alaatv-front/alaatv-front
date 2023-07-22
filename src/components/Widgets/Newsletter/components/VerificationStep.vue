@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import VOtpInput from 'vue3-otp-input'
 import Timer from './Timer.vue'
+import VOtpInput from 'vue3-otp-input'
 
 export default {
   name: 'VerificationStep',
@@ -77,7 +77,36 @@ export default {
       return this.userInfo.code
     }
   },
+  mounted () {
+    // this.loadOTPCredential()
+  },
   methods: {
+    loadOTPCredential () {
+      if (typeof window !== 'undefined' && 'OTPCredential' in window) {
+        window.addEventListener('DOMContentLoaded', (e) => {
+          // const ac = new AbortController()
+          // const form = input.closest('form')
+          // if (form) {
+          //   form.addEventListener('submit', (e) => {
+          //     ac.abort()
+          //   })
+          // }
+          window.navigator.credentials
+            .get({
+              otp: { transport: ['sms'] }
+              // signal: ac.signal
+            })
+            .then((otp) => {
+              alert(otp.code)
+              // input.value = otp.code
+              // if (form) form.submit()
+            })
+            .catch((err) => {
+              console.error(err)
+            })
+        })
+      }
+    },
     verifyCode() {
       const verifyData = {
         mobile: this.userInfo.mobile,

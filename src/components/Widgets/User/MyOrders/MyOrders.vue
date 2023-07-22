@@ -114,54 +114,6 @@
               {{ inputData.col.value }}
             </template>
           </template>
-
-          <!--          <template v-slot:table-item-cell="{inputData}">-->
-          <!--            <q-card class="details-table-mobile">-->
-          <!--              <div class="details-info">-->
-          <!--                <div class="item">-->
-          <!--                  <div class="order first-col-item">-->
-          <!--                    شماره سفارش:-->
-          <!--                    <span class="order-id">{{inputData.props.row.id}}</span>-->
-          <!--                  </div>-->
-          <!--                  <div class="details-btn toggle"-->
-          <!--                       @click="toggleDetailsCard(inputData.props.row)">-->
-          <!--                    جزئیات-->
-          <!--                    <q-icon color="primary"-->
-          <!--                            :name="detailsCardToggle[inputData.props.row.id] ? 'isax:arrow-up-2' : 'isax:arrow-down-1' " />-->
-          <!--                  </div>-->
-          <!--                  <div class="details-btn dialog"-->
-          <!--                       @click="showDetailsDialog(inputData.props.row)">-->
-          <!--                    مشاهده جزییات-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--                <div class="item">-->
-          <!--                  <div class="first-col-item">وضعیت پرداخت:</div>-->
-          <!--                  <div :class="{ 'payment-not-okay' : inputData.props.row.paymentstatus.id === 1 ,-->
-          <!--                                 'payment-okay' : inputData.props.row.paymentstatus.id === 3 ,-->
-          <!--                                 'payment-installment' : inputData.props.row.paymentstatus.id === 4 }">-->
-          <!--                    &lt;!&ndash;                پرداخت نشده&ndash;&gt;-->
-          <!--                    {{inputData.props.row.paymentstatus.name}}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--                <div class="item">-->
-          <!--                  <div class="first-col-item">مبلغ:</div>-->
-          <!--                  <div class="value">-->
-          <!--                    {{inputData.props.row.price ? toman(inputData.props.row.price) : 0 }}-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--                <div class="item">-->
-          <!--                  <div class="first-col-item">تاریخ سفارش:</div>-->
-          <!--                  <div class="value">-->
-          <!--                    {{ getCurrentOrderCompletedAt(inputData.props.row.completed_at) }}-->
-          <!--                    &lt;!&ndash;                {{ getCurrentOrderCompletedAt('1401/09/25') }}&ndash;&gt;-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--              <order-details-card v-if="windowSize.x < 600"-->
-          <!--                                  v-model:toggleValue="detailsCardToggle[inputData.props.row.id]"-->
-          <!--                                  :order="currentOrder" />-->
-          <!--            </q-card>-->
-          <!--          </template>-->
         </entity-index>
       </div>
       <order-details-dialog v-model:dialogValue="detailsDialog"
