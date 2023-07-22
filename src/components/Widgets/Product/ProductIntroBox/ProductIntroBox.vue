@@ -7,7 +7,9 @@
     </q-card-section>
     <q-card-section>
       <div class="price-section">
-        <product-price-with-popup :options="{product: localOptions.product}" />
+        <product-price-with-popup :options="{product: localOptions.product}"
+                                  @update-product="onUpdateProduct($event)"
+                                  @update-product-loading="onUpdateProductLoading($event)" />
       </div>
     </q-card-section>
     <!-- <q-card-section>
@@ -47,6 +49,7 @@ export default defineComponent({
     ProductPriceWithPopup
   },
   mixins: [mixinWidget],
+  emits: ['updateProduct', 'updateProductLoading'],
   data() {
     return {
       defaultOptions: {
@@ -63,6 +66,12 @@ export default defineComponent({
         src: this.localOptions.product.intro?.video,
         label: 'کیفیت عالی'
       }])
+    },
+    onUpdateProduct(event) {
+      this.$emit('updateProduct', event)
+    },
+    onUpdateProductLoading(event) {
+      this.$emit('updateProductLoading', event)
     }
   }
 })
@@ -71,7 +80,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .product-intro-wrapper {
   position: sticky;
-  top: 100px;
+  top: 60px;
   width: 434px;
   min-height: 754px;
   max-width: 100%;

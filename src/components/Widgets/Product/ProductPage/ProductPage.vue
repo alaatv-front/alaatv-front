@@ -2,7 +2,7 @@
   <div class="product-page-container new-theme">
     <div class="product-background">
       <div class="background-image"
-           :style="{backgroundImage: `url(${product.photo})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', filter: 'blur(10px)'}" />
+           :style="{backgroundImage: `url(${product.photo})`}" />
       <div class="row product-info-row">
         <div class="col-12 col-md-8">
           <div class="product-info-wrapper">
@@ -79,7 +79,10 @@
           </div>
         </div>
         <div class="col-12 col-md-4 intro-box-col">
-          <product-intro-box :options="{product}" />
+          <product-intro-box ref="productIntroBox"
+                             :options="{product}"
+                             @update-product="onUpdateProduct($event)"
+                             @update-product-loading="onUpdateProductLoading($event)" />
         </div>
       </div>
     </div>
@@ -94,6 +97,14 @@ import ProductInfoTab from 'src/components/Widgets/Product/ProductInfoTab/Produc
 import ProductIntroBox from 'src/components/Widgets/Product/ProductIntroBox/ProductIntroBox.vue'
 import Bookmark from 'src/components/Bookmark.vue'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+
+let StickySidebar
+if (typeof window !== 'undefined') {
+  import('sticky-sidebar-v2')
+    .then((stickySidebar) => {
+      StickySidebar = stickySidebar.default
+    })
+}
 export default defineComponent({
   name: 'ProductPage',
   components: {
@@ -109,6 +120,7 @@ export default defineComponent({
         productId: null,
         urlParam: null
       },
+      stickySidebar: null,
       product: new Product(),
       loading: false,
       expanded: false,
@@ -180,6 +192,37 @@ export default defineComponent({
       } else {
         this.showMore = false
       }
+    },
+    onUpdateProduct(product) {
+      this.product = product
+    },
+    onUpdateProductLoading(loading) {
+      this.product.loading = loading
+    },
+    loadSticky () {
+      // console.log('this.$refs.CartInvoice.parentElement', this.$refs.CartInvoice.parentElement.clientHeight)
+      const widgetParent = this.$refs.productIntroBox.parentElement
+      widgetParent.style.height = '100%'
+      // const parent = this.$refs.CartInvoice.parentElement.parentElement
+      // const parentClientHeight = parent.clientHeight
+      // this.$refs.CartInvoice.style.height = parentClientHeight + 'px'
+
+      this.stickySidebarInstance = new StickySidebar(this.$refs.productIntroBox, {
+        topSpacing: 142,
+        // bottomSpacing: 20,
+        containerSelector: false,
+        // containerSelector: '.cart-invoice.main-content',
+        innerWrapperSelector: '.product-intro-wrapper'
+        // scrollContainer: '#main-viewport'
+      })
+
+      // this.stickySidebar = new StickySidebar(this.$refs.CartInvoiceContainer, {
+      //   topSpacing: 20,
+      //   bottomSpacing: 20,
+      //   containerSelector: '.cart-invoice',
+      //   innerWrapperSelector: '.invoice-container',
+      //   scrollContainer: '.page-builder'
+      // })
     }
   }
 })

@@ -42,7 +42,8 @@
                     :paymentMethod="paymentMethod"
                     :product="localOptions.product"
                     @toggle-dialog="toggleDialog"
-                    @update-product="onUpdateProduct($event)" />
+                    @update-product="onUpdateProduct($event)"
+                    @update-product-loading="onUpdateProductLoading($event)" />
   </div>
 </template>
 
@@ -59,6 +60,7 @@ export default defineComponent({
     PaymentDialog
   },
   mixins: [mixinWidget],
+  emits: ['updateProduct', 'updateProductLoading'],
   data() {
     return {
       defaultOptions: {
@@ -70,7 +72,11 @@ export default defineComponent({
   },
   computed: {
     isSelectable () {
-      return this.localOptions.product.hasChildren()
+      if (this.localOptions.product.children.length > 0) {
+        return true
+      } else {
+        return false
+      }
     },
     productPrice() {
       if (this.localOptions.product) {
@@ -99,6 +105,12 @@ export default defineComponent({
     },
     toggleDialog() {
       this.dialog = !this.dialog
+    },
+    onUpdateProduct(event) {
+      this.$emit('updateProduct', event)
+    },
+    onUpdateProductLoading(event) {
+      this.$emit('updateProductLoading', event)
     }
   }
 })
