@@ -64,7 +64,6 @@ export default defineComponent({
       defaultOptions: {
         product: new Product()
       },
-      productPrice: new Price(),
       dialog: false,
       paymentMethod: null
     }
@@ -73,12 +72,15 @@ export default defineComponent({
     isSelectable () {
       return this.localOptions.product.hasChildren()
     },
+    productPrice() {
+      if (this.localOptions.product) {
+        return new Price(this.localOptions.product.price)
+      }
+      return new Price()
+    },
     isInstallment () {
       return true
     }
-  },
-  mounted() {
-    this.loadPrice()
   },
   methods: {
     addToCart() {
@@ -86,11 +88,6 @@ export default defineComponent({
         .then(() => {
           this.$router.push({ name: 'Public.Checkout.Review' })
         })
-    },
-    loadPrice() {
-      if (this.localOptions.product) {
-        this.productPrice = new Price(this.localOptions.product.price)
-      }
     },
     paymentAction(paymentMethod) {
       if (!this.isSelectable) {
