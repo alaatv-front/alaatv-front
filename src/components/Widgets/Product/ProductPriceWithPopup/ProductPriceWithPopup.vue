@@ -111,6 +111,18 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  @media screen and (max-width: 600px){
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #FFFFFF;
+    z-index: 5;
+    padding: 20px;
+    box-shadow: 1px 1px 2px 0 #010101;
+  }
+
   .price-info {
     display: flex;
     justify-content: space-between;
