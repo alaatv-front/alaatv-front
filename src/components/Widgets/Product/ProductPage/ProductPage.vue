@@ -48,15 +48,17 @@
                   <div class="short-description-title">
                     معرفی دوره
                   </div>
-                  <div class="short-description-text"
-                       :class="{'auto-height': expanded, 'ellipsis-3-lines': !expanded}"
+                  <div ref="shortDescription"
+                       class="short-description-text"
+                       :class="{'auto-height': expanded}"
                        v-html="product.description?.short" />
                 </div>
               </div>
             </div>
             <div class="product-info-footer">
               <div class="info-footer-action">
-                <q-btn color="white"
+                <q-btn v-if="showMore"
+                       color="white"
                        class="footer-action-btn"
                        flat
                        :icon-right="expanded ? 'expand_less' : 'expand_more'"
@@ -110,7 +112,8 @@ export default defineComponent({
       product: new Product(),
       loading: false,
       expanded: false,
-      bookmarkLoading: false
+      bookmarkLoading: false,
+      showMore: false
     }
   },
   computed: {
@@ -129,6 +132,7 @@ export default defineComponent({
   },
   mounted() {
     this.getProduct()
+    this.calculateDescriptionHight()
   },
   methods: {
     getProduct() {
@@ -169,6 +173,13 @@ export default defineComponent({
     },
     toggleExpanded() {
       this.expanded = !this.expanded
+    },
+    calculateDescriptionHight() {
+      if (this.$refs.shortDescription.clientHeight > 300) {
+        this.showMore = true
+      } else {
+        this.showMore = false
+      }
     }
   }
 })
@@ -185,7 +196,7 @@ export default defineComponent({
 
   .product-background {
     position: relative;
-    min-height: 200px;
+    min-height: 450px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -200,6 +211,10 @@ export default defineComponent({
       right: 0;
       width: 100%;
       height: 100%;
+      filter: blur(10px);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
 
     .product-info-row {
@@ -213,7 +228,7 @@ export default defineComponent({
 
     .product-info-wrapper {
       position: relative;
-      min-height: 200px;
+      min-height: 450px;
       max-width: 100%;
       height: auto;
       margin: 70px 0;
@@ -332,7 +347,7 @@ export default defineComponent({
           }
 
           .short-description-text {
-            height: 100px;
+            height: 300px;
             overflow-y: hidden;
             transition: all 3s ease-in-out;
             color:#FFF;
@@ -349,7 +364,7 @@ export default defineComponent({
 
             &.auto-height {
               height: auto;
-              min-height: 100px;
+              min-height: 300px;
               transition: all 3s ease-in-out;
 
               @media screen and (max-width: 600px){
@@ -386,7 +401,7 @@ export default defineComponent({
       max-width: 100%;
     }
     .intro-box-col {
-      margin-top: -350px;
+      margin-top: -550px;
 
       @media screen and (max-width: 1024px) {
         margin-top: 0;
