@@ -171,7 +171,6 @@ export default defineComponent({
   },
   methods: {
     getAttributesValues(valueList) {
-      console.log(valueList)
       let finalValue = ''
       for (let valueIndex = 0; valueIndex < valueList.length; valueIndex++) {
         if (valueIndex === 0) {
