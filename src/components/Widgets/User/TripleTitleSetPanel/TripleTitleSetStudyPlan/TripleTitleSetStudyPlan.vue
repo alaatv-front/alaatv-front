@@ -144,7 +144,6 @@
 </template>
 
 <script>
-import '@quasar/quasar-ui-qcalendar/dist/index.css'
 import { QCalendar } from '@quasar/quasar-ui-qcalendar'
 
 export default {
