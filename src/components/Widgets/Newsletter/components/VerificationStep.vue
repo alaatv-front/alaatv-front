@@ -78,7 +78,7 @@ export default {
     }
   },
   mounted () {
-    // this.loadOTPCredential()
+    this.loadOTPCredential()
   },
   methods: {
     loadOTPCredential () {
@@ -97,7 +97,8 @@ export default {
               // signal: ac.signal
             })
             .then((otp) => {
-              alert(otp.code)
+              // alert(otp.code)
+              this.otpValue = otp.code
               // input.value = otp.code
               // if (form) form.submit()
             })

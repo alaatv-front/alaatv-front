@@ -10,6 +10,7 @@
                   :over-player-width="'250px'"
                   :has-vast="canInitVAST && contentHasVast"
                   :use-over-player="hasTimepoint"
+                  @time-updated="updateTime"
                   @adStarted="adStarted">
       <template #overPlayer>
         <div class="timepoint-list">
@@ -88,7 +89,7 @@ export default {
       type: Number
     }
   },
-  emits: ['seeked'],
+  emits: ['seeked', 'timeUpdated'],
   data() {
     return {
       canInitVAST: false,
@@ -126,6 +127,9 @@ export default {
     this.canInitVAST = TimeElapsedSinceLastEvent.canInitVAST()
   },
   methods: {
+    updateTime (data) {
+      this.$emit('timeUpdated', data)
+    },
     adStarted () {
       TimeElapsedSinceLastEvent.setEventOccurrenceTime()
     },
