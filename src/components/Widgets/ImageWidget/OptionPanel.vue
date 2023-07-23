@@ -5,7 +5,7 @@
         <div class="row q-col-gutter-md">
           <div class="input-container col-12 q-mt-md">
 
-            <div class="outsideLabel">لینک عکس</div>
+            <div class="outsideLabel">آدرس فایل عکس</div>
             <q-input v-model="localOptions.imageSource"
                      label="image" />
           </div>
@@ -156,6 +156,20 @@ export default defineComponent({
           height: null,
           width: null,
           src: null
+        },
+        cssHoverEffects: {
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
         }
       }
     }

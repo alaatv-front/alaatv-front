@@ -15,6 +15,7 @@ class OrderProduct extends Model {
       { key: 'extra_attributes' },
       { key: 'photo' },
       { key: 'type' },
+      { key: 'expire_at' },
       {
         key: 'product',
         relatedModel: Product

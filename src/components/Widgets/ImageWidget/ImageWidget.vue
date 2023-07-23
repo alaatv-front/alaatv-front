@@ -2,7 +2,9 @@
   <component :is="parentComponent"
              :to="localOptions.action.route"
              :class="options.className"
-             :href="localOptions.action.route">
+             :href="localOptions.action.route"
+             class="ImageWidget"
+             @click="onClickLink">
     <q-img :ref="imageRef"
            :src="getImageSource(options)"
            :ratio="options.ratio"
@@ -62,6 +64,20 @@ export default {
           height: null,
           width: null,
           src: null
+        },
+        cssHoverEffects: {
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
         }
       }
     }
@@ -89,6 +105,15 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onClickLink (event) {
+      event.preventDefault()
+      event.stopPropagation()
+      if (this.parentComponent === 'a') {
+        window.location.href = this.localOptions.action.route
+      } else {
+        this.$router.push(this.localOptions.action.route)
+      }
+    },
     setProductIntersectionObserver () {
       const elements = [this.$refs[this.imageRef].$el]
       const observer = new IntersectionObserver(this.handleIntersection)
@@ -197,7 +222,9 @@ export default {
       if (typeof window === 'undefined') {
         return true
       }
-      return ((url.indexOf(':') > -1 || url.indexOf('//') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
+      // return ((url.indexOf(':') > -1 || url.indexOf('//') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
+      // return ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
+      return (url.indexOf('http://') > -1 || url.indexOf('https://') > -1)
     },
     takeAction(action) {
       if (!this.localOptions.hasAction) {
@@ -218,8 +245,23 @@ export default {
 }
 </script>
 
-<style>
-.cursor-pointer {
-  cursor: pointer;
+<style lang="scss" scoped>
+$skewX: v-bind('localOptions.cssHoverEffects.transform.skewX');
+$skewY: v-bind('localOptions.cssHoverEffects.transform.skewY');
+$rotate: v-bind('localOptions.cssHoverEffects.transform.rotate');
+$scaleX: v-bind('localOptions.cssHoverEffects.transform.scaleX');
+$scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
+$translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
+$translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
+$transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
+
+.ImageWidget {
+  &:hover .q-img {
+    transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
+    transition: all calc(#{$transitionTime} * 1s);
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
 }
 </style>

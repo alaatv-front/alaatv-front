@@ -6,7 +6,7 @@
         <div class="logo-section">
           <div class="drawer-btn hamburger">
             <q-btn v-if="showHamburger"
-                   class="toolbar-button"
+                   class="toolbar-button lt-md"
                    icon="isax:menu-1"
                    color="white"
                    text-color="accent"
@@ -20,40 +20,23 @@
                         :alt="'logo'"
                         width="40"
                         height="40"
-                        class="logo-pic-img gt-xs"
+                        class="logo-pic-img gt-sm"
                         @click="routeTo('Public.Home')" />
               <lazy-img src="https://nodes.alaatv.com/upload/mobile-header-logo.png"
                         :alt="'logo'"
                         width="640"
                         height="72"
-                        class="logo-pic-img lt-sm"
+                        class="logo-pic-img lt-md"
                         @click="routeTo('Public.Home')" />
             </div>
           </div>
         </div>
         <!--        -----------------------------------------------------Tabs Section--------------------------------------------   -->
         <div class="tab-section">
-          <q-list class="tabs-list">
-            <div v-for="(item , index) in items"
-                 :key="index"
-                 class="tabs-list-container">
-              <div v-if="showMenuItem(/* item */)"
-                   class="self-center">
-                <template v-if="item.type === 'itemMenu'">
-                  <item-menu :item="item" />
-                </template>
-                <template v-if="item.type === 'megaMenu'">
-                  <mega-menu :data="item" />
-                </template>
-                <template v-if="item.type === 'simpleMenu'">
-                  <simple-menu :menuContent="item" />
-                </template>
-              </div>
-            </div>
-          </q-list>
+          <main-header-menu-items />
         </div>
         <!--        -----------------------------------------------------Actions Section--------------------------------------------   -->
-        <div class="user-action gt-xs">
+        <div class="user-action gt-sm">
           <div class="action-container">
             <!--            <q-card-section ref="searchInput"-->
             <!--                            class="search-section">-->
@@ -92,60 +75,7 @@
               </q-badge>
             </q-btn>
           </div>
-          <q-btn v-if="isUserLogin"
-                 flat
-                 class="btn-user-profile">
-            <lazy-img :src="user.photo"
-                      :alt="'user photo'"
-                      width="48"
-                      height="48"
-                      class="user-photo" />
-            <q-menu class="user-profile-dropdown"
-                    :offset="[170, 10]">
-              <div class="dropdown-box">
-                <div class="header">
-                  <div class="profile-box">
-                    <div class="profile-detail">
-                      <div class="profile-photo-box">
-                        <div class="profile-photo-img">
-                          <lazy-img :src="user.photo"
-                                    :alt="'user photo'"
-                                    width="60"
-                                    height="60"
-                                    class="user-photo" />
-                        </div>
-                      </div>
-                      <div v-if="isUserLogin"
-                           class="profile-detail-info">
-                        <div class="info-name">{{user.full_name}}</div>
-                        <div class="info-phoneNumber">{{user.mobile}}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="body">
-                  <div class="user-panel-base-menu">
-                    <user-dashboard-items />
-                  </div>
-                </div>
-              </div>
-            </q-menu>
-          </q-btn>
-          <div v-else
-               class="sub-mit-box">
-            <q-btn unelevated
-                   class="btn-style sign-up lt-lg"
-                   label="ورود"
-                   :to="{ name: 'login' }" />
-            <q-btn unelevated
-                   class="btn-style gt-md"
-                   label="ورود"
-                   :to="{ name: 'login' }" />
-            <q-btn unelevated
-                   class="btn-style sign-up gt-md"
-                   label="ثبت نام"
-                   :to="{ name: 'login' }" />
-          </div>
+          <btn-user-profile-menu />
         </div>
       </div>
     </div>
@@ -154,17 +84,18 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import megaMenu from './magaMenu.vue'
-import simpleMenu from './simpleMenu.vue'
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import menuItems from 'src/components/Template/menuData.js'
-import itemMenu from 'src/components/Template/Header/itemMenu.vue'
-import UserDashboardItems from 'components/UserDashboardItems.vue'
+import BtnUserProfileMenu from 'src/components/BtnUserProfileMenu.vue'
+import MainHeaderMenuItems from 'src/components/Template/Header/MainHeaderMenuItems/MainHeaderMenuItems.vue'
 
 export default {
   name: 'MainHeaderTemplate',
-  components: { UserDashboardItems, LazyImg, megaMenu, simpleMenu, itemMenu },
+  components: {
+    LazyImg,
+    BtnUserProfileMenu,
+    MainHeaderMenuItems
+  },
   data() {
     return {
       mounted: false,
@@ -173,8 +104,7 @@ export default {
       searchInput: '',
       user: new User(),
       isAdmin: false,
-      isUserLogin: false,
-      items: menuItems
+      isUserLogin: false
     }
   },
   computed: {
@@ -188,7 +118,7 @@ export default {
       return this.cart.loading
     },
     showHamburger () {
-      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.lg
+      return this.$store.getters['AppLayout/showHamburgerBtn']
     },
     computedUserId () {
       const user = this.$store.getters['Auth/user']
@@ -200,12 +130,6 @@ export default {
     },
     layoutLeftDrawerVisible() {
       return this.$store.getters['AppLayout/layoutLeftDrawerVisible']
-    },
-    showMenuItem () {
-      return (/* item */) => {
-        return true
-        // return (item.permission === 'all' || this.user.hasPermission(item.permission))
-      }
     }
   },
   watch: {
@@ -217,29 +141,12 @@ export default {
     this.mounted = true
     this.loadAuthData()
     this.refreshCartListener()
-    this.checkMenurItemsForAuthenticatedUser()
   },
   methods: {
     refreshCartListener () {
       this.$bus.on('busEvent-refreshCart', () => {
         this.$store.dispatch('Cart/reviewCart')
       })
-    },
-    checkMenurItemsForAuthenticatedUser () {
-      // ToDo: check menu items by user role
-      if (this.isAdmin) {
-        const hasAdminPanel = this.items.find((item) => item.routeName === 'Admin.UploadCenter.Contents')
-        if (!hasAdminPanel) {
-          this.items.push({
-            selected: 'adminPanel',
-            title: 'پنل ادمین',
-            routeName: 'Admin.UploadCenter.Contents',
-            type: 'itemMenu',
-            permission: 'all',
-            show: false
-          })
-        }
-      }
     },
     filterByStatement() {
       const param = {
@@ -320,7 +227,8 @@ export default {
       grid-template-columns: 86px auto 156px;
       height: 100%;
       @media screen and (max-width: 1023px) {
-        grid-template-columns: auto auto;
+        //grid-template-columns: auto auto;
+        grid-template-columns: 1fr;
       }
       @media screen and (max-width: 599px) {
         grid-template-columns: 1fr;
@@ -330,7 +238,10 @@ export default {
         display: flex;
         justify-content: space-between;
         @media screen and (max-width: 1023px) {
-          justify-self: start;
+          //justify-self: start;
+          justify-self: center;
+          justify-content: center;
+          width: 100%;
         }
         @media screen and (max-width: 599px) {
           justify-self: center;
@@ -343,28 +254,28 @@ export default {
           height: 72px;
           align-items: center;
           @media screen and (max-width: 1023px) {
+            width: 200px;
             height: 64px;
           }
-          :deep(.homepage) {
+          .homepage {
             .logo-pic-img {
-              height: 40px;
-              width: 40px;
+              //height: 40px;
+              //width: 40px;
+              //width: 100%;
               display: flex;
               flex-flow: row;
               justify-content: center;
               align-items: center;
+              height: 48px;
+              width: 48px;
               @media screen and (max-width: 1023px) {
-                height: 48px;
-                width: 48px;
-              }
-              @media screen and (max-width: 599px) {
                 width: 100%;
                 img {
                   height: auto !important;
                 }
               }
             }
-            @media screen and (max-width: 599px) {
+            @media screen and (max-width: 1023px) {
               width: 100%;
             }
           }
@@ -379,8 +290,11 @@ export default {
           //display: none;
           @media screen and (max-width: 1023px) {
             //display: block;
-            margin-right: 20px;
-            margin-left: -8px;
+            //margin-right: 20px;
+            //margin-left: -8px;
+            position: absolute;
+            left: 20px;
+            top: 10px;
           }
           @media screen and (max-width: 599px) {
             position: absolute;
@@ -513,25 +427,6 @@ export default {
         align-items: center;
         height: 72px;
         justify-self: flex-end;
-        .btn-user-profile {
-          margin-left: 18px;
-          width: 48px;
-          height: 48px;
-          border-radius: 16px;
-          :deep(.q-btn__content) {
-            width: 100%;
-            margin: 0;
-            .user-photo {
-              width: 100%;
-              img {
-                border: 2px solid #FFB74D;
-                border-radius: 16px;
-                max-width: 100%;
-                width: 100%;
-              }
-            }
-          }
-        }
         .action-btn {
           margin: 4px;
           color: #333;
@@ -542,30 +437,6 @@ export default {
           border-radius: 16px;
         }
       }
-    }
-  }
-  .sub-mit-box{
-    background: #FFFFFF;
-    border-radius: 16px;
-    display: flex;
-    margin-bottom: 0px;
-    padding: 0px;
-
-    .btn-style{
-      width: 96px;
-      //color: #6D708B;
-      color: #333333 !important;
-
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 22px;
-      align-items: center;
-      text-align: center;
-      letter-spacing: -0.03em;
-    }
-    .sign-up {
-      background: #FFC107;
     }
   }
 }

@@ -31,6 +31,14 @@ const mixinPageOptions = {
         return this.$store.commit('PageBuilder/updatePageBuilderLoading', newInfo)
       }
     },
+    menuItems: {
+      get() {
+        return this.$store.getters['PageBuilder/menuItems']
+      },
+      set(newInfo) {
+        return this.$store.commit('PageBuilder/updateMenuItems', newInfo)
+      }
+    },
     currenSections: {
       get() {
         return this.$store.getters['PageBuilder/currentSections']
@@ -41,14 +49,18 @@ const mixinPageOptions = {
     }
   },
   methods: {
+    onFetchData (/* data */) {},
+    onFailedFetchData (/* error */) {},
     prefetchServerDataPromise () {
       return this.getPageConfigRequest()
     },
-    prefetchServerDataPromiseThen () {
+    prefetchServerDataPromiseThen (data) {
       this.$store.commit('PageBuilder/updatePageDataLoaded', true)
+      this.onFetchData(data)
     },
-    prefetchServerDataPromiseCatch () {
+    prefetchServerDataPromiseCatch (error) {
       this.pageBuilderLoading = false
+      this.onFailedFetchData(error)
     },
     getPageConfigRequest() {
       // this.pageBuilderLoading = true
