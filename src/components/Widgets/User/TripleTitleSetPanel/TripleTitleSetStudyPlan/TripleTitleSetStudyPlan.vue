@@ -16,12 +16,7 @@
              @click="changeStudyPlan" />
     </div>
     <div class="col-12 q-mt-md"
-         style="width: 100%;">
-      <q-calendar v-model="selectedDate"
-                  view="week"
-                  locale="fa-ir"
-                  style="height: 614px;" />
-    </div>
+         style="width: 100%;" />
     <q-dialog v-model="planSetting">
       <q-card class="plan-setting">
         <q-card-section>
@@ -144,13 +139,9 @@
 </template>
 
 <script>
-import { QCalendar } from '@quasar/quasar-ui-qcalendar'
 
 export default {
   name: 'TripleTitleSetStudyPlan',
-  components: {
-    QCalendar
-  },
   data() {
     return {
       selectedDate: '',
