@@ -40,7 +40,6 @@ const mixinTripleTitleSet = {
     },
     videoIsWatched() {
       if (!this.isVideoWatched) {
-        debugger
         this.$apiGateway.content.setVideoWatched({
           watchable_id: this.watchingContent.id,
           watchable_type: 'content'
