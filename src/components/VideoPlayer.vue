@@ -307,15 +307,15 @@ export default {
       if (this.vastTimerInterval) {
         clearInterval(this.vastTimerInterval)
       }
-      let seconds = this.getVastTimerSeconds()
+      const seconds = this.getVastTimerSeconds()
       if (seconds === 0) {
         this.stopVastTimer()
         return
       }
-      this.updateVastTimer(seconds--)
+      this.updateVastTimer(seconds - Math.floor(this.player.currentTime()).toString())
       this.vastTimerInterval = setInterval(() => {
-        this.updateVastTimer(seconds--)
-        if (seconds < 0) {
+        this.updateVastTimer(seconds - Math.floor(this.player.currentTime()).toString())
+        if (seconds - Math.floor(this.player.currentTime()).toString() === 0) {
           this.stopVastTimer()
           endTimerCallback()
         }
@@ -340,7 +340,7 @@ export default {
 
       vastElement.innerHTML = innerHTML
     },
-    sowVastSkipAdBtn () {
+    showVastSkipAdBtn () {
       const vastClassName = 'VastSkipAdBtn'
       this.showVastElement(vastClassName)
       const vastElement = this.vastElementExist(vastClassName)
@@ -382,7 +382,7 @@ export default {
 
         this.showVastLinkBtn(this.vastLink)
         this.startVastTimer(() => {
-          this.sowVastSkipAdBtn()
+          this.showVastSkipAdBtn()
         })
 
         this.$emit('adStarted')
