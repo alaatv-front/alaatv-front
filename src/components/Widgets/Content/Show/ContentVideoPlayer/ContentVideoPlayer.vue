@@ -11,7 +11,8 @@
       <q-card class="video-player custom-card bg-white"
               :class="options.paginate? 'q-pb-md': ''"
               :style="options.style">
-        <video-player :content="content" />
+        <video-player :content="content"
+                      @time-updated="updateTime" />
         <div v-if="options.paginate"
              class="q-py-sm flex flex-center paginate">
           <q-pagination v-model="contentNumber"
@@ -47,6 +48,7 @@ export default {
       }
     }
   },
+  emits: ['timeUpdated'],
   data() {
     return {
       content: new Content(),
@@ -65,7 +67,9 @@ export default {
     }
   },
   methods: {
-
+    updateTime (data) {
+      this.$emit('timeUpdated', data)
+    },
     prefetchServerDataPromise () {
       this.content.loading = true
       return this.getContentByRequest()
