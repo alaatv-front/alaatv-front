@@ -14,6 +14,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis">
           {{ getAttributesValues(attributes.info.teacher) }}
+          <q-tooltip>
+            {{ getAttributesValues(attributes.info.teacher) }}
+          </q-tooltip>
         </div>
       </q-item-section>
     </q-item>
@@ -31,6 +34,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis">
           {{ getAttributesValues(attributes.info.major) }}
+          <q-tooltip>
+            {{ getAttributesValues(attributes.info.major) }}
+          </q-tooltip>
         </div>
       </q-item-section>
     </q-item>
@@ -47,6 +53,9 @@
       <q-item-section class="attribute-value-section">
         <div class="value-text ellipsis">
           {{ getAttributesValues(attributes.info.duration) }}
+          <q-tooltip>
+            {{ getAttributesValues(attributes.info.duration) }}
+          </q-tooltip>
         </div>
       </q-item-section>
     </q-item>
@@ -64,6 +73,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis">
           {{ getAttributesValues(attributes.info.services) }}
+          <q-tooltip>
+            {{ getAttributesValues(attributes.info.services) }}
+          </q-tooltip>
         </div>
       </q-item-section>
     </q-item>
@@ -81,6 +93,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis">
           {{ getAttributesValues(attributes.info.production_year) }}
+          <q-tooltip>
+            {{ getAttributesValues(attributes.info.production_year) }}
+          </q-tooltip>
         </div>
       </q-item-section>
     </q-item>
@@ -98,6 +113,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis">
           {{ getAttributesValues(attributes.info.duration) }}
+          <q-tooltip>
+            {{ getAttributesValues(attributes.info.duration) }}
+          </q-tooltip>
         </div>
       </q-item-section>
     </q-item>
@@ -115,6 +133,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis">
           {{ getAttributesValues(attributes.info.shipping_method) }}
+          <q-tooltip>
+            {{ getAttributesValues(attributes.info.shipping_method) }}
+          </q-tooltip>
         </div>
       </q-item-section>
     </q-item>
@@ -132,6 +153,9 @@
                       class="attribute-value-section">
         <div class="value-text ellipsis">
           {{ getAttributesValues(attributes.info.download_date) }}
+          <q-tooltip>
+            {{ getAttributesValues(attributes.info.download_date) }}
+          </q-tooltip>
         </div>
       </q-item-section>
     </q-item>
@@ -172,11 +196,13 @@ export default defineComponent({
   methods: {
     getAttributesValues(valueList) {
       let finalValue = ''
-      for (let valueIndex = 0; valueIndex < valueList.length; valueIndex++) {
-        if (valueIndex === 0) {
-          finalValue = finalValue + valueList[valueIndex]
-        } else {
-          finalValue = finalValue + '، ' + valueList[valueIndex]
+      if (valueList) {
+        for (let valueIndex = 0; valueIndex < valueList.length; valueIndex++) {
+          if (valueIndex === 0) {
+            finalValue = finalValue + valueList[valueIndex]
+          } else {
+            finalValue = finalValue + '، ' + valueList[valueIndex]
+          }
         }
       }
 

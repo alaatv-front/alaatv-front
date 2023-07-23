@@ -19,10 +19,16 @@
       <p class="section-title">نمونه جزوه ها</p>
       <div v-dragscroll
            class="contents-block">
-        <div v-for="pamphlet in pamphlets"
+        <div v-for="(pamphlet, index) in pamphlets"
              :key="pamphlet.id"
              class="pamphlet-image">
-          {{ pamphlet }}
+          <q-img :ref="el => { thumbRef[index] = el }"
+                 :src="pamphlet.photo"
+                 :class="index === indexZoomed ? 'fixed-top q-mt-md q-mx-auto z-top' : void 0"
+                 :style="index === indexZoomed ? 'width: 650px; max-width: 100vw' : void 0"
+                 spinner-color="primary"
+                 spinner-size="82px"
+                 @click="zoomImage(index)" />
         </div>
       </div>
     </div>
@@ -35,6 +41,7 @@ import { Product } from 'src/models/Product.js'
 import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content.js'
 import ContentItem from 'components/Widgets/ContentItem/ContentItem.vue'
+import { morph } from 'quasar'
 
 export default {
   name: 'productDemos',
@@ -56,9 +63,10 @@ export default {
   data() {
     return {
       contents: new ContentList(),
-      pamphlets: [],
       toggler: false,
-      product: new Product()
+      product: new Product(),
+      indexZoomed: null,
+      thumbRef: []
     }
   },
   computed: {
@@ -73,6 +81,13 @@ export default {
         return this.$route.params.id
       }
       return this.product.id
+    },
+    pamphlets() {
+      if (this.product.sample_photos) {
+        return this.product.sample_photos
+      } else {
+        return []
+      }
     }
   },
   methods: {
@@ -112,6 +127,38 @@ export default {
           .catch(() => {
 
           })
+      }
+    },
+    zoomImage (index) {
+      const indexZoomedState = this.indexZoomed
+      let cancel = void 0
+
+      this.indexZoomed = void 0
+
+      if (index !== void 0 && index !== indexZoomedState) {
+        cancel = morph({
+          from: this.thumbRef[index].$el,
+          onToggle: () => {
+            this.indexZoomed = index
+          },
+          duration: 500,
+          onEnd: end => {
+            if (end === 'from' && this.indexZoomed === index) {
+              this.indexZoomed = void 0
+            }
+          }
+        })
+      }
+
+      if (
+        indexZoomedState !== void 0 &&
+        (cancel === void 0 || cancel() === false)
+      ) {
+        morph({
+          from: this.thumbRef[indexZoomedState].$el,
+          waitFor: 100,
+          duration: 300
+        })
       }
     }
   }

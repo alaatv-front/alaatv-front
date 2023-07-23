@@ -14,6 +14,7 @@
            disable
            label="سرفصل ها" />
     <q-tab name="documents"
+           :disable="contents.list.length === 0"
            label="فیلم و جزوه" />
     <q-tab name="gifts"
            :disable="gifts.list.length === 0"

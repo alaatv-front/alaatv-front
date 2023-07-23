@@ -19,6 +19,7 @@ class Product extends Model {
       {
         key: 'teacher_image'
       },
+      { key: 'has_instalment_option' },
       { key: 'is_free' },
       { key: 'is_live' },
       { key: 'is_active' },

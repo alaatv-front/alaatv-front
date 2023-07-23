@@ -27,10 +27,10 @@
              text-color="grey-9"
              unelevated
              class="action-btn"
-             :class="{'full-width': !isInstallment}"
+             :class="{'full-width': !hasInstallment}"
              label="ثبت نام نقدی"
              @click="paymentAction('cash')" />
-      <q-btn v-if="isSelectable"
+      <q-btn v-if="hasInstallment"
              color="grey-3"
              text-color="grey-9"
              unelevated
@@ -84,8 +84,11 @@ export default defineComponent({
       }
       return new Price()
     },
-    isInstallment () {
-      return true
+    hasInstallment () {
+      if (this.localOptions.product) {
+        return this.localOptions.product.has_instalment_option
+      }
+      return false
     }
   },
   methods: {

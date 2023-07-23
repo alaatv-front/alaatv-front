@@ -76,12 +76,12 @@
                        :label="'%' + productPrice.discount" />
             </div>
             <div class="base">
-              {{ productPrice.toman('base', null) }}
+              {{ basePrice }}
             </div>
           </div>
           <div v-if="productPrice"
                class="price-final">
-            <div class="number">{{ productPrice.toman('final', null) }}</div>
+            <div class="number">{{ finalPrice }}</div>
             <div class="label">تومان</div>
           </div>
         </div>
@@ -168,6 +168,20 @@ export default defineComponent({
     }
   },
   computed: {
+    finalPrice() {
+      if (this.productPrice.toman) {
+        return this.productPrice.toman('final', null)
+      } else {
+        return 0
+      }
+    },
+    basePrice() {
+      if (this.productPrice.toman) {
+        return this.productPrice.toman('base', null)
+      } else {
+        return 0
+      }
+    },
     cart () {
       return this.$store.getters['Cart/cart']
     },
