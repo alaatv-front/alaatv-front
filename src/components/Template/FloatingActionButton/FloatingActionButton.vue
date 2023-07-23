@@ -29,14 +29,26 @@
                       label-position="right"
                       color="info"
                       icon="isax:eye"
-                      label="نمایش کانفیگ"
+                      label="نمایش کانفیگ صفحه"
                       @click="showPageBuilderShowConfigs" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
                       icon="isax:eye"
-                      label="وارد کردن کانفیگ"
+                      label="نمایش کانفیگ منو"
+                      @click="showMenuItemsConfigsDialog" />
+        <q-fab-action external-label
+                      label-position="right"
+                      color="info"
+                      icon="isax:eye"
+                      label="وارد کردن کانفیگ صفحه"
                       @click="showPageBuilderImportConfigs" />
+        <q-fab-action external-label
+                      label-position="right"
+                      color="info"
+                      icon="isax:eye"
+                      label="وارد کردن کانفیگ منو"
+                      @click="showMenuItemsImportConfigDialog" />
         <q-fab-action external-label
                       label-position="right"
                       color="info"
@@ -47,8 +59,14 @@
                       label-position="right"
                       color="positive"
                       icon="isax:clipboard-tick"
-                      label="تایید"
+                      label="ذخیره تنظیمات صفحه"
                       @click="acceptPageBuilderConfig" />
+        <q-fab-action external-label
+                      label-position="right"
+                      color="positive"
+                      icon="isax:clipboard-tick"
+                      label="ذخیره تنظیمات منو"
+                      @click="acceptMenuItemsConfig" />
         <q-fab-action external-label
                       label-position="right"
                       color="negative"
@@ -123,6 +141,24 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <q-dialog v-model="showMenuItemsDialog"
+            class="showMenuItemsDialog">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">تنظیمات منو</div>
+      </q-card-section>
+      <q-card-section class="showMenuItemsDialog-config-section">
+        {{ menuItems }}
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn v-close-popup
+               flat
+               label="کپی کردن"
+               color="primary"
+               @click="copyMenuItemsConfigs" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
   <q-dialog v-model="pageBuilderShowConfigDialog"
             class="pageBuilderShowConfigDialog">
     <q-card>
@@ -161,6 +197,26 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  <q-dialog v-model="menuItemsImportConfigDialog"
+            class="menuItemsImportConfigDialog">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">وارد کردن تنظیمات منو</div>
+      </q-card-section>
+      <q-card-section class="menuItemsImportConfigDialog-config-section">
+        <q-input v-model="menuItemsImportedConfigs"
+                 type="textarea"
+                 label="configs" />
+      </q-card-section>
+      <q-card-actions align="right">
+        <q-btn v-close-popup
+               flat
+               label="وارد کردن تنظیمات"
+               color="primary"
+               @click="importMenuItemsConfigs" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script>
@@ -175,6 +231,7 @@ export default {
   data () {
     return {
       pageBuilderImportedConfigs: null,
+      menuItemsImportedConfigs: null,
       titleLength: 60,
       descriptionLength: 160,
       descriptionLengthMobile: 80,
@@ -188,6 +245,8 @@ export default {
         ogImage: null
       },
       seoDialog: false,
+      showMenuItemsDialog: false,
+      menuItemsImportConfigDialog: false,
       pageBuilderShowConfigDialog: false,
       pageBuilderImportConfigDialog: false,
       pageBuilderConfigs: {},
@@ -218,6 +277,9 @@ export default {
     },
     importPageBuilderConfigs () {
       this.$store.commit('PageBuilder/updateCurrentSections', JSON.parse(this.pageBuilderImportedConfigs))
+    },
+    importMenuItemsConfigs () {
+      this.$store.commit('PageBuilder/updateMenuItems', JSON.parse(this.menuItemsImportedConfigs))
     },
     updateSeo () {
       this.$store.commit('SEO/updateTitle', this.seo.title)
@@ -271,11 +333,32 @@ export default {
     showPageBuilderShowConfigs () {
       this.pageBuilderShowConfigDialog = true
     },
+    showMenuItemsConfigsDialog () {
+      this.showMenuItemsDialog = true
+    },
     showPageBuilderImportConfigs () {
       this.pageBuilderImportConfigDialog = true
     },
+    showMenuItemsImportConfigDialog () {
+      this.menuItemsImportConfigDialog = true
+    },
     copyPageBuilderConfigs () {
       copyToClipboard(JSON.stringify(this.currenSections))
+        .then(() => {
+          this.$q.notify({
+            message: 'کانفیگ کپی شد',
+            type: 'positive'
+          })
+        })
+        .catch(() => {
+          this.$q.notify({
+            type: 'negative',
+            message: 'مشکلی در کپی کردن کانفیگ رخ داده اس.'
+          })
+        })
+    },
+    copyMenuItemsConfigs () {
+      copyToClipboard(JSON.stringify(this.menuItems))
         .then(() => {
           this.$q.notify({
             message: 'کانفیگ کپی شد',
@@ -300,6 +383,13 @@ export default {
     },
     acceptPageBuilderConfig () {
       this.updateSetting()
+    },
+    acceptMenuItemsConfig () {
+      const key = encodeURI('(menuItems)headerLayout:mainLayout')
+      APIGateway.pageSetting.update({ key, value: JSON.stringify(this.menuItems) })
+        .then(() => {
+          this.$store.commit('PageBuilder/updatePageBuilderEditable', false)
+        })
     },
     showPageBuilderConfig () {
 
@@ -410,6 +500,12 @@ export default {
 }
 .pageBuilderShowConfigDialog {
   .pageBuilderShowConfigDialog-config-section {
+    overflow: auto;
+    max-height: 50vh;
+  }
+}
+.showMenuItemsDialog {
+  .showMenuItemsDialog-config-section {
     overflow: auto;
     max-height: 50vh;
   }

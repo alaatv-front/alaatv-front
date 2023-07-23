@@ -3,6 +3,7 @@
              :to="localOptions.action.route"
              :class="options.className"
              :href="localOptions.action.route"
+             class="ImageWidget"
              @click="onClickLink">
     <q-img :ref="imageRef"
            :src="getImageSource(options)"
@@ -63,6 +64,20 @@ export default {
           height: null,
           width: null,
           src: null
+        },
+        cssHoverEffects: {
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
         }
       }
     }
@@ -230,8 +245,23 @@ export default {
 }
 </script>
 
-<style>
-.cursor-pointer {
-  cursor: pointer;
+<style lang="scss" scoped>
+$skewX: v-bind('localOptions.cssHoverEffects.transform.skewX');
+$skewY: v-bind('localOptions.cssHoverEffects.transform.skewY');
+$rotate: v-bind('localOptions.cssHoverEffects.transform.rotate');
+$scaleX: v-bind('localOptions.cssHoverEffects.transform.scaleX');
+$scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
+$translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
+$translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
+$transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
+
+.ImageWidget {
+  &:hover .q-img {
+    transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
+    transition: all calc(#{$transitionTime} * 1s);
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
 }
 </style>

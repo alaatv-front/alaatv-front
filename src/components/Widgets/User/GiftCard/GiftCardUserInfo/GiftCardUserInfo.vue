@@ -14,7 +14,7 @@
                   نام
                 </div>
                 <div class="input">
-                  <q-input v-model="user.first_name"
+                  <q-input v-model="localUser.first_name"
                            filled />
                 </div>
               </div>
@@ -25,7 +25,7 @@
                   نام خانوادگی
                 </div>
                 <div class="input">
-                  <q-input v-model="user.last_name"
+                  <q-input v-model="localUser.last_name"
                            filled />
                 </div>
               </div>
@@ -36,7 +36,7 @@
                   شماره همراه
                 </div>
                 <div class="input">
-                  <q-input v-model="user.mobile"
+                  <q-input v-model="localUser.mobile"
                            filled />
                 </div>
               </div>
@@ -47,7 +47,7 @@
                   کد ملی
                 </div>
                 <div class="input">
-                  <q-input v-model="user.nationalCode"
+                  <q-input v-model="localUser.nationalCode"
                            filled />
                 </div>
               </div>
@@ -228,7 +228,8 @@
           </div>
         </div>
       </div>
-      <div class="contract-section">
+      <div v-if="false"
+           class="contract-section">
         <div class="title">قرارداد</div>
         <div class="contract-box">
           <div class="description">
@@ -395,14 +396,16 @@
 </template>
 
 <script>
-import { APIGateway } from 'src/api/APIGateway'
-import GiftCardMixin from '../Mixin/GiftCardMixin'
+import { User } from 'src/models/User.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import GiftCardMixin from '../Mixin/GiftCardMixin.js'
 
 export default {
   name: 'GiftCardUserInfo',
   mixins: [GiftCardMixin],
   data () {
     return {
+      localUser: new User(),
       bankAccounts: {},
       has_signed_contract: false,
       contractDialog: false,
@@ -422,9 +425,6 @@ export default {
     }
   },
   computed: {
-    user () {
-      return this.$store.getters['Auth/user']
-    },
     contractPdfLink () {
       return 'https://nodes.alaatv.com/media/c/pamphlet/1794/ZistHafte1.pdf'
       // const link = this.$store.getters.appProps.contractPdfLink
@@ -448,9 +448,13 @@ export default {
   },
   mounted () {
     this.loadData()
-    this.nationalCardPicURL = this.user.kartemeli
+    this.loadAuthData()
+    this.nationalCardPicURL = this.localUser.kartemeli
   },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.localUser = this.$store.getters['Auth/user']
+    },
     downloadPdf() {
       window.open(this.contractPdfLink, '_blank')
     },
@@ -487,7 +491,7 @@ export default {
         .catch()
     },
     loadNationalCardPicURL () {
-      this.nationalCardPicURL = this.user.kartemeli
+      this.nationalCardPicURL = this.localUser.kartemeli
     },
     loadAcceptContract () {
       this.localAcceptContract = this.has_signed_contract
