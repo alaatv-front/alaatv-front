@@ -10,7 +10,7 @@
         <div v-for="content in contents.list"
              :key="content.id">
           <content-item class="q-mr-md"
-                        :options="content" />
+                        :options="{content,contentLinkTarget: '_blank'}" />
         </div>
       </div>
     </div>

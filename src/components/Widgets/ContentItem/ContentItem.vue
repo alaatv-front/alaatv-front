@@ -2,7 +2,7 @@
   <q-card class="content-item-box"
           :style="{minWidth: options.minWidth}">
     <router-link :to="getRoutingObject"
-                 target= '_blank'
+                 :target="localOptions.contentLinkTarget"
                  class="content-item-router-link">
       <div class="img-box">
         <div class="img-title-container">
@@ -90,6 +90,7 @@ export default {
     content: new Content(),
     defaultOptions: {
       style: {},
+      contentLinkTarget: '_self',
       minWidth: 'auto',
       content: new Content(),
       showSetTitle: false,
