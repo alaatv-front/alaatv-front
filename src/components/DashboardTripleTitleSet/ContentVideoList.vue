@@ -32,7 +32,12 @@
                     @click="itemSelected(content)">
               <div class="content-show items-center">
                 <div class="">
-                  <q-icon :name="content.has_watched ? 'check_circle' : 'isax:play-circle'"
+                  <q-icon v-if="content.type === 8"
+                          :name="content.has_watched ? 'check_circle' : 'isax:play-circle'"
+                          :color="isCurrent(content.id) ? 'primary' : ''"
+                          size="sm" />
+                  <q-icon v-else
+                          name="isax:book-1"
                           :color="isCurrent(content.id) ? 'primary' : ''"
                           size="sm" />
                 </div>

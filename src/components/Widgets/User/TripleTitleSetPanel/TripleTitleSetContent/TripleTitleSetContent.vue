@@ -27,6 +27,7 @@
                    :content="selectedContent"
                    @toggleFavorite="toggleFavor"
                    @toggle-video-status="updateVideoStatus"
+                   @video-is-watched="videoIsWatched"
                    @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
           <comment-box :value="watchingContentComment"
@@ -159,6 +160,11 @@ export default {
       set(value) {
         this.$store.commit('TripleTitleSet/setSelectedContent', value)
       }
+    }
+  },
+  watch: {
+    'watchingContent.has_watched': function (val) {
+      this.isVideoWatched = val
     }
   },
   mounted() {

@@ -12,7 +12,7 @@ import { PageSetting } from 'src/models/PageSetting.js'
 import { mixinSEO, mixinPageOptions, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
-  name: 'Landing',
+  name: 'Public.Live.DynamicName',
   mixins: [mixinPrefetchServerData, mixinPageOptions, mixinSEO],
   data () {
     return {
@@ -57,8 +57,8 @@ export default {
       }
 
       this.$q.dialog({
-        title: 'ساخت لندینگ جدید',
-        message: 'از نام لندینگ ' + this.$route.params.landing_name + ' اطمینان دارید؟ ',
+        title: 'ساخت لایو جدید',
+        message: 'از نام لایو ' + this.$route.params.live_name + ' اطمینان دارید؟ ',
         cancel: true,
         persistent: true
       }).onOk(() => {
