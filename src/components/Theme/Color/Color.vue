@@ -290,7 +290,7 @@ export default {
       background: $warning1;
     }
     .warning2{
-      background: $warning2;
+      background: $warning;
     }
     .warning3{
       background: $warning3;
