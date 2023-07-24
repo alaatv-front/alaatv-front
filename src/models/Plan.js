@@ -21,6 +21,9 @@ class Plan extends Model {
       { key: 'has_watched' },
       { key: 'description' },
       { key: 'long_description' },
+      { key: 'url' },
+      { key: 'voice' },
+      { key: 'video' },
       {
         key: 'contents',
         relatedModel: ContentList

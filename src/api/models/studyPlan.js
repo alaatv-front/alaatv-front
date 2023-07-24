@@ -11,12 +11,13 @@ export default class StudyPlanAPI extends APIRepository {
       getPlans: (id) => '/studyPlan/' + id + '/plans',
       planOptions: '/abrisham/selectPlan/create',
       myStudyPlan: '/abrisham/myStudyPlan',
-      StudyPlan: '/studyPlan'
+      studyPlan: '/studyPlan',
+      setting: 'website-setting/user'
     }
     this.CacheList = {
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
       getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
-      StudyPlan: this.name + this.APIAdresses.StudyPlan
+      studyPlan: this.name + this.APIAdresses.studyPlan
     }
   }
 
@@ -59,7 +60,8 @@ export default class StudyPlanAPI extends APIRepository {
         return {
           grades: response.data.data.grades ? response.data.data.grades : [],
           majors: response.data.data.majors ? response.data.data.majors : [],
-          studyPans: response.data.data.studyPans ? response.data.data.studyPans : []
+          studyPans: response.data.data.studyPans ? response.data.data.studyPans : [],
+          products: response.data.data.products ? response.data.data.products : []
         }
       },
       rejectCallback: (error) => {
@@ -88,20 +90,62 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getStudyPlans(data, cache = { TTL: 1000 }) {
+  storeMyStudyPlan(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.myStudyPlan,
+      data,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getStudyPlanData(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.StudyPlan,
-      cacheKey: this.CacheList.StudyPlan,
-      ...(cache && { cache }),
+      request: this.APIAdresses.studyPlan,
+      data: data.params,
       resolveCallback: (response) => {
         return new StudyPlanList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
+      }
+    })
+  }
+
+  storeSetting(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.setting,
+      data,
+      resolveCallback: (response) => {
+        return response
       },
-      data
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSetting(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.setting,
+      resolveCallback: (response) => {
+        return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 }
