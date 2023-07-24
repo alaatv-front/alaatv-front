@@ -166,11 +166,12 @@ export default {
     }
 
     .product-item-info {
-      width: 100%;
+      width: calc( 100% - 80px );
       display: flex;
 
       @media only screen and (max-width: 600px) {
         padding: 0;
+        width: 100%;
       }
     }
 
@@ -189,10 +190,12 @@ export default {
     }
 
     .product-info {
+      width: 35%;
       min-width: 35%;
 
       @media only screen and (max-width: 600px) {
-        min-width: 70%;
+        width: calc( 100% - 97px );
+        min-width: calc( 100% - 97px );
       }
 
       .product-item-title {
@@ -270,17 +273,20 @@ export default {
 
     .last-content-card-section {
       display: flex;
-      width: 100%;
+      width: 65%;
       padding: 0;
-      .last-content {
-        margin-left: 24px;
+      @media only screen and (max-width: 600px) {
         width: 100%;
+      }
+      .last-content {
+        padding-left: 24px;
+        width: calc( 100% - 17px );
         display: flex;
         flex-direction: column;
         justify-content: center;
 
         @media only screen and (max-width: 600px) {
-          margin-left: 0;
+          padding-left: 0;
         }
 
         .last-content-pre {
@@ -327,6 +333,7 @@ export default {
             line-height: 19px;
             letter-spacing: -0.02em;
             color: #6C6C6C;
+            width: calc( 100% - 85px );
           }
 
           .last-content-link {
@@ -336,6 +343,7 @@ export default {
             line-height: 22px;
             letter-spacing: -0.03em;
             color: #333333;
+            width: 85px;
           }
         }
       }

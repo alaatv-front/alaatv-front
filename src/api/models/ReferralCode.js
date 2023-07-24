@@ -36,6 +36,8 @@ export default class ReferralCodeAPI extends APIRepository {
       cacheKey: this.CacheList.base,
       ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
+        isAssigned: null, // Number
+        isUsed: null, // Number
         page: 1 // Number
       }, data.data),
       resolveCallback: (response) => {
@@ -192,12 +194,15 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getWithdrawHistory(cache) {
+  getWithdrawHistory(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.walletWithdrawRequests,
       cacheKey: this.CacheList.walletWithdrawRequests,
+      data: this.getNormalizedSendData({
+        page: 1 // Number
+      }, data),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data.data

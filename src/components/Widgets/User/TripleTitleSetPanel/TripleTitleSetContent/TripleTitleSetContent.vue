@@ -4,10 +4,10 @@
          class="row">
       <div class="col-12 flex justify-between q-mb-md">
         <div class="breadcrumbs flex items-center">
-          <div class="breadcrumbs-item"
-               :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products' }">
-            چتر نجات
-          </div>
+          <router-link class="breadcrumbs-item"
+                       :to="{ name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: $route.params.eventName} }">
+            دوره ها
+          </router-link>
           <q-icon name="chevron_left" />
           <div class="content-title">
             مشاوره
@@ -27,6 +27,7 @@
                    :content="selectedContent"
                    @toggleFavorite="toggleFavor"
                    @toggle-video-status="updateVideoStatus"
+                   @video-is-watched="videoIsWatched"
                    @bookmarkTimestamp="bookmarkPostIsFavored" />
         <div class="mobile-view">
           <comment-box :value="watchingContentComment"
@@ -159,6 +160,11 @@ export default {
       set(value) {
         this.$store.commit('TripleTitleSet/setSelectedContent', value)
       }
+    }
+  },
+  watch: {
+    'watchingContent.has_watched': function (val) {
+      this.isVideoWatched = val
     }
   },
   mounted() {

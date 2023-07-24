@@ -6,9 +6,9 @@
 
 <script>
 import Router from 'src/router/Router.vue'
-import KeepAliveComponents from 'assets/js/KeepAliveComponents.js'
+import KeepAliveComponents from 'src/assets/js/KeepAliveComponents.js'
 export default {
-  name: 'AbrishamLayout',
+  name: 'GiftCardLayout',
   components: { Router },
   data: () => ({
     keepAliveComponents: KeepAliveComponents

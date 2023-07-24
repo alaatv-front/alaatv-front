@@ -141,10 +141,11 @@
 </template>
 
 <script>
-import { EntityIndex } from 'quasar-crud'
-import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
-import { APIGateway } from 'src/api/APIGateway'
 import moment from 'moment-jalaali'
+import { EntityIndex } from 'quasar-crud'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'TicketList',
   components: { EntityIndex },
@@ -598,7 +599,21 @@ export default {
       return []
     }
   },
+  mounted () {
+    this.checkQueryParams()
+  },
   methods: {
+    checkQueryParams () {
+      const departmentId = this.$route.query.d
+      if (departmentId) {
+        this.$router.push({
+          name: 'UserPanel.Ticket.Create',
+          query: {
+            d: departmentId
+          }
+        })
+      }
+    },
     async initTicket () {
       this.setEntityValues()
       await this.setInputs()
@@ -636,8 +651,8 @@ export default {
     async setInputs () {
       const ticketFields = await this.getTicketData()
       this.getInput('department_id').options = ticketFields.departments.list
-      this.getInput('pirority_id').options = ticketFields.priorities
-      this.getInput('status_id').options = ticketFields.statuses
+      this.getInput('pirority_id').options = ticketFields.priorities.list
+      this.getInput('status_id').options = ticketFields.statuses.list
     },
     setEditMode(data) {
       data.expand = true

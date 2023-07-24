@@ -48,7 +48,7 @@
           <div v-if="videos.length > 0"
                class="contents-block">
             <block-component class="block"
-                             :options="getBlockOptions" />
+                             :options="blockOptions" />
           </div>
           <q-banner v-else
                     inline-actions
@@ -122,10 +122,10 @@
 
 <script>
 import { openURL } from 'quasar'
-import { Set, SetList } from 'src/models/Set.js'
 import { dragscroll } from 'vue-dragscroll'
 import { Block } from 'src/models/Block.js'
 import { Product } from 'src/models/Product.js'
+import { Set, SetList } from 'src/models/Set.js'
 import { ContentList } from 'src/models/Content.js'
 import BlockComponent from 'src/components/Widgets/Block/Block.vue'
 import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
@@ -163,11 +163,11 @@ export default {
     }
   },
   computed: {
-    getBlockOptions () {
+    blockOptions () {
       return {
         block: new Block({
           title: '',
-          contents: this.contents
+          contents: this.videos
         }),
         gridView: this.localOptions.contentGridView,
         showContentDownloadMenu: this.localOptions.showContentDownloadMenu,

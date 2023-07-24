@@ -3,6 +3,20 @@
     <q-list class="side-menu-list"
             padding
             dark>
+      <q-item v-if="isUserLogin"
+              class="item-list wallet-balance">
+        <div class="section-title">
+          <q-item-section class="list-section">
+            موجودی کیف پول
+          </q-item-section>
+          <q-item-section class="list-section title-icon"
+                          avatar>
+            {{ user.wallet_balance.toLocaleString('fa') }}
+            تومان
+          </q-item-section>
+          <span class="indicator" />
+        </div>
+      </q-item>
       <q-item v-for="(item , index) in profileTitlesList"
               :key="index"
               class="item-list"
@@ -21,7 +35,8 @@
         </div>
       </q-item>
       <q-item v-if="isUserLogin"
-              class="item-list alone-item q-mt-lg"
+              class="item-list alone-item q-mt-lg q-mb-md"
+              clickable
               @click="logOut">
         <div class="section-title">
           <q-item-section class="list-section">
@@ -101,6 +116,15 @@ export default {
           children: []
         },
         {
+          title: 'داشبورد راه ابریشم ۲',
+          icon: 'isax:activity',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+          params: { eventName: 'abrisham2' },
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
           title: 'داشبورد چترنجات',
           icon: 'isax:global',
           routeName: 'UserPanel.Asset.TripleTitleSet.Products',
@@ -146,7 +170,7 @@ export default {
       this.isAdmin = this.$store.getters['Auth/isAdmin']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
     },
-    logOut() {
+    logOut () {
       return this.$store.dispatch('Auth/logOut')
     },
     showMenuItem () {
@@ -191,6 +215,11 @@ export default {
           cursor: pointer;
           padding: 0 14px 0 10px;
           border-radius: 14px;
+
+          &.wallet-balance {
+            cursor: default !important;
+          }
+
           &.alone-item {
             height: 40px;
 

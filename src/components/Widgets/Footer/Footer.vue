@@ -115,12 +115,12 @@
               <div class="main-title">دسته بندی های محبوب</div>
               <q-btn flat
                      class="sub-title"
-                     :to="'/landing/rahe-abrisham'">
+                     :to="{name: 'Public.Landing.DynamicName', params: {landing_name: 'rahabrisham'}}">
                 راه ابریشم
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :to="'/landing/emtehan-nahaee-nohom'">
+                     :to="{name: 'Public.Landing.DynamicName', params: {landing_name: 'emtehan-nahaee-nohom'}}">
                 امتحان نهایی
               </q-btn>
             </div>
@@ -204,7 +204,7 @@
         </div>
       </div>
     </div>
-    <div class="mobile-footer">
+    <div class="mobile-footer lt-md">
       <q-list>
         <q-item v-for="(item , index) in mobileFooterItems"
                 :key="index"
@@ -830,15 +830,9 @@ export default {
     width: 100%;
 
     height: $mobileFooterHeight;
-    display: none;
     background: white;
     border-radius: 16px 16px 0;
     box-shadow: 0 -6px 10px rgba(112, 108, 161, 0.07);
-
-    @media screen and (max-width:600px){
-      display: block;
-      height: 72px;
-    }
 
     $itemSize: 44px;
 

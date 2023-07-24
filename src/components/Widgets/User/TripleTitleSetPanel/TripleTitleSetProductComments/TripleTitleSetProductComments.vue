@@ -10,8 +10,9 @@
                   :identifyKey="'id'"
                   :table="table"
                   :table-keys="tableKeys"
-                  :create-route-name="'User.Create'"
                   :show-search-button="false"
+                  :show-expand-button="false"
+                  :show-reload-button="false"
                   show-no-entity-slot
                   :default-layout="false"
                   :table-grid-size="true"

@@ -43,15 +43,13 @@ export function login (context, data) {
 export function logOut (context, payload) {
   const redirectTo = payload?.redirectTo
   const clearRedirectTo = payload?.clearRedirectTo
-
   context.commit('updateAccessToken', null)
   context.commit('updateUser', null)
-
   if (typeof window !== 'undefined') {
     Cookies.set('BearerAccessToken', '', {
       // domain: '.' + window.location.host,
-      path: '/',
-      expires: '365d'
+      path: '/'
+      // expires: '365d'
     })
   }
   context.commit('updateAxiosAuthorization', null)

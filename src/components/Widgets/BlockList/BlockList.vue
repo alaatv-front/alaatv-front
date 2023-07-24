@@ -50,13 +50,6 @@ export default {
         return []
       }
       return this.blocks.list.slice(this.defaultOptions.from, this.defaultOptions.to)
-    },
-    apiName () {
-      if (this.options.apiName) {
-        return this.options.apiName
-      }
-
-      return this.defaultOptions.apiName
     }
   },
   watch: {
@@ -65,11 +58,6 @@ export default {
         this.reloadWidget()
       },
       deep: true
-    },
-    blocks() {
-      this.blocks.list.forEach((block, index) => {
-        block.headerCustomClass = `block-header-${index}` + ' '
-      })
     }
   },
   methods: {
@@ -83,15 +71,18 @@ export default {
         })
     },
     prefetchServerDataPromise () {
-      if (this.options.blocks && this.options.blocks.list.length > 0) {
+      if (this.localOptions.blocks && this.localOptions.blocks.list.length > 0) {
         return new Promise((resolve) => {
-          resolve(this.options.blocks)
+          resolve(this.localOptions.blocks)
         })
       }
       return this.getApiRequest()
     },
     prefetchServerDataPromiseThen (data) {
-      this.blocks = data
+      this.blocks = new BlockList(data)
+      this.blocks.list.forEach((block, index) => {
+        block.headerCustomClass = `block-header-${index}` + ' '
+      })
       this.blocks.loading = false
     },
     prefetchServerDataPromiseCatch () {
@@ -99,13 +90,13 @@ export default {
     },
     getApiRequest() {
       this.blocks.loading = true
-      if (this.apiName === 'home') {
+      if (this.localOptions.apiName === 'home') {
         return this.$apiGateway.pages.home()
       }
-      if (this.apiName === 'shop') {
+      if (this.localOptions.apiName === 'shop') {
         return this.$apiGateway.pages.shop()
       }
-      if (this.apiName === 'content') {
+      if (this.localOptions.apiName === 'content') {
         return this.$apiGateway.content.relatedProducts(this.defaultOptions.contentId)
       }
 

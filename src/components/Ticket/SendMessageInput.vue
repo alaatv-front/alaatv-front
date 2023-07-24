@@ -195,6 +195,7 @@
                  v-model="newMessage.text"
                  borderless
                  class="newMessageText"
+                 autogrow
                  placeholder="متن پیام ..." />
       </div>
       <div v-if="recordedVoice !== null"

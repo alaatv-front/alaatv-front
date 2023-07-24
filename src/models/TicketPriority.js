@@ -1,4 +1,4 @@
-import { Model } from 'js-abstract-model'
+import { Model, Collection } from 'js-abstract-model'
 
 class TicketPriority extends Model {
   constructor (data) {
@@ -9,4 +9,9 @@ class TicketPriority extends Model {
   }
 }
 
-export default TicketPriority
+class TicketPriorityList extends Collection {
+  model() {
+    return TicketPriority
+  }
+}
+export { TicketPriority, TicketPriorityList }
