@@ -16,7 +16,9 @@ export default class StudyPlanAPI extends APIRepository {
     this.CacheList = {
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
       getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
-      StudyPlan: this.name + this.APIAdresses.StudyPlan
+      StudyPlan: this.name + this.APIAdresses.StudyPlan,
+      planOptions: this.name + this.APIAdresses.planOptions,
+      myStudyPlan: this.name + this.APIAdresses.myStudyPlan
     }
   }
 
@@ -40,6 +42,7 @@ export default class StudyPlanAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.getPlans(id),
+      cacheKey: this.CacheList.getPlans(id),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new StudyPlanList(response.data.data)
@@ -50,11 +53,13 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getChangePlanOptions() {
+  getChangePlanOptions(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.planOptions,
+      cacheKey: this.CacheList.planOptions,
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           grades: response.data.data.grades ? response.data.data.grades : [],
@@ -68,11 +73,13 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getMyStudyPlan() {
+  getMyStudyPlan(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.myStudyPlan,
+      cacheKey: this.CacheList.myStudyPlan,
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
           id: response.data.data?.id,
