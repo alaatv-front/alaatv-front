@@ -221,14 +221,12 @@ export default {
     filterByLesson() {
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
         .then(res => {
-          console.log(res)
         })
         .catch()
     },
     getFilterLesson() {
       this.$apiGateway.studyPlan.getSetting()
         .then(res => {
-          console.log(res)
         })
         .catch()
     },
@@ -238,7 +236,6 @@ export default {
     getMyStudyPlan() {
       this.$apiGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
-          console.log(studyPlan)
           this.planType = studyPlan.title
         })
         .catch()
@@ -274,7 +271,6 @@ export default {
       })
         .then(response => {
           this.successChangePlan = true
-          console.log(response)
         })
         .catch(() => {})
     }

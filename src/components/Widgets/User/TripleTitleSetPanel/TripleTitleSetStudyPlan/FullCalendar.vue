@@ -524,11 +524,11 @@ export default defineComponent({
         }
       ]
     ])
-    const baseHight = ref(100) // must be 40
+    const baseHight = ref(40) // must be 40
     const baseHour = ref(0)
     const chartWeek = ref([])
     const dayList = ref(['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'آدینه'])
-    const monthList = ref(['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'امرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'])
+    const monthList = ref(['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'])
     const tab = ref('week')
     const calendarYear = ref(null)
     const calendarDate = ref(null)
@@ -604,11 +604,12 @@ export default defineComponent({
       // import data to weekly view object
       for (let w = 0; w < 6; w++) {
         for (let col = 0; col < 7; col++) {
-          if (month.value[w][col].date === date) {
+          if (month.value[w][col].date === moment(date).format('YYYY/MM/DD')) {
             chartWeek.value = month.value[w]
           }
         }
       }
+      console.log(chartWeek.value)
     }
 
     const setAttr = (event) => {
@@ -640,7 +641,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.loadCalendar('2022/03/12', true)
+    this.loadCalendar(Time.now(), true)
     this.getStudyPlanData()
   },
   methods: {
@@ -651,11 +652,9 @@ export default defineComponent({
       return (parseInt(event.end.substring(0, 2)) + parseInt(event.end.substring(3, 5)) / 60 - parseInt(event.start.substring(0, 2)) - parseInt(event.start.substring(3, 5)) / 60) * this.baseHight + 'px'
     },
     calculateEventDate() {
-      const date = new Date(this.selectedEvent.date)
-      console.log(moment(date).format('dddd'))
+      // const date = new Date(this.selectedEvent.date)
     },
     openEvent(event) {
-      console.log(event)
       this.eventDialog = true
       this.selectedEvent = event
     },
@@ -663,8 +662,8 @@ export default defineComponent({
       const data = {
         params: {
           study_event: 6,
-          since_date: '2022-03-12',
-          till_date: '2022-03-14'
+          since_date: '2022-07-24',
+          till_date: '2022-07-30'
         }
       }
       this.$apiGateway.studyPlan.getStudyPlanData(data)
@@ -682,28 +681,23 @@ export default defineComponent({
               }
             }
           }
-          console.log(this.month)
         })
         .catch(() => {})
     },
     goToNextWeek() {
       const today = new Date(this.calendarDate._i)
-      console.log(this.calendarDate._i)
       const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
       const day = nextWeek.getDate()
       const month = nextWeek.getMonth()
       const year = nextWeek.getFullYear()
-      console.log(`${year}/${month}/${day}`)
       this.loadCalendar(`${year}/${month}/${day}`, false)
     },
     goToLastWeek() {
       const today = new Date(this.calendarDate._i)
-      console.log(this.calendarDate._i)
       const nextWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
       const day = nextWeek.getDate()
       const month = nextWeek.getMonth()
       const year = nextWeek.getFullYear()
-      console.log(`${year}/${month}/${day}`)
       this.loadCalendar(`${year}/${month}/${day}`, false)
     },
     setCalendarMonth(selectedMonth) {
