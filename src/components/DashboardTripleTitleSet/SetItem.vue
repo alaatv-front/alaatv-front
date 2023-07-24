@@ -34,13 +34,13 @@
                 پیشرفت دوره
               </div>
               <div class="progress-percent">
-                {{ percent }}%
+                {{ setItem.contents_progress }}%
               </div>
             </div>
             <div class="progress-bar">
               <q-linear-progress reverse
                                  color="teal-4"
-                                 :value="setItem.progress"
+                                 :value="progress"
                                  class="q-mt-md" />
             </div>
           </div>
@@ -112,8 +112,8 @@ export default {
     }
   },
   computed: {
-    percent() {
-      return (this.setItem?.progress || 0) * 100
+    progress() {
+      return (this.setItem?.contents_progress) / 100
     }
   },
   methods: {

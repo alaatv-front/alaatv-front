@@ -32,7 +32,7 @@ class Set extends Model {
       { key: 'title' },
       { key: 'short_title' },
       {
-        key: 'progress',
+        key: 'contents_progress',
         default: 0
       },
       { key: 'last_content_user_watched' },

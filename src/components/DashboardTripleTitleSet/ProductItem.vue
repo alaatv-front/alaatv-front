@@ -36,7 +36,7 @@
                 پیشرفت دوره
               </div>
               <div class="progress-percent">
-                {{ percent }}%
+                {{ product.contents_progress }}%
               </div>
             </div>
             <div class="progress-bar">
@@ -106,7 +106,7 @@
 import { Product } from 'src/models/Product.js'
 
 export default {
-  name: 'ProdutItem',
+  name: 'ProductItem',
   props: {
     product: {
       type: Object,
@@ -114,8 +114,8 @@ export default {
     }
   },
   computed: {
-    percent() {
-      return (this.product?.progress || 0) * 100
+    progress() {
+      return (this.product?.contents_progress) / 100
     }
   },
   methods: {
