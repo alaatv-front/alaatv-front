@@ -5,7 +5,8 @@
            dir="ltr"
            class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
            controls
-           preload="none">
+           preload="none"
+           @timeupdate="updateTime">
       <p class="vjs-no-js">
         To view this video please enable JavaScript, and consider upgrading to a web browser that
         <a href="https://videojs.com/html5-video-support/"
@@ -104,7 +105,7 @@ export default {
       type: Number
     }
   },
-  emits: ['seeked', 'adStarted', 'update:sideBar'],
+  emits: ['seeked', 'adStarted', 'adEnded', 'update:sideBar', 'timeUpdated'],
   data() {
     return {
       needReInitVideo: false,
@@ -180,6 +181,9 @@ export default {
     },
     currentTime() {
       return this.currentTimed
+    },
+    videoLength() {
+      return this.player.duration()
     }
   },
   watch: {
@@ -237,6 +241,11 @@ export default {
     }
   },
   methods: {
+    updateTime () {
+      const currentTime = this.player.currentTime()
+      const duration = this.player.duration()
+      this.$emit('timeUpdated', { currentTime, duration })
+    },
     getVast () {
       return APIGateway.vast.getXml()
         .then((vastXml) => {
