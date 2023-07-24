@@ -1,5 +1,7 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions">
+  <option-panel-tabs v-model:options="localOptions"
+                     :show-hover-effects-tab="true"
+                     :show-box-shadows-tab="true">
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row q-col-gutter-md">
@@ -157,6 +159,7 @@ export default defineComponent({
           width: null,
           src: null
         },
+        boxShadows: [],
         cssHoverEffects: {
           transition: {
             time: 0
