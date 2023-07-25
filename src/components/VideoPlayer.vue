@@ -242,6 +242,9 @@ export default {
   },
   methods: {
     updateTime () {
+      if (this.player === null || !this.player) {
+        return
+      }
       const currentTime = this.player.currentTime()
       const duration = this.player.duration()
       this.$emit('timeUpdated', { currentTime, duration })
