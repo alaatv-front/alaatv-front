@@ -22,11 +22,29 @@
           <div class="product-item-description">
             {{ product.title }}
           </div>
-          <div class="product-item-teacher">
+          <div v-for="(teacher, index) in product.attributes?.info?.teacher"
+               :key="index"
+               class="product-item-teacher">
             <q-icon name="account_circle"
                     class="q-mr-xs"
                     size="16px" />
-            {{ product.attributes?.info?.teacher[0] }}
+            {{ teacher }}
+          </div>
+          <div class="product-item-progress">
+            <div class="progress-description">
+              <div class="progress-title">
+                پیشرفت دوره
+              </div>
+              <div class="progress-percent">
+                {{ percent }}%
+              </div>
+            </div>
+            <div class="progress-bar">
+              <q-linear-progress reverse
+                                 color="teal-4"
+                                 :value="progress"
+                                 class="q-mt-md" />
+            </div>
           </div>
         </q-card-section>
         <q-card-section v-if="$q.screen.gt.xs"
@@ -93,6 +111,11 @@ export default {
     product: {
       type: Object,
       default: new Product()
+    }
+  },
+  computed: {
+    percent() {
+      return (this.product?.progress || 0) * 100
     }
   },
   methods: {
@@ -198,7 +221,7 @@ export default {
         line-height: 19px;
         letter-spacing: -0.02em;
         color: #333333;
-        margin-bottom: 24px;
+        margin-bottom: 5px;
 
         @media only screen and (max-width: 600px) {
           font-size: 12px;
@@ -214,10 +237,37 @@ export default {
         line-height: 19px;
         letter-spacing: -0.02em;
         color: #6C6C6C;
+        margin-bottom: 10px;
 
         @media only screen and (max-width: 600px) {
           font-size: 10px;
           line-height: 12px;
+        }
+      }
+
+      .product-item-progress {
+        .progress-description {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .progress-title {
+            color:#616161;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.24px;
+          }
+
+          .progress-percent {
+            color:#616161;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.24px;
+          }
         }
       }
     }

@@ -19,6 +19,7 @@ class Product extends Model {
       {
         key: 'teacher_image'
       },
+      { key: 'has_instalment_option' },
       { key: 'is_free' },
       { key: 'is_live' },
       { key: 'is_active' },
@@ -26,6 +27,10 @@ class Product extends Model {
       { key: 'live_link' },
       { key: 'photo' },
       { key: 'attributes' },
+      {
+        key: 'progress',
+        default: 0
+      },
       {
         key: 'description',
         default: {
@@ -85,11 +90,11 @@ class Product extends Model {
     this.fillEECData(data)
   }
 
-  getChildren () {
+  getChildren() {
     return new ProductList(this.children)
   }
 
-  hasChildren () {
+  hasChildren() {
     return this.children.length > 0
   }
 

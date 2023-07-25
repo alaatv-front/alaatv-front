@@ -78,6 +78,10 @@ const routes = [
           {
             path: 'product',
             name: 'Public.Product',
+            layoutConfig: {
+              layoutFooter: false
+
+            },
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -471,7 +475,9 @@ const routes = [
                   layoutLeftDrawerWidth: 100,
                   layoutLeftDrawerVisible: true,
                   layoutLeftDrawerBehavior: 'default',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'triple-title-set'
+
                 },
                 component: () => import('src/layouts/bareLayout.vue'),
                 children: [
@@ -479,6 +485,11 @@ const routes = [
                     name: 'UserPanel.Asset.TripleTitleSet.Products',
                     path: '',
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.Dashboard',
+                    path: 'dashboard',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Dashboard.vue')
                   },
                   {
                     name: 'UserPanel.Asset.TripleTitleSet.ProductLayout',
@@ -523,6 +534,11 @@ const routes = [
                     path: ':setId/adviser/content/:contentId',
                     props: true,
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
+                    path: 'study-plan',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/StudyPlan.vue')
                   }
                 ]
               }
@@ -694,6 +710,12 @@ const routes = [
                 path: 'controls',
                 name: 'Document.Theme.Controls',
                 component: () => import('src/pages/Document/Theme/Controls.vue'),
+                breadcrumbs: { title: 'Controls' }
+              },
+              {
+                path: 'component',
+                name: 'Document.Theme.Component',
+                component: () => import('src/pages/Document/Theme/Component.vue'),
                 breadcrumbs: { title: 'Controls' }
               }
             ]
