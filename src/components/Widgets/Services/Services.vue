@@ -4,17 +4,18 @@
       <div v-for="(service, index) in options.services"
            :key="index"
            class="col-xs-4 col-sm-3 col-md-1">
-        <a v-if="service.action === 'link'"
-           class="service"
-           :href="service.link"
-           :title="service.title"
-           target="_self">
+        <component :is="redirectComponent(service)"
+                   v-if="service.action === 'link'"
+                   :to="{path: service.link}"
+                   :href="service.link"
+                   :title="service.title"
+                   class="service">
           <div class="service-image">
             <q-img :src="service.icon" />
           </div>
           <p class="service-title">{{ service.title }}</p>
           <p class="service-subtitle">{{ service.subTitle }}</p>
-        </a>
+        </component>
         <div v-else
              class="service cursor-pointer"
              @click="scrollToElement(service)">
@@ -39,7 +40,16 @@ export default {
     return {
     }
   },
+  computed: {
+  },
   methods: {
+    redirectComponent(service) {
+      if (this.isExternal(service.link)) {
+        return 'a'
+      } else {
+        return 'router-link'
+      }
+    },
     onDragStart(event, service, serviceIndex) {
       event.dataTransfer.dropEffect = 'move'
       event.dataTransfer.setData('value', JSON.stringify({ service, serviceIndex }))
@@ -91,6 +101,12 @@ export default {
         top: offsetPosition,
         behavior: 'smooth'
       })
+    },
+    isExternal(url) {
+      if (typeof window === 'undefined') {
+        return true
+      }
+      return (url.indexOf('http://') > -1 || url.indexOf('https://') > -1)
     }
   }
 
