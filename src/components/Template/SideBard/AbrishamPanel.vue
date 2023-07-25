@@ -74,6 +74,8 @@ export default {
   display: flex !important;
   flex-direction: column;
   border-right: 1px solid #e0e0e0;
+  background: white;
+  height: 100%;
   .menu-logo {
     text-align: center;
     margin: 30px auto 130px;

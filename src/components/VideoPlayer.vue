@@ -242,9 +242,13 @@ export default {
   },
   methods: {
     updateTime () {
-      const currentTime = this.player.currentTime()
-      const duration = this.player.duration()
-      this.$emit('timeUpdated', { currentTime, duration })
+      try {
+        const currentTime = this.player.currentTime()
+        const duration = this.player.duration()
+        this.$emit('timeUpdated', { currentTime, duration })
+      } catch (e) {
+
+      }
     },
     getVast () {
       return APIGateway.vast.getXml()
