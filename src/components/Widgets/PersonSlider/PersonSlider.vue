@@ -1,13 +1,14 @@
 <template>
   <div v-if="localOptions.sliderItems"
        class="row">
-    <div class="col-1 q-pl-xl arrow-right">
+    <div v-if="!$q.screen.lt.md"
+         class="col-1 q-pl-xl arrow-right">
       <q-btn icon="isax:arrow-right-1"
              color="primary"
              size="xl"
              @click="goToRight" />
     </div>
-    <div class="col-10">
+    <div class="col-12 col-md-10">
       <q-virtual-scroll ref="virtualScroll"
                         v-slot="{ item, index }"
                         :items="localOptions.sliderItems"
@@ -50,7 +51,8 @@
         </q-card>
       </q-virtual-scroll>
     </div>
-    <div class="arrow-left col-1 text-right q-pr-xl">
+    <div v-if="!$q.screen.lt.md"
+         class="arrow-left col-1 text-right q-pr-xl">
       <q-btn icon="isax:arrow-left"
              color="primary"
              size="xl"
