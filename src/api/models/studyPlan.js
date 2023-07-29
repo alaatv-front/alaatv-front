@@ -119,7 +119,7 @@ export default class StudyPlanAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.studyEventReport(reportId),
-      cacheKey: this.CacheList.studyEventReport,
+      cacheKey: this.CacheList.studyEventReport(reportId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data?.data // String message
