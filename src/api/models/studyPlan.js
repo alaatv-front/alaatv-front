@@ -1,6 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { StudyPlan, StudyPlanList } from 'src/models/StudyPlan'
+import { WebsiteSetting } from 'src/models/WebsiteSetting'
 
 export default class StudyPlanAPI extends APIRepository {
   constructor() {
@@ -90,14 +91,14 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  storeMyStudyPlan(data = {}) {
+  updateMyStudyPlan(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.myStudyPlan,
       data,
       resolveCallback: (response) => {
-        return response
+        return new StudyPlan(response.data)
       },
       rejectCallback: (error) => {
         return error
@@ -110,7 +111,7 @@ export default class StudyPlanAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.studyPlan,
-      data: data.params,
+      data,
       resolveCallback: (response) => {
         return new StudyPlanList(response.data.data)
       },
@@ -127,7 +128,7 @@ export default class StudyPlanAPI extends APIRepository {
       request: this.APIAdresses.setting,
       data,
       resolveCallback: (response) => {
-        return response
+        return response.message ? response.message : null
       },
       rejectCallback: (error) => {
         return error
@@ -140,6 +141,21 @@ export default class StudyPlanAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.setting,
+      resolveCallback: (response) => {
+        return new WebsiteSetting(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  storeNewPlan(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.plan,
+      data,
       resolveCallback: (response) => {
         return response
       },

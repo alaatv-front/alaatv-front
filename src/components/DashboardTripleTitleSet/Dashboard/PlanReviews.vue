@@ -79,11 +79,9 @@ export default defineComponent({
     gotoLink(date) {
       this.linkLoading = true
       this.$apiGateway.studyPlan.getStudyPlanData({
-        params: {
-          study_event: this.studyPlanId,
-          since_date: date,
-          till_date: date
-        }
+        study_event: this.studyPlanId,
+        since_date: date,
+        till_date: date
       })
         .then(studyPlanList => {
           if (studyPlanList.list.length === 0) {

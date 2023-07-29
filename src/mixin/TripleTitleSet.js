@@ -40,16 +40,17 @@ const mixinTripleTitleSet = {
       this.watchingContent.is_favored = value
     },
     videoIsWatched() {
-      if (!this.isVideoWatched) {
-        this.$apiGateway.content.setVideoWatched({
-          watchable_id: this.watchingContent.id,
-          watchable_type: 'content'
-        })
-          .then(() => {
-            this.isVideoWatched = true
-          })
-          .catch(() => {})
+      if (this.isVideoWatched) {
+        return
       }
+      this.$apiGateway.content.setVideoWatched({
+        watchable_id: this.watchingContent.id,
+        watchable_type: 'content'
+      })
+        .then(() => {
+          this.isVideoWatched = true
+        })
+        .catch(() => {})
     },
     updateVideoStatus(data) {
       const hasWatch = data || this.watchingContent.has_watched

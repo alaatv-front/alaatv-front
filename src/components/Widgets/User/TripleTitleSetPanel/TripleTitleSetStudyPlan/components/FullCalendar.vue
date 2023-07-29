@@ -45,7 +45,7 @@
               <span class="day-name">شنبه</span>
               <span v-if="tab === 'week' && chartWeek[0] && chartWeek[0].persianDate !== undefined"
                     class="day-date">
-                {{ chartWeek[0].persianDate.toString().substring(8, 10) }} {{calendarMonth}}
+                {{ chartWeek[0].persianDate.toString().substring(7, 10) }} {{calendarMonth}}
               </span>
             </div>
             <div class="col calendar-col"
@@ -149,10 +149,14 @@
                            class="weekly-event cursor-pointer"
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: event.backgroundColor}"
                            @click="openEvent(event)">
-                        <div class="flex column q-px-md">
-                          <span class="body1 q-mt-sm">{{ event.title }}</span>
-                          <span class="caption2 q-mt-xs">{{event.description}}</span>
-                          <span class="caption2 q-mt-xs">{{event.start}} الی {{event.end}}</span>
+                        <div class="row q-px-md">
+                          <div class="body1 col-11 q-mt-sm">{{ event.title }}</div>
+                          <div class="col-1">
+                            <q-btn icon="isax:more"
+                                   class="rotate-90" />
+                          </div>
+                          <div class="caption2 q-mt-xs">{{event.description}}</div>
+                          <div class="caption2 q-mt-xs">{{event.start}} الی {{event.end}}</div>
                         </div>
                       </div>
                     </div>
@@ -609,7 +613,6 @@ export default defineComponent({
           }
         }
       }
-      console.log(chartWeek.value)
     }
 
     const setAttr = (event) => {

@@ -25,23 +25,31 @@ export default class EventsAPI extends APIRepository {
       {
         id: 10,
         name: 'chatre-nejat',
-        logo: 'https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png'
+        logo: 'https://nodes.alaatv.com/upload/landing/chatr/chatr%20logo.png',
+        showDashboard: false,
+        showStudyPlan: false
       },
       {
         id: 11,
         name: 'emtahan-nahaee',
-        logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png'
+        logo: 'https://nodes.alaatv.com/upload/landing/chatr/emtahan-nahaee-logo.png',
+        showDashboard: false,
+        showStudyPlan: false
       },
       {
         id: 12,
         name: 'emtahan-nahaee-9',
-        logo: 'https://nodes.alaatv.com/upload/landing/41/emtehan-nahayi-nohom-logo.png'
+        logo: 'https://nodes.alaatv.com/upload/landing/41/emtehan-nahayi-nohom-logo.png',
+        showDashboard: false,
+        showStudyPlan: false
       },
       {
         id: 13,
         studyEventId: 6,
         name: 'abrisham2',
-        logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png'
+        logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
+        showDashboard: false,
+        showStudyPlan: true
       }
     ]
     return new Promise((resolve, reject) => {
