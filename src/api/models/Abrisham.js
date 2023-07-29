@@ -141,7 +141,7 @@ export default class AbrishamAPI extends APIRepository {
       ...(cache && { cache }),
       data,
       resolveCallback: (response) => {
-        return new StudyPlan(response.data)
+        return new StudyPlan(response.data.data)
       },
       rejectCallback: (error) => {
         return error

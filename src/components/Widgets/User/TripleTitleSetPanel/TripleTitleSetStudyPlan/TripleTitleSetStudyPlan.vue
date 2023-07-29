@@ -89,6 +89,7 @@
               <div class="outsideLabel">برنامه</div>
               <q-select v-model="planType"
                         label="انتخاب کنید"
+                        option-label="display_name"
                         :options="planOptions"
                         @update:model-value="setFlagTrue" />
             </div>
@@ -271,7 +272,7 @@ export default {
           label: 'برنامه',
           placeholder: 'انتخاب کنید',
           options: [],
-          optionLabel: 'title',
+          optionLabel: 'display_name',
           optionValue: 'id',
           value: null,
           col: 'col-md-4'
@@ -434,7 +435,6 @@ export default {
     getChangePlanOptions() {
       this.$apiGateway.studyPlan.getChangePlanOptions()
         .then(options => {
-          console.log(options)
           this.majorOptions = options.majors
           this.gradeOptions = options.grades
           this.planOptions = options.studyPlans

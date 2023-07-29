@@ -61,7 +61,7 @@ export default class StudyPlanAPI extends APIRepository {
         return {
           grades: response.data.data.grades ? response.data.data.grades : [],
           majors: response.data.data.majors ? response.data.data.majors : [],
-          studyPans: response.data.data.studyPans ? response.data.data.studyPans : [],
+          studyPlans: response.data.data.studyPlans ? response.data.data.studyPlans : [],
           products: response.data.data.products ? response.data.data.products : []
         }
       },
@@ -98,7 +98,7 @@ export default class StudyPlanAPI extends APIRepository {
       request: this.APIAdresses.myStudyPlan,
       data,
       resolveCallback: (response) => {
-        return new StudyPlan(response.data)
+        return new StudyPlan(response.data.data)
       },
       rejectCallback: (error) => {
         return error
