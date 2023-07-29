@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       defaultOptions: {
+        text: '',
         fontFamily: null,
         color: null,
         fontSize: null,
