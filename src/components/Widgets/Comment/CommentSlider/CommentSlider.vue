@@ -1,0 +1,176 @@
+<template>
+  <div v-if="localOptions.sliderItems"
+       :class="localOptions.className"
+       :style="localOptions.style"
+       class="row">
+    <div v-if="!$q.screen.lt.md"
+         class="col-1 q-pl-xl arrow-right">
+      <q-btn icon="isax:arrow-right-1"
+             color="primary"
+             size="xl"
+             @click="goToRight" />
+    </div>
+    <div class="col-12 col-md-10">
+      <q-virtual-scroll ref="virtualScroll"
+                        v-slot="{ item, index }"
+                        :items="localOptions.sliderItems"
+                        class="student-scroll-bar"
+                        virtual-scroll-horizontal>
+        <comment-item :key="index"
+                      :options="localOptions.commentOptionPanel"
+                      :comment="item" />
+      </q-virtual-scroll>
+    </div>
+    <div v-if="!$q.screen.lt.md"
+         class="arrow-left col-1 text-right q-pr-xl">
+      <q-btn icon="isax:arrow-left"
+             color="primary"
+             size="xl"
+             @click="goToLeft" />
+    </div>
+  </div>
+  <div v-else
+       class="loading">
+    ...
+  </div>
+</template>
+
+<script>
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import CommentItem from 'src/components/Widgets/Comment/CommentItem/CommentItem.vue'
+
+export default {
+  name: 'PersonSlider',
+  components: {
+    CommentItem
+  },
+  mixins: [mixinWidget],
+  data() {
+    return {
+      defaultOptions: {
+        sliderItems: [],
+        commentOptionPanel: {}
+      },
+      scrollIndex: 0
+    }
+  },
+  mounted() {
+    this.init()
+  },
+  methods: {
+    onVirtualScroll({ index }) {
+      this.scrollIndex = index
+    },
+    goToRight() {
+      if (this.scrollIndex > 0) {
+        this.scrollIndex -= 1
+        this.$refs.virtualScroll.scrollTo(this.scrollIndex)
+      }
+    },
+    goToLeft() {
+      if (this.scrollIndex < this.localOptions.sliderItems.length) {
+        this.scrollIndex += 1
+        this.$refs.virtualScroll.scrollTo(this.scrollIndex)
+      }
+    },
+    init() {
+      if (this.$refs.virtualScroll) {
+        setInterval(() => {
+          this.scrollIndex += 1
+          if (this.scrollIndex > this.localOptions.sliderItems.length) {
+            this.scrollIndex = 0
+          }
+          this.$refs.virtualScroll.scrollTo(this.scrollIndex)
+        }, 2000)
+      }
+    },
+    getOptions(item) {
+      const comment = {
+        comment: item
+      }
+      const options = Object.assign({}, this.localOptions.commentItemOptionPanel, comment)
+      return options
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.scroll-item-card {
+  width: 200px;
+  height: 320px;
+  max-height: 350px;
+  border-radius: 20px;
+  margin: 0 10px 20px;
+  padding: 20px 20px 8px;
+  box-shadow: 0 20px 20px 0 rgb(0 0 0 / 5%);
+  background-color: #fff;
+
+  .student-img {
+    position: relative;
+    border-radius: 10px;
+
+    .student-major {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      z-index: 2;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      height: 26px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.riazi {
+        background: rgba($color: #75b9ea, $alpha: .5);
+      }
+      &.tajrobi {
+        background: rgba($color: #63a869, $alpha: .5);
+      }
+    }
+  }
+
+  .person-name-card-section {
+    padding-bottom: 0;
+    .student-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      text-align: center;
+      min-height: 40px;
+    }
+  }
+
+ .person-info-card-section{
+  padding-top: 0;
+  .student-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .rank {
+      font-size: 28px;
+      font-weight: 800;
+      color: #35427a;
+      text-align: center;
+    }
+
+    .region {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      text-align: center;
+    }
+  }
+ }
+}
+.arrow-left {
+  align-self: center;
+}
+.arrow-right {
+  align-self: center;
+}
+</style>
