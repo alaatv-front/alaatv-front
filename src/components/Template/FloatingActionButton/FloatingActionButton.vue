@@ -221,9 +221,9 @@
 
 <script>
 import { copyToClipboard } from 'quasar'
-import { mixinPageOptions } from 'src/mixin/Mixins'
-import { APIGateway } from 'src/api/APIGateway'
-import { PageSetting } from 'src/models/PageSetting'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinPageOptions } from 'src/mixin/Mixins.js'
+import { PageSetting } from 'src/models/PageSetting.js'
 
 export default {
   name: 'FloatingActionButton',
@@ -312,6 +312,16 @@ export default {
         .then(() => {
           this.currenSections = sections
           this.$store.commit('PageBuilder/updatePageBuilderEditable', false)
+        })
+        .catch(() => {
+          APIGateway.pageSetting.create({ key, value })
+            .then(() => {
+              this.currenSections = sections
+              this.$store.commit('PageBuilder/updatePageBuilderEditable', false)
+            })
+            .catch(() => {
+
+            })
         })
     },
     loadDefaultSeoData () {
