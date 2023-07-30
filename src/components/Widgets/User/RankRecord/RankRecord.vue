@@ -146,7 +146,7 @@ export default {
         })
         .catch()
     },
-    afterSendData(d) {
+    afterSendData() {
       this.$store.commit('loading/loading', false)
     },
     beforeSendData(formData) {
