@@ -5376,12 +5376,12 @@ qs@6.11.0:
   dependencies:
     side-channel "^1.0.4"
 
-quasar-app-extension-q-page-builder@^0.1.50:
-  version "0.1.50"
-  resolved "https://registry.yarnpkg.com/quasar-app-extension-q-page-builder/-/quasar-app-extension-q-page-builder-0.1.50.tgz#4b24f5a44747ca434c071bac4a27e336da56db25"
-  integrity sha512-ciSCFgwrjYRayTK1kBDM4f8PqBhrYCZhkQgZ5nQvSAg02okH9K4IX42P1qVHgtxLFk88/JrWSkbkAkwIo4RYRg==
+quasar-app-extension-q-page-builder@^0.1.51:
+  version "0.1.51"
+  resolved "https://registry.yarnpkg.com/quasar-app-extension-q-page-builder/-/quasar-app-extension-q-page-builder-0.1.51.tgz#f6307e086243b522db7ae0eed6a6d41dd56f8aec"
+  integrity sha512-RYVS9/IMtR8f6zrZpt0xUo9qgFaYSAwRJtWPQ1WvWndYcPBbvtfeoeqFAexBBCS/dgNizZPlY95diCjNXj2aDw==
   dependencies:
-    quasar-ui-q-page-builder "^0.1.50"
+    quasar-ui-q-page-builder "^0.1.51"
 
 quasar-crud@^0.3.39:
   version "0.3.39"
@@ -5418,10 +5418,10 @@ quasar-template-builder@^1.0.23:
     vue "^3.2.47"
     vuex "^4.1.0"
 
-quasar-ui-q-page-builder@^0.1.50:
-  version "0.1.50"
-  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.50.tgz#eb7524c48629119c3a2d85be0ccd994990b764fe"
-  integrity sha512-tdExPxA6CqybbaPdYOfTaUY9DaJ3PFt6V4uEgUGsOKlguI3Y/JN76x4XLgyOv+mUR7stFXyq2x7ksTZSHrbUCQ==
+quasar-ui-q-page-builder@^0.1.51:
+  version "0.1.51"
+  resolved "https://registry.yarnpkg.com/quasar-ui-q-page-builder/-/quasar-ui-q-page-builder-0.1.51.tgz#c085d380abd587279830f6d748427f71f4f250b8"
+  integrity sha512-1eYO6nXPMP2zw/rzPg5ckxSSZu5zxw/jeDcbcFwGrZizU3P2gxDqi7zEO/sNHAuQZjVzf47+4L1HWASJphYNpg==
   dependencies:
     "@quasar/extras" "^1.16.1"
     "@vue/compiler-sfc" "^3.2.47"
