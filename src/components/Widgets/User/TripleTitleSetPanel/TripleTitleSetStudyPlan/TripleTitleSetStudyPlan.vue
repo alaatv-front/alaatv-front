@@ -259,7 +259,7 @@ export default {
           type: TextComponent,
           name: 'customComponent',
           text: 'برنامه و درس موردنظر رو انتخاب کن و بعدش میتونی زنگ جدید رو اضافه کنی.',
-          col: 'col-md-12'
+          col: 'col-12'
         },
         {
           type: 'hidden',
@@ -275,7 +275,7 @@ export default {
           optionLabel: 'display_name',
           optionValue: 'id',
           value: null,
-          col: 'col-md-4'
+          col: 'col-4'
         },
         {
           type: 'select',
@@ -286,7 +286,7 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
-          col: 'col-md-4'
+          col: 'col-4'
         },
         {
           type: 'select',
@@ -297,7 +297,7 @@ export default {
           optionLabel: 'title',
           optionValue: 'id',
           value: null,
-          col: 'col-md-4'
+          col: 'col-4'
         },
         {
           type: 'select',
@@ -308,13 +308,13 @@ export default {
           optionLabel: 'lesson_name',
           optionValue: 'id',
           value: null,
-          col: 'col-md-12'
+          col: 'col-12'
         },
         {
           type: TextComponent,
           name: 'customComponent',
           text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
-          col: 'col-md-12'
+          col: 'col-12'
         },
         {
           type: 'input',
@@ -322,17 +322,17 @@ export default {
           label: 'کد یا لینک جلسه',
           value: '',
           placeholder: 'وارد کنید',
-          col: 'col-md-10'
+          col: 'col-10'
         },
         {
           type: AddLink,
           name: 'customComponent',
-          col: 'col-md-2 q-mt-lg'
+          col: 'col-2 q-mt-lg'
         },
         {
           type: SessionInfo,
           data: [],
-          col: 'col-md-12'
+          col: 'col-12'
         },
         {
           type: 'date',
@@ -342,7 +342,7 @@ export default {
           placeholder: 'انتخاب کنید',
           calendarIcon: ' ',
           optionLabel: 'title',
-          col: 'col-md-4'
+          col: 'col-4'
         },
         {
           type: 'time',
@@ -351,7 +351,7 @@ export default {
           value: '',
           placeholder: 'انتخاب کنید',
           optionLabel: 'title',
-          col: 'col-md-4'
+          col: 'col-4'
         },
         {
           type: 'time',
@@ -360,7 +360,7 @@ export default {
           value: '',
           placeholder: 'انتخاب کنید',
           optionLabel: 'title',
-          col: 'col-md-4'
+          col: 'col-4'
         },
         {
           type: 'input',
@@ -368,7 +368,7 @@ export default {
           label: 'توضیحات',
           value: '',
           placeholder: 'وارد کنید',
-          col: 'col-md-12'
+          col: 'col-12'
         }
       ]
     }
