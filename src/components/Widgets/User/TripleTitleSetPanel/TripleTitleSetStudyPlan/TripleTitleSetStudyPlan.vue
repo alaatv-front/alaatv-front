@@ -395,6 +395,7 @@ export default {
   },
   methods: {
     acceptNewPlan() {
+      this.loading = true
       const data = {
         major_id: this.$refs.entityCreate.getInputsByName('major_id').value,
         grade_id: this.$refs.entityCreate.getInputsByName('grade_id').value,
@@ -402,39 +403,56 @@ export default {
       }
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
+          this.loading = false
           this.$refs.entityCreate.setInputByName('event_id', studyPlan.id)
           this.$refs.entityCreate.createEntity()
           this.newPlanDialog = false
         })
-        .catch()
+        .catch(() => {
+          this.loading = false
+        })
     },
     filterByLesson() {
+      this.loading = true
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
         .then(() => {
+          this.loading = false
           this.updateMyStudyPlan()
         })
-        .catch()
+        .catch(() => {
+          this.loading = false
+        })
     },
     getFilterLesson() {
+      this.loading = true
       this.$apiGateway.studyPlan.getSetting()
         .then(setting => {
+          this.loading = false
           this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
         })
-        .catch()
+        .catch(() => {
+          this.loading = false
+        })
     },
     setFlagTrue() {
       this.isPlanChanged = true
     },
     getMyStudyPlan() {
+      this.loading = true
       this.$apiGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
+          this.loading = false
           this.planType = studyPlan.title
         })
-        .catch()
+        .catch(() => {
+          this.loading = false
+        })
     },
     getChangePlanOptions() {
+      this.loading = true
       this.$apiGateway.studyPlan.getChangePlanOptions()
         .then(options => {
+          this.loading = false
           this.majorOptions = options.majors
           this.gradeOptions = options.grades
           this.planOptions = options.studyPlans
@@ -444,7 +462,9 @@ export default {
           this.setInputAttrByName(this.inputs, 'study_method_id', 'options', options.studyPlans)
           this.setInputAttrByName(this.inputs, 'lesson_id', 'options', options.products)
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     },
     setInputAttrByName (inputs, name, attribute, value) {
       const normalizeInput = (input) => {
@@ -481,6 +501,7 @@ export default {
       }
     },
     updateMyStudyPlan() {
+      this.loading = true
       this.warning = false
       this.$apiGateway.studyPlan.updateMyStudyPlan({
         study_method_id: this.planType,
@@ -488,10 +509,13 @@ export default {
         grade_id: this.grade.id,
         setting: this.lesson.id
       })
-        .then(response => {
+        .then(() => {
+          this.loading = false
           this.successChangePlan = true
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }

@@ -96,7 +96,11 @@ export default class StudyPlanAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.myStudyPlan,
-      data,
+      data: this.getNormalizedSendData({
+        study_method_id: null, // Number
+        major_id: null, // Number
+        grade_id: null // Number
+      }, data),
       resolveCallback: (response) => {
         return new StudyPlan(response.data.data)
       },
@@ -106,12 +110,17 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getStudyPlanData(data = {}) {
+  getStudyPlanData(data = {}, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.studyPlan,
-      data,
+      ...(cache && { cache }),
+      data: this.getNormalizedSendData({
+        study_event: null,
+        since_date: '',
+        till_date: ''
+      }, data),
       resolveCallback: (response) => {
         return new StudyPlanList(response.data.data)
       },
@@ -126,7 +135,9 @@ export default class StudyPlanAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.setting,
-      data,
+      data: this.getNormalizedSendData({
+        setting: {}
+      }, data),
       resolveCallback: (response) => {
         return response.message ? response.message : null
       },
@@ -136,28 +147,14 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getSetting(data = {}) {
+  getSetting(cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.setting,
+      ...(cache && { cache }),
       resolveCallback: (response) => {
         return new WebsiteSetting(response.data.data)
-      },
-      rejectCallback: (error) => {
-        return error
-      }
-    })
-  }
-
-  storeNewPlan(data = {}) {
-    return this.sendRequest({
-      apiMethod: 'post',
-      api: this.api,
-      request: this.APIAdresses.plan,
-      data,
-      resolveCallback: (response) => {
-        return response
       },
       rejectCallback: (error) => {
         return error
