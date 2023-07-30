@@ -149,12 +149,12 @@ export default {
     afterSendData(d) {
       this.$store.commit('loading/loading', false)
     },
-    beforeSendData(d) {
-      const isPublished = d.get('enableReportPublish')
+    beforeSendData(formData) {
+      const isPublished = formData.get('enableReportPublish')
       if (isPublished) {
-        d.set('enableReportPublish', 1)
+        formData.set('enableReportPublish', 1)
       } else {
-        d.set('enableReportPublish', 0)
+        formData.set('enableReportPublish', 0)
       }
     },
     onActionSuccess() {
