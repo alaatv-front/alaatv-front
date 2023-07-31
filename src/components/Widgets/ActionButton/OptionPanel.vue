@@ -96,7 +96,8 @@
           <q-input v-model="localOptions.imageSource"
                    label="image source" />
         </div>
-        <div class="row q-col-gutter-sm">
+        <div v-if="localOptions.hasAction"
+             class="row q-col-gutter-sm">
           <div class="input-container col-md-2">
             <div class="outsideLabel">action</div>
             <q-select v-model="localOptions.action"
@@ -163,6 +164,7 @@ export default defineComponent({
         fixed: false,
         fixedPosition: null,
         eventArgs: null,
+        hasAction: true,
         action: null,
         scrollTo: null,
         route: null,

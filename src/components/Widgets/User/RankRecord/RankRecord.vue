@@ -2,6 +2,8 @@
   <entity-create ref="EntityCreate"
                  v-model:value="actionInput"
                  :api="api"
+                 :before-send-data="beforeSendData"
+                 :after-send-data="afterSendData"
                  :default-layout="false">
     <template #after-form-builder>
       <div class="col-12 q-my-md flex justify-end">
@@ -144,15 +146,15 @@ export default {
         })
         .catch()
     },
-    beforeDoAction(d) {
-      if (d.events) {
-        d.event_id = d.event.id
-      }
-      if (d.major) {
-        d.major_id = d.major.id
-      }
-      if (d.region) {
-        d.region_id = d.region.id
+    afterSendData() {
+      this.$store.commit('loading/loading', false)
+    },
+    beforeSendData(formData) {
+      const isPublished = formData.get('enableReportPublish')
+      if (isPublished) {
+        formData.set('enableReportPublish', 1)
+      } else {
+        formData.set('enableReportPublish', 0)
       }
     },
     onActionSuccess() {
