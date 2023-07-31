@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       // user: new User(),
-      isUserLogin: false,
+      // isUserLogin: false,
       conductor: new Conductor(),
       defaultOptions: {
         loadType: 'OnLoadPage', // OnLoadPage - OnEvent
@@ -31,6 +31,9 @@ export default {
   computed: {
     user () {
       return this.$store.getters['Auth/user']
+    },
+    isUserLogin () {
+      return this.$store.getters['Auth/isUserLogin']
     },
     userId () {
       return this.user.id
@@ -46,14 +49,9 @@ export default {
     }
   },
   mounted() {
-    this.loadAuthData()
     this.loadConductor()
   },
   methods: {
-    loadAuthData () { // prevent Hydration node mismatch
-      // this.user = this.$store.getters['Auth/user']
-      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
-    },
     loadConductor () {
       if (this.localOptions.loadType === 'OnLoadPage') {
         this.getLiveLink()
@@ -62,6 +60,10 @@ export default {
       }
     },
     getLiveLink() {
+      if (!this.isUserLogin) {
+        this.$store.commit('AppLayout/updateLoginDialog', true)
+        return
+      }
       this.conductor.loading = true
       APIGateway.conductor.get(this.localOptions.conductorId)
         .then((conductor) => {
