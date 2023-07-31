@@ -1,5 +1,7 @@
 <template>
   <div v-if="localOptions.sliderItems"
+       :class="localOptions.className"
+       :style="localOptions.style"
        class="row">
     <div v-if="!$q.screen.lt.md"
          class="col-1 q-pl-xl arrow-right">
@@ -14,41 +16,9 @@
                         :items="localOptions.sliderItems"
                         class="student-scroll-bar"
                         virtual-scroll-horizontal>
-        <q-card :key="index"
-                class="scroll-item-card">
-          <q-img :src="item.image"
-                 width="160px"
-                 height="160px"
-                 spinner-color="primary"
-                 class="student-img"
-                 spinner-size="82px">
-            <div v-if="localOptions.personType === 'student'"
-                 class="student-major"
-                 :class="{'riazi': item.major === 'ریاضی', 'tajrobi': item.major === 'تجربی'}">
-              {{ item.major }}
-            </div>
-          </q-img>
-          <q-card-section class="person-name-card-section">
-            <div class="student-name ellipsis-2-lines">{{ item.first_name + ' ' + item.last_name }}</div>
-          </q-card-section>
-          <q-card-section class="person-info-card-section">
-            <div v-if="localOptions.personType === 'student'"
-                 class="student-info">
-              <div class="rank">
-                {{ item.rank }}
-              </div>
-              <div class="region">
-                {{ item.distraction === '1' ? 'منطقه یک' : item.distraction === '2' ? 'منطقه دو' : item.distraction === '3' ? 'منطقه سه' : item.distraction}}
-              </div>
-            </div>
-            <div v-if="localOptions.personType === 'teacher'"
-                 class="teacher-info">
-              <div class="major">
-                {{ item.major }}
-              </div>
-            </div>
-          </q-card-section>
-        </q-card>
+        <comment-item :key="index"
+                      :options="localOptions.commentOptionPanel"
+                      :comment="item" />
       </q-virtual-scroll>
     </div>
     <div v-if="!$q.screen.lt.md"
@@ -67,15 +37,19 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import CommentItem from 'src/components/Widgets/Comment/CommentItem/CommentItem.vue'
 
 export default {
   name: 'PersonSlider',
+  components: {
+    CommentItem
+  },
   mixins: [mixinWidget],
   data() {
     return {
       defaultOptions: {
         sliderItems: [],
-        personType: 'student'
+        commentOptionPanel: {}
       },
       scrollIndex: 0
     }
@@ -109,6 +83,13 @@ export default {
           this.$refs.virtualScroll.scrollTo(this.scrollIndex)
         }, 2000)
       }
+    },
+    getOptions(item) {
+      const comment = {
+        comment: item
+      }
+      const options = Object.assign({}, this.localOptions.commentItemOptionPanel, comment)
+      return options
     }
   }
 }
@@ -181,20 +162,6 @@ export default {
       font-size: 16px;
       font-weight: 500;
       color: #333;
-      text-align: center;
-    }
-  }
-
-  .teacher-info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    .major {
-      font-size: 28px;
-      font-weight: 800;
-      color: #FF8518;
       text-align: center;
     }
   }

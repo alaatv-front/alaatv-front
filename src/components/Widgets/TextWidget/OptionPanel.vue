@@ -39,6 +39,7 @@ export default defineComponent({
       responsiveOpts: ['xs', 'sm', 'md', 'lg', 'xl'],
       responsive: 'xs',
       defaultOptions: {
+        text: null,
         fontFamily: null,
         color: null,
         fontSize: null,
