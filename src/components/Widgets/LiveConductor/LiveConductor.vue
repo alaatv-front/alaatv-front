@@ -8,6 +8,7 @@
 </template>
 
 <script>
+// import { User } from 'src/models/User.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { Conductor } from 'src/models/Conductor.js'
@@ -17,6 +18,8 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
+      // user: new User(),
+      isUserLogin: false,
       conductor: new Conductor(),
       defaultOptions: {
         loadType: 'OnLoadPage', // OnLoadPage - OnEvent
@@ -25,23 +28,42 @@ export default {
       }
     }
   },
+  computed: {
+    user () {
+      return this.$store.getters['Auth/user']
+    },
+    userId () {
+      return this.user.id
+    }
+  },
+  watch: {
+    userId (newValue) {
+      if (!newValue) {
+        return
+      }
+
+      this.getLiveLink()
+    }
+  },
   mounted() {
+    this.loadAuthData()
     this.loadConductor()
   },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      // this.user = this.$store.getters['Auth/user']
+      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
+    },
     loadConductor () {
       if (this.localOptions.loadType === 'OnLoadPage') {
-        this.getLiveLink(this.localOptions.conductorId)
+        this.getLiveLink()
       } else {
-        this.$bus.on(this.localOptions.eventName, this.toggleDialog)
+        this.$bus.on(this.localOptions.eventName, this.getLiveLink)
       }
     },
-    toggleDialog() {
-      this.dialog = !this.dialog
-    },
-    getLiveLink(conductorId) {
+    getLiveLink() {
       this.conductor.loading = true
-      APIGateway.conductor.get(conductorId)
+      APIGateway.conductor.get(this.localOptions.conductorId)
         .then((conductor) => {
           this.conductor = new Conductor(conductor)
           window.location.href = this.conductor.live_link
@@ -54,22 +76,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.signup-dialog-card{
-  width: 432px;
-  height: 487px;
-
-  @media screen and (max-width: 600px) {
-    width: 100%;
-  }
-
-  &:deep(.q-stepper__header) {
-    display: none !important;
-  }
-  &:deep(.q-stepper__step-inner) {
-    padding: 0 !important;
-  }
-}
-
-</style>

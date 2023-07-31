@@ -97,7 +97,8 @@ const AxiosHooks = (function () {
       return
     }
     store.commit('Auth/updateRedirectTo', currentRoute)
-    router.push({ name: loginRouteName })
+    // router.push({ name: loginRouteName })
+    store.commit('AppLayout/updateLoginDialog', true)
   }
 
   function toastMessages(messages) {
