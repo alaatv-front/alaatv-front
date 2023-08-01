@@ -1,19 +1,24 @@
 <template>
   <q-list class="MainHeaderMenuItems">
-    <div v-for="(item , index) in items"
+    <div v-for="(item , index) in menuItems"
          :key="index"
          class="tabs-list-container">
-      <div v-if="showMenuItem(/* item */)"
-           class="self-center">
-        <item-menu v-if="item.type === 'itemMenu'"
-                   :data="item"
-                   :editable="pageBuilderEditable" />
-        <mega-menu v-if="item.type === 'megaMenu'"
-                   :data="item"
-                   :editable="pageBuilderEditable" />
-        <simple-menu v-if="item.type === 'simpleMenu'"
-                     :data="item"
-                     :editable="pageBuilderEditable" />
+      <div class="self-center">
+        <item-menu v-if="item.type === 'itemMenu' && canShowInTopMenu(item)"
+                   v-model:data="menuItems[index]"
+                   :index="index"
+                   :editable="pageBuilderEditable"
+                   @update:data="onUpdateData" />
+        <mega-menu v-if="item.type === 'megaMenu' && canShowInTopMenu(item)"
+                   v-model:data="menuItems[index]"
+                   :index="index"
+                   :editable="pageBuilderEditable"
+                   @update:data="onUpdateData" />
+        <simple-menu v-if="item.type === 'simpleMenu' && canShowInTopMenu(item)"
+                     v-model:data="menuItems[index]"
+                     :index="index"
+                     :editable="pageBuilderEditable"
+                     @update:data="onUpdateData" />
       </div>
     </div>
     <q-btn v-if="pageBuilderEditable"
@@ -27,31 +32,38 @@
 
 <script>
 import { User } from 'src/models/User.js'
-import menuItems from 'src/components/Template/menuData.js'
-import itemMenu from 'src/components/Template/Header/itemMenu.vue'
-import megaMenu from 'src/components/Template/Header/magaMenu.vue'
-import simpleMenu from 'src/components/Template/Header/simpleMenu.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+// import menuItems from 'src/components/Template/menuData.js'
+import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import itemMenu from 'src/components/Template/Header/MainHeaderMenuItems/itemMenu.vue'
+import megaMenu from 'src/components/Template/Header/MainHeaderMenuItems/magaMenu.vue'
+import simpleMenu from 'src/components/Template/Header/MainHeaderMenuItems/simpleMenu.vue'
 
 export default {
   name: 'MainHeaderMenuItems',
   components: {
     megaMenu,
-    simpleMenu,
-    itemMenu
+    itemMenu,
+    simpleMenu
   },
+  mixins: [mixinPrefetchServerData],
   data() {
     return {
       mounted: false,
-      conferenceMenu: false,
-      showHamburgerConfig: true,
-      searchInput: '',
       user: new User(),
       isAdmin: false,
-      isUserLogin: false,
-      items: menuItems
+      isUserLogin: false
     }
   },
   computed: {
+    menuItems: {
+      get() {
+        return this.$store.getters['PageBuilder/menuItems']
+      },
+      set(newInfo) {
+        return this.$store.commit('PageBuilder/updateMenuItems', newInfo)
+      }
+    },
     pageBuilderEditable () {
       return this.$store.getters['PageBuilder/pageBuilderEditable']
     },
@@ -63,9 +75,26 @@ export default {
     }
   },
   mounted () {
+    this.loadAuthData()
     this.checkMenurItemsForAuthenticatedUser()
+    // this.menuItems = menuItems
   },
   methods: {
+    canShowInTopMenu (item) {
+      return (typeof item.desktopMode === 'undefined' || item.desktopMode === true || this.pageBuilderEditable)
+    },
+    prefetchServerDataPromise () {
+      return this.getPageConfigRequest()
+    },
+    prefetchServerDataPromiseThen (menuItems) {
+      this.menuItems = menuItems
+    },
+    prefetchServerDataPromiseCatch () {
+    },
+    getPageConfigRequest() {
+      const key = '(menuItems)headerLayout:mainLayout'
+      return APIGateway.pageSetting.getMenuItems(key)
+    },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
       this.isAdmin = this.$store.getters['Auth/isAdmin']
@@ -74,9 +103,9 @@ export default {
     checkMenurItemsForAuthenticatedUser () {
       // ToDo: check menu items by user role
       if (this.isAdmin) {
-        const hasAdminPanel = this.items.find((item) => item.routeName === 'Admin.UploadCenter.Contents')
+        const hasAdminPanel = this.menuItems.find((item) => item.routeName === 'Admin.UploadCenter.Contents')
         if (!hasAdminPanel) {
-          this.items.push({
+          this.menuItems.push({
             selected: 'adminPanel',
             title: 'پنل ادمین',
             routeName: 'Admin.UploadCenter.Contents',
@@ -90,6 +119,32 @@ export default {
     addItem (event) {
       event.preventDefault()
       event.stopPropagation()
+      this.menuItems.push({
+        title: 'آیتم جدید',
+        type: 'itemMenu',
+        route: {
+          path: '/',
+          query: {
+            'tags[]': []
+          }
+        },
+        mobileMode: true
+      })
+    },
+    onUpdateData () {
+      const deleteChildren = (list) => {
+        list.forEach((subItem, subItemIndex) => {
+          if (subItem.deleted) {
+            list.splice(subItemIndex, 1)
+          } else {
+            if (subItem.children) {
+              deleteChildren(list[subItemIndex].children)
+            }
+          }
+        })
+      }
+
+      deleteChildren(this.menuItems)
     }
   }
 }

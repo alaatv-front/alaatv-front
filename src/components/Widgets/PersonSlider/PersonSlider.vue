@@ -1,13 +1,14 @@
 <template>
   <div v-if="localOptions.sliderItems"
        class="row">
-    <div class="col-1 q-pl-xl arrow-right">
+    <div v-if="!$q.screen.lt.md"
+         class="col-1 q-pl-xl arrow-right">
       <q-btn icon="isax:arrow-right-1"
              color="primary"
              size="xl"
              @click="goToRight" />
     </div>
-    <div class="col-10">
+    <div class="col-12 col-md-10">
       <q-virtual-scroll ref="virtualScroll"
                         v-slot="{ item, index }"
                         :items="localOptions.sliderItems"
@@ -15,13 +16,14 @@
                         virtual-scroll-horizontal>
         <q-card :key="index"
                 class="scroll-item-card">
-          <q-img :src="`https://nodes.alaatv.com/upload/landing/110/Rotbeh/${item.code}.png`"
+          <q-img :src="item.image"
                  width="160px"
                  height="160px"
                  spinner-color="primary"
                  class="student-img"
                  spinner-size="82px">
-            <div class="student-major"
+            <div v-if="localOptions.personType === 'student'"
+                 class="student-major"
                  :class="{'riazi': item.major === 'ریاضی', 'tajrobi': item.major === 'تجربی'}">
               {{ item.major }}
             </div>
@@ -30,7 +32,8 @@
             <div class="student-name ellipsis-2-lines">{{ item.first_name + ' ' + item.last_name }}</div>
           </q-card-section>
           <q-card-section class="person-info-card-section">
-            <div class="student-info">
+            <div v-if="localOptions.personType === 'student'"
+                 class="student-info">
               <div class="rank">
                 {{ item.rank }}
               </div>
@@ -38,11 +41,18 @@
                 {{ item.distraction === '1' ? 'منطقه یک' : item.distraction === '2' ? 'منطقه دو' : item.distraction === '3' ? 'منطقه سه' : item.distraction}}
               </div>
             </div>
+            <div v-if="localOptions.personType === 'teacher'"
+                 class="teacher-info">
+              <div class="major">
+                {{ item.major }}
+              </div>
+            </div>
           </q-card-section>
         </q-card>
       </q-virtual-scroll>
     </div>
-    <div class="arrow-left col-1 text-right q-pr-xl">
+    <div v-if="!$q.screen.lt.md"
+         class="arrow-left col-1 text-right q-pr-xl">
       <q-btn icon="isax:arrow-left"
              color="primary"
              size="xl"
@@ -64,7 +74,8 @@ export default {
   data() {
     return {
       defaultOptions: {
-        sliderItems: []
+        sliderItems: [],
+        personType: 'student'
       },
       scrollIndex: 0
     }
@@ -170,6 +181,20 @@ export default {
       font-size: 16px;
       font-weight: 500;
       color: #333;
+      text-align: center;
+    }
+  }
+
+  .teacher-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .major {
+      font-size: 28px;
+      font-weight: 800;
+      color: #FF8518;
       text-align: center;
     }
   }

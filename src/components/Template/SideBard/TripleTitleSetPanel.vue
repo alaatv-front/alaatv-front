@@ -212,6 +212,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.chatr-side-menu {
+  background: white;
+  height: 100%;
+}
 .side-menu{
   min-height: calc(100vh - 2px) ;
   height: 100vh;

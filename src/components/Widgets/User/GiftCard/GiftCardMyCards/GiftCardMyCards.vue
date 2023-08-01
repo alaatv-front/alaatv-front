@@ -50,6 +50,29 @@
     <div class="text-center">
       <div class="table-title">
         لیست کارت ها
+        <q-btn icon="isax:filter"
+               flat
+               class="absolute-top-right"
+               @click="onToggleFilter" />
+      </div>
+      <div v-show="showFilter"
+           class="table-filter-expansion">
+        <div class="row">
+          <div class="col-md-3 col-12 text-left">
+            <q-checkbox v-model="isAssigned"
+                        :true-value="1"
+                        :false-value="0"
+                        label="تخصیص داده شده"
+                        @update:model-value="onChangeFilter" />
+          </div>
+          <div class="col-md-3 col-12 text-left">
+            <q-checkbox v-model="isUsed"
+                        :true-value="1"
+                        :false-value="0"
+                        label="استفاده شده"
+                        @update:model-value="onChangeFilter" />
+          </div>
+        </div>
       </div>
       <div class="table-container text-center">
         <q-table :rows="referralCodeList.list"
@@ -129,7 +152,8 @@
         </q-table>
       </div>
       <div class="flex justify-center">
-        <q-pagination v-model="page"
+        <q-pagination v-if="lastPage > 1"
+                      v-model="page"
                       :max="lastPage"
                       :max-pages="15"
                       boundary-links
@@ -143,7 +167,7 @@
 </template>
 
 <script>
-import { APIGateway } from 'src/api/APIGateway'
+import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
 import { ReferralCodeList } from 'src/models/ReferralCode.js'
@@ -165,6 +189,9 @@ export default {
         count_of_remain_gift_cards: 0,
         income_being_settle: 0
       },
+      isUsed: 0,
+      showFilter: false,
+      isAssigned: 0,
       lastPage: 0,
       page: 1,
       shareCodeLoading: false,
@@ -225,6 +252,13 @@ export default {
     this.loadAllData()
   },
   methods: {
+    onToggleFilter () {
+      this.showFilter = !this.showFilter
+      this.getGiftCardsData()
+    },
+    onChangeFilter () {
+      this.getGiftCardsData()
+    },
     copyCodeNumberToClipboard(code) {
       this.copyToClipboard(code)
         .then(() => {
@@ -281,7 +315,13 @@ export default {
     },
     getGiftCardsData(page = 1) {
       this.loading = true
-      APIGateway.referralCode.index({ data: { page } })
+      APIGateway.referralCode.index({
+        data: {
+          page,
+          isUsed: this.showFilter ? this.isUsed : null,
+          isAssigned: this.showFilter ? this.isAssigned : null
+        }
+      })
         .then(({ referralCodeList, paginate }) => {
           this.lastPage = paginate.last_page
           this.referralCodeList = new ReferralCodeList(referralCodeList)
@@ -405,6 +445,10 @@ export default {
   letter-spacing: -0.03em;
   color: $text-color-secondary;
   margin-bottom: 16px;
+  position: relative;
+}
+.table-filter-expansion {
+  color: #697D9A;
 }
 .table-container {
   padding-bottom: 10px;

@@ -13,6 +13,9 @@ const mutations = {
   },
   updateCurrentSections: (state, newInfo) => {
     state.currentSections = newInfo
+  },
+  updateMenuItems: (state, newInfo) => {
+    state.menuItems = newInfo
   }
 }
 

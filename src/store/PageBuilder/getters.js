@@ -13,8 +13,10 @@ const getters = {
   },
   currentSections: (state) => {
     return state.currentSections
+  },
+  menuItems: (state) => {
+    return state.menuItems
   }
-
 }
 
 export default getters

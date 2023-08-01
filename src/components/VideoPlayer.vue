@@ -5,7 +5,8 @@
            dir="ltr"
            class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
            controls
-           preload="none">
+           preload="none"
+           @timeupdate="updateTime">
       <p class="vjs-no-js">
         To view this video please enable JavaScript, and consider upgrading to a web browser that
         <a href="https://videojs.com/html5-video-support/"
@@ -104,7 +105,7 @@ export default {
       type: Number
     }
   },
-  emits: ['seeked', 'adStarted', 'update:sideBar'],
+  emits: ['seeked', 'adStarted', 'adEnded', 'update:sideBar', 'timeUpdated'],
   data() {
     return {
       needReInitVideo: false,
@@ -180,6 +181,9 @@ export default {
     },
     currentTime() {
       return this.currentTimed
+    },
+    videoLength() {
+      return this.player.duration()
     }
   },
   watch: {
@@ -237,6 +241,15 @@ export default {
     }
   },
   methods: {
+    updateTime () {
+      try {
+        const currentTime = this.player.currentTime()
+        const duration = this.player.duration()
+        this.$emit('timeUpdated', { currentTime, duration })
+      } catch (e) {
+
+      }
+    },
     getVast () {
       return APIGateway.vast.getXml()
         .then((vastXml) => {
@@ -298,15 +311,15 @@ export default {
       if (this.vastTimerInterval) {
         clearInterval(this.vastTimerInterval)
       }
-      let seconds = this.getVastTimerSeconds()
+      const seconds = this.getVastTimerSeconds()
       if (seconds === 0) {
         this.stopVastTimer()
         return
       }
-      this.updateVastTimer(seconds--)
+      this.updateVastTimer(seconds - Math.floor(this.player.currentTime()).toString())
       this.vastTimerInterval = setInterval(() => {
-        this.updateVastTimer(seconds--)
-        if (seconds < 0) {
+        this.updateVastTimer(seconds - Math.floor(this.player.currentTime()).toString())
+        if (seconds - Math.floor(this.player.currentTime()).toString() === 0) {
           this.stopVastTimer()
           endTimerCallback()
         }
@@ -331,7 +344,7 @@ export default {
 
       vastElement.innerHTML = innerHTML
     },
-    sowVastSkipAdBtn () {
+    showVastSkipAdBtn () {
       const vastClassName = 'VastSkipAdBtn'
       this.showVastElement(vastClassName)
       const vastElement = this.vastElementExist(vastClassName)
@@ -373,7 +386,7 @@ export default {
 
         this.showVastLinkBtn(this.vastLink)
         this.startVastTimer(() => {
-          this.sowVastSkipAdBtn()
+          this.showVastSkipAdBtn()
         })
 
         this.$emit('adStarted')

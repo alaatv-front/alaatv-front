@@ -174,6 +174,11 @@ export default {
     background-color: transparent;
     color: inherit;
   }
+  :deep(.q-drawer-container) {
+    .q-drawer {
+      background: transparent;
+    }
+  }
   .content-inside {
     //padding-top: 20px;
   }

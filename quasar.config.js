@@ -228,10 +228,20 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      https: true,
-      port: 8083,
+      https: false,
+      // host: "0.0.0.0",
+      hmr: {
+        port: process.env.DEV_HMR_PORT,
+        path: '/socket.io',
+        clientPort: process.env.DEV_HMR_CLIENT_PORT
+      },
+      port: process.env.DEV_PORT,
       open: true, // opens browser window automatically
       proxy: {
+        // '/socket.io': {
+        //   target: process.env.SOCKET_SERVER,
+        //   ws: true
+        // },
         [process.env.ALAA_MINIO]: {
           target: process.env.ALAA_MINIO_SERVER,
           changeOrigin: true,
