@@ -47,7 +47,7 @@
                   کد ملی
                 </div>
                 <div class="input">
-                  <q-input v-model="localUser.nationalCode"
+                  <q-input v-model="localUser.national_code"
                            filled />
                 </div>
               </div>
@@ -192,18 +192,73 @@
               <div class="title">
                 شماره شبا
               </div>
-              <div class="shaba-number-input">
-                <q-icon v-if="hasShabaNumber"
-                        color="green"
-                        right
-                        name="mdi-cellphone"
-                        class="shaba-number-checked" />
-                <q-input v-model="localShabaNumber"
-                         :disabled="hasShabaNumber"
-                         mask="########################"
-                         suffix="IR"
-                         dir="ltr"
-                         filled />
+              <div class="shaba-number-input row q-col-gutter-md">
+                <!--                <q-icon v-if="hasShabaNumber"-->
+                <!--                        color="green"-->
+                <!--                        right-->
+                <!--                        name="mdi-cellphone"-->
+                <!--                        class="shaba-number-checked" />-->
+                <div class="row col-11">
+                  <q-input ref="input7"
+                           v-model="localShabaNumber7"
+                           :disabled="hasShabaNumber"
+                           maxlength="2"
+                           dir="ltr"
+                           class="q-pl-sm col-1"
+                           filled
+                           @update:model-value="moveToNextInput(localShabaNumber7, 2, null, 'input6')" />
+                  <q-input ref="input6"
+                           v-model="localShabaNumber6"
+                           :disabled="hasShabaNumber"
+                           maxlength="4"
+                           dir="ltr"
+                           class="q-pl-sm col-2"
+                           filled
+                           @update:model-value="moveToNextInput(localShabaNumber6, 4, 'input7', 'input5')" />
+                  <q-input ref="input5"
+                           v-model="localShabaNumber5"
+                           :disabled="hasShabaNumber"
+                           maxlength="4"
+                           dir="ltr"
+                           class="q-pl-sm col-2"
+                           filled
+                           @update:model-value="moveToNextInput(localShabaNumber5, 4, 'input6', 'input4')" />
+                  <q-input ref="input4"
+                           v-model="localShabaNumber4"
+                           :disabled="hasShabaNumber"
+                           maxlength="4"
+                           dir="ltr"
+                           class="q-pl-sm col-2"
+                           filled
+                           @update:model-value="moveToNextInput(localShabaNumber4, 4, 'input5', 'input3')" />
+                  <q-input ref="input3"
+                           v-model="localShabaNumber3"
+                           :disabled="hasShabaNumber"
+                           maxlength="4"
+                           dir="ltr"
+                           class="q-pl-sm col-2"
+                           filled
+                           @update:model-value="moveToNextInput(localShabaNumber3, 4, 'input4', 'input2')" />
+                  <q-input ref="input2"
+                           v-model="localShabaNumber2"
+                           :disabled="hasShabaNumber"
+                           maxlength="4"
+                           dir="ltr"
+                           class="q-pl-sm col-2"
+                           filled
+                           @update:model-value="moveToNextInput(localShabaNumber2, 4, 'input3', 'input1')" />
+                  <q-input ref="input1"
+                           v-model="localShabaNumber1"
+                           :disabled="hasShabaNumber"
+                           maxlength="2"
+                           dir="ltr"
+                           class="q-pl-sm col-1"
+                           filled
+                           @update:model-value="moveToNextInput(localShabaNumber1, 2, 'input2', null)" />
+                </div>
+                <div class="prefix-text col-1">
+                  IR
+                </div>
               </div>
               <div v-if="!hasShabaNumber"
                    class="shaba-number-hint">
@@ -421,6 +476,13 @@ export default {
       acceptContractLoading: false,
       shabaNumberLoading: false,
       localShabaNumber: '',
+      localShabaNumber1: '',
+      localShabaNumber2: '',
+      localShabaNumber3: '',
+      localShabaNumber4: '',
+      localShabaNumber5: '',
+      localShabaNumber6: '',
+      localShabaNumber7: '',
       shabaNumber: null
     }
   },
@@ -449,10 +511,24 @@ export default {
   mounted () {
     this.loadData()
     this.loadAuthData()
-    this.nationalCardPicURL = this.localUser.kartemeli
   },
   methods: {
+    getNationalCardPhoto () {
+      APIGateway.user.getNationalCardPhoto()
+        .then(nationalPhoto => {
+          this.nationalCardPicURL = nationalPhoto.url
+        })
+        .catch()
+    },
+    moveToNextInput(value, maxLength, nextInputId, previousInput) {
+      if (value.toString().length === maxLength && nextInputId) {
+        this.$refs[nextInputId].focus()
+      } else if (value.toString().length === 0 && previousInput) {
+        this.$refs[previousInput].focus()
+      }
+    },
     loadAuthData () { // prevent Hydration node mismatch
+      this.getNationalCardPhoto()
       this.localUser = this.$store.getters['Auth/user']
     },
     downloadPdf() {
@@ -460,7 +536,6 @@ export default {
     },
     loadData () {
       this.loadShabaNumber()
-      this.loadNationalCardPicURL()
       this.getSalesMan()
     },
     getSalesMan() {
@@ -489,9 +564,6 @@ export default {
           }
         })
         .catch()
-    },
-    loadNationalCardPicURL () {
-      this.nationalCardPicURL = this.localUser.kartemeli
     },
     loadAcceptContract () {
       this.localAcceptContract = this.has_signed_contract
@@ -528,16 +600,19 @@ export default {
       this.nationalCardPicObjectURL = null
     },
     uploadNationalCardPicFile () {
+      this.loading = true
       this.uploadNationalCardPicLoading = true
       const formData = new FormData()
       formData.append('photo', this.nationalCardPicFile)
       APIGateway.user.nationalCard(formData)
         .then((response) => {
+          this.loading = false
           this.nationalCardPicURL = response.data.data?.url
           this.uploadNationalCardPicLoading = false
           this.removeNationalCardPicFile()
         })
         .catch((error) => {
+          this.loading = false
           const messages = this.getErrorMessages(error.response?.data)
           this.showErrorMessages(messages)
           this.uploadNationalCardPicLoading = false
@@ -548,8 +623,10 @@ export default {
       return shabaNumber.replace('i', '').replace('I', '').replace('r', '').replace('R', '')
     },
     sendShabaNumber () {
+      this.localShabaNumber = '' + this.localShabaNumber1 + this.localShabaNumber2 + this.localShabaNumber3 + this.localShabaNumber4 + this.localShabaNumber5 + this.localShabaNumber6 + this.localShabaNumber7
+      console.log(this.localShabaNumber)
       this.acceptContractLoading = true
-      APIGateway.user.storeBankAccounts({ shabaNumber: this.getShabaNumberWithoutPrefix(this.localShabaNumber) })
+      APIGateway.user.storeBankAccounts({ shabaNumber: this.localShabaNumber })
         .then((response) => {
           this.acceptContractLoading = false
           this.shabaNumber = this.localShabaNumber
@@ -902,6 +979,10 @@ export default {
               z-index: 10;
               height: 100%;
               margin-right: 17px;
+            }
+            .prefix-text {
+              align-self: center;
+              font-size: 20px;
             }
           }
           .shaba-number-hint {
