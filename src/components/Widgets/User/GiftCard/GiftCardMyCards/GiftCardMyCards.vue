@@ -12,15 +12,15 @@
           از این پس میتوانید با اشتراک گذاری کارت‌های زیر، پس از استفاده آن‌ها از کارت پاداش دریافت کنید و درآمد داشته باشید.
         </div>
         <div class="col-md-6 col-12">
-          <div class="row card-box no-gutters">
-            <div class="col-sm-6 col-12">
+          <div class="row card-box q-col-gutter-md">
+            <div class="col-sm-4 col-12">
               <div class="card-style used-card">
                 <div class="title">
-                  کارت های استفاده شده
+                  کارت های استفاده شده پرداخت شده
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_total_gift_cards - sales_man.count_of_remain_gift_cards}}
+                    {{sales_man.count_of_used_gift_cards}}
                   </span>
                   <span>
                     کارت
@@ -28,7 +28,22 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-12">
+            <div class="col-sm-4 col-12">
+              <div class="card-style used-card">
+                <div class="title">
+                  کارت های استفاده شده منتظر پرداخت
+                </div>
+                <div class="count align-self-end">
+                  <span class="number">
+                    {{sales_man.count_of_used_without_pay_gift_cards}}
+                  </span>
+                  <span>
+                    کارت
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-12">
               <div class="card-style unUsed-card">
                 <div class="title">
                   کارت های باقی مانده
@@ -185,6 +200,7 @@ export default {
         has_signed_contract: false,
         minAmount_until_settlement: 0,
         count_of_total_gift_cards: 0,
+        count_of_used_without_pay_gift_cards: 0,
         count_of_used_gift_cards: 0,
         count_of_remain_gift_cards: 0,
         income_being_settle: 0
@@ -412,7 +428,7 @@ export default {
       //margin-left: 15px;
     }
     &.unUsed-card{
-      margin-left: 15px;
+      //margin-left: 15px;
     }
 
     .title{

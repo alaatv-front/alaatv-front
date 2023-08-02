@@ -27,7 +27,8 @@ export default class UserAPI extends APIRepository {
       eventResult: '/event-result',
       createEventResult: '/event-result/create',
       baseAdmin: '/admin/user',
-      nationalCard: '/national-card-photo',
+      nationalCard: '/user/national-card-photo',
+      nationalCardPhoto: '/user/national-card-photo/get',
       resendGuest: '/mobile/resendGuest',
       getUserRoleAndPermission: '/getUserRoleAndPermission',
       verifyMoshavereh: '/mobile/verifyMoshavereh',
@@ -78,6 +79,7 @@ export default class UserAPI extends APIRepository {
       createEventResult: this.name + this.APIAdresses.createEventResult,
       baseAdmin: this.name + this.APIAdresses.baseAdmin,
       nationalCard: this.name + this.APIAdresses.nationalCard,
+      nationalCardPhoto: this.name + this.APIAdresses.nationalCardPhoto,
       getUserRoleAndPermission: this.name + this.APIAdresses.getUserRoleAndPermission
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
@@ -99,6 +101,22 @@ export default class UserAPI extends APIRepository {
       data,
       resolveCallback: (response) => {
         return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getNationalCardPhoto(cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.nationalCardPhoto,
+      cacheKey: this.CacheList.nationalCardPhoto,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data.url // string
       },
       rejectCallback: (error) => {
         return error
