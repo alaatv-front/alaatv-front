@@ -116,7 +116,7 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.nationalCardPhoto,
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return { url: response.data.data.url }
       },
       rejectCallback: (error) => {
         return error
