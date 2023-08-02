@@ -624,7 +624,6 @@ export default {
     },
     sendShabaNumber () {
       this.localShabaNumber = '' + this.localShabaNumber1 + this.localShabaNumber2 + this.localShabaNumber3 + this.localShabaNumber4 + this.localShabaNumber5 + this.localShabaNumber6 + this.localShabaNumber7
-      console.log(this.localShabaNumber)
       this.acceptContractLoading = true
       APIGateway.user.storeBankAccounts({ shabaNumber: this.localShabaNumber })
         .then((response) => {
