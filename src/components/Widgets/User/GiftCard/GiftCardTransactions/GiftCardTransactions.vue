@@ -139,7 +139,6 @@
             <q-table :rows="transactionsTableRow"
                      :columns="transactionsHeaders"
                      :loading="transactionsTableRowLoading"
-                     hide-bottom
                      row-key="id">
               <template #header-cell="props">
                 <q-th :props="props"
@@ -192,7 +191,6 @@
               <q-table :rows="clearingHistoryTableRow"
                        :columns="clearingHistoryHeaders"
                        :loading="clearingHistoryTableRowLoading"
-                       hide-bottom
                        row-key="id">
                 <template #header-cell="props">
                   <q-th :props="props"
