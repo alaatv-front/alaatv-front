@@ -41,7 +41,8 @@ export default class ProductAPI extends APIRepository {
       liveConductors: '/live-conductors',
       userLastState: (id) => '/product/' + id + '/toWatch',
       productComplimentary: (id) => `/product/${id}/complimentary`,
-      productExams: (id) => `/product/${id}/exams`
+      productExams: (id) => `/product/${id}/exams`,
+      productFaq: (id) => `/product/${id}/faq`
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -59,7 +60,8 @@ export default class ProductAPI extends APIRepository {
       categories: this.name + this.APIAdresses.categories,
       edit: this.name + this.APIAdresses.edit,
       productComplimentary: (id) => this.name + this.APIAdresses.productComplimentary(id),
-      productExams: (id) => this.name + this.APIAdresses.productExams(id)
+      productExams: (id) => this.name + this.APIAdresses.productExams(id),
+      productFaq: (id) => this.name + this.APIAdresses.productFaq(id)
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
@@ -340,6 +342,23 @@ export default class ProductAPI extends APIRepository {
       }
     })
   }
+
+  getProductFaq(id, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.productFaq(id),
+      CacheList: this.CacheList.productFaq(id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        // return response.data.data // FAQ list
+        return fakeProductFaq
+      },
+      rejectCallback: () => {
+        return fakeProductFaq
+      }
+    })
+  }
 }
 
 // function loadFakeSets(sets) {
@@ -374,5 +393,23 @@ const fakeProductExam = [
     id: 3,
     name: 'ghalamchi',
     display_name: 'قلم چی'
+  }
+]
+
+const fakeProductFaq = [
+  {
+    id: 1,
+    title: 'هر فرسنگ چه مباحثی رو پوشش میده و چقدر طول میکشه؟',
+    body: '<p><font face="IRANSans Light, serif">فرسنگ‌ها بر اساس آزمون‌های گزینه دو طراحی شدن، یعنی مباحث هر آزمون رو پوشش میدن، پس از لحاظ زمانی قابل دسته بندی هستن و میشه گفت مدت هر فرسنگ 3 هفته‌اس.<br>از لحاظ مبحثی ما کمی جلوتر از مباحث آزمون پیش میریم درنتیجه میشه گفت که هر فرسنگ یه مبحث مجزا رو پوشش میده.<br><br>سرفصل فرسنگ‌ها:<br></font>&nbsp; &nbsp; فرسنگ اول (7 مهر تا 19 مهر): تابع - معادلات<br>&nbsp; &nbsp; فرسنگ دوم (20 مهر تا 10 آبان): تابع - مجموعه<br>&nbsp; &nbsp; فرسنگ سوم (11 آبان تا 1 آذر): مثلثات<br>&nbsp; &nbsp; فرسنگ چهارم (2 آذر تا 22 آذر): عبارات گویا، توان و رادیکال - حد و پیوستگی<br>&nbsp; &nbsp; فرسنگ پنجم (23 آذر تا 27 دی): مشتق<br>&nbsp; &nbsp; فرسنگ ششم (28 دی تا 11 بهمن): احتمال - مشتق<br>&nbsp; &nbsp; فرسنگ هفتم (12 بهمن تا 2 اسفند): توابع نمایی و لگاریتمی - کاربرد مشتق<br>&nbsp; &nbsp; فرسنگ هشتم (3 اسفند تا 23 اسفند): هندسه<br>&nbsp; &nbsp; فرسنگ نهم (24 اسفند تا 29 اسفند): آمار<br></p>'
+  },
+  {
+    id: 2,
+    title: 'من توی آزمون آزمایشی دیگه‌ای شرکت میکنم، چطور پیش برم؟',
+    body: '<p><span lang="FA" dir="RTL" style="font-size:11.0pt;\r\nline-height:107%;font-family:&quot;IRANSans Light&quot;,serif;mso-fareast-font-family:\r\n&quot;Times New Roman&quot;;mso-ansi-language:EN-US;mso-fareast-language:EN-US;\r\nmso-bidi-language:FA">فرسنگ‌ها به ترتیب آزمون‌ها و به عبارتی روند کتاب دوازدهم\r\nتهیه شدن. با توجه به اینکه ما هم هر مبحث رو زودتر به اتمام میرسونیم، داوطلبین\r\nهر آزمونی میتونن با استفاده از فرسنگ‌های راه ابریشم درصد بالایی از آزمون‌هاشون\r\nرو پوشش بدن. ما هم توصیه میکنیم با توجه به اینکه برنامه اصلی راه ابریشم تا عید\r\nبه اتمام میرسه، طبق برنامه ما پیش برید تا برای مرور و جمع بندی مطالب هم وقت\r\nخوبی داشته باشید.</span><br></p>'
+  },
+  {
+    id: 3,
+    title: 'من دوره صفر تا صد ریاضی تجربی رو دیدم، الان تو کدوم مرحله‌ام؟',
+    body: '<p><span lang="FA" dir="RTL" style="font-size:11.0pt;\r\nline-height:107%;font-family:&quot;IRANSans Light&quot;,serif;mso-fareast-font-family:\r\n&quot;Times New Roman&quot;;mso-ansi-language:EN-US;mso-fareast-language:EN-US;\r\nmso-bidi-language:FA">راه ابریشم براساس دوره رایگان صفر تا صد تهیه شده و الان\r\nکه از صفر تا صد به طور کامل استفاده کردی و همه مطالب رو آموزش دیدی، حالا با\r\nتورق‌ها یه مرور روی نکات مهم و تمام آموخته‌هات انجام میدی و بعد هم با حل تست‌ها\r\nتمام مطالبی که آموختی رو تثبیت میکنی و سرعت تست زنیت رو بیشتر میکنی و برای\r\nآزمون‌های آزمایشی و در نهایت کنکورت کاملن آماده بشی!</span><br></p>'
   }
 ]

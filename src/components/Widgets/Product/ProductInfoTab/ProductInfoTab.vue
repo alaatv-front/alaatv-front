@@ -20,12 +20,13 @@
            :disable="gifts.list.length === 0"
            label="هدیه ها" />
     <q-tab name="faq"
-           disable
+           :disable="faqList.length === 0"
            label="سوالات متداول" />
   </q-tabs>
   <q-tab-panels v-model="tab"
                 animated>
-    <q-tab-panel name="description">
+    <q-tab-panel name="description"
+                 class="product-tab-panel">
       <div class="product-tab-panel">
         <div class="product-description-title">
           توضیحات تکمیلی دوره
@@ -34,7 +35,8 @@
              v-html="localOptions.product.description?.long" />
       </div>
     </q-tab-panel>
-    <q-tab-panel name="sections">
+    <q-tab-panel name="sections"
+                 class="product-tab-panel">
       سرفصل ها
     </q-tab-panel>
     <q-tab-panel name="documents">
@@ -50,8 +52,9 @@
         <product-gifts :options="{products: gifts}" />
       </div>
     </q-tab-panel>
-    <q-tab-panel name="faq">
-      سوالات متداول
+    <q-tab-panel class="product-tab-panel"
+                 name="faq">
+      <product-f-a-q :faqList="faqList" />
     </q-tab-panel>
   </q-tab-panels>
 </template>
@@ -63,12 +66,14 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 import { ContentList } from 'src/models/Content.js'
 import ProductGifts from 'src/components/Widgets/Product/ProductGifts/ProductGifts.vue'
 import ProductDemos from 'src/components/Widgets/Product/ProductDemos/ProductDemos.vue'
+import ProductFAQ from 'src/components/Widgets/Product/ProductFAQ/ProductFAQ.vue'
 
 export default defineComponent({
   name: 'ProductInfoTab',
   components: {
     ProductGifts,
-    ProductDemos
+    ProductDemos,
+    ProductFAQ
   },
   mixins: [mixinWidget],
   data() {
@@ -78,12 +83,14 @@ export default defineComponent({
       },
       tab: 'description',
       gifts: new ProductList(),
-      contents: new ContentList()
+      contents: new ContentList(),
+      faqList: []
     }
   },
   mounted() {
     this.getProductGifts()
     this.getSampleContents()
+    this.getProductFaq()
   },
   methods: {
     getProductGifts() {
@@ -99,6 +106,16 @@ export default defineComponent({
       return this.$apiGateway.product.sampleContent(productId)
         .then(contentList => {
           this.contents = contentList
+        })
+        .catch(() => {
+
+        })
+    },
+    getProductFaq() {
+      const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
+      return this.$apiGateway.product.getProductFaq(productId)
+        .then(faqList => {
+          this.faqList = faqList
         })
         .catch(() => {
 

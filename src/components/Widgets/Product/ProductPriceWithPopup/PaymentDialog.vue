@@ -192,8 +192,7 @@ export default defineComponent({
           finalPrice = finalPrice + this.productComplimentary[index].price.final
         }
       }
-
-      finalPrice = finalPrice + this.getFinalPrice()
+      finalPrice = finalPrice + this.getPrice('final')
 
       return finalPrice
     },
@@ -214,7 +213,7 @@ export default defineComponent({
         }
       }
 
-      basePrice = basePrice + this.getBasePrice()
+      basePrice = basePrice + this.getPrice('base')()
 
       return basePrice
     },
@@ -288,21 +287,13 @@ export default defineComponent({
     getProduct() {
       return this.$apiGateway.product.show(this.productId)
     },
-    getFinalPrice() {
-      if (this.productPrice.toman) {
-        // return this.productPrice.toman('final', null)
-        return this.product.price.final
-      } else {
-        return 0
-      }
-    },
-    getBasePrice() {
-      if (this.productPrice.toman) {
-        // return this.productPrice.toman('base', null)
-        return this.product.price.base
-      } else {
-        return 0
-      }
+    getPrice(type) {
+      // if (this.productPrice.toman) {
+      //   return this.productPrice.toman(type, null)
+      // } else {
+      //   return 0
+      // }
+      return this.product.price[type]
     },
     getInstallmentOrder(index) {
       const persianOrdinals = ['اول', 'دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم']
