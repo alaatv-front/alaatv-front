@@ -160,7 +160,7 @@
                   </div>
                   <div v-if="!nationalCardPicFile && nationalCardPicURL"
                        class="selected-pic">
-                    <q-img :src="nationalCardPicObjectURL" />
+                    <q-img :src="nationalCardPicURL" />
                   </div>
                 </div>
               </div>
@@ -514,11 +514,15 @@ export default {
   },
   methods: {
     getNationalCardPhoto () {
+      this.uploadNationalCardPicLoading = true
       APIGateway.user.getNationalCardPhoto()
         .then(nationalPhoto => {
+          this.uploadNationalCardPicLoading = false
           this.nationalCardPicURL = nationalPhoto.url
         })
-        .catch()
+        .catch(() => {
+          this.uploadNationalCardPicLoading = false
+        })
     },
     moveToNextInput(value, maxLength, nextInputId, previousInput) {
       if (value.toString().length === maxLength && nextInputId) {
@@ -895,6 +899,9 @@ export default {
               margin-top: 50px;
               margin-bottom: 44px;
               max-width: 100%;
+              .q-img {
+                position: inherit;
+              }
               .btn-upload {
                 display: flex;
                 flex-flow: row;
