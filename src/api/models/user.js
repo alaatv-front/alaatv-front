@@ -32,6 +32,7 @@ export default class UserAPI extends APIRepository {
       getUserRoleAndPermission: '/getUserRoleAndPermission',
       verifyMoshavereh: '/mobile/verifyMoshavereh',
       newsletter: '/newsletter',
+      saveExam: '/user/exam-save',
       admin: {
         create: {
           base: '/admin/user'
@@ -78,7 +79,8 @@ export default class UserAPI extends APIRepository {
       createEventResult: this.name + this.APIAdresses.createEventResult,
       baseAdmin: this.name + this.APIAdresses.baseAdmin,
       nationalCard: this.name + this.APIAdresses.nationalCard,
-      getUserRoleAndPermission: this.name + this.APIAdresses.getUserRoleAndPermission
+      getUserRoleAndPermission: this.name + this.APIAdresses.getUserRoleAndPermission,
+      saveExam: this.name + this.APIAdresses.saveExam
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
@@ -490,6 +492,23 @@ export default class UserAPI extends APIRepository {
         } else {
           return ''
         }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  saveExam(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.saveExam,
+      data: this.getNormalizedSendData({
+        exam_id: '' // String
+      }, data),
+      resolveCallback: (response) => {
+        return response.data.data // String Message
       },
       rejectCallback: (error) => {
         return error

@@ -11,7 +11,7 @@
         <div class="discount">
           <q-badge color="negative"
                    text-color="white"
-                   :label="'%' + productPrice.discount" />
+                   :label="'%' + productPrice.discountInPercent()" />
         </div>
         <div class="base">
           {{ productPrice.toman('base', null) }}
@@ -41,6 +41,8 @@
     <payment-dialog :dialog="dialog"
                     :paymentMethod="paymentMethod"
                     :product="localOptions.product"
+                    :productComplimentary="productComplimentary"
+                    :examList="examList"
                     @toggle-dialog="toggleDialog"
                     @update-product="onUpdateProduct($event)"
                     @update-product-loading="onUpdateProductLoading($event)" />
@@ -67,10 +69,15 @@ export default defineComponent({
         product: new Product()
       },
       dialog: false,
-      paymentMethod: null
+      paymentMethod: null,
+      productComplimentary: [],
+      examList: []
     }
   },
   computed: {
+    productId () {
+      return this.localOptions.product.id
+    },
     isSelectable () {
       if (this.localOptions.product.children.length > 0) {
         return true
@@ -91,6 +98,12 @@ export default defineComponent({
       return false
     }
   },
+  watch: {
+    productId() {
+      this.getProductComplimentary()
+      this.getProductExams()
+    }
+  },
   methods: {
     addToCart() {
       this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, products: this.selectedIds })
@@ -99,7 +112,7 @@ export default defineComponent({
         })
     },
     paymentAction(paymentMethod) {
-      if (!this.isSelectable) {
+      if (!this.isSelectable && this.productComplimentary.length === 0 && this.examList.length === 0) {
         this.addToCart()
       } else {
         this.paymentMethod = paymentMethod
@@ -108,6 +121,22 @@ export default defineComponent({
     },
     toggleDialog() {
       this.dialog = !this.dialog
+    },
+    getProductComplimentary() {
+      this.$apiGateway.product.getProductComplimentary(this.localOptions.product.id)
+        .then(productList => {
+          this.productComplimentary = productList.list
+        })
+        .catch(() => {})
+    },
+    getProductExams() {
+      this.$apiGateway.product.getProductExamList(this.localOptions.product.id)
+        .then(examList => {
+          this.examList = examList
+        })
+        .catch((examList) => {
+          this.examList = examList
+        })
     },
     onUpdateProduct(event) {
       this.$emit('updateProduct', event)

@@ -16,13 +16,44 @@
              :class="{'q-col-gutter-sm': paymentMethod !== 'cash'}">
           <div class="col-12"
                :class="{'col-md-6': paymentMethod !== 'cash'}">
-            <div class="Products-label">
-              دوره های مکمل
+            <div v-if="product.children.length > 0"
+                 class="product-selectable">
+              <div class="Products-label">
+                خدمات بیشتر
+              </div>
+              <product-selection v-model:selectedIds="selectedIds"
+                                 class="q-mb-lg"
+                                 :product="product"
+                                 @update:selectedIds="onChangeSelectedIds" />
             </div>
-            <product-selection v-model:selectedIds="selectedIds"
-                               class="q-mb-lg"
-                               :product="product"
-                               @update:selectedIds="onChangeSelectedIds" />
+            <div v-if="productComplimentary.length > 0"
+                 class="product-complimentary">
+              <div class="Products-label">
+                دوره های مکمل
+              </div>
+              <div class="complimentary-product">
+                <q-checkbox v-for="(complimentary, index) in productComplimentary"
+                            :key="index"
+                            v-model="complimentarySelected[index]"
+                            left-label
+                            :label="complimentary.title" />
+              </div>
+            </div>
+            <div v-if="examList.length > 0"
+                 class="product-exams">
+              <div class="Products-label">
+                آزمون شما
+              </div>
+              <div class="exam-list-wrapper">
+                <div v-for="(exam, index) in examList"
+                     :key="index"
+                     class="exam-item"
+                     :class="{'selected': exam.id === selectedExam }"
+                     @click="toggleSelectedExam(exam.id)">
+                  {{ exam.display_name }}
+                </div>
+              </div>
+            </div>
           </div>
           <div v-if="paymentMethod !== 'cash'"
                class="col-12 col-md-6">
@@ -30,7 +61,7 @@
               اقساط
             </div>
             <div class="installment">
-              <q-list>
+              <q-list class="installment-list">
                 <q-item>
                   <q-item-section class="installment-order"
                                   side>
@@ -42,19 +73,19 @@
                     مبلغ
                   </q-item-section>
                 </q-item>
-                <q-item v-for="item in installment"
-                        :key="item"
+                <q-item v-for="(item, index) in installment"
+                        :key="index"
                         class="installment-item">
                   <q-item-section class="installment-order"
-                                  :class="{'active': item.active}"
+                                  :class="{'active': index === 0}"
                                   side>
-                    {{ item.order }}
+                    {{ getInstallmentOrder(index) }}
                   </q-item-section>
                   <q-item-section class="installment-date"
-                                  :class="{'active': item.active}">{{ item.date }}</q-item-section>
+                                  :class="{'active': index === 0}">{{ getPersianDate(item.date) }}</q-item-section>
                   <q-item-section class="installment-amount"
-                                  :class="{'active': item.active}"
-                                  side>{{ item.amount }}</q-item-section>
+                                  :class="{'active': index === 0}"
+                                  side>{{ item.value }}</q-item-section>
                 </q-item>
               </q-list>
             </div>
@@ -73,7 +104,7 @@
             <div class="discount">
               <q-badge color="negative"
                        text-color="white"
-                       :label="'%' + productPrice.discount" />
+                       :label="'%' + discountInPercent" />
             </div>
             <div class="base">
               {{ basePrice }}
@@ -109,10 +140,11 @@
 <script>
 import { defineComponent } from 'vue'
 import Price from 'src/models/Price.js'
-import { Product } from 'src/models/Product.js'
+import { Product, ProductList } from 'src/models/Product.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import ProductSelection from 'src/components/Widgets/Product/ProductPriceWithPopup/ProductSelection.vue'
+import moment from 'moment-jalaali'
 
 export default defineComponent({
   name: 'PaymentDialog',
@@ -132,6 +164,14 @@ export default defineComponent({
     product: {
       type: Product,
       default: new Product()
+    },
+    productComplimentary: {
+      type: ProductList,
+      default: new ProductList()
+    },
+    examList: {
+      type: Array,
+      default: () => []
     }
   },
   emits: ['updateProduct', 'updateProductLoading', 'toggleDialog'],
@@ -139,48 +179,44 @@ export default defineComponent({
     return {
       productPrice: new Price(),
       selectedIds: [],
-      installment: [
-        {
-          order: 'اول',
-          date: 'هم اکنون',
-          amount: '800000',
-          active: true
-        },
-        {
-          order: 'دوم',
-          date: 'خرداد 1402',
-          amount: '700000',
-          active: false
-        },
-        {
-          order: 'سوم',
-          date: 'مهر 1402',
-          amount: '700000',
-          active: false
-        },
-        {
-          order: 'چهارم',
-          date: 'اسفند 1402',
-          amount: '700000',
-          active: false
-        }
-      ]
+      complimentarySelected: [],
+      selectedExam: null,
+      installment: []
     }
   },
   computed: {
     finalPrice() {
-      if (this.productPrice.toman) {
-        return this.productPrice.toman('final', null)
-      } else {
-        return 0
+      let finalPrice = 0
+      for (let index = 0; index < this.complimentarySelected.length; index++) {
+        if (this.complimentarySelected[index]) {
+          finalPrice = finalPrice + this.productComplimentary[index].price.final
+        }
       }
+
+      finalPrice = finalPrice + this.getFinalPrice()
+
+      return finalPrice
+    },
+    selectedProducts() {
+      const selected = []
+      for (let index = 0; index < this.complimentarySelected.length; index++) {
+        if (this.complimentarySelected[index]) {
+          selected.push(this.productComplimentary[index])
+        }
+      }
+      return selected
     },
     basePrice() {
-      if (this.productPrice.toman) {
-        return this.productPrice.toman('base', null)
-      } else {
-        return 0
+      let basePrice = 0
+      for (let index = 0; index < this.complimentarySelected.length; index++) {
+        if (this.complimentarySelected[index]) {
+          basePrice = basePrice + this.productComplimentary[index].price.final
+        }
       }
+
+      basePrice = basePrice + this.getBasePrice()
+
+      return basePrice
     },
     cart () {
       return this.$store.getters['Cart/cart']
@@ -201,6 +237,16 @@ export default defineComponent({
       }
       return this.product.id
     }
+  },
+  watch: {
+    productComplimentary(newProductList) {
+      for (let index = 0; index < newProductList.length; index++) {
+        this.complimentarySelected[index] = false
+      }
+    }
+  },
+  created() {
+    moment.loadPersian()
   },
   methods: {
     onChangeSelectedIds (newValue) {
@@ -224,6 +270,7 @@ export default defineComponent({
     prefetchServerDataPromiseThen (product) {
       this.$emit('updateProduct', product)
       this.productPrice = product.price
+      this.installment = product.instalments
       if (window) {
         this.updateEECEventDetail()
       }
@@ -241,6 +288,33 @@ export default defineComponent({
     getProduct() {
       return this.$apiGateway.product.show(this.productId)
     },
+    getFinalPrice() {
+      if (this.productPrice.toman) {
+        // return this.productPrice.toman('final', null)
+        return this.product.price.final
+      } else {
+        return 0
+      }
+    },
+    getBasePrice() {
+      if (this.productPrice.toman) {
+        // return this.productPrice.toman('base', null)
+        return this.product.price.base
+      } else {
+        return 0
+      }
+    },
+    getInstallmentOrder(index) {
+      const persianOrdinals = ['اول', 'دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم']
+      return persianOrdinals[index]
+    },
+    getPersianDate(date) {
+      const monthList = ['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'امرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
+      const calendarDate = moment(date)
+      const calendarMonth = monthList[moment(calendarDate.jMonth(), 'jM').format('jM')]
+      const calendarYear = calendarDate.jWeekYear()
+      return calendarMonth + ' ' + calendarYear
+    },
     addToCart() {
       if (this.product.hasChildren() && this.selectedIds.length === 0) {
         this.$q.notify({
@@ -255,8 +329,41 @@ export default defineComponent({
       }
       this.$store.dispatch('Cart/addToCart', { product: this.product, products: this.selectedIds })
         .then(() => {
-          this.$router.push({ name: 'Public.Checkout.Review' })
+          if (this.selectedProducts.length > 0) {
+            const promises = []
+            this.selectedProducts.forEach(element => {
+              promises.push(this.$store.dispatch('Cart/addToCart', { product: this.product, products: this.selectedIds }))
+            })
+            Promise.all(promises)
+              .then(() => {
+                if (this.selectedExam) {
+                  this.$apiGateway.user.saveExam({
+                    exam_id: this.selectedExam
+                  })
+                    .then(() => {
+                      this.$router.push({ name: 'Public.Checkout.Review' })
+                    })
+                    .catch(() => {})
+                } else {
+                  this.$router.push({ name: 'Public.Checkout.Review' })
+                }
+              })
+              .catch(() => {})
+          } else if (this.selectedExam) {
+            this.$apiGateway.user.saveExam({
+              exam_id: this.selectedExam
+            })
+              .then(() => {
+                this.$router.push({ name: 'Public.Checkout.Review' })
+              })
+              .catch(() => {})
+          } else {
+            this.$router.push({ name: 'Public.Checkout.Review' })
+          }
         })
+    },
+    toggleSelectedExam(examId) {
+      this.selectedExam = examId
     },
     toggleDialog() {
       this.$emit('toggleDialog')
@@ -298,6 +405,30 @@ export default defineComponent({
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.42px;
+    }
+  }
+
+  .product-exams {
+    .exam-list-wrapper {
+      display: flex;
+      overflow-x: auto;
+      width: 100%;
+      .exam-item {
+        display: flex;
+        min-width: 89px;
+        height: 44px;
+        padding: 9px 16px 10px 16px;
+        margin: 8px 7px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        border: 1.5px solid #E0E0E0;
+        background:#FFF;
+        cursor: pointer;
+        &.selected {
+          background:#E0E0E0;
+        }
+      }
     }
   }
 

@@ -4,8 +4,7 @@ import { SetList } from 'src/models/Set.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Content, ContentList } from 'src/models/Content.js'
 import { Product, ProductList } from 'src/models/Product.js'
-import { ProductCategoryList } from 'src/models/ProductCategory'
-
+import { ProductCategoryList } from 'src/models/ProductCategory.js'
 export default class ProductAPI extends APIRepository {
   constructor() {
     super('product', apiV2)
@@ -40,7 +39,9 @@ export default class ProductAPI extends APIRepository {
       sampleContent: (id) => '/product/' + id + '/sample',
       categories: '/product-categories',
       liveConductors: '/live-conductors',
-      userLastState: (id) => '/product/' + id + '/toWatch'
+      userLastState: (id) => '/product/' + id + '/toWatch',
+      productComplimentary: (id) => `/product/${id}/complimentary`,
+      productExams: (id) => `/product/${id}/exams`
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -56,7 +57,9 @@ export default class ProductAPI extends APIRepository {
       gifts: (id) => this.name + this.APIAdresses.gifts(id),
       sampleContent: (id) => this.name + this.APIAdresses.sampleContent(id),
       categories: this.name + this.APIAdresses.categories,
-      edit: this.name + this.APIAdresses.edit
+      edit: this.name + this.APIAdresses.edit,
+      productComplimentary: (id) => this.name + this.APIAdresses.productComplimentary(id),
+      productExams: (id) => this.name + this.APIAdresses.productExams(id)
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
     /* Setting the callback functions for the CRUD operations. */
@@ -294,12 +297,46 @@ export default class ProductAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.userLastState(id),
+      CacheList: this.CacheList.userLastState(id),
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Content(response.data.data)
       },
       rejectCallback: (error) => {
         return error
+      }
+    })
+  }
+
+  getProductComplimentary(id, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.productComplimentary(id),
+      CacheList: this.CacheList.productComplimentary(id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getProductExamList(id, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.productExams(id),
+      CacheList: this.CacheList.productExams(id),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        // return response.data.data // examList
+        return fakeProductExam
+      },
+      rejectCallback: () => {
+        return fakeProductExam
       }
     })
   }
@@ -321,3 +358,21 @@ export default class ProductAPI extends APIRepository {
 //     }
 //   })
 // }
+
+const fakeProductExam = [
+  {
+    id: 1,
+    name: 'ghalamchi',
+    display_name: 'قلم چی'
+  },
+  {
+    id: 2,
+    name: 'soala',
+    display_name: 'سوالا'
+  },
+  {
+    id: 3,
+    name: 'ghalamchi',
+    display_name: 'قلم چی'
+  }
+]
