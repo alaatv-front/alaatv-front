@@ -227,9 +227,6 @@ export default defineComponent({
       this.localOptions.product.is_favored = newVal
     }
   },
-  mounted () {
-    console.log('product', this.product)
-  },
   methods: {
     setProductIntersectionObserver () {
       if (!this.$refs[this.productRef]?.$el) {
