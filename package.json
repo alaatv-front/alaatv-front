@@ -42,6 +42,7 @@
     "fs": "^0.0.1-security",
     "js-abstract-model": "^0.1.32",
     "leaflet": "^1.9.3",
+    "lottie-web": "^5.12.2",
     "moment": "^2.29.4",
     "moment-jalaali": "^0.9.6",
     "postcss": "^8.4.21",
