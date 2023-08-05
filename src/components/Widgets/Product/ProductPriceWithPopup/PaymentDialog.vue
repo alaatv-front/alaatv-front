@@ -431,7 +431,6 @@ export default defineComponent({
       }
     }
   }
-
   .products-label {
     padding: 0 20px 9px;
 
