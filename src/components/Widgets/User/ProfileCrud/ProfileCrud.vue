@@ -10,6 +10,12 @@
         >
       </q-btn>
     </div>
+    <q-banner v-if="user.needToCompleteInfo()"
+              class="bg-orange text-white q-mb-md q-pa-lg text-center">
+      <div class="text-h4">
+        لطفا اطلاعات خود را کامل کنید.
+      </div>
+    </q-banner>
     <entity-edit ref="entityEdit"
                  v-model:value="inputs"
                  :api="api"
@@ -17,6 +23,7 @@
                  :entity-param-key="entityParamKey"
                  :show-route-name="showRouteName"
                  :defaultLayout="defaultLayout"
+                 :before-load-input-data="beforeLoadInputData"
                  :before-get-data="beforeGetData"
                  :before-send-data="beforeSendData"
                  :after-get-data="afterGetData"
@@ -37,6 +44,7 @@ import { Notify } from 'quasar'
 import { EntityEdit } from 'quasar-crud'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { User } from 'src/models/User'
 
 export default {
   name: 'ProfileCrud',
@@ -46,6 +54,7 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
+      user: new User(),
       api: APIGateway.user.APIAdresses.base + '/' + this.$store.getters['Auth/user'].id,
       entityIdKey: 'id',
       entityParamKey: 'id',
@@ -510,6 +519,9 @@ export default {
     }
   },
   methods: {
+    beforeLoadInputData (response) {
+      this.user = new User(response.data)
+    },
     beforeGetData() {
       APIGateway.user.formData()
         .then((formData) => {
@@ -549,7 +561,21 @@ export default {
     submit() {
       this.$store.commit('loading/loading', true)
 
-      this.$refs.entityEdit.editEntity()
+      this.$refs.entityEdit.editEntity(false)
+        .then(() => {
+          this.redirectTo()
+          this.$store.commit('loading/loading', false)
+        })
+        .catch(() => {
+          this.$store.commit('loading/loading', false)
+        })
+    },
+    redirectTo () {
+      const redirectTo = this.$store.getters['Auth/redirectTo']
+      if (redirectTo === null || typeof redirectTo !== 'object') {
+        this.$router.push(redirectTo)
+        this.$store.commit('Auth/updateRedirectTo', null)
+      }
     },
     removeBox(name) {
       const index = this.inputs.findIndex(input => input.name === name)
