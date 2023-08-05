@@ -406,6 +406,22 @@ export default class UserAPI extends APIRepository {
     })
   }
 
+  getCurrent (data = {}, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getUserRoleAndPermission,
+      cacheKey: this.CacheList.getUserRoleAndPermission,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new User(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   getUserRoleAndPermission(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
