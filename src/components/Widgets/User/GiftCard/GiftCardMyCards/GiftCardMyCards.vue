@@ -102,7 +102,6 @@
         <q-table :rows="referralCodeList.list"
                  :columns="referralCodeColumns"
                  :loading="loading"
-                 hide-bottom
                  row-key="id">
           <template #body-cell="props">
             <q-td v-if="props.col.name === 'code'"
