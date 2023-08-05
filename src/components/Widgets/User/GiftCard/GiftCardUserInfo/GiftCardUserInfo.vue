@@ -191,23 +191,21 @@
               </q-inner-loading>
               <div class="title">
                 شماره شبا
+                <span v-if="bankAccountStatus === 'verify'"
+                      class="text-green">
+                  (تایید شده)
+                </span>
+                <span v-if="bankAccountStatus === 'pending'"
+                      class="text-orange">
+                  (در انتظار تایید)
+                </span>
+                <span v-if="bankAccountStatus === 'reject'"
+                      class="text-red">
+                  (تایید نشده)
+                </span>
               </div>
               <div class="shaba-number-input row q-col-gutter-md">
-                <div class="col-1 shaba-number-checked">
-                  <q-icon v-if="bankAccountStatus === 'verify'"
-                          color="green"
-                          size="md"
-                          name="isax:verify" />
-                  <q-icon v-else-if="bankAccountStatus === 'pending'"
-                          color="black"
-                          size="md"
-                          name="isax:timer5" />
-                  <q-icon v-else-if="bankAccountStatus === 'reject'"
-                          color="red"
-                          size="md"
-                          name="isax:close-circle" />
-                </div>
-                <div class="row col-10">
+                <div class="row col-11">
                   <q-input ref="input7"
                            v-model="localShabaNumber7"
                            :readonly="hasShabaNumber"
@@ -528,7 +526,7 @@ export default {
       APIGateway.user.getNationalCardPhoto()
         .then(nationalPhoto => {
           this.uploadNationalCardPicLoading = false
-          this.nationalCardPicURL = nationalPhoto.url
+          this.nationalCardPicURL = nationalPhoto
         })
         .catch(() => {
           this.uploadNationalCardPicLoading = false

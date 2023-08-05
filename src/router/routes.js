@@ -1,7 +1,4 @@
-import {
-  Authenticated
-  // IncompleteProfile
-} from './middleware/middleware.js'
+import { Authenticated } from './middleware/middleware.js' // IncompleteProfile
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
