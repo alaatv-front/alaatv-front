@@ -514,11 +514,15 @@ export default {
   },
   methods: {
     getNationalCardPhoto () {
+      this.uploadNationalCardPicLoading = true
       APIGateway.user.getNationalCardPhoto()
         .then(nationalPhoto => {
+          this.uploadNationalCardPicLoading = false
           this.nationalCardPicURL = nationalPhoto.url
         })
-        .catch()
+        .catch(() => {
+          this.uploadNationalCardPicLoading = false
+        })
     },
     moveToNextInput(value, maxLength, nextInputId, previousInput) {
       if (value.toString().length === maxLength && nextInputId) {
