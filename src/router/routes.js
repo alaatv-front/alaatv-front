@@ -1,4 +1,7 @@
-import { Authenticated, IncompleteProfile } from './middleware/middleware.js'
+import {
+  Authenticated
+  // IncompleteProfile
+} from './middleware/middleware.js'
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
@@ -294,7 +297,7 @@ const routes = [
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
             meta: {
-              middlewares: [IncompleteProfile],
+              // middlewares: [IncompleteProfile],
               hasDynamicSetting: true
             },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')
