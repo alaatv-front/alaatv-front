@@ -61,7 +61,7 @@ class User extends Model {
     ])
 
     if (!this.full_name) {
-      this.full_name = this.first_name + ' ' + this.last_name
+      this.full_name = (this.first_name ? this.first_name : '') + ' ' + (this.last_name ? this.last_name : '')
     }
   }
 
