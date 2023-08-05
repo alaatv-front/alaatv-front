@@ -202,7 +202,7 @@
                           color="black"
                           size="md"
                           name="isax:timer5" />
-                  <q-icon v-else-if="bankAccountStatus === 'canceled'"
+                  <q-icon v-else-if="bankAccountStatus === 'reject'"
                           color="red"
                           size="md"
                           name="isax:close-circle" />
