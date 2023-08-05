@@ -228,7 +228,7 @@ const routes = [
               {
                 path: ':live_name',
                 meta: {
-                  middlewares: [Authenticated],
+                  // middlewares: [Authenticated],
                   hasDynamicSettingWithParams: true
                 },
                 name: 'Public.Live.DynamicName',

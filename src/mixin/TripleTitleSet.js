@@ -41,14 +41,15 @@ const mixinTripleTitleSet = {
     },
     videoIsWatched() {
       if (!this.isVideoWatched) {
+        this.isVideoWatched = true
         this.$apiGateway.content.setVideoWatched({
           watchable_id: this.watchingContent.id,
           watchable_type: 'content'
         })
-          .then(() => {
-            this.isVideoWatched = true
+          .then(() => {})
+          .catch(() => {
+            this.isVideoWatched = false
           })
-          .catch(() => {})
       }
     },
     updateVideoStatus(data) {
