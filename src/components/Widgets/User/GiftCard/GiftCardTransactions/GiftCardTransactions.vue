@@ -9,7 +9,10 @@
               <div class="title">
                 مجموع درآمد تا به الان
               </div>
-              <div class="price-box">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-box">
                 <div class="price">{{sales_man.total_commission.toLocaleString('fa')}}</div>
                 <span class="currency">تومان</span>
               </div>
@@ -20,7 +23,10 @@
               <div class="title">
                 درآمد تسویه نشده
               </div>
-              <div class="price-progress">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-progress">
                 <div class="progress-box">
                   <div v-if="remainigAmountUntilSettlement.base > 0"
                        class="progress-title">
@@ -48,9 +54,12 @@
               <div class="title">
                 در انتظار تسویه
               </div>
-              <div class="price-progress price-progress-incomeBeingSettle">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-progress price-progress-incomeBeingSettle">
                 <div class="price-box">
-                  <div class="price">{{sales_man.income_being_settle}}</div>
+                  <div class="price">{{awaitingSattlement.toman('base', false)}}</div>
                   <span class="currency">تومان</span>
                 </div>
               </div>
@@ -253,6 +262,7 @@ export default {
     percentage: 0,
     lastPage: 0,
     page: 1,
+    salesManLoading: false,
     historyLastPage: 0,
     historyPage: 1,
     activeTab: 'transactions',
@@ -272,7 +282,7 @@ export default {
       { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
       { name: 'product', align: 'center', label: 'محصول', field: 'product' },
       { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
-      { name: 'commision_percent', align: 'center', label: 'درصد کمیسیون', field: 'commision_percent' },
+      { name: 'commision_percent', align: 'center', label: 'درصد کمیسیون', field: 'commisson_percentage' },
       { name: 'product_price', align: 'center', label: 'مبلغ خرید', field: 'product_price' },
       { name: 'commisson', align: 'center', label: 'درآمد شما', field: 'commisson' }
     ],
@@ -284,6 +294,11 @@ export default {
     remainigAmountUntilSettlement () {
       return new Price({
         base: this.minAmountUntilSettlement - this.sales_man.wallet_balance
+      })
+    },
+    awaitingSattlement() {
+      return new Price({
+        base: this.sales_man.income_being_settle
       })
     },
     walletBalance() {
@@ -321,11 +336,15 @@ export default {
       // this.getClearingHistoryDataFromApi()
     },
     getSalesMan() {
+      this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
+          this.salesManLoading = false
           this.sales_man = response
         })
-        .catch()
+        .catch(() => {
+          this.salesManLoading = false
+        })
     },
     openSettlementGuideDialog() {
       this.settlementGuideDialog = true

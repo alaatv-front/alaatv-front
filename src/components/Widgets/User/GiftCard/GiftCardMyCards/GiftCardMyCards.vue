@@ -18,7 +18,10 @@
                 <div class="title">
                   کارت های استفاده شده پرداخت شده
                 </div>
-                <div class="count align-self-end">
+                <q-inner-loading v-if="salesManLoading"
+                                 :showing="salesManLoading" />
+                <div v-else
+                     class="count align-self-end">
                   <span class="number">
                     {{sales_man.count_of_used_gift_cards}}
                   </span>
@@ -29,7 +32,10 @@
               </div>
             </div>
             <div class="col-sm-4 col-12">
-              <div class="card-style used-card">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="card-style used-card">
                 <div class="title">
                   کارت های استفاده شده منتظر پرداخت
                 </div>
@@ -44,7 +50,10 @@
               </div>
             </div>
             <div class="col-sm-4 col-12">
-              <div class="card-style unUsed-card">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="card-style unUsed-card">
                 <div class="title">
                   کارت های باقی مانده
                 </div>
@@ -211,6 +220,7 @@ export default {
       lastPage: 0,
       page: 1,
       shareCodeLoading: false,
+      salesManLoading: false,
       loading: false,
       pageCount: 0,
       itemsPerPage: 4,
@@ -323,11 +333,15 @@ export default {
       // })
     },
     getSalesMan() {
+      this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
+          this.salesManLoading = false
           this.sales_man = response
         })
-        .catch()
+        .catch(() => {
+          this.salesManLoading = false
+        })
     },
     getGiftCardsData(page = 1) {
       this.loading = true
