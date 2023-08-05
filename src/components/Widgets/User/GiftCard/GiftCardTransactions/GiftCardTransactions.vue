@@ -61,23 +61,35 @@
       <div class="col-xl-3 col-xs-12">
         <div class="left-side">
           <div class="clearing-title">
-            درخواست تسویه حساب
+            تاریخ تسویه حساب
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            31 شهریور 1402
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            30 دی 1402
           </div>
 
-          <div v-if="settlementGuide"
-               class="guide-info">
-            راهنما و شرایط تسویه حساب را
-            <span class="custom-color"
-                  @click="openSettlementGuideDialog">
-              مطالعه کنید.
-            </span>
-          </div>
-          <div class="clearing-btn-box">
-            <div class="clearing-btn"
-                 @click="clearWallet">
-              تسویه حساب
-            </div>
-          </div>
+          <!--          <div v-if="settlementGuide"-->
+          <!--               class="guide-info">-->
+          <!--            راهنما و شرایط تسویه حساب را-->
+          <!--            <span class="custom-color"-->
+          <!--                  @click="openSettlementGuideDialog">-->
+          <!--              مطالعه کنید.-->
+          <!--            </span>-->
+          <!--          </div>-->
+          <!--          <div class="clearing-btn-box">-->
+          <!--            <div class="clearing-btn"-->
+          <!--                 @click="clearWallet">-->
+          <!--              تسویه حساب-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
       </div>
     </div>
@@ -260,6 +272,7 @@ export default {
       { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
       { name: 'product', align: 'center', label: 'محصول', field: 'product' },
       { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
+      { name: 'commision_percent', align: 'center', label: 'درصد کمیسیون', field: 'commision_percent' },
       { name: 'product_price', align: 'center', label: 'مبلغ خرید', field: 'product_price' },
       { name: 'commisson', align: 'center', label: 'درآمد شما', field: 'commisson' }
     ],

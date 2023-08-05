@@ -4,6 +4,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 const mixinTripleTitleSet = {
   data: () => {
     return {
+      isVideoWatched: false,
       event: {
         id: null,
         logo: null,
@@ -37,6 +38,19 @@ const mixinTripleTitleSet = {
     },
     toggleFavor(value) {
       this.watchingContent.is_favored = value
+    },
+    videoIsWatched() {
+      if (!this.isVideoWatched) {
+        this.isVideoWatched = true
+        this.$apiGateway.content.setVideoWatched({
+          watchable_id: this.watchingContent.id,
+          watchable_type: 'content'
+        })
+          .then(() => {})
+          .catch(() => {
+            this.isVideoWatched = false
+          })
+      }
     },
     updateVideoStatus(data) {
       const hasWatch = data || this.watchingContent.has_watched
