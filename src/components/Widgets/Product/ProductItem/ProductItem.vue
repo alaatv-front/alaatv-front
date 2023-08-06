@@ -159,8 +159,8 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import Bookmark from 'src/components/Bookmark.vue'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'productItem',

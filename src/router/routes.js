@@ -1,4 +1,4 @@
-import { Authenticated } from './middleware/middleware.js'
+import { Authenticated } from './middleware/middleware.js' // IncompleteProfile
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
@@ -224,7 +224,7 @@ const routes = [
               {
                 path: ':live_name',
                 meta: {
-                  middlewares: [Authenticated],
+                  // middlewares: [Authenticated],
                   hasDynamicSettingWithParams: true
                 },
                 name: 'Public.Live.DynamicName',
@@ -294,6 +294,7 @@ const routes = [
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
             meta: {
+              // middlewares: [IncompleteProfile],
               hasDynamicSetting: true
             },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')

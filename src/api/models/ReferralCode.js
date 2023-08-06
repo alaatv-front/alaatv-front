@@ -169,6 +169,7 @@ export default class ReferralCodeAPI extends APIRepository {
           minAmount_until_settlement: response.data.minAmount_until_settlement ? Number(response.data.minAmount_until_settlement) : 0, // type: Number,  Example: 10000
           count_of_total_gift_cards: response.data.count_of_total_gift_cards ? Number(response.data.count_of_total_gift_cards) : 0, // type: Number,  Example: 11
           count_of_used_gift_cards: response.data.count_of_used_gift_cards ? Number(response.data.count_of_used_gift_cards) : 0, // type: Number,  Example: 3
+          count_of_used_without_pay_gift_cards: response.data.count_of_used_without_pay_gift_cards ? Number(response.data.count_of_used_without_pay_gift_cards) : 0, // type: Number,  Example: 3
           count_of_remain_gift_cards: response.data.count_of_remain_gift_cards ? Number(response.data.count_of_remain_gift_cards) : 0, // type: Number,  Example: 8
           income_being_settle: response.data.income_being_settle ? Number(response.data.income_being_settle) : 0 // type: Number,  Example: 90000
         }

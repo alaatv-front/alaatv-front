@@ -26,6 +26,7 @@ import SectionAPI from 'src/api/models/section.js'
 import GatewayAPI from 'src/api/models/gateway.js'
 import VersionAPI from 'src/api/models/Version.js'
 import AbrishamAPI from 'src/api/models/Abrisham.js'
+import ConductorAPI from 'src/api/models/Conductor.js'
 import AttributeAPI from 'src/api/models/attribute.js'
 import StudyPlanAPI from 'src/api/models/studyPlan.js'
 import SlideShowAPI from 'src/api/models/slideShow.js'
@@ -66,6 +67,7 @@ export const APIGateway = {
   product: new ProductAPI(),
   version: new VersionAPI(),
   abrisham: new AbrishamAPI(),
+  conductor: new ConductorAPI(),
   slideShow: new SlideShowAPI(),
   attribute: new AttributeAPI(),
   studyPlan: new StudyPlanAPI(),
