@@ -12,15 +12,17 @@
           از این پس میتوانید با اشتراک گذاری کارت‌های زیر، پس از استفاده آن‌ها از کارت پاداش دریافت کنید و درآمد داشته باشید.
         </div>
         <div class="col-md-6 col-12">
-          <div class="row card-box no-gutters">
-            <div class="col-sm-6 col-12">
+          <div class="row card-box q-col-gutter-md">
+            <div class="col-sm-4 col-12">
               <div class="card-style used-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
                 <div class="title">
-                  کارت های استفاده شده
+                  کارت های استفاده شده پرداخت شده
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_total_gift_cards - sales_man.count_of_remain_gift_cards}}
+                    {{sales_man.count_of_used_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -28,14 +30,33 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-12">
+            <div class="col-sm-4 col-12">
+              <div class="card-style used-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
+                <div class="title">
+                  کارت های استفاده شده منتظر پرداخت
+                </div>
+                <div class="count align-self-end">
+                  <span class="number">
+                    {{sales_man.count_of_used_without_pay_gift_cards.toLocaleString('fa')}}
+                  </span>
+                  <span>
+                    کارت
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-12">
               <div class="card-style unUsed-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
                 <div class="title">
                   کارت های باقی مانده
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_remain_gift_cards}}
+                    {{sales_man.count_of_remain_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -78,7 +99,6 @@
         <q-table :rows="referralCodeList.list"
                  :columns="referralCodeColumns"
                  :loading="loading"
-                 hide-bottom
                  row-key="id">
           <template #body-cell="props">
             <q-td v-if="props.col.name === 'code'"
@@ -185,6 +205,7 @@ export default {
         has_signed_contract: false,
         minAmount_until_settlement: 0,
         count_of_total_gift_cards: 0,
+        count_of_used_without_pay_gift_cards: 0,
         count_of_used_gift_cards: 0,
         count_of_remain_gift_cards: 0,
         income_being_settle: 0
@@ -195,6 +216,7 @@ export default {
       lastPage: 0,
       page: 1,
       shareCodeLoading: false,
+      salesManLoading: false,
       loading: false,
       pageCount: 0,
       itemsPerPage: 4,
@@ -307,11 +329,15 @@ export default {
       // })
     },
     getSalesMan() {
+      this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
+          this.salesManLoading = false
           this.sales_man = response
         })
-        .catch()
+        .catch(() => {
+          this.salesManLoading = false
+        })
     },
     getGiftCardsData(page = 1) {
       this.loading = true
@@ -412,7 +438,7 @@ export default {
       //margin-left: 15px;
     }
     &.unUsed-card{
-      margin-left: 15px;
+      //margin-left: 15px;
     }
 
     .title{

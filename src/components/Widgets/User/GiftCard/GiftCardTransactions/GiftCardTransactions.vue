@@ -9,7 +9,10 @@
               <div class="title">
                 مجموع درآمد تا به الان
               </div>
-              <div class="price-box">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-box">
                 <div class="price">{{sales_man.total_commission.toLocaleString('fa')}}</div>
                 <span class="currency">تومان</span>
               </div>
@@ -20,7 +23,10 @@
               <div class="title">
                 درآمد تسویه نشده
               </div>
-              <div class="price-progress">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-progress">
                 <div class="progress-box">
                   <div v-if="remainigAmountUntilSettlement.base > 0"
                        class="progress-title">
@@ -48,9 +54,12 @@
               <div class="title">
                 در انتظار تسویه
               </div>
-              <div class="price-progress price-progress-incomeBeingSettle">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-progress price-progress-incomeBeingSettle">
                 <div class="price-box">
-                  <div class="price">{{sales_man.income_being_settle}}</div>
+                  <div class="price">{{awaitingSattlement.toman('base', false)}}</div>
                   <span class="currency">تومان</span>
                 </div>
               </div>
@@ -61,23 +70,41 @@
       <div class="col-xl-3 col-xs-12">
         <div class="left-side">
           <div class="clearing-title">
-            درخواست تسویه حساب
+            تاریخ تسویه حساب
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            1 مهر 1402
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            1 دی 1402
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            1 فروردین 1403
           </div>
 
-          <div v-if="settlementGuide"
-               class="guide-info">
-            راهنما و شرایط تسویه حساب را
-            <span class="custom-color"
-                  @click="openSettlementGuideDialog">
-              مطالعه کنید.
-            </span>
-          </div>
-          <div class="clearing-btn-box">
-            <div class="clearing-btn"
-                 @click="clearWallet">
-              تسویه حساب
-            </div>
-          </div>
+          <!--          <div v-if="settlementGuide"-->
+          <!--               class="guide-info">-->
+          <!--            راهنما و شرایط تسویه حساب را-->
+          <!--            <span class="custom-color"-->
+          <!--                  @click="openSettlementGuideDialog">-->
+          <!--              مطالعه کنید.-->
+          <!--            </span>-->
+          <!--          </div>-->
+          <!--          <div class="clearing-btn-box">-->
+          <!--            <div class="clearing-btn"-->
+          <!--                 @click="clearWallet">-->
+          <!--              تسویه حساب-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
       </div>
     </div>
@@ -112,7 +139,6 @@
             <q-table :rows="transactionsTableRow"
                      :columns="transactionsHeaders"
                      :loading="transactionsTableRowLoading"
-                     hide-bottom
                      row-key="id">
               <template #header-cell="props">
                 <q-th :props="props"
@@ -121,9 +147,21 @@
                 </q-th>
               </template>
               <template #body-cell="props">
-                <q-td v-if="props.col.name === 'purchased_at'"
+                <q-td v-if="props.col.name === 'code'"
+                      class="table-column-txt">
+                  AT-{{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'product'"
+                      class="text-left table-column-txt">
+                  {{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'purchased_at' && props.value"
                       class="table-column-txt">
                   {{ convertToShamsi(props.value, 'date') }}
+                </q-td>
+                <q-td v-else-if="(props.col.name === 'commisson' || props.col.name === 'product_price') && props.value"
+                      class="table-column-txt">
+                  {{props.value.toLocaleString('fa')}}
                 </q-td>
                 <q-td v-else
                       class="table-column-txt">
@@ -153,7 +191,6 @@
               <q-table :rows="clearingHistoryTableRow"
                        :columns="clearingHistoryHeaders"
                        :loading="clearingHistoryTableRowLoading"
-                       hide-bottom
                        row-key="id">
                 <template #header-cell="props">
                   <q-th :props="props"
@@ -170,6 +207,10 @@
                     <div class="share-box">
                       {{ getWithdrawStatus(props.value) }}
                     </div>
+                  </q-td>
+                  <q-td v-else-if="props.col.name === 'amount' && props.value"
+                        class="table-column-txt">
+                    {{props.value.toLocaleString('fa')}}
                   </q-td>
                   <q-td v-else-if="props.col.name === 'updated-at'"
                         class="table-column-txt">
@@ -241,12 +282,13 @@ export default {
     percentage: 0,
     lastPage: 0,
     page: 1,
+    salesManLoading: false,
     historyLastPage: 0,
     historyPage: 1,
     activeTab: 'transactions',
     clearingHistoryHeaders: [
       { name: 'bank-tracking-code', align: 'center', label: 'شماره تراکنش', field: 'bank-tracking-code' },
-      { name: 'amount', align: 'center', label: 'مبلغ', field: 'amount' },
+      { name: 'amount', align: 'center', label: 'مبلغ(تومان)', field: 'amount' },
       { name: 'settlement-date', align: 'center', label: 'تاریخ درخواست', field: 'settlement-date' },
       { name: 'status', align: 'center', label: 'وضعیت', field: 'status' },
       { name: 'updated-at', align: 'center', label: 'تاریخ پرداخت', field: 'updated-at' }
@@ -260,8 +302,9 @@ export default {
       { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
       { name: 'product', align: 'center', label: 'محصول', field: 'product' },
       { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
-      { name: 'product_price', align: 'center', label: 'مبلغ خرید', field: 'product_price' },
-      { name: 'commisson', align: 'center', label: 'درآمد شما', field: 'commisson' }
+      { name: 'commision_percent', align: 'center', label: 'درصد کمیسیون', field: 'commisson_percentage' },
+      { name: 'product_price', align: 'center', label: 'مبلغ خرید(تومان)', field: 'product_price' },
+      { name: 'commisson', align: 'center', label: 'درآمد شما(تومان)', field: 'commisson' }
     ],
     clearingHistoryOptions: {},
     clearingHistoryTableRow: [],
@@ -271,6 +314,11 @@ export default {
     remainigAmountUntilSettlement () {
       return new Price({
         base: this.minAmountUntilSettlement - this.sales_man.wallet_balance
+      })
+    },
+    awaitingSattlement() {
+      return new Price({
+        base: this.sales_man.income_being_settle
       })
     },
     walletBalance() {
@@ -308,11 +356,15 @@ export default {
       // this.getClearingHistoryDataFromApi()
     },
     getSalesMan() {
+      this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
+          this.salesManLoading = false
           this.sales_man = response
         })
-        .catch()
+        .catch(() => {
+          this.salesManLoading = false
+        })
     },
     openSettlementGuideDialog() {
       this.settlementGuideDialog = true
