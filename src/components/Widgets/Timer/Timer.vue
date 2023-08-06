@@ -10,6 +10,7 @@
                        :options="localOptions.rightComponentOptions" />
     <timer-base class="timer-wrapper"
                 :time="localOptions.time"
+                :counters="localOptions.counters"
                 :timerStyle="localOptions.timerStyle" />
     <component-wrapper :class="leftComponentClass"
                        class="right-component"
@@ -39,6 +40,12 @@ export default defineComponent({
     return {
       defaultOptions: {
         time: '1402-06-01 00:00',
+        counters: {
+          seconds: true,
+          minutes: true,
+          hours: true,
+          days: true
+        },
         hasTop: {
           xs: false,
           sm: false,
@@ -164,7 +171,7 @@ export default defineComponent({
       return 'div'
     }
   },
-  created() {
+  beforeMount() {
     moment.loadPersian()
   },
   methods: {

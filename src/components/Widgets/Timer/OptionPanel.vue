@@ -75,6 +75,25 @@
                           label="ویدجت پایین" />
             </div>
           </div>
+          <div class="row q-col-gutter-sm q-my-md">
+            <div class="col-12 col-md-1 flex flex-center">
+              کانتر ها :
+            </div>
+            <div class="col-12 col-md-9">
+              <q-checkbox v-model="localOptions.counters.seconds"
+                          left-label
+                          label="ثانیه" />
+              <q-checkbox v-model="localOptions.counters.minutes"
+                          left-label
+                          label="دقیقه" />
+              <q-checkbox v-model="localOptions.counters.hours"
+                          left-label
+                          label="ساعت" />
+              <q-checkbox v-model="localOptions.counters.days"
+                          left-label
+                          label="روز" />
+            </div>
+          </div>
           <div class="row q-col-gutter-sm">
             <div class="col-3">
               <q-input v-model="localOptions.timerStyle.timerColor"
@@ -244,6 +263,12 @@ export default defineComponent({
     return {
       defaultOptions: {
         time: '1402-06-01 00:00',
+        counters: {
+          seconds: true,
+          minutes: true,
+          hours: true,
+          days: true
+        },
         hasTop: {
           xs: false,
           sm: false,

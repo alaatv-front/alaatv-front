@@ -1,30 +1,30 @@
 <template>
   <div class="event-counter-wrapper">
-    <div class="event-counter-item">
+    <div v-if="counters.seconds"
+         class="event-counter-item">
       <div class="event-counter-item-number seconds">
-        <span v-if="loading || !time">00</span>
-        <span v-else>{{seconds}}</span>
+        <span>{{computedSeconds}}</span>
       </div>
       <div class="event-counter-item-title">ثانیه</div>
     </div>
-    <div class="event-counter-item">
+    <div v-if="counters.minutes"
+         class="event-counter-item">
       <div class="event-counter-item-number">
-        <span v-if="loading || !time">00</span>
-        <span v-else>{{minutes}}</span>
+        <span>{{computedMinutes}}</span>
       </div>
       <div class="event-counter-item-title">دقیقه</div>
     </div>
-    <div class="event-counter-item">
+    <div v-if="counters.hours"
+         class="event-counter-item">
       <div class="event-counter-item-number">
-        <span v-if="loading || !time">00</span>
-        <span v-else>{{hour}}</span>
+        <span>{{computedHour}}</span>
       </div>
       <div class="event-counter-item-title">ساعت</div>
     </div>
-    <div class="event-counter-item">
+    <div v-if="counters.days"
+         class="event-counter-item">
       <div class="event-counter-item-number">
-        <span v-if="loading || !time">00</span>
-        <span v-else>{{day}}</span>
+        <span>{{computedDay}}</span>
       </div>
       <div class="event-counter-item-title">روز</div>
     </div>
@@ -34,6 +34,21 @@
 <script>
 import { defineComponent } from 'vue'
 import moment from 'moment-jalaali'
+
+const defaultTimerStyle = {
+  timerColor: '#000000',
+  timerBackground: 'transparent',
+  timerSize: '20px',
+  timerLabelColor: '#000000',
+  timerLabelBackground: 'transparent',
+  timerLabelSize: '20px',
+  secondsBackground: 'transparent',
+  counterWidth: '40px',
+  counterHeight: '40px',
+  counterMargin: '8px',
+  counterPadding: '0',
+  counterBorderRadius: '10px'
+}
 
 export default defineComponent({
   name: 'TimerBase',
@@ -45,19 +60,17 @@ export default defineComponent({
     timerStyle: {
       type: Object,
       default() {
+        return defaultTimerStyle
+      }
+    },
+    counters: {
+      type: Object,
+      default() {
         return {
-          timerColor: null,
-          timerBackground: null,
-          timerSize: null,
-          timerLabelColor: null,
-          timerLabelBackground: null,
-          timerLabelSize: null,
-          secondsBackground: null,
-          counterWidth: null,
-          counterHeight: null,
-          counterMargin: null,
-          counterPadding: null,
-          counterBorderRadius: null
+          seconds: true,
+          minutes: true,
+          hours: true,
+          days: true
         }
       }
     }
@@ -74,41 +87,26 @@ export default defineComponent({
     }
   },
   computed: {
-    timerColor() {
-      return this.timerStyle.timerColor || '#000000'
-    },
-    timerBackground() {
-      return this.timerStyle.timerBackground || 'transparent'
-    },
-    timerSize() {
-      return this.timerStyle.timerSize || '20px'
-    },
-    timerLabelColor() {
-      return this.timerStyle.timerLabelColor || '#000000'
-    },
-    timerLabelBackground() {
-      return this.timerStyle.timerLabelBackground || 'transparent'
-    },
-    timerLabelSize() {
-      return this.timerStyle.timerLabelSize || '20px'
-    },
-    counterWidth() {
-      return this.timerStyle.counterWidth || '40px'
-    },
-    counterHeight() {
-      return this.timerStyle.counterHeight || '40px'
+    computedTimerStyle() {
+      return Object.assign(defaultTimerStyle, this.timerStyle)
     },
     secondsBackground() {
-      return this.timerStyle.secondsBackground || this.timerStyle.timerBackground || 'transparent'
-    },
-    counterMargin() {
-      return this.timerStyle.counterMargin || '8px'
-    },
-    counterPadding() {
-      return this.timerStyle.counterPadding || '0'
+      return this.computedTimerStyle.secondsBackground || this.computedTimerStyle.timerBackground || 'transparent'
     },
     counterBorderRadius() {
-      return this.timerStyle.counterBorderRadius + 'px' || '10px'
+      return this.computedTimerStyle.counterBorderRadius + 'px' || '10px'
+    },
+    computedSeconds() {
+      return this.loading || !this.time ? '00' : this.seconds
+    },
+    computedMinutes() {
+      return this.loading || !this.time ? '00' : this.minutes
+    },
+    computedHour() {
+      return this.loading || !this.time ? '00' : this.hour
+    },
+    computedDay() {
+      return this.loading || !this.time ? '00' : this.day
     }
 
   },
@@ -168,17 +166,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$timerColor: v-bind('timerColor');
-$timerBackground: v-bind('timerBackground');
-$timerSize: v-bind('timerSize');
-$timerLabelColor: v-bind('timerLabelColor');
-$timerLabelBackground: v-bind('timerLabelBackground');
-$timerLabelSize: v-bind('timerLabelSize');
+$timerColor: v-bind('computedTimerStyle.timerColor');
+$timerBackground: v-bind('computedTimerStyle.timerBackground');
+$timerSize: v-bind('computedTimerStyle.timerSize');
+$timerLabelColor: v-bind('computedTimerStyle.timerLabelColor');
+$timerLabelBackground: v-bind('computedTimerStyle.timerLabelBackground');
+$timerLabelSize: v-bind('computedTimerStyle.timerLabelSize');
 $secondsBackground: v-bind('secondsBackground');
-$counterWidth: v-bind('counterWidth');
-$counterHeight: v-bind('counterHeight');
-$counterMargin: v-bind('counterMargin');
-$counterPadding: v-bind('counterPadding');
+$counterWidth: v-bind('computedTimerStyle.counterWidth');
+$counterHeight: v-bind('computedTimerStyle.counterHeight');
+$counterMargin: v-bind('computedTimerStyle.counterMargin');
+$counterPadding: v-bind('computedTimerStyle.counterPadding');
 $counterBorderRadius: v-bind('counterBorderRadius');
 .event-counter-wrapper {
   display: flex;
