@@ -304,7 +304,7 @@ export default {
       { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
       { name: 'product', align: 'center', label: 'محصول', field: 'product' },
       { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
-      { name: 'commision_percent', align: 'center', label: 'درصد کمیسیون', field: 'commisson_percentage' },
+      { name: 'commision_percent', align: 'center', label: 'درصد مشارکت', field: 'commisson_percentage' },
       { name: 'product_price', align: 'center', label: 'مبلغ خرید(تومان)', field: 'product_price' },
       { name: 'commisson', align: 'center', label: 'درآمد شما(تومان)', field: 'commisson' }
     ],
