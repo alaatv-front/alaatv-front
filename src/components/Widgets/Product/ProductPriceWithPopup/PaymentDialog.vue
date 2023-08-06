@@ -213,7 +213,7 @@ export default defineComponent({
         }
       }
 
-      basePrice = basePrice + this.getPrice('base')()
+      basePrice = basePrice + this.getPrice('base')
 
       return basePrice
     },

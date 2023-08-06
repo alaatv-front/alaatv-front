@@ -10,17 +10,17 @@
           class="text-grey">
     <q-tab name="description"
            label="توضیحات دوره" />
-    <q-tab name="sections"
-           disable
+    <q-tab v-if="setList.length !== 0"
+           name="sections"
            label="سرفصل ها" />
-    <q-tab name="documents"
-           :disable="contents.list.length === 0"
-           label="فیلم و جزوه" />
-    <q-tab name="gifts"
-           :disable="gifts.list.length === 0"
+    <q-tab v-if="contentListLength !== 0"
+           name="documents"
+           label="نمونه فیلم و جزوه" />
+    <q-tab v-if="giftListLength !== 0"
+           name="gifts"
            label="هدیه ها" />
-    <q-tab name="faq"
-           :disable="faqList.length === 0"
+    <q-tab v-if="faqListLength !== 0"
+           name="faq"
            label="سوالات متداول" />
   </q-tabs>
   <q-tab-panels v-model="tab"
@@ -37,7 +37,8 @@
     </q-tab-panel>
     <q-tab-panel name="sections"
                  class="product-tab-panel">
-      سرفصل ها
+      <product-set-list :options="{product: localOptions.product, setList:setList}"
+                        @update-set-list="onUpdateSetList($event)" />
     </q-tab-panel>
     <q-tab-panel name="documents">
       <div class="product-tab-panel">
@@ -54,7 +55,7 @@
     </q-tab-panel>
     <q-tab-panel class="product-tab-panel"
                  name="faq">
-      <product-f-a-q :faqList="faqList" />
+      <product-f-a-q :options="{faqList:faqList}" />
     </q-tab-panel>
   </q-tab-panels>
 </template>
@@ -67,13 +68,15 @@ import { ContentList } from 'src/models/Content.js'
 import ProductGifts from 'src/components/Widgets/Product/ProductGifts/ProductGifts.vue'
 import ProductDemos from 'src/components/Widgets/Product/ProductDemos/ProductDemos.vue'
 import ProductFAQ from 'src/components/Widgets/Product/ProductFAQ/ProductFAQ.vue'
+import ProductSetList from 'src/components/Widgets/Product/ProductSetList/ProductSetList.vue'
 
 export default defineComponent({
   name: 'ProductInfoTab',
   components: {
     ProductGifts,
     ProductDemos,
-    ProductFAQ
+    ProductFAQ,
+    ProductSetList
   },
   mixins: [mixinWidget],
   data() {
@@ -84,26 +87,43 @@ export default defineComponent({
       tab: 'description',
       gifts: new ProductList(),
       contents: new ContentList(),
-      faqList: []
+      faqList: [],
+      setList: []
+    }
+  },
+  computed: {
+    productId() {
+      return this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
+    },
+    setListLength() {
+      return this.setList.length
+    },
+    contentListLength() {
+      return this.contents.list.length
+    },
+    giftListLength() {
+      return this.gifts.list.length
+    },
+    faqListLength() {
+      return this.faqList.length
     }
   },
   mounted() {
+    this.getProductSets()
     this.getProductGifts()
     this.getSampleContents()
     this.getProductFaq()
   },
   methods: {
     getProductGifts() {
-      const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
-      this.$apiGateway.product.gifts(productId)
+      this.$apiGateway.product.gifts(this.productId)
         .then(productList => {
           this.gifts = productList
         })
         .catch(() => {})
     },
     getSampleContents() {
-      const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
-      return this.$apiGateway.product.sampleContent(productId)
+      return this.$apiGateway.product.sampleContent(this.productId)
         .then(contentList => {
           this.contents = contentList
         })
@@ -112,14 +132,41 @@ export default defineComponent({
         })
     },
     getProductFaq() {
-      const productId = this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
-      return this.$apiGateway.product.getProductFaq(productId)
+      return this.$apiGateway.product.getProductFaq(this.productId)
         .then(faqList => {
           this.faqList = faqList
         })
         .catch(() => {
 
         })
+    },
+    getProductSets() {
+      this.loading = true
+      this.$apiGateway.product.getSets(this.productId)
+        .then((setList) => {
+          const normalizedSets = setList.list.map(set => {
+            if (set.short_title !== null) {
+              const splitted = set.short_title.split('-')
+              const productName = splitted[0] ? splitted[0].trim() : 'متفرقه'
+              const topicName = splitted[1] ? splitted[1].trim() : 'متفرقه'
+              const setName = splitted[2] ? splitted[2].trim() : 'متفرقه'
+              set.short_title = productName + '-' + topicName + '-' + setName
+
+              return set
+            } else {
+              set.short_title = 'عنوان ندارد'
+              return set
+            }
+          })
+
+          this.setList = normalizedSets
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
+    },
+    onUpdateSetList(setList) {
+      this.setList = setList
     }
   }
 })

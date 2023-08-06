@@ -3,7 +3,7 @@
     <div class="faq-title">
       سوالات متداول
     </div>
-    <q-expansion-item v-for="(item, index) in faqList"
+    <q-expansion-item v-for="(item, index) in localOptions.faqList"
                       :key="index"
                       header-class="expanded-item-header"
                       expand-icon-class="expanded-item-icon"
@@ -20,13 +20,16 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'ProductFAQ',
-  props: {
-    faqList: {
-      type: Array,
-      default: () => []
+  mixins: [mixinWidget],
+  date() {
+    return {
+      defaultOptions: {
+        faqList: []
+      }
     }
   }
 })
