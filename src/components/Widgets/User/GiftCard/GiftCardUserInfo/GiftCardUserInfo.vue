@@ -160,7 +160,7 @@
                   </div>
                   <div v-if="!nationalCardPicFile && nationalCardPicURL"
                        class="selected-pic">
-                    <q-img :src="'https://nodes.alaatv.com/upload/images/kartemeli/2023-08/1691326022XYpy.png'" />
+                    <q-img :src="nationalCardPicURL" />
                   </div>
                 </div>
               </div>
