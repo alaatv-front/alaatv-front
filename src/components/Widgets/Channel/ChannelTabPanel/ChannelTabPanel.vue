@@ -39,10 +39,10 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import { Channel } from 'src/models/Channel.js'
-import BlockList from 'components/Widgets/BlockList/BlockList.vue'
-import { APIGateway } from 'src/api/APIGateway'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import BlockList from 'src/components/Widgets/BlockList/BlockList.vue'
 
 export default {
   name: 'ChannelTabPanel',

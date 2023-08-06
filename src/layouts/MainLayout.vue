@@ -97,11 +97,7 @@ export default {
         return this.$store.getters['AppLayout/loginDialog']
       },
       set (newValue) {
-        if (!newValue) {
-          this.$store.commit('AppLayout/updateLoginDialog', false)
-          return
-        }
-        this.$store.dispatch('AppLayout/showLoginDialog')
+        this.$store.commit('AppLayout/updateLoginDialog', !!newValue)
       }
     },
     confirmDialogData () {
