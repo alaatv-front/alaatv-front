@@ -69,7 +69,10 @@ export default class ReferralCodeAPI extends APIRepository {
       cacheKey: this.CacheList.orderProducts,
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data // Transactions Table Row: Array of Objects
+        return {
+          transactionsTableRow: response.data.data, // Transactions Table Row: Array of Objects
+          paginate: response.data.meta
+        }
       },
       rejectCallback: (error) => {
         return error
@@ -206,7 +209,10 @@ export default class ReferralCodeAPI extends APIRepository {
       }, data),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return {
+          clearingHistoryTableRow: response.data.data, // clearing history Table Row: Array of Objects
+          paginate: response.data.pagination
+        }
       },
       rejectCallback: (error) => {
         return error

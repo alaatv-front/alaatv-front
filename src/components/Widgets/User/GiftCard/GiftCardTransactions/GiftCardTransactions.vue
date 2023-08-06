@@ -139,6 +139,7 @@
             <q-table :rows="transactionsTableRow"
                      :columns="transactionsHeaders"
                      :loading="transactionsTableRowLoading"
+                     hide-bottom
                      row-key="id">
               <template #header-cell="props">
                 <q-th :props="props"
@@ -191,6 +192,7 @@
               <q-table :rows="clearingHistoryTableRow"
                        :columns="clearingHistoryHeaders"
                        :loading="clearingHistoryTableRowLoading"
+                       hide-bottom
                        row-key="id">
                 <template #header-cell="props">
                   <q-th :props="props"
@@ -416,8 +418,9 @@ export default {
     getWithdrawHistory(page = 1) {
       this.clearingHistoryTableRowLoading = true
       APIGateway.referralCode.getWithdrawHistory({ page })
-        .then(response => {
-          this.clearingHistoryTableRow = response
+        .then(({ clearingHistoryTableRow, paginate }) => {
+          this.clearingHistoryTableRow = clearingHistoryTableRow
+          this.historyLastPage = paginate
           this.clearingHistoryTableRowLoading = false
         })
         .catch(() => {
@@ -428,9 +431,9 @@ export default {
       this.transactionsTableRowLoading = true
       this.referralCodeList = []
       APIGateway.referralCode.getOrderProducts({ page })
-        .then((transactionsTableRow) => {
+        .then(({ transactionsTableRow, paginate }) => {
           this.transactionsTableRow = transactionsTableRow
-          // this.lastPage = paginate.last_page
+          this.lastPage = paginate.last_page
           // this.referralCodeList = referralCodeList
           this.transactionsTableRowLoading = false
         })
@@ -569,6 +572,10 @@ export default {
       position: absolute;
       bottom: 0;
       background: #E7ECF4;
+
+      .gift-card-pagination {
+        margin-top: 40px;
+      }
     }
   }
 
