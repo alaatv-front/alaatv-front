@@ -179,7 +179,7 @@
                           boundary-links
                           icon-first="isax:arrow-left-2"
                           icon-last="isax:arrow-right-3"
-                          class="gift-card-pagination"
+                          class="gift-card-pagination q-mt-md"
                           @update:model-value="getTransactionDataFromApi" />
           </div>
         </q-tab-panel>
@@ -234,7 +234,7 @@
                             boundary-links
                             icon-first="isax:arrow-left-2"
                             icon-last="isax:arrow-right-3"
-                            class="gift-card-pagination"
+                            class="gift-card-pagination q-mt-md"
                             @update:model-value="getWithdrawHistory" />
             </div>
           </div>
@@ -419,7 +419,7 @@ export default {
       this.clearingHistoryTableRowLoading = true
       APIGateway.referralCode.getWithdrawHistory({ page })
         .then(({ clearingHistoryTableRow, paginate }) => {
-          this.clearingHistoryTableRow = clearingHistoryTableRow
+          this.clearingHistoryTableRow = clearingHistoryTableRow.list
           this.historyLastPage = paginate
           this.clearingHistoryTableRowLoading = false
         })
@@ -432,7 +432,7 @@ export default {
       this.referralCodeList = []
       APIGateway.referralCode.getOrderProducts({ page })
         .then(({ transactionsTableRow, paginate }) => {
-          this.transactionsTableRow = transactionsTableRow
+          this.transactionsTableRow = transactionsTableRow.list
           this.lastPage = paginate.last_page
           // this.referralCodeList = referralCodeList
           this.transactionsTableRowLoading = false

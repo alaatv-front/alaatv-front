@@ -160,7 +160,7 @@
                   </div>
                   <div v-if="!nationalCardPicFile && nationalCardPicURL"
                        class="selected-pic">
-                    <q-img :src="nationalCardPicURL" />
+                    <q-img :src="'https://nodes.alaatv.com/upload/images/kartemeli/2023-08/1691326022XYpy.png'" />
                   </div>
                 </div>
               </div>
@@ -921,6 +921,7 @@ export default {
               max-width: 100%;
               .q-img {
                 position: inherit;
+                object-fit: contain;
               }
               .btn-upload {
                 display: flex;

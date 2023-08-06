@@ -1,6 +1,8 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 import { ReferralCodeList } from 'src/models/ReferralCode'
+import { TransactionList } from 'src/models/Transction'
+import { WithdrawHistoryList } from 'src/models/WithdrawHistory'
 
 export default class ReferralCodeAPI extends APIRepository {
   constructor() {
@@ -70,7 +72,7 @@ export default class ReferralCodeAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return {
-          transactionsTableRow: response.data.data, // Transactions Table Row: Array of Objects
+          transactionsTableRow: new TransactionList(response.data.data), // Transactions Table Row: Array of Objects
           paginate: response.data.meta
         }
       },
@@ -210,7 +212,7 @@ export default class ReferralCodeAPI extends APIRepository {
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return {
-          clearingHistoryTableRow: response.data.data, // clearing history Table Row: Array of Objects
+          clearingHistoryTableRow: new WithdrawHistoryList(response.data.data),
           paginate: response.data.pagination
         }
       },
