@@ -191,17 +191,24 @@
               </q-inner-loading>
               <div class="title">
                 شماره شبا
+                <span v-if="bankAccountStatus === 'verify'"
+                      class="text-green">
+                  (تایید شده)
+                </span>
+                <span v-if="bankAccountStatus === 'pending'"
+                      class="text-orange">
+                  (در انتظار تایید)
+                </span>
+                <span v-if="bankAccountStatus === 'reject'"
+                      class="text-red">
+                  (تایید نشده)
+                </span>
               </div>
               <div class="shaba-number-input row q-col-gutter-md">
-                <!--                <q-icon v-if="hasShabaNumber"-->
-                <!--                        color="green"-->
-                <!--                        right-->
-                <!--                        name="mdi-cellphone"-->
-                <!--                        class="shaba-number-checked" />-->
                 <div class="row col-11">
                   <q-input ref="input7"
                            v-model="localShabaNumber7"
-                           :disabled="hasShabaNumber"
+                           :readonly="hasShabaNumber"
                            maxlength="2"
                            dir="ltr"
                            class="q-pl-sm col-1"
@@ -209,7 +216,7 @@
                            @update:model-value="moveToNextInput(localShabaNumber7, 2, null, 'input6')" />
                   <q-input ref="input6"
                            v-model="localShabaNumber6"
-                           :disabled="hasShabaNumber"
+                           :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
                            class="q-pl-sm col-2"
@@ -217,7 +224,7 @@
                            @update:model-value="moveToNextInput(localShabaNumber6, 4, 'input7', 'input5')" />
                   <q-input ref="input5"
                            v-model="localShabaNumber5"
-                           :disabled="hasShabaNumber"
+                           :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
                            class="q-pl-sm col-2"
@@ -225,7 +232,7 @@
                            @update:model-value="moveToNextInput(localShabaNumber5, 4, 'input6', 'input4')" />
                   <q-input ref="input4"
                            v-model="localShabaNumber4"
-                           :disabled="hasShabaNumber"
+                           :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
                            class="q-pl-sm col-2"
@@ -233,7 +240,7 @@
                            @update:model-value="moveToNextInput(localShabaNumber4, 4, 'input5', 'input3')" />
                   <q-input ref="input3"
                            v-model="localShabaNumber3"
-                           :disabled="hasShabaNumber"
+                           :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
                            class="q-pl-sm col-2"
@@ -241,7 +248,7 @@
                            @update:model-value="moveToNextInput(localShabaNumber3, 4, 'input4', 'input2')" />
                   <q-input ref="input2"
                            v-model="localShabaNumber2"
-                           :disabled="hasShabaNumber"
+                           :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
                            class="q-pl-sm col-2"
@@ -249,7 +256,7 @@
                            @update:model-value="moveToNextInput(localShabaNumber2, 4, 'input3', 'input1')" />
                   <q-input ref="input1"
                            v-model="localShabaNumber1"
-                           :disabled="hasShabaNumber"
+                           :readonly="hasShabaNumber"
                            maxlength="2"
                            dir="ltr"
                            class="q-pl-sm col-1"
@@ -461,7 +468,7 @@ export default {
   data () {
     return {
       localUser: new User(),
-      bankAccounts: {},
+      bankAccounts: [],
       has_signed_contract: false,
       contractDialog: false,
       contractDialogSrc: null,
@@ -475,6 +482,7 @@ export default {
       localAcceptContract: false,
       acceptContractLoading: false,
       shabaNumberLoading: false,
+      bankAccountStatus: '',
       localShabaNumber: '',
       localShabaNumber1: '',
       localShabaNumber2: '',
@@ -518,7 +526,7 @@ export default {
       APIGateway.user.getNationalCardPhoto()
         .then(nationalPhoto => {
           this.uploadNationalCardPicLoading = false
-          this.nationalCardPicURL = nationalPhoto.url
+          this.nationalCardPicURL = nationalPhoto
         })
         .catch(() => {
           this.uploadNationalCardPicLoading = false
@@ -551,9 +559,11 @@ export default {
         .catch()
     },
     loadShabaNumber () {
+      this.shabaNumberLoading = true
       APIGateway.user.getBankAccounts()
         .then(bankAccounts => {
-          this.bankAccounts = bankAccounts
+          this.shabaNumberLoading = false
+          this.bankAccounts = bankAccounts.list
           if (this.bankAccounts.length === 0) {
             return
           }
@@ -561,13 +571,23 @@ export default {
           if (!bankAccount || !bankAccount.sheba) {
             return
           }
+          this.bankAccountStatus = bankAccount.status
           this.shabaNumber = bankAccount.sheba
           if (this.shabaNumber) {
             this.hasShabaNumber = true
             this.localShabaNumber = this.shabaNumber
+            this.localShabaNumber1 = this.localShabaNumber.substring(2, 4)
+            this.localShabaNumber2 = this.localShabaNumber.substring(4, 8)
+            this.localShabaNumber3 = this.localShabaNumber.substring(8, 12)
+            this.localShabaNumber4 = this.localShabaNumber.substring(12, 16)
+            this.localShabaNumber5 = this.localShabaNumber.substring(16, 20)
+            this.localShabaNumber6 = this.localShabaNumber.substring(20, 24)
+            this.localShabaNumber7 = this.localShabaNumber.substring(24, 26)
           }
         })
-        .catch()
+        .catch(() => {
+          this.shabaNumberLoading = false
+        })
     },
     loadAcceptContract () {
       this.localAcceptContract = this.has_signed_contract
@@ -981,10 +1001,7 @@ export default {
           .shaba-number-input {
             position: relative;
             .shaba-number-checked {
-              position: absolute;
-              z-index: 10;
-              height: 100%;
-              margin-right: 17px;
+              align-self: center;
             }
             .prefix-text {
               align-self: center;

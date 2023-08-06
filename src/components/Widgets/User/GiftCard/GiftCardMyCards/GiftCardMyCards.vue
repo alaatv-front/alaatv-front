@@ -15,15 +15,14 @@
           <div class="row card-box q-col-gutter-md">
             <div class="col-sm-4 col-12">
               <div class="card-style used-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
                 <div class="title">
                   کارت های استفاده شده پرداخت شده
                 </div>
-                <q-inner-loading v-if="salesManLoading"
-                                 :showing="salesManLoading" />
-                <div v-else
-                     class="count align-self-end">
+                <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_used_gift_cards}}
+                    {{sales_man.count_of_used_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -32,16 +31,15 @@
               </div>
             </div>
             <div class="col-sm-4 col-12">
-              <q-inner-loading v-if="salesManLoading"
-                               :showing="salesManLoading" />
-              <div v-else
-                   class="card-style used-card">
+              <div class="card-style used-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
                 <div class="title">
                   کارت های استفاده شده منتظر پرداخت
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_used_without_pay_gift_cards}}
+                    {{sales_man.count_of_used_without_pay_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -50,16 +48,15 @@
               </div>
             </div>
             <div class="col-sm-4 col-12">
-              <q-inner-loading v-if="salesManLoading"
-                               :showing="salesManLoading" />
-              <div v-else
-                   class="card-style unUsed-card">
+              <div class="card-style unUsed-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
                 <div class="title">
                   کارت های باقی مانده
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_remain_gift_cards}}
+                    {{sales_man.count_of_remain_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -102,7 +99,6 @@
         <q-table :rows="referralCodeList.list"
                  :columns="referralCodeColumns"
                  :loading="loading"
-                 hide-bottom
                  row-key="id">
           <template #body-cell="props">
             <q-td v-if="props.col.name === 'code'"

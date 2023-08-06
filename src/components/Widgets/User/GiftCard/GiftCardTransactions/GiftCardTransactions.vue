@@ -76,13 +76,19 @@
             <q-icon name="circle"
                     color="primary"
                     class="q-mr-sm" />
-            31 شهریور 1402
+            1 مهر 1402
           </div>
           <div class="guide-info">
             <q-icon name="circle"
                     color="primary"
                     class="q-mr-sm" />
-            30 دی 1402
+            1 دی 1402
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            1 فروردین 1403
           </div>
 
           <!--          <div v-if="settlementGuide"-->
@@ -133,7 +139,6 @@
             <q-table :rows="transactionsTableRow"
                      :columns="transactionsHeaders"
                      :loading="transactionsTableRowLoading"
-                     hide-bottom
                      row-key="id">
               <template #header-cell="props">
                 <q-th :props="props"
@@ -142,9 +147,21 @@
                 </q-th>
               </template>
               <template #body-cell="props">
-                <q-td v-if="props.col.name === 'purchased_at'"
+                <q-td v-if="props.col.name === 'code'"
+                      class="table-column-txt">
+                  AT-{{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'product'"
+                      class="text-left table-column-txt">
+                  {{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'purchased_at' && props.value"
                       class="table-column-txt">
                   {{ convertToShamsi(props.value, 'date') }}
+                </q-td>
+                <q-td v-else-if="(props.col.name === 'commisson' || props.col.name === 'product_price') && props.value"
+                      class="table-column-txt">
+                  {{props.value.toLocaleString('fa')}}
                 </q-td>
                 <q-td v-else
                       class="table-column-txt">
@@ -174,7 +191,6 @@
               <q-table :rows="clearingHistoryTableRow"
                        :columns="clearingHistoryHeaders"
                        :loading="clearingHistoryTableRowLoading"
-                       hide-bottom
                        row-key="id">
                 <template #header-cell="props">
                   <q-th :props="props"
@@ -191,6 +207,10 @@
                     <div class="share-box">
                       {{ getWithdrawStatus(props.value) }}
                     </div>
+                  </q-td>
+                  <q-td v-else-if="props.col.name === 'amount' && props.value"
+                        class="table-column-txt">
+                    {{props.value.toLocaleString('fa')}}
                   </q-td>
                   <q-td v-else-if="props.col.name === 'updated-at'"
                         class="table-column-txt">
@@ -268,7 +288,7 @@ export default {
     activeTab: 'transactions',
     clearingHistoryHeaders: [
       { name: 'bank-tracking-code', align: 'center', label: 'شماره تراکنش', field: 'bank-tracking-code' },
-      { name: 'amount', align: 'center', label: 'مبلغ', field: 'amount' },
+      { name: 'amount', align: 'center', label: 'مبلغ(تومان)', field: 'amount' },
       { name: 'settlement-date', align: 'center', label: 'تاریخ درخواست', field: 'settlement-date' },
       { name: 'status', align: 'center', label: 'وضعیت', field: 'status' },
       { name: 'updated-at', align: 'center', label: 'تاریخ پرداخت', field: 'updated-at' }
@@ -283,8 +303,8 @@ export default {
       { name: 'product', align: 'center', label: 'محصول', field: 'product' },
       { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
       { name: 'commision_percent', align: 'center', label: 'درصد کمیسیون', field: 'commisson_percentage' },
-      { name: 'product_price', align: 'center', label: 'مبلغ خرید', field: 'product_price' },
-      { name: 'commisson', align: 'center', label: 'درآمد شما', field: 'commisson' }
+      { name: 'product_price', align: 'center', label: 'مبلغ خرید(تومان)', field: 'product_price' },
+      { name: 'commisson', align: 'center', label: 'درآمد شما(تومان)', field: 'commisson' }
     ],
     clearingHistoryOptions: {},
     clearingHistoryTableRow: [],
