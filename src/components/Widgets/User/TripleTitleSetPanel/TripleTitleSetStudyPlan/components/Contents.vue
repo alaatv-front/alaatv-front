@@ -29,8 +29,7 @@ export default {
         return this.value
       },
       set (newValue) {
-        console.log('newValue', newValue)
-        this.$emit('update:value', newValue)
+        this.$emit('update:value', newValue.map(item => parseInt(newValue)))
       }
     }
   }

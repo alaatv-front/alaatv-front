@@ -310,6 +310,7 @@ export default {
         },
         {
           type: ContentsComponentComp,
+          name: 'contents',
           col: 'col-12'
         },
         {
