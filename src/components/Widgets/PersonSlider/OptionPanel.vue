@@ -2,6 +2,16 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container">
+        <div class="row person-typ-row">
+          <div class="col-12">
+            <q-radio v-model="localOptions.personType"
+                     val="student"
+                     label="دانش آموز" />
+            <q-radio v-model="localOptions.personType"
+                     val="teacher"
+                     label="استاد" />
+          </div>
+        </div>
         <div class="table-rows flex justify-between">
           <q-table flat
                    bordered
@@ -116,7 +126,8 @@ export default defineComponent({
         { name: 'actions', align: 'right', label: 'عملیات', field: row => row.id }
       ],
       defaultOptions: {
-        sliderItems: []
+        sliderItems: [],
+        personType: 'student'
       }
     }
   },

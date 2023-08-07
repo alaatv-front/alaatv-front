@@ -1,5 +1,8 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions">
+  <option-panel-tabs v-model:options="localOptions"
+                     :show-hover-effects-tab="true"
+                     :show-box-shadows-tab="true"
+                     :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row q-col-gutter-md">
@@ -157,7 +160,14 @@ export default defineComponent({
           width: null,
           src: null
         },
+        borderStyle: {},
+        boxShadows: [],
         cssHoverEffects: {
+          boxShadows: [],
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: ''
+          },
           transition: {
             time: 0
           },
@@ -172,6 +182,14 @@ export default defineComponent({
           }
         }
       }
+    }
+  },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   }
 })

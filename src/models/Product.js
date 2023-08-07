@@ -27,7 +27,7 @@ class Product extends Model {
       { key: 'photo' },
       { key: 'attributes' },
       {
-        key: 'progress',
+        key: 'contents_progress',
         default: 0
       },
       {
