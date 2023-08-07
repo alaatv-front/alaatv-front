@@ -211,13 +211,16 @@
 </template>
 
 <script>
+import { shallowRef } from 'vue'
 import { EntityCreate } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
-import AddLink from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/AddLink.vue'
 import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
+import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
+
+const ContentsComponentComp = shallowRef(ContentsComponent)
 
 export default {
   name: 'TripleTitleSetStudyPlan',
@@ -300,35 +303,14 @@ export default {
           col: 'col-4'
         },
         {
-          type: 'hidden',
-          // type: 'select',
-          name: 'lesson_id',
-          label: 'درس',
-          options: [],
-          placeholder: 'انتخاب کنید',
-          optionLabel: 'lesson_name',
-          optionValue: 'id',
-          value: null,
-          col: 'col-12'
-        },
-        {
           type: TextComponent,
           name: 'customComponent',
           text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
           col: 'col-12'
         },
         {
-          type: 'input',
-          name: 'link',
-          label: 'کد یا لینک جلسه',
-          value: '',
-          placeholder: 'وارد کنید',
-          col: 'col-10'
-        },
-        {
-          type: AddLink,
-          name: 'customComponent',
-          col: 'col-2 q-mt-lg'
+          type: ContentsComponentComp,
+          col: 'col-12'
         },
         {
           type: SessionInfo,
@@ -404,11 +386,12 @@ export default {
         grade_id: this.$refs.entityCreate.getInputsByName('grade_id').value,
         study_method_id: this.$refs.entityCreate.getInputsByName('study_method_id').value
       }
+      debugger
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
-          this.loading = false
           this.$refs.entityCreate.setInputByName('event_id', studyPlan.id)
           this.$refs.entityCreate.createEntity()
+          this.loading = false
           this.newPlanDialog = false
         })
         .catch(() => {
