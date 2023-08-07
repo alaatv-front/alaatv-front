@@ -6,7 +6,7 @@
       </h5>
     </div>
     <div class="col-6 body1">
-      برنامه مطالعاتی شماره 1 - فارغ التحصیلان رشته {{ major.title }}
+      برنامه مطالعاتی - رشته {{ major.title }}
     </div>
     <div class="col-6 text-right action-btns">
       <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Nut.png"
@@ -300,7 +300,8 @@ export default {
           col: 'col-4'
         },
         {
-          type: 'select',
+          type: 'hidden',
+          // type: 'select',
           name: 'lesson_id',
           label: 'درس',
           options: [],
@@ -388,7 +389,9 @@ export default {
     }
   },
   mounted() {
-    this.isAdmin = this.$store.getters['Auth/isAdmin']
+    const user = this.$store.getters['Auth/user']
+    this.isAdmin = user.hasPermission('adminPanel')
+
     this.getFilterLesson()
     this.getMyStudyPlan()
     this.getChangePlanOptions()
