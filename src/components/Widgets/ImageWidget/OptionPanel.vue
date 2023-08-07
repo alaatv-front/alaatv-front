@@ -183,6 +183,14 @@ export default defineComponent({
         }
       }
     }
+  },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
+    }
   }
 })
 </script>
