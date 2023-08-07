@@ -88,7 +88,7 @@ export default defineComponent({
     getPlans() {
       const today = this.getToday()
       this.loading = true
-      this.$apiGateway.studyPlan.getStudyPlans({
+      this.$apiGateway.studyPlan.getStudyPlanData({
         study_event: this.studyPlanId,
         since_date: today,
         till_date: today
