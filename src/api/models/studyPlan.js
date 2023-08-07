@@ -19,7 +19,7 @@ export default class StudyPlanAPI extends APIRepository {
     this.CacheList = {
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
       getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
-      studyPlan: this.name + this.APIAdresses.studyPlan,
+      studyPlan: this.name + this.APIAdresses.studyPlan
       studyEventReport: (id) => this.name + this.APIAdresses.studyEventReport(id),
       StudyPlan: this.name + this.APIAdresses.StudyPlan,
       planOptions: this.name + this.APIAdresses.planOptions,
