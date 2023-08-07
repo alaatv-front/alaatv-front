@@ -386,7 +386,6 @@ export default {
         grade_id: this.$refs.entityCreate.getInputsByName('grade_id').value,
         study_method_id: this.$refs.entityCreate.getInputsByName('study_method_id').value
       }
-      debugger
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
           this.$refs.entityCreate.setInputByName('event_id', studyPlan.id)
