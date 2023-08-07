@@ -1,6 +1,7 @@
 import APIRepository from '../classes/APIRepository'
 import { apiV2 } from 'src/boot/axios'
 import { StudyPlan, StudyPlanList } from 'src/models/StudyPlan'
+import { WebsiteSetting } from 'src/models/WebsiteSetting'
 
 export default class StudyPlanAPI extends APIRepository {
   constructor() {
@@ -12,11 +13,13 @@ export default class StudyPlanAPI extends APIRepository {
       studyEventReport: (id) => `/study-event-report/${id}/mark-as-read`,
       planOptions: '/abrisham/selectPlan/create',
       myStudyPlan: '/abrisham/myStudyPlan',
-      StudyPlan: '/studyPlan'
+      studyPlan: '/studyPlan',
+      setting: 'website-setting/user'
     }
     this.CacheList = {
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
       getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
+      studyPlan: this.name + this.APIAdresses.studyPlan
       studyEventReport: (id) => this.name + this.APIAdresses.studyEventReport(id),
       StudyPlan: this.name + this.APIAdresses.StudyPlan,
       planOptions: this.name + this.APIAdresses.planOptions,
@@ -66,7 +69,8 @@ export default class StudyPlanAPI extends APIRepository {
         return {
           grades: response.data.data.grades ? response.data.data.grades : [],
           majors: response.data.data.majors ? response.data.data.majors : [],
-          studyPans: response.data.data.studyPans ? response.data.data.studyPans : []
+          studyPlans: response.data.data.studyPlans ? response.data.data.studyPlans : [],
+          products: response.data.data.products ? response.data.data.products : []
         }
       },
       rejectCallback: (error) => {
@@ -97,20 +101,74 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getStudyPlans(data, cache = { TTL: 1000 }) {
+  updateMyStudyPlan(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.myStudyPlan,
+      data: this.getNormalizedSendData({
+        study_method_id: null, // Number
+        major_id: null, // Number
+        grade_id: null // Number
+      }, data),
+      resolveCallback: (response) => {
+        return new StudyPlan(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getStudyPlanData(data = {}, cache = { TTL: 100 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.StudyPlan,
-      cacheKey: this.CacheList.StudyPlan,
+      request: this.APIAdresses.studyPlan,
       ...(cache && { cache }),
+      data: this.getNormalizedSendData({
+        study_event: null,
+        since_date: '',
+        till_date: ''
+      }, data),
       resolveCallback: (response) => {
         return new StudyPlanList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
+      }
+    })
+  }
+
+  storeSetting(data = {}) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.setting,
+      data: this.getNormalizedSendData({
+        setting: {}
+      }, data),
+      resolveCallback: (response) => {
+        return response.message ? response.message : null
       },
-      data
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSetting(cache = { TTL: 100 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.setting,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new WebsiteSetting(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 

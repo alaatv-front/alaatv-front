@@ -399,7 +399,13 @@ export default {
           active: false
         },
         {
-          title: 'card',
+          title: 'study plan',
+          icon: 'calendar_today',
+          to: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
+          active: false
+        },
+        {
+          title: 'products',
           icon: 'playlist_play',
           to: 'UserPanel.Asset.TripleTitleSet.Products',
           active: false
