@@ -663,11 +663,9 @@ export default defineComponent({
     },
     getStudyPlanData() {
       const data = {
-        params: {
-          study_event: 6,
-          since_date: '2022-07-24',
-          till_date: '2022-07-30'
-        }
+        study_event: 6,
+        since_date: '2022-07-24',
+        till_date: '2022-07-30'
       }
       this.$apiGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
