@@ -1,6 +1,6 @@
-import APIRepository from '../classes/APIRepository'
-import { apiV2 } from 'src/boot/axios'
-import { StudyPlan, StudyPlanList } from 'src/models/StudyPlan'
+import { apiV2 } from 'src/boot/axios.js'
+import APIRepository from '../classes/APIRepository.js'
+import { StudyPlan, StudyPlanList } from 'src/models/StudyPlan.js'
 
 export default class StudyPlanAPI extends APIRepository {
   constructor() {
