@@ -1,0 +1,93 @@
+@mixin default-dialog {
+  background: #FFFFFF;
+  box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+  border-radius: 12px !important;
+  max-width: 900px !important;
+  .dialog-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    .dialog-header-title {
+      margin-right: 8px;
+      margin-left: 8px;
+    }
+    .dialog-close-icon {
+      color: $grey-6;
+      padding: 0;
+      width: 40px;
+      height: 28px;
+      border-radius: 8px;
+      .q-icon {
+        font-size: 14px;
+      }
+    }
+  }
+  .dialog-body {
+    padding: 24px;
+  }
+  .dialog-action {
+    padding: 0 24px 24px;
+    display: grid;
+    grid-template-columns: 104px 1fr;
+    .q-btn {
+      width: 104px;
+      height: 40px;
+      border-radius: 8px;
+    }
+    .q-btn--outline:before {
+      border: 0 solid $grey-5;
+    }
+    .dialog-action-default-btn {
+      color: $grey-6;
+    }
+    .dialog-action-btn-box {
+      justify-self: end;
+    }
+  }
+}
+.new-theme {
+  .dialog-xs{
+    width: 350px;
+    @include default-dialog;
+    .dialog-body {
+      padding: 24px 20px;
+    }
+    .dialog-action {
+      padding: 0 20px 20px;
+      grid-template-columns: 96px 1fr;
+      .q-btn {
+        width: 96px;
+        height: 32px;
+        font-size: 14px;
+      }
+    }
+  }
+  .dialog-sm{
+    width: 360px;
+    @include default-dialog;
+    .dialog-body {
+      padding: 24px 20px;
+    }
+    .dialog-action {
+      padding: 0 20px 20px;
+      grid-template-columns: 96px 1fr;
+      .q-btn {
+        width: 96px;
+        height: 32px;
+        font-size: 14px;
+      }
+    }
+  }
+  .dialog-md{
+    width: 544px;
+    @include default-dialog;
+  }
+  .dialog-lg{
+    width: 700px;
+    @include default-dialog;
+  }
+  .dialog-xl{
+    width: 900px;
+    @include default-dialog;
+  }
+}
