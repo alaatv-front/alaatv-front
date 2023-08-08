@@ -28,7 +28,7 @@
                      :study-event="studyEvent"
                      :events="studyPlanList"
                      @edit-plan="editPlan"
-                     @remove-plan="removePlan" />
+                     @remove-plan="removePlanWarning = true" />
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -220,6 +220,40 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="removePlanWarning">
+      <q-card class="accept-plan-card new-theme">
+        <q-card-section>
+          <div class="row items-center justify-between">
+            <div>
+              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Warning.png"
+                     width="24px" />
+              هشدار
+            </div>
+            <q-btn v-close-popup
+                   flat
+                   icon="close" />
+          </div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section>
+          آیا از حذف این زنگ مطمئن هستید؟
+        </q-card-section>
+        <q-card-section>
+          <div class="text-right new-theme-btn">
+            <q-btn v-close-popup
+                   class="btn cancel q-mx-sm text-grey-9"
+                   size="md"
+                   outline
+                   label="انصراف" />
+            <q-btn class="btn q-mx-sm"
+                   label="بله، مطمئنم"
+                   size="md"
+                   color="red"
+                   @click="removePlan" />
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
     <q-dialog v-model="successChangePlan">
       <q-card class="accept-plan-card new-theme">
         <q-card-section>
@@ -286,6 +320,7 @@ export default {
       newPlanDialog: false,
       editPlanDialog: false,
       isPlanChanged: false,
+      removePlanWarning: false,
       isAdmin: false,
       selectedDate: '',
       studyPlanList: new StudyPlanList(),
@@ -565,6 +600,7 @@ export default {
       APIGateway.studyPlan.removePlan(event.id)
         .then(() => {
           this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+          this.removePlanWarning = false
           this.loading = false
         })
         .catch(() => {
