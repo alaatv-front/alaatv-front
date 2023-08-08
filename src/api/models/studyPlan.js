@@ -1,20 +1,22 @@
-import { apiV2 } from 'src/boot/axios.js'
-import APIRepository from '../classes/APIRepository.js'
-import { WebsiteSetting } from 'src/models/WebsiteSetting.js'
-import { StudyPlan, StudyPlanList } from 'src/models/StudyPlan.js'
+import APIRepository from '../classes/APIRepository'
+import { apiV2 } from 'src/boot/axios'
+import { StudyPlan, StudyPlanList } from 'src/models/StudyPlan'
+import { WebsiteSetting } from 'src/models/WebsiteSetting'
 
 export default class StudyPlanAPI extends APIRepository {
   constructor() {
     super('studyPlan', apiV2, '/plan', new StudyPlan())
     this.APIAdresses = {
       plan: '/plan',
+      editPlan: (id) => '/plan/' + id,
       studyEvent: (id) => '/studyEvent/' + id + '/studyPlans',
       getPlans: (id) => '/studyPlan/' + id + '/plans',
       studyEventReport: (id) => `/study-event-report/${id}/mark-as-read`,
       planOptions: '/abrisham/selectPlan/create',
       myStudyPlan: '/abrisham/myStudyPlan',
       studyPlan: '/studyPlan',
-      setting: 'website-setting/user'
+      setting: 'website-setting/user',
+      deletePlan: (id) => '/plan/' + id
     }
     this.CacheList = {
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
@@ -181,6 +183,20 @@ export default class StudyPlanAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data?.data // String message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  removePlan(planId) {
+    return this.sendRequest({
+      apiMethod: 'delete',
+      api: this.api,
+      request: this.APIAdresses.deletePlan(planId),
+      resolveCallback: () => {
+        return null
       },
       rejectCallback: (error) => {
         return error
