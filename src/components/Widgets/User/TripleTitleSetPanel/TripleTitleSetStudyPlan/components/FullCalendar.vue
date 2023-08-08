@@ -179,8 +179,8 @@
                               </q-menu>
                             </q-btn>
                           </div>
-                          <div class="caption2 q-mt-xs">{{event.description}}</div>
-                          <div class="caption2 q-mt-xs">{{event.start}} الی {{event.end}}</div>
+                          <div class="caption2 col-12 q-mt-xs">{{event.description}}</div>
+                          <div class="caption2 col-12 q-mt-xs">{{event.start}} الی {{event.end}}</div>
                         </div>
                       </div>
                     </div>
