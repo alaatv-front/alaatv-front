@@ -91,7 +91,7 @@
                        v-model:value="editInputs"
                        :defaultLayout="false"
                        :after-send-data="afterSendData"
-                       :api="getEditApi">
+                       :api="editApi">
             <template #after-form-builder>
               <div class="text-right q-mt-md new-theme-btn">
                 <q-btn v-close-popup
@@ -266,6 +266,7 @@ import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/T
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
+const TextComponentComp = shallowRef(TextComponent)
 
 export default {
   name: 'TripleTitleSetStudyPlan',
@@ -307,10 +308,10 @@ export default {
       timeStartPos: 0,
       filteredLesson: null,
       eventId: null,
-      getEditApi: null,
+      editApi: null,
       inputs: [
         {
-          type: TextComponent,
+          type: TextComponentComp,
           name: 'customComponent',
           text: 'برنامه و درس موردنظر رو انتخاب کن و بعدش میتونی زنگ جدید رو اضافه کنی.',
           col: 'col-12'
@@ -354,7 +355,7 @@ export default {
           col: 'col-4'
         },
         {
-          type: TextComponent,
+          type: TextComponentComp,
           name: 'customComponent',
           text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
           col: 'col-12'
@@ -408,7 +409,7 @@ export default {
       ],
       editInputs: [
         {
-          type: TextComponent,
+          type: TextComponentComp,
           name: 'customComponent',
           text: 'برنامه و درس موردنظر رو انتخاب کن و بعدش میتونی زنگ جدید رو اضافه کنی.',
           col: 'col-12'
@@ -454,7 +455,7 @@ export default {
           col: 'col-4'
         },
         {
-          type: TextComponent,
+          type: TextComponentComp,
           name: 'customComponent',
           text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
           col: 'col-12'
@@ -556,15 +557,19 @@ export default {
     },
     editPlan(event) {
       this.selectedPlanId = event.id
-      this.getEditApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
+      this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
       this.editPlanDialog = true
     },
     removePlan(event) {
+      this.loading = true
       APIGateway.studyPlan.removePlan(event.id)
         .then(() => {
           this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+          this.loading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     },
     acceptNewPlan() {
       this.loading = true
@@ -617,10 +622,10 @@ export default {
       this.loading = true
       this.$apiGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
-          this.loading = false
           this.planType = studyPlan.title
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.loading = false
         })
         .catch(() => {
           this.loading = false
