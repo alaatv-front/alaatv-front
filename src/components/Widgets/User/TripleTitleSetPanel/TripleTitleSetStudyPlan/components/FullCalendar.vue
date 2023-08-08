@@ -153,7 +153,31 @@
                           <div class="body1 col-11 q-mt-sm">{{ event.title }}</div>
                           <div class="col-1">
                             <q-btn icon="isax:more"
-                                   class="rotate-90" />
+                                   size="sm"
+                                   class="rotate-90 more">
+                              <q-menu anchor="bottom right"
+                                      style="width: 120px"
+                                      self="bottom left">
+                                <q-item clickable>
+                                  <q-item-section @click="editPlan(event)">
+                                    <q-icon name="isax:edit" />
+                                    <span>ویرایش</span>
+                                  </q-item-section>
+                                </q-item>
+                                <q-item clickable>
+                                  <q-item-section @click="editPlan(event)">
+                                    <q-icon name="isax:copy" />
+                                    <span>کپی</span>
+                                  </q-item-section>
+                                </q-item>
+                                <q-item clickable>
+                                  <q-item-section @click="removePlan(event)">
+                                    <q-icon name="isax:trash" />
+                                    <span>حذف</span>
+                                  </q-item-section>
+                                </q-item>
+                              </q-menu>
+                            </q-btn>
                           </div>
                           <div class="caption2 q-mt-xs">{{event.description}}</div>
                           <div class="caption2 q-mt-xs">{{event.start}} الی {{event.end}}</div>
@@ -248,6 +272,10 @@ export default defineComponent({
   name: 'FullCalendar',
   components: { PlanItem },
   props: {
+    studyEvent: {
+      type: Number,
+      default: null
+    },
     events: {
       type: StudyPlanList,
       default: new StudyPlanList()
@@ -261,7 +289,8 @@ export default defineComponent({
       default: 'calendar_month'
     }
   },
-  setup() {
+  setup(props, { emit }) {
+    // const emit = defineEmits(['editPlan', 'removePlan'])
     const month = ref([
       [
         {
@@ -619,7 +648,16 @@ export default defineComponent({
       // console.log(document.getSelection(), event)
     }
 
+    const editPlan = (event) => {
+      emit('editPlan', event)
+    }
+    const removePlan = (event) => {
+      emit('removePlan', event)
+    }
+
     return {
+      editPlan,
+      removePlan,
       calendarMonth,
       startOfMonth,
       baseHight,
@@ -645,7 +683,6 @@ export default defineComponent({
   },
   mounted() {
     this.loadCalendar(Time.now(), true)
-    this.getStudyPlanData()
   },
   methods: {
     calculateTop(event) {
@@ -661,11 +698,11 @@ export default defineComponent({
       this.eventDialog = true
       this.selectedEvent = event
     },
-    getStudyPlanData() {
+    getStudyPlanData(eventId) {
       const data = {
-        study_event: 6,
-        since_date: '2022-07-24',
-        till_date: '2022-07-30'
+        study_event: eventId,
+        since_date: this.chartWeek[0].date,
+        till_date: this.chartWeek[6].date
       }
       this.$apiGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
@@ -688,18 +725,12 @@ export default defineComponent({
     goToNextWeek() {
       const today = new Date(this.calendarDate._i)
       const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
-      const day = nextWeek.getDate()
-      const month = nextWeek.getMonth()
-      const year = nextWeek.getFullYear()
-      this.loadCalendar(`${year}/${month}/${day}`, false)
+      this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
     },
     goToLastWeek() {
       const today = new Date(this.calendarDate._i)
       const nextWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
-      const day = nextWeek.getDate()
-      const month = nextWeek.getMonth()
-      const year = nextWeek.getFullYear()
-      this.loadCalendar(`${year}/${month}/${day}`, false)
+      this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
     },
     setCalendarMonth(selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
@@ -1001,6 +1032,11 @@ export default defineComponent({
                 width: 180px;
                 background: #9690E4;
                 border-radius: 8px;
+                .more {
+                  position: absolute;
+                  right: -10px;
+                  top: 5px;
+                }
               }
             }
           }

@@ -24,7 +24,11 @@
     </div>
     <div class="col-12 q-mt-md"
          style="width: 100%;">
-      <full-calendar :events="studyPlanList" />
+      <full-calendar ref="fullCalendar"
+                     :study-event="studyEvent"
+                     :events="studyPlanList"
+                     @edit-plan="editPlan"
+                     @remove-plan="removePlan" />
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -46,6 +50,7 @@
           <entity-create ref="entityCreate"
                          v-model:value="inputs"
                          :defaultLayout="false"
+                         :after-send-data="afterSendData"
                          :api="api">
             <template #after-form-builder>
               <div class="text-right q-mt-md new-theme-btn">
@@ -62,6 +67,46 @@
               </div>
             </template>
           </entity-create>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="editPlanDialog">
+      <q-card class="new-theme">
+        <q-card-section>
+          <div class="row items-center justify-between">
+            <div>
+              <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-CalendarCheck.png"
+                     width="24px" />
+              ویرایش زنگ
+            </div>
+            <q-btn v-close-popup
+                   flat
+                   icon="close"
+                   color="grey-6" />
+          </div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section>
+          <entity-edit ref="entityEdit"
+                       v-model:value="editInputs"
+                       :defaultLayout="false"
+                       :after-send-data="afterSendData"
+                       :api="getEditApi">
+            <template #after-form-builder>
+              <div class="text-right q-mt-md new-theme-btn">
+                <q-btn v-close-popup
+                       class="btn cancel q-mx-sm text-grey-9"
+                       size="md"
+                       outline
+                       label="لغو" />
+                <q-btn class="btn q-mx-sm"
+                       label="تایید"
+                       size="md"
+                       color="positive"
+                       @click="updatePlan()" />
+              </div>
+            </template>
+          </entity-edit>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -212,7 +257,7 @@
 
 <script>
 import { shallowRef } from 'vue'
-import { EntityCreate } from 'quasar-crud'
+import { EntityCreate, EntityEdit } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
@@ -226,7 +271,8 @@ export default {
   name: 'TripleTitleSetStudyPlan',
   components: {
     FullCalendar,
-    EntityCreate
+    EntityCreate,
+    EntityEdit
   },
   beforeRouteUpdate () {
     clearInterval(this.intervalId)
@@ -234,7 +280,10 @@ export default {
   data() {
     return {
       api: APIGateway.studyPlan.APIAdresses.plan,
+      editapi: APIGateway.studyPlan.APIAdresses.editPlan,
+      selectedPlanId: null,
       newPlanDialog: false,
+      editPlanDialog: false,
       isPlanChanged: false,
       isAdmin: false,
       selectedDate: '',
@@ -243,7 +292,8 @@ export default {
       acceptPlan: false,
       warning: false,
       successChangePlan: false,
-      planType: '',
+      planType: null,
+      studyEvent: null,
       planOptions: [],
       major: '',
       majorOptions: [],
@@ -257,6 +307,7 @@ export default {
       timeStartPos: 0,
       filteredLesson: null,
       eventId: null,
+      getEditApi: null,
       inputs: [
         {
           type: TextComponent,
@@ -354,6 +405,111 @@ export default {
           placeholder: 'وارد کنید',
           col: 'col-12'
         }
+      ],
+      editInputs: [
+        {
+          type: TextComponent,
+          name: 'customComponent',
+          text: 'برنامه و درس موردنظر رو انتخاب کن و بعدش میتونی زنگ جدید رو اضافه کنی.',
+          col: 'col-12'
+        },
+        {
+          type: 'hidden',
+          name: 'event_id',
+          value: null
+        },
+        {
+          type: 'select',
+          name: 'study_method_id',
+          label: 'برنامه',
+          placeholder: 'انتخاب کنید',
+          options: [],
+          optionLabel: 'display_name',
+          optionValue: 'id',
+          value: null,
+          col: 'col-4'
+        },
+        {
+          type: 'select',
+          name: 'major_id',
+          label: 'رشته',
+          options: [],
+          placeholder: 'انتخاب کنید',
+          optionLabel: 'title',
+          optionValue: 'id',
+          value: null,
+          responseKey: 'data.major.id',
+          col: 'col-4'
+        },
+        {
+          type: 'select',
+          name: 'grade_id',
+          label: 'مقطع',
+          options: [],
+          placeholder: 'انتخاب کنید',
+          optionLabel: 'title',
+          optionValue: 'id',
+          value: null,
+          responseKey: 'data.grade.id',
+          col: 'col-4'
+        },
+        {
+          type: TextComponent,
+          name: 'customComponent',
+          text: 'اطلاعات محتوای موردنظر برای نمایش رو وارد کنید.',
+          col: 'col-12'
+        },
+        {
+          type: ContentsComponentComp,
+          name: 'contents',
+          responseKey: 'data.contents',
+          col: 'col-12'
+        },
+        {
+          type: SessionInfo,
+          data: [],
+          col: 'col-12'
+        },
+        {
+          type: 'date',
+          name: 'date',
+          label: 'تاریخ',
+          value: '',
+          placeholder: 'انتخاب کنید',
+          calendarIcon: ' ',
+          optionLabel: 'title',
+          responseKey: 'data.date',
+          col: 'col-4'
+        },
+        {
+          type: 'time',
+          name: 'start',
+          label: 'از ساعت',
+          value: '',
+          placeholder: 'انتخاب کنید',
+          optionLabel: 'title',
+          responseKey: 'data.start',
+          col: 'col-4'
+        },
+        {
+          type: 'time',
+          name: 'end',
+          label: 'تا ساعت',
+          value: '',
+          placeholder: 'انتخاب کنید',
+          optionLabel: 'title',
+          responseKey: 'data.end',
+          col: 'col-4'
+        },
+        {
+          type: 'input',
+          name: 'description',
+          label: 'توضیحات',
+          value: '',
+          placeholder: 'وارد کنید',
+          responseKey: 'data.description',
+          col: 'col-12'
+        }
       ]
     }
   },
@@ -374,12 +530,42 @@ export default {
   mounted() {
     const user = this.$store.getters['Auth/user']
     this.isAdmin = user.hasPermission('adminPanel')
-
     this.getFilterLesson()
     this.getMyStudyPlan()
     this.getChangePlanOptions()
   },
   methods: {
+    updatePlan() {
+      this.loading = true
+      const data = {
+        major_id: this.$refs.entityEdit.getInputsByName('major_id').value,
+        grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
+        study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value
+      }
+      APIGateway.abrisham.findMyStudyPlan(data)
+        .then(studyPlan => {
+          this.$refs.entityEdit.setInputByName('event_id', studyPlan.id)
+          this.studyEvent = studyPlan.id
+          this.$refs.entityEdit.editEntity()
+          this.loading = false
+          this.editPlanDialog = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    },
+    editPlan(event) {
+      this.selectedPlanId = event.id
+      this.getEditApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
+      this.editPlanDialog = true
+    },
+    removePlan(event) {
+      APIGateway.studyPlan.removePlan(event.id)
+        .then(() => {
+          this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+        })
+        .catch(() => {})
+    },
     acceptNewPlan() {
       this.loading = true
       const data = {
@@ -390,6 +576,7 @@ export default {
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
           this.$refs.entityCreate.setInputByName('event_id', studyPlan.id)
+          this.studyEvent = studyPlan.id
           this.$refs.entityCreate.createEntity()
           this.loading = false
           this.newPlanDialog = false
@@ -397,6 +584,9 @@ export default {
         .catch(() => {
           this.loading = false
         })
+    },
+    afterSendData() {
+      this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
     },
     filterByLesson() {
       this.loading = true
@@ -429,6 +619,8 @@ export default {
         .then(studyPlan => {
           this.loading = false
           this.planType = studyPlan.title
+          this.studyEvent = studyPlan.id
+          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
         })
         .catch(() => {
           this.loading = false
@@ -446,7 +638,9 @@ export default {
           this.setInputAttrByName(this.inputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.inputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.inputs, 'study_method_id', 'options', options.studyPlans)
-          this.setInputAttrByName(this.inputs, 'lesson_id', 'options', options.products)
+          this.setInputAttrByName(this.editInputs, 'major_id', 'options', options.majors)
+          this.setInputAttrByName(this.editInputs, 'grade_id', 'options', options.grades)
+          this.setInputAttrByName(this.editInputs, 'study_method_id', 'options', options.studyPlans)
         })
         .catch(() => {
           this.loading = false
@@ -490,7 +684,7 @@ export default {
       this.loading = true
       this.warning = false
       this.$apiGateway.studyPlan.updateMyStudyPlan({
-        study_method_id: this.planType,
+        study_method_id: this.planType.id,
         major_id: this.major.id,
         grade_id: this.grade.id,
         setting: this.lesson.id
@@ -498,6 +692,7 @@ export default {
         .then(() => {
           this.loading = false
           this.successChangePlan = true
+          this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
         })
         .catch(() => {
           this.loading = false

@@ -8,18 +8,20 @@ export default class StudyPlanAPI extends APIRepository {
     super('studyPlan', apiV2, '/plan', new StudyPlan())
     this.APIAdresses = {
       plan: '/plan',
+      editPlan: (id) => '/plan/' + id,
       studyEvent: (id) => '/studyEvent/' + id + '/studyPlans',
       getPlans: (id) => '/studyPlan/' + id + '/plans',
       studyEventReport: (id) => `/study-event-report/${id}/mark-as-read`,
       planOptions: '/abrisham/selectPlan/create',
       myStudyPlan: '/abrisham/myStudyPlan',
       studyPlan: '/studyPlan',
-      setting: 'website-setting/user'
+      setting: 'website-setting/user',
+      deletePlan: (id) => '/plan/' + id
     }
     this.CacheList = {
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
       getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
-      studyPlan: this.name + this.APIAdresses.studyPlan
+      studyPlan: this.name + this.APIAdresses.studyPlan,
       studyEventReport: (id) => this.name + this.APIAdresses.studyEventReport(id),
       StudyPlan: this.name + this.APIAdresses.StudyPlan,
       planOptions: this.name + this.APIAdresses.planOptions,
@@ -181,6 +183,20 @@ export default class StudyPlanAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data?.data // String message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  removePlan(planId) {
+    return this.sendRequest({
+      apiMethod: 'delete',
+      api: this.api,
+      request: this.APIAdresses.deletePlan(planId),
+      resolveCallback: (response) => {
+        return response
       },
       rejectCallback: (error) => {
         return error
