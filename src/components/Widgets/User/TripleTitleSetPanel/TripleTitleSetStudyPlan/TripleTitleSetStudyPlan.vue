@@ -697,7 +697,6 @@ export default {
         .then(() => {
           this.loading = false
           this.successChangePlan = true
-          this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
         })
         .catch(() => {
           this.loading = false

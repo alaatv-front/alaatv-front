@@ -195,8 +195,8 @@ export default class StudyPlanAPI extends APIRepository {
       apiMethod: 'delete',
       api: this.api,
       request: this.APIAdresses.deletePlan(planId),
-      resolveCallback: (response) => {
-        return response
+      resolveCallback: () => {
+        return null
       },
       rejectCallback: (error) => {
         return error
