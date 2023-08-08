@@ -599,7 +599,7 @@ export default {
       this.removePlanWarning = true
       this.selectedPlanId = event.id
     },
-    removePlan(event) {
+    removePlan() {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
