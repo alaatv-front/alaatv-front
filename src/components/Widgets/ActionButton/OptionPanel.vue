@@ -182,6 +182,12 @@ export default defineComponent({
       if (!val) {
         this.localOptions.fixedPosition = null
       }
+    },
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   }
 })
