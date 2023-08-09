@@ -1,14 +1,14 @@
 <template>
   <q-card class="feature-card"
-          :class="localOptions.className">
+          :class="localOptions.className"
+          :style="localOptions.style">
     <q-card-section :class="{'feature-horizontal-section': localOptions.horizontal, 'feature-vertical-section': !localOptions.horizontal}"
                     :horizontal="localOptions.horizontal">
-      <!--      <image-widget v-if="localOptions.image"-->
-      <q-img v-if="localOptions.image"
-             :src="localOptions.image"
-             :width="localOptions.imageWidth"
-             :height="localOptions.imageHeight" />
-      <q-card-section>
+      <q-card-section v-if="localOptions.hasImage"
+                      class="feature-section">
+        <image-widget :options="localOptions.imageWidgetOptions" />
+      </q-card-section>
+      <q-card-section class="feature-section">
         <text-widget v-if="localOptions.titleOptions.text"
                      :options="localOptions.titleOptions" />
         <div v-else
@@ -27,19 +27,18 @@
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import textWidget from 'components/Widgets/TextWidget/TextWidget.vue'
-// import imageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
+import imageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
 
 export default {
   name: 'FeatureBox',
   components: {
-    textWidget
-    // imageWidget
+    textWidget,
+    imageWidget
   },
   mixins: [mixinWidget],
   data() {
     return {
       defaultOptions: {
-        title: '',
         titleOptions: {
           text: null,
           color: null,
@@ -75,7 +74,6 @@ export default {
             lineHeight: null
           }
         },
-        description: '',
         descriptionOptions: {
           text: null,
           fontFamily: null,
@@ -111,9 +109,71 @@ export default {
             lineHeight: null
           }
         },
-        image: null,
-        imageWidth: '100px',
-        imageHeight: '100px',
+        hasImage: true,
+        imageWidgetOptions: {
+          imageSource: null,
+          ratio: null,
+          hasAction: false,
+          useAEEEvent: false,
+          action: {
+            name: null,
+            route: null,
+            scrollTo: null,
+            eventName: null,
+            eventArgs: null
+          },
+          xs: {
+            height: null,
+            width: null,
+            src: null
+          },
+          sm: {
+            height: null,
+            width: null,
+            src: null
+          },
+          md: {
+            height: null,
+            width: null,
+            src: null
+          },
+          lg: {
+            height: null,
+            width: null,
+            src: null
+          },
+          xl: {
+            height: null,
+            width: null,
+            src: null
+          },
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: ''
+          },
+          boxShadows: [],
+          cssHoverEffects: {
+            boxShadows: [],
+            borderStyle: {
+              borderCssString: '',
+              borderRadiusCssString: ''
+            },
+            transition: {
+              time: 0
+            },
+            transform: {
+              rotate: 0,
+              scaleX: 1,
+              scaleY: 1,
+              skewX: 0,
+              skewY: 0,
+              translateX: 0,
+              translateY: 0
+            }
+          }
+        },
+        width: '100%',
+        height: '100%',
         horizontal: true,
         theme: 'theme1',
         borderStyle: {}
@@ -127,12 +187,17 @@ export default {
 $border: v-bind('localOptions.borderStyle.borderCssString');
 $borderRadius: v-bind('localOptions.borderStyle.borderRadiusCssString');
 .feature-card {
-  width: 100%;
-  max-width: 100%;
+  width: v-bind('localOptions.width');
+  max-width: v-bind('localOptions.height');
+  background: #ffffff;
   box-shadow: none;
   -webkit-border-radius: $borderRadius;
   -moz-border-radius: $borderRadius;
   border: $border;
+
+  .feature-section {
+    padding: 0;
+  }
   .feature-horizontal-section {
 
     .feature-title {
