@@ -1037,6 +1037,10 @@ export default defineComponent({
                   right: -10px;
                   top: 5px;
                 }
+
+                .caption2 {
+                  max-width: 120px;
+                }
               }
             }
           }
