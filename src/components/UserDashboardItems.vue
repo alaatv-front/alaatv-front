@@ -11,7 +11,7 @@
           </q-item-section>
           <q-item-section class="list-section title-icon"
                           avatar>
-            {{ user.wallet_balance.toLocaleString('fa') }}
+            {{ user.wallet_balance ? user.wallet_balance.toLocaleString('fa') : 0 }}
             تومان
           </q-item-section>
           <span class="indicator" />

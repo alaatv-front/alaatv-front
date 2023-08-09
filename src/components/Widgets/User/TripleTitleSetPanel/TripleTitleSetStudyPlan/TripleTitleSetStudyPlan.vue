@@ -565,7 +565,7 @@ export default {
   },
   mounted() {
     const user = this.$store.getters['Auth/user']
-    this.isAdmin = user.hasPermission('adminPanel')
+    this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
     this.getFilterLesson()
     this.getMyStudyPlan()
     this.getChangePlanOptions()
