@@ -28,7 +28,7 @@
                      :study-event="studyEvent"
                      :events="studyPlanList"
                      @edit-plan="editPlan"
-                     @remove-plan="removePlanWarning = true" />
+                     @remove-plan="openRemovePlanWarning" />
     </div>
     <q-dialog v-model="newPlanDialog">
       <q-card class="new-theme">
@@ -595,9 +595,13 @@ export default {
       this.editApi = APIGateway.studyPlan.APIAdresses.editPlan(this.selectedPlanId)
       this.editPlanDialog = true
     },
-    removePlan(event) {
+    openRemovePlanWarning(event) {
+      this.removePlanWarning = true
+      this.selectedPlanId = event.id
+    },
+    removePlan() {
       this.loading = true
-      APIGateway.studyPlan.removePlan(event.id)
+      APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
           this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
           this.removePlanWarning = false
