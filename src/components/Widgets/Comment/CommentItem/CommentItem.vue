@@ -179,7 +179,6 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
         font-weight: 500;
         line-height: normal;
         letter-spacing: -0.32px;
-        margin-bottom: 8px;
 
         @media screen and (max-width: 600px){
           font-size: 14px;

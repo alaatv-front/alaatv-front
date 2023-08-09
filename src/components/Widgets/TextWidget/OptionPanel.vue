@@ -8,6 +8,29 @@
           </div>
           <editor-options v-model:options="localOptions" />
         </div>
+        <div class="row q-col-gutter-sm q-mt-sm">
+          <div class="col-12 col-md-3">
+            <q-checkbox v-model="localOptions.hasTheme"
+                        left-label
+                        label="hasTheme" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-select v-model="localOptions.activeTheme"
+                      :options="themes"
+                      label="themes"
+                      filled />
+          </div>
+        </div>
+        <div v-if="localOptions.hasTheme && localOptions.activeTheme"
+             class="row q-col-gutter-sm q-mt-sm">
+          <div v-for="(value, key, index) in localOptions.themes[localOptions.activeTheme]"
+               :key="index"
+               class="col-12 col-md-3">
+            <q-input v-model="localOptions.themes[localOptions.activeTheme][key]"
+                     type="text"
+                     :label="key" />
+          </div>
+        </div>
       </div>
     </template>
   </option-panel-tabs>
@@ -74,8 +97,23 @@ export default defineComponent({
           fontWeight: null,
           fontStyle: null,
           lineHeight: null
+        },
+        hasTheme: null,
+        activeTheme: null,
+        themes: {
+          theme1: {
+            borderColor: null,
+            borderSize: null,
+            borderWidth: null,
+            borderHeight: null,
+            top: null,
+            left: null,
+            bottom: null,
+            right: null
+          }
         }
-      }
+      },
+      themes: ['theme1']
     }
   },
   watch: {
