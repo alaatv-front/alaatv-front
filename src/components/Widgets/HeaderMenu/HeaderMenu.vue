@@ -79,6 +79,7 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
+      scrollEventIsAdded: false,
       defaultOptions: {
         rightSectionWidgets: [],
         centerSectionWidgets: [],
@@ -106,34 +107,28 @@ export default {
   watch: {
     'localOptions.sticky': function (newVal) {
       if (newVal) {
+        this.scrollEventIsAdded = true
         window.addEventListener('scroll', () => {
-          console.log(this.$refs.headerMenu.classList.value)
-          if (!this.isInViewport && !this.$refs.headerMenu.classList.value.includes('fix-position')) {
-            this.$refs.headerMenu.classList.value += ' ' + ('fix-position')
-            console.log(this.$refs.headerMenu.value)
-          } else if (this.isInViewport && this.$refs.headerMenu.classList.value.includes('fix-position')) {
-            this.$refs.headerMenu.classList.value.replaceAll('fix-position', '')
-            console.log(this.$refs.headerMenu.value)
+          if (!this.isInViewport() && !document.getElementsByClassName('sticky-menu')[0].classList.value.includes('fix-position')) {
+            document.getElementsByClassName('sticky-menu')[0].classList.add('fix-position')
+          } else if (this.isInViewport() && document.getElementsByClassName('sticky-menu')[0].classList.value.includes('fix-position')) {
+            document.getElementsByClassName('sticky-menu')[0].classList.remove('fix-position')
           }
         })
-      } else {
+      } else if (!this.scrollEventIsAdded) {
+        this.scrollEventIsAdded = false
         window.removeEventListener('scroll')
+        document.getElementsByClassName('sticky-menu')[0].classList.remove('fix-position')
       }
     }
   },
   methods: {
     isInViewport() {
-      if (this.localOptions.stickyClass) {
-        const el = document.getElementsByClassName(this.localOptions.stickyClass)
-        const rect = el.getBoundingClientRect()
-        return (
-          rect.top >= 0 &&
-          rect.left >= 0 &&
-          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        )
-      }
-      return true
+      const el = document.getElementsByClassName(this.localOptions.stickyClass)[0]
+      const rect = el.getBoundingClientRect()
+      return (
+        rect.top <= rect.height && rect.bottom >= 0
+      )
     },
     routeTo(name) {
       this.$router.push({ name })
