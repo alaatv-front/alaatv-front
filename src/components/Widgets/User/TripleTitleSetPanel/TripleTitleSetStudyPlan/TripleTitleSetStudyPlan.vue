@@ -626,7 +626,6 @@ export default {
       }
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
-          debugger
           this.$refs.entityCreate.setInputByName('event_id', studyPlan.id)
           if (this.studyEvent !== studyPlan.id) {
             this.studyEvent = studyPlan.id

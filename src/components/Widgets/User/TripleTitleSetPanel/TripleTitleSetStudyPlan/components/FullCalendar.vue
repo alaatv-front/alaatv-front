@@ -648,7 +648,6 @@ export default defineComponent({
           }
         }
       }
-      console.log(chartWeek.value)
     }
 
     // if (chartWeek.value[0].date === 0) {
