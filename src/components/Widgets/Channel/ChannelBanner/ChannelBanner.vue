@@ -1,6 +1,7 @@
 <template>
   <div class="ChannelBanner q-py-lg row justify-center">
-    <div class="photo col-12 col-md-9">
+    <div v-if="channel.photo"
+         class="photo col-12 col-md-9">
       <lazy-img :src="channel.photo" />
     </div>
   </div>

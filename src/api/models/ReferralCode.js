@@ -1,6 +1,8 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 import { ReferralCodeList } from 'src/models/ReferralCode'
+import { TransactionList } from 'src/models/Transction'
+import { WithdrawHistoryList } from 'src/models/WithdrawHistory'
 
 export default class ReferralCodeAPI extends APIRepository {
   constructor() {
@@ -69,7 +71,10 @@ export default class ReferralCodeAPI extends APIRepository {
       cacheKey: this.CacheList.orderProducts,
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data.data // Transactions Table Row: Array of Objects
+        return {
+          transactionsTableRow: new TransactionList(response.data.data), // Transactions Table Row: Array of Objects
+          paginate: response.data.meta
+        }
       },
       rejectCallback: (error) => {
         return error
@@ -169,6 +174,7 @@ export default class ReferralCodeAPI extends APIRepository {
           minAmount_until_settlement: response.data.minAmount_until_settlement ? Number(response.data.minAmount_until_settlement) : 0, // type: Number,  Example: 10000
           count_of_total_gift_cards: response.data.count_of_total_gift_cards ? Number(response.data.count_of_total_gift_cards) : 0, // type: Number,  Example: 11
           count_of_used_gift_cards: response.data.count_of_used_gift_cards ? Number(response.data.count_of_used_gift_cards) : 0, // type: Number,  Example: 3
+          count_of_used_without_pay_gift_cards: response.data.count_of_used_without_pay_gift_cards ? Number(response.data.count_of_used_without_pay_gift_cards) : 0, // type: Number,  Example: 3
           count_of_remain_gift_cards: response.data.count_of_remain_gift_cards ? Number(response.data.count_of_remain_gift_cards) : 0, // type: Number,  Example: 8
           income_being_settle: response.data.income_being_settle ? Number(response.data.income_being_settle) : 0 // type: Number,  Example: 90000
         }
@@ -205,7 +211,10 @@ export default class ReferralCodeAPI extends APIRepository {
       }, data),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return {
+          clearingHistoryTableRow: new WithdrawHistoryList(response.data.data),
+          paginate: response.data.pagination
+        }
       },
       rejectCallback: (error) => {
         return error

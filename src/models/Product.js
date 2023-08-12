@@ -27,6 +27,10 @@ class Product extends Model {
       { key: 'photo' },
       { key: 'attributes' },
       {
+        key: 'contents_progress',
+        default: 0
+      },
+      {
         key: 'description',
         default: {
           long: null,
@@ -85,11 +89,11 @@ class Product extends Model {
     this.fillEECData(data)
   }
 
-  getChildren () {
+  getChildren() {
     return new ProductList(this.children)
   }
 
-  hasChildren () {
+  hasChildren() {
     return this.children.length > 0
   }
 

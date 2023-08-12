@@ -42,7 +42,8 @@ class Content extends Model {
         key: 'file',
         default: {
           pamphlet: [],
-          video: []
+          video: [],
+          voice: []
         }
       },
       {

@@ -401,6 +401,7 @@ export default {
     }
   },
   mounted () {
+    // this.getNodes()
     this.baseUrl = window.baseUrl
     this.mapVersion = window.mapVersion
     this.contentSearchApi = window.contentSearchApi
@@ -409,9 +410,6 @@ export default {
     this.mapCenter = latLng(-12000, 13200)
     this.initMap()
     this.initTemplateData()
-  },
-  created() {
-    this.getNodes()
   },
   // watch: {
   //   adminToolBox: {
@@ -688,10 +686,10 @@ export default {
       }
     },
     getNodes() {
-      this.$axios.get('alaa/api/v2/dar/divar')
-        // .then(res => {
-        //   console.log(res)
-        // })
+      this.$axios.get('/dar/divar')
+        .then(() => {
+          // console.log(res)
+        })
         .catch(e => {
           this.node = MapItemsResponse.data
         })
