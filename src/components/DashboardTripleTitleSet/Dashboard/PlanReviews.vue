@@ -15,7 +15,8 @@
   <div v-else
        class="review-wrapper">
     <div class="review-title">گزارش ها</div>
-    <div class="review-list">
+    <div v-if="reviewList.length > 0"
+         class="review-list">
       <div v-for="(item, index) in reviewList"
            :key="index"
            class="review-item">
@@ -27,6 +28,14 @@
                  label="مشاهده"
                  :loading="linkLoading"
                  @click="markAsRead(item)" />
+        </div>
+      </div>
+    </div>
+    <div v-else
+         class="review-list">
+      <div class="review-item">
+        <div class="review-item-title">
+          گزارشی وجود ندارد
         </div>
       </div>
     </div>
@@ -104,6 +113,10 @@ export default defineComponent({
     font-weight: 600;
     line-height: normal;
     letter-spacing: -0.4px;
+
+    @media only screen and (max-width: 600px) {
+      margin-top: 64px;
+    }
   }
 
   .review-list {
