@@ -274,6 +274,10 @@ export default defineComponent({
       type: Number,
       default: null
     },
+    filteredLesson: {
+      type: Number,
+      default: null
+    },
     events: {
       type: StudyPlanList,
       default: new StudyPlanList()
@@ -650,14 +654,6 @@ export default defineComponent({
       }
     }
 
-    // if (chartWeek.value[0].date === 0) {
-    //   for (let w = 7; w > 0; w--) {
-    //     if (chartWeek.value[w - 1].date === 0) {
-    //       chartWeek.value[w - 1].date =
-    //     }
-    //   }
-    // }
-
     const setAttr = (event) => {
       // console.log(document.getSelection(), event)
     }
@@ -716,7 +712,8 @@ export default defineComponent({
       const data = {
         study_event: eventId || this.studyEvent,
         since_date: this.chartWeek[0].date,
-        till_date: this.chartWeek[6].date
+        till_date: this.chartWeek[6].date,
+        setting: this.filteredLesson ? this.filteredLesson : null
       }
       this.$apiGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {

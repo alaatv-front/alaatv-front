@@ -27,6 +27,7 @@
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
+                     :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @remove-plan="openRemovePlanWarning" />
     </div>
@@ -668,6 +669,7 @@ export default {
         .then(setting => {
           this.loading = false
           this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
+          this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
         })
         .catch(() => {
           this.loading = false
@@ -698,7 +700,7 @@ export default {
           this.gradeOptions = options.grades
           this.planOptions = options.studyPlans
           this.lessonOptions = options.products
-          this.planType = options.studyPlans.filter(studyPlan => studyPlan.display_name === this.planType.display_name)[0]
+          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name)
           this.setInputAttrByName(this.inputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.inputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.inputs, 'study_method_id', 'options', options.studyPlans)
@@ -751,7 +753,6 @@ export default {
         study_method_id: data.study_method_id ? data.study_method_id : this.planType.id,
         major_id: data.major_id ? data.major_id : this.major.id,
         grade_id: data.grade_id ? data.grade_id : this.grade.id
-        // setting: this.lesson.id
       })
         .then(studyPlan => {
           this.studyEvent = studyPlan.id
