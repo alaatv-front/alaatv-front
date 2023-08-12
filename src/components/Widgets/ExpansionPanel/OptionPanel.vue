@@ -14,8 +14,28 @@
               <q-input v-model="localOptions.marginBottom" />
             </div>
             <div class="col-md-3">
+              <div class="outsideLabel">فاصله بین آیتم ها</div>
+              <q-input v-model="localOptions.expandItemMargin" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">پس زمینه آیتم ها</div>
+              <q-input v-model="localOptions.expandItemBackground" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">فاصله داخلی محتوای آیتم</div>
+              <q-input v-model="localOptions.expandItemContentPadding" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">expandItemRadius</div>
+              <q-input v-model="localOptions.expandItemRadius" />
+            </div>
+            <div class="col-md-3">
               <div class="outsideLabel">dense</div>
               <q-checkbox v-model="localOptions.dense" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">expandSeparator</div>
+              <q-checkbox v-model="localOptions.expandSeparator" />
             </div>
           </div>
           <q-card-section>
@@ -77,6 +97,11 @@ export default defineComponent({
         expandIconClass: null,
         theme: null,
         dense: false,
+        expandSeparator: true,
+        expandItemBackground: null,
+        expandItemMargin: 0,
+        expandItemRadius: 0,
+        expandItemContentPadding: 0,
         marginBottom: '100px',
         fontFamily: null,
         color: null,

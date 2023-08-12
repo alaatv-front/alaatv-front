@@ -180,7 +180,6 @@ $counterPadding: v-bind('computedTimerStyle.counterPadding');
 $counterBorderRadius: v-bind('counterBorderRadius');
 .event-counter-wrapper {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   @media screen and (max-width: 1023px) and (min-width: 350px) {
