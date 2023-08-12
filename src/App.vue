@@ -2,24 +2,36 @@
   <div id="q-app">
     <router-view :key="$route.path" />
   </div>
+  <div>
+    <update-available-dialog ref="updateDialog"
+                             :options="androidDownloadOptions"
+                             :forceUpdate="isAndroidForceUpdate"
+                             @select="handleOptionSelect" />
+  </div>
 </template>
 <script>
 import process from 'process'
-// import { Plugins } from '@capacitor/core'
-// const { Network } = Plugins
-
 import { defineComponent } from 'vue'
 import { APIGateway } from 'src/api/APIGateway'
-
+import { Capacitor } from '@capacitor/core'
+import VersionConfig from '../src-capacitor/android/versionConfig.json'
+import UpdateAvailableDialog from 'src/components/UpdateAvailableDialog.vue'
 export default defineComponent({
   name: 'App',
+  components: { UpdateAvailableDialog },
   data: () => ({
     refreshing: false,
     registration: null,
-    updateExists: false
+    updateExists: false,
+    isAndroidForceUpdate: false,
+    androidDownloadOptions: [
+      { label: 'دانلود از گوگل پلی', value: 'play_store', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/googlePlay.png' },
+      { label: 'دانلود مستقیم', value: 'direct', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/directDownloadAndroid.png' },
+      { label: 'دانلود از کافه بازار', value: 'bazaar', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/cafebazzar.png' }
+    ]
   }),
   computed: {
-    accessToken () {
+    accessToken() {
       return this.$store.getters['Auth/accessToken']
     }
   },
@@ -27,19 +39,60 @@ export default defineComponent({
   // this.setServiceWorker()
   // this.checkInternetConnection()
   // },
-  // mounted () {
-  // this.checkWebVersion()
-  // },
+  mounted() {
+    // this.checkWebVersion()
+    const isNativeApp = Capacitor.isNativePlatform()
+    if (isNativeApp) {
+      this.checkAndroidVersion()
+    } else {
+      this.checkWebVersion()
+    }
+  },
   methods: {
-    checkWebVersion () {
+    checkWebVersion() {
       const webAppVersion = '1.0.0'
-      APIGateway.version.getLastVersion()
+      this.getVersion('web')
         .then((version) => {
-          const isLastVersion = version.web.last_version === webAppVersion
+          const isLastVersion = version.last_version === webAppVersion
           if (!isLastVersion) {
-            window.location.reload()
+            this.showUpdateDialog = true
+            // window.location.reload()
           }
         })
+        .catch(() => {
+          window.location.reload()
+        })
+    },
+    checkAndroidVersion() {
+      const androidVersion = VersionConfig.androidVersion
+      this.getVersion('android')
+        .then((version) => {
+          const isLastVersion = version.last_version === androidVersion
+          if (!isLastVersion) {
+            if (version.type.code === 1) {
+              this.isAndroidForceUpdate = true
+            }
+            this.showDialog()
+            this.androidDownloadOptions.forEach(option => {
+              option.link = version.url[option.value]
+            })
+            // this.handleAndroidDownloadLinks(version.url)
+          }
+        })
+        .catch(() => {
+          window.location.reload()
+        })
+    },
+    getVersion(versionType) {
+      return new Promise(function (resolve, reject) {
+        APIGateway.version.getLastVersion()
+          .then((version) => {
+            resolve(version[versionType])
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     },
     // async checkInternetConnection () {
     //   Network.addListener('networkStatusChange', (status) => {
@@ -52,7 +105,7 @@ export default defineComponent({
     //   const status = await Network.getStatus()
     //   console.log('status', status)
     // },
-    setServiceWorker () {
+    setServiceWorker() {
       // Listen for our custom event from the SW registration
       if (!process.browser) {
         return
@@ -69,9 +122,15 @@ export default defineComponent({
         })
       }
     },
-    updateAvailable (event) {
+    updateAvailable(event) {
       this.registration = event.detail
       this.updateExists = true
+    },
+    showDialog() {
+      this.$refs.updateDialog.visible = true
+    },
+    handleOptionSelect(option) {
+      window.open(option.link, '_blank')
     }
   }
 })

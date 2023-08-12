@@ -12,5 +12,8 @@
   "files.autoSave": "onFocusChange",
   "[javascript]": {
     "editor.defaultFormatter": "Vue.volar"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   } // optional but recommended
 }
