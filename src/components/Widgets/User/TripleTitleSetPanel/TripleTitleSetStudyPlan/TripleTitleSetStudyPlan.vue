@@ -27,6 +27,7 @@
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
+                     :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @remove-plan="openRemovePlanWarning" />
     </div>
@@ -322,18 +323,19 @@ export default {
       isPlanChanged: false,
       removePlanWarning: false,
       isAdmin: false,
+      needToUpdatePlan: false,
       selectedDate: '',
       studyPlanList: new StudyPlanList(),
       planSettings: false,
       acceptPlan: false,
       warning: false,
       successChangePlan: false,
-      planType: null,
+      planType: {},
       studyEvent: null,
       planOptions: [],
-      major: '',
+      major: {},
       majorOptions: [],
-      grade: '',
+      grade: {},
       gradeOptions: [],
       lesson: '',
       lessonOptions: [],
@@ -565,6 +567,8 @@ export default {
   },
   mounted() {
     const user = this.$store.getters['Auth/user']
+    this.grade = user.grade
+    this.major = user.major
     this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
     this.getFilterLesson()
     this.getMyStudyPlan()
@@ -581,7 +585,10 @@ export default {
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
           this.$refs.entityEdit.setInputByName('event_id', studyPlan.id)
-          this.studyEvent = studyPlan.id
+          if (this.studyEvent !== studyPlan.id) {
+            this.studyEvent = studyPlan.id
+            this.needToUpdatePlan = true
+          }
           this.$refs.entityEdit.editEntity()
           this.loading = false
           this.editPlanDialog = false
@@ -603,7 +610,7 @@ export default {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
-          this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+          this.$refs.fullCalendar.getStudyPlanData()
           this.removePlanWarning = false
           this.loading = false
         })
@@ -621,17 +628,29 @@ export default {
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
           this.$refs.entityCreate.setInputByName('event_id', studyPlan.id)
-          this.studyEvent = studyPlan.id
+          if (this.studyEvent !== studyPlan.id) {
+            this.studyEvent = studyPlan.id
+            this.needToUpdatePlan = true
+          }
           this.$refs.entityCreate.createEntity()
           this.loading = false
-          this.newPlanDialog = false
         })
         .catch(() => {
           this.loading = false
         })
     },
     afterSendData() {
-      this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+      if (this.needToUpdatePlan) {
+        this.updateMyStudyPlan({
+          major_id: this.$refs.entityCreate.getInputsByName('major_id').value,
+          grade_id: this.$refs.entityCreate.getInputsByName('grade_id').value,
+          study_method_id: this.$refs.entityCreate.getInputsByName('study_method_id').value
+        })
+        this.needToUpdatePlan = false
+      } else {
+        this.$refs.fullCalendar.getStudyPlanData()
+      }
+      this.newPlanDialog = false
     },
     filterByLesson() {
       this.loading = true
@@ -650,6 +669,7 @@ export default {
         .then(setting => {
           this.loading = false
           this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
+          this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
         })
         .catch(() => {
           this.loading = false
@@ -662,7 +682,7 @@ export default {
       this.loading = true
       this.$apiGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
-          this.planType = studyPlan.title
+          this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
           this.loading = false
@@ -680,6 +700,7 @@ export default {
           this.gradeOptions = options.grades
           this.planOptions = options.studyPlans
           this.lessonOptions = options.products
+          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name)
           this.setInputAttrByName(this.inputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.inputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.inputs, 'study_method_id', 'options', options.studyPlans)
@@ -725,16 +746,17 @@ export default {
         this.filterByLesson()
       }
     },
-    updateMyStudyPlan() {
+    updateMyStudyPlan(data) {
       this.loading = true
       this.warning = false
       this.$apiGateway.studyPlan.updateMyStudyPlan({
-        study_method_id: this.planType.id,
-        major_id: this.major.id,
-        grade_id: this.grade.id,
-        setting: this.lesson.id
+        study_method_id: data.study_method_id ? data.study_method_id : this.planType.id,
+        major_id: data.major_id ? data.major_id : this.major.id,
+        grade_id: data.grade_id ? data.grade_id : this.grade.id
       })
-        .then(() => {
+        .then(studyPlan => {
+          this.studyEvent = studyPlan.id
+          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
           this.loading = false
           this.successChangePlan = true
         })

@@ -25,9 +25,9 @@ export default defineComponent({
     updateExists: false,
     isAndroidForceUpdate: false,
     androidDownloadOptions: [
-      { label: 'دانلود از گوگل پلی', value: 'play_store', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/googlePlay.png' },
-      { label: 'دانلود مستقیم', value: 'direct', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/directDownloadAndroid.png' },
-      { label: 'دانلود از کافه بازار', value: 'bazaar', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/cafebazzar.png' }
+      { label: 'دانلود از گوگل پلی', value: 'play_store', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/googlePlay.svg' },
+      { label: 'دانلود مستقیم', value: 'direct', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/directDownloadAndroid.svg' },
+      { label: 'دانلود از کافه بازار', value: 'bazaar', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/cafebazzar.svg' }
     ]
   }),
   computed: {

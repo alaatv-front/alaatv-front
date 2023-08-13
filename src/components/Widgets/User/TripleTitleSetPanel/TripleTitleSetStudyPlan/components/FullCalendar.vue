@@ -3,9 +3,7 @@
     <div class="box">
       <div class="calendar-wrapper">
         <div class="calendar-header">
-          <div class="calendar-title">
-            {{ calendarTitle }}
-          </div>
+          <div class="calendar-title" />
           <div>
             <q-btn label="هفته قبل"
                    class="q-mx-sm"
@@ -273,6 +271,10 @@ export default defineComponent({
   components: { PlanItem },
   props: {
     studyEvent: {
+      type: Number,
+      default: null
+    },
+    filteredLesson: {
       type: Number,
       default: null
     },
@@ -622,8 +624,16 @@ export default defineComponent({
       // import data to month view object
       for (let w = 0; w < 6; w++) {
         for (let col = 0; col < 7; col++) {
-          if ((col < startIndex.value && w === 0) || dayCounter > dayNum.value) {
+          if ((col < startIndex.value && w === 0)) {
             month.value[w][col].date = 0
+          } else if (dayCounter > dayNum.value) {
+            const lastDay = col > 0 ? new Date(month.value[w][col - 1].date) : new Date(month.value[w - 1][6].date)
+            const today = moment(lastDay.getTime() + 24 * 60 * 60 * 1000)
+            month.value[w][col].date = today.format('YYYY/MM/DD')
+            month.value[w][col].num = dayCounter - dayNum.value
+            const persianDate = new Date(today).toLocaleDateString('fa-IR')
+            month.value[w][col].persianDate = persianDate
+            dayCounter++
           } else {
             month.value[w][col].num = dayCounter
             month.value[w][col].date = calendarDate.value.startOf('jMonth').add(dayCounter - 1, 'd').format('YYYY/MM/DD')
@@ -700,15 +710,17 @@ export default defineComponent({
     },
     getStudyPlanData(eventId) {
       const data = {
-        study_event: eventId,
+        study_event: eventId || this.studyEvent,
         since_date: this.chartWeek[0].date,
-        till_date: this.chartWeek[6].date
+        till_date: this.chartWeek[6].date,
+        setting: this.filteredLesson ? this.filteredLesson : null
       }
       this.$apiGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
           this.studyPlanList = studyPlanList
           for (let w = 0; w < 6; w++) {
             for (let col = 0; col < 7; col++) {
+              this.month[w][col].events = []
               for (let e = 0; e < studyPlanList.list.length; e++) {
                 // console.log(res.data.data[e].start_at.substring(0, 10))
                 if (studyPlanList.list[e].plan_date === this.month[w][col].date.toString().split('/').join('-')) {
@@ -726,11 +738,13 @@ export default defineComponent({
       const today = new Date(this.calendarDate._i)
       const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      this.getStudyPlanData()
     },
     goToLastWeek() {
       const today = new Date(this.calendarDate._i)
       const nextWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      this.getStudyPlanData()
     },
     setCalendarMonth(selectedMonth) {
       const month = this.monthList.indexOf(selectedMonth)
@@ -1037,6 +1051,10 @@ export default defineComponent({
                   right: -10px;
                   top: 5px;
                 }
+
+                .caption2 {
+                  max-width: 120px;
+                }
               }
             }
           }
@@ -1082,7 +1100,7 @@ export default defineComponent({
       left: 0;
       width: 100%;
       height: 64px;
-      background: #9690E4;
+      background: $primary;
       border-radius: 16px 16px 0px 0px;
       font-style: normal;
       font-weight: 400;
@@ -1131,7 +1149,7 @@ export default defineComponent({
     .submit-btn {
       width: 96px;
       height: 40px;
-      background: #9690E4;
+      background: $primary;
       border-radius: 8px;
       font-style: normal;
       font-weight: 600;

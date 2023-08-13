@@ -11,7 +11,7 @@
           </div>
           <div class="col-8 text-bold">آلاء رو بروزرسـانی کُـن !</div>
           <div class="col-2">
-            <q-icon v-if="forceUpdate"
+            <q-icon v-if="!forceUpdate"
                     v-close-popup
                     name="close"
                     class="col-1"
@@ -27,11 +27,11 @@
                   clickable
                   @click="selectOption(option)">
             <q-item-section>
-              <div class="row q-col-gutter-md">
-                <div class="col-2">
+              <div class="row q-col-gutter-md justify-center">
+                <div class="col-3">
                   <q-img :src="option.iconLink" />
                 </div>
-                <div class="col-10">
+                <div class="col-9">
                   {{ option.label }}
                 </div>
               </div>
