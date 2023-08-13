@@ -1,10 +1,29 @@
 <template>
   <div class="option-panel-container">
     <div class="row q-px-md">
-      <div class="col-6">
+      <div class="col-12">
         <div class="outsideLabel">type</div>
         <q-select v-model="localOptions.options.layout"
                   :options="layoutOptions" />
+      </div>
+      <div class="col-4">
+        <div class="outsideLabel">event name</div>
+        <div class="row">
+          <q-input v-model="eventName" />
+          <q-btn color="positive"
+                 icon="check"
+                 class="q-mr-sm"
+                 @click="addEvent(eventName)" />
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="outsideLabel">events</div>
+        <q-select v-model="selectedEvent"
+                  :options="localOptions.options.events" />
+      </div>
+      <div class="col-4">
+        <div class="outsideLabel">tabName</div>
+        <q-input v-model="localOptions.options[selectedEvent]" />
       </div>
     </div>
 
@@ -22,7 +41,8 @@
                 {{item.type}}
               </div>
             </template>
-            <recursive-component :options="item" />
+            <recursive-component :options="item"
+                                 :layout="'ProductShelf'" />
           </q-expansion-item>
         </q-card-section>
       </q-card>
@@ -40,10 +60,18 @@ export default {
   mixins: [PageBuilderOptionPanel],
   data() {
     return {
+      eventName: '',
+      selectedEvent: '',
       layoutOptions: ['ProductTab', 'ProductShelf']
     }
   },
   methods: {
+    addEvent(eventName) {
+      if (!this.localOptions.options.events) {
+        this.localOptions.options.events = []
+      }
+      this.localOptions.options.events.push(eventName)
+    },
     removeTabPanel (itemIndex) {
       this.localOptions.data.splice(itemIndex, 1)
     }

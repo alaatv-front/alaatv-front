@@ -5,8 +5,10 @@
       </div>
       <div class="item-info-box row justify-between">
         <div class="info-photo col-sm-2 col-xs-3">
-          <q-img :ratio="1"
-                 :src="rawItem.grand.photo" />
+          <lazy-img :src="rawItem.grand.photo"
+                    :alt="rawItem.grand.title"
+                    width="1"
+                    height="1" />
         </div>
         <div class="info-details col-sm-7 col-xs-7">
           <div class="title">{{ rawItem.grand.title }}</div>
@@ -383,22 +385,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.cart-item {
-  .item-info-box {
-    .info-photo {
-      .q-img {
-        border-radius: 10px;
-      }
-    }
-  }
-}
-</style>
 <style lang="scss" scoped>
-* {
-  font-size: 12px;
-}
-
 .cart-item {
   padding: 20px 20px;
 

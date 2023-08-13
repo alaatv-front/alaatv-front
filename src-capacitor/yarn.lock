@@ -42,6 +42,11 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/ios@^5.0.0":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.0.5.tgz#799c6eb3bf5988ff1e394a28d7f5caa8435460da"
+  integrity sha512-U72TPbKN1HlUqEGCOPsCBp6j93Qu1TazWUuA8Q1yfcGDfSOE0zMDNl3eU7XO5OyzpV7z9lf8NJdehimezVl7sA==
+
 "@ionic/cli-framework-output@^2.2.5":
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/@ionic/cli-framework-output/-/cli-framework-output-2.2.6.tgz#abbbe4982e82a9a4bfab3d34c372447cd48f25b3"
@@ -125,6 +130,11 @@
     tslib "^2.0.1"
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
+
+"@jcesarmobile/ssl-skip@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@jcesarmobile/ssl-skip/-/ssl-skip-0.2.0.tgz#c621ddcbf285bd4eef679545ae41a260aa0d698f"
+  integrity sha512-hkhOM5+qPm5xzOYcbUODzYTZKyATEM3qixzUL1gJsJckZ5wAUQxyZJFM3hcUANv8fV8cONfX7A+d/DJpzVvM+Q==
 
 "@types/fs-extra@^8.0.0":
   version "8.1.2"
@@ -220,6 +230,11 @@ commander@^9.3.0:
   version "9.5.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.5.0.tgz#bc08d1eb5cedf7ccb797a96199d41c7bc3e60d30"
   integrity sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==
+
+cordova-plugin-screen-orientation@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-3.0.3.tgz#2df550d26eeef7e0328874b7aa280c757e8adb89"
+  integrity sha512-Dt8lO8BECZfE/pKbYQZ72Wr811fYMScxw7c9v/gJ3etOPCBrgl8xIHOOZu4nY2ehRyxFPtZi3VeGvIG+3DZoZQ==
 
 cross-spawn@^7.0.3:
   version "7.0.3"
@@ -505,9 +520,9 @@ sax@>=0.6.0:
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
 semver@^7.3.7:
-  version "7.5.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.1.tgz#c90c4d631cf74720e46b21c1d37ea07edfab91ec"
-  integrity sha512-Wvss5ivl8TMRZXXESstBA4uR5iXgEN/VC5/sOcuXdVLzcdkz4HWetIoRfG5gb5X+ij/G9rw9YoGn3QoQ8OCSpw==
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
+  integrity sha512-QBlUtyVk/5EeHbi7X0fw6liDZc7BBmEaSYn01fMU1OUYbf6GPsbTtd8WmnqbI20SeycoHSeiybkE/q1Q+qlThQ==
   dependencies:
     lru-cache "^6.0.0"
 

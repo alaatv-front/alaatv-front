@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AuthLogin from 'components/Auth.vue'
+import AuthLogin from 'src/components/Auth.vue'
 
 export default {
   name: 'Login',
@@ -15,7 +15,7 @@ export default {
       return this.$store.getters['Auth/isUserLogin']
     }
   },
-  mounted () {
+  created () {
     this.handleAuthenticatedUser()
   },
   methods: {
@@ -37,7 +37,7 @@ export default {
         this.redirectTo()
         return
       }
-      this.$store.dispatch('Auth/logOut', false)
+      this.$store.dispatch('Auth/logOut', { clearRedirectTo: false })
     }
   }
 }

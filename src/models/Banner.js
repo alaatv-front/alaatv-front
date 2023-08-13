@@ -39,7 +39,17 @@ class Banner extends Model {
       },
       { key: 'link' },
       { key: 'order' },
-      { key: 'ratio' }
+      { key: 'ratio' },
+      { key: 'useAEEEvent' },
+      {
+        key: 'AEEEventBody',
+        default: {
+          id: '-',
+          name: '-',
+          creative: null,
+          position: null
+        }
+      }
     ])
   }
 }

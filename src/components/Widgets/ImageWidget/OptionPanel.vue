@@ -1,11 +1,14 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions">
+  <option-panel-tabs v-model:options="localOptions"
+                     :show-hover-effects-tab="true"
+                     :show-box-shadows-tab="true"
+                     :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row q-col-gutter-md">
           <div class="input-container col-12 q-mt-md">
 
-            <div class="outsideLabel">لینک عکس</div>
+            <div class="outsideLabel">آدرس فایل عکس</div>
             <q-input v-model="localOptions.imageSource"
                      label="image" />
           </div>
@@ -39,27 +42,58 @@
           </div>
           <div class="action col-md-12">
             <div class="cehckBox">
+              <q-checkbox v-model="localOptions.useAEEEvent"
+                          label="استفاده از ایونت GTM"
+                          right-label />
+            </div>
+            <div v-if="localOptions.useAEEEvent"
+                 class="action-container q-gutter-lg-md">
+              <div>فیلد های مورد نظر ایونت GTM :</div>
+              <div class="col-9">
+                <div class="outsideLabel">id</div>
+                <q-input v-model="localOptions.AEEEventBody.id"
+                         label="id" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">name</div>
+                <q-input v-model="localOptions.AEEEventBody.name"
+                         label="name" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">creative</div>
+                <q-input v-model="localOptions.AEEEventBody.creative"
+                         label="creative" />
+              </div>
+              <div class="col-6">
+                <div class="outsideLabel">position</div>
+                <q-input v-model="localOptions.AEEEventBody.position"
+                         label="position" />
+              </div>
+            </div>
+            <div class="cehckBox">
               <q-checkbox v-model="localOptions.hasAction"
                           label="hasAction"
                           right-label />
             </div>
             <div v-if="localOptions.hasAction"
                  class="action-container">
-              <div class="col-3">
-                <q-select v-model="localOptions.action.type"
+              <div>
+                <q-select v-model="localOptions.action.name"
                           :options="actionTypes" />
               </div>
-              <div class="col-9">
+              <div v-if="localOptions.action.name === 'link'">
                 <q-input v-model="localOptions.action.route"
                          label="route" />
               </div>
-              <div class="col-6">
+              <div v-if="localOptions.action.name === 'event'">
                 <q-input v-model="localOptions.action.eventName"
                          label="event name" />
-              </div>
-              <div class="col-6">
                 <q-input v-model="localOptions.action.eventArgs"
                          label="event args" />
+              </div>
+              <div v-if="localOptions.action.name === 'scroll'">
+                <q-input v-model="localOptions.action.scrollTo"
+                         label="scrollTo class" />
               </div>
             </div>
           </div>
@@ -68,6 +102,7 @@
     </template>
   </option-panel-tabs>
 </template>
+
 <script>
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
@@ -86,6 +121,13 @@ export default defineComponent({
         imageSource: null,
         ratio: null,
         hasAction: false,
+        useAEEEvent: false,
+        AEEEventBody: {
+          id: '-',
+          name: '-',
+          creative: null,
+          position: null
+        },
         action: {
           name: null,
           route: null,
@@ -117,8 +159,37 @@ export default defineComponent({
           height: null,
           width: null,
           src: null
+        },
+        borderStyle: {},
+        boxShadows: [],
+        cssHoverEffects: {
+          boxShadows: [],
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: ''
+          },
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
         }
       }
+    }
+  },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   }
 })

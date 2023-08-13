@@ -1,5 +1,4 @@
 import { Model, Collection } from 'js-abstract-model'
-import { Block } from 'src/models/Block'
 
 class BankAccounts extends Model {
   constructor(data) {
@@ -14,7 +13,7 @@ class BankAccounts extends Model {
 }
 class BankAccountsList extends Collection {
   model () {
-    return Block
+    return BankAccounts
   }
 }
 

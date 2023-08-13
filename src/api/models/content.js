@@ -82,7 +82,7 @@ export default class ContentAPI extends APIRepository {
     }
   }
 
-  show(data, cache = { TTL: 100 }) {
+  show(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -98,7 +98,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  favored(data = {}, cache = { TTL: 100 }) {
+  favored(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -114,7 +114,7 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  unfavored(data = {}, cache = { TTL: 100 }) {
+  unfavored(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -406,8 +406,9 @@ export default class ContentAPI extends APIRepository {
     })
   }
 
-  getConsultingContentList() {
-    return APIGateway.set.getContents(1213)
+  getConsultingContentList(isPro) {
+    const setId = isPro ? 1597 : 1213
+    return APIGateway.set.getContents(setId)
   }
 
   saveComment(data = {}) {

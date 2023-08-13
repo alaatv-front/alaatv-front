@@ -1,4 +1,4 @@
-import { Authenticated } from './middleware/middleware.js'
+import { Authenticated } from './middleware/middleware.js' // IncompleteProfile
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
@@ -24,6 +24,7 @@ const routes = [
       layoutFooter: true,
       showHamburgerBtn: true,
       layoutFooterVisible: true,
+      layoutFooterType: 'main',
       layoutHeaderCustomClass: '',
       layoutBreadcrumbsElements: [],
       layoutBreadcrumbs: {
@@ -203,6 +204,49 @@ const routes = [
               //   component: () => import('src/pages/Public/Landings/Taftan.vue')
               // }
             ]
+          },
+          {
+            path: 'live',
+            name: 'Public.Live',
+            layoutConfig: {
+              layoutHeader: false,
+              layoutFooter: false
+            },
+            children: [
+              {
+                path: '',
+                meta: {
+                  hasDynamicSetting: true
+                },
+                name: 'Public.Live.Index',
+                component: () => import('src/pages/Public/Live/Index.vue')
+              },
+              {
+                path: ':live_name',
+                meta: {
+                  // middlewares: [Authenticated],
+                  hasDynamicSettingWithParams: true
+                },
+                name: 'Public.Live.DynamicName',
+                component: () => import('src/pages/Public/Live/Live.vue')
+              }
+            ]
+          },
+          {
+            path: 'h',
+            name: 'Public.RegisterHekmatCoupon',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/Public/RegisterHekmatCoupon.vue')
+          },
+          {
+            path: 't',
+            redirect: { name: 'UserPanel.Ticket.Index' }
+          },
+          {
+            path: 'asset',
+            redirect: { name: 'UserPanel.MyPurchases' }
           }
         ]
       },
@@ -221,6 +265,14 @@ const routes = [
             name: 'UserPanel.CompleteInfo',
             path: 'complete-info',
             component: () => import('pages/User/UserInfoForm.vue')
+          },
+          {
+            name: 'UserPanel.Dashboard',
+            path: 'dashboard',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/Dashboard.vue')
           },
           {
             name: 'UserPanel.Profile',
@@ -242,6 +294,7 @@ const routes = [
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
             meta: {
+              // middlewares: [IncompleteProfile],
               hasDynamicSetting: true
             },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')
@@ -332,6 +385,47 @@ const routes = [
                 ]
               },
               {
+                name: 'UserPanel.Asset.AbrishamPro',
+                path: 'abrisham-pro',
+                layoutConfig: {
+                  layoutHeaderType: 'abrisham',
+                  layoutLeftSideBarType: 'abrisham',
+                  layoutLeftDrawerOverlay: false,
+                  layoutLeftDrawerWidth: 100,
+                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerBehavior: 'default',
+                  layoutFooter: false
+                },
+                component: () => import('layouts/AbrishamLayout.vue'),
+                children: [
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Progress',
+                    path: 'progress',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/progress.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Schedule',
+                    path: 'schedule',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Schedule.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Consulting',
+                    path: 'consulting',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Consulting.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.News',
+                    path: 'news',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/News.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.AbrishamPro.Map',
+                    path: 'map',
+                    component: () => import('src/pages/User/DashboardAbrishamPro/Map.vue')
+                  }
+                ]
+              },
+              {
                 name: 'UserPanel.Asset.GiftCard',
                 path: 'gift-card',
                 layoutConfig: {
@@ -339,9 +433,10 @@ const routes = [
                   layoutHeaderType: 'gift-card',
                   layoutLeftDrawer: true,
                   layoutLeftDrawerWidth: 126,
-                  layoutLeftDrawerVisible: true,
+                  layoutLeftDrawerVisible: false,
                   layoutLeftSideBarType: 'gift-card',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'gift-card'
                 },
                 component: () => import('layouts/GiftCardLayout.vue'),
                 children: [
@@ -377,7 +472,9 @@ const routes = [
                   layoutLeftDrawerWidth: 100,
                   layoutLeftDrawerVisible: true,
                   layoutLeftDrawerBehavior: 'default',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'triple-title-set'
+
                 },
                 component: () => import('src/layouts/bareLayout.vue'),
                 children: [
@@ -385,6 +482,11 @@ const routes = [
                     name: 'UserPanel.Asset.TripleTitleSet.Products',
                     path: '',
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.Dashboard',
+                    path: 'dashboard',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Dashboard.vue')
                   },
                   {
                     name: 'UserPanel.Asset.TripleTitleSet.ProductLayout',
@@ -429,6 +531,11 @@ const routes = [
                     path: ':setId/adviser/content/:contentId',
                     props: true,
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
+                    path: 'study-plan',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/StudyPlan.vue')
                   }
                 ]
               }
@@ -437,7 +544,10 @@ const routes = [
           {
             path: 'order/:orderId/thankYou',
             name: 'UserPanel.ThankYouPage',
-            component: () => import('src/pages/ThankYouPage/ThankYouPage.vue'),
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/ThankYouPage.vue'),
             layoutConfig: {
               layoutHeader: true,
               layoutHeaderType: 'main',
@@ -625,16 +735,17 @@ const routes = [
         ]
       }
     ]
-  },
+  }
   // are u mr Esmaeili ? '' : dont touch this route
 
+  // must status 404
   // Always leave this as last one,
   // but you can also remove it
-  {
-    path: '/404/:catchAll(.*)*',
-    name: 'NotFound',
-    component:
-      () => import('pages/Error404.vue')
-  }
+  // {
+  //   path: '/404/:catchAll(.*)*',
+  //   name: 'NotFound',
+  //   component:
+  //     () => import('pages/Error404.vue')
+  // }
 ]
 export default routes

@@ -43,21 +43,11 @@ export default {
     this.cartReview()
   },
   methods: {
-    add () {
-      this.$store.dispatch('Cart/addToCart', {
-        product: { id: 901 },
-        products: [903]
-      })
-        .then(() => {
-          this.cartReview()
-        })
-    },
     cartReview() {
       this.$store.dispatch('loading/overlayLoading', true)
       this.$store.dispatch('Cart/reviewCart')
         .then(() => {
           this.$store.dispatch('loading/overlayLoading', false)
-          // console.log('cart', this.$store.getters['Cart/cart'])
         })
     }
   }

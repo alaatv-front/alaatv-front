@@ -1,49 +1,17 @@
 <template>
   <div class="chatre-nejat-header">
     <div class="logo-box">
-      <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
-             class="logo-image" />
+      <router-link :to="{name: 'Public.Home'}">
+        <q-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+               class="logo-image" />
+      </router-link>
     </div>
     <div class="header-box full-height flex justify-center items-center">
       <q-img :src="event.logo"
              class="header-logo-img" />
     </div>
     <div class="profile-box flex items-center">
-      <q-avatar class="avatar">
-        <img :src="user.photo"
-             alt="profile-photo">
-        <q-menu>
-          <q-list class="menu-item">
-            <q-item>
-              <q-avatar class="profile-photo">
-                <img alt="profile-photo"
-                     class="img"
-                     :src="user.photo">
-              </q-avatar>
-              <q-item-section>
-                <div class="name">
-                  {{user.first_name || ' '}}
-                  {{user.last_name || ' '}}
-                </div>
-                <div class="phone-number">
-                  {{user.mobile}}
-                </div>
-              </q-item-section>
-            </q-item>
-            <q-item :to="{name : 'Public.Home'}">
-              <q-item-section>
-                <q-separator class="separator q-mb-md" />
-                رفتن به صفحه اصلی
-              </q-item-section>
-            </q-item>
-            <q-item class="cursor-pointer">
-              <span @click="logOut">
-                خروج
-              </span>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-avatar>
+      <btn-user-profile-menu />
     </div>
   </div>
 </template>
@@ -51,9 +19,11 @@
 <script>
 import { User } from 'src/models/User.js'
 import { mixinTripleTitleSet } from 'src/mixin/Mixins.js'
+import BtnUserProfileMenu from 'components/BtnUserProfileMenu.vue'
 
 export default {
   name: 'TripleTitleSetPanel',
+  components: { BtnUserProfileMenu },
   mixins: [mixinTripleTitleSet],
   data: () => ({
     user: new User(),
@@ -126,7 +96,7 @@ export default {
   }
 
   .profile-box{
-
+    padding-right: 18px;
   }
 
   .header-box {
@@ -142,33 +112,7 @@ export default {
   }
   .profile-box {
     height: 100%;
-    @media screen and (max-width: 1904px) {
-
-    }
-
-    .icon {
-      display: flex;
-      align-items: center;
-      font-size: 24px;
-      color: #3e5480;
-      font-weight: 500;
-      vertical-align: middle;
-      margin-right: 25px;
-      @media screen and (max-width: 1904px) {
-        margin-left: 15px;
-      }
-      @media screen and (max-width: 768px) {
-        font-size: 19px;
-        margin-left: 11px;
-      }
-    }
-
-    .avatar{
-      margin-right: 25px;
-      width: 36px;
-      height: 36px;
-    }
-
+    padding-right: 18px;
   }
   .expanded-panel{
     margin: 0 30px;

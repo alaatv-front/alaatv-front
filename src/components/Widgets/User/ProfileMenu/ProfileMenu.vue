@@ -1,11 +1,15 @@
 <template>
-  <div class="sticky-menu">
+  <div class="ProfileMenu sticky-menu">
     <q-card class="custom-card">
       <q-card-section>
-        <div class="flex no-wrap">
-          <div>
-            <q-img :src="previewImg"
-                   class="previewImg" />
+        <div class="user-info">
+          <div class="user-photo">
+            <q-avatar>
+              <lazy-img :src="previewImg"
+                        width="70"
+                        height="70"
+                        class="full-width" />
+            </q-avatar>
             <q-file ref="file"
                     v-model="file"
                     :model-value="file"
@@ -37,7 +41,7 @@
             </div>
           </div>
           <div class="q-ml-lg namePhone full-width">
-            <div class="fullName ellipsis">
+            <div class="fullName ellipsis-2-lines">
               <q-tooltip> {{ fullName }} </q-tooltip>
               {{ fullName }}
             </div>
@@ -46,7 +50,7 @@
               {{ user.mobile }}
             </div>
           </div>
-          <div>
+          <div class="edit-action">
             <q-btn class="q-ml-lg justify-end"
                    icon="isax:edit"
                    size="sm"
@@ -121,11 +125,20 @@
           </q-item>
           <q-item v-ripple
                   clickable
-                  href="https://alaatv.com/asset/abrishamPro#/user-abrisham-progress">
+                  :to="{name: 'UserPanel.Asset.AbrishamPro.Progress'}">
             <q-item-section class="menu-item-custom">
               <q-icon name="isax:document-1 dashboard"
                       size="22px" />
               <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم پرو</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
+                  :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: 'abrisham2'}}">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم ۲</div>
             </q-item-section>
           </q-item>
           <q-item v-ripple
@@ -144,6 +157,17 @@
               <q-icon name="isax:document-1 dashboard"
                       size="22px" />
               <div class="menu-item-title q-ml-sm">داشبورد امتحان نهایی</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
+                  @click="runEvent('showLiveClassesLink')">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="isax:document-1 dashboard"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">
+                همایش های آنلاین
+              </div>
             </q-item-section>
           </q-item>
           <!--          <q-item v-ripple-->
@@ -191,15 +215,19 @@
 </template>
 
 <script>
+import { User } from 'src/models/User.js'
+import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinWidget, mixinAuthData } from 'src/mixin/Mixins.js'
-import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProfileMenu',
+  components: { LazyImg },
   mixins: [mixinWidget, mixinAuthData],
   data() {
     return {
       api: APIGateway.user.APIAdresses.base,
+      user: new User(),
       file: null,
       previewImg: null,
       controls: false
@@ -216,10 +244,18 @@ export default {
   },
   created () {
     this.api = APIGateway.user.APIAdresses.base + '/' + this.user.id
-    this.previewImg = this.user.photo
   },
-  mounted () {},
+  mounted () {
+    this.loadAuthData()
+  },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.previewImg = this.user.photo
+    },
+    runEvent (eventName) {
+      this.$bus.emit(eventName)
+    },
     isRouteSelected (itemName) {
       return (this.$route.name === itemName)
     },
@@ -273,7 +309,29 @@ export default {
 }
 </style>
 
-<style scoped>
+<style scoped lang="scss">
+.ProfileMenu {
+  .user-info {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    .user-photo {
+      width: 80px;
+      padding: 5px;
+    }
+    .namePhone {
+      width: calc( 100% - 80px );
+      .fullName {
+        width: 100%;
+      }
+    }
+    .edit-action {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
 :deep(.q-btn .q-btn__content) {
   margin: 3px;
 }
@@ -281,11 +339,6 @@ export default {
   position: absolute;
   left: 55px;
   top: 75px;
-}
-.previewImg {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
 }
 .sticky-menu {
   position: sticky;
@@ -359,8 +412,8 @@ export default {
   font-size: 7px;
   position: absolute;
   border-radius: 50%;
-  top: 75px;
-  left: 10px;
+  top: 45px;
+  left: 0;
 }
 .fullName {
   width: 95px;

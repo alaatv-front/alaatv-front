@@ -102,6 +102,9 @@ export default {
       this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', !this.layoutLeftDrawerVisible)
     },
     itemSelected (topic) {
+      if (this.$q.screen.lt.md) {
+        this.$store.commit('AppLayout/updateLayoutLeftDrawerVisible', false)
+      }
       if (!this.$route.params.productId) {
         return
       }

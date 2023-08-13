@@ -1,5 +1,5 @@
 <template>
-  <div class="video-list-container q-mb-md">
+  <div class="video-list-container">
     <template v-if="content.loading">
       <div class="q-mx-md">
         <q-responsive :ratio="3/4">
@@ -29,12 +29,12 @@
           </div>
         </div>
       </q-card>
-      <q-card class="video-list custom-card bg-white q-mx-md q-pb-md">
+      <q-card class="video-list custom-card">
         <div class="q-px-md row">
           <h6 class="main-title col-4 q-pt-lg">
             فیلم/جزوه ها
           </h6>
-          <div class="set-title col q-ml-lg q-mt-lg">
+          <div class="set-title col q-ml-lg q-mt-lg q-mb-sm">
             {{ set.title }}
           </div>
         </div>
@@ -94,13 +94,12 @@
 </template>
 
 <script>
-import { Content } from 'src/models/Content'
-import { Set } from 'src/models/Set'
-import { mixinWidget } from 'src/mixin/Mixins'
 import { scroll } from 'quasar'
-import { APIGateway } from 'src/api/APIGateway'
-import mixinDateOptions from 'src/mixin/DateOptions'
-import Time from 'src/plugins/time'
+import Time from 'src/plugins/time.js'
+import { Set } from 'src/models/Set.js'
+import { Content } from 'src/models/Content.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinPrefetchServerData, mixinWidget, mixinDateOptions } from 'src/mixin/Mixins.js'
 
 const {
   getScrollTarget,
@@ -109,7 +108,7 @@ const {
 
 export default {
   name: 'ContentVideoList',
-  mixins: [mixinWidget, mixinDateOptions],
+  mixins: [mixinWidget, mixinDateOptions, mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -120,6 +119,9 @@ export default {
   },
   data() {
     return {
+      defaultOptions: {
+        listHeight: ''
+      },
       videoListRatio: 11 / 12,
       content: new Content(),
       set: new Set(),
@@ -140,18 +142,37 @@ export default {
       this.loadContent()
     }
   },
-  created() {
-    this.loadContent()
-  },
   methods: {
+    prefetchServerDataPromise () {
+      this.content.loading = true
+      return this.getContentByRequest()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.content = new Content(data)
+      if (this.content.file.pamphlet) {
+        this.videoListRatio = 5 / 4
+      }
+      this.getSetByRequest()
+      this.content.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.content.loading = false
+    },
+    loadContent() {
+      // this.prefetchServerDataPromise()
+      //   .then((content) => {
+      //     this.prefetchServerDataPromiseThen(content)
+      //   })
+      //   .catch(() => {
+      //     this.prefetchServerDataPromiseCatch()
+      //   })
+    },
+
     hasPamphlet() {
       return this.content.file.pamphlet && this.content.file.pamphlet[0]
     },
     showTime(duration) {
       return Time.msToTime(duration * 1000)
-    },
-    loadContent() {
-      this.getContentByRequest()
     },
     getContentId () {
       if (this.options.productId) {
@@ -168,25 +189,14 @@ export default {
     getContentByRequest() {
       this.content.loading = true
       const contentId = this.getContentId()
-      APIGateway.content.show(contentId)
-        .then((response) => {
-          this.content = new Content(response)
-          if (this.content.file.pamphlet) {
-            this.videoListRatio = 5 / 4
-          }
-          this.getSetByRequest()
-          this.content.loading = false
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
+      return APIGateway.content.show(contentId)
     },
 
     getSetByRequest() {
       this.set.loading = true
       APIGateway.set.show(this.content.set.id)
-        .then((response) => {
-          this.set = new Set(response)
+        .then((set) => {
+          this.set = new Set(set)
           this.set.loading = false
           this.scrollToElement()
         })
@@ -233,7 +243,7 @@ export default {
       color: #afb2c1
     }
     .responsive{
-      max-height: 500px !important;
+      max-height: v-bind('options.listHeight') !important;
       .scroll{
         &:deep(.q-scrollarea__content) {
           width: -webkit-fill-available

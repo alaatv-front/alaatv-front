@@ -23,51 +23,53 @@ $q-space-xl   : (x: $space-12, y: $space-12) !default;
 $all-q-spaces: ('none': $q-space-none, 'xs': $q-space-xs, 'sm': $q-space-sm, 'md': $q-space-md, 'lg': $q-space-lg, 'xl': $q-space-xl) !default;
 
 @each $space, $value in $all-q-spaces {
-  .q-pa-#{$space} {
-    padding: map-get($value, "y") map-get($value, "x");
-  }
-  .q-pl-#{$space} {
-    padding-left: map-get($value, "x");
-  }
-  .q-pr-#{$space} {
-    padding-right: map-get($value, "x");
-  }
-  .q-pt-#{$space} {
-    padding-top: map-get($value, "y");
-  }
-  .q-pb-#{$space} {
-    padding-bottom: map-get($value, "y");
-  }
-  .q-px-#{$space} {
-    padding-left: map-get($value, "x");
-    padding-right: map-get($value, "x");
-  }
-  .q-py-#{$space} {
-    padding-top:  map-get($value, "y");
-    padding-bottom:  map-get($value, "y");
-  }
-  .q-ma-#{$space} {
-    margin: map-get($value, "y") map-get($value, "x");
-  }
-  .q-ml-#{$space} {
-    margin-left: map-get($value, "x");
-  }
-  .q-mr-#{$space} {
-    margin-right: map-get($value, "x");
-  }
-  .q-mt-#{$space} {
-    margin-top: map-get($value, "y");
-  }
-  .q-mb-#{$space} {
-    margin-bottom: map-get($value, "y");
-  }
-  .q-mx-#{$space} {
-    margin-left: map-get($value, "x");
-    margin-right: map-get($value, "x");
-  }
-  .q-my-#{$space} {
-    margin-top: map-get($value, "y");
-    margin-bottom: map-get($value, "y");
+  .new-theme {
+    .q-pa-#{$space} {
+      padding: map-get($value, "y") map-get($value, "x");
+    }
+    .q-pl-#{$space} {
+      padding-left: map-get($value, "x");
+    }
+    .q-pr-#{$space} {
+      padding-right: map-get($value, "x");
+    }
+    .q-pt-#{$space} {
+      padding-top: map-get($value, "y");
+    }
+    .q-pb-#{$space} {
+      padding-bottom: map-get($value, "y");
+    }
+    .q-px-#{$space} {
+      padding-left: map-get($value, "x");
+      padding-right: map-get($value, "x");
+    }
+    .q-py-#{$space} {
+      padding-top:  map-get($value, "y");
+      padding-bottom:  map-get($value, "y");
+    }
+    .q-ma-#{$space} {
+      margin: map-get($value, "y") map-get($value, "x");
+    }
+    .q-ml-#{$space} {
+      margin-left: map-get($value, "x");
+    }
+    .q-mr-#{$space} {
+      margin-right: map-get($value, "x");
+    }
+    .q-mt-#{$space} {
+      margin-top: map-get($value, "y");
+    }
+    .q-mb-#{$space} {
+      margin-bottom: map-get($value, "y");
+    }
+    .q-mx-#{$space} {
+      margin-left: map-get($value, "x");
+      margin-right: map-get($value, "x");
+    }
+    .q-my-#{$space} {
+      margin-top: map-get($value, "y");
+      margin-bottom: map-get($value, "y");
+    }
   }
 }
 
@@ -88,50 +90,52 @@ $all-spaces: (
 ) !default;
 
 @each $space, $value in $all-spaces {
-  .q-pa-#{$space} {
-    padding: $value;
-  }
-  .q-pl-#{$space} {
-    padding-left: $value;
-  }
-  .q-pr-#{$space} {
-    padding-right: $value;
-  }
-  .q-pt-#{$space} {
-    padding-top: $value;
-  }
-  .q-pb-#{$space} {
-    padding-bottom: $value;
-  }
-  .q-px-#{$space} {
-    padding-left: $value;
-    padding-right: $value;
-  }
-  .q-py-#{$space} {
-    padding-top: $value;
-    padding-bottom: $value;
-  }
-  .q-ma-#{$space} {
-    margin: $value;
-  }
-  .q-ml-#{$space} {
-    margin-left: $value;
-  }
-  .q-mr-#{$space} {
-    margin-right: $value;
-  }
-  .q-mt-#{$space} {
-    margin-top: $value;
-  }
-  .q-mb-#{$space} {
-    margin-bottom: $value;
-  }
-  .q-mx-#{$space} {
-    margin-left: $value;
-    margin-right: $value;
-  }
-  .q-my-#{$space} {
-    margin-top: $value;
-    margin-bottom: $value;
+  .new-theme {
+    .q-pa-#{$space} {
+      padding: $value;
+    }
+    .q-pl-#{$space} {
+      padding-left: $value;
+    }
+    .q-pr-#{$space} {
+      padding-right: $value;
+    }
+    .q-pt-#{$space} {
+      padding-top: $value;
+    }
+    .q-pb-#{$space} {
+      padding-bottom: $value;
+    }
+    .q-px-#{$space} {
+      padding-left: $value;
+      padding-right: $value;
+    }
+    .q-py-#{$space} {
+      padding-top: $value;
+      padding-bottom: $value;
+    }
+    .q-ma-#{$space} {
+      margin: $value;
+    }
+    .q-ml-#{$space} {
+      margin-left: $value;
+    }
+    .q-mr-#{$space} {
+      margin-right: $value;
+    }
+    .q-mt-#{$space} {
+      margin-top: $value;
+    }
+    .q-mb-#{$space} {
+      margin-bottom: $value;
+    }
+    .q-mx-#{$space} {
+      margin-left: $value;
+      margin-right: $value;
+    }
+    .q-my-#{$space} {
+      margin-top: $value;
+      margin-bottom: $value;
+    }
   }
 }
