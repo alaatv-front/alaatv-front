@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Vouchers',
@@ -67,10 +67,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.Vouchers.show.base,
-            edit: API_ADDRESS.Vouchers.edit.base,
-            create: API_ADDRESS.Vouchers.create.base,
-            index: API_ADDRESS.Vouchers.index.base
+            show: APIGateway.voucher.APIAddresses.Vouchers.show.base,
+            edit: APIGateway.voucher.APIAddresses.Vouchers.edit.base,
+            create: APIGateway.voucher.APIAddresses.Vouchers.create.base,
+            index: APIGateway.voucher.APIAddresses.Vouchers.index.base
           },
           title: {
             show: 'اطلاعات  ووچر',

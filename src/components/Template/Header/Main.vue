@@ -6,17 +6,18 @@
         <div class="logo-section">
           <div class="drawer-btn hamburger">
             <q-btn v-if="showHamburger"
-                   class="toolbar-button"
+                   class="toolbar-button q-btn-sm"
                    icon="isax:menu-1"
                    color="white"
                    text-color="accent"
                    dense
                    unelevated
+                   square
                    @click="toggleLeftDrawer" />
           </div>
           <div class="logo-pic">
             <div class="homepage">
-              <lazy-img src="https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png"
+              <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
                         :alt="'logo'"
                         width="40"
                         height="40"
@@ -73,14 +74,16 @@
             <!--            />-->
             <q-btn icon="isax:shopping-cart"
                    unelevated
-                   rounded
                    size="12px"
+                   round
                    class="action-btn"
+                   :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
-              <q-badge color="primary"
+              <q-badge v-if="mounted && cartOrdersCount > 0"
+                       color="primary"
                        floating
                        rounded>
-                {{cartCount}}
+                {{cartOrdersCount}}
               </q-badge>
             </q-btn>
           </div>
@@ -189,14 +192,15 @@ import megaMenu from './magaMenu.vue'
 import simpleMenu from './simpleMenu.vue'
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import menuItems from 'components/Template/menuData.js'
-import itemMenu from 'components/Template/Header/itemMenu.vue'
+import menuItems from 'src/components/Template/menuData.js'
+import itemMenu from 'src/components/Template/Header/itemMenu.vue'
 
 export default {
   name: 'MainHeaderTemplate',
   components: { LazyImg, megaMenu, simpleMenu, itemMenu },
   data() {
     return {
+      mounted: false,
       conferenceMenu: false,
       showHamburgerConfig: true,
       searchInput: '',
@@ -247,13 +251,13 @@ export default {
           active: false,
           children: []
         },
-        {
-          title: 'داشبورد چتر نجات',
-          icon: 'isax:document-1',
-          routeName: 'UserPanel.Asset.ChatreNejat.Products',
-          permission: 'all',
-          active: false
-        },
+        // {
+        //   title: 'داشبورد چتر نجات',
+        //   icon: 'isax:document-1',
+        //   routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+        //   permission: 'all',
+        //   active: false
+        // },
         {
           title: 'داشبورد ابریشم',
           icon: 'isax:document-1',
@@ -265,11 +269,17 @@ export default {
     }
   },
   computed: {
-    cartCount() {
-      return this.$store.getters['Cart/cart'].count
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
+    cartOrdersCount () {
+      return this.cart.count
+    },
+    cartLoading () {
+      return this.cart.loading
     },
     showHamburger () {
-      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.md
+      return this.$store.getters['AppLayout/showHamburgerBtn'] || this.$q.screen.lt.lg
     },
     computedUserId () {
       const user = this.$store.getters['Auth/user']
@@ -295,6 +305,7 @@ export default {
     }
   },
   mounted () {
+    this.mounted = true
     this.loadAuthData()
     this.checkMenurItemsForAuthenticatedUser()
   },
@@ -397,7 +408,7 @@ export default {
         grid-template-columns: auto auto;
       }
       @media screen and (max-width: 599px) {
-        grid-template-columns: 1fr;
+        //grid-template-columns: 1fr;
       }
       .logo-section {
         align-items: center;
@@ -407,9 +418,9 @@ export default {
           justify-self: start;
         }
         @media screen and (max-width: 599px) {
-          justify-self: center;
-          justify-content: space-between;
-          width: 100%;
+          //justify-self: center;
+          //justify-content: space-between;
+          //width: 100%;
         }
         .logo-pic {
           cursor: pointer;
@@ -561,7 +572,7 @@ export default {
           height: 64px;
         }
         @media screen and (max-width: 599px) {
-          display: none;
+          //display: none;
         }
         display: flex;
         //justify-content: flex-end;
@@ -603,8 +614,8 @@ export default {
     background: #FFFFFF;
     border-radius: 16px;
     display: flex;
-    margin-bottom: 0px;
-    padding: 0px;
+    margin-bottom: 0;
+    padding: 0;
 
     .btn-style{
       width: 96px;

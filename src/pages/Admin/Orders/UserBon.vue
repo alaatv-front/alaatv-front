@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'UserBon',
@@ -59,10 +59,10 @@ export default {
         config: {
           // toDo : temp, 'Content' should be replaced with 'order'
           api: {
-            show: API_ADDRESS.userBon.show.base,
-            edit: API_ADDRESS.userBon.edit.base,
-            create: API_ADDRESS.userBon.create.base,
-            index: API_ADDRESS.userBon.index.base
+            show: APIGateway.order.APIAdresses.userBon.show.base,
+            edit: APIGateway.order.APIAdresses.userBon.edit.base,
+            create: APIGateway.order.APIAdresses.userBon.create.base,
+            index: APIGateway.order.APIAdresses.userBon.index.base
           },
           title: {
             show: 'اطلاعات بن کاربران',

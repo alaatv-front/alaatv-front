@@ -1,28 +1,41 @@
 <template>
-  <q-card class="video-player custom-card bg-white q-mx-md full-height q-mb-lg"
-          :class="options.paginate? 'q-pb-md': ''"
-          :style="options.style">
-    <video-player :content="content" />
-    <div v-if="options.paginate"
-         class="q-py-sm flex flex-center paginate">
-      <q-pagination v-model="contentNumber"
-                    :max="set.contents.list.length"
-                    :to-fn="goToContentPage"
-                    :max-pages="3"
-                    direction-links
-                    icon-prev="fast_rewind"
-                    icon-next="fast_forward" />
-    </div>
-  </q-card>
+  <div class="video-player-container">
+    <template v-if="content.loading">
+      <div class="video-player q-mx-md q-mb-lg">
+        <q-responsive :ratio="3/2">
+          <q-skeleton />
+        </q-responsive>
+      </div>
+    </template>
+    <template v-else>
+      <div class="q-mx-md q-mb-lg">
+        <q-card class="video-player custom-card bg-white"
+                :class="options.paginate? 'q-pb-md': ''"
+                :style="options.style">
+          <video-player :content="content" />
+          <div v-if="options.paginate"
+               class="q-py-sm flex flex-center paginate">
+            <q-pagination v-model="contentNumber"
+                          :max="set.contents.list.length"
+                          :to-fn="goToContentPage"
+                          :max-pages="3"
+                          direction-links
+                          icon-prev="fast_rewind"
+                          icon-next="fast_forward" />
+          </div>
+        </q-card>
+      </div>
+    </template>
+  </div>
 </template>
 
 <script>
+import { Set } from 'src/models/Set.js'
 import { Content } from 'src/models/Content.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
-import { Set } from 'src/models/Set'
-import { APIGateway } from 'src/api/APIGateway'
+import VideoPlayer from 'src/components/ContentVideoPlayer.vue'
 
 export default {
   name: 'ContentVideoPlayer',

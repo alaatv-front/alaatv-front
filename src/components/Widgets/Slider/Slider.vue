@@ -1,25 +1,25 @@
 <template>
   <q-carousel v-model="slide"
-              :arrows="defaultOptions.controlNavigation.arrows"
-              :prev-icon="defaultOptions.controlNavigation.prevIcon"
-              :next-icon="defaultOptions.controlNavigation.nextIcon"
-              :navigation="defaultOptions.controlNavigation.navigation"
-              :navigation-position="defaultOptions.controlNavigation.navigationPosition"
-              :navigation-icon="defaultOptions.controlNavigation.navigationIcon"
-              :navigation-active-icon="defaultOptions.controlNavigation.navigationActiveIcon"
-              :thumbnails="defaultOptions.controlNavigation.thumbnails"
-              :control-color="defaultOptions.controlNavigation.controlColor"
-              :control-text-color="defaultOptions.controlNavigation.controlTextColor"
-              :control-type="defaultOptions.controlNavigation.controlType"
-              :animated="defaultOptions.transition.animated"
-              :infinite="defaultOptions.transition.infinite"
-              :swipeable="defaultOptions.transition.swipeable"
-              :autoplay="defaultOptions.transition.autoplay"
-              :transition-prev="defaultOptions.transition.transitionPrev"
-              :transition-next="defaultOptions.transition.transitionNext"
-              :transition-duration="defaultOptions.transition.transitionDuration"
-              :height="defaultOptions.styles.height ? defaultOptions.styles.height : 'auto'"
-              :class="defaultOptions.styles.classes"
+              :arrows="localOptions.controlNavigation.arrows"
+              :prev-icon="localOptions.controlNavigation.prevIcon"
+              :next-icon="localOptions.controlNavigation.nextIcon"
+              :navigation="localOptions.controlNavigation.navigation"
+              :navigation-position="localOptions.controlNavigation.navigationPosition"
+              :navigation-icon="localOptions.controlNavigation.navigationIcon"
+              :navigation-active-icon="localOptions.controlNavigation.navigationActiveIcon"
+              :thumbnails="localOptions.controlNavigation.thumbnails"
+              :control-color="localOptions.controlNavigation.controlColor"
+              :control-text-color="localOptions.controlNavigation.controlTextColor"
+              :control-type="localOptions.controlNavigation.controlType"
+              :animated="localOptions.transition.animated"
+              :infinite="localOptions.transition.infinite"
+              :swipeable="localOptions.transition.swipeable"
+              :autoplay="localOptions.transition.autoplay"
+              :transition-prev="localOptions.transition.transitionPrev"
+              :transition-next="localOptions.transition.transitionNext"
+              :transition-duration="localOptions.transition.transitionDuration"
+              :height="localOptions.styles.height ? localOptions.styles.height : 'auto'"
+              :class="localOptions.styles.classes"
               class="slider-widget">
     <q-carousel-slide v-for="(slide, index) in options.list"
                       :key="index"
@@ -39,9 +39,9 @@
       </a>
     </q-carousel-slide>
     <template v-slot:control>
-      <q-carousel-control :position="defaultOptions.control.position"
-                          :offset="defaultOptions.control.offset"
-                          :class="defaultOptions.control.class">
+      <q-carousel-control :position="localOptions.control.position"
+                          :offset="localOptions.control.offset"
+                          :class="localOptions.control.class">
         <slot name="controls-content" />
       </q-carousel-control>
     </template>
@@ -72,6 +72,7 @@ export default {
       fullscreen: ref(false),
       windowWidth: 0,
       defaultOptions: {
+        list: [],
         control: {
           position: 'bottom',
           offset: [18, 18],

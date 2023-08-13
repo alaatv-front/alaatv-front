@@ -1,74 +1,70 @@
 <template>
-  <div class="q-pa-md q-mb-lg q-mx-sm content-info">
-    <div dir="ltr"
-         class="float-right">
-      <q-btn icon="isax:share"
-             flat
-             color="black"
-             size="13px">
-        <q-tooltip anchor="top middle"
-                   self="bottom middle"
-                   :offset="[10, 10]">
-          اشتراک گزاری
-        </q-tooltip>
-        <q-popup-proxy :offset="[10, 10]"
-                       transition-show="flip-up"
-                       transition-hide="flip-down">
-          <q-banner dense
-                    rounded>
-            <share-network :url="pageUrl"
-                           @on-select="shareGiftCard" />
-          </q-banner>
-        </q-popup-proxy>
-      </q-btn>
-      <bookmark :is-favored="content.is_favored"
-                :loading="bookmarkLoading"
-                @clicked="handleContentBookmark" />
-    </div>
-    <h6 class="set-title">
-      {{content.title}}
-    </h6>
-    <q-tabs v-model="tab"
-            class="q-mt-md"
-            align="left">
-      <q-tab name="info"
-             label="توضیحات" />
-      <q-tab v-if="hasPamphlet()"
-             name="pamphlets"
-             label="جزوات" />
-    </q-tabs>
-    <q-tab-panels v-model="tab"
-                  animated>
-      <q-tab-panel name="info">
-        <div v-if="content.author">
-          {{content.author.first_name}} {{content.author.last_name}}
+  <div class="content-info-container">
+    <template v-if="content.loading">
+      <div class="q-mb-lg q-mx-sm">
+        <q-responsive :ratio="3/1">
+          <q-skeleton />
+        </q-responsive>
+      </div>
+    </template>
+    <template v-else>
+      <div class="q-pa-md q-mb-lg q-mx-sm content-info">
+        <div dir="ltr"
+             class="float-right">
+          <q-btn icon="isax:share"
+                 flat
+                 color="black"
+                 size="13px">
+            <q-tooltip anchor="top middle"
+                       self="bottom middle"
+                       :offset="[10, 10]">
+              اشتراک گزاری
+            </q-tooltip>
+            <q-popup-proxy :offset="[10, 10]"
+                           transition-show="flip-up"
+                           transition-hide="flip-down">
+              <q-banner dense
+                        rounded>
+                <share-network :url="pageUrl"
+                               @on-select="shareGiftCard" />
+              </q-banner>
+            </q-popup-proxy>
+          </q-btn>
+          <bookmark :is-favored="content.is_favored"
+                    :loading="bookmarkLoading"
+                    @clicked="handleContentBookmark" />
         </div>
-        <h6 v-if="content.set"
-            class="set-title">
-          {{content.set.title}}
+        <h6 class="set-title">
+          {{content.title}}
         </h6>
-        <div v-if="content.body"
-             class="q-mb-xl"
-             v-html="content.body" />
-        <div v-if="content.tags"
-             class="row">
-          <p class="col-1 q-mt-sm text-center">تگ ها</p>
-          <div class="col q-pl-sm">
-            <router-link v-for="badge in content.tags"
-                         :key="badge"
-                         :to="{name: 'Public.Content.Search', query: {'tags[]': badge } }">
-              <q-badge class="q-pa-sm q-ml-sm q-mb-sm"
-                       color="primary">
-                {{badge}}
-              </q-badge>
-            </router-link>
+        <div class="description q-mt-lg">
+          <div v-if="content.author">
+            {{content.author.first_name}} {{content.author.last_name}}
+          </div>
+          <h6 v-if="content.set"
+              class="set-title">
+            {{content.set.title}}
+          </h6>
+          <div v-if="content.body"
+               class="q-mb-xl"
+               v-html="content.body" />
+          <div v-if="content.tags"
+               class="row">
+            <p class="col-1 q-mt-sm text-center">تگ ها</p>
+            <div class="col q-pl-sm">
+              <router-link v-for="badge in content.tags"
+                           :key="badge"
+                           :to="{name: 'Public.Content.Search', query: {'tags[]': badge } }">
+                <q-badge class="q-pa-sm q-ml-sm q-mb-sm"
+                         color="primary">
+                  {{badge}}
+                </q-badge>
+              </router-link>
+            </div>
           </div>
         </div>
-      </q-tab-panel>
-      <q-tab-panel name="pamphlets">
-        psp
-      </q-tab-panel>
-    </q-tab-panels>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -174,6 +170,7 @@ export default {
       return this.$apiGateway.content.favored(this.content.id)
     },
     getContentByRequest() {
+      this.content.loading = true
       const contentId = this.getContentId()
       APIGateway.content.show(contentId)
         .then((response) => {
@@ -203,14 +200,5 @@ export default {
 <style lang="scss" scoped>
   h6 {
     margin: 0 !important;
-  }
-
-  .content-info {
-    :deep(.q-tab-panels) {
-      background: transparent;
-    }
-    .set-title {
-      //color: black;
-    }
   }
 </style>

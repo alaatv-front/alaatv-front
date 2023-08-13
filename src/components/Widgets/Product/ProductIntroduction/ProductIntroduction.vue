@@ -1,6 +1,6 @@
 <template>
   <q-card v-if="product.intro"
-          class="intro-video custom-card q-pb-md"
+          class="intro-video custom-card"
           :class="options.className"
           :style="options.style">
     <template v-if="!product.loading">
@@ -13,7 +13,8 @@
                 size="25px"
                 class="q-pr-sm" />
         <span>
-          زمان دریافت فایل های این محصول: {{ getDownloadDate() }}
+          زمان دریافت فایل های این محصول:
+          {{ getDownloadDate() }}
         </span>
       </div>
       <div v-if="getDuration() && options.duration"
@@ -23,7 +24,8 @@
                 size="25px"
                 class="q-pr-sm" />
         <span>
-          مدت زمان: {{ getDuration() }}
+          مدت زمان:
+          {{ getDuration() }}
         </span>
       </div>
     </template>

@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses.js'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Coupons',
@@ -67,10 +67,10 @@ export default {
       allProps: {
         config: {
           api: {
-            show: API_ADDRESS.coupons.show.base,
-            edit: API_ADDRESS.coupons.edit.base,
-            create: API_ADDRESS.coupons.create.base,
-            index: API_ADDRESS.coupons.index.base
+            show: APIGateway.coupon.APIAdresses.show,
+            edit: APIGateway.coupon.APIAdresses.edit,
+            create: APIGateway.coupon.APIAdresses.create,
+            index: APIGateway.coupon.APIAdresses.index
           },
           title: {
             show: 'اطلاعات  کپن ها',

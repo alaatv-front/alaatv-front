@@ -41,8 +41,8 @@
 <script>
 import moment from 'moment-jalaali'
 import Bookmark from 'components/Bookmark.vue'
-import API_ADDRESS from 'src/api/Addresses.js'
 import { Content } from 'src/models/Content.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 moment.loadPersian()
 
@@ -103,7 +103,7 @@ export default {
       window.open(this.content.file.pamphlet[0].link, '_blank')
     },
     getContentBookmarkBaseRoute(id) {
-      return API_ADDRESS.content.show(id)
+      return APIGateway.content.show(id)
     },
     getContentDurationTitle (duration) {
       if (!this.doesHaveDuration(duration)) {

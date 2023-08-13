@@ -9,14 +9,14 @@
 
 <script>
 import { EntityIndex } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Index',
   components: { EntityIndex },
   data () {
     return {
-      api: API_ADDRESS.coupon.index.base,
+      api: APIGateway.coupon.APIAddresses.index,
       tableKeys: {
         data: 'data',
         total: 'meta.total',

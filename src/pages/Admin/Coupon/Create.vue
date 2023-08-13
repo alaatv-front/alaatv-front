@@ -10,7 +10,7 @@
 
 <script>
 import { EntityCreate } from 'quasar-crud'
-import API_ADDRESS from 'src/api/Addresses'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Created',
@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       inputs: [],
-      api: API_ADDRESS.coupon.create.base,
+      api: APIGateway.coupon.APIAddresses.create,
       entityIdKeyInResponse: '',
       showRouteParamKey: '',
       indexRouteName: '',

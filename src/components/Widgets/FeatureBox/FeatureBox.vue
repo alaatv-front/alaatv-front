@@ -4,7 +4,7 @@
                     :class="localOptions.className"
                     :horizontal="localOptions.horizontal">
       <img class="feature-image"
-           :src="localOptions.img">
+           :src="localOptions.image">
       <q-card-section>
         <div class="feature-title ellipsis">{{ localOptions.title }}</div>
         <div class="feature-description">
@@ -26,7 +26,7 @@ export default {
       defaultOptions: {
         title: null,
         description: null,
-        img: null,
+        image: null,
         horizontal: true
       }
     }

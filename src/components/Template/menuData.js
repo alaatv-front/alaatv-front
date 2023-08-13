@@ -1599,18 +1599,31 @@ const menuItems = [
     type: 'megaMenu',
     children: [
       {
+        title: 'امتحان نهایی',
+        route: {
+          externalLink: 'https://alaatv.com/landing/38'
+        },
+        badge: 'جدید'
+      },
+      {
+        title: 'امتحان نهایی نهم',
+        route: {
+          name: 'Public.Landing.DynamicName',
+          params: { landing_name: 'emtehan-nahaee-nohom' }
+        },
+        badge: 'جدید'
+      },
+      {
         title: 'چتر نجات',
         route: {
-          name: 'Public.Landing.FireDay',
-          params: ''
+          externalLink: 'https://alaatv.com/landing/37'
         },
         badge: 'جدید'
       },
       {
         title: 'راه ابریشم',
         route: {
-          name: '',
-          params: ''
+          externalLink: 'https://alaatv.com/landing/25'
         }
       },
       {
@@ -1619,15 +1632,41 @@ const menuItems = [
           name: 'UserPanel.Asset.GiftCard.MyGiftCards',
           params: ''
         }
+      },
+      {
+        title: 'آزمون جامع سه آ',
+        route: {
+          externalLink: 'https://soalaa.com/landing/3a_comprehensive_exams'
+        }
       }
     ],
     subCategoryItemsCol: [
       {
         cols: [],
         selected: true,
+        backgroundImage: 'https://nodes.alaatv.com/upload/nahayi_mega_menu.jpg?w=1066&h=295',
+        route: {
+          externalLink: 'https://alaatv.com/landing/38',
+          params: ''
+        },
+        type: 'image'
+      },
+      {
+        cols: [],
+        selected: false,
+        backgroundImage: 'https://nodes.alaatv.com/upload/nahayi_9_mega_menu.jpg?w=1066&h=294',
+        route: {
+          name: 'Public.Landing.DynamicName',
+          params: { landing_name: 'emtehan-nahaee-nohom' }
+        },
+        type: 'image'
+      },
+      {
+        cols: [],
+        selected: false,
         backgroundImage: 'https://nodes.alaatv.com/upload/chtr_menu_menu.jpg',
         route: {
-          name: 'Public.Landing.FireDay',
+          externalLink: 'https://alaatv.com/landing/37',
           params: ''
         },
         type: 'image'
@@ -1637,8 +1676,7 @@ const menuItems = [
         selected: false,
         backgroundImage: 'https://nodes.alaatv.com/upload/abrisham_mega_menu_1401.jpg',
         route: {
-          name: '',
-          params: ''
+          externalLink: 'https://alaatv.com/landing/25'
         },
         type: 'image'
       },
@@ -1651,6 +1689,15 @@ const menuItems = [
           params: ''
         },
         type: 'image'
+      },
+      {
+        cols: [],
+        selected: false,
+        backgroundImage: 'https://nodes.alaatv.com/upload/soala-mega-menu-background.jpg?w=1066&h=294',
+        route: {
+          externalLink: 'https://soalaa.com/landing/3a_comprehensive_exams'
+        },
+        type: 'image'
       }
     ],
     show: false,
@@ -1660,6 +1707,7 @@ const menuItems = [
     selected: 'firstMidSchool',
     title: 'متوسطه اول',
     routeName: '',
+    tags: ['نظام_آموزشی_جدید', 'متوسطه1'],
     permission: 'all',
     type: 'simpleMenu',
     children: [

@@ -1,0 +1,96 @@
+@mixin select-default {
+  width: 288px;
+  &.q-field {
+    .q-field__inner {
+      background: $grey1;
+      border: 1.5px solid $grey4;
+      border-radius: 8px;
+      .q-field__control {
+        background: $grey1;
+      }
+      .q-field__control::before {
+        border: none;
+      }
+      .q-field__messages {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: -0.02em;
+        color: $grey9;
+        padding-top: 2px;
+      }
+    }
+    &.disabled {
+      .q-field__inner {
+        background: $grey2;
+        border: 1.5px solid $grey3;
+        .q-field__control {
+          background: $grey2;
+          :before {
+            border: 1.5px solid $grey3;
+          }
+        }
+        .q-field__messages {
+          color: $grey4;
+          .select-error {
+            color: $negative5;
+          }
+        }
+      }
+    }
+    &.on-error {
+      .q-field__inner {
+        border: 1.5px solid $negative5;
+        .q-field__control {
+          :before {
+            border: 1.5px solid $negative5;
+          }
+        }
+        .q-field__messages {
+          .select-error {
+            color: $negative5;
+          }
+        }
+      }
+    }
+  }
+}
+.select-md {
+  @include select-default;
+}
+.select-lg {
+  @include select-default;
+  &.q-field {
+    &.q-field--auto-height{
+      .q-field__control, .q-field__native {
+        min-height: 48px;
+      }
+    }
+  }
+}
+.q-menu {
+  width: 288px;
+  background: $grey1;
+  box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+  border-radius: 12px;
+  margin-top: 8px !important;
+  .q-item {
+    margin: 8px;
+    padding: 0;
+    :hover {
+      background-color: $primary1;
+      border-radius: 8px;
+    }
+    .q-focus-helper {
+      background-color: $primary1;
+      border-radius: 8px;
+    }
+    .q-item__section {
+      padding: 8px 12px;
+      :hover {
+        background-color: $primary1;
+        border-radius: 8px;
+      }
+    }
+  }
+}

@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import API_ADDRESS from 'src/api/Addresses'
 import EntityCrud from 'src/components/EntityCrud.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'SMSAdmin',
@@ -59,10 +59,10 @@ export default {
         config: {
           // toDo : temp, 'Content' should be replaced with 'order'
           api: {
-            show: API_ADDRESS.smsAdmin.show.base,
-            edit: API_ADDRESS.smsAdmin.edit.base,
-            create: API_ADDRESS.smsAdmin.create.base,
-            index: API_ADDRESS.smsAdmin.index.base
+            show: APIGateway.sms.APIAdresses.smsAdmin.show.base,
+            edit: APIGateway.sms.APIAdresses.smsAdmin.edit.base,
+            create: APIGateway.sms.APIAdresses.smsAdmin.create.base,
+            index: APIGateway.sms.APIAdresses.smsAdmin.index.base
           },
           title: {
             show: 'اطلاعات پیامک ها',

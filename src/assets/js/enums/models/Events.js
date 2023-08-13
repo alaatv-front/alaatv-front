@@ -3,6 +3,9 @@ import Enum from '../Enum'
 const Events = new Enum({
   name: 'ChatreNejat',
   value: 10
+}, {
+  name: 'EmtahanNahaee',
+  value: 11
 },
 {
   name: 'abrisham',
