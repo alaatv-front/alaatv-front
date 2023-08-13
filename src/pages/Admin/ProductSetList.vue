@@ -86,7 +86,7 @@ export default {
     },
     updatePosition(list, oldIndex, newIndex) {
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
-      this.updateSetOrders()
+      this.updateSetOrdersWithRequest()
     }
   }
 }
