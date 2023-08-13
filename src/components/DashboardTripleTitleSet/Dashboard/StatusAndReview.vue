@@ -58,7 +58,7 @@ export default defineComponent({
   background: #FFF;
   border-radius: 12px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.06), 0px 1px 3px 0px rgba(16, 24, 40, 0.08);
-  padding: 30px 30px 50px 20px;
+  padding: 30px 20px 50px 30px;
   min-height: 400px;
 }
 </style>
