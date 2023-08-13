@@ -680,6 +680,11 @@ const routes = [
               }
             ]
           },
+          {
+            name: 'Admin.Product',
+            path: 'product/:productId/sets',
+            component: () => import('pages/Admin/ProductSetList.vue')
+          },
           ...EntityCrudRoutes
         ]
       },

@@ -31,6 +31,7 @@ class Set extends Model {
       { key: 'setUrl' },
       { key: 'title' },
       { key: 'short_title' },
+      { key: 'order' },
       {
         key: 'contents_progress',
         default: 0
