@@ -125,8 +125,12 @@ export default {
       return APIGateway.content.show(contentId)
     },
     getSetByRequest() {
+      const setId = this.content.set?.id || this.$route.params.setId
+      if (!setId) {
+        return
+      }
       this.set.loading = true
-      APIGateway.set.show(this.content.set?.id || this.$route.params.setId)
+      APIGateway.set.show(setId)
         .then((response) => {
           this.set = new Set(response)
           this.contentNumber = this.getContentNumberInListById(this.$route.params.id)

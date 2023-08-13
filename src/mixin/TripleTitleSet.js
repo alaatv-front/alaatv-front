@@ -7,21 +7,22 @@ const mixinTripleTitleSet = {
       isVideoWatched: false,
       event: {
         id: null,
-        logo: null
+        logo: null,
+        studyEventId: null
       }
     }
   },
-  created () {
+  created() {
     this.setEvent()
   },
   methods: {
-    setEvent () {
+    setEvent() {
       if (!this.$route.params.eventName) {
         return
       }
       APIGateway.events.getEventInfoByName(this.$route.params.eventName)
         .then(event => {
-          this.event = event
+          this.event = JSON.parse(JSON.stringify(event))
         })
         .catch(() => {
           this.$router.push({ name: 'NotFound' })
@@ -40,14 +41,15 @@ const mixinTripleTitleSet = {
     },
     videoIsWatched() {
       if (!this.isVideoWatched) {
+        this.isVideoWatched = true
         this.$apiGateway.content.setVideoWatched({
           watchable_id: this.watchingContent.id,
           watchable_type: 'content'
         })
-          .then(() => {
-            this.isVideoWatched = true
+          .then(() => {})
+          .catch(() => {
+            this.isVideoWatched = false
           })
-          .catch(() => {})
       }
     },
     updateVideoStatus(data) {

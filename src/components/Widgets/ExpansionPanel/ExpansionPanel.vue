@@ -5,7 +5,7 @@
     <q-expansion-item v-for="(item, index) in localOptions.expansionList"
                       :key="index"
                       v-model="item.expanded"
-                      expand-separator
+                      :expand-separator="localOptions.expandSeparator"
                       :icon="item.icon"
                       :label="item.label"
                       :caption="item.caption"
@@ -65,6 +65,11 @@ export default {
         expandIconClass: null,
         theme: null,
         dense: false,
+        expandSeparator: true,
+        expandItemBackground: 'transparent',
+        expandItemMargin: 0,
+        expandItemRadius: 0,
+        expandItemContentPadding: 0,
         marginBottom: '100px',
         fontFamily: null,
         color: null,
@@ -141,6 +146,14 @@ export default {
 
 <style lang="scss" scoped>
 .expansion-container {
+  &:deep(.q-expansion-item) {
+    background: v-bind('localOptions.expandItemBackground');
+    margin-bottom: v-bind('localOptions.expandItemMargin');
+    border-radius:  v-bind('localOptions.expandItemRadius');
+  }
+  &:deep(.q-expansion-item__content) {
+    padding:  v-bind('localOptions.expandItemContentPadding');
+  }
   &:deep(.q-item__label) {
     font-size: 16px
   }

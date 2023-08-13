@@ -258,11 +258,78 @@
       </q-list>
     </div>
   </div>
+  <div v-else-if="type === 'triple-title-set'"
+       class="triple-card-footer">
+    <div class="mobile-footer">
+      <q-list>
+        <q-item v-for="(item , index) in tripleTitleSetItems.filter(item => item.visible)"
+                :key="index"
+                v-ripple
+                clickable
+                class="q-mt-sm"
+                :active="isRouteSelected(item.to)"
+                active-class="active-item"
+                exact-active-class="active-route"
+                :to="{ name: item.to }"
+                @click="onFooterItemClick($event, item)">
+          <q-item-section avatar>
+            <q-icon :name="item.icon"
+                    :class="{ active: $route.name === item.to }"
+                    color="white"
+                    size="20px" />
+            <div class="line" />
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
+    <q-dialog v-model="logoutDialog">
+      <q-card class="logout-dialog-card">
+        <q-card-section class="logout-header">
+          <div class="header-title">
+            <q-icon name="warning_amber"
+                    color="negative" />
+            <div class="header-title-text">
+              هشدار
+            </div>
+          </div>
+          <div class="close">
+            <q-btn color="grey"
+                   icon="close"
+                   flat
+                   @click="toggleLogoutDialog" />
+          </div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section>
+          <div class="logout-message">
+            آیا میخواهید از حساب کاربری خود خارج شوید؟
+          </div>
+        </q-card-section>
+        <q-card-actions align="right"
+                        class="logout-dialog-action">
+          <q-btn v-close-popup
+                 outlined
+                 unelevated
+                 label="انصراف"
+                 color="grey"
+                 class="action-btn"
+                 @click="toggleLogoutDialog" />
+          <q-btn v-close-popup
+                 unelevated=""
+                 label="خروج"
+                 color="negative"
+                 class="action-btn"
+                 @click="logout" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+  </div>
 </template>
 
 <script>
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'AlaaFooter',
@@ -325,21 +392,97 @@ export default {
           active: false
         }
       ],
-      user: new User()
+      tripleTitleSetItems: [
+        {
+          title: 'logout',
+          icon: 'isax:logout',
+          to: 'Public.Home',
+          active: false,
+          visible: true
+        },
+        {
+          title: 'study plan',
+          icon: 'calendar_today',
+          to: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
+          active: false,
+          visible: true
+        },
+        {
+          title: 'products',
+          icon: 'playlist_play',
+          to: 'UserPanel.Asset.TripleTitleSet.Products',
+          active: false,
+          visible: true
+        },
+        {
+          title: 'home',
+          icon: 'home',
+          to: 'UserPanel.Asset.TripleTitleSet.Dashboard',
+          active: false,
+          visible: true
+        }
+      ],
+      logoutDialog: false,
+      user: new User(),
+      eventInfo: null,
+      isAdmin: false
     }
   },
   mounted () {
     this.loadAuthData()
   },
   methods: {
+    getEventInfoByName () {
+      return new Promise((resolve, reject) => {
+        APIGateway.events.getEventInfoByName(this.$route.params.eventName)
+          .then((eventInfo) => {
+            this.eventInfo = eventInfo
+            resolve(eventInfo)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
     isRouteSelected (itemName) {
       return this.$route.name === itemName
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
+      this.getEventInfoByName()
+        .then(() => {
+          this.updateMenuItemsFromEventInfo()
+        })
+        .catch(() => {
+        })
     },
     scrollToTop() {
       document.body.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    },
+    logout() {
+      this.$store.dispatch('Auth/logOut')
+    },
+    toggleLogoutDialog() {
+      this.logoutDialog = !this.logoutDialog
+    },
+    onFooterItemClick(event, item) {
+      if (item.title === 'logout') {
+        event.preventDefault()
+        this.toggleLogoutDialog()
+      }
+    },
+    updateMenuItemsFromEventInfo () {
+      this.isAdmin = this.user.hasPermission('insertStudyPlan') || this.user.hasPermission('updateStudyPlan') || this.user.hasPermission('deleteStudyPlan')
+
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.eventInfo.showDashboard)
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.StudyPlan', (this.eventInfo.showStudyPlan || this.isAdmin))
+    },
+    updateMenuItemVisibility (routeName, state) {
+      this.tripleTitleSetItems.forEach((item, itemIndex) => {
+        if (item.to === routeName) {
+          this.tripleTitleSetItems[itemIndex].visible = state
+        }
+      })
     }
   }
 }
@@ -881,6 +1024,150 @@ export default {
         border-radius: 50%;
         margin: auto;
       }
+    }
+  }
+}
+
+.triple-card-footer {
+  .mobile-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    height: $mobileFooterHeight;
+    display: none;
+    background: #26A69A;
+    border-radius: 16px 16px 0;
+    box-shadow: 0 -6px 10px rgba(112, 108, 161, 0.07);
+
+    @media screen and (max-width:1024px){
+      display: block;
+      height: 72px;
+    }
+
+    $itemSize: 44px;
+
+    .q-list {
+      height: 100%;
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      align-items: center;
+      .q-item {
+        width: $itemSize;
+        min-width: $itemSize;
+        max-width: $itemSize;
+        min-height: $itemSize;
+        max-height: $itemSize;
+        height: $itemSize;
+        padding: 0;
+        margin-top: 0;
+        margin-right: 30px;
+        &.active-item {
+          //background-color: red;
+        }
+        &:last-child {
+          margin-right: 0;
+        }
+        &.q-item--active {
+          .q-item__section {
+            display: grid;
+            padding: 12px;
+            place-items: center;
+            .line {
+              display: block;
+              height: 20px;
+              width: 32px;
+              background-color: white;
+              margin-top: 20px;
+              border-radius: 4px;
+            }
+          }
+        }
+        .q-item__section {
+          padding: 0;
+          width: $itemSize;
+          min-width: $itemSize;
+          max-width: $itemSize;
+          min-height: $itemSize;
+          max-height: $itemSize;
+          height: $itemSize;
+          border-radius: 8px;
+          align-items: center;
+          justify-content: center;
+          .active {
+            //background-color: rgba(128, 117, 220, 0.34);
+            //background-color: lighten($primary,34%);
+            //border-radius: 8px;
+          }
+        }
+      }
+    }
+
+    .active-route {
+      background-color: rgba(128, 117, 220, 0.34);
+      border-radius: 8px;
+
+      .indicator {
+        height: 6px;
+        width: 6px;
+        background-color: white;
+        border-radius: 50%;
+        margin: auto;
+      }
+    }
+  }
+}
+
+.logout-dialog-card {
+  width: 488px;
+  border-radius: 12px;
+  padding: 0;
+  background:#FFF;
+  box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
+
+  .logout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+
+    .header-title {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .header-title-text {
+        margin-left: 5px;
+        color: #424242;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -0.32px;
+      }
+    }
+  }
+
+  .logout-message {
+    padding: 24px;
+    color:#424242;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.28px;
+  }
+
+  .logout-dialog-action {
+    padding: 0 24px 20px;
+
+    .action-btn {
+      display: flex;
+      width: 104px;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

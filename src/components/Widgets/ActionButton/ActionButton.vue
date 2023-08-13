@@ -19,6 +19,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'ActionButton',
   mixins: [mixinWidget],
+  emits: ['ActionButton'],
   data() {
     return {
       defaultOptions: {
@@ -31,6 +32,7 @@ export default {
         className: null,
         fixed: false,
         fixedPosition: null,
+        hasAction: true,
         action: null,
         scrollTo: null,
         route: null,
@@ -70,14 +72,16 @@ export default {
       })
     },
     takeAction() {
-      if (this.callBack) {
+      if (!this.localOptions.hasAction) {
+        this.$emit('ActionButton')
+      } else if (this.callBack) {
         this.callBack()
-      } else if (this.options.action && this.options.action === 'scroll') {
-        this.scrollToElement(this.options.scrollTo)
-      } else if (this.options.action && this.options.action === 'link') {
-        this.$router.push(this.options.route)
-      } else if (this.options.action && this.options.action === 'event') {
-        this.$bus.emit(this.options.eventName, this.eventArgs)
+      } else if (this.localOptions.action && this.localOptions.action === 'scroll') {
+        this.scrollToElement(this.localOptions.scrollTo)
+      } else if (this.localOptions.action && this.localOptions.action === 'link') {
+        this.$router.push(this.localOptions.route)
+      } else if (this.localOptions.action && this.localOptions.action === 'event') {
+        this.$bus.emit(this.localOptions.eventName, this.localOptions.eventArgs)
       }
     }
   }
