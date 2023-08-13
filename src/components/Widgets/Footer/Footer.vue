@@ -262,7 +262,7 @@
        class="triple-card-footer">
     <div class="mobile-footer">
       <q-list>
-        <q-item v-for="(item , index) in tripleTitleSetItems"
+        <q-item v-for="(item , index) in tripleTitleSetItems.filter(item => item.visible)"
                 :key="index"
                 v-ripple
                 clickable
@@ -329,6 +329,7 @@
 <script>
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'AlaaFooter',
@@ -396,40 +397,64 @@ export default {
           title: 'logout',
           icon: 'isax:logout',
           to: 'Public.Home',
-          active: false
+          active: false,
+          visible: true
         },
         {
           title: 'study plan',
           icon: 'calendar_today',
           to: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
-          active: false
+          active: false,
+          visible: true
         },
         {
           title: 'products',
           icon: 'playlist_play',
           to: 'UserPanel.Asset.TripleTitleSet.Products',
-          active: false
+          active: false,
+          visible: true
         },
         {
           title: 'home',
           icon: 'home',
           to: 'UserPanel.Asset.TripleTitleSet.Dashboard',
-          active: false
+          active: false,
+          visible: true
         }
       ],
       logoutDialog: false,
-      user: new User()
+      user: new User(),
+      eventInfo: null,
+      isAdmin: false
     }
   },
   mounted () {
     this.loadAuthData()
   },
   methods: {
+    getEventInfoByName () {
+      return new Promise((resolve, reject) => {
+        APIGateway.events.getEventInfoByName(this.$route.params.eventName)
+          .then((eventInfo) => {
+            this.eventInfo = eventInfo
+            resolve(eventInfo)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
     isRouteSelected (itemName) {
       return this.$route.name === itemName
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
+      this.getEventInfoByName()
+        .then(() => {
+          this.updateMenuItemsFromEventInfo()
+        })
+        .catch(() => {
+        })
     },
     scrollToTop() {
       document.body.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -445,6 +470,19 @@ export default {
         event.preventDefault()
         this.toggleLogoutDialog()
       }
+    },
+    updateMenuItemsFromEventInfo () {
+      this.isAdmin = this.user.hasPermission('insertStudyPlan') || this.user.hasPermission('updateStudyPlan') || this.user.hasPermission('deleteStudyPlan')
+
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.eventInfo.showDashboard)
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.StudyPlan', (this.eventInfo.showStudyPlan || this.isAdmin))
+    },
+    updateMenuItemVisibility (routeName, state) {
+      this.tripleTitleSetItems.forEach((item, itemIndex) => {
+        if (item.to === routeName) {
+          this.tripleTitleSetItems[itemIndex].visible = state
+        }
+      })
     }
   }
 }
