@@ -55,7 +55,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinAbrisham } from 'src/mixin/Mixins.js'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import videoJsResolutionSwitcher from 'src/assets/js/videoJsResolutionSwitcher.js'
-
+import Fullscreen from 'src/assets/js/AndroidPluginRegister.js'
 // https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8 (Live)
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
@@ -460,7 +460,7 @@ export default {
     hasPlugin (pluginName) {
       return Object.keys(videojs.getPlugins()).includes(pluginName)
     },
-    initPlayer (withVast) {
+    async initPlayer (withVast) {
       if (!this.hasPlugin('brand')) {
         videojs.registerPlugin('brand', videojsBrand)
       }
@@ -474,20 +474,20 @@ export default {
       }
 
       this.player = videojs(this.$refs.videoPlayer, this.options, function() {
-        this.on('fullscreenchange', function() {
+        this.on('fullscreenchange', async function() {
           if (window !== undefined) {
             if (this.isFullscreen()) {
             // Video entered fullscreen mode
               window.screen.orientation.unlock()
+              await Fullscreen.enterFullscreen({ value: 'Say My Name! And Enter To FullScreen' })
             } else {
             // Video exited fullscreen mode
               window.screen.orientation.lock('portrait')
+              await Fullscreen.exitFullscreen({ value: 'Say My Name! And Exit From FullScreen' })
             }
           }
         })
       })
-
-      // this.player = videojs(this.$refs.videoPlayer, this.options, this.onFullScreenChange)
 
       if (this.hasVast && (typeof withVast === 'undefined' || withVast === true)) {
         // this.loadVast()

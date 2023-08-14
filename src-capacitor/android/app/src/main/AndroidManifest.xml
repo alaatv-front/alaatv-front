@@ -16,6 +16,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:exported="true">
 
         </activity>
@@ -23,6 +24,7 @@
       <activity
         android:name="ir.sanatisharif.android.konkur96.SplashScreenActivity"
         android:theme="@style/AppTheme.NoActionBar"
+        android:screenOrientation="portrait"
         android:exported="true">
 
         <intent-filter>

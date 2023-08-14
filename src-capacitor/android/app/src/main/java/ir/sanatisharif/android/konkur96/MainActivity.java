@@ -12,7 +12,9 @@ public class MainActivity extends BridgeActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    registerPlugin(FullscreenPlugin.class);
     super.onCreate(savedInstanceState);
+
 
     setStatusBarColor();
   }
