@@ -3,7 +3,7 @@ import { Block } from 'src/models/Block'
 import { User } from './User'
 import { Major } from 'src/models/Major'
 
-class EventResult extends Model {
+class EventekhbReshte extends Model {
   constructor(data) {
     super(data, [
       { key: 'id' },
@@ -18,7 +18,6 @@ class EventResult extends Model {
         key: 'user',
         relatedModel: User
       },
-      { key: 'major_id' },
       {
         key: 'major',
         relatedModel: Major
@@ -30,27 +29,14 @@ class EventResult extends Model {
           title: ''
         }
       },
-      { key: 'event_result_status' },
-
-      { key: 'event_id' },
-      { key: 'user_id' },
-      { key: 'participationCode' },
-      {
-        key: 'enableReportPublish',
-        default: 1
-      },
-      { key: 'region_id' },
-      { key: 'reportFile' },
-      { key: 'firstName' },
-      { key: 'lastName' },
-      { key: 'eventresultstatus_id' }
+      { key: 'event_result_status' }
     ])
   }
 }
-class EventResultList extends Collection {
+class EventekhbReshteList extends Collection {
   model () {
     return Block
   }
 }
 
-export { EventResult, EventResultList }
+export { EventekhbReshte, EventekhbReshteList }
