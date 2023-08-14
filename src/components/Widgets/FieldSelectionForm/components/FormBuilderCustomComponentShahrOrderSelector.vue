@@ -40,7 +40,6 @@ export default {
         return this.selected
       },
       set (newValue) {
-        console.log('gghh', newValue)
         this.$emit('update:value', newValue)
       }
     }
