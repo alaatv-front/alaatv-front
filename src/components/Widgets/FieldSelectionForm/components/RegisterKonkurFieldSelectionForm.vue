@@ -37,9 +37,13 @@
 </template>
 
 <script>
+import { shallowRef } from 'vue'
 import { EntityCreate } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { FormBuilderAssist } from 'quasar-form-builder'
+import FormBuilderCustomComponentShahrOrderSelector from './FormBuilderCustomComponentShahrOrderSelector.vue'
+
+const FormBuilderCustomComponentShahrOrderSelectorComp = shallowRef(FormBuilderCustomComponentShahrOrderSelector)
 
 export default {
   name: 'RegisterKonkurFieldSelectionForm',
@@ -64,7 +68,7 @@ export default {
         { type: 'input', name: 'small_name', label: 'شماره همراه', placeholder: ' ', col: 'col-6' }, // ??????????????????????????
         { type: 'input', name: 'phone', label: 'تلفن ثابت', placeholder: ' ', col: 'col-6' },
         { type: 'separator', name: 'separator', label: 'اولویت محل و نوع دانشگاه', size: '0', col: 'col-12' },
-        { type: 'select', name: 'shahrha', label: 'استان و شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-12' },
+        { type: FormBuilderCustomComponentShahrOrderSelectorComp, name: 'shahrha', label: 'استان و شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-12' },
         { type: 'optionGroupCheckbox', name: 'university_types', label: 'نوع دانشگاه', typeOfInput: 'checkbox', inline: false, options: [{ label: 'انتخاب رشته کردم', value: 1 }, { label: 'انتخاب رشته نکردم', value: 0 }], value: [], col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'اولویت رشته ها', size: '0', col: 'col-12' },
         { type: 'optionGroupRadio', name: 'hasMajors', options: [{ label: 'فرقی نداره، فقط برم دانشگاه', value: false }, { label: 'اولویت بندی دارم', value: true }], value: false, col: 'col-12' },

@@ -90,7 +90,7 @@ export default {
     }
   },
   mounted() {
-    this.showProperForm()
+    // this.showProperForm()
   },
   methods: {
     showProperForm () {
@@ -231,7 +231,18 @@ export default {
       margin-right: auto;
       margin-bottom: 64px;
     }
-    .q-btn {
+    .q-field {
+      .q-field__inner {
+        .q-field__control {
+          .q-field__append {
+            .q-icon {
+              color: #9E9E9E;
+            }
+          }
+        }
+      }
+    }
+    .q-btn:not(.accept-btn) {
       color: #424242 !important;
     }
     .q-radio {
