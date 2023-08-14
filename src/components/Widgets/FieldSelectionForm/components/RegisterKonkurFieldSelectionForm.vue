@@ -65,7 +65,7 @@ export default {
         { type: 'file', name: 'file', label: 'یه فایل ترجیحا PDF که شامل رشته های منتخب شما باشه.', placeholder: ' ', col: 'col-12' },
         { type: 'input', name: 'comment', label: 'توضیحات تکمیلی', inputType: 'textarea', placeholder: ' ', col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'اطلاعات تماس', size: '0', col: 'col-12' },
-        { type: 'input', name: 'small_name', label: 'شماره همراه', placeholder: ' ', col: 'col-6' }, // ??????????????????????????
+        { type: 'input', name: 'mobile', label: 'شماره همراه', disable: true, placeholder: ' ', col: 'col-6' },
         { type: 'input', name: 'phone', label: 'تلفن ثابت', placeholder: ' ', col: 'col-6' },
         { type: 'separator', name: 'separator', label: 'اولویت محل و نوع دانشگاه', size: '0', col: 'col-12' },
         { type: FormBuilderCustomComponentShahrOrderSelectorComp, name: 'shahrha', label: 'استان و شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-12' },
@@ -107,7 +107,10 @@ export default {
     }
   },
   mounted () {
-    // this.getFormData()
+    const user = this.$store.getters['Auth/user']
+    setTimeout(() => {
+      FormBuilderAssist.setAttributeByName(this.inputs, 'mobile', 'value', user.mobile)
+    }, 1000)
   },
   methods: {
     getFormData () {

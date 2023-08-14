@@ -1,7 +1,7 @@
 <template>
   <div class="RegisterKonkurRankFormResult">
     <div class="state-photo">
-      <lazy-img src="https://nodes.alaatv.com/upload/empty-cart.png" />
+      <lazy-img src="https://nodes.alaatv.com/upload/CheckCircle.png" />
     </div>
     <div class="title-text text-center q-mb-md">
       کارنامه شما با موفقیت ثبت شد.

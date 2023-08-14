@@ -1,12 +1,16 @@
 <template>
   <div class="FormBuilderCustomComponentShahrOrderSelector">
-    <q-input @click="openModal">
+    <q-input v-model="countOfSelected"
+             readonly
+             @click="openModal">
       <template #append>
         <q-icon name="add" />
       </template>
     </q-input>
     <q-dialog v-model="dialogState">
-      <select-shahr-with-order-card v-model:selecteds="localValue" />
+      <select-shahr-with-order-card v-model:selecteds="bufferSelected"
+                                    style="width: 700px; max-width: 90vw;"
+                                    @update:selecteds="onChangeSelected" />
     </q-dialog>
   </div>
 </template>
@@ -22,10 +26,12 @@ export default {
       default: () => []
     }
   },
-  emits: ['update:selected'],
+  emits: ['update:value'],
   data () {
     return {
-      dialogState: false
+      dialogState: false,
+      countOfSelected: 0 + ' شهر انتخاب شده',
+      bufferSelected: []
     }
   },
   computed: {
@@ -34,6 +40,7 @@ export default {
         return this.selected
       },
       set (newValue) {
+        console.log('gghh', newValue)
         this.$emit('update:value', newValue)
       }
     }
@@ -43,6 +50,9 @@ export default {
   methods: {
     openModal () {
       this.dialogState = true
+    },
+    onChangeSelected (newValue) {
+      this.countOfSelected = newValue.length + ' شهر انتخاب شده'
     }
   }
 }
@@ -50,6 +60,15 @@ export default {
 
 <style lang="scss" scoped>
 .FormBuilderCustomComponentShahrOrderSelector {
-
+  :deep(.q-input) {
+    input {
+      color: #9E9E9E;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.28px;
+    }
+  }
 }
 </style>

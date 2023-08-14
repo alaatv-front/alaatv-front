@@ -36,6 +36,16 @@ export default {
     konkurRankForm: {
       type: EventResult,
       default: new EventResult()
+    },
+    formData: {
+      type: Object,
+      default: () => {
+        return {
+          majors: [],
+          regions: [],
+          universityTypes: []
+        }
+      }
     }
   },
   emits: ['onComplete'],
@@ -43,24 +53,29 @@ export default {
     return {
       cities: [],
       api: APIGateway.user.APIAdresses.eventResult,
+      formBulider: {
+        majors: [],
+        regions: [],
+        universityTypes: []
+      },
       inputs: [
         { type: 'separator', name: 'separator', label: 'کنکور', size: '0', col: 'col-12' },
         { type: 'select', name: 'major_id', label: 'رشته', placeholder: ' ', col: 'col-6' },
-        { type: 'select', name: 'name', label: 'سهمیه', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
+        { type: 'select', name: 'region_id', label: 'سهمیه', placeholder: ' ', col: 'col-6' },
         { type: 'separator', name: 'separator', label: 'تراز کنکور', size: '0', col: 'col-12' },
-        { type: 'input', name: 'small_name', label: 'نمره تراز دی', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
-        { type: 'input', name: 'small_name', label: 'نمره تراز تیر', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
-        { type: 'input', name: 'small_name', label: 'نمره تراز معدل', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
-        { type: 'input', name: 'small_name', label: 'نمره تراز کل', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
-        { type: 'separator', name: 'separator', label: 'رتبه کنکور', size: '0', col: 'col-12' }, // ???????????????????????????
+        { type: 'input', name: 'nomre_taraz_dey', label: 'نمره تراز دی (اختیاری)', placeholder: ' ', col: 'col-6' },
+        { type: 'input', name: 'nomre_taraz_tir', label: 'نمره تراز تیر (اختیاری)', placeholder: ' ', col: 'col-6' },
+        { type: 'input', name: 'nomre_taraz_moadel', label: 'نمره تراز معدل', placeholder: ' ', col: 'col-6' },
+        { type: 'input', name: 'nomre_taraz_kol', label: 'نمره تراز کل', placeholder: ' ', col: 'col-6' },
+        { type: 'separator', name: 'separator', label: 'رتبه کنکور', size: '0', col: 'col-12' },
         { type: 'input', name: 'rank', label: 'رتبه کشوری', placeholder: ' ', col: 'col-6' },
         { type: 'input', name: 'participationCode', label: 'کد داوطلبی (اختیاری)', placeholder: ' ', col: 'col-6' },
-        { type: 'input', name: 'small_name', label: 'رتبه در منطقه', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
-        { type: 'input', name: 'small_name', label: 'رتبه در سهمیه', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
+        { type: 'input', name: 'rank_in_region', label: 'رتبه در منطقه', placeholder: ' ', col: 'col-6' },
+        { type: 'input', name: 'rank_in_district', label: 'رتبه در سهمیه', placeholder: ' ', col: 'col-6' },
         { type: 'separator', name: 'separator', label: 'محل سکونت', size: '0', col: 'col-12' },
-        { type: 'select', name: 'province', label: 'استان', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
-        { type: 'select', name: 'shahr_id', label: 'شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' }, // ???????????????????????????
-        { type: 'input', name: 'small_name', label: 'کد پستی', placeholder: ' ', col: 'col-12' }, // ???????????????????????????
+        { type: 'select', name: 'province', label: 'استان', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' },
+        { type: 'select', name: 'shahr_id', label: 'شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' },
+        { type: 'input', name: 'postalCode', label: 'کد پستی', placeholder: ' ', col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'بارگزاری کارنامه', size: '0', col: 'col-12' },
         { type: 'file', name: 'reportFile', label: 'اسکن یا تصویر با کیفیت کارنامه خودتو بارگذاری کن.', placeholder: ' ', col: 'col-6' },
         { type: 'separator', name: 'separator', label: 'اطلاعات بیشتر', size: '0', col: 'col-12' },
@@ -72,6 +87,9 @@ export default {
   computed: {
     shahrValues () {
       return this.cities.filter(city => city.province.id === FormBuilderAssist.getInputsByName(this.inputs, 'province')?.value)
+    },
+    selectedRegion () {
+      return FormBuilderAssist.getInputsByName(this.inputs, 'region_id')?.value
     }
   },
   watch: {
@@ -79,12 +97,41 @@ export default {
       if (FormBuilderAssist.getInputsByName(this.inputs, 'shahr_id')) {
         FormBuilderAssist.getInputsByName(this.inputs, 'shahr_id').options = newValue
       }
+    },
+    selectedRegion (newValue) {
+      if (newValue !== 6 && newValue !== 7) {
+        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', '')
+      } else {
+        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', 'hidden')
+        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'value', null)
+      }
     }
   },
   mounted () {
     this.getFormData()
+
+    this.getformBuliderData()
   },
   methods: {
+    getformBuliderData () {
+      APIGateway.events.formBuilder({ params: ['majors', 'regions', 'universityTypes'] })
+        .then((formBulider) => {
+          this.formBulider = formBulider
+          FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'options', this.formBulider.majors.map(item => {
+            return {
+              label: item.title,
+              value: item.id
+            }
+          }))
+          FormBuilderAssist.setAttributeByName(this.inputs, 'region_id', 'options', this.formBulider.regions.map(item => {
+            return {
+              label: item.title,
+              value: item.id
+            }
+          }))
+        })
+        .catch(() => {})
+    },
     loadForm () {
       this.inputs.forEach(input => {
         const key = input.name

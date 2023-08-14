@@ -87,11 +87,15 @@
         </div>
       </div>
       <div class="action-section">
-        <q-btn class="cancel-btn"
-               outline>
+        <q-btn v-close-popup
+               class="cancel-btn"
+               outline
+               @click="onCancel">
           انصراف
         </q-btn>
-        <q-btn class="accept-btn">
+        <q-btn v-close-popup
+               class="accept-btn"
+               @click="onAccept">
           تایید
         </q-btn>
       </div>
@@ -110,7 +114,7 @@ export default {
       default: () => []
     }
   },
-  emits: ['update:selected'],
+  emits: ['update:selected', 'onAccept', 'onCancel'],
   data () {
     return {
       selectedItems: [],
@@ -162,28 +166,34 @@ export default {
         ostan: ostanObject,
         shahr: shahrObject
       })
-      this.updateSelected()
+      // this.updateSelected()
     },
     removeItem (index) {
       this.selectedItems.splice(index, 1)
-      this.updateSelected()
+      // this.updateSelected()
     },
     addOrder (index) {
       this.selectedItems.splice(index - 1, 0, this.selectedItems.splice(index, 1)[0])
-      this.updateSelected()
+      // this.updateSelected()
     },
     downgradeOrder (index) {
       this.selectedItems.splice(index + 1, 0, this.selectedItems.splice(index, 1)[0])
-      this.updateSelected()
+      // this.updateSelected()
     },
     updateSelected () {
       this.$emit('update:selecteds', this.selectedItems.map((item, itemIndex) => {
         return {
-          ostan: item.ostan,
-          shahr: item.shahr,
+          id: item.shahr,
           order: itemIndex + 1
         }
       }))
+    },
+    onAccept () {
+      this.updateSelected()
+      this.$emit('onAccept')
+    },
+    onCancel () {
+      this.$emit('onCancel')
     }
   }
 }
@@ -359,12 +369,30 @@ export default {
     margin-right: auto;
     margin-bottom: 64px;
   }
-  .q-field {
+  :deep(.q-field) {
     .q-field__inner {
       .q-field__control {
         .q-field__append {
           .q-icon {
             color: #9E9E9E;
+          }
+        }
+      }
+    }
+  }
+
+  :deep(.q-field) {
+    border-radius: 8px;
+    .q-field__inner {
+      .q-field__control {
+        padding: 0;
+        &:before {
+          border: 1.5px solid #E0E0E0;
+        }
+        .q-field__control-container {
+          .q-field__native {
+            padding: 9px 16px 10px;
+            font-size: 14px;
           }
         }
       }
