@@ -56,7 +56,6 @@ export default class ProductAPI extends APIRepository {
       show: (id) => this.name + this.APIAdresses.show(id),
       gifts: (id) => this.name + this.APIAdresses.gifts(id),
       sampleContent: (id) => this.name + this.APIAdresses.sampleContent(id),
-      updateSetOrders: (productId) => this.name + this.APIAdresses.updateSetOrders(productId),
       categories: this.name + this.APIAdresses.categories,
       edit: this.name + this.APIAdresses.edit
     }
