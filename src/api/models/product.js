@@ -41,7 +41,7 @@ export default class ProductAPI extends APIRepository {
       categories: '/product-categories',
       liveConductors: '/live-conductors',
       userLastState: (id) => '/product/' + id + '/toWatch',
-      updateSets: (productId) => '/dar/' + productId + '/divar'
+      updateSets: (productId) => '/product/' + productId + '/updateSetOrder'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -91,10 +91,9 @@ export default class ProductAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.updateSets(data.productId),
-      cacheKey: this.CacheList.updateSets(data.productId),
-      data: data.payload, // must be an array of objects that are including setId & setOrder like: {set: setId, order: setOrder}
+      data: { product_orders: data.payload }, // must be an array of objects that are including setId & setOrder like: {set: setId, order: setOrder}
       resolveCallback: (response) => {
-        return new SetList(response.data.data)
+        return response // []
       },
       rejectCallback: (error) => {
         return error

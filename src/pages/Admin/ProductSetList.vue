@@ -1,5 +1,8 @@
 <template>
-  <div class="sets">
+  <q-inner-loading v-if="loading"
+                   :showing="loading" />
+  <div v-else
+       class="sets">
     <div v-for="(set, index) in setList.list"
          :key="index"
          class="set"
@@ -26,6 +29,7 @@ export default {
   name: 'ProductSetList',
   data() {
     return {
+      loading: false,
       setList: new SetList(),
       localDraggable: null
     }
@@ -34,33 +38,35 @@ export default {
     this.getProductSets()
   },
   methods: {
-    updateSetOrders() {
-      this.setList.list.forEach((set, index) => {
-        set.order = index + 1
-      })
-    },
     updateSetOrdersWithRequest() {
+      this.loading = true
       const payload = []
-      this.setList.list.forEach(set => {
-        payload.push({ set: set.id, order: set.order })
+      this.setList.list.forEach((set, index) => {
+        payload.push({ id: set.id, order: index })
       })
       const data = {
         productId: this.$route.params.productId,
         payload
       }
       APIGateway.product.updateSetOrders(data)
-        .then(setList => {
-          this.setList = setList
+        .then(() => {
+          this.getProductSets()
+          this.loading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     },
     getProductSets() {
+      this.loading = true
       APIGateway.product.getSets(this.$route.params.productId)
         .then(setList => {
           this.setList = setList
-          this.updateSetOrders()
+          this.loading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     },
     onDragStart(event, set, setIndex) {
       event.dataTransfer.dropEffect = 'move'
@@ -86,6 +92,14 @@ export default {
     },
     updatePosition(list, oldIndex, newIndex) {
       list.splice(newIndex, 0, list.splice(oldIndex, 1)[0])
+      this.updateSetOrdersWithRequest()
+    },
+    addToIndex(list, newItem, index) {
+      if (list.length > index) {
+        list.splice(index, 0, newItem)
+      } else {
+        list.push(newItem)
+      }
       this.updateSetOrdersWithRequest()
     }
   }
