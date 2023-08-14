@@ -682,8 +682,20 @@ const routes = [
           },
           {
             name: 'Admin.Product',
-            path: 'product/:productId/sets',
-            component: () => import('pages/Admin/ProductSetList.vue')
+            path: 'product',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Product.Index',
+                path: '',
+                component: () => import('pages/Admin/Product/Index.vue')
+              },
+              {
+                name: 'Admin.Product.Sets',
+                path: ':productId/set',
+                component: () => import('pages/Admin/ProductSetList.vue')
+              }
+            ]
           },
           ...EntityCrudRoutes
         ]
