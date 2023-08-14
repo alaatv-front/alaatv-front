@@ -93,7 +93,7 @@ export default class EventsAPI extends APIRepository {
         })
         return defaultRoute.concat('?types[]=', types)
       }
-      return defaultRoute.concat('?types[]=', payload.types)
+      return defaultRoute + '?types[]=' + payload.types.join('&types[]=')
     }
     const requestRoute = routeWithParams(this.APIAdresses.formBuilder, {
       types: data.params // array or number
