@@ -1,20 +1,27 @@
 <template>
-  <div class="RegisterKonkurFieldSelectionGoToPayment">
+  <div class="RegisterKonkurFieldSelectionTankYouPage">
     <div class="state-photo">
       <lazy-img src="https://nodes.alaatv.com/upload/CheckCircle.png" />
     </div>
     <div class="title-text text-center q-mb-md">
-      اطلاعات شما با موفقیت ثبت شد.
+      ثبت نام شما با موفقیت انجام شد
     </div>
     <div class="content-text text-center q-mb-xl">
-      پس از پرداخت و تکمیل ثبت نام تیم آلاء باهاتون تماس میگیره.
+      مشاوران آلاء از طریق تیکت با شما تماس خواهند گرفت
     </div>
     <div class="row q-col-gutter-md action-row">
       <div class="col-12">
         <q-btn color="primary"
                class="full-width"
-               @click="pay">
-          پرداخت و تکمیل ثبت نام
+               @click="register">
+          مشاهده تیکت
+        </q-btn>
+      </div>
+      <div class="col-12">
+        <q-btn color="white"
+               class="full-width"
+               :to="{name: 'Public.Set.Show', params: {id: setId}}">
+          مشاهده فیلم های مشاوره آلاء
         </q-btn>
       </div>
     </div>
@@ -30,15 +37,18 @@
 
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
-import { APIGateway } from 'src/api/APIGateway'
 
 export default {
-  name: 'RegisterKonkurFieldSelectionGoToPayment',
+  name: 'RegisterKonkurFieldSelectionTankYouPage',
   components: { LazyImg },
   props: {
     orderId: {
       type: Number,
       default: null
+    },
+    setId: {
+      type: Number,
+      default: 1
     }
   },
   emits: ['end'],
@@ -50,28 +60,18 @@ export default {
   mounted () {
   },
   methods: {
-    pay () {
-      if (!this.orderId) {
-        return
-      }
-      APIGateway.cart.getPaymentRedirectEncryptedLink({ device: 'web', paymentMethod: 'web', orderId: this.orderId })
-        .then(encryptedPaymentRedirectLink => {
-          window.open(encryptedPaymentRedirectLink, '_self')
-        })
-        .catch(() => {
-        })
-    }
+
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.RegisterKonkurFieldSelectionGoToPayment {
+.RegisterKonkurFieldSelectionTankYouPage {
   .state-photo {
     margin-top: 88px;
   }
   .action-row {
-    margin-top: 161px;
+    margin-top: 105px;
   }
 }
 </style>

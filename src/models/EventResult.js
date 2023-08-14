@@ -43,6 +43,8 @@ class EventResult extends Model {
       { key: 'reportFile' },
       { key: 'firstName' },
       { key: 'lastName' },
+      { key: 'shahr' },
+      { key: 'shahr_id' },
       { key: 'eventresultstatus_id' }
     ])
   }

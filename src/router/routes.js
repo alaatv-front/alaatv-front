@@ -267,6 +267,15 @@ const routes = [
             component: () => import('pages/User/UserInfoForm.vue')
           },
           {
+            // ToDo: check this to remove
+            name: 'UserPanel.EntekhabReshte',
+            path: 'entekhab-reshte',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/EntekhabReshte.vue')
+          },
+          {
             name: 'UserPanel.Dashboard',
             path: 'dashboard',
             meta: {

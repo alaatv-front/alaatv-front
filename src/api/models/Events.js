@@ -6,6 +6,7 @@ import APIRepository from '../classes/APIRepository.js'
 const APIAdresses = {
   base: 'events',
   formBuilder: '/admin/form-builder',
+  entekhabReshte: '/entekhab-reshte',
   eventsProducts: (eventId) => `/events/${eventId}/products`,
   eventAdvisor: (eventId) => `/events/${eventId}/advisor`
 }

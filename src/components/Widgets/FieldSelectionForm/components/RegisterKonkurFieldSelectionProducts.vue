@@ -51,20 +51,46 @@
 <script>
 import ProductItem from './ProductItem.vue'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { ProductList } from 'src/models/Product.js'
 
 export default {
   name: 'RegisterKonkurFieldSelectionProducts',
   components: { ProductItem },
   props: {
-    konkurRankFormData: {
-      type: Object,
+    orderId: {
+      type: Number,
       default: null
+    },
+    selectedProductId: {
+      type: Number,
+      default: null
+    },
+    product1Id: {
+      type: Number,
+      default: 1098
+    },
+    product2Id: {
+      type: Number,
+      default: 1097
+    },
+    product3Id: {
+      type: Number,
+      default: 1096
+    },
+    product4Id: {
+      type: Number,
+      default: 1095
+    },
+    product5Id: {
+      type: Number,
+      default: 1094
     }
   },
-  emits: ['onBack', 'onForward'],
+  emits: ['update:orderId', 'update:selectedProductId', 'onBack', 'onForward'],
   data () {
     return {
       selectedProduct: 0,
+      productList: new ProductList(),
       products: [
         {
           value: 0,
@@ -97,6 +123,7 @@ export default {
           label: 'انجام صفر تا صد انتخاب رشته توسط تیم آلاء',
           items: [
             {
+              id: null,
               enable: true,
               caption: 'ظرفیت محدود',
               detail: '1 تا 1000 نفر',
@@ -104,6 +131,7 @@ export default {
               unit: 'تومان'
             },
             {
+              id: null,
               enable: false,
               caption: '',
               detail: '1000 تا 5000 نفر',
@@ -111,6 +139,7 @@ export default {
               unit: 'تومان'
             },
             {
+              id: null,
               enable: false,
               caption: '',
               detail: 'بیش از 5000 نفر',
@@ -122,9 +151,55 @@ export default {
       ]
     }
   },
+  computed: {
+    productIds () {
+      return [
+        this.product1Id,
+        this.product2Id,
+        this.product3Id,
+        this.product4Id,
+        this.product5Id
+      ]
+    }
+  },
   mounted () {
+    this.setProductIds()
+    this.getProducts()
   },
   methods: {
+    setProductIds () {
+      this.products[0].value = this.product1Id
+      this.products[1].value = this.product2Id
+      this.products[2].value = this.product3Id
+      this.selectedProduct = this.product1Id
+    },
+    loadProductPrice () {
+      this.products[1].items[0].value = this.getPriceString(this.getProductById(this.product2Id))
+      this.products[2].items[0].value = this.getPriceString(this.getProductById(this.product3Id))
+      this.products[2].items[1].value = this.getPriceString(this.getProductById(this.product4Id))
+      this.products[2].items[2].value = this.getPriceString(this.getProductById(this.product5Id))
+    },
+    getProductById (productId) {
+      return this.productObjectList.list.find(product => product.id === parseInt(productId))
+    },
+    getPriceString (product) {
+      return product.price.final.toLocaleString('fa')
+    },
+    getProducts () {
+      APIGateway.product.getProductList({
+        productIds: this.productIds,
+        params: {
+          length: this.productIds.length
+        }
+      })
+        .then((productList) => {
+          this.productObjectList = productList
+          this.loadProductPrice()
+        })
+        .catch(() => {
+
+        })
+    },
     onBack () {
       this.$emit('onBack')
     },
@@ -133,7 +208,9 @@ export default {
     },
     checkSelectedProduct () {
       APIGateway.user.isPermittedToPurchase(this.selectedProduct)
-        .then(() => {
+        .then((orderId) => {
+          this.$emit('update:orderId', orderId)
+          this.$emit('update:selectedProductId', this.selectedProduct)
           this.$emit('onForward')
         })
         .catch(() => {})

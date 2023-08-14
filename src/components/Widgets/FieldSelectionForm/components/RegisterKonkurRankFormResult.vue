@@ -31,17 +31,12 @@
         </q-btn>
       </div>
     </div>
-    <div class="row q-col-gutter-md q-mt-sm">
-      <div class="col-6" />
-      <div class="col-6">
-        <q-btn flat
-               class="full-width"
-               :to="{name: 'Public.Home'}"
-               @click="register">
-          رفتن به صفحه اصلی
-          <q-icon name="arrow_back" />
-        </q-btn>
-      </div>
+    <div class="flex justify-end q-mt-sm">
+      <q-btn flat
+             :to="{name: 'Public.Home'}">
+        رفتن به صفحه اصلی
+        <q-icon name="arrow_back" />
+      </q-btn>
     </div>
   </div>
 </template>
@@ -79,7 +74,7 @@ export default {
 <style lang="scss" scoped>
 .RegisterKonkurRankFormResult {
   .state-photo {
-    margin-top: 121px;
+    margin-top: 76px;
   }
   .q-banner {
     margin-bottom: 64px;

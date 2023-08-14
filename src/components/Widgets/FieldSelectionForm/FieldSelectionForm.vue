@@ -1,6 +1,7 @@
 <template>
   <div class="FieldSelectionForm">
-    <q-tabs v-model="step"
+    <q-tabs v-if="false"
+            v-model="step"
             dense
             class="text-grey"
             active-color="primary"
@@ -21,9 +22,8 @@
              label="نتیجه ثبت انتخاب رشته" />
     </q-tabs>
 
-    <q-separator />
-
-    <q-tab-panels v-model="step"
+    <q-tab-panels v-if="!loading"
+                  v-model="step"
                   animated>
       <q-tab-panel name="konkurRankFormData">
         <register-konkur-rank-form :konkur-rank-form="konkurRankForm"
@@ -34,19 +34,32 @@
                                           @onGoSelectionField="onGoSelectionFieldProduts" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionProducts">
-        <register-konkur-field-selection-products @onBack="onGoEditKarname"
+        <register-konkur-field-selection-products v-model:order-id="orderId"
+                                                  v-model:selected-product-id="selectedProduct"
+                                                  :product1-id="localOptions.product1Id"
+                                                  :product2-id="localOptions.product2Id"
+                                                  :product3-id="localOptions.product3Id"
+                                                  :product4-id="localOptions.product4Id"
+                                                  :product5-id="localOptions.product5Id"
+                                                  @onBack="onGoEditKarname"
                                                   @onForward="onGoSelectionFieldForm" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionForm">
-        <register-konkur-field-selection-form />
+        <register-konkur-field-selection-form @onBack="onGoToSelectProduct"
+                                              @onForward="onGoSelectionFieldForm" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionGoToPayment">
-        <register-konkur-field-selection-go-to-payment />
+        <register-konkur-field-selection-go-to-payment :order-id="orderId" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionTankYouPage">
-        Register Konkur Field Selection Tank You Page
+        <register-konkur-field-selection-tank-you-page :order-id="orderId"
+                                                       :set-id="localOptions.setId" />
       </q-tab-panel>
     </q-tab-panels>
+    <q-skeleton v-else
+                type="rect"
+                width="100%"
+                height="200px" />
   </div>
 </template>
 
@@ -60,6 +73,7 @@ import RegisterKonkurRankFormResult from './components/RegisterKonkurRankFormRes
 import RegisterKonkurFieldSelectionForm from './components/RegisterKonkurFieldSelectionForm.vue'
 import RegisterKonkurFieldSelectionProducts from './components/RegisterKonkurFieldSelectionProducts.vue'
 import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
+import RegisterKonkurFieldSelectionTankYouPage from './components/RegisterKonkurFieldSelectionTankYouPage.vue'
 
 export default {
   name: 'Newsletter',
@@ -68,29 +82,38 @@ export default {
     RegisterKonkurRankFormResult,
     RegisterKonkurFieldSelectionForm,
     RegisterKonkurFieldSelectionProducts,
-    RegisterKonkurFieldSelectionGoToPayment
+    RegisterKonkurFieldSelectionGoToPayment,
+    RegisterKonkurFieldSelectionTankYouPage
   },
   mixins: [mixinWidget],
   data() {
     return {
-      step: 'RegisterKonkurFieldSelectionForm',
+      step: null,
+      loading: false,
+      hasFieldSelectionFormData: false,
+      orderId: null,
+      selectedProduct: null,
       konkurRankForm: new EventResult(),
       defaultOptions: {
-        eventName: 'newsletter',
-        verification: true,
         eventId: 13,
-        products: [1239, 1240, 1241, 1242, 1243],
-        userInputs: {
-          first_name: true,
-          last_name: true,
-          major: true,
-          grade: true
-        }
+        setId: 13,
+        product1Id: 1239,
+        product2Id: 1240,
+        product3Id: 1241,
+        product4Id: 1242,
+        product5Id: 1243
       }
     }
   },
   mounted() {
-    // this.showProperForm()
+    this.loading = true
+    this.showProperForm()
+      .then(() => {
+        this.loading = false
+      })
+      .catch(() => {
+        this.loading = false
+      })
   },
   methods: {
     showProperForm () {
@@ -110,6 +133,7 @@ export default {
     checkKonkurResultFormData (hasPurchased, resolve, reject) {
       if (hasPurchased) {
         this.step = 'RegisterKonkurFieldSelectionTankYouPage'
+        resolve()
       } else {
         this.getKonkurResultFormData()
           .then((eventResult) => {
@@ -125,10 +149,12 @@ export default {
         this.getFieldSelectionFormData()
           .then((eventekhbReshte) => {
             if (eventekhbReshte.id) {
+              this.hasFieldSelectionFormData = true
               this.step = 'RegisterKonkurFieldSelectionGoToPayment'
             } else {
-              this.step = 'RegisterKonkurFieldSelectionForm'
+              this.step = 'RegisterKonkurFieldSelectionProducts'
             }
+            resolve()
           })
           .catch(() => {
             reject()
@@ -139,12 +165,16 @@ export default {
     },
     hasPurchased () {
       return new Promise((resolve, reject) => {
-        APIGateway.user.hasPurchased(this.localOptions.products)
+        APIGateway.user.hasPurchased([
+          this.localOptions.product1Id,
+          this.localOptions.product2Id,
+          this.localOptions.product3Id,
+          this.localOptions.product4Id,
+          this.localOptions.product5Id
+        ])
           .then((items) => {
-            // ToDo: fake data
-            // const hasPurchased = items.find(item => item.is_purchased === 1)
-            // resolve(hasPurchased)
-            resolve(false)
+            const hasPurchased = items.find(item => item.is_purchased === 1)
+            resolve(hasPurchased)
           })
           .catch(() => {
             reject()
@@ -156,9 +186,7 @@ export default {
         this.konkurRankForm.loading = true
         APIGateway.user.getEventResult(this.localOptions.eventId)
           .then((eventResult) => {
-            // ToDo: fake data
-            // this.konkurRankForm = new EventResult(eventResult)
-            this.konkurRankForm = new EventResult()
+            this.konkurRankForm = new EventResult(eventResult)
             this.konkurRankForm.loading = false
             resolve(this.konkurRankForm)
           })
@@ -186,11 +214,18 @@ export default {
     onGoEditKarname () {
       this.step = 'konkurRankFormData'
     },
+    onGoToSelectProduct () {
+      this.step = 'RegisterKonkurFieldSelectionProducts'
+    },
     onGoSelectionFieldProduts () {
       this.step = 'RegisterKonkurFieldSelectionProducts'
     },
     onGoSelectionFieldForm () {
-      this.step = 'RegisterKonkurFieldSelectionForm'
+      if (!this.hasFieldSelectionFormData) {
+        this.step = 'RegisterKonkurFieldSelectionForm'
+      } else {
+        this.step = 'RegisterKonkurFieldSelectionGoToPayment'
+      }
     }
   }
 }
@@ -277,6 +312,11 @@ export default {
         .q-icon {
           color: #09AC73;
         }
+      }
+    }
+    .q-option-group {
+      .q-checkbox {
+        margin-bottom: 8px;
       }
     }
   }

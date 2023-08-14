@@ -36,16 +36,6 @@ export default {
     konkurRankForm: {
       type: EventResult,
       default: new EventResult()
-    },
-    formData: {
-      type: Object,
-      default: () => {
-        return {
-          majors: [],
-          regions: [],
-          universityTypes: []
-        }
-      }
     }
   },
   emits: ['onComplete'],
@@ -53,7 +43,7 @@ export default {
     return {
       cities: [],
       api: APIGateway.user.APIAdresses.eventResult,
-      formBulider: {
+      formBuilder: {
         majors: [],
         regions: [],
         universityTypes: []
@@ -99,7 +89,7 @@ export default {
       }
     },
     selectedRegion (newValue) {
-      if (newValue !== 6 && newValue !== 7) {
+      if (newValue === 6 || newValue === 7) {
         FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', '')
       } else {
         FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', 'hidden')
@@ -110,20 +100,20 @@ export default {
   mounted () {
     this.getFormData()
 
-    this.getformBuliderData()
+    this.getformBuilderData()
   },
   methods: {
-    getformBuliderData () {
+    getformBuilderData () {
       APIGateway.events.formBuilder({ params: ['majors', 'regions', 'universityTypes'] })
-        .then((formBulider) => {
-          this.formBulider = formBulider
-          FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'options', this.formBulider.majors.map(item => {
+        .then((formBuilder) => {
+          this.formBuilder = formBuilder
+          FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'options', this.formBuilder.majors.map(item => {
             return {
               label: item.title,
               value: item.id
             }
           }))
-          FormBuilderAssist.setAttributeByName(this.inputs, 'region_id', 'options', this.formBulider.regions.map(item => {
+          FormBuilderAssist.setAttributeByName(this.inputs, 'region_id', 'options', this.formBuilder.regions.map(item => {
             return {
               label: item.title,
               value: item.id
@@ -139,6 +129,9 @@ export default {
           FormBuilderAssist.setAttributeByName(this.inputs, key, 'value', this.konkurRankForm[key])
         }
       })
+      // FormBuilderAssist.setAttributeByName(this.inputs, 'major_id', 'value', this.konkurRankForm.major_id.id)
+      // FormBuilderAssist.setAttributeByName(this.inputs, 'shahr_id', 'value', this.konkurRankForm.shahr.id)
+      // FormBuilderAssist.setAttributeByName(this.inputs, 'shahr_id', 'value', this.konkurRankForm.university_type.id)
     },
     getFormData () {
       this.getProvincesAndCities()

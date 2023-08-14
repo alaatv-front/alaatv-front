@@ -14,6 +14,13 @@ class EventekhbReshte extends Model {
       { key: 'created_at' },
       { key: 'updated_at' },
       { key: 'report_file_link' },
+      { key: 'consultant_firstname' },
+      { key: 'consultant_lastname' },
+      { key: 'consultant_mobile' },
+      { key: 'file' },
+      { key: 'major_id' },
+      { key: 'shahr' },
+      { key: 'university_type' },
       {
         key: 'user',
         relatedModel: User

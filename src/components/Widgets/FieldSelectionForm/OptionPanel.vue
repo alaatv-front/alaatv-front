@@ -1,38 +1,52 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
-      <div class="option-panel-container">
-        <div class="row q-col-gutter-md">
-          <div class="col-md-6 q-my-sm">
-            <div class="outsideLabel">event name</div>
-            <q-input v-model="localOptions.eventName" />
-          </div>
-          <div class="col-md-6 q-my-sm">
-            <div class="outsideLabel">event id</div>
-            <q-input v-model="localOptions.eventId" />
-          </div>
-          <div class="col-md-2">
-            <div class="outsideLabel">verification</div>
-            <q-checkbox v-model="localOptions.verification" />
-          </div>
-          <div class="col-md-2">
-            <div class="outsideLabel">first name</div>
-            <q-checkbox v-model="localOptions.userInputs.first_name" />
-          </div>
-          <div class="col-md-2">
-            <div class="outsideLabel">last name</div>
-            <q-checkbox v-model="localOptions.userInputs.last_name" />
-          </div>
-          <div class="col-md-2">
-            <div class="outsideLabel">major</div>
-            <q-checkbox v-model="localOptions.userInputs.major" />
-          </div>
-          <div class="col-md-2">
-            <div class="outsideLabel">grade</div>
-            <q-checkbox v-model="localOptions.userInputs.grade" />
-          </div>
-        </div>
+      <div class="q-mt-xl">
+        eventId
       </div>
+      <q-input v-model="localOptions.eventId" />
+      <div class="q-mt-xl">
+        setId
+        <br>
+        کد دوره مشاوره
+      </div>
+      <q-input v-model="localOptions.setId" />
+      <div class="q-mt-xl">
+        product1Id
+        <br>
+        رایگان
+      </div>
+      <q-input v-model="localOptions.product1Id" />
+      <div class="q-mt-xl">
+        product2Id
+        <br>
+        ویژه کاربران راه ابریشم ۱
+      </div>
+      <q-input v-model="localOptions.product2Id" />
+      <div class="q-mt-xl">
+        product3Id
+        <br>
+        صفر تا صد توسط تیم آلا
+        <br>
+        اولی
+      </div>
+      <q-input v-model="localOptions.product3Id" />
+      <div class="q-mt-xl">
+        product4Id
+        <br>
+        صفر تا صد توسط تیم آلا
+        <br>
+        دومی
+      </div>
+      <q-input v-model="localOptions.product4Id" />
+      <div class="q-mt-xl">
+        product5Id
+        <br>
+        صفر تا صد توسط تیم آلا
+        <br>
+        سومی
+      </div>
+      <q-input v-model="localOptions.product5Id" />
     </template>
   </option-panel-tabs>
 </template>
@@ -47,15 +61,13 @@ export default {
   data() {
     return {
       defaultOptions: {
-        eventName: 'newsletter',
-        verification: true,
-        eventId: null,
-        userInputs: {
-          first_name: true,
-          last_name: true,
-          major: true,
-          grade: true
-        }
+        eventId: 13,
+        setId: 13,
+        product1Id: 1239,
+        product2Id: 1240,
+        product3Id: 1241,
+        product4Id: 1242,
+        product5Id: 1243
       }
     }
   }
