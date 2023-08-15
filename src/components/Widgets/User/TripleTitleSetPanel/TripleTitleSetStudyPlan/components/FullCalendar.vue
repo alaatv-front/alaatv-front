@@ -150,7 +150,7 @@
                            class="weekly-event cursor-pointer"
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: event.backgroundColor}"
                            @click="openEvent(event)">
-                        <div class="row q-px-md">
+                        <div class="row q-px-md event-info">
                           <div class="body1 col-11 q-mt-sm">{{ event.product.lesson_name }}</div>
                           <div class="col-1">
                             <q-btn icon="isax:more"
@@ -180,8 +180,10 @@
                               </q-menu>
                             </q-btn>
                           </div>
-                          <div v-if="event.contents.list.length > 0"
-                               class="caption2 col-12 q-mt-xs">{{event.contents.list[0].title}}</div>
+                          <div v-for="event in event.contents.list"
+                               :key="event.id"
+                               class="caption2 col-12 q-mt-xs">{{event.title}}
+                          </div>
                           <div class="caption2 col-12 q-mt-xs">{{event.start}} الی {{event.end}}</div>
                         </div>
                       </div>
@@ -1056,6 +1058,10 @@ export default defineComponent({
                 width: 180px;
                 background: #9690E4;
                 border-radius: 8px;
+                .event-info {
+                  overflow: hidden;
+                  height: inherit;
+                }
                 .more {
                   position: absolute;
                   right: -10px;
