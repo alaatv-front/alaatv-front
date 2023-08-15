@@ -1059,7 +1059,7 @@ export default defineComponent({
                 background: #9690E4;
                 border-radius: 8px;
                 .event-info {
-                  overflow: hidden;
+                  overflow: auto;
                   height: inherit;
                 }
                 .more {
