@@ -22,10 +22,9 @@
              label="زنگ جدید"
              @click="newPlanDialog = true" />
     </div>
-    <q-inner-loading v-if="loading"
-                     :showing="loading" />
-    <div v-else
-         class="col-12 q-mt-md"
+    <q-linear-progress v-if="loading"
+                       indeterminate />
+    <div class="col-12 q-mt-md"
          style="width: 100%;">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
@@ -684,7 +683,7 @@ export default {
     },
     getMyStudyPlan() {
       this.loading = true
-      this.$apiGateway.studyPlan.getMyStudyPlan()
+      APIGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
           this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
