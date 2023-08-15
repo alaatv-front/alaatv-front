@@ -21,7 +21,7 @@
       <div class="col-6 q-mt-sm">
         <q-btn color="primary"
                class="full-width"
-               :loading="registerLoading"
+               :loading="registerLoading || formDataLoading"
                @click="register">
           ثبت کارنامه
         </q-btn>
@@ -31,10 +31,14 @@
 </template>
 
 <script>
+import { shallowRef } from 'vue'
 import { EntityCreate } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { FormBuilderAssist } from 'quasar-form-builder'
 import { EventResult } from 'src/models/EventResult.js'
+import FormBuilderCustomComponentHint from './FormBuilderCustomComponentHint.vue'
+
+const FormBuilderCustomComponentHintComp = shallowRef(FormBuilderCustomComponentHint)
 
 export default {
   name: 'RegisterKonkurRankForm',
@@ -81,8 +85,10 @@ export default {
         { type: 'select', name: 'province', label: 'استان', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' },
         { type: 'select', name: 'shahr_id', label: 'شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' },
         { type: 'input', name: 'postalCode', label: 'کد پستی', placeholder: ' ', col: 'col-12' },
+        { type: FormBuilderCustomComponentHintComp, name: 'hintPostalCode', label: 'کد پستی باید ده رقمی باشه.', ignoreValue: true, col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'بارگزاری کارنامه', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'file', name: 'reportFile', label: 'اسکن یا تصویر با کیفیت کارنامه خودتو بارگذاری کن.', placeholder: ' ', col: 'col-6' },
+        { type: FormBuilderCustomComponentHintComp, name: 'hintFile', label: 'بعدا قابل ویرایش نیست، پس حتما فایل درست رو انتخاب کن', ignoreValue: true, col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'اطلاعات بیشتر', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'comment', label: 'توضیحات بیشتر', inputType: 'textarea', placeholder: ' ', col: 'col-12' },
         { type: 'checkbox', name: 'enableReportPublish', trueValue: 1, falseValue: 0, value: 1, label: 'اجازه انتشار رتبه خودمو تو سایت آلاء میدم.', col: 'col-12' }

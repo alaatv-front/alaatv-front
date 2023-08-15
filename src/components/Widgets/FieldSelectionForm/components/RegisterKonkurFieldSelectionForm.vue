@@ -46,8 +46,10 @@ import { shallowRef } from 'vue'
 import { EntityCreate } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { FormBuilderAssist } from 'quasar-form-builder'
+import FormBuilderCustomComponentHint from './FormBuilderCustomComponentHint.vue'
 import FormBuilderCustomComponentShahrOrderSelector from './FormBuilderCustomComponentShahrOrderSelector.vue'
 
+const FormBuilderCustomComponentHintComp = shallowRef(FormBuilderCustomComponentHint)
 const FormBuilderCustomComponentShahrOrderSelectorComp = shallowRef(FormBuilderCustomComponentShahrOrderSelector)
 
 export default {
@@ -74,6 +76,7 @@ export default {
         { type: 'separator', name: 'separator', label: 'آپلود فایل انتخاب رشته', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'optionGroupRadio', name: 'hasFile', options: [{ label: 'انتخاب رشته کردم', value: true }, { label: 'انتخاب رشته نکردم', value: false }], value: true, col: 'col-12' },
         { type: 'file', name: 'file', label: 'یه فایل ترجیحا PDF که شامل رشته های منتخب شما باشه.', placeholder: ' ', value: null, col: 'col-12' },
+        { type: FormBuilderCustomComponentHintComp, name: 'hintFile', label: 'بعدا قابل ویرایش نیست، پس حتما فایل درست رو انتخاب کن', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'comment', label: 'توضیحات تکمیلی', inputType: 'textarea', placeholder: ' ', value: null, col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'اطلاعات تماس', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'mobile', label: 'شماره همراه', disable: true, placeholder: ' ', col: 'col-6' },
@@ -84,6 +87,7 @@ export default {
         { type: 'separator', name: 'separator', label: 'اولویت رشته ها', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'optionGroupRadio', name: 'hasMajors', options: [{ label: 'فرقی نداره، فقط برم دانشگاه', value: false }, { label: 'اولویت بندی دارم', value: true }], value: false, col: 'col-12' },
         { type: 'select', name: 'majors', label: 'رشته ها', multiple: true, showNoOption: false, createNewValue: true, newValueMode: 'add-unique', useChips: true, hideDropdownIcon: true, placeholder: ' ', className: 'hidden', value: [], col: 'col-12' },
+        { type: FormBuilderCustomComponentHintComp, name: 'hintRehteha', label: 'اسم رشته رو بنویس و Enter بزن تا وارد شه.', ignoreValue: true, col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'مشاور', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'consultant_firstname', label: 'نام', placeholder: ' ', value: null, col: 'col-6' },
         { type: 'input', name: 'consultant_lastname', label: 'نام خانوادگی', placeholder: ' ', value: null, col: 'col-6' },
@@ -111,7 +115,9 @@ export default {
     hasMajors (newValue) {
       if (newValue) {
         FormBuilderAssist.setAttributeByName(this.inputs, 'majors', 'className', '')
+        FormBuilderAssist.setAttributeByName(this.inputs, 'hintRehteha', 'className', '')
       } else {
+        FormBuilderAssist.setAttributeByName(this.inputs, 'hintRehteha', 'className', 'hidden')
         FormBuilderAssist.setAttributeByName(this.inputs, 'majors', 'className', 'hidden')
         FormBuilderAssist.setAttributeByName(this.inputs, 'majors', 'value', [])
       }
