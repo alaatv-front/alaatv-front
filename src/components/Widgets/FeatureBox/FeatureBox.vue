@@ -283,22 +283,22 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
   -moz-border-radius: $borderRadius;
   border: $border;
 
-  @media screen and (max-width: 1920px) {
+  @media screen and (max-width: $breakpoint-lg) {
     width: v-bind('localOptions.width.lg');
     height: v-bind('localOptions.height.lg');
   }
 
-  @media screen and (max-width: 1440px) {
+  @media screen and (max-width: $breakpoint-md) {
     width: v-bind('localOptions.width.md');
     height: v-bind('localOptions.height.md');
   }
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width:$breakpoint-sm) {
     width: v-bind('localOptions.width.sm');
     height: v-bind('localOptions.height.sm');
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: $breakpoint-xs) {
     width: v-bind('localOptions.width.xs');
     height: v-bind('localOptions.height.xs');
   }

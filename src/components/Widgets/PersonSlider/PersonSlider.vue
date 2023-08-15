@@ -346,17 +346,11 @@ export default {
 }
 
 .carousel__slide--prev {
-  opacity: 1;
-  transform: scale(1);
 }
 
 .carousel__slide--next {
-  opacity: 1;
-  transform: scale(1);
 }
 
 .carousel__slide--active {
-  opacity: 1;
-  transform: rotateY(0) scale(1.0);
 }
 </style>

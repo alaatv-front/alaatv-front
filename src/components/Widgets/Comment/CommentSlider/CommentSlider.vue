@@ -204,17 +204,13 @@ export default {
 }
 
 .carousel__slide--prev {
-  opacity: 1;
-  transform: rotateY(-10deg) scale(0.95);
 }
 
 .carousel__slide--next {
-  opacity: 1;
-  transform: rotateY(10deg) scale(0.95);
 }
 
 .carousel__slide--active {
   opacity: 1;
-  transform: rotateY(0) scale(1.05);
+  transform: scale(1.05);
 }
 </style>
