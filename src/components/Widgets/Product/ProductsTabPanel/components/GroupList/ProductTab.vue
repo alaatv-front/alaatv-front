@@ -69,6 +69,10 @@ export default {
           activeColor: '',
           indicatorColor: '',
           layout: 'ProductTab',
+          productTabColor: '#F8F4F0',
+          productTabsBackground: '#F8F4F0',
+          productTabsBorderRadius: '16px',
+          productTabsPadding: '5px',
           tabsStyle: {
             marginTop: '',
             marginLeft: '',
@@ -115,10 +119,13 @@ export default {
   .product-tabs {
     display: flex;
     height: 62px;
-    background: #F8F4F0;
-    border-radius: 16px;
-    padding: 5px;
+    background: v-bind('options.productTabsBackground');
+    border-radius: v-bind('options.productTabsBorderRadius');
+    padding: v-bind('options.productTabsPadding');
 
+    &:deep(.q-tab) {
+      color: v-bind('options.productTabColor');
+    }
     .product-tab {
       border-radius: 10px;
       margin: 5px;
@@ -137,6 +144,7 @@ export default {
     }
   }
 }
+
 .tab-panels-wrapper {
 
   .product-tab-panels {

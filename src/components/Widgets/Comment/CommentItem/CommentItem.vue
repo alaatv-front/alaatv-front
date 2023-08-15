@@ -3,10 +3,11 @@
           :style="localOptions.style"
           :class="localOptions.className">
     <q-card-section class="comment-author">
-      <q-avatar size="52px">
+      <q-avatar class="author-avatar"
+                size="48px">
         <q-img :src="comment.image"
                spinner-color="primary"
-               spinner-size="52px" />
+               spinner-size="48px" />
       </q-avatar>
       <div class="comment-author-info">
         <div class="author-name">{{ comment.first_name + ' ' + comment.last_name }}</div>
@@ -14,7 +15,7 @@
           <div class="author-rank">
             {{ comment.rank }}
           </div>
-          <q-separator spaced
+          <q-separator class="info-separator"
                        vertical />
           <div class="author-major">
             {{ comment.major }}
@@ -22,7 +23,7 @@
         </div>
       </div>
     </q-card-section>
-    <q-separator spaced />
+    <q-separator class="message-separator" />
     <q-card-section class="comment-message">
       {{ comment.message }}
     </q-card-section>
@@ -116,11 +117,11 @@ $translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
 $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
 .comment-card {
-  padding: 30px;
-  margin: 30PX;
+  padding: 30px 24px;
+  margin: 12PX;
   width: 438px;
-  max-width: 100%;
   height: 218px;
+  max-width: 100%;
   box-shadow: $shadows;
   -webkit-box-shadow: $shadows;
   -moz-box-shadow: $shadows;
@@ -153,13 +154,18 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     align-items: center;
     padding: 0;
 
+    .author-avatar {
+      margin-right: 17px;
+    }
+
     .author-name {
       color:#424242;
-      font-size: 18px;
+      font-size: 16px;
       font-style: normal;
       font-weight: 600;
       line-height: normal;
-      letter-spacing: -0.36px;
+      letter-spacing: -0.32px;
+      text-align: left;
 
       @media screen and (max-width: 600px){
         font-size: 16px;
@@ -174,11 +180,11 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
 
       .author-rank {
         color:#FF944A;
-        font-size: 16px;
+        font-size: 14px;
         font-style: normal;
         font-weight: 500;
         line-height: normal;
-        letter-spacing: -0.32px;
+        letter-spacing: -0.28px;
 
         @media screen and (max-width: 600px){
           font-size: 14px;
@@ -186,13 +192,18 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
         }
       }
 
+      .info-separator {
+        margin: auto 16px;
+        height: 14px;
+      }
+
       .author-major {
         color:#9E9E9E;
-        font-size: 16px;
+        font-size: 14px;
         font-style: normal;
         font-weight: 500;
         line-height: normal;
-        letter-spacing: -0.32px;
+        letter-spacing: -0.28px;
 
         @media screen and (max-width: 600px){
           font-size: 14px;
@@ -202,16 +213,17 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     }
   }
 
+  .message-separator {
+    margin: 16px 0;
+  }
+
   .comment-message {
     padding: 0;
     width: 100%;
     max-width: 100%;
     color:#424242;
     font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.28px;
+    text-align: left;
   }
 }
 </style>
