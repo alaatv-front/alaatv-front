@@ -29,16 +29,14 @@
         </template>
       </carousel>
 
-      <div v-if="!$q.screen.lt.md"
-           class="arrow-left text-right">
+      <div class="arrow-left text-right">
         <q-btn :icon="localOptions.navigation.goToLeft.icon"
                :rounded="localOptions.navigation.goToLeft.rounded"
                class="arrow-left-btn "
                :size="localOptions.navigation.goToLeft.size"
                @click="$refs.vueCarousel.next()" />
       </div>
-      <div v-if="!$q.screen.lt.md"
-           class="arrow-right">
+      <div class="arrow-right">
         <q-btn :icon="localOptions.navigation.goToRight.icon"
                :rounded="localOptions.navigation.goToRight.rounded"
                class="arrow-right-btn"

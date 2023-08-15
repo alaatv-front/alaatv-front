@@ -173,8 +173,20 @@ export default {
             }
           }
         },
-        width: '100%',
-        height: '100%',
+        width: {
+          xl: '100%',
+          lg: '100%',
+          md: '100%',
+          sm: '100%',
+          xs: '100%'
+        },
+        height: {
+          xl: '100%',
+          lg: '100%',
+          md: '100%',
+          sm: '100%',
+          xs: '100%'
+        },
         horizontal: true,
         theme: 'theme1',
         borderStyle: {
@@ -263,13 +275,33 @@ $translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
 $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
 .feature-card {
-  width: v-bind('localOptions.width');
-  max-width: v-bind('localOptions.height');
+  width: v-bind('localOptions.width.xl');
+  height: v-bind('localOptions.height.xl');
   background: #ffffff;
   box-shadow: $shadows;
   -webkit-border-radius: $borderRadius;
   -moz-border-radius: $borderRadius;
   border: $border;
+
+  @media screen and (max-width: 1920px) {
+    width: v-bind('localOptions.width.lg');
+    height: v-bind('localOptions.height.lg');
+  }
+
+  @media screen and (max-width: 1440px) {
+    width: v-bind('localOptions.width.md');
+    height: v-bind('localOptions.height.md');
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: v-bind('localOptions.width.sm');
+    height: v-bind('localOptions.height.sm');
+  }
+
+  @media screen and (max-width: 600px) {
+    width: v-bind('localOptions.width.xs');
+    height: v-bind('localOptions.height.xs');
+  }
 
   &:hover {
 

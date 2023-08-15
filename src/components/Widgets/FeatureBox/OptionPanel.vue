@@ -6,12 +6,18 @@
     <template #main-tab>
       <div class="option-panel-container row q-col-gutter-md">
         <div class="col-md-3">
-          <q-input v-model="localOptions.width"
+          <q-select v-model="size"
+                    filled
+                    :options="sizeOptions"
+                    label="size" />
+        </div>
+        <div class="col-md-3">
+          <q-input v-model="localOptions.width[size]"
                    filled
                    label="عرض" />
         </div>
         <div class="col-md-3">
-          <q-input v-model="localOptions.height"
+          <q-input v-model="localOptions.height[size]"
                    filled
                    label="ارتفاع" />
         </div>
@@ -76,9 +82,23 @@ export default defineComponent({
   data() {
     return {
       themeOptions: ['theme1', 'theme2'],
+      size: 'xs',
+      sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       defaultOptions: {
-        width: '100%',
-        height: '100%',
+        width: {
+          xl: '100%',
+          lg: '100%',
+          md: '100%',
+          sm: '100%',
+          xs: '100%'
+        },
+        height: {
+          xl: '100%',
+          lg: '100%',
+          md: '100%',
+          sm: '100%',
+          xs: '100%'
+        },
         title: '',
         titleOptions: {
           text: null,
