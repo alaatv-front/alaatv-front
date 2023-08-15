@@ -91,7 +91,7 @@ export default {
         { type: 'separator', name: 'separator', label: 'مشاور', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'consultant_firstname', label: 'نام', placeholder: ' ', value: null, col: 'col-6' },
         { type: 'input', name: 'consultant_lastname', label: 'نام خانوادگی', placeholder: ' ', value: null, col: 'col-6' },
-        { type: 'input', name: 'consultant_mobile', label: 'تلفن ثابت', placeholder: ' ', value: null, col: 'col-12' }
+        { type: 'input', name: 'consultant_mobile', label: 'شماره تماس', placeholder: ' ', value: null, col: 'col-12' }
       ]
     }
   },
