@@ -1,5 +1,7 @@
 <template>
   <option-panel-tabs v-model:options="localOptions"
+                     :show-hover-effects-tab="true"
+                     :show-box-shadows-tab="true"
                      :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container row q-col-gutter-md">
@@ -20,6 +22,10 @@
         <div class="col-md-2">
           <q-checkbox v-model="localOptions.hasImage"
                       label="عکس" />
+        </div>
+        <div class="col-md-2">
+          <q-checkbox v-model="localOptions.hoverImage"
+                      label="hoverImage" />
         </div>
         <div class="col-12">
           <q-expansion-item expand-separator
@@ -145,6 +151,7 @@ export default defineComponent({
           }
         },
         hasImage: true,
+        hoverImage: false,
         imageWidgetOptions: {
           imageSource: null,
           ratio: null,
@@ -209,7 +216,30 @@ export default defineComponent({
         },
         horizontal: true,
         theme: 'theme1',
-        borderStyle: {}
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: ''
+        },
+        boxShadows: [],
+        cssHoverEffects: {
+          boxShadows: [],
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: ''
+          },
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
+        }
       }
     }
   }

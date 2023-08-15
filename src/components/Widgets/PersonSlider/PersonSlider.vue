@@ -1,62 +1,80 @@
 <template>
   <div v-if="localOptions.sliderItems"
        class="row">
-    <div v-if="!$q.screen.lt.md"
-         class="col-1 q-pl-xl arrow-right">
-      <q-btn icon="isax:arrow-right-1"
-             color="primary"
-             size="xl"
-             @click="goToRight" />
-    </div>
-    <div class="col-12 col-md-10">
-      <q-virtual-scroll ref="virtualScroll"
-                        v-slot="{ item, index }"
-                        :items="localOptions.sliderItems"
-                        class="student-scroll-bar"
-                        virtual-scroll-horizontal>
-        <q-card :key="index"
-                class="scroll-item-card">
-          <q-img :src="item.image"
-                 width="160px"
-                 height="160px"
-                 spinner-color="primary"
-                 class="student-img"
-                 spinner-size="82px">
-            <div v-if="localOptions.personType === 'student'"
-                 class="student-major"
-                 :class="{'riazi': item.major === 'ریاضی', 'tajrobi': item.major === 'تجربی'}">
-              {{ item.major }}
-            </div>
-          </q-img>
-          <q-card-section class="person-name-card-section">
-            <div class="student-name ellipsis-2-lines">{{ item.first_name + ' ' + item.last_name }}</div>
-          </q-card-section>
-          <q-card-section class="person-info-card-section">
-            <div v-if="localOptions.personType === 'student'"
-                 class="student-info">
-              <div class="rank">
-                {{ item.rank }}
+    <div class="col-12">
+      <carousel ref="vueCarousel"
+                v-bind="settings"
+                :i18n="{
+                  'ariaNextSlide': 'رفتن به اسلاید بعدی',
+                  'ariaPreviousSlide': 'رفتن به اسلاید فبلی',
+                  'iconArrowRight': 'قبلی',
+                  'iconArrowLeft': 'بعدی',
+                }"
+                :autoplay="3500"
+                :breakpoints="breakpoints"
+                :wrapAround="true"
+                :transition="500">
+        <slide v-for="slide in localOptions.sliderItems"
+               :key="slide">
+          <q-card class="scroll-item-card">
+            <q-img :src="slide.image"
+                   width="160px"
+                   height="160px"
+                   spinner-color="primary"
+                   class="student-img"
+                   spinner-size="82px">
+              <div v-if="localOptions.personType === 'student'"
+                   class="student-major"
+                   :class="{'riazi': slide.major === 'ریاضی', 'tajrobi': slide.major === 'تجربی'}">
+                {{ slide.major }}
               </div>
-              <div class="region">
-                {{ item.distraction === '1' ? 'منطقه یک' : item.distraction === '2' ? 'منطقه دو' : item.distraction === '3' ? 'منطقه سه' : item.distraction}}
+            </q-img>
+            <q-card-section class="person-name-card-section">
+              <div class="student-name ellipsis-2-lines">{{ slide.first_name + ' ' + slide.last_name }}</div>
+            </q-card-section>
+            <q-card-section class="person-info-card-section">
+              <div v-if="localOptions.personType === 'student'"
+                   class="student-info">
+                <div class="rank">
+                  {{ slide.rank }}
+                </div>
+                <div class="region">
+                  {{ slide.distraction === '1' ? 'منطقه یک' : slide.distraction === '2' ? 'منطقه دو' : slide.distraction === '3' ? 'منطقه سه' : slide.distraction}}
+                </div>
               </div>
-            </div>
-            <div v-if="localOptions.personType === 'teacher'"
-                 class="teacher-info">
-              <div class="major">
-                {{ item.major }}
+              <div v-if="localOptions.personType === 'teacher'"
+                   class="teacher-info">
+                <div class="major">
+                  {{ slide.major }}
+                </div>
               </div>
-            </div>
-          </q-card-section>
-        </q-card>
-      </q-virtual-scroll>
-    </div>
-    <div v-if="!$q.screen.lt.md"
-         class="arrow-left col-1 text-right q-pr-xl">
-      <q-btn icon="isax:arrow-left"
-             color="primary"
-             size="xl"
-             @click="goToLeft" />
+            </q-card-section>
+          </q-card>
+        </slide>
+
+        <template v-if="localOptions.pagination"
+                  #addons>
+          <pagination />
+        </template>
+      </carousel>
+
+      <div v-if="!$q.screen.lt.md"
+           class="arrow-left text-right">
+        <q-btn :icon="localOptions.navigation.goToLeft.icon"
+               :rounded="localOptions.navigation.goToLeft.rounded"
+               class="arrow-left-btn "
+               :size="localOptions.navigation.goToLeft.size"
+               @click="$refs.vueCarousel.next()" />
+      </div>
+      <div v-if="!$q.screen.lt.md"
+           class="arrow-right">
+        <q-btn :icon="localOptions.navigation.goToRight.icon"
+               :rounded="localOptions.navigation.goToRight.rounded"
+               class="arrow-right-btn"
+               :size="localOptions.navigation.goToRight.size"
+               @click="$refs.vueCarousel.prev()" />
+      </div>
+
     </div>
   </div>
   <div v-else
@@ -67,15 +85,74 @@
 
 <script>
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import { Carousel, Pagination, Slide } from 'vue3-carousel'
+
+import 'vue3-carousel/dist/carousel.css'
 
 export default {
   name: 'PersonSlider',
+  components: {
+    Carousel,
+    Slide,
+    Pagination
+  },
   mixins: [mixinWidget],
   data() {
     return {
+      settings: {
+        itemsToShow: 6,
+        snapAlign: 'center',
+        dir: 'rtl'
+      },
+      // breakpoints are mobile first
+      // any settings not specified will fallback to the carousel settings
+      breakpoints: {
+        // 350 and up
+        200: {
+          itemsToShow: 1,
+          snapAlign: 'center'
+        },
+        // 350 and up
+        350: {
+          itemsToShow: 1,
+          snapAlign: 'center'
+        },
+        // 650 and up
+        650: {
+          itemsToShow: 3,
+          snapAlign: 'center'
+        },
+        // 1200 and up
+        1200: {
+          itemsToShow: 5,
+          snapAlign: 'center'
+        },
+        // 1480 and up
+        1480: {
+          itemsToShow: 5,
+          snapAlign: 'center'
+        }
+      },
       defaultOptions: {
         sliderItems: [],
-        personType: 'student'
+        personType: 'student',
+        pagination: false,
+        navigation: {
+          goToLeft: {
+            icon: 'chevron_left',
+            textColor: '#FF944A',
+            color: '#FFE8D8',
+            rounded: false,
+            size: 'lg'
+          },
+          goToRight: {
+            icon: 'chevron_right',
+            textColor: '#FF944A',
+            color: '#FFE8D8',
+            rounded: false,
+            size: 'lg'
+          }
+        }
       },
       scrollIndex: 0
     }
@@ -200,10 +277,86 @@ export default {
   }
  }
 }
+
 .arrow-left {
   align-self: center;
+  position: absolute;
+  right: 0;
+  top: 33%;
+  z-index: 9999;
+
+  @media screen and (max-width: 600px){
+    right: 0;
+  }
+
+  .arrow-left-btn {
+    background: v-bind('localOptions.navigation.goToLeft.color');
+    color: v-bind('localOptions.navigation.goToLeft.textColor');
+  }
 }
 .arrow-right {
   align-self: center;
+  position: absolute;
+  left: 0;
+  top: 33%;
+  z-index: 9999;
+
+  @media screen and (max-width: 600px){
+    left: 0;
+  }
+
+  .arrow-right-btn {
+    background: v-bind('localOptions.navigation.goToRight.color');
+    color: v-bind('localOptions.navigation.goToRight.textColor');
+  }
+}
+
+.carousel__slide {
+}
+
+.carousel__viewport {
+  perspective: 2000px;
+}
+
+.carousel__track {
+}
+
+.carousel__slide--sliding {
+  transition: 0.5s;
+}
+
+.carousel__slide {
+}
+
+.carousel__slide--active ~ .carousel__slide {
+
+}
+
+.carousel__prev {
+  left: 0;
+  right: auto;
+  background: v-bind('localOptions.navigation.goToRight.color');
+  color: v-bind('localOptions.navigation.goToRight.textColor');
+}
+.carousel__next {
+  left: auto;
+  right: 0;
+  background: v-bind('localOptions.navigation.goToLeft.color');
+  color: v-bind('localOptions.navigation.goToLeft.textColor');
+}
+
+.carousel__slide--prev {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel__slide--next {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel__slide--active {
+  opacity: 1;
+  transform: rotateY(0) scale(1.0);
 }
 </style>
