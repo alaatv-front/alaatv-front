@@ -33,6 +33,7 @@
       <div class="col-6">
         <q-btn color="primary"
                class="full-width"
+               :loading="formDataLoading"
                @click="register">
           ثبت نام
         </q-btn>
