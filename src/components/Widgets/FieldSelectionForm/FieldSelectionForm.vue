@@ -27,6 +27,7 @@
                   animated>
       <q-tab-panel name="konkurRankFormData">
         <register-konkur-rank-form :konkur-rank-form="konkurRankForm"
+                                   :event-id="localOptions.eventId"
                                    @onComplete="onCompleteKonkurRankForm" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurRankFormResult">

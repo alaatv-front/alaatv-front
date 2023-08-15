@@ -36,6 +36,10 @@ export default {
     konkurRankForm: {
       type: EventResult,
       default: new EventResult()
+    },
+    eventId: {
+      type: Number,
+      default: null
     }
   },
   emits: ['onComplete'],
@@ -49,6 +53,7 @@ export default {
         universityTypes: []
       },
       inputs: [
+        { type: 'hidden', name: 'event_id', value: null },
         { type: 'separator', name: 'separator', label: 'کنکور', size: '0', col: 'col-12' },
         { type: 'select', name: 'major_id', label: 'رشته', placeholder: ' ', col: 'col-6' },
         { type: 'select', name: 'region_id', label: 'سهمیه', placeholder: ' ', col: 'col-6' },
@@ -98,6 +103,7 @@ export default {
     }
   },
   mounted () {
+    FormBuilderAssist.setAttributeByName(this.inputs, 'event_id', 'value', this.eventId)
     this.getFormData()
 
     this.getformBuilderData()

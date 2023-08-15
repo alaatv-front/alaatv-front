@@ -718,6 +718,7 @@ export default defineComponent({
       this.selectedEvent = event
     },
     getStudyPlanData(eventId) {
+      console.warn('getStudyPlanData')
       this.loading = true
       const data = {
         study_event: eventId || this.studyEvent,
@@ -725,8 +726,10 @@ export default defineComponent({
         till_date: this.chartWeek[6].date,
         setting: this.filteredLesson ? this.filteredLesson : null
       }
+      console.warn('getStudyPlanData 1')
       APIGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
+          console.warn('getStudyPlanData 2')
           this.loading = false
           this.studyPlanList = studyPlanList
           for (let w = 0; w < 6; w++) {
@@ -742,8 +745,10 @@ export default defineComponent({
               }
             }
           }
+          console.warn('getStudyPlanData 3')
         })
-        .catch(() => {
+        .catch((e) => {
+          console.warn('getStudyPlanData 4', e)
           this.loading = false
         })
     },
