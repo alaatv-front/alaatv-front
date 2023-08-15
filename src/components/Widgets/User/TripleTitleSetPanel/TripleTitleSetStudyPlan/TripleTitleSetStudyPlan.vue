@@ -686,9 +686,7 @@ export default {
       APIGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
           this.planType.display_name = studyPlan.title
-          console.warn('getMyStudyPlan planType')
           this.studyEvent = studyPlan.id
-          console.warn('getMyStudyPlan studyEvent')
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
           this.getChangePlanOptions()
           this.loading = false
