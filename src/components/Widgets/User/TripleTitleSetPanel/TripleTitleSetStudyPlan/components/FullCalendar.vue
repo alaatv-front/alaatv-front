@@ -725,6 +725,7 @@ export default defineComponent({
         till_date: this.chartWeek[6].date,
         setting: this.filteredLesson ? this.filteredLesson : null
       }
+      console.warn('getStudyPlanData 1')
       APIGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
           this.loading = false

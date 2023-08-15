@@ -122,11 +122,12 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getStudyPlanData(data = {}, cache = { TTL: 100 }) {
+  getStudyPlanData(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.studyPlan,
+      cacheKey: this.CacheList.studyPlan,
       ...(cache && { cache }),
       data: this.getNormalizedSendData({
         study_event: null,
@@ -134,6 +135,7 @@ export default class StudyPlanAPI extends APIRepository {
         till_date: ''
       }, data),
       resolveCallback: (response) => {
+        console.warn('getStudyPlanData response', response)
         return new StudyPlanList(response.data.data)
       },
       rejectCallback: (error) => {
