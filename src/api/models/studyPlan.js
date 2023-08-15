@@ -135,7 +135,6 @@ export default class StudyPlanAPI extends APIRepository {
         till_date: ''
       }, data),
       resolveCallback: (response) => {
-        console.warn('getStudyPlanData response', response)
         return new StudyPlanList(response.data.data)
       },
       rejectCallback: (error) => {
