@@ -5,10 +5,10 @@
         برنامه مطالعاتی
       </h5>
     </div>
-    <div class="col-6 body1">
+    <div class="col-md-6 col-12 body1">
       برنامه مطالعاتی - رشته {{ major.title }}
     </div>
-    <div class="col-6 text-right action-btns">
+    <div class="col-md-6 col-12 text-right action-btns">
       <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Nut.png"
              width="24px" />
       <q-btn flat
@@ -24,8 +24,7 @@
     </div>
     <q-linear-progress v-if="loading"
                        indeterminate />
-    <div class="col-12 q-mt-md"
-         style="width: 100%;">
+    <div class="col-12 q-mt-md">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
@@ -667,37 +666,44 @@ export default {
         })
     },
     getFilterLesson() {
-      this.loading = true
-      this.$apiGateway.studyPlan.getSetting()
-        .then(setting => {
-          this.loading = false
-          this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
-          this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
-        })
-        .catch(() => {
-          this.loading = false
-        })
+      return new Promise((resolve, reject) => {
+        APIGateway.studyPlan.getSetting()
+          .then(setting => {
+            this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
+            this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     },
     setFlagTrue() {
       this.isPlanChanged = true
     },
     getMyStudyPlan() {
+      console.warn('getMyStudyPlan')
       this.loading = true
       APIGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
+          console.warn('getMyStudyPlan then1')
           this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
           this.loading = false
+          console.warn('getMyStudyPlan then2')
         })
         .catch(() => {
+          console.warn('getMyStudyPlan catch(')
           this.loading = false
         })
     },
     getChangePlanOptions() {
+      console.warn('getChangePlanOptions')
       this.loading = true
-      this.$apiGateway.studyPlan.getChangePlanOptions()
+      APIGateway.studyPlan.getChangePlanOptions()
         .then(options => {
+          console.warn('getChangePlanOptions then1')
           this.loading = false
           this.majorOptions = options.majors
           this.gradeOptions = options.grades
@@ -710,8 +716,10 @@ export default {
           this.setInputAttrByName(this.editInputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.editInputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.editInputs, 'study_method_id', 'options', options.studyPlans)
+          console.warn('getChangePlanOptions then2')
         })
         .catch(() => {
+          console.warn('getChangePlanOptions catch')
           this.loading = false
         })
     },

@@ -163,6 +163,7 @@ export default {
           })
       } else {
         this.step = 'konkurRankFormData'
+        resolve()
       }
     },
     hasPurchased () {
@@ -175,8 +176,8 @@ export default {
           this.localOptions.product5Id
         ])
           .then((items) => {
-            const hasPurchased = items.find(item => item.is_purchased === 1)
-            resolve(hasPurchased)
+            const hasPurchased = items.find(item => item.is_purchased)
+            resolve(!!hasPurchased)
           })
           .catch(() => {
             reject()
