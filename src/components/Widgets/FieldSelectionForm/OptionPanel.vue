@@ -47,6 +47,10 @@
         سومی
       </div>
       <q-input v-model="localOptions.product5Id" />
+      <div class="q-mt-xl">
+        کد دپارتمان تیکت پشتیبانی انتخاب رشته
+      </div>
+      <q-input v-model="localOptions.ticketDepartmentId" />
     </template>
   </option-panel-tabs>
 </template>
@@ -67,7 +71,8 @@ export default {
         product2Id: 1240,
         product3Id: 1241,
         product4Id: 1242,
-        product5Id: 1243
+        product5Id: 1243,
+        ticketDepartmentId: 15
       }
     }
   }
