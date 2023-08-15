@@ -6,7 +6,12 @@
     <div class="content-text q-mb-xl">
       فرم زیر رو پر کن تا تیم آلاء کارشو شروع کنه
     </div>
-    <entity-create ref="entityCreate"
+    <q-skeleton v-if="formDataLoading"
+                type="rect"
+                width="100%"
+                height="200px" />
+    <entity-create v-else
+                   ref="entityCreate"
                    v-model:value="inputs"
                    :api="api"
                    :default-layout="false" />
@@ -57,6 +62,7 @@ export default {
   emits: ['onBack', 'onComplete'],
   data () {
     return {
+      formDataLoading: false,
       cities: [],
       formBuilder: {
         majors: [],
@@ -65,20 +71,20 @@ export default {
       },
       api: APIGateway.events.APIAdresses.entekhabReshte,
       inputs: [
-        { type: 'separator', name: 'separator', label: 'آپلود فایل انتخاب رشته', size: '0', col: 'col-12' },
+        { type: 'separator', name: 'separator', label: 'آپلود فایل انتخاب رشته', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'optionGroupRadio', name: 'hasFile', options: [{ label: 'انتخاب رشته کردم', value: true }, { label: 'انتخاب رشته نکردم', value: false }], value: true, col: 'col-12' },
         { type: 'file', name: 'file', label: 'یه فایل ترجیحا PDF که شامل رشته های منتخب شما باشه.', placeholder: ' ', value: null, col: 'col-12' },
         { type: 'input', name: 'comment', label: 'توضیحات تکمیلی', inputType: 'textarea', placeholder: ' ', value: null, col: 'col-12' },
-        { type: 'separator', name: 'separator', label: 'اطلاعات تماس', size: '0', col: 'col-12' },
+        { type: 'separator', name: 'separator', label: 'اطلاعات تماس', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'mobile', label: 'شماره همراه', disable: true, placeholder: ' ', col: 'col-6' },
         { type: 'input', name: 'phone', label: 'تلفن ثابت', placeholder: ' ', value: null, col: 'col-6' },
-        { type: 'separator', name: 'separator', label: 'اولویت محل و نوع دانشگاه', size: '0', col: 'col-12' },
+        { type: 'separator', name: 'separator', label: 'اولویت محل و نوع دانشگاه', size: '0', ignoreValue: true, col: 'col-12' },
         { type: FormBuilderCustomComponentShahrOrderSelectorComp, name: 'shahrha', label: 'استان و شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', value: null, col: 'col-12' },
         { type: 'optionGroupCheckbox', name: 'university_types', label: 'نوع دانشگاه', typeOfInput: 'checkbox', inline: false, options: [{ label: 'انتخاب رشته کردم', value: 1 }, { label: 'انتخاب رشته نکردم', value: 0 }], value: [], col: 'col-12' },
-        { type: 'separator', name: 'separator', label: 'اولویت رشته ها', size: '0', col: 'col-12' },
+        { type: 'separator', name: 'separator', label: 'اولویت رشته ها', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'optionGroupRadio', name: 'hasMajors', options: [{ label: 'فرقی نداره، فقط برم دانشگاه', value: false }, { label: 'اولویت بندی دارم', value: true }], value: false, col: 'col-12' },
         { type: 'select', name: 'majors', label: 'رشته ها', multiple: true, showNoOption: false, createNewValue: true, newValueMode: 'add-unique', useChips: true, hideDropdownIcon: true, placeholder: ' ', className: 'hidden', value: [], col: 'col-12' },
-        { type: 'separator', name: 'separator', label: 'مشاور', size: '0', col: 'col-12' },
+        { type: 'separator', name: 'separator', label: 'مشاور', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'consultant_firstname', label: 'نام', placeholder: ' ', value: null, col: 'col-6' },
         { type: 'input', name: 'consultant_lastname', label: 'نام خانوادگی', placeholder: ' ', value: null, col: 'col-6' },
         { type: 'input', name: 'consultant_mobile', label: 'تلفن ثابت', placeholder: ' ', value: null, col: 'col-12' }
@@ -113,24 +119,34 @@ export default {
   },
   mounted () {
     const user = this.$store.getters['Auth/user']
-    setTimeout(() => {
-      FormBuilderAssist.setAttributeByName(this.inputs, 'mobile', 'value', user.mobile)
-    }, 1000)
+    FormBuilderAssist.setAttributeByName(this.inputs, 'mobile', 'value', user.mobile)
+    this.formDataLoading = true
     this.getformBuilderData()
+      .then(() => {
+        this.formDataLoading = false
+      })
+      .catch(() => {
+        this.formDataLoading = false
+      })
   },
   methods: {
     getformBuilderData () {
-      APIGateway.events.formBuilder({ params: ['majors', 'regions', 'universityTypes'] })
-        .then((formBuilder) => {
-          this.formBuilder = formBuilder
-          FormBuilderAssist.setAttributeByName(this.inputs, 'university_types', 'options', this.formBuilder.universityTypes.map(item => {
-            return {
-              label: item.display_name,
-              value: item.id
-            }
-          }))
-        })
-        .catch(() => {})
+      return new Promise((resolve, reject) => {
+        APIGateway.events.formBuilder({ params: ['majors', 'regions', 'universityTypes'] })
+          .then((formBuilder) => {
+            this.formBuilder = formBuilder
+            FormBuilderAssist.setAttributeByName(this.inputs, 'university_types', 'options', this.formBuilder.universityTypes.map(item => {
+              return {
+                label: item.display_name,
+                value: item.id
+              }
+            }))
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     },
     getFormData () {
       this.getProvincesAndCities()

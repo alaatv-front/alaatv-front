@@ -213,7 +213,7 @@ export default {
     },
     onCompleteKonkurRankForm () {
       this.getKonkurResultFormData()
-      this.onGoSelectionField()
+      this.onGoRegisterKonkurRankFormResult()
     },
     onGoEditKarname () {
       this.step = 'konkurRankFormData'
@@ -223,6 +223,9 @@ export default {
     },
     onGoSelectionFieldProduts () {
       this.step = 'RegisterKonkurFieldSelectionProducts'
+    },
+    onGoRegisterKonkurRankFormResult () {
+      this.step = 'RegisterKonkurRankFormResult'
     },
     onGoSelectionFieldForm () {
       if (!this.hasFieldSelectionFormData) {
