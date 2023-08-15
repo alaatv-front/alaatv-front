@@ -636,7 +636,7 @@ export default {
             this.studyEvent = studyPlan.id
             this.needToUpdatePlan = true
           }
-          this.$refs.entityCreate.createEntity()
+          this.$refs.entityCreate.createEntity(false)
           this.loading = false
         })
         .catch(() => {
