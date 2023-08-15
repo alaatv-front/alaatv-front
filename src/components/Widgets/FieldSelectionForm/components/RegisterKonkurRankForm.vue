@@ -93,13 +93,16 @@ export default {
         FormBuilderAssist.getInputsByName(this.inputs, 'shahr_id').options = newValue
       }
     },
-    selectedRegion (newValue) {
-      if (newValue === 6 || newValue === 7) {
-        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', '')
-      } else {
-        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', 'hidden')
-        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'value', null)
-      }
+    selectedRegion: {
+      handler (newValue) {
+        if (newValue === 6 || newValue === 7) {
+          FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', '')
+        } else {
+          FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', 'hidden')
+          FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'value', null)
+        }
+      },
+      immediate: true
     }
   },
   mounted () {
