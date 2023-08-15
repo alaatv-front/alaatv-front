@@ -22,7 +22,10 @@
              label="زنگ جدید"
              @click="newPlanDialog = true" />
     </div>
-    <div class="col-12 q-mt-md"
+    <q-inner-loading v-if="loading"
+                     :showing="loading" />
+    <div v-else
+         class="col-12 q-mt-md"
          style="width: 100%;">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
@@ -315,6 +318,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       api: APIGateway.studyPlan.APIAdresses.plan,
       editapi: APIGateway.studyPlan.APIAdresses.editPlan,
       selectedPlanId: null,
