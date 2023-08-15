@@ -11,9 +11,11 @@
     </div>
     <div class="row q-col-gutter-md action-row">
       <div class="col-12">
-        <q-btn color="primary"
-               class="full-width"
-               @click="register">
+        <q-btn v-if="ticket.id"
+               :loading="tickets.loading"
+               :to="{name: 'UserPanel.Ticket.Show', params: {id: ticket.id}}"
+               color="primary"
+               class="full-width">
           مشاهده تیکت
         </q-btn>
       </div>
@@ -37,6 +39,8 @@
 
 <script>
 import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { Ticket, TicketList } from 'src/models/Ticket'
 
 export default {
   name: 'RegisterKonkurFieldSelectionTankYouPage',
@@ -49,18 +53,37 @@ export default {
     setId: {
       type: Number,
       default: 1
+    },
+    departmentId: {
+      type: Number,
+      default: 1
     }
   },
   emits: ['end'],
   data () {
     return {
-
+      ticket: new Ticket(),
+      tickets: new TicketList()
     }
   },
   mounted () {
+    this.getTicket()
   },
   methods: {
-
+    getTicket () {
+      this.tickets.loading = true
+      APIGateway.ticket.index({ department_id: [this.departmentId] })
+        .then(({ list }) => {
+          this.tickets = new TicketList(list)
+          if (this.tickets.list.length > 0) {
+            this.ticket = this.tickets.list[0]
+          }
+          this.tickets.loading = false
+        })
+        .catch(() => {
+          this.tickets.loading = false
+        })
+    }
   }
 }
 </script>

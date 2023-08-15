@@ -1,6 +1,6 @@
 <template>
   <div class="FieldSelectionForm">
-    <q-tabs v-if="false"
+    <q-tabs v-if="true"
             v-model="step"
             dense
             class="text-grey"
@@ -53,7 +53,8 @@
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionTankYouPage">
         <register-konkur-field-selection-tank-you-page :order-id="orderId"
-                                                       :set-id="localOptions.setId" />
+                                                       :set-id="localOptions.setId"
+                                                       :department-id="localOptions.ticketDepartmentId" />
       </q-tab-panel>
     </q-tab-panels>
     <q-skeleton v-else
@@ -101,7 +102,8 @@ export default {
         product2Id: 1240,
         product3Id: 1241,
         product4Id: 1242,
-        product5Id: 1243
+        product5Id: 1243,
+        ticketDepartmentId: 15
       }
     }
   },
