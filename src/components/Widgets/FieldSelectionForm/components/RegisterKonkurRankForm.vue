@@ -36,6 +36,10 @@ export default {
     konkurRankForm: {
       type: EventResult,
       default: new EventResult()
+    },
+    eventId: {
+      type: Number,
+      default: null
     }
   },
   emits: ['onComplete'],
@@ -49,6 +53,7 @@ export default {
         universityTypes: []
       },
       inputs: [
+        { type: 'hidden', name: 'event_id', value: null },
         { type: 'separator', name: 'separator', label: 'کنکور', size: '0', col: 'col-12' },
         { type: 'select', name: 'major_id', label: 'رشته', placeholder: ' ', col: 'col-6' },
         { type: 'select', name: 'region_id', label: 'سهمیه', placeholder: ' ', col: 'col-6' },
@@ -60,8 +65,8 @@ export default {
         { type: 'separator', name: 'separator', label: 'رتبه کنکور', size: '0', col: 'col-12' },
         { type: 'input', name: 'rank', label: 'رتبه کشوری', placeholder: ' ', col: 'col-6' },
         { type: 'input', name: 'participationCode', label: 'کد داوطلبی (اختیاری)', placeholder: ' ', col: 'col-6' },
-        { type: 'input', name: 'rank_in_region', label: 'رتبه در منطقه', placeholder: ' ', col: 'col-6' },
-        { type: 'input', name: 'rank_in_district', label: 'رتبه در سهمیه', placeholder: ' ', col: 'col-6' },
+        { type: 'input', name: 'rank_in_district', label: 'رتبه در منطقه', placeholder: ' ', col: 'col-6' },
+        { type: 'input', name: 'rank_in_region', label: 'رتبه در سهمیه', placeholder: ' ', col: 'col-6' },
         { type: 'separator', name: 'separator', label: 'محل سکونت', size: '0', col: 'col-12' },
         { type: 'select', name: 'province', label: 'استان', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' },
         { type: 'select', name: 'shahr_id', label: 'شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' },
@@ -88,16 +93,20 @@ export default {
         FormBuilderAssist.getInputsByName(this.inputs, 'shahr_id').options = newValue
       }
     },
-    selectedRegion (newValue) {
-      if (newValue === 6 || newValue === 7) {
-        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', '')
-      } else {
-        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', 'hidden')
-        FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'value', null)
-      }
+    selectedRegion: {
+      handler (newValue) {
+        if (newValue === 6 || newValue === 7) {
+          FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', '')
+        } else {
+          FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'className', 'hidden')
+          FormBuilderAssist.setAttributeByName(this.inputs, 'rank_in_district', 'value', null)
+        }
+      },
+      immediate: true
     }
   },
   mounted () {
+    FormBuilderAssist.setAttributeByName(this.inputs, 'event_id', 'value', this.eventId)
     this.getFormData()
 
     this.getformBuilderData()

@@ -574,7 +574,7 @@ export default {
     this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
     this.getFilterLesson()
     this.getMyStudyPlan()
-    this.getChangePlanOptions()
+    // this.getChangePlanOptions()
   },
   methods: {
     updatePlan() {
@@ -682,28 +682,23 @@ export default {
       this.isPlanChanged = true
     },
     getMyStudyPlan() {
-      console.warn('getMyStudyPlan')
       this.loading = true
       APIGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
-          console.warn('getMyStudyPlan then1')
           this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.getChangePlanOptions()
           this.loading = false
-          console.warn('getMyStudyPlan then2')
         })
         .catch(() => {
-          console.warn('getMyStudyPlan catch(')
           this.loading = false
         })
     },
     getChangePlanOptions() {
-      console.warn('getChangePlanOptions')
       this.loading = true
       APIGateway.studyPlan.getChangePlanOptions()
         .then(options => {
-          console.warn('getChangePlanOptions then1')
           this.loading = false
           this.majorOptions = options.majors
           this.gradeOptions = options.grades
@@ -716,10 +711,8 @@ export default {
           this.setInputAttrByName(this.editInputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.editInputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.editInputs, 'study_method_id', 'options', options.studyPlans)
-          console.warn('getChangePlanOptions then2')
         })
         .catch(() => {
-          console.warn('getChangePlanOptions catch')
           this.loading = false
         })
     },

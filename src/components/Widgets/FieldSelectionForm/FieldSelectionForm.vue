@@ -1,6 +1,6 @@
 <template>
   <div class="FieldSelectionForm">
-    <q-tabs v-if="false"
+    <q-tabs v-if="true"
             v-model="step"
             dense
             class="text-grey"
@@ -27,6 +27,7 @@
                   animated>
       <q-tab-panel name="konkurRankFormData">
         <register-konkur-rank-form :konkur-rank-form="konkurRankForm"
+                                   :event-id="localOptions.eventId"
                                    @onComplete="onCompleteKonkurRankForm" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurRankFormResult">
