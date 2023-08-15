@@ -7,7 +7,7 @@ android {
     applicationId "ir.sanatisharif.android.konkur96"
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode 102
+    versionCode 109
     versionName "7.0.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     aaptOptions {
