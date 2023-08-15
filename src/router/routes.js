@@ -267,6 +267,15 @@ const routes = [
             component: () => import('pages/User/UserInfoForm.vue')
           },
           {
+            // ToDo: check this to remove
+            name: 'UserPanel.EntekhabReshte',
+            path: 'entekhab-reshte',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/EntekhabReshte.vue')
+          },
+          {
             name: 'UserPanel.Dashboard',
             path: 'dashboard',
             meta: {
@@ -677,6 +686,23 @@ const routes = [
                 name: 'Admin.Set.Edit',
                 path: ':id/edit',
                 component: () => import('src/pages/Admin/Set/Edit.vue')
+              }
+            ]
+          },
+          {
+            name: 'Admin.Product',
+            path: 'product',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Product.Index',
+                path: '',
+                component: () => import('pages/Admin/Product/Index.vue')
+              },
+              {
+                name: 'Admin.Product.Sets',
+                path: ':productId/set',
+                component: () => import('pages/Admin/ProductSetList.vue')
               }
             ]
           },
