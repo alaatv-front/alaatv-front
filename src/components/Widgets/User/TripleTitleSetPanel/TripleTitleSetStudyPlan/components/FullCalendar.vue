@@ -1,6 +1,9 @@
 <template>
   <div class="calender new-theme">
-    <div class="box">
+    <q-inner-loading v-if="loading"
+                     :showing="loading" />
+    <div v-else
+         class="box">
       <div class="calendar-wrapper">
         <div class="calendar-header">
           <div class="calendar-title" />
@@ -148,7 +151,7 @@
                            :style="{ top: calculateTop(event), height: calculateHeight(event), background: event.backgroundColor}"
                            @click="openEvent(event)">
                         <div class="row q-px-md">
-                          <div class="body1 col-11 q-mt-sm">{{ event.title }}</div>
+                          <div class="body1 col-11 q-mt-sm">{{ event.product.lesson_name }}</div>
                           <div class="col-1">
                             <q-btn icon="isax:more"
                                    size="sm"
@@ -177,7 +180,8 @@
                               </q-menu>
                             </q-btn>
                           </div>
-                          <div class="caption2 col-12 q-mt-xs">{{event.description}}</div>
+                          <div v-if="event.contents.list.length > 0"
+                               class="caption2 col-12 q-mt-xs">{{event.contents.list[0].title}}</div>
                           <div class="caption2 col-12 q-mt-xs">{{event.start}} الی {{event.end}}</div>
                         </div>
                       </div>
@@ -581,6 +585,7 @@ export default defineComponent({
     const selectedMonth = ref(null)
     const eventDialog = ref(false)
     const selectedEvent = ref(null)
+    const loading = ref(false)
 
     const openCalendarDialog = () => {
       calendarDialog.value = true
@@ -666,6 +671,7 @@ export default defineComponent({
     }
 
     return {
+      loading,
       editPlan,
       removePlan,
       calendarMonth,
@@ -709,6 +715,7 @@ export default defineComponent({
       this.selectedEvent = event
     },
     getStudyPlanData(eventId) {
+      this.loading = true
       const data = {
         study_event: eventId || this.studyEvent,
         since_date: this.chartWeek[0].date,
@@ -717,6 +724,7 @@ export default defineComponent({
       }
       this.$apiGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
+          this.loading = false
           this.studyPlanList = studyPlanList
           for (let w = 0; w < 6; w++) {
             for (let col = 0; col < 7; col++) {
@@ -732,7 +740,9 @@ export default defineComponent({
             }
           }
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     },
     goToNextWeek() {
       const today = new Date(this.calendarDate._i)
