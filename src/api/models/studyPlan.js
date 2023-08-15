@@ -159,7 +159,7 @@ export default class StudyPlanAPI extends APIRepository {
     })
   }
 
-  getSetting(cache = { TTL: 100 }) {
+  getSetting(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
