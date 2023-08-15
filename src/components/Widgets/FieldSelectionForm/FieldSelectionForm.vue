@@ -74,8 +74,8 @@ import RegisterKonkurRankForm from './components/RegisterKonkurRankForm.vue'
 import RegisterKonkurRankFormResult from './components/RegisterKonkurRankFormResult.vue'
 import RegisterKonkurFieldSelectionForm from './components/RegisterKonkurFieldSelectionForm.vue'
 import RegisterKonkurFieldSelectionProducts from './components/RegisterKonkurFieldSelectionProducts.vue'
-import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
 import RegisterKonkurFieldSelectionTankYouPage from './components/RegisterKonkurFieldSelectionTankYouPage.vue'
+import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
 
 export default {
   name: 'Newsletter',
