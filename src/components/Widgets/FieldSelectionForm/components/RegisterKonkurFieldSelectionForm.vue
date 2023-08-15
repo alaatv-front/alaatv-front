@@ -33,7 +33,7 @@
       <div class="col-6">
         <q-btn color="primary"
                class="full-width"
-               :loading="formDataLoading"
+               :loading="registerLoading || formDataLoading"
                @click="register">
           ثبت نام
         </q-btn>
@@ -66,6 +66,7 @@ export default {
   data () {
     return {
       formDataLoading: false,
+      registerLoading: false,
       cities: [],
       formBuilder: {
         majors: [],
@@ -168,11 +169,14 @@ export default {
         })
     },
     register () {
+      this.registerLoading = true
       this.$refs.entityCreate.createEntity(false)
         .then((response) => {
           this.onComplete(response.data)
+          this.registerLoading = false
         })
         .catch(() => {
+          this.registerLoading = false
         })
     },
     onBack () {
