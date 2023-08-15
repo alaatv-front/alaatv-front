@@ -593,7 +593,7 @@ export default {
             this.studyEvent = studyPlan.id
             this.needToUpdatePlan = true
           }
-          this.$refs.entityEdit.editEntity()
+          this.$refs.entityEdit.editEntity(false)
           this.loading = false
           this.editPlanDialog = false
         })
