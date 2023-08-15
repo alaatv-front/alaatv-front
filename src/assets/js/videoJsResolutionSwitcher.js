@@ -62,6 +62,12 @@ const videoJsResolutionSwitcher = function(videojs) {
       // Remember player state
       const currentTime = this.player_.currentTime()
       const isPaused = this.player_.paused()
+
+      // error: The play() request was interrupted by a call to pause().
+      // https://stackoverflow.com/questions/36803176/how-to-prevent-the-play-request-was-interrupted-by-a-call-to-pause-error
+      // const isPlaying = video.currentTime > 0 && !video.paused && !video.ended
+      //   && video.readyState > video.HAVE_CURRENT_DATA;
+
       this.showAsLabel()
 
       // add .current class
@@ -89,7 +95,8 @@ const videoJsResolutionSwitcher = function(videojs) {
           this.player_.handleTechSeeked_()
           if (!isPaused) {
           // Start playing and hide loadingSpinner (flash issue ?)
-            this.player_.play().handleTechSeeked_()
+          //   this.player_.play().handleTechSeeked_()
+            this.player_.play()
           }
           this.player_.trigger('resolutionchange')
         })
@@ -185,8 +192,10 @@ const videoJsResolutionSwitcher = function(videojs) {
       groupedSrc = bucketSources(src)
       const choosen = chooseSrc(groupedSrc, src)
       const menuButton = new ResolutionMenuButton(player, { sources: groupedSrc, initialySelectedLabel: choosen.label, initialySelectedRes: choosen.res, customSourcePicker: settings.customSourcePicker }, settings, label)
+
       videojs.dom.addClass(menuButton.el(), 'vjs-resolution-button')
       player.controlBar.resolutionSwitcher = player.controlBar.el_.insertBefore(menuButton.el_, player.controlBar.getChild('fullscreenToggle').el_)
+
       player.controlBar.resolutionSwitcher.dispose = function() {
         this.parentNode.removeChild(this)
       }
@@ -353,8 +362,11 @@ const videoJsResolutionSwitcher = function(videojs) {
     })
   }
 
-  // register the plugin on client side
-  videojs.registerPlugin('videoJsResolutionSwitcher', videoJsResolutionSwitcher)
+  const pluginName = 'videoJsResolutionSwitcher'
+  if (!Object.keys(videojs.getPlugins()).includes(pluginName)) {
+    // register the plugin on client side
+    videojs.registerPlugin(pluginName, videoJsResolutionSwitcher)
+  }
 }
 
 export default videoJsResolutionSwitcher

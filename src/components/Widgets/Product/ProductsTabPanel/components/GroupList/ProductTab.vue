@@ -1,5 +1,7 @@
 <template>
-  <div class="tabs-wrapper">
+  <div ref="productTab"
+       class="tabs-wrapper"
+       :style="options.tabsStyle">
     <q-tabs v-model="tabModel"
             :active-color="options.activeColor"
             :active-bg-color="options.activeBgColor"
@@ -60,13 +62,43 @@ export default {
   },
   data() {
     return {
-      tabModel: ''
+      tabModel: '',
+      defaultOptions: {
+        options: {
+          activeBgColor: '',
+          activeColor: '',
+          indicatorColor: '',
+          layout: 'ProductTab',
+          tabsStyle: {
+            marginTop: '',
+            marginLeft: '',
+            marginBottom: '',
+            paddingTop: '',
+            paddingLeft: '',
+            paddingRight: '',
+            paddingBottom: ''
+          }
+        },
+        data: [],
+        type: 'GroupList'
+      }
     }
   },
   mounted() {
     this.tabModel = 'productTab_0'
   },
   methods: {
+    changeTab(tabName) {
+      this.tabModel = tabName
+      const el = this.$refs.productTab
+      const headerOffset = 150
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    },
     isProduct(item) {
       return item.type === 'ProductList'
     }

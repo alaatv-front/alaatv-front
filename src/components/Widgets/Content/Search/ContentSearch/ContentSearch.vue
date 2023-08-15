@@ -162,11 +162,11 @@ import { computed } from 'vue'
 import { SetList } from 'src/models/Set.js'
 import { ProductList } from 'src/models/Product.js'
 import { ContentList } from 'src/models/Content.js'
-import FilterData from 'assets/js/contentSearchFilterData.js'
-import StickyBothSides from 'components/Utils/StickyBothSides.vue'
-import SetItem from 'components/Widgets/Content/Search/ContentSearch/components/SetItem.vue'
-import SpeciferType from 'components/Widgets/Content/Search/ContentSearch/components/SpeciferType.vue'
-import SideBarContent from 'components/Widgets/Content/Search/SideBarContent/SideBarContent.vue'
+import FilterData from 'src/assets/js/contentSearchFilterData.js'
+import StickyBothSides from 'src/components/Utils/StickyBothSides.vue'
+import SetItem from 'src/components/Widgets/Content/Search/ContentSearch/components/SetItem.vue'
+import SideBarContent from 'src/components/Widgets/Content/Search/SideBarContent/SideBarContent.vue'
+import SpeciferType from 'src/components/Widgets/Content/Search/ContentSearch/components/SpeciferType.vue'
 
 export default {
   name: 'ContentSearch',
@@ -221,20 +221,24 @@ export default {
     }
   },
   created () {
-    this.setContentSearch()
+    this.setInitData()
+    // this.setContentSearch()
   },
   mounted () {
+    this.setContentSearch()
     // if (!this.mobileMode) {
     //   this.setSideBarSticky()
     // }
   },
   methods: {
     setContentSearch () {
-      this.setInitData()
       this.convertFilterData()
       this.getUrlParams()
       this.updateNewUrl()
       this.getPageData()
+      if (this.$refs.contentAndProductList) {
+        this.onFilterChange()
+      }
     },
 
     setInitData () {
@@ -242,11 +246,19 @@ export default {
       this.backData = FilterData
     },
 
-    getPageData () {
+    getSearchUrl () {
+      this.getUrlParams()
+      this.updateNewUrl()
       let url = this.contentSearchApi
       if (this.new_url && this.new_url.length > 2) {
         url = url.concat(this.new_url)
       }
+
+      return url
+    },
+
+    getPageData () {
+      const url = this.getSearchUrl()
       this.searchLoading = true
       this.$apiV2.get(url)
         .then(res => {
@@ -298,7 +310,6 @@ export default {
       if (currentElementIndex === lastElementIndex && !this.setLoading && this.canSendSetsReq) {
         // this.loadMoreData()
         this.chargeSet()
-        // console.log('load more----------------------------------------------------------------')
       }
     },
 
@@ -397,7 +408,7 @@ export default {
       this.$router.push({ name: 'Public.Content.Search', query: tags })
     },
 
-    updateNewUrl () {
+    updateNewUrl (fresh = false) {
       const tags = []
       this.selectedTags.forEach((tag) => {
         tags.push('tags[]=' + encodeURIComponent(tag.value))
@@ -489,7 +500,6 @@ export default {
         .then((responseDataArray) => {
           this.searchLoading = false
           done()
-          // console.log('done')
           responseDataArray.forEach((data) => {
             const responseData = data.response
             let oldList = {}
@@ -532,8 +542,7 @@ export default {
     },
 
     chargeItems (items, key, count) {
-      const that = this
-      return new Promise(function (resolve, reject) {
+      return new Promise((resolve, reject) => {
         const remainCount = items.list.length
 
         if (items.paginate && items.paginate.links && items.paginate.links.prev && !items.paginate.links.next) {
@@ -544,7 +553,7 @@ export default {
           resolve({ status: 'remainCount > 10', key, count })
           return
         }
-        that.getItems(items, key)
+        this.getItems(items, key)
           .then(response => {
             resolve({ response, count, key })
           })
@@ -555,14 +564,10 @@ export default {
     },
 
     getItems (items, key) {
-      let url = this.contentSearchApi
-      if (this.new_url && this.new_url.length > 2) {
-        url = url.concat(this.new_url)
-      }
+      let url = this.getSearchUrl()
       if (items.paginate && items.paginate.links.next) {
         url = items.paginate.links.next
       }
-      // console.log('getItems url :', url)
       const that = this
       return new Promise(function (resolve, reject) {
         that.$axios.get(url)

@@ -10,6 +10,7 @@ const state = {
   layoutHeaderType: '',
   layoutLeftSideBarType: '',
   layoutRightSideBarType: '',
+  layoutFooterType: '',
   // layoutRightSideBarType: '',
   windowSize: {
     x: 0,

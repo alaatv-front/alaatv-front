@@ -231,7 +231,7 @@ export default {
   .content-list-items-box {
     margin-top: 20px;
     position: relative;
-    height: 100%;
+    height: calc( 100% - 101px);
 
     .content-box {
       position: absolute;

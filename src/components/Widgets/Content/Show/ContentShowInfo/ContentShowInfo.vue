@@ -69,16 +69,16 @@
 </template>
 
 <script>
-import Bookmark from 'components/Bookmark.vue'
+import Bookmark from 'src/components/Bookmark.vue'
 import { Content } from 'src/models/Content.js'
-import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ContentShowInfo',
   components: { Bookmark, ShareNetwork },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   beforeRouteUpdate() {
     this.loadContent()
   },
@@ -128,10 +128,29 @@ export default {
       this.loadContent()
     }
   },
-  created() {
-    this.loadContent()
-  },
+
   methods: {
+    prefetchServerDataPromise () {
+      this.content.loading = true
+      return this.getContentByRequest()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.content = new Content(data)
+      this.content.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.content.loading = false
+    },
+    loadContent() {
+      this.prefetchServerDataPromise()
+        .then((content) => {
+          this.prefetchServerDataPromiseThen(content)
+        })
+        .catch(() => {
+          this.prefetchServerDataPromiseCatch()
+        })
+    },
+
     hasPamphlet() {
       return this.content.file.pamphlet && this.content.file.pamphlet.length > 0
     },
@@ -160,26 +179,11 @@ export default {
     shareGiftCard({ name, url }) {
       window.open(url, '_blank')
     },
-    loadContent() {
-      this.getContentByRequest()
-    },
-    bookmarkContent () {
-      if (this.content.is_favored) {
-        return this.$apiGateway.content.unfavored(this.content.id)
-      }
-      return this.$apiGateway.content.favored(this.content.id)
-    },
+
     getContentByRequest() {
       this.content.loading = true
       const contentId = this.getContentId()
-      APIGateway.content.show(contentId)
-        .then((response) => {
-          this.content = new Content(response)
-          this.content.loading = false
-        })
-        .catch(() => {
-          this.content.loading = false
-        })
+      return APIGateway.content.show(contentId)
     },
     getContentId () {
       if (this.options.productId) {

@@ -7,6 +7,7 @@
                   :api="api"
                   :table="table"
                   :table-keys="tableKeys"
+                  :show-expand-button="false"
                   :item-indicator-key="'id'"
                   :default-layout="false"
                   :show-search-button="false"
@@ -203,7 +204,7 @@ export default {
     display: none !important;
   }
   &:deep(.quasar-crud-index-table) {
-    padding: 0 !important;
+    padding: 20px 10 !important;
   }
   &:deep(.formBuilder-actionBtn-ActionBtn) {
     padding: 20px;

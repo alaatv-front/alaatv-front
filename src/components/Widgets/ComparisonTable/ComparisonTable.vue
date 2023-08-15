@@ -40,16 +40,21 @@
           <div v-else-if="props.row[col.name].type === 'text'">
             {{ props.row[col.name] === 'action' ? '' : props.row[col.name].value }}
           </div>
-          <div v-else-if="props.row[col.name].type === 'action' && props.row[col.name].actionType === 'link'">
+          <div v-else-if="props.row[col.name].type === 'action'">
             <q-btn color="primary"
                    :label="props.row[col.name].value.label"
-                   :href="props.row[col.name].value.url" />
+                   @click="takeAction(props, col)" />
           </div>
-          <div v-else-if="props.row[col.name].type === 'action' && props.row[col.name].actionType === 'scroll'">
-            <q-btn color="primary"
-                   :label="props.row[col.name].value.label"
-                   @click="scrollToElement(props.row[col.name].value.className)" />
-          </div>
+          <!--          <div v-else-if="props.row[col.name].type === 'action' && props.row[col.name].actionType === 'scroll'">-->
+          <!--            <q-btn color="primary"-->
+          <!--                   :label="props.row[col.name].value.label"-->
+          <!--                   @click="scrollToElement(props.row[col.name].value.className)" />-->
+          <!--          </div>-->
+          <!--          <div v-else-if="props.row[col.name].type === 'action' && props.row[col.name].actionType === 'event'">-->
+          <!--            <q-btn color="primary"-->
+          <!--                   :label="props.row[col.name].value.label"-->
+          <!--                   @click="scrollToElement(props.row[col.name].value.className)" />-->
+          <!--          </div>-->
         </q-td>
       </q-tr>
     </template>
@@ -106,6 +111,15 @@ export default {
     }
   },
   methods: {
+    takeAction(props, col) {
+      if (props.row[col.name].actionType === 'scroll') {
+        this.scrollToElement(props.row[col.name].value.className)
+      } else if (props.row[col.name].actionType === 'link') {
+        this.$router.push(props.row[col.name].value.url)
+      } else if (props.row[col.name].actionType === 'event') {
+        this.$bus.emit(props.row[col.name].value.eventName)
+      }
+    },
     scrollToElement(className) {
       const el = document.getElementsByClassName(className)[0]
       const headerOffset = 0

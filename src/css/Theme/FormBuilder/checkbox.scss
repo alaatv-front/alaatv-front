@@ -14,9 +14,11 @@
     }
   }
 }
-.q-checkbox__svg{
-  width: 15px !important;
-  margin-right: 5px;
+.new-theme {
+  .q-checkbox__svg{
+    width: 15px !important;
+    margin-right: 5px;
+  }
 }
 .q-checkbox__inner--truthy {
   .q-checkbox__bg {

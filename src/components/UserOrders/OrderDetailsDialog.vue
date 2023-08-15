@@ -10,24 +10,8 @@
                  flat
                  dense
                  size="md"
-                 @click="modal = false">
-            <svg width="24"
-                 height="24"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 16L16 8"
-                    stroke="#65677F"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round" />
-              <path d="M16 16L8 8"
-                    stroke="#65677F"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
-          </q-btn>
+                 icon="close"
+                 @click="modal = false" />
         </div>
       </div>
       <div>

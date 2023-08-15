@@ -20,8 +20,16 @@ class Product extends Model {
         key: 'teacher_image'
       },
       { key: 'is_free' },
+      { key: 'is_live' },
+      { key: 'is_active' },
+      { key: 'is_purchased' },
+      { key: 'live_link' },
       { key: 'photo' },
       { key: 'attributes' },
+      {
+        key: 'contents_progress',
+        default: 0
+      },
       {
         key: 'description',
         default: {
@@ -33,6 +41,10 @@ class Product extends Model {
       { key: 'longDescription' },
       { key: 'last_content_user_watched' },
       { key: 'specialDescription' },
+      {
+        key: 'children',
+        default: []
+      },
       {
         key: 'sets',
         relatedModel: SetList
@@ -74,6 +86,26 @@ class Product extends Model {
     if (this.isFavored) {
       this.is_favored = this.isFavored
     }
+    this.fillEECData(data)
+  }
+
+  getChildren() {
+    return new ProductList(this.children)
+  }
+
+  hasChildren() {
+    return this.children.length > 0
+  }
+
+  fillEECData(data) {
+    if (!data) {
+      return
+    }
+    this.eec.id = this.id
+    this.eec.name = this.title
+    this.eec.price = this.price.final
+    this.eec.category = (!data.category) ? '-' : data.category
+    this.eec.variant = (!data.variant) ? '-' : data.variant
   }
 }
 

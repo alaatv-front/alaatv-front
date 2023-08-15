@@ -3,7 +3,11 @@ import { Cart } from 'src/models/Cart'
 
 export default class CookieCart {
   static setCartInCookie(cart) {
+    if (typeof window === 'undefined') {
+      return
+    }
     Cookies.set('cartItems', JSON.stringify(cart), {
+      domain: '.' + window.location.host,
       path: '/',
       expires: '365d'
     })

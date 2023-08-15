@@ -20,4 +20,12 @@ export default boot(({ store, ssrContext }) => {
       clone: false
     })
   )
+
+  const accessToken = store.getters['Auth/accessToken']
+  if (accessToken) {
+    store.commit('Auth/updateAxiosAuthorization', accessToken)
+  } else {
+    // console.error('VuexPersistedState boot->Auth/logOut')
+    store.dispatch('Auth/logOut')
+  }
 })

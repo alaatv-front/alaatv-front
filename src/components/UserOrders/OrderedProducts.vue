@@ -19,7 +19,7 @@
             <div class="price-container">
               <div v-if="orderedItem.grand?.price"
                    class="discount-part">
-                <div v-if=" orderedItem.grand.price.discountInPercent() "
+                <div v-if="orderedItem.grand.price.discountInPercent()"
                      class="discount-percent">
                   {{ orderedItem.grand.price.discountInPercent() }}%
                 </div>
@@ -50,6 +50,11 @@
             <div class="order-item-header">
               <div class="title">
                 {{ orderedItem.order_product.list[0].product.title }}
+                <q-badge v-if="orderedItem.order_product.list[0].expire_at"
+                         color="orange">
+                  منقضی شده در:
+                  {{ orderedItem.order_product.list[0].shamsiDate('expire_at').dateTime }}
+                </q-badge>
               </div>
             </div>
             <div class="price-container">
@@ -94,6 +99,11 @@
                       <template v-if="item && item.product">
                         <div class="title ellipsis">
                           {{ item.product.title }}
+                          <q-badge v-if="item.expire_at"
+                                   color="orange">
+                            منقضی شده در:
+                            {{ item.shamsiDate('expire_at').dateTime }}
+                          </q-badge>
                         </div>
 
                         <div class="right-part">
@@ -470,10 +480,9 @@ export default {
             display: flex;
             align-items: center;
             width: 100%;
-            justify-content: left;
+            justify-content: right;
 
             &.expansion-closed {
-              margin-top: -50px;
               @media screen and (max-width: 1023px) {
                 margin-top: -42px !important;
               }
@@ -641,10 +650,8 @@ export default {
           }
         }
       }
-
     }
   }
-
 }
 
 .delete-dialog {

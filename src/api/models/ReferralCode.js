@@ -1,6 +1,8 @@
 import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 import { ReferralCodeList } from 'src/models/ReferralCode'
+import { TransactionList } from 'src/models/Transction'
+import { WithdrawHistoryList } from 'src/models/WithdrawHistory'
 
 export default class ReferralCodeAPI extends APIRepository {
   constructor() {
@@ -19,7 +21,8 @@ export default class ReferralCodeAPI extends APIRepository {
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       sales_man: this.name + this.APIAdresses.sales_man,
-      walletWithdrawRequests: this.name + this.APIAdresses.walletWithdrawRequests
+      walletWithdrawRequests: this.name + this.APIAdresses.walletWithdrawRequests,
+      orderProducts: this.name + this.APIAdresses.orderProducts
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
   }
@@ -27,7 +30,7 @@ export default class ReferralCodeAPI extends APIRepository {
   // rest
   // has get
 
-  index (data, cache = { TTL: 100 }) {
+  index(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -35,6 +38,8 @@ export default class ReferralCodeAPI extends APIRepository {
       cacheKey: this.CacheList.base,
       ...(cache !== undefined && { cache }),
       data: this.getNormalizedSendData({
+        isAssigned: null, // Number
+        isUsed: null, // Number
         page: 1 // Number
       }, data.data),
       resolveCallback: (response) => {
@@ -58,21 +63,27 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getOrderProducts () {
+  getOrderProducts(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.orderProducts,
+      cacheKey: this.CacheList.orderProducts,
+      ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response
+        return {
+          transactionsTableRow: new TransactionList(response.data.data), // Transactions Table Row: Array of Objects
+          paginate: response.data.meta
+        }
       },
       rejectCallback: (error) => {
         return error
-      }
+      },
+      ...(data && { data })
     })
   }
 
-  batchStore (data) {
+  batchStore(data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -95,14 +106,14 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  submitReferralCodeOnOrder (data) {
+  submitReferralCodeOnOrder(data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.orderReferralCode,
       data: this.getNormalizedSendData({
-        referral_code: '', // String
-        order_id: 0 // Number
+        referral_code: null // String
+        // order_id: 0 // Number
       }, data.data),
       resolveCallback: (response) => {
         return response.data
@@ -113,13 +124,13 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  DeleteReferralCodeFromOrder (data) {
+  DeleteReferralCodeFromOrder(data) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,
       request: this.APIAdresses.orderReferralCode,
       data: this.getNormalizedSendData({
-        order_id: 0 // Number
+        order_id: null // Number
       }, data.data),
       resolveCallback: (response) => {
         return response
@@ -130,7 +141,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  setShared (data) {
+  setShared(data) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -147,7 +158,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getSalesManData (cache = { TTL: 100 }) {
+  getSalesManData(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -156,15 +167,16 @@ export default class ReferralCodeAPI extends APIRepository {
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return {
-          wallet_type: response.data.wallet_type ? response.data.wallet_type.toString() : null, // type: String,  Example: main_account
-          wallet_balance: response.data.wallet_balance ? response.data.wallet_balance.toNumber() : null, // type: Number,  Example: 10000
-          total_commission: response.data.total_commission ? response.data.total_commission.toNumber() : null, // type: Number,  Example: 10000
+          wallet_type: response.data.wallet_type ? String(response.data.wallet_type) : null, // type: String,  Example: main_account
+          wallet_balance: response.data.wallet_balance ? Number(response.data.wallet_balance) : 0, // type: Number,  Example: 10000
+          total_commission: response.data.total_commission ? Number(response.data.total_commission) : 0, // type: Number,  Example: 10000
           has_signed_contract: response.data.has_signed_contract ? response.data.has_signed_contract : null, // type: Boolean(true/false)
-          minAmount_until_settlement: response.data.minAmount_until_settlement ? response.data.minAmount_until_settlement.toNumber() : null, // type: Number,  Example: 10000
-          count_of_total_gift_cards: response.data.count_of_total_gift_cards ? response.data.count_of_total_gift_cards.toNumber() : null, // type: Number,  Example: 11
-          count_of_used_gift_cards: response.data.count_of_used_gift_cards ? response.data.count_of_used_gift_cards.toNumber() : null, // type: Number,  Example: 3
-          count_of_remain_gift_cards: response.data.count_of_remain_gift_cards ? response.data.count_of_remain_gift_cards.toNumber() : null, // type: Number,  Example: 8
-          income_being_settle: response.data.income_being_settle ? response.data.income_being_settle.toNumber() : null // type: Number,  Example: 90000
+          minAmount_until_settlement: response.data.minAmount_until_settlement ? Number(response.data.minAmount_until_settlement) : 0, // type: Number,  Example: 10000
+          count_of_total_gift_cards: response.data.count_of_total_gift_cards ? Number(response.data.count_of_total_gift_cards) : 0, // type: Number,  Example: 11
+          count_of_used_gift_cards: response.data.count_of_used_gift_cards ? Number(response.data.count_of_used_gift_cards) : 0, // type: Number,  Example: 3
+          count_of_used_without_pay_gift_cards: response.data.count_of_used_without_pay_gift_cards ? Number(response.data.count_of_used_without_pay_gift_cards) : 0, // type: Number,  Example: 3
+          count_of_remain_gift_cards: response.data.count_of_remain_gift_cards ? Number(response.data.count_of_remain_gift_cards) : 0, // type: Number,  Example: 8
+          income_being_settle: response.data.income_being_settle ? Number(response.data.income_being_settle) : 0 // type: Number,  Example: 90000
         }
       },
       rejectCallback: (error) => {
@@ -173,7 +185,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getWithdrawWallet () {
+  getWithdrawWallet() {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -188,15 +200,21 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  getWithdrawHistory (cache) {
+  getWithdrawHistory(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.walletWithdrawRequests,
       cacheKey: this.CacheList.walletWithdrawRequests,
+      data: this.getNormalizedSendData({
+        page: 1 // Number
+      }, data),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
-        return response.data.data
+        return {
+          clearingHistoryTableRow: new WithdrawHistoryList(response.data.data),
+          paginate: response.data.pagination
+        }
       },
       rejectCallback: (error) => {
         return error
@@ -204,7 +222,7 @@ export default class ReferralCodeAPI extends APIRepository {
     })
   }
 
-  submitContract () {
+  submitContract() {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,

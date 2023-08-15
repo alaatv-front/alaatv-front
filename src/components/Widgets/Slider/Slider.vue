@@ -23,13 +23,20 @@
               class="slider-widget">
     <q-carousel-slide v-for="(slide, index) in options.list"
                       :key="index"
+                      :ref="'slider' + index"
                       :name="index">
-      <a :href="slide.link">
+      <a :href="slide.link"
+         @click="takeAction(slide)">
         <lazy-img v-if="slide.photo.src !== ''"
+                  q-image
+                  :height="slide.photo.height"
+                  :width="slide.photo.width"
                   :src="slide.photo.src"
                   :alt="slide.title" />
         <lazy-img v-else
-                  qImage="true"
+                  qImage
+                  :height="responsiveFeatures(slide.features).height"
+                  :width="responsiveFeatures(slide.features).width"
                   :src="responsiveFeatures(slide.features).src"
                   :alt="slide.title" />
         <q-tooltip v-if="slide.title"
@@ -50,9 +57,10 @@
 
 <script>
 import { ref } from 'vue'
-import { BannerList } from 'src/models/Banner.js'
+import { Banner, BannerList } from 'src/models/Banner.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import lazyImg from '../../../components/lazyImg.vue'
+import lazyImg from 'components/lazyImg.vue'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce'
 
 export default {
   name: 'Slider',
@@ -68,8 +76,10 @@ export default {
   },
   data () {
     return {
+      sliderRef: 'slider' + Date.now(),
       slide: ref(null),
       fullscreen: ref(false),
+      selectedSlide: new Banner(),
       windowWidth: 0,
       defaultOptions: {
         list: [],
@@ -107,30 +117,91 @@ export default {
       }
     }
   },
+  watch: {
+    slide(newVal) {
+      this.selectedSlide = new Banner(this.localOptions.list[newVal])
+      this.$nextTick(() => {
+        this.setAEEEvent(newVal)
+      })
+    }
+  },
   mounted () {
     if (this.options && this.options.list && this.options.list.length > 0) {
       this.slide = 0
     }
+
     window.addEventListener('resize', this.onResize)
+    this.windowWidth = window.innerWidth
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    setSliderIntersectionObserver (sliderIndex) {
+      const slideRef = 'slider' + sliderIndex
+      const element = this.$refs[slideRef][0].$el
+      const observer = new IntersectionObserver(this.handleIntersection)
+      observer.observe(element)
+    },
+    handleIntersection(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          this.slideViewed()
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    getAEEKey() {
+      let AEEKey
+      Object.values(this.selectedSlide.AEEEventBody).forEach(item => {
+        AEEKey += item
+      })
+      return AEEKey
+    },
+    slideViewed () {
+      AEE.promotionView([this.selectedSlide.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
+    },
+    pushClickedEvent (slide) {
+      AEE.promotionClick([slide.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
+    },
+    setAEEEvent (sliderIndex) {
+      if (!this.selectedSlide.useAEEEvent) {
+        return
+      }
+      this.setSliderIntersectionObserver(sliderIndex)
+    },
     onResize() {
+      if (typeof window === 'undefined') {
+        return
+      }
       this.windowWidth = window.innerWidth
     },
     responsiveFeatures (features) {
+      const defaultResult = { src: '', width: '0', height: '0' }
+      let result = {}
       if (this.windowWidth >= 1920) {
-        return features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
+        result = features.xl.src !== '' ? features.xl : features.lg.src !== '' ? features.lg : features.sm.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs
       } else if (this.windowWidth <= 1919 && this.windowWidth > 1440) {
-        return features.lg.src !== '' ? features.lg : features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.xl
+        result = features.lg.src !== '' ? features.lg : features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.xl
       } else if (this.windowWidth <= 1439 && this.windowWidth > 1024) {
-        return features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.lg.src !== '' ? features.lg : features.xl
+        result = features.md.src !== '' ? features.md : features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.lg.src !== '' ? features.lg : features.xl
       } else if (this.windowWidth <= 1023 && this.windowWidth > 600) {
-        return features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
+        result = features.sm.src !== '' ? features.sm : features.xs.src !== '' ? features.xs : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
       } else if (this.windowWidth <= 599) {
-        return features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
+        result = features.xs.src !== '' ? features.xs : features.sm.src !== '' ? features.sm : features.md.src !== '' ? features.md : features.lg.src !== '' ? features.lg : features.xl
+      }
+
+      return Object.assign(defaultResult, result)
+    },
+    takeAction(slide) {
+      if (slide.useAEEEvent) {
+        this.pushClickedEvent(slide)
       }
     }
   }
@@ -146,5 +217,20 @@ export default {
   //.image {
   //  width: 100%;
   //}
+  @media screen and (max-width: 600px){
+    &:deep(.q-carousel__navigation){
+      bottom: 3px;
+      .q-btn {
+        margin: 0;
+        padding: 0;
+      }
+    }
+    &:deep(.q-carousel__next-arrow) {
+      right: 0;
+    }
+    &:deep(.q-carousel__prev-arrow) {
+      left: 0;
+    }
+  }
 }
 </style>

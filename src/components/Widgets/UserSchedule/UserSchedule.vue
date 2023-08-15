@@ -234,110 +234,110 @@ export default {
 
     requestToGetContents (date) {
       // return this.$axios.get('/api/v2/abrisham/whereIsKarvan', { params: { date } })
-      // return this.$apiGateway.abrisham.whereIsKarvan({ params: { date } }) 500 mide
+      return this.$apiGateway.abrisham.whereIsKarvan({ params: { date } }) // 500 mide
 
-      return {
-        data: {
-          data: [
-            {
-              id: 28960,
-              redirect_url: null,
-              type: 8,
-              section: {
-                id: 1,
-                name: 'تابلو راهنما'
-              },
-              title: 'جلسه صفر، معرفی دوره',
-              file: null,
-              duration: 181,
-              photo: 'https://nodes.alaatv.com/media/thumbnails/1128/1128000chiz.jpg',
-              is_free: 0,
-              order: 0,
-              major: {
-                id: 1,
-                name: 'ریاضی',
-                title: 'ریاضی',
-                selected: false
-              },
-              updated_at: '2021-11-20 14:44:23',
-              url: {
-                web: 'https://alaatv.com/c/28960',
-                api: 'https://alaatv.com/api/v2/c/28960'
-              },
-              redirect_code: null,
-              comments: [],
-              short_title: 'جلسه 0 پیله راه ابریشم زبان ',
-              has_watched: false,
-              content_type: {
-                id: 8,
-                display_name: 'فیلم',
-                name: 'video',
-                enable: null,
-                description: 'فیلم',
-                created_at: '2018-03-04 17:39:17',
-                updated_at: '2018-03-04 17:39:17'
-              },
-              is_favored: false,
-              author: {
-                id: 1210950,
-                first_name: 'مهدی',
-                last_name: 'چیذری',
-                photo: 'https://nodes.alaatv.com/upload/images/profile/1641631685_7539.jpg'
-              },
-              can_see: 0,
-              timepoints: null
-            },
-            {
-              id: 28961,
-              redirect_url: null,
-              type: 8,
-              section: {
-                id: 6,
-                name: 'درسنامه'
-              },
-              title: 'درسنامه پیله (قسمت اول)، زمان حال ساده و زمان حال استمراری',
-              file: null,
-              duration: 2005,
-              photo: 'https://nodes.alaatv.com/media/thumbnails/1128/1128001toto.jpg',
-              is_free: 0,
-              order: 1,
-              major: {
-                id: 2,
-                name: 'تجربی',
-                title: 'تجربی',
-                selected: false
-              },
-              updated_at: '2021-11-20 14:44:23',
-              url: {
-                web: 'https://alaatv.com/c/28961',
-                api: 'https://alaatv.com/api/v2/c/28961'
-              },
-              redirect_code: null,
-              comments: [],
-              short_title: 'جلسه 1 پیله راه ابریشم زبان ',
-              has_watched: false,
-              content_type: {
-                id: 8,
-                display_name: 'فیلم',
-                name: 'video',
-                enable: null,
-                description: 'فیلم',
-                created_at: '2018-03-04 17:39:17',
-                updated_at: '2018-03-04 17:39:17'
-              },
-              is_favored: false,
-              author: {
-                id: 1210950,
-                first_name: 'مهدی',
-                last_name: 'چیذری',
-                photo: 'https://nodes.alaatv.com/upload/images/profile/1641631685_7539.jpg'
-              },
-              can_see: 0,
-              timepoints: null
-            }
-          ]
-        }
-      }
+      // return {
+      //   data: {
+      //     data: [
+      //       {
+      //         id: 28960,
+      //         redirect_url: null,
+      //         type: 8,
+      //         section: {
+      //           id: 1,
+      //           name: 'تابلو راهنما'
+      //         },
+      //         title: 'جلسه صفر، معرفی دوره',
+      //         file: null,
+      //         duration: 181,
+      //         photo: 'https://nodes.alaatv.com/media/thumbnails/1128/1128000chiz.jpg',
+      //         is_free: 0,
+      //         order: 0,
+      //         major: {
+      //           id: 1,
+      //           name: 'ریاضی',
+      //           title: 'ریاضی',
+      //           selected: false
+      //         },
+      //         updated_at: '2021-11-20 14:44:23',
+      //         url: {
+      //           web: 'https://alaatv.com/c/28960',
+      //           api: 'https://alaatv.com/api/v2/c/28960'
+      //         },
+      //         redirect_code: null,
+      //         comments: [],
+      //         short_title: 'جلسه 0 پیله راه ابریشم زبان ',
+      //         has_watched: false,
+      //         content_type: {
+      //           id: 8,
+      //           display_name: 'فیلم',
+      //           name: 'video',
+      //           enable: null,
+      //           description: 'فیلم',
+      //           created_at: '2018-03-04 17:39:17',
+      //           updated_at: '2018-03-04 17:39:17'
+      //         },
+      //         is_favored: false,
+      //         author: {
+      //           id: 1210950,
+      //           first_name: 'مهدی',
+      //           last_name: 'چیذری',
+      //           photo: 'https://nodes.alaatv.com/upload/images/profile/1641631685_7539.jpg'
+      //         },
+      //         can_see: 0,
+      //         timepoints: null
+      //       },
+      //       {
+      //         id: 28961,
+      //         redirect_url: null,
+      //         type: 8,
+      //         section: {
+      //           id: 6,
+      //           name: 'درسنامه'
+      //         },
+      //         title: 'درسنامه پیله (قسمت اول)، زمان حال ساده و زمان حال استمراری',
+      //         file: null,
+      //         duration: 2005,
+      //         photo: 'https://nodes.alaatv.com/media/thumbnails/1128/1128001toto.jpg',
+      //         is_free: 0,
+      //         order: 1,
+      //         major: {
+      //           id: 2,
+      //           name: 'تجربی',
+      //           title: 'تجربی',
+      //           selected: false
+      //         },
+      //         updated_at: '2021-11-20 14:44:23',
+      //         url: {
+      //           web: 'https://alaatv.com/c/28961',
+      //           api: 'https://alaatv.com/api/v2/c/28961'
+      //         },
+      //         redirect_code: null,
+      //         comments: [],
+      //         short_title: 'جلسه 1 پیله راه ابریشم زبان ',
+      //         has_watched: false,
+      //         content_type: {
+      //           id: 8,
+      //           display_name: 'فیلم',
+      //           name: 'video',
+      //           enable: null,
+      //           description: 'فیلم',
+      //           created_at: '2018-03-04 17:39:17',
+      //           updated_at: '2018-03-04 17:39:17'
+      //         },
+      //         is_favored: false,
+      //         author: {
+      //           id: 1210950,
+      //           first_name: 'مهدی',
+      //           last_name: 'چیذری',
+      //           photo: 'https://nodes.alaatv.com/upload/images/profile/1641631685_7539.jpg'
+      //         },
+      //         can_see: 0,
+      //         timepoints: null
+      //       }
+      //     ]
+      //   }
+      // }
     },
 
     SetContents (contents) {

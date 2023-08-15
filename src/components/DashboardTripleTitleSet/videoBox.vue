@@ -9,14 +9,14 @@
                                 urlParam: 'contentId',
                                 noRequestMode: true,
                                 content
-                              }" />
+                              }"
+                              @time-updated="updateTime" />
         <div v-else
              class="row justify-center">
-          <div class="video-not-available col-6">
+          <div class="video-not-available col-12">
             <product-item class="product-item"
                           :options="{
-                            product: selectedProduct,
-                            minWidth: '318px'
+                            product: selectedProduct
                           }" />
           </div>
         </div>
@@ -192,7 +192,7 @@ export default {
     }
   },
 
-  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite'],
+  emits: ['favorite', 'toggle-video-status', 'bookmarkTimestamp', 'toggleFavorite', 'videoIsWatched'],
 
   data() {
     return {
@@ -253,6 +253,11 @@ export default {
     'content.id': function () {}
   },
   methods: {
+    updateTime (data) {
+      if ((data.currentTime / data.duration) >= 0.9 && !this.content.has_watched) {
+        this.$emit('videoIsWatched')
+      }
+    },
     handleContentBookmark () {
       this.bookmarkLoading = true
       if (this.contentFavored) {

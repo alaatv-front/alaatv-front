@@ -2,7 +2,7 @@
   <div v-for="(item , index) in computedMenu"
        :key="index"
        class="menu-item">
-    <q-expansion-item v-if="!loading && item.children && item.children.length > 0 && item.show"
+    <q-expansion-item v-if="!loading && item.children && item.children.length > 0"
                       :header-style="{height:'40px', borderRadius: '14px'}"
                       :label="item.title"
                       :icon="item.icon"
@@ -149,6 +149,9 @@ export default {
     itemSelected(item) {
       this.clickedItem = item
       this.$emit('itemSelected', item)
+      if (!this.redirectRoute(item) && item.externalLink) {
+        window.location.href = item.externalLink
+      }
     },
     inactiveAllItems () {
 

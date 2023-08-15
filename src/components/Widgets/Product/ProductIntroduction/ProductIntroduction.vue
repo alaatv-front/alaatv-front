@@ -41,6 +41,7 @@ import { APIGateway } from 'src/api/APIGateway.js'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
 import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ProductIntroduction',
@@ -100,12 +101,21 @@ export default {
     },
     prefetchServerDataPromiseThen (data) {
       this.product = new Product(data)
+      if (window) {
+        this.updateEECEventDetail()
+      }
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
     },
 
+    updateEECEventDetail() {
+      AEE.productDetailViews('product.show', this.product.eec.getData(), {
+        TTl: 1000,
+        key: this.product.id
+      })
+    },
     videoSource() {
       return new PlayerSourceList([{
         default: true,
@@ -123,5 +133,7 @@ export default {
 </script>
 
 <style scoped>
-
+.intro-video {
+  overflow: hidden;
+}
 </style>

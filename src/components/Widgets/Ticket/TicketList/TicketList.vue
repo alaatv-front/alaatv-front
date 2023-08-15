@@ -1,5 +1,15 @@
 <template>
   <div class="ticket-index">
+    <div v-if="!isInAdminPage"
+         class="lt-sm flex justify-end">
+      <q-btn flat
+             color="grey"
+             :to="{name: 'UserPanel.Dashboard'}">
+        <q-icon name="isax:layer"
+                class="q-mr-sm" />
+        >
+      </q-btn>
+    </div>
     <div v-if="isEntityReady">
       <entity-index v-model:value="inputs"
                     title="لیست تیکت ها"
@@ -131,10 +141,10 @@
 </template>
 
 <script>
-import { EntityIndex } from 'quasar-crud'
-import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
-import { APIGateway } from 'src/api/APIGateway'
 import moment from 'moment-jalaali'
+import { EntityIndex } from 'quasar-crud'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'TicketList',
   components: { EntityIndex },
@@ -307,12 +317,12 @@ export default {
       },
       userInputs: [
         { type: 'hidden', options: [], name: 'department_id' },
-        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', placeholder: ' ', col: 'col-md-4' },
-        { type: 'select', options: [], name: 'status_id', label: 'وضعیت', placeholder: ' ', optionLabel: 'title', col: 'col-md-4' },
-        { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: ' ', col: 'col-md-4' },
-        { type: 'input', name: 'title', label: 'عنوان', placeholder: ' ', col: 'col-md-4' },
-        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', placeholder: ' ', col: 'col-md-4' },
-        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', placeholder: ' ', col: 'col-md-4' }
+        { type: 'select', options: [], name: 'pirority_id', label: 'اولویت', optionLabel: 'title', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'select', options: [], name: 'status_id', label: 'وضعیت', placeholder: ' ', optionLabel: 'title', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'input', name: 'id', label: 'شماره تیکت', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'input', name: 'title', label: 'عنوان', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'date', name: 'created_at_since', calendarIcon: ' ', label: 'از تاریخ : ', responseKey: 'data.from', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' },
+        { type: 'date', name: 'created_at_till', calendarIcon: ' ', label: 'تا تاریخ : ', placeholder: ' ', col: 'col-md-4 col-sm-6 col-xs-12' }
       ],
       adminInputs: [
         { type: 'input', name: 'has_user_mobile', label: 'شماره همراه', placeholder: ' ', col: 'col-md-3' },
@@ -589,12 +599,24 @@ export default {
     }
   },
   mounted () {
-    this.setData()
-    this.isEntityReady = true
+    this.checkQueryParams()
   },
   methods: {
-    initTicket () {
+    checkQueryParams () {
+      const departmentId = this.$route.query.d
+      if (departmentId) {
+        this.$router.push({
+          name: 'UserPanel.Ticket.Create',
+          query: {
+            d: departmentId
+          }
+        })
+      }
+    },
+    async initTicket () {
       this.setEntityValues()
+      await this.setInputs()
+      this.isEntityReady = true
     },
     getShamsiDate (date) {
       return moment(date, 'YYYY-M-D').format('jYYYY/jMM/jDD')
@@ -625,10 +647,11 @@ export default {
       }
       this.updateTicketData(ticketId, payload)
     },
-    setData() {
-      this.getInput('department_id').options = this.departmentList.list
-      this.getInput('pirority_id').options = this.ticketPriorityOption
-      this.getInput('status_id').options = this.ticketStatuses
+    async setInputs () {
+      const ticketFields = await this.getTicketData()
+      this.getInput('department_id').options = ticketFields.departments.list
+      this.getInput('pirority_id').options = ticketFields.priorities.list
+      this.getInput('status_id').options = ticketFields.statuses.list
     },
     setEditMode(data) {
       data.expand = true

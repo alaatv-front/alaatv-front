@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import Timer from './Timer.vue'
 import VOtpInput from 'vue3-otp-input'
 import Timer from './Timer.vue'
 
@@ -77,7 +78,37 @@ export default {
       return this.userInfo.code
     }
   },
+  mounted () {
+    this.loadOTPCredential()
+  },
   methods: {
+    loadOTPCredential () {
+      if (typeof window !== 'undefined' && 'OTPCredential' in window) {
+        window.addEventListener('DOMContentLoaded', (e) => {
+          // const ac = new AbortController()
+          // const form = input.closest('form')
+          // if (form) {
+          //   form.addEventListener('submit', (e) => {
+          //     ac.abort()
+          //   })
+          // }
+          window.navigator.credentials
+            .get({
+              otp: { transport: ['sms'] }
+              // signal: ac.signal
+            })
+            .then((otp) => {
+              // alert(otp.code)
+              this.otpValue = otp.code
+              // input.value = otp.code
+              // if (form) form.submit()
+            })
+            .catch((err) => {
+              console.error(err)
+            })
+        })
+      }
+    },
     verifyCode() {
       const verifyData = {
         mobile: this.userInfo.mobile,
@@ -272,5 +303,14 @@ export default {
 .landing-otp-input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+@media screen and (max-width: 599px) {
+  .landing-otp-input {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 5px !important;
+    margin: 0 5px !important;
+    font-size: 16px !important;
+  }
 }
 </style>

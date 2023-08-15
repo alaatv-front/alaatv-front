@@ -10,7 +10,7 @@ export default class OrderAPI extends APIRepository {
       edit: '/admin/order',
       index: '/admin/order',
       show: '/admin/order',
-      status: '/payment/status',
+      status: '/admin/form-builder?types[]=paymentStatuses',
       ordersById: (id) => '/user/' + id + '/orders',
       transaction: {
         create: {
@@ -45,11 +45,11 @@ export default class OrderAPI extends APIRepository {
 
   getPaymentStatus() {
     return this.sendRequest({
-      apiMethod: 'post',
+      apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.status,
       resolveCallback: (response) => {
-        return response.data.data
+        return response.data.data.paymentStatuses
       },
       rejectCallback: (error) => {
         return error
@@ -57,7 +57,7 @@ export default class OrderAPI extends APIRepository {
     })
   }
 
-  SubmitCouponOnOrder (data = {}) {
+  SubmitCouponOnOrder(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -75,7 +75,7 @@ export default class OrderAPI extends APIRepository {
     })
   }
 
-  DeleteCouponFromOrder (data = {}) {
+  DeleteCouponFromOrder(data = {}) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,

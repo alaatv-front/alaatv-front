@@ -2,25 +2,31 @@
   <div class="transition-panel">
     <div class="page-title"> وضعیت درآمد </div>
     <div class="row no-gutters introduction-box">
-      <div class="col-xl-9 col-12">
-        <div class="row no-wrap no-gutters card-container">
-          <div class="col-sm-4 col-xs-12 q-pr-md">
+      <div class="col-xl-9 col-xs-12">
+        <div class="row q-col-gutter-md card-container">
+          <div class="col-md-4 col-xs-12 ">
             <div class="card-style income card-style-flex">
               <div class="title">
                 مجموع درآمد تا به الان
               </div>
-              <div class="price-box">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-box">
                 <div class="price">{{sales_man.total_commission.toLocaleString('fa')}}</div>
                 <span class="currency">تومان</span>
               </div>
             </div>
           </div>
-          <div class="col-sm-4 col-xs-12 q-px-md">
+          <div class="col-md-4 col-xs-12 ">
             <div class="card-style demand card-style-flex">
               <div class="title">
                 درآمد تسویه نشده
               </div>
-              <div class="price-progress">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-progress">
                 <div class="progress-box">
                   <div v-if="remainigAmountUntilSettlement.base > 0"
                        class="progress-title">
@@ -43,14 +49,17 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-4 col-xs-12 q-pl-md">
+          <div class="col-md-4 col-xs-12 ">
             <div class="card-style demand card-style-flex">
               <div class="title">
                 در انتظار تسویه
               </div>
-              <div class="price-progress price-progress-incomeBeingSettle">
+              <q-inner-loading v-if="salesManLoading"
+                               :showing="salesManLoading" />
+              <div v-else
+                   class="price-progress price-progress-incomeBeingSettle">
                 <div class="price-box">
-                  <div class="price">{{sales_man.income_being_settle}}</div>
+                  <div class="price">{{awaitingSattlement.toman('base', false)}}</div>
                   <span class="currency">تومان</span>
                 </div>
               </div>
@@ -58,26 +67,44 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-3 col-12">
+      <div class="col-xl-3 col-xs-12">
         <div class="left-side">
           <div class="clearing-title">
-            درخواست تسویه حساب
+            تاریخ تسویه حساب
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            1 مهر 1402
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            1 دی 1402
+          </div>
+          <div class="guide-info">
+            <q-icon name="circle"
+                    color="primary"
+                    class="q-mr-sm" />
+            1 فروردین 1403
           </div>
 
-          <div v-if="settlementGuide"
-               class="guide-info">
-            راهنما و شرایط تسویه حساب را
-            <span class="custom-color"
-                  @click="openSettlementGuideDialog">
-              مطالعه کنید.
-            </span>
-          </div>
-          <div class="clearing-btn-box">
-            <div class="clearing-btn"
-                 @click="clearWallet">
-              تسویه حساب
-            </div>
-          </div>
+          <!--          <div v-if="settlementGuide"-->
+          <!--               class="guide-info">-->
+          <!--            راهنما و شرایط تسویه حساب را-->
+          <!--            <span class="custom-color"-->
+          <!--                  @click="openSettlementGuideDialog">-->
+          <!--              مطالعه کنید.-->
+          <!--            </span>-->
+          <!--          </div>-->
+          <!--          <div class="clearing-btn-box">-->
+          <!--            <div class="clearing-btn"-->
+          <!--                 @click="clearWallet">-->
+          <!--              تسویه حساب-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
       </div>
     </div>
@@ -111,7 +138,7 @@
           <div class="table-container text-center">
             <q-table :rows="transactionsTableRow"
                      :columns="transactionsHeaders"
-                     :loading="loading"
+                     :loading="transactionsTableRowLoading"
                      hide-bottom
                      row-key="id">
               <template #header-cell="props">
@@ -121,9 +148,21 @@
                 </q-th>
               </template>
               <template #body-cell="props">
-                <q-td v-if="props.col.name === 'purchased_at'"
+                <q-td v-if="props.col.name === 'code'"
+                      class="table-column-txt">
+                  AT-{{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'product'"
+                      class="text-left table-column-txt">
+                  {{props.value}}
+                </q-td>
+                <q-td v-else-if="props.col.name === 'purchased_at' && props.value"
                       class="table-column-txt">
                   {{ convertToShamsi(props.value, 'date') }}
+                </q-td>
+                <q-td v-else-if="(props.col.name === 'commisson' || props.col.name === 'product_price') && props.value"
+                      class="table-column-txt">
+                  {{props.value.toLocaleString('fa')}}
                 </q-td>
                 <q-td v-else
                       class="table-column-txt">
@@ -133,13 +172,14 @@
             </q-table>
           </div>
           <div class="flex justify-center">
-            <q-pagination v-model="page"
+            <q-pagination v-if="lastPage > 1"
+                          v-model="page"
                           :max="lastPage"
                           :max-pages="6"
                           boundary-links
                           icon-first="isax:arrow-left-2"
                           icon-last="isax:arrow-right-3"
-                          class="gift-card-pagination"
+                          class="gift-card-pagination q-mt-md"
                           @update:model-value="getTransactionDataFromApi" />
           </div>
         </q-tab-panel>
@@ -151,7 +191,7 @@
             <div class="table-container text-center">
               <q-table :rows="clearingHistoryTableRow"
                        :columns="clearingHistoryHeaders"
-                       :loading="loading"
+                       :loading="clearingHistoryTableRowLoading"
                        hide-bottom
                        row-key="id">
                 <template #header-cell="props">
@@ -170,6 +210,10 @@
                       {{ getWithdrawStatus(props.value) }}
                     </div>
                   </q-td>
+                  <q-td v-else-if="props.col.name === 'amount' && props.value"
+                        class="table-column-txt">
+                    {{props.value.toLocaleString('fa')}}
+                  </q-td>
                   <q-td v-else-if="props.col.name === 'updated-at'"
                         class="table-column-txt">
                     {{ convertToShamsi(props.value, 'date') }}
@@ -183,48 +227,30 @@
               </q-table>
             </div>
             <div class="flex justify-center">
-              <q-pagination v-model="historyPage"
+              <q-pagination v-if="historyLastPage > 1"
+                            v-model="historyPage"
                             :max="historyLastPage"
                             :max-pages="6"
                             boundary-links
                             icon-first="isax:arrow-left-2"
                             icon-last="isax:arrow-right-3"
-                            class="gift-card-pagination"
-                            @update:model-value="getGiftCardsData" />
+                            class="gift-card-pagination q-mt-md"
+                            @update:model-value="getWithdrawHistory" />
             </div>
           </div>
         </q-tab-panel>
       </q-tab-panels>
     </div>
-    <q-dialog v-model="settlementGuideDialog"
-              width="500px">
+    <q-dialog v-model="settlementGuideDialog">
       <div class="settlementGuide-dialog">
         <q-btn color="primary"
                icon="isax:close-circle"
                @click="settlementGuideDialog = false" />
-        <q-card>
-          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-            numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-            optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-            obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-            nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-            tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-            quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos
-            sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
-            recusandae alias error harum maxime adipisci amet laborum. Perspiciatis
-            minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit
-            quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur
-            fugiat, temporibus enim commodi iusto libero magni deleniti quod quam
-            consequuntur! Commodi minima excepturi repudiandae velit hic maxime
-            doloremque. Quaerat provident commodi consectetur veniam similique ad
-            earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo
-            fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore
-            suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
-            modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam
-            totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam
-            quasi aliquam eligendi, placeat qui corporis!</span>
-        </q-card>
+        <div class="text q-my-lg">
+          <span>
+            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+          </span>
+        </div>
       </div>
     </q-dialog>
   </div>
@@ -258,12 +284,13 @@ export default {
     percentage: 0,
     lastPage: 0,
     page: 1,
+    salesManLoading: false,
     historyLastPage: 0,
     historyPage: 1,
     activeTab: 'transactions',
     clearingHistoryHeaders: [
       { name: 'bank-tracking-code', align: 'center', label: 'شماره تراکنش', field: 'bank-tracking-code' },
-      { name: 'amount', align: 'center', label: 'مبلغ', field: 'amount' },
+      { name: 'amount', align: 'center', label: 'مبلغ(تومان)', field: 'amount' },
       { name: 'settlement-date', align: 'center', label: 'تاریخ درخواست', field: 'settlement-date' },
       { name: 'status', align: 'center', label: 'وضعیت', field: 'status' },
       { name: 'updated-at', align: 'center', label: 'تاریخ پرداخت', field: 'updated-at' }
@@ -271,21 +298,29 @@ export default {
     loading: false,
     transactionsOptions: {},
     transactionsTableRow: [],
+    transactionsTableRowLoading: false,
     transactionsHeaders: [
       { name: 'name', align: 'center', label: 'نام خریدار', field: 'full_name' },
       { name: 'code', align: 'center', label: 'شماره کارت', field: 'code' },
       { name: 'product', align: 'center', label: 'محصول', field: 'product' },
       { name: 'purchased_at', align: 'center', label: 'تاریخ خرید', field: 'purchased_at' },
-      { name: 'product_price', align: 'center', label: 'مبلغ خرید', field: 'product_price' },
-      { name: 'commisson', align: 'center', label: 'درآمد شما', field: 'commisson' }
+      { name: 'commision_percent', align: 'center', label: 'درصد مشارکت', field: 'commisson_percentage' },
+      { name: 'product_price', align: 'center', label: 'مبلغ خرید(تومان)', field: 'product_price' },
+      { name: 'commisson', align: 'center', label: 'درآمد شما(تومان)', field: 'commisson' }
     ],
     clearingHistoryOptions: {},
-    clearingHistoryTableRow: []
+    clearingHistoryTableRow: [],
+    clearingHistoryTableRowLoading: false
   }),
   computed: {
     remainigAmountUntilSettlement () {
       return new Price({
         base: this.minAmountUntilSettlement - this.sales_man.wallet_balance
+      })
+    },
+    awaitingSattlement() {
+      return new Price({
+        base: this.sales_man.income_being_settle
       })
     },
     walletBalance() {
@@ -311,7 +346,7 @@ export default {
     }
 
   },
-  created() {
+  mounted() {
     this.loadAllData()
   },
   methods: {
@@ -323,12 +358,15 @@ export default {
       // this.getClearingHistoryDataFromApi()
     },
     getSalesMan() {
+      this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
+          this.salesManLoading = false
           this.sales_man = response
-          this.loadAcceptContract()
         })
-        .catch()
+        .catch(() => {
+          this.salesManLoading = false
+        })
     },
     openSettlementGuideDialog() {
       this.settlementGuideDialog = true
@@ -377,33 +415,34 @@ export default {
           this.loading = false
         })
     },
-    getWithdrawHistory() {
-      this.loading = true
-      APIGateway.referralCode.getWithdrawHistory()
-        .then(response => {
-          this.clearingHistoryTableRow = response
-          this.loading = false
+    getWithdrawHistory(page = 1) {
+      this.clearingHistoryTableRowLoading = true
+      APIGateway.referralCode.getWithdrawHistory({ page })
+        .then(({ clearingHistoryTableRow, paginate }) => {
+          this.clearingHistoryTableRow = clearingHistoryTableRow.list
+          this.historyLastPage = paginate
+          this.clearingHistoryTableRowLoading = false
         })
         .catch(() => {
-          this.loading = false
+          this.clearingHistoryTableRowLoading = false
         })
     },
     getTransactionDataFromApi(page = 1) {
-      this.loading = true
+      this.transactionsTableRowLoading = true
       this.referralCodeList = []
-      APIGateway.referralCode.getOrderProducts({ data: { page } })
-        .then((response) => {
-          this.transactionsTableRow = response.data.data
-          // this.lastPage = paginate.last_page
+      APIGateway.referralCode.getOrderProducts({ page })
+        .then(({ transactionsTableRow, paginate }) => {
+          this.transactionsTableRow = transactionsTableRow.list
+          this.lastPage = paginate.last_page
           // this.referralCodeList = referralCodeList
-          this.loading = false
+          this.transactionsTableRowLoading = false
         })
         .catch(() => {
-          this.loading = false
+          this.transactionsTableRowLoading = false
         })
     },
     async getClearingHistoryDataFromApi() {
-      this.loading = true
+      this.clearingHistoryTableRowLoading = true
       this.clearingHistoryTableRow = []
       try {
         const response = await this.clearingHistoryApiCall()
@@ -419,14 +458,14 @@ export default {
             paymentDate: Assist.miladiToShamsi(card.completed_at, true)
           })
         })
-        this.loading = false
+        this.clearingHistoryTableRowLoading = false
       } catch (err) {
-        this.loading = false
+        this.clearingHistoryTableRowLoading = false
         const messages = this.getErrorMessages(err.response.data)
         this.showErrorMessages(messages)
       }
 
-      this.loading = false
+      this.clearingHistoryTableRowLoading = false
     },
     TransactionApiCall() {
       return this.$axios.get('/ajax/referralCode/orderproducts', {
@@ -533,10 +572,14 @@ export default {
       position: absolute;
       bottom: 0;
       background: #E7ECF4;
+
+      .gift-card-pagination {
+        margin-top: 40px;
+      }
     }
   }
 
-    .table-title{
+  .table-title{
       font-style: normal;
       font-weight: 600;
       font-size: 20px;
@@ -691,11 +734,24 @@ export default {
   .pagination-box{
     margin-top: 40px
   }
-  .settlementGuide-dialog {
-    padding: 20px;
+  .dialog-container {
+    .settlementGuide-dialog {
+      background-color: #E5E5E5;
+      height: 100%;
+      padding: 20px;
+    }
   }
 }
 @media only screen and (max-width: 1903px){
+    .settlementGuide-dialog {
+      background-color: white;
+      border-radius: 20px;
+      padding: 20px;
+      .text {
+        font-size: 20px;
+      }
+    }
+
   .introduction-box{
     margin-bottom: 24px;
     .left-side{
