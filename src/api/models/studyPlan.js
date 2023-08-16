@@ -22,6 +22,7 @@ export default class StudyPlanAPI extends APIRepository {
       studyEvent: (id) => this.name + this.APIAdresses.studyEvent(id),
       getPlans: (id) => this.name + this.APIAdresses.getPlans(id),
       studyPlan: this.name + this.APIAdresses.studyPlan,
+      setting: this.name + this.APIAdresses.setting,
       studyEventReport: (id) => this.name + this.APIAdresses.studyEventReport(id),
       StudyPlan: this.name + this.APIAdresses.StudyPlan,
       planOptions: this.name + this.APIAdresses.planOptions,
@@ -165,6 +166,7 @@ export default class StudyPlanAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.setting,
+      cacheKey: this.CacheList.setting,
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new WebsiteSetting(response.data.data)

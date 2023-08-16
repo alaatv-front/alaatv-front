@@ -216,8 +216,8 @@
             <div class="col-12">
               <plan-item :plan="selectedEvent" />
             </div>
-            <div class="col-12">
-              <span v-html="selectedEvent.long_description" />
+            <div class="event-description col-12 q-mt-md">
+              {{selectedEvent.description}}
             </div>
           </div>
         </q-card-section>
@@ -717,8 +717,10 @@ export default defineComponent({
       this.eventDialog = true
       this.selectedEvent = event
     },
-    getStudyPlanData(eventId) {
-      console.warn('getStudyPlanData')
+    getStudyPlanData(eventId, date) {
+      if (date) {
+        this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      }
       this.loading = true
       const data = {
         study_event: eventId || this.studyEvent,
@@ -726,10 +728,8 @@ export default defineComponent({
         till_date: this.chartWeek[6].date,
         setting: this.filteredLesson ? this.filteredLesson : null
       }
-      console.warn('getStudyPlanData 1')
       APIGateway.studyPlan.getStudyPlanData(data)
         .then(studyPlanList => {
-          console.warn('getStudyPlanData 2')
           this.loading = false
           this.studyPlanList = studyPlanList
           for (let w = 0; w < 6; w++) {
@@ -745,22 +745,24 @@ export default defineComponent({
               }
             }
           }
-          console.warn('getStudyPlanData 3')
         })
-        .catch((e) => {
-          console.warn('getStudyPlanData 4', e)
+        .catch(() => {
           this.loading = false
         })
     },
+    goToSelectedDate(date) {
+      this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      this.getStudyPlanData()
+    },
     goToNextWeek() {
-      const today = new Date(this.calendarDate._i)
-      const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
+      // const today = new Date(this.chartWeek[0].date)
+      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
     goToLastWeek() {
-      const today = new Date(this.calendarDate._i)
-      const nextWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
+      // const today = new Date(this.calendarDate._i)
+      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
@@ -1197,5 +1199,8 @@ export default defineComponent({
 
 .event-dialog {
   width: 640px;
+  .event-description {
+    word-wrap: break-word;
+  }
 }
 </style>
