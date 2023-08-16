@@ -12,6 +12,7 @@
                  :show-expand-button="false"
                  :show-edit-button="false"
                  :show-index-button="false"
+                 :copy-on-click="true"
                  :api="karnameApi"
                  :after-load-input-data="afterLoadKonkurKarnameInputData" />
     <q-skeleton v-if="konkurKarnameLoading"
@@ -26,8 +27,9 @@
                  :show-expand-button="false"
                  :show-edit-button="false"
                  :show-index-button="false"
+                 :copy-on-click="true"
                  :api="entekhabReshteApi"
-                 :after-load-input-data="afterLoadKonkurKarnameInputData" />
+                 :after-load-input-data="afterLoadEntekhabReshteInputData" />
   </div>
 </template>
 
@@ -117,8 +119,11 @@ export default {
     }
   },
   created () {
-    this.karnameApi = APIGateway.user.APIAdresses.getEntekhabReshteByUserId(this.$route.params.id)
-    this.entekhabReshteApi = APIGateway.user.APIAdresses.getEntekhabReshteByUserId(this.$route.params.id)
+    // const userId = this.$route.params.id
+    const userId = 155
+    const eventId = this.$route.params.event_id
+    this.karnameApi = APIGateway.events.APIAdresses.getInfoByEvent(eventId) + '?user_id=' + userId
+    this.entekhabReshteApi = APIGateway.user.APIAdresses.getEntekhabReshteByUserId(userId)
   },
   mounted () {
     this.getFormData()
@@ -127,6 +132,8 @@ export default {
     afterLoadKonkurKarnameInputData (data) {
       this.konkurRankForm = new EventResult(data)
       this.loadProvinceAndCity()
+    },
+    afterLoadEntekhabReshteInputData () {
     },
     loadProvinceAndCity () {
       const cityId = this.konkurRankForm.shahr?.id || this.konkurRankForm.shahr_id

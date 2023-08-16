@@ -7,6 +7,7 @@ const APIAdresses = {
   base: 'events',
   formBuilder: '/admin/form-builder',
   entekhabReshte: '/entekhab-reshte',
+  getInfoByEvent: (eventId) => '/event-result/event/' + eventId,
   eventsProducts: (eventId) => `/events/${eventId}/products`,
   eventAdvisor: (eventId) => `/events/${eventId}/advisor`
 }
