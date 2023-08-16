@@ -311,14 +311,10 @@ export default {
     EntityCreate,
     EntityEdit
   },
-  beforeRouteUpdate () {
-    clearInterval(this.intervalId)
-  },
   data() {
     return {
       loading: false,
       api: APIGateway.studyPlan.APIAdresses.plan,
-      editapi: APIGateway.studyPlan.APIAdresses.editPlan,
       selectedPlanId: null,
       newPlanDialog: false,
       editPlanDialog: false,
@@ -326,7 +322,6 @@ export default {
       removePlanWarning: false,
       isAdmin: false,
       needToUpdatePlan: false,
-      selectedDate: '',
       studyPlanList: new StudyPlanList(),
       planSettings: false,
       acceptPlan: false,
@@ -341,12 +336,7 @@ export default {
       gradeOptions: [],
       lesson: '',
       lessonOptions: [],
-      currentDate: undefined,
-      currentTime: undefined,
-      intervalId: null,
-      timeStartPos: 0,
       filteredLesson: null,
-      eventId: null,
       editApi: null,
       inputs: [
         {
@@ -551,13 +541,6 @@ export default {
           col: 'col-12'
         }
       ]
-    }
-  },
-  computed: {
-    style() {
-      return {
-        top: this.timeStartPos + 'px'
-      }
     }
   },
   watch: {

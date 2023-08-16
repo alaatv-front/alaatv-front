@@ -216,8 +216,8 @@
             <div class="col-12">
               <plan-item :plan="selectedEvent" />
             </div>
-            <div class="col-12">
-              <span v-html="selectedEvent.long_description" />
+            <div class="col-12 q-mt-md">
+              <span v-html="selectedEvent.description" />
             </div>
           </div>
         </q-card-section>
@@ -716,6 +716,7 @@ export default defineComponent({
     openEvent(event) {
       this.eventDialog = true
       this.selectedEvent = event
+      console.log(event)
     },
     getStudyPlanData(eventId) {
       this.loading = true
@@ -748,14 +749,14 @@ export default defineComponent({
         })
     },
     goToNextWeek() {
-      const today = new Date(this.calendarDate._i)
-      const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
+      // const today = new Date(this.chartWeek[0].date)
+      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() + 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
     goToLastWeek() {
-      const today = new Date(this.calendarDate._i)
-      const nextWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
+      // const today = new Date(this.calendarDate._i)
+      const nextWeek = new Date(new Date(this.chartWeek[0].date).getTime() - 7 * 24 * 60 * 60 * 1000)
       this.loadCalendar(moment(nextWeek).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
       this.getStudyPlanData()
     },
