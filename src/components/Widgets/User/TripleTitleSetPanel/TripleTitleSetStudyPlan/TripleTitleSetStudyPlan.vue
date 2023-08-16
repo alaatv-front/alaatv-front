@@ -500,6 +500,7 @@ export default {
         },
         {
           type: SessionInfo,
+          name: 'SessionInfo',
           data: [],
           col: 'col-12'
         },

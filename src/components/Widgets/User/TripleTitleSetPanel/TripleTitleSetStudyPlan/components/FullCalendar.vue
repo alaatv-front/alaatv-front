@@ -216,8 +216,8 @@
             <div class="col-12">
               <plan-item :plan="selectedEvent" />
             </div>
-            <div class="col-12 q-mt-md">
-              <span v-html="selectedEvent.description" />
+            <div class="event-description col-12 q-mt-md">
+              {{selectedEvent.description}}
             </div>
           </div>
         </q-card-section>
@@ -1199,5 +1199,8 @@ export default defineComponent({
 
 .event-dialog {
   width: 640px;
+  .event-description {
+    word-wrap: break-word;
+  }
 }
 </style>
