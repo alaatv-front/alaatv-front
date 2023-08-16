@@ -4,7 +4,7 @@
   }
   .q-table__card {
     color: $grey-9;
-    background: $grey2;
+    background: $grey-2;
     border-radius: 16px;
     box-shadow: none;
     padding: 16px;
@@ -16,16 +16,16 @@
   .q-table {
     .q-tr {
       .q-td {
-        background: $grey1;
+        background: $grey-1;
         padding: 20px 10px;
-        border-bottom: 4px solid $grey2 !important;
+        border-bottom: 4px solid $grey-2 !important;
       }
 
       &.selected {
         border-radius: 8px;
 
         .q-td {
-          background: $secondary1;
+          background: $secondary-1;
           border-radius: 8px;
         }
       }
@@ -94,7 +94,7 @@
     }
 
     .q-checkbox__inner--truthy, .q-checkbox__inner--indet {
-      color: $secondary4;
+      color: $secondary-4;
     }
   }
 }
