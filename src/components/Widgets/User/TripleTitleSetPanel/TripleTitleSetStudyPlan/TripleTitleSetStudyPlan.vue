@@ -293,8 +293,9 @@
 
 <script>
 import { shallowRef } from 'vue'
-import { EntityCreate, EntityEdit } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { EntityCreate, EntityEdit } from 'quasar-crud'
+import { FormBuilderAssist } from 'quasar-form-builder'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
 import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
@@ -406,6 +407,7 @@ export default {
         },
         {
           type: SessionInfo,
+          name: 'SessionInfo',
           data: [],
           col: 'col-12'
         },
@@ -623,19 +625,24 @@ export default {
     acceptNewPlan() {
       this.loading = true
       const data = {
-        major_id: this.$refs.entityCreate.getInputsByName('major_id').value,
-        grade_id: this.$refs.entityCreate.getInputsByName('grade_id').value,
-        study_method_id: this.$refs.entityCreate.getInputsByName('study_method_id').value
+        major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value,
+        grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value,
+        study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id')?.value
       }
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
-          this.$refs.entityCreate.setInputByName('event_id', studyPlan.id)
+          FormBuilderAssist.setAttributeByName(this.inputs, 'event_id', 'value', studyPlan.id)
           if (this.studyEvent !== studyPlan.id) {
             this.studyEvent = studyPlan.id
             this.needToUpdatePlan = true
           }
           this.$refs.entityCreate.createEntity(false)
-          this.loading = false
+            .then(() => {
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
         })
         .catch(() => {
           this.loading = false

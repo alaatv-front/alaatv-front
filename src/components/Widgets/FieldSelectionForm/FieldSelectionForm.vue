@@ -1,6 +1,6 @@
 <template>
   <div class="FieldSelectionForm">
-    <q-tabs v-if="true"
+    <q-tabs v-if="false"
             v-model="step"
             dense
             class="text-grey"
