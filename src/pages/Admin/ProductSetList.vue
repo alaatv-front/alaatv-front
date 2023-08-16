@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import { APIGateway } from 'src/api/APIGateway'
-import { SetList } from 'src/models/Set'
+import { SetList } from 'src/models/Set.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'ProductSetList',
