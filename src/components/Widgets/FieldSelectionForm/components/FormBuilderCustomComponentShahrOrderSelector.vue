@@ -34,24 +34,12 @@ export default {
       bufferSelected: []
     }
   },
-  computed: {
-    localValue: {
-      get () {
-        return this.selected
-      },
-      set (newValue) {
-        this.$emit('update:value', newValue)
-      }
-    }
-  },
-  mounted () {
-  },
   methods: {
     openModal () {
       this.dialogState = true
     },
     onChangeSelected (newValue) {
-      this.$emit('update:value', newValue)
+      this.$emit('update:value', JSON.stringify(newValue))
       this.countOfSelected = newValue.length + ' شهر انتخاب شده'
     }
   }
