@@ -635,13 +635,13 @@ export default {
     afterSendData() {
       if (this.needToUpdatePlan) {
         this.updateMyStudyPlan({
-          major_id: this.$refs.entityCreate.getInputsByName('major_id').value,
-          grade_id: this.$refs.entityCreate.getInputsByName('grade_id').value,
-          study_method_id: this.$refs.entityCreate.getInputsByName('study_method_id').value
+          major_id: FormBuilderAssist.getInputsByName('major_id').value,
+          grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
+          study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
         })
         this.needToUpdatePlan = false
       } else {
-        this.$refs.fullCalendar.getStudyPlanData(null, this.$refs.entityCreate.getInputsByName('date').value)
+        this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName('date').value)
       }
       this.newPlanDialog = false
     },
