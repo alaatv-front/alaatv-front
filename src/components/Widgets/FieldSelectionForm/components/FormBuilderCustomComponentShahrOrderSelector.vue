@@ -51,6 +51,7 @@ export default {
       this.dialogState = true
     },
     onChangeSelected (newValue) {
+      this.$emit('update:value', newValue)
       this.countOfSelected = newValue.length + ' شهر انتخاب شده'
     }
   }

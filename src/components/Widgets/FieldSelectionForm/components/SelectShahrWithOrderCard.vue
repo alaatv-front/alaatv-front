@@ -14,7 +14,14 @@
       </div>
     </q-card-section>
     <q-separator />
-    <q-card-section class="body-section">
+    <q-card-section v-if="loading"
+                    class="body-section">
+      <q-skeleton type="rect"
+                  width="100%"
+                  height="50px" />
+    </q-card-section>
+    <q-card-section v-else
+                    class="body-section">
       <div class="shahr-selector">
         <div class="field ostan-column">
           <div class="title">
@@ -42,7 +49,7 @@
           <div class="title" />
           <q-btn icon="add"
                  color="primary"
-                 @click="addItem" />
+                 @click="onAddItem" />
         </div>
       </div>
       <div class="selected-preview q-mb-xl">
@@ -117,6 +124,7 @@ export default {
   emits: ['update:selected', 'onAccept', 'onCancel'],
   data () {
     return {
+      loading: false,
       selectedItems: [],
       selectedOstan: null,
       selectedShahr: null,
@@ -147,17 +155,37 @@ export default {
   },
   methods: {
     getProvincesAndCities () {
+      this.loading = true
       APIGateway.user.formData()
         .then((formData) => {
+          this.loading = false
           this.ostanOptions = formData.provinces
           this.cities = formData.cities
+          this.loadList()
         })
         .catch(() => {
+          this.loading = false
         })
     },
-    addItem () {
+    loadList () {
+      this.selecteds.forEach(item => {
+        const shahrObject = this.cities.find(city => city.id === item.id)
+        if (!shahrObject.id) {
+          return
+        }
+        const ostanObject = shahrObject.province
+        this.addItem(ostanObject, shahrObject)
+      })
+    },
+    onAddItem () {
       const ostanObject = this.ostanOptions.find(item => item.id === this.selectedOstan)
       const shahrObject = this.cities.find(item => item.id === this.selectedShahr)
+      if (!shahrObject.id) {
+        return
+      }
+      this.addItem(ostanObject, shahrObject)
+    },
+    addItem (ostanObject, shahrObject) {
       const oldItem = this.selectedItems.find(item => item.shahr.id === shahrObject.id)
       if (oldItem) {
         return
@@ -183,7 +211,7 @@ export default {
     updateSelected () {
       this.$emit('update:selecteds', this.selectedItems.map((item, itemIndex) => {
         return {
-          id: item.shahr,
+          id: item.shahr.id,
           order: itemIndex + 1
         }
       }))

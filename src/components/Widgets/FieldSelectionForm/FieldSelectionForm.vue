@@ -74,8 +74,8 @@ import RegisterKonkurRankForm from './components/RegisterKonkurRankForm.vue'
 import RegisterKonkurRankFormResult from './components/RegisterKonkurRankFormResult.vue'
 import RegisterKonkurFieldSelectionForm from './components/RegisterKonkurFieldSelectionForm.vue'
 import RegisterKonkurFieldSelectionProducts from './components/RegisterKonkurFieldSelectionProducts.vue'
-import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
 import RegisterKonkurFieldSelectionTankYouPage from './components/RegisterKonkurFieldSelectionTankYouPage.vue'
+import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
 
 export default {
   name: 'Newsletter',
@@ -213,7 +213,7 @@ export default {
     },
     onCompleteKonkurRankForm () {
       this.getKonkurResultFormData()
-      this.onGoSelectionField()
+      this.onGoRegisterKonkurRankFormResult()
     },
     onGoEditKarname () {
       this.step = 'konkurRankFormData'
@@ -223,6 +223,9 @@ export default {
     },
     onGoSelectionFieldProduts () {
       this.step = 'RegisterKonkurFieldSelectionProducts'
+    },
+    onGoRegisterKonkurRankFormResult () {
+      this.step = 'RegisterKonkurRankFormResult'
     },
     onGoSelectionFieldForm () {
       if (!this.hasFieldSelectionFormData) {
