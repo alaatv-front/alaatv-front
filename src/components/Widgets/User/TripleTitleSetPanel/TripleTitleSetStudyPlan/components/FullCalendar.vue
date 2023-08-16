@@ -716,9 +716,11 @@ export default defineComponent({
     openEvent(event) {
       this.eventDialog = true
       this.selectedEvent = event
-      console.log(event)
     },
-    getStudyPlanData(eventId) {
+    getStudyPlanData(eventId, date) {
+      if (date) {
+        this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      }
       this.loading = true
       const data = {
         study_event: eventId || this.studyEvent,
@@ -747,6 +749,10 @@ export default defineComponent({
         .catch(() => {
           this.loading = false
         })
+    },
+    goToSelectedDate(date) {
+      this.loadCalendar(moment(date).format('YYYY-MM-DD HH:mm:ss.SSS'), false)
+      this.getStudyPlanData()
     },
     goToNextWeek() {
       // const today = new Date(this.chartWeek[0].date)

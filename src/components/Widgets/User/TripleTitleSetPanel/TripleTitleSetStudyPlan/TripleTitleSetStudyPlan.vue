@@ -327,6 +327,7 @@ export default {
       acceptPlan: false,
       warning: false,
       successChangePlan: false,
+      selectedDate: null,
       planType: {},
       studyEvent: null,
       planOptions: [],
@@ -557,7 +558,6 @@ export default {
     this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
     this.getFilterLesson()
     this.getMyStudyPlan()
-    // this.getChangePlanOptions()
   },
   methods: {
     updatePlan() {
@@ -567,6 +567,7 @@ export default {
         grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
         study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value
       }
+      this.selectedDate = this.$refs.entityEdit.getInputsByName('date').value
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
           this.$refs.entityEdit.setInputByName('event_id', studyPlan.id)
@@ -633,7 +634,7 @@ export default {
         })
         this.needToUpdatePlan = false
       } else {
-        this.$refs.fullCalendar.getStudyPlanData()
+        this.$refs.fullCalendar.getStudyPlanData(null, this.$refs.entityCreate.getInputsByName('date').value)
       }
       this.newPlanDialog = false
     },
