@@ -373,7 +373,7 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.isPermittedToPurchase(productId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data?.data?.id
+        return response.data?.data?.order_id
       },
       rejectCallback: (error) => {
         return error
