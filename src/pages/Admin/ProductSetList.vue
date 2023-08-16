@@ -59,7 +59,7 @@ export default {
     },
     getProductSets() {
       this.loading = true
-      APIGateway.product.getSets(this.$route.params.productId)
+      APIGateway.product.getAdminSets(this.$route.params.productId)
         .then(setList => {
           this.setList = setList
           this.loading = false
