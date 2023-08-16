@@ -153,10 +153,8 @@ export default {
           .then((eventekhbReshte) => {
             if (eventekhbReshte.id) {
               this.hasFieldSelectionFormData = true
-              this.step = 'RegisterKonkurFieldSelectionGoToPayment'
-            } else {
-              this.step = 'RegisterKonkurFieldSelectionProducts'
             }
+            this.step = 'RegisterKonkurFieldSelectionProducts'
             resolve()
           })
           .catch(() => {
