@@ -47,7 +47,7 @@
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionForm">
         <register-konkur-field-selection-form @onBack="onGoToSelectProduct"
-                                              @onForward="onGoSelectionFieldForm" />
+                                              @onComplete="onGoRegisterKonkurFieldSelectionGoToPayment" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionGoToPayment">
         <register-konkur-field-selection-go-to-payment :order-id="orderId" />
@@ -226,6 +226,9 @@ export default {
     },
     onGoRegisterKonkurRankFormResult () {
       this.step = 'RegisterKonkurRankFormResult'
+    },
+    onGoRegisterKonkurFieldSelectionGoToPayment () {
+      this.step = 'RegisterKonkurFieldSelectionGoToPayment'
     },
     onGoSelectionFieldForm () {
       if (!this.hasFieldSelectionFormData) {
