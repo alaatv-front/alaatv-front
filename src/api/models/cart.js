@@ -14,7 +14,14 @@ export default class CartAPI extends APIRepository {
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
-      getPaymentRedirectEncryptedLink: (device, paymentMethod) => '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device + '&paymentMethod=' + paymentMethod,
+      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId) => {
+        let address = '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device + '&paymentMethod=' + paymentMethod
+        if (orderId) {
+          address += '&orderId=' + orderId
+        }
+
+        return address
+      },
       // getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=web',
       removeFromCart: (id) => '/orderproduct/' + id,
       removeFromCartByProductId: (id) => 'remove-order-product/' + id,
@@ -25,7 +32,7 @@ export default class CartAPI extends APIRepository {
       gateways: this.name + this.APIAdresses.gateways,
       discountSubmit: this.name + this.APIAdresses.discountSubmit,
       discountRemove: this.name + this.APIAdresses.discountRemove,
-      getPaymentRedirectEncryptedLink: (device, paymentMethod) => this.name + this.APIAdresses.getPaymentRedirectEncryptedLink(device, paymentMethod),
+      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId) => this.name + this.APIAdresses.getPaymentRedirectEncryptedLink(device, paymentMethod, orderId),
       reviewCart: this.name + this.APIAdresses.reviewCart,
       removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id),
       removeFromCartByProductId: id => this.name + this.APIAdresses.removeFromCartByProductId(id),
@@ -95,7 +102,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  reviewCart(cartItems = [], cache = { TTL: 1000 }) {
+  reviewCart(cartItems = [], cache = { TTL: 100 }) {
     const queryParams = {}
     queryParams.seller = this.seller
 
@@ -172,8 +179,8 @@ export default class CartAPI extends APIRepository {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod),
-      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod),
+      request: this.APIAdresses.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId),
+      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data.data.url

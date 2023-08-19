@@ -6,6 +6,7 @@ import APIRepository from '../classes/APIRepository.js'
 const APIAdresses = {
   base: 'events',
   formBuilder: '/admin/form-builder',
+  entekhabReshte: '/entekhab-reshte',
   eventsProducts: (eventId) => `/events/${eventId}/products`,
   eventAdvisor: (eventId) => `/events/${eventId}/advisor`
 }
@@ -93,7 +94,7 @@ export default class EventsAPI extends APIRepository {
         })
         return defaultRoute.concat('?types[]=', types)
       }
-      return defaultRoute.concat('?types[]=', payload.types)
+      return defaultRoute + '?types[]=' + payload.types.join('&types[]=')
     }
     const requestRoute = routeWithParams(this.APIAdresses.formBuilder, {
       types: data.params // array or number

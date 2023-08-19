@@ -135,6 +135,11 @@
                          label="ذخیره"
                          type="submit" />
                 </div>
+                <div class="col-4">
+                  <q-input v-model="localOptions.fieldBackground"
+                           type="text"
+                           label="fieldBackground" />
+                </div>
               </div>
             </q-form>
             <q-list v-if="localOptions.inputs.length > 0"
@@ -366,6 +371,7 @@ export default defineComponent({
           lg: '',
           xl: ''
         },
+        fieldBackground: '#F4F5F6',
         eventId: null
       },
       inputForm: { type: '', inputType: '', name: '', outlined: false, label: '', placeholder: '', col: '' },

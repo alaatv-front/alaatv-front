@@ -446,6 +446,13 @@ const list = [
     show: true,
     active: false,
     children: []
+  },
+  {
+    title: 'مدیریت محصولات',
+    icon: 'isax:setting-2',
+    routeName: 'Admin.Product.Index',
+    show: true,
+    active: false
   }
   // {
   //   title: 'سوالات متداول',
