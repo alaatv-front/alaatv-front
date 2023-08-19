@@ -47,10 +47,17 @@
 import VersionConfig from 'app/src-capacitor/android/versionConfig.json'
 export default {
   name: 'androidVersionCheck',
+  props: {
+    latestVersion: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       visible: false,
-      isAndroidForceUpdate: false,
       androidOptions: [
         { label: 'دانلود از گوگل پلی', value: 'play_store', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/googlePlay.svg' },
         { label: 'دانلود مستقیم', value: 'direct', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/directDownloadAndroid.svg' },
@@ -58,18 +65,21 @@ export default {
       ]
     }
   },
+  computed: {
+    isAndroidForceUpdate() {
+      return this.latestVersion.android.type.code === 1
+    }
+  },
+  mounted() {
+    this.checkAndroidVersion(this.latestVersion.android)
+  },
   methods: {
     checkAndroidVersion(apiAndroidVersion) {
       const installedVersion = VersionConfig.androidVersion
       const isLastVersion = apiAndroidVersion.last_version === installedVersion
       if (!isLastVersion) {
         this.showDialog()
-        if (apiAndroidVersion.type.code === 1) {
-          this.isAndroidForceUpdate = true
-        }
-        this.androidOptions.forEach(option => {
-          option.link = apiAndroidVersion.url[option.value]
-        })
+        this.handleUrlLinks()
       }
     },
     selectOption(option) {
@@ -80,7 +90,11 @@ export default {
     },
     showDialog() {
       this.visible = true
-      console.log('show dialog', this.visible)
+    },
+    handleUrlLinks() {
+      this.androidOptions.forEach(option => {
+        option.link = this.latestVersion.android.url[option.value]
+      })
     }
   }
 }
