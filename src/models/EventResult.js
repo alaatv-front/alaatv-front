@@ -1,7 +1,6 @@
+import { User } from './User.js'
+import { Major } from 'src/models/Major.js'
 import { Model, Collection } from 'js-abstract-model'
-import { Block } from 'src/models/Block'
-import { User } from './User'
-import { Major } from 'src/models/Major'
 
 class EventResult extends Model {
   constructor(data) {
@@ -59,7 +58,7 @@ class EventResult extends Model {
 }
 class EventResultList extends Collection {
   model () {
-    return Block
+    return EventResult
   }
 }
 

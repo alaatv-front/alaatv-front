@@ -2,6 +2,7 @@ import { Set } from 'src/models/Set.js'
 import { apiV2 } from 'src/boot/axios.js'
 import { ProductList } from 'src/models/Product.js'
 import APIRepository from '../classes/APIRepository.js'
+import { EventResult } from 'src/models/EventResult'
 
 const APIAdresses = {
   base: 'events',
@@ -18,6 +19,7 @@ export default class EventsAPI extends APIRepository {
       base: this.name + this.APIAdresses.base,
       formBuilder: this.name + this.APIAdresses.formBuilder,
       eventsProducts: (eventId) => this.name + this.APIAdresses.eventsProducts(eventId),
+      getInfoByEvent: (eventId) => this.name + this.APIAdresses.getInfoByEvent(eventId),
       eventAdvisor: (eventId) => this.name + this.APIAdresses.eventAdvisor(eventId)
     }
   }
@@ -134,6 +136,25 @@ export default class EventsAPI extends APIRepository {
     //   resolve(productList)
     // })
     // return products
+  }
+
+  getKonkurResultByEvent(data = {}, cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getInfoByEvent(data.eventId),
+      cacheKey: this.CacheList.getInfoByEvent(data.eventId),
+      data: this.getNormalizedSendData({
+        user_id: null // Number
+      }, data),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new EventResult(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
   }
 }
 
