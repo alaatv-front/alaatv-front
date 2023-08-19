@@ -1,8 +1,7 @@
 <template>
   <q-inner-loading v-if="loading"
-                   :showing="loading" />
-  <div v-else
-       class="sets">
+                   showing />
+  <div class="sets">
     <div v-for="(set, index) in setList.list"
          :key="index"
          class="set"
@@ -75,6 +74,16 @@ export default {
     },
     onDragOver(event) {
       event.preventDefault()
+      if (event.clientY < 100) {
+        window.scroll({
+          top: 0,
+          behavior: 'smooth'
+        })
+      } else {
+        window.scroll({
+          top: window.pageYOffset
+        })
+      }
     },
     onDrop(event, newIndex, parent) {
       const valueStringfied = event.dataTransfer.getData('value')
