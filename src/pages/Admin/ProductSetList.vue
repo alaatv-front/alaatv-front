@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import { APIGateway } from 'src/api/APIGateway'
-import { SetList } from 'src/models/Set'
+import { SetList } from 'src/models/Set.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'ProductSetList',
@@ -59,7 +59,7 @@ export default {
     },
     getProductSets() {
       this.loading = true
-      APIGateway.product.getSets(this.$route.params.productId)
+      APIGateway.product.getAdminSets(this.$route.params.productId)
         .then(setList => {
           this.setList = setList
           this.loading = false

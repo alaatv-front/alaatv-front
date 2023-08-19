@@ -47,7 +47,7 @@
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionForm">
         <register-konkur-field-selection-form @onBack="onGoToSelectProduct"
-                                              @onForward="onGoSelectionFieldForm" />
+                                              @onComplete="onGoRegisterKonkurFieldSelectionGoToPayment" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionGoToPayment">
         <register-konkur-field-selection-go-to-payment :order-id="orderId" />
@@ -153,10 +153,8 @@ export default {
           .then((eventekhbReshte) => {
             if (eventekhbReshte.id) {
               this.hasFieldSelectionFormData = true
-              this.step = 'RegisterKonkurFieldSelectionGoToPayment'
-            } else {
-              this.step = 'RegisterKonkurFieldSelectionProducts'
             }
+            this.step = 'RegisterKonkurFieldSelectionProducts'
             resolve()
           })
           .catch(() => {
@@ -226,6 +224,9 @@ export default {
     },
     onGoRegisterKonkurRankFormResult () {
       this.step = 'RegisterKonkurRankFormResult'
+    },
+    onGoRegisterKonkurFieldSelectionGoToPayment () {
+      this.step = 'RegisterKonkurFieldSelectionGoToPayment'
     },
     onGoSelectionFieldForm () {
       if (!this.hasFieldSelectionFormData) {

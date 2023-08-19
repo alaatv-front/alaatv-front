@@ -312,14 +312,10 @@ export default {
     EntityCreate,
     EntityEdit
   },
-  beforeRouteUpdate () {
-    clearInterval(this.intervalId)
-  },
   data() {
     return {
       loading: false,
       api: APIGateway.studyPlan.APIAdresses.plan,
-      editapi: APIGateway.studyPlan.APIAdresses.editPlan,
       selectedPlanId: null,
       newPlanDialog: false,
       editPlanDialog: false,
@@ -327,12 +323,12 @@ export default {
       removePlanWarning: false,
       isAdmin: false,
       needToUpdatePlan: false,
-      selectedDate: '',
       studyPlanList: new StudyPlanList(),
       planSettings: false,
       acceptPlan: false,
       warning: false,
       successChangePlan: false,
+      selectedDate: null,
       planType: {},
       studyEvent: null,
       planOptions: [],
@@ -342,12 +338,7 @@ export default {
       gradeOptions: [],
       lesson: '',
       lessonOptions: [],
-      currentDate: undefined,
-      currentTime: undefined,
-      intervalId: null,
-      timeStartPos: 0,
       filteredLesson: null,
-      eventId: null,
       editApi: null,
       inputs: [
         {
@@ -509,6 +500,7 @@ export default {
         },
         {
           type: SessionInfo,
+          name: 'SessionInfo',
           data: [],
           col: 'col-12'
         },
@@ -555,13 +547,6 @@ export default {
       ]
     }
   },
-  computed: {
-    style() {
-      return {
-        top: this.timeStartPos + 'px'
-      }
-    }
-  },
   watch: {
     planSettings(newVal) {
       if (newVal) {
@@ -576,7 +561,6 @@ export default {
     this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
     this.getFilterLesson()
     this.getMyStudyPlan()
-    // this.getChangePlanOptions()
   },
   methods: {
     updatePlan() {
@@ -586,6 +570,7 @@ export default {
         grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
         study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value
       }
+      this.selectedDate = this.$refs.entityEdit.getInputsByName('date').value
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
           this.$refs.entityEdit.setInputByName('event_id', studyPlan.id)
@@ -651,13 +636,13 @@ export default {
     afterSendData() {
       if (this.needToUpdatePlan) {
         this.updateMyStudyPlan({
-          major_id: this.$refs.entityCreate.getInputsByName('major_id').value,
-          grade_id: this.$refs.entityCreate.getInputsByName('grade_id').value,
-          study_method_id: this.$refs.entityCreate.getInputsByName('study_method_id').value
+          major_id: FormBuilderAssist.getInputsByName('major_id').value,
+          grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
+          study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
         })
         this.needToUpdatePlan = false
       } else {
-        this.$refs.fullCalendar.getStudyPlanData()
+        this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName('date').value)
       }
       this.newPlanDialog = false
     },

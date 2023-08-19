@@ -17,7 +17,11 @@
       </div>
     </div>
 
-    <q-list>
+    <q-skeleton v-if="loading"
+                type="rect"
+                width="100%"
+                height="200px" />
+    <q-list v-else>
       <product-item v-for="(product, productIndex) in products"
                     :key="productIndex"
                     v-model:selected="selectedProduct"
@@ -39,6 +43,7 @@
       <div class="col-6">
         <q-btn color="primary"
                class="full-width"
+               :loading="loading"
                @click="onForward">
           مرحله بعد
           <q-icon name="arrow_back" />
@@ -89,6 +94,7 @@ export default {
   emits: ['update:orderId', 'update:selectedProductId', 'onBack', 'onForward'],
   data () {
     return {
+      loading: false,
       selectedProduct: 0,
       productList: new ProductList(),
       products: [
@@ -186,6 +192,7 @@ export default {
       return product.price.final.toLocaleString('fa')
     },
     getProducts () {
+      this.loading = true
       APIGateway.product.getProductList({
         productIds: this.productIds,
         params: {
@@ -195,9 +202,10 @@ export default {
         .then((productList) => {
           this.productObjectList = productList
           this.loadProductPrice()
+          this.loading = false
         })
         .catch(() => {
-
+          this.loading = false
         })
     },
     onBack () {
@@ -207,13 +215,17 @@ export default {
       this.checkSelectedProduct()
     },
     checkSelectedProduct () {
+      this.loading = true
       APIGateway.user.isPermittedToPurchase(this.selectedProduct)
         .then((orderId) => {
           this.$emit('update:orderId', orderId)
           this.$emit('update:selectedProductId', this.selectedProduct)
           this.$emit('onForward')
+          this.loading = false
         })
-        .catch(() => {})
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }

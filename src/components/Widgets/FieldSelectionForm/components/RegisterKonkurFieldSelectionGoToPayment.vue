@@ -54,7 +54,7 @@ export default {
       if (!this.orderId) {
         return
       }
-      APIGateway.cart.getPaymentRedirectEncryptedLink({ device: 'web', paymentMethod: 'web', orderId: this.orderId })
+      APIGateway.cart.getPaymentRedirectEncryptedLink({ device: 'web', paymentMethod: 'mellat', orderId: this.orderId })
         .then(encryptedPaymentRedirectLink => {
           window.open(encryptedPaymentRedirectLink, '_self')
         })
