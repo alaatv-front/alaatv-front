@@ -4,6 +4,14 @@
 <script>
 export default {
   name: 'iosVersionCheck',
+  props: {
+    latestVersion: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       visible: false

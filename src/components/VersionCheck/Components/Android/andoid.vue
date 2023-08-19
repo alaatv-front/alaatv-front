@@ -47,6 +47,14 @@
 import VersionConfig from 'app/src-capacitor/android/versionConfig.json'
 export default {
   name: 'androidVersionCheck',
+  props: {
+    latestVersion: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
   data() {
     return {
       visible: false,
@@ -57,6 +65,9 @@ export default {
         { label: 'دانلود از کافه بازار', value: 'bazaar', link: '', iconLink: 'https://nodes.alaatv.com/upload/android/cafebazzar.svg' }
       ]
     }
+  },
+  mounted() {
+    this.checkAndroidVersion(this.latestVersion.android)
   },
   methods: {
     checkAndroidVersion(apiAndroidVersion) {
@@ -80,7 +91,6 @@ export default {
     },
     showDialog() {
       this.visible = true
-      console.log('show dialog', this.visible)
     }
   }
 }

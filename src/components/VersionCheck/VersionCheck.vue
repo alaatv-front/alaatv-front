@@ -1,8 +1,9 @@
 <template>
   <div>
-    <android-version-check ref="androidUpdateDialog" />
-    <ios-version-check ref="iosUpdateDialog" />
-    <web-version-check ref="webUpdateDialog" />
+    <component :is="platformTypeComponent"
+               v-if="!isVersionCheckLoading"
+               :latest-version="globalVersion" />
+
   </div>
 </template>
 <script>
@@ -15,56 +16,39 @@ import WebVersionCheck from 'components/VersionCheck/Components/Web/web.vue'
 export default {
   name: 'VersionCheck',
   components: { WebVersionCheck, IosVersionCheck, AndroidVersionCheck },
-  mounted() {
-    // this.checkWebVersion()
-    const isNativeApp = Capacitor.isNativePlatform()
-    if (isNativeApp) {
-      if (Capacitor.getPlatform() === 'android') {
-        this.checkAndroidVersion()
-      } else if (Capacitor.getPlatform() === 'ios') {
-        this.checkIosVersion()
-      }
-    } else {
-      this.checkWebVersion()
+  data() {
+    return {
+      globalVersion: null,
+      isVersionCheckLoading: true
     }
   },
+  computed: {
+    platformTypeComponent() {
+      const isNativeApp = Capacitor.isNativePlatform()
+      if (isNativeApp) {
+        if (Capacitor.getPlatform() === 'android') {
+          return 'android-version-check'
+        } else if (Capacitor.getPlatform() === 'ios') {
+          return 'ios-version-check'
+        }
+      }
+      return 'web-version-check'
+    }
+  },
+  mounted() {
+    this.getVersion()
+      .then((version) => {
+        this.globalVersion = version
+        this.isVersionCheckLoading = false
+      })
+      .catch(() => {})
+  },
   methods: {
-    checkWebVersion() {
-      const webAppVersion = '1.0.0'
-      this.getVersion('web')
-        .then((version) => {
-          const isLastVersion = version.last_version === webAppVersion
-          if (!isLastVersion) {
-            this.$refs.webUpdateDialog.checkWebVersion(version)
-          }
-        })
-        .catch(() => {
-          window.location.reload()
-        })
-    },
-    checkAndroidVersion() {
-      this.getVersion('android')
-        .then((version) => {
-          this.$refs.androidUpdateDialog.checkAndroidVersion(version)
-        })
-        .catch(() => {
-          window.location.reload()
-        })
-    },
-    checkIosVersion() {
-      this.getVersion('ios')
-        .then((version) => {
-          this.$refs.iosUpdateDialog.checkIosVersion(version)
-        })
-        .catch(() => {
-          window.location.reload()
-        })
-    },
-    getVersion(versionType) {
+    getVersion() {
       return new Promise(function (resolve, reject) {
         APIGateway.version.getLastVersion()
           .then((version) => {
-            resolve(version[versionType])
+            resolve(version)
           })
           .catch(() => {
             reject()
