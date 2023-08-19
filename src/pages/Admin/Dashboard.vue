@@ -33,6 +33,13 @@
             چیدمان صفحه
           </q-item-section>
         </q-item>
+        <q-item v-ripple
+                :to="{ name: 'Admin.Product.Index' }"
+                clickable>
+          <q-item-section>
+            مدیریت محصولات
+          </q-item-section>
+        </q-item>
       </q-list>
     </div>
   </div>

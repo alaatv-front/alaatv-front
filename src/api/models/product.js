@@ -29,6 +29,7 @@ export default class ProductAPI extends APIRepository {
         show: '/admin/product'
       },
       getSets: id => `/product/${id}/sets`,
+      getAdminSets: id => `/admin/product/${id}/sets`,
       liveLink: id => `/product/${id}/liveInfo`,
       getComments: id => `/product/${id}/content-comments`,
       getContents: id => `/product/${id}/contents`,
@@ -40,7 +41,8 @@ export default class ProductAPI extends APIRepository {
       sampleContent: (id) => '/product/' + id + '/sample',
       categories: '/product-categories',
       liveConductors: '/live-conductors',
-      userLastState: (id) => '/product/' + id + '/toWatch'
+      userLastState: (id) => '/product/' + id + '/toWatch',
+      updateSets: (productId) => '/product/' + productId + '/updateSetOrder'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
@@ -50,6 +52,7 @@ export default class ProductAPI extends APIRepository {
       create: this.name + this.APIAdresses.create,
       favored: id => this.name + this.APIAdresses.favored(id),
       getSets: id => this.name + this.APIAdresses.getSets(id),
+      getAdminSets: id => this.name + this.APIAdresses.getAdminSets(id),
       getContents: id => this.name + this.APIAdresses.getContents(id),
       unfavored: id => this.name + this.APIAdresses.unfavored(id),
       show: (id) => this.name + this.APIAdresses.show(id),
@@ -77,6 +80,21 @@ export default class ProductAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new Product(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  updateSetOrders(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.updateSets(data.productId),
+      data: { product_orders: data.payload }, // must be an array of objects that are including setId & setOrder like: {set: setId, order: setOrder}
+      resolveCallback: (response) => {
+        return response // []
       },
       rejectCallback: (error) => {
         return error
@@ -245,6 +263,22 @@ export default class ProductAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.getSets(productId),
       cacheKey: this.CacheList.getSets(productId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new SetList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getAdminSets(productId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getAdminSets(productId),
+      cacheKey: this.CacheList.getAdminSets(productId),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new SetList(response.data.data)

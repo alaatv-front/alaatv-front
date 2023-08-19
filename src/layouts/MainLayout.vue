@@ -42,6 +42,7 @@
           <q-dialog v-model="loginDialog">
             <auth-login />
           </q-dialog>
+          <version-check />
           <router :include="keepAliveComponents" />
         </div>
         <floating-action-button v-if="canShowFloatingActionBtn" />
@@ -63,9 +64,11 @@ import templateHeader from 'src/components/Template/Header/TemplateHeader.vue'
 import TemplateSideBar from 'src/components/Template/SideBard/TemplateSideBar.vue'
 import QuasarTemplateBuilder from 'quasar-template-builder/src/quasar-template-builder.vue'
 import FloatingActionButton from 'components/Template/FloatingActionButton/FloatingActionButton.vue'
+import VersionCheck from 'components/VersionCheck/VersionCheck.vue'
 
 export default {
   components: {
+    VersionCheck,
     AuthLogin,
     Router,
     AlaaFooter,
