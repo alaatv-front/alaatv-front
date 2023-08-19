@@ -102,7 +102,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  reviewCart(cartItems = [], cache = { TTL: 1000 }) {
+  reviewCart(cartItems = [], cache = { TTL: 100 }) {
     const queryParams = {}
     queryParams.seller = this.seller
 

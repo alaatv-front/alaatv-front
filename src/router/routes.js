@@ -33,7 +33,7 @@ const routes = [
       layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
       layoutPageContainerCustomClass: 'main-layout-container'
     },
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('src/layouts/MainLayout.vue'),
     children: [
       {
         path: '/auth',
@@ -578,12 +578,28 @@ const routes = [
           layoutFooter: false
         },
         meta: { middlewares: [Authenticated] },
-        component: () => import('layouts/AdminLayout.vue'),
+        component: () => import('src/layouts/AdminLayout.vue'),
         children: [
           {
             name: 'Admin.Dashboard',
             path: 'dashboard',
             component: () => import('src/pages/Admin/Dashboard.vue')
+          },
+          {
+            path: 'users',
+            name: 'Admin.User',
+            component: () => import('src/layouts/bareLayout.vue'),
+            children: [
+              {
+                path: ':id/event/:event_id/entekhb-reshte',
+                // path: ':id',
+                name: 'Admin.User.EntekhabReshte.Show',
+                meta: {
+                  hasDynamicSetting: true
+                },
+                component: () => import('src/pages/Admin/User/EntekhabReshte.vue')
+              }
+            ]
           },
           {
             path: 'ticket',

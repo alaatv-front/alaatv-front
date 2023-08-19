@@ -1,6 +1,6 @@
 <template>
   <div class="FieldSelectionForm">
-    <q-tabs v-if="true"
+    <q-tabs v-if="false"
             v-model="step"
             dense
             class="text-grey"
@@ -27,6 +27,7 @@
                   animated>
       <q-tab-panel name="konkurRankFormData">
         <register-konkur-rank-form :konkur-rank-form="konkurRankForm"
+                                   :event-id="localOptions.eventId"
                                    @onComplete="onCompleteKonkurRankForm" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurRankFormResult">
@@ -46,7 +47,7 @@
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionForm">
         <register-konkur-field-selection-form @onBack="onGoToSelectProduct"
-                                              @onForward="onGoSelectionFieldForm" />
+                                              @onComplete="onGoRegisterKonkurFieldSelectionGoToPayment" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionGoToPayment">
         <register-konkur-field-selection-go-to-payment :order-id="orderId" />
@@ -73,8 +74,8 @@ import RegisterKonkurRankForm from './components/RegisterKonkurRankForm.vue'
 import RegisterKonkurRankFormResult from './components/RegisterKonkurRankFormResult.vue'
 import RegisterKonkurFieldSelectionForm from './components/RegisterKonkurFieldSelectionForm.vue'
 import RegisterKonkurFieldSelectionProducts from './components/RegisterKonkurFieldSelectionProducts.vue'
-import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
 import RegisterKonkurFieldSelectionTankYouPage from './components/RegisterKonkurFieldSelectionTankYouPage.vue'
+import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
 
 export default {
   name: 'Newsletter',
@@ -152,10 +153,8 @@ export default {
           .then((eventekhbReshte) => {
             if (eventekhbReshte.id) {
               this.hasFieldSelectionFormData = true
-              this.step = 'RegisterKonkurFieldSelectionGoToPayment'
-            } else {
-              this.step = 'RegisterKonkurFieldSelectionProducts'
             }
+            this.step = 'RegisterKonkurFieldSelectionProducts'
             resolve()
           })
           .catch(() => {
@@ -163,6 +162,7 @@ export default {
           })
       } else {
         this.step = 'konkurRankFormData'
+        resolve()
       }
     },
     hasPurchased () {
@@ -175,8 +175,8 @@ export default {
           this.localOptions.product5Id
         ])
           .then((items) => {
-            const hasPurchased = items.find(item => item.is_purchased === 1)
-            resolve(hasPurchased)
+            const hasPurchased = items.find(item => item.is_purchased)
+            resolve(!!hasPurchased)
           })
           .catch(() => {
             reject()
@@ -211,7 +211,7 @@ export default {
     },
     onCompleteKonkurRankForm () {
       this.getKonkurResultFormData()
-      this.onGoSelectionField()
+      this.onGoRegisterKonkurRankFormResult()
     },
     onGoEditKarname () {
       this.step = 'konkurRankFormData'
@@ -221,6 +221,12 @@ export default {
     },
     onGoSelectionFieldProduts () {
       this.step = 'RegisterKonkurFieldSelectionProducts'
+    },
+    onGoRegisterKonkurRankFormResult () {
+      this.step = 'RegisterKonkurRankFormResult'
+    },
+    onGoRegisterKonkurFieldSelectionGoToPayment () {
+      this.step = 'RegisterKonkurFieldSelectionGoToPayment'
     },
     onGoSelectionFieldForm () {
       if (!this.hasFieldSelectionFormData) {
