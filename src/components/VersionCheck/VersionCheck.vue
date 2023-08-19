@@ -1,7 +1,7 @@
 <template>
   <div>
     <component :is="platformTypeComponent"
-               v-if="dataLoaded"
+               v-if="globalVersion"
                :latest-version="globalVersion" />
 
   </div>
@@ -18,8 +18,7 @@ export default {
   components: { WebVersionCheck, IosVersionCheck, AndroidVersionCheck },
   data() {
     return {
-      globalVersion: null,
-      dataLoaded: false
+      globalVersion: null
     }
   },
   computed: {
@@ -39,7 +38,6 @@ export default {
     this.getVersion()
       .then((version) => {
         this.globalVersion = version
-        this.dataLoaded = true
       })
       .catch(() => {})
   },
