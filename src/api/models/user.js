@@ -7,6 +7,7 @@ import { EventResult } from 'src/models/EventResult.js'
 import APIRepository from '../classes/APIRepository.js'
 import { BankAccountsList } from 'src/models/BankAccounts.js'
 import { EventekhbReshte } from 'src/models/EventekhbReshte.js'
+import { FieldSelectionForm } from 'src/models/FieldSelectionForm.js'
 
 export default class UserAPI extends APIRepository {
   constructor() {
@@ -360,6 +361,22 @@ export default class UserAPI extends APIRepository {
       ...(cache && { cache }),
       resolveCallback: (response) => {
         return new EventResult(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getEntekhabReshteByUserId(userId, cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getEntekhabReshteByUserId(userId),
+      cacheKey: this.CacheList.getEntekhabReshteByUserId(userId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new FieldSelectionForm(response.data.data)
       },
       rejectCallback: (error) => {
         return error
