@@ -8,11 +8,11 @@
          @dragover="onDragOver"
          @drop="onDrop($event, 0, true)">
       <q-card draggable="true"
-              class="q-my-sm cursor-pointer"
+              class="set-container q-my-sm cursor-pointer"
               @dragstart="onDragStart($event, set, index)"
               @dragover="onDragOver"
               @drop="onDrop($event, index)">
-        <q-card-section>
+        <q-card-section class="q-mb-xl">
           {{index + 1}} - {{set.short_title}}
         </q-card-section>
       </q-card>
@@ -115,6 +115,10 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.set {
+  .set-container {
+    height: 40px;
+  }
+}
 </style>
