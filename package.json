@@ -38,7 +38,7 @@
     "eslint-plugin-n": "^15.6.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.9.0",
-    "firebase": "^10.1.0",
+    "firebase": "^10.2.0",
     "fs": "^0.0.1-security",
     "js-abstract-model": "^0.1.32",
     "leaflet": "^1.9.3",
