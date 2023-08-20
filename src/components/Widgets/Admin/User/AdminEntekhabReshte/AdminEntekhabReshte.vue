@@ -98,7 +98,7 @@ export default {
         { type: 'input', name: 'comment', responseKey: 'comment', label: 'توضیحات تکمیلی', inputType: 'textarea', placeholder: ' ', value: null, col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'اطلاعات تماس', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'mobile', responseKey: 'mobile', label: 'شماره همراه', placeholder: ' ', col: 'col-6' },
-        { type: 'input', name: 'phone', responseKey: 'phone', label: 'تلفن ثابت (با کد شهر)', placeholder: ' ', value: null, col: 'col-6' },
+        { type: 'input', name: 'phone', responseKey: 'user.phone', label: 'تلفن ثابت (با کد شهر)', placeholder: ' ', value: null, col: 'col-6' },
         { type: 'separator', name: 'separator', label: 'اولویت محل و نوع دانشگاه', size: '0', ignoreValue: true, col: 'col-12' },
         { type: FormBuilderCustomComponentShahrOrderViewerComp, name: 'shahrha', responseKey: 'enableReportPublish', optionLabel: 'title', optionValue: 'id', placeholder: ' ', provinces: [], cities: [], value: null, col: 'col-12' },
         { type: 'optionGroupCheckbox', name: 'university_types', responseKey: 'university_types', label: 'نوع دانشگاه', typeOfInput: 'checkbox', inline: false, options: [], value: [], col: 'col-12' },
