@@ -16,6 +16,9 @@
                  :loaded-data="konkurRankForm"
                  :after-load-input-data="afterLoadKonkurKarnameInputs"
                  @onCopyToClipboard="onCopyToClipboard" />
+
+    <q-separator class="q-my-lg" />
+
     <q-skeleton v-if="entekhabReshteLoading"
                 type="rect"
                 width="100%"
