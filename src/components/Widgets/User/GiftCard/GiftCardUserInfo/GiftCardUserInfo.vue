@@ -144,8 +144,8 @@
                   <div v-if="nationalCardPicFile && !nationalCardPicURL"
                        class="selected-pic">
                     <q-btn fab
-                           icon="mdi-minus"
-                           class="q-my-sm"
+                           icon="isax:trash"
+                           class="q-my-sm remove-btn"
                            color="red"
                            @click="removeNationalCardPicFile" />
                     <q-img :src="nationalCardPicObjectURL" />
@@ -919,6 +919,11 @@ export default {
               margin-top: 50px;
               margin-bottom: 44px;
               max-width: 100%;
+              .remove-btn {
+                z-index: 100;
+                bottom: 40px;
+                right: 20px;
+              }
               .q-img {
                 position: inherit;
                 &:deep(.q-img__image) {
