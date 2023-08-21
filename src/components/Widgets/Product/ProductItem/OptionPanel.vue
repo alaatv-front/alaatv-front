@@ -6,7 +6,7 @@
           <div class="col-md-6">
             <q-select v-model="localOptions.theme"
                       :options="themeOptions"
-                      label="productId" />
+                      label="theme" />
           </div>
           <!-- <div class="col-md-6">
             <q-input v-model="localOptions.productId"
