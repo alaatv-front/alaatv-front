@@ -172,6 +172,10 @@ const routes = [
             },
             children: [
               {
+                path: '36',
+                redirect: { name: 'Public.Landing.DynamicName', params: { landing_name: '110' } }
+              },
+              {
                 path: ':landing_name',
                 meta: {
                   hasDynamicSettingWithParams: true
