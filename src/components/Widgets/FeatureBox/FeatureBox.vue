@@ -179,6 +179,46 @@ export default {
         borderStyle: {}
       }
     }
+  },
+  computed: {
+    shadows () {
+      const shadows = []
+      this.localOptions.boxShadows.forEach(shadow => {
+        shadows.push(shadow.cssString)
+      })
+
+      return shadows.join(', ')
+    },
+    hoverShadows () {
+      const shadows = []
+      if (!Array.isArray(this.localOptions.cssHoverEffects?.boxShadows)) {
+        return ''
+      }
+      this.localOptions.cssHoverEffects.boxShadows.forEach(shadow => {
+        shadows.push(shadow.cssString)
+      })
+
+      return shadows.join(', ')
+    },
+    cssHoverEffectsBorderStyle () {
+      const borderCssString = this.localOptions.cssHoverEffects?.borderStyle?.borderCssString ? this.localOptions.cssHoverEffects?.borderStyle?.borderCssString : ''
+      const borderRadiusCssString = this.localOptions.cssHoverEffects?.borderStyle?.borderRadiusCssString ? this.localOptions.cssHoverEffects?.borderStyle?.borderRadiusCssString : ''
+
+      return {
+        borderCssString,
+        borderRadiusCssString
+      }
+    },
+    parentComponent() {
+      if (this.localOptions.action.route) {
+        if (this.isExternal(this.localOptions.action.route)) {
+          return 'a'
+        } else {
+          return 'router-link'
+        }
+      }
+      return 'div'
+    }
   }
 }
 </script>

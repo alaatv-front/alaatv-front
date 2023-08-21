@@ -46,12 +46,12 @@ const entityCrudRouteConfigs = [
     componentPath: 'pages/Admin/User/Roles',
     breadcrumbs: { title: 'مدیریت نقش ها' }
   },
-  {
-    path: 'product',
-    baseRouteName: 'Admin.Product',
-    componentPath: 'pages/Admin/User/Product',
-    breadcrumbs: { title: 'محصولات' }
-  },
+  // {
+  //   path: 'product',
+  //   baseRouteName: 'Admin.Product',
+  //   componentPath: 'pages/Admin/User/Product',
+  //   breadcrumbs: { title: 'محصولات' }
+  // },
   {
     path: 'content',
     baseRouteName: 'Admin.Content',

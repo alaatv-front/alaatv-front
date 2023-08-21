@@ -18,6 +18,7 @@ class EventResult extends Model {
         key: 'user',
         relatedModel: User
       },
+      { key: 'major_id' },
       {
         key: 'major',
         relatedModel: Major
@@ -29,7 +30,22 @@ class EventResult extends Model {
           title: ''
         }
       },
-      { key: 'event_result_status' }
+      { key: 'event_result_status' },
+
+      { key: 'event_id' },
+      { key: 'user_id' },
+      { key: 'participationCode' },
+      {
+        key: 'enableReportPublish',
+        default: 1
+      },
+      { key: 'region_id' },
+      { key: 'reportFile' },
+      { key: 'firstName' },
+      { key: 'lastName' },
+      { key: 'shahr' },
+      { key: 'shahr_id' },
+      { key: 'eventresultstatus_id' }
     ])
   }
 }
