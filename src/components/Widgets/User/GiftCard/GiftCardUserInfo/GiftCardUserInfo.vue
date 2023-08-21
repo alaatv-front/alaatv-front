@@ -921,7 +921,9 @@ export default {
               max-width: 100%;
               .q-img {
                 position: inherit;
-                object-fit: contain;
+                &:deep(.q-img__image) {
+                  object-fit: contain !important;
+                }
               }
               .btn-upload {
                 display: flex;
