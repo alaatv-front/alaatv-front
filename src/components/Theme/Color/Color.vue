@@ -142,16 +142,16 @@
         <div class="col-md-1 q-mx-md info">
           <q-card>
             <q-card-section class="info-1">
-              warning-1
+              info-1
             </q-card-section>
             <q-card-section class="info-3">
-              warning-3
+              info-3
             </q-card-section>
             <q-card-section class="info-5">
-              warning-5
+              info-5
             </q-card-section>
             <q-card-section class="info-7">
-              warning-7
+              info-7
             </q-card-section>
           </q-card>
         </div>
