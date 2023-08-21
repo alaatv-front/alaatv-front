@@ -15,13 +15,18 @@
                        :key="index"
                        :name=tab>
             <div class="row q-col-gutter-md">
-              <div class="col-6">
+              <div class="col-3">
                 <div class="outsidelabel">width</div>
                 <q-input v-model="localOptions[tab].style.width" />
               </div>
-              <div class="col-6">
+              <div class="col-3">
                 <div class="outsidelabel">height</div>
                 <q-input v-model="localOptions[tab].style.height" />
+              </div>
+              <div class="col-3">
+                <div class="outsidelabel">animation</div>
+                <q-select v-model="localOptions.animate"
+                          :options="animateOptions" />
               </div>
               <div class="col-12">
                 <q-input v-model="localOptions[tab].directory" />
@@ -46,8 +51,10 @@ export default {
     return {
       responsiveTab: 'lg',
       tabs: ['xl', 'lg', 'md', 'sm', 'xs'],
+      animateOptions: ['loop', 'onClick', 'onHover'],
       defaultOptions: {
         loop: true,
+        animate: 'loop',
         autoplay: true,
         xs: {
           directory: '',

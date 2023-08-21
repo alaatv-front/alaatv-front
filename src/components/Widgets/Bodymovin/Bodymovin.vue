@@ -1,6 +1,8 @@
 <template>
   <div ref="bm"
-       :style="responsiveBodymovin.style" />
+       :style="responsiveBodymovin.style"
+       @click="onClickElement"
+       @mouseenter="onHoverElement" />
 </template>
 
 <script>
@@ -98,6 +100,16 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onClickElement() {
+      if (this.localOptions.animate === 'onClick') {
+        this.animation.play()
+      }
+    },
+    onHoverElement() {
+      if (this.localOptions.animate === 'onHover') {
+        this.animation.play()
+      }
+    },
     reInitBodyMovin() {
       if (this.animation) {
         this.animation.destroy()
