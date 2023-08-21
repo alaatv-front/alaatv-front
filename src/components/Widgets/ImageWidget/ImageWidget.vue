@@ -1,27 +1,38 @@
 <template>
-  <q-img :src="getImageSource(localOptions)"
-         :ratio="localOptions.ratio"
-         spinner-color="primary"
-         :width="getImageWidth(localOptions)"
-         :height="getImageHeight(localOptions)"
-         :style="localOptions.style"
-         :class="localOptions.className"
-         @click="takeAction(localOptions.action)" />
+  <component :is="parentComponent"
+             :to="localOptions.action.route"
+             :class="options.className"
+             :href="localOptions.action.route"
+             class="ImageWidget"
+             @click="onClickLink">
+    <q-img :ref="imageRef"
+           :src="getImageSource(options)"
+           :ratio="options.ratio"
+           spinner-color="primary"
+           :width="getImageWidth(options)"
+           :height="getImageHeight(options)"
+           :style="options.style"
+           :class="{'cursor-pointer': localOptions.hasAction}"
+           @click="takeAction(options.action)" />
+  </component>
 </template>
 
 <script>
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ImageWidget',
   mixins: [mixinPrefetchServerData, mixinWidget],
   data() {
     return {
+      imageRef: 'img' + Date.now(),
       windowWidth: 0,
       defaultOptions: {
         imageSource: null,
         ratio: null,
         hasAction: false,
+        useAEEEvent: false,
         action: {
           name: null,
           route: null,
@@ -53,18 +64,135 @@ export default {
           height: null,
           width: null,
           src: null
+        },
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: ''
+        },
+        boxShadows: [],
+        cssHoverEffects: {
+          boxShadows: [],
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: ''
+          },
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
         }
       }
+    }
+  },
+  computed: {
+    shadows () {
+      const shadows = []
+      this.localOptions.boxShadows.forEach(shadow => {
+        shadows.push(shadow.cssString)
+      })
+
+      return shadows.join(', ')
+    },
+    hoverShadows () {
+      const shadows = []
+      if (!Array.isArray(this.localOptions.cssHoverEffects?.boxShadows)) {
+        return ''
+      }
+      this.localOptions.cssHoverEffects.boxShadows.forEach(shadow => {
+        shadows.push(shadow.cssString)
+      })
+
+      return shadows.join(', ')
+    },
+    cssHoverEffectsBorderStyle () {
+      const borderCssString = this.localOptions.cssHoverEffects?.borderStyle?.borderCssString ? this.localOptions.cssHoverEffects?.borderStyle?.borderCssString : ''
+      const borderRadiusCssString = this.localOptions.cssHoverEffects?.borderStyle?.borderRadiusCssString ? this.localOptions.cssHoverEffects?.borderStyle?.borderRadiusCssString : ''
+
+      return {
+        borderCssString,
+        borderRadiusCssString
+      }
+    },
+    parentComponent() {
+      if (this.localOptions.action.route) {
+        if (this.isExternal(this.localOptions.action.route)) {
+          return 'a'
+        } else {
+          return 'router-link'
+        }
+      }
+      return 'div'
     }
   },
   mounted() {
     this.windowWidth = window.innerWidth
     window.addEventListener('resize', this.onResize)
+    this.$nextTick(() => {
+      this.setAEEEvent()
+    })
   },
   beforeUnmount() {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onClickLink (event) {
+      event.preventDefault()
+      event.stopPropagation()
+      if (this.parentComponent === 'a') {
+        window.location.href = this.localOptions.action.route
+      } else {
+        this.$router.push(this.localOptions.action.route)
+      }
+    },
+    setProductIntersectionObserver () {
+      const elements = [this.$refs[this.imageRef].$el]
+      const observer = new IntersectionObserver(this.handleIntersection)
+
+      elements.forEach(obs => {
+        observer.observe(obs)
+      })
+    },
+    handleIntersection(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio > 0) {
+          this.ImageIsViewed()
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    getAEEKey() {
+      let AEEKey
+      Object.values(this.localOptions.AEEEventBody).forEach(item => {
+        AEEKey += item
+      })
+      return AEEKey
+    },
+    ImageIsViewed () {
+      AEE.promotionView([this.localOptions.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
+    },
+    pushClickedEvent () {
+      AEE.promotionClick([this.localOptions.AEEEventBody], {
+        TTl: 1000,
+        key: this.getAEEKey()
+      })
+    },
+    setAEEEvent () {
+      if (!this.localOptions.useAEEEvent) {
+        return
+      }
+      this.setProductIntersectionObserver()
+    },
     onResize() {
       this.windowWidth = window.innerWidth
     },
@@ -122,13 +250,31 @@ export default {
         return ''
       }
     },
+    checkDomain(url) {
+      if (url.indexOf('//') === 0) {
+        url = window.location.protocol + url
+      }
+      return url.toLowerCase().replace(/([a-z])?:\/\//, '$1').split('/')[0]
+    },
+    isExternal(url) {
+      if (typeof window === 'undefined') {
+        return true
+      }
+      // return ((url.indexOf(':') > -1 || url.indexOf('//') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
+      // return ((url.indexOf('http://') > -1 || url.indexOf('https://') > -1) && this.checkDomain(window.location.href) !== this.checkDomain(url))
+      return (url.indexOf('http://') > -1 || url.indexOf('https://') > -1)
+    },
     takeAction(action) {
+      if (!this.localOptions.hasAction) {
+        return
+      }
+      if (this.localOptions.useAEEEvent) {
+        this.pushClickedEvent()
+      }
       if (this.callBack) {
         this.callBack()
       } else if (action.name === 'scroll') {
         this.scrollToElement(action.scrollTo)
-      } else if (action.name === 'link') {
-        this.router.push(action.route)
       } else if (action.name === 'event') {
         this.$bus.emit(action.eventName, action.eventArgs)
       }
@@ -136,3 +282,45 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+$shadows: v-bind('shadows');
+$hoverShadows: v-bind('hoverShadows');
+$border: v-bind('localOptions.borderStyle.borderCssString');
+$borderRadius: v-bind('localOptions.borderStyle.borderRadiusCssString');
+$hoverBorder: v-bind('cssHoverEffectsBorderStyle.borderCssString');
+$hoverBorderRadius: v-bind('cssHoverEffectsBorderStyle.borderRadiusCssString');
+$skewX: v-bind('localOptions.cssHoverEffects.transform.skewX');
+$skewY: v-bind('localOptions.cssHoverEffects.transform.skewY');
+$rotate: v-bind('localOptions.cssHoverEffects.transform.rotate');
+$scaleX: v-bind('localOptions.cssHoverEffects.transform.scaleX');
+$scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
+$translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
+$translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
+$transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
+
+.ImageWidget {
+  .q-img {
+    box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    -moz-box-shadow: $shadows;
+    -webkit-border-radius: $borderRadius;
+    -moz-border-radius: $borderRadius;
+    border: $border;
+  }
+  &:hover .q-img {
+    transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
+    transition: all calc(#{$transitionTime} * 1s);
+    box-shadow: $hoverShadows;
+    -webkit-box-shadow: $hoverShadows;
+    -moz-box-shadow: $hoverShadows;
+    border-radius: $hoverBorderRadius;
+    -webkit-border-radius: $hoverBorderRadius;
+    -moz-border-radius: $hoverBorderRadius;
+    border: $hoverBorder;
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+}
+</style>

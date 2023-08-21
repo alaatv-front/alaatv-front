@@ -1,0 +1,216 @@
+<template>
+  <div class="cart-container">
+    <template v-if="loading">
+      <q-skeleton type="circle" />
+    </template>
+    <template v-else>
+      <div class="cart-image">
+        <q-img v-if="hasPaid"
+               src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png" />
+        <q-icon v-else
+                name="error"
+                color="red" />
+      </div>
+      <div v-if="hasPaid"
+           class="title">
+        ثبت نام شما با موفقیت انجام شد
+      </div>
+      <div v-else
+           class="title">
+        متاسفانه پرداخت انجام نشد :(
+      </div>
+      <!--    <div class="tracking-code-container">-->
+      <!--      <span class="tracking-code-title">کد پیگیری:</span>-->
+      <!--      <span class="tracking-code">{{ trackingCode }}</span>-->
+      <!--    </div>-->
+      <router-link v-if="hasPaid"
+                   :to="{name: 'UserPanel.MyPurchases'}"
+                   class="redirect-element">
+        فیلم ها و جزوه های من
+      </router-link>
+      <router-link v-else
+                   :to="{name: 'Public.Shop'}"
+                   class="redirect-element">
+        بازگشت به فروشگاه
+      </router-link>
+    </template>
+  </div>
+</template>
+
+<script>
+import mixinAuthData from 'src/mixin/AuthData.js'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+
+export default {
+  name: 'ThankYouPage',
+  mixins: [mixinAuthData],
+  data() {
+    return {
+      loading: false,
+      hasPaid: false
+    }
+  },
+  computed: {
+    orderId () {
+      return this.$route.params.orderId
+    }
+  },
+  mounted () {
+    this.onLoadPage()
+  },
+  methods: {
+    pushPurchaseEvent (order) {
+      const AEEData = order.getAEEData()
+      AEE.purchase(AEEData.actionField, AEEData.products)
+    },
+    clearCart () {
+      const cart = this.$store.getters['Cart/cart']
+      cart.removeAllItems()
+      this.$store.commit('Cart/updateCart', cart)
+    },
+    onLoadPage () {
+      this.clearCart()
+      this.loading = true
+      this.$store.dispatch('Cart/reviewCart')
+      APIGateway.cart.getorderWithTransaction(this.orderId)
+        .then((order) => {
+          this.loading = false
+
+          if (order.paymentstatus.id === 3) {
+            this.hasPaid = true
+            this.pushPurchaseEvent(order)
+          } else if (order.paymentstatus.id === 1) {
+            this.hasPaid = false
+          }
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.cart-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  //margin-bottom: 100px;
+
+  .cart-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+    width: 245px;
+    height: 245px;
+    font-size: 200px;
+  }
+
+  .title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 37px;
+    text-align: center;
+    color: #6D708B;
+    margin-top: 62px;
+    letter-spacing: -0.03em;
+  }
+
+  .tracking-code-container {
+    font-style: normal;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.03em;
+    color: #6D708B;
+    .tracking-code-title {
+      font-weight: 400;
+      margin-right: 109px;
+    }
+    .tracking-code {
+      font-weight: 600;
+    }
+  }
+
+  .redirect-element {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+    color: #8075DC;
+    margin-top: 20px;
+    text-decoration: none;
+  }
+}
+.cart-container {
+}
+
+@media screen and (max-width: 1439px) {
+  .cart-image {
+    width: 194px;
+    height: 194px;
+    margin-top: 106px;
+  }
+  .cart-container {
+    .title {
+      font-size: 22px;
+      line-height: 34px;
+      margin-top: 53px;
+    }
+    .tracking-code-container {
+      .tracking-code-title {
+        margin-right: 83px;
+      }
+    }
+
+    .redirect-element {
+      margin-top: 16px;
+    }
+  }
+}
+@media screen and(max-width: 1023px) {
+  .cart-image {
+    width: 245px;
+    height: 245px;
+    margin-top: 236px;
+  }
+  .title {
+    margin-top: 58px;
+  }
+
+}
+
+@media screen and (max-width: 599px) {
+  .cart-image {
+    width: 168px;
+    height: 168px;
+    margin-top: 101px;
+    font-size: 150px;
+  }
+  .cart-container {
+    .title {
+      font-size: 18px;
+      line-height: 28px;
+      margin-top: 40px;
+    }
+    .tracking-code-container {
+      font-size: 14px;
+      .tracking-code-title {
+        margin-right: 77px;
+      }
+    }
+
+    .redirect-element {
+      font-size: 14px;
+      line-height: 22px;
+    }
+  }
+}
+
+</style>

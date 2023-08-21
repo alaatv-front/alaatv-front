@@ -10,7 +10,7 @@
         <q-skeleton v-if="product.loading"
                     class="description-text custom-card"
                     min-width="100%"
-                    type="article" />
+                    type="rect" />
 
         <q-card v-else-if="description"
                 class="description-text custom-card">
@@ -31,6 +31,7 @@
 import { Product } from 'src/models/Product.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { AEE } from 'assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 export default {
   name: 'ProductReview',
@@ -87,12 +88,21 @@ export default {
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
-      this.product = data
+      this.product = new Product(data)
       this.isFavored = data.is_favored_2
+      if (window) {
+        this.updateEECEventDetail()
+      }
       this.product.loading = false
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
+    },
+    updateEECEventDetail() {
+      AEE.productDetailViews('product.show', this.product.eec.getData(), {
+        TTl: 1000,
+        key: this.product.id
+      })
     },
     getProduct() {
       this.product.loading = true

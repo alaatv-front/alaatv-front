@@ -52,6 +52,7 @@
         <template v-else>
           <q-expansion-item v-for="section in definedSections"
                             :key="section.section.id"
+                            :default-opened="definedSections.length === 1"
                             class="section-item">
             <template #header>
               <div class="section-expansion-header">
@@ -66,7 +67,7 @@
                 </div>
                 <div class="section-expansion-header-meta">
                   {{ getCountOfVideosInContents(section.contents) }}
-                  جلسه
+                  فیلم
                   <span class="dot" />
                   {{ getCountOfPamphletsInContents(section.contents) }}
                   جزوه
@@ -278,10 +279,10 @@ export default {
     }
     .archives-list {
       margin-top: 20px;
-      @media screen and (max-width: 599px) {
-        margin-left: 10px;
-        margin-right: 10px;
-      }
+      //@media screen and (max-width: 599px) {
+      //  margin-left: 10px;
+      //  margin-right: 10px;
+      //}
       .section-item {
         margin-bottom: 20px;
         border-radius: 16px;

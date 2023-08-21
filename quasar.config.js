@@ -48,7 +48,8 @@ module.exports = configure(function (ctx) {
       'registerQPageBuilder',
       'routesLayoutConfigs',
       'GetRouteSettingFromServer',
-      'enums'
+      'enums',
+      'gtm'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -175,9 +176,8 @@ module.exports = configure(function (ctx) {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16'
       },
-
-      // minify: false,
-      // polyfillModulePreload: true,
+      minify: true,
+      polyfillModulePreload: true,
 
       extendViteConf(viteConf) {
         // viteConf.resolve = {
@@ -228,9 +228,19 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       https: false,
-      port: 8083,
+      // host: "0.0.0.0",
+      hmr: {
+        port: process.env.DEV_HMR_PORT,
+        path: '/socket.io',
+        clientPort: process.env.DEV_HMR_CLIENT_PORT
+      },
+      port: process.env.DEV_PORT,
       open: true, // opens browser window automatically
       proxy: {
+        // '/socket.io': {
+        //   target: process.env.SOCKET_SERVER,
+        //   ws: true
+        // },
         [process.env.ALAA_MINIO]: {
           target: process.env.ALAA_MINIO_SERVER,
           changeOrigin: true,
@@ -318,16 +328,18 @@ module.exports = configure(function (ctx) {
     // animations: 'all',
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#property-sourcefiles
-    // sourceFiles: {
+    sourceFiles: {
     //   rootComponent: 'src/App.vue',
     //   router: 'src/router/index',
     //   store: 'src/store/index',
-    //   registerServiceWorker: 'src-pwa/register-service-worker',
-    //   serviceWorker: 'src-pwa/custom-service-worker',
-    //   pwaManifestFile: 'src-pwa/manifest.json',
+
+      pwaRegisterServiceWorker: 'src-pwa/register-service-worker',
+      pwaServiceWorker: 'src-pwa/custom-service-worker',
+      pwaManifestFile: 'src-pwa/manifest.json'
+
     //   electronMain: 'src-electron/electron-main',
     //   electronPreload: 'src-electron/electron-preload'
-    // },
+    },
 
     // https://v2.quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
@@ -337,7 +349,7 @@ module.exports = configure(function (ctx) {
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
 
-      pwa: false,
+      pwa: true,
 
       // manualStoreHydration: true,
       // manualPostHydrationTrigger: true,
@@ -369,19 +381,15 @@ module.exports = configure(function (ctx) {
 
     // https://v2.quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
-      workboxPluginMode: 'InjectManifest', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
-
-      // // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
-      // // if using workbox in InjectManifest mode
-      // chainWebpackCustomSW (chain) {
-      //   chain.plugin('eslint-webpack-plugin')
-      //     .use(ESLintPlugin, [{ extensions: ['js'] }])
-      // },
-
+      workboxMode: 'injectManifest', // 'generateSW' or 'injectManifest'
+      injectPwaMetaTags: true,
+      swFilename: 'sw.js',
+      manifestFilename: 'manifest.json',
+      useCredentialsForManifestTag: false,
       manifest: {
         name: 'مدرسه آنلاین آلاء',
         short_name: 'آلاء',
+        start_url: '/',
         background_color: '#FFFFFF',
         theme_color: '#ffc107',
         description: 'آموزش مجازی آلاء',
@@ -389,42 +397,59 @@ module.exports = configure(function (ctx) {
         orientation: 'portrait',
         icons: [
           {
+            src: 'icons/icon-72x72.png',
+            sizes: '72x72',
+            type: 'image/png',
+            purpose: 'maskable any'
+          },
+          {
+            src: 'icons/icon-96x96.png',
+            sizes: '96x96',
+            type: 'image/png',
+            purpose: 'maskable any'
+          },
+          {
             src: 'icons/icon-128x128.png',
             sizes: '128x128',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'maskable any'
+          },
+          {
+            src: 'icons/icon-144x144.png',
+            sizes: '144x144',
+            type: 'image/png',
+            purpose: 'maskable any'
+          },
+          {
+            src: 'icons/icon-152x152.png',
+            sizes: '152x152',
+            type: 'image/png',
+            purpose: 'maskable any'
           },
           {
             src: 'icons/icon-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'icons/icon-256x256.png',
-            sizes: '256x256',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'maskable any'
           },
           {
             src: 'icons/icon-384x384.png',
             sizes: '384x384',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'maskable any'
           },
           {
             src: 'icons/icon-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'maskable any'
           }
         ]
       },
-
-      injectPwaMetaTags: true,
-      swFilename: 'sw.js',
-      manifestFilename: 'manifest.json',
-      useCredentialsForManifestTag: false
-      // useFilenameHashes: true,
-      // extendGenerateSWOptions (cfg) {}
-      // extendInjectManifestOptions (cfg) {},
-      // extendManifestJson (json) {}
-      // extendPWACustomSWConf (esbuildConf) {}
+      extendGenerateSWOptions (cfg) {
+        cfg.skipWaiting = false
+        cfg.clientsClaim = false
+      }
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova

@@ -10,6 +10,16 @@
       <div v-else>
         <div v-if="defaultLayout"
              class="header">
+          <q-btn flat
+                 rounded
+                 :to="{name: 'Public.Home'}">
+            <q-avatar size="42px">
+              <lazy-img src="https://nodes.alaatv.com/upload/alaa-logo.png"
+                        width="40"
+                        height="40"
+                        class="full-width" />
+            </q-avatar>
+          </q-btn>
           ثبت نام و ورود
         </div>
         <div class="phone-number">
@@ -21,6 +31,8 @@
                    bottom-slots
                    hide-bottom-space
                    autocomplete="off"
+                   pattern="[0-9]*"
+                   inputmode="numeric"
                    onfocus="this.removeAttribute('readonly');"
                    name="userName"
                    placeholder=" - - - - - - - - - 09"
@@ -35,6 +47,8 @@
                    name="pass"
                    hide-bottom-space
                    type="password"
+                   pattern="[0-9]*"
+                   inputmode="numeric"
                    @keydown.enter="login" />
         </div>
         <q-btn class="full-width login-btn"
@@ -50,9 +64,11 @@
 
 <script>
 import { mixinAuth } from 'src/mixin/Mixins.js'
+import LazyImg from 'src/components/lazyImg.vue'
 
 export default {
   name: 'AuthLogin',
+  components: { LazyImg },
   mixins: [mixinAuth],
   props: {
     redirect: {
@@ -73,6 +89,7 @@ export default {
   }),
   mounted () {
     this.loading = false
+    this.$store.dispatch('Auth/logOut', { redirectTo: false, clearRedirectTo: false })
   },
   methods: {
     getToken () {
@@ -136,8 +153,8 @@ export default {
           this.$emit('onLoggedIn')
           this.redirectTo()
         })
-        .catch(err => {
-          this.handleErr(err.response)
+        .catch(() => {
+          this.loading = false
         })
     }
   }

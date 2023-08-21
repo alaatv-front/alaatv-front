@@ -23,7 +23,8 @@
           <div v-if="isUserLogin">
             <div v-if="!dense"
                  class="q-mb-md">
-              <donate @cart-review="cartReview" />
+              <donate :cart="cart"
+                      @cart-review="cartReview" />
             </div>
             <q-card class="invoice-cart">
               <q-card-section class="invoice-total-price-section invoice-cart-section">
@@ -90,15 +91,20 @@
                            label="کد کارت هدیه خود را وارد کنید"
                            class="coupon-input"
                            outlined
-                           mask="##-#####"
+                           mask="##-######"
                            :suffix=giftCardPrefix
                            :loading="referralCodeLoading"
                            hint="مثال: AT84-27871">
                     <template v-slot:append>
-                      <q-btn label="ثبت"
+                      <q-btn v-if="!isReferralSet"
+                             label="ثبت"
                              flat
                              :loading="referralCodeLoading"
                              @click="submitReferralCode" />
+                      <q-btn v-else
+                             label="حذف"
+                             flat
+                             @click="cancelReferral" />
                     </template>
                   </q-input>
                 </div>
@@ -121,20 +127,32 @@
                   <div v-if="localOptions.hasPaymentMethod && !dense">
                     <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
                     <div class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
-                      <div class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
-                        <div class="bank-gateway"
-                             @click="clickOnGateway">
-                          <div class="bank-icon-container">
-                            <q-img src="https://nodes.alaatv.com/aaa/landing/Banklogos/saman.png"
-                                   class="bank-icon" />
+                      <div class="row q-col-gutter-sm">
+                        <template v-if="gateways.loading">
+                          کمی صبر کنید...
+                        </template>
+                        <template v-else>
+                          <div v-for="gateway in gateways.list"
+                               :key="gateway.id"
+                               class="bank-gateway-container col-lg-6 col-md-12 col-sm-4 col-xs-12">
+                            <div class="bank-gateway">
+                              <div class="bank-icon-container">
+                                <lazy-img :src="gateway.photo"
+                                          :alt="gateway.photo"
+                                          width="1"
+                                          height="1" />
+                              </div>
+                              <q-radio v-model="selectedBank"
+                                       dir="ltr"
+                                       color="primary"
+                                       size="30px"
+                                       :label="gateway.displayName"
+                                       :val="gateway.name"
+                                       checked-icon="radio_button_checked"
+                                       unchecked-icon="radio_button_unchecked" />
+                            </div>
                           </div>
-                          <q-checkbox v-model="selectedBank"
-                                      dir="ltr"
-                                      label="بانک سامان"
-                                      checked-icon="radio_button_checked"
-                                      unchecked-icon="radio_button_unchecked"
-                                      :class="{'checked-check-box': selectedBank}" />
-                        </div>
+                        </template>
                       </div>
                     </div>
                   </div>
@@ -202,9 +220,12 @@
 <script>
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
-import AuthLogin from 'components/Auth.vue'
+import AuthLogin from 'src/components/Auth.vue'
+import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { GatewayList } from 'src/models/Gateway.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
 
 let StickySidebar
@@ -217,7 +238,7 @@ if (typeof window !== 'undefined') {
 
 export default {
   name: 'CartInvoice',
-  components: { AuthLogin, Donate },
+  components: { LazyImg, AuthLogin, Donate },
   mixins: [mixinWidget],
   // provide() {
   //   return {
@@ -238,6 +259,7 @@ export default {
   },
   data () {
     return {
+      gateways: new GatewayList(),
       couponLoading: false,
       referralCodeLoading: false,
       CartInvoiceContainerKey: Date.now(), // for dispose sticky
@@ -245,6 +267,7 @@ export default {
       stickySidebar: null,
       scrollInfo: null,
       isCouponSet: false,
+      isReferralSet: false,
       cart: new Cart(),
       couponValue: null,
       giftCardValue: null,
@@ -270,7 +293,7 @@ export default {
         hasFinalPrice: true,
         paymentMethod: 'درگاه پرداخت',
         hasPaymentMethod: true,
-        commentLabel: 'اگر توضیحی درباره ی محصول دارید اسنجا بنویسید',
+        commentLabel: 'اگر توضیحی درباره ی محصول دارید اینجا بنویسید',
         hasComment: true,
         paymentBtn: 'پرداخت و ثبت نهایی',
         hasPaymentBtn: true,
@@ -309,21 +332,42 @@ export default {
         return
       }
 
-      if (this.cart.count > 3) {
+      if (this.cart.count > 3 && typeof window !== 'undefined' && window.screen.width > 600) {
         this.$nextTick(() => {
           this.loadSticky()
         })
       } else {
         this.CartInvoiceContainerKey = Date.now()
       }
+    },
+    selectedBank (newValue) {
+      if (typeof newValue === 'string') {
+        this.updateEECEvent(newValue)
+      }
     }
   },
   mounted () {
     this.loadAuthData()
     this.cartReview()
+    this.getGateways()
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
+    updateEECEvent (value) {
+      AEE.checkout(2, value)
+    },
+    getGateways () {
+      this.gateways.loading = true
+      APIGateway.cart.getGateways()
+        .then(gateways => {
+          this.gateways = new GatewayList(gateways)
+          this.gateways.loading = false
+          this.selectedBank = this.gateways.list[0].name
+        })
+        .catch(() => {
+          this.gateways.loading = false
+        })
+    },
     loadAuthData () { // prevent Hydration node mismatch
       // this.localUser = this.$store.getters['Auth/user']
       this.isUserLogin = this.$store.getters['Auth/isUserLogin']
@@ -361,7 +405,9 @@ export default {
       this.referralCodeLoading = true
       APIGateway.referralCode.submitReferralCodeOnOrder({ data: { referral_code: this.giftCardValue } })
         .then(() => {
+          this.isReferralSet = true
           this.referralCodeLoading = false
+          this.cartReview()
         })
         .catch(() => {
           this.referralCodeLoading = false
@@ -373,6 +419,7 @@ export default {
         .then(() => {
           this.isCouponSet = true
           this.couponLoading = false
+          this.cartReview()
           Notify.create({
             message: 'کد تخفیف با موفقیت اعمال شد',
             type: 'positive',
@@ -387,8 +434,26 @@ export default {
       APIGateway.coupon.deleteCoupon()
         .then(response => {
           this.isCouponSet = false
+          this.couponValue = ''
+          this.cartReview()
           Notify.create({
             message: 'کد تخفیف با موفقیت حذف شد',
+            type: 'positive',
+            color: 'positive'
+          })
+        })
+        .catch()
+    },
+    cancelReferral() {
+      APIGateway.referralCode.DeleteReferralCodeFromOrder({
+        order_id: this.cart.getOrderId()
+      })
+        .then(response => {
+          this.isReferralSet = false
+          this.giftCardValue = ''
+          this.cartReview()
+          Notify.create({
+            message: 'کارت هدیه با موفقیت حذف شد',
             type: 'positive',
             color: 'positive'
           })
@@ -405,6 +470,16 @@ export default {
           const invoice = response
 
           const cart = new Cart(invoice)
+
+          if (cart.coupon) {
+            this.couponValue = cart.coupon.code
+            this.isCouponSet = true
+          }
+
+          if (cart.referralCode) {
+            this.giftCardValue = cart.referralCode.code
+            this.isReferralSet = true
+          }
 
           if (invoice.count > 0) {
             invoice.items.list[0].order_product.list.forEach((order) => {
@@ -428,7 +503,7 @@ export default {
       }
       this.$store.commit('loading/loading', true)
 
-      this.$store.dispatch('Cart/paymentCheckout')
+      this.$store.dispatch('Cart/paymentCheckout', this.selectedBank)
         .then((encryptedPaymentRedirectLink) => {
           window.open(encryptedPaymentRedirectLink, '_self')
           this.$store.commit('loading/loading', false)
@@ -451,7 +526,7 @@ export default {
     },
 
     clickOnGateway() {
-      this.selectedBank = !this.selectedBank
+      // this.selectedBank = !this.selectedBank
     }
   }
 }
@@ -786,26 +861,32 @@ export default {
 
                     .checked-check-box {
                       &:deep(.q-icon) {
-                        color: #FFB74D;
-
+                        color: $primary;
                       }
                     }
 
-                    &:deep(.q-checkbox__inner  ) {
-                      width: 20px;
+                    .q-radio {
+                      width: calc( 100% - 64px );
+                      justify-content: space-between;
                     }
+                    //
+                    //&:deep(.q-radio__inner  ) {
+                    //  width: 20px;
+                    //}
+                    //
+                    //&:deep(.q-radio__icon-container ) {
+                    //  width: 20px;
+                    //}
 
-                    &:deep(.q-checkbox__icon-container ) {
-                      width: 20px;
-                    }
-
-                    &:deep(.q-checkbox__label) {
+                    &:deep(.q-radio__label) {
                       font-style: normal;
                       font-weight: 400;
                       font-size: 11px;
                       line-height: 19px;
                       letter-spacing: -0.05em;
                       color: #23263B;
+                      text-align: left;
+                      padding-right: 10px;
                     }
 
                     @media screen and (max-width: 1439px) {
@@ -974,13 +1055,13 @@ export default {
         &.payment-button-container-desktop {
           display: flex;
           @media screen and (max-width: 599px) {
-            display: none;
+            //display: none;
           }
         }
 
         @media screen and (max-width: 599px) {
           position: fixed;
-          bottom: 0;
+          bottom: 65px;
           left: 0;
           right: 0;
           display: flex;

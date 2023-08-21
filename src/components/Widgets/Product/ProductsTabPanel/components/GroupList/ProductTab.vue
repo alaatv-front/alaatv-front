@@ -1,5 +1,7 @@
 <template>
-  <div class="tabs-wrapper">
+  <div ref="productTab"
+       class="tabs-wrapper"
+       :style="options.tabsStyle">
     <q-tabs v-model="tabModel"
             :active-color="options.activeColor"
             :active-bg-color="options.activeBgColor"
@@ -60,13 +62,47 @@ export default {
   },
   data() {
     return {
-      tabModel: ''
+      tabModel: '',
+      defaultOptions: {
+        options: {
+          activeBgColor: '',
+          activeColor: '',
+          indicatorColor: '',
+          layout: 'ProductTab',
+          productTabColor: '#F8F4F0',
+          productTabsBackground: '#F8F4F0',
+          productTabsBorderRadius: '16px',
+          productTabsPadding: '5px',
+          tabsStyle: {
+            marginTop: '',
+            marginLeft: '',
+            marginBottom: '',
+            paddingTop: '',
+            paddingLeft: '',
+            paddingRight: '',
+            paddingBottom: ''
+          }
+        },
+        data: [],
+        type: 'GroupList'
+      }
     }
   },
   mounted() {
     this.tabModel = 'productTab_0'
   },
   methods: {
+    changeTab(tabName) {
+      this.tabModel = tabName
+      const el = this.$refs.productTab
+      const headerOffset = 150
+      const elementPosition = el.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    },
     isProduct(item) {
       return item.type === 'ProductList'
     }
@@ -83,10 +119,13 @@ export default {
   .product-tabs {
     display: flex;
     height: 62px;
-    background: #F8F4F0;
-    border-radius: 16px;
-    padding: 5px;
+    background: v-bind('options.productTabsBackground');
+    border-radius: v-bind('options.productTabsBorderRadius');
+    padding: v-bind('options.productTabsPadding');
 
+    &:deep(.q-tab) {
+      color: v-bind('options.productTabColor');
+    }
     .product-tab {
       border-radius: 10px;
       margin: 5px;
@@ -105,6 +144,7 @@ export default {
     }
   }
 }
+
 .tab-panels-wrapper {
 
   .product-tab-panels {

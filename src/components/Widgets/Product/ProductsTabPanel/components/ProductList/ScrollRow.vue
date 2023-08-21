@@ -12,7 +12,8 @@
          :style="options.style">
       <div v-for="(product, index) in data"
            :key="index"
-           class="product-item col-md-3">
+           :class="colClassName"
+           class="product-item">
         <product-item :options="{product: product}" />
       </div>
     </div>
@@ -22,6 +23,7 @@
 <script>
 import ProductItem from '../../../ProductItem/ProductItem.vue'
 import ProductRowSkeleton from '../ProductRowSkeleton.vue'
+import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
 
 export default {
   name: 'ScrollRow',
@@ -29,6 +31,7 @@ export default {
     ProductItem,
     ProductRowSkeleton
   },
+  mixins: [PageBuilderOptionPanel],
   props: {
     data: {
       type: Object,
@@ -42,6 +45,20 @@ export default {
       type: Object,
       default: () => {}
     }
+  },
+  data() {
+    return {
+      defaultOptions: {
+        colNumber: 'col'
+      }
+    }
+  },
+  computed: {
+    colClassName() {
+      const colNumber = this.localOptions.colNumber ? this.localOptions.colNumber : ''
+
+      return colNumber
+    }
   }
 }
 </script>
@@ -52,7 +69,7 @@ export default {
 
   .product-content {
     justify-content: flex-start;
-    padding: 40px 0;
+    padding: 10px 0 40px;
     width: 100%;
     overflow-x: auto;
     flex-wrap: nowrap !important;

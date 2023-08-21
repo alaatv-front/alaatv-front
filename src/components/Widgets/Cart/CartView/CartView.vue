@@ -52,70 +52,67 @@
       </div>
       <div class="cart-view-widget">
         <div v-for="(order, i) in cartItemsList"
-             :key="order.orderProductId"
+             :key="i"
              class="cart-items">
-          <q-card class="cart-card"
-                  :class="order.order_product?.list.length > 0 ? '': 'cart'">
+          <q-card class="cart-card cart">
             <q-card-section class="card-section">
               <div class="order-image-section">
                 <div class="order-image-container">
-                  <router-link v-if="order.grand.product.id"
-                               :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}">
-                    <lazy-img :src="order.grand.product.photo"
+                  <router-link :to="{name: 'Public.Product.Show', params:{id: getProductKey(order, 'id')}}">
+                    <lazy-img :src="getProductKey(order, 'photo')"
+                              :alt="getProductKey(order, 'title')"
+                              width="1"
+                              height="1"
                               class="order-image" />
                   </router-link>
                 </div>
               </div>
-
               <div class="product-text-info">
                 <div class="order-item-header">
                   <div class="title ellipsis">
-                    {{ order.grand.title }}
+                    {{ getProductKey(order, 'title') }}
                   </div>
-
-                  <q-btn v-if="order.orderProductId"
+                  <q-btn v-if="!order.hasGrand()"
                          unelevated
                          class="trash-button"
                          icon="isax:trash"
                          @click="changeDialogState(true, order)" />
                 </div>
 
-                <div v-if="order.grand.product?.attributes?.info"
+                <div v-if="getProductKey(order, 'attributes')?.info"
                      class="product-information">
-                  <div v-if="order.grand.product.attributes.info.teacher"
+                  <div v-if="getProductKey(order, 'attributes').info.teacher"
                        class="product-info">
                     <q-icon name="isax:teacher"
                             class="info-icon" />
                     <div class="info-value">
-                      {{ order.grand.product.attributes.info.teacher.join('، ') }}
+                      {{ getProductKey(order, 'attributes').info.teacher.join('، ') }}
                     </div>
                   </div>
-
-                  <div v-if="order.grand.product.attributes.info.major"
+                  <div v-if="getProductKey(order, 'attributes').info.major"
                        class="product-info">
                     <q-icon name="isax:book-1"
                             class="info-icon" />
                     <div class="info-value">
-                      رشته تحصیلی: {{ order.grand.product.attributes.info.major.join(' - ') }}
+                      رشته تحصیلی: {{ getProductKey(order, 'attributes').info.major.join(' - ') }}
                     </div>
                   </div>
-
-                  <div v-if="order.grand.product.attributes.info.production_year"
+                  <div v-if="getProductKey(order, 'attributes').info.production_year"
                        class="product-info">
                     <q-icon name="isax:menu-board4"
                             class="info-icon" />
                     <div class="info-value">
-                      {{ order.grand.product.attributes.info.production_year.join('، ') }}
+                      {{ getProductKey(order, 'attributes').info.production_year.join('، ') }}
                     </div>
                   </div>
                 </div>
               </div>
             </q-card-section>
-
-            <q-card-section class="card-actions">
+            <q-card-section v-if="order.hasGrand()"
+                            class="card-actions">
               <div class="product-details row"
                    :class="expandedObject[i] ?'expanded': ''">
-                <div v-if="order.grand.price"
+                <div v-if="order.grand.price.final !== null"
                      class="price-container col-md-6 col-sm-3">
                   <div class="discount-part">
                     <div v-if="hasDiscount(order)"
@@ -128,18 +125,14 @@
                       {{ order.grand.price.toman('base', null) }}
                     </div>
                   </div>
-
                   <div class="final-part">
                     <div class="final-price">{{ order.grand.price.toman('final', null) }}</div>
                     <div class="toman">تومان</div>
                   </div>
                 </div>
-
                 <div class="action-buttons col-md-12 col-sm-3"
                      :class="expandedObject[i] ? '' : 'open-expansion'">
-
-                  <router-link v-if="order.grand.product.id"
-                               :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
+                  <router-link :to="{name: 'Public.Product.Show', params:{id: order.grand.id}}"
                                class="go-product text-primary text-center">
                     رفتن
                     به صفحه محصول
@@ -158,7 +151,6 @@
                           <div class="title ellipsis">
                             {{ orderProduct.product.title }}
                           </div>
-
                           <div class="right-part">
                             <span class="price"
                                   :class="index !== 0 ? 'without-trash': ''">
@@ -167,14 +159,13 @@
                             <q-btn unelevated
                                    class="trash-button"
                                    icon="isax:trash"
-                                   @click="changeDialogState(true, order, orderProduct)" />
+                                   @click="changeDialogState(true, orderProduct)" />
                           </div>
                         </div>
                       </q-card-section>
-
                       <q-card-section class="details-expansion-actions">
-                        <router-link v-if="order.grand.product.id"
-                                     :to="{name: 'Public.Product.Show', params:{id: order.grand.product.id}}"
+                        <router-link v-if="order.hasGrand()"
+                                     :to="{name: 'Public.Product.Show', params:{id: order.grand.id}}"
                                      class="link expansion-link">
                           {{ descLinkLabel }}
                         </router-link>
@@ -189,7 +180,6 @@
                 </div>
               </div>
             </q-card-section>
-
           </q-card>
         </div>
       </div>
@@ -213,15 +203,19 @@
         </q-card-section>
 
         <q-card-actions class="delete-dialog-card-actions">
-          <div class="dont-delete-button"
-               @click="changeDialogState(false)">
+          <q-btn class="dont-delete-button"
+                 unelevated
+                 :loading="cart.loading"
+                 @click="changeDialogState(false)">
             انصراف
-          </div>
+          </q-btn>
 
-          <div class="surely-delete-button"
-               @click="removeItem">
+          <q-btn class="surely-delete-button"
+                 unelevated
+                 :loading="cart.loading"
+                 @click="removeItem">
             بله، مطمئن هستم
-          </div>
+          </q-btn>
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -232,7 +226,7 @@
 import { Cart } from 'src/models/Cart.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import { OrderProduct } from 'src/models/OrderProduct.js'
+import { CartItem } from 'src/models/CartItem.js'
 
 export default {
   name: 'CartView',
@@ -249,11 +243,11 @@ export default {
   emits: ['cartReview'],
   data () {
     return {
-      cart: new Cart(),
+      // cart: new Cart(),
       dialogState: false,
       test: null,
       expandedObject: {},
-      clickedItemIdToRemove: null,
+      clickedOrderProductToRemove: null,
       defaultOptions: {
         className: '',
         height: 'auto',
@@ -265,6 +259,9 @@ export default {
     }
   },
   computed: {
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
     cartItemsList () {
       return this.getOrderedList(this.cart.items.list)
     },
@@ -286,6 +283,13 @@ export default {
     this.$bus.on('busEvent-refreshCart', this.cartReview)
   },
   methods: {
+    getProductKey (order, key) {
+      if (order.hasGrand()) {
+        return order.grand[key]
+      }
+
+      return order.order_product.list[0].product[key]
+    },
     hasDiscount(order) {
       return order.grand.price.discountInPercent() > 0
     },
@@ -308,7 +312,6 @@ export default {
           this.cart.loading = false
         })
     },
-
     getOrderedList (cartItems) {
       if (!cartItems || cartItems.list?.length === 0) {
         return
@@ -316,42 +319,45 @@ export default {
       const customItems = []
 
       cartItems.forEach((item, i) => {
-        if (item.grand !== undefined && item.grand.id) {
+        if (item.hasGrand()) {
           customItems.push(item)
-        } else if (item.grand !== undefined && !item.grand.id && item.order_product.list.length > 0) {
+        } else {
           item.order_product.list.forEach(order => {
-            customItems.push({ grand: new OrderProduct(order), orderProductId: order.id })
+            // customItems.push({ grand: new OrderProduct(order), orderProductId: order.id })
+            customItems.push(new CartItem({
+              order_product: [order]
+            }))
           })
         }
         this.expandedObject[i] = true
       })
+
       return customItems
     },
-
     removeItem() {
-      this.$store.dispatch('Cart/removeItemFromCart', this.clickedItemIdToRemove)
+      this.changeDialogState(false)
+      this.$store.dispatch('Cart/removeItemFromCart', this.clickedOrderProductToRemove)
         .then(() => {
           this.cartReview()
-          this.changeDialogState(false)
           this.$bus.emit('busEvent-refreshCart')
-        }).catch(() => {
-          this.changeDialogState(false)
+        })
+        .catch(() => {
+          this.cartReview()
+          this.$bus.emit('busEvent-refreshCart')
         })
     },
-
-    changeDialogState (state, cartItem, orderProduct) {
-      let itemId = cartItem?.grand?.id
-      if (!itemId) {
-        itemId = cartItem?.orderProductId
-      }
-      if (typeof orderProduct !== 'undefined') {
-        itemId = orderProduct.id
-      }
-
-      if (itemId) {
-        this.clickedItemIdToRemove = itemId
-      }
+    changeDialogState (state, cartItem) {
       this.dialogState = state
+      if (!state) {
+        return
+      }
+      if (cartItem.hasGrand && cartItem.hasGrand()) {
+        this.clickedOrderProductToRemove = cartItem.grand
+      } else if (cartItem.hasGrand && !cartItem.hasGrand()) {
+        this.clickedOrderProductToRemove = cartItem.order_product.list[0].product
+      } else if (!cartItem.hasGrand) {
+        this.clickedOrderProductToRemove = cartItem.product
+      }
     }
   }
 }
@@ -564,8 +570,8 @@ export default {
           display: flex;
           justify-content: space-between;
           width: 100%;
-          margin-top: -32px;
-          margin-left: 164px;
+          //margin-top: -32px;
+          //margin-left: 164px;
 
           @media screen and (max-width: 1439px) {
             margin-left: 160px;
@@ -579,11 +585,6 @@ export default {
           }
 
           @media screen and (max-width: 599px) {
-            margin-top: 0;
-          }
-
-          &.expanded {
-            flex-direction: column;
             margin-top: 0;
           }
 
@@ -667,13 +668,13 @@ export default {
             display: flex;
             align-items: center;
             width: 100%;
-            justify-content: left;
+            justify-content: flex-end;
 
             .link {
               font-weight: 600;
               font-size: 12px;
               line-height: 19px;
-              color: #9690E4;
+              color: $primary;
               cursor: pointer;
               text-decoration: none;
               margin-right: 24px;
@@ -745,7 +746,7 @@ export default {
                   }
 
                   .pamphlet {
-                    padding: 10px 16px;
+                    padding: 0 16px;
                     background: #FFFFFF;
                     border: 1.5px solid #E4E8EF;
                     border-radius: 8px;
@@ -754,6 +755,8 @@ export default {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    flex-flow: row;
+                    flex-wrap: wrap;
 
                     @media screen and (max-width: 599px) {
                       flex-direction: column;
@@ -767,15 +770,16 @@ export default {
                       font-size: 12px;
                       line-height: 19px;
                       letter-spacing: -0.03em;
-                      color: #6D708B;padding-right: 30px;
-                      width: 100%;
+                      color: #6D708B;
+                      padding-right: 10px;
+                      width: calc( 100% - 100px );
                     }
 
                     .right-part {
                       display: flex;
                       align-items: center;
-                      width: 100%;
-                      justify-content: flex-end;
+                      width: 100px;
+                      justify-content: space-between;
 
                       .price {
                         font-style: normal;
@@ -783,19 +787,6 @@ export default {
                         font-size: 12px;
                         line-height: 19px;
                         color: #6D708B;
-                        margin-right: 16px;
-
-                        &.without-trash {
-                          margin-right: 36px;
-
-                          @media screen and (max-width: 599px) {
-                            margin-right: 28px;
-                          }
-                        }
-
-                        @media screen and (max-width: 599px) {
-                          margin-right: 10px;
-                        }
                       }
 
                       .hidden-trash-button {
@@ -858,14 +849,22 @@ export default {
                 border-radius: 100%;
               }
             }
-
           }
+
+          &.expanded {
+            .action-buttons {
+              .go-product {
+                display: none;
+              }
+            }
+            flex-direction: column;
+            margin-top: 0;
+          }
+
         }
       }
-
     }
   }
-
 }
 
 .delete-dialog {
@@ -922,7 +921,7 @@ export default {
         color: #FFFFFF;
         width: 144px;
         height: 40px;
-        background: #8075DC;
+        background: $primary;
         box-shadow: 0 4px 12px rgba(62, 61, 67, 0.15);
         border-radius: 8px;
         cursor: pointer;

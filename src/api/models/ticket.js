@@ -1,7 +1,10 @@
-import APIRepository from '../classes/APIRepository'
-import { apiV2 } from 'src/boot/axios'
-import { User } from 'src/models/User'
-import { TicketDepartmentList } from 'src/models/TicketDepartment'
+import { apiV2 } from 'src/boot/axios.js'
+import { User } from 'src/models/User.js'
+import { TicketList } from 'src/models/Ticket.js'
+import APIRepository from '../classes/APIRepository.js'
+import { TicketStatusList } from 'src/models/TicketStatus.js'
+import { TicketPriorityList } from 'src/models/TicketPriority.js'
+import { TicketDepartmentList } from 'src/models/TicketDepartment.js'
 
 export default class TicketAPI extends APIRepository {
   constructor() {
@@ -36,6 +39,52 @@ export default class TicketAPI extends APIRepository {
       create: '/ticket/create'
     }
     this.restUrl = (id) => this.url + '/' + id
+  }
+
+  index(data, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.base,
+      cacheKey: this.CacheList.base,
+      data: this.getNormalizedSendData({
+        hasReported: null, // Number
+        ticketMessage: null, // String
+        hasAssignees: null, // Array of Number
+        created_at_till: null, // String
+        created_at_since: null, // String
+        title: null, // String
+        id: null, // Number
+        order_id: null, // Array of Number
+        status_id: null, // Array of Number
+        priority_id: null, // Array of Number
+        department_id: null, // Array of Number
+        has_user_lastname: null, // String
+        has_user_firstname: null, // String
+        has_user_nationalcode: null, // String
+        has_user_mobile: null, // String
+        page: null // Number
+      }, data),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return {
+          list: new TicketList(response.data.data),
+          paginate: response.data.meta
+          // {
+          //   current_page: 1,
+          //   from: 1,
+          //   last_page: 1,
+          //   path: '...',
+          //   per_page: 15,
+          //   to: 10,
+          //   total: 10
+          // }
+        }
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
   }
 
   batchExtend(data) {
@@ -175,7 +224,7 @@ export default class TicketAPI extends APIRepository {
     })
   }
 
-  getNeededDataToCreateTicket(cache = { TTL: 100 }) {
+  getNeededDataToCreateTicket(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -184,8 +233,8 @@ export default class TicketAPI extends APIRepository {
         const ticketData = response.data
         return {
           departments: new TicketDepartmentList(ticketData.departments),
-          statuses: ticketData.statuses,
-          priorities: ticketData.priorities
+          priorities: new TicketPriorityList(ticketData.priorities),
+          statuses: new TicketStatusList(ticketData.statuses)
         }
       },
       rejectCallback: (error) => {

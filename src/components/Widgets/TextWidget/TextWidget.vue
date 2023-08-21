@@ -1,7 +1,7 @@
 <template>
   <div class="text-widget-container"
        :style="localOptions.style"
-       :class="localOptions.className">
+       :class="[localOptions.className, {'theme__1': localOptions.activeTheme === 'theme1'}]">
     <span class="text"
           v-html="localOptions.text" />
   </div>
@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       defaultOptions: {
+        text: '',
         fontFamily: null,
         color: null,
         fontSize: null,
@@ -50,6 +51,20 @@ export default {
           fontWeight: null,
           fontStyle: null,
           lineHeight: null
+        },
+        hasTheme: null,
+        activeTheme: null,
+        themes: {
+          theme1: {
+            borderColor: null,
+            borderSize: null,
+            borderWidth: null,
+            borderHeight: null,
+            top: null,
+            left: null,
+            bottom: null,
+            right: null
+          }
         }
       }
     }
@@ -59,6 +74,21 @@ export default {
 
 <style scoped lang="scss">
 .text-widget-container {
+
+  &.theme__1 {
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: v-bind('localOptions.themes.theme1.borderWidth');
+      height: v-bind('localOptions.themes.theme1.borderHeight');
+      left: v-bind('localOptions.themes.theme1.left');
+      top: v-bind('localOptions.themes.theme1.top');
+      right: v-bind('localOptions.themes.theme1.right');
+      bottom: v-bind('localOptions.themes.theme1.bottom');
+      border-top: v-bind('localOptions.themes.theme1.borderSize') solid v-bind('localOptions.themes.theme1.borderColor');
+    }
+  }
   @media screen and(max-width: 599px) {
     //display: flex;
     //width: 100%;

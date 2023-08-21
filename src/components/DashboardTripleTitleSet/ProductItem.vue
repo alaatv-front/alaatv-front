@@ -22,11 +22,29 @@
           <div class="product-item-description">
             {{ product.title }}
           </div>
-          <div class="product-item-teacher">
+          <div v-for="(teacher, index) in product.attributes?.info?.teacher"
+               :key="index"
+               class="product-item-teacher">
             <q-icon name="account_circle"
                     class="q-mr-xs"
                     size="16px" />
-            {{ product.attributes?.info?.teacher[0] }}
+            {{ teacher }}
+          </div>
+          <div class="product-item-progress">
+            <div class="progress-description">
+              <div class="progress-title">
+                پیشرفت دوره
+              </div>
+              <div class="progress-percent">
+                {{ product.contents_progress }}%
+              </div>
+            </div>
+            <div class="progress-bar">
+              <q-linear-progress reverse
+                                 color="teal-4"
+                                 :value="progress"
+                                 class="q-mt-md" />
+            </div>
           </div>
         </q-card-section>
         <q-card-section v-if="$q.screen.gt.xs"
@@ -88,11 +106,16 @@
 import { Product } from 'src/models/Product.js'
 
 export default {
-  name: 'ProdutItem',
+  name: 'ProductItem',
   props: {
     product: {
       type: Object,
       default: new Product()
+    }
+  },
+  computed: {
+    progress() {
+      return (this.product?.contents_progress) / 100
     }
   },
   methods: {
@@ -144,11 +167,12 @@ export default {
     }
 
     .product-item-info {
-      width: 100%;
+      width: calc( 100% - 80px );
       display: flex;
 
       @media only screen and (max-width: 600px) {
         padding: 0;
+        width: 100%;
       }
     }
 
@@ -167,10 +191,12 @@ export default {
     }
 
     .product-info {
+      width: 35%;
       min-width: 35%;
 
       @media only screen and (max-width: 600px) {
-        min-width: 70%;
+        width: calc( 100% - 97px );
+        min-width: calc( 100% - 97px );
       }
 
       .product-item-title {
@@ -195,7 +221,7 @@ export default {
         line-height: 19px;
         letter-spacing: -0.02em;
         color: #333333;
-        margin-bottom: 24px;
+        margin-bottom: 5px;
 
         @media only screen and (max-width: 600px) {
           font-size: 12px;
@@ -211,27 +237,57 @@ export default {
         line-height: 19px;
         letter-spacing: -0.02em;
         color: #6C6C6C;
+        margin-bottom: 10px;
 
         @media only screen and (max-width: 600px) {
           font-size: 10px;
           line-height: 12px;
         }
       }
+
+      .product-item-progress {
+        .progress-description {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .progress-title {
+            color:#616161;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.24px;
+          }
+
+          .progress-percent {
+            color:#616161;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.24px;
+          }
+        }
+      }
     }
 
     .last-content-card-section {
       display: flex;
-      width: 100%;
+      width: 65%;
       padding: 0;
-      .last-content {
-        margin-left: 24px;
+      @media only screen and (max-width: 600px) {
         width: 100%;
+      }
+      .last-content {
+        padding-left: 24px;
+        width: calc( 100% - 17px );
         display: flex;
         flex-direction: column;
         justify-content: center;
 
         @media only screen and (max-width: 600px) {
-          margin-left: 0;
+          padding-left: 0;
         }
 
         .last-content-pre {
@@ -278,6 +334,7 @@ export default {
             line-height: 19px;
             letter-spacing: -0.02em;
             color: #6C6C6C;
+            width: calc( 100% - 85px );
           }
 
           .last-content-link {
@@ -287,6 +344,7 @@ export default {
             line-height: 22px;
             letter-spacing: -0.03em;
             color: #333333;
+            width: 85px;
           }
         }
       }

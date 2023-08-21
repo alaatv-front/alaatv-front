@@ -32,6 +32,9 @@ const getters = {
   layoutRightSideBarType: (state) => {
     return state.layoutRightSideBarType
   },
+  layoutFooterType: (state) => {
+    return state.layoutFooterType
+  },
   breadcrumbs: (state) => {
     return state.breadcrumbs
   },

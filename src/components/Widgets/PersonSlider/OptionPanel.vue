@@ -2,6 +2,77 @@
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
       <div class="option-panel-container">
+        <div class="row person-typ-row">
+          <div class="col-12">
+            <q-radio v-model="localOptions.personType"
+                     val="student"
+                     label="دانش آموز" />
+            <q-radio v-model="localOptions.personType"
+                     val="teacher"
+                     label="استاد" />
+          </div>
+        </div>
+        <div class="title">Pagination</div>
+        <div class="row q-mb-sm q-col-gutter-md">
+          <div class="col-12 col-md-3">
+            <q-checkbox v-model="localOptions.pagination"
+                        label="صفحه بندی" />
+          </div>
+        </div>
+        <div class="title">Right Navigation</div>
+        <div class="row q-mb-sm q-col-gutter-md">
+          <div class="col-12 col-md-3">
+            <q-input v-model="localOptions.navigation.goToRight.icon"
+                     type="text"
+                     label="icon" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-input v-model="localOptions.navigation.goToRight.color"
+                     type="text"
+                     label="color" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-input v-model="localOptions.navigation.goToRight.textColor"
+                     type="text"
+                     label="textColor" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-input v-model="localOptions.navigation.goToRight.size"
+                     type="text"
+                     label="size" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-checkbox v-model="localOptions.navigation.goToRight.rounded"
+                        label="rounded" />
+          </div>
+        </div>
+        <div class="title">Left Navigation</div>
+        <div class="row q-mb-sm q-col-gutter-md">
+          <div class="col-12 col-md-3">
+            <q-input v-model="localOptions.navigation.goToLeft.icon"
+                     type="text"
+                     label="icon" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-input v-model="localOptions.navigation.goToLeft.color"
+                     type="text"
+                     label="color" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-input v-model="localOptions.navigation.goToLeft.textColor"
+                     type="text"
+                     label="textColor" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-input v-model="localOptions.navigation.goToLeft.size"
+                     type="text"
+                     label="size" />
+          </div>
+          <div class="col-12 col-md-3">
+            <q-checkbox v-model="localOptions.navigation.goToLeft.rounded"
+                        label="rounded" />
+          </div>
+        </div>
         <div class="table-rows flex justify-between">
           <q-table flat
                    bordered
@@ -116,7 +187,25 @@ export default defineComponent({
         { name: 'actions', align: 'right', label: 'عملیات', field: row => row.id }
       ],
       defaultOptions: {
-        sliderItems: []
+        sliderItems: [],
+        personType: 'student',
+        pagination: false,
+        navigation: {
+          goToLeft: {
+            icon: 'chevron_left',
+            textColor: '#FF944A',
+            color: '#FFE8D8',
+            rounded: false,
+            size: 'lg'
+          },
+          goToRight: {
+            icon: 'chevron_right',
+            textColor: '#FF944A',
+            color: '#FFE8D8',
+            rounded: false,
+            size: 'lg'
+          }
+        }
       }
     }
   },

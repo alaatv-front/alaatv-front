@@ -5,6 +5,7 @@ import { PageSetting, PageSettingList } from 'src/models/PageSetting.js'
 export default class PageSettingAPI extends APIRepository {
   constructor() {
     super('page-setting', apiV2)
+    this.serviceId = 1
     this.APIAdresses = {
       base: '/admin/setting',
       getWithKey: (key) => '/setting/' + key,
@@ -16,12 +17,13 @@ export default class PageSettingAPI extends APIRepository {
     }
   }
 
-  index (data, cache = { TTL: 100 }) {
+  index (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.base,
       cacheKey: this.CacheList.base,
+      data: { service_id: this.serviceId },
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return {
@@ -48,6 +50,7 @@ export default class PageSettingAPI extends APIRepository {
     const formData = new FormData()
     formData.append('key', data.key)
     formData.append('value', data.value)
+    formData.append('service_id', this.serviceId)
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -67,6 +70,7 @@ export default class PageSettingAPI extends APIRepository {
     const settingValue = data.value
     const formData = new FormData()
     formData.append('value', settingValue)
+    formData.append('service_id', this.serviceId)
     formData.append('_method', 'PUT')
     return this.sendRequest({
       apiMethod: 'post',
@@ -82,15 +86,33 @@ export default class PageSettingAPI extends APIRepository {
     })
   }
 
-  get (data, cache = { TTL: 100 }) {
+  get (data, cache = { TTL: 30000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.getWithKey(encodeURI(data)),
       cacheKey: this.CacheList.getWithKey(encodeURI(data)),
+      data: { service_id: this.serviceId },
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new PageSetting(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getMenuItems (data, cache = { TTL: 30000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getWithKey(encodeURI(data)),
+      cacheKey: this.CacheList.getWithKey(encodeURI(data)),
+      data: { service_id: this.serviceId },
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data.value
       },
       rejectCallback: (error) => {
         return error

@@ -1,6 +1,7 @@
 <template>
   <div class="page-content">
-    <entity-create ref="EntityCreate"
+    <entity-create v-if="mounted"
+                   ref="EntityCreate"
                    v-model:value="inputs"
                    :title="selectedDepartment.title"
                    :api="api"
@@ -40,7 +41,8 @@
       </template>
     </entity-create>
     <q-separator class="q-my-md" />
-    <send-message-input ref="SendMessageInput"
+    <send-message-input v-if="mounted"
+                        ref="SendMessageInput"
                         :role="userRole"
                         :canChoseOrder="canChoseOrder"
                         :canAssign-ticket="canAssignTicket"
@@ -48,15 +50,14 @@
                         :isAdmin="isInAdminPage"
                         @creatTicket="sendTicket" />
   </div>
-
 </template>
 
 <script>
 import { EntityCreate } from 'quasar-crud'
+import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
 import { TicketDepartment } from 'src/models/TicketDepartment.js'
-import SendMessageInput from 'components/Ticket/SendMessageInput.vue'
-import { APIGateway } from 'src/api/APIGateway'
+import SendMessageInput from 'src/components/Ticket/SendMessageInput.vue'
 
 export default {
   name: 'Create',
@@ -78,6 +79,7 @@ export default {
   },
   data () {
     return {
+      mounted: false,
       showDialog: true,
       api: APIGateway.ticket.APIAdresses.base,
       selectedDepartment: new TicketDepartment(),
@@ -89,7 +91,7 @@ export default {
           value: '',
           label: 'عنوان',
           placeholder: ' ',
-          col: 'col-md-6'
+          col: 'col-sm-6 col-xs-12'
         },
         {
           type: 'toggleButton',
@@ -102,7 +104,7 @@ export default {
           toggleColor: 'blue',
           textColor: 'black',
           toggleTextColor: 'white',
-          col: 'col-md-6',
+          col: 'col-sm-6 col-xs-12',
           size: '14px'
         }
       ],
@@ -121,12 +123,55 @@ export default {
       return { name: 'UserPanel.Ticket' }
     }
   },
-
   created() {
     this.initPageData()
   },
-
+  mounted () {
+  },
   methods: {
+    afterGetAllPageData () {
+      this.mounted = true
+      this.$nextTick(() => {
+        this.checkQueryParams()
+      })
+    },
+    async initTicket () {
+      await this.setInputs()
+    },
+    async setInputs () {
+      const ticketFields = await this.getTicketData()
+      this.departmentList.list = ticketFields.departments.list
+      this.getInput('priority_id').options = ticketFields.priorities.list.map(item => {
+        return {
+          label: item.title,
+          value: item.id
+        }
+      })
+    },
+    checkQueryParams () {
+      const title = this.$route.query.t
+      const message = this.$route.query.m
+      const priorityId = this.$route.query.p
+      const departmentId = this.$route.query.d
+      const targetDepartmentIndex = this.departmentList.list.findIndex(dep => parseInt(dep.id) === parseInt(departmentId))
+      if (targetDepartmentIndex !== -1) {
+        this.selectDepartment(this.departmentList.list[targetDepartmentIndex])
+        this.showDialog = false
+        this.$refs.EntityCreate.setInputByName('title', title)
+      }
+
+      if (title) {
+        this.$refs.EntityCreate.setInputByName('title', title)
+      }
+
+      if (message) {
+        this.$refs.SendMessageInput.newMessage.text = message
+      }
+
+      if (priorityId) {
+        this.$refs.EntityCreate.setInputByName('priority_id', parseInt(priorityId))
+      }
+    },
     goBackToList() {
       const ticketRouteObj = { name: 'Admin.Ticket.Index' }
       if (this.$route.name.includes('Admin')) {
@@ -143,7 +188,6 @@ export default {
       this.userRole = 'user'
       this.canAssignTicket = false
     },
-
     selectDepartment (department) {
       this.selectedDepartment = department
     }

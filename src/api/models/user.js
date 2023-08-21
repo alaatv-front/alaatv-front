@@ -1,32 +1,39 @@
-import { apiV2 } from 'src/boot/axios.js'
 import { User } from 'src/models/User.js'
+import { apiV2 } from 'src/boot/axios.js'
 import { ProductList } from 'src/models/Product.js'
+import { FavoredList } from 'src/models/Favored.js'
 import { CartItemList } from 'src/models/CartItem.js'
-import APIRepository from '../classes/APIRepository'
-import { FavoredList } from 'src/models/Favored'
-import { BankAccountsList } from 'src/models/BankAccounts'
-import { EventResult } from 'src/models/EventResult'
+import { EventResult } from 'src/models/EventResult.js'
+import APIRepository from '../classes/APIRepository.js'
+import { BankAccountsList } from 'src/models/BankAccounts.js'
+import { EventekhbReshte } from 'src/models/EventekhbReshte.js'
 
 export default class UserAPI extends APIRepository {
   constructor() {
-    super('user', apiV2, '/user', new User())
+    super('user', apiV2, '/user', User)
     this.APIAdresses = {
       create: '/admin/user',
       base: '/user',
+      byId: (id) => '/user/' + id,
       favored: '/user/favored',
       purchasedProducts: '/user/products',
+      hasPurchased: '/user/products/hasPurchased',
+      entekhabReshte: '/user/get/entekhab-reshte',
       bankAccounts: '/bank-accounts',
       mobileResend: '/mobile/resend',
       mobileVerify: '/mobile/verify',
       ordersById: (id) => '/user/' + id + '/orders',
+      isPermittedToPurchase: (productId) => '/user/isPermittedToPurchase/' + productId,
       getOrders: '/orders',
       orderStatus: '/payment/status',
       formData: '/megaroute/getUserFormData',
       showUser: '/getUserFor3a',
       eventResult: '/event-result',
+      eventResultById: (eventId) => '/event-result/event/' + eventId,
       createEventResult: '/event-result/create',
       baseAdmin: '/admin/user',
-      nationalCard: '/national-card-photo',
+      nationalCard: '/user/national-card-photo',
+      nationalCardPhoto: '/user/national-card-photo/get',
       resendGuest: '/mobile/resendGuest',
       getUserRoleAndPermission: '/getUserRoleAndPermission',
       verifyMoshavereh: '/mobile/verifyMoshavereh',
@@ -62,20 +69,26 @@ export default class UserAPI extends APIRepository {
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
+      hasPurchased: this.name + this.APIAdresses.hasPurchased,
       purchasedProducts: this.name + this.APIAdresses.purchasedProducts,
       favored: this.name + this.APIAdresses.favored,
       mobileResend: this.name + this.APIAdresses.base,
       mobileVerify: this.name + this.APIAdresses.base,
       bankAccounts: this.name + this.APIAdresses.bankAccounts,
+      byId: (id) => this.name + this.APIAdresses.byId(id),
       ordersById: (id) => this.name + this.APIAdresses.ordersById(id),
+      isPermittedToPurchase: (productId) => this.name + this.APIAdresses.isPermittedToPurchase(productId),
       getOrders: this.name + this.APIAdresses.base,
       orderStatus: this.name + this.APIAdresses.base,
       formData: this.name + this.APIAdresses.base,
       showUser: this.name + this.APIAdresses.base,
       eventResult: this.name + this.APIAdresses.base,
+      entekhabReshte: this.name + this.APIAdresses.entekhabReshte,
+      eventResultById: (eventId) => this.name + this.APIAdresses.eventResultById(eventId),
       createEventResult: this.name + this.APIAdresses.createEventResult,
       baseAdmin: this.name + this.APIAdresses.baseAdmin,
       nationalCard: this.name + this.APIAdresses.nationalCard,
+      nationalCardPhoto: this.name + this.APIAdresses.nationalCardPhoto,
       getUserRoleAndPermission: this.name + this.APIAdresses.getUserRoleAndPermission
     }
     this.restUrl = (id) => this.APIAdresses.base + '/' + id
@@ -104,6 +117,22 @@ export default class UserAPI extends APIRepository {
     })
   }
 
+  getNationalCardPhoto(cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.nationalCardPhoto,
+      cacheKey: this.CacheList.nationalCardPhoto,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data.url // string
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   storeBankAccounts(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
@@ -116,6 +145,22 @@ export default class UserAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return response
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  updateProfile(data = {}) {
+    delete data.photo
+    return this.sendRequest({
+      apiMethod: 'put',
+      api: this.api,
+      request: this.APIAdresses.byId(data.id),
+      data,
+      resolveCallback: (response) => {
+        return new User(response.data.data)
       },
       rejectCallback: (error) => {
         return error
@@ -211,6 +256,29 @@ export default class UserAPI extends APIRepository {
     })
   }
 
+  hasPurchased(products = [], cache = { TTL: 100 }) {
+    // products -> arrays of number
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.hasPurchased,
+      cacheKey: this.CacheList.hasPurchased,
+      ...(cache && { cache }),
+      data: { products },
+      resolveCallback: (response) => {
+        return response.data.data.map(item => {
+          return {
+            id: item.id, // Number
+            is_purchased: item.is_purchased // Number
+          }
+        })
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   orderStatus(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
@@ -281,7 +349,55 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  createEventResult(data = {}, cache = 100) {
+  getEventResult(eventId, cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.eventResultById(eventId),
+      cacheKey: this.CacheList.eventResultById(eventId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new EventResult(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  isPermittedToPurchase(productId, cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.isPermittedToPurchase(productId),
+      cacheKey: this.CacheList.isPermittedToPurchase(productId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data?.data?.id
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getEntekhabReshte(cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.entekhabReshte,
+      cacheKey: this.CacheList.entekhabReshte,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new EventekhbReshte(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  createEventResult(data = {}, cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -339,7 +455,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getPurchasedProducts(data = {}, cache = { TTL: 100 }) {
+  getPurchasedProducts(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -370,7 +486,23 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getUserRoleAndPermission(data = {}, cache = { TTL: 100 }) {
+  getCurrent(data = {}, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getUserRoleAndPermission,
+      cacheKey: this.CacheList.getUserRoleAndPermission,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new User(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getUserRoleAndPermission(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

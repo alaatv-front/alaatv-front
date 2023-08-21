@@ -1,12 +1,14 @@
-.q-scrollarea {
-  .q-scrollarea__bar {
-    background: #F5F5F5;
-  }
-  .q-scrollarea__thumb {
-    border-radius: 12px;
-    background: #FFCA2A;
-    width: 4px;
-    height: 4px;
-    opacity: 1;
+.new-theme {
+  .q-scrollarea {
+    .q-scrollarea__bar {
+      background: $grey-2;
+    }
+    .q-scrollarea__thumb {
+      border-radius: 12px;
+      background: $primary;
+      width: 4px;
+      height: 4px;
+      opacity: 1;
+    }
   }
 }

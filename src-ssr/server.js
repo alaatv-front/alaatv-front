@@ -19,6 +19,9 @@ import {
   ssrServeStaticContent
 } from 'quasar/wrappers'
 
+const heapMemoryAllocationInterval = parseInt(process.env.HEAP_MEMORY_ALLOCATION_INTERVAL)
+const maxHeapMemoryAllocationInPercent = parseInt(process.env.MAX_HEAP_MEMORY_ALLOCATION_IN_PERCENT)
+
 /**
  * Create your webserver and return its instance.
  * If needed, prepare your webserver to receive
@@ -28,6 +31,30 @@ import {
  */
 export const create = ssrCreate((/* { ... } */) => {
   const app = express()
+
+  const heapMemoryLimitAllocation = 4.1 * 1024
+  setInterval(()=>{
+    const memoryResidentSetSizeInMB = process.memoryUsage().rss/1000000
+    const heapMemoryAllocation = (memoryResidentSetSizeInMB / heapMemoryLimitAllocation) * 100
+    if (heapMemoryAllocation > maxHeapMemoryAllocationInPercent) {
+      console.log('memoryResidentSetSizeInMB: ', memoryResidentSetSizeInMB)
+      console.log('heapMemoryAllocation: ', heapMemoryAllocation)
+      process.exit(110)
+    }
+  }, heapMemoryAllocationInterval)
+
+  // app.use(audit({
+  //   doubleAudit: true,
+  //   request: {
+  //     excludeHeaders: ['*'], // Exclude all headers from responses,
+  //     excludeBody: ['*'], // Exclude all body from responses
+  //   },
+  //   response: {
+  //     excludeHeaders: ['*'], // Exclude all headers from responses,
+  //     excludeBody: ['*'], // Exclude all body from responses
+  //     maxBodyLength: 1 // limit length to 50 chars + '...'
+  //   }
+  // }))
 
   // attackers can use this header to detect apps running Express
   // and then launch specifically-targeted attacks

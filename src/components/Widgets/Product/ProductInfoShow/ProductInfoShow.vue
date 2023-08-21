@@ -34,12 +34,13 @@
                         @clicked="handleProductBookmark" />
             </div>
           </div>
-          <div class="product-info-box row">
+          <div v-if="!product.loading"
+               class="product-info-box row full-width">
             <div v-for="(info, index) in information"
                  :key="index"
                  class="product-info col-grow">
               <div class="product-info-inside q-ma-sm">
-                <div class="info-header ">
+                <div class="info-header">
                   <q-img :src="info.src"
                          class="info-image img" />
                   <p class="info-title">
@@ -52,7 +53,9 @@
                        class="info-value">
                     <template v-if="!product.loading">
                       <span v-if="value"
-                            class="ellipsis value-span">{{ value }}</span>
+                            class="ellipsis value-span">
+                        {{ value }}
+                      </span>
                       <span v-else>-</span>
                     </template>
                     <q-skeleton v-else
@@ -71,10 +74,11 @@
 
 <script>
 import { Product } from 'src/models/Product.js'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-import Bookmark from 'components/Bookmark.vue'
+import Bookmark from 'src/components/Bookmark.vue'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'ProductInfoShow',
@@ -109,25 +113,25 @@ export default {
       information: [
         {
           key: 'teacher',
-          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-teacher.png\n',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-teacher.png',
           title: 'مدرس',
           value: []
         },
         {
           key: 'production_year',
-          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-calendar.png\n',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-calendar.png',
           title: 'سال تولید',
           value: []
         },
         {
           key: 'major',
-          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-book.png\n',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-book.png',
           title: 'رشته',
           value: []
         },
         {
           key: 'shipping_method',
-          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-document-download.png\n',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-document-download.png',
           title: 'مدل دریافت',
           value: []
         }
@@ -173,7 +177,7 @@ export default {
       } else {
         this.information.splice(0, 0, {
           key: 'teacher',
-          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-teacher.png\n',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-teacher.png',
           title: 'مدرس',
           value: this.product.attributes.info.teacher
         })
@@ -185,7 +189,7 @@ export default {
       } else {
         this.information.splice(2, 0, {
           key: 'major',
-          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-book.png\n',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-book.png',
           title: 'رشته',
           value: this.product.attributes.info.major
         })
@@ -197,7 +201,7 @@ export default {
       } else {
         this.information.splice(1, 0, {
           key: 'production_year',
-          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-calendar.png\n',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-calendar.png',
           title: 'سال تولید',
           value: this.product.attributes.info.production_year
         })
@@ -209,7 +213,7 @@ export default {
       } else {
         this.information.splice(3, 0, {
           key: 'shipping_method',
-          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-document-download.png\n',
+          src: 'https://nodes.alaatv.com/upload/landing/28/modal/landing-taftan-modal-document-download.png',
           title: 'مدل دریافت',
           value: this.product.attributes.info.shipping_method
         })
@@ -244,10 +248,15 @@ export default {
       return this.getProduct()
     },
     prefetchServerDataPromiseThen (data) {
-      this.product = data
+      this.product = new Product(data)
       this.isFavored = this.product.is_favored_2
       this.setInformation()
-      this.product.loading = false
+      if (window) {
+        this.updateEECEventDetail()
+      }
+      this.$nextTick(() => {
+        this.product.loading = false
+      })
     },
     prefetchServerDataPromiseCatch () {
       this.product.loading = false
@@ -273,6 +282,12 @@ export default {
     },
     shareGiftCard({ name, url }) {
       window.open(url, '_blank')
+    },
+    updateEECEventDetail() {
+      AEE.productDetailViews('product.show', this.product.eec.getData(), {
+        TTl: 1000,
+        key: this.product.id
+      })
     }
   }
 }
@@ -315,7 +330,6 @@ p {
   .intro-features {
     display: flex;
     flex-direction: column;
-    padding: 0 20px;
     align-items: center;
     @media screen and(max-width: 599px) {
       padding: 0;

@@ -1,7 +1,8 @@
-import { apiV2 } from 'src/boot/axios'
+import Price from 'src/models/Price.js'
+import { apiV2 } from 'src/boot/axios.js'
 import { SetList } from 'src/models/Set.js'
-import { Content, ContentList } from 'src/models/Content.js'
 import APIRepository from '../classes/APIRepository.js'
+import { Content, ContentList } from 'src/models/Content.js'
 import { Product, ProductList } from 'src/models/Product.js'
 import { ProductCategoryList } from 'src/models/ProductCategory'
 
@@ -16,9 +17,11 @@ export default class ProductAPI extends APIRepository {
           idParams.push('ids' + '[' + productIndex + ']=' + productId)
         })
         const queryParams = idParams.join('&')
-        const queryParamsWithDisplay = queryParams + (queryParams.length > 0 ? queryParams + '&' : '') + 'display=2'
+        // display=2 for show all products
+        const queryParamsWithDisplay = queryParams + (queryParams.length > 0 ? '&' : '') + 'display=2'
         return '/product?' + queryParamsWithDisplay
       },
+      liveProducts: '/product/lives',
       admin: {
         create: '/reqres/api/users',
         edit: '/admin/product',
@@ -26,19 +29,25 @@ export default class ProductAPI extends APIRepository {
         show: '/admin/product'
       },
       getSets: id => `/product/${id}/sets`,
+      liveLink: id => `/product/${id}/liveInfo`,
       getComments: id => `/product/${id}/content-comments`,
       getContents: id => `/product/${id}/contents`,
       favored: (id) => '/product/' + id + '/favored',
       unfavored: (id) => '/product/' + id + '/unfavored',
       show: (id) => '/product/' + id,
       gifts: (id) => '/gift-products/' + id,
+      getPrice: (productId) => '/getPricgroupIndexe/' + productId,
       sampleContent: (id) => '/product/' + id + '/sample',
       categories: '/product-categories',
-      userLastState: (id) => '/product/' + id + '/toWatch'
+      liveConductors: '/live-conductors',
+      userLastState: (id) => '/product/' + id + '/toWatch',
+      updateSets: (productId) => '/product/' + productId + '/updateSetOrder'
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
       bulk: (productIds) => this.name + this.APIAdresses.bulk(productIds),
+      liveProducts: this.name + this.APIAdresses.liveProducts,
+      liveLink: (id) => this.name + this.APIAdresses.liveLink(id),
       create: this.name + this.APIAdresses.create,
       favored: id => this.name + this.APIAdresses.favored(id),
       getSets: id => this.name + this.APIAdresses.getSets(id),
@@ -60,7 +69,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  show(productId, cache = { TTL: 100 }) {
+  show(productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -76,7 +85,41 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  gifts(productId, cache = { TTL: 100 }) {
+  updateSetOrders(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.updateSets(data.productId),
+      data: { product_orders: data.payload }, // must be an array of objects that are including setId & setOrder like: {set: setId, order: setOrder}
+      resolveCallback: (response) => {
+        return response // []
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  liveConductors(cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.liveConductors,
+      cacheKey: this.CacheList.liveConductors,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data.map(item => {
+          item.product.live_link = item.live_link
+          return item.product
+        }))
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  gifts(productId, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -144,7 +187,26 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getProductList(data, cache = { TTL: 100 }) {
+  getPrice(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.getPrice(data.product_id),
+      data: this.getNormalizedSendData({
+        mainAttributeValues: [], // Array
+        extraAttributeValues: [], // Array
+        products: [] // Array
+      }, data),
+      resolveCallback: (response) => {
+        return new Price(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getProductList(data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -161,12 +223,44 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getSets(data, cache) {
+  getLiveProducts(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.getSets(data),
-      cacheKey: this.CacheList.getSets(data),
+      request: this.APIAdresses.liveProducts,
+      cacheKey: this.CacheList.liveProducts,
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return new ProductList(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getLiveLink(productId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.liveLink(productId),
+      cacheKey: this.CacheList.liveLink(productId),
+      ...(cache !== undefined && { cache }),
+      resolveCallback: (response) => {
+        return response.data.data.live_link // String
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getSets(productId, cache = { TTL: 1000 }) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getSets(productId),
+      cacheKey: this.CacheList.getSets(productId),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return new SetList(response.data.data)
@@ -195,7 +289,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getCategories(cache = { TTL: 100 }) {
+  getCategories(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -211,7 +305,7 @@ export default class ProductAPI extends APIRepository {
     })
   }
 
-  getUserLastState(id, cache = { TTL: 100 }) {
+  getUserLastState(id, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

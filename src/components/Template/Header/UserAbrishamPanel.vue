@@ -6,49 +6,17 @@
       <!--      <div class="text-primary">راه ابریشم</div>-->
     </div>
     <div class="profile-box flex items-center">
-      <i class="fi fi-rr-bell icon" />
-      <q-avatar class="avatar">
-        <img :src="user.photo"
-             alt="profile-photo">
-        <q-menu>
-          <q-list class="menu-item">
-            <q-item>
-              <q-avatar class="profile-photo">
-                <img alt="profile-photo"
-                     class="img"
-                     :src="user.photo">
-              </q-avatar>
-              <q-item-section>
-                <div class="name">
-                  {{user.first_name || ' '}}
-                  {{user.last_name || ' '}}
-                </div>
-                <div class="phone-number">
-                  {{user.mobile}}
-                </div>
-              </q-item-section>
-            </q-item>
-            <q-item :to="{name : 'Public.Home'}">
-              <q-item-section>
-                <q-separator class="separator q-mb-md" />
-                رفتن به صفحه اصلی
-              </q-item-section>
-            </q-item>
-            <q-item class="cursor-pointer">
-              <span @click="logOut">
-                خروج
-              </span>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </q-avatar>
+      <btn-user-profile-menu />
     </div>
   </div>
 </template>
 
 <script>
+import BtnUserProfileMenu from 'src/components/BtnUserProfileMenu.vue'
+
 export default {
   name: 'abrishamTemplateHeader',
+  components: { BtnUserProfileMenu },
   data: () => ({
     activePage: null
   }),
@@ -101,7 +69,7 @@ export default {
 
   }
   .profile-box{
-
+    padding-right: 18px;
   }
 
   .header-box {
@@ -120,33 +88,10 @@ export default {
     right: 0;
     top: 0;
     height: 100%;
+    padding-right: 18px;
     @media screen and (max-width: 1904px) {
       margin-left: 20px;
     }
-
-    .icon {
-      display: flex;
-      align-items: center;
-      font-size: 24px;
-      color: #3e5480;
-      font-weight: 500;
-      vertical-align: middle;
-      margin-right: 25px;
-      @media screen and (max-width: 1904px) {
-        margin-left: 15px;
-      }
-      @media screen and (max-width: 768px) {
-        font-size: 19px;
-        margin-left: 11px;
-      }
-    }
-
-    .avatar{
-      margin-right: 25px;
-      width: 36px;
-      height: 36px;
-    }
-
   }
   .expanded-panel{
     margin: 0 30px;
