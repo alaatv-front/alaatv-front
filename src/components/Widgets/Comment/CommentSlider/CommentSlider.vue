@@ -5,17 +5,14 @@
        class="row">
     <div class="col-12">
       <carousel ref="vueCarousel"
-                v-bind="settings"
+                v-bind="localOptions.settings"
                 :i18n="{
                   'ariaNextSlide': 'رفتن به اسلاید بعدی',
                   'ariaPreviousSlide': 'رفتن به اسلاید فبلی',
                   'iconArrowRight': 'قبلی',
                   'iconArrowLeft': 'بعدی',
                 }"
-                :autoplay="3500"
-                :breakpoints="breakpoints"
-                :wrapAround="true"
-                :transition="500">
+                :breakpoints="localOptions.breakpoints">
         <slide v-for="slide in localOptions.sliderItems"
                :key="slide">
           <comment-item class="carousel__item"
@@ -71,36 +68,39 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
-      settings: {
-        itemsToShow: 3,
-        snapAlign: 'center',
-        dir: 'rtl'
-      },
-      // breakpoints are mobile first
-      // any settings not specified will fallback to the carousel settings
-      breakpoints: {
-        // 350 and up
-        200: {
-          itemsToShow: 1,
-          snapAlign: 'center'
-        },
-        // 350 and up
-        350: {
-          itemsToShow: 1,
-          snapAlign: 'center'
-        },
-        // 650 and up
-        650: {
-          itemsToShow: 1,
-          snapAlign: 'center'
-        },
-        // 1200 and up
-        1200: {
-          itemsToShow: 3,
-          snapAlign: 'center'
-        }
-      },
       defaultOptions: {
+        settings: {
+          autoplay: 3500,
+          dir: 'rtl',
+          itemsToShow: 3,
+          snapAlign: 'center',
+          transition: 500,
+          pauseAutoplayOnHover: false,
+          itemsToScroll: 1,
+          wrapAround: true
+        },
+        breakpoints: {
+          200: {
+            itemsToShow: 1,
+            snapAlign: 'center'
+          },
+          350: {
+            itemsToShow: 1,
+            snapAlign: 'center'
+          },
+          600: {
+            itemsToShow: 1,
+            snapAlign: 'center'
+          },
+          1024: {
+            itemsToShow: 3,
+            snapAlign: 'center'
+          },
+          1440: {
+            itemsToShow: 3,
+            snapAlign: 'center'
+          }
+        },
         sliderItems: [],
         commentOptionPanel: {},
         pagination: false,
@@ -204,13 +204,17 @@ export default {
 }
 
 .carousel__slide--prev {
+  opacity: 1;
+  transform: rotateY(-10deg) scale(0.95);
 }
 
 .carousel__slide--next {
+  opacity: 1;
+  transform: rotateY(10deg) scale(0.95);
 }
 
 .carousel__slide--active {
   opacity: 1;
-  transform: scale(1.05);
+  transform: rotateY(0) scale(1.05);
 }
 </style>

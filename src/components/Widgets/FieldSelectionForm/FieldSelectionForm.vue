@@ -50,7 +50,9 @@
                                               @onComplete="onGoRegisterKonkurFieldSelectionGoToPayment" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionGoToPayment">
-        <register-konkur-field-selection-go-to-payment :order-id="orderId" />
+        <register-konkur-field-selection-go-to-payment :order-id="orderId"
+                                                       :selected-product-id="selectedProduct"
+                                                       :free-product-id="localOptions.product1Id" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionTankYouPage">
         <register-konkur-field-selection-tank-you-page :order-id="orderId"
@@ -251,6 +253,14 @@ export default {
       line-height: normal;
       letter-spacing: -0.36px;
     }
+    .Subtitle1-text {
+      color: #424242;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.32px;
+    }
     .content-text {
       color: #424242;
       font-size: 14px;
@@ -258,6 +268,14 @@ export default {
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.28px;
+    }
+    .content-big-text {
+      color: #424242;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.32px;
     }
     .caption-text {
       color: #9E9E9E;
@@ -280,6 +298,24 @@ export default {
           .q-field__append {
             .q-icon {
               color: #9E9E9E;
+            }
+          }
+        }
+      }
+    }
+
+    .q-field {
+      border-radius: 8px;
+      .q-field__inner {
+        .q-field__control {
+          padding: 0;
+          &:before {
+            border: 1.5px solid #E0E0E0;
+          }
+          .q-field__control-container {
+            .q-field__native {
+              padding: 9px 16px 10px;
+              font-size: 14px;
             }
           }
         }
@@ -364,23 +400,6 @@ export default {
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.32px;
-    }
-    .q-field {
-      border-radius: 8px;
-      .q-field__inner {
-        .q-field__control {
-          padding: 0;
-          &:before {
-            border: 1.5px solid #E0E0E0;
-          }
-          .q-field__control-container {
-            .q-field__native {
-              padding: 9px 16px 10px;
-              font-size: 14px;
-            }
-          }
-        }
-      }
     }
   }
 }

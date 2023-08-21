@@ -222,7 +222,7 @@ export default class APIInstanceWrapper {
     } else if (req === 'put') {
       return option.api.put(option.request, option.data)
     } else if (req === 'delete') {
-      return option.api.delete(option.request)
+      return option.api.delete(option.request, { params: option.data })
     }
   }
 
