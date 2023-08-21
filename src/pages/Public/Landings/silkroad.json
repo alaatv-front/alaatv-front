@@ -480,7 +480,30 @@
                     },
                     "horizontal": true,
                     "theme": "theme1",
-                    "borderStyle": {},
+                    "borderStyle": {
+                      "borderCssString": "",
+                      "borderRadiusCssString": ""
+                    },
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": 0
+                      }
+                    },
                     "style": {
                       "backgroundColor": "transparent"
                     },
@@ -767,7 +790,26 @@
                     },
                     "horizontal": true,
                     "theme": "theme1",
-                    "borderStyle": {},
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": 0
+                      }
+                    },
                     "style": {
                       "backgroundColor": "transparent",
                       "marginBottom": "44px"
@@ -932,7 +974,26 @@
                     },
                     "horizontal": true,
                     "theme": "theme1",
-                    "borderStyle": {},
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": 0
+                      }
+                    },
                     "style": {
                       "backgroundColor": "transparent",
                       "marginBottom": "44px"
@@ -1095,7 +1156,26 @@
                     },
                     "horizontal": true,
                     "theme": "theme1",
-                    "borderStyle": {},
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": 0
+                      }
+                    },
                     "style": {
                       "backgroundColor": "transparent"
                     },
@@ -1470,7 +1550,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -1655,6 +1735,8 @@
                 {
                   "name": "FeatureBox",
                   "options": {
+                    "width": "280px",
+                    "height": "400px",
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\">فراگیری انواع&nbsp;</font><div><span style=\"color: rgb(255, 133, 24);\">تیپ‌تست ها</span></div>",
@@ -1738,6 +1820,7 @@
                       "style": {}
                     },
                     "hasImage": true,
+                    "hoverImage": true,
                     "imageWidgetOptions": {
                       "imageSource": "https://freepngimg.com/thumb/lock_keys_facts/10-2-key-png-file-thumb.png",
                       "ratio": null,
@@ -1823,6 +1906,26 @@
                       "borderCssString": "solid 0px rgba(0,0,0,0.1)",
                       "borderRadiusCssString": "20px 20px 20px 20px"
                     },
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0.4
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": -60
+                      }
+                    },
                     "style": {
                       "marginTop": "",
                       "paddingTop": "13px",
@@ -1831,9 +1934,7 @@
                       "paddingBottom": "42px",
                       "marginLeft": "auto",
                       "marginRight": "auto"
-                    },
-                    "width": "280px",
-                    "height": "400px"
+                    }
                   }
                 }
               ],
@@ -1879,6 +1980,8 @@
                 {
                   "name": "FeatureBox",
                   "options": {
+                    "width": "280px",
+                    "height": "400px",
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\">فراگیری انواع&nbsp;</font><div><span style=\"color: rgb(255, 133, 24);\">تیپ‌تست ها</span></div>",
@@ -1962,6 +2065,7 @@
                       "style": {}
                     },
                     "hasImage": true,
+                    "hoverImage": true,
                     "imageWidgetOptions": {
                       "imageSource": "https://freepngimg.com/thumb/lock_keys_facts/10-2-key-png-file-thumb.png",
                       "ratio": null,
@@ -2047,6 +2151,26 @@
                       "borderCssString": "solid 0px rgba(0,0,0,0.1)",
                       "borderRadiusCssString": "20px 20px 20px 20px"
                     },
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0.4
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": -60
+                      }
+                    },
                     "style": {
                       "marginTop": "",
                       "paddingTop": "13px",
@@ -2055,9 +2179,7 @@
                       "paddingBottom": "42px",
                       "marginLeft": "auto",
                       "marginRight": "auto"
-                    },
-                    "width": "280px",
-                    "height": "400px"
+                    }
                   }
                 }
               ],
@@ -2103,6 +2225,8 @@
                 {
                   "name": "FeatureBox",
                   "options": {
+                    "width": "280px",
+                    "height": "400px",
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\">فراگیری انواع&nbsp;</font><div><span style=\"color: rgb(255, 133, 24);\">تیپ‌تست ها</span></div>",
@@ -2186,6 +2310,7 @@
                       "style": {}
                     },
                     "hasImage": true,
+                    "hoverImage": true,
                     "imageWidgetOptions": {
                       "imageSource": "https://freepngimg.com/thumb/lock_keys_facts/10-2-key-png-file-thumb.png",
                       "ratio": null,
@@ -2271,6 +2396,26 @@
                       "borderCssString": "solid 0px rgba(0,0,0,0.1)",
                       "borderRadiusCssString": "20px 20px 20px 20px"
                     },
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0.4
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": -60
+                      }
+                    },
                     "style": {
                       "marginTop": "",
                       "paddingTop": "13px",
@@ -2279,9 +2424,7 @@
                       "paddingBottom": "42px",
                       "marginLeft": "auto",
                       "marginRight": "auto"
-                    },
-                    "width": "280px",
-                    "height": "400px"
+                    }
                   }
                 }
               ],
@@ -2327,6 +2470,8 @@
                 {
                   "name": "FeatureBox",
                   "options": {
+                    "width": "280px",
+                    "height": "400px",
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\">فراگیری انواع&nbsp;</font><div><span style=\"color: rgb(255, 133, 24);\">تیپ‌تست ها</span></div>",
@@ -2410,6 +2555,7 @@
                       "style": {}
                     },
                     "hasImage": true,
+                    "hoverImage": true,
                     "imageWidgetOptions": {
                       "imageSource": "https://freepngimg.com/thumb/lock_keys_facts/10-2-key-png-file-thumb.png",
                       "ratio": null,
@@ -2495,6 +2641,26 @@
                       "borderCssString": "solid 0px rgba(0,0,0,0.1)",
                       "borderRadiusCssString": "20px 20px 20px 20px"
                     },
+                    "boxShadows": [],
+                    "cssHoverEffects": {
+                      "boxShadows": [],
+                      "borderStyle": {
+                        "borderCssString": "",
+                        "borderRadiusCssString": ""
+                      },
+                      "transition": {
+                        "time": 0.4
+                      },
+                      "transform": {
+                        "rotate": 0,
+                        "scaleX": 1,
+                        "scaleY": 1,
+                        "skewX": 0,
+                        "skewY": 0,
+                        "translateX": 0,
+                        "translateY": -60
+                      }
+                    },
                     "style": {
                       "marginTop": "",
                       "paddingTop": "13px",
@@ -2503,9 +2669,7 @@
                       "paddingBottom": "42px",
                       "marginLeft": "auto",
                       "marginRight": "auto"
-                    },
-                    "width": "280px",
-                    "height": "400px"
+                    }
                   }
                 }
               ],
@@ -2701,7 +2865,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -3285,7 +3449,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -3879,7 +4043,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -3896,7 +4060,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -4159,7 +4323,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -4176,7 +4340,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -4329,9 +4493,40 @@
             "gutterYSize": "md",
             "absolute": "none",
             "paddingOfBoxedInFullWidth": "30px",
+            "boxShadows": [],
+            "borderStyle": {
+              "borderCssString": "",
+              "borderRadiusCssString": ""
+            },
+            "cssHoverEffects": {
+              "boxShadows": [],
+              "borderStyle": {
+                "borderCssString": "",
+                "borderRadiusCssString": ""
+              },
+              "transition": {
+                "time": 0
+              },
+              "transform": {
+                "rotate": 0,
+                "scaleX": 1,
+                "scaleY": 1,
+                "skewX": 0,
+                "skewY": 0,
+                "translateX": 0,
+                "translateY": 0
+              }
+            },
+            "responsiveShow": {
+              "xl": true,
+              "lg": true,
+              "md": true,
+              "sm": true,
+              "xs": true
+            },
             "alignment": {
               "justifyContent": {
-                "global": "justify-start",
+                "global": "justify-center",
                 "xl": null,
                 "lg": null,
                 "md": null,
@@ -4363,7 +4558,7 @@
               "paddingBottom": "40px",
               "marginLeft": "",
               "paddingLeft": "",
-              "paddingRight": "72px"
+              "paddingRight": ""
             }
           }
         }
@@ -4464,7 +4659,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -4614,7 +4809,11 @@
                           "": "",
                           "activeColor": "orange",
                           "activeBgColor": "white",
-                          "indicatorColor": "white"
+                          "indicatorColor": "white",
+                          "productTabsBackground": "#ffffff",
+                          "productTabsBorderRadius": "16px",
+                          "productTabsPadding": "5px",
+                          "productTabColor": "#9E9E9E"
                         },
                         "type": "GroupList",
                         "data": [
@@ -4765,7 +4964,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -4782,7 +4981,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -5045,7 +5244,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -5062,7 +5261,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -5325,7 +5524,7 @@
                                       "روح الله حاجی سلیمانی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -5607,7 +5806,7 @@
                                       "محمدرضا یاری"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -5887,7 +6086,7 @@
                                       "علی جوهری"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -6169,7 +6368,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -6450,7 +6649,7 @@
                                       "وحید کبریایی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -6731,7 +6930,7 @@
                                       "محمد امین نباخته"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -6922,7 +7121,7 @@
                                         "محمد امین نباخته"
                                       ],
                                       "shipping_method": [
-                                        "دانلودی"
+                                        "مطابق برنامه"
                                       ],
                                       "major": [
                                         "تجربی"
@@ -6955,7 +7154,9 @@
                                   },
                                   "category": null,
                                   "variant": "-",
-                                  "is_purchased": false
+                                  "is_purchased": false,
+                                  "is_dependent": null,
+                                  "enable": 1
                                 },
                                 "warn": {
                                   "mode": false,
@@ -7086,7 +7287,7 @@
                                       "محمد امین نباخته"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -7271,7 +7472,7 @@
                                         "محمد صادق ثابتی"
                                       ],
                                       "shipping_method": [
-                                        "دانلودی"
+                                        "مطابق برنامه"
                                       ],
                                       "major": [
                                         "ریاضی"
@@ -7304,7 +7505,9 @@
                                   },
                                   "category": null,
                                   "variant": "-",
-                                  "is_purchased": false
+                                  "is_purchased": false,
+                                  "is_dependent": null,
+                                  "enable": 1
                                 },
                                 "warn": {
                                   "mode": false,
@@ -7435,7 +7638,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -7620,7 +7823,7 @@
                                         "خسرو محمد زاده"
                                       ],
                                       "shipping_method": [
-                                        "دانلودی"
+                                        "مطابق برنامه"
                                       ],
                                       "major": [
                                         "انسانی"
@@ -7654,7 +7857,9 @@
                                   },
                                   "category": null,
                                   "variant": "-",
-                                  "is_purchased": false
+                                  "is_purchased": false,
+                                  "is_dependent": null,
+                                  "enable": 1
                                 },
                                 "warn": {
                                   "mode": false,
@@ -7785,7 +7990,7 @@
                                       "خسرو محمد زاده"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "انسانی"
@@ -8076,7 +8281,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -8093,7 +8298,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -8356,7 +8561,7 @@
                                       "روح الله حاجی سلیمانی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -8638,7 +8843,7 @@
                                       "محمدرضا یاری"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -8918,7 +9123,7 @@
                                       "علی جوهری"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -9200,7 +9405,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -9391,7 +9596,7 @@
                                         "محمد صادق ثابتی"
                                       ],
                                       "shipping_method": [
-                                        "دانلودی"
+                                        "مطابق برنامه"
                                       ],
                                       "major": [
                                         "ریاضی"
@@ -9424,7 +9629,9 @@
                                   },
                                   "category": null,
                                   "variant": "-",
-                                  "is_purchased": false
+                                  "is_purchased": false,
+                                  "is_dependent": null,
+                                  "enable": 1
                                 },
                                 "warn": {
                                   "mode": false,
@@ -9555,7 +9762,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -9740,7 +9947,7 @@
                                         "خسرو محمد زاده"
                                       ],
                                       "shipping_method": [
-                                        "دانلودی"
+                                        "مطابق برنامه"
                                       ],
                                       "major": [
                                         "انسانی"
@@ -9774,7 +9981,9 @@
                                   },
                                   "category": null,
                                   "variant": "-",
-                                  "is_purchased": false
+                                  "is_purchased": false,
+                                  "is_dependent": null,
+                                  "enable": 1
                                 },
                                 "warn": {
                                   "mode": false,
@@ -9905,7 +10114,7 @@
                                       "خسرو محمد زاده"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "انسانی"
@@ -10196,7 +10405,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -10213,7 +10422,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -10476,7 +10685,7 @@
                                       "روح الله حاجی سلیمانی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -10653,7 +10862,7 @@
                                         "محمد صادق ثابتی"
                                       ],
                                       "shipping_method": [
-                                        "دانلودی"
+                                        "مطابق برنامه"
                                       ],
                                       "major": [
                                         "ریاضی"
@@ -10686,7 +10895,9 @@
                                   },
                                   "category": null,
                                   "variant": "-",
-                                  "is_purchased": false
+                                  "is_purchased": false,
+                                  "is_dependent": null,
+                                  "enable": 1
                                 },
                                 "warn": {
                                   "mode": false,
@@ -10817,7 +11028,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -11107,7 +11318,7 @@
                                       "محمدرضا یاری"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -11387,7 +11598,7 @@
                                       "وحید کبریایی"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -11668,7 +11879,7 @@
                                       "محمد امین نباخته"
                                     ],
                                     "shipping_method": [
-                                      "دانلودی"
+                                      "مطابق برنامه"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -11969,7 +12180,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -12325,7 +12536,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -12476,6 +12687,37 @@
                 {
                   "name": "PersonSlider",
                   "options": {
+                    "settings": {
+                      "autoplay": 3500,
+                      "dir": "rtl",
+                      "itemsToShow": 6,
+                      "snapAlign": "center",
+                      "transition": 500,
+                      "wrapAround": true,
+                      "pauseAutoplayOnHover": true
+                    },
+                    "breakpoints": {
+                      "200": {
+                        "itemsToShow": 1,
+                        "snapAlign": "center"
+                      },
+                      "350": {
+                        "itemsToShow": 1,
+                        "snapAlign": "center"
+                      },
+                      "600": {
+                        "itemsToShow": 3,
+                        "snapAlign": "center"
+                      },
+                      "1024": {
+                        "itemsToShow": 5,
+                        "snapAlign": "center"
+                      },
+                      "1440": {
+                        "itemsToShow": 5,
+                        "snapAlign": "center"
+                      }
+                    },
                     "sliderItems": [
                       {
                         "order": 6,
@@ -12533,11 +12775,65 @@
                       }
                     ],
                     "personType": "teacher",
+                    "pagination": true,
+                    "navigation": {
+                      "goToLeft": {
+                        "icon": "chevron_left",
+                        "textColor": "#FF944A",
+                        "color": "#FFE8D8",
+                        "rounded": true,
+                        "size": "lg"
+                      },
+                      "goToRight": {
+                        "icon": "chevron_right",
+                        "textColor": "#FF944A",
+                        "color": "#FFE8D8",
+                        "rounded": true,
+                        "size": "lg"
+                      }
+                    },
                     "style": {}
                   }
                 }
               ],
-              "options": {}
+              "options": {
+                "colNumber": "col",
+                "style": {
+                  "paddingBottom": "50px"
+                },
+                "boxShadows": [],
+                "borderStyle": {
+                  "borderCssString": "",
+                  "borderRadiusCssString": ""
+                },
+                "cssHoverEffects": {
+                  "boxShadows": [],
+                  "borderStyle": {
+                    "borderCssString": "",
+                    "borderRadiusCssString": ""
+                  },
+                  "transition": {
+                    "time": 0
+                  },
+                  "transform": {
+                    "rotate": null,
+                    "scaleX": null,
+                    "scaleY": null,
+                    "skewX": null,
+                    "skewY": null,
+                    "translateX": null,
+                    "translateY": null
+                  }
+                },
+                "responsiveShow": {
+                  "xl": true,
+                  "lg": true,
+                  "md": true,
+                  "sm": true,
+                  "xs": true
+                },
+                "className": ""
+              }
             }
           ],
           "options": {
@@ -12710,7 +13006,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png",
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png",
                     "width": "",
                     "height": "",
                     "spaced": false
@@ -12936,31 +13232,31 @@
                   "options": {
                     "sliderItems": [
                       {
-                        "order": 3,
-                        "rank": "رتبه ۴ کنکور 1402",
-                        "first_name": "محمدرضا",
-                        "last_name": "ریسپانسیویان",
+                        "order": 4,
+                        "rank": "رتبه 67 کنکور 1402",
+                        "first_name": "ماریا",
+                        "last_name": "فیلانیان",
                         "major": "رشته ریاضی",
                         "message": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک چاپگرها و متون بلکه روزنامه و در ستون و سطرآنچنان که لازم است",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/Rotbeh/S30.png"
+                        "image": "https://nodes.alaatv.com/upload/landing/110/Rotbeh/S32.png"
                       },
                       {
                         "order": 2,
-                        "rank": "رتبه ۴ کنکور 1402",
+                        "rank": "رتبه 67 کنکور 1402",
                         "first_name": "سید ابوالقاسم",
                         "last_name": "میرفندرسکی",
                         "major": "رشته ریاضی",
                         "message": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک چاپگرها و متون بلکه روزنامه و در ستون و سطرآنچنان که لازم است",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/Rotbeh/S30.png"
+                        "image": "https://nodes.alaatv.com/upload/landing/110/Rotbeh/S32.png"
                       },
                       {
                         "order": 1,
-                        "rank": "رتبه ۴ کنکور 1402",
-                        "first_name": "سایلنت",
-                        "last_name": "الهامی",
-                        "major": "رشته ریاضی",
+                        "rank": "رتبه 67 کنکور 1402",
+                        "first_name": "محمدرضا",
+                        "last_name": "ریسپانسیویان",
+                        "major": "رشته انسانی",
                         "message": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک چاپگرها و متون بلکه روزنامه و در ستون و سطرآنچنان که لازم است",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/Rotbeh/S30.png"
+                        "image": "https://nodes.alaatv.com/upload/landing/110/Rotbeh/S32.png"
                       }
                     ],
                     "commentOptionPanel": {
@@ -12994,8 +13290,8 @@
                         },
                         "transform": {
                           "rotate": 0,
-                          "scaleX": 1.1,
-                          "scaleY": 1.1,
+                          "scaleX": 1,
+                          "scaleY": 1,
                           "skewX": 0,
                           "skewY": 0,
                           "translateX": 0,
@@ -13003,6 +13299,24 @@
                         }
                       },
                       "style": {}
+                    },
+                    "navigation": {
+                      "goToLeft": {
+                        "icon": "chevron_left",
+                        "textColor": "#FF944A",
+                        "color": "#FFE8D8",
+                        "rounded": true,
+                        "size": "lg",
+                        "position": "center"
+                      },
+                      "goToRight": {
+                        "icon": "chevron_right",
+                        "textColor": "#FF944A",
+                        "color": "#FFE8D8",
+                        "rounded": true,
+                        "size": "lg",
+                        "position": "center"
+                      }
                     },
                     "style": {}
                   }
@@ -13216,7 +13530,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -13474,13 +13788,21 @@
                     "expandItemBackground": "#fff",
                     "expandItemMargin": "20px",
                     "expandItemRadius": "15px",
-                    "expandItemContentPadding": "15px",
+                    "expandItemContentPadding": "24px",
                     "marginBottom": "100px",
+                    "headerPadding": "24px",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "hasContentSeparator": true,
+                    "contentSeparator": {
+                      "marginTop": "-24px",
+                      "marginBottom": "24px",
+                      "color": "#E0E0E0",
+                      "size": "1px"
+                    },
                     "xs": {
                       "fontSize": null,
                       "fontWeight": null,
@@ -13756,6 +14078,7 @@
                       "lg": "24px",
                       "xl": "24px"
                     },
+                    "fieldBackground": "#FFEEDB",
                     "eventId": null,
                     "style": {
                       "backgroundColor": "rgba(255,255,255,1)"

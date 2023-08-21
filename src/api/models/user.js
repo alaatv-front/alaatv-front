@@ -6,6 +6,8 @@ import { CartItemList } from 'src/models/CartItem.js'
 import { EventResult } from 'src/models/EventResult.js'
 import APIRepository from '../classes/APIRepository.js'
 import { BankAccountsList } from 'src/models/BankAccounts.js'
+import { EventekhbReshte } from 'src/models/EventekhbReshte.js'
+import { FieldSelectionForm } from 'src/models/FieldSelectionForm.js'
 
 export default class UserAPI extends APIRepository {
   constructor() {
@@ -16,15 +18,20 @@ export default class UserAPI extends APIRepository {
       byId: (id) => '/user/' + id,
       favored: '/user/favored',
       purchasedProducts: '/user/products',
+      hasPurchased: '/user/products/hasPurchased',
+      entekhabReshte: '/user/get/entekhab-reshte',
       bankAccounts: '/bank-accounts',
       mobileResend: '/mobile/resend',
       mobileVerify: '/mobile/verify',
       ordersById: (id) => '/user/' + id + '/orders',
+      isPermittedToPurchase: (productId) => '/user/isPermittedToPurchase/' + productId,
       getOrders: '/orders',
       orderStatus: '/payment/status',
       formData: '/megaroute/getUserFormData',
       showUser: '/getUserFor3a',
       eventResult: '/event-result',
+      getEntekhabReshteByUserId: (userId) => '/user/get/entekhab-reshte?user_id=' + userId,
+      eventResultById: (eventId) => '/event-result/event/' + eventId,
       createEventResult: '/event-result/create',
       baseAdmin: '/admin/user',
       nationalCard: '/user/national-card-photo',
@@ -64,6 +71,7 @@ export default class UserAPI extends APIRepository {
     }
     this.CacheList = {
       base: this.name + this.APIAdresses.base,
+      hasPurchased: this.name + this.APIAdresses.hasPurchased,
       purchasedProducts: this.name + this.APIAdresses.purchasedProducts,
       favored: this.name + this.APIAdresses.favored,
       mobileResend: this.name + this.APIAdresses.base,
@@ -71,11 +79,15 @@ export default class UserAPI extends APIRepository {
       bankAccounts: this.name + this.APIAdresses.bankAccounts,
       byId: (id) => this.name + this.APIAdresses.byId(id),
       ordersById: (id) => this.name + this.APIAdresses.ordersById(id),
+      isPermittedToPurchase: (productId) => this.name + this.APIAdresses.isPermittedToPurchase(productId),
       getOrders: this.name + this.APIAdresses.base,
       orderStatus: this.name + this.APIAdresses.base,
       formData: this.name + this.APIAdresses.base,
       showUser: this.name + this.APIAdresses.base,
       eventResult: this.name + this.APIAdresses.base,
+      entekhabReshte: this.name + this.APIAdresses.entekhabReshte,
+      getEntekhabReshteByUserId: (userId) => this.name + this.APIAdresses.getEntekhabReshteByUserId(userId),
+      eventResultById: (eventId) => this.name + this.APIAdresses.eventResultById(eventId),
       createEventResult: this.name + this.APIAdresses.createEventResult,
       baseAdmin: this.name + this.APIAdresses.baseAdmin,
       nationalCard: this.name + this.APIAdresses.nationalCard,
@@ -108,7 +120,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getNationalCardPhoto(cache = { TTL: 100 }) {
+  getNationalCardPhoto(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
@@ -247,6 +259,29 @@ export default class UserAPI extends APIRepository {
     })
   }
 
+  hasPurchased(products = [], cache = { TTL: 100 }) {
+    // products -> arrays of number
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.hasPurchased,
+      cacheKey: this.CacheList.hasPurchased,
+      ...(cache && { cache }),
+      data: { products },
+      resolveCallback: (response) => {
+        return response.data.data.map(item => {
+          return {
+            id: item.id, // Number
+            is_purchased: item.is_purchased // Number
+          }
+        })
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   orderStatus(data = {}) {
     return this.sendRequest({
       apiMethod: 'get',
@@ -317,7 +352,71 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  createEventResult(data = {}, cache = 100) {
+  getEventResult(eventId, cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.eventResultById(eventId),
+      cacheKey: this.CacheList.eventResultById(eventId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new EventResult(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getEntekhabReshteByUserId(userId, cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getEntekhabReshteByUserId(userId),
+      cacheKey: this.CacheList.getEntekhabReshteByUserId(userId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new FieldSelectionForm(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  isPermittedToPurchase(productId, cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.isPermittedToPurchase(productId),
+      cacheKey: this.CacheList.isPermittedToPurchase(productId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return response.data?.data?.order_id
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  getEntekhabReshte(cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.entekhabReshte,
+      cacheKey: this.CacheList.entekhabReshte,
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new EventekhbReshte(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  createEventResult(data = {}, cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

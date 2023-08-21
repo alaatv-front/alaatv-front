@@ -1,0 +1,25 @@
+.carousel__pagination-button {
+  &::after {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    background: #eee !important;
+  }
+
+  &:hover {
+    &::after {
+      background-color:#FFD54F !important;
+    }
+  }
+}
+
+.carousel__pagination-button {
+  &.carousel__pagination-button--active {
+    &::after {
+      width: 24px !important;
+      height: 8px !important;
+      border-radius: 18px !important;
+      background: #FFD54F !important;
+    }
+  }
+}
