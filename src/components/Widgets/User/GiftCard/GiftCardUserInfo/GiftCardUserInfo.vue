@@ -159,8 +159,9 @@
                     </div>
                   </div>
                   <div v-if="!nationalCardPicFile && nationalCardPicURL"
-                       class="selected-pic">
-                    <q-img :src="nationalCardPicURL" />
+                       class="selected-pic cursor-pointer">
+                    <q-img :src="nationalCardPicURL"
+                           @click="showNationalCard = true" />
                   </div>
                 </div>
               </div>
@@ -454,6 +455,9 @@
         </div>
       </div>
     </div>
+    <q-dialog v-model="showNationalCard">
+      <q-img :src="nationalCardPicURL" />
+    </q-dialog>
   </div>
 </template>
 
@@ -470,6 +474,7 @@ export default {
       localUser: new User(),
       bankAccounts: [],
       has_signed_contract: false,
+      showNationalCard: false,
       contractDialog: false,
       contractDialogSrc: null,
       nationalCardPicState: 'notSelected',
