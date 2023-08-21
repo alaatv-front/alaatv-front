@@ -456,8 +456,8 @@
       </div>
     </div>
     <q-dialog v-model="showNationalCard">
-      <lazy-img :src="nationalCardPicURL"
-                class="full-width" />
+      <q-img :src="nationalCardPicURL"
+             class="dialog-image" />
     </q-dialog>
   </div>
 </template>
@@ -466,11 +466,9 @@
 import { User } from 'src/models/User.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import GiftCardMixin from '../Mixin/GiftCardMixin.js'
-import LazyImg from 'components/lazyImg.vue'
 
 export default {
   name: 'GiftCardUserInfo',
-  components: { LazyImg },
   mixins: [GiftCardMixin],
   data () {
     return {
@@ -1256,6 +1254,10 @@ export default {
       }
     }
   }
+}
+.dialog-image {
+  width: 1000px;
+  max-width: 90%;
 }
 </style>
 
