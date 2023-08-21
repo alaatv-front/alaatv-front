@@ -456,7 +456,8 @@
       </div>
     </div>
     <q-dialog v-model="showNationalCard">
-      <q-img :src="nationalCardPicURL" />
+      <q-img :src="nationalCardPicURL"
+             class="dialog-image" />
     </q-dialog>
   </div>
 </template>
@@ -1253,6 +1254,10 @@ export default {
       }
     }
   }
+}
+.dialog-image {
+  width: 1000px;
+  max-width: 90%;
 }
 </style>
 
