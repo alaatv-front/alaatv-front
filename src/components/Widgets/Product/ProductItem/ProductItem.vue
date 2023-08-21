@@ -1,5 +1,6 @@
 <template>
-  <div class="product-item-container">
+  <div class="product-item-container"
+       :class="localOptions.theme">
     <q-card v-if="localOptions.loading"
             class="product-item-box q-pa-md"
             :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
@@ -55,20 +56,47 @@
             class="product-item-box"
             :class="'productItem' + product.id"
             :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
-      <div class="img-box">
+
+      <div class="img-box"
+           :class="localOptions.theme">
+        <q-badge v-if="product.price['final'] !== product.price['base']"
+                 floating
+                 class="discount-badge"
+                 color="transparent">
+          <q-img :src="'https://nodes.alaatv.com/upload/widget_items/dis.png'"
+                 class="discount-percent-img"
+                 width="64px"
+                 spinner-color="primary"
+                 spinner-size="64px" />
+          <div class="discount-percent">
+            <div class="discount-percent_number">
+              %{{
+                (
+                  (1 - product.price['final'] / product.price['base']) *
+                  100
+                ).toFixed(0)
+              }}
+            </div>
+            <span class="discount-percent_text">
+              تخفیف
+            </span>
+          </div>
+        </q-badge>
         <router-link :to="getRoutingObject"
                      @click="productClicked">
           <lazy-img :src="product.photo"
                     :alt="product.title"
-                    height="100%"
-                    width="100%"
+                    :height="imageHeight"
+                    :width="imageWidth"
                     class="img" />
         </router-link>
       </div>
-      <div class="product-content-box">
+      <div class="product-content-box"
+           :class="[localOptions.theme]">
         <router-link :to="getRoutingObject"
                      @click="productClicked">
-          <div class="title-box">
+          <div class="title-box"
+               :class="[localOptions.theme]">
             <div class="main-title ellipsis-2-lines">
               {{ product.title }}
             </div>
@@ -81,8 +109,9 @@
                     :loading="bookmarkLoading"
                     @clicked="handleProductBookmark" />
         </div>
-        <div v-if="product.attributes"
-             class="info-box">
+        <div v-if="product.attributes && localOptions.theme !== 'theme2'"
+             class="info-box"
+             :class="[localOptions.theme]">
           <div class="teacher-image">
             <q-avatar size="32px"
                       font-size="32px"
@@ -91,16 +120,19 @@
                       icon="account_circle" />
           </div>
           <div v-if="product.attributes.info"
-               class="teacher-name">{{getTeacherOfProduct()}}</div>
+               class="teacher-name"
+               :class="[localOptions.theme]">{{getTeacherOfProduct()}}</div>
         </div>
         <div v-if="localOptions.showPrice"
-             class="action-box">
+             class="action-box"
+             :class="[localOptions.theme]">
           <div class="more-detail product-more-detail">
             <router-link :to="getRoutingObject"
                          @click="productClicked">
-              <div class="price-box">
+              <div class="price-box"
+                   :class="[localOptions.theme]">
                 <div class="price-info">
-                  <div v-if="product.price['final'] !== product.price['base']"
+                  <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
                        class="discount">
                     <span>
                       %{{
@@ -111,29 +143,47 @@
                       }}
                     </span>
                   </div>
-                  <div class="price-container">
-                    <div class="final-price-box">
+                  <div class="price-container"
+                       :class="[localOptions.theme]">
+                    <div class="final-price-box"
+                         :class="[localOptions.theme]">
                       <div class="final-price">
                         {{ finalPrice }}
                       </div>
-                      <div class="price-Toman">تومان</div>
+                      <div class="price-Toman"
+                           :class="[localOptions.theme]">تومان</div>
                     </div>
                     <div v-if="product.price['discount'] !== 0"
-                         class="main-price">{{ basePrice }}</div>
+                         class="main-price"
+                         :class="[localOptions.theme]">{{ basePrice }}</div>
                   </div>
                 </div>
               </div>
             </router-link>
           </div>
+          <q-separator v-if="localOptions.theme === 'theme2'"
+                       class="action-separator" />
           <q-btn v-if="localOptions.canAddToCart"
                  unelevated
+                 :flat="localOptions.theme === 'theme2'"
                  :loading="cart.loading"
                  :productId="product.id"
                  :data-product-id="product.id"
-                 class="btn-green"
+                 class="add-to-cart-btn"
+                 :class="localOptions.theme"
                  @click="addToCart">
-            <q-icon name="add" />
-            <span>افزودن به سبد</span>
+            <template v-if="localOptions.theme === 'theme1'">
+              <span class="btn-text">ثبت نام</span>
+              <q-icon name="west" />
+            </template>
+            <template v-else-if="localOptions.theme === 'theme2'">
+              <span class="btn-text">مشاهده دوره</span>
+              <q-icon name="west" />
+            </template>
+            <template v-else>
+              <q-icon name="add" />
+              <span>افزودن به سبد</span>
+            </template>
           </q-btn>
         </div>
         <div v-if="localOptions.customAction"
@@ -173,6 +223,7 @@ export default defineComponent({
   data: () => ({
     productRef: 'product' + Date.now(),
     defaultOptions: {
+      theme: 'default',
       style: {},
       minWidth: 'auto',
       canAddToCart: true,
@@ -189,6 +240,12 @@ export default defineComponent({
     bookmarkValue: false
   }),
   computed: {
+    imageWidth() {
+      return this.localOptions.theme === 'theme1' ? '282px' : '100%'
+    },
+    imageHeight() {
+      return this.localOptions.theme === 'theme1' ? '' : '100%'
+    },
     cart () {
       return this.$store.getters['Cart/cart']
     },
@@ -351,12 +408,19 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .product-item-container {
+  &.theme1 {
+    padding-top: 30px;
+  }
 
   &:hover{
     .product-item-box {
       box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
       5px 5px 20px rgba(0, 0, 0, 0.1);
       top: -10px;
+
+      .discount-percent {
+        transform: rotate(-40deg);
+      }
     }
   }
   .product-item-box {
@@ -374,12 +438,74 @@ export default defineComponent({
     transition: all ease 0.5s;
 
     .img-box {
+      position: relative;
+      .discount-badge {
+        display: none;
+      }
+
+      &.theme1, &.theme2 {
+        margin: -20px 20px 0;
+
+        .discount-badge {
+          display: block;
+          margin: -30px 10px 0px 0px;
+
+          .discount-percent {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            rotate: -40deg;
+            transition: all ease-in-out .4s;
+
+            &_number {
+              text-align: center;
+              color: #FFF;
+              font-size: 20px;
+              font-style: normal;
+              font-weight: 900;
+              line-height: normal;
+            }
+
+            &_text {
+              margin-top: -8px;
+              text-align: center;
+              color: #FFF;
+              font-size: 8px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+            }
+          }
+
+        }
+
+        a {
+          box-shadow: none;
+          width: 100%;
+          height: 100%;
+          border-radius: 12px;
+          border: 0px solid #FFF;
+          .img {
+            border-radius: inherit;
+            width: inherit;
+
+            @media screen and (max-width: 600px){
+              width: 100%;
+            }
+          }
+        }
+      }
 
       a {
         box-shadow: none;
         width: 100%;
         height: 270px;
         border-radius: 20px 20px 0 0;
+
         .img {
           border-radius: inherit;
           width: inherit;
@@ -399,10 +525,18 @@ export default defineComponent({
       position: relative;
       padding: 10px 16px 16px 16px;
 
+      &.theme1, &.theme2 {
+        padding: 10px 20px 20px 20px;
+      }
+
       .title-box {
         min-height: 42px;
         display: flex;
         align-items: center;
+
+        &.theme2 {
+          text-align: center;
+        }
       }
 
       .price-box {
@@ -411,6 +545,10 @@ export default defineComponent({
         justify-content: space-between;
         align-items: center;
         margin-top: 21px;
+
+        &.theme1, &.theme2 {
+          margin-top: 0;
+        }
 
         .add-cart-info {
           display: flex;
@@ -432,6 +570,19 @@ export default defineComponent({
             display: flex;
             justify-content: center;
             align-items: center;
+
+            &.theme1, &.theme2 {
+
+              .final-price {
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                letter-spacing: -0.36px;
+                color: #009688;
+                margin-left: 8px;
+              }
+            }
 
             .final-price {
               font-style: normal;
@@ -455,6 +606,16 @@ export default defineComponent({
             color: #656f7b;
 
             opacity: 0.4;
+
+            &.theme1, &.theme2 {
+              color: #9E9E9E;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              letter-spacing: -0.28px;
+              text-decoration-line: strikethrough;
+            }
           }
 
           .price-Toman {
@@ -463,6 +624,15 @@ export default defineComponent({
             line-height: 19px;
             margin-left: 3px;
             color: #656f7b;
+
+            &.theme1, &.theme2 {
+              color: #616161;
+              font-size: 10px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+              letter-spacing: -0.2px;
+            }
           }
         }
       }
@@ -471,6 +641,20 @@ export default defineComponent({
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        &.theme1 {
+          margin-top: 8px;
+        }
+        &.theme2 {
+          margin-top: 8px;
+          flex-direction: column;
+          color: #E0E0E0;
+        }
+
+        .action-separator {
+          margin: 15px 0 5px;
+          width: 100%;
+        }
 
         .more-detail {
           font-weight: 500;
@@ -547,6 +731,10 @@ export default defineComponent({
     .info-box {
       display: flex;
       align-items: center;
+
+      &.theme1 {
+        margin-top: 8px;
+      }
     }
 
     .total-score {
@@ -573,17 +761,61 @@ export default defineComponent({
       letter-spacing: -0.03em;
       color: #656f7b;
       margin-left: 8px;
+
+      &.theme1 {
+        color: #424242;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.28px;
+      }
     }
 
     .price-container {
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      &.theme1, &.theme2 {
+        flex-direction: row-reverse;
+      }
     }
 
-    .btn-green {
+    .add-to-cart-btn {
       background: #4caf50;
       color: white;
+
+      &.theme1 {
+        background: $primary;
+        color: #424242;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: -0.32px;
+
+        .btn-text {
+          margin-right: 4px;
+        }
+      }
+      &.theme2 {
+        width: 100%;
+        background: transparent;
+        color: #9e9e9e;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 196.5%;
+
+        &:hover {
+          color: #26A69A;
+        }
+
+        .btn-text {
+          margin-right: 8px;
+        }
+      }
       @media screen and (max-width: 600px){
         margin: 20px;
       }
@@ -597,6 +829,7 @@ export default defineComponent({
 
       .product-content-box {
         .main-title {
+
           a {
           }
 

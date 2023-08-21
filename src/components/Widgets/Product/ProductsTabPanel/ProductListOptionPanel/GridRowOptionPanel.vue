@@ -6,20 +6,26 @@
         <q-input v-model="localOptions.options.label"
                  label="label" />
       </div>
+      <div class="col-md-3 ">
+        <div class="outsideLabel">Product Theme</div>
+        <q-select v-model="localOptions.options.theme"
+                  :options="themeOptions"
+                  label="theme" />
+      </div>
       <div v-if="layout === 'ProductShelf'"
-           class="col-md-9">
+           class="col-md-12">
         <div class="row q-col-gutter-md">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="outsideLabel">label color</div>
             <q-input v-model="localOptions.options.labelStyle.color"
                      label="label color" />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="outsideLabel">label font size</div>
             <q-input v-model="localOptions.options.labelStyle.fontSize"
                      label="label font size" />
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <div class="outsideLabel">label align</div>
             <q-select v-model="localOptions.options.labelStyle.textAlign"
                       :options="textAlignOptions"
@@ -146,6 +152,7 @@ export default {
       layoutOptions: ['ScrollRow', 'GridRow'],
       responsiveOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       textAlignOptions: ['right', 'center', 'left'],
+      themeOptions: ['default', 'theme1', 'theme2'],
       responsive: 'lg',
       productId: null,
       currentTabIndex: '',
@@ -161,7 +168,8 @@ export default {
           //   fontSize: '',
           //   textAlign: 'center'
           // },
-          colNumber: 'col'
+          colNumber: 'col',
+          theme: 'default'
         },
         data: [],
         type: ''

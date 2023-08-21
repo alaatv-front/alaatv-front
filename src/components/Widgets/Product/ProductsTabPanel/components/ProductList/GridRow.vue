@@ -14,7 +14,7 @@
            :key="index"
            :class="colClassName"
            class="product-item">
-        <product-item :options="{product: product}" />
+        <product-item :options="{product: product, theme: options.theme}" />
       </div>
     </div>
   </div>

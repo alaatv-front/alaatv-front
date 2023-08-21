@@ -1,21 +1,24 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
-    <!--    <template #main-tab>-->
-    <!--      <div class="option-panel-container">-->
-    <!--        <div class="row">-->
-    <!--          <div class="col-md-6">-->
-    <!--            <q-input v-model="localOptions.productId"-->
-    <!--                     label="productId"-->
-    <!--            />-->
-    <!--          </div>-->
-    <!--          <div class="col-md-6">-->
-    <!--            <q-input v-model="localOptions.urlParam"-->
-    <!--                     label="urlParam"-->
-    <!--            />-->
-    <!--          </div>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--    </template>-->
+    <template #main-tab>
+      <div class="option-panel-container">
+        <div class="row">
+          <div class="col-md-6">
+            <q-select v-model="localOptions.theme"
+                      :options="themeOptions"
+                      label="productId" />
+          </div>
+          <!-- <div class="col-md-6">
+            <q-input v-model="localOptions.productId"
+                     label="productId" />
+          </div>
+          <div class="col-md-6">
+            <q-input v-model="localOptions.urlParam"
+                     label="urlParam" />
+          </div> -->
+        </div>
+      </div>
+    </template>
   </option-panel-tabs>
 </template>
 <script>
@@ -29,7 +32,9 @@ export default defineComponent({
   mixins: [mixinOptionPanel],
   data() {
     return {
+      themeOptions: ['default', 'theme1', 'theme2'],
       defaultOptions: {
+        theme: 'default',
         className: '',
         height: 'auto',
         boxed: false,
