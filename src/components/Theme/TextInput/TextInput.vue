@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-center q-my-md">
+  <div class="row justify-center q-my-md new-theme">
     <div class="col-md-9">
       <h2>
         Text Input

@@ -260,14 +260,20 @@
 
     </div>
   </div>
+  <bread-crumbs />
   <checkbox />
+  <example-dialog />
   <color />
   <progress-theme />
   <slider-range />
+  <example-table />
+  <example-tabs />
   <toggle-theme />
   <radio-btn />
   <pagination-theme />
   <scroll />
+  <toast />
+  <tooltip />
   <typography />
   <avatar />
   <text-input />
@@ -287,6 +293,12 @@ import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
 import Avatar from 'components/Theme/Controls/Avatar/Avatar.vue'
 import TextInput from 'components/Theme/TextInput/TextInput.vue'
 import Dropdown from 'components/Theme/Controls/Dropdown/Dropdown.vue'
+import BreadCrumbs from 'components/Theme/BreadCrumbs/BreadCrumbs.vue'
+import Tooltip from 'components/Theme/Tooltip/Tooltip.vue'
+import Toast from 'components/Theme/Toast/Toast.vue'
+import ExampleTabs from 'components/Theme/Tabs/ExampleTabs.vue'
+import ExampleTable from 'components/Theme/Table/Table.vue'
+import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
 
 export default {
   name: 'Controls',
@@ -302,7 +314,13 @@ export default {
     PaginationTheme,
     Typography,
     Scroll,
-    TextInput
+    TextInput,
+    BreadCrumbs,
+    Tooltip,
+    Toast,
+    ExampleTabs,
+    ExampleTable,
+    ExampleDialog
   }
 }
 </script>

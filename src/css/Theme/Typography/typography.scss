@@ -1,3 +1,5 @@
+@import "src/css/mixins.scss";
+
 $katexFontSize : 1.2rem;
 $katexLineHeight : 4rem;
 a{
@@ -51,33 +53,17 @@ a{
   }
 
   .body1 {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.32px;
+    @include body1;
   }
   .body2 {
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.28px;
+    @include body2;
   }
 
-  .caption1{
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.24px;
+  .caption1 {
+    @include caption1;
   }
   .caption2{
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.2px;
+    @include caption2;
   }
 
   .button1{
