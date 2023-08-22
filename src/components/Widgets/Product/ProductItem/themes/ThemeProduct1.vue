@@ -179,7 +179,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .theme1-container {
-  display: flex;
   .img-box {
     position: relative;
     margin: -20px 20px 0;
@@ -192,6 +191,8 @@ export default defineComponent({
 
     a {
       box-shadow: none;
+      width: 100%;
+      height: 100%;
       border-radius: 12px;
       border: 0px solid #FFF;
       .img {
