@@ -374,14 +374,16 @@ export default {
     },
     loadSticky () {
       // console.log('this.$refs.CartInvoice.parentElement', this.$refs.CartInvoice.parentElement.clientHeight)
+
       const widgetParent = this.$refs.CartInvoice.parentElement
-      widgetParent.style.height = '100%'
+      widgetParent.style.height = '90%'
+
       // const parent = this.$refs.CartInvoice.parentElement.parentElement
       // const parentClientHeight = parent.clientHeight
       // this.$refs.CartInvoice.style.height = parentClientHeight + 'px'
 
       this.stickySidebarInstance = new StickySidebar(this.$refs.CartInvoiceContainer, {
-        topSpacing: 142,
+        // topSpacing: 142,
         // bottomSpacing: 20,
         containerSelector: false,
         // containerSelector: '.cart-invoice.main-content',

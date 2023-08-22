@@ -7,6 +7,7 @@ import { EventResult } from 'src/models/EventResult.js'
 import APIRepository from '../classes/APIRepository.js'
 import { BankAccountsList } from 'src/models/BankAccounts.js'
 import { EventekhbReshte } from 'src/models/EventekhbReshte.js'
+import { FieldSelectionForm } from 'src/models/FieldSelectionForm.js'
 
 export default class UserAPI extends APIRepository {
   constructor() {
@@ -29,6 +30,7 @@ export default class UserAPI extends APIRepository {
       formData: '/megaroute/getUserFormData',
       showUser: '/getUserFor3a',
       eventResult: '/event-result',
+      getEntekhabReshteByUserId: (userId) => '/user/get/entekhab-reshte?user_id=' + userId,
       eventResultById: (eventId) => '/event-result/event/' + eventId,
       createEventResult: '/event-result/create',
       baseAdmin: '/admin/user',
@@ -84,6 +86,7 @@ export default class UserAPI extends APIRepository {
       showUser: this.name + this.APIAdresses.base,
       eventResult: this.name + this.APIAdresses.base,
       entekhabReshte: this.name + this.APIAdresses.entekhabReshte,
+      getEntekhabReshteByUserId: (userId) => this.name + this.APIAdresses.getEntekhabReshteByUserId(userId),
       eventResultById: (eventId) => this.name + this.APIAdresses.eventResultById(eventId),
       createEventResult: this.name + this.APIAdresses.createEventResult,
       baseAdmin: this.name + this.APIAdresses.baseAdmin,
@@ -365,6 +368,22 @@ export default class UserAPI extends APIRepository {
     })
   }
 
+  getEntekhabReshteByUserId(userId, cache = 1000) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.getEntekhabReshteByUserId(userId),
+      cacheKey: this.CacheList.getEntekhabReshteByUserId(userId),
+      ...(cache && { cache }),
+      resolveCallback: (response) => {
+        return new FieldSelectionForm(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
   isPermittedToPurchase(productId, cache = 1000) {
     return this.sendRequest({
       apiMethod: 'get',
@@ -373,7 +392,7 @@ export default class UserAPI extends APIRepository {
       cacheKey: this.CacheList.isPermittedToPurchase(productId),
       ...(cache && { cache }),
       resolveCallback: (response) => {
-        return response.data?.data?.id
+        return response.data?.data?.order_id
       },
       rejectCallback: (error) => {
         return error
@@ -486,7 +505,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getCurrent(data = {}, cache = { TTL: 1000 }) {
+  getCurrent (data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

@@ -15,7 +15,7 @@ const mixinTicket = {
     ticketPriorityOption: []
   }),
   computed: {
-    isInAdminPage() {
+    isInAdminPage () {
       return !!this.$route.name.includes('Admin')
     }
   },
@@ -23,15 +23,15 @@ const mixinTicket = {
     this.setUpTicket()
   },
   methods: {
-    async setUpTicket() {
+    async setUpTicket () {
       await this.initTicket()
       await this.setPageData()
       await this.afterGetAllPageData()
     },
-    async initTicket() {
+    async initTicket () {
       // here goes the custom methods developer chooses to run before mixin
     },
-    async afterGetAllPageData() {
+    async afterGetAllPageData () {
       // here goes the custom methods developer chooses to run after get all page data
     },
     async setPageData() {
@@ -113,7 +113,7 @@ const mixinTicket = {
       }]
     },
 
-    getTicketData() {
+    getTicketData () {
       return APIGateway.ticket.getNeededDataToCreateTicket()
     },
 
@@ -498,7 +498,7 @@ const mixinTicket = {
       ].filter(item => item.display === 1)
     },
 
-    sendTicket(data, isMsg) {
+    sendTicket (data, isMsg) {
       if (!isMsg && !this.hasRequiredField()) {
         return
       }
@@ -510,7 +510,7 @@ const mixinTicket = {
       this.sendTicket(data, true)
     },
 
-    async sendCreateTicketReq(formData) {
+    async sendCreateTicketReq (formData) {
       this.loading = true
       try {
         const response = await APIGateway.ticket.creatTicket(formData)
@@ -601,7 +601,7 @@ const mixinTicket = {
       }
     },
 
-    setTicketFormData(data, isMsg) {
+    setTicketFormData (data, isMsg) {
       const formData = new FormData()
 
       if (data.resultURL) {
@@ -640,7 +640,7 @@ const mixinTicket = {
       return formData
     },
 
-    hasRequiredField() {
+    hasRequiredField () {
       const errorMessages = []
       if (!this.getInputsValue('title')) {
         errorMessages.push('پر کردن فیلد عنوان ضروری میباشد')
@@ -653,7 +653,7 @@ const mixinTicket = {
       return !errorMessages.length > 0
     },
 
-    getInputsValue(inputName, source) {
+    getInputsValue (inputName, source) {
       const input = this.getInput(inputName, source)
       if (!input) {
         return false
@@ -666,7 +666,7 @@ const mixinTicket = {
       return srcFilter.find(input => input.name === inputName)
     },
 
-    createBlob(dataURL) {
+    createBlob (dataURL) {
       const BASE64_MARKER = ';base64,'
       if (dataURL.indexOf(BASE64_MARKER) === -1) {
         const parts = dataURL.split(',')
@@ -688,7 +688,7 @@ const mixinTicket = {
       return new Blob([uInt8Array], { type: contentType })
     },
 
-    showMessagesInNotify(messages, type) {
+    showMessagesInNotify (messages, type) {
       messages.forEach((message) => {
         this.$q.notify({
           type: type || 'negative',
