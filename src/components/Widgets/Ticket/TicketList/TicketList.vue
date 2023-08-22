@@ -145,6 +145,7 @@ import moment from 'moment-jalaali'
 import { EntityIndex } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { mixinTicket, mixinWidget } from 'src/mixin/Mixins.js'
+
 export default {
   name: 'TicketList',
   components: { EntityIndex },
