@@ -5,17 +5,14 @@
        class="row">
     <div class="col-12">
       <carousel ref="vueCarousel"
-                v-bind="settings"
+                v-bind="localOptions.settings"
                 :i18n="{
                   'ariaNextSlide': 'رفتن به اسلاید بعدی',
                   'ariaPreviousSlide': 'رفتن به اسلاید فبلی',
                   'iconArrowRight': 'قبلی',
                   'iconArrowLeft': 'بعدی',
                 }"
-                :autoplay="3500"
-                :breakpoints="breakpoints"
-                :wrapAround="true"
-                :transition="500">
+                :breakpoints="localOptions.breakpoints">
         <slide v-for="slide in localOptions.sliderItems"
                :key="slide">
           <comment-item class="carousel__item"
@@ -101,6 +98,38 @@ export default {
         }
       },
       defaultOptions: {
+        settings: {
+          autoplay: 3500,
+          dir: 'rtl',
+          itemsToShow: 3,
+          snapAlign: 'center',
+          transition: 500,
+          pauseAutoplayOnHover: false,
+          itemsToScroll: 1,
+          wrapAround: true
+        },
+        breakpoints: {
+          200: {
+            itemsToShow: 1,
+            snapAlign: 'center'
+          },
+          350: {
+            itemsToShow: 1,
+            snapAlign: 'center'
+          },
+          600: {
+            itemsToShow: 1,
+            snapAlign: 'center'
+          },
+          1024: {
+            itemsToShow: 3,
+            snapAlign: 'center'
+          },
+          1440: {
+            itemsToShow: 3,
+            snapAlign: 'center'
+          }
+        },
         sliderItems: [],
         commentOptionPanel: {},
         pagination: false,

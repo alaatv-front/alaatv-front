@@ -3,7 +3,7 @@
        class="row">
     <div class="col-12">
       <carousel ref="vueCarousel"
-                v-bind="settings"
+                v-bind="localOptions.settings"
                 :i18n="{
                   'ariaNextSlide': 'رفتن به اسلاید بعدی',
                   'ariaPreviousSlide': 'رفتن به اسلاید فبلی',
@@ -11,7 +11,7 @@
                   'iconArrowLeft': 'بعدی',
                 }"
                 :autoplay="3500"
-                :breakpoints="breakpoints"
+                :breakpoints="localOptions.breakpoints"
                 :wrapAround="true"
                 :transition="500">
         <slide v-for="slide in localOptions.sliderItems"
@@ -52,9 +52,8 @@
           </q-card>
         </slide>
 
-        <template v-if="localOptions.pagination"
-                  #addons>
-          <pagination />
+        <template #addons>
+          <pagination v-if="localOptions.pagination" />
         </template>
       </carousel>
 
@@ -134,6 +133,38 @@ export default {
         }
       },
       defaultOptions: {
+        settings: {
+          autoplay: 3500,
+          dir: 'rtl',
+          itemsToShow: 6,
+          snapAlign: 'center',
+          transition: 500,
+          pauseAutoplayOnHover: false,
+          itemsToScroll: 1,
+          wrapAround: true
+        },
+        breakpoints: {
+          200: {
+            itemsToShow: 1,
+            snapAlign: 'center'
+          },
+          350: {
+            itemsToShow: 1,
+            snapAlign: 'center'
+          },
+          600: {
+            itemsToShow: 3,
+            snapAlign: 'center'
+          },
+          1024: {
+            itemsToShow: 5,
+            snapAlign: 'center'
+          },
+          1440: {
+            itemsToShow: 5,
+            snapAlign: 'center'
+          }
+        },
         sliderItems: [],
         personType: 'student',
         pagination: false,
@@ -142,14 +173,14 @@ export default {
             icon: 'chevron_left',
             textColor: '#FF944A',
             color: '#FFE8D8',
-            rounded: false,
+            rounded: true,
             size: 'lg'
           },
           goToRight: {
             icon: 'chevron_right',
             textColor: '#FF944A',
             color: '#FFE8D8',
-            rounded: false,
+            rounded: true,
             size: 'lg'
           }
         }

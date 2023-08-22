@@ -1550,7 +1550,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -2865,7 +2865,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -3449,7 +3449,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -4060,7 +4060,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -4340,7 +4340,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -4659,7 +4659,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -4981,7 +4981,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -5261,7 +5261,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -8298,7 +8298,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -10422,7 +10422,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "پیش ثبت نام"
+                                      "از لحظه خرید"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -12180,7 +12180,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -12536,7 +12536,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
@@ -12687,6 +12687,37 @@
                 {
                   "name": "PersonSlider",
                   "options": {
+                    "settings": {
+                      "autoplay": 3500,
+                      "dir": "rtl",
+                      "itemsToShow": 6,
+                      "snapAlign": "center",
+                      "transition": 500,
+                      "wrapAround": true,
+                      "pauseAutoplayOnHover": true
+                    },
+                    "breakpoints": {
+                      "200": {
+                        "itemsToShow": 1,
+                        "snapAlign": "center"
+                      },
+                      "350": {
+                        "itemsToShow": 1,
+                        "snapAlign": "center"
+                      },
+                      "600": {
+                        "itemsToShow": 3,
+                        "snapAlign": "center"
+                      },
+                      "1024": {
+                        "itemsToShow": 5,
+                        "snapAlign": "center"
+                      },
+                      "1440": {
+                        "itemsToShow": 5,
+                        "snapAlign": "center"
+                      }
+                    },
                     "sliderItems": [
                       {
                         "order": 6,
@@ -12744,7 +12775,7 @@
                       }
                     ],
                     "personType": "teacher",
-                    "pagination": false,
+                    "pagination": true,
                     "navigation": {
                       "goToLeft": {
                         "icon": "chevron_left",
@@ -12765,7 +12796,44 @@
                   }
                 }
               ],
-              "options": {}
+              "options": {
+                "colNumber": "col",
+                "style": {
+                  "paddingBottom": "50px"
+                },
+                "boxShadows": [],
+                "borderStyle": {
+                  "borderCssString": "",
+                  "borderRadiusCssString": ""
+                },
+                "cssHoverEffects": {
+                  "boxShadows": [],
+                  "borderStyle": {
+                    "borderCssString": "",
+                    "borderRadiusCssString": ""
+                  },
+                  "transition": {
+                    "time": 0
+                  },
+                  "transform": {
+                    "rotate": null,
+                    "scaleX": null,
+                    "scaleY": null,
+                    "skewX": null,
+                    "skewY": null,
+                    "translateX": null,
+                    "translateY": null
+                  }
+                },
+                "responsiveShow": {
+                  "xl": true,
+                  "lg": true,
+                  "md": true,
+                  "sm": true,
+                  "xs": true
+                },
+                "className": ""
+              }
             }
           ],
           "options": {
@@ -12938,7 +13006,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png",
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png",
                     "width": "",
                     "height": "",
                     "spaced": false
@@ -13462,7 +13530,7 @@
                     "className": "",
                     "style": {},
                     "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
                   }
                 }
               ],
