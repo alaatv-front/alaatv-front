@@ -6,14 +6,8 @@
         <q-input v-model="localOptions.options.label"
                  label="label" />
       </div>
-      <div class="col-md-3 ">
-        <div class="outsideLabel">Product Theme</div>
-        <q-select v-model="localOptions.options.theme"
-                  :options="themeOptions"
-                  label="theme" />
-      </div>
       <div v-if="layout === 'ProductShelf'"
-           class="col-md-12">
+           class="col-md-9">
         <div class="row q-col-gutter-md">
           <div class="col-md-3">
             <div class="outsideLabel">label color</div>
@@ -56,6 +50,12 @@
               </q-item>
             </q-card-section>
           </q-card>
+        </q-expansion-item>
+      </div>
+      <div class="col-12 q-py-md">
+        <q-expansion-item expand-separator
+                          label="تنظیمات محصول">
+          <product-option-panel v-model:options="localOptions.options.productOptions" />
         </q-expansion-item>
       </div>
       <div class="col-md-6 q-ml-md">
@@ -126,11 +126,12 @@
 import { Product } from 'src/models/Product.js'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
-
+import ProductOptionPanel from 'src/components/Widgets/Product/ProductItem/OptionPanel.vue'
 export default {
   name: 'ProductListGridOptionPanel',
   components: {
-    ProductItem
+    ProductItem,
+    ProductOptionPanel
   },
   mixins: [PageBuilderOptionPanel],
   props: {
@@ -152,7 +153,6 @@ export default {
       layoutOptions: ['ScrollRow', 'GridRow'],
       responsiveOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       textAlignOptions: ['right', 'center', 'left'],
-      themeOptions: ['default', 'theme1', 'theme2'],
       responsive: 'lg',
       productId: null,
       currentTabIndex: '',
@@ -169,7 +169,44 @@ export default {
           //   textAlign: 'center'
           // },
           colNumber: 'col',
-          theme: 'default'
+          productOptions: {
+            theme: 'ThemeDefault',
+            className: '',
+            height: 'auto',
+            boxed: false,
+            boxedWidth: 1200,
+            style: {},
+            borderStyle: {
+              borderCssString: '',
+              borderRadiusCssString: '20px'
+            },
+            boxShadows: [
+              '-2px -4px 10px rgba(255, 255, 255, 0.6)',
+              '2px 4px 10px rgba(46, 56, 112, 0.05)'
+            ],
+            cssHoverEffects: {
+              boxShadows: [
+                '-5px -6px 10px rgba(255, 255, 255, 0.6)',
+                '5px 5px 20px rgba(0, 0, 0, 0.1)'
+              ],
+              borderStyle: {
+                borderCssString: '',
+                borderRadiusCssString: '20px'
+              },
+              transition: {
+                time: 0.4
+              },
+              transform: {
+                rotate: 0,
+                scaleX: 1,
+                scaleY: 1,
+                skewX: 0,
+                skewY: 0,
+                translateX: 0,
+                translateY: -10
+              }
+            }
+          }
         },
         data: [],
         type: ''

@@ -1,9 +1,13 @@
 <template>
-  <option-panel-tabs v-model:options="localOptions">
+  <option-panel-tabs v-model:options="localOptions"
+                     :show-hover-effects-tab="true"
+                     :show-box-shadows-tab="true"
+                     :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 q-mt-md">
+            <div>تم محصول</div>
             <q-select v-model="localOptions.theme"
                       :options="themeOptions"
                       label="theme" />
@@ -32,15 +36,53 @@ export default defineComponent({
   mixins: [mixinOptionPanel],
   data() {
     return {
-      themeOptions: ['default', 'theme1', 'theme2'],
+      themeOptions: ['ThemeDefault', 'ThemeProduct1', 'ThemeProduct2'],
       defaultOptions: {
-        theme: 'default',
+        theme: 'ThemeDefault',
         className: '',
         height: 'auto',
         boxed: false,
         boxedWidth: 1200,
-        style: {}
+        style: {},
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: '20px'
+        },
+        boxShadows: [
+          '-2px -4px 10px rgba(255, 255, 255, 0.6)',
+          '2px 4px 10px rgba(46, 56, 112, 0.05)'
+        ],
+        cssHoverEffects: {
+          boxShadows: [
+            '-5px -6px 10px rgba(255, 255, 255, 0.6)',
+            '5px 5px 20px rgba(0, 0, 0, 0.1)'
+          ],
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: '20px'
+          },
+          transition: {
+            time: 0.4
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: -10
+          }
+        }
       }
+    }
+  },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   }
 })

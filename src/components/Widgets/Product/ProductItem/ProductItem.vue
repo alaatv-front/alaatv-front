@@ -56,175 +56,81 @@
             class="product-item-box"
             :class="'productItem' + product.id"
             :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
-
-      <div class="img-box"
-           :class="localOptions.theme">
-        <q-badge v-if="product.price['final'] !== product.price['base']"
-                 floating
-                 class="discount-badge"
-                 color="transparent">
-          <q-img :src="'https://nodes.alaatv.com/upload/widget_items/dis.png'"
-                 class="discount-percent-img"
-                 width="64px"
-                 spinner-color="primary"
-                 spinner-size="64px" />
-          <div class="discount-percent">
-            <div class="discount-percent_number">
-              %{{
-                (
-                  (1 - product.price['final'] / product.price['base']) *
-                  100
-                ).toFixed(0)
-              }}
-            </div>
-            <span class="discount-percent_text">
-              تخفیف
-            </span>
-          </div>
-        </q-badge>
-        <router-link :to="getRoutingObject"
-                     @click="productClicked">
-          <lazy-img :src="product.photo"
-                    :alt="product.title"
-                    :height="imageHeight"
-                    :width="imageWidth"
-                    class="img" />
-        </router-link>
-      </div>
-      <div class="product-content-box"
-           :class="[localOptions.theme]">
-        <router-link :to="getRoutingObject"
-                     @click="productClicked">
-          <div class="title-box"
-               :class="[localOptions.theme]">
-            <div class="main-title ellipsis-2-lines">
-              {{ product.title }}
-            </div>
-          </div>
-        </router-link>
-        <div class="product-action-container">
-          <bookmark v-if="defaultOptions.showBookmark"
-                    class="product-item-bookmark"
-                    :is-favored="localOptions.product.is_favored"
-                    :loading="bookmarkLoading"
-                    @clicked="handleProductBookmark" />
-        </div>
-        <div v-if="product.attributes && localOptions.theme !== 'theme2'"
-             class="info-box"
-             :class="[localOptions.theme]">
-          <div class="teacher-image">
-            <q-avatar size="32px"
-                      font-size="32px"
-                      color="grey"
-                      text-color="white"
-                      icon="account_circle" />
-          </div>
-          <div v-if="product.attributes.info"
-               class="teacher-name"
-               :class="[localOptions.theme]">{{getTeacherOfProduct()}}</div>
-        </div>
-        <div v-if="localOptions.showPrice"
-             class="action-box"
-             :class="[localOptions.theme]">
-          <div class="more-detail product-more-detail">
-            <router-link :to="getRoutingObject"
-                         @click="productClicked">
-              <div class="price-box"
-                   :class="[localOptions.theme]">
-                <div class="price-info">
-                  <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
-                       class="discount">
-                    <span>
-                      %{{
-                        (
-                          (1 - product.price['final'] / product.price['base']) *
-                          100
-                        ).toFixed(0)
-                      }}
-                    </span>
-                  </div>
-                  <div class="price-container"
-                       :class="[localOptions.theme]">
-                    <div class="final-price-box"
-                         :class="[localOptions.theme]">
-                      <div class="final-price">
-                        {{ finalPrice }}
-                      </div>
-                      <div class="price-Toman"
-                           :class="[localOptions.theme]">تومان</div>
-                    </div>
-                    <div v-if="product.price['discount'] !== 0"
-                         class="main-price"
-                         :class="[localOptions.theme]">{{ basePrice }}</div>
-                  </div>
-                </div>
-              </div>
-            </router-link>
-          </div>
-          <q-separator v-if="localOptions.theme === 'theme2'"
-                       class="action-separator" />
-          <q-btn v-if="localOptions.canAddToCart"
-                 unelevated
-                 :flat="localOptions.theme === 'theme2'"
-                 :loading="cart.loading"
-                 :productId="product.id"
-                 :data-product-id="product.id"
-                 class="add-to-cart-btn"
-                 :class="localOptions.theme"
-                 @click="addToCart">
-            <template v-if="localOptions.theme === 'theme1'">
-              <span class="btn-text">ثبت نام</span>
-              <q-icon name="west" />
-            </template>
-            <template v-else-if="localOptions.theme === 'theme2'">
-              <span class="btn-text">مشاهده دوره</span>
-              <q-icon name="west" />
-            </template>
-            <template v-else>
-              <q-icon name="add" />
-              <span>افزودن به سبد</span>
-            </template>
-          </q-btn>
-        </div>
-        <div v-if="localOptions.customAction"
-             class="action-box">
-          <div class="more-detail product-more-detail">
-            {{ localOptions.customActionMessage }}
-          </div>
-          <q-btn unelevated
-                 class="btn-green"
-                 @click="customActionClicked">
-            <span>
-              {{ localOptions.customActionLabel }}
-            </span>
-          </q-btn>
-        </div>
-      </div>
+      <component :is="localOptions.theme"
+                 :localOptions="localOptions"
+                 :product="product"
+                 :cart="cart"
+                 :basePrice="basePrice"
+                 :finalPrice="finalPrice"
+                 :bookmarkLoading="bookmarkLoading"
+                 :imageWidth="imageWidth"
+                 :imageHeight="imageHeight"
+                 :getRoutingObject="getRoutingObject"
+                 :getTeacherOfProduct="getTeacherOfProduct"
+                 @productClicked="productClicked"
+                 @handleProductBookmark="handleProductBookmark"
+                 @customActionClicked="customActionClicked"
+                 @addToCart="addToCart" />
     </q-card>
   </div>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, defineAsyncComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
-import LazyImg from 'src/components/lazyImg.vue'
-import Bookmark from 'src/components/Bookmark.vue'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'productItem',
   components: {
-    LazyImg,
-    Bookmark
+    ThemeDefault: defineAsyncComponent(() =>
+      import('src/components/Widgets/Product/ProductItem/themes/ThemeDefault.vue')
+    ),
+    ThemeProduct1: defineAsyncComponent(() =>
+      import('src/components/Widgets/Product/ProductItem/themes/ThemeProduct1.vue')
+    ),
+    ThemeProduct2: defineAsyncComponent(() =>
+      import('src/components/Widgets/Product/ProductItem/themes/ThemeProduct2.vue')
+    )
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
   emits: ['onBookmarkLoaded', 'onBookmarkClicked'],
   data: () => ({
     productRef: 'product' + Date.now(),
     defaultOptions: {
-      theme: 'default',
+      theme: 'ThemeDefault',
       style: {},
+      borderStyle: {
+        borderCssString: '',
+        borderRadiusCssString: '20px'
+      },
+      boxShadows: [
+        '-2px -4px 10px rgba(255, 255, 255, 0.6)',
+        '2px 4px 10px rgba(46, 56, 112, 0.05)'
+      ],
+      cssHoverEffects: {
+        boxShadows: [
+          '-5px -6px 10px rgba(255, 255, 255, 0.6)',
+          '5px 5px 20px rgba(0, 0, 0, 0.1)'
+        ],
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: '20px'
+        },
+        transition: {
+          time: 0.4
+        },
+        transform: {
+          rotate: 0,
+          scaleX: 1,
+          scaleY: 1,
+          skewX: 0,
+          skewY: 0,
+          translateX: 0,
+          translateY: -10
+        }
+      },
       minWidth: 'auto',
       canAddToCart: true,
       customAction: false,
@@ -241,10 +147,16 @@ export default defineComponent({
   }),
   computed: {
     imageWidth() {
-      return this.localOptions.theme === 'theme1' ? '282px' : '100%'
+      if (this.$q.screen.lt.md) {
+        return '100%'
+      }
+      return this.localOptions.theme === 'ThemeProduct1' ? '282px' : '100%'
     },
     imageHeight() {
-      return this.localOptions.theme === 'theme1' ? '' : '100%'
+      if (this.$q.screen.lt.md) {
+        return '100%'
+      }
+      return this.localOptions.theme === 'ThemeProduct1' ? '' : '100%'
     },
     cart () {
       return this.$store.getters['Cart/cart']
@@ -274,6 +186,34 @@ export default defineComponent({
     },
     basePrice () {
       return this.product.price.toman('base', false)
+    },
+    shadows () {
+      const shadows = []
+      this.localOptions.boxShadows.forEach(shadow => {
+        shadows.push(shadow.cssString)
+      })
+
+      return shadows.join(', ')
+    },
+    hoverShadows () {
+      const shadows = []
+      if (!Array.isArray(this.localOptions.cssHoverEffects?.boxShadows)) {
+        return ''
+      }
+      this.localOptions.cssHoverEffects.boxShadows.forEach(shadow => {
+        shadows.push(shadow.cssString)
+      })
+
+      return shadows.join(', ')
+    },
+    cssHoverEffectsBorderStyle () {
+      const borderCssString = this.localOptions.cssHoverEffects?.borderStyle?.borderCssString ? this.localOptions.cssHoverEffects?.borderStyle?.borderCssString : ''
+      const borderRadiusCssString = this.localOptions.cssHoverEffects?.borderStyle?.borderRadiusCssString ? this.localOptions.cssHoverEffects?.borderStyle?.borderRadiusCssString : ''
+
+      return {
+        borderCssString,
+        borderRadiusCssString
+      }
     }
   },
   watch: {
@@ -407,6 +347,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$shadows: v-bind('shadows');
+$hoverShadows: v-bind('hoverShadows');
+$border: v-bind('localOptions.borderStyle.borderCssString');
+$borderRadius: v-bind('localOptions.borderStyle.borderRadiusCssString');
+$hoverBorder: v-bind('cssHoverEffectsBorderStyle.borderCssString');
+$hoverBorderRadius: v-bind('cssHoverEffectsBorderStyle.borderRadiusCssString');
+$skewX: v-bind('localOptions.cssHoverEffects.transform.skewX');
+$skewY: v-bind('localOptions.cssHoverEffects.transform.skewY');
+$rotate: v-bind('localOptions.cssHoverEffects.transform.rotate');
+$scaleX: v-bind('localOptions.cssHoverEffects.transform.scaleX');
+$scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
+$translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
+$translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
+$transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
 .product-item-container {
   &.theme1 {
     padding-top: 30px;
@@ -414,11 +368,17 @@ export default defineComponent({
 
   &:hover{
     .product-item-box {
-      box-shadow: -5px -6px 10px rgba(255, 255, 255, 0.6),
-      5px 5px 20px rgba(0, 0, 0, 0.1);
-      top: -10px;
+      transform: rotate(calc(#{$rotate} * 1deg)) translate(calc(#{$translateX} * 1px), calc(#{$translateY} * 1px)) scale($scaleX, $scaleY) skew(calc(#{$skewX} * 1deg), calc(#{$skewY} * 1deg));
+      transition: all calc(#{$transitionTime} * 1s);
+      box-shadow: $hoverShadows;
+      -webkit-box-shadow: $hoverShadows;
+      -moz-box-shadow: $hoverShadows;
+      border-radius: $hoverBorderRadius;
+      -webkit-border-radius: $hoverBorderRadius;
+      -moz-border-radius: $hoverBorderRadius;
+      border: $hoverBorder;
 
-      .discount-percent {
+      &:deep(.product-discount-badge) {
         transform: rotate(-40deg);
       }
     }
@@ -430,567 +390,15 @@ export default defineComponent({
     justify-content: space-between;
     margin: auto auto 10px;
     position: relative;
-    border-radius: 20px;
-    box-shadow: -2px -4px 10px rgba(255, 255, 255, 0.6),
-    2px 4px 10px rgba(46, 56, 112, 0.05);
     background-color: #ffffff;
     top: 0;
     transition: all ease 0.5s;
-
-    .img-box {
-      position: relative;
-      .discount-badge {
-        display: none;
-      }
-
-      &.theme1, &.theme2 {
-        margin: -20px 20px 0;
-
-        .discount-badge {
-          display: block;
-          margin: -30px 10px 0px 0px;
-
-          .discount-percent {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            rotate: -40deg;
-            transition: all ease-in-out .4s;
-
-            &_number {
-              text-align: center;
-              color: #FFF;
-              font-size: 20px;
-              font-style: normal;
-              font-weight: 900;
-              line-height: normal;
-            }
-
-            &_text {
-              margin-top: -8px;
-              text-align: center;
-              color: #FFF;
-              font-size: 8px;
-              font-style: normal;
-              font-weight: 600;
-              line-height: normal;
-            }
-          }
-
-        }
-
-        a {
-          box-shadow: none;
-          width: 100%;
-          height: 100%;
-          border-radius: 12px;
-          border: 0px solid #FFF;
-          .img {
-            border-radius: inherit;
-            width: inherit;
-
-            @media screen and (max-width: 600px){
-              width: 100%;
-            }
-          }
-        }
-      }
-
-      a {
-        box-shadow: none;
-        width: 100%;
-        height: 270px;
-        border-radius: 20px 20px 0 0;
-
-        .img {
-          border-radius: inherit;
-          width: inherit;
-
-          @media screen and (max-width: 600px){
-            width: 100%;
-          }
-        }
-      }
-    }
-
-    &.q-card {
-      //min-width: 318px;
-    }
-
-    .product-content-box {
-      position: relative;
-      padding: 10px 16px 16px 16px;
-
-      &.theme1, &.theme2 {
-        padding: 10px 20px 20px 20px;
-      }
-
-      .title-box {
-        min-height: 42px;
-        display: flex;
-        align-items: center;
-
-        &.theme2 {
-          text-align: center;
-        }
-      }
-
-      .price-box {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 21px;
-
-        &.theme1, &.theme2 {
-          margin-top: 0;
-        }
-
-        .add-cart-info {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          .add-cart-icon {
-            width: 19px;
-            order: 1;
-          }
-        }
-
-        .price-info {
-          display: flex;
-          justify-content: center;
-          align-items: baseline;
-
-          .final-price-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &.theme1, &.theme2 {
-
-              .final-price {
-                font-size: 18px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-                letter-spacing: -0.36px;
-                color: #009688;
-                margin-left: 8px;
-              }
-            }
-
-            .final-price {
-              font-style: normal;
-              font-weight: 400;
-              font-size: 18px;
-              line-height: 18px;
-              text-align: center;
-              letter-spacing: -0.03em;
-              color: #656f7b;
-              margin-left: 8px;
-            }
-          }
-
-          .main-price {
-            text-decoration: line-through;
-            /* margin-left: 12px; */
-            font-style: normal;
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 19px;
-            color: #656f7b;
-
-            opacity: 0.4;
-
-            &.theme1, &.theme2 {
-              color: #9E9E9E;
-              font-size: 14px;
-              font-style: normal;
-              font-weight: 400;
-              line-height: normal;
-              letter-spacing: -0.28px;
-              text-decoration-line: strikethrough;
-            }
-          }
-
-          .price-Toman {
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 19px;
-            margin-left: 3px;
-            color: #656f7b;
-
-            &.theme1, &.theme2 {
-              color: #616161;
-              font-size: 10px;
-              font-style: normal;
-              font-weight: 400;
-              line-height: normal;
-              letter-spacing: -0.2px;
-            }
-          }
-        }
-      }
-
-      .action-box {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        &.theme1 {
-          margin-top: 8px;
-        }
-        &.theme2 {
-          margin-top: 8px;
-          flex-direction: column;
-          color: #E0E0E0;
-        }
-
-        .action-separator {
-          margin: 15px 0 5px;
-          width: 100%;
-        }
-
-        .more-detail {
-          font-weight: 500;
-          font-size: 12px;
-          line-height: 21px;
-          color: #666666;
-          cursor: pointer;
-
-          a {
-            text-decoration: none;
-            color: inherit;
-          }
-        }
-
-        .btn-style {
-          width: 116px;
-          height: 40px;
-          background-color: #4caf50;
-          border-radius: 10px;
-          border: none;
-          color: white;
-          font-size: 14px;
-          letter-spacing: -0.03em;
-
-          img {
-            width: 15px;
-            height: 15px;
-            margin-right: 7px;
-          }
-
-          .content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-
-          .active {
-            border: 2px solid #4caf50;
-            color: #4caf50;
-            background-color: white;
-          }
-        }
-      }
-
-      .discount {
-        width: 36px;
-        height: 24px;
-        border-radius: 6px;
-        background-color: #ef5350;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        span {
-          color: white;
-          font-weight: 500;
-          font-size: 14px;
-          padding-top: 3px;
-        }
-      }
-      @media screen and(max-width: 600px) {
-      }
-    }
-
-    .product-action-container{
-      position: absolute;
-      right: 0;
-      top: -2px;
-      .product-item-bookmark {
-        margin: -10px;
-      }
-    }
-
-    .info-box {
-      display: flex;
-      align-items: center;
-
-      &.theme1 {
-        margin-top: 8px;
-      }
-    }
-
-    .total-score {
-      display: flex;
-    }
-
-    .teacher-image {
-      height: 32px;
-      width: 32px;
-    }
-
-    .star-score {
-      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEjSURBVHgBnVNBToNQEJ35KJtuOEL/ynQl3oAj6AnQxBrjqj2B9Qa6M9EFnMDewHoK027KEf6qixaYDr+B/ob/G9qXAAN58+bNzAfBAfp/7oMofvWLv7lBmSgbT7gEwCte+d7X19ofuWh4pPrS+KTYhbS5EEeqmwhcLg4c0HLExFXE0Y+Fq5g9hsveFOV74wRp/nTLz5iTQtj13AUZi2VA+MECQ4LzoXgGlMK5IEj1DGj+mHA38UnJJaU4+L5vhniiyBSvvu6qYL9GP6/WpDqll964DhsB11G1QOHgM2sJ0GJYrTHoIBDQ4iVsCTBCWzWrRJlHbQHC6JBEb+D3JPcrdWxC4HUdXhgJM5aL+YTNoPAejD4rFxP+wRIQ+URvqij/6rQtVRliQ9SZCLgAAAAASUVORK5CYII=');
-      width: 18px;
-      height: 18px;
-    }
-
-    .teacher-name {
-      font-style: normal;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 22px;
-      text-align: right;
-      letter-spacing: -0.03em;
-      color: #656f7b;
-      margin-left: 8px;
-
-      &.theme1 {
-        color: #424242;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        letter-spacing: -0.28px;
-      }
-    }
-
-    .price-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      &.theme1, &.theme2 {
-        flex-direction: row-reverse;
-      }
-    }
-
-    .add-to-cart-btn {
-      background: #4caf50;
-      color: white;
-
-      &.theme1 {
-        background: $primary;
-        color: #424242;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-        letter-spacing: -0.32px;
-
-        .btn-text {
-          margin-right: 4px;
-        }
-      }
-      &.theme2 {
-        width: 100%;
-        background: transparent;
-        color: #9e9e9e;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 196.5%;
-
-        &:hover {
-          color: #26A69A;
-        }
-
-        .btn-text {
-          margin-right: 8px;
-        }
-      }
-      @media screen and (max-width: 600px){
-        margin: 20px;
-      }
-    }
-
-    @media screen and (max-width: 992px) {
-      .img-box {
-        .img {
-        }
-      }
-
-      .product-content-box {
-        .main-title {
-
-          a {
-          }
-
-          .title-box {
-            .title-text {
-            }
-          }
-        }
-
-        .price-box {
-          .add-cart-info {
-            .add-cart-icon {
-            }
-          }
-
-          .price-info {
-            .final-price-box {
-              .final-price {
-              }
-            }
-
-            .main-price {
-            }
-
-            .price-Toman {
-            }
-          }
-        }
-
-        .action-box {
-          .more-detail {
-            a {
-            }
-          }
-
-          .btn-style {
-            width: 102px;
-
-            img {
-              margin-left: 0;
-            }
-
-            .content {
-            }
-
-            .active {
-            }
-          }
-        }
-
-        .discount {
-          span {
-          }
-        }
-      }
-    }
-
-    @media screen and (max-width: 700px) {
-      .product-content-box {
-        .action-box {
-          flex-flow: column;
-          justify-content: space-around;
-          align-items: stretch;
-        }
-      }
-    }
-
-    @media screen and (max-width: 600px) {
-      display: flex;
-      border-radius: 18px;
-      margin-bottom: 16px;
-
-      .img-box {
-        width: 100px;
-
-        .img {
-          border-radius: 10px;
-        }
-
-        @media screen and (max-width: 600px){
-          width: 100%;
-        }
-      }
-
-      .product-content-box {
-        padding: 0 0 0 16px;
-        width: 100%;
-
-        .main-title {
-          margin-bottom: 0;
-
-          a {
-          }
-
-          .title-box {
-            height: 44px;
-            justify-content: center;
-
-            .title-text {
-              -webkit-line-clamp: 2;
-            }
-          }
-        }
-
-        .price-box {
-          margin-bottom: 0;
-
-          .add-cart-info {
-            .add-cart-icon {
-            }
-          }
-
-          .price-info {
-            .final-price-box {
-              .final-price {
-                margin-left: 2px;
-              }
-            }
-
-            .main-price {
-              margin-left: 4px;
-            }
-
-            .price-Toman {
-            }
-          }
-        }
-
-        .action-box {
-          .more-detail {
-            .more {
-              display: none;
-            }
-          }
-          .btn-green{
-            margin-left: 20px;
-          }
-
-          .btn-style {
-            width: 100px;
-            height: 25px !important;
-            border-radius: 8px;
-
-            img {
-              margin-left: 0;
-            }
-
-            .content {
-            }
-
-            .active {
-            }
-          }
-        }
-
-        .discount {
-          height: 20px;
-          /* margin-left: 3px; */
-        }
-      }
-    }
+    box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    -moz-box-shadow: $shadows;
+    -webkit-border-radius: $borderRadius;
+    -moz-border-radius: $borderRadius;
+    border: $border;
   }
 }
 </style>
