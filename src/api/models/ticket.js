@@ -41,7 +41,7 @@ export default class TicketAPI extends APIRepository {
     this.restUrl = (id) => this.url + '/' + id
   }
 
-  index(data, cache = { TTL: 1000 }) {
+  index (data, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

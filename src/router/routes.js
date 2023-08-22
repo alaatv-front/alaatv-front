@@ -1,4 +1,4 @@
-import { Authenticated } from './middleware/middleware.js' // IncompleteProfile
+import { Authenticated, IncompleteProfile } from './middleware/middleware.js'
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
@@ -33,7 +33,7 @@ const routes = [
       layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
       layoutPageContainerCustomClass: 'main-layout-container'
     },
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('src/layouts/MainLayout.vue'),
     children: [
       {
         path: '/auth',
@@ -172,6 +172,10 @@ const routes = [
             },
             children: [
               {
+                path: '36',
+                redirect: { name: 'Public.Landing.DynamicName', params: { landing_name: '110' } }
+              },
+              {
                 path: ':landing_name',
                 meta: {
                   hasDynamicSettingWithParams: true
@@ -303,7 +307,7 @@ const routes = [
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
             meta: {
-              // middlewares: [IncompleteProfile],
+              middlewares: [IncompleteProfile],
               hasDynamicSetting: true
             },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')
@@ -578,12 +582,28 @@ const routes = [
           layoutFooter: false
         },
         meta: { middlewares: [Authenticated] },
-        component: () => import('layouts/AdminLayout.vue'),
+        component: () => import('src/layouts/AdminLayout.vue'),
         children: [
           {
             name: 'Admin.Dashboard',
             path: 'dashboard',
             component: () => import('src/pages/Admin/Dashboard.vue')
+          },
+          {
+            path: 'users',
+            name: 'Admin.User',
+            component: () => import('src/layouts/bareLayout.vue'),
+            children: [
+              {
+                path: ':id/event/:event_id/entekhb-reshte',
+                // path: ':id',
+                name: 'Admin.User.EntekhabReshte.Show',
+                meta: {
+                  hasDynamicSetting: true
+                },
+                component: () => import('src/pages/Admin/User/EntekhabReshte.vue')
+              }
+            ]
           },
           {
             path: 'ticket',

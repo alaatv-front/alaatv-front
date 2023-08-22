@@ -23,6 +23,12 @@
       <!--      <span class="tracking-code-title">کد پیگیری:</span>-->
       <!--      <span class="tracking-code">{{ trackingCode }}</span>-->
       <!--    </div>-->
+      <q-btn v-if="ticketId"
+             :to="{name: 'UserPanel.Ticket.Show', params: {id: ticketId}}"
+             color="primary"
+             class="redirect-element">
+        مشاهده تیکت مربوطه
+      </q-btn>
       <router-link v-if="hasPaid"
                    :to="{name: 'UserPanel.MyPurchases'}"
                    class="redirect-element">
@@ -54,6 +60,9 @@ export default {
   computed: {
     orderId () {
       return this.$route.params.orderId
+    },
+    ticketId () {
+      return this.$route.query.ticket
     }
   },
   mounted () {

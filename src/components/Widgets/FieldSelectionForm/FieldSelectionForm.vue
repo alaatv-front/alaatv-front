@@ -1,6 +1,6 @@
 <template>
   <div class="FieldSelectionForm">
-    <q-tabs v-if="true"
+    <q-tabs v-if="false"
             v-model="step"
             dense
             class="text-grey"
@@ -27,6 +27,7 @@
                   animated>
       <q-tab-panel name="konkurRankFormData">
         <register-konkur-rank-form :konkur-rank-form="konkurRankForm"
+                                   :event-id="localOptions.eventId"
                                    @onComplete="onCompleteKonkurRankForm" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurRankFormResult">
@@ -46,10 +47,12 @@
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionForm">
         <register-konkur-field-selection-form @onBack="onGoToSelectProduct"
-                                              @onForward="onGoSelectionFieldForm" />
+                                              @onComplete="onGoRegisterKonkurFieldSelectionGoToPayment" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionGoToPayment">
-        <register-konkur-field-selection-go-to-payment :order-id="orderId" />
+        <register-konkur-field-selection-go-to-payment :order-id="orderId"
+                                                       :selected-product-id="selectedProduct"
+                                                       :free-product-id="localOptions.product1Id" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionTankYouPage">
         <register-konkur-field-selection-tank-you-page :order-id="orderId"
@@ -73,8 +76,8 @@ import RegisterKonkurRankForm from './components/RegisterKonkurRankForm.vue'
 import RegisterKonkurRankFormResult from './components/RegisterKonkurRankFormResult.vue'
 import RegisterKonkurFieldSelectionForm from './components/RegisterKonkurFieldSelectionForm.vue'
 import RegisterKonkurFieldSelectionProducts from './components/RegisterKonkurFieldSelectionProducts.vue'
-import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
 import RegisterKonkurFieldSelectionTankYouPage from './components/RegisterKonkurFieldSelectionTankYouPage.vue'
+import RegisterKonkurFieldSelectionGoToPayment from './components/RegisterKonkurFieldSelectionGoToPayment.vue'
 
 export default {
   name: 'Newsletter',
@@ -152,10 +155,8 @@ export default {
           .then((eventekhbReshte) => {
             if (eventekhbReshte.id) {
               this.hasFieldSelectionFormData = true
-              this.step = 'RegisterKonkurFieldSelectionGoToPayment'
-            } else {
-              this.step = 'RegisterKonkurFieldSelectionProducts'
             }
+            this.step = 'RegisterKonkurFieldSelectionProducts'
             resolve()
           })
           .catch(() => {
@@ -163,6 +164,7 @@ export default {
           })
       } else {
         this.step = 'konkurRankFormData'
+        resolve()
       }
     },
     hasPurchased () {
@@ -175,8 +177,8 @@ export default {
           this.localOptions.product5Id
         ])
           .then((items) => {
-            const hasPurchased = items.find(item => item.is_purchased === 1)
-            resolve(hasPurchased)
+            const hasPurchased = items.find(item => item.is_purchased)
+            resolve(!!hasPurchased)
           })
           .catch(() => {
             reject()
@@ -211,7 +213,7 @@ export default {
     },
     onCompleteKonkurRankForm () {
       this.getKonkurResultFormData()
-      this.onGoSelectionField()
+      this.onGoRegisterKonkurRankFormResult()
     },
     onGoEditKarname () {
       this.step = 'konkurRankFormData'
@@ -221,6 +223,12 @@ export default {
     },
     onGoSelectionFieldProduts () {
       this.step = 'RegisterKonkurFieldSelectionProducts'
+    },
+    onGoRegisterKonkurRankFormResult () {
+      this.step = 'RegisterKonkurRankFormResult'
+    },
+    onGoRegisterKonkurFieldSelectionGoToPayment () {
+      this.step = 'RegisterKonkurFieldSelectionGoToPayment'
     },
     onGoSelectionFieldForm () {
       if (!this.hasFieldSelectionFormData) {
@@ -245,6 +253,14 @@ export default {
       line-height: normal;
       letter-spacing: -0.36px;
     }
+    .Subtitle1-text {
+      color: #424242;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      letter-spacing: -0.32px;
+    }
     .content-text {
       color: #424242;
       font-size: 14px;
@@ -252,6 +268,14 @@ export default {
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.28px;
+    }
+    .content-big-text {
+      color: #424242;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.32px;
     }
     .caption-text {
       color: #9E9E9E;
@@ -274,6 +298,24 @@ export default {
           .q-field__append {
             .q-icon {
               color: #9E9E9E;
+            }
+          }
+        }
+      }
+    }
+
+    .q-field {
+      border-radius: 8px;
+      .q-field__inner {
+        .q-field__control {
+          padding: 0;
+          &:before {
+            border: 1.5px solid #E0E0E0;
+          }
+          .q-field__control-container {
+            .q-field__native {
+              padding: 9px 16px 10px;
+              font-size: 14px;
             }
           }
         }
@@ -358,23 +400,6 @@ export default {
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.32px;
-    }
-    .q-field {
-      border-radius: 8px;
-      .q-field__inner {
-        .q-field__control {
-          padding: 0;
-          &:before {
-            border: 1.5px solid #E0E0E0;
-          }
-          .q-field__control-container {
-            .q-field__native {
-              padding: 9px 16px 10px;
-              font-size: 14px;
-            }
-          }
-        }
-      }
     }
   }
 }
