@@ -88,7 +88,7 @@ export default {
         { type: 'select', name: 'shahr_id', responseKey: 'shahr_id', label: 'شهر', optionLabel: 'title', optionValue: 'id', placeholder: ' ', col: 'col-6' },
         { type: 'input', name: 'postalCode', responseKey: 'postalCode', label: 'کد پستی', placeholder: ' ', col: 'col-12' },
         { type: 'separator', name: 'separator', label: 'بارگزاری کارنامه', size: '0', ignoreValue: true, col: 'col-12' },
-        { type: 'file', name: 'reportFile', responseKey: 'reportFile', label: 'اسکن یا تصویر با کیفیت کارنامه خودتو بارگذاری کن.', placeholder: ' ', col: 'col-6' },
+        { type: 'file', name: 'reportFile', responseKey: 'report_file_link', label: 'اسکن یا تصویر با کیفیت کارنامه خودتو بارگذاری کن.', placeholder: ' ', col: 'col-6' },
         { type: 'separator', name: 'separator', label: 'اطلاعات بیشتر', size: '0', ignoreValue: true, col: 'col-12' },
         { type: 'input', name: 'comment', responseKey: 'comment', label: 'توضیحات بیشتر', inputType: 'textarea', placeholder: ' ', col: 'col-12' },
         { type: 'checkbox', name: 'enableReportPublish', responseKey: 'enableReportPublish', trueValue: 1, falseValue: 0, value: 1, label: 'اجازه انتشار رتبه خودمو تو سایت آلاء میدم.', col: 'col-12' }
