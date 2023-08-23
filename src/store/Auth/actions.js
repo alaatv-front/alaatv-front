@@ -1,6 +1,18 @@
 import { Cookies } from 'quasar'
 import { APIGateway } from 'src/api/APIGateway.js'
 
+export function updateUser (context, data) {
+  return new Promise((resolve, reject) => {
+    APIGateway.user.getCurrent()
+      .then((user) => {
+        context.commit('updateUser', user)
+      })
+      .catch(() => {
+        reject()
+      })
+  })
+}
+
 export function login (context, data) {
   const setVars = (user, accessToken) => {
     context.commit('updateUser', user)
