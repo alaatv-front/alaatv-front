@@ -632,13 +632,12 @@ export default {
                 })
                 this.needToUpdatePlan = false
               } else {
-                this.newPlanDialog = false
                 this.loading = false
                 this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName(this.inputs, 'date')?.value)
               }
+              this.newPlanDialog = false
             })
             .catch(() => {
-              debugger
               this.loading = false
             })
         })
@@ -753,7 +752,6 @@ export default {
         .then(studyPlan => {
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
-          this.newPlanDialog = false
           this.loading = false
           this.successChangePlan = true
         })
