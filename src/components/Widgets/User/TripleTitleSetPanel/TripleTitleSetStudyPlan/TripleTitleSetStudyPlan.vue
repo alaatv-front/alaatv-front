@@ -623,7 +623,18 @@ export default {
           }
           this.$refs.entityCreate.createEntity(false)
             .then(() => {
-              this.loading = false
+              if (this.needToUpdatePlan) {
+                this.updateMyStudyPlan({
+                  major_id: FormBuilderAssist.getInputsByName('major_id').value,
+                  grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
+                  study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
+                })
+                this.needToUpdatePlan = false
+              } else {
+                this.loading = false
+                this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName(this.inputs, 'date')?.value)
+              }
+              this.newPlanDialog = false
             })
             .catch(() => {
               this.loading = false
@@ -633,19 +644,19 @@ export default {
           this.loading = false
         })
     },
-    afterSendData() {
-      if (this.needToUpdatePlan) {
-        this.updateMyStudyPlan({
-          major_id: FormBuilderAssist.getInputsByName('major_id').value,
-          grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
-          study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
-        })
-        this.needToUpdatePlan = false
-      } else {
-        this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName('date').value)
-      }
-      this.newPlanDialog = false
-    },
+    // afterSendData() {
+    //   if (this.needToUpdatePlan) {
+    //     this.updateMyStudyPlan({
+    //       major_id: FormBuilderAssist.getInputsByName('major_id').value,
+    //       grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
+    //       study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
+    //     })
+    //     this.needToUpdatePlan = false
+    //   } else {
+    //     this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName('date').value)
+    //   }
+    //   this.newPlanDialog = false
+    // },
     filterByLesson() {
       this.loading = true
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
