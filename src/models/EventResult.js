@@ -57,7 +57,7 @@ class EventResult extends Model {
   }
 }
 class EventResultList extends Collection {
-  model () {
+  model() {
     return EventResult
   }
 }

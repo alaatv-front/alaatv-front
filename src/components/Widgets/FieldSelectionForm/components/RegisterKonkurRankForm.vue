@@ -2,7 +2,6 @@
   <div class="RegisterKonkurRankForm">
     <div class="title-text q-mb-sm">
       رتبه کنکورتو ثبت کن!
-
     </div>
     <div class="content-text q-mb-lg">
       بعد از ثبت رتبه، فیلم های مشاوره انتخاب رشته آلاء در دسترست قرار میگیرن.
