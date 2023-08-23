@@ -616,6 +616,7 @@ export default {
       }
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
+          this.needToUpdatePlan = false
           FormBuilderAssist.setAttributeByName(this.inputs, 'event_id', 'value', studyPlan.id)
           if (this.studyEvent !== studyPlan.id) {
             this.studyEvent = studyPlan.id
@@ -631,12 +632,13 @@ export default {
                 })
                 this.needToUpdatePlan = false
               } else {
+                this.newPlanDialog = false
                 this.loading = false
                 this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName(this.inputs, 'date')?.value)
               }
-              this.newPlanDialog = false
             })
             .catch(() => {
+              debugger
               this.loading = false
             })
         })
@@ -644,19 +646,6 @@ export default {
           this.loading = false
         })
     },
-    // afterSendData() {
-    //   if (this.needToUpdatePlan) {
-    //     this.updateMyStudyPlan({
-    //       major_id: FormBuilderAssist.getInputsByName('major_id').value,
-    //       grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
-    //       study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
-    //     })
-    //     this.needToUpdatePlan = false
-    //   } else {
-    //     this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName('date').value)
-    //   }
-    //   this.newPlanDialog = false
-    // },
     filterByLesson() {
       this.loading = true
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
@@ -764,6 +753,7 @@ export default {
         .then(studyPlan => {
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.newPlanDialog = false
           this.loading = false
           this.successChangePlan = true
         })
