@@ -46,7 +46,7 @@
               <span class="day-name">شنبه</span>
               <span v-if="tab === 'week' && chartWeek[0] && chartWeek[0].persianDate !== undefined"
                     class="day-date">
-                {{ chartWeek[0].persianDate.toString().substring(7, 10) }} {{calendarMonth}}
+                {{ chartWeek[0].persianDate.toString().substring(7, 10) }} {{chartWeek[0].monthName || calendarMonth}}
               </span>
             </div>
             <div class="col calendar-col"
@@ -54,7 +54,7 @@
               <span class="day-name">یکشنبه</span>
               <span v-if="tab === 'week' && chartWeek[1] && chartWeek[1].persianDate !== undefined"
                     class="day-date">
-                {{ chartWeek[1].persianDate.toString().substring(7, 10) }} {{calendarMonth}}
+                {{ chartWeek[1].persianDate.toString().substring(7, 10) }} {{chartWeek[1].monthName || calendarMonth}}
               </span>
             </div>
             <div class="col calendar-col"
@@ -62,7 +62,7 @@
               <span class="day-name">دوشنبه</span>
               <span v-if="tab === 'week' && chartWeek[2] && chartWeek[2].persianDate !== undefined"
                     class="day-date">
-                {{ chartWeek[2].persianDate.toString().substring(7, 10) }} {{calendarMonth}}
+                {{ chartWeek[2].persianDate.toString().substring(7, 10) }} {{chartWeek[2].monthName || calendarMonth}}
               </span>
             </div>
             <div class="col calendar-col"
@@ -70,7 +70,7 @@
               <span class="day-name">سه‌شنبه</span>
               <span v-if="tab === 'week' && chartWeek[3] && chartWeek[3].persianDate !== undefined"
                     class="day-date">
-                {{ chartWeek[3].persianDate.toString().substring(7, 10) }} {{calendarMonth}}
+                {{ chartWeek[3].persianDate.toString().substring(7, 10) }} {{chartWeek[3].monthName || calendarMonth}}
               </span>
             </div>
             <div class="col calendar-col"
@@ -78,7 +78,7 @@
               <span class="day-name">چهارشنبه</span>
               <span v-if="tab === 'week' && chartWeek[4] && chartWeek[4].persianDate !== undefined"
                     class="day-date">
-                {{ chartWeek[4].persianDate.toString().substring(7, 10) }} {{calendarMonth}}
+                {{ chartWeek[4].persianDate.toString().substring(7, 10) }} {{chartWeek[4].monthName || calendarMonth}}
               </span>
             </div>
             <div class="col calendar-col"
@@ -86,7 +86,7 @@
               <span class="day-name">پنجشنبه</span>
               <span v-if="tab === 'week' && chartWeek[5] && chartWeek[5].persianDate !== undefined"
                     class="day-date">
-                {{ chartWeek[5].persianDate.toString().substring(7, 10) }} {{calendarMonth}}
+                {{ chartWeek[5].persianDate.toString().substring(7, 10) }} {{chartWeek[5].monthName || calendarMonth}}
               </span>
             </div>
             <div class="col calendar-col"
@@ -94,7 +94,7 @@
               <span class="day-name">جمعه</span>
               <span v-if="tab === 'week' && chartWeek[6] && chartWeek[6].persianDate !== undefined"
                     class="day-date">
-                {{ chartWeek[6].persianDate.toString().substring(7, 10) }} {{calendarMonth}}
+                {{ chartWeek[6].persianDate.toString().substring(7, 10) }} {{chartWeek[6].monthName || calendarMonth}}
               </span>
             </div>
           </div>
@@ -632,13 +632,17 @@ export default defineComponent({
       // import data to month view object
       for (let w = 0; w < 6; w++) {
         for (let col = 0; col < 7; col++) {
-          if ((col < startIndex.value && w === 0)) {
-            month.value[w][col].date = 0
+          if (col < startIndex.value && w === 0) {
+            const dateOfDay = moment(new Date(date).getTime() - ((startIndex.value - col) * 24 * 60 * 60 * 1000))
+            month.value[w][col].date = dateOfDay.format('YYYY/MM/DD')
+            month.value[w][col].persianDate = new Date(dateOfDay).toLocaleDateString('fa-IR')
+            month.value[w][col].monthName = moment(dateOfDay).locale('fa').format('jMMMM')
           } else if (dayCounter > dayNum.value) {
             const lastDay = col > 0 ? new Date(month.value[w][col - 1].date) : new Date(month.value[w - 1][6].date)
             const today = moment(lastDay.getTime() + 24 * 60 * 60 * 1000)
             month.value[w][col].date = today.format('YYYY/MM/DD')
             month.value[w][col].num = dayCounter - dayNum.value
+            month.value[w][col].monthName = moment(today).locale('fa').format('jMMMM')
             const persianDate = new Date(today).toLocaleDateString('fa-IR')
             month.value[w][col].persianDate = persianDate
             dayCounter++
