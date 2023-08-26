@@ -70,6 +70,10 @@ class User extends Model {
     if (!this.full_name) {
       this.full_name = (this.first_name ? this.first_name : '') + ' ' + (this.last_name ? this.last_name : '')
     }
+
+    if (!this.shahr_id) {
+      this.shahr_id = this.shahr?.id || this.city?.id
+    }
   }
 
   hasPermission (permission) {
@@ -81,7 +85,7 @@ class User extends Model {
       'first_name',
       'last_name',
       'major',
-      'city',
+      'shahr_id',
       // 'school',
       'mobile_verified_at',
       'grade'
