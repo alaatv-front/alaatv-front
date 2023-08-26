@@ -98,20 +98,18 @@ import { Set } from 'src/models/Set.js'
 import ContentItem from './ContentItem.vue'
 import Bookmark from 'src/components/Bookmark.vue'
 import { SetSection } from 'src/models/SetSection.js'
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 moment.loadPersian()
 
 export default {
   name: 'SetShowInfo',
   components: { ContentItem, Bookmark },
-  mixins: [PageBuilderOptionPanel],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   props: {
     data: {
       type: [Set, Number, String],
-      default() {
-        return new Set()
-      }
+      default: null
     }
   },
   data() {
@@ -150,18 +148,21 @@ export default {
       return target.contents
     }
   },
-  watch: {
-    data() {
-      this.loadSet()
-    },
-    'data.id': function () {
-      this.loadSet()
-    }
-  },
-  created() {
-    this.loadSet()
-  },
   methods: {
+    prefetchServerDataPromise () {
+      this.set.loading = true
+      return this.loadSet()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.set = new Set(data.set)
+      this.set.contents = data.contents
+      this.sections = data.sections
+      this.set.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.set.loading = false
+    },
+
     handleSetBookmark () {
       this.bookmarkLoading = true
       if (this.set.is_favored) {
@@ -191,17 +192,34 @@ export default {
       return contents.filter(content => content.isPamphlet()).length
     },
     loadSet() {
-      if (typeof this.data === 'object') {
-        this.set = this.data
-      } else if (
-        typeof this.data === 'number' ||
-        typeof this.data === 'string'
-      ) {
-        this.set.id = this.data
-        this.getSet()
-      }
-      this.set.id = this.$route.params.id
-      this.getSet()
+      return new Promise((resolve, reject) => {
+        if (this.data && typeof this.data === 'object') {
+          resolve({
+            set: this.data,
+            contents: [],
+            sections: []
+          })
+        } else if (
+          typeof this.data === 'number' ||
+          typeof this.data === 'string'
+        ) {
+          this.getSet(this.data)
+            .then((data) => {
+              resolve(data)
+            })
+            .catch(() => {
+              reject()
+            })
+        } else {
+          this.getSet(this.$route.params.id)
+            .then((data) => {
+              resolve(data)
+            })
+            .catch(() => {
+              reject()
+            })
+        }
+      })
     },
     getSplitedContentsToSections (contentList) {
       const sections = this.getSectionsFromContents(contentList)
@@ -220,20 +238,26 @@ export default {
       return contentList.list.map((content) => content.section)
         .filter((section, sectionIndex, sections) => sections.findIndex(sectionItem => sectionItem.id === section.id) === sectionIndex)
     },
-    getSet() {
-      this.set.loading = true
-      this.$apiGateway.set.show(this.set.id)
-        .then((set) => {
-          this.$apiGateway.set.getContents(set.id).then((contents) => {
-            this.set = set
-            this.set.contents = contents
-            this.sections = this.getSplitedContentsToSections(this.set.contents)
-            this.set.loading = false
+    getSet(setId) {
+      return new Promise((resolve, reject) => {
+        this.$apiGateway.set.show(setId)
+          .then((set) => {
+            this.$apiGateway.set.getContents(setId)
+              .then((contents) => {
+                resolve({
+                  set,
+                  contents,
+                  sections: this.getSplitedContentsToSections(contents)
+                })
+              })
+              .catch(() => {
+                reject()
+              })
           })
-        })
-        .catch(() => {
-          this.set.loading = false
-        })
+          .catch(() => {
+            reject()
+          })
+      })
     }
   }
 }
