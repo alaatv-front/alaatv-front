@@ -146,7 +146,7 @@ export default {
         return []
       }
 
-      return target.contents
+      return (new ContentList(target.contents)).list
     }
   },
   methods: {
