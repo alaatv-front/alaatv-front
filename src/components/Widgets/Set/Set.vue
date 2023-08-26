@@ -38,7 +38,6 @@
         </div>
       </div>
       <div class="archives-list">
-
         <template v-if="set.loading">
           <q-skeleton height="100px"
                       class="q-mb-sm" />
@@ -75,7 +74,7 @@
               </div>
             </template>
             <div class="contents-list">
-              <content-item v-for="content in section.contents"
+              <content-item v-for="content in section.contents.list"
                             :key="content.id"
                             :content="content" />
             </div>
@@ -97,6 +96,8 @@ import moment from 'moment-jalaali'
 import { Set } from 'src/models/Set.js'
 import ContentItem from './ContentItem.vue'
 import Bookmark from 'src/components/Bookmark.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { ContentList } from 'src/models/Content.js'
 import { SetSection } from 'src/models/SetSection.js'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
@@ -137,10 +138,10 @@ export default {
   },
   computed: {
     definedSections () {
-      return this.sections.filter(section => section.section.id !== null)
+      return this.sections.filter(section => section.section.id !== 'all')
     },
     contentsWithNullSection () {
-      const target = this.sections.find(section => section.section.id === null)
+      const target = this.sections.find(section => section.section.id === 'all')
       if (!target) {
         return []
       }
@@ -186,10 +187,16 @@ export default {
         })
     },
     getCountOfVideosInContents (contents) {
-      return contents.filter(content => content.isVideo()).length
+      if (!contents || !contents.list) {
+        return 0
+      }
+      return contents.list.filter(content => content.isVideo()).length
     },
     getCountOfPamphletsInContents (contents) {
-      return contents.filter(content => content.isPamphlet()).length
+      if (!contents || !contents.list) {
+        return 0
+      }
+      return contents.list.filter(content => content.isPamphlet()).length
     },
     loadSet() {
       return new Promise((resolve, reject) => {
@@ -221,11 +228,11 @@ export default {
         }
       })
     },
-    getSplitedContentsToSections (contentList) {
-      const sections = this.getSectionsFromContents(contentList)
+    getSplitedContentsToSections (contents) {
+      const sections = contents.getSections()
       const splitedContents = []
       sections.forEach((section) => {
-        const contentsOfSection = contentList.list.filter(content => content.section.id === section.id)
+        const contentsOfSection = contents.list.filter(content => content.section.id === section.id)
         splitedContents.push({
           section: new SetSection(section),
           contents: contentsOfSection
@@ -234,20 +241,17 @@ export default {
 
       return splitedContents
     },
-    getSectionsFromContents (contentList) {
-      return contentList.list.map((content) => content.section)
-        .filter((section, sectionIndex, sections) => sections.findIndex(sectionItem => sectionItem.id === section.id) === sectionIndex)
-    },
     getSet(setId) {
       return new Promise((resolve, reject) => {
-        this.$apiGateway.set.show(setId)
+        APIGateway.set.show(setId)
           .then((set) => {
-            this.$apiGateway.set.getContents(setId)
+            APIGateway.set.getContents(setId)
               .then((contents) => {
+                set.contents = (new ContentList(contents))
                 resolve({
                   set,
-                  contents,
-                  sections: this.getSplitedContentsToSections(contents)
+                  contents: (new ContentList(contents)),
+                  sections: this.getSplitedContentsToSections(set.contents)
                 })
               })
               .catch(() => {
