@@ -6,6 +6,7 @@ export function updateUser (context, data) {
     APIGateway.user.getCurrent()
       .then((user) => {
         context.commit('updateUser', user)
+        resolve()
       })
       .catch(() => {
         reject()

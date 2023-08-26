@@ -51,6 +51,8 @@
       </q-tab-panel>
 
       <q-tab-panel name="verified">
+        <q-linear-progress v-if="user.loading"
+                           indeterminate />
         <div class="verified-panel">
           <div class="image-section">
             <lazy-img src="https://nodes.alaatv.com/aaa/landing/Soalaa/States/thankyou_page.png"
@@ -129,22 +131,40 @@ export default {
     verifyMobile () {
       this.user.loading = true
       APIGateway.user.mobileVerify({ code: this.verifyCode })
-        .then(({ code, message }) => {
-          this.user.loading = false
-          if (code) {
-            this.verifyCode = code
-          }
+        .then(() => {
           this.panel = 'verified'
           this.user.mobile_verified_at = true
           this.$store.dispatch('Auth/updateUser')
+            .then(() => {
+              this.user.loading = false
+              this.loadAuthData()
+              if (!this.user.needToCompleteInfo()) {
+                this.redirectTo()
+              } else {
+                this.$q.notify({
+                  message: 'لطفا اطلاعات خود را کامل کنید.',
+                  type: 'warning'
+                })
+              }
+            })
+            .catch(() => {
+              this.user.loading = false
+            })
           this.$q.notify({
-            message,
+            message: 'شماره شما تایید شد',
             type: 'positive'
           })
         })
         .catch(() => {
           this.user.loading = false
         })
+    },
+    redirectTo () {
+      const redirectTo = this.$store.getters['Auth/redirectTo']
+      if (redirectTo && typeof redirectTo === 'object') {
+        this.$router.push(redirectTo)
+        this.$store.commit('Auth/updateRedirectTo', null)
+      }
     },
     onStopTimer () {
       this.timerEnded = true

@@ -72,7 +72,7 @@ class User extends Model {
     }
 
     if (!this.shahr_id) {
-      this.shahr_id = this.shahr.id
+      this.shahr_id = this.shahr?.id || this.city?.id
     }
   }
 
