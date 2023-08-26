@@ -92,27 +92,9 @@ export default {
   },
   data() {
     return {
-      bookmarkLoading: false,
       tab: 'info',
-      content: new Content(),
-      sections: [
-        {
-          data: {
-            rows: [
-              {
-                cols: [
-                  {
-                    widgets: []
-                  }
-                ],
-                options: {
-                  boxed: false
-                }
-              }
-            ]
-          }
-        }
-      ]
+      bookmarkLoading: false,
+      content: new Content()
     }
   },
   computed: {
