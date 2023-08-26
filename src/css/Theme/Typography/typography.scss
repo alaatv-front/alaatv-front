@@ -12,79 +12,86 @@ a{
   h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-style: normal;
+    line-height: normal;
   }
   h1 {
-    font-weight: 800;
     font-size: 48px;
-    line-height: 72px;
+    font-weight: 800;
+    letter-spacing: -0.96px;
   }
 
   h2 {
-    font-weight: 700;
     font-size: 40px;
-    line-height: 60px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
   }
 
   h3 {
-    font-weight: 700;
     font-size: 32px;
-    line-height: 48px;
+    font-weight: 700;
+    letter-spacing: -0.64px;
   }
 
   h4 {
-    font-weight: 700;
     font-size: 24px;
-    line-height: 36px;
+    font-weight: 700;
+    letter-spacing: -0.48px;
   }
 
   h5{
-    font-weight: 600;
     font-size: 20px;
-    line-height: 30px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
   }
 
   h6{
-    font-weight: 600;
     font-size: 18px;
-    line-height: 27px;
+    font-weight: 600;
+    letter-spacing: -0.36px;
   }
 
   .body1 {
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
+    line-height: normal;
+    letter-spacing: -0.32px;
   }
   .body2 {
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
+    line-height: normal;
+    letter-spacing: -0.28px;
   }
 
   .caption1{
+    font-size: 12px;
     font-style: normal;
     font-weight: 400;
-    font-size: 12px;
-    line-height: 18px;
+    line-height: normal;
+    letter-spacing: -0.24px;
   }
   .caption2{
+    font-size: 10px;
     font-style: normal;
     font-weight: 400;
-    font-size: 10px;
-    line-height: 15px;
+    line-height: normal;
+    letter-spacing: -0.2px;
   }
 
   .button1{
+    font-size: 16px;
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
+    line-height: normal;
+    letter-spacing: -0.32px;
   }
   .button2{
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 21px;
+    line-height: normal;
+    letter-spacing: -0.28px;
   }
 }
