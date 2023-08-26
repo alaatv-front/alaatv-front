@@ -626,9 +626,9 @@ export default {
             .then(() => {
               if (this.needToUpdatePlan) {
                 this.updateMyStudyPlan({
-                  major_id: FormBuilderAssist.getInputsByName('major_id').value,
-                  grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
-                  study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
+                  major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
+                  grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
+                  study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value
                 })
                 this.needToUpdatePlan = false
               } else {
@@ -744,7 +744,7 @@ export default {
     updateMyStudyPlan(data) {
       this.loading = true
       this.warning = false
-      this.$apiGateway.studyPlan.updateMyStudyPlan({
+      APIGateway.studyPlan.updateMyStudyPlan({
         study_method_id: data.study_method_id ? data.study_method_id : this.planType.id,
         major_id: data.major_id ? data.major_id : this.major.id,
         grade_id: data.grade_id ? data.grade_id : this.grade.id
