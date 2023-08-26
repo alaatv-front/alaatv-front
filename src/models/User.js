@@ -72,7 +72,7 @@ class User extends Model {
     }
 
     if (!this.shahr_id) {
-      this.shahr_id = this.shahr.id
+      this.shahr_id = this.shahr?.id || this.city?.id
     }
   }
 
@@ -87,7 +87,7 @@ class User extends Model {
       'major',
       'shahr_id',
       // 'school',
-      'mobile_verified_at',
+      // 'mobile_verified_at',
       'grade'
     ]
   }

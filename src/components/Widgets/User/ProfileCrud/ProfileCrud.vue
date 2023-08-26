@@ -566,6 +566,9 @@ export default {
     }
   },
   methods: {
+    loadAuthData () {
+      this.user = this.$store.getters['Auth/user']
+    },
     afterLoadInputData (response) {
       this.user = new User(response.data)
       const targetShahr = this.cities.find(item => item.id === this.user.shahr.id)
@@ -613,8 +616,24 @@ export default {
 
       this.$refs.entityEdit.editEntity(false)
         .then(() => {
-          this.redirectTo()
-          this.$store.commit('loading/loading', false)
+          this.$store.dispatch('Auth/updateUser')
+            .then(() => {
+              this.loadAuthData()
+              if (!this.user.needToCompleteInfo()) {
+                this.redirectTo()
+              } else {
+                if (!this.user.mobile_verified_at) {
+                  this.$q.notify({
+                    message: 'لطفا شماره همراه خود را تایید کنید.',
+                    type: 'warning'
+                  })
+                }
+              }
+              this.$store.commit('loading/loading', false)
+            })
+            .catch(() => {
+              this.$store.commit('loading/loading', false)
+            })
         })
         .catch(() => {
           this.$store.commit('loading/loading', false)
@@ -622,7 +641,7 @@ export default {
     },
     redirectTo () {
       const redirectTo = this.$store.getters['Auth/redirectTo']
-      if (redirectTo === null || typeof redirectTo !== 'object') {
+      if (redirectTo && typeof redirectTo === 'object') {
         this.$router.push(redirectTo)
         this.$store.commit('Auth/updateRedirectTo', null)
       }
