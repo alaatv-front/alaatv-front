@@ -87,7 +87,7 @@ class User extends Model {
       'major',
       'shahr_id',
       // 'school',
-      'mobile_verified_at',
+      // 'mobile_verified_at',
       'grade'
     ]
   }
