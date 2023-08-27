@@ -272,7 +272,7 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-confirm.png" />
+          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
         </q-card-section>
         <q-card-section>
           برنامه شما با موفقیت تنظیم شد؛ همچنین بعدا میتونید از قسمت برنامه مطالعاتی، اونو تنظیم کنید و یا تغییر بدین.
