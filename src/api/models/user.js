@@ -195,7 +195,8 @@ export default class UserAPI extends APIRepository {
       ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {
-          code: response
+          code: response.data.code,
+          message: response.data.message
         }
       },
       rejectCallback: (error) => {
@@ -209,8 +210,6 @@ export default class UserAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.mobileVerify,
-      cacheKey: this.CacheList.mobileVerify,
-      ...(data.cache && { cache: data.cache }),
       resolveCallback: (response) => {
         return {
           status: response
