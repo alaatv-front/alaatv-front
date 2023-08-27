@@ -10,7 +10,7 @@
       </div>
       <div class="menu-items">
         <q-list class="menu-items-list">
-          <q-item v-for="(item, index) in menuItems"
+          <q-item v-for="(item, index) in menuItems.filter(item=>item.visible)"
                   :key="index"
                   :to="{name:item.routeName }"
                   class="menu-item">
@@ -91,21 +91,31 @@
 <script>
 import { mapMutations } from 'vuex'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { LayoutMenu },
   data: () => ({
     isActive: null,
+    isAdmin: false,
     logoutDialog: false,
+    eventInfo: null,
     menuItems: [
       {
+        visible: false,
         icon: 'home',
         routeName: 'UserPanel.Asset.TripleTitleSet.Dashboard'
       },
       {
+        visible: true,
         icon: 'playlist_play',
         routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+      },
+      {
+        visible: false,
+        icon: 'calendar_today',
+        routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
       }
       // {
       //   icon: 'calendar_today',
@@ -177,10 +187,41 @@ export default {
       return !this.$q.screen.lt.md
     }
   },
-  created() {
-  // this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+  mounted () {
+    this.getEventInfoByName()
+      .then(() => {
+        this.updateMenuItemsFromEventInfo()
+      })
+      .catch(() => {
+      })
   },
   methods: {
+    getEventInfoByName () {
+      return new Promise((resolve, reject) => {
+        APIGateway.events.getEventInfoByName(this.$route.params.eventName)
+          .then((eventInfo) => {
+            this.eventInfo = eventInfo
+            resolve(eventInfo)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    updateMenuItemsFromEventInfo () {
+      const user = this.$store.getters['Auth/user']
+      this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
+
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.eventInfo.showDashboard)
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.StudyPlan', (this.eventInfo.showStudyPlan || this.isAdmin))
+    },
+    updateMenuItemVisibility (routeName, state) {
+      this.menuItems.forEach((item, itemIndex) => {
+        if (item.routeName === routeName) {
+          this.menuItems[itemIndex].visible = state
+        }
+      })
+    },
     ...mapMutations('TripleTitleSet', [
       'updateSelectedTopic'
     ]),

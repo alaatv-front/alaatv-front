@@ -10,13 +10,6 @@ export default class PlanAPI extends APIRepository {
     this.CacheList = {
       studyPlan: this.name + this.APIAdresses.studyPlan
     }
-    /* Setting the callback functions for the CRUD operations. */
-    // this.setCrudCallbacks({
-    //   get: (response) => { return new User(response.data.data)},
-    //   post: (response) => { return new User(response.data.data)},
-    //   put: (response) => { return new User(response.data.data)},
-    //   delete: (response) => { return new User(response.data.data)}
-    // })
   }
 }
 

@@ -15,12 +15,16 @@
           <div class="row card-box q-col-gutter-md">
             <div class="col-sm-4 col-12">
               <div class="card-style used-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
                 <div class="title">
-                  کارت های استفاده شده پرداخت شده
+                  کارت های استفاده شده
+                  <br>
+                  پرداخت شده
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_used_gift_cards}}
+                    {{sales_man.count_of_used_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -30,12 +34,16 @@
             </div>
             <div class="col-sm-4 col-12">
               <div class="card-style used-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
                 <div class="title">
-                  کارت های استفاده شده منتظر پرداخت
+                  کارت های استفاده شده
+                  <br>
+                  منتظر پرداخت
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_used_without_pay_gift_cards}}
+                    {{sales_man.count_of_used_without_pay_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -45,12 +53,14 @@
             </div>
             <div class="col-sm-4 col-12">
               <div class="card-style unUsed-card">
+                <q-inner-loading v-if="salesManLoading"
+                                 showing />
                 <div class="title">
                   کارت های باقی مانده
                 </div>
                 <div class="count align-self-end">
                   <span class="number">
-                    {{sales_man.count_of_remain_gift_cards}}
+                    {{sales_man.count_of_remain_gift_cards.toLocaleString('fa')}}
                   </span>
                   <span>
                     کارت
@@ -92,8 +102,8 @@
       <div class="table-container text-center">
         <q-table :rows="referralCodeList.list"
                  :columns="referralCodeColumns"
-                 :loading="loading"
                  hide-bottom
+                 :loading="loading"
                  row-key="id">
           <template #body-cell="props">
             <q-td v-if="props.col.name === 'code'"
@@ -156,8 +166,8 @@
             <q-td v-else-if="props.col.name === 'orders'">
               <div class="status-box">
                 <div class="dot"
-                     :class="props.value.length === 0 ? 'red-dot' : 'green-dot'" />
-                {{ props.value.length === 0 ? 'استفاده نشده' : 'استفاده شده' }}
+                     :class="props.row.usageNumber === 0 ? 'red-dot' : 'green-dot'" />
+                {{ getOrderStatus(props) }}
               </div>
             </q-td>
             <q-td v-else>
@@ -211,6 +221,7 @@ export default {
       lastPage: 0,
       page: 1,
       shareCodeLoading: false,
+      salesManLoading: false,
       loading: false,
       pageCount: 0,
       itemsPerPage: 4,
@@ -268,6 +279,17 @@ export default {
     this.loadAllData()
   },
   methods: {
+    getOrderStatus(props) {
+      if (props.row.usageNumber) {
+        if (props.value.length === 0) {
+          return 'استفاده شده منتظر پرداخت'
+        } else {
+          return 'استفاده شده پرداخت شده'
+        }
+      } else {
+        return 'استفاده نشده'
+      }
+    },
     onToggleFilter () {
       this.showFilter = !this.showFilter
       this.getGiftCardsData()
@@ -323,11 +345,15 @@ export default {
       // })
     },
     getSalesMan() {
+      this.salesManLoading = true
       APIGateway.referralCode.getSalesManData()
         .then((response) => {
+          this.salesManLoading = false
           this.sales_man = response
         })
-        .catch()
+        .catch(() => {
+          this.salesManLoading = false
+        })
     },
     getGiftCardsData(page = 1) {
       this.loading = true

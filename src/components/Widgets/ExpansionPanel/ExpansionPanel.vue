@@ -5,7 +5,7 @@
     <q-expansion-item v-for="(item, index) in localOptions.expansionList"
                       :key="index"
                       v-model="item.expanded"
-                      expand-separator
+                      :expand-separator="localOptions.expandSeparator"
                       :icon="item.icon"
                       :label="item.label"
                       :caption="item.caption"
@@ -36,8 +36,11 @@
             </div>
           </q-item-section>
         </q-item>
-        <q-item />
       </template>
+      <q-separator v-if="localOptions.hasContentSeparator"
+                   class="content-separator"
+                   :size="localOptions.contentSeparator.size"
+                   :color="localOptions.contentSeparator.color" />
       <span class="text"
             v-html="item.text" />
       <div v-if="localOptions.theme === 'theme2'"
@@ -65,12 +68,25 @@ export default {
         expandIconClass: null,
         theme: null,
         dense: false,
+        expandSeparator: true,
+        expandItemBackground: 'transparent',
+        expandItemMargin: 0,
+        expandItemRadius: 0,
+        expandItemContentPadding: 0,
         marginBottom: '100px',
+        headerPadding: '15px',
         fontFamily: null,
         color: null,
         fontSize: null,
         fontWeight: null,
         fontStyle: null,
+        hasContentSeparator: false,
+        contentSeparator: {
+          marginTop: 0,
+          marginBottom: 0,
+          color: '#424242',
+          size: '1px'
+        },
         xs: {
           fontSize: null,
           fontWeight: null,
@@ -141,12 +157,24 @@ export default {
 
 <style lang="scss" scoped>
 .expansion-container {
+  &:deep(.q-expansion-item) {
+    background: v-bind('localOptions.expandItemBackground');
+    margin-bottom: v-bind('localOptions.expandItemMargin');
+    border-radius:  v-bind('localOptions.expandItemRadius');
+  }
+  &:deep(.q-expansion-item__content) {
+    padding:  v-bind('localOptions.expandItemContentPadding');
+  }
   &:deep(.q-item__label) {
     font-size: 16px
   }
 
   &:deep(.q-item .q-focus-helper) {
     display: none;
+  }
+
+  &:deep(.q-item) {
+    padding: v-bind('localOptions.headerPadding');
   }
   .expand-header {
     width:100%;
@@ -158,6 +186,11 @@ export default {
         flex-direction: column;
       }
     }
+  }
+
+  .content-separator {
+    margin-top: v-bind('localOptions.contentSeparator.marginTop');
+    margin-bottom: v-bind('localOptions.contentSeparator.marginBottom');
   }
   .text {
     line-height: v-bind('localOptions.xl.lineHeight');

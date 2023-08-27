@@ -15,7 +15,8 @@
   <div v-else
        class="review-wrapper">
     <div class="review-title">گزارش ها</div>
-    <div class="review-list">
+    <div v-if="reviewList.length > 0"
+         class="review-list">
       <div v-for="(item, index) in reviewList"
            :key="index"
            class="review-item">
@@ -26,7 +27,15 @@
           <q-btn flat
                  label="مشاهده"
                  :loading="linkLoading"
-                 @click="gotoLink(item.date)" />
+                 @click="markAsRead(item)" />
+        </div>
+      </div>
+    </div>
+    <div v-else
+         class="review-list">
+      <div class="review-item">
+        <div class="review-item-title">
+          گزارشی وجود ندارد
         </div>
       </div>
     </div>
@@ -35,7 +44,6 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { Content } from 'src/models/Content'
 
 export default defineComponent({
   name: 'PlanReviews',
@@ -76,45 +84,12 @@ export default defineComponent({
           this.reviewLoading = false
         })
     },
-    gotoLink(date) {
+    markAsRead(item) {
       this.linkLoading = true
-      this.$apiGateway.studyPlan.getStudyPlans({
-        study_event: this.studyPlanId,
-        since_date: date,
-        till_date: date
-      })
-        .then(studyPlanList => {
-          if (studyPlanList.list.length === 0) {
-            this.linkLoading = false
-            this.$q.notify({
-              message: 'برنامه ای وجود ندارد',
-              color: 'warning',
-              position: 'top'
-            })
-            return
-          }
-          const planList = studyPlanList.list?.find(x => x.id === this.studyPlanId).plans.list
-          if (planList.length === 0) {
-            this.linkLoading = false
-            this.$q.notify({
-              message: 'برنامه ای موردنظر پیدا نشد',
-              color: 'warning',
-              position: 'top'
-            })
-            return
-          }
-          const plan = planList.find(x => x.has_watched === false) || planList[planList.length - 1]
-          const content = plan.contents.list.find(x => x.type.id === 4) || new Content()
+      this.$apiGateway.studyPlan.markAsRead(item.id)
+        .then(() => {
+          this.getReviews()
           this.linkLoading = false
-          if (content.id) {
-            this.$router.push({ name: 'UserPanel.Asset.TripleTitleSet.Content', params: { productId: plan.product.id, setId: content.set.id, contentId: content.id } })
-          } else {
-            this.$q.notify({
-              message: 'ویدیویی یافت نشد',
-              color: 'warning',
-              position: 'top'
-            })
-          }
         })
         .catch(() => {
           this.$q.notify({
@@ -138,6 +113,10 @@ export default defineComponent({
     font-weight: 600;
     line-height: normal;
     letter-spacing: -0.4px;
+
+    @media only screen and (max-width: 600px) {
+      margin-top: 64px;
+    }
   }
 
   .review-list {

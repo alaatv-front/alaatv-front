@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'Schedule',
+  name: 'StudyPlan',
   data: () => ({
     pageConfig: {},
     sections: [

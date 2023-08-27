@@ -13,9 +13,8 @@
           <div class="photo col-12 col-md-3 q-pa-lg q-pa-md-none">
             <lazy-img :src="channel.photo" />
           </div>
-          <div class="text col-12 col-md-8 q-pa-lg q-pa-md-none">
-            {{ channel.description }}
-          </div>
+          <div class="text col-12 col-md-8 q-pa-lg q-pa-md-none"
+               v-html="channel.description" />
         </q-card-section>
       </div>
     </q-card>

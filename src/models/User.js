@@ -17,6 +17,13 @@ class User extends Model {
       { key: 'city' },
       { key: 'province' },
       { key: 'ostan_id' },
+      {
+        key: 'shahr',
+        default: {
+          id: null,
+          title: null
+        }
+      },
       { key: 'shahr_id' },
       { key: 'address' },
       { key: 'postal_code' },
@@ -61,7 +68,7 @@ class User extends Model {
     ])
 
     if (!this.full_name) {
-      this.full_name = this.first_name + ' ' + this.last_name
+      this.full_name = (this.first_name ? this.first_name : '') + ' ' + (this.last_name ? this.last_name : '')
     }
   }
 

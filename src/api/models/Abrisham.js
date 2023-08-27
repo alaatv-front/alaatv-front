@@ -2,6 +2,7 @@ import { apiV2 } from 'src/boot/axios.js'
 import APIRepository from '../classes/APIRepository.js'
 import { Content } from 'src/models/Content.js'
 import { AbrishamMajorList } from 'src/models/AbrishamMajor'
+import { StudyPlan } from 'src/models/StudyPlan'
 const APIAdresses = {
   lesson: '/abrisham/lessons',
   majors: '/abrisham/majors',
@@ -9,7 +10,8 @@ const APIAdresses = {
   counter: '/konkur1403Countdown',
   systemReport: '/abrisham/systemReport',
   myStudyPlan: '/abrisham/myStudyPlan',
-  getOptions: '/abrisham/selectPlan/create'
+  getOptions: '/abrisham/selectPlan/create',
+  findStudyPlan: '/abrisham/findStudyPlan'
 }
 export default class AbrishamAPI extends APIRepository {
   constructor() {
@@ -18,7 +20,8 @@ export default class AbrishamAPI extends APIRepository {
     this.CacheList = {
       counter: this.name + this.APIAdresses.counter,
       systemReport: this.name + this.APIAdresses.systemReport,
-      getOptions: this.name + this.APIAdresses.getOptions
+      getOptions: this.name + this.APIAdresses.getOptions,
+      findStudyPlan: this.name + this.APIAdresses.findStudyPlan
     }
 
     this.restUrl = (id) => this.url + '/' + id
@@ -126,6 +129,23 @@ export default class AbrishamAPI extends APIRepository {
         return error
       },
       data
+    })
+  }
+
+  findMyStudyPlan(data = {}, cache) {
+    return this.sendRequest({
+      apiMethod: 'get',
+      api: this.api,
+      request: this.APIAdresses.findStudyPlan,
+      cacheKey: this.CacheList.findStudyPlan,
+      ...(cache && { cache }),
+      data,
+      resolveCallback: (response) => {
+        return new StudyPlan(response.data.data)
+      },
+      rejectCallback: (error) => {
+        return error
+      }
     })
   }
 }

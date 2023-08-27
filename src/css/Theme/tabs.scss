@@ -4,7 +4,7 @@
     .q-tab__content {
       display: flex;
       flex-direction: row;
-
+      width: 80px;
       .q-tab__indicator {
         border: 2px solid $primary;
         border-radius: 8px;
