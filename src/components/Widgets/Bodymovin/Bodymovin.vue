@@ -21,6 +21,7 @@ export default {
       isAllowedToPlay: true,
       defaultOptions: {
         loop: true,
+        animate: 'autoPlay',
         autoplay: true,
         xs: {
           directory: '',
@@ -96,7 +97,9 @@ export default {
     'localOptions.animate': function (value) {
       this.animation.autoplay = value === 'autoPlay'
       this.animation.stop()
-      this.animation.play()
+      if (value === 'autoPlay') {
+        this.animation.play()
+      }
     },
     'localOptions.loop': function (value) {
       this.animation.loop = value
