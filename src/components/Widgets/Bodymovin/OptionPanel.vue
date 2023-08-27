@@ -28,6 +28,10 @@
                 <q-select v-model="localOptions.animate"
                           :options="animateOptions" />
               </div>
+              <div class="col-3">
+                <div class="outsidelabel">loop</div>
+                <q-checkbox v-model="localOptions.loop" />
+              </div>
               <div class="col-12">
                 <q-input v-model="localOptions[tab].directory" />
               </div>
@@ -51,10 +55,10 @@ export default {
     return {
       responsiveTab: 'lg',
       tabs: ['xl', 'lg', 'md', 'sm', 'xs'],
-      animateOptions: ['loop', 'onClick', 'onHover'],
+      animateOptions: ['autoPlay', 'onClick', 'onHover'],
       defaultOptions: {
         loop: true,
-        animate: 'loop',
+        animate: 'autoPlay',
         autoplay: true,
         xs: {
           directory: '',

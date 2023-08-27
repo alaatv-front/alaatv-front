@@ -2,6 +2,7 @@
   <div ref="bm"
        :style="responsiveBodymovin.style"
        @click="onClickElement"
+       @mouseleave="onMouseLeave"
        @mouseenter="onHoverElement" />
 </template>
 
@@ -89,6 +90,13 @@ export default {
     },
     'localOptions.xs.directory': function () {
       this.reInitBodyMovin()
+    },
+    'localOptions.animate': function (value) {
+      this.animation.autoplay = value === 'autoPlay'
+      this.animation.play()
+    },
+    'localOptions.loop': function (value) {
+      this.animation.loop = value
     }
   },
   mounted() {
@@ -102,12 +110,20 @@ export default {
   methods: {
     onClickElement() {
       if (this.localOptions.animate === 'onClick') {
+        this.animation.stop()
         this.animation.play()
       }
     },
     onHoverElement() {
       if (this.localOptions.animate === 'onHover') {
+        this.animation.loop = true
+        this.animation.stop()
         this.animation.play()
+      }
+    },
+    onMouseLeave () {
+      if (this.localOptions.animate === 'onHover' && !this.localOptions.loop) {
+        this.animation.loop = false
       }
     },
     reInitBodyMovin() {
@@ -128,8 +144,8 @@ export default {
         this.animation = lottie.loadAnimation({
           wrapper: this.$refs.bm,
           animType: 'svg',
-          loop: this.localOptions.loop,
-          autoplay: this.localOptions.autoplay,
+          loop: true,
+          autoplay: true,
           path: this.responsiveBodymovin.directory
         })
       }
