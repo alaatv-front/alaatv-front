@@ -78,13 +78,6 @@ export default defineComponent({
     productId () {
       return this.localOptions.product.id
     },
-    isSelectable () {
-      if (this.localOptions.product.children.length > 0) {
-        return true
-      } else {
-        return false
-      }
-    },
     productPrice() {
       if (this.localOptions.product) {
         return new Price(this.localOptions.product.price)
@@ -106,13 +99,13 @@ export default defineComponent({
   },
   methods: {
     addToCart() {
-      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product, products: this.selectedIds })
+      this.$store.dispatch('Cart/addToCart', { product: this.localOptions.product })
         .then(() => {
           this.$router.push({ name: 'Public.Checkout.Review' })
         })
     },
     paymentAction(paymentMethod) {
-      if (!this.isSelectable && this.productComplimentary.length === 0 && this.examList.length === 0) {
+      if (this.productComplimentary.length === 0 && this.examList.length === 0) {
         this.addToCart()
       } else {
         this.paymentMethod = paymentMethod

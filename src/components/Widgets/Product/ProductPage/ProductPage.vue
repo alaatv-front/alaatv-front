@@ -2,7 +2,9 @@
   <div class="product-page-container new-theme">
     <div class="product-background">
       <div class="background-image"
-           :style="{backgroundImage: `url(${product.photo})`}" />
+           :style="{backgroundImage: `url(${product.photo})`}">
+        <div class="background-filter" />
+      </div>
       <div class="row product-info-row">
         <div class="col-12 col-md-8">
           <div class="product-info-wrapper">
@@ -258,6 +260,13 @@ export default defineComponent({
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
+
+      .background-filter {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(270deg,  rgba(0, 0, 0, 0.15)0%, rgba(0, 0, 0, 0.60) 47.60%, rgba(0, 0, 0, 0.95) 100%), url(<path-to-image>), lightgray 0px 0px / 100% 100% no-repeat;
+        mix-blend-mode: multiply;
+      }
     }
 
     .product-info-row {

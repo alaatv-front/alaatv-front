@@ -349,8 +349,8 @@ export default class ProductAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.productComplimentary(id),
-      CacheList: this.CacheList.productComplimentary(id),
-      ...(cache && { cache }),
+      // CacheList: this.CacheList.productComplimentary(id),
+      // ...(cache && { cache }),
       resolveCallback: (response) => {
         return new ProductList(response.data.data)
       },
@@ -365,8 +365,8 @@ export default class ProductAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.productExams(id),
-      CacheList: this.CacheList.productExams(id),
-      ...(cache && { cache }),
+      // CacheList: this.CacheList.productExams(id),
+      // ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data.data // examList
       },
@@ -381,8 +381,8 @@ export default class ProductAPI extends APIRepository {
       apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.productFaq(id),
-      CacheList: this.CacheList.productFaq(id),
-      ...(cache && { cache }),
+      // CacheList: this.CacheList.productFaq(id),
+      // ...(cache && { cache }),
       resolveCallback: (response) => {
         return response.data.data // FAQ list
       },

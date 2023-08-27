@@ -3,7 +3,7 @@
             @hide="toggleDialog">
     <q-card class="payment-card"
             :class="{'cash': paymentMethod === 'cash'}">
-      <q-card-section>
+      <q-card-section class="header-section">
         <div class="payment-header">
           <div class="header-title">ثبت نام</div>
           <div class="header-subtitle">
@@ -13,51 +13,70 @@
       </q-card-section>
       <q-card-section>
         <div class="row"
-             :class="{'q-col-gutter-sm': paymentMethod !== 'cash'}">
+             :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
           <div class="col-12"
                :class="{'col-md-6': paymentMethod !== 'cash'}">
-            <div v-if="product.children.length > 0"
-                 class="product-selectable">
-              <div class="Products-label">
-                خدمات بیشتر
+            <div class="product-container">
+              <div v-if="dependentComplimentary.length > 0"
+                   class="product-complimentary">
+                <div class="products-label">
+                  خدمات بیشتر
+                </div>
+                <div class="complimentary-product">
+                  <div v-for="(complimentary, index) in dependentComplimentary"
+                       :key="index"
+                       class="complimentary-wrapper">
+                    <div class="complimentary-title ellipsis">
+                      <q-checkbox v-model="dependentSelected[index]"
+                                  :label="complimentary.title"
+                                  @update:model-value="toggleProductToCard(index, 'dependent')" />
+                    </div>
+                    <div class="complimentary-price">
+                      {{ getProductPrice(complimentary.price, 'final') }}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <product-selection v-model:selectedIds="selectedIds"
-                                 class="q-mb-lg"
-                                 :product="product"
-                                 @update:selectedIds="onChangeSelectedIds" />
-            </div>
-            <div v-if="productComplimentary.length > 0"
-                 class="product-complimentary">
-              <div class="Products-label">
-                دوره های مکمل
+              <div v-if="independentComplimentary.length > 0"
+                   class="product-complimentary complimentary">
+                <div class="products-label">
+                  دوره های مکمل
+                </div>
+                <div class="complimentary-product">
+                  <div v-for="(complimentary, index) in independentComplimentary"
+                       :key="index"
+                       class="complimentary-wrapper">
+                    <div class="complimentary-title ellipsis">
+                      <q-checkbox v-model="independentSelected[index]"
+                                  :label="complimentary.title"
+                                  @update:model-value="toggleProductToCard(index, 'independent')" />
+                    </div>
+                    <div class="complimentary-price">
+                      {{ getProductPrice(complimentary.price, 'final') }}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="complimentary-product">
-                <q-checkbox v-for="(complimentary, index) in productComplimentary"
-                            :key="index"
-                            v-model="complimentarySelected[index]"
-                            left-label
-                            :label="complimentary.title" />
-              </div>
-            </div>
-            <div v-if="examList.length > 0"
-                 class="product-exams">
-              <div class="Products-label">
-                آزمون شما
-              </div>
-              <div class="exam-list-wrapper">
-                <div v-for="(exam, index) in examList"
-                     :key="index"
-                     class="exam-item"
-                     :class="{'selected': exam.id === selectedExam }"
-                     @click="toggleSelectedExam(exam.id)">
-                  {{ exam.display_name }}
+              <div v-if="examList.length > 0"
+                   class="product-exams">
+                <div class="products-label">
+                  آزمون شما
+                </div>
+                <div class="exam-list-wrapper">
+                  <div v-for="(exam, index) in examList"
+                       :key="index"
+                       class="exam-item"
+                       :class="{'selected': exam.id === selectedExam }"
+                       @click="toggleSelectedExam(exam.id)">
+                    {{ exam.display_name || exam.name }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div v-if="paymentMethod !== 'cash'"
                class="col-12 col-md-6">
-            <div class="product-label">
+            <div class="products-label instalment">
               اقساط
             </div>
             <div class="installment">
@@ -107,12 +126,12 @@
                        :label="'%' + discountInPercent" />
             </div>
             <div class="base">
-              {{ basePrice }}
+              {{ getProductPrice(totalPrice, 'base') }}
             </div>
           </div>
           <div v-if="productPrice"
                class="price-final">
-            <div class="number">{{ finalPrice }}</div>
+            <div class="number">{{ getProductPrice(totalPrice, 'final') }}</div>
             <div class="label">تومان</div>
           </div>
         </div>
@@ -143,14 +162,11 @@ import Price from 'src/models/Price.js'
 import { Product, ProductList } from 'src/models/Product.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
-import ProductSelection from 'src/components/Widgets/Product/ProductPriceWithPopup/ProductSelection.vue'
 import moment from 'moment-jalaali'
+import { openURL } from 'quasar'
 
 export default defineComponent({
   name: 'PaymentDialog',
-  components: {
-    ProductSelection
-  },
   mixins: [mixinPrefetchServerData],
   props: {
     dialog: {
@@ -178,38 +194,64 @@ export default defineComponent({
   data() {
     return {
       productPrice: new Price(),
-      selectedIds: [],
-      complimentarySelected: [],
+      dependentSelected: [],
+      independentSelected: [],
       selectedExam: null,
       installment: []
     }
   },
   computed: {
+    dependentComplimentary() {
+      return this.productComplimentary.filter(product => product.is_dependent === 1)
+    },
+    independentComplimentary() {
+      return this.productComplimentary.filter(product => product.is_dependent === 0)
+    },
     finalPrice() {
       let finalPrice = 0
-      for (let index = 0; index < this.complimentarySelected.length; index++) {
-        if (this.complimentarySelected[index]) {
-          finalPrice = finalPrice + this.productComplimentary[index].price.final
+      for (let index = 0; index < this.dependentSelected.length; index++) {
+        if (this.dependentSelected[index]) {
+          finalPrice = finalPrice + this.dependentComplimentary[index].price.final
         }
       }
-      finalPrice = finalPrice + this.getPrice('final')
+      for (let index = 0; index < this.independentSelected.length; index++) {
+        if (this.independentSelected[index]) {
+          finalPrice = finalPrice + this.independentComplimentary[index].price.final
+        }
+      }
+
+      if (this.paymentMethod === 'cash') {
+        finalPrice = finalPrice + this.getPrice('final')
+      } else {
+        finalPrice = finalPrice + this.getPrice('final_instalmentally')
+      }
 
       return finalPrice
     },
     selectedProducts() {
       const selected = []
-      for (let index = 0; index < this.complimentarySelected.length; index++) {
-        if (this.complimentarySelected[index]) {
-          selected.push(this.productComplimentary[index])
+      for (let index = 0; index < this.dependentSelected.length; index++) {
+        if (this.dependentSelected[index]) {
+          selected.push(this.dependentComplimentary[index])
+        }
+      }
+      for (let index = 0; index < this.independentSelected.length; index++) {
+        if (this.independentSelected[index]) {
+          selected.push(this.independentComplimentary[index])
         }
       }
       return selected
     },
     basePrice() {
       let basePrice = 0
-      for (let index = 0; index < this.complimentarySelected.length; index++) {
-        if (this.complimentarySelected[index]) {
-          basePrice = basePrice + this.productComplimentary[index].price.final
+      for (let index = 0; index < this.dependentSelected.length; index++) {
+        if (this.dependentSelected[index]) {
+          basePrice = basePrice + this.dependentComplimentary[index].price.final
+        }
+      }
+      for (let index = 0; index < this.independentSelected.length; index++) {
+        if (this.independentSelected[index]) {
+          basePrice = basePrice + this.independentComplimentary[index].price.final
         }
       }
 
@@ -217,12 +259,24 @@ export default defineComponent({
 
       return basePrice
     },
+    totalPrice() {
+      const total = {
+        base: this.basePrice,
+        final: this.finalPrice
+      }
+
+      return new Price(total)
+    },
     cart () {
       return this.$store.getters['Cart/cart']
     },
     discountInPercent () {
       if (this.productPrice.discountInPercent && typeof this.productPrice.discountInPercent === 'function') {
-        return this.productPrice.discountInPercent()
+        if (this.paymentMethod === 'cash') {
+          return this.productPrice.discountInPercent()
+        } else {
+          return this.productPrice.discountInPercent('instalment')
+        }
       }
 
       return 0
@@ -238,9 +292,17 @@ export default defineComponent({
     }
   },
   watch: {
-    productComplimentary(newProductList) {
-      for (let index = 0; index < newProductList.length; index++) {
-        this.complimentarySelected[index] = false
+    productComplimentary() {
+      for (let index = 0; index < this.independentComplimentary.length; index++) {
+        this.independentSelected[index] = false
+      }
+      for (let index = 0; index < this.dependentComplimentary.length; index++) {
+        this.dependentSelected[index] = false
+      }
+    },
+    examList(newExamList) {
+      if (newExamList.length > 0) {
+        this.selectedExam = newExamList[0].id
       }
     }
   },
@@ -248,20 +310,6 @@ export default defineComponent({
     moment.loadPersian()
   },
   methods: {
-    onChangeSelectedIds (newValue) {
-      this.productPrice.loading = true
-      this.$apiGateway.product.getPrice({
-        product_id: this.product.id,
-        products: newValue
-      })
-        .then((price) => {
-          this.productPrice = new Price(price)
-          this.productPrice.loading = false
-        })
-        .catch(() => {
-          this.productPrice.loading = false
-        })
-    },
     prefetchServerDataPromise () {
       this.$emit('updateProductLoading', true)
       return this.getProduct()
@@ -288,12 +336,15 @@ export default defineComponent({
       return this.$apiGateway.product.show(this.productId)
     },
     getPrice(type) {
-      // if (this.productPrice.toman) {
-      //   return this.productPrice.toman(type, null)
-      // } else {
-      //   return 0
-      // }
       return this.product.price[type]
+    },
+    getProductPrice(price, type) {
+      const productPrice = new Price(price)
+      if (productPrice.toman) {
+        return productPrice.toman(type, null)
+      } else {
+        return 0
+      }
     },
     getInstallmentOrder(index) {
       const persianOrdinals = ['اول', 'دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم']
@@ -307,57 +358,107 @@ export default defineComponent({
       return calendarMonth + ' ' + calendarYear
     },
     addToCart() {
-      if (this.product.hasChildren() && this.selectedIds.length === 0) {
-        this.$q.notify({
-          type: 'negative',
-          color: 'negative',
-          timeout: 5000,
-          position: 'top',
-          message: 'یکی از موارد قابل انتخاب محصول را انتخاب کنید.',
-          icon: 'report_problem'
-        })
-        return
-      }
-      this.$store.dispatch('Cart/addToCart', { product: this.product, products: this.selectedIds })
-        .then(() => {
-          if (this.selectedProducts.length > 0) {
-            const promises = []
-            this.selectedProducts.forEach(element => {
-              promises.push(this.$store.dispatch('Cart/addToCart', { product: this.product, products: this.selectedIds }))
-            })
-            Promise.all(promises)
+      if (this.paymentMethod === 'cash') {
+        this.addProductToCart({ product: this.product })
+          .then(() => {
+            this.saveProducts()
               .then(() => {
-                if (this.selectedExam) {
-                  this.$apiGateway.user.saveExam({
-                    exam_id: this.selectedExam
+                this.saveUserExam()
+                  .then(() => {
+                    this.$router.push({ name: 'Public.Checkout.Review' })
                   })
-                    .then(() => {
-                      this.$router.push({ name: 'Public.Checkout.Review' })
-                    })
-                    .catch(() => {})
-                } else {
-                  this.$router.push({ name: 'Public.Checkout.Review' })
-                }
+                  .catch(() => {
+                  })
               })
-              .catch(() => {})
-          } else if (this.selectedExam) {
-            this.$apiGateway.user.saveExam({
-              exam_id: this.selectedExam
-            })
-              .then(() => {
-                this.$router.push({ name: 'Public.Checkout.Review' })
+              .catch(() => {
               })
-              .catch(() => {})
-          } else {
-            this.$router.push({ name: 'Public.Checkout.Review' })
-          }
+          })
+          .catch(() => {
+          })
+      } else {
+        this.getGatewayUrl()
+      }
+    },
+    getGatewayUrl() {
+      this.$apiGateway.cart.getPaymentRedirectEncryptedLink()
+        .then(url => {
+          openURL(url)
         })
+        .catch(() => {})
+    },
+    addProductToCart (productData) {
+      return new Promise((resolve, reject) => {
+        this.$store.dispatch('Cart/addToCart', productData)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    removeProductFromCart (productData) {
+      return new Promise((resolve, reject) => {
+        this.$store.dispatch('Cart/removeItemFromCart', productData)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    saveUserExam () {
+      return new Promise((resolve, reject) => {
+        this.$apiGateway.user.saveExam({
+          exam_id: this.selectedExam
+        })
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    saveProducts () {
+      return new Promise((resolve, reject) => {
+        const promises = []
+        this.selectedProducts.forEach(element => {
+          promises.push(this.$store.dispatch('Cart/addToCart', { product: element }))
+        })
+        Promise.all(promises)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     },
     toggleSelectedExam(examId) {
       this.selectedExam = examId
     },
     toggleDialog() {
       this.$emit('toggleDialog')
+    },
+    toggleProductToCard(productIndex, dependency) {
+      if (this.paymentMethod === 'cash') {
+        return
+      }
+      if (dependency === 'dependent') {
+        if (this.dependentSelected[productIndex]) {
+          this.addProductToCart({ product: this.dependentComplimentary[productIndex], has_instalment_option: 1 })
+        } else {
+          this.removeProductFromCart({ product: this.dependentComplimentary[productIndex] })
+        }
+      } else {
+        if (this.dependentSelected[productIndex]) {
+          this.addProductToCart({ product: this.independentComplimentary[productIndex], has_instalment_option: 1 })
+        } else {
+          this.removeProductFromCart({ product: this.independentComplimentary[productIndex] })
+        }
+      }
     }
   }
 })
@@ -377,8 +478,12 @@ export default defineComponent({
     width: 480px;
   }
 
+  .header-section{
+    padding-bottom: 0;
+  }
+
   .payment-header {
-    padding: 20px 20px 0;
+    padding: 20px 15px 0;
     .header-title {
       color: #616161;
       font-size: 16px;
@@ -399,7 +504,39 @@ export default defineComponent({
     }
   }
 
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+
+    .product-complimentary {
+      width: 100%;
+
+      &.complimentary {
+        max-height: 180px;
+        overflow-y: auto;
+      }
+      .complimentary-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .complimentary-title {
+          width: 250px;
+        }
+        .complimentary-price {
+
+        }
+      }
+    }
+  }
+
   .product-exams {
+    overflow-x: auto;
+    width: 100%;
     .exam-list-wrapper {
       display: flex;
       overflow-x: auto;
@@ -408,7 +545,7 @@ export default defineComponent({
         display: flex;
         min-width: 89px;
         height: 44px;
-        padding: 9px 16px 10px 16px;
+        padding: 9px 15px 10px 15px;
         margin: 8px 7px;
         justify-content: center;
         align-items: center;
@@ -423,7 +560,11 @@ export default defineComponent({
     }
   }
   .products-label {
-    padding: 0 20px 9px;
+    padding: 16px 15px;
+
+    &.instalment {
+      padding: 16px 0;
+    }
 
   }
 
@@ -440,6 +581,8 @@ export default defineComponent({
       background: #FFF;
       margin: 8px 0;
       height: 36px;
+      padding: 0 20px;
+      min-height: 36px;
 
       .installment-order {
         color:#616161;
