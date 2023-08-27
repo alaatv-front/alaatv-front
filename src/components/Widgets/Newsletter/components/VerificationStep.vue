@@ -49,8 +49,6 @@
 <script>
 import Timer from './Timer.vue'
 import VOtpInput from 'vue3-otp-input'
-import Timer from './Timer.vue'
-
 export default {
   name: 'VerificationStep',
   components: {
