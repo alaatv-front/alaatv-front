@@ -55,7 +55,7 @@ export default {
     return {
       responsiveTab: 'lg',
       tabs: ['xl', 'lg', 'md', 'sm', 'xs'],
-      animateOptions: ['autoPlay', 'onClick', 'onHover'],
+      animateOptions: ['autoPlay', 'onClick', 'onHover', 'onInterSection', 'onInterSectionOnce'],
       defaultOptions: {
         loop: true,
         animate: 'autoPlay',

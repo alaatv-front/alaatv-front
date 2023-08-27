@@ -1,5 +1,6 @@
 <template>
   <div ref="bm"
+       v-intersection="onIntersection"
        :style="responsiveBodymovin.style"
        @click="onClickElement"
        @mouseleave="onMouseLeave"
@@ -17,6 +18,7 @@ export default {
     return {
       animation: null,
       windowWidth: 0,
+      isAllowedToPlay: true,
       defaultOptions: {
         loop: true,
         autoplay: true,
@@ -93,10 +95,13 @@ export default {
     },
     'localOptions.animate': function (value) {
       this.animation.autoplay = value === 'autoPlay'
+      this.animation.stop()
       this.animation.play()
     },
     'localOptions.loop': function (value) {
       this.animation.loop = value
+      this.animation.stop()
+      this.animation.play()
     }
   },
   mounted() {
@@ -108,6 +113,17 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onIntersection (entry) {
+      if (this.localOptions.animate === 'onInterSection' && entry.isIntersecting) {
+        this.animation.stop()
+        this.animation.play()
+      }
+      if (this.localOptions.animate === 'onInterSectionOnce' && entry.isIntersecting && this.isAllowedToPlay) {
+        this.animation.stop()
+        this.animation.play()
+        this.isAllowedToPlay = false
+      }
+    },
     onClickElement() {
       if (this.localOptions.animate === 'onClick') {
         this.animation.stop()
@@ -144,8 +160,8 @@ export default {
         this.animation = lottie.loadAnimation({
           wrapper: this.$refs.bm,
           animType: 'svg',
-          loop: true,
-          autoplay: true,
+          loop: this.localOptions.loop,
+          autoplay: this.localOptions.animate === 'autoPlay',
           path: this.responsiveBodymovin.directory
         })
       }
