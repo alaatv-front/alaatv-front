@@ -200,7 +200,9 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-warning.png" />
+          <div class="row lazy-image-wrapper">
+            <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-warning.png" />
+          </div>
         </q-card-section>
         <q-card-section>
           آیا از تغییر برنامه مطالعاتی مطمئنی؟
@@ -272,7 +274,9 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
+          <div class="row lazy-image-wrapper">
+            <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
+          </div>
         </q-card-section>
         <q-card-section>
           برنامه شما با موفقیت تنظیم شد؛ همچنین بعدا میتونید از قسمت برنامه مطالعاتی، اونو تنظیم کنید و یا تغییر بدین.
@@ -301,6 +305,7 @@ import FullCalendar from './components/FullCalendar.vue'
 import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
+import LazyImg from 'components/lazyImg.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
@@ -308,6 +313,7 @@ const TextComponentComp = shallowRef(TextComponent)
 export default {
   name: 'TripleTitleSetStudyPlan',
   components: {
+    LazyImg,
     FullCalendar,
     EntityCreate,
     EntityEdit
@@ -779,6 +785,13 @@ export default {
 }
 .accept-plan-card {
   width: 500px;
+  .lazy-image-wrapper {
+    place-content: center;
+    .lazy-image {
+      width: 140px;
+      height: 140px;
+    }
+  }
 }
 .day-view-current-time-indicator {
   position: absolute;
