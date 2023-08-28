@@ -8,7 +8,7 @@
     }
     &.q-btn--outline:focus {
       border: 1px solid $grey-6;
-      box-shadow: 0 0 0 4px $grey2;
+      box-shadow: 0 0 0 4px $grey-2;
     }
 
     &.q-hoverable:hover > .q-focus-helper {
@@ -28,9 +28,9 @@
       &.q-btn--outline {
         border: 1px solid #E8E8E8;
       }
-      background: $grey2 !important;
+      background: $grey-2 !important;
       .q-btn__content{
-        color: $grey4;
+        color: $grey-4;
       }
     }
     &:before {
@@ -109,13 +109,39 @@
     padding: 0 5px 0 7px;
     font-size: 14px;
   }
-  .btn-md {
-    padding: 0 30px;
-    font-size: 14px;
+
+  &.q-btn--flat{
+    padding: 0;
   }
-  .btn-lg {
-    padding: 2px 73px 2px 73px;
+  //
+  //&.q-btn--outline::before {
+  //  border: 2px solid currentColor;
+  //  box-sizing: border-box;
+  //  filter: drop-shadow(-2px -4px 10px rgba(255, 255, 255, 0.6)) drop-shadow(2px 4px 10px rgba(112, 108, 162, 0.05));
+  //}
+}
+.q-btn:not(.q-btn--square, .q-btn--round , .q-btn--flat) {
+  &.q-btn-xs {
+    font-size: 14px;
+    padding: 3px 12px 4px;
+    gap: 4px;
+    line-height: 21px;
+    font-weight: 600;
+    width: 54px;
+    height: 21px;
+  }
+  &.q-btn-sm {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  // md size
+  font-size: 16px;
+  // padding: 8px 16px;
+
+  &.q-btn-lg {
     font-size: 16px;
+    padding: 12px 16px;
   }
 }
 
