@@ -39,7 +39,7 @@
                             virtual-scroll-horizontal
                             @virtual-scroll="onVirtualScroll">
             <div :key="index"
-                 class="row plan-item-wrapper">
+                 class="plan-item-wrapper">
               <plan-item :plan="item" />
             </div>
           </q-virtual-scroll>
@@ -138,11 +138,7 @@ export default defineComponent({
 .daily-plan-wrapper {
   height: 280px;
   width: 100%;
-  margin: 40px 0px 20px;
-
-  @media only screen and (max-width: 600px) {
-    margin: 30px 0px 0px;
-  }
+  margin: 30px 0px 10px;
 
   .daily-plan-header {
     display: flex;
@@ -163,10 +159,6 @@ export default defineComponent({
       color: #757575;
       background: #FFF;
       margin: 0 6px;
-      width: 32px;
-      height: 32px;
-      min-width: 32px;
-      min-height: 32px;
       border-radius: 50%;
     }
   }

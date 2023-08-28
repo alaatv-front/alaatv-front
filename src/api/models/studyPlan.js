@@ -24,7 +24,6 @@ export default class StudyPlanAPI extends APIRepository {
       studyPlan: this.name + this.APIAdresses.studyPlan,
       setting: this.name + this.APIAdresses.setting,
       studyEventReport: (id) => this.name + this.APIAdresses.studyEventReport(id),
-      StudyPlan: this.name + this.APIAdresses.StudyPlan,
       planOptions: this.name + this.APIAdresses.planOptions,
       myStudyPlan: this.name + this.APIAdresses.myStudyPlan
     }
