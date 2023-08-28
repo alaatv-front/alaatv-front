@@ -778,6 +778,11 @@ const routes = [
             component: () => import('src/pages/Document/IconSax.vue')
           },
           {
+            path: 'phosphor-icons',
+            name: 'Document.PhosphorIcons',
+            component: () => import('src/pages/Document/PhosphorIcons.vue')
+          },
+          {
             path: '/form-generator',
             name: 'formGenerator',
             component: () => import('pages/Document/formGenerator.vue')
