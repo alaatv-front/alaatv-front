@@ -1,6 +1,10 @@
 <template>
   <div ref="bm"
-       :style="responsiveBodymovin.style" />
+       v-intersection="onIntersection"
+       :style="responsiveBodymovin.style"
+       @click="onClickElement"
+       @mouseleave="onMouseLeave"
+       @mouseenter="onHoverElement" />
 </template>
 
 <script>
@@ -14,8 +18,10 @@ export default {
     return {
       animation: null,
       windowWidth: 0,
+      isAllowedToPlay: true,
       defaultOptions: {
         loop: true,
+        animate: 'autoPlay',
         autoplay: true,
         xs: {
           directory: '',
@@ -87,6 +93,18 @@ export default {
     },
     'localOptions.xs.directory': function () {
       this.reInitBodyMovin()
+    },
+    'localOptions.animate': function (value) {
+      this.animation.autoplay = value === 'autoPlay'
+      this.animation.stop()
+      if (value === 'autoPlay') {
+        this.animation.play()
+      }
+    },
+    'localOptions.loop': function (value) {
+      this.animation.loop = value
+      this.animation.stop()
+      this.animation.play()
     }
   },
   mounted() {
@@ -98,6 +116,35 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    onIntersection (entry) {
+      if (this.localOptions.animate === 'onInterSection' && entry.isIntersecting) {
+        this.animation.stop()
+        this.animation.play()
+      }
+      if (this.localOptions.animate === 'onInterSectionOnce' && entry.isIntersecting && this.isAllowedToPlay) {
+        this.animation.stop()
+        this.animation.play()
+        this.isAllowedToPlay = false
+      }
+    },
+    onClickElement() {
+      if (this.localOptions.animate === 'onClick') {
+        this.animation.stop()
+        this.animation.play()
+      }
+    },
+    onHoverElement() {
+      if (this.localOptions.animate === 'onHover') {
+        this.animation.loop = true
+        this.animation.stop()
+        this.animation.play()
+      }
+    },
+    onMouseLeave () {
+      if (this.localOptions.animate === 'onHover' && !this.localOptions.loop) {
+        this.animation.loop = false
+      }
+    },
     reInitBodyMovin() {
       if (this.animation) {
         this.animation.destroy()
@@ -117,7 +164,7 @@ export default {
           wrapper: this.$refs.bm,
           animType: 'svg',
           loop: this.localOptions.loop,
-          autoplay: this.localOptions.autoplay,
+          autoplay: this.localOptions.animate === 'autoPlay',
           path: this.responsiveBodymovin.directory
         })
       }
