@@ -12,6 +12,7 @@
                    text-color="accent"
                    dense
                    unelevated
+                   square
                    @click="toggleLeftDrawer" />
           </div>
           <div class="logo-pic">
@@ -62,8 +63,8 @@
             <!--            />-->
             <q-btn icon="isax:shopping-cart gt-xs"
                    unelevated
-                   rounded
                    size="12px"
+                   round
                    class="action-btn"
                    :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
@@ -231,7 +232,7 @@ export default {
         grid-template-columns: 1fr;
       }
       @media screen and (max-width: 599px) {
-        grid-template-columns: 1fr;
+        //grid-template-columns: 1fr;
       }
       .logo-section {
         align-items: center;

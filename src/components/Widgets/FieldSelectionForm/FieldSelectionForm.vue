@@ -50,7 +50,9 @@
                                               @onComplete="onGoRegisterKonkurFieldSelectionGoToPayment" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionGoToPayment">
-        <register-konkur-field-selection-go-to-payment :order-id="orderId" />
+        <register-konkur-field-selection-go-to-payment :order-id="orderId"
+                                                       :selected-product-id="selectedProduct"
+                                                       :free-product-id="localOptions.product1Id" />
       </q-tab-panel>
       <q-tab-panel name="RegisterKonkurFieldSelectionTankYouPage">
         <register-konkur-field-selection-tank-you-page :order-id="orderId"

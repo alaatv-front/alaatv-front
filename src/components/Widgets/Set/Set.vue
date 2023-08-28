@@ -38,7 +38,6 @@
         </div>
       </div>
       <div class="archives-list">
-
         <template v-if="set.loading">
           <q-skeleton height="100px"
                       class="q-mb-sm" />
@@ -75,7 +74,7 @@
               </div>
             </template>
             <div class="contents-list">
-              <content-item v-for="content in section.contents"
+              <content-item v-for="content in section.contents.list"
                             :key="content.id"
                             :content="content" />
             </div>
@@ -97,21 +96,21 @@ import moment from 'moment-jalaali'
 import { Set } from 'src/models/Set.js'
 import ContentItem from './ContentItem.vue'
 import Bookmark from 'src/components/Bookmark.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
+import { ContentList } from 'src/models/Content.js'
 import { SetSection } from 'src/models/SetSection.js'
-import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 moment.loadPersian()
 
 export default {
   name: 'SetShowInfo',
   components: { ContentItem, Bookmark },
-  mixins: [PageBuilderOptionPanel],
+  mixins: [mixinWidget, mixinPrefetchServerData],
   props: {
     data: {
       type: [Set, Number, String],
-      default() {
-        return new Set()
-      }
+      default: null
     }
   },
   data() {
@@ -139,29 +138,32 @@ export default {
   },
   computed: {
     definedSections () {
-      return this.sections.filter(section => section.section.id !== null)
+      return this.sections.filter(section => section.section.id !== 'all')
     },
     contentsWithNullSection () {
-      const target = this.sections.find(section => section.section.id === null)
+      const target = this.sections.find(section => section.section.id === 'all')
       if (!target) {
         return []
       }
 
-      return target.contents
+      return (new ContentList(target.contents)).list
     }
-  },
-  watch: {
-    data() {
-      this.loadSet()
-    },
-    'data.id': function () {
-      this.loadSet()
-    }
-  },
-  created() {
-    this.loadSet()
   },
   methods: {
+    prefetchServerDataPromise () {
+      this.set.loading = true
+      return this.loadSet()
+    },
+    prefetchServerDataPromiseThen (data) {
+      this.set = new Set(data.set)
+      this.set.contents = data.contents
+      this.sections = data.sections
+      this.set.loading = false
+    },
+    prefetchServerDataPromiseCatch () {
+      this.set.loading = false
+    },
+
     handleSetBookmark () {
       this.bookmarkLoading = true
       if (this.set.is_favored) {
@@ -185,29 +187,52 @@ export default {
         })
     },
     getCountOfVideosInContents (contents) {
-      return contents.filter(content => content.isVideo()).length
+      if (!contents || !contents.list) {
+        return 0
+      }
+      return contents.list.filter(content => content.isVideo()).length
     },
     getCountOfPamphletsInContents (contents) {
-      return contents.filter(content => content.isPamphlet()).length
+      if (!contents || !contents.list) {
+        return 0
+      }
+      return contents.list.filter(content => content.isPamphlet()).length
     },
     loadSet() {
-      if (typeof this.data === 'object') {
-        this.set = this.data
-      } else if (
-        typeof this.data === 'number' ||
-        typeof this.data === 'string'
-      ) {
-        this.set.id = this.data
-        this.getSet()
-      }
-      this.set.id = this.$route.params.id
-      this.getSet()
+      return new Promise((resolve, reject) => {
+        if (this.data && typeof this.data === 'object') {
+          resolve({
+            set: this.data,
+            contents: [],
+            sections: []
+          })
+        } else if (
+          typeof this.data === 'number' ||
+          typeof this.data === 'string'
+        ) {
+          this.getSet(this.data)
+            .then((data) => {
+              resolve(data)
+            })
+            .catch(() => {
+              reject()
+            })
+        } else {
+          this.getSet(this.$route.params.id)
+            .then((data) => {
+              resolve(data)
+            })
+            .catch(() => {
+              reject()
+            })
+        }
+      })
     },
-    getSplitedContentsToSections (contentList) {
-      const sections = this.getSectionsFromContents(contentList)
+    getSplitedContentsToSections (contents) {
+      const sections = contents.getSections()
       const splitedContents = []
       sections.forEach((section) => {
-        const contentsOfSection = contentList.list.filter(content => content.section.id === section.id)
+        const contentsOfSection = contents.list.filter(content => content.section.id === section.id)
         splitedContents.push({
           section: new SetSection(section),
           contents: contentsOfSection
@@ -216,24 +241,27 @@ export default {
 
       return splitedContents
     },
-    getSectionsFromContents (contentList) {
-      return contentList.list.map((content) => content.section)
-        .filter((section, sectionIndex, sections) => sections.findIndex(sectionItem => sectionItem.id === section.id) === sectionIndex)
-    },
-    getSet() {
-      this.set.loading = true
-      this.$apiGateway.set.show(this.set.id)
-        .then((set) => {
-          this.$apiGateway.set.getContents(set.id).then((contents) => {
-            this.set = set
-            this.set.contents = contents
-            this.sections = this.getSplitedContentsToSections(this.set.contents)
-            this.set.loading = false
+    getSet(setId) {
+      return new Promise((resolve, reject) => {
+        APIGateway.set.show(setId)
+          .then((set) => {
+            APIGateway.set.getContents(setId)
+              .then((contents) => {
+                set.contents = (new ContentList(contents))
+                resolve({
+                  set,
+                  contents: (new ContentList(contents)),
+                  sections: this.getSplitedContentsToSections(set.contents)
+                })
+              })
+              .catch(() => {
+                reject()
+              })
           })
-        })
-        .catch(() => {
-          this.set.loading = false
-        })
+          .catch(() => {
+            reject()
+          })
+      })
     }
   }
 }

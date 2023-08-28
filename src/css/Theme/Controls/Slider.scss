@@ -9,7 +9,18 @@
       width: 20px;
       height: 19px;
       border-radius: 50px;
-      background: #ffffff;
+      background: $grey-1;
     }
   }
+
+  &:deep(.q-slider__thumb-shape ){
+    color: #fff;
+    border-radius: 50%;
+    border: 3px solid $primary;
+  }
+
+  &:deep(.q-slider__focus-ring) {
+    background: $primary;
+  }
+
 }
