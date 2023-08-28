@@ -1,4 +1,4 @@
-import { Authenticated } from './middleware/middleware.js' // IncompleteProfile
+import { Authenticated, IncompleteProfile } from './middleware/middleware.js'
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
@@ -78,6 +78,10 @@ const routes = [
           {
             path: 'product',
             name: 'Public.Product',
+            layoutConfig: {
+              layoutFooter: false
+
+            },
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -307,7 +311,7 @@ const routes = [
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
             meta: {
-              // middlewares: [IncompleteProfile],
+              middlewares: [IncompleteProfile],
               hasDynamicSetting: true
             },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')
@@ -772,6 +776,11 @@ const routes = [
             path: 'icon-sax',
             name: 'Document.IconSax',
             component: () => import('src/pages/Document/IconSax.vue')
+          },
+          {
+            path: 'phosphor-icons',
+            name: 'Document.PhosphorIcons',
+            component: () => import('src/pages/Document/PhosphorIcons.vue')
           },
           {
             path: '/form-generator',
