@@ -78,6 +78,10 @@ const routes = [
           {
             path: 'product',
             name: 'Public.Product',
+            layoutConfig: {
+              layoutFooter: false
+
+            },
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
