@@ -1,9 +1,24 @@
 <template>
   <q-card v-if="localOptions.product"
           class="product-intro-wrapper custom-card">
-    <q-card-section class="product-intro-video">
+    <q-card-section v-if="localOptions.product.intro?.photo"
+                    class="product-intro-video">
       <video-player :poster="localOptions.product.intro?.photo"
                     :source="videoSource()" />
+    </q-card-section>
+    <q-card-section v-else-if="localOptions.product.photo_wide">
+      <div class="photo_wide-wrapper">
+        <lazy-img :src="localOptions.product.photo_wide"
+                  width="300"
+                  height="180" />
+      </div>
+    </q-card-section>
+    <q-card-section v-else-if="localOptions.product.photo">
+      <div class="photo-wrapper">
+        <lazy-img :src="localOptions.product.photo"
+                  width="300"
+                  height="300" />
+      </div>
     </q-card-section>
     <q-card-section>
       <div class="price-section">
@@ -40,13 +55,15 @@ import { PlayerSourceList } from 'src/models/PlayerSource.js'
 import VideoPlayer from 'src/components/VideoPlayer.vue'
 import ProductAttributes from 'src/components/Widgets/Product/ProductIntroBox/ProductAttributes.vue'
 import ProductPriceWithPopup from 'src/components/Widgets/Product/ProductPriceWithPopup/ProductPriceWithPopup.vue'
+import lazyImg from 'components/lazyImg.vue'
 
 export default defineComponent({
   name: 'ProductIntroBox',
   components: {
     VideoPlayer,
     ProductAttributes,
-    ProductPriceWithPopup
+    ProductPriceWithPopup,
+    lazyImg
   },
   mixins: [mixinWidget],
   emits: ['updateProduct', 'updateProductLoading'],
