@@ -3,7 +3,7 @@
     <div class="col-10">
       <q-card>
         <q-card-section class="text-center">
-          <h2>IconSax-Font</h2>
+          <h2>PhosphorIcons-Font</h2>
         </q-card-section>
         <q-card-section>
           {{ filterIconName }}
@@ -16,10 +16,10 @@
                  :key="svgIcon"
                  class="col-md-2 text-center">
               <q-btn :label="svgIcon"
-                     :icon="'isax:' + svgIcon"
+                     :icon="'ph:' + svgIcon"
                      flat
                      class="full-width"
-                     @click="copyIconName('isax:' + svgIcon)" />
+                     @click="copyIconName('ph:' + svgIcon)" />
             </div>
           </div>
         </q-card-section>
@@ -30,9 +30,10 @@
 
 <script>
 import { copyToClipboard } from 'quasar'
-import IconList from 'src/iconListDoocument/font-icons.js'
+import IconList from 'src/iconListDoocument/font-icons-PhosphorIcons.js'
+
 export default {
-  name: 'IconSax',
+  name: 'PhosphorIcons',
   data () {
     return {
       filterIconName: null
