@@ -18,7 +18,6 @@
 
 <script>
 import { Block } from 'src/models/Block.js'
-import { APIGateway } from 'src/api/APIGateway.js'
 import { ProductList } from 'src/models/Product.js'
 import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import BlockComponent from 'src/components/Widgets/Block/Block.vue'
@@ -81,7 +80,20 @@ export default {
       this.products.loading = false
     },
     getPriductCifts() {
-      return APIGateway.product.gifts(this.productId)
+      if (this.options.products) {
+        this.products = new ProductList(this.options.products)
+        return new Promise((resolve) => {
+          resolve(this.products)
+        })
+      } else if (this.options.productId || this.options.paramKey || this.$route.params.id) {
+        this.loading = true
+        return this.$apiGateway.product.gifts(this.productId)
+      } else {
+        this.products = new ProductList(this.options)
+        return new Promise((resolve) => {
+          resolve(this.products)
+        })
+      }
     }
   }
 }

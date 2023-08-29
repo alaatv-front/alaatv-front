@@ -110,7 +110,7 @@ export default defineComponent({
   height: 210px;
   border-radius: 12px;
   background: #FFF;
-  padding: 16px 20px 20px 28px;
+  padding: 16px 28px 20px 20px;
 
   @media only screen and (max-width: 600px) {
     width: 230px;

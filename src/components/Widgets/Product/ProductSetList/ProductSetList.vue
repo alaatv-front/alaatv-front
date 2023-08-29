@@ -1,0 +1,290 @@
+<template>
+  <div class="product-page">
+    <q-list v-if="!setListLoading"
+            class="rounded-borders">
+      <q-expansion-item v-for="(set, index) in setList"
+                        :key="index"
+                        v-model="set.expand"
+                        header-class="expanded-item-header"
+                        expand-icon-class="expanded-item-icon"
+                        @show="getSet(set.id)">
+        <template v-slot:header>
+          <q-item-section class="title-column ellipsis">
+            {{ set.short_title.split('-')[2] }}
+          </q-item-section>
+
+          <!-- <q-item-section side
+                          class="steps-count-column">
+            {{set.contents_count}} گام
+          </q-item-section> -->
+          <q-item-section side
+                          class="duration-column">
+            {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
+          </q-item-section>
+        </template>
+        <q-separator inset />
+        <q-card class="set-card">
+          <q-card-section v-if="!setLoading || set.contents.list.length > 0">
+            <q-list class="set-list"
+                    separator>
+              <q-item v-for="(content, index) in set.contents.list"
+                      :key="index"
+                      :to="content.isPamphlet() ? '' : { name: 'Public.Content.Show', params: {id: content.id} }"
+                      clickable
+                      @click="setSelectedData($event,content,set)">
+                <q-item-section class="cursor-pointer ellipsis"
+                                @click="download(content)">
+                  {{ content.title }}
+                </q-item-section>
+                <q-item-section v-if="!content.isPamphlet()"
+                                avatar>
+                  <q-icon :name="content.can_see ? 'play_circle_outline' : 'lock_outline'" />
+                </q-item-section>
+                <q-item-section v-if="content.isPamphlet()"
+                                class="side-section"
+                                side>
+                  <q-btn color="primary"
+                         label="دانلود"
+                         @click="download(content)" />
+                </q-item-section>
+                <q-item-section v-else
+                                class="side-section"
+                                side>
+                  {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-card-section>
+          <q-card-section v-else>
+            <q-list>
+              <q-item v-for="item in 4"
+                      :key="item">
+                <q-skeleton width="100%"
+                            bordered />
+              </q-item>
+            </q-list>
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
+    </q-list>
+    <q-list v-else>
+      <q-item v-for="item in 10"
+              :key="item">
+        <q-skeleton width="100%"
+                    bordered />
+      </q-item>
+    </q-list>
+    <q-dialog v-model="productItemDialog">
+      <q-card class="custom-card">
+        <q-card-section class="flex justify-between items-center">
+          <div class="h1">
+            شما محصول را خریداری نکرده اید
+          </div>
+          <q-btn color="primary"
+                 icon="close"
+                 flat
+                 @click="toggleProductItemDialog" />
+        </q-card-section>
+        <q-card-section class="row items-center">
+          <product-item class="product-item"
+                        :options="{
+                          product: localOptions.product
+                        }" />
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+  </div>
+</template>
+
+<script>
+import { openURL } from 'quasar'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
+import { ContentList } from 'src/models/Content.js'
+import { Product } from 'src/models/Product.js'
+import { mixinWidget } from 'src/mixin/Mixins.js'
+
+export default {
+  name: 'ProductSetList',
+  components: {
+    ProductItem
+  },
+  mixins: [mixinWidget],
+  emits: ['updateSetList'],
+  data() {
+    return {
+      defaultOptions: {
+        product: new Product(),
+        setList: []
+      },
+      productItemDialog: false,
+      LocalSetList: [],
+      loading: false
+    }
+  },
+  computed: {
+    productId () {
+      if (typeof this.localOptions.productId !== 'undefined' && this.localOptions.productId !== null) {
+        return this.localOptions.productId
+      }
+      if (this.localOptions.urlParam && this.$route.params[this.localOptions.urlParam]) {
+        return this.$route.params[this.localOptions.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return this.product.id
+    },
+    setList() {
+      if (typeof this.localOptions.setList !== 'undefined' && this.localOptions.setList !== null) {
+        return Object.assign(this.LocalSetList, this.localOptions.setList)
+      }
+      return this.LocalSetList
+    }
+  },
+  mounted() {
+    if (typeof this.localOptions.setList === 'undefined' || this.localOptions.setList === null) {
+      this.getProductSets()
+    }
+  },
+  methods: {
+    humanizeDuration (durationInSeconds) {
+      const durationInMinutes = Math.floor(durationInSeconds / 60)
+      const hours = Math.floor(durationInMinutes / 60)
+      const minutes = durationInMinutes % 60
+      if (hours > 0) {
+        return hours + ' ساعت و ' + minutes + ' دقیقه'
+      }
+
+      return minutes + ' دقیقه'
+    },
+    download(content) {
+      if (content.can_see === 0) {
+        this.toggleProductItemDialog()
+      } else if (content.isPamphlet() && content.file !== null && content.file.pamphlet.length > 0) {
+        openURL(content.file.pamphlet[0].link)
+      }
+    },
+    toggleProductItemDialog() {
+      this.productItemDialog = !this.productItemDialog
+    },
+    setSelectedData(event, content, set) {
+      if (content.isPamphlet()) {
+        event.stopPropagation()
+      }
+    },
+    getProductSets() {
+      this.loading = true
+      this.$apiGateway.product.getSets(this.productId)
+        .then((setList) => {
+          const normalizedSets = setList.list.map(set => {
+            if (set.short_title !== null) {
+              const splitted = set.short_title.split('-')
+              const productName = splitted[0] ? splitted[0].trim() : 'متفرقه'
+              const topicName = splitted[1] ? splitted[1].trim() : 'متفرقه'
+              const setName = splitted[2] ? splitted[2].trim() : 'متفرقه'
+              set.short_title = productName + '-' + topicName + '-' + setName
+
+              return set
+            } else {
+              set.short_title = 'عنوان ندارد'
+              return set
+            }
+          })
+
+          this.LocalSetList = normalizedSets
+          this.$emit('updateSetList', normalizedSets)
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
+    },
+    getSet(setId) {
+      this.loading = true
+      this.$apiGateway.set.getContents(setId)
+        .then(contentList => {
+          this.LocalSetList.find(set => set.id === setId).contents = new ContentList(contentList)
+          this.$emit('updateSetList', this.LocalSetList)
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.product-item {
+  width: 318px;
+  height: 510px;
+}
+.product-page {
+  max-width: 100%;
+
+  &:deep(.q-expansion-item) {
+    border-radius: 8px;
+    background:#F5F7FA;
+    color:#424242;
+    margin: 8px 0;
+  }
+
+  &:deep(.q-item) {
+    height: 67PX;
+    border-radius: 8px;
+    background:#F5F7FA;
+    color:#424242;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.36px;
+
+    i {
+      color: #616161;
+    }
+  }
+
+  .expanded-item-header {
+    height: 100%;
+    border-radius: 8px;
+    background:#F5F7FA;
+    color:#424242;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.36px;
+  }
+  .expanded-item-icon {
+    color: #78909C
+  }
+
+  .set-card {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background:#F5F7FA;
+  }
+
+  .side-section {
+    width: 145px;
+
+    @media only screen and (max-width: 600px) {
+      max-width: 70px;
+    }
+  }
+
+  .set-title {
+    max-width: 70%;
+    .set-title-text {
+      max-width: 100%;
+    }
+  }
+  .content-title {
+    max-width: 80%;
+    .content-title-text {
+      max-width: 100%;
+    }
+  }
+}
+</style>

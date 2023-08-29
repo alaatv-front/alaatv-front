@@ -200,7 +200,9 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-warning.png" />
+          <div class="row lazy-image-wrapper">
+            <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-warning.png" />
+          </div>
         </q-card-section>
         <q-card-section>
           آیا از تغییر برنامه مطالعاتی مطمئنی؟
@@ -272,7 +274,9 @@
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-confirm.png" />
+          <div class="row lazy-image-wrapper">
+            <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
+          </div>
         </q-card-section>
         <q-card-section>
           برنامه شما با موفقیت تنظیم شد؛ همچنین بعدا میتونید از قسمت برنامه مطالعاتی، اونو تنظیم کنید و یا تغییر بدین.
@@ -301,6 +305,7 @@ import FullCalendar from './components/FullCalendar.vue'
 import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
+import LazyImg from 'components/lazyImg.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
@@ -308,6 +313,7 @@ const TextComponentComp = shallowRef(TextComponent)
 export default {
   name: 'TripleTitleSetStudyPlan',
   components: {
+    LazyImg,
     FullCalendar,
     EntityCreate,
     EntityEdit
@@ -616,6 +622,7 @@ export default {
       }
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
+          this.needToUpdatePlan = false
           FormBuilderAssist.setAttributeByName(this.inputs, 'event_id', 'value', studyPlan.id)
           if (this.studyEvent !== studyPlan.id) {
             this.studyEvent = studyPlan.id
@@ -625,9 +632,9 @@ export default {
             .then(() => {
               if (this.needToUpdatePlan) {
                 this.updateMyStudyPlan({
-                  major_id: FormBuilderAssist.getInputsByName('major_id').value,
-                  grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
-                  study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
+                  major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
+                  grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
+                  study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value
                 })
                 this.needToUpdatePlan = false
               } else {
@@ -644,19 +651,6 @@ export default {
           this.loading = false
         })
     },
-    // afterSendData() {
-    //   if (this.needToUpdatePlan) {
-    //     this.updateMyStudyPlan({
-    //       major_id: FormBuilderAssist.getInputsByName('major_id').value,
-    //       grade_id: FormBuilderAssist.getInputsByName('grade_id').value,
-    //       study_method_id: FormBuilderAssist.getInputsByName('study_method_id').value
-    //     })
-    //     this.needToUpdatePlan = false
-    //   } else {
-    //     this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName('date').value)
-    //   }
-    //   this.newPlanDialog = false
-    // },
     filterByLesson() {
       this.loading = true
       this.$apiGateway.studyPlan.storeSetting({ setting: { abrisham2_calender_default_lesson: this.lesson.id } })
@@ -756,7 +750,7 @@ export default {
     updateMyStudyPlan(data) {
       this.loading = true
       this.warning = false
-      this.$apiGateway.studyPlan.updateMyStudyPlan({
+      APIGateway.studyPlan.updateMyStudyPlan({
         study_method_id: data.study_method_id ? data.study_method_id : this.planType.id,
         major_id: data.major_id ? data.major_id : this.major.id,
         grade_id: data.grade_id ? data.grade_id : this.grade.id
@@ -791,6 +785,13 @@ export default {
 }
 .accept-plan-card {
   width: 500px;
+  .lazy-image-wrapper {
+    place-content: center;
+    .lazy-image {
+      width: 140px;
+      height: 140px;
+    }
+  }
 }
 .day-view-current-time-indicator {
   position: absolute;
