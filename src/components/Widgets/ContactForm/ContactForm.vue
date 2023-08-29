@@ -50,7 +50,29 @@ export default defineComponent({
         iconName: 'warning',
         iconColor: 'primary',
         iconSize: {},
-        eventId: null
+        fieldBackground: '#F4F5F6',
+        eventId: null,
+        borderStyle: {},
+        boxShadows: [],
+        cssHoverEffects: {
+          boxShadows: [],
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: ''
+          },
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
+        }
       },
       loading: false
     }
@@ -128,6 +150,7 @@ $scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
 $translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
 $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
+$fieldBackground: v-bind('localOptions.fieldBackground');
 
 .contact-form-container {
   width: 100%;
@@ -155,6 +178,14 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     display: flex;
     justify-content: flex-start;
     align-items: center;
+  }
+
+  &:deep(.q-field) {
+    .q-field__inner {
+      .q-field__control{
+        background: $fieldBackground;
+      }
+    }
   }
 }
 </style>

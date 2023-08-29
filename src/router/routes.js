@@ -1,4 +1,4 @@
-import { Authenticated } from './middleware/middleware.js'
+import { Authenticated, IncompleteProfile } from './middleware/middleware.js'
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
@@ -33,7 +33,7 @@ const routes = [
       layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
       layoutPageContainerCustomClass: 'main-layout-container'
     },
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('src/layouts/MainLayout.vue'),
     children: [
       {
         path: '/auth',
@@ -78,6 +78,10 @@ const routes = [
           {
             path: 'product',
             name: 'Public.Product',
+            layoutConfig: {
+              layoutFooter: false
+
+            },
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -172,6 +176,10 @@ const routes = [
             },
             children: [
               {
+                path: '36',
+                redirect: { name: 'Public.Landing.DynamicName', params: { landing_name: '110' } }
+              },
+              {
                 path: ':landing_name',
                 meta: {
                   hasDynamicSettingWithParams: true
@@ -224,7 +232,7 @@ const routes = [
               {
                 path: ':live_name',
                 meta: {
-                  middlewares: [Authenticated],
+                  // middlewares: [Authenticated],
                   hasDynamicSettingWithParams: true
                 },
                 name: 'Public.Live.DynamicName',
@@ -267,6 +275,15 @@ const routes = [
             component: () => import('pages/User/UserInfoForm.vue')
           },
           {
+            // ToDo: check this to remove
+            name: 'UserPanel.EntekhabReshte',
+            path: 'entekhab-reshte',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/EntekhabReshte.vue')
+          },
+          {
             name: 'UserPanel.Dashboard',
             path: 'dashboard',
             meta: {
@@ -294,6 +311,7 @@ const routes = [
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
             meta: {
+              middlewares: [IncompleteProfile],
               hasDynamicSetting: true
             },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')
@@ -471,7 +489,9 @@ const routes = [
                   layoutLeftDrawerWidth: 100,
                   layoutLeftDrawerVisible: true,
                   layoutLeftDrawerBehavior: 'default',
-                  layoutFooter: false
+                  layoutFooter: true,
+                  layoutFooterType: 'triple-title-set'
+
                 },
                 component: () => import('src/layouts/bareLayout.vue'),
                 children: [
@@ -479,6 +499,11 @@ const routes = [
                     name: 'UserPanel.Asset.TripleTitleSet.Products',
                     path: '',
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Products.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.Dashboard',
+                    path: 'dashboard',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/Dashboard.vue')
                   },
                   {
                     name: 'UserPanel.Asset.TripleTitleSet.ProductLayout',
@@ -523,6 +548,11 @@ const routes = [
                     path: ':setId/adviser/content/:contentId',
                     props: true,
                     component: () => import('src/pages/User/Dashboard/TripleTitleSet/Content.vue')
+                  },
+                  {
+                    name: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
+                    path: 'study-plan',
+                    component: () => import('src/pages/User/Dashboard/TripleTitleSet/StudyPlan.vue')
                   }
                 ]
               }
@@ -556,12 +586,28 @@ const routes = [
           layoutFooter: false
         },
         meta: { middlewares: [Authenticated] },
-        component: () => import('layouts/AdminLayout.vue'),
+        component: () => import('src/layouts/AdminLayout.vue'),
         children: [
           {
             name: 'Admin.Dashboard',
             path: 'dashboard',
             component: () => import('src/pages/Admin/Dashboard.vue')
+          },
+          {
+            path: 'users',
+            name: 'Admin.User',
+            component: () => import('src/layouts/bareLayout.vue'),
+            children: [
+              {
+                path: ':id/event/:event_id/entekhb-reshte',
+                // path: ':id',
+                name: 'Admin.User.EntekhabReshte.Show',
+                meta: {
+                  hasDynamicSetting: true
+                },
+                component: () => import('src/pages/Admin/User/EntekhabReshte.vue')
+              }
+            ]
           },
           {
             path: 'ticket',
@@ -667,6 +713,23 @@ const routes = [
               }
             ]
           },
+          {
+            name: 'Admin.Product',
+            path: 'product',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Product.Index',
+                path: '',
+                component: () => import('pages/Admin/Product/Index.vue')
+              },
+              {
+                name: 'Admin.Product.Sets',
+                path: ':productId/set',
+                component: () => import('pages/Admin/ProductSetList.vue')
+              }
+            ]
+          },
           ...EntityCrudRoutes
         ]
       },
@@ -695,6 +758,12 @@ const routes = [
                 name: 'Document.Theme.Controls',
                 component: () => import('src/pages/Document/Theme/Controls.vue'),
                 breadcrumbs: { title: 'Controls' }
+              },
+              {
+                path: 'component',
+                name: 'Document.Theme.Component',
+                component: () => import('src/pages/Document/Theme/Component.vue'),
+                breadcrumbs: { title: 'Controls' }
               }
             ]
           },
@@ -707,6 +776,11 @@ const routes = [
             path: 'icon-sax',
             name: 'Document.IconSax',
             component: () => import('src/pages/Document/IconSax.vue')
+          },
+          {
+            path: 'phosphor-icons',
+            name: 'Document.PhosphorIcons',
+            component: () => import('src/pages/Document/PhosphorIcons.vue')
           },
           {
             path: '/form-generator',

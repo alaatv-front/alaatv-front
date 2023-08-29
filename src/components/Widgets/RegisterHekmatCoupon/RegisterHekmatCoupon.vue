@@ -44,7 +44,8 @@
             </template>
 
             <template v-slot:after>
-              <q-btn color="primary">
+              <q-btn color="primary"
+                     @click="submitVoucher">
                 ثبت کد
               </q-btn>
             </template>
@@ -67,6 +68,7 @@
 <script>
 import { mixinWidget } from 'src/mixin/Mixins'
 import LazyImg from 'src/components/lazyImg.vue'
+import { ProductList } from 'src/models/Product'
 
 export default {
   name: 'Services',
@@ -74,7 +76,23 @@ export default {
   mixins: [mixinWidget],
   data () {
     return {
-      coupon: null
+      coupon: null,
+      products: new ProductList()
+    }
+  },
+  methods: {
+    submitVoucher() {
+      this.$apiGateway.voucher.submit({ code: this.coupon })
+        .then(messageAndProductList => {
+          this.$q.notify({
+            message: messageAndProductList.message,
+            type: 'positive',
+            position: 'top'
+          })
+          this.products = messageAndProductList.products
+        })
+        .catch(() => {
+        })
     }
   }
 }

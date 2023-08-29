@@ -1,0 +1,712 @@
+<template>
+  <q-dialog :model-value="dialog"
+            @hide="toggleDialog">
+    <q-card class="payment-card"
+            :class="{'cash': paymentMethod === 'cash'}">
+      <q-card-section class="header-section">
+        <div class="payment-header">
+          <div class="header-title">ثبت نام</div>
+          <div class="header-subtitle">
+            شما میتونید خدمات و دوره های دیگر سال کنکور خودتون رو الان بخرید!
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-section>
+        <div class="row"
+             :class="{'q-col-gutter-lg': paymentMethod !== 'cash'}">
+          <div class="col-12"
+               :class="{'col-md-6': paymentMethod !== 'cash'}">
+            <div class="product-container">
+              <div v-if="dependentComplimentary.length > 0"
+                   class="product-complimentary">
+                <div class="products-label">
+                  خدمات بیشتر
+                </div>
+                <div class="complimentary-product">
+                  <div v-for="(complimentary, index) in dependentComplimentary"
+                       :key="index"
+                       class="complimentary-wrapper">
+                    <div class="complimentary-title ellipsis">
+                      <q-checkbox v-model="dependentSelected[index]"
+                                  :label="complimentary.title"
+                                  @update:model-value="toggleProductToCard(index, 'dependent')" />
+                    </div>
+                    <div class="complimentary-price">
+                      {{ getProductPrice(complimentary.price, 'final') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-if="independentComplimentary.length > 0"
+                   class="product-complimentary complimentary">
+                <div class="products-label">
+                  دوره های مکمل
+                </div>
+                <div class="complimentary-product">
+                  <div v-for="(complimentary, index) in independentComplimentary"
+                       :key="index"
+                       class="complimentary-wrapper">
+                    <div class="complimentary-title ellipsis">
+                      <q-checkbox v-model="independentSelected[index]"
+                                  :label="complimentary.title"
+                                  @update:model-value="toggleProductToCard(index, 'independent')" />
+                    </div>
+                    <div class="complimentary-price">
+                      {{ getProductPrice(complimentary.price, 'final') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-if="examList.length > 0"
+                   class="product-exams">
+                <div class="products-label">
+                  آزمون شما
+                </div>
+                <div class="exam-list-wrapper">
+                  <div v-for="(exam, index) in examList"
+                       :key="index"
+                       class="exam-item"
+                       :class="{'selected': exam.id === selectedExam }"
+                       @click="toggleSelectedExam(exam.id)">
+                    {{ exam.display_name || exam.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="paymentMethod !== 'cash'"
+               class="col-12 col-md-6">
+            <div class="products-label instalment">
+              اقساط
+            </div>
+            <div class="installment">
+              <q-list class="installment-list">
+                <q-item>
+                  <q-item-section class="installment-order"
+                                  side>
+                    قسط
+                  </q-item-section>
+                  <q-item-section class="installment-date">زمان پرداخت</q-item-section>
+                  <q-item-section class="installment-amount"
+                                  side>
+                    مبلغ
+                  </q-item-section>
+                </q-item>
+                <q-item v-for="(item, index) in installment"
+                        :key="index"
+                        class="installment-item">
+                  <q-item-section class="installment-order"
+                                  :class="{'active': index === 0}"
+                                  side>
+                    {{ getInstallmentOrder(index) }}
+                  </q-item-section>
+                  <q-item-section class="installment-date"
+                                  :class="{'active': index === 0}">{{ getPersianDate(item.date) }}</q-item-section>
+                  <q-item-section class="installment-amount"
+                                  :class="{'active': index === 0}"
+                                  side>{{ item.value }}</q-item-section>
+                </q-item>
+              </q-list>
+            </div>
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-section class="payment-footer">
+        <div class="price-info">
+          <div class="price-title">
+            <ph-tag :size="16"
+                    class="price-title-icon" />
+            قیمت کل :
+          </div>
+          <div v-if="productPrice.discount > 0"
+               class="price-calculation">
+            <div class="discount">
+              <q-badge color="negative"
+                       text-color="white"
+                       :label="'%' + discountInPercent" />
+            </div>
+            <div class="base">
+              {{ getProductPrice(totalPrice, 'base') }}
+            </div>
+          </div>
+          <div v-if="productPrice"
+               class="price-final">
+            <div class="number">{{ getProductPrice(totalPrice, 'final') }}</div>
+            <div class="label">تومان</div>
+          </div>
+        </div>
+        <div class="footer-action">
+          <q-btn v-if="paymentMethod === 'cash'"
+                 color="primary"
+                 text-color="grey-9"
+                 unelevated
+                 class="action-btn full-width"
+                 label="ثبت نام نقدی"
+                 @click="addToCart('cash')" />
+          <q-btn v-else
+                 color="primary"
+                 text-color="grey-9"
+                 unelevated
+                 class="action-btn full-width"
+                 label="ثبت نام اقساطی"
+                 @click="addToCart('installment')" />
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+</template>
+
+<script>
+import { defineComponent } from 'vue'
+import Price from 'src/models/Price.js'
+import { Product, ProductList } from 'src/models/Product.js'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import moment from 'moment-jalaali'
+import { openURL } from 'quasar'
+
+export default defineComponent({
+  name: 'PaymentDialog',
+  mixins: [mixinPrefetchServerData],
+  props: {
+    dialog: {
+      type: Boolean,
+      default: false
+    },
+    paymentMethod: {
+      type: String,
+      default: 'cash'
+    },
+    product: {
+      type: Product,
+      default: new Product()
+    },
+    productComplimentary: {
+      type: ProductList,
+      default: new ProductList()
+    },
+    examList: {
+      type: Array,
+      default: () => []
+    }
+  },
+  emits: ['updateProduct', 'updateProductLoading', 'toggleDialog'],
+  data() {
+    return {
+      productPrice: new Price(),
+      dependentSelected: [],
+      independentSelected: [],
+      selectedExam: null,
+      installment: []
+    }
+  },
+  computed: {
+    dependentComplimentary() {
+      return this.productComplimentary.filter(product => product.is_dependent === 1)
+    },
+    independentComplimentary() {
+      return this.productComplimentary.filter(product => product.is_dependent === 0)
+    },
+    finalPrice() {
+      let finalPrice = 0
+      for (let index = 0; index < this.dependentSelected.length; index++) {
+        if (this.dependentSelected[index]) {
+          finalPrice = finalPrice + this.dependentComplimentary[index].price.final
+        }
+      }
+      for (let index = 0; index < this.independentSelected.length; index++) {
+        if (this.independentSelected[index]) {
+          finalPrice = finalPrice + this.independentComplimentary[index].price.final
+        }
+      }
+
+      if (this.paymentMethod === 'cash') {
+        finalPrice = finalPrice + this.getPrice('final')
+      } else {
+        finalPrice = finalPrice + this.getPrice('final_instalmentally')
+      }
+
+      return finalPrice
+    },
+    selectedProducts() {
+      const selected = []
+      for (let index = 0; index < this.dependentSelected.length; index++) {
+        if (this.dependentSelected[index]) {
+          selected.push(this.dependentComplimentary[index])
+        }
+      }
+      for (let index = 0; index < this.independentSelected.length; index++) {
+        if (this.independentSelected[index]) {
+          selected.push(this.independentComplimentary[index])
+        }
+      }
+      return selected
+    },
+    basePrice() {
+      let basePrice = 0
+      for (let index = 0; index < this.dependentSelected.length; index++) {
+        if (this.dependentSelected[index]) {
+          basePrice = basePrice + this.dependentComplimentary[index].price.final
+        }
+      }
+      for (let index = 0; index < this.independentSelected.length; index++) {
+        if (this.independentSelected[index]) {
+          basePrice = basePrice + this.independentComplimentary[index].price.final
+        }
+      }
+
+      basePrice = basePrice + this.getPrice('base')
+
+      return basePrice
+    },
+    totalPrice() {
+      const total = {
+        base: this.basePrice,
+        final: this.finalPrice
+      }
+
+      return new Price(total)
+    },
+    cart () {
+      return this.$store.getters['Cart/cart']
+    },
+    discountInPercent () {
+      if (this.productPrice.discountInPercent && typeof this.productPrice.discountInPercent === 'function') {
+        if (this.paymentMethod === 'cash') {
+          return this.productPrice.discountInPercent()
+        } else {
+          return this.productPrice.discountInPercent('instalment')
+        }
+      }
+
+      return 0
+    },
+    productId () {
+      if (this.urlParam && this.$route.params[this.urlParam]) {
+        return this.$route.params[this.localOptions.urlParam]
+      }
+      if (this.$route.params.id) {
+        return this.$route.params.id
+      }
+      return this.product.id
+    }
+  },
+  watch: {
+    productComplimentary() {
+      for (let index = 0; index < this.independentComplimentary.length; index++) {
+        this.independentSelected[index] = false
+      }
+      for (let index = 0; index < this.dependentComplimentary.length; index++) {
+        this.dependentSelected[index] = false
+      }
+    },
+    examList(newExamList) {
+      if (newExamList.length > 0) {
+        this.selectedExam = newExamList[0].id
+      }
+    }
+  },
+  created() {
+    moment.loadPersian()
+  },
+  methods: {
+    prefetchServerDataPromise () {
+      this.$emit('updateProductLoading', true)
+      return this.getProduct()
+    },
+    prefetchServerDataPromiseThen (product) {
+      this.$emit('updateProduct', product)
+      this.productPrice = product.price
+      this.installment = product.instalments
+      if (window) {
+        this.updateEECEventDetail()
+      }
+      this.$emit('updateProductLoading', false)
+    },
+    prefetchServerDataPromiseCatch () {
+      this.$emit('updateProductLoading', false)
+    },
+    updateEECEventDetail() {
+      AEE.productDetailViews('product.show', this.product.eec.getData(), {
+        TTl: 1000,
+        key: this.product.id
+      })
+    },
+    getProduct() {
+      return this.$apiGateway.product.show(this.productId)
+    },
+    getPrice(type) {
+      return this.product.price[type]
+    },
+    getProductPrice(price, type) {
+      const productPrice = new Price(price)
+      if (productPrice.toman) {
+        return productPrice.toman(type, null)
+      } else {
+        return 0
+      }
+    },
+    getInstallmentOrder(index) {
+      const persianOrdinals = ['اول', 'دوم', 'سوم', 'چهارم', 'پنجم', 'ششم', 'هفتم', 'هشتم', 'نهم', 'دهم']
+      return persianOrdinals[index]
+    },
+    getPersianDate(date) {
+      const monthList = ['فرودین', 'اردیبهشت', 'خرداد', 'تیر', 'امرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
+      const calendarDate = moment(date)
+      const calendarMonth = monthList[moment(calendarDate.jMonth(), 'jM').format('jM')]
+      const calendarYear = calendarDate.jWeekYear()
+      return calendarMonth + ' ' + calendarYear
+    },
+    addToCart() {
+      if (this.paymentMethod === 'cash') {
+        this.addProductToCart({ product: this.product })
+          .then(() => {
+            this.saveProducts()
+              .then(() => {
+                this.saveUserExam()
+                  .then(() => {
+                    this.$router.push({ name: 'Public.Checkout.Review' })
+                  })
+                  .catch(() => {
+                  })
+              })
+              .catch(() => {
+              })
+          })
+          .catch(() => {
+          })
+      } else {
+        this.getGatewayUrl()
+      }
+    },
+    getGatewayUrl() {
+      this.$apiGateway.cart.getPaymentRedirectEncryptedLink()
+        .then(url => {
+          openURL(url)
+        })
+        .catch(() => {})
+    },
+    addProductToCart (productData) {
+      return new Promise((resolve, reject) => {
+        this.$store.dispatch('Cart/addToCart', productData)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    removeProductFromCart (productData) {
+      return new Promise((resolve, reject) => {
+        this.$store.dispatch('Cart/removeItemFromCart', productData)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    saveUserExam () {
+      return new Promise((resolve, reject) => {
+        this.$apiGateway.user.saveExam({
+          exam_id: this.selectedExam
+        })
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    saveProducts () {
+      return new Promise((resolve, reject) => {
+        const promises = []
+        this.selectedProducts.forEach(element => {
+          promises.push(this.$store.dispatch('Cart/addToCart', { product: element }))
+        })
+        Promise.all(promises)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    toggleSelectedExam(examId) {
+      this.selectedExam = examId
+    },
+    toggleDialog() {
+      this.$emit('toggleDialog')
+    },
+    toggleProductToCard(productIndex, dependency) {
+      if (this.paymentMethod === 'cash') {
+        return
+      }
+      if (dependency === 'dependent') {
+        if (this.dependentSelected[productIndex]) {
+          this.addProductToCart({ product: this.dependentComplimentary[productIndex], has_instalment_option: 1 })
+        } else {
+          this.removeProductFromCart({ product: this.dependentComplimentary[productIndex] })
+        }
+      } else {
+        if (this.dependentSelected[productIndex]) {
+          this.addProductToCart({ product: this.independentComplimentary[productIndex], has_instalment_option: 1 })
+        } else {
+          this.removeProductFromCart({ product: this.independentComplimentary[productIndex] })
+        }
+      }
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+.payment-card {
+  border-radius: 12px;
+  background:#FFF;
+  box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
+  width: 800px;
+  max-width: 100%;
+  height: 649px;
+  position: relative;
+
+  &.cash {
+    width: 480px;
+  }
+
+  .header-section{
+    padding-bottom: 0;
+  }
+
+  .payment-header {
+    padding: 20px 15px 0;
+    .header-title {
+      color: #616161;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.48px;
+      margin-bottom: 4px;
+    }
+
+    .header-subtitle {
+      color: #616161;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.42px;
+    }
+  }
+
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+
+    .product-complimentary {
+      width: 100%;
+
+      &.complimentary {
+        max-height: 180px;
+        overflow-y: auto;
+      }
+      .complimentary-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .complimentary-title {
+          width: 250px;
+        }
+        .complimentary-price {
+
+        }
+      }
+    }
+  }
+
+  .product-exams {
+    overflow-x: auto;
+    width: 100%;
+    .exam-list-wrapper {
+      display: flex;
+      overflow-x: auto;
+      width: 100%;
+      .exam-item {
+        display: flex;
+        min-width: 89px;
+        height: 44px;
+        padding: 9px 15px 10px 15px;
+        margin: 8px 7px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        border: 1.5px solid #E0E0E0;
+        background:#FFF;
+        cursor: pointer;
+        &.selected {
+          background:#E0E0E0;
+        }
+      }
+    }
+  }
+  .products-label {
+    padding: 16px 15px;
+
+    &.instalment {
+      padding: 16px 0;
+    }
+
+  }
+
+  .installment {
+    width: 330px;
+    height: 349px;
+    border-radius: 8px;
+    background: #ECEFF1;
+    overflow-y: auto;
+    padding: 20px;
+
+    .installment-item {
+      border-radius: 4px;
+      background: #FFF;
+      margin: 8px 0;
+      height: 36px;
+      padding: 0 20px;
+      min-height: 36px;
+
+      .installment-order {
+        color:#616161;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+
+        &.active {
+          color: #616161;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: normal;
+          letter-spacing: -0.42px;
+        }
+      }
+      .installment-date {
+        color:#616161;
+        text-align: center;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+
+        &.active {
+          color: #616161;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: normal;
+          letter-spacing: -0.42px;
+        }
+      }
+      .installment-amount {
+        color:#616161;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.36px;
+
+        &.active {
+          color: #616161;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 800;
+          line-height: normal;
+          letter-spacing: -0.42px;
+        }
+      }
+    }
+  }
+
+  .payment-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0 30px 20px;
+    .price-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 16px;
+
+      .price-title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color:#303030;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: -0.54px;
+
+        .price-title-icon {
+          margin-right: 8px;
+        }
+      }
+      .price-calculation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .discount {
+          margin-right: 8px;
+        }
+
+        .base {
+          color:#757575;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          letter-spacing: -0.8px;
+        }
+      }
+      .price-final {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .number {
+          color:#424242;
+          font-size: 24px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+          letter-spacing: -1.2px;
+        }
+
+        .label {
+          color:#424242;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+    }
+  }
+}
+</style>

@@ -1,0 +1,26 @@
+.new-theme {
+  .q-slider__thumb {
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 21%;
+      right: 22%;
+      width: 20px;
+      height: 19px;
+      border-radius: 50px;
+      background: $grey-1;
+    }
+  }
+
+  &:deep(.q-slider__thumb-shape ){
+    color: #fff;
+    border-radius: 50%;
+    border: 3px solid $primary;
+  }
+
+  &:deep(.q-slider__focus-ring) {
+    background: $primary;
+  }
+
+}

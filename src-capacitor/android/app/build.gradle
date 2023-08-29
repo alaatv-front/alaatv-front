@@ -1,4 +1,10 @@
+import groovy.json.JsonSlurper
+
 apply plugin: 'com.android.application'
+
+def configFile = file('../versionConfig.json')
+def config = new JsonSlurper().parseText(configFile.text)
+
 
 android {
   namespace "ir.sanatisharif.android.konkur96"
@@ -7,8 +13,10 @@ android {
     applicationId "ir.sanatisharif.android.konkur96"
     minSdkVersion rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode 102
-    versionName "7.0.1"
+
+    versionCode config.androidVersionCode
+    versionName config.androidVersion
+
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     aaptOptions {
       // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

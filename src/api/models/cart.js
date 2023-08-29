@@ -14,7 +14,14 @@ export default class CartAPI extends APIRepository {
       discountSubmit: '/order/submitCoupon',
       discountRemove: '/order/RemoveCoupon',
       reviewCart: '/checkout/review',
-      getPaymentRedirectEncryptedLink: (device, paymentMethod) => '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device + '&paymentMethod=' + paymentMethod,
+      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId) => {
+        let address = '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=' + device + '&paymentMethod=' + paymentMethod
+        if (orderId) {
+          address += '&orderId=' + orderId
+        }
+
+        return address
+      },
       // getPaymentRedirectEncryptedLink: '/getPaymentRedirectEncryptedLink?seller=' + this.seller + '&device=web',
       removeFromCart: (id) => '/orderproduct/' + id,
       removeFromCartByProductId: (id) => 'remove-order-product/' + id,
@@ -25,7 +32,7 @@ export default class CartAPI extends APIRepository {
       gateways: this.name + this.APIAdresses.gateways,
       discountSubmit: this.name + this.APIAdresses.discountSubmit,
       discountRemove: this.name + this.APIAdresses.discountRemove,
-      getPaymentRedirectEncryptedLink: (device, paymentMethod) => this.name + this.APIAdresses.getPaymentRedirectEncryptedLink(device, paymentMethod),
+      getPaymentRedirectEncryptedLink: (device, paymentMethod, orderId) => this.name + this.APIAdresses.getPaymentRedirectEncryptedLink(device, paymentMethod, orderId),
       reviewCart: this.name + this.APIAdresses.reviewCart,
       removeFromCart: id => this.name + this.APIAdresses.removeFromCart(id),
       removeFromCartByProductId: id => this.name + this.APIAdresses.removeFromCartByProductId(id),
@@ -38,7 +45,8 @@ export default class CartAPI extends APIRepository {
       product_id: data.product_id, // Number or String
       products: data.products, // Number or String (List ofProduct's ID)
       attribute: data.attribute, // Number or String
-      seller: this.seller
+      seller: this.seller,
+      ...(data.has_instalment_option && { has_instalment_option: data.has_instalment_option })
     }
     if (!payload.products || (Array.isArray(payload.products) && payload.products.length === 0)) {
       delete payload.products
@@ -168,12 +176,12 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data = { device: 'web', paymentMethod: null }, cache = { TTL: 1000 }) {
+  getPaymentRedirectEncryptedLink(data = { device: 'web', paymentMethod: null, inInstalment: 0 }, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,
-      request: this.APIAdresses.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod),
-      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod),
+      request: this.APIAdresses.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId),
+      cacheKey: this.CacheList.getPaymentRedirectEncryptedLink(data.device, data.paymentMethod, data.orderId),
       ...(cache !== undefined && { cache }),
       resolveCallback: (response) => {
         return response.data.data.url

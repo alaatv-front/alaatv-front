@@ -10,7 +10,7 @@
 
 <script>
 import { EntityCreate } from 'quasar-crud'
-import { APIGateway } from 'src/api/APIGateway'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'AdminSetCreate',

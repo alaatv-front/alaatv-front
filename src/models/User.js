@@ -17,6 +17,13 @@ class User extends Model {
       { key: 'city' },
       { key: 'province' },
       { key: 'ostan_id' },
+      {
+        key: 'shahr',
+        default: {
+          id: null,
+          title: null
+        }
+      },
       { key: 'shahr_id' },
       { key: 'address' },
       { key: 'postal_code' },
@@ -28,6 +35,7 @@ class User extends Model {
       { key: 'kartemeli' },
       { key: 'role' },
       { key: 'token' },
+      { key: 'national_code' },
       { key: 'has_purchased_anything' },
       { key: 'has_admin_permission' },
       { key: 'has_educational_permission' },
@@ -60,7 +68,11 @@ class User extends Model {
     ])
 
     if (!this.full_name) {
-      this.full_name = this.first_name + ' ' + this.last_name
+      this.full_name = (this.first_name ? this.first_name : '') + ' ' + (this.last_name ? this.last_name : '')
+    }
+
+    if (!this.shahr_id) {
+      this.shahr_id = this.shahr?.id || this.city?.id
     }
   }
 
@@ -73,9 +85,9 @@ class User extends Model {
       'first_name',
       'last_name',
       'major',
-      'city',
+      'shahr_id',
       // 'school',
-      'mobile_verified_at',
+      // 'mobile_verified_at',
       'grade'
     ]
   }

@@ -159,8 +159,8 @@ import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
 import LazyImg from 'src/components/lazyImg.vue'
 import Bookmark from 'src/components/Bookmark.vue'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
+import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
 export default defineComponent({
   name: 'productItem',
@@ -584,6 +584,8 @@ export default defineComponent({
     .btn-green {
       background: #4caf50;
       color: white;
+      min-width: 118px;
+      font-size: 14px;
       @media screen and (max-width: 600px){
         margin: 20px;
       }
@@ -682,7 +684,7 @@ export default defineComponent({
       }
 
       .product-content-box {
-        padding: 0 0 0 16px;
+        // padding: 0 0 0 16px;
         width: 100%;
 
         .main-title {
@@ -732,7 +734,7 @@ export default defineComponent({
             }
           }
           .btn-green{
-            margin-left: 20px;
+            margin-left: 10px;
           }
 
           .btn-style {

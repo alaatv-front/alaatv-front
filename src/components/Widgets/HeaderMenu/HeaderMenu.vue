@@ -1,8 +1,10 @@
 <template>
-  <div class="header-menu"
-       :class="options.className"
+  <div ref="headerMenu"
+       class="header-menu"
+       :class="localOptions.className"
        :style="options.style">
-    <div class="logo-pic"
+    <div v-if="localOptions.logoImage"
+         class="right-section"
          @click="routeTo('Public.Home')">
       <lazy-img :src="localOptions.logoImage"
                 :alt="'logo'"
@@ -12,9 +14,16 @@
       <div class="logo-text">
         {{ localOptions.logoSlogan }}
       </div>
-
     </div>
-    <div class="routes">
+    <div v-else
+         class="right-section">
+      <component :is="component.name"
+                 v-for="(component, index) in localOptions.rightSectionWidgets"
+                 :key="index"
+                 :options="component.options" />
+    </div>
+    <div v-if="localOptions.menuLink"
+         class="center-section">
       <q-list class="routes-list">
         <q-item v-for="item in localOptions.menuLink"
                 :key="item"
@@ -25,11 +34,26 @@
         </q-item>
       </q-list>
     </div>
-    <div class="user">
+    <div v-else
+         class="center-section">
+      <component :is="component.name"
+                 v-for="(component, index) in localOptions.centerSectionWidgets"
+                 :key="index"
+                 :options="component.options" />
+    </div>
+    <div v-if="localOptions.hasAction"
+         class="left-section">
       <q-btn v-if="localOptions.hasAction"
              flat
              :label="localOptions.actionObject.buttonLabel"
              @click="takeAction(localOptions.actionObject)" />
+    </div>
+    <div v-else
+         class="left-section">
+      <component :is="component.name"
+                 v-for="(component, index) in localOptions.leftSectionWidgets"
+                 :key="index"
+                 :options="component.options" />
     </div>
   </div>
 </template>
@@ -38,14 +62,31 @@
 import LazyImg from 'src/components/lazyImg.vue'
 import { openURL } from 'quasar'
 import { mixinWidget } from 'src/mixin/Mixins.js'
+import TextWidget from 'components/Widgets/TextWidget/TextWidget.vue'
+import ImageWidget from 'components/Widgets/ImageWidget/ImageWidget.vue'
+import ActionButton from 'components/Widgets/ActionButton/ActionButton.vue'
+import Timer from 'components/Widgets/Timer/Timer.vue'
 
 export default {
   name: 'HeaderMenu',
-  components: { LazyImg },
+  components: {
+    LazyImg,
+    TextWidget,
+    ImageWidget,
+    ActionButton,
+    Timer
+  },
   mixins: [mixinWidget],
   data() {
     return {
+      scrollEventIsAdded: false,
       defaultOptions: {
+        rightSectionWidgets: [],
+        centerSectionWidgets: [],
+        leftSectionWidgets: [],
+        sticky: false,
+        stickyClass: '',
+        salam: '',
         style: {},
         className: '',
         menuLink: [],
@@ -63,7 +104,32 @@ export default {
       }
     }
   },
+  watch: {
+    'localOptions.sticky': function (newVal) {
+      if (newVal) {
+        this.scrollEventIsAdded = true
+        window.addEventListener('scroll', () => {
+          if (!this.isInViewport() && !document.getElementsByClassName('sticky-menu')[0].classList.value.includes('fix-position')) {
+            document.getElementsByClassName('sticky-menu')[0].classList.add('fix-position')
+          } else if (this.isInViewport() && document.getElementsByClassName('sticky-menu')[0].classList.value.includes('fix-position')) {
+            document.getElementsByClassName('sticky-menu')[0].classList.remove('fix-position')
+          }
+        })
+      } else if (!this.scrollEventIsAdded) {
+        this.scrollEventIsAdded = false
+        window.removeEventListener('scroll')
+        document.getElementsByClassName('sticky-menu')[0].classList.remove('fix-position')
+      }
+    }
+  },
   methods: {
+    isInViewport() {
+      const el = document.getElementsByClassName(this.localOptions.stickyClass)[0]
+      const rect = el.getBoundingClientRect()
+      return (
+        rect.top <= rect.height && rect.bottom >= 0
+      )
+    },
     routeTo(name) {
       this.$router.push({ name })
     },
@@ -100,7 +166,7 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  .logo-pic {
+  .right-section {
     cursor: pointer;
     display: flex;
     height: 72px;
@@ -125,7 +191,7 @@ export default {
     }
   }
 
-  .routes {
+  .center-section {
     display: flex;
     align-items: center;
     @media only screen and (max-width: 1024px) {
@@ -148,7 +214,8 @@ export default {
     }
   }
 
-  .user {
+  .left-section {
+    display: flex;
     margin: 0 20px;
     font-weight: 400;
     font-size: 16px;
@@ -156,6 +223,13 @@ export default {
     &:deep(.q-btn .q-focus-helper) {
       display: none;
     }
+  }
+
+  &.fix-position {
+    width: 100%;
+    position: fixed;
+    top: 5px;
+    z-index: 1000;
   }
 }
 </style>

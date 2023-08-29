@@ -10,7 +10,7 @@
       </div>
       <div class="menu-items">
         <q-list class="menu-items-list">
-          <q-item v-for="(item, index) in menuItems"
+          <q-item v-for="(item, index) in menuItems.filter(item=>item.visible)"
                   :key="index"
                   :to="{name:item.routeName }"
                   class="menu-item">
@@ -29,9 +29,9 @@
                    flat
                    dense
                    size="md"
-                   color="black"
+                   color="white"
                    icon="isax:logout"
-                   @click="logOut" />
+                   @click="toggleLogoutDialog" />
           </q-item>
         </q-list>
       </div>
@@ -44,23 +44,83 @@
                  :selected-topic="selectedTopic"
                  :product-items="productItems"
                  @item-selected="itemSelected" />
+    <q-dialog v-model="logoutDialog">
+      <q-card class="logout-dialog-card">
+        <q-card-section class="logout-header">
+          <div class="header-title">
+            <q-icon name="warning_amber"
+                    color="negative" />
+            <div class="header-title-text">
+              هشدار
+            </div>
+          </div>
+          <div class="close">
+            <q-btn color="grey"
+                   icon="close"
+                   flat
+                   @click="toggleLogoutDialog" />
+          </div>
+        </q-card-section>
+        <q-separator />
+        <q-card-section>
+          <div class="logout-message">
+            آیا میخواهید از حساب کاربری خود خارج شوید؟
+          </div>
+        </q-card-section>
+        <q-card-actions align="right"
+                        class="logout-dialog-action">
+          <q-btn v-close-popup
+                 outlined
+                 unelevated
+                 label="انصراف"
+                 color="grey"
+                 class="action-btn"
+                 @click="toggleLogoutDialog" />
+          <q-btn v-close-popup
+                 unelevated=""
+                 label="خروج"
+                 color="negative"
+                 class="action-btn"
+                 @click="logOut" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
 import LayoutMenu from 'src/components/DashboardTripleTitleSet/LayoutMenu.vue'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'TripleTitleSetPanel',
   components: { LayoutMenu },
   data: () => ({
     isActive: null,
+    isAdmin: false,
+    logoutDialog: false,
+    eventInfo: null,
     menuItems: [
       {
-        icon: 'isax:play',
+        visible: false,
+        icon: 'home',
+        routeName: 'UserPanel.Asset.TripleTitleSet.Dashboard'
+      },
+      {
+        visible: true,
+        icon: 'playlist_play',
         routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+      },
+      {
+        visible: false,
+        icon: 'calendar_today',
+        routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
       }
+      // {
+      //   icon: 'calendar_today',
+      //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+      // }
       // {
       //   icon: 'list-check',
       //   routeName: 'my-performance'
@@ -127,14 +187,49 @@ export default {
       return !this.$q.screen.lt.md
     }
   },
-  created() {
-  // this.$store.commit('AppLayout/updateLayoutLeftDrawerWidth', 350)
+  mounted () {
+    this.getEventInfoByName()
+      .then(() => {
+        this.updateMenuItemsFromEventInfo()
+      })
+      .catch(() => {
+      })
   },
   methods: {
+    getEventInfoByName () {
+      return new Promise((resolve, reject) => {
+        APIGateway.events.getEventInfoByName(this.$route.params.eventName)
+          .then((eventInfo) => {
+            this.eventInfo = eventInfo
+            resolve(eventInfo)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    updateMenuItemsFromEventInfo () {
+      const user = this.$store.getters['Auth/user']
+      this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
+
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.eventInfo.showDashboard)
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.StudyPlan', (this.eventInfo.showStudyPlan || this.isAdmin))
+    },
+    updateMenuItemVisibility (routeName, state) {
+      this.menuItems.forEach((item, itemIndex) => {
+        if (item.routeName === routeName) {
+          this.menuItems[itemIndex].visible = state
+        }
+      })
+    },
     ...mapMutations('TripleTitleSet', [
       'updateSelectedTopic'
     ]),
+    toggleLogoutDialog() {
+      this.logoutDialog = !this.logoutDialog
+    },
     logOut() {
+      this.toggleLogoutDialog()
       this.$store.dispatch('Auth/logOut')
     },
     fillTopicsRouteArray (topicList) {
@@ -166,7 +261,8 @@ export default {
   min-height: calc(100vh - 2px) ;
   height: 100vh;
   display: grid !important;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #26A69A;
+  background-color: #26A69A;
   .menu-logo {
     text-align: center;
     margin: 30px auto 130px;
@@ -210,13 +306,13 @@ export default {
         display: flex;
         justify-content: center;
         .activate{
-          color: var(--alaa-Secondary) !important;
+          color: #FFF !important;
         }
         .menu-indicator{
           position: absolute;
           height: 36px;
           width: 8px;
-          background-color:var(--alaa-Secondary) ;
+          background-color:#FFF ;
           border: none;
           border-radius:0 6px 6px 0;
           left: 0;
@@ -230,7 +326,7 @@ export default {
           }
         }
         :deep(.icon){
-          color: #333333;
+          color: #FFF;
           font-size: 26px;
           position: relative;
           top: 5px;
@@ -251,11 +347,65 @@ export default {
       }
     }
   }
+
   @media screen and (max-width: 768px){
     display: none;
   }
 }
 .side-menu-items{
+  z-index: 99999;
   padding: 20px;
+}
+
+.logout-dialog-card {
+  width: 488px;
+  border-radius: 12px;
+  padding: 0;
+  background:#FFF;
+  box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10);
+
+  .logout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+
+    .header-title {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .header-title-text {
+        margin-left: 5px;
+        color: #424242;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -0.32px;
+      }
+    }
+  }
+
+  .logout-message {
+    padding: 24px;
+    color:#424242;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.28px;
+  }
+
+  .logout-dialog-action {
+    padding: 0 24px 20px;
+
+    .action-btn {
+      display: flex;
+      width: 104px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 </style>

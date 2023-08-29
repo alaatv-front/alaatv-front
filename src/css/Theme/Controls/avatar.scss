@@ -1,0 +1,52 @@
+.new-theme {
+  .q-avatar {
+    &.avatar-xl {
+      font-size: 56px;
+    }
+    &.avatar-lg {
+      font-size: 48px;
+    }
+    &.avatar-md {
+      font-size: 40px;
+    }
+    &.avatar-sm {
+      font-size: 32px;
+    }
+    &.avatar-xs {
+      font-size: 24px;
+    }
+  }
+
+  .avatar-groupe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    direction: rtl;
+    .q-avatar {
+
+      &.avatar-xl {
+        margin-right: -20px;
+      }
+      &.avatar-lg {
+        margin-right: -16px;
+      }
+      &.avatar-md {
+        margin-right: -16px;
+      }
+      &.avatar-sm {
+        margin-right: -12px;
+      }
+      &.avatar-xs {
+        margin-right: -12px;
+      }
+
+      &:nth-child(2n) {
+        background-color: $secondary;
+      }
+
+      &:nth-child(2n+1) {
+        background-color: $primary;
+      }
+    }
+  }
+}
