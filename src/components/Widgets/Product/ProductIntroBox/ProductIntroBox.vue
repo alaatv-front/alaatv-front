@@ -89,8 +89,17 @@ export default defineComponent({
   box-shadow: 2px 2px 3px 0px rgba(16, 24, 40, 0.06);
   padding: 30px;
 
+  @media screen and (max-width: 1024px) {
+    margin: auto;
+    width: 586px;
+  }
+
   @media screen and (max-width: 600px) {
     margin: auto;
+    width: 90%;
+    height: auto;
+    min-height: auto;
+    padding: 16px;
   }
 
   .product-intro-video {
