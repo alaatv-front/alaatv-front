@@ -218,7 +218,8 @@ export default defineComponent({
       this.expanded = !this.expanded
     },
     calculateDescriptionHight() {
-      if (this.$refs.shortDescription.clientHeight > 300) {
+      console.log(this.$refs.shortDescription.clientHeight)
+      if (this.$refs.shortDescription.clientHeight >= 300) {
         this.showMore = true
       } else {
         this.showMore = false
@@ -474,7 +475,7 @@ export default defineComponent({
             text-align: justify;
 
             @media screen and (max-width: 600px){
-              height: 110px;
+              height: 300px;
             }
 
             &.auto-height {
