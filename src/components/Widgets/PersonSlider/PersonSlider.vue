@@ -278,7 +278,7 @@ export default {
 .arrow-left {
   align-self: center;
   position: absolute;
-  right: -30px;
+  right: 0;
   top: 33%;
   z-index: 9999;
 
@@ -294,7 +294,7 @@ export default {
 .arrow-right {
   align-self: center;
   position: absolute;
-  left: -30px;
+  left: 0;
   top: 33%;
   z-index: 9999;
 
@@ -306,6 +306,10 @@ export default {
     background: v-bind('localOptions.navigation.goToRight.color');
     color: v-bind('localOptions.navigation.goToRight.textColor');
   }
+}
+
+.carousel {
+  padding: 0 25px;
 }
 
 .carousel__slide {
