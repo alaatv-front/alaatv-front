@@ -19,7 +19,7 @@ export default class FileUploadAPI extends APIRepository {
       api: this.api,
       request: this.APIAdresses.base,
       resolveCallback: (response) => {
-        return response.data.data
+        return response.data.data.url // String presigned URL of file
       },
       rejectCallback: (error) => {
         return error

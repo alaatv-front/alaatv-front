@@ -102,11 +102,11 @@ export default {
           this.$apiGateway.fileUpload.upload({
             key: file.name
           })
-            .then(res => {
-              const baseUrl = res.url.split('?')[0]
+            .then(url => {
+              const baseUrl = url.split('?')[0]
               this.urlList.push(baseUrl)
               resolve({
-                url: res.url,
+                url,
                 method: 'PUT',
                 file
               })
