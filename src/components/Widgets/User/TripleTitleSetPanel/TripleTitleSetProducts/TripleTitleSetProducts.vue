@@ -25,13 +25,16 @@
             <div class="product-type-title">
               محتوای دوره
             </div>
-            <div class="product-type-input">
-              <q-select v-model="productType"
-                        bg-color="white"
-                        :options="productTypeOptions"
-                        option-label="title"
-                        option-value="id"
-                        borderless />
+            <div class="row">
+              <div class="col-md-12 product-type-input">
+                <q-select v-model="productType"
+                          class="field-md"
+                          dropdown-icon="isax:arrow-down-1"
+                          bg-color="white"
+                          :options="productTypeOptions"
+                          option-label="title"
+                          option-value="id" />
+              </div>
             </div>
           </div>
         </div>
@@ -218,7 +221,7 @@ export default {
       }
 
       .product-type-input {
-        width: 130px;
+        //width: 130px;
         margin: 0 20px;
       }
     }

@@ -1,6 +1,7 @@
 <template>
   <q-btn v-if="isUserLogin"
          flat
+         round
          class="BtnUserProfileMenu">
     <lazy-img :src="user.photo"
               :alt="'user photo'"
