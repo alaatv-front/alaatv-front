@@ -119,9 +119,8 @@
 </template>
 
 <script>
-import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
-import { Product } from 'src/models/Product'
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'productListScrollOptionPanel',

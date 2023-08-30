@@ -114,7 +114,6 @@ export default {
           this.$router.push({ name: 'UserPanel.MyPurchases' })
         })
         .catch((e) => {
-          console.log('e', e)
           this.submitLoading = false
         })
     }
