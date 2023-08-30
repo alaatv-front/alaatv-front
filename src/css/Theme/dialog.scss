@@ -101,3 +101,25 @@
     @include default-dialog;
   }
 }
+.q-dialog {
+  .q-dialog__inner {
+    .q-card {
+      width: 544px;
+      .q-separator {
+        background: $grey-3;
+      }
+      .dialog-action-section {
+        padding: 0 16px 24px;
+      }
+      .dialog-body-section {
+        padding: 24px;
+      }
+      .dialog-header-section, .dialog-action-section {
+        height: 64px;
+      }
+      .bottom-sheet-action-section {
+        height: 146px;
+      }
+    }
+  }
+}

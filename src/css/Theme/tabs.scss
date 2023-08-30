@@ -1,24 +1,18 @@
-@import "src/css/mixins.scss";
-.new-theme {
-  .q-tab {
-    padding: 0 12px;
-    &.disabled {
-      .q-tab__content {
-        .q-tab__label {
-          color: $grey-5;
-        }
-      }
-    }
-    .q-tab__content {
+@import "src/css/Theme/Typography/typography.scss";
+
+.q-tab {
+  padding: 0 12px;
+  .q-tab__content {
       display: flex;
       flex-direction: row;
       width: 80px;
       .q-tab__indicator {
-        border: 2px solid $primary;
+        border: 2px solid $primary-5;
         width: 79px;
         border-radius: 8px;
       }
       .q-tab__icon {
+        color: $grey-9;
         width: 13px;
         height: 13px;
         font-size: 13px;
@@ -27,6 +21,15 @@
       .q-tab__label {
         @include body1;
         color: $grey-9;
+      }
+    }
+  &.disabled {
+    .q-tab__content {
+      .q-tab__icon {
+        color: $grey-5;
+      }
+      .q-tab__label {
+        color: $grey-5;
       }
     }
   }

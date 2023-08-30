@@ -6,36 +6,120 @@
       </h2>
       <div class="row text-center q-col-gutter-md">
         <div class="col-md-4">
-          disable
+          fill
         </div>
         <div class="col-md-4">
-          default (fill)
+          default (emoty/icon)
         </div>
         <div class="col-md-4">
-          default (empty)
+          default (empty /text)
         </div>
       </div>
       <div class="row text-center q-col-gutter-md">
-        <div class="col-md-4" />
         <div class="col-md-4">
           error
         </div>
         <div class="col-md-4">
           active/focus
         </div>
+        <div class="col-md-4">
+          disable
+        </div>
       </div>
 
       <div class="row q-col-gutter-md q-my-lg">
         <div class="col-md-4">
           <div class="outsideLabel">عنوان</div>
-          <q-input label="متن ورودی"
-                   class="disable-input"
-                   hint="متن راهنما"
-                   disable />
+          <q-input v-model="input1"
+                   label="متن ورودی"
+                   class="field-md"
+                   hint="متن راهنما" />
         </div>
         <div class="col-md-4">
           <div class="outsideLabel">عنوان</div>
           <q-input v-model="input1"
+                   hint="متن راهنما"
+                   label="متن ورودی"
+                   class="field-md">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+            <template v-slot:append>
+              <q-icon name="unfold_more"
+                      size="sm" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <div class="outsideLabel">عنوان</div>
+          <q-input label="متن ورودی"
+                   hint="متن راهنما"
+                   class="field-md">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+            <template v-slot:append>
+              تومان
+            </template>
+          </q-input>
+        </div>
+      </div>
+      <div class="row q-col-gutter-md q-my-lg">
+        <div class="col-md-4">
+          <div class="outsideLabel">عنوان</div>
+          <q-input v-model="input4"
+                   label="متن ورودی"
+                   class="field-md q-field--error"
+                   :rules="[
+                     val => (!!val || 'متن ارور مورد نظر')
+                   ]"
+                   lazy-rules
+                   hint="متن راهنما">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+            <template v-slot:append>
+              <q-icon name="unfold_more"
+                      size="sm" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <div class="outsideLabel">عنوان</div>
+          <q-input v-model="input4"
+                   hint="متن راهنما"
+                   label="متن ورودی"
+                   class="field-md q-field--focused q-field--float">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+            <template v-slot:append>
+              <q-icon name="unfold_more"
+                      size="sm" />
+            </template>
+          </q-input>
+        </div>
+        <div class="col-md-4">
+          <div class="outsideLabel disabled">عنوان</div>
+          <q-input label="متن ورودی"
+                   class="field-md"
+                   disable
+                   hint="متن راهنما" />
+        </div>
+      </div>
+
+      <div class="row q-col-gutter-md q-my-lg">
+        <div class="col-md-4">
+          <div class="outsideLabel">عنوان</div>
+          <q-input v-model="input1"
+                   label="متن ورودی"
+                   class="field-lg"
+                   hint="متن راهنما" />
+        </div>
+        <div class="col-md-4">
+          <div class="outsideLabel">عنوان</div>
+          <q-input v-model="input1"
+                   class="field-lg"
                    hint="متن راهنما"
                    label="متن ورودی" />
           <!--          <div class="help-text">متن راهنما</div>-->
@@ -43,69 +127,51 @@
         <div class="col-md-4">
           <div class="outsideLabel">عنوان</div>
           <q-input label="متن ورودی"
-                   hint="متن راهنما" />
+                   hint="متن راهنما"
+                   class="field-lg" />
         </div>
       </div>
       <div class="row q-col-gutter-md q-my-lg">
-        <div class="col-md-4" />
         <div class="col-md-4">
           <div class="outsideLabel">عنوان</div>
           <q-input v-model="input4"
-                   hint="متن ارور مورد نظر"
+                   label="متن ورودی"
+                   class="field-lg q-field--error"
                    :rules="[
-                     val => (!!val)
+                     val => (!!val || 'متن ارور مورد نظر')
                    ]"
                    lazy-rules
-                   label="متن ورودی" />
+                   hint="متن راهنما">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+            <template v-slot:append>
+              <q-icon name="unfold_more"
+                      size="sm" />
+            </template>
+          </q-input>
         </div>
-        <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
-          <q-input label="متن ورودی"
-                   hint="متن راهنما" />
-        </div>
-      </div>
-
-      <div class="row q-col-gutter-md q-my-lg">
-        <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
-          <q-input label="متن ورودی"
-                   class="largeInput"
-                   hint="متن راهنما"
-                   disable />
-        </div>
-        <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
-          <q-input v-model="input1"
-                   class="largeInput"
-                   hint="متن راهنما"
-                   label="متن ورودی" />
-          <!--          <div class="help-text">متن راهنما</div>-->
-        </div>
-        <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
-          <q-input label="متن ورودی"
-                   hint="متن راهنما"
-                   class="largeInput" />
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-my-lg">
-        <div class="col-md-4" />
         <div class="col-md-4">
           <div class="outsideLabel">عنوان</div>
           <q-input v-model="input4"
-                   class="largeInput"
-                   hint="متن ارور مورد نظر"
-                   :rules="[
-                     val => (!!val)
-                   ]"
-                   lazy-rules
-                   label="متن ورودی" />
+                   hint="متن راهنما"
+                   label="متن ورودی"
+                   class="field-lg q-field--focused q-field--float">
+            <template v-slot:prepend>
+              <q-icon name="search" />
+            </template>
+            <template v-slot:append>
+              <q-icon name="unfold_more"
+                      size="sm" />
+            </template>
+          </q-input>
         </div>
         <div class="col-md-4">
-          <div class="outsideLabel">عنوان</div>
+          <div class="outsideLabel disabled">عنوان</div>
           <q-input label="متن ورودی"
                    hint="متن راهنما"
-                   class="largeInput" />
+                   disable
+                   class="field-lg" />
         </div>
       </div>
 
