@@ -584,8 +584,8 @@ export default defineComponent({
     .btn-green {
       background: #4caf50;
       color: white;
-      min-width: 118px;
-      font-size: 14px;
+      min-width: 120px;
+      font-size: 12px;
       @media screen and (max-width: 600px){
         margin: 20px;
       }
