@@ -45,6 +45,7 @@
 
             <template v-slot:after>
               <q-btn color="primary"
+                     :loading="submitLoading"
                      @click="submitVoucher">
                 ثبت کد
               </q-btn>
@@ -66,22 +67,40 @@
 </template>
 
 <script>
-import { mixinWidget } from 'src/mixin/Mixins'
 import LazyImg from 'src/components/lazyImg.vue'
-import { ProductList } from 'src/models/Product'
+import { ProductList } from 'src/models/Product.js'
+import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
 
 export default {
   name: 'Services',
   components: { LazyImg },
-  mixins: [mixinWidget],
+  mixins: [mixinWidget, mixinAuth],
   data () {
     return {
       coupon: null,
+      submitLoading: false,
       products: new ProductList()
     }
   },
+  mounted () {
+    this.checkCodeInQueryParam()
+  },
   methods: {
+    checkCodeInQueryParam () {
+      if (!this.$route.query.code) {
+        return
+      }
+      this.coupon = this.$route.query.code
+
+      this.submitVoucher()
+    },
     submitVoucher() {
+      if (!this.isUserLogin) {
+        this.$store.commit('Auth/updateRedirectTo', { name: this.$route.name, params: this.$route.params, query: this.$route.query })
+        this.$store.commit('AppLayout/updateLoginDialog', true)
+        return
+      }
+      this.submitLoading = true
       this.$apiGateway.voucher.submit({ code: this.coupon })
         .then(messageAndProductList => {
           this.$q.notify({
@@ -90,8 +109,10 @@ export default {
             position: 'top'
           })
           this.products = messageAndProductList.products
+          this.submitLoading = false
         })
         .catch(() => {
+          this.submitLoading = false
         })
     }
   }
