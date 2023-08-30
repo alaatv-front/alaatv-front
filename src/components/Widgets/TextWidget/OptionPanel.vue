@@ -35,6 +35,7 @@
     </template>
   </option-panel-tabs>
 </template>
+
 <script>
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'

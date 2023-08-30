@@ -17,9 +17,9 @@
 		@font-face { font-family: 'Doran FaNum Bold WOFF2'; src: url('fonts/woff2/DoranFaNum-Bold.woff2'); }
 		@font-face { font-family: 'Doran FaNum ExtraBold WOFF2'; src: url('fonts/woff2/DoranFaNum-ExtraBold.woff2'); }
 
-		
-		body { 
-			font-family: "Doran FaNum Thin WOFF"; 
+
+		body {
+			font-family: "Doran FaNum Thin WOFF";
 			font-feature-settings: "kern" on, "liga" on, "dlig" on;
 			-moz-font-feature-settings: "kern" on, "liga" on, "dlig" on;
 			-webkit-font-feature-settings: "kern" on, "liga" on, "dlig" on;
@@ -42,7 +42,7 @@
 		span#p14 { font-size: 14pt; }
 		span#p18 { font-size: 18pt; }
 		span#p36 { font-size: 36pt; }
-		span#p72 { font-size: 72pt; }		
+		span#p72 { font-size: 72pt; }
 	</style>
 	<script type="text/javascript">
 		function updateParagraph() {
@@ -82,7 +82,7 @@
 				}
 			}
 			codeLine = codeLine.slice(0, -2)
-			
+
 			// then, apply line for every browser:
 			var prefixes = ["","-moz-","-webkit-","-ms-","-o-",];
 			var suffix = "font-feature-settings: "
@@ -93,7 +93,7 @@
 				cssCode += codeLine
 				cssCode += "; "
 			}
-			
+
 			document.getElementById('fontTestBody').style.cssText = cssCode;
 			document.getElementById('featureLine').innerHTML = cssCode.replace(/;/g,";<br/>");
 			changeFont();
@@ -146,7 +146,7 @@
 
 		&emsp;
 
-		
+
 	</p>
 	<p class="features" id="featureLine" style="display:none;">font-feature-settings: "kern" on, "liga" on, "dlig" on;</p>
 	<p><span class="label">8 pt.</span> <span id="p08">
@@ -174,9 +174,16 @@
 
 </span></p>
 
-	<p><span class="label">72 pt.</span> <span id="p72">
+  <p><span class="label">72 pt.</span> <span id="p72">
 بنشین بر لب جوی و گذر عمر ببین - کاین اشارت ز جهان گذران ما را بس
 
 </span></p>
+
+  <p>
+    <span class="label">72 pt.</span>
+    <span id="p72">
+      1234567890
+    </span>
+  </p>
 
 </body>
