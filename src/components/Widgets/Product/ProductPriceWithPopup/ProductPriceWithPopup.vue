@@ -2,8 +2,9 @@
   <div class="product-price-container">
     <div class="price-info">
       <div class="price-title">
-        <ph-tag :size="16"
-                class="price-title-icon" />
+        <q-icon name="ph:tag"
+                color="gray-7"
+                size="16px" />
         قیمت
       </div>
       <div v-if="productPrice.discount > 0"

@@ -27,13 +27,11 @@
                 animated>
     <q-tab-panel name="description"
                  class="product-tab-panel">
-      <div class="product-tab-panel">
-        <div class="product-description-title">
-          توضیحات تکمیلی دوره
-        </div>
-        <div class="product-long-description"
-             v-html="localOptions.product.description?.long" />
+      <div class="product-description-title">
+        توضیحات تکمیلی دوره
       </div>
+      <div class="product-long-description"
+           v-html="localOptions.product.description?.long" />
     </q-tab-panel>
     <q-tab-panel name="sections"
                  class="product-tab-panel">
@@ -173,8 +171,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
 .product-tab-panel {
   padding: 30px;
+
+  @media screen and (max-width: 1024px) {
+    padding: 20px;
+  }
   .product-description-title {
     color:#424242;
     font-size: 16px;
