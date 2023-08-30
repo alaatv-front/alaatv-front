@@ -134,6 +134,7 @@ export default {
         sliderItems: [],
         personType: 'student',
         pagination: false,
+        carouselPadding: '0 25px',
         navigation: {
           goToLeft: {
             icon: 'chevron_left',
@@ -309,7 +310,7 @@ export default {
 }
 
 .carousel {
-  padding: 0 25px;
+  padding: v-bind('localOptions.carouselPadding');;
 }
 
 .carousel__slide {

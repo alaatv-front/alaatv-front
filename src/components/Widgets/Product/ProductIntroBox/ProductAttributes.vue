@@ -246,8 +246,8 @@ export default defineComponent({
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    width: 150px;
-    max-width: 150px;
+    width: 50%;
+    max-width: 250px;
 
     .value-text {
       color:#303030;
@@ -257,8 +257,8 @@ export default defineComponent({
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.42px;
-      width: 100px;
-      max-width: 100px;
+      width: 100%;
+      max-width: 100%;
     }
   }
 }

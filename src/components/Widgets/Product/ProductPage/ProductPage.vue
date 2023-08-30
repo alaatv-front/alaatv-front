@@ -219,7 +219,7 @@ export default defineComponent({
     },
     calculateDescriptionHight() {
       console.log(this.$refs.shortDescription.clientHeight)
-      if (this.$refs.shortDescription.clientHeight >= 300) {
+      if (this.$refs.shortDescription.clientHeight >= 301) {
         this.showMore = true
       } else {
         this.showMore = false
@@ -423,6 +423,8 @@ export default defineComponent({
 
         .product-short-description {
           .short-description-title {
+            margin-top: 15px;
+
             &__text {
               color:#FFF;
               font-size: 16px;
@@ -430,7 +432,6 @@ export default defineComponent({
               font-weight: 700;
               line-height: normal;
               letter-spacing: -0.48px;
-              margin-top: 15px;
             }
 
             &__action {
@@ -473,6 +474,7 @@ export default defineComponent({
             line-height: normal;
             letter-spacing: -0.48px;
             text-align: justify;
+            margin-top: 8px;
 
             @media screen and (max-width: 600px){
               height: 300px;
@@ -519,6 +521,10 @@ export default defineComponent({
       @media screen and (max-width: 1024px) {
         width: 90%;
         margin: auto;
+      }
+
+      &:deep(.q-tab-panels) {
+        border-radius: 20px;
       }
     }
     .intro-box-col {

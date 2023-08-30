@@ -171,6 +171,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
 .product-tab-panel {
   padding: 30px;
 
