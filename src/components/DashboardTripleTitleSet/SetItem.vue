@@ -66,6 +66,7 @@
               <div class="last-content-link">
                 <q-btn v-if="setItem.last_content_user_watched?.id"
                        flat
+                       class="q-btn-sm"
                        icon-right="chevron_left"
                        :to="{ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
               </div>
@@ -93,6 +94,7 @@
             <div class="last-content-link">
               <q-btn v-if="setItem.last_content_user_watched?.id"
                      flat
+                     class="q-btn-sm"
                      icon-right="chevron_left"
                      :to="{ name: 'UserPanel.Asset.TripleTitleSet.Adviser.Content', params: {setId: setItem.id, contentId: setItem.last_content_user_watched?.id} }">مشاهده</q-btn>
             </div>
