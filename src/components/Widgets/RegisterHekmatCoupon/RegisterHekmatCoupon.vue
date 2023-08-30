@@ -110,6 +110,7 @@ export default {
           })
           this.products = messageAndProductList.products
           this.submitLoading = false
+          this.$route.push({ name: 'UserPanel.MyPurchases' })
         })
         .catch(() => {
           this.submitLoading = false
