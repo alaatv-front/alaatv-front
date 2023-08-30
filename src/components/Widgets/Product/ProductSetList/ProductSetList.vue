@@ -2,13 +2,19 @@
   <div class="product-page">
     <q-list v-if="!setListLoading"
             class="rounded-borders">
+      <q-banner class="bg-light-blue-1">
+        سرفصل های زیر تاکنون مطابق برنامه مطالعاتی منتشر شده است.
+      </q-banner>
       <div v-if="setSections.length > 0"
            class="set-sections">
         <div v-for="(sectoin, sectoinIndex) in setSections"
              :key="sectoinIndex"
              class="set-section">
-          <div class="q-mt-lg">
-            {{sectoin.title}}
+          <div class="separator-div">
+            <span class="separator-title">
+              {{sectoin.title}}
+            </span>
+            <q-separator />
           </div>
           <q-expansion-item v-for="(set, index) in sectoin.sets"
                             :key="index"
@@ -317,6 +323,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.set-sections {
+  .set-section {
+    .separator-div{
+      margin-top: 24px;
+      padding-bottom: 8px;
+      .separator-title {
+        background: white;
+        padding-right: 8px;
+      }
+      .q-separator {
+        margin-top: -10px;
+      }
+    }
+  }
+}
+
 .product-item {
   width: 318px;
   height: 510px;

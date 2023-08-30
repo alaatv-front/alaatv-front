@@ -102,14 +102,16 @@ export default {
       }
       this.submitLoading = true
       this.$apiGateway.voucher.submit({ code: this.coupon })
-        .then(messageAndProductList => {
+        .then(() => {
+          this.$route.push({ name: 'UserPanel.MyPurchases' })
           this.$q.notify({
-            message: messageAndProductList.message,
+            message: 'با موفقیت ثبت شد.',
             type: 'positive',
             position: 'top'
           })
-          this.products = messageAndProductList.products
-          this.submitLoading = false
+          // this.products = messageAndProductList.products
+          // this.submitLoading = false
+          // this.$route.push({ name: 'UserPanel.MyPurchases' })
         })
         .catch(() => {
           this.submitLoading = false

@@ -218,7 +218,6 @@ export default defineComponent({
       this.expanded = !this.expanded
     },
     calculateDescriptionHight() {
-      console.log(this.$refs.shortDescription.clientHeight)
       if (this.$refs.shortDescription.clientHeight >= 301) {
         this.showMore = true
       } else {
