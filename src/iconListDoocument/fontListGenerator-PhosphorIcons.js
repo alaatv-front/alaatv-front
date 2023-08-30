@@ -8,7 +8,7 @@ const filePath = '../assets/icons/PhosphorIcons/style.css'
 //   return dirTree(filename + '/' + child)
 // })
 const rawData = fs.readFileSync(filePath, 'utf8')
-const regex = /\.ph-[a-zA-Z0-9]*:before/g
+const regex = /\.ph-.*:before/g
 const list = rawData.match(regex).map(item => item.replace('.ph-', '').replace(':before', ''))
 
 fs.writeFile('./font-icons-PhosphorIcons.json', JSON.stringify(list), (err) => {

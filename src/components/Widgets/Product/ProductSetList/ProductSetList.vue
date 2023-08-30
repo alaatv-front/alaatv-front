@@ -2,73 +2,152 @@
   <div class="product-page">
     <q-list v-if="!setListLoading"
             class="rounded-borders">
-      <q-expansion-item v-for="(set, index) in setList"
-                        :key="index"
-                        v-model="set.expand"
-                        header-class="expanded-item-header"
-                        expand-icon-class="expanded-item-icon"
-                        @show="getSet(set.id)">
-        <template v-slot:header>
-          <q-item-section class="title-column ellipsis">
-            {{ set.short_title.split('-')[2] }}
-          </q-item-section>
+      <div v-if="setSections.length > 0"
+           class="set-sections">
+        <div v-for="(sectoin, sectoinIndex) in setSections"
+             :key="sectoinIndex"
+             class="set-section">
+          <div class="q-mt-lg">
+            {{sectoin.title}}
+          </div>
+          <q-expansion-item v-for="(set, index) in sectoin.sets"
+                            :key="index"
+                            v-model="set.expand"
+                            header-class="expanded-item-header"
+                            expand-icon-class="expanded-item-icon"
+                            @show="getSet(set.id)">
+            <template v-slot:header>
+              <q-item-section class="title-column ellipsis">
+                {{ set.short_title.split('-')[2] }}
+              </q-item-section>
 
-          <!-- <q-item-section side
-                          class="steps-count-column">
-            {{set.contents_count}} گام
-          </q-item-section> -->
-          <q-item-section side
-                          class="duration-column">
-            {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
-          </q-item-section>
-        </template>
-        <q-separator inset />
-        <q-card class="set-card">
-          <q-card-section v-if="!setLoading || set.contents.list.length > 0">
-            <q-list class="set-list"
-                    separator>
-              <q-item v-for="(content, index) in set.contents.list"
-                      :key="index"
-                      :to="content.isPamphlet() ? '' : { name: 'Public.Content.Show', params: {id: content.id} }"
-                      clickable
-                      @click="setSelectedData($event,content,set)">
-                <q-item-section class="cursor-pointer ellipsis"
-                                @click="download(content)">
-                  {{ content.title }}
-                  <q-tooltip>
+              <!-- <q-item-section side
+                              class="steps-count-column">
+                {{set.contents_count}} گام
+              </q-item-section> -->
+              <q-item-section side
+                              class="duration-column">
+                {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
+              </q-item-section>
+            </template>
+            <q-separator inset />
+            <q-card class="set-card">
+              <q-card-section v-if="!setLoading || set.contents.list.length > 0">
+                <q-list class="set-list"
+                        separator>
+                  <q-item v-for="(content, index) in set.contents.list"
+                          :key="index"
+                          :to="content.isPamphlet() ? '' : { name: 'Public.Content.Show', params: {id: content.id} }"
+                          clickable
+                          @click="setSelectedData($event,content,set)">
+                    <q-item-section class="cursor-pointer ellipsis"
+                                    @click="download(content)">
+                      {{ content.title }}
+                      <q-tooltip>
+                        {{ content.title }}
+                      </q-tooltip>
+                    </q-item-section>
+                    <q-item-section v-if="!content.isPamphlet()"
+                                    avatar>
+                      <q-icon :name="content.can_see ? 'play_circle_outline' : 'lock_outline'" />
+                    </q-item-section>
+                    <q-item-section v-if="content.isPamphlet()"
+                                    class="side-section"
+                                    side>
+                      <q-btn color="primary"
+                             label="دانلود"
+                             @click="download(content)" />
+                    </q-item-section>
+                    <q-item-section v-else
+                                    class="side-section"
+                                    side>
+                      {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-card-section>
+              <q-card-section v-else>
+                <q-list>
+                  <q-item v-for="item in 4"
+                          :key="item">
+                    <q-skeleton width="100%"
+                                bordered />
+                  </q-item>
+                </q-list>
+              </q-card-section>
+            </q-card>
+          </q-expansion-item>
+        </div>
+      </div>
+      <template v-else>
+        <q-expansion-item v-for="(set, index) in setList"
+                          :key="index"
+                          v-model="set.expand"
+                          header-class="expanded-item-header"
+                          expand-icon-class="expanded-item-icon"
+                          @show="getSet(set.id)">
+          <template v-slot:header>
+            <q-item-section class="title-column ellipsis">
+              {{ set.short_title.split('-')[2] }}
+            </q-item-section>
+
+            <!-- <q-item-section side
+                            class="steps-count-column">
+              {{set.contents_count}} گام
+            </q-item-section> -->
+            <q-item-section side
+                            class="duration-column">
+              {{set.contents_duration === 0 || set.contents_duration === null ? ' ' : humanizeDuration(set.contents_duration) }}
+            </q-item-section>
+          </template>
+          <q-separator inset />
+          <q-card class="set-card">
+            <q-card-section v-if="!setLoading || set.contents.list.length > 0">
+              <q-list class="set-list"
+                      separator>
+                <q-item v-for="(content, index) in set.contents.list"
+                        :key="index"
+                        :to="content.isPamphlet() ? '' : { name: 'Public.Content.Show', params: {id: content.id} }"
+                        clickable
+                        @click="setSelectedData($event,content,set)">
+                  <q-item-section class="cursor-pointer ellipsis"
+                                  @click="download(content)">
                     {{ content.title }}
-                  </q-tooltip>
-                </q-item-section>
-                <q-item-section v-if="!content.isPamphlet()"
-                                avatar>
-                  <q-icon :name="content.can_see ? 'play_circle_outline' : 'lock_outline'" />
-                </q-item-section>
-                <q-item-section v-if="content.isPamphlet()"
-                                class="side-section"
-                                side>
-                  <q-btn color="primary"
-                         label="دانلود"
-                         @click="download(content)" />
-                </q-item-section>
-                <q-item-section v-else
-                                class="side-section"
-                                side>
-                  {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-card-section>
-          <q-card-section v-else>
-            <q-list>
-              <q-item v-for="item in 4"
-                      :key="item">
-                <q-skeleton width="100%"
-                            bordered />
-              </q-item>
-            </q-list>
-          </q-card-section>
-        </q-card>
-      </q-expansion-item>
+                    <q-tooltip>
+                      {{ content.title }}
+                    </q-tooltip>
+                  </q-item-section>
+                  <q-item-section v-if="!content.isPamphlet()"
+                                  avatar>
+                    <q-icon :name="content.can_see ? 'play_circle_outline' : 'lock_outline'" />
+                  </q-item-section>
+                  <q-item-section v-if="content.isPamphlet()"
+                                  class="side-section"
+                                  side>
+                    <q-btn color="primary"
+                           label="دانلود"
+                           @click="download(content)" />
+                  </q-item-section>
+                  <q-item-section v-else
+                                  class="side-section"
+                                  side>
+                    {{ content.duration === null || content.duration == 0 ? 'مدت ندارد' : humanizeDuration(content.duration) }}
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-card-section>
+            <q-card-section v-else>
+              <q-list>
+                <q-item v-for="item in 4"
+                        :key="item">
+                  <q-skeleton width="100%"
+                              bordered />
+                </q-item>
+              </q-list>
+            </q-card-section>
+          </q-card>
+        </q-expansion-item>
+      </template>
     </q-list>
     <q-list v-else>
       <q-item v-for="item in 10"
@@ -137,11 +216,31 @@ export default {
       }
       return this.product.id
     },
-    setList() {
+    setList () {
       if (typeof this.localOptions.setList !== 'undefined' && this.localOptions.setList !== null) {
         return Object.assign(this.LocalSetList, this.localOptions.setList)
       }
       return this.LocalSetList
+    },
+    setSections () {
+      const sections = []
+      const getSectionTitle = (shortTitle) => {
+        if (shortTitle.split('-').length > 0 && shortTitle.split('-')[0] && shortTitle.split('-')[1]) {
+          return shortTitle.split('-')[0] + ' - ' + shortTitle.split('-')[1]
+        }
+
+        return null
+      }
+      const sectionTitles = this.setList.filter((item, index, array) => array.findIndex(item2 => getSectionTitle(item.short_title) === getSectionTitle(item2.short_title)) === index).map(item => getSectionTitle(item.short_title))
+
+      sectionTitles.forEach(item => {
+        sections.push({
+          title: item,
+          sets: this.setList.filter(setItem => getSectionTitle(setItem.short_title) === item)
+        })
+      })
+
+      return sections
     }
   },
   mounted() {

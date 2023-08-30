@@ -40,7 +40,9 @@
             </q-card>
           </q-dialog>
           <q-dialog v-model="loginDialog">
-            <auth-login />
+            <div class="q-mb-lg">
+              <auth-login />
+            </div>
           </q-dialog>
           <version-check />
           <router :include="keepAliveComponents" />
