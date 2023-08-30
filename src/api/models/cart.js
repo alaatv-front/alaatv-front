@@ -45,7 +45,8 @@ export default class CartAPI extends APIRepository {
       product_id: data.product_id, // Number or String
       products: data.products, // Number or String (List ofProduct's ID)
       attribute: data.attribute, // Number or String
-      seller: this.seller
+      seller: this.seller,
+      ...(data.has_instalment_option && { has_instalment_option: data.has_instalment_option })
     }
     if (!payload.products || (Array.isArray(payload.products) && payload.products.length === 0)) {
       delete payload.products
@@ -175,7 +176,7 @@ export default class CartAPI extends APIRepository {
     })
   }
 
-  getPaymentRedirectEncryptedLink(data = { device: 'web', paymentMethod: null }, cache = { TTL: 1000 }) {
+  getPaymentRedirectEncryptedLink(data = { device: 'web', paymentMethod: null, inInstalment: 0 }, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

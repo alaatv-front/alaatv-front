@@ -8,6 +8,12 @@ export default boot(({ app, store, router }) => {
         cls: 'isax isax-' + name
       }
     }
+    if (iconName.startsWith('ph:') === true) {
+      const name = iconName.substring(3)
+      return {
+        cls: 'ph ph-' + name
+      }
+    }
 
     // if (iconName.startsWith('fa:') === true) {
     //   const name = iconName.substring(3)

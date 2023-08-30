@@ -171,15 +171,15 @@ export default {
         navigation: {
           goToLeft: {
             icon: 'chevron_left',
-            textColor: '#FF944A',
-            color: '#FFE8D8',
+            textColor: '#9E9E9E',
+            color: '#FFFFFF',
             rounded: true,
             size: 'lg'
           },
           goToRight: {
             icon: 'chevron_right',
-            textColor: '#FF944A',
-            color: '#FFE8D8',
+            textColor: '#9E9E9E',
+            color: '#FFFFFF',
             rounded: true,
             size: 'lg'
           }
@@ -312,7 +312,7 @@ export default {
 .arrow-left {
   align-self: center;
   position: absolute;
-  right: 0;
+  right: -30px;
   top: 33%;
   z-index: 9999;
 
@@ -328,7 +328,7 @@ export default {
 .arrow-right {
   align-self: center;
   position: absolute;
-  left: 0;
+  left: -30px;
   top: 33%;
   z-index: 9999;
 

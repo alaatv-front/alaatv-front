@@ -32,14 +32,9 @@
       &.q-btn--outline {
         border: 1px solid #E8E8E8;
       }
-    &.q-btn--flat {
-      .q-btn__content {
-        color: $grey-4;
-      }
-    }
-      //background: $grey-2 !important;
+      background: $grey-2 !important;
       .q-btn__content{
-        //color: $grey-4;
+        color: $grey-4;
       }
     }
   &:before {
