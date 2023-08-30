@@ -3,7 +3,7 @@
     <div class="col-10">
       <q-card>
         <q-card-section class="text-center">
-          <h2>PhosphorIcons-Font</h2>
+          <h2>PhosphorIcons-Font ({{svgIcons.length}})</h2>
         </q-card-section>
         <q-card-section>
           {{ filterIconName }}

@@ -29,6 +29,10 @@
                           label="صفحه بندی" />
             </div>
             <div class="col-12 col-md-3">
+              <q-checkbox v-model="localOptions.carouselPadding"
+                          label="فاصله داخلی اسلایدر" />
+            </div>
+            <div class="col-12 col-md-3">
               <q-input v-model="localOptions.settings.dir"
                        type="text"
                        label="direction" />
@@ -318,6 +322,7 @@ export default defineComponent({
         sliderItems: [],
         personType: 'student',
         pagination: false,
+        carouselPadding: '0 25px',
         navigation: {
           goToLeft: {
             icon: 'chevron_left',
