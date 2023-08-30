@@ -48,7 +48,36 @@
               <div class="description-expansion">
                 <div class="product-short-description">
                   <div class="short-description-title">
-                    معرفی دوره
+                    <div class="short-description-title__text">معرفی دوره</div>
+                    <div class="short-description-title__action">
+                      <bookmark :is-favored="product.is_favored"
+                                :rounded="false"
+                                :color="'white'"
+                                :className="'header-action-btn'"
+                                :favoredIcon="'bookmark'"
+                                :unFavoredIcon="'bookmark_border'"
+                                :loading="bookmarkLoading"
+                                @clicked="handleProductBookmark" />
+                      <q-btn icon="share"
+                             text-color="black"
+                             color="white"
+                             class="header-action-btn">
+                        <q-tooltip anchor="top middle"
+                                   self="bottom middle"
+                                   :offset="[10, 10]">
+                          اشتراک گزاری
+                        </q-tooltip>
+                        <q-popup-proxy :offset="[10, 10]"
+                                       transition-show="flip-up"
+                                       transition-hide="flip-down">
+                          <q-banner dense
+                                    rounded>
+                            <share-network :url="pageUrl"
+                                           @on-select="shareGiftCard" />
+                          </q-banner>
+                        </q-popup-proxy>
+                      </q-btn>
+                    </div>
                   </div>
                   <div ref="shortDescription"
                        class="short-description-text"
@@ -74,7 +103,7 @@
       </div>
     </div>
     <div class="product-page-content-container">
-      <div class="row content-row q-col-gutter-md">
+      <div class="row content-row q-col-gutter-lg">
         <div class="col-12 col-md-8">
           <div class="product-info-tab-wrapper">
             <product-info-tab :options="{product}" />
@@ -189,7 +218,7 @@ export default defineComponent({
       this.expanded = !this.expanded
     },
     calculateDescriptionHight() {
-      if (this.$refs.shortDescription.clientHeight > 300) {
+      if (this.$refs.shortDescription.clientHeight >= 301) {
         this.showMore = true
       } else {
         this.showMore = false
@@ -295,7 +324,7 @@ export default defineComponent({
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         .product-title {
           color:#FFF;
           font-size: 22px;
@@ -310,6 +339,10 @@ export default defineComponent({
           justify-content: center;
           align-items: center;
 
+          @media screen and (max-width: 600px){
+            display: none;
+          }
+
           .header-action-btn {
             width: 40px;
             height: 40px;
@@ -317,7 +350,7 @@ export default defineComponent({
             background:#FFF;
 
             &:not(:last-child) {
-              margin-right: 5px;
+              margin-right: 12px;
             }
           }
         }
@@ -389,13 +422,44 @@ export default defineComponent({
 
         .product-short-description {
           .short-description-title {
-            color:#FFF;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: normal;
-            letter-spacing: -0.48px;
             margin-top: 15px;
+
+            &__text {
+              color:#FFF;
+              font-size: 16px;
+              font-style: normal;
+              font-weight: 700;
+              line-height: normal;
+              letter-spacing: -0.48px;
+            }
+
+            &__action {
+              display: none;
+              justify-content: center;
+              align-items: center;
+
+              .header-action-btn {
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                background:#FFF;
+
+                &:not(:last-child) {
+                  margin-right: 12px;
+                }
+              }
+
+              @media screen and (max-width: 600px){
+                display: flex;
+              }
+            }
+
+            @media screen and (max-width: 600px){
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+            }
+
           }
 
           .short-description-text {
@@ -409,9 +473,10 @@ export default defineComponent({
             line-height: normal;
             letter-spacing: -0.48px;
             text-align: justify;
+            margin-top: 8px;
 
             @media screen and (max-width: 600px){
-              height: 110px;
+              height: 300px;
             }
 
             &.auto-height {
@@ -451,6 +516,15 @@ export default defineComponent({
     .product-info-tab-wrapper {
       width: 800px;
       max-width: 100%;
+
+      @media screen and (max-width: 1024px) {
+        width: 90%;
+        margin: auto;
+      }
+
+      &:deep(.q-tab-panels) {
+        border-radius: 20px;
+      }
     }
     .intro-box-col {
       margin-top: -550px;

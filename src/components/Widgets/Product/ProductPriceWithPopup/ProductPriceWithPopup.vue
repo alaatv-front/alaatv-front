@@ -2,8 +2,9 @@
   <div class="product-price-container">
     <div class="price-info">
       <div class="price-title">
-        <ph-tag :size="16"
-                class="price-title-icon" />
+        <q-icon name="ph:tag"
+                color="gray-7"
+                size="16px" />
         قیمت
       </div>
       <div v-if="productPrice.discount > 0"
@@ -28,7 +29,7 @@
              unelevated
              class="action-btn"
              :class="{'full-width': !hasInstallment}"
-             label="ثبت نام نقدی"
+             label="ثبت نام"
              @click="paymentAction('cash')" />
       <q-btn v-if="hasInstallment"
              color="grey-3"
@@ -198,6 +199,7 @@ export default defineComponent({
         font-weight: 400;
         line-height: normal;
         letter-spacing: -0.8px;
+        text-decoration: line-through;
       }
     }
     .price-final {
