@@ -1,5 +1,6 @@
 <template>
-  <q-card class="download-section custom-card rounded-borders">
+  <q-card class="download-section custom-card rounded-borders"
+          :class="{'canShowBox': canShowBox}">
     <h6 class="text-grey q-pt-md q-pl-md">دانلود محتوا</h6>
     <q-separator class="q-ma-md" />
     <div v-if="!content.is_free && content.file?.video"
@@ -39,6 +40,11 @@ export default {
     return {
       loading: false,
       content: new Content()
+    }
+  },
+  computed: {
+    canShowBox () {
+      return this.content?.is_free && this.content?.file?.video && this.content.file.video.length > 0
     }
   },
   methods: {
@@ -87,11 +93,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .download-section {
-    /*box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.03);*/
-    /*border-radius: 10px;*/
-    height: 100%
+    height: 100%;
+    &:not(.canShowBox) {
+      display: none;
+    }
   }
 
   .button {
