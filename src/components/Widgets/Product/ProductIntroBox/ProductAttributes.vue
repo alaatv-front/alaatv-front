@@ -55,9 +55,9 @@
       </q-item-section>
       <q-item-section class="attribute-value-section">
         <div class="value-text ellipsis">
-          {{ getAttributesValues(attributes.info.duration) }}
+          {{ getAttributesValues(attributes.info.grade) }}
           <q-tooltip>
-            {{ getAttributesValues(attributes.info.duration) }}
+            {{ getAttributesValues(attributes.info.grade) }}
           </q-tooltip>
         </div>
       </q-item-section>
@@ -120,9 +120,9 @@
       <q-item-section side
                       class="attribute-value-section">
         <div class="value-text ellipsis">
-          {{ getAttributesValues(attributes.info.duration) }}
+          {{ getAttributesValues(attributes.info.expiration_duration) }}
           <q-tooltip>
-            {{ getAttributesValues(attributes.info.duration) }}
+            {{ getAttributesValues(attributes.info.expiration_duration) }}
           </q-tooltip>
         </div>
       </q-item-section>
