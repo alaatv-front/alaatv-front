@@ -23,7 +23,7 @@
           Extra Small
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-xs"
+          <q-btn class="q-btn-xs btn-primary"
                  label="متن دکمه"
                  text-color="grey-9"
                  icon="copyright"
@@ -31,7 +31,7 @@
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-xs"
+          <q-btn class="q-btn-xs btn-primary"
                  disable
                  label="متن دکمه"
                  icon="copyright"
@@ -39,13 +39,13 @@
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-xs icon-button"
+          <q-btn class="q-btn-xs btn-primary"
                  square
                  icon="search"
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-xs icon-button"
+          <q-btn class="q-btn-xs btn-primary"
                  color="primary "
                  square
                  disable
@@ -143,33 +143,32 @@
           Large
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-lg"
+          <q-btn class="q-btn-lg btn-primary"
                  label="متن دکمه"
                  text-color="grey-9"
                  icon="copyright"
-                 color="secondary"
-                 icon-right="isax:arrow-left" />
+                 icon-right="isax:arrow-left"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-lg"
+          <q-btn class="q-btn-lg btn-primary"
+                 disable
                  label="متن دکمه"
-                 text-color="grey-9"
                  icon="copyright"
-                 color="secondary-5"
-                 disable
-                 icon-right="isax:arrow-left" />
+                 icon-right="isax:arrow-left"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-md"
+          <q-btn class="q-btn-lg btn-primary"
                  square
-                 color="secondary"
-                 icon="search" />
+                 icon="search"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-md"
+          <q-btn class="q-btn-lg btn-primary"
+                 color="primary "
                  square
                  disable
-                 color="secondary"
                  icon="search" />
         </div>
         <div class="col-md-3">
@@ -181,98 +180,33 @@
           Extra Large
         </div>
         <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary"
-                 disable />
-        </div>
-        <div class="col-md-3">
-          Round
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-mt-lg">
-        <div class="col-md-1">
-          Extra Large
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary"
-                 disable />
-        </div>
-        <div class="col-md-3">
-          Round
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-mt-lg">
-        <div class="col-md-1">
-          Extra Large
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-xl"
+          <q-btn class="q-btn-xl btn-primary"
                  label="متن دکمه"
                  text-color="grey-9"
                  icon="copyright"
-                 square
                  icon-right="isax:arrow-left"
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="xl"
-                 square
-                 icon="isax:user"
+          <q-btn class="q-btn-xl btn-primary"
+                 disable
+                 label="متن دکمه"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="xl"
+          <q-btn class="q-btn-xl btn-primary"
                  square
-                 icon="isax:user"
+                 icon="search"
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="xl"
+          <q-btn class="q-btn-xl btn-primary"
+                 color="primary "
                  square
-                 icon="isax:user"
-                 color="primary"
-                 disable />
+                 disable
+                 icon="search" />
         </div>
         <div class="col-md-3">
           Square
@@ -287,7 +221,6 @@
   <color />
   <progress-theme />
   <slider-range />
-  <example-table />
   <example-tabs />
   <toggle-theme />
   <radio-btn />
@@ -318,7 +251,6 @@ import BreadCrumbs from 'components/Theme/BreadCrumbs/BreadCrumbs.vue'
 import Tooltip from 'components/Theme/Tooltip/Tooltip.vue'
 import Toast from 'components/Theme/Toast/Toast.vue'
 import ExampleTabs from 'components/Theme/Tabs/ExampleTabs.vue'
-import ExampleTable from 'components/Theme/Table/Table.vue'
 import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
 
 export default {
@@ -340,7 +272,6 @@ export default {
     Tooltip,
     Toast,
     ExampleTabs,
-    ExampleTable,
     ExampleDialog
   }
 }
