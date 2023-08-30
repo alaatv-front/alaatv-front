@@ -215,6 +215,7 @@
 
     </div>
   </div>
+  <badge />
   <bread-crumbs />
   <checkbox />
   <example-dialog />
@@ -252,6 +253,7 @@ import Tooltip from 'components/Theme/Tooltip/Tooltip.vue'
 import Toast from 'components/Theme/Toast/Toast.vue'
 import ExampleTabs from 'components/Theme/Tabs/ExampleTabs.vue'
 import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
+import Badge from 'components/Theme/Badge/Badge.vue'
 
 export default {
   name: 'Controls',
@@ -272,7 +274,8 @@ export default {
     Tooltip,
     Toast,
     ExampleTabs,
-    ExampleDialog
+    ExampleDialog,
+    Badge
   }
 }
 </script>
