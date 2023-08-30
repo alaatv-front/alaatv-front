@@ -29,7 +29,7 @@
              unelevated
              class="action-btn"
              :class="{'full-width': !hasInstallment}"
-             label="ثبت نام نقدی"
+             label="ثبت نام"
              @click="paymentAction('cash')" />
       <q-btn v-if="hasInstallment"
              color="grey-3"
