@@ -1582,6 +1582,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@phosphor-icons/vue@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@phosphor-icons/vue/-/vue-2.1.4.tgz#cd0f3756eee4330005a55b1a08b5dfed47ccc48f"
+  integrity sha512-evV8o1+y9qStbrI2vK3zXAYMqSuFUv/VSth3XMS9Q9qje0bLNZ2V8t6i2JDke+UMbt+OCB2OEn7jxe+xQFIMJw==
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"

@@ -1,12 +1,12 @@
 <template>
   <div ref="CartInvoice"
-       class="cart-invoice main-content">
+       class="cart-invoice main-content"
+       :class="options.className"
+       :style="options.style">
     <div ref="CartInvoiceContainer"
          :key="CartInvoiceContainerKey"
          class="cart-invoice-container sidebar">
-      <div :class="options.className"
-           :style="options.style"
-           class="invoice-container q-mb-sm sidebar__inner">
+      <div class="invoice-container q-mb-sm sidebar__inner">
         <template v-if="cartLoading">
           <div class="q-px-lg">
             <div class="q-mb-md">
@@ -21,7 +21,7 @@
         </template>
         <template v-else-if="cart.count > 0">
           <div v-if="isUserLogin">
-            <div v-if="!dense"
+            <div v-if="!localOptions.dense"
                  class="q-mb-md">
               <donate :cart="cart"
                       @cart-review="cartReview" />
@@ -59,7 +59,7 @@
               </q-card-section>
 
               <q-card-section class="invoice-coupon-section invoice-cart-section">
-                <div v-if="localOptions.hasDiscountPercent && !dense"
+                <div v-if="localOptions.hasDiscountPercent && !localOptions.dense"
                      class="enter-coupon-code">
                   <div class="title">{{localOptions.discountPercent}}</div>
 
@@ -82,7 +82,7 @@
                     </template>
                   </q-input>
                 </div>
-                <div v-if="localOptions.hasGiftcard && !dense"
+                <div v-if="localOptions.hasGiftcard && !localOptions.dense"
                      class="enter-coupon-code">
                   <div class="title">{{localOptions.giftcard}}</div>
 
@@ -109,7 +109,7 @@
                   </q-input>
                 </div>
 
-                <q-separator v-if="!dense"
+                <q-separator v-if="!localOptions.dense"
                              class="invoice-separator" />
               </q-card-section>
 
@@ -124,7 +124,7 @@
                 </div>
 
                 <div class="payment-gateway row">
-                  <div v-if="localOptions.hasPaymentMethod && !dense">
+                  <div v-if="localOptions.hasPaymentMethod && !localOptions.dense">
                     <p class="payment-title col-md-12 col-sm-2 col-xs-12">{{localOptions.paymentMethod}}</p>
                     <div class="banks-gateway-list col-md-12 col-sm-4 col-xs-12">
                       <div class="row q-col-gutter-sm">
@@ -157,7 +157,7 @@
                     </div>
                   </div>
 
-                  <div v-if="!dense"
+                  <div v-if="!localOptions.dense"
                        class="payment-description col-md-12 col-sm-6 col-xs-12">
 
                     <q-input v-if="localOptions.hasComment"
@@ -251,10 +251,6 @@ export default {
       default: () => {
         return {}
       }
-    },
-    dense: {
-      type: Boolean,
-      default: false
     }
   },
   data () {
@@ -344,6 +340,12 @@ export default {
       if (typeof newValue === 'string') {
         this.updateEECEvent(newValue)
       }
+    },
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   },
   mounted () {
@@ -374,16 +376,14 @@ export default {
     },
     loadSticky () {
       // console.log('this.$refs.CartInvoice.parentElement', this.$refs.CartInvoice.parentElement.clientHeight)
-
       const widgetParent = this.$refs.CartInvoice.parentElement
-      widgetParent.style.height = '90%'
-
+      widgetParent.style.height = '100%'
       // const parent = this.$refs.CartInvoice.parentElement.parentElement
       // const parentClientHeight = parent.clientHeight
       // this.$refs.CartInvoice.style.height = parentClientHeight + 'px'
 
       this.stickySidebarInstance = new StickySidebar(this.$refs.CartInvoiceContainer, {
-        // topSpacing: 142,
+        topSpacing: 142,
         // bottomSpacing: 20,
         containerSelector: false,
         // containerSelector: '.cart-invoice.main-content',

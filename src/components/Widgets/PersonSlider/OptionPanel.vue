@@ -321,15 +321,15 @@ export default defineComponent({
         navigation: {
           goToLeft: {
             icon: 'chevron_left',
-            textColor: '#FF944A',
-            color: '#FFE8D8',
+            textColor: '#9E9E9E',
+            color: '#FFFFFF',
             rounded: true,
             size: 'lg'
           },
           goToRight: {
             icon: 'chevron_right',
-            textColor: '#FF944A',
-            color: '#FFE8D8',
+            textColor: '#9E9E9E',
+            color: '#FFFFFF',
             rounded: true,
             size: 'lg'
           }

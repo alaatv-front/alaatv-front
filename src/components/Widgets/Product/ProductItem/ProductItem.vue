@@ -584,6 +584,8 @@ export default defineComponent({
     .btn-green {
       background: #4caf50;
       color: white;
+      min-width: 118px;
+      font-size: 14px;
       @media screen and (max-width: 600px){
         margin: 20px;
       }
@@ -682,7 +684,7 @@ export default defineComponent({
       }
 
       .product-content-box {
-        padding: 0 0 0 16px;
+        // padding: 0 0 0 16px;
         width: 100%;
 
         .main-title {
@@ -732,7 +734,7 @@ export default defineComponent({
             }
           }
           .btn-green{
-            margin-left: 20px;
+            margin-left: 10px;
           }
 
           .btn-style {
