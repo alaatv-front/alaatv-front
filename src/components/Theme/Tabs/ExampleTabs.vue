@@ -3,10 +3,11 @@
   <q-tabs v-model="tab"
           narrow-indicator
           dense>
-    <q-tab v-for="(tab, index) in 12"
+    <q-tab v-for="(tab, index) in 6"
            :key="index"
            :name="tab"
-           icon="add"
+           :disable="index === 4 || index === 5"
+           icon="isax:copyright"
            label="عنوان تب" />
   </q-tabs>
 </template>
