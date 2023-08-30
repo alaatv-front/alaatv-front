@@ -33,9 +33,7 @@
 
   .q-field {
     height: fit-content;
-    &.field-md {
-      @include field-md;
-    }
+    @include field-md;
     &.field-lg {
       @include field-lg;
     }

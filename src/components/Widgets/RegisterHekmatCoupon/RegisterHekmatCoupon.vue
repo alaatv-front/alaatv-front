@@ -70,6 +70,7 @@
 import LazyImg from 'src/components/lazyImg.vue'
 import { ProductList } from 'src/models/Product.js'
 import { mixinWidget, mixinAuth } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'Services',
@@ -101,19 +102,18 @@ export default {
         return
       }
       this.submitLoading = true
-      this.$apiGateway.voucher.submit({ code: this.coupon })
-        .then(() => {
-          this.$route.push({ name: 'UserPanel.MyPurchases' })
+      APIGateway.voucher.submit({ code: this.coupon })
+        .then((messageAndProductList) => {
           this.$q.notify({
-            message: 'با موفقیت ثبت شد.',
+            message: messageAndProductList.message,
             type: 'positive',
             position: 'top'
           })
-          // this.products = messageAndProductList.products
-          // this.submitLoading = false
-          // this.$route.push({ name: 'UserPanel.MyPurchases' })
+          this.products = messageAndProductList.products
+          this.submitLoading = false
+          this.$router.push({ name: 'UserPanel.MyPurchases' })
         })
-        .catch(() => {
+        .catch((e) => {
           this.submitLoading = false
         })
     }

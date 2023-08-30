@@ -2,7 +2,7 @@
   background: #FFFFFF;
   box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
   border-radius: 12px !important;
-  max-width: 900px !important;
+  //max-width: 900px !important;
   .dialog-header {
     //display: grid;
     //grid-template-columns: auto 1fr auto;
@@ -104,7 +104,7 @@
 .q-dialog {
   .q-dialog__inner {
     .q-card {
-      width: 544px;
+      min-width: 544px;
       .q-separator {
         background: $grey-3;
       }

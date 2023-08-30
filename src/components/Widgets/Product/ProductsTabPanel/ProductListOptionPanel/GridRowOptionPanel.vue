@@ -117,7 +117,6 @@
 </template>
 
 <script>
-import { Product } from 'src/models/Product.js'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
