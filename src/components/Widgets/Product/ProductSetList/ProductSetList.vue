@@ -35,6 +35,9 @@
                 <q-item-section class="cursor-pointer ellipsis"
                                 @click="download(content)">
                   {{ content.title }}
+                  <q-tooltip>
+                    {{ content.title }}
+                  </q-tooltip>
                 </q-item-section>
                 <q-item-section v-if="!content.isPamphlet()"
                                 avatar>
@@ -230,7 +233,8 @@ export default {
   }
 
   &:deep(.q-item) {
-    height: 67PX;
+    padding: 12px 24px;
+    height: 48PX;
     border-radius: 8px;
     background:#F5F7FA;
     color:#424242;

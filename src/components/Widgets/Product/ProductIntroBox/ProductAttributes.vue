@@ -2,8 +2,9 @@
   <q-list separator>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <ph-chalkboard-teacher :size="16"
-                               color="#757575" />
+        <q-icon name="ph:chalkboard-teacher"
+                color="gray-7"
+                size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
@@ -22,8 +23,9 @@
     </q-item>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <ph-book-open-text :size="16"
-                           color="#757575" />
+        <q-icon name="ph:book-open-text"
+                color="gray-7"
+                size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
@@ -42,8 +44,9 @@
     </q-item>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <ph-books :size="16"
-                  color="#757575" />
+        <q-icon name="ph:books"
+                color="gray-7"
+                size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
@@ -61,6 +64,9 @@
     </q-item>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
+        <q-icon name="ph:siren"
+                color="gray-7"
+                size="16px" />
         <ph-siren :size="16"
                   color="#757575" />
       </q-item-section>
@@ -81,8 +87,9 @@
     </q-item>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <ph-calendar-blank :size="16"
-                           color="#757575" />
+        <q-icon name="ph:calendar-blank"
+                color="gray-7"
+                size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
@@ -101,8 +108,9 @@
     </q-item>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <ph-calendar-x :size="16"
-                       color="#757575" />
+        <q-icon name="ph:calendar-x"
+                color="gray-7"
+                size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
@@ -121,8 +129,9 @@
     </q-item>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <ph-download-simple :size="16"
-                            color="#757575" />
+        <q-icon name="ph:download-simple"
+                color="gray-7"
+                size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
@@ -141,8 +150,9 @@
     </q-item>
     <q-item class="attribute-item">
       <q-item-section class="attribute-icon">
-        <ph-clock-countdown :size="16"
-                            color="#757575" />
+        <q-icon name="ph:clock-countdown"
+                color="gray-7"
+                size="16px" />
       </q-item-section>
       <q-item-section>
         <div class="attribute-title">
@@ -214,6 +224,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .attribute-item {
+  padding: 10px 0;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
   .attribute-icon {
     max-width: 16px;
   }
@@ -231,19 +246,19 @@ export default defineComponent({
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    width: 150px;
-    max-width: 150px;
+    width: 50%;
+    max-width: 250px;
 
     .value-text {
       color:#303030;
-      text-align: left;
+      text-align: right;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
       letter-spacing: -0.42px;
-      width: 100px;
-      max-width: 100px;
+      width: 100%;
+      max-width: 100%;
     }
   }
 }
