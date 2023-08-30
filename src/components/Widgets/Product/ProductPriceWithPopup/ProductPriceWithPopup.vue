@@ -199,6 +199,7 @@ export default defineComponent({
         font-weight: 400;
         line-height: normal;
         letter-spacing: -0.8px;
+        text-decoration: line-through;
       }
     }
     .price-final {
