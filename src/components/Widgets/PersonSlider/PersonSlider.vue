@@ -98,6 +98,40 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
+      settings: {
+        itemsToShow: 6,
+        snapAlign: 'center',
+        dir: 'rtl'
+      },
+      // breakpoints are mobile first
+      // any settings not specified will fallback to the carousel settings
+      breakpoints: {
+        // 350 and up
+        200: {
+          itemsToShow: 1,
+          snapAlign: 'center'
+        },
+        // 350 and up
+        350: {
+          itemsToShow: 1,
+          snapAlign: 'center'
+        },
+        // 650 and up
+        650: {
+          itemsToShow: 3,
+          snapAlign: 'center'
+        },
+        // 1200 and up
+        1200: {
+          itemsToShow: 5,
+          snapAlign: 'center'
+        },
+        // 1480 and up
+        1480: {
+          itemsToShow: 5,
+          snapAlign: 'center'
+        }
+      },
       defaultOptions: {
         settings: {
           autoplay: 3500,
