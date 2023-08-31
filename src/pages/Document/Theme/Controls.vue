@@ -5,16 +5,16 @@
       <div class="row q-col-gutter-md">
         <div class="col-md-1" />
         <div class="col-md-2">
-          default
+          button (default)
         </div>
         <div class="col-md-2">
-          hover / click
+          button (disable)
         </div>
         <div class="col-md-2">
-          focus
+          icon button (default)
         </div>
         <div class="col-md-2">
-          disable
+          icon button (disable)
         </div>
         <div class="col-md-3" />
       </div>
@@ -23,29 +23,33 @@
           Extra Small
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-xs"
-                 color="primary">
-            متن دکمه
-          </q-btn>
+          <q-btn class="q-btn-xs btn-primary"
+                 label="متن دکمه"
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-xs"
-                 color="primary">
-            متن دکمه
-          </q-btn>
+          <q-btn class="q-btn-xs btn-primary"
+                 disable
+                 label="متن دکمه"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-xs"
-                 color="primary">
-            متن دکمه
-          </q-btn>
+          <q-btn class="q-btn-xs btn-primary"
+                 square
+                 icon="search"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn class="q-btn-xs"
-                 color="primary"
-                 disable>
-            متن دکمه
-          </q-btn>
+          <q-btn class="q-btn-xs btn-primary"
+                 color="primary "
+                 square
+                 disable
+                 icon="search" />
         </div>
         <div class="col-md-3">
           Standard
@@ -57,32 +61,40 @@
         </div>
         <div class="col-md-2">
           <q-btn class="q-btn-sm"
-                 color="secondary"
-                 outline>
-            متن دکمه
-          </q-btn>
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-sm"
-                 color="secondary"
-                 outline>
-            متن دکمه
-          </q-btn>
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-sm"
-                 color="secondary"
-                 outline>
-            متن دکمه
-          </q-btn>
-        </div>
-        <div class="col-md-2">
-          <q-btn class="q-btn-sm"
-                 color="secondary"
+                 label="متن دکمه"
                  outline
-                 disable>
-            متن دکمه
-          </q-btn>
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn class="q-btn-sm"
+                 label="متن دکمه"
+                 outline
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn class="q-btn-sm"
+                 label="متن دکمه"
+                 outline
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
+                 color="primary" />
+        </div>
+        <div class="col-md-2">
+          <q-btn class="q-btn-sm"
+                 label="متن دکمه"
+                 outline
+                 disable
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
+                 color="primary" />
         </div>
         <div class="col-md-3">
           Outline
@@ -93,29 +105,34 @@
           Medium
         </div>
         <div class="col-md-2">
-          <q-btn color="secondary"
-                 flat>
-            متن دکمه
-          </q-btn>
-        </div>
-        <div class="col-md-2">
-          <q-btn color="secondary"
-                 flat>
-            متن دکمه
-          </q-btn>
-        </div>
-        <div class="col-md-2">
-          <q-btn color="secondary"
-                 flat>
-            متن دکمه
-          </q-btn>
-        </div>
-        <div class="col-md-2">
-          <q-btn color="secondary"
+          <q-btn class="q-btn-md"
                  flat
-                 disable>
-            متن دکمه
-          </q-btn>
+                 label="متن دکمه"
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left" />
+        </div>
+        <div class="col-md-2">
+          <q-btn class="q-btn-md"
+                 flat
+                 label="متن دکمه"
+                 disable
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left" />
+        </div>
+        <div class="col-md-2">
+          <q-btn class="q-btn-md"
+                 square
+                 flat
+                 icon="search" />
+        </div>
+        <div class="col-md-2">
+          <q-btn class="q-btn-md"
+                 square
+                 flat
+                 disable
+                 icon="search" />
         </div>
         <div class="col-md-3">
           Flat
@@ -126,33 +143,33 @@
           Large
         </div>
         <div class="col-md-2">
-          <q-btn size="lg"
-                 rounded
-                 color="primary">
-            متن دکمه
-          </q-btn>
+          <q-btn class="q-btn-lg btn-primary"
+                 label="متن دکمه"
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="lg"
-                 rounded
-                 color="primary">
-            متن دکمه
-          </q-btn>
+          <q-btn class="q-btn-lg btn-primary"
+                 disable
+                 label="متن دکمه"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="lg"
-                 rounded
-                 color="primary">
-            متن دکمه
-          </q-btn>
+          <q-btn class="q-btn-lg btn-primary"
+                 square
+                 icon="search"
+                 color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="lg"
-                 rounded
-                 color="primary"
-                 disable>
-            متن دکمه
-          </q-btn>
+          <q-btn class="q-btn-lg btn-primary"
+                 color="primary "
+                 square
+                 disable
+                 icon="search" />
         </div>
         <div class="col-md-3">
           Rounded
@@ -163,95 +180,33 @@
           Extra Large
         </div>
         <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
+          <q-btn class="q-btn-xl btn-primary"
+                 label="متن دکمه"
+                 text-color="grey-9"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
+          <q-btn class="q-btn-xl btn-primary"
+                 disable
+                 label="متن دکمه"
+                 icon="copyright"
+                 icon-right="isax:arrow-left"
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary"
-                 disable />
-        </div>
-        <div class="col-md-3">
-          Round
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-mt-lg">
-        <div class="col-md-1">
-          Extra Large
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 round
-                 icon="isax:user"
-                 color="primary"
-                 disable />
-        </div>
-        <div class="col-md-3">
-          Round
-        </div>
-      </div>
-      <div class="row q-col-gutter-md q-mt-lg">
-        <div class="col-md-1">
-          Extra Large
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
+          <q-btn class="q-btn-xl btn-primary"
                  square
-                 icon="isax:user"
+                 icon="search"
                  color="primary" />
         </div>
         <div class="col-md-2">
-          <q-btn size="xl"
+          <q-btn class="q-btn-xl btn-primary"
+                 color="primary "
                  square
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 square
-                 icon="isax:user"
-                 color="primary" />
-        </div>
-        <div class="col-md-2">
-          <q-btn size="xl"
-                 square
-                 icon="isax:user"
-                 color="primary"
-                 disable />
+                 disable
+                 icon="search" />
         </div>
         <div class="col-md-3">
           Square
@@ -260,14 +215,20 @@
 
     </div>
   </div>
+  <badge />
+  <bread-crumbs />
   <checkbox />
+  <example-dialog />
   <color />
   <progress-theme />
   <slider-range />
+  <example-tabs />
   <toggle-theme />
   <radio-btn />
   <pagination-theme />
   <scroll />
+  <toast />
+  <tooltip />
   <typography />
   <avatar />
   <text-input />
@@ -287,6 +248,12 @@ import Scroll from 'components/Theme/Controls/Scroll/Scroll.vue'
 import Avatar from 'components/Theme/Controls/Avatar/Avatar.vue'
 import TextInput from 'components/Theme/TextInput/TextInput.vue'
 import Dropdown from 'components/Theme/Controls/Dropdown/Dropdown.vue'
+import BreadCrumbs from 'components/Theme/BreadCrumbs/BreadCrumbs.vue'
+import Tooltip from 'components/Theme/Tooltip/Tooltip.vue'
+import Toast from 'components/Theme/Toast/Toast.vue'
+import ExampleTabs from 'components/Theme/Tabs/ExampleTabs.vue'
+import ExampleDialog from 'components/Theme/Dialog/ExampleDialog.vue'
+import Badge from 'components/Theme/Badge/Badge.vue'
 
 export default {
   name: 'Controls',
@@ -302,7 +269,13 @@ export default {
     PaginationTheme,
     Typography,
     Scroll,
-    TextInput
+    TextInput,
+    BreadCrumbs,
+    Tooltip,
+    Toast,
+    ExampleTabs,
+    ExampleDialog,
+    Badge
   }
 }
 </script>

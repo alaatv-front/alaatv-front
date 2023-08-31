@@ -119,9 +119,8 @@
 </template>
 
 <script>
-import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
-import { Product } from 'src/models/Product'
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'productListScrollOptionPanel',
@@ -194,9 +193,9 @@ export default {
       this.localOptions.data.splice(productIndex, 1)
     },
     addProduct (id) {
-      const peoductId = Number(id)
-      const newProduct = new Product({ id: peoductId })
-      this.localOptions.data.push(newProduct)
+      const productId = Number(id)
+      // const newProduct = new Product({ id: productId })
+      this.localOptions.data.push(productId)
 
       this.cancelProduct()
     },

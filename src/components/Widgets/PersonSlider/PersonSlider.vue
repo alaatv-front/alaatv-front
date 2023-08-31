@@ -98,6 +98,40 @@ export default {
   mixins: [mixinWidget],
   data() {
     return {
+      settings: {
+        itemsToShow: 6,
+        snapAlign: 'center',
+        dir: 'rtl'
+      },
+      // breakpoints are mobile first
+      // any settings not specified will fallback to the carousel settings
+      breakpoints: {
+        // 350 and up
+        200: {
+          itemsToShow: 1,
+          snapAlign: 'center'
+        },
+        // 350 and up
+        350: {
+          itemsToShow: 1,
+          snapAlign: 'center'
+        },
+        // 650 and up
+        650: {
+          itemsToShow: 3,
+          snapAlign: 'center'
+        },
+        // 1200 and up
+        1200: {
+          itemsToShow: 5,
+          snapAlign: 'center'
+        },
+        // 1480 and up
+        1480: {
+          itemsToShow: 5,
+          snapAlign: 'center'
+        }
+      },
       defaultOptions: {
         settings: {
           autoplay: 3500,
@@ -134,6 +168,7 @@ export default {
         sliderItems: [],
         personType: 'student',
         pagination: false,
+        carouselPadding: '0 25px',
         navigation: {
           goToLeft: {
             icon: 'chevron_left',
@@ -278,7 +313,7 @@ export default {
 .arrow-left {
   align-self: center;
   position: absolute;
-  right: -30px;
+  right: 0;
   top: 33%;
   z-index: 9999;
 
@@ -294,7 +329,7 @@ export default {
 .arrow-right {
   align-self: center;
   position: absolute;
-  left: -30px;
+  left: 0;
   top: 33%;
   z-index: 9999;
 
@@ -306,6 +341,10 @@ export default {
     background: v-bind('localOptions.navigation.goToRight.color');
     color: v-bind('localOptions.navigation.goToRight.textColor');
   }
+}
+
+.carousel {
+  padding: v-bind('localOptions.carouselPadding');;
 }
 
 .carousel__slide {

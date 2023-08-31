@@ -3,7 +3,7 @@
        :style="localOptions.style"
        :class="localOptions.className">
     <product-panel :loading="loading"
-                   :data="localOptions.data"
+                   :data="clonedData"
                    :options="localOptions" />
   </div>
 </template>
@@ -11,6 +11,7 @@
 <script>
 import ProductPanel from './components/ProductPanel.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { APIGateway } from 'src/api/APIGateway'
 
 export default {
   name: 'ProductsTabPanel',
@@ -22,6 +23,7 @@ export default {
     return {
       products: [],
       loading: false,
+      clonedData: [],
       defaultOptions: {
         className: '',
         style: {},
@@ -31,10 +33,12 @@ export default {
   },
   computed: {
     productFlatList() {
-      return this.extractProducts(this.localOptions.data)
+      const clonedData = this.getClonedData()
+      return this.extractProducts(clonedData)
     },
     productIdList() {
-      return this.productFlatList.map(product => product.id)
+      // return this.productFlatList.map(product => product.id)
+      return this.productFlatList
     },
     productIdListLength() {
       return this.productIdList.length
@@ -45,7 +49,8 @@ export default {
       this.loading = true
       this.getProductsPromise()
         .then(productList => {
-          this.replaceProducts(this.localOptions.data, productList.list)
+          this.clonedData = this.getClonedData()
+          this.replaceProducts(this.clonedData, productList.list)
           this.loading = false
         })
         .catch(() => {
@@ -54,18 +59,22 @@ export default {
     }
   },
   methods: {
+    getClonedData () {
+      return JSON.parse(JSON.stringify(this.localOptions.data))
+    },
     extractProducts(group) {
-      const products = []
+      const productIds = []
       for (let index = 0; index < group.length; index++) {
         const groupItem = group[index]
         if (groupItem.type === 'GroupList') {
           const productStack = this.extractProducts(groupItem.data)
-          products.push(...productStack)
+          productIds.push(...productStack)
         } else {
-          products.push(...groupItem.data)
+          const productIdArray = groupItem.data.map(item => (item.id) ? item.id : item)
+          productIds.push(...productIdArray)
         }
       }
-      return products
+      return productIds
     },
     replaceProducts(optionList, productList) {
       for (let groupIndex = 0; groupIndex < optionList.length; groupIndex++) {
@@ -89,14 +98,15 @@ export default {
           length: this.productIdListLength
         }
       }
-      return this.$apiGateway.product.getProductList(data)
+      return APIGateway.product.getProductList(data)
     },
     prefetchServerDataPromise () {
       this.loading = true
       return this.getProductsPromise()
     },
     prefetchServerDataPromiseThen (productList) {
-      this.replaceProducts(this.localOptions.data, productList.list)
+      this.clonedData = this.getClonedData()
+      this.replaceProducts(this.clonedData, productList.list)
       this.loading = false
     },
     prefetchServerDataPromiseCatch () {

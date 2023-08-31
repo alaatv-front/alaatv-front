@@ -117,7 +117,6 @@
 </template>
 
 <script>
-import { Product } from 'src/models/Product.js'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 
@@ -192,9 +191,9 @@ export default {
       this.localOptions.data.splice(productIndex, 1)
     },
     addProduct(id) {
-      const peoductId = Number(id)
-      const newProduct = new Product({ id: peoductId })
-      this.localOptions.data.push(newProduct)
+      const productId = Number(id)
+      // const newProduct = new Product({ id: productId })
+      this.localOptions.data.push(productId)
 
       this.cancelProduct()
     },

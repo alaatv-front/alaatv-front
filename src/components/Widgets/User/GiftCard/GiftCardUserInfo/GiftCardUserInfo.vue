@@ -15,6 +15,7 @@
                 </div>
                 <div class="input">
                   <q-input v-model="localUser.first_name"
+                           class="field-md"
                            filled />
                 </div>
               </div>
@@ -26,6 +27,7 @@
                 </div>
                 <div class="input">
                   <q-input v-model="localUser.last_name"
+                           class="field-md"
                            filled />
                 </div>
               </div>
@@ -37,6 +39,7 @@
                 </div>
                 <div class="input">
                   <q-input v-model="localUser.mobile"
+                           class="field-md"
                            filled />
                 </div>
               </div>
@@ -48,6 +51,7 @@
                 </div>
                 <div class="input">
                   <q-input v-model="localUser.national_code"
+                           class="field-md"
                            filled />
                 </div>
               </div>
@@ -212,7 +216,7 @@
                            :readonly="hasShabaNumber"
                            maxlength="2"
                            dir="ltr"
-                           class="q-pl-sm col-1"
+                           class="q-pl-sm col-1 field-md"
                            filled
                            @update:model-value="moveToNextInput(localShabaNumber7, 2, null, 'input6')" />
                   <q-input ref="input6"
@@ -220,7 +224,7 @@
                            :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
-                           class="q-pl-sm col-2"
+                           class="q-pl-sm col-2 field-md"
                            filled
                            @update:model-value="moveToNextInput(localShabaNumber6, 4, 'input7', 'input5')" />
                   <q-input ref="input5"
@@ -228,7 +232,7 @@
                            :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
-                           class="q-pl-sm col-2"
+                           class="q-pl-sm col-2 field-md"
                            filled
                            @update:model-value="moveToNextInput(localShabaNumber5, 4, 'input6', 'input4')" />
                   <q-input ref="input4"
@@ -236,7 +240,7 @@
                            :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
-                           class="q-pl-sm col-2"
+                           class="q-pl-sm col-2 field-md"
                            filled
                            @update:model-value="moveToNextInput(localShabaNumber4, 4, 'input5', 'input3')" />
                   <q-input ref="input3"
@@ -244,7 +248,7 @@
                            :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
-                           class="q-pl-sm col-2"
+                           class="q-pl-sm col-2 field-md"
                            filled
                            @update:model-value="moveToNextInput(localShabaNumber3, 4, 'input4', 'input2')" />
                   <q-input ref="input2"
@@ -252,7 +256,7 @@
                            :readonly="hasShabaNumber"
                            maxlength="4"
                            dir="ltr"
-                           class="q-pl-sm col-2"
+                           class="q-pl-sm col-2 field-md"
                            filled
                            @update:model-value="moveToNextInput(localShabaNumber2, 4, 'input3', 'input1')" />
                   <q-input ref="input1"
@@ -260,7 +264,7 @@
                            :readonly="hasShabaNumber"
                            maxlength="2"
                            dir="ltr"
-                           class="q-pl-sm col-1"
+                           class="q-pl-sm col-1 field-md"
                            filled
                            @update:model-value="moveToNextInput(localShabaNumber1, 2, 'input2', null)" />
                 </div>

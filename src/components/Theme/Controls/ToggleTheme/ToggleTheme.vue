@@ -8,19 +8,19 @@
       </div>
     </div>
     <div class="row flex flex-center">
-      <div class="col-md-2 flex flex-center">XS</div>
+      <!--      <div class="col-md-2 flex flex-center">XS</div>-->
       <div class="col-md-2 flex flex-center">sm</div>
       <div class="col-md-2 flex flex-center">MD</div>
       <div class="col-md-2 flex flex-center">LG</div>
-      <div class="col-md-2 flex flex-center">XL</div>
+      <!--      <div class="col-md-2 flex flex-center">XL</div>-->
     </div>
     <div class="row flex flex-center">
-      <div class="col-md-2 flex flex-center">
-        <q-toggle v-model="value1"
-                  class="toggle-xs"
-                  size="xs"
-                  color="teal" />
-      </div>
+      <!--      <div class="col-md-2 flex flex-center">-->
+      <!--        <q-toggle v-model="value1"-->
+      <!--                  class="toggle-xs"-->
+      <!--                  size="xs"-->
+      <!--                  color="teal" />-->
+      <!--      </div>-->
       <div class="col-md-2 flex flex-center">
         <q-toggle v-model="value1"
                   class="toggle-sm"
@@ -39,20 +39,20 @@
                   size="lg"
                   color="teal" />
       </div>
-      <div class="col-md-2 flex flex-center">
-        <q-toggle v-model="value1"
-                  class="toggle-xl"
-                  size="xl"
-                  color="teal" />
-      </div>
+      <!--      <div class="col-md-2 flex flex-center">-->
+      <!--        <q-toggle v-model="value1"-->
+      <!--                  class="toggle-xl"-->
+      <!--                  size="xl"-->
+      <!--                  color="teal" />-->
+      <!--      </div>-->
     </div>
     <div class="row flex flex-center">
-      <div class="col-md-2 flex flex-center">
-        <q-toggle v-model="value2"
-                  class="toggle-xs"
-                  size="xs"
-                  color="teal" />
-      </div>
+      <!--      <div class="col-md-2 flex flex-center">-->
+      <!--        <q-toggle v-model="value2"-->
+      <!--                  class="toggle-xs"-->
+      <!--                  size="xs"-->
+      <!--                  color="teal" />-->
+      <!--      </div>-->
       <div class="col-md-2 flex flex-center">
         <q-toggle v-model="value2"
                   class="toggle-sm"
@@ -71,12 +71,12 @@
                   size="lg"
                   color="teal" />
       </div>
-      <div class="col-md-2 flex flex-center">
-        <q-toggle v-model="value2"
-                  class="toggle-xl"
-                  size="xl"
-                  color="teal" />
-      </div>
+      <!--      <div class="col-md-2 flex flex-center">-->
+      <!--        <q-toggle v-model="value2"-->
+      <!--                  class="toggle-xl"-->
+      <!--                  size="xl"-->
+      <!--                  color="teal" />-->
+      <!--      </div>-->
     </div>
   </div>
 </template>

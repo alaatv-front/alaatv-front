@@ -107,7 +107,7 @@
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :href="'https://forum.alaatv.com/'">
+                     :href="'https://forum.alaatv.com'">
                 آلاخونه
               </q-btn>
             </div>
@@ -211,10 +211,11 @@
                 v-ripple
                 clickable
                 class="q-mt-sm"
-                :active="isRouteSelected(item.to)"
+                :active="isRouteSelected(item?.route?.name)"
                 active-class="active-item"
                 exact-active-class="active-route"
-                :to="{ name: item.to }">
+                :to="item?.route"
+                @click="onMobileMainFooterItemClick($event, item)">
           <q-item-section avatar>
             <q-icon v-if="item.title !== 'profile' || user.id === null"
                     :name="item.icon"
@@ -329,7 +330,7 @@
 <script>
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
-import { APIGateway } from 'src/api/APIGateway'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'AlaaFooter',
@@ -343,26 +344,33 @@ export default {
       mobileFooterItems: [
         {
           title: 'profile',
-          icon: 'isax:user',
-          to: 'UserPanel.Dashboard',
+          icon: 'ph:user',
+          route: { name: 'UserPanel.Dashboard' },
           active: false
         },
         {
           title: 'card',
-          icon: 'isax:card',
-          to: 'Public.Checkout.Review',
-          active: false
-        },
-        {
-          title: 'bank-soala',
-          icon: 'isax:discover',
-          to: 'Public.Content.Search',
+          icon: 'ph:shopping-cart',
+          route: { name: 'Public.Checkout.Review' },
           active: false
         },
         {
           title: 'home',
-          icon: 'isax:home',
-          to: 'Public.Home',
+          icon: 'ph:chats',
+          route: null,
+          externalLink: 'https://forum.alaatv.com',
+          active: false
+        },
+        {
+          title: 'bank-soala',
+          icon: 'ph:compass',
+          route: { name: 'Public.Content.Search' },
+          active: false
+        },
+        {
+          title: 'home',
+          icon: 'ph:house',
+          route: { name: 'Public.Home' },
           active: false
         }
       ],
@@ -444,8 +452,8 @@ export default {
           })
       })
     },
-    isRouteSelected (itemName) {
-      return this.$route.name === itemName
+    isRouteSelected (routeName) {
+      return this.$route.name === routeName
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
@@ -470,6 +478,13 @@ export default {
         event.preventDefault()
         this.toggleLogoutDialog()
       }
+    },
+    onMobileMainFooterItemClick(event, item) {
+      if (!item.externalLink) {
+        return
+      }
+      event.preventDefault()
+      window.location.href = item.externalLink
     },
     updateMenuItemsFromEventInfo () {
       this.isAdmin = this.user.hasPermission('insertStudyPlan') || this.user.hasPermission('updateStudyPlan') || this.user.hasPermission('deleteStudyPlan')

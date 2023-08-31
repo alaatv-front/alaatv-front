@@ -249,6 +249,10 @@ const routes = [
             component: () => import('src/pages/Public/RegisterHekmatCoupon.vue')
           },
           {
+            path: 'v',
+            redirect: { name: 'Public.RegisterHekmatCoupon' }
+          },
+          {
             path: 't',
             redirect: { name: 'UserPanel.Ticket.Index' }
           },

@@ -149,7 +149,7 @@ export default {
     },
     prefetchServerDataPromiseThen (data) {
       this.content = new Content(data)
-      if (this.content.file.pamphlet) {
+      if (this.hasPamphlet()) {
         this.videoListRatio = 5 / 4
       }
       this.getSetByRequest()
