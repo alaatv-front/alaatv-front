@@ -20,6 +20,7 @@
                     multiple
                     auto-upload
                     :factory="factoryFn"
+                    :headers="[{name: 'Content-Type', value: 'image/png'}]"
                     style="width: 100%;max-height: 100%;height: 100%;background: transparent;z-index: 1;"
                     @added="noItem = false"
                     @uploaded="onUploaded"
@@ -103,17 +104,39 @@ export default {
             key: file.name
           })
             .then(url => {
+              console.log('file', file)
               const baseUrl = url.split('?')[0]
               this.urlList.push(baseUrl)
-              resolve({
-                url,
-                method: 'PUT',
-                file
-              })
+              this.fileReader(file)
+                .then((result) => {
+                  console.log('result', result)
+                  this.$axios.put(url, {
+                    headers: {
+                      'Content-Type': 'image/png'
+                    },
+                    body: result
+                  })
+                    .then(response => {
+                      console.log('response', response)
+                    })
+                    .catch(err => {
+                      console.log('err', err)
+                    })
+                })
             }).catch((err) => {
               reject(err)
             })
         }
+      })
+    },
+    fileReader(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          resolve(reader.result)
+        }
+
+        reader.readAsBinaryString(file)
       })
     },
     onRejected() {

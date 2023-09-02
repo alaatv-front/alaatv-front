@@ -28,7 +28,8 @@ export default {
         className: '',
         style: {},
         data: []
-      }
+      },
+      cloneData: []
     }
   },
   computed: {
@@ -57,6 +58,9 @@ export default {
           this.loading = false
         })
     }
+  },
+  mounted() {
+    this.loadData()
   },
   methods: {
     getClonedData () {
@@ -91,6 +95,12 @@ export default {
         }
       }
     },
+    fixGroupData(data) {
+      for (let ProductIndex = 0; ProductIndex < data.length; ProductIndex++) {
+        const productItem = data[ProductIndex]
+        data[ProductIndex] = typeof productItem === 'number' ? productItem : productItem.id
+      }
+    },
     getProductsPromise() {
       const data = {
         productIds: this.productIdList,
@@ -111,6 +121,18 @@ export default {
     },
     prefetchServerDataPromiseCatch () {
       this.loading = false
+    },
+    loadData() {
+      this.loading = true
+      this.cloneData = JSON.parse(JSON.stringify(this.localOptions.data))
+      this.getProductsPromise()
+        .then(productList => {
+          this.replaceProducts(this.cloneData, productList.list)
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }
