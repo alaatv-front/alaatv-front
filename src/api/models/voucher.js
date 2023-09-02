@@ -1,6 +1,6 @@
 import { apiV2 } from 'src/boot/axios.js'
+import { ProductList } from 'src/models/Product.js'
 import APIRepository from '../classes/APIRepository.js'
-import { ProductList } from 'src/models/Product'
 
 export default class VoucherAPI extends APIRepository {
   constructor() {
@@ -32,8 +32,8 @@ export default class VoucherAPI extends APIRepository {
       data,
       resolveCallback: (response) => {
         return {
-          message: response.data.data.message, // string message
-          products: new ProductList(response.data.data.products)
+          message: response.data.message, // string message
+          products: new ProductList(response.data.products)
         }
       },
       rejectCallback: (error) => {

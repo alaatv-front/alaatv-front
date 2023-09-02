@@ -111,11 +111,10 @@
 </template>
 
 <script>
-import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
-import { Product } from 'src/models/Product'
 import TextWidgetOptionPanel from 'src/components/Widgets/TextWidget/OptionPanel.vue'
 import ActionButtonOptionPanel from 'src/components/Widgets/ActionButton/OptionPanel.vue'
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'productListScrollOptionPanel',
@@ -262,6 +261,7 @@ export default {
     },
     addProduct (id) {
       const productId = Number(id)
+      // const newProduct = new Product({ id: productId })
       this.localOptions.data.push(productId)
 
       this.cancelProduct()

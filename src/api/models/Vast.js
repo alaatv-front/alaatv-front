@@ -13,7 +13,7 @@ export default class VastAPI extends APIRepository {
     }
   }
 
-  getXml (cache = { TTL: 1000 }) {
+  getXml(cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: axios,
