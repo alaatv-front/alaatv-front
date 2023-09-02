@@ -410,8 +410,9 @@ export default defineComponent({
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-top: 21px;
+        min-height: 41.5px;
 
         .add-cart-info {
           display: flex;
