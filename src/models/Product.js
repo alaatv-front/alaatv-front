@@ -28,6 +28,7 @@ class Product extends Model {
       { key: 'is_purchased' },
       { key: 'live_link' },
       { key: 'photo' },
+      { key: 'photo_wide' },
       { key: 'attributes' },
       {
         key: 'contents_progress',
