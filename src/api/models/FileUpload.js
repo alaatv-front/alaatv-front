@@ -15,7 +15,7 @@ export default class FileUploadAPI extends APIRepository {
 
   upload(data) {
     return this.sendRequest({
-      apiMethod: 'post',
+      apiMethod: 'get',
       api: this.api,
       request: this.APIAdresses.base,
       resolveCallback: (response) => {
