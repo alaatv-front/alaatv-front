@@ -218,7 +218,7 @@ export default defineComponent({
       this.expanded = !this.expanded
     },
     calculateDescriptionHight() {
-      if (this.$refs.shortDescription.clientHeight >= 300) {
+      if (this.$refs.shortDescription.clientHeight >= 301) {
         this.showMore = true
       } else {
         this.showMore = false
@@ -388,16 +388,13 @@ export default defineComponent({
         }
 
         .info-footer-action {
-          position: relative;
           @media screen and (max-width: 600px){
             width: 100%;
           }
 
           .footer-action-btn {
-            width: 130px;
-            position: absolute;
-            bottom: -50px;
-            right: 50px;
+            width: 100%;
+
             @media screen and (max-width: 600px){
               margin-top: 50px;
             }
@@ -468,7 +465,7 @@ export default defineComponent({
           .short-description-text {
             height: 300px;
             overflow-y: hidden;
-            transition: all .3s ease-in-out;
+            transition: all 3s ease-in-out;
             color:#FFF;
             font-size: 16px;
             font-style: normal;
@@ -484,8 +481,8 @@ export default defineComponent({
 
             &.auto-height {
               height: auto;
-              min-height: 200px;
-              transition: all .3s ease-in-out;
+              min-height: 300px;
+              transition: all 3s ease-in-out;
 
               @media screen and (max-width: 600px){
                 min-height: 110px;
