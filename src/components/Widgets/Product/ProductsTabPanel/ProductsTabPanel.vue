@@ -28,8 +28,7 @@ export default {
         className: '',
         style: {},
         data: []
-      },
-      cloneData: []
+      }
     }
   },
   computed: {
@@ -58,9 +57,6 @@ export default {
           this.loading = false
         })
     }
-  },
-  mounted() {
-    this.loadData()
   },
   methods: {
     getClonedData () {
@@ -121,18 +117,6 @@ export default {
     },
     prefetchServerDataPromiseCatch () {
       this.loading = false
-    },
-    loadData() {
-      this.loading = true
-      this.cloneData = JSON.parse(JSON.stringify(this.localOptions.data))
-      this.getProductsPromise()
-        .then(productList => {
-          this.replaceProducts(this.cloneData, productList.list)
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
     }
   }
 }
