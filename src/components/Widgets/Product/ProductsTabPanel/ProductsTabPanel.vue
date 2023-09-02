@@ -3,7 +3,7 @@
        :style="localOptions.style"
        :class="localOptions.className">
     <product-panel :loading="loading"
-                   :data="localOptions.data"
+                   :data="cloneData"
                    :options="localOptions" />
   </div>
 </template>
@@ -26,7 +26,8 @@ export default {
         className: '',
         style: {},
         data: []
-      }
+      },
+      cloneData: []
     }
   },
   computed: {
@@ -34,7 +35,7 @@ export default {
       return this.extractProducts(this.localOptions.data)
     },
     productIdList() {
-      return this.productFlatList.map(product => product.id)
+      return this.productFlatList
     },
     productIdListLength() {
       return this.productIdList.length
@@ -42,16 +43,11 @@ export default {
   },
   watch: {
     productIdListLength(vale) {
-      this.loading = true
-      this.getProductsPromise()
-        .then(productList => {
-          this.replaceProducts(this.localOptions.data, productList.list)
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-        })
+      this.loadData()
     }
+  },
+  mounted() {
+    this.loadData()
   },
   methods: {
     extractProducts(group) {
@@ -62,6 +58,7 @@ export default {
           const productStack = this.extractProducts(groupItem.data)
           products.push(...productStack)
         } else {
+          this.fixGroupData(groupItem.data)
           products.push(...groupItem.data)
         }
       }
@@ -82,6 +79,12 @@ export default {
         }
       }
     },
+    fixGroupData(data) {
+      for (let ProductIndex = 0; ProductIndex < data.length; ProductIndex++) {
+        const productItem = data[ProductIndex]
+        data[ProductIndex] = typeof productItem === 'number' ? productItem : productItem.id
+      }
+    },
     getProductsPromise() {
       const data = {
         productIds: this.productIdList,
@@ -96,11 +99,24 @@ export default {
       return this.getProductsPromise()
     },
     prefetchServerDataPromiseThen (productList) {
-      this.replaceProducts(this.localOptions.data, productList.list)
+      this.replaceProducts(this.cloneData, productList.list)
       this.loading = false
     },
     prefetchServerDataPromiseCatch () {
       this.loading = false
+    },
+    loadData() {
+      this.loading = true
+      this.cloneData = JSON.parse(JSON.stringify(this.localOptions.data))
+      console.log('cloneeeee', this.cloneData)
+      this.getProductsPromise()
+        .then(productList => {
+          this.replaceProducts(this.cloneData, productList.list)
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }
