@@ -106,57 +106,41 @@ export default {
             key: file.name
           })
             .then(url => {
-              console.log('file', file)
               const baseUrl = url.split('?')[0]
               this.urlList.push(baseUrl)
-              this.fileReader(file)
-                .then((result) => {
-                  console.log('result', result)
-                  debugger
-                  this.$axios({
-                    method: 'put',
-                    headers: {
-                      'Content-Type': 'image/png'
-                    },
-                    url,
-                    // responseType: 'stream',
-                    body: file,
-                    data: file,
-                    transformRequest: (data, headers) => {
-                      debugger
-                      if (headers.common && headers.common.Authorization) {
-                        delete headers.common.Authorization
-                      }
-                      if (headers.Authorization) {
-                        delete headers.Authorization
-                      }
+              this.$axios({
+                method: 'put',
+                headers: {
+                  'Content-Type': 'image/png'
+                },
+                url,
+                body: file,
+                data: file,
+                transformRequest: (data, headers) => {
+                  if (headers.common && headers.common.Authorization) {
+                    delete headers.common.Authorization
+                  }
+                  if (headers.Authorization) {
+                    delete headers.Authorization
+                  }
 
-                      return data
-                    }
+                  return data
+                }
+              })
+                .then(() => {
+                  this.onUploaded()
+                  resolve({
+                    file
                   })
-                    .then(response => {
-                      debugger
-                      console.log('response', response)
-                    })
-                    .catch(err => {
-                      debugger
-                      console.log('err', err)
-                    })
+                })
+                .catch(() => {
+                  this.onRejected()
                 })
             }).catch((err) => {
+              this.onRejected()
               reject(err)
             })
         }
-      })
-    },
-    fileReader(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          resolve(reader.result)
-        }
-
-        reader.readAsBinaryString(file)
       })
     },
     onRejected() {
