@@ -10,7 +10,16 @@
 
             <div class="outsideLabel">آدرس فایل عکس</div>
             <q-input v-model="localOptions.imageSource"
-                     label="image" />
+                     label="Image ">
+              <template v-slot:after>
+                <q-btn round
+                       dense
+                       flat
+                       color="primary"
+                       icon="cloud_upload"
+                       @click="toggleUploadDialog('all')" />
+              </template>
+            </q-input>
           </div>
           <!--          <div class="input-container q-py-md">-->
           <!--            <div class="outsideLabel">height</div>-->
@@ -38,7 +47,16 @@
           <div class="input-container col-12">
             <div class="outsideLabel">لینک عکس در سایز {{size}}</div>
             <q-input v-model="localOptions[size].src"
-                     label="image link" />
+                     label="Image Link">
+              <template v-slot:after>
+                <q-btn round
+                       dense
+                       flat
+                       color="primary"
+                       icon="cloud_upload"
+                       @click="toggleUploadDialog(size)" />
+              </template>
+            </q-input>
           </div>
           <div class="action col-md-12">
             <div class="cehckBox">
@@ -98,6 +116,10 @@
             </div>
           </div>
         </div>
+        <image-upload-dialog :dialog="dialog"
+                             :multiple="multiple"
+                             @toggle-dialog="toggleUploadDialog"
+                             @update-value="onUpdateValue" />
       </div>
     </template>
   </option-panel-tabs>
@@ -107,16 +129,19 @@
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import ImageUploadDialog from 'src/components/Utils/ImageUploadDialog.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs },
+  components: { OptionPanelTabs, ImageUploadDialog },
   mixins: [mixinOptionPanel],
   data() {
     return {
       size: 'xs',
       sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       actionTypes: ['event', 'scroll', 'link'],
+      toggleSize: 'all',
+      dialog: false,
       defaultOptions: {
         imageSource: null,
         ratio: null,
@@ -190,6 +215,19 @@ export default defineComponent({
         this.$emit('update:options', newVal)
       },
       deep: true
+    }
+  },
+  methods: {
+    toggleUploadDialog(size) {
+      this.toggleSize = size
+      this.dialog = !this.dialog
+    },
+    onUpdateValue (urlList) {
+      if (this.toggleSize === 'all') {
+        this.localOptions.imageSource = urlList[0]
+      } else {
+        this.localOptions[this.toggleSize].src = urlList[0]
+      }
     }
   }
 })
