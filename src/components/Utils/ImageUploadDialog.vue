@@ -73,6 +73,8 @@
 
 <script>
 
+import { APIGateway } from 'src/api/APIGateway'
+
 export default {
   name: 'ImageUploadDialog',
   props: {
@@ -100,7 +102,7 @@ export default {
       return new Promise((resolve, reject) => {
         for (let index = 0; index < files.length; index++) {
           const file = files[index]
-          this.$apiGateway.fileUpload.upload({
+          APIGateway.fileUpload.upload({
             key: file.name
           })
             .then(url => {
@@ -110,16 +112,34 @@ export default {
               this.fileReader(file)
                 .then((result) => {
                   console.log('result', result)
-                  this.$axios.put(url, {
+                  debugger
+                  this.$axios({
+                    method: 'put',
                     headers: {
                       'Content-Type': 'image/png'
                     },
-                    body: result
+                    url,
+                    // responseType: 'stream',
+                    body: file,
+                    data: file,
+                    transformRequest: (data, headers) => {
+                      debugger
+                      if (headers.common && headers.common.Authorization) {
+                        delete headers.common.Authorization
+                      }
+                      if (headers.Authorization) {
+                        delete headers.Authorization
+                      }
+
+                      return data
+                    }
                   })
                     .then(response => {
+                      debugger
                       console.log('response', response)
                     })
                     .catch(err => {
+                      debugger
                       console.log('err', err)
                     })
                 })
