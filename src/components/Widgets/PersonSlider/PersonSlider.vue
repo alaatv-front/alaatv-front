@@ -1,137 +1,114 @@
 <template>
-  <div v-if="localOptions.sliderItems"
-       class="row">
-    <div class="col-12">
-      <carousel ref="vueCarousel"
-                v-bind="localOptions.settings"
-                :i18n="{
-                  'ariaNextSlide': 'رفتن به اسلاید بعدی',
-                  'ariaPreviousSlide': 'رفتن به اسلاید فبلی',
-                  'iconArrowRight': 'قبلی',
-                  'iconArrowLeft': 'بعدی',
-                }"
-                :autoplay="3500"
-                :breakpoints="localOptions.breakpoints"
-                :wrapAround="true"
-                :transition="500">
-        <slide v-for="slide in localOptions.sliderItems"
-               :key="slide">
-          <q-card class="scroll-item-card">
-            <q-img :src="slide.image"
-                   width="160px"
-                   height="160px"
-                   spinner-color="primary"
-                   class="student-img"
-                   spinner-size="82px">
-              <div v-if="localOptions.personType === 'student'"
-                   class="student-major"
-                   :class="{'riazi': slide.major === 'ریاضی', 'tajrobi': slide.major === 'تجربی'}">
-                {{ slide.major }}
-              </div>
-            </q-img>
-            <q-card-section class="person-name-card-section">
-              <div class="student-name ellipsis-2-lines">{{ slide.first_name + ' ' + slide.last_name }}</div>
-            </q-card-section>
-            <q-card-section class="person-info-card-section">
-              <div v-if="localOptions.personType === 'student'"
-                   class="student-info">
-                <div class="rank">
-                  {{ slide.rank }}
-                </div>
-                <div class="region">
-                  {{ slide.distraction === '1' ? 'منطقه یک' : slide.distraction === '2' ? 'منطقه دو' : slide.distraction === '3' ? 'منطقه سه' : slide.distraction}}
-                </div>
-              </div>
-              <div v-if="localOptions.personType === 'teacher'"
-                   class="teacher-info">
-                <div class="major">
+  <div v-if="loaded"
+       class="person-slider-container">
+    <div v-if="localOptions.sliderItems.length > 0"
+         class="row">
+      <div class="col-12">
+        <carousel ref="vueCarousel"
+                  v-bind="localOptions.settings"
+                  :i18n="{
+                    'ariaNextSlide': 'رفتن به اسلاید بعدی',
+                    'ariaPreviousSlide': 'رفتن به اسلاید فبلی',
+                    'iconArrowRight': 'قبلی',
+                    'iconArrowLeft': 'بعدی',
+                  }"
+                  :autoplay="3500"
+                  :breakpoints="localOptions.breakpoints"
+                  :wrapAround="true"
+                  :transition="500">
+          <slide v-for="slide in localOptions.sliderItems"
+                 :key="slide">
+            <q-card class="scroll-item-card">
+              <q-img :src="slide.image"
+                     width="160px"
+                     height="160px"
+                     spinner-color="primary"
+                     class="student-img"
+                     spinner-size="82px">
+                <div v-if="localOptions.personType === 'student'"
+                     class="student-major"
+                     :class="{'riazi': slide.major === 'ریاضی', 'tajrobi': slide.major === 'تجربی'}">
                   {{ slide.major }}
                 </div>
-              </div>
-            </q-card-section>
-          </q-card>
-        </slide>
+              </q-img>
+              <q-card-section class="person-name-card-section">
+                <div class="student-name ellipsis-2-lines">{{ slide.first_name + ' ' + slide.last_name }}</div>
+              </q-card-section>
+              <q-card-section class="person-info-card-section">
+                <div v-if="localOptions.personType === 'student'"
+                     class="student-info">
+                  <div class="rank">
+                    {{ slide.rank }}
+                  </div>
+                  <div class="region">
+                    {{ slide.distraction === '1' ? 'منطقه یک' : slide.distraction === '2' ? 'منطقه دو' : slide.distraction === '3' ? 'منطقه سه' : slide.distraction}}
+                  </div>
+                </div>
+                <div v-if="localOptions.personType === 'teacher'"
+                     class="teacher-info">
+                  <div class="major">
+                    {{ slide.major }}
+                  </div>
+                </div>
+              </q-card-section>
+            </q-card>
+          </slide>
 
-        <template #addons>
-          <pagination v-if="localOptions.pagination" />
-        </template>
-      </carousel>
+          <template #addons>
+            <pagination v-if="localOptions.pagination" />
+          </template>
+        </carousel>
 
-      <div v-if="!$q.screen.lt.md"
-           class="arrow-left text-right">
-        <q-btn :icon="localOptions.navigation.goToLeft.icon"
-               :rounded="localOptions.navigation.goToLeft.rounded"
-               class="arrow-left-btn "
-               :size="localOptions.navigation.goToLeft.size"
-               @click="$refs.vueCarousel.next()" />
+        <div v-if="!$q.screen.lt.md"
+             class="arrow-left text-right">
+          <q-btn :icon="localOptions.navigation.goToLeft.icon"
+                 :rounded="localOptions.navigation.goToLeft.rounded"
+                 class="arrow-left-btn "
+                 :size="localOptions.navigation.goToLeft.size"
+                 @click="$refs.vueCarousel.next()" />
+        </div>
+        <div v-if="!$q.screen.lt.md"
+             class="arrow-right">
+          <q-btn :icon="localOptions.navigation.goToRight.icon"
+                 :rounded="localOptions.navigation.goToRight.rounded"
+                 class="arrow-right-btn"
+                 :size="localOptions.navigation.goToRight.size"
+                 @click="$refs.vueCarousel.prev()" />
+        </div>
+
       </div>
-      <div v-if="!$q.screen.lt.md"
-           class="arrow-right">
-        <q-btn :icon="localOptions.navigation.goToRight.icon"
-               :rounded="localOptions.navigation.goToRight.rounded"
-               class="arrow-right-btn"
-               :size="localOptions.navigation.goToRight.size"
-               @click="$refs.vueCarousel.prev()" />
-      </div>
-
     </div>
-  </div>
-  <div v-else
-       class="loading">
-    ...
+    <div v-else
+         class="loading">
+      ...
+    </div>
   </div>
 </template>
 
 <script>
+import { defineAsyncComponent, defineComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-import { Carousel, Pagination, Slide } from 'vue3-carousel'
+// import { Carousel, Pagination, Slide } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 
-export default {
+export default defineComponent({
   name: 'PersonSlider',
   components: {
-    Carousel,
-    Slide,
-    Pagination
+    Carousel: defineAsyncComponent(() =>
+      import('vue3-carousel')
+    ),
+    Slide: defineAsyncComponent(() =>
+      import('vue3-carousel')
+    ),
+    Pagination: defineAsyncComponent(() =>
+      import('vue3-carousel')
+    )
   },
   mixins: [mixinWidget],
   data() {
     return {
-      settings: {
-        itemsToShow: 6,
-        snapAlign: 'center',
-        dir: 'rtl'
-      },
-      // breakpoints are mobile first
-      // any settings not specified will fallback to the carousel settings
-      breakpoints: {
-        // 350 and up
-        200: {
-          itemsToShow: 1,
-          snapAlign: 'center'
-        },
-        // 350 and up
-        350: {
-          itemsToShow: 1,
-          snapAlign: 'center'
-        },
-        // 650 and up
-        650: {
-          itemsToShow: 3,
-          snapAlign: 'center'
-        },
-        // 1200 and up
-        1200: {
-          itemsToShow: 5,
-          snapAlign: 'center'
-        },
-        // 1480 and up
-        1480: {
-          itemsToShow: 5,
-          snapAlign: 'center'
-        }
-      },
+      loaded: false,
       defaultOptions: {
         settings: {
           autoplay: 3500,
@@ -190,37 +167,9 @@ export default {
     }
   },
   mounted() {
-    this.init()
-  },
-  methods: {
-    onVirtualScroll({ index }) {
-      this.scrollIndex = index
-    },
-    goToRight() {
-      if (this.scrollIndex > 0) {
-        this.scrollIndex -= 1
-        this.$refs.virtualScroll.scrollTo(this.scrollIndex)
-      }
-    },
-    goToLeft() {
-      if (this.scrollIndex < this.localOptions.sliderItems.length) {
-        this.scrollIndex += 1
-        this.$refs.virtualScroll.scrollTo(this.scrollIndex)
-      }
-    },
-    init() {
-      if (this.$refs.virtualScroll) {
-        setInterval(() => {
-          this.scrollIndex += 1
-          if (this.scrollIndex > this.localOptions.sliderItems.length) {
-            this.scrollIndex = 0
-          }
-          this.$refs.virtualScroll.scrollTo(this.scrollIndex)
-        }, 2000)
-      }
-    }
+    this.loaded = false
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>
