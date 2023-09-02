@@ -155,7 +155,6 @@ export default {
       return this.loadSet()
     },
     prefetchServerDataPromiseThen (data) {
-      console.log('data', data)
       this.set = new Set(data.set)
       this.set.contents = data.contents
       this.sections = data.sections
