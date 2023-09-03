@@ -23,6 +23,10 @@ export default class PagesAPI extends APIRepository {
       cacheKey: this.CacheList.home,
       ...(cache && { cache }),
       resolveCallback: (response) => {
+        console.warn('JSON.stringify(response.data)', JSON.stringify(response.data))
+        if (response.data.data && response.data.data[9] && response.data.data[9].url) {
+          console.warn('response.data.data[9].url', response.data.data[9].url)
+        }
         return new BlockList(response.data.data)
       },
       rejectCallback: (error) => {
