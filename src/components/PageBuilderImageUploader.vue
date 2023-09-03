@@ -61,6 +61,9 @@ export default defineComponent({
       }
     }
   },
+  mounted() {
+    this.background = this.value
+  },
   methods: {
     toggleUploadDialog() {
       this.dialog = !this.dialog

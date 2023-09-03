@@ -1524,10 +1524,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "services": []
                   }
                 }
               ],
@@ -1712,21 +1724,35 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": "280px",
-                    "height": "400px",
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\">سفری امن و بی دغدغه</font>",
+                      "text": "<font color=\"#ff8518\" face=\"iranyekan\">سفری امن و بی دغدغه</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": ""
                       },
                       "sm": {
                         "fontSize": null,
@@ -1744,13 +1770,15 @@
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "hasTheme": null,
                       "activeTheme": null,
@@ -1772,7 +1800,7 @@
                     },
                     "description": "",
                     "descriptionOptions": {
-                      "text": "<font color=\"#424242\">با برنامه مطالعاتی دقیق و مرحله به مرحله به همراه مشاوره در کنار دبیران برتر آلا</font>",
+                      "text": "<font color=\"#424242\">با برنامه مطالعاتی دقیق و مرحله به مرحله به همراه مشاوره در کنار دبیران برتر آلا</font><div><font color=\"#424242\"><br></font></div>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -1945,7 +1973,10 @@
               ],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3",
-                "style": {},
+                "style": {
+                  "marginLeft": "-15px",
+                  "marginRight": "-15px"
+                },
                 "boxShadows": [],
                 "borderStyle": {
                   "borderCssString": "",
@@ -1985,8 +2016,20 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": "280px",
-                    "height": "400px",
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\">تسلط بر تمام مباحث</font>",
@@ -1995,6 +2038,7 @@
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
@@ -2017,13 +2061,15 @@
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "hasTheme": null,
                       "activeTheme": null,
@@ -2218,7 +2264,10 @@
               ],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3",
-                "style": {},
+                "style": {
+                  "marginLeft": "-15px",
+                  "marginRight": "-15px"
+                },
                 "boxShadows": [],
                 "borderStyle": {
                   "borderCssString": "",
@@ -2258,8 +2307,20 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": "280px",
-                    "height": "400px",
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\">فراگیری انواع‌ تیپ‌تست‌ها</font>",
@@ -2268,6 +2329,7 @@
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
@@ -2290,13 +2352,15 @@
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "hasTheme": null,
                       "activeTheme": null,
@@ -2491,7 +2555,10 @@
               ],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3",
-                "style": {},
+                "style": {
+                  "marginLeft": "-15px",
+                  "marginRight": "-15px"
+                },
                 "boxShadows": [],
                 "borderStyle": {
                   "borderCssString": "",
@@ -2531,8 +2598,20 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": "280px",
-                    "height": "400px",
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\">ارزیابی و پیشرفت</font>",
@@ -2541,11 +2620,13 @@
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "sm": {
                         "fontSize": null,
@@ -2563,13 +2644,15 @@
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "hasTheme": null,
                       "activeTheme": null,
@@ -2764,7 +2847,10 @@
               ],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3",
-                "style": {},
+                "style": {
+                  "marginLeft": "-15px",
+                  "marginRight": "-15px"
+                },
                 "boxShadows": [],
                 "borderStyle": {
                   "borderCssString": "",
@@ -2805,8 +2891,8 @@
             "height": "auto",
             "boxed": true,
             "boxedWidth": "1380",
-            "gutterXSize": "md",
-            "gutterYSize": "md",
+            "gutterXSize": "xs",
+            "gutterYSize": "xl",
             "absolute": "none",
             "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
@@ -2884,8 +2970,12 @@
               "maxWidth": "1380px",
               "width": "1380px",
               "marginBottom": "72px",
-              "backgroundColor": "#FF944A",
-              "paddingBottom": "70px"
+              "backgroundColor": "",
+              "paddingBottom": "100px",
+              "backgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S03.png')",
+              "backgroundPosition": "center bottom",
+              "backgroundRepeat": "no-repeat",
+              "backgroundSize": "contain"
             }
           }
         },
@@ -2896,10 +2986,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "services": []
                   }
                 }
               ],
@@ -3392,10 +3494,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "services": []
                   }
                 }
               ],
@@ -3631,7 +3745,9 @@
                         "right": null
                       }
                     },
-                    "style": {}
+                    "style": {
+                      "marginTop": "68px"
+                    }
                   }
                 },
                 {
@@ -4436,7 +4552,7 @@
             "boxed": true,
             "boxedWidth": "1380",
             "gutterXSize": "md",
-            "gutterYSize": "md",
+            "gutterYSize": "xl",
             "absolute": "none",
             "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
@@ -4499,12 +4615,16 @@
             "style": {
               "maxWidth": "1380px",
               "width": "1380px",
-              "backgroundColor": "rgba(255,148,74,1)",
+              "backgroundColor": "",
               "paddingTop": "40px",
               "paddingBottom": "40px",
               "marginLeft": "",
               "paddingLeft": "",
-              "paddingRight": ""
+              "paddingRight": "",
+              "backgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
+              "backgroundSize": "contain",
+              "backgroundRepeat": "no-repeat",
+              "backgroundPosition": "center center"
             }
           }
         },
@@ -4515,10 +4635,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "services": []
                   }
                 }
               ],
@@ -11981,10 +12113,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": true,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "services": []
                   }
                 }
               ],
@@ -12282,10 +12426,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "services": []
                   }
                 }
               ],
@@ -12436,6 +12592,38 @@
                 {
                   "name": "PersonSlider",
                   "options": {
+                    "settings": {
+                      "autoplay": 3500,
+                      "dir": "rtl",
+                      "itemsToShow": "7",
+                      "snapAlign": "center",
+                      "transition": 500,
+                      "pauseAutoplayOnHover": false,
+                      "itemsToScroll": 1,
+                      "wrapAround": true
+                    },
+                    "breakpoints": {
+                      "200": {
+                        "itemsToShow": 1,
+                        "snapAlign": "center"
+                      },
+                      "350": {
+                        "itemsToShow": 1,
+                        "snapAlign": "center"
+                      },
+                      "600": {
+                        "itemsToShow": 3,
+                        "snapAlign": "center"
+                      },
+                      "1024": {
+                        "itemsToShow": "6",
+                        "snapAlign": "center"
+                      },
+                      "1440": {
+                        "itemsToShow": "6",
+                        "snapAlign": "center"
+                      }
+                    },
                     "sliderItems": [
                       {
                         "order": 6,
@@ -12492,8 +12680,34 @@
                         "image": "https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93"
                       }
                     ],
+                    "slidItemBackgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/dabir%201920.png')",
+                    "slidItemBackgroundColor": "",
                     "personType": "teacher",
-                    "style": {}
+                    "pagination": false,
+                    "carouselPadding": "0 25px",
+                    "navigation": {
+                      "goToLeft": {
+                        "icon": "chevron_left",
+                        "textColor": "#9E9E9E",
+                        "color": "#FFFFFF",
+                        "rounded": true,
+                        "size": "lg"
+                      },
+                      "goToRight": {
+                        "icon": "chevron_right",
+                        "textColor": "#9E9E9E",
+                        "color": "#FFFFFF",
+                        "rounded": true,
+                        "size": "lg"
+                      }
+                    },
+                    "style": {
+                      "backgroundImage": null
+                    },
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "slidItemBackgroundSize": "265px",
+                    "slidItemBackgroundRepeat": "no-repeat",
+                    "slidItemBackgroundPosition": "center"
                   }
                 }
               ],
@@ -12580,13 +12794,22 @@
                 {
                   "name": "Separator",
                   "options": {
-                    "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png",
-                    "width": "",
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
                     "height": "",
-                    "spaced": false
+                    "width": "",
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
+                    "className": "",
+                    "services": []
                   }
                 }
               ],
@@ -13017,10 +13240,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "20px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://webstockreview.net/images/divider-clipart-pink-15.png"
+                    "services": []
                   }
                 }
               ],

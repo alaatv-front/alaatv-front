@@ -28,7 +28,16 @@
               image
             </div>
             <q-input v-model="localOptions.image"
-                     label="image" />
+                     label="Image Link">
+              <template v-slot:after>
+                <q-btn round
+                       dense
+                       flat
+                       color="primary"
+                       icon="cloud_upload"
+                       @click="toggleUploadDialog()" />
+              </template>
+            </q-input>
           </div>
           <div class="col-md-6">
             <div class="outSideLabel">
@@ -45,6 +54,10 @@
                      label="width" />
           </div>
         </div>
+        <image-upload-dialog :dialog="dialog"
+                             :multiple="multiple"
+                             @toggle-dialog="toggleUploadDialog"
+                             @update-value="onUpdateValue" />
       </div>
     </template>
   </option-panel-tabs>
@@ -54,18 +67,36 @@
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import ImageUploadDialog from 'src/components/Utils/ImageUploadDialog.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs },
+  components: { OptionPanelTabs, ImageUploadDialog },
   mixins: [mixinOptionPanel],
   data() {
     return {
+      dialog: false,
       defaultOptions: {
-        className: '',
+        spaced: false,
+        dark: false,
+        inset: false,
+        vertical: false,
+        image: null,
+        ImageStyle: null,
+        ImageClassName: null,
+        height: null,
+        width: null,
         style: {},
-        services: []
+        className: ''
       }
+    }
+  },
+  methods: {
+    toggleUploadDialog() {
+      this.dialog = !this.dialog
+    },
+    onUpdateValue (urlList) {
+      this.localOptions.image = urlList[0]
     }
   }
 })
