@@ -6,26 +6,40 @@
                 :is-favored="localContent.is_favored"
                 :loading="bookmarkLoading"
                 @clicked="handleContentBookmark" />
-      <router-link v-if="content && content.id !== null"
-                   :to="{ name: 'Public.Content.Show', params: { id: content.id } }"
-                   class="content-item-link">
-        <div class="content-item-title-icon">
-          <q-icon :name="content.isVideo() ? 'isax:play-circle' : 'isax:document-download'"
-                  size="16.5px" />
+      <template v-if="localContent.isVideo()">
+        <router-link v-if="localContent.id !== null"
+                     :to="{ name: 'Public.Content.Show', params: { id: localContent.id } }"
+                     class="content-item-link">
+          <div class="content-item-title-icon">
+            <q-icon name="ph:play-circle"
+                    size="16.5px" />
+          </div>
+          <div class="content-item-title-text ellipsis-2-lines">
+            {{ localContent.title }}
+          </div>
+        </router-link>
+      </template>
+      <template v-else>
+        <div class="content-item-link"
+             @click="downloadPdf">
+          <div class="content-item-title-icon">
+            <q-icon name="ph:file-text"
+                    size="16.5px" />
+          </div>
+          <div class="content-item-title-text ellipsis-2-lines">
+            {{ localContent.title }}
+          </div>
         </div>
-        <div class="content-item-title-text ellipsis-2-lines">
-          {{ content.title }}
-        </div>
-      </router-link>
+      </template>
     </div>
     <div class="content-item-meta q-pr-md-lg q-pr-xs-md">
-      <template v-if="content.isVideo()">
+      <template v-if="localContent.isVideo()">
         <div v-if="false"
-             :class="{'content-item-meta-updated-at': this.doesHaveDuration(content.duration)}">
-          {{ getShamsiDate(content.updated_at.split(' ')[0], false) }}
+             :class="{'content-item-meta-updated-at': this.doesHaveDuration(localContent.duration)}">
+          {{ getShamsiDate(localContent.updated_at.split(' ')[0], false) }}
         </div>
         <div class="content-item-meta-time">
-          {{ getContentDurationTitle(content.duration)}}
+          {{ getContentDurationTitle(localContent.duration)}}
         </div>
       </template>
       <template v-else>
@@ -67,7 +81,7 @@ export default {
     }
   },
   mounted () {
-    this.localContent = this.content
+    this.localContent = new Content(this.content)
   },
   methods: {
     handleContentBookmark () {
