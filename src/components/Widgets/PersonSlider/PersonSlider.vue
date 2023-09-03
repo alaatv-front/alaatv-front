@@ -86,24 +86,18 @@
 </template>
 
 <script>
-import { defineAsyncComponent, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
-// import { Carousel, Pagination, Slide } from 'vue3-carousel'
+import { Carousel, Pagination, Slide } from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 
 export default defineComponent({
   name: 'PersonSlider',
   components: {
-    Carousel: defineAsyncComponent(() =>
-      import('vue3-carousel')
-    ),
-    Slide: defineAsyncComponent(() =>
-      import('vue3-carousel')
-    ),
-    Pagination: defineAsyncComponent(() =>
-      import('vue3-carousel')
-    )
+    Carousel,
+    Slide,
+    Pagination
   },
   mixins: [mixinWidget],
   data() {
@@ -167,7 +161,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.loaded = false
+    this.loaded = true
   }
 })
 </script>
