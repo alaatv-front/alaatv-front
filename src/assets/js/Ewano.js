@@ -1,7 +1,10 @@
+import { APIGateway } from 'src/api/APIGateway.js'
+
 class Ewano {
   static login (uuid) {
     // send uuid to back and get new token
     // est new token and call onWebAppReady method
+    return APIGateway.ewano.login(uuid)
   }
 
   static onWebAppReady () {
