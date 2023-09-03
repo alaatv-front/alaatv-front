@@ -137,6 +137,11 @@ export default defineComponent({
           }
         },
         sliderItems: [],
+        slidItemBackgroundImage: '',
+        slidItemBackgroundColor: '#ffffff',
+        slidItemBackgroundPosition: 'center',
+        slidItemBackgroundRepeat: 'no-repeat',
+        slidItemBackgroundSize: '',
         personType: 'student',
         pagination: false,
         carouselPadding: '0 25px',
@@ -175,7 +180,11 @@ export default defineComponent({
   margin: 0 10px 20px;
   padding: 20px 20px 8px;
   box-shadow: 0 20px 20px 0 rgb(0 0 0 / 5%);
-  background-color: #fff;
+  background-color: v-bind('localOptions.slidItemBackgroundColor');
+  background-image: v-bind('localOptions.slidItemBackgroundImage');
+  background-position: v-bind('localOptions.slidItemBackgroundPosition');
+  background-repeat: v-bind('localOptions.slidItemBackgroundRepeat');
+  background-size: v-bind('localOptions.slidItemBackgroundSize');
 
   .student-img {
     position: relative;
