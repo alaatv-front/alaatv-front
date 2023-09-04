@@ -35,6 +35,7 @@
     </template>
   </option-panel-tabs>
 </template>
+
 <script>
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
@@ -68,35 +69,41 @@ export default defineComponent({
         fontSize: null,
         fontWeight: null,
         fontStyle: null,
+        letterSpacing: null,
         xs: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         sm: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         md: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         lg: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         xl: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         hasTheme: null,
         activeTheme: null,

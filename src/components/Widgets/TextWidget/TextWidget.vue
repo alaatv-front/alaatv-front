@@ -26,31 +26,36 @@ export default {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         sm: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         md: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         lg: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         xl: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         hasTheme: null,
         activeTheme: null,
@@ -102,12 +107,14 @@ export default {
   font-weight: v-bind('localOptions.xl.fontWeight');
   font-family: v-bind('localOptions.fontFamily');
   font-style: v-bind('localOptions.xl.fontStyle');
+  letter-spacing: v-bind('localOptions.xl.letterSpacing');
 
   @media screen and (max-width: 1920px) {
     font-size: v-bind('localOptions.lg.fontSize');
     font-weight: v-bind('localOptions.lg.fontWeight');
     font-style: v-bind('localOptions.lg.fontStyle');
     line-height: v-bind('localOptions.lg.lineHeight');
+    letter-spacing: v-bind('localOptions.lg.letterSpacing');
   }
 
   @media screen and (max-width: 1440px) {
@@ -115,6 +122,7 @@ export default {
     font-weight: v-bind('localOptions.md.fontWeight');
     font-style: v-bind('localOptions.md.fontStyle');
     line-height: v-bind('localOptions.md.lineHeight');
+    letter-spacing: v-bind('localOptions.md.letterSpacing');
   }
 
   @media screen and (max-width: 1024px) {
@@ -122,6 +130,7 @@ export default {
     font-weight: v-bind('localOptions.sm.fontWeight');
     font-style: v-bind('localOptions.sm.fontStyle');
     line-height: v-bind('localOptions.sm.lineHeight');
+    letter-spacing: v-bind('localOptions.sm.letterSpacing');
   }
 
   @media screen and (max-width: 600px) {
@@ -129,6 +138,7 @@ export default {
     font-weight: v-bind('localOptions.xs.fontWeight');
     font-style: v-bind('localOptions.xs.fontStyle');
     line-height: v-bind('localOptions.xs.lineHeight');
+    letter-spacing: v-bind('localOptions.xs.letterSpacing');
   }
 }
 </style>

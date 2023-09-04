@@ -67,6 +67,7 @@
               </div>
               <div class="last-content-link">
                 <q-btn flat
+                       class="q-btn-sm"
                        icon-right="chevron_left"
                        :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
               </div>
@@ -93,6 +94,7 @@
             </div>
             <div class="last-content-link">
               <q-btn flat
+                     class="q-btn-sm"
                      icon-right="chevron_left"
                      :to="{ name: 'UserPanel.Asset.TripleTitleSet.Content', params: {productId: product.id, setId: product.last_content_user_watched.set.id, contentId: product.last_content_user_watched?.id} }">مشاهده</q-btn>
             </div>

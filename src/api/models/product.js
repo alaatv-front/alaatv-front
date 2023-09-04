@@ -220,13 +220,13 @@ export default class ProductAPI extends APIRepository {
       request: this.APIAdresses.bulk(data.productIds),
       cacheKey: this.CacheList.bulk(data.productIds),
       ...(cache !== undefined && { cache }),
+      data: data.params,
       resolveCallback: (response) => {
         return new ProductList(response.data.data)
       },
       rejectCallback: (error) => {
         return error
-      },
-      data: data.params
+      }
     })
   }
 

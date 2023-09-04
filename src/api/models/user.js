@@ -505,7 +505,7 @@ export default class UserAPI extends APIRepository {
     })
   }
 
-  getCurrent (data = {}, cache = { TTL: 1000 }) {
+  getCurrent(data = {}, cache = { TTL: 1000 }) {
     return this.sendRequest({
       apiMethod: 'get',
       api: this.api,

@@ -24,6 +24,7 @@
 
 <script>
 import { BlockList } from 'src/models/Block.js'
+import { APIGateway } from 'src/api/APIGateway.js'
 import Block from 'src/components/Widgets/Block/Block.vue'
 import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
 
@@ -91,13 +92,13 @@ export default {
     getApiRequest() {
       this.blocks.loading = true
       if (this.localOptions.apiName === 'home') {
-        return this.$apiGateway.pages.home()
+        return APIGateway.pages.home()
       }
       if (this.localOptions.apiName === 'shop') {
-        return this.$apiGateway.pages.shop()
+        return APIGateway.pages.shop()
       }
       if (this.localOptions.apiName === 'content') {
-        return this.$apiGateway.content.relatedProducts(this.defaultOptions.contentId)
+        return APIGateway.content.relatedProducts(this.defaultOptions.contentId)
       }
 
       return Promise.reject('wrong api name')

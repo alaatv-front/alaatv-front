@@ -69,7 +69,7 @@
                    :loading="cartLoading"
                    :to="{name: 'Public.Checkout.Review'}">
               <q-badge v-if="mounted && cartOrdersCount > 0"
-                       color="primary"
+                       color="primary badge-xs"
                        floating
                        rounded>
                 {{cartOrdersCount}}

@@ -29,6 +29,54 @@
                           label="صفحه بندی" />
             </div>
             <div class="col-12 col-md-3">
+              <q-checkbox v-model="localOptions.carouselPadding"
+                          label="فاصله داخلی اسلایدر" />
+            </div>
+            <div class="col-12 col-md-3">
+              <q-input v-model="localOptions.slidItemBackgroundColor"
+                       filled
+                       class="رنگ پس زمینه آیتم اسلایدر">
+                <template v-slot:append>
+                  <q-icon name="colorize"
+                          class="cursor-pointer">
+                    <q-popup-proxy cover
+                                   transition-show="scale"
+                                   transition-hide="scale">
+                      <q-color v-model="localOptions.slidItemBackgroundColor" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+            <div class="col-12 col-md-3">
+              <q-input v-model="localOptions.slidItemBackgroundImage"
+                       label="Image Link">
+                <template v-slot:after>
+                  <q-btn round
+                         dense
+                         flat
+                         color="primary"
+                         icon="cloud_upload"
+                         @click="toggleUploadDialog(size)" />
+                </template>
+              </q-input>
+            </div>
+            <div class="col-12 col-md-3">
+              <q-input v-model="localOptions.slidItemBackgroundPosition"
+                       type="text"
+                       label="Background Position" />
+            </div>
+            <div class="col-12 col-md-3">
+              <q-input v-model="localOptions.slidItemBackgroundRepeat"
+                       type="text"
+                       label="Background Repeat" />
+            </div>
+            <div class="col-12 col-md-3">
+              <q-input v-model="localOptions.slidItemBackgroundSize"
+                       type="text"
+                       label="Background Size" />
+            </div>
+            <div class="col-12 col-md-3">
               <q-input v-model="localOptions.settings.dir"
                        type="text"
                        label="direction" />
@@ -216,7 +264,10 @@
             </q-table>
           </div>
         </q-expansion-item>
-
+        <image-upload-dialog :dialog="dialog"
+                             :multiple="multiple"
+                             @toggle-dialog="toggleUploadDialog"
+                             @update-value="onUpdateValue" />
       </div>
     </template>
   </option-panel-tabs>
@@ -225,10 +276,11 @@
 import { defineComponent } from 'vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
+import ImageUploadDialog from 'src/components/Utils/ImageUploadDialog.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs },
+  components: { OptionPanelTabs, ImageUploadDialog },
   mixins: [PageBuilderOptionPanel],
   props: {
     options: {
@@ -240,6 +292,7 @@ export default defineComponent({
   },
   data () {
     return {
+      dialog: false,
       loading: false,
       rowCount: 0,
       columns: [
@@ -316,8 +369,14 @@ export default defineComponent({
           }
         },
         sliderItems: [],
+        slidItemBackgroundImage: '',
+        slidItemBackgroundColor: '#ffffff',
+        slidItemBackgroundPosition: 'center',
+        slidItemBackgroundRepeat: 'no-repeat',
+        slidItemBackgroundSize: '',
         personType: 'student',
         pagination: false,
+        carouselPadding: '0 25px',
         navigation: {
           goToLeft: {
             icon: 'chevron_left',
@@ -363,6 +422,12 @@ export default defineComponent({
     },
     removeRow(index) {
       this.localOptions.sliderItems.splice(index, 1)
+    },
+    toggleUploadDialog() {
+      this.dialog = !this.dialog
+    },
+    onUpdateValue (urlList) {
+      this.localOptions.slidItemBackgroundImage = "url('" + urlList[0] + "')"
     }
   }
 })

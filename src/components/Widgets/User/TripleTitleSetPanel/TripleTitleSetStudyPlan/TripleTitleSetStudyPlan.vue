@@ -9,22 +9,22 @@
       برنامه مطالعاتی - رشته {{ major.title }}
     </div>
     <div class="col-md-6 col-12 text-right action-btns">
-      <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Nut.png"
-             width="24px" />
       <q-btn flat
              label="تغییر برنامه مطالعاتی"
+             icon="ph:nut"
+             class="q-btn-md"
              @click="changeStudyPlan" />
       <q-btn v-if="isAdmin"
              icon="add"
-             size="md"
-             class="newPlan-btn"
+             class="newPlan-btn q-btn-md"
+             text-color="grey-9"
              color="primary"
              label="زنگ جدید"
              @click="newPlanDialog = true" />
     </div>
     <q-linear-progress v-if="loading"
                        indeterminate />
-    <div class="col-12 q-mt-md">
+    <div class="col-12 calendar">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
@@ -123,6 +123,7 @@
             </div>
             <q-btn flat
                    icon="close"
+                   color="grey-6"
                    @click="changeStudyPlan" />
           </div>
         </q-card-section>
@@ -195,6 +196,7 @@
             </div>
             <q-btn flat
                    icon="close"
+                   color="grey-6"
                    @click="changeStudyPlan" />
           </div>
         </q-card-section>
@@ -235,6 +237,7 @@
             </div>
             <q-btn v-close-popup
                    flat
+                   color="grey-6"
                    icon="close" />
           </div>
         </q-card-section>
@@ -268,6 +271,7 @@
               تغییر برنامه مطالعاتی
             </div>
             <q-btn flat
+                   color="grey-6"
                    icon="close"
                    @click="changeStudyPlan" />
           </div>
@@ -770,9 +774,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.calendar {
+  margin-top: 25px;
+}
 .action-btns {
   .newPlan-btn {
-    margin-left: 40px;
+    margin-left: 24px;
   }
 }
 .plan-setting {

@@ -1,31 +1,24 @@
 <template>
   <div class="scroll-row-container">
+
     <div class="row q-my-xs q-col-gutter-md">
-      <div class="col-md-3 ">
-        <div class="outsideLabel">label</div>
-        <q-input v-model="localOptions.options.label"
-                 label="label" />
+      <div class="col-3">
+        <q-checkbox v-model="localOptions.options.hasLabel"
+                    label="hasLabel" />
       </div>
-      <div v-if="layout === 'ProductShelf'"
-           class="col-md-9">
-        <div class="row q-col-gutter-md">
-          <div class="col-md-4">
-            <div class="outsideLabel">label color</div>
-            <q-input v-model="localOptions.options.labelStyle.color"
-                     label="label color" />
-          </div>
-          <div class="col-md-4">
-            <div class="outsideLabel">label font size</div>
-            <q-input v-model="localOptions.options.labelStyle.fontSize"
-                     label="label font size" />
-          </div>
-          <div class="col-md-4">
-            <div class="outsideLabel">label align</div>
-            <q-select v-model="localOptions.options.labelStyle.textAlign"
-                      :options="textAlignOptions"
-                      label="label align" />
-          </div>
-        </div>
+      <div class="col-3">
+        <q-checkbox v-model="localOptions.options.hasAction"
+                    label="hasAction" />
+      </div>
+      <div class="col-12 q-pa-md">
+        <q-expansion-item v-if="localOptions.options.hasLabel"
+                          label="Label Settings">
+          <text-widget-option-panel v-model:options="localOptions.options.labelOptions" />
+        </q-expansion-item>
+        <q-expansion-item v-if="localOptions.options.hasAction"
+                          label="Action Button Settings">
+          <action-button-option-panel v-model:options="localOptions.options.actionButtonOptions" />
+        </q-expansion-item>
       </div>
       <div class="col-12 q-pa-md">
         <q-expansion-item expand-separator
@@ -117,14 +110,17 @@
 </template>
 
 <script>
-import { Product } from 'src/models/Product.js'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
+import TextWidgetOptionPanel from 'src/components/Widgets/TextWidget/OptionPanel.vue'
+import ActionButtonOptionPanel from 'src/components/Widgets/ActionButton/OptionPanel.vue'
 
 export default {
   name: 'ProductListGridOptionPanel',
   components: {
-    ProductItem
+    ProductItem,
+    TextWidgetOptionPanel,
+    ActionButtonOptionPanel
   },
   mixins: [PageBuilderOptionPanel],
   props: {
@@ -161,6 +157,77 @@ export default {
           //   fontSize: '',
           //   textAlign: 'center'
           // },
+          hasAction: false,
+          hasLabel: false,
+          labelOptions: {
+            text: '',
+            fontFamily: null,
+            color: null,
+            fontSize: null,
+            fontWeight: null,
+            fontStyle: null,
+            xs: {
+              fontSize: null,
+              fontWeight: null,
+              fontStyle: null,
+              lineHeight: null
+            },
+            sm: {
+              fontSize: null,
+              fontWeight: null,
+              fontStyle: null,
+              lineHeight: null
+            },
+            md: {
+              fontSize: null,
+              fontWeight: null,
+              fontStyle: null,
+              lineHeight: null
+            },
+            lg: {
+              fontSize: null,
+              fontWeight: null,
+              fontStyle: null,
+              lineHeight: null
+            },
+            xl: {
+              fontSize: null,
+              fontWeight: null,
+              fontStyle: null,
+              lineHeight: null
+            },
+            hasTheme: null,
+            activeTheme: null,
+            themes: {
+              theme1: {
+                borderColor: null,
+                borderSize: null,
+                borderWidth: null,
+                borderHeight: null,
+                top: null,
+                left: null,
+                bottom: null,
+                right: null
+              }
+            }
+          },
+          actionButtonOptions: {
+            color: null,
+            icon: null,
+            label: null,
+            flat: false,
+            callBack: null,
+            imageSource: null,
+            className: null,
+            fixed: false,
+            fixedPosition: null,
+            hasAction: true,
+            action: null,
+            scrollTo: null,
+            route: null,
+            eventName: null,
+            eventArgs: null
+          },
           colNumber: 'col'
         },
         data: [],
@@ -192,9 +259,9 @@ export default {
       this.localOptions.data.splice(productIndex, 1)
     },
     addProduct(id) {
-      const peoductId = Number(id)
-      const newProduct = new Product({ id: peoductId })
-      this.localOptions.data.push(newProduct)
+      const productId = Number(id)
+      // const newProduct = new Product({ id: productId })
+      this.localOptions.data.push(productId)
 
       this.cancelProduct()
     },

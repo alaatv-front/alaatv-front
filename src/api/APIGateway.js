@@ -32,12 +32,12 @@ import AttributeAPI from 'src/api/models/attribute.js'
 import StudyPlanAPI from 'src/api/models/studyPlan.js'
 import SlideShowAPI from 'src/api/models/slideShow.js'
 import PermissionAPI from 'src/api/models/permission.js'
+import FileUploadAPI from 'src/api/models/FileUpload.js'
 import PageSettingAPI from 'src/api/models/PageSetting.js'
 import ReferralCodeAPI from 'src/api/models/ReferralCode.js'
 import TeleMarketingAPI from 'src/api/models/teleMarketing.js'
 import LiveDescriptionAPI from 'src/api/models/LiveDescription.js'
 import ContentTimepointAPI from 'src/api/models/ContentTimepoint.js'
-
 /* Exporting the APIGateway object. */
 export const APIGateway = {
   tag: new TagAPI(),
@@ -74,6 +74,7 @@ export const APIGateway = {
   attribute: new AttributeAPI(),
   studyPlan: new StudyPlanAPI(),
   permission: new PermissionAPI(),
+  fileUpload: new FileUploadAPI(),
   pageSetting: new PageSettingAPI(),
   referralCode: new ReferralCodeAPI(),
   teleMarketing: new TeleMarketingAPI(),

@@ -57,7 +57,7 @@
               <div class="section-expansion-header">
                 <div class="section-expansion-header-title">
                   <div class="icon">
-                    <q-icon name="isax:book-1"
+                    <q-icon name="ph:book-open-text"
                             size="16.5px" />
                   </div>
                   <div class="text">
@@ -190,13 +190,13 @@ export default {
       if (!contents || !contents.list) {
         return 0
       }
-      return contents.list.filter(content => content.isVideo()).length
+      return (new ContentList(contents)).list.filter(content => content.isVideo()).length
     },
     getCountOfPamphletsInContents (contents) {
       if (!contents || !contents.list) {
         return 0
       }
-      return contents.list.filter(content => content.isPamphlet()).length
+      return (new ContentList(contents)).list.filter(content => content.isPamphlet()).length
     },
     loadSet() {
       return new Promise((resolve, reject) => {
@@ -235,7 +235,7 @@ export default {
         const contentsOfSection = contents.list.filter(content => content.section.id === section.id)
         splitedContents.push({
           section: new SetSection(section),
-          contents: contentsOfSection
+          contents: new ContentList(contentsOfSection)
         })
       })
 

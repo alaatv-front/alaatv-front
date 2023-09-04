@@ -1,5 +1,5 @@
 <template>
-  <div>ExampleTable</div>
+  <h2>ExampleTable</h2>
   <entity-index ref="entityIndex"
                 v-model:value="inputs"
                 v-model:table-selected-values="selected"

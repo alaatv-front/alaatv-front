@@ -1,26 +1,34 @@
-.new-theme {
-  .q-tab {
-    padding: 0 12px;
-    .q-tab__content {
+@import "src/css/Theme/Typography/typography.scss";
+
+.q-tab {
+  padding: 0 12px;
+  .q-tab__content {
       display: flex;
       flex-direction: row;
-      width: 80px;
       .q-tab__indicator {
-        border: 2px solid $primary;
+        border: 2px solid $primary-5;
         border-radius: 8px;
       }
+      .q-tab__icon {
+        color: $grey-9;
+        width: 13px;
+        height: 13px;
+        font-size: 13px;
+        margin-right: 6px;
+      }
+      .q-tab__label {
+        @include body1;
+        color: $grey-9;
+      }
     }
-    .q-tab__label {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 24px;
-      letter-spacing: -0.02em;
-      color: $grey-9;
-    }
-    .q-tab__icon {
-      width: 13px;
-      height: 13px;
-      margin-right: 6px;
+  &.disabled {
+    .q-tab__content {
+      .q-tab__icon {
+        color: $grey-5;
+      }
+      .q-tab__label {
+        color: $grey-5;
+      }
     }
   }
-  }
+}
