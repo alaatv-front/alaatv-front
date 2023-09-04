@@ -1,27 +1,9 @@
 <script>
-import { mixinWidget } from 'src/mixin/Mixins.js'
-import Ewano from 'assets/js/Ewano'
+import { Cookies } from 'quasar'
+import Ewano from 'src/assets/js/Ewano.js'
 
 export default {
   name: 'EwanoLanding',
-  mixins: [mixinWidget],
-  data() {
-    return {
-      defaultOptions: {
-        RAYCHAT_TOKEN: null
-      }
-    }
-  },
-  computed: {
-    raychatToket () {
-      return this.localOptions.RAYCHAT_TOKEN
-    }
-  },
-  watch: {
-    raychatToket () {
-      this.loadScript()
-    }
-  },
   mounted () {
     if (this.hasIdInQueryParam()) {
       this.sendEwanoIdToBackend(this.getUuid())
@@ -37,11 +19,18 @@ export default {
     sendEwanoIdToBackend (uuid) {
       Ewano.login(uuid)
         .then(({ accessToken, user }) => {
-          this.$store.commit('Auth/updateAxiosAuthorization')
+          this.$store.commit('Auth/updateUser', user)
+          this.$store.commit('Auth/updateAccessToken', accessToken)
+          this.$store.commit('Auth/updateAxiosAuthorization', accessToken)
+          if (typeof window !== 'undefined') {
+            Cookies.set('BearerAccessToken', accessToken, {
+              // domain: '.' + window.location.host,
+              path: '/',
+              expires: '365d'
+            })
+          }
         })
-        .catch(() => {
-
-        })
+        .catch(() => {})
     }
   }
 }
