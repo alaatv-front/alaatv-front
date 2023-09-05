@@ -9,7 +9,8 @@
     <div class="content-text text-center q-mb-xl">
       پس از پرداخت و تکمیل ثبت نام تیم آلاء باهاتون تماس میگیره.
     </div>
-    <div class="coupon-action-row">
+    <div v-if="selectedProductId !== freeProductId"
+         class="coupon-action-row">
       <div class="coupon-input-title">
         کد تخفیف
       </div>
@@ -117,6 +118,14 @@ export default {
   components: { LazyImg },
   props: {
     orderId: {
+      type: Number,
+      default: null
+    },
+    selectedProductId: {
+      type: Number,
+      default: null
+    },
+    freeProductId: {
       type: Number,
       default: null
     }

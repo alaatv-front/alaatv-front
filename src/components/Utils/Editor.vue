@@ -2,50 +2,8 @@
   <q-editor ref="editor"
             v-model="editorValue"
             min-height="10rem"
-            :toolbar="[
-              [
-                {
-                  icon: $q.iconSet.editor.align,
-                  fixedLabel: true,
-                  list: 'only-icons',
-                  options: ['left', 'center', 'right', 'justify']
-                },
-                {
-                  icon: 'isax:firstline',
-                  fixedLabel: true,
-                  list: 'only-icons',
-                  options: ['bold', 'italic', 'strike', 'underline']
-                },
-                {
-                  icon: 'isax:document',
-                  fixedLabel: true,
-                  list: 'only-icons',
-                  options: [ 'unordered', 'ordered']
-                },
-                'token',
-                {
-                  icon: $q.iconSet.editor.formatting,
-                  list: 'no-icons',
-                  options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
-                },
-                {
-                  icon: $q.iconSet.editor.fontSize,
-                  fixedLabel: true,
-                  fixedIcon: true,
-                  list: 'no-icons',
-                  options: [
-                    'size-1',
-                    'size-2',
-                    'size-3',
-                    'size-4',
-                    'size-5',
-                    'size-6',
-                    'size-7'
-                  ]
-                }
-              ],
-              ['viewsource']
-            ]"
+            :toolbar="editorToolbar"
+            :fonts="fonts"
             @paste.prevent="onPaste">
     <template v-slot:token>
       <q-btn-dropdown ref="colorPicker"
@@ -70,6 +28,8 @@
 </template>
 
 <script>
+import editorOptions from 'components/EditorOptions.vue'
+
 export default {
   name: 'Editor',
   props: {
@@ -81,11 +41,76 @@ export default {
     }
   },
   data() {
+    const $q = this.$q
     return {
-      foreColor: '#000000'
+      foreColor: '#000000',
+      editorToolbar: [
+        [
+          {
+            icon: $q.iconSet.editor.align,
+            fixedLabel: true,
+            list: 'only-icons',
+            options: ['left', 'center', 'right', 'justify']
+          },
+          {
+            icon: 'isax:firstline',
+            fixedLabel: true,
+            list: 'only-icons',
+            options: ['bold', 'italic', 'strike', 'underline']
+          },
+          {
+            icon: 'isax:document',
+            fixedLabel: true,
+            list: 'only-icons',
+            options: ['unordered', 'ordered']
+          },
+          'token',
+          {
+            icon: $q.iconSet.editor.formatting,
+            list: 'no-icons',
+            options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
+          },
+          {
+            icon: $q.iconSet.editor.font,
+            list: 'no-icons',
+            // options: ['p', 'h3', 'h4', 'h5', 'h6', 'code']
+            options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma']
+          },
+          {
+            icon: $q.iconSet.editor.fontSize,
+            fixedLabel: true,
+            fixedIcon: true,
+            list: 'no-icons',
+            options: [
+              'size-1',
+              'size-2',
+              'size-3',
+              'size-4',
+              'size-5',
+              'size-6',
+              'size-7'
+            ]
+          }
+        ],
+        [
+          'viewsource'
+        ]
+      ],
+      fonts: {
+        Doran: 'Doran FaNum',
+        IRANSans: 'IRANSans',
+        IRANSansDN: 'IRANSansDN',
+        IRANSansX: 'IRANSansXFaNum',
+        iranyekan: 'iranyekan',
+        Plasma: 'Plasma-Lozenge-Dots'
+        // options: ['Doran', 'IRANSans', 'IRANSansDN', 'IRANSansX', 'iranyekan', 'Plasma']
+      }
     }
   },
   computed: {
+    editorOptions () {
+      return editorOptions
+    },
     editorValue: {
       get() {
         return this.value

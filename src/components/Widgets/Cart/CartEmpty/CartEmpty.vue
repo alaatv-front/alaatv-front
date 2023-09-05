@@ -30,6 +30,14 @@ export default {
       cart: new Cart()
     }
   },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
+    }
+  },
   mounted () {
     this.cartReview()
     this.$bus.on('busEvent-refreshCart', this.cartReview)

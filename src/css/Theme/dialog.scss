@@ -2,14 +2,14 @@
   background: #FFFFFF;
   box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
   border-radius: 12px !important;
-  max-width: 900px !important;
+  //max-width: 900px !important;
   .dialog-header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    //display: grid;
+    //grid-template-columns: auto 1fr auto;
     align-items: center;
     .dialog-header-title {
-      margin-right: 8px;
-      margin-left: 8px;
+      //margin-right: 8px;
+      //margin-left: 8px;
     }
     .dialog-close-icon {
       color: $grey-6;
@@ -46,6 +46,16 @@
   }
 }
 .new-theme {
+  .q-dialog {
+    .q-dialog__inner {
+      .q-card {
+        width: 544px;
+        .dialog-header-section, .dialog-action-section {
+          height: 64px;
+        }
+      }
+    }
+  }
   .dialog-xs{
     width: 350px;
     @include default-dialog;
@@ -89,5 +99,27 @@
   .dialog-xl{
     width: 900px;
     @include default-dialog;
+  }
+}
+.q-dialog {
+  & > .q-dialog__inner {
+    & > .q-card {
+      min-width: 544px;
+      .q-separator {
+        background: $grey-3;
+      }
+      .dialog-action-section {
+        padding: 0 16px 24px;
+      }
+      .dialog-body-section {
+        padding: 24px;
+      }
+      .dialog-header-section, .dialog-action-section {
+        height: 64px;
+      }
+      .bottom-sheet-action-section {
+        height: 146px;
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-container">
+  <div class="slider-container new-theme ">
     <div class="row flex flex-center">
       <div class="col-md-9">
         <div class="slider-title">
@@ -22,6 +22,7 @@
                  left-label-text-color="dark"
                  right-label-color="transparent"
                  right-label-text-color="dark"
+                 track-size="8px"
                  thumb-size="35px"
                  :left-label-value="value1.min + 'هزار تومان'"
                  :right-label-value="value1.max + 'هزار تومان'"
@@ -31,6 +32,7 @@
         <q-slider v-model="value2"
                   :min="0"
                   :max="100"
+                  track-size="8px"
                   thumb-size="35px"
                   label
                   label-always

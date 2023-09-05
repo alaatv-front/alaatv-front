@@ -130,7 +130,7 @@
                  :loading="cart.loading"
                  :productId="product.id"
                  :data-product-id="product.id"
-                 class="btn-green"
+                 class="btn-green btn-add-to-cart"
                  @click="addToCart">
             <q-icon name="add" />
             <span>افزودن به سبد</span>
@@ -359,6 +359,7 @@ export default defineComponent({
       top: -10px;
     }
   }
+
   .product-item-box {
     display: flex;
     flex-direction: column;
@@ -409,8 +410,9 @@ export default defineComponent({
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-top: 21px;
+        min-height: 41.5px;
 
         .add-cart-info {
           display: flex;
@@ -469,6 +471,7 @@ export default defineComponent({
 
       .action-box {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
 
@@ -478,11 +481,20 @@ export default defineComponent({
           line-height: 21px;
           color: #666666;
           cursor: pointer;
+          width: calc( 100% - 122px);
+          min-width: 143px;
 
           a {
             text-decoration: none;
             color: inherit;
           }
+        }
+
+        .btn-add-to-cart {
+          width: 122px;
+          min-width: 122px;
+          max-width: 100%;
+          margin: 0;
         }
 
         .btn-style {
@@ -584,6 +596,8 @@ export default defineComponent({
     .btn-green {
       background: #4caf50;
       color: white;
+      min-width: 120px;
+      font-size: 12px;
       @media screen and (max-width: 600px){
         margin: 20px;
       }
@@ -628,8 +642,14 @@ export default defineComponent({
 
         .action-box {
           .more-detail {
+            width: 100%;
             a {
             }
+          }
+          .btn-add-to-cart {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
           }
 
           .btn-style {
@@ -682,7 +702,7 @@ export default defineComponent({
       }
 
       .product-content-box {
-        padding: 0 0 0 16px;
+        // padding: 0 0 0 16px;
         width: 100%;
 
         .main-title {
@@ -730,9 +750,6 @@ export default defineComponent({
             .more {
               display: none;
             }
-          }
-          .btn-green{
-            margin-left: 20px;
           }
 
           .btn-style {
