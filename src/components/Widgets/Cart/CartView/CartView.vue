@@ -69,8 +69,12 @@
               </div>
               <div class="product-text-info">
                 <div class="order-item-header">
-                  <div class="title ellipsis">
+                  <div class="title ellipsis"
+                       :class="{'floating': localOptions.floating}">
                     {{ getProductKey(order, 'title') }}
+                    <q-tooltip>
+                      {{ getProductKey(order, 'title') }}
+                    </q-tooltip>
                   </div>
                   <q-btn v-if="!order.hasGrand()"
                          unelevated
@@ -254,7 +258,8 @@ export default {
         boxed: false,
         boxedWidth: 1200,
         style: {},
-        title: 'سبد خرید شما'
+        title: 'سبد خرید شما',
+        floating: false
       }
     }
   },
@@ -276,6 +281,14 @@ export default {
       } else {
         return 'صفحه محصول'
       }
+    }
+  },
+  watch: {
+    localOptions: {
+      handler(newVal) {
+        this.$emit('update:options', newVal)
+      },
+      deep: true
     }
   },
   mounted () {
@@ -473,6 +486,7 @@ export default {
             align-items: center;
             height: 24px;
             margin-bottom: 10px;
+            max-width: 100%;
 
             @media screen and (max-width: 1023px) {
               margin-bottom: 12px;
@@ -492,6 +506,11 @@ export default {
               letter-spacing: -0.03em;
               color: #434765;
               width: 100%;
+
+              &.floating {
+                width: 200px;
+                max-width: 100%;
+              }
 
               @media screen and (max-width: 599px) {
                 position: absolute;

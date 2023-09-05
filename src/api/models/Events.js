@@ -54,6 +54,13 @@ export default class EventsAPI extends APIRepository {
         logo: 'https://nodes.alaatv.com/upload/landing/RAHABRISHAM/logo-abrisham2.png',
         showDashboard: false,
         showStudyPlan: false
+      },
+      {
+        id: 25,
+        name: '110',
+        logo: 'https://nodes.alaatv.com/upload/landing/panel/110-logo.png',
+        showDashboard: false,
+        showStudyPlan: false
       }
     ]
     return new Promise((resolve, reject) => {

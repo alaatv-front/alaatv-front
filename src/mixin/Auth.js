@@ -1,17 +1,21 @@
 import { APIGateway } from 'src/api/APIGateway'
+import { User } from 'src/models/User'
 
 const mixinAuth = {
-  computed: {
-    user: {
-      get () {
-        return this.$store.getters['Auth/user']
-      },
-      set (newInfo) {
-        this.$store.commit('Auth/updateUser', newInfo)
-      }
+  data () {
+    return {
+      user: new User(),
+      isUserLogin: false
     }
   },
+  mounted () {
+    this.loadAuthData()
+  },
   methods: {
+    loadAuthData () { // prevent Hydration node mismatch
+      this.user = this.$store.getters['Auth/user']
+      this.isUserLogin = this.$store.getters['Auth/isUserLogin']
+    },
     async getUserData () {
       APIGateway.user.showUser()
         .then((response) => {

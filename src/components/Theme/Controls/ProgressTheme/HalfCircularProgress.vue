@@ -1,6 +1,7 @@
 <template>
   <div class="progress-wrapper">
     <q-circular-progress :value="computedValue"
+                         rounded
                          :size="`${size}px`"
                          :max="100"
                          :show-value="showValue"

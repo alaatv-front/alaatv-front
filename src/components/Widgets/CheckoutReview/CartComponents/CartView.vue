@@ -17,6 +17,9 @@
             <div class="order-item-header">
               <div class="title ellipsis">
                 {{ order.grand.title }}
+                <q-tooltip>
+                  {{ order.grand.title }}
+                </q-tooltip>
               </div>
 
               <q-btn v-if="order.orderProductId"

@@ -13,12 +13,10 @@
         </div>
         <div class="col-md-3">
           <q-input v-model="localOptions.width[size]"
-                   filled
                    label="عرض" />
         </div>
         <div class="col-md-3">
           <q-input v-model="localOptions.height[size]"
-                   filled
                    label="ارتفاع" />
         </div>
         <div class="col-md-2">

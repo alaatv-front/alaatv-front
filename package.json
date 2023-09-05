@@ -24,6 +24,7 @@
     "@capacitor/core": "^5.0.4",
     "@gtm-support/vue-gtm": "^2.0.0",
     "@nodeguy/server-date": "^4.0.3",
+    "@phosphor-icons/vue": "^2.1.4",
     "@quasar/app-vite": "^1.4.3",
     "@quasar/extras": "^1.16.5",
     "@vue-leaflet/vue-leaflet": "^0.7.0",
@@ -49,11 +50,11 @@
     "postcss-rtlcss": "^4.0.4",
     "process": "^0.11.10",
     "quasar": "^2.12.2",
-    "quasar-app-extension-q-page-builder": "^0.1.57",
-    "quasar-crud": "^0.3.45",
-    "quasar-form-builder": "^0.1.108",
+    "quasar-app-extension-q-page-builder": "^0.1.61",
+    "quasar-crud": "^0.3.49",
+    "quasar-form-builder": "^0.1.110",
     "quasar-template-builder": "^1.0.23",
-    "quasar-ui-q-page-builder": "^0.1.57",
+    "quasar-ui-q-page-builder": "^0.1.61",
     "socket.io-client": "^4.6.1",
     "sticky-sidebar-v2": "^1.1.1",
     "video.js": "^8.3.0",
@@ -81,5 +82,6 @@
     "node": "^19 || ^18 || ^16 || ^14.19",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
-  }
+  },
+  "devDependencies": {}
 }

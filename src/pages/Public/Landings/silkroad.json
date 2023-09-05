@@ -1453,6 +1453,37 @@
             "gutterYSize": "md",
             "absolute": "none",
             "paddingOfBoxedInFullWidth": "30px",
+            "boxShadows": [],
+            "borderStyle": {
+              "borderCssString": "",
+              "borderRadiusCssString": ""
+            },
+            "cssHoverEffects": {
+              "boxShadows": [],
+              "borderStyle": {
+                "borderCssString": "",
+                "borderRadiusCssString": ""
+              },
+              "transition": {
+                "time": 0
+              },
+              "transform": {
+                "rotate": null,
+                "scaleX": null,
+                "scaleY": null,
+                "skewX": null,
+                "skewY": null,
+                "translateX": null,
+                "translateY": null
+              }
+            },
+            "responsiveShow": {
+              "xl": true,
+              "lg": true,
+              "md": true,
+              "sm": true,
+              "xs": true
+            },
             "alignment": {
               "justifyContent": {
                 "global": "justify-between",
@@ -1481,65 +1512,11 @@
             },
             "style": {
               "maxWidth": "1380px",
-              "width": "1380px"
+              "width": "1380px",
+              "backgroundImage": null
             }
           }
-        }
-      ]
-    },
-    "options": {
-      "fullHeight": true,
-      "backgrounds": {
-        "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
         },
-        "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "md": {
-          "size": null,
-          "color": "",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "lg": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "xl": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        }
-      },
-      "verticalAlign": "center",
-      "style": {
-        "minHeight": "100vh"
-      }
-    }
-  },
-  {
-    "data": {
-      "rows": [
         {
           "cols": [
             {
@@ -1547,10 +1524,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
+                    "services": []
                   }
                 }
               ],
@@ -1735,21 +1724,35 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": "280px",
-                    "height": "400px",
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\">فراگیری انواع&nbsp;</font><div><span style=\"color: rgb(255, 133, 24);\">تیپ‌تست ها</span></div>",
+                      "text": "<font color=\"#ff8518\" face=\"iranyekan\">سفری امن و بی دغدغه</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": ""
                       },
                       "sm": {
                         "fontSize": null,
@@ -1767,13 +1770,29 @@
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
+                      },
+                      "hasTheme": null,
+                      "activeTheme": null,
+                      "themes": {
+                        "theme1": {
+                          "borderColor": null,
+                          "borderSize": null,
+                          "borderWidth": null,
+                          "borderHeight": null,
+                          "top": null,
+                          "left": null,
+                          "bottom": null,
+                          "right": null
+                        }
                       },
                       "style": {
                         "marginBottom": "12px"
@@ -1781,7 +1800,7 @@
                     },
                     "description": "",
                     "descriptionOptions": {
-                      "text": "<div style=\"text-align: justify;\"><font color=\"#424242\">آموزش همه تیپ‌تست‌های هر درس به اضافه بررسی تست‌های سخت‌تری که امکان مواجه شدن با اونا توی کنکور وجود داره</font></div>",
+                      "text": "<font color=\"#424242\">با برنامه مطالعاتی دقیق و مرحله به مرحله به همراه مشاوره در کنار دبیران برتر آلا</font><div><font color=\"#424242\"><br></font></div>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -1817,12 +1836,26 @@
                         "fontStyle": null,
                         "lineHeight": null
                       },
+                      "hasTheme": null,
+                      "activeTheme": null,
+                      "themes": {
+                        "theme1": {
+                          "borderColor": null,
+                          "borderSize": null,
+                          "borderWidth": null,
+                          "borderHeight": null,
+                          "top": null,
+                          "left": null,
+                          "bottom": null,
+                          "right": null
+                        }
+                      },
                       "style": {}
                     },
                     "hasImage": true,
                     "hoverImage": true,
                     "imageWidgetOptions": {
-                      "imageSource": "https://freepngimg.com/thumb/lock_keys_facts/10-2-key-png-file-thumb.png",
+                      "imageSource": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/Pick%20Axe%204.png",
                       "ratio": null,
                       "hasAction": false,
                       "useAEEEvent": false,
@@ -1940,7 +1973,10 @@
               ],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3",
-                "style": {},
+                "style": {
+                  "marginLeft": "-15px",
+                  "marginRight": "-15px"
+                },
                 "boxShadows": [],
                 "borderStyle": {
                   "borderCssString": "",
@@ -1980,16 +2016,29 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": "280px",
-                    "height": "400px",
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\">فراگیری انواع&nbsp;</font><div><span style=\"color: rgb(255, 133, 24);\">تیپ‌تست ها</span></div>",
+                      "text": "<font color=\"#ff8518\">تسلط بر تمام مباحث</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
@@ -2012,13 +2061,29 @@
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
+                      },
+                      "hasTheme": null,
+                      "activeTheme": null,
+                      "themes": {
+                        "theme1": {
+                          "borderColor": null,
+                          "borderSize": null,
+                          "borderWidth": null,
+                          "borderHeight": null,
+                          "top": null,
+                          "left": null,
+                          "bottom": null,
+                          "right": null
+                        }
                       },
                       "style": {
                         "marginBottom": "12px"
@@ -2026,7 +2091,7 @@
                     },
                     "description": "",
                     "descriptionOptions": {
-                      "text": "<div style=\"text-align: justify;\"><font color=\"#424242\">آموزش همه تیپ‌تست‌های هر درس به اضافه بررسی تست‌های سخت‌تری که امکان مواجه شدن با اونا توی کنکور وجود داره</font></div>",
+                      "text": "<div style=\"text-align: justify;\"><span style=\"color: rgb(66, 66, 66);\">با تدریس کامل همه پیش نیازهای هر درس به علاوه جزوات اختصاصی و ارائه‌ درسنامه‌های جامع صفرتاصدی</span></div>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -2062,12 +2127,26 @@
                         "fontStyle": null,
                         "lineHeight": null
                       },
+                      "hasTheme": null,
+                      "activeTheme": null,
+                      "themes": {
+                        "theme1": {
+                          "borderColor": null,
+                          "borderSize": null,
+                          "borderWidth": null,
+                          "borderHeight": null,
+                          "top": null,
+                          "left": null,
+                          "bottom": null,
+                          "right": null
+                        }
+                      },
                       "style": {}
                     },
                     "hasImage": true,
                     "hoverImage": true,
                     "imageWidgetOptions": {
-                      "imageSource": "https://freepngimg.com/thumb/lock_keys_facts/10-2-key-png-file-thumb.png",
+                      "imageSource": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/Pick%20Axe%204%20%281%29.png",
                       "ratio": null,
                       "hasAction": false,
                       "useAEEEvent": false,
@@ -2185,7 +2264,10 @@
               ],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3",
-                "style": {},
+                "style": {
+                  "marginLeft": "-15px",
+                  "marginRight": "-15px"
+                },
                 "boxShadows": [],
                 "borderStyle": {
                   "borderCssString": "",
@@ -2225,16 +2307,29 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": "280px",
-                    "height": "400px",
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\">فراگیری انواع&nbsp;</font><div><span style=\"color: rgb(255, 133, 24);\">تیپ‌تست ها</span></div>",
+                      "text": "<font color=\"#ff8518\">فراگیری انواع‌ تیپ‌تست‌ها</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
@@ -2257,13 +2352,29 @@
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
+                      },
+                      "hasTheme": null,
+                      "activeTheme": null,
+                      "themes": {
+                        "theme1": {
+                          "borderColor": null,
+                          "borderSize": null,
+                          "borderWidth": null,
+                          "borderHeight": null,
+                          "top": null,
+                          "left": null,
+                          "bottom": null,
+                          "right": null
+                        }
                       },
                       "style": {
                         "marginBottom": "12px"
@@ -2271,7 +2382,7 @@
                     },
                     "description": "",
                     "descriptionOptions": {
-                      "text": "<div style=\"text-align: justify;\"><font color=\"#424242\">آموزش همه تیپ‌تست‌های هر درس به اضافه بررسی تست‌های سخت‌تری که امکان مواجه شدن با اونا توی کنکور وجود داره</font></div>",
+                      "text": "<font color=\"#424242\">آموزش همه تیپ‌تست‌های هر درس به اضافه بررسی تست‌های سخت‌تری که امکان مواجه شدن با اونا توی کنکور وجود داره</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -2307,12 +2418,26 @@
                         "fontStyle": null,
                         "lineHeight": null
                       },
+                      "hasTheme": null,
+                      "activeTheme": null,
+                      "themes": {
+                        "theme1": {
+                          "borderColor": null,
+                          "borderSize": null,
+                          "borderWidth": null,
+                          "borderHeight": null,
+                          "top": null,
+                          "left": null,
+                          "bottom": null,
+                          "right": null
+                        }
+                      },
                       "style": {}
                     },
                     "hasImage": true,
                     "hoverImage": true,
                     "imageWidgetOptions": {
-                      "imageSource": "https://freepngimg.com/thumb/lock_keys_facts/10-2-key-png-file-thumb.png",
+                      "imageSource": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/Pick%20Axe%204%20%282%29.png",
                       "ratio": null,
                       "hasAction": false,
                       "useAEEEvent": false,
@@ -2430,7 +2555,10 @@
               ],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3",
-                "style": {},
+                "style": {
+                  "marginLeft": "-15px",
+                  "marginRight": "-15px"
+                },
                 "boxShadows": [],
                 "borderStyle": {
                   "borderCssString": "",
@@ -2470,21 +2598,35 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": "280px",
-                    "height": "400px",
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\">فراگیری انواع&nbsp;</font><div><span style=\"color: rgb(255, 133, 24);\">تیپ‌تست ها</span></div>",
+                      "text": "<font color=\"#ff8518\">ارزیابی و پیشرفت</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "sm": {
                         "fontSize": null,
@@ -2502,13 +2644,29 @@
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
                         "fontWeight": null,
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.72px"
+                      },
+                      "hasTheme": null,
+                      "activeTheme": null,
+                      "themes": {
+                        "theme1": {
+                          "borderColor": null,
+                          "borderSize": null,
+                          "borderWidth": null,
+                          "borderHeight": null,
+                          "top": null,
+                          "left": null,
+                          "bottom": null,
+                          "right": null
+                        }
                       },
                       "style": {
                         "marginBottom": "12px"
@@ -2516,7 +2674,7 @@
                     },
                     "description": "",
                     "descriptionOptions": {
-                      "text": "<div style=\"text-align: justify;\"><font color=\"#424242\">آموزش همه تیپ‌تست‌های هر درس به اضافه بررسی تست‌های سخت‌تری که امکان مواجه شدن با اونا توی کنکور وجود داره</font></div>",
+                      "text": "<div style=\"text-align: justify;\"><span style=\"color: rgb(66, 66, 66);\">برگزاری آزمون (کنکورچه) در انتهای هر فصل از دروس مختلف به همراه تجزیه و تحلیل کامل ویدیویی آنها.</span></div>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -2552,12 +2710,26 @@
                         "fontStyle": null,
                         "lineHeight": null
                       },
+                      "hasTheme": null,
+                      "activeTheme": null,
+                      "themes": {
+                        "theme1": {
+                          "borderColor": null,
+                          "borderSize": null,
+                          "borderWidth": null,
+                          "borderHeight": null,
+                          "top": null,
+                          "left": null,
+                          "bottom": null,
+                          "right": null
+                        }
+                      },
                       "style": {}
                     },
                     "hasImage": true,
                     "hoverImage": true,
                     "imageWidgetOptions": {
-                      "imageSource": "https://freepngimg.com/thumb/lock_keys_facts/10-2-key-png-file-thumb.png",
+                      "imageSource": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/Pick%20Axe%204%20%283%29.png",
                       "ratio": null,
                       "hasAction": false,
                       "useAEEEvent": false,
@@ -2675,7 +2847,10 @@
               ],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3",
-                "style": {},
+                "style": {
+                  "marginLeft": "-15px",
+                  "marginRight": "-15px"
+                },
                 "boxShadows": [],
                 "borderStyle": {
                   "borderCssString": "",
@@ -2716,8 +2891,8 @@
             "height": "auto",
             "boxed": true,
             "boxedWidth": "1380",
-            "gutterXSize": "md",
-            "gutterYSize": "md",
+            "gutterXSize": "xs",
+            "gutterYSize": "xl",
             "absolute": "none",
             "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
@@ -2795,66 +2970,15 @@
               "maxWidth": "1380px",
               "width": "1380px",
               "marginBottom": "72px",
-              "backgroundColor": "#FF944A",
-              "paddingBottom": "70px"
+              "backgroundColor": "",
+              "paddingBottom": "100px",
+              "backgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S03.png')",
+              "backgroundPosition": "center bottom",
+              "backgroundRepeat": "no-repeat",
+              "backgroundSize": "contain"
             }
           }
-        }
-      ]
-    },
-    "options": {
-      "fullHeight": true,
-      "backgrounds": {
-        "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
         },
-        "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "md": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "lg": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "xl": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        }
-      },
-      "verticalAlign": "center",
-      "style": {
-        "minHeight": "100vh"
-      }
-    }
-  },
-  {
-    "data": {
-      "rows": [
         {
           "cols": [
             {
@@ -2862,10 +2986,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
+                    "services": []
                   }
                 }
               ],
@@ -3350,95 +3486,7 @@
               "paddingBottom": "40px"
             }
           }
-        }
-      ]
-    },
-    "options": {
-      "fullHeight": false,
-      "className": "",
-      "backgrounds": {
-        "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
         },
-        "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "md": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "lg": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "xl": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        }
-      },
-      "style": {
-        "minHeight": "auto",
-        "paddingBottom": "20px"
-      },
-      "boxShadows": [],
-      "borderStyle": {
-        "borderCssString": "",
-        "borderRadiusCssString": ""
-      },
-      "cssHoverEffects": {
-        "boxShadows": [],
-        "borderStyle": {
-          "borderCssString": "",
-          "borderRadiusCssString": ""
-        },
-        "transition": {
-          "time": 0
-        },
-        "transform": {
-          "rotate": 0,
-          "scaleX": 1,
-          "scaleY": 1,
-          "skewX": 0,
-          "skewY": 0,
-          "translateX": 0,
-          "translateY": 0
-        }
-      },
-      "responsiveShow": {
-        "xl": true,
-        "lg": true,
-        "md": true,
-        "sm": true,
-        "xs": true
-      },
-      "verticalAlign": "center"
-    }
-  },
-  {
-    "data": {
-      "rows": [
         {
           "cols": [
             {
@@ -3446,10 +3494,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
+                    "services": []
                   }
                 }
               ],
@@ -3685,7 +3745,9 @@
                         "right": null
                       }
                     },
-                    "style": {}
+                    "style": {
+                      "marginTop": "68px"
+                    }
                   }
                 },
                 {
@@ -4043,7 +4105,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -4060,7 +4122,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "از لحظه خرید"
+                                      "پیش ثبت نام"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -4323,7 +4385,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -4340,7 +4402,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "از لحظه خرید"
+                                      "پیش ثبت نام"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -4490,7 +4552,7 @@
             "boxed": true,
             "boxedWidth": "1380",
             "gutterXSize": "md",
-            "gutterYSize": "md",
+            "gutterYSize": "xl",
             "absolute": "none",
             "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
@@ -4553,102 +4615,19 @@
             "style": {
               "maxWidth": "1380px",
               "width": "1380px",
-              "backgroundColor": "rgba(255,148,74,1)",
+              "backgroundColor": "",
               "paddingTop": "40px",
               "paddingBottom": "40px",
               "marginLeft": "",
               "paddingLeft": "",
-              "paddingRight": ""
+              "paddingRight": "",
+              "backgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
+              "backgroundSize": "contain",
+              "backgroundRepeat": "no-repeat",
+              "backgroundPosition": "center center"
             }
           }
-        }
-      ]
-    },
-    "options": {
-      "fullHeight": false,
-      "className": "",
-      "backgrounds": {
-        "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
         },
-        "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "md": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "lg": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "xl": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        }
-      },
-      "style": {
-        "minHeight": "auto"
-      },
-      "boxShadows": [],
-      "borderStyle": {
-        "borderCssString": "",
-        "borderRadiusCssString": ""
-      },
-      "cssHoverEffects": {
-        "boxShadows": [],
-        "borderStyle": {
-          "borderCssString": "",
-          "borderRadiusCssString": ""
-        },
-        "transition": {
-          "time": 0
-        },
-        "transform": {
-          "rotate": 0,
-          "scaleX": 1,
-          "scaleY": 1,
-          "skewX": 0,
-          "skewY": 0,
-          "translateX": 0,
-          "translateY": 0
-        }
-      },
-      "responsiveShow": {
-        "xl": true,
-        "lg": true,
-        "md": true,
-        "sm": true,
-        "xs": true
-      },
-      "verticalAlign": "center"
-    }
-  },
-  {
-    "data": {
-      "rows": [
         {
           "cols": [
             {
@@ -4656,10 +4635,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
+                    "services": []
                   }
                 }
               ],
@@ -4964,7 +4955,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -4981,7 +4972,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "از لحظه خرید"
+                                      "پیش ثبت نام"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -5244,7 +5235,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -5261,7 +5252,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "از لحظه خرید"
+                                      "پیش ثبت نام"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -5524,7 +5515,7 @@
                                       "روح الله حاجی سلیمانی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -5806,7 +5797,7 @@
                                       "محمدرضا یاری"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -6086,7 +6077,7 @@
                                       "علی جوهری"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -6368,7 +6359,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -6649,7 +6640,7 @@
                                       "وحید کبریایی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -6930,7 +6921,7 @@
                                       "محمد امین نباخته"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -7121,7 +7112,7 @@
                                         "محمد امین نباخته"
                                       ],
                                       "shipping_method": [
-                                        "مطابق برنامه"
+                                        "دانلودی"
                                       ],
                                       "major": [
                                         "تجربی"
@@ -7287,7 +7278,7 @@
                                       "محمد امین نباخته"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -7457,8 +7448,8 @@
                                     "discount": 696000,
                                     "final": 2204000,
                                     "payableByWallet": null,
-                                    "final_instalmentally": 2900000,
-                                    "discount_instalmentally": 0
+                                    "final_instalmentally": 2610000,
+                                    "discount_instalmentally": 290000
                                   },
                                   "url": {
                                     "web": "http://office.alaa.tv:700/product/1101",
@@ -7472,7 +7463,7 @@
                                         "محمد صادق ثابتی"
                                       ],
                                       "shipping_method": [
-                                        "مطابق برنامه"
+                                        "دانلودی"
                                       ],
                                       "major": [
                                         "ریاضی"
@@ -7638,7 +7629,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -7697,8 +7688,8 @@
                                     "discount": 696000,
                                     "final": 2204000,
                                     "payableByWallet": null,
-                                    "final_instalmentally": 2900000,
-                                    "discount_instalmentally": 0
+                                    "final_instalmentally": 2610000,
+                                    "discount_instalmentally": 290000
                                   },
                                   "warn": {
                                     "mode": false,
@@ -7823,7 +7814,7 @@
                                         "خسرو محمد زاده"
                                       ],
                                       "shipping_method": [
-                                        "مطابق برنامه"
+                                        "دانلودی"
                                       ],
                                       "major": [
                                         "انسانی"
@@ -7990,7 +7981,7 @@
                                       "خسرو محمد زاده"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "انسانی"
@@ -8281,7 +8272,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -8298,7 +8289,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "از لحظه خرید"
+                                      "پیش ثبت نام"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -8561,7 +8552,7 @@
                                       "روح الله حاجی سلیمانی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -8843,7 +8834,7 @@
                                       "محمدرضا یاری"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -9123,7 +9114,7 @@
                                       "علی جوهری"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -9405,7 +9396,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "تجربی"
@@ -9596,7 +9587,7 @@
                                         "محمد صادق ثابتی"
                                       ],
                                       "shipping_method": [
-                                        "مطابق برنامه"
+                                        "دانلودی"
                                       ],
                                       "major": [
                                         "ریاضی"
@@ -9762,7 +9753,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -9947,7 +9938,7 @@
                                         "خسرو محمد زاده"
                                       ],
                                       "shipping_method": [
-                                        "مطابق برنامه"
+                                        "دانلودی"
                                       ],
                                       "major": [
                                         "انسانی"
@@ -10114,7 +10105,7 @@
                                       "خسرو محمد زاده"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "انسانی"
@@ -10405,7 +10396,7 @@
                                       "گروه آموزشی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -10422,7 +10413,7 @@
                                       "برنامه مطالعاتی"
                                     ],
                                     "download_date": [
-                                      "از لحظه خرید"
+                                      "پیش ثبت نام"
                                     ],
                                     "educational_system": [
                                       "نظام جدید"
@@ -10685,7 +10676,7 @@
                                       "روح الله حاجی سلیمانی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -10847,8 +10838,8 @@
                                     "discount": 696000,
                                     "final": 2204000,
                                     "payableByWallet": null,
-                                    "final_instalmentally": 2900000,
-                                    "discount_instalmentally": 0
+                                    "final_instalmentally": 2610000,
+                                    "discount_instalmentally": 290000
                                   },
                                   "url": {
                                     "web": "http://office.alaa.tv:700/product/1101",
@@ -10862,7 +10853,7 @@
                                         "محمد صادق ثابتی"
                                       ],
                                       "shipping_method": [
-                                        "مطابق برنامه"
+                                        "دانلودی"
                                       ],
                                       "major": [
                                         "ریاضی"
@@ -11028,7 +11019,7 @@
                                       "محمد صادق ثابتی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -11087,8 +11078,8 @@
                                     "discount": 696000,
                                     "final": 2204000,
                                     "payableByWallet": null,
-                                    "final_instalmentally": 2900000,
-                                    "discount_instalmentally": 0
+                                    "final_instalmentally": 2610000,
+                                    "discount_instalmentally": 290000
                                   },
                                   "warn": {
                                     "mode": false,
@@ -11318,7 +11309,7 @@
                                       "محمدرضا یاری"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی",
@@ -11598,7 +11589,7 @@
                                       "وحید کبریایی"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -11879,7 +11870,7 @@
                                       "محمد امین نباخته"
                                     ],
                                     "shipping_method": [
-                                      "مطابق برنامه"
+                                      "دانلودی"
                                     ],
                                     "major": [
                                       "ریاضی"
@@ -12114,62 +12105,7 @@
               "marginBottom": "72px"
             }
           }
-        }
-      ]
-    },
-    "options": {
-      "fullHeight": true,
-      "backgrounds": {
-        "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
         },
-        "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "md": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "lg": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "xl": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        }
-      },
-      "verticalAlign": "center",
-      "style": {
-        "minHeight": "100vh"
-      }
-    }
-  },
-  {
-    "data": {
-      "rows": [
         {
           "cols": [
             {
@@ -12177,10 +12113,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": true,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
+                    "services": []
                   }
                 }
               ],
@@ -12470,62 +12418,7 @@
               "marginBottom": "72px"
             }
           }
-        }
-      ]
-    },
-    "options": {
-      "fullHeight": true,
-      "backgrounds": {
-        "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
         },
-        "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "md": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "lg": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "xl": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        }
-      },
-      "verticalAlign": "center",
-      "style": {
-        "minHeight": "100vh"
-      }
-    }
-  },
-  {
-    "data": {
-      "rows": [
         {
           "cols": [
             {
@@ -12533,10 +12426,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
+                    "services": []
                   }
                 }
               ],
@@ -12690,11 +12595,12 @@
                     "settings": {
                       "autoplay": 3500,
                       "dir": "rtl",
-                      "itemsToShow": 6,
+                      "itemsToShow": "7",
                       "snapAlign": "center",
                       "transition": 500,
-                      "wrapAround": true,
-                      "pauseAutoplayOnHover": true
+                      "pauseAutoplayOnHover": false,
+                      "itemsToScroll": 1,
+                      "wrapAround": true
                     },
                     "breakpoints": {
                       "200": {
@@ -12710,11 +12616,11 @@
                         "snapAlign": "center"
                       },
                       "1024": {
-                        "itemsToShow": 5,
+                        "itemsToShow": "6",
                         "snapAlign": "center"
                       },
                       "1440": {
-                        "itemsToShow": 5,
+                        "itemsToShow": "6",
                         "snapAlign": "center"
                       }
                     },
@@ -12774,66 +12680,38 @@
                         "image": "https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93"
                       }
                     ],
+                    "slidItemBackgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/dabir%201920.png')",
+                    "slidItemBackgroundColor": "",
                     "personType": "teacher",
-                    "pagination": true,
+                    "pagination": false,
+                    "carouselPadding": "0 25px",
                     "navigation": {
                       "goToLeft": {
                         "icon": "chevron_left",
-                        "textColor": "#FF944A",
-                        "color": "#FFE8D8",
+                        "textColor": "#9E9E9E",
+                        "color": "#FFFFFF",
                         "rounded": true,
                         "size": "lg"
                       },
                       "goToRight": {
                         "icon": "chevron_right",
-                        "textColor": "#FF944A",
-                        "color": "#FFE8D8",
+                        "textColor": "#9E9E9E",
+                        "color": "#FFFFFF",
                         "rounded": true,
                         "size": "lg"
                       }
                     },
-                    "style": {}
+                    "style": {
+                      "backgroundImage": null
+                    },
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "slidItemBackgroundSize": "265px",
+                    "slidItemBackgroundRepeat": "no-repeat",
+                    "slidItemBackgroundPosition": "center"
                   }
                 }
               ],
-              "options": {
-                "colNumber": "col",
-                "style": {
-                  "paddingBottom": "50px"
-                },
-                "boxShadows": [],
-                "borderStyle": {
-                  "borderCssString": "",
-                  "borderRadiusCssString": ""
-                },
-                "cssHoverEffects": {
-                  "boxShadows": [],
-                  "borderStyle": {
-                    "borderCssString": "",
-                    "borderRadiusCssString": ""
-                  },
-                  "transition": {
-                    "time": 0
-                  },
-                  "transform": {
-                    "rotate": null,
-                    "scaleX": null,
-                    "scaleY": null,
-                    "skewX": null,
-                    "skewY": null,
-                    "translateX": null,
-                    "translateY": null
-                  }
-                },
-                "responsiveShow": {
-                  "xl": true,
-                  "lg": true,
-                  "md": true,
-                  "sm": true,
-                  "xs": true
-                },
-                "className": ""
-              }
+              "options": {}
             }
           ],
           "options": {
@@ -12908,94 +12786,7 @@
               "marginBottom": ""
             }
           }
-        }
-      ]
-    },
-    "options": {
-      "fullHeight": false,
-      "className": "",
-      "backgrounds": {
-        "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
         },
-        "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "md": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "lg": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "xl": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        }
-      },
-      "style": {
-        "minHeight": "auto"
-      },
-      "boxShadows": [],
-      "borderStyle": {
-        "borderCssString": "",
-        "borderRadiusCssString": ""
-      },
-      "cssHoverEffects": {
-        "boxShadows": [],
-        "borderStyle": {
-          "borderCssString": "",
-          "borderRadiusCssString": ""
-        },
-        "transition": {
-          "time": 0
-        },
-        "transform": {
-          "rotate": 0,
-          "scaleX": 1,
-          "scaleY": 1,
-          "skewX": 0,
-          "skewY": 0,
-          "translateX": 0,
-          "translateY": 0
-        }
-      },
-      "responsiveShow": {
-        "xl": true,
-        "lg": true,
-        "md": true,
-        "sm": true,
-        "xs": true
-      },
-      "verticalAlign": "center"
-    }
-  },
-  {
-    "data": {
-      "rows": [
         {
           "cols": [
             {
@@ -13003,13 +12794,22 @@
                 {
                   "name": "Separator",
                   "options": {
-                    "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png",
-                    "width": "",
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
                     "height": "",
-                    "spaced": false
+                    "width": "",
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "120px",
+                      "marginBottom": "36px"
+                    },
+                    "className": "",
+                    "services": []
                   }
                 }
               ],
@@ -13432,94 +13232,7 @@
               "marginBottom": ""
             }
           }
-        }
-      ]
-    },
-    "options": {
-      "fullHeight": false,
-      "className": "",
-      "backgrounds": {
-        "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
         },
-        "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "md": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "lg": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        },
-        "xl": {
-          "size": null,
-          "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
-          "attachment": null
-        }
-      },
-      "style": {
-        "minHeight": "auto"
-      },
-      "boxShadows": [],
-      "borderStyle": {
-        "borderCssString": "",
-        "borderRadiusCssString": ""
-      },
-      "cssHoverEffects": {
-        "boxShadows": [],
-        "borderStyle": {
-          "borderCssString": "",
-          "borderRadiusCssString": ""
-        },
-        "transition": {
-          "time": 0
-        },
-        "transform": {
-          "rotate": 0,
-          "scaleX": 1,
-          "scaleY": 1,
-          "skewX": 0,
-          "skewY": 0,
-          "translateX": 0,
-          "translateY": 0
-        }
-      },
-      "responsiveShow": {
-        "xl": true,
-        "lg": true,
-        "md": true,
-        "sm": true,
-        "xs": true
-      },
-      "verticalAlign": "center"
-    }
-  },
-  {
-    "data": {
-      "rows": [
         {
           "cols": [
             {
@@ -13527,10 +13240,22 @@
                 {
                   "name": "Separator",
                   "options": {
+                    "spaced": false,
+                    "dark": false,
+                    "inset": false,
+                    "vertical": false,
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
+                    "ImageStyle": null,
+                    "ImageClassName": null,
+                    "height": null,
+                    "width": null,
+                    "style": {
+                      "backgroundImage": null,
+                      "marginTop": "20px",
+                      "marginBottom": "36px"
+                    },
                     "className": "",
-                    "style": {},
-                    "services": [],
-                    "image": "https://cutewallpaper.org/24/pink-divider-png/divider-just-pink-about-it.png"
+                    "services": []
                   }
                 }
               ],
@@ -14101,6 +13826,37 @@
             "gutterYSize": "md",
             "absolute": "none",
             "paddingOfBoxedInFullWidth": "30px",
+            "boxShadows": [],
+            "borderStyle": {
+              "borderCssString": "",
+              "borderRadiusCssString": ""
+            },
+            "cssHoverEffects": {
+              "boxShadows": [],
+              "borderStyle": {
+                "borderCssString": "",
+                "borderRadiusCssString": ""
+              },
+              "transition": {
+                "time": 0
+              },
+              "transform": {
+                "rotate": null,
+                "scaleX": null,
+                "scaleY": null,
+                "skewX": null,
+                "skewY": null,
+                "translateX": null,
+                "translateY": null
+              }
+            },
+            "responsiveShow": {
+              "xl": true,
+              "lg": true,
+              "md": true,
+              "sm": true,
+              "xs": true
+            },
             "alignment": {
               "justifyContent": {
                 "global": "justify-between",
@@ -14130,18 +13886,20 @@
             "style": {
               "maxWidth": "1380px",
               "width": "1380px",
-              "marginBottom": "72px"
+              "marginBottom": "",
+              "paddingBottom": "72px"
             }
           }
         }
       ]
     },
     "options": {
-      "fullHeight": true,
+      "fullHeight": false,
+      "className": "",
       "backgrounds": {
         "xs": {
           "size": null,
-          "color": null,
+          "color": "",
           "image": null,
           "repeat": null,
           "position": null,
@@ -14149,24 +13907,24 @@
         },
         "sm": {
           "size": null,
-          "color": null,
+          "color": "",
           "image": null,
           "repeat": null,
           "position": null,
           "attachment": null
         },
         "md": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
+          "size": "cover",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/back%201.png')",
+          "repeat": "repeat-y",
           "position": null,
           "attachment": null
         },
         "lg": {
           "size": null,
           "color": "rgba(255,247,238,1)",
-          "image": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/back%201.png')",
           "repeat": null,
           "position": null,
           "attachment": null
@@ -14174,16 +13932,48 @@
         "xl": {
           "size": null,
           "color": "rgba(255,247,238,1)",
-          "image": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/back%201.png')",
           "repeat": null,
           "position": null,
           "attachment": null
         }
       },
-      "verticalAlign": "center",
       "style": {
-        "minHeight": "100vh"
-      }
+        "minHeight": "auto",
+        "backgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/back%201.png')"
+      },
+      "boxShadows": [],
+      "borderStyle": {
+        "borderCssString": "",
+        "borderRadiusCssString": ""
+      },
+      "cssHoverEffects": {
+        "boxShadows": [],
+        "borderStyle": {
+          "borderCssString": "",
+          "borderRadiusCssString": ""
+        },
+        "transition": {
+          "time": 0
+        },
+        "transform": {
+          "rotate": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "skewX": 0,
+          "skewY": 0,
+          "translateX": 0,
+          "translateY": 0
+        }
+      },
+      "responsiveShow": {
+        "xl": true,
+        "lg": true,
+        "md": true,
+        "sm": true,
+        "xs": true
+      },
+      "verticalAlign": "center"
     }
   },
   {

@@ -57,7 +57,7 @@ export default class OrderAPI extends APIRepository {
     })
   }
 
-  SubmitCouponOnOrder (data = {}) {
+  SubmitCouponOnOrder(data = {}) {
     return this.sendRequest({
       apiMethod: 'post',
       api: this.api,
@@ -75,7 +75,7 @@ export default class OrderAPI extends APIRepository {
     })
   }
 
-  DeleteCouponFromOrder (data = {}) {
+  DeleteCouponFromOrder(data = {}) {
     return this.sendRequest({
       apiMethod: 'delete',
       api: this.api,

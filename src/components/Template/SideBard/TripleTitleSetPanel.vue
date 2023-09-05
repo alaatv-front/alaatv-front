@@ -118,6 +118,10 @@ export default {
         routeName: 'UserPanel.Asset.TripleTitleSet.StudyPlan'
       }
       // {
+      //   icon: 'calendar_today',
+      //   routeName: 'UserPanel.Asset.TripleTitleSet.Products'
+      // }
+      // {
       //   icon: 'list-check',
       //   routeName: 'my-performance'
       //
