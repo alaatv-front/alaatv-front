@@ -240,17 +240,22 @@ export default {
   name: 'CartInvoice',
   components: { LazyImg, AuthLogin, Donate },
   mixins: [mixinWidget],
-  // provide() {
-  //   return {
-  //     scrollInfo: computed(() => this.scrollInfo)
-  //   }
-  // },
   props: {
     options: {
       type: Object,
       default: () => {
         return {}
       }
+    }
+  },
+  // provide() {
+  //   return {
+  //     scrollInfo: computed(() => this.scrollInfo)
+  //   }
+  // },
+  setup(props, context) {
+    console.log('context', context)
+    return {
     }
   },
   data () {
