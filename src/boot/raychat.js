@@ -1,37 +1,21 @@
 import { boot } from 'quasar/wrappers'
 
-export default boot(({ app, store, router }) => {
-  app.config.globalProperties.$q.iconMapFn = (iconName) => {
-    if (iconName.startsWith('isax:') === true) {
-      const name = iconName.substring(5)
-      return {
-        cls: 'isax isax-' + name
-      }
-    }
-    if (iconName.startsWith('ph:') === true) {
-      const name = iconName.substring(3)
-      return {
-        cls: 'ph ph-' + name
-      }
-    }
+const raychatToket = process.env.RAYCHAT_TOKEN
 
-    // if (iconName.startsWith('fa:') === true) {
-    //   const name = iconName.substring(3)
-    //   return {
-    //     cls: 'fa fa-' + name
-    //   }
-    // }
-
-    // else if (iconName.startsWith('isax-svg:') === true) {
-    //   const name = iconName.substring(9)
-    //   return {
-    //     // iconName: 'img:/assets/icons/Iconsax/svg/linear/3d-cube-scan.svg',
-    //     icon: 'img:/iconsax-svg/svg/linear/' + name + '.svg'
-    //     // cls: 'img:/iconsax-svg/svg/linear/3d-cube-scan.svg',
-    //     // img: true
-    //     // src: '/assets/icons/Iconsax/svg/linear/3d-cube-scan.svg'
-    //     // content: '<img src="img:/iconsax-svg/svg/linear/3d-cube-scan.svg" />'
-    //   }
-    // }
+const loadRaychatScript = function (raychatToket) {
+  if (typeof window === 'undefined' || !raychatToket) {
+    return
   }
+  window.RAYCHAT_TOKEN = raychatToket;
+  (function () {
+    const d = document
+    const s = d.createElement('script')
+    s.src = 'https://widget-react.raychat.io/install/widget.js'
+    s.async = 1
+    d.getElementsByTagName('head')[0].appendChild(s)
+  })()
+}
+
+export default boot(() => {
+  loadRaychatScript(raychatToket)
 })
