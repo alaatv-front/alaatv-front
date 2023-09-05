@@ -1840,20 +1840,6 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": {
-                      "xl": "280px",
-                      "lg": "280px",
-                      "md": "100%",
-                      "sm": "100%",
-                      "xs": ""
-                    },
-                    "height": {
-                      "xl": "400px",
-                      "lg": "400px",
-                      "md": "100%",
-                      "sm": "100%",
-                      "xs": "100%"
-                    },
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">سفری امن و بی دغدغه</font>",
@@ -2016,6 +2002,58 @@
                         "width": "160px",
                         "src": null
                       },
+                      "responsiveSpacing": {
+                        "xs": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "sm": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "md": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "lg": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "xl": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        }
+                      },
                       "borderStyle": {
                         "borderCssString": "",
                         "borderRadiusCssString": ""
@@ -2177,6 +2215,20 @@
                         "translateX": 0,
                         "translateY": -60
                       }
+                    },
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
                     },
                     "style": {
                       "marginTop": "",
