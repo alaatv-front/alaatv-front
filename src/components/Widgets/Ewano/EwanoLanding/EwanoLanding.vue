@@ -4,7 +4,7 @@ import Ewano from 'src/assets/js/Ewano.js'
 
 export default {
   name: 'EwanoLanding',
-  mounted () {
+  beforeMount () {
     if (this.hasIdInQueryParam()) {
       this.sendEwanoIdToBackend(this.getUuid())
     }

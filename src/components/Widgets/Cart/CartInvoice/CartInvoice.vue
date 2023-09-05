@@ -220,13 +220,14 @@
 <script>
 import { Notify } from 'quasar'
 import { Cart } from 'src/models/Cart.js'
+// import Ewano from 'src/assets/js/Ewano.js'
 import AuthLogin from 'src/components/Auth.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import { mixinWidget } from 'src/mixin/Mixins.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import { GatewayList } from 'src/models/Gateway.js'
-import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 import Donate from 'src/components/Widgets/Cart/Donate/Donate.vue'
+import { AEE } from 'src/assets/js/AEE/AnalyticsEnhancedEcommerce.js'
 
 let StickySidebar
 if (typeof window !== 'undefined') {
@@ -246,16 +247,6 @@ export default {
       default: () => {
         return {}
       }
-    }
-  },
-  // provide() {
-  //   return {
-  //     scrollInfo: computed(() => this.scrollInfo)
-  //   }
-  // },
-  setup(props, context) {
-    console.log('context', context)
-    return {
     }
   },
   data () {
@@ -303,6 +294,9 @@ export default {
     }
   },
   computed: {
+    isEwanoUser () {
+      return !!this.$route.query.ewano
+    },
     cartLoading () {
       return this.cart.loading
     },
@@ -353,6 +347,11 @@ export default {
       deep: true
     }
   },
+  // provide() {
+  //   return {
+  //     scrollInfo: computed(() => this.scrollInfo)
+  //   }
+  // },
   mounted () {
     this.loadAuthData()
     this.cartReview()
@@ -364,6 +363,19 @@ export default {
       AEE.checkout(2, value)
     },
     getGateways () {
+      if (this.isEwanoUser) {
+        this.gateways = new GatewayList([{
+          id: 'ewano',
+          name: 'ewano',
+          displayName: 'اوانو',
+          description: 'اوانو',
+          order: 1,
+          photo: 'https://ewano.app/assets/images/logo.svg'
+        }])
+
+        return
+      }
+
       this.gateways.loading = true
       APIGateway.cart.getGateways()
         .then(gateways => {
@@ -501,6 +513,23 @@ export default {
     },
 
     payment() {
+      if (this.isEwanoUser) {
+        this.$store.commit('loading/loading', true)
+        APIGateway.ewano.makeOrder()
+          .then(() => {
+            // Ewano.pay()
+            this.$store.commit('loading/loading', false)
+          })
+          .catch(() => {
+            this.$q.notify({
+              type: 'negative',
+              message: 'لطفا مجدد تلاش کنید.'
+            })
+            this.$store.commit('loading/loading', false)
+          })
+        return
+      }
+
       if (!this.selectedBank) {
         this.$q.notify({
           type: 'negative',
@@ -910,11 +939,16 @@ export default {
                     }
 
                     .bank-icon-container {
-                      min-width: 58px;
-                      height: 58px;
+                      $iconSize: 58px;
+                      min-width: $iconSize;
+                      height: $iconSize;
                       background: #F4F3FF;
                       border-radius: 5px;
                       margin-right: 8px;
+                      .lazy-img {
+                        width: $iconSize;
+                        height: $iconSize;
+                      }
                     }
 
                     .select-bank-radio-button {
