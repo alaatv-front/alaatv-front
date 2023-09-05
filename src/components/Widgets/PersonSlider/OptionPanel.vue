@@ -55,17 +55,9 @@
               <div class="text-title">
                 Image Link
               </div>
-              <q-input v-model="localOptions.slidItemBackgroundImage"
-                       label="Image Link">
-                <template v-slot:after>
-                  <q-btn round
-                         dense
-                         flat
-                         color="primary"
-                         icon="cloud_upload"
-                         @click="toggleUploadDialog(size)" />
-                </template>
-              </q-input>
+              <image-upload-input v-model:value ="localOptions.slidItemBackgroundImage"
+                                  :with-url="true"
+                                  @update:value="updateSlidItemBackground($event)" />
             </div>
             <div class="col-12 col-md-3">
               <div class="text-title">
@@ -257,11 +249,8 @@
                       <q-popup-edit v-slot="scope"
                                     v-model="props.row[item.name]"
                                     buttons>
-                        <q-input v-model="scope.value"
-                                 dense
-                                 autofocus
-                                 counter
-                                 @keyup.enter="scope.set" />
+                        <image-upload-input v-model:value ="scope.value"
+                                            @update:value="scope.set" />
                       </q-popup-edit>
                     </template>
                     <template v-else-if="item.name === 'actions'">
@@ -306,10 +295,6 @@
             </q-table>
           </div>
         </q-expansion-item>
-        <image-upload-dialog :dialog="dialog"
-                             :multiple="multiple"
-                             @toggle-dialog="toggleUploadDialog"
-                             @update-value="onUpdateValue" />
       </div>
     </template>
   </option-panel-tabs>
@@ -318,11 +303,11 @@
 import { defineComponent } from 'vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
-import ImageUploadDialog from 'src/components/Utils/ImageUploadDialog.vue'
+import ImageUploadInput from 'src/components/Utils/ImageUploadInput.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs, ImageUploadDialog },
+  components: { OptionPanelTabs, ImageUploadInput },
   mixins: [PageBuilderOptionPanel],
   props: {
     options: {
@@ -377,6 +362,8 @@ export default defineComponent({
           value: 1440
         }
       ],
+      uploadType: '',
+      rowId: null,
       defaultOptions: {
         settings: {
           autoplay: 3500,
@@ -467,11 +454,8 @@ export default defineComponent({
     removeRow(index) {
       this.localOptions.sliderItems.splice(index, 1)
     },
-    toggleUploadDialog() {
-      this.dialog = !this.dialog
-    },
-    onUpdateValue (urlList) {
-      this.localOptions.slidItemBackgroundImage = "url('" + urlList[0] + "')"
+    updateSlidItemBackground(url) {
+      this.localOptions.slidItemBackgroundImage = url
     }
   }
 })

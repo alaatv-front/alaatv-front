@@ -10,17 +10,9 @@
           <div class="input-container col-12 q-mt-md">
 
             <div class="outsideLabel">آدرس فایل عکس</div>
-            <q-input v-model="localOptions.imageSource"
-                     label="Image ">
-              <template v-slot:after>
-                <q-btn round
-                       dense
-                       flat
-                       color="primary"
-                       icon="cloud_upload"
-                       @click="toggleUploadDialog('all')" />
-              </template>
-            </q-input>
+            <image-upload-input v-model:value ="localOptions.imageSource"
+                                @update:value="updateBackground($event, 'all')" />
+
           </div>
           <!--          <div class="input-container q-py-md">-->
           <!--            <div class="outsideLabel">height</div>-->
@@ -47,17 +39,8 @@
           </div>
           <div class="input-container col-12">
             <div class="outsideLabel">لینک عکس در سایز {{size}}</div>
-            <q-input v-model="localOptions[size].src"
-                     label="Image Link">
-              <template v-slot:after>
-                <q-btn round
-                       dense
-                       flat
-                       color="primary"
-                       icon="cloud_upload"
-                       @click="toggleUploadDialog(size)" />
-              </template>
-            </q-input>
+            <image-upload-input v-model:value ="localOptions[size].src"
+                                @update:value="updateBackground($event, size)" />
           </div>
           <div class="action col-md-12">
             <div class="cehckBox">
@@ -117,10 +100,6 @@
             </div>
           </div>
         </div>
-        <image-upload-dialog :dialog="dialog"
-                             :multiple="multiple"
-                             @toggle-dialog="toggleUploadDialog"
-                             @update-value="onUpdateValue" />
       </div>
     </template>
   </option-panel-tabs>
@@ -130,11 +109,11 @@
 import { defineComponent } from 'vue'
 import { mixinOptionPanel } from 'quasar-ui-q-page-builder'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
-import ImageUploadDialog from 'src/components/Utils/ImageUploadDialog.vue'
+import ImageUploadInput from 'src/components/Utils/ImageUploadInput.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs, ImageUploadDialog },
+  components: { OptionPanelTabs, ImageUploadInput },
   mixins: [mixinOptionPanel],
   data() {
     return {
@@ -271,15 +250,11 @@ export default defineComponent({
     }
   },
   methods: {
-    toggleUploadDialog(size) {
-      this.toggleSize = size
-      this.dialog = !this.dialog
-    },
-    onUpdateValue (urlList) {
-      if (this.toggleSize === 'all') {
-        this.localOptions.imageSource = urlList[0]
+    updateBackground (image, size) {
+      if (size === 'all') {
+        this.localOptions.imageSource = image
       } else {
-        this.localOptions[this.toggleSize].src = urlList[0]
+        this.localOptions[size].src = image
       }
     }
   }
