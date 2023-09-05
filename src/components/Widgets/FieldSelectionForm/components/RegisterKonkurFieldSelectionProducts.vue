@@ -21,6 +21,11 @@
                 type="rect"
                 width="100%"
                 height="200px" />
+    <template v-else-if="!loading && !isSelectionFieldProductsEnable">
+      <q-banner class="text-center q-mb-md">
+        در حال حاضر طرحی جهت انتخاب رشته وجود ندارد.
+      </q-banner>
+    </template>
     <q-list v-else>
       <product-item v-for="(product, productIndex) in products"
                     :key="productIndex"
@@ -40,7 +45,8 @@
           بازگشت
         </q-btn>
       </div>
-      <div class="col-6">
+      <div v-if="!loading && isSelectionFieldProductsEnable"
+           class="col-6">
         <q-btn color="primary"
                class="full-width"
                :loading="loading"
@@ -97,6 +103,7 @@ export default {
       loading: false,
       selectedProduct: 0,
       productList: new ProductList(),
+      productObjectList: new ProductList(),
       products: [
         {
           value: 0,
@@ -166,6 +173,10 @@ export default {
         this.product4Id,
         this.product5Id
       ]
+    },
+    isSelectionFieldProductsEnable () {
+      const disableProduct = this.productObjectList.list.find(p => !p.is_active)
+      return this.productObjectList.list.length > 0 && !disableProduct
     }
   },
   mounted () {
