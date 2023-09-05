@@ -5,7 +5,16 @@
         <div class="input-container q-pt-md">
           <div class="outsideLabel">poster</div>
           <q-input v-model="localOptions.poster"
-                   label="poster" />
+                   label="Image Link">
+            <template v-slot:after>
+              <q-btn round
+                     dense
+                     flat
+                     color="primary"
+                     icon="cloud_upload"
+                     @click="toggleUploadDialog()" />
+            </template>
+          </q-input>
         </div>
         <div class="input-container q-py-md">
           <div>نوع سورس ویدیو را انتخاب کنید:</div>
@@ -48,6 +57,10 @@
             </div>
           </div>
         </div>
+        <image-upload-dialog :dialog="dialog"
+                             :multiple="multiple"
+                             @toggle-dialog="toggleUploadDialog"
+                             @update-value="onUpdateValue" />
       </div>
     </template>
   </option-panel-tabs>
@@ -56,19 +69,29 @@
 import { defineComponent } from 'vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
+import ImageUploadDialog from 'src/components/Utils/ImageUploadDialog.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs },
+  components: { OptionPanelTabs, ImageUploadDialog },
   mixins: [PageBuilderOptionPanel],
   data() {
     return {
+      dialog: false,
       defaultOptions: {
         src: '',
         url: '',
         poster: '',
         srcType: ''
       }
+    }
+  },
+  methods: {
+    toggleUploadDialog() {
+      this.dialog = !this.dialog
+    },
+    onUpdateValue (urlList) {
+      this.localOptions.poster = urlList[0]
     }
   }
 })

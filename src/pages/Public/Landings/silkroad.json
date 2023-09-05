@@ -127,12 +127,13 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<font color=\"#424242\">دوره جامع کنکور</font><font color=\"#ff8518\">  راه ابریشم۲</font> <font color=\"#bdbdbd\" size=\"2\">V2.0</font>",
+                    "text": "<font color=\"#424242\">دوره جامع کنکور</font><font color=\"#ff8518\">  راه ابریشم۲</font> <font color=\"#bdbdbd\" size=\"2\" style=\"\" face=\"Doran FaNum\">V2.0</font>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
                       "fontSize": null,
                       "fontWeight": null,
@@ -406,8 +407,9 @@
                       }
                     },
                     "hasImage": true,
+                    "hoverImage": false,
                     "imageWidgetOptions": {
-                      "imageSource": "data:image/png;base64,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",
+                      "imageSource": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/frame.png",
                       "ratio": null,
                       "hasAction": false,
                       "useAEEEvent": false,
@@ -1266,52 +1268,136 @@
     },
     "options": {
       "fullHeight": true,
+      "className": "",
       "backgrounds": {
         "xs": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "size": "contain",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/350.png')",
+          "repeat": "no-repeat",
+          "position": "center top",
           "attachment": null
         },
         "sm": {
-          "size": null,
-          "color": null,
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "size": "contain",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/600.png')",
+          "repeat": "no-repeat",
+          "position": "center top",
           "attachment": null
         },
         "md": {
-          "size": null,
-          "color": "",
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "size": "contain",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1024.png')",
+          "repeat": "no-repeat",
+          "position": "center top",
           "attachment": null
         },
         "lg": {
-          "size": null,
+          "size": "contain",
           "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1024.png')",
+          "repeat": "no-repeat",
+          "position": "center top",
           "attachment": null
         },
         "xl": {
-          "size": null,
+          "size": "contain",
           "color": "rgba(255,247,238,1)",
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1920%20%25%201440.png')",
+          "repeat": "no-repeat",
+          "position": "center top",
           "attachment": null
         }
       },
-      "verticalAlign": "center",
+      "responsiveSpacing": {
+        "xs": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "sm": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "md": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "lg": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "xl": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        }
+      },
       "style": {
         "minHeight": "100vh"
-      }
+      },
+      "boxShadows": [],
+      "borderStyle": {
+        "borderCssString": "",
+        "borderRadiusCssString": ""
+      },
+      "cssHoverEffects": {
+        "boxShadows": [],
+        "borderStyle": {
+          "borderCssString": "",
+          "borderRadiusCssString": ""
+        },
+        "transition": {
+          "time": 0
+        },
+        "transform": {
+          "rotate": null,
+          "scaleX": null,
+          "scaleY": null,
+          "skewX": null,
+          "skewY": null,
+          "translateX": null,
+          "translateY": null
+        }
+      },
+      "responsiveShow": {
+        "xl": true,
+        "lg": true,
+        "md": true,
+        "sm": true,
+        "xs": true
+      },
+      "verticalAlign": "center"
     }
   },
   {
@@ -1432,7 +1518,7 @@
                   "options": {
                     "src": "",
                     "url": "https://nodes.alaatv.com/upload/landing/RAHABRISHAM/MoarefiAsli.mp4",
-                    "poster": "https://nodes.alaatv.com/upload/landing/32/landing32/introduction/TH_LANDING.jpg",
+                    "poster": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/2.png",
                     "srcType": "singleQuality",
                     "style": {}
                   }
@@ -1593,20 +1679,21 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "20px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "28px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "32px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
@@ -1622,6 +1709,20 @@
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -1635,35 +1736,50 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "16px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "lg": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "xl": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -1740,7 +1856,7 @@
                     },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\" face=\"iranyekan\">سفری امن و بی دغدغه</font>",
+                      "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">سفری امن و بی دغدغه</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -1748,34 +1864,36 @@
                       "fontStyle": null,
                       "letterSpacing": null,
                       "xs": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
-                        "letterSpacing": ""
+                        "letterSpacing": "-0.6px"
                       },
                       "sm": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "md": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "lg": {
                         "fontSize": "24px",
-                        "fontWeight": null,
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
                         "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
-                        "fontWeight": null,
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
                         "letterSpacing": "-0.72px"
@@ -1795,7 +1913,8 @@
                         }
                       },
                       "style": {
-                        "marginBottom": "12px"
+                        "marginBottom": "12px",
+                        "image": null
                       }
                     },
                     "description": "",
@@ -1926,8 +2045,108 @@
                         "marginBottom": "30px"
                       }
                     },
-                    "horizontal": false,
+                    "horizontal": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
+                      "sm": false,
+                      "xs": false
+                    },
                     "theme": "theme1",
+                    "backgrounds": {
+                      "xs": {
+                        "size": "contain",
+                        "color": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur350.png')",
+                        "repeat": "no-repeat",
+                        "position": "left center",
+                        "attachment": null
+                      },
+                      "sm": {
+                        "size": "contain",
+                        "color": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur600.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
+                        "attachment": null
+                      },
+                      "md": {
+                        "size": "contain",
+                        "color": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur1200.png')",
+                        "repeat": "repeat",
+                        "position": "center bottom",
+                        "attachment": null
+                      },
+                      "lg": {
+                        "size": "contain",
+                        "color": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur1200.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
+                        "attachment": null
+                      },
+                      "xl": {
+                        "size": "contain",
+                        "color": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
+                        "attachment": null
+                      }
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
                     "borderStyle": {
                       "topLeftRadius": 20,
                       "topRightRadius": 20,
@@ -1966,7 +2185,8 @@
                       "paddingRight": "24px",
                       "paddingBottom": "42px",
                       "marginLeft": "auto",
-                      "marginRight": "auto"
+                      "marginRight": "auto",
+                      "image": null
                     }
                   }
                 }
@@ -2032,7 +2252,7 @@
                     },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\">تسلط بر تمام مباحث</font>",
+                      "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">تسلط بر تمام مباحث</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -2040,33 +2260,36 @@
                       "fontStyle": null,
                       "letterSpacing": null,
                       "xs": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "sm": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "md": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "lg": {
                         "fontSize": "24px",
-                        "fontWeight": null,
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
                         "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
-                        "fontWeight": null,
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
                         "letterSpacing": "-0.72px"
@@ -2217,8 +2440,108 @@
                         "marginBottom": "30px"
                       }
                     },
-                    "horizontal": false,
+                    "horizontal": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
+                      "sm": false,
+                      "xs": false
+                    },
                     "theme": "theme1",
+                    "backgrounds": {
+                      "xs": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "sm": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "md": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "lg": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "xl": {
+                        "size": "contain",
+                        "color": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
+                        "attachment": null
+                      }
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
                     "borderStyle": {
                       "topLeftRadius": 20,
                       "topRightRadius": 20,
@@ -2323,7 +2646,7 @@
                     },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\">فراگیری انواع‌ تیپ‌تست‌ها</font>",
+                      "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">فراگیری‌انواع‌تیپ‌تست‌ها</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -2331,33 +2654,36 @@
                       "fontStyle": null,
                       "letterSpacing": null,
                       "xs": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "sm": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "md": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "lg": {
                         "fontSize": "24px",
-                        "fontWeight": null,
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
                         "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
-                        "fontWeight": null,
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
                         "letterSpacing": "-0.72px"
@@ -2508,8 +2834,108 @@
                         "marginBottom": "30px"
                       }
                     },
-                    "horizontal": false,
+                    "horizontal": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
+                      "sm": false,
+                      "xs": false
+                    },
                     "theme": "theme1",
+                    "backgrounds": {
+                      "xs": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "sm": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "md": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "lg": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "xl": {
+                        "size": "contain",
+                        "color": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
+                        "attachment": null
+                      }
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
                     "borderStyle": {
                       "topLeftRadius": 20,
                       "topRightRadius": 20,
@@ -2614,7 +3040,7 @@
                     },
                     "title": "",
                     "titleOptions": {
-                      "text": "<font color=\"#ff8518\">ارزیابی و پیشرفت</font>",
+                      "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">ارزیابی و پیشرفت</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
@@ -2622,34 +3048,36 @@
                       "fontStyle": null,
                       "letterSpacing": null,
                       "xs": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
-                        "letterSpacing": "-0.72px"
+                        "letterSpacing": "-0.6px"
                       },
                       "sm": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "md": {
-                        "fontSize": null,
-                        "fontWeight": null,
+                        "fontSize": "20px",
+                        "fontWeight": "800",
                         "fontStyle": null,
-                        "lineHeight": null
+                        "lineHeight": null,
+                        "letterSpacing": "-0.6px"
                       },
                       "lg": {
                         "fontSize": "24px",
-                        "fontWeight": null,
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
                         "letterSpacing": "-0.72px"
                       },
                       "xl": {
                         "fontSize": "24px",
-                        "fontWeight": null,
+                        "fontWeight": "800",
                         "fontStyle": null,
                         "lineHeight": null,
                         "letterSpacing": "-0.72px"
@@ -2800,8 +3228,108 @@
                         "marginBottom": "30px"
                       }
                     },
-                    "horizontal": false,
+                    "horizontal": {
+                      "xl": false,
+                      "lg": false,
+                      "md": false,
+                      "sm": false,
+                      "xs": false
+                    },
                     "theme": "theme1",
+                    "backgrounds": {
+                      "xs": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "sm": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "md": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "lg": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "xl": {
+                        "size": "contain",
+                        "color": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
+                        "attachment": null
+                      }
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
                     "borderStyle": {
                       "topLeftRadius": 20,
                       "topRightRadius": 20,
@@ -2894,6 +3422,48 @@
             "gutterXSize": "xs",
             "gutterYSize": "xl",
             "absolute": "none",
+            "backgrounds": {
+              "xs": {
+                "size": null,
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "sm": {
+                "size": null,
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "md": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "lg": {
+                "size": null,
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "xl": {
+                "size": "contain",
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S031440.png')",
+                "repeat": "no-repeat",
+                "position": "center bottom",
+                "attachment": null
+              }
+            },
             "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
             "borderStyle": {
@@ -2972,10 +3542,10 @@
               "marginBottom": "72px",
               "backgroundColor": "",
               "paddingBottom": "100px",
-              "backgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S03.png')",
-              "backgroundPosition": "center bottom",
-              "backgroundRepeat": "no-repeat",
-              "backgroundSize": "contain"
+              "backgroundImage": "",
+              "backgroundPosition": "",
+              "backgroundRepeat": "",
+              "backgroundSize": ""
             }
           }
         },
@@ -3055,20 +3625,21 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "20px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "28px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "32px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
@@ -3084,6 +3655,20 @@
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -3097,35 +3682,50 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "16px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "lg": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "xl": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -3564,20 +4164,21 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "20px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "28px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "32px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
@@ -3593,6 +4194,20 @@
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -3606,35 +4221,50 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "16px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "lg": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "xl": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -3967,7 +4597,7 @@
                                 "fontSize": "",
                                 "textAlign": ""
                               },
-                              "colNumber": "col"
+                              "colNumber": "col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6"
                             },
                             "type": "ProductList",
                             "data": [
@@ -4554,6 +5184,48 @@
             "gutterXSize": "md",
             "gutterYSize": "xl",
             "absolute": "none",
+            "backgrounds": {
+              "xs": {
+                "size": "contain",
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05350.png')",
+                "repeat": "no-repeat",
+                "position": "center top",
+                "attachment": null
+              },
+              "sm": {
+                "size": "contain",
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05650.png')",
+                "repeat": "no-repeat",
+                "position": "center top",
+                "attachment": null
+              },
+              "md": {
+                "size": "contain",
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S051200.png')",
+                "repeat": "no-repeat",
+                "position": "center center",
+                "attachment": null
+              },
+              "lg": {
+                "size": "contain",
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S051440.png')",
+                "repeat": "no-repeat",
+                "position": "center center",
+                "attachment": null
+              },
+              "xl": {
+                "size": "contain",
+                "color": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S051440.png')",
+                "repeat": "no-repeat",
+                "position": "center center",
+                "attachment": null
+              }
+            },
             "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
             "borderStyle": {
@@ -4621,78 +5293,15 @@
               "marginLeft": "",
               "paddingLeft": "",
               "paddingRight": "",
-              "backgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
-              "backgroundSize": "contain",
-              "backgroundRepeat": "no-repeat",
-              "backgroundPosition": "center center"
+              "backgroundImage": "",
+              "backgroundSize": "",
+              "backgroundRepeat": "",
+              "backgroundPosition": ""
             }
           }
         },
         {
           "cols": [
-            {
-              "widgets": [
-                {
-                  "name": "Separator",
-                  "options": {
-                    "spaced": false,
-                    "dark": false,
-                    "inset": false,
-                    "vertical": false,
-                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
-                    "ImageStyle": null,
-                    "ImageClassName": null,
-                    "height": null,
-                    "width": null,
-                    "style": {
-                      "backgroundImage": null,
-                      "marginTop": "120px",
-                      "marginBottom": "36px"
-                    },
-                    "className": "",
-                    "services": []
-                  }
-                }
-              ],
-              "options": {
-                "colNumber": "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12",
-                "style": {
-                  "marginBottom": "30px"
-                },
-                "boxShadows": [],
-                "borderStyle": {
-                  "borderCssString": "",
-                  "borderRadiusCssString": ""
-                },
-                "cssHoverEffects": {
-                  "boxShadows": [],
-                  "borderStyle": {
-                    "borderCssString": "",
-                    "borderRadiusCssString": ""
-                  },
-                  "transition": {
-                    "time": 0
-                  },
-                  "transform": {
-                    "rotate": 0,
-                    "scaleX": 1,
-                    "scaleY": 1,
-                    "skewX": 0,
-                    "skewY": 0,
-                    "translateX": 0,
-                    "translateY": 0
-                  }
-                },
-                "responsiveShow": {
-                  "xl": true,
-                  "lg": true,
-                  "md": true,
-                  "sm": true,
-                  "xs": true
-                },
-                "className": ""
-              }
-            },
             {
               "widgets": [
                 {
@@ -4704,20 +5313,21 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "20px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "28px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "32px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
@@ -4733,6 +5343,20 @@
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -12182,20 +12806,21 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "20px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "28px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "32px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
@@ -12211,6 +12836,20 @@
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -12224,35 +12863,50 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "16px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "lg": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "xl": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -12315,7 +12969,7 @@
                   "options": {
                     "src": "",
                     "url": "https://nodes.alaatv.com/upload/landing/RAHABRISHAM/MoarefiAsli.mp4",
-                    "poster": "https://nodes.alaatv.com/upload/landing/32/landing32/introduction/TH_LANDING.jpg",
+                    "poster": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/7.png",
                     "srcType": "singleQuality",
                     "style": {}
                   }
@@ -12461,20 +13115,21 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "20px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "28px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "32px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
@@ -12490,6 +13145,20 @@
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -12503,35 +13172,50 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "16px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "18px ",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "lg": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "xl": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -12595,7 +13279,7 @@
                     "settings": {
                       "autoplay": 3500,
                       "dir": "rtl",
-                      "itemsToShow": "7",
+                      "itemsToShow": "6",
                       "snapAlign": "center",
                       "transition": 500,
                       "pauseAutoplayOnHover": false,
@@ -12616,7 +13300,7 @@
                         "snapAlign": "center"
                       },
                       "1024": {
-                        "itemsToShow": "6",
+                        "itemsToShow": "5",
                         "snapAlign": "center"
                       },
                       "1440": {
@@ -12632,7 +13316,7 @@
                         "last_name": "چیذری",
                         "major": "ریاضی",
                         "distraction": "",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93"
+                        "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/021.png"
                       },
                       {
                         "order": 5,
@@ -12641,7 +13325,7 @@
                         "last_name": "چیذری",
                         "major": "ریاضی",
                         "distraction": "",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93"
+                        "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/021.png"
                       },
                       {
                         "order": 4,
@@ -12650,7 +13334,7 @@
                         "last_name": "چیذری",
                         "major": "ریاضی",
                         "distraction": "",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93"
+                        "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/021.png"
                       },
                       {
                         "order": 3,
@@ -12659,7 +13343,7 @@
                         "last_name": "چیذری",
                         "major": "ریاضی",
                         "distraction": "",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93"
+                        "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/021.png"
                       },
                       {
                         "order": 2,
@@ -12668,7 +13352,7 @@
                         "last_name": "چیذری",
                         "major": "ریاضی",
                         "distraction": "",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93"
+                        "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/021.png"
                       },
                       {
                         "order": 1,
@@ -12677,11 +13361,16 @@
                         "last_name": "چیذری",
                         "major": "ریاضی",
                         "distraction": "",
-                        "image": "https://nodes.alaatv.com/upload/landing/110/2.png?w=93&h=93"
+                        "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/021.png"
                       }
                     ],
                     "slidItemBackgroundImage": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/dabir%201920.png')",
                     "slidItemBackgroundColor": "",
+                    "slidItemBackgroundPosition": "center",
+                    "slidItemBackgroundRepeat": "no-repeat",
+                    "slidItemBackgroundSize": "265px",
+                    "slideItemImageWidth": "160px",
+                    "slideItemImageHeight": "241px",
                     "personType": "teacher",
                     "pagination": false,
                     "carouselPadding": "0 25px",
@@ -12704,10 +13393,7 @@
                     "style": {
                       "backgroundImage": null
                     },
-                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
-                    "slidItemBackgroundSize": "265px",
-                    "slidItemBackgroundRepeat": "no-repeat",
-                    "slidItemBackgroundPosition": "center"
+                    "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png"
                   }
                 }
               ],
@@ -12864,20 +13550,21 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "20px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "28px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "32px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
@@ -12893,6 +13580,20 @@
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -12906,35 +13607,50 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "16px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "lg": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "xl": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -13165,9 +13881,51 @@
             "height": "auto",
             "boxed": true,
             "boxedWidth": "1380",
-            "gutterXSize": "md",
-            "gutterYSize": "md",
+            "gutterXSize": "xs",
+            "gutterYSize": "xs",
             "absolute": "none",
+            "backgrounds": {
+              "xs": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "sm": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "md": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "lg": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "xl": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              }
+            },
             "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
             "borderStyle": {
@@ -13309,20 +14067,21 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "20px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "28px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "32px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
@@ -13338,6 +14097,20 @@
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -13351,35 +14124,50 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
+                      "fontSize": "16px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "sm": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "md": {
-                      "fontSize": null,
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "lg": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "xl": {
-                      "fontSize": "16px",
+                      "fontSize": "18px",
                       "fontWeight": null,
                       "fontStyle": null,
                       "lineHeight": null
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -14263,7 +15051,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": null,
+                    "className": "",
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -14274,15 +15062,65 @@
                     "eventName": null,
                     "style": {
                       "background": "",
-                      "color": "#424242"
+                      "color": "#424242",
+                      "image": null
                     }
                   }
                 }
               ],
               "options": {
-                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -14313,7 +15151,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "text-center"
               }
             },
             {
@@ -14327,7 +15165,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": null,
+                    "className": "text-center",
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -14344,9 +15182,58 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -14377,7 +15264,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "text-center"
               }
             },
             {
@@ -14391,7 +15278,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": null,
+                    "className": "text-center",
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -14408,9 +15295,58 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -14441,7 +15377,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "text-center"
               }
             },
             {
@@ -14455,7 +15391,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": null,
+                    "className": "text-center",
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -14472,9 +15408,58 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -14505,7 +15490,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "text-center"
               }
             }
           ],
@@ -14517,6 +15502,100 @@
             "gutterXSize": "md",
             "gutterYSize": "md",
             "absolute": "none",
+            "backgrounds": {
+              "xs": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "sm": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "md": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "lg": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "xl": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              }
+            },
+            "responsiveSpacing": {
+              "xs": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "sm": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "md": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "lg": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "xl": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              }
+            },
             "paddingOfBoxedInFullWidth": "30px",
             "boxShadows": [],
             "borderStyle": {
@@ -14970,44 +16049,96 @@
       "className": "",
       "backgrounds": {
         "xs": {
-          "size": null,
+          "size": "contain",
           "color": "#ffffff",
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/350.png')",
+          "repeat": "no-repeat",
+          "position": "center center",
           "attachment": null
         },
         "sm": {
-          "size": null,
+          "size": "contain",
           "color": "#ffffff",
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/600.png')",
+          "repeat": "no-repeat",
+          "position": "center center",
           "attachment": null
         },
         "md": {
-          "size": null,
+          "size": "contain",
           "color": "#ffffff",
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1200.png')",
+          "repeat": "no-repeat",
+          "position": "center center",
           "attachment": null
         },
         "lg": {
-          "size": null,
+          "size": "contain",
           "color": "#ffffff",
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1920%261440.png')",
+          "repeat": "no-repeat",
+          "position": "center center",
           "attachment": null
         },
         "xl": {
-          "size": null,
+          "size": "contain",
           "color": "#ffffff",
-          "image": null,
-          "repeat": null,
-          "position": null,
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1920%261440.png')",
+          "repeat": "no-repeat",
+          "position": "center center",
           "attachment": null
+        }
+      },
+      "responsiveSpacing": {
+        "xs": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "sm": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "md": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "lg": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "xl": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
         }
       },
       "style": {

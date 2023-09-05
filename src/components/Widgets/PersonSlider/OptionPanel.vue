@@ -22,7 +22,7 @@
             </div>
             <div class="col-12 col-md-3">
               <q-checkbox v-model="localOptions.settings.wrapAround"
-                          label="wrapAround" />
+                          label="دور بینهایت" />
             </div>
             <div class="col-12 col-md-3">
               <q-checkbox v-model="localOptions.pagination"
@@ -33,6 +33,9 @@
                           label="فاصله داخلی اسلایدر" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">
+                رنگ پس زمینه آیتم اسلایدر
+              </div>
               <q-input v-model="localOptions.slidItemBackgroundColor"
                        filled
                        class="رنگ پس زمینه آیتم اسلایدر">
@@ -49,6 +52,9 @@
               </q-input>
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">
+                Image Link
+              </div>
               <q-input v-model="localOptions.slidItemBackgroundImage"
                        label="Image Link">
                 <template v-slot:after>
@@ -62,46 +68,79 @@
               </q-input>
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">
+                Background Position
+              </div>
               <q-input v-model="localOptions.slidItemBackgroundPosition"
                        type="text"
                        label="Background Position" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">
+                Background Repeat
+              </div>
               <q-input v-model="localOptions.slidItemBackgroundRepeat"
                        type="text"
                        label="Background Repeat" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">
+                Background Size
+              </div>
               <q-input v-model="localOptions.slidItemBackgroundSize"
                        type="text"
                        label="Background Size" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">
+                ImageWidth
+              </div>
+              <q-input v-model="localOptions.slideItemImageWidth"
+                       type="text"
+                       label="ImageWidth" />
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                ImageHeight
+              </div>
+              <q-input v-model="localOptions.slideItemImageHeight"
+                       type="text"
+                       label="ImageHeight" />
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                direction
+              </div>
               <q-input v-model="localOptions.settings.dir"
                        type="text"
                        label="direction" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">autoplay</div>
               <q-input v-model="localOptions.settings.autoplay"
                        type="number"
                        label="autoplay" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">items To Scroll</div>
               <q-input v-model="localOptions.settings.itemsToScroll"
                        type="number"
                        label="itemsToScroll" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">transition</div>
               <q-input v-model="localOptions.settings.transition"
                        type="number"
                        label="transition" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">Item To Show</div>
               <q-input v-model="localOptions.settings.itemsToShow"
                        type="number"
                        label="itemsToShow" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">snapAlign</div>
               <q-input v-model="localOptions.settings.snapAlign"
                        type="text"
                        label="snapAlign" />
@@ -109,6 +148,7 @@
           </div>
           <div class="row q-mb-sm q-col-gutter-md">
             <div class="col-12 col-md-3">
+              <div class="text-title">size</div>
               <q-select v-model="size"
                         :options="sizeOptions"
                         option-label="label"
@@ -118,11 +158,13 @@
                         label="page size" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">itemsToShow-{{ size }}</div>
               <q-input v-model="localOptions.breakpoints[size].itemsToShow"
                        type="text"
                        :label="`itemsToShow-${size}`" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">snapAlign-{{ size }}</div>
               <q-input v-model="localOptions.breakpoints[size].snapAlign"
                        type="text"
                        :label="`snapAlign-${size}`" />
@@ -374,6 +416,8 @@ export default defineComponent({
         slidItemBackgroundPosition: 'center',
         slidItemBackgroundRepeat: 'no-repeat',
         slidItemBackgroundSize: '',
+        slideItemImageWidth: '160px',
+        slideItemImageHeight: '160px',
         personType: 'student',
         pagination: false,
         carouselPadding: '0 25px',

@@ -18,10 +18,11 @@
                   :transition="500">
           <slide v-for="slide in localOptions.sliderItems"
                  :key="slide">
-            <q-card class="scroll-item-card">
+            <q-card class="scroll-item-card"
+                    :class="{'teacher': localOptions.personType === 'teacher' }">
               <q-img :src="slide.image"
-                     width="160px"
-                     height="160px"
+                     :width="localOptions.slideItemImageWidth"
+                     :height="localOptions.slideItemImageHeight"
                      spinner-color="primary"
                      class="student-img"
                      spinner-size="82px">
@@ -32,7 +33,8 @@
                 </div>
               </q-img>
               <q-card-section class="person-name-card-section">
-                <div class="student-name ellipsis-2-lines">{{ slide.first_name + ' ' + slide.last_name }}</div>
+                <div class="student-name ellipsis-2-lines"
+                     :class="{'teacher': localOptions.personType === 'teacher' }">{{ slide.first_name + ' ' + slide.last_name }}</div>
               </q-card-section>
               <q-card-section class="person-info-card-section">
                 <div v-if="localOptions.personType === 'student'"
@@ -142,6 +144,8 @@ export default defineComponent({
         slidItemBackgroundPosition: 'center',
         slidItemBackgroundRepeat: 'no-repeat',
         slidItemBackgroundSize: '',
+        slideItemImageWidth: '160px',
+        slideItemImageHeight: '160px',
         personType: 'student',
         pagination: false,
         carouselPadding: '0 25px',
@@ -174,7 +178,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .scroll-item-card {
   width: 200px;
-  height: 320px;
+  height: 325px;
   max-height: 350px;
   border-radius: 20px;
   margin: 0 10px 20px;
@@ -185,6 +189,10 @@ export default defineComponent({
   background-position: v-bind('localOptions.slidItemBackgroundPosition');
   background-repeat: v-bind('localOptions.slidItemBackgroundRepeat');
   background-size: v-bind('localOptions.slidItemBackgroundSize');
+
+  &.teacher {
+    padding-top: 0;
+  }
 
   .student-img {
     position: relative;
@@ -213,18 +221,25 @@ export default defineComponent({
   }
 
   .person-name-card-section {
-    padding-bottom: 0;
+    padding: 0;
     .student-name {
       font-size: 16px;
       font-weight: 500;
       color: #333;
       text-align: center;
       min-height: 40px;
+
+      &.teacher {
+        min-height: 20px;
+        margin-top: 5px;
+      }
     }
   }
 
  .person-info-card-section{
   padding-top: 0;
+  padding-right: 0;
+  padding-left: 0;
   .student-info{
     display: flex;
     flex-direction: column;
