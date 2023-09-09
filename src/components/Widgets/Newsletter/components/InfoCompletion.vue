@@ -67,6 +67,14 @@ export default {
     eventId: {
       type: String,
       default: null
+    },
+    hasRedirect: {
+      type: Boolean,
+      default: false
+    },
+    redirectUrl: {
+      type: String,
+      default: null
     }
   },
   emits: ['toggleDialog'],
@@ -194,6 +202,9 @@ export default {
       })
         .then((message) => {
           this.showMessage(message, 'positive')
+          if (this.hasRedirect) {
+            this.redirectToUrl(this.redirectUrl)
+          }
           this.$emit('toggleDialog')
           this.setLoading(false)
         })
@@ -203,6 +214,12 @@ export default {
     },
     setLoading(loading) {
       this.loading = loading
+    },
+    redirectToUrl (url) {
+      if (!url) {
+        return
+      }
+      window.location.href = url
     },
     showMessage(message, type = 'negative') {
       this.$q.notify({
