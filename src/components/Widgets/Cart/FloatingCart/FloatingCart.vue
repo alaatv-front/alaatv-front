@@ -20,7 +20,7 @@
         <div class="row">
           <div class="col-12">
             <cart-empty ref="cartEmpty"
-                        :options="CartEmptyOptions" />
+                        :options="localOptions.cartEmptyOption" />
           </div>
           <q-btn flat
                  class="cart-floating-close"
@@ -29,11 +29,12 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <cart-view ref="cartView" />
+            <cart-view ref="cartView"
+                       :options="localOptions.cartViewOption" />
           </div>
           <div class="col-xs-12">
             <cart-invoice ref="cartInvoice"
-                          :dense="dense" />
+                          :options="localOptions.cartInvoiceOption" />
           </div>
         </div>
       </q-card-section>
@@ -46,6 +47,7 @@ import { Cart } from 'src/models/Cart.js'
 import CartView from '../CartView/CartView.vue'
 import CartEmpty from '../CartEmpty/CartEmpty.vue'
 import CartInvoice from '../CartInvoice/CartInvoice.vue'
+import { mixinWidget } from 'src/mixin/Mixins.js'
 
 const nextMorphStep = {
   btn: 'card1',
@@ -59,16 +61,49 @@ export default {
     CartEmpty,
     CartInvoice
   },
+  mixins: [mixinWidget],
   data() {
     return {
       morphGroupModel: 'btn',
-      CartEmptyOptions: {
-        text: 'سبد خرید شما خالی است',
-        link: {
-          text: 'بازگشت به فروشگاه',
-          url: '/shop'
+      defaultOptions: {
+        cartEmptyOption: {
+          text: 'سبد خرید شما خالی است',
+          link: {
+            text: 'بازگشت به فروشگاه',
+            url: '/shop'
+          },
+          photo: 'https://nodes.alaatv.com/upload/empty-cart.png'
         },
-        photo: 'https://nodes.alaatv.com/upload/empty-cart.png'
+        cartInvoiceOption: {
+          totalPrice: 'جمع سبد خرید',
+          hasTotalPrice: true,
+          useWallet: 'استفاده از کیف پول',
+          hasUseWallet: true,
+          purchaseProfit: 'سود شما از خرید',
+          hasPurchaseProfit: true,
+          discountPercent: 'کد تخفیف',
+          hasDiscountPercent: true,
+          giftcard: 'کارت هدیه',
+          hasGiftcard: true,
+          finalPrice: 'مبلغ نهایی',
+          hasFinalPrice: true,
+          paymentMethod: 'درگاه پرداخت',
+          hasPaymentMethod: true,
+          commentLabel: 'اگر توضیحی درباره ی محصول دارید اینجا بنویسید',
+          hasComment: true,
+          paymentBtn: 'پرداخت و ثبت نهایی',
+          hasPaymentBtn: true,
+          dense: true
+        },
+        cartViewOption: {
+          className: '',
+          height: 'auto',
+          boxed: false,
+          boxedWidth: 1200,
+          style: {},
+          title: 'سبد خرید شما',
+          floating: true
+        }
       },
       dense: true,
       cart: new Cart()

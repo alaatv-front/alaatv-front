@@ -32,6 +32,11 @@
       <q-input v-model="localOptions[responsive].lineHeight"
                label="line height" />
     </div>
+    <div class="col-md-3 q-ma-sm">
+      <div class="outsideLabel">Letter Spacing</div>
+      <q-input v-model="localOptions[responsive].letterSpacing"
+               label="Letter Spacing" />
+    </div>
   </div>
 </template>
 

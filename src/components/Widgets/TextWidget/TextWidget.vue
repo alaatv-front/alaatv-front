@@ -26,31 +26,88 @@ export default {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         sm: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         md: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         lg: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
         },
         xl: {
           fontSize: null,
           fontWeight: null,
           fontStyle: null,
-          lineHeight: null
+          lineHeight: null,
+          letterSpacing: null
+        },
+        responsiveSpacing: {
+          xs: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          sm: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          md: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          lg: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          xl: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          }
         },
         hasTheme: null,
         activeTheme: null,
@@ -73,7 +130,63 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "quasar-ui-q-page-builder/src/components/Component.scss";
+
+$responsiveSpacing: (
+    xs: (
+        marginTop: v-bind('defaultOptions.responsiveSpacing.xs.marginTop'),
+        marginLeft: v-bind('defaultOptions.responsiveSpacing.xs.marginLeft'),
+        marginRight: v-bind('defaultOptions.responsiveSpacing.xs.marginRight'),
+        marginBottom: v-bind('defaultOptions.responsiveSpacing.xs.marginBottom'),
+        paddingTop: v-bind('defaultOptions.responsiveSpacing.xs.paddingTop'),
+        paddingLeft: v-bind('defaultOptions.responsiveSpacing.xs.paddingLeft'),
+        paddingRight: v-bind('defaultOptions.responsiveSpacing.xs.paddingRight'),
+        paddingBottom: v-bind('defaultOptions.responsiveSpacing.xs.paddingBottom'),
+    ),
+    sm: (
+        marginTop: v-bind('defaultOptions.responsiveSpacing.sm.marginTop'),
+        marginLeft: v-bind('defaultOptions.responsiveSpacing.sm.marginLeft'),
+        marginRight: v-bind('defaultOptions.responsiveSpacing.sm.marginRight'),
+        marginBottom: v-bind('defaultOptions.responsiveSpacing.sm.marginBottom'),
+        paddingTop: v-bind('defaultOptions.responsiveSpacing.sm.paddingTop'),
+        paddingLeft: v-bind('defaultOptions.responsiveSpacing.sm.paddingLeft'),
+        paddingRight: v-bind('defaultOptions.responsiveSpacing.sm.paddingRight'),
+        paddingBottom: v-bind('defaultOptions.responsiveSpacing.sm.paddingBottom'),
+    ),
+    md: (
+        marginTop: v-bind('defaultOptions.responsiveSpacing.md.marginTop'),
+        marginLeft: v-bind('defaultOptions.responsiveSpacing.md.marginLeft'),
+        marginRight: v-bind('defaultOptions.responsiveSpacing.md.marginRight'),
+        marginBottom: v-bind('defaultOptions.responsiveSpacing.md.marginBottom'),
+        paddingTop: v-bind('defaultOptions.responsiveSpacing.md.paddingTop'),
+        paddingLeft: v-bind('defaultOptions.responsiveSpacing.md.paddingLeft'),
+        paddingRight: v-bind('defaultOptions.responsiveSpacing.md.paddingRight'),
+        paddingBottom: v-bind('defaultOptions.responsiveSpacing.md.paddingBottom'),
+    ),
+    lg: (
+        marginTop: v-bind('defaultOptions.responsiveSpacing.lg.marginTop'),
+        marginLeft: v-bind('defaultOptions.responsiveSpacing.lg.marginLeft'),
+        marginRight: v-bind('defaultOptions.responsiveSpacing.lg.marginRight'),
+        marginBottom: v-bind('defaultOptions.responsiveSpacing.lg.marginBottom'),
+        paddingTop: v-bind('defaultOptions.responsiveSpacing.lg.paddingTop'),
+        paddingLeft: v-bind('defaultOptions.responsiveSpacing.lg.paddingLeft'),
+        paddingRight: v-bind('defaultOptions.responsiveSpacing.lg.paddingRight'),
+        paddingBottom: v-bind('defaultOptions.responsiveSpacing.lg.paddingBottom'),
+    ),
+    xl: (
+        marginTop: v-bind('defaultOptions.responsiveSpacing.xl.marginTop'),
+        marginLeft: v-bind('defaultOptions.responsiveSpacing.xl.marginLeft'),
+        marginRight: v-bind('defaultOptions.responsiveSpacing.xl.marginRight'),
+        marginBottom: v-bind('defaultOptions.responsiveSpacing.xl.marginBottom'),
+        paddingTop: v-bind('defaultOptions.responsiveSpacing.xl.paddingTop'),
+        paddingLeft: v-bind('defaultOptions.responsiveSpacing.xl.paddingLeft'),
+        paddingRight: v-bind('defaultOptions.responsiveSpacing.xl.paddingRight'),
+        paddingBottom: v-bind('defaultOptions.responsiveSpacing.xl.paddingBottom'),
+    )
+);
+
 .text-widget-container {
+  @include media-query-spacings($responsiveSpacing, $sizes);
 
   &.theme__1 {
 
@@ -102,12 +215,14 @@ export default {
   font-weight: v-bind('localOptions.xl.fontWeight');
   font-family: v-bind('localOptions.fontFamily');
   font-style: v-bind('localOptions.xl.fontStyle');
+  letter-spacing: v-bind('localOptions.xl.letterSpacing');
 
   @media screen and (max-width: 1920px) {
     font-size: v-bind('localOptions.lg.fontSize');
     font-weight: v-bind('localOptions.lg.fontWeight');
     font-style: v-bind('localOptions.lg.fontStyle');
     line-height: v-bind('localOptions.lg.lineHeight');
+    letter-spacing: v-bind('localOptions.lg.letterSpacing');
   }
 
   @media screen and (max-width: 1440px) {
@@ -115,6 +230,7 @@ export default {
     font-weight: v-bind('localOptions.md.fontWeight');
     font-style: v-bind('localOptions.md.fontStyle');
     line-height: v-bind('localOptions.md.lineHeight');
+    letter-spacing: v-bind('localOptions.md.letterSpacing');
   }
 
   @media screen and (max-width: 1024px) {
@@ -122,6 +238,7 @@ export default {
     font-weight: v-bind('localOptions.sm.fontWeight');
     font-style: v-bind('localOptions.sm.fontStyle');
     line-height: v-bind('localOptions.sm.lineHeight');
+    letter-spacing: v-bind('localOptions.sm.letterSpacing');
   }
 
   @media screen and (max-width: 600px) {
@@ -129,6 +246,7 @@ export default {
     font-weight: v-bind('localOptions.xs.fontWeight');
     font-style: v-bind('localOptions.xs.fontStyle');
     line-height: v-bind('localOptions.xs.lineHeight');
+    letter-spacing: v-bind('localOptions.xs.letterSpacing');
   }
 }
 </style>

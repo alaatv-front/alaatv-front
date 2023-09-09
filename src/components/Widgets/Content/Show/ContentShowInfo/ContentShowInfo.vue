@@ -63,6 +63,12 @@
             </div>
           </div>
         </div>
+        <div v-if="hasRelatedProduct"
+             class="row">
+          <div class="col-md-5 col-sm-6 col-12">
+            <product-item :options="{product: content.related_product}" />
+          </div>
+        </div>
       </div>
     </template>
   </div>
@@ -73,12 +79,13 @@ import Bookmark from 'src/components/Bookmark.vue'
 import { Content } from 'src/models/Content.js'
 import { APIGateway } from 'src/api/APIGateway.js'
 import ShareNetwork from 'src/components/ShareNetwork.vue'
-import { mixinWidget, mixinPrefetchServerData } from 'src/mixin/Mixins.js'
+import { mixinWidget, mixinPrefetchServerData, mixinAuth } from 'src/mixin/Mixins.js'
+import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
 
 export default {
   name: 'ContentShowInfo',
-  components: { Bookmark, ShareNetwork },
-  mixins: [mixinWidget, mixinPrefetchServerData],
+  components: { ProductItem, Bookmark, ShareNetwork },
+  mixins: [mixinWidget, mixinPrefetchServerData, mixinAuth],
   beforeRouteUpdate() {
     this.loadContent()
   },
@@ -92,32 +99,17 @@ export default {
   },
   data() {
     return {
-      bookmarkLoading: false,
       tab: 'info',
-      content: new Content(),
-      sections: [
-        {
-          data: {
-            rows: [
-              {
-                cols: [
-                  {
-                    widgets: []
-                  }
-                ],
-                options: {
-                  boxed: false
-                }
-              }
-            ]
-          }
-        }
-      ]
+      bookmarkLoading: false,
+      content: new Content()
     }
   },
   computed: {
     pageUrl() {
       return window.location.href
+    },
+    hasRelatedProduct() {
+      return this.content.related_product
     }
   },
   watch: {
@@ -155,6 +147,10 @@ export default {
       return this.content.file.pamphlet && this.content.file.pamphlet.length > 0
     },
     handleContentBookmark () {
+      if (!this.isUserLogin) {
+        return
+      }
+
       this.bookmarkLoading = true
       if (this.content.is_favored) {
         this.$apiGateway.content.unfavored(this.content.id)

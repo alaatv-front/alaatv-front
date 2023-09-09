@@ -31,6 +31,8 @@
           <q-step :name="'info'"
                   title="info">
             <info-completion :options="localOptions.userInputs"
+                             :hasRedirect="localOptions.hasRedirect"
+                             :redirectUrl="localOptions.redirectUrl"
                              :userInfo="userForm"
                              :eventId="localOptions.eventId"
                              @toggle-dialog="toggleDialog" />
@@ -66,6 +68,8 @@ export default {
       defaultOptions: {
         eventName: 'newsletter',
         verification: true,
+        hasRedirect: false,
+        redirectUrl: '',
         eventId: null,
         userInputs: {
           first_name: true,

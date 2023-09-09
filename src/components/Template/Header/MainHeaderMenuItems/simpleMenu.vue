@@ -2,6 +2,7 @@
   <router-link :to="data.route">
     <q-btn-dropdown v-model="showMenu"
                     flat
+                    content-class="simpleMenu"
                     content-style="width: 200px"
                     class="dropdown-btn"
                     @mouseover="onMouseover"

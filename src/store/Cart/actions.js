@@ -11,7 +11,8 @@ export function addToCart(context, newProductData) {
       product: newProductData.product, // Number or String
       product_id: newProductData.product.id, // Number or String
       products: newProductData.products ? newProductData.products : [], // Array (List ofProduct's ID)
-      attribute: newProductData.attribute ? newProductData.attribute : [] // Array
+      attribute: newProductData.attribute ? newProductData.attribute : [], // Array
+      ...(newProductData.has_instalment_option && { has_instalment_option: newProductData.has_instalment_option })
     }
     const setCartLoading = (loadingState) => {
       const cart = context.getters.cart

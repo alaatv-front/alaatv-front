@@ -19,7 +19,7 @@
     </div>
     <div class="form-action-wrapper">
       <action-button :options="localOptions.actionButtonOptions"
-                     :disable="loading"
+                     :disable="actionLoading"
                      @action-button="CallAction" />
     </div>
   </div>
@@ -74,7 +74,7 @@ export default defineComponent({
           }
         }
       },
-      loading: false
+      actionLoading: false
     }
   },
   computed: {
@@ -125,10 +125,10 @@ export default defineComponent({
             message,
             position: 'top'
           })
-          this.loading = false
+          this.actionLoading = false
         })
         .catch(() => {
-          this.loading = false
+          this.actionLoading = false
         })
     }
   }
