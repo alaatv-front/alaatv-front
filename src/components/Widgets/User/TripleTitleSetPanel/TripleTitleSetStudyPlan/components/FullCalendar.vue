@@ -1,5 +1,5 @@
 <template>
-  <div class="calender new-theme">
+  <div class="calender">
     <q-inner-loading v-if="loading"
                      :showing="loading" />
     <div v-else
@@ -9,12 +9,14 @@
           <div class="calendar-title" />
           <div>
             <q-btn label="هفته قبل"
-                   class="q-mx-sm"
+                   class="q-mx-sm q-btn-sm keep-min-width"
                    color="primary"
+                   text-color="grey-9"
                    @click="goToLastWeek" />
             <q-btn label="هفته بعد"
-                   class="q-mx-sm"
+                   class="q-mx-sm q-btn-sm keep-min-width"
                    color="primary"
+                   text-color="grey-9"
                    @click="goToNextWeek" />
           </div>
           <div class="calendar-panel">
@@ -76,72 +78,85 @@
                    :class="{'weekly': tab === 'week'}">
                 <div class="col calendar-col"
                      :class="{'weekly': tab === 'week'}">
-                  <span class="day-name">شنبه</span>
+                  <span class="day-name body1">شنبه</span>
                   <span v-if="tab === 'week' && chartWeek[0] && chartWeek[0].persianDate !== undefined"
-                        class="day-date">
+                        class="day-date body2">
                     {{ chartWeek[0].persianDate.toString().substring(7, 10) }} {{chartWeek[0].monthName || calendarMonth}}
                   </span>
                 </div>
                 <div class="col calendar-col"
                      :class="{'weekly': tab === 'week'}">
-                  <span class="day-name">یکشنبه</span>
+                  <span class="day-name body1">یکشنبه</span>
                   <span v-if="tab === 'week' && chartWeek[1] && chartWeek[1].persianDate !== undefined"
-                        class="day-date">
+                        class="day-date body2">
                     {{ chartWeek[1].persianDate.toString().substring(7, 10) }} {{chartWeek[1].monthName || calendarMonth}}
                   </span>
                 </div>
                 <div class="col calendar-col"
                      :class="{'weekly': tab === 'week'}">
-                  <span class="day-name">دوشنبه</span>
+                  <span class="day-name body1">دوشنبه</span>
                   <span v-if="tab === 'week' && chartWeek[2] && chartWeek[2].persianDate !== undefined"
-                        class="day-date">
+                        class="day-date body2">
                     {{ chartWeek[2].persianDate.toString().substring(7, 10) }} {{chartWeek[2].monthName || calendarMonth}}
                   </span>
                 </div>
                 <div class="col calendar-col"
                      :class="{'weekly': tab === 'week'}">
-                  <span class="day-name">سه‌شنبه</span>
+                  <span class="day-name body1">سه‌شنبه</span>
                   <span v-if="tab === 'week' && chartWeek[3] && chartWeek[3].persianDate !== undefined"
-                        class="day-date">
+                        class="day-date body2">
                     {{ chartWeek[3].persianDate.toString().substring(7, 10) }} {{chartWeek[3].monthName || calendarMonth}}
                   </span>
                 </div>
                 <div class="col calendar-col"
                      :class="{'weekly': tab === 'week'}">
-                  <span class="day-name">چهارشنبه</span>
+                  <span class="day-name body1">چهارشنبه</span>
                   <span v-if="tab === 'week' && chartWeek[4] && chartWeek[4].persianDate !== undefined"
-                        class="day-date">
+                        class="day-date body2">
                     {{ chartWeek[4].persianDate.toString().substring(7, 10) }} {{chartWeek[4].monthName || calendarMonth}}
                   </span>
                 </div>
                 <div class="col calendar-col"
                      :class="{'weekly': tab === 'week'}">
-                  <span class="day-name">پنجشنبه</span>
+                  <span class="day-name body1">پنجشنبه</span>
                   <span v-if="tab === 'week' && chartWeek[5] && chartWeek[5].persianDate !== undefined"
-                        class="day-date">
+                        class="day-date body2">
                     {{ chartWeek[5].persianDate.toString().substring(7, 10) }} {{chartWeek[5].monthName || calendarMonth}}
                   </span>
                 </div>
                 <div class="col calendar-col"
                      :class="{'weekly': tab === 'week'}">
-                  <span class="day-name">جمعه</span>
+                  <span class="day-name body1">جمعه</span>
                   <span v-if="tab === 'week' && chartWeek[6] && chartWeek[6].persianDate !== undefined"
-                        class="day-date">
+                        class="day-date body2">
                     {{ chartWeek[6].persianDate.toString().substring(7, 10) }} {{chartWeek[6].monthName || calendarMonth}}
                   </span>
                 </div>
               </div>
               <div class="calendar-weekly-view">
+                <q-separator class="time-line"
+                             :style="{top: calculateTimeHeight()}" />
                 <div class="calendar-weekly-background">
                   <div v-for="day in 7"
                        :key="day"
                        class="day-col">
+                    <div class="hour-line first-row">
+                      <q-separator />
+                      <div class="hour">
+                        <div v-if="day === 1">
+                          ساعت
+                        </div>
+                      </div>
+                      <q-separator />
+                      <q-separator class="separator"
+                                   vertical />
+                    </div>
                     <div v-for="hour in 17"
                          :key="hour"
                          class="hour-line">
-                      <div v-if="day === 1 "
+                      <div v-if="day === 1 && hour > 1"
                            class="hour">
-                        {{ `${(hour + baseHour - 1) }:00` }}
+                        {{ `${(hour + baseHour - 2) }:00` }}
                       </div>
                       <q-separator class="separator"
                                    vertical />
@@ -150,7 +165,7 @@
                       <div v-for="event in chartWeek[day - 1].events"
                            :key="event.id"
                            class="weekly-event cursor-pointer"
-                           :style="{ top: calculateTop(event), height: calculateHeight(event), background: event.backgroundColor}"
+                           :style="{ top: calculateTop(event), height: calculateHeight(event), background: getBackgroundColor(event.backgroundColor)}"
                            @click="openEvent(event)">
                         <div class="row q-px-md event-info">
                           <div class="body1 col-11 q-mt-sm">{{ event.product.lesson_name }}</div>
@@ -272,7 +287,9 @@ import Time from 'src/plugins/time'
 import { StudyPlanList } from 'src/models/StudyPlan'
 // import PlanItem from 'components/DashboardTripleTitleSet/Dashboard/PlanItem.vue'
 import { APIGateway } from 'src/api/APIGateway'
-import planContents from 'components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
+import planContents
+  from 'components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/PlanContents.vue'
+import { colors } from 'quasar'
 
 export default defineComponent({
   name: 'FullCalendar',
@@ -709,11 +726,19 @@ export default defineComponent({
     this.loadCalendar(Time.now(), true)
   },
   methods: {
+    getBackgroundColor(color) {
+      return colors.lighten(color, 60)
+    },
     calculateTop(event) {
-      return ((parseInt(event.start.substring(0, 2)) + (parseInt(event.start.substring(3, 5)) / 60)) - this.baseHour) * this.baseHight + 'px'
+      return ((parseInt(event.start.substring(0, 2)) + (parseInt(event.start.substring(3, 5)) / 60)) - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
     },
     calculateHeight(event) {
       return (parseInt(event.end.substring(0, 2)) + parseInt(event.end.substring(3, 5)) / 60 - parseInt(event.start.substring(0, 2)) - parseInt(event.start.substring(3, 5)) / 60) * this.baseHight - 8 + 'px'
+    },
+    calculateTimeHeight() {
+      const hour = new Date().getHours()
+      const minutes = new Date().getMinutes()
+      return (hour + minutes / 60 - this.baseHour) * this.baseHight + this.baseHight + 48 + 'px'
     },
     calculateEventDate() {
       // const date = new Date(this.selectedEvent.date)
@@ -959,12 +984,15 @@ export default defineComponent({
 
             .day-name {
               text-align: center;
-              font-style: normal;
-              font-weight: 400;
-              font-size: 14px;
-              line-height: 24px;
-              text-align: center;
-              color: #6D708B;
+              //font-style: normal;
+              //font-weight: 400;
+              //font-size: 14px;
+              //line-height: 24px;
+              color: $grey-9;
+            }
+
+            .day-date {
+              color: $grey-7;
             }
 
             &.weekly {
@@ -975,7 +1003,7 @@ export default defineComponent({
           }
 
           &.weekly {
-            margin-left: 60px;
+            margin-left: 125px;
           }
         }
 
@@ -1032,19 +1060,46 @@ export default defineComponent({
           position: relative;
           height: 530px;
 
+          .time-line {
+            width: 1980px;
+            z-index: 10;
+            position: relative;
+            height: 2px;
+            left: 95px;
+            background-color: lighten(#EF5350, 30%);
+            border-radius: 6px;
+            &:before {
+              position: absolute;
+              bottom: -4px;
+              content: "";
+              display: block;
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              background-color: lighten(#EF5350, 30%);
+              margin-right: 10px;
+            }
+          }
+
           .calendar-weekly-background {
             position: absolute;
             top: 0;
             left: 0;
             overflow-y: auto;
             display: flex;
-            padding: 20px 0 0 60px;
+            padding: 20px 0 0 126px;
             overflow: hidden;
 
             .day-col {
               position: relative;
 
               .hour-line {
+                &.first-row {
+                  height: 48px;
+                  .hour {
+                    top: 10px;
+                  }
+                }
                 width: 280px;
                 height: 80px;
                 border-top: 1px solid #E4E8EF;
@@ -1055,7 +1110,7 @@ export default defineComponent({
                 .hour {
                   position: absolute;
                   top: -13px;
-                  left: -35px;
+                  left: -80px;
                   font-style: normal;
                   font-weight: 400;
                   font-size: 12px;
@@ -1066,7 +1121,7 @@ export default defineComponent({
                   color: #6D708B;
                 }
                 .separator {
-                  margin-left: 280px;
+                  margin-right: 280px;
                 }
               }
 

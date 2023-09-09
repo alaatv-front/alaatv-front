@@ -91,6 +91,12 @@ export default {
         }
       }
     },
+    fixGroupData(data) {
+      for (let ProductIndex = 0; ProductIndex < data.length; ProductIndex++) {
+        const productItem = data[ProductIndex]
+        data[ProductIndex] = typeof productItem === 'number' ? productItem : productItem.id
+      }
+    },
     getProductsPromise() {
       const data = {
         productIds: this.productIdList,
