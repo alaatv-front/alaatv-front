@@ -46,11 +46,20 @@ export default {
     }
   },
   computed: {
-    blocksToShow() {
+    blocksToShow () {
       if (!this.blocks || !this.blocks.list || this.blocks.list.length === 0) {
         return []
       }
-      return this.blocks.list.slice(this.defaultOptions.from, this.defaultOptions.to)
+
+      if (this.defaultOptions.from > 0 && this.defaultOptions.to > 0) {
+        return this.blocks.list.slice(this.defaultOptions.from, this.defaultOptions.to)
+      } else if (this.defaultOptions.from > 0) {
+        return this.blocks.list.slice(this.defaultOptions.from)
+      } else if (this.defaultOptions.to > 0) {
+        return this.blocks.list.slice(0, this.defaultOptions.to)
+      }
+
+      return this.blocks.list
     }
   },
   watch: {

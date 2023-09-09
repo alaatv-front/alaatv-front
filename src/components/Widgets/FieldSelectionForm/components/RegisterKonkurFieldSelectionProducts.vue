@@ -1,55 +1,65 @@
 <template>
   <div class="RegisterKonkurFieldSelectionProducts">
-    <div class="title-text q-mb-md">
-      ثبت نام در انتخاب رشته آلاء
-    </div>
-    <div class="content-text q-mb-xl">
-      بر اساس نیازت میتونی یکی از طرح ها زیر رو انتخاب کنی؛ البته اگه راه ابریشمی (خصوصا راه ابریشم پرو) بودی پیشنهاد آلاء اینه که از طرح های بررسی انتخاب رشته استفاده کنی.
-    </div>
+    <template v-if="!loading && !isSelectionFieldProductsEnable">
+      <q-banner class="text-center q-mb-md">
+        از اینکه رتبه خود را ثبت کرده اید متشکریم
+        <br>
+        متاسفانه
+        ظرفیت انتخاب رشته کنکور 1402 به پایان رسیده است.
+      </q-banner>
+    </template>
+    <template v-else>
+      <div class="title-text q-mb-md">
+        ثبت نام در انتخاب رشته آلاء
+      </div>
+      <div class="content-text q-mb-xl">
+        بر اساس نیازت میتونی یکی از طرح ها زیر رو انتخاب کنی؛ البته اگه راه ابریشمی (خصوصا راه ابریشم پرو) بودی پیشنهاد آلاء اینه که از طرح های بررسی انتخاب رشته استفاده کنی.
+      </div>
 
-    <div class="entity-crud-formBuilder q-mb-lg">
-      <div class="form-builder-separator form-builder-separator-col">
-        <div class="form-builder-separator">
-          <b>
-            انتخاب طرح
-          </b>
+      <div class="entity-crud-formBuilder q-mb-lg">
+        <div class="form-builder-separator form-builder-separator-col">
+          <div class="form-builder-separator">
+            <b>
+              انتخاب طرح
+            </b>
+          </div>
         </div>
       </div>
-    </div>
 
-    <q-skeleton v-if="loading"
-                type="rect"
-                width="100%"
-                height="200px" />
-    <q-list v-else>
-      <product-item v-for="(product, productIndex) in products"
-                    :key="productIndex"
-                    v-model:selected="selectedProduct"
-                    :label="product.label"
-                    :items="product.items"
-                    :value="product.value"
-                    class="q-mb-md" />
-    </q-list>
+      <q-skeleton v-if="loading"
+                  type="rect"
+                  width="100%"
+                  height="200px" />
+      <q-list v-else>
+        <product-item v-for="(product, productIndex) in products"
+                      :key="productIndex"
+                      v-model:selected="selectedProduct"
+                      :label="product.label"
+                      :items="product.items"
+                      :value="product.value"
+                      class="q-mb-md" />
+      </q-list>
 
-    <div class="row q-col-gutter-md">
-      <div class="col-6">
-        <q-btn color="white"
-               class="full-width"
-               @click="onBack">
-          <q-icon name="arrow_forward" />
-          بازگشت
-        </q-btn>
+      <div class="row q-col-gutter-md">
+        <div class="col-6">
+          <q-btn color="white"
+                 class="full-width"
+                 @click="onBack">
+            <q-icon name="arrow_forward" />
+            بازگشت
+          </q-btn>
+        </div>
+        <div class="col-6">
+          <q-btn color="primary"
+                 class="full-width"
+                 :loading="loading"
+                 @click="onForward">
+            مرحله بعد
+            <q-icon name="arrow_back" />
+          </q-btn>
+        </div>
       </div>
-      <div class="col-6">
-        <q-btn color="primary"
-               class="full-width"
-               :loading="loading"
-               @click="onForward">
-          مرحله بعد
-          <q-icon name="arrow_back" />
-        </q-btn>
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -97,6 +107,7 @@ export default {
       loading: false,
       selectedProduct: 0,
       productList: new ProductList(),
+      productObjectList: new ProductList(),
       products: [
         {
           value: 0,
@@ -166,6 +177,10 @@ export default {
         this.product4Id,
         this.product5Id
       ]
+    },
+    isSelectionFieldProductsEnable () {
+      const disableProduct = this.productObjectList.list.find(p => !p.is_active)
+      return this.productObjectList.list.length > 0 && !disableProduct
     }
   },
   mounted () {
