@@ -5,19 +5,26 @@
         <q-checkbox v-model="localOptions.options.hasLabel"
                     label="hasLabel" />
       </div>
-      <div class="col-3">
-        <q-checkbox v-model="localOptions.options.hasAction"
-                    label="hasAction" />
-      </div>
-      <div class="col-12 q-pa-md">
-        <q-expansion-item v-if="localOptions.options.hasLabel"
-                          label="Label Settings">
-          <text-widget-option-panel v-model:options="localOptions.options.labelOptions" />
-        </q-expansion-item>
-        <q-expansion-item v-if="localOptions.options.hasAction"
-                          label="Action Button Settings">
-          <action-button-option-panel v-model:options="localOptions.options.actionButtonOptions" />
-        </q-expansion-item>
+      <div v-if="layout === 'ProductShelf'"
+           class="col-md-9">
+        <div class="row q-col-gutter-md">
+          <div class="col-md-4">
+            <div class="outsideLabel">label color</div>
+            <q-input v-model="localOptions.options.labelStyle.color"
+                     label="label color" />
+          </div>
+          <div class="col-md-4">
+            <div class="outsideLabel">label font size</div>
+            <q-input v-model="localOptions.options.labelStyle.fontSize"
+                     label="label font size" />
+          </div>
+          <div class="col-md-4">
+            <div class="outsideLabel">label align</div>
+            <q-select v-model="localOptions.options.labelStyle.textAlign"
+                      :options="textAlignOptions"
+                      label="label align" />
+          </div>
+        </div>
       </div>
       <div class="col-12 q-pa-md">
         <q-expansion-item v-if="localOptions.options.hasLabel"
@@ -128,16 +135,14 @@
 
 <script>
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
-import TextWidgetOptionPanel from 'src/components/Widgets/TextWidget/OptionPanel.vue'
-import ActionButtonOptionPanel from 'src/components/Widgets/ActionButton/OptionPanel.vue'
-import ProductItem from 'components/Widgets/Product/ProductItem/ProductItem.vue'
+import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
+import ProductOptionPanel from 'src/components/Widgets/Product/ProductItem/OptionPanel.vue'
 
 export default {
   name: 'productListScrollOptionPanel',
   components: {
     ProductItem,
-    TextWidgetOptionPanel,
-    ActionButtonOptionPanel
+    ProductOptionPanel
   },
   mixins: [PageBuilderOptionPanel],
   props: {
@@ -175,78 +180,45 @@ export default {
             fontSize: '',
             textAlign: ''
           },
-          hasAction: false,
-          hasLabel: false,
-          labelOptions: {
-            text: '',
-            fontFamily: null,
-            color: null,
-            fontSize: null,
-            fontWeight: null,
-            fontStyle: null,
-            xs: {
-              fontSize: null,
-              fontWeight: null,
-              fontStyle: null,
-              lineHeight: null
+          colNumber: 'col',
+          productOptions: {
+            theme: 'ThemeDefault',
+            className: '',
+            height: 'auto',
+            boxed: false,
+            boxedWidth: 1200,
+            style: {},
+            borderStyle: {
+              borderCssString: '',
+              borderRadiusCssString: '20px'
             },
-            sm: {
-              fontSize: null,
-              fontWeight: null,
-              fontStyle: null,
-              lineHeight: null
-            },
-            md: {
-              fontSize: null,
-              fontWeight: null,
-              fontStyle: null,
-              lineHeight: null
-            },
-            lg: {
-              fontSize: null,
-              fontWeight: null,
-              fontStyle: null,
-              lineHeight: null
-            },
-            xl: {
-              fontSize: null,
-              fontWeight: null,
-              fontStyle: null,
-              lineHeight: null
-            },
-            hasTheme: null,
-            activeTheme: null,
-            themes: {
-              theme1: {
-                borderColor: null,
-                borderSize: null,
-                borderWidth: null,
-                borderHeight: null,
-                top: null,
-                left: null,
-                bottom: null,
-                right: null
+            boxShadows: [
+              '-2px -4px 10px rgba(255, 255, 255, 0.6)',
+              '2px 4px 10px rgba(46, 56, 112, 0.05)'
+            ],
+            cssHoverEffects: {
+              boxShadows: [
+                '-5px -6px 10px rgba(255, 255, 255, 0.6)',
+                '5px 5px 20px rgba(0, 0, 0, 0.1)'
+              ],
+              borderStyle: {
+                borderCssString: '',
+                borderRadiusCssString: '20px'
+              },
+              transition: {
+                time: 0.4
+              },
+              transform: {
+                rotate: 0,
+                scaleX: 1,
+                scaleY: 1,
+                skewX: 0,
+                skewY: 0,
+                translateX: 0,
+                translateY: -10
               }
             }
-          },
-          actionButtonOptions: {
-            color: null,
-            icon: null,
-            label: null,
-            flat: false,
-            callBack: null,
-            imageSource: null,
-            className: null,
-            fixed: false,
-            fixedPosition: null,
-            hasAction: true,
-            action: null,
-            scrollTo: null,
-            route: null,
-            eventName: null,
-            eventArgs: null
-          },
-          colNumber: 'col'
+          }
         },
         data: []
       }
