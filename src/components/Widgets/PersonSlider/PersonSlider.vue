@@ -289,6 +289,8 @@ export default defineComponent({
   }
 
   .arrow-left-btn {
+    padding: 4px 8px;
+    top: 40px;
     background: v-bind('localOptions.navigation.goToLeft.color');
     color: v-bind('localOptions.navigation.goToLeft.textColor');
   }
@@ -305,6 +307,8 @@ export default defineComponent({
   }
 
   .arrow-right-btn {
+    padding: 4px 8px;
+    top: 40px;
     background: v-bind('localOptions.navigation.goToRight.color');
     color: v-bind('localOptions.navigation.goToRight.textColor');
   }
