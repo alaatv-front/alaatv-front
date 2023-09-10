@@ -1,5 +1,6 @@
 <template>
-  <q-btn :label="localOptions.label"
+  <q-btn v-if="!localOptions.rightIcon"
+         :label="localOptions.label"
          :flat="localOptions.flat"
          :class="localOptions.className"
          :style="localOptions.style"
@@ -7,6 +8,19 @@
          @click="takeAction">
     <q-icon v-if="localOptions.icon"
             :name="localOptions.icon" />
+
+    <img v-if="localOptions.imageSource"
+         :src="localOptions.imageSource"
+         alt="actionBtn">
+  </q-btn>
+  <q-btn v-else
+         :label="localOptions.label"
+         :icon="localOptions.icon"
+         :flat="localOptions.flat"
+         :class="localOptions.className"
+         :style="localOptions.style"
+         class="action-btn"
+         @click="takeAction">
     <img v-if="localOptions.imageSource"
          :src="localOptions.imageSource"
          alt="actionBtn">
@@ -25,6 +39,7 @@ export default {
       defaultOptions: {
         color: null,
         icon: null,
+        rightIcon: false,
         label: null,
         flat: false,
         callBack: null,
