@@ -8,6 +8,10 @@
                               @update:value="updatePoster($event)" />
         </div>
         <div class="input-container q-py-md">
+          <div class="outsideLabel">over-player</div>
+          <q-checkbox v-model ="localOptions.showBtn" />
+        </div>
+        <div class="input-container q-py-md">
           <div>نوع سورس ویدیو را انتخاب کنید:</div>
           <q-radio v-model="localOptions.srcType"
                    val="hls"
@@ -69,7 +73,8 @@ export default defineComponent({
         src: '',
         url: '',
         poster: '',
-        srcType: ''
+        srcType: '',
+        showBtn: true
       }
     }
   },
