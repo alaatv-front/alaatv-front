@@ -19,6 +19,16 @@
           <action-button-option-panel v-model:options="localOptions.options.actionButtonOptions" />
         </q-expansion-item>
       </div>
+      <div class="col-12 q-pa-md">
+        <q-expansion-item v-if="localOptions.options.hasLabel"
+                          label="Label Settings">
+          <text-widget-option-panel v-model:options="localOptions.options.labelOptions" />
+        </q-expansion-item>
+        <q-expansion-item v-if="localOptions.options.hasAction"
+                          label="Action Button Settings">
+          <action-button-option-panel v-model:options="localOptions.options.actionButtonOptions" />
+        </q-expansion-item>
+      </div>
       <div class="col-12 q-py-md">
         <q-expansion-item expand-separator
                           label="grid system">

@@ -219,7 +219,7 @@ export default {
       if (!url) {
         return
       }
-      this.$router.push(url)
+      window.location.href = url
     },
     showMessage(message, type = 'negative') {
       this.$q.notify({

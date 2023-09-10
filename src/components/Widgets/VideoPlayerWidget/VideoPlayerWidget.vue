@@ -5,7 +5,8 @@
     <video-player ref="videoPlayer"
                   :key="playerKey"
                   :source="localOptions.url"
-                  :poster="localOptions.poster" />
+                  :poster="localOptions.poster"
+                  :showBtn="localOptions.showBtn" />
   </div>
 </template>
 
@@ -23,7 +24,8 @@ export default {
         src: '',
         url: '',
         poster: '',
-        srcType: ''
+        srcType: '',
+        showBtn: true
       },
       playerKey: Date.now()
     }
