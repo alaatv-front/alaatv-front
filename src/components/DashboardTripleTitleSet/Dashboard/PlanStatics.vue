@@ -103,6 +103,7 @@ export default defineComponent({
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    margin-top: 19px;
 
     .sessions-info {
       display: flex;

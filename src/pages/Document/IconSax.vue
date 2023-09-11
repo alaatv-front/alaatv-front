@@ -2,7 +2,7 @@
   <div class="row justify-center q-my-lg">
     <div class="col-10">
       <q-card>
-        <q-card-section>
+        <q-card-section class="text-center">
           <h2>IconSax-Font</h2>
         </q-card-section>
         <q-card-section>

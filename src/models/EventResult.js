@@ -1,7 +1,6 @@
+import { User } from './User.js'
+import { Major } from 'src/models/Major.js'
 import { Model, Collection } from 'js-abstract-model'
-import { Block } from 'src/models/Block'
-import { User } from './User'
-import { Major } from 'src/models/Major'
 
 class EventResult extends Model {
   constructor(data) {
@@ -18,6 +17,7 @@ class EventResult extends Model {
         key: 'user',
         relatedModel: User
       },
+      { key: 'major_id' },
       {
         key: 'major',
         relatedModel: Major
@@ -29,13 +29,36 @@ class EventResult extends Model {
           title: ''
         }
       },
-      { key: 'event_result_status' }
+      { key: 'event_result_status' },
+
+      { key: 'event_id' },
+      { key: 'user_id' },
+      { key: 'participationCode' },
+      { key: 'rank_in_district' },
+      { key: 'rank_in_region' },
+      { key: 'province' },
+      { key: 'postalCode' },
+      {
+        key: 'enableReportPublish',
+        default: 1
+      },
+      { key: 'region_id' },
+      { key: 'nomre_taraz_dey' },
+      { key: 'nomre_taraz_tir' },
+      { key: 'nomre_taraz_moadel' },
+      { key: 'nomre_taraz_kol' },
+      { key: 'reportFile' },
+      { key: 'firstName' },
+      { key: 'lastName' },
+      { key: 'shahr' },
+      { key: 'shahr_id' },
+      { key: 'eventresultstatus_id' }
     ])
   }
 }
 class EventResultList extends Collection {
-  model () {
-    return Block
+  model() {
+    return EventResult
   }
 }
 

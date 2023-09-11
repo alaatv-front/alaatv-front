@@ -1,5 +1,5 @@
 <template>
-  <div class="plan-item-box"
+  <div class="col-md-4 plan-item-box"
        :style="{borderRight: `8px solid ${plan.borderColor}` }">
     <div class="plan-item-header">
       <div class="plan-time"
@@ -18,7 +18,7 @@
         {{ video?.title || 'ویدیو ندارد' }}
       </div>
     </div>
-    <q-separator inset />
+    <q-separator />
     <div class="plan-item-footer">
       <div class="footer-text"
            :class="{'watched-text': plan.has_watched}">
@@ -30,7 +30,7 @@
                round
                unelevated
                :disable="!video.id"
-               size="16px"
+               size="11px"
                icon="play_arrow"
                :to="{name:'UserPanel.Asset.TripleTitleSet.Content', params:{ productId: plan.product?.id, setId: video.set?.id, contentId: video?.id}}" />
         <q-btn v-else-if="!plan.has_watched && !isNow(plan.date, plan.start, plan.end)"
@@ -38,13 +38,13 @@
                round
                unelevated
                :disable="!video.id"
-               size="16px"
+               size="11px"
                icon="chevron_left"
                :to="{name:'UserPanel.Asset.TripleTitleSet.Content', params:{ productId: plan.product?.id, setId: video.set?.id, contentId: video?.id}}" />
         <q-icon v-else
                 name="check_circle"
                 class="watched"
-                size="42px" />
+                size="32px" />
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ export default defineComponent({
   },
   computed: {
     video() {
-      return this.plan.contents.list.find(x => x.type.id === 4) || new Content()
+      return this.plan.contents?.list?.find(x => x.type.id === 4) || new Content()
     }
   },
   methods: {
@@ -142,6 +142,10 @@ export default defineComponent({
     align-items: flex-start;
     margin-bottom: 25px;
 
+    @media only screen and (max-width: 600px) {
+      margin-bottom: 20px;
+    }
+
     .item-title {
       max-width: 100%;
       color:#424242;
@@ -151,6 +155,10 @@ export default defineComponent({
       line-height: normal;
       letter-spacing: -0.32px;
       margin: 15px 0;
+
+      @media only screen and (max-width: 600px) {
+        margin: 16px 0 8px;
+      }
     }
 
     .item-plan {
@@ -171,10 +179,10 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 18px;
 
     @media only screen and (max-width: 600px) {
-      margin-top: 2px;
+      margin-top: 16px;
     }
 
     .footer-text {

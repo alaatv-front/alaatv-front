@@ -26,6 +26,10 @@
               <q-input v-model="localOptions.expandItemContentPadding" />
             </div>
             <div class="col-md-3">
+              <div class="outsideLabel">فاصله داخلی محتوای هدر</div>
+              <q-input v-model="localOptions.headerPadding" />
+            </div>
+            <div class="col-md-3">
               <div class="outsideLabel">expandItemRadius</div>
               <q-input v-model="localOptions.expandItemRadius" />
             </div>
@@ -36,6 +40,29 @@
             <div class="col-md-3">
               <div class="outsideLabel">expandSeparator</div>
               <q-checkbox v-model="localOptions.expandSeparator" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">contentSeparator</div>
+              <q-checkbox v-model="localOptions.hasContentSeparator" />
+            </div>
+          </div>
+          <div v-if="localOptions.hasContentSeparator"
+               class="row q-col-gutter-md q-mb-md">
+            <div class="col-md-3">
+              <div class="outsideLabel">CS size</div>
+              <q-input v-model="localOptions.contentSeparator.size" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">CS color</div>
+              <q-input v-model="localOptions.contentSeparator.color" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">CS top margin</div>
+              <q-input v-model="localOptions.contentSeparator.marginTop" />
+            </div>
+            <div class="col-md-3">
+              <div class="outsideLabel">CSS bottom margin</div>
+              <q-input v-model="localOptions.contentSeparator.marginBottom" />
             </div>
           </div>
           <q-card-section>
@@ -102,12 +129,20 @@ export default defineComponent({
         expandItemMargin: 0,
         expandItemRadius: 0,
         expandItemContentPadding: 0,
-        marginBottom: '100px',
+        marginBottom: null,
+        headerPadding: null,
         fontFamily: null,
         color: null,
         fontSize: null,
         fontWeight: null,
         fontStyle: null,
+        hasContentSeparator: false,
+        contentSeparator: {
+          marginTop: 0,
+          marginBottom: 0,
+          color: '#424242',
+          size: '1px'
+        },
         xs: {
           fontSize: null,
           fontWeight: null,

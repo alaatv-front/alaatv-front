@@ -1,4 +1,4 @@
-import { Authenticated } from './middleware/middleware.js' // IncompleteProfile
+import { Authenticated, IncompleteProfile } from './middleware/middleware.js'
 import EntityCrudRoutes from './EntityCrudRoutes.js'
 
 const routes = [
@@ -33,7 +33,7 @@ const routes = [
       layoutLeftDrawerCustomClass: 'main-layout-left-drawer',
       layoutPageContainerCustomClass: 'main-layout-container'
     },
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('src/layouts/MainLayout.vue'),
     children: [
       {
         path: '/auth',
@@ -78,6 +78,10 @@ const routes = [
           {
             path: 'product',
             name: 'Public.Product',
+            layoutConfig: {
+              layoutFooter: false
+
+            },
             component: () => import('layouts/bareLayout.vue'),
             children: [
               {
@@ -172,6 +176,10 @@ const routes = [
             },
             children: [
               {
+                path: '36',
+                redirect: { name: 'Public.Landing.DynamicName', params: { landing_name: '110' } }
+              },
+              {
                 path: ':landing_name',
                 meta: {
                   hasDynamicSettingWithParams: true
@@ -241,6 +249,10 @@ const routes = [
             component: () => import('src/pages/Public/RegisterHekmatCoupon.vue')
           },
           {
+            path: 'v',
+            redirect: { name: 'Public.RegisterHekmatCoupon' }
+          },
+          {
             path: 't',
             redirect: { name: 'UserPanel.Ticket.Index' }
           },
@@ -265,6 +277,15 @@ const routes = [
             name: 'UserPanel.CompleteInfo',
             path: 'complete-info',
             component: () => import('pages/User/UserInfoForm.vue')
+          },
+          {
+            // ToDo: check this to remove
+            name: 'UserPanel.EntekhabReshte',
+            path: 'entekhab-reshte',
+            meta: {
+              hasDynamicSetting: true
+            },
+            component: () => import('src/pages/User/EntekhabReshte.vue')
           },
           {
             name: 'UserPanel.Dashboard',
@@ -294,7 +315,7 @@ const routes = [
             name: 'UserPanel.MyPurchases',
             path: 'my-purchases',
             meta: {
-              // middlewares: [IncompleteProfile],
+              middlewares: [IncompleteProfile],
               hasDynamicSetting: true
             },
             component: () => import('pages/User/Dashboard/MyPurchases.vue')
@@ -569,12 +590,28 @@ const routes = [
           layoutFooter: false
         },
         meta: { middlewares: [Authenticated] },
-        component: () => import('layouts/AdminLayout.vue'),
+        component: () => import('src/layouts/AdminLayout.vue'),
         children: [
           {
             name: 'Admin.Dashboard',
             path: 'dashboard',
             component: () => import('src/pages/Admin/Dashboard.vue')
+          },
+          {
+            path: 'users',
+            name: 'Admin.User',
+            component: () => import('src/layouts/bareLayout.vue'),
+            children: [
+              {
+                path: ':id/event/:event_id/entekhb-reshte',
+                // path: ':id',
+                name: 'Admin.User.EntekhabReshte.Show',
+                meta: {
+                  hasDynamicSetting: true
+                },
+                component: () => import('src/pages/Admin/User/EntekhabReshte.vue')
+              }
+            ]
           },
           {
             path: 'ticket',
@@ -680,6 +717,23 @@ const routes = [
               }
             ]
           },
+          {
+            name: 'Admin.Product',
+            path: 'product',
+            component: () => import('layouts/bareLayout.vue'),
+            children: [
+              {
+                name: 'Admin.Product.Index',
+                path: '',
+                component: () => import('pages/Admin/Product/Index.vue')
+              },
+              {
+                name: 'Admin.Product.Sets',
+                path: ':productId/set',
+                component: () => import('pages/Admin/ProductSetList.vue')
+              }
+            ]
+          },
           ...EntityCrudRoutes
         ]
       },
@@ -726,6 +780,11 @@ const routes = [
             path: 'icon-sax',
             name: 'Document.IconSax',
             component: () => import('src/pages/Document/IconSax.vue')
+          },
+          {
+            path: 'phosphor-icons',
+            name: 'Document.PhosphorIcons',
+            component: () => import('src/pages/Document/PhosphorIcons.vue')
           },
           {
             path: '/form-generator',

@@ -24,10 +24,11 @@ export default class APIInstanceWrapper {
         serverURL,
         headers: { 'Content-Type': 'application/json', common: { Authorization: null } }
       }
-      const get = (url) => new Promise((resolve, reject) => {
+      const get = (url, data) => new Promise((resolve, reject) => {
         const requestAddress = defaults.serverURL + url
         axios.defaults.headers.common.Authorization = defaults.headers.common.Authorization
         axios.get(requestAddress, {
+          params: data.params,
           proxy: {
             // protocol: 'http',
             host,
@@ -222,7 +223,7 @@ export default class APIInstanceWrapper {
     } else if (req === 'put') {
       return option.api.put(option.request, option.data)
     } else if (req === 'delete') {
-      return option.api.delete(option.request)
+      return option.api.delete(option.request, { params: option.data })
     }
   }
 

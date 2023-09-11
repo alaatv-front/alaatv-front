@@ -268,7 +268,7 @@ export default defineComponent({
       height: 74px;
       color: #333;
       text-align: center;
-      font-size: 36px;
+      font-size: 40px;
       font-style: normal;
       font-weight: 700;
       line-height: 54px;
@@ -313,7 +313,7 @@ export default defineComponent({
       .counter-number-day {
         color: #333;
         text-align: center;
-        font-size: 36px;
+        font-size: 40px;
         font-style: normal;
         font-weight: 700;
         line-height: 54px;
@@ -327,6 +327,7 @@ export default defineComponent({
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+        margin-left: 8px;
       }
     }
   }

@@ -112,8 +112,10 @@
           </div>
           <div class="row col-12">
             <q-toggle v-model="isResponsive"
+                      class="toggle-md"
+                      size="md"
                       checked-icon="check"
-                      color="green"
+                      color="teal"
                       label="responsive features"
                       unchecked-icon="clear" />
           </div>

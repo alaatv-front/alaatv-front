@@ -107,7 +107,7 @@
               </q-btn>
               <q-btn flat
                      class="sub-title"
-                     :href="'https://forum.alaatv.com/'">
+                     :href="'https://forum.alaatv.com'">
                 آلاخونه
               </q-btn>
             </div>
@@ -211,10 +211,11 @@
                 v-ripple
                 clickable
                 class="q-mt-sm"
-                :active="isRouteSelected(item.to)"
+                :active="isRouteSelected(item?.route?.name)"
                 active-class="active-item"
                 exact-active-class="active-route"
-                :to="{ name: item.to }">
+                :to="item?.route"
+                @click="onMobileMainFooterItemClick($event, item)">
           <q-item-section avatar>
             <q-icon v-if="item.title !== 'profile' || user.id === null"
                     :name="item.icon"
@@ -262,7 +263,7 @@
        class="triple-card-footer">
     <div class="mobile-footer">
       <q-list>
-        <q-item v-for="(item , index) in tripleTitleSetItems"
+        <q-item v-for="(item , index) in tripleTitleSetItems.filter(item => item.visible)"
                 :key="index"
                 v-ripple
                 clickable
@@ -329,6 +330,7 @@
 <script>
 import { User } from 'src/models/User.js'
 import LazyImg from 'src/components/lazyImg.vue'
+import { APIGateway } from 'src/api/APIGateway.js'
 
 export default {
   name: 'AlaaFooter',
@@ -342,26 +344,33 @@ export default {
       mobileFooterItems: [
         {
           title: 'profile',
-          icon: 'isax:user',
-          to: 'UserPanel.Dashboard',
+          icon: 'ph:user',
+          route: { name: 'UserPanel.Dashboard' },
           active: false
         },
         {
           title: 'card',
-          icon: 'isax:card',
-          to: 'Public.Checkout.Review',
-          active: false
-        },
-        {
-          title: 'bank-soala',
-          icon: 'isax:discover',
-          to: 'Public.Content.Search',
+          icon: 'ph:shopping-cart',
+          route: { name: 'Public.Checkout.Review' },
           active: false
         },
         {
           title: 'home',
-          icon: 'isax:home',
-          to: 'Public.Home',
+          icon: 'ph:chats',
+          route: null,
+          externalLink: 'https://forum.alaatv.com',
+          active: false
+        },
+        {
+          title: 'bank-soala',
+          icon: 'ph:compass',
+          route: { name: 'Public.Content.Search' },
+          active: false
+        },
+        {
+          title: 'home',
+          icon: 'ph:house',
+          route: { name: 'Public.Home' },
           active: false
         }
       ],
@@ -396,40 +405,64 @@ export default {
           title: 'logout',
           icon: 'isax:logout',
           to: 'Public.Home',
-          active: false
+          active: false,
+          visible: true
         },
         {
           title: 'study plan',
           icon: 'calendar_today',
           to: 'UserPanel.Asset.TripleTitleSet.StudyPlan',
-          active: false
+          active: false,
+          visible: true
         },
         {
           title: 'products',
           icon: 'playlist_play',
           to: 'UserPanel.Asset.TripleTitleSet.Products',
-          active: false
+          active: false,
+          visible: true
         },
         {
           title: 'home',
           icon: 'home',
           to: 'UserPanel.Asset.TripleTitleSet.Dashboard',
-          active: false
+          active: false,
+          visible: true
         }
       ],
       logoutDialog: false,
-      user: new User()
+      user: new User(),
+      eventInfo: null,
+      isAdmin: false
     }
   },
   mounted () {
     this.loadAuthData()
   },
   methods: {
-    isRouteSelected (itemName) {
-      return this.$route.name === itemName
+    getEventInfoByName () {
+      return new Promise((resolve, reject) => {
+        APIGateway.events.getEventInfoByName(this.$route.params.eventName)
+          .then((eventInfo) => {
+            this.eventInfo = eventInfo
+            resolve(eventInfo)
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    },
+    isRouteSelected (routeName) {
+      return this.$route.name === routeName
     },
     loadAuthData () { // prevent Hydration node mismatch
       this.user = this.$store.getters['Auth/user']
+      this.getEventInfoByName()
+        .then(() => {
+          this.updateMenuItemsFromEventInfo()
+        })
+        .catch(() => {
+        })
     },
     scrollToTop() {
       document.body.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -445,6 +478,26 @@ export default {
         event.preventDefault()
         this.toggleLogoutDialog()
       }
+    },
+    onMobileMainFooterItemClick(event, item) {
+      if (!item.externalLink) {
+        return
+      }
+      event.preventDefault()
+      window.location.href = item.externalLink
+    },
+    updateMenuItemsFromEventInfo () {
+      this.isAdmin = this.user.hasPermission('insertStudyPlan') || this.user.hasPermission('updateStudyPlan') || this.user.hasPermission('deleteStudyPlan')
+
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.Dashboard', this.eventInfo.showDashboard)
+      this.updateMenuItemVisibility('UserPanel.Asset.TripleTitleSet.StudyPlan', (this.eventInfo.showStudyPlan || this.isAdmin))
+    },
+    updateMenuItemVisibility (routeName, state) {
+      this.tripleTitleSetItems.forEach((item, itemIndex) => {
+        if (item.to === routeName) {
+          this.tripleTitleSetItems[itemIndex].visible = state
+        }
+      })
     }
   }
 }

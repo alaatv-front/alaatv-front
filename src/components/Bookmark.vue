@@ -1,10 +1,11 @@
 <template>
-  <q-btn class="bookmark-btn"
-         rounded
+  <q-btn :class="className ? className : 'bookmark-btn'"
+         :rounded="rounded"
          :flat="!color"
          :color="color"
+         :text-color="textColor"
          :loading="loading"
-         :icon="isFavored ? 'isax:bookmark5' : 'isax:bookmark4'"
+         :icon="isFavored ? favoredIcon : unFavoredIcon"
          @click="bookmark">
     <q-tooltip anchor="top middle"
                self="bottom middle"
@@ -56,8 +57,28 @@ export default {
       default: false,
       type: Boolean
     },
+    rounded: {
+      default: true,
+      type: Boolean
+    },
+    favoredIcon: {
+      default: 'isax:bookmark5',
+      type: String
+    },
+    unFavoredIcon: {
+      default: 'isax:bookmark4',
+      type: String
+    },
+    className: {
+      default: undefined,
+      type: String
+    },
     color: {
       default: undefined,
+      type: String
+    },
+    textColor: {
+      default: 'black',
       type: String
     }
   },

@@ -1,18 +1,11 @@
 <template>
   <option-panel-tabs v-model:options="localOptions"
+                     :show-hover-effects-tab="true"
+                     :show-box-shadows-tab="true"
+                     :show-responsive-spacing="true"
                      :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container row q-col-gutter-md">
-        <div class="col-md-3">
-          <q-input v-model="localOptions.width"
-                   filled
-                   label="عرض" />
-        </div>
-        <div class="col-md-3">
-          <q-input v-model="localOptions.height"
-                   filled
-                   label="ارتفاع" />
-        </div>
         <div class="col-md-2">
           <q-checkbox v-model="localOptions.horizontal"
                       label="افقی" />
@@ -20,6 +13,17 @@
         <div class="col-md-2">
           <q-checkbox v-model="localOptions.hasImage"
                       label="عکس" />
+        </div>
+        <div class="col-md-2">
+          <q-checkbox v-model="localOptions.hoverImage"
+                      label="hoverImage" />
+        </div>
+        <div class="col-12">
+          <q-expansion-item expand-separator
+                            icon="image"
+                            label="backgrounds">
+            <responsive-back-ground v-model:options="localOptions.backgrounds" />
+          </q-expansion-item>
         </div>
         <div class="col-12">
           <q-expansion-item expand-separator
@@ -55,6 +59,7 @@
 <script>
 import { defineComponent } from 'vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
+import ResponsiveBackGround from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/ResponsiveBackGround.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins.js'
 import textOptionPanel from 'src/components/Widgets/TextWidget/OptionPanel.vue'
 import ImageWidgetOptionPanel from 'src/components/Widgets/ImageWidget/OptionPanel.vue'
@@ -64,15 +69,16 @@ export default defineComponent({
   components: {
     OptionPanelTabs,
     textOptionPanel,
-    ImageWidgetOptionPanel
+    ImageWidgetOptionPanel,
+    ResponsiveBackGround
   },
   mixins: [PageBuilderOptionPanel],
   data() {
     return {
       themeOptions: ['theme1', 'theme2'],
+      size: 'xs',
+      sizeOptions: ['xs', 'sm', 'md', 'lg', 'xl'],
       defaultOptions: {
-        width: '100%',
-        height: '100%',
         title: '',
         titleOptions: {
           text: null,
@@ -145,6 +151,7 @@ export default defineComponent({
           }
         },
         hasImage: true,
+        hoverImage: false,
         imageWidgetOptions: {
           imageSource: null,
           ratio: null,
@@ -207,9 +214,132 @@ export default defineComponent({
             }
           }
         },
-        horizontal: true,
+        horizontal: {
+          xl: false,
+          lg: false,
+          md: false,
+          sm: false,
+          xs: false
+        },
         theme: 'theme1',
-        borderStyle: {}
+        backgrounds: {
+          xs: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          sm: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          md: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          lg: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          },
+          xl: {
+            size: null,
+            color: null,
+            image: null,
+            repeat: null,
+            position: null,
+            attachment: null
+          }
+        },
+        responsiveSpacing: {
+          xs: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          sm: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          md: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          lg: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          },
+          xl: {
+            marginTop: null,
+            marginLeft: null,
+            marginRight: null,
+            marginBottom: null,
+            paddingTop: null,
+            paddingLeft: null,
+            paddingRight: null,
+            paddingBottom: null
+          }
+        },
+        borderStyle: {
+          borderCssString: '',
+          borderRadiusCssString: ''
+        },
+        boxShadows: [],
+        cssHoverEffects: {
+          boxShadows: [],
+          borderStyle: {
+            borderCssString: '',
+            borderRadiusCssString: ''
+          },
+          transition: {
+            time: 0
+          },
+          transform: {
+            rotate: 0,
+            scaleX: 1,
+            scaleY: 1,
+            skewX: 0,
+            skewY: 0,
+            translateX: 0,
+            translateY: 0
+          }
+        }
       }
     }
   }

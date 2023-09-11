@@ -5,28 +5,30 @@
         برنامه مطالعاتی
       </h5>
     </div>
-    <div class="col-6 body1">
+    <div class="col-md-6 col-12 body1">
       برنامه مطالعاتی - رشته {{ major.title }}
     </div>
-    <div class="col-6 text-right action-btns">
-      <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-Nut.png"
-             width="24px" />
+    <div class="col-md-6 col-12 text-right action-btns">
       <q-btn flat
              label="تغییر برنامه مطالعاتی"
+             icon="ph:nut"
+             class="q-btn-md"
              @click="changeStudyPlan" />
       <q-btn v-if="isAdmin"
              icon="add"
-             size="md"
-             class="newPlan-btn"
+             class="newPlan-btn q-btn-md"
+             text-color="grey-9"
              color="primary"
              label="زنگ جدید"
              @click="newPlanDialog = true" />
     </div>
-    <div class="col-12 q-mt-md"
-         style="width: 100%;">
+    <q-linear-progress v-if="loading"
+                       indeterminate />
+    <div class="col-12 calendar">
       <full-calendar ref="fullCalendar"
                      :study-event="studyEvent"
                      :events="studyPlanList"
+                     :filtered-lesson="filteredLesson"
                      @edit-plan="editPlan"
                      @remove-plan="openRemovePlanWarning" />
     </div>
@@ -121,6 +123,7 @@
             </div>
             <q-btn flat
                    icon="close"
+                   color="grey-6"
                    @click="changeStudyPlan" />
           </div>
         </q-card-section>
@@ -193,12 +196,15 @@
             </div>
             <q-btn flat
                    icon="close"
+                   color="grey-6"
                    @click="changeStudyPlan" />
           </div>
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-warning.png" />
+          <div class="row lazy-image-wrapper">
+            <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-warning.png" />
+          </div>
         </q-card-section>
         <q-card-section>
           آیا از تغییر برنامه مطالعاتی مطمئنی؟
@@ -231,6 +237,7 @@
             </div>
             <q-btn v-close-popup
                    flat
+                   color="grey-6"
                    icon="close" />
           </div>
         </q-card-section>
@@ -264,13 +271,16 @@
               تغییر برنامه مطالعاتی
             </div>
             <q-btn flat
+                   color="grey-6"
                    icon="close"
                    @click="changeStudyPlan" />
           </div>
         </q-card-section>
         <q-separator />
         <q-card-section>
-          <q-img src="https://nodes.alaatv.com/upload/TripleTitleSet-confirm.png" />
+          <div class="row lazy-image-wrapper">
+            <lazy-img src="https://nodes.alaatv.com/upload/TripleTitleSet-check.png" />
+          </div>
         </q-card-section>
         <q-card-section>
           برنامه شما با موفقیت تنظیم شد؛ همچنین بعدا میتونید از قسمت برنامه مطالعاتی، اونو تنظیم کنید و یا تغییر بدین.
@@ -291,13 +301,15 @@
 
 <script>
 import { shallowRef } from 'vue'
-import { EntityCreate, EntityEdit } from 'quasar-crud'
 import { APIGateway } from 'src/api/APIGateway.js'
+import { EntityCreate, EntityEdit } from 'quasar-crud'
+import { FormBuilderAssist } from 'quasar-form-builder'
 import { StudyPlanList } from 'src/models/StudyPlan.js'
 import FullCalendar from './components/FullCalendar.vue'
 import SessionInfo from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/SessionInfo.vue'
 import ContentsComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/Contents.vue'
 import TextComponent from 'src/components/Widgets/User/TripleTitleSetPanel/TripleTitleSetStudyPlan/components/TextComponent.vue'
+import LazyImg from 'components/lazyImg.vue'
 
 const ContentsComponentComp = shallowRef(ContentsComponent)
 const TextComponentComp = shallowRef(TextComponent)
@@ -305,44 +317,38 @@ const TextComponentComp = shallowRef(TextComponent)
 export default {
   name: 'TripleTitleSetStudyPlan',
   components: {
+    LazyImg,
     FullCalendar,
     EntityCreate,
     EntityEdit
   },
-  beforeRouteUpdate () {
-    clearInterval(this.intervalId)
-  },
   data() {
     return {
+      loading: false,
       api: APIGateway.studyPlan.APIAdresses.plan,
-      editapi: APIGateway.studyPlan.APIAdresses.editPlan,
       selectedPlanId: null,
       newPlanDialog: false,
       editPlanDialog: false,
       isPlanChanged: false,
       removePlanWarning: false,
       isAdmin: false,
-      selectedDate: '',
+      needToUpdatePlan: false,
       studyPlanList: new StudyPlanList(),
       planSettings: false,
       acceptPlan: false,
       warning: false,
       successChangePlan: false,
-      planType: null,
+      selectedDate: null,
+      planType: {},
       studyEvent: null,
       planOptions: [],
-      major: '',
+      major: {},
       majorOptions: [],
-      grade: '',
+      grade: {},
       gradeOptions: [],
       lesson: '',
       lessonOptions: [],
-      currentDate: undefined,
-      currentTime: undefined,
-      intervalId: null,
-      timeStartPos: 0,
       filteredLesson: null,
-      eventId: null,
       editApi: null,
       inputs: [
         {
@@ -402,6 +408,7 @@ export default {
         },
         {
           type: SessionInfo,
+          name: 'SessionInfo',
           data: [],
           col: 'col-12'
         },
@@ -503,6 +510,7 @@ export default {
         },
         {
           type: SessionInfo,
+          name: 'SessionInfo',
           data: [],
           col: 'col-12'
         },
@@ -549,13 +557,6 @@ export default {
       ]
     }
   },
-  computed: {
-    style() {
-      return {
-        top: this.timeStartPos + 'px'
-      }
-    }
-  },
   watch: {
     planSettings(newVal) {
       if (newVal) {
@@ -565,10 +566,11 @@ export default {
   },
   mounted() {
     const user = this.$store.getters['Auth/user']
-    this.isAdmin = user.hasPermission('adminPanel')
+    this.grade = user.grade
+    this.major = user.major
+    this.isAdmin = user.hasPermission('insertStudyPlan') || user.hasPermission('updateStudyPlan') || user.hasPermission('deleteStudyPlan')
     this.getFilterLesson()
     this.getMyStudyPlan()
-    this.getChangePlanOptions()
   },
   methods: {
     updatePlan() {
@@ -578,11 +580,15 @@ export default {
         grade_id: this.$refs.entityEdit.getInputsByName('grade_id').value,
         study_method_id: this.$refs.entityEdit.getInputsByName('study_method_id').value
       }
+      this.selectedDate = this.$refs.entityEdit.getInputsByName('date').value
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
           this.$refs.entityEdit.setInputByName('event_id', studyPlan.id)
-          this.studyEvent = studyPlan.id
-          this.$refs.entityEdit.editEntity()
+          if (this.studyEvent !== studyPlan.id) {
+            this.studyEvent = studyPlan.id
+            this.needToUpdatePlan = true
+          }
+          this.$refs.entityEdit.editEntity(false)
           this.loading = false
           this.editPlanDialog = false
         })
@@ -603,7 +609,7 @@ export default {
       this.loading = true
       APIGateway.studyPlan.removePlan(this.selectedPlanId)
         .then(() => {
-          this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
+          this.$refs.fullCalendar.getStudyPlanData()
           this.removePlanWarning = false
           this.loading = false
         })
@@ -614,24 +620,40 @@ export default {
     acceptNewPlan() {
       this.loading = true
       const data = {
-        major_id: this.$refs.entityCreate.getInputsByName('major_id').value,
-        grade_id: this.$refs.entityCreate.getInputsByName('grade_id').value,
-        study_method_id: this.$refs.entityCreate.getInputsByName('study_method_id').value
+        major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id')?.value,
+        grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id')?.value,
+        study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id')?.value
       }
       APIGateway.abrisham.findMyStudyPlan(data)
         .then(studyPlan => {
-          this.$refs.entityCreate.setInputByName('event_id', studyPlan.id)
-          this.studyEvent = studyPlan.id
-          this.$refs.entityCreate.createEntity()
-          this.loading = false
-          this.newPlanDialog = false
+          this.needToUpdatePlan = false
+          FormBuilderAssist.setAttributeByName(this.inputs, 'event_id', 'value', studyPlan.id)
+          if (this.studyEvent !== studyPlan.id) {
+            this.studyEvent = studyPlan.id
+            this.needToUpdatePlan = true
+          }
+          this.$refs.entityCreate.createEntity(false)
+            .then(() => {
+              if (this.needToUpdatePlan) {
+                this.updateMyStudyPlan({
+                  major_id: FormBuilderAssist.getInputsByName(this.inputs, 'major_id').value,
+                  grade_id: FormBuilderAssist.getInputsByName(this.inputs, 'grade_id').value,
+                  study_method_id: FormBuilderAssist.getInputsByName(this.inputs, 'study_method_id').value
+                })
+                this.needToUpdatePlan = false
+              } else {
+                this.loading = false
+                this.$refs.fullCalendar.getStudyPlanData(null, FormBuilderAssist.getInputsByName(this.inputs, 'date')?.value)
+              }
+              this.newPlanDialog = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
         })
         .catch(() => {
           this.loading = false
         })
-    },
-    afterSendData() {
-      this.$refs.fullCalendar.getStudyPlanData(this.studyEvent)
     },
     filterByLesson() {
       this.loading = true
@@ -645,26 +667,29 @@ export default {
         })
     },
     getFilterLesson() {
-      this.loading = true
-      this.$apiGateway.studyPlan.getSetting()
-        .then(setting => {
-          this.loading = false
-          this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
-        })
-        .catch(() => {
-          this.loading = false
-        })
+      return new Promise((resolve, reject) => {
+        APIGateway.studyPlan.getSetting()
+          .then(setting => {
+            this.filteredLesson = setting.setting.abrisham2_calender_default_lesson
+            this.lesson = this.lessonOptions.find(lesson => lesson.id === this.filteredLesson)
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     },
     setFlagTrue() {
       this.isPlanChanged = true
     },
     getMyStudyPlan() {
       this.loading = true
-      this.$apiGateway.studyPlan.getMyStudyPlan()
+      APIGateway.studyPlan.getMyStudyPlan()
         .then(studyPlan => {
-          this.planType = studyPlan.title
+          this.planType.display_name = studyPlan.title
           this.studyEvent = studyPlan.id
           this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
+          this.getChangePlanOptions()
           this.loading = false
         })
         .catch(() => {
@@ -673,13 +698,14 @@ export default {
     },
     getChangePlanOptions() {
       this.loading = true
-      this.$apiGateway.studyPlan.getChangePlanOptions()
+      APIGateway.studyPlan.getChangePlanOptions()
         .then(options => {
           this.loading = false
           this.majorOptions = options.majors
           this.gradeOptions = options.grades
           this.planOptions = options.studyPlans
           this.lessonOptions = options.products
+          this.planType = options.studyPlans.find(studyPlan => studyPlan.display_name === this.planType.display_name)
           this.setInputAttrByName(this.inputs, 'major_id', 'options', options.majors)
           this.setInputAttrByName(this.inputs, 'grade_id', 'options', options.grades)
           this.setInputAttrByName(this.inputs, 'study_method_id', 'options', options.studyPlans)
@@ -725,16 +751,17 @@ export default {
         this.filterByLesson()
       }
     },
-    updateMyStudyPlan() {
+    updateMyStudyPlan(data) {
       this.loading = true
       this.warning = false
-      this.$apiGateway.studyPlan.updateMyStudyPlan({
-        study_method_id: this.planType.id,
-        major_id: this.major.id,
-        grade_id: this.grade.id,
-        setting: this.lesson.id
+      APIGateway.studyPlan.updateMyStudyPlan({
+        study_method_id: data.study_method_id ? data.study_method_id : this.planType.id,
+        major_id: data.major_id ? data.major_id : this.major.id,
+        grade_id: data.grade_id ? data.grade_id : this.grade.id
       })
-        .then(() => {
+        .then(studyPlan => {
+          this.studyEvent = studyPlan.id
+          this.$refs.fullCalendar.getStudyPlanData(studyPlan.id)
           this.loading = false
           this.successChangePlan = true
         })
@@ -747,9 +774,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.calendar {
+  margin-top: 25px;
+}
 .action-btns {
   .newPlan-btn {
-    margin-left: 40px;
+    margin-left: 24px;
   }
 }
 .plan-setting {
@@ -762,6 +792,13 @@ export default {
 }
 .accept-plan-card {
   width: 500px;
+  .lazy-image-wrapper {
+    place-content: center;
+    .lazy-image {
+      width: 140px;
+      height: 140px;
+    }
+  }
 }
 .day-view-current-time-indicator {
   position: absolute;

@@ -118,7 +118,7 @@
                   clickable
                   :to="{name: 'UserPanel.Asset.Abrisham.Progress'}">
             <q-item-section class="menu-item-custom">
-              <q-icon name="isax:document-1 dashboard"
+              <q-icon name="ph:compass"
                       size="22px" />
               <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم</div>
             </q-item-section>
@@ -127,7 +127,7 @@
                   clickable
                   :to="{name: 'UserPanel.Asset.AbrishamPro.Progress'}">
             <q-item-section class="menu-item-custom">
-              <q-icon name="isax:document-1 dashboard"
+              <q-icon name="ph:compass"
                       size="22px" />
               <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم پرو</div>
             </q-item-section>
@@ -136,7 +136,7 @@
                   clickable
                   :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: 'abrisham2'}}">
             <q-item-section class="menu-item-custom">
-              <q-icon name="isax:document-1 dashboard"
+              <q-icon name="ph:compass"
                       size="22px" />
               <div class="menu-item-title q-ml-sm">داشبورد راه ابریشم ۲</div>
             </q-item-section>
@@ -145,16 +145,25 @@
                   clickable
                   :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: 'chatre-nejat'}}">
             <q-item-section class="menu-item-custom">
-              <q-icon name="isax:document-1 dashboard"
+              <q-icon name="ph:umbrella"
                       size="22px" />
               <div class="menu-item-title q-ml-sm">داشبورد چترنجات</div>
             </q-item-section>
           </q-item>
           <q-item v-ripple
                   clickable
+                  :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: '110'}}">
+            <q-item-section class="menu-item-custom">
+              <q-icon name="ph:fire"
+                      size="22px" />
+              <div class="menu-item-title q-ml-sm">داشبورد 110</div>
+            </q-item-section>
+          </q-item>
+          <q-item v-ripple
+                  clickable
                   :to="{name: 'UserPanel.Asset.TripleTitleSet.Products', params: {eventName: 'emtahan-nahaee'}}">
             <q-item-section class="menu-item-custom">
-              <q-icon name="isax:document-1 dashboard"
+              <q-icon name="isax:bill"
                       size="22px" />
               <div class="menu-item-title q-ml-sm">داشبورد امتحان نهایی</div>
             </q-item-section>

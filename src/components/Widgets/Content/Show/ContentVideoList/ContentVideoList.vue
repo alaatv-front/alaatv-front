@@ -99,8 +99,7 @@ import Time from 'src/plugins/time.js'
 import { Set } from 'src/models/Set.js'
 import { Content } from 'src/models/Content.js'
 import { APIGateway } from 'src/api/APIGateway.js'
-// import mixinDateOptions from 'src/mixin/DateOptions.js'
-// import { mixinPrefetchServerData, mixinWidget } from 'src/mixin/Mixins.js'
+import { mixinPrefetchServerData, mixinWidget, mixinDateOptions } from 'src/mixin/Mixins.js'
 
 const {
   getScrollTarget,
@@ -109,7 +108,7 @@ const {
 
 export default {
   name: 'ContentVideoList',
-  // mixins: [mixinWidget, mixinDateOptions, mixinPrefetchServerData],
+  mixins: [mixinWidget, mixinDateOptions, mixinPrefetchServerData],
   props: {
     options: {
       type: Object,
@@ -150,7 +149,7 @@ export default {
     },
     prefetchServerDataPromiseThen (data) {
       this.content = new Content(data)
-      if (this.content.file.pamphlet) {
+      if (this.hasPamphlet()) {
         this.videoListRatio = 5 / 4
       }
       this.getSetByRequest()

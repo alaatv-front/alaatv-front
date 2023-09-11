@@ -19,7 +19,7 @@
     </div>
     <div class="form-action-wrapper">
       <action-button :options="localOptions.actionButtonOptions"
-                     :disable="loading"
+                     :disable="actionLoading"
                      @action-button="CallAction" />
     </div>
   </div>
@@ -50,6 +50,7 @@ export default defineComponent({
         iconName: 'warning',
         iconColor: 'primary',
         iconSize: {},
+        fieldBackground: '#F4F5F6',
         eventId: null,
         borderStyle: {},
         boxShadows: [],
@@ -73,7 +74,7 @@ export default defineComponent({
           }
         }
       },
-      loading: false
+      actionLoading: false
     }
   },
   computed: {
@@ -124,10 +125,10 @@ export default defineComponent({
             message,
             position: 'top'
           })
-          this.loading = false
+          this.actionLoading = false
         })
         .catch(() => {
-          this.loading = false
+          this.actionLoading = false
         })
     }
   }
@@ -149,6 +150,7 @@ $scaleY: v-bind('localOptions.cssHoverEffects.transform.scaleY');
 $translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
 $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
+$fieldBackground: v-bind('localOptions.fieldBackground');
 
 .contact-form-container {
   width: 100%;
@@ -176,6 +178,14 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     display: flex;
     justify-content: flex-start;
     align-items: center;
+  }
+
+  &:deep(.q-field) {
+    .q-field__inner {
+      .q-field__control{
+        background: $fieldBackground;
+      }
+    }
   }
 }
 </style>

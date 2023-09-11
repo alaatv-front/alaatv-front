@@ -11,7 +11,7 @@
           </q-item-section>
           <q-item-section class="list-section title-icon"
                           avatar>
-            {{ user.wallet_balance.toLocaleString('fa') }}
+            {{ user.wallet_balance ? user.wallet_balance.toLocaleString('fa') : 0 }}
             تومان
           </q-item-section>
           <span class="indicator" />
@@ -92,7 +92,7 @@ export default {
         },
         {
           title: 'علاقه مندی های من',
-          icon: 'isax:heart',
+          icon: 'ph:heart',
           routeName: 'UserPanel.MyFavorites',
           params: null,
           permission: 'all',
@@ -101,7 +101,7 @@ export default {
         },
         {
           title: 'داشبورد راه ابریشم',
-          icon: 'isax:gps',
+          icon: 'ph:compass',
           routeName: 'UserPanel.Asset.Abrisham.Progress',
           permission: 'all',
           active: false,
@@ -109,7 +109,7 @@ export default {
         },
         {
           title: 'داشبورد راه ابریشم پرو',
-          icon: 'isax:activity',
+          icon: 'ph:compass',
           routeName: 'UserPanel.Asset.AbrishamPro.Progress',
           permission: 'all',
           active: false,
@@ -117,7 +117,7 @@ export default {
         },
         {
           title: 'داشبورد راه ابریشم ۲',
-          icon: 'isax:activity',
+          icon: 'ph:compass',
           routeName: 'UserPanel.Asset.TripleTitleSet.Products',
           params: { eventName: 'abrisham2' },
           permission: 'all',
@@ -126,7 +126,7 @@ export default {
         },
         {
           title: 'داشبورد چترنجات',
-          icon: 'isax:global',
+          icon: 'ph:umbrella',
           routeName: 'UserPanel.Asset.TripleTitleSet.Products',
           params: { eventName: 'chatre-nejat' },
           permission: 'all',
@@ -143,8 +143,17 @@ export default {
           children: []
         },
         {
+          title: 'داشبورد 110',
+          icon: 'ph:fire',
+          routeName: 'UserPanel.Asset.TripleTitleSet.Products',
+          params: { eventName: '110' },
+          permission: 'all',
+          active: false,
+          children: []
+        },
+        {
           title: 'کارت هدیه',
-          icon: 'isax:gift',
+          icon: 'ph:gift',
           routeName: 'UserPanel.Asset.GiftCard.MyGiftCards',
           permission: 'all',
           active: false,
@@ -152,7 +161,7 @@ export default {
         },
         {
           title: 'تیکت',
-          icon: 'isax:ticket',
+          icon: 'ph:ticket',
           routeName: 'UserPanel.Ticket.Index',
           permission: 'all',
           active: false,
