@@ -4,8 +4,8 @@
       <div class="option-panel-container">
         <div class="input-container q-pt-md">
           <div class="outsideLabel">poster</div>
-          <q-input v-model="localOptions.poster"
-                   label="poster" />
+          <image-upload-input v-model:value ="localOptions.poster"
+                              @update:value="updatePoster($event)" />
         </div>
         <div class="input-container q-py-md">
           <div>نوع سورس ویدیو را انتخاب کنید:</div>
@@ -56,19 +56,26 @@
 import { defineComponent } from 'vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
+import ImageUploadInput from 'src/components/Utils/ImageUploadInput.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs },
+  components: { OptionPanelTabs, ImageUploadInput },
   mixins: [PageBuilderOptionPanel],
   data() {
     return {
+      dialog: false,
       defaultOptions: {
         src: '',
         url: '',
         poster: '',
         srcType: ''
       }
+    }
+  },
+  methods: {
+    updatePoster (image) {
+      this.localOptions.poster = image
     }
   }
 })
