@@ -5,9 +5,6 @@
 </template>
 <script>
 import process from 'process'
-// import { Plugins } from '@capacitor/core'
-// const { Network } = Plugins
-
 import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'App',

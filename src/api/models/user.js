@@ -41,6 +41,8 @@ export default class UserAPI extends APIRepository {
       verifyMoshavereh: '/mobile/verifyMoshavereh',
       newsletter: '/newsletter',
       saveExam: '/user/exam-save',
+      settingUserStore: '/setting/uesrStore',
+      sendWatchedContents: '/watched-bulk',
       admin: {
         create: {
           base: '/admin/user'
@@ -640,6 +642,56 @@ export default class UserAPI extends APIRepository {
       }, data),
       resolveCallback: (response) => {
         return response.data.data // String Message
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  sendFavorableList(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.sendFavorableList,
+      data,
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  sendWatchedContents(data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.sendWatchedContents,
+      data,
+      resolveCallback: (response) => {
+        return response.data
+      },
+      rejectCallback: (error) => {
+        return error
+      }
+    })
+  }
+
+  sendOldAndroidDatabase (data) {
+    return this.sendRequest({
+      apiMethod: 'post',
+      api: this.api,
+      request: this.APIAdresses.settingUserStore,
+      data: this.getNormalizedSendData({
+        key: null, // String
+        value: null // String (JSON stringify)
+      }, data),
+      resolveCallback: (response) => {
+        return {
+          status: response
+        }
       },
       rejectCallback: (error) => {
         return error
