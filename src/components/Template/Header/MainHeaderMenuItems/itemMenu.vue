@@ -4,8 +4,7 @@
             clickable
             :active="isRouteSelected(localData.route)"
             active-class="active-item"
-            :to="localData.route"
-            @click="onClick">
+            :to="localData.route">
       <q-item-section class="tab-title">
         {{ localData.title }}
         <q-btn v-if="editable"
@@ -68,14 +67,6 @@ export default {
     }
   },
   methods: {
-    onClick($event) {
-      if (!this.localData.externalLink) {
-        return
-      }
-      window.location.href = this.localData.externalLink
-      $event.preventDefault()
-      $event.stopPropagation()
-    },
     editItem (event) {
       event.preventDefault()
       event.stopPropagation()
