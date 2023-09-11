@@ -9,8 +9,15 @@
                 {
                   "name": "HeaderMenu",
                   "options": {
+                    "rightSectionWidgets": [],
+                    "centerSectionWidgets": [],
+                    "leftSectionWidgets": [],
+                    "sticky": false,
+                    "stickyClass": "",
+                    "salam": "",
                     "style": {
-                      "color": "rgba(66,66,66,1)"
+                      "color": "rgba(66,66,66,1)",
+                      "image": null
                     },
                     "className": "",
                     "menuLink": [
@@ -30,8 +37,8 @@
                         "className": "faq-row"
                       }
                     ],
-                    "logoImage": "https://nodes.alaatv.com/upload/landing/chatr/alaa%20logo.png",
-                    "logoSlogan": "مدرسه آنلاین آلا",
+                    "logoImage": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/logo.png",
+                    "logoSlogan": "",
                     "hasAction": true,
                     "actionObject": {
                       "buttonLabel": "ثبت نام",
@@ -127,7 +134,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<font color=\"#424242\">دوره جامع کنکور</font><font color=\"#ff8518\">  راه ابریشم۲</font> <font color=\"#bdbdbd\" size=\"2\" style=\"\" face=\"Doran FaNum\">V2.0</font>",
+                    "text": "<font face=\"Doran FaNum\"><font color=\"#424242\">دوره جامع کنکور</font><font color=\"#ff8518\">  راه ابریشم۲</font> </font><font color=\"#bdbdbd\" size=\"2\" style=\"\" face=\"Doran FaNum\">V2.0</font>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -135,34 +142,91 @@
                     "fontStyle": null,
                     "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": " 24px",
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.72px"
                     },
                     "sm": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "40px ",
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-1.2px"
                     },
                     "md": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "48px",
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-2.4px"
                     },
                     "lg": {
-                      "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontSize": "48px",
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-1.44px"
                     },
                     "xl": {
-                      "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontSize": "48px",
+                      "fontWeight": "800 ",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-2.4px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": false,
                     "activeTheme": "theme1",
@@ -179,41 +243,113 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: justify;\"><span style=\"color: rgb(66, 66, 66);\">دانش آموز باشی یا فارغ التحصیل، توی 20 هفته، کل مباحث کنکور 1403 رو با راه ابریشم&nbsp;</span></div><div style=\"text-align: justify;\"><font color=\"#424242\">آلاء از زیر صفر و کاملا مقدماتی تا سطح پیشرفته با تدریس ویدویی و جزوات، به‌شکل</font></div><div style=\"text-align: justify;\"><font color=\"#424242\">&nbsp;جامع و کامل یاد میگیری و لذت بخشه که در انتهای دوره سخت ترین سوالات کنکور رو</font></div><div style=\"text-align: justify;\"><font color=\"#424242\">&nbsp;هم داری سریع حل میکنی</font></div>",
+                    "text": "<div style=\"text-align: justify;\"><span style=\"color: rgb(66, 66, 66);\"><font face=\"IRANSansXFaNum\">دانش آموز باشی یا فارغ التحصیل، توی 20 هفته، کل مباحث کنکور 1403 رو با راه ابریشم&nbsp;</font></span></div><div style=\"text-align: justify;\"><font color=\"#424242\" face=\"IRANSansXFaNum\">آلاء از زیر صفر و کاملا مقدماتی تا سطح پیشرفته با تدریس ویدویی و جزوات، به‌شکل</font></div><div style=\"text-align: justify;\"><font color=\"#424242\" face=\"IRANSansXFaNum\">&nbsp;جامع و کامل یاد میگیری و لذت بخشه که در انتهای دوره سخت ترین سوالات کنکور رو</font></div><div style=\"text-align: justify;\"><font color=\"#424242\" face=\"IRANSansXFaNum\">&nbsp;هم داری سریع حل میکنی</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "16px",
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "18px",
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "md": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "18px",
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "lg": {
-                      "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontSize": "18px",
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
-                      "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontSize": "18px",
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {
                       "marginTop": "20px"
@@ -258,7 +394,8 @@
                       {
                         "options": {
                           "color": null,
-                          "icon": null,
+                          "icon": "ph:phone",
+                          "rightIcon": true,
                           "label": "مشاوره بگیر",
                           "flat": false,
                           "callBack": null,
@@ -517,6 +654,55 @@
                 "colNumber": "col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": "2",
+                  "sm": "3",
+                  "md": "1",
+                  "lg": "1",
+                  "xl": "1"
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -555,7 +741,8 @@
                 {
                   "name": "Bodymovin",
                   "options": {
-                    "loop": true,
+                    "loop": false,
+                    "animate": "onHover",
                     "autoplay": true,
                     "xs": {
                       "directory": "",
@@ -579,7 +766,7 @@
                       }
                     },
                     "lg": {
-                      "directory": "https://nodes.alaatv.com/upload/landing/abrisham25/sky-bodyMovin/landing-abrisham-animation-main-logo.json",
+                      "directory": "https://nodes.alaatv.com/upload/alaaPages/2023-09/data.json",
                       "style": {
                         "width": null,
                         "height": null
@@ -600,6 +787,55 @@
                 "colNumber": "col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": "1",
+                  "sm": "1",
+                  "md": "2",
+                  "lg": "2",
+                  "xl": "2"
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -1189,9 +1425,65 @@
                 "colNumber": "col-md-1 col-lg-1 col-xl-1 col-sm-12 col-xs-12",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": "3",
+                  "sm": "2",
+                  "md": "3",
+                  "lg": "3",
+                  "xl": "3"
+                },
                 "borderStyle": {
-                  "borderCssString": "",
-                  "borderRadiusCssString": ""
+                  "topLeftRadius": 0,
+                  "topRightRadius": 142,
+                  "bottomLeftRadius": 0,
+                  "bottomRightRadius": 0,
+                  "borderWidth": 0,
+                  "borderColor": "rgba(0,0,0,0.1)",
+                  "borderStyle": "solid",
+                  "borderCssString": "solid 0px rgba(0,0,0,0.1)",
+                  "borderRadiusCssString": "0px 142px 0px 0px"
                 },
                 "cssHoverEffects": {
                   "boxShadows": [],
@@ -1268,136 +1560,52 @@
     },
     "options": {
       "fullHeight": true,
-      "className": "",
       "backgrounds": {
         "xs": {
-          "size": "contain",
-          "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/350.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "size": null,
+          "color": null,
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         },
         "sm": {
-          "size": "contain",
-          "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/600.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "size": null,
+          "color": null,
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         },
         "md": {
-          "size": "contain",
-          "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1024.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "size": null,
+          "color": "",
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         },
         "lg": {
-          "size": "contain",
+          "size": null,
           "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1024.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         },
         "xl": {
-          "size": "contain",
+          "size": null,
           "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1920%20%25%201440.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         }
       },
-      "responsiveSpacing": {
-        "xs": {
-          "marginTop": null,
-          "marginLeft": null,
-          "marginRight": null,
-          "marginBottom": null,
-          "paddingTop": null,
-          "paddingLeft": null,
-          "paddingRight": null,
-          "paddingBottom": null
-        },
-        "sm": {
-          "marginTop": null,
-          "marginLeft": null,
-          "marginRight": null,
-          "marginBottom": null,
-          "paddingTop": null,
-          "paddingLeft": null,
-          "paddingRight": null,
-          "paddingBottom": null
-        },
-        "md": {
-          "marginTop": null,
-          "marginLeft": null,
-          "marginRight": null,
-          "marginBottom": null,
-          "paddingTop": null,
-          "paddingLeft": null,
-          "paddingRight": null,
-          "paddingBottom": null
-        },
-        "lg": {
-          "marginTop": null,
-          "marginLeft": null,
-          "marginRight": null,
-          "marginBottom": null,
-          "paddingTop": null,
-          "paddingLeft": null,
-          "paddingRight": null,
-          "paddingBottom": null
-        },
-        "xl": {
-          "marginTop": null,
-          "marginLeft": null,
-          "marginRight": null,
-          "marginBottom": null,
-          "paddingTop": null,
-          "paddingLeft": null,
-          "paddingRight": null,
-          "paddingBottom": null
-        }
-      },
+      "verticalAlign": "center",
       "style": {
         "minHeight": "100vh"
-      },
-      "boxShadows": [],
-      "borderStyle": {
-        "borderCssString": "",
-        "borderRadiusCssString": ""
-      },
-      "cssHoverEffects": {
-        "boxShadows": [],
-        "borderStyle": {
-          "borderCssString": "",
-          "borderRadiusCssString": ""
-        },
-        "transition": {
-          "time": 0
-        },
-        "transform": {
-          "rotate": null,
-          "scaleX": null,
-          "scaleY": null,
-          "skewX": null,
-          "skewY": null,
-          "translateX": null,
-          "translateY": null
-        }
-      },
-      "responsiveShow": {
-        "xl": true,
-        "lg": true,
-        "md": true,
-        "sm": true,
-        "xs": true
-      },
-      "verticalAlign": "center"
+      }
     }
   },
   {
@@ -1410,41 +1618,99 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<font color=\"#ff8518\">راه ابریشم، شاهراهِ کنکور</font>",
+                    "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">راه ابریشم، شاهراهِ کنکور</font>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "24px",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.72px"
                     },
                     "sm": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "32px",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "md": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "32px",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px "
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": true,
                     "activeTheme": "theme1",
@@ -1472,35 +1738,107 @@
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "16px",
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "16px",
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "md": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "16px",
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "lg": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "xl": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "400",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -1520,6 +1858,7 @@
                     "url": "https://nodes.alaatv.com/upload/landing/RAHABRISHAM/MoarefiAsli.mp4",
                     "poster": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/2.png",
                     "srcType": "singleQuality",
+                    "showBtn": false,
                     "style": {}
                   }
                 }
@@ -1612,13 +1951,13 @@
                   "options": {
                     "spaced": false,
                     "dark": false,
-                    "inset": false,
+                    "inset": true,
                     "vertical": false,
                     "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
                     "ImageStyle": null,
                     "ImageClassName": null,
-                    "height": null,
-                    "width": null,
+                    "height": "40px",
+                    "width": "764px",
                     "style": {
                       "backgroundImage": null,
                       "marginTop": "120px",
@@ -1635,6 +1974,55 @@
                   "marginBottom": "30px"
                 },
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -1665,7 +2053,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "flex flex-center"
               }
             },
             {
@@ -1673,7 +2061,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\">هدف راه ابریشم</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\" face=\"Doran FaNum\">هدف راه ابریشم</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -1682,33 +2070,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "20px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "sm": {
                       "fontSize": "28px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.84px"
                     },
                     "md": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px;"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -1730,7 +2175,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\">اهداف سفری که برای رسیدن به موفقیت تو کنکور پیش رو داریم</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\" face=\"IRANSansXFaNum\">اهداف سفری که برای رسیدن به موفقیت تو کنکور پیش رو داریم</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -1739,33 +2184,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "md": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "lg": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -3476,33 +3978,33 @@
             "absolute": "none",
             "backgrounds": {
               "xs": {
-                "size": null,
+                "size": "contain",
                 "color": null,
-                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
-                "repeat": null,
-                "position": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S03350.png')",
+                "repeat": "no-repeat",
+                "position": "left bottom",
                 "attachment": null
               },
               "sm": {
-                "size": null,
+                "size": "contain",
                 "color": null,
-                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
-                "repeat": null,
-                "position": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S03650.png')",
+                "repeat": "no-repeat",
+                "position": "center center",
                 "attachment": null
               },
               "md": {
-                "size": null,
+                "size": "contain",
                 "color": null,
-                "image": null,
-                "repeat": null,
-                "position": null,
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/s031200.png')",
+                "repeat": "no-repeat",
+                "position": "center center",
                 "attachment": null
               },
               "lg": {
                 "size": null,
                 "color": null,
-                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S05.png')",
+                "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/S031440.png')",
                 "repeat": null,
                 "position": null,
                 "attachment": null
@@ -3514,6 +4016,58 @@
                 "repeat": "no-repeat",
                 "position": "center bottom",
                 "attachment": null
+              }
+            },
+            "responsiveSpacing": {
+              "xs": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "sm": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "md": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "lg": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "xl": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
               }
             },
             "paddingOfBoxedInFullWidth": "30px",
@@ -3615,8 +4169,8 @@
                     "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
                     "ImageStyle": null,
                     "ImageClassName": null,
-                    "height": null,
-                    "width": null,
+                    "height": "40px",
+                    "width": "764px",
                     "style": {
                       "backgroundImage": null,
                       "marginTop": "120px",
@@ -3633,6 +4187,55 @@
                   "marginBottom": "30px"
                 },
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -3663,7 +4266,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "flex flex-center"
               }
             },
             {
@@ -3671,7 +4274,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><span style=\"color: rgb(255, 133, 24);\">راه ابریشم برام مناسبه؟</span></div>",
+                    "text": "<div style=\"text-align: center;\"><span style=\"color: rgb(255, 133, 24);\"><font face=\"Doran FaNum\">راه ابریشم برام مناسبه؟</font></span></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -3680,33 +4283,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "20px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "sm": {
                       "fontSize": "28px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.84px"
                     },
                     "md": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -3728,7 +4388,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\">اگه شرایطشو داری راه ابریشمی شو</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\" face=\"IRANSansXFaNum\">اگه شرایطشو داری راه ابریشمی شو</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -3737,33 +4397,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "md": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "lg": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -3838,41 +4555,113 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<font color=\"#56b355\"> راه  ابریشم برا ی چه کسانی مناسبه؟</font>",
+                    "text": "<font color=\"#56b355\" face=\"Doran FaNum\"> راه  ابریشم برا ی چه کسانی مناسبه؟</font>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "18px",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "sm": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "20px",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "md": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "22px ",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.66px"
                     },
                     "lg": {
                       "fontSize": "24px",
-                      "fontWeight": null,
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.72px"
                     },
                     "xl": {
                       "fontSize": "24px",
-                      "fontWeight": null,
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.72px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -3962,41 +4751,113 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<font color=\"#f46a6a\"> راه  ابریشم برا ی چه کسانی مناسبه؟</font>",
+                    "text": "<font face=\"Doran FaNum\" color=\"#f46a6a\">راه ابریشم برا ی چه کسانی مناسبه؟</font>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
                     "fontWeight": null,
                     "fontStyle": null,
+                    "letterSpacing": null,
                     "xs": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "18px",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "sm": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "20px",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "md": {
-                      "fontSize": null,
-                      "fontWeight": null,
+                      "fontSize": "22px ",
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.66px"
                     },
                     "lg": {
                       "fontSize": "24px",
-                      "fontWeight": null,
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.72px"
                     },
                     "xl": {
                       "fontSize": "24px",
-                      "fontWeight": null,
+                      "fontWeight": "900",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.72px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
+                    "hasTheme": null,
+                    "activeTheme": null,
+                    "themes": {
+                      "theme1": {
+                        "borderColor": null,
+                        "borderSize": null,
+                        "borderWidth": null,
+                        "borderHeight": null,
+                        "top": null,
+                        "left": null,
+                        "bottom": null,
+                        "right": null
+                      }
                     },
                     "style": {}
                   }
@@ -4153,8 +5014,8 @@
                     "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
                     "ImageStyle": null,
                     "ImageClassName": null,
-                    "height": null,
-                    "width": null,
+                    "height": "40px",
+                    "width": "764px",
                     "style": {
                       "backgroundImage": null,
                       "marginTop": "120px",
@@ -4172,6 +5033,55 @@
                   "marginBottom": "30px"
                 },
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -4202,7 +5112,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "flex flex-center"
               }
             },
             {
@@ -4210,7 +5120,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\">دوره های آموزشی ما</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\" face=\"Doran FaNum\">دوره های آموزشی ما</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -4219,33 +5129,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "20px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "sm": {
                       "fontSize": "28px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.84px"
                     },
                     "md": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px;"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px;"
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px;"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -4267,7 +5234,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><span style=\"color: rgb(66, 66, 66);\">با دوره های راه ابریشم آلا متخصص هر درس شو!</span></div>",
+                    "text": "<div style=\"text-align: center;\"><span style=\"color: rgb(66, 66, 66);\"><font face=\"IRANSansXFaNum\">با دوره های راه ابریشم آلا متخصص هر درس شو!</font></span></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -4276,33 +5243,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "md": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "lg": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -5359,7 +6383,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\">رشته خودتو انتخاب کن!</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\" face=\"Doran FaNum\">رشته خودتو انتخاب کن!</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -5368,33 +6392,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "20px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "sm": {
                       "fontSize": "28px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.84px"
                     },
                     "md": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -12796,8 +13877,8 @@
                     "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
                     "ImageStyle": null,
                     "ImageClassName": null,
-                    "height": null,
-                    "width": null,
+                    "height": "40px",
+                    "width": "764px",
                     "style": {
                       "backgroundImage": null,
                       "marginTop": "120px",
@@ -12814,6 +13895,55 @@
                   "marginBottom": "30px"
                 },
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -12844,7 +13974,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "flex flex-center"
               }
             },
             {
@@ -12852,7 +13982,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\">داشبورد اختصصاصی راه ابریشم</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\" face=\"Doran FaNum\">داشبورد اختصصاصی راه ابریشم</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -12861,33 +13991,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "20px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "sm": {
                       "fontSize": "28px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.84px"
                     },
                     "md": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -12909,7 +14096,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\">با کاروانسرای راه ابریشم آلاء، از دسترسی راحت به محتوا و تماشای دوره لذت ببر</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\" face=\"IRANSansXFaNum\">با کاروانسرای راه ابریشم آلاء، از دسترسی راحت به محتوا و تماشای دوره لذت ببر</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -12918,33 +14105,89 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "md": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
                       "lineHeight": null
                     },
                     "lg": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -13023,6 +14266,7 @@
                     "url": "https://nodes.alaatv.com/upload/landing/RAHABRISHAM/MoarefiAsli.mp4",
                     "poster": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/7.png",
                     "srcType": "singleQuality",
+                    "showBtn": false,
                     "style": {}
                   }
                 }
@@ -13139,8 +14383,8 @@
                     "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
                     "ImageStyle": null,
                     "ImageClassName": null,
-                    "height": null,
-                    "width": null,
+                    "height": "40px",
+                    "width": "764px",
                     "style": {
                       "backgroundImage": null,
                       "marginTop": "120px",
@@ -13152,8 +14396,89 @@
                 }
               ],
               "options": {
+                "colNumber": "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12",
                 "style": {},
-                "colNumber": "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"
+                "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
+                "borderStyle": {
+                  "borderCssString": "",
+                  "borderRadiusCssString": ""
+                },
+                "cssHoverEffects": {
+                  "boxShadows": [],
+                  "borderStyle": {
+                    "borderCssString": "",
+                    "borderRadiusCssString": ""
+                  },
+                  "transition": {
+                    "time": 0
+                  },
+                  "transform": {
+                    "rotate": null,
+                    "scaleX": null,
+                    "scaleY": null,
+                    "skewX": null,
+                    "skewY": null,
+                    "translateX": null,
+                    "translateY": null
+                  }
+                },
+                "responsiveShow": {
+                  "xl": true,
+                  "lg": true,
+                  "md": true,
+                  "sm": true,
+                  "xs": true
+                },
+                "className": "flex flex-center"
               }
             },
             {
@@ -13161,7 +14486,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\">ترکیبی از برترین اساتید آلا</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\" face=\"Doran FaNum\">ترکیبی از برترین اساتید آلا</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -13170,33 +14495,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "20px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "sm": {
                       "fontSize": "28px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.84px"
                     },
                     "md": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -13218,7 +14600,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\">با کاروان سالاران آلا، خیالت از پستی ها و بلندی های مسیر راحته!</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\" face=\"IRANSansXFaNum\">با کاروان سالاران آلا، خیالت از پستی ها و بلندی های مسیر راحته!</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -13227,33 +14609,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "md": {
                       "fontSize": "18px ",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "lg": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -13539,8 +14978,8 @@
                     "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
                     "ImageStyle": null,
                     "ImageClassName": null,
-                    "height": "",
-                    "width": "",
+                    "height": "40px",
+                    "width": "764px",
                     "style": {
                       "backgroundImage": null,
                       "marginTop": "120px",
@@ -13558,6 +14997,55 @@
                   "marginTop": "30px"
                 },
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -13588,7 +15076,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "flex flex-center"
               }
             },
             {
@@ -13596,7 +15084,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\">نظرات دانش آموزان</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\" face=\"Doran FaNum\">نظرات دانش آموزان</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -13605,33 +15093,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "20px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "sm": {
                       "fontSize": "28px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.84px"
                     },
                     "md": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -13653,7 +15198,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\">راه ابریشم چقدر برای مخاطبینش مفید بوده؟</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#424242\" face=\"IRANSansXFaNum\">راه ابریشم چقدر برای مخاطبینش مفید بوده؟</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -13662,33 +15207,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "md": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "lg": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -14057,8 +15659,8 @@
                     "image": "https://stage-minio.alaatv.com/upload/alaaPages/2023-09/sep.png",
                     "ImageStyle": null,
                     "ImageClassName": null,
-                    "height": null,
-                    "width": null,
+                    "height": "40px",
+                    "width": "764px",
                     "style": {
                       "backgroundImage": null,
                       "marginTop": "20px",
@@ -14075,6 +15677,55 @@
                   "marginTop": "30px"
                 },
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -14105,7 +15756,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "flex flex-center"
               }
             },
             {
@@ -14113,7 +15764,7 @@
                 {
                   "name": "TextWidget",
                   "options": {
-                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\">پشتیبانی</font></div>",
+                    "text": "<div style=\"text-align: center;\"><font color=\"#ff8518\" face=\"Doran FaNum\">پشتیبانی</font></div>",
                     "fontFamily": null,
                     "color": null,
                     "fontSize": null,
@@ -14122,33 +15773,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "20px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.6px"
                     },
                     "sm": {
                       "fontSize": "28px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.84px"
                     },
                     "md": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "lg": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
                     },
                     "xl": {
                       "fontSize": "32px",
-                      "fontWeight": null,
+                      "fontWeight": "800",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.96px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -14179,33 +15887,90 @@
                     "letterSpacing": null,
                     "xs": {
                       "fontSize": "16px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.48px"
                     },
                     "sm": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "md": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "lg": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
                     },
                     "xl": {
                       "fontSize": "18px",
-                      "fontWeight": null,
+                      "fontWeight": "500",
                       "fontStyle": null,
-                      "lineHeight": null
+                      "lineHeight": null,
+                      "letterSpacing": "-0.54px"
+                    },
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
                     },
                     "hasTheme": null,
                     "activeTheme": null,
@@ -14577,6 +16342,7 @@
                     "actionButtonOptions": {
                       "color": null,
                       "icon": "west",
+                      "rightIcon": false,
                       "label": "ارسال درخواست",
                       "flat": false,
                       "callBack": null,
@@ -14591,7 +16357,7 @@
                       "route": null,
                       "eventName": null,
                       "style": {
-                        "background": "rgba(255,133,24,1)",
+                        "background": "linear-gradient(95deg, #FFB23F -30.32%, #FF944A 74.03%)",
                         "color": "rgba(252,252,252,1)"
                       }
                     },
@@ -15103,7 +16869,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": "",
+                    "className": null,
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -15114,65 +16880,15 @@
                     "eventName": null,
                     "style": {
                       "background": "",
-                      "color": "#424242",
-                      "image": null
+                      "color": "#424242"
                     }
                   }
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
-                "backgrounds": {
-                  "xs": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "sm": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "md": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "lg": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "xl": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  }
-                },
-                "responsiveOrder": {
-                  "xs": null,
-                  "sm": null,
-                  "md": null,
-                  "lg": null,
-                  "xl": null
-                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -15203,7 +16919,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "text-center"
+                "className": ""
               }
             },
             {
@@ -15217,7 +16933,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": "text-center",
+                    "className": null,
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -15234,58 +16950,9 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
-                "backgrounds": {
-                  "xs": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "sm": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "md": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "lg": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "xl": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  }
-                },
-                "responsiveOrder": {
-                  "xs": null,
-                  "sm": null,
-                  "md": null,
-                  "lg": null,
-                  "xl": null
-                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -15316,7 +16983,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "text-center"
+                "className": ""
               }
             },
             {
@@ -15330,7 +16997,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": "text-center",
+                    "className": null,
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -15347,58 +17014,9 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
-                "backgrounds": {
-                  "xs": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "sm": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "md": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "lg": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "xl": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  }
-                },
-                "responsiveOrder": {
-                  "xs": null,
-                  "sm": null,
-                  "md": null,
-                  "lg": null,
-                  "xl": null
-                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -15429,7 +17047,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "text-center"
+                "className": ""
               }
             },
             {
@@ -15443,7 +17061,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": "text-center",
+                    "className": null,
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -15460,58 +17078,9 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
-                "backgrounds": {
-                  "xs": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "sm": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "md": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "lg": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "xl": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  }
-                },
-                "responsiveOrder": {
-                  "xs": null,
-                  "sm": null,
-                  "md": null,
-                  "lg": null,
-                  "xl": null
-                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -15542,7 +17111,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "text-center"
+                "className": ""
               }
             }
           ],
@@ -15621,7 +17190,7 @@
                 "marginTop": null,
                 "marginLeft": null,
                 "marginRight": null,
-                "marginBottom": null,
+                "marginBottom": "",
                 "paddingTop": null,
                 "paddingLeft": null,
                 "paddingRight": null,
@@ -15641,7 +17210,7 @@
                 "marginTop": null,
                 "marginLeft": null,
                 "marginRight": null,
-                "marginBottom": null,
+                "marginBottom": "50px",
                 "paddingTop": null,
                 "paddingLeft": null,
                 "paddingRight": null,
@@ -15719,24 +17288,7 @@
         {
           "cols": [
             {
-              "widgets": [
-                {
-                  "name": "Separator",
-                  "options": {
-                    "className": "",
-                    "style": {
-                      "marginTop": "",
-                      "marginBottom": "25px"
-                    },
-                    "services": [],
-                    "width": "100٪",
-                    "spaced": true,
-                    "vertical": false,
-                    "dark": false,
-                    "inset": true
-                  }
-                }
-              ],
+              "widgets": [],
               "options": {
                 "colNumber": "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12",
                 "style": {},
@@ -16101,43 +17653,43 @@
       "className": "",
       "backgrounds": {
         "xs": {
-          "size": "contain",
-          "color": "#ffffff",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/350.png')",
+          "size": "cover",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/footer350.png')",
           "repeat": "no-repeat",
-          "position": "center center",
+          "position": "center bottom",
           "attachment": null
         },
         "sm": {
-          "size": "contain",
-          "color": "#ffffff",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/600.png')",
+          "size": "cover",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/footer600.png')",
           "repeat": "no-repeat",
-          "position": "center center",
+          "position": "center bottom",
           "attachment": null
         },
         "md": {
-          "size": "contain",
-          "color": "#ffffff",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1200.png')",
+          "size": "cover",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/footer1200.png')",
           "repeat": "no-repeat",
-          "position": "center center",
+          "position": "center bottom",
           "attachment": null
         },
         "lg": {
-          "size": "contain",
-          "color": "#ffffff",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1920%261440.png')",
+          "size": "cover",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/footer1920%261440.png')",
           "repeat": "no-repeat",
-          "position": "center center",
+          "position": "center bottom",
           "attachment": null
         },
         "xl": {
-          "size": "contain",
-          "color": "#ffffff",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1920%261440.png')",
+          "size": "cover",
+          "color": "rgba(255,247,238,1)",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/footer1920%261440.png')",
           "repeat": "no-repeat",
-          "position": "center center",
+          "position": "center bottom",
           "attachment": null
         }
       },
@@ -16183,11 +17735,11 @@
           "paddingBottom": null
         },
         "xl": {
-          "marginTop": null,
+          "marginTop": "",
           "marginLeft": null,
           "marginRight": null,
           "marginBottom": null,
-          "paddingTop": null,
+          "paddingTop": "100px",
           "paddingLeft": null,
           "paddingRight": null,
           "paddingBottom": null
