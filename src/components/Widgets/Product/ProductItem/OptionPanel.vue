@@ -10,6 +10,8 @@
             <div>تم محصول</div>
             <q-select v-model="localOptions.theme"
                       :options="themeOptions"
+                      option-label="title"
+                      option-value="value"
                       label="theme" />
           </div>
           <!-- <div class="col-md-6">
@@ -36,7 +38,7 @@ export default defineComponent({
   mixins: [mixinOptionPanel],
   data() {
     return {
-      themeOptions: ['ThemeDefault', 'ThemeProduct1', 'ThemeProduct2'],
+      themeOptions: [{ title: 'بدون دکمه ثبت نام', value: 'ThemeDefault' }, { title: 'با دکمه ثبت نام', value: 'ThemeProduct1' }, { title: 'قدیمی', value: 'ThemeProduct2' }],
       defaultOptions: {
         theme: 'ThemeDefault',
         mobileTheme: 'horizontal',

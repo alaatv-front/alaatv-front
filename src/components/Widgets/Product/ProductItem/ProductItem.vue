@@ -91,7 +91,7 @@ export default defineComponent({
       import('src/components/Widgets/Product/ProductItem/themes/ThemeProduct1.vue')
     ),
     ThemeProduct2: defineAsyncComponent(() =>
-      import('src/components/Widgets/Product/ProductItem/themes/ThemeProduct2.vue')
+      import('components/Widgets/Product/ProductItem/themes/ThemeDefault.vue')
     )
   },
   mixins: [mixinWidget, mixinPrefetchServerData],

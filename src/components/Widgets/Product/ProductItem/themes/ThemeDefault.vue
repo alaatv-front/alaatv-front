@@ -1,7 +1,9 @@
 <template>
-  <div class="theme-default-container">
+  <div class="theme2-container">
     <div class="img-box"
          :class="localOptions.theme">
+      <product-discount-badge class="product-discount-badge"
+                              :options="{price:product.price}" />
       <router-link :to="getRoutingObject"
                    @click="productClicked">
         <lazy-img :src="product.photo"
@@ -11,7 +13,8 @@
                   class="img" />
       </router-link>
     </div>
-    <div class="product-content-box">
+    <div class="product-content-box"
+         :class="[localOptions.theme]">
       <router-link :to="getRoutingObject"
                    @click="productClicked">
         <div class="title-box"
@@ -28,18 +31,6 @@
                   :loading="bookmarkLoading"
                   @clicked="handleProductBookmark" />
       </div>
-      <div v-if="product.attributes"
-           class="info-box">
-        <div class="teacher-image">
-          <q-avatar size="32px"
-                    font-size="32px"
-                    color="grey"
-                    text-color="white"
-                    icon="account_circle" />
-        </div>
-        <div v-if="product.attributes.info"
-             class="teacher-name">{{getTeacherOfProduct()}}</div>
-      </div>
       <div v-if="localOptions.showPrice"
            class="action-box">
         <div class="more-detail product-more-detail">
@@ -47,7 +38,7 @@
                        @click="productClicked">
             <div class="price-box">
               <div class="price-info">
-                <div v-if="product.price['final'] !== product.price['base']"
+                <div v-if="product.price['final'] !== product.price['base'] && (localOptions.theme === 'default' || !localOptions.theme)"
                      class="discount">
                   <span>
                     %{{
@@ -72,8 +63,7 @@
             </div>
           </router-link>
         </div>
-        <q-separator v-if="localOptions.theme === 'theme2'"
-                     class="action-separator" />
+        <q-separator class="action-separator" />
         <q-btn v-if="localOptions.canAddToCart"
                unelevated
                :flat="localOptions.theme === 'theme2'"
@@ -81,9 +71,10 @@
                :productId="product.id"
                :data-product-id="product.id"
                class="add-to-cart-btn"
+               :class="localOptions.theme"
                @click="addToCart">
-          <q-icon name="add" />
-          <span>افزودن به سبد</span>
+          <span class="btn-text">مشاهده دوره</span>
+          <q-icon name="west" />
         </q-btn>
       </div>
       <div v-if="localOptions.customAction"
@@ -106,12 +97,14 @@
 <script>
 import { defineComponent } from 'vue'
 import { Product } from 'src/models/Product.js'
+import ProductDiscountBadge from 'src/components/Widgets/Product/ProductDiscountBadge/ProductDiscountBadge.vue'
 import LazyImg from 'src/components/lazyImg.vue'
 import Bookmark from 'src/components/Bookmark.vue'
 
 export default defineComponent({
-  name: 'ThemeDefault',
+  name: 'ThemeProduct2',
   components: {
+    ProductDiscountBadge,
     LazyImg,
     Bookmark
   },
@@ -176,39 +169,54 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.theme-default-container {
+@import "src/css/Theme/Typography/typography.scss";
+.theme2-container {
+  height: inherit;
   .img-box {
-    position: relative;
+    //position: relative;
+    margin: -20px 20px 0;
+    align-self: center;
     .product-discount-badge {
-      display: none;
+      display: block;
+      margin: -30px 10px 0px 0px;
+      rotate: -40deg;
+      transition: all ease-in-out .4s;
+      @media screen and (max-width: 1024px){
+        margin: -15px 10px 0px 0px;
+      }
     }
 
     a {
       box-shadow: none;
       width: 100%;
-      height: 270px;
-      border-radius: 20px 20px 0 0;
+      height: 100%;
+      border-radius: 12px;
+      border: 0px solid #FFF;
 
       .img {
         border-radius: inherit;
         width: inherit;
 
-        @media screen and (max-width: 600px){
-          border-radius: 20px;
+        @media screen and (max-width: 1024px){
           width: 100%;
         }
       }
     }
   }
 
+  &.q-card {
+    //min-width: 318px;
+  }
+
   .product-content-box {
     position: relative;
-    padding: 10px 16px 16px 16px;
+    padding: 10px 20px 20px 20px;
 
     .title-box {
       min-height: 42px;
       display: flex;
       align-items: center;
+      text-align: center;
     }
 
     .price-box {
@@ -216,7 +224,7 @@ export default defineComponent({
       flex-wrap: nowrap;
       justify-content: space-between;
       align-items: center;
-      margin-top: 21px;
+      margin-top: 0;
       .add-cart-info {
         display: flex;
         justify-content: center;
@@ -237,48 +245,51 @@ export default defineComponent({
           display: flex;
           justify-content: center;
           align-items: center;
-
           .final-price {
-            font-style: normal;
-            font-weight: 400;
             font-size: 18px;
-            line-height: 18px;
-            text-align: center;
-            letter-spacing: -0.03em;
-            color: #656f7b;
+            font-style: normal;
+            font-weight: 1024;
+            line-height: normal;
+            letter-spacing: -0.36px;
+            color: #009688;
             margin-left: 8px;
           }
         }
 
         .main-price {
-          text-decoration: line-through;
-          /* margin-left: 12px; */
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 19px;
-          color: #656f7b;
-
-          opacity: 0.4;
+          color: #9E9E9E;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            letter-spacing: -0.28px;
+            text-decoration-line: line-through;
         }
 
         .price-Toman {
-          font-size: 12px;
+          color: #616161;
+          font-size: 10px;
+          font-style: normal;
           font-weight: 400;
-          line-height: 19px;
-          margin-left: 3px;
-          color: #656f7b;
+          line-height: normal;
+          letter-spacing: -0.2px;
         }
       }
     }
 
     .action-box {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
       align-items: center;
+      margin-top: 8px;
+      color: #E0E0E0;
 
       .action-separator {
-        margin: 15px 0 5px;
+        margin: 12px 0;
+        @media screen and (max-width: 1024px){
+          margin: 4px 0;
+        }
         width: 100%;
       }
 
@@ -341,8 +352,7 @@ export default defineComponent({
         padding-top: 3px;
       }
     }
-
-    @media screen and(max-width: 600px) {
+    @media screen and(max-width: 1024px) {
     }
   }
 
@@ -388,16 +398,28 @@ export default defineComponent({
 
   .price-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
     align-items: center;
   }
 
   .add-to-cart-btn {
-    background: #4caf50;
-    color: white;
+    width: 100%;
+    background: transparent;
+    color: #9e9e9e;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 196.5%;
 
-    @media screen and (max-width: 600px){
-      margin: 20px;
+    &:hover {
+      color: #26A69A;
+    }
+
+    .btn-text {
+      margin-right: 8px;
+    }
+    @media screen and (max-width: 1024px){
+      //margin: 20px;
     }
   }
 
@@ -477,34 +499,32 @@ export default defineComponent({
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1024px) {
     display: flex;
-    align-items: start;
     border-radius: 18px;
+    margin-bottom: 16px;
 
     .img-box {
+      margin: 0 0 0 -20px;
+      padding: 12px;
       width: 100px;
-      border-radius: 20px;
 
       .img {
-        border-radius: 20px;
-
-        img {
-          border-radius: 20px;
-        }
+        border-radius: 10px;
       }
 
-      @media screen and (max-width: 600px){
+      @media screen and (max-width: 1024px){
         width: 100%;
       }
     }
 
     .product-content-box {
-      padding: 0 0 0 16px;
+      padding: 12px 12px 12px 0;
       width: 100%;
 
       .main-title {
         margin-bottom: 0;
+        @include subtitle2;
 
         a {
         }
@@ -521,7 +541,6 @@ export default defineComponent({
 
       .price-box {
         margin-bottom: 0;
-        margin-top: 10px;
 
         .add-cart-info {
           .add-cart-icon {
@@ -550,8 +569,8 @@ export default defineComponent({
             display: none;
           }
         }
-        .add-to-cart-btn{
-          margin: 0 10px 0 0;
+        .btn-green{
+          margin-left: 20px;
         }
 
         .btn-style {
