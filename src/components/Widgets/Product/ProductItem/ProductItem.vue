@@ -1,6 +1,6 @@
 <template>
   <div class="product-item-container"
-       :class="localOptions.theme">
+       :class="[localOptions.theme, localOptions.mobileTheme]">
     <q-card v-if="localOptions.loading"
             class="product-item-box q-pa-md"
             :style="{minWidth: localOptions.minWidth, ...localOptions.style}">
@@ -100,6 +100,7 @@ export default defineComponent({
     productRef: 'product' + Date.now(),
     defaultOptions: {
       theme: 'ThemeDefault',
+      mobileTheme: 'horizontal',
       style: {},
       borderStyle: {
         borderCssString: '',
@@ -362,8 +363,20 @@ $translateX: v-bind('localOptions.cssHoverEffects.transform.translateX');
 $translateY: v-bind('localOptions.cssHoverEffects.transform.translateY');
 $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
 .product-item-container {
+
+  @media screen and (max-width: 600px){
+    margin-bottom: 24px ;
+  }
+
   &.theme1 {
     padding-top: 30px;
+  }
+
+  &.horizontal {
+    @media screen and (max-width: 1024px){
+      min-width: 304px;
+      height: 140px;
+    }
   }
 
   &:hover{
@@ -388,6 +401,7 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: inherit;
     justify-content: space-between;
     margin: auto auto 10px;
     position: relative;

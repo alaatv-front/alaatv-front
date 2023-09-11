@@ -12,7 +12,7 @@
                   class="img" />
       </router-link>
     </div>
-    <div class="product-content-box">
+    <div class="product-content-box row">
       <router-link :to="getRoutingObject"
                    @click="productClicked">
         <div class="title-box">
@@ -29,7 +29,7 @@
                   @clicked="handleProductBookmark" />
       </div>
       <div v-if="product.attributes && localOptions.theme !== 'theme2'"
-           class="info-box">
+           class="info-box col-12">
         <div class="teacher-image">
           <q-avatar size="32px"
                     font-size="32px"
@@ -41,8 +41,8 @@
              class="teacher-name">{{getTeacherOfProduct()}}</div>
       </div>
       <div v-if="localOptions.showPrice"
-           class="action-box">
-        <div class="more-detail product-more-detail">
+           class="action-box col-12 row">
+        <div class="more-detail product-more-detail col-sm-8 col-xs-9">
           <router-link :to="getRoutingObject"
                        @click="productClicked">
             <div class="price-box">
@@ -58,36 +58,40 @@
                     }}
                   </span>
                 </div>
-                <div class="price-container">
-                  <div class="final-price-box">
+                <div class="price-container row text-center">
+                  <div class="final-price-box col-xs-12 col-sm-6">
                     <div class="final-price">
                       {{ finalPrice }}
                     </div>
                     <div class="price-Toman">تومان</div>
                   </div>
                   <div v-if="product.price['discount'] !== 0"
-                       class="main-price">{{ basePrice }}</div>
+                       class="main-price col-xs-12 col-sm-6">{{ basePrice }}</div>
                 </div>
               </div>
             </div>
           </router-link>
         </div>
-        <q-btn v-if="localOptions.canAddToCart"
-               unelevated
-               :loading="cart.loading"
-               :productId="product.id"
-               :data-product-id="product.id"
-               class="add-to-cart-btn"
-               :class="localOptions.theme"
-               @click="addToCart">
+        <div class="col-sm-4 col-xs-3">
+          <q-btn v-if="localOptions.canAddToCart"
+                 unelevated
+                 text-color="grey-9"
+                 :loading="cart.loading"
+                 :productId="product.id"
+                 :data-product-id="product.id"
+                 :square="mobileMode"
+                 class="add-to-cart-btn"
+                 :class="localOptions.theme"
+                 @click="addToCart">
 
-          <span class="btn-text">ثبت نام</span>
-          <q-icon name="west" />
+            <span class="btn-text">ثبت نام</span>
+            <q-icon name="west" />
 
-        </q-btn>
+          </q-btn>
+        </div>
       </div>
       <div v-if="localOptions.customAction"
-           class="action-box">
+           class="action-box col-12">
         <div class="more-detail product-more-detail">
           {{ localOptions.customActionMessage }}
         </div>
@@ -160,6 +164,14 @@ export default defineComponent({
     }
   },
   emits: ['addToCart', 'customActionClicked', 'productClicked', 'handleProductBookmark'],
+  computed: {
+    mobileMode() {
+      if (typeof window !== 'undefined') {
+        return window.innerWidth <= 350
+      }
+      return false
+    }
+  },
   methods: {
     addToCart() {
       this.$emit('addToCart')
@@ -179,6 +191,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .theme1-container {
+  flex-wrap: wrap;
   .img-box {
     position: relative;
     margin: -20px 20px 0;
@@ -239,7 +252,7 @@ export default defineComponent({
       }
 
       .price-info {
-        display: flex;
+        //display: flex;
         justify-content: center;
         align-items: baseline;
 
@@ -396,26 +409,23 @@ export default defineComponent({
   }
 
   .price-container {
-    display: flex;
+    //display: flex;
     flex-direction: row-reverse;
     align-items: center;
   }
 
   .add-to-cart-btn {
     background: $primary;
-    color: #424242;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: -0.32px;
 
     .btn-text {
       margin-right: 4px;
+      @media screen and (max-width: 350px){
+        display: none;
+      }
     }
 
     @media screen and (max-width: 600px){
-      margin: 20px;
+      //margin: 20px;
     }
   }
 
@@ -488,7 +498,7 @@ export default defineComponent({
   @media screen and (max-width: 700px) {
     .product-content-box {
       .action-box {
-        flex-flow: column;
+        //flex-flow: column;
         justify-content: space-around;
         align-items: stretch;
       }
@@ -513,7 +523,7 @@ export default defineComponent({
     }
 
     .product-content-box {
-      padding: 0 0 0 16px;
+      padding: 9px 12px 16px;
       width: 100%;
 
       .main-title {

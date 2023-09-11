@@ -169,15 +169,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "src/css/Theme/Typography/typography.scss";
 .theme2-container {
+  height: inherit;
   .img-box {
-    position: relative;
+    //position: relative;
     margin: -20px 20px 0;
+    align-self: center;
     .product-discount-badge {
       display: block;
       margin: -30px 10px 0px 0px;
       rotate: -40deg;
       transition: all ease-in-out .4s;
+      @media screen and (max-width: 1024px){
+        margin: -15px 10px 0px 0px;
+      }
     }
 
     a {
@@ -191,7 +197,7 @@ export default defineComponent({
         border-radius: inherit;
         width: inherit;
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 1024px){
           width: 100%;
         }
       }
@@ -242,7 +248,7 @@ export default defineComponent({
           .final-price {
             font-size: 18px;
             font-style: normal;
-            font-weight: 600;
+            font-weight: 1024;
             line-height: normal;
             letter-spacing: -0.36px;
             color: #009688;
@@ -257,7 +263,7 @@ export default defineComponent({
             font-weight: 400;
             line-height: normal;
             letter-spacing: -0.28px;
-            text-decoration-line: strikethrough;
+            text-decoration-line: line-through;
         }
 
         .price-Toman {
@@ -280,7 +286,10 @@ export default defineComponent({
       color: #E0E0E0;
 
       .action-separator {
-        margin: 15px 0 5px;
+        margin: 12px 0;
+        @media screen and (max-width: 1024px){
+          margin: 4px 0;
+        }
         width: 100%;
       }
 
@@ -343,7 +352,7 @@ export default defineComponent({
         padding-top: 3px;
       }
     }
-    @media screen and(max-width: 600px) {
+    @media screen and(max-width: 1024px) {
     }
   }
 
@@ -409,8 +418,8 @@ export default defineComponent({
     .btn-text {
       margin-right: 8px;
     }
-    @media screen and (max-width: 600px){
-      margin: 20px;
+    @media screen and (max-width: 1024px){
+      //margin: 20px;
     }
   }
 
@@ -490,29 +499,32 @@ export default defineComponent({
     }
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1024px) {
     display: flex;
     border-radius: 18px;
     margin-bottom: 16px;
 
     .img-box {
+      margin: 0 0 0 -20px;
+      padding: 12px;
       width: 100px;
 
       .img {
         border-radius: 10px;
       }
 
-      @media screen and (max-width: 600px){
+      @media screen and (max-width: 1024px){
         width: 100%;
       }
     }
 
     .product-content-box {
-      padding: 0 0 0 16px;
+      padding: 12px 12px 12px 0;
       width: 100%;
 
       .main-title {
         margin-bottom: 0;
+        @include subtitle2;
 
         a {
         }

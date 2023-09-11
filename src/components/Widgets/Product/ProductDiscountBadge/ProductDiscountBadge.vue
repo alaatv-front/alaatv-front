@@ -5,7 +5,6 @@
            color="transparent">
     <q-img :src="'https://nodes.alaatv.com/upload/widget_items/dis.png'"
            class="discount-badge_percent__img"
-           width="64px"
            spinner-color="primary"
            spinner-size="64px" />
     <div class="discount-badge_percent">
@@ -71,7 +70,35 @@ export default defineComponent({
       font-weight: 600;
       line-height: normal;
     }
-  }
 
+    @media screen and (max-width: 1024px){
+      top: 9px;
+      right: 12px;
+      &__number {
+        text-align: center;
+        color: #FFF;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: normal;
+      }
+
+      &__text {
+        margin-top: -3px;
+        text-align: center;
+        color: #FFF;
+        font-size: 4px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+    }
+  }
+  .discount-badge_percent__img {
+    width: 64px;
+    @media screen and (max-width: 1024px){
+      width: 32px;
+    }
+  }
 }
 </style>

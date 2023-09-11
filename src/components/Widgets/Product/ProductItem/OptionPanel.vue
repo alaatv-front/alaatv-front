@@ -39,6 +39,7 @@ export default defineComponent({
       themeOptions: ['ThemeDefault', 'ThemeProduct1', 'ThemeProduct2'],
       defaultOptions: {
         theme: 'ThemeDefault',
+        mobileTheme: 'horizontal',
         className: '',
         height: 'auto',
         boxed: false,
