@@ -192,6 +192,7 @@ export default defineComponent({
 
   &.teacher {
     padding-top: 0;
+    box-shadow: $shadow-2;
   }
 
   .student-img {
@@ -231,7 +232,7 @@ export default defineComponent({
 
       &.teacher {
         min-height: 20px;
-        margin-top: 5px;
+        margin-top: 14px;
       }
     }
   }
@@ -268,7 +269,8 @@ export default defineComponent({
     align-items: center;
 
     .major {
-      font-size: 28px;
+      margin-top: 4px;
+      font-size: 14px;
       font-weight: 800;
       color: #FF8518;
       text-align: center;
