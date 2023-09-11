@@ -3,7 +3,7 @@
        :style="localOptions.style"
        :class="localOptions.className">
     <product-panel :loading="loading"
-                   :data="localOptions.data"
+                   :data="clonedData"
                    :options="localOptions" />
   </div>
 </template>
@@ -23,6 +23,7 @@ export default {
     return {
       products: [],
       loading: false,
+      clonedData: [],
       defaultOptions: {
         className: '',
         style: {},
@@ -48,7 +49,8 @@ export default {
       this.loading = true
       this.getProductsPromise()
         .then(productList => {
-          this.replaceProducts(this.localOptions.data, productList.list)
+          this.clonedData = this.getClonedData()
+          this.replaceProducts(this.clonedData, productList.list)
           this.loading = false
         })
         .catch(() => {
@@ -89,6 +91,12 @@ export default {
         }
       }
     },
+    fixGroupData(data) {
+      for (let ProductIndex = 0; ProductIndex < data.length; ProductIndex++) {
+        const productItem = data[ProductIndex]
+        data[ProductIndex] = typeof productItem === 'number' ? productItem : productItem.id
+      }
+    },
     getProductsPromise() {
       const data = {
         productIds: this.productIdList,
@@ -103,8 +111,8 @@ export default {
       return this.getProductsPromise()
     },
     prefetchServerDataPromiseThen (productList) {
-      const clonedData = this.getClonedData()
-      this.replaceProducts(clonedData, productList.list)
+      this.clonedData = this.getClonedData()
+      this.replaceProducts(this.clonedData, productList.list)
       this.loading = false
     },
     prefetchServerDataPromiseCatch () {

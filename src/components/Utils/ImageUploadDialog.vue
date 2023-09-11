@@ -20,6 +20,7 @@
                     multiple
                     auto-upload
                     :factory="factoryFn"
+                    :headers="[{name: 'Content-Type', value: 'image/png'}]"
                     style="width: 100%;max-height: 100%;height: 100%;background: transparent;z-index: 1;"
                     @added="noItem = false"
                     @uploaded="onUploaded"
@@ -72,6 +73,8 @@
 
 <script>
 
+import { APIGateway } from 'src/api/APIGateway'
+
 export default {
   name: 'ImageUploadDialog',
   props: {
@@ -99,18 +102,42 @@ export default {
       return new Promise((resolve, reject) => {
         for (let index = 0; index < files.length; index++) {
           const file = files[index]
-          this.$apiGateway.fileUpload.upload({
+          APIGateway.fileUpload.upload({
             key: file.name
           })
             .then(url => {
               const baseUrl = url.split('?')[0]
               this.urlList.push(baseUrl)
-              resolve({
+              this.$axios({
+                method: 'put',
+                headers: {
+                  'Content-Type': 'image/png'
+                },
                 url,
-                method: 'PUT',
-                file
+                body: file,
+                data: file,
+                transformRequest: (data, headers) => {
+                  if (headers.common && headers.common.Authorization) {
+                    delete headers.common.Authorization
+                  }
+                  if (headers.Authorization) {
+                    delete headers.Authorization
+                  }
+
+                  return data
+                }
               })
+                .then(() => {
+                  this.onUploaded()
+                  resolve({
+                    file
+                  })
+                })
+                .catch(() => {
+                  this.onRejected()
+                })
             }).catch((err) => {
+              this.onRejected()
               reject(err)
             })
         }

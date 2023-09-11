@@ -22,7 +22,7 @@
             </div>
             <div class="col-12 col-md-3">
               <q-checkbox v-model="localOptions.settings.wrapAround"
-                          label="wrapAround" />
+                          label="دور بینهایت" />
             </div>
             <div class="col-12 col-md-3">
               <q-checkbox v-model="localOptions.pagination"
@@ -33,31 +33,106 @@
                           label="فاصله داخلی اسلایدر" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">
+                رنگ پس زمینه آیتم اسلایدر
+              </div>
+              <q-input v-model="localOptions.slidItemBackgroundColor"
+                       filled
+                       class="رنگ پس زمینه آیتم اسلایدر">
+                <template v-slot:append>
+                  <q-icon name="colorize"
+                          class="cursor-pointer">
+                    <q-popup-proxy cover
+                                   transition-show="scale"
+                                   transition-hide="scale">
+                      <q-color v-model="localOptions.slidItemBackgroundColor" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                Image Link
+              </div>
+              <image-upload-input v-model:value ="localOptions.slidItemBackgroundImage"
+                                  :with-url="true"
+                                  @update:value="updateSlidItemBackground($event)" />
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                Background Position
+              </div>
+              <q-input v-model="localOptions.slidItemBackgroundPosition"
+                       type="text"
+                       label="Background Position" />
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                Background Repeat
+              </div>
+              <q-input v-model="localOptions.slidItemBackgroundRepeat"
+                       type="text"
+                       label="Background Repeat" />
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                Background Size
+              </div>
+              <q-input v-model="localOptions.slidItemBackgroundSize"
+                       type="text"
+                       label="Background Size" />
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                ImageWidth
+              </div>
+              <q-input v-model="localOptions.slideItemImageWidth"
+                       type="text"
+                       label="ImageWidth" />
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                ImageHeight
+              </div>
+              <q-input v-model="localOptions.slideItemImageHeight"
+                       type="text"
+                       label="ImageHeight" />
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="text-title">
+                direction
+              </div>
               <q-input v-model="localOptions.settings.dir"
                        type="text"
                        label="direction" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">autoplay</div>
               <q-input v-model="localOptions.settings.autoplay"
                        type="number"
                        label="autoplay" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">items To Scroll</div>
               <q-input v-model="localOptions.settings.itemsToScroll"
                        type="number"
                        label="itemsToScroll" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">transition</div>
               <q-input v-model="localOptions.settings.transition"
                        type="number"
                        label="transition" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">Item To Show</div>
               <q-input v-model="localOptions.settings.itemsToShow"
                        type="number"
                        label="itemsToShow" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">snapAlign</div>
               <q-input v-model="localOptions.settings.snapAlign"
                        type="text"
                        label="snapAlign" />
@@ -65,6 +140,7 @@
           </div>
           <div class="row q-mb-sm q-col-gutter-md">
             <div class="col-12 col-md-3">
+              <div class="text-title">size</div>
               <q-select v-model="size"
                         :options="sizeOptions"
                         option-label="label"
@@ -74,11 +150,13 @@
                         label="page size" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">itemsToShow-{{ size }}</div>
               <q-input v-model="localOptions.breakpoints[size].itemsToShow"
                        type="text"
                        :label="`itemsToShow-${size}`" />
             </div>
             <div class="col-12 col-md-3">
+              <div class="text-title">snapAlign-{{ size }}</div>
               <q-input v-model="localOptions.breakpoints[size].snapAlign"
                        type="text"
                        :label="`snapAlign-${size}`" />
@@ -171,11 +249,8 @@
                       <q-popup-edit v-slot="scope"
                                     v-model="props.row[item.name]"
                                     buttons>
-                        <q-input v-model="scope.value"
-                                 dense
-                                 autofocus
-                                 counter
-                                 @keyup.enter="scope.set" />
+                        <image-upload-input v-model:value ="scope.value"
+                                            @update:value="scope.set" />
                       </q-popup-edit>
                     </template>
                     <template v-else-if="item.name === 'actions'">
@@ -220,7 +295,6 @@
             </q-table>
           </div>
         </q-expansion-item>
-
       </div>
     </template>
   </option-panel-tabs>
@@ -229,10 +303,11 @@
 import { defineComponent } from 'vue'
 import OptionPanelTabs from 'quasar-ui-q-page-builder/src/components/OptionPanelComponents/OptionPanelTabs.vue'
 import { PageBuilderOptionPanel } from 'src/mixin/Mixins'
+import ImageUploadInput from 'src/components/Utils/ImageUploadInput.vue'
 
 export default defineComponent({
   name: 'OptionPanel',
-  components: { OptionPanelTabs },
+  components: { OptionPanelTabs, ImageUploadInput },
   mixins: [PageBuilderOptionPanel],
   props: {
     options: {
@@ -244,6 +319,7 @@ export default defineComponent({
   },
   data () {
     return {
+      dialog: false,
       loading: false,
       rowCount: 0,
       columns: [
@@ -286,6 +362,8 @@ export default defineComponent({
           value: 1440
         }
       ],
+      uploadType: '',
+      rowId: null,
       defaultOptions: {
         settings: {
           autoplay: 3500,
@@ -320,6 +398,13 @@ export default defineComponent({
           }
         },
         sliderItems: [],
+        slidItemBackgroundImage: '',
+        slidItemBackgroundColor: '#ffffff',
+        slidItemBackgroundPosition: 'center',
+        slidItemBackgroundRepeat: 'no-repeat',
+        slidItemBackgroundSize: '',
+        slideItemImageWidth: '160px',
+        slideItemImageHeight: '160px',
         personType: 'student',
         pagination: false,
         carouselPadding: '0 25px',
@@ -368,6 +453,9 @@ export default defineComponent({
     },
     removeRow(index) {
       this.localOptions.sliderItems.splice(index, 1)
+    },
+    updateSlidItemBackground(url) {
+      this.localOptions.slidItemBackgroundImage = url
     }
   }
 })

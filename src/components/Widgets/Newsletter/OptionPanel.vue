@@ -32,6 +32,18 @@
             <q-checkbox v-model="localOptions.userInputs.grade" />
           </div>
         </div>
+        <div class="row q-col-gutter-md q-mt-xs">
+          <div class="col-md-2">
+            <div class="outsideLabel">has Redirect</div>
+            <q-checkbox v-model="localOptions.hasRedirect" />
+          </div>
+          <div v-if="localOptions.hasRedirect"
+               class="col-12 col-md-10">
+            <q-input v-model="localOptions.redirectUrl"
+                     type="text"
+                     label="URL" />
+          </div>
+        </div>
       </div>
     </template>
   </option-panel-tabs>
@@ -49,6 +61,8 @@ export default {
       defaultOptions: {
         eventName: 'newsletter',
         verification: true,
+        hasRedirect: false,
+        redirectUrl: '',
         eventId: null,
         userInputs: {
           first_name: true,
