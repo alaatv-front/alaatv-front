@@ -50,7 +50,9 @@ module.exports = configure(function (ctx) {
       'GetRouteSettingFromServer',
       'enums',
       'gtm',
-      'PhosphorIcons'
+      'PhosphorIcons',
+      'gtm',
+      'androidGetOldDb'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -299,7 +301,8 @@ module.exports = configure(function (ctx) {
           // On the other hand, the following completely
           // disables Quasar's back button management.
           backButton: true
-        }
+        },
+        ripple: true
       },
       cssAddon: true,
 
