@@ -1,20 +1,26 @@
 <template>
   <option-panel-tabs v-model:options="localOptions">
     <template #main-tab>
-      <div class="option-panel-container">
-        <div class="row">
+      <div class="option-panel-container q-pt-lg">
+        <div class="row q-col-gutter-md">
           <div class="col-md-4">
+            <div>
+              نوع:
+            </div>
             <q-select v-model="localOptions.apiName"
-                      :options="apiOptions"
-                      label="api" />
+                      :options="apiOptions" />
           </div>
-          <div class="col-md-3 offset-1">
-            <q-input v-model="localOptions.to"
-                     label="to: " />
+          <div class="col-md-4">
+            <div>
+              از:
+            </div>
+            <q-input v-model="localOptions.to" />
           </div>
-          <div class="col-md-3 offset-1">
-            <q-input v-model="localOptions.from"
-                     label="from: " />
+          <div class="col-md-4">
+            <div>
+              تا:
+            </div>
+            <q-input v-model="localOptions.from" />
           </div>
         </div>
       </div>
