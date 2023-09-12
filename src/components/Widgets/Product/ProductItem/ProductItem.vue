@@ -91,7 +91,7 @@ export default defineComponent({
       import('src/components/Widgets/Product/ProductItem/themes/ThemeProduct1.vue')
     ),
     ThemeProduct2: defineAsyncComponent(() =>
-      import('components/Widgets/Product/ProductItem/themes/ThemeDefault.vue')
+      import('components/Widgets/Product/ProductItem/themes/ThemeProduct2.vue')
     )
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
@@ -99,7 +99,7 @@ export default defineComponent({
   data: () => ({
     productRef: 'product' + Date.now(),
     defaultOptions: {
-      theme: 'ThemeDefault',
+      theme: 'ThemeProduct2',
       mobileTheme: 'horizontal',
       style: {},
       borderStyle: {
