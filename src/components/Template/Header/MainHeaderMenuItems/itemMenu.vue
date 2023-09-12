@@ -69,12 +69,12 @@ export default {
   },
   methods: {
     onClick($event) {
+      $event.preventDefault()
+      $event.stopPropagation()
       if (!this.localData.externalLink) {
         return
       }
       window.location.href = this.localData.externalLink
-      $event.preventDefault()
-      $event.stopPropagation()
     },
     editItem (event) {
       event.preventDefault()
