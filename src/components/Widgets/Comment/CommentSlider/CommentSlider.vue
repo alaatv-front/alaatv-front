@@ -177,7 +177,6 @@ export default {
   }
 
   .arrow-left-btn {
-    padding: 4px 8px;
     background: v-bind('localOptions.navigation.goToLeft.color');
     color: v-bind('localOptions.navigation.goToLeft.textColor');
   }
@@ -194,7 +193,6 @@ export default {
   }
 
   .arrow-right-btn {
-    padding: 4px 8px;
     background: v-bind('localOptions.navigation.goToRight.color');
     color: v-bind('localOptions.navigation.goToRight.textColor');
   }
