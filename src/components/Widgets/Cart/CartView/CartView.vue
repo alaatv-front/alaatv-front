@@ -189,7 +189,6 @@
       </div>
     </template>
     <q-dialog v-model="dialogState"
-
               class="delete-dialog">
       <q-card class="delete-dialog-card">
         <q-card-section class="close-button-section">
@@ -430,7 +429,13 @@ export default {
         padding: 0;
         display: flex;
 
+        $orderImageSectionWidth-size-1: 144px;
+        $orderImageSectionWidth-size-2: 110px;
+        $orderImageSectionWidth-size-3: 72px;
+
         .order-image-section {
+          height: $orderImageSectionWidth-size-1;
+          width: $orderImageSectionWidth-size-1;
           padding: 0;
           margin-right: 20px;
 
@@ -438,48 +443,43 @@ export default {
             margin-right: 16px;
           }
 
+          @media screen and (max-width: 1023px) {
+            width: $orderImageSectionWidth-size-2;
+            height: $orderImageSectionWidth-size-2;
+          }
+
           @media screen and (max-width: 599px) {
+            width: $orderImageSectionWidth-size-3;
+            height: $orderImageSectionWidth-size-3;
             margin-right: 8px;
           }
 
           .order-image-container {
-            height: 144px;
-            width: 144px;
+            width: 100%;
             border-radius: 10px;
             background: #F6F9FF;
 
-            @media screen and (max-width: 1023px) {
-              width: 110px;
-              height: 110px;
-            }
-
             @media screen and (max-width: 599px) {
-              width: 72px;
-              height: 72px;
               margin-top: 34px;
             }
 
             .order-image {
-              height: 144px;
-              width: 144px;
+              width: 100%;
               border-radius: 10px;
-
-              @media screen and (max-width: 1023px) {
-                width: 110px;
-                height: 110px;
-              }
-
-              @media screen and (max-width: 599px) {
-                width: 72px;
-                height: 72px;
-              }
             }
           }
         }
 
         .product-text-info {
           flex-direction: column;
-          width: 100%;
+          width: calc( 100% - #{$orderImageSectionWidth-size-1} );
+          @media screen and (max-width: 1023px) {
+            width: calc( 100% - #{$orderImageSectionWidth-size-2} );
+          }
+
+          @media screen and (max-width: 599px) {
+            width: calc( 100% - #{$orderImageSectionWidth-size-3} );
+          }
           .order-item-header {
             display: flex;
             justify-content: space-between;
@@ -889,6 +889,7 @@ export default {
 .delete-dialog {
   .delete-dialog-card {
     width: 348px;
+    max-width: 100%;
     background: #FFFFFF;
     border-radius: 10px;
 
@@ -927,6 +928,11 @@ export default {
       padding: 24px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+
+      @media screen and (max-width: 360px) {
+        justify-content: center;
+      }
 
       .surely-delete-button {
         display: flex;
@@ -968,6 +974,10 @@ export default {
 
         @media screen and (max-width: 599px) {
           width: 122px;
+        }
+
+        @media screen and (max-width: 360px) {
+          margin: 16px 0;
         }
       }
     }
