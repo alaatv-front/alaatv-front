@@ -90,6 +90,7 @@ export default {
   },
   mounted() {
     this.tabModel = 'productTab_0'
+    console.log(this.options)
   },
   methods: {
     changeTab(tabName) {
@@ -123,8 +124,20 @@ export default {
     border-radius: v-bind('options.productTabsBorderRadius');
     padding: v-bind('options.productTabsPadding');
 
-    &:deep(.q-tab) {
-      color: v-bind('options.productTabColor');
+    &:deep(.q-tab--active) {
+      .q-tab__content {
+        .q-tab__label {
+          color: v-bind('options.activeColor') !important;
+        }
+      }
+    }
+
+    &:deep(.q-tab--inactive) {
+      .q-tab__content {
+        .q-tab__label {
+          color: v-bind('options.productTabColor') !important;
+        }
+      }
     }
     .product-tab {
       border-radius: 10px;
