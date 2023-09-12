@@ -9,6 +9,808 @@
                 {
                   "name": "HeaderMenu",
                   "options": {
+                    "rightSectionWidgets": [
+                      {
+                        "name": "TextWidget",
+                        "options": {
+                          "text": "<font face=\"Doran FaNum\">پیشنهاد شگفت انگیز آلاء</font>",
+                          "fontFamily": null,
+                          "color": null,
+                          "fontSize": null,
+                          "fontWeight": null,
+                          "fontStyle": null,
+                          "letterSpacing": null,
+                          "xs": {
+                            "fontSize": null,
+                            "fontWeight": null,
+                            "fontStyle": null,
+                            "lineHeight": null
+                          },
+                          "sm": {
+                            "fontSize": null,
+                            "fontWeight": null,
+                            "fontStyle": null,
+                            "lineHeight": null
+                          },
+                          "md": {
+                            "fontSize": null,
+                            "fontWeight": null,
+                            "fontStyle": null,
+                            "lineHeight": null
+                          },
+                          "lg": {
+                            "fontSize": null,
+                            "fontWeight": null,
+                            "fontStyle": null,
+                            "lineHeight": null
+                          },
+                          "xl": {
+                            "fontSize": "28px",
+                            "fontWeight": null,
+                            "fontStyle": null,
+                            "lineHeight": null
+                          },
+                          "responsiveSpacing": {
+                            "xs": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "sm": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "md": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "lg": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "xl": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            }
+                          },
+                          "hasTheme": null,
+                          "activeTheme": null,
+                          "themes": {
+                            "theme1": {
+                              "borderColor": null,
+                              "borderSize": null,
+                              "borderWidth": null,
+                              "borderHeight": null,
+                              "top": null,
+                              "left": null,
+                              "bottom": null,
+                              "right": null
+                            }
+                          },
+                          "style": {
+                            "image": null,
+                            "marginRight": "279px"
+                          }
+                        }
+                      }
+                    ],
+                    "centerSectionWidgets": [],
+                    "leftSectionWidgets": [
+                      {
+                        "name": "Timer",
+                        "options": {
+                          "time": "1402-06-01 00:00",
+                          "counters": {
+                            "seconds": true,
+                            "minutes": true,
+                            "hours": true,
+                            "days": true
+                          },
+                          "hasTop": {
+                            "xs": false,
+                            "sm": false,
+                            "md": false,
+                            "lg": false,
+                            "xl": false
+                          },
+                          "hasLeft": {
+                            "xs": false,
+                            "sm": false,
+                            "md": false,
+                            "lg": false,
+                            "xl": false
+                          },
+                          "hasRight": {
+                            "xs": true,
+                            "sm": true,
+                            "md": true,
+                            "lg": true,
+                            "xl": true
+                          },
+                          "hasBottom": {
+                            "xs": false,
+                            "sm": false,
+                            "md": false,
+                            "lg": false,
+                            "xl": false
+                          },
+                          "timerStyle": {
+                            "timerColor": null,
+                            "timerBackground": null,
+                            "timerSize": null,
+                            "timerLabelColor": null,
+                            "timerLabelBackground": null,
+                            "timerLabelSize": null,
+                            "secondsBackground": null,
+                            "counterWidth": null,
+                            "counterHeight": null,
+                            "counterMargin": "",
+                            "counterPadding": "",
+                            "counterBorderRadius": null
+                          },
+                          "topComponentOptions": {
+                            "direction": "top"
+                          },
+                          "leftComponentOptions": {
+                            "direction": "left"
+                          },
+                          "rightComponentOptions": {
+                            "type": "text",
+                            "align": "",
+                            "direction": "right",
+                            "actionButtonOptions": {},
+                            "textWidgetOptions": {
+                              "text": "تا پایان<div>تخفیف</div>",
+                              "fontFamily": null,
+                              "color": null,
+                              "fontSize": null,
+                              "fontWeight": null,
+                              "fontStyle": null,
+                              "letterSpacing": null,
+                              "xs": {
+                                "fontSize": null,
+                                "fontWeight": null,
+                                "fontStyle": null,
+                                "lineHeight": null,
+                                "letterSpacing": null
+                              },
+                              "sm": {
+                                "fontSize": null,
+                                "fontWeight": null,
+                                "fontStyle": null,
+                                "lineHeight": null,
+                                "letterSpacing": null
+                              },
+                              "md": {
+                                "fontSize": null,
+                                "fontWeight": null,
+                                "fontStyle": null,
+                                "lineHeight": null,
+                                "letterSpacing": null
+                              },
+                              "lg": {
+                                "fontSize": null,
+                                "fontWeight": null,
+                                "fontStyle": null,
+                                "lineHeight": null,
+                                "letterSpacing": null
+                              },
+                              "xl": {
+                                "fontSize": null,
+                                "fontWeight": null,
+                                "fontStyle": null,
+                                "lineHeight": null,
+                                "letterSpacing": null
+                              },
+                              "responsiveSpacing": {
+                                "xs": {
+                                  "marginTop": null,
+                                  "marginLeft": null,
+                                  "marginRight": null,
+                                  "marginBottom": null,
+                                  "paddingTop": null,
+                                  "paddingLeft": null,
+                                  "paddingRight": null,
+                                  "paddingBottom": null
+                                },
+                                "sm": {
+                                  "marginTop": null,
+                                  "marginLeft": null,
+                                  "marginRight": null,
+                                  "marginBottom": null,
+                                  "paddingTop": null,
+                                  "paddingLeft": null,
+                                  "paddingRight": null,
+                                  "paddingBottom": null
+                                },
+                                "md": {
+                                  "marginTop": null,
+                                  "marginLeft": null,
+                                  "marginRight": null,
+                                  "marginBottom": null,
+                                  "paddingTop": null,
+                                  "paddingLeft": null,
+                                  "paddingRight": null,
+                                  "paddingBottom": null
+                                },
+                                "lg": {
+                                  "marginTop": null,
+                                  "marginLeft": null,
+                                  "marginRight": null,
+                                  "marginBottom": null,
+                                  "paddingTop": null,
+                                  "paddingLeft": null,
+                                  "paddingRight": null,
+                                  "paddingBottom": null
+                                },
+                                "xl": {
+                                  "marginTop": null,
+                                  "marginLeft": null,
+                                  "marginRight": null,
+                                  "marginBottom": null,
+                                  "paddingTop": null,
+                                  "paddingLeft": null,
+                                  "paddingRight": null,
+                                  "paddingBottom": null
+                                }
+                              },
+                              "hasTheme": null,
+                              "activeTheme": null,
+                              "themes": {
+                                "theme1": {
+                                  "borderColor": null,
+                                  "borderSize": null,
+                                  "borderWidth": null,
+                                  "borderHeight": null,
+                                  "top": null,
+                                  "left": null,
+                                  "bottom": null,
+                                  "right": null
+                                }
+                              },
+                              "style": {}
+                            },
+                            "imageWidgetOptions": {},
+                            "style": {
+                              "image": null,
+                              "marginLeft": "25.5px"
+                            }
+                          },
+                          "bottomComponentOptions": {
+                            "direction": "bottom"
+                          },
+                          "borderStyle": {
+                            "borderCssString": "",
+                            "borderRadiusCssString": ""
+                          },
+                          "boxShadows": [],
+                          "cssHoverEffects": {
+                            "boxShadows": [],
+                            "borderStyle": {
+                              "borderCssString": "",
+                              "borderRadiusCssString": ""
+                            },
+                            "transition": {
+                              "time": 0
+                            },
+                            "transform": {
+                              "rotate": 0,
+                              "scaleX": 1,
+                              "scaleY": 1,
+                              "skewX": 0,
+                              "skewY": 0,
+                              "translateX": 0,
+                              "translateY": 0
+                            }
+                          },
+                          "style": {
+                            "image": null,
+                            "marginLeft": "279px"
+                          }
+                        }
+                      }
+                    ],
+                    "sticky": true,
+                    "stickyClass": "salam",
+                    "salam": "",
+                    "style": {
+                      "image": null,
+                      "color": "rgba(255,255,255,1)",
+                      "size": "cover",
+                      "repeat": "no-repeat",
+                      "position": "center center"
+                    },
+                    "className": "",
+                    "backgrounds": {
+                      "xs": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "sm": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "md": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "lg": {
+                        "size": null,
+                        "color": null,
+                        "image": null,
+                        "repeat": null,
+                        "position": null,
+                        "attachment": null
+                      },
+                      "xl": {
+                        "size": "cover",
+                        "color": "",
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/Rectangle%2044.png')",
+                        "repeat": "no-repeat",
+                        "position": "center center",
+                        "attachment": null
+                      }
+                    },
+                    "menuLink": [],
+                    "logoImage": null,
+                    "logoSlogan": null,
+                    "hasAction": false,
+                    "actionObject": {
+                      "buttonLabel": null,
+                      "type": null,
+                      "scrollTo": null,
+                      "route": null,
+                      "eventName": null,
+                      "eventArgs": null
+                    }
+                  }
+                }
+              ],
+              "options": {
+                "colNumber": "col",
+                "style": {
+                  "image": null,
+                  "color": "rgba(56,219,31,0.72)"
+                },
+                "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
+                "borderStyle": {
+                  "borderCssString": "",
+                  "borderRadiusCssString": ""
+                },
+                "cssHoverEffects": {
+                  "boxShadows": [],
+                  "borderStyle": {
+                    "borderCssString": "",
+                    "borderRadiusCssString": ""
+                  },
+                  "transition": {
+                    "time": 0
+                  },
+                  "transform": {
+                    "rotate": null,
+                    "scaleX": null,
+                    "scaleY": null,
+                    "skewX": null,
+                    "skewY": null,
+                    "translateX": null,
+                    "translateY": null
+                  }
+                },
+                "responsiveShow": {
+                  "xl": true,
+                  "lg": true,
+                  "md": true,
+                  "sm": true,
+                  "xs": true
+                },
+                "className": ""
+              }
+            }
+          ],
+          "options": {
+            "className": "",
+            "height": "auto",
+            "boxed": false,
+            "boxedWidth": "1380",
+            "gutterXSize": null,
+            "gutterYSize": null,
+            "absolute": "none",
+            "backgrounds": {
+              "xs": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "sm": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "md": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "lg": {
+                "size": null,
+                "color": null,
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              },
+              "xl": {
+                "size": null,
+                "color": "",
+                "image": null,
+                "repeat": null,
+                "position": null,
+                "attachment": null
+              }
+            },
+            "responsiveSpacing": {
+              "xs": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "sm": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "md": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "lg": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              },
+              "xl": {
+                "marginTop": null,
+                "marginLeft": null,
+                "marginRight": null,
+                "marginBottom": null,
+                "paddingTop": null,
+                "paddingLeft": null,
+                "paddingRight": null,
+                "paddingBottom": null
+              }
+            },
+            "paddingOfBoxedInFullWidth": "30px",
+            "boxShadows": [],
+            "borderStyle": {
+              "borderCssString": "",
+              "borderRadiusCssString": ""
+            },
+            "cssHoverEffects": {
+              "boxShadows": [],
+              "borderStyle": {
+                "borderCssString": "",
+                "borderRadiusCssString": ""
+              },
+              "transition": {
+                "time": 0
+              },
+              "transform": {
+                "rotate": null,
+                "scaleX": null,
+                "scaleY": null,
+                "skewX": null,
+                "skewY": null,
+                "translateX": null,
+                "translateY": null
+              }
+            },
+            "responsiveShow": {
+              "xl": true,
+              "lg": true,
+              "md": true,
+              "sm": true,
+              "xs": true
+            },
+            "alignment": {
+              "justifyContent": {
+                "global": null,
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              },
+              "alignItems": {
+                "global": null,
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              },
+              "alignContent": {
+                "global": null,
+                "xl": null,
+                "lg": null,
+                "md": null,
+                "sm": null,
+                "xs": null
+              }
+            },
+            "style": {
+              "maxWidth": null,
+              "width": null,
+              "image": null,
+              "color": "rgba(53,222,27,0.72)"
+            }
+          }
+        }
+      ]
+    },
+    "options": {
+      "fullHeight": false,
+      "className": "",
+      "backgrounds": {
+        "xs": {
+          "size": null,
+          "color": null,
+          "image": null,
+          "repeat": null,
+          "position": null,
+          "attachment": null
+        },
+        "sm": {
+          "size": null,
+          "color": null,
+          "image": null,
+          "repeat": null,
+          "position": null,
+          "attachment": null
+        },
+        "md": {
+          "size": null,
+          "color": "",
+          "image": null,
+          "repeat": null,
+          "position": null,
+          "attachment": null
+        },
+        "lg": {
+          "size": null,
+          "color": "",
+          "image": null,
+          "repeat": null,
+          "position": null,
+          "attachment": null
+        },
+        "xl": {
+          "size": "contain",
+          "color": "",
+          "image": null,
+          "repeat": "no-repeat",
+          "position": "center center",
+          "attachment": null
+        }
+      },
+      "responsiveSpacing": {
+        "xs": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "sm": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "md": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "lg": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        },
+        "xl": {
+          "marginTop": null,
+          "marginLeft": null,
+          "marginRight": null,
+          "marginBottom": null,
+          "paddingTop": null,
+          "paddingLeft": null,
+          "paddingRight": null,
+          "paddingBottom": null
+        }
+      },
+      "style": {
+        "minHeight": "auto"
+      },
+      "boxShadows": [],
+      "borderStyle": {
+        "borderCssString": "",
+        "borderRadiusCssString": ""
+      },
+      "cssHoverEffects": {
+        "boxShadows": [],
+        "borderStyle": {
+          "borderCssString": "",
+          "borderRadiusCssString": ""
+        },
+        "transition": {
+          "time": 0
+        },
+        "transform": {
+          "rotate": null,
+          "scaleX": null,
+          "scaleY": null,
+          "skewX": null,
+          "skewY": null,
+          "translateX": null,
+          "translateY": null
+        }
+      },
+      "responsiveShow": {
+        "xl": true,
+        "lg": true,
+        "md": true,
+        "sm": true,
+        "xs": true
+      },
+      "verticalAlign": "center"
+    }
+  },
+  {
+    "data": {
+      "rows": [
+        {
+          "cols": [
+            {
+              "widgets": [
+                {
+                  "name": "HeaderMenu",
+                  "options": {
                     "rightSectionWidgets": [],
                     "centerSectionWidgets": [],
                     "leftSectionWidgets": [],
@@ -52,7 +854,92 @@
                     "actionButtonLabel": "ثبت نام"
                   }
                 }
-              ]
+              ],
+              "options": {
+                "colNumber": "col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12",
+                "style": {},
+                "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
+                "borderStyle": {
+                  "borderCssString": "",
+                  "borderRadiusCssString": ""
+                },
+                "cssHoverEffects": {
+                  "boxShadows": [],
+                  "borderStyle": {
+                    "borderCssString": "",
+                    "borderRadiusCssString": ""
+                  },
+                  "transition": {
+                    "time": 0
+                  },
+                  "transform": {
+                    "rotate": null,
+                    "scaleX": null,
+                    "scaleY": null,
+                    "skewX": null,
+                    "skewY": null,
+                    "translateX": null,
+                    "translateY": null
+                  }
+                },
+                "responsiveShow": {
+                  "xl": true,
+                  "lg": true,
+                  "md": true,
+                  "sm": true,
+                  "xs": true
+                },
+                "className": ""
+              }
             }
           ],
           "options": {
@@ -448,7 +1335,9 @@
                     },
                     "style": {
                       "marginTop": "40px",
-                      "marginBottom": "60px"
+                      "marginBottom": "60px",
+                      "image": null,
+                      "color": "rgba(53,240,24,0.72)"
                     }
                   }
                 },
@@ -1560,46 +2449,46 @@
     },
     "options": {
       "fullHeight": true,
-      "className": "",
+      "className": "salam",
       "backgrounds": {
         "xs": {
-          "size": "contain",
-          "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/350.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "size": null,
+          "color": null,
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         },
         "sm": {
-          "size": "contain",
-          "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/600.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "size": null,
+          "color": null,
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         },
         "md": {
-          "size": "contain",
-          "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1024.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "size": null,
+          "color": "",
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         },
         "lg": {
-          "size": "contain",
+          "size": null,
           "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1024.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "image": null,
+          "repeat": null,
+          "position": null,
           "attachment": null
         },
         "xl": {
-          "size": "contain",
+          "size": null,
           "color": "rgba(255,247,238,1)",
-          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/1920%20%25%201440.png')",
-          "repeat": "no-repeat",
-          "position": "center top",
+          "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/header1920%20%25%201440.png')",
+          "repeat": null,
+          "position": null,
           "attachment": null
         }
       },
@@ -2253,21 +3142,10 @@
                         "right": null
                       }
                     },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
-                      }
-                    },
-                    "style": {}
+                    "style": {
+                      "image": null,
+                      "color": "rgba(58,222,33,0.72)"
+                    }
                   }
                 },
                 {
@@ -2365,20 +3243,6 @@
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
                       }
                     },
                     "hasTheme": null,
@@ -2519,12 +3383,13 @@
                     },
                     "description": "",
                     "descriptionOptions": {
-                      "text": "<font color=\"#424242\">با برنامه مطالعاتی دقیق و مرحله به مرحله به همراه مشاوره در کنار دبیران برتر آلا</font><div><font color=\"#424242\"><br></font></div>",
+                      "text": "<font color=\"#424242\">با برنامه مطالعاتی دقیق و مرحله به مرحله به همراه مشاوره در کنار دبیران برتر آلا</font>",
                       "fontFamily": null,
                       "color": null,
                       "fontSize": null,
                       "fontWeight": null,
                       "fontStyle": null,
+                      "letterSpacing": null,
                       "xs": {
                         "fontSize": null,
                         "fontWeight": null,
@@ -2554,6 +3419,58 @@
                         "fontWeight": null,
                         "fontStyle": null,
                         "lineHeight": null
+                      },
+                      "responsiveSpacing": {
+                        "xs": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "sm": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "md": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "lg": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "xl": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        }
                       },
                       "hasTheme": null,
                       "activeTheme": null,
@@ -2592,18 +3509,18 @@
                         "eventArgs": null
                       },
                       "xs": {
-                        "height": null,
-                        "width": null,
+                        "height": "84px",
+                        "width": "84px",
                         "src": null
                       },
                       "sm": {
-                        "height": null,
-                        "width": null,
+                        "height": "96px",
+                        "width": "96px",
                         "src": null
                       },
                       "md": {
-                        "height": null,
-                        "width": null,
+                        "height": "120px",
+                        "width": "120px",
                         "src": null
                       },
                       "lg": {
@@ -2694,7 +3611,8 @@
                       },
                       "style": {
                         "paddingBottom": "",
-                        "marginBottom": "30px"
+                        "marginBottom": "",
+                        "image": null
                       }
                     },
                     "horizontal": {
@@ -2707,7 +3625,7 @@
                     "theme": "theme1",
                     "backgrounds": {
                       "xs": {
-                        "size": "contain",
+                        "size": "cover",
                         "color": null,
                         "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur350.png')",
                         "repeat": "no-repeat",
@@ -2715,7 +3633,7 @@
                         "attachment": null
                       },
                       "sm": {
-                        "size": "contain",
+                        "size": "cover",
                         "color": null,
                         "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur600.png')",
                         "repeat": "no-repeat",
@@ -2723,7 +3641,7 @@
                         "attachment": null
                       },
                       "md": {
-                        "size": "contain",
+                        "size": "cover",
                         "color": null,
                         "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur1200.png')",
                         "repeat": "repeat",
@@ -2731,15 +3649,15 @@
                         "attachment": null
                       },
                       "lg": {
-                        "size": "contain",
+                        "size": "cover",
                         "color": null,
-                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur1200.png')",
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
                         "repeat": "no-repeat",
                         "position": "center bottom",
                         "attachment": null
                       },
                       "xl": {
-                        "size": "contain",
+                        "size": "cover",
                         "color": null,
                         "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
                         "repeat": "no-repeat",
@@ -2846,11 +3764,11 @@
                     },
                     "style": {
                       "marginTop": "",
-                      "paddingTop": "13px",
-                      "paddingLeft": "24px",
-                      "paddingRight": "24px",
-                      "paddingBottom": "42px",
-                      "marginLeft": "auto",
+                      "paddingTop": "",
+                      "paddingLeft": "",
+                      "paddingRight": "",
+                      "paddingBottom": "",
+                      "marginLeft": "",
                       "marginRight": "auto",
                       "image": null
                     }
@@ -2902,20 +3820,6 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": {
-                      "xl": "280px",
-                      "lg": "280px",
-                      "md": "100%",
-                      "sm": "100%",
-                      "xs": "100%"
-                    },
-                    "height": {
-                      "xl": "400px",
-                      "lg": "400px",
-                      "md": "100%",
-                      "sm": "100%",
-                      "xs": "100%"
-                    },
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">تسلط بر تمام مباحث</font>",
@@ -3053,18 +3957,18 @@
                         "eventArgs": null
                       },
                       "xs": {
-                        "height": null,
-                        "width": null,
+                        "height": "84px",
+                        "width": "84px",
                         "src": null
                       },
                       "sm": {
-                        "height": null,
-                        "width": null,
+                        "height": "96px",
+                        "width": "96px",
                         "src": null
                       },
                       "md": {
-                        "height": null,
-                        "width": null,
+                        "height": "120px",
+                        "width": "120px",
                         "src": null
                       },
                       "lg": {
@@ -3076,6 +3980,58 @@
                         "height": "160px",
                         "width": "160px",
                         "src": null
+                      },
+                      "responsiveSpacing": {
+                        "xs": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "sm": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "md": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "lg": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "xl": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        }
                       },
                       "borderStyle": {
                         "borderCssString": "",
@@ -3103,7 +4059,8 @@
                       },
                       "style": {
                         "paddingBottom": "",
-                        "marginBottom": "30px"
+                        "marginBottom": "",
+                        "image": null
                       }
                     },
                     "horizontal": {
@@ -3116,39 +4073,39 @@
                     "theme": "theme1",
                     "backgrounds": {
                       "xs": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur350.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "sm": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur600.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "md": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur1200.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "lg": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "xl": {
-                        "size": "contain",
+                        "size": "cover",
                         "color": null,
                         "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
                         "repeat": "no-repeat",
@@ -3239,14 +4196,29 @@
                         "translateY": -60
                       }
                     },
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
                     "style": {
                       "marginTop": "",
-                      "paddingTop": "13px",
-                      "paddingLeft": "24px",
-                      "paddingRight": "24px",
-                      "paddingBottom": "42px",
-                      "marginLeft": "auto",
-                      "marginRight": "auto"
+                      "paddingTop": "",
+                      "paddingLeft": "",
+                      "paddingRight": "",
+                      "paddingBottom": "",
+                      "marginLeft": "",
+                      "marginRight": "",
+                      "image": null
                     }
                   }
                 }
@@ -3296,20 +4268,6 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": {
-                      "xl": "280px",
-                      "lg": "280px",
-                      "md": "100%",
-                      "sm": "100%",
-                      "xs": "100%"
-                    },
-                    "height": {
-                      "xl": "400px",
-                      "lg": "400px",
-                      "md": "100%",
-                      "sm": "100%",
-                      "xs": "100%"
-                    },
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">فراگیری‌انواع‌تیپ‌تست‌ها</font>",
@@ -3447,18 +4405,18 @@
                         "eventArgs": null
                       },
                       "xs": {
-                        "height": null,
-                        "width": null,
+                        "height": "84px",
+                        "width": "84px",
                         "src": null
                       },
                       "sm": {
-                        "height": null,
-                        "width": null,
+                        "height": "96px",
+                        "width": "96px",
                         "src": null
                       },
                       "md": {
-                        "height": null,
-                        "width": null,
+                        "height": "120px",
+                        "width": "120px",
                         "src": null
                       },
                       "lg": {
@@ -3470,6 +4428,58 @@
                         "height": "160px",
                         "width": "160px",
                         "src": null
+                      },
+                      "responsiveSpacing": {
+                        "xs": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "sm": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "md": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "lg": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "xl": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        }
                       },
                       "borderStyle": {
                         "borderCssString": "",
@@ -3497,7 +4507,8 @@
                       },
                       "style": {
                         "paddingBottom": "",
-                        "marginBottom": "30px"
+                        "marginBottom": "",
+                        "image": null
                       }
                     },
                     "horizontal": {
@@ -3510,39 +4521,39 @@
                     "theme": "theme1",
                     "backgrounds": {
                       "xs": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur350.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "sm": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur600.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "md": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur1200.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "lg": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "xl": {
-                        "size": "contain",
+                        "size": "cover",
                         "color": null,
                         "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
                         "repeat": "no-repeat",
@@ -3633,14 +4644,29 @@
                         "translateY": -60
                       }
                     },
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": "100%"
+                    },
                     "style": {
                       "marginTop": "",
-                      "paddingTop": "13px",
-                      "paddingLeft": "24px",
-                      "paddingRight": "24px",
-                      "paddingBottom": "42px",
-                      "marginLeft": "auto",
-                      "marginRight": "auto"
+                      "paddingTop": "",
+                      "paddingLeft": "",
+                      "paddingRight": "",
+                      "paddingBottom": "",
+                      "marginLeft": "",
+                      "marginRight": "",
+                      "image": null
                     }
                   }
                 }
@@ -3690,20 +4716,6 @@
                 {
                   "name": "FeatureBox",
                   "options": {
-                    "width": {
-                      "xl": "280px",
-                      "lg": "280px",
-                      "md": "100%",
-                      "sm": "100%",
-                      "xs": ""
-                    },
-                    "height": {
-                      "xl": "400px",
-                      "lg": "400px",
-                      "md": "100%",
-                      "sm": "100%",
-                      "xs": ""
-                    },
                     "title": "",
                     "titleOptions": {
                       "text": "<font color=\"#ff8518\" face=\"Doran FaNum\">ارزیابی و پیشرفت</font>",
@@ -3841,18 +4853,18 @@
                         "eventArgs": null
                       },
                       "xs": {
-                        "height": null,
-                        "width": null,
+                        "height": "84px",
+                        "width": "84px",
                         "src": null
                       },
                       "sm": {
-                        "height": null,
-                        "width": null,
+                        "height": "96px",
+                        "width": "96px",
                         "src": null
                       },
                       "md": {
-                        "height": null,
-                        "width": null,
+                        "height": "120px",
+                        "width": "120px",
                         "src": null
                       },
                       "lg": {
@@ -3864,6 +4876,58 @@
                         "height": "160px",
                         "width": "160px",
                         "src": null
+                      },
+                      "responsiveSpacing": {
+                        "xs": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "sm": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "md": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "lg": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        },
+                        "xl": {
+                          "marginTop": null,
+                          "marginLeft": null,
+                          "marginRight": null,
+                          "marginBottom": null,
+                          "paddingTop": null,
+                          "paddingLeft": null,
+                          "paddingRight": null,
+                          "paddingBottom": null
+                        }
                       },
                       "borderStyle": {
                         "borderCssString": "",
@@ -3891,7 +4955,8 @@
                       },
                       "style": {
                         "paddingBottom": "",
-                        "marginBottom": "30px"
+                        "marginBottom": "",
+                        "image": null
                       }
                     },
                     "horizontal": {
@@ -3904,39 +4969,39 @@
                     "theme": "theme1",
                     "backgrounds": {
                       "xs": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur350.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "sm": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur600.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "md": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/featur1200.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "lg": {
-                        "size": null,
+                        "size": "cover",
                         "color": null,
-                        "image": null,
-                        "repeat": null,
-                        "position": null,
+                        "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
+                        "repeat": "no-repeat",
+                        "position": "center bottom",
                         "attachment": null
                       },
                       "xl": {
-                        "size": "contain",
+                        "size": "cover",
                         "color": null,
                         "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/feature1920%261440.png')",
                         "repeat": "no-repeat",
@@ -4027,14 +5092,29 @@
                         "translateY": -60
                       }
                     },
+                    "width": {
+                      "xl": "280px",
+                      "lg": "280px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
+                    "height": {
+                      "xl": "400px",
+                      "lg": "400px",
+                      "md": "100%",
+                      "sm": "100%",
+                      "xs": ""
+                    },
                     "style": {
                       "marginTop": "",
-                      "paddingTop": "13px",
-                      "paddingLeft": "24px",
-                      "paddingRight": "24px",
-                      "paddingBottom": "42px",
-                      "marginLeft": "auto",
-                      "marginRight": "auto"
+                      "paddingTop": "",
+                      "paddingLeft": "",
+                      "paddingRight": "",
+                      "paddingBottom": "",
+                      "marginLeft": "",
+                      "marginRight": "",
+                      "image": null
                     }
                   }
                 }
@@ -4085,8 +5165,8 @@
             "height": "auto",
             "boxed": true,
             "boxedWidth": "1380",
-            "gutterXSize": "xs",
-            "gutterYSize": "xl",
+            "gutterXSize": "xl",
+            "gutterYSize": "xs",
             "absolute": "none",
             "backgrounds": {
               "xs": {
@@ -4263,7 +5343,8 @@
               "backgroundImage": "",
               "backgroundPosition": "",
               "backgroundRepeat": "",
-              "backgroundSize": ""
+              "backgroundSize": "",
+              "image": null
             }
           }
         },
@@ -4494,20 +5575,6 @@
                         "right": null
                       }
                     },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
-                      }
-                    },
                     "style": {}
                   }
                 },
@@ -4606,20 +5673,6 @@
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
                       }
                     },
                     "hasTheme": null,
@@ -5368,20 +6421,6 @@
                         "right": null
                       }
                     },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
-                      }
-                    },
                     "style": {}
                   }
                 },
@@ -5480,20 +6519,6 @@
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
                       }
                     },
                     "hasTheme": null,
@@ -5793,6 +6818,58 @@
                       "borderRadiusCssString": ""
                     },
                     "boxShadows": [],
+                    "responsiveSpacing": {
+                      "xs": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "sm": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "md": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "lg": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      },
+                      "xl": {
+                        "marginTop": null,
+                        "marginLeft": null,
+                        "marginRight": null,
+                        "marginBottom": null,
+                        "paddingTop": null,
+                        "paddingLeft": null,
+                        "paddingRight": null,
+                        "paddingBottom": null
+                      }
+                    },
                     "cssHoverEffects": {
                       "boxShadows": [],
                       "borderStyle": {
@@ -5812,7 +6889,13 @@
                         "translateY": 0
                       }
                     },
-                    "style": {}
+                    "style": {
+                      "image": null,
+                      "paddingTop": "30px",
+                      "paddingBottom": "30px",
+                      "paddingLeft": "30px",
+                      "paddingRight": "30px"
+                    }
                   }
                 }
               ],
@@ -6643,20 +7726,6 @@
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
                       }
                     },
                     "hasTheme": null,
@@ -14272,20 +15341,6 @@
                         "right": null
                       }
                     },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
-                      }
-                    },
                     "style": {}
                   }
                 },
@@ -14383,20 +15438,6 @@
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
                       }
                     },
                     "hasTheme": null,
@@ -14804,20 +15845,6 @@
                         "right": null
                       }
                     },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
-                      }
-                    },
                     "style": {}
                   }
                 },
@@ -14916,20 +15943,6 @@
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
                       }
                     },
                     "hasTheme": null,
@@ -15430,20 +16443,6 @@
                         "right": null
                       }
                     },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
-                      }
-                    },
                     "style": {}
                   }
                 },
@@ -15542,20 +16541,6 @@
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
                       }
                     },
                     "hasTheme": null,
@@ -16138,20 +17123,6 @@
                         "right": null
                       }
                     },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
-                      }
-                    },
                     "style": {}
                   }
                 },
@@ -16250,20 +17221,6 @@
                         "paddingLeft": null,
                         "paddingRight": null,
                         "paddingBottom": null
-                      }
-                    },
-                    "hasTheme": null,
-                    "activeTheme": null,
-                    "themes": {
-                      "theme1": {
-                        "borderColor": null,
-                        "borderSize": null,
-                        "borderWidth": null,
-                        "borderHeight": null,
-                        "top": null,
-                        "left": null,
-                        "bottom": null,
-                        "right": null
                       }
                     },
                     "hasTheme": null,
@@ -17163,7 +18120,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": "",
+                    "className": null,
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -17174,65 +18131,15 @@
                     "eventName": null,
                     "style": {
                       "background": "",
-                      "color": "#424242",
-                      "image": null
+                      "color": "#424242"
                     }
                   }
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
-                "backgrounds": {
-                  "xs": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "sm": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "md": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "lg": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "xl": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  }
-                },
-                "responsiveOrder": {
-                  "xs": null,
-                  "sm": null,
-                  "md": null,
-                  "lg": null,
-                  "xl": null
-                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -17263,7 +18170,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "text-center"
+                "className": ""
               }
             },
             {
@@ -17277,7 +18184,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": "text-center",
+                    "className": null,
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -17294,58 +18201,9 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
-                "backgrounds": {
-                  "xs": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "sm": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "md": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "lg": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "xl": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  }
-                },
-                "responsiveOrder": {
-                  "xs": null,
-                  "sm": null,
-                  "md": null,
-                  "lg": null,
-                  "xl": null
-                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -17376,7 +18234,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "text-center"
+                "className": ""
               }
             },
             {
@@ -17390,7 +18248,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": "text-center",
+                    "className": null,
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -17407,58 +18265,9 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
-                "backgrounds": {
-                  "xs": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "sm": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "md": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "lg": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "xl": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  }
-                },
-                "responsiveOrder": {
-                  "xs": null,
-                  "sm": null,
-                  "md": null,
-                  "lg": null,
-                  "xl": null
-                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -17489,7 +18298,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "text-center"
+                "className": ""
               }
             },
             {
@@ -17503,7 +18312,7 @@
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": "text-center",
+                    "className": null,
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -17520,58 +18329,9 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
-                "backgrounds": {
-                  "xs": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "sm": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "md": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "lg": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  },
-                  "xl": {
-                    "size": null,
-                    "color": null,
-                    "image": null,
-                    "repeat": null,
-                    "position": null,
-                    "attachment": null
-                  }
-                },
-                "responsiveOrder": {
-                  "xs": null,
-                  "sm": null,
-                  "md": null,
-                  "lg": null,
-                  "xl": null
-                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -17602,7 +18362,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": "text-center"
+                "className": ""
               }
             }
           ],
