@@ -90,7 +90,6 @@ export default {
   },
   mounted() {
     this.tabModel = 'productTab_0'
-    console.log(this.options)
   },
   methods: {
     changeTab(tabName) {
