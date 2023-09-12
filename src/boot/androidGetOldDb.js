@@ -133,63 +133,63 @@ export default boot(({ store }) => {
   const user = store.getters['Auth/user']
   const userId = user.id
   const isNativeApp = Capacitor.isNativePlatform()
-  if (isNativeApp && Capacitor.getPlatform() === 'android') {
-    checkSharedKeyDatabase()
-      .then((value) => {
-        console.error('value is : ', value)
-        if ((value && value === 'DataIsSent') || !userId) {
-          return
-        }
-        initializeDatabase()
-          .then(() => {
-            tables.forEach(tableName => {
-              promises.push(new Promise((resolve, reject) => {
-                fetchValuesFromTable(tableName)
-                  .then((values) => {
-                    oldDbData[tableName] = values
-                    resolve()
-                  })
-                  .catch(() => {
-                    reject()
-                  })
-              }))
-            })
-            Promise.all(promises)
-              .then((values) => {
-                CapacitorSQLite.close({
-                  database: oldDbName
-                })
-                const sendData = {
-                  user_id: userId,
-                  watches: mergeWatchedContentTables(oldDbData.completedSeenContent, oldDbData.contentWatchTime),
-                  bookmark: mergeBookmarkedTables(oldDbData.bookmark, oldDbData.customBookMark, oldDbData.bookMarkFolders)
-                }
-                const userAgent = window.navigator.userAgent
-                APIGateway.user.sendOldAndroidDatabase({
-                  key: userAgent,
-                  value: JSON.stringify(sendData)
-                })
-                  .then(() => {
-                    // ToDo: remove old database file
-                    setSharedKeyDatabase().then(() => {
-                      console.error('sharedKey set Successfully!')
-                    }).catch()
-                    console.error('Old Native Database sent successfully!', JSON.stringify(sendData))
-                  })
-                  .catch(() => {
-                    console.error('Error sending data!', JSON.stringify(sendData))
-                  })
-              })
-              .catch(() => {
-                CapacitorSQLite.close({
-                  database: oldDbName
-                })
-                console.error('Error in fetch values')
-              })
-          })
-          .catch(() => {
-            console.error('Error in initializeDatabase')
-          })
-      }).catch()
+  if (!isNativeApp || Capacitor.getPlatform() !== 'android') {
+    return
   }
+  checkSharedKeyDatabase()
+    .then((value) => {
+      console.error('value is : ', value)
+      if ((value && value === 'DataIsSent') || !userId) {
+        return
+      }
+      initializeDatabase()
+        .then(() => {
+          tables.forEach(tableName => {
+            promises.push(new Promise((resolve, reject) => {
+              fetchValuesFromTable(tableName)
+                .then((values) => {
+                  oldDbData[tableName] = values
+                  resolve()
+                })
+                .catch(() => {
+                  reject()
+                })
+            }))
+          })
+          Promise.all(promises)
+            .then((values) => {
+              CapacitorSQLite.close({
+                database: oldDbName
+              })
+              const sendData = {
+                user_id: userId,
+                watches: mergeWatchedContentTables(oldDbData.completedSeenContent, oldDbData.contentWatchTime),
+                bookmark: mergeBookmarkedTables(oldDbData.bookmark, oldDbData.customBookMark, oldDbData.bookMarkFolders)
+              }
+              const userAgent = window.navigator.userAgent
+              APIGateway.user.sendOldAndroidDatabase({
+                key: userAgent,
+                value: JSON.stringify(sendData)
+              })
+                .then(() => {
+                  setSharedKeyDatabase().then(() => {
+                    console.error('sharedKey set Successfully!')
+                  }).catch()
+                  console.error('Old Native Database sent successfully!', JSON.stringify(sendData))
+                })
+                .catch(() => {
+                  console.error('Error sending data!', JSON.stringify(sendData))
+                })
+            })
+            .catch(() => {
+              CapacitorSQLite.close({
+                database: oldDbName
+              })
+              console.error('Error in fetch values')
+            })
+        })
+        .catch(() => {
+          console.error('Error in initializeDatabase')
+        })
+    }).catch()
 })

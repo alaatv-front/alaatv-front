@@ -49,7 +49,6 @@ module.exports = configure(function (ctx) {
       'routesLayoutConfigs',
       'GetRouteSettingFromServer',
       'enums',
-      'gtm',
       'PhosphorIcons',
       'gtm',
       'androidGetOldDb'
