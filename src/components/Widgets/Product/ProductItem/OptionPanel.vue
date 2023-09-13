@@ -5,11 +5,13 @@
                      :show-border-style-tab="true">
     <template #main-tab>
       <div class="option-panel-container">
-        <div class="row">
+        <div class="row ض-زخم-لعففثق">
           <div class="col-md-6 q-mt-md">
             <div>تم محصول</div>
             <q-select v-model="localOptions.theme"
                       :options="themeOptions"
+                      emit-value
+                      map-options
                       option-label="title"
                       option-value="value"
                       label="theme" />
@@ -18,6 +20,8 @@
             <div>تم محصول در حالت موبایل</div>
             <q-select v-model="localOptions.mobileTheme"
                       :options="mobileThemeOptions"
+                      emit-value
+                      map-options
                       option-label="title"
                       option-value="value"
                       label="theme" />
