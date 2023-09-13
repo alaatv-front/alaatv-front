@@ -43,6 +43,7 @@ export default class UserAPI extends APIRepository {
       saveExam: '/user/exam-save',
       settingUserStore: '/setting/uesrStore',
       sendWatchedContents: '/watched-bulk',
+      sendFavorableList: '/favorable-list',
       admin: {
         create: {
           base: '/admin/user'
@@ -654,9 +655,11 @@ export default class UserAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.sendFavorableList,
-      data,
+      data: this.getNormalizedSendData({
+        favorableId: null // Int id such as (productId-contentId-setId)
+      }, data),
       resolveCallback: (response) => {
-        return response.data
+        return response.data.data
       },
       rejectCallback: (error) => {
         return error
@@ -669,9 +672,13 @@ export default class UserAPI extends APIRepository {
       apiMethod: 'post',
       api: this.api,
       request: this.APIAdresses.sendWatchedContents,
-      data,
+      data: this.getNormalizedSendData({
+        watchable_id: null, // Int
+        seconds_watched: null, // Int
+        completely_watched: 0 // 0 : watched completely & 1 : watched completed and second_watched Value is null
+      }, data),
       resolveCallback: (response) => {
-        return response.data
+        return response.data // Array of Null: []
       },
       rejectCallback: (error) => {
         return error
