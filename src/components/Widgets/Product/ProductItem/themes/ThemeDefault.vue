@@ -64,18 +64,12 @@
           </router-link>
         </div>
         <q-separator class="action-separator" />
-        <q-btn v-if="localOptions.canAddToCart"
-               unelevated
-               :flat="localOptions.theme === 'theme2'"
-               :loading="cart.loading"
-               :productId="product.id"
-               :data-product-id="product.id"
-               class="add-to-cart-btn"
-               :class="localOptions.theme"
-               @click="addToCart">
+        <router-link class="link-to-product-page text-center"
+                     :class="localOptions.theme"
+                     :to="{name: 'Public.Product.Show', params: {id: product.id} }">
           <span class="btn-text">مشاهده دوره</span>
           <q-icon name="west" />
-        </q-btn>
+        </router-link>
       </div>
       <div v-if="localOptions.customAction"
            class="action-box">
@@ -152,9 +146,6 @@ export default defineComponent({
   },
   emits: ['addToCart', 'customActionClicked', 'productClicked', 'handleProductBookmark'],
   methods: {
-    addToCart() {
-      this.$emit('addToCart')
-    },
     customActionClicked() {
       this.$emit('customActionClicked')
     },
@@ -198,7 +189,7 @@ export default defineComponent({
         width: inherit;
 
         @media screen and (max-width: 1024px){
-          width: 100%;
+          width: 116px;
         }
       }
     }
@@ -402,7 +393,7 @@ export default defineComponent({
     align-items: center;
   }
 
-  .add-to-cart-btn {
+  .link-to-product-page {
     width: 100%;
     background: transparent;
     color: #9e9e9e;
@@ -505,16 +496,16 @@ export default defineComponent({
     margin-bottom: 16px;
 
     .img-box {
-      margin: 0 0 0 -20px;
-      padding: 12px;
-      width: 100px;
+      margin: 0 12px 0 -20px;
+      //padding: 12px;
+      //width: 100px;
 
       .img {
         border-radius: 10px;
       }
 
       @media screen and (max-width: 1024px){
-        width: 100%;
+        width: 128px;
       }
     }
 

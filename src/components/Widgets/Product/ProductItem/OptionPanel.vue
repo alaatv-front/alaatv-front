@@ -14,6 +14,14 @@
                       option-value="value"
                       label="theme" />
           </div>
+          <div class="col-md-6 q-mt-md">
+            <div>تم محصول در حالت موبایل</div>
+            <q-select v-model="localOptions.mobileTheme"
+                      :options="mobileThemeOptions"
+                      option-label="title"
+                      option-value="value"
+                      label="theme" />
+          </div>
           <!-- <div class="col-md-6">
             <q-input v-model="localOptions.productId"
                      label="productId" />
@@ -39,9 +47,10 @@ export default defineComponent({
   data() {
     return {
       themeOptions: [{ title: 'بدون دکمه ثبت نام', value: 'ThemeDefault' }, { title: 'با دکمه ثبت نام', value: 'ThemeProduct1' }, { title: 'قدیمی', value: 'ThemeProduct2' }],
+      mobileThemeOptions: [{ title: 'عمودی', value: 'vertical' }, { title: 'افقی', value: 'horizontal' }],
       defaultOptions: {
         theme: 'ThemeDefault',
-        mobileTheme: 'horizontal',
+        mobileTheme: 'vertical',
         className: '',
         height: 'auto',
         boxed: false,
