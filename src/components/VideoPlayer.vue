@@ -795,8 +795,10 @@ export default {
     .vjs-big-play-button {
       display: v-bind('showBtnDisplay');
       color: white;
-      width: 80px;
-      height: 80px;
+      width: 50px;
+      height: 50px;
+      right: 50%;
+      margin: -25px -25px 0 0;
       border-radius: 100%;
       background: $primary;
       border-color: $primary;
@@ -806,7 +808,7 @@ export default {
       }
       .vjs-icon-placeholder:before {
         display: flex;
-        font-size: 65px;
+        font-size: 35px;
         align-items: center;
         justify-content: center;
       }
