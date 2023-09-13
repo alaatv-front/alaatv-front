@@ -150,13 +150,7 @@ export default {
     'localOptions.sticky': function (newVal) {
       if (newVal) {
         this.scrollEventIsAdded = true
-        window.addEventListener('scroll', () => {
-          if (!this.isInViewport() && !document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
-            document.getElementsByClassName('header-menu')[0].classList.add('fix-position')
-          } else if (this.isInViewport() && document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
-            document.getElementsByClassName('header-menu')[0].classList.remove('fix-position')
-          }
-        })
+        this.addScrollEventListener()
       } else if (!this.scrollEventIsAdded) {
         this.scrollEventIsAdded = false
         window.removeEventListener('scroll', () => {})
@@ -164,7 +158,22 @@ export default {
       }
     }
   },
+  mounted() {
+    if (this.localOptions.sticky) {
+      this.scrollEventIsAdded = true
+      this.addScrollEventListener()
+    }
+  },
   methods: {
+    addScrollEventListener() {
+      window.addEventListener('scroll', () => {
+        if (!this.isInViewport() && !document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
+          document.getElementsByClassName('header-menu')[0].classList.add('fix-position')
+        } else if (this.isInViewport() && document.getElementsByClassName('header-menu')[0].classList.value.includes('fix-position')) {
+          document.getElementsByClassName('header-menu')[0].classList.remove('fix-position')
+        }
+      })
+    },
     isInViewport() {
       const el = document.getElementsByClassName(this.localOptions.stickyClass)[0]
       const rect = el.getBoundingClientRect()
@@ -271,7 +280,6 @@ $backgrounds: (
     }
     .logo-text {
       padding: 0 10px;
-      padding: 0 10px;
       font-weight: 400;
       font-size: 16px;
       line-height: 28px;
@@ -315,8 +323,7 @@ $backgrounds: (
   &.fix-position {
     width: 100%;
     position: fixed;
-    top: -15px;
-    z-index: 1000;
+    z-index: 10000;
     transition: all 4s ease-in-out 2s;
   }
 }
