@@ -107,8 +107,7 @@ export default defineComponent({
     }
   },
   watch: {
-    productId(newVal) {
-      console.log(newVal)
+    productId() {
       this.getProductSets()
       this.getProductGifts()
       this.getSampleContents()
