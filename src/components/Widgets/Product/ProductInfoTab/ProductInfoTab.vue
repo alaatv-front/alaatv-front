@@ -91,7 +91,7 @@ export default defineComponent({
   },
   computed: {
     productId() {
-      return this.options.productId ? this.options.productId : this.options.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
+      return this.localOptions.product.id ? this.localOptions.product.id : this.localOptions.paramKey ? this.$route.params[this.options.paramKey] : this.$route.params.id
     },
     setListLength() {
       return this.setList.length
@@ -106,11 +106,22 @@ export default defineComponent({
       return this.faqList.length
     }
   },
+  watch: {
+    productId(newVal) {
+      console.log(newVal)
+      this.getProductSets()
+      this.getProductGifts()
+      this.getSampleContents()
+      this.getProductFaq()
+    }
+  },
   mounted() {
-    this.getProductSets()
-    this.getProductGifts()
-    this.getSampleContents()
-    this.getProductFaq()
+    if (this.productId) {
+      this.getProductSets()
+      this.getProductGifts()
+      this.getSampleContents()
+      this.getProductFaq()
+    }
   },
   methods: {
     getProductGifts() {

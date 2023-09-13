@@ -272,6 +272,7 @@ export default {
       this.$refs.file.pickFiles()
     },
     updateFile() {
+      debugger
       this.controls = true
       this.previewImg = URL.createObjectURL(this.file)
     },
@@ -283,6 +284,8 @@ export default {
     confirmUpdate() {
       const fd = new FormData()
       fd.append('photo', this.file)
+      console.log(this.api)
+      debugger
       this.$axios.put(this.api, fd).then((d) => {
         this.controls = false
       })

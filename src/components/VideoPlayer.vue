@@ -4,6 +4,7 @@
     <video ref="videoPlayer"
            dir="ltr"
            class="video-js vjs-fluid vjs-big-play-centered vjs-show-big-play-button-on-pause"
+           :class="{'hide-play-btn': !showBtn}"
            controls
            preload="none"
            @timeupdate="updateTime">
@@ -188,9 +189,6 @@ export default {
     },
     videoLength() {
       return this.player.duration()
-    },
-    showBtnDisplay() {
-      return this.showBtn ? 'block' : 'none'
     }
   },
   watch: {
@@ -792,8 +790,15 @@ export default {
       margin: -25px -25px 0 0;
       text-align: right;
     }
+
+    &.hide-play-btn {
+      &:not(.vjs-has-started) {
+        .vjs-big-play-button {
+          display: none;
+        }
+      }
+    }
     .vjs-big-play-button {
-      display: v-bind('showBtnDisplay');
       color: white;
       width: 80px;
       height: 80px;
