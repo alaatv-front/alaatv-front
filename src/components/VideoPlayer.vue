@@ -67,6 +67,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showBtn: {
+      type: Boolean,
+      default: true
+    },
     source: {
       type: [String, PlayerSourceList],
       default: null
@@ -184,6 +188,9 @@ export default {
     },
     videoLength() {
       return this.player.duration()
+    },
+    showBtnDisplay() {
+      return this.showBtn ? 'block' : 'none'
     }
   },
   watch: {
@@ -786,6 +793,7 @@ export default {
       text-align: right;
     }
     .vjs-big-play-button {
+      display: v-bind('showBtnDisplay');
       color: white;
       width: 80px;
       height: 80px;

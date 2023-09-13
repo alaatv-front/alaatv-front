@@ -39,18 +39,25 @@
               </template>
             </q-input>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="outSideLabel">
-              height
+              responsive size
             </div>
-            <q-input v-model="localOptions.height"
+            <q-select v-model="size"
+                      :options="responsiveOptions" />
+          </div>
+          <div class="col-md-4">
+            <div class="outSideLabel">
+              height ({{size}})
+            </div>
+            <q-input v-model="localOptions.height[size]"
                      label="height" />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="outSideLabel">
-              width
+              width ({{size}})
             </div>
-            <q-input v-model="localOptions.width"
+            <q-input v-model="localOptions.width[size]"
                      label="width" />
           </div>
         </div>
@@ -75,6 +82,8 @@ export default defineComponent({
   mixins: [mixinOptionPanel],
   data() {
     return {
+      size: 'xl',
+      responsiveOptions: ['xl', 'lg', 'md', 'sm', 'xs'],
       dialog: false,
       defaultOptions: {
         spaced: false,
@@ -84,8 +93,20 @@ export default defineComponent({
         image: null,
         ImageStyle: null,
         ImageClassName: null,
-        height: null,
-        width: null,
+        height: {
+          xl: '',
+          lg: '',
+          md: '',
+          sm: '',
+          xs: ''
+        },
+        width: {
+          xl: '',
+          lg: '',
+          md: '',
+          sm: '',
+          xs: ''
+        },
         style: {},
         className: ''
       }
