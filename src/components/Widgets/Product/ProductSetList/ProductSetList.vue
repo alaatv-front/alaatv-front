@@ -185,8 +185,8 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 import { openURL } from 'quasar'
-import ProductItem from 'src/components/Widgets/Product/ProductItem/ProductItem.vue'
 import { ContentList } from 'src/models/Content.js'
 import { Product } from 'src/models/Product.js'
 import { mixinWidget } from 'src/mixin/Mixins.js'
@@ -194,7 +194,7 @@ import { mixinWidget } from 'src/mixin/Mixins.js'
 export default {
   name: 'ProductSetList',
   components: {
-    ProductItem
+    ProductItem: defineAsyncComponent(() => import('src/components/Widgets/Product/ProductItem/ProductItem.vue'))
   },
   mixins: [mixinWidget],
   emits: ['updateSetList'],

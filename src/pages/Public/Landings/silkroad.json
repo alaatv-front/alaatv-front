@@ -27,26 +27,26 @@
                             "lineHeight": null
                           },
                           "sm": {
-                            "fontSize": null,
-                            "fontWeight": null,
+                            "fontSize": "20",
+                            "fontWeight": "900",
                             "fontStyle": null,
                             "lineHeight": null
                           },
                           "md": {
-                            "fontSize": null,
-                            "fontWeight": null,
+                            "fontSize": "28px",
+                            "fontWeight": "900",
                             "fontStyle": null,
                             "lineHeight": null
                           },
                           "lg": {
-                            "fontSize": null,
-                            "fontWeight": null,
+                            "fontSize": "28px",
+                            "fontWeight": "900",
                             "fontStyle": null,
                             "lineHeight": null
                           },
                           "xl": {
                             "fontSize": "28px",
-                            "fontWeight": null,
+                            "fontWeight": "900",
                             "fontStyle": null,
                             "lineHeight": null
                           },
@@ -189,7 +189,7 @@
                             "direction": "right",
                             "actionButtonOptions": {},
                             "textWidgetOptions": {
-                              "text": "تا پایان<div>تخفیف</div>",
+                              "text": "<font face=\"Doran FaNum\">تا پایان</font><div><font face=\"Doran FaNum\">تخفیف</font></div>",
                               "fontFamily": null,
                               "color": null,
                               "fontSize": null,
@@ -218,15 +218,15 @@
                                 "letterSpacing": null
                               },
                               "lg": {
-                                "fontSize": null,
-                                "fontWeight": null,
+                                "fontSize": "20px",
+                                "fontWeight": "900",
                                 "fontStyle": null,
                                 "lineHeight": null,
                                 "letterSpacing": null
                               },
                               "xl": {
-                                "fontSize": null,
-                                "fontWeight": null,
+                                "fontSize": "20px",
+                                "fontWeight": "900",
                                 "fontStyle": null,
                                 "lineHeight": null,
                                 "letterSpacing": null
@@ -313,6 +313,58 @@
                             "borderRadiusCssString": ""
                           },
                           "boxShadows": [],
+                          "responsiveSpacing": {
+                            "xs": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "sm": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "md": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "lg": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            },
+                            "xl": {
+                              "marginTop": null,
+                              "marginLeft": null,
+                              "marginRight": null,
+                              "marginBottom": null,
+                              "paddingTop": null,
+                              "paddingLeft": null,
+                              "paddingRight": null,
+                              "paddingBottom": null
+                            }
+                          },
                           "cssHoverEffects": {
                             "boxShadows": [],
                             "borderStyle": {
@@ -334,7 +386,9 @@
                           },
                           "style": {
                             "image": null,
-                            "marginLeft": "279px"
+                            "marginLeft": "279px",
+                            "marginBottom": "10px",
+                            "marginTop": "10px"
                           }
                         }
                       }
@@ -2400,7 +2454,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "flex justify-between"
               }
             }
           ],
@@ -6928,566 +6982,8 @@
                             },
                             "type": "ProductList",
                             "data": [
-                              {
-                                "crud": {
-                                  "headers": {}
-                                },
-                                "apiResource": null,
-                                "warn": {
-                                  "mode": false,
-                                  "keys": []
-                                },
-                                "editMode": false,
-                                "loading": false,
-                                "props": [
-                                  {
-                                    "key": "id"
-                                  },
-                                  {
-                                    "key": "redirect_url"
-                                  },
-                                  {
-                                    "key": "type"
-                                  },
-                                  {
-                                    "key": "category"
-                                  },
-                                  {
-                                    "key": "title"
-                                  },
-                                  {
-                                    "key": "teacher_name"
-                                  },
-                                  {
-                                    "key": "teacher_image"
-                                  },
-                                  {
-                                    "key": "is_free"
-                                  },
-                                  {
-                                    "key": "is_live"
-                                  },
-                                  {
-                                    "key": "is_active"
-                                  },
-                                  {
-                                    "key": "is_purchased"
-                                  },
-                                  {
-                                    "key": "live_link"
-                                  },
-                                  {
-                                    "key": "photo"
-                                  },
-                                  {
-                                    "key": "attributes"
-                                  },
-                                  {
-                                    "key": "contents_progress",
-                                    "default": 0
-                                  },
-                                  {
-                                    "key": "description",
-                                    "default": {
-                                      "long": null,
-                                      "short": null,
-                                      "slogan": null
-                                    }
-                                  },
-                                  {
-                                    "key": "longDescription"
-                                  },
-                                  {
-                                    "key": "last_content_user_watched"
-                                  },
-                                  {
-                                    "key": "specialDescription"
-                                  },
-                                  {
-                                    "key": "children",
-                                    "default": []
-                                  },
-                                  {
-                                    "key": "sets"
-                                  },
-                                  {
-                                    "key": "price"
-                                  },
-                                  {
-                                    "key": "isFavored",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "is_favored_2",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "is_favored",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "catalog"
-                                  },
-                                  {
-                                    "key": "eec"
-                                  },
-                                  {
-                                    "key": "sample_photos",
-                                    "default": []
-                                  },
-                                  {
-                                    "key": "intro"
-                                  },
-                                  {
-                                    "key": "blocks",
-                                    "default": []
-                                  }
-                                ],
-                                "id": 1097,
-                                "redirect_url": null,
-                                "type": null,
-                                "category": null,
-                                "title": "کل دروس اختصاصی ریاضی کنکور - راه ابریشم 2.0 (کنکور 1403)",
-                                "teacher_name": null,
-                                "teacher_image": null,
-                                "is_free": null,
-                                "is_live": null,
-                                "is_active": null,
-                                "is_purchased": false,
-                                "live_link": null,
-                                "photo": "https://nodes.alaatv.com/upload/images/product/pack_riazi_20230710115733.jpg",
-                                "attributes": {
-                                  "info": {
-                                    "teacher": [
-                                      "گروه آموزشی"
-                                    ],
-                                    "shipping_method": [
-                                      "دانلودی"
-                                    ],
-                                    "major": [
-                                      "ریاضی"
-                                    ],
-                                    "services": [
-                                      "فیلم",
-                                      "جزوه",
-                                      "تست",
-                                      "کنکورچه",
-                                      "چاپار",
-                                      "کلاس پیش نیاز",
-                                      "کلاس جامع کنکور",
-                                      "کلاس تست جامع کنکور",
-                                      "برنامه مطالعاتی"
-                                    ],
-                                    "download_date": [
-                                      "پیش ثبت نام"
-                                    ],
-                                    "educational_system": [
-                                      "نظام جدید"
-                                    ],
-                                    "duration": [],
-                                    "production_year": [
-                                      "ویژه کنکور 1403"
-                                    ]
-                                  },
-                                  "extra": null,
-                                  "subscription": null
-                                },
-                                "contents_progress": 0,
-                                "description": {
-                                  "long": null,
-                                  "short": null,
-                                  "slogan": null
-                                },
-                                "longDescription": null,
-                                "last_content_user_watched": null,
-                                "specialDescription": null,
-                                "children": [],
-                                "sets": {
-                                  "list": [],
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "loading": false,
-                                  "baseRoute": null
-                                },
-                                "price": {
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "apiResource": null,
-                                  "warn": {
-                                    "mode": false,
-                                    "keys": []
-                                  },
-                                  "editMode": false,
-                                  "loading": false,
-                                  "props": [
-                                    {
-                                      "key": "extraCost"
-                                    },
-                                    {
-                                      "key": "base"
-                                    },
-                                    {
-                                      "key": "discount"
-                                    },
-                                    {
-                                      "key": "final"
-                                    },
-                                    {
-                                      "key": "payableByWallet"
-                                    },
-                                    {
-                                      "key": "discountDetail"
-                                    }
-                                  ],
-                                  "extraCost": null,
-                                  "base": 11600000,
-                                  "discount": 4640000,
-                                  "final": 6960000,
-                                  "payableByWallet": null,
-                                  "discountDetail": null
-                                },
-                                "isFavored": false,
-                                "is_favored_2": false,
-                                "is_favored": false,
-                                "catalog": null,
-                                "eec": {
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "apiResource": null,
-                                  "warn": {
-                                    "mode": false,
-                                    "keys": []
-                                  },
-                                  "editMode": false,
-                                  "loading": false,
-                                  "props": [
-                                    {
-                                      "key": "id"
-                                    },
-                                    {
-                                      "key": "name"
-                                    },
-                                    {
-                                      "key": "price"
-                                    },
-                                    {
-                                      "key": "brand",
-                                      "default": "آلاء"
-                                    },
-                                    {
-                                      "key": "category"
-                                    },
-                                    {
-                                      "key": "variant"
-                                    },
-                                    {
-                                      "key": "quantity",
-                                      "default": "-"
-                                    },
-                                    {
-                                      "key": "list"
-                                    },
-                                    {
-                                      "key": "position"
-                                    }
-                                  ],
-                                  "id": 1097,
-                                  "name": "کل دروس اختصاصی ریاضی کنکور - راه ابریشم 2.0 (کنکور 1403)",
-                                  "price": 6960000,
-                                  "brand": "آلاء",
-                                  "category": "-",
-                                  "variant": "-",
-                                  "quantity": "-",
-                                  "list": null,
-                                  "position": null
-                                },
-                                "sample_photos": [],
-                                "intro": null,
-                                "blocks": []
-                              },
-                              {
-                                "crud": {
-                                  "headers": {}
-                                },
-                                "apiResource": null,
-                                "warn": {
-                                  "mode": false,
-                                  "keys": []
-                                },
-                                "editMode": false,
-                                "loading": false,
-                                "props": [
-                                  {
-                                    "key": "id"
-                                  },
-                                  {
-                                    "key": "redirect_url"
-                                  },
-                                  {
-                                    "key": "type"
-                                  },
-                                  {
-                                    "key": "category"
-                                  },
-                                  {
-                                    "key": "title"
-                                  },
-                                  {
-                                    "key": "teacher_name"
-                                  },
-                                  {
-                                    "key": "teacher_image"
-                                  },
-                                  {
-                                    "key": "is_free"
-                                  },
-                                  {
-                                    "key": "is_live"
-                                  },
-                                  {
-                                    "key": "is_active"
-                                  },
-                                  {
-                                    "key": "is_purchased"
-                                  },
-                                  {
-                                    "key": "live_link"
-                                  },
-                                  {
-                                    "key": "photo"
-                                  },
-                                  {
-                                    "key": "attributes"
-                                  },
-                                  {
-                                    "key": "contents_progress",
-                                    "default": 0
-                                  },
-                                  {
-                                    "key": "description",
-                                    "default": {
-                                      "long": null,
-                                      "short": null,
-                                      "slogan": null
-                                    }
-                                  },
-                                  {
-                                    "key": "longDescription"
-                                  },
-                                  {
-                                    "key": "last_content_user_watched"
-                                  },
-                                  {
-                                    "key": "specialDescription"
-                                  },
-                                  {
-                                    "key": "children",
-                                    "default": []
-                                  },
-                                  {
-                                    "key": "sets"
-                                  },
-                                  {
-                                    "key": "price"
-                                  },
-                                  {
-                                    "key": "isFavored",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "is_favored_2",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "is_favored",
-                                    "default": false
-                                  },
-                                  {
-                                    "key": "catalog"
-                                  },
-                                  {
-                                    "key": "eec"
-                                  },
-                                  {
-                                    "key": "sample_photos",
-                                    "default": []
-                                  },
-                                  {
-                                    "key": "intro"
-                                  },
-                                  {
-                                    "key": "blocks",
-                                    "default": []
-                                  }
-                                ],
-                                "id": 1096,
-                                "redirect_url": null,
-                                "type": null,
-                                "category": null,
-                                "title": "کل دروس اختصاصی تجربی کنکور - راه ابریشم 2.0 (کنکور 1403)",
-                                "teacher_name": null,
-                                "teacher_image": null,
-                                "is_free": null,
-                                "is_live": null,
-                                "is_active": null,
-                                "is_purchased": false,
-                                "live_link": null,
-                                "photo": "https://nodes.alaatv.com/upload/images/product/pack_tajrobi_20230710120303.jpg",
-                                "attributes": {
-                                  "info": {
-                                    "teacher": [
-                                      "گروه آموزشی"
-                                    ],
-                                    "shipping_method": [
-                                      "دانلودی"
-                                    ],
-                                    "major": [
-                                      "تجربی"
-                                    ],
-                                    "services": [
-                                      "فیلم",
-                                      "جزوه",
-                                      "تست",
-                                      "کنکورچه",
-                                      "چاپار",
-                                      "کلاس پیش نیاز",
-                                      "کلاس جامع کنکور",
-                                      "کلاس تست جامع کنکور",
-                                      "برنامه مطالعاتی"
-                                    ],
-                                    "download_date": [
-                                      "پیش ثبت نام"
-                                    ],
-                                    "educational_system": [
-                                      "نظام جدید"
-                                    ],
-                                    "duration": [],
-                                    "production_year": [
-                                      "ویژه کنکور 1403"
-                                    ]
-                                  },
-                                  "extra": null,
-                                  "subscription": null
-                                },
-                                "contents_progress": 0,
-                                "description": {
-                                  "long": null,
-                                  "short": null,
-                                  "slogan": null
-                                },
-                                "longDescription": null,
-                                "last_content_user_watched": null,
-                                "specialDescription": null,
-                                "children": [],
-                                "sets": {
-                                  "list": [],
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "loading": false,
-                                  "baseRoute": null
-                                },
-                                "price": {
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "apiResource": null,
-                                  "warn": {
-                                    "mode": false,
-                                    "keys": []
-                                  },
-                                  "editMode": false,
-                                  "loading": false,
-                                  "props": [
-                                    {
-                                      "key": "extraCost"
-                                    },
-                                    {
-                                      "key": "base"
-                                    },
-                                    {
-                                      "key": "discount"
-                                    },
-                                    {
-                                      "key": "final"
-                                    },
-                                    {
-                                      "key": "payableByWallet"
-                                    },
-                                    {
-                                      "key": "discountDetail"
-                                    }
-                                  ],
-                                  "extraCost": null,
-                                  "base": 11600000,
-                                  "discount": 4640000,
-                                  "final": 6960000,
-                                  "payableByWallet": null,
-                                  "discountDetail": null
-                                },
-                                "isFavored": false,
-                                "is_favored_2": false,
-                                "is_favored": false,
-                                "catalog": null,
-                                "eec": {
-                                  "crud": {
-                                    "headers": {}
-                                  },
-                                  "apiResource": null,
-                                  "warn": {
-                                    "mode": false,
-                                    "keys": []
-                                  },
-                                  "editMode": false,
-                                  "loading": false,
-                                  "props": [
-                                    {
-                                      "key": "id"
-                                    },
-                                    {
-                                      "key": "name"
-                                    },
-                                    {
-                                      "key": "price"
-                                    },
-                                    {
-                                      "key": "brand",
-                                      "default": "آلاء"
-                                    },
-                                    {
-                                      "key": "category"
-                                    },
-                                    {
-                                      "key": "variant"
-                                    },
-                                    {
-                                      "key": "quantity",
-                                      "default": "-"
-                                    },
-                                    {
-                                      "key": "list"
-                                    },
-                                    {
-                                      "key": "position"
-                                    }
-                                  ],
-                                  "id": 1096,
-                                  "name": "کل دروس اختصاصی تجربی کنکور - راه ابریشم 2.0 (کنکور 1403)",
-                                  "price": 6960000,
-                                  "brand": "آلاء",
-                                  "category": "-",
-                                  "variant": "-",
-                                  "quantity": "-",
-                                  "list": null,
-                                  "position": null
-                                },
-                                "sample_photos": [],
-                                "intro": null,
-                                "blocks": []
-                              }
+                              1096,
+                              1097
                             ]
                           }
                         ]
@@ -18116,11 +17612,12 @@
                   "options": {
                     "color": null,
                     "icon": "",
+                    "rightIcon": false,
                     "label": "صفحه اصلی",
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": null,
+                    "className": "full-width",
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -18137,9 +17634,58 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -18170,7 +17716,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "text-center"
               }
             },
             {
@@ -18180,11 +17726,12 @@
                   "options": {
                     "color": null,
                     "icon": "",
+                    "rightIcon": false,
                     "label": "دوره ها",
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": null,
+                    "className": "full-width",
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -18201,9 +17748,58 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -18234,7 +17830,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "text-center"
               }
             },
             {
@@ -18244,11 +17840,12 @@
                   "options": {
                     "color": null,
                     "icon": "",
+                    "rightIcon": false,
                     "label": "مشاوره",
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": null,
+                    "className": "full-width",
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -18265,9 +17862,58 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -18298,7 +17944,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "text-center"
               }
             },
             {
@@ -18308,11 +17954,12 @@
                   "options": {
                     "color": null,
                     "icon": "",
+                    "rightIcon": false,
                     "label": "تماس با ما",
                     "flat": true,
                     "callBack": null,
                     "imageSource": null,
-                    "className": null,
+                    "className": "full-width",
                     "fixed": false,
                     "fixedPosition": null,
                     "eventArgs": null,
@@ -18329,9 +17976,58 @@
                 }
               ],
               "options": {
-                "colNumber": "col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1",
+                "colNumber": "col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1",
                 "style": {},
                 "boxShadows": [],
+                "backgrounds": {
+                  "xs": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "sm": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "md": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "lg": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  },
+                  "xl": {
+                    "size": null,
+                    "color": null,
+                    "image": null,
+                    "repeat": null,
+                    "position": null,
+                    "attachment": null
+                  }
+                },
+                "responsiveOrder": {
+                  "xs": null,
+                  "sm": null,
+                  "md": null,
+                  "lg": null,
+                  "xl": null
+                },
                 "borderStyle": {
                   "borderCssString": "",
                   "borderRadiusCssString": ""
@@ -18362,7 +18058,7 @@
                   "sm": true,
                   "xs": true
                 },
-                "className": ""
+                "className": "text-center"
               }
             }
           ],
@@ -18421,7 +18117,7 @@
                 "marginTop": null,
                 "marginLeft": null,
                 "marginRight": null,
-                "marginBottom": null,
+                "marginBottom": "200px",
                 "paddingTop": null,
                 "paddingLeft": null,
                 "paddingRight": null,
@@ -18904,7 +18600,7 @@
       "className": "",
       "backgrounds": {
         "xs": {
-          "size": "cover",
+          "size": "contain",
           "color": "rgba(255,247,238,1)",
           "image": "url('https://stage-minio.alaatv.com/upload/alaaPages/2023-09/footer350.png')",
           "repeat": "no-repeat",
@@ -18950,20 +18646,20 @@
           "marginLeft": null,
           "marginRight": null,
           "marginBottom": null,
-          "paddingTop": null,
+          "paddingTop": "300px",
           "paddingLeft": null,
           "paddingRight": null,
-          "paddingBottom": null
+          "paddingBottom": "300px"
         },
         "sm": {
           "marginTop": null,
           "marginLeft": null,
           "marginRight": null,
           "marginBottom": null,
-          "paddingTop": null,
+          "paddingTop": "100px",
           "paddingLeft": null,
           "paddingRight": null,
-          "paddingBottom": null
+          "paddingBottom": "100px"
         },
         "md": {
           "marginTop": null,
@@ -18997,7 +18693,8 @@
         }
       },
       "style": {
-        "minHeight": "auto"
+        "minHeight": "auto",
+        "image": null
       },
       "boxShadows": [],
       "borderStyle": {
