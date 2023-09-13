@@ -225,9 +225,6 @@ export default defineComponent({
       this.localOptions.product.is_favored = newVal
     }
   },
-  mounted() {
-    console.log(this.localOptions.mobileTheme)
-  },
   methods: {
     setProductIntersectionObserver () {
       if (!this.$refs[this.productRef]?.$el) {
@@ -375,10 +372,11 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     padding-top: 30px;
   }
 
-  &.horizontal {
+  &.ThemeDefault {
     @media screen and (max-width: 1024px){
       min-width: 304px;
       height: 140px;
+      padding: 0 16px;
     }
   }
 

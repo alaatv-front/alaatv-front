@@ -189,7 +189,7 @@ export default defineComponent({
         width: inherit;
 
         @media screen and (max-width: 1024px){
-          width: 100%;
+          width: 116px;
         }
       }
     }
@@ -498,14 +498,14 @@ export default defineComponent({
     .img-box {
       margin: 0 12px 0 -20px;
       //padding: 12px;
-      width: 100px;
+      //width: 100px;
 
       .img {
         border-radius: 10px;
       }
 
       @media screen and (max-width: 1024px){
-        height: 117px;
+        width: 128px;
       }
     }
 
