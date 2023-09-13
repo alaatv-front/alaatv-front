@@ -91,7 +91,7 @@ export default defineComponent({
       import('src/components/Widgets/Product/ProductItem/themes/ThemeProduct1.vue')
     ),
     ThemeProduct2: defineAsyncComponent(() =>
-      import('components/Widgets/Product/ProductItem/themes/ThemeDefault.vue')
+      import('components/Widgets/Product/ProductItem/themes/ThemeProduct2.vue')
     )
   },
   mixins: [mixinWidget, mixinPrefetchServerData],
@@ -99,8 +99,8 @@ export default defineComponent({
   data: () => ({
     productRef: 'product' + Date.now(),
     defaultOptions: {
-      theme: 'ThemeDefault',
-      mobileTheme: 'horizontal',
+      theme: 'ThemeProduct2',
+      mobileTheme: 'vertical',
       style: {},
       borderStyle: {
         borderCssString: '',
@@ -372,10 +372,11 @@ $transitionTime: v-bind('localOptions.cssHoverEffects.transition.time');
     padding-top: 30px;
   }
 
-  &.horizontal {
+  &.ThemeDefault {
     @media screen and (max-width: 1024px){
       min-width: 304px;
       height: 140px;
+      padding: 0 16px;
     }
   }
 
